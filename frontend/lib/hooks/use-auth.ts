@@ -1,6 +1,6 @@
 import { useFirebase } from '@components/providers/firebase-provider'
 import { UserCredential } from '@firebase/auth'
-import { SwrKey } from '@lib/constants/swr-key'
+import { SwrKey } from '@lib/services/swr/constants/swr-key'
 import { getAuth, signInWithCustomToken } from 'firebase/auth'
 import { isNil } from 'ramda'
 import useSWR from 'swr'

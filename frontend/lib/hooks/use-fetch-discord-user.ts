@@ -1,6 +1,6 @@
 import { UserResponse } from '@echo/discord/model/user-response'
 import { Routes } from '@echo/discord/routing/routes'
-import { fetcher } from '@lib/services/fetcher'
+import { fetcher } from '@lib/services/fetcher/fetcher'
 import useSWRImmutable from 'swr/immutable'
 
 // TODO Use Result

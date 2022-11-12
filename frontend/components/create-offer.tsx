@@ -1,7 +1,7 @@
 import { CreateOfferSell } from '@components/create-offer-sell'
 import { OfferType } from '@echo/model/src/offer'
 import { Listbox } from '@headlessui/react'
-import { useGetCollectionNftsForOwner } from '@lib/hooks/alchemy/use-get-collection-nfts-for-owner'
+import { useGetCollectionNftsForOwner } from '@lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
 import clsx from 'clsx'
 import { head, isEmpty, isNil } from 'ramda'
 import React, { useState } from 'react'

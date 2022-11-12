@@ -1,4 +1,4 @@
-import { AppEnvironment, config } from '@lib/utils/config'
+import { AppEnvironment, config } from '@lib/config/config'
 import pino from 'pino'
 import { isNil } from 'ramda'
 import React, { PropsWithChildren } from 'react'

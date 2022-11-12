@@ -1,6 +1,6 @@
 import { NftList } from '@components/nft-list'
 import { Erc721 } from '@echo/model/src/erc721'
-import { useGetCollectionNftsForOwner } from '@lib/hooks/alchemy/use-get-collection-nfts-for-owner'
+import { useGetCollectionNftsForOwner } from '@lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
 import { isNil } from 'ramda'
 import React from 'react'
 import { useTranslations } from 'use-intl'

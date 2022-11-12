@@ -30,7 +30,7 @@
     "prettier": "yarn workspaces run prettier",
     "tsc": "yarn workspaces run tsc"
   },
-  "dependencies": {
+  "devDependencies": {
     "husky": "^8.0.2",
     "lint-staged": "^13.0.3"
   }

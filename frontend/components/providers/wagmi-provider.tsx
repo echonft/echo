@@ -1,4 +1,4 @@
-import { config } from '@lib/utils/config'
+import { config } from '@lib/config/config'
 import { getDefaultClient } from 'connectkit'
 import React, { ReactNode } from 'react'
 import { createClient, WagmiConfig } from 'wagmi'

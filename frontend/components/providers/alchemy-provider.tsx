@@ -1,5 +1,5 @@
-import { getAlchemyChain } from '@lib/utils/alchemy-chain'
-import { config } from '@lib/utils/config'
+import { config } from '@lib/config/config'
+import { getAlchemyChain } from '@lib/services/alchemy/utils/chain'
 import { Alchemy } from 'alchemy-sdk'
 import React, { PropsWithChildren, useMemo } from 'react'
 
