@@ -1,0 +1,37 @@
+{
+  "name": "echo",
+  "version": "1.0.0",
+  "repository": "git@github.com:echonft/echo.git",
+  "license": "MIT",
+  "private": true,
+  "description": "A Discord bot that allows NFT swapping",
+  "keywords": [
+    "discord",
+    "bot",
+    "nft"
+  ],
+  "bugs": {
+    "url": "https://github.com/echonft/echo/issues"
+  },
+  "homepage": "https://github.com/echonft/echo#readme",
+  "workspaces": [
+    "bot",
+    "frontend",
+    "lib/*"
+  ],
+  "scripts": {
+    "frontend:dev": "yarn --cwd frontend dev",
+    "frontend:build": "yarn --cwd frontend build",
+    "frontend:start": "yarn --cwd frontend start",
+    "bot:start": "yarn --cwd bot start",
+    "bot:dev": "yarn --cwd bot dev",
+    "bot:deploy-commands": "yarn --cwd bot deploy-commands",
+    "lint": "yarn workspaces run lint",
+    "prettier": "yarn workspaces run prettier",
+    "tsc": "yarn workspaces run tsc"
+  },
+  "dependencies": {
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3"
+  }
+}
