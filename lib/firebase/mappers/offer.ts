@@ -27,6 +27,6 @@ export async function mapOffer(
     collection: collection!,
     buyer,
     seller: seller!,
-    postedAt: isNil(data.postedAt) ? undefined : new Date(data.postedAt),
+    postedAt: isNil(data.postedAt) ? undefined : new Date(data.postedAt)
   }
 }

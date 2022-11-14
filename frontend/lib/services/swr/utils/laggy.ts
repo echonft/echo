@@ -36,7 +36,7 @@ export function laggy(useSWRNext: SWRHook) {
     return Object.assign({}, swr, {
       data: dataOrLaggyData,
       isLagging,
-      resetLaggy,
+      resetLaggy
     })
   }
 }

@@ -22,8 +22,8 @@ export function firebaseConfig(): FirebaseConfig {
       messagingSenderId: '573093120800',
       appId: '1:573093120800:web:a0011e8639ebd388b76545',
       measurementId: 'G-MKKLYPQ9R7',
-      databaseURL: 'https://echo-83309.firebaseio.com',
+      databaseURL: 'https://echo-83309.firebaseio.com'
     },
-    serviceAccountKey: JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY),
+    serviceAccountKey: JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY)
   }
 }

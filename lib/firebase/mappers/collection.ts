@@ -19,6 +19,6 @@ export async function mapCollection(
   return Promise.resolve({
     discordId: snapshot.id,
     channelId: data['channel-id'],
-    contractAddresses: data['allowed-contracts'],
+    contractAddresses: data['allowed-contracts']
   })
 }

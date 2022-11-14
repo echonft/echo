@@ -1,4 +1,5 @@
 module.exports = {
+  root: true,
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
   parser: '@typescript-eslint/parser',
   plugins: ['unused-imports', '@typescript-eslint', 'simple-import-sort'],
@@ -11,20 +12,20 @@ module.exports = {
         args: 'after-used',
         ignoreRestSiblings: false,
         argsIgnorePattern: '^_',
-        destructuredArrayIgnorePattern: '^_',
-      },
+        destructuredArrayIgnorePattern: '^_'
+      }
     ],
     'simple-import-sort/imports': [
       'error',
       {
-        groups: [],
-      },
+        groups: []
+      }
     ],
     'simple-import-sort/exports': 'error',
     '@typescript-eslint/no-unnecessary-type-constraint': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     'no-undef': 'off',
     'no-console': 'warn',
-    'unused-imports/no-unused-imports': 'warn',
-  },
+    'unused-imports/no-unused-imports': 'warn'
+  }
 }

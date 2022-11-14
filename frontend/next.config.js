@@ -6,14 +6,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**',
-      },
-    ],
+        hostname: '**'
+      }
+    ]
   },
   i18n: {
     locales: ['en'],
-    defaultLocale: 'en',
-  },
+    defaultLocale: 'en'
+  }
 }
 
 module.exports = nextConfig

@@ -7,9 +7,9 @@
     "start": "ts-node-esm -r tsconfig-paths/register src/index.ts",
     "dev": "ts-node-dev -r tsconfig-paths/register src/index.ts",
     "deploy-commands": "ts-node-esm scripts/deploy-commands.ts",
-    "lint": "eslint --cache --fix -c .eslintrc.cjs \"src/**/*.ts\"",
-    "prettier": "prettier --write \"src/**/*.ts\"",
-    "tsc": "tsc --noEmit --skipLibCheck -p tsconfig.json"
+    "lint": "eslint --cache --fix \"src/**/*.ts\"",
+    "prettier": "prettier \"src/**/*.ts\"",
+    "tsc": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "@echo/firebase": "1.0.0",

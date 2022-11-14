@@ -17,7 +17,7 @@ interface ServerConfig {
 export enum AppEnvironment {
   PROD = 'prod',
   DEV = 'dev',
-  MOCK = 'mock',
+  MOCK = 'mock'
 }
 
 function getAppEnvironment(): AppEnvironment {
@@ -61,7 +61,7 @@ export const config = (): Config => {
     appEnvironment: getAppEnvironment(),
     chains: getUseTestnet() ? [chain.goerli] : [chain.mainnet],
     useTestnet: getUseTestnet(),
-    alchemyKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY,
+    alchemyKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
   }
 }
 
@@ -89,6 +89,6 @@ export const serverConfig = (): ServerConfig => {
   }
   return {
     appEnvironment: getApiAppEnvironment(),
-    ironPassword: process.env.IRON_PASSWORD,
+    ironPassword: process.env.IRON_PASSWORD
   }
 }

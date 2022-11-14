@@ -13,6 +13,6 @@ export async function executeConnect(interaction: CommandInteraction) {
   // TODO Probably dont need to redirect to discord right away, to define
   await interaction.reply({
     content: getLoginLink(),
-    ephemeral: true,
+    ephemeral: true
   })
 }

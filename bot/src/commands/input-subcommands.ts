@@ -1,3 +1,3 @@
 export enum InputSubcommands {
-  CONNECT = 'connect',
+  CONNECT = 'connect'
 }

@@ -1,6 +1,6 @@
 import { Erc721, TokenType } from '@echo/model/src/erc721'
-import { SafelistRequestStatus } from '@lib/alchemy/models/contract-metadata'
-import { NftWithMetadata } from '@lib/alchemy/models/nft-with-metadata'
+import { SafelistRequestStatus } from '@lib/services/alchemy/models/contract-metadata'
+import { NftWithMetadata } from '@lib/services/alchemy/models/nft-with-metadata'
 
 export const mapNftResponseToErc721 = (response: NftWithMetadata): Erc721 => {
   const id = response.tokenId
@@ -16,12 +16,12 @@ export const mapNftResponseToErc721 = (response: NftWithMetadata): Erc721 => {
       openseaLink: undefined,
       floorPrice: response.contractMetadata?.opensea?.floorPrice,
       twitterUsername: response.contractMetadata?.opensea?.twitterUsername,
-      discordUrl: response.contractMetadata?.opensea?.discordUrl,
+      discordUrl: response.contractMetadata?.opensea?.discordUrl
     },
     id,
     imageUri: response.media[0]?.gateway,
     name: response.title,
     type: TokenType.ERC721,
-    key: `${TokenType.ERC721}-${id}-${address}`,
+    key: `${TokenType.ERC721}-${id}-${address}`
   }
 }

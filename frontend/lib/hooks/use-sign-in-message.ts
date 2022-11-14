@@ -18,7 +18,7 @@ export const useSignInMessage = (nonce: string | undefined): string | undefined 
       uri: window.location.origin,
       version: '1',
       chainId: chain.id,
-      nonce,
+      nonce
     })
     return message.prepareMessage()
   }, [nonce, address, chain])

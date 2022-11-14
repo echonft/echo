@@ -4,7 +4,7 @@ export enum SafelistRequestStatus {
   NOT_REQUESTED = 'not_requested',
   REQUESTED = 'requested',
   APPROVED = 'approved',
-  VERIFIED = 'verified',
+  VERIFIED = 'verified'
 }
 
 interface OpenSeaMetadata {

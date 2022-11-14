@@ -5,12 +5,12 @@ export enum OfferStatus {
   OPEN = 'OPEN',
   PENDING = 'PENDING',
   COMPLETED = 'COMPLETED',
-  REJECTED = 'REJECTED',
+  REJECTED = 'REJECTED'
 }
 
 export enum OfferType {
   BUY = 'buy',
-  SELL = 'sell',
+  SELL = 'sell'
 }
 
 export interface Offer {

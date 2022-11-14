@@ -1,3 +1,3 @@
 export enum Routes {
-  GET_COLLECTION_NFTS,
+  GET_COLLECTION_NFTS
 }

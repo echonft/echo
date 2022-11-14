@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 import { isNil } from 'ramda'
 
 const Connect = dynamic(() => import('@components/connect').then((mod) => mod.Connect), {
-  ssr: false,
+  ssr: false
 })
 
 interface Props {
@@ -30,14 +30,14 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     grant_type: 'authorization_code',
     code: query.code as string,
     redirect_uri: discordConfig().redirectUri,
-    scope: 'identify',
+    scope: 'identify'
   }).toString()
   const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Type': 'application/x-www-form-urlencoded'
   }
   return fetcher<DiscordTokenResponse>(Routes.TOKEN, {}, { headers, body: data })
     .then((response) => ({
-      props: { accessToken: response.access_token, tokenType: response.token_type },
+      props: { accessToken: response.access_token, tokenType: response.token_type }
     }))
     .catch((err: HTTPError) => {
       // eslint-disable-next-line no-console
@@ -49,8 +49,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      messages: (await import(`../../messages/${locale}.json`)).default,
-    },
+      messages: (await import(`../../messages/${locale}.json`)).default
+    }
   }
 }
 

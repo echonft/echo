@@ -4,9 +4,9 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --cache --fix -c .eslintrc.js \"./**/*.ts\"",
+    "lint": "eslint --cache --fix \"./**/*.ts\"",
     "prettier": "prettier --write \"./**/*.ts\"",
-    "tsc": "tsc --noEmit --skipLibCheck -p ./tsconfig.json"
+    "tsc": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "dotenv": "^16.0.3",

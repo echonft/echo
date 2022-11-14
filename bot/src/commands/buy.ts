@@ -13,7 +13,7 @@ export async function executeBuy(interaction: ButtonInteraction, offer: Offer) {
     name: `Buy offer for ${offer.id}`,
     autoArchiveDuration: 1440,
     type: ChannelType.PrivateThread,
-    reason: 'Thread to discuss the offer',
+    reason: 'Thread to discuss the offer'
   })
   await thread?.members.add(offer.seller.discordId)
   await thread?.members.add(interaction.user)

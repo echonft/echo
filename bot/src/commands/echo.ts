@@ -5,5 +5,5 @@ export const echoCommand = {
   data: new SlashCommandBuilder()
     .setName('echo')
     .setDescription('Choose the command to execute')
-    .addSubcommand(connectSubcommand),
+    .addSubcommand(connectSubcommand)
 }

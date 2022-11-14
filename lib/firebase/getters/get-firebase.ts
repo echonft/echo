@@ -6,7 +6,7 @@ export function getFirebase() {
   if (admin.apps.length === 0) {
     return admin.initializeApp({
       credential: admin.credential.cert(config.serviceAccountKey),
-      databaseURL: config.options.databaseURL,
+      databaseURL: config.options.databaseURL
     })
   }
   return admin.app()

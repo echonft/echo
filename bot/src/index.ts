@@ -16,7 +16,7 @@ client.once(Events.ClientReady, (c) => {
     if (change.type === 'added' && isNil(offer.postedAt)) {
       await channel?.send({
         content: `New offer from <@${offer.seller.discordId}>: ${offer.selling}`,
-        components: [buildBuyOfferButton(offer)],
+        components: [buildBuyOfferButton(offer)]
       })
       await change.doc.ref.set({ ...change.doc.data(), postedAt: new Date().getTime() })
     }

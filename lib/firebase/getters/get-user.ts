@@ -23,7 +23,7 @@ export function getUser(id: string): Promise<User | undefined> {
       return {
         id: snapshot.id,
         discordId: data.discordId,
-        wallet: data.wallet,
+        wallet: data.wallet
       }
     })
 }

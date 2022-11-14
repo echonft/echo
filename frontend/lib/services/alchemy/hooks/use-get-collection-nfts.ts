@@ -1,9 +1,9 @@
 import { useAlchemy } from '@components/providers/alchemy-provider'
 import { Erc721 } from '@echo/model/src/erc721'
-import { FetchContractsNftsError } from '@lib/alchemy/errors/fetch-error'
-import { mapNftResponseToErc721 } from '@lib/alchemy/mappers/map-owned-nft-response'
-import { failureResult, Result, successfulResult } from '@lib/models/result'
-import { laggy } from '@lib/utils/laggy'
+import { FetchContractsNftsError } from '@lib/services/alchemy/errors/fetch-error'
+import { mapNftResponseToErc721 } from '@lib/services/alchemy/mappers/map-owned-nft-response'
+import { failureResult, Result, successfulResult } from '@lib/services/swr/models/result'
+import { laggy } from '@lib/services/swr/utils/laggy'
 import { flatten } from 'ramda'
 import useSWR from 'swr'
 

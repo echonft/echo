@@ -8,8 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --cache --fix \"pages/**/*.ts?(x)\" \"lib/**/*.ts?(x)\"",
-    "prettier": "prettier --write \"pages/**/*.ts?(x)\" \"lib/**/*.ts?(x)\"",
-    "tsc": "tsc --noEmit --skipLibCheck -p tsconfig.json"
+    "prettier": "prettier \"pages/**/*.ts?(x)\" \"lib/**/*.ts?(x)\"",
+    "tsc": "tsc --noEmit --skipLibCheck"
   },
   "dependencies": {
     "@echo/discord": "1.0.0",

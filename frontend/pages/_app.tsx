@@ -13,7 +13,7 @@ const DynamicWagmiProvider = dynamic(
 )
 
 const DynamicConnectKitProvider = dynamic(() => import('connectkit').then((mod) => mod.ConnectKitProvider), {
-  ssr: false,
+  ssr: false
 })
 
 function MyApp({ Component, pageProps }: AppProps) {
