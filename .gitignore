@@ -19,5 +19,11 @@ yarn-error.log*
 .env
 .env*.local
 
+# typescript
+*.tsbuildinfo
+
+# eslint cache
+.eslintcache
+
 # WebStorm
 .idea/*

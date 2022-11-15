@@ -22,7 +22,7 @@ export const LoginFirebase: React.FunctionComponent<Props> = ({ accessToken, tok
     return <span>Error logging you in</span>
   }
   if (data) {
-    return <span>Successfully logged you in, you're all set</span>
+    return <span>Successfully logged you in, you&apos;re all set</span>
   }
   return <span>Logging in...</span>
 }

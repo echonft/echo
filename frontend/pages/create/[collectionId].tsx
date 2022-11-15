@@ -19,7 +19,7 @@ const CreateOffer: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
-      messages: (await import(`./lib/messages/${locale}.json`)).default
+      messages: (await import(`@echo/frontend/lib/messages/${locale}.json`)).default
     }
   }
 }

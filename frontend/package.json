@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --cache --fix \"pages/**/*.ts?(x)\" \"lib/**/*.ts?(x)\"",
+    "lint": "eslint --cache --fix \"components/**/*.ts?(x)\" \"lib/**/*.ts?(x)\" \"pages/**/*.ts?(x)\"",
     "prettier": "prettier \"pages/**/*.ts?(x)\" \"lib/**/*.ts?(x)\"",
     "tsc": "tsc --noEmit --skipLibCheck",
     "vercel": "vercel dev"
