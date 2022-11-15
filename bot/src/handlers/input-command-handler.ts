@@ -1,6 +1,6 @@
-import { executeConnect } from '@commands/connect'
-import { InputSubcommands } from '@commands/input-subcommands'
-import { DiscordErrors, interactionReplyForError } from '@errors/errors'
+import { executeConnect } from '@echo/bot/commands/connect'
+import { InputSubcommands } from '@echo/bot/commands/input-subcommands'
+import { DiscordErrors, interactionReplyForError } from '@echo/bot/errors/errors'
 import { CommandInteraction } from 'discord.js'
 
 export async function executeForSubcommand(interaction: CommandInteraction, subcommand: InputSubcommands) {

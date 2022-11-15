@@ -1,6 +1,6 @@
+import { useGetFirebaseAuth } from '@echo/frontend/lib/hooks/use-get-firebase-auth'
+import { SwrKey } from '@echo/frontend/lib/services/swr/constants/swr-key'
 import { UserCredential } from '@firebase/auth'
-import { useGetFirebaseAuth } from '@lib/hooks/use-get-firebase-auth'
-import { SwrKey } from '@lib/services/swr/constants/swr-key'
 import { signInWithCustomToken } from 'firebase/auth'
 import { isNil } from 'ramda'
 import useSWR from 'swr'

@@ -26,14 +26,12 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@builders/*": ["src/builders/*"],
-      "@commands/*": ["src/commands/*"],
-      "@errors/*": ["src/errors/*"],
-      "@handlers/*": ["src/handlers/*"],
-      "@listeners/*": ["src/listeners/*"],
-      "@models/*": ["src/models/*"],
-      "@parsers/*": ["src/parsers/*"],
-      "@validators/*": ["src/validators/*"]
+      "@echo/discord/*": ["../lib/discord/src/*"],
+      "@echo/firebase/*": ["../lib/firebase/src/*"],
+      "@echo/model/*": ["../lib/model/src/*"],
+      "@echo/bot/*": ["src/*"]
     }
-  }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

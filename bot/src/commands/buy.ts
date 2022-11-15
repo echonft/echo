@@ -1,5 +1,5 @@
+import { DiscordErrors, interactionReplyForError } from '@echo/bot/errors/errors'
 import { Offer } from '@echo/model/src/offer'
-import { DiscordErrors, interactionReplyForError } from '@errors/errors'
 import { ButtonInteraction, ChannelType } from 'discord.js'
 import { getDiscordChannel } from 'src/utils/discord'
 

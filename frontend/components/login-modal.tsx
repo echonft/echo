@@ -1,5 +1,5 @@
-import { LoginButton } from '@components/login-button'
-import { Modal } from '@components/modal'
+import { LoginButton } from '@echo/frontend/components/login-button'
+import { Modal } from '@echo/frontend/components/modal'
 import React from 'react'
 import { useTranslations } from 'use-intl'
 

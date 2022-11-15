@@ -1,6 +1,6 @@
-import { getFirebase } from '../getters/get-firebase'
-import { mapCollection } from '../mappers/collection'
-import { FirebaseCollection } from '../model/collection'
+import { getAdminFirebase } from '@echo/firebase/admin/config/config'
+import { mapCollection } from '@echo/firebase/mappers/collection'
+import { FirebaseCollection } from '@echo/firebase/model/collection'
 import { Collection } from '@echo/model/src/collection'
 import { DocumentSnapshot } from '@google-cloud/firestore'
 
@@ -9,7 +9,7 @@ import { DocumentSnapshot } from '@google-cloud/firestore'
  * @param id The collection discord id
  */
 export function getCollection(id: string): Promise<Collection | undefined> {
-  return getFirebase()
+  return getAdminFirebase()
     .firestore()
     .collection('collections')
     .doc(id)

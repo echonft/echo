@@ -1,4 +1,4 @@
-import { AppEnvironment, config } from '@lib/config/config'
+import { AppEnvironment, config } from '@echo/frontend/lib/config/config'
 import pino from 'pino'
 import { isNil } from 'ramda'
 import React, { PropsWithChildren } from 'react'
@@ -12,7 +12,7 @@ export class PinoWrapper extends LoggerWrapper {
   public getInstance(): pino.BaseLogger {
     if (isNil(this._instance)) {
       this._instance = pino({
-        level: config().appEnvironment !== AppEnvironment.PROD ? 'debug' : 'info',
+        level: config().appEnvironment !== AppEnvironment.PROD ? 'debug' : 'info'
       })
     }
     return this._instance

@@ -1,4 +1,4 @@
-import { buttonIdPrefixes } from '@models/button-action'
+import { buttonIdPrefixes } from '@echo/bot/models/button-action'
 import { ButtonComponent, ButtonInteraction } from 'discord.js'
 
 export function validateButton(interaction: ButtonInteraction): string | undefined {

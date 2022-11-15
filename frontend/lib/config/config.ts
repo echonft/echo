@@ -54,13 +54,24 @@ function getUseTestnet(): boolean {
 }
 
 export const config = (): Config => {
-  if (isNil(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY)) {
-    throw new Error('.env should contain NEXT_PUBLIC_ALCHEMY_API_KEY')
+  const useTestnet = getUseTestnet()
+  if (useTestnet) {
+    if (
+      isNil(process.env.NEXT_PUBLIC_ALCHEMY_TESTNET_API_KEY) ||
+      isEmpty(process.env.NEXT_PUBLIC_ALCHEMY_TESTNET_API_KEY)
+    ) {
+      throw new Error('.env should contain NEXT_PUBLIC_ALCHEMY_TESTNET_API_KEY when using testnet')
+    }
+  } else {
+    if (isNil(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY) || isEmpty(process.env.NEXT_PUBLIC_ALCHEMY_API_KEY)) {
+      throw new Error('.env should contain NEXT_PUBLIC_ALCHEMY_API_KEY when using mainnet')
+    }
   }
+
   return {
     appEnvironment: getAppEnvironment(),
     chains: getUseTestnet() ? [chain.goerli] : [chain.mainnet],
-    useTestnet: getUseTestnet(),
+    useTestnet,
     alchemyKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
   }
 }

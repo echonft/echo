@@ -1,4 +1,4 @@
-import { getFirebase } from '../getters/get-firebase'
+import { getAdminFirebase } from '@echo/firebase/admin/config/config'
 import { FirebaseUser } from '@echo/firebase/model/user'
 import { User } from '@echo/model/src/user'
 import { QueryDocumentSnapshot } from '@google-cloud/firestore'
@@ -10,7 +10,7 @@ import { head } from 'ramda'
  * @param id The user id
  */
 export function getUser(id: string): Promise<User | undefined> {
-  return getFirebase()
+  return getAdminFirebase()
     .firestore()
     .collection('users')
     .doc(id)
@@ -33,7 +33,7 @@ export function getUser(id: string): Promise<User | undefined> {
  * @param address The address to look up
  */
 export async function getUserWithAddress(address: string) {
-  return await getFirebase()
+  return await getAdminFirebase()
     .firestore()
     .collection('users')
     .where('wallet', '==', getAddress(address))

@@ -13,6 +13,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
     "incremental": true
   }
 }

@@ -1,5 +1,5 @@
-import { config } from '@lib/config/config'
-import { getAlchemyChain } from '@lib/services/alchemy/utils/chain'
+import { config } from '@echo/frontend/lib/config/config'
+import { getAlchemyChain } from '@echo/frontend/lib/services/alchemy/utils/chain'
 import { Alchemy } from 'alchemy-sdk'
 import React, { PropsWithChildren, useMemo } from 'react'
 
@@ -9,7 +9,7 @@ export const AlchemyProvider: React.FunctionComponent<PropsWithChildren> = ({ ch
   const alchemy = useMemo(() => {
     const settings = {
       apiKey: config().alchemyKey,
-      network: getAlchemyChain(),
+      network: getAlchemyChain()
     }
 
     return new Alchemy(settings)

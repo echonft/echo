@@ -20,18 +20,28 @@
     "lib/*"
   ],
   "scripts": {
-    "frontend:dev": "yarn --cwd frontend dev",
-    "frontend:build": "yarn --cwd frontend build",
-    "frontend:start": "yarn --cwd frontend start",
-    "bot:start": "yarn --cwd bot start",
-    "bot:dev": "yarn --cwd bot dev",
-    "bot:deploy-commands": "yarn --cwd bot deploy-commands",
+    "frontend:dev": "env-cmd -f .env yarn workspace @echo/frontend vercel",
+    "frontend:build": "yarn workspace @echo/frontend build",
+    "frontend:start": "yarn workspace @echo/frontend start",
+    "bot:start": "yarn workspace @echo/bot start",
+    "bot:dev": "env-cmd -f .env yarn workspace @echo/bot dev",
+    "bot:deploy-commands": "env-cmd -f .env yarn workspace @echo/bot deploy-commands",
     "lint": "yarn workspaces run lint",
     "prettier": "yarn workspaces run prettier",
     "tsc": "yarn workspaces run tsc"
   },
   "devDependencies": {
+    "@types/node": "18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "env-cmd": "^10.1.0",
+    "eslint": "8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "husky": "^8.0.2",
-    "lint-staged": "^13.0.3"
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "typescript": "4.8.4"
   }
 }

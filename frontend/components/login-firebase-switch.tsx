@@ -1,5 +1,5 @@
-import { LoginFirebase } from '@components/login-firebase'
-import { LoginFirebaseNoDiscord } from '@components/login-firebase-no-discord'
+import { LoginFirebase } from '@echo/frontend/components/login-firebase'
+import { LoginFirebaseNoDiscord } from '@echo/frontend/components/login-firebase-no-discord'
 import { isNil } from 'ramda'
 import React from 'react'
 
@@ -16,7 +16,7 @@ export const LoginFirebaseSwitch: React.FunctionComponent<Props> = ({
   tokenType,
   signature,
   message,
-  hasLoggedIn,
+  hasLoggedIn
 }) => {
   if (isNil(accessToken) && isNil(tokenType)) {
     return <LoginFirebaseNoDiscord signature={signature} message={message} hasLoggedIn={hasLoggedIn} />

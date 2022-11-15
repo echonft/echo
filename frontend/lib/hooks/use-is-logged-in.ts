@@ -1,4 +1,4 @@
-import { useGetFirebaseAuth } from '@lib/hooks/use-get-firebase-auth'
+import { useGetFirebaseAuth } from '@echo/frontend/lib/hooks/use-get-firebase-auth'
 import { isNil } from 'ramda'
 import { useEffect, useState } from 'react'
 

@@ -1,4 +1,4 @@
-import { FirebaseCollection } from '../model/collection'
+import { FirebaseCollection } from '@echo/firebase/model/collection'
 import { Collection } from '@echo/model/src/collection'
 import { DocumentSnapshot } from '@google-cloud/firestore'
 import { DocumentSnapshot as FirestoreDocumentSnapshot } from 'firebase/firestore'

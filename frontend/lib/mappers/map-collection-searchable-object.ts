@@ -1,4 +1,4 @@
-import { SearchableObject } from '@lib/view-models/object'
+import { SearchableObject } from '@echo/frontend/lib/view-models/object'
 
 /**
  * Map contract addresses to searchable objects

@@ -1,5 +1,5 @@
-import { Tag } from '@components/tag'
-import { SearchableObject } from '@lib/view-models/object'
+import { Tag } from '@echo/frontend/components/tag'
+import { SearchableObject } from '@echo/frontend/lib/view-models/object'
 import clsx from 'clsx'
 import React from 'react'
 

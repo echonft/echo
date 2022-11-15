@@ -1,7 +1,7 @@
-import { buildBuyOfferButton } from '@builders/offer-button-builder'
-import { discordConfig } from '@echo/discord/config/config'
-import { listenToOffers } from '@echo/firebase/listeners/offer'
-import { listenToInteractions } from '@listeners/interaction'
+import { buildBuyOfferButton } from '@echo/bot/builders/offer-button-builder'
+import { listenToInteractions } from '@echo/bot/listeners/interaction'
+import { discordSecret } from '@echo/discord/admin/config'
+import { listenToOffers } from '@echo/firebase/admin/listeners/offer'
 import { BaseInteraction, Client, Events, GatewayIntentBits } from 'discord.js'
 import { isNil } from 'ramda'
 import { getDiscordChannel } from 'src/utils/discord'
@@ -28,4 +28,4 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
 })
 
 //make sure this line is the last line
-client.login(discordConfig().clientToken) //login bot using token
+client.login(discordSecret().clientToken) //login bot using token

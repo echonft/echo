@@ -1,5 +1,5 @@
-import { Collection } from './collection'
-import { User } from './user'
+import { Collection } from '@echo/model/collection'
+import { User } from '@echo/model/user'
 
 export enum OfferStatus {
   OPEN = 'OPEN',

@@ -1,4 +1,4 @@
-import { Offer } from '@echo/model/src/offer'
+import { Offer } from '@echo/model/offer'
 
 export enum ButtonAction {
   BUY = 'buy',

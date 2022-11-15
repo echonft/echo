@@ -1,4 +1,4 @@
-import { connectSubcommand } from '@commands/connect'
+import { connectSubcommand } from '@echo/bot/commands/connect'
 import { SlashCommandBuilder } from 'discord.js'
 
 export const echoCommand = {

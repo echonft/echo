@@ -1,4 +1,4 @@
-import { SearchableObject } from '@lib/view-models/object'
+import { SearchableObject } from '@echo/frontend/lib/view-models/object'
 import clsx from 'clsx'
 import React from 'react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'

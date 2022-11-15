@@ -1,8 +1,8 @@
 import { ironOptions } from './_utils/iron-options'
 import { verifySignature } from './_utils/verify-utils'
-import { getFirebase } from '@echo/firebase/getters/get-firebase'
-import { getUserWithAddress } from '@echo/firebase/getters/get-user'
-import { ApiLoginRequest } from '@lib/services/api/models/login-request'
+import { getAdminFirebase } from '@echo/firebase/admin/config/config'
+import { getUserWithAddress } from '@echo/firebase/admin/getters/get-user'
+import { ApiLoginRequest } from '@echo/frontend/lib/services/api/models/login-request'
 import { getAddress } from 'ethers/lib/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { isNil } from 'ramda'
@@ -33,7 +33,7 @@ const handler = async (req: ApiLoginRequest, res: any) => {
         } else {
           await userDoc.ref.set({ nonce: generateNonce(), wallet: formattedAddress, discordId })
         }
-        const apiKey = await getFirebase().auth().createCustomToken(formattedAddress)
+        const apiKey = await getAdminFirebase().auth().createCustomToken(formattedAddress)
         res.json({ apiKey })
       } catch (error) {
         return res.status(404).send(`UNAUTHORIZED: ${error}`)

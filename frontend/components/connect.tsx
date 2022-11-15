@@ -1,4 +1,4 @@
-import { LoginButton } from '@components/login-button'
+import { LoginButton } from '@echo/frontend/components/login-button'
 import { ConnectKitButton } from 'connectkit'
 import { isNil } from 'ramda'
 import React from 'react'

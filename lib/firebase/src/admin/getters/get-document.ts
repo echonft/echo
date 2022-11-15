@@ -1,4 +1,4 @@
-import { FirebaseDocumentPath } from '../paths/document-path'
+import { FirebaseDocumentPath } from '@echo/firebase/paths/document-path'
 import { DocumentReference } from '@firebase/firestore'
 import { doc, DocumentSnapshot, getDoc, getFirestore } from 'firebase/firestore'
 

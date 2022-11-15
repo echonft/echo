@@ -1,4 +1,4 @@
-import { useLogger } from '@components/providers/logger-provider'
+import { useLogger } from '@echo/frontend/components/providers/logger-provider'
 import { FirebaseApp } from '@firebase/app'
 import { FirebaseOptions, initializeApp } from 'firebase/app'
 import { browserLocalPersistence, getAuth } from 'firebase/auth'
@@ -37,7 +37,7 @@ export const FirebaseProvider: React.FunctionComponent<PropsWithChildren<Props>>
     <firebaseContext.Provider
       value={{
         isInitialized: !isNil(firebaseApp),
-        firebaseApp,
+        firebaseApp
       }}
     >
       {children}

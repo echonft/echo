@@ -1,5 +1,5 @@
-import { getFirebase } from '../getters/get-firebase'
-import { mapOffer } from '../mappers/offer'
+import { getAdminFirebase } from '@echo/firebase/admin/config/config'
+import { mapOffer } from '@echo/firebase/admin/mappers/offer'
 import { FirebaseOffer } from '@echo/firebase/model/offer'
 import { Offer } from '@echo/model/src/offer'
 import { DocumentSnapshot } from '@google-cloud/firestore'
@@ -9,7 +9,7 @@ import { DocumentSnapshot } from '@google-cloud/firestore'
  * @param id The offer id
  */
 export function getOffer(id: string): Promise<Offer | undefined> {
-  return getFirebase()
+  return getAdminFirebase()
     .firestore()
     .collection('offers')
     .doc(id)

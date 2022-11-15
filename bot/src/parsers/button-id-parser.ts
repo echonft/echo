@@ -1,5 +1,5 @@
-import { getOffer } from '@echo/firebase/getters/get-offer'
-import { ButtonAction, buttonIdPrefixes, ButtonWithData } from '@models/button-action'
+import { ButtonAction, buttonIdPrefixes, ButtonWithData } from '@echo/bot/models/button-action'
+import { getOffer } from '@echo/firebase/admin/getters/get-offer'
 import { drop } from 'ramda'
 
 /**
