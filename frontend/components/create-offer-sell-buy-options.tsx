@@ -1,8 +1,7 @@
 import { Autocomplete } from '@components/autocomplete'
-import { Modal } from '@components/modal'
-import { NftsFetcher } from '@components/nfts-fetcher'
+import { CollectionNftsFetcher } from '@components/collection-nfts-fetcher'
 import { TagManager } from '@components/tag-manager'
-import { Erc721 } from '@echo/model/erc721'
+import { Erc721 } from '@echo/model/src/erc721'
 import { Combobox } from '@headlessui/react'
 import { mapCollectionSearchableObject } from '@lib/mappers/map-collection-searchable-object'
 import { addIfNotThere, toggle } from '@lib/utils/array'
@@ -50,7 +49,6 @@ export const CreateOfferSellBuyOptions: React.FunctionComponent<Props> = ({
   )
 
   useEffect(() => {
-    console.log(`got new contract ${JSON.stringify(selectedContracts)}`)
     onSelectContracts?.(selectedContracts.map((searchableContract) => searchableContract.value))
   }, [onSelectContracts, selectedContracts])
 
@@ -96,7 +94,7 @@ export const CreateOfferSellBuyOptions: React.FunctionComponent<Props> = ({
       )}
       {/*  TODO We should probably exclude the owners NFTs here */}
       {selectSpecificNfts && (
-        <NftsFetcher
+        <CollectionNftsFetcher
           contractAddresses={selectedContracts.map((searchableContract) => searchableContract.value)}
           selected={selectedNfts}
           onSelect={(nft) => setSelectedNfts((prevState) => toggle(prevState, nft))}
@@ -105,7 +103,6 @@ export const CreateOfferSellBuyOptions: React.FunctionComponent<Props> = ({
       <button className={clsx('rounded', 'text-white', 'p-2', 'bg-blue-500')} onClick={() => setShowSummary(true)}>
         {t('submit')}
       </button>
-      {showSummary && <Modal />}
     </div>
   )
 }

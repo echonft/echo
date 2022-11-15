@@ -1,4 +1,5 @@
 import { Collection } from './collection'
+import { OfferItem } from './offer-item'
 import { User } from './user'
 
 export enum OfferStatus {
@@ -13,13 +14,17 @@ export enum OfferType {
   SELL = 'sell'
 }
 
-export interface Offer {
-  id: string
+export interface NewOffer {
+  type: OfferType
   status: OfferStatus
-  buying: string | undefined
-  selling: string
-  buyer: User | undefined
-  seller: User
-  postedAt: Date | undefined
+  counterpartyItems: OfferItem[] | undefined
+  ownerItems: OfferItem[] | undefined
+  owner: User
   collection: Collection
+}
+
+export interface Offer extends NewOffer {
+  id: string
+  postedAt: Date | undefined
+  counterparty: User | undefined
 }

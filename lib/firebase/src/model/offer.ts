@@ -2,6 +2,7 @@ import { DocumentReference } from 'firebase/firestore'
 
 export interface FirebaseOffer {
   status: string
+  type: string
   collection: DocumentReference
   seller: DocumentReference
   buyer: DocumentReference

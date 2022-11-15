@@ -11,7 +11,7 @@ interface Props {
   onSelect?: (nft: Erc721) => void
 }
 
-export const NftsFetcher: React.FunctionComponent<Props> = ({ contractAddresses, selected, onSelect }) => {
+export const CollectionNftsFetcher: React.FunctionComponent<Props> = ({ contractAddresses, selected, onSelect }) => {
   const t = useTranslations('Nfts')
   const nfts = useGetCollectionNfts(contractAddresses)
   if (isNil(nfts)) {

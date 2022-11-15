@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "dev:vercel": "vercel dev",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

@@ -4,7 +4,7 @@ import { DiscordErrors, interactionReplyForError } from 'errors/errors'
 import { getDiscordChannel } from 'utils/discord'
 
 export async function executeBuy(interaction: ButtonInteraction, offer: Offer) {
-  if (offer.seller.discordId === interaction.user.id) {
+  if (offer.owner.discordId === interaction.user.id) {
     await interaction.reply(interactionReplyForError(DiscordErrors.BUY_OWN))
     return
   }
@@ -15,7 +15,7 @@ export async function executeBuy(interaction: ButtonInteraction, offer: Offer) {
     type: ChannelType.PrivateThread,
     reason: 'Thread to discuss the offer'
   })
-  await thread?.members.add(offer.seller.discordId)
+  await thread?.members.add(offer.owner.discordId)
   await thread?.members.add(interaction.user)
   await interaction.reply({ ephemeral: true, content: 'Created a thread to discuss the offer' })
 }
