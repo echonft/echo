@@ -1,6 +1,9 @@
-import { Autocomplete } from '@components/autocomplete'
-import { CollectionNftsFetcher } from '@components/collection-nfts-fetcher'
-import { TagManager } from '@components/tag-manager'
+import { Autocomplete } from '@echo/frontend/components/autocomplete'
+import { CollectionNftsFetcher } from '@echo/frontend/components/collection-nfts-fetcher'
+import { TagManager } from '@echo/frontend/components/tag-manager'
+import { mapCollectionSearchableObject } from '@echo/frontend/lib/mappers/map-collection-searchable-object'
+import { addIfNotThere, toggle } from '@echo/frontend/lib/utils/array'
+import { SearchableObject } from '@echo/frontend/lib/view-models/object'
 import { Erc721 } from '@echo/model/src/erc721'
 import { Combobox } from '@headlessui/react'
 import { mapCollectionSearchableObject } from '@lib/mappers/map-collection-searchable-object'
@@ -29,7 +32,7 @@ export const CreateOfferSellBuyOptions: React.FunctionComponent<Props> = ({
   const [searchQuery, setSearchQuery] = useState<string>()
   const [selectSpecificNfts, setSelectSpecificNfts] = useState<boolean>(false)
   const [selectedNfts, setSelectedNfts] = useState<Erc721[]>([])
-  const [showSummary, setShowSummary] = useState<boolean>(false)
+  const [, setShowSummary] = useState<boolean>(false)
 
   const autocompleteOptions = useCallback(() => {
     const searchableContracts = mapCollectionSearchableObject(contractAddresses)
