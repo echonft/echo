@@ -1,7 +1,11 @@
-import { connectSubcommand } from '@echo/bot/commands/connect'
-import { SlashCommandBuilder } from 'discord.js'
+import { connectSubcommand } from 'commands/connect'
+import { SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder } from 'discord.js'
 
-export const echoCommand = {
+interface CommandInterface {
+  data: SlashCommandSubcommandsOnlyBuilder
+}
+
+export const echoCommand: CommandInterface = {
   data: new SlashCommandBuilder()
     .setName('echo')
     .setDescription('Choose the command to execute')

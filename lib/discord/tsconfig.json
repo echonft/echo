@@ -1,11 +1,10 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@echo/discord/*": ["src/*"]
-    }
+    "rootDir": "src",
+    "outDir": "dist",
+    "baseUrl": "src"
   },
-  "include": ["global.d.ts", "src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

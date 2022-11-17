@@ -1,4 +1,4 @@
-import { firebaseOptions } from '@echo/firebase/config/config'
+import { firebaseOptions } from '../../config/config'
 import * as admin from 'firebase-admin'
 import { isEmpty, isNil } from 'ramda'
 

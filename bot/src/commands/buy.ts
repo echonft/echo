@@ -1,7 +1,7 @@
-import { DiscordErrors, interactionReplyForError } from '@echo/bot/errors/errors'
-import { Offer } from '@echo/model/src/offer'
+import { Offer } from '@echo/model/offer'
 import { ButtonInteraction, ChannelType } from 'discord.js'
-import { getDiscordChannel } from 'src/utils/discord'
+import { DiscordErrors, interactionReplyForError } from 'errors/errors'
+import { getDiscordChannel } from 'utils/discord'
 
 export async function executeBuy(interaction: ButtonInteraction, offer: Offer) {
   if (offer.seller.discordId === interaction.user.id) {

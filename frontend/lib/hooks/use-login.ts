@@ -1,7 +1,7 @@
-import { useFetchDiscordUser } from '@echo/frontend/lib/hooks/use-fetch-discord-user'
-import { Routes } from '@echo/frontend/lib/services/api/constants/routes'
-import { LoginResponse } from '@echo/frontend/lib/services/api/models/login-response'
-import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
+import { useFetchDiscordUser } from '@lib/hooks/use-fetch-discord-user'
+import { Routes } from '@lib/services/api/constants/routes'
+import { LoginResponse } from '@lib/services/api/models/login-response'
+import { fetcher } from '@lib/services/fetcher/fetcher'
 import useSWR from 'swr'
 
 // TODO Use Result

@@ -1,6 +1,6 @@
-import { SafelistRequestStatus } from '@echo/frontend/lib/services/alchemy/models/contract-metadata'
-import { NftWithMetadata } from '@echo/frontend/lib/services/alchemy/models/nft-with-metadata'
-import { Erc721, TokenType } from '@echo/model/src/erc721'
+import { Erc721, TokenType } from '@echo/model/erc721'
+import { SafelistRequestStatus } from '@lib/services/alchemy/models/contract-metadata'
+import { NftWithMetadata } from '@lib/services/alchemy/models/nft-with-metadata'
 
 export const mapNftResponseToErc721 = (response: NftWithMetadata): Erc721 => {
   const id = response.tokenId

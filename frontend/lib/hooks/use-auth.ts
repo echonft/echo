@@ -1,6 +1,6 @@
-import { useFirebase } from '@echo/frontend/components/providers/firebase-provider'
-import { SwrKey } from '@echo/frontend/lib/services/swr/constants/swr-key'
+import { useFirebase } from '@components/providers/firebase-provider'
 import { UserCredential } from '@firebase/auth'
+import { SwrKey } from '@lib/services/swr/constants/swr-key'
 import { getAuth, signInWithCustomToken } from 'firebase/auth'
 import { isNil } from 'ramda'
 import useSWR from 'swr'

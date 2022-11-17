@@ -1,5 +1,5 @@
-import { NftItem } from '@echo/frontend/components/nft-item'
-import { Erc721 } from '@echo/model/src/erc721'
+import { NftItem } from '@components/nft-item'
+import { Erc721 } from '@echo/model/erc721'
 import clsx from 'clsx'
 import { includes } from 'ramda'
 import React from 'react'

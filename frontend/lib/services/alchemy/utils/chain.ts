@@ -1,4 +1,4 @@
-import { config } from '@echo/frontend/lib/config/config'
+import { config } from '@lib/config/config'
 import { Network } from 'alchemy-sdk'
 
 /**

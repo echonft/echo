@@ -1,8 +1,8 @@
-import { CreateOfferFetcher } from '@echo/frontend/components/create-offer-fetcher'
+import { CreateOfferFetcher } from '@components/create-offer-fetcher'
 import { GetServerSideProps, NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-const DynamicAuthPage = dynamic(() => import('@echo/frontend/components/pages/auth-page').then((mod) => mod.AuthPage), {
+const DynamicAuthPage = dynamic(() => import('@components/pages/auth-page').then((mod) => mod.AuthPage), {
   ssr: false
 })
 
@@ -19,7 +19,7 @@ const CreateOffer: NextPage = () => {
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
-      messages: (await import(`@echo/frontend/lib/messages/${locale}.json`)).default
+      messages: (await import(`@lib/messages/${locale}.json`)).default
     }
   }
 }

@@ -1,5 +1,5 @@
-import { LoginFirebase } from '@echo/frontend/components/login-firebase'
-import { LoginFirebaseNoDiscord } from '@echo/frontend/components/login-firebase-no-discord'
+import { LoginFirebase } from '@components/login-firebase'
+import { LoginFirebaseNoDiscord } from '@components/login-firebase-no-discord'
 import { isNil } from 'ramda'
 import React from 'react'
 

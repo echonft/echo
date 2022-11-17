@@ -2,13 +2,13 @@ import { discordSecret } from '@echo/discord/admin/config'
 import { discordConfig } from '@echo/discord/config/config'
 import { DiscordTokenResponse } from '@echo/discord/model/token-response'
 import { Routes } from '@echo/discord/routing/routes'
-import { HTTPError } from '@echo/frontend/lib/services/fetcher/errors/http'
-import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
+import { HTTPError } from '@lib/services/fetcher/errors/http'
+import { fetcher } from '@lib/services/fetcher/fetcher'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { isNil } from 'ramda'
 
-const Connect = dynamic(() => import('@echo/frontend/components/connect').then((mod) => mod.Connect), {
+const Connect = dynamic(() => import('@components/connect').then((mod) => mod.Connect), {
   ssr: false
 })
 
@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ query, loc
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded'
   }
-  return import(`@echo/frontend/lib/messages/${locale}.json`)
+  return import(`@lib/messages/${locale}.json`)
     .then((messages) =>
       fetcher<DiscordTokenResponse>(Routes.TOKEN, {}, { headers, body: data })
         .then((response) => ({

@@ -1,5 +1,5 @@
-import { LoginModal } from '@echo/frontend/components/login-modal'
-import { useIsLoggedIn } from '@echo/frontend/lib/hooks/use-is-logged-in'
+import { LoginModal } from '@components/login-modal'
+import { useIsLoggedIn } from '@lib/hooks/use-is-logged-in'
 import { ConnectKitButton } from 'connectkit'
 import { isNil } from 'ramda'
 import React, { PropsWithChildren } from 'react'

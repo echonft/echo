@@ -1,5 +1,5 @@
-import { CreateOffer } from '@echo/frontend/components/create-offer'
-import { useFetchCollection } from '@echo/frontend/lib/hooks/use-fetch-collection'
+import { CreateOffer } from '@components/create-offer'
+import { useFetchCollection } from '@lib/hooks/use-fetch-collection'
 import { isEmpty, isNil } from 'ramda'
 import React from 'react'
 import { useTranslations } from 'use-intl'

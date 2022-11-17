@@ -1,8 +1,8 @@
-import { useAlchemy } from '@echo/frontend/components/providers/alchemy-provider'
-import { FetchNftsError } from '@echo/frontend/lib/services/alchemy/errors/fetch-error'
-import { mapNftResponseToErc721 } from '@echo/frontend/lib/services/alchemy/mappers/map-owned-nft-response'
-import { failureResult, Result, successfulResult } from '@echo/frontend/lib/services/swr/models/result'
-import { Erc721 } from '@echo/model/src/erc721'
+import { useAlchemy } from '@components/providers/alchemy-provider'
+import { Erc721 } from '@echo/model/erc721'
+import { FetchNftsError } from '@lib/services/alchemy/errors/fetch-error'
+import { mapNftResponseToErc721 } from '@lib/services/alchemy/mappers/map-owned-nft-response'
+import { failureResult, Result, successfulResult } from '@lib/services/swr/models/result'
 import useSWR from 'swr'
 import { useAccount } from 'wagmi'
 

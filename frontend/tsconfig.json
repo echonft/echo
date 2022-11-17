@@ -1,17 +1,15 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "..",
     "baseUrl": ".",
     "paths": {
-      "@echo/discord/*": ["../lib/discord/src/*"],
-      "@echo/firebase/*": ["../lib/firebase/src/*"],
-      "@echo/model/*": ["../lib/model/src/*"],
-      "@echo/frontend/components/*": ["components/*"],
-      "@echo/frontend/lib/*": ["lib/*"],
-      "@echo/frontend/pages/*": ["pages/*"]
-    }
+      "@components/*": ["components/*"],
+      "@lib/*": ["lib/*"],
+      "@pages/*": ["pages/*"]
+    },
+    "noEmit": true,
+    "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "global.d.ts", "**/*.ts", "**/*.tsx", "../lib/**/*.ts"],
+  "include": ["next-env.d.ts", "global.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

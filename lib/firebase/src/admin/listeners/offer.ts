@@ -1,7 +1,7 @@
-import { getOffersReference } from '@echo/firebase/admin/getters/get-offers'
-import { mapOffer } from '@echo/firebase/admin/mappers/offer'
-import { FirebaseOffer } from '@echo/firebase/model/offer'
-import { Offer } from '@echo/model/src/offer'
+import { FirebaseOffer } from '../../model/offer'
+import { getOffersReference } from '../getters/get-offers'
+import { mapOffer } from '../mappers/offer'
+import { Offer } from '@echo/model/offer'
 import { firestore } from 'firebase-admin'
 import DocumentChange = firestore.DocumentChange
 

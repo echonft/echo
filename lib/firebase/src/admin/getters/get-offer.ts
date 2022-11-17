@@ -1,7 +1,7 @@
-import { getAdminFirebase } from '@echo/firebase/admin/config/config'
-import { mapOffer } from '@echo/firebase/admin/mappers/offer'
-import { FirebaseOffer } from '@echo/firebase/model/offer'
-import { Offer } from '@echo/model/src/offer'
+import { FirebaseOffer } from '../../model/offer'
+import { getAdminFirebase } from '../config/config'
+import { mapOffer } from '../mappers/offer'
+import { Offer } from '@echo/model/offer'
 import { DocumentSnapshot } from '@google-cloud/firestore'
 
 /**

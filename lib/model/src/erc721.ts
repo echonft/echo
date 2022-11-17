@@ -1,4 +1,4 @@
-import { NftCollection } from '@echo/model/nft-collection'
+import { NftCollection } from './nft-collection'
 
 export enum TokenType {
   ERC721 = 'ERC721',

@@ -1,5 +1,5 @@
-import { SearchableObject } from '@echo/frontend/lib/view-models/object'
 import { Combobox, Transition } from '@headlessui/react'
+import { SearchableObject } from '@lib/view-models/object'
 import { isEmpty, isNil } from 'ramda'
 import React, { ReactNode } from 'react'
 

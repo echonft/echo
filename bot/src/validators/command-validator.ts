@@ -1,6 +1,6 @@
-import { DiscordErrors, interactionReplyForError } from '@echo/bot/errors/errors'
 import { getCollection } from '@echo/firebase/admin/getters/get-collection'
 import { ChatInputCommandInteraction } from 'discord.js'
+import { DiscordErrors, interactionReplyForError } from 'errors/errors'
 import { isNil } from 'ramda'
 
 export async function validateCommand(command: ChatInputCommandInteraction): Promise<boolean> {

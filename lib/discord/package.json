@@ -4,11 +4,46 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --cache --fix \"./**/*.ts\"",
-    "prettier": "prettier --write \"./**/*.ts\"",
-    "tsc": "tsc --noEmit --skipLibCheck"
+    "dev": "pnpm build --watch",
+    "build": "rm -f tsconfig.tsbuildinfo && rm -fr dist/* && tsc",
+    "lint": "eslint --cache --fix \"src/**/*.ts\"",
+    "prettier": "prettier --write \"src/**/*.ts\"",
+    "tsc": "tsc --noEmit",
+    "update-packages": "ncu -u"
   },
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./*": [
+      "./dist/*.js"
+    ]
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*"
+      ]
+    }
+  },
+  "publishConfig": {
+    "typesVersions": {
+      "*": {
+        "*": [
+          "dist/*.d.ts"
+        ]
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
-    "ramda": "^0.28.0"
+    "ramda": "0.28.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.9",
+    "eslint-plugin-import": "2.26.0",
+    "typescript": "4.9.3"
   }
 }

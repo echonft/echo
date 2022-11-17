@@ -1,4 +1,4 @@
-import { TokenType } from '@echo/model/src/erc721'
+import { TokenType } from '@echo/model/erc721'
 
 export enum SafelistRequestStatus {
   NOT_REQUESTED = 'not_requested',

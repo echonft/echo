@@ -1,14 +1,14 @@
 import '../styles/globals.css'
+import { AlchemyProvider } from '@components/providers/alchemy-provider'
+import { FirebaseProvider } from '@components/providers/firebase-provider'
+import { LoggerProvider, PinoWrapper } from '@components/providers/logger-provider'
 import { firebaseOptions } from '@echo/firebase/config/config'
-import { AlchemyProvider } from '@echo/frontend/components/providers/alchemy-provider'
-import { FirebaseProvider } from '@echo/frontend/components/providers/firebase-provider'
-import { LoggerProvider, PinoWrapper } from '@echo/frontend/components/providers/logger-provider'
 import { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
 import { NextIntlProvider } from 'next-intl'
 import { useMemo } from 'react'
 const DynamicWagmiProvider = dynamic(
-  () => import('@echo/frontend/components/providers/wagmi-provider').then((mod) => mod.WagmiProvider),
+  () => import('@components/providers/wagmi-provider').then((mod) => mod.WagmiProvider),
   { ssr: false }
 )
 

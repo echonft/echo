@@ -1,37 +1,10 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "target": "es2021",
-    "lib": ["dom", "es6", "es2021", "esnext.asynciterable"],
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "moduleResolution": "node",
-    "removeComments": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowJs": true,
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "incremental": true,
-    "baseUrl": ".",
-    "paths": {
-      "@echo/discord/*": ["../lib/discord/src/*"],
-      "@echo/firebase/*": ["../lib/firebase/src/*"],
-      "@echo/model/*": ["../lib/model/src/*"],
-      "@echo/bot/*": ["src/*"]
-    }
+    "rootDir": "src",
+    "outDir": "dist",
+    "baseUrl": "src"
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }

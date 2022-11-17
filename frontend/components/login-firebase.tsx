@@ -1,6 +1,6 @@
-import { useLogger } from '@echo/frontend/components/providers/logger-provider'
-import { useLogin } from '@echo/frontend/lib/hooks/use-login'
-import { useSignInWithFirebase } from '@echo/frontend/lib/hooks/use-sign-in-with-firebase'
+import { useLogger } from '@components/providers/logger-provider'
+import { useLogin } from '@lib/hooks/use-login'
+import { useSignInWithFirebase } from '@lib/hooks/use-sign-in-with-firebase'
 import React from 'react'
 import { useAccount } from 'wagmi'
 

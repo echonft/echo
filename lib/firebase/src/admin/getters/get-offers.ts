@@ -1,5 +1,5 @@
-import { getAdminFirebase } from '@echo/firebase/admin/config/config'
-import { FirebaseOffer } from '@echo/firebase/model/offer'
+import { FirebaseOffer } from '../../model/offer'
+import { getAdminFirebase } from '../config/config'
 import { firestore } from 'firebase-admin'
 import CollectionReference = firestore.CollectionReference
 

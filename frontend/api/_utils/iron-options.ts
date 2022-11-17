@@ -1,4 +1,4 @@
-import { AppEnvironment, serverConfig } from '@echo/frontend/lib/config/config'
+import { AppEnvironment, serverConfig } from '@lib/config/config'
 
 export const ironOptions = {
   cookieName: 'siwe',

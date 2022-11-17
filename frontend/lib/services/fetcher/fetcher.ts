@@ -1,5 +1,5 @@
 import { Routes } from '@echo/discord/routing/routes'
-import { HTTPError } from '@echo/frontend/lib/services/fetcher/errors/http'
+import { HTTPError } from '@lib/services/fetcher/errors/http'
 import { isNil } from 'ramda'
 
 export const fetcher = <Response>(url: Routes, data?: any, overrideInit?: RequestInit): Promise<Response> => {

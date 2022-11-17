@@ -1,4 +1,4 @@
-import { Erc721 } from '@echo/model/src/erc721'
+import { Erc721 } from '@echo/model/erc721'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { isNil } from 'ramda'

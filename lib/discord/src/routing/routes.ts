@@ -1,4 +1,4 @@
-import { discordConfig } from '@echo/discord/config/config'
+import { discordConfig } from '../config/config'
 
 export enum Routes {
   TOKEN = 'https://discord.com/api/v10/oauth2/token',

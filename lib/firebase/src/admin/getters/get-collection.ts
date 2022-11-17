@@ -1,7 +1,7 @@
-import { getAdminFirebase } from '@echo/firebase/admin/config/config'
-import { mapCollection } from '@echo/firebase/mappers/collection'
-import { FirebaseCollection } from '@echo/firebase/model/collection'
-import { Collection } from '@echo/model/src/collection'
+import { mapCollection } from '../../mappers/collection'
+import { FirebaseCollection } from '../../model/collection'
+import { getAdminFirebase } from '../config/config'
+import { Collection } from '@echo/model/collection'
 import { DocumentSnapshot } from '@google-cloud/firestore'
 
 /**

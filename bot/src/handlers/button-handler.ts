@@ -1,8 +1,8 @@
-import { executeBuy } from '@echo/bot/commands/buy'
-import { DiscordErrors, interactionReplyForError } from '@echo/bot/errors/errors'
-import { ButtonAction } from '@echo/bot/models/button-action'
-import { parseButtonCustomId } from '@echo/bot/parsers/button-id-parser'
+import { executeBuy } from 'commands/buy'
 import { ButtonInteraction } from 'discord.js'
+import { DiscordErrors, interactionReplyForError } from 'errors/errors'
+import { ButtonAction } from 'models/button-action'
+import { parseButtonCustomId } from 'parsers/button-id-parser'
 import { isNil } from 'ramda'
 
 export async function executeForButton(interaction: ButtonInteraction, customId: string) {

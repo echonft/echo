@@ -1,4 +1,4 @@
-import { useLogger } from '@echo/frontend/components/providers/logger-provider'
+import { useLogger } from '@components/providers/logger-provider'
 import { FirebaseApp } from '@firebase/app'
 import { FirebaseOptions, initializeApp } from 'firebase/app'
 import { browserLocalPersistence, getAuth } from 'firebase/auth'

@@ -1,5 +1,5 @@
-import { useSignInMessage } from '@echo/frontend/lib/hooks/use-sign-in-message'
-import { SwrKey } from '@echo/frontend/lib/services/swr/constants/swr-key'
+import { useSignInMessage } from '@lib/hooks/use-sign-in-message'
+import { SwrKey } from '@lib/services/swr/constants/swr-key'
 import useSWRImmutable from 'swr/immutable'
 import { useSignMessage } from 'wagmi'
 

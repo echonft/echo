@@ -1,11 +1,11 @@
-import { InputSubcommands } from '@echo/bot/commands/input-subcommands'
-import { DiscordErrors, interactionReplyForError } from '@echo/bot/errors/errors'
-import { executeForButton } from '@echo/bot/handlers/button-handler'
-import { executeForSubcommand } from '@echo/bot/handlers/input-command-handler'
-import { validateButton } from '@echo/bot/validators/button-validator'
-import { validateCommand } from '@echo/bot/validators/command-validator'
+import { InputSubcommands } from 'commands/input-subcommands'
 import { BaseInteraction } from 'discord.js'
+import { DiscordErrors, interactionReplyForError } from 'errors/errors'
+import { executeForButton } from 'handlers/button-handler'
+import { executeForSubcommand } from 'handlers/input-command-handler'
 import { isNil } from 'ramda'
+import { validateButton } from 'validators/button-validator'
+import { validateCommand } from 'validators/command-validator'
 
 export async function listenToInteractions(interaction: BaseInteraction) {
   if (interaction.isChatInputCommand()) {

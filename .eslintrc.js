@@ -1,8 +1,8 @@
 module.exports = {
   root: true,
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'turbo', 'prettier'],
   parser: '@typescript-eslint/parser',
-  plugins: ['unused-imports', '@typescript-eslint', 'simple-import-sort'],
+  plugins: ['@typescript-eslint', 'simple-import-sort'],
   rules: {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': [
@@ -26,6 +26,13 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'no-undef': 'off',
     'no-console': 'warn',
-    'unused-imports/no-unused-imports': 'warn'
+    'import/no-unresolved': 'off',
+    'turbo/no-undeclared-env-vars': 'off'
+  },
+  settings: {
+    'import/resolver': {
+      typescript: true,
+      node: true
+    }
   }
 }

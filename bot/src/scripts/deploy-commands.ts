@@ -1,6 +1,6 @@
-import { echoCommand } from '@echo/bot/commands/echo'
 import { discordSecret } from '@echo/discord/admin/config'
 import { discordConfig } from '@echo/discord/config/config'
+import { echoCommand } from 'commands/echo'
 import { REST, Routes } from 'discord.js'
 import { isEmpty, isNil } from 'ramda'
 

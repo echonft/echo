@@ -1,5 +1,5 @@
-import { useFirebase } from '@echo/frontend/components/providers/firebase-provider'
-import { SwrKey } from '@echo/frontend/lib/services/swr/constants/swr-key'
+import { useFirebase } from '@components/providers/firebase-provider'
+import { SwrKey } from '@lib/services/swr/constants/swr-key'
 import { getAuth } from 'firebase/auth'
 import useSWR from 'swr'
 

@@ -1,10 +1,10 @@
-import { buildBuyOfferButton } from '@echo/bot/builders/offer-button-builder'
-import { listenToInteractions } from '@echo/bot/listeners/interaction'
 import { discordSecret } from '@echo/discord/admin/config'
 import { listenToOffers } from '@echo/firebase/admin/listeners/offer'
+import { buildBuyOfferButton } from 'builders/offer-button-builder'
 import { BaseInteraction, Client, Events, GatewayIntentBits } from 'discord.js'
+import { listenToInteractions } from 'listeners/interaction'
 import { isNil } from 'ramda'
-import { getDiscordChannel } from 'src/utils/discord'
+import { getDiscordChannel } from 'utils/discord'
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) //create new client
 
