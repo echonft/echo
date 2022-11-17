@@ -1,8 +1,8 @@
+import { mapOffer } from '../../mappers/offer'
 import { FirebaseOffer } from '../../model/offer'
 import { getAdminFirebase } from '../config/config'
-import { mapOffer } from '../mappers/offer'
+import { convertDocumentSnapshotToFirebase } from '../utils/document-snapshot'
 import { Offer } from '@echo/model/offer'
-import { DocumentSnapshot } from '@google-cloud/firestore'
 
 /**
  * Get offer with id
@@ -18,6 +18,6 @@ export function getOffer(id: string): Promise<Offer | undefined> {
       if (!snapshot.exists) {
         return undefined
       }
-      return mapOffer(snapshot as DocumentSnapshot<FirebaseOffer>)
+      return mapOffer(convertDocumentSnapshotToFirebase<FirebaseOffer>(snapshot))
     })
 }

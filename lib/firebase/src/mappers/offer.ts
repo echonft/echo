@@ -4,10 +4,8 @@ import { FirebaseUser } from '../model/user'
 import { FirebaseDocumentPath } from '../paths/document-path'
 import { mapCollection } from './collection'
 import { mapUser } from './user'
-import { Collection } from '@echo/model/collection'
-import { NewOffer, Offer, OfferStatus, OfferType } from '@echo/model/offer'
+import { Offer, OfferStatus, OfferType } from '@echo/model/offer'
 import { OfferItem } from '@echo/model/offer-item'
-import { User } from '@echo/model/user'
 import { doc, DocumentSnapshot, getDoc, getFirestore } from 'firebase/firestore'
 import { isEmpty, isNil } from 'ramda'
 
@@ -54,14 +52,4 @@ export function mapOfferItem(itemsString: string): OfferItem[] | undefined {
     return undefined
   }
   return itemsString.split(',').map((itemString) => JSON.parse(itemString))
-}
-
-export function createNewOffer(
-  type: OfferType,
-  collection: Collection,
-  ownerItems: OfferItem[] | undefined,
-  counterpartyItems: OfferItem[] | undefined,
-  owner: User
-): NewOffer {
-  return { owner, type, status: OfferStatus.OPEN, ownerItems, counterpartyItems, collection }
 }

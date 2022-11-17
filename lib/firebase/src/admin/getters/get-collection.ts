@@ -1,8 +1,8 @@
+import { mapCollection } from '../../mappers/collection'
 import { FirebaseCollection } from '../../model/collection'
 import { getAdminFirebase } from '../config/config'
-import { mapCollection } from '../mappers/collection'
+import { convertDocumentSnapshotToFirebase } from '../utils/document-snapshot'
 import { Collection } from '@echo/model/collection'
-import { DocumentSnapshot } from '@google-cloud/firestore'
 
 /**
  * Get collection with discord id
@@ -18,6 +18,6 @@ export function getCollection(id: string): Promise<Collection | undefined> {
       if (!snapshot.exists) {
         return undefined
       }
-      return mapCollection(snapshot as DocumentSnapshot<FirebaseCollection>)
+      return mapCollection(convertDocumentSnapshotToFirebase<FirebaseCollection>(snapshot))
     })
 }
