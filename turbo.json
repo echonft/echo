@@ -23,10 +23,14 @@
     "start": {
       "cache": false
     },
+    "clean": {
+      "cache": false
+    },
     "@echo/bot#deploy-commands": {
       "cache": false,
       "dependsOn": ["@echo/discord#build"],
       "outputs": ["dist/**"]
     }
-  }
+  },
+  "globalDependencies": ["tsconfig.json"]
 }

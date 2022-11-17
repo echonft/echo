@@ -20,6 +20,8 @@
     "lib/*"
   ],
   "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
     "frontend:dev": "env-cmd -f .env turbo run dev --filter @echo/frontend...",
     "frontend:build": "turbo run build --filter @echo/frontend...",
     "frontend:start": "turbo run start --filter @echo/frontend...",
@@ -32,7 +34,8 @@
     "lint": "turbo run lint",
     "prettier": "turbo run prettier",
     "tsc": "turbo run tsc",
-    "update-packages": "ncu -u && turbo run update-packages"
+    "update-packages": "ncu -u && turbo run update-packages",
+    "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "5.43.0",

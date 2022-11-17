@@ -4,14 +4,14 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev:vercel": "vercel dev",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint --cache --fix \"components/**/*.ts?(x)\" \"lib/**/*.ts?(x)\" \"pages/**/*.ts?(x)\"",
     "prettier": "prettier \"components/**/*.ts?(x)\" \"pages/**/*.ts?(x)\" \"lib/**/*.ts?(x)\"",
     "tsc": "tsc --noEmit",
-    "update-packages": "ncu -u"
+    "update-packages": "ncu -u",
+    "clean": "rm -rf tsconfig.tsbuildinfo dist node_modules"
   },
   "dependencies": {
     "@echo/api": "workspace:*",

@@ -12,7 +12,8 @@
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
     "prettier": "prettier \"src/**/*.ts\"",
     "tsc": "tsc --noEmit",
-    "update-packages": "ncu -u"
+    "update-packages": "ncu -u",
+    "clean": "rm -rf tsconfig.tsbuildinfo dist node_modules"
   },
   "dependencies": {
     "@echo/discord": "workspace:*",
