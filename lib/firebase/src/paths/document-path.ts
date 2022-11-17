@@ -1,3 +1,4 @@
 export enum FirebaseDocumentPath {
-  COLLECTIONS = 'collections/'
+  COLLECTIONS = 'collections/',
+  USERS = 'users/'
 }

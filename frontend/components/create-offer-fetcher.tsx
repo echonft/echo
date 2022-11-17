@@ -18,7 +18,7 @@ export const CreateOfferFetcher: React.FunctionComponent<Props> = ({ collectionI
     if (isEmpty(collectionResult.data?.contractAddresses)) {
       return <span>{t('error-collection')}</span>
     }
-    return <CreateOffer contractAddresses={collectionResult.data!.contractAddresses} />
+    return <CreateOffer collection={collectionResult.data!} />
   }
   return <span>{t('error-fetching')}</span>
 }

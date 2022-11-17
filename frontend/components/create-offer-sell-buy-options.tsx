@@ -3,7 +3,6 @@ import { CollectionNftsFetcher } from '@echo/frontend/components/collection-nfts
 import { TagManager } from '@echo/frontend/components/tag-manager'
 import { mapCollectionSearchableObject } from '@echo/frontend/lib/mappers/map-collection-searchable-object'
 import { addIfNotThere, toggle } from '@echo/frontend/lib/utils/array'
-import { SearchableObject } from '@echo/frontend/lib/view-models/object'
 import { Erc721 } from '@echo/model/src/erc721'
 import { Combobox } from '@headlessui/react'
 import { mapCollectionSearchableObject } from '@lib/mappers/map-collection-searchable-object'
@@ -13,36 +12,36 @@ import { shortenAddress } from '@usedapp/core'
 import clsx from 'clsx'
 import { getAddress, isAddress } from 'ethers/lib/utils'
 import { isEmpty, isNil } from 'ramda'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useTranslations } from 'use-intl'
 
 interface Props {
   contractAddresses: string[]
+  selectedContracts: string[]
+  selectedNfts: Erc721[]
   onSelectContracts?: (contractAddresses: string[]) => void
   onSelectNfts?: (nfts: Erc721[]) => void
 }
 
 export const CreateOfferSellBuyOptions: React.FunctionComponent<Props> = ({
   contractAddresses,
+  selectedContracts,
+  selectedNfts,
   onSelectContracts,
   onSelectNfts
 }) => {
   const t = useTranslations('CreateOffer.sell')
-  const [selectedContracts, setSelectedContracts] = useState<SearchableObject<string>[]>([])
   const [searchQuery, setSearchQuery] = useState<string>()
   const [selectSpecificNfts, setSelectSpecificNfts] = useState<boolean>(false)
-  const [selectedNfts, setSelectedNfts] = useState<Erc721[]>([])
-  const [, setShowSummary] = useState<boolean>(false)
-
+  const searchableContracts = mapCollectionSearchableObject(contractAddresses)
   const autocompleteOptions = useCallback(() => {
-    const searchableContracts = mapCollectionSearchableObject(contractAddresses)
     if (isNil(searchQuery) || isEmpty(searchQuery)) {
       return searchableContracts
     }
     return searchableContracts.filter(
       (searchableContract) => searchableContract.value.indexOf(searchQuery.toLowerCase()) > -1
     )
-  }, [contractAddresses, searchQuery])
+  }, [searchQuery, searchableContracts])
 
   const updateSearchQuery = useCallback(
     (query: string) => {
@@ -50,14 +49,6 @@ export const CreateOfferSellBuyOptions: React.FunctionComponent<Props> = ({
     },
     [setSearchQuery]
   )
-
-  useEffect(() => {
-    onSelectContracts?.(selectedContracts.map((searchableContract) => searchableContract.value))
-  }, [onSelectContracts, selectedContracts])
-
-  useEffect(() => {
-    onSelectNfts?.(selectedNfts)
-  }, [onSelectNfts, selectedNfts])
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-2')}>
@@ -67,7 +58,7 @@ export const CreateOfferSellBuyOptions: React.FunctionComponent<Props> = ({
         searchQuery={searchQuery}
         options={autocompleteOptions()}
         onSearch={updateSearchQuery}
-        onSelected={(selected) => setSelectedContracts((prevState) => addIfNotThere(prevState, selected))}
+        onSelected={(selected) => onSelectContracts?.(addIfNotThere(selectedContracts, selected.value))}
         renderNewOption={(query) =>
           isAddress(query) ? (
             <Combobox.Option
@@ -84,8 +75,8 @@ export const CreateOfferSellBuyOptions: React.FunctionComponent<Props> = ({
         }
       />
       <TagManager
-        tags={selectedContracts}
-        onRemoveTag={(removedTag) => setSelectedContracts((prevState) => toggle(prevState, removedTag))}
+        tags={mapCollectionSearchableObject(selectedContracts)}
+        onRemoveTag={(removedTag) => onSelectContracts?.(toggle(selectedContracts, removedTag.value))}
       />
       {!isEmpty(selectedContracts) && (
         <button
@@ -98,14 +89,11 @@ export const CreateOfferSellBuyOptions: React.FunctionComponent<Props> = ({
       {/*  TODO We should probably exclude the owners NFTs here */}
       {selectSpecificNfts && (
         <CollectionNftsFetcher
-          contractAddresses={selectedContracts.map((searchableContract) => searchableContract.value)}
+          contractAddresses={selectedContracts}
           selected={selectedNfts}
-          onSelect={(nft) => setSelectedNfts((prevState) => toggle(prevState, nft))}
+          onSelect={(nft) => onSelectNfts?.(toggle(selectedNfts, nft))}
         />
       )}
-      <button className={clsx('rounded', 'text-white', 'p-2', 'bg-blue-500')} onClick={() => setShowSummary(true)}>
-        {t('submit')}
-      </button>
     </div>
   )
 }

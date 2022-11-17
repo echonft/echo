@@ -1,15 +1,15 @@
-import { CreateOfferSell } from '@components/create-offer-sell'
-import { OfferType } from '@echo/model/offer'
+import { CreateOfferSell } from '@echo/frontend/components/create-offer-sell'
+import { useGetCollectionNftsForOwner } from '@echo/frontend/lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
+import { Collection } from '@echo/model/collection'
+import { OfferType } from '@echo/model/src/offer'
 import { Listbox } from '@headlessui/react'
-import { useGetCollectionNftsForOwner } from '@lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
 import clsx from 'clsx'
 import { head, isEmpty, isNil } from 'ramda'
 import React, { useState } from 'react'
 import { useTranslations } from 'use-intl'
 
 interface Props {
-  // TODO We should probably create a model for that for better UX. With name for example
-  contractAddresses: string[]
+  collection: Collection
 }
 
 // TODO use translations
@@ -22,9 +22,9 @@ function titleForOfferType(type: OfferType) {
   }
 }
 
-export const CreateOffer: React.FunctionComponent<Props> = ({ contractAddresses }) => {
+export const CreateOffer: React.FunctionComponent<Props> = ({ collection }) => {
   const t = useTranslations('CreateOffer')
-  const nfts = useGetCollectionNftsForOwner(contractAddresses)
+  const nfts = useGetCollectionNftsForOwner(collection.contractAddresses)
   const choices = Object.values(OfferType)
   const [selectedChoice, setSelectedChoice] = useState<OfferType>(head(choices)!)
   return (
@@ -44,7 +44,7 @@ export const CreateOffer: React.FunctionComponent<Props> = ({ contractAddresses 
         </Listbox.Options>
       </Listbox>
       {!isNil(nfts) && !isNil(nfts.data) && selectedChoice === OfferType.SELL && (
-        <CreateOfferSell nfts={nfts.data} contractAddresses={contractAddresses} />
+        <CreateOfferSell nfts={nfts.data} collection={collection} />
       )}
     </div>
   )
