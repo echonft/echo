@@ -1,6 +1,6 @@
-import { mapCollection } from '../../mappers/collection'
 import { FirebaseCollection } from '../../model/collection'
 import { getAdminFirebase } from '../config/config'
+import { mapCollection } from '../mappers/collection'
 import { Collection } from '@echo/model/collection'
 import { DocumentSnapshot } from '@google-cloud/firestore'
 

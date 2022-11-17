@@ -1,13 +1,10 @@
+import { mapOfferItem } from '../../mappers/offer'
 import { FirebaseOffer } from '../../model/offer'
 import { getCollection } from '../getters/get-collection'
 import { getUser } from '../getters/get-user'
-import { Collection } from '@echo/model//collection'
-import { NewOffer, Offer, OfferStatus, OfferType } from '@echo/model//offer'
-import { OfferItem } from '@echo/model//offer-item'
-import { User } from '@echo/model//user'
+import { Offer, OfferStatus, OfferType } from '@echo/model/offer'
 import { DocumentSnapshot } from '@google-cloud/firestore'
-import { DocumentSnapshot as FirestoreDocumentSnapshot } from 'firebase/firestore'
-import { isEmpty, isNil } from 'ramda'
+import { isNil } from 'ramda'
 
 /**
  * Map a firebase offer snapshot to an array of offer
@@ -15,9 +12,7 @@ import { isEmpty, isNil } from 'ramda'
  * TODO Should figure out the naming
  * TODO Should make sure buyer/seller data is correct
  */
-export async function mapOffer(
-  snapshot: DocumentSnapshot<FirebaseOffer> | FirestoreDocumentSnapshot<FirebaseOffer>
-): Promise<Offer> {
+export async function mapOffer(snapshot: DocumentSnapshot<FirebaseOffer>): Promise<Offer> {
   const data = snapshot.data()!
   const buyer = data.buyer?.id ? await getUser(data.buyer.id) : undefined
   const seller = data.seller?.id ? await getUser(data.seller.id) : undefined
@@ -33,21 +28,4 @@ export async function mapOffer(
     owner: seller!,
     postedAt: isNil(data.postedAt) ? undefined : new Date(data.postedAt)
   }
-}
-
-function mapOfferItem(itemsString: string): OfferItem[] | undefined {
-  if (isNil(itemsString) || isEmpty(itemsString)) {
-    return undefined
-  }
-  return itemsString.split(',').map((itemString) => JSON.parse(itemString))
-}
-
-export function createNewOffer(
-  type: OfferType,
-  collection: Collection,
-  ownerItems: OfferItem[] | undefined,
-  counterpartyItems: OfferItem[] | undefined,
-  owner: User
-): NewOffer {
-  return { owner, type, status: OfferStatus.OPEN, ownerItems, counterpartyItems, collection }
 }

@@ -1,6 +1,6 @@
-import { FirebaseCollection } from '../model/collection'
+import { FirebaseCollection } from '../../model/collection'
 import { Collection } from '@echo/model/collection'
-import { DocumentSnapshot } from 'firebase/firestore'
+import { DocumentSnapshot } from '@google-cloud/firestore'
 import { isNil } from 'ramda'
 
 /**

@@ -1,7 +1,7 @@
 import { CreateOfferSellBuyOptions } from '@components/create-offer-sell-buy-options'
 import { CreateOfferSummary } from '@components/create-offer-summary'
 import { NftList } from '@components/nft-list'
-import { createNewOffer } from '@echo/firebase/admin/mappers/offer'
+import { createNewOffer } from '@echo/firebase/mappers/offer'
 import { Collection } from '@echo/model/collection'
 import { Erc721 } from '@echo/model/erc721'
 import { OfferType } from '@echo/model/offer'

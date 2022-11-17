@@ -39,12 +39,12 @@
   ],
   "dependencies": {
     "@echo/model": "workspace:*",
-    "@google-cloud/firestore": "^6.4.1",
     "ethers": "5.7.2",
     "firebase": "9.14.0",
     "ramda": "0.28.0"
   },
   "devDependencies": {
+    "@google-cloud/firestore": "^6.4.1",
     "@types/node": "18.11.9",
     "@types/ramda": "0.28.20",
     "eslint-plugin-import": "2.26.0",

@@ -86,7 +86,6 @@ importers:
       eslint-config-next: 13.0.3
       ethers: 5.7.2
       firebase: 9.14.0
-      firebase-admin: 11.2.1
       iron-session: ^6.3.1
       next: 13.0.3
       next-intl: 2.9.1
@@ -128,7 +127,6 @@ importers:
       '@types/react-icons': 3.0.0_react@18.2.0
       autoprefixer: 10.4.13_postcss@8.4.19
       eslint-config-next: 13.0.3_e3uo4sehh4zr4i6m57mkkxxv7y
-      firebase-admin: 11.2.1_@firebase+app-types@0.8.1
       iron-session: 6.3.1_next@13.0.3
       siwe: 1.1.6_ethers@5.7.2
       tailwindcss: 3.2.4_postcss@8.4.19
@@ -163,11 +161,11 @@ importers:
       typescript: 4.9.3
     dependencies:
       '@echo/model': link:../model
-      '@google-cloud/firestore': 6.4.1
       ethers: 5.7.2
       firebase: 9.14.0
       ramda: 0.28.0
     devDependencies:
+      '@google-cloud/firestore': 6.4.1
       '@types/node': 18.11.9
       '@types/ramda': 0.28.20
       eslint-plugin-import: 2.26.0_eslint@8.27.0
@@ -1509,8 +1507,8 @@ packages:
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
 
-  /@coinbase/wallet-sdk/3.5.4_oldrdgiwrta2l7p52je5php5nm:
-    resolution: {integrity: sha512-+5s05dmB6YUPUnV5vThP96GVG1O4GgS3qYvjYJhe56ds8YFz+keU3/docFBLf8FQOCIO5j7IZtZmVGvz7G+kRw==}
+  /@coinbase/wallet-sdk/3.6.0_oldrdgiwrta2l7p52je5php5nm:
+    resolution: {integrity: sha512-p7RHnbhWiwVr9viX9Z5KLxKgzGoJRKcAN/BYRTsodnesgA7y+omangXncsxY+5eyQSflEL7Dqs0dv/yeDsomow==}
     engines: {node: '>= 10.0.0'}
     dependencies:
       '@metamask/safe-event-emitter': 2.0.0
@@ -2448,7 +2446,6 @@ packages:
   /@google-cloud/firestore/6.4.1:
     resolution: {integrity: sha512-5q4sl1XCL8NH2y82KZ4WQGHDOPnrSMYq3JpIeKD5C0OCSb4MfckOTB9LeAQ3p5tlL+7UsVRHj0SyzKz27XZJjw==}
     engines: {node: '>=12.0.0'}
-    requiresBuild: true
     dependencies:
       fast-deep-equal: 3.1.3
       functional-red-black-tree: 1.0.1
@@ -2649,7 +2646,7 @@ packages:
       '@json-rpc-tools/utils': 1.7.6
       axios: 0.21.4
       safe-json-utils: 1.1.1
-      ws: 7.5.9
+      ws: 7.4.6
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -3171,7 +3168,7 @@ packages:
       nocache: 3.0.4
       pretty-format: 26.6.2
       serve-static: 1.15.0
-      ws: 7.5.9
+      ws: 7.5.3
     transitivePeerDependencies:
       - bufferutil
       - encoding
@@ -3982,7 +3979,7 @@ packages:
       ts-morph: 12.0.0
     dev: true
 
-  /@wagmi/core/0.7.4_pqfxahle4rrxagqfuan5n47ta4:
+  /@wagmi/core/0.7.4_gpkupqtljcjyzyxbfsgg6srd74:
     resolution: {integrity: sha512-HhN5p0C9dlU1pWNF54hBEXLn12n5ueUJAxl0eg4YtcTTw/VIg/GSINm0eYkVznFPf4qus9ODA9BGTQ7k79d2gQ==}
     peerDependencies:
       '@coinbase/wallet-sdk': '>=3.3.0'
@@ -3994,7 +3991,7 @@ packages:
       '@walletconnect/ethereum-provider':
         optional: true
     dependencies:
-      '@coinbase/wallet-sdk': 3.5.4_oldrdgiwrta2l7p52je5php5nm
+      '@coinbase/wallet-sdk': 3.6.0_oldrdgiwrta2l7p52je5php5nm
       '@walletconnect/ethereum-provider': 1.8.0
       abitype: 0.1.8_typescript@4.9.3
       ethers: 5.7.2
@@ -5456,7 +5453,7 @@ packages:
     dev: false
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
   /config-chain/1.1.13:
     resolution: {integrity: sha512-qj+f8APARXHrM0hraqXYb2/bOVSV4PvJQlNZ/DVj0QrmNM2q2euizkeuVckQ57J+W0mRH6Hvi+k50M4Jul2VRQ==}
@@ -8553,12 +8550,12 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /isomorphic-ws/4.0.1_ws@7.5.9:
+  /isomorphic-ws/4.0.1_ws@7.4.6:
     resolution: {integrity: sha512-BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==}
     peerDependencies:
       ws: '*'
     dependencies:
-      ws: 7.5.9
+      ws: 7.4.6
     dev: false
 
   /jayson/3.7.0:
@@ -8574,11 +8571,11 @@ packages:
       delay: 5.0.0
       es6-promisify: 5.0.0
       eyes: 0.1.8
-      isomorphic-ws: 4.0.1_ws@7.5.9
+      isomorphic-ws: 4.0.1_ws@7.4.6
       json-stringify-safe: 5.0.1
       lodash: 4.17.21
       uuid: 8.3.2
-      ws: 7.5.9
+      ws: 7.4.6
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -9483,7 +9480,7 @@ packages:
     dependencies:
       connect: 3.7.0
       debug: 2.6.9
-      ws: 7.5.9
+      ws: 7.5.3
       yargs: 15.4.1
     transitivePeerDependencies:
       - bufferutil
@@ -9691,7 +9688,7 @@ packages:
       strip-ansi: 6.0.1
       temp: 0.8.3
       throat: 5.0.0
-      ws: 7.5.9
+      ws: 7.5.3
       yargs: 15.4.1
     transitivePeerDependencies:
       - bufferutil
@@ -11161,7 +11158,7 @@ packages:
     resolution: {integrity: sha512-Rw7FzYOOzcfyUPaAm9P3g0tFdGqGq2LLiAI+wjYcp6CsF3DeeMrRS3HZAho4s273C29G/DJhx0e8BpRE/QZNGg==}
     dependencies:
       shell-quote: 1.7.4
-      ws: 7.5.9
+      ws: 7.5.3
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -13225,11 +13222,11 @@ packages:
       ethers: '>=5.5.1'
       react: '>=17.0.0'
     dependencies:
-      '@coinbase/wallet-sdk': 3.5.4_oldrdgiwrta2l7p52je5php5nm
+      '@coinbase/wallet-sdk': 3.6.0_oldrdgiwrta2l7p52je5php5nm
       '@tanstack/query-sync-storage-persister': 4.15.1_hxlag2i2kjtmps3bnwg3slmyie
       '@tanstack/react-query': 4.16.1_cjpnlypd7k7kw5dzj4uskqoohq
       '@tanstack/react-query-persist-client': 4.16.1_thimyohpasmmc5fzt4zf4hs2ui
-      '@wagmi/core': 0.7.4_pqfxahle4rrxagqfuan5n47ta4
+      '@wagmi/core': 0.7.4_gpkupqtljcjyzyxbfsgg6srd74
       '@walletconnect/ethereum-provider': 1.8.0
       abitype: 0.1.8_typescript@4.9.3
       ethers: 5.7.2
@@ -13491,19 +13488,6 @@ packages:
 
   /ws/7.5.3:
     resolution: {integrity: sha512-kQ/dHIzuLrS6Je9+uv81ueZomEwH0qVYstcAQ4/Z93K8zeko9gtAbttJWzoC5ukqXY1PpoouV3+VSOqEAFt5wg==}
-    engines: {node: '>=8.3.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: false
-
-  /ws/7.5.9:
-    resolution: {integrity: sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==}
     engines: {node: '>=8.3.0'}
     peerDependencies:
       bufferutil: ^4.0.1
