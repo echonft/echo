@@ -1,12 +1,12 @@
-import { CreateOfferSell } from '@echo/frontend/components/create-offer-sell'
-import { useGetCollectionNftsForOwner } from '@echo/frontend/lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
+import { CreateOfferSell } from '@components/create-offer-sell'
 import { Collection } from '@echo/model/collection'
-import { OfferType } from '@echo/model/src/offer'
+import { OfferType } from '@echo/model/offer'
 import { Listbox } from '@headlessui/react'
+import { useGetCollectionNftsForOwner } from '@lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 import { head, isEmpty, isNil } from 'ramda'
 import React, { useState } from 'react'
-import { useTranslations } from 'use-intl'
 
 interface Props {
   collection: Collection

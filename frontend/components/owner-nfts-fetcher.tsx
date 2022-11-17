@@ -1,9 +1,9 @@
 import { NftList } from '@components/nft-list'
 import { Erc721 } from '@echo/model/erc721'
 import { useGetCollectionNftsForOwner } from '@lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
+import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import React from 'react'
-import { useTranslations } from 'use-intl'
 
 interface Props {
   contractAddresses: string[] | undefined

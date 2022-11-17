@@ -1,8 +1,8 @@
 import { useLogger } from '@components/providers/logger-provider'
 import { useLoginWithoutDiscord } from '@lib/hooks/use-login'
 import { useSignInWithFirebase } from '@lib/hooks/use-sign-in-with-firebase'
+import { useTranslations } from 'next-intl'
 import React from 'react'
-import { useTranslations } from 'use-intl'
 import { useAccount } from 'wagmi'
 
 interface Props {

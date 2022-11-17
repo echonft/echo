@@ -1,16 +1,16 @@
+import { CreateOfferSellBuyOptions } from '@components/create-offer-sell-buy-options'
+import { CreateOfferSummary } from '@components/create-offer-summary'
+import { NftList } from '@components/nft-list'
 import { createNewOffer } from '@echo/firebase/admin/mappers/offer'
-import { CreateOfferSellBuyOptions } from '@echo/frontend/components/create-offer-sell-buy-options'
-import { CreateOfferSummary } from '@echo/frontend/components/create-offer-summary'
-import { NftList } from '@echo/frontend/components/nft-list'
-import { useUser } from '@echo/frontend/lib/services/firebase/hooks/use-user'
-import { toggle } from '@echo/frontend/lib/utils/array'
 import { Collection } from '@echo/model/collection'
+import { Erc721 } from '@echo/model/erc721'
 import { OfferType } from '@echo/model/offer'
-import { Erc721 } from '@echo/model/src/erc721'
+import { useUser } from '@lib/services/firebase/hooks/use-user'
+import { toggle } from '@lib/utils/array'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 import { isEmpty } from 'ramda'
 import React, { useState } from 'react'
-import { useTranslations } from 'use-intl'
 
 interface Props {
   collection: Collection

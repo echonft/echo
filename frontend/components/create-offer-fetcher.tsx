@@ -1,8 +1,8 @@
 import { CreateOffer } from '@components/create-offer'
 import { useFetchCollection } from '@lib/hooks/use-fetch-collection'
+import { useTranslations } from 'next-intl'
 import { isEmpty, isNil } from 'ramda'
 import React from 'react'
-import { useTranslations } from 'use-intl'
 
 interface Props {
   collectionId: string

@@ -1,8 +1,8 @@
-import { buildBuyOfferButton } from '@echo/bot/builders/offer-button-builder'
-import { getDiscordChannel } from '@echo/bot/utils/discord'
 import { listenToOffer } from '@echo/firebase/admin/listeners/offer'
+import { buildBuyOfferButton } from 'builders/offer-button-builder'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
+import { getDiscordChannel } from 'utils/discord'
 
 export function listenToOffers(client: Client) {
   listenToOffer(async (offer, change) => {

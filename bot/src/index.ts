@@ -1,7 +1,7 @@
-import { listenToInteractions } from '@echo/bot/listeners/interaction'
-import { listenToOffers } from '@echo/bot/listeners/offers'
 import { discordSecret } from '@echo/discord/admin/config'
 import { BaseInteraction, Client, Events, GatewayIntentBits } from 'discord.js'
+import { listenToInteractions } from 'listeners/interaction'
+import { listenToOffers } from 'listeners/offers'
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) //create new client
 

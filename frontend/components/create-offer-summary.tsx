@@ -1,8 +1,8 @@
-import { CreateOfferSummaryDetails } from '@echo/frontend/components/create-offer-summary-details'
-import { Modal } from '@echo/frontend/components/modal'
-import { NewOffer, OfferType } from '@echo/model/src/offer'
+import { CreateOfferSummaryDetails } from '@components/create-offer-summary-details'
+import { Modal } from '@components/modal'
+import { NewOffer, OfferType } from '@echo/model/offer'
+import { useTranslations } from 'next-intl'
 import React from 'react'
-import { useTranslations } from 'use-intl'
 
 interface Props {
   offer: NewOffer

@@ -1,5 +1,5 @@
-import { Erc721 } from '@echo/model/src/erc721'
-import { OfferItem } from '@echo/model/src/offer-item'
+import { Erc721 } from '@echo/model/erc721'
+import { OfferItem } from '@echo/model/offer-item'
 import { isEmpty } from 'ramda'
 
 export function generateOfferItems(contractAddresses: string[], nfts: Erc721[]): OfferItem[] | undefined {

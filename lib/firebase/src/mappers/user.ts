@@ -1,4 +1,4 @@
-import { FirebaseUser } from '@echo/firebase/model/user'
+import { FirebaseUser } from '../model/user'
 import { User } from '@echo/model/user'
 import { DocumentSnapshot } from '@google-cloud/firestore'
 import { DocumentSnapshot as FirestoreDocumentSnapshot } from 'firebase/firestore'

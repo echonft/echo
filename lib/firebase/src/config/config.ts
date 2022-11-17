@@ -1,4 +1,4 @@
-import { FirebaseOptions } from '@firebase/app'
+import { FirebaseOptions } from 'firebase/app'
 
 export const firebaseOptions: FirebaseOptions = {
   apiKey: 'AIzaSyBH4AGOJffTQaellHIcYcUNrAtHdi8G-qE',

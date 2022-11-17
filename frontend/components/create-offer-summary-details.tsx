@@ -1,5 +1,5 @@
-import { OfferItemNftsFetcher } from '@echo/frontend/components/offer-item-nfts-fetcher'
-import { NewOffer } from '@echo/model/src/offer'
+import { OfferItemNftsFetcher } from '@components/offer-item-nfts-fetcher'
+import { NewOffer } from '@echo/model/offer'
 import clsx from 'clsx'
 import React from 'react'
 

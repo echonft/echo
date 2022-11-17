@@ -1,8 +1,8 @@
 import { useLogger } from '@components/providers/logger-provider'
 import { useFetchNonce } from '@lib/hooks/use-fetch-nonce'
 import { useSign } from '@lib/hooks/use-sign'
+import { useTranslations } from 'next-intl'
 import React, { useEffect } from 'react'
-import { useTranslations } from 'use-intl'
 import { useAccount } from 'wagmi'
 
 interface Props {

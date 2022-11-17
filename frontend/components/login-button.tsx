@@ -1,9 +1,9 @@
 import { LoginFirebaseSwitch } from '@components/login-firebase-switch'
 import { LoginSignature } from '@components/login-signature'
 import { useLogger } from '@components/providers/logger-provider'
+import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import React, { useState } from 'react'
-import { useTranslations } from 'use-intl'
 
 interface Props {
   accessToken?: string

@@ -1,9 +1,9 @@
 import { Erc721 } from '@echo/model/erc721'
 import clsx from 'clsx'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import React from 'react'
-import { useTranslations } from 'use-intl'
 
 interface Props {
   nft: Erc721

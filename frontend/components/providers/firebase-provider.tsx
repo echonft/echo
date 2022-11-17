@@ -1,6 +1,5 @@
 import { useLogger } from '@components/providers/logger-provider'
-import { FirebaseApp } from '@firebase/app'
-import { FirebaseOptions, initializeApp } from 'firebase/app'
+import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app'
 import { browserLocalPersistence, getAuth } from 'firebase/auth'
 import { isNil } from 'ramda'
 import React, { PropsWithChildren, useEffect, useState } from 'react'

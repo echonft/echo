@@ -1,10 +1,10 @@
+import { FirebaseOffer } from '../../model/offer'
 import { getCollection } from '../getters/get-collection'
 import { getUser } from '../getters/get-user'
-import { FirebaseOffer } from '@echo/firebase/model/offer'
-import { Collection } from '@echo/model/src/collection'
-import { NewOffer, Offer, OfferStatus, OfferType } from '@echo/model/src/offer'
-import { OfferItem } from '@echo/model/src/offer-item'
-import { User } from '@echo/model/src/user'
+import { Collection } from '@echo/model//collection'
+import { NewOffer, Offer, OfferStatus, OfferType } from '@echo/model//offer'
+import { OfferItem } from '@echo/model//offer-item'
+import { User } from '@echo/model//user'
 import { DocumentSnapshot } from '@google-cloud/firestore'
 import { DocumentSnapshot as FirestoreDocumentSnapshot } from 'firebase/firestore'
 import { isEmpty, isNil } from 'ramda'
@@ -31,7 +31,7 @@ export async function mapOffer(
     collection: collection!,
     counterparty: buyer,
     owner: seller!,
-    postedAt: isNil(data.postedAt) ? undefined : new Date(data.postedAt),
+    postedAt: isNil(data.postedAt) ? undefined : new Date(data.postedAt)
   }
 }
 

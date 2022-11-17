@@ -1,11 +1,11 @@
-import { NftList } from '@echo/frontend/components/nft-list'
-import { useGetNftsForItems } from '@echo/frontend/lib/services/alchemy/hooks/use-get-nfts-for-items'
-import { OfferType } from '@echo/model/src/offer'
-import { OfferItem } from '@echo/model/src/offer-item'
+import { NftList } from '@components/nft-list'
+import { OfferType } from '@echo/model/offer'
+import { OfferItem } from '@echo/model/offer-item'
+import { useGetNftsForItems } from '@lib/services/alchemy/hooks/use-get-nfts-for-items'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 import { isNil, join } from 'ramda'
 import React, { useCallback } from 'react'
-import { useTranslations } from 'use-intl'
 
 interface Props {
   items: OfferItem[] | undefined

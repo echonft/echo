@@ -21,10 +21,11 @@
   ],
   "scripts": {
     "frontend:dev": "env-cmd -f .env turbo run dev --filter @echo/frontend...",
-    "frontend:build": "env-cmd -f .env turbo run build --filter @echo/frontend...",
+    "frontend:build": "turbo run build --filter @echo/frontend...",
     "frontend:start": "turbo run start --filter @echo/frontend...",
     "bot:start": "turbo run start --filter @echo/bot..",
     "bot:dev": "env-cmd -f .env turbo run dev --filter @echo/bot...",
+    "bot:build": "turbo run build --filter @echo/bot...",
     "bot:deploy-commands": "env-cmd -f .env turbo run @echo/bot#deploy-commands",
     "prepare": "husky install",
     "vercel": "env-cmd -f .env vercel dev",

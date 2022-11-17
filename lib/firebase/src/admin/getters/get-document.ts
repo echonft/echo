@@ -1,6 +1,5 @@
 import { FirebaseDocumentPath } from '../../paths/document-path'
-import { DocumentReference } from '@firebase/firestore'
-import { doc, DocumentSnapshot, getDoc, getFirestore } from 'firebase/firestore'
+import { doc, DocumentReference, DocumentSnapshot, getDoc, getFirestore } from 'firebase/firestore'
 
 /**
  * Get a reference of a document from a path and a segment. Syntax sugar for typing
