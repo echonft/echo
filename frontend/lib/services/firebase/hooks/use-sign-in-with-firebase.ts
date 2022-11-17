@@ -1,4 +1,4 @@
-import { useGetFirebaseAuth } from '@lib/hooks/use-get-firebase-auth'
+import { useGetFirebaseAuth } from '@lib/services/firebase/hooks/use-get-firebase-auth'
 import { SwrKey } from '@lib/services/swr/constants/swr-key'
 import { signInWithCustomToken, UserCredential } from 'firebase/auth'
 import { isNil } from 'ramda'

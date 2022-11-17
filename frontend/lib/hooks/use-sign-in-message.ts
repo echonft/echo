@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { SiweMessage } from 'siwe'
 import { useAccount, useNetwork } from 'wagmi'
 
+// TODO Use Result
 export const useSignInMessage = (nonce: string | undefined): string | undefined => {
   const { address } = useAccount()
   const { chain } = useNetwork()

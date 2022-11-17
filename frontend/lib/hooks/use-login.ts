@@ -1,5 +1,5 @@
-import { useFetchDiscordUser } from '@lib/hooks/use-fetch-discord-user'
 import { Routes } from '@lib/services/api/constants/routes'
+import { useFetchDiscordUser } from '@lib/services/api/hooks/use-fetch-discord-user'
 import { LoginResponse } from '@lib/services/api/models/login-response'
 import { fetcher } from '@lib/services/fetcher/fetcher'
 import useSWR from 'swr'
