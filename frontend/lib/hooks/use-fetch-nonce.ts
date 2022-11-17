@@ -1,5 +1,5 @@
-import { Routes } from '@lib/services/api/constants/routes'
-import { NonceResponse } from '@lib/services/api/models/nonce-response'
+import { Routes } from '@echo/api/constants/routes'
+import { NonceResponse } from '@echo/api/models/nonce-response'
 import { fetcher } from '@lib/services/fetcher/fetcher'
 import useSWRImmutable from 'swr/immutable'
 

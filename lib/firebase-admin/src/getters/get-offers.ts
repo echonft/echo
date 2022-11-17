@@ -1,7 +1,6 @@
-import { FirebaseOffer } from '../../model/offer'
 import { getAdminFirebase } from '../config/config'
-import { firestore } from 'firebase-admin'
-import CollectionReference = firestore.CollectionReference
+import { FirebaseOffer } from '@echo/firebase/model/offer'
+import { CollectionReference } from '@google-cloud/firestore'
 
 /**
  * Get offers reference

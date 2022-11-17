@@ -1,17 +1,12 @@
 import { isEmpty, isNil } from 'ramda'
 import { Chain, chain } from 'wagmi'
-
 /* eslint-disable no-console */
+
 interface Config {
   appEnvironment: AppEnvironment
   chains: Chain[]
   alchemyKey: string
   useTestnet: boolean
-}
-
-interface ServerConfig {
-  appEnvironment: AppEnvironment
-  ironPassword: string
 }
 
 export enum AppEnvironment {
@@ -73,33 +68,5 @@ export const config = (): Config => {
     chains: getUseTestnet() ? [chain.goerli] : [chain.mainnet],
     useTestnet,
     alchemyKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
-  }
-}
-
-function getApiAppEnvironment(): AppEnvironment {
-  const env = process.env.API_APP_ENV?.toLowerCase()
-  switch (env) {
-    case 'production':
-      return AppEnvironment.PROD
-    case 'development':
-      return AppEnvironment.DEV
-    case 'mock':
-      return AppEnvironment.MOCK
-    default:
-      if (process.env.NODE_ENV === 'production') {
-        return AppEnvironment.PROD
-      } else {
-        return AppEnvironment.DEV
-      }
-  }
-}
-
-export const serverConfig = (): ServerConfig => {
-  if (isNil(process.env.IRON_PASSWORD) || isEmpty(process.env.IRON_PASSWORD)) {
-    throw new Error('.env should contain IRON_PASSWORD')
-  }
-  return {
-    appEnvironment: getApiAppEnvironment(),
-    ironPassword: process.env.IRON_PASSWORD
   }
 }

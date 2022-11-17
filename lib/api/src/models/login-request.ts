@@ -1,6 +1,6 @@
 import { NextApiRequest } from 'next'
 
-export interface LoginRequest {
+interface LoginRequest {
   message: string
   signature: string
   address: string

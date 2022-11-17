@@ -1,7 +1,7 @@
-import { mapUser } from '../../mappers/user'
-import { FirebaseUser } from '../../model/user'
 import { getAdminFirebase } from '../config/config'
-import { convertDocumentSnapshotToFirebase } from '../utils/document-snapshot'
+import { convertAdminDocumentSnapshot } from '../utils/document-snapshot'
+import { mapUser } from '@echo/firebase/mappers/user'
+import { FirebaseUser } from '@echo/firebase/model/user'
 import { User } from '@echo/model/user'
 import { QueryDocumentSnapshot } from '@google-cloud/firestore'
 import { getAddress } from 'ethers/lib/utils'
@@ -21,7 +21,7 @@ export function getUser(id: string): Promise<User | undefined> {
       if (!snapshot.exists) {
         return undefined
       }
-      return mapUser(convertDocumentSnapshotToFirebase<FirebaseUser>(snapshot))
+      return mapUser(convertAdminDocumentSnapshot<FirebaseUser>(snapshot))
     })
 }
 

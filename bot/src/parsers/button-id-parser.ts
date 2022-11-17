@@ -1,4 +1,4 @@
-import { getOffer } from '@echo/firebase/admin/getters/get-offer'
+import { getOffer } from '@echo/firebase-admin/getters/get-offer'
 import { ButtonAction, buttonIdPrefixes, ButtonWithData } from 'models/button-action'
 import { drop } from 'ramda'
 

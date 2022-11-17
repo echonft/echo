@@ -1,7 +1,7 @@
-import { mapCollection } from '../../mappers/collection'
-import { FirebaseCollection } from '../../model/collection'
 import { getAdminFirebase } from '../config/config'
-import { convertDocumentSnapshotToFirebase } from '../utils/document-snapshot'
+import { convertAdminDocumentSnapshot } from '../utils/document-snapshot'
+import { mapCollection } from '@echo/firebase/mappers/collection'
+import { FirebaseCollection } from '@echo/firebase/model/collection'
 import { Collection } from '@echo/model/collection'
 
 /**
@@ -18,6 +18,6 @@ export function getCollection(id: string): Promise<Collection | undefined> {
       if (!snapshot.exists) {
         return undefined
       }
-      return mapCollection(convertDocumentSnapshotToFirebase<FirebaseCollection>(snapshot))
+      return mapCollection(convertAdminDocumentSnapshot<FirebaseCollection>(snapshot))
     })
 }

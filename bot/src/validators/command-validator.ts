@@ -1,4 +1,4 @@
-import { getCollection } from '@echo/firebase/admin/getters/get-collection'
+import { getCollection } from '@echo/firebase-admin/getters/get-collection'
 import { ChatInputCommandInteraction } from 'discord.js'
 import { DiscordErrors, interactionReplyForError } from 'errors/errors'
 import { isNil } from 'ramda'

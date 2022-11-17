@@ -1,8 +1,8 @@
-import { ironOptions } from './_utils/iron-options'
-import { verifySignature } from './_utils/verify-utils'
-import { getAdminFirebase } from '@echo/firebase/admin/config/config'
-import { getUserWithAddress } from '@echo/firebase/admin/getters/get-user'
-import { ApiLoginRequest } from '@lib/services/api/models/login-request'
+import { ApiLoginRequest } from '../models/login-request'
+import { ironOptions } from '../utils/iron-options'
+import { verifySignature } from '../utils/verify-utils'
+import { getAdminFirebase } from '@echo/firebase-admin/config/config'
+import { getUserWithAddress } from '@echo/firebase-admin/getters/get-user'
 import { getAddress } from 'ethers/lib/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { isNil } from 'ramda'
@@ -45,4 +45,4 @@ const handler = async (req: ApiLoginRequest, res: any) => {
   }
 }
 
-export default withIronSessionApiRoute(handler, ironOptions)
+export const login = withIronSessionApiRoute(handler, ironOptions)

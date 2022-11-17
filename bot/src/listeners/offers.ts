@@ -1,4 +1,4 @@
-import { listenToOffer } from '@echo/firebase/admin/listeners/offer'
+import { listenToOffer } from '@echo/firebase-admin/listeners/offer'
 import { buildBuyOfferButton } from 'builders/offer-button-builder'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'

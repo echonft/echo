@@ -1,6 +1,6 @@
 import { useFirebase } from '@components/providers/firebase-provider'
 import { useLogger } from '@components/providers/logger-provider'
-import { getFirebaseDocSnapshotFromPath } from '@echo/firebase/admin/getters/get-document'
+import { getFirebaseDocSnapshotFromPath } from '@echo/firebase/utils/document'
 import { AppEnvironment, config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
 import { doc, DocumentData, DocumentReference, DocumentSnapshot, getFirestore, onSnapshot } from 'firebase/firestore'
