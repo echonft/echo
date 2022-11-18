@@ -1,6 +1,6 @@
 import { FirebaseMapperError } from '../errors/mapper-error'
 import { mapCollection } from '../mappers/collection'
-import { FirebaseOffer } from '../models/offer'
+import { FirebaseOffer } from '../model/offer'
 import { FirebaseDocument } from '../paths/document-path'
 import { getDocument } from '../utils/document'
 import { mapUser } from './user'

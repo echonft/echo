@@ -1,6 +1,5 @@
 import { FirebaseDocument, FirebaseDocumentPath } from '../paths/document-path'
 import { doc, DocumentReference, DocumentSnapshot, getDoc, getFirestore } from 'firebase/firestore'
-import { FirebaseUser } from 'models/user'
 
 /**
  * Get a reference of a document from a path and a segment. Syntax sugar for typing

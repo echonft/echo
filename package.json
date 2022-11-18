@@ -21,6 +21,7 @@
   ],
   "scripts": {
     "build": "turbo run build",
+    "build:dependencies": "turbo run build --filter @echo/frontend^... --filter @echo/bot^...",
     "dev": "turbo run dev",
     "frontend:dev": "env-cmd -f .env turbo run dev --filter @echo/frontend...",
     "frontend:build": "turbo run build --filter @echo/frontend...",

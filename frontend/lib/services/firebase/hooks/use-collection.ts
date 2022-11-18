@@ -1,7 +1,7 @@
 import { useFirebase } from '@components/providers/firebase-provider'
 import { useLogger } from '@components/providers/logger-provider'
 import { FirebaseDocument, FirebaseDocumentPath } from '@echo/firebase/paths/document-path'
-import { getCollectionQuery } from '@echo/firebase/query/collection'
+import { getCollectionQuery } from '@echo/firebase/queries/collection'
 import { AppEnvironment, config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
 import firebase from 'firebase/compat'

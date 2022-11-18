@@ -1,4 +1,4 @@
-import { FirebaseCollection } from '../models/collection'
+import { FirebaseCollection } from '../model/collection'
 import { Collection } from '@echo/model/collection'
 import { DocumentSnapshot } from 'firebase/firestore'
 import { isNil } from 'ramda'

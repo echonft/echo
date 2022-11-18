@@ -1,4 +1,4 @@
-import { FirebaseUser } from '../models/user'
+import { FirebaseUser } from '../model/user'
 import { User } from '@echo/model/user'
 import { DocumentSnapshot } from 'firebase/firestore'
 import { isNil } from 'ramda'

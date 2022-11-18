@@ -1,5 +1,5 @@
 import { mapCollection } from '@echo/firebase/mappers/collection'
-import { FirebaseCollection } from '@echo/firebase/models/collection'
+import { FirebaseCollection } from '@echo/firebase/model/collection'
 import { FirebaseDocument } from '@echo/firebase/paths/document-path'
 import { Collection } from '@echo/model/collection'
 import { useDocument } from '@lib/services/firebase/hooks/use-document'
