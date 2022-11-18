@@ -1,12 +1,12 @@
-import { FirebaseCollection } from '../model/collection'
-import { FirebaseOffer } from '../model/offer'
-import { FirebaseUser } from '../model/user'
-import { FirebaseDocumentPath } from '../paths/document-path'
-import { mapCollection } from './collection'
+import { FirebaseMapperError } from '../errors/mapper-error'
+import { mapCollection } from '../mappers/collection'
+import { FirebaseOffer } from '../models/offer'
+import { FirebaseDocument } from '../paths/document-path'
+import { getDocument } from '../utils/document'
 import { mapUser } from './user'
 import { Offer, OfferStatus, OfferType } from '@echo/model/offer'
 import { OfferItem } from '@echo/model/offer-item'
-import { doc, DocumentSnapshot, getDoc, getFirestore } from 'firebase/firestore'
+import { DocumentSnapshot } from 'firebase/firestore'
 import { isEmpty, isNil } from 'ramda'
 
 /**
@@ -16,24 +16,16 @@ import { isEmpty, isNil } from 'ramda'
  * TODO Should make sure buyer/seller data is correct
  */
 export async function mapOffer(snapshot: DocumentSnapshot<FirebaseOffer>): Promise<Offer> {
-  const data = snapshot.data()!
-  const buyer = data.buyer?.id
-    ? await mapUser(
-        (await getDoc(doc(getFirestore(), FirebaseDocumentPath.USERS, data.buyer.id))) as DocumentSnapshot<FirebaseUser>
-      )
-    : undefined
-  const seller = data.seller?.id
-    ? await mapUser(
-        (await getDoc(
-          doc(getFirestore(), FirebaseDocumentPath.USERS, data.seller.id)
-        )) as DocumentSnapshot<FirebaseUser>
-      )
-    : undefined
-  const collection = await mapCollection(
-    (await getDoc(
-      doc(getFirestore(), FirebaseDocumentPath.COLLECTIONS, data.collection.id)
-    )) as DocumentSnapshot<FirebaseCollection>
-  )
+  const data = snapshot.data()
+  if (!data) {
+    return Promise.reject(new FirebaseMapperError(snapshot.id, FirebaseDocument.USERS))
+  }
+  const counterparty = data.buyer?.id ? await getDocument(data.buyer.id, FirebaseDocument.USERS, mapUser) : undefined
+  const owner = data.seller?.id ? await getDocument(data.buyer.id, FirebaseDocument.USERS, mapUser) : undefined
+  if (!owner) {
+    return Promise.reject(new FirebaseMapperError(snapshot.id, FirebaseDocument.USERS, 'No owner found'))
+  }
+  const collection = await getDocument(data.collection.id, FirebaseDocument.COLLECTIONS, mapCollection)
   return {
     id: snapshot.id,
     type: data.type as OfferType,
@@ -41,8 +33,8 @@ export async function mapOffer(snapshot: DocumentSnapshot<FirebaseOffer>): Promi
     counterpartyItems: mapOfferItem(data.buying),
     ownerItems: mapOfferItem(data.selling),
     collection: collection,
-    counterparty: buyer,
-    owner: seller!,
+    counterparty,
+    owner,
     postedAt: isNil(data.postedAt) ? undefined : new Date(data.postedAt)
   }
 }

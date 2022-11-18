@@ -4,6 +4,7 @@ import { getFirebaseDocSnapshotFromPath } from '@echo/firebase/utils/document'
 import { AppEnvironment, config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
 import { doc, DocumentData, DocumentReference, DocumentSnapshot, getFirestore, onSnapshot } from 'firebase/firestore'
+import { FirebaseDocument, FirebaseDocumentPath } from 'lib/firebase/src/paths/document-path'
 import { isNil } from 'ramda'
 import { useEffect } from 'react'
 import useSWR, { SWRResponse, useSWRConfig } from 'swr'
@@ -55,12 +56,12 @@ function useDocumentInternal<T = DocumentData, W = T>(
  * @param options?
  */
 export function useDocument<T, W = T>(
-  path: string | undefined,
+  path: FirebaseDocument | undefined,
   segment: string | undefined,
   options?: UseDocumentOptions<T, W>
 ): SwrResult<W> {
   const mapper = options?.mapper
-  const { data, mutate } = useDocumentInternal<T, W>(path, segment, options)
+  const { data, mutate } = useDocumentInternal<T, W>(FirebaseDocumentPath(path), segment, options)
   useEffect(() => {
     // No need to listen when mocking
     if (config().appEnvironment !== AppEnvironment.MOCK && path && options?.listen) {

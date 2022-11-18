@@ -1,4 +1,4 @@
-import { FirebaseCollection } from '../model/collection'
+import { FirebaseCollection } from '../models/collection'
 import { Collection } from '@echo/model/collection'
 import { DocumentSnapshot } from 'firebase/firestore'
 import { isNil } from 'ramda'
@@ -16,6 +16,7 @@ export async function mapCollection(snapshot: DocumentSnapshot<FirebaseCollectio
   return Promise.resolve({
     discordId: snapshot.id,
     channelId: data['channel-id'],
-    contractAddresses: data['allowed-contracts']
+    contractAddresses: data['allowed-contracts'],
+    name: data.name
   })
 }
