@@ -18,8 +18,7 @@
       "outputs": []
     },
     "dev": {
-      "cache": false,
-      "inputs": [".env"]
+      "cache": false
     },
     "start": {
       "cache": false
@@ -27,11 +26,17 @@
     "clean": {
       "cache": false
     },
+    "vercel": {
+      "dependsOn": ["//#vercel:dev", "^dev"],
+      "cache": false
+    },
     "@echo/bot#deploy-commands": {
-      "cache": false,
-      "dependsOn": ["@echo/discord#build"],
-      "outputs": ["dist/**"],
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**"],
       "inputs": [".env"]
+    },
+    "//#vercel:dev": {
+      "cache": false
     }
   },
   "globalDependencies": ["tsconfig.json"]
