@@ -7,8 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "ci:lint": "eslint \"components/**/*.ts?(x)\" \"lib/**/*.ts?(x)\" \"pages/**/*.ts?(x)\"",
+    "ci:prettier": "prettier \"components/**/*.ts?(x)\" \"pages/**/*.ts?(x)\" \"lib/**/*.ts?(x)\"",
     "lint": "eslint --cache --fix \"components/**/*.ts?(x)\" \"lib/**/*.ts?(x)\" \"pages/**/*.ts?(x)\"",
-    "prettier": "prettier \"components/**/*.ts?(x)\" \"pages/**/*.ts?(x)\" \"lib/**/*.ts?(x)\"",
     "tsc": "tsc --noEmit",
     "update-packages": "ncu -u",
     "clean": "rm -rf tsconfig.tsbuildinfo dist node_modules"

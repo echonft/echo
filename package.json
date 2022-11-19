@@ -19,6 +19,9 @@
     "frontend",
     "lib/*"
   ],
+  "lint-staged": {
+    "*.(json|yaml|cjs|js|ts|tsx)": "prettier --write --cache"
+  },
   "scripts": {
     "build": "turbo run build",
     "build:dependencies": "turbo run build --filter=@echo/frontend^... --filter=@echo/bot^...",
@@ -36,7 +39,8 @@
     "vercel": "turbo run vercel --filter=@echo/frontend^...",
     "vercel:dev": "env-cmd -f .env vercel dev",
     "lint": "turbo run lint",
-    "prettier": "turbo run prettier",
+    "ci:lint": "turbo run ci:lint",
+    "ci:prettier": "turbo run ci:prettier",
     "tsc": "turbo run tsc",
     "update-packages": "ncu -u && turbo run update-packages",
     "clean": "turbo run clean && rm -rf node_modules"

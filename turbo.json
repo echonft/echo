@@ -6,13 +6,16 @@
       "outputs": [".next/**", "dist/**"]
     },
     "lint": {
-      "outputs": []
+      "cache": false
     },
-    "prettier": {
-      "outputs": []
+    "ci:lint": {
+      "cache": false
+    },
+    "ci:prettier": {
+      "cache": false
     },
     "tsc": {
-      "outputs": []
+      "cache": false
     },
     "dev": {
       "cache": false

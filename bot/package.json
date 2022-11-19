@@ -9,8 +9,9 @@
     "dev": "ts-node-dev src/index.ts",
     "build": "rm -f tsconfig.tsbuildinfo && rm -fr dist/* && tsc",
     "deploy-commands": "ts-node-esm src/scripts/deploy-commands.ts",
-    "lint": "eslint --cache --fix \"src/**/*.ts\"",
-    "prettier": "prettier \"src/**/*.ts\"",
+    "ci:lint": "eslint \"src/**/*.ts\"",
+    "ci:prettier": "prettier \"src/**/*.ts\"",
+    "lint": "eslint --fix \"src/**/*.ts\"",
     "tsc": "tsc --noEmit",
     "update-packages": "ncu -u",
     "clean": "rm -rf tsconfig.tsbuildinfo dist node_modules"

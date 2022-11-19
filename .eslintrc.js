@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  ignorePatterns: ['.eslintrc.js', '.eslintrc.cjs', 'lint-staged.config.js', 'prettier.config.js'],
+  ignorePatterns: ['.eslintrc.js', '.eslintrc.cjs', 'prettier.config.js'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
