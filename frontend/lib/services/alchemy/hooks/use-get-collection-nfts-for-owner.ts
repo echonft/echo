@@ -9,7 +9,7 @@ import { useAccount } from 'wagmi'
 export function useGetCollectionNftsForOwner(contractAddresses: string[] | undefined) {
   const alchemy = useAlchemy()
   const { address } = useAccount()
-  const { data } = useSWR<Result<Erc721[]>>(
+  const { data } = useSWR<Result<Erc721[]>, Error>(
     contractAddresses && address && { contractAddresses, address },
     ({ contractAddresses, address }) =>
       alchemy.nft

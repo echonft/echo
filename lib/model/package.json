@@ -40,7 +40,6 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "eslint-plugin-import": "2.26.0",
     "typescript": "4.9.3"
   }
 }

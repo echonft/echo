@@ -9,7 +9,7 @@ import useSWR from 'swr'
 
 export function useGetNftsForItems(items: OfferItem[] | undefined) {
   const alchemy = useAlchemy()
-  const { data } = useSWR<Result<Erc721[]>>(items && { items }, ({ items }) =>
+  const { data } = useSWR<Result<Erc721[]>, Error>(items && { items }, ({ items }) =>
     Promise.all(
       items
         .filter((item: OfferItem) => !isNil(item.id))

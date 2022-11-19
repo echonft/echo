@@ -1,9 +1,9 @@
-export class HTTPError extends Error {
-  public info: any
+export class HTTPError<Response> extends Error {
+  public res: Response
   public status: number
-  constructor(url: string, info: any, status: number) {
+  constructor(url: string, res: Response, status: number) {
     super(`Error fetching: ${url}`)
-    this.info = info
+    this.res = res
     this.status = status
   }
 }

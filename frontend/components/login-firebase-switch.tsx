@@ -8,7 +8,7 @@ interface Props {
   tokenType: string | undefined
   signature: string | undefined
   message: string | undefined
-  hasLoggedIn?: (isLoggedIn: boolean, error: any | undefined) => void
+  hasLoggedIn?: (isLoggedIn: boolean, error: Error | undefined) => void
 }
 
 export const LoginFirebaseSwitch: React.FunctionComponent<Props> = ({

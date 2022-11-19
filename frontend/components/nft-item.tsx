@@ -1,5 +1,5 @@
 import { Erc721 } from '@echo/model/erc721'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'

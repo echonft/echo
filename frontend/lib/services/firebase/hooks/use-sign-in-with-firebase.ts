@@ -7,8 +7,9 @@ import useSWR from 'swr'
 // TODO Use Result
 export const useSignInWithFirebase = (apiKey: string | undefined) => {
   const { auth, error: firebaseAuthError } = useGetFirebaseAuth()
-  const { data, error } = useSWR<UserCredential>(auth && !firebaseAuthError && apiKey && SwrKey.FIREBASE_LOGIN, () =>
-    signInWithCustomToken(auth!, apiKey!)
+  const { data, error } = useSWR<UserCredential, Error>(
+    auth && !firebaseAuthError && apiKey && SwrKey.FIREBASE_LOGIN,
+    () => signInWithCustomToken(auth!, apiKey!)
   )
 
   return { data, loggedIn: !isNil(data) && isNil(error), error }

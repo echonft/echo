@@ -1,6 +1,6 @@
 import { OfferItemNftsFetcher } from '@components/offer-item-nfts-fetcher'
 import { NewOffer } from '@echo/model/offer'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import React from 'react'
 
 interface Props {

@@ -1,7 +1,7 @@
 module.exports = {
-  extends: ['../.eslintrc.js', 'plugin:import/recommended', 'plugin:import/typescript'],
+  extends: ['../.eslintrc.js'],
   rules: {
-    'import/no-unresolved': 'off'
+    'no-console': 'off'
   },
   env: {
     node: true,

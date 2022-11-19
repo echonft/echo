@@ -38,6 +38,9 @@
   "files": [
     "dist"
   ],
+  "peerDependencies": {
+    "next": "13.0.3"
+  },
   "dependencies": {
     "@echo/firebase-admin": "workspace:*",
     "ethers": "5.7.2",
@@ -48,7 +51,6 @@
   },
   "devDependencies": {
     "@types/ramda": "0.28.20",
-    "eslint-plugin-import": "2.26.0",
     "typescript": "4.9.3"
   }
 }

@@ -1,12 +1,13 @@
 import { discordSecret } from '@echo/discord/admin/config'
 import { discordConfig } from '@echo/discord/config/config'
 import { DiscordTokenResponse } from '@echo/discord/model/token-response'
-import { Routes } from '@echo/discord/routing/routes'
+import { Routes, TokenRoutePostData } from '@echo/discord/routing/routes'
 import { HTTPError } from '@lib/services/fetcher/errors/http'
 import { fetcher } from '@lib/services/fetcher/fetcher'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import dynamic from 'next/dynamic'
-import { isNil } from 'ramda'
+import { ParsedUrlQuery } from 'querystring'
+import { isEmpty, isNil } from 'ramda'
 
 const Connect = dynamic(() => import('@components/connect').then((mod) => mod.Connect), {
   ssr: false
@@ -17,36 +18,45 @@ interface Props {
   tokenType: string | undefined
 }
 
+interface UrlQuery extends ParsedUrlQuery {
+  code: string
+}
+
 const Login: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ accessToken, tokenType }) => (
   <Connect accessToken={accessToken} tokenType={tokenType} />
 )
 
+// FIXME
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-export const getServerSideProps: GetServerSideProps<Props> = async ({ query, locale }) => {
-  if (isNil(query.code)) {
+export const getServerSideProps: GetServerSideProps<Props, UrlQuery> = async ({ params, locale }) => {
+  if (isNil(params) || isEmpty(params) || isNil(params.code) || isEmpty(params.code)) {
     return { notFound: true }
-  }
-  const data = new URLSearchParams({
-    client_id: discordConfig().clientId,
-    client_secret: discordSecret().clientSecret,
-    grant_type: 'authorization_code',
-    code: query.code as string,
-    redirect_uri: discordConfig().redirectUri,
-    scope: 'identify'
-  }).toString()
-  const headers = {
-    'Content-Type': 'application/x-www-form-urlencoded'
   }
   return import(`@lib/messages/${locale}.json`)
     .then((messages) =>
-      fetcher<DiscordTokenResponse>(Routes.TOKEN, {}, { headers, body: data })
+      fetcher<DiscordTokenResponse, TokenRoutePostData>(
+        Routes.TOKEN,
+        {
+          client_id: discordConfig().clientId,
+          client_secret: discordSecret().clientSecret,
+          grant_type: 'authorization_code',
+          code: params.code,
+          redirect_uri: discordConfig().redirectUri,
+          scope: 'identify'
+        },
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        }
+      )
         .then((response) => ({
           props: { accessToken: response.access_token, tokenType: response.token_type, messages: messages.default }
         }))
-        .catch((err: HTTPError) => {
+        .catch((err: HTTPError<DiscordTokenResponse>) => {
           // eslint-disable-next-line no-console
-          console.error(`Error fetching discord token, ${err} ${JSON.stringify(err.info)} ${err.status}`)
+          console.error(`Error fetching discord token, ${err} ${JSON.stringify(err.res)} ${err.status}`)
           return { notFound: true }
         })
     )

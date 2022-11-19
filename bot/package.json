@@ -27,7 +27,6 @@
   "devDependencies": {
     "@tsconfig/node18": "1.0.1",
     "@types/ramda": "0.28.20",
-    "eslint-plugin-import": "2.26.0",
     "ts-node-dev": "2.0.0",
     "tsconfig-paths": "4.1.0",
     "ts-node": "10.9.1",

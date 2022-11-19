@@ -3,7 +3,7 @@ import { BareFetcher, Key, SWRConfiguration, SWRHook } from 'swr/dist/types'
 
 // This is a SWR middleware for keeping the data even if key changes.
 export function laggy(useSWRNext: SWRHook) {
-  return <Data = any, Error = any>(
+  return <Data, Error>(
     key: Key,
     fetcher: BareFetcher<Data> | null,
     config: SWRConfiguration<Data, Error, BareFetcher<Data>>

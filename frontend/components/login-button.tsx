@@ -17,7 +17,7 @@ export const LoginButton: React.FunctionComponent<Props> = ({ accessToken, token
   const [shouldSign, setShouldSign] = useState<boolean>(false)
   const [message, setMessage] = useState<string>()
   const [signature, setSignature] = useState<string>()
-  const [error, setError] = useState<any>()
+  const [error, setError] = useState<Error>()
   if (error) {
     logger.error('Error logging in,', error)
   }

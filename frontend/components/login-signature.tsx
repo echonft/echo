@@ -7,7 +7,7 @@ import { useAccount } from 'wagmi'
 
 interface Props {
   shouldSign: boolean
-  fetchedSignature?: (signature: string | undefined, message: string | undefined, error: any | undefined) => void
+  fetchedSignature?: (signature: string | undefined, message: string | undefined, error: Error | undefined) => void
 }
 
 export const LoginSignature: React.FunctionComponent<Props> = ({ shouldSign, fetchedSignature }) => {

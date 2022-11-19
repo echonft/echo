@@ -9,7 +9,7 @@ import useSWR from 'swr'
 
 export function useGetCollectionNfts(contractAddresses: string[] | undefined, useLaggy?: boolean) {
   const alchemy = useAlchemy()
-  const { data } = useSWR<Result<Erc721[]>>(
+  const { data } = useSWR<Result<Erc721[]>, Error>(
     contractAddresses && { contractAddresses },
     ({ contractAddresses }) =>
       Promise.all(

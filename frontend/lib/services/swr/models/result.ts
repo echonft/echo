@@ -1,11 +1,11 @@
-export type SwrResult<T> = Result<T> | undefined
+export type SwrResult<Data, Meta = undefined> = Result<Data, Meta> | undefined
 
-export interface Result<T> {
+// FIXME find a way so data is not optional
+export interface Result<Data, Meta = undefined> {
   successful: boolean
-  data?: T
+  data?: Data
   message?: string
-  // TODO Add generics with this, not sure if needed for now
-  meta?: any
+  meta?: Meta | undefined
 }
 
 /**
@@ -14,8 +14,11 @@ export interface Result<T> {
  * @param meta Any extra data
  * @return Result A result object with successful = true
  */
-export function successfulResult<T>(data?: T, meta?: any): Result<T> {
-  return { successful: true, data: data, meta: meta, message: undefined }
+export function successfulResult<Data, Meta extends Record<string, unknown> | undefined = undefined>(
+  data: Data,
+  meta?: Meta
+): Result<Data, Meta> {
+  return { successful: true, data, meta, message: undefined }
 }
 
 /**
@@ -23,6 +26,6 @@ export function successfulResult<T>(data?: T, meta?: any): Result<T> {
  * @param message Error message
  * @return Result A result object with successful = false
  */
-export function failureResult<T>(message?: string): Result<T> {
+export function failureResult<Data>(message?: string): Result<Data> {
   return { successful: false, data: undefined, message: message ?? 'Failed' }
 }

@@ -14,9 +14,6 @@
     "tsc": {
       "outputs": []
     },
-    "update-packages": {
-      "outputs": []
-    },
     "dev": {
       "cache": false
     },
@@ -26,13 +23,48 @@
     "clean": {
       "cache": false
     },
-    "vercel": {
-      "dependsOn": ["//#vercel:dev", "^dev"],
+    "update-packages": {
       "cache": false
+    },
+    "vercel": {
+      "cache": false,
+      "dependsOn": ["//#vercel:dev", "dev", "^dev"]
+    },
+    "@echo/api#build": {
+      "dependsOn": ["^build"],
+      "env": ["NODE_ENV", "API_APP_ENV", "IRON_PASSWORD"],
+      "outputs": ["dist/**"]
+    },
+    "@echo/discord#build": {
+      "dependsOn": ["^build"],
+      "env": [
+        "DISCORD_CLIENT_TOKEN",
+        "DISCORD_CLIENT_ID",
+        "DISCORD_CLIENT_SECRET",
+        "DISCORD_REDIRECT_URI",
+        "DISCORD_GUILD_ID"
+      ],
+      "outputs": ["dist/**"]
+    },
+    "@echo/firebase-admin#build": {
+      "dependsOn": ["^build"],
+      "env": ["FIREBASE_SERVICE_ACCOUNT_KEY"],
+      "outputs": ["dist/**"]
+    },
+    "@echo/frontend#build": {
+      "dependsOn": ["^build"],
+      "env": [
+        "NODE_ENV",
+        "NEXT_PUBLIC_APP_ENV",
+        "NEXT_PUBLIC_TESTNET",
+        "NEXT_PUBLIC_ALCHEMY_API_KEY",
+        "NEXT_PUBLIC_ALCHEMY_TESTNET_API_KEY"
+      ],
+      "outputs": [".next/**", "dist/**"]
     },
     "@echo/bot#deploy-commands": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "dist/**"],
+      "outputs": ["dist/**"],
       "inputs": [".env"]
     },
     "//#vercel:dev": {

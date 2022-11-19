@@ -15,7 +15,7 @@ interface Props<T> {
   name?: string
 }
 
-export const Autocomplete = <T extends unknown>({
+export const Autocomplete = <T,>({
   placeholder,
   searchQuery,
   options,

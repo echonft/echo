@@ -1,6 +1,14 @@
 module.exports = {
   root: true,
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'turbo', 'prettier'],
+  ignorePatterns: ['.eslintrc.js', '.eslintrc.cjs', 'lint-staged.config.js', 'prettier.config.js'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'turbo',
+    'prettier'
+  ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   rules: {
@@ -22,12 +30,8 @@ module.exports = {
       }
     ],
     'simple-import-sort/exports': 'error',
-    '@typescript-eslint/no-unnecessary-type-constraint': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    'no-undef': 'off',
     'no-console': 'warn',
-    'import/no-unresolved': 'off',
-    'turbo/no-undeclared-env-vars': 'off'
+    'import/no-unresolved': 'off'
   },
   settings: {
     'import/resolver': {

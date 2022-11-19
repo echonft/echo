@@ -1,5 +1,5 @@
 import { SearchableObject } from '@lib/view-models/object'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import React from 'react'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 
@@ -8,7 +8,7 @@ interface Props<T> {
   onRemoveTag: (removedTag: SearchableObject<T>) => void
 }
 
-export const Tag = <T extends any>({ tag, onRemoveTag }: Props<T>) => {
+export const Tag = <T,>({ tag, onRemoveTag }: Props<T>) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-2', 'bg-green-500', 'rounded', 'p-2')}>
       <span>{tag.label}</span>

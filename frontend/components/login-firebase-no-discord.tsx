@@ -8,7 +8,7 @@ import { useAccount } from 'wagmi'
 interface Props {
   signature: string | undefined
   message: string | undefined
-  hasLoggedIn?: (isLoggedIn: boolean, error: any | undefined) => void
+  hasLoggedIn?: (isLoggedIn: boolean, error: Error | undefined) => void
 }
 
 export const LoginFirebaseNoDiscord: React.FunctionComponent<Props> = ({ signature, message }) => {

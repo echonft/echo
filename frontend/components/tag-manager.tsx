@@ -1,6 +1,6 @@
 import { Tag } from '@components/tag'
 import { SearchableObject } from '@lib/view-models/object'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import React from 'react'
 
 interface Props<T> {
@@ -8,7 +8,7 @@ interface Props<T> {
   onRemoveTag: (removedTag: SearchableObject<T>) => void
 }
 
-export const TagManager = <T extends any>({ tags, onRemoveTag }: Props<T>) => {
+export const TagManager = <T,>({ tags, onRemoveTag }: Props<T>) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-2')}>
       {tags.map((tag) => (

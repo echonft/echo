@@ -2,14 +2,14 @@ import { useLogger } from '@components/providers/logger-provider'
 import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app'
 import { browserLocalPersistence, getAuth } from 'firebase/auth'
 import { isNil } from 'ramda'
-import React, { PropsWithChildren, useEffect, useState } from 'react'
+import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
 
 interface FirebaseProviderValue {
   isInitialized: boolean
   firebaseApp: FirebaseApp | undefined
 }
 
-const firebaseContext = React.createContext<FirebaseProviderValue | null>(null)
+const firebaseContext = createContext<FirebaseProviderValue | null>(null)
 
 interface Props {
   options: FirebaseOptions
@@ -45,7 +45,7 @@ export const FirebaseProvider: React.FunctionComponent<PropsWithChildren<Props>>
 }
 
 export const useFirebase = (): FirebaseProviderValue => {
-  const contextValue = React.useContext(firebaseContext)
+  const contextValue = useContext(firebaseContext)
   if (!contextValue) {
     throw new Error('useFirebase must be used within FirebaseProvider.')
   }

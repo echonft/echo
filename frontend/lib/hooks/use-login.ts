@@ -13,7 +13,7 @@ export function useLogin(
   signature: string | undefined
 ) {
   const { data: discordUser, error: discordUserError } = useFetchDiscordUser(accessToken, tokenType)
-  const { data, error } = useSWR<LoginResponse>(
+  const { data, error } = useSWR<LoginResponse, Error>(
     discordUser &&
       address &&
       message &&
@@ -35,7 +35,7 @@ export function useLoginWithoutDiscord(
   message: string | undefined,
   signature: string | undefined
 ) {
-  const { data, error } = useSWR<LoginResponse>(
+  const { data, error } = useSWR<LoginResponse, Error>(
     address && message && signature && [Routes.LOGIN, { signature, address, message }],
     fetcher
   )

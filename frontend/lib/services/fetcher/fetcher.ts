@@ -1,9 +1,13 @@
 import { Routes } from '@echo/discord/routing/routes'
 import { HTTPError } from '@lib/services/fetcher/errors/http'
-import { isNil } from 'ramda'
+import { isEmpty, isNil } from 'ramda'
 
-export const fetcher = <Response>(url: Routes, data?: any, overrideInit?: RequestInit): Promise<Response> => {
-  if (isNil(data)) {
+export const fetcher = <Response, Data extends Record<string, unknown> | undefined = undefined>(
+  url: Routes,
+  data?: Data,
+  overrideInit?: RequestInit
+): Promise<Response> => {
+  if (isNil(data) || isEmpty(data)) {
     return fetch(url, {
       headers: {
         'Content-Type': 'application/json'

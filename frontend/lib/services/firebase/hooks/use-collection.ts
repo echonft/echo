@@ -27,8 +27,8 @@ function useCollectionInternal<T, W = DocumentSnapshot<T>>(
   const { firebaseApp } = useFirebase()
   const { mutate, suspense } = useSWRConfig()
   const collectionQuery = getCollectionQuery<T>(path, options?.constraints)
-  const key = collectionQuery ? JSON.stringify((collectionQuery as any)._query) : null
-  const { data, error } = useSWR<Result<W[]>>(
+  const key = collectionQuery ? JSON.stringify(collectionQuery._query) : null
+  const { data, error } = useSWR<Result<W[]>, Error>(
     firebaseApp && collectionQuery,
     (query) => {
       if (!query) {
@@ -40,7 +40,7 @@ function useCollectionInternal<T, W = DocumentSnapshot<T>>(
           mutate(queryDocumentSnapshot.ref.path, queryDocumentSnapshot, false)
         })
         if (queryDocumentSnapshots.empty) {
-          return successfulResult()
+          return successfulResult([])
         }
         if (isNil(options) || isNil(options?.mapper)) {
           return successfulResult(queryDocumentSnapshots.docs as unknown as W[])
@@ -53,13 +53,13 @@ function useCollectionInternal<T, W = DocumentSnapshot<T>>(
     },
     { suspense: options?.suspense || suspense }
   )
-  // If there query is wrong we won't call SWR and can return directly
+  // If the query is wrong we won't call SWR and can return directly
   if (collectionQuery && !key) {
     return failureResult('_query property missing - check firestore implementation')
   }
   if (error) {
     logger.error(`Error fetching collection at ${path}`, error)
-    return failureResult(error)
+    return failureResult(error.message)
   }
   return data
 }

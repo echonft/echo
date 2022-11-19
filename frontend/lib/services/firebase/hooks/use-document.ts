@@ -23,7 +23,7 @@ function useDocumentInternal<T = DocumentData, W = T>(
   const logger = useLogger()
   const { firebaseApp } = useFirebase()
   const { suspense } = useSWRConfig()
-  const { data, mutate, error } = useSWR<Result<W>>(
+  const { data, mutate, error } = useSWR<Result<W>, Error>(
     firebaseApp && path && segment && [path, segment],
     (path, segment) =>
       getFirebaseDocSnapshotFromPath<T>(path, segment).then((doc) => {
@@ -44,7 +44,7 @@ function useDocumentInternal<T = DocumentData, W = T>(
   }
   if (error) {
     logger.error(`Error fetching document at ${path}${segment}`, error)
-    return { data: failureResult(error), mutate }
+    return { data: failureResult(error.message), mutate }
   }
   return { data, mutate }
 }

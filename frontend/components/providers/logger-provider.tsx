@@ -1,10 +1,10 @@
 import { AppEnvironment, config } from '@lib/config/config'
-import pino from 'pino'
+import { pino } from 'pino'
 import { isNil } from 'ramda'
-import React, { PropsWithChildren } from 'react'
+import React, { createContext, PropsWithChildren, useContext } from 'react'
 
 abstract class LoggerWrapper {
-  protected _instance: any
+  protected _instance: pino.BaseLogger | undefined
   abstract getInstance(): pino.BaseLogger
 }
 
@@ -19,7 +19,7 @@ export class PinoWrapper extends LoggerWrapper {
   }
 }
 
-const loggerContext = React.createContext<LoggerWrapper | undefined>(undefined)
+const loggerContext = createContext<LoggerWrapper | undefined>(undefined)
 
 interface Props {
   value: LoggerWrapper
@@ -30,7 +30,7 @@ export const LoggerProvider: React.FunctionComponent<PropsWithChildren<Props>> =
 }
 
 export const useLogger = (): pino.BaseLogger => {
-  const loggerWrapper = React.useContext(loggerContext)
+  const loggerWrapper = useContext(loggerContext)
   if (!loggerWrapper) {
     throw new Error('useLogger must be used within LoggerProvider.')
   }

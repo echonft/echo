@@ -37,6 +37,7 @@
     "wagmi": "0.8.4"
   },
   "devDependencies": {
+    "@next/eslint-plugin-next": "^13.0.4",
     "@types/node": "18.11.9",
     "@types/ramda": "0.28.20",
     "@types/react": "18.0.25",
