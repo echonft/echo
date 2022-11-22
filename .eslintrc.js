@@ -29,8 +29,10 @@ module.exports = {
         groups: []
       }
     ],
+    '@typescript-eslint/no-explicit-any': 'error',
     'simple-import-sort/exports': 'error',
     'no-console': 'warn',
+    'no-case-declarations': 'off',
     'import/no-unresolved': 'off'
   },
   settings: {

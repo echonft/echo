@@ -54,9 +54,9 @@ export const getServerSideProps: GetServerSideProps<Props, UrlQuery> = async ({ 
         .then((response) => ({
           props: { accessToken: response.access_token, tokenType: response.token_type, messages: messages.default }
         }))
-        .catch((err: HTTPError<DiscordTokenResponse>) => {
+        .catch((err: HTTPError) => {
           // eslint-disable-next-line no-console
-          console.error(`Error fetching discord token, ${err} ${JSON.stringify(err.res)} ${err.status}`)
+          console.error(`Error fetching discord token: ${err.message}`)
           return { notFound: true }
         })
     )

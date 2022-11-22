@@ -5,13 +5,14 @@
   "license": "MIT",
   "scripts": {
     "dev": "pnpm build --watch",
-    "build": "rm -f tsconfig.tsbuildinfo && rm -fr dist/* && tsc",
+    "build": "tsc",
     "ci:lint": "eslint \"src/**/*.ts\"",
     "ci:prettier": "prettier \"src/**/*.ts\"",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
     "tsc": "tsc --noEmit",
-    "update-packages": "ncu -u",
-    "clean": "rm -rf tsconfig.tsbuildinfo dist node_modules"
+    "clean": "rm -rf tsconfig.tsbuildinfo dist",
+    "update-modules": "ncu -u",
+    "remove-modules": "rm -rf node_modules"
   },
   "sideEffects": false,
   "type": "module",
@@ -38,9 +39,5 @@
   },
   "files": [
     "dist"
-  ],
-  "dependencies": {},
-  "devDependencies": {
-    "typescript": "4.9.3"
-  }
+  ]
 }

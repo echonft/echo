@@ -1,4 +1,4 @@
-import { connectSubcommand } from 'commands/connect'
+import { connectSubcommand } from './connect'
 import { SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder } from 'discord.js'
 
 interface CommandInterface {

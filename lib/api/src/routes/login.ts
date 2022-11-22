@@ -1,15 +1,18 @@
+import { ErrorResponse } from '../models/error-response'
 import { ApiLoginRequest } from '../models/login-request'
+import { LoginResponse } from '../models/login-response'
 import { ironOptions } from '../utils/iron-options'
 import { verifySignature } from '../utils/verify-utils'
 import { getAdminFirebase } from '@echo/firebase-admin/config/config'
 import { getUserWithAddress } from '@echo/firebase-admin/getters/get-user'
 import { getAddress } from 'ethers/lib/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
+import { NextApiResponse } from 'next'
 import { isNil } from 'ramda'
 import { generateNonce } from 'siwe'
 
 // TODO Add the collection here
-const handler = async (req: ApiLoginRequest, res: any) => {
+const handler = async (req: ApiLoginRequest, res: NextApiResponse<LoginResponse | ErrorResponse>) => {
   const { method } = req
   switch (method) {
     case 'POST':
@@ -19,11 +22,11 @@ const handler = async (req: ApiLoginRequest, res: any) => {
         const fields = await verifySignature(message, signature)
         const userDoc = await getUserWithAddress(formattedAddress)
         if (isNil(userDoc)) {
-          return res.status(404).send(`UNAUTHORIZED: No user found`)
+          return res.status(404).json({ error: `UNAUTHORIZED: No user found` })
         }
         const user = userDoc.data()
         if (fields.nonce !== user.nonce) {
-          return res.status(422).json({ message: 'Invalid nonce.' })
+          return res.status(422).json({ error: 'Invalid nonce.' })
         }
         // Set user data and regenerate nonce to avoid replay attacks
         if (isNil(discordId)) {
@@ -36,12 +39,12 @@ const handler = async (req: ApiLoginRequest, res: any) => {
         const apiKey = await getAdminFirebase().auth().createCustomToken(formattedAddress)
         res.json({ apiKey })
       } catch (error) {
-        return res.status(404).send(`UNAUTHORIZED: ${error}`)
+        return res.status(404).json({ error: `UNAUTHORIZED: ${error}` })
       }
       break
     default:
       res.setHeader('Allow', ['POST'])
-      res.status(405).end(`Method ${method} Not Allowed`)
+      res.status(405).json({ error: `Method ${method} Not Allowed` })
   }
 }
 

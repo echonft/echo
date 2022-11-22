@@ -5,7 +5,7 @@ import { FirebaseOffer } from '@echo/firebase/model/offer'
 import { Offer } from '@echo/model/offer'
 import { DocumentChange } from '@google-cloud/firestore'
 
-export function listenToOffer(onChange: (offer: Offer, change: DocumentChange<FirebaseOffer>) => Promise<void>) {
+export function listenToOffer(onChange: (offer: Offer, change: DocumentChange<FirebaseOffer>) => Promise<unknown>) {
   getOffersReference().onSnapshot(async (snapshot) => {
     snapshot.docChanges().map(async (change: DocumentChange<FirebaseOffer>) => {
       const offer = await mapOffer(convertAdminDocumentSnapshot(change.doc))

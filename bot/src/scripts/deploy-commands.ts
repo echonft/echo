@@ -1,6 +1,6 @@
+import { echoCommand } from '../commands/echo'
 import { discordSecret } from '@echo/discord/admin/config'
 import { discordConfig } from '@echo/discord/config/config'
-import { echoCommand } from 'commands/echo'
 import { REST, Routes } from 'discord.js'
 import { isEmpty, isNil } from 'ramda'
 
@@ -17,10 +17,10 @@ const rest = new REST({ version: '10' }).setToken(discordSecret().clientToken)
       throw Error('guild id is required')
     }
 
-    const data: any = await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
+    const data = (await rest.put(Routes.applicationGuildCommands(clientId, guildId), {
       // TODO Add all the commands here
       body: [echoCommand.data.toJSON()]
-    })
+    })) as unknown[]
 
     console.log(`Successfully reloaded ${data.length} application (/) commands.`)
   } catch (error) {

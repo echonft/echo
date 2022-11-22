@@ -1,3 +1,4 @@
+import { ErrorResponse } from '../models/error-response'
 import { NonceRequest } from '../models/nonce-request'
 import { NonceResponse } from '../models/nonce-response'
 import { ironOptions } from '../utils/iron-options'
@@ -8,11 +9,11 @@ import { NextApiResponse } from 'next'
 import { isNil } from 'ramda'
 import { generateNonce } from 'siwe'
 
-const handler = async (req: NonceRequest, res: NextApiResponse<NonceResponse>) => {
+const handler = async (req: NonceRequest, res: NextApiResponse<NonceResponse | ErrorResponse>) => {
   const { method } = req
   if (method !== 'POST') {
     res.setHeader('Allow', ['POST'])
-    res.status(405).end(`Method ${method} Not Allowed`)
+    res.status(405).json({ error: `Method ${method} Not Allowed` })
   } else {
     const { address } = req.body
     const userDoc = await getUserWithAddress(address)

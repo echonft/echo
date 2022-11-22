@@ -11,8 +11,9 @@
     "ci:prettier": "prettier \"components/**/*.ts?(x)\" \"pages/**/*.ts?(x)\" \"lib/**/*.ts?(x)\"",
     "lint": "eslint --cache --fix \"components/**/*.ts?(x)\" \"lib/**/*.ts?(x)\" \"pages/**/*.ts?(x)\"",
     "tsc": "tsc --noEmit",
-    "update-packages": "ncu -u",
-    "clean": "rm -rf tsconfig.tsbuildinfo dist node_modules"
+    "clean": "rm -rf tsconfig.tsbuildinfo .next",
+    "update-modules": "ncu -u",
+    "remove-modules": "rm -rf node_modules"
   },
   "dependencies": {
     "@echo/api": "workspace:*",
@@ -46,7 +47,6 @@
     "@types/react-icons": "3.0.0",
     "autoprefixer": "10.4.13",
     "eslint-config-next": "13.0.3",
-    "tailwindcss": "3.2.4",
-    "typescript": "4.9.3"
+    "tailwindcss": "3.2.4"
   }
 }

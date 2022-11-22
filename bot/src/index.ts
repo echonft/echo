@@ -1,7 +1,7 @@
+import { listenToInteractions } from './listeners/interaction'
+import { listenToOffers } from './listeners/offers'
 import { discordSecret } from '@echo/discord/admin/config'
 import { BaseInteraction, Client, Events, GatewayIntentBits } from 'discord.js'
-import { listenToInteractions } from 'listeners/interaction'
-import { listenToOffers } from 'listeners/offers'
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) //create new client
 
@@ -12,7 +12,11 @@ client.once(Events.ClientReady, (c) => {
 })
 
 client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
-  await listenToInteractions(interaction)
+  try {
+    await listenToInteractions(interaction)
+  } catch (error) {
+    console.error(`Error responding to interaction ${interaction.toJSON()}: ${(error as Error).message}`)
+  }
 })
 
 //make sure this line is the last line

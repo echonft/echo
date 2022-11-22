@@ -1,7 +1,8 @@
 import { FirebaseDocument } from '@echo/firebase/paths/document-path'
+import { isEmpty, isNil } from 'ramda'
 
 export class FirebaseDocumentError extends Error {
-  constructor(id: string, collection: FirebaseDocument, error?: any) {
-    super(`${id} does not exist in ${collection} ${error && `: ${error}`}`)
+  constructor(id: string, collection: FirebaseDocument, error?: string) {
+    super(`${id} does not exist in ${collection} ${!isNil(error) && !isEmpty(error) ? `: ${error}` : undefined}`)
   }
 }

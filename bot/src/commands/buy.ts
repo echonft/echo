@@ -1,21 +1,39 @@
+import { BuyOwnOfferError } from '../errors/buy-own-offer-error'
+import { getDiscordChannel } from '../utils/discord'
 import { Offer } from '@echo/model/offer'
 import { ButtonInteraction, ChannelType } from 'discord.js'
-import { DiscordErrors, interactionReplyForError } from 'errors/errors'
-import { getDiscordChannel } from 'utils/discord'
 
-export async function executeBuy(interaction: ButtonInteraction, offer: Offer) {
+export function executeBuy(interaction: ButtonInteraction, offer: Offer) {
   if (offer.owner.discordId === interaction.user.id) {
-    await interaction.reply(interactionReplyForError(DiscordErrors.BUY_OWN))
-    return
+    throw new BuyOwnOfferError(offer.id)
   }
   const channel = getDiscordChannel(interaction.client, interaction.channelId)
-  const thread = await channel?.threads.create({
-    name: `Buy offer for ${offer.id}`,
-    autoArchiveDuration: 1440,
-    type: ChannelType.PrivateThread,
-    reason: 'Thread to discuss the offer'
-  })
-  await thread?.members.add(offer.owner.discordId)
-  await thread?.members.add(interaction.user)
-  await interaction.reply({ ephemeral: true, content: 'Created a thread to discuss the offer' })
+  return channel.threads
+    .create({
+      name: `Buy offer for ${offer.id}`,
+      autoArchiveDuration: 1440,
+      type: ChannelType.PrivateThread,
+      reason: 'Thread to discuss the offer'
+    })
+    .then((thread) => {
+      thread.members
+        .add(offer.owner.discordId)
+        .then(() => {
+          thread.members
+            .add(interaction.user)
+            .then(() => interaction.reply({ ephemeral: true, content: 'Created a thread to discuss the offer' }))
+            .catch((error) => {
+              console.error(`Error creating thread: ${(error as Error).message}`)
+              return interaction.reply({ ephemeral: true, content: 'Error creating a thread to discuss the offer' })
+            })
+        })
+        .catch((error) => {
+          console.error(`Error creating thread: ${(error as Error).message}`)
+          return interaction.reply({ ephemeral: true, content: 'Error creating a thread to discuss the offer' })
+        })
+    })
+    .catch((error) => {
+      console.error(`Error creating thread: ${(error as Error).message}`)
+      return interaction.reply({ ephemeral: true, content: 'Error creating a thread to discuss the offer' })
+    })
 }

@@ -9,9 +9,9 @@ import { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
 export const connectSubcommand = (subCommand: SlashCommandSubcommandBuilder) =>
   subCommand.setName('connect').setDescription('Connect to the bot via Discord and Wallet')
 
-export async function executeConnect(interaction: CommandInteraction) {
+export function executeConnect(interaction: CommandInteraction) {
   // TODO Probably dont need to redirect to discord right away, to define
-  await interaction.reply({
+  return interaction.reply({
     content: getLoginLink(),
     ephemeral: true
   })
