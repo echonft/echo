@@ -1,6 +1,6 @@
 import { useFirebase } from '@components/providers/firebase-provider'
 import { useLogger } from '@components/providers/logger-provider'
-import { FirebaseDocument, FirebaseDocumentPath } from '@echo/firebase/paths/document-path'
+import { FirebaseDocument } from '@echo/firebase/paths/document-path'
 import { getCollectionQuery } from '@echo/firebase/queries/collection'
 import { AppEnvironment, config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
@@ -69,7 +69,7 @@ export function useCollection<T, W = DocumentSnapshot<T>>(
   options?: UseCollectionOptions<T, W>
 ): SwrResult<W[]> {
   const { mutate } = useSWRConfig()
-  const result = useCollectionInternal<T, W>(FirebaseDocumentPath(path), options)
+  const result = useCollectionInternal<T, W>(path, options)
   let unsub: firebase.Unsubscribe | undefined = undefined
 
   useEffect((): VoidFunction | undefined => {
@@ -77,7 +77,7 @@ export function useCollection<T, W = DocumentSnapshot<T>>(
   }, [unsub])
 
   if (path && config().appEnvironment !== AppEnvironment.MOCK && options?.listen) {
-    const collectionQuery = getCollectionQuery<T>(FirebaseDocumentPath(path), options?.constraints)
+    const collectionQuery = getCollectionQuery<T>(path, options?.constraints)
     if (collectionQuery) {
       unsub = onSnapshot<T>(collectionQuery, (querySnapshot: QuerySnapshot<T>) => {
         querySnapshot.docs.forEach((queryDocumentSnapshot) => {

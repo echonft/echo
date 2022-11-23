@@ -1,6 +1,6 @@
 import { useFirebase } from '@components/providers/firebase-provider'
 import { useLogger } from '@components/providers/logger-provider'
-import { FirebaseDocument, FirebaseDocumentPath } from '@echo/firebase/paths/document-path'
+import { FirebaseDocument } from '@echo/firebase/paths/document-path'
 import { getFirebaseDocSnapshotFromPath } from '@echo/firebase/utils/document'
 import { AppEnvironment, config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
@@ -61,7 +61,7 @@ export function useDocument<T, W = T>(
   options?: UseDocumentOptions<T, W>
 ): SwrResult<W> {
   const mapper = options?.mapper
-  const { data, mutate } = useDocumentInternal<T, W>(FirebaseDocumentPath(path), segment, options)
+  const { data, mutate } = useDocumentInternal<T, W>(path, segment, options)
   useEffect(() => {
     // No need to listen when mocking
     if (config().appEnvironment !== AppEnvironment.MOCK && path && options?.listen) {

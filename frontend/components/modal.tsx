@@ -1,5 +1,5 @@
-import { Dialog } from '@headlessui/react'
-import React, { PropsWithChildren, ReactElement, useState } from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import React, { Fragment, PropsWithChildren, ReactElement, useState } from 'react'
 
 interface Props {
   open?: boolean
@@ -19,29 +19,52 @@ export const Modal: React.FunctionComponent<PropsWithChildren<Props>> = ({
   acceptTitle,
   onAccept,
   renderAccept,
-  children,
+  children
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(open)
   return (
-    <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
-      <Dialog.Panel>
-        {title && <Dialog.Title>{title}</Dialog.Title>}
-        {description && <Dialog.Description>{description}</Dialog.Description>}
-        {children && children}
-        <div className={'flex flex-row gap-2 justify-between'}>
-          {cancelTitle && <button onClick={() => setIsOpen(false)}>{cancelTitle}</button>}
-          {acceptTitle && (
-            <button
-              onClick={() => {
-                onAccept?.()
-              }}
-            >
-              {acceptTitle}
-            </button>
-          )}
-          {renderAccept && renderAccept()}
-        </div>
-      </Dialog.Panel>
-    </Dialog>
+    <Transition appear show={isOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" open={isOpen} onClose={() => setIsOpen(false)}>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+        >
+          <div className="fixed inset-0 bg-black bg-opacity-25" />
+        </Transition.Child>
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0 scale-95"
+          enterTo="opacity-100 scale-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100 scale-100"
+          leaveTo="opacity-0 scale-95"
+        >
+          <Dialog.Panel>
+            {title && <Dialog.Title>{title}</Dialog.Title>}
+            {description && <Dialog.Description>{description}</Dialog.Description>}
+            {children && children}
+            <div className={'flex flex-row gap-2 justify-between'}>
+              {cancelTitle && <button onClick={() => setIsOpen(false)}>{cancelTitle}</button>}
+              {acceptTitle && (
+                <button
+                  onClick={() => {
+                    onAccept?.()
+                  }}
+                >
+                  {acceptTitle}
+                </button>
+              )}
+              {renderAccept && renderAccept()}
+            </div>
+          </Dialog.Panel>
+        </Transition.Child>
+      </Dialog>
+    </Transition>
   )
 }
