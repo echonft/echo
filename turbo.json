@@ -2,8 +2,12 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["clean", "^clean", "^build"],
+      "dependsOn": ["clean", "^build"],
       "outputs": [".next/**", "dist/**"]
+    },
+    "start:dev": {
+      "dependsOn": ["build"],
+      "cache": false
     },
     "lint": {
       "cache": false
@@ -18,18 +22,15 @@
       "cache": false
     },
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false
     },
     "start": {
-      "cache": false
-    },
-    "start:dev": {
-      "cache": false,
-      "dependsOn": ["dev"],
-      "outputs": ["dist/**"],
-      "inputs": [".env"]
+      "dependsOn": ["^build"],
+      "outputs": [".next/**", "dist/**"]
     },
     "clean": {
+      "dependsOn": ["^clean"],
       "cache": false
     },
     "remove-modules": {
@@ -38,17 +39,13 @@
     "update-modules": {
       "cache": false
     },
-    "vercel": {
-      "cache": false,
-      "dependsOn": ["//#vercel:dev", "dev", "^dev"]
-    },
     "@echo/api#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["clean", "^build"],
       "env": ["NODE_ENV", "API_APP_ENV", "IRON_PASSWORD"],
       "outputs": ["dist/**"]
     },
     "@echo/discord#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["clean", "^build"],
       "env": [
         "DISCORD_CLIENT_TOKEN",
         "DISCORD_CLIENT_ID",
@@ -59,12 +56,12 @@
       "outputs": ["dist/**"]
     },
     "@echo/firebase-admin#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["clean", "^build"],
       "env": ["FIREBASE_SERVICE_ACCOUNT_KEY"],
       "outputs": ["dist/**"]
     },
     "@echo/frontend#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["clean", "^build"],
       "env": [
         "NODE_ENV",
         "NEXT_PUBLIC_APP_ENV",
@@ -74,13 +71,14 @@
       ],
       "outputs": [".next/**", "dist/**"]
     },
+    "@echo/frontend#vercel": {
+      "dependsOn": ["^dev"],
+      "cache": false
+    },
     "@echo/bot#deploy-commands": {
       "dependsOn": ["build"],
       "outputs": ["dist/**"],
       "inputs": [".env"]
-    },
-    "//#vercel:dev": {
-      "cache": false
     }
   },
   "globalDependencies": ["tsconfig.json"]

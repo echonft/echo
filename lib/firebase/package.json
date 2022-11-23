@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
   "scripts": {
-    "dev": "pnpm build --watch",
+    "dev": "tsc --watch",
     "build": "tsc",
     "ci:lint": "eslint \"src/**/*.ts\"",
     "ci:prettier": "prettier \"src/**/*.ts\"",
@@ -14,8 +16,6 @@
     "update-modules": "ncu -u",
     "remove-modules": "rm -rf node_modules"
   },
-  "sideEffects": false,
-  "type": "module",
   "exports": {
     "./*": [
       "./dist/*.js"
@@ -46,7 +46,6 @@
     "ramda": "0.28.0"
   },
   "devDependencies": {
-    "@types/node": "18.11.9",
     "@types/ramda": "0.28.20"
   }
 }
