@@ -1,5 +1,5 @@
-import { getAdminFirebase } from '../config/config'
 import { FirebaseDocumentError } from '../errors/document-error'
+import { firestore } from '../services/firestore'
 import { convertAdminDocumentSnapshot } from '../utils/document-snapshot'
 import { FirebaseDocument } from '@echo/firebase/paths/document-path'
 import { DocumentSnapshot } from 'firebase/firestore'
@@ -9,8 +9,7 @@ export function getDocument<T, U = T>(
   collection: FirebaseDocument,
   mapper?: (snapshot: DocumentSnapshot<T>) => Promise<U>
 ): Promise<U> {
-  return getAdminFirebase()
-    .firestore()
+  return firestore()
     .collection(collection)
     .doc(id)
     .get()

@@ -2,8 +2,8 @@ import { ErrorResponse } from '../models/error-response'
 import { NonceRequest } from '../models/nonce-request'
 import { NonceResponse } from '../models/nonce-response'
 import { ironOptions } from '../utils/iron-options'
-import { getAdminFirebase } from '@echo/firebase-admin/config/config'
 import { getUserWithAddress } from '@echo/firebase-admin/getters/get-user'
+import { firestore } from '@echo/firebase-admin/services/firestore'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse } from 'next'
 import { isNil } from 'ramda'
@@ -20,7 +20,7 @@ const handler = async (req: NonceRequest, res: NextApiResponse<NonceResponse | E
     let nonce
     if (isNil(userDoc)) {
       nonce = generateNonce()
-      await getAdminFirebase().firestore().collection('users').doc().set({
+      await firestore().collection('users').doc().set({
         nonce,
         wallet: address
       })

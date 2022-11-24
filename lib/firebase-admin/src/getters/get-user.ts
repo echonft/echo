@@ -1,4 +1,4 @@
-import { getAdminFirebase } from '../config/config'
+import { firestore } from '../services/firestore'
 import { getDocument } from '../utils/document'
 import { mapUser } from '@echo/firebase/mappers/user'
 import { FirebaseUser } from '@echo/firebase/model/user'
@@ -21,8 +21,7 @@ export function getUser(id: string): Promise<User> {
  * @param address The address to look up
  */
 export async function getUserWithAddress(address: string) {
-  return await getAdminFirebase()
-    .firestore()
+  return await firestore()
     .collection('users')
     .where('wallet', '==', getAddress(address))
     .limit(1)

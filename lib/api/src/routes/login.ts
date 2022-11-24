@@ -3,8 +3,8 @@ import { ApiLoginRequest } from '../models/login-request'
 import { LoginResponse } from '../models/login-response'
 import { ironOptions } from '../utils/iron-options'
 import { verifySignature } from '../utils/verify-utils'
-import { getAdminFirebase } from '@echo/firebase-admin/config/config'
 import { getUserWithAddress } from '@echo/firebase-admin/getters/get-user'
+import { auth } from '@echo/firebase-admin/services/auth'
 import { getAddress } from 'ethers/lib/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse } from 'next'
@@ -36,7 +36,7 @@ const handler = async (req: ApiLoginRequest, res: NextApiResponse<LoginResponse 
         } else {
           await userDoc.ref.set({ nonce: generateNonce(), wallet: formattedAddress, discordId })
         }
-        const apiKey = await getAdminFirebase().auth().createCustomToken(formattedAddress)
+        const apiKey = await auth().createCustomToken(formattedAddress)
         res.json({ apiKey })
       } catch (error) {
         return res.status(404).json({ error: `UNAUTHORIZED: ${error}` })

@@ -20,21 +20,18 @@ export async function mapOffer(snapshot: DocumentSnapshot<FirebaseOffer>): Promi
   if (!data) {
     return Promise.reject(new FirebaseMapperError(snapshot.id, FirebaseDocument.USERS))
   }
-  const counterparty = data.buyer?.id ? await getDocument(data.buyer.id, FirebaseDocument.USERS, mapUser) : undefined
-  const owner = data.seller?.id ? await getDocument(data.buyer.id, FirebaseDocument.USERS, mapUser) : undefined
-  if (!owner) {
+  if (isNil(data.seller?.id)) {
     return Promise.reject(new FirebaseMapperError(snapshot.id, FirebaseDocument.USERS, 'No owner found'))
   }
-  const collection = await getDocument(data.collection.id, FirebaseDocument.COLLECTIONS, mapCollection)
   return {
     id: snapshot.id,
     type: data.type as OfferType,
     status: data.status as OfferStatus,
     counterpartyItems: mapOfferItem(data.buying),
     ownerItems: mapOfferItem(data.selling),
-    collection: collection,
-    counterparty,
-    owner,
+    collection: await getDocument(data.collection.id, FirebaseDocument.COLLECTIONS, mapCollection),
+    counterparty: isNil(data.buyer?.id) ? undefined : await getDocument(data.buyer.id, FirebaseDocument.USERS, mapUser),
+    owner: await getDocument(data.buyer.id, FirebaseDocument.USERS, mapUser),
     postedAt: isNil(data.postedAt) ? undefined : new Date(data.postedAt)
   }
 }
