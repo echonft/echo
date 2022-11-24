@@ -34,7 +34,7 @@
     "bot:build": "turbo run build --filter=@echo/bot",
     "bot:deploy-commands": "env-cmd -f .env turbo run @echo/bot#deploy-commands",
     "prepare": "husky install",
-    "vercel": "turbo run @echo/frontend#vercel",
+    "vercel": "env-cmd -f .env vercel dev",
     "lint": "turbo run lint --parallel",
     "ci:lint": "turbo run ci:lint --parallel",
     "ci:prettier": "turbo run ci:prettier --parallel",
@@ -59,6 +59,7 @@
     "npm-check-updates": "16.4.3",
     "prettier": "2.8.0",
     "turbo": "1.6.3",
-    "typescript": "4.9.3"
+    "typescript": "4.9.3",
+    "vercel": "^28.5.6"
   }
 }
