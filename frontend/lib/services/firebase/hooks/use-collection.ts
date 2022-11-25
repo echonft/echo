@@ -1,6 +1,6 @@
 import { useFirebase } from '@components/providers/firebase-provider'
 import { useLogger } from '@components/providers/logger-provider'
-import { FirebaseDocument } from '@echo/firebase/paths/document-path'
+import { FirebaseDocument, FirebaseDocumentPath } from '@echo/firebase/paths/document-path'
 import { getCollectionQuery } from '@echo/firebase/queries/collection'
 import { AppEnvironment, config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
@@ -26,16 +26,22 @@ function useCollectionInternal<T, W = DocumentSnapshot<T>>(
   const logger = useLogger()
   const { firebaseApp } = useFirebase()
   const { mutate, suspense } = useSWRConfig()
-  const collectionQuery = getCollectionQuery<T>(path, options?.constraints)
-  const key = collectionQuery ? JSON.stringify(collectionQuery._query) : null
+
   const { data, error } = useSWR<Result<W[]>, Error>(
-    firebaseApp && collectionQuery,
-    (query) => {
-      if (!query) {
+    firebaseApp && [path, options],
+    (path, options) => {
+      const collectionQuery = getCollectionQuery<T>(FirebaseDocumentPath(path), options?.constraints)
+      const key = collectionQuery ? JSON.stringify(collectionQuery._query) : null
+      // If the query is wrong we won't call SWR and can return directly
+      if (collectionQuery && !key) {
+        return failureResult('_query property missing - check firestore implementation')
+      }
+      if (!collectionQuery) {
         logger.error('query is null')
         return failureResult('query is null')
       }
-      return getDocs<T>(query).then((queryDocumentSnapshots) => {
+      return getDocs<T>(collectionQuery).then((queryDocumentSnapshots) => {
+        // Could optimize this
         queryDocumentSnapshots.docs.forEach((queryDocumentSnapshot) => {
           mutate(queryDocumentSnapshot.ref.path, queryDocumentSnapshot, false)
         })
@@ -53,10 +59,7 @@ function useCollectionInternal<T, W = DocumentSnapshot<T>>(
     },
     { suspense: options?.suspense || suspense }
   )
-  // If the query is wrong we won't call SWR and can return directly
-  if (collectionQuery && !key) {
-    return failureResult('_query property missing - check firestore implementation')
-  }
+
   if (error) {
     logger.error(`Error fetching collection at ${path}`, error)
     return failureResult(error.message)

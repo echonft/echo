@@ -14,7 +14,7 @@ export const NftList: React.FunctionComponent<Props> = ({ nfts, selected, onSele
   return (
     <div className={clsx('grid', 'grid-cols-3', 'gap-2')}>
       {nfts.map((nft) => (
-        <NftItem key={nft.key} nft={nft} selected={includes(nft, selected || [])} onSelect={onSelect} />
+        <NftItem key={nft.key} nft={nft} selected={selected && includes(nft, selected)} onSelect={onSelect} />
       ))}
     </div>
   )

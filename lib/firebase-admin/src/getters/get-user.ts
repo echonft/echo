@@ -1,5 +1,5 @@
 import { firestore } from '../services/firestore'
-import { getDocument } from '../utils/document'
+import { getDocument, getDocumentSnapshot } from '../utils/document'
 import { mapUser } from '@echo/firebase/mappers/user'
 import { FirebaseUser } from '@echo/firebase/model/user'
 import { FirebaseDocument } from '@echo/firebase/paths/document-path'
@@ -14,6 +14,10 @@ import { head } from 'ramda'
  */
 export function getUser(id: string): Promise<User> {
   return getDocument(id, FirebaseDocument.USERS, mapUser)
+}
+
+export function getUserSnapshot(id: string) {
+  return getDocumentSnapshot(id, FirebaseDocument.USERS)
 }
 
 /**

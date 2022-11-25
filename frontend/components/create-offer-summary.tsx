@@ -1,25 +1,44 @@
 import { CreateOfferSummaryDetails } from '@components/create-offer-summary-details'
 import { Modal } from '@components/modal'
+import { Collection } from '@echo/model/collection'
 import { NewOffer, OfferType } from '@echo/model/offer'
+import { OfferItem } from '@echo/model/offer-item'
+import { useUser } from '@lib/hooks/use-user'
+import { createNewOffer } from '@lib/utils/offer'
 import { useTranslations } from 'next-intl'
 import React from 'react'
 
 interface Props {
-  offer: NewOffer
+  type: OfferType
+  collection: Collection
+  ownerItems: OfferItem[]
+  counterpartyItems: OfferItem[]
   onAccept?: (offer: NewOffer) => void
+  onCancel?: VoidFunction
 }
 
-export const CreateOfferSummary: React.FunctionComponent<Props> = ({ offer, onAccept }) => {
-  const t = useTranslations(`CreateOffer.summary.${offer.type === OfferType.BUY ? 'buy' : 'sell'}`)
+export const CreateOfferSummary: React.FunctionComponent<Props> = ({
+  type,
+  collection,
+  ownerItems,
+  counterpartyItems,
+  onAccept,
+  onCancel
+}) => {
+  const t = useTranslations(`CreateOffer.summary.${type === OfferType.BUY ? 'buy' : 'sell'}`)
+  const userResult = useUser()
   return (
     <Modal
       title={t('title')}
       description={'description'}
-      onAccept={() => onAccept?.(offer)}
+      onAccept={() =>
+        userResult?.data && onAccept?.(createNewOffer(type, collection, ownerItems, counterpartyItems, userResult.data))
+      }
+      onCancel={onCancel}
       acceptTitle={t('accept')}
       cancelTitle={t('cancel')}
     >
-      <CreateOfferSummaryDetails offer={offer} />
+      <CreateOfferSummaryDetails type={type} counterpartyItems={counterpartyItems} ownerItems={ownerItems} />
     </Modal>
   )
 }

@@ -2,9 +2,9 @@ import { Erc721 } from '@echo/model/erc721'
 import { OfferItem } from '@echo/model/offer-item'
 import { isEmpty } from 'ramda'
 
-export function generateOfferItems(contractAddresses: string[], nfts: Erc721[]): OfferItem[] | undefined {
+export function createOfferItems(contractAddresses: string[], nfts: Erc721[]): OfferItem[] {
   if (isEmpty(contractAddresses) && isEmpty(nfts)) {
-    return undefined
+    return []
   }
   if (isEmpty(nfts)) {
     return contractAddresses.map((contractAddress) => ({ contractAddress }))

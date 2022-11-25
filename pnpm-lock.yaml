@@ -128,6 +128,7 @@ importers:
   lib/api:
     specifiers:
       '@echo/firebase-admin': workspace:*
+      '@echo/model': workspace:*
       '@types/ramda': 0.28.20
       '@types/request': 2.48.8
       ethers: 5.7.2
@@ -138,6 +139,7 @@ importers:
       siwe: 1.1.6
     dependencies:
       '@echo/firebase-admin': link:../firebase-admin
+      '@echo/model': link:../model
       ethers: 5.7.2
       iron-session: 6.3.1_next@13.0.4
       next: 13.0.4_biqbaboplfbrettd7655fr4n2y
@@ -6826,7 +6828,8 @@ packages:
     dev: true
 
   /ee-first/1.1.1:
-    resolution: { integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0= }
+    resolution:
+      { integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow== }
     dev: false
 
   /eip1193-provider/1.0.1:
@@ -8442,7 +8445,8 @@ packages:
     dev: false
 
   /fresh/0.5.2:
-    resolution: { integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac= }
+    resolution:
+      { integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q== }
     engines: { node: '>= 0.6' }
     dev: false
 

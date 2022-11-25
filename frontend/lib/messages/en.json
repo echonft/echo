@@ -35,30 +35,30 @@
         "new-option": "Add collection {collection}",
         "invalid-option": "You need to enter a contract address"
       },
-      "summary": {
-        "sell": {
-          "title": "You are creating a selling offer",
-          "description": "This will not lock your assets, the offer is done offchain. Here is the summary of your offer",
-          "accept": "Accept",
-          "cancel": "Cancel",
-          "owner-title": "You are selling these NFTs:",
-          "counterparty-title": "You want to trade for these NFTs:",
-          "counterparty-title-none": "You want to trade for ANY NFTs",
-          "counterparty-title-no-id": "You want to trade for NFTs of these collections:"
-        },
-        "buy": {
-          "title": "You are creating a buy offer",
-          "description": "This will not lock your assets, the offer is done offchain. Here is the summary of your offer",
-          "accept": "Accept",
-          "cancel": "Cancel",
-          "owner-title": "You want to buy these NFTs:",
-          "owner-title-no-id": "You want to buy ANY NFTs of these collections:",
-          "counterparty-title": "You want to trade for these NFTs:",
-          "counterparty-title-none": "You want to trade for ANY NFTs",
-          "counterparty-title-no-id": "You want to trade for NFTs of these collections:"
-        }
-      },
       "submit": "Submit"
+    },
+    "summary": {
+      "sell": {
+        "title": "You are creating a selling offer",
+        "description": "This will not lock your assets, the offer is done offchain. Here is the summary of your offer",
+        "accept": "Accept",
+        "cancel": "Cancel",
+        "owner-title": "You are selling these NFTs:",
+        "counterparty-title": "You want to trade for these NFTs:",
+        "counterparty-title-none": "You want to trade for ANY NFTs",
+        "counterparty-title-no-id": "You want to trade for NFTs of these collections:"
+      },
+      "buy": {
+        "title": "You are creating a buy offer",
+        "description": "This will not lock your assets, the offer is done offchain. Here is the summary of your offer",
+        "accept": "Accept",
+        "cancel": "Cancel",
+        "owner-title": "You want to buy these NFTs:",
+        "owner-title-no-id": "You want to buy ANY NFTs of these collections:",
+        "counterparty-title": "You want to trade for these NFTs:",
+        "counterparty-title-none": "You want to trade for ANY NFTs",
+        "counterparty-title-no-id": "You want to trade for NFTs of these collections:"
+      }
     }
   }
 }

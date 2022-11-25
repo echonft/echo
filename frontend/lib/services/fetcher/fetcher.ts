@@ -15,7 +15,7 @@ function handleError(path: Routes, res: Response): void {
       })
   }
 }
-
+// TODO Change to result
 export const fetcher = <Response, Data extends Record<string, unknown> | undefined = undefined>(
   path: Routes,
   data?: Data,

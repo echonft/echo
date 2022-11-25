@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@echo/firebase-admin": "workspace:*",
+    "@echo/model": "workspace:*",
     "ethers": "5.7.2",
     "iron-session": "^6.3.1",
     "next": "13.0.4",
