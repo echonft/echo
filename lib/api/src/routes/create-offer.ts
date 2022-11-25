@@ -5,13 +5,14 @@ import { getCollectionSnapshot } from '@echo/firebase-admin/getters/get-collecti
 import { getUserSnapshot } from '@echo/firebase-admin/getters/get-user'
 import { firestore } from '@echo/firebase-admin/services/firestore'
 import { OfferStatus } from '@echo/model/offer'
+import { errorMessage } from '@echo/utils/error'
 import { NextApiResponse } from 'next'
 
 const handler = async (req: CreateOfferRequest, res: NextApiResponse<CreateOfferResponse | ErrorResponse>) => {
   const { method } = req
   if (method !== 'POST') {
     res.setHeader('Allow', ['POST'])
-    res.status(405).json({ error: `Method ${method || ''} Not Allowed` })
+    res.status(405).json({ error: `Method ${method ?? ''} Not Allowed` })
   } else {
     const { type, ownerItems, counterpartyItems, collectionId, userId } = req.body
     const userSnapshot = await getUserSnapshot(userId)
@@ -33,9 +34,7 @@ const handler = async (req: CreateOfferRequest, res: NextApiResponse<CreateOffer
         status: OfferStatus.OPEN
       })
       .then(() => res.status(200).json({ offerId: newOffer.id }))
-      .catch((error) =>
-        res.status(500).json({ error: `SERVER ERROR: error creating offer: ${(error as string) || ''}` })
-      )
+      .catch((error) => res.status(500).json({ error: `SERVER ERROR: error creating offer: ${errorMessage(error)}` }))
   }
 }
 
