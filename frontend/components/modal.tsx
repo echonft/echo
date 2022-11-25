@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
+import { clsx } from 'clsx'
 import React, { Fragment, PropsWithChildren, ReactElement, useState } from 'react'
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
   cancelTitle?: string
   acceptTitle?: string
   onAccept?: VoidFunction
+  onCancel?: VoidFunction
   renderAccept?: () => ReactElement
 }
 
@@ -18,6 +20,7 @@ export const Modal: React.FunctionComponent<PropsWithChildren<Props>> = ({
   cancelTitle,
   acceptTitle,
   onAccept,
+  onCancel,
   renderAccept,
   children
 }) => {
@@ -34,36 +37,65 @@ export const Modal: React.FunctionComponent<PropsWithChildren<Props>> = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-25" />
+          <div className={clsx('fixed', 'inset-0', 'bg-black', 'bg-opacity-25')} />
         </Transition.Child>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0 scale-95"
-          enterTo="opacity-100 scale-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100 scale-100"
-          leaveTo="opacity-0 scale-95"
-        >
-          <Dialog.Panel>
-            {title && <Dialog.Title>{title}</Dialog.Title>}
-            {description && <Dialog.Description>{description}</Dialog.Description>}
-            {children && children}
-            <div className={'flex flex-row gap-2 justify-between'}>
-              {cancelTitle && <button onClick={() => setIsOpen(false)}>{cancelTitle}</button>}
-              {acceptTitle && (
-                <button
-                  onClick={() => {
-                    onAccept?.()
-                  }}
-                >
-                  {acceptTitle}
-                </button>
-              )}
-              {renderAccept && renderAccept()}
-            </div>
-          </Dialog.Panel>
-        </Transition.Child>
+        <div className={clsx('fixed', 'inset-0', 'overflow-y-auto')}>
+          <div className={clsx('flex', 'min-h-full', 'items-center', 'justify-center', 'p-4', 'text-center')}>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <Dialog.Panel
+                className={clsx(
+                  'w-full',
+                  'max-w-md',
+                  'transform',
+                  'overflow-hidden',
+                  'rounded-2xl',
+                  'bg-white',
+                  'p-6',
+                  'text-left',
+                  'align-middle',
+                  'shadow-xl',
+                  'transition-all'
+                )}
+              >
+                {title && <Dialog.Title>{title}</Dialog.Title>}
+                {description && <Dialog.Description>{description}</Dialog.Description>}
+                {children && children}
+                {(acceptTitle || cancelTitle) && (
+                  <div className={clsx('flex', 'flex-row', 'gap-2', 'justify-between')}>
+                    {cancelTitle && (
+                      <button
+                        onClick={() => {
+                          onCancel?.()
+                          setIsOpen(false)
+                        }}
+                      >
+                        {cancelTitle}
+                      </button>
+                    )}
+                    {acceptTitle && (
+                      <button
+                        onClick={() => {
+                          onAccept?.()
+                        }}
+                      >
+                        {acceptTitle}
+                      </button>
+                    )}
+                    {renderAccept && renderAccept()}
+                  </div>
+                )}
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </div>
       </Dialog>
     </Transition>
   )
