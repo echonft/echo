@@ -15,10 +15,7 @@ export function getDocument<T, U = T>(
     .get()
     .then((snapshot) => {
       if (!snapshot.exists) {
-        const error = new FirebaseDocumentError(id, collection)
-        // eslint-disable-next-line no-console
-        console.error(error)
-        return Promise.reject(error)
+        throw new FirebaseDocumentError(id, collection)
       }
       if (!mapper) {
         return Promise.resolve(snapshot.data() as U)

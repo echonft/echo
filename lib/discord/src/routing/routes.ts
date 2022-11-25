@@ -15,8 +15,8 @@ export interface TokenRoutePostData extends Record<string, string> {
 }
 
 export function getLoginLink(): string {
-  const config = discordConfig()
+  const { clientId, redirectUri } = discordConfig
   return encodeURI(
-    `https://discord.com/api/oauth2/authorize?client_id=${config.clientId}&redirect_uri=${config.redirectUri}&response_type=code&scope=identify`
+    `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify`
   )
 }

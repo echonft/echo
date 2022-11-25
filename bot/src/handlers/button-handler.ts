@@ -7,7 +7,7 @@ import { ButtonAction, buttonIdPrefixes } from '../models/button-action'
 import { getOffer } from '@echo/firebase-admin/getters/get-offer'
 import { Offer } from '@echo/model/offer'
 import { ButtonComponent, ButtonInteraction } from 'discord.js'
-import { drop, isEmpty, isNil } from 'ramda'
+import { drop, isEmpty, isNil } from 'rambda'
 
 function getSplitId(customId: string): string[] {
   try {
@@ -53,6 +53,9 @@ export function executeForButton(interaction: ButtonInteraction) {
     case ButtonAction.BUY:
       const data = getData(action, splitId)
       const offerId = data[0]
+      if (isNil(offerId) || isEmpty(offerId)) {
+        throw new OfferNotFoundError(offerId)
+      }
       return getOffer(offerId)
         .then((offer: Offer) => {
           if (isNil(offer)) {

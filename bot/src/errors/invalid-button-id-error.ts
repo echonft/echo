@@ -1,6 +1,6 @@
 import { InteractionError } from './interaction-error'
 import { InteractionReplyOptions } from 'discord.js'
-import { isEmpty, isNil } from 'ramda'
+import { isEmpty, isNil } from 'rambda'
 
 export class InvalidButtonIdError extends InteractionError {
   constructor(buttonId?: string | null) {

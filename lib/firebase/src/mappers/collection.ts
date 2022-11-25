@@ -1,7 +1,7 @@
 import { FirebaseCollection } from '../model/collection'
 import { Collection } from '@echo/model/collection'
 import { DocumentSnapshot } from 'firebase/firestore'
-import { isNil } from 'ramda'
+import { isNil } from 'rambda'
 
 /**
  * Map a firebase Collection snapshot to a Collection

@@ -7,9 +7,10 @@ declare interface IntlMessages extends Messages {}
 export declare global {
   namespace NodeJS {
     interface ProcessEnv extends Dict<string> {
-      NEXT_PUBLIC_APP_ENV: string | undefined
       NEXT_PUBLIC_TESTNET: string | undefined
+      NEXT_PUBLIC_MOCK: string | undefined
       // Alchemy
+      // TODO move this to the API
       NEXT_PUBLIC_ALCHEMY_API_KEY: string
       NEXT_PUBLIC_ALCHEMY_TESTNET_API_KEY: string
     }

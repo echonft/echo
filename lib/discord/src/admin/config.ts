@@ -1,19 +1,23 @@
-import { isEmpty, isNil } from 'ramda'
+import { isEmpty, isNil } from 'rambda'
 
 interface DiscordSecret {
   clientToken: string
   clientSecret: string
 }
 
-export function discordSecret(): DiscordSecret {
-  if (isNil(process.env.DISCORD_CLIENT_TOKEN) || isEmpty(process.env.DISCORD_CLIENT_TOKEN)) {
+function getDiscordSecret(): DiscordSecret {
+  const clientToken = process.env.DISCORD_CLIENT_TOKEN
+  const clientSecret = process.env.DISCORD_CLIENT_SECRET
+  if (isNil(clientToken) || isEmpty(clientToken)) {
     throw new Error('.env should contain DISCORD_CLIENT_TOKEN')
   }
-  if (isNil(process.env.DISCORD_CLIENT_SECRET) || isEmpty(process.env.DISCORD_CLIENT_SECRET)) {
+  if (isNil(clientSecret) || isEmpty(clientSecret)) {
     throw new Error('.env should contain DISCORD_CLIENT_SECRET')
   }
   return {
-    clientToken: process.env.DISCORD_CLIENT_TOKEN,
-    clientSecret: process.env.DISCORD_CLIENT_SECRET
+    clientToken,
+    clientSecret
   }
 }
+
+export const discordSecret = getDiscordSecret()

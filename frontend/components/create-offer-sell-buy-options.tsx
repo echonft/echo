@@ -9,8 +9,8 @@ import { shortenAddress } from '@usedapp/core'
 import { clsx } from 'clsx'
 import { getAddress, isAddress } from 'ethers/lib/utils'
 import { useTranslations } from 'next-intl'
-import { isEmpty, isNil } from 'ramda'
-import React, { useCallback, useState } from 'react'
+import { isEmpty, isNil } from 'rambda'
+import { FunctionComponent, useCallback, useState } from 'react'
 
 interface Props {
   contractAddresses: string[]
@@ -20,7 +20,7 @@ interface Props {
   onSelectNfts?: (nfts: Erc721[]) => void
 }
 
-export const CreateOfferSellBuyOptions: React.FunctionComponent<Props> = ({
+export const CreateOfferSellBuyOptions: FunctionComponent<Props> = ({
   contractAddresses,
   selectedContracts,
   selectedNfts,

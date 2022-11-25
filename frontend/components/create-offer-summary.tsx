@@ -2,14 +2,14 @@ import { CreateOfferSummaryDetails } from '@components/create-offer-summary-deta
 import { Modal } from '@components/modal'
 import { NewOffer, OfferType } from '@echo/model/offer'
 import { useTranslations } from 'next-intl'
-import React from 'react'
+import { FunctionComponent } from 'react'
 
 interface Props {
   offer: NewOffer
   onAccept?: (offer: NewOffer) => void
 }
 
-export const CreateOfferSummary: React.FunctionComponent<Props> = ({ offer, onAccept }) => {
+export const CreateOfferSummary: FunctionComponent<Props> = ({ offer, onAccept }) => {
   const t = useTranslations(`CreateOffer.summary.${offer.type === OfferType.BUY ? 'buy' : 'sell'}`)
   return (
     <Modal

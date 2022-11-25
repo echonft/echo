@@ -9,15 +9,15 @@ import { toggle } from '@lib/utils/array'
 import { createNewOffer } from '@lib/utils/offer'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { isEmpty } from 'ramda'
-import React, { useState } from 'react'
+import { isEmpty, isNil } from 'rambda'
+import { FunctionComponent, useState } from 'react'
 
 interface Props {
   collection: Collection
   nfts: Erc721[]
 }
 
-export const CreateOfferSell: React.FunctionComponent<Props> = ({ nfts, collection }) => {
+export const CreateOfferSell: FunctionComponent<Props> = ({ nfts, collection }) => {
   const t = useTranslations('CreateOffer.sell')
   const userResult = useUser()
   const [selectedNfts, setSelectedNfts] = useState<Erc721[]>([])
@@ -55,8 +55,8 @@ export const CreateOfferSell: React.FunctionComponent<Props> = ({ nfts, collecti
           {t('submit')}
         </button>
       </div>
-      {showSummary && (
-        <CreateOfferSummary offer={createNewOffer(OfferType.SELL, collection, [], [], userResult!.data!)} />
+      {showSummary && !isNil(userResult) && !isNil(userResult.data) && (
+        <CreateOfferSummary offer={createNewOffer(OfferType.SELL, collection, [], [], userResult.data)} />
       )}
     </>
   )

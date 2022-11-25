@@ -41,7 +41,7 @@
     },
     "@echo/api#build": {
       "dependsOn": ["clean", "^build"],
-      "env": ["NODE_ENV", "API_APP_ENV", "IRON_PASSWORD"],
+      "env": ["NODE_ENV", "API_ENV", "IRON_PASSWORD"],
       "outputs": ["dist/**"]
     },
     "@echo/discord#build": {
@@ -63,13 +63,17 @@
     "@echo/frontend#build": {
       "dependsOn": ["clean", "^build"],
       "env": [
-        "NODE_ENV",
-        "NEXT_PUBLIC_APP_ENV",
         "NEXT_PUBLIC_TESTNET",
+        "NEXT_PUBLIC_MOCK",
         "NEXT_PUBLIC_ALCHEMY_API_KEY",
         "NEXT_PUBLIC_ALCHEMY_TESTNET_API_KEY"
       ],
       "outputs": [".next/**", "dist/**"]
+    },
+    "@echo/utils#build": {
+      "dependsOn": ["clean", "^build"],
+      "env": ["NODE_ENV"],
+      "outputs": ["dist/**"]
     },
     "@echo/bot#deploy-commands": {
       "dependsOn": ["build"],

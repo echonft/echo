@@ -1,37 +1,40 @@
-import { isEmpty, isNil } from 'ramda'
+import { isEmpty, isNil } from 'rambda'
 
 interface ServerConfig {
-  environment: ApiAppEnvironment
+  environment: ApiEnvironment
   ironPassword: string
 }
 
-export enum ApiAppEnvironment {
+export enum ApiEnvironment {
   PROD = 'prod',
   DEV = 'dev'
 }
 
-function getApiAppEnvironment(): ApiAppEnvironment {
-  const env = process.env.API_APP_ENV?.toLowerCase()
+function getApiAppEnvironment(): ApiEnvironment {
+  const env = process.env.API_ENV?.toLowerCase()
   switch (env) {
     case 'production':
-      return ApiAppEnvironment.PROD
+      return ApiEnvironment.PROD
     case 'development':
-      return ApiAppEnvironment.DEV
+      return ApiEnvironment.DEV
     default:
       if (process.env.NODE_ENV === 'production') {
-        return ApiAppEnvironment.PROD
+        return ApiEnvironment.PROD
       } else {
-        return ApiAppEnvironment.DEV
+        return ApiEnvironment.DEV
       }
   }
 }
 
-export const serverConfig = (): ServerConfig => {
-  if (isNil(process.env.IRON_PASSWORD) || isEmpty(process.env.IRON_PASSWORD)) {
+function getIronPassword(): string {
+  const ironPassword = process.env.IRON_PASSWORD
+  if (isNil(ironPassword) || isEmpty(ironPassword)) {
     throw new Error('.env should contain IRON_PASSWORD')
   }
-  return {
-    environment: getApiAppEnvironment(),
-    ironPassword: process.env.IRON_PASSWORD
-  }
+  return ironPassword
+}
+
+export const serverConfig: ServerConfig = {
+  environment: getApiAppEnvironment(),
+  ironPassword: getIronPassword()
 }

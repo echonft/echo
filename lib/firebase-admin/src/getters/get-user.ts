@@ -6,7 +6,7 @@ import { FirebaseDocument } from '@echo/firebase/paths/document-path'
 import { User } from '@echo/model/user'
 import { QueryDocumentSnapshot } from '@google-cloud/firestore'
 import { getAddress } from 'ethers/lib/utils'
-import { head } from 'ramda'
+import { head } from 'rambda'
 
 /**
  * Get user with id

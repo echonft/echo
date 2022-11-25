@@ -1,9 +1,9 @@
 import { LoginFirebaseSwitch } from '@components/login-firebase-switch'
 import { LoginSignature } from '@components/login-signature'
-import { useLogger } from '@components/providers/logger-provider'
+import { logger } from '@echo/utils/logger'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
-import React, { useState } from 'react'
+import { isNil } from 'rambda'
+import { FunctionComponent, useState } from 'react'
 
 interface Props {
   accessToken?: string
@@ -11,9 +11,8 @@ interface Props {
 }
 
 // TODO Handle errors
-export const LoginButton: React.FunctionComponent<Props> = ({ accessToken, tokenType }) => {
+export const LoginButton: FunctionComponent<Props> = ({ accessToken, tokenType }) => {
   const t = useTranslations('Connect')
-  const logger = useLogger()
   const [shouldSign, setShouldSign] = useState<boolean>(false)
   const [message, setMessage] = useState<string>()
   const [signature, setSignature] = useState<string>()

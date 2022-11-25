@@ -1,11 +1,12 @@
 import { useFirebase } from '@components/providers/firebase-provider'
-import { useLogger } from '@components/providers/logger-provider'
 import { FirebaseDocument } from '@echo/firebase/paths/document-path'
 import { getFirebaseDocSnapshotFromPath } from '@echo/firebase/utils/document'
-import { AppEnvironment, config } from '@lib/config/config'
+import { errorMessage } from '@echo/utils/error'
+import { logger } from '@echo/utils/logger'
+import { config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
 import { doc, DocumentData, DocumentReference, DocumentSnapshot, getFirestore, onSnapshot } from 'firebase/firestore'
-import { isNil } from 'ramda'
+import { isNil } from 'rambda'
 import { useEffect } from 'react'
 import useSWR, { SWRResponse, useSWRConfig } from 'swr'
 
@@ -16,11 +17,10 @@ export type UseDocumentOptions<T, W> = {
 }
 
 function useDocumentInternal<T = DocumentData, W = T>(
-  path: string | undefined,
+  path: FirebaseDocument | undefined,
   segment: string | undefined,
   options?: UseDocumentOptions<T, W>
 ): Partial<SWRResponse<Result<W>>> {
-  const logger = useLogger()
   const { firebaseApp } = useFirebase()
   const { suspense } = useSWRConfig()
   const { data, mutate, error } = useSWR<Result<W>, Error>(
@@ -43,7 +43,7 @@ function useDocumentInternal<T = DocumentData, W = T>(
     return { data: failureResult('path is null'), mutate }
   }
   if (error) {
-    logger.error(`Error fetching document at ${path}${segment}`, error)
+    logger.error(`Error fetching document at ${path}${segment!}`, error)
     return { data: failureResult(error.message), mutate }
   }
   return { data, mutate }
@@ -64,18 +64,25 @@ export function useDocument<T, W = T>(
   const { data, mutate } = useDocumentInternal<T, W>(path, segment, options)
   useEffect(() => {
     // No need to listen when mocking
-    if (config().appEnvironment !== AppEnvironment.MOCK && path && options?.listen) {
+    if (config.useMock && path && options?.listen) {
       return onSnapshot<T>(doc(getFirestore(), path) as DocumentReference<T>, (doc) => {
         // Only mutate if the current doc has changed
         if (doc.exists() && mutate && doc.id === segment) {
           if (!isNil(mapper)) {
-            mapper(doc).then((mappedDoc) => mutate(successfulResult(mappedDoc)))
+            mapper(doc)
+              .then((mappedDoc) => {
+                void mutate(successfulResult(mappedDoc))
+              })
+              .catch((error) => {
+                logger.error(`mapping error: ${errorMessage(error)}`)
+              })
           } else {
-            mutate(successfulResult(doc as unknown as W))
+            void mutate(successfulResult(doc as unknown as W))
           }
         }
       })
     }
+    return
   }, [options, path, mutate, segment, mapper])
   return data
 }

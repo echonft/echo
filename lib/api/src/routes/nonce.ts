@@ -6,14 +6,14 @@ import { getUserWithAddress } from '@echo/firebase-admin/getters/get-user'
 import { firestore } from '@echo/firebase-admin/services/firestore'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse } from 'next'
-import { isNil } from 'ramda'
+import { isNil } from 'rambda'
 import { generateNonce } from 'siwe'
 
 const handler = async (req: NonceRequest, res: NextApiResponse<NonceResponse | ErrorResponse>) => {
   const { method } = req
   if (method !== 'POST') {
     res.setHeader('Allow', ['POST'])
-    res.status(405).json({ error: `Method ${method} Not Allowed` })
+    res.status(405).json({ error: `Method ${isNil(method) ? '' : method} Not Allowed` })
   } else {
     const { address } = req.body
     const userDoc = await getUserWithAddress(address)

@@ -5,10 +5,11 @@ import { ironOptions } from '../utils/iron-options'
 import { verifySignature } from '../utils/verify-utils'
 import { getUserWithAddress } from '@echo/firebase-admin/getters/get-user'
 import { auth } from '@echo/firebase-admin/services/auth'
+import { errorMessage } from '@echo/utils/error'
 import { getAddress } from 'ethers/lib/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse } from 'next'
-import { isNil } from 'ramda'
+import { isNil } from 'rambda'
 import { generateNonce } from 'siwe'
 
 // TODO Add the collection here
@@ -39,12 +40,12 @@ const handler = async (req: ApiLoginRequest, res: NextApiResponse<LoginResponse 
         const apiKey = await auth().createCustomToken(formattedAddress)
         res.json({ apiKey })
       } catch (error) {
-        return res.status(404).json({ error: `UNAUTHORIZED: ${error}` })
+        return res.status(404).json({ error: `UNAUTHORIZED: ${errorMessage(error)}` })
       }
       break
     default:
       res.setHeader('Allow', ['POST'])
-      res.status(405).json({ error: `Method ${method} Not Allowed` })
+      res.status(405).json({ error: `Method ${isNil(method) ? '' : method} Not Allowed` })
   }
 }
 

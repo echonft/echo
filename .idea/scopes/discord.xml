@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="discord" pattern="file[echo]:lib/discord/src//*&amp;&amp;!file[echo]:lib/discord/dist/*" />
+</component>

@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment, PropsWithChildren, ReactElement, useState } from 'react'
+import { Fragment, FunctionComponent, PropsWithChildren, ReactElement, useState } from 'react'
 
 interface Props {
   open?: boolean
@@ -11,7 +11,7 @@ interface Props {
   renderAccept?: () => ReactElement
 }
 
-export const Modal: React.FunctionComponent<PropsWithChildren<Props>> = ({
+export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
   open = true,
   title,
   description,

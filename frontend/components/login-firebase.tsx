@@ -1,7 +1,7 @@
-import { useLogger } from '@components/providers/logger-provider'
+import { logger } from '@echo/utils/logger'
 import { useLogin } from '@lib/hooks/use-login'
 import { useSignInWithFirebase } from '@lib/services/firebase/hooks/use-sign-in-with-firebase'
-import React from 'react'
+import { FunctionComponent } from 'react'
 import { useAccount } from 'wagmi'
 
 interface Props {
@@ -12,8 +12,7 @@ interface Props {
   hasLoggedIn?: (isLoggedIn: boolean, error: Error | undefined) => void
 }
 
-export const LoginFirebase: React.FunctionComponent<Props> = ({ accessToken, tokenType, signature, message }) => {
-  const logger = useLogger()
+export const LoginFirebase: FunctionComponent<Props> = ({ accessToken, tokenType, signature, message }) => {
   const { address } = useAccount()
   const { data: loginData, error: loginError } = useLogin(accessToken, tokenType, address, message, signature)
   const { data, error } = useSignInWithFirebase(loginData?.apiKey)

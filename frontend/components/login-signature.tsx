@@ -1,8 +1,8 @@
-import { useLogger } from '@components/providers/logger-provider'
+import { logger } from '@echo/utils/logger'
 import { useFetchNonce } from '@lib/hooks/use-fetch-nonce'
 import { useSign } from '@lib/hooks/use-sign'
 import { useTranslations } from 'next-intl'
-import React, { useEffect } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 
 interface Props {
@@ -10,9 +10,8 @@ interface Props {
   fetchedSignature?: (signature: string | undefined, message: string | undefined, error: Error | undefined) => void
 }
 
-export const LoginSignature: React.FunctionComponent<Props> = ({ shouldSign, fetchedSignature }) => {
+export const LoginSignature: FunctionComponent<Props> = ({ shouldSign, fetchedSignature }) => {
   const t = useTranslations('Connect')
-  const logger = useLogger()
   const { address } = useAccount()
   const { nonce, error } = useFetchNonce(address)
   const { signature, message } = useSign(shouldSign ? nonce : undefined)

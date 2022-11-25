@@ -2,11 +2,11 @@ import { LoginModal } from '@components/login-modal'
 import { useIsLoggedIn } from '@lib/hooks/use-is-logged-in'
 import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
-import React, { PropsWithChildren } from 'react'
+import { isNil } from 'rambda'
+import { FunctionComponent, PropsWithChildren } from 'react'
 import { useAccount } from 'wagmi'
 
-export const AuthPage: React.FunctionComponent<PropsWithChildren> = ({ children }) => {
+export const AuthPage: FunctionComponent<PropsWithChildren> = ({ children }) => {
   const t = useTranslations('Auth')
   const isLoggedIn = useIsLoggedIn()
   const { isConnected } = useAccount()

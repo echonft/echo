@@ -1,0 +1,47 @@
+{
+  "name": "@echo/utils",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "tsc",
+    "ci:lint": "eslint \"src/**/*.ts\"",
+    "ci:prettier": "prettier \"src/**/*.ts\"",
+    "lint": "eslint --cache --fix \"src/**/*.ts\"",
+    "tsc": "tsc --noEmit",
+    "clean": "rm -rf tsconfig.tsbuildinfo dist",
+    "update-modules": "ncu -u",
+    "remove-modules": "rm -rf node_modules"
+  },
+  "exports": {
+    "./*": [
+      "./dist/*.js"
+    ]
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "src/*"
+      ]
+    }
+  },
+  "publishConfig": {
+    "typesVersions": {
+      "*": {
+        "*": [
+          "dist/*.d.ts"
+        ]
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "pino": "8.7.0",
+    "rambda": "7.4.0"
+  }
+}

@@ -1,8 +1,8 @@
 import { NftItem } from '@components/nft-item'
 import { Erc721 } from '@echo/model/erc721'
 import { clsx } from 'clsx'
-import { includes } from 'ramda'
-import React from 'react'
+import { includes } from 'rambda'
+import { FunctionComponent } from 'react'
 
 interface Props {
   nfts: Erc721[]
@@ -10,7 +10,7 @@ interface Props {
   onSelect?: (nft: Erc721) => void
 }
 
-export const NftList: React.FunctionComponent<Props> = ({ nfts, selected, onSelect }) => {
+export const NftList: FunctionComponent<Props> = ({ nfts, selected, onSelect }) => {
   return (
     <div className={clsx('grid', 'grid-cols-3', 'gap-2')}>
       {nfts.map((nft) => (

@@ -1,6 +1,8 @@
 import { BuyOwnOfferError } from '../errors/buy-own-offer-error'
 import { getDiscordChannel } from '../utils/discord'
 import { Offer } from '@echo/model/offer'
+import { errorMessage } from '@echo/utils/error'
+import { logger } from '@echo/utils/logger'
 import { ButtonInteraction, ChannelType } from 'discord.js'
 
 export function executeBuy(interaction: ButtonInteraction, offer: Offer) {
@@ -23,17 +25,17 @@ export function executeBuy(interaction: ButtonInteraction, offer: Offer) {
             .add(interaction.user)
             .then(() => interaction.reply({ ephemeral: true, content: 'Created a thread to discuss the offer' }))
             .catch((error) => {
-              console.error(`Error creating thread: ${(error as Error).message}`)
+              logger.error(`Error creating thread: ${errorMessage(error)}`)
               return interaction.reply({ ephemeral: true, content: 'Error creating a thread to discuss the offer' })
             })
         })
         .catch((error) => {
-          console.error(`Error creating thread: ${(error as Error).message}`)
+          logger.error(`Error creating thread: ${errorMessage(error)}`)
           return interaction.reply({ ephemeral: true, content: 'Error creating a thread to discuss the offer' })
         })
     })
     .catch((error) => {
-      console.error(`Error creating thread: ${(error as Error).message}`)
+      logger.error(`Error creating thread: ${errorMessage(error)}`)
       return interaction.reply({ ephemeral: true, content: 'Error creating a thread to discuss the offer' })
     })
 }

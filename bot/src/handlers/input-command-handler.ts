@@ -4,8 +4,10 @@ import { InvalidSubcommandError } from '../errors/invalid-subcommand-error'
 import { NotConfiguredError } from '../errors/not-configured-error'
 import { WrongChannelError } from '../errors/wrong-channel-error'
 import { getCollection } from '@echo/firebase-admin/getters/get-collection'
+import { errorMessage } from '@echo/utils/error'
+import { logger } from '@echo/utils/logger'
 import { ChatInputCommandInteraction, CommandInteraction } from 'discord.js'
-import { isNil } from 'ramda'
+import { isEmpty, isNil } from 'rambda'
 
 function executeForSubcommand(interaction: CommandInteraction, subcommand: InputSubcommands) {
   switch (subcommand) {
@@ -30,7 +32,11 @@ export function executeForCommand(interaction: ChatInputCommandInteraction) {
       return executeForSubcommand(interaction, interaction.options.getSubcommand() as InputSubcommands)
     })
     .catch((error) => {
-      console.error(`Error fetching collection ${guildId}: ${(error as Error).message}`)
+      logger.error(
+        `Error fetching collection${isNil(guildId) || isEmpty(guildId) ? '' : ` for guild ${guildId}`}: ${errorMessage(
+          error
+        )}`
+      )
       throw new NotConfiguredError(guildId)
     })
 }

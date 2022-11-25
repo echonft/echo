@@ -1,12 +1,12 @@
 import { useFirebase } from '@components/providers/firebase-provider'
-import { useLogger } from '@components/providers/logger-provider'
 import { FirebaseDocument } from '@echo/firebase/paths/document-path'
 import { getCollectionQuery } from '@echo/firebase/queries/collection'
-import { AppEnvironment, config } from '@lib/config/config'
+import { logger } from '@echo/utils/logger'
+import { config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
 import firebase from 'firebase/compat'
 import { DocumentSnapshot, getDocs, onSnapshot, QueryConstraint, QuerySnapshot } from 'firebase/firestore'
-import { isNil } from 'ramda'
+import { isNil } from 'rambda'
 import { useEffect } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 
@@ -23,7 +23,6 @@ function useCollectionInternal<T, W = DocumentSnapshot<T>>(
   path: string | undefined,
   options?: UseCollectionOptions<T, W>
 ): SwrResult<W[]> {
-  const logger = useLogger()
   const { firebaseApp } = useFirebase()
   const { mutate, suspense } = useSWRConfig()
   const collectionQuery = getCollectionQuery<T>(path, options?.constraints)
@@ -37,7 +36,7 @@ function useCollectionInternal<T, W = DocumentSnapshot<T>>(
       }
       return getDocs<T>(query).then((queryDocumentSnapshots) => {
         queryDocumentSnapshots.docs.forEach((queryDocumentSnapshot) => {
-          mutate(queryDocumentSnapshot.ref.path, queryDocumentSnapshot, false)
+          void mutate(queryDocumentSnapshot.ref.path, queryDocumentSnapshot, false)
         })
         if (queryDocumentSnapshots.empty) {
           return successfulResult([])
@@ -58,7 +57,7 @@ function useCollectionInternal<T, W = DocumentSnapshot<T>>(
     return failureResult('_query property missing - check firestore implementation')
   }
   if (error) {
-    logger.error(`Error fetching collection at ${path}`, error)
+    logger.error(`Error fetching collection at ${path!}`, error)
     return failureResult(error.message)
   }
   return data
@@ -76,12 +75,12 @@ export function useCollection<T, W = DocumentSnapshot<T>>(
     return unsub
   }, [unsub])
 
-  if (path && config().appEnvironment !== AppEnvironment.MOCK && options?.listen) {
+  if (path && config.useMock && options?.listen) {
     const collectionQuery = getCollectionQuery<T>(path, options?.constraints)
     if (collectionQuery) {
       unsub = onSnapshot<T>(collectionQuery, (querySnapshot: QuerySnapshot<T>) => {
         querySnapshot.docs.forEach((queryDocumentSnapshot) => {
-          mutate(queryDocumentSnapshot.ref.path, querySnapshot.docs)
+          void mutate(queryDocumentSnapshot.ref.path, querySnapshot.docs)
         })
       })
     }

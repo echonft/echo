@@ -5,7 +5,7 @@ import { User } from '@echo/model/user'
 import { useCollection } from '@lib/services/firebase/hooks/use-collection'
 import { SwrResult } from '@lib/services/swr/models/result'
 import { where } from 'firebase/firestore'
-import { head } from 'ramda'
+import { head, isNil } from 'rambda'
 import { useAccount } from 'wagmi'
 
 export function useUser(): SwrResult<User> {
@@ -14,5 +14,8 @@ export function useUser(): SwrResult<User> {
     mapper: (snapshots) => snapshots.map(mapUser),
     constraints: [where('wallet', '==', address)]
   })
-  return result && { ...result, data: result?.data && head(result.data) }
+  if (isNil(result)) {
+    return undefined
+  }
+  return { ...result, data: result.data && head(result.data) }
 }

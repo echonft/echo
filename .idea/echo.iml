@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/inspectionProfiles" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/jsLinters" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/model/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/discord/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/firebase/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/bot/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/.vercel" />
+      <excludeFolder url="file://$MODULE_DIR$/.husky" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/firebase-admin/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/discord/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/firebase/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/firebase-admin/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/model/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/frontend/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/bot/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/scopes" />
+      <excludeFolder url="file://$MODULE_DIR$/frontend/.vercel" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

@@ -6,7 +6,7 @@ import { Network } from 'alchemy-sdk'
  * TODO We should have a way to use different chains
  */
 export function getAlchemyChain() {
-  if (config().useTestnet) {
+  if (config.useTestnet) {
     return Network.ETH_GOERLI
   } else {
     return Network.ETH_MAINNET
