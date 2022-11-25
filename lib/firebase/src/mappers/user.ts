@@ -1,7 +1,7 @@
 import { FirebaseUser } from '../model/user'
 import { User } from '@echo/model/user'
 import { DocumentSnapshot } from 'firebase/firestore'
-import { isNil } from 'ramda'
+import { isNil } from 'rambda'
 
 /**
  * Map a firebase User snapshot to a User

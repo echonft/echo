@@ -41,9 +41,6 @@
     "dist"
   ],
   "dependencies": {
-    "ramda": "0.28.0"
-  },
-  "devDependencies": {
-    "@types/ramda": "0.28.20"
+    "rambda": "7.4.0"
   }
 }

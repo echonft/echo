@@ -1,6 +1,6 @@
 import { InvalidChannelIdError } from '../errors/invalid-channel-id-error'
 import { Client, TextChannel } from 'discord.js'
-import { isNil } from 'ramda'
+import { isNil } from 'rambda'
 
 export function getDiscordChannel(client: Client, channelId: string): TextChannel {
   const channel = client.channels.cache.get(channelId)

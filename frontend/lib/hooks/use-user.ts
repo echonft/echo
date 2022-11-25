@@ -5,7 +5,7 @@ import { User } from '@echo/model/user'
 import { useCollection } from '@lib/services/firebase/hooks/use-collection'
 import { successfulResult, SwrResult } from '@lib/services/swr/models/result'
 import { limit, where } from 'firebase/firestore'
-import { head } from 'ramda'
+import { head } from 'rambda'
 import { useAccount } from 'wagmi'
 
 // FIXME Infinite loop here, it fetches forever

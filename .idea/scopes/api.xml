@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="api" pattern="file[echo]:lib/api/src//*&amp;&amp;!file[echo]:lib/api/dist/*" />
+</component>

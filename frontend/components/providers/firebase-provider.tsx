@@ -1,8 +1,8 @@
-import { useLogger } from '@components/providers/logger-provider'
+import { logger } from '@echo/utils/logger'
 import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app'
 import { browserLocalPersistence, getAuth } from 'firebase/auth'
-import { isNil } from 'ramda'
-import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
+import { isNil } from 'rambda'
+import { createContext, FunctionComponent, PropsWithChildren, useContext, useEffect, useState } from 'react'
 
 interface FirebaseProviderValue {
   isInitialized: boolean
@@ -15,8 +15,7 @@ interface Props {
   options: FirebaseOptions
 }
 
-export const FirebaseProvider: React.FunctionComponent<PropsWithChildren<Props>> = ({ options, children }) => {
-  const logger = useLogger()
+export const FirebaseProvider: FunctionComponent<PropsWithChildren<Props>> = ({ options, children }) => {
   const [firebaseApp, setFirebaseApp] = useState<FirebaseApp>()
   useEffect((): void => {
     if (!isNil(options) && isNil(firebaseApp)) {

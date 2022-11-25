@@ -18,4 +18,5 @@ export function listenToInteractions(interaction: BaseInteraction) {
       return (error as InteractionError).reply(interaction)
     }
   }
+  return Promise.resolve()
 }

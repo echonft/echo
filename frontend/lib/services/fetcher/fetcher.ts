@@ -1,7 +1,7 @@
 import { ErrorResponse } from '@echo/api/models/error-response'
 import { Routes } from '@echo/discord/routing/routes'
 import { HTTPError } from '@lib/services/fetcher/errors/http'
-import { isEmpty, isNil } from 'ramda'
+import { isEmpty, isNil } from 'rambda'
 
 function handleError(path: Routes, res: Response): void {
   if (!res.ok) {

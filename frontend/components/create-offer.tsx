@@ -5,8 +5,8 @@ import { Listbox } from '@headlessui/react'
 import { useGetCollectionNftsForOwner } from '@lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { head, isEmpty, isNil } from 'ramda'
-import React, { useState } from 'react'
+import { head, isEmpty, isNil } from 'rambda'
+import { FunctionComponent, useState } from 'react'
 
 interface Props {
   collection: Collection
@@ -14,15 +14,13 @@ interface Props {
 
 // TODO use translations
 function titleForOfferType(type: OfferType) {
-  switch (type) {
-    case OfferType.BUY:
-      return 'Buy an NFT'
-    case OfferType.SELL:
-      return 'Sell an NFT'
+  if (type === OfferType.BUY) {
+    return 'Buy an NFT'
   }
+  return 'Sell an NFT'
 }
 
-export const CreateOffer: React.FunctionComponent<Props> = ({ collection }) => {
+export const CreateOffer: FunctionComponent<Props> = ({ collection }) => {
   const t = useTranslations('CreateOffer')
   const nfts = useGetCollectionNftsForOwner(collection.contractAddresses)
   const choices = Object.values(OfferType)

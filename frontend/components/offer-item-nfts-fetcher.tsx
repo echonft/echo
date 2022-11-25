@@ -4,8 +4,8 @@ import { OfferItem } from '@echo/model/offer-item'
 import { useGetNftsForItems } from '@lib/services/alchemy/hooks/use-get-nfts-for-items'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { isNil, join } from 'ramda'
-import React, { useCallback } from 'react'
+import { isNil, join } from 'rambda'
+import { FunctionComponent, useCallback } from 'react'
 
 interface Props {
   items: OfferItem[] | undefined
@@ -13,7 +13,7 @@ interface Props {
   owner?: boolean
 }
 
-export const OfferItemNftsFetcher: React.FunctionComponent<Props> = ({ items, type, owner = false }) => {
+export const OfferItemNftsFetcher: FunctionComponent<Props> = ({ items, type, owner = false }) => {
   const t = useTranslations(`CreateOffer.summary.${type === OfferType.BUY ? 'buy' : 'sell'}`)
   const nfts = useGetNftsForItems(items)
 

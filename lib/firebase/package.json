@@ -42,10 +42,8 @@
   ],
   "dependencies": {
     "@echo/model": "workspace:*",
+    "@echo/utils": "workspace:*",
     "firebase": "9.14.0",
-    "ramda": "0.28.0"
-  },
-  "devDependencies": {
-    "@types/ramda": "0.28.20"
+    "rambda": "7.4.0"
   }
 }

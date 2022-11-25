@@ -4,7 +4,7 @@ import { FetchContractsNftsError } from '@lib/services/alchemy/errors/fetch-erro
 import { mapNftResponseToErc721 } from '@lib/services/alchemy/mappers/map-owned-nft-response'
 import { failureResult, Result, successfulResult } from '@lib/services/swr/models/result'
 import { laggy } from '@lib/services/swr/utils/laggy'
-import { flatten } from 'ramda'
+import { flatten } from 'rambda'
 import useSWR from 'swr'
 
 export function useGetCollectionNfts(contractAddresses: string[] | undefined, useLaggy?: boolean) {
@@ -12,15 +12,15 @@ export function useGetCollectionNfts(contractAddresses: string[] | undefined, us
   const { data } = useSWR<Result<Erc721[]>, Error>(
     contractAddresses && { contractAddresses },
     ({ contractAddresses }) =>
-      Promise.all(
+      Promise.all<Erc721[]>(
         contractAddresses.map((contractAddress: string) =>
           alchemy.nft
             .getNftsForContract(contractAddress)
             .then((result) => result.nfts.map((nft) => mapNftResponseToErc721(nft)))
         )
       )
-        .then((results) => successfulResult(flatten(results)))
-        .catch((error) => failureResult<Erc721[]>(new FetchContractsNftsError(contractAddresses, error).message)),
+        .then((results) => successfulResult<Erc721[]>(flatten(results)))
+        .catch((error) => failureResult(new FetchContractsNftsError(contractAddresses, error).message)),
     useLaggy ? { use: [laggy] } : undefined
   )
   return data

@@ -4,10 +4,10 @@ import { useIsLoggedIn } from '@lib/hooks/use-is-logged-in'
 import { clsx } from 'clsx'
 import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
-import React from 'react'
+import { FunctionComponent } from 'react'
 import { useAccount } from 'wagmi'
 
-export const LoginModal: React.FunctionComponent = () => {
+export const LoginModal: FunctionComponent = () => {
   const t = useTranslations('Login')
   const isLoggedIn = useIsLoggedIn()
   const { isConnected } = useAccount()

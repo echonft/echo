@@ -1,8 +1,8 @@
-import { useLogger } from '@components/providers/logger-provider'
+import { logger } from '@echo/utils/logger'
 import { useLoginWithoutDiscord } from '@lib/hooks/use-login'
 import { useSignInWithFirebase } from '@lib/services/firebase/hooks/use-sign-in-with-firebase'
 import { useTranslations } from 'next-intl'
-import React from 'react'
+import { FunctionComponent } from 'react'
 import { useAccount } from 'wagmi'
 
 interface Props {
@@ -11,9 +11,8 @@ interface Props {
   hasLoggedIn?: (isLoggedIn: boolean, error: Error | undefined) => void
 }
 
-export const LoginFirebaseNoDiscord: React.FunctionComponent<Props> = ({ signature, message }) => {
+export const LoginFirebaseNoDiscord: FunctionComponent<Props> = ({ signature, message }) => {
   const t = useTranslations('Connect')
-  const logger = useLogger()
   const { address } = useAccount()
   const { data: loginData, error: loginError } = useLoginWithoutDiscord(address, message, signature)
   const { data, error } = useSignInWithFirebase(loginData?.apiKey)

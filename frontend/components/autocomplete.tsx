@@ -1,7 +1,7 @@
 import { Combobox, Transition } from '@headlessui/react'
 import { SearchableObject } from '@lib/view-models/object'
-import { isEmpty, isNil } from 'ramda'
-import React, { ReactNode } from 'react'
+import { isEmpty, isNil } from 'rambda'
+import { ReactNode } from 'react'
 
 interface Props<T> {
   placeholder: string

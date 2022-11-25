@@ -6,7 +6,7 @@ import { OfferItem } from '@echo/model/offer-item'
 import { useUser } from '@lib/hooks/use-user'
 import { createNewOffer } from '@lib/utils/offer'
 import { useTranslations } from 'next-intl'
-import React from 'react'
+import { FunctionComponent } from 'react'
 
 interface Props {
   type: OfferType
@@ -17,7 +17,7 @@ interface Props {
   onCancel?: VoidFunction
 }
 
-export const CreateOfferSummary: React.FunctionComponent<Props> = ({
+export const CreateOfferSummary: FunctionComponent<Props> = ({
   type,
   collection,
   ownerItems,

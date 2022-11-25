@@ -12,7 +12,7 @@ export interface Token {
 
 export interface Nft extends Token {
   id: string
-  imageUri: string
+  imageUri?: string
   name: string
   collection: NftCollection
 }

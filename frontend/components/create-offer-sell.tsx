@@ -10,8 +10,8 @@ import { createOfferItems } from '@lib/utils/offer-item'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
-import { isEmpty, isNil } from 'ramda'
-import React, { useCallback, useEffect, useState } from 'react'
+import { isEmpty, isNil } from 'rambda'
+import { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
   nfts: Erc721[]
 }
 
-export const CreateOfferSell: React.FunctionComponent<Props> = ({ nfts, collection }) => {
+export const CreateOfferSell: FunctionComponent<Props> = ({ nfts, collection }) => {
   const t = useTranslations('CreateOffer.sell')
   const router = useRouter()
   const { address } = useAccount()
@@ -38,7 +38,7 @@ export const CreateOfferSell: React.FunctionComponent<Props> = ({ nfts, collecti
     if (!isNil(createdOfferId)) {
       setOfferRequest(undefined)
       // TODO Create routes
-      router.push('success')
+      void router.push('success')
     }
   }, [router, createdOfferId])
 

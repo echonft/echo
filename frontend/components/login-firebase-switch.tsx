@@ -1,7 +1,7 @@
 import { LoginFirebase } from '@components/login-firebase'
 import { LoginFirebaseNoDiscord } from '@components/login-firebase-no-discord'
-import { isNil } from 'ramda'
-import React from 'react'
+import { isNil } from 'rambda'
+import { FunctionComponent } from 'react'
 
 interface Props {
   accessToken: string | undefined
@@ -11,7 +11,7 @@ interface Props {
   hasLoggedIn?: (isLoggedIn: boolean, error: Error | undefined) => void
 }
 
-export const LoginFirebaseSwitch: React.FunctionComponent<Props> = ({
+export const LoginFirebaseSwitch: FunctionComponent<Props> = ({
   accessToken,
   tokenType,
   signature,

@@ -1,7 +1,6 @@
 import { Tag } from '@components/tag'
 import { SearchableObject } from '@lib/view-models/object'
 import { clsx } from 'clsx'
-import React from 'react'
 
 interface Props<T> {
   tags: SearchableObject<T>[]

@@ -1,14 +1,14 @@
 import { CreateOffer } from '@components/create-offer'
 import { useFetchCollection } from '@lib/services/firebase/hooks/use-fetch-collection'
 import { useTranslations } from 'next-intl'
-import { isEmpty, isNil } from 'ramda'
-import React from 'react'
+import { isEmpty, isNil } from 'rambda'
+import { FunctionComponent } from 'react'
 
 interface Props {
   collectionId: string
 }
 
-export const CreateOfferFetcher: React.FunctionComponent<Props> = ({ collectionId }) => {
+export const CreateOfferFetcher: FunctionComponent<Props> = ({ collectionId }) => {
   const t = useTranslations('CreateOffer')
   const collectionResult = useFetchCollection(collectionId)
   if (isNil(collectionResult)) {

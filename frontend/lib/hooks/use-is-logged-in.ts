@@ -1,5 +1,5 @@
 import { useGetFirebaseAuth } from '@lib/services/firebase/hooks/use-get-firebase-auth'
-import { isNil } from 'ramda'
+import { isNil } from 'rambda'
 import { useEffect, useState } from 'react'
 
 export function useIsLoggedIn() {

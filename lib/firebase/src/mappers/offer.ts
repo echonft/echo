@@ -6,8 +6,9 @@ import { getDocument } from '../utils/document'
 import { mapUser } from './user'
 import { Offer, OfferStatus, OfferType } from '@echo/model/offer'
 import { OfferItem } from '@echo/model/offer-item'
+import { errorMessage } from '@echo/utils/error'
 import { DocumentSnapshot } from 'firebase/firestore'
-import { isEmpty, isNil } from 'ramda'
+import { isEmpty, isNil } from 'rambda'
 
 /**
  * Map a firebase offer snapshot to an array of offer
@@ -18,10 +19,10 @@ import { isEmpty, isNil } from 'ramda'
 export async function mapOffer(snapshot: DocumentSnapshot<FirebaseOffer>): Promise<Offer> {
   const data = snapshot.data()
   if (!data) {
-    return Promise.reject(new FirebaseMapperError(snapshot.id, FirebaseDocument.USERS))
+    throw new FirebaseMapperError(snapshot.id, FirebaseDocument.USERS)
   }
   if (isNil(data.seller?.id)) {
-    return Promise.reject(new FirebaseMapperError(snapshot.id, FirebaseDocument.USERS, 'No owner found'))
+    throw new FirebaseMapperError(snapshot.id, FirebaseDocument.USERS, 'No owner found')
   }
   return {
     id: snapshot.id,
@@ -36,9 +37,19 @@ export async function mapOffer(snapshot: DocumentSnapshot<FirebaseOffer>): Promi
   }
 }
 
-export function mapOfferItem(itemsString: string): OfferItem[] | undefined {
-  if (isNil(itemsString) || isEmpty(itemsString)) {
-    return undefined
+function parseOfferItem(offerItemString: string): OfferItem {
+  try {
+    const offerItem = JSON.parse(offerItemString) as Record<string, unknown>
+    // TODO validate json (see https://gcanti.github.io/io-ts/)
+    return offerItem as unknown as OfferItem
+  } catch (error) {
+    throw Error(`error parsing offer item.\ninput: ${offerItemString}\nerror:${errorMessage(error)}`)
   }
-  return itemsString.split(',').map((itemString) => JSON.parse(itemString))
+}
+
+export function mapOfferItem(itemsString: string): OfferItem[] {
+  if (isNil(itemsString) || isEmpty(itemsString)) {
+    return []
+  }
+  return itemsString.split(',').map(parseOfferItem)
 }

@@ -43,13 +43,13 @@
   "dependencies": {
     "@echo/model": "workspace:*",
     "@echo/firebase": "workspace:*",
+    "@echo/utils": "workspace:*",
     "ethers": "5.7.2",
     "firebase": "9.14.0",
-    "ramda": "0.28.0"
+    "rambda": "7.4.0"
   },
   "devDependencies": {
     "@google-cloud/firestore": "^6.4.1",
-    "@types/ramda": "0.28.20",
     "firebase-admin": "11.3.0"
   }
 }

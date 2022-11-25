@@ -29,9 +29,6 @@ yarn-error.log*
 # eslint cache
 .eslintcache
 
-# WebStorm
-.idea/*
-
 # Vercel
 .vercel
 

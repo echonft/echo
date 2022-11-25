@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="firebase" pattern="file[echo]:lib/firebase/src//*&amp;&amp;!file[echo]:lib/firebase/dist/*" />
+</component>

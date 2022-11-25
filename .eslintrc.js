@@ -1,9 +1,14 @@
 module.exports = {
   root: true,
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: ['./tsconfig.json']
+  },
   ignorePatterns: ['.eslintrc.js', '.eslintrc.cjs', 'prettier.config.js'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:import/recommended',
     'plugin:import/typescript',
     'turbo',
@@ -12,7 +17,6 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   rules: {
-    'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -31,7 +35,7 @@ module.exports = {
     ],
     '@typescript-eslint/no-explicit-any': 'error',
     'simple-import-sort/exports': 'error',
-    'no-console': 'warn',
+    'no-console': 'error',
     'no-case-declarations': 'off',
     'import/no-unresolved': 'off'
   },

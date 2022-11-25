@@ -1,9 +1,9 @@
 import { LoginFirebase } from '@components/login-firebase'
 import { LoginSignature } from '@components/login-signature'
-import { useLogger } from '@components/providers/logger-provider'
+import { logger } from '@echo/utils/logger'
 import { useLogin } from '@lib/hooks/use-login'
-import { isNil } from 'ramda'
-import React, { useState } from 'react'
+import { isNil } from 'rambda'
+import { FunctionComponent, useState } from 'react'
 import { useAccount } from 'wagmi'
 
 interface Props {
@@ -12,8 +12,7 @@ interface Props {
 }
 
 // TODO Handle errors
-export const Login: React.FunctionComponent<Props> = ({ accessToken, tokenType }) => {
-  const logger = useLogger()
+export const Login: FunctionComponent<Props> = ({ accessToken, tokenType }) => {
   const { address } = useAccount()
   const [message, setMessage] = useState<string>()
   const [signature, setSignature] = useState<string>()

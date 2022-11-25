@@ -1,6 +1,6 @@
 import { Erc721 } from '@echo/model/erc721'
 import { OfferItem } from '@echo/model/offer-item'
-import { isEmpty } from 'ramda'
+import { isEmpty } from 'rambda'
 
 export function createOfferItems(contractAddresses: string[], nfts: Erc721[]): OfferItem[] {
   if (isEmpty(contractAddresses) && isEmpty(nfts)) {
