@@ -11,7 +11,7 @@ const handler = async (req: CreateOfferRequest, res: NextApiResponse<CreateOffer
   const { method } = req
   if (method !== 'POST') {
     res.setHeader('Allow', ['POST'])
-    res.status(405).json({ error: `Method ${method} Not Allowed` })
+    res.status(405).json({ error: `Method ${method || ''} Not Allowed` })
   } else {
     const { type, ownerItems, counterpartyItems, collectionId, userId } = req.body
     const userSnapshot = await getUserSnapshot(userId)
@@ -33,7 +33,9 @@ const handler = async (req: CreateOfferRequest, res: NextApiResponse<CreateOffer
         status: OfferStatus.OPEN
       })
       .then(() => res.status(200).json({ offerId: newOffer.id }))
-      .catch((error) => res.status(500).json({ error: `SERVER ERROR: error creating offer: ${error}` }))
+      .catch((error) =>
+        res.status(500).json({ error: `SERVER ERROR: error creating offer: ${(error as string) || ''}` })
+      )
   }
 }
 
