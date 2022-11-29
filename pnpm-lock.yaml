@@ -125,6 +125,7 @@ importers:
 
   lib/api:
     specifiers:
+      '@echo/firebase': workspace:*
       '@echo/firebase-admin': workspace:*
       '@echo/model': workspace:*
       '@echo/utils': workspace:*
@@ -136,6 +137,7 @@ importers:
       request: 2.88.2
       siwe: 1.1.6
     dependencies:
+      '@echo/firebase': link:../firebase
       '@echo/firebase-admin': link:../firebase-admin
       '@echo/model': link:../model
       '@echo/utils': link:../utils

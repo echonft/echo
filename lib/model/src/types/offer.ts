@@ -11,8 +11,7 @@ export enum OfferStatus {
 
 export enum OfferType {
   BUY = 'buy',
-  SELL = 'sell',
-  HELLO = 'a'
+  SELL = 'sell'
 }
 
 export interface NewOffer {
