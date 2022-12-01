@@ -5,42 +5,22 @@
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc",
     "ci:lint": "eslint \"src/**/*.ts\"",
     "ci:prettier": "prettier \"src/**/*.ts\"",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
+    "lint:clean-cache": "rm -f .eslintcache",
     "tsc": "tsc --noEmit",
-    "clean": "rm -rf tsconfig.tsbuildinfo dist",
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
+    "clean": "rm -rf dist",
     "update-modules": "ncu -u",
     "remove-modules": "rm -rf node_modules"
   },
-  "exports": {
-    "./*": [
-      "./dist/*.js"
-    ]
-  },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "src/*"
-      ]
-    }
-  },
-  "publishConfig": {
-    "typesVersions": {
-      "*": {
-        "*": [
-          "dist/*.d.ts"
-        ]
-      }
-    }
-  },
-  "files": [
-    "dist"
-  ],
   "dependencies": {
-    "rambda": "7.4.0"
+    "rambda": "7.3.0"
   }
 }

@@ -1,8 +1,7 @@
 import { listenToInteractions } from './listeners/interaction'
 import { listenToOffers } from './listeners/offers'
-import { discordSecret } from '@echo/discord/admin/config'
-import { errorMessage } from '@echo/utils/error'
-import { logger } from '@echo/utils/logger'
+import { discordSecret } from '@echo/discord'
+import { errorMessage, logger } from '@echo/utils'
 import { BaseInteraction, Client, Events, GatewayIntentBits } from 'discord.js'
 import { isEmpty, isNil } from 'rambda'
 

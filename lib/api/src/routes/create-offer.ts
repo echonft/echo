@@ -1,11 +1,7 @@
-import { CreateOfferRequest } from '../models/create-offer-request'
-import { CreateOfferResponse } from '../models/create-offer-response'
-import { ErrorResponse } from '../models/error-response'
-import { getCollectionSnapshot } from '@echo/firebase-admin/getters/get-collection'
-import { getUserSnapshot } from '@echo/firebase-admin/getters/get-user'
-import { firestore } from '@echo/firebase-admin/services/firestore'
-import { OfferStatus } from '@echo/model/offer'
-import { errorMessage } from '@echo/utils/error'
+import { CreateOfferRequest, CreateOfferResponse, ErrorResponse } from '../types'
+import { collectionSnapshot, firestore, userSnapshot } from '@echo/firebase-admin'
+import { OfferStatus } from '@echo/model'
+import { errorMessage } from '@echo/utils'
 import { NextApiResponse } from 'next'
 
 const handler = async (req: CreateOfferRequest, res: NextApiResponse<CreateOfferResponse | ErrorResponse>) => {
@@ -15,19 +11,19 @@ const handler = async (req: CreateOfferRequest, res: NextApiResponse<CreateOffer
     res.status(405).json({ error: `Method ${method ?? ''} Not Allowed` })
   } else {
     const { type, ownerItems, counterpartyItems, collectionId, userId } = req.body
-    const userSnapshot = await getUserSnapshot(userId)
-    if (!userSnapshot.exists) {
+    const user = await userSnapshot(userId)
+    if (!user.exists) {
       return res.status(404).json({ error: `UNAUTHORIZED: No user found` })
     }
-    const collectionSnapshot = await getCollectionSnapshot(collectionId)
-    if (!collectionSnapshot.exists) {
+    const collection = await collectionSnapshot(collectionId)
+    if (!collection.exists) {
       return res.status(404).json({ error: `UNAUTHORIZED: No collection found` })
     }
     const newOffer = firestore().collection('offers').doc()
     return newOffer
       .set({
-        collection: collectionSnapshot.ref,
-        user: userSnapshot.ref,
+        collection: collection.ref,
+        user: user.ref,
         ownerItems: JSON.stringify(ownerItems),
         counterPartyItems: JSON.stringify(counterpartyItems),
         type,

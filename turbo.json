@@ -2,10 +2,13 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["clean", "^build"],
+      "dependsOn": ["^build"],
       "outputs": [".next/**", "dist/**"]
     },
     "lint": {
+      "cache": false
+    },
+    "lint:clean-cache": {
       "cache": false
     },
     "ci:lint": {
@@ -15,6 +18,9 @@
       "cache": false
     },
     "tsc": {
+      "cache": false
+    },
+    "tsc:clean-cache": {
       "cache": false
     },
     "dev": {
@@ -30,7 +36,6 @@
       "cache": false
     },
     "clean": {
-      "dependsOn": ["^clean"],
       "cache": false
     },
     "remove-modules": {
@@ -40,12 +45,12 @@
       "cache": false
     },
     "@echo/api#build": {
-      "dependsOn": ["clean", "^build"],
+      "dependsOn": ["^build"],
       "env": ["NODE_ENV", "API_ENV", "IRON_PASSWORD"],
       "outputs": ["dist/**"]
     },
     "@echo/discord#build": {
-      "dependsOn": ["clean", "^build"],
+      "dependsOn": ["^build"],
       "env": [
         "DISCORD_CLIENT_TOKEN",
         "DISCORD_CLIENT_ID",
@@ -56,12 +61,12 @@
       "outputs": ["dist/**"]
     },
     "@echo/firebase-admin#build": {
-      "dependsOn": ["clean", "^build"],
+      "dependsOn": ["^build"],
       "env": ["FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY"],
       "outputs": ["dist/**"]
     },
     "@echo/frontend#build": {
-      "dependsOn": ["clean", "^build"],
+      "dependsOn": ["^build"],
       "env": [
         "NEXT_PUBLIC_TESTNET",
         "NEXT_PUBLIC_MOCK",
@@ -71,7 +76,7 @@
       "outputs": [".next/**", "dist/**"]
     },
     "@echo/utils#build": {
-      "dependsOn": ["clean", "^build"],
+      "dependsOn": ["^build"],
       "env": ["NODE_ENV"],
       "outputs": ["dist/**"]
     },

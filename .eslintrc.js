@@ -1,10 +1,5 @@
 module.exports = {
   root: true,
-  parserOptions: {
-    tsconfigRootDir: __dirname,
-    project: ['./tsconfig.json']
-  },
-  ignorePatterns: ['.eslintrc.js', '.eslintrc.cjs', 'prettier.config.js'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -15,6 +10,10 @@ module.exports = {
     'prettier'
   ],
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: './tsconfig.eslint.json'
+  },
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   rules: {
     '@typescript-eslint/no-unused-vars': [

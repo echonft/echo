@@ -3,9 +3,9 @@ import { InvalidButtonActionError } from '../errors/invalid-button-action-error'
 import { InvalidButtonDataError } from '../errors/invalid-button-data-error'
 import { InvalidButtonIdError } from '../errors/invalid-button-id-error'
 import { OfferNotFoundError } from '../errors/offer-not-found-error'
-import { ButtonAction, buttonIdPrefixes } from '../models/button-action'
-import { getOffer } from '@echo/firebase-admin/getters/get-offer'
-import { Offer } from '@echo/model/offer'
+import { ButtonAction, buttonIdPrefixes } from '../types/models/button-action'
+import { offer } from '@echo/firebase-admin'
+import { Offer } from '@echo/model'
 import { ButtonComponent, ButtonInteraction } from 'discord.js'
 import { drop, isEmpty, isNil } from 'rambda'
 
@@ -56,7 +56,7 @@ export function executeForButton(interaction: ButtonInteraction) {
       if (isNil(offerId) || isEmpty(offerId)) {
         throw new OfferNotFoundError(offerId)
       }
-      return getOffer(offerId)
+      return offer(offerId)
         .then((offer: Offer) => {
           if (isNil(offer)) {
             throw new OfferNotFoundError(offerId)

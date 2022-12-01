@@ -1,5 +1,5 @@
-import { ButtonAction } from '../models/button-action'
-import { Offer } from '@echo/model/offer'
+import { ButtonAction } from '../types/models/button-action'
+import { Offer } from '@echo/model'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 
 /**

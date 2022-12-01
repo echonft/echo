@@ -25,6 +25,10 @@
       <excludeFolder url="file://$MODULE_DIR$/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/scopes" />
       <excludeFolder url="file://$MODULE_DIR$/frontend/.vercel" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/utils/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/utils/.turbo" />
+      <excludePattern pattern="tsbuild.buildinfo" />
+      <excludePattern pattern=".eslintcache" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

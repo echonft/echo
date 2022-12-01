@@ -49,7 +49,7 @@ importers:
       discord.js: 14.6.0
       firebase-admin: 11.3.0
       nodemon: ^2.0.20
-      rambda: 7.4.0
+      rambda: 7.3.0
     dependencies:
       '@echo/discord': link:../lib/discord
       '@echo/firebase-admin': link:../lib/firebase-admin
@@ -58,7 +58,7 @@ importers:
       axios: 1.2.0
       discord.js: 14.6.0
       firebase-admin: 11.3.0_@firebase+app-types@0.8.1
-      rambda: 7.4.0
+      rambda: 7.3.0
     devDependencies:
       nodemon: 2.0.20
 
@@ -84,7 +84,7 @@ importers:
       firebase: 9.14.0
       next: 13.0.4
       next-intl: 2.9.1
-      rambda: 7.4.0
+      rambda: 7.3.0
       react: 18.2.0
       react-dom: 18.2.0
       react-icons: 4.6.0
@@ -107,7 +107,7 @@ importers:
       firebase: 9.14.0
       next: 13.0.4_mqvh5p7ejg4taogoj6tpk3gd5a
       next-intl: 2.9.1_next@13.0.4+react@18.2.0
-      rambda: 7.4.0
+      rambda: 7.3.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-icons: 4.6.0_react@18.2.0
@@ -132,7 +132,7 @@ importers:
       ethers: 5.7.2
       iron-session: ^6.3.1
       next: 13.0.4
-      rambda: 7.4.0
+      rambda: 7.3.0
       request: 2.88.2
       siwe: 1.1.6
     dependencies:
@@ -142,7 +142,7 @@ importers:
       ethers: 5.7.2
       iron-session: 6.3.1_next@13.0.4
       next: 13.0.4_biqbaboplfbrettd7655fr4n2y
-      rambda: 7.4.0
+      rambda: 7.3.0
       request: 2.88.2
       siwe: 1.1.6_ethers@5.7.2
     devDependencies:
@@ -150,21 +150,21 @@ importers:
 
   lib/discord:
     specifiers:
-      rambda: 7.4.0
+      rambda: 7.3.0
     dependencies:
-      rambda: 7.4.0
+      rambda: 7.3.0
 
   lib/firebase:
     specifiers:
       '@echo/model': workspace:*
       '@echo/utils': workspace:*
       firebase: 9.14.0
-      rambda: 7.4.0
+      rambda: 7.3.0
     dependencies:
       '@echo/model': link:../model
       '@echo/utils': link:../utils
       firebase: 9.14.0
-      rambda: 7.4.0
+      rambda: 7.3.0
 
   lib/firebase-admin:
     specifiers:
@@ -175,14 +175,14 @@ importers:
       ethers: 5.7.2
       firebase: 9.14.0
       firebase-admin: 11.3.0
-      rambda: 7.4.0
+      rambda: 7.3.0
     dependencies:
       '@echo/firebase': link:../firebase
       '@echo/model': link:../model
       '@echo/utils': link:../utils
       ethers: 5.7.2
       firebase: 9.14.0
-      rambda: 7.4.0
+      rambda: 7.3.0
     devDependencies:
       '@google-cloud/firestore': 6.4.1
       firebase-admin: 11.3.0_@firebase+app-types@0.8.1
@@ -193,10 +193,10 @@ importers:
   lib/utils:
     specifiers:
       pino: 8.7.0
-      rambda: 7.4.0
+      rambda: 7.3.0
     dependencies:
       pino: 8.7.0
-      rambda: 7.4.0
+      rambda: 7.3.0
 
 packages:
   /@ampproject/remapping/2.2.0:
@@ -6824,8 +6824,7 @@ packages:
     dev: true
 
   /ee-first/1.1.1:
-    resolution:
-      { integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow== }
+    resolution: { integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0= }
     dev: false
 
   /eip1193-provider/1.0.1:
@@ -8441,8 +8440,7 @@ packages:
     dev: false
 
   /fresh/0.5.2:
-    resolution:
-      { integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q== }
+    resolution: { integrity: sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac= }
     engines: { node: '>= 0.6' }
     dev: false
 
@@ -12797,9 +12795,9 @@ packages:
     engines: { node: '>=10' }
     dev: true
 
-  /rambda/7.4.0:
+  /rambda/7.3.0:
     resolution:
-      { integrity: sha512-A9hihu7dUTLOUCM+I8E61V4kRXnN4DwYeK0DwCBydC1MqNI1PidyAtbtpsJlBBzK4icSctEcCQ1bGcLpBuETUQ== }
+      { integrity: sha512-RFVofZYaG2TaVcxjnM0ejdVWf/59rFq1f57OGnjP3GT/bthzFw0GVr5rkP9PKbVlEuF/Y7bOVPLfiiYfxq/EWQ== }
     dev: false
 
   /randombytes/2.1.0:

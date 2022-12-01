@@ -1,8 +1,7 @@
 import { buildBuyOfferButton } from '../builders/offer-button-builder'
 import { getDiscordChannel } from '../utils/discord'
-import { listenToOffer } from '@echo/firebase-admin/listeners/offer'
-import { errorMessage } from '@echo/utils/error'
-import { logger } from '@echo/utils/logger'
+import { listenToOffer } from '@echo/firebase-admin'
+import { errorMessage, logger } from '@echo/utils'
 import { Client } from 'discord.js'
 import { isNil } from 'rambda'
 

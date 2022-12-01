@@ -14,11 +14,6 @@
     "url": "https://github.com/echonft/echo/issues"
   },
   "homepage": "https://github.com/echonft/echo#readme",
-  "workspaces": [
-    "bot",
-    "frontend",
-    "lib/*"
-  ],
   "lint-staged": {
     "*.(json|yaml|cjs|js|ts|tsx)": "prettier --write --cache"
   },
@@ -35,10 +30,12 @@
     "bot:deploy-commands": "env-cmd -f .env turbo run @echo/bot#deploy-commands",
     "prepare": "husky install",
     "vercel": "env-cmd -f .env vercel dev",
+    "lint:clean-cache": "rm -f .eslintcache && turbo run lint:cache",
     "lint": "turbo run lint --parallel",
     "ci:lint": "turbo run ci:lint --parallel",
     "ci:prettier": "turbo run ci:prettier --parallel",
     "tsc": "turbo run tsc --parallel --parallel",
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache",
     "clean": "turbo run clean",
     "update-modules": "ncu -u && turbo run update-modules",
     "remove-modules": "turbo run remove-modules && rm -rf node_modules"
@@ -61,5 +58,6 @@
     "turbo": "1.6.3",
     "typescript": "4.9.3",
     "vercel": "^28.5.6"
-  }
+  },
+  "packageManager": "pnpm@7.15.0"
 }

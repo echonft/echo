@@ -1,11 +1,10 @@
 import { executeConnect } from '../commands/connect'
-import { InputSubcommands } from '../commands/input-subcommands'
 import { InvalidSubcommandError } from '../errors/invalid-subcommand-error'
 import { NotConfiguredError } from '../errors/not-configured-error'
 import { WrongChannelError } from '../errors/wrong-channel-error'
-import { getCollection } from '@echo/firebase-admin/getters/get-collection'
-import { errorMessage } from '@echo/utils/error'
-import { logger } from '@echo/utils/logger'
+import { InputSubcommands } from '../types/commands/input-subcommands'
+import { collection } from '@echo/firebase-admin'
+import { errorMessage, logger } from '@echo/utils'
 import { ChatInputCommandInteraction, CommandInteraction } from 'discord.js'
 import { isEmpty, isNil } from 'rambda'
 
@@ -20,7 +19,7 @@ function executeForSubcommand(interaction: CommandInteraction, subcommand: Input
 
 export function executeForCommand(interaction: ChatInputCommandInteraction) {
   const guildId = interaction.guildId
-  return getCollection(guildId ?? '')
+  return collection(guildId ?? '')
     .then((collection) => {
       if (isNil(collection)) {
         throw new NotConfiguredError(guildId)

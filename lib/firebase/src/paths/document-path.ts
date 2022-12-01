@@ -1,10 +1,5 @@
+import { FirebaseDocument } from '../types'
 import { isNil } from 'rambda'
-
-export enum FirebaseDocument {
-  COLLECTIONS = 'collections',
-  USERS = 'users',
-  OFFERS = 'offers'
-}
 
 /**
  * Util to change document to path

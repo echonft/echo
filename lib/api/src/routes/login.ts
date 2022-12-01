@@ -1,11 +1,7 @@
-import { ErrorResponse } from '../models/error-response'
-import { ApiLoginRequest } from '../models/login-request'
-import { LoginResponse } from '../models/login-response'
-import { ironOptions } from '../utils/iron-options'
-import { verifySignature } from '../utils/verify-utils'
-import { getUserWithAddress } from '@echo/firebase-admin/getters/get-user'
-import { auth } from '@echo/firebase-admin/services/auth'
-import { errorMessage } from '@echo/utils/error'
+import { ApiLoginRequest, ErrorResponse, LoginResponse } from '../types'
+import { ironOptions, verifySignature } from '../utils'
+import { auth, userWithAddress } from '@echo/firebase-admin'
+import { errorMessage } from '@echo/utils'
 import { getAddress } from 'ethers/lib/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse } from 'next'
@@ -21,7 +17,7 @@ const handler = async (req: ApiLoginRequest, res: NextApiResponse<LoginResponse 
         const { message, signature, address, discordId } = req.body
         const formattedAddress = getAddress(address)
         const fields = await verifySignature(message, signature)
-        const userDoc = await getUserWithAddress(formattedAddress)
+        const userDoc = await userWithAddress(formattedAddress)
         if (isNil(userDoc)) {
           return res.status(404).json({ error: `UNAUTHORIZED: No user found` })
         }

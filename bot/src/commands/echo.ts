@@ -1,9 +1,6 @@
+import { CommandInterface } from '../types/commands/command-interface'
 import { connectSubcommand } from './connect'
-import { SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder } from 'discord.js'
-
-interface CommandInterface {
-  data: SlashCommandSubcommandsOnlyBuilder
-}
+import { SlashCommandBuilder } from 'discord.js'
 
 export const echoCommand: CommandInterface = {
   data: new SlashCommandBuilder()

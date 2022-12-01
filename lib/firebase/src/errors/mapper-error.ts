@@ -1,4 +1,4 @@
-import { FirebaseDocument } from '../paths/document-path'
+import { FirebaseDocument } from '../types'
 import { isEmpty, isNil } from 'rambda'
 
 export class FirebaseMapperError extends Error {

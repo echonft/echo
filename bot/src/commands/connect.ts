@@ -1,4 +1,4 @@
-import { getLoginLink } from '@echo/discord/routing/routes'
+import { loginLink } from '@echo/discord'
 import { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
 
 /**
@@ -12,7 +12,7 @@ export const connectSubcommand = (subCommand: SlashCommandSubcommandBuilder) =>
 export function executeConnect(interaction: CommandInteraction) {
   // TODO Probably dont need to redirect to discord right away, to define
   return interaction.reply({
-    content: getLoginLink(),
+    content: loginLink,
     ephemeral: true
   })
 }

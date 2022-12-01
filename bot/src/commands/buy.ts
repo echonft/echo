@@ -1,8 +1,7 @@
 import { BuyOwnOfferError } from '../errors/buy-own-offer-error'
 import { getDiscordChannel } from '../utils/discord'
-import { Offer } from '@echo/model/offer'
-import { errorMessage } from '@echo/utils/error'
-import { logger } from '@echo/utils/logger'
+import { Offer } from '@echo/model'
+import { errorMessage, logger } from '@echo/utils'
 import { ButtonInteraction, ChannelType } from 'discord.js'
 
 export function executeBuy(interaction: ButtonInteraction, offer: Offer) {
