@@ -1,5 +1,5 @@
-import { ErrorResponse } from '../models/error-response'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { ErrorResponse } from 'types'
 
 export declare type RequestHandler<T extends NextApiRequest, U> = (
   req: T,

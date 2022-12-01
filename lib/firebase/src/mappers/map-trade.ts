@@ -1,11 +1,11 @@
-import { FirebaseMapperError } from '../errors/mapper-error'
-import { mapOffer, mapOfferItem } from '../mappers/offer'
-import { FirebaseTrade } from '../model/trade'
-import { FirebaseDocument } from '../paths/document-path'
-import { getDocument } from '../utils/document'
-import { mapUser } from './user'
-import { Trade, TradeStatus } from '@echo/model/trade'
+import { Trade, TradeStatus } from '@echo/model'
 import { DocumentSnapshot } from 'firebase/firestore'
+import { FirebaseMapperError } from '../errors'
+import { FirebaseDocument, FirebaseTrade } from '../types'
+import { document } from '../utils/document'
+import { mapOffer } from './map-offer'
+import { mapOfferItem } from './map-offer-item'
+import { mapUser } from './map-user'
 
 /**
  * Map a firebase trade snapshot to a trade
@@ -23,9 +23,9 @@ export async function mapTrade(snapshot: DocumentSnapshot<FirebaseTrade>): Promi
     status: data.status as TradeStatus,
     counterpartyItems: mapOfferItem(data.counterpartyItems),
     ownerItems: mapOfferItem(data.ownerItems),
-    offer: await getDocument(data.offer.id, FirebaseDocument.OFFERS, mapOffer),
-    counterparty: await getDocument(data.counterparty.id, FirebaseDocument.USERS, mapUser),
-    owner: await getDocument(data.owner.id, FirebaseDocument.USERS, mapUser),
+    offer: await document(data.offer.id, FirebaseDocument.OFFERS, mapOffer),
+    counterparty: await document(data.counterparty.id, FirebaseDocument.USERS, mapUser),
+    owner: await document(data.owner.id, FirebaseDocument.USERS, mapUser),
     threadId: data.threadId
   }
 }

@@ -1,17 +1,11 @@
-import { ErrorResponse } from '../models/error-response'
-import { CreateTradeRequest, DeleteTradeRequest, UpdateTradeRequest } from '../models/trade-request'
-import { TradeResponse } from '../models/trade-response'
-import { ironOptions } from '../utils/iron-options'
-import { withMethodValidation } from '../utils/with-method-validation'
-import { FirebaseDocument } from '@echo/firebase/paths/document-path'
-import { getOfferSnapshot } from '@echo/firebase-admin/getters/get-offer'
-import { getTrade } from '@echo/firebase-admin/getters/get-trade'
-import { getUserSnapshot } from '@echo/firebase-admin/getters/get-user'
-import { firestore } from '@echo/firebase-admin/services/firestore'
-import { TradeStatus } from '@echo/model/trade'
-import { errorMessage } from '@echo/utils/error'
+import { FirebaseDocument } from '@echo/firebase'
+import { firestore, offerSnapshot as getOfferSnapshot, trade as getTrade, userSnapshot } from '@echo/firebase-admin'
+import { TradeStatus } from '@echo/model'
+import { errorMessage } from '@echo/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse } from 'next'
+import { CreateTradeRequest, DeleteTradeRequest, ErrorResponse, TradeResponse, UpdateTradeRequest } from '../types'
+import { ironOptions, withMethodValidation } from '../utils'
 
 const handler = async (
   req: CreateTradeRequest | DeleteTradeRequest | UpdateTradeRequest,
@@ -20,12 +14,12 @@ const handler = async (
   const { method } = req
   if (method === 'POST') {
     const { ownerItems, counterpartyItems, counterpartyId, ownerId, offerId } = (req as CreateTradeRequest).body
-    const ownerSnapshot = await getUserSnapshot(ownerId)
+    const ownerSnapshot = await userSnapshot(ownerId)
 
     if (!ownerSnapshot.exists) {
       return res.status(404).json({ error: 'UNAUTHORIZED: No owner found' })
     }
-    const counterpartySnapshot = await getUserSnapshot(counterpartyId)
+    const counterpartySnapshot = await userSnapshot(counterpartyId)
     if (!counterpartySnapshot.exists) {
       return res.status(404).json({ error: 'UNAUTHORIZED: No counterparty found' })
     }
@@ -49,10 +43,10 @@ const handler = async (
     // PUT OR DELETE
     // Safe to use DeleteTradeRequest as it contains the offer we need to validate first
     const { tradeId, userId } = (req as DeleteTradeRequest).body
-    const userSnapshot = await getUserSnapshot(userId)
+    const callerSnapshot = await userSnapshot(userId)
     const trade = await getTrade(tradeId)
 
-    if (!userSnapshot.exists) {
+    if (!callerSnapshot.exists) {
       return res.status(404).json({ error: 'UNAUTHORIZED: No user found' })
     }
     if (trade.owner.id !== userId || trade.counterparty.id !== userId) {

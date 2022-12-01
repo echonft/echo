@@ -1,31 +1,23 @@
-import { CreateOfferRequest, CreateOfferResponse, ErrorResponse } from '../types'
-import { collectionSnapshot, firestore, userSnapshot } from '@echo/firebase-admin'
+import { FirebaseDocument } from '@echo/firebase'
+import { collectionSnapshot, firestore, userSnapshot, offer as getOffer } from '@echo/firebase-admin'
 import { OfferStatus } from '@echo/model'
 import { errorMessage } from '@echo/utils'
+import { withIronSessionApiRoute } from 'iron-session/next'
 import { NextApiResponse } from 'next'
+import { DeleteOfferRequest, ErrorResponse, OfferRequest, OfferResponse, UpdateOfferRequest } from '../types'
+import { ironOptions, withExistingUser, withMethodValidation } from '../utils'
 
 const handler = async (
-  req: CreateOfferRequest | DeleteOfferRequest | UpdateOfferRequest,
-  res: NextApiResponse<CreateOfferResponse | ErrorResponse>
+  req: OfferRequest | DeleteOfferRequest | UpdateOfferRequest,
+  res: NextApiResponse<OfferResponse | ErrorResponse>
 ) => {
   const { method } = req
-  if (method !== 'POST') {
-    res.setHeader('Allow', ['POST'])
-    res.status(405).json({ error: `Method ${method ?? ''} Not Allowed` })
-  } else {
-    const { type, ownerItems, counterpartyItems, collectionId, userId } = req.body
-    const user = await userSnapshot(userId)
-    if (!user.exists) {
-      return res.status(404).json({ error: `UNAUTHORIZED: No user found` })
-    }
+  const { userId } = req.body
+  const user = await userSnapshot(userId)
+  if (method === 'POST') {
+    const { type, ownerItems, counterpartyItems, collectionId } = (req as OfferRequest).body
     const collection = await collectionSnapshot(collectionId)
     if (!collection.exists) {
-  const { userId } = req.body
-  const userSnapshot = await getUserSnapshot(userId)
-  if (method === 'POST') {
-    const { type, ownerItems, counterpartyItems, collectionId } = (req as CreateOfferRequest).body
-    const collectionSnapshot = await getCollectionSnapshot(collectionId)
-    if (!collectionSnapshot.exists) {
       return res.status(404).json({ error: `UNAUTHORIZED: No collection found` })
     }
     const newOffer = firestore().collection(FirebaseDocument.OFFERS).doc()
@@ -71,7 +63,7 @@ const handler = async (
   }
 }
 
-export const createOffer = withIronSessionApiRoute(
+export const offer = withIronSessionApiRoute(
   withExistingUser(withMethodValidation(handler, ['PUT', 'DELETE', 'POST'])),
   ironOptions
 )

@@ -9,4 +9,7 @@ export const ironOptions = {
   }
 }
 
+export * from './request-handler'
 export * from './verify-signature'
+export * from './with-existing-user'
+export * from './with-method-validation'

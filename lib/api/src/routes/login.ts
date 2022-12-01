@@ -1,20 +1,19 @@
-import { ApiLoginRequest, ErrorResponse, LoginResponse } from '../types'
-import { ironOptions, verifySignature } from '../utils'
 import { auth, userWithAddress } from '@echo/firebase-admin'
 import { errorMessage } from '@echo/utils'
 import { getAddress } from 'ethers/lib/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
-import { NextApiResponse } from 'next'
 import { isNil } from 'rambda'
 import { generateNonce } from 'siwe'
+import { ApiLoginRequest, LoginResponse } from '../types'
+import { ironOptions, RequestHandler, verifySignature, withExistingUserAddress, withMethodValidation } from '../utils'
 
 // TODO Add the collection here
-const handler = async (req: ApiLoginRequest, res: NextApiResponse<LoginResponse | ErrorResponse>) => {
+const handler: RequestHandler<ApiLoginRequest, LoginResponse> = async (req, res) => {
   try {
     const { message, signature, address, discordId } = req.body
     const formattedAddress = getAddress(address)
     const fields = await verifySignature(message, signature)
-    const userDoc = await getUserWithAddress(formattedAddress)
+    const userDoc = await userWithAddress(formattedAddress)
     if (isNil(userDoc)) {
       return res.status(404).json({ error: `UNAUTHORIZED: No user found` })
     }

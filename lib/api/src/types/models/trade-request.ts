@@ -1,4 +1,4 @@
-import { OfferItem } from '@echo/model/offer-item'
+import { OfferItem } from '@echo/model'
 import { NextApiRequest } from 'next'
 
 interface InternalCreateTradeRequest {

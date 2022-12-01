@@ -26,7 +26,7 @@ export interface ApiRequestWithUserId extends NextApiRequest {
   body: RequestWithUserId
 }
 
-export interface CreateOfferRequest extends NextApiRequest {
+export interface OfferRequest extends NextApiRequest {
   body: InternalCreateOfferRequest
 }
 

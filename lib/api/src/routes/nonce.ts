@@ -1,13 +1,14 @@
-import { ErrorResponse, NonceRequest, NonceResponse } from '../types'
-import { ironOptions } from '../utils'
-import { firestore, userWithAddress } from '@echo/firebase-admin'
 import { withIronSessionApiRoute } from 'iron-session/next'
+import { NonceRequest, NonceResponse } from '../types'
+import { ironOptions, RequestHandler, withMethodValidation } from '../utils'
+import { firestore, userWithAddress } from '@echo/firebase-admin'
 import { isNil } from 'rambda'
 import { generateNonce } from 'siwe'
+import { FirebaseDocument } from '@echo/firebase'
 
 const handler: RequestHandler<NonceRequest, NonceResponse> = async (req, res) => {
   const { address } = req.body
-  const userDoc = await getUserWithAddress(address)
+  const userDoc = await userWithAddress(address)
   let nonce
   if (isNil(userDoc)) {
     nonce = generateNonce()
