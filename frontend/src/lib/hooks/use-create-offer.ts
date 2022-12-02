@@ -1,4 +1,4 @@
-import { ApiRoutes, OfferResponse } from '@echo/api'
+import { ApiRoutes, OfferResponse } from '@echo/api/dist/types'
 import { NewOffer } from '@echo/model'
 import { fetcher } from '@lib/services/fetcher'
 import useSWR from 'swr'
