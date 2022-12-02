@@ -1,6 +1,6 @@
-import { LoginResponse, Routes } from '@echo/api'
+import { ApiRoutes, LoginResponse } from '@echo/api'
 import { useFetchDiscordUser } from '@lib/hooks/use-fetch-discord-user'
-import { fetcher } from '@lib/services/fetcher/fetcher'
+import { fetcher } from '@lib/services/fetcher'
 import useSWR from 'swr'
 
 // TODO Use Result
@@ -16,7 +16,7 @@ export function useLogin(
     discordUser &&
       address &&
       message &&
-      signature && [Routes.LOGIN, { signature, address, message, discordId: discordUser.id }],
+      signature && [ApiRoutes.LOGIN, { signature, address, message, discordId: discordUser.id }],
     fetcher
   )
   return { data, error: error || discordUserError }
@@ -35,7 +35,7 @@ export function useLoginWithoutDiscord(
   signature: string | undefined
 ) {
   const { data, error } = useSWR<LoginResponse, Error>(
-    address && message && signature && [Routes.LOGIN, { signature, address, message }],
+    address && message && signature && [ApiRoutes.LOGIN, { signature, address, message }],
     fetcher
   )
   return { data, error }

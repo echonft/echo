@@ -1,5 +1,5 @@
 import { Routes, UserResponse } from '@echo/discord'
-import { fetcher } from '@lib/services/fetcher/fetcher'
+import { fetcher } from '@lib/services/fetcher'
 import useSWRImmutable from 'swr/immutable'
 
 // TODO Use Result

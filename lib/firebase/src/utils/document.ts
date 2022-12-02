@@ -1,8 +1,8 @@
 import { FirebaseDocument } from '../types'
+import { DocumentData, DocumentSnapshot } from '../types/firestore'
 import { firebaseDocSnapshotFromPath } from './firebase-doc-snapshot-from-path'
-import { DocumentSnapshot } from 'firebase/firestore'
 
-export function document<T, U = T>(
+export function document<T extends DocumentData, U = T>(
   id: string,
   collection: FirebaseDocument,
   mapper?: (snapshot: DocumentSnapshot<T>) => Promise<U>

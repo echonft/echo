@@ -1,5 +1,5 @@
-import { serverConfig } from '../config'
 import { ApiEnvironment } from '../types/config'
+import { serverConfig } from './server-config'
 
 export const ironOptions = {
   cookieName: 'siwe',
@@ -8,8 +8,3 @@ export const ironOptions = {
     secure: serverConfig.environment === ApiEnvironment.PROD
   }
 }
-
-export * from './request-handler'
-export * from './verify-signature'
-export * from './with-existing-user'
-export * from './with-method-validation'

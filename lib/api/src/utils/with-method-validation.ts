@@ -1,4 +1,4 @@
-import { RequestHandler } from './request-handler'
+import { RequestHandler } from '../types/handlers/request-handler'
 import { NextApiRequest } from 'next'
 
 export type methods = 'POST' | 'DELETE' | 'PUT' | 'GET'
@@ -12,13 +12,13 @@ export function withMethodValidation<T extends NextApiRequest, U>(
   handler: RequestHandler<T, U>,
   allowedMethods: methods[]
 ): RequestHandler<T, U> {
-  return function withValidation(req, res) {
+  return function (req, res) {
     const { method } = req
     if (allowedMethods.some((allowedMethod) => allowedMethod === method)) {
       return handler(req, res)
-    } else {
-      res.setHeader('Allow', allowedMethods)
-      return res.status(405).json({ error: `Method ${method ?? ''} Not Allowed` })
     }
+    res.setHeader('Allow', allowedMethods)
+    res.status(405).json({ error: `Method ${method ?? ''} Not Allowed` })
+    return handler(req, res)
   }
 }

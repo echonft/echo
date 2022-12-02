@@ -1,5 +1,5 @@
 import { useFirebase } from '@components/providers/firebase-provider'
-import { collectionQuery, documentPath, FirebaseDocument } from '@echo/firebase'
+import { collectionQuery, DocumentData, documentPath, FirebaseDocument } from '@echo/firebase'
 import { logger } from '@echo/utils'
 import { config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
@@ -18,7 +18,7 @@ export type UseCollectionOptions<T, W> = {
   suspense?: boolean
 }
 
-function useCollectionInternal<T, W = DocumentSnapshot<T>>(
+function useCollectionInternal<T extends DocumentData, W = DocumentSnapshot<T>>(
   path: string | undefined,
   options?: UseCollectionOptions<T, W>
 ): SwrResult<W[]> {
@@ -65,7 +65,7 @@ function useCollectionInternal<T, W = DocumentSnapshot<T>>(
   return data
 }
 
-export function useCollection<T, W = DocumentSnapshot<T>>(
+export function useCollection<T extends DocumentData, W = DocumentSnapshot<T>>(
   path: FirebaseDocument | undefined,
   options?: UseCollectionOptions<T, W>
 ): SwrResult<W[]> {

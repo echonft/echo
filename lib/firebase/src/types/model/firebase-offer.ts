@@ -1,6 +1,6 @@
-import { DocumentReference } from 'firebase/firestore'
+import { DocumentData, DocumentReference } from 'firebase/firestore'
 
-export interface FirebaseOffer {
+export interface FirebaseOffer extends DocumentData {
   status: string
   type: string
   collection: DocumentReference

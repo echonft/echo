@@ -1,5 +1,5 @@
 import { document } from './document'
-import { FirebaseDocument, mapUser } from '@echo/firebase'
+import { FirebaseDocument, FirebaseUser, mapUser } from '@echo/firebase'
 import { User } from '@echo/model'
 
 /**
@@ -7,5 +7,5 @@ import { User } from '@echo/model'
  * @param id The user id
  */
 export function user(id: string): Promise<User> {
-  return document(id, FirebaseDocument.USERS, mapUser)
+  return document<FirebaseUser, User>(id, FirebaseDocument.USERS, mapUser)
 }

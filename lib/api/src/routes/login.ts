@@ -1,11 +1,15 @@
+import { ironOptions } from '../config/iron-options'
+import { ApiLoginRequest, LoginResponse } from '../types'
+import { RequestHandler } from '../types/handlers/request-handler'
+import { verifySignature } from '../utils/verify-signature'
+import { withExistingUserAddress } from '../utils/with-existing-user'
+import { withMethodValidation } from '../utils/with-method-validation'
 import { auth, userWithAddress } from '@echo/firebase-admin'
 import { errorMessage } from '@echo/utils'
 import { getAddress } from 'ethers/lib/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { isNil } from 'rambda'
 import { generateNonce } from 'siwe'
-import { ApiLoginRequest, LoginResponse } from '../types'
-import { ironOptions, RequestHandler, verifySignature, withExistingUserAddress, withMethodValidation } from '../utils'
 
 // TODO Add the collection here
 const handler: RequestHandler<ApiLoginRequest, LoginResponse> = async (req, res) => {

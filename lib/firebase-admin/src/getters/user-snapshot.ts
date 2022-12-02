@@ -1,5 +1,5 @@
 import { documentSnapshot } from './document-snapshot'
-import { FirebaseDocument } from '@echo/firebase'
+import { FirebaseDocument, FirebaseUser } from '@echo/firebase'
 export function userSnapshot(id: string) {
-  return documentSnapshot(id, FirebaseDocument.USERS)
+  return documentSnapshot<FirebaseUser>(id, FirebaseDocument.USERS)
 }

@@ -1,13 +1,13 @@
-import { CreateOfferResponse, Routes } from '@echo/api'
+import { ApiRoutes, OfferResponse } from '@echo/api'
 import { NewOffer } from '@echo/model'
-import { fetcher } from '@lib/services/fetcher/fetcher'
+import { fetcher } from '@lib/services/fetcher'
 import useSWR from 'swr'
 
 export function useCreateOffer(request: NewOffer | undefined) {
-  const { data, error } = useSWR<CreateOfferResponse, Error>(
+  const { data, error } = useSWR<OfferResponse, Error>(
     request
       ? [
-          Routes.CREATE_OFFER,
+          ApiRoutes.OFFER,
           {
             type: request.type,
             userId: request.owner.id,

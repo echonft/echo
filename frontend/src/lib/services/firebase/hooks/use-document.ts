@@ -8,13 +8,13 @@ import { isNil } from 'rambda'
 import { useEffect } from 'react'
 import useSWR, { SWRResponse, useSWRConfig } from 'swr'
 
-export type UseDocumentOptions<T, W> = {
+export type UseDocumentOptions<T extends DocumentData, W> = {
   listen?: boolean
   suspense?: boolean
   mapper?: (snapshot: DocumentSnapshot<T>) => Promise<W>
 }
 
-function useDocumentInternal<T = DocumentData, W = T>(
+function useDocumentInternal<T extends DocumentData, W = T>(
   path: FirebaseDocument | undefined,
   segment: string | undefined,
   options?: UseDocumentOptions<T, W>
@@ -25,14 +25,14 @@ function useDocumentInternal<T = DocumentData, W = T>(
     firebaseApp && path && segment && [path, segment],
     (path, segment) =>
       firebaseDocSnapshotFromPath<T>(path, segment).then((doc) => {
-        if (isNil(doc) || !doc.exists()) {
+        if (isNil(doc) || !(doc as DocumentSnapshot<T>).exists()) {
           const message = `doc is undefined for ${path}/${segment}`
           logger.error(message)
           return failureResult(message)
         } else if (isNil(options) || isNil(options?.mapper)) {
           return successfulResult(doc.data() as unknown as W)
         } else {
-          return options.mapper?.(doc).then((mappedData) => successfulResult(mappedData))
+          return options.mapper?.(doc as DocumentSnapshot<T>).then((mappedData) => successfulResult(mappedData))
         }
       }),
     { suspense: options?.suspense || suspense }
@@ -53,7 +53,7 @@ function useDocumentInternal<T = DocumentData, W = T>(
  * @param segment
  * @param options?
  */
-export function useDocument<T, W = T>(
+export function useDocument<T extends DocumentData, W = T>(
   path: FirebaseDocument | undefined,
   segment: string | undefined,
   options?: UseDocumentOptions<T, W>

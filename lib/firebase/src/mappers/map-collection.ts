@@ -1,6 +1,6 @@
 import { FirebaseCollection } from '../types'
+import { DocumentSnapshot } from '../types/firestore'
 import { Collection } from '@echo/model'
-import { DocumentSnapshot } from 'firebase/firestore'
 import { isNil } from 'rambda'
 
 /**
