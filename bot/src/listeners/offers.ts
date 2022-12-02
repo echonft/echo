@@ -1,9 +1,10 @@
-import { buildBuyOfferButton } from '../builders/offer-button-builder'
-import { getDiscordChannel } from '../utils/discord'
 import { listenToOffer } from '@echo/firebase-admin'
 import { errorMessage, logger } from '@echo/utils'
 import { Client } from 'discord.js'
 import { isNil } from 'rambda'
+import { buildNewOfferButtons } from '../builders/offer-button-builder'
+import { buildOfferEmbed } from '../builders/offer-embed-builder'
+import { getDiscordChannel } from '../utils/discord'
 
 export function listenToOffers(client: Client) {
   listenToOffer((offer, change) => {
@@ -14,8 +15,8 @@ export function listenToOffers(client: Client) {
         void channel
           // TODO how should we display offer items here?
           .send({
-            content: `New offer from <@${offer.owner.discordId}>`,
-            components: [buildBuyOfferButton(offer)]
+            components: [buildNewOfferButtons(offer)],
+            embeds: [buildOfferEmbed(offer)]
           })
           .then(() => change.doc.ref.set({ ...change.doc.data(), postedAt: new Date().getTime() }))
           .catch((error) => {
