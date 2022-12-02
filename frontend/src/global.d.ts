@@ -1,4 +1,4 @@
-import messages from 'frontend/src/lib/messages/en.json'
+import messages from './lib/messages/en.json'
 
 type Messages = typeof messages
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

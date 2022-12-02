@@ -1,5 +1,5 @@
-import { ErrorResponse } from '@echo/api'
-import { Routes } from '@echo/discord'
+import { ErrorResponse } from '@echo/api/dist/types'
+import { Routes } from '@echo/discord/dist/types'
 import { HTTPError } from '@lib/services/fetcher/errors/http'
 import { isEmpty, isNil } from 'rambda'
 
@@ -16,6 +16,7 @@ function handleError(path: Routes, res: Response): void {
   }
 }
 // TODO Change to result
+// FIXME Record<string, unknown> won't work with NextApiRequest
 export const fetcher = <Response, Data extends Record<string, unknown> | undefined = undefined>(
   path: Routes,
   data?: Data,
