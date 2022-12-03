@@ -2,7 +2,7 @@ import { LoginFirebaseSwitch } from '@components/login-firebase-switch'
 import { LoginSignature } from '@components/login-signature'
 import { logger } from '@echo/utils'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 import { FunctionComponent, useState } from 'react'
 
 interface Props {

@@ -1,6 +1,6 @@
 import { LoginFirebase } from '@components/login-firebase'
 import { LoginFirebaseNoDiscord } from '@components/login-firebase-no-discord'
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {

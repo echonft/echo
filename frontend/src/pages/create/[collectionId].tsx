@@ -1,11 +1,15 @@
 import { CreateOfferFetcher } from '@components/create-offer-fetcher'
+import { getMessages, MessagesType } from '@lib/messages'
 import { GetServerSideProps, NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-import { isNil } from 'rambda'
 const DynamicAuthPage = dynamic(() => import('@components/pages/auth-page').then((mod) => mod.AuthPage), {
   ssr: false
 })
+
+interface Props {
+  messages: MessagesType
+}
 
 const CreateOffer: NextPage = () => {
   const router = useRouter()
@@ -17,12 +21,12 @@ const CreateOffer: NextPage = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, defaultLocale }) => {
-  return {
+export const getServerSideProps: GetServerSideProps<Props> = ({ locale, defaultLocale }) => {
+  return Promise.resolve({
     props: {
-      messages: (await import(`@lib/messages/${isNil(locale) ? defaultLocale! : locale}.json`)).default
+      messages: getMessages(locale, defaultLocale)
     }
-  }
+  })
 }
 
 export default CreateOffer

@@ -1,4 +1,4 @@
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 import { useMemo } from 'react'
 import { SiweMessage } from 'siwe'
 import { useAccount, useNetwork } from 'wagmi'

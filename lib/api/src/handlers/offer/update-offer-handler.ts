@@ -1,10 +1,11 @@
-import { OfferResponse, UpdateOfferRequest } from '../../types'
+import { OfferResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
+import { UpdateOfferApiRequest } from '../../types/models/api-requests/update-offer-api-request'
 import { FirebaseDocument } from '@echo/firebase'
 import { firestore, offer as getOffer } from '@echo/firebase-admin'
 import { errorMessage } from '@echo/utils'
 
-export const updateOfferHandler: RequestHandler<UpdateOfferRequest, OfferResponse> = async (
+export const updateOfferHandler: RequestHandler<UpdateOfferApiRequest, OfferResponse> = async (
   req,
   res
 ): Promise<void> => {

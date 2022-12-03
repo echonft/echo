@@ -1,9 +1,10 @@
 import { CreateOfferSummaryDetails } from '@components/create-offer-summary-details'
 import { Modal } from '@components/modal'
-import { Collection, NewOffer, OfferItem, OfferType } from '@echo/model'
+import { CreateOfferRequest } from '@echo/api/dist/types'
+import { Collection, OfferItem, OfferType } from '@echo/model'
 import { useUser } from '@lib/hooks/use-user'
-import { createNewOffer } from '@lib/utils/offer'
 import { useTranslations } from 'next-intl'
+import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
@@ -11,8 +12,18 @@ interface Props {
   collection: Collection
   ownerItems: OfferItem[]
   counterpartyItems: OfferItem[]
-  onAccept?: (offer: NewOffer) => void
+  onAccept?: (request: CreateOfferRequest) => void
   onCancel?: VoidFunction
+}
+
+function createRequest(
+  type: OfferType,
+  collection: Collection,
+  ownerItems: OfferItem[],
+  counterpartyItems: OfferItem[] | undefined,
+  userId: string
+): CreateOfferRequest {
+  return { type, ownerItems, counterpartyItems, collectionId: collection.discordId, userId }
 }
 
 export const CreateOfferSummary: FunctionComponent<Props> = ({
@@ -29,9 +40,11 @@ export const CreateOfferSummary: FunctionComponent<Props> = ({
     <Modal
       title={t('title')}
       description={'description'}
-      onAccept={() =>
-        userResult?.data && onAccept?.(createNewOffer(type, collection, ownerItems, counterpartyItems, userResult.data))
-      }
+      onAccept={() => {
+        if (!isNil(userResult) && !isNil(userResult.data)) {
+          onAccept?.(createRequest(type, collection, ownerItems, counterpartyItems, userResult?.data.id))
+        }
+      }}
       onCancel={onCancel}
       acceptTitle={t('accept')}
       cancelTitle={t('cancel')}

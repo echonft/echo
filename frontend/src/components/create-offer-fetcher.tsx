@@ -1,7 +1,7 @@
 import { CreateOffer } from '@components/create-offer'
 import { useFetchCollection } from '@lib/services/firebase/hooks/use-fetch-collection'
 import { useTranslations } from 'next-intl'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {

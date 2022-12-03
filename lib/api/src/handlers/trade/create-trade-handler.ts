@@ -1,12 +1,13 @@
-import { CreateTradeRequest, TradeResponse } from '../../types'
+import { TradeResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
+import { CreateTradeApiRequest } from '../../types/models/api-requests/create-trade-api-request'
 import { getUserWithId } from '../../utils/requests'
 import { FirebaseDocument } from '@echo/firebase'
 import { firestore, offerSnapshot as getOfferSnapshot, userSnapshot } from '@echo/firebase-admin'
 import { TradeStatus } from '@echo/model'
 import { errorMessage } from '@echo/utils'
 
-export const createTradeHandler: RequestHandler<CreateTradeRequest, TradeResponse> = async (req, res) => {
+export const createTradeHandler: RequestHandler<CreateTradeApiRequest, TradeResponse> = async (req, res) => {
   const { ownerItems, counterpartyItems, counterpartyId, offerId } = req.body
   const ownerSnapshot = await getUserWithId(req)
   // TODO create a wrapper for this

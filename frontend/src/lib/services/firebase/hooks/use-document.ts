@@ -4,7 +4,7 @@ import { errorMessage, logger } from '@echo/utils'
 import { config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
 import { doc, DocumentData, DocumentReference, DocumentSnapshot, getFirestore, onSnapshot } from 'firebase/firestore'
-import { isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 import { useEffect } from 'react'
 import useSWR, { SWRResponse, useSWRConfig } from 'swr'
 
@@ -21,8 +21,8 @@ function useDocumentInternal<T extends DocumentData, W = T>(
 ): Partial<SWRResponse<Result<W>>> {
   const { firebaseApp } = useFirebase()
   const { suspense } = useSWRConfig()
-  const { data, mutate, error } = useSWR<Result<W>, Error>(
-    firebaseApp && path && segment && [path, segment],
+  const { data, mutate, error } = useSWR<Result<W>, Error, [FirebaseDocument, string] | undefined>(
+    !isNil(firebaseApp) && !isNil(path) && !isNil(segment) && !isEmpty(segment) ? [path, segment] : undefined,
     (path, segment) =>
       firebaseDocSnapshotFromPath<T>(path, segment).then((doc) => {
         if (isNil(doc) || !(doc as DocumentSnapshot<T>).exists()) {

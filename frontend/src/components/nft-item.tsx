@@ -2,7 +2,7 @@ import { Erc721 } from '@echo/model'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {

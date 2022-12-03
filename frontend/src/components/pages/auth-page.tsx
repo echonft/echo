@@ -1,7 +1,7 @@
 import { LoginModal } from '@components/login-modal'
 import { useIsLoggedIn } from '@lib/hooks/use-is-logged-in'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 import { FunctionComponent, PropsWithChildren } from 'react'
 import { useAccount } from 'wagmi'
 

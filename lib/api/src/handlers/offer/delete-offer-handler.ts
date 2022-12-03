@@ -1,10 +1,11 @@
-import { DeleteOfferRequest, OfferResponse } from '../../types'
+import { OfferResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
+import { DeleteOfferApiRequest } from '../../types/models/api-requests/delete-offer-api-request'
 import { FirebaseDocument } from '@echo/firebase'
 import { firestore, offer as getOffer } from '@echo/firebase-admin'
 import { errorMessage } from '@echo/utils'
 
-export const deleteOfferHandler: RequestHandler<DeleteOfferRequest, OfferResponse> = async (
+export const deleteOfferHandler: RequestHandler<DeleteOfferApiRequest, OfferResponse> = async (
   req,
   res
 ): Promise<void> => {

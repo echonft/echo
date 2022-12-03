@@ -4,7 +4,7 @@ import { Listbox } from '@headlessui/react'
 import { useGetCollectionNftsForOwner } from '@lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { head, isEmpty, isNil } from 'rambda'
+import { head, isEmpty, isNil } from 'ramda'
 import { FunctionComponent, useState } from 'react'
 
 interface Props {

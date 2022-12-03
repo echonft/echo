@@ -1,6 +1,6 @@
 import { RequestHandler } from '../types/handlers/request-handler'
-import { ApiRequestWithAddress } from '../types/models/api-request-with-address'
-import { ApiRequestWithUserId } from '../types/models/api-request-with-user-id'
+import { ApiRequestWithAddress } from '../types/models/api-requests/api-request-with-address'
+import { ApiRequestWithUserId } from '../types/models/api-requests/api-request-with-user-id'
 import { userSnapshot, userWithAddress } from '@echo/firebase-admin'
 import { getAddress } from 'ethers/lib/utils'
 import { isNil } from 'rambda'

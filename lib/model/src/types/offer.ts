@@ -14,17 +14,14 @@ export enum OfferType {
   SELL = 'sell'
 }
 
-export interface NewOffer {
-  type: OfferType
-  status: OfferStatus
-  counterpartyItems: OfferItem[] | undefined
-  ownerItems: OfferItem[] | undefined
-  owner: User
-  collection: Collection
-}
-
-export interface Offer extends NewOffer {
+export interface Offer {
   id: string
   postedAt: Date | undefined
   counterparty: User | undefined
+  type: OfferType
+  status: OfferStatus
+  counterpartyItems: OfferItem[] | undefined
+  ownerItems: OfferItem[]
+  owner: User
+  collection: Collection
 }

@@ -1,7 +1,7 @@
-import { logger } from '@echo/utils'
+import { errorMessage, logger } from '@echo/utils'
 import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app'
 import { browserLocalPersistence, getAuth } from 'firebase/auth'
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 import { createContext, FunctionComponent, PropsWithChildren, useContext, useEffect, useState } from 'react'
 
 interface FirebaseProviderValue {
@@ -25,8 +25,8 @@ export const FirebaseProvider: FunctionComponent<PropsWithChildren<Props>> = ({ 
         .then(() => {
           setFirebaseApp(localFirebaseApp)
         })
-        .catch((reason) => {
-          logger.error(`Can't set persistence on Firebase Auth: ${reason}`)
+        .catch((error) => {
+          logger.error(`Can't set persistence on Firebase Auth: ${errorMessage(error)}`)
         })
     }
   }, [options, firebaseApp, logger])

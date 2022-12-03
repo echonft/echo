@@ -5,7 +5,7 @@ import { config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
 import firebase from 'firebase/compat'
 import { DocumentSnapshot, getDocs, onSnapshot, QueryConstraint, QuerySnapshot } from 'firebase/firestore'
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 import { useEffect } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 
@@ -19,14 +19,17 @@ export type UseCollectionOptions<T, W> = {
 }
 
 function useCollectionInternal<T extends DocumentData, W = DocumentSnapshot<T>>(
-  path: string | undefined,
+  path: FirebaseDocument | undefined,
   options?: UseCollectionOptions<T, W>
 ): SwrResult<W[]> {
   const { firebaseApp } = useFirebase()
   const { mutate, suspense } = useSWRConfig()
-
-  const { data, error } = useSWR<Result<W[]>, Error>(
-    firebaseApp && [path, options],
+  const { data, error } = useSWR<
+    Result<W[]>,
+    Error,
+    [FirebaseDocument, UseCollectionOptions<T, W> | undefined] | undefined
+  >(
+    !isNil(path) && !isNil(firebaseApp) ? [path, options] : undefined,
     (path, options) => {
       const query = collectionQuery<T>(documentPath(path), options?.constraints)
       const key = query ? JSON.stringify(query._query) : null

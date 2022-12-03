@@ -9,7 +9,7 @@ import { shortenAddress } from '@usedapp/core'
 import { clsx } from 'clsx'
 import { getAddress, isAddress } from 'ethers/lib/utils'
 import { useTranslations } from 'next-intl'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 import { FunctionComponent, useCallback, useState } from 'react'
 
 interface Props {

@@ -1,11 +1,12 @@
 import { discordConfig } from '@echo/discord/dist/config'
 import { DiscordTokenResponse, Routes, TokenRoutePostData } from '@echo/discord/dist/types'
 import { errorMessage, logger } from '@echo/utils'
+import { getMessages, MessagesType } from '@lib/messages'
 import { fetcher } from '@lib/services/fetcher'
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { ParsedUrlQuery } from 'querystring'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 
 const Connect = dynamic(() => import('@components/connect').then((mod) => mod.Connect), {
   ssr: false
@@ -14,6 +15,7 @@ const Connect = dynamic(() => import('@components/connect').then((mod) => mod.Co
 interface Props {
   accessToken: string | undefined
   tokenType: string | undefined
+  messages: MessagesType
 }
 
 interface UrlQuery extends ParsedUrlQuery {
@@ -26,15 +28,6 @@ const Login: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = 
 
 export const getServerSideProps: GetServerSideProps<Props, UrlQuery> = async ({ params, locale, defaultLocale }) => {
   if (isNil(params) || isEmpty(params) || isNil(params.code) || isEmpty(params.code)) {
-    return { notFound: true }
-  }
-  let messages
-  try {
-    messages = await import(`@lib/messages/${isNil(locale) ? defaultLocale! : locale}.json`)
-  } catch (error) {
-    logger.error(
-      `Could not load messages for locale ${isNil(locale) ? defaultLocale! : locale}: ${errorMessage(error)}`
-    )
     return { notFound: true }
   }
   try {
@@ -56,7 +49,11 @@ export const getServerSideProps: GetServerSideProps<Props, UrlQuery> = async ({ 
       }
     )
     return {
-      props: { accessToken: response.access_token, tokenType: response.token_type, messages: messages.default }
+      props: {
+        accessToken: response.access_token,
+        tokenType: response.token_type,
+        messages: getMessages(locale, defaultLocale)
+      }
     }
   } catch (error) {
     logger.error(`Error fetching discord token: ${errorMessage(error)}`)

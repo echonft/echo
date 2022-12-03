@@ -2,7 +2,7 @@ import { NftList } from '@components/nft-list'
 import { Erc721 } from '@echo/model'
 import { useGetCollectionNftsForOwner } from '@lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {

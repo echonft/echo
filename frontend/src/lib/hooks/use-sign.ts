@@ -1,6 +1,6 @@
 import { useSignInMessage } from '@lib/hooks/use-sign-in-message'
 import { SwrKey } from '@lib/services/swr/constants/swr-key'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 import useSWRImmutable from 'swr/immutable'
 import { useSignMessage } from 'wagmi'
 

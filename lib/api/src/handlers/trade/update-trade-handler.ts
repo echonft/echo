@@ -1,12 +1,12 @@
 import { TradeResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
-import { UpdateTradeRequest } from '../../types/models/update-trade-request'
+import { UpdateTradeApiRequest } from '../../types/models/api-requests/update-trade-api-request'
 import { getUserWithId } from '../../utils/requests'
 import { FirebaseDocument } from '@echo/firebase'
 import { firestore, trade as getTrade } from '@echo/firebase-admin'
 import { errorMessage } from '@echo/utils'
 
-export const updateTradeHandler: RequestHandler<UpdateTradeRequest, TradeResponse> = async (
+export const updateTradeHandler: RequestHandler<UpdateTradeApiRequest, TradeResponse> = async (
   req,
   res
 ): Promise<void> => {

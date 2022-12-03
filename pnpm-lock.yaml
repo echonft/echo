@@ -71,6 +71,7 @@ importers:
       '@echo/utils': workspace:*
       '@headlessui/react': 1.7.4
       '@next/eslint-plugin-next': ^13.0.5
+      '@types/ramda': ^0.28.20
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9
       '@types/react-icons': 3.0.0
@@ -84,7 +85,7 @@ importers:
       firebase: 9.14.0
       next: 13.0.5
       next-intl: 2.9.1
-      rambda: 7.3.0
+      ramda: ^0.28.0
       react: 18.2.0
       react-dom: 18.2.0
       react-icons: 4.7.1
@@ -107,7 +108,7 @@ importers:
       firebase: 9.14.0
       next: 13.0.5_mqvh5p7ejg4taogoj6tpk3gd5a
       next-intl: 2.9.1_next@13.0.5+react@18.2.0
-      rambda: 7.3.0
+      ramda: 0.28.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-icons: 4.7.1_react@18.2.0
@@ -116,6 +117,7 @@ importers:
       wagmi: 0.8.8_h4hp7wlqdytrlfai7tobe6fh6e
     devDependencies:
       '@next/eslint-plugin-next': 13.0.5
+      '@types/ramda': 0.28.20
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9
       '@types/react-icons': 3.0.0_react@18.2.0
@@ -4063,6 +4065,13 @@ packages:
     resolution:
       { integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw== }
 
+  /@types/ramda/0.28.20:
+    resolution:
+      { integrity: sha512-MeUhzGSXQTRsY19JGn5LIBTLxVEnyF6HDNr08KSJqybsm4DlfLIgK1jBHjhpiSyk252tXYmp+UOe0UFg0UiFsA== }
+    dependencies:
+      ts-toolbelt: 6.15.5
+    dev: true
+
   /@types/range-parser/1.2.4:
     resolution:
       { integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw== }
@@ -7413,7 +7422,7 @@ packages:
       debug: 4.3.4
       enhanced-resolve: 5.11.0
       eslint: 8.28.0
-      eslint-plugin-import: 2.26.0_xmouedd5rhgbah4737x2hltudq
+      eslint-plugin-import: 2.26.0_eslint@8.28.0
       get-tsconfig: 4.2.0
       globby: 13.1.2
       is-core-module: 2.11.0
@@ -7448,37 +7457,6 @@ packages:
       debug: 3.2.7
       eslint: 8.28.0
       eslint-import-resolver-node: 0.3.6
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /eslint-module-utils/2.7.4_zkfsjkvh2muiaosb2bwsbw52mq:
-    resolution:
-      { integrity: sha512-j4GT+rqzCoRKHwURX7pddtIPGySnX9Si/cgMI5ztrcqOPtk5dDEeZ34CQVPphnqkJytlc97Vuk05Um2mJ3gEQA== }
-    engines: { node: '>=4' }
-    peerDependencies:
-      '@typescript-eslint/parser': '*'
-      eslint: '*'
-      eslint-import-resolver-node: '*'
-      eslint-import-resolver-typescript: '*'
-      eslint-import-resolver-webpack: '*'
-    peerDependenciesMeta:
-      '@typescript-eslint/parser':
-        optional: true
-      eslint:
-        optional: true
-      eslint-import-resolver-node:
-        optional: true
-      eslint-import-resolver-typescript:
-        optional: true
-      eslint-import-resolver-webpack:
-        optional: true
-    dependencies:
-      '@typescript-eslint/parser': 5.45.0_hsf322ms6xhhd4b5ne6lb74y4a
-      debug: 3.2.7
-      eslint: 8.28.0
-      eslint-import-resolver-node: 0.3.6
-      eslint-import-resolver-typescript: 3.5.2_ktrec6dplf4now6nlbc6d67jee
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7532,7 +7510,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.28.0
       eslint-import-resolver-node: 0.3.6
-      eslint-module-utils: 2.7.4_zkfsjkvh2muiaosb2bwsbw52mq
+      eslint-module-utils: 2.7.4_sjge656jyd3rr27cepuzx7h5u4
       has: 1.0.3
       is-core-module: 2.11.0
       is-glob: 4.0.3
@@ -12803,6 +12781,11 @@ packages:
   /rambda/7.3.0:
     resolution:
       { integrity: sha512-RFVofZYaG2TaVcxjnM0ejdVWf/59rFq1f57OGnjP3GT/bthzFw0GVr5rkP9PKbVlEuF/Y7bOVPLfiiYfxq/EWQ== }
+    dev: false
+
+  /ramda/0.28.0:
+    resolution:
+      { integrity: sha512-9QnLuG/kPVgWvMQ4aODhsBUFKOUmnbUnsSXACv+NCQZcHbeb+v8Lodp8OVxtRULN1/xOyYLLaL6npE6dMq5QTA== }
     dev: false
 
   /randombytes/2.1.0:

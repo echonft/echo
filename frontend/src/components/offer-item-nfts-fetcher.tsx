@@ -3,7 +3,7 @@ import { OfferItem, OfferType } from '@echo/model'
 import { useGetNftsForItems } from '@lib/services/alchemy/hooks/use-get-nfts-for-items'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { isNil, join } from 'rambda'
+import { isNil, join } from 'ramda'
 import { FunctionComponent, useCallback } from 'react'
 
 interface Props {
@@ -13,11 +13,12 @@ interface Props {
 }
 
 export const OfferItemNftsFetcher: FunctionComponent<Props> = ({ items, type, owner = false }) => {
-  const t = useTranslations(`CreateOffer.summary.${type === OfferType.BUY ? 'buy' : 'sell'}`)
+  const t = useTranslations('CreateOffer.summary')
   const nfts = useGetNftsForItems(items)
 
   const hasSpecificId = useCallback(() => items?.some((item) => !isNil(item.id)), [items])
 
+  // TODO fix translations its a bit dirty
   const getTitleKey = useCallback(() => {
     // No item specified, shouldn't happen for owner
     if (isNil(items)) {
@@ -46,10 +47,14 @@ export const OfferItemNftsFetcher: FunctionComponent<Props> = ({ items, type, ow
   if (isNil(nfts)) {
     return <span>{t('loading')}</span>
   }
+
+  // FIXME we have to fix the keys
   if (nfts.successful && nfts.data) {
     return (
       <div className={clsx('flex', 'flex-col', 'gap-2')}>
-        <span>{t(getTitleKey())}</span>
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/* @ts-ignore */}
+        <span>{t(`${type === OfferType.BUY ? 'buy' : 'sell'}${getTitleKey()}`)}</span>
         {items && hasSpecificId() && <NftList nfts={nfts.data} />}
         {items && !hasSpecificId() && (
           <span>

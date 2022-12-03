@@ -1,7 +1,7 @@
 import { LoginButton } from '@components/login-button'
 import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 import { useAccount } from 'wagmi'
 

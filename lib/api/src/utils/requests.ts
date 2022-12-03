@@ -1,4 +1,4 @@
-import { ApiRequestWithUserId } from '../types/models/api-request-with-user-id'
+import { ApiRequestWithUserId } from '../types/models/api-requests/api-request-with-user-id'
 import { DocumentSnapshot, FirebaseUser } from '@echo/firebase'
 import { userSnapshot } from '@echo/firebase-admin'
 

@@ -1,14 +1,14 @@
 import { CreateOfferSellBuyOptions } from '@components/create-offer-sell-buy-options'
 import { CreateOfferSummary } from '@components/create-offer-summary'
 import { NftList } from '@components/nft-list'
-import { Collection, Erc721, NewOffer, OfferType } from '@echo/model'
+import { CreateOfferRequest } from '@echo/api/dist/types'
+import { Collection, Erc721, OfferItem, OfferType } from '@echo/model'
 import { useCreateOffer } from '@lib/hooks/use-create-offer'
 import { toggle } from '@lib/utils/array'
-import { createOfferItems } from '@lib/utils/offer-item'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/router'
 import { useTranslations } from 'next-intl'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 import { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 
@@ -17,11 +17,27 @@ interface Props {
   nfts: Erc721[]
 }
 
+function createOfferItems(contractAddresses: string[], nfts: Erc721[]): OfferItem[] {
+  if (isEmpty(contractAddresses) && isEmpty(nfts)) {
+    return []
+  }
+  if (isEmpty(nfts)) {
+    return contractAddresses.map((contractAddress) => ({ contractAddress }))
+  }
+  // In case we have both, filter the contracts that have no ids and add as item with the nfts
+  const contractsOnly = contractAddresses.filter(
+    (contractAddress) => !nfts.some((nft) => nft.collection.address === contractAddress)
+  )
+  return contractsOnly
+    .map((contractAddress) => ({ contractAddress }))
+    .concat(nfts.map((nft) => ({ contractAddress: nft.collection.address, id: nft.id })))
+}
+
 export const CreateOfferSell: FunctionComponent<Props> = ({ nfts, collection }) => {
   const t = useTranslations('CreateOffer.sell')
   const router = useRouter()
   const { address } = useAccount()
-  const [offerRequest, setOfferRequest] = useState<NewOffer | undefined>()
+  const [offerRequest, setOfferRequest] = useState<CreateOfferRequest | undefined>()
   const { offerId: createdOfferId } = useCreateOffer(offerRequest)
   const [selectedNfts, setSelectedNfts] = useState<Erc721[]>([])
   const [selectedBuyContracts, setSelectedBuyContracts] = useState<string[]>([])

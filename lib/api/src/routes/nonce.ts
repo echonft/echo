@@ -1,6 +1,7 @@
 import { ironOptions } from '../config/iron-options'
-import { NonceRequest, NonceResponse } from '../types'
+import { NonceResponse } from '../types'
 import { RequestHandler } from '../types/handlers/request-handler'
+import { NonceApiRequest } from '../types/models/api-requests/nonce-api-request'
 import { withMethodValidation } from '../utils/with-method-validation'
 import { FirebaseDocument } from '@echo/firebase'
 import { firestore, userWithAddress } from '@echo/firebase-admin'
@@ -8,7 +9,7 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import { isNil } from 'rambda'
 import { generateNonce } from 'siwe'
 
-const handler: RequestHandler<NonceRequest, NonceResponse> = async (req, res) => {
+const handler: RequestHandler<NonceApiRequest, NonceResponse> = async (req, res) => {
   const { address } = req.body
   const userDoc = await userWithAddress(address)
   let nonce

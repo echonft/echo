@@ -1,12 +1,13 @@
-import { CreateOfferRequest, OfferResponse } from '../../types'
+import { OfferResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
+import { CreateOfferApiRequest } from '../../types/models/api-requests/create-offer-api-request'
 import { getUserWithId } from '../../utils/requests'
 import { FirebaseDocument } from '@echo/firebase'
 import { collectionSnapshot, firestore } from '@echo/firebase-admin'
 import { OfferStatus } from '@echo/model'
 import { errorMessage } from '@echo/utils'
 
-export const createOfferHandler: RequestHandler<CreateOfferRequest, OfferResponse> = async (req, res) => {
+export const createOfferHandler: RequestHandler<CreateOfferApiRequest, OfferResponse> = async (req, res) => {
   const user = await getUserWithId(req)
   const { type, ownerItems, counterpartyItems, collectionId } = req.body
   const collection = await collectionSnapshot(collectionId)

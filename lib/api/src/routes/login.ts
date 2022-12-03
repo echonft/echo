@@ -1,6 +1,7 @@
 import { ironOptions } from '../config/iron-options'
-import { ApiLoginRequest, LoginResponse } from '../types'
+import { LoginResponse } from '../types'
 import { RequestHandler } from '../types/handlers/request-handler'
+import { LoginApiRequest } from '../types/models/api-requests/login-api-request'
 import { verifySignature } from '../utils/verify-signature'
 import { withExistingUserAddress } from '../utils/with-existing-user'
 import { withMethodValidation } from '../utils/with-method-validation'
@@ -12,7 +13,7 @@ import { isNil } from 'rambda'
 import { generateNonce } from 'siwe'
 
 // TODO Add the collection here
-const handler: RequestHandler<ApiLoginRequest, LoginResponse> = async (req, res) => {
+const handler: RequestHandler<LoginApiRequest, LoginResponse> = async (req, res) => {
   try {
     const { message, signature, address, discordId } = req.body
     const formattedAddress = getAddress(address)

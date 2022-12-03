@@ -1,4 +1,4 @@
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 import { Chain, chain } from 'wagmi'
 
 interface Config {

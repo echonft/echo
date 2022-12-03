@@ -1,7 +1,7 @@
 import { NftItem } from '@components/nft-item'
 import { Erc721 } from '@echo/model'
 import { clsx } from 'clsx'
-import { includes } from 'rambda'
+import { includes } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
