@@ -12,7 +12,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ['./bot/tsconfig.json', './frontend/tsconfig.json', './lib/*/tsconfig.json']
+    project: ['./app/*/tsconfig.json', './lib/*/tsconfig.json']
   },
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   rules: {

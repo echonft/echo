@@ -2,14 +2,13 @@
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
 
 # testing
 /coverage
 
 # next.js
 /.next/
+/.swd/
 next-env.d.ts
 
 # production

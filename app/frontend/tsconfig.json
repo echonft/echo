@@ -1,13 +1,12 @@
 {
-  "extends": "../tsconfig.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "noEmit": true,
     "rootDir": "src",
     "baseUrl": "src",
     "paths": {
       "@components/*": ["components/*"],
-      "@lib/*": ["lib/*"],
-      "@pages/*": ["pages/*"]
+      "@lib/*": ["lib/*"]
     }
   },
   "include": ["src"],

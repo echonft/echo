@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="bot" pattern="file[echo]:bot//*&amp;&amp;!file[echo]:bot/dist/*" />
+  <scope name="bot" pattern="file[echo]:app/bot//*&amp;&amp;!file[echo]:bot/dist/*" />
 </component>
