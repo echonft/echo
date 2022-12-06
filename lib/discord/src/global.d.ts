@@ -6,6 +6,7 @@ export declare global {
       DISCORD_CLIENT_SECRET: string
       DISCORD_REDIRECT_URI: string
       DISCORD_GUILD_ID?: string
+      DISCORD_APP_ENV: string
     }
   }
 }

@@ -56,13 +56,14 @@
         "DISCORD_CLIENT_ID",
         "DISCORD_CLIENT_SECRET",
         "DISCORD_REDIRECT_URI",
-        "DISCORD_GUILD_ID"
+        "DISCORD_GUILD_ID",
+        "DISCORD_APP_ENV"
       ],
       "outputs": ["dist/**"]
     },
     "@echo/firebase-admin#build": {
       "dependsOn": ["^build"],
-      "env": ["FIREBASE_SERVICE_ACCOUNT_PRIVATE_KEY"],
+      "env": ["FIREBASE_SERVICE_ACCOUNT_KEY"],
       "outputs": ["dist/**"]
     },
     "@echo/frontend#build": {

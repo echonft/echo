@@ -1,5 +1,6 @@
-import { DiscordConfig } from '../types'
 import { isEmpty, isNil } from 'rambda'
+import { DiscordConfig } from '../types'
+import { getDiscordAppEnvironment } from './get-discord-app-environment'
 
 export function getDiscordConfig(): DiscordConfig {
   const clientId = process.env.DISCORD_CLIENT_ID
@@ -13,6 +14,7 @@ export function getDiscordConfig(): DiscordConfig {
   return {
     clientId,
     redirectUri,
-    guildId: process.env.DISCORD_GUILD_ID
+    guildId: process.env.DISCORD_GUILD_ID,
+    appEnvironment: getDiscordAppEnvironment()
   }
 }
