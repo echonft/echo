@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['../../.eslintrc.js', 'plugin:@next/next/recommended'],
+  extends: ['plugin:@next/next/recommended', '../../.eslintrc.js'],
   rules: {
     'no-restricted-imports': [
       'error',

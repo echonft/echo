@@ -5,26 +5,26 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "dist/**"]
     },
-    "lint": {
-      "cache": false
-    },
-    "lint:clean-cache": {
-      "cache": false
-    },
     "ci:lint": {
       "cache": false
     },
     "ci:prettier": {
       "cache": false
     },
-    "tsc": {
-      "cache": false
-    },
-    "tsc:clean-cache": {
+    "clean": {
       "cache": false
     },
     "dev": {
       "dependsOn": ["^build"],
+      "cache": false
+    },
+    "lint": {
+      "cache": false
+    },
+    "lint:clean-cache": {
+      "cache": false
+    },
+    "remove-modules": {
       "cache": false
     },
     "start": {
@@ -35,10 +35,10 @@
       "dependsOn": ["build"],
       "cache": false
     },
-    "clean": {
+    "tsc": {
       "cache": false
     },
-    "remove-modules": {
+    "tsc:clean-cache": {
       "cache": false
     },
     "update-modules": {
@@ -87,5 +87,5 @@
       "inputs": [".env"]
     }
   },
-  "globalDependencies": ["tsconfig.json"]
+  "globalDependencies": [".env", ".eslintrc.js", "prettier.config.js", "tsconfig.json"]
 }
