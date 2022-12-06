@@ -1,4 +1,3 @@
-import { discordConfig } from '@echo/discord/dist/config'
 import { DiscordTokenResponse, Routes, TokenRoutePostData } from '@echo/discord/dist/types'
 import { errorMessage, logger } from '@echo/utils'
 import { getMessages, MessagesType } from '@lib/messages'
@@ -31,15 +30,16 @@ export const getServerSideProps: GetServerSideProps<Props, UrlQuery> = async ({ 
     return { notFound: true }
   }
   try {
+    const discordConfig = await import('@echo/discord/dist/config')
     const discordAdmin = await import('@echo/discord/dist/admin')
     const response = await fetcher<DiscordTokenResponse, TokenRoutePostData>(
       Routes.TOKEN,
       {
-        client_id: discordConfig.clientId,
+        client_id: discordConfig.discordConfig.clientId,
         client_secret: discordAdmin.discordSecret.clientSecret,
         grant_type: 'authorization_code',
         code: params.code,
-        redirect_uri: discordConfig.redirectUri,
+        redirect_uri: discordConfig.discordConfig.redirectUri,
         scope: 'identify'
       },
       {
