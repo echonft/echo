@@ -4,18 +4,18 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
     "ci:lint": "eslint \"src/**/*.ts?(x)\"",
     "ci:prettier": "prettier \"src/**/*.ts?(x)\"",
+    "clean": "rm -rf .next",
+    "dev": "next dev",
     "lint": "eslint --cache --fix \"src/**/*.ts?(x)\"",
     "lint:clean-cache": "rm -f .eslintcache",
+    "remove-modules": "rm -rf node_modules",
+    "start": "next start",
     "tsc": "tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
-    "clean": "rm -rf .next",
-    "update-modules": "ncu -u",
-    "remove-modules": "rm -rf node_modules"
+    "update-modules": "ncu -u"
   },
   "dependencies": {
     "@echo/api": "workspace:*",

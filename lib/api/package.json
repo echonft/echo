@@ -8,17 +8,17 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "tsc --watch",
     "build": "tsc",
     "ci:lint": "eslint \"src/**/*.ts\"",
     "ci:prettier": "prettier \"src/**/*.ts\"",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
     "lint:clean-cache": "rm -f .eslintcache",
+    "remove-modules": "rm -rf node_modules",
     "tsc": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
-    "clean": "rm -rf dist",
-    "update-modules": "ncu -u",
-    "remove-modules": "rm -rf node_modules"
+    "update-modules": "ncu -u"
   },
   "peerDependencies": {
     "next": "^13"
