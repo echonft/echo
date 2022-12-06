@@ -81,6 +81,7 @@ importers:
       clsx: 1.2.1
       connectkit: 1.1.0
       eslint-config-next: 13.0.5
+      eslint-plugin-react-hooks: ^4.6.0
       ethers: 5.7.2
       firebase: 9.14.0
       next: 13.0.5
@@ -123,6 +124,7 @@ importers:
       '@types/react-icons': 3.0.0_react@18.2.0
       autoprefixer: 10.4.13_postcss@8.4.19
       eslint-config-next: 13.0.5_hsf322ms6xhhd4b5ne6lb74y4a
+      eslint-plugin-react-hooks: 4.6.0_eslint@8.28.0
       tailwindcss: 3.2.4_postcss@8.4.19
 
   lib/api:
@@ -7423,7 +7425,7 @@ packages:
       debug: 4.3.4
       enhanced-resolve: 5.11.0
       eslint: 8.28.0
-      eslint-plugin-import: 2.26.0_xmouedd5rhgbah4737x2hltudq
+      eslint-plugin-import: 2.26.0_eslint@8.28.0
       get-tsconfig: 4.2.0
       globby: 13.1.2
       is-core-module: 2.11.0
@@ -7458,37 +7460,6 @@ packages:
       debug: 3.2.7
       eslint: 8.28.0
       eslint-import-resolver-node: 0.3.6
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /eslint-module-utils/2.7.4_zkfsjkvh2muiaosb2bwsbw52mq:
-    resolution:
-      { integrity: sha512-j4GT+rqzCoRKHwURX7pddtIPGySnX9Si/cgMI5ztrcqOPtk5dDEeZ34CQVPphnqkJytlc97Vuk05Um2mJ3gEQA== }
-    engines: { node: '>=4' }
-    peerDependencies:
-      '@typescript-eslint/parser': '*'
-      eslint: '*'
-      eslint-import-resolver-node: '*'
-      eslint-import-resolver-typescript: '*'
-      eslint-import-resolver-webpack: '*'
-    peerDependenciesMeta:
-      '@typescript-eslint/parser':
-        optional: true
-      eslint:
-        optional: true
-      eslint-import-resolver-node:
-        optional: true
-      eslint-import-resolver-typescript:
-        optional: true
-      eslint-import-resolver-webpack:
-        optional: true
-    dependencies:
-      '@typescript-eslint/parser': 5.45.0_hsf322ms6xhhd4b5ne6lb74y4a
-      debug: 3.2.7
-      eslint: 8.28.0
-      eslint-import-resolver-node: 0.3.6
-      eslint-import-resolver-typescript: 3.5.2_ktrec6dplf4now6nlbc6d67jee
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7542,7 +7513,7 @@ packages:
       doctrine: 2.1.0
       eslint: 8.28.0
       eslint-import-resolver-node: 0.3.6
-      eslint-module-utils: 2.7.4_zkfsjkvh2muiaosb2bwsbw52mq
+      eslint-module-utils: 2.7.4_sjge656jyd3rr27cepuzx7h5u4
       has: 1.0.3
       is-core-module: 2.11.0
       is-glob: 4.0.3
