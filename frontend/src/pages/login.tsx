@@ -3,7 +3,7 @@ import { DiscordTokenResponse, Routes, TokenRoutePostData } from '@echo/discord/
 import { errorMessage, logger } from '@echo/utils'
 import { getMessages, MessagesType } from '@lib/messages'
 import { fetcher } from '@lib/services/fetcher'
-import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { ParsedUrlQuery } from 'querystring'
 import { isEmpty, isNil } from 'ramda'
@@ -22,7 +22,7 @@ interface UrlQuery extends ParsedUrlQuery {
   code: string
 }
 
-const Login: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ accessToken, tokenType }) => (
+const Login: NextPage<Props> = ({ accessToken, tokenType }) => (
   <Connect accessToken={accessToken} tokenType={tokenType} />
 )
 

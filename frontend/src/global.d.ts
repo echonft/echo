@@ -1,6 +1,4 @@
-import { messages } from '@lib/messages/en'
-
-type Messages = typeof messages
+import { MessagesType } from '@lib/messages'
 
 export declare global {
   namespace NodeJS {
@@ -15,5 +13,5 @@ export declare global {
   }
   // get typings on translation keys
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface IntlMessages extends Messages {}
+  interface IntlMessages extends MessagesType {}
 }

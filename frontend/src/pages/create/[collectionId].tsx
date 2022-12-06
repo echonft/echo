@@ -11,7 +11,7 @@ interface Props {
   messages: MessagesType
 }
 
-const CreateOffer: NextPage = () => {
+const CreateOffer: NextPage<Props> = () => {
   const router = useRouter()
   const { collectionId } = router.query
   return (
