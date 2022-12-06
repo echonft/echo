@@ -1,7 +1,7 @@
-import { SlashCommandBuilder } from 'discord.js'
 import { CommandInterface } from '../types/commands/command-interface'
 import { connectSubcommand } from './connect'
 import { createOfferSubcommand } from './create-offer'
+import { SlashCommandBuilder } from 'discord.js'
 
 export const echoCommand: CommandInterface = {
   data: new SlashCommandBuilder()

@@ -1,7 +1,7 @@
-import { Offer } from '@echo/model'
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 import { ButtonAction } from '../types/models/button-action'
 import { linkForOffer } from '../utils/offer'
+import { Offer } from '@echo/model'
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 
 /**
  * Build a buy offer button for an offer. This is called when new offers are created

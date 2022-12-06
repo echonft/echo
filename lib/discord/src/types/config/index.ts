@@ -1,2 +1,2 @@
-export * from './discord-config'
 export * from './app-environment'
+export * from './discord-config'

@@ -1,6 +1,6 @@
-import { isEmpty, isNil } from 'rambda'
 import { DiscordConfig } from '../types'
 import { getDiscordAppEnvironment } from './get-discord-app-environment'
+import { isEmpty, isNil } from 'rambda'
 
 export function getDiscordConfig(): DiscordConfig {
   const clientId = process.env.DISCORD_CLIENT_ID

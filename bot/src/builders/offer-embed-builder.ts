@@ -1,8 +1,8 @@
-import { Offer, OfferItem, OfferType } from '@echo/model'
-import { APIEmbedField, EmbedBuilder } from 'discord.js'
 import { linkForOffer } from '../utils/offer'
 import { stringForOfferItems } from '../utils/offer-item'
 import { opposite } from '../utils/offer-type'
+import { Offer, OfferItem, OfferType } from '@echo/model'
+import { APIEmbedField, EmbedBuilder } from 'discord.js'
 
 export function buildOfferEmbed(offer: Offer) {
   return new EmbedBuilder()

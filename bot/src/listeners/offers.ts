@@ -1,10 +1,10 @@
+import { buildNewOfferButtons } from '../builders/offer-button-builder'
+import { buildOfferEmbed } from '../builders/offer-embed-builder'
+import { getDiscordChannel } from '../utils/discord'
 import { listenToOffer } from '@echo/firebase-admin'
 import { errorMessage, logger } from '@echo/utils'
 import { Client } from 'discord.js'
 import { isNil } from 'rambda'
-import { buildNewOfferButtons } from '../builders/offer-button-builder'
-import { buildOfferEmbed } from '../builders/offer-embed-builder'
-import { getDiscordChannel } from '../utils/discord'
 
 export function listenToOffers(client: Client) {
   listenToOffer((offer, change) => {
