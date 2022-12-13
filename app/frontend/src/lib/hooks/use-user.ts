@@ -1,18 +1,22 @@
 import { FirebaseDocument, FirebaseUser, mapUser } from '@echo/firebase'
 import { User } from '@echo/model'
-import { useCollection } from '@lib/services/firebase/hooks/use-collection'
+import { useCollection, UseCollectionOptions } from '@lib/services/firebase/hooks/use-collection'
 import { successfulResult, SwrResult } from '@lib/services/swr/models/result'
 import { limit, where } from 'firebase/firestore'
 import { head } from 'ramda'
+import { useMemo } from 'react'
 import { useAccount } from 'wagmi'
 
-// FIXME Infinite loop here, it fetches forever
 export function useUser(): SwrResult<User> {
   const { address } = useAccount()
-  const result = useCollection<FirebaseUser, User>(address && FirebaseDocument.USERS, {
-    constraints: [where('wallet', '==', address), limit(1)],
-    mapper: (documentSnapshots) => documentSnapshots.map(mapUser)
-  })
+  const queryOptions: UseCollectionOptions<FirebaseUser, User> = useMemo<UseCollectionOptions<FirebaseUser, User>>(
+    () => ({
+      constraints: [where('wallet', '==', address), limit(1)],
+      mapper: (documentSnapshots) => documentSnapshots.map(mapUser)
+    }),
+    [address]
+  )
+  const result = useCollection<FirebaseUser, User>(address && FirebaseDocument.USERS, queryOptions)
   return result?.data
     ? { ...result, data: head(result?.data || []) }
     : successfulResult({
