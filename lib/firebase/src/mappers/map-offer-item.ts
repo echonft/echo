@@ -1,19 +1,21 @@
 import { OfferItem } from '@echo/model'
-import { errorMessage } from '@echo/utils'
 import { isEmpty, isNil } from 'rambda'
+import { FirebaseOfferItem } from '../types'
 
-function parseOfferItem(offerItemString: string): OfferItem {
-  try {
-    const offerItem = JSON.parse(offerItemString) as Record<string, unknown>
-    // TODO validate json (see https://gcanti.github.io/io-ts/)
-    return offerItem as unknown as OfferItem
-  } catch (error) {
-    throw Error(`error parsing offer item.\ninput: ${offerItemString}\nerror:${errorMessage(error)}`)
+export function mapOfferItem(offerItem?: FirebaseOfferItem): OfferItem | undefined {
+  if (isNil(offerItem) || isEmpty(offerItem)) {
+    return undefined
   }
+  return offerItem as OfferItem
 }
-export function mapOfferItem(itemsString: string): OfferItem[] {
-  if (isNil(itemsString) || isEmpty(itemsString)) {
+
+/**
+ * Helper function to map multiple offer items. It will return an empty array if no offer item
+ * @param offerItems The offer items to map
+ */
+export function mapOfferItems(offerItems?: FirebaseOfferItem[]): OfferItem[] {
+  if (isNil(offerItems) || isEmpty(offerItems)) {
     return []
   }
-  return itemsString.split(',').map(parseOfferItem)
+  return offerItems.map(mapOfferItem).filter((offerItem) => !isNil(offerItem)) as OfferItem[]
 }

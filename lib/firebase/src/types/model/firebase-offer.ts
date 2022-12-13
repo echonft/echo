@@ -1,5 +1,10 @@
 import { DocumentData, DocumentReference } from 'firebase/firestore'
 
+export interface FirebaseOfferItem {
+  contractAddress: string
+  id?: string
+}
+
 export interface FirebaseOffer extends DocumentData {
   status: string
   type: string
@@ -7,7 +12,7 @@ export interface FirebaseOffer extends DocumentData {
   seller: DocumentReference
   buyer: DocumentReference
   // TODO Add proper data
-  selling: string
-  buying: string
+  selling: Array<FirebaseOfferItem>
+  buying?: Array<FirebaseOfferItem>
   postedAt: number
 }
