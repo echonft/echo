@@ -1,6 +1,6 @@
-import { adminFirebaseApp } from './admin-firebase-app'
 import { Firestore, getFirestore } from 'firebase-admin/firestore'
+import { auth } from './auth'
 
 export function firestore(): Firestore {
-  return getFirestore(adminFirebaseApp())
+  return getFirestore(auth().app)
 }

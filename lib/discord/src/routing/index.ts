@@ -5,4 +5,3 @@ export const loginLink: string = encodeURI(
 )
 
 export * from './create-offer-link'
-export * from './get-echo-link'

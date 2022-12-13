@@ -21,14 +21,15 @@
     "update-modules": "ncu -u"
   },
   "dependencies": {
+    "@echo/api": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/firebase-admin": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "axios": "1.2.0",
-    "discord.js": "14.7.0",
+    "axios": "1.2.1",
+    "discord.js": "14.7.1",
     "firebase-admin": "11.3.0",
-    "rambda": "7.3.0"
+    "rambda": "7.4.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
