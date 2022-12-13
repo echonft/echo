@@ -30,8 +30,8 @@
     "@echo/utils": "workspace:*",
     "ethers": "5.7.2",
     "iron-session": "^6.3.1",
-    "rambda": "7.3.0",
-    "next": "13.0.5",
+    "rambda": "7.4.0",
+    "next": "13.0.6",
     "request": "2.88.2",
     "siwe": "1.1.6"
   },

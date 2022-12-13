@@ -22,6 +22,6 @@
   },
   "dependencies": {
     "pino": "8.7.0",
-    "rambda": "7.3.0"
+    "rambda": "7.4.0"
   }
 }

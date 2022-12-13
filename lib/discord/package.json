@@ -21,6 +21,7 @@
     "update-modules": "ncu -u"
   },
   "dependencies": {
-    "rambda": "7.3.0"
+    "@echo/api": "workspace:*",
+    "rambda": "7.4.0"
   }
 }
