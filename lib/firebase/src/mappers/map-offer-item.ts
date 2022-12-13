@@ -1,6 +1,6 @@
+import { FirebaseOfferItem } from '../types'
 import { OfferItem } from '@echo/model'
 import { isEmpty, isNil } from 'rambda'
-import { FirebaseOfferItem } from '../types'
 
 export function mapOfferItem(offerItem?: FirebaseOfferItem): OfferItem | undefined {
   if (isNil(offerItem) || isEmpty(offerItem)) {

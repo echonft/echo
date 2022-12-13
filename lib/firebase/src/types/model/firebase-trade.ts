@@ -1,5 +1,5 @@
-import { DocumentData, DocumentReference } from 'firebase/firestore'
 import { FirebaseOfferItem } from './firebase-offer'
+import { DocumentData, DocumentReference } from 'firebase/firestore'
 
 export interface FirebaseTrade extends DocumentData {
   status: string

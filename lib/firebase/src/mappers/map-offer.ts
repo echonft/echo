@@ -1,5 +1,3 @@
-import { Offer, OfferStatus, OfferType } from '@echo/model'
-import { isNil } from 'rambda'
 import { FirebaseMapperError } from '../errors/firebase-mapper-error'
 import { FirebaseDocument, FirebaseOffer } from '../types'
 import { DocumentSnapshot } from '../types/firestore'
@@ -7,6 +5,8 @@ import { document } from '../utils/document'
 import { mapCollection } from './map-collection'
 import { mapOfferItems } from './map-offer-item'
 import { mapUser } from './map-user'
+import { Offer, OfferStatus, OfferType } from '@echo/model'
+import { isNil } from 'rambda'
 
 /**
  * Map a firebase offer snapshot to an array of offer

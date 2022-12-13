@@ -1,4 +1,3 @@
-import { Trade, TradeStatus } from '@echo/model'
 import { FirebaseMapperError } from '../errors/firebase-mapper-error'
 import { FirebaseDocument, FirebaseTrade } from '../types'
 import { DocumentSnapshot } from '../types/firestore'
@@ -6,6 +5,7 @@ import { document } from '../utils/document'
 import { mapOffer } from './map-offer'
 import { mapOfferItems } from './map-offer-item'
 import { mapUser } from './map-user'
+import { Trade, TradeStatus } from '@echo/model'
 
 /**
  * Map a firebase trade snapshot to a trade

@@ -1,6 +1,6 @@
+import { isDebug } from '../constants'
 import pino from 'pino'
 import { isNil } from 'rambda'
-import { isDebug } from '../constants'
 
 class Logger {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

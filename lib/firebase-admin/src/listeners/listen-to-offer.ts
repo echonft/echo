@@ -1,8 +1,8 @@
+import { offers } from '../getters'
 import { FirebaseOffer, mapOffer } from '@echo/firebase'
 import { Offer } from '@echo/model'
 import { errorMessage, logger } from '@echo/utils'
 import { DocumentChange } from '@google-cloud/firestore'
-import { offers } from '../getters'
 
 export function listenToOffer(onChange: (offer: Offer, change: DocumentChange<FirebaseOffer>) => void) {
   offers().onSnapshot((snapshot) => {
