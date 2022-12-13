@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
-import { BareFetcher, Key, SWRConfiguration, SWRHook } from 'swr/dist/types'
+import { BareFetcher, Key, SWRConfiguration, SWRHook } from 'swr'
 
 // This is an SWR middleware for keeping the data even if key changes.
 export function laggy(useSWRNext: SWRHook) {

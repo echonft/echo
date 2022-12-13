@@ -1,7 +1,7 @@
 import { CreateOfferSellBuyOptions } from '@components/create-offer-sell-buy-options'
 import { CreateOfferSummary } from '@components/create-offer-summary'
 import { NftList } from '@components/nft-list'
-import { CreateOfferRequest } from '@echo/api/dist/types'
+import { CreateOfferRequest } from '@echo/api'
 import { Collection, Erc721, OfferItem, OfferType } from '@echo/model'
 import { useCreateOffer } from '@lib/hooks/use-create-offer'
 import { toggle } from '@lib/utils/array'

@@ -1,4 +1,4 @@
-import { ApiRoutes, LoginRequest, LoginResponse } from '@echo/api/dist/types'
+import { ApiRoutes, getApiRouteUrl, LoginRequest, LoginResponse } from '@echo/api'
 import { useFetchDiscordUser } from '@lib/hooks/use-fetch-discord-user'
 import { fetcher } from '@lib/services/fetcher'
 import { isEmpty, isNil } from 'ramda'
@@ -13,7 +13,7 @@ export function useLogin(
   signature: string | undefined
 ) {
   const { data: discordUser, error: discordUserError } = useFetchDiscordUser(accessToken, tokenType)
-  const { data, error } = useSWR<LoginResponse, Error, [ApiRoutes, LoginRequest] | undefined>(
+  const { data, error } = useSWR<LoginResponse, Error, [string, LoginRequest] | undefined>(
     !isNil(discordUser) &&
       !isNil(address) &&
       !isEmpty(address) &&
@@ -21,7 +21,7 @@ export function useLogin(
       !isEmpty(message) &&
       !isNil(signature) &&
       !isEmpty(signature)
-      ? [ApiRoutes.LOGIN, { signature, address, message, discordId: discordUser.id }]
+      ? [getApiRouteUrl(ApiRoutes.LOGIN), { signature, address, message, discordId: discordUser.id }]
       : undefined,
     fetcher
   )
@@ -40,14 +40,14 @@ export function useLoginWithoutDiscord(
   message: string | undefined,
   signature: string | undefined
 ) {
-  const { data, error } = useSWR<LoginResponse, Error, [ApiRoutes, LoginRequest] | undefined>(
+  const { data, error } = useSWR<LoginResponse, Error, [string, LoginRequest] | undefined>(
     !isNil(address) &&
       !isEmpty(address) &&
       !isNil(message) &&
       !isEmpty(message) &&
       !isNil(signature) &&
       !isEmpty(signature)
-      ? [ApiRoutes.LOGIN, { signature, address, message }]
+      ? [getApiRouteUrl(ApiRoutes.LOGIN), { signature, address, message }]
       : undefined,
     fetcher
   )

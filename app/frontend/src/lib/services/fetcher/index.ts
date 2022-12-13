@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@echo/api/dist/types'
+import { ErrorResponse } from '@echo/api'
 import { HTTPError } from '@lib/services/fetcher/errors/http'
 import { isEmpty, isNil } from 'ramda'
 

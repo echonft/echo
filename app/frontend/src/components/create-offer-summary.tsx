@@ -1,6 +1,6 @@
 import { CreateOfferSummaryDetails } from '@components/create-offer-summary-details'
 import { Modal } from '@components/modal'
-import { CreateOfferRequest } from '@echo/api/dist/types'
+import { CreateOfferRequest } from '@echo/api'
 import { Collection, OfferItem, OfferType } from '@echo/model'
 import { useUser } from '@lib/hooks/use-user'
 import { useTranslations } from 'next-intl'

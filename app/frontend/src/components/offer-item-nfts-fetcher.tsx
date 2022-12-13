@@ -54,7 +54,7 @@ export const OfferItemNftsFetcher: FunctionComponent<Props> = ({ items, type, ow
       <div className={clsx('flex', 'flex-col', 'gap-2')}>
         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/* @ts-ignore */}
-        <span>{t(`${type === OfferType.BUY ? 'buy' : 'sell'}${getTitleKey()}`)}</span>
+        <span>{t(`${type === OfferType.BUY ? 'buy' : 'sell'}.${getTitleKey()}`)}</span>
         {items && hasSpecificId() && <NftList nfts={nfts.data} />}
         {items && !hasSpecificId() && (
           <span>
