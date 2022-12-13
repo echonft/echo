@@ -1,4 +1,4 @@
-import { Routes, UserResponse } from '@echo/discord'
+import { Routes, UserResponse } from '@echo/discord/dist/types'
 import { fetcher } from '@lib/services/fetcher'
 import { isEmpty, isNil } from 'ramda'
 import useSWRImmutable from 'swr/immutable'

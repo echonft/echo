@@ -1,5 +1,5 @@
 import { isEmpty, isNil } from 'ramda'
-import { Chain, chain } from 'wagmi'
+import { Chain, goerli, mainnet } from 'wagmi'
 
 interface Config {
   chains: Chain[]
@@ -44,7 +44,7 @@ function getConfig(): Config {
   }
 
   return {
-    chains: getUseTestnet() ? [chain.goerli] : [chain.mainnet],
+    chains: getUseTestnet() ? [goerli] : [mainnet],
     alchemyKey: getAlchemyKey(),
     useTestnet,
     useMock: process.env.NEXT_PUBLIC_MOCK === 'true'

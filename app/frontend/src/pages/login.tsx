@@ -1,4 +1,4 @@
-import { DiscordTokenResponse, Routes, TokenRoutePostData } from '@echo/discord'
+import { DiscordTokenResponse, Routes, TokenRoutePostData } from '@echo/discord/dist/types'
 import { errorMessage, logger } from '@echo/utils'
 import { getMessages, MessagesType } from '@lib/messages'
 import { fetcher } from '@lib/services/fetcher'

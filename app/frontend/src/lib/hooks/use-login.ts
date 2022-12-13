@@ -1,4 +1,4 @@
-import { ApiRoutes, getApiRouteUrl, LoginRequest, LoginResponse } from '@echo/api'
+import { ApiRoutes, getApiRouteUrl, LoginRequest, LoginResponse } from '@echo/api/dist/types'
 import { useFetchDiscordUser } from '@lib/hooks/use-fetch-discord-user'
 import { fetcher } from '@lib/services/fetcher'
 import { isEmpty, isNil } from 'ramda'

@@ -1,5 +1,5 @@
 import { Routes } from '../types'
-import { getApiUrl } from '@echo/api'
+import { getApiUrl } from '@echo/api/dist/config'
 
 /**
  * Creates a link to the offer creation page on website
