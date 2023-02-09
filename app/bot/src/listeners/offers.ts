@@ -9,7 +9,7 @@ import { isNil } from 'rambda'
 export function listenToOffers(client: Client) {
   listenToOffer((offer, change) => {
     try {
-      const channel = getDiscordChannel(client, offer.collection.channelId)
+      const channel = getDiscordChannel(client, offer.discordGuild.channelId)
       if (change.type === 'added' && isNil(offer.postedAt)) {
         // TODO Add proper offer management (buyer/seller and items)
         void channel

@@ -1,5 +1,5 @@
 import { useAlchemy } from '@components/providers/alchemy-provider'
-import { Erc721, OfferItem } from '@echo/model'
+import { Nft, OfferItem } from '@echo/model'
 import { FetchNftsError } from '@lib/services/alchemy/errors/fetch-error'
 import { mapNftResponseToErc721 } from '@lib/services/alchemy/mappers/map-owned-nft-response'
 import { failureResult, Result, successfulResult } from '@lib/services/swr/models/result'
@@ -11,7 +11,7 @@ interface Key {
 }
 export function useGetNftsForItems(items: OfferItem[] | undefined) {
   const alchemy = useAlchemy()
-  const { data } = useSWR<Result<Erc721[]>, Error, Key | undefined>(
+  const { data } = useSWR<Result<Nft[]>, Error, Key | undefined>(
     !isNil(items) && !isEmpty(items) ? { items } : undefined,
     ({ items }) =>
       Promise.all(
@@ -21,7 +21,7 @@ export function useGetNftsForItems(items: OfferItem[] | undefined) {
             alchemy.nft.getNftMetadata(item.contractAddress, item.id!).then((result) => mapNftResponseToErc721(result))
           )
       )
-        .then((results) => successfulResult<Erc721[]>(flatten(results)))
+        .then((results) => successfulResult<Nft[]>(flatten(results)))
         .catch((error) =>
           failureResult(
             new FetchNftsError(

@@ -1,5 +1,5 @@
 import { CreateOfferSell } from '@components/create-offer-sell'
-import { Collection, OfferType } from '@echo/model'
+import { DiscordGuild, OfferType } from '@echo/model'
 import { Listbox } from '@headlessui/react'
 import { useGetCollectionNftsForOwner } from '@lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
 import { clsx } from 'clsx'
@@ -8,7 +8,7 @@ import { head, isEmpty, isNil } from 'ramda'
 import { FunctionComponent, useState } from 'react'
 
 interface Props {
-  collection: Collection
+  collection: DiscordGuild
 }
 
 // TODO use translations

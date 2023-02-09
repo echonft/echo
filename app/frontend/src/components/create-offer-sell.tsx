@@ -2,7 +2,7 @@ import { CreateOfferSellBuyOptions } from '@components/create-offer-sell-buy-opt
 import { CreateOfferSummary } from '@components/create-offer-summary'
 import { NftList } from '@components/nft-list'
 import { CreateOfferRequest } from '@echo/api/dist/types'
-import { Collection, Erc721, OfferItem, OfferType } from '@echo/model'
+import { DiscordGuild, Nft, OfferItem, OfferType } from '@echo/model'
 import { useCreateOffer } from '@lib/hooks/use-create-offer'
 import { toggle } from '@lib/utils/array'
 import { clsx } from 'clsx'
@@ -13,11 +13,11 @@ import { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 
 interface Props {
-  collection: Collection
-  nfts: Erc721[]
+  collection: DiscordGuild
+  nfts: Nft[]
 }
 
-function createOfferItems(contractAddresses: string[], nfts: Erc721[]): OfferItem[] {
+function createOfferItems(contractAddresses: string[], nfts: Nft[]): OfferItem[] {
   if (isEmpty(contractAddresses) && isEmpty(nfts)) {
     return []
   }
@@ -39,9 +39,9 @@ export const CreateOfferSell: FunctionComponent<Props> = ({ nfts, collection }) 
   const { address } = useAccount()
   const [offerRequest, setOfferRequest] = useState<CreateOfferRequest | undefined>()
   const { offerId: createdOfferId } = useCreateOffer(offerRequest)
-  const [selectedNfts, setSelectedNfts] = useState<Erc721[]>([])
+  const [selectedNfts, setSelectedNfts] = useState<Nft[]>([])
   const [selectedBuyContracts, setSelectedBuyContracts] = useState<string[]>([])
-  const [selectedBuyNfts, setSelectedBuyNfts] = useState<Erc721[]>([])
+  const [selectedBuyNfts, setSelectedBuyNfts] = useState<Nft[]>([])
   const [showSummary, setShowSummary] = useState(false)
 
   const submitButtonDisabled = useCallback(() => {

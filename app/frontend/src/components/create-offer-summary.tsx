@@ -1,7 +1,7 @@
 import { CreateOfferSummaryDetails } from '@components/create-offer-summary-details'
 import { Modal } from '@components/modal'
 import { CreateOfferRequest } from '@echo/api/dist/types'
-import { Collection, OfferItem, OfferType } from '@echo/model'
+import { DiscordGuild, OfferItem, OfferType } from '@echo/model'
 import { useUser } from '@lib/hooks/use-user'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -9,7 +9,7 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   type: OfferType
-  collection: Collection
+  collection: DiscordGuild
   ownerItems: OfferItem[]
   counterpartyItems: OfferItem[]
   onAccept?: (request: CreateOfferRequest) => void
@@ -18,7 +18,7 @@ interface Props {
 
 function createRequest(
   type: OfferType,
-  collection: Collection,
+  collection: DiscordGuild,
   ownerItems: OfferItem[],
   counterpartyItems: OfferItem[] | undefined,
   userId: string

@@ -1,9 +1,9 @@
-import { FirebaseCollection, FirebaseDocument, mapCollection } from '@echo/firebase'
-import { Collection } from '@echo/model'
+import { FirebaseDocumentName, FirestoreDiscordCollection, mapCollection } from '@echo/firebase'
+import { DiscordGuild } from '@echo/model'
 import { useDocument } from '@lib/services/firebase/hooks/use-document'
 
 export function useFetchCollection(collectionId: string | undefined) {
-  return useDocument<FirebaseCollection, Collection>(FirebaseDocument.COLLECTIONS, collectionId, {
+  return useDocument<FirestoreDiscordCollection, DiscordGuild>(FirebaseDocument.COLLECTIONS, collectionId, {
     mapper: mapCollection
   })
 }

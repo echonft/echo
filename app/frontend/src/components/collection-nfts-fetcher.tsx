@@ -1,5 +1,5 @@
 import { NftList } from '@components/nft-list'
-import { Erc721 } from '@echo/model'
+import { Nft } from '@echo/model'
 import { useGetCollectionNfts } from '@lib/services/alchemy/hooks/use-get-collection-nfts'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -7,8 +7,8 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   contractAddresses: string[] | undefined
-  selected?: Erc721[]
-  onSelect?: (nft: Erc721) => void
+  selected?: Nft[]
+  onSelect?: (nft: Nft) => void
 }
 
 export const CollectionNftsFetcher: FunctionComponent<Props> = ({ contractAddresses, selected, onSelect }) => {

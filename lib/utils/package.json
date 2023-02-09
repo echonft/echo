@@ -21,7 +21,7 @@
     "update-modules": "ncu -u"
   },
   "dependencies": {
-    "pino": "8.7.0",
+    "pino": "8.8.0",
     "rambda": "7.4.0"
   }
 }

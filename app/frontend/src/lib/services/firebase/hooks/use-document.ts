@@ -1,5 +1,5 @@
 import { useFirebase } from '@components/providers/firebase-provider'
-import { firebaseDocSnapshotFromPath, FirebaseDocument } from '@echo/firebase'
+import { firebaseDocSnapshotFromPath, FirebaseDocumentName } from '@echo/firebase'
 import { errorMessage, logger } from '@echo/utils'
 import { config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'

@@ -2,9 +2,9 @@ import { TradeResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { CreateTradeApiRequest } from '../../types/models/api-requests/create-trade-api-request'
 import { getUserWithId } from '../../utils/requests'
-import { FirebaseDocument } from '@echo/firebase'
+import { FirebaseDocumentName } from '@echo/firebase'
 import { firestore, offerSnapshot as getOfferSnapshot, userSnapshot } from '@echo/firebase-admin'
-import { TradeStatus } from '@echo/model'
+import { SwapState } from '@echo/model'
 import { errorMessage } from '@echo/utils'
 
 export const createTradeHandler: RequestHandler<CreateTradeApiRequest, TradeResponse> = async (req, res) => {
@@ -27,7 +27,7 @@ export const createTradeHandler: RequestHandler<CreateTradeApiRequest, TradeResp
     .set({
       offer: offerSnapshot.ref,
       owner: ownerSnapshot.ref,
-      status: TradeStatus.OPEN,
+      status: SwapState.OPEN,
       counterparty: counterpartySnapshot.ref,
       ownerItems: JSON.stringify(ownerItems),
       counterPartyItems: JSON.stringify(counterpartyItems)

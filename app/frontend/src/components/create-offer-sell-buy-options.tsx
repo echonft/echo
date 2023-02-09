@@ -1,7 +1,7 @@
 import { Autocomplete } from '@components/autocomplete'
 import { CollectionNftsFetcher } from '@components/collection-nfts-fetcher'
 import { TagManager } from '@components/tag-manager'
-import { Erc721 } from '@echo/model'
+import { Nft } from '@echo/model'
 import { Combobox } from '@headlessui/react'
 import { mapCollectionSearchableObject } from '@lib/mappers/map-collection-searchable-object'
 import { addIfNotThere, toggle } from '@lib/utils/array'
@@ -15,9 +15,9 @@ import { FunctionComponent, useCallback, useState } from 'react'
 interface Props {
   contractAddresses: string[]
   selectedContracts: string[]
-  selectedNfts: Erc721[]
+  selectedNfts: Nft[]
   onSelectContracts?: (contractAddresses: string[]) => void
-  onSelectNfts?: (nfts: Erc721[]) => void
+  onSelectNfts?: (nfts: Nft[]) => void
 }
 
 export const CreateOfferSellBuyOptions: FunctionComponent<Props> = ({

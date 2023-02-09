@@ -1,5 +1,5 @@
 import { useFirebase } from '@components/providers/firebase-provider'
-import { collectionQuery, DocumentData, documentPath, FirebaseDocument } from '@echo/firebase'
+import { collectionQuery, DocumentData, documentPath, FirebaseDocumentName } from '@echo/firebase'
 import { logger } from '@echo/utils'
 import { config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
@@ -62,7 +62,7 @@ function useCollectionInternal<T extends DocumentData, W = DocumentSnapshot<T>>(
   )
 
   if (error) {
-    logger.error(`Error fetching collection at ${path!}`, error)
+    logger.error(`Error fetching collection at ${path}`, error)
     return failureResult(error.message)
   }
   return data

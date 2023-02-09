@@ -9,21 +9,21 @@ interface Config {
 }
 
 function getUseTestnet(): boolean {
-  return process.env.NEXT_PUBLIC_TESTNET === 'true'
+  return process.env.NEXT_PUBLIC_CHAIN_ID === 'true'
 }
 
 function getAlchemyKey(): string {
   const useTestnet = getUseTestnet()
   if (useTestnet) {
-    const alchemyKey = process.env.NEXT_PUBLIC_ALCHEMY_TESTNET_API_KEY
+    const alchemyKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY_GOERLI
     if (isNil(alchemyKey) || isEmpty(alchemyKey)) {
-      throw new Error('.env should contain NEXT_PUBLIC_ALCHEMY_TESTNET_API_KEY when using testnet')
+      throw new Error('.env should contain NEXT_PUBLIC_ALCHEMY_API_KEY_GOERLI when using testnet')
     }
     return alchemyKey
   } else {
-    const alchemyKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
+    const alchemyKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY_MAINNET
     if (isNil(alchemyKey) || isEmpty(alchemyKey)) {
-      throw new Error('.env should contain NEXT_PUBLIC_ALCHEMY_API_KEY when using mainnet')
+      throw new Error('.env should contain NEXT_PUBLIC_ALCHEMY_API_KEY_MAINNET when using mainnet')
     }
     return alchemyKey
   }
@@ -32,14 +32,14 @@ function getAlchemyKey(): string {
 function getConfig(): Config {
   const useTestnet = getUseTestnet()
   if (useTestnet) {
-    const alchemyKey = process.env.NEXT_PUBLIC_ALCHEMY_TESTNET_API_KEY
+    const alchemyKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY_GOERLI
     if (isNil(alchemyKey) || isEmpty(alchemyKey)) {
-      throw new Error('.env should contain NEXT_PUBLIC_ALCHEMY_TESTNET_API_KEY when using testnet')
+      throw new Error('.env should contain NEXT_PUBLIC_ALCHEMY_API_KEY_GOERLI when using testnet')
     }
   } else {
-    const alchemyKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
+    const alchemyKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY_MAINNET
     if (isNil(alchemyKey) || isEmpty(alchemyKey)) {
-      throw new Error('.env should contain NEXT_PUBLIC_ALCHEMY_API_KEY when using mainnet')
+      throw new Error('.env should contain NEXT_PUBLIC_ALCHEMY_API_KEY_MAINNET when using mainnet')
     }
   }
 

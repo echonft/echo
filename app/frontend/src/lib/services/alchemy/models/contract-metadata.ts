@@ -1,4 +1,4 @@
-import { TokenType } from '@echo/model'
+import { NftTokenType } from '@echo/model'
 
 export enum SafelistRequestStatus {
   NOT_REQUESTED = 'not_requested',
@@ -27,7 +27,7 @@ export interface ContractMetadata {
   name: string
   symbol: string
   totalSupply: number
-  tokenType: TokenType
+  tokenType: NftTokenType
   opensea: OpenSeaMetadata | undefined
   spamInfo: SpamInfo | undefined
 }

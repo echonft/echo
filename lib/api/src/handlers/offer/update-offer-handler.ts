@@ -1,7 +1,7 @@
 import { OfferResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { UpdateOfferApiRequest } from '../../types/models/api-requests/update-offer-api-request'
-import { FirebaseDocument } from '@echo/firebase'
+import { FirebaseDocumentName } from '@echo/firebase'
 import { firestore, offer as getOffer } from '@echo/firebase-admin'
 import { errorMessage } from '@echo/utils'
 

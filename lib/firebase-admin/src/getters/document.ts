@@ -1,6 +1,6 @@
 import { FirebaseDocumentError } from '../errors'
 import { documentSnapshot } from './document-snapshot'
-import { FirebaseDocument } from '@echo/firebase'
+import { FirebaseDocumentName } from '@echo/firebase'
 import { DocumentData, DocumentSnapshot } from '@google-cloud/firestore'
 
 export function document<T extends DocumentData, U = T>(

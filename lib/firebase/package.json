@@ -23,8 +23,8 @@
   "dependencies": {
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@google-cloud/firestore": "^6.4.1",
-    "firebase": "9.15.0",
+    "@google-cloud/firestore": "6.4.2",
+    "firebase": "9.16.0",
     "rambda": "7.4.0"
   }
 }

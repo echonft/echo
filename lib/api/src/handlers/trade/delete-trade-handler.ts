@@ -2,7 +2,7 @@ import { TradeResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { DeleteTradeApiRequest } from '../../types/models/api-requests/delete-trade-api-request'
 import { getUserWithId } from '../../utils/requests'
-import { FirebaseDocument } from '@echo/firebase'
+import { FirebaseDocumentName } from '@echo/firebase'
 import { firestore, trade as getTrade } from '@echo/firebase-admin'
 import { errorMessage } from '@echo/utils'
 

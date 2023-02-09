@@ -1,5 +1,7 @@
+import { Wallet } from './wallet'
+
 export interface User {
   id: string
   discordId: string
-  wallet: string
+  wallets: Wallet[]
 }

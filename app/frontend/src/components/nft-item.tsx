@@ -1,4 +1,4 @@
-import { Erc721 } from '@echo/model'
+import { Nft } from '@echo/model'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
@@ -6,9 +6,9 @@ import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  nft: Erc721
+  nft: Nft
   selected?: boolean
-  onSelect?: (nft: Erc721) => void
+  onSelect?: (nft: Nft) => void
 }
 
 // TODO find a placeholder if there is no image

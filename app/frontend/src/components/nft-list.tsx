@@ -1,13 +1,13 @@
 import { NftItem } from '@components/nft-item'
-import { Erc721 } from '@echo/model'
+import { Nft } from '@echo/model'
 import { clsx } from 'clsx'
 import { includes } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  nfts: Erc721[]
-  selected?: Erc721[]
-  onSelect?: (nft: Erc721) => void
+  nfts: Nft[]
+  selected?: Nft[]
+  onSelect?: (nft: Nft) => void
 }
 
 export const NftList: FunctionComponent<Props> = ({ nfts, selected, onSelect }) => {

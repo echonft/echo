@@ -2,9 +2,9 @@ import { OfferResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { CreateOfferApiRequest } from '../../types/models/api-requests/create-offer-api-request'
 import { getUserWithId } from '../../utils/requests'
-import { FirebaseDocument } from '@echo/firebase'
+import { FirebaseDocumentName } from '@echo/firebase'
 import { collectionSnapshot, firestore } from '@echo/firebase-admin'
-import { OfferStatus } from '@echo/model'
+import { OfferState } from '@echo/model'
 import { errorMessage } from '@echo/utils'
 
 export const createOfferHandler: RequestHandler<CreateOfferApiRequest, OfferResponse> = async (req, res) => {
@@ -22,7 +22,7 @@ export const createOfferHandler: RequestHandler<CreateOfferApiRequest, OfferResp
       ownerItems: JSON.stringify(ownerItems),
       counterPartyItems: JSON.stringify(counterpartyItems),
       type,
-      status: OfferStatus.OPEN
+      status: OfferState.OPEN
     })
     .then(() => res.status(200).json({ offerId: newOffer.id }))
     .catch((error) => res.status(500).json({ error: `SERVER ERROR: error creating offer: ${errorMessage(error)}` }))

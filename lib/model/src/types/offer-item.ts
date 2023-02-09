@@ -1,4 +1,8 @@
+import { Contract } from './contract'
+import { BigNumber } from 'ethers'
+
 export interface OfferItem {
-  contractAddress: string
-  id?: string
+  id: string
+  contract: Contract
+  tokenId: BigNumber
 }

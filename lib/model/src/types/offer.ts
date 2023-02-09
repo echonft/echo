@@ -1,27 +1,21 @@
-import { Collection } from './collection'
+import { DiscordGuild } from './discord-guild'
+import { OfferActivity } from './offer-activity'
 import { OfferItem } from './offer-item'
+import { OfferState } from './offer-state'
 import { User } from './user'
-
-export enum OfferStatus {
-  OPEN = 'OPEN',
-  PENDING = 'PENDING',
-  COMPLETED = 'COMPLETED',
-  REJECTED = 'REJECTED'
-}
-
-export enum OfferType {
-  BUY = 'buy',
-  SELL = 'sell'
-}
+import { Dayjs } from 'dayjs'
 
 export interface Offer {
   id: string
-  postedAt: Date | undefined
-  counterparty: User | undefined
-  type: OfferType
-  status: OfferStatus
-  counterpartyItems: OfferItem[] | undefined
-  ownerItems: OfferItem[]
-  owner: User
-  collection: Collection
+  state: OfferState
+  discordGuild: DiscordGuild
+  threadId: string | undefined
+  sender: User
+  senderItems: OfferItem[]
+  receiver: User
+  receiverItems: OfferItem[]
+  activities: OfferActivity[]
+  expiresAt: Dayjs
+  postedAt: Dayjs | undefined
+  createdAt: Dayjs
 }

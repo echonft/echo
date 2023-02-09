@@ -19,5 +19,9 @@
     "tsc": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
     "update-modules": "ncu -u"
+  },
+  "dependencies": {
+    "dayjs": "1.11.7",
+    "ethers": "5.7.2"
   }
 }

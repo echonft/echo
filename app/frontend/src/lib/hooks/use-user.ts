@@ -1,4 +1,4 @@
-import { FirebaseDocument, FirebaseUser, mapUser } from '@echo/firebase'
+import { FirebaseDocumentName, FirestoreUser, mapUser } from '@echo/firebase'
 import { User } from '@echo/model'
 import { useCollection, UseCollectionOptions } from '@lib/services/firebase/hooks/use-collection'
 import { successfulResult, SwrResult } from '@lib/services/swr/models/result'
@@ -9,14 +9,14 @@ import { useAccount } from 'wagmi'
 
 export function useUser(): SwrResult<User> {
   const { address } = useAccount()
-  const queryOptions: UseCollectionOptions<FirebaseUser, User> = useMemo<UseCollectionOptions<FirebaseUser, User>>(
+  const queryOptions: UseCollectionOptions<FirestoreUser, User> = useMemo<UseCollectionOptions<FirestoreUser, User>>(
     () => ({
       constraints: [where('wallet', '==', address), limit(1)],
       mapper: (documentSnapshots) => documentSnapshots.map(mapUser)
     }),
     [address]
   )
-  const result = useCollection<FirebaseUser, User>(address && FirebaseDocument.USERS, queryOptions)
+  const result = useCollection<FirestoreUser, User>(address && FirebaseDocument.USERS, queryOptions)
   return result?.data
     ? { ...result, data: head(result?.data || []) }
     : successfulResult({
