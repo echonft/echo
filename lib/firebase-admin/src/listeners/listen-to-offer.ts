@@ -1,5 +1,5 @@
 import { offers } from '../getters'
-import { FirestoreOffer, mapOffer } from '@echo/firebase'
+import { FirestoreOffer, mapOffer } from '@echo/firestore'
 import { Offer } from '@echo/model'
 import { errorMessage, logger } from '@echo/utils'
 import { DocumentChange } from '@google-cloud/firestore'

@@ -14,7 +14,7 @@ export interface Offer {
   senderItems: OfferItem[]
   receiver: User
   receiverItems: OfferItem[]
-  activities: OfferActivity[]
+  activities?: OfferActivity[]
   expiresAt: Dayjs
   postedAt: Dayjs | undefined
   createdAt: Dayjs

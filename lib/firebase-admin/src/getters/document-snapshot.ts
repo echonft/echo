@@ -1,5 +1,5 @@
 import { firestore } from '../services'
-import { FirebaseDocumentName } from '@echo/firebase'
+import { FirestorePath } from '@echo/firebase'
 import { DocumentData, DocumentSnapshot } from '@google-cloud/firestore'
 
 export function documentSnapshot<T extends DocumentData>(id: string, collection: FirebaseDocument) {

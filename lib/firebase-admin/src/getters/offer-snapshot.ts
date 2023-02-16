@@ -1,5 +1,5 @@
 import { documentSnapshot } from './document-snapshot'
-import { FirebaseDocumentName, FirestoreOffer } from '@echo/firebase'
+import { FirestoreOffer, FirestorePath } from '@echo/firebase'
 
 /**
  * Get offer document snapshot with id

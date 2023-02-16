@@ -20,7 +20,7 @@
   "dependencies": {
     "@echo/api": "workspace:*",
     "@echo/discord": "workspace:*",
-    "@echo/firebase": "workspace:*",
+    "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@headlessui/react": "1.7.8",

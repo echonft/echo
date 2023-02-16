@@ -1,4 +1,4 @@
-import { FirebaseDocumentName } from '@echo/firebase'
+import { FirestorePath } from '@echo/firebase'
 import { isEmpty, isNil } from 'rambda'
 
 export class FirebaseDocumentError extends Error {

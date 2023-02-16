@@ -1,5 +1,5 @@
 import { documentSnapshot } from './document-snapshot'
-import { FirebaseDocumentName } from '@echo/firebase'
+import { FirestorePath } from '@echo/firebase'
 import { DiscordGuild } from '@echo/model'
 
 export function collectionSnapshot(id: string) {

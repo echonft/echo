@@ -11,25 +11,32 @@
     "build": "tsc",
     "ci:lint": "eslint \"src/**/*.ts\"",
     "ci:prettier": "prettier \"src/**/*.ts\"",
+    "ci:test": "jest --ci",
     "clean": "rm -rf dist",
     "dev": "tsc --watch",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
     "lint:clean-cache": "rm -f .eslintcache",
     "remove-modules": "rm -rf node_modules",
+    "test": "jest --watch",
     "tsc": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
     "update-modules": "ncu -u"
   },
   "dependencies": {
+    "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
-    "@echo/firebase": "workspace:*",
     "@echo/utils": "workspace:*",
+    "firebase-admin": "11.5.0",
     "ethers": "5.7.2",
-    "firebase": "9.16.0",
     "rambda": "7.4.0"
   },
   "devDependencies": {
+    "@babel/core": "7.20.12",
+    "@babel/preset-env": "7.20.2",
     "@google-cloud/firestore": "6.4.2",
-    "firebase-admin": "11.5.0"
+    "@jest/globals": "29.4.2",
+    "@jest/types": "29.4.2",
+    "babel-jest": "29.4.2",
+    "jest": "29.4.2"
   }
 }

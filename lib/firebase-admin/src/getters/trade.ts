@@ -1,5 +1,5 @@
 import { document } from './document'
-import { FirebaseDocumentName, FirestoreTrade, mapTrade } from '@echo/firebase'
+import { FirestorePath, FirestoreTrade, mapTrade } from '@echo/firebase'
 import { Swap } from '@echo/model'
 
 /**

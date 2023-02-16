@@ -1,12 +1,16 @@
-import { NftCollection, NftTokenType, OpenSeaSafelistRequestStatus } from '../types'
+import { NftCollection, OpenSeaSafelistRequestStatus } from '../types'
 import dayjs from 'dayjs'
 
 export const mockedCollection: NftCollection = {
+  id: '1',
   contract: {
+    id: '1',
+    tokenType: 'ERC721',
     address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
-    chainId: 1
+    chainId: 1,
+    name: 'BoredApeYachtClub',
+    symbol: 'BAYC'
   },
-  name: 'BoredApeYachtClub',
   openSea: {
     floorPrice: 73.1,
     collectionName: 'Bored Ape Yacht Club',
@@ -21,7 +25,5 @@ export const mockedCollection: NftCollection = {
     discordUrl: new URL('https://discord.gg/3P5K3dzgdB'),
     lastIngestedAt: dayjs()
   },
-  symbol: 'BAYC',
-  totalSupply: 10000,
-  tokenType: NftTokenType.ERC721
+  totalSupply: 10000
 }

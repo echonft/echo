@@ -11,6 +11,9 @@
     "ci:prettier": {
       "cache": false
     },
+    "ci:test": {
+      "cache": false
+    },
     "clean": {
       "cache": false
     },
@@ -33,6 +36,9 @@
     },
     "start:dev": {
       "dependsOn": ["build"],
+      "cache": false
+    },
+    "test": {
       "cache": false
     },
     "tsc": {
@@ -63,7 +69,7 @@
     },
     "@echo/firebase-admin#build": {
       "dependsOn": ["^build"],
-      "env": ["FIREBASE_SERVICE_ACCOUNT_KEY"],
+      "env": ["FIREBASE_ADMIN_PRIVATE_KEY"],
       "outputs": ["dist/**"]
     },
     "@echo/frontend#build": {

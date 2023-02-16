@@ -1,15 +1,16 @@
 import { FirestoreDocumentSnapshot, FirestoreMapper } from '../types'
 import { getDocSnapshotFromRef } from '../utils/document-snapshot/get-doc-snapshot-from-ref'
-import { resolve } from '@echo/utils'
+import { toPromise } from '@echo/utils'
 import { DocumentData, DocumentReference } from 'firebase/firestore'
 import { andThen, ifElse, isNil, map, pipe, prop, toString, zipObj } from 'ramda'
 
 export const id: <FirestoreDocument extends DocumentData>(
   snapshot: FirestoreDocumentSnapshot<FirestoreDocument>
 ) => string = prop('id')
+
 export const idPromise: <FirestoreDocument extends DocumentData>(
   snapshot: FirestoreDocumentSnapshot<FirestoreDocument>
-) => Promise<string> = pipe(prop('id'), resolve)
+) => Promise<string> = pipe(prop('id'), toPromise)
 
 export const dataProp = <
   FirestoreDocument extends DocumentData,
@@ -35,7 +36,7 @@ export const dataPropPromise = <
   PropsValue = FirestoreDocument[Key]
 >(
   key: Key
-): ((snapshot: FirestoreDocumentSnapshot<FirestoreDocument>) => Promise<PropsValue>) => pipe(dataProp(key), resolve)
+): ((snapshot: FirestoreDocumentSnapshot<FirestoreDocument>) => Promise<PropsValue>) => pipe(dataProp(key), toPromise)
 
 export const dataPropWithMapperPromise = <
   FirestoreDocument extends DocumentData,
@@ -45,7 +46,7 @@ export const dataPropWithMapperPromise = <
   key: Key,
   mapper: (value: FirestoreDocument[Key]) => MappedValue
 ): ((snapshot: FirestoreDocumentSnapshot<FirestoreDocument>) => Promise<MappedValue>) =>
-  pipe(dataPropWithMapper(key, mapper), resolve)
+  pipe(dataPropWithMapper(key, mapper), toPromise)
 
 export const dataDoc = <
   FirestoreDocument extends DocumentData,
@@ -71,7 +72,7 @@ export const optionalDataDoc = <
     dataProp(key),
     ifElse(
       isNil,
-      resolve,
+      toPromise,
       pipe<
         DocumentReference<TargetFirestoreDocument>[],
         Promise<FirestoreDocumentSnapshot<TargetFirestoreDocument>>,

@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@echo/firebase-admin": "workspace:*",
-    "@echo/firebase": "workspace:*",
+    "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "ethers": "5.7.2",

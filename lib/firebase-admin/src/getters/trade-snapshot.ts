@@ -1,5 +1,5 @@
 import { documentSnapshot } from './document-snapshot'
-import { FirebaseDocumentName, FirestoreTrade } from '@echo/firebase'
+import { FirestorePath, FirestoreTrade } from '@echo/firebase'
 
 /**
  * Get trade document snapshot with id

@@ -1,4 +1,3 @@
-import { FirestoreDocumentPath } from '../../types/utils/firestore-document-path'
 import { doc, DocumentData, DocumentReference, getFirestore } from 'firebase/firestore'
 
 /**
@@ -6,9 +5,6 @@ import { doc, DocumentData, DocumentReference, getFirestore } from 'firebase/fir
  * @param path – The firebase path
  * @param pathSegments – Additional path segments that will be applied relative to the first argument.
  */
-export function getDocRef<T extends DocumentData>(
-  path: FirestoreDocumentPath,
-  pathSegments: string[] = []
-): DocumentReference<T> {
+export function getDocRef<T extends DocumentData>(path: string, ...pathSegments: string[]): DocumentReference<T> {
   return doc(getFirestore(), path, ...pathSegments) as DocumentReference<T>
 }

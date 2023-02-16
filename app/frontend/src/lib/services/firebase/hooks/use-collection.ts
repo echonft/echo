@@ -1,5 +1,5 @@
 import { useFirebase } from '@components/providers/firebase-provider'
-import { collectionQuery, DocumentData, documentPath, FirebaseDocumentName } from '@echo/firebase'
+import { collectionQuery, DocumentData, FirestoreDocumentPath } from '@echo/firestore'
 import { logger } from '@echo/utils'
 import { config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'

@@ -1,4 +1,4 @@
-import { FirebaseDocumentName, FirestoreUser, mapUser } from '@echo/firebase'
+import { FirestorePath, FirestoreUser, mapUser } from '@echo/firebase'
 import { User } from '@echo/model'
 import { useCollection, UseCollectionOptions } from '@lib/services/firebase/hooks/use-collection'
 import { successfulResult, SwrResult } from '@lib/services/swr/models/result'

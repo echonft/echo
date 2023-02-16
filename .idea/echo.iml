@@ -27,6 +27,10 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/api/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/utils/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/api/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/firestore/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/firestore/dist" />
       <excludePattern pattern="tsbuild.buildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />

@@ -15,7 +15,7 @@ export interface RequestForOffer {
   items: OfferItem[]
   collection: DiscordGuild
   target: Contract[]
-  activities: RequestForOfferActivity[]
+  activities?: RequestForOfferActivity[]
   offers?: Offer[]
   swaps?: Swap[]
   expiresAt: Dayjs
