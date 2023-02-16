@@ -1,0 +1,10 @@
+import { FirestoreNftCollection } from '../../collections'
+import { FirestoreData } from '../abstract/firestore-data'
+import { FirestoreContractData } from '../contract/firestore-contract-data'
+import { FirestoreOpenSeaCollectionDetailsData } from './nested-documents/firestore-open-sea-collection-details-data'
+
+export interface FirestoreNftCollectionData extends Omit<FirestoreNftCollection, 'contract'>, FirestoreData {
+  contract: FirestoreContractData
+  totalSupply?: number
+  openSea: FirestoreOpenSeaCollectionDetailsData
+}

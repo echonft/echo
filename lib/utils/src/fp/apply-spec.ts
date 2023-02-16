@@ -1,4 +1,4 @@
-import { applySpec as rambdaApplySpec, Prop } from 'rambda'
+import { applySpec as ramdaApplySpec, Prop } from 'ramda'
 
 /**
  * Ramda's applySpec with typing of the input and output, with the only difference that
@@ -6,4 +6,4 @@ import { applySpec as rambdaApplySpec, Prop } from 'rambda'
  * @param spec
  */
 export const applySpec = <I, O>(spec: { [K in keyof O]: (input: I) => Prop<O, K> }): ((input: I) => O) =>
-  rambdaApplySpec(spec) as unknown as (input: I) => O
+  ramdaApplySpec(spec) as unknown as (input: I) => O

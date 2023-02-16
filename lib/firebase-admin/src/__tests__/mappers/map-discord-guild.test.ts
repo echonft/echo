@@ -1,6 +1,6 @@
 import { firestore } from '../../services'
+import { mapDocumentSnapshot } from '../../utils/map-document-snapshot'
 import { mappedDiscordGuild } from '../../utils/test/mocks/discord-guild'
-import { mapDocumentSnapshot } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mapDiscordGuild', () => {

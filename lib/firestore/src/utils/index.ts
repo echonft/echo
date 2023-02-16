@@ -1,4 +1,3 @@
-export * from './document-reference'
-export * from './document-snapshot'
+export * from './collection'
+export * from './document'
 export * from './query'
-export * from './query-snapshot'

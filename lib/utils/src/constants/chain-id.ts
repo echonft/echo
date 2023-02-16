@@ -1,5 +1,5 @@
 import { isProd } from './index'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 
 // Mainnet and Goerli testnet are supported
 const supportedChains = [1, 5]

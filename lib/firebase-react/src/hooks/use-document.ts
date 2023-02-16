@@ -1,11 +1,11 @@
 import { UseDocumentOptions } from '../types/use-document-options'
 import { useFirebase } from './use-firebase'
 import { FirestoreDocumentPath, FirestoreMapper } from '@echo/firestore'
-import { subscribeToDocumentReference } from '@echo/firestore/dist/utils/document-reference/subscribe-to-document-reference'
-import { getDocSnapshotFromPath } from '@echo/firestore/dist/utils/document-snapshot/get-doc-snapshot-from-path'
 import { Model } from '@echo/model'
 import { R } from '@mobily/ts-belt'
 import { DocumentData } from 'firebase/firestore'
+import { getDocSnapshotFromPath } from 'lib/firestore/src/utils/document/get-doc-snapshot-from-path'
+import { subscribeToDocument } from 'lib/firestore/src/utils/document-reference/subscribe-to-document'
 import { andThen, pipe } from 'ramda'
 import { useEffect } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
@@ -40,7 +40,7 @@ export function useDocument<T extends DocumentData, W extends Model>(
   useEffect(() => {
     if (options?.listen) {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      return subscribeToDocumentReference(path, pipe(mapper, R.fromPromise, response.mutate))
+      return subscribeToDocument(path, pipe(mapper, R.fromPromise, response.mutate))
     }
     return
   }, [options, path, response.mutate, mapper])

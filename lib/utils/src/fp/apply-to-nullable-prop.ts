@@ -1,4 +1,4 @@
-import { isNil, pipe, Prop, prop, unless } from 'rambda'
+import { isNil, pipe, Prop, prop, unless } from 'ramda'
 
 /**
  * Same as {@see applyToProp} but when the prop in the object is optional
@@ -12,6 +12,6 @@ export const applyToNullableProp = <P extends keyof S, S, T>(
   fn: (sourceProp: NonNullable<Prop<S, P>>) => T
 ): ((source: S | undefined) => T | undefined) =>
   pipe(
-    prop<P, S>(propToFind),
+    prop<Prop<S, P>>(propToFind),
     unless<Prop<S, P>, T>(isNil, (sourceProp: Prop<S, P>) => fn(sourceProp as NonNullable<Prop<S, P>>))
   ) as (source: S | undefined) => T | undefined

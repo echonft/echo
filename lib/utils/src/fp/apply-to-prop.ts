@@ -1,4 +1,4 @@
-import { pipe, Prop, prop } from 'rambda'
+import { pipe, Prop, prop } from 'ramda'
 
 /**
  * Retrieves a prop with a given key and applies the given function on it
@@ -8,4 +8,4 @@ import { pipe, Prop, prop } from 'rambda'
 export const applyToProp = <P extends keyof S, S, T>(
   propToModify: P,
   fn: (sourceProp: Prop<S, P>) => T
-): ((source: S) => T) => pipe(prop<P, S>(propToModify), fn) as (source: S) => T
+): ((source: S) => T) => pipe(prop(propToModify), fn) as (source: S) => T
