@@ -1,9 +1,8 @@
-import { FirestoreDiscordGuild } from '../../types'
 import { FirestoreConverter } from '../../types/converter'
-import { FirestoreDiscordGuildData } from '../../types/model/data'
 import { convertToFirestoreData } from '../../utils/converter/convert-to-firestore-data'
 import { propToDataArray } from '../../utils/converter/prop-to-data-array'
-import { convertContract } from '../contract/convert-contract'
+import { convertContract } from '../contract'
+import { FirestoreDiscordGuild, FirestoreDiscordGuildData } from '@echo/firestore'
 import { propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 

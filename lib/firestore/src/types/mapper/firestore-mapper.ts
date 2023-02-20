@@ -1,6 +1,6 @@
-import { DocumentData } from 'firebase/firestore'
+import { FirestoreData } from '../model'
 
 /**
- * Maps a firestore object to another model
+ * Maps a firestore data object to a model object
  */
-export type FirestoreMapper<T extends DocumentData, V> = (firestoreObject: T) => Promise<V>
+export type FirestoreMapper<T extends FirestoreData, V> = (data: Promise<T>) => Promise<V>

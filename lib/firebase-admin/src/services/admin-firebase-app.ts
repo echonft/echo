@@ -1,7 +1,7 @@
 import { firebaseConfig } from '@echo/firestore'
 import { ServiceAccount } from 'firebase-admin'
 import { App, cert, getApp, getApps, initializeApp } from 'firebase-admin/app'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 
 /**
  * Returns an admin logged Firebase

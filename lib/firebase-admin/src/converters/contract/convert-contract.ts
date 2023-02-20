@@ -1,8 +1,7 @@
-import { FirestoreContract } from '../../types'
 import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
 import { FirestoreConverter } from '../../types/converter'
-import { FirestoreContractData } from '../../types/model/data'
 import { convertToFirestoreData } from '../../utils/converter/convert-to-firestore-data'
+import { FirestoreContract, FirestoreContractData } from '@echo/firestore'
 import { toPromise } from '@echo/utils'
 import { pipe } from 'ramda'
 
