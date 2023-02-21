@@ -1,10 +1,10 @@
 import { UseCollectionOptions } from '../types'
 import {
-  collectionQuery,
   FirestoreDocumentPath,
   FirestoreMapper,
   FirestoreQuery,
-  querySnapshot,
+  getCollectionQueryFromPath,
+  getDocsFromQuery,
   querySnapshotDocs,
   subscribeToQuery
 } from '@echo/firestore'
@@ -22,13 +22,13 @@ function useCollectionInternal<T extends DocumentData, W extends Model>(
   options?: UseCollectionOptions
 ) {
   const { suspense } = useSWRConfig()
-  const query = collectionQuery(path, options?.constraints)
+  const query = getCollectionQueryFromPath(path, options?.constraints)
   const key = JSON.stringify(query._query)
   return useSWR<R.Result<W[], Error>, Error, string>(
     getCompoundKey(SwrKeys.FIRESTORE_COLLECTION, path, key),
     () =>
       pipe(
-        querySnapshot,
+        getDocsFromQuery,
         andThen(
           ifElse(
             (querySnapshot) => querySnapshot.empty,
@@ -50,7 +50,7 @@ export function useCollection<T extends DocumentData, W extends Model>(
   const response = useCollectionInternal<T, W>(path, mapper, options)
   useEffect(() => {
     if (!isNil(path) && options?.listen) {
-      const query = collectionQuery<T>(path, options?.constraints)
+      const query = getCollectionQueryFromPath<T>(path, options?.constraints)
       return subscribeToQuery(
         query,
         // eslint-disable-next-line @typescript-eslint/no-misused-promises

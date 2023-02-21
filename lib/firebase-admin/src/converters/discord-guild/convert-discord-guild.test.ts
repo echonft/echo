@@ -5,6 +5,6 @@ import { describe, expect, it } from '@jest/globals'
 describe('convertDiscordGuild', () => {
   it('correct conversion', async () => {
     const discordGuild = await getFirestoreDiscordGuildData('xA40abnyBq6qQHSYmtHj')
-    expect(discordGuild).toEqual(discordGuildData)
+    expect(discordGuild).toEqual(discordGuildData['xA40abnyBq6qQHSYmtHj'])
   })
 })

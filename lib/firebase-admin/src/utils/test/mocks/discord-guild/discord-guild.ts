@@ -1,10 +1,12 @@
-import { contract } from '../contract/contract'
+import { contracts } from '../contract/contract'
 import { DiscordGuild } from '@echo/model'
 
-export const discordGuild: DiscordGuild = {
-  id: 'xA40abnyBq6qQHSYmtHj',
-  discordId: '1',
-  channelId: '1',
-  name: 'Echo',
-  contracts: [contract]
+export const discordGuilds: { [key: string]: DiscordGuild } = {
+  xA40abnyBq6qQHSYmtHj: {
+    id: 'xA40abnyBq6qQHSYmtHj',
+    discordId: '1',
+    channelId: '1',
+    name: 'Echo',
+    contracts: [contracts['37dBlwJYahEAKeL0rNP8']!]
+  }
 }

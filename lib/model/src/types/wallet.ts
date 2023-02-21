@@ -1,4 +1,5 @@
 export interface Wallet {
-  chainId: string
+  id: string
+  chainId: number
   address: string
 }

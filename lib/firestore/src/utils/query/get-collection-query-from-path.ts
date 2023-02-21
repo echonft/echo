@@ -2,7 +2,7 @@ import { FirestoreQuery } from '../../types'
 import { getCollectionFromPath } from '../collection/get-collection-from-path'
 import { DocumentData, query, QueryConstraint } from 'firebase/firestore'
 
-export const collectionQuery =
+export const getCollectionQueryFromPath =
   <T extends DocumentData>(
     path: string,
     ...pathSegments: string[]

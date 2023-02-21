@@ -1,5 +1,5 @@
 import { useFirebase } from '@components/providers/firebase-provider'
-import { collectionQuery, DocumentData, FirestoreDocumentPath } from '@echo/firestore'
+import { getCollectionQueryFromPath, DocumentData, FirestoreDocumentPath } from '@echo/firestore'
 import { logger } from '@echo/utils'
 import { config } from '@lib/config/config'
 import { failureResult, Result, successfulResult, SwrResult } from '@lib/services/swr/models/result'
@@ -31,7 +31,7 @@ function useCollectionInternal<T extends DocumentData, W = DocumentSnapshot<T>>(
   >(
     !isNil(path) && !isNil(firebaseApp) ? [path, options] : undefined,
     (path, options) => {
-      const query = collectionQuery<T>(documentPath(path), options?.constraints)
+      const query = getCollectionQueryFromPath<T>(documentPath(path), options?.constraints)
       const key = query ? JSON.stringify(query._query) : null
       // If the query is wrong we won't call SWR and can return directly
       if (query && !key) {
@@ -81,7 +81,7 @@ export function useCollection<T extends DocumentData, W = DocumentSnapshot<T>>(
   }, [unsub])
 
   if (path && config.useMock && options?.listen) {
-    const query = collectionQuery<T>(path, options?.constraints)
+    const query = getCollectionQueryFromPath<T>(path, options?.constraints)
     if (query) {
       unsub = onSnapshot<T>(query, (querySnapshot: QuerySnapshot<T>) => {
         querySnapshot.docs.forEach((queryDocumentSnapshot) => {

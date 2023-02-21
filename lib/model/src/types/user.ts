@@ -3,5 +3,6 @@ import { Wallet } from './wallet'
 export interface User {
   id: string
   discordId: string
-  wallets?: Wallet[]
+  nonce: string | undefined
+  wallets: Wallet[] | undefined
 }

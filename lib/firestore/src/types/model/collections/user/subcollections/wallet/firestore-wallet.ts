@@ -1,6 +1,6 @@
 import { DocumentData } from 'firebase/firestore'
 
 export interface FirestoreWallet extends DocumentData {
-  chainId: string
+  chainId: number
   address: string
 }

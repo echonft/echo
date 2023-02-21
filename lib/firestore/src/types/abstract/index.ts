@@ -1,2 +1,2 @@
-export * from './firestore-collection-reference'
 export * from './firestore-query'
+export * from './firestore-subcollection'

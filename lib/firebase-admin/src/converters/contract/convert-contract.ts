@@ -6,7 +6,7 @@ import { toPromise } from '@echo/utils'
 import { pipe } from 'ramda'
 
 export const convertContract: FirestoreConverter<FirestoreContract, FirestoreContractData> = pipe<
-  FirestoreSnapshot<FirestoreContract>[],
+  [FirestoreSnapshot<FirestoreContract>],
   FirestoreContractData,
   Promise<FirestoreContractData>
 >(convertToFirestoreData, toPromise)

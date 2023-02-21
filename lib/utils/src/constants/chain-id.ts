@@ -3,7 +3,7 @@ import { isEmpty, isNil } from 'ramda'
 
 // Mainnet and Goerli testnet are supported
 const supportedChains = [1, 5]
-export const chaindId = (): number => {
+export const chainId = (): number => {
   const chainEnvVar = process.env.NEXT_PUBLIC_CHAIN_ID
   if (isNil(chainEnvVar) || isEmpty(chainEnvVar)) {
     return isProd ? 1 : 5
