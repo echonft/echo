@@ -1,7 +1,7 @@
 import { FirestoreConverter } from '../../types/converter'
 import { ConvertUserOptions } from '../../types/converter/user/convert-user-options'
-import { convertToFirestoreData } from '../../utils/converter/convert-to-firestore-data'
-import { propToSubcollection } from '../../utils/converter/subcollection/prop-to-subcollection'
+import { convertSnapshot } from '../../utils/converter/convert-snapshot'
+import { subcollectionProp } from '../../utils/converter/subcollection/subcollection-prop'
 import { convertWallet } from './convert-wallet'
 import { FirestoreUser, FirestoreUserData, FirestoreWallet, FirestoreWalletData } from '@echo/firestore'
 import { propToPromise, zipPromisesToObject } from '@echo/utils'
@@ -11,12 +11,12 @@ export const convertUser: (options: ConvertUserOptions) => FirestoreConverter<Fi
   options
 ) =>
   pipe(
-    partialRight(convertToFirestoreData, [['wallets']]),
+    partialRight(convertSnapshot, [['wallets']]),
     juxt([
       propToPromise<string>('id'),
       propToPromise<string>('discordId'),
       propToPromise<string>('nonce'),
-      propToSubcollection<FirestoreWallet, FirestoreWalletData>('wallets', options.wallets, convertWallet)
+      subcollectionProp<FirestoreWallet, FirestoreWalletData>('wallets', options.wallets, convertWallet)
     ]),
     (promises) => Promise.all(promises),
     zipPromisesToObject<FirestoreUserData>(['id', 'discordId', 'nonce', 'wallets'])

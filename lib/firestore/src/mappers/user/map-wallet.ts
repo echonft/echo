@@ -1,8 +1,7 @@
-import { FirestoreWallet, FirestoreWalletData } from '../../types'
+import { FirestoreWalletData } from '../../types'
 import { FirestoreMapper } from '../../types/mapper'
+import { Wallet } from '@echo/model'
 import { castAs } from '@echo/utils'
 import { andThen } from 'ramda'
 
-export const mapWallet: FirestoreMapper<FirestoreWalletData, FirestoreWallet> = andThen(
-  castAs<FirestoreWalletData, FirestoreWallet>
-)
+export const mapWallet: FirestoreMapper<FirestoreWalletData, Wallet> = andThen(castAs<FirestoreWalletData, Wallet>)

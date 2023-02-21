@@ -1,11 +1,12 @@
-import { FirestoreUser, FirestoreUserData } from '../../types'
+import { FirestoreUserData } from '../../types'
 import { FirestoreMapper } from '../../types/mapper'
 import { propToSubcollection } from '../../utils/mapper/prop-to-subcollection'
 import { mapWallet } from './map-wallet'
+import { User } from '@echo/model'
 import { propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, pipe } from 'ramda'
 
-export const mapUser: FirestoreMapper<FirestoreUserData, FirestoreUser> = andThen(
+export const mapUser: FirestoreMapper<FirestoreUserData, User> = andThen(
   pipe(
     juxt([
       propToPromise<string>('id'),
@@ -14,6 +15,6 @@ export const mapUser: FirestoreMapper<FirestoreUserData, FirestoreUser> = andThe
       propToSubcollection('wallets', mapWallet)
     ]),
     (promises) => Promise.all(promises),
-    zipPromisesToObject<FirestoreUser>(['id', 'discordId', 'nonce', 'wallets'])
+    zipPromisesToObject<User>(['id', 'discordId', 'nonce', 'wallets'])
   )
 )

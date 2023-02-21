@@ -27,6 +27,7 @@
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "firebase-admin": "11.5.0",
+    "dayjs": "1.11.7",
     "ethers": "5.7.2",
     "ramda": "0.28.0"
   },

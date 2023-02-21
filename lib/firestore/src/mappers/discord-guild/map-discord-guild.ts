@@ -1,11 +1,12 @@
-import { FirestoreDiscordGuild, FirestoreDiscordGuildData } from '../../types'
+import { FirestoreDiscordGuildData } from '../../types'
 import { FirestoreMapper } from '../../types/mapper'
 import { propToArray } from '../../utils/mapper/prop-to-array'
 import { mapContract } from '../contract'
+import { DiscordGuild } from '@echo/model'
 import { propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, pipe } from 'ramda'
 
-export const mapDiscordGuild: FirestoreMapper<FirestoreDiscordGuildData, FirestoreDiscordGuild> = andThen(
+export const mapDiscordGuild: FirestoreMapper<FirestoreDiscordGuildData, DiscordGuild> = andThen(
   pipe(
     juxt([
       propToPromise<string>('id'),
@@ -15,6 +16,6 @@ export const mapDiscordGuild: FirestoreMapper<FirestoreDiscordGuildData, Firesto
       propToArray('contracts', mapContract)
     ]),
     (promises) => Promise.all(promises),
-    zipPromisesToObject<FirestoreDiscordGuild>(['id', 'discordId', 'channelId', 'name', 'contracts'])
+    zipPromisesToObject<DiscordGuild>(['id', 'discordId', 'channelId', 'name', 'contracts'])
   )
 )

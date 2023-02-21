@@ -31,6 +31,9 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/alchemy/dist" />
       <excludeFolder url="file://$MODULE_DIR$/lib/firestore/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/firestore/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy-react/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy-react/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/contract/.turbo" />
       <excludePattern pattern="tsbuild.buildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />

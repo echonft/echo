@@ -5,7 +5,7 @@ import { FirestoreData } from '@echo/firestore'
 import { CollectionReference, DocumentData } from '@google-cloud/firestore'
 import { pipe, prop } from 'ramda'
 
-export const propToSubcollection = <T extends DocumentData, V extends FirestoreData>(
+export const subcollectionProp = <T extends DocumentData, V extends FirestoreData>(
   key: string,
   options: ConvertSubcollectionOptions,
   converter?: FirestoreConverter<T, V>

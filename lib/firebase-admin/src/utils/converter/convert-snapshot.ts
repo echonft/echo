@@ -3,7 +3,7 @@ import { FirestoreData } from '@echo/firestore'
 import { DocumentData } from '@google-cloud/firestore'
 import { assoc, reduce } from 'ramda'
 
-export function convertToFirestoreData<T extends DocumentData, V extends FirestoreData = FirestoreData>(
+export function convertSnapshot<T extends DocumentData, V extends FirestoreData = FirestoreData>(
   snapshot: FirestoreSnapshot<T>,
   subcollectionPaths: string[] = []
 ): V {
@@ -12,7 +12,7 @@ export function convertToFirestoreData<T extends DocumentData, V extends Firesto
     {
       id: snapshot.id,
       ...snapshot.data()
-    } as Partial<V>,
+    } as unknown as Partial<V>,
     subcollectionPaths
   ) as V
 }

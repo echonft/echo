@@ -5,7 +5,7 @@ import { convertSubcollection } from './convert-subcollection'
 import { CollectionReference, DocumentData } from 'firebase/firestore'
 import { pipe, prop } from 'ramda'
 
-export const propToSubcollection = <T extends DocumentData, V extends FirestoreData>(
+export const subcollectionProp = <T extends DocumentData, V extends FirestoreData>(
   key: string,
   options: ConvertSubcollectionOptions,
   converter?: FirestoreConverter<T, V>

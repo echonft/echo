@@ -1,6 +1,6 @@
 import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
 import { FirestoreConverter } from '../../types/converter'
-import { convertToFirestoreData } from '../../utils/converter/convert-to-firestore-data'
+import { convertSnapshot } from '../../utils/converter/convert-snapshot'
 import { FirestoreWallet, FirestoreWalletData } from '@echo/firestore'
 import { toPromise } from '@echo/utils'
 import { pipe } from 'ramda'
@@ -9,4 +9,4 @@ export const convertWallet: FirestoreConverter<FirestoreWallet, FirestoreWalletD
   [FirestoreSnapshot<FirestoreWallet>],
   FirestoreWalletData,
   Promise<FirestoreWalletData>
->(convertToFirestoreData, toPromise)
+>(convertSnapshot, toPromise)
