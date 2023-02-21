@@ -9,6 +9,7 @@ import { FirestoreOfferActivityData } from './subcollections/offer-activity/fire
 export interface FirestoreOfferData
   extends Omit<FirestoreOffer, 'discordGuild' | 'sender' | 'senderItems' | 'receiver' | 'receiverItems' | 'activities'>,
     FirestoreData {
+  id: string
   discordGuild: FirestoreDiscordGuildData
   sender: FirestoreUserData
   senderItems: FirestoreOfferItemData[]

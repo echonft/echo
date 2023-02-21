@@ -4,6 +4,7 @@ import { FirestoreContractData } from '../contract/firestore-contract-data'
 import { FirestoreOpenSeaCollectionDetailsData } from './nested-documents/firestore-open-sea-collection-details-data'
 
 export interface FirestoreNftCollectionData extends Omit<FirestoreNftCollection, 'contract'>, FirestoreData {
+  id: string
   contract: FirestoreContractData
   totalSupply?: number
   openSea: FirestoreOpenSeaCollectionDetailsData

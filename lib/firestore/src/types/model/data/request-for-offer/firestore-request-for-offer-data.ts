@@ -14,6 +14,7 @@ export interface FirestoreRequestForOfferData
       'sender' | 'items' | 'discordGuild' | 'target' | 'activities' | 'offers' | 'swaps'
     >,
     FirestoreData {
+  id: string
   sender: FirestoreUserData
   items: Array<FirestoreRequestForOfferItemData>
   discordGuild: FirestoreDiscordGuildData

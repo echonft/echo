@@ -3,5 +3,6 @@ import { FirestoreData } from '../abstract/firestore-data'
 import { FirestoreContractData } from '../contract/firestore-contract-data'
 
 export interface FirestoreDiscordGuildData extends Omit<FirestoreDiscordGuild, 'contracts'>, FirestoreData {
+  id: string
   contracts: FirestoreContractData[]
 }
