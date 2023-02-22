@@ -7,7 +7,6 @@ import { OpenSeaCollectionMetadata } from '@echo/model'
 import { propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, pipe } from 'ramda'
 
-// @ts-ignore
 export const mapOpenSeaCollectionDetails: FirestoreMapper<
   FirestoreOpenSeaCollectionDetailsData,
   OpenSeaCollectionMetadata

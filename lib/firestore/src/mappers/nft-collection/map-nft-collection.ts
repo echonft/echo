@@ -7,8 +7,6 @@ import { Contract, NftCollection, OpenSeaCollectionMetadata } from '@echo/model'
 import { propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, pipe } from 'ramda'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export const mapNftCollection: FirestoreMapper<FirestoreNftCollectionData, NftCollection> = andThen(
   pipe(
     juxt([

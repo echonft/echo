@@ -6,8 +6,6 @@ import { propToPromise, zipPromisesToObject } from '@echo/utils'
 import { Dayjs } from 'dayjs'
 import { andThen, juxt, pipe } from 'ramda'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export const mapOfferActivity: FirestoreMapper<FirestoreOfferActivityData, OfferActivity> = andThen(
   pipe(
     juxt([

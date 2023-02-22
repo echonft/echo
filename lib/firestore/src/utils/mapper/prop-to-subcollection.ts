@@ -6,7 +6,9 @@ import { allPass, complement, has, ifElse, isNil, pipe, prop } from 'ramda'
 export const propToSubcollection = <T extends FirestoreData, V>(key: string, mapper: FirestoreMapper<T, V>) =>
   pipe(
     prop<FirestoreSubcollection<T>>(key),
-    ifElse(allPass([has('data'), pipe(prop('data'), complement(isNil))]), propToArray<T, V>('data', mapper), () =>
-      Promise.resolve(undefined)
+    ifElse<[FirestoreSubcollection<T>], Promise<V[]>, Promise<V[]>>(
+      allPass([has('data'), pipe(prop('data'), complement(isNil))]),
+      propToArray<T, V>('data', mapper),
+      () => Promise.resolve(undefined as unknown as V[])
     )
   )

@@ -8,8 +8,6 @@ import { propToPromise, zipPromisesToObject } from '@echo/utils'
 import { BigNumber } from 'ethers'
 import { andThen, juxt, pipe } from 'ramda'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 export const mapOfferItem: FirestoreMapper<FirestoreOfferItemData, OfferItem> = andThen(
   pipe(
     juxt([

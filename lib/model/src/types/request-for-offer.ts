@@ -10,7 +10,7 @@ import { Dayjs } from 'dayjs'
 
 export interface RequestForOffer {
   id: string
-  status: RequestForOfferState
+  state: RequestForOfferState
   sender: User
   items: OfferItem[]
   collection: DiscordGuild
