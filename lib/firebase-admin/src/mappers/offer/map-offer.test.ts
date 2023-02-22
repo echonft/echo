@@ -12,7 +12,7 @@ describe('mapOffer', () => {
     expect(offer).toEqual(Object.assign({}, offers['LyCfl6Eg7JKuD7XJ6IPi']!, { activities: undefined }))
   })
 
-  it('user mapping with wallets', async () => {
+  it('offer mapping with activities', async () => {
     const offer = await pipe(getFirestoreOfferData, mapOffer)('LyCfl6Eg7JKuD7XJ6IPi', {
       activities: { getDocs: true }
     })

@@ -13,7 +13,7 @@ export interface RequestForOffer {
   state: RequestForOfferState
   sender: User
   items: OfferItem[]
-  collection: DiscordGuild
+  discordGuild: DiscordGuild
   target: Contract[]
   activities?: RequestForOfferActivity[]
   offers?: Offer[]
