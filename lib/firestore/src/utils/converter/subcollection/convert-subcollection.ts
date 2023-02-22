@@ -16,7 +16,7 @@ export const convertSubcollection = <T extends DocumentData, V extends Firestore
     juxt<[CollectionReference<T>], Promise<string>, Promise<V[] | undefined>>([
       (collectionReference) => Promise.resolve(collectionReference.path),
       ifElse(
-        (_collectionReference) => options.getDocs,
+        (_) => options.getDocs,
         pipe(
           getCollectionQueryFromRef<T>(options.constraints),
           getDocsFromQuery,

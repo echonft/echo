@@ -17,14 +17,14 @@ export const convertSubcollection = <T extends DocumentData, V extends Firestore
     juxt([
       (collectionReference) => Promise.resolve(collectionReference.path),
       ifElse(
-        (_collectionReference) => options.getDocs,
+        (_) => options.getDocs,
         pipe(
           when<CollectionReference<T>, Query<T>>(
-            (_collectionReference) => !isNil(options.orderBy),
+            (_) => !isNil(options.orderBy),
             orderCollection(options?.orderBy?.fieldPath, options?.orderBy?.direction)
           ),
           when<CollectionReference<T> | Query<T>, Query<T>>(
-            (_collectionReference) => !isNil(options.paging),
+            (_) => !isNil(options.paging),
             pageCollection(options?.paging?.limit, options?.paging?.offset)
           ),
           getCollectionDocs,

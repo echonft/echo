@@ -29,6 +29,7 @@
     "@echo/utils": "workspace:*",
     "dayjs": "1.11.7",
     "firebase": "9.16.0",
+    "ethers": "5.7.2",
     "ramda": "0.28.0"
   },
   "devDependencies": {

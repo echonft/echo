@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FirestoreOpenSeaCollectionDetailsData } from '../../types'
 import { FirestoreMapper } from '../../types/mapper'
-import { dateProp } from '../date-prop'
-import { urlProp } from '../url-prop'
+import { propToDate } from '../../utils/mapper/prop-to-date'
+import { propToUrl } from '../../utils/mapper/prop-to-url'
 import { OpenSeaCollectionMetadata } from '@echo/model'
 import { propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, pipe } from 'ramda'
 
+// @ts-ignore
 export const mapOpenSeaCollectionDetails: FirestoreMapper<
   FirestoreOpenSeaCollectionDetailsData,
   OpenSeaCollectionMetadata
@@ -20,17 +21,17 @@ export const mapOpenSeaCollectionDetails: FirestoreMapper<
       // @ts-ignore
       propToPromise('safelistRequestStatus'),
       // @ts-ignore
-      urlProp('imageUrl'),
+      propToUrl('imageUrl'),
       // @ts-ignore
       propToPromise('description'),
       // @ts-ignore
-      urlProp('externalUrl'),
+      propToUrl('externalUrl'),
       // @ts-ignore
       propToPromise('twitterUsername'),
       // @ts-ignore
-      urlProp('discordUrl'),
+      propToUrl('discordUrl'),
       // @ts-ignore
-      dateProp('lastIngestedAt')
+      propToDate('lastIngestedAt')
     ]),
     // @ts-ignore
     (promises) => Promise.all(promises),

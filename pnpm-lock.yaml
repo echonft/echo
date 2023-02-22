@@ -294,6 +294,7 @@ importers:
       '@types/ramda': 0.28.22
       babel-jest: 29.4.2
       dayjs: 1.11.7
+      ethers: 5.7.2
       firebase: 9.16.0
       firestore-jest-mock: 0.20.0
       jest: 29.4.2
@@ -302,6 +303,7 @@ importers:
       '@echo/model': link:../model
       '@echo/utils': link:../utils
       dayjs: 1.11.7
+      ethers: 5.7.2
       firebase: 9.16.0
       ramda: 0.28.0
     devDependencies:

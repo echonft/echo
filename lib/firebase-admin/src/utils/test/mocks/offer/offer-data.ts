@@ -23,14 +23,26 @@ export const offerData: { [key: string]: FirestoreOfferData } = {
         data: undefined
       }
     }),
-    senderItems: [{ contract: contractData['37dBlwJYahEAKeL0rNP8']!, tokenId: '1', balance: undefined }],
+    senderItems: [
+      {
+        contract: contractData['37dBlwJYahEAKeL0rNP8']!,
+        tokenId: '0x0000000000000000000000000000000000000000000000000000000000000001',
+        balance: undefined
+      }
+    ],
     receiver: Object.assign({}, userData['oE6yUEQBPn7PZ89yMjKn']!, {
       wallets: {
         path: 'users/oE6yUEQBPn7PZ89yMjKn/wallets',
         data: undefined
       }
     }),
-    receiverItems: [{ contract: contractData['37dBlwJYahEAKeL0rNP8']!, tokenId: '2', balance: 2 }],
+    receiverItems: [
+      {
+        contract: contractData['37dBlwJYahEAKeL0rNP8']!,
+        tokenId: '0x0000000000000000000000000000000000000000000000000000000000000010',
+        balance: 2
+      }
+    ],
     postedAt: undefined,
     expiresAt: 1676984897,
     createdAt: 1676984897,

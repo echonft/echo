@@ -6,5 +6,4 @@ export interface OfferActivity {
   date: Dayjs
   fromState: OfferState | undefined
   toState: OfferState
-  data?: object
 }
