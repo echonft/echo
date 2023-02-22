@@ -1,7 +1,7 @@
 import { convertSwap } from '../../converters/swap/convert-swap'
 import { ConvertSwapOptions } from '../../types/converter/swap/convert-swap-options'
 import { getDocSnapshot } from '../../utils/document/get-doc-snapshot'
-import { FirestoreSwap } from '@echo/firestore'
+import { andThen, pipe } from 'ramda'
 
 export const getFirestoreSwapData = (documentPath: string, options: ConvertSwapOptions) =>
-  getDocSnapshot<FirestoreSwap>('swaps', documentPath).then(convertSwap(options))
+  pipe(getDocSnapshot, andThen(convertSwap(options)))('swaps', documentPath)

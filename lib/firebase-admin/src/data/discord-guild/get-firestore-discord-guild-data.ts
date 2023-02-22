@@ -1,6 +1,6 @@
 import { convertDiscordGuild } from '../../converters/discord-guild'
 import { getDocSnapshot } from '../../utils/document/get-doc-snapshot'
-import { FirestoreDiscordGuild } from '@echo/firestore'
+import { andThen, pipe } from 'ramda'
 
 export const getFirestoreDiscordGuildData = (documentPath: string) =>
-  getDocSnapshot<FirestoreDiscordGuild>('guilds', documentPath).then(convertDiscordGuild)
+  pipe(getDocSnapshot, andThen(convertDiscordGuild))('guilds', documentPath)

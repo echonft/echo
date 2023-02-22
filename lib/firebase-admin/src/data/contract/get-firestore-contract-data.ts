@@ -1,6 +1,6 @@
 import { convertContract } from '../../converters/contract'
 import { getDocSnapshot } from '../../utils/document/get-doc-snapshot'
-import { FirestoreContract } from '@echo/firestore'
+import { andThen, pipe } from 'ramda'
 
 export const getFirestoreContractData = (documentPath: string) =>
-  getDocSnapshot<FirestoreContract>('contracts', documentPath).then(convertContract)
+  pipe(getDocSnapshot, andThen(convertContract))('contracts', documentPath)

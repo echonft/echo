@@ -1,17 +1,17 @@
-import { FirestoreConverter } from '../../../types/converter'
+import { FirestoreConverter } from '../../../types/converter/firestore-converter'
 import { ConvertSubcollectionOptions } from '../../../types/converter/subcollection/convert-subcollection-options'
 import { SubcollectionConverter } from '../../../types/converter/subcollection/subcollection-converter'
 import { getCollectionDocs } from '../../collection/get-collection-docs'
 import { orderCollection } from '../../collection/order-collection'
 import { pageCollection } from '../../collection/page-collection'
 import { FirestoreData, FirestoreSubcollection } from '@echo/firestore'
-import { zipPromisesToObject } from '@echo/utils'
+import { undefinedPromise, zipPromisesToObject } from '@echo/utils'
 import { CollectionReference, DocumentData, Query } from '@google-cloud/firestore'
 import { andThen, ifElse, isNil, juxt, map, pipe, when } from 'ramda'
 
 export const convertSubcollection = <T extends DocumentData, V extends FirestoreData>(
   options: ConvertSubcollectionOptions,
-  converter?: FirestoreConverter<T, V>
+  converter: FirestoreConverter<T, V>
 ): SubcollectionConverter<T, V> =>
   pipe(
     juxt([
@@ -28,9 +28,9 @@ export const convertSubcollection = <T extends DocumentData, V extends Firestore
             pageCollection(options?.paging?.limit, options?.paging?.offset)
           ),
           getCollectionDocs,
-          andThen(pipe(map(converter!), (promises) => Promise.all(promises)))
+          andThen(pipe(map(converter), (promises) => Promise.all(promises)))
         ),
-        () => Promise.resolve(undefined)
+        undefinedPromise<V[]>
       )
     ]),
     (promises) => Promise.all(promises),

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { FirestoreConverter } from '../../types/converter'
+import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { ConvertRequestForOfferOptions } from '../../types/converter/request-for-offer/convert-request-for-offer-options'
 import { convertSnapshot } from '../../utils/converter/convert-snapshot'
 import { nestedDocumentArrayProp } from '../../utils/converter/nested-document/nested-document-array-prop'

@@ -1,4 +1,4 @@
-import { FirestoreConverter } from '../../types/converter'
+import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { convertSnapshot } from '../../utils/converter/convert-snapshot'
 import { refArrayProp } from '../../utils/converter/ref-array-prop'
 import { convertContract } from '../contract'

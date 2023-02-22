@@ -1,4 +1,4 @@
-import { FirestoreConverter } from '../../types/converter'
+import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { convertSnapshot } from '../../utils/converter/convert-snapshot'
 import { FirestoreOfferActivity, FirestoreOfferActivityData } from '@echo/firestore'
 import { propToPromise, zipPromisesToObject } from '@echo/utils'

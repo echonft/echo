@@ -1,4 +1,4 @@
-import { FirestoreConverter } from '../../types/converter'
+import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { convertSnapshot } from '../../utils/converter/convert-snapshot'
 import { nestedDocumentProp } from '../../utils/converter/nested-document/nested-document-prop'
 import { refProp } from '../../utils/converter/ref-prop'

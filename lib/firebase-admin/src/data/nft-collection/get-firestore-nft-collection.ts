@@ -1,6 +1,6 @@
 import { convertNftCollection } from '../../converters/nft-collection'
 import { getDocSnapshot } from '../../utils/document/get-doc-snapshot'
-import { FirestoreNftCollection } from '@echo/firestore'
+import { andThen, pipe } from 'ramda'
 
 export const getFirestoreNftCollection = (documentPath: string) =>
-  getDocSnapshot<FirestoreNftCollection>('nft-collections', documentPath).then(convertNftCollection)
+  pipe(getDocSnapshot, andThen(convertNftCollection))('nft-collections', documentPath)

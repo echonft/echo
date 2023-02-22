@@ -4,7 +4,7 @@ import { ConvertSubcollectionOptions } from '../../../types/converter/subcollect
 import { SubcollectionConverter } from '../../../types/converter/subcollection/subcollection-converter'
 import { getDocsFromQuery } from '../../query'
 import { getCollectionQueryFromRef } from '../../query/get-collection-query-from-ref'
-import { zipPromisesToObject } from '@echo/utils'
+import { undefinedPromise, zipPromisesToObject } from '@echo/utils'
 import { CollectionReference, DocumentData } from 'firebase/firestore'
 import { andThen, ifElse, juxt, map, pipe } from 'ramda'
 
@@ -22,7 +22,7 @@ export const convertSubcollection = <T extends DocumentData, V extends Firestore
           getDocsFromQuery,
           andThen(pipe(map(converter!), (promises) => Promise.all(promises)))
         ),
-        () => Promise.resolve(undefined)
+        undefinedPromise
       )
     ]),
     (promises) => Promise.all(promises),

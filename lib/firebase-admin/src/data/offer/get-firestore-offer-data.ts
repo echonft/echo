@@ -1,7 +1,7 @@
 import { convertOffer } from '../../converters/offer/convert-offer'
 import { ConvertOfferOptions } from '../../types/converter/offer/convert-offer-options'
 import { getDocSnapshot } from '../../utils/document/get-doc-snapshot'
-import { FirestoreOffer } from '@echo/firestore'
+import { andThen, pipe } from 'ramda'
 
 export const getFirestoreOfferData = (documentPath: string, options: ConvertOfferOptions) =>
-  getDocSnapshot<FirestoreOffer>('offers', documentPath).then(convertOffer(options))
+  pipe(getDocSnapshot, andThen(convertOffer(options)))('offers', documentPath)

@@ -1,5 +1,5 @@
 import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
-import { FirestoreConverter } from '../../types/converter'
+import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { convertSnapshot } from '../../utils/converter/convert-snapshot'
 import { FirestoreWallet, FirestoreWalletData } from '@echo/firestore'
 import { toPromise } from '@echo/utils'

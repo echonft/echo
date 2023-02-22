@@ -1,9 +1,9 @@
-import { Nft } from '../types'
+import { AlchemyNft } from '../../../types'
 import { mockedCollection } from './nft-collection'
 import dayjs from 'dayjs'
 import { BigNumber } from 'ethers'
 
-export const mockedNft: Nft = {
+export const mockedNft: AlchemyNft = {
   collection: mockedCollection,
   title: undefined,
   description: undefined,

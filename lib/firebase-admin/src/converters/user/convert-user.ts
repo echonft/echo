@@ -1,4 +1,4 @@
-import { FirestoreConverter } from '../../types/converter'
+import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { ConvertUserOptions } from '../../types/converter/user/convert-user-options'
 import { convertSnapshot } from '../../utils/converter/convert-snapshot'
 import { subcollectionProp } from '../../utils/converter/subcollection/subcollection-prop'

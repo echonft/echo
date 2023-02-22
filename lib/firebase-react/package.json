@@ -27,11 +27,11 @@
     "react": "18.2.0"
   },
   "dependencies": {
-    "@mobily/ts-belt": "3.13.1",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/swr": "workspace:*",
     "@echo/utils": "workspace:*",
+    "@mobily/ts-belt": "3.13.1",
     "firebase": "9.16.0",
     "ramda": "0.28.0",
     "swr": "2.0.3"

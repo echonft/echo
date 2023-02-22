@@ -1,6 +1,5 @@
 import { useAlchemy } from '../provider'
-import { mapNft } from '@echo/alchemy'
-import { mockedNft, Nft } from '@echo/model'
+import { AlchemyOwnedNft, mapNft, mockedOwnedNft } from '@echo/alchemy'
 import { getCompoundKey, SwrKeys } from '@echo/swr'
 import { isProd } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
@@ -13,22 +12,25 @@ import { SWRConfiguration } from 'swr/_internal'
 const useProdUserNfts = (address: string, options?: SWRConfiguration) => {
   const { alchemy } = useAlchemy()
   const { suspense } = useSWRConfig()
-  return useSWR<R.Result<Nft[], Error>, Error, string>(
+  return useSWR<R.Result<AlchemyOwnedNft[], Error>, Error, string>(
     getCompoundKey(SwrKeys.GET_NFTS, address),
-    () => pipe(andThen(pipe(prop('ownedNfts'), map(mapNft))), R.fromPromise)(alchemy.nft.getNftsForOwner(address)),
+    pipe(() => alchemy.nft.getNftsForOwner(address), andThen(pipe(prop('ownedNfts'), map(mapNft))), R.fromPromise),
     Object.assign({ suspense }, options ?? {})
   )
 }
 
 const useDevUserNfts = (options?: SWRConfiguration) => {
   const { suspense } = useSWRConfig()
-  return useSWR<R.Result<Nft[], Error>, Error, string>(
+  return useSWR<R.Result<AlchemyOwnedNft[], Error>, Error, string>(
     SwrKeys.GET_NFTS,
-    () => R.fromPromise(Promise.resolve([mockedNft])),
+    () => R.fromPromise(Promise.resolve([mockedOwnedNft])),
     Object.assign({ suspense }, options ?? {})
   )
 }
 
-export const useUserNfts = (address: string, options?: SWRConfiguration): SWRResponse<R.Result<Nft[], Error>, Error> =>
+export const useUserNfts = (
+  address: string,
+  options?: SWRConfiguration
+): SWRResponse<R.Result<AlchemyOwnedNft[], Error>, Error> =>
   // eslint-disable-next-line react-hooks/rules-of-hooks
   isProd ? useProdUserNfts(address, options) : useDevUserNfts(options)
