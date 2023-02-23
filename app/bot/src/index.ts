@@ -3,7 +3,7 @@ import { listenToOffers } from './listeners/offers'
 import { discordSecret } from '@echo/discord'
 import { errorMessage, logger } from '@echo/utils'
 import { BaseInteraction, Client, Events, GatewayIntentBits } from 'discord.js'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) //create new client
 

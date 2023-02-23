@@ -4,10 +4,10 @@ import { InvalidButtonDataError } from '../errors/invalid-button-data-error'
 import { InvalidButtonIdError } from '../errors/invalid-button-id-error'
 import { OfferNotFoundError } from '../errors/offer-not-found-error'
 import { ButtonAction, buttonIdPrefixes } from '../types/models/button-action'
-import { offer } from '@echo/firebase-admin'
-import { Offer } from '@echo/model'
+import { findOfferById } from '@echo/firebase-admin'
+import { R } from '@mobily/ts-belt'
 import { ButtonComponent, ButtonInteraction } from 'discord.js'
-import { drop, isEmpty, isNil } from 'rambda'
+import { andThen, curry, drop, isEmpty, isNil, pipe, unless } from 'ramda'
 
 function getSplitId(customId: string): string[] {
   try {
@@ -56,16 +56,7 @@ export function executeForButton(interaction: ButtonInteraction) {
       if (isNil(offerId) || isEmpty(offerId)) {
         throw new OfferNotFoundError(offerId)
       }
-      return offer(offerId)
-        .then((offer: Offer) => {
-          if (isNil(offer)) {
-            throw new OfferNotFoundError(offerId)
-          }
-          return executeBuy(interaction, offer)
-        })
-        .catch(() => {
-          throw new OfferNotFoundError(offerId)
-        })
+      return pipe(findOfferById, andThen(unless(R.isError, pipe(R.getExn, curry(executeBuy)(interaction)))))(offerId)
     case ButtonAction.REJECT:
       // TODO
       throw new InvalidButtonActionError(action)

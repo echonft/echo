@@ -1,25 +1,27 @@
 import { UseDocumentOptions } from '../types/use-document-options'
 import { useFirebase } from './use-firebase'
-import { FirestoreDocumentPath, FirestoreMapper } from '@echo/firestore'
-import { Model } from '@echo/model'
+import { FirestoreMapper, FirestoreSnapshot, subscribeToDocument } from '@echo/firestore'
+import { getDocSnapshotFromPath } from '@echo/firestore/dist/utils/document/get-doc-snapshot-from-path'
 import { R } from '@mobily/ts-belt'
 import { DocumentData } from 'firebase/firestore'
-import { getDocSnapshotFromPath } from 'lib/firestore/src/utils/document/get-doc-snapshot-from-path'
-import { subscribeToDocument } from 'lib/firestore/src/utils/document-reference/subscribe-to-document'
 import { andThen, pipe } from 'ramda'
 import { useEffect } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 
-function useDocumentInternal<T extends DocumentData, W extends Model>(
-  path: FirestoreDocumentPath,
+function useDocumentInternal<T extends DocumentData, W>(
+  path: string,
   mapper: FirestoreMapper<T, W>,
   options?: UseDocumentOptions
 ) {
   useFirebase()
   const { suspense } = useSWRConfig()
-  return useSWR<R.Result<W, Error>, Error, FirestoreDocumentPath>(
+  return useSWR<R.Result<W, Error>, Error, string>(
     path,
-    () => pipe(getDocSnapshotFromPath, andThen(mapper), R.fromPromise)(path),
+    pipe<[string], Promise<FirestoreSnapshot<T>>, Promise<W>, Promise<R.Result<W, Error>>>(
+      getDocSnapshotFromPath,
+      andThen(mapper),
+      R.fromPromise
+    ),
     { suspense: options?.suspense || suspense }
   )
 }
@@ -30,8 +32,8 @@ function useDocumentInternal<T extends DocumentData, W extends Model>(
  * @param mapper
  * @param options
  */
-export function useDocument<T extends DocumentData, W extends Model>(
-  path: FirestoreDocumentPath,
+export function useDocument<T extends DocumentData, W>(
+  path: string,
   mapper: FirestoreMapper<T, W>,
   options?: UseDocumentOptions
 ) {
@@ -40,7 +42,7 @@ export function useDocument<T extends DocumentData, W extends Model>(
   useEffect(() => {
     if (options?.listen) {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      return subscribeToDocument(path, pipe(mapper, R.fromPromise, response.mutate))
+      return subscribeToDocument(pipe(mapper, response.mutate, R.fromPromise), path)
     }
     return
   }, [options, path, response.mutate, mapper])

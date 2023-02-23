@@ -5,8 +5,9 @@ import { LoginApiRequest } from '../types/models/api-requests/login-api-request'
 import { verifySignature } from '../utils/verify-signature'
 import { withExistingUserAddress } from '../utils/with-existing-user'
 import { withMethodValidation } from '../utils/with-method-validation'
-import { auth, userWithAddress } from '@echo/firebase-admin'
+import { auth, findUserByWallet, updateUserById } from '@echo/firebase-admin'
 import { errorMessage } from '@echo/utils'
+import { R } from '@mobily/ts-belt'
 import { getAddress } from 'ethers/lib/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { isNil } from 'rambda'
@@ -18,11 +19,15 @@ const handler: RequestHandler<LoginApiRequest, LoginResponse> = async (req, res)
     const { message, signature, address, discordId } = req.body
     const formattedAddress = getAddress(address)
     const fields = await verifySignature(message, signature)
-    const userDoc = await userWithAddress(formattedAddress)
-    if (isNil(userDoc)) {
+    // FIXME the chain id needs to be sent in the request as well
+    const result = await findUserByWallet({
+      chainId: 1,
+      address: formattedAddress
+    })
+    if (R.isError(result)) {
       return res.status(404).json({ error: `UNAUTHORIZED: No user found` })
     }
-    const user = userDoc.data()
+    const user = R.getExn(result)
     if (fields.nonce !== user.nonce) {
       return res.status(422).json({ error: 'Invalid nonce.' })
     }
@@ -30,9 +35,9 @@ const handler: RequestHandler<LoginApiRequest, LoginResponse> = async (req, res)
     if (isNil(discordId)) {
       // TODO We need to figure that out, not sure we need to send the discord ID all the time
       // we probably actually just need it the first time, so maybe a different call for signup?
-      await userDoc.ref.set({ ...user, nonce: generateNonce(), wallet: formattedAddress })
+      await updateUserById(user.id, { nonce: generateNonce() })
     } else {
-      await userDoc.ref.set({ nonce: generateNonce(), wallet: formattedAddress, discordId })
+      await updateUserById(user.id, { nonce: generateNonce(), discordId })
     }
     const apiKey = await auth().createCustomToken(formattedAddress)
     res.json({ apiKey })

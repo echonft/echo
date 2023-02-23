@@ -5,7 +5,7 @@ import { errorMessage, logger } from '@echo/utils'
 import { ButtonInteraction, ChannelType } from 'discord.js'
 
 export function executeBuy(interaction: ButtonInteraction, offer: Offer) {
-  if (offer.owner.discordId === interaction.user.id) {
+  if (offer.sender.discordId === interaction.user.id) {
     throw new BuyOwnOfferError(offer.id)
   }
   const channel = getDiscordChannel(interaction.client, interaction.channelId)
@@ -18,7 +18,7 @@ export function executeBuy(interaction: ButtonInteraction, offer: Offer) {
     })
     .then((thread) => {
       thread.members
-        .add(offer.owner.discordId)
+        .add(offer.sender.discordId!)
         .then(() => {
           thread.members
             .add(interaction.user)

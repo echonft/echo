@@ -1,30 +1,34 @@
 import { linkForOffer } from '../utils/offer'
 import { stringForOfferItems } from '../utils/offer-item'
-import { opposite } from '../utils/offer-type'
-import { Offer, OfferItem, OfferType } from '@echo/model'
+import { Offer, OfferItem } from '@echo/model'
 import { APIEmbedField, EmbedBuilder } from 'discord.js'
 
 export function buildOfferEmbed(offer: Offer) {
-  return new EmbedBuilder()
-    .setTitle(title(offer))
-    .setDescription(description(offer.type))
-    .setColor(color())
-    .setFields(fields(offer.ownerItems, offer.counterpartyItems, offer.type))
-    .setURL(linkForOffer(offer))
+  return (
+    new EmbedBuilder()
+      .setTitle(title(offer))
+      .setDescription(description())
+      .setColor(color())
+      // FIXME
+      .setFields(fields(offer.senderItems, offer.receiverItems))
+      .setURL(linkForOffer(offer))
+  )
 }
 
 // TODO Check to add the discord user as a tag?
 function title(offer: Offer): string {
-  return `A new offer was created from <@${offer.owner.discordId}>`
+  return `A new offer was created from <@${offer.sender.discordId!}>`
 }
 
-function description(type: OfferType): string {
-  switch (type) {
-    case OfferType.BUY:
-      return 'This is a buy offer'
-    case OfferType.SELL:
-      return 'This is a sell offer'
-  }
+// FIXME
+function description(): string {
+  // switch (type) {
+  //   case OfferType.BUY:
+  //     return 'This is a buy offer'
+  //   case OfferType.SELL:
+  //     return 'This is a sell offer'
+  // }
+  return 'This is an offer'
 }
 
 // TODO Maybe a color per collection via settings?
@@ -32,27 +36,26 @@ function color(): number {
   return 0x00ff66
 }
 
-function fields(
-  ownerItems: OfferItem[] | undefined,
-  counterpartyItems: OfferItem[] | undefined,
-  type: OfferType
-): APIEmbedField[] {
-  return [offerItemsField(ownerItems, type), offerItemsField(counterpartyItems, opposite(type))]
+function fields(ownerItems: OfferItem[] | undefined, counterpartyItems: OfferItem[] | undefined): APIEmbedField[] {
+  // FIXME
+  return [offerItemsField(ownerItems), offerItemsField(counterpartyItems)]
 }
 
-function offerItemsField(items: OfferItem[] | undefined, type: OfferType): APIEmbedField {
+function offerItemsField(items: OfferItem[] | undefined): APIEmbedField {
   return {
-    name: offerItemFieldName(type),
+    name: offerItemFieldName(),
     value: stringForOfferItems(items),
     inline: true
   }
 }
 
-function offerItemFieldName(type: OfferType): string {
-  switch (type) {
-    case OfferType.BUY:
-      return 'Buying:'
-    case OfferType.SELL:
-      return 'Selling:'
-  }
+// FIXME
+function offerItemFieldName(): string {
+  // switch (type) {
+  //   case OfferType.BUY:
+  //     return 'Buying:'
+  //   case OfferType.SELL:
+  //     return 'Selling:'
+  // }
+  return 'We dont know'
 }

@@ -3,25 +3,28 @@ import { NonceResponse } from '../types'
 import { RequestHandler } from '../types/handlers/request-handler'
 import { NonceApiRequest } from '../types/models/api-requests/nonce-api-request'
 import { withMethodValidation } from '../utils/with-method-validation'
-import { FirestorePath } from '@echo/firebase'
-import { firestore, userWithAddress } from '@echo/firebase-admin'
+import { addUser, findUserByWallet } from '@echo/firebase-admin'
+import { R } from '@mobily/ts-belt'
+import { getAddress } from 'ethers/lib/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
-import { isNil } from 'rambda'
 import { generateNonce } from 'siwe'
 
 const handler: RequestHandler<NonceApiRequest, NonceResponse> = async (req, res) => {
-  const { address } = req.body
-  const userDoc = await userWithAddress(address)
-  let nonce
-  if (isNil(userDoc)) {
-    nonce = generateNonce()
-    await firestore().collection(FirebaseDocument.USERS).doc().set({
+  const formattedAddress = getAddress(req.body.address)
+  // FIXME the chain id needs to be sent in the request as well
+  const wallet = {
+    chainId: 1,
+    address: formattedAddress
+  }
+  const result = await findUserByWallet(wallet)
+  const userExists = !R.isError(result)
+  const nonce = userExists ? R.getExn(result).nonce : generateNonce()
+
+  if (!userExists) {
+    await addUser({
       nonce,
-      wallet: address
+      wallets: [wallet]
     })
-  } else {
-    const user = userDoc.data()
-    nonce = user.nonce
   }
   await req.session.save()
   res.send({ nonce })

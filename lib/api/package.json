@@ -28,6 +28,7 @@
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
+    "@mobily/ts-belt": "3.13.1",
     "ethers": "5.7.2",
     "iron-session": "6.3.1",
     "rambda": "7.4.0",

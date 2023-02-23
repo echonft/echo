@@ -4,7 +4,7 @@ export const users: { [key: string]: User } = {
   oE6yUEQBPn7PZ89yMjKn: {
     id: 'oE6yUEQBPn7PZ89yMjKn',
     discordId: 'johnnycage#0890',
-    nonce: undefined,
+    nonce: 'nonce',
     wallets: [
       {
         address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',

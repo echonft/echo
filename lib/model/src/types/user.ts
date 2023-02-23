@@ -2,7 +2,7 @@ import { Wallet } from './wallet'
 
 export interface User {
   id: string
-  discordId: string
-  nonce: string | undefined
+  discordId: string | undefined
+  nonce: string
   wallets: Wallet[] | undefined
 }

@@ -1,5 +1,5 @@
 import { OfferItem } from '@echo/model'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil, join, juxt, map, pipe, prop } from 'ramda'
 
 // TODO This logic might need to be reviewed
 export function stringForOfferItems(items: OfferItem[] | undefined): string {
@@ -7,7 +7,5 @@ export function stringForOfferItems(items: OfferItem[] | undefined): string {
     return 'Any NFT'
   }
   // TODO Should probably sort and group here
-  return items
-    .map((item) => (item.id ? `${item.contractAddress}-${item.id}` : `Any NFT from ${item.contractAddress}`))
-    .join(', ')
+  return pipe(map(pipe(juxt([prop('tokenId'), pipe(prop('contract'), prop('address'))]), join('-'))), join(','))(items)
 }

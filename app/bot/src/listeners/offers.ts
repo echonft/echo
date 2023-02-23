@@ -4,7 +4,7 @@ import { getDiscordChannel } from '../utils/discord'
 import { listenToOffer } from '@echo/firebase-admin'
 import { errorMessage, logger } from '@echo/utils'
 import { Client } from 'discord.js'
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 
 export function listenToOffers(client: Client) {
   listenToOffer((offer, change) => {

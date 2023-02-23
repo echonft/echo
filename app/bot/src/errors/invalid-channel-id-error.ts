@@ -1,6 +1,6 @@
 import { InteractionError } from './interaction-error'
 import { InteractionReplyOptions } from 'discord.js'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 
 export class InvalidChannelIdError extends InteractionError {
   constructor(channelId?: string | null) {
