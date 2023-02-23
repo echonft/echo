@@ -1,12 +1,10 @@
-import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
-import { FirestoreConverter } from '../../types/converter/firestore-converter'
-import { convertSnapshot } from '../../utils/converter/convert-snapshot'
+import { FirestoreNestedDocumentConverter } from '../../types/converter/firestore-nested-document-converter'
 import { FirestoreWallet, FirestoreWalletData } from '@echo/firestore'
-import { toPromise } from '@echo/utils'
+import { castAs, toPromise } from '@echo/utils'
 import { pipe } from 'ramda'
 
-export const convertWallet: FirestoreConverter<FirestoreWallet, FirestoreWalletData> = pipe<
-  [FirestoreSnapshot<FirestoreWallet>],
+export const convertWallet: FirestoreNestedDocumentConverter<FirestoreWallet, FirestoreWalletData> = pipe<
+  [FirestoreWallet],
   FirestoreWalletData,
   Promise<FirestoreWalletData>
->(convertSnapshot, toPromise)
+>(castAs, toPromise)

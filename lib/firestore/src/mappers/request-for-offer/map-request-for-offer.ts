@@ -4,7 +4,6 @@ import { FirestoreMapper } from '../../types/mapper'
 import { propToDate } from '../../utils/mapper/prop-to-date'
 import { propToMappedDocument } from '../../utils/mapper/prop-to-mapped-document'
 import { propToMappedDocumentArray } from '../../utils/mapper/prop-to-mapped-document-array'
-import { propToSubcollection } from '../../utils/mapper/prop-to-subcollection'
 import { mapContract } from '../contract'
 import { mapDiscordGuild } from '../discord-guild'
 import { mapOffer } from '../offer/map-offer'
@@ -33,7 +32,7 @@ export const mapRequestForOffer: FirestoreMapper<FirestoreRequestForOfferData, R
       // @ts-ignore
       propToMappedDocumentArray('target', mapContract),
       // @ts-ignore
-      propToSubcollection('activities', mapRequestForOfferActivity),
+      propToMappedDocumentArray('activities', mapRequestForOfferActivity),
       // @ts-ignore
       propToMappedDocumentArray('offers', mapOffer),
       // @ts-ignore

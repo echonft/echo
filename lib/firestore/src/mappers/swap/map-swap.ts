@@ -3,7 +3,7 @@ import { FirestoreSwapData } from '../../types'
 import { FirestoreMapper } from '../../types/mapper'
 import { propToDate } from '../../utils/mapper/prop-to-date'
 import { propToMappedDocument } from '../../utils/mapper/prop-to-mapped-document'
-import { propToSubcollection } from '../../utils/mapper/prop-to-subcollection'
+import { propToMappedDocumentArray } from '../../utils/mapper/prop-to-mapped-document-array'
 import { mapOffer } from '../offer/map-offer'
 import { mapSwapActivity } from './map-swap-activity'
 import { Swap, SwapState } from '@echo/model'
@@ -21,7 +21,7 @@ export const mapSwap: FirestoreMapper<FirestoreSwapData, Swap> = andThen(
       // @ts-ignore
       propToMappedDocument('offer', mapOffer),
       // @ts-ignore
-      propToSubcollection('activities', mapSwapActivity),
+      propToMappedDocumentArray('activities', mapSwapActivity),
       // @ts-ignore
       propToDate<Dayjs>('expiresAt'),
       // @ts-ignore

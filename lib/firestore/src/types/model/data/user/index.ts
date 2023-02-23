@@ -1,2 +1,2 @@
 export * from './firestore-user-data'
-export * from './subcollections/wallet/firestore-wallet-data'
+export * from './firestore-wallet-data'

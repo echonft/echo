@@ -4,7 +4,6 @@ import { FirestoreMapper } from '../../types/mapper'
 import { propToDate } from '../../utils/mapper/prop-to-date'
 import { propToMappedDocument } from '../../utils/mapper/prop-to-mapped-document'
 import { propToMappedDocumentArray } from '../../utils/mapper/prop-to-mapped-document-array'
-import { propToSubcollection } from '../../utils/mapper/prop-to-subcollection'
 import { mapDiscordGuild } from '../discord-guild'
 import { mapUser } from '../user'
 import { mapOfferActivity } from './map-offer-activity'
@@ -34,7 +33,7 @@ export const mapOffer: FirestoreMapper<FirestoreOfferData, Offer> = andThen(
       // @ts-ignore
       propToMappedDocumentArray('receiverItems', mapOfferItem),
       // @ts-ignore
-      propToSubcollection('activities', mapOfferActivity),
+      propToMappedDocumentArray('activities', mapOfferActivity),
       // @ts-ignore
       propToDate<Dayjs>('expiresAt'),
       // @ts-ignore

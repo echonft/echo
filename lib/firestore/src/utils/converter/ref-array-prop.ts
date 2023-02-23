@@ -1,4 +1,4 @@
-import { FirestoreConverter } from '../../types/converter'
+import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { FirestoreData } from '../../types/model/data/abstract/firestore-data'
 import { getDocSnapshotFromRef } from '../document/get-doc-snapshot-from-ref'
 import { undefinedPromise } from '@echo/utils'

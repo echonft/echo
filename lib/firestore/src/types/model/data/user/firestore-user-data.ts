@@ -1,9 +1,8 @@
-import { FirestoreSubcollection } from '../../../abstract/firestore-subcollection'
 import { FirestoreUser } from '../../collections'
 import { FirestoreData } from '../abstract/firestore-data'
-import { FirestoreWalletData } from './subcollections/wallet/firestore-wallet-data'
+import { FirestoreWalletData } from './firestore-wallet-data'
 
 export interface FirestoreUserData extends Omit<FirestoreUser, 'wallets'>, FirestoreData {
   id: string
-  wallets: FirestoreSubcollection<FirestoreWalletData>
+  wallets: FirestoreWalletData[]
 }

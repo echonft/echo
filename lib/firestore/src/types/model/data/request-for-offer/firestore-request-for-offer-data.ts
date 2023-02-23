@@ -1,4 +1,3 @@
-import { FirestoreSubcollection } from '../../../abstract/firestore-subcollection'
 import { FirestoreRequestForOffer } from '../../collections'
 import { FirestoreData } from '../abstract/firestore-data'
 import { FirestoreContractData } from '../contract/firestore-contract-data'
@@ -6,8 +5,8 @@ import { FirestoreDiscordGuildData } from '../discord-guild/firestore-discord-gu
 import { FirestoreOfferData } from '../offer/firestore-offer-data'
 import { FirestoreSwapData } from '../swap'
 import { FirestoreUserData } from '../user/firestore-user-data'
-import { FirestoreRequestForOfferItemData } from './nested-documents/firestore-request-for-offer-item-data'
-import { FirestoreRequestForOfferActivityData } from './subcollections/request-for-offer-activity/firestore-request-for-offer-activity-data'
+import { FirestoreRequestForOfferActivityData } from './firestore-request-for-offer-activity-data'
+import { FirestoreRequestForOfferItemData } from './firestore-request-for-offer-item-data'
 
 export interface FirestoreRequestForOfferData
   extends Omit<
@@ -17,10 +16,10 @@ export interface FirestoreRequestForOfferData
     FirestoreData {
   id: string
   sender: FirestoreUserData
-  items: Array<FirestoreRequestForOfferItemData>
+  items: FirestoreRequestForOfferItemData[]
   discordGuild: FirestoreDiscordGuildData
-  target: Array<FirestoreContractData>
-  activities: FirestoreSubcollection<FirestoreRequestForOfferActivityData>
-  offers?: Array<FirestoreOfferData>
-  swaps?: Array<FirestoreSwapData>
+  target: FirestoreContractData[]
+  activities: FirestoreRequestForOfferActivityData[]
+  offers?: FirestoreOfferData[]
+  swaps?: FirestoreSwapData[]
 }

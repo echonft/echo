@@ -1,17 +1,7 @@
-import { FirestoreConverter } from '../../types/converter/firestore-converter'
-import { convertSnapshot } from '../../utils/converter/convert-snapshot'
+import { FirestoreNestedDocumentConverter } from '../../types/converter/firestore-nested-document-converter'
 import { FirestoreSwapActivity, FirestoreSwapActivityData } from '@echo/firestore'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
-import { juxt, pipe } from 'ramda'
+import { castAs, toPromise } from '@echo/utils'
+import { pipe } from 'ramda'
 
-export const convertSwapActivity: FirestoreConverter<FirestoreSwapActivity, FirestoreSwapActivityData> = pipe(
-  convertSnapshot,
-  juxt([
-    propToPromise<string>('id'),
-    propToPromise<number>('date'),
-    propToPromise<string | undefined>('fromState'),
-    propToPromise<string>('toState')
-  ]),
-  (promises) => Promise.all(promises),
-  zipPromisesToObject<FirestoreSwapActivityData>(['id', 'date', 'fromState', 'toState'])
-)
+export const convertSwapActivity: FirestoreNestedDocumentConverter<FirestoreSwapActivity, FirestoreSwapActivityData> =
+  pipe<[FirestoreSwapActivity], FirestoreSwapActivityData, Promise<FirestoreSwapActivityData>>(castAs, toPromise)

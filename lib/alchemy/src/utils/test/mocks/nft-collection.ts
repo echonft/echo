@@ -1,5 +1,5 @@
 import { AlchemyNftCollection } from '../../../types'
-import { OpenSeaSafelistRequestStatus } from '@echo/model/dist/types'
+import { OpenSeaSafelistRequestStatus } from '@echo/model'
 import dayjs from 'dayjs'
 
 export const mockedCollection: AlchemyNftCollection = {

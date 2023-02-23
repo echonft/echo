@@ -1,15 +1,7 @@
 import { contractData } from '../contract/contract-data'
 import { discordGuildData } from '../discord-guild/discord-guild-data'
 import { userData } from '../user/user-data'
-import { FirestoreOfferActivityData, FirestoreOfferData } from '@echo/firestore'
-
-export const offerActivityData: { [key: string]: FirestoreOfferActivityData } = {
-  cGCs8kb08vhMMlMwcd9n: {
-    id: 'cGCs8kb08vhMMlMwcd9n',
-    date: 1676984897,
-    toState: 'OPEN'
-  }
-}
+import { FirestoreOfferData } from '@echo/firestore'
 
 export const offerData: { [key: string]: FirestoreOfferData } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
@@ -17,12 +9,7 @@ export const offerData: { [key: string]: FirestoreOfferData } = {
     state: 'OPEN',
     discordGuild: discordGuildData['xA40abnyBq6qQHSYmtHj']!,
     threadId: '1231',
-    sender: Object.assign({}, userData['oE6yUEQBPn7PZ89yMjKn']!, {
-      wallets: {
-        path: 'users/oE6yUEQBPn7PZ89yMjKn/wallets',
-        data: undefined
-      }
-    }),
+    sender: userData['oE6yUEQBPn7PZ89yMjKn']!,
     senderItems: [
       {
         contract: contractData['37dBlwJYahEAKeL0rNP8']!,
@@ -30,12 +17,7 @@ export const offerData: { [key: string]: FirestoreOfferData } = {
         balance: undefined
       }
     ],
-    receiver: Object.assign({}, userData['oE6yUEQBPn7PZ89yMjKn']!, {
-      wallets: {
-        path: 'users/oE6yUEQBPn7PZ89yMjKn/wallets',
-        data: undefined
-      }
-    }),
+    receiver: userData['oE6yUEQBPn7PZ89yMjKn']!,
     receiverItems: [
       {
         contract: contractData['37dBlwJYahEAKeL0rNP8']!,
@@ -46,9 +28,6 @@ export const offerData: { [key: string]: FirestoreOfferData } = {
     postedAt: undefined,
     expiresAt: 1676984897,
     createdAt: 1676984897,
-    activities: {
-      path: 'offers/LyCfl6Eg7JKuD7XJ6IPi/activities',
-      data: Object.values(offerActivityData)
-    }
+    activities: [{ date: 1676984897, toState: 'OPEN' }]
   }
 }

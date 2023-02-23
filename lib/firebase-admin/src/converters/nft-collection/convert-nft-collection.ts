@@ -1,6 +1,6 @@
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { convertSnapshot } from '../../utils/converter/convert-snapshot'
-import { nestedDocumentProp } from '../../utils/converter/nested-document/nested-document-prop'
+import { nestedDocumentProp } from '../../utils/converter/nested-document-prop'
 import { refProp } from '../../utils/converter/ref-prop'
 import { convertContract } from '../contract/convert-contract'
 import { convertOpenSeaCollectionDetails } from './convert-open-sea-collection-details'

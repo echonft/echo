@@ -1,7 +1,7 @@
+import { FirestoreNestedDocumentConverter } from '../../types/converter/firestore-nested-document-converter'
 import { refProp } from '../../utils/converter/ref-prop'
 import { convertContract } from '../contract/convert-contract'
 import { FirestoreOfferItem, FirestoreOfferItemData } from '@echo/firestore'
-import { FirestoreNestedDocumentConverter } from '@echo/firestore/dist/types/converter/firestore-nested-document-converter'
 import { propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 

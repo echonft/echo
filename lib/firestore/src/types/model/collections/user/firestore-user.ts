@@ -1,8 +1,8 @@
-import { FirestoreWallet } from './subcollections/wallet/firestore-wallet'
-import { CollectionReference, DocumentData } from 'firebase/firestore'
+import { FirestoreWallet } from './firestore-wallet'
+import { DocumentData } from 'firebase/firestore'
 
 export interface FirestoreUser extends DocumentData {
   discordId: string
   nonce?: string
-  wallets: CollectionReference<FirestoreWallet>
+  wallets: FirestoreWallet[]
 }

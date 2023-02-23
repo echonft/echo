@@ -1,6 +1,6 @@
 import { FirestoreDiscordGuildData } from '../../types'
 import { FirestoreMapper } from '../../types/mapper'
-import { propToArray } from '../../utils/mapper/prop-to-array'
+import { propToMappedDocumentArray } from '../../utils/mapper/prop-to-mapped-document-array'
 import { mapContract } from '../contract'
 import { DiscordGuild } from '@echo/model'
 import { propToPromise, zipPromisesToObject } from '@echo/utils'
@@ -13,7 +13,7 @@ export const mapDiscordGuild: FirestoreMapper<FirestoreDiscordGuildData, Discord
       propToPromise<string>('discordId'),
       propToPromise<string>('channelId'),
       propToPromise<string>('name'),
-      propToArray('contracts', mapContract)
+      propToMappedDocumentArray('contracts', mapContract)
     ]),
     (promises) => Promise.all(promises),
     zipPromisesToObject<DiscordGuild>(['id', 'discordId', 'channelId', 'name', 'contracts'])

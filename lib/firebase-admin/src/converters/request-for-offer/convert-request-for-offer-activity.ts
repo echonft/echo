@@ -1,20 +1,13 @@
-import { FirestoreConverter } from '../../types/converter/firestore-converter'
-import { convertSnapshot } from '../../utils/converter/convert-snapshot'
+import { FirestoreNestedDocumentConverter } from '../../types/converter/firestore-nested-document-converter'
 import { FirestoreRequestForOfferActivity, FirestoreRequestForOfferActivityData } from '@echo/firestore'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
-import { juxt, pipe } from 'ramda'
+import { castAs, toPromise } from '@echo/utils'
+import { pipe } from 'ramda'
 
-export const convertRequestForOfferActivity: FirestoreConverter<
+export const convertRequestForOfferActivity: FirestoreNestedDocumentConverter<
   FirestoreRequestForOfferActivity,
   FirestoreRequestForOfferActivityData
-> = pipe(
-  convertSnapshot,
-  juxt([
-    propToPromise<string>('id'),
-    propToPromise<number>('date'),
-    propToPromise<string | undefined>('fromState'),
-    propToPromise<string>('toState')
-  ]),
-  (promises) => Promise.all(promises),
-  zipPromisesToObject<FirestoreRequestForOfferActivityData>(['id', 'date', 'fromState', 'toState'])
-)
+> = pipe<
+  [FirestoreRequestForOfferActivity],
+  FirestoreRequestForOfferActivityData,
+  Promise<FirestoreRequestForOfferActivityData>
+>(castAs, toPromise)

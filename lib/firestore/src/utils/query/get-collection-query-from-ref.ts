@@ -1,4 +1,4 @@
-import { FirestoreQuery } from '../../types'
+import { FirestoreQuery } from '../../types/abstract/firestore-query'
 import { CollectionReference, DocumentData, query, QueryConstraint } from 'firebase/firestore'
 
 export const getCollectionQueryFromRef =

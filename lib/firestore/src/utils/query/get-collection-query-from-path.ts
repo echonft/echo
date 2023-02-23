@@ -1,4 +1,4 @@
-import { FirestoreQuery } from '../../types'
+import { FirestoreQuery } from '../../types/abstract/firestore-query'
 import { getCollectionFromPath } from '../collection/get-collection-from-path'
 import { DocumentData, query, QueryConstraint } from 'firebase/firestore'
 

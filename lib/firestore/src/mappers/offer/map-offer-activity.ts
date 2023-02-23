@@ -9,12 +9,11 @@ import { andThen, juxt, pipe } from 'ramda'
 export const mapOfferActivity: FirestoreMapper<FirestoreOfferActivityData, OfferActivity> = andThen(
   pipe(
     juxt([
-      propToPromise<string>('id'),
       propToDate<Dayjs>('date'),
       propToPromise<OfferState | undefined>('fromState'),
       propToPromise<OfferState>('toState')
     ]),
     (promises) => Promise.all(promises),
-    zipPromisesToObject<OfferActivity>(['id', 'date', 'fromState', 'toState'])
+    zipPromisesToObject<OfferActivity>(['date', 'fromState', 'toState'])
   )
 )

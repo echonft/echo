@@ -1,5 +1,5 @@
 import { FirestoreDiscordGuild } from '../../types'
-import { FirestoreConverter } from '../../types/converter'
+import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { FirestoreDiscordGuildData } from '../../types/model/data'
 import { convertSnapshot } from '../../utils/converter/convert-snapshot'
 import { refArrayProp } from '../../utils/converter/ref-array-prop'
