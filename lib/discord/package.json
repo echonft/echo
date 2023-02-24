@@ -22,6 +22,9 @@
   },
   "dependencies": {
     "@echo/api": "workspace:*",
-    "rambda": "7.4.0"
+    "ramda": "0.28.0"
+  },
+  "devDependencies": {
+    "@types/ramda": "0.28.22"
   }
 }

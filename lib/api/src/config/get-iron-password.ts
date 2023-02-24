@@ -1,4 +1,4 @@
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 
 export function getIronPassword(): string {
   const ironPassword = process.env.IRON_PASSWORD

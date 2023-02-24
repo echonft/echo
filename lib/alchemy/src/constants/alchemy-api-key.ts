@@ -1,5 +1,5 @@
 import { isMainnet } from '@echo/utils'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 
 export function alchemyApiKey(): string {
   const envVar = isMainnet

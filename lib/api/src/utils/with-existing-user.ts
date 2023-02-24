@@ -4,7 +4,7 @@ import { ApiRequestWithUserId } from '../types/models/api-requests/api-request-w
 import { findUserById, findUserByWallet } from '@echo/firebase-admin'
 import { R } from '@mobily/ts-belt'
 import { getAddress } from 'ethers/lib/utils'
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 
 export function withExistingUser<T extends ApiRequestWithUserId, U>(
   handler: RequestHandler<T, U>

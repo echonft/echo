@@ -9,7 +9,7 @@ import { applySpec, applyToNullableProp, applyToProp } from '@echo/utils'
 import { OwnedNft as AlchemyOwnedNftResponse } from 'alchemy-sdk'
 import { NftMetadata } from 'alchemy-sdk/dist/src/types/types'
 import { BigNumber } from 'ethers'
-import { converge, ifElse, isNil, join, map, pipe, prop } from 'rambda'
+import { converge, ifElse, isNil, join, map, pipe, prop } from 'ramda'
 
 export const mapNft: (nft: AlchemyOwnedNftResponse) => AlchemyOwnedNft = applySpec<
   AlchemyOwnedNftResponse,

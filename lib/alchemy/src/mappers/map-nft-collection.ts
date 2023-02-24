@@ -2,7 +2,7 @@ import { AlchemyNftCollection, AlchemyNftContract } from '../types'
 import { mapOpenSeaCollectionMetadata } from './map-open-sea-collection-metadata'
 import { applySpec, applyToNullableProp, chainId } from '@echo/utils'
 import { NftContract } from 'alchemy-sdk'
-import { prop } from 'rambda'
+import { prop } from 'ramda'
 
 export const mapNftCollection: (contract: NftContract) => AlchemyNftCollection = applySpec<
   NftContract,

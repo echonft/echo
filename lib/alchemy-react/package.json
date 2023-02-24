@@ -23,12 +23,12 @@
     "update-modules": "ncu -u"
   },
   "peerDependencies": {
-    "@mobily/ts-belt": "3.13.1",
+    "@mobily/ts-belt": "4.0.0-rc.5",
     "next": "13.0.6",
     "react": "18.2.0"
   },
   "dependencies": {
-    "@mobily/ts-belt": "3.13.1",
+    "@mobily/ts-belt": "4.0.0-rc.5",
     "@echo/alchemy": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/swr": "workspace:*",

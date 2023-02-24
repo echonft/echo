@@ -26,7 +26,7 @@
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@mobily/ts-belt": "3.13.1",
+    "@mobily/ts-belt": "4.0.0-rc.5",
     "firebase-admin": "11.5.0",
     "dayjs": "1.11.7",
     "ethers": "5.7.2",

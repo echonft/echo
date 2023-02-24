@@ -10,7 +10,7 @@ import { errorMessage } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { getAddress } from 'ethers/lib/utils'
 import { withIronSessionApiRoute } from 'iron-session/next'
-import { isNil } from 'rambda'
+import { isNil } from 'ramda'
 import { generateNonce } from 'siwe'
 
 // TODO Add the collection here

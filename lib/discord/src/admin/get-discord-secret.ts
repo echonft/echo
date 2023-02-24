@@ -1,5 +1,5 @@
 import { DiscordSecret } from '../types'
-import { isEmpty, isNil } from 'rambda'
+import { isEmpty, isNil } from 'ramda'
 
 export function getDiscordSecret(): DiscordSecret {
   const clientToken = process.env.DISCORD_CLIENT_TOKEN

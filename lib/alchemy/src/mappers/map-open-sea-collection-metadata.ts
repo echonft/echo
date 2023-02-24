@@ -3,7 +3,7 @@ import { mapUrl } from './map-url'
 import { OpenSeaCollectionMetadata } from '@echo/model'
 import { applySpec, applyToNullableProp } from '@echo/utils'
 import { OpenSeaCollectionMetadata as AlchemyMetadata } from 'alchemy-sdk/dist/src/types/types'
-import { prop } from 'rambda'
+import { prop } from 'ramda'
 
 export const mapOpenSeaCollectionMetadata: (metadata: AlchemyMetadata) => OpenSeaCollectionMetadata = applySpec<
   AlchemyMetadata,

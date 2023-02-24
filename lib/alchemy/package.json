@@ -28,6 +28,9 @@
     "alchemy-sdk": "2.4.1",
     "dayjs": "1.11.7",
     "ethers": "5.7.2",
-    "rambda": "7.4.0"
+    "ramda": "0.28.0"
+  },
+  "devDependencies": {
+    "@types/ramda": "0.28.22"
   }
 }
