@@ -16,6 +16,7 @@ export function buildOfferEmbed(offer: Offer) {
 }
 
 // TODO Check to add the discord user as a tag?
+// TODO Translation
 function title(offer: Offer): string {
   return `A new offer was created from <@${offer.sender.discordId!}>`
 }

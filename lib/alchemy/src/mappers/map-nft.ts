@@ -6,19 +6,16 @@ import { mapNftMedia } from './map-nft-media'
 import { mapNftTokenUri } from './map-nft-token-uri'
 import { NftAttribute } from '@echo/model'
 import { applySpec, applyToNullableProp, applyToProp } from '@echo/utils'
-import { OwnedNft as AlchemyOwnedNftResponse } from 'alchemy-sdk'
+import { OwnedNft } from 'alchemy-sdk'
 import { NftMetadata } from 'alchemy-sdk/dist/src/types/types'
 import { BigNumber } from 'ethers'
 import { converge, ifElse, isNil, join, map, pipe, prop } from 'ramda'
 
-export const mapNft: (nft: AlchemyOwnedNftResponse) => AlchemyOwnedNft = applySpec<
-  AlchemyOwnedNftResponse,
-  AlchemyOwnedNft
->({
-  id: converge(join('/'), [
-    pipe(prop('contract'), prop('address')),
-    pipe(prop('tokenId'), (tokenId: string) => BigNumber.from(tokenId))
-  ]),
+// Problem with the join typing using a readonly any[] format
+export const mapNft: (nft: OwnedNft) => AlchemyOwnedNft = applySpec<OwnedNft, AlchemyOwnedNft>({
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  id: converge(join(':'), [pipe(prop('contract'), prop('address')), prop('tokenId')]),
   tokenId: applyToProp('tokenId', (tokenId: string) => BigNumber.from(tokenId)),
   title: prop('title'),
   description: prop('description'),
@@ -28,13 +25,13 @@ export const mapNft: (nft: AlchemyOwnedNftResponse) => AlchemyOwnedNft = applySp
   media: pipe(prop('media'), map(mapNftMedia)),
   spamInfo: prop('spamInfo'),
   attributes: pipe(
-    prop('rawMetadata'),
+    prop<NftMetadata>('rawMetadata'),
     ifElse<NftMetadata[], NftAttribute[], NftAttribute[]>(
       isNil,
       () => [],
       pipe(
-        prop('attributes'),
-        ifElse<Array<Record<string, never>>[], NftAttribute[], NftAttribute[]>(isNil, () => [], map(mapNftAttribute))
+        prop<Array<Record<string, never>>>('attributes'),
+        ifElse<[Array<Record<string, never>>], NftAttribute[], NftAttribute[]>(isNil, () => [], map(mapNftAttribute))
       )
     )
   ),

@@ -7,5 +7,5 @@ export function stringForOfferItems(items: OfferItem[] | undefined): string {
     return 'Any NFT'
   }
   // TODO Should probably sort and group here
-  return pipe(map(pipe(juxt([prop('tokenId'), pipe(prop('contract'), prop('address'))]), join('-'))), join(','))(items)
+  return pipe(map(pipe(juxt([prop('tokenId'), pipe(prop('contract'), prop('address'))]), join(':'))), join(','))(items)
 }
