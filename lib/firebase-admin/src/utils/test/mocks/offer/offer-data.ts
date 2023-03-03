@@ -5,6 +5,7 @@ import { FirestoreOfferData } from '@echo/firestore'
 
 export const offerData: { [key: string]: FirestoreOfferData } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
+    refPath: 'offers/LyCfl6Eg7JKuD7XJ6IPi',
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
     state: 'OPEN',
     discordGuild: discordGuildData['xA40abnyBq6qQHSYmtHj']!,

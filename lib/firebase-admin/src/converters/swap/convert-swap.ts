@@ -1,30 +1,24 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
-import { convertSnapshot } from '../../utils/converter/convert-snapshot'
+import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
 import { nestedDocumentArrayProp } from '../../utils/converter/nested-document-array-prop'
 import { refProp } from '../../utils/converter/ref-prop'
 import { convertOffer } from '../offer/convert-offer'
 import { convertSwapActivity } from './convert-swap-activity'
 import { FirestoreSwap, FirestoreSwapData } from '@echo/firestore'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 
 export const convertSwap: FirestoreConverter<FirestoreSwap, FirestoreSwapData> = pipe(
-  convertSnapshot,
+  convertRootCollectionDocumentSnapshot,
   juxt([
-    // @ts-ignore
-    propToPromise<string>('id'),
-    // @ts-ignore
-    propToPromise<string>('state'),
-    // @ts-ignore
+    propToPromise('refPath'),
+    propToPromise('id'),
+    propToPromise('state'),
     refProp('offer', convertOffer),
-    // @ts-ignore
     nestedDocumentArrayProp('activities', convertSwapActivity),
-    // @ts-ignore
-    propToPromise<number>('expiresAt'),
-    // @ts-ignore
-    propToPromise<number>('createdAt')
+    propToPromise('expiresAt'),
+    propToPromise('createdAt')
   ]),
-  (promises) => Promise.all(promises),
-  zipPromisesToObject<FirestoreSwapData>(['id', 'state', 'offer', 'activities', 'expiresAt', 'createdAt'])
+  promiseAll,
+  zipPromisesToObject<FirestoreSwapData>(['refPath', 'id', 'state', 'offer', 'activities', 'expiresAt', 'createdAt'])
 )

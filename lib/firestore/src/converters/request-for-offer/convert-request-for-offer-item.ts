@@ -2,7 +2,7 @@ import { FirestoreRequestForOfferItem, FirestoreRequestForOfferItemData } from '
 import { FirestoreNestedDocumentConverter } from '../../types/converter/firestore-nested-document-converter'
 import { refProp } from '../../utils/converter/ref-prop'
 import { convertContract } from '../contract/convert-contract'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 
 export const convertRequestForOfferItem: FirestoreNestedDocumentConverter<
@@ -14,6 +14,6 @@ export const convertRequestForOfferItem: FirestoreNestedDocumentConverter<
     propToPromise<string | undefined>('tokenId'),
     propToPromise<number | undefined>('balance')
   ]),
-  (promises) => Promise.all(promises),
+  promiseAll,
   zipPromisesToObject<FirestoreRequestForOfferItemData>(['contract', 'tokenId', 'balance'])
 )

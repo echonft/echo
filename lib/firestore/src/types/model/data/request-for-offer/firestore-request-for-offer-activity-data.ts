@@ -1,4 +1,4 @@
 import { FirestoreRequestForOfferActivity } from '../../collections'
-import { FirestoreData } from '../abstract/firestore-data'
+import { FirestoreDocumentData } from '../abstract/firestore-document-data'
 
-export interface FirestoreRequestForOfferActivityData extends FirestoreRequestForOfferActivity, FirestoreData {}
+export interface FirestoreRequestForOfferActivityData extends FirestoreRequestForOfferActivity, FirestoreDocumentData {}

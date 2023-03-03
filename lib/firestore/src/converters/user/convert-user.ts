@@ -1,19 +1,20 @@
 import { FirestoreUser, FirestoreUserData, FirestoreWallet, FirestoreWalletData } from '../../types'
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
-import { convertSnapshot } from '../../utils/converter/convert-snapshot'
+import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
 import { nestedDocumentArrayProp } from '../../utils/converter/nested-document-array-prop'
 import { convertWallet } from './convert-wallet'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 
 export const convertUser: FirestoreConverter<FirestoreUser, FirestoreUserData> = pipe(
-  convertSnapshot,
+  convertRootCollectionDocumentSnapshot,
   juxt([
-    propToPromise<string>('id'),
-    propToPromise<string>('discordId'),
-    propToPromise<string>('nonce'),
+    propToPromise('refPath'),
+    propToPromise('id'),
+    propToPromise('discordId'),
+    propToPromise('nonce'),
     nestedDocumentArrayProp<FirestoreWallet, FirestoreWalletData>('wallets', convertWallet)
   ]),
-  (promises) => Promise.all(promises),
-  zipPromisesToObject<FirestoreUserData>(['id', 'discordId', 'nonce', 'wallets'])
+  promiseAll,
+  zipPromisesToObject<FirestoreUserData>(['refPath', 'id', 'discordId', 'nonce', 'wallets'])
 )

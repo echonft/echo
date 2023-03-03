@@ -1,7 +1,7 @@
 import { FirestoreOfferItem } from '../../collections'
-import { FirestoreData } from '../abstract/firestore-data'
+import { FirestoreDocumentData } from '../abstract/firestore-document-data'
 import { FirestoreContractData } from '../contract/firestore-contract-data'
 
-export interface FirestoreOfferItemData extends Omit<FirestoreOfferItem, 'contract'>, FirestoreData {
+export interface FirestoreOfferItemData extends Omit<FirestoreOfferItem, 'contract'>, FirestoreDocumentData {
   contract: FirestoreContractData
 }

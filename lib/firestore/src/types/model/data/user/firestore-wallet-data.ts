@@ -1,4 +1,4 @@
 import { FirestoreWallet } from '../../collections'
-import { FirestoreData } from '../abstract/firestore-data'
+import { FirestoreDocumentData } from '../abstract/firestore-document-data'
 
-export interface FirestoreWalletData extends FirestoreWallet, FirestoreData {}
+export interface FirestoreWalletData extends FirestoreWallet, FirestoreDocumentData {}

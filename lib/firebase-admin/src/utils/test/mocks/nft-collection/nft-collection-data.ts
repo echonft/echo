@@ -3,6 +3,7 @@ import { FirestoreNftCollectionData } from '@echo/firestore'
 
 export const nftCollectionData: { [key: string]: FirestoreNftCollectionData } = {
   Rc8pLQXxgyQGIRL0fr13: {
+    refPath: 'nft-collections/Rc8pLQXxgyQGIRL0fr13',
     id: 'Rc8pLQXxgyQGIRL0fr13',
     contract: contractData['37dBlwJYahEAKeL0rNP8']!,
     openSea: {

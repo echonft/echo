@@ -7,8 +7,6 @@ import { allPass, complement, has, ifElse, isNil, map, modify, omit, pipe, prop 
 
 export const serializeUser: FirestoreSerializer<User, FirestoreUser> = ifElse<[User], FirestoreUser, FirestoreUser>(
   allPass([has('wallets'), pipe(prop('wallets'), complement(isNil))]),
-  pipe(castAsNonNullableProp('wallets'), modify('wallets', map(serializeWallet)), (value) =>
-    castAs<unknown, FirestoreUser>(value)
-  ),
-  pipe(omit(['wallets']), (value) => castAs<unknown, FirestoreUser>(value))
+  pipe(castAsNonNullableProp('wallets'), modify('wallets', map(serializeWallet)), castAs<FirestoreUser>),
+  pipe(omit(['wallets']), castAs<FirestoreUser>)
 )

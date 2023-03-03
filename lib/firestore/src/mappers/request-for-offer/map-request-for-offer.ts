@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FirestoreRequestForOfferData } from '../../types'
 import { FirestoreMapper } from '../../types/mapper'
 import { propToDate } from '../../utils/mapper/prop-to-date'
@@ -11,41 +10,28 @@ import { mapSwap } from '../swap/map-swap'
 import { mapUser } from '../user'
 import { mapRequestForOfferActivity } from './map-request-for-offer-activity'
 import { mapRequestForOfferItem } from './map-request-for-offer-item'
-import { RequestForOffer, RequestForOfferState } from '@echo/model'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
-import { Dayjs } from 'dayjs'
-import { andThen, juxt, pipe } from 'ramda'
+import { RequestForOffer } from '@echo/model'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
+import { andThen, juxt, omit, pipe } from 'ramda'
 
 export const mapRequestForOffer: FirestoreMapper<FirestoreRequestForOfferData, RequestForOffer> = andThen(
   pipe(
+    omit(['refPath']),
     juxt([
-      // @ts-ignore
-      propToPromise<string>('id'),
-      // @ts-ignore
-      propToPromise<RequestForOfferState>('state'),
-      // @ts-ignore
+      propToPromise('id'),
+      propToPromise('state'),
       propToMappedDocument('sender', mapUser),
-      // @ts-ignore
       propToMappedDocumentArray('items', mapRequestForOfferItem),
-      // @ts-ignore
       propToMappedDocument('discordGuild', mapDiscordGuild),
-      // @ts-ignore
       propToMappedDocumentArray('target', mapContract),
-      // @ts-ignore
       propToMappedDocumentArray('activities', mapRequestForOfferActivity),
-      // @ts-ignore
       propToMappedDocumentArray('offers', mapOffer),
-      // @ts-ignore
       propToMappedDocumentArray('swaps', mapSwap),
-      // @ts-ignore
-      propToDate<Dayjs>('expiresAt'),
-      // @ts-ignore
+      propToDate('expiresAt'),
       propToDate('postedAt'),
-      // @ts-ignore
-      propToDate<Dayjs>('createdAt')
+      propToDate('createdAt')
     ]),
-    // @ts-ignore
-    (promises) => Promise.all(promises),
+    promiseAll,
     zipPromisesToObject<RequestForOffer>([
       'id',
       'state',

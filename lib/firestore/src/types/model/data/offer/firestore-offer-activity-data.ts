@@ -1,4 +1,4 @@
 import { FirestoreOfferActivity } from '../../collections'
-import { FirestoreData } from '../abstract/firestore-data'
+import { FirestoreDocumentData } from '../abstract/firestore-document-data'
 
-export interface FirestoreOfferActivityData extends FirestoreOfferActivity, FirestoreData {}
+export interface FirestoreOfferActivityData extends FirestoreOfferActivity, FirestoreDocumentData {}

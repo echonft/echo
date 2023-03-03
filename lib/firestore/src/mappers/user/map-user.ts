@@ -3,18 +3,19 @@ import { FirestoreMapper } from '../../types/mapper'
 import { propToMappedDocumentArray } from '../../utils/mapper/prop-to-mapped-document-array'
 import { mapWallet } from './map-wallet'
 import { User } from '@echo/model'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
-import { andThen, juxt, pipe } from 'ramda'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
+import { andThen, juxt, omit, pipe } from 'ramda'
 
 export const mapUser: FirestoreMapper<FirestoreUserData, User> = andThen(
   pipe(
+    omit(['refPath']),
     juxt([
-      propToPromise<string>('id'),
-      propToPromise<string>('discordId'),
-      propToPromise<string>('nonce'),
+      propToPromise('id'),
+      propToPromise('discordId'),
+      propToPromise('nonce'),
       propToMappedDocumentArray('wallets', mapWallet)
     ]),
-    (promises) => Promise.all(promises),
+    promiseAll,
     zipPromisesToObject<User>(['id', 'discordId', 'nonce', 'wallets'])
   )
 )

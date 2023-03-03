@@ -7,5 +7,5 @@ export const orderCollection = <T extends DocumentData>(
   direction?: OrderByDirection | undefined
 ) =>
   isNil(fieldPath) || isNil(direction)
-    ? castAs<CollectionReference<T> | Query<T>, Query<T>>
+    ? castAs<Query<T>>
     : (collection: CollectionReference<T> | Query<T>) => collection.orderBy(fieldPath, direction)

@@ -1,10 +1,10 @@
 import { FirestoreNestedDocumentConverter } from '../../types/converter/firestore-nested-document-converter'
-import { FirestoreData } from '@echo/firestore'
+import { FirestoreDocumentData } from '@echo/firestore'
 import { undefinedPromise } from '@echo/utils'
 import { DocumentData } from '@google-cloud/firestore'
 import { allPass, complement, has, ifElse, isNil, pipe, prop } from 'ramda'
 
-export const nestedDocumentProp = <T extends DocumentData, V extends FirestoreData>(
+export const nestedDocumentProp = <T extends DocumentData, V extends FirestoreDocumentData>(
   key: string,
   converter: FirestoreNestedDocumentConverter<T, V>
 ) =>

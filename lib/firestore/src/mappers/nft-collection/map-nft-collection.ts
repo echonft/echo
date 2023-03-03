@@ -4,21 +4,22 @@ import { propToMappedDocument } from '../../utils/mapper/prop-to-mapped-document
 import { mapContract } from '../contract'
 import { mapOpenSeaCollectionDetails } from './map-open-sea-collection-details'
 import { Contract, NftCollection, OpenSeaCollectionMetadata } from '@echo/model'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
-import { andThen, juxt, pipe } from 'ramda'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
+import { andThen, juxt, omit, pipe } from 'ramda'
 
 export const mapNftCollection: FirestoreMapper<FirestoreNftCollectionData, NftCollection> = andThen(
   pipe(
+    omit(['refPath']),
     juxt([
-      propToPromise<string>('id'),
+      propToPromise('id'),
       propToMappedDocument<FirestoreContractData, Contract>('contract', mapContract),
-      propToPromise<number | undefined>('totalSupply'),
+      propToPromise('totalSupply'),
       propToMappedDocument<FirestoreOpenSeaCollectionDetailsData, OpenSeaCollectionMetadata>(
         'openSea',
         mapOpenSeaCollectionDetails
       )
     ]),
-    (promises) => Promise.all(promises),
+    promiseAll,
     zipPromisesToObject<NftCollection>(['id', 'contract', 'totalSupply', 'openSea'])
   )
 )

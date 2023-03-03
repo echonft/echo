@@ -1,4 +1,4 @@
 import { FirestoreSwapActivity } from '../../collections'
-import { FirestoreData } from '../abstract/firestore-data'
+import { FirestoreDocumentData } from '../abstract/firestore-document-data'
 
-export interface FirestoreSwapActivityData extends FirestoreSwapActivity, FirestoreData {}
+export interface FirestoreSwapActivityData extends FirestoreSwapActivity, FirestoreDocumentData {}

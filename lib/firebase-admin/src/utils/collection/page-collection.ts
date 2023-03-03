@@ -4,7 +4,7 @@ import { isNil } from 'ramda'
 
 export const pageCollection = <T extends DocumentData>(limit: number | undefined, offset?: number) =>
   isNil(limit)
-    ? castAs<CollectionReference<T> | Query<T>, Query<T>>
+    ? castAs<Query<T>>
     : (collection: CollectionReference<T> | Query<T>) => {
         const query = collection.limit(limit)
         if (isNil(offset)) {

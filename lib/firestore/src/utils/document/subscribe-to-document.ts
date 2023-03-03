@@ -7,7 +7,8 @@ export const subscribeToDocument = <T extends DocumentData>(
   path: string,
   ...pathSegments: string[]
 ): Unsubscribe =>
-  onSnapshot<T>(getDocRefFromPath<T>(path, ...pathSegments), (_snapshot: DocumentSnapshot<T>) => {
+  onSnapshot<T>(getDocRefFromPath<T>(path, ...pathSegments), (snapshot: DocumentSnapshot<T>) => {
     //FIXME
     // onNext(convertDocumentSnapshot(snapshot))
+    snapshot.ref.path
   })

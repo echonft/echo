@@ -1,6 +1,7 @@
 import { UseCollectionOptions } from '../types'
 import { FirestoreMapper, getCollectionQueryFromPath, getDocsFromQuery, subscribeToQuery } from '@echo/firestore'
 import { getCompoundKey, SwrKeys } from '@echo/swr'
+import { promiseAll } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { DocumentData } from 'firebase/firestore'
 import { andThen, ifElse, isNil, map, pipe } from 'ramda'
@@ -25,7 +26,7 @@ function useCollectionInternal<T extends DocumentData, W>(
           ifElse(
             (querySnapshot) => querySnapshot.empty,
             () => Promise.resolve([]),
-            pipe(getDocsFromQuery, andThen(map(mapper)), (promises) => Promise.all(promises))
+            pipe(getDocsFromQuery, andThen(map(mapper)), promiseAll)
           )
         ),
         R.fromPromise
@@ -46,7 +47,7 @@ export function useCollection<T extends DocumentData, W extends Model>(
       return subscribeToQuery<T>(
         query,
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        pipe(querySnapshotDocs, map(mapper), (promises) => Promise.all(promises), R.fromPromise, response.mutate)
+        pipe(querySnapshotDocs, map(mapper), promiseAll, R.fromPromise, response.mutate)
       )
     }
     return

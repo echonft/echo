@@ -1,10 +1,10 @@
 import { FirestoreSnapshot } from '../abstract/firestore-snapshot'
-import { FirestoreData } from '../model/data/abstract/firestore-data'
+import { FirestoreDocumentData } from '../model/data/abstract/firestore-document-data'
 import { DocumentData } from 'firebase/firestore'
 
 /**
  * Converts a document snapshot to a firestore model object
  */
-export type FirestoreConverter<T extends DocumentData, V extends FirestoreData> = (
+export type FirestoreConverter<T extends DocumentData, V extends FirestoreDocumentData> = (
   snapshot: FirestoreSnapshot<T>
 ) => Promise<V>
