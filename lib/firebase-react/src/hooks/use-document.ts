@@ -1,24 +1,34 @@
 import { UseDocumentOptions } from '../types/use-document-options'
 import { useFirebase } from './use-firebase'
-import { convertDefault, FirestoreDocumentData, FirestoreMapper, subscribeToDocument } from '@echo/firestore'
-import { FirestoreConverter } from '@echo/firestore/dist/types/converter/firestore-converter'
+import {
+  convertDefault,
+  FirestoreRootCollectionDocumentData,
+  FirestoreSnapshot,
+  subscribeToDocument
+} from '@echo/firestore'
 import { getDocSnapshotFromPath } from '@echo/firestore/dist/utils/document/get-doc-snapshot-from-path'
+import { mapDefault } from '@echo/firestore/dist/utils/mapper/map-default'
+import { getCompoundKey, SwrKeys } from '@echo/swr'
 import { R } from '@mobily/ts-belt'
 import { DocumentData } from 'firebase/firestore'
 import { andThen, bind, pipe } from 'ramda'
 import { useEffect } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 
-function useDocumentInternal<T extends DocumentData, V extends FirestoreDocumentData, W>(
+function useDocumentInternal<T extends DocumentData, V extends FirestoreRootCollectionDocumentData, W>(
   path: string,
-  mapper: FirestoreMapper<V, W>,
   options?: UseDocumentOptions
 ) {
   useFirebase()
   const { suspense } = useSWRConfig()
   return useSWR<R.Result<W, Error>, Error, string>(
-    path,
-    () => pipe(getDocSnapshotFromPath, andThen(pipe(convertDefault, mapper)), R.fromPromise)(path),
+    getCompoundKey(SwrKeys.FIRESTORE_DOCUMENT, path),
+    () =>
+      pipe(
+        getDocSnapshotFromPath,
+        andThen(pipe<[FirestoreSnapshot<T>], Promise<V>, Promise<W>>(convertDefault, mapDefault)),
+        R.fromPromise
+      )(path),
     {
       suspense: options?.suspense || suspense
     }
@@ -28,24 +38,19 @@ function useDocumentInternal<T extends DocumentData, V extends FirestoreDocument
 /**
  * Returns a Firestore document
  * @param path
- * @param converter
- * @param mapper
  * @param options
  */
-export function useDocument<T extends DocumentData, V extends FirestoreDocumentData, W>(
+export function useDocument<T extends DocumentData, V extends FirestoreRootCollectionDocumentData, W>(
   path: string,
-  converter: FirestoreConverter<T, V>,
-  mapper: FirestoreMapper<V, W>,
   options?: UseDocumentOptions
 ) {
-  const response = useDocumentInternal<T, V, W>(path, converter, mapper, options)
+  const response = useDocumentInternal<T, V, W>(path, options)
 
   useEffect(() => {
     if (options?.listen) {
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      return subscribeToDocument(pipe(converter, mapper, bind(response.mutate, response)), path)
+      return subscribeToDocument<W>(pipe(R.fromPromise, bind(response.mutate, response)), path)
     }
     return
-  }, [options, path, response.mutate, mapper])
+  }, [options, path, response])
   return response
 }

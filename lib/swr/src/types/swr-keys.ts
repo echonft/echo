@@ -1,4 +1,6 @@
 export enum SwrKeys {
   FIRESTORE_COLLECTION = 'firestore-collection',
-  GET_NFTS = 'get-nfts',
+  FIRESTORE_DOCUMENT = 'firestore-document',
+
+  GET_NFTS = 'get-nfts'
 }
