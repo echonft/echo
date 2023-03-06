@@ -2,14 +2,14 @@ import { createOfferLink } from '@echo/discord'
 import { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
 
 /**
- * Create offer command
+ * Create listing command
  * @param subCommand The builder
  * @return SlashCommandSubcommandBuilder
  */
-export const createOfferSubcommand = (subCommand: SlashCommandSubcommandBuilder) =>
-  subCommand.setName('create').setDescription('Create an offer')
+export const createListingSubcommand = (subCommand: SlashCommandSubcommandBuilder) =>
+  subCommand.setName('create').setDescription('Create a listing')
 
-export function executeCreateOffer(interaction: CommandInteraction) {
+export function executeCreateListing(interaction: CommandInteraction) {
   return interaction.reply({
     content: createOfferLink(interaction.guildId ?? ''),
     ephemeral: true

@@ -1,6 +1,6 @@
 import { CommandInterface } from '../types/commands/command-interface'
 import { connectSubcommand } from './connect'
-import { createOfferSubcommand } from './create-offer'
+import { createListingSubcommand } from './create-listing'
 import { SlashCommandBuilder } from 'discord.js'
 
 export const echoCommand: CommandInterface = {
@@ -8,5 +8,5 @@ export const echoCommand: CommandInterface = {
     .setName('echo')
     .setDescription('Choose the command to execute')
     .addSubcommand(connectSubcommand)
-    .addSubcommand(createOfferSubcommand)
+    .addSubcommand(createListingSubcommand)
 }

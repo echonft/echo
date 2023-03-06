@@ -1,24 +1,25 @@
-import { BuyOwnOfferError } from '../errors/buy-own-offer-error'
+import { BuyOwnListingError } from '../errors/buy-own-listing-error'
 import { getDiscordChannel } from '../utils/discord'
 import { Offer } from '@echo/model'
 import { errorMessage, logger } from '@echo/utils'
 import { ButtonInteraction, ChannelType } from 'discord.js'
 
-export function executeBuy(interaction: ButtonInteraction, offer: Offer) {
-  if (offer.sender.discordId === interaction.user.id) {
-    throw new BuyOwnOfferError(offer.id)
+// TODO Might be renamed here if we go for listings and offers
+export function executeBuy(interaction: ButtonInteraction, listing: Offer) {
+  if (listing.sender.discordId === interaction.user.id) {
+    throw new BuyOwnListingError(listing.id)
   }
   const channel = getDiscordChannel(interaction.client, interaction.channelId)
   return channel.threads
     .create({
-      name: `Buy offer for ${offer.id}`,
+      name: `Buy offer for ${listing.id}`,
       autoArchiveDuration: 1440,
       type: ChannelType.PrivateThread,
       reason: 'Thread to discuss the offer'
     })
     .then((thread) => {
       thread.members
-        .add(offer.sender.discordId!)
+        .add(listing.sender.discordId!)
         .then(() => {
           thread.members
             .add(interaction.user)
