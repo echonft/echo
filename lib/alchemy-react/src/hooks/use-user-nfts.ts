@@ -1,30 +1,42 @@
 import { useAlchemy } from '../provider'
 import { AlchemyOwnedNft, mapNft, mockedOwnedNft } from '@echo/alchemy'
-import { getCompoundKey, SwrKeys } from '@echo/swr'
-import { isProd } from '@echo/utils'
+import { SwrKey, SwrKeyNames } from '@echo/swr'
+import { castAs, isProd, toPromise } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { andThen, map, pipe, prop } from 'ramda'
+import { always, andThen, invoker, map, mergeDeepLeft, partialRight, pipe, prop } from 'ramda'
 import useSWR, { SWRResponse, useSWRConfig } from 'swr'
 import { SWRConfiguration } from 'swr/_internal'
+
+interface KeyParam {
+  address: string
+}
 
 // TODO move to an API call
 // TODO mock `alchemy` instead of the hooks themselves
 const useProdUserNfts = (address: string, options?: SWRConfiguration) => {
-  const { alchemy } = useAlchemy()
+  const {
+    alchemy: { nft }
+  } = useAlchemy()
   const { suspense } = useSWRConfig()
-  return useSWR<R.Result<AlchemyOwnedNft[], Error>, Error, string>(
-    getCompoundKey(SwrKeys.GET_NFTS, address),
-    pipe(() => alchemy.nft.getNftsForOwner(address), andThen(pipe(prop('ownedNfts'), map(mapNft))), R.fromPromise),
-    Object.assign({ suspense }, options ?? {})
+  return useSWR<R.Result<AlchemyOwnedNft[], Error>, Error, SwrKey<KeyParam>>(
+    { name: SwrKeyNames.ALCHEMY_GET_NFTS, data: { address } },
+    pipe(
+      prop('data'),
+      prop('address'),
+      partialRight(invoker(1, 'getNftsForOwner'), [nft]),
+      andThen(pipe(prop('ownedNfts'), map(mapNft))),
+      R.fromPromise<AlchemyOwnedNft[]>
+    ),
+    pipe(mergeDeepLeft({ suspense }), castAs<SWRConfiguration>)(options ?? {})
   )
 }
 
 const useDevUserNfts = (options?: SWRConfiguration) => {
   const { suspense } = useSWRConfig()
-  return useSWR<R.Result<AlchemyOwnedNft[], Error>, Error, string>(
-    SwrKeys.GET_NFTS,
-    () => R.fromPromise(Promise.resolve([mockedOwnedNft])),
-    Object.assign({ suspense }, options ?? {})
+  return useSWR<R.Result<AlchemyOwnedNft[], Error>, Error, SwrKey<KeyParam>>(
+    { name: SwrKeyNames.ALCHEMY_GET_NFTS },
+    always(R.fromPromise(toPromise([mockedOwnedNft]))),
+    pipe(mergeDeepLeft({ suspense }), castAs<SWRConfiguration>)(options ?? {})
   )
 }
 

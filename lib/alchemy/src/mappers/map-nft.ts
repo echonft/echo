@@ -9,13 +9,10 @@ import { applySpec, applyToNullableProp, applyToProp } from '@echo/utils'
 import { OwnedNft } from 'alchemy-sdk'
 import { NftMetadata } from 'alchemy-sdk/dist/src/types/types'
 import { BigNumber } from 'ethers'
-import { converge, ifElse, isNil, join, map, pipe, prop } from 'ramda'
+import { ifElse, isNil, join, juxt, map, path, pipe, prop } from 'ramda'
 
-// Problem with the join typing using a readonly any[] format
 export const mapNft: (nft: OwnedNft) => AlchemyOwnedNft = applySpec<OwnedNft, AlchemyOwnedNft>({
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  id: converge(join(':'), [pipe(prop('contract'), prop('address')), prop('tokenId')]),
+  id: pipe(juxt([path(['contract', 'address']), prop('tokenId')]), join(':')),
   tokenId: applyToProp('tokenId', (tokenId: string) => BigNumber.from(tokenId)),
   title: prop('title'),
   description: prop('description'),

@@ -1,1 +1,1 @@
-export * from './swr-keys'
+export * from './swr-key'

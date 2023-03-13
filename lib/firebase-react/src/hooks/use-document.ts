@@ -8,10 +8,11 @@ import {
 } from '@echo/firestore'
 import { getDocSnapshotFromPath } from '@echo/firestore/dist/utils/document/get-doc-snapshot-from-path'
 import { mapDefault } from '@echo/firestore/dist/utils/mapper/map-default'
-import { getCompoundKey, SwrKeys } from '@echo/swr'
+import { SwrKeyNames } from '@echo/swr'
+import { Void } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { DocumentData } from 'firebase/firestore'
-import { andThen, bind, pipe } from 'ramda'
+import { andThen, bind, pipe, prop } from 'ramda'
 import { useEffect } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 
@@ -21,14 +22,15 @@ function useDocumentInternal<T extends DocumentData, V extends FirestoreRootColl
 ) {
   useFirebase()
   const { suspense } = useSWRConfig()
-  return useSWR<R.Result<W, Error>, Error, string>(
-    getCompoundKey(SwrKeys.FIRESTORE_DOCUMENT, path),
-    () =>
-      pipe(
-        getDocSnapshotFromPath,
-        andThen(pipe<[FirestoreSnapshot<T>], Promise<V>, Promise<W>>(convertDefault, mapDefault)),
-        R.fromPromise
-      )(path),
+  return useSWR(
+    { name: SwrKeyNames.FIRESTORE_DOCUMENT, data: { path } },
+    pipe(
+      prop('data'),
+      prop('path'),
+      getDocSnapshotFromPath,
+      andThen(pipe<[FirestoreSnapshot<T>], Promise<V>, Promise<W>>(convertDefault, mapDefault)),
+      R.fromPromise
+    ),
     {
       suspense: options?.suspense || suspense
     }
@@ -48,7 +50,7 @@ export function useDocument<T extends DocumentData, V extends FirestoreRootColle
 
   useEffect(() => {
     if (options?.listen) {
-      return subscribeToDocument<W>(pipe(R.fromPromise, bind(response.mutate, response)), path)
+      return subscribeToDocument<W>(pipe(R.fromPromise, bind(response.mutate, response), Void), path)
     }
     return
   }, [options, path, response])

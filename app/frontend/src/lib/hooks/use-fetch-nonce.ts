@@ -1,5 +1,5 @@
 import { ApiRoutes, getApiRouteUrl, NonceRequest, NonceResponse } from '@echo/api/dist/types'
-import { fetcher } from '@lib/services/fetcher'
+import { fetcher } from '@lib/../../../../../lib/swr/src/fetcher'
 import { isEmpty, isNil } from 'ramda'
 import useSWRImmutable from 'swr/immutable'
 

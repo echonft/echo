@@ -1,1 +1,1 @@
-export * from './get-compound-key'
+export * from './get-conditional-fetch-key'

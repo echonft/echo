@@ -1,5 +1,5 @@
 import { ApiRoutes, CreateOfferRequest, getApiRouteUrl, OfferResponse } from '@echo/api/dist/types'
-import { fetcher } from '@lib/services/fetcher'
+import { fetcher } from '@lib/../../../../../lib/swr/src/fetcher'
 import { isNil } from 'ramda'
 import useSWR from 'swr'
 

@@ -70,12 +70,15 @@ importers:
 
   app/frontend:
     specifiers:
+      '@echo/alchemy-react': workspace:*
       '@echo/api': workspace:*
       '@echo/discord': workspace:*
-      '@echo/firestore': workspace:*
+      '@echo/firebase-react': workspace:*
       '@echo/model': workspace:*
+      '@echo/swr': workspace:*
       '@echo/utils': workspace:*
       '@headlessui/react': 1.7.8
+      '@mobily/ts-belt': 4.0.0-rc.5
       '@next/eslint-plugin-next': 13.1.6
       '@types/ramda': 0.28.22
       '@types/react': 18.0.27
@@ -101,12 +104,15 @@ importers:
       tailwindcss: 3.2.4
       wagmi: 0.11.3
     dependencies:
+      '@echo/alchemy-react': link:../../lib/alchemy-react
       '@echo/api': link:../../lib/api
       '@echo/discord': link:../../lib/discord
-      '@echo/firestore': link:../../lib/firestore
+      '@echo/firebase-react': link:../../lib/firebase-react
       '@echo/model': link:../../lib/model
+      '@echo/swr': link:../../lib/swr
       '@echo/utils': link:../../lib/utils
       '@headlessui/react': 1.7.8_biqbaboplfbrettd7655fr4n2y
+      '@mobily/ts-belt': 4.0.0-rc.5
       '@usedapp/core': 1.2.2_ethers@5.7.2+react@18.2.0
       alchemy-sdk: 2.4.1
       clsx: 1.2.1
@@ -344,7 +350,21 @@ importers:
       ethers: 5.7.2
 
   lib/swr:
-    specifiers: {}
+    specifiers:
+      '@echo/api': workspace:*
+      '@echo/utils': workspace:*
+      '@mobily/ts-belt': 4.0.0-rc.5
+      '@types/ramda': 0.28.22
+      ramda: 0.28.0
+      swr: 2.0.3
+    dependencies:
+      '@echo/api': link:../api
+      '@echo/utils': link:../utils
+      '@mobily/ts-belt': 4.0.0-rc.5
+      ramda: 0.28.0
+      swr: 2.0.3_react@18.2.0
+    devDependencies:
+      '@types/ramda': 0.28.22
 
   lib/utils:
     specifiers:

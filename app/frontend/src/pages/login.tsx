@@ -1,7 +1,7 @@
 import { DiscordTokenResponse, Routes, TokenRoutePostData } from '@echo/discord/dist/types'
 import { errorMessage, logger } from '@echo/utils'
+import { fetcher } from '@lib/../../../../lib/swr/src/fetcher'
 import { getMessages, MessagesType } from '@lib/messages'
-import { fetcher } from '@lib/services/fetcher'
 import { GetServerSideProps, NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { ParsedUrlQuery } from 'querystring'

@@ -1,19 +1,26 @@
-import { Routes, UserResponse } from '@echo/discord/dist/types'
-import { fetcher } from '@lib/services/fetcher'
-import { isEmpty, isNil } from 'ramda'
+import { DiscordRoutes, DiscordUserResponse } from '@echo/discord'
+import { getConditionalFetchKey, getSecureUrl, SwrKey, SwrKeyNames } from '@echo/swr'
+import { isNilOrEmpty } from '@echo/utils'
+import { R } from '@mobily/ts-belt'
+import { always, converge, join, or, pipe, prop, props } from 'ramda'
 import useSWRImmutable from 'swr/immutable'
 
-interface Key {
-  accessToken: string
-  tokenType: string
+interface KeyData {
+  url: string
+  accessToken: string | undefined
+  tokenType: string | undefined
 }
-// TODO Use Result
+
 export function useFetchDiscordUser(accessToken: string | undefined, tokenType: string | undefined) {
-  const { data, error } = useSWRImmutable<UserResponse, Error, [Routes, Key] | undefined>(
-    !isNil(accessToken) && !isEmpty(accessToken) && !isNil(tokenType) && !isEmpty(tokenType)
-      ? [Routes.USER, { accessToken, tokenType }]
-      : undefined,
-    (url, data) => fetcher(url, undefined, { headers: { authorization: `${data.tokenType} ${data.accessToken}` } })
+  const { data, error } = useSWRImmutable<R.Result<DiscordUserResponse, Error>, Error, SwrKey<KeyData> | undefined>(
+    getConditionalFetchKey<KeyData>(
+      { name: SwrKeyNames.DISCORD_USER_ME, data: { url: DiscordRoutes.USER, accessToken, tokenType } },
+      always(or(isNilOrEmpty(accessToken), isNilOrEmpty(tokenType)))
+    ),
+    pipe(
+      prop('data'),
+      converge(getSecureUrl<DiscordUserResponse>, [prop('url'), pipe(props(['tokenType', 'accessToken']), join(' '))])
+    )
   )
   return { data, error }
 }

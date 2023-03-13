@@ -1,9 +1,9 @@
 import { useAlchemy } from '@components/providers/alchemy-provider'
 import { Nft } from '@echo/model'
+import { laggy } from '@lib/../../../../../../../lib/swr/src/utils/laggy'
 import { FetchContractsNftsError } from '@lib/services/alchemy/errors/fetch-error'
 import { mapNftResponseToErc721 } from '@lib/services/alchemy/mappers/map-owned-nft-response'
 import { failureResult, Result, successfulResult } from '@lib/services/swr/models/result'
-import { laggy } from '@lib/services/swr/utils/laggy'
 import { flatten, isEmpty, isNil } from 'ramda'
 import useSWR from 'swr'
 

@@ -18,12 +18,15 @@
     "update-modules": "ncu -u"
   },
   "dependencies": {
+    "@echo/alchemy-react": "workspace:*",
     "@echo/api": "workspace:*",
     "@echo/discord": "workspace:*",
-    "@echo/firestore": "workspace:*",
+    "@echo/firebase-react": "workspace:*",
     "@echo/model": "workspace:*",
+    "@echo/swr": "workspace:*",
     "@echo/utils": "workspace:*",
     "@headlessui/react": "1.7.8",
+    "@mobily/ts-belt": "4.0.0-rc.5",
     "@usedapp/core": "1.2.2",
     "alchemy-sdk": "2.4.1",
     "clsx": "1.2.1",

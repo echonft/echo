@@ -1,2 +1,2 @@
-export * from './token-response'
-export * from './user-response'
+export * from './discord-token-response'
+export * from './discord-user-response'
