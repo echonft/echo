@@ -6,6 +6,7 @@ import { errorMessage, logger } from '@echo/utils'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
+// TODO Might not be needed
 export function listenToListings(client: Client) {
   listenToListing((listing, change) => {
     try {
