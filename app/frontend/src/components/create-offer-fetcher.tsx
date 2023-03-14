@@ -1,7 +1,7 @@
-import { CreateOffer } from '@components/create-offer'
 import { useDiscordGuild } from '@echo/firebase-react'
+import { R } from '@mobily/ts-belt'
 import { useTranslations } from 'next-intl'
-import { isEmpty, isNil } from 'ramda'
+import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
@@ -10,15 +10,13 @@ interface Props {
 
 export const CreateOfferFetcher: FunctionComponent<Props> = ({ collectionId }) => {
   const t = useTranslations('CreateOffer')
-  const collectionResult = useDiscordGuild(collectionId)
-  if (isNil(collectionResult)) {
+  const { isLoading, data: result } = useDiscordGuild(collectionId)
+  if (isLoading) {
     return <span>{t('loading')}</span>
   }
-  if (collectionResult.successful) {
-    if (isEmpty(collectionResult.data?.contractAddresses)) {
-      return <span>{t('error-collection')}</span>
-    }
-    return <CreateOffer collection={collectionResult.data!} />
+  // FIXME
+  if (!isNil(result) && R.isOk(result)) {
+    return null
   }
   return <span>{t('error-fetching')}</span>
 }

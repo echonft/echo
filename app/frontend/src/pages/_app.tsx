@@ -1,7 +1,5 @@
 import '../styles/globals.css'
 import { AlchemyProvider } from '@components/providers/alchemy-provider'
-import { FirebaseProvider } from '@components/providers/firebase-provider'
-import { firebaseOptions } from '@echo/firebase'
 import { MessagesType } from '@lib/messages'
 import { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
@@ -24,13 +22,11 @@ function MyApp({ Component, pageProps }: AppProps<PageProps>) {
   return (
     <DynamicWagmiProvider>
       <DynamicConnectKitProvider>
-        <FirebaseProvider options={firebaseOptions}>
-          <AlchemyProvider>
-            <NextIntlProvider timeZone={'America/New_York'} messages={pageProps.messages}>
-              <Component {...pageProps} />
-            </NextIntlProvider>
-          </AlchemyProvider>
-        </FirebaseProvider>
+        <AlchemyProvider>
+          <NextIntlProvider timeZone={'America/New_York'} messages={pageProps.messages}>
+            <Component {...pageProps} />
+          </NextIntlProvider>
+        </AlchemyProvider>
       </DynamicConnectKitProvider>
     </DynamicWagmiProvider>
   )

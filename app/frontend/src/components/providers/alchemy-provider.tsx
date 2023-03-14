@@ -1,15 +1,16 @@
+import { chainId } from '@echo/utils'
 import { config } from '@lib/config/config'
-import { getAlchemyChain } from '@lib/services/alchemy/utils/chain'
-import { Alchemy } from 'alchemy-sdk'
+import { Alchemy, Network } from 'alchemy-sdk'
 import { createContext, FunctionComponent, PropsWithChildren, useContext, useMemo } from 'react'
 
 const alchemyContext = createContext<Alchemy | null>(null)
 
 export const AlchemyProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
   const alchemy = useMemo(() => {
+    // FIXME create a mapper for chain id => Network
     const settings = {
       apiKey: config.alchemyKey,
-      network: getAlchemyChain()
+      network: chainId() === 1 ? Network.ETH_MAINNET : Network.ETH_GOERLI
     }
 
     return new Alchemy(settings)
