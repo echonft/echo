@@ -1,10 +1,21 @@
 module.exports = {
   root: true,
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'turbo', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'turbo',
+    'prettier'
+  ],
   parser: '@typescript-eslint/parser',
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: ['./app/*/tsconfig.json', './lib/*/tsconfig.json']
+  },
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   rules: {
-    'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -21,13 +32,11 @@ module.exports = {
         groups: []
       }
     ],
+    '@typescript-eslint/no-explicit-any': 'error',
     'simple-import-sort/exports': 'error',
-    '@typescript-eslint/no-unnecessary-type-constraint': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    'no-undef': 'off',
-    'no-console': 'warn',
-    'import/no-unresolved': 'off',
-    'turbo/no-undeclared-env-vars': 'off'
+    'no-console': 'error',
+    'no-case-declarations': 'off',
+    'import/no-unresolved': 'off'
   },
   settings: {
     'import/resolver': {

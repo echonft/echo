@@ -3,44 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "scripts": {
-    "dev": "pnpm build --watch",
-    "build": "rm -f tsconfig.tsbuildinfo && rm -fr dist/* && tsc",
-    "lint": "eslint --cache --fix \"src/**/*.ts\"",
-    "prettier": "prettier --write \"src/**/*.ts\"",
-    "tsc": "tsc --noEmit",
-    "update-packages": "ncu -u",
-    "clean": "rm -rf tsconfig.tsbuildinfo dist node_modules"
-  },
-  "sideEffects": false,
   "type": "module",
-  "exports": {
-    "./*": [
-      "./dist/*.js"
-    ]
+  "sideEffects": false,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "ci:lint": "eslint \"src/**/*.ts\"",
+    "ci:prettier": "prettier \"src/**/*.ts\"",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch",
+    "lint": "eslint --cache --fix \"src/**/*.ts\"",
+    "lint:clean-cache": "rm -f .eslintcache",
+    "remove-modules": "rm -rf node_modules",
+    "tsc": "tsc --noEmit",
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
+    "update-modules": "ncu -u"
   },
-  "typesVersions": {
-    "*": {
-      "*": [
-        "src/*"
-      ]
-    }
-  },
-  "publishConfig": {
-    "typesVersions": {
-      "*": {
-        "*": [
-          "dist/*.d.ts"
-        ]
-      }
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "dependencies": {},
-  "devDependencies": {
-    "eslint-plugin-import": "2.26.0",
-    "typescript": "4.9.3"
+  "dependencies": {
+    "dayjs": "1.11.7",
+    "ethers": "5.7.2"
   }
 }

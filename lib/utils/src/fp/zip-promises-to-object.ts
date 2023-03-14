@@ -1,0 +1,4 @@
+import { zipObject } from './zip-object'
+import { andThen } from 'ramda'
+
+export const zipPromisesToObject = <T>(keys: (keyof T)[]) => andThen(zipObject<T>(keys))
