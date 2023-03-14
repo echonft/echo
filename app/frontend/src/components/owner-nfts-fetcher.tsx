@@ -1,6 +1,6 @@
 import { NftList } from '@components/nft-list'
 import { Nft } from '@echo/model'
-import { useGetCollectionNftsForOwner } from '@lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
+import { useGuildNftsForUser } from '@lib/../../../../lib/alchemy-react/src/hooks/use-guild-nfts-for-user'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
@@ -13,7 +13,7 @@ interface Props {
 
 export const OwnerNftsFetcher: FunctionComponent<Props> = ({ contractAddresses, selected, onSelect }) => {
   const t = useTranslations('Nfts')
-  const nfts = useGetCollectionNftsForOwner(contractAddresses)
+  const nfts = useGuildNftsForUser(contractAddresses)
   if (isNil(nfts)) {
     return <span>{t('loading')}</span>
   }

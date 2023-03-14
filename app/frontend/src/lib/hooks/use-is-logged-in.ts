@@ -1,4 +1,4 @@
-import { useGetFirebaseAuth } from '@lib/services/firebase/hooks/use-get-firebase-auth'
+import { useGetFirebaseAuth } from '@lib/../../../../../lib/firebase-react/src/hooks/use-get-firebase-auth'
 import { isNil } from 'ramda'
 import { useEffect, useState } from 'react'
 
@@ -8,7 +8,7 @@ export function useIsLoggedIn() {
 
   useEffect(() => {
     if (!isNil(auth) && isNil(error)) {
-      setIsLoggedIn(isNil(error) && !isNil(auth?.currentUser))
+      setIsLoggedIn(!isNil(auth?.currentUser))
     }
   }, [auth, error])
   return isLoggedIn

@@ -1,15 +1,11 @@
 import { firebaseConfig } from '@echo/firestore'
-import { getApps, initializeApp } from 'firebase/app'
-import { isEmpty } from 'ramda'
+import { FirebaseApp, getApps, initializeApp } from 'firebase/app'
+import { always, anyPass, head, ifElse, isEmpty, isNil, pipe } from 'ramda'
 
-export const useFirebase = (): void => {
-  if (isEmpty(getApps())) {
-    initializeApp(firebaseConfig)
-    // TODO not needed for now, but will be when users can write to Firestore
-    // getAuth(firebaseApp)
-    //   .setPersistence(browserLocalPersistence)
-    //   .catch((error) => {
-    //     logger.error(`Can't set persistence on Firebase Auth: ${errorMessage(error)}`)
-    //   })
-  }
-}
+export const useFirebase: () => FirebaseApp = always<FirebaseApp>(
+  ifElse<[FirebaseApp[]], FirebaseApp, FirebaseApp>(
+    anyPass([isEmpty, pipe(head, isNil)]),
+    always(initializeApp(firebaseConfig)),
+    head
+  )(getApps())
+)

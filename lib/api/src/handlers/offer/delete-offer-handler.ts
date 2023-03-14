@@ -1,8 +1,11 @@
-import { OfferResponse } from '../../types'
+import { CreateOfferResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { DeleteOfferApiRequest } from '../../types/models/api-requests/delete-offer-api-request'
 
-export const deleteOfferHandler: RequestHandler<DeleteOfferApiRequest, OfferResponse> = (_req, _res): Promise<void> => {
+export const deleteOfferHandler: RequestHandler<DeleteOfferApiRequest, CreateOfferResponse> = (
+  _req,
+  _res
+): Promise<void> => {
   // const { userId, offerId } = req.body
   // const offer = await getOffer(offerId)
   // if (offer.owner.id !== userId) {

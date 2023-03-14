@@ -1,17 +1,23 @@
 import { UseCollectionOptions } from '../types'
 import { convertDefault, getCollectionQueryFromPath, getDocsFromQuery, subscribeToQuery } from '@echo/firestore'
 import { mapDefault } from '@echo/firestore/dist/utils/mapper/map-default'
-import { SwrKeyNames } from '@echo/swr'
-import { castAs, promiseAll, Void } from '@echo/utils'
+import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
+import { castAs, isNilOrEmpty, promiseAll, Void } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { andThen, bind, ifElse, isEmpty, isNil, map, partialRight, pipe, prop } from 'ramda'
+import { always, andThen, bind, ifElse, isEmpty, isNil, map, partialRight, pipe, prop } from 'ramda'
 import { useEffect } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 
-function useCollectionInternal<W>(path: string, options?: UseCollectionOptions) {
+interface KeyData {
+  path: string | undefined
+}
+function useCollectionInternal<W>(path: string | undefined, options?: UseCollectionOptions) {
   const { suspense } = useSWRConfig()
-  return useSWR(
-    { name: SwrKeyNames.FIRESTORE_COLLECTION, data: { path } },
+  return useSWR<R.Result<W[], Error>, Error, SwrKey<KeyData> | undefined>(
+    getConditionalFetchKey<KeyData>(
+      { name: SwrKeyNames.FIRESTORE_COLLECTION, data: { path } },
+      always(isNilOrEmpty(path))
+    ),
     pipe(
       prop('data'),
       prop('path'),

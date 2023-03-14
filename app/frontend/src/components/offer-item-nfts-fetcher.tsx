@@ -1,6 +1,6 @@
 import { NftList } from '@components/nft-list'
 import { OfferItem, OfferType } from '@echo/model'
-import { useGetNftsForItems } from '@lib/services/alchemy/hooks/use-get-nfts-for-items'
+import { useGetNftsForItems } from '@lib/../../../../lib/alchemy-react/src/hooks/use-get-nfts-for-items'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil, join } from 'ramda'

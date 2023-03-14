@@ -1,31 +1,60 @@
 import { ApiRoutes, getApiRouteUrl, LoginRequest, LoginResponse } from '@echo/api/dist/types'
-import { fetcher } from '@lib/../../../../../lib/swr/src/fetcher'
+import { getConditionalFetchKey, postData, SwrKey, SwrKeyNames } from '@echo/swr'
+import { castAs, isNilOrEmpty } from '@echo/utils'
 import { useFetchDiscordUser } from '@lib/hooks/use-fetch-discord-user'
-import { isEmpty, isNil } from 'ramda'
+import { R } from '@mobily/ts-belt'
+import { always, converge, isNil, path, pipe } from 'ramda'
 import useSWR from 'swr'
 
-// TODO Use Result
-export function useLogin(
+interface KeyData {
+  url: string
+  request: LoginRequest | undefined
+}
+export const useLogin = (
   accessToken: string | undefined,
   tokenType: string | undefined,
   address: string | undefined,
   message: string | undefined,
   signature: string | undefined
-) {
-  const { data: discordUser, error: discordUserError } = useFetchDiscordUser(accessToken, tokenType)
-  const { data, error } = useSWR<LoginResponse, Error, [string, LoginRequest] | undefined>(
-    !isNil(discordUser) &&
-      !isNil(address) &&
-      !isEmpty(address) &&
-      !isNil(message) &&
-      !isEmpty(message) &&
-      !isNil(signature) &&
-      !isEmpty(signature)
-      ? [getApiRouteUrl(ApiRoutes.LOGIN), { signature, address, message, discordId: discordUser.id }]
-      : undefined,
-    fetcher
+) => {
+  const { data: discordUserResult } = useFetchDiscordUser(accessToken, tokenType)
+  const skipFetchCondition = always(
+    isNilOrEmpty(address) ||
+      isNilOrEmpty(address) ||
+      isNilOrEmpty(signature) ||
+      isNil(discordUserResult) ||
+      R.isError(discordUserResult)
   )
-  return { data, error: error || discordUserError }
+  return useSWR<R.Result<LoginResponse, Error>, Error, SwrKey<KeyData> | undefined>(
+    getConditionalFetchKey<KeyData>(
+      {
+        name: SwrKeyNames.API_LOGIN,
+        data: {
+          url: getApiRouteUrl(ApiRoutes.LOGIN),
+          request: skipFetchCondition()
+            ? undefined
+            : {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                message: message!,
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                signature: signature!,
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                address: address!,
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                discordId: R.getExn(discordUserResult!).id
+              }
+        }
+      },
+      skipFetchCondition
+    ),
+    converge<
+      Promise<R.Result<LoginResponse, Error>>,
+      [(key: SwrKey<KeyData>) => string, (key: SwrKey<KeyData>) => LoginRequest]
+    >(
+      (url: string, data: LoginRequest) => postData<LoginResponse, LoginRequest>(url, data),
+      [pipe(path(['data', 'url']), castAs<string>), pipe(path(['data', 'request']), castAs<LoginRequest>)]
+    )
+  )
 }
 
 /**
@@ -33,23 +62,39 @@ export function useLogin(
  * @param address The wallet address
  * @param message The message that was signed
  * @param signature The signature of the message
- * TODO Use Result
  */
 export function useLoginWithoutDiscord(
   address: string | undefined,
   message: string | undefined,
   signature: string | undefined
 ) {
-  const { data, error } = useSWR<LoginResponse, Error, [string, LoginRequest] | undefined>(
-    !isNil(address) &&
-      !isEmpty(address) &&
-      !isNil(message) &&
-      !isEmpty(message) &&
-      !isNil(signature) &&
-      !isEmpty(signature)
-      ? [getApiRouteUrl(ApiRoutes.LOGIN), { signature, address, message }]
-      : undefined,
-    fetcher
+  const skipFetchCondition = always(isNilOrEmpty(address) || isNilOrEmpty(address) || isNilOrEmpty(signature))
+  return useSWR<R.Result<LoginResponse, Error>, Error, SwrKey<KeyData> | undefined>(
+    getConditionalFetchKey<KeyData>(
+      {
+        name: SwrKeyNames.API_LOGIN_WITHOUT_DISCORD,
+        data: {
+          url: getApiRouteUrl(ApiRoutes.LOGIN),
+          request: skipFetchCondition()
+            ? undefined
+            : {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                message: message!,
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                signature: signature!,
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                address: address!
+              }
+        }
+      },
+      skipFetchCondition
+    ),
+    converge<
+      Promise<R.Result<LoginResponse, Error>>,
+      [(key: SwrKey<KeyData>) => string, (key: SwrKey<KeyData>) => LoginRequest]
+    >(
+      (url: string, data: LoginRequest) => postData<LoginResponse, LoginRequest>(url, data),
+      [pipe(path(['data', 'url']), castAs<string>), pipe(path(['data', 'request']), castAs<LoginRequest>)]
+    )
   )
-  return { data, error }
 }

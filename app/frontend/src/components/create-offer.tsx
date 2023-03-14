@@ -1,7 +1,7 @@
 import { CreateOfferSell } from '@components/create-offer-sell'
+import { useNftsForUser } from '@echo/alchemy-react'
 import { DiscordGuild, OfferType } from '@echo/model'
 import { Listbox } from '@headlessui/react'
-import { useGetCollectionNftsForOwner } from '@lib/services/alchemy/hooks/use-get-collection-nfts-for-owner'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { head, isEmpty, isNil } from 'ramda'
@@ -21,7 +21,8 @@ function titleForOfferType(type: OfferType) {
 
 export const CreateOffer: FunctionComponent<Props> = ({ collection }) => {
   const t = useTranslations('CreateOffer')
-  const nfts = useGetCollectionNftsForOwner(collection.contractAddresses)
+  // TODO
+  const nfts = useNftsForUser('my address', { contractAddresses: collection.contractAddresses })
   const choices = Object.values(OfferType)
   const [selectedChoice, setSelectedChoice] = useState<OfferType>(head(choices)!)
   return (

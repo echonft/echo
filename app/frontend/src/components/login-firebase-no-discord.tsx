@@ -1,6 +1,6 @@
 import { logger } from '@echo/utils'
+import { useSignInWithFirebase } from '@lib/../../../../lib/firebase-react/src/hooks/use-sign-in-with-firebase'
 import { useLoginWithoutDiscord } from '@lib/hooks/use-login'
-import { useSignInWithFirebase } from '@lib/services/firebase/hooks/use-sign-in-with-firebase'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 import { useAccount } from 'wagmi'

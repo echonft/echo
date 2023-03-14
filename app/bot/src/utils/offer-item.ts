@@ -1,6 +1,6 @@
 import { OfferItem } from '@echo/model'
-import { castAs, isNilOrEmpty, returns } from '@echo/utils'
-import { ifElse, join, juxt, map, path, pipe, prop } from 'ramda'
+import { castAs, isNilOrEmpty } from '@echo/utils'
+import { always, ifElse, join, juxt, map, path, pipe, prop } from 'ramda'
 
 // TODO This logic might need to be reviewed
 export const stringForOfferItems: (items: OfferItem[] | undefined) => string = ifElse<
@@ -9,6 +9,6 @@ export const stringForOfferItems: (items: OfferItem[] | undefined) => string = i
   string
 >(
   isNilOrEmpty,
-  returns('Any NFT'),
+  always('Any NFT'),
   pipe(castAs, map(pipe(juxt([prop('tokenId'), path(['contract', 'address'])]), join(':'))), join(','))
 )

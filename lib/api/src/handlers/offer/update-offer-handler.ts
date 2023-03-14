@@ -1,8 +1,11 @@
-import { OfferResponse } from '../../types'
+import { CreateOfferResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { UpdateOfferApiRequest } from '../../types/models/api-requests/update-offer-api-request'
 
-export const updateOfferHandler: RequestHandler<UpdateOfferApiRequest, OfferResponse> = (_req, _res): Promise<void> => {
+export const updateOfferHandler: RequestHandler<UpdateOfferApiRequest, CreateOfferResponse> = (
+  _req,
+  _res
+): Promise<void> => {
   // const { userId, offerId, ownerItems, counterpartyItems } = req.body
   // const offer = await getOffer(offerId)
   // if (offer.owner.id !== userId) {

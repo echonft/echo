@@ -1,5 +1,5 @@
 import { CreateOffer } from '@components/create-offer'
-import { useFetchCollection } from '@lib/services/firebase/hooks/use-fetch-collection'
+import { useDiscordGuild } from '@echo/firebase-react'
 import { useTranslations } from 'next-intl'
 import { isEmpty, isNil } from 'ramda'
 import { FunctionComponent } from 'react'
@@ -10,7 +10,7 @@ interface Props {
 
 export const CreateOfferFetcher: FunctionComponent<Props> = ({ collectionId }) => {
   const t = useTranslations('CreateOffer')
-  const collectionResult = useFetchCollection(collectionId)
+  const collectionResult = useDiscordGuild(collectionId)
   if (isNil(collectionResult)) {
     return <span>{t('loading')}</span>
   }

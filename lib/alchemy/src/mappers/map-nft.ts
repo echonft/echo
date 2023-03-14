@@ -1,4 +1,4 @@
-import { AlchemyOwnedNft } from '../types'
+import { AlchemyNft } from '../types'
 import { mapDate } from './map-date'
 import { mapNftAttribute } from './map-nft-attribute'
 import { mapNftCollection } from './map-nft-collection'
@@ -6,14 +6,15 @@ import { mapNftMedia } from './map-nft-media'
 import { mapNftTokenUri } from './map-nft-token-uri'
 import { NftAttribute } from '@echo/model'
 import { applySpec, applyToNullableProp, applyToProp } from '@echo/utils'
-import { OwnedNft } from 'alchemy-sdk'
+import { Nft } from 'alchemy-sdk'
 import { NftMetadata } from 'alchemy-sdk/dist/src/types/types'
 import { BigNumber } from 'ethers'
-import { ifElse, isNil, join, juxt, map, path, pipe, prop } from 'ramda'
+import { always, bind, ifElse, isNil, join, juxt, map, path, pipe, prop, tap } from 'ramda'
 
-export const mapNft: (nft: OwnedNft) => AlchemyOwnedNft = applySpec<OwnedNft, AlchemyOwnedNft>({
+export const mapNft: (nft: Nft) => AlchemyNft = applySpec<Nft, AlchemyNft>({
   id: pipe(juxt([path(['contract', 'address']), prop('tokenId')]), join(':')),
-  tokenId: applyToProp('tokenId', (tokenId: string) => BigNumber.from(tokenId)),
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  tokenId: applyToProp('tokenId', tap(bind(BigNumber.from, BigNumber))),
   title: prop('title'),
   description: prop('description'),
   timeLastUpdated: applyToProp('timeLastUpdated', mapDate),
@@ -25,12 +26,11 @@ export const mapNft: (nft: OwnedNft) => AlchemyOwnedNft = applySpec<OwnedNft, Al
     prop<NftMetadata>('rawMetadata'),
     ifElse<NftMetadata[], NftAttribute[], NftAttribute[]>(
       isNil,
-      () => [],
+      always([]),
       pipe(
         prop<Array<Record<string, never>>>('attributes'),
         ifElse<[Array<Record<string, never>>], NftAttribute[], NftAttribute[]>(isNil, () => [], map(mapNftAttribute))
       )
     )
-  ),
-  balance: prop('balance')
+  )
 })
