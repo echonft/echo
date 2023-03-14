@@ -8,13 +8,11 @@ import { NftAttribute } from '@echo/model'
 import { applySpec, applyToNullableProp, applyToProp } from '@echo/utils'
 import { Nft } from 'alchemy-sdk'
 import { NftMetadata } from 'alchemy-sdk/dist/src/types/types'
-import { BigNumber } from 'ethers'
-import { always, bind, ifElse, isNil, join, juxt, map, path, pipe, prop, tap } from 'ramda'
+import { always, ifElse, isNil, join, juxt, map, path, pipe, prop } from 'ramda'
 
 export const mapNft: (nft: Nft) => AlchemyNft = applySpec<Nft, AlchemyNft>({
   id: pipe(juxt([path(['contract', 'address']), prop('tokenId')]), join(':')),
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  tokenId: applyToProp('tokenId', tap(bind(BigNumber.from, BigNumber))),
+  tokenId: applyToProp('tokenId', (tokenId) => BigInt(tokenId)),
   title: prop('title'),
   description: prop('description'),
   timeLastUpdated: applyToProp('timeLastUpdated', mapDate),

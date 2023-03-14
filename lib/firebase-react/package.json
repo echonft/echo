@@ -32,12 +32,12 @@
     "@echo/swr": "workspace:*",
     "@echo/utils": "workspace:*",
     "@mobily/ts-belt": "4.0.0-rc.5",
-    "firebase": "9.16.0",
+    "firebase": "9.17.2",
     "ramda": "0.28.0",
-    "swr": "2.0.3"
+    "swr": "2.1.0"
   },
   "devDependencies": {
-    "@types/ramda": "0.28.22",
-    "@types/react": "18.0.27"
+    "@types/ramda": "0.28.23",
+    "@types/react": "18.0.28"
   }
 }

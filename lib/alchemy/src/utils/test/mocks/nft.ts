@@ -1,7 +1,6 @@
 import { AlchemyNft } from '../../../types'
 import { mockedCollection } from './nft-collection'
 import dayjs from 'dayjs'
-import { BigNumber } from 'ethers'
 
 export const mockedNft: AlchemyNft = {
   collection: mockedCollection,
@@ -47,7 +46,7 @@ export const mockedNft: AlchemyNft = {
   ],
   spamInfo: undefined,
   timeLastUpdated: dayjs(),
-  tokenId: BigNumber.from('0x0000000000000000000000000000000000000000000000000000000000000000'),
+  tokenId: BigInt('0x0000000000000000000000000000000000000000000000000000000000000000'),
   tokenUri: {
     raw: new URL('ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/0'),
     gateway: new URL('https://ipfs.io/ipfs/QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/0')

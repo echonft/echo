@@ -5,7 +5,6 @@ import { swaps } from '../swap/swap'
 import { users } from '../user/user'
 import { RequestForOffer, RequestForOfferState } from '@echo/model'
 import dayjs from 'dayjs'
-import { BigNumber } from 'ethers'
 
 export const requestsForOffer: { [key: string]: RequestForOffer } = {
   jUzMtPGKM62mMhEcmbN4: {
@@ -15,7 +14,7 @@ export const requestsForOffer: { [key: string]: RequestForOffer } = {
     items: [
       {
         contract: contracts['37dBlwJYahEAKeL0rNP8']!,
-        tokenId: BigNumber.from('0x0000000000000000000000000000000000000000000000000000000000000001'),
+        tokenId: BigInt('0x0000000000000000000000000000000000000000000000000000000000000001'),
         balance: undefined
       }
     ],

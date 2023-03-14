@@ -5,7 +5,7 @@ import { NonceApiRequest } from '../types/models/api-requests/nonce-api-request'
 import { withMethodValidation } from '../utils/with-method-validation'
 import { addUser, findUserByWallet } from '@echo/firebase-admin'
 import { R } from '@mobily/ts-belt'
-import { getAddress } from 'ethers/lib/utils'
+import { getAddress } from 'ethers'
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { generateNonce } from 'siwe'
 

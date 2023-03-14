@@ -21,7 +21,6 @@
     "update-modules": "ncu -u"
   },
   "dependencies": {
-    "dayjs": "1.11.7",
-    "ethers": "5.7.2"
+    "dayjs": "1.11.7"
   }
 }
