@@ -6,7 +6,7 @@ import { atIndex, castAs, promiseAll, toPromise } from '@echo/utils'
 import { DocumentChange, QueryDocumentSnapshot } from '@google-cloud/firestore'
 import { andThen, converge, forEach, head, isNil, juxt, pipe, prop, unless } from 'ramda'
 
-export function listenToOffer(onChange: (offer: Offer, change: DocumentChange<FirestoreOffer>) => void) {
+export function listenToListing(onChange: (offer: Offer, change: DocumentChange<FirestoreOffer>) => void) {
   getCollectionFromPath<FirestoreOffer>('offers').onSnapshot((snapshot) => {
     forEach(
       unless(
