@@ -8,9 +8,9 @@ import { isNil } from 'ramda'
 
 // TODO Might not be needed
 export function listenToListings(client: Client) {
-  listenToListing((listing, change) => {
+  listenToListing(async (listing, change) => {
     try {
-      const channel = getDiscordChannel(client, listing.discordGuild.channelId)
+      const channel = await getDiscordChannel(client, listing.discordGuild.channelId)
       if (change.type === 'added' && isNil(listing.postedAt)) {
         // TODO Add proper offer management (buyer/seller and items)
         void channel
@@ -19,7 +19,9 @@ export function listenToListings(client: Client) {
             components: [buildNewListingButtons(listing)],
             embeds: [buildListingEmbed(listing)]
           })
-          .then(() => change.doc.ref.set({ ...change.doc.data(), postedAt: new Date().getTime() }))
+          .then(() => {
+            void change.doc.ref.set({ ...change.doc.data(), postedAt: new Date().getTime() })
+          })
           .catch((error) => {
             logger.error(`Error sending listing ${listing.id} to channel ${channel.id}: ${errorMessage(error)}`)
           })

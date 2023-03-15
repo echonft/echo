@@ -1,6 +1,5 @@
 import { useAlchemy } from '../provider'
-import { AlchemyOwnedNft } from '@echo/alchemy'
-import { mapOwnedNft } from '@echo/alchemy/dist/mappers/map-owned-nft'
+import { AlchemyOwnedNft, mapOwnedNft } from '@echo/alchemy'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { isNilOrEmpty, promiseAll } from '@echo/utils'
 import { R } from '@mobily/ts-belt'

@@ -1,5 +1,5 @@
 import { linkForListing } from '../utils/listing'
-import { stringForListingItems } from '../utils/listing-item'
+import { stringForListingItems } from '../utils/string-for-listing-items'
 import { Offer, OfferItem } from '@echo/model'
 import { APIEmbedField, EmbedBuilder } from 'discord.js'
 

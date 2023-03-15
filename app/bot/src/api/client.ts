@@ -9,11 +9,7 @@ export function fetchApi<T>(
   query?: Record<string, string>
 ): Promise<T> {
   const opt = { method, headers: { accept: 'application/json' }, ...options }
-  // TODO Change the castAs typing with new codebase
-  return pipe(fetch, andThen(pipe(invoker(0, 'json'), call, castAs<unknown, T>)))(
-    getApiWithQueryString(route, query),
-    opt
-  )
+  return pipe(fetch, andThen(pipe(invoker(0, 'json'), call, castAs<T>)))(getApiWithQueryString(route, query), opt)
 }
 
 const getApiWithQueryString = (route: ApiRoutes, query?: Record<string, string>) => {

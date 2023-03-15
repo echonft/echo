@@ -2,7 +2,10 @@ import { getDiscordChannel } from '../discord'
 import { describe, expect, jest, test } from '@jest/globals'
 import { Client } from 'discord.js'
 
-function mockDiscordWithChannels(mockCachedChannels?: Map<string, string>, mockFetchedChannels?: Map<string, string>) {
+function mockDiscordWithChannels(
+  _mockCachedChannels?: Map<string, string>,
+  _mockFetchedChannels?: Map<string, string>
+) {
   jest.mock('discord.js', () => {
     return {
       Client: jest.fn(() => ({

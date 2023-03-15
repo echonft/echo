@@ -14,31 +14,16 @@ export const createListingSubcommand = (subCommand: SlashCommandSubcommandBuilde
   subCommand.setName('create').setDescription('Create a listing')
 
 // TODO Must have a cleaner way to use ramda here
-export const executeCreateListing: (interaction: CommandInteraction) => Promise<InteractionResponse> = ifElse<
-  [CommandInteraction],
-  Promise<InteractionResponse>,
-  Promise<InteractionResponse>
->(
+export const executeCreateListing: (interaction: CommandInteraction) => Promise<InteractionResponse> = ifElse(
   pipe(prop('guildId'), isNilOrEmpty),
   (interaction: CommandInteraction) => new NoGuildIdError().reply(interaction),
-  pipe<
-    [CommandInteraction],
-    [Promise<CommandInteraction>, Promise<boolean>],
-    Promise<[CommandInteraction, boolean]>,
-    Promise<InteractionResponse>
-  >(
-    juxt([
-      toPromise,
-      converge(getHasNft, [
-        pipe<[CommandInteraction], string | undefined, string>(path(['user', 'id']), castAs),
-        prop('guildId')
-      ])
-    ]),
+  pipe(
+    juxt([toPromise, converge(getHasNft, [pipe(path(['user', 'id']), castAs), prop('guildId')])]),
     (promises) => Promise.all(promises),
-    andThen<[CommandInteraction, boolean], InteractionResponse>(
-      ifElse<[[CommandInteraction, boolean]], Promise<InteractionResponse>, Promise<InteractionResponse>>(
+    andThen(
+      ifElse(
         last,
-        pipe<[[CommandInteraction, boolean]], CommandInteraction, Promise<InteractionResponse>>(
+        pipe(
           head,
           converge(call, [
             invoker(1, 'reply'),
@@ -48,7 +33,7 @@ export const executeCreateListing: (interaction: CommandInteraction) => Promise<
             })
           ])
         ),
-        pipe<[[CommandInteraction, boolean]], CommandInteraction, Promise<InteractionResponse>>(
+        pipe(
           head,
           converge(call, [
             invoker(1, 'reply'),

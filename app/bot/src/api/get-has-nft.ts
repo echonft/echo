@@ -1,6 +1,5 @@
 import { fetchApi } from './client'
-import { ApiRoutes } from '@echo/api'
-import { UserHasNftResponse } from '@echo/api/dist/types/models/responses/user-has-nft-response'
+import { ApiRoutes, UserHasNftResponse } from '@echo/api'
 import { R } from '@mobily/ts-belt'
 import { pipe } from 'ramda'
 
