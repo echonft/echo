@@ -1,5 +1,5 @@
 import { DiscordRoutes, DiscordUserResponse } from '@echo/discord'
-import { getConditionalFetchKey, getSecureUrl, SwrKey, SwrKeyNames } from '@echo/swr'
+import { getConditionalFetchKey, getUrl, SwrKey, SwrKeyNames } from '@echo/swr'
 import { isNilOrEmpty } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { always, converge, join, or, pipe, prop, props } from 'ramda'
@@ -20,7 +20,7 @@ export const useFetchDiscordUser = (accessToken: string | undefined, tokenType: 
     pipe(
       prop('data'),
       converge(
-        (url: string, authorization: string) => getSecureUrl<DiscordUserResponse>(url, authorization),
+        (url: string, authorization: string) => getUrl<DiscordUserResponse>(url, authorization),
         [prop('url'), pipe(props(['tokenType', 'accessToken']), join(' '))]
       )
     )

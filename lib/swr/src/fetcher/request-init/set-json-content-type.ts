@@ -1,8 +1,7 @@
-import { assoc, assocPath, has, ifElse } from 'ramda'
+import { allPass, assoc, assocPath, complement, has, ifElse, isNil, pipe, prop } from 'ramda'
 
-export const setJsonContentType = (requestInit: RequestInit): RequestInit =>
-  ifElse<[RequestInit], RequestInit, RequestInit>(
-    has('headers'),
-    assocPath(['headers', 'Content-Type'], 'application/json'),
-    assoc('headers', { 'Content-Type': 'application/json' })
-  )(requestInit)
+export const setJsonContentType = ifElse<[RequestInit], RequestInit, RequestInit>(
+  allPass([has('headers'), pipe(prop('headers'), complement(isNil))]),
+  assocPath(['headers', 'Content-Type'], 'application/json'),
+  assoc('headers', { 'Content-Type': 'application/json' })
+)
