@@ -1,18 +1,26 @@
-import { InvalidChannelIdError } from '../../errors/invalid-channel-id-error'
 import { getDiscordChannel } from '../discord'
-import { beforeEach, describe, expect, jest, test } from '@jest/globals'
-import { ChannelManager, Client } from 'discord.js'
+import { describe, expect, jest, test } from '@jest/globals'
+import { Client } from 'discord.js'
 
-jest.mock('discord.js')
+function mockDiscordWithChannels(mockCachedChannels?: Map<string, string>, mockFetchedChannels?: Map<string, string>) {
+  jest.mock('discord.js', () => {
+    return {
+      Client: jest.fn(() => ({
+        channels: {
+          cache: new Map()
+        }
+      }))
+    }
+  })
+}
 
 describe('discord util', () => {
   // afterEach(() => {})
-  beforeEach(() => {})
-  test('undefined values throws an error', () => {
-    const mockedClient = jest.mocked(Client)
-    const mockedChannelManager = jest.mocked(ChannelManager)
-    jest.spyOn
-
-    expect(getDiscordChannel(mockedClient.mock.instances[0]!, '')).toThrowError(InvalidChannelIdError)
+  // beforeEach(() => {})
+  test('undefined values throws an error', async () => {
+    mockDiscordWithChannels(new Map([['1', 'testChannel']]))
+    const client = new Client({ intents: [1] })
+    // console.log(`channels are ${JSON.stringify(client.channels.cache.get('1'))}`)
+    expect(await getDiscordChannel(client, '1')).toBe('testChannel')
   })
 })
