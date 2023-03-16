@@ -1,29 +1,46 @@
+import { InvalidChannelIdError } from '../../errors/invalid-channel-id-error'
 import { getDiscordChannel } from '../discord'
-import { describe, expect, jest, test } from '@jest/globals'
-import { Client } from 'discord.js'
-
-function mockDiscordWithChannels(
-  _mockCachedChannels?: Map<string, string>,
-  _mockFetchedChannels?: Map<string, string>
-) {
-  jest.mock('discord.js', () => {
-    return {
-      Client: jest.fn(() => ({
-        channels: {
-          cache: new Map()
-        }
-      }))
-    }
-  })
-}
+import { mockAndSetupChannel, mockTextChannel } from '../tests/discord/channel-mock'
+import { mockClient } from '../tests/discord/client-mock'
+import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals'
+import { Client, TextChannel } from 'discord.js'
 
 describe('discord util', () => {
-  // afterEach(() => {})
-  // beforeEach(() => {})
-  test('undefined values throws an error', async () => {
-    mockDiscordWithChannels(new Map([['1', 'testChannel']]))
-    const client = new Client({ intents: [1] })
-    // console.log(`channels are ${JSON.stringify(client.channels.cache.get('1'))}`)
-    expect(await getDiscordChannel(client, '1')).toBe('testChannel')
+  let client: Client
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+  beforeEach(() => {
+    client = mockClient()
+  })
+  describe('only cache', () => {
+    test('If no channels, throws an error', async () => {
+      await expect(getDiscordChannel(client, '1')).rejects.toEqual(new InvalidChannelIdError('1'))
+    })
+    test('If channel but wrong ID, error', async () => {
+      mockAndSetupChannel(client, undefined, { id: '1' })
+      await expect(getDiscordChannel(client, '2')).rejects.toEqual(new InvalidChannelIdError('2'))
+    })
+    test('If channel with good id, success', async () => {
+      const channel = mockAndSetupChannel(client, undefined, { id: '1' })
+      await expect(getDiscordChannel(client, '1')).resolves.toBe(channel)
+    })
+  })
+  describe('with fetch', () => {
+    let channel: TextChannel
+    beforeEach(() => {
+      channel = mockTextChannel(client, undefined, { id: '2' })
+      jest.spyOn(client.channels, 'fetch').mockImplementation((id) => Promise.resolve(id === '2' ? channel : null))
+    })
+    test('If wrong channel, throws an error', async () => {
+      await expect(getDiscordChannel(client, '1')).rejects.toEqual(new InvalidChannelIdError('1'))
+    })
+    test('If channel but wrong ID, error', async () => {
+      mockTextChannel(client, undefined, { id: '1' })
+      await expect(getDiscordChannel(client, '3')).rejects.toEqual(new InvalidChannelIdError('3'))
+    })
+    test('If channel with good id, success', async () => {
+      await expect(getDiscordChannel(client, '2')).resolves.toBe(channel)
+    })
   })
 })

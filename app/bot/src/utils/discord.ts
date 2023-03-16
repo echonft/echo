@@ -1,16 +1,11 @@
 import { InvalidChannelIdError } from '../errors/invalid-channel-id-error'
-import { R } from '@mobily/ts-belt'
 import { Client, TextChannel } from 'discord.js'
-import { call, identity, invoker, isNil, pipe, prop, useWith } from 'ramda'
+import { isNil } from 'ramda'
 
 export const getDiscordChannel: (client: Client, channelId: string) => Promise<TextChannel> = (client, channelId) => {
   const cachedChannel = client.channels.cache.get(channelId)
   if (isNil(cachedChannel)) {
-    return pipe(useWith(call, [pipe(prop('channels'), invoker(1, 'fetch')), identity]), R.fromPromise)(
-      client,
-      channelId
-    ).then((result) => {
-      const channel = R.getExn(result)
+    return client.channels.fetch(channelId).then((channel) => {
       if (isNil(channel)) {
         throw new InvalidChannelIdError(channelId)
       }
