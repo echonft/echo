@@ -10,5 +10,5 @@ export const stringForListingItems: (items: OfferItem[] | undefined) => string =
 >(
   isNilOrEmpty,
   always('Any NFT'),
-  pipe(castAs, map(pipe(juxt([prop('tokenId'), path(['contract', 'address'])]), join(':'))), join(','))
+  pipe(castAs, map(pipe(juxt([path(['contract', 'address']), prop('tokenId')]), join(':'))), join(','))
 )

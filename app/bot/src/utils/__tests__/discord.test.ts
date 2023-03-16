@@ -5,7 +5,7 @@ import { mockClient } from '../tests/discord/client-mock'
 import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { Client, TextChannel } from 'discord.js'
 
-describe('discord util', () => {
+describe('discord util - getDiscordChannel', () => {
   let client: Client
   afterEach(() => {
     jest.clearAllMocks()
