@@ -1,5 +1,5 @@
 import { listenToInteractions } from './listeners/interaction'
-import { listenToOffers } from './listeners/offers'
+import { listenToListings } from './listeners/listings'
 import { discordSecret } from '@echo/discord'
 import { errorMessage, logger } from '@echo/utils'
 import { BaseInteraction, Client, Events, GatewayIntentBits } from 'discord.js'
@@ -9,8 +9,8 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] }) //create new 
 
 client.once(Events.ClientReady, (c) => {
   logger.info(`Ready! Logged in as ${c.user.tag}`)
-  logger.info(`Listening to Firebase offers`)
-  listenToOffers(c)
+  listenToListings(c)
+  logger.info(`Listening to Firebase listings`)
 })
 
 client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {

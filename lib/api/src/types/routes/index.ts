@@ -3,7 +3,8 @@ import { getApiUrl } from '../../config/get-api-url'
 export enum ApiRoutes {
   NONCE = 'api/nonce',
   LOGIN = 'api/login',
-  OFFER = 'api/offer'
+  OFFER = 'api/offer',
+  HAS_NFT = 'api/user/has-nft'
 }
 
 /**

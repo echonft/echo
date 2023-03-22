@@ -1,4 +1,4 @@
 export enum InputSubcommands {
   CONNECT = 'connect',
-  CREATE_OFFER = 'create-offer'
+  CREATE_LISTING = 'create-listing'
 }

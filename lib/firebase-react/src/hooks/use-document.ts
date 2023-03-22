@@ -3,10 +3,10 @@ import {
   convertDefault,
   FirestoreRootCollectionDocumentData,
   FirestoreSnapshot,
+  getDocSnapshotFromPath,
+  mapDefault,
   subscribeToDocument
 } from '@echo/firestore'
-import { getDocSnapshotFromPath } from '@echo/firestore/dist/utils/document/get-doc-snapshot-from-path'
-import { mapDefault } from '@echo/firestore/dist/utils/mapper/map-default'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { isNilOrEmpty, Void } from '@echo/utils'
 import { R } from '@mobily/ts-belt'

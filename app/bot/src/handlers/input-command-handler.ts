@@ -1,5 +1,5 @@
 import { executeConnect } from '../commands/connect'
-import { executeCreateOffer } from '../commands/create-offer'
+import { executeCreateListing } from '../commands/create-listing'
 import { InvalidSubcommandError } from '../errors/invalid-subcommand-error'
 import { NotConfiguredError } from '../errors/not-configured-error'
 import { WrongChannelError } from '../errors/wrong-channel-error'
@@ -15,8 +15,8 @@ function executeForSubcommand(interaction: CommandInteraction, subcommand: Input
   switch (subcommand) {
     case InputSubcommands.CONNECT:
       return executeConnect(interaction)
-    case InputSubcommands.CREATE_OFFER:
-      return executeCreateOffer(interaction)
+    case InputSubcommands.CREATE_LISTING:
+      return executeCreateListing(interaction)
     default:
       throw new InvalidSubcommandError(subcommand)
   }

@@ -1,4 +1,4 @@
-import { ApiRoutes, getApiRouteUrl, LoginRequest, LoginResponse } from '@echo/api/dist/types'
+import { ApiRoutes, getApiRouteUrl, LoginRequest, LoginResponse } from '@echo/api'
 import { getConditionalFetchKey, postData, SwrKey, SwrKeyNames } from '@echo/swr'
 import { castAs, isNilOrEmpty } from '@echo/utils'
 import { useFetchDiscordUser } from '@lib/hooks/use-fetch-discord-user'

@@ -1,6 +1,11 @@
 import { UseCollectionOptions } from '../types'
-import { convertDefault, getCollectionQueryFromPath, getDocsFromQuery, subscribeToQuery } from '@echo/firestore'
-import { mapDefault } from '@echo/firestore/dist/utils/mapper/map-default'
+import {
+  convertDefault,
+  getCollectionQueryFromPath,
+  getDocsFromQuery,
+  mapDefault,
+  subscribeToQuery
+} from '@echo/firestore'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { castAs, isNilOrEmpty, promiseAll, Void } from '@echo/utils'
 import { R } from '@mobily/ts-belt'

@@ -1,24 +1,24 @@
-import { linkForOffer } from '../utils/offer'
-import { stringForOfferItems } from '../utils/offer-item'
+import { linkForListing } from '../utils/listing'
+import { stringForListingItems } from '../utils/string-for-listing-items'
 import { Offer, OfferItem } from '@echo/model'
 import { APIEmbedField, EmbedBuilder } from 'discord.js'
 
-export function buildOfferEmbed(offer: Offer) {
+export function buildListingEmbed(listing: Offer) {
   return (
     new EmbedBuilder()
-      .setTitle(title(offer))
+      .setTitle(title(listing))
       .setDescription(description())
       .setColor(color())
       // FIXME
-      .setFields(fields(offer.senderItems, offer.receiverItems))
-      .setURL(linkForOffer(offer))
+      .setFields(fields(listing.senderItems, listing.receiverItems))
+      .setURL(linkForListing(listing))
   )
 }
 
 // TODO Check to add the discord user as a tag?
 // TODO Translation
-function title(offer: Offer): string {
-  return `A new offer was created from <@${offer.sender.discordId!}>`
+function title(listing: Offer): string {
+  return `A new offer was created from <@${listing.sender.discordId!}>`
 }
 
 // FIXME
@@ -29,7 +29,7 @@ function description(): string {
   //   case OfferType.SELL:
   //     return 'This is a sell offer'
   // }
-  return 'This is an offer'
+  return 'This is a listing'
 }
 
 // TODO Maybe a color per collection via settings?
@@ -39,19 +39,19 @@ function color(): number {
 
 function fields(ownerItems: OfferItem[] | undefined, counterpartyItems: OfferItem[] | undefined): APIEmbedField[] {
   // FIXME
-  return [offerItemsField(ownerItems), offerItemsField(counterpartyItems)]
+  return [listingItemsField(ownerItems), listingItemsField(counterpartyItems)]
 }
 
-function offerItemsField(items: OfferItem[] | undefined): APIEmbedField {
+function listingItemsField(items: OfferItem[] | undefined): APIEmbedField {
   return {
-    name: offerItemFieldName(),
-    value: stringForOfferItems(items),
+    name: listingItemFieldName(),
+    value: stringForListingItems(items),
     inline: true
   }
 }
 
 // FIXME
-function offerItemFieldName(): string {
+function listingItemFieldName(): string {
   // switch (type) {
   //   case OfferType.BUY:
   //     return 'Buying:'
