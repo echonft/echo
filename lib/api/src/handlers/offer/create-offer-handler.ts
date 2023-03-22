@@ -1,8 +1,8 @@
-import { OfferResponse } from '../../types'
+import { CreateOfferResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { CreateOfferApiRequest } from '../../types/models/api-requests/create-offer-api-request'
 
-export const createOfferHandler: RequestHandler<CreateOfferApiRequest, OfferResponse> = async (_req, _res) => {
+export const createOfferHandler: RequestHandler<CreateOfferApiRequest, CreateOfferResponse> = async (_req, _res) => {
   // const user = await getUserWithId(req)
   // const { type, ownerItems, counterpartyItems, collectionId } = req.body
   // const collection = await collectionSnapshot(collectionId)

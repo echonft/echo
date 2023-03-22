@@ -1,5 +1,5 @@
 import { FirestoreRequestForOffer } from '../../collections'
-import { FirestoreData } from '../abstract/firestore-data'
+import { FirestoreRootCollectionDocumentData } from '../abstract/firestore-root-collection-document-data'
 import { FirestoreContractData } from '../contract/firestore-contract-data'
 import { FirestoreDiscordGuildData } from '../discord-guild/firestore-discord-guild-data'
 import { FirestoreOfferData } from '../offer/firestore-offer-data'
@@ -13,7 +13,7 @@ export interface FirestoreRequestForOfferData
       FirestoreRequestForOffer,
       'sender' | 'items' | 'discordGuild' | 'target' | 'activities' | 'offers' | 'swaps'
     >,
-    FirestoreData {
+    FirestoreRootCollectionDocumentData {
   id: string
   sender: FirestoreUserData
   items: FirestoreRequestForOfferItemData[]

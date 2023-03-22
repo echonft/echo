@@ -1,13 +1,14 @@
-import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
+import { convertDefault } from '../converter'
+import { mapDefault } from '../mapper/map-default'
 import { getDocRefFromPath } from './get-doc-ref-from-path'
-import { DocumentData, DocumentSnapshot, onSnapshot, Unsubscribe } from 'firebase/firestore'
+import { onSnapshot, Unsubscribe } from 'firebase/firestore'
+import { pipe } from 'ramda'
 
-export const subscribeToDocument = <T extends DocumentData>(
-  _onNext: (snapshot: FirestoreSnapshot<T>) => void,
+export const subscribeToDocument = <W>(
+  onNext: (model: Promise<W>) => void,
   path: string,
   ...pathSegments: string[]
 ): Unsubscribe =>
-  onSnapshot<T>(getDocRefFromPath<T>(path, ...pathSegments), (_snapshot: DocumentSnapshot<T>) => {
-    //FIXME
-    // onNext(convertDocumentSnapshot(snapshot))
+  onSnapshot(getDocRefFromPath(path, ...pathSegments), (snapshot) => {
+    void pipe(convertDefault, mapDefault, onNext)(snapshot)
   })

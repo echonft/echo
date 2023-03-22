@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FirestoreSwapData } from '../../types'
 import { FirestoreMapper } from '../../types/mapper'
 import { propToDate } from '../../utils/mapper/prop-to-date'
@@ -6,29 +5,22 @@ import { propToMappedDocument } from '../../utils/mapper/prop-to-mapped-document
 import { propToMappedDocumentArray } from '../../utils/mapper/prop-to-mapped-document-array'
 import { mapOffer } from '../offer/map-offer'
 import { mapSwapActivity } from './map-swap-activity'
-import { Swap, SwapState } from '@echo/model'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
-import { Dayjs } from 'dayjs'
-import { andThen, juxt, pipe } from 'ramda'
+import { Swap } from '@echo/model'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
+import { andThen, juxt, omit, pipe } from 'ramda'
 
 export const mapSwap: FirestoreMapper<FirestoreSwapData, Swap> = andThen(
   pipe(
+    omit(['refPath']),
     juxt([
-      // @ts-ignore
-      propToPromise<string>('id'),
-      // @ts-ignore
-      propToPromise<SwapState>('state'),
-      // @ts-ignore
+      propToPromise('id'),
+      propToPromise('state'),
       propToMappedDocument('offer', mapOffer),
-      // @ts-ignore
       propToMappedDocumentArray('activities', mapSwapActivity),
-      // @ts-ignore
-      propToDate<Dayjs>('expiresAt'),
-      // @ts-ignore
-      propToDate<Dayjs>('createdAt')
+      propToDate('expiresAt'),
+      propToDate('createdAt')
     ]),
-    // @ts-ignore
-    (promises) => Promise.all(promises),
+    promiseAll,
     zipPromisesToObject<Swap>(['id', 'state', 'offer', 'activities', 'expiresAt', 'createdAt'])
   )
 )

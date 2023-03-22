@@ -1,5 +1,5 @@
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
-import { convertSnapshot } from '../../utils/converter/convert-snapshot'
+import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
 import { nestedDocumentProp } from '../../utils/converter/nested-document-prop'
 import { refProp } from '../../utils/converter/ref-prop'
 import { convertContract } from '../contract/convert-contract'
@@ -10,20 +10,21 @@ import {
   FirestoreOpenSeaCollectionDetails,
   FirestoreOpenSeaCollectionDetailsData
 } from '@echo/firestore'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 
 export const convertNftCollection: FirestoreConverter<FirestoreNftCollection, FirestoreNftCollectionData> = pipe(
-  convertSnapshot,
+  convertRootCollectionDocumentSnapshot,
   juxt([
-    propToPromise<string>('id'),
-    propToPromise<number>('totalSupply'),
+    propToPromise('refPath'),
+    propToPromise('id'),
+    propToPromise('totalSupply'),
     refProp('contract', convertContract),
     nestedDocumentProp<FirestoreOpenSeaCollectionDetails, FirestoreOpenSeaCollectionDetailsData>(
       'openSea',
       convertOpenSeaCollectionDetails
     )
   ]),
-  (promises) => Promise.all(promises),
-  zipPromisesToObject<FirestoreNftCollectionData>(['id', 'totalSupply', 'contract', 'openSea'])
+  promiseAll,
+  zipPromisesToObject<FirestoreNftCollectionData>(['refPath', 'id', 'totalSupply', 'contract', 'openSea'])
 )

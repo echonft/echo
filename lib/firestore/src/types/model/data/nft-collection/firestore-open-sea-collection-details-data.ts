@@ -1,4 +1,6 @@
 import { FirestoreOpenSeaCollectionDetails } from '../../collections'
-import { FirestoreData } from '../abstract/firestore-data'
+import { FirestoreDocumentData } from '../abstract/firestore-document-data'
 
-export interface FirestoreOpenSeaCollectionDetailsData extends FirestoreOpenSeaCollectionDetails, FirestoreData {}
+export interface FirestoreOpenSeaCollectionDetailsData
+  extends FirestoreOpenSeaCollectionDetails,
+    FirestoreDocumentData {}

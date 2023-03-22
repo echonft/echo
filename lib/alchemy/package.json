@@ -25,12 +25,12 @@
   "dependencies": {
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "alchemy-sdk": "2.4.1",
+    "alchemy-sdk": "2.6.1",
     "dayjs": "1.11.7",
-    "ethers": "5.7.2",
+    "ethers": "6.1.0",
     "ramda": "0.28.0"
   },
   "devDependencies": {
-    "@types/ramda": "0.28.22"
+    "@types/ramda": "0.28.23"
   }
 }

@@ -1,9 +1,8 @@
 import { FirestoreRequestForOfferActivityData } from '../../types'
 import { FirestoreMapper } from '../../types/mapper'
 import { propToDate } from '../../utils/mapper/prop-to-date'
-import { RequestForOfferActivity, RequestForOfferState } from '@echo/model'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
-import { Dayjs } from 'dayjs'
+import { RequestForOfferActivity } from '@echo/model'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, pipe } from 'ramda'
 
 export const mapRequestForOfferActivity: FirestoreMapper<
@@ -11,12 +10,8 @@ export const mapRequestForOfferActivity: FirestoreMapper<
   RequestForOfferActivity
 > = andThen(
   pipe(
-    juxt([
-      propToDate<Dayjs>('date'),
-      propToPromise<RequestForOfferState | undefined>('fromState'),
-      propToPromise<RequestForOfferState>('toState')
-    ]),
-    (promises) => Promise.all(promises),
+    juxt([propToDate('date'), propToPromise('fromState'), propToPromise('toState')]),
+    promiseAll,
     zipPromisesToObject<RequestForOfferActivity>(['date', 'fromState', 'toState'])
   )
 )

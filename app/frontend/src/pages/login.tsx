@@ -1,7 +1,8 @@
-import { DiscordTokenResponse, Routes, TokenRoutePostData } from '@echo/discord/dist/types'
-import { errorMessage, logger } from '@echo/utils'
+import { DiscordRoutes } from '@echo/discord/dist/routing'
+import { DiscordTokenResponse, TokenRoutePostData } from '@echo/discord/dist/types'
+import { postFormData } from '@echo/swr'
 import { getMessages, MessagesType } from '@lib/messages'
-import { fetcher } from '@lib/services/fetcher'
+import { R } from '@mobily/ts-belt'
 import { GetServerSideProps, NextPage } from 'next'
 import dynamic from 'next/dynamic'
 import { ParsedUrlQuery } from 'querystring'
@@ -29,35 +30,26 @@ export const getServerSideProps: GetServerSideProps<Props, UrlQuery> = async ({ 
   if (isNil(params) || isEmpty(params) || isNil(params.code) || isEmpty(params.code)) {
     return { notFound: true }
   }
-  try {
-    const discordConfig = await import('@echo/discord/dist/config')
-    const discordAdmin = await import('@echo/discord/dist/admin')
-    const response = await fetcher<DiscordTokenResponse, TokenRoutePostData>(
-      Routes.TOKEN,
-      {
-        client_id: discordConfig.discordConfig.clientId,
-        client_secret: discordAdmin.discordSecret.clientSecret,
-        grant_type: 'authorization_code',
-        code: params.code,
-        redirect_uri: discordConfig.discordConfig.redirectUri,
-        scope: 'identify'
-      },
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }
-    )
-    return {
-      props: {
-        accessToken: response.access_token,
-        tokenType: response.token_type,
-        messages: getMessages(locale, defaultLocale)
-      }
-    }
-  } catch (error) {
-    logger.error(`Error fetching discord token: ${errorMessage(error)}`)
+  const discordConfig = await import('@echo/discord/dist/config')
+  const discordAdmin = await import('@echo/discord/dist/admin')
+  const result = await postFormData<DiscordTokenResponse, TokenRoutePostData>(DiscordRoutes.TOKEN, {
+    client_id: discordConfig.discordConfig.clientId,
+    client_secret: discordAdmin.discordSecret.clientSecret,
+    grant_type: 'authorization_code',
+    code: params.code,
+    redirect_uri: discordConfig.discordConfig.redirectUri,
+    scope: 'identify'
+  })
+  if (R.isError(result)) {
     return { notFound: true }
+  }
+  const response = R.getExn(result)
+  return {
+    props: {
+      accessToken: response.access_token,
+      tokenType: response.token_type,
+      messages: getMessages(locale, defaultLocale)
+    }
   }
 }
 export default Login

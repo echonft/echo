@@ -1,11 +1,11 @@
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { getDocSnapshotFromRef } from '../document/get-doc-snapshot-from-ref'
-import { FirestoreData } from '@echo/firestore'
+import { FirestoreDocumentData } from '@echo/firestore'
 import { undefinedPromise } from '@echo/utils'
 import { DocumentData, DocumentReference } from '@google-cloud/firestore'
 import { allPass, andThen, complement, has, ifElse, isNil, pipe, prop } from 'ramda'
 
-export const refProp = <T extends DocumentData, V extends FirestoreData>(
+export const refProp = <T extends DocumentData, V extends FirestoreDocumentData>(
   key: string,
   converter: FirestoreConverter<T, V>
 ) =>

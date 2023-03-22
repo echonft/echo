@@ -3,6 +3,7 @@ import { FirestoreSwapData } from '@echo/firestore'
 
 export const swapData: { [key: string]: FirestoreSwapData } = {
   hS6KtAJ03bSolumoHvDJ: {
+    refPath: 'swaps/hS6KtAJ03bSolumoHvDJ',
     id: 'hS6KtAJ03bSolumoHvDJ',
     state: 'PENDING_APPROVALS',
     offer: offerData['LyCfl6Eg7JKuD7XJ6IPi']!,

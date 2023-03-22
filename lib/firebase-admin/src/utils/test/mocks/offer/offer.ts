@@ -3,7 +3,6 @@ import { discordGuilds } from '../discord-guild/discord-guild'
 import { users } from '../user/user'
 import { Offer, OfferState } from '@echo/model'
 import dayjs from 'dayjs'
-import { BigNumber } from 'ethers'
 
 export const offers: { [key: string]: Offer } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
@@ -15,7 +14,7 @@ export const offers: { [key: string]: Offer } = {
     senderItems: [
       {
         contract: contracts['37dBlwJYahEAKeL0rNP8']!,
-        tokenId: BigNumber.from('0x0000000000000000000000000000000000000000000000000000000000000001'),
+        tokenId: BigInt('0x0000000000000000000000000000000000000000000000000000000000000001'),
         balance: undefined
       }
     ],
@@ -23,7 +22,7 @@ export const offers: { [key: string]: Offer } = {
     receiverItems: [
       {
         contract: contracts['37dBlwJYahEAKeL0rNP8']!,
-        tokenId: BigNumber.from('0x0000000000000000000000000000000000000000000000000000000000000010'),
+        tokenId: BigInt('0x0000000000000000000000000000000000000000000000000000000000000010'),
         balance: 2
       }
     ],

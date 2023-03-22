@@ -1,4 +1,4 @@
-import { AlchemyOwnedNft } from '../types'
+import { AlchemyNft } from '../types'
 import { mapDate } from './map-date'
 import { mapNftAttribute } from './map-nft-attribute'
 import { mapNftCollection } from './map-nft-collection'
@@ -6,17 +6,13 @@ import { mapNftMedia } from './map-nft-media'
 import { mapNftTokenUri } from './map-nft-token-uri'
 import { NftAttribute } from '@echo/model'
 import { applySpec, applyToNullableProp, applyToProp } from '@echo/utils'
-import { OwnedNft } from 'alchemy-sdk'
+import { Nft } from 'alchemy-sdk'
 import { NftMetadata } from 'alchemy-sdk/dist/src/types/types'
-import { BigNumber } from 'ethers'
-import { converge, ifElse, isNil, join, map, pipe, prop } from 'ramda'
+import { always, ifElse, isNil, join, juxt, map, path, pipe, prop } from 'ramda'
 
-// Problem with the join typing using a readonly any[] format
-export const mapNft: (nft: OwnedNft) => AlchemyOwnedNft = applySpec<OwnedNft, AlchemyOwnedNft>({
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  id: converge(join(':'), [pipe(prop('contract'), prop('address')), prop('tokenId')]),
-  tokenId: applyToProp('tokenId', (tokenId: string) => BigNumber.from(tokenId)),
+export const mapNft: (nft: Nft) => AlchemyNft = applySpec<Nft, AlchemyNft>({
+  id: pipe(juxt([path(['contract', 'address']), prop('tokenId')]), join(':')),
+  tokenId: applyToProp('tokenId', (tokenId) => BigInt(tokenId)),
   title: prop('title'),
   description: prop('description'),
   timeLastUpdated: applyToProp('timeLastUpdated', mapDate),
@@ -28,12 +24,11 @@ export const mapNft: (nft: OwnedNft) => AlchemyOwnedNft = applySpec<OwnedNft, Al
     prop<NftMetadata>('rawMetadata'),
     ifElse<NftMetadata[], NftAttribute[], NftAttribute[]>(
       isNil,
-      () => [],
+      always([]),
       pipe(
         prop<Array<Record<string, never>>>('attributes'),
         ifElse<[Array<Record<string, never>>], NftAttribute[], NftAttribute[]>(isNil, () => [], map(mapNftAttribute))
       )
     )
-  ),
-  balance: prop('balance')
+  )
 })

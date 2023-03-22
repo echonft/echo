@@ -4,11 +4,10 @@ import { NftMedia } from './nft-media'
 import { NftSpamInfo } from './nft-spam-info'
 import { NftTokenUri } from './nft-token-uri'
 import { Dayjs } from 'dayjs'
-import { BigNumber } from 'ethers'
 
 export interface Nft {
   id: string
-  tokenId: BigNumber
+  tokenId: bigint
   collection: NftCollection
   title: string | undefined
   description: string | undefined

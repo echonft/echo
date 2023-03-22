@@ -1,4 +1,4 @@
-import { Routes } from '../types'
+import { DiscordRoutes } from './discord-routes'
 import { getApiUrl } from '@echo/api/dist/config'
 
 /**
@@ -6,5 +6,5 @@ import { getApiUrl } from '@echo/api/dist/config'
  * @param collectionId Id of the collection the command was sent from
  */
 export function createOfferLink(collectionId: string) {
-  return encodeURI(`${getApiUrl()}${Routes.CREATE_OFFER}/${collectionId}`)
+  return encodeURI(`${getApiUrl()}${DiscordRoutes.CREATE_OFFER}/${collectionId}`)
 }

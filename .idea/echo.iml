@@ -37,6 +37,8 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/swr/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/swr/dist" />
       <excludeFolder url="file://$MODULE_DIR$/lib/firebase-react/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/contract/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/firebase-react/dist" />
       <excludePattern pattern="tsbuild.buildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />

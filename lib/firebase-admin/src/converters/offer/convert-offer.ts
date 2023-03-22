@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
-import { convertSnapshot } from '../../utils/converter/convert-snapshot'
+import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
 import { nestedDocumentArrayProp } from '../../utils/converter/nested-document-array-prop'
 import { refProp } from '../../utils/converter/ref-prop'
 import { convertDiscordGuild } from '../discord-guild/convert-discord-guild'
@@ -8,39 +7,29 @@ import { convertUser } from '../user/convert-user'
 import { convertOfferActivity } from './convert-offer-activity'
 import { convertOfferItem } from './convert-offer-item'
 import { FirestoreOffer, FirestoreOfferData } from '@echo/firestore'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 
 export const convertOffer: FirestoreConverter<FirestoreOffer, FirestoreOfferData> = pipe(
-  convertSnapshot,
+  convertRootCollectionDocumentSnapshot,
   juxt([
-    // @ts-ignore
-    propToPromise<string>('id'),
-    // @ts-ignore
-    propToPromise<string>('state'),
-    // @ts-ignore
+    propToPromise('refPath'),
+    propToPromise('id'),
+    propToPromise('state'),
     refProp('discordGuild', convertDiscordGuild),
-    // @ts-ignore
-    propToPromise<string | undefined>('threadId'),
-    // @ts-ignore
+    propToPromise('threadId'),
     refProp('sender', convertUser),
-    // @ts-ignore
     nestedDocumentArrayProp('senderItems', convertOfferItem),
-    // @ts-ignore
     refProp('receiver', convertUser),
-    // @ts-ignore
     nestedDocumentArrayProp('receiverItems', convertOfferItem),
-    // @ts-ignore
     nestedDocumentArrayProp('activities', convertOfferActivity),
-    // @ts-ignore
-    propToPromise<number | undefined>('postedAt'),
-    // @ts-ignore
-    propToPromise<number>('expiresAt'),
-    // @ts-ignore
-    propToPromise<number>('createdAt')
+    propToPromise('postedAt'),
+    propToPromise('expiresAt'),
+    propToPromise('createdAt')
   ]),
-  (promises) => Promise.all(promises),
+  promiseAll,
   zipPromisesToObject<FirestoreOfferData>([
+    'refPath',
     'id',
     'state',
     'discordGuild',

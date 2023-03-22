@@ -21,5 +21,15 @@
     "tsc:clean-bad-build": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
     "update-modules": "ncu -u"
+  },
+  "dependencies": {
+    "@echo/api": "workspace:*",
+    "@echo/utils": "workspace:*",
+    "@mobily/ts-belt": "4.0.0-rc.5",
+    "ramda": "0.28.0",
+    "swr": "2.1.0"
+  },
+  "devDependencies": {
+    "@types/ramda": "0.28.23"
   }
 }

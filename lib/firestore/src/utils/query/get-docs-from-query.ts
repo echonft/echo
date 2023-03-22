@@ -1,10 +1,9 @@
-import { FirestoreQuery } from '../../types/abstract/firestore-query'
-import { DocumentData, getDocs, QueryDocumentSnapshot } from 'firebase/firestore'
+import { getDocsFromQuerySnapshot } from './get-docs-from-query-snapshot'
+import { DocumentData, getDocs, Query, QueryDocumentSnapshot, QuerySnapshot } from 'firebase/firestore'
 import { andThen, pipe } from 'ramda'
 
-export const getDocsFromQuery: <T extends DocumentData>(
-  query: FirestoreQuery<T>
-) => Promise<QueryDocumentSnapshot<T>[]> = pipe(
-  getDocs,
-  andThen((querySnaphot) => querySnaphot.docs)
-)
+export const getDocsFromQuery = <T extends DocumentData>(query: Query<T>): Promise<QueryDocumentSnapshot<T>[]> =>
+  pipe<[Query<T>], Promise<QuerySnapshot<T>>, Promise<QueryDocumentSnapshot<T>[]>>(
+    getDocs,
+    andThen(getDocsFromQuerySnapshot)
+  )(query)

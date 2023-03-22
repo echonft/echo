@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FirestoreOfferData } from '../../types'
 import { FirestoreMapper } from '../../types/mapper'
 import { propToDate } from '../../utils/mapper/prop-to-date'
@@ -8,41 +7,28 @@ import { mapDiscordGuild } from '../discord-guild'
 import { mapUser } from '../user'
 import { mapOfferActivity } from './map-offer-activity'
 import { mapOfferItem } from './map-offer-item'
-import { Offer, OfferState } from '@echo/model'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
-import { Dayjs } from 'dayjs'
-import { andThen, juxt, pipe } from 'ramda'
+import { Offer } from '@echo/model'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
+import { andThen, juxt, omit, pipe } from 'ramda'
 
 export const mapOffer: FirestoreMapper<FirestoreOfferData, Offer> = andThen(
   pipe(
+    omit(['refPath']),
     juxt([
-      // @ts-ignore
-      propToPromise<string>('id'),
-      // @ts-ignore
-      propToPromise<OfferState>('state'),
-      // @ts-ignore
+      propToPromise('id'),
+      propToPromise('state'),
       propToMappedDocument('discordGuild', mapDiscordGuild),
-      // @ts-ignore
-      propToPromise<string | undefined>('threadId'),
-      // @ts-ignore
+      propToPromise('threadId'),
       propToMappedDocument('sender', mapUser),
-      // @ts-ignore
       propToMappedDocumentArray('senderItems', mapOfferItem),
-      // @ts-ignore
       propToMappedDocument('receiver', mapUser),
-      // @ts-ignore
       propToMappedDocumentArray('receiverItems', mapOfferItem),
-      // @ts-ignore
       propToMappedDocumentArray('activities', mapOfferActivity),
-      // @ts-ignore
-      propToDate<Dayjs>('expiresAt'),
-      // @ts-ignore
+      propToDate('expiresAt'),
       propToDate('postedAt'),
-      // @ts-ignore
-      propToDate<Dayjs>('createdAt')
+      propToDate('createdAt')
     ]),
-    // @ts-ignore
-    (promises) => Promise.all(promises),
+    promiseAll,
     zipPromisesToObject<Offer>([
       'id',
       'state',

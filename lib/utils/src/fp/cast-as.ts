@@ -1,3 +1,3 @@
 import { identity } from 'ramda'
 
-export const castAs = <T, V>(value: T): V => identity<T>(value) as unknown as V
+export const castAs = <T>(value: unknown): T => identity(value) as T

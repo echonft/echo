@@ -1,20 +1,21 @@
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
-import { convertSnapshot } from '../../utils/converter/convert-snapshot'
+import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
 import { refArrayProp } from '../../utils/converter/ref-array-prop'
 import { convertContract } from '../contract'
 import { FirestoreDiscordGuild, FirestoreDiscordGuildData } from '@echo/firestore'
-import { propToPromise, zipPromisesToObject } from '@echo/utils'
+import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 
 export const convertDiscordGuild: FirestoreConverter<FirestoreDiscordGuild, FirestoreDiscordGuildData> = pipe(
-  convertSnapshot,
+  convertRootCollectionDocumentSnapshot,
   juxt([
-    propToPromise<string>('id'),
-    propToPromise<string>('discordId'),
-    propToPromise<string>('channelId'),
-    propToPromise<string>('name'),
+    propToPromise('refPath'),
+    propToPromise('id'),
+    propToPromise('discordId'),
+    propToPromise('channelId'),
+    propToPromise('name'),
     refArrayProp('contracts', convertContract)
   ]),
-  (promises) => Promise.all(promises),
-  zipPromisesToObject<FirestoreDiscordGuildData>(['id', 'discordId', 'channelId', 'name', 'contracts'])
+  promiseAll,
+  zipPromisesToObject<FirestoreDiscordGuildData>(['refPath', 'id', 'discordId', 'channelId', 'name', 'contracts'])
 )

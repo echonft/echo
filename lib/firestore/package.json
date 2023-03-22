@@ -12,13 +12,13 @@
     "build:clean-bad": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "ci:lint": "eslint \"src/**/*.ts\"",
     "ci:prettier": "prettier \"src/**/*.ts\"",
-    "ci:test": "jest --ci",
+    "ci:test": "jest --ci --passWithNoTests",
     "clean": "rm -rf dist",
     "dev": "tsc --watch",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
     "lint:clean-cache": "rm -f .eslintcache",
     "remove-modules": "rm -rf node_modules",
-    "test": "jest --watch",
+    "test": "jest --watch --passWithNoTests",
     "tsc": "tsc --noEmit",
     "tsc:clean-bad-build": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
@@ -28,18 +28,18 @@
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "dayjs": "1.11.7",
-    "firebase": "9.16.0",
-    "ethers": "5.7.2",
+    "firebase": "9.17.2",
+    "ethers": "6.1.0",
     "ramda": "0.28.0"
   },
   "devDependencies": {
-    "@babel/core": "7.20.12",
+    "@babel/core": "7.21.3",
     "@babel/preset-env": "7.20.2",
-    "@jest/globals": "29.4.2",
-    "@jest/types": "29.4.2",
-    "@types/ramda": "0.28.22",
-    "babel-jest": "29.4.2",
+    "@jest/globals": "29.5.0",
+    "@jest/types": "29.5.0",
+    "@types/ramda": "0.28.23",
+    "babel-jest": "29.5.0",
     "firestore-jest-mock": "0.20.0",
-    "jest": "29.4.2"
+    "jest": "29.5.0"
   }
 }
