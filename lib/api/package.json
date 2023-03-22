@@ -24,15 +24,17 @@
     "next": "^13"
   },
   "dependencies": {
+    "@echo/alchemy": "workspace:*",
     "@echo/firebase-admin": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@mobily/ts-belt": "4.0.0-rc.5",
+    "alchemy-sdk": "2.6.1",
     "ethers": "6.1.0",
     "iron-session": "6.3.1",
-    "ramda": "0.28.0",
     "next": "13.2.4",
+    "ramda": "0.28.0",
     "request": "2.88.2",
     "siwe": "1.1.6"
   },
