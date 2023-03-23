@@ -53,7 +53,7 @@
     },
     "@echo/api#build": {
       "dependsOn": ["^build"],
-      "env": ["NODE_ENV", "API_ENV", "IRON_PASSWORD"],
+      "env": ["NODE_ENV", "API_ENV", "NEXTAUTH_URL_INTERNAL", "NEXTAUTH_URL"],
       "outputs": ["dist/**"]
     },
     "@echo/discord#build": {

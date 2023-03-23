@@ -1,9 +1,7 @@
-import { getApiUrl } from '../../config/get-api-url'
+import { getServerConfig } from '../../config/get-server-config'
 
 export enum ApiRoutes {
   NONCE = 'api/nonce',
-  LOGIN = 'api/login',
-  OFFER = 'api/offer',
   HAS_NFT = 'api/user/has-nft'
 }
 
@@ -12,5 +10,5 @@ export enum ApiRoutes {
  * @param route The route
  */
 export function getApiRouteUrl(route: ApiRoutes): string {
-  return `${getApiUrl()}/${route}`
+  return `${getServerConfig().url}/${route}`
 }

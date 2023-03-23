@@ -1,3 +1,3 @@
-import { anyPass, isEmpty, isNil } from 'ramda'
+import { isEmpty, isNil, or } from 'ramda'
 
-export const isNilOrEmpty = anyPass([isNil, isEmpty])
+export const isNilOrEmpty = or(isNil, isEmpty)

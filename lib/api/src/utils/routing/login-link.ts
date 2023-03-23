@@ -1,5 +1,4 @@
-import { discordConfig } from '@echo/discord'
+import { getServerConfig } from '../../config/get-server-config'
 
-export const loginLink: string = encodeURI(
-  `https://discord.com/api/oauth2/authorize?client_id=${discordConfig.clientId}&redirect_uri=${discordConfig.redirectUri}&response_type=code&scope=identify`
-)
+// TODO Remove this
+export const loginLink: string = encodeURI(`${getServerConfig().url}/login`)

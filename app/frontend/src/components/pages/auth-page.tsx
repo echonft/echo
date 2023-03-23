@@ -5,6 +5,7 @@ import { isNil } from 'ramda'
 import { FunctionComponent, PropsWithChildren } from 'react'
 import { useAccount } from 'wagmi'
 
+// TODO Use proper next-auth
 export const AuthPage: FunctionComponent<PropsWithChildren> = ({ children }) => {
   const t = useTranslations('Auth')
   const isLoggedIn = useIsLoggedIn()
