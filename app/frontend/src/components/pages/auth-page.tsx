@@ -1,27 +1,13 @@
-import { LoginModal } from '@components/login-modal'
-import { useIsLoggedIn } from '@lib/hooks/use-is-logged-in'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
 import { FunctionComponent, PropsWithChildren } from 'react'
-import { useAccount } from 'wagmi'
 
 // TODO Use proper next-auth
-export const AuthPage: FunctionComponent<PropsWithChildren> = ({ children }) => {
+export const AuthPage: FunctionComponent<PropsWithChildren> = () => {
   const t = useTranslations('Auth')
-  const isLoggedIn = useIsLoggedIn()
-  const { isConnected } = useAccount()
-  if (isNil(isLoggedIn) || isNil(isConnected)) {
-    // TODO Design loading
-    return (
-      <div>
-        <span>{t('loading')}</span>
-      </div>
-    )
-  }
+  // TODO Design loading
   return (
     <div>
-      {(!isLoggedIn || !isConnected) && <LoginModal />}
-      {isLoggedIn && isConnected && children}
+      <span>{t('loading')}</span>
     </div>
   )
 }
