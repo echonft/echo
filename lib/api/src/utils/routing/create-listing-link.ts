@@ -1,4 +1,4 @@
-import { getApiUrl } from '@echo/api'
+import { getApiUrl } from '../../config'
 
 /**
  * Creates a link to the listing creation page on website

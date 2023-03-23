@@ -1,4 +1,4 @@
-import { loginLink } from '@echo/discord'
+import { loginLink } from '@echo/api'
 import { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
 
 /**

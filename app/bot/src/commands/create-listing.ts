@@ -1,6 +1,6 @@
 import { getHasNft } from '../api/get-has-nft'
 import { NoGuildIdError } from '../errors/no-guild-id-error'
-import { createListingLink, listingsLink } from '@echo/discord'
+import { createListingLink, listingsLink } from '@echo/api'
 import { castAs, converge, isNilOrEmpty, toPromise } from '@echo/utils'
 import { CommandInteraction, InteractionResponse, SlashCommandSubcommandBuilder } from 'discord.js'
 import { andThen, applySpec, call, head, ifElse, invoker, juxt, last, path, pipe, prop, T, useWith } from 'ramda'
