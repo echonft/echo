@@ -8,16 +8,16 @@ import useSWR from 'swr'
 
 interface KeyData {
   firebaseAuth: Auth
-  apiKey: string | undefined
+  token: string | undefined
 }
-export const useSignInWithFirebase = (apiKey: string | undefined) => {
+export const useSignInWithFirebase = (token: string | undefined) => {
   const firebaseApp = useFirebase()
   const firebaseAuth = getAuth(firebaseApp)
   return useSWR<R.Result<UserCredential, Error>, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
-      { name: SwrKeyNames.FIREBASE_LOGIN, data: { firebaseAuth, apiKey } },
-      always(isNil(firebaseAuth) || isNilOrEmpty(apiKey))
+      { name: SwrKeyNames.FIREBASE_LOGIN, data: { firebaseAuth, token } },
+      always(isNil(firebaseAuth) || isNilOrEmpty(token))
     ),
-    pipe(prop('data'), converge(signInWithCustomToken, [prop('firebaseAuth'), prop('apiKey')]), R.fromPromise)
+    pipe(prop('data'), converge(signInWithCustomToken, [prop('firebaseAuth'), prop('token')]), R.fromPromise)
   )
 }

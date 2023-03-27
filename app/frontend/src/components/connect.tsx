@@ -1,9 +1,12 @@
+import { LoginToFirebase } from '@components/login-to-firebase'
+import { useIsLoggedIn } from '@echo/firebase-react'
 import { signIn, useSession } from 'next-auth/react'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 export const Connect: FunctionComponent = () => {
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
+  const isLoggedInToFirebase = useIsLoggedIn()
 
   if (isNil(session)) {
     return (
@@ -16,6 +19,9 @@ export const Connect: FunctionComponent = () => {
       </button>
     )
   } else {
-    return <>{status}</>
+    if (!isLoggedInToFirebase) {
+      return <LoginToFirebase firebaseToken={session.firebaseToken} />
+    }
+    return <>{JSON.stringify(session)}</>
   }
 }

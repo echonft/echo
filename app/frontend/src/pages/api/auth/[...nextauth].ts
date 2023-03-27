@@ -19,6 +19,11 @@ const authOptions: AuthOptions = {
         return createCustomToken(token.sub).then((firebaseToken) => ({ firebaseToken, ...token }))
       }
       return token
+    },
+    session({ session, token }) {
+      // Send firebaseToken to user
+      // TODO: Should this be in the user object?
+      return { ...session, firebaseToken: token.firebaseToken as string }
     }
   }
 }
