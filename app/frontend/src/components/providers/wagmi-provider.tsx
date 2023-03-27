@@ -10,7 +10,7 @@ interface Props {
 export const WagmiProvider: FunctionComponent<Props> = ({ children }) => {
   const client = createClient(
     getDefaultClient({
-      appName: 'Echo',
+      appName: 'Echo NFT',
       alchemyId: config.alchemyKey,
       autoConnect: true,
       chains: config.chains
