@@ -21,7 +21,6 @@
     "update-modules": "ncu -u"
   },
   "dependencies": {
-    "@echo/api": "workspace:*",
     "ramda": "0.28.0"
   },
   "devDependencies": {

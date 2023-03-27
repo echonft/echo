@@ -1,6 +1,7 @@
-import { getApiUrl } from '@echo/api'
+import { getServerConfig } from '@echo/api'
 import { Offer } from '@echo/model'
 
+// TODO Move this
 export function linkForListing(listing: Offer): string {
-  return `${getApiUrl()}/${listing.discordGuild.discordId}/${listing.id}`
+  return `${getServerConfig().url}/${listing.discordGuild.discordId}/${listing.id}`
 }
