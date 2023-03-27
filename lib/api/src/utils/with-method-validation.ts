@@ -3,7 +3,6 @@ import { NextApiRequest } from 'next'
 
 export type methods = 'POST' | 'DELETE' | 'PUT' | 'GET'
 
-// TODO Update with edge
 /**
  * Method validation wrapper that will return a response error if method is not allowed
  * @param handler The request handler
