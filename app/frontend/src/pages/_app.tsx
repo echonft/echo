@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import { Auth } from '@components/auth'
 import { MessagesType } from '@lib/messages'
 import { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
@@ -9,6 +10,7 @@ import { NextIntlProvider } from 'next-intl'
 interface PageProps extends Record<string, unknown> {
   messages: MessagesType
   session: Session
+  auth?: boolean
 }
 
 const DynamicWagmiProvider = dynamic(
@@ -26,7 +28,13 @@ function MyApp({ Component, pageProps }: AppProps<PageProps>) {
       <DynamicWagmiProvider>
         <DynamicConnectKitProvider>
           <NextIntlProvider timeZone={'America/New_York'} messages={pageProps.messages}>
-            <Component {...pageProps} />
+            {pageProps.auth ? (
+              <Auth>
+                <Component {...pageProps} />
+              </Auth>
+            ) : (
+              <Component {...pageProps} />
+            )}
           </NextIntlProvider>
         </DynamicConnectKitProvider>
       </DynamicWagmiProvider>

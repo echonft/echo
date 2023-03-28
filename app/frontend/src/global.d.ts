@@ -1,4 +1,6 @@
 import { MessagesType } from '@lib/messages'
+import { NextPage } from 'next'
+import { DefaultSession } from 'next-auth'
 
 export declare global {
   namespace NodeJS {
@@ -14,4 +16,17 @@ export declare global {
   // get typings on translation keys
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface IntlMessages extends MessagesType {}
+
+  // Pages that require authentication
+  type AuthenticatedPage<Props = object, InitialProps = Props> = NextPage<Props & { auth: true }, InitialProps>
+}
+
+declare module 'next-auth' {
+  /**
+   * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+   */
+  interface Session {
+    firebaseToken: string
+    user: DefaultSession['user']
+  }
 }

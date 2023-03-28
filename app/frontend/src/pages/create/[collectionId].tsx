@@ -1,9 +1,10 @@
 import { CreateOfferFetcher } from '@components/create-offer-fetcher'
 import { getMessages, MessagesType } from '@lib/messages'
-import { GetServerSideProps, NextPage } from 'next'
+import { GetServerSideProps } from 'next'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
-const DynamicAuthPage = dynamic(() => import('@components/pages/auth-page').then((mod) => mod.AuthPage), {
+
+const DynamicAuthPage = dynamic(() => import('@components/auth').then((mod) => mod.Auth), {
   ssr: false
 })
 
@@ -11,7 +12,7 @@ interface Props {
   messages: MessagesType
 }
 
-const CreateOffer: NextPage<Props> = () => {
+const CreateOffer: AuthenticatedPage<Props> = () => {
   const router = useRouter()
   const { collectionId } = router.query
   return (
