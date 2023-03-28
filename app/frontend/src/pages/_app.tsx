@@ -10,7 +10,6 @@ import { NextIntlProvider } from 'next-intl'
 interface PageProps extends Record<string, unknown> {
   messages: MessagesType
   session: Session
-  auth?: boolean
 }
 
 const DynamicWagmiProvider = dynamic(
@@ -22,13 +21,13 @@ const DynamicConnectKitProvider = dynamic(() => import('connectkit').then((mod) 
   ssr: false
 })
 
-function MyApp({ Component, pageProps }: AppProps<PageProps>) {
+function MyApp({ Component, pageProps }: AppProps<PageProps> & { Component: PageWithAuth }) {
   return (
     <SessionProvider session={pageProps.session}>
       <DynamicWagmiProvider>
         <DynamicConnectKitProvider>
           <NextIntlProvider timeZone={'America/New_York'} messages={pageProps.messages}>
-            {pageProps.auth ? (
+            {Component.authenticationEnabled ? (
               <Auth>
                 <Component {...pageProps} />
               </Auth>

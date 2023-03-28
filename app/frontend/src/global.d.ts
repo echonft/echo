@@ -17,8 +17,11 @@ export declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface IntlMessages extends MessagesType {}
 
-  // Pages that require authentication
-  type AuthenticatedPage<Props = object, InitialProps = Props> = NextPage<Props & { auth: true }, InitialProps>
+  // TODO Maybe we should expand that config for access control
+  type AuthEnabledComponentConfig = {
+    authenticationEnabled: boolean
+  }
+  type PageWithAuth<Props = object, InitialProps = Props> = NextPage<Props, InitialProps> & AuthEnabledComponentConfig
 }
 
 declare module 'next-auth' {

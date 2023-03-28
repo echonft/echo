@@ -1,13 +1,9 @@
 import { config } from '@lib/config/config'
 import { getDefaultClient } from 'connectkit'
-import { FunctionComponent, ReactNode } from 'react'
+import { FunctionComponent, PropsWithChildren } from 'react'
 import { createClient, WagmiConfig } from 'wagmi'
 
-interface Props {
-  children?: ReactNode | undefined
-}
-
-export const WagmiProvider: FunctionComponent<Props> = ({ children }) => {
+export const WagmiProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
   const client = createClient(
     getDefaultClient({
       appName: 'Echo NFT',

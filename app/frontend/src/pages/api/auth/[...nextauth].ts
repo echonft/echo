@@ -13,10 +13,14 @@ const authOptions: AuthOptions = {
       authorization: getAuthorizationUrl()
     })
   ],
+  pages: {
+    signIn: '/login',
+    signOut: '/logout'
+  },
   callbacks: {
     async jwt({ token }) {
       if (isNil(token.firebaseToken) && !isNil(token.sub)) {
-        return createCustomToken(token.sub).then((firebaseToken) => ({ firebaseToken, ...token }))
+        return createCustomToken(token.sub).then((firebaseToken) => ({ ...token, firebaseToken }))
       }
       return token
     },

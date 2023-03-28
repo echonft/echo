@@ -1,8 +1,5 @@
-import { FunctionComponentWithAuth } from '../types/function-component-with-auth'
+import { FunctionComponent } from 'react'
 
-const CreateOffer: FunctionComponentWithAuth = () => {
+export const CreateOffer: FunctionComponent = () => {
   return null
 }
-
-CreateOffer.auth = true
-export default CreateOffer
