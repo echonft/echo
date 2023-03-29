@@ -1,10 +1,13 @@
+import { discordGuildData } from '../discord-guild/discord-guild-data'
 import { FirestoreUserData } from '@echo/firestore'
 
 export const userData: { [key: string]: FirestoreUserData } = {
   oE6yUEQBPn7PZ89yMjKn: {
     refPath: 'users/oE6yUEQBPn7PZ89yMjKn',
     id: 'oE6yUEQBPn7PZ89yMjKn',
-    discordId: 'johnnycage#0890',
+    discordId: 123456,
+    discordUsername: 'johnnycage#0890',
+    discordGuilds: [discordGuildData['xA40abnyBq6qQHSYmtHj']!],
     nonce: 'nonce',
     wallets: [
       {

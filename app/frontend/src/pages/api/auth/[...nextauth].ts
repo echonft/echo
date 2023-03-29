@@ -20,6 +20,8 @@ const authOptions: AuthOptions = {
   callbacks: {
     async jwt({ token }) {
       if (isNil(token.firebaseToken) && !isNil(token.sub)) {
+        // TODO Add method to fetch or create user
+        // TODO Add claims (roles)
         return createCustomToken(token.sub).then((firebaseToken) => ({ ...token, firebaseToken }))
       }
       return token

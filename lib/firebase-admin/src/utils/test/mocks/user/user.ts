@@ -1,9 +1,12 @@
+import { discordGuilds } from '../discord-guild/discord-guild'
 import { User } from '@echo/model'
 
 export const users: { [key: string]: User } = {
   oE6yUEQBPn7PZ89yMjKn: {
     id: 'oE6yUEQBPn7PZ89yMjKn',
-    discordId: 'johnnycage#0890',
+    discordId: 123456,
+    discordUsername: 'johnnycage#0890',
+    discordGuilds: [discordGuilds['xA40abnyBq6qQHSYmtHj']!],
     nonce: 'nonce',
     wallets: [
       {
