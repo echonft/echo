@@ -1,7 +1,7 @@
+import { castAs } from '../../fp'
 import { getJsonContentTypeRequestInit } from './request-init/get-json-content-type-request-init'
 import { setBody } from './request-init/set-body'
 import { setMethod } from './request-init/set-method'
-import { castAs } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { partialRight, pipe } from 'ramda'
 

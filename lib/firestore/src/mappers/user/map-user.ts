@@ -14,11 +14,22 @@ export const mapUser: FirestoreMapper<FirestoreUserData, User> = andThen(
       propToPromise('id'),
       propToPromise('discordId'),
       propToPromise('discordUsername'),
+      propToPromise('discordAvatar'),
+      propToPromise('discordBanner'),
       propToPromise('nonce'),
       propToMappedDocumentArray('discordGuilds', mapDiscordGuild),
       propToMappedDocumentArray('wallets', mapWallet)
     ]),
     promiseAll,
-    zipPromisesToObject<User>(['id', 'discordId', 'discordUsername', 'nonce', 'discordGuilds', 'wallets'])
+    zipPromisesToObject<User>([
+      'id',
+      'discordId',
+      'discordUsername',
+      'discordAvatar',
+      'discordBanner',
+      'nonce',
+      'discordGuilds',
+      'wallets'
+    ])
   )
 )

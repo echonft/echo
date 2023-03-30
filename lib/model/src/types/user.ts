@@ -3,9 +3,11 @@ import { Wallet } from './wallet'
 
 export interface User {
   id: string
-  discordId: number
+  discordId: string
   discordUsername: string
   discordGuilds: DiscordGuild[]
+  discordAvatar: string | undefined
+  discordBanner: string | undefined
   nonce: string | undefined
   wallets: Wallet[] | undefined
 }

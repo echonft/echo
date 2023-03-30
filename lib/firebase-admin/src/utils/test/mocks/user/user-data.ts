@@ -5,9 +5,11 @@ export const userData: { [key: string]: FirestoreUserData } = {
   oE6yUEQBPn7PZ89yMjKn: {
     refPath: 'users/oE6yUEQBPn7PZ89yMjKn',
     id: 'oE6yUEQBPn7PZ89yMjKn',
-    discordId: 123456,
+    discordId: '123456',
     discordUsername: 'johnnycage#0890',
     discordGuilds: [discordGuildData['xA40abnyBq6qQHSYmtHj']!],
+    discordAvatar: '4b4d6722cb2b98b0b817020257a9c3ec',
+    discordBanner: undefined,
     nonce: 'nonce',
     wallets: [
       {

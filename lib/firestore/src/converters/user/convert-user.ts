@@ -15,6 +15,8 @@ export const convertUser: FirestoreConverter<FirestoreUser, FirestoreUserData> =
     propToPromise('id'),
     propToPromise('discordId'),
     propToPromise('discordUsername'),
+    propToPromise('discordAvatar'),
+    propToPromise('discordBanner'),
     propToPromise('nonce'),
     refArrayProp('discordGuilds', convertDiscordGuild),
     nestedDocumentArrayProp('wallets', convertWallet)
@@ -25,6 +27,8 @@ export const convertUser: FirestoreConverter<FirestoreUser, FirestoreUserData> =
     'id',
     'discordId',
     'discordUsername',
+    'discordAvatar',
+    'discordBanner',
     'nonce',
     'discordGuilds',
     'wallets'

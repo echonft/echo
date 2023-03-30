@@ -1,4 +1,4 @@
-import { createCustomToken } from '@echo/api'
+import { createCustomToken, createNewUser } from '@echo/api'
 import { discordConfig, getAuthorizationUrl } from '@echo/discord'
 import NextAuth, { AuthOptions } from 'next-auth'
 import DiscordProvider from 'next-auth/providers/discord'
@@ -18,11 +18,13 @@ const authOptions: AuthOptions = {
     signOut: '/logout'
   },
   callbacks: {
-    async jwt({ token }) {
-      if (isNil(token.firebaseToken) && !isNil(token.sub)) {
-        // TODO Add method to fetch or create user
+    async jwt({ token, account }) {
+      // No firebase token means user is not logged in firebase
+      if (isNil(token.firebaseToken)) {
         // TODO Add claims (roles)
-        return createCustomToken(token.sub).then((firebaseToken) => ({ ...token, firebaseToken }))
+        return createNewUser(account?.access_token, account?.token_type).then(() =>
+          createCustomToken(token.sub!).then((firebaseToken) => ({ ...token, firebaseToken }))
+        )
       }
       return token
     },

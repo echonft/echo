@@ -1,4 +1,4 @@
-import { castAs } from '@echo/utils'
+import { castAs } from '../../../fp'
 import { allPass, always, assoc, assocPath, complement, has, ifElse, isNil, pipe, prop, unless } from 'ramda'
 
 export const setAuthorization = (authorization: string | undefined) =>
@@ -7,7 +7,7 @@ export const setAuthorization = (authorization: string | undefined) =>
     ifElse(
       allPass([has('headers'), pipe(prop('headers'), complement(isNil))]),
       pipe<[RequestInit], unknown, RequestInit>(
-        assocPath(['headers', 'authorization'], authorization),
+        assocPath(['headers', 'Authorization'], authorization),
         castAs<RequestInit>
       ),
       pipe<[RequestInit], unknown, RequestInit>(assoc('headers', { authorization }), castAs<RequestInit>)

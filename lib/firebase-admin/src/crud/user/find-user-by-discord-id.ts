@@ -6,7 +6,7 @@ import { FirestoreUser, mapUser } from '@echo/firestore'
 import { User } from '@echo/model'
 import { castAs, errorPromise } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { andThen, ifElse, isEmpty, nth, pipe } from 'ramda'
+import { andThen, head, ifElse, isEmpty, pipe } from 'ramda'
 
 export const findUserByDiscordId = (discordId: string) =>
   pipe(
@@ -16,6 +16,6 @@ export const findUserByDiscordId = (discordId: string) =>
     ifElse(
       isEmpty,
       pipe(errorPromise<User>('not found'), R.fromPromise<User>),
-      pipe(andThen(pipe(nth(0), castAs, convertUser, mapUser, R.fromPromise<User>)))
+      pipe(andThen(pipe(head, castAs, convertUser, mapUser, R.fromPromise<User>)))
     )
   )('users')
