@@ -8,7 +8,7 @@ import { castAs, errorPromise } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { andThen, head, ifElse, isEmpty, pipe } from 'ramda'
 
-export const findUserByDiscordId = (discordId: string) =>
+export const findUserByDiscordId = (discordId: string): Promise<R.Result<User, Error>> =>
   pipe(
     getCollectionFromPath,
     whereCollection<FirestoreUser>('discordId', '==', discordId),

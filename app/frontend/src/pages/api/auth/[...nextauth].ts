@@ -1,4 +1,4 @@
-import { createCustomToken, createNewUser } from '@echo/api'
+import { createCustomToken, createOrUpdateUser } from '@echo/api'
 import { discordConfig, getAuthorizationUrl } from '@echo/discord'
 import NextAuth, { AuthOptions } from 'next-auth'
 import DiscordProvider from 'next-auth/providers/discord'
@@ -22,7 +22,7 @@ const authOptions: AuthOptions = {
       // No firebase token means user is not logged in firebase
       if (isNil(token.firebaseToken)) {
         // TODO Add claims (roles)
-        return createNewUser(account?.access_token, account?.token_type).then(() =>
+        return createOrUpdateUser(account?.access_token, account?.token_type, token.sub).then(() =>
           createCustomToken(token.sub!).then((firebaseToken) => ({ ...token, firebaseToken }))
         )
       }

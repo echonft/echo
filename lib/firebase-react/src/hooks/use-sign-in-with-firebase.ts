@@ -4,6 +4,7 @@ import { isNilOrEmpty } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { Auth, getAuth, signInWithCustomToken, UserCredential } from 'firebase/auth'
 import { always, converge, isNil, pipe, prop } from 'ramda'
+import { useEffect } from 'react'
 import useSWR from 'swr'
 
 interface KeyData {
@@ -13,6 +14,11 @@ interface KeyData {
 export const useSignInWithFirebase = (token: string | undefined) => {
   const firebaseApp = useFirebase()
   const firebaseAuth = getAuth(firebaseApp)
+
+  useEffect(() => {
+    console.log(`firebaseAuth status changed, user is ${JSON.stringify(firebaseAuth.currentUser)}`)
+  }, [firebaseAuth.currentUser])
+
   return useSWR<R.Result<UserCredential, Error>, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       { name: SwrKeyNames.FIREBASE_LOGIN, data: { firebaseAuth, token } },
