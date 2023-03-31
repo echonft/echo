@@ -12,11 +12,11 @@ export function withExistingUser<T extends ApiRequestWithUserId, U>(
   return async function (req, res) {
     const { userId } = req.body
     if (isNil(userId)) {
-      return res.status(404).json({ error: 'UNAUTHORIZED: No user provided' })
+      return res.status(401).json({ error: 'No user provided' })
     }
     const result = await findUserById(userId)
     if (R.isError(result)) {
-      return res.status(404).json({ error: 'UNAUTHORIZED: No user found' })
+      return res.status(404).json({ error: 'No user found' })
     }
     return handler(req, res)
   }

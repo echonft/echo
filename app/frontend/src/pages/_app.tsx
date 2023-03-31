@@ -1,3 +1,4 @@
+import 'next-auth/providers/discord'
 import '../styles/globals.css'
 import { Auth } from '@components/auth'
 import { MessagesType } from '@lib/messages'
