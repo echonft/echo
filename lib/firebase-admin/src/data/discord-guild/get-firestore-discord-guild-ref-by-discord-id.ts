@@ -5,7 +5,7 @@ import { FirestoreDiscordGuild } from '@echo/firestore'
 import { castAs, errorPromise } from '@echo/utils'
 import { DocumentReference } from '@google-cloud/firestore'
 import { R } from '@mobily/ts-belt'
-import { andThen, call, head, ifElse, invoker, isEmpty, pipe } from 'ramda'
+import { always, andThen, head, ifElse, isEmpty, pipe, prop, useWith } from 'ramda'
 
 export const getFirestoreDiscordGuildRefByDiscordId = (
   discordId: string
@@ -18,7 +18,11 @@ export const getFirestoreDiscordGuildRefByDiscordId = (
       ifElse(
         isEmpty,
         pipe(errorPromise('getFirestoreDiscordGuildRefByDiscordId Discord Guild not found'), R.fromPromise),
-        pipe(head, invoker(0, 'getRef'), call, R.fromPromise)
+        pipe(
+          head,
+          prop<DocumentReference<FirestoreDiscordGuild>>('ref'),
+          useWith(R.fromExecution, [always<DocumentReference<FirestoreDiscordGuild>>])
+        )
       )
     ),
     castAs<Promise<R.Result<DocumentReference<FirestoreDiscordGuild>, Error>>>

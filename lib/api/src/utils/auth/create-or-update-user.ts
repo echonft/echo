@@ -1,10 +1,9 @@
-import { createNewUser } from './create-new-user'
-import { fetchDiscordUserGuilds } from '@echo/discord/dist/utils/fetch-discord-user-guilds'
-import { findUserByDiscordId } from '@echo/firebase-admin'
-import { updateUserGuilds } from '@echo/firebase-admin/dist/crud/user/update-user-guilds'
+import { mapDiscordUserResponseToUserPrototype } from '../../mappers/map-discord-user-response-to-user-prototype'
+import { fetchDiscordUser } from '@echo/discord'
+import { addUser, findUserByDiscordId } from '@echo/firebase-admin'
+import { updateUserDiscordInfo } from '@echo/firebase-admin/dist/crud/user/update-user-discord-info'
 import { isNilOrEmpty } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { prop } from 'ramda'
 
 export function createOrUpdateUser(
   accessToken: string | undefined,
@@ -17,17 +16,18 @@ export function createOrUpdateUser(
   if (isNilOrEmpty(discordId)) {
     throw Error('Auth error: missing Discord Id')
   }
-
-  return findUserByDiscordId(discordId).then((userResult) => {
-    // User is not found, we create it
-    if (R.isError(userResult)) {
-      return createNewUser(accessToken, tokenType)
-    }
-    return fetchDiscordUserGuilds(accessToken, tokenType).then((result) => {
-      if (R.isOk(result)) {
-        return updateUserGuilds(R.getExn(userResult).id, R.getExn(result).map(prop('id')))
+  return Promise.all([findUserByDiscordId(discordId), fetchDiscordUser(accessToken, tokenType, true)]).then(
+    ([userResult, discordUserResponse]) => {
+      if (R.isError(discordUserResponse)) {
+        throw Error('Auth error: error fetching discord user')
       }
-      return userResult
-    })
-  })
+      const userPrototype = mapDiscordUserResponseToUserPrototype(R.getExn(discordUserResponse))
+      // User is not found, we create it
+      if (R.isError(userResult)) {
+        return addUser(userPrototype)
+      }
+      // Else update user discord info
+      return updateUserDiscordInfo(R.getExn(userResult).id, userPrototype)
+    }
+  )
 }
