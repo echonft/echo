@@ -1,15 +1,18 @@
 import { config } from '@lib/config/config'
 import { getDefaultClient } from 'connectkit'
 import { FunctionComponent, PropsWithChildren } from 'react'
-import { createClient, WagmiConfig } from 'wagmi'
+import { configureChains, createClient, WagmiConfig } from 'wagmi'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
 
 export const WagmiProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
+  const { chains, provider } = configureChains(config.chains, [alchemyProvider({ apiKey: config.alchemyKey })])
+
   const client = createClient(
     getDefaultClient({
       appName: 'Echo NFT',
-      alchemyId: config.alchemyKey,
       autoConnect: true,
-      chains: config.chains
+      chains,
+      provider
     })
   )
   return <WagmiConfig client={client}>{children}</WagmiConfig>
