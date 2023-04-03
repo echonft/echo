@@ -1,6 +1,7 @@
 import 'next-auth/providers/discord'
 import '../styles/globals.css'
 import { Auth } from '@components/auth'
+import { FirebaseUserProvider } from '@components/providers/firebase-user-provider'
 import { MessagesType } from '@lib/messages'
 import { AppProps } from 'next/app'
 import dynamic from 'next/dynamic'
@@ -25,19 +26,21 @@ const DynamicConnectKitProvider = dynamic(() => import('connectkit').then((mod) 
 function MyApp({ Component, pageProps }: AppProps<PageProps> & { Component: PageWithAuth }) {
   return (
     <SessionProvider session={pageProps.session}>
-      <DynamicWagmiProvider>
-        <DynamicConnectKitProvider>
-          <NextIntlProvider timeZone={'America/New_York'} messages={pageProps.messages}>
-            {Component.authenticationEnabled ? (
-              <Auth>
+      <FirebaseUserProvider>
+        <DynamicWagmiProvider>
+          <DynamicConnectKitProvider>
+            <NextIntlProvider timeZone={'America/New_York'} messages={pageProps.messages}>
+              {Component.authenticationEnabled ? (
+                <Auth>
+                  <Component {...pageProps} />
+                </Auth>
+              ) : (
                 <Component {...pageProps} />
-              </Auth>
-            ) : (
-              <Component {...pageProps} />
-            )}
-          </NextIntlProvider>
-        </DynamicConnectKitProvider>
-      </DynamicWagmiProvider>
+              )}
+            </NextIntlProvider>
+          </DynamicConnectKitProvider>
+        </DynamicWagmiProvider>
+      </FirebaseUserProvider>
     </SessionProvider>
   )
 }
