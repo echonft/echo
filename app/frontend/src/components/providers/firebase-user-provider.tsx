@@ -6,16 +6,8 @@ import { R } from '@mobily/ts-belt'
 import { signOut as signOutFirebase, Unsubscribe } from 'firebase/auth'
 import { signOut, useSession } from 'next-auth/react'
 import { isNil } from 'ramda'
-import {
-  createContext,
-  FunctionComponent,
-  PropsWithChildren,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from 'react'
+import { createContext, FunctionComponent, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react'
+import useSWR from 'swr'
 
 export interface CurrentUser {
   loggedInFirebase: boolean
@@ -26,40 +18,43 @@ const userContext = createContext<CurrentUser | null>(null)
 export const FirebaseUserProvider: FunctionComponent<PropsWithChildren> = ({ children }) => {
   const { auth, signIn } = useFirebaseAuth()
   const { data: session } = useSession()
-
-  const login = useCallback(
-    () =>
-      getUrl<FirebaseTokenResponse>(ApiRoutes.GET_FIREBASE_TOKEN).then((result) => {
-        if (R.isOk(result)) {
-          void signIn(auth, R.getExn(result).firebaseToken).then(() => {
-            setCurrentUser((prevState) => ({ ...prevState, loggedInFirebase: true }))
-          })
-        }
-        logger.error('Error fetching firebase token')
-        void signOut()
-      }),
-    [auth, signIn]
-  )
-
-  const onAuthStateChangedUnsubscriber = useRef<Unsubscribe>()
-
+  const onAuthStateChangedUnsubscribe = useRef<Unsubscribe>()
   const [currentUser, setCurrentUser] = useState<CurrentUser>({
     loggedInFirebase: false
   })
+  // State to fetch token when needed
+  const [shouldLogin, setShouldLogin] = useState<boolean>(false)
+  // Fetch token when logging in
+  useSWR<void, Error>(shouldLogin ? ApiRoutes.GET_FIREBASE_TOKEN : undefined, (url: string) =>
+    getUrl<FirebaseTokenResponse>(url).then((result) => {
+      if (R.isOk(result)) {
+        void signIn(auth, R.getExn(result).firebaseToken).then(() => {
+          setCurrentUser((prevState) => ({ ...prevState, loggedInFirebase: true }))
+          setShouldLogin(false)
+        })
+      } else {
+        logger.error('Error fetching firebase token')
+        void signOut().then(() => setShouldLogin(false))
+      }
+    })
+  )
 
+  // Listen for session change
   useEffect(() => {
-    if (!isNil(session) && !currentUser.loggedInFirebase) {
-      logger.debug(`session is not null but firebase is, re-login`)
-      void login()
-    } else if (isNil(session) && currentUser.loggedInFirebase) {
-      logger.debug(`session is null but firebase is not, signing out`)
+    if (!isNil(session) && !currentUser.loggedInFirebase && !shouldLogin) {
+      logger.debug('Session is auth, will login to firebase')
+      setShouldLogin(true)
+    } else if (isNil(session) && currentUser.loggedInFirebase && !shouldLogin) {
+      logger.debug('Session is not auth, will logout from firebase')
       void signOutFirebase(auth)
     }
-  }, [auth, currentUser.loggedInFirebase, login, session])
-  // listen for app auth changes
+  }, [currentUser.loggedInFirebase, shouldLogin, session, auth])
+
+  // Listen for app auth changes
   useEffect((): VoidFunction => {
-    if (isNil(onAuthStateChangedUnsubscriber.current)) {
-      onAuthStateChangedUnsubscriber.current = auth.onAuthStateChanged(
+    // We use a ref to avoid having multiple listeners since session remounts several times
+    if (isNil(onAuthStateChangedUnsubscribe.current)) {
+      onAuthStateChangedUnsubscribe.current = auth.onAuthStateChanged(
         (user) => {
           if (user) {
             if (!currentUser.loggedInFirebase) {
@@ -78,8 +73,8 @@ export const FirebaseUserProvider: FunctionComponent<PropsWithChildren> = ({ chi
         }
       )
     }
-    return () => onAuthStateChangedUnsubscriber.current?.()
-  }, [auth, currentUser.loggedInFirebase, login, session])
+    return () => onAuthStateChangedUnsubscribe.current?.()
+  }, [auth, currentUser.loggedInFirebase, session])
 
   return <userContext.Provider value={currentUser}>{children}</userContext.Provider>
 }
