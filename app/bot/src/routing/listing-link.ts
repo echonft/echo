@@ -1,4 +1,4 @@
-import { getServerConfig } from '../../config/get-server-config'
+import { getServerConfig } from '@echo/api'
 
 /**
  * Creates a link to the listings page for a guild
