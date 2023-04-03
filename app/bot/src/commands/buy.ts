@@ -20,7 +20,7 @@ export function executeBuy(interaction: ButtonInteraction, listing: Offer) {
       })
       .then((thread) => {
         thread.members
-          .add(listing.sender.discordId!)
+          .add(listing.sender.discordId)
           .then(() => {
             thread.members
               .add(interaction.user)

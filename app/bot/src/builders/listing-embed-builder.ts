@@ -18,7 +18,7 @@ export function buildListingEmbed(listing: Offer) {
 // TODO Check to add the discord user as a tag?
 // TODO Translation
 function title(listing: Offer): string {
-  return `A new offer was created from <@${listing.sender.discordId!}>`
+  return `A new offer was created from <@${listing.sender.discordId}>`
 }
 
 // FIXME
