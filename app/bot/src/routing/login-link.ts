@@ -1,5 +1,5 @@
 import { collectionLink } from './collection-link'
-import { getServerConfig } from '@echo/api'
+import { getServerConfig } from '@echo/api/dist/config/get-server-config'
 
 export function loginLink(guildId: string) {
   const callbackQuery = new URLSearchParams({ callback: collectionLink(guildId) })

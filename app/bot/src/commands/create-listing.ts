@@ -1,7 +1,7 @@
 import { getHasNft } from '../api/get-has-nft'
 import { NoGuildIdError } from '../errors/no-guild-id-error'
+import { collectionListingsLink } from '../routing/collection-listings-link'
 import { createListingLink } from '../routing/create-listing-link'
-import { listingsLink } from '../routing/listing-link'
 import { castAs, converge, isNilOrEmpty, toPromise } from '@echo/utils'
 import { CommandInteraction, InteractionResponse, SlashCommandSubcommandBuilder } from 'discord.js'
 import { andThen, applySpec, call, head, ifElse, invoker, juxt, last, path, pipe, prop, T, useWith } from 'ramda'
@@ -39,7 +39,7 @@ export const executeCreateListing: (interaction: CommandInteraction) => Promise<
           converge(call, [
             invoker(1, 'reply'),
             applySpec({
-              content: useWith(listingsLink, [prop('guildId')]),
+              content: useWith(collectionListingsLink, [prop('guildId')]),
               ephemeral: T
             })
           ])

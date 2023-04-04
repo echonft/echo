@@ -1,9 +1,10 @@
 import { NoGuildIdError } from '../errors/no-guild-id-error'
 import { loginLink } from '../routing/login-link'
 import { findDiscordGuildByGuildId } from '@echo/firebase-admin'
+import { isNilOrEmpty } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
-import { isNil } from 'ramda'
+import { andThen, ifElse, pipe, prop } from 'ramda'
 
 /**
  * Connect command
@@ -14,17 +15,24 @@ export const connectSubcommand = (subCommand: SlashCommandSubcommandBuilder) =>
   subCommand.setName('connect').setDescription('Connect to the bot via Discord and Wallet')
 
 export function executeConnect(interaction: CommandInteraction) {
-  const noGuildErrorReplyOptions = new NoGuildIdError().getInteractionReplyOptions()
-  if (isNil(interaction.guildId)) {
-    return interaction.reply(noGuildErrorReplyOptions)
-  }
-  return findDiscordGuildByGuildId(interaction.guildId).then((guildResult) => {
-    if (R.isOk(guildResult)) {
-      return interaction.reply({
-        content: loginLink(R.getExn(guildResult).id),
-        ephemeral: true
-      })
-    }
-    return interaction.reply(noGuildErrorReplyOptions)
-  })
+  return ifElse(
+    pipe(prop('guildId'), isNilOrEmpty),
+    (interaction: CommandInteraction) => new NoGuildIdError().reply(interaction),
+    pipe(
+      prop('guildId'),
+      findDiscordGuildByGuildId,
+      andThen(
+        ifElse(
+          R.isOk,
+          pipe(R.getExn, (guild) =>
+            interaction.reply({
+              content: loginLink(guild.id),
+              ephemeral: true
+            })
+          ),
+          () => new NoGuildIdError().reply(interaction)
+        )
+      )
+    )
+  )(interaction)
 }

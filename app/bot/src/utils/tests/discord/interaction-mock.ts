@@ -1,11 +1,11 @@
 import { mockTextChannel } from './channel-mock'
+import { mockMessage } from './message-mock'
 import { randomSnowflake } from './snowflake'
 import { messageToAPIData } from './to-api-data'
 import { mockGuildMember } from './user-mock'
 import {
   APIBaseInteraction,
   APIChatInputApplicationCommandInteraction,
-  APIMessageStringSelectInteractionData,
   ApplicationCommandType,
   ButtonInteraction,
   Channel,
@@ -17,16 +17,17 @@ import {
   Interaction,
   InteractionResponse,
   InteractionType,
+  InteractionUpdateOptions,
   Message,
   PermissionsBitField,
   Snowflake,
-  StringSelectMenuInteraction,
   User
 } from 'discord.js'
 import type {
   RawMessageButtonInteractionData,
   RawMessageComponentInteractionData
 } from 'discord.js/typings/rawDataTypes'
+import { isNil } from 'ramda'
 
 function setupMockedInteractionAPIData<Type extends InteractionType>({
   channel,
@@ -67,89 +68,89 @@ function setupMockedInteractionAPIData<Type extends InteractionType>({
   }
 }
 
+// FIXME Typing is wrong here
 function applyInteractionResponseHandlers(interaction: Interaction) {
   // Unused for now
-  // const client = interaction.client
-  // if ('update' in interaction) {
-  //   interaction.update = async (
-  //     options: (InteractionUpdateOptions & { fetchReply: true }) | (string | MessagePayload | InteractionUpdateOptions)
-  //   ) => {
-  //     interaction.deferred = false
-  //     interaction.replied = true
-  //     await interaction.message.edit(options)
-  //     if (options instanceof Object && 'fetchReply' in options) {
-  //       return Promise.resolve(interaction.message)
-  //     }
-  //     return mockInteractionResponse({
-  //       interaction: interaction,
-  //       id: interaction.id
-  //     })
-  //   }
-  // }
-  // if ('deferUpdate' in interaction) {
-  //   interaction.deferUpdate = (options) => {
-  //     interaction.deferred = true
-  //     if (options?.fetchReply) {
-  //       return Promise.resolve(interaction.message)
-  //     }
-  //     return Promise.resolve(
-  //       mockInteractionResponse({
-  //         id: interaction.id,
-  //         interaction
-  //       })
-  //     )
-  //   }
-  // }
-  //
-  // if ('deferReply' in interaction) {
-  //   interaction.deferReply = (options) => {
-  //     interaction.deferred = true
-  //     const msg = mockMessage({
-  //       client,
-  //       channel: interaction.channel ?? undefined, // TODO: probably error here?
-  //       author: interaction.client.user,
-  //       override: {
-  //         id: interaction.id.toString()
-  //       }
-  //     })
-  //     if (options?.fetchReply) {
-  //       return Promise.resolve(msg)
-  //     }
-  //     return Promise.resolve(
-  //       mockInteractionResponse({
-  //         id: interaction.id,
-  //         interaction
-  //       })
-  //     )
-  //   }
-  // }
-  //
-  // if ('reply' in interaction) {
-  //   interaction.reply = (opts) => {
-  //     const msg = mockMessage({
-  //       client,
-  //       channel: interaction.channel ?? undefined, // TODO: probably error here?
-  //       author: interaction.client.user,
-  //       override: {
-  //         id: interaction.id.toString()
-  //       },
-  //       opts
-  //     })
-  //     interaction.deferred = false
-  //     interaction.replied = true
-  //
-  //     if (opts instanceof Object && 'fetchReply' in opts) {
-  //       return Promise.resolve(msg)
-  //     }
-  //
-  //     return Promise.resolve(
-  //       mockInteractionResponse({
-  //         interaction: interaction,
-  //         id: interaction.id
-  //       })
-  //     )
-  //   }
-  // }
+  const client = interaction.client
+  if ('update' in interaction) {
+    interaction.update = async (
+      options: (InteractionUpdateOptions & { fetchReply: true }) | (string | MessagePayload | InteractionUpdateOptions)
+    ) => {
+      interaction.deferred = false
+      interaction.replied = true
+      await interaction.message.edit(options)
+      if (!isNil(options)) {
+        return Promise.resolve(interaction.message)
+      }
+      return mockInteractionResponse({
+        interaction: interaction,
+        id: interaction.id
+      })
+    }
+  }
+  if ('deferUpdate' in interaction) {
+    interaction.deferUpdate = (options) => {
+      interaction.deferred = true
+      if (options?.fetchReply) {
+        return Promise.resolve(interaction.message)
+      }
+      return Promise.resolve(
+        mockInteractionResponse({
+          id: interaction.id,
+          interaction
+        })
+      )
+    }
+  }
+
+  if ('deferReply' in interaction) {
+    interaction.deferReply = (options) => {
+      interaction.deferred = true
+      const msg = mockMessage({
+        client,
+        channel: interaction.channel ?? undefined, // TODO: probably error here?
+        author: interaction.client.user,
+        override: {
+          id: interaction.id.toString()
+        }
+      })
+      if (options?.fetchReply) {
+        return Promise.resolve(msg)
+      }
+      return Promise.resolve(
+        mockInteractionResponse({
+          id: interaction.id,
+          interaction
+        })
+      )
+    }
+  }
+
+  if ('reply' in interaction) {
+    interaction.reply = (opts) => {
+      const msg = mockMessage({
+        client,
+        channel: interaction.channel ?? undefined, // TODO: probably error here?
+        author: interaction.client.user,
+        override: {
+          id: interaction.id.toString()
+        },
+        opts
+      })
+      interaction.deferred = false
+      interaction.replied = true
+
+      if (!isNil(opts)) {
+        return Promise.resolve(msg)
+      }
+      return Promise.resolve(
+        mockInteractionResponse({
+          interaction: interaction,
+          id: interaction.id
+        })
+      )
+    }
+  }
 
   if ('fetchReply' in interaction) {
     interaction.fetchReply = () => {
@@ -227,7 +228,6 @@ export function mockInteractionResponse({
 }): InteractionResponse {
   return Reflect.construct(InteractionResponse, [interaction, id]) as InteractionResponse
 }
-
 export function mockButtonInteraction({
   override = {},
   caller,
@@ -257,43 +257,6 @@ export function mockButtonInteraction({
     }
   } satisfies RawMessageButtonInteractionData & RawMessageComponentInteractionData
   const interaction = Reflect.construct(ButtonInteraction, [client, rawData]) as ButtonInteraction
-  applyInteractionResponseHandlers(interaction)
-  return interaction
-}
-
-export function mockStringSelectInteraction({
-  override = {},
-  caller,
-  message,
-  data
-}: {
-  caller: User
-  message: Message
-  data: Omit<APIMessageStringSelectInteractionData, 'component_type' | 'values'> & {
-    values: string[] | string
-  }
-  override?: Partial<Omit<RawMessageComponentInteractionData, 'data'>>
-}) {
-  const client = message.client
-  const rawData = {
-    message: messageToAPIData(message),
-    ...override,
-    ...setupMockedInteractionAPIData({
-      caller,
-      channel: message.channel,
-      type: InteractionType.MessageComponent,
-      message,
-      override
-    }),
-    data: {
-      component_type: ComponentType.StringSelect,
-      custom_id: data.custom_id,
-      values: Array.isArray(data.values) ? data.values : [data.values]
-    }
-  } satisfies RawMessageComponentInteractionData & {
-    data: APIMessageStringSelectInteractionData
-  }
-  const interaction = Reflect.construct(StringSelectMenuInteraction, [client, rawData]) as StringSelectMenuInteraction
   applyInteractionResponseHandlers(interaction)
   return interaction
 }

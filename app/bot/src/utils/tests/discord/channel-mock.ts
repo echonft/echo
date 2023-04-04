@@ -201,26 +201,20 @@ function setupMockedChannel<T extends GuildBasedChannel>(
   guild.channels.cache.set(channel.id, channel)
   return channel
 }
-
-export function mockAndSetupChannel(client: Client, guild?: Guild, data: Partial<APITextChannel> = {}): TextChannel {
-  return setupMockedChannel(client, guild, (guild) => {
-    const rawData: APITextChannel = {
-      ...getGuildTextChannelMockDataBase(ChannelType.GuildText, guild),
-      ...data
-    }
-    const channel = Reflect.construct(TextChannel, [guild, rawData, client]) as TextChannel
-    return channel
-  })
-}
-
 export function mockTextChannel(client: Client, guild?: Guild, data: Partial<APITextChannel> = {}): TextChannel {
   const rawData: APITextChannel = {
     ...getGuildTextChannelMockDataBase(ChannelType.GuildText, guild ?? mockGuild(client)),
     ...data
   }
-  const channel = Reflect.construct(TextChannel, [guild, rawData, client]) as TextChannel
-  return channel
+  return Reflect.construct(TextChannel, [guild, rawData, client]) as TextChannel
 }
+
+export function mockAndSetupChannel(client: Client, guild?: Guild, data: Partial<APITextChannel> = {}): TextChannel {
+  return setupMockedChannel(client, guild, (guild) => {
+    return mockTextChannel(client, guild, data)
+  })
+}
+
 /** UNUSED FOR NOW
 export function mockThreadFromParentMessage(input: {
   client: Client
