@@ -1,1 +1,1 @@
-export * from './has-nft'
+export * from './get-has-nft'

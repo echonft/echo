@@ -1,6 +1,6 @@
 import { DiscordRoutes } from '../routing'
 import { DiscordUserResponse } from '../types'
-import { DiscordUserGuildResponse } from '../types/model/discord-user-guild-response'
+import { fetchDiscordUserGuilds } from './fetch-discord-user-guilds'
 import { getUrl } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { andThen, assoc, join, pipe } from 'ramda'
@@ -11,22 +11,23 @@ export async function fetchDiscordUser(
   tokenType: string,
   fetchGuilds = false
 ): Promise<R.Result<DiscordUserResponse, Error>> {
-  const auth = join(' ', [tokenType, accessToken])
-  return getUrl<DiscordUserResponse>(DiscordRoutes.USER, auth).then((discordUserResult) => {
-    if (R.isError(discordUserResult)) {
-      throw Error('Error fetching discord user data')
+  return getUrl<DiscordUserResponse>(DiscordRoutes.USER, join(' ', [tokenType, accessToken])).then(
+    (discordUserResult) => {
+      if (R.isError(discordUserResult)) {
+        throw Error('Error fetching discord user data')
+      }
+      if (fetchGuilds) {
+        return pipe(
+          fetchDiscordUserGuilds,
+          andThen(
+            R.map((guilds) => ({
+              ...R.getExn(discordUserResult),
+              guilds
+            }))
+          )
+        )(accessToken, tokenType)
+      }
+      return R.map(discordUserResult, assoc('guilds', []))
     }
-    if (fetchGuilds) {
-      return pipe(
-        getUrl<DiscordUserGuildResponse[]>,
-        andThen(
-          R.map((guilds) => ({
-            ...R.getExn(discordUserResult),
-            guilds
-          }))
-        )
-      )(DiscordRoutes.USER_GUILDS, auth)
-    }
-    return R.map(discordUserResult, assoc('guilds', []))
-  })
+  )
 }
