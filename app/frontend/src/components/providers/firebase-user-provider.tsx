@@ -3,7 +3,7 @@ import { FirebaseTokenResponse } from '@echo/api/dist/types/models/responses/fir
 import { useFirebaseAuth } from '@echo/firebase-react'
 import { getUrl, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { signOut as signOutFirebase, Unsubscribe } from 'firebase/auth'
+import { Unsubscribe } from 'firebase/auth'
 import { signOut, useSession } from 'next-auth/react'
 import { isNil } from 'ramda'
 import { createContext, FunctionComponent, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react'
@@ -44,9 +44,6 @@ export const FirebaseUserProvider: FunctionComponent<PropsWithChildren> = ({ chi
     if (!isNil(session) && !currentUser.loggedInFirebase && !shouldLogin) {
       logger.debug('Session is auth, will login to firebase')
       setShouldLogin(true)
-    } else if (isNil(session) && currentUser.loggedInFirebase && !shouldLogin) {
-      logger.debug('Session is not auth, will logout from firebase')
-      void signOutFirebase(auth)
     }
   }, [currentUser.loggedInFirebase, shouldLogin, session, auth])
 

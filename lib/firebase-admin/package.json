@@ -30,7 +30,8 @@
     "firebase-admin": "11.5.0",
     "dayjs": "1.11.7",
     "ethers": "6.1.0",
-    "ramda": "0.28.0"
+    "ramda": "0.28.0",
+    "siwe": "1.1.6"
   },
   "devDependencies": {
     "@babel/core": "7.21.3",

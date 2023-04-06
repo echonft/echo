@@ -1,3 +1,3 @@
 export interface NonceRequest {
-  address: string
+  userId: string
 }
