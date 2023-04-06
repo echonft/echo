@@ -3,8 +3,8 @@ import { NoGuildIdError } from '../errors/no-guild-id-error'
 import { collectionListingsLink } from '../routing/collection-listings-link'
 import { createListingLink } from '../routing/create-listing-link'
 import { castAs, converge, isNilOrEmpty, toPromise } from '@echo/utils'
-import { CommandInteraction, InteractionResponse, SlashCommandSubcommandBuilder } from 'discord.js'
-import { andThen, applySpec, call, head, ifElse, invoker, juxt, last, path, pipe, prop, T, useWith } from 'ramda'
+import { CommandInteraction, Message, SlashCommandSubcommandBuilder } from 'discord.js'
+import { andThen, applySpec, call, head, ifElse, invoker, juxt, last, path, pipe, prop, useWith } from 'ramda'
 
 /**
  * Create listing command
@@ -15,34 +15,39 @@ export const createListingSubcommand = (subCommand: SlashCommandSubcommandBuilde
   subCommand.setName('create').setDescription('Create a listing')
 
 // TODO Must have a cleaner way to use ramda here
-export const executeCreateListing: (interaction: CommandInteraction) => Promise<InteractionResponse> = ifElse(
+export const executeCreateListing: (interaction: CommandInteraction) => Promise<Message<boolean>> = ifElse(
   pipe(prop('guildId'), isNilOrEmpty),
-  (interaction: CommandInteraction) => new NoGuildIdError().reply(interaction),
+  () => {
+    throw new NoGuildIdError()
+  },
   pipe(
-    juxt([toPromise, converge(getHasNft, [pipe(path(['user', 'id']), castAs), prop('guildId')])]),
-    (promises) => Promise.all(promises),
+    (interaction) => interaction.deferReply({ ephemeral: true }).then(() => interaction),
     andThen(
-      ifElse(
-        last,
-        pipe(
-          head,
-          converge(call, [
-            invoker(1, 'reply'),
-            applySpec({
-              content: useWith(createListingLink, [prop('guildId')]),
-              ephemeral: T
-            })
-          ])
-        ),
-        pipe(
-          head,
-          converge(call, [
-            invoker(1, 'reply'),
-            applySpec({
-              content: useWith(collectionListingsLink, [prop('guildId')]),
-              ephemeral: T
-            })
-          ])
+      pipe(
+        juxt([toPromise, converge(getHasNft, [pipe(path(['user', 'id']), castAs), prop('guildId')])]),
+        (promises) => Promise.all(promises),
+        andThen(
+          ifElse(
+            last,
+            pipe(
+              head,
+              converge(call, [
+                invoker(1, 'editReply'),
+                applySpec({
+                  content: useWith(createListingLink, [prop('guildId')])
+                })
+              ])
+            ),
+            pipe(
+              head,
+              converge(call, [
+                invoker(1, 'editReply'),
+                applySpec({
+                  content: useWith(collectionListingsLink, [prop('guildId')])
+                })
+              ])
+            )
+          )
         )
       )
     )

@@ -19,6 +19,7 @@ import {
   InteractionType,
   InteractionUpdateOptions,
   Message,
+  MessagePayload,
   PermissionsBitField,
   Snowflake,
   User
@@ -70,9 +71,10 @@ function setupMockedInteractionAPIData<Type extends InteractionType>({
 
 // FIXME Typing is wrong here
 function applyInteractionResponseHandlers(interaction: Interaction) {
-  // Unused for now
   const client = interaction.client
   if ('update' in interaction) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     interaction.update = async (
       options: (InteractionUpdateOptions & { fetchReply: true }) | (string | MessagePayload | InteractionUpdateOptions)
     ) => {
@@ -89,6 +91,8 @@ function applyInteractionResponseHandlers(interaction: Interaction) {
     }
   }
   if ('deferUpdate' in interaction) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     interaction.deferUpdate = (options) => {
       interaction.deferred = true
       if (options?.fetchReply) {
@@ -104,6 +108,8 @@ function applyInteractionResponseHandlers(interaction: Interaction) {
   }
 
   if ('deferReply' in interaction) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     interaction.deferReply = (options) => {
       interaction.deferred = true
       const msg = mockMessage({
@@ -127,7 +133,9 @@ function applyInteractionResponseHandlers(interaction: Interaction) {
   }
 
   if ('reply' in interaction) {
-    interaction.reply = (opts) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    interaction.reply = (options) => {
       const msg = mockMessage({
         client,
         channel: interaction.channel ?? undefined, // TODO: probably error here?
@@ -135,12 +143,13 @@ function applyInteractionResponseHandlers(interaction: Interaction) {
         override: {
           id: interaction.id.toString()
         },
-        opts
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        options
       })
       interaction.deferred = false
       interaction.replied = true
-
-      if (!isNil(opts)) {
+      if (!isNil(options)) {
         return Promise.resolve(msg)
       }
       return Promise.resolve(

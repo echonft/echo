@@ -17,20 +17,28 @@ export const connectSubcommand = (subCommand: SlashCommandSubcommandBuilder) =>
 export function executeConnect(interaction: CommandInteraction) {
   return ifElse(
     pipe(prop('guildId'), isNilOrEmpty),
-    (interaction: CommandInteraction) => new NoGuildIdError().reply(interaction),
+    () => {
+      throw new NoGuildIdError()
+    },
     pipe(
-      prop('guildId'),
-      findDiscordGuildByGuildId,
+      (interaction: CommandInteraction) => interaction.deferReply({ ephemeral: true }).then(() => interaction),
       andThen(
-        ifElse(
-          R.isOk,
-          pipe(R.getExn, (guild) =>
-            interaction.reply({
-              content: loginLink(guild.id),
-              ephemeral: true
-            })
-          ),
-          () => new NoGuildIdError().reply(interaction)
+        pipe(
+          prop<string>('guildId'),
+          findDiscordGuildByGuildId,
+          andThen(
+            ifElse(
+              R.isOk,
+              pipe(R.getExn, (guild) => {
+                return interaction.editReply({
+                  content: loginLink(guild.id)
+                })
+              }),
+              () => {
+                return interaction.editReply({ content: new NoGuildIdError().message })
+              }
+            )
+          )
         )
       )
     )

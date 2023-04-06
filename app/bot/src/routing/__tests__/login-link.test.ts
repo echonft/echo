@@ -9,7 +9,7 @@ jest.mock('@echo/api/dist/config/get-server-config', () => ({
 
 describe('Routing - loginLink', () => {
   test('returns login link with proper callback', () => {
-    const callback = new URLSearchParams({ callback: 'https://echonft.xyz/collection/1' })
+    const callback = new URLSearchParams({ callbackUrl: 'https://echonft.xyz/collection/1' })
     expect(loginLink('1')).toEqual(`https://echonft.xyz/login?${callback.toString()}`)
   })
 })

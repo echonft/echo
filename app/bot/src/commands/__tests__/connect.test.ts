@@ -1,3 +1,4 @@
+import { NoGuildIdError } from '../../errors/no-guild-id-error'
 import { loginLink } from '../../routing/login-link'
 import { mockAndSetupChannel } from '../../utils/tests/discord/channel-mock'
 import { setupBot } from '../../utils/tests/discord/client-mock'
@@ -48,10 +49,13 @@ describe('discord commands - connect', () => {
       id: 'testId',
       channel: mockChannel
     })
-    const response = await executeConnect(mockInteraction)
-    expect(response.content).toBe('Trying to use echo from an wrong server')
+    try {
+      await executeConnect(mockInteraction)
+    } catch (e) {
+      expect(e).toStrictEqual(new NoGuildIdError())
+    }
   })
-  test('If guildId not existing, throws an error', async () => {
+  test('If guildId not in the database, returns error message', async () => {
     const mockChannel = mockAndSetupChannel(client, mockGuild(client, undefined, { id: '1234' }))
     const mockInteraction = mockChatInputCommandInteraction({
       client,
