@@ -1,14 +1,22 @@
-import { AddWalletButton } from '@components/add-wallet-button'
-import { Redirect } from '@components/redirect'
+import { useDiscordGuild } from '@echo/firebase-react'
 import { useUser } from '@lib/hooks/use-user'
+import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'
-import React from 'react'
+import { FunctionComponent } from 'react'
 
-export const UserProfile: React.FunctionComponent = () => {
+export const UserProfile: FunctionComponent = () => {
   const user = useUser()
+  const { isLoading, data: result } = useDiscordGuild('Y8GBFtPZKElp44z0k10D')
+  console.log(`user result is ${JSON.stringify(user)} discord guild is ${JSON.stringify(result)}`)
   if (isNil(user)) {
-    // TODO Add callback?
-    return <Redirect to={'/login'} />
+    return <>Loading user...</>
   }
-  return <AddWalletButton user={user} />
+  if (R.isError(user)) {
+    R.tapError((error) => console.log(`error from useUser ${error}`))(user)
+    return <>Error on user</>
+    // TODO Add callback?
+    // return <Redirect to={'/login'} />
+  }
+  console.log(`will display user`)
+  return <>Got data</>
 }

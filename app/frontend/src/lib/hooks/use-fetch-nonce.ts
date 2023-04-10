@@ -12,12 +12,14 @@ interface KeyData {
   request: NonceRequest | undefined
 }
 // TODO Should not be immutable
+// Should we use
 export const useFetchNonce = (userId: string | undefined) =>
   useSWRImmutable<R.Result<NonceResponse, Error>, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       {
         name: SwrKeyNames.API_FETCH_NONCE,
         data: {
+          // FIXME The `getApiUrl` function from `@echo/api` leads to an error
           url: `http://localhost:3000/${ApiRoutes.NONCE}`,
           request: isNil(userId)
             ? undefined

@@ -1,7 +1,8 @@
-import { useSession } from 'next-auth/react'
+import { useFirebaseAuth, useUser as useFirebaseUser } from '@echo/firebase-react'
 
 // TODO There should be a way to force the typing here
 export const useUser = () => {
-  const { data: session } = useSession()
-  return session?.user
+  const { auth } = useFirebaseAuth()
+  const { data } = useFirebaseUser(auth.currentUser?.uid)
+  return data
 }
