@@ -1,4 +1,6 @@
-import { ApiRoutes, getApiRouteUrl, NonceRequest, NonceResponse } from '@echo/api'
+import { ApiRoutes } from '@echo/api/dist/routes/constants/api-routes'
+import { getApiRouteUrl } from '@echo/api/dist/routes/utils/get-api-route-url'
+import { NonceRequest, NonceResponse } from '@echo/api/dist/types/models'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { castAs, isNilOrEmpty, postData } from '@echo/utils'
 import { R } from '@mobily/ts-belt'

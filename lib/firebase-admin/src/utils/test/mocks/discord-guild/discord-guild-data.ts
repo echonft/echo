@@ -5,9 +5,9 @@ export const discordGuildData: { [key: string]: FirestoreDiscordGuildData } = {
   xA40abnyBq6qQHSYmtHj: {
     refPath: 'guilds/xA40abnyBq6qQHSYmtHj',
     id: 'xA40abnyBq6qQHSYmtHj',
-    discordId: '1002691062374088794',
+    discordId: '1',
     channelId: '1',
-    name: 'Echo',
+    name: 'Echo Test',
     contracts: [contractData['37dBlwJYahEAKeL0rNP8']!]
   }
 }

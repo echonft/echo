@@ -1,5 +1,5 @@
+import { listingLink } from '../routing/listing-ling'
 import { ButtonAction } from '../types/models/button-action'
-import { linkForListing } from '../utils/listing'
 import { Offer } from '@echo/model'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 
@@ -18,7 +18,7 @@ function buildBuyListingButton(listing: Offer) {
 }
 
 function buildListingLinkButton(listing: Offer) {
-  return new ButtonBuilder().setLabel('View on Echo').setURL(linkForListing(listing)).setStyle(ButtonStyle.Link)
+  return new ButtonBuilder().setLabel('View on Echo').setURL(listingLink(listing)).setStyle(ButtonStyle.Link)
 }
 
 export function buildNewListingButtons(listing: Offer) {

@@ -2,7 +2,7 @@ import { InteractionError } from './interaction-error'
 import { InteractionReplyOptions } from 'discord.js'
 
 function getErrorMessage(): string {
-  return 'empty guild id'
+  return 'Trying to use echo from an wrong server'
 }
 export class NoGuildIdError extends InteractionError {
   constructor() {
@@ -11,7 +11,7 @@ export class NoGuildIdError extends InteractionError {
 
   getInteractionReplyOptions(): InteractionReplyOptions {
     return {
-      content: 'Trying to use echo from an wrong server',
+      content: getErrorMessage(),
       ephemeral: true
     }
   }

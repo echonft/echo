@@ -1,3 +1,2 @@
-export * from './auth-options'
+export * from './auth-callback-options'
 export * from './get-server-config'
-export * from 'next-auth/providers/discord'

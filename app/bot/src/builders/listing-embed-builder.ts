@@ -1,4 +1,4 @@
-import { linkForListing } from '../utils/listing'
+import { listingLink } from '../routing/listing-ling'
 import { stringForListingItems } from '../utils/string-for-listing-items'
 import { Offer, OfferItem } from '@echo/model'
 import { APIEmbedField, EmbedBuilder } from 'discord.js'
@@ -11,7 +11,7 @@ export function buildListingEmbed(listing: Offer) {
       .setColor(color())
       // FIXME
       .setFields(fields(listing.senderItems, listing.receiverItems))
-      .setURL(linkForListing(listing))
+      .setURL(listingLink(listing))
   )
 }
 

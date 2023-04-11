@@ -1,9 +1,8 @@
 {
-  "name": "@echo/api",
+  "name": "@echo/api-auth",
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "type": "module",
   "sideEffects": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,27 +19,13 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
     "update-modules": "ncu -u"
   },
-  "peerDependencies": {
-    "next": "^13"
-  },
   "dependencies": {
-    "@echo/alchemy": "workspace:*",
-    "@echo/api-auth": "workspace:*",
     "@echo/discord": "workspace:*",
-    "@echo/firebase-admin": "workspace:*",
-    "@echo/firestore": "workspace:*",
-    "@echo/model": "workspace:*",
-    "@echo/utils": "workspace:*",
     "@mobily/ts-belt": "4.0.0-rc.5",
-    "alchemy-sdk": "2.6.1",
-    "ethers": "6.1.0",
-    "next": "13.2.4",
     "next-auth": "4.20.1",
-    "ramda": "0.28.0",
-    "request": "2.88.2"
+    "ramda": "0.28.0"
   },
   "devDependencies": {
-    "@types/ramda": "0.28.23",
-    "@types/request": "2.48.8"
+    "@types/ramda": "0.28.23"
   }
 }
