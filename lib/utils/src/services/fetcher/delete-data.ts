@@ -5,9 +5,9 @@ import { setMethod } from './request-init/set-method'
 import { R } from '@mobily/ts-belt'
 import { andThen, partialRight, pipe } from 'ramda'
 
-export const postData = <T, D extends object>(url: string, data: D): Promise<R.Result<T, Error>> =>
+export const deleteData = <T, D extends object>(url: string, data: D): Promise<R.Result<T, Error>> =>
   pipe(
-    partialRight(fetch, [pipe(getJsonContentTypeRequestInit, setBody(data), setMethod('POST'))()]),
+    partialRight(fetch, [pipe(getJsonContentTypeRequestInit, setBody(data), setMethod('DELETE'))()]),
     andThen((response) => response.json()),
     castAs,
     R.fromPromise<T>

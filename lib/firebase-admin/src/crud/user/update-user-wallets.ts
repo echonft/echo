@@ -1,21 +1,17 @@
 import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
-import { FirestoreUser } from '@echo/firestore'
+import { Wallet } from '@echo/model'
 import { FieldValue } from '@google-cloud/firestore'
 import { isEmpty, isNil } from 'ramda'
 
-// TODO This needs to be updated
-export const updateUserById = (userId: string, { wallets, ...update }: Partial<FirestoreUser>) => {
+export const updateUserWallets = (userId: string, wallets: Wallet[]) => {
   const userRef = getDocRefFromPath('users', userId)
   if (isNil(userRef)) {
     return Promise.reject('User not found')
   }
   if (isNil(wallets) || isEmpty(wallets)) {
-    return userRef.update({
-      ...update
-    })
+    return Promise.resolve()
   }
   return userRef.update({
-    ...update,
     wallets: FieldValue.arrayUnion(...wallets)
   })
 }

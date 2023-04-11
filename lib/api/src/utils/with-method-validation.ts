@@ -19,6 +19,6 @@ export function withMethodValidation<T extends NextApiRequest, U>(
     }
     res.setHeader('Allow', allowedMethods)
     res.end(res.status(405).json({ error: `Method ${method ?? ''} Not Allowed` }))
-    return handler(req, res)
+    throw Error(`Method ${method ?? ''} Not Allowed`)
   }
 }

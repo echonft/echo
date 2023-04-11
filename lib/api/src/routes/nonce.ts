@@ -1,15 +1,14 @@
-import { NonceResponse } from '../types'
-import { RequestHandler } from '../types/handlers/request-handler'
-import { NonceApiRequest } from '../types/models/api-requests/nonce-api-request'
+import { NextApiResponse } from 'next'
+import { nonceHandler } from '../handlers/nonce-handler'
+import { ErrorResponse, NonceResponse } from '../types'
+import { ApiRequest } from '../types/models/api-requests/api-request'
 import { withMethodValidation } from '../utils/with-method-validation'
 import { withSession } from '../utils/with-session'
-import { setNonceForUser } from '@echo/firebase-admin'
 
-const handler: RequestHandler<NonceApiRequest, NonceResponse> = async (req, res) => {
-  const nonce = await setNonceForUser(req.body.userId)
-  res.send({ nonce })
-  return Promise.resolve()
+export const nonce = async (req: ApiRequest<null, never>, res: NextApiResponse<ErrorResponse | NonceResponse>) => {
+  try {
+    await withMethodValidation(withSession(nonceHandler), ['GET'])(req, res)
+  } catch (error) {
+    return
+  }
 }
-
-// Pipe
-export const nonce = withMethodValidation(withSession(handler), ['POST'])
