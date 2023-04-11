@@ -1,15 +1,5 @@
-import { discordConfig, getAuthorizationUrl } from '@echo/discord'
-import NextAuth, { AuthOptions } from 'next-auth'
-import DiscordProvider from 'next-auth/providers/discord'
+import { authCallbackOptions } from '@echo/api'
+import { getAuthOptions } from '@echo/api-auth'
+import NextAuth from 'next-auth'
 
-// TODO Should be in {{@echo/api}} but we have a problem exporting
-const authOptions: AuthOptions = {
-  providers: [
-    DiscordProvider({
-      clientId: discordConfig.clientId,
-      clientSecret: discordConfig.clientSecret,
-      authorization: getAuthorizationUrl()
-    })
-  ]
-}
-export default NextAuth(authOptions)
+export default NextAuth(getAuthOptions(authCallbackOptions))

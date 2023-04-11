@@ -1,4 +1,6 @@
+import { User } from '@echo/model'
 import { MessagesType } from '@lib/messages'
+import { NextPage } from 'next'
 
 export declare global {
   namespace NodeJS {
@@ -14,4 +16,26 @@ export declare global {
   // get typings on translation keys
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface IntlMessages extends MessagesType {}
+
+  // TODO Maybe we should expand that config for access control
+  type AuthEnabledComponentConfig = {
+    authenticationEnabled: boolean
+  }
+  type PageWithAuth<Props = object, InitialProps = Props> = NextPage<Props, InitialProps> & AuthEnabledComponentConfig
+}
+
+declare module 'next-auth' {
+  /**
+   * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+   */
+  interface Session {
+    user: User
+  }
+}
+
+declare module 'next-auth/jwt' {
+  /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
+  interface JWT {
+    user?: User
+  }
 }

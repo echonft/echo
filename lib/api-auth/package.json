@@ -1,0 +1,31 @@
+{
+  "name": "@echo/api-auth",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "ci:lint": "eslint \"src/**/*.ts\"",
+    "ci:prettier": "prettier \"src/**/*.ts\"",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch",
+    "lint": "eslint --cache --fix \"src/**/*.ts\"",
+    "lint:clean-cache": "rm -f .eslintcache",
+    "remove-modules": "rm -rf node_modules",
+    "tsc": "tsc --noEmit",
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
+    "update-modules": "ncu -u"
+  },
+  "dependencies": {
+    "@echo/discord": "workspace:*",
+    "@mobily/ts-belt": "4.0.0-rc.5",
+    "next-auth": "4.20.1",
+    "ramda": "0.28.0"
+  },
+  "devDependencies": {
+    "@types/ramda": "0.28.23"
+  }
+}

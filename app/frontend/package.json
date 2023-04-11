@@ -20,6 +20,7 @@
   "dependencies": {
     "@echo/alchemy-react": "workspace:*",
     "@echo/api": "workspace:*",
+    "@echo/api-auth": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/firebase-react": "workspace:*",
     "@echo/model": "workspace:*",
@@ -31,7 +32,7 @@
     "@web3modal/standalone": "2.2.2",
     "alchemy-sdk": "2.6.1",
     "clsx": "1.2.1",
-    "connectkit": "1.2.1",
+    "connectkit": "1.2.2",
     "ethers": "5.7.2",
     "firebase": "9.17.2",
     "next": "13.2.4",
@@ -43,7 +44,7 @@
     "react-icons": "4.8.0",
     "siwe": "1.1.6",
     "swr": "2.1.0",
-    "wagmi": "0.12.1"
+    "wagmi": "0.12.8"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "13.2.4",

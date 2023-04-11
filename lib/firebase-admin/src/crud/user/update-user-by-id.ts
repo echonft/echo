@@ -3,6 +3,7 @@ import { FirestoreUser } from '@echo/firestore'
 import { FieldValue } from '@google-cloud/firestore'
 import { isEmpty, isNil } from 'ramda'
 
+// TODO This needs to be updated
 export const updateUserById = (userId: string, { wallets, ...update }: Partial<FirestoreUser>) => {
   const userRef = getDocRefFromPath('users', userId)
   if (isNil(userRef)) {

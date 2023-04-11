@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@echo/alchemy": "workspace:*",
+    "@echo/api-auth": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/firebase-admin": "workspace:*",
     "@echo/firestore": "workspace:*",

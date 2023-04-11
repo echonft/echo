@@ -21,6 +21,8 @@
     "update-modules": "ncu -u"
   },
   "dependencies": {
+    "@echo/utils": "workspace:*",
+    "@mobily/ts-belt": "4.0.0-rc.5",
     "ramda": "0.28.0"
   },
   "devDependencies": {

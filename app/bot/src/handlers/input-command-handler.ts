@@ -4,11 +4,11 @@ import { InvalidSubcommandError } from '../errors/invalid-subcommand-error'
 import { NotConfiguredError } from '../errors/not-configured-error'
 import { WrongChannelError } from '../errors/wrong-channel-error'
 import { InputSubcommands } from '../types/commands/input-subcommands'
-import { findDiscordGuildById } from '@echo/firebase-admin'
+import { findDiscordGuildByGuildId } from '@echo/firebase-admin'
 import { DiscordGuild } from '@echo/model'
 import { errorMessage, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { ChatInputCommandInteraction, CommandInteraction, InteractionResponse } from 'discord.js'
+import { ChatInputCommandInteraction, CommandInteraction, Message } from 'discord.js'
 import { andThen, equals, ifElse, isEmpty, isNil, pipe, prop } from 'ramda'
 
 function executeForSubcommand(interaction: CommandInteraction, subcommand: InputSubcommands) {
@@ -25,10 +25,10 @@ function executeForSubcommand(interaction: CommandInteraction, subcommand: Input
 export function executeForCommand(interaction: ChatInputCommandInteraction) {
   const guildId = interaction.guildId
   if (isNil(guildId) || isEmpty(guildId)) {
-    return
+    throw new NotConfiguredError(guildId)
   }
   return pipe(
-    findDiscordGuildById,
+    findDiscordGuildByGuildId,
     andThen(
       pipe(
         R.tapError((error) => {
@@ -40,9 +40,9 @@ export function executeForCommand(interaction: ChatInputCommandInteraction) {
           throw new NotConfiguredError(guildId)
         }),
         R.getExn,
-        ifElse<[DiscordGuild], Promise<InteractionResponse<boolean>>, never>(
+        ifElse<[discordGuild: DiscordGuild], Promise<Message<boolean>>, never>(
           pipe(prop('channelId'), equals(interaction.channelId)),
-          (_discordGuild) => executeForSubcommand(interaction, interaction.options.getSubcommand() as InputSubcommands),
+          () => executeForSubcommand(interaction, interaction.options.getSubcommand() as InputSubcommands),
           (discordGuild) => {
             throw new WrongChannelError(guildId, discordGuild.channelId)
           }

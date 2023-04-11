@@ -1,5 +1,6 @@
 export * from './create-offer-response'
 export * from './error-response'
+export * from './firebase-token-response'
 export * from './nonce-response'
 export * from './trade-response'
 export * from './user-has-nft-response'

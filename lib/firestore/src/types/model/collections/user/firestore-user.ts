@@ -1,8 +1,13 @@
+import { FirestoreDiscordGuild } from '../discord-guild'
 import { FirestoreWallet } from './firestore-wallet'
-import { DocumentData } from 'firebase/firestore'
+import { DocumentData, DocumentReference } from 'firebase/firestore'
 
 export interface FirestoreUser extends DocumentData {
-  discordId?: string
-  nonce: string
+  discordId: string
+  discordUsername: string
+  discordGuilds?: DocumentReference<FirestoreDiscordGuild>[]
+  discordAvatar?: string
+  discordBanner?: string
+  nonce?: string
   wallets?: FirestoreWallet[]
 }

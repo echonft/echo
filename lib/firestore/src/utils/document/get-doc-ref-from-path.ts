@@ -2,7 +2,7 @@ import { doc, DocumentData, DocumentReference, getFirestore } from 'firebase/fir
 
 /**
  * Get a reference of a document from a path and a segment. Syntax sugar for typing
- * @param path – The firebase path
+ * @param path – The firebase path with no leading slash
  * @param pathSegments – Additional path segments that will be applied relative to the first argument.
  */
 export function getDocRefFromPath<T extends DocumentData>(
