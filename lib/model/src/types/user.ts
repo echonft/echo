@@ -8,6 +8,5 @@ export interface User {
   discordGuilds: DiscordGuild[]
   discordAvatar: string | undefined
   discordBanner: string | undefined
-  nonce: string | undefined
   wallets: Wallet[] | undefined
 }

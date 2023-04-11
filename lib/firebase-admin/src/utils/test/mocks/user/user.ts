@@ -9,7 +9,6 @@ export const users: { [key: string]: User } = {
     discordGuilds: [discordGuilds['xA40abnyBq6qQHSYmtHj']!],
     discordAvatar: '4b4d6722cb2b98b0b817020257a9c3ec',
     discordBanner: undefined,
-    nonce: 'nonce',
     wallets: [
       {
         address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',
