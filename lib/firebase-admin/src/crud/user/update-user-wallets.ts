@@ -1,6 +1,5 @@
 import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
 import { Wallet } from '@echo/model'
-import { FieldValue } from '@google-cloud/firestore'
 import { isEmpty, isNil } from 'ramda'
 
 export const updateUserWallets = (userId: string, wallets: Wallet[]) => {
@@ -12,6 +11,6 @@ export const updateUserWallets = (userId: string, wallets: Wallet[]) => {
     return Promise.resolve()
   }
   return userRef.update({
-    wallets: FieldValue.arrayUnion(...wallets)
+    wallets
   })
 }
