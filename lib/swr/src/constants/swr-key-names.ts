@@ -10,6 +10,5 @@ export enum SwrKeyNames {
   DISCORD_USER_ME = 'discord-user-me',
   FIREBASE_LOGIN = 'firebase-login',
   FIRESTORE_COLLECTION = 'firestore-collection',
-  FIRESTORE_DOCUMENT = 'firestore-document',
-  WALLET_SIGN_MESSAGE = 'wallet-sign-message'
+  FIRESTORE_DOCUMENT = 'firestore-document'
 }

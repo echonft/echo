@@ -375,8 +375,8 @@ importers:
         specifier: 2.6.1
         version: 2.6.1
       ethers:
-        specifier: 6.1.0
-        version: 6.1.0
+        specifier: 5.7.2
+        version: 5.7.2
       next:
         specifier: 13.2.4
         version: 13.2.4(@babel/core@7.21.3)(react-dom@18.2.0)(react@18.2.0)
@@ -389,6 +389,9 @@ importers:
       request:
         specifier: 2.88.2
         version: 2.88.2
+      siwe:
+        specifier: 1.1.6
+        version: 1.1.6(ethers@5.7.2)
     devDependencies:
       '@types/ramda':
         specifier: 0.28.23

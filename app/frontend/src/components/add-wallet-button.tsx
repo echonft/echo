@@ -1,21 +1,106 @@
-import { Wallet } from '@echo/model'
-import { useAddWallet } from '@lib/hooks/use-add-wallet'
+import { AddWallet } from '@components/add-wallet'
+import { SignMessage } from '@components/sign-message'
+import { Signature, Wallet } from '@echo/model'
 import { useFetchNonce } from '@lib/hooks/use-fetch-nonce'
 import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'
 import { FunctionComponent, useState } from 'react'
+import { SiweMessage } from 'siwe'
 
-interface Props {
-  userId: string
-  address: string
+enum AddState {
+  IDLE,
+  SIGNING,
+  ADDING
 }
 
-export const AddWalletButton: FunctionComponent<Props> = ({ userId, address }) => {
-  const nonce = useFetchNonce(userId)
-  const [walletToAdd, setWalletToAdd] = useState<Wallet>()
-  const { data: walletsResults } = useAddWallet(walletToAdd)
-  if (!isNil(walletsResults) && !R.isError(walletsResults)) {
-    console.log(`wallets are ${JSON.stringify(R.getExn(walletsResults))}`)
+interface Props {
+  address: string
+  chainId: number
+  userId: string
+  retry?: boolean
+  onSignRejected?: () => void
+  onSuccess?: (wallets: Wallet[]) => void
+  onError?: (error: string) => void
+}
+
+export const AddWalletButton: FunctionComponent<Props> = ({
+  address,
+  chainId,
+  userId,
+  retry,
+  onSignRejected,
+  onSuccess,
+  onError
+}) => {
+  const { data: nonceResult, mutate } = useFetchNonce(userId)
+  const [addState, setAddState] = useState(AddState.IDLE)
+  const [message, setMessage] = useState<SiweMessage>()
+  const [signature, setSignature] = useState<Signature>()
+
+  if (addState === AddState.SIGNING) {
+    return (
+      <>
+        <button disabled>
+          <span>Adding wallet...</span>
+        </button>
+        <SignMessage
+          statement={'Sign in to add this wallet to your account'}
+          // We can force assertion as we will never sign if there is no nonce
+          nonce={R.getExn(nonceResult!).nonce}
+          onSuccess={(message, signature) => {
+            setMessage(message)
+            setSignature(signature)
+            setAddState(AddState.ADDING)
+          }}
+          onReject={() => {
+            setAddState(AddState.IDLE)
+            onSignRejected?.()
+          }}
+        />
+      </>
+    )
   }
-  return <button onClick={() => setWalletToAdd({ address, chainId: 1 })}>Add wallet</button>
+
+  if (addState === AddState.ADDING) {
+    if (isNil(message) || isNil(signature)) {
+      return (
+        <button disabled>
+          <span>Adding wallet...</span>
+        </button>
+      )
+    }
+    return (
+      <>
+        <button disabled>
+          <span>Adding wallet...</span>
+        </button>
+        <AddWallet
+          wallet={{ address, chainId }}
+          message={message}
+          signature={signature}
+          onSuccess={(wallets) => {
+            // Refetch nonce if success
+            void mutate()
+            onSuccess?.(wallets)
+          }}
+          onError={(error) => {
+            // Refetch nonce if error
+            void mutate()
+            onError?.(error)
+          }}
+        />
+      </>
+    )
+  }
+
+  return (
+    <button
+      disabled={isNil(nonceResult) || R.isError(nonceResult)}
+      onClick={() => {
+        setAddState(AddState.SIGNING)
+      }}
+    >
+      <span>{retry ? 'retry' : 'Add wallet'}</span>
+    </button>
+  )
 }

@@ -1,19 +1,41 @@
 import { AddWalletButton } from '@components/add-wallet-button'
+import { WalletList } from '@components/wallet-list'
+import { Wallet } from '@echo/model'
 import { ConnectKitButton } from 'connectkit'
-import React from 'react'
+import { isNil } from 'ramda'
+import React, { useState } from 'react'
 import { useAccount, useNetwork } from 'wagmi'
 
 interface Props {
   userId: string
+  currentWallets: Wallet[]
 }
 
-export const WalletToolbar: React.FunctionComponent<Props> = ({ userId }) => {
+export const WalletToolbar: React.FunctionComponent<Props> = ({ userId, currentWallets }) => {
   const { address, isConnected } = useAccount()
   const { chain } = useNetwork()
+  const [wallets, setWallets] = useState<Wallet[]>(currentWallets)
+  const [signatureRejected, setSignatureRejected] = useState(false)
 
-  if (!isConnected) {
+  if (!isConnected || isNil(address) || isNil(chain)) {
     return <ConnectKitButton />
   } else {
-    return <AddWalletButton userId={userId} address={address!} />
+    return (
+      <div className={'flex flex-col gap-2'}>
+        <div className={'flex flex-row gap-1'}>
+          <AddWalletButton
+            userId={userId}
+            address={address}
+            chainId={chain.id}
+            onSuccess={(wallets) => {
+              setWallets(wallets)
+            }}
+            onSignRejected={() => setSignatureRejected(true)}
+            retry={signatureRejected}
+          />
+        </div>
+        <WalletList wallets={wallets} />
+      </div>
+    )
   }
 }

@@ -14,5 +14,5 @@ export const UserProfile: FunctionComponent = () => {
     // TODO Add callback?
     // return <Redirect to={'/login'} />
   }
-  return <WalletToolbar userId={R.getExn(user).id} />
+  return <WalletToolbar userId={R.getExn(user).id} currentWallets={R.getExn(user).wallets ?? []} />
 }

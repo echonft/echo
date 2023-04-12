@@ -1,6 +1,7 @@
 export * from './contract'
 export * from './discord-guild'
 export * from './nft-collection'
+export * from './nonce'
 export * from './offer'
 export * from './request-for-offer'
 export * from './swap'

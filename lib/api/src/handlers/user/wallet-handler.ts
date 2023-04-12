@@ -22,10 +22,11 @@ export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, Wal
     res.status(500).json({ error: `User ${session.user.discordId} not found` })
     return
   }
+  const { wallet, message, signature } = req.body
   switch (req.method) {
     case 'PUT':
-      return createWalletHandler(user, req.body, res)
+      return createWalletHandler(user, wallet, message, signature, res)
     case 'DELETE':
-      return deleteWalletHandler(user, req.body, res)
+      return deleteWalletHandler(user, wallet, res)
   }
 }
