@@ -1,7 +1,6 @@
 import { WalletResponse } from '../../types/models/responses/wallet-response'
-import { removeWallet } from '../../utils/wallets'
 import { updateUserWallets } from '@echo/firebase-admin'
-import { User, Wallet } from '@echo/model'
+import { removeWallet, User, Wallet } from '@echo/model'
 import { NextApiResponse } from 'next'
 
 export const deleteWalletHandler = async (user: User, wallet: Wallet, res: NextApiResponse<WalletResponse>) => {

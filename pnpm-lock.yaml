@@ -582,9 +582,21 @@ importers:
         specifier: 0.28.0
         version: 0.28.0
     devDependencies:
+      '@jest/globals':
+        specifier: 29.4.2
+        version: 29.4.2
+      '@jest/types':
+        specifier: 29.4.2
+        version: 29.4.2
       '@types/ramda':
         specifier: 0.28.23
         version: 0.28.23
+      babel-jest:
+        specifier: 29.4.2
+        version: 29.4.2(@babel/core@7.21.3)
+      jest:
+        specifier: 29.5.0
+        version: 29.5.0(@types/node@18.15.3)
 
   lib/swr:
     dependencies:
