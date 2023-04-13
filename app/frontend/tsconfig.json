@@ -1,14 +1,14 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../lib/tsconfig/nextjs.json",
   "compilerOptions": {
-    "noEmit": true,
     "rootDir": "src",
     "baseUrl": "src",
     "paths": {
       "@components/*": ["components/*"],
       "@lib/*": ["lib/*"]
-    }
+    },
+    "isolatedModules": true
   },
-  "include": ["src"],
+  "include": ["src", "next-env.d.ts"],
   "exclude": ["node_modules"]
 }

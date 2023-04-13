@@ -1,4 +1,5 @@
 import { isDebug } from '../constants'
+// eslint-disable-next-line import/no-named-as-default
 import pino from 'pino'
 import { isNil } from 'ramda'
 

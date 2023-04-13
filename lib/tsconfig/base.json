@@ -1,4 +1,6 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Default",
   "compilerOptions": {
     "allowJs": true,
     "allowUnreachableCode": false,
@@ -8,9 +10,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "incremental": false,
-    "isolatedModules": true,
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "preserve",
+    "inlineSources": false,
     "module": "esnext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -22,7 +22,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "strictNullChecks": true,
-    "target": "esnext"
-  }
+    "strictNullChecks": true
+  },
+  "exclude": ["node_modules"]
 }

@@ -39,7 +39,14 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/firebase-react/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/contract/dist" />
       <excludeFolder url="file://$MODULE_DIR$/lib/firebase-react/dist" />
-      <excludePattern pattern="tsbuild.buildinfo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api-auth/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api-auth/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/app/storybook/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/app/storybook/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/app/storybook/storybook-static" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/ui/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/ui/dist" />
+      <excludePattern pattern="tsconfig.tsbuildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />
     </content>

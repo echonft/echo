@@ -1,0 +1,12 @@
+{
+  "extends": "../../lib/tsconfig/base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "esnext",
+    "noEmit": true,
+    "noUnusedLocals": false
+  },
+  "include": ["."],
+  "exclude": ["node_modules"]
+}
