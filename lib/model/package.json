@@ -27,6 +27,8 @@
     "ramda": "0.28.0"
   },
   "devDependencies": {
+    "@babel/core": "7.21.3",
+    "@babel/preset-env": "7.20.2",
     "@types/ramda": "0.28.23",
     "@jest/globals": "29.4.2",
     "@jest/types": "29.4.2",

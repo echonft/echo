@@ -597,6 +597,12 @@ importers:
         specifier: 0.28.0
         version: 0.28.0
     devDependencies:
+      '@babel/core':
+        specifier: 7.21.3
+        version: 7.21.3
+      '@babel/preset-env':
+        specifier: 7.20.2
+        version: 7.20.2(@babel/core@7.21.3)
       '@jest/globals':
         specifier: 29.4.2
         version: 29.4.2

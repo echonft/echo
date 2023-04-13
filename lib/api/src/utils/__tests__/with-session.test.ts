@@ -3,14 +3,20 @@ import { mockRequestResponse } from '../test/mocks/request-response'
 import { mockSession } from '../test/mocks/session'
 import { withSession } from '../with-session'
 import { mockUser } from '@echo/model'
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import * as auth from 'next-auth/next'
 
+jest.mock('next-auth/next')
+jest.mock('../../config')
+
 describe('utils - withSession', () => {
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks()
   })
+
   it('not authenticated returns an error', async () => {
+    jest.spyOn(auth, 'getServerSession').mockImplementation(() => Promise.resolve(undefined))
+
     const { req, res } = mockRequestResponse('GET')
     try {
       await withSession(successHandler)(req, res)
@@ -20,6 +26,7 @@ describe('utils - withSession', () => {
       expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
     }
   })
+
   it('authenticated returns a success', async () => {
     jest.spyOn(auth, 'getServerSession').mockImplementation(() => Promise.resolve(mockSession))
     const { req, res } = mockRequestResponse('GET')

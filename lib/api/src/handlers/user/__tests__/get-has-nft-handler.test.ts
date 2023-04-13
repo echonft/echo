@@ -7,7 +7,6 @@ import { getHasNftHandler } from '../get-has-nft-handler'
 import { afterEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../../utils/guild')
-jest.mock('alchemy-sdk')
 jest.mock('../../../utils/alchemy/wallets-own-collection')
 
 describe('handlers - user - getHasNftHandler', () => {
@@ -63,6 +62,16 @@ describe('handlers - user - getHasNftHandler', () => {
       await getHasNftHandler(req, res, session)
       expect(res.statusCode).toBe(200)
       expect(res._getJSONData()).toEqual({ hasNft: true })
+    })
+
+    it('if correct guild id and owns contract but walletsOwnCollection fails, returns 505', async () => {
+      const { req, res } = mockRequestResponse<null, UserHasNftRequest, UserHasNftResponse>('GET', {
+        guildId: 'xA40abnyBq6qQHSYmtHj'
+      })
+      mockedWalletsOwnCollection.mockRejectedValue(false)
+      await getHasNftHandler(req, res, session)
+      expect(res.statusCode).toBe(500)
+      expect(res._getJSONData()).toEqual({ error: false })
     })
   })
 })
