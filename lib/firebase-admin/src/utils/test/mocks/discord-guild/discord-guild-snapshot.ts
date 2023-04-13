@@ -1,0 +1,22 @@
+import { FirestoreSnapshot } from '../../../../types/abstract/firestore-snapshot'
+import { contractReferences } from '../contract/contract-reference'
+import { FirestoreDiscordGuild } from '@echo/firestore'
+
+export const discordGuildSnapshot: { [key: string]: FirestoreSnapshot<FirestoreDiscordGuild> } = {
+  xA40abnyBq6qQHSYmtHj: {
+    // @ts-ignore
+    ref: {
+      path: 'guilds/xA40abnyBq6qQHSYmtHj'
+    },
+    id: 'xA40abnyBq6qQHSYmtHj',
+    exists: true,
+    data: () => ({
+      discordId: '1',
+      channelId: '1',
+      name: 'Echo Test',
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      contracts: [contractReferences['37dBlwJYahEAKeL0rNP8']!]
+    })
+  }
+}

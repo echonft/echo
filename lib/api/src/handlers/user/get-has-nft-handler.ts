@@ -5,28 +5,32 @@ import { UserHasNftResponse } from '../../types/models/responses/user-has-nft-re
 import { getAlchemy } from '../../utils/alchemy/alchemy'
 import { walletsOwnCollection } from '../../utils/alchemy/wallets-own-collection'
 import { getGuildById } from '../../utils/guild'
-import { getUserWithDiscordId } from '../../utils/user'
-import { mergeWalletsAndContractsByChainId } from '@echo/utils'
+import { isNilOrEmpty, mergeWalletsAndContractsByChainId } from '@echo/utils'
 import { isEmpty, isNil } from 'ramda'
 
 export const getHasNftHandler: RequestHandler<ApiRequest<null, UserHasNftRequest>, UserHasNftResponse> = async (
   req,
-  res
+  res,
+  session
 ) => {
-  const user = await getUserWithDiscordId(req.query.discordId)
-  if (isNil(user) || isNil(user?.wallets) || isEmpty(user?.wallets)) {
-    res.status(500).json({ error: `User ${req.query.discordId} not found or has no wallet registered` })
+  // TODO Shouldn't have to do that
+  if (isNil(session)) {
+    res.status(401).json({ error: 'You must be logged in' })
+    return Promise.resolve()
+  }
+  const { user } = session
+  if (isNil(user?.wallets) || isEmpty(user?.wallets)) {
+    res.status(200).json({ hasNft: false })
     return
   }
-  // Safe cast of user.wallets as we do a check for empty wallet beforehand
   const guild = await getGuildById(req.query.guildId)
-  if (isNil(guild) || isNil(guild?.contracts) || isEmpty(guild?.contracts)) {
+  if (isNil(guild) || isNilOrEmpty(guild.contracts)) {
     res.status(500).json({ error: `Guild ${req.query.guildId} not found or has no contracts registered` })
     return
   }
   const alchemy = getAlchemy()
   const mergedWalletsAndContracts = mergeWalletsAndContractsByChainId(user.wallets, guild.contracts)
-  Promise.all(
+  return Promise.all(
     Object.values(mergedWalletsAndContracts).map((value) =>
       walletsOwnCollection(alchemy, value.wallets, value.contracts)
     )

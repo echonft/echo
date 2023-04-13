@@ -11,6 +11,5 @@ export const nonceHandler: RequestHandler<ApiRequest<null, never>, NonceResponse
     return Promise.resolve()
   }
   const nonce = await setNonceForUser(session.user.id)
-  res.send({ nonce })
-  return Promise.resolve()
+  return res.status(200).json({ nonce })
 }
