@@ -12,6 +12,15 @@
   #root {
     @apply w-full h-full bg-white
   }
+  h1 {
+    @apply text-h1 uppercase font-akira
+  }
+  h2 {
+    @apply text-h2 uppercase font-akira
+  }
+  h3 {
+    @apply text-h3 uppercase font-akira
+  }
 }
 
 @layer components {
@@ -20,5 +29,32 @@
   }
   .option {
     @apply cursor-pointer rounded-lg bg-white/[0.05] py-2 px-3.5 text-sm font-bold text-white hover:bg-white/[0.24] focus:ring-1 focus:ring-white/[0.32];
+  }
+}
+
+@layer utilities {
+  .typo-body1 {
+    @apply text-body1 font-nunito
+  }
+  .typo-body2 {
+    @apply text-body2 font-nunito
+  }
+  .typo-body3 {
+    @apply text-body3 font-nunito
+  }
+  .typo-body4 {
+    @apply text-body4 font-nunito uppercase
+  }
+  .typo-body5 {
+    @apply text-body5 font-nunito
+  }
+  .typo-btn1 {
+    @apply text-btn1 font-akira uppercase
+  }
+  .typo-btn2 {
+    @apply text-btn2 font-nunito
+  }
+  .typo-btn3 {
+    @apply text-btn3 font-nunito uppercase
   }
 }

@@ -1,0 +1,135 @@
+/*noinspection CssUnknownTarget*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        @apply w-screen h-screen
+    }
+    body {
+        @apply w-screen h-screen font-medium bg-dark-500 text-white text-base
+    }
+}
+
+@layer components {
+    .options {
+        @apply absolute z-30 mt-1 flex w-full flex-col gap-2 overflow-y-auto rounded-lg bg-slate-900 p-2.5;
+    }
+    .option {
+        @apply cursor-pointer rounded-lg bg-white/[0.05] py-2 px-3.5 text-sm font-bold text-white hover:bg-white/[0.24] focus:ring-1 focus:ring-white/[0.32];
+    }
+}
+
+@layer utilities {
+    .prose-display-lg-bold {
+        @apply text-display-lg-bold font-inter
+    }
+    .prose-display-lg-light {
+        @apply text-display-lg-light font-inter
+    }
+    .prose-display-md {
+        @apply text-display-md font-inter
+    }
+    .prose-display-md-bold {
+        @apply text-display-md-bold font-inter
+    }
+    .prose-display-md-light {
+        @apply text-display-md-light font-inter
+    }
+    .prose-display-sm {
+        @apply text-display-sm font-inter
+    }
+    .prose-display-sm-light {
+        @apply text-display-sm-light font-inter
+    }
+    .prose-header-lg-bold {
+        @apply text-header-lg-bold font-inter
+    }
+    .prose-header-lg {
+        @apply text-header-lg font-inter
+    }
+    .prose-header-md-bold {
+        @apply text-header-md-bold font-inter
+    }
+    .prose-header-md {
+        @apply text-header-md font-inter
+    }
+    .prose-header-sm-bold {
+        @apply text-header-sm-bold font-inter
+    }
+    .prose-header-sm {
+        @apply text-header-sm font-inter
+    }
+    .prose-header-xs-bold {
+        @apply text-header-xs-bold font-inter
+    }
+    .prose-header-xs {
+        @apply text-header-xs font-inter
+    }
+    .prose-paragraph-xl {
+        @apply text-paragraph-xl font-inter
+    }
+    .prose-paragraph-xl-light {
+        @apply text-paragraph-xl-light font-inter
+    }
+    .prose-paragraph-lg {
+        @apply text-paragraph-lg font-inter
+    }
+    .prose-paragraph-lg-light {
+        @apply text-paragraph-lg-light font-inter
+    }
+    .prose-paragraph-md {
+        @apply text-paragraph-md font-inter
+    }
+    .prose-paragraph-md-light {
+        @apply text-paragraph-md-light font-inter
+    }
+    .prose-paragraph-sm {
+        @apply text-paragraph-sm font-inter
+    }
+    .prose-paragraph-sm-light {
+        @apply text-paragraph-sm-light font-inter
+    }
+    .prose-paragraph-xs {
+        @apply text-paragraph-xs font-inter
+    }
+    .prose-paragraph-xs-light {
+        @apply text-paragraph-xs-light font-inter
+    }
+    .prose-label-lg {
+        @apply text-label-lg font-inter
+    }
+    .prose-label-lg-bold {
+        @apply text-label-lg-bold font-inter
+    }
+    .prose-label-md {
+        @apply text-label-md font-inter
+    }
+    .prose-label-md-bold {
+        @apply text-label-md-bold font-inter
+    }
+    .prose-label-sm {
+        @apply text-label-sm font-inter
+    }
+    .prose-label-sm-bold {
+        @apply text-label-sm-bold font-inter
+    }
+    .prose-label-xs {
+        @apply text-label-xs font-inter
+    }
+    .prose-label-xs-bold {
+        @apply text-label-xs-bold font-inter
+    }
+    .prose-label-caps-lg {
+        @apply text-caps-lg font-inter uppercase
+    }
+    .prose-label-caps-md {
+        @apply text-caps-md font-inter uppercase
+    }
+    .prose-label-caps-sm {
+        @apply text-caps-sm font-inter uppercase
+    }
+}

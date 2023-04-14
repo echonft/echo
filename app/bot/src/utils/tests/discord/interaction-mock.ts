@@ -48,6 +48,10 @@ function setupMockedInteractionAPIData<Type extends InteractionType>({
   Pick<APIBaseInteraction<Type, object>, 'guild_id' | 'message'> {
   return {
     application_id: applicationId ?? randomSnowflake().toString(),
+    channel: {
+      id: channel.id,
+      type: channel.type
+    },
     channel_id: channel.id,
     id: randomSnowflake().toString(),
     token: randomSnowflake().toString(), // TODO: Use a real token
