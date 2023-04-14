@@ -35,6 +35,10 @@ export const createWalletHandler = async (
   }
 
   const wallets = addWallet(user.wallets ?? [], wallet)
-  await updateUserWallets(user.id, wallets)
-  return res.status(200).json({ wallets })
+  return updateUserWallets(user.id, wallets)
+    .then(() => res.status(200).json({ wallets }))
+    .catch(() => {
+      res.end(res.status(500).json({ error: 'User not found' }))
+      return
+    })
 }

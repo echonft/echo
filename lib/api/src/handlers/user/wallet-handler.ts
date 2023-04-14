@@ -13,12 +13,12 @@ export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, Wal
 ) => {
   // TODO Shouldn't have to do that
   if (isNil(session)) {
-    res.status(401).json({ error: 'You must be logged in' })
-    return Promise.resolve()
+    res.end(res.status(401).json({ error: 'You must be logged in' }))
+    return
   }
   const { user } = session
   if (isNil(user)) {
-    res.status(500).json({ error: 'User not found' })
+    res.end(res.status(500).json({ error: 'User not found' }))
     return
   }
   const { wallet, message, signature } = req.body
