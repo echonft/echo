@@ -6,6 +6,8 @@ import { addWalletSchema } from '../../types/models/validators/add-wallet'
 import { removeWalletsSchema } from '../../types/models/validators/remove-wallets'
 import { createWalletHandler } from './create-wallet-handler'
 import { deleteWalletHandler } from './delete-wallet-handler'
+import { isNil } from 'ramda'
+import { SiweMessage } from 'siwe'
 
 export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, WalletResponse> = async (
   req,
@@ -26,7 +28,9 @@ export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, Wal
   try {
     switch (req.method) {
       case 'PUT':
-        validatedRequest = addWalletSchema.parse(req.body)
+        // We need to create the SiweMessage here because that's the only way to validate its type
+        // Validation could be improved and check some values instead of types
+        validatedRequest = addWalletSchema.parse({ ...req.body, message: new SiweMessage(req.body.message!) })
         return createWalletHandler(
           user,
           validatedRequest.wallet,

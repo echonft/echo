@@ -6,7 +6,7 @@ import { castAs, isNilOrEmpty, putData } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { always, converge, path, pipe } from 'ramda'
 import { SiweMessage } from 'siwe'
-import useSWRImmutable from 'swr/immutable'
+import useSWR from 'swr'
 
 interface KeyData {
   url: string
@@ -15,7 +15,7 @@ interface KeyData {
 // TODO Should not be immutable
 // Should we use
 export const useAddWallet = (message: SiweMessage, signature: Signature, wallet: Wallet | undefined) =>
-  useSWRImmutable<R.Result<WalletResponse, Error>, Error, SwrKey<KeyData> | undefined>(
+  useSWR<R.Result<WalletResponse, Error>, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       {
         name: SwrKeyNames.API_ADD_WALLET,

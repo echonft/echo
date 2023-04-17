@@ -1,16 +1,27 @@
+import { RemoveWalletButton } from '@components/remove-wallet-button'
 import { Wallet } from '@echo/model'
 import { FunctionComponent } from 'react'
 
 interface Props {
   wallets: Wallet[]
+  onSuccess?: (wallets: Wallet[]) => void
+  onError?: (error: string) => void
 }
 
-export const WalletList: FunctionComponent<Props> = ({ wallets }) => {
+export const WalletList: FunctionComponent<Props> = ({ wallets, onError, onSuccess }) => {
   return (
     <>
       <p>Current wallets are</p>
       {wallets.map((wallet) => (
-        <p key={`${wallet.address}-${wallet.chainId}`}>{`${wallet.address}-${wallet.chainId}`}</p>
+        <div className={'flex flex-row gap-5'} key={`${wallet.address}-${wallet.chainId}`}>
+          <p>{`${wallet.address}-${wallet.chainId}`}</p>
+          <RemoveWalletButton
+            chainId={wallet.chainId}
+            address={wallet.address}
+            onError={onError}
+            onSuccess={onSuccess}
+          />
+        </div>
       ))}
     </>
   )
