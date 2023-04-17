@@ -23,6 +23,7 @@
     "update-modules": "ncu -u"
   },
   "dependencies": {
+    "@echo/utils": "workspace:*",
     "dayjs": "1.11.7",
     "ramda": "0.28.0"
   },

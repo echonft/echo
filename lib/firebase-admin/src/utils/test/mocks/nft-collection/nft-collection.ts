@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 export const nftCollections: { [key: string]: NftCollection } = {
   Rc8pLQXxgyQGIRL0fr13: {
     id: 'Rc8pLQXxgyQGIRL0fr13',
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     contract: contracts['37dBlwJYahEAKeL0rNP8']!,
     openSea: {
       floorPrice: 73.1,

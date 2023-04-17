@@ -25,7 +25,6 @@
   "devDependencies": {
     "@babel/core": "7.21.3",
     "@babel/preset-env": "7.20.2",
-    "@echo/model": "workspace:*",
     "@jest/globals": "29.5.0",
     "@jest/types": "29.5.0",
     "@mobily/ts-belt": "4.0.0-rc.5",

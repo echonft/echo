@@ -36,8 +36,9 @@ export const AddWalletButton: FunctionComponent<Props> = ({
   const [addState, setAddState] = useState(AddState.IDLE)
   const [message, setMessage] = useState<SiweMessage>()
   const [signature, setSignature] = useState<Signature>()
+  const nonce = isNil(nonceResult) ? undefined : R.getExn(nonceResult).nonce
 
-  if (addState === AddState.SIGNING) {
+  if (addState === AddState.SIGNING && !isNil(nonce)) {
     return (
       <>
         <button disabled>
@@ -45,8 +46,7 @@ export const AddWalletButton: FunctionComponent<Props> = ({
         </button>
         <SignMessage
           statement={'Sign in to add this wallet to your account'}
-          // We can force assertion as we will never sign if there is no nonce
-          nonce={R.getExn(nonceResult!).nonce}
+          nonce={nonce}
           onSuccess={(message, signature) => {
             setMessage(message)
             setSignature(signature)

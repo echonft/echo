@@ -5,7 +5,8 @@ import { UserHasNftResponse } from '../../types/models/responses/user-has-nft-re
 import { getAlchemy } from '../../utils/alchemy/alchemy'
 import { walletsOwnCollection } from '../../utils/alchemy/wallets-own-collection'
 import { getGuildById } from '../../utils/guild'
-import { isNilOrEmpty, mergeWalletsAndContractsByChainId } from '@echo/utils'
+import { mergeWalletsAndContractsByChainId } from '@echo/model'
+import { isNilOrEmpty } from '@echo/utils'
 import { isEmpty, isNil } from 'ramda'
 
 export const getHasNftHandler: RequestHandler<ApiRequest<null, UserHasNftRequest>, UserHasNftResponse> = async (

@@ -1,5 +1,6 @@
+import { generateMockContract } from '../../tests/mocks/contract'
+import { generateMockWallet } from '../../tests/mocks/wallet'
 import { mergeWalletsAndContractsByChainId } from '../merge-wallets-with-contracts'
-import { generateMockContract, generateMockWallet } from '@echo/model'
 import { describe, expect, test } from '@jest/globals'
 
 describe('Merge wallets with contracts', () => {
@@ -9,11 +10,13 @@ describe('Merge wallets with contracts', () => {
   test('Empty contracts with wallets returns empty array', () => {
     const wallets = ['0x1', '0x2', '0x3'].map((address) => generateMockWallet({ address }))
     expect(mergeWalletsAndContractsByChainId(wallets, [])).toEqual({})
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(mergeWalletsAndContractsByChainId([wallets[0]!], [])).toEqual({})
   })
   test('Empty wallets with contracts returns empty array', () => {
     const contracts = ['0x1', '0x2', '0x3'].map((address) => generateMockContract({ address }))
     expect(mergeWalletsAndContractsByChainId([], contracts)).toEqual({})
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     expect(mergeWalletsAndContractsByChainId([], [contracts[0]!])).toEqual({})
   })
   test('Wallets with contracts from different chains returns empty array', () => {

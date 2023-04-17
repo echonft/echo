@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { WalletResponse } from '../../../types/models/responses/wallet-response'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { createWalletHandler } from '../create-wallet-handler'
 import { findNonceForUser, updateUserWallets } from '@echo/firebase-admin'
-import { generateMockWallet, mockUser, mockWallet } from '@echo/model'
+import { generateMockWallet, mockUser, mockWallet, Signature } from '@echo/model'
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { SiweMessage } from 'siwe'
@@ -14,31 +15,6 @@ describe('handlers - user - createWalletHandler', () => {
   const mockedMessage = jest.mocked(SiweMessage)
   const mockedFindNonce = jest.mocked(findNonceForUser)
   const mockedUpdateWallets = jest.mocked(updateUserWallets)
-  const message: SiweMessage = {
-    domain: '',
-    address: '0xtest',
-    statement: 'test',
-    uri: '',
-    version: '1',
-    chainId: 1,
-    nonce: '',
-    issuedAt: '',
-    regexFromMessage: function (_message: string): RegExpExecArray {
-      throw new Error('Function not implemented.')
-    },
-    toMessage: function (): string {
-      throw new Error('Function not implemented.')
-    },
-    signMessage: function (): string {
-      throw new Error('Function not implemented.')
-    },
-    prepareMessage: function (): string {
-      throw new Error('Function not implemented.')
-    },
-    validate: function (_signature?: string, _provider?: never): Promise<SiweMessage> {
-      throw new Error('Function not implemented.')
-    }
-  }
   const user = mockUser
   const wallet = mockWallet
   const signature = '0xtest'
@@ -47,41 +23,65 @@ describe('handlers - user - createWalletHandler', () => {
     jest.clearAllMocks()
   })
   it('if invalid signature, returns 401', async () => {
-    const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-    await createWalletHandler(user, wallet, message, signature, res)
-    expect(res.statusCode).toBe(401)
-    expect(res._getJSONData()).toEqual({ error: 'Could not validate message' })
-  })
-  it('if invalid signature, returns 401', async () => {
     mockedMessage.mockImplementation(() => ({
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      validate: async () => Promise.reject({ nonce })
+      domain: '',
+      address: '0xtest',
+      statement: 'test',
+      uri: '',
+      version: '1',
+      chainId: 1,
+      nonce: '',
+      issuedAt: '',
+      regexFromMessage: jest.fn(),
+      toMessage: jest.fn(),
+      signMessage: jest.fn(),
+      prepareMessage: jest.fn(),
+      validate: jest.fn(async (_signature, _provider) => Promise.reject<SiweMessage>())
     }))
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-    await createWalletHandler(user, wallet, message, signature, res)
+    await createWalletHandler(
+      user,
+      wallet,
+      { validate: (_signature: Signature) => Promise.reject<SiweMessage>() } as unknown as SiweMessage,
+      signature,
+      res
+    )
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'Could not validate message' })
   })
   describe('if valid signature', () => {
     beforeEach(() => {
+      // @ts-ignore
       mockedMessage.mockImplementation(() => ({
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        domain: '',
+        address: '0xtest',
+        statement: 'test',
+        uri: '',
+        version: '1',
+        chainId: 1,
+        nonce,
+        issuedAt: '',
+        regexFromMessage: jest.fn(),
+        toMessage: jest.fn(),
+        signMessage: jest.fn(),
+        prepareMessage: jest.fn(),
         // @ts-ignore
-        validate: async () => Promise.resolve({ nonce })
+        validate: jest.fn((_signature, _provider) => Promise.resolve({ nonce }))
       }))
     })
     it('if nonce not found, returns 403', async () => {
       mockedFindNonce.mockResolvedValue(R.fromFalsy('', new Error()))
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-      await createWalletHandler(user, wallet, message, signature, res)
+      // @ts-ignore
+      await createWalletHandler(user, wallet, mockedMessage, signature, res)
       expect(res.statusCode).toBe(403)
       expect(res._getJSONData()).toEqual({ error: 'No nonce found for user.' })
     })
     it('if nonce is invalid, returns 422', async () => {
       mockedFindNonce.mockResolvedValue(R.fromFalsy('test', new Error()))
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-      await createWalletHandler(user, wallet, message, signature, res)
+      // @ts-ignore
+      await createWalletHandler(user, wallet, mockedMessage, signature, res)
       expect(res.statusCode).toBe(422)
       expect(res._getJSONData()).toEqual({ error: 'Invalid nonce.' })
     })
@@ -89,7 +89,8 @@ describe('handlers - user - createWalletHandler', () => {
       mockedFindNonce.mockResolvedValue(R.fromFalsy(nonce, new Error()))
       mockedUpdateWallets.mockRejectedValue(undefined)
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-      await createWalletHandler(user, wallet, message, signature, res)
+      // @ts-ignore
+      await createWalletHandler(user, wallet, mockedMessage, signature, res)
       expect(res.statusCode).toBe(500)
       expect(res._getJSONData()).toEqual({ error: 'User not found' })
     })
@@ -97,21 +98,24 @@ describe('handlers - user - createWalletHandler', () => {
       mockedFindNonce.mockResolvedValue(R.fromFalsy(nonce, new Error()))
       mockedUpdateWallets.mockResolvedValue(undefined)
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-      await createWalletHandler(user, wallet, message, signature, res)
+      // @ts-ignore
+      await createWalletHandler(user, wallet, mockedMessage, signature, res)
       expect(res.statusCode).toBe(200)
       expect(res._getJSONData()).toEqual({ wallets: user.wallets })
     })
     it('if nonce is valid and adding wallet (empty), returns new wallets', async () => {
       mockedFindNonce.mockResolvedValue(R.fromFalsy(nonce, new Error()))
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-      await createWalletHandler({ ...user, wallets: [] }, wallet, message, signature, res)
+      // @ts-ignore
+      await createWalletHandler({ ...user, wallets: [] }, wallet, mockedMessage, signature, res)
       expect(res.statusCode).toBe(200)
       expect(res._getJSONData()).toEqual({ wallets: [wallet] })
     })
     it('if nonce is valid and adding wallet (undefined), returns new wallets', async () => {
       mockedFindNonce.mockResolvedValue(R.fromFalsy(nonce, new Error()))
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-      await createWalletHandler({ ...user, wallets: undefined }, wallet, message, signature, res)
+      // @ts-ignore
+      await createWalletHandler({ ...user, wallets: undefined }, wallet, mockedMessage, signature, res)
       expect(res.statusCode).toBe(200)
       expect(res._getJSONData()).toEqual({ wallets: [wallet] })
     })
@@ -119,9 +123,11 @@ describe('handlers - user - createWalletHandler', () => {
       const newWallet = generateMockWallet({ address: 'test' })
       mockedFindNonce.mockResolvedValue(R.fromFalsy(nonce, new Error()))
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-      await createWalletHandler(user, newWallet, message, signature, res)
+      // @ts-ignore
+      await createWalletHandler(user, newWallet, mockedMessage, signature, res)
       expect(res.statusCode).toBe(200)
-      expect(res._getJSONData()).toEqual({ wallets: user.wallets?.concat(newWallet) })
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      expect(res._getJSONData()).toEqual({ wallets: [newWallet, ...user.wallets!] })
     })
   })
 })

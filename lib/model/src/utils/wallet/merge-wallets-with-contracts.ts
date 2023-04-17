@@ -1,5 +1,6 @@
-import { castAs } from '../fp'
-import { Contract, Wallet } from '@echo/model'
+import { Contract } from '../../types/contract'
+import { Wallet } from '../../types/wallet'
+import { castAs } from '@echo/utils'
 import { allPass, complement, groupBy, isEmpty, mapObjIndexed, pickBy, pipe, prop, toString } from 'ramda'
 
 /**

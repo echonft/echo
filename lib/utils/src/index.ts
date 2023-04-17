@@ -1,4 +1,4 @@
-export * from './chain'
+export * from './array'
 export * from './constants'
 export * from './error'
 export * from './fp'

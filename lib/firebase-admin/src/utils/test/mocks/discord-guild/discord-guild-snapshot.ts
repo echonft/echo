@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { FirestoreSnapshot } from '../../../../types/abstract/firestore-snapshot'
 import { contractReferences } from '../contract/contract-reference'
 import { FirestoreDiscordGuild } from '@echo/firestore'
@@ -14,8 +15,8 @@ export const discordGuildSnapshot: { [key: string]: FirestoreSnapshot<FirestoreD
       discordId: '1',
       channelId: '1',
       name: 'Echo Test',
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       contracts: [contractReferences['37dBlwJYahEAKeL0rNP8']!]
     })
   }

@@ -6,6 +6,7 @@ export const swaps: { [key: string]: Swap } = {
   hS6KtAJ03bSolumoHvDJ: {
     id: 'hS6KtAJ03bSolumoHvDJ',
     state: SwapState.PENDING_APPROVALS,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     offer: offers['LyCfl6Eg7JKuD7XJ6IPi']!,
     expiresAt: dayjs(1676984897),
     createdAt: dayjs(1676984897),

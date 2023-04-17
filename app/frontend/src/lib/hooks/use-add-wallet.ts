@@ -25,7 +25,7 @@ export const useAddWallet = (message: SiweMessage, signature: Signature, wallet:
           // FIXME The `getApiUrl` function from `@echo/api` leads to an error
           url: `http://localhost:3000/${ApiRoutes.WALLET}`,
           request: {
-            wallet: wallet!,
+            wallet,
             message,
             signature
           }

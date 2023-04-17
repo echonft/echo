@@ -6,6 +6,7 @@ export const users: { [key: string]: User } = {
     id: 'oE6yUEQBPn7PZ89yMjKn',
     discordId: '123456',
     discordUsername: 'johnnycage#0890',
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     discordGuilds: [discordGuilds['xA40abnyBq6qQHSYmtHj']!],
     discordAvatar: '4b4d6722cb2b98b0b817020257a9c3ec',
     discordBanner: undefined,
