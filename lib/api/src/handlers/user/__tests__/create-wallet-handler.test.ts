@@ -4,7 +4,7 @@ import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { createWalletHandler } from '../create-wallet-handler'
 import { findNonceForUser, updateUserWallets } from '@echo/firebase-admin'
 import { generateMockWallet, mockUser, mockWallet, Signature } from '@echo/model'
-import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
+import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { SiweMessage } from 'siwe'
 
@@ -19,7 +19,7 @@ describe('handlers - user - createWalletHandler', () => {
   const wallet = mockWallet
   const signature = '0xtest'
   const nonce = 'nonce'
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks()
   })
   it('if invalid signature, returns 401', async () => {
@@ -71,6 +71,14 @@ describe('handlers - user - createWalletHandler', () => {
     })
     it('if nonce not found, returns 403', async () => {
       mockedFindNonce.mockResolvedValue(R.fromFalsy('', new Error()))
+      const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
+      // @ts-ignore
+      await createWalletHandler(user, wallet, mockedMessage, signature, res)
+      expect(res.statusCode).toBe(403)
+      expect(res._getJSONData()).toEqual({ error: 'No nonce found for user.' })
+    })
+    it('if nonce not found, returns 403', async () => {
+      mockedFindNonce.mockRejectedValue(R.fromFalsy('', new Error()))
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
       // @ts-ignore
       await createWalletHandler(user, wallet, mockedMessage, signature, res)

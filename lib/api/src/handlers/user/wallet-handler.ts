@@ -21,7 +21,7 @@ export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, Wal
   }
   const { user } = session
   if (isNil(user)) {
-    res.end(res.status(500).json({ error: 'User not found' }))
+    res.end(res.status(401).json({ error: 'User not found' }))
     return
   }
   let validatedRequest
@@ -42,12 +42,11 @@ export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, Wal
         validatedRequest = removeWalletsSchema.parse(req.body)
         return deleteWalletHandler(user, validatedRequest.wallet, res)
       default:
-        res.status(500).json({ error: 'Unhandled error' })
+        res.end(res.status(500).json({ error: 'Unhandled error' }))
+        return
     }
   } catch (e) {
     res.end(res.status(400).json({ error: 'Invalid body' }))
     return
   }
-  res.status(500).json({ error: 'Unhandled error' })
-  return Promise.resolve()
 }

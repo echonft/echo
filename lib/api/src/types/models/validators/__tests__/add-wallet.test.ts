@@ -37,7 +37,9 @@ describe('validators - addWallet', () => {
   })
   it('wrong message fails validation', () => {
     expect(() => addWalletSchema.parse({ wallet, signature, message: '' })).toThrow()
+    expect(() => addWalletSchema.parse({ wallet, signature, message: undefined })).toThrow()
   })
+
   it('valid request pass', () => {
     expect(addWalletSchema.parse({ wallet, signature, message })).toStrictEqual({ wallet, signature, message })
   })

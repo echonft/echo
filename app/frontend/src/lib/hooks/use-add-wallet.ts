@@ -12,8 +12,6 @@ interface KeyData {
   url: string
   request: WalletRequest | undefined
 }
-// TODO Should not be immutable
-// Should we use
 export const useAddWallet = (message: SiweMessage, signature: Signature, wallet: Wallet | undefined) =>
   useSWR<R.Result<WalletResponse, Error>, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
@@ -22,7 +20,9 @@ export const useAddWallet = (message: SiweMessage, signature: Signature, wallet:
         data: {
           url: getApiRouteUrl(ApiRoutes.WALLET),
           request: {
-            wallet,
+            // We know wallet won't be null here as it's tested before
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            wallet: wallet!,
             message,
             signature
           }

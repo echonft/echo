@@ -3,7 +3,7 @@ import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { deleteWalletHandler } from '../delete-wallet-handler'
 import { updateUserWallets } from '@echo/firebase-admin'
 import { generateMockWallet, mockUser, mockWallet } from '@echo/model'
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/firebase-admin')
 
@@ -11,7 +11,7 @@ describe('handlers - user - deleteWalletHandler', () => {
   const mockedUpdateWallets = jest.mocked(updateUserWallets)
   const user = mockUser
   const wallet = mockWallet
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks()
   })
   it('if error on update, returns 500', async () => {

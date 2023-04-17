@@ -2,12 +2,12 @@ import { FirebaseTokenResponse } from '../../../types/model/responses/firebase-t
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { mockSession } from '../../../utils/test/mocks/session'
 import { getFirebaseTokenHandler } from '../get-firebase-token-handler'
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../../utils/auth/create-custom-token')
 describe('handlers - auth - getFirebaseTokenHandler', () => {
   const session = mockSession
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks()
   })
   it('if not authenticated, returns 401', async () => {

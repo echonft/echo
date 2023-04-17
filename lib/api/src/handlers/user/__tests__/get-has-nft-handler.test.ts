@@ -4,14 +4,14 @@ import { walletsOwnCollection } from '../../../utils/alchemy/wallets-own-collect
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { mockSession } from '../../../utils/test/mocks/session'
 import { getHasNftHandler } from '../get-has-nft-handler'
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../../utils/guild')
 jest.mock('../../../utils/alchemy/wallets-own-collection')
 
 describe('handlers - user - getHasNftHandler', () => {
   const mockedWalletsOwnCollection = jest.mocked(walletsOwnCollection)
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks()
   })
   it('if not authenticated, returns 401', async () => {

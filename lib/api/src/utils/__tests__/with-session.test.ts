@@ -2,6 +2,7 @@ import { successHandler } from '../test/mocks/handler'
 import { mockRequestResponse } from '../test/mocks/request-response'
 import { mockSession } from '../test/mocks/session'
 import { withSession } from '../with-session'
+import { getAuthOptions } from '@echo/api-auth'
 import { mockUser } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { AuthOptions } from 'next-auth'
@@ -11,13 +12,15 @@ jest.mock('next-auth/next')
 jest.mock('../../config/get-server-config')
 
 describe('utils - withSession', () => {
+  const mockedGetAuthOptions = jest.mocked(getAuthOptions)
+  const mockedGetServerSession = jest.mocked(getServerSession)
+  mockedGetAuthOptions.mockReturnValue(undefined as unknown as AuthOptions)
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   it('not authenticated returns an error', async () => {
-    jest.spyOn(auth, 'getServerSession').mockImplementation(() => Promise.resolve(undefined))
-
+    mockedGetServerSession.mockResolvedValue(undefined)
     const { req, res } = mockRequestResponse('GET')
     try {
       await withSession(successHandler, {} as AuthOptions)(req, res)
@@ -29,7 +32,7 @@ describe('utils - withSession', () => {
   })
 
   it('authenticated returns a success', async () => {
-    jest.spyOn(auth, 'getServerSession').mockImplementation(() => Promise.resolve(mockSession))
+    mockedGetServerSession.mockResolvedValue(mockSession)
     const { req, res } = mockRequestResponse('GET')
     await withSession((req, res, session) => {
       expect(session?.user).toEqual(mockUser)

@@ -13,8 +13,6 @@ interface KeyData {
   url: string
   request: WalletRequest | undefined
 }
-// TODO Should not be immutable
-// Should we use
 export const useRemoveWallets = (wallets: Wallet[] | undefined) =>
   useSWR<R.Result<WalletResponse, Error>, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
