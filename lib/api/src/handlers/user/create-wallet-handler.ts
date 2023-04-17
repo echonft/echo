@@ -1,7 +1,7 @@
 import { ErrorResponse } from '../../types/model/responses/error-response'
 import { WalletResponse } from '../../types/model/responses/wallet-response'
 import { findNonceForUser, updateUserWallets } from '@echo/firebase-admin'
-import { addWallet, Signature, User, Wallet } from '@echo/model'
+import { addWallet, User, Wallet } from '@echo/model'
 import { R } from '@mobily/ts-belt'
 import { NextApiResponse } from 'next'
 import { isNil } from 'ramda'
@@ -11,7 +11,7 @@ export const createWalletHandler = (
   user: User | undefined,
   wallet: Wallet | undefined,
   message: SiweMessage,
-  signature: Signature,
+  signature: string,
   res: NextApiResponse<WalletResponse | ErrorResponse>
 ): Promise<void> => {
   if (isNil(user)) {
