@@ -1,13 +1,14 @@
-import { NonceResponse } from '../types'
-import { RequestHandler } from '../types/handlers/request-handler'
-import { NonceApiRequest } from '../types/models/api-requests/nonce-api-request'
+import { nonceHandler } from '../handlers/nonce-handler'
+import { ErrorResponse, NonceResponse } from '../types'
+import { ApiRequest } from '../types/models/api-requests/api-request'
 import { withMethodValidation } from '../utils/with-method-validation'
+import { withSession } from '../utils/with-session'
+import { NextApiResponse } from 'next'
 
-const handler: RequestHandler<NonceApiRequest, NonceResponse> = async (_req, res) => {
-  // TODO Manage the nonce when adding wallet. Not used for now
-  res.send({ nonce: crypto.randomUUID() })
-  return Promise.resolve()
+export const nonce = async (req: ApiRequest<null, never>, res: NextApiResponse<ErrorResponse | NonceResponse>) => {
+  try {
+    await withMethodValidation(withSession(nonceHandler), ['GET'])(req, res)
+  } catch (error) {
+    return
+  }
 }
-
-// Pipe
-export const nonce = withMethodValidation(handler, ['GET'])

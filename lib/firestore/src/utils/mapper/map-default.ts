@@ -1,16 +1,13 @@
-import { FirestoreDocumentData, FirestoreMapper } from '../../types'
+import { FirestoreDocumentData } from '../../types'
 import { defaultMapper } from './default-mapper'
+import { castAsNonNullable, toPromise } from '@echo/utils'
 import { andThen, call, converge, head, identity, pipe, prop, split } from 'ramda'
 
-export const mapDefault = <T extends FirestoreDocumentData, V>(snapshot: Promise<T>): Promise<V> =>
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export const mapDefault: <T extends FirestoreDocumentData, V>(snapshot: Promise<T>) => Promise<V> = andThen(
   converge(call, [
-    andThen(
-      pipe<[T], string, string[], string, FirestoreMapper<T, V>>(
-        prop<string>('refPath'),
-        split('/'),
-        head,
-        defaultMapper
-      )
-    ),
-    identity
-  ])(snapshot)
+    pipe(prop<string>('refPath'), split('/'), head, castAsNonNullable<string>, defaultMapper),
+    pipe(identity, toPromise)
+  ])
+)

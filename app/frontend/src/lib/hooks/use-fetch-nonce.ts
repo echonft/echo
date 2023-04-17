@@ -1,37 +1,27 @@
 import { ApiRoutes } from '@echo/api/dist/routes/constants/api-routes'
-import { getApiRouteUrl } from '@echo/api/dist/routes/utils/get-api-route-url'
-import { NonceRequest, NonceResponse } from '@echo/api/dist/types/models'
+import { NonceResponse } from '@echo/api/dist/types/models/responses/nonce-response'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
-import { castAs, isNilOrEmpty, postData } from '@echo/utils'
+import { castAs, getUrl, isNilOrEmpty } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { always, converge, isNil, path, pipe } from 'ramda'
+import { always, converge, path, pipe } from 'ramda'
 import useSWRImmutable from 'swr/immutable'
 
 interface KeyData {
   url: string
-  request: NonceRequest | undefined
 }
-export const useFetchNonce = (address: string | undefined) =>
+// TODO Should not be immutable
+// Should we use
+export const useFetchNonce = (userId: string | undefined) =>
   useSWRImmutable<R.Result<NonceResponse, Error>, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       {
         name: SwrKeyNames.API_FETCH_NONCE,
         data: {
-          url: getApiRouteUrl(ApiRoutes.NONCE),
-          request: isNil(address)
-            ? undefined
-            : {
-                address: address
-              }
+          // FIXME The `getApiUrl` function from `@echo/api` leads to an error
+          url: `http://localhost:3000/${ApiRoutes.NONCE}`
         }
       },
-      always(isNilOrEmpty(address))
+      always(isNilOrEmpty(userId))
     ),
-    converge<
-      Promise<R.Result<NonceResponse, Error>>,
-      [(key: SwrKey<KeyData>) => string, (key: SwrKey<KeyData>) => NonceRequest]
-    >(
-      (url: string, data: NonceRequest) => postData<NonceResponse, NonceRequest>(url, data),
-      [pipe(path(['data', 'url']), castAs<string>), pipe(path(['data', 'request']), castAs<NonceRequest>)]
-    )
+    converge((url: string) => getUrl<NonceResponse>(url), [pipe(path(['data', 'url']), castAs<string>)])
   )

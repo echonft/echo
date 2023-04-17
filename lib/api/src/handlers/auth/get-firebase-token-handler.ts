@@ -11,7 +11,7 @@ export const getFirebaseTokenHandler: RequestHandler<ApiRequest<null, never>, Fi
 ) => {
   // TODO Shouldn't have to do that
   if (isNil(session)) {
-    res.status(401).json({ error: 'You must be logged in' })
+    res.end(res.status(401).json({ error: 'You must be logged in' }))
     return Promise.resolve()
   }
   return createCustomToken(session.user.id).then((firebaseToken) => res.status(200).json({ firebaseToken }))

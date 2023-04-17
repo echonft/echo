@@ -3,11 +3,12 @@ import { getJsonContentTypeRequestInit } from './request-init/get-json-content-t
 import { setBody } from './request-init/set-body'
 import { setMethod } from './request-init/set-method'
 import { R } from '@mobily/ts-belt'
-import { partialRight, pipe } from 'ramda'
+import { andThen, partialRight, pipe } from 'ramda'
 
 export const postData = <T, D extends object>(url: string, data: D): Promise<R.Result<T, Error>> =>
   pipe(
     partialRight(fetch, [pipe(getJsonContentTypeRequestInit, setBody(data), setMethod('POST'))()]),
+    andThen((response) => response.json()),
     castAs,
     R.fromPromise<T>
   )(url)

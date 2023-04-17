@@ -16,7 +16,6 @@ export const mapUser: FirestoreMapper<FirestoreUserData, User> = andThen(
       propToPromise('discordUsername'),
       propToPromise('discordAvatar'),
       propToPromise('discordBanner'),
-      propToPromise('nonce'),
       propToMappedDocumentArray('discordGuilds', mapDiscordGuild),
       propToMappedDocumentArray('wallets', mapWallet)
     ]),
@@ -27,7 +26,6 @@ export const mapUser: FirestoreMapper<FirestoreUserData, User> = andThen(
       'discordUsername',
       'discordAvatar',
       'discordBanner',
-      'nonce',
       'discordGuilds',
       'wallets'
     ])

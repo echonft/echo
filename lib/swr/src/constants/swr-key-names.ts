@@ -6,9 +6,9 @@ export enum SwrKeyNames {
   ALCHEMY_GET_NFTS_FOR_CONTRACTS = 'alchemy-get-contract-nfts-for-contracts',
 
   API_FETCH_NONCE = 'api-fetch-nonce',
+  API_ADD_WALLET = 'api-add-wallet',
   DISCORD_USER_ME = 'discord-user-me',
   FIREBASE_LOGIN = 'firebase-login',
   FIRESTORE_COLLECTION = 'firestore-collection',
-  FIRESTORE_DOCUMENT = 'firestore-document',
-  WALLET_SIGN_MESSAGE = 'wallet-sign-message'
+  FIRESTORE_DOCUMENT = 'firestore-document'
 }

@@ -8,6 +8,5 @@ export interface FirestoreUser extends DocumentData {
   discordGuilds?: DocumentReference<FirestoreDiscordGuild>[]
   discordAvatar?: string
   discordBanner?: string
-  nonce?: string
   wallets?: FirestoreWallet[]
 }

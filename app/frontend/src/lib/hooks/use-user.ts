@@ -1,14 +1,8 @@
-import { useCollection } from '@echo/firebase-react'
-import { User } from '@echo/model'
-import { R } from '@mobily/ts-belt'
-import { limit, where } from 'firebase/firestore'
-import { head, pipe, prop } from 'ramda'
-import { useAccount } from 'wagmi'
+import { useFirebaseAuth, useUser as useFirebaseUser } from '@echo/firebase-react'
 
+// TODO There should be a way to force the typing here
 export const useUser = () => {
-  const { address } = useAccount()
-  return pipe(
-    prop('data'),
-    R.map(head)
-  )(useCollection<User>('users', { constraints: [where('wallet', '==', address), limit(1)] }))
+  const { auth } = useFirebaseAuth()
+  const { data } = useFirebaseUser(auth.currentUser?.uid)
+  return data
 }

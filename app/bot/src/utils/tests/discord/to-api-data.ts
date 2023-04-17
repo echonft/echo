@@ -1,11 +1,8 @@
 import {
   APIChannel,
   APIChannelMention,
-  APIDMChannel,
   APIGuildForumTag,
   APIMessage,
-  APITextChannel,
-  APIThreadChannel,
   APIUser,
   Channel,
   ChannelType,
@@ -40,18 +37,18 @@ export function tagToAPIGuildForumTag(tag: GuildForumTag): APIGuildForumTag {
 
 export function channelToAPIChannel(channel: Channel): APIChannel {
   if (channel.isDMBased() && channel.type !== ChannelType.GroupDM) {
-    const data: APIDMChannel = {
+    return {
       id: channel.id,
       type: channel.type,
       flags: channel.flags?.bitfield,
       last_message_id: channel.lastMessageId,
       name: null,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       recipients: [channel.client.user, channel.recipient].map((user) => userToAPIUser(user!)) // TODO: Is the bot a recipient?
     }
-    return data
   }
   if (channel.isThread()) {
-    const data: APIThreadChannel = {
+    return {
       applied_tags: channel.appliedTags,
       id: channel.id,
       position: 0,
@@ -78,10 +75,9 @@ export function channelToAPIChannel(channel: Channel): APIChannel {
       rate_limit_per_user: channel.rateLimitPerUser ?? 0,
       member: undefined // TODO: Define
     }
-    return data
   }
   if (channel.type === ChannelType.GuildText) {
-    const data: APITextChannel = {
+    return {
       id: channel.id,
       position: channel.position,
       type: channel.type,
@@ -97,7 +93,6 @@ export function channelToAPIChannel(channel: Channel): APIChannel {
       rate_limit_per_user: channel.rateLimitPerUser,
       topic: channel.topic
     }
-    return data
   }
   throw new Error('Channel type not supported')
 }
