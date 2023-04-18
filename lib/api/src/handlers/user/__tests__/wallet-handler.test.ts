@@ -1,5 +1,5 @@
-import { WalletRequest } from '../../../types/models/requests/wallet-request'
-import { WalletResponse } from '../../../types/models/responses/wallet-response'
+import { WalletRequest } from '../../../types/model/requests/wallet-request'
+import { WalletResponse } from '../../../types/model/responses/wallet-response'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { mockSession } from '../../../utils/test/mocks/session'
 import { createWalletHandler } from '../create-wallet-handler'

@@ -1,4 +1,4 @@
-import { FirebaseTokenResponse } from '../../../types/models/responses/firebase-token-response'
+import { FirebaseTokenResponse } from '../../../types/model/responses/firebase-token-response'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { mockSession } from '../../../utils/test/mocks/session'
 import { getFirebaseTokenHandler } from '../get-firebase-token-handler'

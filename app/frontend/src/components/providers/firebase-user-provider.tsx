@@ -1,4 +1,4 @@
-import { ApiRoutes } from '@echo/api/dist/routes/constants/api-routes'
+import { ApiRoutes } from '@echo/api/dist/config/api-routes'
 import { FirebaseTokenResponse } from '@echo/api/dist/types'
 import { useFirebaseAuth } from '@echo/firebase-react'
 import { getUrl, logger } from '@echo/utils'

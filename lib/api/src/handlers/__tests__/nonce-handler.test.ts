@@ -1,4 +1,4 @@
-import { NonceResponse } from '../../types/models/responses/nonce-response'
+import { NonceResponse } from '../../types/model/responses/nonce-response'
 import { mockRequestResponse } from '../../utils/test/mocks/request-response'
 import { mockSession } from '../../utils/test/mocks/session'
 import { nonceHandler } from '../user/nonce-handler'

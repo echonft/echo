@@ -1,4 +1,4 @@
-import { ErrorResponse } from '../../types/models/responses/error-response'
+import { ErrorResponse } from '../model/responses/error-response'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Session } from 'next-auth'
 

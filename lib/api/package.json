@@ -22,7 +22,8 @@
     "update-modules": "ncu -u"
   },
   "peerDependencies": {
-    "next": "^13"
+    "next": "^13",
+    "next-auth": "^4.22.0"
   },
   "dependencies": {
     "@echo/alchemy": "workspace:*",
@@ -34,8 +35,6 @@
     "@mobily/ts-belt": "4.0.0-rc.5",
     "alchemy-sdk": "2.6.1",
     "ethers": "5.7.2",
-    "next": "13.2.4",
-    "next-auth": "4.20.1",
     "ramda": "0.28.0",
     "request": "2.88.2",
     "siwe": "1.1.6"

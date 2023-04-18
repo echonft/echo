@@ -33,7 +33,7 @@
     "ethers": "5.7.2",
     "firebase": "9.17.2",
     "next": "13.2.4",
-    "next-auth": "4.20.1",
+    "next-auth": "4.22.0",
     "next-intl": "2.11.0",
     "ramda": "0.28.0",
     "react": "18.2.0",

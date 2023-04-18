@@ -1,5 +1,5 @@
-import { ApiRoutes } from '@echo/api/dist/routes/constants/api-routes'
-import { getApiRouteUrl } from '@echo/api/dist/routes/utils/get-api-route-url'
+import { ApiRoutes } from '@echo/api/dist/config/api-routes'
+import { getApiRouteUrl } from '@echo/api/dist/config/get-api-route-url'
 import { NonceResponse } from '@echo/api/dist/types'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { castAs, getUrl, isNilOrEmpty } from '@echo/utils'

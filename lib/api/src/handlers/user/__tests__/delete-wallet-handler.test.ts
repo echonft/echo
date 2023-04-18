@@ -1,4 +1,4 @@
-import { WalletResponse } from '../../../types/models/responses/wallet-response'
+import { WalletResponse } from '../../../types/model/responses/wallet-response'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { deleteWalletHandler } from '../delete-wallet-handler'
 import { updateUserWallets } from '@echo/firebase-admin'
