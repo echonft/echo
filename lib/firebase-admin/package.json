@@ -11,7 +11,6 @@
     "build": "tsup",
     "ci:lint": "eslint \"src/**/*.ts\"",
     "ci:prettier": "prettier \"src/**/*.ts\"",
-    "ci:test": "jest --ci",
     "clean": "rm -rf dist",
     "dev": "tsup --watch",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
