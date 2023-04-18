@@ -18,7 +18,7 @@ describe('handlers - nonceHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
   })
   it('if authenticated, returns success and updates DB', async () => {
-    jest.fn(setNonceForUser).mockResolvedValue('testNonce')
+    jest.mocked(setNonceForUser).mockResolvedValue('testNonce')
     const { req, res } = mockRequestResponse<null, never, NonceResponse>('GET')
     await nonceHandler(req, res, session)
     expect(res.statusCode).toBe(200)

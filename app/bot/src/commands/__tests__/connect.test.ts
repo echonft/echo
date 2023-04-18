@@ -12,7 +12,7 @@ import { R } from '@mobily/ts-belt'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
-jest.mock('@echo/api/dist/config/get-server-config', () => ({
+jest.mock('@echo/api/dist/config', () => ({
   getServerConfig: () => ({
     url: 'https://echonft.xyz'
   })
