@@ -1,4 +1,4 @@
-import { useAlchemy } from '../provider'
+import { useAlchemy } from '../provider/alchemy-provider'
 import { AlchemyNft, mapNft } from '@echo/alchemy'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { isNilOrEmpty, promiseAll } from '@echo/utils'
@@ -18,7 +18,7 @@ interface KeyData {
   requests: RequestData[]
 }
 
-export function useNftsForContracts(addresses: string[] | undefined, options?: GetNftsForContractOptions) {
+export const useNftsForContracts = (addresses: string[] | undefined, options?: GetNftsForContractOptions) => {
   const {
     alchemy: { nft }
   } = useAlchemy()

@@ -1,4 +1,4 @@
-import { ErrorResponse } from '../../types'
+import { ErrorResponse } from '../../types/models/responses/error-response'
 import { WalletResponse } from '../../types/models/responses/wallet-response'
 import { findNonceForUser, updateUserWallets } from '@echo/firebase-admin'
 import { addWallet, Signature, User, Wallet } from '@echo/model'

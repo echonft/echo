@@ -1,7 +1,8 @@
 import { getHasNftHandler } from '../../handlers/user/get-has-nft-handler'
-import { ErrorResponse, UserHasNftResponse } from '../../types'
 import { ApiRequest } from '../../types/models/api-requests/api-request'
 import { UserHasNftRequest } from '../../types/models/requests/user-has-nft-request'
+import { ErrorResponse } from '../../types/models/responses/error-response'
+import { UserHasNftResponse } from '../../types/models/responses/user-has-nft-response'
 import { withMethodValidation } from '../../utils/with-method-validation'
 import { NextApiResponse } from 'next'
 

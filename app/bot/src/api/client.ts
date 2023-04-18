@@ -1,5 +1,4 @@
-import { ApiRoutes } from '@echo/api/dist/routes/constants/api-routes'
-import { getApiRouteUrl } from '@echo/api/dist/routes/utils/get-api-route-url'
+import { ApiRoutes, getApiRouteUrl } from '@echo/api'
 import { castAs } from '@echo/utils'
 import { andThen, call, invoker, isNil, pipe } from 'ramda'
 

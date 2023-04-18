@@ -3,7 +3,6 @@ import { isMainnet } from '@echo/utils'
 import { Alchemy, Network } from 'alchemy-sdk'
 import { createContext, FunctionComponent, ReactNode, useContext, useMemo } from 'react'
 
-// TODO should be removed since alchemy calls will be done via the API
 export interface AlchemyContext {
   alchemy: Alchemy
 }

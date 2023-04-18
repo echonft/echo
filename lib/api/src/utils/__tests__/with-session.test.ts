@@ -7,7 +7,7 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import * as auth from 'next-auth/next'
 
 jest.mock('next-auth/next')
-jest.mock('../../config')
+jest.mock('../../config/get-server-config')
 
 describe('utils - withSession', () => {
   beforeEach(() => {

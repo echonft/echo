@@ -1,7 +1,7 @@
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
 import { refArrayProp } from '../../utils/converter/ref-array-prop'
-import { convertContract } from '../contract'
+import { convertContract } from '../contract/convert-contract'
 import { FirestoreDiscordGuild, FirestoreDiscordGuildData } from '@echo/firestore'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'

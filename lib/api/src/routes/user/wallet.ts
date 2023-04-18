@@ -1,7 +1,7 @@
 import { walletHandler } from '../../handlers/user/wallet-handler'
-import { ErrorResponse } from '../../types'
 import { ApiRequest } from '../../types/models/api-requests/api-request'
 import { WalletRequest } from '../../types/models/requests/wallet-request'
+import { ErrorResponse } from '../../types/models/responses/error-response'
 import { WalletResponse } from '../../types/models/responses/wallet-response'
 import { withMethodValidation } from '../../utils/with-method-validation'
 import { withSession } from '../../utils/with-session'

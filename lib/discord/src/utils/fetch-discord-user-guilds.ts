@@ -1,4 +1,4 @@
-import { DiscordRoutes } from '../routing'
+import { DiscordRoutes } from '../routing/discord-routes'
 import { DiscordUserGuildResponse } from '../types/model/discord-user-guild-response'
 import { getUrl } from '@echo/utils'
 import { join } from 'ramda'

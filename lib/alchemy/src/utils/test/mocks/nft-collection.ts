@@ -1,8 +1,8 @@
-import { AlchemyNftCollection } from '../../../types'
+import { AlchemyNftCollection } from '../../../types/alchemy-nft-collection'
 import { OpenSeaSafelistRequestStatus } from '@echo/model'
 import dayjs from 'dayjs'
 
-export const mockedCollection: AlchemyNftCollection = {
+export const mockedAlchemyNftCollection: AlchemyNftCollection = {
   contract: {
     tokenType: 'ERC721',
     address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',

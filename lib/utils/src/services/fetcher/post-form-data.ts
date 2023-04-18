@@ -1,4 +1,4 @@
-import { castAs } from '../../fp'
+import { castAs } from '../../fp/cast-as'
 import { getFormContentTypeRequestInit } from './request-init/get-form-content-type-request-init'
 import { setBody } from './request-init/set-body'
 import { setMethod } from './request-init/set-method'

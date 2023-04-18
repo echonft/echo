@@ -1,4 +1,4 @@
-import { isProd } from './index'
+import { isProd } from './is-prod'
 import { isEmpty, isNil } from 'ramda'
 
 // Mainnet and Goerli testnet are supported

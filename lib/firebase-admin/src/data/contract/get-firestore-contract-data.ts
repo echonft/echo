@@ -1,4 +1,4 @@
-import { convertContract } from '../../converters/contract'
+import { convertContract } from '../../converters/contract/convert-contract'
 import { getDocSnapshot } from '../../utils/document/get-doc-snapshot'
 import { andThen, pipe } from 'ramda'
 

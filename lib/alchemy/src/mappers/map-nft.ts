@@ -1,4 +1,4 @@
-import { AlchemyNft } from '../types'
+import { AlchemyNft } from '../types/alchemy-nft'
 import { mapDate } from './map-date'
 import { mapNftAttribute } from './map-nft-attribute'
 import { mapNftCollection } from './map-nft-collection'

@@ -1,5 +1,5 @@
-import { generateMockContract } from '../../tests/mocks/contract'
-import { generateMockWallet } from '../../tests/mocks/wallet'
+import { generateMockContract } from '../../tests/mocks/contract/generate-mock-contract'
+import { generateMockWallet } from '../../tests/mocks/user/generate-mock-wallet'
 import { mergeWalletsAndContractsByChainId } from '../merge-wallets-with-contracts'
 import { describe, expect, test } from '@jest/globals'
 

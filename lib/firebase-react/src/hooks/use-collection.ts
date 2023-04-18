@@ -1,4 +1,4 @@
-import { UseCollectionOptions } from '../types'
+import { UseCollectionOptions } from '../types/use-collection-options'
 import {
   convertDefault,
   getCollectionQueryFromPath,

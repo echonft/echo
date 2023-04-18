@@ -2,18 +2,17 @@
   "name": "@echo/alchemy-react",
   "version": "1.0.0",
   "private": true,
-  "license": "MIT",
-  "type": "module",
   "sideEffects": false,
-  "main": "dist/index.js",
+  "license": "MIT",
+  "main": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "build:clean-bad": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "ci:lint": "eslint \"src/**/*.ts\"",
     "ci:prettier": "prettier \"src/**/*.ts\"",
     "clean": "rm -rf dist",
-    "dev": "tsc --watch",
+    "dev": "tsup --watch",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
     "lint:clean-cache": "rm -f .eslintcache",
     "remove-modules": "rm -rf node_modules",
@@ -24,8 +23,8 @@
   },
   "peerDependencies": {
     "@mobily/ts-belt": "4.0.0-rc.5",
-    "next": "13.0.6",
-    "react": "18.2.0"
+    "next": "^13",
+    "react": "^18"
   },
   "dependencies": {
     "@mobily/ts-belt": "4.0.0-rc.5",
@@ -39,6 +38,9 @@
   },
   "devDependencies": {
     "@types/ramda": "0.28.23",
-    "@types/react": "18.0.28"
+    "@types/react": "18.0.28",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "tsup": "6.7.0"
   }
 }

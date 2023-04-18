@@ -1,4 +1,4 @@
-import { DiscordConfig } from '../types'
+import { DiscordConfig } from '../types/config/discord-config'
 import { getDiscordAppEnvironment } from './get-discord-app-environment'
 import { isEmpty, isNil } from 'ramda'
 

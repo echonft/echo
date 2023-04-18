@@ -1,4 +1,4 @@
-import { isDebug } from '../constants'
+import { isProd } from '../constants/is-prod'
 // eslint-disable-next-line import/no-named-as-default
 import pino from 'pino'
 import { isNil } from 'ramda'
@@ -11,7 +11,7 @@ class Logger {
   public getInstance(): pino.BaseLogger {
     if (isNil(this._instance)) {
       this._instance = pino({
-        level: isDebug ? 'debug' : 'info'
+        level: isProd ? 'info' : 'debug'
       })
     }
     return this._instance

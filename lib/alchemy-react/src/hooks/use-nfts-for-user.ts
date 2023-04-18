@@ -1,4 +1,4 @@
-import { useAlchemy } from '../provider'
+import { useAlchemy } from '../provider/alchemy-provider'
 import { AlchemyOwnedNft, mapOwnedNft } from '@echo/alchemy'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { isNilOrEmpty } from '@echo/utils'
