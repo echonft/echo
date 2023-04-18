@@ -1,14 +1,13 @@
-import {
-  mapContract,
-  mapDiscordGuild,
-  mapNftCollection,
-  mapNonce,
-  mapOffer,
-  mapRequestForOffer,
-  mapSwap,
-  mapUser
-} from '../../mappers'
-import { FirestoreDocumentData, FirestoreMapper } from '../../types'
+import { mapContract } from '../../mappers/contract/map-contract'
+import { mapDiscordGuild } from '../../mappers/discord-guild/map-discord-guild'
+import { mapNftCollection } from '../../mappers/nft-collection/map-nft-collection'
+import { mapNonce } from '../../mappers/nonce/map-nonce'
+import { mapOffer } from '../../mappers/offer/map-offer'
+import { mapRequestForOffer } from '../../mappers/request-for-offer/map-request-for-offer'
+import { mapSwap } from '../../mappers/swap/map-swap'
+import { mapUser } from '../../mappers/user/map-user'
+import { FirestoreMapper } from '../../types/mapper/firestore-mapper'
+import { FirestoreDocumentData } from '../../types/model/data/abstract/firestore-document-data'
 import { castAs } from '@echo/utils'
 
 export const defaultMapper = <T extends FirestoreDocumentData, V>(collectionName: string): FirestoreMapper<T, V> => {

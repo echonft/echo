@@ -1,5 +1,5 @@
-import { FirestoreSwapActivityData } from '../../types'
-import { FirestoreMapper } from '../../types/mapper'
+import { FirestoreMapper } from '../../types/mapper/firestore-mapper'
+import { FirestoreSwapActivityData } from '../../types/model/data/swap/firestore-swap-activity-data'
 import { propToDate } from '../../utils/mapper/prop-to-date'
 import { SwapActivity } from '@echo/model'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'

@@ -1,5 +1,5 @@
-import { FirestoreSwapData } from '../../types'
-import { FirestoreMapper } from '../../types/mapper'
+import { FirestoreMapper } from '../../types/mapper/firestore-mapper'
+import { FirestoreSwapData } from '../../types/model/data/swap/firestore-swap-data'
 import { propToDate } from '../../utils/mapper/prop-to-date'
 import { propToMappedDocument } from '../../utils/mapper/prop-to-mapped-document'
 import { propToMappedDocumentArray } from '../../utils/mapper/prop-to-mapped-document-array'

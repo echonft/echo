@@ -1,5 +1,6 @@
-import { FirestoreRootCollectionDocumentData, FirestoreSnapshot } from '../../types'
+import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
+import { FirestoreRootCollectionDocumentData } from '../../types/model/data/abstract/firestore-root-collection-document-data'
 import { defaultConverter } from './default-converter'
 import { DocumentData, DocumentReference } from 'firebase/firestore'
 import { call, converge, head, identity, pipe, split } from 'ramda'

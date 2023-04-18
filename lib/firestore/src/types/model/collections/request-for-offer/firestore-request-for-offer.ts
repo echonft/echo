@@ -1,7 +1,7 @@
 import { FirestoreContract } from '../contract/firestore-contract'
 import { FirestoreDiscordGuild } from '../discord-guild/firestore-discord-guild'
 import { FirestoreOffer } from '../offer/firestore-offer'
-import { FirestoreSwap } from '../swap'
+import { FirestoreSwap } from '../swap/firestore-swap'
 import { FirestoreUser } from '../user/firestore-user'
 import { FirestoreRequestForOfferActivity } from './firestore-request-for-offer-activity'
 import { FirestoreRequestForOfferItem } from './firestore-request-for-offer-item'

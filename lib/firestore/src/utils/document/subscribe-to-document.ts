@@ -1,4 +1,4 @@
-import { convertDefault } from '../converter'
+import { convertDefault } from '../converter/convert-default'
 import { mapDefault } from '../mapper/map-default'
 import { getDocRefFromPath } from './get-doc-ref-from-path'
 import { onSnapshot, Unsubscribe } from 'firebase/firestore'

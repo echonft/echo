@@ -1,10 +1,8 @@
-import {
-  FirestoreNftCollection,
-  FirestoreNftCollectionData,
-  FirestoreOpenSeaCollectionDetails,
-  FirestoreOpenSeaCollectionDetailsData
-} from '../../types'
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
+import { FirestoreNftCollection } from '../../types/model/collections/nft-collection/firestore-nft-collection'
+import { FirestoreOpenSeaCollectionDetails } from '../../types/model/collections/nft-collection/firestore-open-sea-collection-details'
+import { FirestoreNftCollectionData } from '../../types/model/data/nft-collection/firestore-nft-collection-data'
+import { FirestoreOpenSeaCollectionDetailsData } from '../../types/model/data/nft-collection/firestore-open-sea-collection-details-data'
 import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
 import { nestedDocumentProp } from '../../utils/converter/nested-document-prop'
 import { refProp } from '../../utils/converter/ref-prop'

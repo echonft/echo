@@ -1,4 +1,4 @@
-import { FirestoreOffer } from '../../collections'
+import { FirestoreOffer } from '../../collections/offer/firestore-offer'
 import { FirestoreRootCollectionDocumentData } from '../abstract/firestore-root-collection-document-data'
 import { FirestoreDiscordGuildData } from '../discord-guild/firestore-discord-guild-data'
 import { FirestoreUserData } from '../user/firestore-user-data'

@@ -1,1 +1,1 @@
-export * from './config'
+export { getAuthOptions } from './config/get-auth-options'

@@ -1,6 +1,6 @@
-import { FirestoreDiscordGuild } from '../../types'
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
-import { FirestoreDiscordGuildData } from '../../types/model/data'
+import { FirestoreDiscordGuild } from '../../types/model/collections/discord-guild/firestore-discord-guild'
+import { FirestoreDiscordGuildData } from '../../types/model/data/discord-guild/firestore-discord-guild-data'
 import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
 import { refArrayProp } from '../../utils/converter/ref-array-prop'
 import { convertContract } from '../contract/convert-contract'

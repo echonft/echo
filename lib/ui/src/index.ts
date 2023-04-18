@@ -1,10 +1,5 @@
 import 'index.css'
 
-export {
-  getIconMeasure,
-  IconContainer,
-  IconContainerProps,
-  IconSize,
-  WebsiteIcon,
-  WebsiteIconProps
-} from './components'
+export { IconContainer, IconContainerProps } from './components/icons/icon-container'
+export { getIconMeasure, IconSize } from './components/icons/icon-size'
+export { WebsiteIcon, WebsiteIconProps } from './components/icons/website-icon'

@@ -1,4 +1,4 @@
-import { FirestoreDocumentData } from '../model'
+import { FirestoreDocumentData } from '../model/data/abstract/firestore-document-data'
 
 /**
  * Maps a firestore data object to a model object
