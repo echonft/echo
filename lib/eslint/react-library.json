@@ -1,0 +1,8 @@
+{
+  "extends": ["plugin:react/recommended", "plugin:react-hooks/recommended", "plugin:react/jsx-runtime", "./base.json"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

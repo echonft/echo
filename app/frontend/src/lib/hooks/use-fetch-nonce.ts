@@ -1,5 +1,6 @@
 import { ApiRoutes } from '@echo/api/dist/routes/constants/api-routes'
-import { NonceResponse } from '@echo/api/dist/types/models/responses/nonce-response'
+import { getApiRouteUrl } from '@echo/api/dist/routes/utils/get-api-route-url'
+import { NonceResponse } from '@echo/api/dist/types'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { castAs, getUrl, isNilOrEmpty } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
@@ -17,8 +18,7 @@ export const useFetchNonce = (userId: string | undefined) =>
       {
         name: SwrKeyNames.API_FETCH_NONCE,
         data: {
-          // FIXME The `getApiUrl` function from `@echo/api` leads to an error
-          url: `http://localhost:3000/${ApiRoutes.NONCE}`
+          url: getApiRouteUrl(ApiRoutes.NONCE)
         }
       },
       always(isNilOrEmpty(userId))

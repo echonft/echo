@@ -21,14 +21,12 @@
   },
   "peerDependencies": {
     "next": "^13",
-    "react": "^18"
+    "react": "^18",
+    "react-dom": "^18"
   },
   "dependencies": {
     "clsx": "1.2.1",
-    "next": "13.2.4",
-    "ramda": "0.28.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "ramda": "0.28.0"
   },
   "devDependencies": {
     "@types/ramda": "0.28.23",

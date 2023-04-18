@@ -22,8 +22,8 @@
     "update-modules": "ncu -u"
   },
   "peerDependencies": {
-    "@mobily/ts-belt": "4.0.0-rc.5",
-    "react": "^18"
+    "react": "^18",
+    "react-dom": "^18"
   },
   "dependencies": {
     "@echo/firestore": "workspace:*",

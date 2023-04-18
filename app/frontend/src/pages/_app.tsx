@@ -1,4 +1,3 @@
-import 'next-auth/providers/discord'
 import '../styles/globals.css'
 import { Auth } from '@components/auth'
 import { FirebaseUserProvider } from '@components/providers/firebase-user-provider'

@@ -1,5 +1,4 @@
-import { DiscordGuild } from '@echo/model'
-import { mockDiscordGuild } from '@echo/model/dist/utils/tests/mocks/discord-guild'
+import { DiscordGuild, mockDiscordGuild } from '@echo/model'
 
 // Mock function, only works for mock guild ID
 export async function getGuildById(guildId: string): Promise<DiscordGuild | undefined> {

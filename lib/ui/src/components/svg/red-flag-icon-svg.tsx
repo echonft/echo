@@ -1,4 +1,4 @@
-import React, { FunctionComponent, SVGProps } from 'react'
+import { FunctionComponent, SVGProps } from 'react'
 
 export const RedFlagIconSvg: FunctionComponent<SVGProps<SVGSVGElement>> = (props) => {
   return (
