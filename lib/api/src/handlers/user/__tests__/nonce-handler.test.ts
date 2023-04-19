@@ -1,14 +1,14 @@
-import { NonceResponse } from '../../types/model/responses/nonce-response'
-import { mockRequestResponse } from '../../utils/test/mocks/request-response'
-import { mockSession } from '../../utils/test/mocks/session'
-import { nonceHandler } from '../user/nonce-handler'
+import { NonceResponse } from '../../../types/model/responses/nonce-response'
+import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
+import { mockSession } from '../../../utils/test/mocks/session'
+import { nonceHandler } from '../nonce-handler'
 import { setNonceForUser } from '@echo/firebase-admin'
-import { afterEach, describe, expect, it, jest } from '@jest/globals'
+import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/firebase-admin')
 describe('handlers - nonceHandler', () => {
   const session = mockSession
-  afterEach(() => {
+  beforeEach(() => {
     jest.clearAllMocks()
   })
   it('if not authenticated, returns 401', async () => {

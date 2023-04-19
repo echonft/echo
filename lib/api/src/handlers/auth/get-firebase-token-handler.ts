@@ -4,7 +4,7 @@ import { FirebaseTokenResponse } from '../../types/model/responses/firebase-toke
 import { createCustomToken } from '../../utils/auth/create-custom-token'
 import { isNil } from 'ramda'
 
-export const getFirebaseTokenHandler: RequestHandler<ApiRequest<null, never>, FirebaseTokenResponse> = (
+export const getFirebaseTokenHandler: RequestHandler<ApiRequest<null, never>, FirebaseTokenResponse> = async (
   _req,
   res,
   session
@@ -12,7 +12,12 @@ export const getFirebaseTokenHandler: RequestHandler<ApiRequest<null, never>, Fi
   // TODO Shouldn't have to do that
   if (isNil(session)) {
     res.end(res.status(401).json({ error: 'You must be logged in' }))
-    return Promise.resolve()
+    return
   }
-  return createCustomToken(session.user.id).then((firebaseToken) => res.status(200).json({ firebaseToken }))
+  return createCustomToken(session.user.id)
+    .then((firebaseToken) => res.status(200).json({ firebaseToken }))
+    .catch(() => {
+      res.end(res.status(500).json({ error: 'Unhandled error' }))
+      return
+    })
 }

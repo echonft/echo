@@ -47,6 +47,7 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/ui/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/ui/dist" />
       <excludeFolder url="file://$MODULE_DIR$/lib/api/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/app/frontend/coverage" />
       <excludePattern pattern="tsconfig.tsbuildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />

@@ -12,6 +12,7 @@
       "cache": false
     },
     "ci:test": {
+      "dependsOn": ["^build"],
       "cache": false
     },
     "clean": {

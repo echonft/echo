@@ -9,8 +9,7 @@ import useSWRImmutable from 'swr/immutable'
 interface KeyData {
   url: string
 }
-// TODO Should not be immutable
-// Should we use
+
 export const useFetchNonce = (userId: string | undefined) =>
   useSWRImmutable<R.Result<NonceResponse, Error>, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ApiRequest } from '../../../types/model/api-requests/api-request'
 import { ErrorResponse } from '../../../types/model/responses/error-response'
 import { NextApiResponse } from 'next'
@@ -7,16 +8,13 @@ export function mockRequestResponse<T, Q extends Partial<{ [key: string]: string
   method: RequestMethod,
   query?: Q,
   body?: T
-): // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+): // @ts-ignore
 { req: MockRequest<ApiRequest<T, Q>>; res: MockResponse<NextApiResponse<R | ErrorResponse>> } {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { req, res }: { req: ApiRequest<T, Q>; res: NextApiResponse<R> } = createMocks({ method, query, body })
   req.headers = {
     'Content-Type': 'application/json'
   }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return { req, res }
 }

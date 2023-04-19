@@ -51,7 +51,7 @@ export const WalletToolbar: React.FunctionComponent<Props> = ({ userId, currentW
             />
           )}
         </div>
-        <WalletList wallets={wallets} />
+        <WalletList wallets={wallets} onSuccess={(wallets) => setWallets(wallets)} />
       </div>
     )
   }
