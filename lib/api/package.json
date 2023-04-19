@@ -24,7 +24,7 @@
   },
   "peerDependencies": {
     "next": "^13",
-    "next-auth": "^4.22.0"
+    "next-auth": "^4.20.1"
   },
   "dependencies": {
     "@echo/alchemy": "workspace:*",

@@ -11,6 +11,7 @@ export function withSession<T extends NextApiRequest, U>(
     const session = await getServerSession(req, res, authOptions)
     if (isNil(session)) {
       res.end(res.status(401).json({ error: 'You must be logged in' }))
+      // FIXME this is not caught
       throw Error('You must be logged in')
     }
     return handler(req, res, session)
