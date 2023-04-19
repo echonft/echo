@@ -6,6 +6,7 @@
       "outputs": [".next/**", "dist/**"]
     },
     "ci:lint": {
+      "dependsOn": ["^build"],
       "cache": false
     },
     "ci:prettier": {
@@ -23,6 +24,7 @@
       "cache": false
     },
     "lint": {
+      "dependsOn": ["^build"],
       "cache": false
     },
     "lint:clean-cache": {
@@ -44,6 +46,7 @@
       "cache": false
     },
     "tsc": {
+      "dependsOn": ["^build"],
       "cache": false
     },
     "tsc:clean-cache": {
