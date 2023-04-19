@@ -1,6 +1,6 @@
 import { listenToInteractions } from './listeners/interaction'
 import { listenToListings } from './listeners/listings'
-import { discordSecret } from '@echo/discord'
+import { getDiscordSecret } from '@echo/discord'
 import { errorMessage, logger } from '@echo/utils'
 import { BaseInteraction, Client, Events, GatewayIntentBits } from 'discord.js'
 import { isEmpty, isNil } from 'ramda'
@@ -27,4 +27,4 @@ client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
 })
 
 //make sure this line is the last line
-void client.login(discordSecret.clientToken) //login bot using token
+void client.login(getDiscordSecret().clientToken) //login bot using token

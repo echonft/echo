@@ -1,4 +1,4 @@
-import { AppEnvironment } from '../types/config'
+import { AppEnvironment } from '../types/config/app-environment'
 
 export function getDiscordAppEnvironment(): AppEnvironment {
   const env = process.env.DISCORD_APP_ENV?.toLowerCase()

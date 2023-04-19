@@ -1,5 +1,5 @@
-import { UserHasNftResponse } from '../../../types'
-import { UserHasNftRequest } from '../../../types/models/requests/user-has-nft-request'
+import { UserHasNftRequest } from '../../../types/model/requests/user-has-nft-request'
+import { UserHasNftResponse } from '../../../types/model/responses/user-has-nft-response'
 import { walletsOwnCollection } from '../../../utils/alchemy/wallets-own-collection'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { mockSession } from '../../../utils/test/mocks/session'

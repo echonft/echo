@@ -1,10 +1,8 @@
-import { ApiRoutes } from '@echo/api/dist/routes/constants/api-routes'
-import { WalletRequest } from '@echo/api/dist/types/models/requests/wallet-request'
-import { WalletResponse } from '@echo/api/dist/types/models/responses/wallet-response'
+import { ApiRoutes, getApiRouteUrl } from '@echo/api/dist/config'
+import { WalletRequest, WalletResponse } from '@echo/api/dist/types'
 import { Signature, Wallet } from '@echo/model'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
-import { castAs, isNilOrEmpty } from '@echo/utils'
-import { putData } from '@echo/utils/dist/services/fetcher/put-data'
+import { castAs, isNilOrEmpty, putData } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { always, converge, path, pipe } from 'ramda'
 import { SiweMessage } from 'siwe'
@@ -22,8 +20,7 @@ export const useAddWallet = (message: SiweMessage, signature: Signature, wallet:
       {
         name: SwrKeyNames.API_ADD_WALLET,
         data: {
-          // FIXME The `getApiUrl` function from `@echo/api` leads to an error
-          url: `http://localhost:3000/${ApiRoutes.WALLET}`,
+          url: getApiRouteUrl(ApiRoutes.WALLET),
           request: {
             wallet,
             message,

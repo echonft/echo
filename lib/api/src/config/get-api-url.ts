@@ -1,4 +1,4 @@
-import { ApiEnvironment } from '../types/config'
+import { ApiEnvironment } from '../types/config/api-environment'
 import { isNilOrEmpty } from '@echo/utils'
 
 /**

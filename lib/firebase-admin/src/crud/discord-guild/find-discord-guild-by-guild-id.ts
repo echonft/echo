@@ -1,4 +1,4 @@
-import { convertDiscordGuild } from '../../converters/discord-guild'
+import { convertDiscordGuild } from '../../converters/discord-guild/convert-discord-guild'
 import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { whereCollection } from '../../utils/collection/where-collection'

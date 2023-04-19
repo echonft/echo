@@ -1,7 +1,7 @@
 import { WebsiteIconSvg } from '../svg/website-icon-svg'
 import { IconContainer } from './icon-container'
 import { getIconMeasure, IconSize } from './icon-size'
-import React, { FunctionComponent } from 'react'
+import { FunctionComponent } from 'react'
 
 export interface WebsiteIconProps {
   size: IconSize

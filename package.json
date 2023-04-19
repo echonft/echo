@@ -20,26 +20,25 @@
   "scripts": {
     "bot:build": "turbo run build --filter=@echo/bot",
     "bot:deploy-commands": "env-cmd -f .env turbo run @echo/bot#deploy-commands",
-    "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot... start:dev --filter=@echo/bot --parallel",
+    "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot... start:dev --filter=@echo/bot",
     "bot:start": "turbo run start --filter=@echo/bot",
-    "build": "turbo run build",
-    "build:dependencies": "turbo run build --filter=@echo/frontend^... --filter=@echo/bot^...",
-    "ci:lint": "turbo run ci:lint --parallel",
-    "ci:prettier": "turbo run ci:prettier --parallel",
-    "ci:test": "turbo run ci:test --parallel",
+    "build": "turbo run build --filter=@echo/frontend^... --filter=@echo/bot^... --filter=@echo/storybook^..",
+    "ci:lint": "turbo run ci:lint",
+    "ci:prettier": "turbo run ci:prettier",
+    "ci:test": "turbo run ci:test",
     "clean": "turbo run clean",
-    "dev": "turbo run dev --parallel",
+    "dev": "turbo run dev",
     "frontend:build": "turbo run build --filter=@echo/frontend",
-    "frontend:dev": "env-cmd -f .env turbo run dev --filter=@echo/frontend... --parallel",
+    "frontend:dev": "env-cmd -f .env turbo run dev --filter=@echo/frontend",
     "frontend:start": "turbo run start --filter=@echo/frontend",
-    "lint": "turbo run lint --parallel",
-    "lint:clean-cache": "rm -f .eslintcache && turbo run lint:cache",
+    "lint": "turbo run lint",
+    "lint:clean-cache": "rm -f .eslintcache && turbo run lint:clean-cache",
     "prepare": "husky install",
     "remove-modules": "turbo run remove-modules && rm -rf node_modules",
     "storybook:build": "turbo run build --filter=@echo/storybook",
-    "storybook:dev": "turbo run dev --filter=@echo/storybook... --parallel",
+    "storybook:dev": "turbo run dev --filter=@echo/storybook...",
     "test": "env-cmd -f .env turbo run test",
-    "tsc": "turbo run tsc --parallel",
+    "tsc": "turbo run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache",
     "update-modules": "ncu -u && turbo run update-modules",
     "vercel": "env-cmd -f .env vercel dev"
@@ -61,7 +60,7 @@
     "prettier": "2.8.4",
     "turbo": "1.9.1",
     "typescript": "4.9.5",
-    "vercel": "28.18.3"
+    "vercel": "28.18.5"
   },
-  "packageManager": "pnpm@8.2.0"
+  "packageManager": "pnpm@8.3.0"
 }

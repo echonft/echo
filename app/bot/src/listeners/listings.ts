@@ -1,14 +1,14 @@
 import { buildNewListingButtons } from '../builders/listing-button-builder'
 import { buildListingEmbed } from '../builders/listing-embed-builder'
 import { getDiscordChannel } from '../utils/discord'
-import { listenToListing } from '@echo/firebase-admin'
+import { listenToOffers } from '@echo/firebase-admin'
 import { errorMessage, logger } from '@echo/utils'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
 // TODO Might not be needed
 export function listenToListings(client: Client) {
-  listenToListing(async (listing, change) => {
+  listenToOffers(async (listing, change) => {
     try {
       const channel = await getDiscordChannel(client, listing.discordGuild.channelId)
       if (change.type === 'added' && isNil(listing.postedAt)) {

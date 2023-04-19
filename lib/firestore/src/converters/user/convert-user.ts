@@ -1,5 +1,6 @@
-import { FirestoreUser, FirestoreUserData } from '../../types'
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
+import { FirestoreUser } from '../../types/model/collections/user/firestore-user'
+import { FirestoreUserData } from '../../types/model/data/user/firestore-user-data'
 import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
 import { nestedDocumentArrayProp } from '../../utils/converter/nested-document-array-prop'
 import { refArrayProp } from '../../utils/converter/ref-array-prop'

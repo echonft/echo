@@ -1,4 +1,4 @@
-import { AlchemyOwnedNft } from '../types'
+import { AlchemyOwnedNft } from '../types/alchemy-owned-nft'
 import { mapNft } from './map-nft'
 import { OwnedNft } from 'alchemy-sdk'
 import { converge, mergeDeepLeft, omit, pick, pipe } from 'ramda'

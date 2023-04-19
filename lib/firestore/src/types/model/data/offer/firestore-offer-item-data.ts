@@ -1,4 +1,4 @@
-import { FirestoreOfferItem } from '../../collections'
+import { FirestoreOfferItem } from '../../collections/offer/firestore-offer-item'
 import { FirestoreDocumentData } from '../abstract/firestore-document-data'
 import { FirestoreContractData } from '../contract/firestore-contract-data'
 

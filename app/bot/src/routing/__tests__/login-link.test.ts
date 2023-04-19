@@ -1,12 +1,12 @@
 import { loginLink } from '../login-link'
 import { describe, expect, jest, test } from '@jest/globals'
 
-jest.mock('@echo/api/dist/config/get-server-config', () => ({
+jest.mock('@echo/api', () => ({
+  __esModule: true,
   getServerConfig: () => ({
     url: 'https://echonft.xyz'
   })
 }))
-
 describe('Routing - loginLink', () => {
   test('returns login link with proper callback', () => {
     const callback = new URLSearchParams({ callbackUrl: 'https://echonft.xyz/collection/1' })

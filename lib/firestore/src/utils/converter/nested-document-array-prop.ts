@@ -1,5 +1,5 @@
-import { FirestoreDocumentData } from '../../types'
 import { FirestoreNestedDocumentConverter } from '../../types/converter/firestore-nested-document-converter'
+import { FirestoreDocumentData } from '../../types/model/data/abstract/firestore-document-data'
 import { castAs, promiseAll, undefinedPromise } from '@echo/utils'
 import { DocumentData } from 'firebase/firestore'
 import { allPass, complement, has, ifElse, isNil, map, pipe, prop } from 'ramda'

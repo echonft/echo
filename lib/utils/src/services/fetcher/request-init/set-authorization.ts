@@ -1,4 +1,4 @@
-import { castAs } from '../../../fp'
+import { castAs } from '../../../fp/cast-as'
 import { allPass, always, assoc, assocPath, complement, has, ifElse, isNil, pipe, prop, unless } from 'ramda'
 
 export const setAuthorization = (authorization: string | undefined) =>

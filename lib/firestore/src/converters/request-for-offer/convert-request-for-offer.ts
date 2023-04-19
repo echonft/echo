@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { FirestoreRequestForOffer, FirestoreRequestForOfferData } from '../../types'
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
+import { FirestoreRequestForOffer } from '../../types/model/collections/request-for-offer/firestore-request-for-offer'
+import { FirestoreRequestForOfferData } from '../../types/model/data/request-for-offer/firestore-request-for-offer-data'
 import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
 import { nestedDocumentArrayProp } from '../../utils/converter/nested-document-array-prop'
 import { refArrayProp } from '../../utils/converter/ref-array-prop'

@@ -1,5 +1,5 @@
-import { FirestoreWalletData } from '../../types'
-import { FirestoreMapper } from '../../types/mapper'
+import { FirestoreMapper } from '../../types/mapper/firestore-mapper'
+import { FirestoreWalletData } from '../../types/model/data/user/firestore-wallet-data'
 import { Wallet } from '@echo/model'
 import { castAs } from '@echo/utils'
 import { andThen } from 'ramda'

@@ -1,4 +1,5 @@
-import { AlchemyNftCollection, AlchemyNftContract } from '../types'
+import { AlchemyNftCollection } from '../types/alchemy-nft-collection'
+import { AlchemyNftContract } from '../types/alchemy-nft-contract'
 import { mapOpenSeaCollectionMetadata } from './map-open-sea-collection-metadata'
 import { applySpec, applyToNullableProp, chainId } from '@echo/utils'
 import { NftContract } from 'alchemy-sdk'

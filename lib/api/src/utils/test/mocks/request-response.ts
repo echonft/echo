@@ -1,5 +1,5 @@
-import { ErrorResponse } from '../../../types'
-import { ApiRequest } from '../../../types/models/api-requests/api-request'
+import { ApiRequest } from '../../../types/model/api-requests/api-request'
+import { ErrorResponse } from '../../../types/model/responses/error-response'
 import { NextApiResponse } from 'next'
 import { createMocks, MockRequest, MockResponse, RequestMethod } from 'node-mocks-http'
 

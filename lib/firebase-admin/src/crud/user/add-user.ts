@@ -1,5 +1,5 @@
-import { buildUser } from '../../builders'
-import { FirestoreUserPrototype } from '../../types'
+import { buildUser } from '../../builders/user/build-user'
+import { FirestoreUserPrototype } from '../../types/prototypes/user/firestore-user-prototype'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { findUserByDiscordId } from './find-user-by-discord-id'
 import { User } from '@echo/model'

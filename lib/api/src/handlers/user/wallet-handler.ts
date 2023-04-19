@@ -1,7 +1,7 @@
 import { RequestHandler } from '../../types/handlers/request-handler'
-import { ApiRequest } from '../../types/models/api-requests/api-request'
-import { WalletRequest } from '../../types/models/requests/wallet-request'
-import { WalletResponse } from '../../types/models/responses/wallet-response'
+import { ApiRequest } from '../../types/model/api-requests/api-request'
+import { WalletRequest } from '../../types/model/requests/wallet-request'
+import { WalletResponse } from '../../types/model/responses/wallet-response'
 import { createWalletHandler } from './create-wallet-handler'
 import { deleteWalletHandler } from './delete-wallet-handler'
 

@@ -4,10 +4,11 @@ import { mockSession } from '../test/mocks/session'
 import { withSession } from '../with-session'
 import { mockUser } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
+import { AuthOptions } from 'next-auth'
 import * as auth from 'next-auth/next'
 
 jest.mock('next-auth/next')
-jest.mock('../../config')
+jest.mock('../../config/get-server-config')
 
 describe('utils - withSession', () => {
   beforeEach(() => {
@@ -19,7 +20,7 @@ describe('utils - withSession', () => {
 
     const { req, res } = mockRequestResponse('GET')
     try {
-      await withSession(successHandler)(req, res)
+      await withSession(successHandler, {} as AuthOptions)(req, res)
     } catch (e) {
       expect((e as Error).message).toBe('You must be logged in')
       expect(res.statusCode).toBe(401)
@@ -33,7 +34,7 @@ describe('utils - withSession', () => {
     await withSession((req, res, session) => {
       expect(session?.user).toEqual(mockUser)
       return successHandler(req, res)
-    })(req, res)
+    }, {} as AuthOptions)(req, res)
     expect(res.statusCode).toBe(200)
     expect(res._getJSONData()).toEqual({ message: 'OK' })
   })

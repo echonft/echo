@@ -1,6 +1,6 @@
 import { IconSize } from './icon-size'
 import { clsx } from 'clsx'
-import React, { FunctionComponent, PropsWithChildren } from 'react'
+import { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface IconContainerProps {
   size: IconSize

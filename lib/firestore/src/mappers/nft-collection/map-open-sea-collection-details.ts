@@ -1,5 +1,5 @@
-import { FirestoreOpenSeaCollectionDetailsData } from '../../types'
-import { FirestoreMapper } from '../../types/mapper'
+import { FirestoreMapper } from '../../types/mapper/firestore-mapper'
+import { FirestoreOpenSeaCollectionDetailsData } from '../../types/model/data/nft-collection/firestore-open-sea-collection-details-data'
 import { propToDate } from '../../utils/mapper/prop-to-date'
 import { propToUrl } from '../../utils/mapper/prop-to-url'
 import { OpenSeaCollectionMetadata } from '@echo/model'

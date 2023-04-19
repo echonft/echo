@@ -1,19 +1,19 @@
 {
   "name": "@echo/firebase-react",
   "version": "1.0.0",
-  "private": true,
-  "license": "MIT",
   "type": "module",
+  "private": true,
   "sideEffects": false,
+  "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsup",
     "build:clean-bad": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "ci:lint": "eslint \"src/**/*.ts\"",
     "ci:prettier": "prettier \"src/**/*.ts\"",
     "clean": "rm -rf dist",
-    "dev": "tsc --watch",
+    "dev": "tsup --watch",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
     "lint:clean-cache": "rm -f .eslintcache",
     "remove-modules": "rm -rf node_modules",
@@ -23,8 +23,8 @@
     "update-modules": "ncu -u"
   },
   "peerDependencies": {
-    "@mobily/ts-belt": "4.0.0-rc.5",
-    "react": "18.2.0"
+    "react": "^18",
+    "react-dom": "^18"
   },
   "dependencies": {
     "@echo/firestore": "workspace:*",
@@ -38,6 +38,9 @@
   },
   "devDependencies": {
     "@types/ramda": "0.28.23",
-    "@types/react": "18.0.28"
+    "@types/react": "18.0.28",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "tsup": "6.7.0"
   }
 }

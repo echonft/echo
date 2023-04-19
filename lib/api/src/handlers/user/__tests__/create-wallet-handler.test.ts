@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { WalletResponse } from '../../../types/models/responses/wallet-response'
+import { WalletResponse } from '../../../types/model/responses/wallet-response'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { createWalletHandler } from '../create-wallet-handler'
 import { findNonceForUser, updateUserWallets } from '@echo/firebase-admin'

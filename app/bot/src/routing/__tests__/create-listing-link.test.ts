@@ -1,7 +1,8 @@
 import { createListingLink } from '../create-listing-link'
 import { describe, expect, jest, test } from '@jest/globals'
 
-jest.mock('@echo/api/dist/config/get-server-config', () => ({
+jest.mock('@echo/api', () => ({
+  __esModule: true,
   getServerConfig: () => ({
     url: 'https://echonft.xyz'
   })

@@ -1,7 +1,6 @@
 import { mapDiscordUserResponseToUserPrototype } from '../../mappers/map-discord-user-response-to-user-prototype'
 import { fetchDiscordUser } from '@echo/discord'
-import { addUser, findUserByDiscordId } from '@echo/firebase-admin'
-import { updateUserDiscordInfo } from '@echo/firebase-admin/dist/crud/user/update-user-discord-info'
+import { addUser, findUserByDiscordId, updateUserDiscordInfo } from '@echo/firebase-admin'
 import { isNilOrEmpty } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 

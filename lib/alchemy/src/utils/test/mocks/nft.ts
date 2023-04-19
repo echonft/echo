@@ -1,9 +1,9 @@
-import { AlchemyNft } from '../../../types'
-import { mockedCollection } from './nft-collection'
+import { AlchemyNft } from '../../../types/alchemy-nft'
+import { mockedAlchemyNftCollection } from './nft-collection'
 import dayjs from 'dayjs'
 
-export const mockedNft: AlchemyNft = {
-  collection: mockedCollection,
+export const mockedAlchemyNft: AlchemyNft = {
+  collection: mockedAlchemyNftCollection,
   title: undefined,
   description: undefined,
   id: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d/6007',

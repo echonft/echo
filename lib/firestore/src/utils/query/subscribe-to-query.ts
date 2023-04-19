@@ -1,4 +1,4 @@
-import { convertDefault } from '../converter'
+import { convertDefault } from '../converter/convert-default'
 import { mapDefault } from '../mapper/map-default'
 import { getDocsFromQuerySnapshot } from './get-docs-from-query-snapshot'
 import { castAs, promiseAll } from '@echo/utils'

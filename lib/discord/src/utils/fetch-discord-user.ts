@@ -1,5 +1,5 @@
-import { DiscordRoutes } from '../routing'
-import { DiscordUserResponse } from '../types'
+import { DiscordRoutes } from '../routing/discord-routes'
+import { DiscordUserResponse } from '../types/model/discord-user-response'
 import { fetchDiscordUserGuilds } from './fetch-discord-user-guilds'
 import { getUrl } from '@echo/utils'
 import { R } from '@mobily/ts-belt'

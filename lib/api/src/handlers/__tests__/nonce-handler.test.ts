@@ -1,8 +1,7 @@
-import { NonceResponse } from '../../types'
+import { NonceResponse } from '../../types/model/responses/nonce-response'
 import { mockRequestResponse } from '../../utils/test/mocks/request-response'
 import { mockSession } from '../../utils/test/mocks/session'
-import { nonceHandler } from '../nonce-handler'
-import * as firebase from '@echo/firebase-admin'
+import { nonceHandler } from '../user/nonce-handler'
 import { setNonceForUser } from '@echo/firebase-admin'
 import { afterEach, describe, expect, it, jest } from '@jest/globals'
 
@@ -19,7 +18,7 @@ describe('handlers - nonceHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
   })
   it('if authenticated, returns success and updates DB', async () => {
-    jest.spyOn(firebase, 'setNonceForUser').mockImplementation(() => Promise.resolve('testNonce'))
+    jest.mocked(setNonceForUser).mockResolvedValue('testNonce')
     const { req, res } = mockRequestResponse<null, never, NonceResponse>('GET')
     await nonceHandler(req, res, session)
     expect(res.statusCode).toBe(200)

@@ -1,4 +1,4 @@
-import { SwrKey } from '../types'
+import { SwrKey } from '../types/swr-key'
 
 /**
  * Syntax sugar to return undefined when a given test is truthy so that SWR fetching does not happen

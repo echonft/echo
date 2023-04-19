@@ -1,4 +1,4 @@
-import { Wallet } from '../../../types'
+import { Wallet } from '../../../types/wallet'
 import { removeWallet } from '../remove-wallet'
 import { describe, expect, it } from '@jest/globals'
 

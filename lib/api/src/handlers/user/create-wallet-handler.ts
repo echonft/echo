@@ -1,5 +1,5 @@
-import { ErrorResponse } from '../../types'
-import { WalletResponse } from '../../types/models/responses/wallet-response'
+import { ErrorResponse } from '../../types/model/responses/error-response'
+import { WalletResponse } from '../../types/model/responses/wallet-response'
 import { findNonceForUser, updateUserWallets } from '@echo/firebase-admin'
 import { addWallet, Signature, User, Wallet } from '@echo/model'
 import { R } from '@mobily/ts-belt'

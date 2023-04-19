@@ -1,5 +1,5 @@
-import { FirestoreRequestForOfferActivityData } from '../../types'
-import { FirestoreMapper } from '../../types/mapper'
+import { FirestoreMapper } from '../../types/mapper/firestore-mapper'
+import { FirestoreRequestForOfferActivityData } from '../../types/model/data/request-for-offer/firestore-request-for-offer-activity-data'
 import { propToDate } from '../../utils/mapper/prop-to-date'
 import { RequestForOfferActivity } from '@echo/model'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'

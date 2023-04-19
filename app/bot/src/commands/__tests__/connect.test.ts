@@ -5,15 +5,14 @@ import { setupBot } from '../../utils/tests/discord/client-mock'
 import { mockGuild } from '../../utils/tests/discord/guild-mock'
 import { mockChatInputCommandInteraction } from '../../utils/tests/discord/interaction-mock'
 import { executeConnect } from '../connect'
-import { findDiscordGuildByGuildId } from '@echo/firebase-admin'
-import { discordGuilds } from '@echo/firebase-admin/dist/utils/test/mocks/discord-guild/discord-guild'
+import { discordGuilds, findDiscordGuildByGuildId } from '@echo/firebase-admin'
 import { DiscordGuild } from '@echo/model'
 import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
-jest.mock('@echo/api/dist/config/get-server-config', () => ({
+jest.mock('@echo/api/dist/config', () => ({
   getServerConfig: () => ({
     url: 'https://echonft.xyz'
   })

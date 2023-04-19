@@ -1,5 +1,5 @@
-import { ErrorResponse } from '../../types'
-import { WalletResponse } from '../../types/models/responses/wallet-response'
+import { ErrorResponse } from '../../types/model/responses/error-response'
+import { WalletResponse } from '../../types/model/responses/wallet-response'
 import { updateUserWallets } from '@echo/firebase-admin'
 import { removeWallet, User, Wallet } from '@echo/model'
 import { NextApiResponse } from 'next'

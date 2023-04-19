@@ -1,4 +1,4 @@
-import { ApiEnvironment } from '../types/config'
+import { ApiEnvironment } from '../types/config/api-environment'
 
 export function getApiAppEnvironment(): ApiEnvironment {
   const env = process.env.API_ENV?.toLowerCase()

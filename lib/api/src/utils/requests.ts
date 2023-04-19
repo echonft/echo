@@ -1,4 +1,4 @@
-import { ApiRequestWithUserId } from '../types/models/api-requests/api-request-with-user-id'
+import { ApiRequestWithUserId } from '../types/model/api-requests/api-request-with-user-id'
 import { findUserById } from '@echo/firebase-admin'
 import { User } from '@echo/model'
 import { R } from '@mobily/ts-belt'

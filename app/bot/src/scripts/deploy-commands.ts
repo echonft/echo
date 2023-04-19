@@ -1,16 +1,16 @@
 import { echoCommand } from '../commands/echo'
-import { discordConfig, discordSecret } from '@echo/discord'
+import { getDiscordConfig, getDiscordSecret } from '@echo/discord'
 import { logger } from '@echo/utils'
 import { REST, Routes } from 'discord.js'
 import { isEmpty, isNil } from 'ramda'
 
 // Construct and prepare an instance of the REST module
-const rest = new REST({ version: '10' }).setToken(discordSecret.clientToken)
+const rest = new REST({ version: '10' }).setToken(getDiscordSecret().clientToken)
 
 // and deploy your commands!
 void (async () => {
-  // The put method is used to fully refresh all commands in the guild with the current set
-  const { clientId, guildId } = discordConfig
+  // The put method is used to f ully refresh all commands in the guild with the current set
+  const { clientId, guildId } = getDiscordConfig()
 
   if (isNil(guildId) || isEmpty(guildId)) {
     logger.fatal('guild id is required')

@@ -1,4 +1,4 @@
-import { FirestoreDiscordGuild } from '../discord-guild'
+import { FirestoreDiscordGuild } from '../discord-guild/firestore-discord-guild'
 import { FirestoreWallet } from './firestore-wallet'
 import { DocumentData, DocumentReference } from 'firebase/firestore'
 

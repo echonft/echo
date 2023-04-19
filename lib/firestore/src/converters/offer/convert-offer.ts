@@ -1,5 +1,6 @@
-import { FirestoreOffer, FirestoreOfferData } from '../../types'
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
+import { FirestoreOffer } from '../../types/model/collections/offer/firestore-offer'
+import { FirestoreOfferData } from '../../types/model/data/offer/firestore-offer-data'
 import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
 import { nestedDocumentArrayProp } from '../../utils/converter/nested-document-array-prop'
 import { refProp } from '../../utils/converter/ref-prop'

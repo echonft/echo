@@ -1,4 +1,4 @@
-import { Wallet } from '../../types'
+import { Wallet } from '../../types/wallet'
 import { toLower } from 'ramda'
 
 export const walletEquals = (source: Wallet) => (target: Wallet) =>
