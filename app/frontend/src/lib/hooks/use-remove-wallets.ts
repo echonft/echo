@@ -1,10 +1,8 @@
-import { ApiRoutes } from '@echo/api/dist/routes/constants/api-routes'
-import { WalletRequest } from '@echo/api/dist/types/models/requests/wallet-request'
-import { WalletResponse } from '@echo/api/dist/types/models/responses/wallet-response'
+import { WalletRequest, WalletResponse } from '@echo/api'
+import { ApiRoutes, getApiRouteUrl } from '@echo/api/dist/config'
 import { Wallet } from '@echo/model'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
-import { castAs, isNilOrEmpty } from '@echo/utils'
-import { deleteData } from '@echo/utils/dist/services/fetcher/delete-data'
+import { castAs, deleteData, isNilOrEmpty } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { always, converge, path, pipe } from 'ramda'
 import useSWR from 'swr'
@@ -19,8 +17,7 @@ export const useRemoveWallets = (wallets: Wallet[] | undefined) =>
       {
         name: SwrKeyNames.API_REMOVE_WALLETS,
         data: {
-          // FIXME The `getApiUrl` function from `@echo/api` leads to an error
-          url: `http://localhost:3000/${ApiRoutes.WALLET}`,
+          url: getApiRouteUrl(ApiRoutes.WALLET),
           request: {
             wallet: wallets!
           }
