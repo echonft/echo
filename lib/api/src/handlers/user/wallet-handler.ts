@@ -1,6 +1,7 @@
-import { WalletRequest, WalletResponse } from '../../types'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
+import { WalletRequest } from '../../types/model/requests/wallet-request'
+import { WalletResponse } from '../../types/model/responses/wallet-response'
 import { addWalletSchema } from '../../types/validators/add-wallet'
 import { removeWalletsSchema } from '../../types/validators/remove-wallets'
 import { createWalletHandler } from './create-wallet-handler'
