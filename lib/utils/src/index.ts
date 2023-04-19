@@ -1,5 +1,5 @@
 export { addToArrayIfNotPresent } from './array/add-to-array-if-not-present'
-export { removeFromArrayIfPresent } from './array/remove-from-array-if-present'
+export { removeArrayFromArray, removeFromArray } from './array/remove-from-array'
 export { chainId } from './constants/chain-id'
 export { isMainnet } from './constants/is-mainnet'
 export { isProd } from './constants/is-prod'

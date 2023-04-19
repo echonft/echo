@@ -31,6 +31,4 @@ export { mockDiscordGuild } from './utils/tests/mocks/discord-guild/mock-discord
 export { generateMockWallet } from './utils/tests/mocks/user/generate-mock-wallet'
 export { mockUser } from './utils/tests/mocks/user/mock-user'
 export { mockWallet } from './utils/tests/mocks/user/mock-wallet'
-export { addWallet } from './utils/wallet/add-wallet'
 export { mergeWalletsAndContractsByChainId } from './utils/wallet/merge-wallets-with-contracts'
-export { removeWallet } from './utils/wallet/remove-wallet'

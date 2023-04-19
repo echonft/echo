@@ -6,38 +6,34 @@ import { mockGuild } from '../../utils/tests/discord/guild-mock'
 import { mockChatInputCommandInteraction } from '../../utils/tests/discord/interaction-mock'
 import { executeConnect } from '../connect'
 import { discordGuilds, findDiscordGuildByGuildId } from '@echo/firebase-admin'
-import { DiscordGuild } from '@echo/model'
-import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals'
+import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
-jest.mock('@echo/api/dist/config', () => ({
+jest.mock('@echo/api', () => ({
+  __esModule: true,
   getServerConfig: () => ({
     url: 'https://echonft.xyz'
   })
 }))
-
 jest.mock('@echo/firebase-admin')
-const mockMethod = jest.fn<(guildId: string) => Promise<R.Result<DiscordGuild, Error>>>((guildId) =>
-  Promise.resolve(
-    R.fromExecution(() => {
-      const guild = discordGuilds[guildId]
-      if (isNil(guild)) {
-        throw Error
-      }
-      return guild
-    })
-  )
-)
-jest.mocked(findDiscordGuildByGuildId).mockImplementation((guildId: string) => mockMethod(guildId))
 
 describe('discord commands - connect', () => {
+  jest.mocked(findDiscordGuildByGuildId).mockImplementation((guildId: string) =>
+    Promise.resolve(
+      R.fromExecution(() => {
+        const guild = discordGuilds[guildId]
+        if (isNil(guild)) {
+          throw Error
+        }
+        return guild
+      })
+    )
+  )
   let client: Client
-  afterEach(() => {
-    jest.clearAllMocks()
-  })
   beforeEach(async () => {
+    jest.clearAllMocks()
     client = await setupBot()
   })
   test('If no guildId, throws an error', async () => {
