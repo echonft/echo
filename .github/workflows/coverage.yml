@@ -18,12 +18,8 @@ jobs:
                 run_install: true
 
             - name: Run tests
-              run: pnpm frontend:build
-            - name: List files
-              run: |
-                find . -name junit.xml
-                echo "All files:"
-                find .
+              run: pnpm ci:test
+
             - name: Publish Test Results
               uses: EnricoMi/publish-unit-test-result-action@v2.6.2
               if: always()
