@@ -3,6 +3,12 @@ lockfileVersion: '6.0'
 importers:
   .:
     devDependencies:
+      '@jest/globals':
+        specifier: ^29.5.0
+        version: 29.5.0
+      '@jest/types':
+        specifier: ^29.5.0
+        version: 29.5.0
       '@types/node':
         specifier: 18.15.3
         version: 18.15.3
@@ -97,21 +103,12 @@ importers:
       '@babel/preset-env':
         specifier: 7.20.2
         version: 7.20.2(@babel/core@7.21.3)
-      '@jest/globals':
-        specifier: 29.4.2
-        version: 29.4.2
-      '@jest/types':
-        specifier: 29.4.2
-        version: 29.4.2
       '@types/ramda':
         specifier: 0.28.23
         version: 0.28.23
       babel-jest:
         specifier: 29.4.2
         version: 29.4.2(@babel/core@7.21.3)
-      jest:
-        specifier: 29.4.2
-        version: 29.4.2(@types/node@18.15.3)
       nodemon:
         specifier: 2.0.21
         version: 2.0.21
@@ -194,12 +191,6 @@ importers:
         specifier: 0.12.8
         version: 0.12.8(@babel/core@7.21.3)(@types/node@18.15.3)(ethers@5.7.2)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)
     devDependencies:
-      '@jest/globals':
-        specifier: 29.4.2
-        version: 29.4.2
-      '@jest/types':
-        specifier: 29.4.2
-        version: 29.4.2
       '@next/eslint-plugin-next':
         specifier: 13.2.4
         version: 13.2.4
@@ -233,9 +224,6 @@ importers:
       eslint-plugin-react-hooks:
         specifier: 4.6.0
         version: 4.6.0(eslint@8.36.0)
-      jest:
-        specifier: 29.5.0
-        version: 29.5.0(@types/node@18.15.3)
       jest-environment-jsdom:
         specifier: ^29.5.0
         version: 29.5.0
@@ -426,12 +414,6 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
     devDependencies:
-      '@jest/globals':
-        specifier: 29.4.2
-        version: 29.4.2
-      '@jest/types':
-        specifier: 29.4.2
-        version: 29.4.2
       '@types/ramda':
         specifier: 0.28.23
         version: 0.28.23
@@ -441,9 +423,6 @@ importers:
       babel-jest:
         specifier: 29.4.2
         version: 29.4.2(@babel/core@7.21.3)
-      jest:
-        specifier: 29.5.0
-        version: 29.5.0(@types/node@18.15.3)
       node-mocks-http:
         specifier: 1.12.2
         version: 1.12.2
@@ -509,21 +488,12 @@ importers:
       '@google-cloud/firestore':
         specifier: 6.5.0
         version: 6.5.0
-      '@jest/globals':
-        specifier: 29.5.0
-        version: 29.5.0
-      '@jest/types':
-        specifier: 29.5.0
-        version: 29.5.0
       '@types/ramda':
         specifier: 0.28.23
         version: 0.28.23
       babel-jest:
         specifier: 29.5.0
         version: 29.5.0(@babel/core@7.21.3)
-      jest:
-        specifier: 29.5.0
-        version: 29.5.0(@types/node@18.15.3)
       tsup:
         specifier: 6.7.0
         version: 6.7.0(postcss@8.4.22)(typescript@4.9.5)
@@ -604,12 +574,6 @@ importers:
       '@babel/preset-env':
         specifier: 7.20.2
         version: 7.20.2(@babel/core@7.21.3)
-      '@jest/globals':
-        specifier: 29.5.0
-        version: 29.5.0
-      '@jest/types':
-        specifier: 29.5.0
-        version: 29.5.0
       '@types/ramda':
         specifier: 0.28.23
         version: 0.28.23
@@ -619,9 +583,6 @@ importers:
       firestore-jest-mock:
         specifier: 0.20.0
         version: 0.20.0
-      jest:
-        specifier: 29.5.0
-        version: 29.5.0(@types/node@18.15.3)
       tsup:
         specifier: 6.7.0
         version: 6.7.0(postcss@8.4.22)(typescript@4.9.5)
@@ -644,21 +605,12 @@ importers:
       '@babel/preset-env':
         specifier: 7.20.2
         version: 7.20.2(@babel/core@7.21.3)
-      '@jest/globals':
-        specifier: 29.4.2
-        version: 29.4.2
-      '@jest/types':
-        specifier: 29.4.2
-        version: 29.4.2
       '@types/ramda':
         specifier: 0.28.23
         version: 0.28.23
       babel-jest:
         specifier: 29.4.2
         version: 29.4.2(@babel/core@7.21.3)
-      jest:
-        specifier: 29.5.0
-        version: 29.5.0(@types/node@18.15.3)
       tsup:
         specifier: 6.7.0
         version: 6.7.0(postcss@8.4.22)(typescript@4.9.5)
@@ -749,12 +701,6 @@ importers:
       '@babel/preset-env':
         specifier: 7.20.2
         version: 7.20.2(@babel/core@7.21.3)
-      '@jest/globals':
-        specifier: 29.5.0
-        version: 29.5.0
-      '@jest/types':
-        specifier: 29.5.0
-        version: 29.5.0
       '@mobily/ts-belt':
         specifier: 4.0.0-rc.5
         version: 4.0.0-rc.5
@@ -764,9 +710,6 @@ importers:
       babel-jest:
         specifier: 29.5.0
         version: 29.5.0(@babel/core@7.21.3)
-      jest:
-        specifier: 29.5.0
-        version: 29.5.0(@types/node@18.15.3)
       tsup:
         specifier: 6.7.0
         version: 6.7.0(postcss@8.4.22)(typescript@4.9.5)
@@ -4280,19 +4223,6 @@ packages:
       jest-util: 29.5.0
     dev: true
 
-  /@jest/globals@29.4.2:
-    resolution:
-      { integrity: sha512-zCk70YGPzKnz/I9BNFDPlK+EuJLk21ur/NozVh6JVM86/YYZtZHqxFFQ62O9MWq7uf3vIZnvNA0BzzrtxD9iyg== }
-    engines: { node: ^14.15.0 || ^16.10.0 || >=18.0.0 }
-    dependencies:
-      '@jest/environment': 29.5.0
-      '@jest/expect': 29.5.0
-      '@jest/types': 29.5.0
-      jest-mock: 29.5.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /@jest/globals@29.5.0:
     resolution:
       { integrity: sha512-S02y0qMWGihdzNbUiqSAiKSpSozSuHX5UYc7QbnHP+D9Lyw8DgGGCinrN9uSuHPeKgSSzvPom2q1nAtBvUsvPQ== }
@@ -4417,19 +4347,6 @@ packages:
       '@types/yargs': 16.0.5
       chalk: 4.1.2
     dev: false
-
-  /@jest/types@29.4.2:
-    resolution:
-      { integrity: sha512-CKlngyGP0fwlgC1BRUtPZSiWLBhyS9dKwKmyGxk8Z6M82LBEGB2aLQSg+U1MyLsU+M7UjnlLllBM2BLWKVm/Uw== }
-    engines: { node: ^14.15.0 || ^16.10.0 || >=18.0.0 }
-    dependencies:
-      '@jest/schemas': 29.4.3
-      '@types/istanbul-lib-coverage': 2.0.4
-      '@types/istanbul-reports': 3.0.1
-      '@types/node': 18.15.3
-      '@types/yargs': 17.0.24
-      chalk: 4.1.2
-    dev: true
 
   /@jest/types@29.5.0:
     resolution:
@@ -7374,7 +7291,7 @@ packages:
       '@typescript-eslint/typescript-estree': 5.55.0(typescript@4.9.5)
       eslint: 8.36.0
       eslint-scope: 5.1.1
-      semver: 7.4.0
+      semver: 7.5.0
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -10175,7 +10092,8 @@ packages:
     dev: false
 
   /concat-map@0.0.1:
-    resolution: { integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s= }
+    resolution:
+      { integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg== }
 
   /concat-stream@1.6.2:
     resolution:
@@ -15131,27 +15049,6 @@ packages:
       merge-stream: 2.0.0
       supports-color: 8.1.1
 
-  /jest@29.4.2(@types/node@18.15.3):
-    resolution:
-      { integrity: sha512-+5hLd260vNIHu+7ZgMIooSpKl7Jp5pHKb51e73AJU3owd5dEo/RfVwHbA/na3C/eozrt3hJOLGf96c7EWwIAzg== }
-    engines: { node: ^14.15.0 || ^16.10.0 || >=18.0.0 }
-    hasBin: true
-    peerDependencies:
-      node-notifier: ^8.0.1 || ^9.0.0 || ^10.0.0
-    peerDependenciesMeta:
-      node-notifier:
-        optional: true
-    dependencies:
-      '@jest/core': 29.5.0
-      '@jest/types': 29.5.0
-      import-local: 3.1.0
-      jest-cli: 29.5.0(@types/node@18.15.3)
-    transitivePeerDependencies:
-      - '@types/node'
-      - supports-color
-      - ts-node
-    dev: true
-
   /jest@29.5.0(@types/node@18.15.3):
     resolution:
       { integrity: sha512-juMg3he2uru1QoXX078zTa7pO85QyB9xajZc6bU+d9yEGwrKX6+vGmJQ3UdVZsvTEUARIdObzH68QItim6OSSQ== }
@@ -16269,7 +16166,8 @@ packages:
     dev: true
 
   /media-typer@0.3.0:
-    resolution: { integrity: sha1-hxDXrwqmJvj/+hzgAWhUUmMlV0g= }
+    resolution:
+      { integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ== }
     engines: { node: '>= 0.6' }
 
   /memfs@3.5.0:
@@ -21977,7 +21875,7 @@ packages:
       is-yarn-global: 0.4.1
       latest-version: 7.0.0
       pupa: 3.1.0
-      semver: 7.4.0
+      semver: 7.5.0
       semver-diff: 4.0.0
       xdg-basedir: 5.1.0
     dev: true
