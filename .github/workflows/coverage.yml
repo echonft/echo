@@ -25,5 +25,6 @@ jobs:
               if: always()
               with:
                 files: |
-                  coverage/**/junit.xml
+                  coverage/**/*.xml
+                  coverage/**/*.json
 
