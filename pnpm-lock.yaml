@@ -36,6 +36,12 @@ importers:
       husky:
         specifier: 8.0.3
         version: 8.0.3
+      jest:
+        specifier: ^29.5.0
+        version: 29.5.0(@types/node@18.15.3)
+      jest-junit:
+        specifier: ^16.0.0
+        version: 16.0.0
       lint-staged:
         specifier: 13.2.0
         version: 13.2.0
@@ -14861,6 +14867,17 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
+  /jest-junit@16.0.0:
+    resolution:
+      { integrity: sha512-A94mmw6NfJab4Fg/BlvVOUXzXgF0XIH6EmTgJ5NDPp4xoKq0Kr7sErb+4Xs9nZvu58pJojz5RFGpqnZYJTrRfQ== }
+    engines: { node: '>=10.12.0' }
+    dependencies:
+      mkdirp: 1.0.4
+      strip-ansi: 6.0.1
+      uuid: 8.3.2
+      xml: 1.0.1
+    dev: true
+
   /jest-leak-detector@29.5.0:
     resolution:
       { integrity: sha512-u9YdeeVnghBUtpN5mVxjID7KbkKE1QU4f6uUwuxiY0vYRi9BUCLKlPEZfDGR67ofdFmDz9oPAy2G92Ujrntmow== }
@@ -22060,7 +22077,6 @@ packages:
     resolution:
       { integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg== }
     hasBin: true
-    dev: false
 
   /uuid@9.0.0:
     resolution:
@@ -22804,6 +22820,11 @@ packages:
     resolution:
       { integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw== }
     engines: { node: '>=12' }
+    dev: true
+
+  /xml@1.0.1:
+    resolution:
+      { integrity: sha512-huCv9IH9Tcf95zuYCsQraZtWnJvBtLVE0QHMOs8bWyZAFZNDcYjsPq1nEx8jKA9y+Beo9v+7OBPRisQTjinQMw== }
     dev: true
 
   /xmlchars@2.2.0:
