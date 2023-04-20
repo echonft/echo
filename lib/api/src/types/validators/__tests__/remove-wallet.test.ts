@@ -6,7 +6,7 @@ describe('validators - removeWallet', () => {
   const wallet = mockWallet
   it('wrong wallet fails validation', () => {
     expect(() => removeWalletsSchema.parse({ wallet: { address: '', chainId: 1 } })).toThrow()
-    expect(() => removeWalletsSchema.parse({ wallet: [{ address: '', chainId: 1 }] })).toThrow()
+    expect(() => removeWalletsSchema.parse({ wallet: [{ address: undefined, chainId: 1 }] })).toThrow()
     expect(() => removeWalletsSchema.parse({ wallet: [] })).toThrow()
   })
   it('valid request pass', () => {

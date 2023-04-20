@@ -3,6 +3,7 @@ import { describe, expect, it } from '@jest/globals'
 
 describe('validators - address', () => {
   it('wrong address fails validation', () => {
+    expect(() => address.parse(undefined)).toThrow()
     expect(() => address.parse('')).toThrow()
     expect(() => address.parse('asdasdsa')).toThrow()
     expect(() => address.parse('0xsss')).toThrow()

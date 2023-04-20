@@ -3,6 +3,7 @@ import { describe, expect, it } from '@jest/globals'
 
 describe('validators - signature', () => {
   it('wrong signature fails validation', () => {
+    expect(() => signature.parse(undefined)).toThrow()
     expect(() => signature.parse('')).toThrow()
     expect(() => signature.parse('asdasdsa')).toThrow()
     expect(() => signature.parse('0xsss')).toThrow()

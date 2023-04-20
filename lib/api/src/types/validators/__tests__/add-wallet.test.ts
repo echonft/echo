@@ -17,6 +17,7 @@ describe('validators - addWallet', () => {
     issuedAt: ''
   })
   it('wrong wallet fails validation', () => {
+    expect(() => addWalletSchema.parse({ wallet: { address: undefined, chainId: 1 }, signature, message })).toThrow()
     expect(() => addWalletSchema.parse({ wallet: { address: '', chainId: 1 }, signature, message })).toThrow()
     expect(() => addWalletSchema.parse({ wallet: { address: '0xtest', chainId: 1 }, signature, message })).toThrow()
     expect(() =>
@@ -29,8 +30,12 @@ describe('validators - addWallet', () => {
     expect(() =>
       addWalletSchema.parse({ wallet: { address: mockWallet.address, chainId: 0 }, signature, message })
     ).toThrow()
+    expect(() =>
+      addWalletSchema.parse({ wallet: { address: mockWallet.address, chainId: undefined }, signature, message })
+    ).toThrow()
   })
   it('wrong signature fails validation', () => {
+    expect(() => addWalletSchema.parse({ wallet, signature: undefined, message })).toThrow()
     expect(() => addWalletSchema.parse({ wallet, signature: '', message })).toThrow()
     expect(() => addWalletSchema.parse({ wallet, signature: '0xtest', message })).toThrow()
     expect(() => addWalletSchema.parse({ wallet, signature: 'test', message })).toThrow()

@@ -1,4 +1,5 @@
-name: 'coverage'
+name: 'Test code coverage'
+
 on:
     pull_request:
         branches:
@@ -9,12 +10,32 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v3
-            - uses: pnpm/action-setup@v2.2.4
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2.2.4
               with:
                 version: latest
-            - name: Run test coverage
-              uses: ArtiomTr/jest-coverage-report-action@v2
-              with:
-                package-manager: pnpm
-                test-script: pnpm ci:test
+                run_install: true
 
+            - name: Run tests
+              run: pnpm ci:test
+
+            - name: Jest Coverage Comment
+              uses: MishaKav/jest-coverage-comment@main
+              with:
+                multiple-files: |
+                  app/bot, ./coverage/app/bot/coverage-summary.json
+                  app/frontend, ./coverage/app/frontend/coverage-summary.json
+                  lib/api, ./coverage/lib/api/coverage-summary.json
+                  lib/utils, ./coverage/lib/utils/coverage-summary.json
+                  lib/model, ./coverage/lib/model/coverage-summary.json
+                  lib/firebase-admin, ./coverage/lib/firebase-admin/coverage-summary.json
+                  lib/firestore, ./coverage/lib/firestore/coverage-summary.json
+                multiple-junitxml-files: |
+                  app/bot, ./coverage/app/bot/junit.xml
+                  app/frontend, ./coverage/app/frontend/junit.xml
+                  lib/api, ./coverage/lib/api/junit.xml
+                  lib/utils, ./coverage/lib/utils/junit.xml
+                  lib/model, ./coverage/lib/model/junit.xml
+                  lib/firebase-admin, ./coverage/lib/firebase-admin/junit.xml
+                  lib/firestore, ./coverage/lib/firestore/junit.xml

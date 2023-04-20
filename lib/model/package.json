@@ -31,10 +31,7 @@
     "@babel/core": "7.21.3",
     "@babel/preset-env": "7.20.2",
     "@types/ramda": "0.28.23",
-    "@jest/globals": "29.4.2",
-    "@jest/types": "29.4.2",
     "babel-jest": "29.4.2",
-    "jest": "29.5.0",
     "tsup": "6.7.0"
   }
 }
