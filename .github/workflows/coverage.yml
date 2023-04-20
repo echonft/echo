@@ -10,9 +10,12 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v3
-            - uses: pnpm/action-setup@v2.2.4
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v2.2.4
               with:
                 version: latest
+                run_install: true
 
             - name: Run tests
               run: pnpm frontend:build
