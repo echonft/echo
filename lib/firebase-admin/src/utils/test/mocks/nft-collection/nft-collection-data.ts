@@ -5,7 +5,6 @@ export const nftCollectionData: { [key: string]: FirestoreNftCollectionData } = 
   Rc8pLQXxgyQGIRL0fr13: {
     refPath: 'nft-collections/Rc8pLQXxgyQGIRL0fr13',
     id: 'Rc8pLQXxgyQGIRL0fr13',
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     contract: contractData['37dBlwJYahEAKeL0rNP8']!,
     openSea: {
       floorPrice: 73.1,
