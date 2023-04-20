@@ -8,7 +8,6 @@ export const discordGuildReferences: { [key: string]: DocumentReference<Firestor
   xA40abnyBq6qQHSYmtHj: {
     path: 'guilds/xA40abnyBq6qQHSYmtHj',
     id: 'xA40abnyBq6qQHSYmtHj',
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     get: () => Promise.resolve(discordGuildSnapshot['xA40abnyBq6qQHSYmtHj']!)
   }
 }

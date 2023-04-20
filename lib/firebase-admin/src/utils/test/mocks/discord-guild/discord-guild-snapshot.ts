@@ -16,7 +16,6 @@ export const discordGuildSnapshot: { [key: string]: FirestoreSnapshot<FirestoreD
       channelId: '1',
       name: 'Echo Test',
       // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       contracts: [contractReferences['37dBlwJYahEAKeL0rNP8']!]
     })
   }

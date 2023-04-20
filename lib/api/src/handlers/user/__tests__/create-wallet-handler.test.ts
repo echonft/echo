@@ -134,7 +134,6 @@ describe('handlers - user - createWalletHandler', () => {
       // @ts-ignore
       await createWalletHandler(user, newWallet, mockedMessage, signature, res)
       expect(res.statusCode).toBe(200)
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       expect(res._getJSONData()).toEqual({ wallets: [newWallet, ...user.wallets!] })
     })
   })

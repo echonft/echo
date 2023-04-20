@@ -8,7 +8,6 @@ export const discordGuildData: { [key: string]: FirestoreDiscordGuildData } = {
     discordId: '1',
     channelId: '1',
     name: 'Echo Test',
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     contracts: [contractData['37dBlwJYahEAKeL0rNP8']!]
   }
 }

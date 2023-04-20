@@ -43,7 +43,6 @@ export function channelToAPIChannel(channel: Channel): APIChannel {
       flags: channel.flags?.bitfield,
       last_message_id: channel.lastMessageId,
       name: null,
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       recipients: [channel.client.user, channel.recipient].map((user) => userToAPIUser(user!)) // TODO: Is the bot a recipient?
     }
   }

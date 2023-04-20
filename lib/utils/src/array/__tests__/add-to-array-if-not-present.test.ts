@@ -39,7 +39,6 @@ describe('array - addToArrayIfNotPresent', () => {
     expect(
       addToArrayIfNotPresent(
         wallets,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         wallets[0]!,
         (source) => (target) => source.address === target.address && source.chainId === target.chainId
       )

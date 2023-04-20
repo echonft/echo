@@ -8,7 +8,6 @@ export const contractReferences: { [key: string]: DocumentReference<FirestoreCon
   '37dBlwJYahEAKeL0rNP8': {
     path: 'contracts/37dBlwJYahEAKeL0rNP8',
     id: '37dBlwJYahEAKeL0rNP8',
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     get: () => Promise.resolve(contractSnapshots['37dBlwJYahEAKeL0rNP8']!)
   }
 }

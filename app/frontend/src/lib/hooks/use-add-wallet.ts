@@ -20,8 +20,6 @@ export const useAddWallet = (message: SiweMessage, signature: Signature, wallet:
         data: {
           url: getApiRouteUrl(ApiRoutes.WALLET),
           request: {
-            // We know wallet won't be null here as it's tested before
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             wallet: wallet!,
             message,
             signature
