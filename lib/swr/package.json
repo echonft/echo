@@ -19,6 +19,9 @@
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier --check \"src/**/*.ts\"",
+    "test": "jest --passWithNoTests",
+    "test:ci": "jest --ci --passWithNoTests",
+    "test:watch": "jest --watch --passWithNoTests",
     "tsc": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
@@ -30,7 +33,6 @@
     "swr": "2.1.0"
   },
   "devDependencies": {
-    "@types/ramda": "0.29.0",
-    "tsup": "6.7.0"
+    "@types/ramda": "0.29.0"
   }
 }

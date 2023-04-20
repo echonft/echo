@@ -19,7 +19,7 @@
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier --check \"src/**/*.ts\"",
-    "test": "jest --watch --passWithNoTests",
+    "test": "jest --passWithNoTests",
     "test:ci": "jest --ci --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",
     "tsc": "tsc --noEmit",
@@ -34,13 +34,6 @@
     "ramda": "0.29.0"
   },
   "devDependencies": {
-    "@babel/core": "7.21.3",
-    "@babel/preset-env": "7.20.2",
-    "@jest/globals": "29.5.0",
-    "@jest/types": "29.5.0",
-    "@types/ramda": "0.29.0",
-    "babel-jest": "29.5.0",
-    "firestore-jest-mock": "0.20.0",
-    "tsup": "6.7.0"
+    "@types/ramda": "0.29.0"
   }
 }

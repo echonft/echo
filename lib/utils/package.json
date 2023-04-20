@@ -26,15 +26,11 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "@mobily/ts-belt": "4.0.0-rc.5",
     "pino": "8.11.0",
     "ramda": "0.29.0"
   },
   "devDependencies": {
-    "@babel/core": "7.21.3",
-    "@babel/preset-env": "7.20.2",
-    "@mobily/ts-belt": "4.0.0-rc.5",
-    "@types/ramda": "0.29.0",
-    "babel-jest": "29.5.0",
-    "tsup": "6.7.0"
+    "@types/ramda": "0.29.0"
   }
 }

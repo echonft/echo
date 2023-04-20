@@ -16,10 +16,10 @@ const config: Config = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../../coverage/lib/firestore'
+        outputDirectory: '<rootDir>/../../.coverage/lib/firestore'
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../coverage/lib/firestore'
+  coverageDirectory: '<rootDir>/../../.coverage/lib/firestore'
 }
 export default config

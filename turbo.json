@@ -49,8 +49,7 @@
     },
     "test": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"],
-      "outputs": ["coverage/**"]
+      "inputs": ["jest.config.ts", "jest.config.cjs, ", "src/**/*.test.tsx", "src/**/*.test.ts"]
     },
     "test:ci": {
       "dependsOn": ["^build"],

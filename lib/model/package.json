@@ -31,10 +31,6 @@
     "ramda": "0.29.0"
   },
   "devDependencies": {
-    "@babel/core": "7.21.3",
-    "@babel/preset-env": "7.20.2",
-    "@types/ramda": "0.29.0",
-    "babel-jest": "29.4.2",
-    "tsup": "6.7.0"
+    "@types/ramda": "0.29.0"
   }
 }
