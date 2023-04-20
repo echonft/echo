@@ -4,7 +4,7 @@ export enum IconSize {
   LG = 'Large'
 }
 
-export const getIconMeasure = (size: IconSize) => {
+export const getIconSizeInPx = (size: IconSize) => {
   switch (size) {
     case IconSize.CARD:
       return 24

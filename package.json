@@ -22,7 +22,7 @@
     "bot:deploy-commands": "env-cmd -f .env turbo run @echo/bot#deploy-commands",
     "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot... start:dev --filter=@echo/bot",
     "bot:start": "turbo run start --filter=@echo/bot",
-    "build": "turbo run build --filter=@echo/frontend^... --filter=@echo/bot^... --filter=@echo/storybook^..",
+    "build": "turbo run build --filter=@echo/frontend^... --filter=@echo/bot^... --filter=@echo/storybook^...",
     "build:fix": "turbo run build:fix",
     "lint:ci": "turbo run lint:ci",
     "prettier": "turbo run prettier",
