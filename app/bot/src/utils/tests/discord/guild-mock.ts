@@ -59,8 +59,8 @@ export function mockGuild(client: Client, owner?: User, data: Partial<APIGuild> 
   // replace guild members fetched with accessing from the cache of the fetched user id in the fetch argument
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  guild.members.fetch = (options: string) => {
-    const member = guild.members.cache.get(options)
+  guild.members.fetch = (options) => {
+    const member = guild.members.cache.get(options as string)
     if (member) {
       return Promise.resolve(member)
     }

@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { FirestoreSnapshot } from '../../../types/abstract/firestore-snapshot'
 import { emptySnapshot } from '../../../utils/test/mocks/empty-snapshot'
 import { userData } from '../../../utils/test/mocks/user/user-data'
 import { userSnapshots } from '../../../utils/test/mocks/user/user-snapshot'
 import { convertUser } from '../convert-user'
+import { FirestoreUser } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 
 describe('convertUser', () => {
@@ -15,13 +16,17 @@ describe('convertUser', () => {
     }
   })
   it('user with empty guild is converted properly', async () => {
-    // @ts-ignore
-    const user = await convertUser({ ...mockSnapshot, data: () => ({ ...mockSnapshot.data()!, discordGuilds: [] }) })
+    const user = await convertUser({
+      ...mockSnapshot,
+      data: () => ({ ...mockSnapshot.data()!, discordGuilds: [] })
+    } as unknown as FirestoreSnapshot<FirestoreUser>)
     expect(user).toEqual({ ...userData['oE6yUEQBPn7PZ89yMjKn']!, discordGuilds: [] })
   })
   it('user with empty wallet is converted properly', async () => {
-    // @ts-ignore
-    const user = await convertUser({ ...mockSnapshot, data: () => ({ ...mockSnapshot.data()!, wallets: [] }) })
+    const user = await convertUser({
+      ...mockSnapshot,
+      data: () => ({ ...mockSnapshot.data()!, wallets: [] })
+    } as unknown as FirestoreSnapshot<FirestoreUser>)
     expect(user).toEqual({ ...userData['oE6yUEQBPn7PZ89yMjKn']!, wallets: [] })
   })
   it('user is converted properly', async () => {

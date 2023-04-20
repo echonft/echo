@@ -5,7 +5,6 @@ import { FirestoreDiscordGuild } from '@echo/firestore'
 
 export const discordGuildSnapshot: { [key: string]: FirestoreSnapshot<FirestoreDiscordGuild> } = {
   xA40abnyBq6qQHSYmtHj: {
-    // @ts-ignore
     ref: {
       path: 'guilds/xA40abnyBq6qQHSYmtHj'
     },
@@ -15,8 +14,7 @@ export const discordGuildSnapshot: { [key: string]: FirestoreSnapshot<FirestoreD
       discordId: '1',
       channelId: '1',
       name: 'Echo Test',
-      // @ts-ignore
       contracts: [contractReferences['37dBlwJYahEAKeL0rNP8']!]
     })
-  }
+  } as unknown as FirestoreSnapshot<FirestoreDiscordGuild>
 }

@@ -5,7 +5,6 @@ import { FirestoreUser } from '@echo/firestore'
 
 export const userSnapshots: { [key: string]: FirestoreSnapshot<FirestoreUser> } = {
   oE6yUEQBPn7PZ89yMjKn: {
-    // @ts-ignore
     ref: {
       path: 'users/oE6yUEQBPn7PZ89yMjKn'
     },
@@ -14,7 +13,6 @@ export const userSnapshots: { [key: string]: FirestoreSnapshot<FirestoreUser> } 
     data: () => ({
       discordId: '123456',
       discordUsername: 'johnnycage#0890',
-      // @ts-ignore
       discordGuilds: [discordGuildReferences['xA40abnyBq6qQHSYmtHj']!],
       discordAvatar: '4b4d6722cb2b98b0b817020257a9c3ec',
       discordBanner: undefined,
@@ -33,5 +31,5 @@ export const userSnapshots: { [key: string]: FirestoreSnapshot<FirestoreUser> } 
         }
       ]
     })
-  }
+  } as unknown as FirestoreSnapshot<FirestoreUser>
 }
