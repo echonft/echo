@@ -9,28 +9,31 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup",
-    "ci:lint": "eslint \"src/**/*.ts\"",
-    "ci:prettier": "prettier \"src/**/*.ts\"",
-    "ci:test": "jest --ci",
+    "build:fix": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "clean": "rm -rf dist",
     "dev": "tsup --watch",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
+    "lint:ci": "eslint \"src/**/*.ts\"",
     "lint:clean-cache": "rm -f .eslintcache",
-    "remove-modules": "rm -rf node_modules",
-    "test": "jest --watch",
+    "modules:remove-all": "rm -rf node_modules",
+    "modules:update-all": "ncu -u",
+    "modules:upgrade": "pnpm upgrade",
+    "prettier": "prettier --check \"src/**/*.ts\"",
+    "test": "jest",
+    "test:ci": "jest --ci",
+    "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
-    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
-    "update-modules": "ncu -u"
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
     "pino": "8.11.0",
-    "ramda": "0.28.0"
+    "ramda": "0.29.0"
   },
   "devDependencies": {
     "@babel/core": "7.21.3",
     "@babel/preset-env": "7.20.2",
     "@mobily/ts-belt": "4.0.0-rc.5",
-    "@types/ramda": "0.28.23",
+    "@types/ramda": "0.29.0",
     "babel-jest": "29.5.0",
     "tsup": "6.7.0"
   }

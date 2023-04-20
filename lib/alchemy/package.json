@@ -9,18 +9,18 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup",
-    "build:clean-bad": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
-    "ci:lint": "eslint \"src/**/*.ts\"",
-    "ci:prettier": "prettier \"src/**/*.ts\"",
+    "build:fix": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "clean": "rm -rf dist",
     "dev": "tsup --watch",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
+    "lint:ci": "eslint \"src/**/*.ts\"",
     "lint:clean-cache": "rm -f .eslintcache",
-    "remove-modules": "rm -rf node_modules",
+    "modules:remove-all": "rm -rf node_modules",
+    "modules:update-all": "ncu -u",
+    "modules:upgrade": "pnpm upgrade",
+    "prettier": "prettier --check \"src/**/*.ts\"",
     "tsc": "tsc --noEmit",
-    "tsc:clean-bad-build": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
-    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
-    "update-modules": "ncu -u"
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
     "@echo/model": "workspace:*",
@@ -28,10 +28,10 @@
     "alchemy-sdk": "2.6.1",
     "dayjs": "1.11.7",
     "ethers": "6.1.0",
-    "ramda": "0.28.0"
+    "ramda": "0.29.0"
   },
   "devDependencies": {
-    "@types/ramda": "0.28.23",
+    "@types/ramda": "0.29.0",
     "tsup": "6.7.0"
   }
 }
