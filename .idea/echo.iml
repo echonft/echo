@@ -48,6 +48,11 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/ui/dist" />
       <excludeFolder url="file://$MODULE_DIR$/lib/api/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/app/frontend/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/app/bot/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/firebase-admin/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/firestore/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/model/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/utils/coverage" />
       <excludePattern pattern="tsconfig.tsbuildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />
