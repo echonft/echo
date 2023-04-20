@@ -20,11 +20,10 @@ jobs:
             - name: Run tests
               run: pnpm ci:test
 
-            - name: Publish Test Results
-              uses: EnricoMi/publish-unit-test-result-action@v2.6.2
-              if: always()
+            - name: Jest Coverage Comment
+              uses: MishaKav/jest-coverage-comment@main
               with:
-                files: |
-                  coverage/**/*.xml
-                  coverage/**/*.json
-
+                multiple-files: |
+                  lib/utils, ./coverage/lib/utils/coverage-summary.json
+                multiple-junitxml-files: |
+                  lib/utils, ./coverage/lib/utils/junit.xml
