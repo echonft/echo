@@ -1,5 +1,6 @@
 export { findDiscordGuildByGuildId } from './crud/discord-guild/find-discord-guild-by-guild-id'
 export { findDiscordGuildById } from './crud/discord-guild/find-discord-guild-by-id'
+export { addListing } from './crud/listing/add-listing'
 export { findNonceForUser } from './crud/nonce/find-nonce-for-user'
 export { setNonceForUser } from './crud/nonce/set-nonce-for-user'
 export { findOfferById } from './crud/offer/find-offer-by-id'

@@ -20,6 +20,7 @@ export function createOrUpdateUser(
       if (R.isError(discordUserResponse)) {
         throw Error('Auth error: error fetching discord user')
       }
+      // TODO Add validation on response
       const userPrototype = mapDiscordUserResponseToUserPrototype(R.getExn(discordUserResponse))
       // User is not found, we create it
       if (R.isError(userResult)) {

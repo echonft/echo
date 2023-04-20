@@ -11,31 +11,33 @@ describe('validators - createListing', () => {
   const mockTargets = [mockTarget, { ...mockTarget, chainId: 2 }]
 
   it('wrong discord guild fails validation', () => {
-    expect(() => createListingSchema.parse({ discordGuild: '', target: mockTargets, items: mockOfferItems })).toThrow()
     expect(() =>
-      createListingSchema.parse({ discordGuild: undefined, target: mockTargets, items: mockOfferItems })
+      createListingSchema.parse({ discordGuildId: '', target: mockTargets, items: mockOfferItems })
+    ).toThrow()
+    expect(() =>
+      createListingSchema.parse({ discordGuildId: undefined, target: mockTargets, items: mockOfferItems })
     ).toThrow()
   })
   it('wrong target fails validation', () => {
-    expect(() => createListingSchema.parse({ discordGuild: '1203', target: [], items: mockOfferItems })).toThrow()
+    expect(() => createListingSchema.parse({ discordGuildId: '1203', target: [], items: mockOfferItems })).toThrow()
     expect(() =>
-      createListingSchema.parse({ discordGuild: '1203', target: undefined, items: mockOfferItems })
+      createListingSchema.parse({ discordGuildId: '1203', target: undefined, items: mockOfferItems })
     ).toThrow()
     expect(() =>
-      createListingSchema.parse({ discordGuild: '1203', target: mockTarget, items: mockOfferItems })
+      createListingSchema.parse({ discordGuildId: '1203', target: mockTarget, items: mockOfferItems })
     ).toThrow()
   })
   it('wrong offerItems fails validation', () => {
-    expect(() => createListingSchema.parse({ discordGuild: '1203', target: mockTargets, items: [] })).toThrow()
-    expect(() => createListingSchema.parse({ discordGuild: '1203', target: mockTargets, items: undefined })).toThrow()
+    expect(() => createListingSchema.parse({ discordGuildId: '1203', target: mockTargets, items: [] })).toThrow()
+    expect(() => createListingSchema.parse({ discordGuildId: '1203', target: mockTargets, items: undefined })).toThrow()
     expect(() =>
-      createListingSchema.parse({ discordGuild: '1203', target: mockTargets, items: mockOfferItem })
+      createListingSchema.parse({ discordGuildId: '1203', target: mockTargets, items: mockOfferItem })
     ).toThrow()
   })
 
   it('valid request pass', () => {
     expect(
-      createListingSchema.parse({ discordGuild: '1233', target: mockTargets, items: mockOfferItems })
-    ).toStrictEqual({ discordGuild: '1233', target: mockTargets, items: mockOfferItems })
+      createListingSchema.parse({ discordGuildId: '1233', target: mockTargets, items: mockOfferItems })
+    ).toStrictEqual({ discordGuildId: '1233', target: mockTargets, items: mockOfferItems })
   })
 })
