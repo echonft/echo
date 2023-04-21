@@ -1,4 +1,4 @@
-import { IconSize, Logo as Component } from '@echo/ui'
+import { Logo as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
@@ -10,8 +10,4 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Echo: Story = {
-  args: {
-    size: IconSize.CARD
-  }
-}
+export const Echo: Story = {}

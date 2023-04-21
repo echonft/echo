@@ -1,4 +1,4 @@
-import { IconSize, RedFlagIcon as Component } from '@echo/ui'
+import { iconSizes, RedFlagIcon as Component, SizeSM } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
@@ -6,7 +6,7 @@ const metadata = {
   component: Component,
   argTypes: {
     size: {
-      options: Object.values(IconSize),
+      options: iconSizes,
       control: { type: 'radio' }
     }
   }
@@ -18,6 +18,6 @@ type Story = StoryObj<typeof Component>
 
 export const RedFlagIcon: Story = {
   args: {
-    size: IconSize.CARD
+    size: SizeSM
   }
 }

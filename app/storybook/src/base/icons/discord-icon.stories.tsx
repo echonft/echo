@@ -1,12 +1,12 @@
-import { IconSize, ShareIcon as Component } from '@echo/ui'
+import { DiscordIcon as Component, iconSizes, SizeMD } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Icons/Share Icon',
+  title: 'Icons/Discord Icon',
   component: Component,
   argTypes: {
     size: {
-      options: Object.values(IconSize),
+      options: iconSizes,
       control: { type: 'radio' }
     }
   }
@@ -16,8 +16,8 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const ShareIcon: Story = {
+export const DiscordIcon: Story = {
   args: {
-    size: IconSize.CARD
+    size: SizeMD
   }
 }
