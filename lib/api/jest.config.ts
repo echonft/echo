@@ -16,10 +16,10 @@ const config: Config = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../../coverage/lib/api'
+        outputDirectory: '<rootDir>/../../.coverage/lib/api'
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../coverage/lib/api'
+  coverageDirectory: '<rootDir>/../../.coverage/lib/api'
 }
 export default config

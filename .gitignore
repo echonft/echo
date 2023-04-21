@@ -5,6 +5,7 @@ node_modules
 
 # coverage
 coverage
+.coverage
 
 # debug
 .pnpm-debug.log*

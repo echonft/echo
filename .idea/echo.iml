@@ -53,6 +53,7 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/firestore/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/lib/model/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/lib/utils/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/.coverage" />
       <excludePattern pattern="tsconfig.tsbuildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />

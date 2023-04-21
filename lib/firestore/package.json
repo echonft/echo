@@ -9,35 +9,31 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup",
-    "build:clean-bad": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
-    "ci:lint": "eslint \"src/**/*.ts\"",
-    "ci:prettier": "prettier \"src/**/*.ts\"",
-    "ci:test": "jest --ci --passWithNoTests",
+    "build:fix": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "clean": "rm -rf dist",
     "dev": "tsup --watch",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
+    "lint:ci": "eslint \"src/**/*.ts\"",
     "lint:clean-cache": "rm -f .eslintcache",
-    "remove-modules": "rm -rf node_modules",
-    "test": "jest --watch --passWithNoTests",
+    "modules:remove-all": "rm -rf node_modules",
+    "modules:update-all": "ncu -u",
+    "modules:upgrade": "pnpm upgrade",
+    "prettier": "prettier --check \"src/**/*.ts\"",
+    "test": "jest --passWithNoTests",
+    "test:ci": "jest --ci --passWithNoTests",
+    "test:watch": "jest --watch --passWithNoTests",
     "tsc": "tsc --noEmit",
-    "tsc:clean-bad-build": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
-    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
-    "update-modules": "ncu -u"
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "dayjs": "1.11.7",
-    "firebase": "9.17.2",
     "ethers": "6.1.0",
-    "ramda": "0.28.0"
+    "firebase": "9.17.2",
+    "ramda": "0.29.0"
   },
   "devDependencies": {
-    "@babel/core": "7.21.3",
-    "@babel/preset-env": "7.20.2",
-    "@types/ramda": "0.28.23",
-    "babel-jest": "29.5.0",
-    "firestore-jest-mock": "0.20.0",
-    "tsup": "6.7.0"
+    "@types/ramda": "0.29.0"
   }
 }

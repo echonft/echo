@@ -16,10 +16,10 @@ const config: Config = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../../coverage/app/bot'
+        outputDirectory: '<rootDir>/../../.coverage/app/bot'
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../coverage/app/bot'
+  coverageDirectory: '<rootDir>/../../.coverage/app/bot'
 }
 export default config

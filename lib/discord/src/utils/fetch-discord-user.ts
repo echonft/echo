@@ -6,7 +6,7 @@ import { R } from '@mobily/ts-belt'
 import { andThen, assoc, join, pipe } from 'ramda'
 
 // TODO Functional this shit
-export async function fetchDiscordUser(
+export function fetchDiscordUser(
   accessToken: string,
   tokenType: string,
   fetchGuilds = false
@@ -27,7 +27,7 @@ export async function fetchDiscordUser(
           )
         )(accessToken, tokenType)
       }
-      return R.map(discordUserResult, assoc('guilds', []))
+      return R.map(discordUserResult, assoc('guilds', [])) as R.Result<DiscordUserResponse, Error>
     }
   )
 }

@@ -3,18 +3,11 @@
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "dist/**"]
+      "outputs": ["dist/**"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
-    "ci:lint": {
-      "dependsOn": ["^build"],
-      "cache": false
-    },
-    "ci:prettier": {
-      "cache": false
-    },
-    "ci:test": {
-      "dependsOn": ["^build"],
-      "cache": false
+    "build:fix": {
+      "inputs": ["src/**/*.d.ts", "src/**/*.js"]
     },
     "clean": {
       "cache": false
@@ -25,13 +18,26 @@
     },
     "lint": {
       "dependsOn": ["^build"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "lint:ci": {
+      "dependsOn": ["^build"],
       "cache": false
     },
     "lint:clean-cache": {
+      "inputs": [".eslintcache"]
+    },
+    "modules:remove-all": {
       "cache": false
     },
-    "remove-modules": {
+    "modules:update-all": {
       "cache": false
+    },
+    "modules:upgrade": {
+      "cache": false
+    },
+    "prettier": {
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
     "start": {
       "dependsOn": ["^build"],
@@ -43,22 +49,32 @@
     },
     "test": {
       "dependsOn": ["^build"],
+      "inputs": ["jest.config.ts", "jest.config.cjs, ", "src/**/*.test.tsx", "src/**/*.test.ts"]
+    },
+    "test:ci": {
+      "dependsOn": ["^build"],
+      "cache": false
+    },
+    "test:watch": {
+      "dependsOn": ["^build"],
       "cache": false
     },
     "tsc": {
       "dependsOn": ["^build"],
-      "cache": false
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
     "tsc:clean-cache": {
-      "cache": false
-    },
-    "update-modules": {
-      "cache": false
+      "inputs": ["tsconfig.tsbuildinfo"]
     },
     "@echo/api#build": {
       "dependsOn": ["^build"],
       "env": ["NODE_ENV", "API_ENV", "NEXTAUTH_URL_INTERNAL", "NEXTAUTH_URL"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "inputs": ["src/**/*.ts"]
+    },
+    "@echo/bot#deploy-commands": {
+      "dependsOn": ["^build"],
+      "cache": false
     },
     "@echo/discord#build": {
       "dependsOn": ["^build"],
@@ -70,12 +86,14 @@
         "DISCORD_GUILD_ID",
         "DISCORD_APP_ENV"
       ],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "inputs": ["src/**/*.ts"]
     },
     "@echo/firebase-admin#build": {
       "dependsOn": ["^build"],
       "env": ["FIREBASE_ADMIN_PRIVATE_KEY"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "inputs": ["src/**/*.ts"]
     },
     "@echo/frontend#build": {
       "dependsOn": ["^build"],
@@ -85,22 +103,18 @@
         "NEXT_PUBLIC_ALCHEMY_API_KEY_MAINNET",
         "NEXT_PUBLIC_ALCHEMY_API_KEY_GOERLI"
       ],
-      "outputs": [".next/**", "dist/**"]
+      "outputs": [".next/**", "dist/**"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
     "@echo/storybook#build": {
       "dependsOn": ["^build"],
-      "outputs": ["storybook-static/**", "dist/**"]
+      "outputs": ["storybook-static/**", "dist/**"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
     "@echo/utils#build": {
       "dependsOn": ["^build"],
-      "env": ["NODE_ENV"],
-      "outputs": ["dist/**"]
-    },
-    "@echo/bot#deploy-commands": {
-      "dependsOn": ["build"],
       "outputs": ["dist/**"],
-      "inputs": [".env"]
+      "inputs": ["src/**/*.ts"]
     }
-  },
-  "globalDependencies": [".env", ".eslintrc.js", "prettier.config.js", "tsconfig.json"]
+  }
 }

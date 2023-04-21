@@ -9,18 +9,21 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup",
-    "ci:lint": "eslint \"src/**/*.ts\"",
-    "ci:prettier": "prettier \"src/**/*.ts\"",
-    "ci:test": "jest --ci",
+    "build:fix": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "clean": "rm -rf dist",
     "dev": "tsup --watch",
     "lint": "eslint --cache --fix \"src/**/*.ts\"",
+    "lint:ci": "eslint \"src/**/*.ts\"",
     "lint:clean-cache": "rm -f .eslintcache",
-    "remove-modules": "rm -rf node_modules",
-    "test": "jest --watch",
+    "modules:remove-all": "rm -rf node_modules",
+    "modules:update-all": "ncu -u",
+    "modules:upgrade": "pnpm upgrade",
+    "prettier": "prettier --check \"src/**/*.ts\"",
+    "test": "jest",
+    "test:ci": "jest --ci",
+    "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
-    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
-    "update-modules": "ncu -u"
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "peerDependencies": {
     "next": "^13",
@@ -36,16 +39,14 @@
     "@mobily/ts-belt": "4.0.0-rc.5",
     "alchemy-sdk": "2.6.1",
     "ethers": "5.7.2",
-    "ramda": "0.28.0",
+    "ramda": "0.29.0",
     "request": "2.88.2",
     "siwe": "1.1.6",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@types/ramda": "0.28.23",
+    "@types/ramda": "0.29.0",
     "@types/request": "2.48.8",
-    "babel-jest": "29.4.2",
-    "node-mocks-http": "1.12.2",
-    "tsup": "6.7.0"
+    "node-mocks-http": "1.12.2"
   }
 }

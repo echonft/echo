@@ -1,17 +1,17 @@
-import { WebsiteIconSvg } from '../svg/website-icon-svg'
+import { OpenSeaIconSvg } from '../svg/open-sea-icon-svg'
 import { IconContainer } from './icon-container'
 import { getIconSizeInPx, IconSize } from './icon-size'
 import { FunctionComponent } from 'react'
 
-export interface WebsiteIconProps {
+export interface OpenSeaIconProps {
   size: IconSize
 }
 
-export const WebsiteIcon: FunctionComponent<WebsiteIconProps> = ({ size }) => {
+export const OpenSeaIcon: FunctionComponent<OpenSeaIconProps> = ({ size }) => {
   const sizeInPx = Math.floor(getIconSizeInPx(size) * (18 / 30))
   return (
     <IconContainer size={size}>
-      <WebsiteIconSvg width={sizeInPx} height={sizeInPx} />
+      <OpenSeaIconSvg width={sizeInPx} height={sizeInPx} />
     </IconContainer>
   )
 }
