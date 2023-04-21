@@ -91,7 +91,6 @@
     },
     "@echo/firebase-admin#build": {
       "dependsOn": ["^build"],
-      "env": ["FIREBASE_ADMIN_PRIVATE_KEY"],
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
     },
