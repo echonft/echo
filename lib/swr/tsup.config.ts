@@ -8,6 +8,5 @@ export default defineConfig((options: Options) => ({
   format: ['esm'],
   dts: true,
   minify: true,
-  clean: true,
   ...options
 }))
