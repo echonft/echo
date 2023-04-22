@@ -4,9 +4,13 @@ import { userData } from '../../../utils/test/mocks/user/user-data'
 import { userSnapshots } from '../../../utils/test/mocks/user/user-snapshot'
 import { convertUser } from '../convert-user'
 import { FirestoreUser } from '@echo/firestore'
-import { describe, expect, it } from '@jest/globals'
+import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 describe('convertUser', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   const mockSnapshot = userSnapshots['oE6yUEQBPn7PZ89yMjKn']!
   it('empty snapshot throws', async () => {
     try {
