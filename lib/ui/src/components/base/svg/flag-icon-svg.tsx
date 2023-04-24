@@ -1,12 +1,13 @@
-import { FunctionComponent, SVGProps } from 'react'
+import { Svg, SvgProps } from './svg'
+import { FunctionComponent } from 'react'
 
-export const RedFlagIconSvg: FunctionComponent<SVGProps<SVGSVGElement>> = (props) => {
+export const FlagIconSvg: FunctionComponent<SvgProps> = (props) => {
   return (
-    <svg {...props} viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <Svg viewBoxWidth={13} viewBoxHeight={14} {...props}>
       <path
         d="M0.866669 14C0.621114 14 0.415136 13.9209 0.248736 13.7628C0.0823364 13.6047 -0.000574779 13.4093 2.99884e-06 13.1765V0.823532C2.99884e-06 0.590199 0.083203 0.394473 0.249603 0.236356C0.416003 0.0782383 0.621692 -0.00054617 0.866669 2.84958e-06H7.085C7.28722 2.84958e-06 7.46778 0.0617674 7.62667 0.185297C7.78556 0.308826 7.88667 0.466669 7.93 0.658826L8.14667 1.64706H12.1333C12.3789 1.64706 12.5849 1.72612 12.7513 1.88424C12.9177 2.04236 13.0006 2.23781 13 2.47059V9.05882C13 9.29216 12.9168 9.48788 12.7504 9.646C12.584 9.80412 12.3783 9.8829 12.1333 9.88235H7.64833C7.44611 9.88235 7.26556 9.82059 7.10667 9.69706C6.94778 9.57353 6.84667 9.41569 6.80333 9.22353L6.58667 8.23529H1.73334V13.1765C1.73334 13.4098 1.65014 13.6055 1.48374 13.7636C1.31734 13.9218 1.11165 14.0005 0.866669 14Z"
-        fill="#FF0000"
+        fill="currentColor"
       />
-    </svg>
+    </Svg>
   )
 }

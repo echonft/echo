@@ -1,13 +1,13 @@
-import { ButtonVariant } from './button-variant'
+import { ButtonColorScheme } from './button-color-scheme'
 import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface ButtonContainerColorProps {
-  variant: ButtonVariant
+  colorScheme: ButtonColorScheme
 }
 
 export const ButtonContainerColor: FunctionComponent<PropsWithChildren<ButtonContainerColorProps>> = ({
-  variant,
+  colorScheme,
   children
 }) => {
   return (
@@ -16,24 +16,24 @@ export const ButtonContainerColor: FunctionComponent<PropsWithChildren<ButtonCon
         'w-full',
         'h-full',
         'border-none',
-        variant === ButtonVariant.PRIMARY && [
+        colorScheme === ButtonColorScheme.PRIMARY && [
           'bg-white/[0.08]',
           'group-hover:bg-yellow-500',
           'group-active:bg-yellow-700',
           'group-disabled:bg-white/[0.08]',
           'group-disabled:group-hover:bg-white/[0.08]'
         ],
-        variant === ButtonVariant.SECONDARY && [
+        colorScheme === ButtonColorScheme.GRADIENT && [
           'bg-main-gradient',
-          'group-hover:main-gradient-40-percent',
+          'group-hover:bg-main-gradient/40',
           'group-hover:border-solid',
           'group-hover:border-yellow-500',
           'group-active:bg-yellow-700',
-          'group-disabled:main-gradient-40-percent',
-          'group-disabled:group-hover:main-gradient-40-percent',
+          'group-disabled:bg-main-gradient/40',
+          'group-disabled:group-hover:bg-main-gradient/40',
           'group-disabled:group-hover:border-none'
         ],
-        variant === ButtonVariant.ACTION && ['bg-purple-300']
+        colorScheme === ButtonColorScheme.ACTION && ['bg-purple-300']
       )}
     >
       {children}

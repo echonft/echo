@@ -1,9 +1,9 @@
-import { ButtonVariant } from './button-variant'
+import { ButtonColorScheme } from './button-color-scheme'
 import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface ButtonInnerColorProps {
-  variant: ButtonVariant
+  variant: ButtonColorScheme
 }
 
 export const ButtonInnerColor: FunctionComponent<PropsWithChildren<ButtonInnerColorProps>> = ({
@@ -16,20 +16,20 @@ export const ButtonInnerColor: FunctionComponent<PropsWithChildren<ButtonInnerCo
         'flex',
         'flex-row',
         'flex-1',
-        variant === ButtonVariant.PRIMARY && [
+        variant === ButtonColorScheme.PRIMARY && [
           'text-white',
           'group-hover:text-black',
           'group-active:text-black',
           'group-disabled:text-white/50',
           'group-disabled:group-hover:text-white/50'
         ],
-        variant === ButtonVariant.SECONDARY && [
+        variant === ButtonColorScheme.GRADIENT && [
           'text-dark-500',
           'group-hover:text-yellow-100',
           'group-disabled:text-dark-500',
           'group-disabled:group-hover:text-dark-500'
         ],
-        variant === ButtonVariant.ACTION && ['text-purple-900']
+        variant === ButtonColorScheme.ACTION && ['text-purple-900']
       )}
     >
       {children}

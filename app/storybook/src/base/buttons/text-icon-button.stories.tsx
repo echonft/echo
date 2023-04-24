@@ -1,8 +1,15 @@
-import { ButtonColorScheme, buttonSizes, buttonWidths, SizeMD, TextButton as Component } from '@echo/ui'
+import {
+  ButtonColorScheme,
+  buttonSizes,
+  buttonWidths,
+  EditIconSvg,
+  SizeMD,
+  TextIconButton as Component
+} from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Buttons/Text Button',
+  title: 'Buttons/Text Icon Button',
   component: Component,
   argTypes: {
     size: {
@@ -24,7 +31,7 @@ const metadata = {
   },
   parameters: {
     controls: {
-      exclude: 'disabled'
+      exclude: ['disabled', 'getIconSize', 'icon']
     }
   }
 } satisfies Meta<typeof Component>
@@ -37,15 +44,33 @@ export const Active: Story = {
   args: {
     size: SizeMD,
     colorScheme: ButtonColorScheme.PRIMARY,
-    label: 'Text Button'
-  }
+    label: 'Edit'
+  },
+  render: ({ size, label, colorScheme }) => (
+    <Component
+      label={label}
+      size={size}
+      colorScheme={colorScheme}
+      icon={<EditIconSvg />}
+      getIconSize={(_size) => ({ width: 20, height: 20 })}
+    />
+  )
 }
 
 export const Disabled: Story = {
   args: {
     size: SizeMD,
     colorScheme: ButtonColorScheme.PRIMARY,
-    label: 'Text Button',
-    disabled: true
-  }
+    label: 'Edit'
+  },
+  render: ({ size, label, colorScheme }) => (
+    <Component
+      label={label}
+      size={size}
+      colorScheme={colorScheme}
+      disabled
+      icon={<EditIconSvg />}
+      getIconSize={(_size) => ({ width: 20, height: 20 })}
+    />
+  )
 }
