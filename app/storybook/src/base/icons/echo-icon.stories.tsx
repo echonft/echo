@@ -1,4 +1,4 @@
-import { EchoIcon as Component, EchoIconColor, IconSize } from '@echo/ui'
+import { ColorYellow, EchoIcon as Component, echoIconColors, iconSizes, SizeSM } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
@@ -6,11 +6,11 @@ const metadata = {
   component: Component,
   argTypes: {
     size: {
-      options: Object.values(IconSize),
+      options: iconSizes,
       control: { type: 'radio' }
     },
     color: {
-      options: Object.values(EchoIconColor),
+      options: echoIconColors,
       control: { type: 'radio' }
     }
   }
@@ -22,7 +22,7 @@ type Story = StoryObj<typeof Component>
 
 export const EchoIcon: Story = {
   args: {
-    size: IconSize.CARD,
-    color: EchoIconColor.Yellow
+    size: SizeSM,
+    color: ColorYellow
   }
 }
