@@ -18,7 +18,7 @@ export const updateUserDiscordInfo = (userId: string, userPrototype: FirestoreUs
         discordAvatar: userPrototype.discordAvatar,
         discordBanner: userPrototype.discordBanner,
         discordGuilds: guilds
-      } as Partial<FirestoreUser>)
+      } as unknown as Partial<FirestoreUser>)
       .then(pipe(always(userRef.get()), andThen(pipe(convertUser, mapUser, R.fromPromise<User>))))
   )
 }

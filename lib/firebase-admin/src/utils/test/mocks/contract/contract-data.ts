@@ -9,5 +9,14 @@ export const contractData: { [key: string]: FirestoreContractData } = {
     chainId: 1,
     name: 'BoredApeYachtClub',
     symbol: 'BAYC'
+  },
+  hK2XrmnMpCVneRH7Mbo6: {
+    refPath: 'contracts/hK2XrmnMpCVneRH7Mbo6',
+    id: 'hK2XrmnMpCVneRH7Mbo6',
+    tokenType: 'ERC721',
+    address: '0x49cf6f5d44e70224e2e23fdcdd2c053f30ada28b',
+    chainId: 1,
+    name: 'CloneX',
+    symbol: 'CloneX'
   }
 }
