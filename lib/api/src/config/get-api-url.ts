@@ -1,5 +1,6 @@
 import { ApiEnvironment } from '../types/config/api-environment'
 import { isNilOrEmpty } from '@echo/utils'
+import * as process from 'process'
 
 /**
  * Get the URL for the API. Required for network calls from FE and Bot

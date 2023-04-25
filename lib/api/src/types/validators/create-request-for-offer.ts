@@ -2,7 +2,7 @@ import { offerItem } from './offer-item'
 import { target } from './target'
 import { z } from 'zod'
 
-export const createListingSchema = z.object({
+export const createRequestForOfferSchema = z.object({
   discordGuildId: z.string().nonempty(),
   target: target.array().nonempty(),
   // TODO Maybe add a validation so they are all from the same contract?

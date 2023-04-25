@@ -1,7 +1,7 @@
 import { Contract, DiscordGuild, Offer, OfferItem, OfferState, Swap, User } from '@echo/model'
 
 // TODO Should this become a simple listing response?
-export interface CreateListingResponse {
+export interface CreateRequestForOfferResponse {
   createdAt: number
   discordGuild: DiscordGuild
   expiresAt: number

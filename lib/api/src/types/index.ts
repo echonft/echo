@@ -1,4 +1,7 @@
+export { CreateRequestForOfferRequest } from './model/requests/create-request-for-offer-request'
+export { ItemRequest } from './model/requests/item-request'
 export { WalletRequest } from './model/requests/wallet-request'
+export { CreateRequestForOfferResponse } from './model/responses/create-request-for-offer-response'
 export { ErrorResponse } from './model/responses/error-response'
 export { FirebaseTokenResponse } from './model/responses/firebase-token-response'
 export { NonceResponse } from './model/responses/nonce-response'
