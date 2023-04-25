@@ -11,7 +11,7 @@ export interface TextButtonProps extends ButtonContainerProps, ButtonContainerCo
 
 export const TextButton: FunctionComponent<TextButtonProps> = ({
   size,
-  variant,
+  colorScheme,
   label,
   fixedWidth,
   disabled,
@@ -19,9 +19,9 @@ export const TextButton: FunctionComponent<TextButtonProps> = ({
 }) => {
   return (
     <ButtonContainer size={size} disabled={disabled} fixedWidth={fixedWidth} onClick={onClick}>
-      <ButtonContainerColor variant={variant}>
+      <ButtonContainerColor colorScheme={colorScheme}>
         <ButtonInner size={size}>
-          <ButtonInnerColor variant={variant}>
+          <ButtonInnerColor variant={colorScheme}>
             <ButtonLabel size={size}>{label}</ButtonLabel>
           </ButtonInnerColor>
         </ButtonInner>
