@@ -1,17 +1,23 @@
 import { User } from '@echo/model'
-import { UserTag as Component } from '@echo/ui'
+import { Header as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Layout/Header/User Tag',
-  component: Component
+  title: 'Layout/Header/Header',
+  component: Component,
+  argTypes: {
+    onSearchQueryChange: {
+      control: false,
+      action: 'changed'
+    }
+  }
 } satisfies Meta<typeof Component>
 
 export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const UserTag: Story = {
+export const Header: Story = {
   render: () => (
     <Component
       user={

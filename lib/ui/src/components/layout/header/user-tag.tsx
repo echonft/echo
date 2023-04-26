@@ -1,13 +1,14 @@
+import { getUserAvatarUrl } from '@echo/discord'
+import { User } from '@echo/model'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import { FunctionComponent } from 'react'
 
 export interface UserTagProps {
-  username: string
-  pictureUrl: string
+  user: User
 }
 
-export const UserTag: FunctionComponent<UserTagProps> = ({ username, pictureUrl }) => {
+export const UserTag: FunctionComponent<UserTagProps> = ({ user }) => {
   return (
     <div
       className={clsx(
@@ -22,8 +23,14 @@ export const UserTag: FunctionComponent<UserTagProps> = ({ username, pictureUrl 
         'w-max'
       )}
     >
-      <Image className={clsx('w-4.5', 'h-4.5', 'rounded')} src={pictureUrl} alt={''} width={18} height={18} />
-      <span className={clsx('prose-label-sm-bold', 'text-yellow-400')}>{username}</span>
+      <Image
+        className={clsx('w-4.5', 'h-4.5', 'rounded')}
+        src={getUserAvatarUrl(user, 32, 'png')}
+        alt={''}
+        width={18}
+        height={18}
+      />
+      <span className={clsx('prose-label-sm-bold', 'text-yellow-400')}>{user.discordUsername}</span>
     </div>
   )
 }

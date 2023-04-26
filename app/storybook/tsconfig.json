@@ -1,14 +1,12 @@
 {
   "extends": "../../lib/tsconfig/base.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "baseUrl": "src",
     "jsx": "preserve",
     "lib": ["dom", "dom.iterable", "esnext"],
     "target": "esnext",
     "noEmit": true,
     "noUnusedLocals": false
   },
-  "include": ["src"],
+  "include": ["src", ".storybook"],
   "exclude": ["node_modules"]
 }

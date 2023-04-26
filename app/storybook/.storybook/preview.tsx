@@ -1,6 +1,8 @@
+import { getMessages } from '@echo/ui'
 import type { Preview } from '@storybook/react'
 import '@echo/ui/dist/index.css'
 import * as NextImage from 'next/image'
+import { NextIntlProvider } from 'next-intl'
 
 const OriginalNextImage = NextImage.default
 
@@ -21,5 +23,16 @@ const preview: Preview = {
     }
   }
 }
+
+export const decorators = [
+  (Story) => {
+    return (
+      // @ts-ignore
+      <NextIntlProvider messages={getMessages('en')} locale={'en'}>
+        {Story()}
+      </NextIntlProvider>
+    )
+  }
+]
 
 export default preview
