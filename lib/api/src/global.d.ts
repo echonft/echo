@@ -3,9 +3,9 @@ import { User } from '@echo/model'
 export declare global {
   namespace NodeJS {
     interface ProcessEnv extends Dict<string> {
-      API_ENV: string | undefined
-      NEXTAUTH_URL_INTERNAL: string | undefined
-      NEXTAUTH_URL: string | undefined
+      NEXT_PUBLIC_API_URL: string
+      NEXTAUTH_URL_INTERNAL: string
+      NEXTAUTH_URL: string
     }
   }
 }

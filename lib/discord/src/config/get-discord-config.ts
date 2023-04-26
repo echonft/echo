@@ -1,5 +1,4 @@
 import { DiscordConfig } from '../types/config/discord-config'
-import { getDiscordAppEnvironment } from './get-discord-app-environment'
 import { isEmpty, isNil } from 'ramda'
 
 export function getDiscordConfig(): DiscordConfig {
@@ -20,7 +19,6 @@ export function getDiscordConfig(): DiscordConfig {
     redirectUri,
     clientSecret,
     guildId: process.env.DISCORD_GUILD_ID,
-    oAuthScope: 'identify+guilds',
-    appEnvironment: getDiscordAppEnvironment()
+    oAuthScope: 'identify+guilds'
   }
 }

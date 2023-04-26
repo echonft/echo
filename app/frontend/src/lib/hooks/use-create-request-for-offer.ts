@@ -1,4 +1,4 @@
-import { ApiRoutes, getApiRouteUrl } from '@echo/api/dist/config'
+import { ApiRoutes, getApiRouteUrl } from '@echo/api/dist/public'
 import { CreateRequestForOfferRequest, CreateRequestForOfferResponse, ItemRequest } from '@echo/api/dist/types'
 import { Contract } from '@echo/model'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'

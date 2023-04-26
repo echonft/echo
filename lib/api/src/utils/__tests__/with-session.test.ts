@@ -8,7 +8,6 @@ import { AuthOptions } from 'next-auth'
 import * as auth from 'next-auth/next'
 
 jest.mock('next-auth/next')
-jest.mock('../../config/get-server-config')
 
 describe('utils - withSession', () => {
   beforeEach(() => {

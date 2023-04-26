@@ -66,9 +66,21 @@
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
     },
+    "@echo/alchemy#build": {
+      "dependsOn": ["^build"],
+      "env": ["NEXT_PUBLIC_ALCHEMY_API_KEY_MAINNET", "NEXT_PUBLIC_ALCHEMY_API_KEY_GOERLI"],
+      "outputs": ["dist/**"],
+      "inputs": ["src/**/*.ts"]
+    },
     "@echo/api#build": {
       "dependsOn": ["^build"],
-      "env": ["NODE_ENV", "API_ENV", "NEXTAUTH_URL_INTERNAL", "NEXTAUTH_URL"],
+      "env": ["NEXT_PUBLIC_API_URL", "NEXTAUTH_URL_INTERNAL", "NEXTAUTH_URL"],
+      "outputs": ["dist/**"],
+      "inputs": ["src/**/*.ts"]
+    },
+    "@echo/bot#build": {
+      "dependsOn": ["^build"],
+      "env": ["BASE_URL"],
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
     },
@@ -96,12 +108,7 @@
     },
     "@echo/frontend#build": {
       "dependsOn": ["^build"],
-      "env": [
-        "NEXT_PUBLIC_CHAIN_ID",
-        "NEXT_PUBLIC_MOCK",
-        "NEXT_PUBLIC_ALCHEMY_API_KEY_MAINNET",
-        "NEXT_PUBLIC_ALCHEMY_API_KEY_GOERLI"
-      ],
+      "env": ["NEXT_PUBLIC_CHAIN_ID", "NEXT_PUBLIC_MOCK"],
       "outputs": [".next/**", "dist/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
@@ -112,6 +119,7 @@
     },
     "@echo/utils#build": {
       "dependsOn": ["^build"],
+      "env": ["NODE_ENV"],
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
     }

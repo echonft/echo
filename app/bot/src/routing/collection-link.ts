@@ -1,5 +1,5 @@
-import { getServerConfig } from '@echo/api'
+import { getBaseUrl } from './get-base-url'
 
 export function collectionLink(guildId: string) {
-  return encodeURI(`${getServerConfig().url}/collection/${guildId}`)
+  return encodeURI(`${getBaseUrl()}/collection/${guildId}`)
 }

@@ -11,12 +11,6 @@ import { R } from '@mobily/ts-belt'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
-jest.mock('@echo/api', () => ({
-  __esModule: true,
-  getServerConfig: () => ({
-    url: 'https://echonft.xyz'
-  })
-}))
 jest.mock('@echo/firebase-admin')
 
 describe('discord commands - connect', () => {
