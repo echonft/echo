@@ -2,7 +2,7 @@ import { iconSizes, SizeMD, TwitterIcon as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Icons/Twitter Icon',
+  title: 'Base/Icons/Twitter Icon',
   component: Component,
   argTypes: {
     size: {

@@ -2,7 +2,7 @@ import { ButtonColorScheme, buttonSizes, buttonWidths, SizeMD, TextButton as Com
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Buttons/Text Button',
+  title: 'Base/Buttons/Text Button',
   component: Component,
   argTypes: {
     size: {

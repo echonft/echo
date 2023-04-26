@@ -1,5 +1,6 @@
 import { ShareIconSvg } from '../svg/share-icon-svg'
 import { IconContainer } from './icon-container'
+import { IconContainerColor } from './icon-container-color'
 import { getIconSizeInPx, IconSize } from './icon-size'
 import { FunctionComponent } from 'react'
 
@@ -12,7 +13,9 @@ export const ShareIcon: FunctionComponent<ShareIconProps> = ({ size }) => {
   const height = Math.floor(getIconSizeInPx(size) * (18 / 30))
   return (
     <IconContainer size={size}>
-      <ShareIconSvg width={width} height={height} />
+      <IconContainerColor>
+        <ShareIconSvg width={width} height={height} />
+      </IconContainerColor>
     </IconContainer>
   )
 }

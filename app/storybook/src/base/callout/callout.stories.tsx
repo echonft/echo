@@ -2,7 +2,7 @@ import { Callout as Component, CalloutSeverity, CalloutVariant } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Callout',
+  title: 'Base/Callout',
   component: Component,
   argTypes: {
     severity: {

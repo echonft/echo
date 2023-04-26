@@ -1,5 +1,6 @@
 import { OpenSeaIconSvg } from '../svg/open-sea-icon-svg'
 import { IconContainer } from './icon-container'
+import { IconContainerColor } from './icon-container-color'
 import { getIconSizeInPx, IconSize } from './icon-size'
 import { FunctionComponent } from 'react'
 
@@ -11,7 +12,9 @@ export const OpenSeaIcon: FunctionComponent<OpenSeaIconProps> = ({ size }) => {
   const sizeInPx = Math.floor(getIconSizeInPx(size) * (18 / 30))
   return (
     <IconContainer size={size}>
-      <OpenSeaIconSvg width={sizeInPx} height={sizeInPx} />
+      <IconContainerColor>
+        <OpenSeaIconSvg width={sizeInPx} height={sizeInPx} />
+      </IconContainerColor>
     </IconContainer>
   )
 }

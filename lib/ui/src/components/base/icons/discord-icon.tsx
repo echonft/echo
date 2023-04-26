@@ -1,5 +1,6 @@
 import { DiscordIconSvg } from '../svg/discord-icon-svg'
 import { IconContainer } from './icon-container'
+import { IconContainerColor } from './icon-container-color'
 import { getIconSizeInPx, IconSize } from './icon-size'
 import { FunctionComponent } from 'react'
 
@@ -12,7 +13,9 @@ export const DiscordIcon: FunctionComponent<DiscordIconProps> = ({ size }) => {
   const height = Math.floor(getIconSizeInPx(size) * (14.25 / 30))
   return (
     <IconContainer size={size}>
-      <DiscordIconSvg width={width} height={height} />
+      <IconContainerColor>
+        <DiscordIconSvg width={width} height={height} />
+      </IconContainerColor>
     </IconContainer>
   )
 }

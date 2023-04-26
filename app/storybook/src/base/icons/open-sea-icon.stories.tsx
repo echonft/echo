@@ -2,7 +2,7 @@ import { iconSizes, OpenSeaIcon as Component, SizeMD } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Icons/Opensea Icon',
+  title: 'Base/Icons/Opensea Icon',
   component: Component,
   argTypes: {
     size: {
