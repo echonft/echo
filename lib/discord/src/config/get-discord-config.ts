@@ -18,7 +18,6 @@ export function getDiscordConfig(): DiscordConfig {
     clientId,
     redirectUri,
     clientSecret,
-    guildId: process.env.DISCORD_GUILD_ID,
     oAuthScope: 'identify+guilds'
   }
 }

@@ -95,7 +95,6 @@
         "DISCORD_CLIENT_ID",
         "DISCORD_CLIENT_SECRET",
         "DISCORD_REDIRECT_URI",
-        "DISCORD_GUILD_ID",
         "DISCORD_APP_ENV"
       ],
       "outputs": ["dist/**"],
