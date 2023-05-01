@@ -1,5 +1,5 @@
 import { NoGuildIdError } from '../../errors/no-guild-id-error'
-import { loginLink } from '../../routing/login-link'
+import { collectionLink } from '../../routing/collection-link'
 import { mockAndSetupChannel } from '../../utils/tests/discord/channel-mock'
 import { setupBot } from '../../utils/tests/discord/client-mock'
 import { mockGuild } from '../../utils/tests/discord/guild-mock'
@@ -12,6 +12,7 @@ import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
 jest.mock('@echo/firebase-admin')
+jest.mock('../../routing/get-base-url')
 
 describe('discord commands - connect', () => {
   jest.mocked(findDiscordGuildByGuildId).mockImplementation((guildId: string) =>
@@ -64,7 +65,8 @@ describe('discord commands - connect', () => {
       id: 'testId',
       channel: mockChannel
     })
-    const expectedLink = loginLink(id)
+    const callbackQuery = new URLSearchParams({ callbackUrl: collectionLink(id) })
+    const expectedLink = `https://echonft.xyz/login?${callbackQuery.toString()}`
     const response = await executeConnect(mockInteraction)
     expect(response.content).toBe(expectedLink)
   })
