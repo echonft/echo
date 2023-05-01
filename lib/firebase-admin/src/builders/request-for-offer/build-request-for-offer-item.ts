@@ -15,9 +15,9 @@ export const buildRequestForOfferItem: FirestoreBuilder<
   if (R.isError(contractResult)) {
     throw Error('buildRequestForOfferItem contract does not exist')
   }
+  // TODO No balance for now
   return {
     contract: R.getExn(contractResult),
-    tokenId: prototype.tokenId,
-    balance: prototype.balance
-  } as unknown as FirestoreRequestForOfferItem
+    tokenId: prototype.tokenId
+  }
 }

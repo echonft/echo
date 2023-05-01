@@ -23,12 +23,16 @@ export const buildRequestForOffer: FirestoreBuilder<
   if (isEmpty(target)) {
     throw Error('buildRequestForOffer Invalid target')
   }
+  // const activities = await buildRequestForOfferActivity(
+  //   generateRequestForOfferActivity(RequestForOfferState.CREATED) as FirestoreRequestForOfferActivityPrototype
+  // ).then((activity) => [activity])
   return {
     state: RequestForOfferState.CREATED,
     sender: getFirestoreUserRefById(prototype.senderId),
     discordGuild: R.getExn(discordGuildResult),
     target,
     items: await Promise.all(prototype.items.map(buildRequestForOfferItem)),
+    // FIXME This does not work if I set the activities as it's supposed to be
     activities: [],
     createdAt: dayjs().unix(),
     // TODO is it supposed to be the same as createdAt?

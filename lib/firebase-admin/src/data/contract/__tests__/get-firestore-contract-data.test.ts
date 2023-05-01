@@ -20,7 +20,7 @@ describe('data - contract - getFirestoreContractData', () => {
     try {
       await getFirestoreContractData('test')
     } catch (e) {
-      expect((e as Error).message).toBe('Document does not exist')
+      expect((e as Error).message).toBe('Document does not exist. Path: contracts/test ID: test')
     }
   })
 })

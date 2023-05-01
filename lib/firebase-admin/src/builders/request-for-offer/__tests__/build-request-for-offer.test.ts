@@ -88,7 +88,13 @@ describe('builders - request-for-offer - buildRequestForOffer', () => {
     expect(offer.state).toBe(RequestForOfferState.CREATED)
     expect(offer.sender.path).toBe(userData['oE6yUEQBPn7PZ89yMjKn']!.refPath)
     expect(offer.discordGuild.path).toBe(discordGuildData['xA40abnyBq6qQHSYmtHj']!.refPath)
-    expect(offer.activities).toHaveLength(0)
+
+    const activity = offer.activities[0]!
+    expect(offer.activities).toHaveLength(1)
+    expect(activity.fromState).toBeUndefined()
+    expect(activity.toState).toBe(RequestForOfferState.CREATED)
+    expect(unix(activity.date).isAfter(beforeTest)).toBeTruthy()
+
     expect(unix(offer.createdAt).isAfter(beforeTest)).toBeTruthy()
     expect(unix(offer.postedAt!).isAfter(beforeTest)).toBeTruthy()
     expect(unix(offer.expiresAt).isAfter(beforeTestExpiry)).toBeTruthy()

@@ -40,7 +40,8 @@ describe('builders - request-for-offer - buildRequestForOfferItem', () => {
       balance: 1,
       contract: { address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d', chainId: 1 }
     })
-    expect(requestForOfferItem.balance).toBe(1)
+    // For now we don't use the balance as we only use ERC721
+    expect(requestForOfferItem.balance).toBeUndefined()
     expect(requestForOfferItem.tokenId).toBe(BigInt(100))
     expect(requestForOfferItem.contract.path).toBe(contractData['37dBlwJYahEAKeL0rNP8']!.refPath)
   })

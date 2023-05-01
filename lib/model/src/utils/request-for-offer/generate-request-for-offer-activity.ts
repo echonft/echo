@@ -6,5 +6,5 @@ export function generateRequestForOfferActivity(
   toState: RequestForOfferState,
   fromState?: RequestForOfferState
 ): RequestForOfferActivity {
-  return { toState, fromState, date: dayjs() }
+  return { toState, fromState: fromState ?? undefined, date: dayjs() }
 }

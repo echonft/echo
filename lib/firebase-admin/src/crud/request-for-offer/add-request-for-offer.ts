@@ -11,35 +11,21 @@ import { DocumentSnapshot } from '@google-cloud/firestore'
 import { R } from '@mobily/ts-belt'
 import { andThen, pipe, unless } from 'ramda'
 
-export const addRequestForOffer: (
+export const addRequestForOffer = (
   requestForOfferPrototype: FirestoreRequestForOfferPrototype
-) => Promise<R.Result<RequestForOffer, Error>> = (requestForOfferPrototype) =>
-  // @ts-ignore
+): Promise<R.Result<RequestForOffer, Error>> =>
   pipe(
-    // @ts-ignore
-
-    buildRequestForOffer(requestForOfferPrototype),
-    andThen<FirestoreRequestForOffer, R.Result<DocumentSnapshot<FirestoreRequestForOffer>, Error>>((requestsForOffer) =>
+    buildRequestForOffer,
+    andThen((requestsForOffer) =>
       setDocAndReturnSnapshot<FirestoreRequestForOffer>(
-        // @ts-ignore
-
-        getCollectionFromPath('requests-for-offer').doc(),
+        getCollectionFromPath<FirestoreRequestForOffer>('requests-for-offer').doc(),
         requestsForOffer
       )
     ),
-    andThen(
-      // @ts-ignore
-
-      unless(
-        R.isError,
-        pipe(
-          R.getExn,
-          (snapshot) => snapshot.data(),
-          castAs,
-          convertRequestForOffer,
-          mapRequestForOffer,
-          R.fromPromise<RequestForOffer>
-        )
+    andThen<R.Result<DocumentSnapshot<FirestoreRequestForOffer>, Error>, R.Result<RequestForOffer, Error>>(
+      pipe(
+        unless(R.isError, pipe(R.getExn, convertRequestForOffer, mapRequestForOffer, R.fromPromise)),
+        castAs<Promise<R.Result<RequestForOffer, Error>>>
       )
     )
-  )
+  )(requestForOfferPrototype)

@@ -9,6 +9,7 @@ export { FirebaseTokenResponse } from './types/model/responses/firebase-token-re
 export { NonceResponse } from './types/model/responses/nonce-response'
 export { WalletResponse } from './types/model/responses/wallet-response'
 export { createOrUpdateUser } from './utils/auth/create-or-update-user'
+export { mockCreateRequestForOfferRequest } from './utils/test/mocks/create-request-for-offer-request'
 export { mockRequestResponse } from './utils/test/mocks/request-response'
 export { mockSession } from './utils/test/mocks/session'
 export { withMethodValidation } from './utils/with-method-validation'

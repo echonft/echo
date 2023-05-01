@@ -1,4 +1,5 @@
 import { mapDataToRequestForOfferPrototype } from '../../mappers/map-data-to-request-for-offer-prototype'
+import { mapRequestForOfferToResponse } from '../../mappers/map-request-for-offer-to-response'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
 import { CreateRequestForOfferRequest } from '../../types/model/requests/create-request-for-offer-request'
@@ -39,10 +40,7 @@ export const createRequestForOfferHandler: RequestHandler<
               res.end(res.status(500).json({ error: 'Could not create listing' }))
               return
             }
-            // FIXME Should be casted to response
-            return res
-              .status(200)
-              .json({ ...R.getExn(requestForOfferResult) } as unknown as CreateRequestForOfferResponse)
+            return res.status(200).json(mapRequestForOfferToResponse(R.getExn(requestForOfferResult)))
           })
           .catch((e: Error) => {
             logger.error(`Error creating request for offer: ${JSON.stringify(e)}`)

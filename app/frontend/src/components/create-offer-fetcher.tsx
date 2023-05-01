@@ -1,7 +1,8 @@
+import { mockCreateRequestForOfferRequest } from '@echo/api/dist/public'
 import { useCreateRequestForOffer } from '@lib/hooks/use-create-request-for-offer'
 import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'
-import { FunctionComponent, useState } from 'react'
+import { FunctionComponent, useMemo, useState } from 'react'
 
 interface Props {
   collectionId: string
@@ -9,7 +10,13 @@ interface Props {
 
 export const CreateOfferFetcher: FunctionComponent<Props> = () => {
   const [create, setCreate] = useState(false)
-  const { data } = useCreateRequestForOffer('1002691062374088794', create ? [] : undefined, create ? [] : undefined)
+  const mockRequest = useMemo(() => mockCreateRequestForOfferRequest, [])
+  const { data } = useCreateRequestForOffer(
+    mockRequest.discordGuildId,
+    create ? mockRequest.items : undefined,
+    create ? mockRequest.target : undefined
+  )
+
   if (isNil(data)) {
     return (
       <button onClick={() => setCreate(true)} disabled={create}>
@@ -20,7 +27,7 @@ export const CreateOfferFetcher: FunctionComponent<Props> = () => {
     if (create) {
       setCreate(false)
     }
-    if (R.isOk(data)) {
+    if (data && R.isOk(data)) {
       return <span>{`Got data ${JSON.stringify(R.getExn(data))}`}</span>
     }
     return <span>{`Got error ${JSON.stringify(data)}`}</span>
