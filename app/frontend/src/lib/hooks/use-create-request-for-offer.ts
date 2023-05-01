@@ -37,12 +37,8 @@ export const useCreateRequestForOffer = (
       always(or(isNilOrEmpty(items), isNilOrEmpty(target)))
     ),
     converge(
-      (url: string, data: CreateRequestForOfferRequest) => {
-        console.log(`will put data in hook ${url}`)
-        return putData<CreateRequestForOfferResponse, CreateRequestForOfferRequest>(url, data).catch((e) =>
-          console.log(`got error ${e}`)
-        )
-      },
+      (url: string, data: CreateRequestForOfferRequest) =>
+        putData<CreateRequestForOfferResponse, CreateRequestForOfferRequest>(url, data),
       [
         pipe(path(['data', 'url']), castAs<string>),
         pipe(path(['data', 'request']), castAs<CreateRequestForOfferRequest>)

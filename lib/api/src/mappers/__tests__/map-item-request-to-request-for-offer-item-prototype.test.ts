@@ -5,7 +5,7 @@ import { describe, expect, it } from '@jest/globals'
 describe('mapItemRequestToRequestForOfferItemPrototype', () => {
   it('should return the expected request prototype when given a valid item request (no balance)', () => {
     const validItemRequest = {
-      tokenId: BigInt(1),
+      tokenId: 1,
       target: { address: 'test', chainId: 0 }
     } as ItemRequest
 

@@ -17,3 +17,5 @@ export { FirestoreRequestForOfferItemPrototype } from './types/prototypes/reques
 export { FirestoreRequestForOfferPrototype } from './types/prototypes/request-for-offer/firestore-request-for-offer-prototype'
 export { FirestoreUserPrototype } from './types/prototypes/user/firestore-user-prototype'
 export { discordGuilds } from './utils/test/mocks/discord-guild/discord-guild'
+export { offers } from './utils/test/mocks/offer/offer'
+export { requestsForOffer } from './utils/test/mocks/request-for-offer/request-for-offer'

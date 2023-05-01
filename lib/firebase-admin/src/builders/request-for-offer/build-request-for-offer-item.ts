@@ -19,5 +19,5 @@ export const buildRequestForOfferItem: FirestoreBuilder<
   return {
     contract: R.getExn(contractResult),
     tokenId: prototype.tokenId
-  }
+  } as unknown as FirestoreRequestForOfferItem
 }

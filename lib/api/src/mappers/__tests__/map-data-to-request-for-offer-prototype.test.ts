@@ -10,11 +10,11 @@ describe('mapDataToRequestForOfferPrototype', () => {
       target: [{ address: 'test', chainId: 0 }],
       items: [
         {
-          tokenId: BigInt(1),
+          tokenId: 1,
           target: { address: 'test', chainId: 0 }
         },
         {
-          tokenId: BigInt(2),
+          tokenId: 2,
           target: { address: 'test', chainId: 0 }
         }
       ]
@@ -25,11 +25,11 @@ describe('mapDataToRequestForOfferPrototype', () => {
       target: [{ address: 'test', chainId: 0 }],
       items: [
         {
-          tokenId: BigInt(1),
+          tokenId: 1,
           contract: { address: 'test', chainId: 0 }
         },
         {
-          tokenId: BigInt(2),
+          tokenId: 2,
           contract: { address: 'test', chainId: 0 }
         }
       ]
@@ -51,11 +51,11 @@ describe('mapDataToRequestForOfferPrototype', () => {
       target: [],
       items: [
         {
-          tokenId: BigInt(1),
+          tokenId: 1,
           target: { address: 'test', chainId: 0 }
         },
         {
-          tokenId: BigInt(2),
+          tokenId: 2,
           target: { address: 'test', chainId: 0 }
         }
       ]
@@ -66,11 +66,11 @@ describe('mapDataToRequestForOfferPrototype', () => {
       target: [],
       items: [
         {
-          tokenId: BigInt(1),
+          tokenId: 1,
           contract: { address: 'test', chainId: 0 }
         },
         {
-          tokenId: BigInt(2),
+          tokenId: 2,
           contract: { address: 'test', chainId: 0 }
         }
       ]

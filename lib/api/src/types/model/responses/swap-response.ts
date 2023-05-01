@@ -1,11 +1,12 @@
+import { OfferActivityResponse } from './offer-activity-response'
 import { OfferResponse } from './offer-response'
-import { SwapActivity, SwapState } from '@echo/model'
+import { SwapState } from '@echo/model'
 
 export interface SwapResponse {
   id: string
   state: SwapState
   offer: OfferResponse
-  activities?: SwapActivity[]
+  activities?: OfferActivityResponse[]
   expiresAt: number
   createdAt: number
 }

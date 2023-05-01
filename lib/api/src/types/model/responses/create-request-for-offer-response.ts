@@ -1,7 +1,8 @@
+import { OfferActivityResponse } from './offer-activity-response'
 import { OfferItemResponse } from './offer-item-response'
 import { OfferResponse } from './offer-response'
 import { SwapResponse } from './swap-response'
-import { Contract, DiscordGuild, RequestForOfferActivity, RequestForOfferState, User } from '@echo/model'
+import { Contract, DiscordGuild, RequestForOfferState, User } from '@echo/model'
 
 // TODO Should this become a simple listing response?
 export interface CreateRequestForOfferResponse {
@@ -11,7 +12,7 @@ export interface CreateRequestForOfferResponse {
   items: OfferItemResponse[]
   discordGuild: DiscordGuild
   target: Contract[]
-  activities: RequestForOfferActivity[]
+  activities: OfferActivityResponse[]
   offers?: OfferResponse[]
   swaps?: SwapResponse[]
   expiresAt: number

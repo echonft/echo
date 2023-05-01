@@ -1,5 +1,6 @@
+import { OfferActivityResponse } from './offer-activity-response'
 import { OfferItemResponse } from './offer-item-response'
-import { DiscordGuild, OfferActivity, OfferState, User } from '@echo/model'
+import { DiscordGuild, OfferState, User } from '@echo/model'
 
 export interface OfferResponse {
   id: string
@@ -10,7 +11,7 @@ export interface OfferResponse {
   senderItems: OfferItemResponse[]
   receiver: User
   receiverItems: OfferItemResponse[]
-  activities?: OfferActivity[]
+  activities?: OfferActivityResponse[]
   expiresAt: number
   postedAt: number | undefined
   createdAt: number
