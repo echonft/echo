@@ -19,3 +19,4 @@ export { FirestoreUserPrototype } from './types/prototypes/user/firestore-user-p
 export { discordGuilds } from './utils/test/mocks/discord-guild/discord-guild'
 export { offers } from './utils/test/mocks/offer/offer'
 export { requestsForOffer } from './utils/test/mocks/request-for-offer/request-for-offer'
+export { users } from './utils/test/mocks/user/user'

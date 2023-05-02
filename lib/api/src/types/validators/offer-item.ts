@@ -3,5 +3,16 @@ import { z } from 'zod'
 
 export const offerItem = z.object({
   target: target,
-  tokenId: z.number().gte(0)
+  // TODO Add custom
+  tokenId: z
+    .string()
+    .nonempty()
+    .refine((tokenId) => {
+      try {
+        const tokenIdBigInt = BigInt(tokenId)
+        return tokenIdBigInt >= 0
+      } catch {
+        return false
+      }
+    })
 })
