@@ -15,6 +15,7 @@ jest.mock('@echo/firebase-admin')
 jest.mock('@echo/model')
 jest.mock('@echo/model')
 jest.mock('../../../utils/alchemy/wallets-own-tokens')
+jest.mock('../../../utils/alchemy/alchemy')
 
 describe('handlers - user - createRequestForOfferHandler', () => {
   const mockedFindDiscordGuildById = jest
