@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { mapRequestForOfferToResponse } from '../../../mappers/map-request-for-offer-to-response'
 import { CreateRequestForOfferRequest, CreateRequestForOfferResponse } from '../../../types'
+import { walletsOwnTokens } from '../../../utils/alchemy/wallets-own-tokens'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { mockSession } from '../../../utils/test/mocks/session'
 import { createRequestForOfferHandler } from '../create-request-for-offer-handler'
@@ -12,6 +13,8 @@ import { omit } from 'ramda'
 
 jest.mock('@echo/firebase-admin')
 jest.mock('@echo/model')
+jest.mock('@echo/model')
+jest.mock('../../../utils/alchemy/wallets-own-tokens')
 
 describe('handlers - user - createRequestForOfferHandler', () => {
   const mockedFindDiscordGuildById = jest
@@ -21,10 +24,11 @@ describe('handlers - user - createRequestForOfferHandler', () => {
   const mockedAddRequestForOffer = jest
     .mocked(addRequestForOffer)
     .mockResolvedValue(R.fromNullable(requestsForOffer['jUzMtPGKM62mMhEcmbN4'], new Error()))
+  const mockedWalletsOwnTokens = jest.mocked(walletsOwnTokens).mockResolvedValue(true)
   const session = mockSession
   const mockedRequest: CreateRequestForOfferRequest = {
     discordGuildId: 'test',
-    items: [{ tokenId: 1, target: { address: '0xEf1c6E67703c7BD7107eed8303Fbe6EC2554BF6B', chainId: 1 } }],
+    items: [{ tokenId: '1', target: { address: '0xEf1c6E67703c7BD7107eed8303Fbe6EC2554BF6B', chainId: 1 } }],
     target: [{ chainId: 1, address: '0xEf1c6E67703c7BD7107eed8303Fbe6EC2554BF6B' }]
   }
   beforeEach(() => {
@@ -79,6 +83,28 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     await createRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'User is not in Discord Guild' })
+  })
+  it('if user does not own the NFTs, returns 401', async () => {
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>(
+      'GET',
+      undefined,
+      mockedRequest
+    )
+    mockedWalletsOwnTokens.mockResolvedValueOnce(false)
+    await createRequestForOfferHandler(req, res, session)
+    expect(res.statusCode).toBe(401)
+    expect(res._getJSONData()).toEqual({ error: 'User is does not own all the NFTs to offer' })
+  })
+  it('if alchemy checks throws, returns 500', async () => {
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>(
+      'GET',
+      undefined,
+      mockedRequest
+    )
+    mockedWalletsOwnTokens.mockRejectedValueOnce('')
+    await createRequestForOfferHandler(req, res, session)
+    expect(res.statusCode).toBe(500)
+    expect(res._getJSONData()).toEqual({ error: 'Could not create listing' })
   })
   it('if adding listing throws, returns 500', async () => {
     const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>(

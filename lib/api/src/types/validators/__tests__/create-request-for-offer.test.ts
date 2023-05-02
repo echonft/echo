@@ -4,9 +4,9 @@ import { describe, expect, it } from '@jest/globals'
 describe('validators - createListing', () => {
   const mockOfferItem = {
     target: { address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', chainId: 1 },
-    tokenId: 0
+    tokenId: '0'
   }
-  const mockOfferItems = [mockOfferItem, { ...mockOfferItem, tokenId: 1 }]
+  const mockOfferItems = [mockOfferItem, { ...mockOfferItem, tokenId: '1' }]
   const mockTarget = { address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', chainId: 1 }
   const mockTargets = [mockTarget, { ...mockTarget, chainId: 2 }]
 

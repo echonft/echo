@@ -36,25 +36,31 @@ export const createRequestForOfferHandler: RequestHandler<
       }
       const discordGuild = R.getExn(discordGuildResult)
       if (userIsInGuild(user, discordGuild)) {
-        return walletsOwnTokens(getAlchemy(), user.wallets ?? [], validatedRequest.items).then((userOwnsAllNfts) => {
-          if (!userOwnsAllNfts) {
-            res.end(res.status(401).json({ error: 'User is does not own all the NFTs to offer' }))
-            return
-          }
-          return addRequestForOffer(mapDataToRequestForOfferPrototype(user, validatedRequest))
-            .then((requestForOfferResult) => {
-              if (R.isError(requestForOfferResult)) {
+        return walletsOwnTokens(getAlchemy(), user.wallets ?? [], validatedRequest.items)
+          .then((userOwnsAllNfts) => {
+            if (!userOwnsAllNfts) {
+              res.end(res.status(401).json({ error: 'User is does not own all the NFTs to offer' }))
+              return
+            }
+            return addRequestForOffer(mapDataToRequestForOfferPrototype(user, validatedRequest))
+              .then((requestForOfferResult) => {
+                if (R.isError(requestForOfferResult)) {
+                  res.end(res.status(500).json({ error: 'Could not create listing' }))
+                  return
+                }
+                return res.status(200).json(mapRequestForOfferToResponse(R.getExn(requestForOfferResult)))
+              })
+              .catch((e: Error) => {
+                logger.error(`Error creating request for offer: ${JSON.stringify(e)}`)
                 res.end(res.status(500).json({ error: 'Could not create listing' }))
                 return
-              }
-              return res.status(200).json(mapRequestForOfferToResponse(R.getExn(requestForOfferResult)))
-            })
-            .catch((e: Error) => {
-              logger.error(`Error creating request for offer: ${JSON.stringify(e)}`)
-              res.end(res.status(500).json({ error: 'Could not create listing' }))
-              return
-            })
-        })
+              })
+          })
+          .catch((reason) => {
+            logger.error(`Error fetching from alchemy: ${JSON.stringify(reason)}`)
+            res.end(res.status(500).json({ error: 'Could not create listing' }))
+            return
+          })
       } else {
         res.end(res.status(401).json({ error: 'User is not in Discord Guild' }))
         return

@@ -10,11 +10,11 @@ describe('mapDataToRequestForOfferPrototype', () => {
       target: [{ address: 'test', chainId: 0 }],
       items: [
         {
-          tokenId: 1,
+          tokenId: '1',
           target: { address: 'test', chainId: 0 }
         },
         {
-          tokenId: 2,
+          tokenId: '2',
           target: { address: 'test', chainId: 0 }
         }
       ]
@@ -51,11 +51,11 @@ describe('mapDataToRequestForOfferPrototype', () => {
       target: [],
       items: [
         {
-          tokenId: 1,
+          tokenId: '1',
           target: { address: 'test', chainId: 0 }
         },
         {
-          tokenId: 2,
+          tokenId: '2',
           target: { address: 'test', chainId: 0 }
         }
       ]
