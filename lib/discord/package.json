@@ -26,6 +26,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@mobily/ts-belt": "4.0.0-rc.5",
     "ramda": "0.29.0"

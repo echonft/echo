@@ -2,7 +2,7 @@ import { ColorYellow, EchoIcon as Component, echoIconColors, iconSizes, SizeSM }
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Icons/Echo Icon',
+  title: 'Base/Icons/Echo Icon',
   component: Component,
   argTypes: {
     size: {

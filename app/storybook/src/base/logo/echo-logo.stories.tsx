@@ -2,7 +2,7 @@ import { Logo as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Logos/Echo',
+  title: 'Base/Logos/Echo',
   component: Component
 } satisfies Meta<typeof Component>
 

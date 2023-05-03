@@ -2,7 +2,7 @@ import { iconSizes, SizeMD, WebsiteIcon as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Icons/Website Icon',
+  title: 'Base/Icons/Website Icon',
   component: Component,
   argTypes: {
     size: {

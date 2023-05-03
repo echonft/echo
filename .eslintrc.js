@@ -16,6 +16,14 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   rules: {
+    '@typescript-eslint/no-empty-interface': [
+      'error',
+      {
+        allowSingleExtends: true
+      }
+    ],
+    '@typescript-eslint/no-explicit-any': 'error',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -26,18 +34,16 @@ module.exports = {
         destructuredArrayIgnorePattern: '^_'
       }
     ],
+    'import/no-unresolved': 'off',
+    'no-console': 'error',
+    'no-case-declarations': 'off',
+    'simple-import-sort/exports': 'error',
     'simple-import-sort/imports': [
       'error',
       {
         groups: []
       }
-    ],
-    '@typescript-eslint/no-explicit-any': 'error',
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    'simple-import-sort/exports': 'error',
-    'no-console': 'error',
-    'no-case-declarations': 'off',
-    'import/no-unresolved': 'off'
+    ]
   },
   settings: {
     'import/resolver': {

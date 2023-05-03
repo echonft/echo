@@ -2,7 +2,7 @@ import { iconSizes, RedFlagIcon as Component, SizeSM } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Icons/Red Flag Icon',
+  title: 'Base/Icons/Red Flag Icon',
   component: Component,
   argTypes: {
     size: {

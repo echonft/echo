@@ -9,7 +9,7 @@ import {
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Buttons/Text Icon Button',
+  title: 'Base/Buttons/Text Icon Button',
   component: Component,
   argTypes: {
     size: {

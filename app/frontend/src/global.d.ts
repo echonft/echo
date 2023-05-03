@@ -14,7 +14,6 @@ export declare global {
     }
   }
   // get typings on translation keys
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface IntlMessages extends MessagesType {}
 
   // TODO Maybe we should expand that config for access control

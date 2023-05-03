@@ -2,7 +2,7 @@ import { iconSizes, ShareIcon as Component, SizeMD } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
-  title: 'Icons/Share Icon',
+  title: 'Base/Icons/Share Icon',
   component: Component,
   argTypes: {
     size: {
