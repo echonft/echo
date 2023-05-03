@@ -19,7 +19,7 @@ export const CollectionDetails: FunctionComponent<CollectionDetailsProps> = ({
 }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'self-stretch', 'gap-8')}>
-      <ProfilePicture src={profilePictureUrl} />
+      <ProfilePicture name={name} src={profilePictureUrl} />
       <div className={clsx('flex', 'flex-col', 'grow', 'gap-4')}>
         <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase')}>{name}</h1>
         <div className={clsx('flex', 'flex-row', 'self-stretch', 'justify-between')}>

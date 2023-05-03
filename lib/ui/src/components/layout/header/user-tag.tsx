@@ -9,6 +9,7 @@ export interface UserTagProps {
 }
 
 export const UserTag: FunctionComponent<UserTagProps> = ({ user }) => {
+  // TODO set default picture in case the user does not have an avatar
   return (
     <div
       className={clsx(
@@ -25,7 +26,7 @@ export const UserTag: FunctionComponent<UserTagProps> = ({ user }) => {
     >
       <Image
         className={clsx('w-4.5', 'h-4.5', 'rounded')}
-        src={getUserAvatarUrl(user, 32, 'png')}
+        src={getUserAvatarUrl(user, 32, 'png')!}
         alt={''}
         width={18}
         height={18}

@@ -1,5 +1,17 @@
 import { User } from '@echo/model'
+import { isPowerOfTwo } from '@echo/utils'
+import { isNil } from 'ramda'
 
-// TODO confirm that a user avatar is still returned from Discord even though the user doesn't have one (I assume one of the default avatars would be returned)
-export const getUserAvatarUrl = (user: User, size: number, format: 'png' | 'jpg' | 'webp' | 'gif' = 'png'): string =>
-  `https://cdn.discordapp.com/avatars/${user.discordId}/${user.discordAvatar!}.${format}?size=${size}`
+export const getUserAvatarUrl = (
+  user: User,
+  size: number,
+  format: 'png' | 'jpg' | 'webp' | 'gif' = 'png'
+): string | undefined => {
+  if (!isPowerOfTwo(size)) {
+    throw Error(`Wrong size ${size}: size must be a power of two`)
+  }
+  if (isNil(user.discordAvatar)) {
+    return undefined
+  }
+  return `https://cdn.discordapp.com/avatars/${user.discordId}/${user.discordAvatar}.${format}?size=${size}`
+}
