@@ -15,15 +15,15 @@ describe('User is in guild', () => {
     expect(userIsInGuild(emptyGuildUser, undefined as unknown as DiscordGuild)).toBeFalsy()
   })
   test('User with guilds returns false if guild is not present', () => {
-    const firstGuild = generateMockGuild({ id: 'test' })
-    const secondGuild = generateMockGuild({ id: 'testy' })
+    const firstGuild = generateMockGuild({ discordId: 'test' })
+    const secondGuild = generateMockGuild({ discordId: 'testy' })
     expect(userIsInGuild(user, firstGuild)).toBeFalsy()
     expect(userIsInGuild(user, secondGuild)).toBeFalsy()
   })
   test('User with guilds returns true if guild is present', () => {
     expect(userIsInGuild(user, discordGuild)).toBeTruthy()
-    const firstGuild = generateMockGuild({ id: 'test' })
-    const secondGuild = generateMockGuild({ id: 'testy' })
+    const firstGuild = generateMockGuild({ discordId: 'test' })
+    const secondGuild = generateMockGuild({ discordId: 'testy' })
     const userWithGuilds = { ...user, discordGuilds: [mockDiscordGuild, firstGuild] }
     expect(userIsInGuild(userWithGuilds, discordGuild)).toBeTruthy()
     expect(userIsInGuild(userWithGuilds, firstGuild)).toBeTruthy()

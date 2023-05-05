@@ -3,6 +3,7 @@ import { mapOfferActivityToResponse } from './map-offer-activity-to-response'
 import { mapOfferToResponse } from './map-offer-to-response'
 import { Swap } from '@echo/model'
 
+// TODO Use ramda
 export function mapSwapToResponse(swap: Swap): SwapResponse {
   return {
     ...swap,

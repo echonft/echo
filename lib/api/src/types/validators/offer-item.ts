@@ -9,8 +9,7 @@ export const offerItem = z.object({
     .nonempty()
     .refine((tokenId) => {
       try {
-        const tokenIdBigInt = BigInt(tokenId)
-        return tokenIdBigInt >= 0
+        return BigInt(tokenId) >= 0
       } catch {
         return false
       }

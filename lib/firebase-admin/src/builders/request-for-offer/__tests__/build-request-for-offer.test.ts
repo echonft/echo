@@ -96,7 +96,7 @@ describe('builders - request-for-offer - buildRequestForOffer', () => {
     expect(unix(activity.date).isAfter(beforeTest)).toBeTruthy()
 
     expect(unix(offer.createdAt).isAfter(beforeTest)).toBeTruthy()
-    expect(unix(offer.postedAt!).isAfter(beforeTest)).toBeTruthy()
+    expect(offer.postedAt).toBeUndefined()
     expect(unix(offer.expiresAt).isAfter(beforeTestExpiry)).toBeTruthy()
     expect(unix(offer.expiresAt).isSame(unix(offer.createdAt).add(1, 'day'))).toBeTruthy()
   }

@@ -4,7 +4,6 @@ import { SwapResponse } from './swap-response'
 import { FirestoreActivityData } from '@echo/firestore'
 import { Contract, DiscordGuild, RequestForOfferState, User } from '@echo/model'
 
-// TODO Should this become a simple listing response?
 export interface CreateRequestForOfferResponse {
   id: string
   state: RequestForOfferState

@@ -37,8 +37,6 @@ export const buildRequestForOffer: FirestoreBuilder<
     // FIXME: This does not work for some reason
     activities,
     createdAt: dayjs().unix(),
-    // TODO is it supposed to be the same as createdAt?
-    postedAt: dayjs().unix(),
     // For now, we default to 24 hours offer, we should have more flexibility in the future
     expiresAt: dayjs().add(1, 'day').unix()
   } as unknown as FirestoreRequestForOffer

@@ -2,6 +2,7 @@ import { OfferItemResponse } from './offer-item-response'
 import { FirestoreActivityData } from '@echo/firestore'
 import { DiscordGuild, OfferState, User } from '@echo/model'
 
+// TODO Should all be FirestoreData
 export interface OfferResponse {
   id: string
   state: OfferState

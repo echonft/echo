@@ -5,6 +5,7 @@ import { mapOfferToResponse } from './map-offer-to-response'
 import { mapSwapToResponse } from './map-swap-to-response'
 import { RequestForOffer } from '@echo/model'
 
+// TODO Use ramda
 export function mapRequestForOfferToResponse(requestForOffer: RequestForOffer): CreateRequestForOfferResponse {
   return {
     ...requestForOffer,
