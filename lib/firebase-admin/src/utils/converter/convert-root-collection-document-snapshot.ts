@@ -7,7 +7,7 @@ export function convertRootCollectionDocumentSnapshot<
   V extends FirestoreRootCollectionDocumentData
 >(snapshot: FirestoreSnapshot<T>): V {
   if (!snapshot.exists) {
-    throw Error(`Document does not exist`)
+    throw Error(`Document does not exist. Path: ${snapshot?.ref?.path} ID: ${snapshot?.id}`)
   }
   return {
     refPath: snapshot.ref.path,

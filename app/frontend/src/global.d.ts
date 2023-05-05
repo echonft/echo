@@ -5,12 +5,8 @@ import { NextPage } from 'next'
 export declare global {
   namespace NodeJS {
     interface ProcessEnv extends Dict<string> {
-      NEXT_PUBLIC_CHAIN_ID: string | undefined
-      NEXT_PUBLIC_MOCK: string | undefined
-      // Alchemy
-      // TODO move this to the API
-      NEXT_PUBLIC_ALCHEMY_API_KEY_MAINNET: string
-      NEXT_PUBLIC_ALCHEMY_API_KEY_GOERLI: string
+      NEXT_PUBLIC_CHAIN_ID: string
+      NEXT_PUBLIC_MOCK: string
     }
   }
   // get typings on translation keys

@@ -10,7 +10,7 @@ const config: Config = {
     '!<rootDir>/src/**/__tests__/**',
     '!<rootDir>/src/**/__mocks__/**'
   ],
-  coverageReporters: ['json-summary'],
+  coverageReporters: ['json-summary', 'text'],
   reporters: [
     'default',
     [

@@ -3,5 +3,15 @@ import { z } from 'zod'
 
 export const offerItem = z.object({
   target: target,
-  tokenId: z.bigint()
+  // TODO Add custom
+  tokenId: z
+    .string()
+    .nonempty()
+    .refine((tokenId) => {
+      try {
+        return BigInt(tokenId) >= 0
+      } catch {
+        return false
+      }
+    })
 })

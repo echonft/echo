@@ -1,22 +1,35 @@
-import { useDiscordGuild } from '@echo/firebase-react'
+import { mockCreateRequestForOfferRequest } from '@echo/api/dist/public'
+import { useCreateRequestForOffer } from '@lib/hooks/use-create-request-for-offer'
 import { R } from '@mobily/ts-belt'
-import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useMemo, useState } from 'react'
 
 interface Props {
   collectionId: string
 }
 
-export const CreateOfferFetcher: FunctionComponent<Props> = ({ collectionId }) => {
-  const t = useTranslations('CreateOffer')
-  const { isLoading, data: result } = useDiscordGuild(collectionId)
-  if (isLoading) {
-    return <span>{t('loading')}</span>
+export const CreateOfferFetcher: FunctionComponent<Props> = () => {
+  const [create, setCreate] = useState(false)
+  const mockRequest = useMemo(() => mockCreateRequestForOfferRequest, [])
+  const { data } = useCreateRequestForOffer(
+    mockRequest.discordGuildId,
+    create ? mockRequest.items : undefined,
+    create ? mockRequest.target : undefined
+  )
+
+  if (isNil(data)) {
+    return (
+      <button onClick={() => setCreate(true)} disabled={create}>
+        Create offer
+      </button>
+    )
+  } else {
+    if (create) {
+      setCreate(false)
+    }
+    if (data && R.isOk(data)) {
+      return <span>{`Got data ${JSON.stringify(R.getExn(data))}`}</span>
+    }
+    return <span>{`Got error ${JSON.stringify(data)}`}</span>
   }
-  // FIXME
-  if (!isNil(result) && R.isOk(result)) {
-    return null
-  }
-  return <span>{t('error-fetching')}</span>
 }

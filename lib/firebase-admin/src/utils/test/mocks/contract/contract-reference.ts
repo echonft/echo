@@ -1,4 +1,4 @@
-import { contractSnapshots } from './contract-snapshot'
+import { contractSnapshots, invalidContractSnapshot } from './contract-snapshot'
 import { FirestoreContract } from '@echo/firestore'
 import { DocumentReference } from 'firebase-admin/firestore'
 
@@ -9,3 +9,9 @@ export const contractReferences: { [key: string]: DocumentReference<FirestoreCon
     get: () => Promise.resolve(contractSnapshots['37dBlwJYahEAKeL0rNP8']!)
   } as DocumentReference<FirestoreContract>
 }
+
+export const invalidContractReference: DocumentReference<FirestoreContract> = {
+  path: 'contracts/test',
+  id: 'test',
+  get: () => Promise.resolve(invalidContractSnapshot)
+} as DocumentReference<FirestoreContract>

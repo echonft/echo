@@ -16,5 +16,18 @@ export const discordGuildSnapshot: { [key: string]: FirestoreSnapshot<FirestoreD
       name: 'Echo Test',
       contracts: [contractReferences['37dBlwJYahEAKeL0rNP8']!]
     })
+  } as unknown as FirestoreSnapshot<FirestoreDiscordGuild>,
+  ncUnbpFfVCofV9bD7ctn: {
+    ref: {
+      path: 'guilds/ncUnbpFfVCofV9bD7ctn'
+    },
+    id: 'ncUnbpFfVCofV9bD7ctn',
+    exists: true,
+    data: () => ({
+      discordId: '100',
+      channelId: '100',
+      name: 'Echo Test2',
+      contracts: [contractReferences['37dBlwJYahEAKeL0rNP8']!]
+    })
   } as unknown as FirestoreSnapshot<FirestoreDiscordGuild>
 }

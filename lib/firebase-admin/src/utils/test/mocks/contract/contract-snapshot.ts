@@ -1,5 +1,7 @@
 import { FirestoreSnapshot } from '../../../../types/abstract/firestore-snapshot'
+import { contracts } from './contract'
 import { FirestoreContract } from '@echo/firestore'
+import { omit } from 'ramda'
 
 export const contractSnapshots: { [key: string]: FirestoreSnapshot<FirestoreContract> } = {
   '37dBlwJYahEAKeL0rNP8': {
@@ -8,12 +10,15 @@ export const contractSnapshots: { [key: string]: FirestoreSnapshot<FirestoreCont
     },
     id: '37dBlwJYahEAKeL0rNP8',
     exists: true,
-    data: () => ({
-      tokenType: 'ERC721',
-      address: '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
-      chainId: 1,
-      name: 'BoredApeYachtClub',
-      symbol: 'BAYC'
-    })
+    data: () => omit(['id'], contracts['37dBlwJYahEAKeL0rNP8']!)
   } as FirestoreSnapshot<FirestoreContract>
 }
+
+export const invalidContractSnapshot: FirestoreSnapshot<FirestoreContract> = {
+  ref: {
+    path: 'contracts/test'
+  },
+  id: 'test',
+  exists: false,
+  data: () => undefined
+} as FirestoreSnapshot<FirestoreContract>

@@ -1,4 +1,4 @@
-import { ApiRoutes } from '@echo/api/dist/config'
+import { ApiRoutes, getApiRouteUrl } from '@echo/api/dist/public'
 import { FirebaseTokenResponse } from '@echo/api/dist/types'
 import { useFirebaseAuth } from '@echo/firebase-react'
 import { getUrl, logger } from '@echo/utils'
@@ -25,7 +25,8 @@ export const FirebaseUserProvider: FunctionComponent<PropsWithChildren> = ({ chi
   // State to fetch token when needed
   const [shouldLogin, setShouldLogin] = useState<boolean>(false)
   // Fetch token when logging in
-  useSWR<void, Error>(shouldLogin ? ApiRoutes.GET_FIREBASE_TOKEN : undefined, (url: string) =>
+  // TODO Move into a hook
+  useSWR<void, Error>(shouldLogin ? getApiRouteUrl(ApiRoutes.GET_FIREBASE_TOKEN) : undefined, (url: string) =>
     getUrl<FirebaseTokenResponse>(url).then((result) => {
       if (R.isOk(result)) {
         void signIn(auth, R.getExn(result).firebaseToken).then(() => {

@@ -2,8 +2,9 @@ import { contracts } from '../contract/contract'
 import { discordGuilds } from '../discord-guild/discord-guild'
 import { users } from '../user/user'
 import { Offer, OfferState } from '@echo/model'
-import dayjs from 'dayjs'
+import { unix } from 'dayjs'
 
+// TODO Move to @echo/model
 export const offers: { [key: string]: Offer } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
@@ -27,11 +28,11 @@ export const offers: { [key: string]: Offer } = {
       }
     ],
     postedAt: undefined,
-    expiresAt: dayjs(1676984897),
-    createdAt: dayjs(1676984897),
+    expiresAt: unix(1676984897),
+    createdAt: unix(1676984897),
     activities: [
       {
-        date: dayjs(1676984897),
+        date: unix(1676984897),
         fromState: undefined,
         toState: OfferState.OPEN
       }

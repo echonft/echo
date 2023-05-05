@@ -1,7 +1,8 @@
 import { contracts } from '../contract/contract'
 import { NftCollection, OpenSeaSafelistRequestStatus } from '@echo/model'
-import dayjs from 'dayjs'
+import { unix } from 'dayjs'
 
+// TODO Move to @echo/model
 export const nftCollections: { [key: string]: NftCollection } = {
   Rc8pLQXxgyQGIRL0fr13: {
     id: 'Rc8pLQXxgyQGIRL0fr13',
@@ -18,7 +19,7 @@ export const nftCollections: { [key: string]: NftCollection } = {
       externalUrl: new URL('https://boredapeyachtclub.com/'),
       twitterUsername: 'BoredApeYC',
       discordUrl: new URL('https://discord.gg/3P5K3dzgdB'),
-      lastIngestedAt: dayjs(1676984897)
+      lastIngestedAt: unix(1676984897)
     },
     totalSupply: 10000
   }
