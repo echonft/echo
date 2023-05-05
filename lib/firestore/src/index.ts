@@ -28,6 +28,7 @@ export { FirestoreSwapActivity } from './types/model/collections/swap/firestore-
 export { FirestoreSwapItem } from './types/model/collections/swap/firestore-swap-item'
 export { FirestoreUser } from './types/model/collections/user/firestore-user'
 export { FirestoreWallet } from './types/model/collections/user/firestore-wallet'
+export { FirestoreActivityData } from './types/model/data/abstract/firestore-activity-data'
 export { FirestoreDocumentData } from './types/model/data/abstract/firestore-document-data'
 export { FirestoreRootCollectionDocumentData } from './types/model/data/abstract/firestore-root-collection-document-data'
 export { FirestoreContractData } from './types/model/data/contract/firestore-contract-data'

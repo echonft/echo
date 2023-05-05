@@ -1,5 +1,5 @@
-import { OfferActivityResponse } from './offer-activity-response'
 import { OfferItemResponse } from './offer-item-response'
+import { FirestoreActivityData } from '@echo/firestore'
 import { DiscordGuild, OfferState, User } from '@echo/model'
 
 export interface OfferResponse {
@@ -11,7 +11,7 @@ export interface OfferResponse {
   senderItems: OfferItemResponse[]
   receiver: User
   receiverItems: OfferItemResponse[]
-  activities?: OfferActivityResponse[]
+  activities?: FirestoreActivityData[]
   expiresAt: number
   postedAt: number | undefined
   createdAt: number

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { OfferActivityResponse } from '../../types/model/responses/offer-activity-response'
 import { mapOfferActivityToResponse } from '../map-offer-activity-to-response'
 import { offers } from '@echo/firebase-admin'
 import { OfferActivity, OfferState } from '@echo/model'
@@ -22,8 +21,7 @@ describe('mappers - mapOfferActivityToResponse', () => {
   it('invalid data passes', () => {
     // @ts-ignore
     const activity: OfferActivity = pick(['date'], mockActivity)
-    // @ts-ignore
-    const result: OfferActivityResponse = pick(['date'], expectedResult)
+    const result = pick(['date'], expectedResult)
     expect(mapOfferActivityToResponse(activity)).toStrictEqual(result)
   })
   it('invalid data throws', () => {
