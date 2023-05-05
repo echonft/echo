@@ -2,6 +2,7 @@ import { contracts } from '../contract/contract'
 import { NftCollection, OpenSeaSafelistRequestStatus } from '@echo/model'
 import { unix } from 'dayjs'
 
+// TODO Move to @echo/model
 export const nftCollections: { [key: string]: NftCollection } = {
   Rc8pLQXxgyQGIRL0fr13: {
     id: 'Rc8pLQXxgyQGIRL0fr13',

@@ -1,5 +1,6 @@
 import { Contract } from '@echo/model'
 
+// TODO Move to @echo/model
 export const contracts: { [key: string]: Contract } = {
   '37dBlwJYahEAKeL0rNP8': {
     id: '37dBlwJYahEAKeL0rNP8',

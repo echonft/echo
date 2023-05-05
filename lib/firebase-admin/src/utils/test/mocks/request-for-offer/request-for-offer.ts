@@ -6,6 +6,7 @@ import { users } from '../user/user'
 import { RequestForOffer, RequestForOfferState } from '@echo/model'
 import { unix } from 'dayjs'
 
+// TODO Move to @echo/model
 export const requestsForOffer: { [key: string]: RequestForOffer } = {
   jUzMtPGKM62mMhEcmbN4: {
     id: 'jUzMtPGKM62mMhEcmbN4',

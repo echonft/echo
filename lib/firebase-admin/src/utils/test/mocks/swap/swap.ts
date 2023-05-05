@@ -2,6 +2,7 @@ import { offers } from '../offer/offer'
 import { Swap, SwapState } from '@echo/model'
 import { unix } from 'dayjs'
 
+// TODO Move to @echo/model
 export const swaps: { [key: string]: Swap } = {
   hS6KtAJ03bSolumoHvDJ: {
     id: 'hS6KtAJ03bSolumoHvDJ',

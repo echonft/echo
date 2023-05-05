@@ -1,6 +1,7 @@
 import { contracts } from '../contract/contract'
 import { DiscordGuild } from '@echo/model'
 
+// TODO Move to @echo/model
 export const discordGuilds: { [key: string]: DiscordGuild } = {
   xA40abnyBq6qQHSYmtHj: {
     id: 'xA40abnyBq6qQHSYmtHj',

@@ -1,6 +1,7 @@
 import { discordGuilds } from '../discord-guild/discord-guild'
 import { User } from '@echo/model'
 
+// TODO Move to @echo/model
 export const users: { [key: string]: User } = {
   oE6yUEQBPn7PZ89yMjKn: {
     id: 'oE6yUEQBPn7PZ89yMjKn',

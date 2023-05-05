@@ -4,6 +4,7 @@ import { users } from '../user/user'
 import { Offer, OfferState } from '@echo/model'
 import { unix } from 'dayjs'
 
+// TODO Move to @echo/model
 export const offers: { [key: string]: Offer } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
