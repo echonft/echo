@@ -94,7 +94,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     mockedWalletsOwnTokens.mockResolvedValueOnce(false)
     await createRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(401)
-    expect(res._getJSONData()).toEqual({ error: 'User is does not own all the NFTs to offer' })
+    expect(res._getJSONData()).toEqual({ error: 'User does not own all the NFTs to offer' })
   })
   it('if alchemy checks throws, returns 500', async () => {
     const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>(

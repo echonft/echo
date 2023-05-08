@@ -39,7 +39,7 @@ export const createRequestForOfferHandler: RequestHandler<
         return walletsOwnTokens(getAlchemy(), user.wallets ?? [], validatedRequest.items)
           .then((userOwnsAllNfts) => {
             if (!userOwnsAllNfts) {
-              res.end(res.status(401).json({ error: 'User is does not own all the NFTs to offer' }))
+              res.end(res.status(401).json({ error: 'User does not own all the NFTs to offer' }))
               return
             }
             return addRequestForOffer(mapDataToRequestForOfferPrototype(user, validatedRequest))
