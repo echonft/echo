@@ -11,7 +11,7 @@ import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { isNilOrEmpty, Void } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { DocumentData } from 'firebase/firestore'
-import { always, andThen, bind, isNil, pipe, prop } from 'ramda'
+import { always, andThen, isNil, pipe, prop } from 'ramda'
 import { useEffect } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 
@@ -54,7 +54,7 @@ export function useDocument<T extends DocumentData, V extends FirestoreRootColle
 
   useEffect(() => {
     if (!isNil(path) && options?.listen) {
-      return subscribeToDocument<W>(pipe(R.fromPromise, bind(response.mutate, response), Void), path)
+      return subscribeToDocument<W>(pipe(R.fromPromise, andThen(response.mutate), Void), path)
     }
     return
   }, [options, path, response])

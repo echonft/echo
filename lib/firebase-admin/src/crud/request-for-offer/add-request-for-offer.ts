@@ -7,7 +7,6 @@ import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return
 import { FirestoreRequestForOffer, mapRequestForOffer } from '@echo/firestore'
 import { RequestForOffer } from '@echo/model'
 import { castAs } from '@echo/utils'
-import { DocumentSnapshot } from '@google-cloud/firestore'
 import { R } from '@mobily/ts-belt'
 import { andThen, pipe, unless } from 'ramda'
 
@@ -17,12 +16,12 @@ export const addRequestForOffer = (
   pipe(
     buildRequestForOffer,
     andThen((requestsForOffer) =>
-      setDocAndReturnSnapshot<FirestoreRequestForOffer>(
+      setDocAndReturnSnapshot(
         getCollectionFromPath<FirestoreRequestForOffer>('requests-for-offer').doc(),
         requestsForOffer
       )
     ),
-    andThen<R.Result<DocumentSnapshot<FirestoreRequestForOffer>, Error>, R.Result<RequestForOffer, Error>>(
+    andThen(
       pipe(
         unless(R.isError, pipe(R.getExn, convertRequestForOffer, mapRequestForOffer, R.fromPromise)),
         castAs<Promise<R.Result<RequestForOffer, Error>>>
