@@ -14,7 +14,6 @@ interface Props {
 export const WalletToolbar: React.FunctionComponent<Props> = ({ userId, currentWallets }) => {
   const { address, isConnected } = useAccount()
   const { chain } = useNetwork()
-  const [wallets, setWallets] = useState<Wallet[]>(currentWallets)
   const [signatureRejected, setSignatureRejected] = useState(false)
   const [addedWallet, setAddedWallet] = useState<boolean>(false)
 
@@ -42,16 +41,15 @@ export const WalletToolbar: React.FunctionComponent<Props> = ({ userId, currentW
               userId={userId}
               address={address}
               chainId={chain.id}
-              onSuccess={(wallets) => {
+              onSuccess={() => {
                 setAddedWallet(true)
-                setWallets(wallets)
               }}
               onSignRejected={() => setSignatureRejected(true)}
               retry={signatureRejected}
             />
           )}
         </div>
-        <WalletList wallets={wallets} onSuccess={(wallets) => setWallets(wallets)} />
+        <WalletList wallets={currentWallets} />
       </div>
     )
   }
