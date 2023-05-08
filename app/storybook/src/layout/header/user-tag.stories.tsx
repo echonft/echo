@@ -11,13 +11,26 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const UserTag: Story = {
+export const Standard: Story = {
   render: () => (
     <Component
       user={
         {
           discordUsername: 'johnnycage',
           discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+          discordId: '462798252543049728'
+        } as User
+      }
+    />
+  )
+}
+
+export const DefaultPicture: Story = {
+  render: () => (
+    <Component
+      user={
+        {
+          discordUsername: 'johnnycage',
           discordId: '462798252543049728'
         } as User
       }
