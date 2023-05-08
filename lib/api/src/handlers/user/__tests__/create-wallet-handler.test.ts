@@ -2,7 +2,7 @@
 import { WalletResponse } from '../../../types/model/responses/wallet-response'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { createWalletHandler } from '../create-wallet-handler'
-import { findNonceForUser, updateUserWallets } from '@echo/firebase-admin'
+import { findNonceForUser, findUserByWallet, updateUserWallets } from '@echo/firebase-admin'
 import { generateMockWallet, mockUser, mockWallet, Signature } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
@@ -15,12 +15,29 @@ describe('handlers - user - createWalletHandler', () => {
   const mockedMessage = jest.mocked(SiweMessage)
   const mockedFindNonce = jest.mocked(findNonceForUser)
   const mockedUpdateWallets = jest.mocked(updateUserWallets)
+  const mockedFindUserByWallet = jest.mocked(findUserByWallet).mockResolvedValue(R.fromNullable(null, new Error()))
   const user = mockUser
   const wallet = mockWallet
   const signature = '0xtest'
   const nonce = 'nonce'
+
   beforeEach(() => {
     jest.clearAllMocks()
+  })
+
+  it('if wallet throws, returns 401', async () => {
+    mockedFindUserByWallet.mockRejectedValueOnce(new Error())
+    const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
+    await createWalletHandler(user, wallet, mockedMessage as unknown as SiweMessage, signature, res)
+    expect(res.statusCode).toBe(401)
+    expect(res._getJSONData()).toEqual({ error: 'Could not validate wallet' })
+  })
+  it('if wallet already exists on another user, returns 401', async () => {
+    mockedFindUserByWallet.mockResolvedValueOnce(R.fromNullable({ ...user, id: 'test' }, new Error()))
+    const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
+    await createWalletHandler(user, wallet, mockedMessage as unknown as SiweMessage, signature, res)
+    expect(res.statusCode).toBe(401)
+    expect(res._getJSONData()).toEqual({ error: 'Wallet is already linked to another account' })
   })
   it('if invalid signature, returns 401', async () => {
     mockedMessage.mockImplementation(() => ({
@@ -133,6 +150,15 @@ describe('handlers - user - createWalletHandler', () => {
     it('if nonce is valid and adding wallet (multiple), returns new wallets', async () => {
       const newWallet = generateMockWallet({ address: 'test' })
       mockedFindNonce.mockResolvedValue(R.fromFalsy(nonce, new Error()))
+      const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
+      await createWalletHandler(user, newWallet, mockedMessage as unknown as SiweMessage, signature, res)
+      expect(res.statusCode).toBe(200)
+      expect(res._getJSONData()).toEqual({ wallets: [newWallet, ...user.wallets!] })
+    })
+    it('if nonce is valid and user already has that wallet linked,  returns new wallets', async () => {
+      const newWallet = generateMockWallet({ address: 'test' })
+      mockedFindNonce.mockResolvedValue(R.fromFalsy(nonce, new Error()))
+      mockedFindUserByWallet.mockResolvedValueOnce(R.fromFalsy(user, new Error()))
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
       await createWalletHandler(user, newWallet, mockedMessage as unknown as SiweMessage, signature, res)
       expect(res.statusCode).toBe(200)
