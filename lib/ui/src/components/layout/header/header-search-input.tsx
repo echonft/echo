@@ -11,9 +11,14 @@ export interface HeaderSearchInputProps {
 export const HeaderSearchInput: FunctionComponent<HeaderSearchInputProps> = ({ onChange }) => {
   const t = useTranslations()
   return (
-    <Combobox className={clsx('relative')} as={'div'} name="assignee" defaultValue={''}>
+    <Combobox
+      className={clsx('relative', 'w-full', 'h-[1.875rem]', 'flex', 'flex-row', 'items-center')}
+      as={'div'}
+      name="assignee"
+      defaultValue={''}
+    >
       <SearchIconSvg
-        className={clsx('absolute', 'top-1.5', 'left-3', 'z-10', 'text-yellow-500')}
+        className={clsx('absolute', 'top-[0.4375rem]', 'left-3', 'z-10', 'text-yellow-500')}
         width={16}
         height={16}
       />
@@ -21,14 +26,15 @@ export const HeaderSearchInput: FunctionComponent<HeaderSearchInputProps> = ({ o
         className={clsx(
           'bg-white/[0.08]',
           'rounded-lg',
-          'py-1.5',
           'pl-10',
           'pr-4',
-          'w-[37rem]',
+          'h-full',
+          'w-full',
           'prose-label-xs-bold',
-          'focus-visible:outline',
-          'focus-visible:outline-1',
-          'focus-visible:outline-yellow-500'
+          'focus-visible:outline-0',
+          'focus-visible:bg-white/50',
+          'focus-visible:text-dark-300',
+          'focus-visible:placeholder:text-dark-300'
         )}
         onChange={(event: ChangeEvent<HTMLInputElement> & { target: { value: string } }) => {
           onChange?.(event.target.value)

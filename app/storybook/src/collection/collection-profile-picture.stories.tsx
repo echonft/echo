@@ -10,11 +10,15 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const CollectionProfilePicture: Story = {
+export const Standard: Story = {
   render: () => (
     <Component
       name={'johnnycage'}
       src={'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-pfp.jpg?alt=media'}
     />
   )
+}
+
+export const Default: Story = {
+  render: () => <Component name={'johnnycage'} src={undefined} />
 }

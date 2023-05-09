@@ -1,4 +1,4 @@
-import { SizeMD } from '../../../types/size'
+import { SizeLG, SizeMD } from '../../../types/size'
 
-export const buttonWidths = [SizeMD] as const
+export const buttonWidths = [SizeMD, SizeLG] as const
 export type ButtonWidth = (typeof buttonWidths)[number]

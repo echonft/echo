@@ -31,7 +31,8 @@ export const ButtonContainer: FunctionComponent<PropsWithChildren<ButtonContaine
         size === SizeSM && ['rounded-lg', '[&>div]:rounded-lg'],
         size === SizeMD && ['rounded-md', '[&>div]:rounded-md'],
         size === SizeLG && ['rounded-lg', '[&>div]:rounded-lg'],
-        fixedWidth === SizeMD && 'w-16'
+        fixedWidth === SizeMD && 'w-16',
+        fixedWidth === SizeLG && 'w-36'
       )}
     >
       {children}
