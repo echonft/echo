@@ -15,7 +15,7 @@ describe('utils - request-for-offer - generateRequestForOfferActivity', () => {
     expect(activity.fromState).toBeUndefined()
     expect(activity.date.isAfter(beforeTestDayjs)).toBeTruthy()
 
-    activity = generateRequestForOfferActivity(RequestForOfferState.EXPIRED)
+    activity = generateRequestForOfferActivity(RequestForOfferState.EXPIRED, undefined)
     expect(activity.toState).toBe(RequestForOfferState.EXPIRED)
     expect(activity.fromState).toBeUndefined()
     expect(activity.date.isAfter(beforeTestDayjs)).toBeTruthy()

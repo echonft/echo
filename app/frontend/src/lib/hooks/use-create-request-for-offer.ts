@@ -1,10 +1,5 @@
 import { ApiRoutes, getApiRouteUrl } from '@echo/api/dist/public'
-import {
-  CreateRequestForOfferRequest,
-  CreateRequestForOfferResponse,
-  ItemRequest,
-  TargetRequest
-} from '@echo/api/dist/types'
+import { CreateRequestForOfferRequest, ItemRequest, RequestForOfferResponse, TargetRequest } from '@echo/api/dist/types'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { castAs, isNilOrEmpty, putData } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
@@ -21,7 +16,7 @@ export const useCreateRequestForOffer = (
   items: ItemRequest[] | undefined,
   target: TargetRequest[] | undefined
 ) =>
-  useSWR<R.Result<CreateRequestForOfferResponse, Error>, Error, SwrKey<KeyData> | undefined>(
+  useSWR<R.Result<RequestForOfferResponse, Error>, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       {
         name: SwrKeyNames.API_CREATE_FOR_OFFER,
@@ -38,7 +33,7 @@ export const useCreateRequestForOffer = (
     ),
     converge(
       (url: string, data: CreateRequestForOfferRequest) =>
-        putData<CreateRequestForOfferResponse, CreateRequestForOfferRequest>(url, data),
+        putData<RequestForOfferResponse, CreateRequestForOfferRequest>(url, data),
       [
         pipe(path(['data', 'url']), castAs<string>),
         pipe(path(['data', 'request']), castAs<CreateRequestForOfferRequest>)

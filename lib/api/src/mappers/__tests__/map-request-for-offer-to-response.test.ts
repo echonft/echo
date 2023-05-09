@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { CreateRequestForOfferResponse } from '../../types'
+import { RequestForOfferResponse } from '../../types'
 import { mapRequestForOfferToResponse } from '../map-request-for-offer-to-response'
 import { discordGuilds, requestsForOffer } from '@echo/firebase-admin'
 import { RequestForOffer, RequestForOfferState } from '@echo/model'
@@ -16,7 +16,7 @@ function callAndCatchMapper(requestForOffer: RequestForOffer) {
 }
 describe('mappers - mapRequestForOfferToResponse', () => {
   const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
-  const expectedResult: CreateRequestForOfferResponse = {
+  const expectedResult: RequestForOfferResponse = {
     id: 'jUzMtPGKM62mMhEcmbN4',
     state: RequestForOfferState.CREATED,
     sender: mockRequestForOffer.sender,

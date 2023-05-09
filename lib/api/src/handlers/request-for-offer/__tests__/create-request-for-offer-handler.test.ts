@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { mapRequestForOfferToResponse } from '../../../mappers/map-request-for-offer-to-response'
-import { CreateRequestForOfferRequest, CreateRequestForOfferResponse } from '../../../types'
+import { CreateRequestForOfferRequest, RequestForOfferResponse } from '../../../types'
 import { walletsOwnTokens } from '../../../utils/alchemy/wallets-own-tokens'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { mockSession } from '../../../utils/test/mocks/session'
@@ -37,34 +37,34 @@ describe('handlers - user - createRequestForOfferHandler', () => {
   })
 
   it('if not authenticated, returns 401', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>('GET')
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>('GET')
     await createRequestForOfferHandler(req, res, undefined)
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
   })
   it('if session with no user, returns 500', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>('GET')
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>('GET')
     // @ts-ignore
     await createRequestForOfferHandler(req, res, omit(['user'], session))
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'User not found' })
   })
   it('if session body is invalid, returns 400', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>('GET')
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>('GET')
     // @ts-ignore
     await createRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(400)
     expect(res._getJSONData()).toEqual({ error: 'Invalid body' })
   })
   it('if session body is invalid, returns 400', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>('GET')
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>('GET')
     // @ts-ignore
     await createRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(400)
     expect(res._getJSONData()).toEqual({ error: 'Invalid body' })
   })
   it('if guild is not found, returns 500', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>(
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>(
       'GET',
       undefined,
       mockedRequest
@@ -75,7 +75,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'Discord Guild not found' })
   })
   it('if user not in guild, returns 401', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>(
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>(
       'GET',
       undefined,
       mockedRequest
@@ -86,7 +86,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'User is not in Discord Guild' })
   })
   it('if user does not own the NFTs, returns 401', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>(
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>(
       'GET',
       undefined,
       mockedRequest
@@ -97,7 +97,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'User does not own all the NFTs to offer' })
   })
   it('if alchemy checks throws, returns 500', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>(
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>(
       'GET',
       undefined,
       mockedRequest
@@ -108,7 +108,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'Could not create listing' })
   })
   it('if adding listing throws, returns 500', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>(
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>(
       'GET',
       undefined,
       mockedRequest
@@ -119,7 +119,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'Could not create listing' })
   })
   it('if adding listings returns an error, return 500', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>(
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>(
       'GET',
       undefined,
       mockedRequest
@@ -130,7 +130,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'Could not create listing' })
   })
   it('if adding listings is successful, returns 200 and the request for offer object', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, CreateRequestForOfferResponse>(
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>(
       'GET',
       undefined,
       mockedRequest
@@ -138,5 +138,8 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     await createRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(200)
     expect(res._getJSONData()).toEqual(mapRequestForOfferToResponse(requestsForOffer['jUzMtPGKM62mMhEcmbN4']!))
+
+    await createRequestForOfferHandler(req, res, { ...session, user: { ...session.user, wallets: undefined } })
+    expect(res.statusCode).toBe(200)
   })
 })

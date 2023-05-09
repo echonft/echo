@@ -3,7 +3,7 @@ import { mapRequestForOfferToResponse } from '../../mappers/map-request-for-offe
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
 import { CreateRequestForOfferRequest } from '../../types/model/requests/create-request-for-offer-request'
-import { CreateRequestForOfferResponse } from '../../types/model/responses/create-request-for-offer-response'
+import { RequestForOfferResponse } from '../../types/model/responses/request-for-offer-response'
 import { createRequestForOfferSchema } from '../../types/validators/create-request-for-offer'
 import { getAlchemy } from '../../utils/alchemy/alchemy'
 import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
@@ -15,7 +15,7 @@ import { isNil } from 'ramda'
 
 export const createRequestForOfferHandler: RequestHandler<
   ApiRequest<CreateRequestForOfferRequest, never>,
-  CreateRequestForOfferResponse
+  RequestForOfferResponse
 > = async (req, res, session) => {
   // TODO Shouldn't have to do that
   if (isNil(session)) {

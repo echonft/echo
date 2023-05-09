@@ -1,4 +1,4 @@
-import { CreateRequestForOfferResponse } from '../types'
+import { RequestForOfferResponse } from '../types'
 import { mapOfferActivityToResponse } from './map-offer-activity-to-response'
 import { mapOfferItemToResponse } from './map-offer-item-to-response'
 import { mapOfferToResponse } from './map-offer-to-response'
@@ -6,7 +6,7 @@ import { mapSwapToResponse } from './map-swap-to-response'
 import { RequestForOffer } from '@echo/model'
 
 // TODO Use ramda
-export function mapRequestForOfferToResponse(requestForOffer: RequestForOffer): CreateRequestForOfferResponse {
+export function mapRequestForOfferToResponse(requestForOffer: RequestForOffer): RequestForOfferResponse {
   return {
     ...requestForOffer,
     activities: requestForOffer.activities?.map(mapOfferActivityToResponse),
