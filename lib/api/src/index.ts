@@ -1,4 +1,5 @@
 export { getFirebaseTokenHandler } from './handlers/auth/get-firebase-token-handler'
+export { cancelRequestForOfferHandler } from './handlers/request-for-offer/cancel-request-for-offer-handler'
 export { createRequestForOfferHandler } from './handlers/request-for-offer/create-request-for-offer-handler'
 export { nonceHandler } from './handlers/user/nonce-handler'
 export { walletHandler } from './handlers/user/wallet-handler'

@@ -1,7 +1,7 @@
 import { mapRequestForOfferToResponse } from '../../mappers/map-request-for-offer-to-response'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
-import { RequestForOfferRequest } from '../../types/model/requests/cancel-request-for-offer-request'
+import { RequestForOfferRequest } from '../../types/model/requests/request-for-offer-request'
 import { RequestForOfferResponse } from '../../types/model/responses/request-for-offer-response'
 import { idRequestSchema } from '../../types/validators/id-request'
 import { findRequestForOfferById, updateRequestForOfferActivities } from '@echo/firebase-admin'

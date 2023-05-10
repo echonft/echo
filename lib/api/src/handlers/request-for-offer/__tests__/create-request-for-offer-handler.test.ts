@@ -13,7 +13,6 @@ import { omit } from 'ramda'
 
 jest.mock('@echo/firebase-admin')
 jest.mock('@echo/model')
-jest.mock('@echo/model')
 jest.mock('../../../utils/alchemy/wallets-own-tokens')
 jest.mock('../../../utils/alchemy/alchemy')
 
@@ -48,13 +47,6 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     await createRequestForOfferHandler(req, res, omit(['user'], session))
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'User not found' })
-  })
-  it('if session body is invalid, returns 400', async () => {
-    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>('GET')
-    // @ts-ignore
-    await createRequestForOfferHandler(req, res, session)
-    expect(res.statusCode).toBe(400)
-    expect(res._getJSONData()).toEqual({ error: 'Invalid body' })
   })
   it('if session body is invalid, returns 400', async () => {
     const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>('GET')
