@@ -7,7 +7,7 @@ import { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
 export interface ButtonContainerProps {
   size: ButtonSize
   disabled?: boolean
-  fixedWidth?: ButtonWidth
+  fixedWidth?: ButtonWidth | 'Full'
   onClick?: MouseEventHandler
 }
 
@@ -32,7 +32,8 @@ export const ButtonContainer: FunctionComponent<PropsWithChildren<ButtonContaine
         size === SizeMD && ['rounded-md', '[&>div]:rounded-md'],
         size === SizeLG && ['rounded-lg', '[&>div]:rounded-lg'],
         fixedWidth === SizeMD && 'w-16',
-        fixedWidth === SizeLG && 'w-36'
+        fixedWidth === SizeLG && 'w-36',
+        fixedWidth === 'Full' && 'w-full'
       )}
     >
       {children}

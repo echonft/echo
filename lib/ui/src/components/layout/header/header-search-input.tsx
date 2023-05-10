@@ -9,7 +9,7 @@ export interface HeaderSearchInputProps {
 }
 
 export const HeaderSearchInput: FunctionComponent<HeaderSearchInputProps> = ({ onChange }) => {
-  const t = useTranslations()
+  const t = useTranslations('layout.header')
   return (
     <Combobox
       className={clsx('relative', 'w-full', 'h-[1.875rem]', 'flex', 'flex-row', 'items-center')}
@@ -39,7 +39,7 @@ export const HeaderSearchInput: FunctionComponent<HeaderSearchInputProps> = ({ o
         onChange={(event: ChangeEvent<HTMLInputElement> & { target: { value: string } }) => {
           onChange?.(event.target.value)
         }}
-        placeholder={t('layout.header.searchInput')}
+        placeholder={t('searchInput')}
       />
     </Combobox>
   )

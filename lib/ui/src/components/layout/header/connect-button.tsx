@@ -9,12 +9,12 @@ export interface ConnectButtonProps {
 }
 
 export const ConnectButton: FunctionComponent<ConnectButtonProps> = ({ onConnect }) => {
-  const t = useTranslations()
+  const t = useTranslations('layout.header')
   return (
     <TextButton
       size={SizeSM}
       colorScheme={ButtonColorScheme.GRADIENT}
-      label={t('layout.header.connectButton')}
+      label={t('connectButton')}
       fixedWidth={SizeLG}
       onClick={onConnect}
     />
