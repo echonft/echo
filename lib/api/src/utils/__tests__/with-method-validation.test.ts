@@ -15,6 +15,19 @@ describe('utils - withMethodValidation', () => {
       expect(res._getJSONData()).toEqual({ error: 'Method PUT Not Allowed' })
     }
   })
+  it('empty method fails', async () => {
+    const { req, res } = mockRequestResponse('GET')
+    try {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      await withMethodValidation(successHandler, ['GET'])({ ...req, method: undefined }, res)
+    } catch (e) {
+      expect((e as Error).message).toBe('Method  Not Allowed')
+      expect(res.statusCode).toBe(405)
+      expect(res.getHeaders()).toEqual({ 'content-type': 'application/json', allow: ['GET'] })
+      expect(res._getJSONData()).toEqual({ error: 'Method  Not Allowed' })
+    }
+  })
   it('invalid method fails (multiple allowed)', async () => {
     const { req, res } = mockRequestResponse('PUT')
     try {

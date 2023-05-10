@@ -5,14 +5,14 @@ import { walletsOwnTokens } from '../../../utils/alchemy/wallets-own-tokens'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { mockSession } from '../../../utils/test/mocks/session'
 import { createRequestForOfferHandler } from '../create-request-for-offer-handler'
-import { addRequestForOffer, findDiscordGuildByGuildId, requestsForOffer } from '@echo/firebase-admin'
-import { mockDiscordGuild, userIsInGuild } from '@echo/model'
+import { addRequestForOffer, findDiscordGuildByGuildId } from '@echo/firebase-admin'
+import * as model from '@echo/model'
+import { mockDiscordGuild, mockRequestForOffer } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { omit } from 'ramda'
 
 jest.mock('@echo/firebase-admin')
-jest.mock('@echo/model')
 jest.mock('../../../utils/alchemy/wallets-own-tokens')
 jest.mock('../../../utils/alchemy/alchemy')
 
@@ -20,10 +20,10 @@ describe('handlers - user - createRequestForOfferHandler', () => {
   const mockedFindDiscordGuildById = jest
     .mocked(findDiscordGuildByGuildId)
     .mockResolvedValue(R.fromNullable(mockDiscordGuild, new Error()))
-  const mockedUserIsInGuild = jest.mocked(userIsInGuild).mockReturnValue(true)
+  const mockedUserIsInGuild = jest.spyOn(model, 'userIsInGuild').mockReturnValue(true)
   const mockedAddRequestForOffer = jest
     .mocked(addRequestForOffer)
-    .mockResolvedValue(R.fromNullable(requestsForOffer['jUzMtPGKM62mMhEcmbN4'], new Error()))
+    .mockResolvedValue(R.fromNullable(mockRequestForOffer, new Error()))
   const mockedWalletsOwnTokens = jest.mocked(walletsOwnTokens).mockResolvedValue(true)
   const session = mockSession
   const mockedRequest: CreateRequestForOfferRequest = {
@@ -129,9 +129,16 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     )
     await createRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(200)
-    expect(res._getJSONData()).toEqual(mapRequestForOfferToResponse(requestsForOffer['jUzMtPGKM62mMhEcmbN4']!))
-
+    expect(res._getJSONData()).toEqual(mapRequestForOfferToResponse(mockRequestForOffer))
+  })
+  it('if user has no wallets, returns 401', async () => {
+    const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>(
+      'GET',
+      undefined,
+      mockedRequest
+    )
     await createRequestForOfferHandler(req, res, { ...session, user: { ...session.user, wallets: undefined } })
-    expect(res.statusCode).toBe(200)
+    expect(res.statusCode).toBe(401)
+    expect(res._getJSONData()).toEqual({ error: 'User does not have wallets' })
   })
 })

@@ -18,7 +18,7 @@ describe('mappers - mapRequestForOfferToResponse', () => {
   const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
   const expectedResult: RequestForOfferResponse = {
     id: 'jUzMtPGKM62mMhEcmbN4',
-    state: RequestForOfferState.CREATED,
+    state: RequestForOfferState.EXPIRED,
     sender: mockRequestForOffer.sender,
     items: mockRequestForOffer.items.map((item) => ({ ...item, tokenId: item.tokenId.toString() })),
     discordGuild: discordGuilds['xA40abnyBq6qQHSYmtHj']!,

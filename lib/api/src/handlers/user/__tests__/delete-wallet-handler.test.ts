@@ -2,7 +2,7 @@ import { WalletResponse } from '../../../types/model/responses/wallet-response'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { deleteWalletHandler } from '../delete-wallet-handler'
 import { updateUserWallets } from '@echo/firebase-admin'
-import { generateMockWallet, mockUser, mockWallet } from '@echo/model'
+import { generateMockWallet, mockUser } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/firebase-admin')
@@ -10,7 +10,7 @@ jest.mock('@echo/firebase-admin')
 describe('handlers - user - deleteWalletHandler', () => {
   const mockedUpdateWallets = jest.mocked(updateUserWallets)
   const user = mockUser
-  const wallet = mockWallet
+  const wallet = mockUser.wallets![0]!
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -44,8 +44,9 @@ describe('handlers - user - deleteWalletHandler', () => {
   })
   it('if valid, returns user wallets minus the deleted wallet (single)', async () => {
     mockedUpdateWallets.mockResolvedValue(undefined)
+    const singleWalletUser = { ...user, wallets: [user.wallets![0]!] }
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-    await deleteWalletHandler(user, [wallet], res)
+    await deleteWalletHandler(singleWalletUser, [wallet], res)
     expect(res.statusCode).toBe(200)
     expect(res._getJSONData()).toEqual({ wallets: [] })
   })
@@ -53,7 +54,7 @@ describe('handlers - user - deleteWalletHandler', () => {
     const newWallet = generateMockWallet({ address: 'test' })
     mockedUpdateWallets.mockResolvedValue(undefined)
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-    await deleteWalletHandler({ ...user, wallets: user.wallets?.concat(newWallet) }, [wallet], res)
+    await deleteWalletHandler({ ...user, wallets: user.wallets?.concat(newWallet) }, user.wallets!, res)
     expect(res.statusCode).toBe(200)
     expect(res._getJSONData()).toEqual({ wallets: [newWallet] })
   })

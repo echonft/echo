@@ -9,7 +9,7 @@ import { unix } from 'dayjs'
 
 export const mockRequestForOffer: RequestForOffer = {
   id: 'jUzMtPGKM62mMhEcmbN4',
-  state: RequestForOfferState.CREATED,
+  state: RequestForOfferState.EXPIRED,
   sender: mockUser,
   items: [
     {

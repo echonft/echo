@@ -58,6 +58,12 @@ describe('validators - offerItem', () => {
         tokenId: '-100'
       })
     ).toThrow()
+    expect(() =>
+      offerItem.parse({
+        target: { address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', chainId: 1 },
+        tokenId: 'aa'
+      })
+    ).toThrow()
   })
   it('valid offerItem pass', () => {
     expect(

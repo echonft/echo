@@ -5,28 +5,25 @@ import { RequestForOfferRequest } from '../../../types/model/requests/request-fo
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { mockSession } from '../../../utils/test/mocks/session'
 import { cancelRequestForOfferHandler } from '../cancel-request-for-offer-handler'
-import { findRequestForOfferById, requestsForOffer, updateRequestForOfferActivities } from '@echo/firebase-admin'
-import { canAddRequestForOfferActivity, generateRequestForOfferActivity, RequestForOfferState } from '@echo/model'
+import { findRequestForOfferById, updateRequestForOfferActivities } from '@echo/firebase-admin'
+import * as model from '@echo/model'
+import { generateRequestForOfferActivity, mockRequestForOffer, RequestForOfferState } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { omit } from 'ramda'
 
 jest.mock('@echo/firebase-admin')
-jest.mock('@echo/model')
-jest.mock('../../../utils/alchemy/wallets-own-tokens')
-jest.mock('../../../utils/alchemy/alchemy')
 
 describe('handlers - user - cancelRequestForOfferHandler', () => {
-  const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
+  const requestForOffer = mockRequestForOffer
   const mockedFindRequestForOfferById = jest
     .mocked(findRequestForOfferById)
-    .mockResolvedValue(R.fromNullable(mockRequestForOffer, new Error()))
+    .mockResolvedValue(R.fromNullable(requestForOffer, new Error()))
   const mockedUpdateRequestForOfferActivities = jest
     .mocked(updateRequestForOfferActivities)
     // @ts-ignore
     .mockResolvedValue(undefined)
-  const mockedCanAddRequestForOfferActivity = jest.mocked(canAddRequestForOfferActivity).mockReturnValue(true)
-
+  const mockedCanAddRequestForOfferActivity = jest.spyOn(model, 'canAddRequestForOfferActivity').mockReturnValue(true)
   const session = mockSession
   const mockedRequest: RequestForOfferRequest = {
     id: 'jUzMtPGKM62mMhEcmbN4'
@@ -111,14 +108,15 @@ describe('handlers - user - cancelRequestForOfferHandler', () => {
   })
   it('if updating listing works, return 200', async () => {
     const cancelledActivity = generateRequestForOfferActivity(
-      RequestForOfferState.EXPIRED,
-      RequestForOfferState.CANCELLED
+      RequestForOfferState.CANCELLED,
+      RequestForOfferState.EXPIRED
     )
     const expected = mapRequestForOfferToResponse({
-      ...mockRequestForOffer,
+      ...requestForOffer,
       state: RequestForOfferState.CANCELLED,
-      activities: mockRequestForOffer.activities.concat(cancelledActivity)
+      activities: requestForOffer.activities.concat(cancelledActivity)
     })
+
     const { req, res } = mockRequestResponse<RequestForOfferRequest, never, RequestForOfferResponse>(
       'GET',
       undefined,
@@ -126,6 +124,6 @@ describe('handlers - user - cancelRequestForOfferHandler', () => {
     )
     await cancelRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(200)
-    expect(res._getJSONData()).toStrictEqual(expected)
+    expect(res._getJSONData()).toEqual(expected)
   })
 })
