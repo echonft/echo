@@ -5,10 +5,15 @@ import { RequestForOfferRequest } from '../../types/model/requests/request-for-o
 import { RequestForOfferResponse } from '../../types/model/responses/request-for-offer-response'
 import { idRequestSchema } from '../../types/validators/id-request'
 import { findRequestForOfferById, updateRequestForOfferActivities } from '@echo/firebase-admin'
-import { canAddRequestForOfferActivity, generateRequestForOfferActivity, RequestForOfferState } from '@echo/model'
+import {
+  canAddRequestForOfferActivity,
+  generateRequestForOfferActivity,
+  RequestForOffer,
+  RequestForOfferState
+} from '@echo/model'
 import { logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { isNil } from 'ramda'
+import { always, append, isNil, modify, pipe } from 'ramda'
 
 export const cancelRequestForOfferHandler: RequestHandler<
   ApiRequest<RequestForOfferRequest, never>,
@@ -42,12 +47,11 @@ export const cancelRequestForOfferHandler: RequestHandler<
           res.end(res.status(401).json({ error: 'Cannot cancel listing' }))
           return
         }
-        const updatedRequestForOffer = {
-          ...requestForOffer,
-          activities: requestForOffer.activities.concat(cancelledActivity),
-          state: RequestForOfferState.CANCELLED
-        }
-        return updateRequestForOfferActivities(requestForOffer.id, updatedRequestForOffer.activities)
+        const updatedRequestForOffer = pipe<[RequestForOffer], RequestForOffer, RequestForOffer>(
+          modify('activities', append(cancelledActivity)),
+          modify('state', always(RequestForOfferState.CANCELLED))
+        )(requestForOffer)
+        return updateRequestForOfferActivities(requestForOffer.id, requestForOffer.activities, cancelledActivity)
           .then(() => {
             res.status(200).json(mapRequestForOfferToResponse(updatedRequestForOffer))
             return
