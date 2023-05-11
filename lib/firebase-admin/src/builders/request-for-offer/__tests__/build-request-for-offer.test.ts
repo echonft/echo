@@ -14,7 +14,7 @@ import {
 import { RequestForOfferState } from '@echo/model'
 import { DocumentReference } from '@google-cloud/firestore'
 import { describe, expect, test } from '@jest/globals'
-import dayjs, { unix } from 'dayjs'
+import dayjs from 'dayjs'
 
 function targetsEqual(a: DocumentReference<FirestoreContract>[], b: FirestoreContractData[]) {
   if (a.length !== b.length) {
@@ -93,12 +93,12 @@ describe('builders - request-for-offer - buildRequestForOffer', () => {
     expect(offer.activities).toHaveLength(1)
     expect(activity.fromState).toBeUndefined()
     expect(activity.toState).toBe(RequestForOfferState.CREATED)
-    expect(unix(activity.date).isAfter(beforeTest)).toBeTruthy()
+    expect(dayjs.unix(activity.date).isAfter(beforeTest)).toBeTruthy()
 
-    expect(unix(offer.createdAt).isAfter(beforeTest)).toBeTruthy()
+    expect(dayjs.unix(offer.createdAt).isAfter(beforeTest)).toBeTruthy()
     expect(offer.postedAt).toBeUndefined()
-    expect(unix(offer.expiresAt).isAfter(beforeTestExpiry)).toBeTruthy()
-    expect(unix(offer.expiresAt).isSame(unix(offer.createdAt).add(1, 'day'))).toBeTruthy()
+    expect(dayjs.unix(offer.expiresAt).isAfter(beforeTestExpiry)).toBeTruthy()
+    expect(dayjs.unix(offer.expiresAt).isSame(dayjs.unix(offer.createdAt).add(1, 'day'))).toBeTruthy()
   }
 
   test('invalid guild throws an error', async () => {

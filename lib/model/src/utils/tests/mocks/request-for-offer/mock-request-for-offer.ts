@@ -5,7 +5,7 @@ import { mockDiscordGuild } from '../discord-guild/mock-discord-guild'
 import { mockOffer } from '../offer/mock-offer'
 import { mockSwap } from '../swap/mock-swap'
 import { mockUser } from '../user/mock-user'
-import { unix } from 'dayjs'
+import dayjs from 'dayjs'
 
 export const mockRequestForOffer: RequestForOffer = {
   id: 'jUzMtPGKM62mMhEcmbN4',
@@ -27,19 +27,19 @@ export const mockRequestForOffer: RequestForOffer = {
   target: [mockContract],
   activities: [
     {
-      date: unix(1676984897),
+      date: dayjs.unix(1676984897),
       toState: RequestForOfferState.CREATED,
       fromState: undefined
     },
     {
-      date: unix(1676900000),
+      date: dayjs.unix(1676900000),
       toState: RequestForOfferState.EXPIRED,
       fromState: RequestForOfferState.CREATED
     }
   ],
   offers: [mockOffer],
   swaps: [mockSwap],
-  expiresAt: unix(1676984897),
+  expiresAt: dayjs.unix(1676984897),
   postedAt: undefined,
-  createdAt: unix(1676984897)
+  createdAt: dayjs.unix(1676984897)
 }

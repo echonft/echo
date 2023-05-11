@@ -1,7 +1,7 @@
 import { NftCollection } from '../../../../types/nft/nft-collection'
 import { OpenSeaSafelistRequestStatus } from '../../../../types/nft/open-sea-safelist-request-status'
 import { mockContract } from '../contract/mock-contract'
-import { unix } from 'dayjs'
+import dayjs from 'dayjs'
 
 export const mockNftCollection: NftCollection = {
   id: 'Rc8pLQXxgyQGIRL0fr13',
@@ -18,7 +18,7 @@ export const mockNftCollection: NftCollection = {
     externalUrl: new URL('https://boredapeyachtclub.com/'),
     twitterUsername: 'BoredApeYC',
     discordUrl: new URL('https://discord.gg/3P5K3dzgdB'),
-    lastIngestedAt: unix(1676984897)
+    lastIngestedAt: dayjs.unix(1676984897)
   },
   totalSupply: 10000
 }

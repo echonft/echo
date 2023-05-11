@@ -34,6 +34,7 @@ module.exports = {
         destructuredArrayIgnorePattern: '^_'
       }
     ],
+    'import/no-named-as-default-member': 'off',
     'import/no-unresolved': 'off',
     'no-console': 'error',
     'no-case-declarations': 'off',

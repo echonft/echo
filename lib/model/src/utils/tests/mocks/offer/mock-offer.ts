@@ -3,7 +3,7 @@ import { OfferState } from '../../../../types/offer-state'
 import { mockContract } from '../contract/mock-contract'
 import { mockDiscordGuild } from '../discord-guild/mock-discord-guild'
 import { mockUser } from '../user/mock-user'
-import { unix } from 'dayjs'
+import dayjs from 'dayjs'
 
 export const mockOffer: Offer = {
   id: 'LyCfl6Eg7JKuD7XJ6IPi',
@@ -27,11 +27,11 @@ export const mockOffer: Offer = {
     }
   ],
   postedAt: undefined,
-  expiresAt: unix(1676984897),
-  createdAt: unix(1676984897),
+  expiresAt: dayjs.unix(1676984897),
+  createdAt: dayjs.unix(1676984897),
   activities: [
     {
-      date: unix(1676984897),
+      date: dayjs.unix(1676984897),
       fromState: undefined,
       toState: OfferState.OPEN
     }

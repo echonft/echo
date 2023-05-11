@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="firestore" pattern="file[echo]:lib/firestore/src//*&amp;&amp;!file[echo]:lib/firestore/dist/*" />
+</component>
