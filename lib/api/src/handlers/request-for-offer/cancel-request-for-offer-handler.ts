@@ -13,7 +13,7 @@ import {
 } from '@echo/model'
 import { logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { always, append, isNil, modify, pipe } from 'ramda'
+import { append, assoc, isNil, modify, pipe } from 'ramda'
 
 export const cancelRequestForOfferHandler: RequestHandler<
   ApiRequest<RequestForOfferRequest, never>,
@@ -49,7 +49,7 @@ export const cancelRequestForOfferHandler: RequestHandler<
         }
         const updatedRequestForOffer = pipe<[RequestForOffer], RequestForOffer, RequestForOffer>(
           modify('activities', append(cancelledActivity)),
-          modify('state', always(RequestForOfferState.CANCELLED))
+          assoc('state', RequestForOfferState.CANCELLED)
         )(requestForOffer)
         return updateRequestForOfferActivities(requestForOffer.id, requestForOffer.activities, cancelledActivity)
           .then(() => {
