@@ -13,9 +13,11 @@ export const findUserByWallet = (wallet: FirestoreWallet) =>
     getCollectionFromPath,
     whereCollection<FirestoreUser>('wallets', 'array-contains', wallet),
     getCollectionDocs,
-    ifElse(
-      isEmpty,
-      pipe(errorPromise<User>('not found'), R.fromPromise<User>),
-      andThen(pipe(head, castAs, convertUser, mapUser, R.fromPromise<User>))
+    andThen(
+      ifElse(
+        isEmpty,
+        pipe(errorPromise<User>('User not found'), R.fromPromise<User>),
+        pipe(head, castAs, convertUser, mapUser, R.fromPromise<User>)
+      )
     )
   )('users')

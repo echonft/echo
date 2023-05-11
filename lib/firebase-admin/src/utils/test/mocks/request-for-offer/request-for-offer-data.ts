@@ -10,7 +10,7 @@ export const requestsForOfferData: { [key: string]: FirestoreRequestForOfferData
   jUzMtPGKM62mMhEcmbN4: {
     refPath: 'requests-for-offer/jUzMtPGKM62mMhEcmbN4',
     id: 'jUzMtPGKM62mMhEcmbN4',
-    state: 'CREATED',
+    state: 'EXPIRED',
     sender: userData['oE6yUEQBPn7PZ89yMjKn']!,
     items: [
       {

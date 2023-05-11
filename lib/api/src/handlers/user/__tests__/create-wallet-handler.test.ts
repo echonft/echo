@@ -3,7 +3,7 @@ import { WalletResponse } from '../../../types/model/responses/wallet-response'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { createWalletHandler } from '../create-wallet-handler'
 import { findNonceForUser, findUserByWallet, updateUserWallets } from '@echo/firebase-admin'
-import { generateMockWallet, mockUser, mockWallet, Signature } from '@echo/model'
+import { generateMockWallet, mockUser, Signature } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { SiweMessage } from 'siwe'
@@ -17,7 +17,7 @@ describe('handlers - user - createWalletHandler', () => {
   const mockedUpdateWallets = jest.mocked(updateUserWallets)
   const mockedFindUserByWallet = jest.mocked(findUserByWallet).mockResolvedValue(R.fromNullable(null, new Error()))
   const user = mockUser
-  const wallet = mockWallet
+  const wallet = user.wallets![0]!
   const signature = '0xtest'
   const nonce = 'nonce'
 

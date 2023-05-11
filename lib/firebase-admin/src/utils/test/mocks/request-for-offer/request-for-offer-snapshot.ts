@@ -16,7 +16,7 @@ export const requestForOfferSnapshots: { [key: string]: FirestoreSnapshot<Firest
     exists: true,
     data: () => ({
       id: 'jUzMtPGKM62mMhEcmbN4',
-      state: RequestForOfferState.CREATED,
+      state: RequestForOfferState.EXPIRED,
       sender: userReferences['oE6yUEQBPn7PZ89yMjKn']!,
       items: [
         {

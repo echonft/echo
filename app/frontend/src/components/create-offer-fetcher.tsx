@@ -8,6 +8,7 @@ interface Props {
   collectionId: string
 }
 
+// FIXME This uses a mock for now, should use the user's NFT
 export const CreateOfferFetcher: FunctionComponent<Props> = () => {
   const [create, setCreate] = useState(false)
   const mockRequest = useMemo(() => mockCreateRequestForOfferRequest, [])

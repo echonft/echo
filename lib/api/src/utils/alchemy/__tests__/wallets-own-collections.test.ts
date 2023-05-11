@@ -30,8 +30,16 @@ describe('utils - alchemy - walletsOwnCollections', () => {
     const ownsNfts = await walletsOwnCollections(mockedClient, wallets, [])
     expect(ownsNfts).toBeFalsy()
   })
+  it('if verifyNftOwnership returns an undefined value, returns false', async () => {
+    // @ts-ignore
+    jest.spyOn(mockedClient.nft, 'verifyNftOwnership').mockImplementation(() => {
+      return Promise.resolve(undefined)
+    })
+    const ownsNfts = await walletsOwnCollections(mockedClient, wallets, contracts)
+    expect(ownsNfts).toBeFalsy()
+  })
   it('if user does not own a token from all collections, returns false', async () => {
-    jest.spyOn(mockedClient.nft, 'verifyNftOwnership').mockImplementation((walletAddress, _contractAdresses) => {
+    jest.spyOn(mockedClient.nft, 'verifyNftOwnership').mockImplementation((walletAddress) => {
       if (walletAddress === '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8') {
         return Promise.resolve({ '0xtest': true, '0x1234567890': false })
       }
@@ -43,9 +51,7 @@ describe('utils - alchemy - walletsOwnCollections', () => {
   it('if user own a token from all collections, returns true', async () => {
     jest
       .spyOn(mockedClient.nft, 'verifyNftOwnership')
-      .mockImplementation((_walletAddress, _contractAdresses) =>
-        Promise.resolve({ '0xtest': true, '0x1234567890': true })
-      )
+      .mockImplementation(() => Promise.resolve({ '0xtest': true, '0x1234567890': true }))
     const ownsNfts = await walletsOwnCollections(mockedClient, wallets, contracts)
     expect(ownsNfts).toBeTruthy()
   })

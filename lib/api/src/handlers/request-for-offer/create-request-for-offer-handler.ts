@@ -3,19 +3,19 @@ import { mapRequestForOfferToResponse } from '../../mappers/map-request-for-offe
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
 import { CreateRequestForOfferRequest } from '../../types/model/requests/create-request-for-offer-request'
-import { CreateRequestForOfferResponse } from '../../types/model/responses/create-request-for-offer-response'
+import { RequestForOfferResponse } from '../../types/model/responses/request-for-offer-response'
 import { createRequestForOfferSchema } from '../../types/validators/create-request-for-offer'
 import { getAlchemy } from '../../utils/alchemy/alchemy'
 import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
 import { addRequestForOffer, findDiscordGuildByGuildId } from '@echo/firebase-admin'
 import { userIsInGuild } from '@echo/model'
-import { logger } from '@echo/utils'
+import { isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'
 
 export const createRequestForOfferHandler: RequestHandler<
   ApiRequest<CreateRequestForOfferRequest, never>,
-  CreateRequestForOfferResponse
+  RequestForOfferResponse
 > = async (req, res, session) => {
   // TODO Shouldn't have to do that
   if (isNil(session)) {
@@ -27,6 +27,10 @@ export const createRequestForOfferHandler: RequestHandler<
     res.end(res.status(500).json({ error: 'User not found' }))
     return
   }
+  if (isNilOrEmpty(user.wallets)) {
+    res.end(res.status(401).json({ error: 'User does not have wallets' }))
+    return
+  }
   try {
     const validatedRequest = createRequestForOfferSchema.parse(req.body)
     return findDiscordGuildByGuildId(validatedRequest.discordGuildId).then((discordGuildResult) => {
@@ -36,7 +40,8 @@ export const createRequestForOfferHandler: RequestHandler<
       }
       const discordGuild = R.getExn(discordGuildResult)
       if (userIsInGuild(user, discordGuild)) {
-        return walletsOwnTokens(getAlchemy(), user.wallets ?? [], validatedRequest.items)
+        // We can unwrap here, wallets are not going to be empty or nil
+        return walletsOwnTokens(getAlchemy(), user.wallets!, validatedRequest.items)
           .then((userOwnsAllNfts) => {
             if (!userOwnsAllNfts) {
               res.end(res.status(401).json({ error: 'User does not own all the NFTs to offer' }))

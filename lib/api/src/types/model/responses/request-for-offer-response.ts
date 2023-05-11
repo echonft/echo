@@ -4,7 +4,7 @@ import { SwapResponse } from './swap-response'
 import { FirestoreActivityData } from '@echo/firestore'
 import { Contract, DiscordGuild, RequestForOfferState, User } from '@echo/model'
 
-export interface CreateRequestForOfferResponse {
+export interface RequestForOfferResponse {
   id: string
   state: RequestForOfferState
   sender: User
