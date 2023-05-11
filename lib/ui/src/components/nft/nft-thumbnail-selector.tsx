@@ -10,6 +10,9 @@ export const NftThumbnailSelector: FunctionComponent<NftThumbnailSelectorProps> 
   return (
     <button
       className={clsx(
+        'flex',
+        'justify-center',
+        'items-center',
         'absolute',
         'top-2',
         'right-2',
@@ -20,13 +23,13 @@ export const NftThumbnailSelector: FunctionComponent<NftThumbnailSelectorProps> 
         'border-solid',
         'border',
         'border-yellow-500',
-        'p-[3px]',
-        'bg-clip-content',
-        selected ? 'bg-yellow-500' : 'bg-transparent'
+        'bg-transparent'
       )}
       onClick={() => {
         onToggleSelection?.(!selected)
       }}
-    />
+    >
+      {selected && <span className={clsx('w-4.5', 'h-4.5', 'bg-yellow-500', 'rounded')} />}
+    </button>
   )
 }

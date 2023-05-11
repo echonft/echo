@@ -1,4 +1,4 @@
-import { NftThumbnailSelectable as Component } from '@echo/ui'
+import { NftThumbnailSelectable as Component, SelectionManager } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata = {
@@ -52,4 +52,17 @@ export const Selected: Story = {
     tokenId: BigInt(10000),
     selected: true
   }
+}
+
+export const Managed: Story = {
+  render: () => (
+    <SelectionManager>
+      <Component
+        pictureUrl={'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-nft.png?alt=media'}
+        owner={'crewNFT_'}
+        name={'Sun Flyer'}
+        tokenId={BigInt(10000)}
+      />
+    </SelectionManager>
+  )
 }

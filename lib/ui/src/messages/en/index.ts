@@ -2,6 +2,11 @@ export const messages = {
   collection: {
     details: {
       size: '{size, number, ::K} NFTs'
+    },
+    filters: {
+      traits: {
+        title: 'Attributes'
+      }
     }
   },
   layout: {

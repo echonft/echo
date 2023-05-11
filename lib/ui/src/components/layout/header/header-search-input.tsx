@@ -14,7 +14,6 @@ export const HeaderSearchInput: FunctionComponent<HeaderSearchInputProps> = ({ o
     <Combobox
       className={clsx('relative', 'w-full', 'h-[1.875rem]', 'flex', 'flex-row', 'items-center')}
       as={'div'}
-      name="assignee"
       defaultValue={''}
     >
       <SearchIconSvg
