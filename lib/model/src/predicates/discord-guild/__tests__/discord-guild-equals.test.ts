@@ -6,7 +6,7 @@ import { describe, expect, it } from '@jest/globals'
 describe('predicates - discord-guild - discordGuildEquals', () => {
   const discordGuild1: DiscordGuild = { discordId: '1234', contracts: [], id: '1234', name: 'test', channelId: '1234' }
   const discordGuild2: DiscordGuild = {
-    discordId: '123456',
+    discordId: '462798252543049728',
     contracts: [generateMockContract({})],
     id: '123456',
     name: 'test2',
@@ -44,7 +44,7 @@ describe('predicates - discord-guild - discordGuildEquals', () => {
     ).toBeTruthy()
     expect(
       discordGuildEquals(discordGuild2)({
-        discordId: '123456',
+        discordId: '462798252543049728',
         contracts: [generateMockContract({})],
         id: '123456',
         name: 'test2',

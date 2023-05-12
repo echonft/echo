@@ -35,7 +35,7 @@ describe('mappers - mapSwapToResponse', () => {
       threadId: '1231',
       sender: {
         id: 'oE6yUEQBPn7PZ89yMjKn',
-        discordId: '123456',
+        discordId: '462798252543049728',
         discordBanner: undefined,
         discordUsername: 'johnnycage#0890',
         discordGuilds: [
@@ -56,7 +56,7 @@ describe('mappers - mapSwapToResponse', () => {
             ]
           }
         ],
-        discordAvatar: '4b4d6722cb2b98b0b817020257a9c3ec',
+        discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
         wallets: [
           { address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8', chainId: 1 },
           { address: '0x9e7343Ce1816a7fc21E1c46537F04050F97AfbD9', chainId: 1 },
@@ -79,7 +79,7 @@ describe('mappers - mapSwapToResponse', () => {
       ],
       receiver: {
         id: 'oE6yUEQBPn7PZ89yMjKn',
-        discordId: '123456',
+        discordId: '462798252543049728',
         discordBanner: undefined,
         discordUsername: 'johnnycage#0890',
         discordGuilds: [
@@ -100,7 +100,7 @@ describe('mappers - mapSwapToResponse', () => {
             ]
           }
         ],
-        discordAvatar: '4b4d6722cb2b98b0b817020257a9c3ec',
+        discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
         wallets: [
           { address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8', chainId: 1 },
           { address: '0x9e7343Ce1816a7fc21E1c46537F04050F97AfbD9', chainId: 1 },
