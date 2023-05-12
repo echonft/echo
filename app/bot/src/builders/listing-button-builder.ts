@@ -1,13 +1,13 @@
-import { listingLink } from '../routing/listing-ling'
+import { listingLink } from '../routing/listing-link'
 import { ButtonAction } from '../types/models/button-action'
-import { Offer } from '@echo/model'
+import { RequestForOffer } from '@echo/model'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 
 /**
  * Build a "buy listing" button for an offer. This is called when new listings are created
  * @param listing The new listing created
  */
-function buildBuyListingButton(listing: Offer) {
+function buildBuyListingButton(listing: RequestForOffer) {
   return (
     new ButtonBuilder()
       .setCustomId(`${ButtonAction.BUY}-${listing.id}`)
@@ -17,11 +17,11 @@ function buildBuyListingButton(listing: Offer) {
   )
 }
 
-function buildListingLinkButton(listing: Offer) {
+function buildListingLinkButton(listing: RequestForOffer) {
   return new ButtonBuilder().setLabel('View on Echo').setURL(listingLink(listing)).setStyle(ButtonStyle.Link)
 }
 
-export function buildNewListingButtons(listing: Offer) {
+export function buildNewListingButtons(listing: RequestForOffer) {
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
     buildBuyListingButton(listing),
     buildListingLinkButton(listing)

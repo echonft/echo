@@ -1,6 +1,6 @@
 import { collectionListingsLink } from './collection-listings-link'
-import { Offer } from '@echo/model'
+import { RequestForOffer } from '@echo/model'
 
-export function listingLink(listing: Offer): string {
+export function listingLink(listing: RequestForOffer): string {
   return `${collectionListingsLink(listing.discordGuild.discordId)}/${listing.id}`
 }
