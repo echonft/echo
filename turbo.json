@@ -108,7 +108,7 @@
     "@echo/frontend#build": {
       "dependsOn": ["^build"],
       "env": ["NEXT_PUBLIC_CHAIN_ID", "NEXT_PUBLIC_MOCK"],
-      "outputs": [".next/**", "dist/**"],
+      "outputs": [".next/**", "!.next/cache/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
     "@echo/storybook#build": {

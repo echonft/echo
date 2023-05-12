@@ -5,12 +5,13 @@ export interface SvgSizeProps {
   width?: number
   height?: number
 }
-export interface SvgProps extends Omit<SVGProps<SVGElement>, 'width' | 'height'>, SvgSizeProps {}
+export interface SvgProps extends Omit<SVGProps<SVGElement>, 'width' | 'height'>, SvgSizeProps {
+  className?: string
+}
 
 interface Props extends SvgProps {
   viewBoxWidth: number
   viewBoxHeight: number
-  className?: string
 }
 
 export const Svg: FunctionComponent<Props> = ({ children, className, ...props }) => {

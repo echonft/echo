@@ -1,3 +1,4 @@
+import { collectionProfilePictureUrl } from '../constants'
 import { CollectionDetails as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -14,10 +15,8 @@ export const CollectionDetails: Story = {
   render: () => (
     <Component
       name={'sun flyers nft'}
-      description={'10K NFTs'}
-      profilePictureUrl={
-        'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-pfp.jpg?alt=media'
-      }
+      size={10000}
+      profilePictureUrl={collectionProfilePictureUrl}
       discordUrl={'https://discord.gg/qdJTyTXT'}
       twitterUsername={'Sun_flyers'}
       websiteUrl={'https://echonft.xyz'}

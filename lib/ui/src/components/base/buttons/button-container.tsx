@@ -1,4 +1,4 @@
-import { SizeLG, SizeMD, SizeSM, SizeXS } from '../../../types/size'
+import { SizeFull, SizeLG, SizeMD, SizeSM, SizeXS } from '../../../types/size'
 import { ButtonSize } from './button-size'
 import { ButtonWidth } from './button-width'
 import { clsx } from 'clsx'
@@ -31,7 +31,9 @@ export const ButtonContainer: FunctionComponent<PropsWithChildren<ButtonContaine
         size === SizeSM && ['rounded-lg', '[&>div]:rounded-lg'],
         size === SizeMD && ['rounded-md', '[&>div]:rounded-md'],
         size === SizeLG && ['rounded-lg', '[&>div]:rounded-lg'],
-        fixedWidth === SizeMD && 'w-16'
+        fixedWidth === SizeMD && 'w-16',
+        fixedWidth === SizeLG && 'w-36',
+        fixedWidth === SizeFull && 'w-full'
       )}
     >
       {children}

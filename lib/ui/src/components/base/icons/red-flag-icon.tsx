@@ -14,8 +14,10 @@ export const RedFlagIcon: FunctionComponent<RedFlagIconProps> = ({ size }) => {
   const height = Math.floor(getIconSizeInPx(size) * (14 / 24))
   return (
     <IconContainer size={size}>
-      <IconContainerColor className={clsx('text-red-500')}>
-        <FlagIconSvg width={width} height={height} />
+      <IconContainerColor>
+        <div className={clsx('text-red-500')}>
+          <FlagIconSvg width={width} height={height} />
+        </div>
       </IconContainerColor>
     </IconContainer>
   )

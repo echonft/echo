@@ -16,9 +16,21 @@ export const Header: FunctionComponent<HeaderProps> = ({ user, onSearchQueryChan
   return (
     <header className={clsx('bg-dark-500', 'border', 'border-b-2', 'border-solid', 'border-black/[0.09]')}>
       <PaddedContainer>
-        <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
+        <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-12')}>
           <EchoLogoSvg width={144} />
-          <HeaderSearchInput onChange={onSearchQueryChange} />
+          <div
+            className={clsx(
+              'flex',
+              'flex-row',
+              'grow',
+              'justify-center',
+              'max-w-[20rem]',
+              'lg:max-w-[32rem]',
+              'xl:max-w-[38rem]'
+            )}
+          >
+            <HeaderSearchInput onChange={onSearchQueryChange} />
+          </div>
           <UserTag user={user!} />
         </div>
       </PaddedContainer>
