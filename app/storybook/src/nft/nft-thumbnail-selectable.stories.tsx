@@ -1,3 +1,5 @@
+import { nftPictureUrl } from '../constants'
+import { mockUser } from '@echo/model'
 import { NftThumbnailSelectable as Component, SelectionManager } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -27,8 +29,8 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-nft.png?alt=media',
-    owner: 'crewNFT_',
+    pictureUrl: nftPictureUrl,
+    owner: mockUser.discordUsername,
     name: 'Sun Flyer',
     tokenId: BigInt(10000)
   }
@@ -36,8 +38,8 @@ export const Default: Story = {
 
 export const Flagged: Story = {
   args: {
-    pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-nft.png?alt=media',
-    owner: 'crewNFT_',
+    pictureUrl: nftPictureUrl,
+    owner: mockUser.discordUsername,
     name: 'Sun Flyer',
     tokenId: BigInt(10000),
     flagged: true
@@ -46,8 +48,8 @@ export const Flagged: Story = {
 
 export const Selected: Story = {
   args: {
-    pictureUrl: 'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-nft.png?alt=media',
-    owner: 'crewNFT_',
+    pictureUrl: nftPictureUrl,
+    owner: mockUser.discordUsername,
     name: 'Sun Flyer',
     tokenId: BigInt(10000),
     selected: true
@@ -58,8 +60,8 @@ export const Managed: Story = {
   render: () => (
     <SelectionManager>
       <Component
-        pictureUrl={'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-nft.png?alt=media'}
-        owner={'crewNFT_'}
+        pictureUrl={nftPictureUrl}
+        owner={mockUser.discordUsername}
         name={'Sun Flyer'}
         tokenId={BigInt(10000)}
       />

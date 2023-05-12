@@ -1,4 +1,4 @@
-import { User } from '@echo/model'
+import { mockUser } from '@echo/model'
 import { Header as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -18,15 +18,5 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 export const Header: Story = {
-  render: () => (
-    <Component
-      user={
-        {
-          discordUsername: 'johnnycage',
-          discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-          discordId: '462798252543049728'
-        } as User
-      }
-    />
-  )
+  render: () => <Component user={mockUser} />
 }

@@ -1,3 +1,4 @@
+import { collectionProfilePictureUrl } from '../constants'
 import { ProfilePicture as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -11,12 +12,7 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 export const Standard: Story = {
-  render: () => (
-    <Component
-      name={'johnnycage'}
-      src={'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-pfp.jpg?alt=media'}
-    />
-  )
+  render: () => <Component name={'johnnycage'} src={collectionProfilePictureUrl} />
 }
 
 export const Default: Story = {

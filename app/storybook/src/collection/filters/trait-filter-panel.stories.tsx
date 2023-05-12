@@ -60,11 +60,3 @@ export const SomeSelected: Story = {
     selections
   }
 }
-
-// export const Managed: Story = {
-//   render: () => (
-//     <FiltersPanel>
-//       <TraitFilterPickerManager traitFilterGroup={traitFilterGroup} />
-//     </FiltersPanel>
-//   )
-// }
