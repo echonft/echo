@@ -1,0 +1,19 @@
+# fly.toml app configuration file generated for echo-bot-dev on 2023-05-11T15:02:00+07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "echo-bot-dev"
+primary_region = "yul"
+
+[env]
+  PORT = "8080"
+  BASE_URL='https://alpha.echonft.xyz/'
+  DISCORD_CLIENT_TOKEN='MTAyMjI1MzQyNzQzNjI5ODI1MA.GnHPwp.Vs9AXJx853unuyIAIP_mS0grPtjXqwbzVPQ_HQ'
+  DISCORD_CLIENT_SECRET='oV_m9Uvprfq_KOvHPjA48O04kh__aRNe'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
