@@ -1,5 +1,4 @@
-import { nftPictureUrl } from '../constants'
-import { mockUser } from '@echo/model'
+import { mockNftCollection, mockOwnedNft, mockUser } from '@echo/model'
 import { NftThumbnailSelectable as Component, SelectionManager } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -29,18 +28,20 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    pictureUrl: nftPictureUrl,
+    pictureUrl: mockOwnedNft.media[0]!.gateway,
     owner: mockUser.discordUsername,
-    name: 'Sun Flyer',
+    collectionName: mockNftCollection.openSea?.collectionName,
+    title: 'Sun Flyer',
     tokenId: BigInt(10000)
   }
 }
 
 export const Flagged: Story = {
   args: {
-    pictureUrl: nftPictureUrl,
+    pictureUrl: mockOwnedNft.media[0]!.gateway,
     owner: mockUser.discordUsername,
-    name: 'Sun Flyer',
+    collectionName: mockNftCollection.openSea?.collectionName,
+    title: 'Sun Flyer',
     tokenId: BigInt(10000),
     flagged: true
   }
@@ -48,9 +49,10 @@ export const Flagged: Story = {
 
 export const Selected: Story = {
   args: {
-    pictureUrl: nftPictureUrl,
+    pictureUrl: mockOwnedNft.media[0]!.gateway,
     owner: mockUser.discordUsername,
-    name: 'Sun Flyer',
+    collectionName: mockNftCollection.openSea?.collectionName,
+    title: 'Sun Flyer',
     tokenId: BigInt(10000),
     selected: true
   }
@@ -60,9 +62,10 @@ export const Managed: Story = {
   render: () => (
     <SelectionManager>
       <Component
-        pictureUrl={nftPictureUrl}
+        pictureUrl={mockOwnedNft.media[0]!.gateway}
         owner={mockUser.discordUsername}
-        name={'Sun Flyer'}
+        collectionName={mockNftCollection.openSea!.collectionName!}
+        title={'Sun Flyer'}
         tokenId={BigInt(10000)}
       />
     </SelectionManager>

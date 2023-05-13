@@ -2,15 +2,16 @@ import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 export interface NftThumbnailTitleProps {
-  name: string
+  collectionName: string
+  title: string | undefined
   tokenId: bigint
 }
 
-export const NftThumbnailTitle: FunctionComponent<NftThumbnailTitleProps> = ({ name, tokenId }) => {
+export const NftThumbnailTitle: FunctionComponent<NftThumbnailTitleProps> = ({ collectionName, title, tokenId }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-1')}>
-      <span className={clsx('prose-label-md-bold', 'text-white/[0.65]')}>{name}</span>
-      <span className={clsx('prose-label-md-bold', 'text-white')}>{`#${tokenId.toString()}`}</span>
+      <span className={clsx('prose-label-md-semi', 'text-white/[0.65]')}>{title ?? collectionName}</span>
+      <span className={clsx('prose-label-md-semi', 'text-white')}>{`#${tokenId.toString()}`}</span>
     </div>
   )
 }

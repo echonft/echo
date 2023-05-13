@@ -5,12 +5,12 @@ import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 export interface ProfilePictureProps {
-  name: string
-  src: string | undefined
+  collectionName: string
+  profilePictureUrl: URL | undefined
 }
 
-export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({ name, src }) => {
-  if (isNil(src)) {
+export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({ collectionName, profilePictureUrl }) => {
+  if (isNil(profilePictureUrl)) {
     return (
       <DefaultCollectionProfilePicture
         className={clsx('rounded-2xl', 'border-solid', 'border-3', 'border-yellow-500', 'w-40', 'h-40')}
@@ -22,8 +22,8 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({ name, s
   return (
     <Image
       className={clsx('rounded-2xl', 'border-solid', 'border-3', 'border-yellow-500', 'w-40', 'h-40')}
-      src={src}
-      alt={name}
+      src={profilePictureUrl.href}
+      alt={collectionName}
       width={160}
       height={160}
     />

@@ -1,4 +1,5 @@
-import { bannerUrl, collectionProfilePictureUrl } from '../constants'
+import { collectionProfilePictureUrl } from '../constants'
+import { mockNftCollection } from '@echo/model'
 import { CollectionUpper as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -14,13 +15,13 @@ type Story = StoryObj<typeof Component>
 export const CollectionUpper: Story = {
   render: () => (
     <Component
-      name={'sun flyers nft'}
+      collectionName={mockNftCollection.openSea!.collectionName!}
       size={10000}
-      profilePictureUrl={collectionProfilePictureUrl}
-      discordUrl={'https://discord.gg/qdJTyTXT'}
-      twitterUsername={'Sun_flyers'}
-      websiteUrl={'https://echonft.xyz'}
-      bannerUrl={bannerUrl}
+      profilePictureUrl={new URL(collectionProfilePictureUrl)}
+      discordUrl={mockNftCollection.openSea!.discordUrl}
+      twitterUsername={mockNftCollection.openSea!.twitterUsername}
+      websiteUrl={mockNftCollection.openSea!.externalUrl}
+      bannerUrl={new URL(mockNftCollection.openSea!.imageUrl!)}
       description={
         'A handcrafted collection of 10,000 characters developed by artist DirtyRobot. Each with their own identity to be discovered within the wider stories of RENGA. In its purest form, RENGA is the art of storytelling'
       }

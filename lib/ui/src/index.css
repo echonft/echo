@@ -45,26 +45,26 @@
     .prose-display-sm-light {
         @apply text-display-sm-light font-inter
     }
-    .prose-header-lg-bold {
-        @apply text-header-lg-bold font-inter
+    .prose-header-lg-semi {
+        @apply text-header-lg-semi font-inter
     }
     .prose-header-lg {
         @apply text-header-lg font-inter
     }
-    .prose-header-md-bold {
-        @apply text-header-md-bold font-inter
+    .prose-header-md-semi {
+        @apply text-header-md-semi font-inter
     }
     .prose-header-md {
         @apply text-header-md font-inter
     }
-    .prose-header-sm-bold {
-        @apply text-header-sm-bold font-inter
+    .prose-header-sm-semi {
+        @apply text-header-sm-semi font-inter
     }
     .prose-header-sm {
         @apply text-header-sm font-inter
     }
-    .prose-header-xs-bold {
-        @apply text-header-xs-bold font-inter
+    .prose-header-xs-semi {
+        @apply text-header-xs-semi font-inter
     }
     .prose-header-xs {
         @apply text-header-xs font-inter
@@ -102,26 +102,26 @@
     .prose-label-lg {
         @apply text-label-lg font-inter
     }
-    .prose-label-lg-bold {
-        @apply text-label-lg-bold font-inter
+    .prose-label-lg-semi {
+        @apply text-label-lg-semi font-inter
     }
     .prose-label-md {
         @apply text-label-md font-inter
     }
-    .prose-label-md-bold {
-        @apply text-label-md-bold font-inter
+    .prose-label-md-semi {
+        @apply text-label-md-semi font-inter
     }
     .prose-label-sm {
         @apply text-label-sm font-inter
     }
-    .prose-label-sm-bold {
-        @apply text-label-sm-bold font-inter
+    .prose-label-sm-semi {
+        @apply text-label-sm-semi font-inter
     }
     .prose-label-xs {
         @apply text-label-xs font-inter
     }
-    .prose-label-xs-bold {
-        @apply text-label-xs-bold font-inter
+    .prose-label-xs-semi {
+        @apply text-label-xs-semi font-inter
     }
     .prose-label-caps-lg {
         @apply text-caps-lg font-inter uppercase

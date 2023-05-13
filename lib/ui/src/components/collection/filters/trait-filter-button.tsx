@@ -30,7 +30,7 @@ export const TraitFilterButton: FunctionComponent<TraitFilterButtonProps> = ({
         onToggleCollapsed?.(!collapsed)
       }}
     >
-      <span className={clsx('prose-label-sm-bold', 'text-white', 'truncate')}>{type}</span>
+      <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>{type}</span>
       <span className={clsx('text-white/50', 'transition-transform', collapsed && 'rotate-180')}>
         <DownCaretSvg />
       </span>
