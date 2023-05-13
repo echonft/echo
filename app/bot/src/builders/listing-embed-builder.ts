@@ -1,23 +1,23 @@
-import { listingLink } from '../routing/listing-ling'
+import { listingLink } from '../routing/listing-link'
 import { stringForListingItems } from '../utils/string-for-listing-items'
-import { Offer, OfferItem } from '@echo/model'
+import { Contract, OfferItem, RequestForOffer } from '@echo/model'
 import { APIEmbedField, EmbedBuilder } from 'discord.js'
 
-export function buildListingEmbed(listing: Offer) {
+export function buildListingEmbed(listing: RequestForOffer) {
   return (
     new EmbedBuilder()
       .setTitle(title(listing))
       .setDescription(description())
       .setColor(color())
       // FIXME
-      .setFields(fields(listing.senderItems, listing.receiverItems))
+      .setFields(fields(listing.items, listing.target))
       .setURL(listingLink(listing))
   )
 }
 
 // TODO Check to add the discord user as a tag?
 // TODO Translation
-function title(listing: Offer): string {
+function title(listing: RequestForOffer): string {
   return `A new offer was created from <@${listing.sender.discordId}>`
 }
 
@@ -37,15 +37,24 @@ function color(): number {
   return 0x00ff66
 }
 
-function fields(ownerItems: OfferItem[] | undefined, counterpartyItems: OfferItem[] | undefined): APIEmbedField[] {
+function fields(items: OfferItem[], target: Contract[]): APIEmbedField[] {
   // FIXME
-  return [listingItemsField(ownerItems), listingItemsField(counterpartyItems)]
+  return [listingItemsField(items), listingTarget(target)]
 }
 
 function listingItemsField(items: OfferItem[] | undefined): APIEmbedField {
   return {
     name: listingItemFieldName(),
     value: stringForListingItems(items),
+    inline: true
+  }
+}
+
+// TODO
+function listingTarget(_target: Contract[]): APIEmbedField {
+  return {
+    name: 'Contract',
+    value: 'TODO',
     inline: true
   }
 }
