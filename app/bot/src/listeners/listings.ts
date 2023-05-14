@@ -12,7 +12,6 @@ export function listenToListings(client: Client) {
       const channel = await getDiscordChannel(client, listing.discordGuild.channelId)
       if (change.type === 'added' && isNil(listing.postedAt)) {
         void channel
-          // TODO how should we display offer items here?
           .send({
             components: [buildNewListingButtons(listing)],
             embeds: [buildListingEmbed(listing)]
@@ -25,7 +24,7 @@ export function listenToListings(client: Client) {
           })
       }
     } catch (error) {
-      logger.error(`Error listening to listings: ${errorMessage(error)}`)
+      logger.error(`Error listening to listings: ${JSON.stringify(error)} for listing ${listing.id}`)
     }
   })
 }

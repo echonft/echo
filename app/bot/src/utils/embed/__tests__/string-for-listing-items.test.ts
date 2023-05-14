@@ -2,7 +2,7 @@ import { stringForListingItems } from '../string-for-listing-items'
 import { OfferItem } from '@echo/model'
 import { describe, expect, test } from '@jest/globals'
 
-describe('string-for-listing-items - stringForListingItems', () => {
+describe('utils - embed - stringForListingItems', () => {
   const anyNFT = 'Any NFT'
   test('Undefined OfferItem returns Any NFT', () => {
     expect(stringForListingItems(undefined)).toEqual(anyNFT)
