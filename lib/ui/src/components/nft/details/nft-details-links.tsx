@@ -1,5 +1,6 @@
 import { SizeLG } from '../../../types/size'
 import { ExternalLink } from '../../base/external-link'
+import { BlurIcon } from '../../base/icons/blur-icon'
 import { OpenSeaIcon } from '../../base/icons/open-sea-icon'
 import { HideIfNilOrEmpty } from '../../utils/hide-if-nil-or-empty'
 import { clsx } from 'clsx'
@@ -20,7 +21,7 @@ export const NftDetailsLinks: FunctionComponent<NftDetailsLinksProps> = ({ openS
       </HideIfNilOrEmpty>
       <HideIfNilOrEmpty checks={blurUrl}>
         <ExternalLink href={blurUrl!}>
-          <OpenSeaIcon size={SizeLG} />
+          <BlurIcon size={SizeLG} />
         </ExternalLink>
       </HideIfNilOrEmpty>
     </div>

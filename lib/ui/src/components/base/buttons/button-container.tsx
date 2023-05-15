@@ -27,6 +27,7 @@ export const ButtonContainer: FunctionComponent<PropsWithChildren<ButtonContaine
         'border',
         'border-transparent',
         '[&>div]:border',
+        'h-max',
         size === SizeXS && ['rounded-lg', '[&>div]:rounded-lg'],
         size === SizeSM && ['rounded-lg', '[&>div]:rounded-lg'],
         size === SizeMD && ['rounded-md', '[&>div]:rounded-md'],
