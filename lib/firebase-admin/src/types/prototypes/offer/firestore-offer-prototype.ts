@@ -1,10 +1,10 @@
 import { FirestorePrototypeData } from '../base/firestore-prototype-data'
-import { OfferItem, User } from '@echo/model'
+import { FirestoreOfferItemPrototype } from '../offer-item/firestore-offer-item-prototype'
 
 export interface FirestoreOfferPrototype extends FirestorePrototypeData {
   discordGuildId: string
   senderId: string
-  senderItems: OfferItem[]
-  receiverId: User
-  receiverItems: OfferItem[]
+  senderItems: FirestoreOfferItemPrototype[]
+  receiverId: string
+  receiverItems: FirestoreOfferItemPrototype[]
 }
