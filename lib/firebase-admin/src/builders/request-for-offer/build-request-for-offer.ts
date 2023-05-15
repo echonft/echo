@@ -24,11 +24,9 @@ export const buildRequestForOffer: FirestoreBuilder<
   if (isEmpty(target)) {
     throw Error('buildRequestForOffer Invalid target')
   }
-  const activities = await buildRequestForOfferActivity({
-    date: dayjs(),
-    fromState: undefined,
-    toState: RequestForOfferState.CREATED
-  }).then((activity) => [activity])
+  const activities = await buildRequestForOfferActivity(
+    generateRequestForOfferActivity(RequestForOfferState.CREATED) as FirestoreRequestForOfferActivityPrototype
+  ).then((activity) => [activity])
   return {
     state: RequestForOfferState.CREATED,
     sender: getFirestoreUserRefById(prototype.senderId),
