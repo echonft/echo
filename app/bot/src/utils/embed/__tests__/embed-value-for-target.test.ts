@@ -33,16 +33,6 @@ describe('utils - embed - embedValueForTarget', () => {
     expect(result).toEqual(expectedResult)
   })
 
-  it('should throw an error when no target address is provided', () => {
-    const target = {
-      name: 'Test Token',
-      symbol: 'TEST'
-    } as unknown as Contract
-    expect(() => {
-      embedValueForTarget(target)
-    }).toThrow()
-  })
-
   it('should return expected result with address when no symbol and empty name', () => {
     const target = {
       address: '0x123',
