@@ -1,5 +1,5 @@
-import { listingLink } from '../listing-ling'
-import { Offer } from '@echo/model'
+import { listingLink } from '../listing-link'
+import { mockRequestForOffer } from '@echo/model'
 import { describe, expect, jest, test } from '@jest/globals'
 
 jest.mock('../get-base-url', () => ({
@@ -7,8 +7,9 @@ jest.mock('../get-base-url', () => ({
 }))
 
 describe('Routing - listingLink', () => {
-  const mockOffer = { id: '1', discordGuild: { discordId: '2' } } as unknown as Offer
   test('returns link with listing', () => {
-    expect(listingLink(mockOffer)).toEqual('https://echonft.xyz/collection/2/listings/1')
+    expect(listingLink(mockRequestForOffer)).toEqual(
+      `https://echonft.xyz/collection/${mockRequestForOffer.discordGuild.discordId}/listings/${mockRequestForOffer.id}`
+    )
   })
 })

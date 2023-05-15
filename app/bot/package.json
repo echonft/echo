@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -19,8 +18,8 @@
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier --check \"src/**/*.ts\"",
-    "start": "node dist/index.js",
-    "start:dev": "nodemon --watch 'dist/*' --watch 'node_modules/@echo/*' dist/index.js",
+    "start": "node dist/index.mjs",
+    "start:dev": "nodemon --watch 'dist/*' --watch 'node_modules/@echo/*' dist/index.mjs",
     "test": "jest",
     "test:ci": "jest --ci",
     "test:watch": "jest --watch",
