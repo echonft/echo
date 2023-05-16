@@ -4,4 +4,5 @@ import { Offer } from '@echo/model'
 import { R } from '@mobily/ts-belt'
 import { pipe } from 'ramda'
 
+// TODO Should add a check if ID does not exist
 export const findOfferById = (id: string) => pipe(getFirestoreOfferData, mapOffer, R.fromPromise<Offer>)(id)

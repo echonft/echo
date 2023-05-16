@@ -5,7 +5,7 @@ import { FirestoreOfferActivityPrototype } from '../../types/prototypes/offer/fi
 import { FirestoreOfferPrototype } from '../../types/prototypes/offer/firestore-offer-prototype'
 import { buildOfferItem } from '../offer/build-offer-item'
 import { buildOfferActivity } from './build-offer-activity'
-import { FirestoreOffer, FirestoreRequestForOffer } from '@echo/firestore'
+import { FirestoreOffer } from '@echo/firestore'
 import { generateOfferActivity, OfferState } from '@echo/model'
 import { R } from '@mobily/ts-belt'
 import dayjs from 'dayjs'
@@ -29,5 +29,5 @@ export const buildOffer: FirestoreBuilder<FirestoreOfferPrototype, FirestoreOffe
     createdAt: dayjs().unix(),
     // For now, we default to 24 hours offer, we should have more flexibility in the future
     expiresAt: dayjs().add(1, 'day').unix()
-  } as unknown as FirestoreRequestForOffer
+  } as unknown as FirestoreOffer
 }
