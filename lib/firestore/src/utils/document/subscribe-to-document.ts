@@ -1,3 +1,4 @@
+import { CollectionName } from '../../config/collection-name'
 import { convertDefault } from '../converter/convert-default'
 import { mapDefault } from '../mapper/map-default'
 import { getDocRefFromPath } from './get-doc-ref-from-path'
@@ -6,7 +7,7 @@ import { pipe } from 'ramda'
 
 export const subscribeToDocument = <W>(
   onNext: (model: Promise<W>) => void,
-  path: string,
+  path: CollectionName,
   ...pathSegments: string[]
 ): Unsubscribe =>
   onSnapshot(getDocRefFromPath(path, ...pathSegments), (snapshot) => {

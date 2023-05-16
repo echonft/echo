@@ -1,3 +1,4 @@
+import { CollectionName } from '../../config/collection-name'
 import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { FirestoreRootCollectionDocumentData } from '../../types/model/data/abstract/firestore-root-collection-document-data'
@@ -9,7 +10,7 @@ export const convertDefault = <T extends DocumentData, V extends FirestoreRootCo
   snapshot: FirestoreSnapshot<T>
 ): Promise<V> =>
   converge(call, [
-    pipe<[FirestoreSnapshot<T>], DocumentReference<T>, string, string[], string, FirestoreConverter<T, V>>(
+    pipe<[FirestoreSnapshot<T>], DocumentReference<T>, string, string[], CollectionName, FirestoreConverter<T, V>>(
       (snapshot) => snapshot.ref,
       (ref) => ref.path,
       split('/'),

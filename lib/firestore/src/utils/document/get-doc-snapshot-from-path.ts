@@ -1,3 +1,4 @@
+import { CollectionName } from '../../config/collection-name'
 import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
 import { getDocRefFromPath } from './get-doc-ref-from-path'
 import { getDocSnapshotFromRef } from './get-doc-snapshot-from-ref'
@@ -10,6 +11,6 @@ import { pipe } from 'ramda'
  * @param pathSegments – Additional path segments that will be applied relative to the first argument.
  */
 export const getDocSnapshotFromPath = <T extends DocumentData>(
-  path: string,
+  path: CollectionName,
   ...pathSegments: string[]
 ): Promise<FirestoreSnapshot<T>> => pipe(getDocRefFromPath, getDocSnapshotFromRef)(path, ...pathSegments)

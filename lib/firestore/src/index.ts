@@ -1,3 +1,4 @@
+export { CollectionName } from './config/collection-name'
 export { firebaseConfig } from './config/firebase-config'
 export { mapContract } from './mappers/contract/map-contract'
 export { mapDiscordGuild } from './mappers/discord-guild/map-discord-guild'

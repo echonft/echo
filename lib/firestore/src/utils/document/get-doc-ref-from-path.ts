@@ -1,3 +1,4 @@
+import { CollectionName } from '../../config/collection-name'
 import { doc, DocumentData, DocumentReference, getFirestore } from 'firebase/firestore'
 
 /**
@@ -6,7 +7,7 @@ import { doc, DocumentData, DocumentReference, getFirestore } from 'firebase/fir
  * @param pathSegments – Additional path segments that will be applied relative to the first argument.
  */
 export function getDocRefFromPath<T extends DocumentData>(
-  path: string,
+  path: CollectionName,
   ...pathSegments: string[]
 ): DocumentReference<T> {
   return doc(getFirestore(), path, ...pathSegments) as DocumentReference<T>

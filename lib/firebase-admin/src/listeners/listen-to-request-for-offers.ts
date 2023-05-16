@@ -1,6 +1,6 @@
 import { convertRequestForOffer } from '../converters/request-for-offer/convert-request-for-offer'
 import { getCollectionFromPath } from '../utils/collection/get-collection-from-path'
-import { FirestoreRequestForOffer, mapRequestForOffer } from '@echo/firestore'
+import { CollectionName, FirestoreRequestForOffer, mapRequestForOffer } from '@echo/firestore'
 import { RequestForOffer } from '@echo/model'
 import { atIndex, castAs, errorMessage, logger, promiseAll, toPromise, Void } from '@echo/utils'
 import { DocumentChange, QueryDocumentSnapshot } from '@google-cloud/firestore'
@@ -9,7 +9,7 @@ import { andThen, converge, forEach, head, isNil, juxt, otherwise, pipe, prop, u
 export function listenToRequestForOffers(
   onChange: (requestForOffer: RequestForOffer, change: DocumentChange<FirestoreRequestForOffer>) => unknown
 ) {
-  getCollectionFromPath<FirestoreRequestForOffer>('requests-for-offer').onSnapshot((snapshot) => {
+  getCollectionFromPath<FirestoreRequestForOffer>(CollectionName.REQUESTS_FOR_OFFER).onSnapshot((snapshot) => {
     forEach(
       unless(
         pipe(prop('doc'), isNil),

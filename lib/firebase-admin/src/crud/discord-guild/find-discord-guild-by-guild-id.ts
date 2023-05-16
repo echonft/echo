@@ -2,7 +2,7 @@ import { convertDiscordGuild } from '../../converters/discord-guild/convert-disc
 import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { whereCollection } from '../../utils/collection/where-collection'
-import { mapDiscordGuild } from '@echo/firestore'
+import { CollectionName, mapDiscordGuild } from '@echo/firestore'
 import { DiscordGuild } from '@echo/model'
 import { castAs, errorPromise } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
@@ -20,4 +20,4 @@ export const findDiscordGuildByGuildId = (guildId: string): Promise<R.Result<Dis
         pipe(pipe(head, castAs, convertDiscordGuild, mapDiscordGuild, R.fromPromise<DiscordGuild>))
       )
     )
-  )('guilds')
+  )(CollectionName.GUILDS)

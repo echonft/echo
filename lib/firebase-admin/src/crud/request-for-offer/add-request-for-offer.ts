@@ -4,7 +4,7 @@ import { convertRequestForOffer } from '../../converters/request-for-offer/conve
 import { FirestoreRequestForOfferPrototype } from '../../types/prototypes/request-for-offer/firestore-request-for-offer-prototype'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
-import { FirestoreRequestForOffer, mapRequestForOffer } from '@echo/firestore'
+import { CollectionName, FirestoreRequestForOffer, mapRequestForOffer } from '@echo/firestore'
 import { RequestForOffer } from '@echo/model'
 import { castAs } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
@@ -15,7 +15,7 @@ export const addRequestForOffer = (
 ): Promise<R.Result<RequestForOffer, Error>> =>
   pipe(
     buildRequestForOffer,
-    // FIXME: andThen(partialRight(setDocAndReturnSnapshot, [getCollectionFromPath('requests-for-offer').doc()]))
+    // FIXME: andThen(partialRight(setDocAndReturnSnapshot, [getCollectionFromPath(CollectionName.REQUESTS_FOR_OFFER).doc()]))
     // this no worken bacon
     andThen((requestsForOffer) =>
       // FIXME: This is where it breaks, requestForOffer seems to have an undefined value in activities and firestore
@@ -23,7 +23,7 @@ export const addRequestForOffer = (
       // ignoreUndefinedProperties to firestore, but we can only set options once and the firestore object is not persisted
       // so it seems to create a problem.
       setDocAndReturnSnapshot(
-        getCollectionFromPath<FirestoreRequestForOffer>('requests-for-offer').doc(),
+        getCollectionFromPath<FirestoreRequestForOffer>(CollectionName.REQUESTS_FOR_OFFER).doc(),
         requestsForOffer
       )
     ),

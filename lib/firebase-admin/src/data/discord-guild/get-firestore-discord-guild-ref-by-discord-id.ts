@@ -1,7 +1,7 @@
 import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { whereCollection } from '../../utils/collection/where-collection'
-import { FirestoreDiscordGuild } from '@echo/firestore'
+import { CollectionName, FirestoreDiscordGuild } from '@echo/firestore'
 import { castAs, errorPromise } from '@echo/utils'
 import { DocumentReference } from '@google-cloud/firestore'
 import { R } from '@mobily/ts-belt'
@@ -26,4 +26,4 @@ export const getFirestoreDiscordGuildRefByDiscordId = (
       )
     ),
     castAs<Promise<R.Result<DocumentReference<FirestoreDiscordGuild>, Error>>>
-  )('guilds')
+  )(CollectionName.GUILDS)

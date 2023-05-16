@@ -2,13 +2,13 @@ import { convertUser } from '../../converters/user/convert-user'
 import { getFirestoreDiscordGuildRefsByDiscordIds } from '../../data/discord-guild/get-firestore-discord-guild-refs-by-discord-ids'
 import { FirestoreUserPrototype } from '../../types/prototypes/user/firestore-user-prototype'
 import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
-import { FirestoreUser, mapUser } from '@echo/firestore'
+import { CollectionName, FirestoreUser, mapUser } from '@echo/firestore'
 import { User } from '@echo/model'
 import { R } from '@mobily/ts-belt'
 import { always, andThen, isNil, pipe } from 'ramda'
 
 export const updateUserDiscordInfo = (userId: string, userPrototype: FirestoreUserPrototype) => {
-  const userRef = getDocRefFromPath<FirestoreUser>('users', userId)
+  const userRef = getDocRefFromPath<FirestoreUser>(CollectionName.USERS, userId)
   if (isNil(userRef)) {
     return R.fromPromise(Promise.reject('User not found'))
   }

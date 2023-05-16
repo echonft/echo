@@ -1,4 +1,5 @@
 import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
+import { CollectionName } from '@echo/firestore'
 import { RequestForOfferActivity } from '@echo/model'
 import { isNil } from 'ramda'
 
@@ -7,7 +8,7 @@ export const updateRequestForOfferActivities = (
   activities: RequestForOfferActivity[],
   newActivity: RequestForOfferActivity
 ) => {
-  const requestForOfferRef = getDocRefFromPath('request-for-offers', requestForOfferId)
+  const requestForOfferRef = getDocRefFromPath(CollectionName.REQUESTS_FOR_OFFER, requestForOfferId)
   if (isNil(requestForOfferRef)) {
     return Promise.reject('Request for offer not found')
   }
