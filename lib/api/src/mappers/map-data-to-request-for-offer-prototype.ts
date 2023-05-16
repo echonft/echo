@@ -1,7 +1,7 @@
-import { CreateRequestForOfferRequest } from '../types/model/requests/create-request-for-offer-request'
-import { mapItemRequestToRequestForOfferItemPrototype } from './map-item-request-to-request-for-offer-item-prototype'
 import { FirestoreRequestForOfferPrototype } from '@echo/firebase-admin'
 import { User } from '@echo/model'
+import { CreateRequestForOfferRequest } from '../types/model/requests/create-request-for-offer-request'
+import { mapItemOfferItemPrototype } from './map-item-offer-item-prototype'
 
 export function mapDataToRequestForOfferPrototype(
   user: User,
@@ -11,6 +11,6 @@ export function mapDataToRequestForOfferPrototype(
     discordGuildId: request.discordGuildId,
     senderId: user.id,
     target: request.target,
-    items: request.items.map(mapItemRequestToRequestForOfferItemPrototype)
+    items: request.items.map(mapItemOfferItemPrototype)
   }
 }

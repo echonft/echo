@@ -3,6 +3,7 @@ import { CollectionName } from '@echo/firestore'
 import { RequestForOfferActivity } from '@echo/model'
 import { isNil } from 'ramda'
 
+// TODO Maybe just an update?
 export const updateRequestForOfferActivities = (
   requestForOfferId: string,
   activities: RequestForOfferActivity[],
