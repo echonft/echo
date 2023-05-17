@@ -1,4 +1,5 @@
 import { mapDataToOfferPrototype } from '../../mappers/map-data-to-offer-prototype'
+import { mapOfferItemToItemRequest } from '../../mappers/map-offer-item-to-item-request'
 import { mapOfferToResponse } from '../../mappers/map-offer-to-response'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
@@ -8,7 +9,7 @@ import { createOfferSchema } from '../../types/validators/create-offer'
 import { getAlchemy } from '../../utils/alchemy/alchemy'
 import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
 import { addOffer, findRequestForOfferById } from '@echo/firebase-admin'
-import { userIsInGuild } from '@echo/model'
+import { canRequestForOfferReceiveOffers, userIsInGuild } from '@echo/model'
 import { isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'
@@ -33,10 +34,10 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
     return
   }
   try {
-    const validatedRequest = createOfferSchema.parse(req.body)
+    const validatedRequest = createOfferSchema.parse(req.body) as CreateOfferRequest
     if (isNil(validatedRequest.requestForOfferId)) {
       // TODO This needs to create an offer in that case
-      res.end(res.status(401).json({ error: 'Cannot create request without a request for offer' }))
+      res.end(res.status(401).json({ error: 'Cannot create offer without a request for offer' }))
       return
     }
     return findRequestForOfferById(validatedRequest.requestForOfferId).then((requestForOfferResult) => {
@@ -45,12 +46,22 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
         return
       }
       const requestForOffer = R.getExn(requestForOfferResult)
+      if (!canRequestForOfferReceiveOffers(requestForOffer)) {
+        res.end(res.status(500).json({ error: 'Request for offer cannot accept offers' }))
+        return
+      }
       if (userIsInGuild(user, requestForOffer.discordGuild)) {
         // We can unwrap here, wallets are not going to be empty or nil
-        return walletsOwnTokens(getAlchemy(), user.wallets!, validatedRequest.senderItems)
+        // We check both the sender and the receiver wallets and NFTs here, we could perhaps split that check
+        // to return a better response
+        return walletsOwnTokens(
+          getAlchemy(),
+          user.wallets!.concat(requestForOffer.sender.wallets ?? []),
+          validatedRequest.senderItems.concat(requestForOffer.items.map(mapOfferItemToItemRequest))
+        )
           .then((userOwnsAllNfts) => {
             if (!userOwnsAllNfts) {
-              res.end(res.status(401).json({ error: 'User does not own all the NFTs to offer' }))
+              res.end(res.status(401).json({ error: 'Users do not own all the NFTs to offer' }))
               return
             }
             return addOffer(mapDataToOfferPrototype(user, validatedRequest, requestForOffer))
