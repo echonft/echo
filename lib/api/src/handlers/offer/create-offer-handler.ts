@@ -8,6 +8,7 @@ import { OfferResponse } from '../../types/model/responses/offer-response'
 import { createOfferSchema } from '../../types/validators/create-offer'
 import { getAlchemy } from '../../utils/alchemy/alchemy'
 import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
+import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { addOffer, findRequestForOfferById } from '@echo/firebase-admin'
 import { canRequestForOfferReceiveOffers, userIsInGuild } from '@echo/model'
 import { isNilOrEmpty, logger } from '@echo/utils'
@@ -19,16 +20,11 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
   res,
   session
 ) => {
-  // TODO Shouldn't have to do that
-  if (isNil(session)) {
-    res.end(res.status(401).json({ error: 'You must be logged in' }))
+  const validatedSessionAndUser = validateAndExtractUserFromSession(session, res)
+  if (isNil(validatedSessionAndUser)) {
     return
   }
-  const { user } = session
-  if (isNil(user)) {
-    res.end(res.status(500).json({ error: 'User not found' }))
-    return
-  }
+  const { user } = validatedSessionAndUser
   if (isNilOrEmpty(user.wallets)) {
     res.end(res.status(401).json({ error: 'User does not have wallets' }))
     return

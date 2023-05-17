@@ -41,11 +41,11 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
   })
-  it('if session with no user, returns 500', async () => {
+  it('if session with no user, returns 401', async () => {
     const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>('GET')
     // @ts-ignore
     await createRequestForOfferHandler(req, res, omit(['user'], session))
-    expect(res.statusCode).toBe(500)
+    expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'User not found' })
   })
   it('if session body is invalid, returns 400', async () => {

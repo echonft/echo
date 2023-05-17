@@ -4,6 +4,7 @@ import { WalletRequest } from '../../types/model/requests/wallet-request'
 import { WalletResponse } from '../../types/model/responses/wallet-response'
 import { addWalletSchema } from '../../types/validators/add-wallet'
 import { removeWalletsSchema } from '../../types/validators/remove-wallets'
+import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { createWalletHandler } from './create-wallet-handler'
 import { deleteWalletHandler } from './delete-wallet-handler'
 import { isNil } from 'ramda'
@@ -14,16 +15,11 @@ export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, Wal
   res,
   session
 ) => {
-  // TODO Shouldn't have to do that
-  if (isNil(session)) {
-    res.end(res.status(401).json({ error: 'You must be logged in' }))
+  const validatedSessionAndUser = validateAndExtractUserFromSession(session, res)
+  if (isNil(validatedSessionAndUser)) {
     return
   }
-  const { user } = session
-  if (isNil(user)) {
-    res.end(res.status(401).json({ error: 'User not found' }))
-    return
-  }
+  const { user } = validatedSessionAndUser
   let validatedRequest
   try {
     switch (req.method) {

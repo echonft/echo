@@ -4,6 +4,7 @@ import { ApiRequest } from '../../types/model/api-requests/api-request'
 import { RequestForOfferRequest } from '../../types/model/requests/request-for-offer-request'
 import { RequestForOfferResponse } from '../../types/model/responses/request-for-offer-response'
 import { idRequestSchema } from '../../types/validators/id-request'
+import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { findRequestForOfferById, updateRequestForOfferActivities } from '@echo/firebase-admin'
 import {
   canAddRequestForOfferActivity,
@@ -19,16 +20,11 @@ export const cancelRequestForOfferHandler: RequestHandler<
   ApiRequest<RequestForOfferRequest, never>,
   RequestForOfferResponse
 > = async (req, res, session) => {
-  // TODO Shouldn't have to do that
-  if (isNil(session)) {
-    res.end(res.status(401).json({ error: 'You must be logged in' }))
+  const validatedSessionAndUser = validateAndExtractUserFromSession(session, res)
+  if (isNil(validatedSessionAndUser)) {
     return
   }
-  const { user } = session
-  if (isNil(user)) {
-    res.end(res.status(500).json({ error: 'User not found' }))
-    return
-  }
+  const { user } = validatedSessionAndUser
   try {
     const { id } = idRequestSchema.parse(req.body)
     return findRequestForOfferById(id)

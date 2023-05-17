@@ -7,6 +7,7 @@ import { RequestForOfferResponse } from '../../types/model/responses/request-for
 import { createRequestForOfferSchema } from '../../types/validators/create-request-for-offer'
 import { getAlchemy } from '../../utils/alchemy/alchemy'
 import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
+import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { addRequestForOffer, findDiscordGuildByGuildId } from '@echo/firebase-admin'
 import { userIsInGuild } from '@echo/model'
 import { isNilOrEmpty, logger } from '@echo/utils'
@@ -17,16 +18,11 @@ export const createRequestForOfferHandler: RequestHandler<
   ApiRequest<CreateRequestForOfferRequest, never>,
   RequestForOfferResponse
 > = async (req, res, session) => {
-  // TODO Shouldn't have to do that
-  if (isNil(session)) {
-    res.end(res.status(401).json({ error: 'You must be logged in' }))
+  const validatedSessionAndUser = validateAndExtractUserFromSession(session, res)
+  if (isNil(validatedSessionAndUser)) {
     return
   }
-  const { user } = session
-  if (isNil(user)) {
-    res.end(res.status(500).json({ error: 'User not found' }))
-    return
-  }
+  const { user } = validatedSessionAndUser
   if (isNilOrEmpty(user.wallets)) {
     res.end(res.status(401).json({ error: 'User does not have wallets' }))
     return
