@@ -48,7 +48,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'User not found' })
   })
-  it('if session body is invalid, returns 400', async () => {
+  it('if body is invalid, returns 400', async () => {
     const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>('GET')
     // @ts-ignore
     await createRequestForOfferHandler(req, res, session)
