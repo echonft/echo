@@ -4,11 +4,12 @@ import { ErrorResponse, ItemRequest } from '../../types'
 import { OfferResponse } from '../../types/model/responses/offer-response'
 import { getAlchemy } from '../alchemy/alchemy'
 import { walletsOwnTokens } from '../alchemy/wallets-own-tokens'
-import { addOffer } from '@echo/firebase-admin'
+import { addOffer, updateRequestForOfferOffers } from '@echo/firebase-admin'
 import { DiscordGuild, User, userIsInGuild } from '@echo/model'
 import { isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { NextApiResponse } from 'next'
+import { isNil } from 'ramda'
 
 /**
  * Validates data and creates the offer
@@ -25,7 +26,8 @@ export function createOfferFromData(
   receiver: User,
   receiverItems: ItemRequest[],
   discordGuild: DiscordGuild,
-  res: NextApiResponse<OfferResponse | ErrorResponse>
+  res: NextApiResponse<OfferResponse | ErrorResponse>,
+  requestForOfferId?: string
 ) {
   if (isNilOrEmpty(sender.wallets) || isNilOrEmpty(receiver.wallets)) {
     res.end(res.status(401).json({ error: 'Users do not have wallets' }))
@@ -48,7 +50,18 @@ export function createOfferFromData(
               res.end(res.status(500).json({ error: 'Could not create offer' }))
               return
             }
-            return res.status(200).json(mapOfferToResponse(R.getExn(offerResult)))
+            const offer = R.getExn(offerResult)
+            // If request is bound to a request for offer, append the offer ref
+            if (!isNil(requestForOfferId)) {
+              return updateRequestForOfferOffers(requestForOfferId, offer.id)
+                .then(() => res.status(200).json(mapOfferToResponse(offer)))
+                .catch((error) => {
+                  logger.error(`Error updating request for offer: ${JSON.stringify(error)}`)
+                  res.end(res.status(500).json({ error: 'Could not create offer' }))
+                  return
+                })
+            }
+            return res.status(200).json(mapOfferToResponse(offer))
           })
           .catch((e: Error) => {
             logger.error(`Error creating offer: ${JSON.stringify(e)}`)

@@ -44,7 +44,8 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
             requestForOffer.sender,
             validatedRequest.receiverItems,
             requestForOffer.discordGuild,
-            res
+            res,
+            validatedRequest.requestForOfferId
           )
         })
         .catch((error) => {
