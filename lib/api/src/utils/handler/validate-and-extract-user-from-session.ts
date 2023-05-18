@@ -8,7 +8,7 @@ import { isNil } from 'ramda'
 export function validateAndExtractUserFromSession<T>(
   session: Session | undefined,
   res: NextApiResponse<T | ErrorResponse>
-): { res: NextApiResponse<T | ErrorResponse>; user: User } | undefined {
+): User | undefined {
   const validatedRes = validateSession(session, res)
   if (isNil(validatedRes)) {
     return
@@ -18,5 +18,5 @@ export function validateAndExtractUserFromSession<T>(
     res.end(res.status(401).json({ error: 'User not found' }))
     return
   }
-  return { user, res }
+  return user
 }

@@ -1,6 +1,6 @@
-import { describe, expect, it } from '@jest/globals'
 import { ItemRequest } from '../../types/model/requests/item-request'
 import { mapItemOfferItemPrototype } from '../map-item-offer-item-prototype'
+import { describe, expect, it } from '@jest/globals'
 
 describe('mapItemRequestToRequestForOfferItemPrototype', () => {
   it('should return the expected request prototype when given a valid item request (no balance)', () => {

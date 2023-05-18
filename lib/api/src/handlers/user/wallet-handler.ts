@@ -15,11 +15,10 @@ export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, Wal
   res,
   session
 ) => {
-  const validatedSessionAndUser = validateAndExtractUserFromSession(session, res)
-  if (isNil(validatedSessionAndUser)) {
+  const user = validateAndExtractUserFromSession(session, res)
+  if (isNil(user)) {
     return
   }
-  const { user } = validatedSessionAndUser
   let validatedRequest
   try {
     switch (req.method) {

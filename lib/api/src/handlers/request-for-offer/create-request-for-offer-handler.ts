@@ -18,11 +18,10 @@ export const createRequestForOfferHandler: RequestHandler<
   ApiRequest<CreateRequestForOfferRequest, never>,
   RequestForOfferResponse
 > = async (req, res, session) => {
-  const validatedSessionAndUser = validateAndExtractUserFromSession(session, res)
-  if (isNil(validatedSessionAndUser)) {
+  const user = validateAndExtractUserFromSession(session, res)
+  if (isNil(user)) {
     return
   }
-  const { user } = validatedSessionAndUser
   if (isNilOrEmpty(user.wallets)) {
     res.end(res.status(401).json({ error: 'User does not have wallets' }))
     return

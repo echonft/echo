@@ -20,11 +20,10 @@ export const cancelRequestForOfferHandler: RequestHandler<
   ApiRequest<RequestForOfferRequest, never>,
   RequestForOfferResponse
 > = async (req, res, session) => {
-  const validatedSessionAndUser = validateAndExtractUserFromSession(session, res)
-  if (isNil(validatedSessionAndUser)) {
+  const user = validateAndExtractUserFromSession(session, res)
+  if (isNil(user)) {
     return
   }
-  const { user } = validatedSessionAndUser
   try {
     const { id } = idRequestSchema.parse(req.body)
     return findRequestForOfferById(id)

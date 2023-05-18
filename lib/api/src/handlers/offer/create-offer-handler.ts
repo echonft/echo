@@ -1,16 +1,12 @@
-import { mapDataToOfferPrototype } from '../../mappers/map-data-to-offer-prototype'
-import { mapOfferItemToItemRequest } from '../../mappers/map-offer-item-to-item-request'
-import { mapOfferToResponse } from '../../mappers/map-offer-to-response'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
 import { CreateOfferRequest } from '../../types/model/requests/create-offer-request'
 import { OfferResponse } from '../../types/model/responses/offer-response'
 import { createOfferSchema } from '../../types/validators/create-offer'
-import { getAlchemy } from '../../utils/alchemy/alchemy'
-import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
+import { createOfferFromData } from '../../utils/handler/create-offer-from-data'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
-import { addOffer, findRequestForOfferById } from '@echo/firebase-admin'
-import { canRequestForOfferReceiveOffers, userIsInGuild } from '@echo/model'
+import { findDiscordGuildById, findRequestForOfferById, findUserById } from '@echo/firebase-admin'
+import { canRequestForOfferReceiveOffers } from '@echo/model'
 import { isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'
@@ -20,11 +16,10 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
   res,
   session
 ) => {
-  const validatedSessionAndUser = validateAndExtractUserFromSession(session, res)
-  if (isNil(validatedSessionAndUser)) {
+  const user = validateAndExtractUserFromSession(session, res)
+  if (isNil(user)) {
     return
   }
-  const { user } = validatedSessionAndUser
   if (isNilOrEmpty(user.wallets)) {
     res.end(res.status(401).json({ error: 'User does not have wallets' }))
     return
@@ -32,64 +27,61 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
   try {
     const validatedRequest = createOfferSchema.parse(req.body)
     if (validatedRequest.withRequestForOffer) {
-      if (isNil(validatedRequest.requestForOfferId)) {
-        // TODO This needs to create an offer in that case
-        res.end(res.status(401).json({ error: 'Cannot create offer without a request for offer' }))
-        return
-      }
-      return findRequestForOfferById(validatedRequest.requestForOfferId).then((requestForOfferResult) => {
-        if (R.isError(requestForOfferResult)) {
+      return findRequestForOfferById(validatedRequest.requestForOfferId)
+        .then((requestForOfferResult) => {
+          if (R.isError(requestForOfferResult)) {
+            res.end(res.status(500).json({ error: 'Request for offer is not found' }))
+            return
+          }
+          const requestForOffer = R.getExn(requestForOfferResult)
+          if (!canRequestForOfferReceiveOffers(requestForOffer)) {
+            res.end(res.status(500).json({ error: 'Request for offer cannot accept offers' }))
+            return
+          }
+          return createOfferFromData(
+            user,
+            validatedRequest.senderItems,
+            requestForOffer.sender,
+            validatedRequest.receiverItems,
+            requestForOffer.discordGuild,
+            res
+          )
+        })
+        .catch((error) => {
+          logger.error(`createOfferHandler error on findRequestForOfferById: ${JSON.stringify(error)}`)
           res.end(res.status(500).json({ error: 'Request for offer is not found' }))
           return
-        }
-        const requestForOffer = R.getExn(requestForOfferResult)
-        if (!canRequestForOfferReceiveOffers(requestForOffer)) {
-          res.end(res.status(500).json({ error: 'Request for offer cannot accept offers' }))
-          return
-        }
-        if (userIsInGuild(user, requestForOffer.discordGuild)) {
-          // We can unwrap here, wallets are not going to be empty or nil
-          // We check both the sender and the receiver wallets and NFTs here, we could perhaps split that check
-          // to return a better response
-          return walletsOwnTokens(
-            getAlchemy(),
-            user.wallets!.concat(requestForOffer.sender.wallets ?? []),
-            validatedRequest.senderItems.concat(requestForOffer.items.map(mapOfferItemToItemRequest))
-          )
-            .then((userOwnsAllNfts) => {
-              if (!userOwnsAllNfts) {
-                res.end(res.status(401).json({ error: 'Users do not own all the NFTs to offer' }))
-                return
-              }
-              return addOffer(mapDataToOfferPrototype(user, validatedRequest, requestForOffer))
-                .then((offerResult) => {
-                  if (R.isError(offerResult)) {
-                    res.end(res.status(500).json({ error: 'Could not create offer' }))
-                    return
-                  }
-                  return res.status(200).json(mapOfferToResponse(R.getExn(offerResult)))
-                })
-                .catch((e: Error) => {
-                  logger.error(`Error creating offer: ${JSON.stringify(e)}`)
-                  res.end(res.status(500).json({ error: 'Could not create offer' }))
-                  return
-                })
-            })
-            .catch((reason) => {
-              logger.error(`Error fetching from alchemy: ${JSON.stringify(reason)}`)
-              res.end(res.status(500).json({ error: 'Could not create offer' }))
-              return
-            })
-        } else {
-          // TODO Does user making the offer needs to be in discord?
-          res.end(res.status(401).json({ error: 'User is not in Discord Guild' }))
-          return
-        }
-      })
-      // No request for offer included
+        })
+      // No request for offer included, fetch receiver and discord guild
     } else {
-      res.end(res.status(500).json({ error: 'TODO' }))
-      return
+      return Promise.all([
+        findUserById(validatedRequest.receiverId),
+        findDiscordGuildById(validatedRequest.discordGuildId)
+      ])
+        .then((results) => {
+          if (R.isError(results[0]) || R.isError(results[1])) {
+            logger.error(`createOfferHandler error on findUserById or findDiscordGuildById`)
+            res.end(res.status(500).json({ error: 'Could not create offer' }))
+            return
+          }
+          const receiver = R.getExn(results[0])
+          const discordGuild = R.getExn(results[1])
+          return createOfferFromData(
+            user,
+            validatedRequest.senderItems,
+            receiver,
+            validatedRequest.receiverItems,
+            discordGuild,
+            res
+          )
+        })
+        .catch((error) => {
+          logger.error(
+            `createOfferHandler error thrown on findUserById or findDiscordGuildById: ${JSON.stringify(error)}`
+          )
+          res.end(res.status(500).json({ error: 'Could not create offer' }))
+          return
+        })
     }
   } catch {
     res.end(res.status(400).json({ error: 'Invalid body' }))
