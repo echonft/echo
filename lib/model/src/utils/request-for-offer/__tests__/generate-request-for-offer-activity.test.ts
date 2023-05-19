@@ -1,10 +1,10 @@
 import { RequestForOfferState } from '../../../types/request-for-offer-state'
 import { generateRequestForOfferActivity } from '../generate-request-for-offer-activity'
 import { beforeAll, describe, expect, test } from '@jest/globals'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 describe('utils - request-for-offer - generateRequestForOfferActivity', () => {
-  let beforeTestDayjs: Dayjs
+  let beforeTestDayjs: dayjs.Dayjs
   beforeAll(() => {
     // Subtract a second to ensure tests will always run, otherwise isAfter might not be true
     beforeTestDayjs = dayjs().subtract(1, 'second')

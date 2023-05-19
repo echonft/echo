@@ -1,8 +1,8 @@
 import { SwapState } from './swap-state'
-import { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 export interface SwapActivity {
-  date: Dayjs
+  date: dayjs.Dayjs
   fromState: SwapState | undefined
   toState: SwapState
 }

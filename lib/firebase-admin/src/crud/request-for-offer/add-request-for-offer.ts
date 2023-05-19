@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { FirestoreRequestForOfferPrototype } from '../../../../firestore/src/types/prototypes/request-for-offer/firestore-request-for-offer-prototype'
 import { buildRequestForOffer } from '../../builders/request-for-offer/build-request-for-offer'
 import { convertRequestForOffer } from '../../converters/request-for-offer/convert-request-for-offer'
-import { FirestoreRequestForOfferPrototype } from '../../types/prototypes/request-for-offer/firestore-request-for-offer-prototype'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
 import { CollectionName, FirestoreRequestForOffer, mapRequestForOffer } from '@echo/firestore'

@@ -1,9 +1,9 @@
 import { DiscordGuild } from './discord-guild'
+import { Nft } from './nft'
 import { OfferActivity } from './offer-activity'
-import { OfferItem } from './offer-item'
 import { OfferState } from './offer-state'
 import { User } from './user'
-import { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 export interface Offer {
   id: string
@@ -11,11 +11,11 @@ export interface Offer {
   discordGuild: DiscordGuild
   threadId: string | undefined
   sender: User
-  senderItems: OfferItem[]
+  senderItems: Nft[]
   receiver: User
-  receiverItems: OfferItem[]
+  receiverItems: Nft[]
   activities?: OfferActivity[]
-  expiresAt: Dayjs
-  postedAt: Dayjs | undefined
-  createdAt: Dayjs
+  expiresAt: dayjs.Dayjs
+  postedAt: dayjs.Dayjs | undefined
+  createdAt: dayjs.Dayjs
 }

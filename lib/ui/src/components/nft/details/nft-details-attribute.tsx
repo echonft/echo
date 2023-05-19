@@ -21,7 +21,7 @@ export const NftDetailsAttribute: FunctionComponent<NftDetailsAttributeProps> = 
         'gap-2'
       )}
     >
-      <p className={clsx('prose-label-md', 'text-yellow-500')}>{attribute.traitType}</p>
+      <p className={clsx('prose-label-md', 'text-yellow-500')}>{attribute.trait}</p>
       <p className={clsx('prose-label-lg', 'text-white')}>{attribute.value}</p>
     </div>
   )

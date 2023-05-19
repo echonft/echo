@@ -22,7 +22,6 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@echo/alchemy-react": "workspace:*",
     "@echo/api": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/firebase-react": "workspace:*",

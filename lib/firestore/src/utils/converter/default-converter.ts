@@ -1,6 +1,7 @@
 import { CollectionName } from '../../config/collection-name'
 import { convertContract } from '../../converters/contract/convert-contract'
 import { convertDiscordGuild } from '../../converters/discord-guild/convert-discord-guild'
+import { convertNft } from '../../converters/nft/convert-nft'
 import { convertNftCollection } from '../../converters/nft-collection/convert-nft-collection'
 import { convertNonce } from '../../converters/nonce/convert-nonce'
 import { convertOffer } from '../../converters/offer/convert-offer'
@@ -22,6 +23,8 @@ export const defaultConverter = <T extends DocumentData, V extends FirestoreRoot
       return castAs<FirestoreConverter<T, V>>(convertDiscordGuild)
     case CollectionName.NFT_COLLECTIONS:
       return castAs<FirestoreConverter<T, V>>(convertNftCollection)
+    case CollectionName.NFTS:
+      return castAs<FirestoreConverter<T, V>>(convertNft)
     case CollectionName.NONCES:
       return castAs<FirestoreConverter<T, V>>(convertNonce)
     case CollectionName.OFFERS:

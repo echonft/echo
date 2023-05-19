@@ -1,6 +1,6 @@
+import { FirestoreUserPrototype } from '../../../../firestore/src/types/prototypes/user/firestore-user-prototype'
 import { buildUser } from '../../builders/user/build-user'
 import { convertUser } from '../../converters/user/convert-user'
-import { FirestoreUserPrototype } from '../../types/prototypes/user/firestore-user-prototype'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
 import { CollectionName, mapUser } from '@echo/firestore'

@@ -1,5 +1,5 @@
-import { FirestoreBuilder } from '../../types/builder/firestore-builder'
-import { FirestoreRequestForOfferActivityPrototype } from '../../types/prototypes/request-for-offer/firestore-request-for-offer-activity-prototype'
+import { FirestoreBuilder } from '../../../../firestore/src/types/builder/firestore-builder'
+import { FirestoreRequestForOfferActivityPrototype } from '../../../../firestore/src/types/prototypes/request-for-offer/firestore-request-for-offer-activity-prototype'
 import { FirestoreRequestForOfferActivity } from '@echo/firestore'
 import { call, invoker, modify } from 'ramda'
 

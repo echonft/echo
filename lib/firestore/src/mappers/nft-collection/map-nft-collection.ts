@@ -1,11 +1,10 @@
 import { FirestoreMapper } from '../../types/mapper/firestore-mapper'
-import { FirestoreContractData } from '../../types/model/data/contract/firestore-contract-data'
 import { FirestoreNftCollectionData } from '../../types/model/data/nft-collection/firestore-nft-collection-data'
-import { FirestoreOpenSeaCollectionDetailsData } from '../../types/model/data/nft-collection/firestore-open-sea-collection-details-data'
 import { propToMappedDocument } from '../../utils/mapper/prop-to-mapped-document'
+import { propToUrl } from '../../utils/mapper/prop-to-url'
 import { mapContract } from '../contract/map-contract'
-import { mapOpenSeaCollectionDetails } from './map-open-sea-collection-details'
-import { Contract, NftCollection, OpenSeaCollectionMetadata } from '@echo/model'
+import { mapDiscordGuild } from '../discord-guild/map-discord-guild'
+import { NftCollection } from '@echo/model'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, omit, pipe } from 'ramda'
 
@@ -14,14 +13,32 @@ export const mapNftCollection: FirestoreMapper<FirestoreNftCollectionData, NftCo
     omit(['refPath']),
     juxt([
       propToPromise('id'),
-      propToMappedDocument<FirestoreContractData, Contract>('contract', mapContract),
+      propToUrl('bannerUrl'),
+      propToMappedDocument('contract', mapContract),
+      propToPromise('description'),
+      propToMappedDocument('discordGuild', mapDiscordGuild),
+      propToUrl('discordUrl'),
+      propToPromise('floorPrice'),
+      propToPromise('name'),
+      propToUrl('profilePictureUrl'),
       propToPromise('totalSupply'),
-      propToMappedDocument<FirestoreOpenSeaCollectionDetailsData, OpenSeaCollectionMetadata>(
-        'openSea',
-        mapOpenSeaCollectionDetails
-      )
+      propToPromise('twitterUsername'),
+      propToUrl('websiteUrl')
     ]),
     promiseAll,
-    zipPromisesToObject<NftCollection>(['id', 'contract', 'totalSupply', 'openSea'])
+    zipPromisesToObject<NftCollection>([
+      'id',
+      'bannerUrl',
+      'contract',
+      'description',
+      'discordGuild',
+      'discordUrl',
+      'floorPrice',
+      'name',
+      'profilePictureUrl',
+      'totalSupply',
+      'twitterUsername',
+      'websiteUrl'
+    ])
   )
 )

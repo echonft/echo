@@ -29,7 +29,7 @@ export const NftDetailsAttributesPanel: FunctionComponent<NftDetailsAttributesPa
       </p>
       <div className={clsx('flex', 'flex-row', 'px-7', 'pt-6', 'gap-x-8', 'gap-y-4', 'flex-wrap')}>
         {attributes.map((attribute) => (
-          <NftDetailsAttribute attribute={attribute} key={`${attribute.traitType}-${attribute.value}`} />
+          <NftDetailsAttribute attribute={attribute} key={`${attribute.trait}-${attribute.value}`} />
         ))}
       </div>
     </div>

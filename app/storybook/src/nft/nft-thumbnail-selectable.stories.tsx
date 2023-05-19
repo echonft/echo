@@ -31,7 +31,7 @@ export const Default: Story = {
     pictureUrl: mockOwnedNft.media[0]!.gateway,
     owner: mockUser.discordUsername,
     collectionName: mockNftCollection.openSea?.collectionName,
-    title: 'Sun Flyer',
+    title: mockOwnedNft.title,
     tokenId: BigInt(10000)
   }
 }
@@ -41,7 +41,7 @@ export const Flagged: Story = {
     pictureUrl: mockOwnedNft.media[0]!.gateway,
     owner: mockUser.discordUsername,
     collectionName: mockNftCollection.openSea?.collectionName,
-    title: 'Sun Flyer',
+    title: mockOwnedNft.title,
     tokenId: BigInt(10000),
     flagged: true
   }
@@ -52,7 +52,7 @@ export const Selected: Story = {
     pictureUrl: mockOwnedNft.media[0]!.gateway,
     owner: mockUser.discordUsername,
     collectionName: mockNftCollection.openSea?.collectionName,
-    title: 'Sun Flyer',
+    title: mockOwnedNft.title,
     tokenId: BigInt(10000),
     selected: true
   }
@@ -65,7 +65,7 @@ export const Managed: Story = {
         pictureUrl={mockOwnedNft.media[0]!.gateway}
         owner={mockUser.discordUsername}
         collectionName={mockNftCollection.openSea!.collectionName!}
-        title={'Sun Flyer'}
+        title={mockOwnedNft.title}
         tokenId={BigInt(10000)}
       />
     </SelectionManager>

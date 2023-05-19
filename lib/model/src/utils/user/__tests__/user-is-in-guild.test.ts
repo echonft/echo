@@ -1,13 +1,13 @@
+import { discordGuilds } from '../../../mocks/discord-guild'
+import { users } from '../../../mocks/user'
 import { DiscordGuild } from '../../../types/discord-guild'
 import { generateMockGuild } from '../../tests/mocks/discord-guild/generate-mock-guild'
-import { mockDiscordGuild } from '../../tests/mocks/discord-guild/mock-discord-guild'
-import { mockUser } from '../../tests/mocks/user/mock-user'
 import { userIsInGuild } from '../user-is-in-guild'
 import { describe, expect, test } from '@jest/globals'
 
 describe('User is in guild', () => {
-  const user = mockUser
-  const discordGuild = mockDiscordGuild
+  const user = users['oE6yUEQBPn7PZ89yMjKn']!
+  const discordGuild = discordGuilds['ncUnbpFfVCofV9bD7ctn']!
 
   test('User with no guilds always returns false', () => {
     const emptyGuildUser = { ...user, discordGuilds: [] }
@@ -24,7 +24,7 @@ describe('User is in guild', () => {
     expect(userIsInGuild(user, discordGuild)).toBeTruthy()
     const firstGuild = generateMockGuild({ discordId: 'test' })
     const secondGuild = generateMockGuild({ discordId: 'testy' })
-    const userWithGuilds = { ...user, discordGuilds: [mockDiscordGuild, firstGuild] }
+    const userWithGuilds = { ...user, discordGuilds: [discordGuild, firstGuild] }
     expect(userIsInGuild(userWithGuilds, discordGuild)).toBeTruthy()
     expect(userIsInGuild(userWithGuilds, firstGuild)).toBeTruthy()
     expect(userIsInGuild(userWithGuilds, secondGuild)).toBeFalsy()

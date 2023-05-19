@@ -1,6 +1,7 @@
 import { CollectionName } from '../../config/collection-name'
 import { mapContract } from '../../mappers/contract/map-contract'
 import { mapDiscordGuild } from '../../mappers/discord-guild/map-discord-guild'
+import { mapNft } from '../../mappers/nft/map-nft'
 import { mapNftCollection } from '../../mappers/nft-collection/map-nft-collection'
 import { mapNonce } from '../../mappers/nonce/map-nonce'
 import { mapOffer } from '../../mappers/offer/map-offer'
@@ -21,6 +22,8 @@ export const defaultMapper = <T extends FirestoreDocumentData, V>(
       return castAs<FirestoreMapper<T, V>>(mapDiscordGuild)
     case CollectionName.NFT_COLLECTIONS:
       return castAs<FirestoreMapper<T, V>>(mapNftCollection)
+    case CollectionName.NFTS:
+      return castAs<FirestoreMapper<T, V>>(mapNft)
     case CollectionName.NONCES:
       return castAs<FirestoreMapper<T, V>>(mapNonce)
     case CollectionName.OFFERS:

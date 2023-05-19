@@ -66,9 +66,9 @@
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
     },
-    "@echo/alchemy#build": {
+    "@echo/alchemy-v3#build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_ALCHEMY_API_KEY_MAINNET", "NEXT_PUBLIC_ALCHEMY_API_KEY_GOERLI"],
+      "env": ["ALCHEMY_API_KEY"],
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
     },

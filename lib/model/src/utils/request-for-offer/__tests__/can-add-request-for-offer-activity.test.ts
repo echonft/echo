@@ -1,14 +1,14 @@
+import { requestsForOffer } from '../../../mocks/request-for-offer'
 import { RequestForOfferActivity } from '../../../types/request-for-offer-activity'
 import { RequestForOfferState } from '../../../types/request-for-offer-state'
-import { mockRequestForOffer } from '../../tests/mocks/request-for-offer/mock-request-for-offer'
 import { canAddRequestForOfferActivity } from '../can-add-request-for-offer-activity'
 import { generateRequestForOfferActivity } from '../generate-request-for-offer-activity'
 import { describe, expect, test } from '@jest/globals'
 import dayjs from 'dayjs'
 
 describe('utils - request-for-offer - canAddRequestForOfferActivity', () => {
-  const mock = mockRequestForOffer
-  const notExpiredMock = { ...mockRequestForOffer, expiresAt: dayjs().add(1, 'month') }
+  const mock = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
+  const notExpiredMock = { ...mock, expiresAt: dayjs().add(1, 'month') }
   const mockActivity = generateRequestForOfferActivity(
     RequestForOfferState.OFFER_RECEIVED,
     RequestForOfferState.CREATED

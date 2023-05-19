@@ -2,8 +2,8 @@ import { DocumentData } from 'firebase/firestore'
 
 export interface FirestoreContract extends DocumentData {
   address: string
-  tokenType: string
+  chainId: number
   name?: string
   symbol?: string
-  chainId: number
+  tokenType: string
 }

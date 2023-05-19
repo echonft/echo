@@ -130,9 +130,6 @@ importers:
 
   app/frontend:
     dependencies:
-      '@echo/alchemy-react':
-        specifier: workspace:*
-        version: link:../../lib/alchemy-react
       '@echo/api':
         specifier: workspace:*
         version: link:../../lib/api
@@ -307,23 +304,17 @@ importers:
         specifier: 18.0.11
         version: 18.0.11
 
-  lib/alchemy:
+  lib/alchemy-v3:
     dependencies:
+      '@echo/firestore':
+        specifier: workspace:*
+        version: link:../firestore
       '@echo/model':
         specifier: workspace:*
         version: link:../model
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
-      alchemy-sdk:
-        specifier: 2.6.1
-        version: 2.6.1
-      dayjs:
-        specifier: 1.11.7
-        version: 1.11.7
-      ethers:
-        specifier: 6.1.0
-        version: 6.1.0
       ramda:
         specifier: 0.29.0
         version: 0.29.0
@@ -331,52 +322,12 @@ importers:
       '@types/ramda':
         specifier: 0.29.0
         version: 0.29.0
-
-  lib/alchemy-react:
-    dependencies:
-      '@echo/alchemy':
-        specifier: workspace:*
-        version: link:../alchemy
-      '@echo/model':
-        specifier: workspace:*
-        version: link:../model
-      '@echo/swr':
-        specifier: workspace:*
-        version: link:../swr
-      '@echo/utils':
-        specifier: workspace:*
-        version: link:../utils
-      '@mobily/ts-belt':
-        specifier: 4.0.0-rc.5
-        version: 4.0.0-rc.5
-      alchemy-sdk:
-        specifier: 2.6.1
-        version: 2.6.1
-      ramda:
-        specifier: 0.29.0
-        version: 0.29.0
-      react:
-        specifier: ^18
-        version: 18.2.0
-      react-dom:
-        specifier: ^18
-        version: 18.2.0(react@18.2.0)
-      swr:
-        specifier: 2.1.0
-        version: 2.1.0(react@18.2.0)
-    devDependencies:
-      '@types/ramda':
-        specifier: 0.29.0
-        version: 0.29.0
-      '@types/react':
-        specifier: 18.0.28
-        version: 18.0.28
 
   lib/api:
     dependencies:
-      '@echo/alchemy':
+      '@echo/alchemy-v3':
         specifier: workspace:*
-        version: link:../alchemy
+        version: link:../alchemy-v3
       '@echo/discord':
         specifier: workspace:*
         version: link:../discord
@@ -454,6 +405,9 @@ importers:
       '@echo/firestore':
         specifier: workspace:*
         version: link:../firestore
+      '@echo/mocks':
+        specifier: workspace:*
+        version: link:../mocks
       '@echo/model':
         specifier: workspace:*
         version: link:../model
@@ -543,6 +497,28 @@ importers:
       firebase:
         specifier: 9.17.2
         version: 9.17.2
+      ramda:
+        specifier: 0.29.0
+        version: 0.29.0
+    devDependencies:
+      '@types/ramda':
+        specifier: 0.29.0
+        version: 0.29.0
+
+  lib/mocks:
+    dependencies:
+      '@echo/firestore':
+        specifier: workspace:*
+        version: link:../firestore
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../model
+      '@echo/utils':
+        specifier: workspace:*
+        version: link:../utils
+      dayjs:
+        specifier: 1.11.7
+        version: 1.11.7
       ramda:
         specifier: 0.29.0
         version: 0.29.0
@@ -21742,7 +21718,8 @@ packages:
     dev: false
 
   /utils-merge@1.0.1:
-    resolution: { integrity: sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM= }
+    resolution:
+      { integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA== }
     engines: { node: '>= 0.4.0' }
 
   /uuid-browser@3.1.0:

@@ -27,8 +27,6 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/api/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/utils/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/api/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy/dist" />
       <excludeFolder url="file://$MODULE_DIR$/lib/firestore/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/firestore/dist" />
       <excludeFolder url="file://$MODULE_DIR$/lib/alchemy-react/.turbo" />
@@ -54,6 +52,10 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/model/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/lib/utils/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/.coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy-v3/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy-v3/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy-v3/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy-v3/dist" />
       <excludePattern pattern="tsconfig.tsbuildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />

@@ -1,13 +1,12 @@
+import { FirestoreBuilder } from '../../../../firestore/src/types/builder/firestore-builder'
+import { FirestoreRequestForOfferPrototype } from '../../../../firestore/src/types/prototypes/request-for-offer/firestore-request-for-offer-prototype'
 import { getFirestoreContractRefsByAddressAndChainId } from '../../data/contract/get-firestore-contract-refs-by-address-and-chain-id'
 import { getFirestoreDiscordGuildRefByDiscordId } from '../../data/discord-guild/get-firestore-discord-guild-ref-by-discord-id'
+import { getFirestoreNftRefById } from '../../data/nft/get-firestore-nft-ref-by-id'
 import { getFirestoreUserRefById } from '../../data/user/get-firestore-user-ref-by-id'
-import { FirestoreBuilder } from '../../types/builder/firestore-builder'
-import { FirestoreRequestForOfferActivityPrototype } from '../../types/prototypes/request-for-offer/firestore-request-for-offer-activity-prototype'
-import { FirestoreRequestForOfferPrototype } from '../../types/prototypes/request-for-offer/firestore-request-for-offer-prototype'
 import { buildRequestForOfferActivity } from './build-request-for-offer-activity'
-import { buildRequestForOfferItem } from './build-request-for-offer-item'
 import { FirestoreRequestForOffer } from '@echo/firestore'
-import { generateRequestForOfferActivity, RequestForOfferState } from '@echo/model'
+import { RequestForOfferState } from '@echo/model'
 import { R } from '@mobily/ts-belt'
 import dayjs from 'dayjs'
 import { isEmpty } from 'ramda'
@@ -25,15 +24,17 @@ export const buildRequestForOffer: FirestoreBuilder<
   if (isEmpty(target)) {
     throw Error('buildRequestForOffer Invalid target')
   }
-  const activities = await buildRequestForOfferActivity(
-    generateRequestForOfferActivity(RequestForOfferState.CREATED) as FirestoreRequestForOfferActivityPrototype
-  ).then((activity) => [activity])
+  const activities = await buildRequestForOfferActivity({
+    date: dayjs(),
+    fromState: undefined,
+    toState: RequestForOfferState.CREATED
+  }).then((activity) => [activity])
   return {
     state: RequestForOfferState.CREATED,
     sender: getFirestoreUserRefById(prototype.senderId),
     discordGuild: R.getExn(discordGuildResult),
     target,
-    items: await Promise.all(prototype.items.map(buildRequestForOfferItem)),
+    items: await Promise.all(prototype.items.map(getFirestoreNftRefById)),
     // FIXME: This does not work for some reason
     activities,
     createdAt: dayjs().unix(),
