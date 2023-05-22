@@ -22,7 +22,7 @@ describe('crud - request-for-offer - updateRequestForOfferActivities', () => {
       .then(() => expect(false).toBeTruthy())
       .catch((error) => expect(error).toEqual('Request for offer not found'))
   })
-  it('if requestForOfferId does not exist, rejects', () => {
+  it('if requestForOfferId exist, update', () => {
     const mockedUpdateRef = jest
       .spyOn(DocumentReference.prototype, 'update')
       // @ts-ignore

@@ -8,7 +8,13 @@ import { walletsOwnTokens } from '../../../utils/alchemy/wallets-own-tokens'
 import { mockRequestResponse } from '../../../utils/test/mocks/request-response'
 import { mockSession } from '../../../utils/test/mocks/session'
 import { createOfferHandler } from '../create-offer-handler'
-import { addOffer, findDiscordGuildById, findRequestForOfferById, findUserById } from '@echo/firebase-admin'
+import {
+  addOffer,
+  findDiscordGuildById,
+  findRequestForOfferById,
+  findUserById,
+  updateRequestForOfferOffers
+} from '@echo/firebase-admin'
 import * as model from '@echo/model'
 import { mockDiscordGuild, mockOffer, mockOpenRequestForOffer, mockRequestForOffer, mockUser } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
@@ -28,8 +34,12 @@ describe('handlers - offer - createOfferHandler', () => {
     .mocked(findDiscordGuildById)
     .mockResolvedValue(R.fromNullable(mockDiscordGuild, new Error()))
   const mockedUserIsInGuild = jest.spyOn(model, 'userIsInGuild').mockReturnValue(true)
-  const mockedAddOffer = jest.mocked(addOffer).mockResolvedValue(R.fromNullable(mockOffer, new Error()))
+  const mockedAddOffer = jest.mocked(addOffer).mockImplementation(() => {
+    return Promise.resolve(R.fromNullable(mockOffer, new Error()))
+  })
   const mockedWalletsOwnTokens = jest.mocked(walletsOwnTokens).mockResolvedValue(true)
+  // @ts-ignore
+  const mockedUpdateRequestForOfferOffers = jest.mocked(updateRequestForOfferOffers).mockResolvedValue({})
   const session = mockSession
   const mockedRequestWithRequestForOffer: CreateOfferRequest = {
     receiverItems: mockOffer.receiverItems.map(mapOfferItemToItemRequest),
@@ -184,6 +194,17 @@ describe('handlers - offer - createOfferHandler', () => {
       await createOfferHandler(req, res, session)
       expect(res.statusCode).toBe(500)
       expect(res._getJSONData()).toEqual({ error: 'Request for offer cannot accept offers' })
+    })
+    it('if updateRequestForOfferOffers fails, returns 500', async () => {
+      const { req, res } = mockRequestResponse<CreateOfferRequest, never, OfferResponse>(
+        'GET',
+        undefined,
+        mockedRequestWithRequestForOffer
+      )
+      mockedUpdateRequestForOfferOffers.mockRejectedValueOnce(new Error())
+      await createOfferHandler(req, res, session)
+      expect(res.statusCode).toBe(500)
+      expect(res._getJSONData()).toEqual({ error: 'Could not create offer' })
     })
     it('if adding offer is successful, returns 200 and the offer object', async () => {
       const { req, res } = mockRequestResponse<CreateOfferRequest, never, OfferResponse>(

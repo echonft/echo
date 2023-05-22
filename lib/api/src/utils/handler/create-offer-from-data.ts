@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { mapDataToOfferPrototype } from '../../mappers/map-data-to-offer-prototype'
 import { mapOfferToResponse } from '../../mappers/map-offer-to-response'
 import { ErrorResponse, ItemRequest } from '../../types'
@@ -56,7 +57,7 @@ export function createOfferFromData(
               return updateRequestForOfferOffers(requestForOfferId, offer.id)
                 .then(() => res.status(200).json(mapOfferToResponse(offer)))
                 .catch((error) => {
-                  logger.error(`Error updating request for offer: ${JSON.stringify(error)}`)
+                  logger.error(`Error updating request for offer: ${error}`)
                   res.end(res.status(500).json({ error: 'Could not create offer' }))
                   return
                 })
@@ -64,13 +65,13 @@ export function createOfferFromData(
             return res.status(200).json(mapOfferToResponse(offer))
           })
           .catch((e: Error) => {
-            logger.error(`Error creating offer: ${JSON.stringify(e)}`)
+            logger.error(`Error creating offer: ${e}`)
             res.end(res.status(500).json({ error: 'Could not create offer' }))
             return
           })
       })
       .catch((reason) => {
-        logger.error(`Error fetching from alchemy: ${JSON.stringify(reason)}`)
+        logger.error(`Error fetching from alchemy: ${reason}`)
         res.end(res.status(500).json({ error: 'Could not create offer' }))
         return
       })
