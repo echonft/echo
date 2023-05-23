@@ -12,9 +12,9 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 export const Standard: Story = {
-  render: () => <Component name={'johnnycage'} src={collectionProfilePictureUrl} />
+  render: () => <Component collectionName={'johnnycage'} profilePictureUrl={new URL(collectionProfilePictureUrl)} />
 }
 
 export const Default: Story = {
-  render: () => <Component name={'johnnycage'} src={undefined} />
+  render: () => <Component collectionName={'johnnycage'} profilePictureUrl={undefined} />
 }

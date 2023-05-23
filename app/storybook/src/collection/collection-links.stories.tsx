@@ -1,3 +1,4 @@
+import { mockNftCollection } from '@echo/model'
 import { CollectionLinks as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -12,9 +13,9 @@ type Story = StoryObj<typeof Component>
 
 export const CollectionLinks: Story = {
   args: {
-    websiteUrl: 'https://echonft.xyz',
-    discordUrl: 'https://discord.gg/qdJTyTXT',
-    twitterUsername: 'Sun_flyers'
+    websiteUrl: mockNftCollection.openSea!.externalUrl,
+    discordUrl: mockNftCollection.openSea!.discordUrl,
+    twitterUsername: mockNftCollection.openSea!.twitterUsername
   },
   render: ({ websiteUrl, discordUrl, twitterUsername }) => (
     <Component websiteUrl={websiteUrl} discordUrl={discordUrl} twitterUsername={twitterUsername} />

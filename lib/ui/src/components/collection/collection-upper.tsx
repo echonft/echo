@@ -1,17 +1,16 @@
-import { Banner } from '../base/banner'
+import { Banner, BannerProps } from '../base/banner'
 import { CollectionDetails, CollectionDetailsProps } from './collection-details'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface CollectionUpperProps extends CollectionDetailsProps {
-  bannerUrl: string | undefined
+export interface CollectionUpperProps extends CollectionDetailsProps, BannerProps {
   description: string
 }
 
 export const CollectionUpper: FunctionComponent<CollectionUpperProps> = ({
   bannerUrl,
   size,
-  name,
+  collectionName,
   description,
   profilePictureUrl,
   twitterUsername,
@@ -20,10 +19,10 @@ export const CollectionUpper: FunctionComponent<CollectionUpperProps> = ({
 }) => {
   return (
     <div className={clsx('flex', 'flex-col', 'self-stretch', 'w-full')}>
-      <Banner src={bannerUrl} />
+      <Banner bannerUrl={bannerUrl} />
       <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-40', 'pb-8')}>
         <CollectionDetails
-          name={name}
+          collectionName={collectionName}
           size={size}
           profilePictureUrl={profilePictureUrl}
           discordUrl={discordUrl}

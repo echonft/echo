@@ -36,9 +36,22 @@ export { ConnectButton, ConnectButtonProps } from './components/layout/header/co
 export { Header, HeaderProps } from './components/layout/header/header'
 export { HeaderSearchInput, HeaderSearchInputProps } from './components/layout/header/header-search-input'
 export { UserTag, UserTagProps } from './components/layout/header/user-tag'
+export { NftDetails, NftDetailsProps } from './components/nft/details/nft-details'
+export {
+  NftDetailsAttributesPanel,
+  NftDetailsAttributesPanelProps
+} from './components/nft/details/nft-details-attributes-panel'
+export { NftDetailsHeader, NftDetailsHeaderProps } from './components/nft/details/nft-details-header'
+export { NftDetailsOffersPanel, NftDetailsOffersPanelProps } from './components/nft/details/nft-details-offers-panel'
+export {
+  NftDetailsTokenDetailsPanel,
+  NftDetailsTokenDetailsPanelProps
+} from './components/nft/details/nft-details-token-details-panel'
 export { NftThumbnailSelectable, NftThumbnailSelectableProps } from './components/nft/nft-thumbnail-selectable'
 export { CollapsibleManager, CollapsibleManagerProps } from './components/utils/collapsible-manager'
 export { SelectionManager, SelectionManagerProps } from './components/utils/selection-manager'
+export { Dependencies, DependenciesProvider } from './dependencies/dependencies-provider'
+export { LinkProvider, Routes } from './dependencies/link-provider'
 export { getMessages } from './messages/get-messages'
 export { TraitFilter, TraitFilterGroup } from './model/trait-filter'
 export { ColorBlack, ColorYellow } from './types/color'

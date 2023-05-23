@@ -25,7 +25,7 @@ export const TraitFilterPanel: FunctionComponent<TraitFilterPanelProps> = ({
   const t = useTranslations('collection.filters.traits')
   return (
     <FiltersPanel>
-      <h2 className={clsx('prose-label-sm-bold', 'text-white/50', 'py-1')}>{t('title')}</h2>
+      <h2 className={clsx('prose-label-sm-semi', 'text-white/50', 'py-1')}>{t('title')}</h2>
       <Combobox
         className={clsx('relative', 'w-full', 'h-max', 'flex', 'flex-row', 'items-center')}
         as={'div'}
@@ -45,7 +45,7 @@ export const TraitFilterPanel: FunctionComponent<TraitFilterPanelProps> = ({
             'py-2',
             'h-max',
             'w-full',
-            'prose-label-xs-bold',
+            'prose-label-xs-semi',
             'focus-visible:outline-0',
             'focus-visible:bg-white/50',
             'focus-visible:text-dark-300',

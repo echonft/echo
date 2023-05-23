@@ -1,4 +1,4 @@
-import { getMessages } from '@echo/ui'
+import { DependenciesProvider, getMessages } from '@echo/ui'
 import type { Preview } from '@storybook/react'
 import '@echo/ui/dist/index.css'
 import * as NextImage from 'next/image'
@@ -28,9 +28,12 @@ export const decorators = [
   (Story) => {
     return (
       // @ts-ignore
-      <NextIntlProvider messages={getMessages('en')} locale={'en'}>
-        {Story()}
-      </NextIntlProvider>
+      <DependenciesProvider linkProvider={{ getLink: (_route, _params) => '#' }}>
+        {/*@ts-ignore*/}
+        <NextIntlProvider messages={getMessages('en')} locale={'en'}>
+          {Story()}
+        </NextIntlProvider>
+      </DependenciesProvider>
     )
   }
 ]

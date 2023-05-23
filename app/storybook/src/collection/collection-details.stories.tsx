@@ -1,4 +1,5 @@
 import { collectionProfilePictureUrl } from '../constants'
+import { mockNftCollection } from '@echo/model'
 import { CollectionDetails as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -14,12 +15,12 @@ type Story = StoryObj<typeof Component>
 export const CollectionDetails: Story = {
   render: () => (
     <Component
-      name={'sun flyers nft'}
+      collectionName={mockNftCollection.openSea!.collectionName!}
       size={10000}
-      profilePictureUrl={collectionProfilePictureUrl}
-      discordUrl={'https://discord.gg/qdJTyTXT'}
-      twitterUsername={'Sun_flyers'}
-      websiteUrl={'https://echonft.xyz'}
+      profilePictureUrl={new URL(collectionProfilePictureUrl)}
+      discordUrl={mockNftCollection.openSea!.discordUrl}
+      twitterUsername={mockNftCollection.openSea!.twitterUsername}
+      websiteUrl={mockNftCollection.openSea!.externalUrl}
     />
   )
 }

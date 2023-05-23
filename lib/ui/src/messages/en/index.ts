@@ -1,4 +1,9 @@
 export const messages = {
+  chain: {
+    name: {
+      id1: 'Ethereum'
+    }
+  },
   collection: {
     details: {
       size: '{size, number, ::K} NFTs'
@@ -16,6 +21,24 @@ export const messages = {
     }
   },
   nft: {
+    details: {
+      attributes: {
+        title: 'Attributes'
+      },
+      makeOfferBtn: 'Make an offer',
+      offers: {
+        title: 'Latest offers',
+        empty: 'No offers made yet',
+        by: 'By',
+        expiresIn: 'Expires {time}'
+      },
+      tokenDetails: {
+        title: 'Token Details',
+        tokenId: 'Token ID',
+        blockchain: 'Blockchain',
+        tokenType: 'Token Standard'
+      }
+    },
     thumbnail: {
       makeOfferBtn: 'Make an offer'
     }

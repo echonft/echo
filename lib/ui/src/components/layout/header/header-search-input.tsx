@@ -29,7 +29,7 @@ export const HeaderSearchInput: FunctionComponent<HeaderSearchInputProps> = ({ o
           'pr-4',
           'h-full',
           'w-full',
-          'prose-label-xs-bold',
+          'prose-label-xs-semi',
           'focus-visible:outline-0',
           'focus-visible:bg-white/50',
           'focus-visible:text-dark-300',

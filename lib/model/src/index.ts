@@ -32,6 +32,7 @@ export { generateRequestForOfferActivity } from './utils/request-for-offer/gener
 export { generateMockContract } from './utils/tests/mocks/contract/generate-mock-contract'
 export { mockContract } from './utils/tests/mocks/contract/mock-contract'
 export { mockDiscordGuild } from './utils/tests/mocks/discord-guild/mock-discord-guild'
+export { mockOwnedNft } from './utils/tests/mocks/nft/mock-owned-nft'
 export { mockNftCollection } from './utils/tests/mocks/nft-collection/mock-nft-collection'
 export { mockOffer } from './utils/tests/mocks/offer/mock-offer'
 export { mockRequestForOffer } from './utils/tests/mocks/request-for-offer/mock-request-for-offer'

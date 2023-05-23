@@ -9,9 +9,10 @@ import { clsx } from 'clsx'
 import { FunctionComponent, MouseEventHandler } from 'react'
 
 export interface NftThumbnailSelectableProps extends SelectableProps<bigint> {
-  pictureUrl: string
+  pictureUrl: URL
   owner: string
-  name: string
+  collectionName: string
+  title: string | undefined
   tokenId: bigint
   flagged?: boolean
   onMakeOffer?: MouseEventHandler
@@ -20,7 +21,8 @@ export interface NftThumbnailSelectableProps extends SelectableProps<bigint> {
 export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectableProps> = ({
   pictureUrl,
   owner,
-  name,
+  collectionName,
+  title,
   tokenId,
   flagged,
   selected,
@@ -41,7 +43,7 @@ export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectablePro
       )}
     >
       <div className={'relative'}>
-        <NftThumbnailPicture name={name} src={pictureUrl} />
+        <NftThumbnailPicture title={title} tokenId={tokenId} pictureUrl={pictureUrl} />
         <NftThumbnailFlagIcon flagged={flagged} />
         <NftThumbnailSelector
           selected={selected}
@@ -52,7 +54,7 @@ export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectablePro
         <NftThumbnailOwner owner={owner} />
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-2', 'rounded-b-2xl', 'bg-white/[0.08]', 'w-full', 'p-2')}>
-        <NftThumbnailTitle name={name} tokenId={tokenId} />
+        <NftThumbnailTitle title={title} tokenId={tokenId} collectionName={collectionName} />
         <NftThumbnailMakeOfferButton onClick={onMakeOffer} />
       </div>
     </div>
