@@ -1,6 +1,6 @@
 import { listingLink } from '../../routing/listing-link'
 import { buildNewListingButtons } from '../listing-button-builder'
-import { mockRequestForOffer } from '@echo/model'
+import { requestsForOffer } from '@echo/model'
 import { describe, expect, it, jest } from '@jest/globals'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 
@@ -8,7 +8,7 @@ jest.mock('../../routing/get-base-url')
 
 describe('builders - buildNewListingButtons', () => {
   it('should build a new listing button with a link to the listing', () => {
-    const requestForOffer = mockRequestForOffer
+    const requestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
     const result = buildNewListingButtons(requestForOffer)
     const expectedLink = listingLink(requestForOffer)
     expect(result).toBeInstanceOf(ActionRowBuilder)

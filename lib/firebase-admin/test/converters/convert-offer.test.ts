@@ -1,5 +1,5 @@
-import { offerFirestoreData } from '../../../mocks/src/offer/offer-firestore-data'
 import { getFirestoreOfferData } from '../../src/data/offer/get-firestore-offer-data'
+import { offerFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 
 describe('convertOffer', () => {

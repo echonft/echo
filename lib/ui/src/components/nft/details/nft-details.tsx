@@ -5,14 +5,14 @@ import { NftDetailsAttributesPanel } from './nft-details-attributes-panel'
 import { NftDetailsHeader } from './nft-details-header'
 import { NftDetailsOffersPanel } from './nft-details-offers-panel'
 import { NftDetailsTokenDetailsPanel } from './nft-details-token-details-panel'
-import { Offer, OwnedNft } from '@echo/model'
+import { Nft, Offer } from '@echo/model'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 export interface NftDetailsProps {
-  nft: OwnedNft
+  nft: Nft
   offers?: Offer[]
   onMakeOffer?: () => unknown
 }
@@ -24,7 +24,8 @@ export const NftDetails: FunctionComponent<NftDetailsProps> = ({ nft, offers, on
       <div className={clsx('flex', 'flex-col', 'flex-none', 'gap-10')}>
         <Image
           className={clsx('w-[33rem]', 'h-[33rem]', 'rounded-2xl')}
-          src={nft.media[0]!.gateway.href}
+          // FIXME: Not sure if that's what you need here
+          src={nft.pictureUrl.toString()}
           alt={nft.tokenId.toString()}
           width={528}
           height={528}
@@ -37,8 +38,8 @@ export const NftDetails: FunctionComponent<NftDetailsProps> = ({ nft, offers, on
       </div>
       <div className={clsx('flex', 'flex-col', 'flex-grow', 'gap-10')}>
         <NftDetailsHeader
-          collectionName={nft.collection.openSea!.collectionName!}
-          title={nft.title}
+          collectionName={nft.collection.name}
+          title={nft.name}
           tokenId={nft.tokenId}
           owner={nft.owner}
         />

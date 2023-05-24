@@ -1,6 +1,5 @@
-import { OfferItemResponse } from './offer-item-response'
 import { FirestoreActivityData } from '@echo/firestore'
-import { DiscordGuild, OfferState, User } from '@echo/model'
+import { DiscordGuild, Nft, OfferState, User } from '@echo/model'
 
 // TODO Should all be FirestoreData
 export interface OfferResponse {
@@ -9,9 +8,9 @@ export interface OfferResponse {
   discordGuild: DiscordGuild
   threadId: string | undefined
   sender: User
-  senderItems: OfferItemResponse[]
+  senderItems: Nft[]
   receiver: User
-  receiverItems: OfferItemResponse[]
+  receiverItems: Nft[]
   activities?: FirestoreActivityData[]
   expiresAt: number
   postedAt: number | undefined

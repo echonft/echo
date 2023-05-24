@@ -1,6 +1,5 @@
 export { CreateOfferRequest } from './model/requests/create-offer-request'
 export { CreateRequestForOfferRequest } from './model/requests/create-request-for-offer-request'
-export { ItemRequest } from './model/requests/item-request'
 export { RequestForOfferRequest } from './model/requests/request-for-offer-request'
 export { TargetRequest } from './model/requests/target-request'
 export { WalletRequest } from './model/requests/wallet-request'

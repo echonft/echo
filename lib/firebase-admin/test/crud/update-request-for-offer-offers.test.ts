@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { getDocRefFromPath } from '../../../utils/document/get-doc-ref-from-path'
-import { requestForOfferSnapshots } from '../../../utils/test/mocks/request-for-offer/request-for-offer-snapshot'
-import { updateRequestForOfferOffers } from '../update-request-for-offer-offers'
-import { mockOffer, mockRequestForOffer, RequestForOfferState } from '@echo/model'
+import { updateRequestForOfferOffers } from '../../src/crud/request-for-offer/update-request-for-offer-offers'
+import { getDocRefFromPath } from '../../src/utils/document/get-doc-ref-from-path'
+import { requestForOfferSnapshots } from '../mocks/request-for-offer/request-for-offer-snapshot'
+import { CollectionName } from '@echo/firestore'
+import { offers, RequestForOfferState, requestsForOffer } from '@echo/model'
 import { DocumentReference } from '@google-cloud/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
@@ -10,8 +11,8 @@ jest.mock('../../../utils/document/get-doc-ref-from-path')
 jest.mock('@google-cloud/firestore')
 
 describe('crud - request-for-offer - updateRequestForOfferOffers', () => {
-  const requestForOffer = mockRequestForOffer
-  const offer = mockOffer
+  const requestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
+  const offer = offers['LyCfl6Eg7JKuD7XJ6IPi']!
   // @ts-ignore
   const mockedGetDocRefFromPath = jest.mocked(getDocRefFromPath).mockResolvedValue({})
   beforeEach(() => {
@@ -20,7 +21,7 @@ describe('crud - request-for-offer - updateRequestForOfferOffers', () => {
   it('if requestForOfferId does not exist, rejects', () => {
     // @ts-ignore
     mockedGetDocRefFromPath.mockImplementation((collectionPath) => {
-      if (collectionPath === 'request-for-offers') {
+      if (collectionPath === CollectionName.REQUESTS_FOR_OFFER) {
         return undefined
       } else {
         return {}
@@ -33,7 +34,7 @@ describe('crud - request-for-offer - updateRequestForOfferOffers', () => {
   it('if offerId does not exist, rejects', () => {
     // @ts-ignore
     mockedGetDocRefFromPath.mockImplementation((collectionPath) => {
-      if (collectionPath === 'request-for-offers') {
+      if (collectionPath === CollectionName.REQUESTS_FOR_OFFER) {
         return {}
       } else {
         return undefined
@@ -45,6 +46,7 @@ describe('crud - request-for-offer - updateRequestForOfferOffers', () => {
   })
   it('if request for offer and offer exists, updates and return write data', () => {
     const mockRef = jest.mocked(DocumentReference.prototype)
+    // @ts-ignore
     const mockGetter = mockRef.get.mockImplementation(() => {
       return Promise.resolve(requestForOfferSnapshots['jUzMtPGKM62mMhEcmbN4']!)
     })
@@ -54,13 +56,13 @@ describe('crud - request-for-offer - updateRequestForOfferOffers', () => {
     })
     // @ts-ignore
     mockedGetDocRefFromPath.mockImplementation((collectionPath) => {
-      if (collectionPath === 'request-for-offers') {
+      if (collectionPath === CollectionName.REQUESTS_FOR_OFFER) {
         return mockRef
       } else {
         return {}
       }
     })
-    updateRequestForOfferOffers(requestForOffer.id, mockOffer.id)
+    updateRequestForOfferOffers(requestForOffer.id, offer.id)
       .then((data) => expect(data).toBeDefined())
       .catch(() => expect(false).toBeTruthy())
     expect(mockGetter).toHaveBeenCalled()
@@ -76,7 +78,7 @@ describe('crud - request-for-offer - updateRequestForOfferOffers', () => {
         })
       })
     })
-    updateRequestForOfferOffers(requestForOffer.id, mockOffer.id)
+    updateRequestForOfferOffers(requestForOffer.id, offer.id)
       .then((data) => expect(data).toBeDefined())
       .catch(() => expect(false).toBeTruthy())
     expect(mockGetter).toHaveBeenCalled()

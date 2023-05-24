@@ -1,6 +1,6 @@
-import { swaps } from '../../../mocks/src/swap/swap'
 import { getFirestoreSwapData } from '../../src/data/swap/get-firestore-swap-data'
 import { mapSwap } from '@echo/firestore'
+import { swaps } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 import { pipe } from 'ramda'
 

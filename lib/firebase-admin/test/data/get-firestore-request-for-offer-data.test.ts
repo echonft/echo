@@ -1,11 +1,13 @@
-import { getDocSnapshot } from '../../../utils/document/get-doc-snapshot'
-import { requestForOfferSnapshots } from '../../../utils/test/mocks/request-for-offer/request-for-offer-snapshot'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { getDocSnapshot } from '../../src/utils/document/get-doc-snapshot'
+import { requestForOfferSnapshots } from '../mocks/request-for-offer/request-for-offer-snapshot'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../../utils/document/get-doc-snapshot')
 
 // FIXME: No works
 describe('crud - request-for-offer - findRequestForOfferId', () => {
+  // @ts-ignore
   jest.mocked(getDocSnapshot).mockResolvedValue(requestForOfferSnapshots['jUzMtPGKM62mMhEcmbN4']!)
   beforeEach(() => {
     jest.clearAllMocks()

@@ -1,4 +1,3 @@
-import { mapDataToRequestForOfferPrototype } from '../../mappers/map-data-to-request-for-offer-prototype'
 import { mapRequestForOfferToResponse } from '../../mappers/map-request-for-offer-to-response'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
@@ -9,6 +8,7 @@ import { getAlchemy } from '../../utils/alchemy/alchemy'
 import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { addRequestForOffer, findDiscordGuildByGuildId } from '@echo/firebase-admin'
+import { FirestoreRequestForOfferPrototype } from '@echo/firestore'
 import { userIsInGuild } from '@echo/model'
 import { isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
@@ -36,13 +36,15 @@ export const createRequestForOfferHandler: RequestHandler<
       const discordGuild = R.getExn(discordGuildResult)
       if (userIsInGuild(user, discordGuild)) {
         // We can unwrap here, wallets are not going to be empty or nil
-        return walletsOwnTokens(getAlchemy(), user.wallets!, validatedRequest.items)
+        // FIXME
+        return walletsOwnTokens(getAlchemy(), user.wallets!, [])
           .then((userOwnsAllNfts) => {
             if (!userOwnsAllNfts) {
               res.end(res.status(401).json({ error: 'User does not own all the NFTs to offer' }))
               return
             }
-            return addRequestForOffer(mapDataToRequestForOfferPrototype(user, validatedRequest))
+            // FIXME
+            return addRequestForOffer({} as unknown as FirestoreRequestForOfferPrototype)
               .then((requestForOfferResult) => {
                 if (R.isError(requestForOfferResult)) {
                   res.end(res.status(500).json({ error: 'Could not create listing' }))

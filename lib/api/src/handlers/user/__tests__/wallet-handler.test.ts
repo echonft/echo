@@ -5,7 +5,7 @@ import { mockSession } from '../../../utils/test/mocks/session'
 import { createWalletHandler } from '../create-wallet-handler'
 import { deleteWalletHandler } from '../delete-wallet-handler'
 import { walletHandler } from '../wallet-handler'
-import { mockWallet, User, Wallet } from '@echo/model'
+import { User, users, Wallet } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { SiweMessage } from 'siwe'
 
@@ -25,7 +25,7 @@ describe('handlers - user - walletHandler', () => {
     nonce: '',
     issuedAt: ''
   })
-  const wallet = mockWallet
+  const wallet = users['oE6yUEQBPn7PZ89yMjKn']!.wallets![0]!
   const signature = '0x0000'
   beforeEach(() => {
     jest.clearAllMocks()

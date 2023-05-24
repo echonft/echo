@@ -1,5 +1,5 @@
-import { users } from '../../../mocks/src/user/user'
 import { findUserByWallet } from '../../src'
+import { users } from '@echo/model'
 import { describe, expect, test } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 

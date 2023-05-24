@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { SwapResponse } from '../../types/model/responses/swap-response'
 import { mapSwapToResponse } from '../map-swap-to-response'
-import { requestsForOffer } from '@echo/firebase-admin'
-import { Swap } from '@echo/model'
+import { requestsForOffer, Swap } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 import { omit } from 'ramda'
 
 describe('mappers - mapSwapToResponse', () => {
   const mockSwap = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!.swaps![0]!
+  // FIXME
   const expectedResult = {
     id: 'hS6KtAJ03bSolumoHvDJ',
     // @ts-ignore

@@ -7,7 +7,7 @@ import { mockSession } from '../../../utils/test/mocks/session'
 import { cancelRequestForOfferHandler } from '../cancel-request-for-offer-handler'
 import { findRequestForOfferById, updateRequestForOfferActivities } from '@echo/firebase-admin'
 import * as model from '@echo/model'
-import { generateRequestForOfferActivity, mockRequestForOffer, RequestForOfferState } from '@echo/model'
+import { generateRequestForOfferActivity, RequestForOfferState, requestsForOffer } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { omit } from 'ramda'
@@ -15,7 +15,7 @@ import { omit } from 'ramda'
 jest.mock('@echo/firebase-admin')
 
 describe('handlers - user - cancelRequestForOfferHandler', () => {
-  const requestForOffer = mockRequestForOffer
+  const requestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
   const mockedFindRequestForOfferById = jest
     .mocked(findRequestForOfferById)
     .mockResolvedValue(R.fromNullable(requestForOffer, new Error()))

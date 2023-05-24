@@ -1,4 +1,4 @@
-import { mockNftCollection, mockOwnedNft } from '@echo/model'
+import { nftCollections, nfts } from '@echo/model'
 import { NftDetailsHeader as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -18,8 +18,8 @@ type Story = StoryObj<typeof Component>
 
 export const Header: Story = {
   args: {
-    collectionName: mockNftCollection.openSea?.collectionName,
-    tokenId: mockOwnedNft.tokenId,
-    owner: mockOwnedNft.owner
+    collectionName: nftCollections['Rc8pLQXxgyQGIRL0fr13']!.name,
+    tokenId: nfts['QFjMRNChUAHNswkRADXh']!.tokenId,
+    owner: nfts['QFjMRNChUAHNswkRADXh']!.owner
   }
 }

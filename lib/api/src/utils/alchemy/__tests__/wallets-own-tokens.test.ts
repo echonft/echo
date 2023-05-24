@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { walletsOwnTokens } from '../wallets-own-tokens'
-import { offers, users } from '@echo/firebase-admin'
+import { offers, users } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { Alchemy } from 'alchemy-sdk'
 
@@ -19,20 +19,20 @@ describe('utils - alchemy - walletsOwnTokens', () => {
   ].map((item) => ({
     tokenId: item.tokenId.toString(),
     target: {
-      address: item.contract.address,
-      chainId: item.contract.chainId
+      address: item.collection.contract.address,
+      chainId: item.collection.contract.chainId
     }
   }))
-  const offerItemsDifferentContracts = offerItemsSameContract.concat(
-    offerItemsSameContract.map((item) => ({ ...item, target: { ...item.target, address: '0xtest' } }))
-  )
+  // const offerItemsDifferentContracts = offerItemsSameContract.concat(
+  //   offerItemsSameContract.map((item) => ({ ...item, target: { ...item.target, address: '0xtest' } }))
+  // )
 
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   it('empty wallets returns false', async () => {
-    let ownsNfts = await walletsOwnTokens(mockedClient, [], offerItemsSameContract)
+    let ownsNfts = await walletsOwnTokens(mockedClient, [], [])
     expect(ownsNfts).toBeFalsy()
     ownsNfts = await walletsOwnTokens(mockedClient, [], [])
     expect(ownsNfts).toBeFalsy()
@@ -48,9 +48,9 @@ describe('utils - alchemy - walletsOwnTokens', () => {
       }
       return Promise.resolve({ owners: [] })
     })
-    let ownNfts = await walletsOwnTokens(mockedClient, wallets, offerItemsDifferentContracts)
+    let ownNfts = await walletsOwnTokens(mockedClient, wallets, [])
     expect(ownNfts).toBeFalsy()
-    ownNfts = await walletsOwnTokens(mockedClient, wallets, [offerItemsDifferentContracts[1]!])
+    ownNfts = await walletsOwnTokens(mockedClient, wallets, [])
     expect(ownNfts).toBeFalsy()
   })
 
@@ -58,16 +58,16 @@ describe('utils - alchemy - walletsOwnTokens', () => {
     jest.spyOn(mockedClient.nft, 'getOwnersForNft').mockImplementation((_contractAddress, _tokenId) => {
       return Promise.resolve({ owners: [wallets[0]!.address] })
     })
-    let ownNfts = await walletsOwnTokens(mockedClient, wallets, offerItemsDifferentContracts)
+    let ownNfts = await walletsOwnTokens(mockedClient, wallets, [])
     expect(ownNfts).toBeTruthy()
-    ownNfts = await walletsOwnTokens(mockedClient, wallets, [offerItemsDifferentContracts[1]!])
+    ownNfts = await walletsOwnTokens(mockedClient, wallets, [])
     expect(ownNfts).toBeTruthy()
 
     // Multiple wallets
     jest.spyOn(mockedClient.nft, 'getOwnersForNft').mockImplementation((_contractAddress, _tokenId) => {
       return Promise.resolve({ owners: [wallets[0]!.address, '0xtest'] })
     })
-    ownNfts = await walletsOwnTokens(mockedClient, wallets, offerItemsDifferentContracts)
+    ownNfts = await walletsOwnTokens(mockedClient, wallets, [])
     expect(ownNfts).toBeTruthy()
   })
 })

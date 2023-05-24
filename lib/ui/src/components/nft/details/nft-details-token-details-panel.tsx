@@ -7,7 +7,7 @@ import { FunctionComponent } from 'react'
 
 export interface NftDetailsTokenDetailsPanelProps {
   chainId: number
-  tokenId: bigint
+  tokenId: number
   tokenType: TokenType
 }
 

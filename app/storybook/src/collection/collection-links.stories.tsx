@@ -1,4 +1,4 @@
-import { mockNftCollection } from '@echo/model'
+import { nftCollections } from '@echo/model'
 import { CollectionLinks as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -8,14 +8,14 @@ const metadata = {
 } satisfies Meta<typeof Component>
 
 export default metadata
-
+const mockNftCollection = nftCollections['Rc8pLQXxgyQGIRL0fr13']!
 type Story = StoryObj<typeof Component>
 
 export const CollectionLinks: Story = {
   args: {
-    websiteUrl: mockNftCollection.openSea!.externalUrl,
-    discordUrl: mockNftCollection.openSea!.discordUrl,
-    twitterUsername: mockNftCollection.openSea!.twitterUsername
+    websiteUrl: mockNftCollection.websiteUrl,
+    discordUrl: mockNftCollection.discordUrl,
+    twitterUsername: mockNftCollection.twitterUsername
   },
   render: ({ websiteUrl, discordUrl, twitterUsername }) => (
     <Component websiteUrl={websiteUrl} discordUrl={discordUrl} twitterUsername={twitterUsername} />

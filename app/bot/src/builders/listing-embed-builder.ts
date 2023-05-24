@@ -1,8 +1,8 @@
 import { listingLink } from '../routing/listing-link'
 import { embedSeparator } from '../utils/embed/embed-separator'
-import { embedValueForOfferItem } from '../utils/embed/embed-value-for-offer-item'
+import { embedValueForNft } from '../utils/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../utils/embed/embed-value-for-target'
-import { Contract, OfferItem, RequestForOffer } from '@echo/model'
+import { Contract, Nft, RequestForOffer } from '@echo/model'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import { flatten } from 'ramda'
 
@@ -29,14 +29,14 @@ function color(): number {
   return 0x00ff66
 }
 
-function fields(items: OfferItem[], targets: Contract[]): APIEmbedField[] {
-  return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), listingTargets(targets)])
+function fields(nfts: Nft[], targets: Contract[]): APIEmbedField[] {
+  return flatten([embedSeparator(), listingItemsFields(nfts), embedSeparator(), listingTargets(targets)])
 }
 
-function listingItemsFields(items: OfferItem[]): APIEmbedField[] {
-  return items.map((item, index) => ({
+function listingItemsFields(nfts: Nft[]): APIEmbedField[] {
+  return nfts.map((nft, index) => ({
     name: index === 0 ? listingItemsName() : '\u200b',
-    value: embedValueForOfferItem(item),
+    value: embedValueForNft(nft),
     inline: true
   }))
 }

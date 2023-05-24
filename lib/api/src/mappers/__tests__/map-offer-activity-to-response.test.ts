@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { mapOfferActivityToResponse } from '../map-offer-activity-to-response'
-import { offers } from '@echo/firebase-admin'
-import { OfferActivity, OfferState } from '@echo/model'
+import { OfferActivity, offers, OfferState } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 import { omit, pick } from 'ramda'
 

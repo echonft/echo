@@ -1,6 +1,5 @@
-import { requestsForOffer } from '../../../mocks/src/request-for-offer/request-for-offer'
-import { requestForOfferFirestoreData } from '../../../mocks/src/request-for-offer/request-for-offer-firestore-data'
-import { mapRequestForOffer } from '@echo/firestore'
+import { mapRequestForOffer, requestForOfferFirestoreData } from '@echo/firestore'
+import { requestsForOffer } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 import { omit } from 'ramda'
 

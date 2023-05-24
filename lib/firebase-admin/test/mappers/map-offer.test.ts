@@ -1,6 +1,5 @@
-import { offers } from '../../../mocks/src/offer/offer'
-import { offerFirestoreData } from '../../../mocks/src/offer/offer-firestore-data'
-import { mapOffer } from '@echo/firestore'
+import { mapOffer, offerFirestoreData } from '@echo/firestore'
+import { offers } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapOffer', () => {

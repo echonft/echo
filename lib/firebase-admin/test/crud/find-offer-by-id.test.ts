@@ -1,23 +1,22 @@
-import { getFirestoreOfferData } from '../../../data/offer/get-firestore-offer-data'
-import { offerData } from '../../../utils/test/mocks/offer/offer-data'
-import { offerEquals } from '../../../utils/test/mocks/offer/offer-equals'
-import { findOfferById } from '../find-offer-by-id'
-import { mockOffer } from '@echo/model'
+import { findOfferById } from '../../src/crud/offer/find-offer-by-id'
+import { getFirestoreOfferData } from '../../src/data/offer/get-firestore-offer-data'
+import { offerFirestoreData } from '@echo/firestore'
+import { offers } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 
 jest.mock('../../../data/offer/get-firestore-offer-data')
 
 describe('crud - offer - findOfferById', () => {
-  const mockFunction = jest.mocked(getFirestoreOfferData).mockResolvedValue(offerData['LyCfl6Eg7JKuD7XJ6IPi']!)
+  const mockFunction = jest.mocked(getFirestoreOfferData).mockResolvedValue(offerFirestoreData['LyCfl6Eg7JKuD7XJ6IPi']!)
   beforeEach(() => {
     jest.clearAllMocks()
   })
   it('finds offer with the proper id', async () => {
-    const expected = mockOffer
+    const expected = offers['LyCfl6Eg7JKuD7XJ6IPi']!
     const result = await findOfferById('LyCfl6Eg7JKuD7XJ6IPi')
     expect(R.isError(result)).toBeFalsy()
-    offerEquals(R.getExn(result), expected)
+    expect(R.getExn(result)).toStrictEqual(expected)
   })
   it('if getFirestoreOfferData throws, returns an error', async () => {
     mockFunction.mockRejectedValueOnce('cannot find data')

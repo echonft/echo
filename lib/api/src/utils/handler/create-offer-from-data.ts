@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { mapDataToOfferPrototype } from '../../mappers/map-data-to-offer-prototype'
 import { mapOfferToResponse } from '../../mappers/map-offer-to-response'
-import { ErrorResponse, ItemRequest } from '../../types'
+import { ErrorResponse } from '../../types'
 import { OfferResponse } from '../../types/model/responses/offer-response'
 import { getAlchemy } from '../alchemy/alchemy'
 import { walletsOwnTokens } from '../alchemy/wallets-own-tokens'
 import { addOffer, updateRequestForOfferOffers } from '@echo/firebase-admin'
+import { FirestoreOfferPrototype } from '@echo/firestore'
 import { DiscordGuild, User, userIsInGuild } from '@echo/model'
 import { isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
@@ -23,9 +23,9 @@ import { isNil } from 'ramda'
  */
 export function createOfferFromData(
   sender: User,
-  senderItems: ItemRequest[],
+  _senderItems: string[],
   receiver: User,
-  receiverItems: ItemRequest[],
+  _receiverItems: string[],
   discordGuild: DiscordGuild,
   res: NextApiResponse<OfferResponse | ErrorResponse>,
   requestForOfferId?: string
@@ -35,9 +35,10 @@ export function createOfferFromData(
     return
   }
   if (userIsInGuild(sender, discordGuild)) {
+    // FIXME
     return Promise.all([
-      walletsOwnTokens(getAlchemy(), sender.wallets, senderItems),
-      walletsOwnTokens(getAlchemy(), receiver.wallets, receiverItems)
+      walletsOwnTokens(getAlchemy(), sender.wallets, []),
+      walletsOwnTokens(getAlchemy(), receiver.wallets, [])
     ])
       .then((usersOwnsAllNfts) => {
         // If one of them do not own the NFTs for the offer, reject
@@ -45,7 +46,8 @@ export function createOfferFromData(
           res.end(res.status(401).json({ error: 'Users do not own all the NFTs to offer' }))
           return
         }
-        return addOffer(mapDataToOfferPrototype(sender.id, senderItems, receiver.id, receiverItems, discordGuild.id))
+        // FIXME
+        return addOffer({} as unknown as FirestoreOfferPrototype)
           .then((offerResult) => {
             if (R.isError(offerResult)) {
               res.end(res.status(500).json({ error: 'Could not create offer' }))

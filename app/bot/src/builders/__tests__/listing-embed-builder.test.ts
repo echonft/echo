@@ -1,14 +1,15 @@
 import { listingLink } from '../../routing/listing-link'
 import { embedSeparator } from '../../utils/embed/embed-separator'
-import { embedValueForOfferItem } from '../../utils/embed/embed-value-for-offer-item'
+import { embedValueForNft } from '../../utils/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../../utils/embed/embed-value-for-target'
 import { buildListingEmbed } from '../listing-embed-builder'
-import { mockRequestForOffer } from '@echo/model'
+import { requestsForOffer } from '@echo/model'
 import { describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../routing/get-base-url')
 
 describe('builders - buildListingEmbed', () => {
+  const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
   const listing = { ...mockRequestForOffer, target: mockRequestForOffer.target.concat(mockRequestForOffer.target) }
   it('should build an embed with the correct title', () => {
     const result = buildListingEmbed(listing)
@@ -26,13 +27,13 @@ describe('builders - buildListingEmbed', () => {
       inline: true,
       name: 'Items for sale',
       // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-      value: embedValueForOfferItem(listing.items?.[0]!)
+      value: embedValueForNft(listing.items?.[0]!)
     })
     expect(json.fields?.[2]).toEqual({
       inline: true,
       name: '\u200b',
       // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
-      value: embedValueForOfferItem(listing.items?.[1]!)
+      value: embedValueForNft(listing.items?.[1]!)
     })
     expect(json.fields?.[3]).toEqual(embedSeparator())
     expect(json.fields?.[4]).toEqual({

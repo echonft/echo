@@ -1,5 +1,4 @@
-import { contractFirestoreData } from '../../../../mocks/src/contract/contract-firestore-data'
-import { FirestoreContract, FirestoreSnapshot } from '@echo/firestore'
+import { contractFirestoreData, FirestoreContract, FirestoreSnapshot } from '@echo/firestore'
 import { always, omit } from 'ramda'
 
 export const contractSnapshots: { [key: string]: FirestoreSnapshot<FirestoreContract> } = {

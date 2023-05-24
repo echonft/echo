@@ -1,16 +1,15 @@
-import { FirestoreContractPrototype } from '../../../firestore/src/types/prototypes/contract/firestore-contract-prototype'
-import { contractFirestoreData } from '../../../mocks/src/contract/contract-firestore-data'
-import { discordGuildFirestoreData } from '../../../mocks/src/discord-guild/discord-guild-firestore-data'
-import { userFirestoreData } from '../../../mocks/src/user/user-firestore-data'
 import { buildRequestForOffer } from '../../src/builders/request-for-offer/build-request-for-offer'
 import {
+  contractFirestoreData,
+  discordGuildFirestoreData,
   FirestoreContract,
   FirestoreContractData,
-  FirestoreNftPrototype,
+  FirestoreContractPrototype,
   FirestoreRequestForOffer,
-  FirestoreRequestForOfferPrototype
+  FirestoreRequestForOfferPrototype,
+  userFirestoreData
 } from '@echo/firestore'
-import { RequestForOfferState } from '@echo/model'
+import { RequestForOfferState, requestsForOffer } from '@echo/model'
 import { DocumentReference } from '@google-cloud/firestore'
 import { describe, expect, test } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -38,8 +37,7 @@ describe('builders - request-for-offer - buildRequestForOffer', () => {
       chainId: contractFirestoreData['hK2XrmnMpCVneRH7Mbo6']!.chainId
     }
   ] as FirestoreContractPrototype[]
-  // FIXME
-  const items: FirestoreNftPrototype[] = []
+  const items: string[] = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!.items.map((nft) => nft.id)
   const contracts = [
     contractFirestoreData['37dBlwJYahEAKeL0rNP8']!,
     contractFirestoreData['37dBlwJYahEAKeL0rNP8']!,
@@ -106,7 +104,7 @@ describe('builders - request-for-offer - buildRequestForOffer', () => {
   test('valid prototype returns object (single target)', async () => {
     const requestForOffer = await buildRequestForOffer({ ...prototype, target: [target[0]!] })
     checkBaseOfferValues(requestForOffer)
-    expect(itemsEqual(requestForOffer.items, items, contracts)).toBeTruthy()
+    expect(requestForOffer.items.map((item) => item.id)).toStrictEqual(items)
     expect(
       targetsEqual(requestForOffer.target as unknown as DocumentReference<FirestoreContract>[], [contracts[0]!])
     ).toBeTruthy()
@@ -114,7 +112,7 @@ describe('builders - request-for-offer - buildRequestForOffer', () => {
   test('valid prototype returns object (single item)', async () => {
     const requestForOffer = await buildRequestForOffer({ ...prototype, items: [items[0]!] })
     checkBaseOfferValues(requestForOffer)
-    expect(itemsEqual(requestForOffer.items, [items[0]!], [contracts[0]!])).toBeTruthy()
+    expect(requestForOffer.items.map((item) => item.id)).toStrictEqual([items[0]!])
     expect(
       targetsEqual(requestForOffer.target as unknown as DocumentReference<FirestoreContract>[], contracts.slice(-2))
     ).toBeTruthy()
@@ -122,7 +120,7 @@ describe('builders - request-for-offer - buildRequestForOffer', () => {
   test('valid prototype returns object', async () => {
     const requestForOffer = await buildRequestForOffer(prototype)
     checkBaseOfferValues(requestForOffer)
-    expect(itemsEqual(requestForOffer.items, items, contracts)).toBeTruthy()
+    expect(requestForOffer.items.map((item) => item.id)).toStrictEqual(items)
     expect(
       targetsEqual(requestForOffer.target as unknown as DocumentReference<FirestoreContract>[], contracts.slice(-2))
     ).toBeTruthy()

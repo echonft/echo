@@ -6,7 +6,7 @@ import { mockClient } from '../../utils/tests/discord/client-mock'
 import { mockGuild } from '../../utils/tests/discord/guild-mock'
 import { listenToListings } from '../listings'
 import { listenToRequestForOffers } from '@echo/firebase-admin'
-import { mockRequestForOffer } from '@echo/model'
+import { requestsForOffer } from '@echo/model'
 import * as utils from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { Client } from 'discord.js'
@@ -16,6 +16,7 @@ jest.mock('../../utils/discord')
 
 // FIXME: some of the tests are not working because of spyOn
 describe('listeners - listings', () => {
+  const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
   // @ts-ignore
   const mockedGetDiscordChannel = jest.mocked(getDiscordChannel)
   const mockedListenToRequestForOffers = jest.mocked(listenToRequestForOffers)
@@ -28,6 +29,7 @@ describe('listeners - listings', () => {
   })
 
   it('if getDiscordChannel fails, log an error', () => {
+    const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
     const mockLogger = jest.spyOn(utils.logger, 'error')
     mockedListenToRequestForOffers.mockImplementationOnce((onChange) =>
       // @ts-ignore

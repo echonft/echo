@@ -1,5 +1,5 @@
-import { swapFirestoreData } from '../../../mocks/src/swap/swap-firestore-data'
 import { getFirestoreSwapData } from '../../src/data/swap/get-firestore-swap-data'
+import { swapFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 
 describe('convertSwap', () => {

@@ -1,15 +1,13 @@
-import { ItemRequest } from './item-request'
-
 export interface CreateOfferWithRequestForOfferRequest {
-  receiverItems: ItemRequest[]
-  senderItems: ItemRequest[]
+  receiverItems: string[]
+  senderItems: string[]
   requestForOfferId: string
   withRequestForOffer: true
 }
 
 export interface CreateOfferWithoutRequestForOfferRequest {
-  receiverItems: ItemRequest[]
-  senderItems: ItemRequest[]
+  receiverItems: string[]
+  senderItems: string[]
   receiverId: string
   discordGuildId: string
   withRequestForOffer: false

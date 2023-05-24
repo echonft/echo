@@ -1,11 +1,11 @@
+import { requestsForOffer } from '../../../mocks/request-for-offer'
 import { RequestForOfferState } from '../../../types/request-for-offer-state'
-import { mockRequestForOffer } from '../../tests/mocks/request-for-offer/mock-request-for-offer'
 import { canRequestForOfferReceiveOffers } from '../can-request-for-offer-receive-offers'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 
 describe('utils - request-for-offer - canRequestForOfferReceiveOffer', () => {
-  const requestForOffer = { ...mockRequestForOffer, expiresAt: dayjs().add(1, 'hour') }
+  const requestForOffer = { ...requestsForOffer['jUzMtPGKM62mMhEcmbN4']!, expiresAt: dayjs().add(1, 'hour') }
   it('if expired, returns false', () => {
     expect(canRequestForOfferReceiveOffers({ ...requestForOffer, expiresAt: dayjs().subtract(1, 'hour') })).toBeFalsy()
   })

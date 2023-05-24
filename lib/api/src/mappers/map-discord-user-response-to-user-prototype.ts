@@ -1,5 +1,5 @@
 import { DiscordUserResponse } from '@echo/discord'
-import { FirestoreUserPrototype } from '@echo/firebase-admin'
+import { FirestoreUserPrototype } from '@echo/firestore'
 import { join, map, prop } from 'ramda'
 
 export function mapDiscordUserResponseToUserPrototype(response: DiscordUserResponse): FirestoreUserPrototype {

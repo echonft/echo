@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { walletsOwnCollections } from '../wallets-own-collections'
-import { users } from '@echo/firebase-admin'
-import { generateMockContract } from '@echo/model'
+import { contracts, users } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { Alchemy } from 'alchemy-sdk'
 
@@ -14,7 +13,7 @@ describe('utils - alchemy - walletsOwnCollections', () => {
   })
   const mockedClient = new mockedAlchemy()
   const wallets = users['oE6yUEQBPn7PZ89yMjKn']!.wallets!
-  const contracts = [generateMockContract({}), generateMockContract({ address: '0xtest' })]
+  const mockContracts = [contracts['37dBlwJYahEAKeL0rNP8']!, contracts['hK2XrmnMpCVneRH7Mbo6']!]
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -23,7 +22,7 @@ describe('utils - alchemy - walletsOwnCollections', () => {
   it('empty wallets returns false', async () => {
     let ownsNfts = await walletsOwnCollections(mockedClient, [], [])
     expect(ownsNfts).toBeFalsy()
-    ownsNfts = await walletsOwnCollections(mockedClient, [], contracts)
+    ownsNfts = await walletsOwnCollections(mockedClient, [], mockContracts)
     expect(ownsNfts).toBeFalsy()
   })
   it('empty contracts returns false', async () => {
@@ -35,7 +34,7 @@ describe('utils - alchemy - walletsOwnCollections', () => {
     jest.spyOn(mockedClient.nft, 'verifyNftOwnership').mockImplementation(() => {
       return Promise.resolve(undefined)
     })
-    const ownsNfts = await walletsOwnCollections(mockedClient, wallets, contracts)
+    const ownsNfts = await walletsOwnCollections(mockedClient, wallets, mockContracts)
     expect(ownsNfts).toBeFalsy()
   })
   it('if user does not own a token from all collections, returns false', async () => {
@@ -45,14 +44,14 @@ describe('utils - alchemy - walletsOwnCollections', () => {
       }
       return Promise.resolve({})
     })
-    const ownsNfts = await walletsOwnCollections(mockedClient, wallets, contracts)
+    const ownsNfts = await walletsOwnCollections(mockedClient, wallets, mockContracts)
     expect(ownsNfts).toBeFalsy()
   })
   it('if user own a token from all collections, returns true', async () => {
     jest
       .spyOn(mockedClient.nft, 'verifyNftOwnership')
       .mockImplementation(() => Promise.resolve({ '0xtest': true, '0x1234567890': true }))
-    const ownsNfts = await walletsOwnCollections(mockedClient, wallets, contracts)
+    const ownsNfts = await walletsOwnCollections(mockedClient, wallets, mockContracts)
     expect(ownsNfts).toBeTruthy()
   })
 })

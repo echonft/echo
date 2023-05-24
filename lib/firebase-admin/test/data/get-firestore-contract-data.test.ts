@@ -1,5 +1,5 @@
-import { contractFirestoreData } from '../../../mocks/src/contract/contract-firestore-data'
 import { getFirestoreContractData } from '../../src/data/contract/get-firestore-contract-data'
+import { contractFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 
 describe('data - contract - getFirestoreContractData', () => {

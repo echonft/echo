@@ -1,10 +1,10 @@
 import { addWalletSchema } from '../add-wallet'
-import { mockWallet } from '@echo/model'
+import { users } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 import { SiweMessage } from 'siwe'
 
 describe('validators - addWallet', () => {
-  const wallet = mockWallet
+  const wallet = users['oE6yUEQBPn7PZ89yMjKn']!.wallets![0]!
   const signature = '0x0000'
   const message: SiweMessage = new SiweMessage({
     domain: '',
@@ -28,10 +28,10 @@ describe('validators - addWallet', () => {
       })
     ).toThrow()
     expect(() =>
-      addWalletSchema.parse({ wallet: { address: mockWallet.address, chainId: 0 }, signature, message })
+      addWalletSchema.parse({ wallet: { address: wallet.address, chainId: 0 }, signature, message })
     ).toThrow()
     expect(() =>
-      addWalletSchema.parse({ wallet: { address: mockWallet.address, chainId: undefined }, signature, message })
+      addWalletSchema.parse({ wallet: { address: wallet.address, chainId: undefined }, signature, message })
     ).toThrow()
   })
   it('wrong signature fails validation', () => {

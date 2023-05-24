@@ -1,5 +1,4 @@
-import { discordGuildFirestoreData } from '../../../../mocks/src/discord-guild/discord-guild-firestore-data'
-import { FirestoreDiscordGuild, FirestoreSnapshot } from '@echo/firestore'
+import { discordGuildFirestoreData, FirestoreDiscordGuild, FirestoreSnapshot } from '@echo/firestore'
 import { always, omit } from 'ramda'
 
 export const discordGuildSnapshot: { [key: string]: FirestoreSnapshot<FirestoreDiscordGuild> } = {

@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { OfferResponse } from '../../types/model/responses/offer-response'
 import { mapOfferToResponse } from '../map-offer-to-response'
-import { offers } from '@echo/firebase-admin'
-import { Offer } from '@echo/model'
+import { Offer, offers } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 import { omit } from 'ramda'
 
@@ -20,8 +19,8 @@ describe('mappers - mapOfferToResponse', () => {
   const expectedResult: OfferResponse = {
     ...mockOffer,
     activities: mockOffer.activities?.map((activity) => ({ ...activity, date: activity.date.unix() })),
-    senderItems: mockOffer.senderItems.map((item) => ({ ...item, tokenId: item.tokenId.toString() })),
-    receiverItems: mockOffer.receiverItems.map((item) => ({ ...item, tokenId: item.tokenId.toString() })),
+    senderItems: mockOffer.senderItems,
+    receiverItems: mockOffer.receiverItems,
     postedAt: undefined,
     expiresAt: 1676984897,
     createdAt: 1676984897

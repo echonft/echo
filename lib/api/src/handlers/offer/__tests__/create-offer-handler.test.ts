@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-
-import { mapOfferItemToItemRequest } from '../../../mappers/map-offer-item-to-item-request'
 import { mapOfferToResponse } from '../../../mappers/map-offer-to-response'
 import { CreateOfferRequest } from '../../../types/model/requests/create-offer-request'
 import { OfferResponse } from '../../../types/model/responses/offer-response'
@@ -16,7 +14,7 @@ import {
   updateRequestForOfferOffers
 } from '@echo/firebase-admin'
 import * as model from '@echo/model'
-import { mockDiscordGuild, mockOffer, mockOpenRequestForOffer, mockRequestForOffer, mockUser } from '@echo/model'
+import { discordGuilds, offers, RequestForOfferState, requestsForOffer, users } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { omit } from 'ramda'
@@ -26,13 +24,21 @@ jest.mock('../../../utils/alchemy/wallets-own-tokens')
 jest.mock('../../../utils/alchemy/alchemy')
 
 describe('handlers - offer - createOfferHandler', () => {
+  const mockOffer = offers['LyCfl6Eg7JKuD7XJ6IPi']!
+  const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
+  const mockOpenRequestForOffer = {
+    ...requestsForOffer['jUzMtPGKM62mMhEcmbN4']!,
+    state: RequestForOfferState.CREATED,
+    activities: [requestsForOffer['jUzMtPGKM62mMhEcmbN4']!.activities[0]!]
+  }
+  const mockUser = users['oE6yUEQBPn7PZ89yMjKn']!
   const mockedFindRequestForOfferById = jest
     .mocked(findRequestForOfferById)
     .mockResolvedValue(R.fromNullable(mockOpenRequestForOffer, new Error()))
   const mockedFindUserById = jest.mocked(findUserById).mockResolvedValue(R.fromNullable(mockUser, new Error()))
   const mockedFindDiscordGuildById = jest
     .mocked(findDiscordGuildById)
-    .mockResolvedValue(R.fromNullable(mockDiscordGuild, new Error()))
+    .mockResolvedValue(R.fromNullable(discordGuilds['ncUnbpFfVCofV9bD7ctn']!, new Error()))
   const mockedUserIsInGuild = jest.spyOn(model, 'userIsInGuild').mockReturnValue(true)
   const mockedAddOffer = jest.mocked(addOffer).mockImplementation(() => {
     return Promise.resolve(R.fromNullable(mockOffer, new Error()))
@@ -42,14 +48,14 @@ describe('handlers - offer - createOfferHandler', () => {
   const mockedUpdateRequestForOfferOffers = jest.mocked(updateRequestForOfferOffers).mockResolvedValue({})
   const session = mockSession
   const mockedRequestWithRequestForOffer: CreateOfferRequest = {
-    receiverItems: mockOffer.receiverItems.map(mapOfferItemToItemRequest),
-    senderItems: mockOffer.senderItems.map(mapOfferItemToItemRequest),
+    receiverItems: mockOffer.receiverItems.map((nft) => nft.id),
+    senderItems: mockOffer.senderItems.map((nft) => nft.id),
     requestForOfferId: mockRequestForOffer.id,
     withRequestForOffer: true
   }
   const mockedRequestWithoutRequestForOffer: CreateOfferRequest = {
-    receiverItems: mockOffer.receiverItems.map(mapOfferItemToItemRequest),
-    senderItems: mockOffer.senderItems.map(mapOfferItemToItemRequest),
+    receiverItems: mockOffer.receiverItems.map((nft) => nft.id),
+    senderItems: mockOffer.senderItems.map((nft) => nft.id),
     receiverId: mockOffer.receiver.id,
     discordGuildId: mockOffer.discordGuild.id,
     withRequestForOffer: false

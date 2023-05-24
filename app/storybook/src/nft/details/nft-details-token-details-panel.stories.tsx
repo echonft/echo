@@ -1,4 +1,4 @@
-import { mockContract, mockOwnedNft } from '@echo/model'
+import { contracts, nfts } from '@echo/model'
 import { NftDetailsTokenDetailsPanel as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -18,8 +18,8 @@ type Story = StoryObj<typeof Component>
 
 export const DetailsPanel: Story = {
   args: {
-    chainId: mockContract.chainId,
-    tokenId: mockOwnedNft.tokenId,
-    tokenType: mockContract.tokenType
+    chainId: contracts['37dBlwJYahEAKeL0rNP8']!.chainId,
+    tokenId: nfts['QFjMRNChUAHNswkRADXh']!.tokenId,
+    tokenType: contracts['37dBlwJYahEAKeL0rNP8']!.tokenType
   }
 }

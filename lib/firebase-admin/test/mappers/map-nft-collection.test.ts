@@ -1,6 +1,5 @@
-import { nftCollections } from '../../../mocks/src/nft-collection/nft-collection'
-import { nftCollectionFirestoreData } from '../../../mocks/src/nft-collection/nft-collection-firestore-data'
-import { mapNftCollection } from '@echo/firestore'
+import { mapNftCollection, nftCollectionFirestoreData } from '@echo/firestore'
+import { nftCollections } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapNftCollection', () => {

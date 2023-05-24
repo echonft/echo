@@ -1,5 +1,5 @@
-import { discordGuildFirestoreData } from '../../../mocks/src/discord-guild/discord-guild-firestore-data'
 import { getFirestoreDiscordGuildData } from '../../src/data/discord-guild/get-firestore-discord-guild-data'
+import { discordGuildFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 
 describe('convertDiscordGuild', () => {

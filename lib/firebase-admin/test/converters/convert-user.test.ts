@@ -1,8 +1,7 @@
-import { userFirestoreData } from '../../../mocks/src/user/user-firestore-data'
 import { convertUser } from '../../src/converters/user/convert-user'
 import { FirestoreSnapshot } from '../../src/types/abstract/firestore-snapshot'
 import { userSnapshots } from '../mocks/user/user-snapshot'
-import { FirestoreUser } from '@echo/firestore'
+import { FirestoreUser, userFirestoreData } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 describe('convertUser', () => {
@@ -40,6 +39,8 @@ describe('convertUser', () => {
     expect(user).toEqual({ ...userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!, wallets: [] })
   })
   it('user is converted properly', async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const user = await convertUser(mockSnapshot)
     expect(user).toEqual(userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!)
   })

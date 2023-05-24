@@ -1,5 +1,5 @@
-import { contractFirestoreData } from '../../../mocks/src/contract/contract-firestore-data'
 import { getFirestoreContractRefByAddressAndChainId } from '../../src/data/contract/get-firestore-contract-ref-by-address-and-chain-id'
+import { contractFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 

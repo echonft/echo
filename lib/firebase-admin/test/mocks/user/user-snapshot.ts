@@ -1,6 +1,4 @@
-import { userFirestoreData } from '../../../../mocks/src/user/user-firestore-data'
-import { FirestoreSnapshot } from '../../../src/types/abstract/firestore-snapshot'
-import { FirestoreUser } from '@echo/firestore'
+import { FirestoreSnapshot, FirestoreUser, userFirestoreData } from '@echo/firestore'
 import { always, omit } from 'ramda'
 
 export const userSnapshots: { [key: string]: FirestoreSnapshot<FirestoreUser> } = {

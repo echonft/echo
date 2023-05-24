@@ -1,5 +1,5 @@
+import { contracts as mockContracts } from '../../../mocks/contract'
 import { DiscordGuild } from '../../../types/discord-guild'
-import { generateMockContract } from '../../../utils/tests/mocks/contract/generate-mock-contract'
 import { discordGuildEquals } from '../discord-guild-equals'
 import { describe, expect, it } from '@jest/globals'
 
@@ -7,7 +7,7 @@ describe('predicates - discord-guild - discordGuildEquals', () => {
   const discordGuild1: DiscordGuild = { discordId: '1234', contracts: [], id: '1234', name: 'test', channelId: '1234' }
   const discordGuild2: DiscordGuild = {
     discordId: '462798252543049728',
-    contracts: [generateMockContract({})],
+    contracts: [mockContracts['37dBlwJYahEAKeL0rNP8']!],
     id: '123456',
     name: 'test2',
     channelId: '123456'
@@ -23,7 +23,7 @@ describe('predicates - discord-guild - discordGuildEquals', () => {
     expect(discordGuildEquals(discordGuild1)(discordGuild1DifferentData)).toBeTruthy()
     discordGuild1DifferentData = { ...discordGuild1, channelId: '123' }
     expect(discordGuildEquals(discordGuild1)(discordGuild1DifferentData)).toBeTruthy()
-    discordGuild1DifferentData = { ...discordGuild1, contracts: [generateMockContract({})] }
+    discordGuild1DifferentData = { ...discordGuild1, contracts: [mockContracts['37dBlwJYahEAKeL0rNP8']!] }
     expect(discordGuildEquals(discordGuild1)(discordGuild1DifferentData)).toBeTruthy()
   })
   it('guilds with same data but different discord id returns false', () => {
@@ -45,7 +45,7 @@ describe('predicates - discord-guild - discordGuildEquals', () => {
     expect(
       discordGuildEquals(discordGuild2)({
         discordId: '462798252543049728',
-        contracts: [generateMockContract({})],
+        contracts: [mockContracts['37dBlwJYahEAKeL0rNP8']!],
         id: '123456',
         name: 'test2',
         channelId: '123456'

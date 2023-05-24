@@ -1,5 +1,5 @@
-import { nftCollectionFirestoreData } from '../../../mocks/src/nft-collection/nft-collection-firestore-data'
 import { getFirestoreNftCollection } from '../../src/data/nft-collection/get-firestore-nft-collection'
+import { nftCollectionFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 
 describe('convertNftCollection', () => {

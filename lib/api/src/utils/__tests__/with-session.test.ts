@@ -3,7 +3,7 @@ import { mockRequestResponse } from '../test/mocks/request-response'
 import { mockSession } from '../test/mocks/session'
 import { withSession } from '../with-session'
 import { findUserById } from '@echo/firebase-admin'
-import { mockUser } from '@echo/model'
+import { users } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { AuthOptions } from 'next-auth'
@@ -12,6 +12,7 @@ import * as auth from 'next-auth/next'
 jest.mock('next-auth/next')
 jest.mock('@echo/firebase-admin')
 describe('utils - withSession', () => {
+  const mockUser = users['oE6yUEQBPn7PZ89yMjKn']!
   jest.spyOn(auth, 'getServerSession').mockImplementation(() => Promise.resolve(mockSession))
   const mockedFindUserById = jest
     .mocked(findUserById)

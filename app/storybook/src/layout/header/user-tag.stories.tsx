@@ -1,4 +1,4 @@
-import { mockUser } from '@echo/model'
+import { users } from '@echo/model'
 import { UserTag as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import { assoc } from 'ramda'
@@ -13,9 +13,9 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 export const Standard: Story = {
-  render: () => <Component user={mockUser} />
+  render: () => <Component user={users['oE6yUEQBPn7PZ89yMjKn']!} />
 }
 
 export const DefaultPicture: Story = {
-  render: () => <Component user={assoc('discordAvatar', undefined, mockUser)} />
+  render: () => <Component user={assoc('discordAvatar', undefined, users['oE6yUEQBPn7PZ89yMjKn']!)} />
 }

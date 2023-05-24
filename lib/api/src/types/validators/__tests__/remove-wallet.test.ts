@@ -1,9 +1,9 @@
 import { removeWalletsSchema } from '../remove-wallets'
-import { mockWallet } from '@echo/model'
+import { users } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - removeWallet', () => {
-  const wallet = mockWallet
+  const wallet = users['oE6yUEQBPn7PZ89yMjKn']!.wallets![0]!
   it('wrong wallet fails validation', () => {
     expect(() => removeWalletsSchema.parse({ wallet: { address: '', chainId: 1 } })).toThrow()
     expect(() => removeWalletsSchema.parse({ wallet: [{ address: undefined, chainId: 1 }] })).toThrow()

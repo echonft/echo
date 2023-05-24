@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { FirestoreRequestForOfferPrototype } from '../../../../firestore/src/types/prototypes/request-for-offer/firestore-request-for-offer-prototype'
 import { buildRequestForOffer } from '../../builders/request-for-offer/build-request-for-offer'
 import { convertRequestForOffer } from '../../converters/request-for-offer/convert-request-for-offer'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
-import { mapRequestForOffer } from '@echo/firestore'
+import { CollectionName, FirestoreRequestForOfferPrototype, mapRequestForOffer } from '@echo/firestore'
 import { RequestForOffer } from '@echo/model'
 import { castAs } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
@@ -15,7 +14,7 @@ export const addRequestForOffer = (
 ): Promise<R.Result<RequestForOffer, Error>> =>
   pipe(
     buildRequestForOffer,
-    andThen(partial(setDocAndReturnSnapshot, [getCollectionFromPath('requests-for-offer').doc()])),
+    andThen(partial(setDocAndReturnSnapshot, [getCollectionFromPath(CollectionName.REQUESTS_FOR_OFFER).doc()])),
     andThen(
       pipe(
         // @ts-ignore
