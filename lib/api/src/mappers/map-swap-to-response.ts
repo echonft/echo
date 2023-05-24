@@ -1,5 +1,6 @@
 import { SwapResponse } from '../types/model/responses/swap-response'
-import { mapOfferActivityToResponse } from './map-offer-activity-to-response'
+import { mapActivityToResponse } from './map-activity-to-response'
+import { mapDateToNumber } from './map-date-to-number'
 import { mapOfferToResponse } from './map-offer-to-response'
 import { Swap } from '@echo/model'
 
@@ -7,9 +8,9 @@ import { Swap } from '@echo/model'
 export function mapSwapToResponse(swap: Swap): SwapResponse {
   return {
     ...swap,
-    activities: swap.activities?.map(mapOfferActivityToResponse),
+    activities: swap.activities?.map(mapActivityToResponse),
     offer: mapOfferToResponse(swap.offer),
-    expiresAt: swap.expiresAt.unix(),
-    createdAt: swap.createdAt.unix()
+    createdAt: mapDateToNumber(swap.createdAt),
+    expiresAt: mapDateToNumber(swap.expiresAt)
   }
 }

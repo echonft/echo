@@ -14,7 +14,6 @@ import { Client } from 'discord.js'
 jest.mock('@echo/firebase-admin')
 jest.mock('../../utils/discord')
 
-// FIXME: some of the tests are not working because of spyOn
 describe('listeners - listings', () => {
   const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
   // @ts-ignore

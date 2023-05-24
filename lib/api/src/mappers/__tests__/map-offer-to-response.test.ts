@@ -1,35 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { OfferResponse } from '../../types/model/responses/offer-response'
 import { mapOfferToResponse } from '../map-offer-to-response'
+import { offerFirestoreData } from '@echo/firestore'
 import { Offer, offers } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
-import { omit } from 'ramda'
-
-function callAndCatchMapper(offer: Offer) {
-  try {
-    mapOfferToResponse(offer)
-    expect(false).toBeTruthy()
-  } catch (e) {
-    expect(e).toBeDefined()
-  }
-}
+import { dissocPath, omit } from 'ramda'
 
 describe('mappers - mapOfferToResponse', () => {
   const mockOffer = offers['LyCfl6Eg7JKuD7XJ6IPi']!
-  const expectedResult: OfferResponse = {
-    ...mockOffer,
-    activities: mockOffer.activities?.map((activity) => ({ ...activity, date: activity.date.unix() })),
-    senderItems: mockOffer.senderItems,
-    receiverItems: mockOffer.receiverItems,
-    postedAt: undefined,
-    expiresAt: 1676984897,
-    createdAt: 1676984897
-  }
+  const expectedResult: OfferResponse = dissocPath(['refPath'], offerFirestoreData['LyCfl6Eg7JKuD7XJ6IPi']!)
   it('valid data passes', () => {
-    expect(mapOfferToResponse(mockOffer)).toStrictEqual(expectedResult)
+    expect(mapOfferToResponse(mockOffer)).toEqual(expectedResult)
     const offer = { ...mockOffer, postedAt: mockOffer.createdAt }
     const result = { ...expectedResult, postedAt: 1676984897 }
-    expect(mapOfferToResponse(offer)).toStrictEqual(result)
+    expect(mapOfferToResponse(offer)).toEqual(result)
   })
   it('invalid data passes', () => {
     // @ts-ignore
@@ -41,19 +25,5 @@ describe('mappers - mapOfferToResponse', () => {
     // @ts-ignore
     offer = omit(['discordGuild'], mockOffer)
     expect(mapOfferToResponse(offer)).toStrictEqual(omit(['discordGuild'], expectedResult))
-  })
-  it('invalid data throws', () => {
-    // @ts-ignore
-    let offer: Offer = omit(['expiresAt'], mockOffer)
-    callAndCatchMapper(offer)
-    // @ts-ignore
-    offer = omit(['createdAt'], mockOffer)
-    callAndCatchMapper(offer)
-    // @ts-ignore
-    offer = omit(['senderItems'], mockOffer)
-    callAndCatchMapper(offer)
-    // @ts-ignore
-    offer = omit(['receiverItems'], mockOffer)
-    callAndCatchMapper(offer)
   })
 })

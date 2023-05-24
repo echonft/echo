@@ -1,12 +1,11 @@
 import { createOfferSchema } from '../create-offer'
+import { offers } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - createOffer', () => {
-  const mockOfferItem = {
-    target: { address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', chainId: 1 },
-    tokenId: '0'
-  }
-  const mockOfferItems = [mockOfferItem, { ...mockOfferItem, tokenId: '1' }]
+  const mockOfferItems = offers['LyCfl6Eg7JKuD7XJ6IPi']!.senderItems.map((nft) => nft.id).concat(
+    offers['LyCfl6Eg7JKuD7XJ6IPi']!.receiverItems.map((nft) => nft.id)
+  )
 
   it('wrong senderItems fails validation', () => {
     expect(() =>
@@ -29,7 +28,7 @@ describe('validators - createOffer', () => {
       createOfferSchema.parse({
         requestForOfferId: '1203',
         receiverItems: mockOfferItems,
-        senderItems: mockOfferItem,
+        senderItems: mockOfferItems[0],
         withRequestForOffer: true
       })
     ).toThrow()
@@ -55,7 +54,7 @@ describe('validators - createOffer', () => {
     expect(() =>
       createOfferSchema.parse({
         requestForOfferId: '1203',
-        receiverItems: mockOfferItem,
+        receiverItems: mockOfferItems[0],
         senderItems: mockOfferItems,
         withRequestForOffer: true
       })
