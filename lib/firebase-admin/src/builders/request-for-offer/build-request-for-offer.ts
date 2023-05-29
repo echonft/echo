@@ -27,13 +27,13 @@ export const buildRequestForOffer: FirestoreBuilder<
   const activities = await buildRequestForOfferActivity(
     generateRequestForOfferActivity(RequestForOfferState.CREATED) as FirestoreRequestForOfferActivityPrototype
   ).then((activity) => [activity])
+
   return {
     state: RequestForOfferState.CREATED,
     sender: getFirestoreUserRefById(prototype.senderId),
     discordGuild: R.getExn(discordGuildResult),
     target,
     items: await Promise.all(prototype.items.map(getFirestoreNftRefById)),
-    // FIXME: This does not work for some reason
     activities,
     createdAt: dayjs().unix(),
     // For now, we default to 24 hours offer, we should have more flexibility in the future

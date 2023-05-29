@@ -6,7 +6,7 @@ import { R } from '@mobily/ts-belt'
 describe('data - contract - getFirestoreContractRefByAddressAndChain', () => {
   it('returns proper contract data on existing object', async () => {
     const contractResult = await getFirestoreContractRefByAddressAndChainId(
-      '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
+      '0x12c63bbD266dB84e117356e664f3604055166CEc',
       1
     )
     expect(R.isOk(contractResult)).toBeTruthy()
@@ -20,7 +20,7 @@ describe('data - contract - getFirestoreContractRefByAddressAndChain', () => {
   })
   it('returns empty if invalid chain id', async () => {
     let contractResult = await getFirestoreContractRefByAddressAndChainId(
-      '0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d',
+      '0x12c63bbD266dB84e117356e664f3604055166CEc',
       0
     )
     expect(R.isError(contractResult)).toBeTruthy()

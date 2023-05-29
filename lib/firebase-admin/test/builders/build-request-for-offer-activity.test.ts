@@ -17,8 +17,8 @@ describe('builders - requestForOffer - buildRequestForOfferActivity', () => {
 
     activity = await buildRequestForOfferActivity({
       date: dayjs(),
-      fromState: RequestForOfferState.EXPIRED,
-      toState: RequestForOfferState.CREATED
+      fromState: RequestForOfferState.CREATED,
+      toState: RequestForOfferState.EXPIRED
     })
     expect(activity.fromState).toBe(RequestForOfferState.CREATED)
     expect(activity.toState).toBe(RequestForOfferState.EXPIRED)

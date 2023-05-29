@@ -40,11 +40,11 @@ export function executeForCommand(interaction: ChatInputCommandInteraction) {
           throw new NotConfiguredError(guildId)
         }),
         R.getExn,
-        ifElse<[discordGuild: FirestoreDiscordGuildData], Promise<Message<boolean>>, never>(
+        ifElse<[FirestoreDiscordGuildData], Promise<Message<boolean>>, never>(
           pipe(prop('channelId'), equals(interaction.channelId)),
           () => executeForSubcommand(interaction, interaction.options.getSubcommand() as InputSubcommands),
           (discordGuild) => {
-            throw new WrongChannelError(guildId, discordGuild.channelId)
+            throw new WrongChannelError(guildId, discordGuild.channelId as string)
           }
         )
       )

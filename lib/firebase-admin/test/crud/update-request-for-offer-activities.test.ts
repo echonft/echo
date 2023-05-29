@@ -5,7 +5,7 @@ import { requestForOfferFirestoreData } from '@echo/firestore'
 import { DocumentReference } from '@google-cloud/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
-jest.mock('../../../utils/document/get-doc-ref-from-path')
+jest.mock('../../src/utils/document/get-doc-ref-from-path')
 jest.mock('@google-cloud/firestore')
 
 describe('crud - request-for-offer - updateRequestForOfferActivities', () => {

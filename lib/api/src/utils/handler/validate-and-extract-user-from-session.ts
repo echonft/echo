@@ -1,9 +1,9 @@
+import { ErrorResponse } from '../../types'
+import { validateSession } from './validate-session'
 import { FirestoreUserData } from '@echo/firestore'
 import { NextApiResponse } from 'next'
 import { Session } from 'next-auth'
 import { isNil } from 'ramda'
-import { ErrorResponse } from '../../types'
-import { validateSession } from './validate-session'
 
 export function validateAndExtractUserFromSession<T>(
   session: Session | undefined,

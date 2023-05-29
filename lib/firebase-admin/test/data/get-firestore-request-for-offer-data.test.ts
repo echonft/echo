@@ -1,29 +1,18 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { getDocSnapshot } from '../../src/utils/document/get-doc-snapshot'
-import { requestForOfferSnapshots } from '../mocks/request-for-offer/request-for-offer-snapshot'
-import { beforeEach, describe, expect, it, jest } from '@jest/globals'
+import { getFirestoreRequestForOfferData } from '../../src/data/request-for-offer/get-firestore-request-for-offer-data'
+import { requestForOfferFirestoreData } from '@echo/firestore'
+import { describe, expect, it } from '@jest/globals'
 
-jest.mock('../../../utils/document/get-doc-snapshot')
-
-// FIXME: No works
-describe('crud - request-for-offer - findRequestForOfferId', () => {
-  // @ts-ignore
-  jest.mocked(getDocSnapshot).mockResolvedValue(requestForOfferSnapshots['jUzMtPGKM62mMhEcmbN4']!)
-  beforeEach(() => {
-    jest.clearAllMocks()
+describe('crud - request-for-offer - getFirestoreRequestForOfferData', () => {
+  it('if snapshot does not exist, receive an error', () => {
+    getFirestoreRequestForOfferData('jUzMtPGKM62mMhEcmbN4a')
+      .then(() => expect(false).toBeTruthy())
+      .catch((error) =>
+        expect(error).toBe('getFirestoreRequestForOfferData cannot find data for: jUzMtPGKM62mMhEcmbN4a')
+      )
   })
   it('if snapshot does not exist, receive an error', () => {
-    expect(true).toBeTruthy()
-    // getFirestoreRequestForOfferData('jUzMtPGKM62mMhEcmbN4a')
-    //   .then(() => expect(false).toBeTruthy())
-    //   .catch((error) =>
-    //     expect(error).toBe('getFirestoreRequestForOfferData cannot find data for: jUzMtPGKM62mMhEcmbN4a')
-    //   )
-  })
-  it('if snapshot does not exist, receive an error', () => {
-    expect(true).toBeTruthy()
-    // getFirestoreRequestForOfferData('jUzMtPGKM62mMhEcmbN4')
-    //   .then((data) => expect(data).toStrictEqual(requestsForOfferData['jUzMtPGKM62mMhEcmbN4']))
-    //   .catch(() => expect(false).toBeTruthy())
+    getFirestoreRequestForOfferData('jUzMtPGKM62mMhEcmbN4')
+      .then((data) => expect(data).toStrictEqual(requestForOfferFirestoreData['jUzMtPGKM62mMhEcmbN4']))
+      .catch(() => expect(false).toBeTruthy())
   })
 })

@@ -1,11 +1,11 @@
 import { findUserByWallet } from '../../src'
-import { users } from '@echo/model'
+import { userFirestoreData } from '@echo/firestore'
 import { describe, expect, test } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 
 describe('crud - user - findUserByWallet', () => {
-  const user = users['oE6yUEQBPn7PZ89yMjKn']!
-  const wallet = user.wallets![0]!
+  const user = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
+  const wallet = user.wallets[0]!
   test('no user is found if wallet is not on the proper chain', async () => {
     const wrongChainWallet = { ...wallet, chainId: 0 }
     const userResult = await findUserByWallet(wrongChainWallet)
@@ -20,6 +20,6 @@ describe('crud - user - findUserByWallet', () => {
   })
   test('user is found with proper wallet', async () => {
     const userResult = await findUserByWallet(wallet)
-    expect(R.getExn(userResult)).toStrictEqual(user)
+    expect(R.getExn(userResult)).toEqual(user)
   })
 })

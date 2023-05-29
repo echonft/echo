@@ -21,7 +21,7 @@ export const nftFirestoreData: { [key: string]: FirestoreNftData } = {
     tokenType: 'ERC721'
   },
   '8hHFadIrrooORfTOLkBg': {
-    refPath: 'nft-collections/8hHFadIrrooORfTOLkBg',
+    refPath: 'nfts/8hHFadIrrooORfTOLkBg',
     id: '8hHFadIrrooORfTOLkBg',
     attributes: [{ value: 'archimedean', trait: 'Algorithm' }],
     balance: 1,

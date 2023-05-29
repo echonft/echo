@@ -3,7 +3,6 @@ import { Wallet } from '@echo/model'
 import { Alchemy } from 'alchemy-sdk'
 import { intersection, isEmpty } from 'ramda'
 
-// FIXME
 export function walletsOwnTokens(
   client: Alchemy,
   wallets: Wallet[],

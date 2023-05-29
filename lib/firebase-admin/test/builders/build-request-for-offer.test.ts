@@ -109,6 +109,7 @@ describe('builders - request-for-offer - buildRequestForOffer', () => {
       targetsEqual(requestForOffer.target as unknown as DocumentReference<FirestoreContract>[], [contracts[0]!])
     ).toBeTruthy()
   })
+
   test('valid prototype returns object (single item)', async () => {
     const requestForOffer = await buildRequestForOffer({ ...prototype, items: [items[0]!] })
     checkBaseOfferValues(requestForOffer)

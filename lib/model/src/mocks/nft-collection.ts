@@ -10,7 +10,7 @@ export const nftCollections: { [key: string]: NftCollection } = {
     ),
     contract: contracts['37dBlwJYahEAKeL0rNP8']!,
     description:
-      'pxMythics is an 1,077 piece NFT collection based on the greatest mythologies throughout history.\n\nIt is a blending of the ancient past and the rapidly approaching future - the greatest legends ever told, immortalized by technology that will define the future.\n\nOfficial Twitter: https://twitter.com/pxMythicsNFT',
+      'pxMythics is an 1,077 piece NFT collection based on the greatest mythologies throughout history.  It is a blending of the ancient past and the rapidly approaching future - the greatest legends ever told, immortalized by technology that will define the future.  Official Twitter: https://twitter.com/pxMythicsNFT',
     discordGuild: discordGuilds['ncUnbpFfVCofV9bD7ctn']!,
     discordUrl: new URL('https://discord.gg/pxmythics'),
     floorPrice: 0.025,
@@ -29,7 +29,7 @@ export const nftCollections: { [key: string]: NftCollection } = {
     ),
     contract: contracts['hK2XrmnMpCVneRH7Mbo6']!,
     description:
-      'A **[Genetic Chain](https://geneticchain.io)** Project.\r\n\r\nProject #1: [Spiral Frequencies](https://geneticchain.io/project/1) by papaver\r\n\r\nSpirals twisting their beauty through hypnotic frequencies.\r\n\r\nThis is an on-chain dynamic NFT project. Token owners can customize certain art traits. Go to the [Spiral Frequencies DApp](https://geneticchain.io/project/1/dapp) and login using your MetaMask wallet.',
+      'A **[Genetic Chain](https://geneticchain.io)** Project.  Project #1: [Spiral Frequencies](https://geneticchain.io/project/1) by papaver  Spirals twisting their beauty through hypnotic frequencies.  This is an on-chain dynamic NFT project. Token owners can customize certain art traits. Go to the [Spiral Frequencies DApp](https://geneticchain.io/project/1/dapp) and login using your MetaMask wallet.',
     discordGuild: discordGuilds['xA40abnyBq6qQHSYmtHj']!,
     discordUrl: new URL('https://discord.gg/genetic-chain'),
     floorPrice: 0.037,
