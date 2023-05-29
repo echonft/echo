@@ -6,6 +6,7 @@ import { atIndex, castAs, errorMessage, logger, promiseAll, toPromise, Void } fr
 import { DocumentChange, QueryDocumentSnapshot } from '@google-cloud/firestore'
 import { andThen, converge, forEach, head, isNil, juxt, otherwise, pipe, prop, unless } from 'ramda'
 
+// TODO Change to firestore data?
 export function listenToOffers(onChange: (offer: Offer, change: DocumentChange<FirestoreOffer>) => unknown) {
   getCollectionFromPath<FirestoreOffer>(CollectionName.OFFERS).onSnapshot((snapshot) => {
     forEach(

@@ -1,17 +1,18 @@
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
 import { CreateOfferRequest } from '../../types/model/requests/create-offer-request'
-import { OfferResponse } from '../../types/model/responses/offer-response'
 import { createOfferSchema } from '../../types/validators/create-offer'
 import { createOfferFromData } from '../../utils/handler/create-offer-from-data'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { findDiscordGuildById, findRequestForOfferById, findUserById } from '@echo/firebase-admin'
-import { canRequestForOfferReceiveOffers } from '@echo/model'
+import { FirestoreOfferData } from '@echo/firestore'
+import { canRequestForOfferReceiveOffers, RequestForOfferState } from '@echo/model'
 import { isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
+import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
-export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, never>, OfferResponse> = async (
+export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, never>, FirestoreOfferData> = async (
   req,
   res,
   session
@@ -34,7 +35,13 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
             return
           }
           const requestForOffer = R.getExn(requestForOfferResult)
-          if (!canRequestForOfferReceiveOffers(requestForOffer)) {
+
+          if (
+            !canRequestForOfferReceiveOffers(
+              dayjs.unix(requestForOffer.expiresAt),
+              requestForOffer.state as RequestForOfferState
+            )
+          ) {
             res.end(res.status(500).json({ error: 'Request for offer cannot accept offers' }))
             return
           }

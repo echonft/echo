@@ -1,15 +1,14 @@
-import { RequestForOffer } from '../../types/request-for-offer'
 import { RequestForOfferState } from '../../types/request-for-offer-state'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 
-export function canRequestForOfferReceiveOffers(requestForOffer: RequestForOffer) {
-  if (requestForOffer.expiresAt < dayjs()) {
+export function canRequestForOfferReceiveOffers(expiresAt: Dayjs, state: RequestForOfferState) {
+  if (expiresAt < dayjs()) {
     return false
   }
   // TODO Should we allow offers on partially fulfilled?
   return (
-    requestForOffer.state === RequestForOfferState.CREATED ||
-    requestForOffer.state === RequestForOfferState.OFFER_RECEIVED ||
-    requestForOffer.state === RequestForOfferState.PARTIALLY_FULFILLED
+    state === RequestForOfferState.CREATED ||
+    state === RequestForOfferState.OFFER_RECEIVED ||
+    state === RequestForOfferState.PARTIALLY_FULFILLED
   )
 }

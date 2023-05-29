@@ -1,14 +1,14 @@
-import { ErrorResponse } from '../../types'
-import { validateSession } from './validate-session'
-import { User } from '@echo/model'
+import { FirestoreUserData } from '@echo/firestore'
 import { NextApiResponse } from 'next'
 import { Session } from 'next-auth'
 import { isNil } from 'ramda'
+import { ErrorResponse } from '../../types'
+import { validateSession } from './validate-session'
 
 export function validateAndExtractUserFromSession<T>(
   session: Session | undefined,
   res: NextApiResponse<T | ErrorResponse>
-): User | undefined {
+): FirestoreUserData | undefined {
   const validatedRes = validateSession(session, res)
   if (isNil(validatedRes)) {
     return

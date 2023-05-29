@@ -31,5 +31,18 @@ export const userFirestoreData: { [key: string]: FirestoreUserData } = {
         chainId: 1
       }
     ]
+  },
+  '9tPlFOv1XkR3ng7KI46B': {
+    refPath: 'users/9tPlFOv1XkR3ng7KI46B',
+    id: '9tPlFOv1XkR3ng7KI46B',
+    discordId: '462798252543049728',
+    discordUsername: 'johnnycage#0890',
+    discordGuilds: [
+      discordGuildFirestoreData['xA40abnyBq6qQHSYmtHj']!,
+      discordGuildFirestoreData['ncUnbpFfVCofV9bD7ctn']!
+    ],
+    discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+    discordBanner: undefined,
+    wallets: []
   }
 }

@@ -2,13 +2,12 @@ import { convertUser } from '../../converters/user/convert-user'
 import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { whereCollection } from '../../utils/collection/where-collection'
-import { CollectionName, mapUser } from '@echo/firestore'
-import { User } from '@echo/model'
+import { CollectionName, FirestoreUserData } from '@echo/firestore'
 import { castAs, errorPromise } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { andThen, head, ifElse, isEmpty, pipe } from 'ramda'
 
-export const findUserByDiscordId = (discordId: string): Promise<R.Result<User, Error>> =>
+export const findUserByDiscordId = (discordId: string): Promise<R.Result<FirestoreUserData, Error>> =>
   pipe(
     getCollectionFromPath,
     whereCollection('discordId', '==', discordId),
@@ -16,8 +15,8 @@ export const findUserByDiscordId = (discordId: string): Promise<R.Result<User, E
     andThen(
       ifElse(
         isEmpty,
-        pipe(errorPromise<User>('not found'), R.fromPromise<User>),
-        pipe(pipe(head, castAs, convertUser, mapUser, R.fromPromise<User>))
+        pipe(errorPromise<FirestoreUserData>('not found'), R.fromPromise<FirestoreUserData>),
+        pipe(pipe(head, castAs, convertUser, R.fromPromise<FirestoreUserData>))
       )
     )
   )(CollectionName.USERS)

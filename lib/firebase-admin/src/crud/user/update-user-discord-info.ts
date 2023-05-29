@@ -2,8 +2,7 @@ import { FirestoreUserPrototype } from '../../../../firestore/src/types/prototyp
 import { convertUser } from '../../converters/user/convert-user'
 import { getFirestoreDiscordGuildRefsByDiscordIds } from '../../data/discord-guild/get-firestore-discord-guild-refs-by-discord-ids'
 import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
-import { CollectionName, FirestoreUser, mapUser } from '@echo/firestore'
-import { User } from '@echo/model'
+import { CollectionName, FirestoreUser, FirestoreUserData } from '@echo/firestore'
 import { R } from '@mobily/ts-belt'
 import { always, andThen, isNil, pipe } from 'ramda'
 
@@ -19,6 +18,6 @@ export const updateUserDiscordInfo = (userId: string, userPrototype: FirestoreUs
         discordBanner: userPrototype.discordBanner,
         discordGuilds: guilds
       } as unknown as Partial<FirestoreUser>)
-      .then(pipe(always(userRef.get()), andThen(pipe(convertUser, mapUser, R.fromPromise<User>))))
+      .then(pipe(always(userRef.get()), andThen(pipe(convertUser, R.fromPromise<FirestoreUserData>))))
   )
 }

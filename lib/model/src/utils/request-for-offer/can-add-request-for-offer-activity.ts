@@ -1,17 +1,20 @@
-import { RequestForOffer } from '../../types/request-for-offer'
 import { RequestForOfferActivity } from '../../types/request-for-offer-activity'
 import { RequestForOfferState } from '../../types/request-for-offer-state'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 
-export function canAddRequestForOfferActivity(requestForOffer: RequestForOffer, activity: RequestForOfferActivity) {
-  if (requestForOffer.state !== activity.fromState) {
+export function canAddRequestForOfferActivity(
+  state: RequestForOfferState,
+  expiresAt: Dayjs,
+  activity: RequestForOfferActivity
+) {
+  if (state !== activity.fromState) {
     return false
   }
   // Can't add activity on an expired request for offer
-  if (requestForOffer.expiresAt.isBefore(dayjs())) {
+  if (expiresAt.isBefore(dayjs())) {
     return false
   }
-  switch (requestForOffer.state) {
+  switch (state) {
     // Can't add activity on an expired, cancelled or fulfilled request for offer
     case RequestForOfferState.CANCELLED:
     case RequestForOfferState.EXPIRED:

@@ -1,22 +1,20 @@
-import { mapRequestForOfferToResponse } from '../../mappers/map-request-for-offer-to-response'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
 import { CreateRequestForOfferRequest } from '../../types/model/requests/create-request-for-offer-request'
-import { RequestForOfferResponse } from '../../types/model/responses/request-for-offer-response'
 import { createRequestForOfferSchema } from '../../types/validators/create-request-for-offer'
 import { getAlchemy } from '../../utils/alchemy/alchemy'
 import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
+import { userIsInGuild } from '../../utils/handler/user-is-in-guild'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
-import { addRequestForOffer, findDiscordGuildByGuildId } from '@echo/firebase-admin'
-import { FirestoreRequestForOfferPrototype } from '@echo/firestore'
-import { userIsInGuild } from '@echo/model'
+import { addRequestForOffer, findDiscordGuildByGuildId, findNftsById } from '@echo/firebase-admin'
+import { FirestoreRequestForOfferData, FirestoreRequestForOfferPrototype } from '@echo/firestore'
 import { isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { isNil } from 'ramda'
+import { any, isNil } from 'ramda'
 
 export const createRequestForOfferHandler: RequestHandler<
   ApiRequest<CreateRequestForOfferRequest, never>,
-  RequestForOfferResponse
+  FirestoreRequestForOfferData
 > = async (req, res, session) => {
   const user = validateAndExtractUserFromSession(session, res)
   if (isNil(user)) {
@@ -35,26 +33,37 @@ export const createRequestForOfferHandler: RequestHandler<
       }
       const discordGuild = R.getExn(discordGuildResult)
       if (userIsInGuild(user, discordGuild)) {
-        // We can unwrap here, wallets are not going to be empty or nil
-        // FIXME
-        return walletsOwnTokens(getAlchemy(), user.wallets!, [])
-          .then((userOwnsAllNfts) => {
-            if (!userOwnsAllNfts) {
-              res.end(res.status(401).json({ error: 'User does not own all the NFTs to offer' }))
+        return findNftsById(validatedRequest.items)
+          .then((nftResults) => {
+            if (any(R.isError, nftResults)) {
+              res.end(res.status(500).json({ error: 'Could not fetch NFTs' }))
               return
             }
             // FIXME
-            return addRequestForOffer({} as unknown as FirestoreRequestForOfferPrototype)
-              .then((requestForOfferResult) => {
-                if (R.isError(requestForOfferResult)) {
-                  res.end(res.status(500).json({ error: 'Could not create listing' }))
+            return walletsOwnTokens(getAlchemy(), user.wallets, [])
+              .then((userOwnsAllNfts) => {
+                if (!userOwnsAllNfts) {
+                  res.end(res.status(401).json({ error: 'User does not own all the NFTs to offer' }))
                   return
                 }
-                return res.status(200).json(mapRequestForOfferToResponse(R.getExn(requestForOfferResult)))
+                // FIXME
+                return addRequestForOffer({} as unknown as FirestoreRequestForOfferPrototype)
+                  .then((requestForOfferResult) => {
+                    if (R.isError(requestForOfferResult)) {
+                      res.end(res.status(500).json({ error: 'Could not create listing' }))
+                      return
+                    }
+                    return res.status(200).json(R.getExn(requestForOfferResult))
+                  })
+                  .catch((e: Error) => {
+                    logger.error(`Error creating request for offer: ${JSON.stringify(e)}`)
+                    res.end(res.status(500).json({ error: 'Could not create listing' }))
+                    return
+                  })
               })
-              .catch((e: Error) => {
-                logger.error(`Error creating request for offer: ${JSON.stringify(e)}`)
-                res.end(res.status(500).json({ error: 'Could not create listing' }))
+              .catch((reason) => {
+                logger.error(`Error fetching NFTs: ${JSON.stringify(reason)}`)
+                res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
                 return
               })
           })

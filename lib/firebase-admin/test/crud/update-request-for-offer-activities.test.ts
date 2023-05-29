@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { updateRequestForOfferActivities } from '../../src/crud/request-for-offer/update-request-for-offer-activities'
 import { getDocRefFromPath } from '../../src/utils/document/get-doc-ref-from-path'
-import { requestsForOffer } from '@echo/model'
+import { requestForOfferFirestoreData } from '@echo/firestore'
 import { DocumentReference } from '@google-cloud/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
@@ -9,7 +9,7 @@ jest.mock('../../../utils/document/get-doc-ref-from-path')
 jest.mock('@google-cloud/firestore')
 
 describe('crud - request-for-offer - updateRequestForOfferActivities', () => {
-  const requestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
+  const requestForOffer = requestForOfferFirestoreData['jUzMtPGKM62mMhEcmbN4']!
   const mockRef = jest.mocked(DocumentReference.prototype)
   const mockedGetDocRefFromPath = jest.mocked(getDocRefFromPath)
   beforeEach(() => {

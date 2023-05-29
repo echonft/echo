@@ -30,4 +30,5 @@ export { canAddRequestForOfferActivity } from './utils/request-for-offer/can-add
 export { canRequestForOfferReceiveOffers } from './utils/request-for-offer/can-request-for-offer-receive-offers'
 export { generateRequestForOfferActivity } from './utils/request-for-offer/generate-request-for-offer-activity'
 export { userIsInGuild } from './utils/user/user-is-in-guild'
+export { userIsInGuildWithId } from './utils/user/user-is-in-guild-with-id'
 export { mergeWalletsAndContractsByChainId } from './utils/wallet/merge-wallets-with-contracts'
