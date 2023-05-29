@@ -22,6 +22,7 @@ describe('handlers - user - cancelRequestForOfferHandler', () => {
   const mockedRequest: RequestForOfferRequest = {
     id: 'jUzMtPGKM62mMhEcmbN4'
   }
+
   const mockedUpdateRequestForOfferActivities = jest
     .mocked(updateRequestForOfferActivities)
     .mockImplementation(mockUpdateRequestForOfferActivities)

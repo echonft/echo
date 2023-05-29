@@ -2,15 +2,15 @@ import { deleteWalletHandler } from '../../src/handlers/user/delete-wallet-handl
 import { WalletResponse } from '../../src/types/model/responses/wallet-response'
 import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
 import { updateUserWallets } from '@echo/firebase-admin'
-import { users } from '@echo/model'
+import { userFirestoreData } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/firebase-admin')
 
 describe('handlers - user - deleteWalletHandler', () => {
   const mockedUpdateWallets = jest.mocked(updateUserWallets)
-  const user = users['oE6yUEQBPn7PZ89yMjKn']!
-  const wallet = user.wallets![0]!
+  const user = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
+  const wallet = user.wallets[0]!
   beforeEach(() => {
     jest.clearAllMocks()
   })
@@ -31,6 +31,8 @@ describe('handlers - user - deleteWalletHandler', () => {
   it('if valid but no wallet (undefined), returns empty array', async () => {
     mockedUpdateWallets.mockResolvedValue(undefined)
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     await deleteWalletHandler({ ...user, wallets: undefined }, [wallet], res)
     expect(res.statusCode).toBe(200)
     expect(res._getJSONData()).toEqual({ wallets: [] })
@@ -44,7 +46,7 @@ describe('handlers - user - deleteWalletHandler', () => {
   })
   it('if valid, returns user wallets minus the deleted wallet (single)', async () => {
     mockedUpdateWallets.mockResolvedValue(undefined)
-    const singleWalletUser = { ...user, wallets: [user.wallets![0]!] }
+    const singleWalletUser = { ...user, wallets: [user.wallets[0]!] }
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
     await deleteWalletHandler(singleWalletUser, [wallet], res)
     expect(res.statusCode).toBe(200)
@@ -54,7 +56,7 @@ describe('handlers - user - deleteWalletHandler', () => {
     const newWallet = { ...wallet, address: 'test' }
     mockedUpdateWallets.mockResolvedValue(undefined)
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-    await deleteWalletHandler({ ...user, wallets: user.wallets?.concat(newWallet) }, user.wallets!, res)
+    await deleteWalletHandler({ ...user, wallets: user.wallets?.concat(newWallet) }, user.wallets, res)
     expect(res.statusCode).toBe(200)
     expect(res._getJSONData()).toEqual({ wallets: [newWallet] })
   })

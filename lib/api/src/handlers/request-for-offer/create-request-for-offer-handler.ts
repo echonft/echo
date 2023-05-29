@@ -1,3 +1,4 @@
+import { mapNftToNftIdWithContractAddress } from '../../mappers/map-nft-to-nft-id-with-contract-address'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
 import { CreateRequestForOfferRequest } from '../../types/model/requests/create-request-for-offer-request'
@@ -7,10 +8,10 @@ import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
 import { userIsInGuild } from '../../utils/handler/user-is-in-guild'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { addRequestForOffer, findDiscordGuildByGuildId, findNftsById } from '@echo/firebase-admin'
-import { FirestoreRequestForOfferData, FirestoreRequestForOfferPrototype } from '@echo/firestore'
+import { FirestoreRequestForOfferData } from '@echo/firestore'
 import { isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { any, isNil } from 'ramda'
+import { any, isNil, map } from 'ramda'
 
 export const createRequestForOfferHandler: RequestHandler<
   ApiRequest<CreateRequestForOfferRequest, never>,
@@ -36,18 +37,22 @@ export const createRequestForOfferHandler: RequestHandler<
         return findNftsById(validatedRequest.items)
           .then((nftResults) => {
             if (any(R.isError, nftResults)) {
-              res.end(res.status(500).json({ error: 'Could not fetch NFTs' }))
+              res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
               return
             }
-            // FIXME
-            return walletsOwnTokens(getAlchemy(), user.wallets, [])
+            const nfts = map(R.getExn, nftResults)
+            return walletsOwnTokens(getAlchemy(), user.wallets, map(mapNftToNftIdWithContractAddress, nfts))
               .then((userOwnsAllNfts) => {
                 if (!userOwnsAllNfts) {
                   res.end(res.status(401).json({ error: 'User does not own all the NFTs to offer' }))
                   return
                 }
-                // FIXME
-                return addRequestForOffer({} as unknown as FirestoreRequestForOfferPrototype)
+                return addRequestForOffer({
+                  senderId: user.id,
+                  discordGuildId: validatedRequest.discordGuildId,
+                  items: validatedRequest.items,
+                  target: validatedRequest.target
+                })
                   .then((requestForOfferResult) => {
                     if (R.isError(requestForOfferResult)) {
                       res.end(res.status(500).json({ error: 'Could not create listing' }))
@@ -62,14 +67,14 @@ export const createRequestForOfferHandler: RequestHandler<
                   })
               })
               .catch((reason) => {
-                logger.error(`Error fetching NFTs: ${JSON.stringify(reason)}`)
+                logger.error(`Error fetching from alchemy: ${JSON.stringify(reason)}`)
                 res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
                 return
               })
           })
           .catch((reason) => {
-            logger.error(`Error fetching from alchemy: ${JSON.stringify(reason)}`)
-            res.end(res.status(500).json({ error: 'Could not create listing' }))
+            logger.error(`Error fetching NFTs: ${JSON.stringify(reason)}`)
+            res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
             return
           })
       } else {

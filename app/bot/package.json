@@ -30,6 +30,7 @@
     "@echo/api": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/firebase-admin": "workspace:*",
+    "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@mobily/ts-belt": "4.0.0-rc.5",

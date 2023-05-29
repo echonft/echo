@@ -3,7 +3,8 @@ import { createWalletHandler } from '../../src/handlers/user/create-wallet-handl
 import { WalletResponse } from '../../src/types/model/responses/wallet-response'
 import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
 import { findNonceForUser, findUserByWallet, updateUserWallets } from '@echo/firebase-admin'
-import { Signature, users } from '@echo/model'
+import { userFirestoreData } from '@echo/firestore'
+import { Signature } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { SiweMessage } from 'siwe'
@@ -16,8 +17,8 @@ describe('handlers - user - createWalletHandler', () => {
   const mockedFindNonce = jest.mocked(findNonceForUser)
   const mockedUpdateWallets = jest.mocked(updateUserWallets)
   const mockedFindUserByWallet = jest.mocked(findUserByWallet).mockResolvedValue(R.fromNullable(null, new Error()))
-  const user = users['oE6yUEQBPn7PZ89yMjKn']!
-  const wallet = user.wallets![0]!
+  const user = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
+  const wallet = user.wallets[0]!
   const signature = '0xtest'
   const nonce = 'nonce'
 
@@ -138,6 +139,7 @@ describe('handlers - user - createWalletHandler', () => {
       mockedFindNonce.mockResolvedValue(R.fromFalsy(nonce, new Error()))
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
       await createWalletHandler(
+        // @ts-ignore
         { ...user, wallets: undefined },
         wallet,
         mockedMessage as unknown as SiweMessage,
@@ -153,7 +155,7 @@ describe('handlers - user - createWalletHandler', () => {
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
       await createWalletHandler(user, newWallet, mockedMessage as unknown as SiweMessage, signature, res)
       expect(res.statusCode).toBe(200)
-      expect(res._getJSONData()).toEqual({ wallets: [newWallet, ...user.wallets!] })
+      expect(res._getJSONData()).toEqual({ wallets: [newWallet, ...user.wallets] })
     })
     it('if nonce is valid and user already has that wallet linked,  returns new wallets', async () => {
       const newWallet = { ...wallet, address: 'test' }
@@ -162,7 +164,7 @@ describe('handlers - user - createWalletHandler', () => {
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
       await createWalletHandler(user, newWallet, mockedMessage as unknown as SiweMessage, signature, res)
       expect(res.statusCode).toBe(200)
-      expect(res._getJSONData()).toEqual({ wallets: [newWallet, ...user.wallets!] })
+      expect(res._getJSONData()).toEqual({ wallets: [newWallet, ...user.wallets] })
     })
   })
 })

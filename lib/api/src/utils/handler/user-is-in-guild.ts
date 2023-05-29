@@ -4,7 +4,7 @@ import { map, prop } from 'ramda'
 
 export function userIsInGuild(user: FirestoreUserData, discordGuild: FirestoreDiscordGuildData) {
   return userIsInGuildWithId(
-    map<FirestoreDiscordGuildData, string>(prop('discordId'))(user.discordGuilds ?? []),
+    map<FirestoreDiscordGuildData, string>(prop('discordId'), user.discordGuilds ?? []),
     discordGuild.discordId
   )
 }

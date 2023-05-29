@@ -6,7 +6,7 @@ import { mockGuild } from '../../utils/tests/discord/guild-mock'
 import { mockChatInputCommandInteraction } from '../../utils/tests/discord/interaction-mock'
 import { executeConnect } from '../connect'
 import { findDiscordGuildByGuildId } from '@echo/firebase-admin'
-import { discordGuilds } from '@echo/model'
+import { discordGuildFirestoreData } from '@echo/firestore'
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { Client } from 'discord.js'
@@ -19,7 +19,7 @@ describe('discord commands - connect', () => {
   jest.mocked(findDiscordGuildByGuildId).mockImplementation((guildId: string) =>
     Promise.resolve(
       R.fromExecution(() => {
-        const guild = discordGuilds[guildId]
+        const guild = discordGuildFirestoreData[guildId]
         if (isNil(guild)) {
           throw Error
         }

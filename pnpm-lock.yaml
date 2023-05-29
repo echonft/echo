@@ -102,6 +102,9 @@ importers:
       '@echo/firebase-admin':
         specifier: workspace:*
         version: link:../../lib/firebase-admin
+      '@echo/firestore':
+        specifier: workspace:*
+        version: link:../../lib/firestore
       '@echo/model':
         specifier: workspace:*
         version: link:../../lib/model

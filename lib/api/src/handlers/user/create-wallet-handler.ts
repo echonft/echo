@@ -1,7 +1,8 @@
 import { ErrorResponse } from '../../types/model/responses/error-response'
 import { WalletResponse } from '../../types/model/responses/wallet-response'
 import { findNonceForUser, findUserByWallet, updateUserWallets } from '@echo/firebase-admin'
-import { User, Wallet, walletEquals } from '@echo/model'
+import { FirestoreUserData, FirestoreWalletData } from '@echo/firestore'
+import { walletEquals } from '@echo/model'
 import { addToArrayIfNotPresent } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { NextApiResponse } from 'next'
@@ -9,8 +10,8 @@ import { isNil } from 'ramda'
 import { SiweMessage } from 'siwe'
 
 export const createWalletHandler = (
-  user: User,
-  wallet: Wallet,
+  user: FirestoreUserData,
+  wallet: FirestoreWalletData,
   message: SiweMessage,
   signature: string,
   res: NextApiResponse<WalletResponse | ErrorResponse>
@@ -36,7 +37,7 @@ export const createWalletHandler = (
                 res.end(res.status(422).json({ error: 'Invalid nonce.' }))
                 return
               }
-              const wallets = addToArrayIfNotPresent<Wallet>(user.wallets ?? [], wallet, walletEquals)
+              const wallets = addToArrayIfNotPresent<FirestoreWalletData>(user.wallets ?? [], wallet, walletEquals)
               return updateUserWallets(user.id, wallets)
                 .then(() => {
                   res.status(200).json({ wallets })

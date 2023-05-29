@@ -16,6 +16,7 @@ describe('validators - addWallet', () => {
     nonce: '',
     issuedAt: ''
   })
+
   it('wrong wallet fails validation', () => {
     expect(() => addWalletSchema.parse({ wallet: { address: undefined, chainId: 1 }, signature, message })).toThrow()
     expect(() => addWalletSchema.parse({ wallet: { address: '', chainId: 1 }, signature, message })).toThrow()

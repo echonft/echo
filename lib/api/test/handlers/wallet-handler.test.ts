@@ -5,12 +5,13 @@ import { WalletRequest } from '../../src/types/model/requests/wallet-request'
 import { WalletResponse } from '../../src/types/model/responses/wallet-response'
 import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
 import { mockSession } from '../../src/utils/test/mocks/session'
-import { User, users, Wallet } from '@echo/model'
+import { FirestoreUserData, userFirestoreData } from '@echo/firestore'
+import { Wallet } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { SiweMessage } from 'siwe'
 
-jest.mock('../create-wallet-handler')
-jest.mock('../delete-wallet-handler')
+jest.mock('../../src/handlers/user/create-wallet-handler')
+jest.mock('../../src/handlers/user/delete-wallet-handler')
 
 describe('handlers - user - walletHandler', () => {
   const mockedCreateWallet = jest.mocked(createWalletHandler)
@@ -25,7 +26,7 @@ describe('handlers - user - walletHandler', () => {
     nonce: '',
     issuedAt: ''
   })
-  const wallet = users['oE6yUEQBPn7PZ89yMjKn']!.wallets![0]!
+  const wallet = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!.wallets[0]!
   const signature = '0x0000'
   beforeEach(() => {
     jest.clearAllMocks()
@@ -38,7 +39,7 @@ describe('handlers - user - walletHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
   })
   it('if no user, returns 401', async () => {
-    const noUserSession = { ...mockSession, user: undefined as unknown as User }
+    const noUserSession = { ...mockSession, user: undefined as unknown as FirestoreUserData }
     const { req, res } = mockRequestResponse<WalletRequest, never, WalletResponse>('GET')
     await walletHandler(req, res, noUserSession)
     expect(res.statusCode).toBe(401)
