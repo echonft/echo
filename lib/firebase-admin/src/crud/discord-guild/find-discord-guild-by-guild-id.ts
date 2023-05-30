@@ -16,7 +16,7 @@ export const findDiscordGuildByGuildId = (guildId: string): Promise<R.Result<Fir
       ifElse(
         isEmpty,
         pipe(errorPromise<FirestoreDiscordGuildData>('not found'), R.fromPromise<FirestoreDiscordGuildData>),
-        pipe(pipe(head, castAs, convertDiscordGuild, R.fromPromise<FirestoreDiscordGuildData>))
+        pipe(head, castAs, convertDiscordGuild, R.fromPromise<FirestoreDiscordGuildData>)
       )
     )
   )(CollectionName.GUILDS)

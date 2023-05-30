@@ -7,7 +7,7 @@ import { walletsOwnTokens } from '../alchemy/wallets-own-tokens'
 import { userIsInGuild } from './user-is-in-guild'
 import { addOffer, findNftsById, updateRequestForOfferOffers } from '@echo/firebase-admin'
 import { FirestoreDiscordGuildData, FirestoreOfferData, FirestoreUserData } from '@echo/firestore'
-import { isNilOrEmpty, logger } from '@echo/utils'
+import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { NextApiResponse } from 'next'
 import { any, isNil, map } from 'ramda'
@@ -74,22 +74,22 @@ export function createOfferFromData(
                   if (!isNil(requestForOfferId)) {
                     return updateRequestForOfferOffers(requestForOfferId, offer.id)
                       .then(() => res.status(200).json(offer))
-                      .catch((error) => {
-                        logger.error(`Error updating request for offer: ${error}`)
+                      .catch((e) => {
+                        logger.error(`Error updating request for offer: ${errorMessage(e)}`)
                         res.end(res.status(500).json({ error: 'Could not create offer' }))
                         return
                       })
                   }
                   return res.status(200).json(offer)
                 })
-                .catch((e: Error) => {
-                  logger.error(`Error creating offer: ${e}`)
+                .catch((e) => {
+                  logger.error(`Error creating offer: ${errorMessage(e)}`)
                   res.end(res.status(500).json({ error: 'Could not create offer' }))
                   return
                 })
             })
-            .catch((reason) => {
-              logger.error(`Error fetching from alchemy: ${reason}`)
+            .catch((e) => {
+              logger.error(`Error fetching from alchemy: ${errorMessage(e)}`)
               res.end(res.status(401).json({ error: 'Users do not own all the NFTs' }))
               return
             })

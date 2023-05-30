@@ -9,7 +9,7 @@ import { userIsInGuild } from '../../utils/handler/user-is-in-guild'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { addRequestForOffer, findDiscordGuildByGuildId, findNftsById } from '@echo/firebase-admin'
 import { FirestoreRequestForOfferData } from '@echo/firestore'
-import { isNilOrEmpty, logger } from '@echo/utils'
+import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { any, isNil, map } from 'ramda'
 
@@ -60,20 +60,20 @@ export const createRequestForOfferHandler: RequestHandler<
                     }
                     return res.status(200).json(R.getExn(requestForOfferResult))
                   })
-                  .catch((e: Error) => {
-                    logger.error(`Error creating request for offer: ${JSON.stringify(e)}`)
+                  .catch((e) => {
+                    logger.error(`Error creating request for offer: ${errorMessage(e)}`)
                     res.end(res.status(500).json({ error: 'Could not create listing' }))
                     return
                   })
               })
-              .catch((reason) => {
-                logger.error(`Error fetching from alchemy: ${JSON.stringify(reason)}`)
+              .catch((e) => {
+                logger.error(`Error fetching from alchemy: ${errorMessage(e)}`)
                 res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
                 return
               })
           })
-          .catch((reason) => {
-            logger.error(`Error fetching NFTs: ${JSON.stringify(reason)}`)
+          .catch((e) => {
+            logger.error(`Error fetching NFTs: ${errorMessage(e)}`)
             res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
             return
           })

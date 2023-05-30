@@ -16,7 +16,7 @@ export const findUserByDiscordId = (discordId: string): Promise<R.Result<Firesto
       ifElse(
         isEmpty,
         pipe(errorPromise<FirestoreUserData>('not found'), R.fromPromise<FirestoreUserData>),
-        pipe(pipe(head, castAs, convertUser, R.fromPromise<FirestoreUserData>))
+        pipe(head, castAs, convertUser, R.fromPromise<FirestoreUserData>)
       )
     )
   )(CollectionName.USERS)
