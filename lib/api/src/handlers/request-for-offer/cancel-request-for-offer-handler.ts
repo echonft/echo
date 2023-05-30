@@ -1,7 +1,7 @@
 import { mapActivityToFirestoreData } from '../../mappers/map-activity-to-firestore-data'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
-import { RequestForOfferRequest } from '../../types/model/requests/request-for-offer-request'
+import { IdRequest } from '../../types/model/requests/id-request'
 import { idRequestSchema } from '../../types/validators/id-request'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { findRequestForOfferById, updateRequestForOfferActivities } from '@echo/firebase-admin'
@@ -13,7 +13,7 @@ import { unix } from 'dayjs'
 import { append, assoc, isNil, modify, pipe } from 'ramda'
 
 export const cancelRequestForOfferHandler: RequestHandler<
-  ApiRequest<RequestForOfferRequest, never>,
+  ApiRequest<IdRequest, never>,
   FirestoreRequestForOfferData
 > = async (req, res, session) => {
   const user = validateAndExtractUserFromSession(session, res)

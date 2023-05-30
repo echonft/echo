@@ -1,10 +1,10 @@
 import { authOptions } from '../auth/[...nextauth]'
 import { ApiRequest, ErrorResponse, withMethodValidation, withSession } from '@echo/api'
-import { RequestForOfferRequest, RequestForOfferResponse } from '@echo/api/dist/types'
+import { IdRequest, RequestForOfferResponse } from '@echo/api/dist/types'
 import { NextApiResponse } from 'next'
 
 const cancelRequestForOffer = async (
-  req: ApiRequest<RequestForOfferRequest, never>,
+  req: ApiRequest<IdRequest, never>,
   res: NextApiResponse<ErrorResponse | RequestForOfferResponse>
 ) => {
   try {
