@@ -1,4 +1,5 @@
-import { mapNftCollection, nftCollectionFirestoreData } from '@echo/firestore'
+import { mapNftCollection } from '../../src/mappers/nft-collection/map-nft-collection'
+import { nftCollectionFirestoreData } from '../../src/mocks/nft-collection-firestore-data'
 import { nftCollections } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 

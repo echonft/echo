@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { getDiscordChannel } from '../../utils/discord'
-import { mockAndSetupChannel, mockTextChannel } from '../../utils/tests/discord/channel-mock'
-import { mockClient } from '../../utils/tests/discord/client-mock'
-import { mockGuild } from '../../utils/tests/discord/guild-mock'
-import { listenToListings } from '../listings'
 import { listenToRequestForOffers } from '@echo/firebase-admin'
 import { requestsForOffer } from '@echo/model'
 import * as utils from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { Client } from 'discord.js'
+import { listenToListings } from '../../src/listeners/listings'
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import { getDiscordChannel } from '../../src/utils/discord'
+import { mockAndSetupChannel, mockTextChannel } from '../../src/utils/tests/discord/channel-mock'
+import { mockClient } from '../../src/utils/tests/discord/client-mock'
+import { mockGuild } from '../../src/utils/tests/discord/guild-mock'
 
 jest.mock('@echo/firebase-admin')
-jest.mock('../../utils/discord')
+jest.mock('../../src/utils/discord')
 
 describe('listeners - listings', () => {
   const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!

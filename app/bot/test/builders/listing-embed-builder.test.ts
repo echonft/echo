@@ -1,12 +1,12 @@
-import { listingLink } from '../../routing/listing-link'
-import { embedSeparator } from '../../utils/embed/embed-separator'
-import { embedValueForNft } from '../../utils/embed/embed-value-for-nft'
-import { embedValueForTarget } from '../../utils/embed/embed-value-for-target'
-import { buildListingEmbed } from '../listing-embed-builder'
 import { requestsForOffer } from '@echo/model'
 import { describe, expect, it, jest } from '@jest/globals'
+import { buildListingEmbed } from '../../src/builders/listing-embed-builder'
+import { listingLink } from '../../src/routing/listing-link'
+import { embedSeparator } from '../../src/utils/embed/embed-separator'
+import { embedValueForNft } from '../../src/utils/embed/embed-value-for-nft'
+import { embedValueForTarget } from '../../src/utils/embed/embed-value-for-target'
 
-jest.mock('../../routing/get-base-url')
+jest.mock('../../src/routing/get-base-url')
 
 describe('builders - buildListingEmbed', () => {
   const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!

@@ -1,4 +1,5 @@
-import { discordGuildFirestoreData, mapDiscordGuild } from '@echo/firestore'
+import { mapDiscordGuild } from '../../src/mappers/discord-guild/map-discord-guild'
+import { discordGuildFirestoreData } from '../../src/mocks/discord-guild-firestore-data'
 import { discordGuilds } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 

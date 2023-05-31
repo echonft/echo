@@ -1,4 +1,5 @@
-import { mapOffer, offerFirestoreData } from '@echo/firestore'
+import { mapOffer } from '../../src/mappers/offer/map-offer'
+import { offerFirestoreData } from '../../src/mocks/offer-firestore-data'
 import { offers } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 

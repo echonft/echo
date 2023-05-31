@@ -1,10 +1,10 @@
-import { listingLink } from '../../routing/listing-link'
-import { buildNewListingButtons } from '../listing-button-builder'
 import { requestsForOffer } from '@echo/model'
 import { describe, expect, it, jest } from '@jest/globals'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
+import { buildNewListingButtons } from '../../src/builders/listing-button-builder'
+import { listingLink } from '../../src/routing/listing-link'
 
-jest.mock('../../routing/get-base-url')
+jest.mock('../../src/routing/get-base-url')
 
 describe('builders - buildNewListingButtons', () => {
   it('should build a new listing button with a link to the listing', () => {

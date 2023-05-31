@@ -1,10 +1,8 @@
-import { listingLink } from '../listing-link'
 import { requestsForOffer } from '@echo/model'
 import { describe, expect, jest, test } from '@jest/globals'
+import { listingLink } from '../../src/routing/listing-link'
 
-jest.mock('../get-base-url', () => ({
-  getBaseUrl: () => 'https://echonft.xyz'
-}))
+jest.mock('../../src/routing/get-base-url')
 
 describe('Routing - listingLink', () => {
   const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!

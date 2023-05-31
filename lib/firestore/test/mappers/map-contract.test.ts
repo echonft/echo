@@ -1,4 +1,5 @@
-import { contractFirestoreData, mapContract } from '@echo/firestore'
+import { mapContract } from '../../src/mappers/contract/map-contract'
+import { contractFirestoreData } from '../../src/mocks/contract-firestore-data'
 import { contracts } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 
