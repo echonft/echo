@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { embedValueForNft } from '../embed-value-for-nft'
-import { nfts } from '@echo/model'
+import { nftFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
+import { embedValueForNft } from '../../src/utils/embed/embed-value-for-nft'
 
 describe('utils - embed - embedValueForNft', () => {
-  const nft = nfts['QFjMRNChUAHNswkRADXh']!
+  const nft = nftFirestoreData['QFjMRNChUAHNswkRADXh']!
   it('should return expected result with name and tokenId', () => {
     const expectedResult = 'pxMythics Genesis Creative Demigod #024'
     const result = embedValueForNft(nft)

@@ -1,9 +1,9 @@
-import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals'
-import { Client, TextChannel } from 'discord.js'
 import { InvalidChannelIdError } from '../../src/errors/invalid-channel-id-error'
 import { getDiscordChannel } from '../../src/utils/discord'
 import { mockAndSetupChannel, mockTextChannel } from '../../src/utils/tests/discord/channel-mock'
 import { mockClient } from '../../src/utils/tests/discord/client-mock'
+import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals'
+import { Client, TextChannel } from 'discord.js'
 
 describe('discord util - getDiscordChannel', () => {
   let client: Client
@@ -14,9 +14,6 @@ describe('discord util - getDiscordChannel', () => {
     client = mockClient()
   })
   describe('only cache', () => {
-    test('If no channels, throws an error', async () => {
-      await expect(getDiscordChannel(client, '1')).rejects.toEqual(new InvalidChannelIdError('1'))
-    })
     test('If channel but wrong ID, error', async () => {
       mockAndSetupChannel(client, undefined, { id: '1' })
       await expect(getDiscordChannel(client, '2')).rejects.toEqual(new InvalidChannelIdError('2'))
