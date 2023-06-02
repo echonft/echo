@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { offerChangeHandler } from '../../src/handlers/offer-change-handler'
-import { getDiscordChannel } from '../../src/utils/discord'
 import { mockAndSetupChannel, mockPrivateThread } from '../../src/utils/tests/discord/channel-mock'
 import { mockClient } from '../../src/utils/tests/discord/client-mock'
 import { mockGuild } from '../../src/utils/tests/discord/guild-mock'
@@ -10,15 +9,16 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { Client } from 'discord.js'
 
 jest.mock('@echo/firebase-admin')
-jest.mock('../../src/utils/discord')
+jest.mock('../../src/utils/get-discord-channel')
+jest.mock('../../src/routing/get-base-url')
 
-describe('handlers - listings', () => {
+function setChannelForOffer(offer: FirestoreOfferData, channelId: string): FirestoreOfferData {
+  return { ...offer, discordGuild: { ...offer.discordGuild, channelId } }
+}
+
+describe('handlers - offerChangeHandler', () => {
   const mockOffer = offerFirestoreData['LyCfl6Eg7JKuD7XJ6IPi']!
-  // @ts-ignore
-  const mockedGetDiscordChannel = jest.mocked(getDiscordChannel)
-  const mockedUpdate = jest.fn((data: FirestoreOfferData) => {
-    expect(data).toBeDefined()
-  })
+  const mockedUpdate = jest.fn()
   const mockedAddedDocChange = {
     type: 'added',
     doc: {
@@ -40,75 +40,114 @@ describe('handlers - listings', () => {
 
   it('if doc is not added, do nothing', async () => {
     await offerChangeHandler(client, mockOffer, mockedModifiedDocChange)
-    expect(mockedGetDiscordChannel).toHaveBeenCalledTimes(0)
+    expect(mockedUpdate).toHaveBeenCalledTimes(0)
   })
 
   it('if doc is added but already posted, do nothing', async () => {
     await offerChangeHandler(client, { ...mockOffer, postedAt: 1 }, mockedModifiedDocChange)
-    expect(mockedGetDiscordChannel).toHaveBeenCalledTimes(0)
+    expect(mockedUpdate).toHaveBeenCalledTimes(0)
   })
 
   it('if getDiscordChannel fails, do nothing', async () => {
-    mockedGetDiscordChannel.mockRejectedValueOnce('test')
     await offerChangeHandler(client, mockOffer, mockedAddedDocChange)
+    expect(mockedUpdate).toHaveBeenCalledTimes(0)
+  })
+  it('if getDiscordChannel throws, do nothing', async () => {
+    const offer = setChannelForOffer(mockOffer, 'throw')
+    await offerChangeHandler(client, offer, mockedAddedDocChange)
     expect(mockedUpdate).toHaveBeenCalledTimes(0)
   })
   it('if users are not in guild, do nothing', async () => {
     const mockChannel = mockAndSetupChannel(client, mockGuild(client, undefined, { id: '' }))
-    mockedGetDiscordChannel.mockResolvedValue(mockChannel)
+    const offer = setChannelForOffer(mockOffer, mockChannel.id)
     const mockedThreadCreation = jest.spyOn(mockChannel.threads, 'create')
-    await offerChangeHandler(
-      client,
-      { ...mockOffer, sender: { ...mockOffer.sender, discordGuilds: [] } },
-      mockedAddedDocChange
-    )
+    await offerChangeHandler(client, { ...offer, sender: { ...offer.sender, discordGuilds: [] } }, mockedAddedDocChange)
     expect(mockedUpdate).toHaveBeenCalledTimes(0)
     expect(mockedThreadCreation).toHaveBeenCalledTimes(0)
   })
   it('if thread creation fails, do nothing', async () => {
     const mockChannel = mockAndSetupChannel(client, mockGuild(client, undefined, { id: '' }))
-    mockedGetDiscordChannel.mockResolvedValue(mockChannel)
-    const mockedThreadCreation = jest.spyOn(mockChannel.threads, 'create').mockRejectedValueOnce(new Error())
-    await offerChangeHandler(client, mockOffer, mockedAddedDocChange)
+    const offer = setChannelForOffer(mockOffer, mockChannel.id)
+    // @ts-ignore
+    jest.replaceProperty(mockChannel, 'threads', {
+      create: (options) => {
+        expect(options.name).toEqual(`Offer-${offer.id}`)
+        return Promise.reject(new Error('Test'))
+      }
+    })
+    await offerChangeHandler(client, offer, mockedAddedDocChange)
     expect(mockedUpdate).toHaveBeenCalledTimes(0)
-    expect(mockedThreadCreation).toHaveBeenCalledTimes(1)
   })
   it('if adding members to thread fails, do nothing', async () => {
     const mockChannel = mockAndSetupChannel(client, mockGuild(client, undefined, { id: '' }))
     const mockThread = mockPrivateThread(client, mockChannel)
-    mockedGetDiscordChannel.mockResolvedValue(mockChannel)
-    const mockedThreadCreation = jest.spyOn(mockChannel.threads, 'create').mockResolvedValue(mockThread)
-    const mockedAddMembers = jest.spyOn(mockThread.members, 'add').mockRejectedValue(new Error())
-    await offerChangeHandler(client, mockOffer, mockedAddedDocChange)
+    const offer = setChannelForOffer(mockOffer, mockChannel.id)
+    // @ts-ignore
+    jest.replaceProperty(mockChannel, 'threads', {
+      create: (options) => {
+        expect(options.name).toEqual(`Offer-${offer.id}`)
+        return Promise.resolve(mockThread)
+      }
+    })
+    // @ts-ignore
+    jest.replaceProperty(mockThread, 'members', {
+      add: (user) => {
+        expect([offer.sender.discordId, offer.receiver.discordId]).toContain(user)
+        return Promise.reject(new Error('Test'))
+      }
+    })
+    await offerChangeHandler(client, offer, mockedAddedDocChange)
     expect(mockedUpdate).toHaveBeenCalledTimes(0)
-    expect(mockedThreadCreation).toHaveBeenCalledTimes(1)
-    expect(mockedAddMembers).toHaveBeenCalledTimes(2)
   })
   it('if update fails, do nothing', async () => {
     const mockChannel = mockAndSetupChannel(client, mockGuild(client, undefined, { id: '' }))
     const mockThread = mockPrivateThread(client, mockChannel)
-    mockedGetDiscordChannel.mockResolvedValue(mockChannel)
+    const offer = setChannelForOffer(mockOffer, mockChannel.id)
     // @ts-ignore
-    mockedUpdate.mockRejectedValueOnce(new Error())
-    const mockedThreadCreation = jest.spyOn(mockChannel.threads, 'create').mockResolvedValue(mockThread)
-    const mockedAddMembers = jest.spyOn(mockThread.members, 'add').mockResolvedValue('test')
-    await offerChangeHandler(client, mockOffer, mockedAddedDocChange)
-    expect(mockedThreadCreation).toHaveBeenCalledTimes(1)
-    expect(mockedAddMembers).toHaveBeenCalledTimes(2)
+    jest.replaceProperty(mockChannel, 'threads', {
+      create: (options) => {
+        expect(options.name).toEqual(`Offer-${offer.id}`)
+        return Promise.resolve(mockThread)
+      }
+    })
+    // @ts-ignore
+    jest.replaceProperty(mockThread, 'members', {
+      add: (user) => {
+        expect([offer.sender.discordId, offer.receiver.discordId]).toContain(user)
+        return Promise.resolve(user as string)
+      }
+    })
+    mockedUpdate.mockImplementationOnce((updatedData) => {
+      // @ts-ignore
+      expect(updatedData.threadId).toEqual(mockThread.id)
+      return Promise.reject(new Error('Test'))
+    })
+    await offerChangeHandler(client, offer, mockedAddedDocChange)
   })
   it('if update works, thread is creating with proper thread value', async () => {
     const mockChannel = mockAndSetupChannel(client, mockGuild(client, undefined, { id: '' }))
     const mockThread = mockPrivateThread(client, mockChannel)
-    mockedGetDiscordChannel.mockResolvedValue(mockChannel)
-
-    mockedUpdate.mockImplementation((updatedData) => {
-      expect(updatedData.threadId).toEqual(mockThread.id)
+    const offer = setChannelForOffer(mockOffer, mockChannel.id)
+    // @ts-ignore
+    jest.replaceProperty(mockChannel, 'threads', {
+      create: (options) => {
+        expect(options.name).toEqual(`Offer-${offer.id}`)
+        return Promise.resolve(mockThread)
+      }
     })
-
-    const mockedThreadCreation = jest.spyOn(mockChannel.threads, 'create').mockResolvedValue(mockThread)
-    const mockedAddMembers = jest.spyOn(mockThread.members, 'add').mockResolvedValue('test')
-    await offerChangeHandler(client, mockOffer, mockedAddedDocChange)
-    expect(mockedThreadCreation).toHaveBeenCalledTimes(1)
-    expect(mockedAddMembers).toHaveBeenCalledTimes(2)
+    // @ts-ignore
+    jest.replaceProperty(mockThread, 'members', {
+      add: (user) => {
+        expect([offer.sender.discordId, offer.receiver.discordId]).toContain(user)
+        return Promise.resolve(user as string)
+      }
+    })
+    // @ts-ignore
+    mockedUpdate.mockImplementation(async (updatedData) => {
+      // @ts-ignore
+      expect(updatedData.threadId).toEqual(mockThread.id)
+      return Promise.resolve()
+    })
+    await offerChangeHandler(client, offer, mockedAddedDocChange)
   })
 })

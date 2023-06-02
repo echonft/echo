@@ -1,6 +1,6 @@
 import { buildNewListingButtons } from '../builders/listing-button-builder'
 import { buildListingEmbed } from '../builders/listing-embed-builder'
-import { getDiscordChannel } from '../utils/discord'
+import { getDiscordChannel } from '../utils/get-discord-channel'
 import { FirestoreRequestForOffer, FirestoreRequestForOfferData } from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
 import { DocumentChange } from '@google-cloud/firestore'

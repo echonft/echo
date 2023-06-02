@@ -1,5 +1,5 @@
 import { offerLink } from '../routing/offer-link'
-import { getDiscordChannel } from '../utils/discord'
+import { getDiscordChannel } from '../utils/get-discord-channel'
 import { userIsInGuild } from '../utils/model/user-is-in-guild'
 import { FirestoreOffer, FirestoreOfferData } from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
