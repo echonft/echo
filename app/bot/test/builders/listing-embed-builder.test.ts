@@ -1,15 +1,15 @@
-import { requestsForOffer } from '@echo/model'
-import { describe, expect, it, jest } from '@jest/globals'
 import { buildListingEmbed } from '../../src/builders/listing-embed-builder'
 import { listingLink } from '../../src/routing/listing-link'
 import { embedSeparator } from '../../src/utils/embed/embed-separator'
 import { embedValueForNft } from '../../src/utils/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../../src/utils/embed/embed-value-for-target'
+import { requestForOfferFirestoreData } from '@echo/firestore'
+import { describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../src/routing/get-base-url')
 
 describe('builders - buildListingEmbed', () => {
-  const mockRequestForOffer = requestsForOffer['jUzMtPGKM62mMhEcmbN4']!
+  const mockRequestForOffer = requestForOfferFirestoreData['jUzMtPGKM62mMhEcmbN4']!
   const listing = { ...mockRequestForOffer, target: mockRequestForOffer.target.concat(mockRequestForOffer.target) }
   it('should build an embed with the correct title', () => {
     const result = buildListingEmbed(listing)
