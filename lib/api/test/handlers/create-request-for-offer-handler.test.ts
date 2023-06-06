@@ -4,12 +4,12 @@ import { CreateRequestForOfferRequest, RequestForOfferResponse } from '../../src
 import * as walletOwnToken from '../../src/utils/alchemy/wallets-own-tokens'
 import { mockAddRequestForOffer } from '../../src/utils/test/mocks/firebase-admin/add-request-for-offer'
 import { mockFindDiscordGuildById } from '../../src/utils/test/mocks/firebase-admin/find-discord-guild-by-id'
-import { mockFindNftsById } from '../../src/utils/test/mocks/firebase-admin/find-nfts-by-id'
+import { mockFindNftsByIds } from '../../src/utils/test/mocks/firebase-admin/find-nfts-by-ids'
 import { promiseResultError } from '../../src/utils/test/mocks/promise-result-error'
 import { promiseResultRejecter } from '../../src/utils/test/mocks/promise-result-rejecter'
 import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
 import { mockSession } from '../../src/utils/test/mocks/session'
-import { addRequestForOffer, findDiscordGuildByGuildId, findNftsById } from '@echo/firebase-admin'
+import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@echo/firebase-admin'
 import { requestForOfferFirestoreData } from '@echo/firestore'
 import { nfts } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
@@ -25,7 +25,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     .mockImplementation(() => Promise.resolve(true))
   const mockedAddRequestForOffer = jest.mocked(addRequestForOffer).mockImplementation(mockAddRequestForOffer)
   jest.mocked(findDiscordGuildByGuildId).mockImplementation(mockFindDiscordGuildById)
-  jest.mocked(findNftsById).mockImplementation(mockFindNftsById)
+  jest.mocked(findNftsByIds).mockImplementation(mockFindNftsByIds)
   const session = mockSession
   const mockedRequest: CreateRequestForOfferRequest = {
     // NOTE We use the id directly here for testing
@@ -80,7 +80,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'User is not in Discord Guild' })
   })
-  it('if findNftsById rejects, returns 500', async () => {
+  it('if findNftsByIds rejects, returns 500', async () => {
     const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>(
       'GET',
       undefined,
@@ -90,7 +90,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'Error fetching NFTs' })
   })
-  it('if findNftsById returns an error, returns 500', async () => {
+  it('if findNftsByIds returns an error, returns 500', async () => {
     const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>(
       'GET',
       undefined,

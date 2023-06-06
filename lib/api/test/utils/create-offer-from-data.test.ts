@@ -2,12 +2,12 @@ import { CreateOfferRequest } from '../../src/types/model/requests/create-offer-
 import * as walletOwnToken from '../../src/utils/alchemy/wallets-own-tokens'
 import { createOfferFromData } from '../../src/utils/handler/create-offer-from-data'
 import { mockAddOffer } from '../../src/utils/test/mocks/firebase-admin/add-offer'
-import { mockFindNftsById } from '../../src/utils/test/mocks/firebase-admin/find-nfts-by-id'
+import { mockFindNftsByIds } from '../../src/utils/test/mocks/firebase-admin/find-nfts-by-ids'
 import { mockUpdateRequestForOfferOffers } from '../../src/utils/test/mocks/firebase-admin/update-request-for-offer-offers'
 import { promiseResultError } from '../../src/utils/test/mocks/promise-result-error'
 import { promiseResultRejecter } from '../../src/utils/test/mocks/promise-result-rejecter'
 import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
-import { addOffer, findNftsById, updateRequestForOfferOffers } from '@echo/firebase-admin'
+import { addOffer, findNftsByIds, updateRequestForOfferOffers } from '@echo/firebase-admin'
 import { discordGuildFirestoreData, FirestoreOfferData, offerFirestoreData, userFirestoreData } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
@@ -21,7 +21,7 @@ describe('utils - handler - createOfferFromData', () => {
     .mockImplementation(() => Promise.resolve(true))
   const mockedAddOffer = jest.mocked(addOffer).mockImplementation(mockAddOffer)
   jest.mocked(updateRequestForOfferOffers).mockImplementation(mockUpdateRequestForOfferOffers)
-  jest.mocked(findNftsById).mockImplementation(mockFindNftsById)
+  jest.mocked(findNftsByIds).mockImplementation(mockFindNftsByIds)
 
   const mockOffer = offerFirestoreData['LyCfl6Eg7JKuD7XJ6IPi']!
   const mockUser = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!

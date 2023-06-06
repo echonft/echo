@@ -7,7 +7,7 @@ import { getAlchemy } from '../../utils/alchemy/alchemy'
 import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
 import { userIsInGuild } from '../../utils/handler/user-is-in-guild'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
-import { addRequestForOffer, findDiscordGuildByGuildId, findNftsById } from '@echo/firebase-admin'
+import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@echo/firebase-admin'
 import { FirestoreRequestForOfferData } from '@echo/firestore'
 import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
@@ -34,7 +34,7 @@ export const createRequestForOfferHandler: RequestHandler<
       }
       const discordGuild = R.getExn(discordGuildResult)
       if (userIsInGuild(user, discordGuild)) {
-        return findNftsById(validatedRequest.items)
+        return findNftsByIds(validatedRequest.items)
           .then((nftResults) => {
             if (any(R.isError, nftResults)) {
               res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
