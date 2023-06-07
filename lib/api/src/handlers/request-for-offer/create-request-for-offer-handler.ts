@@ -61,19 +61,19 @@ export const createRequestForOfferHandler: RequestHandler<
                     return res.status(200).json(R.getExn(requestForOfferResult))
                   })
                   .catch((e) => {
-                    logger.error(`Error creating request for offer: ${errorMessage(e)}`)
+                    logger.error(`createRequestForOfferHandler Error creating request for offer: ${errorMessage(e)}`)
                     res.end(res.status(500).json({ error: 'Could not create listing' }))
                     return
                   })
               })
               .catch((e) => {
-                logger.error(`Error fetching from alchemy: ${errorMessage(e)}`)
+                logger.error(`createRequestForOfferHandler Error fetching from alchemy: ${errorMessage(e)}`)
                 res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
                 return
               })
           })
           .catch((e) => {
-            logger.error(`Error fetching NFTs: ${errorMessage(e)}`)
+            logger.error(`createRequestForOfferHandler Error fetching NFTs: ${errorMessage(e)}`)
             res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
             return
           })

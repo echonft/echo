@@ -6,6 +6,7 @@ export { createRequestForOfferHandler } from './handlers/request-for-offer/creat
 export { nonceHandler } from './handlers/user/nonce-handler'
 export { walletHandler } from './handlers/user/wallet-handler'
 export { ApiRequest } from './types/model/api-requests/api-request'
+export { CreateNftCollectionRequest } from './types/model/requests/create-nft-collection-request'
 export { WalletRequest } from './types/model/requests/wallet-request'
 export { ErrorResponse } from './types/model/responses/error-response'
 export { FirebaseTokenResponse } from './types/model/responses/firebase-token-response'

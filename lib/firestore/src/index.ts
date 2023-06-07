@@ -57,6 +57,7 @@ export { FirestorePrototypeData } from './types/prototypes/base/firestore-protot
 export { FirestoreContractPrototype } from './types/prototypes/contract/firestore-contract-prototype'
 export { FirestoreDiscordGuildPrototype } from './types/prototypes/discord-guild/firestore-discord-guild-prototype'
 export { FirestoreNftPrototype } from './types/prototypes/nft/firestore-nft-prototype'
+export { FirestoreNftCollectionPrototype } from './types/prototypes/nft-collection/firestore-nft-collection-prototype'
 export { FirestoreOfferActivityPrototype } from './types/prototypes/offer/firestore-offer-activity-prototype'
 export { FirestoreOfferPrototype } from './types/prototypes/offer/firestore-offer-prototype'
 export { FirestoreRequestForOfferActivityPrototype } from './types/prototypes/request-for-offer/firestore-request-for-offer-activity-prototype'

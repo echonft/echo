@@ -7,7 +7,6 @@ import { updateOfferState } from '../../utils/handler/update-offer-state'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { FirestoreOfferData } from '@echo/firestore'
 import { OfferState } from '@echo/model'
-import { errorMessage, logger } from '@echo/utils'
 import { isNil } from 'ramda'
 
 export const updateOfferHandler: RequestHandler<ApiRequest<UpdateOfferRequest, never>, FirestoreOfferData> = async (
@@ -30,7 +29,6 @@ export const updateOfferHandler: RequestHandler<ApiRequest<UpdateOfferRequest, n
         return updateOfferState(id, user, OfferState.REJECTED, false, res)
     }
   } catch (e) {
-    logger.error(`updateOfferHandler Invalid body: ${errorMessage(e)}`)
     res.end(res.status(400).json({ error: 'Invalid body' }))
     return
   }
