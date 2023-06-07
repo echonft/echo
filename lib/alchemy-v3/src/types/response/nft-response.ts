@@ -1,39 +1,16 @@
+import { ContractResponse } from './contract-response'
+
 export interface NftResponse {
-  contract: Contract
+  contract: ContractResponse
   tokenId: string
   tokenType: string
   name: string
-  description: string
+  description?: string
   image: Image
   raw: Raw
   tokenUri: string
   timeLastUpdated: string
-  balance: string
-}
-
-interface Contract {
-  address: string
-  name: string
-  symbol: string
-  totalSupply: string
-  tokenType: string
-  contractDeployer: string
-  deployedBlockNumber: number
-  openSeaMetadata: OpenSeaMetadata
-  isSpam: boolean
-  spamClassifications: string[]
-}
-
-interface OpenSeaMetadata {
-  floorPrice: number
-  collectionName: string
-  safelistRequestStatus: string
-  imageUrl: string
-  description: string | undefined
-  externalUrl: string | undefined
-  twitterUsername: string | undefined
-  discordUrl: string | undefined
-  lastIngestedAt: string
+  balance?: string
 }
 
 interface Image {
@@ -53,12 +30,11 @@ interface Raw {
 
 interface Metadata {
   name: string
-  description: string
   image: string
   attributes: Attribute[]
 }
 
 export interface Attribute {
-  value: string
+  value: string | number
   trait_type: string
 }

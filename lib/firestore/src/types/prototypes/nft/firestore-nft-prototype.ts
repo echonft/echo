@@ -2,7 +2,7 @@ import { FirestoreNftAttribute } from '../../model/collections/nft/firestore-nft
 
 export interface FirestoreNftPrototype {
   attributes: FirestoreNftAttribute[]
-  balance: number
+  balance?: number
   collectionId: string
   description?: string
   name?: string

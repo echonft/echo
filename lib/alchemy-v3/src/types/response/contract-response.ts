@@ -1,4 +1,4 @@
-export interface GetContractMetadataResponse {
+export interface ContractResponse {
   address: string
   name: string
   symbol: string
@@ -7,16 +7,18 @@ export interface GetContractMetadataResponse {
   contractDeployer: string
   deployedBlockNumber: number
   openSeaMetadata: OpenSeaMetadata
+  isSpam?: boolean
+  spamClassifications?: string[]
 }
 
-export interface OpenSeaMetadata {
+interface OpenSeaMetadata {
   floorPrice: number
   collectionName: string
   safelistRequestStatus: string
   imageUrl: string
-  description: string
-  externalUrl: string
-  twitterUsername: string
-  discordUrl: string
+  description: string | undefined
+  externalUrl: string | undefined
+  twitterUsername: string | undefined
+  discordUrl: string | undefined
   lastIngestedAt: string
 }

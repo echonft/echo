@@ -1,4 +1,5 @@
-export interface GetNftsForContractRequest {
+export interface GetNftsForContractRequest extends Record<string, string> {
   contractAddress: string
-  limit: number
+  limit: string
+  withMetadata: string
 }

@@ -1,16 +1,13 @@
-import { GetContractMetadataResponse } from '../types/response/get-contract-metadata-response'
+import { ContractResponse } from '../types/response/contract-response'
 import { mapInt } from './map-int'
 import { FirestoreContractPrototype, FirestoreNftCollectionPrototype } from '@echo/firestore'
 import { applySpec, applyToProp } from '@echo/utils'
 import { always, pipe, prop } from 'ramda'
 
-export const mapContractMetadata = applySpec<
-  GetContractMetadataResponse,
-  Omit<FirestoreNftCollectionPrototype, 'discordGuild'>
->({
+export const mapContractMetadata = applySpec<ContractResponse, Omit<FirestoreNftCollectionPrototype, 'discordGuild'>>({
   // FIXME No banner from alchemy?
   // bannerUrl: prop('openSeaMetadata.imageUrl'),
-  contract: applySpec<GetContractMetadataResponse, FirestoreContractPrototype>({
+  contract: applySpec<ContractResponse, FirestoreContractPrototype>({
     address: prop<string>('address'),
     // TODO Should be flexible
     chainId: always(1),

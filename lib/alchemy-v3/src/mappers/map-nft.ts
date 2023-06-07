@@ -1,7 +1,8 @@
 import { Attribute, NftResponse } from '../types/response/nft-response'
 import { mapInt } from './map-int'
+import { mapIntToString } from './map-int-to-string'
 import { FirestoreNftAttribute, FirestoreNftPrototype } from '@echo/firestore'
-import { applySpec, applyToProp } from '@echo/utils'
+import { applySpec, applyToProp, castAs } from '@echo/utils'
 import { always, ifElse, isNil, map, pipe, prop } from 'ramda'
 
 export const mapNft = applySpec<
@@ -14,7 +15,7 @@ export const mapNft = applySpec<
   name: prop('name'),
   pictureUrl: pipe(prop('image'), prop('pngUrl')),
   thumbnailUrl: pipe(prop('image'), prop('thumbnailUrl')),
-  tokenId: applyToProp('tokenId', mapInt),
+  tokenId: pipe(applyToProp('tokenId', mapInt), castAs<number>),
   tokenType: pipe(prop('contract'), prop('tokenType')),
   attributes: pipe(
     prop('raw'),
@@ -27,7 +28,12 @@ export const mapNft = applySpec<
         ifElse(
           isNil,
           always([]),
-          map(applySpec<Attribute, FirestoreNftAttribute>({ value: prop('value'), trait: prop('trait_type') }))
+          map(
+            applySpec<Attribute, FirestoreNftAttribute>({
+              value: pipe(prop('value'), mapIntToString),
+              trait: prop('trait_type')
+            })
+          )
         )
       )
     )
