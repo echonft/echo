@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { FirestoreContractData } from '../../../../firestore/src'
 import { ContractQuery } from '../../types/query/contract-query'
 import { findContractByAddressAndChainId } from './find-contract-by-address-and-chain-id'
+import { FirestoreContractData } from '@echo/firestore'
 import { errorPromise, promiseAll, toPromise } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { andThen, any, ifElse, isEmpty, map, pipe } from 'ramda'

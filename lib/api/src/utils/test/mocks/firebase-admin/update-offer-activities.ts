@@ -1,6 +1,5 @@
-import { idRejecter } from './id-rejecter'
-import { idThrower } from './id-thrower'
 import { FirestoreRequestForOfferActivityData, offerFirestoreData } from '@echo/firestore'
+import { idRejecter, idThrower } from '@echo/utils'
 import { WriteResult } from '@google-cloud/firestore'
 import { isNil } from 'ramda'
 

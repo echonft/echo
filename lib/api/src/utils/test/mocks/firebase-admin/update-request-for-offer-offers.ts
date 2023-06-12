@@ -1,6 +1,5 @@
-import { idRejecter } from './id-rejecter'
-import { idThrower } from './id-thrower'
 import { requestForOfferFirestoreData } from '@echo/firestore'
+import { idRejecter, idThrower } from '@echo/utils'
 import { isNil } from 'ramda'
 
 export const mockUpdateRequestForOfferOffers = (requestForOfferId: string, _offerId: string) => {

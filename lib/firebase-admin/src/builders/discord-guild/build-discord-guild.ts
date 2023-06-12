@@ -1,5 +1,5 @@
-import { FirestoreBuilder, FirestoreDiscordGuild, FirestoreDiscordGuildPrototype } from '../../../../firestore/src'
 import { getFirestoreContractRefsByAddressAndChainId } from '../../data/contract/get-firestore-contract-refs-by-address-and-chain-id'
+import { FirestoreBuilder, FirestoreDiscordGuild, FirestoreDiscordGuildPrototype } from '@echo/firestore'
 
 export const buildDiscordGuild: FirestoreBuilder<FirestoreDiscordGuildPrototype, FirestoreDiscordGuild> = async (
   prototype

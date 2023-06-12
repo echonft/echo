@@ -1,5 +1,5 @@
-import { contractFirestoreData } from '../../../firestore/src'
 import { findContractByAddressAndChainId } from '../../src/crud/contract/find-contract-by-address-and-chain-id'
+import { contractFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 

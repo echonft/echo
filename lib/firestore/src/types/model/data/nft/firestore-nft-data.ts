@@ -9,7 +9,7 @@ export interface FirestoreNftData extends FirestoreRootCollectionDocumentData {
   collection: FirestoreNftCollectionData
   description?: string
   name?: string
-  owner: FirestoreUserData
+  owner?: FirestoreUserData
   pictureUrl: string
   thumbnailUrl: string
   tokenId: number

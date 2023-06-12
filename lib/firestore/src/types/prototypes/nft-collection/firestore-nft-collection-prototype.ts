@@ -1,12 +1,11 @@
-import { FirestoreContractPrototype } from '../contract/firestore-contract-prototype'
-import { FirestoreDiscordGuildPrototype } from '../discord-guild/firestore-discord-guild-prototype'
+import { FirestorePrototypeData } from '../base/firestore-prototype-data'
 
-export interface FirestoreNftCollectionPrototype {
+export interface FirestoreNftCollectionPrototype extends FirestorePrototypeData {
   bannerUrl?: string
-  contract: FirestoreContractPrototype
+  contractId: string
   description: string
   discordUrl?: string
-  discordGuild: FirestoreDiscordGuildPrototype
+  discordGuildId: string
   floorPrice?: number
   name: string
   profilePictureUrl?: string
