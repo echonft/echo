@@ -7,7 +7,7 @@ import { validateAndExtractUserFromSession } from '../../utils/handler/validate-
 import { findDiscordGuildById, findRequestForOfferById, findUserById } from '@echo/firebase-admin'
 import { FirestoreOfferData } from '@echo/firestore'
 import { canRequestForOfferReceiveOffers, RequestForOfferState } from '@echo/model'
-import { isNilOrEmpty, logger } from '@echo/utils'
+import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
@@ -56,7 +56,7 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
           )
         })
         .catch((error) => {
-          logger.error(`createOfferHandler error on findRequestForOfferById: ${JSON.stringify(error)}`)
+          logger.error(`createOfferHandler error on findRequestForOfferById: ${errorMessage(error)}`)
           res.end(res.status(500).json({ error: 'Request for offer is not found' }))
           return
         })
@@ -85,7 +85,7 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
         })
         .catch((error) => {
           logger.error(
-            `createOfferHandler error thrown on findUserById or findDiscordGuildById: ${JSON.stringify(error)}`
+            `createOfferHandler error thrown on findUserById or findDiscordGuildById: ${errorMessage(error)}`
           )
           res.end(res.status(500).json({ error: 'Could not create offer' }))
           return

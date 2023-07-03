@@ -1,6 +1,5 @@
-import { FirestoreOfferActivityPrototype } from '../../../firestore/src/types/prototypes/offer/firestore-offer-activity-prototype'
 import { buildOfferActivity } from '../../src/builders/offer/build-offer-activity'
-import { offerFirestoreData } from '@echo/firestore'
+import { FirestoreOfferActivityPrototype, offerFirestoreData } from '@echo/firestore'
 import { offers } from '@echo/model'
 import { describe, expect, it } from '@jest/globals'
 

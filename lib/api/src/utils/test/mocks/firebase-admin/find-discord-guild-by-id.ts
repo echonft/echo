@@ -1,6 +1,5 @@
-import { idRejecter } from './id-rejecter'
-import { idThrower } from './id-thrower'
 import { discordGuildFirestoreData, FirestoreDiscordGuildData } from '@echo/firestore'
+import { idRejecter, idThrower } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'
 

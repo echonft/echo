@@ -7,9 +7,9 @@ import { getAlchemy } from '../../utils/alchemy/alchemy'
 import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
 import { userIsInGuild } from '../../utils/handler/user-is-in-guild'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
-import { addRequestForOffer, findDiscordGuildByGuildId, findNftsById } from '@echo/firebase-admin'
+import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@echo/firebase-admin'
 import { FirestoreRequestForOfferData } from '@echo/firestore'
-import { isNilOrEmpty, logger } from '@echo/utils'
+import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { any, isNil, map } from 'ramda'
 
@@ -34,7 +34,7 @@ export const createRequestForOfferHandler: RequestHandler<
       }
       const discordGuild = R.getExn(discordGuildResult)
       if (userIsInGuild(user, discordGuild)) {
-        return findNftsById(validatedRequest.items)
+        return findNftsByIds(validatedRequest.items)
           .then((nftResults) => {
             if (any(R.isError, nftResults)) {
               res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
@@ -60,20 +60,20 @@ export const createRequestForOfferHandler: RequestHandler<
                     }
                     return res.status(200).json(R.getExn(requestForOfferResult))
                   })
-                  .catch((e: Error) => {
-                    logger.error(`Error creating request for offer: ${JSON.stringify(e)}`)
+                  .catch((e) => {
+                    logger.error(`createRequestForOfferHandler Error creating request for offer: ${errorMessage(e)}`)
                     res.end(res.status(500).json({ error: 'Could not create listing' }))
                     return
                   })
               })
-              .catch((reason) => {
-                logger.error(`Error fetching from alchemy: ${JSON.stringify(reason)}`)
+              .catch((e) => {
+                logger.error(`createRequestForOfferHandler Error fetching from alchemy: ${errorMessage(e)}`)
                 res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
                 return
               })
           })
-          .catch((reason) => {
-            logger.error(`Error fetching NFTs: ${JSON.stringify(reason)}`)
+          .catch((e) => {
+            logger.error(`createRequestForOfferHandler Error fetching NFTs: ${errorMessage(e)}`)
             res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
             return
           })

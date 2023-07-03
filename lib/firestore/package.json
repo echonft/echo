@@ -19,9 +19,9 @@
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier --check \"src/**/*.ts\"",
-    "test": "jest --passWithNoTests",
-    "test:ci": "jest --ci --passWithNoTests",
-    "test:watch": "jest --watch --passWithNoTests",
+    "test": "jest",
+    "test:ci": "jest --ci",
+    "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },

@@ -12,7 +12,6 @@ export const updateRequestForOfferActivities = (
   if (isNil(requestForOfferRef)) {
     return Promise.reject('Request for offer not found')
   }
-  // Can force unwrap as we checked before if it's nil or empty
   const state = newActivity.toState
   return requestForOfferRef.update({
     state,

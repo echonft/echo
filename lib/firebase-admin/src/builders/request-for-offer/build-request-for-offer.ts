@@ -1,11 +1,14 @@
-import { FirestoreBuilder } from '../../../../firestore/src/types/builder/firestore-builder'
-import { FirestoreRequestForOfferPrototype } from '../../../../firestore/src/types/prototypes/request-for-offer/firestore-request-for-offer-prototype'
 import { getFirestoreContractRefsByAddressAndChainId } from '../../data/contract/get-firestore-contract-refs-by-address-and-chain-id'
 import { getFirestoreDiscordGuildRefByDiscordId } from '../../data/discord-guild/get-firestore-discord-guild-ref-by-discord-id'
 import { getFirestoreNftRefById } from '../../data/nft/get-firestore-nft-ref-by-id'
 import { getFirestoreUserRefById } from '../../data/user/get-firestore-user-ref-by-id'
 import { buildRequestForOfferActivity } from './build-request-for-offer-activity'
-import { FirestoreRequestForOffer, FirestoreRequestForOfferActivityPrototype } from '@echo/firestore'
+import {
+  FirestoreBuilder,
+  FirestoreRequestForOffer,
+  FirestoreRequestForOfferActivityPrototype,
+  FirestoreRequestForOfferPrototype
+} from '@echo/firestore'
 import { generateRequestForOfferActivity, RequestForOfferState } from '@echo/model'
 import { R } from '@mobily/ts-belt'
 import dayjs from 'dayjs'

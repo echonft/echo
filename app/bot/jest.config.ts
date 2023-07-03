@@ -8,7 +8,8 @@ const config: Config = {
     '!<rootDir>/src/**/*.d.ts',
     '!<rootDir>/src/**/index.ts',
     '!<rootDir>/src/**/__tests__/**',
-    '!<rootDir>/src/**/__mocks__/**'
+    '!<rootDir>/src/**/__mocks__/**',
+    '!<rootDir>/src/**/tests/**'
   ],
   coverageReporters: ['json-summary', 'text'],
   reporters: [
