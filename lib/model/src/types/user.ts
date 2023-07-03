@@ -1,5 +1,6 @@
 import { DiscordGuild } from './discord-guild'
 import { Wallet } from './wallet'
+import dayjs from 'dayjs'
 
 export interface User {
   id: string
@@ -9,4 +10,5 @@ export interface User {
   discordAvatar: string | undefined
   discordBanner: string | undefined
   wallets: Wallet[] | undefined
+  updatedAt?: dayjs.Dayjs
 }

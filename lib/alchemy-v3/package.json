@@ -1,0 +1,38 @@
+{
+  "name": "@echo/alchemy-v3",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "sideEffects": false,
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "build:fix": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
+    "clean": "rm -rf dist",
+    "dev": "tsup --watch",
+    "lint": "eslint --cache --fix \"src/**/*.ts\"",
+    "lint:ci": "eslint \"src/**/*.ts\"",
+    "lint:clean-cache": "rm -f .eslintcache",
+    "modules:remove-all": "rm -rf node_modules",
+    "modules:update-all": "ncu -u",
+    "modules:upgrade": "pnpm upgrade",
+    "prettier": "prettier --check \"src/**/*.ts\"",
+    "test": "jest",
+    "test:ci": "jest --ci",
+    "test:watch": "jest --watch",
+    "tsc": "tsc --noEmit",
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
+  },
+  "dependencies": {
+    "@echo/model": "workspace:*",
+    "@echo/firestore": "workspace:*",
+    "@echo/utils": "workspace:*",
+    "@mobily/ts-belt": "4.0.0-rc.5",
+    "ramda": "0.29.0"
+  },
+  "devDependencies": {
+    "@types/ramda": "0.29.0"
+  }
+}

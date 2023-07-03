@@ -1,14 +1,12 @@
 import { convertUser } from '../../converters/user/convert-user'
 import { getFirestoreDiscordGuildRefsByDiscordIds } from '../../data/discord-guild/get-firestore-discord-guild-refs-by-discord-ids'
-import { FirestoreUserPrototype } from '../../types/prototypes/user/firestore-user-prototype'
 import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
-import { FirestoreUser, mapUser } from '@echo/firestore'
-import { User } from '@echo/model'
+import { CollectionName, FirestoreUser, FirestoreUserData, FirestoreUserPrototype } from '@echo/firestore'
 import { R } from '@mobily/ts-belt'
 import { always, andThen, isNil, pipe } from 'ramda'
 
 export const updateUserDiscordInfo = (userId: string, userPrototype: FirestoreUserPrototype) => {
-  const userRef = getDocRefFromPath<FirestoreUser>('users', userId)
+  const userRef = getDocRefFromPath<FirestoreUser>(CollectionName.USERS, userId)
   if (isNil(userRef)) {
     return R.fromPromise(Promise.reject('User not found'))
   }
@@ -19,6 +17,6 @@ export const updateUserDiscordInfo = (userId: string, userPrototype: FirestoreUs
         discordBanner: userPrototype.discordBanner,
         discordGuilds: guilds
       } as unknown as Partial<FirestoreUser>)
-      .then(pipe(always(userRef.get()), andThen(pipe(convertUser, mapUser, R.fromPromise<User>))))
+      .then(pipe(always(userRef.get()), andThen(pipe(convertUser, R.fromPromise<FirestoreUserData>))))
   )
 }

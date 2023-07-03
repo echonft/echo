@@ -1,12 +1,17 @@
-import { FirestoreNftCollection } from '../../collections/nft-collection/firestore-nft-collection'
 import { FirestoreRootCollectionDocumentData } from '../abstract/firestore-root-collection-document-data'
 import { FirestoreContractData } from '../contract/firestore-contract-data'
-import { FirestoreOpenSeaCollectionDetailsData } from './firestore-open-sea-collection-details-data'
+import { FirestoreDiscordGuildData } from '../discord-guild/firestore-discord-guild-data'
 
-export interface FirestoreNftCollectionData
-  extends Omit<FirestoreNftCollection, 'contract'>,
-    FirestoreRootCollectionDocumentData {
+export interface FirestoreNftCollectionData extends FirestoreRootCollectionDocumentData {
+  bannerUrl?: string
   contract: FirestoreContractData
+  description: string
+  discordGuild: FirestoreDiscordGuildData
+  discordUrl?: string
+  floorPrice?: number
+  name: string
+  profilePictureUrl?: string
   totalSupply?: number
-  openSea: FirestoreOpenSeaCollectionDetailsData
+  twitterUsername?: string
+  websiteUrl?: string
 }

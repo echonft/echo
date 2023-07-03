@@ -1,6 +1,7 @@
 export const messages = {
   chain: {
     name: {
+      // FIXME Shouldn't be there IMO
       id1: 'Ethereum'
     }
   },

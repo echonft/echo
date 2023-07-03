@@ -5,11 +5,11 @@ import { propToMappedDocument } from '../../utils/mapper/prop-to-mapped-document
 import { propToMappedDocumentArray } from '../../utils/mapper/prop-to-mapped-document-array'
 import { mapContract } from '../contract/map-contract'
 import { mapDiscordGuild } from '../discord-guild/map-discord-guild'
+import { mapNft } from '../nft/map-nft'
 import { mapOffer } from '../offer/map-offer'
 import { mapSwap } from '../swap/map-swap'
 import { mapUser } from '../user/map-user'
 import { mapRequestForOfferActivity } from './map-request-for-offer-activity'
-import { mapRequestForOfferItem } from './map-request-for-offer-item'
 import { RequestForOffer } from '@echo/model'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, omit, pipe } from 'ramda'
@@ -21,7 +21,7 @@ export const mapRequestForOffer: FirestoreMapper<FirestoreRequestForOfferData, R
       propToPromise('id'),
       propToPromise('state'),
       propToMappedDocument('sender', mapUser),
-      propToMappedDocumentArray('items', mapRequestForOfferItem),
+      propToMappedDocumentArray('items', mapNft),
       propToMappedDocument('discordGuild', mapDiscordGuild),
       propToMappedDocumentArray('target', mapContract),
       propToMappedDocumentArray('activities', mapRequestForOfferActivity),

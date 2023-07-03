@@ -9,7 +9,7 @@ import { FunctionComponent } from 'react'
 export interface NftDetailsHeaderProps extends NftDetailsLinksProps {
   collectionName: string
   title: string | undefined
-  tokenId: bigint
+  tokenId: number
   owner: User
 }
 

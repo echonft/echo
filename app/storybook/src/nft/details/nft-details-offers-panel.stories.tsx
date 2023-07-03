@@ -1,4 +1,4 @@
-import { mockOffer } from '@echo/model'
+import { offers } from '@echo/model'
 import { NftDetailsOffersPanel as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
@@ -21,10 +21,10 @@ type Story = StoryObj<typeof Component>
 export const Default: Story = {
   args: {
     offers: [
-      assoc('expiresAt', dayjs().add(1, 'hour'), mockOffer),
-      assoc('expiresAt', dayjs().add(6, 'hour'), mockOffer),
-      assoc('expiresAt', dayjs().add(1, 'day'), mockOffer),
-      assoc('expiresAt', dayjs().add(40, 'hour'), mockOffer)
+      assoc('expiresAt', dayjs().add(1, 'hour'), offers['LyCfl6Eg7JKuD7XJ6IPi']!),
+      assoc('expiresAt', dayjs().add(6, 'hour'), offers['LyCfl6Eg7JKuD7XJ6IPi']!),
+      assoc('expiresAt', dayjs().add(1, 'day'), offers['LyCfl6Eg7JKuD7XJ6IPi']!),
+      assoc('expiresAt', dayjs().add(40, 'hour'), offers['LyCfl6Eg7JKuD7XJ6IPi']!)
     ]
   }
 }

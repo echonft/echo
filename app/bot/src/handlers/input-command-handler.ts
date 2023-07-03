@@ -5,7 +5,7 @@ import { NotConfiguredError } from '../errors/not-configured-error'
 import { WrongChannelError } from '../errors/wrong-channel-error'
 import { InputSubcommands } from '../types/commands/input-subcommands'
 import { findDiscordGuildByGuildId } from '@echo/firebase-admin'
-import { DiscordGuild } from '@echo/model'
+import { FirestoreDiscordGuildData } from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { ChatInputCommandInteraction, CommandInteraction, Message } from 'discord.js'
@@ -40,7 +40,7 @@ export function executeForCommand(interaction: ChatInputCommandInteraction) {
           throw new NotConfiguredError(guildId)
         }),
         R.getExn,
-        ifElse<[discordGuild: DiscordGuild], Promise<Message<boolean>>, never>(
+        ifElse<[FirestoreDiscordGuildData], Promise<Message<boolean>>, never>(
           pipe(prop('channelId'), equals(interaction.channelId)),
           () => executeForSubcommand(interaction, interaction.options.getSubcommand() as InputSubcommands),
           (discordGuild) => {

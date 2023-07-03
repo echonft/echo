@@ -1,3 +1,3 @@
-import { NftTokenType } from './nft/nft-token-type'
+import { NftTokenType } from './nft'
 
 export type TokenType = 'ERC20' | 'NATIVE' | NftTokenType

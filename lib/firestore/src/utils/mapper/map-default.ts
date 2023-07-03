@@ -1,3 +1,4 @@
+import { CollectionName } from '../../config/collection-name'
 import { FirestoreDocumentData } from '../../types/model/data/abstract/firestore-document-data'
 import { defaultMapper } from './default-mapper'
 import { castAsNonNullable, toPromise } from '@echo/utils'
@@ -7,7 +8,7 @@ export const mapDefault = <T extends FirestoreDocumentData, V>(snapshot: Promise
   (
     andThen(
       converge(call, [
-        pipe(prop<string>('refPath'), split('/'), head, castAsNonNullable<string>, defaultMapper),
+        pipe(prop<string>('refPath'), split('/'), head, castAsNonNullable<CollectionName>, defaultMapper),
         pipe(identity, toPromise)
       ])
     ) as (snapshot: Promise<T>) => Promise<V>

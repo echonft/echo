@@ -18,6 +18,7 @@ export { TwitterIcon, TwitterIconProps } from './components/base/icons/twitter-i
 export { WebsiteIcon, WebsiteIconProps } from './components/base/icons/website-icon'
 export { Logo } from './components/base/logo/logo'
 export { ProfilePicture, ProfilePictureProps } from './components/base/profile-picture'
+export { Spinner } from './components/base/spinner'
 export { EditIconSvg } from './components/base/svg/edit-icon-svg'
 export { SvgProps, SvgSizeProps } from './components/base/svg/svg'
 export { CollectionDetails, CollectionDetailsProps } from './components/collection/collection-details'

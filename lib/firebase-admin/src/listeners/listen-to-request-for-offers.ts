@@ -1,31 +1,23 @@
 import { convertRequestForOffer } from '../converters/request-for-offer/convert-request-for-offer'
 import { getCollectionFromPath } from '../utils/collection/get-collection-from-path'
-import { FirestoreRequestForOffer, mapRequestForOffer } from '@echo/firestore'
-import { RequestForOffer } from '@echo/model'
+import { CollectionName, FirestoreRequestForOffer, FirestoreRequestForOfferData } from '@echo/firestore'
 import { atIndex, castAs, errorMessage, logger, promiseAll, toPromise, Void } from '@echo/utils'
 import { DocumentChange, QueryDocumentSnapshot } from '@google-cloud/firestore'
 import { andThen, converge, forEach, head, isNil, juxt, otherwise, pipe, prop, unless } from 'ramda'
 
 export function listenToRequestForOffers(
-  onChange: (requestForOffer: RequestForOffer, change: DocumentChange<FirestoreRequestForOffer>) => unknown
+  onChange: (requestForOffer: FirestoreRequestForOfferData, change: DocumentChange<FirestoreRequestForOffer>) => unknown
 ) {
-  getCollectionFromPath<FirestoreRequestForOffer>('requests-for-offer').onSnapshot((snapshot) => {
+  getCollectionFromPath<FirestoreRequestForOffer>(CollectionName.REQUESTS_FOR_OFFER).onSnapshot((snapshot) => {
     forEach(
       unless(
         pipe(prop('doc'), isNil),
         pipe(
-          juxt([
-            pipe(
-              prop<QueryDocumentSnapshot<FirestoreRequestForOffer>>('doc'),
-              convertRequestForOffer,
-              mapRequestForOffer
-            ),
-            toPromise
-          ]),
+          juxt([pipe(prop<QueryDocumentSnapshot<FirestoreRequestForOffer>>('doc'), convertRequestForOffer), toPromise]),
           promiseAll,
           andThen(
             converge(onChange, [
-              pipe(head, castAs<RequestForOffer>),
+              pipe(head, castAs<FirestoreRequestForOfferData>),
               pipe(atIndex(1), castAs<DocumentChange<FirestoreRequestForOffer>>)
             ])
           ),

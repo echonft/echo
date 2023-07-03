@@ -1,4 +1,7 @@
-import { FirestoreRequestForOfferActivity } from '../../collections/request-for-offer/firestore-request-for-offer-activity'
 import { FirestoreDocumentData } from '../abstract/firestore-document-data'
 
-export interface FirestoreRequestForOfferActivityData extends FirestoreRequestForOfferActivity, FirestoreDocumentData {}
+export interface FirestoreRequestForOfferActivityData extends FirestoreDocumentData {
+  date: number
+  fromState?: string
+  toState: string
+}

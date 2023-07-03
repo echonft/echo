@@ -1,8 +1,8 @@
 import { OfferState } from './offer-state'
-import { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 export interface OfferActivity {
-  date: Dayjs
+  date: dayjs.Dayjs
   fromState: OfferState | undefined
   toState: OfferState
 }

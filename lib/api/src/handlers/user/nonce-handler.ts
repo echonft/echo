@@ -1,15 +1,14 @@
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest } from '../../types/model/api-requests/api-request'
 import { NonceResponse } from '../../types/model/responses/nonce-response'
+import { validateSession } from '../../utils/handler/validate-session'
 import { setNonceForUser } from '@echo/firebase-admin'
 import { isNil } from 'ramda'
 
 export const nonceHandler: RequestHandler<ApiRequest<null, never>, NonceResponse> = async (_req, res, session) => {
-  // TODO Shouldn't have to do that
-  if (isNil(session)) {
-    res.status(401).json({ error: 'You must be logged in' })
-    return Promise.resolve()
+  if (isNil(validateSession(session, res))) {
+    return
   }
-  const nonce = await setNonceForUser(session.user.id)
+  const nonce = await setNonceForUser(session!.user.id)
   return res.status(200).json({ nonce })
 }

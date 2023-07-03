@@ -1,4 +1,4 @@
-import { mockNftCollection } from '@echo/model'
+import { nftCollections } from '@echo/model'
 import { Banner as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -12,7 +12,7 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 export const Standard: Story = {
-  render: () => <Component bannerUrl={new URL(mockNftCollection.openSea!.imageUrl!)} />
+  render: () => <Component bannerUrl={nftCollections['Rc8pLQXxgyQGIRL0fr13']!.bannerUrl} />
 }
 
 export const Default: Story = {

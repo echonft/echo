@@ -1,5 +1,6 @@
 import { createOrUpdateUser } from '@echo/api'
 import { getDiscordAuthorizationUrl, getDiscordConfig } from '@echo/discord'
+import { User } from '@echo/model'
 import { R } from '@mobily/ts-belt'
 import NextAuth, { AuthOptions } from 'next-auth'
 import Discord from 'next-auth/providers/discord'
@@ -37,7 +38,8 @@ export const authOptions: AuthOptions = {
         throw Error('Auth error: invalid token data')
       }
       // Inject user in session
-      return { ...session, user }
+      // TODO Not sure if casting like this here makes sense
+      return { ...session, user: user as User }
     }
   }
 }

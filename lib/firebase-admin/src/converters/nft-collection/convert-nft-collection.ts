@@ -1,15 +1,9 @@
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
-import { nestedDocumentProp } from '../../utils/converter/nested-document-prop'
 import { refProp } from '../../utils/converter/ref-prop'
 import { convertContract } from '../contract/convert-contract'
-import { convertOpenSeaCollectionDetails } from './convert-open-sea-collection-details'
-import {
-  FirestoreNftCollection,
-  FirestoreNftCollectionData,
-  FirestoreOpenSeaCollectionDetails,
-  FirestoreOpenSeaCollectionDetailsData
-} from '@echo/firestore'
+import { convertDiscordGuild } from '../discord-guild/convert-discord-guild'
+import { FirestoreNftCollection, FirestoreNftCollectionData } from '@echo/firestore'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 
@@ -18,13 +12,32 @@ export const convertNftCollection: FirestoreConverter<FirestoreNftCollection, Fi
   juxt([
     propToPromise('refPath'),
     propToPromise('id'),
-    propToPromise('totalSupply'),
+    propToPromise('bannerUrl'),
     refProp('contract', convertContract),
-    nestedDocumentProp<FirestoreOpenSeaCollectionDetails, FirestoreOpenSeaCollectionDetailsData>(
-      'openSea',
-      convertOpenSeaCollectionDetails
-    )
+    propToPromise('description'),
+    refProp('discordGuild', convertDiscordGuild),
+    propToPromise('discordUrl'),
+    propToPromise('floorPrice'),
+    propToPromise('name'),
+    propToPromise('profilePictureUrl'),
+    propToPromise('totalSupply'),
+    propToPromise('twitterUsername'),
+    propToPromise('websiteUrl')
   ]),
   promiseAll,
-  zipPromisesToObject<FirestoreNftCollectionData>(['refPath', 'id', 'totalSupply', 'contract', 'openSea'])
+  zipPromisesToObject<FirestoreNftCollectionData>([
+    'refPath',
+    'id',
+    'bannerUrl',
+    'contract',
+    'description',
+    'discordGuild',
+    'discordUrl',
+    'floorPrice',
+    'name',
+    'profilePictureUrl',
+    'totalSupply',
+    'twitterUsername',
+    'websiteUrl'
+  ])
 )

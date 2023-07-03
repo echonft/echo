@@ -1,12 +1,14 @@
 import { getFirestoreContractRefsByAddressAndChainId } from '../../data/contract/get-firestore-contract-refs-by-address-and-chain-id'
 import { getFirestoreDiscordGuildRefByDiscordId } from '../../data/discord-guild/get-firestore-discord-guild-ref-by-discord-id'
+import { getFirestoreNftRefById } from '../../data/nft/get-firestore-nft-ref-by-id'
 import { getFirestoreUserRefById } from '../../data/user/get-firestore-user-ref-by-id'
-import { FirestoreBuilder } from '../../types/builder/firestore-builder'
-import { FirestoreRequestForOfferActivityPrototype } from '../../types/prototypes/request-for-offer/firestore-request-for-offer-activity-prototype'
-import { FirestoreRequestForOfferPrototype } from '../../types/prototypes/request-for-offer/firestore-request-for-offer-prototype'
 import { buildRequestForOfferActivity } from './build-request-for-offer-activity'
-import { buildRequestForOfferItem } from './build-request-for-offer-item'
-import { FirestoreRequestForOffer } from '@echo/firestore'
+import {
+  FirestoreBuilder,
+  FirestoreRequestForOffer,
+  FirestoreRequestForOfferActivityPrototype,
+  FirestoreRequestForOfferPrototype
+} from '@echo/firestore'
 import { generateRequestForOfferActivity, RequestForOfferState } from '@echo/model'
 import { R } from '@mobily/ts-belt'
 import dayjs from 'dayjs'
@@ -28,13 +30,13 @@ export const buildRequestForOffer: FirestoreBuilder<
   const activities = await buildRequestForOfferActivity(
     generateRequestForOfferActivity(RequestForOfferState.CREATED) as FirestoreRequestForOfferActivityPrototype
   ).then((activity) => [activity])
+
   return {
     state: RequestForOfferState.CREATED,
     sender: getFirestoreUserRefById(prototype.senderId),
     discordGuild: R.getExn(discordGuildResult),
     target,
-    items: await Promise.all(prototype.items.map(buildRequestForOfferItem)),
-    // FIXME: This does not work for some reason
+    items: await Promise.all(prototype.items.map(getFirestoreNftRefById)),
     activities,
     createdAt: dayjs().unix(),
     // For now, we default to 24 hours offer, we should have more flexibility in the future

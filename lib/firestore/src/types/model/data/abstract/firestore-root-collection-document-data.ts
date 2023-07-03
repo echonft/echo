@@ -1,3 +1,4 @@
+import { CollectionName } from '../../../../config/collection-name'
 import { FirestoreDocumentData } from './firestore-document-data'
 
 /**
@@ -6,5 +7,5 @@ import { FirestoreDocumentData } from './firestore-document-data'
  */
 export interface FirestoreRootCollectionDocumentData extends FirestoreDocumentData {
   id: string
-  refPath: string
+  refPath: `${CollectionName}/${string}`
 }

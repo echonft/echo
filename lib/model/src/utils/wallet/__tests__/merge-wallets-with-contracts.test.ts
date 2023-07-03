@@ -1,37 +1,41 @@
-import { generateMockContract } from '../../tests/mocks/contract/generate-mock-contract'
-import { generateMockWallet } from '../../tests/mocks/user/generate-mock-wallet'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { contracts } from '../../../mocks/contract'
+import { users } from '../../../mocks/user'
 import { mergeWalletsAndContractsByChainId } from '../merge-wallets-with-contracts'
 import { describe, expect, test } from '@jest/globals'
 
 describe('Merge wallets with contracts', () => {
+  // @ts-ignore
+  const mockWallet = users['oE6yUEQBPn7PZ89yMjKn']!.wallets[0]!
+  const mockContract = contracts['37dBlwJYahEAKeL0rNP8']!
   test('Empty contracts and wallets returns empty array', () => {
     expect(mergeWalletsAndContractsByChainId([], [])).toEqual({})
   })
   test('Empty contracts with wallets returns empty array', () => {
-    const wallets = ['0x1', '0x2', '0x3'].map((address) => generateMockWallet({ address }))
+    const wallets = ['0x1', '0x2', '0x3'].map((address) => ({ ...mockWallet, address }))
     expect(mergeWalletsAndContractsByChainId(wallets, [])).toEqual({})
     expect(mergeWalletsAndContractsByChainId([wallets[0]!], [])).toEqual({})
   })
   test('Empty wallets with contracts returns empty array', () => {
-    const contracts = ['0x1', '0x2', '0x3'].map((address) => generateMockContract({ address }))
+    const contracts = ['0x1', '0x2', '0x3'].map((address) => ({ ...mockContract, address }))
     expect(mergeWalletsAndContractsByChainId([], contracts)).toEqual({})
     expect(mergeWalletsAndContractsByChainId([], [contracts[0]!])).toEqual({})
   })
   test('Wallets with contracts from different chains returns empty array', () => {
-    const wallets = ['0x1', '0x2', '0x3'].map((address) => generateMockWallet({ address, chainId: 2 }))
-    const contracts = ['0x1', '0x2', '0x3'].map((address) => generateMockContract({ address }))
+    const wallets = ['0x1', '0x2', '0x3'].map((address) => ({ ...mockWallet, address, chainId: 2 }))
+    const contracts = ['0x1', '0x2', '0x3'].map((address) => ({ ...mockContract, address }))
     expect(mergeWalletsAndContractsByChainId(wallets, contracts)).toEqual({})
   })
   test('Wallets with contracts returns proper value', () => {
-    const walletsChain1 = ['0x1', '0x2'].map((address) => generateMockWallet({ address }))
-    const walletsChain2 = ['0x3'].map((address) => generateMockWallet({ address, chainId: 2 }))
+    const walletsChain1 = ['0x1', '0x2'].map((address) => ({ ...mockWallet, address }))
+    const walletsChain2 = ['0x3'].map((address) => ({ ...mockWallet, address, chainId: 2 }))
     // Wallets on different chains than any of the contracts won't be present
-    const walletsChain3 = ['0x4'].map((address) => generateMockWallet({ address, chainId: 3 }))
+    const walletsChain3 = ['0x4'].map((address) => ({ ...mockWallet, address, chainId: 3 }))
 
-    const contractsChain1 = ['0x1', '0x2'].map((address) => generateMockContract({ address }))
-    const contractsChain2 = ['0x3'].map((address) => generateMockContract({ address, chainId: 2 }))
+    const contractsChain1 = ['0x1', '0x2'].map((address) => ({ ...mockContract, address }))
+    const contractsChain2 = ['0x3'].map((address) => ({ ...mockContract, address, chainId: 2 }))
     // Contracts on chain with no wallets associated to it won't be present
-    const contractsChain4 = ['0x4'].map((address) => generateMockContract({ address, chainId: 4 }))
+    const contractsChain4 = ['0x4'].map((address) => ({ ...mockContract, address, chainId: 4 }))
 
     const result = {
       '1': {

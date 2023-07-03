@@ -4,9 +4,9 @@ import { propToDate } from '../../utils/mapper/prop-to-date'
 import { propToMappedDocument } from '../../utils/mapper/prop-to-mapped-document'
 import { propToMappedDocumentArray } from '../../utils/mapper/prop-to-mapped-document-array'
 import { mapDiscordGuild } from '../discord-guild/map-discord-guild'
+import { mapNft } from '../nft/map-nft'
 import { mapUser } from '../user/map-user'
 import { mapOfferActivity } from './map-offer-activity'
-import { mapOfferItem } from './map-offer-item'
 import { Offer } from '@echo/model'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, omit, pipe } from 'ramda'
@@ -20,9 +20,9 @@ export const mapOffer: FirestoreMapper<FirestoreOfferData, Offer> = andThen(
       propToMappedDocument('discordGuild', mapDiscordGuild),
       propToPromise('threadId'),
       propToMappedDocument('sender', mapUser),
-      propToMappedDocumentArray('senderItems', mapOfferItem),
+      propToMappedDocumentArray('senderItems', mapNft),
       propToMappedDocument('receiver', mapUser),
-      propToMappedDocumentArray('receiverItems', mapOfferItem),
+      propToMappedDocumentArray('receiverItems', mapNft),
       propToMappedDocumentArray('activities', mapOfferActivity),
       propToDate('expiresAt'),
       propToDate('postedAt'),

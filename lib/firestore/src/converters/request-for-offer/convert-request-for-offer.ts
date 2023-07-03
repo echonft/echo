@@ -7,11 +7,11 @@ import { refArrayProp } from '../../utils/converter/ref-array-prop'
 import { refProp } from '../../utils/converter/ref-prop'
 import { convertContract } from '../contract/convert-contract'
 import { convertDiscordGuild } from '../discord-guild/convert-discord-guild'
+import { convertNft } from '../nft/convert-nft'
 import { convertOffer } from '../offer/convert-offer'
 import { convertSwap } from '../swap/convert-swap'
 import { convertUser } from '../user/convert-user'
 import { convertRequestForOfferActivity } from './convert-request-for-offer-activity'
-import { convertRequestForOfferItem } from './convert-request-for-offer-item'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 
@@ -22,7 +22,7 @@ export const convertRequestForOffer: FirestoreConverter<FirestoreRequestForOffer
     propToPromise('id'),
     propToPromise('state'),
     refProp('sender', convertUser),
-    nestedDocumentArrayProp('items', convertRequestForOfferItem),
+    refArrayProp('items', convertNft),
     refProp('discordGuild', convertDiscordGuild),
     refArrayProp('target', convertContract),
     nestedDocumentArrayProp('activities', convertRequestForOfferActivity),

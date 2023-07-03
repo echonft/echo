@@ -1,7 +1,7 @@
 import { getFirestoreOfferData } from '../../data/offer/get-firestore-offer-data'
-import { mapOffer } from '@echo/firestore'
-import { Offer } from '@echo/model'
+import { FirestoreOfferData } from '@echo/firestore'
 import { R } from '@mobily/ts-belt'
 import { pipe } from 'ramda'
 
-export const findOfferById = (id: string) => pipe(getFirestoreOfferData, mapOffer, R.fromPromise<Offer>)(id)
+// TODO Should add a check if ID does not exist
+export const findOfferById = (id: string) => pipe(getFirestoreOfferData, R.fromPromise<FirestoreOfferData>)(id)

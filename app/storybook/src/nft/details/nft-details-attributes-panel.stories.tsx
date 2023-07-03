@@ -1,4 +1,4 @@
-import { mockOwnedNft } from '@echo/model'
+import { nfts } from '@echo/model'
 import { NftDetailsAttributesPanel as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -18,6 +18,6 @@ type Story = StoryObj<typeof Component>
 
 export const AttributesPanel: Story = {
   args: {
-    attributes: mockOwnedNft.attributes
+    attributes: nfts['QFjMRNChUAHNswkRADXh']!.attributes
   }
 }

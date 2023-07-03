@@ -1,5 +1,6 @@
 import { UseDocumentOptions } from '../types/use-document-options'
 import {
+  CollectionName,
   convertDefault,
   FirestoreRootCollectionDocumentData,
   FirestoreSnapshot,
@@ -7,50 +8,40 @@ import {
   mapDefault,
   subscribeToDocument
 } from '@echo/firestore'
-import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
-import { isNilOrEmpty, Void } from '@echo/utils'
+import { Void } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { DocumentData } from 'firebase/firestore'
-import { always, andThen, isNil, pipe, prop } from 'ramda'
+import { andThen, converge, isNil, pipe, prop } from 'ramda'
 import { useEffect } from 'react'
 import useSWR, { useSWRConfig } from 'swr'
 
 export interface KeyData {
-  path: string | undefined
-}
-function useDocumentInternal<T extends DocumentData, V extends FirestoreRootCollectionDocumentData, W>(
-  path: string | undefined,
-  options?: UseDocumentOptions
-) {
-  const { suspense } = useSWRConfig()
-  return useSWR<R.Result<W, Error>, Error, SwrKey<KeyData> | undefined>(
-    getConditionalFetchKey<KeyData>(
-      { name: SwrKeyNames.FIRESTORE_DOCUMENT, data: { path } },
-      always(isNilOrEmpty(path))
-    ),
-    pipe(
-      prop('data'),
-      prop<string>('path'),
-      getDocSnapshotFromPath,
-      andThen(pipe<[FirestoreSnapshot<T>], Promise<V>, Promise<W>>(convertDefault, mapDefault)),
-      R.fromPromise
-    ),
-    {
-      suspense: options?.suspense || suspense
-    }
-  )
+  path: CollectionName
+  pathSegments?: string[]
 }
 
 /**
  * Returns a Firestore document
- * @param path
- * @param options
+ * @param args
  */
-export function useDocument<T extends DocumentData, V extends FirestoreRootCollectionDocumentData, W>(
-  path: string | undefined,
+export function useDocument<T extends DocumentData, V extends FirestoreRootCollectionDocumentData, W>(args: {
+  path: CollectionName
+  pathSegments?: string[]
   options?: UseDocumentOptions
-) {
-  const response = useDocumentInternal<T, V, W>(path, options)
+}) {
+  const { suspense } = useSWRConfig()
+  const { path, pathSegments, options } = args
+  const response = useSWR<R.Result<W, Error>, Error, KeyData>(
+    { path, pathSegments },
+    pipe(
+      converge(getDocSnapshotFromPath, [prop('path'), prop('pathSegments')]),
+      andThen(pipe<[FirestoreSnapshot<T>], Promise<V>, Promise<W>>(convertDefault, mapDefault)),
+      R.fromPromise
+    ),
+    {
+      suspense: options?.suspense ?? suspense
+    }
+  )
 
   useEffect(() => {
     if (!isNil(path) && options?.listen) {
@@ -58,5 +49,6 @@ export function useDocument<T extends DocumentData, V extends FirestoreRootColle
     }
     return
   }, [options, path, response])
+
   return response
 }

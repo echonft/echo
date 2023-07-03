@@ -1,12 +1,12 @@
 import { listingLink } from '../routing/listing-link'
 import { embedSeparator } from '../utils/embed/embed-separator'
-import { embedValueForOfferItem } from '../utils/embed/embed-value-for-offer-item'
+import { embedValueForNft } from '../utils/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../utils/embed/embed-value-for-target'
-import { Contract, OfferItem, RequestForOffer } from '@echo/model'
+import { FirestoreContractData, FirestoreNftData, FirestoreRequestForOfferData } from '@echo/firestore'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import { flatten } from 'ramda'
 
-export function buildListingEmbed(listing: RequestForOffer) {
+export function buildListingEmbed(listing: FirestoreRequestForOfferData) {
   return new EmbedBuilder()
     .setTitle(title())
     .setDescription(description(listing))
@@ -20,7 +20,7 @@ function title(): string {
   return `A new listing was created`
 }
 
-function description(listing: RequestForOffer): string {
+function description(listing: FirestoreRequestForOfferData): string {
   return `Created by ${userMention(listing.sender.discordId)}`
 }
 
@@ -29,19 +29,19 @@ function color(): number {
   return 0x00ff66
 }
 
-function fields(items: OfferItem[], targets: Contract[]): APIEmbedField[] {
-  return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), listingTargets(targets)])
+function fields(nfts: FirestoreNftData[], targets: FirestoreContractData[]): APIEmbedField[] {
+  return flatten([embedSeparator(), listingItemsFields(nfts), embedSeparator(), listingTargets(targets)])
 }
 
-function listingItemsFields(items: OfferItem[]): APIEmbedField[] {
-  return items.map((item, index) => ({
+function listingItemsFields(nfts: FirestoreNftData[]): APIEmbedField[] {
+  return nfts.map((nft, index) => ({
     name: index === 0 ? listingItemsName() : '\u200b',
-    value: embedValueForOfferItem(item),
+    value: embedValueForNft(nft),
     inline: true
   }))
 }
 
-function listingTargets(targets: Contract[]): APIEmbedField[] {
+function listingTargets(targets: FirestoreContractData[]): APIEmbedField[] {
   return targets.map((target, index) => ({
     name: index === 0 ? listingTargetsName() : '\u200b',
     value: embedValueForTarget(target),

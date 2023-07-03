@@ -1,5 +1,7 @@
+import { CollectionName } from '../../config/collection-name'
 import { convertContract } from '../../converters/contract/convert-contract'
 import { convertDiscordGuild } from '../../converters/discord-guild/convert-discord-guild'
+import { convertNft } from '../../converters/nft/convert-nft'
 import { convertNftCollection } from '../../converters/nft-collection/convert-nft-collection'
 import { convertNonce } from '../../converters/nonce/convert-nonce'
 import { convertOffer } from '../../converters/offer/convert-offer'
@@ -12,26 +14,26 @@ import { castAs } from '@echo/utils'
 import { DocumentData } from 'firebase/firestore'
 
 export const defaultConverter = <T extends DocumentData, V extends FirestoreRootCollectionDocumentData>(
-  collectionName: string
+  collectionName: CollectionName
 ): FirestoreConverter<T, V> => {
   switch (collectionName) {
-    case 'contracts':
+    case CollectionName.CONTRACTS:
       return castAs<FirestoreConverter<T, V>>(convertContract)
-    case 'guilds':
+    case CollectionName.GUILDS:
       return castAs<FirestoreConverter<T, V>>(convertDiscordGuild)
-    case 'nft-collections':
+    case CollectionName.NFT_COLLECTIONS:
       return castAs<FirestoreConverter<T, V>>(convertNftCollection)
-    case 'nonces':
+    case CollectionName.NFTS:
+      return castAs<FirestoreConverter<T, V>>(convertNft)
+    case CollectionName.NONCES:
       return castAs<FirestoreConverter<T, V>>(convertNonce)
-    case 'offers':
+    case CollectionName.OFFERS:
       return castAs<FirestoreConverter<T, V>>(convertOffer)
-    case 'requests-for-offer':
+    case CollectionName.REQUESTS_FOR_OFFER:
       return castAs<FirestoreConverter<T, V>>(convertRequestForOffer)
-    case 'swaps':
+    case CollectionName.SWAPS:
       return castAs<FirestoreConverter<T, V>>(convertSwap)
-    case 'users':
+    case CollectionName.USERS:
       return castAs<FirestoreConverter<T, V>>(convertUser)
-    default:
-      throw Error(`No default converter for collection ${collectionName}`)
   }
 }

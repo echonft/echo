@@ -1,5 +1,5 @@
 import { ApiRoutes, getApiRouteUrl } from '@echo/api/dist/public'
-import { CreateRequestForOfferRequest, ItemRequest, RequestForOfferResponse, TargetRequest } from '@echo/api/dist/types'
+import { CreateRequestForOfferRequest, RequestForOfferResponse, TargetRequest } from '@echo/api/dist/types'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { castAs, isNilOrEmpty, putData } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
@@ -13,7 +13,7 @@ interface KeyData {
 
 export const useCreateRequestForOffer = (
   discordId: string,
-  items: ItemRequest[] | undefined,
+  items: string[] | undefined,
   target: TargetRequest[] | undefined
 ) =>
   useSWR<R.Result<RequestForOfferResponse, Error>, Error, SwrKey<KeyData> | undefined>(

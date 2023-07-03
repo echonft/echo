@@ -1,5 +1,6 @@
-import { listenToInteractions } from './listeners/interaction'
-import { listenToListings } from './listeners/listings'
+import { listenToInteractions } from './listeners/listen-to-interactions'
+import { listenToListings } from './listeners/listen-to-listings'
+import { listenToOffers } from './listeners/listen-to-offers'
 import { getDiscordSecret } from '@echo/discord'
 import { errorMessage, logger } from '@echo/utils'
 import { BaseInteraction, Client, Events, GatewayIntentBits } from 'discord.js'
@@ -11,6 +12,8 @@ client.once(Events.ClientReady, (c) => {
   logger.info(`Ready! Logged in as ${c.user.tag}`)
   listenToListings(c)
   logger.info(`Listening to Firebase listings`)
+  listenToOffers(c)
+  logger.info(`Listening to Firebase offers`)
 })
 
 client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
