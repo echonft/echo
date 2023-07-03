@@ -6,6 +6,7 @@ export declare global {
       NEXT_PUBLIC_API_URL: string
       NEXTAUTH_URL_INTERNAL: string
       NEXTAUTH_URL: string
+      ADMIN_API_KEY: string
     }
   }
 }

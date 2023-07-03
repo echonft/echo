@@ -23,7 +23,16 @@ export const nftFirestoreData: { [key: string]: FirestoreNftData } = {
   '8hHFadIrrooORfTOLkBg': {
     refPath: 'nfts/8hHFadIrrooORfTOLkBg',
     id: '8hHFadIrrooORfTOLkBg',
-    attributes: [{ value: 'archimedean', trait: 'Algorithm' }],
+    attributes: [
+      { value: 'archimedean', trait: 'Algorithm' },
+      { value: 'main', trait: 'Ring' },
+      { value: 'movie', trait: 'Animation' },
+      { value: '5', trait: 'Speed' },
+      { value: 'cumulus', trait: 'Density' },
+      { value: '0001', trait: 'Colors' },
+      { value: 'random1', trait: 'Palette' },
+      { value: '#complement', trait: 'Background' }
+    ],
     balance: 1,
     collection: nftCollectionFirestoreData['1aomCtnoesD7WVll6Yi1']!,
     name: 'Spiral Frequencies #1376',

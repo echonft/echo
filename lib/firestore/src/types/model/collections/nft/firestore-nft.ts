@@ -5,11 +5,11 @@ import { DocumentData, DocumentReference } from 'firebase/firestore'
 
 export interface FirestoreNft extends DocumentData {
   attributes: FirestoreNftAttribute[]
-  balance: number
+  balance?: number
   collection: DocumentReference<FirestoreNftCollection>
   description?: string
   name?: string
-  owner: DocumentReference<FirestoreUser>
+  owner?: DocumentReference<FirestoreUser>
   pictureUrl: string
   thumbnailUrl: string
   tokenId: number

@@ -1,6 +1,6 @@
 export const setSearchParams =
-  <T extends object>(_data: T) =>
+  <T extends Record<string, string>>(data: T) =>
   (url: URL) => {
-    // TODO set search parameters using url.searchParams.set()
+    Object.entries(data).forEach((item) => url.searchParams.set(...item))
     return url
   }

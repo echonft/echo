@@ -1,9 +1,9 @@
-import { idThrower } from './id-thrower'
+import { idThrower } from '../../../../../../utils/src/test/id-thrower'
 import { FirestoreNftData, nftFirestoreData } from '@echo/firestore'
 import { R } from '@mobily/ts-belt'
 import { any, equals, isNil } from 'ramda'
 
-export const mockFindNftsById = (ids: string[]) => {
+export const mockFindNftsByIds = (ids: string[]) => {
   if (any(equals('reject'), ids)) {
     return Promise.reject(new Error('not found'))
   }
