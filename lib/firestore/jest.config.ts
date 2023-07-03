@@ -4,7 +4,7 @@ const config: Config = {
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   collectCoverage: true,
   collectCoverageFrom: [
-    '<rootDir>/src/**/*.{ts,js,tsx,jsx}',
+    '<rootDir>/src/**/*.{ts,js}',
     '!<rootDir>/src/**/*.d.ts',
     '!<rootDir>/src/**/index.ts',
     '!<rootDir>/src/**/__tests__/**',

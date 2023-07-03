@@ -1,6 +1,6 @@
 import { collectionListingsLink } from './collection-listings-link'
-import { RequestForOffer } from '@echo/model'
+import { FirestoreRequestForOfferData } from '@echo/firestore'
 
-export function listingLink(listing: RequestForOffer): string {
+export function listingLink(listing: FirestoreRequestForOfferData): string {
   return `${collectionListingsLink(listing.discordGuild.discordId)}/${listing.id}`
 }

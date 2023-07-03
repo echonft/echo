@@ -5,7 +5,7 @@ import { ErrorResponse } from '../../types'
 import { getAlchemy } from '../alchemy/alchemy'
 import { walletsOwnTokens } from '../alchemy/wallets-own-tokens'
 import { userIsInGuild } from './user-is-in-guild'
-import { addOffer, findNftsById, updateRequestForOfferOffers } from '@echo/firebase-admin'
+import { addOffer, findNftsByIds, updateRequestForOfferOffers } from '@echo/firebase-admin'
 import { FirestoreDiscordGuildData, FirestoreOfferData, FirestoreUserData } from '@echo/firestore'
 import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
@@ -35,7 +35,7 @@ export function createOfferFromData(
     return
   }
   if (userIsInGuild(sender, discordGuild)) {
-    return Promise.all([findNftsById(senderItems), findNftsById(receiverItems)])
+    return Promise.all([findNftsByIds(senderItems), findNftsByIds(receiverItems)])
       .then((usersNftsResult) => {
         if (
           any((result) => R.isError(result), usersNftsResult[0]) ||

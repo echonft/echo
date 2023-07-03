@@ -1,14 +1,20 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { mockGuild } from './guild-mock'
 import { randomSnowflake } from './snowflake'
 import {
   APIGuildTextChannel,
   APITextChannel,
+  APIThreadChannel,
   ChannelType,
   Client,
+  ForumChannel,
   type Guild,
   GuildBasedChannel,
   GuildTextChannelType,
-  TextChannel
+  NewsChannel,
+  PrivateThreadChannel,
+  TextChannel,
+  ThreadChannel
 } from 'discord.js'
 
 export function getGuildTextChannelMockDataBase<Type extends GuildTextChannelType>(type: Type, guild: Guild) {
@@ -240,8 +246,37 @@ export function mockThreadFromParentMessage(input: {
   }
   throw new Error('Invalid parent message')
 }
+*/
 
-export function mockPublicThread(input: {
+export function mockPrivateThread(client: Client, parentChannel: TextChannel, data?: Partial<APIThreadChannel>) {
+  const rawData: APIThreadChannel = {
+    ...getGuildTextChannelMockDataBase(ChannelType.PublicThread, parentChannel.guild),
+    member: {
+      id: randomSnowflake().toString(),
+      user_id: randomSnowflake().toString(),
+      join_timestamp: new Date().toISOString(),
+      flags: 0
+    },
+    guild_id: parentChannel.guild.id,
+    parent_id: parentChannel.id,
+    applied_tags: [],
+    message_count: 0,
+    member_count: 0,
+    thread_metadata: {
+      archived: false,
+      auto_archive_duration: 60,
+      archive_timestamp: new Date().toISOString(),
+      locked: false
+    },
+    ...data
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const thread: PrivateThreadChannel = Reflect.construct(ThreadChannel, [parentChannel.guild, rawData, client])
+
+  return thread
+}
+export function mockAndSetupPrivateThread(input: {
   client: Client
   parentChannel?: TextChannel | ForumChannel | NewsChannel
   data?: Partial<APIThreadChannel>
@@ -249,6 +284,7 @@ export function mockPublicThread(input: {
   const { client, data = {} } = input
   let { parentChannel } = input
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return setupMockedChannel(client, parentChannel?.guild, (guild) => {
     if (!parentChannel) {
       parentChannel = mockTextChannel(client, guild)
@@ -275,18 +311,16 @@ export function mockPublicThread(input: {
       ...data
     }
 
-    const thread: PublicThreadChannel = Reflect.construct(ThreadChannel, [
-      guild,
-      rawData,
-      client
-    ]) as PublicThreadChannel
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const thread: PrivateThreadChannel = Reflect.construct(ThreadChannel, [guild, rawData, client])
 
+    // @ts-ignore
     parentChannel.threads.cache.set(thread.id, thread)
     return thread
   })
 }
 
-
+/*
 export function mockForumChannel(client: Client, guild?: Guild, data: Partial<APIGuildForumChannel> = {}) {
   return setupMockedChannel(client, guild, (guild) => {
     const rawData: APIGuildForumChannel = {

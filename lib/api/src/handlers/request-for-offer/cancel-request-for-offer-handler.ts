@@ -59,7 +59,7 @@ export const cancelRequestForOfferHandler: RequestHandler<
             return
           })
           .catch((e: Error) => {
-            logger.error(`Error cancelling request for offer: ${errorMessage(e)}`)
+            logger.error(`cancelRequestForOfferHandler Error cancelling request for offer: ${errorMessage(e)}`)
             res.end(res.status(500).json({ error: 'Could not cancel listing' }))
             return
           })
@@ -69,7 +69,7 @@ export const cancelRequestForOfferHandler: RequestHandler<
         return
       })
   } catch (e) {
-    logger.error(`Invalid body: ${errorMessage(e)}`)
+    logger.error(`cancelRequestForOfferHandler Invalid body: ${errorMessage(e)}`)
     res.end(res.status(400).json({ error: 'Invalid body' }))
     return
   }

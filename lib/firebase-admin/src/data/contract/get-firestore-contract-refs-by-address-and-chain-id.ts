@@ -1,3 +1,4 @@
+import { ContractQuery } from '../../types/query/contract-query'
 import { getFirestoreContractRefByAddressAndChainId } from './get-firestore-contract-ref-by-address-and-chain-id'
 import { FirestoreContract } from '@echo/firestore'
 import { DocumentReference } from '@google-cloud/firestore'
@@ -10,7 +11,7 @@ import { isNil, reject } from 'ramda'
  * @param contractsData The data of the contracts to fetch
  */
 export function getFirestoreContractRefsByAddressAndChainId(
-  contractsData: { address: string; chainId: number }[]
+  contractsData: ContractQuery[]
 ): Promise<DocumentReference<FirestoreContract>[]> {
   return Promise.all(
     contractsData.map(({ address, chainId }) =>

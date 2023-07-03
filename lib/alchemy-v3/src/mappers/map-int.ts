@@ -1,1 +1,4 @@
-export const mapInt = (value: string): number => Number.parseInt(value)
+import { isNil } from 'ramda'
+
+export const mapInt = (value: string | undefined): number | undefined =>
+  isNil(value) ? undefined : Number.parseInt(value)

@@ -44,7 +44,7 @@ export function executeForCommand(interaction: ChatInputCommandInteraction) {
           pipe(prop('channelId'), equals(interaction.channelId)),
           () => executeForSubcommand(interaction, interaction.options.getSubcommand() as InputSubcommands),
           (discordGuild) => {
-            throw new WrongChannelError(guildId, discordGuild.channelId as string)
+            throw new WrongChannelError(guildId, discordGuild.channelId)
           }
         )
       )
