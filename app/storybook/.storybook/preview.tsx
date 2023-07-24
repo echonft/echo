@@ -1,16 +1,7 @@
 import { DependenciesProvider, getMessages } from '@echo/ui'
 import type { Preview } from '@storybook/react'
 import '@echo/ui/dist/index.css'
-import Image from 'next/image'
 import { NextIntlProvider } from 'next-intl'
-
-const OriginalNextImage = Image.default
-
-Object.defineProperty(Image, 'default', {
-  configurable: true,
-  // @ts-ignore
-  value: (props) => <OriginalNextImage {...props} unoptimized />
-})
 
 const preview: Preview = {
   parameters: {

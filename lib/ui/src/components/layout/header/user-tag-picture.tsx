@@ -2,7 +2,6 @@ import { DefaultUserProfilePicture } from '../../base/svg/default-user-profile-p
 import { getUserAvatarUrl } from '@echo/discord'
 import { User } from '@echo/model'
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
@@ -16,7 +15,7 @@ export const UserTagPicture: FunctionComponent<UserTagPictureProps> = ({ user })
     return <DefaultUserProfilePicture className={clsx('w-4.5', 'h-4.5', 'rounded')} width={18} height={18} />
   }
   return (
-    <Image
+    <img
       className={clsx('w-4.5', 'h-4.5', 'rounded')}
       src={userAvatarUrl}
       alt={user.discordUsername}
