@@ -1,4 +1,4 @@
-import { getNftsForContract } from '@echo/alchemy-v3'
+import { getNftsForContract } from '../../../../alchemy'
 import { addNft, addNftCollection } from '@echo/firebase-admin'
 import { FirestoreNftCollectionData, FirestoreNftCollectionPrototype, FirestoreNftPrototype } from '@echo/firestore'
 import { R } from '@mobily/ts-belt'

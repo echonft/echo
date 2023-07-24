@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { assoc } from 'ramda'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Pages/Nft Details',
   component: Component,
   argTypes: {
@@ -18,7 +18,7 @@ const metadata = {
       exclude: ['nft', 'offers']
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

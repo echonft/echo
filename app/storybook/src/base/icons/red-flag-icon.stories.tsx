@@ -1,7 +1,7 @@
 import { iconSizes, RedFlagIcon as Component, SizeSM } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Base/Icons/Red Flag Icon',
   component: Component,
   argTypes: {
@@ -10,7 +10,7 @@ const metadata = {
       control: { type: 'radio' }
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

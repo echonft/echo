@@ -11,6 +11,8 @@ export const HideIfNilOrEmpty: FunctionComponent<PropsWithChildren<HideIfNilOrEm
     return (
       <ConditionalRender
         // eslint is confused here...
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         // eslint-disable-next-line react-hooks/rules-of-hooks
         hideIf={reduce(useWith(and<boolean, boolean>, [identity, either(isNil, isEmpty)]), false, checks)}
       >

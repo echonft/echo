@@ -35,6 +35,6 @@ interface Metadata {
 }
 
 export interface Attribute {
-  value: string | number
+  value: string
   trait_type: string
 }

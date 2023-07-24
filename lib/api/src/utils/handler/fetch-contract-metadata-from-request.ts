@@ -1,5 +1,5 @@
+import { getContractMetadata, GetContractMetadataResponse } from '../../../../alchemy'
 import { TargetRequest } from '../../types'
-import { getContractMetadata, GetContractMetadataResponse } from '@echo/alchemy-v3'
 import { findContractByAddressAndChainId } from '@echo/firebase-admin'
 import { R } from '@mobily/ts-belt'
 

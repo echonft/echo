@@ -1,12 +1,12 @@
 import { DependenciesProvider, getMessages } from '@echo/ui'
 import type { Preview } from '@storybook/react'
 import '@echo/ui/dist/index.css'
-import * as NextImage from 'next/image'
+import Image from 'next/image'
 import { NextIntlProvider } from 'next-intl'
 
-const OriginalNextImage = NextImage.default
+const OriginalNextImage = Image.default
 
-Object.defineProperty(NextImage, 'default', {
+Object.defineProperty(Image, 'default', {
   configurable: true,
   // @ts-ignore
   value: (props) => <OriginalNextImage {...props} unoptimized />

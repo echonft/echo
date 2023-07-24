@@ -27,10 +27,10 @@
   },
   "dependencies": {
     "@mobily/ts-belt": "4.0.0-rc.5",
-    "pino": "8.11.0",
+    "pino": "8.14.1",
     "ramda": "0.29.0"
   },
   "devDependencies": {
-    "@types/ramda": "0.29.0"
+    "@types/ramda": "0.29.3"
   }
 }

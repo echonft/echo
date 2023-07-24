@@ -1,1 +1,1 @@
-export const promiseAll = (promises: Promise<unknown>[]) => Promise.all(promises)
+export const promiseAll = <T = unknown>(promises: Promise<T>[]) => Promise.all(promises)

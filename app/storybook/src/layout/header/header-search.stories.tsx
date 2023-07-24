@@ -1,7 +1,7 @@
 import { HeaderSearchInput as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Layout/Header/Search Input',
   component: Component,
   argTypes: {
@@ -10,7 +10,7 @@ const metadata = {
       action: 'changed'
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

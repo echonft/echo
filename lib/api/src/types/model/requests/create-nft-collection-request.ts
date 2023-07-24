@@ -1,6 +1,6 @@
-import { QueryRequest } from '../api-requests/query-request'
+import { FetcherData } from '@echo/utils'
 
-export interface CreateNftCollectionRequest extends QueryRequest {
+export interface CreateNftCollectionRequest extends FetcherData {
   address: string
   chainId: string
 }

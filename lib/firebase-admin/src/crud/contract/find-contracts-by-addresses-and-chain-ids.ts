@@ -22,6 +22,7 @@ export const findContractsByAddressesAndChainIds = (
       // @ts-ignore
       promiseAll,
       andThen(
+        // @ts-ignore
         ifElse(
           // @ts-ignore
           any(R.isError),
@@ -29,6 +30,7 @@ export const findContractsByAddressesAndChainIds = (
             errorPromise<FirestoreContractData[]>('findContractsByAddressesAndChainIds not found'),
             R.fromPromise<FirestoreContractData[]>
           ),
+          // @ts-ignore
           pipe(map(R.getExn), toPromise, R.fromPromise)
         )
       )

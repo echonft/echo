@@ -2,7 +2,7 @@ import { nftCollections, nfts, users } from '@echo/model'
 import { NftThumbnailSelectable as Component, SelectionManager } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Nft/Thumbnail/Selectable',
   component: Component,
   argTypes: {
@@ -20,7 +20,7 @@ const metadata = {
       exclude: ['pictureUrl', 'owner', 'name', 'tokenId']
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

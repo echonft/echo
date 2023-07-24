@@ -7,4 +7,6 @@ export const removeArrayFromArray = <T>(
   array: T[],
   toRemove: T[],
   equals: (source: T) => (target: T) => boolean
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
 ): T[] => reduce(partialRight(removeFromArray, [equals]), array, toRemove)

@@ -1,7 +1,7 @@
+import { GetContractMetadataResponse } from '../../../../../alchemy'
 import { idThrower } from '../../../../../utils/src/test/id-thrower'
 import { TargetRequest } from '../../../types'
 import { mockGetContractMetadata } from '../../test/mocks/alchemy/get-contract-metadata'
-import { GetContractMetadataResponse } from '@echo/alchemy-v3'
 import { R } from '@mobily/ts-belt'
 
 export const fetchContractMetadataFromRequest = async (target: TargetRequest): Promise<GetContractMetadataResponse> => {

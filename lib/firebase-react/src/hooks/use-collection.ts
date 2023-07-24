@@ -34,6 +34,8 @@ export function useCollection<W>(args: {
       getCollectionQueryFromPath,
       getDocsFromQuery,
       andThen(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         ifElse(isEmpty, () => castAs<W[]>([]), pipe(map(pipe(convertDefault, mapDefault)), promiseAll, castAs<W[]>))
       ),
       R.fromPromise<W[]>

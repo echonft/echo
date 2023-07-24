@@ -2,7 +2,7 @@ import { users } from '@echo/model'
 import { Header as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Layout/Header/Header',
   component: Component,
   argTypes: {
@@ -11,7 +11,7 @@ const metadata = {
       action: 'changed'
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

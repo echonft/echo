@@ -1,6 +1,6 @@
+import { GetNftResponse } from '../../../../../../alchemy'
 import { idThrower } from '../../../../../../utils/src/test/id-thrower'
 import { mockGetNftsForContractResponse } from './get-nfts-for-contract-response'
-import { GetNftResponse } from '@echo/alchemy-v3'
 import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'
 

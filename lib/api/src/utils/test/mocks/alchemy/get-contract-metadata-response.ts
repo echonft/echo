@@ -1,4 +1,4 @@
-import { GetContractMetadataResponse } from '@echo/alchemy-v3'
+import { GetContractMetadataResponse } from '../../../../../../alchemy'
 
 export const mockGetContractMetadataResponse: { [key: string]: GetContractMetadataResponse } = {
   '0xe785E82358879F061BC3dcAC6f0444462D4b5330': {

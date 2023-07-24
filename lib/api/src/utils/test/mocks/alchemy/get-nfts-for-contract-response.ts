@@ -1,4 +1,4 @@
-import { GetNftResponse } from '@echo/alchemy-v3'
+import { GetNftResponse } from '../../../../../../alchemy'
 
 export const mockGetNftsForContractResponse: { [key: string]: GetNftResponse[] } = {
   '0x320e2fa93A4010ba47edcdE762802374bac8d3F7': [

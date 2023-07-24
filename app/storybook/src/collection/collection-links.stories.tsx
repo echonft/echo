@@ -2,10 +2,10 @@ import { nftCollections } from '@echo/model'
 import { CollectionLinks as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Collection/Collection Links',
   component: Component
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 const mockNftCollection = nftCollections['Rc8pLQXxgyQGIRL0fr13']!

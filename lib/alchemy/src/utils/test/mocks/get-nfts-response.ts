@@ -60,7 +60,7 @@ export const getNftsResponse: { [key: string]: NftResponse } = {
             trait_type: 'Animation'
           },
           {
-            value: 5,
+            value: '5',
             trait_type: 'Speed'
           },
           {

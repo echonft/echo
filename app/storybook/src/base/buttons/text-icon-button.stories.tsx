@@ -8,7 +8,7 @@ import {
 } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Base/Buttons/Text Icon Button',
   component: Component,
   argTypes: {
@@ -34,7 +34,7 @@ const metadata = {
       exclude: ['disabled', 'getIconSize', 'icon']
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

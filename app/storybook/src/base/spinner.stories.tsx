@@ -1,10 +1,10 @@
 import { Spinner as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Base/Spinner',
   component: Component
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 
