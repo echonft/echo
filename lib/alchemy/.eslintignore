@@ -1,1 +1,3 @@
+dist
+jest.config.ts
 tsup.config.ts

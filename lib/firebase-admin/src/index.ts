@@ -1,6 +1,8 @@
 export { addContract } from './crud/contract/add-contract'
 export { findContractByAddressAndChainId } from './crud/contract/find-contract-by-address-and-chain-id'
 export { findContractsByAddressesAndChainIds } from './crud/contract/find-contracts-by-addresses-and-chain-ids'
+export { getAllContracts } from './crud/contract/get-all-contracts'
+export { getAllContractsAddresses } from './crud/contract/get-all-contracts-addresses'
 export { addDiscordGuild } from './crud/discord-guild/add-discord-guild'
 export { addDiscordGuildAndContracts } from './crud/discord-guild/add-discord-guild-and-contracts'
 export { findDiscordGuildByGuildId } from './crud/discord-guild/find-discord-guild-by-guild-id'
