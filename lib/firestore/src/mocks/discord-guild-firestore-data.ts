@@ -2,6 +2,14 @@ import { FirestoreDiscordGuildData } from '../types/model/data/discord-guild/fir
 import { contractFirestoreData } from './contract-firestore-data'
 
 export const discordGuildFirestoreData: { [key: string]: FirestoreDiscordGuildData } = {
+  Y8GBFtPZKElp44z0k10D: {
+    refPath: 'guilds/Y8GBFtPZKElp44z0k10D',
+    id: 'Y8GBFtPZKElp44z0k10D',
+    discordId: '1002691062374088794',
+    channelId: '1032728052209295450',
+    name: 'Echo',
+    contracts: [contractFirestoreData['37dBlwJYahEAKeL0rNP8']!]
+  },
   ncUnbpFfVCofV9bD7ctn: {
     refPath: 'guilds/ncUnbpFfVCofV9bD7ctn',
     id: 'ncUnbpFfVCofV9bD7ctn',
