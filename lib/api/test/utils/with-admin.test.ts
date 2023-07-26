@@ -1,6 +1,6 @@
-import { withAdmin } from '../../src'
 import { successHandler } from '../../src/utils/test/mocks/handler'
 import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
+import { withAdmin } from '../../src/utils/with-admin'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../src/utils/auth/get-admin-api-key')

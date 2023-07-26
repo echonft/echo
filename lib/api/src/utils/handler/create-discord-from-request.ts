@@ -6,8 +6,8 @@ import { FirestoreContractPrototype, FirestoreNftCollectionPrototype } from '@ec
 import { R } from '@mobily/ts-belt'
 import { equals, find, omit, pipe, prop } from 'ramda'
 
-export const createDiscordFromRequest = (request: CreateDiscordRequest) => {
-  return Promise.all(request.contracts.map(fetchContractMetadataFromRequest)).then((contractsMetadata) => {
+export const createDiscordFromRequest = (request: CreateDiscordRequest) =>
+  Promise.all(request.contracts.map(fetchContractMetadataFromRequest)).then((contractsMetadata) => {
     const contractPrototypes = contractsMetadata.map((contractMetadata) => contractMetadata.contract)
     return addDiscordGuildAndContracts({ ...request, contracts: contractPrototypes }).then((discordGuildResult) => {
       if (R.isError(discordGuildResult)) {
@@ -34,4 +34,3 @@ export const createDiscordFromRequest = (request: CreateDiscordRequest) => {
       ).then(() => discordGuildData)
     })
   })
-}

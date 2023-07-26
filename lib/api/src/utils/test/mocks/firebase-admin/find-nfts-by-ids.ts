@@ -1,5 +1,5 @@
-import { idThrower } from '../../../../../../utils/src/test/id-thrower'
 import { FirestoreNftData, nftFirestoreData } from '@echo/firestore'
+import { idThrower } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { any, equals, isNil } from 'ramda'
 

@@ -1,11 +1,11 @@
-import { getContractMetadata } from '../../../alchemy'
 import { fetchContractMetadataFromRequest } from '../../src/utils/handler/fetch-contract-metadata-from-request'
 import { mockGetContractMetadata } from '../../src/utils/test/mocks/alchemy/get-contract-metadata'
 import { mockGetContractMetadataResponse } from '../../src/utils/test/mocks/alchemy/get-contract-metadata-response'
 import { mockFindContractByAddressAndChainId } from '../../src/utils/test/mocks/firebase-admin/find-contract-by-address-and-chain-id'
+import { getContractMetadata } from '@echo/alchemy'
 import { findContractByAddressAndChainId } from '@echo/firebase-admin'
 import { errorMessage } from '@echo/utils'
-import { describe, expect, it, jest } from '@jest/globals'
+import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/alchemy')
 jest.mock('@echo/firebase-admin')
@@ -13,6 +13,11 @@ jest.mock('@echo/firebase-admin')
 describe('utils - handlers - fetchContractMetadataFromRequest', () => {
   jest.mocked(findContractByAddressAndChainId).mockImplementation(mockFindContractByAddressAndChainId)
   jest.mocked(getContractMetadata).mockImplementation(mockGetContractMetadata)
+
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   it('if contract exists rejects', () => {
     fetchContractMetadataFromRequest({ address: 'hK2XrmnMpCVneRH7Mbo6', chainId: 1 })
       .then(() => {
