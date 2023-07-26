@@ -1,6 +1,7 @@
 import wallet from '../wallet'
 import * as api from '@echo/api'
-import { mockRequestResponse, mockSession, WalletRequest, WalletResponse } from '@echo/api'
+import { mockRequestResponse, mockSession } from '@echo/api'
+import { WalletRequest, WalletResponse } from '@echo/api/dist/types'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { getServerSession } from 'next-auth'
 
