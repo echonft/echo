@@ -1,5 +1,5 @@
-import { describe, expect, jest, test } from '@jest/globals'
 import { loginLink } from '../../src/routing/login-link'
+import { describe, expect, jest, test } from '@jest/globals'
 
 jest.mock('../../src/routing/get-base-url')
 

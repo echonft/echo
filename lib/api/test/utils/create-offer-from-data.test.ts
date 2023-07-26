@@ -29,6 +29,7 @@ describe('utils - handler - createOfferFromData', () => {
   const mockSenderItems = offerFirestoreData['LyCfl6Eg7JKuD7XJ6IPi']!.senderItems.map((nft) => nft.id)
   const mockReceiverItems = offerFirestoreData['LyCfl6Eg7JKuD7XJ6IPi']!.receiverItems.map((nft) => nft.id)
   const discordGuild = discordGuildFirestoreData['ncUnbpFfVCofV9bD7ctn']!
+
   beforeEach(() => {
     jest.clearAllMocks()
     // Need to remock the method on `spyOn`
@@ -36,6 +37,7 @@ describe('utils - handler - createOfferFromData', () => {
       .spyOn(walletOwnToken, 'walletsOwnTokens')
       .mockImplementation(() => Promise.resolve(true))
   })
+
   it('if receiver has no wallets, returns 401', async () => {
     const { res } = mockRequestResponse<CreateOfferRequest, never, FirestoreOfferData>('GET')
     await createOfferFromData(mockUserNoWallet, mockSenderItems, mockUser, mockReceiverItems, discordGuild, res)

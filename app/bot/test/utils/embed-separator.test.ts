@@ -1,5 +1,5 @@
-import { describe, expect, it } from '@jest/globals'
 import { embedSeparator } from '../../src/utils/embed/embed-separator'
+import { describe, expect, it } from '@jest/globals'
 
 describe('utils - embed - embedSeparator', () => {
   it('should return an object with empty strings', () => {

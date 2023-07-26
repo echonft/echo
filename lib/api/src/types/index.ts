@@ -1,4 +1,6 @@
+export { ApiRequest } from './model/api-requests/api-request'
 export { CreateDiscordRequest } from './model/requests/create-discord-request'
+export { CreateNftCollectionRequest } from './model/requests/create-nft-collection-request'
 export { CreateOfferRequest } from './model/requests/create-offer-request'
 export { CreateRequestForOfferRequest } from './model/requests/create-request-for-offer-request'
 export { IdRequest } from './model/requests/id-request'

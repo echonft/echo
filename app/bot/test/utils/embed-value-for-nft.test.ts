@@ -1,6 +1,6 @@
+import { embedValueForNft } from '../../src/utils/embed/embed-value-for-nft'
 import { nftFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
-import { embedValueForNft } from '../../src/utils/embed/embed-value-for-nft'
 
 describe('utils - embed - embedValueForNft', () => {
   const nft = nftFirestoreData['QFjMRNChUAHNswkRADXh']!

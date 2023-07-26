@@ -1,6 +1,6 @@
+import { embedValueForTarget } from '../../src/utils/embed/embed-value-for-target'
 import { FirestoreContractData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
-import { embedValueForTarget } from '../../src/utils/embed/embed-value-for-target'
 
 describe('utils - embed - embedValueForTarget', () => {
   it('should return expected result with name', () => {
