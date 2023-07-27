@@ -1,4 +1,4 @@
-import { getFirestoreContractRefsByAddressAndChainId } from '../../data/contract/get-firestore-contract-refs-by-address-and-chain-id'
+import { getFirestoreContractRefsByAddress } from '../../data/contract/get-firestore-contract-refs-by-address'
 import { getFirestoreDiscordGuildRefByDiscordId } from '../../data/discord-guild/get-firestore-discord-guild-ref-by-discord-id'
 import { getFirestoreNftRefById } from '../../data/nft/get-firestore-nft-ref-by-id'
 import { getFirestoreUserRefById } from '../../data/user/get-firestore-user-ref-by-id'
@@ -23,7 +23,7 @@ export const buildRequestForOffer: FirestoreBuilder<
   if (R.isError(discordGuildResult)) {
     throw Error('buildRequestForOffer Discord Guild does not exist')
   }
-  const target = await getFirestoreContractRefsByAddressAndChainId(prototype.target)
+  const target = await getFirestoreContractRefsByAddress(prototype.target)
   if (isEmpty(target)) {
     throw Error('buildRequestForOffer Invalid target')
   }

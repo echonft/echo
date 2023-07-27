@@ -3,7 +3,7 @@ import { contractFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 
-describe('crud - contract - findContractsByAddressesAndChainIds', () => {
+describe('crud - contract - findContractsByAddresses', () => {
   const contract1 = contractFirestoreData['37dBlwJYahEAKeL0rNP8']!
   const contract2 = contractFirestoreData['hK2XrmnMpCVneRH7Mbo6']!
   it('empty contracts returns error', async () => {

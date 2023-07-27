@@ -14,7 +14,7 @@ export const findContractsByAddresses = (queries: ContractQuery[]): Promise<R.Re
   ifElse(
     isEmpty,
     pipe(
-      errorPromise<FirestoreContractData[]>('findContractsByAddressesAndChainIds no contracts sent'),
+      errorPromise<FirestoreContractData[]>('findContractsByAddresses no contracts sent'),
       R.fromPromise<FirestoreContractData[]>
     ),
     pipe(
@@ -27,7 +27,7 @@ export const findContractsByAddresses = (queries: ContractQuery[]): Promise<R.Re
           // @ts-ignore
           any(R.isError),
           pipe(
-            errorPromise<FirestoreContractData[]>('findContractsByAddressesAndChainIds not found'),
+            errorPromise<FirestoreContractData[]>('findContractsByAddresses not found'),
             R.fromPromise<FirestoreContractData[]>
           ),
           // @ts-ignore

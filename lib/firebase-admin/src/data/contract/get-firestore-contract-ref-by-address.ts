@@ -7,7 +7,7 @@ import { DocumentReference } from '@google-cloud/firestore'
 import { R } from '@mobily/ts-belt'
 import { always, andThen, head, ifElse, isEmpty, pipe, prop, useWith } from 'ramda'
 
-export const getFirestoreContractRefByAddressAndChainId = (
+export const getFirestoreContractRefByAddress = (
   address: string,
   chainId: number
 ): Promise<R.Result<DocumentReference<FirestoreContract>, Error>> =>
@@ -19,7 +19,7 @@ export const getFirestoreContractRefByAddressAndChainId = (
     andThen(
       ifElse(
         isEmpty,
-        pipe(errorPromise('getFirestoreContractRefByAddressAndChainId Contract not found'), R.fromPromise),
+        pipe(errorPromise('getFirestoreContractRefByAddress Contract not found'), R.fromPromise),
         pipe(
           head,
           prop<DocumentReference<FirestoreContract>>('ref'),

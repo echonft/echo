@@ -22,6 +22,7 @@ export { findRequestForOfferByOfferId } from './crud/request-for-offer/find-requ
 export { updateRequestForOfferActivities } from './crud/request-for-offer/update-request-for-offer-activities'
 export { updateRequestForOfferOffers } from './crud/request-for-offer/update-request-for-offer-offers'
 export { addUser } from './crud/user/add-user'
+export { findUserByDiscordId } from './crud/user/find-user-by-discord-id'
 export { findUserById } from './crud/user/find-user-by-id'
 export { findUserByWallet } from './crud/user/find-user-by-wallet'
 export { getUserWalletAddresses } from './crud/user/get-user-wallet-addresses'

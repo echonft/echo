@@ -4,7 +4,7 @@ import { ApiRequest } from '../../types/model/api-requests/api-request'
 import { CreateDiscordRequest } from '../../types/model/requests/create-discord-request'
 import { createDiscordSchema } from '../../types/validators/create-discord'
 import { createDiscordFromRequest } from '../../utils/handler/create-discord-from-request'
-import { findContractsByAddressesAndChainIds } from '@echo/firebase-admin'
+import { findContractsByAddresses } from '@echo/firebase-admin'
 import { errorMessage, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 
@@ -15,7 +15,7 @@ export const createDiscordGuildHandler: RequestHandler<
   try {
     const validatedRequest = createDiscordSchema.parse(req.body)
     // Check if contracts exists
-    const contractResults = await findContractsByAddressesAndChainIds(validatedRequest.contracts)
+    const contractResults = await findContractsByAddresses(validatedRequest.contracts)
     if (R.isOk(contractResults)) {
       res.end(res.status(400).json({ error: 'Contracts already in database' }))
       return

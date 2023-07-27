@@ -3,7 +3,7 @@ import { contractFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 
-describe('crud - contract - findContractByAddressAndChainId', () => {
+describe('crud - contract - findContractByAddress', () => {
   const existingContract = contractFirestoreData['37dBlwJYahEAKeL0rNP8']!
   it('wrong address and chain id returns error', async () => {
     const contractResult = await findContractByAddress({ address: 'test', chainId: 0 })
