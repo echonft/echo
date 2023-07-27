@@ -7,7 +7,7 @@ export interface FirestoreNftPrototype extends FirestorePrototypeData {
   collectionId: string
   description?: string
   name?: string
-  ownerId?: string
+  ownerId: string
   pictureUrl: string
   thumbnailUrl: string
   tokenId: number
