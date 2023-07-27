@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ContractQuery } from '../../types/query/contract-query'
-import { findContractByAddressAndChainId } from './find-contract-by-address-and-chain-id'
+import { findContractByAddress } from './find-contract-by-address'
 import { FirestoreContractData } from '@echo/firestore'
 import { errorPromise, promiseAll, toPromise } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 import { andThen, any, ifElse, isEmpty, map, pipe } from 'ramda'
 
-// FIXME Typing is wrong here
-export const findContractsByAddressesAndChainIds = (
-  queries: ContractQuery[]
-): Promise<R.Result<FirestoreContractData[], Error>> =>
+interface ContractQuery {
+  address: string
+  chainId: number
+}
+export const findContractsByAddresses = (queries: ContractQuery[]): Promise<R.Result<FirestoreContractData[], Error>> =>
   // @ts-ignore
   ifElse(
     isEmpty,
@@ -18,7 +18,7 @@ export const findContractsByAddressesAndChainIds = (
       R.fromPromise<FirestoreContractData[]>
     ),
     pipe(
-      map(findContractByAddressAndChainId),
+      map(findContractByAddress),
       // @ts-ignore
       promiseAll,
       andThen(

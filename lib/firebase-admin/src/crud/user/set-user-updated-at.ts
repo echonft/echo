@@ -8,12 +8,12 @@ import WriteResult = firestore.WriteResult
 
 // if updatedAt is undefined, we use Date.now()
 // this field is useful for testing only
-interface Parameters {
+interface Arguments {
   userId: string
   updatedAt?: number
 }
 
-export const setUserUpdatedAt = (args: Parameters): Promise<R.Result<WriteResult, Error>> =>
+export const setUserUpdatedAt = (args: Arguments): Promise<R.Result<WriteResult, Error>> =>
   // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   pipe(

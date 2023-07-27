@@ -1,26 +1,29 @@
-import { convertContract } from '../../converters/contract/convert-contract'
-import { ContractQuery } from '../../types/query/contract-query'
 import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { whereCollection } from '../../utils/collection/where-collection'
 import { CollectionName, FirestoreContractData } from '@echo/firestore'
-import { castAs, errorPromise } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
+import { castAsNonNullable, errorPromise } from '@echo/utils'
+import { QueryDocumentSnapshot } from '@google-cloud/firestore'
 import { andThen, head, ifElse, isEmpty, pipe } from 'ramda'
 
-export const findContractByAddressAndChainId = (
+interface ContractQuery {
+  address: string
+  chainId: number
+}
+
+export const getContractSnapshotByAddress = (
   query: ContractQuery
-): Promise<R.Result<FirestoreContractData, Error>> =>
+): Promise<QueryDocumentSnapshot<FirestoreContractData>> =>
   pipe(
-    getCollectionFromPath,
+    getCollectionFromPath<FirestoreContractData>,
     whereCollection('address', '==', query.address),
     whereCollection('chainId', '==', query.chainId),
-    getCollectionDocs,
+    getCollectionDocs<FirestoreContractData>,
     andThen(
       ifElse(
         isEmpty,
-        pipe(errorPromise<FirestoreContractData>('not found'), R.fromPromise<FirestoreContractData>),
-        pipe(head, castAs, convertContract, R.fromPromise<FirestoreContractData>)
+        errorPromise<QueryDocumentSnapshot<FirestoreContractData>>('contract not found'),
+        pipe(head<QueryDocumentSnapshot<FirestoreContractData>>, castAsNonNullable)
       )
     )
   )(CollectionName.CONTRACTS)
