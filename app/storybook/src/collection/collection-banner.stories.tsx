@@ -2,10 +2,10 @@ import { nftCollections } from '@echo/model'
 import { Banner as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Collection/Collection Banner',
   component: Component
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

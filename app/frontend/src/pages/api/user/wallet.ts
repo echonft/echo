@@ -1,13 +1,6 @@
 import { authOptions } from '../auth/[...nextauth]'
-import {
-  ApiRequest,
-  ErrorResponse,
-  walletHandler,
-  WalletRequest,
-  WalletResponse,
-  withMethodValidation,
-  withSession
-} from '@echo/api'
+import { walletHandler, withMethodValidation, withSession } from '@echo/api'
+import { ApiRequest, ErrorResponse, WalletRequest, WalletResponse } from '@echo/api/dist/types'
 import { NextApiResponse } from 'next'
 
 const wallet = async (req: ApiRequest<WalletRequest, never>, res: NextApiResponse<ErrorResponse | WalletResponse>) => {

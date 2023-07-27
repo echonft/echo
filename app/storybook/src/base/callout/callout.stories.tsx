@@ -1,7 +1,7 @@
 import { Callout as Component, CalloutSeverity, CalloutVariant } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Base/Callout',
   component: Component,
   argTypes: {
@@ -14,7 +14,7 @@ const metadata = {
       control: { type: 'radio' }
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

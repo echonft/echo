@@ -3,10 +3,10 @@ import { UserTag as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import { assoc } from 'ramda'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Layout/Header/User Tag',
   component: Component
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

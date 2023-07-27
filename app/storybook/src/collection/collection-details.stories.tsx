@@ -3,10 +3,10 @@ import { nftCollections } from '@echo/model'
 import { CollectionDetails as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Collection/Collection Details',
   component: Component
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

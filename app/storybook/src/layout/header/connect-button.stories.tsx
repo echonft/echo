@@ -1,7 +1,7 @@
 import { ConnectButton as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Layout/Header/Connect Button',
   component: Component,
   argTypes: {
@@ -10,7 +10,7 @@ const metadata = {
       action: 'clicked'
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

@@ -2,10 +2,10 @@ import { collectionProfilePictureUrl } from '../constants'
 import { ProfilePicture as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Collection/Collection Profile Picture',
   component: Component
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

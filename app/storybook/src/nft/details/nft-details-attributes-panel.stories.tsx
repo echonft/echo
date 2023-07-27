@@ -2,7 +2,7 @@ import { nfts } from '@echo/model'
 import { NftDetailsAttributesPanel as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Nft/Details/Attributes Panel',
   component: Component,
   parameters: {
@@ -10,7 +10,7 @@ const metadata = {
       exclude: 'attributes'
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

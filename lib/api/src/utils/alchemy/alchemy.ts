@@ -3,7 +3,7 @@ import { Alchemy, Network } from 'alchemy-sdk'
 
 export function getAlchemy() {
   const config = {
-    // TODO Should be it's own key
+    // TODO Should be its own key
     apiKey: process.env.ALCHEMY_API_KEY,
     network: isMainnet ? Network.ETH_MAINNET : Network.ETH_GOERLI
   }

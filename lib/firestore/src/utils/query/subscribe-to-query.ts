@@ -12,6 +12,8 @@ export const subscribeToQuery = <W>(query: Query, onNext: (models: Promise<W[]>)
       ifElse(
         isEmpty,
         () => castAs<W[]>([]),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         pipe(map(pipe(convertDefault, mapDefault)), promiseAll, castAs, andThen(onNext))
       )
     )(snapshot)

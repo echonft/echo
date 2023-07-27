@@ -1,7 +1,7 @@
 import { ButtonColorScheme, buttonSizes, buttonWidths, SizeMD, TextButton as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Base/Buttons/Text Button',
   component: Component,
   argTypes: {
@@ -27,7 +27,7 @@ const metadata = {
       exclude: 'disabled'
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

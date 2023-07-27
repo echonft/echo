@@ -30,7 +30,7 @@
     "next-auth": "^4.20.1"
   },
   "dependencies": {
-    "@echo/alchemy-v3": "workspace:*",
+    "@echo/alchemy": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/firebase-admin": "workspace:*",
     "@echo/firestore": "workspace:*",

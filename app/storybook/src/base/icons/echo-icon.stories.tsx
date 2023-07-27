@@ -1,7 +1,7 @@
 import { ColorYellow, EchoIcon as Component, echoIconColors, iconSizes, SizeSM } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Base/Icons/Echo Icon',
   component: Component,
   argTypes: {
@@ -14,7 +14,7 @@ const metadata = {
       control: { type: 'radio' }
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

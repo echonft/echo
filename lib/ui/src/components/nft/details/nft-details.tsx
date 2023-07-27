@@ -7,7 +7,6 @@ import { NftDetailsOffersPanel } from './nft-details-offers-panel'
 import { NftDetailsTokenDetailsPanel } from './nft-details-token-details-panel'
 import { Nft, Offer } from '@echo/model'
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
@@ -22,7 +21,7 @@ export const NftDetails: FunctionComponent<NftDetailsProps> = ({ nft, offers, on
   return (
     <div className={clsx('flex', 'flex-row', 'gap-12')}>
       <div className={clsx('flex', 'flex-col', 'flex-none', 'gap-10')}>
-        <Image
+        <img
           className={clsx('w-[33rem]', 'h-[33rem]', 'rounded-2xl')}
           // FIXME: Not sure if that's what you need here
           src={nft.pictureUrl.toString()}

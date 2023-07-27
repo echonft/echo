@@ -1,6 +1,5 @@
 import { DefaultCollectionProfilePicture } from './svg/default-collection-profile-picture'
 import { clsx } from 'clsx'
-import Image from 'next/image'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
@@ -20,7 +19,7 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({ collect
     )
   }
   return (
-    <Image
+    <img
       className={clsx('rounded-2xl', 'border-solid', 'border-3', 'border-yellow-500', 'w-40', 'h-40')}
       src={profilePictureUrl.href}
       alt={collectionName}

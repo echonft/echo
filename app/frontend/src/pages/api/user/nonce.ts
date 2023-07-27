@@ -1,5 +1,6 @@
 import { authOptions } from '../auth/[...nextauth]'
-import { ApiRequest, ErrorResponse, nonceHandler, NonceResponse, withMethodValidation, withSession } from '@echo/api'
+import { nonceHandler, withMethodValidation, withSession } from '@echo/api'
+import { ApiRequest, ErrorResponse, NonceResponse } from '@echo/api/dist/types'
 import { NextApiResponse } from 'next'
 
 const nonce = async (req: ApiRequest<null, never>, res: NextApiResponse<ErrorResponse | NonceResponse>) => {

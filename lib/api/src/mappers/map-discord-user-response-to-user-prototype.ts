@@ -8,6 +8,6 @@ export function mapDiscordUserResponseToUserPrototype(response: DiscordUserRespo
     discordUsername: join('#', [response.username, response.discriminator]),
     discordAvatar: response.avatar,
     discordBanner: response.banner,
-    discordGuildIds: map(prop('id'))(response.guilds ?? [])
+    discordGuildIds: map(prop<string>('id'))(response.guilds ?? [])
   }
 }

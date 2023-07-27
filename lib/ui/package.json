@@ -31,13 +31,17 @@
     "react-dom": "^18"
   },
   "dependencies": {
+    "@echo/alchemy": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/model": "workspace:*",
+    "@echo/swr": "workspace:*",
     "@echo/utils": "workspace:*",
     "@headlessui/react": "1.7.13",
+    "@mobily/ts-belt": "4.0.0-rc.5",
     "clsx": "1.2.1",
     "next-intl": "2.13.1",
-    "ramda": "0.29.0"
+    "ramda": "0.29.0",
+    "swr": "2.1.0"
   },
   "devDependencies": {
     "@headlessui/tailwindcss": "^0.1.3",

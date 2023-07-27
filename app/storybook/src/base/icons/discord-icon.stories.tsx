@@ -1,7 +1,7 @@
 import { DiscordIcon as Component, iconSizes, SizeMD } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Base/Icons/Discord Icon',
   component: Component,
   argTypes: {
@@ -10,7 +10,7 @@ const metadata = {
       control: { type: 'radio' }
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

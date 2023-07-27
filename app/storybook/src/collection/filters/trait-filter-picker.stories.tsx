@@ -1,10 +1,10 @@
 import { FiltersPanel, TraitFilterGroup, TraitFilterPicker as Component, TraitFilterPickerManager } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Collection/Filters/Trait Filter Picker',
   component: Component
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

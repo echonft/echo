@@ -2,7 +2,7 @@ import { contracts, nfts } from '@echo/model'
 import { NftDetailsTokenDetailsPanel as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const metadata = {
+const metadata: Meta<typeof Component> = {
   title: 'Nft/Details/Details Panel',
   component: Component,
   parameters: {
@@ -10,7 +10,7 @@ const metadata = {
       exclude: ['chainId', 'tokenId', 'tokenType']
     }
   }
-} satisfies Meta<typeof Component>
+}
 
 export default metadata
 

@@ -1,9 +1,9 @@
-import { idThrower } from '../../../../../utils/src/test/id-thrower'
 import {
   FirestoreNftCollectionData,
   FirestoreNftCollectionPrototype,
   nftCollectionFirestoreData
 } from '@echo/firestore'
+import { idThrower } from '@echo/utils'
 import { isNil } from 'ramda'
 
 export const createAndPopulateNftCollection = (
