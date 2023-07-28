@@ -1,4 +1,4 @@
-import { UpdateOfferAction } from '../../src/types/model/helper/update-offer-action'
+import { UpdateOfferAction } from '../../src/types/helper/update-offer-action'
 import { updateOfferRequestSchema } from '../../src/types/validators/update-offer-request'
 import { describe, expect, it } from '@jest/globals'
 

@@ -1,4 +1,4 @@
-import { UpdateOfferAction } from '../model/helper/update-offer-action'
+import { UpdateOfferAction } from '../helper/update-offer-action'
 import { idRequestSchema } from './id-request'
 import { z } from 'zod'
 

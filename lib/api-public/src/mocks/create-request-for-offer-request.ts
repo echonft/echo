@@ -1,4 +1,4 @@
-import { CreateRequestForOfferRequest } from '../../../types'
+import { CreateRequestForOfferRequest } from '../types/requests/create-request-for-offer-request'
 import { requestsForOffer } from '@echo/model'
 
 export const mockCreateRequestForOfferRequest: CreateRequestForOfferRequest = {

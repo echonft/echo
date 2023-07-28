@@ -1,4 +1,4 @@
-import { NftIdWithContractAddress } from '../../../types/model/helper/nft-id-with-contract-address'
+import { NftIdWithContractAddress } from '../../../types/helper/nft-id-with-contract-address'
 import { nftFirestoreData } from '@echo/firestore'
 import { Wallet } from '@echo/model'
 import { Alchemy } from 'alchemy-sdk'

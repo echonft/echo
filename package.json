@@ -67,7 +67,6 @@
     "lint-staged": "13.2.0",
     "npm-check-updates": "16.7.12",
     "prettier": "2.8.4",
-    "tsup": "6.7.0",
     "turbo": "1.10.12",
     "vercel": "30.2.1"
   },

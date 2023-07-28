@@ -1,14 +1,17 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createRequestForOfferHandler } from '../../src/handlers/request-for-offer/create-request-for-offer-handler'
-import { CreateRequestForOfferRequest, RequestForOfferResponse } from '../../src/types'
+import { mockAddRequestForOffer } from '../../src/mocks/firebase-admin/add-request-for-offer'
+import { mockFindDiscordGuildById } from '../../src/mocks/firebase-admin/find-discord-guild-by-id'
+import { mockFindNftsByIds } from '../../src/mocks/firebase-admin/find-nfts-by-ids'
+import { promiseResultError } from '../../src/mocks/promise-result-error'
+import { promiseResultRejecter } from '../../src/mocks/promise-result-rejecter'
 import * as walletOwnToken from '../../src/utils/alchemy/wallets-own-tokens'
-import { mockAddRequestForOffer } from '../../src/utils/test/mocks/firebase-admin/add-request-for-offer'
-import { mockFindDiscordGuildById } from '../../src/utils/test/mocks/firebase-admin/find-discord-guild-by-id'
-import { mockFindNftsByIds } from '../../src/utils/test/mocks/firebase-admin/find-nfts-by-ids'
-import { promiseResultError } from '../../src/utils/test/mocks/promise-result-error'
-import { promiseResultRejecter } from '../../src/utils/test/mocks/promise-result-rejecter'
-import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
-import { mockSession } from '../../src/utils/test/mocks/session'
+import {
+  CreateRequestForOfferRequest,
+  mockRequestResponse,
+  mockSession,
+  RequestForOfferResponse
+} from '@echo/api-public'
 import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@echo/firebase-admin'
 import { requestForOfferFirestoreData } from '@echo/firestore'
 import { nfts } from '@echo/model'

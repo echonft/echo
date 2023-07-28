@@ -1,9 +1,8 @@
-import { UpdateOfferRequest } from '../../src/types/model/requests/update-offer-request'
+import { mockFindOfferById } from '../../src/mocks/firebase-admin/find-offer-by-id'
+import { mockUpdateOfferActivities } from '../../src/mocks/firebase-admin/update-offer-activities'
+import { mockUpdateRequestForOfferActivities } from '../../src/mocks/firebase-admin/update-request-for-offer-activities'
 import { updateOfferState } from '../../src/utils/handler/update-offer-state'
-import { mockFindOfferById } from '../../src/utils/test/mocks/firebase-admin/find-offer-by-id'
-import { mockUpdateOfferActivities } from '../../src/utils/test/mocks/firebase-admin/update-offer-activities'
-import { mockUpdateRequestForOfferActivities } from '../../src/utils/test/mocks/firebase-admin/update-request-for-offer-activities'
-import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
+import { mockRequestResponse, UpdateOfferRequest } from '@echo/api-public'
 import {
   findOfferById,
   findRequestForOfferByOfferId,

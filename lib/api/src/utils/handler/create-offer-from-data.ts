@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { mapNftToId } from '../../mappers/map-nft-to-id'
 import { mapNftToNftIdWithContractAddress } from '../../mappers/map-nft-to-nft-id-with-contract-address'
-import { ErrorResponse } from '../../types'
 import { getAlchemy } from '../alchemy/alchemy'
 import { walletsOwnTokens } from '../alchemy/wallets-own-tokens'
 import { userIsInGuild } from './user-is-in-guild'
+import { ErrorResponse } from '@echo/api-public'
 import { addOffer, findNftsByIds, updateRequestForOfferOffers } from '@echo/firebase-admin'
 import { FirestoreDiscordGuildData, FirestoreOfferData, FirestoreUserData } from '@echo/firestore'
 import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'

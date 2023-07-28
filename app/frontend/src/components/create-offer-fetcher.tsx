@@ -1,4 +1,4 @@
-import { mockCreateRequestForOfferRequest } from '@echo/api/dist/public'
+import { mockCreateRequestForOfferRequest } from '@echo/api-public'
 import { useCreateRequestForOffer } from '@lib/hooks/use-create-request-for-offer'
 import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'

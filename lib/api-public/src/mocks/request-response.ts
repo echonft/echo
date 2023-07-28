@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ApiRequest } from '../../../types/model/api-requests/api-request'
-import { ErrorResponse } from '../../../types/model/responses/error-response'
+import { ApiRequest } from '../types/api-requests/api-request'
+import { ErrorResponse } from '../types/responses/error-response'
 import { NextApiResponse } from 'next'
 import { Body, createMocks, Headers, MockRequest, MockResponse, RequestMethod } from 'node-mocks-http'
 

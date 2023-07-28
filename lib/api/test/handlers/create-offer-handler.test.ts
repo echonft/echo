@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createOfferHandler } from '../../src/handlers/offer/create-offer-handler'
-import { CreateOfferRequest } from '../../src/types/model/requests/create-offer-request'
-import { OfferResponse } from '../../src/types/model/responses/offer-response'
-import { mockAddOffer } from '../../src/utils/test/mocks/firebase-admin/add-offer'
-import { mockFindDiscordGuildById } from '../../src/utils/test/mocks/firebase-admin/find-discord-guild-by-id'
-import { mockFindRequestForOfferById } from '../../src/utils/test/mocks/firebase-admin/find-request-for-offer-by-id'
-import { mockFindUserById } from '../../src/utils/test/mocks/firebase-admin/find-user-by-id'
-import { mockUpdateRequestForOfferOffers } from '../../src/utils/test/mocks/firebase-admin/update-request-for-offer-offers'
-import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
-import { mockSession } from '../../src/utils/test/mocks/session'
+import { mockAddOffer } from '../../src/mocks/firebase-admin/add-offer'
+import { mockFindDiscordGuildById } from '../../src/mocks/firebase-admin/find-discord-guild-by-id'
+import { mockFindRequestForOfferById } from '../../src/mocks/firebase-admin/find-request-for-offer-by-id'
+import { mockFindUserById } from '../../src/mocks/firebase-admin/find-user-by-id'
+import { mockUpdateRequestForOfferOffers } from '../../src/mocks/firebase-admin/update-request-for-offer-offers'
+import { CreateOfferRequest, mockRequestResponse, mockSession, OfferResponse } from '@echo/api-public'
 import {
   addOffer,
   findDiscordGuildById,

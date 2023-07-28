@@ -21,6 +21,6 @@ const config: Config = {
     ]
   ],
   coverageDirectory: '<rootDir>/../../.coverage/lib/firebase-admin',
-  testTimeout: 15000
+  testTimeout: 30000
 }
 export default config

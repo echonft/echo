@@ -1,4 +1,4 @@
-import { ErrorResponse } from '../../../types'
+import { ErrorResponse } from '@echo/api-public'
 import { FirestoreDiscordGuildData, FirestoreOfferData, FirestoreUserData, offerFirestoreData } from '@echo/firestore'
 import { NextApiResponse } from 'next'
 

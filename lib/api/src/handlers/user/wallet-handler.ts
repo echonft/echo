@@ -1,12 +1,10 @@
 import { RequestHandler } from '../../types/handlers/request-handler'
-import { ApiRequest } from '../../types/model/api-requests/api-request'
-import { WalletRequest } from '../../types/model/requests/wallet-request'
-import { WalletResponse } from '../../types/model/responses/wallet-response'
 import { addWalletSchema } from '../../types/validators/add-wallet'
 import { removeWalletsSchema } from '../../types/validators/remove-wallets'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { createWalletHandler } from './create-wallet-handler'
 import { deleteWalletHandler } from './delete-wallet-handler'
+import { ApiRequest, WalletRequest, WalletResponse } from '@echo/api-public'
 import { isNil } from 'ramda'
 import { SiweMessage } from 'siwe'
 

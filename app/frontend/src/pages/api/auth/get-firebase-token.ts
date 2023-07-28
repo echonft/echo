@@ -1,6 +1,6 @@
 import { authOptions } from './[...nextauth]'
 import { getFirebaseTokenHandler, withMethodValidation, withSession } from '@echo/api'
-import { ApiRequest, ErrorResponse, FirebaseTokenResponse } from '@echo/api/dist/types'
+import { ApiRequest, ErrorResponse, FirebaseTokenResponse } from '@echo/api-public'
 import { logger } from '@echo/utils'
 import { NextApiResponse } from 'next'
 
