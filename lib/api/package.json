@@ -38,7 +38,6 @@
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@mobily/ts-belt": "4.0.0-rc.5",
-    "alchemy-sdk": "2.6.1",
     "dayjs": "1.11.7",
     "ethers": "5.7.2",
     "ramda": "0.29.0",

@@ -1,10 +1,9 @@
 import { mapNftToNftIdWithContractAddress } from '../../mappers/map-nft-to-nft-id-with-contract-address'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { createRequestForOfferSchema } from '../../types/validators/create-request-for-offer'
-import { getAlchemy } from '../../utils/alchemy/alchemy'
-import { walletsOwnTokens } from '../../utils/alchemy/wallets-own-tokens'
 import { userIsInGuild } from '../../utils/handler/user-is-in-guild'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
+import { areNftsOwnedByWallets } from '@echo/alchemy'
 import { ApiRequest, CreateRequestForOfferRequest } from '@echo/api-public'
 import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@echo/firebase-admin'
 import { FirestoreRequestForOfferData } from '@echo/firestore'
@@ -40,9 +39,9 @@ export const createRequestForOfferHandler: RequestHandler<
               return
             }
             const nfts = map(R.getExn, nftResults)
-            return walletsOwnTokens(getAlchemy(), user.wallets, map(mapNftToNftIdWithContractAddress, nfts))
-              .then((userOwnsAllNfts) => {
-                if (!userOwnsAllNfts) {
+            return areNftsOwnedByWallets({ wallets: user.wallets, nfts: map(mapNftToNftIdWithContractAddress, nfts) })
+              .then((result) => {
+                if (R.isError(result) || !R.getExn(result)) {
                   res.end(res.status(401).json({ error: 'User does not own all the NFTs to offer' }))
                   return
                 }

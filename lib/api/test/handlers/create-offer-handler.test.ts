@@ -21,8 +21,6 @@ import dayjs from 'dayjs'
 import { omit } from 'ramda'
 
 jest.mock('@echo/firebase-admin')
-jest.mock('../../src/utils/alchemy/wallets-own-tokens')
-jest.mock('../../src/utils/alchemy/alchemy')
 jest.mock('../../src/utils/handler/create-offer-from-data')
 
 describe('handlers - offer - createOfferHandler', () => {
