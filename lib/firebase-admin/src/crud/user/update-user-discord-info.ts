@@ -8,7 +8,7 @@ import { always, andThen, isNil, pipe } from 'ramda'
 export const updateUserDiscordInfo = (userId: string, userPrototype: FirestoreUserPrototype) => {
   const userRef = getDocRefFromPath<FirestoreUser>(CollectionName.USERS, userId)
   if (isNil(userRef)) {
-    return R.fromPromise(Promise.reject('User not found'))
+    return R.fromPromise(Promise.reject('user not found'))
   }
   return getFirestoreDiscordGuildRefsByDiscordIds(userPrototype.discordGuildIds).then((guilds) =>
     userRef

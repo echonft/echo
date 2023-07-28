@@ -1,5 +1,4 @@
-import { ApiRoutes, getApiRouteUrl } from '@echo/api/dist/public'
-import { WalletRequest, WalletResponse } from '@echo/api/dist/types'
+import { ApiRoutes, getApiRouteUrl, WalletRequest, WalletResponse } from '@echo/api-public'
 import { Signature, Wallet } from '@echo/model'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { castAs, isNilOrEmpty, putData } from '@echo/utils'

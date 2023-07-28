@@ -1,7 +1,6 @@
 import { RequestHandler } from '../../types/handlers/request-handler'
-import { ApiRequest } from '../../types/model/api-requests/api-request'
-import { NonceResponse } from '../../types/model/responses/nonce-response'
 import { validateSession } from '../../utils/handler/validate-session'
+import { ApiRequest, NonceResponse } from '@echo/api-public'
 import { setNonceForUser } from '@echo/firebase-admin'
 import { isNil } from 'ramda'
 

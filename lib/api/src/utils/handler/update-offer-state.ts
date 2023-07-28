@@ -1,6 +1,6 @@
 import { mapActivityToFirestoreData } from '../../mappers/map-activity-to-firestore-data'
-import { ErrorResponse } from '../../types'
 import { checkRequestForOfferStatus } from './check-request-for-offer-status'
+import { ErrorResponse } from '@echo/api-public'
 import {
   findOfferById,
   findRequestForOfferByOfferId,

@@ -1,8 +1,6 @@
 import { getFirebaseTokenHandler } from '../../src/handlers/auth/get-firebase-token-handler'
-import { FirebaseTokenResponse } from '../../src/types'
 import { createCustomToken } from '../../src/utils/auth/create-custom-token'
-import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
-import { mockSession } from '../../src/utils/test/mocks/session'
+import { FirebaseTokenResponse, mockRequestResponse, mockSession } from '@echo/api-public'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../src/utils/auth/create-custom-token')

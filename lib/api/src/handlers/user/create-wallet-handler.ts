@@ -1,5 +1,4 @@
-import { ErrorResponse } from '../../types/model/responses/error-response'
-import { WalletResponse } from '../../types/model/responses/wallet-response'
+import { ErrorResponse, WalletResponse } from '@echo/api-public'
 import { findNonceForUser, findUserByWallet, updateUserWallets } from '@echo/firebase-admin'
 import { FirestoreUserData, FirestoreWalletData } from '@echo/firestore'
 import { walletEquals } from '@echo/model'

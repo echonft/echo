@@ -7,8 +7,6 @@ export { createRequestForOfferHandler } from './handlers/request-for-offer/creat
 export { nonceHandler } from './handlers/user/nonce-handler'
 export { walletHandler } from './handlers/user/wallet-handler'
 export { createOrUpdateUser } from './utils/auth/create-or-update-user'
-export { mockRequestResponse } from './utils/test/mocks/request-response'
-export { mockSession } from './utils/test/mocks/session'
 export { withAdmin } from './utils/with-admin'
 export { withMethodValidation } from './utils/with-method-validation'
 export { withSession } from './utils/with-session'

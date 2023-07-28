@@ -1,8 +1,7 @@
 import { RequestHandler } from '../../types/handlers/request-handler'
-import { ApiRequest } from '../../types/model/api-requests/api-request'
-import { FirebaseTokenResponse } from '../../types/model/responses/firebase-token-response'
 import { createCustomToken } from '../../utils/auth/create-custom-token'
 import { validateSession } from '../../utils/handler/validate-session'
+import { ApiRequest, FirebaseTokenResponse } from '@echo/api-public'
 import { isNil } from 'ramda'
 
 export const getFirebaseTokenHandler: RequestHandler<ApiRequest<null, never>, FirebaseTokenResponse> = async (

@@ -1,6 +1,6 @@
-import { CreateDiscordRequest } from '../../types'
 import { createAndPopulateNftCollection } from './create-and-populate-nft-collection'
 import { fetchContractMetadataFromRequest } from './fetch-contract-metadata-from-request'
+import { CreateDiscordRequest } from '@echo/api-public'
 import { addDiscordGuildAndContracts } from '@echo/firebase-admin'
 import { FirestoreContractPrototype, FirestoreNftCollectionPrototype } from '@echo/firestore'
 import { R } from '@mobily/ts-belt'

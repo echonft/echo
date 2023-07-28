@@ -1,4 +1,4 @@
-import { ErrorResponse } from '../../types'
+import { ErrorResponse } from '@echo/api-public'
 import { NextApiResponse } from 'next'
 import { Session } from 'next-auth'
 import { isNil } from 'ramda'

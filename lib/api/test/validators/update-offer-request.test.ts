@@ -1,5 +1,5 @@
-import { UpdateOfferAction } from '../../src/types/model/helper/update-offer-action'
 import { updateOfferRequestSchema } from '../../src/types/validators/update-offer-request'
+import { UpdateOfferAction } from '@echo/api-public'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - updateOfferRequest', () => {

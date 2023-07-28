@@ -74,7 +74,13 @@
     },
     "@echo/api#build": {
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_API_URL", "NEXTAUTH_URL_INTERNAL", "NEXTAUTH_URL", "ADMIN_API_KEY"],
+      "env": ["NEXTAUTH_URL_INTERNAL", "NEXTAUTH_URL", "ADMIN_API_KEY"],
+      "outputs": ["dist/**"],
+      "inputs": ["src/**/*.ts"]
+    },
+    "@echo/api-public#build": {
+      "dependsOn": ["^build"],
+      "env": ["NEXT_PUBLIC_API_URL"],
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
     },
