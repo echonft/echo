@@ -5,7 +5,7 @@ import { mockFindDiscordGuildById } from '../../src/mocks/firebase-admin/find-di
 import { mockFindNftsByIds } from '../../src/mocks/firebase-admin/find-nfts-by-ids'
 import { promiseResultError } from '../../src/mocks/promise-result-error'
 import { promiseResultRejecter } from '../../src/mocks/promise-result-rejecter'
-import * as walletOwnToken from '../../src/utils/alchemy/wallets-own-tokens'
+import * as alchemy from '@echo/alchemy'
 import {
   CreateRequestForOfferRequest,
   mockRequestResponse,
@@ -16,16 +16,16 @@ import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@e
 import { requestForOfferFirestoreData } from '@echo/firestore'
 import { nfts } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
+import { R } from '@mobily/ts-belt'
 import { omit } from 'ramda'
 
 jest.mock('@echo/firebase-admin')
-jest.mock('../../src/utils/alchemy/wallets-own-tokens')
-jest.mock('../../src/utils/alchemy/alchemy')
 
 describe('handlers - user - createRequestForOfferHandler', () => {
-  let mockedWalletsOwnTokens = jest
-    .spyOn(walletOwnToken, 'walletsOwnTokens')
-    .mockImplementation(() => Promise.resolve(true))
+  const mockedWalletsOwnTokens = jest
+    .spyOn(alchemy, 'areNftsOwnedByWallets')
+    // @ts-ignore
+    .mockImplementation(() => Promise.resolve(R.fromNullable(true, 'should not happen')))
   const mockedAddRequestForOffer = jest.mocked(addRequestForOffer).mockImplementation(mockAddRequestForOffer)
   jest.mocked(findDiscordGuildByGuildId).mockImplementation(mockFindDiscordGuildById)
   jest.mocked(findNftsByIds).mockImplementation(mockFindNftsByIds)
@@ -36,11 +36,9 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     items: [nfts['QFjMRNChUAHNswkRADXh']!.id],
     target: [{ chainId: 1, address: '0xEf1c6E67703c7BD7107eed8303Fbe6EC2554BF6B' }]
   }
+
   beforeEach(() => {
     jest.clearAllMocks()
-    mockedWalletsOwnTokens = jest
-      .spyOn(walletOwnToken, 'walletsOwnTokens')
-      .mockImplementation(() => Promise.resolve(true))
   })
 
   it('if not authenticated, returns 401', async () => {
@@ -109,7 +107,8 @@ describe('handlers - user - createRequestForOfferHandler', () => {
       undefined,
       mockedRequest
     )
-    mockedWalletsOwnTokens.mockResolvedValueOnce(false)
+    // @ts-ignore
+    mockedWalletsOwnTokens.mockResolvedValueOnce(R.fromNullable(false, ''))
     await createRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'User does not own all the NFTs to offer' })

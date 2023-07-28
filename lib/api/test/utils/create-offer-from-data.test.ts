@@ -1,23 +1,24 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { mockAddOffer } from '../../src/mocks/firebase-admin/add-offer'
 import { mockFindNftsByIds } from '../../src/mocks/firebase-admin/find-nfts-by-ids'
 import { mockUpdateRequestForOfferOffers } from '../../src/mocks/firebase-admin/update-request-for-offer-offers'
 import { promiseResultError } from '../../src/mocks/promise-result-error'
 import { promiseResultRejecter } from '../../src/mocks/promise-result-rejecter'
-import * as walletOwnToken from '../../src/utils/alchemy/wallets-own-tokens'
 import { createOfferFromData } from '../../src/utils/handler/create-offer-from-data'
+import * as alchemy from '@echo/alchemy'
 import { CreateOfferRequest, mockRequestResponse } from '@echo/api-public'
 import { addOffer, findNftsByIds, updateRequestForOfferOffers } from '@echo/firebase-admin'
 import { discordGuildFirestoreData, FirestoreOfferData, offerFirestoreData, userFirestoreData } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
+import { R } from '@mobily/ts-belt'
 
 jest.mock('@echo/firebase-admin')
-jest.mock('../../src/utils/alchemy/wallets-own-tokens')
-jest.mock('../../src/utils/alchemy/alchemy')
 
 describe('utils - handler - createOfferFromData', () => {
   let mockedWalletsOwnTokens = jest
-    .spyOn(walletOwnToken, 'walletsOwnTokens')
-    .mockImplementation(() => Promise.resolve(true))
+    .spyOn(alchemy, 'areNftsOwnedByWallets')
+    // @ts-ignore
+    .mockImplementation(() => Promise.resolve(R.fromNullable(true, 'should not happen')))
   const mockedAddOffer = jest.mocked(addOffer).mockImplementation(mockAddOffer)
   jest.mocked(updateRequestForOfferOffers).mockImplementation(mockUpdateRequestForOfferOffers)
   jest.mocked(findNftsByIds).mockImplementation(mockFindNftsByIds)
@@ -31,10 +32,11 @@ describe('utils - handler - createOfferFromData', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
-    // Need to remock the method on `spyOn`
+    // need to be defaults to this for every tests
     mockedWalletsOwnTokens = jest
-      .spyOn(walletOwnToken, 'walletsOwnTokens')
-      .mockImplementation(() => Promise.resolve(true))
+      .spyOn(alchemy, 'areNftsOwnedByWallets')
+      // @ts-ignore
+      .mockImplementation(() => Promise.resolve(R.fromNullable(true, 'should not happen')))
   })
 
   it('if receiver has no wallets, returns 401', async () => {
@@ -95,7 +97,8 @@ describe('utils - handler - createOfferFromData', () => {
   })
   it('if walletsOwnTokens fails, returns 401', async () => {
     const { res } = mockRequestResponse<CreateOfferRequest, never, FirestoreOfferData>('GET')
-    mockedWalletsOwnTokens.mockImplementation(() => Promise.resolve(false))
+    // @ts-ignore
+    mockedWalletsOwnTokens.mockImplementation(() => Promise.resolve(R.fromNullable(false, 'should not happen')))
     await createOfferFromData(mockUser, mockSenderItems, mockUser, mockReceiverItems, discordGuild, res)
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'Users do not own all the NFTs' })
