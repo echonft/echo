@@ -1,6 +1,5 @@
 import { deleteWalletHandler } from '../../src/handlers/user/delete-wallet-handler'
-import { WalletResponse } from '../../src/types/model/responses/wallet-response'
-import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
+import { mockRequestResponse, WalletResponse } from '@echo/api-public'
 import { updateUserWallets } from '@echo/firebase-admin'
 import { userFirestoreData } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'

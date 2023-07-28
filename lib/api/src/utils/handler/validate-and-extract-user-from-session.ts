@@ -1,5 +1,5 @@
-import { ErrorResponse } from '../../types'
 import { validateSession } from './validate-session'
+import { ErrorResponse } from '@echo/api-public'
 import { FirestoreUserData } from '@echo/firestore'
 import { NextApiResponse } from 'next'
 import { Session } from 'next-auth'

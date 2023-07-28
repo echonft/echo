@@ -1,6 +1,6 @@
-import { successHandler } from '../../src/utils/test/mocks/handler'
-import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
+import { successHandler } from '../../src/mocks/handler'
 import { withAdmin } from '../../src/utils/with-admin'
+import { mockRequestResponse } from '@echo/api-public'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../src/utils/auth/get-admin-api-key')

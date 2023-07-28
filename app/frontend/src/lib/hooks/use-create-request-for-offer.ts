@@ -1,5 +1,10 @@
-import { ApiRoutes, getApiRouteUrl } from '@echo/api/dist/public'
-import { CreateRequestForOfferRequest, RequestForOfferResponse, TargetRequest } from '@echo/api/dist/types'
+import {
+  ApiRoutes,
+  CreateRequestForOfferRequest,
+  getApiRouteUrl,
+  RequestForOfferResponse,
+  TargetRequest
+} from '@echo/api-public'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { castAs, isNilOrEmpty, putData } from '@echo/utils'
 import { R } from '@mobily/ts-belt'

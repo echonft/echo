@@ -1,5 +1,4 @@
-import { ApiRoutes, getApiRouteUrl } from '@echo/api/dist/public'
-import { FirebaseTokenResponse } from '@echo/api/dist/types'
+import { ApiRoutes, FirebaseTokenResponse, getApiRouteUrl } from '@echo/api-public'
 import { useFirebaseAuth } from '@echo/firebase-react'
 import { getUrl, logger } from '@echo/utils'
 import { R } from '@mobily/ts-belt'

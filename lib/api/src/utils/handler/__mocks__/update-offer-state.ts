@@ -1,5 +1,5 @@
 import { mapActivityToFirestoreData } from '../../../mappers/map-activity-to-firestore-data'
-import { ErrorResponse } from '../../../types'
+import { ErrorResponse } from '@echo/api-public'
 import { FirestoreOfferData, FirestoreUserData, offerFirestoreData } from '@echo/firestore'
 import { generateOfferActivity, OfferState } from '@echo/model'
 import { castAs } from '@echo/utils'

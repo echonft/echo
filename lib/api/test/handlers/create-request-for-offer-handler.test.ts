@@ -1,28 +1,31 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createRequestForOfferHandler } from '../../src/handlers/request-for-offer/create-request-for-offer-handler'
-import { CreateRequestForOfferRequest, RequestForOfferResponse } from '../../src/types'
-import * as walletOwnToken from '../../src/utils/alchemy/wallets-own-tokens'
-import { mockAddRequestForOffer } from '../../src/utils/test/mocks/firebase-admin/add-request-for-offer'
-import { mockFindDiscordGuildById } from '../../src/utils/test/mocks/firebase-admin/find-discord-guild-by-id'
-import { mockFindNftsByIds } from '../../src/utils/test/mocks/firebase-admin/find-nfts-by-ids'
-import { promiseResultError } from '../../src/utils/test/mocks/promise-result-error'
-import { promiseResultRejecter } from '../../src/utils/test/mocks/promise-result-rejecter'
-import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
-import { mockSession } from '../../src/utils/test/mocks/session'
+import { mockAddRequestForOffer } from '../../src/mocks/firebase-admin/add-request-for-offer'
+import { mockFindDiscordGuildById } from '../../src/mocks/firebase-admin/find-discord-guild-by-id'
+import { mockFindNftsByIds } from '../../src/mocks/firebase-admin/find-nfts-by-ids'
+import { promiseResultError } from '../../src/mocks/promise-result-error'
+import { promiseResultRejecter } from '../../src/mocks/promise-result-rejecter'
+import * as alchemy from '@echo/alchemy'
+import {
+  CreateRequestForOfferRequest,
+  mockRequestResponse,
+  mockSession,
+  RequestForOfferResponse
+} from '@echo/api-public'
 import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@echo/firebase-admin'
 import { requestForOfferFirestoreData } from '@echo/firestore'
 import { nfts } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
+import { R } from '@mobily/ts-belt'
 import { omit } from 'ramda'
 
 jest.mock('@echo/firebase-admin')
-jest.mock('../../src/utils/alchemy/wallets-own-tokens')
-jest.mock('../../src/utils/alchemy/alchemy')
 
 describe('handlers - user - createRequestForOfferHandler', () => {
-  let mockedWalletsOwnTokens = jest
-    .spyOn(walletOwnToken, 'walletsOwnTokens')
-    .mockImplementation(() => Promise.resolve(true))
+  const mockedWalletsOwnTokens = jest
+    .spyOn(alchemy, 'areNftsOwnedByWallets')
+    // @ts-ignore
+    .mockImplementation(() => Promise.resolve(R.fromNullable(true, 'should not happen')))
   const mockedAddRequestForOffer = jest.mocked(addRequestForOffer).mockImplementation(mockAddRequestForOffer)
   jest.mocked(findDiscordGuildByGuildId).mockImplementation(mockFindDiscordGuildById)
   jest.mocked(findNftsByIds).mockImplementation(mockFindNftsByIds)
@@ -33,11 +36,9 @@ describe('handlers - user - createRequestForOfferHandler', () => {
     items: [nfts['QFjMRNChUAHNswkRADXh']!.id],
     target: [{ chainId: 1, address: '0xEf1c6E67703c7BD7107eed8303Fbe6EC2554BF6B' }]
   }
+
   beforeEach(() => {
     jest.clearAllMocks()
-    mockedWalletsOwnTokens = jest
-      .spyOn(walletOwnToken, 'walletsOwnTokens')
-      .mockImplementation(() => Promise.resolve(true))
   })
 
   it('if not authenticated, returns 401', async () => {
@@ -106,7 +107,8 @@ describe('handlers - user - createRequestForOfferHandler', () => {
       undefined,
       mockedRequest
     )
-    mockedWalletsOwnTokens.mockResolvedValueOnce(false)
+    // @ts-ignore
+    mockedWalletsOwnTokens.mockResolvedValueOnce(R.fromNullable(false, ''))
     await createRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'User does not own all the NFTs to offer' })

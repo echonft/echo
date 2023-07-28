@@ -24,6 +24,7 @@
   "dependencies": {
     "@echo/alchemy": "workspace:*",
     "@echo/api": "workspace:*",
+    "@echo/api-public": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/firebase-react": "workspace:*",
     "@echo/model": "workspace:*",
@@ -31,7 +32,6 @@
     "@echo/utils": "workspace:*",
     "@headlessui/react": "1.7.13",
     "@mobily/ts-belt": "4.0.0-rc.5",
-    "alchemy-sdk": "2.6.1",
     "clsx": "1.2.1",
     "connectkit": "1.2.2",
     "ethers": "5.7.2",

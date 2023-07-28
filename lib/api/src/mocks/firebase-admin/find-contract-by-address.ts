@@ -1,4 +1,4 @@
-import { TargetRequest } from '../../../../types'
+import { TargetRequest } from '@echo/api-public'
 import { contractFirestoreData, FirestoreContractData } from '@echo/firestore'
 import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'

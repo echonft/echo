@@ -1,6 +1,6 @@
 import { authOptions } from '../auth/[...nextauth]'
 import { createRequestForOfferHandler, withMethodValidation, withSession } from '@echo/api'
-import { ApiRequest, CreateRequestForOfferRequest, ErrorResponse, RequestForOfferResponse } from '@echo/api/dist/types'
+import { ApiRequest, CreateRequestForOfferRequest, ErrorResponse, RequestForOfferResponse } from '@echo/api-public'
 import { NextApiResponse } from 'next'
 
 const createRequestForOffer = async (

@@ -1,4 +1,4 @@
-import { RequestHandler } from '../../../types/handlers/request-handler'
+import { RequestHandler } from '../types/handlers/request-handler'
 import { NextApiRequest } from 'next'
 
 export const successHandler: RequestHandler<NextApiRequest, object> = (_req, res) =>

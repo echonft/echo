@@ -1,7 +1,11 @@
 import createRequestForOffer from '../create'
 import * as api from '@echo/api'
-import { mockRequestResponse, mockSession } from '@echo/api'
-import { CreateRequestForOfferRequest, RequestForOfferResponse } from '@echo/api/dist/types'
+import {
+  CreateRequestForOfferRequest,
+  mockRequestResponse,
+  mockSession,
+  RequestForOfferResponse
+} from '@echo/api-public'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { getServerSession } from 'next-auth'
 

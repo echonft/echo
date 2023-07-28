@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { mapNftToId } from '../../mappers/map-nft-to-id'
 import { mapNftToNftIdWithContractAddress } from '../../mappers/map-nft-to-nft-id-with-contract-address'
-import { ErrorResponse } from '../../types'
-import { getAlchemy } from '../alchemy/alchemy'
-import { walletsOwnTokens } from '../alchemy/wallets-own-tokens'
 import { userIsInGuild } from './user-is-in-guild'
+import { areNftsOwnedByWallets } from '@echo/alchemy'
+import { ErrorResponse } from '@echo/api-public'
 import { addOffer, findNftsByIds, updateRequestForOfferOffers } from '@echo/firebase-admin'
 import { FirestoreDiscordGuildData, FirestoreOfferData, FirestoreUserData } from '@echo/firestore'
 import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
@@ -20,6 +19,7 @@ import { any, isNil, map } from 'ramda'
  * @param receiverItems
  * @param discordGuild
  * @param res
+ * @param requestForOfferId
  */
 export function createOfferFromData(
   sender: FirestoreUserData,
@@ -48,12 +48,15 @@ export function createOfferFromData(
           const senderNfts = map(R.getExn, usersNftsResult[0])
           const receiverNfts = map(R.getExn, usersNftsResult[1])
           return Promise.all([
-            walletsOwnTokens(getAlchemy(), sender.wallets, map(mapNftToNftIdWithContractAddress, senderNfts)),
-            walletsOwnTokens(getAlchemy(), receiver.wallets, map(mapNftToNftIdWithContractAddress, receiverNfts))
+            areNftsOwnedByWallets({ wallets: sender.wallets, nfts: map(mapNftToNftIdWithContractAddress, senderNfts) }),
+            areNftsOwnedByWallets({
+              wallets: receiver.wallets,
+              nfts: map(mapNftToNftIdWithContractAddress, receiverNfts)
+            })
           ])
             .then((usersOwnsAllNfts) => {
               // If one of them do not own the NFTs for the offer, reject
-              if (usersOwnsAllNfts.some((userOwnsAllNfts) => !userOwnsAllNfts)) {
+              if (usersOwnsAllNfts.some((result) => R.isError(result) || !R.getExn(result))) {
                 res.end(res.status(401).json({ error: 'Users do not own all the NFTs' }))
                 return
               }

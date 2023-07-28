@@ -1,6 +1,8 @@
+export { areNftsOwnedByWallets } from './services/are-nfts-owned-by-wallets'
 export { getContractMetadata } from './services/get-contract-metadata'
 export { getNftsForContract } from './services/get-nfts-for-contract'
 export { getNftsForOwner } from './services/get-nfts-for-owner'
 export { GetNftsForOwnerRequest } from './types/request/get-nfts-for-owner-request'
+export { GetOwnersForNftRequest } from './types/request/get-owners-for-nft-request'
 export { GetContractMetadataResponse } from './types/response/get-contract-metadata-response'
 export { GetNftResponse } from './types/response/get-nft-response'

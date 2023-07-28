@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createWalletHandler } from '../../src/handlers/user/create-wallet-handler'
-import { WalletResponse } from '../../src/types/model/responses/wallet-response'
-import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
+import { mockRequestResponse, WalletResponse } from '@echo/api-public'
 import { findNonceForUser, findUserByWallet, updateUserWallets } from '@echo/firebase-admin'
 import { userFirestoreData } from '@echo/firestore'
 import { Signature } from '@echo/model'

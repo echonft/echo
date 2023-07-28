@@ -1,6 +1,6 @@
-import { TargetRequest } from '../../../types'
-import { mockGetContractMetadata } from '../../test/mocks/alchemy/get-contract-metadata'
+import { mockGetContractMetadata } from '../../../mocks/alchemy/get-contract-metadata'
 import { GetContractMetadataResponse } from '@echo/alchemy'
+import { TargetRequest } from '@echo/api-public'
 import { idThrower } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
 

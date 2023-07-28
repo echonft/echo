@@ -1,7 +1,5 @@
 import { nonceHandler } from '../../src/handlers/user/nonce-handler'
-import { NonceResponse } from '../../src/types/model/responses/nonce-response'
-import { mockRequestResponse } from '../../src/utils/test/mocks/request-response'
-import { mockSession } from '../../src/utils/test/mocks/session'
+import { mockRequestResponse, mockSession, NonceResponse } from '@echo/api-public'
 import { setNonceForUser } from '@echo/firebase-admin'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 

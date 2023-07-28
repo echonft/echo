@@ -1,5 +1,5 @@
-import { UpdateOfferAction } from '../model/helper/update-offer-action'
 import { idRequestSchema } from './id-request'
+import { UpdateOfferAction } from '@echo/api-public'
 import { z } from 'zod'
 
 export const updateOfferRequestSchema = idRequestSchema.extend({
