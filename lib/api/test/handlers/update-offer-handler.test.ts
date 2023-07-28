@@ -1,7 +1,6 @@
 import { updateOfferHandler } from '../../src/handlers/offer/update-offer-handler'
-import { UpdateOfferAction } from '../../src/types/helper/update-offer-action'
 import * as updateOfferState from '../../src/utils/handler/update-offer-state'
-import { mockRequestResponse, mockSession, UpdateOfferRequest } from '@echo/api-public'
+import { mockRequestResponse, mockSession, UpdateOfferAction, UpdateOfferRequest } from '@echo/api-public'
 import { FirestoreOfferData, offerFirestoreData } from '@echo/firestore'
 import { OfferState } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'

@@ -4,6 +4,7 @@ export { mockCreateRequestForOfferRequest } from './mocks/create-request-for-off
 export { mockRequestResponse } from './mocks/request-response'
 export { mockSession } from './mocks/session'
 export { ApiRequest } from './types/api-requests/api-request'
+export { UpdateOfferAction } from './types/helper/update-offer-action'
 export { CreateDiscordRequest } from './types/requests/create-discord-request'
 export { CreateNftCollectionRequest } from './types/requests/create-nft-collection-request'
 export { CreateOfferRequest } from './types/requests/create-offer-request'
