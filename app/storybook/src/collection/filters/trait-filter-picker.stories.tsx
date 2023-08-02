@@ -23,6 +23,14 @@ const traitFilterGroup: TraitFilterGroup = {
 export const Default: Story = {
   render: () => (
     <FiltersPanel>
+      <Component traitFilterGroup={traitFilterGroup} />
+    </FiltersPanel>
+  )
+}
+
+export const Collapsed: Story = {
+  render: () => (
+    <FiltersPanel>
       <Component traitFilterGroup={traitFilterGroup} collapsed />
     </FiltersPanel>
   )

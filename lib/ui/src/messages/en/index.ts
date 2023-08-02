@@ -11,6 +11,9 @@ export const messages = {
     },
     filters: {
       traits: {
+        button: {
+          title: '{type}{count, plural, =0 {} other { (# selected)}}'
+        },
         title: 'Attributes'
       }
     }

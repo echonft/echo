@@ -8,6 +8,7 @@ import { Swap } from './swap'
 import { User } from './user'
 import dayjs from 'dayjs'
 
+// TODO Target should be a collection
 export interface RequestForOffer {
   id: string
   state: RequestForOfferState

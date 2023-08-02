@@ -1,4 +1,3 @@
-import { UserProfile } from '@components/user-profile'
 import { getMessages, MessagesType } from '@lib/messages'
 import { GetServerSideProps } from 'next'
 
@@ -6,7 +5,7 @@ interface Props {
   messages: MessagesType
 }
 const Me: PageWithAuth<Props> = () => {
-  return <UserProfile />
+  return null
 }
 
 Me.authenticationEnabled = true

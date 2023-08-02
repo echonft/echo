@@ -38,25 +38,19 @@ const traitFilterGroups: TraitFilterGroup[] = [
     ]
   }
 ]
-const collapsedStates = new Map<string, boolean>()
-collapsedStates.set('Trait 1', true)
-collapsedStates.set('Trait 2', true)
-collapsedStates.set('Trait 3', true)
-const selections = new Map<string, string[]>()
-selections.set('Trait 1', ['Trait Name A', 'Trait Name C', 'Trait Name D'])
-selections.set('Trait 3', ['Trait Name C'])
+const initialSelections = new Map<string, string[]>()
+initialSelections.set('Trait 1', ['Trait Name A', 'Trait Name C', 'Trait Name D'])
+initialSelections.set('Trait 3', ['Trait Name C'])
 
 export const Default: Story = {
   args: {
-    traitFilterGroups,
-    collapsedStates
+    traitFilterGroups
   }
 }
 
 export const SomeSelected: Story = {
   args: {
     traitFilterGroups,
-    collapsedStates,
-    selections
+    initialSelections
   }
 }

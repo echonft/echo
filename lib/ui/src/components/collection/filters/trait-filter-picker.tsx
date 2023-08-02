@@ -30,9 +30,14 @@ export const TraitFilterPicker: FunctionComponent<TraitFilterPickerProps> = ({
   const { type, traits } = traitFilterGroup
   return (
     <div className={clsx('flex', 'flex-col', 'gap-2', 'w-full', 'h-max')}>
-      <TraitFilterButton type={type} collapsed={collapsed} onToggleCollapsed={onToggleCollapsed} />
+      <TraitFilterButton
+        type={type}
+        collapsed={collapsed ?? false}
+        selectionCount={selection?.length ?? 0}
+        onToggleCollapsed={onToggleCollapsed}
+      />
       <Transition
-        show={collapsed}
+        show={collapsed ?? false}
         enter="transition duration-100 ease-out"
         enterFrom="transform scale-95 opacity-0"
         enterTo="transform scale-100 opacity-100"
