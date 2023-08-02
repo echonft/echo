@@ -1,18 +1,28 @@
 import { deleteWalletHandler } from '../../src/handlers/user/delete-wallet-handler'
+import { updateUserNfts } from '../../src/utils/handler/update-user-nfts'
 import { mockRequestResponse, WalletResponse } from '@echo/api-public'
 import { updateUserWallets } from '@echo/firebase-admin'
 import { userFirestoreData } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
+jest.mock('../../src/utils/handler/update-user-nfts')
 jest.mock('@echo/firebase-admin')
+jest.mock('@echo/alchemy', () => ({
+  getNftsForOwner: () => Promise.resolve([])
+}))
 
 describe('handlers - user - deleteWalletHandler', () => {
   const mockedUpdateWallets = jest.mocked(updateUserWallets)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  jest.mocked(updateUserNfts).mockResolvedValue(true)
   const user = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
   const wallet = user.wallets[0]!
+
   beforeEach(() => {
     jest.clearAllMocks()
   })
+
   it('if error on update, returns 500', async () => {
     mockedUpdateWallets.mockRejectedValue(undefined)
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')

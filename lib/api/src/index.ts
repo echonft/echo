@@ -7,6 +7,7 @@ export { createRequestForOfferHandler } from './handlers/request-for-offer/creat
 export { nonceHandler } from './handlers/user/nonce-handler'
 export { walletHandler } from './handlers/user/wallet-handler'
 export { createOrUpdateUser } from './utils/auth/create-or-update-user'
+export { updateUserNfts } from './utils/handler/update-user-nfts'
 export { withAdmin } from './utils/with-admin'
 export { withMethodValidation } from './utils/with-method-validation'
 export { withSession } from './utils/with-session'

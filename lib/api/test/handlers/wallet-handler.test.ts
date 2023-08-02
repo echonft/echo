@@ -9,6 +9,9 @@ import { SiweMessage } from 'siwe'
 
 jest.mock('../../src/handlers/user/create-wallet-handler')
 jest.mock('../../src/handlers/user/delete-wallet-handler')
+jest.mock('@echo/alchemy', () => ({
+  getNftsForOwner: () => Promise.resolve([])
+}))
 
 describe('handlers - user - walletHandler', () => {
   const mockedCreateWallet = jest.mocked(createWalletHandler)

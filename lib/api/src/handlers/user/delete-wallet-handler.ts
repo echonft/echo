@@ -1,5 +1,5 @@
+import { updateUserWalletsAndUpdateNfts } from '../../utils/handler/update-user-wallets-and-update-nfts'
 import { ErrorResponse, WalletResponse } from '@echo/api-public'
-import { updateUserWallets } from '@echo/firebase-admin'
 import { FirestoreUserData, FirestoreWalletData } from '@echo/firestore'
 import { walletEquals } from '@echo/model'
 import { removeArrayFromArray } from '@echo/utils'
@@ -11,10 +11,5 @@ export const deleteWalletHandler = async (
   res: NextApiResponse<WalletResponse | ErrorResponse>
 ) => {
   const newWallets = removeArrayFromArray(user.wallets ?? [], wallets, walletEquals)
-  return updateUserWallets(user.id, newWallets)
-    .then(() => res.status(200).json({ wallets: newWallets }))
-    .catch(() => {
-      res.end(res.status(500).json({ error: 'User not found' }))
-      return Promise.resolve()
-    })
+  return updateUserWalletsAndUpdateNfts(user, newWallets, res)
 }
