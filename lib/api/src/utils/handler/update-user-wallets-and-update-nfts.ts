@@ -22,6 +22,6 @@ export const updateUserWalletsAndUpdateNfts = (
         })
     })
     .catch(() => {
-      res.end(res.status(500).json({ error: 'User not found' }))
+      res.end(res.status(500).json({ error: 'Error updating user wallets' }))
       return
     })

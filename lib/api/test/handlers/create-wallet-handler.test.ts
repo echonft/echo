@@ -118,7 +118,7 @@ describe('handlers - user - createWalletHandler', () => {
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
       await createWalletHandler(user, wallet, mockedMessage as unknown as SiweMessage, signature, res)
       expect(res.statusCode).toBe(500)
-      expect(res._getJSONData()).toEqual({ error: 'User not found' })
+      expect(res._getJSONData()).toEqual({ error: 'Error updating user wallets' })
     })
     it('if nonce is valid but no new wallet, returns wallets', async () => {
       mockedFindNonce.mockResolvedValue(R.fromFalsy(nonce, new Error()))

@@ -4,6 +4,7 @@ import { createOrUpdateUser } from '../../src/utils/auth/create-or-update-user'
 import { updateUserNfts } from '../../src/utils/handler/update-user-nfts'
 import { fetchDiscordUser } from '@echo/discord'
 import { addUser, findUserByDiscordId, updateUserDiscordInfo } from '@echo/firebase-admin'
+import { userFirestoreData } from '@echo/firestore'
 import { errorMessage } from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
@@ -19,7 +20,7 @@ describe('utils - auth - createOrUpdateUser', () => {
   const mockedFindUserByDiscordId = jest
     .mocked(findUserByDiscordId)
     // @ts-ignore
-    .mockResolvedValue(R.fromNullable(true, 'Test'))
+    .mockResolvedValue(R.fromNullable(userFirestoreData['6rECUMhevHfxABZ1VNOm'], 'Test'))
   const mockedFetchDiscordUser = jest.mocked(fetchDiscordUser).mockResolvedValue(
     // @ts-ignore
     R.fromNullable(
@@ -93,10 +94,15 @@ describe('utils - auth - createOrUpdateUser', () => {
     })
   })
 
-  // TODO Add params
   it('if user is found, updateUserNfts and updateUserDiscordInfo are called with the proper params', async () => {
     await createOrUpdateUser('accessToken', 'tokenType', 'discordId')
-    expect(mockedUpdateUserNfts).toBeCalled()
-    expect(mockedUpdateUserDiscordInfo).toBeCalled()
+    expect(mockedUpdateUserNfts).toBeCalledWith(userFirestoreData['6rECUMhevHfxABZ1VNOm'])
+    expect(mockedUpdateUserDiscordInfo).toBeCalledWith(userFirestoreData['6rECUMhevHfxABZ1VNOm']?.id, {
+      discordAvatar: 'test',
+      discordBanner: 'test',
+      discordGuildIds: [],
+      discordId: 'test',
+      discordUsername: 'test#1234'
+    })
   })
 })

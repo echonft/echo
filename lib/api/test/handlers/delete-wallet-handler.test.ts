@@ -28,7 +28,7 @@ describe('handlers - user - deleteWalletHandler', () => {
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
     await deleteWalletHandler(user, [wallet], res)
     expect(res.statusCode).toBe(500)
-    expect(res._getJSONData()).toEqual({ error: 'User not found' })
+    expect(res._getJSONData()).toEqual({ error: 'Error updating user wallets' })
   })
   it('if valid but wrong wallet to remove, returns wallets', async () => {
     mockedUpdateWallets.mockResolvedValue(undefined)
