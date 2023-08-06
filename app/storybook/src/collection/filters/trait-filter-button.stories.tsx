@@ -1,4 +1,4 @@
-import { CollapsibleManager, FiltersPanel, TraitFilterButton as Component } from '@echo/ui'
+import { CollapsibleManager, FiltersPanel, TraitFilterButton as Component, TraitFilterButtonSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -13,7 +13,7 @@ type Story = StoryObj<typeof Component>
 export const Default: Story = {
   render: () => (
     <FiltersPanel>
-      <Component type={'Trait'} selectionCount={0} />
+      <Component trait={'Trait'} selectionCount={0} />
     </FiltersPanel>
   )
 }
@@ -21,7 +21,7 @@ export const Default: Story = {
 export const Overflow: Story = {
   render: () => (
     <FiltersPanel>
-      <Component type={'This Trait is waaaayyyyyyyyy too long'} selectionCount={0} />
+      <Component trait={'This Trait is waaaayyyyyyyyy too long'} selectionCount={0} />
     </FiltersPanel>
   )
 }
@@ -29,7 +29,7 @@ export const Overflow: Story = {
 export const Collapsed: Story = {
   render: () => (
     <FiltersPanel>
-      <Component type={'Trait'} collapsed selectionCount={1} />
+      <Component trait={'Trait'} collapsed selectionCount={1} />
     </FiltersPanel>
   )
 }
@@ -38,8 +38,16 @@ export const Managed: Story = {
   render: () => (
     <FiltersPanel>
       <CollapsibleManager>
-        <Component type={'Trait'} selectionCount={0} />
+        <Component trait={'Trait'} selectionCount={0} />
       </CollapsibleManager>
+    </FiltersPanel>
+  )
+}
+
+export const Skeleton: Story = {
+  render: () => (
+    <FiltersPanel>
+      <TraitFilterButtonSkeleton />
     </FiltersPanel>
   )
 }

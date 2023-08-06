@@ -1,12 +1,13 @@
 import { TraitFilterGroup } from '../../../model/trait-filter'
 import { TraitFilterPicker } from './trait-filter-picker'
+import { NftTraitValue } from '@echo/model'
 import { concat, isEmpty, isNil, without } from 'ramda'
 import { FunctionComponent, useState } from 'react'
 
 export interface TraitFilterPickerManagerProps {
   traitFilterGroup: TraitFilterGroup
-  initialSelection?: string[]
-  onSelectionUpdate?: (selection: string[]) => unknown
+  initialSelection?: NftTraitValue[]
+  onSelectionUpdate?: (selection: NftTraitValue[]) => unknown
 }
 
 export const TraitFilterPickerManager: FunctionComponent<TraitFilterPickerManagerProps> = ({
@@ -14,7 +15,7 @@ export const TraitFilterPickerManager: FunctionComponent<TraitFilterPickerManage
   initialSelection,
   onSelectionUpdate
 }) => {
-  const [collapsed, setCollapsed] = useState(isNil(initialSelection) ? false : isEmpty(initialSelection))
+  const [collapsed, setCollapsed] = useState(isNil(initialSelection) ? false : !isEmpty(initialSelection))
   const [selection, setSelection] = useState(initialSelection ?? [])
   return (
     <TraitFilterPicker
@@ -28,13 +29,13 @@ export const TraitFilterPickerManager: FunctionComponent<TraitFilterPickerManage
         setCollapsed(collapsed)
       }}
       selection={selection}
-      onRemoveSelection={(id) => {
-        const newSelection = without([id], selection)
+      onRemoveSelection={(value) => {
+        const newSelection = without([value], selection)
         setSelection(newSelection)
         onSelectionUpdate?.(newSelection)
       }}
-      onAddSelection={(id) => {
-        const newSelection = concat([id], selection)
+      onAddSelection={(value) => {
+        const newSelection = concat([value], selection)
         setSelection(newSelection)
         onSelectionUpdate?.(newSelection)
       }}

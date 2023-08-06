@@ -5,9 +5,10 @@ import { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface ButtonInnerProps {
   size: ButtonSize
+  className?: string
 }
 
-export const ButtonInner: FunctionComponent<PropsWithChildren<ButtonInnerProps>> = ({ size, children }) => {
+export const ButtonInner: FunctionComponent<PropsWithChildren<ButtonInnerProps>> = ({ size, className, children }) => {
   return (
     <div
       className={clsx(
@@ -18,7 +19,8 @@ export const ButtonInner: FunctionComponent<PropsWithChildren<ButtonInnerProps>>
         size === SizeXS && ['px-6', 'pt-px'],
         size === SizeSM && ['px-11', 'py-1.5'],
         size === SizeMD && ['px-6', 'py-3'],
-        size === SizeLG && ['px-11', 'py-3.5']
+        size === SizeLG && ['px-11', 'py-3.5'],
+        className
       )}
     >
       {children}

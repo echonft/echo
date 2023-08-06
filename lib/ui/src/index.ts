@@ -21,9 +21,20 @@ export { ProfilePicture, ProfilePictureProps } from './components/base/profile-p
 export { Spinner } from './components/base/spinner'
 export { EditIconSvg } from './components/base/svg/edit-icon-svg'
 export { SvgProps, SvgSizeProps } from './components/base/svg/svg'
+export { Collection } from './components/collection/collection'
 export { CollectionDetails, CollectionDetailsProps } from './components/collection/collection-details'
 export { CollectionLinks, CollectionLinksProps } from './components/collection/collection-links'
-export { CollectionUpper, CollectionUpperProps } from './components/collection/collection-upper'
+export { CollectionNftsAndFiltersContainer } from './components/collection/collection-nfts-and-filters-container'
+export {
+  CollectionNftsContainer,
+  CollectionNftsContainerProps
+} from './components/collection/collection-nfts-container'
+export { CollectionOfferButton, CollectionOfferButtonProps } from './components/collection/collection-offer-button'
+export { CollectionProfile, CollectionProfileProps } from './components/collection/collection-profile'
+export {
+  CollectionProfilePicture,
+  CollectionProfilePictureProps
+} from './components/collection/collection-profile-picture'
 export { FiltersPanel } from './components/collection/filters/filters-panel'
 export { TraitFilterButton, TraitFilterButtonProps } from './components/collection/filters/trait-filter-button'
 export { TraitFilterPanel, TraitFilterPanelProps } from './components/collection/filters/trait-filter-panel'
@@ -50,11 +61,19 @@ export {
   NftDetailsTokenDetailsPanelProps
 } from './components/nft/details/nft-details-token-details-panel'
 export { NftThumbnailSelectable, NftThumbnailSelectableProps } from './components/nft/nft-thumbnail-selectable'
+export { BannerSkeleton } from './components/skeleton/base/banner-skeleton'
+export { CollectionDetailsSkeleton } from './components/skeleton/collection/collection-details-skeleton'
+export { CollectionNftsAndFiltersContainerSkeleton } from './components/skeleton/collection/collection-nfts-and-filters-container-skeleton'
+export { CollectionProfilePictureSkeleton } from './components/skeleton/collection/collection-profile-picture-skeleton'
+export { CollectionProfileSkeleton } from './components/skeleton/collection/collection-profile-skeleton'
+export { CollectionSkeleton } from './components/skeleton/collection/collection-skeleton'
+export { TraitFilterButtonSkeleton } from './components/skeleton/collection/filters/trait-filter-button-skeleton'
+export { TraitFilterPanelSkeleton } from './components/skeleton/collection/filters/trait-filter-panel-skeleton'
 export { CollapsibleManager, CollapsibleManagerProps } from './components/utils/collapsible-manager'
 export { SelectionManager, SelectionManagerProps } from './components/utils/selection-manager'
 export { Dependencies, DependenciesProvider } from './dependencies/dependencies-provider'
 export { LinkProvider, Routes } from './dependencies/link-provider'
 export { getMessages } from './messages/get-messages'
-export { TraitFilter, TraitFilterGroup } from './model/trait-filter'
+export { TraitFilterGroup } from './model/trait-filter'
 export { ColorBlack, ColorYellow } from './types/color'
 export { SizeLG, SizeMD, SizeSM, SizeXL, SizeXS, SizeXXL, SizeXXS } from './types/size'

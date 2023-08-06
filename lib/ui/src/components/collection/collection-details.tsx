@@ -1,32 +1,37 @@
-import { ProfilePicture, ProfilePictureProps } from '../base/profile-picture'
-import { CollectionLinks, CollectionLinksProps } from './collection-links'
+import { Banner, BannerProps } from '../base/banner'
+import { CollectionProfile, CollectionProfileProps } from './collection-profile'
 import { clsx } from 'clsx'
-import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface CollectionDetailsProps extends CollectionLinksProps, ProfilePictureProps {
-  collectionName: string
-  size: number
+export interface CollectionDetailsProps extends CollectionProfileProps, BannerProps {
+  description: string
 }
 
 export const CollectionDetails: FunctionComponent<CollectionDetailsProps> = ({
-  collectionName,
+  bannerUrl,
   size,
-  profilePictureUrl,
+  collectionName,
+  description,
+  pictureUrl,
   twitterUsername,
   discordUrl,
   websiteUrl
 }) => {
-  const t = useTranslations('collection')
   return (
-    <div className={clsx('flex', 'flex-row', 'w-full', 'gap-8')}>
-      <ProfilePicture collectionName={collectionName} profilePictureUrl={profilePictureUrl} />
-      <div className={clsx('flex', 'flex-col', 'grow', 'gap-4')}>
-        <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase')}>{collectionName}</h1>
-        <div className={clsx('flex', 'flex-row', 'self-stretch', 'justify-between')}>
-          <h2 className={clsx('text-white', 'prose-header-md')}>{t('details.size', { size })}</h2>
-          <CollectionLinks twitterUsername={twitterUsername} discordUrl={discordUrl} websiteUrl={websiteUrl} />
-        </div>
+    <div className={clsx('flex', 'flex-col', 'self-stretch', 'w-full')}>
+      <Banner bannerUrl={bannerUrl} />
+      <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-40', 'pb-8')}>
+        <CollectionProfile
+          collectionName={collectionName}
+          size={size}
+          pictureUrl={pictureUrl}
+          discordUrl={discordUrl}
+          websiteUrl={websiteUrl}
+          twitterUsername={twitterUsername}
+        />
+      </div>
+      <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pb-14')}>
+        <p className={clsx('prose-header-xs', 'text-white/60', 'w-[37rem]')}>{description}</p>
       </div>
     </div>
   )

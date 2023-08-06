@@ -5,12 +5,12 @@ import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 export interface TraitFilterButtonProps extends CollapsibleProps {
-  type: string
+  trait: string
   selectionCount: number
 }
 
 export const TraitFilterButton: FunctionComponent<TraitFilterButtonProps> = ({
-  type,
+  trait,
   selectionCount,
   collapsed,
   onToggleCollapsed
@@ -35,7 +35,7 @@ export const TraitFilterButton: FunctionComponent<TraitFilterButtonProps> = ({
       }}
     >
       <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>
-        {t('title', { type, count: selectionCount })}
+        {t('title', { trait, count: selectionCount })}
       </span>
       <span className={clsx('text-white/50', 'transition-transform', collapsed && 'rotate-180')}>
         <DownCaretSvg />

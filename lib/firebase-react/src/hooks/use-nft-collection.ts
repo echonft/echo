@@ -15,9 +15,13 @@ export const useNftCollection = (collectionId: string) => {
     name: SwrKeyNames.FIRESTORE_NFT_COLLECTION,
     data: { collectionId }
   }
-  const response = useSWR(key, ({ data: { collectionId } }) => findNftCollectionById(collectionId), {
-    suspense: true
-  })
+  const response = useSWR<R.Result<NftCollection, Error>, Error, SwrKey<KeyData>>(
+    key,
+    ({ data: { collectionId } }) => findNftCollectionById(collectionId),
+    {
+      suspense: true
+    }
+  )
 
   useEffect(() => {
     if (!isNil(response)) {
@@ -31,4 +35,6 @@ export const useNftCollection = (collectionId: string) => {
     }
     return
   }, [collectionId, response])
+
+  return response
 }

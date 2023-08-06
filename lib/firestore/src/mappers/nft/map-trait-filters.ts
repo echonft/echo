@@ -1,14 +1,15 @@
-import { NftAttribute } from '@echo/model'
+import { NftAttribute, NftTraits } from '@echo/model'
+import { forEachObjIndexed } from 'ramda'
 
-export const mapTraitFilters = (traitFilters: Map<string, string[]>): NftAttribute[] => {
+export const mapTraitFilters = (traitFilters: NftTraits): NftAttribute[] => {
   const attributes = new Array<NftAttribute>()
-  traitFilters.forEach((values, trait) => {
+  forEachObjIndexed((values, trait) => {
     values.forEach((value) => {
       attributes.push({
         trait,
-        value
-      })
+        value: value.value
+      } as NftAttribute)
     })
-  })
+  }, traitFilters)
   return attributes
 }

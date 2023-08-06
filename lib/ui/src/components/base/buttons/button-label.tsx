@@ -13,7 +13,7 @@ export const ButtonLabel: FunctionComponent<PropsWithChildren<ButtonLabelProps>>
       className={clsx(
         'truncate',
         size === SizeXS && ['prose-label-md'],
-        size === SizeSM && ['prose-label-sm-semi'],
+        size === SizeSM && ['prose-label-sm-bold'],
         size === SizeMD && ['prose-label-lg'],
         size === SizeLG && ['prose-label-lg-semi']
       )}

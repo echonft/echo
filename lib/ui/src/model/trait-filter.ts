@@ -1,9 +1,6 @@
-export interface TraitFilter {
-  name: string
-  count: number
-}
+import { NftTraitValue } from '@echo/model'
 
 export interface TraitFilterGroup {
-  type: string
-  traits: TraitFilter[]
+  trait: string
+  values: NftTraitValue[]
 }

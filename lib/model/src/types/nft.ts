@@ -1,12 +1,7 @@
+import { NftAttribute } from './nft-attribute'
 import { NftCollection } from './nft-collection'
+import { NftTokenType } from './nft-token-type'
 import { User } from './user'
-
-export type NftTokenType = 'ERC721' | 'ERC1155' | 'UNKNOWN'
-
-export interface NftAttribute {
-  trait: string
-  value: string
-}
 
 export interface Nft {
   id: string

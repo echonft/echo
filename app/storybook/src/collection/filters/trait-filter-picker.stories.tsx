@@ -11,12 +11,12 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 const traitFilterGroup: TraitFilterGroup = {
-  type: 'Trait',
-  traits: [
-    { name: 'Trait Name A', count: 123 },
-    { name: 'Trait Name B', count: 456 },
-    { name: 'Trait Name C', count: 789 },
-    { name: 'Trait Name D', count: 111 }
+  trait: 'Trait',
+  values: [
+    { value: 'Trait Name A', count: 123 },
+    { value: 'Trait Name B', count: 456 },
+    { value: 'Trait Name C', count: 789 },
+    { value: 'Trait Name D', count: 111 }
   ]
 }
 
@@ -39,7 +39,14 @@ export const Collapsed: Story = {
 export const AAndDSelected: Story = {
   render: () => (
     <FiltersPanel>
-      <Component traitFilterGroup={traitFilterGroup} selection={['Trait Name A', 'Trait Name D']} collapsed />
+      <Component
+        traitFilterGroup={traitFilterGroup}
+        selection={[
+          { value: 'Trait Name A', count: 123 },
+          { value: 'Trait Name D', count: 111 }
+        ]}
+        collapsed
+      />
     </FiltersPanel>
   )
 }
