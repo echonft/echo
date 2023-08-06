@@ -1,15 +1,9 @@
-import { HandIconSvg } from '../../base/svg/hand-icon-svg'
-import { NftDetailsOffersPanelList } from './nft-details-offers-panel-list'
-import { Offer } from '@echo/model'
+import { HandIconSvg } from '../../../base/svg/hand-icon-svg'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface NftDetailsOffersPanelProps {
-  offers?: Offer[]
-}
-
-export const NftDetailsOffersPanel: FunctionComponent<NftDetailsOffersPanelProps> = ({ offers }) => {
+export const NftDetailsOffersPanelSkeleton: FunctionComponent = () => {
   const t = useTranslations('nft.details.offers')
   return (
     <div
@@ -23,14 +17,14 @@ export const NftDetailsOffersPanel: FunctionComponent<NftDetailsOffersPanelProps
         'py-3',
         'px-7',
         'gap-2',
-        'min-h-[10.375rem]'
+        'min-h-[10.375rem]',
+        'animate-pulse'
       )}
     >
       <div className={clsx('flex', 'flex-row', 'gap-1.5', 'items-center', 'text-white')}>
         <HandIconSvg width={17} />
         <span className={clsx('prose-label-md-semi')}>{t('title')}</span>
       </div>
-      <NftDetailsOffersPanelList offers={offers} />
     </div>
   )
 }

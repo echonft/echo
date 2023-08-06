@@ -7,23 +7,29 @@ import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 export interface NftDetailsLinksProps {
-  openSeaUrl?: string
-  blurUrl?: string
+  openSeaUrl?: URL
+  blurUrl?: URL
 }
 
 export const NftDetailsLinks: FunctionComponent<NftDetailsLinksProps> = ({ openSeaUrl, blurUrl }) => {
   return (
-    <div className={clsx('flex', 'flex-row', 'gap-5')}>
-      <HideIfNilOrEmpty checks={openSeaUrl}>
-        <ExternalLink href={openSeaUrl!}>
-          <OpenSeaIcon size={SizeLG} />
-        </ExternalLink>
-      </HideIfNilOrEmpty>
-      <HideIfNilOrEmpty checks={blurUrl}>
-        <ExternalLink href={blurUrl!}>
-          <BlurIcon size={SizeLG} />
-        </ExternalLink>
-      </HideIfNilOrEmpty>
+    <div className={clsx('flex', 'flex-row', 'gap-5', 'items-center')}>
+      <HideIfNilOrEmpty
+        checks={openSeaUrl}
+        render={() => (
+          <ExternalLink href={openSeaUrl!.href}>
+            <OpenSeaIcon size={SizeLG} />
+          </ExternalLink>
+        )}
+      />
+      <HideIfNilOrEmpty
+        checks={blurUrl}
+        render={() => (
+          <ExternalLink href={blurUrl!.href}>
+            <BlurIcon size={SizeLG} />
+          </ExternalLink>
+        )}
+      />
     </div>
   )
 }

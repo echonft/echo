@@ -1,5 +1,5 @@
 import { contracts, nfts } from '@echo/model'
-import { NftDetailsTokenDetailsPanel as Component } from '@echo/ui'
+import { NftDetailsTokenDetailsPanel as Component, NftDetailsTokenDetailsPanelSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -16,10 +16,14 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const DetailsPanel: Story = {
+export const Default: Story = {
   args: {
     chainId: contracts['37dBlwJYahEAKeL0rNP8']!.chainId,
     tokenId: nfts['QFjMRNChUAHNswkRADXh']!.tokenId,
     tokenType: contracts['37dBlwJYahEAKeL0rNP8']!.tokenType
   }
+}
+
+export const Skeleton: Story = {
+  render: () => <NftDetailsTokenDetailsPanelSkeleton />
 }

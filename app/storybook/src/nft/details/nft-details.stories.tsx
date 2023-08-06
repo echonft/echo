@@ -1,11 +1,11 @@
 import { nfts, offers } from '@echo/model'
-import { NftDetails as Component } from '@echo/ui'
+import { NftDetails as Component, NftDetailsSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { assoc } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Pages/Nft Details',
+  title: 'Pages/NFT Details',
   component: Component,
   argTypes: {
     onMakeOffer: {
@@ -41,4 +41,8 @@ export const NoOffers: Story = {
     nft: nfts['QFjMRNChUAHNswkRADXh']!,
     offers: []
   }
+}
+
+export const Skeleton: Story = {
+  render: () => <NftDetailsSkeleton />
 }

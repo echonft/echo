@@ -12,7 +12,7 @@ export const NftDetailsAttributesPanel: FunctionComponent<NftDetailsAttributesPa
   const t = useTranslations('nft.details.attributes')
 
   return (
-    <div className={clsx('flex', 'flex-col', 'h-max', 'rounded-2xl', 'bg-white/[0.09]', 'py-5')}>
+    <div className={clsx('flex', 'flex-col', 'h-max', 'min-h-[24.575rem]', 'rounded-2xl', 'bg-white/[0.09]', 'py-5')}>
       <p
         className={clsx(
           'px-7',
