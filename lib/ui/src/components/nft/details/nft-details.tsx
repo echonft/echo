@@ -25,8 +25,7 @@ export const NftDetails: FunctionComponent<NftDetailsProps> = ({ nft, offers, on
         <div className={clsx('flex', 'flex-col', 'flex-none', 'gap-10')}>
           <img
             className={clsx('w-[33rem]', 'h-[33rem]', 'rounded-2xl')}
-            // FIXME: Not sure if that's what you need here
-            src={nft.pictureUrl.toString()}
+            src={nft.pictureUrl.href}
             alt={nft.tokenId.toString()}
             width={528}
             height={528}

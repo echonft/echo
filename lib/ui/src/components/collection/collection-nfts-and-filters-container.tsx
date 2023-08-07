@@ -2,13 +2,13 @@ import { CollectionNftsContainer } from './collection-nfts-container'
 import { CollectionOfferButton } from './collection-offer-button'
 import { TraitFilterPanel } from './filters/trait-filter-panel'
 import { Nft, NftTraits } from '@echo/model'
-import { addToArrayIfNotPresent, isNilOrEmpty, removeFromArray } from '@echo/utils'
+import { addToArrayIfNotPresent, removeFromArray } from '@echo/utils'
 import { clsx } from 'clsx'
 import { assoc, equals, find, isEmpty, isNil, propEq, reduce } from 'ramda'
 import { FunctionComponent, useEffect, useState } from 'react'
 
 export interface CollectionNftsAndFiltersContainerProps {
-  nfts: Nft[] | undefined
+  nfts: Nft[]
   traits: NftTraits
   isFetchingNfts?: boolean
   onTraitSelectionChanged?: (selection: NftTraits) => unknown
@@ -27,7 +27,7 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<CollectionNfts
 
   // check if the selection is still valid (if selected NFTs are still in the array) when receiving new NFTs
   useEffect(() => {
-    if (!isNilOrEmpty(nfts) && !isEmpty(nftSelection)) {
+    if (!isEmpty(nfts) && !isEmpty(nftSelection)) {
       const reducedSelection = reduce(
         (acc: string[], value: string) => {
           const nft = find(propEq(value, 'id'), nfts)
