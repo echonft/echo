@@ -3,6 +3,7 @@ import { addNftCollection } from '@echo/firebase-admin'
 import { FirestoreNftCollectionData, FirestoreNftCollectionPrototype } from '@echo/firestore'
 import { R } from '@mobily/ts-belt'
 
+// TODO: Remove NFT generation here, we won't use it that way
 export const createAndPopulateNftCollection = (
   nftCollectionPrototype: FirestoreNftCollectionPrototype,
   address: string

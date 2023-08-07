@@ -1,13 +1,14 @@
 import { mockAddDiscordGuildAndContracts } from '../../src/mocks/firebase-admin/add-discord-guild-and-contracts'
+import { createDiscordSchema } from '../../src/types/validators/create-discord'
 import { createAndPopulateNftCollection } from '../../src/utils/handler/__mocks__/create-and-populate-nft-collection'
 import * as createAndPopulate from '../../src/utils/handler/create-and-populate-nft-collection'
 import { createDiscordFromRequest } from '../../src/utils/handler/create-discord-from-request'
-import { CreateDiscordRequest } from '@echo/api-public'
 import { addDiscordGuildAndContracts } from '@echo/firebase-admin'
 import { discordGuildFirestoreData, FirestoreNftCollectionPrototype } from '@echo/firestore'
 import { errorMessage } from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
+import { z } from 'zod'
 
 jest.mock('../../src/utils/handler/fetch-contract-metadata-from-request')
 jest.mock('../../src/utils/handler/create-and-populate-nft-collection')
@@ -18,7 +19,7 @@ describe('utils - handlers - createDiscordFromRequest', () => {
   const mockedAddDiscordAndContract = jest
     .mocked(addDiscordGuildAndContracts)
     .mockImplementation(mockAddDiscordGuildAndContracts)
-  const mockRequest: CreateDiscordRequest = {
+  const mockRequest: z.infer<typeof createDiscordSchema> = {
     channelId: '1',
     discordId: '1',
     name: 'test',
