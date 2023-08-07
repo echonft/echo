@@ -5,16 +5,18 @@ import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return
 import { CollectionName, FirestoreNftData, FirestoreNftPrototype } from '@echo/firestore'
 import { castAs } from '@echo/utils'
 import { R } from '@mobily/ts-belt'
-import { andThen, partialRight, pipe, unless } from 'ramda'
+import { andThen, partial, pipe, unless } from 'ramda'
 
 export const addNft: (nftPrototype: FirestoreNftPrototype) => Promise<R.Result<FirestoreNftData, Error>> = (
   nftPrototype
 ) =>
   pipe(
     buildNft,
-    andThen(partialRight(setDocAndReturnSnapshot, [getCollectionFromPath(CollectionName.NFTS).doc()])),
+    andThen(partial(setDocAndReturnSnapshot, [getCollectionFromPath(CollectionName.NFTS).doc()])),
     andThen(
       pipe(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         unless(R.isError, pipe(R.getExn, convertNft, R.fromPromise)),
         castAs<Promise<R.Result<FirestoreNftData, Error>>>
       )

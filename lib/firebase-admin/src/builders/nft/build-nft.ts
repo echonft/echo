@@ -8,36 +8,20 @@ export const buildNft: FirestoreBuilder<FirestoreNftPrototype, FirestoreNft> = (
   if (isNil(collectionRef)) {
     return Promise.reject('collection not found')
   }
-  return collectionRef
-    .get()
-    .then((collectionSnapshot) => {
-      if (!collectionSnapshot.exists) {
-        return Promise.reject('collection not found')
-      }
-      const ownerRef = getFirestoreUserRefById(prototype.ownerId)
-      if (isNil(ownerRef)) {
-        return Promise.reject('user not found')
-      }
-      return ownerRef
-        .get()
-        .then((userSnapshot) => {
-          if (!userSnapshot.exists) {
-            return Promise.reject('user not found')
-          }
-          return Promise.resolve({
-            name: prototype.name,
-            collection: collectionRef,
-            tokenType: prototype.tokenType,
-            tokenId: prototype.tokenId,
-            balance: prototype.balance,
-            attributes: prototype.attributes,
-            owner: ownerRef,
-            description: prototype.description,
-            pictureUrl: prototype.pictureUrl,
-            thumbnailUrl: prototype.thumbnailUrl
-          } as unknown as FirestoreNft)
-        })
-        .catch(() => Promise.reject('user not found'))
-    })
-    .catch(() => Promise.reject('collection not found'))
+  const userRef = getFirestoreUserRefById(prototype.ownerId)
+  if (isNil(userRef)) {
+    return Promise.reject('user not found')
+  }
+  return Promise.resolve({
+    name: prototype.name,
+    collection: collectionRef,
+    owner: userRef,
+    tokenType: prototype.tokenType,
+    tokenId: prototype.tokenId,
+    balance: prototype.balance,
+    attributes: prototype.attributes,
+    description: prototype.description,
+    pictureUrl: prototype.pictureUrl,
+    thumbnailUrl: prototype.thumbnailUrl
+  } as unknown as FirestoreNft)
 }
