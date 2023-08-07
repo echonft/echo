@@ -17,12 +17,12 @@ describe('crud - nft - getNftsForNftCollection', () => {
   })
   it('right query returns proper nfts', async () => {
     const result = await getNftsForNftCollection({
-      address: '0x12c63bbD266dB84e117356e664f3604055166CEc',
+      address: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
       chainId: 1
     })
     expect(R.isOk(result)).toBeTruthy()
     const data = R.getExn(result)
     expect(data.length).toEqual(1)
-    expect(data[0]).toEqual(nftFirestoreData['QFjMRNChUAHNswkRADXh'])
+    expect(data[0]).toEqual(nftFirestoreData['8hHFadIrrooORfTOLkBg'])
   })
 })

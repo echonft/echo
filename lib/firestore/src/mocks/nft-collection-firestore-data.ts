@@ -4,7 +4,7 @@ import { discordGuildFirestoreData } from './discord-guild-firestore-data'
 
 export const nftCollectionFirestoreData: { [key: string]: FirestoreNftCollectionData } = {
   Rc8pLQXxgyQGIRL0fr13: {
-    refPath: 'nft-collections/37dBlwJYahEAKeL0rNP8',
+    refPath: 'nft-collections/Rc8pLQXxgyQGIRL0fr13',
     id: 'Rc8pLQXxgyQGIRL0fr13',
     bannerUrl:
       'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ?auto=format&dpr=1&w=3840',

@@ -49,7 +49,7 @@ export const updateUserNfts = (user: FirestoreUserData) =>
                           return Promise.reject('Could not find collection')
                         }
                         return addNft({
-                          ...omit(['contractAddresses'], nft),
+                          ...omit(['contractAddress'], nft),
                           collectionId: R.getExn(collectionResult).id,
                           ownerId: user.id
                         } as unknown as FirestoreNftPrototype)

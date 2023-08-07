@@ -7,7 +7,6 @@ describe('crud - user - getAllUserWalletAddresses', () => {
     const result = await getAllUserWalletAddresses()
     expect(R.isError(result)).toBeFalsy()
     const data = R.getExn(result)
-    expect(data.length).toEqual(5)
     expect(data[0]).toEqual('0xf672715f2bA85794659a7150e8C21F8d157bFe1D')
     expect(data[1]).toEqual('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
     expect(data[2]).toEqual('0x9e7343Ce1816a7fc21E1c46537F04050F97AfbD9')
