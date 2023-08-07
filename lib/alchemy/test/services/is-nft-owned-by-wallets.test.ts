@@ -4,6 +4,8 @@ import * as utils from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 
+jest.mock('../../src/constants/get-alchemy-api-key')
+
 describe('services - isNftOwnedByWallets', () => {
   jest.spyOn(utils, 'getData').mockImplementation(() =>
     // @ts-ignore

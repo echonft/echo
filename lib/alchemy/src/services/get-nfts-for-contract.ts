@@ -12,10 +12,12 @@ export const getNftsForContract = (contractAddress: string) =>
   pipe(
     getData<GetNftsForContractResponse, GetNftsForContractRequest>,
     andThen(
-      ifElse(
-        R.isOk,
-        pipe(R.getExn, pipe(prop('nfts'), map(mapNft)), toPromise, R.fromPromise),
-        pipe(errorPromise('getContractMetadata error mapping'), R.fromPromise)
+      pipe(
+        ifElse(
+          R.isOk,
+          pipe(R.getExn, pipe(prop('nfts'), map(mapNft)), toPromise, R.fromPromise),
+          pipe(errorPromise('getContractMetadata error mapping'), R.fromPromise)
+        )
       )
     ),
     castAs<Promise<R.Result<GetNftResponse[], Error>>>

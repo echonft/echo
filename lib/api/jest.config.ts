@@ -9,7 +9,8 @@ const config: Config = {
     '!<rootDir>/src/**/index.ts',
     '!<rootDir>/src/**/__tests__/**',
     '!<rootDir>/src/**/test/**',
-    '!<rootDir>/src/**/__mocks__/**'
+    '!<rootDir>/src/**/__mocks__/**',
+    '!<rootDir>/src/**/mocks/**'
   ],
   coverageReporters: ['json-summary', 'text'],
   reporters: [

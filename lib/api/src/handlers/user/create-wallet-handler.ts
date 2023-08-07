@@ -1,5 +1,6 @@
+import { updateUserWalletsAndUpdateNfts } from '../../utils/handler/update-user-wallets-and-update-nfts'
 import { ErrorResponse, WalletResponse } from '@echo/api-public'
-import { findNonceForUser, findUserByWallet, updateUserWallets } from '@echo/firebase-admin'
+import { findNonceForUser, findUserByWallet } from '@echo/firebase-admin'
 import { FirestoreUserData, FirestoreWalletData } from '@echo/firestore'
 import { walletEquals } from '@echo/model'
 import { addToArrayIfNotPresent } from '@echo/utils'
@@ -37,15 +38,7 @@ export const createWalletHandler = (
                 return
               }
               const wallets = addToArrayIfNotPresent<FirestoreWalletData>(user.wallets ?? [], wallet, walletEquals)
-              return updateUserWallets(user.id, wallets)
-                .then(() => {
-                  res.status(200).json({ wallets })
-                  return
-                })
-                .catch(() => {
-                  res.end(res.status(500).json({ error: 'User not found' }))
-                  return
-                })
+              return updateUserWalletsAndUpdateNfts(user, wallets, res)
             })
             .catch(() => {
               res.end(res.status(403).json({ error: 'No nonce found for user.' }))

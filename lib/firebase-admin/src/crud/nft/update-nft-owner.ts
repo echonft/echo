@@ -1,5 +1,6 @@
 import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
 import { CollectionName, FirestoreUser } from '@echo/firestore'
+import { errorMessage } from '@echo/utils'
 import { isNil } from 'ramda'
 
 export const updateNftOwner = (nftId: string, userId: string) => {
@@ -19,7 +20,7 @@ export const updateNftOwner = (nftId: string, userId: string) => {
         .then(() => {
           return nftRef.update({ owner: userRef })
         })
-        .catch(() => Promise.reject('user not found'))
+        .catch((e) => Promise.reject(`user not found: ${errorMessage(e)}`))
     })
-    .catch(() => Promise.reject('nft not found'))
+    .catch((e) => Promise.reject(`nft not found: ${errorMessage(e)}`))
 }

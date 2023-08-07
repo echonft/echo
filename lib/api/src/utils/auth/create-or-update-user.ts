@@ -1,4 +1,5 @@
 import { mapDiscordUserResponseToUserPrototype } from '../../mappers/map-discord-user-response-to-user-prototype'
+import { updateUserNfts } from '../handler/update-user-nfts'
 import { fetchDiscordUser } from '@echo/discord'
 import { addUser, findUserByDiscordId, updateUserDiscordInfo } from '@echo/firebase-admin'
 import { isNilOrEmpty } from '@echo/utils'
@@ -10,15 +11,15 @@ export function createOrUpdateUser(
   discordId: string | undefined
 ) {
   if (isNilOrEmpty(accessToken) || isNilOrEmpty(tokenType)) {
-    throw Error('Auth error: missing access token')
+    return R.fromPromise(Promise.reject('Auth error: missing access token'))
   }
   if (isNilOrEmpty(discordId)) {
-    throw Error('Auth error: missing Discord Id')
+    return R.fromPromise(Promise.reject('Auth error: missing Discord Id'))
   }
   return Promise.all([findUserByDiscordId(discordId), fetchDiscordUser(accessToken, tokenType, true)]).then(
     ([userResult, discordUserResponse]) => {
       if (R.isError(discordUserResponse)) {
-        throw Error('Auth error: error fetching discord user')
+        return R.fromPromise(Promise.reject('Auth error: error fetching discord user'))
       }
       // TODO Add validation on response
       const userPrototype = mapDiscordUserResponseToUserPrototype(R.getExn(discordUserResponse))
@@ -26,8 +27,10 @@ export function createOrUpdateUser(
       if (R.isError(userResult)) {
         return addUser(userPrototype)
       }
-      // Else update user discord info
-      return updateUserDiscordInfo(R.getExn(userResult).id, userPrototype)
+      // Else update user discord info and update NFTs
+      return updateUserNfts(R.getExn(userResult)).then(() =>
+        updateUserDiscordInfo(R.getExn(userResult).id, userPrototype)
+      )
     }
   )
 }

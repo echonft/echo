@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createRequestForOfferHandler } from '../../src/handlers/request-for-offer/create-request-for-offer-handler'
+import { mockAreNftsOwnedByWallets } from '../../src/mocks/alchemy/are-nfts-owned-by-wallets'
 import { mockAddRequestForOffer } from '../../src/mocks/firebase-admin/add-request-for-offer'
 import { mockFindDiscordGuildById } from '../../src/mocks/firebase-admin/find-discord-guild-by-id'
 import { mockFindNftsByIds } from '../../src/mocks/firebase-admin/find-nfts-by-ids'
 import { promiseResultError } from '../../src/mocks/promise-result-error'
 import { promiseResultRejecter } from '../../src/mocks/promise-result-rejecter'
-import * as alchemy from '@echo/alchemy'
 import {
   CreateRequestForOfferRequest,
   mockRequestResponse,
@@ -16,16 +16,16 @@ import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@e
 import { requestForOfferFirestoreData } from '@echo/firestore'
 import { nfts } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { R } from '@mobily/ts-belt'
 import { omit } from 'ramda'
 
 jest.mock('@echo/firebase-admin')
+jest.mock('@echo/alchemy', () => ({
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  areNftsOwnedByWallets: (arg) => mockAreNftsOwnedByWallets(arg)
+}))
 
 describe('handlers - user - createRequestForOfferHandler', () => {
-  const mockedWalletsOwnTokens = jest
-    .spyOn(alchemy, 'areNftsOwnedByWallets')
-    // @ts-ignore
-    .mockImplementation(() => Promise.resolve(R.fromNullable(true, 'should not happen')))
   const mockedAddRequestForOffer = jest.mocked(addRequestForOffer).mockImplementation(mockAddRequestForOffer)
   jest.mocked(findDiscordGuildByGuildId).mockImplementation(mockFindDiscordGuildById)
   jest.mocked(findNftsByIds).mockImplementation(mockFindNftsByIds)
@@ -108,8 +108,10 @@ describe('handlers - user - createRequestForOfferHandler', () => {
       mockedRequest
     )
     // @ts-ignore
-    mockedWalletsOwnTokens.mockResolvedValueOnce(R.fromNullable(false, ''))
-    await createRequestForOfferHandler(req, res, session)
+    await createRequestForOfferHandler(req, res, {
+      ...session,
+      user: { ...session.user, wallets: [{ address: 'error', chainId: 1 }] }
+    })
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'User does not own all the NFTs to offer' })
   })
@@ -119,8 +121,10 @@ describe('handlers - user - createRequestForOfferHandler', () => {
       undefined,
       mockedRequest
     )
-    mockedWalletsOwnTokens.mockRejectedValueOnce('')
-    await createRequestForOfferHandler(req, res, session)
+    await createRequestForOfferHandler(req, res, {
+      ...session,
+      user: { ...session.user, wallets: [{ address: 'reject', chainId: 1 }] }
+    })
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'Error fetching NFTs' })
   })

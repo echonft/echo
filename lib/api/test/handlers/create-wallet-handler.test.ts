@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createWalletHandler } from '../../src/handlers/user/create-wallet-handler'
+import { updateUserNfts } from '../../src/utils/handler/update-user-nfts'
 import { mockRequestResponse, WalletResponse } from '@echo/api-public'
 import { findNonceForUser, findUserByWallet, updateUserWallets } from '@echo/firebase-admin'
 import { userFirestoreData } from '@echo/firestore'
@@ -8,14 +9,20 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { R } from '@mobily/ts-belt'
 import { SiweMessage } from 'siwe'
 
+jest.mock('../../src/utils/handler/update-user-nfts')
 jest.mock('siwe')
 jest.mock('@echo/firebase-admin')
+jest.mock('@echo/alchemy', () => ({
+  getNftsForOwner: () => Promise.resolve([])
+}))
 
 describe('handlers - user - createWalletHandler', () => {
   const mockedMessage = jest.mocked(SiweMessage)
   const mockedFindNonce = jest.mocked(findNonceForUser)
   const mockedUpdateWallets = jest.mocked(updateUserWallets)
   const mockedFindUserByWallet = jest.mocked(findUserByWallet).mockResolvedValue(R.fromNullable(null, new Error()))
+  // @ts-ignore
+  jest.mocked(updateUserNfts).mockResolvedValue(true)
   const user = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
   const wallet = user.wallets[0]!
   const signature = '0xtest'
@@ -111,7 +118,7 @@ describe('handlers - user - createWalletHandler', () => {
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
       await createWalletHandler(user, wallet, mockedMessage as unknown as SiweMessage, signature, res)
       expect(res.statusCode).toBe(500)
-      expect(res._getJSONData()).toEqual({ error: 'User not found' })
+      expect(res._getJSONData()).toEqual({ error: 'Error updating user wallets' })
     })
     it('if nonce is valid but no new wallet, returns wallets', async () => {
       mockedFindNonce.mockResolvedValue(R.fromFalsy(nonce, new Error()))

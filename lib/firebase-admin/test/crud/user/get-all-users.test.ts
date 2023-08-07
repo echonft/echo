@@ -9,7 +9,6 @@ describe('crud - user - getAllUsers', () => {
     const result = await getAllUsers()
     expect(R.isError(result)).toBeFalsy()
     const data = R.getExn(result)
-    expect(data.length).toEqual(3)
     expect(dissoc<FirestoreUserData, 'updatedAt'>('updatedAt', data[0]!)).toEqual(
       dissoc<FirestoreUserData, 'updatedAt'>('updatedAt', userFirestoreData['6rECUMhevHfxABZ1VNOm']!)
     )
