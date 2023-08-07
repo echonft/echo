@@ -24,7 +24,7 @@ describe('handlers - user - deleteWalletHandler', () => {
   })
 
   it('if error on update, returns 500', async () => {
-    mockedUpdateWallets.mockRejectedValue(undefined)
+    mockedUpdateWallets.mockRejectedValue(new Error())
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
     await deleteWalletHandler(user, [wallet], res)
     expect(res.statusCode).toBe(500)

@@ -18,16 +18,10 @@ export function createOrUpdateUser(
   return fetchDiscordUser(accessToken, tokenType, true)
     .then((discordUserResponse) => {
       const userPrototype = mapDiscordUserResponseToUserPrototype(discordUserResponse)
-      return findUserByDiscordId(discordId)
-        return R.fromPromise(Promise.reject('Auth error: error fetching discord user'))
-      }
       // TODO Add validation on response
-        .then((user) => updateUserDiscordInfo(user.id, userPrototype))
+      return findUserByDiscordId(discordId)
+        .then((user) => updateUserNfts(user).then(() => updateUserDiscordInfo(user.id, userPrototype)))
         .catch(() => addUser(userPrototype))
     })
     .catch(() => Promise.reject('Auth error: error fetching discord user'))
-        updateUserDiscordInfo(R.getExn(userResult).id, userPrototype)
-      )
-    }
-  )
 }

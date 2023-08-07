@@ -6,7 +6,6 @@ import { createDiscordFromRequest } from '../../src/utils/handler/create-discord
 import { addDiscordGuildAndContracts } from '@echo/firebase-admin'
 import { discordGuildFirestoreData, FirestoreNftCollectionPrototype } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { R } from '@mobily/ts-belt'
 import { z } from 'zod'
 
 jest.mock('../../src/utils/handler/fetch-contract-metadata-from-request')

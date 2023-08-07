@@ -8,16 +8,15 @@ import { errorMessage, logger } from '@echo/utils'
 export const createDiscordGuildHandler: RequestHandler<
   ApiRequest<CreateDiscordRequest, never>,
   DiscordGuildResponse
-  // eslint-disable-next-line @typescript-eslint/require-await
 > = async (req, res) => {
   try {
     const validatedRequest = createDiscordSchema.parse(req.body)
-    findContractsByAddresses(validatedRequest.contracts)
+    return findContractsByAddresses(validatedRequest.contracts)
       .then(() => {
         res.end(res.status(400).json({ error: 'Contracts already in database' }))
         return
       })
-      .finally(() => {
+      .catch(() => {
         createDiscordFromRequest(validatedRequest)
           .then((discordGuildData) => res.status(200).json(discordGuildData))
           .catch((e) => {

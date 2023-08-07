@@ -5,7 +5,6 @@ import { CreateDiscordRequest, DiscordGuildResponse, mockRequestResponse } from 
 import { findContractsByAddresses } from '@echo/firebase-admin'
 import { contractFirestoreData, discordGuildFirestoreData } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { R } from '@mobily/ts-belt'
 
 jest.mock('@echo/firebase-admin')
 jest.mock('../../src/utils/handler/create-discord-from-request')
@@ -21,9 +20,7 @@ describe('handlers - discord-guild - createDiscordGuildHandler', () => {
     contracts: [{ address: '0x12c63bbD266dB84e117356e664f3604055166CEc', chainId: 1 }]
   }
   const mockedDiscord = discordGuildFirestoreData['Y8GBFtPZKElp44z0k10D']!
-  const mockedFindContractsByAddresses = jest
-    .mocked(findContractsByAddresses)
-    .mockResolvedValue(R.fromNullable(undefined, Error('should not happen')))
+  const mockedFindContractsByAddresses = jest.mocked(findContractsByAddresses).mockRejectedValue(new Error('test'))
   const mockedCreateDiscordFromRequest = jest.mocked(createDiscordFromRequest).mockResolvedValue(mockedDiscord)
 
   beforeEach(() => {
@@ -37,22 +34,10 @@ describe('handlers - discord-guild - createDiscordGuildHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'Invalid body' })
   })
 
-  it('if findContractsByAddresses fails, returns 400', async () => {
-    mockedFindContractsByAddresses.mockRejectedValueOnce(Error('test'))
-    const { req, res } = mockRequestResponse<CreateDiscordRequest, never, DiscordGuildResponse>(
-      'PUT',
-      undefined,
-      mockedCreateDiscordRequest
-    )
-    await createDiscordGuildHandler(req, res, undefined)
-    expect(res.statusCode).toBe(400)
-    expect(res._getJSONData()).toEqual({ error: 'Invalid body' })
-  })
-
   it('if findContractsByAddresses returns a value, returns 400', async () => {
-    mockedFindContractsByAddresses.mockResolvedValueOnce(
-      R.fromNullable([contractFirestoreData['hK2XrmnMpCVneRH7Mbo6']!], Error('should not happen'))
-    )
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    mockedFindContractsByAddresses.mockResolvedValueOnce(contractFirestoreData['hK2XrmnMpCVneRH7Mbo6'])
     const { req, res } = mockRequestResponse<CreateDiscordRequest, never, DiscordGuildResponse>(
       'PUT',
       undefined,
@@ -64,7 +49,7 @@ describe('handlers - discord-guild - createDiscordGuildHandler', () => {
   })
 
   it('if createDiscordFromRequest fails, returns 500', async () => {
-    mockedCreateDiscordFromRequest.mockRejectedValueOnce(Error('test'))
+    mockedCreateDiscordFromRequest.mockRejectedValueOnce(new Error('test'))
     const { req, res } = mockRequestResponse<CreateDiscordRequest, never, DiscordGuildResponse>('PUT', undefined, {
       ...mockedCreateDiscordRequest
     })
@@ -74,7 +59,6 @@ describe('handlers - discord-guild - createDiscordGuildHandler', () => {
   })
 
   it('if createDiscordFromRequest succeed, returns 200', async () => {
-    mockedFindContractsByAddresses.mockResolvedValue(R.fromNullable(undefined, Error('should not happen')))
     const { req, res } = mockRequestResponse<CreateDiscordRequest, never, DiscordGuildResponse>('PUT', undefined, {
       ...mockedCreateDiscordRequest
     })

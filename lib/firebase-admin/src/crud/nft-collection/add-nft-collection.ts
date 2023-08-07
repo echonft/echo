@@ -3,13 +3,14 @@ import { convertNftCollection } from '../../converters/nft-collection/convert-nf
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
 import { CollectionName, FirestoreNftCollectionData, FirestoreNftCollectionPrototype } from '@echo/firestore'
-import { andThen, partialRight, pipe } from 'ramda'
+import { andThen, partial, pipe } from 'ramda'
 
 export const addNftCollection: (
   nftCollectionPrototype: FirestoreNftCollectionPrototype
-) => Promise<FirestoreNftCollectionData> = (nftPrototype) =>
-  pipe(
-    buildNftCollection,
-    andThen(partial(setDocAndReturnSnapshot, [getCollectionFromPath(CollectionName.NFT_COLLECTIONS).doc()])),
-    andThen(convertNftCollection)
-  )(nftPrototype)
+) => Promise<FirestoreNftCollectionData> = pipe(
+  buildNftCollection,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  andThen(partial(setDocAndReturnSnapshot, [getCollectionFromPath(CollectionName.NFT_COLLECTIONS).doc()])),
+  andThen(convertNftCollection)
+)

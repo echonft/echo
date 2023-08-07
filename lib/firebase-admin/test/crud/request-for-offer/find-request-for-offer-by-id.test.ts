@@ -18,7 +18,7 @@ describe('crud - request-for-offer - findRequestForOfferById', () => {
     expect(requestForOffer).toStrictEqual(expected)
   })
   it('if getFirestoreRequestForOfferData throws, returns an error', async () => {
-    mockFunction.mockRejectedValueOnce('cannot find data')
+    mockFunction.mockRejectedValueOnce(new Error('cannot find data'))
     try {
       await findRequestForOfferById('1')
     } catch (error) {

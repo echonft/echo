@@ -4,7 +4,7 @@ import { convertContract } from '../../converters/contract/convert-contract'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
 import { CollectionName, FirestoreContractData, FirestoreContractPrototype } from '@echo/firestore'
-import { andThen, partialRight, pipe } from 'ramda'
+import { andThen, partial, pipe } from 'ramda'
 
 export const addContract: (contractPrototype: FirestoreContractPrototype) => Promise<FirestoreContractData> = (
   contractPrototype

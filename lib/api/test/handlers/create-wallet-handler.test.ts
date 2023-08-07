@@ -16,24 +16,26 @@ jest.mock('@echo/alchemy', () => ({
 }))
 
 describe('handlers - user - createWalletHandler', () => {
+  const user = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
+  const wallet = user.wallets[0]!
+  const signature = '0xtest'
+  const nonce = 'nonce'
   const mockedMessage = jest.mocked(SiweMessage)
   const mockedFindNonce = jest.mocked(findNonceForUser)
   const mockedUpdateWallets = jest.mocked(updateUserWallets)
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const mockedFindUserByWallet = jest.mocked(findUserByWallet).mockResolvedValue(user)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   jest.mocked(updateUserNfts).mockResolvedValue(true)
-  const user = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
-  const wallet = user.wallets[0]!
-  const signature = '0xtest'
-  const nonce = 'nonce'
 
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   it('if wallet throws, returns 401', async () => {
-    mockedFindUserByWallet.mockRejectedValueOnce(new Error())
+    mockedFindUserByWallet.mockRejectedValueOnce(new Error('test'))
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
     await createWalletHandler(user, wallet, mockedMessage as unknown as SiweMessage, signature, res)
     expect(res.statusCode).toBe(401)
@@ -92,7 +94,7 @@ describe('handlers - user - createWalletHandler', () => {
       }))
     })
     it('if nonce not found, returns 403', async () => {
-      mockedFindNonce.mockRejectedValue('')
+      mockedFindNonce.mockRejectedValue(new Error())
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
       await createWalletHandler(user, wallet, mockedMessage as unknown as SiweMessage, signature, res)
       expect(res.statusCode).toBe(403)
@@ -107,7 +109,7 @@ describe('handlers - user - createWalletHandler', () => {
     })
     it('if nonce is valid but error on update, returns 500', async () => {
       mockedFindNonce.mockResolvedValue(nonce)
-      mockedUpdateWallets.mockRejectedValue(undefined)
+      mockedUpdateWallets.mockRejectedValue(new Error())
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
       await createWalletHandler(user, wallet, mockedMessage as unknown as SiweMessage, signature, res)
       expect(res.statusCode).toBe(500)

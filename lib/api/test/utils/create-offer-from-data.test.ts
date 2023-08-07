@@ -7,7 +7,6 @@ import { createOfferFromData } from '../../src/utils/handler/create-offer-from-d
 import { CreateOfferRequest, mockRequestResponse } from '@echo/api-public'
 import { addOffer, findNftsByIds, updateRequestForOfferOffers } from '@echo/firebase-admin'
 import { discordGuildFirestoreData, FirestoreOfferData, offerFirestoreData, userFirestoreData } from '@echo/firestore'
-import { errorPromise } from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/firebase-admin')
@@ -95,8 +94,6 @@ describe('utils - handler - createOfferFromData', () => {
   it('if walletsOwnTokens fails, returns 401', async () => {
     const { res } = mockRequestResponse<CreateOfferRequest, never, FirestoreOfferData>('GET')
     await createOfferFromData(
-    mockedWalletsOwnTokens.mockImplementation(() => Promise.resolve(false))
-    await createOfferFromData(mockUser, mockSenderItems, mockUser, mockReceiverItems, discordGuild, res)
       { ...mockUser, wallets: [{ address: 'error', chainId: 1 }] },
       mockSenderItems,
       mockUser,
@@ -109,14 +106,14 @@ describe('utils - handler - createOfferFromData', () => {
   })
   it('if addOffer fails, returns 500', async () => {
     const { res } = mockRequestResponse<CreateOfferRequest, never, FirestoreOfferData>('GET')
-    mockedAddOffer.mockImplementationOnce(errorPromise('error'))
+    mockedAddOffer.mockRejectedValueOnce(Error('test'))
     await createOfferFromData(mockUser, mockSenderItems, mockUser, mockReceiverItems, discordGuild, res)
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'Could not create offer' })
   })
   it('if addOffer rejects, returns 500', async () => {
     const { res } = mockRequestResponse<CreateOfferRequest, never, FirestoreOfferData>('GET')
-    mockedAddOffer.mockImplementationOnce(errorPromise('error'))
+    mockedAddOffer.mockRejectedValueOnce(Error('test'))
     await createOfferFromData(mockUser, mockSenderItems, mockUser, mockReceiverItems, discordGuild, res)
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'Could not create offer' })

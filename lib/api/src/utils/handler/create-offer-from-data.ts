@@ -83,8 +83,8 @@ export function createOfferFromData(
             return
           })
       })
-      .catch((reason) => {
-        logger.error(`Error fetching NFTs: ${reason}`)
+      .catch((e) => {
+        logger.error(`Error fetching NFTs: ${errorMessage(e)}`)
         res.end(res.status(500).json({ error: 'Could not find NFTs' }))
         return
       })
