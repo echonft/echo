@@ -13,7 +13,12 @@ type Story = StoryObj<typeof Component>
 export const Default: Story = {
   render: () => (
     <FiltersPanel>
-      <Component value={'Trait Name'} count={1754} />
+      <Component
+        value={{
+          value: 'Trait Name',
+          count: 1754
+        }}
+      />
     </FiltersPanel>
   )
 }
@@ -21,7 +26,12 @@ export const Default: Story = {
 export const Overflow: Story = {
   render: () => (
     <FiltersPanel>
-      <Component value={'This Trait Name is waaaayyyyyyyyy too long'} count={1754} />
+      <Component
+        value={{
+          value: 'This Trait Name is waaaayyyyyyyyy too long',
+          count: 1754
+        }}
+      />
     </FiltersPanel>
   )
 }
@@ -29,7 +39,13 @@ export const Overflow: Story = {
 export const Selected: Story = {
   render: () => (
     <FiltersPanel>
-      <Component value={'Trait Name'} count={1754} selected />
+      <Component
+        value={{
+          value: 'Trait Name',
+          count: 1754
+        }}
+        selected
+      />
     </FiltersPanel>
   )
 }
@@ -38,7 +54,12 @@ export const Managed: Story = {
   render: () => (
     <FiltersPanel>
       <SelectionManager>
-        <Component value={'Trait Name'} count={1754} />
+        <Component
+          value={{
+            value: 'Trait Name',
+            count: 1754
+          }}
+        />
       </SelectionManager>
     </FiltersPanel>
   )

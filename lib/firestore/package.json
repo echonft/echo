@@ -28,6 +28,7 @@
   "dependencies": {
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
+    "@mobily/ts-belt": "4.0.0-rc.5",
     "dayjs": "1.11.7",
     "ethers": "6.1.0",
     "firebase": "9.17.2",

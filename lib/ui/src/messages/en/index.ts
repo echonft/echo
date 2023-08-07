@@ -6,11 +6,19 @@ export const messages = {
     }
   },
   collection: {
+    button: {
+      makeOffer: {
+        label: 'Make an offer'
+      }
+    },
     details: {
       size: '{size, number, ::K} NFTs'
     },
     filters: {
       traits: {
+        button: {
+          title: '{trait}{count, plural, =0 {} other { (# selected)}}'
+        },
         title: 'Attributes'
       }
     }

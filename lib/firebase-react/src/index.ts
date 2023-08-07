@@ -1,5 +1,3 @@
-export { useDiscordGuild } from './hooks/use-discord-guild'
-export { useFirebase } from './hooks/use-firebase'
 export { useFirebaseAuth } from './hooks/use-firebase-auth'
-export { useUser } from './hooks/use-user'
+export { useNftCollection } from './hooks/use-nft-collection'
 export { FirebaseAuth } from './types/firebase-auth'

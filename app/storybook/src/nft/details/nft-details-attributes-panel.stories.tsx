@@ -1,5 +1,5 @@
 import { nfts } from '@echo/model'
-import { NftDetailsAttributesPanel as Component } from '@echo/ui'
+import { NftDetailsAttributesPanel as Component, NftDetailsAttributesPanelSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -16,8 +16,12 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const AttributesPanel: Story = {
+export const Default: Story = {
   args: {
     attributes: nfts['QFjMRNChUAHNswkRADXh']!.attributes
   }
+}
+
+export const Skeleton: Story = {
+  render: () => <NftDetailsAttributesPanelSkeleton />
 }

@@ -1,4 +1,4 @@
-import { nftCollections, nfts, users } from '@echo/model'
+import { nfts } from '@echo/model'
 import { NftThumbnailSelectable as Component, SelectionManager } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -17,7 +17,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['pictureUrl', 'owner', 'name', 'tokenId']
+      exclude: ['nft']
     }
   }
 }
@@ -25,38 +25,24 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 const mockNft = nfts['QFjMRNChUAHNswkRADXh']!
-const mockUser = users['oE6yUEQBPn7PZ89yMjKn']!
-const mockNftCollection = nftCollections['Rc8pLQXxgyQGIRL0fr13']!
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    pictureUrl: mockNft.pictureUrl,
-    owner: mockUser.discordUsername,
-    collectionName: mockNftCollection.name,
-    title: mockNft.name,
-    tokenId: BigInt(10000)
+    nft: mockNft
   }
 }
 
-export const Flagged: Story = {
-  args: {
-    pictureUrl: mockNft.pictureUrl,
-    owner: mockUser.discordUsername,
-    collectionName: mockNftCollection.name,
-    title: mockNft.name,
-    tokenId: BigInt(10000),
-    flagged: true
-  }
-}
+// export const Flagged: Story = {
+//   args: {
+//     nft: mockNft,
+//     flagged: true
+//   }
+// }
 
 export const Selected: Story = {
   args: {
-    pictureUrl: mockNft.pictureUrl,
-    owner: mockUser.discordUsername,
-    collectionName: mockNftCollection.name,
-    title: mockNft.name,
-    tokenId: BigInt(10000),
+    nft: mockNft,
     selected: true
   }
 }
@@ -64,13 +50,7 @@ export const Selected: Story = {
 export const Managed: Story = {
   render: () => (
     <SelectionManager>
-      <Component
-        pictureUrl={mockNft.pictureUrl}
-        owner={mockUser.discordUsername}
-        collectionName={mockNftCollection.name}
-        title={mockNft.name}
-        tokenId={BigInt(10000)}
-      />
+      <Component nft={mockNft} />
     </SelectionManager>
   )
 }

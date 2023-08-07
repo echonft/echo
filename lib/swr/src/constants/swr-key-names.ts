@@ -6,6 +6,6 @@ export enum SwrKeyNames {
   API_REMOVE_WALLETS = 'api-remove-wallets',
   DISCORD_USER_ME = 'discord-user-me',
   FIREBASE_LOGIN = 'firebase-login',
-  FIRESTORE_COLLECTION = 'firestore-collection',
-  FIRESTORE_DOCUMENT = 'firestore-document'
+  FIRESTORE_NFT_COLLECTION = 'firestore-nft-collection',
+  FIRESTORE_NFTS_FOR_COLLECTION = 'firestore-nfts-for-collection'
 }

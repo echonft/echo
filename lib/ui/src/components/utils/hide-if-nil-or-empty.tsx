@@ -1,24 +1,34 @@
-import { ConditionalRender } from './conditional-render'
+import { HideIf } from './hide-if'
 import { and, either, identity, is, isEmpty, isNil, reduce, useWith } from 'ramda'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
 export interface HideIfNilOrEmptyProps {
   checks: unknown
+  render?: () => ReactNode
 }
 
-export const HideIfNilOrEmpty: FunctionComponent<PropsWithChildren<HideIfNilOrEmptyProps>> = ({ checks, children }) => {
+export const HideIfNilOrEmpty: FunctionComponent<PropsWithChildren<HideIfNilOrEmptyProps>> = ({
+  checks,
+  render,
+  children
+}) => {
   if (is(Array, checks)) {
     return (
-      <ConditionalRender
+      <HideIf
         // eslint is confused here...
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        hideIf={reduce(useWith(and<boolean, boolean>, [identity, either(isNil, isEmpty)]), false, checks)}
+        condition={reduce(useWith(and<boolean, boolean>, [identity, either(isNil, isEmpty)]), false, checks)}
+        render={render}
       >
         {children}
-      </ConditionalRender>
+      </HideIf>
     )
   }
-  return <ConditionalRender hideIf={either(isNil, isEmpty)(checks)}>{children}</ConditionalRender>
+  return (
+    <HideIf condition={either(isNil, isEmpty)(checks)} render={render}>
+      {children}
+    </HideIf>
+  )
 }

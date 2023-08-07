@@ -1,12 +1,9 @@
-import { castAs } from '@echo/utils'
 import { DocumentData, QueryDocumentSnapshot, QuerySnapshot } from 'firebase/firestore'
-import { call, ifElse, invoker, pipe } from 'ramda'
+import { call, converge, identity, ifElse, invoker } from 'ramda'
 
 export const getDocsFromQuerySnapshot = <T extends DocumentData>(
   snapshot: QuerySnapshot<T>
 ): QueryDocumentSnapshot<T>[] =>
-  ifElse<[QuerySnapshot<T>], QueryDocumentSnapshot<T>[], QueryDocumentSnapshot<T>[]>(
-    pipe(invoker(1, 'empty'), call),
-    castAs,
-    pipe(invoker(1, 'docs'), call)
-  )(snapshot)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  ifElse(converge(call, [invoker(1, 'empty')]), identity, converge(call, [invoker(1, 'docs')]))(snapshot)

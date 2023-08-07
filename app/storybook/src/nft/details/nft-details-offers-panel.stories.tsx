@@ -1,5 +1,5 @@
 import { offers } from '@echo/model'
-import { NftDetailsOffersPanel as Component } from '@echo/ui'
+import { NftDetailsOffersPanel as Component, NftDetailsOffersPanelSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { assoc } from 'ramda'
@@ -33,4 +33,8 @@ export const Empty: Story = {
   args: {
     offers: []
   }
+}
+
+export const Skeleton: Story = {
+  render: () => <NftDetailsOffersPanelSkeleton />
 }

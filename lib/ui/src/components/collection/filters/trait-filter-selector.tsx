@@ -1,15 +1,14 @@
 import { SelectableProps } from '../../../types/selectable-props'
+import { NftTraitValue } from '@echo/model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface TraitFilterSelectorProps extends SelectableProps<string> {
-  value: string
-  count: number
+export interface TraitFilterSelectorProps extends SelectableProps<NftTraitValue> {
+  value: NftTraitValue
 }
 
 export const TraitFilterSelector: FunctionComponent<TraitFilterSelectorProps> = ({
   value,
-  count,
   selected,
   onToggleSelection
 }) => {
@@ -49,9 +48,9 @@ export const TraitFilterSelector: FunctionComponent<TraitFilterSelectorProps> = 
         >
           {selected && <span className={clsx('w-4', 'h-4', 'bg-yellow-500', 'rounded')} />}
         </div>
-        <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>{value}</span>
+        <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>{value.value}</span>
       </div>
-      <span className={clsx('prose-label-sm', 'text-white')}>{count}</span>
+      <span className={clsx('prose-label-sm', 'text-white')}>{value.count}</span>
     </button>
   )
 }

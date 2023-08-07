@@ -23,7 +23,7 @@ export const NftDetailsOffersPanel: FunctionComponent<NftDetailsOffersPanelProps
         'py-3',
         'px-7',
         'gap-2',
-        'min-h-[10.25rem]'
+        'min-h-[10.375rem]'
       )}
     >
       <div className={clsx('flex', 'flex-row', 'gap-1.5', 'items-center', 'text-white')}>
