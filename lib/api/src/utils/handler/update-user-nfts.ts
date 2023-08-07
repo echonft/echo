@@ -13,6 +13,7 @@ import { R } from '@mobily/ts-belt'
 import { any, flatten, map, omit } from 'ramda'
 
 // TODO This call is very slow, needs to be optimized, I suspect a major bottleneck when we'll have a lot of data
+// I believe the culprit might be findNftByCollection as it seems to take 6-7s on cold start.
 export const updateUserNfts = (user: FirestoreUserData) =>
   // Check if wallets are empty, fail fast
   isNilOrEmpty(user.wallets)
