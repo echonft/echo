@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="firebase-admin" pattern="file[echo]:lib/firebase-admin/src//*&amp;&amp;!file[echo]:lib/firebase-admin/dist/*" />
-</component>

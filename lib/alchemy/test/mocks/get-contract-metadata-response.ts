@@ -1,4 +1,4 @@
-import { ContractResponse } from '../../../types/response/contract-response'
+import { ContractResponse } from '../../src/types/response/contract-response'
 
 export const getContractMetadataResponse: { [key: string]: ContractResponse } = {
   '0x320e2fa93a4010ba47edcde762802374bac8d3f7': {

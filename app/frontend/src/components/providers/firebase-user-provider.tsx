@@ -1,7 +1,6 @@
 import { ApiRoutes, FirebaseTokenResponse, getApiRouteUrl } from '@echo/api-public'
 import { useFirebaseAuth } from '@echo/firebase-react'
 import { getUrl, logger } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
 import { Unsubscribe } from 'firebase/auth'
 import { signOut, useSession } from 'next-auth/react'
 import { isNil } from 'ramda'
@@ -26,17 +25,17 @@ export const FirebaseUserProvider: FunctionComponent<PropsWithChildren> = ({ chi
   // Fetch token when logging in
   // TODO Move into a hook
   useSWR<void, Error>(shouldLogin ? getApiRouteUrl(ApiRoutes.GET_FIREBASE_TOKEN) : undefined, (url: string) =>
-    getUrl<FirebaseTokenResponse>(url).then((result) => {
-      if (R.isOk(result)) {
-        void signIn(auth, R.getExn(result).firebaseToken).then(() => {
+    getUrl<FirebaseTokenResponse>(url)
+      .then((token) => {
+        void signIn(auth, token.firebaseToken).then(() => {
           setCurrentUser((prevState) => ({ ...prevState, loggedInFirebase: true }))
           setShouldLogin(false)
         })
-      } else {
+      })
+      .catch(() => {
         logger.error('Error fetching firebase token')
         void signOut().then(() => setShouldLogin(false))
-      }
-    })
+      })
   )
 
   // Listen for session change

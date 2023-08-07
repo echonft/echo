@@ -1,8 +1,8 @@
 import { getFirestoreContractRefByAddress } from './get-firestore-contract-ref-by-address'
 import { FirestoreContract } from '@echo/firestore'
+import { promiseAll } from '@echo/utils'
 import { DocumentReference } from '@google-cloud/firestore'
-import { R } from '@mobily/ts-belt'
-import { isNil, reject } from 'ramda'
+import { andThen, converge, isNil, map, pipe, prop, reject } from 'ramda'
 
 interface ContractQuery {
   address: string
@@ -14,10 +14,8 @@ interface ContractQuery {
  * Returns [] if empty or if no contracts are found
  * @param contractsData The data of the contracts to fetch
  */
-export function getFirestoreContractRefsByAddress(
-  contractsData: ContractQuery[]
-): Promise<DocumentReference<FirestoreContract>[]> {
-  return Promise.all(
-    contractsData.map(({ address, chainId }) => getFirestoreContractRefByAddress(address, chainId).then(R.toUndefined))
-  ).then(reject(isNil)) as Promise<DocumentReference<FirestoreContract>[]>
-}
+export const getFirestoreContractRefsByAddress = pipe(
+  map(converge(getFirestoreContractRefByAddress, [prop('address'), prop('chainId')])),
+  promiseAll,
+  andThen(reject(isNil))
+) as unknown as (contractsData: ContractQuery[]) => Promise<DocumentReference<FirestoreContract>[]>

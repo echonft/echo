@@ -4,20 +4,15 @@ import { getCollectionFromPath } from '../../utils/collection/get-collection-fro
 import { whereCollection } from '../../utils/collection/where-collection'
 import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
 import { CollectionName, FirestoreRequestForOfferData } from '@echo/firestore'
-import { castAs, errorPromise } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
+import { errorPromise } from '@echo/utils'
 import { andThen, head, ifElse, isEmpty, pipe } from 'ramda'
 
-export const findRequestForOfferByOfferId = (offerId: string) =>
+export const findRequestForOfferByOfferId = (offerId: string): Promise<FirestoreRequestForOfferData> =>
   pipe(
     getCollectionFromPath,
     whereCollection('offers', 'array-contains', getDocRefFromPath(CollectionName.OFFERS, offerId)),
     getCollectionDocs,
     andThen(
-      ifElse(
-        isEmpty,
-        pipe(errorPromise<FirestoreRequestForOfferData>('not found'), R.fromPromise<FirestoreRequestForOfferData>),
-        pipe(head, castAs, convertRequestForOffer, R.fromPromise<FirestoreRequestForOfferData>)
-      )
+      ifElse(isEmpty, errorPromise<FirestoreRequestForOfferData>('not found'), pipe(head, convertRequestForOffer))
     )
   )(CollectionName.REQUESTS_FOR_OFFER)

@@ -8,7 +8,6 @@ import { mockChatInputCommandInteraction } from '../../src/utils/tests/discord/i
 import { findDiscordGuildByGuildId } from '@echo/firebase-admin'
 import { discordGuildFirestoreData } from '@echo/firestore'
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
-import { R } from '@mobily/ts-belt'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
@@ -16,17 +15,13 @@ jest.mock('@echo/firebase-admin')
 jest.mock('../../src/routing/get-base-url')
 
 describe('discord commands - connect', () => {
-  jest.mocked(findDiscordGuildByGuildId).mockImplementation((guildId: string) =>
-    Promise.resolve(
-      R.fromExecution(() => {
-        const guild = discordGuildFirestoreData[guildId]
-        if (isNil(guild)) {
-          throw Error
-        }
-        return guild
-      })
-    )
-  )
+  jest.mocked(findDiscordGuildByGuildId).mockImplementation((guildId: string) => {
+    const guild = discordGuildFirestoreData[guildId]
+    if (isNil(guild)) {
+      return Promise.reject('not found')
+    }
+    return Promise.resolve(guild)
+  })
   let client: Client
   beforeEach(async () => {
     jest.clearAllMocks()

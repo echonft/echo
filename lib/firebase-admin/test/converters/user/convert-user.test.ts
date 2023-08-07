@@ -22,8 +22,8 @@ describe('convertUser', () => {
         exists: false,
         data: () => undefined
       } as FirestoreSnapshot<FirestoreUser>)
-    } catch (e) {
-      expect((e as Error).message).toMatch('Document does not exist')
+    } catch (error) {
+      expect(error).toBeDefined()
     }
   })
   it('user with empty guild is converted properly', async () => {

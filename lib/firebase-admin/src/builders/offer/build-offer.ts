@@ -9,20 +9,16 @@ import {
   FirestoreOfferPrototype
 } from '@echo/firestore'
 import { generateOfferActivity, OfferState } from '@echo/model'
-import { R } from '@mobily/ts-belt'
 import dayjs from 'dayjs'
 
 export const buildOffer: FirestoreBuilder<FirestoreOfferPrototype, FirestoreOffer> = async (prototype) => {
-  const discordGuildResult = await getFirestoreDiscordGuildRefByDiscordId(prototype.discordGuildId)
-  if (R.isError(discordGuildResult)) {
-    throw Error('buildRequestForOffer Discord Guild does not exist')
-  }
+  const discordGuild = await getFirestoreDiscordGuildRefByDiscordId(prototype.discordGuildId)
   const activities = await buildOfferActivity(
     generateOfferActivity(OfferState.OPEN) as FirestoreOfferActivityPrototype
   ).then((activity) => [activity])
   return {
     state: OfferState.OPEN,
-    discordGuild: R.getExn(discordGuildResult),
+    discordGuild,
     sender: getFirestoreUserRefById(prototype.senderId),
     senderItems: await Promise.all(prototype.senderItems.map(getFirestoreNftRefById)),
     receiver: getFirestoreUserRefById(prototype.receiverId),

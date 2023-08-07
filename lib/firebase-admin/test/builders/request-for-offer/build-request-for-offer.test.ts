@@ -72,33 +72,25 @@ describe('builders - request-for-offer - buildRequestForOffer', () => {
   test('invalid guild throws an error', async () => {
     try {
       await buildRequestForOffer({ ...prototype, discordGuildId: '0' })
-      // Make sure the test throws
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as Error).message).toBe('buildRequestForOffer Discord Guild does not exist')
+    } catch (error) {
+      expect(error).toBe('getFirestoreDiscordGuildRefByDiscordId Discord Guild not found')
     }
     try {
       await buildRequestForOffer({ ...prototype, discordGuildId: '' })
-      // Make sure the test throws
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as Error).message).toBe('buildRequestForOffer Discord Guild does not exist')
+    } catch (error) {
+      expect(error).toBe('getFirestoreDiscordGuildRefByDiscordId Discord Guild not found')
     }
   })
   test('invalid target throws an error', async () => {
     try {
       await buildRequestForOffer({ ...prototype, target: [] })
-      // Make sure the test throws
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as Error).message).toBe('buildRequestForOffer Invalid target')
+    } catch (error) {
+      expect(error).toBe('buildRequestForOffer Invalid target')
     }
     try {
       await buildRequestForOffer({ ...prototype, target: [{ address: 'test', chainId: 1 }] })
-      // Make sure the test throws
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as Error).message).toBe('buildRequestForOffer Invalid target')
+    } catch (error) {
+      expect(error).toBe('getFirestoreContractRefByAddress Contract not found')
     }
   })
   test('valid prototype returns object (single target)', async () => {

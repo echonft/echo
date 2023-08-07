@@ -4,21 +4,15 @@ import { convertRequestForOffer } from '../../converters/request-for-offer/conve
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
 import { CollectionName, FirestoreRequestForOfferData, FirestoreRequestForOfferPrototype } from '@echo/firestore'
-import { castAs } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
-import { andThen, partial, pipe, unless } from 'ramda'
+import { andThen, partial, pipe } from 'ramda'
 
 export const addRequestForOffer = (
   requestForOfferPrototype: FirestoreRequestForOfferPrototype
-): Promise<R.Result<FirestoreRequestForOfferData, Error>> =>
+): Promise<FirestoreRequestForOfferData> =>
+  // @ts-ignore
   pipe(
     buildRequestForOffer,
+    // @ts-ignore
     andThen(partial(setDocAndReturnSnapshot, [getCollectionFromPath(CollectionName.REQUESTS_FOR_OFFER).doc()])),
-    andThen(
-      pipe(
-        // @ts-ignore
-        unless(R.isError, pipe(R.getExn, convertRequestForOffer, R.fromPromise)),
-        castAs<Promise<R.Result<FirestoreRequestForOfferData, Error>>>
-      )
-    )
+    andThen(convertRequestForOffer)
   )(requestForOfferPrototype)

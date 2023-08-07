@@ -7,7 +7,6 @@ import { findDiscordGuildById, findRequestForOfferById, findUserById } from '@ec
 import { FirestoreOfferData } from '@echo/firestore'
 import { canRequestForOfferReceiveOffers, RequestForOfferState } from '@echo/model'
 import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
@@ -28,13 +27,7 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
     const validatedRequest = createOfferSchema.parse(req.body)
     if (validatedRequest.withRequestForOffer) {
       return findRequestForOfferById(validatedRequest.requestForOfferId)
-        .then((requestForOfferResult) => {
-          if (R.isError(requestForOfferResult)) {
-            res.end(res.status(500).json({ error: 'Request for offer is not found' }))
-            return
-          }
-          const requestForOffer = R.getExn(requestForOfferResult)
-
+        .then((requestForOffer) => {
           if (
             !canRequestForOfferReceiveOffers(
               dayjs.unix(requestForOffer.expiresAt),
@@ -65,14 +58,9 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
         findUserById(validatedRequest.receiverId),
         findDiscordGuildById(validatedRequest.discordGuildId)
       ])
-        .then((results) => {
-          if (R.isError(results[0]) || R.isError(results[1])) {
-            logger.error(`createOfferHandler error on findUserById or findDiscordGuildById`)
-            res.end(res.status(500).json({ error: 'Could not create offer' }))
-            return
-          }
-          const receiver = R.getExn(results[0])
-          const discordGuild = R.getExn(results[1])
+        .then((users) => {
+          const receiver = users[0]
+          const discordGuild = users[1]
           return createOfferFromData(
             user,
             validatedRequest.senderItems,

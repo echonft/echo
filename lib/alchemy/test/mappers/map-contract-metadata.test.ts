@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access */
 import { mapContractMetadata } from '../../src/mappers/map-contract-metadata'
-import { getContractMetadataResponse } from '../../src/utils/test/mocks/get-contract-metadata-response'
+import { getContractMetadataResponse } from '../mocks/get-contract-metadata-response'
 import { nftCollectionFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 

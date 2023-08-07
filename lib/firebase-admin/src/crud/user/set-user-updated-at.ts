@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
 import { CollectionName, FirestoreUser } from '@echo/firestore'
-import { R } from '@mobily/ts-belt'
-import { firestore } from 'firebase-admin'
+import { errorPromise } from '@echo/utils'
+import { WriteResult } from '@google-cloud/firestore'
 import { always, assoc, call, converge, identity, ifElse, invoker, isNil, partial, pick, pipe, prop } from 'ramda'
-import WriteResult = firestore.WriteResult
 
 // if updatedAt is undefined, we use Date.now()
 // this field is useful for testing only
@@ -13,7 +12,7 @@ interface Arguments {
   updatedAt?: number
 }
 
-export const setUserUpdatedAt = (args: Arguments): Promise<R.Result<WriteResult, Error>> =>
+export const setUserUpdatedAt = (args: Arguments): Promise<WriteResult> =>
   // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   pipe(
@@ -26,7 +25,7 @@ export const setUserUpdatedAt = (args: Arguments): Promise<R.Result<WriteResult,
     // @ts-ignore
     ifElse(
       pipe(prop('ref'), isNil),
-      always(R.fromPromise(Promise.reject('User not found'))),
+      errorPromise('User not found'),
       // @ts-ignore
       pipe(
         converge(call, [
@@ -37,9 +36,7 @@ export const setUserUpdatedAt = (args: Arguments): Promise<R.Result<WriteResult,
             invoker(1, 'update')
           ),
           prop('ref')
-        ]),
-        // @ts-ignore
-        R.fromPromise
+        ])
       )
     )
     // @ts-ignore

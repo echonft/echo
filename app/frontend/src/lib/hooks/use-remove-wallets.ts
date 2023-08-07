@@ -2,7 +2,6 @@ import { ApiRoutes, getApiRouteUrl, WalletRequest, WalletResponse } from '@echo/
 import { Wallet } from '@echo/model'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { castAs, deleteData, isNilOrEmpty } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
 import { always, converge, path, pipe } from 'ramda'
 import useSWR from 'swr'
 
@@ -11,7 +10,7 @@ interface KeyData {
   request: WalletRequest | undefined
 }
 export const useRemoveWallets = (wallets: Wallet[] | undefined) =>
-  useSWR<R.Result<WalletResponse, Error>, Error, SwrKey<KeyData> | undefined>(
+  useSWR<WalletResponse, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       {
         name: SwrKeyNames.API_REMOVE_WALLETS,

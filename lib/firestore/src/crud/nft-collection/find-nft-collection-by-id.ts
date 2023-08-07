@@ -4,11 +4,9 @@ import { mapNftCollection } from '../../mappers/nft-collection/map-nft-collectio
 import { FirestoreNftCollection } from '../../types/model/collections/nft-collection/firestore-nft-collection'
 import { getDocSnapshotFromPath } from '../../utils/document/get-doc-snapshot-from-path'
 import { NftCollection } from '@echo/model'
-import { R } from '@mobily/ts-belt'
 import { andThen, partial, pipe } from 'ramda'
 
-export const findNftCollectionById: (collectionId: string) => Promise<R.Result<NftCollection, Error>> = pipe(
+export const findNftCollectionById: (collectionId: string) => Promise<NftCollection> = pipe(
   partial(getDocSnapshotFromPath<FirestoreNftCollection>, [CollectionName.NFT_COLLECTIONS]),
-  andThen(pipe(convertNftCollection, mapNftCollection)),
-  R.fromPromise
+  andThen(pipe(convertNftCollection, mapNftCollection))
 )

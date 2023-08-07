@@ -3,10 +3,8 @@ import { ErrorResponse, WalletResponse } from '@echo/api-public'
 import { findNonceForUser, findUserByWallet } from '@echo/firebase-admin'
 import { FirestoreUserData, FirestoreWalletData } from '@echo/firestore'
 import { walletEquals } from '@echo/model'
-import { addToArrayIfNotPresent } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
+import { addToArrayIfNotPresent, isNilOrEmpty } from '@echo/utils'
 import { NextApiResponse } from 'next'
-import { isNil } from 'ramda'
 import { SiweMessage } from 'siwe'
 
 export const createWalletHandler = (
@@ -17,8 +15,8 @@ export const createWalletHandler = (
   res: NextApiResponse<WalletResponse | ErrorResponse>
 ): Promise<void> => {
   return findUserByWallet(wallet)
-    .then((userResult) => {
-      if (R.isOk(userResult) && R.getExn(userResult).id !== user.id) {
+    .then((foundUser) => {
+      if (user.id !== foundUser.id) {
         res.end(res.status(401).json({ error: 'Wallet is already linked to another account' }))
         return
       }
@@ -28,12 +26,8 @@ export const createWalletHandler = (
         .then((validatedMessage) => {
           const { nonce } = validatedMessage
           return findNonceForUser(user.id)
-            .then((result: R.Result<string, Error>) => {
-              if (R.isError(result)) {
-                res.end(res.status(403).json({ error: 'No nonce found for user.' }))
-                return
-              }
-              if (isNil(nonce) || nonce !== R.getExn(result)) {
+            .then((foundNonce) => {
+              if (isNilOrEmpty(nonce) || nonce !== foundNonce) {
                 res.end(res.status(422).json({ error: 'Invalid nonce.' }))
                 return
               }
@@ -51,7 +45,7 @@ export const createWalletHandler = (
         })
     })
     .catch(() => {
-      res.end(res.status(401).json({ error: 'Could not validate wallet' }))
+      res.end(res.status(401).json({ error: 'Cannot find wallet' }))
       return
     })
 }

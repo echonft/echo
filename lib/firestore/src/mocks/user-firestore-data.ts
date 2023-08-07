@@ -59,5 +59,22 @@ export const userFirestoreData: { [key: string]: FirestoreUserData } = {
         chainId: 1
       }
     ]
+  },
+  xUcl0enoVsuvpsAf9syg: {
+    refPath: 'users/xUcl0enoVsuvpsAf9syg',
+    id: 'xUcl0enoVsuvpsAf9syg',
+    discordId: '460255274461167616',
+    discordUsername: 'gabeyc#0',
+    discordGuilds: [
+      discordGuildFirestoreData['xA40abnyBq6qQHSYmtHj']!,
+      discordGuildFirestoreData['ncUnbpFfVCofV9bD7ctn']!
+    ],
+    discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+    wallets: [
+      {
+        address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
+        chainId: 1
+      }
+    ]
   }
 }

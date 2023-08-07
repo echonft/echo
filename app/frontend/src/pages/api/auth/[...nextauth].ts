@@ -1,7 +1,6 @@
 import { createOrUpdateUser } from '@echo/api'
 import { getDiscordAuthorizationUrl, getDiscordConfig } from '@echo/discord'
 import { User } from '@echo/model'
-import { R } from '@mobily/ts-belt'
 import NextAuth, { AuthOptions } from 'next-auth'
 import Discord from 'next-auth/providers/discord'
 import { isNil } from 'ramda'
@@ -23,12 +22,13 @@ export const authOptions: AuthOptions = {
     async jwt({ token, account }) {
       // No firebase token means user is not logged in firebase
       if (account) {
-        return createOrUpdateUser(account.access_token, account.token_type, token.sub).then((userResult) => {
-          if (R.isError(userResult)) {
+        return createOrUpdateUser(account.access_token, account.token_type, token.sub)
+          .then((user) => {
+            return { ...token, user }
+          })
+          .catch(() => {
             throw Error('Auth error: error creating or updating user')
-          }
-          return { ...token, user: R.getExn(userResult) }
-        })
+          })
       }
       return token
     },

@@ -1,5 +1,4 @@
 import { useNftsForOwner } from '../../hooks/use-nfts-for-owner'
-import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
@@ -18,5 +17,5 @@ export const FetchNftsForOwner: FunctionComponent<FetchNftsForOwnerProps> = ({ o
   if (!isNil(error)) {
     return <div>{`Error: ${error.message}`}</div>
   }
-  return <div>{JSON.stringify(R.getExn(data!))}</div>
+  return <div>{JSON.stringify(data)}</div>
 }

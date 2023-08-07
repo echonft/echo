@@ -1,4 +1,4 @@
-import { NftResponse } from '../../../types/response/nft-response'
+import { NftResponse } from '../../src/types/response/nft-response'
 
 export const getNftsResponse: { [key: string]: NftResponse } = {
   '0x320e2fa93A4010ba47edcdE762802374bac8d3F7:1376': {

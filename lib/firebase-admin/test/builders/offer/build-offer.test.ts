@@ -15,15 +15,15 @@ describe('builders - offer - buildOffer', () => {
   })
   // FIXME Not working
   // it('proper prototype returns an offer', async () => {
-  //   const result = await buildOffer(prototype)
-  //   expect(result).toEqual(offerFirestoreData['LyCfl6Eg7JKuD7XJ6IPi'])
+  //   const offer = await buildOffer(prototype)
+  //   expect(offer).toEqual(offerFirestoreData['LyCfl6Eg7JKuD7XJ6IPi'])
   // })
   it('invalid discord guild will throw', async () => {
     try {
       await buildOffer({ ...prototype, discordGuildId: '123213' })
       expect(false).toBeTruthy()
     } catch (error) {
-      expect((error as Error).message).toEqual('buildRequestForOffer Discord Guild does not exist')
+      expect(error).toBe('getFirestoreDiscordGuildRefByDiscordId Discord Guild not found')
     }
   })
 })

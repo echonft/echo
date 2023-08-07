@@ -30,7 +30,6 @@
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@google-cloud/firestore": "6.5.0",
-    "@mobily/ts-belt": "4.0.0-rc.5",
     "dayjs": "1.11.7",
     "ethers": "6.1.0",
     "firebase-admin": "11.5.0",

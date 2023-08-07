@@ -4,7 +4,6 @@ import { mockRequestResponse, mockSession } from '@echo/api-public'
 import { findUserById } from '@echo/firebase-admin'
 import { userFirestoreData } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { R } from '@mobily/ts-belt'
 import { AuthOptions } from 'next-auth'
 import * as auth from 'next-auth/next'
 
@@ -13,9 +12,7 @@ jest.mock('@echo/firebase-admin')
 describe('utils - withSession', () => {
   const mockUser = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
   jest.spyOn(auth, 'getServerSession').mockImplementation(() => Promise.resolve(mockSession))
-  const mockedFindUserById = jest
-    .mocked(findUserById)
-    .mockImplementation(() => Promise.resolve(R.fromFalsy(mockUser, new Error())))
+  const mockedFindUserById = jest.mocked(findUserById).mockImplementation(() => Promise.resolve(mockUser))
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -35,7 +32,9 @@ describe('utils - withSession', () => {
   })
 
   it('authenticated but invalid user returns an error', async () => {
-    mockedFindUserById.mockResolvedValueOnce(R.fromNullable(undefined, new Error()))
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    mockedFindUserById.mockResolvedValueOnce(undefined)
     const { req, res } = mockRequestResponse('GET')
     try {
       await withSession(successHandler, {} as AuthOptions)(req, res)

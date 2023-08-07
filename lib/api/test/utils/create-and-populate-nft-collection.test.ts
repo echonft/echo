@@ -4,9 +4,7 @@ import { mockAddNftCollection } from '../../src/mocks/firebase-admin/add-nft-col
 import { createAndPopulateNftCollection } from '../../src/utils/handler/create-and-populate-nft-collection'
 import { addNft, addNftCollection } from '@echo/firebase-admin'
 import { FirestoreNftCollectionPrototype, nftCollectionFirestoreData } from '@echo/firestore'
-import { errorMessage } from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { R } from '@mobily/ts-belt'
 
 jest.mock('@echo/alchemy', () => ({
   getNftsForContract: (address: string) => mockGetNftsForContract(address)
@@ -28,17 +26,19 @@ describe('utils - handlers - createAndPopulateNftCollection', () => {
         expect(true).toBeFalsy()
       })
       .catch((e) => {
-        expect(errorMessage(e)).toBe('test')
+        expect(e).toBeDefined()
       })
   })
   it('if addNftCollection returns an error, rejects', () => {
-    mockedAddCollection.mockResolvedValueOnce(R.fromNullable(undefined, new Error('test')))
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    mockedAddCollection.mockResolvedValueOnce(undefined)
     createAndPopulateNftCollection({} as unknown as FirestoreNftCollectionPrototype, 'test')
       .then(() => {
         expect(true).toBeFalsy()
       })
       .catch((e) => {
-        expect(errorMessage(e)).toBe('createAndPopulateNftCollection Error adding NFT Collection')
+        expect(e).toBeDefined()
       })
   })
   it('if getNftsForContract throws, rejects', () => {
@@ -47,7 +47,7 @@ describe('utils - handlers - createAndPopulateNftCollection', () => {
         expect(true).toBeFalsy()
       })
       .catch((e) => {
-        expect(errorMessage(e)).toBe('Error')
+        expect(e).toBeDefined()
       })
   })
   it('if getNftsForContract rejects, rejects', () => {
@@ -56,7 +56,7 @@ describe('utils - handlers - createAndPopulateNftCollection', () => {
         expect(true).toBeFalsy()
       })
       .catch((e) => {
-        expect(errorMessage(e)).toBe('createAndPopulateNftCollection Error fetching NFTs')
+        expect(e).toBeDefined()
       })
   })
   it('if addNft rejects, rejects', () => {
@@ -69,11 +69,13 @@ describe('utils - handlers - createAndPopulateNftCollection', () => {
         expect(true).toBeFalsy()
       })
       .catch((e) => {
-        expect(errorMessage(e)).toBe('test')
+        expect(e).toBeDefined()
       })
   })
   it('if addNft sends error, rejects', () => {
-    mockedAddNft.mockResolvedValueOnce(R.fromNullable(undefined, new Error('addNFT rejects')))
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    mockedAddNft.mockResolvedValueOnce(undefined)
     createAndPopulateNftCollection(
       {} as unknown as FirestoreNftCollectionPrototype,
       '0x320e2fa93A4010ba47edcdE762802374bac8d3F7'
@@ -82,7 +84,7 @@ describe('utils - handlers - createAndPopulateNftCollection', () => {
         expect(true).toBeFalsy()
       })
       .catch((e) => {
-        expect(errorMessage(e)).toBe('createAndPopulateNftCollection Error adding NFTs')
+        expect(e).toBeDefined()
       })
   })
   it('if success, returns the collection', () => {

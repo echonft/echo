@@ -29,7 +29,6 @@
     "@echo/model": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@mobily/ts-belt": "4.0.0-rc.5",
     "ramda": "0.29.0"
   },
   "devDependencies": {

@@ -26,7 +26,6 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@mobily/ts-belt": "4.0.0-rc.5",
     "pino": "8.14.1",
     "ramda": "0.29.0"
   },

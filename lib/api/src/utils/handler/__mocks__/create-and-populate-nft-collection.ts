@@ -12,5 +12,8 @@ export const createAndPopulateNftCollection = (
 ): Promise<FirestoreNftCollectionData> => {
   const result = nftCollectionFirestoreData[address]
   idThrower(address)
-  return isNil(result) ? Promise.reject(new Error('createAndPopulateNftCollection error')) : Promise.resolve(result)
+  if (isNil(result)) {
+    return Promise.reject('createAndPopulateNftCollection error')
+  }
+  return Promise.resolve(result)
 }

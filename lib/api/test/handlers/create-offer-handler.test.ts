@@ -16,7 +16,6 @@ import {
 import { offerFirestoreData, requestForOfferFirestoreData } from '@echo/firestore'
 import { RequestForOfferState } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { R } from '@mobily/ts-belt'
 import dayjs from 'dayjs'
 import { omit } from 'ramda'
 
@@ -135,7 +134,7 @@ describe('handlers - offer - createOfferHandler', () => {
         undefined,
         mockedRequestWithRequestForOffer
       )
-      mockedFindRequestForOfferById.mockReturnValueOnce(R.fromPromise(Promise.resolve(mockOpenRequestForOffer)))
+      mockedFindRequestForOfferById.mockReturnValueOnce(Promise.resolve(mockOpenRequestForOffer))
       await createOfferHandler(req, res, session)
       expect(res.statusCode).toBe(200)
       expect(res._getJSONData()).toEqual(mockOffer)

@@ -5,25 +5,19 @@ import { PagingResult } from '../types/paging/paging-result'
 import { GetNftsForOwnerRequest } from '../types/request/get-nfts-for-owner-request'
 import { GetNftResponse } from '../types/response/get-nft-response'
 import { GetNftsForOwnerResponse } from '../types/response/get-nfts-for-owner-response'
-import { NftResponse } from '../types/response/nft-response'
 import { handlePaging } from '../utils/handle-paging'
-import { applySpec, castAsNonNullable, getData } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
+import { applySpec, getData } from '@echo/utils'
 import { andThen, map, partial, pipe, prop } from 'ramda'
 
-const fetchNftsForOwner = pipe<
-  GetNftsForOwnerRequest[],
-  Promise<R.Result<GetNftsForOwnerResponse, Error>>,
-  Promise<R.Result<PagingResult<GetNftResponse>, Error>>
->(
-  partial(getData<GetNftsForOwnerResponse, GetNftsForOwnerRequest>, [getRoute(AlchemyV3Routes.GET_NFTS_FOR_OWNER)]),
+const fetchNftsForOwner: (request: GetNftsForOwnerRequest) => Promise<PagingResult<GetNftResponse>> = pipe(
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  partial(getData, [getRoute(AlchemyV3Routes.GET_NFTS_FOR_OWNER)]),
   andThen(
-    R.map(
-      applySpec<GetNftsForOwnerResponse, PagingResult<GetNftResponse>>({
-        data: pipe(prop('ownedNfts'), castAsNonNullable<NftResponse[]>, map(mapNft)),
-        pageKey: prop('pageKey')
-      })
-    )
+    applySpec<GetNftsForOwnerResponse, PagingResult<GetNftResponse>>({
+      data: pipe(prop('ownedNfts'), map(mapNft)),
+      pageKey: prop('pageKey')
+    })
   )
 )
 
