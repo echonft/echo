@@ -2,7 +2,7 @@ import { ContractResponse } from '../types/response/contract-response'
 import { GetContractMetadataResponse } from '../types/response/get-contract-metadata-response'
 import { mapInt } from './map-int'
 import { applyToProp } from '@echo/utils'
-import { always, applySpec, pipe, prop } from 'ramda'
+import { always, applySpec, path, prop } from 'ramda'
 
 export const mapContractMetadata: (contractResponse: ContractResponse) => GetContractMetadataResponse = applySpec({
   // FIXME No banner from alchemy?
@@ -15,12 +15,12 @@ export const mapContractMetadata: (contractResponse: ContractResponse) => GetCon
     name: prop('name'),
     symbol: prop('symbol')
   }),
-  description: pipe(prop('openSeaMetadata'), prop('description')),
-  discordUrl: pipe(prop('openSeaMetadata'), prop('discordUrl')),
-  floorPrice: pipe(prop('openSeaMetadata'), prop('floorPrice')),
+  description: path(['openSeaMetadata', 'description']),
+  discordUrl: path(['openSeaMetadata', 'discordUrl']),
+  floorPrice: path(['openSeaMetadata', 'floorPrice']),
   name: prop('name'),
-  profilePictureUrl: pipe(prop('openSeaMetadata'), prop('imageUrl')),
+  profilePictureUrl: path(['openSeaMetadata', 'imageUrl']),
   totalSupply: applyToProp('totalSupply', mapInt),
-  twitterUsername: pipe(prop('openSeaMetadata'), prop('twitterUsername')),
-  websiteUrl: pipe(prop('openSeaMetadata'), prop('externalUrl'))
+  twitterUsername: path(['openSeaMetadata', 'twitterUsername']),
+  websiteUrl: path(['openSeaMetadata', 'externalUrl'])
 })

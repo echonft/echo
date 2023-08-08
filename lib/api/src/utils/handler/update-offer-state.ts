@@ -9,7 +9,7 @@ import {
 } from '@echo/firebase-admin'
 import { FirestoreOfferData, FirestoreUserData } from '@echo/firestore'
 import { canAddOfferActivity, generateOfferActivity, OfferState } from '@echo/model'
-import { castAs, errorMessage, logger } from '@echo/utils'
+import { errorMessage, logger } from '@echo/utils'
 import { unix } from 'dayjs'
 import { NextApiResponse } from 'next'
 import { append, assoc, isNil, modify, pipe } from 'ramda'
@@ -44,9 +44,8 @@ export const updateOfferState = (
             const newActivityData = mapActivityToFirestoreData(newActivity)
             const updatedOffer = pipe(
               modify('activities', append(newActivityData)),
-              assoc('state', state),
-              castAs<FirestoreOfferData>
-            )(offer)
+              assoc('state', state)
+            )(offer) as FirestoreOfferData
 
             return updateOfferActivities(updatedOffer.id, updatedOffer.activities, newActivityData)
               .then(() => {

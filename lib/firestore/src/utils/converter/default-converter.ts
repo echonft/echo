@@ -10,7 +10,6 @@ import { convertSwap } from '../../converters/swap/convert-swap'
 import { convertUser } from '../../converters/user/convert-user'
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { FirestoreRootCollectionDocumentData } from '../../types/model/data/abstract/firestore-root-collection-document-data'
-import { castAs } from '@echo/utils'
 import { DocumentData } from 'firebase/firestore'
 
 export const defaultConverter = <T extends DocumentData, V extends FirestoreRootCollectionDocumentData>(
@@ -18,22 +17,22 @@ export const defaultConverter = <T extends DocumentData, V extends FirestoreRoot
 ): FirestoreConverter<T, V> => {
   switch (collectionName) {
     case CollectionName.CONTRACTS:
-      return castAs<FirestoreConverter<T, V>>(convertContract)
+      return convertContract as unknown as FirestoreConverter<T, V>
     case CollectionName.GUILDS:
-      return castAs<FirestoreConverter<T, V>>(convertDiscordGuild)
+      return convertDiscordGuild as unknown as FirestoreConverter<T, V>
     case CollectionName.NFT_COLLECTIONS:
-      return castAs<FirestoreConverter<T, V>>(convertNftCollection)
+      return convertNftCollection as unknown as FirestoreConverter<T, V>
     case CollectionName.NFTS:
-      return castAs<FirestoreConverter<T, V>>(convertNft)
+      return convertNft as unknown as FirestoreConverter<T, V>
     case CollectionName.NONCES:
-      return castAs<FirestoreConverter<T, V>>(convertNonce)
+      return convertNonce as unknown as FirestoreConverter<T, V>
     case CollectionName.OFFERS:
-      return castAs<FirestoreConverter<T, V>>(convertOffer)
+      return convertOffer as unknown as FirestoreConverter<T, V>
     case CollectionName.REQUESTS_FOR_OFFER:
-      return castAs<FirestoreConverter<T, V>>(convertRequestForOffer)
+      return convertRequestForOffer as unknown as FirestoreConverter<T, V>
     case CollectionName.SWAPS:
-      return castAs<FirestoreConverter<T, V>>(convertSwap)
+      return convertSwap as unknown as FirestoreConverter<T, V>
     case CollectionName.USERS:
-      return castAs<FirestoreConverter<T, V>>(convertUser)
+      return convertUser as unknown as FirestoreConverter<T, V>
   }
 }

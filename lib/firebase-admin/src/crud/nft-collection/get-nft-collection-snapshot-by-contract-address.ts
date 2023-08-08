@@ -4,7 +4,7 @@ import { getCollectionFromPath } from '../../utils/collection/get-collection-fro
 import { whereCollection } from '../../utils/collection/where-collection'
 import { getContractSnapshotByAddress } from '../contract/get-contract-snapshot-by-address'
 import { CollectionName, FirestoreContractData, FirestoreNftCollectionData } from '@echo/firestore'
-import { castAsNonNullable, errorPromise } from '@echo/utils'
+import { errorPromise } from '@echo/utils'
 import { QueryDocumentSnapshot } from '@google-cloud/firestore'
 import { always, andThen, call, converge, head, ifElse, isEmpty, partial, pipe, prop, useWith } from 'ramda'
 
@@ -28,13 +28,7 @@ export const getNftCollectionSnapshotByContractAddress = pipe<
         always(getCollectionFromPath(CollectionName.NFT_COLLECTIONS))
       ]),
       getCollectionDocs,
-      andThen(
-        ifElse(
-          isEmpty,
-          errorPromise<QueryDocumentSnapshot<FirestoreNftCollectionData>>('nft collection not found'),
-          pipe(head<QueryDocumentSnapshot<FirestoreNftCollectionData>>, castAsNonNullable)
-        )
-      )
+      andThen(ifElse(isEmpty, errorPromise('nft collection not found'), head))
     )
   )
 ) as (args: Arguments) => Promise<QueryDocumentSnapshot<FirestoreNftCollectionData>>
