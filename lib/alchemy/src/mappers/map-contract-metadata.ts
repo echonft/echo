@@ -1,14 +1,13 @@
 import { ContractResponse } from '../types/response/contract-response'
 import { GetContractMetadataResponse } from '../types/response/get-contract-metadata-response'
 import { mapInt } from './map-int'
-import { FirestoreContractPrototype } from '@echo/firestore'
-import { applySpec, applyToProp } from '@echo/utils'
-import { always, pipe, prop } from 'ramda'
+import { applyToProp } from '@echo/utils'
+import { always, applySpec, pipe, prop } from 'ramda'
 
-export const mapContractMetadata = applySpec<ContractResponse, GetContractMetadataResponse>({
+export const mapContractMetadata: (contractResponse: ContractResponse) => GetContractMetadataResponse = applySpec({
   // FIXME No banner from alchemy?
   // bannerUrl: prop('openSeaMetadata.imageUrl'),
-  contract: applySpec<ContractResponse, FirestoreContractPrototype>({
+  contract: applySpec({
     address: prop<string>('address'),
     // TODO Should be flexible
     chainId: always(1),

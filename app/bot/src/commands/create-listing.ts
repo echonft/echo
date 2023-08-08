@@ -2,9 +2,9 @@ import { getHasNft } from '../api/get-has-nft'
 import { NoGuildIdError } from '../errors/no-guild-id-error'
 import { collectionListingsLink } from '../routing/collection-listings-link'
 import { createListingLink } from '../routing/create-listing-link'
-import { castAs, converge, isNilOrEmpty, toPromise } from '@echo/utils'
+import { castAs, isNilOrEmpty, toPromise } from '@echo/utils'
 import { CommandInteraction, Message, SlashCommandSubcommandBuilder } from 'discord.js'
-import { andThen, applySpec, call, head, ifElse, invoker, juxt, last, path, pipe, prop, useWith } from 'ramda'
+import { andThen, applySpec, call, converge, head, ifElse, invoker, juxt, last, path, pipe, prop, useWith } from 'ramda'
 
 /**
  * Create listing command
@@ -24,6 +24,8 @@ export const executeCreateListing: (interaction: CommandInteraction) => Promise<
     (interaction) => interaction.deferReply({ ephemeral: true }).then(() => interaction),
     andThen(
       pipe(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         juxt([toPromise, converge(getHasNft, [pipe(path(['user', 'id']), castAs), prop('guildId')])]),
         (promises) => Promise.all(promises),
         andThen(
