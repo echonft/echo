@@ -45,7 +45,6 @@ export {
   TraitFilterPickerManagerProps
 } from './components/collection/filters/trait-filter-picker-manager'
 export { TraitFilterSelector, TraitFilterSelectorProps } from './components/collection/filters/trait-filter-selector'
-export { FetchNftsForOwner, FetchNftsForOwnerProps } from './components/dev/fetch-nfts-for-owner'
 export { ConnectButton, ConnectButtonProps } from './components/layout/header/connect-button'
 export { Header, HeaderProps } from './components/layout/header/header'
 export { HeaderSearchInput, HeaderSearchInputProps } from './components/layout/header/header-search-input'

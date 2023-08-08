@@ -808,9 +808,6 @@ importers:
 
   lib/ui:
     dependencies:
-      '@echo/alchemy':
-        specifier: workspace:*
-        version: link:../alchemy
       '@echo/discord':
         specifier: workspace:*
         version: link:../discord
