@@ -9,6 +9,7 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 jest.mock('../../src/utils/handler/update-user-nfts')
 jest.mock('@echo/firebase-admin')
 jest.mock('@echo/alchemy', () => ({
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   getNftsForOwner: () => {}
 }))
 
@@ -26,7 +27,7 @@ describe('utils - handler - updateUserWalletsAndUpdateNfts', () => {
 
   it('if updateUserWallets rejects, returns 500', async () => {
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-    mockedUpdateUserWallets.mockRejectedValueOnce('')
+    mockedUpdateUserWallets.mockRejectedValueOnce(new Error('test'))
     await updateUserWalletsAndUpdateNfts(mockUser, mockUser.wallets, res)
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'Error updating user wallets' })
@@ -34,7 +35,7 @@ describe('utils - handler - updateUserWalletsAndUpdateNfts', () => {
 
   it('if updateUserNfts rejects, returns 500', async () => {
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-    mockedUpdateUserNfts.mockRejectedValueOnce('')
+    mockedUpdateUserNfts.mockRejectedValueOnce(new Error('test'))
     await updateUserWalletsAndUpdateNfts(mockUser, mockUser.wallets, res)
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'Error updating user NFTs' })

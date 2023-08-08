@@ -10,7 +10,6 @@ import {
 import { FirestoreOfferData, FirestoreUserData } from '@echo/firestore'
 import { canAddOfferActivity, generateOfferActivity, OfferState } from '@echo/model'
 import { castAs, errorMessage, logger } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
 import { unix } from 'dayjs'
 import { NextApiResponse } from 'next'
 import { append, assoc, isNil, modify, pipe } from 'ramda'
@@ -23,12 +22,7 @@ export const updateOfferState = (
   res: NextApiResponse<FirestoreOfferData | ErrorResponse>
 ) =>
   findOfferById(id)
-    .then((offerResult) => {
-      if (R.isError(offerResult)) {
-        res.end(res.status(401).json({ error: 'Invalid offer id' }))
-        return
-      }
-      const offer = R.getExn(offerResult)
+    .then((offer) => {
       // TODO Can the receiver cancel? or it's decline?
       // Some actions can be done by sender, others by receiver
       if (fromSender ? offer.sender.id !== user.id : offer.receiver.id !== user.id) {
@@ -36,7 +30,7 @@ export const updateOfferState = (
         return
       }
       return findRequestForOfferByOfferId(offer.id)
-        .then((requestForOfferResult) => {
+        .then((requestForOfferData) => {
           const newActivity = generateOfferActivity(state, offer.state as OfferState)
           if (!canAddOfferActivity(offer.state as OfferState, unix(offer.expiresAt), newActivity)) {
             res.end(res.status(401).json({ error: 'Cannot update offer' }))
@@ -44,7 +38,7 @@ export const updateOfferState = (
           }
           try {
             const { activity: requestForOfferActivity, requestForOffer } = checkRequestForOfferStatus(
-              requestForOfferResult,
+              requestForOfferData,
               newActivity.toState
             )
             const newActivityData = mapActivityToFirestoreData(newActivity)
@@ -53,6 +47,7 @@ export const updateOfferState = (
               assoc('state', state),
               castAs<FirestoreOfferData>
             )(offer)
+
             return updateOfferActivities(updatedOffer.id, updatedOffer.activities, newActivityData)
               .then(() => {
                 if (!isNil(requestForOfferActivity) && !isNil(requestForOffer)) {
@@ -94,6 +89,6 @@ export const updateOfferState = (
     })
     .catch((e) => {
       logger.error(`updateOfferState error thrown on findOfferById: ${errorMessage(e)}`)
-      res.end(res.status(500).json({ error: 'Could not update offer' }))
+      res.end(res.status(401).json({ error: 'Invalid offer id' }))
       return
     })

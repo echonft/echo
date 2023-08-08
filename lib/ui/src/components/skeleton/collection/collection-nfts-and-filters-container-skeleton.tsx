@@ -11,7 +11,7 @@ export const CollectionNftsAndFiltersContainerSkeleton: FunctionComponent = () =
         <CollectionOfferButton count={0} />
         <TraitFilterPanelSkeleton />
       </div>
-      <CollectionNftsContainer nfts={undefined} />
+      <CollectionNftsContainer nfts={[]} />
     </div>
   )
 }

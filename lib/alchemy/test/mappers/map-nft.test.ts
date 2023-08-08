@@ -1,5 +1,5 @@
 import { mapNft } from '../../src/mappers/map-nft'
-import { getNftsResponse } from '../../src/utils/test/mocks/get-nfts-response'
+import { getNftsResponse } from '../mocks/get-nfts-response'
 import { nftFirestoreData } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 import { omit } from 'ramda'

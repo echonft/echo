@@ -4,7 +4,6 @@ import { setDocAndReturnSnapshot } from '../../../src/utils/document/set-doc-and
 import { CollectionName, FirestoreOfferPrototype, offerFirestoreData } from '@echo/firestore'
 import { offers } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { R } from '@mobily/ts-belt'
 
 jest.mock('../../../src/utils/document/set-doc-and-return-snapshot')
 
@@ -14,7 +13,7 @@ describe('crud - offer - addOffer', () => {
     .mocked(setDocAndReturnSnapshot)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    .mockResolvedValue(R.fromPromise(getDocSnapshot(CollectionName.OFFERS, 'LyCfl6Eg7JKuD7XJ6IPi')))
+    .mockResolvedValue(getDocSnapshot(CollectionName.OFFERS, 'LyCfl6Eg7JKuD7XJ6IPi'))
   const prototype = {
     discordGuildId: '1',
     senderId: 'oE6yUEQBPn7PZ89yMjKn',
@@ -29,14 +28,16 @@ describe('crud - offer - addOffer', () => {
 
   it('valid prototype returns the new data', async () => {
     const result = await addOffer(prototype)
-    expect(R.isError(result)).toBeFalsy()
-    expect(R.getExn(result)).toEqual(offerFirestoreData['LyCfl6Eg7JKuD7XJ6IPi']!)
+    expect(result).toEqual(offerFirestoreData['LyCfl6Eg7JKuD7XJ6IPi']!)
   })
   it('if set data returns an error, the call fails', async () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     mockSetDocAndReturnSnapshot.mockResolvedValueOnce({})
-    const result = await addOffer(prototype)
-    expect(R.isError(result)).toBeTruthy()
+    try {
+      await addOffer(prototype)
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
   })
 })

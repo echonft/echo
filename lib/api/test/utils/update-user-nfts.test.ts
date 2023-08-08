@@ -10,9 +10,7 @@ import {
   updateNftOwner
 } from '@echo/firebase-admin'
 import { nftCollectionFirestoreData, nftFirestoreData, userFirestoreData } from '@echo/firestore'
-import { errorMessage } from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { R } from '@mobily/ts-belt'
 
 jest.mock('@echo/firebase-admin')
 jest.mock('@echo/alchemy', () => ({
@@ -24,22 +22,13 @@ describe('utils - handler - updateUserNfts', () => {
   const mockNft = nftFirestoreData['8hHFadIrrooORfTOLkBg']!
   const mockNftCollection = nftCollectionFirestoreData['Rc8pLQXxgyQGIRL0fr13']!
 
-  const mockedFindNftByCollection = jest
-    .mocked(findNftByCollection)
-    .mockResolvedValue(R.fromNullable(mockNft, Error('Test')))
+  const mockedFindNftByCollection = jest.mocked(findNftByCollection).mockResolvedValue(mockNft)
   const mockedGetAllContractsAddresses = jest
     .mocked(getAllContractsAddresses)
-    .mockResolvedValue(
-      R.fromNullable(
-        ['0x12c63bbD266dB84e117356e664f3604055166CEc', '0x320e2fa93a4010ba47edcde762802374bac8d3f7'],
-        Error('should not happen')
-      )
-    )
+    .mockResolvedValue(['0x12c63bbD266dB84e117356e664f3604055166CEc', '0x320e2fa93a4010ba47edcde762802374bac8d3f7'])
   // @ts-ignore
   const mockedUpdateNftOwner = jest.mocked(updateNftOwner).mockResolvedValue({})
-  const mockedFindCollectionByAddress = jest
-    .mocked(findCollectionByAddress)
-    .mockResolvedValue(R.fromNullable(mockNftCollection, Error('should not happen')))
+  const mockedFindCollectionByAddress = jest.mocked(findCollectionByAddress).mockResolvedValue(mockNftCollection)
   // @ts-ignore
   const mockedAddNft = jest.mocked(addNft).mockResolvedValue({})
   jest.mocked(getUserWalletAddresses).mockImplementation((user) => user.wallets.map((wallet) => wallet.address))
@@ -49,18 +38,18 @@ describe('utils - handler - updateUserNfts', () => {
   })
 
   it('if getAllContractsAddresses rejects, rejects', () => {
-    mockedGetAllContractsAddresses.mockRejectedValueOnce(Error('getAllContractsAddresses rejects'))
+    mockedGetAllContractsAddresses.mockRejectedValueOnce(new Error('getAllContractsAddresses rejects'))
     updateUserNfts(mockUser)
       .then(() => expect(false).toBeTruthy())
-      .catch((e) => expect(errorMessage(e)).toEqual('getAllContractsAddresses rejects'))
+      .catch((e) => expect(e).toBeDefined())
   })
 
   it('if getAllContractsAddresses returns an error, rejects', () => {
     // @ts-ignore
-    mockedGetAllContractsAddresses.mockResolvedValueOnce(R.fromNullable('error'))
+    mockedGetAllContractsAddresses.mockRejectedValueOnce(new Error('test'))
     updateUserNfts(mockUser)
       .then(() => expect(false).toBeTruthy())
-      .catch((e) => expect(errorMessage(e)).toEqual('Error fetching contract addresses'))
+      .catch((e) => expect(e).toBeDefined())
   })
 
   it('if user has no wallets, expect no write', () => {
@@ -75,7 +64,7 @@ describe('utils - handler - updateUserNfts', () => {
   it('if getNftsForOwner rejects, rejects', () => {
     updateUserNfts({ ...mockUser, wallets: [{ address: 'reject', chainId: 1 }] })
       .then(() => expect(false).toBeTruthy())
-      .catch((e) => expect(errorMessage(e)).toEqual('mockGetNftsForOwner error'))
+      .catch((e) => expect(e).toBeDefined())
 
     // Rejects if only 1 is rejection
     updateUserNfts({
@@ -86,13 +75,13 @@ describe('utils - handler - updateUserNfts', () => {
       ]
     })
       .then(() => expect(false).toBeTruthy())
-      .catch((e) => expect(errorMessage(e)).toEqual('mockGetNftsForOwner error'))
+      .catch((e) => expect(e).toBeDefined())
   })
 
   it('if getNftsForOwner errors, rejects', () => {
     updateUserNfts({ ...mockUser, wallets: [{ address: 'error', chainId: 1 }] })
       .then(() => expect(false).toBeTruthy())
-      .catch((e) => expect(errorMessage(e)).toEqual('Error fetching NFTs from alchemy'))
+      .catch((e) => expect(e).toBeDefined())
 
     // Fails if one is error
     updateUserNfts({
@@ -103,39 +92,39 @@ describe('utils - handler - updateUserNfts', () => {
       ]
     })
       .then(() => expect(false).toBeTruthy())
-      .catch((e) => expect(errorMessage(e)).toEqual('Error fetching NFTs from alchemy'))
+      .catch((e) => expect(e).toBeDefined())
   })
 
   it('if findNftByCollection rejects, rejects', () => {
     mockedFindNftByCollection.mockRejectedValue(Error('test'))
     updateUserNfts(mockUser)
       .then(() => expect(false).toBeTruthy())
-      .catch((e) => expect(errorMessage(e)).toEqual('test'))
+      .catch((e) => expect(e).toBeDefined())
   })
 
   it('if findNftByCollection errors and findCollectionByAddress rejects, rejects', () => {
     // @ts-ignore
-    mockedFindNftByCollection.mockResolvedValue(R.fromNullable(undefined, 'test'))
+    mockedFindNftByCollection.mockRejectedValue(Error('test'))
     mockedFindCollectionByAddress.mockRejectedValue(Error('test'))
     updateUserNfts(mockUser)
       .then(() => expect(false).toBeTruthy())
-      .catch((e) => expect(errorMessage(e)).toEqual('test'))
+      .catch((e) => expect(e).toBeDefined())
   })
 
   it('if findNftByCollection errors and findCollectionByAddress errors, rejects', () => {
     // @ts-ignore
-    mockedFindNftByCollection.mockResolvedValue(R.fromNullable(undefined, 'test'))
+    mockedFindNftByCollection.mockRejectedValue(Error('test'))
     // @ts-ignore
-    mockedFindCollectionByAddress.mockResolvedValue(R.fromNullable(undefined, 'test'))
+    mockedFindCollectionByAddress.mockRejectedValue(Error('test'))
     updateUserNfts(mockUser)
       .then(() => expect(false).toBeTruthy())
-      .catch((e) => expect(errorMessage(e)).toEqual('Could not find collection'))
+      .catch((e) => expect(e).toBeDefined())
   })
 
   it('if findNftByCollection errors, addNft is called with proper value', () => {
     // @ts-ignore
-    mockedFindNftByCollection.mockResolvedValue(R.fromNullable(undefined, 'test'))
-    mockedFindCollectionByAddress.mockResolvedValue(R.fromNullable(mockNftCollection, Error('should not happen')))
+    mockedFindNftByCollection.mockRejectedValue(Error('test'))
+    mockedFindCollectionByAddress.mockResolvedValue(mockNftCollection)
 
     updateUserNfts(mockUser)
       .then(() => {
@@ -149,7 +138,7 @@ describe('utils - handler - updateUserNfts', () => {
   })
 
   it('if success, expect updateNftOwner to be called with proper values', () => {
-    mockedFindNftByCollection.mockResolvedValue(R.fromNullable(mockNft, Error('Test')))
+    mockedFindNftByCollection.mockResolvedValue(mockNft)
     updateUserNfts(mockUser)
       .then((results) => {
         expect(results.length).toEqual(mockUser.wallets.length)

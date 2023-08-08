@@ -4,8 +4,6 @@ import { mockAreNftsOwnedByWallets } from '../../src/mocks/alchemy/are-nfts-owne
 import { mockAddRequestForOffer } from '../../src/mocks/firebase-admin/add-request-for-offer'
 import { mockFindDiscordGuildById } from '../../src/mocks/firebase-admin/find-discord-guild-by-id'
 import { mockFindNftsByIds } from '../../src/mocks/firebase-admin/find-nfts-by-ids'
-import { promiseResultError } from '../../src/mocks/promise-result-error'
-import { promiseResultRejecter } from '../../src/mocks/promise-result-rejecter'
 import {
   CreateRequestForOfferRequest,
   mockRequestResponse,
@@ -15,6 +13,7 @@ import {
 import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@echo/firebase-admin'
 import { requestForOfferFirestoreData } from '@echo/firestore'
 import { nfts } from '@echo/model'
+import { errorPromise } from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { omit } from 'ramda'
 
@@ -134,7 +133,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
       undefined,
       mockedRequest
     )
-    mockedAddRequestForOffer.mockImplementationOnce(promiseResultRejecter)
+    mockedAddRequestForOffer.mockImplementationOnce(errorPromise('error'))
     await createRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'Could not create listing' })
@@ -145,7 +144,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
       undefined,
       mockedRequest
     )
-    mockedAddRequestForOffer.mockImplementationOnce(promiseResultError)
+    mockedAddRequestForOffer.mockImplementationOnce(errorPromise('error'))
     await createRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'Could not create listing' })

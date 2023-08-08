@@ -2,7 +2,6 @@ import { AddWallet } from '@components/add-wallet'
 import { SignMessage } from '@components/sign-message'
 import { Signature, Wallet } from '@echo/model'
 import { useFetchNonce } from '@lib/hooks/use-fetch-nonce'
-import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'
 import { FunctionComponent, useState } from 'react'
 import { SiweMessage } from 'siwe'
@@ -32,11 +31,11 @@ export const AddWalletButton: FunctionComponent<Props> = ({
   onSuccess,
   onError
 }) => {
-  const { data: nonceResult, mutate } = useFetchNonce(userId)
+  const { data: nonceData, error, mutate } = useFetchNonce(userId)
   const [addState, setAddState] = useState(AddState.IDLE)
   const [message, setMessage] = useState<SiweMessage>()
   const [signature, setSignature] = useState<Signature>()
-  const nonce = isNil(nonceResult) ? undefined : R.getExn(nonceResult).nonce
+  const nonce = !isNil(error) ? undefined : nonceData?.nonce
 
   if (addState === AddState.SIGNING && !isNil(nonce)) {
     return (
@@ -95,7 +94,7 @@ export const AddWalletButton: FunctionComponent<Props> = ({
 
   return (
     <button
-      disabled={isNil(nonceResult) || R.isError(nonceResult)}
+      disabled={isNil(nonce) || !isNil(error)}
       onClick={() => {
         setAddState(AddState.SIGNING)
       }}

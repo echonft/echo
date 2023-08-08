@@ -14,7 +14,7 @@ export const mockUpdateOfferActivities = (
   }
   idThrower(offerId)
   if (idRejecter(offerId)) {
-    return Promise.reject(new Error('Not found'))
+    return Promise.reject('Not found')
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

@@ -4,19 +4,12 @@ import { getCollectionFromPath } from '../../utils/collection/get-collection-fro
 import { whereCollection } from '../../utils/collection/where-collection'
 import { CollectionName, FirestoreUserData } from '@echo/firestore'
 import { castAs, errorPromise } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
 import { andThen, head, ifElse, isEmpty, pipe } from 'ramda'
 
-export const findUserByDiscordId = (discordId: string): Promise<R.Result<FirestoreUserData, Error>> =>
+export const findUserByDiscordId = (discordId: string): Promise<FirestoreUserData> =>
   pipe(
     getCollectionFromPath,
     whereCollection('discordId', '==', discordId),
     getCollectionDocs,
-    andThen(
-      ifElse(
-        isEmpty,
-        pipe(errorPromise<FirestoreUserData>('not found'), R.fromPromise<FirestoreUserData>),
-        pipe(head, castAs, convertUser, R.fromPromise<FirestoreUserData>)
-      )
-    )
+    andThen(ifElse(isEmpty, errorPromise<FirestoreUserData>('not found'), pipe(head, castAs, convertUser)))
   )(CollectionName.USERS)

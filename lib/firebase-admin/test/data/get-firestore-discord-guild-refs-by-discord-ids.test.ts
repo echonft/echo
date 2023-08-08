@@ -12,9 +12,12 @@ describe('data - discordGuild - buildUser', () => {
     const result = await getFirestoreDiscordGuildRefsByDiscordIds([])
     expect(result).toStrictEqual([])
   })
-  it('returns empty if wrong id', async () => {
-    const result = await getFirestoreDiscordGuildRefsByDiscordIds(['0'])
-    expect(result).toStrictEqual([])
+  it('throws if wrong id', async () => {
+    try {
+      await getFirestoreDiscordGuildRefsByDiscordIds(['0'])
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
   })
   it('returns refs with 1 guild', async () => {
     const result = await getFirestoreDiscordGuildRefsByDiscordIds(['1'])
@@ -26,9 +29,11 @@ describe('data - discordGuild - buildUser', () => {
     expect(result).toBeDefined()
     result?.map((guildRef, index) => expect(guildRef.path).toBe(discordGuildReferencesArray[index]!.path))
   })
-  it('returns refs with multiple guild and an invalid one', async () => {
-    const result = await getFirestoreDiscordGuildRefsByDiscordIds([...discordGuilds, '0'])
-    expect(result).toBeDefined()
-    result?.map((guildRef, index) => expect(guildRef.path).toBe(discordGuildReferencesArray[index]!.path))
+  it('throws with multiple guild and an invalid one', async () => {
+    try {
+      await getFirestoreDiscordGuildRefsByDiscordIds([...discordGuilds, '0'])
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
   })
 })

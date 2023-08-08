@@ -7,7 +7,6 @@ import { findRequestForOfferById, updateRequestForOfferActivities } from '@echo/
 import { FirestoreRequestForOfferData } from '@echo/firestore'
 import { canAddRequestForOfferActivity, generateRequestForOfferActivity, RequestForOfferState } from '@echo/model'
 import { castAs, errorMessage, logger } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
 import { unix } from 'dayjs'
 import { append, assoc, isNil, modify, pipe } from 'ramda'
 
@@ -22,12 +21,7 @@ export const cancelRequestForOfferHandler: RequestHandler<
   try {
     const { id } = idRequestSchema.parse(req.body)
     return findRequestForOfferById(id)
-      .then((requestForOfferResult) => {
-        if (R.isError(requestForOfferResult)) {
-          res.end(res.status(401).json({ error: 'Invalid listing id' }))
-          return
-        }
-        const requestForOffer = R.getExn(requestForOfferResult)
+      .then((requestForOffer) => {
         if (requestForOffer.sender.id !== user.id) {
           res.end(res.status(401).json({ error: 'Cannot cancel listing' }))
           return

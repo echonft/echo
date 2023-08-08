@@ -18,7 +18,7 @@ describe('handlers - auth - getFirebaseTokenHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
   })
   it('if authenticated but error on DB write, returns 500', async () => {
-    mockedCreateCustomToken.mockRejectedValue(undefined)
+    mockedCreateCustomToken.mockRejectedValue(new Error())
     const { req, res } = mockRequestResponse<null, never, FirebaseTokenResponse>('GET')
     await getFirebaseTokenHandler(req, res, session)
     expect(mockedCreateCustomToken).toBeCalled()

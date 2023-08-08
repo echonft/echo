@@ -7,9 +7,8 @@ import { ErrorResponse } from '@echo/api-public'
 import { addOffer, findNftsByIds, updateRequestForOfferOffers } from '@echo/firebase-admin'
 import { FirestoreDiscordGuildData, FirestoreOfferData, FirestoreUserData } from '@echo/firestore'
 import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
 import { NextApiResponse } from 'next'
-import { any, isNil, map } from 'ramda'
+import { isNil, map, not } from 'ramda'
 
 /**
  * Validates data and creates the offer
@@ -36,70 +35,56 @@ export function createOfferFromData(
   }
   if (userIsInGuild(sender, discordGuild)) {
     return Promise.all([findNftsByIds(senderItems), findNftsByIds(receiverItems)])
-      .then((usersNftsResult) => {
-        if (
-          any((result) => R.isError(result), usersNftsResult[0]) ||
-          any((result) => R.isError(result), usersNftsResult[1])
-        ) {
-          logger.error(`Error finding nfts`)
-          res.end(res.status(500).json({ error: 'Could not find NFTs' }))
-          return
-        } else {
-          const senderNfts = map(R.getExn, usersNftsResult[0])
-          const receiverNfts = map(R.getExn, usersNftsResult[1])
-          return Promise.all([
-            areNftsOwnedByWallets({ wallets: sender.wallets, nfts: map(mapNftToNftIdWithContractAddress, senderNfts) }),
-            areNftsOwnedByWallets({
-              wallets: receiver.wallets,
-              nfts: map(mapNftToNftIdWithContractAddress, receiverNfts)
-            })
-          ])
-            .then((usersOwnsAllNfts) => {
-              // If one of them do not own the NFTs for the offer, reject
-              if (usersOwnsAllNfts.some((result) => R.isError(result) || !R.getExn(result))) {
-                res.end(res.status(401).json({ error: 'Users do not own all the NFTs' }))
-                return
-              }
-              return addOffer({
-                discordGuildId: discordGuild.id,
-                senderId: sender.id,
-                senderItems: senderNfts.map(mapNftToId),
-                receiverId: receiver.id,
-                receiverItems: receiverNfts.map(mapNftToId)
-              })
-                .then((offerResult) => {
-                  if (R.isError(offerResult)) {
-                    res.end(res.status(500).json({ error: 'Could not create offer' }))
-                    return
-                  }
-                  const offer = R.getExn(offerResult)
-                  // If request is bound to a request for offer, append the offer ref
-                  if (!isNil(requestForOfferId)) {
-                    return updateRequestForOfferOffers(requestForOfferId, offer.id)
-                      .then(() => res.status(200).json(offer))
-                      .catch((e) => {
-                        logger.error(`Error updating request for offer: ${errorMessage(e)}`)
-                        res.end(res.status(500).json({ error: 'Could not create offer' }))
-                        return
-                      })
-                  }
-                  return res.status(200).json(offer)
-                })
-                .catch((e) => {
-                  logger.error(`Error creating offer: ${errorMessage(e)}`)
-                  res.end(res.status(500).json({ error: 'Could not create offer' }))
-                  return
-                })
-            })
-            .catch((e) => {
-              logger.error(`Error fetching from alchemy: ${errorMessage(e)}`)
+      .then((usersNfts) => {
+        const senderNfts = usersNfts[0]
+        const receiverNfts = usersNfts[1]
+        return Promise.all([
+          areNftsOwnedByWallets({ wallets: sender.wallets, nfts: map(mapNftToNftIdWithContractAddress, senderNfts) }),
+          areNftsOwnedByWallets({
+            wallets: receiver.wallets,
+            nfts: map(mapNftToNftIdWithContractAddress, receiverNfts)
+          })
+        ])
+          .then((usersOwnsAllNfts) => {
+            // If one of them do not own the NFTs for the offer, reject
+            if (usersOwnsAllNfts.some(not)) {
               res.end(res.status(401).json({ error: 'Users do not own all the NFTs' }))
               return
+            }
+            return addOffer({
+              discordGuildId: discordGuild.id,
+              senderId: sender.id,
+              senderItems: senderNfts.map(mapNftToId),
+              receiverId: receiver.id,
+              receiverItems: receiverNfts.map(mapNftToId)
             })
-        }
+              .then((offer) => {
+                // If request is bound to a request for offer, append the offer ref
+                if (!isNil(requestForOfferId)) {
+                  return updateRequestForOfferOffers(requestForOfferId, offer.id)
+                    .then(() => res.status(200).json(offer))
+                    .catch((e) => {
+                      logger.error(`Error updating request for offer: ${errorMessage(e)}`)
+                      res.end(res.status(500).json({ error: 'Could not create offer' }))
+                      return
+                    })
+                }
+                return res.status(200).json(offer)
+              })
+              .catch((e) => {
+                logger.error(`Error creating offer: ${errorMessage(e)}`)
+                res.end(res.status(500).json({ error: 'Could not create offer' }))
+                return
+              })
+          })
+          .catch((e) => {
+            logger.error(`Error fetching from alchemy: ${errorMessage(e)}`)
+            res.end(res.status(401).json({ error: 'Users do not own all the NFTs' }))
+            return
+          })
       })
-      .catch((reason) => {
-        logger.error(`Error fetching NFTs: ${reason}`)
+      .catch((e) => {
+        logger.error(`Error fetching NFTs: ${errorMessage(e)}`)
         res.end(res.status(500).json({ error: 'Could not find NFTs' }))
         return
       })

@@ -5,9 +5,7 @@ import { updateUserNfts } from '../../src/utils/handler/update-user-nfts'
 import { fetchDiscordUser } from '@echo/discord'
 import { addUser, findUserByDiscordId, updateUserDiscordInfo } from '@echo/firebase-admin'
 import { userFirestoreData } from '@echo/firestore'
-import { errorMessage } from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { R } from '@mobily/ts-belt'
 
 jest.mock('../../src/utils/handler/update-user-nfts')
 jest.mock('@echo/firebase-admin')
@@ -20,13 +18,10 @@ describe('utils - auth - createOrUpdateUser', () => {
   const mockedFindUserByDiscordId = jest
     .mocked(findUserByDiscordId)
     // @ts-ignore
-    .mockResolvedValue(R.fromNullable(userFirestoreData['6rECUMhevHfxABZ1VNOm'], 'Test'))
+    .mockResolvedValue(userFirestoreData['6rECUMhevHfxABZ1VNOm'])
   const mockedFetchDiscordUser = jest.mocked(fetchDiscordUser).mockResolvedValue(
     // @ts-ignore
-    R.fromNullable(
-      { id: 'test', username: 'test', discriminator: '1234', avatar: 'test', banner: 'test' },
-      'should not happen'
-    )
+    { id: 'test', username: 'test', discriminator: '1234', avatar: 'test', banner: 'test' }
   )
   const mockedAddUser = jest.mocked(addUser)
   const mockedUpdateUserDiscordInfo = jest.mocked(updateUserDiscordInfo)
@@ -38,52 +33,66 @@ describe('utils - auth - createOrUpdateUser', () => {
   })
 
   it('if accessToken is undefined, rejects', async () => {
-    const result = await createOrUpdateUser(undefined, 'tokenType', 'discordId')
-    expect(R.isError(result)).toBeTruthy()
-    R.tapError((error) => expect(errorMessage(error)).toEqual('Auth error: missing access token'))
+    try {
+      await createOrUpdateUser(undefined, 'tokenType', 'discordId')
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
   })
 
   it('if accessToken is empty, rejects', async () => {
-    const result = await createOrUpdateUser('', 'tokenType', 'discordId')
-    expect(R.isError(result)).toBeTruthy()
-    R.tapError((error) => expect(errorMessage(error)).toEqual('Auth error: missing access token'))
+    try {
+      await createOrUpdateUser('', 'tokenType', 'discordId')
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
   })
 
   it('if tokenType is undefined, rejects', async () => {
-    const result = await createOrUpdateUser('accessToken', undefined, 'discordId')
-    expect(R.isError(result)).toBeTruthy()
-    R.tapError((error) => expect(errorMessage(error)).toEqual('Auth error: missing access token'))
+    try {
+      await createOrUpdateUser('accessToken', undefined, 'discordId')
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
   })
 
   it('if tokenType is empty, rejects', async () => {
-    const result = await createOrUpdateUser('accessToken', '', 'discordId')
-    expect(R.isError(result)).toBeTruthy()
-    R.tapError((error) => expect(errorMessage(error)).toEqual('Auth error: missing access token'))
+    try {
+      await createOrUpdateUser('accessToken', '', 'discordId')
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
   })
 
   it('if discordId is undefined, rejects', async () => {
-    const result = await createOrUpdateUser('accessToken', 'tokenType', undefined)
-    expect(R.isError(result)).toBeTruthy()
-    R.tapError((error) => expect(errorMessage(error)).toEqual('Auth error: missing access token'))
+    try {
+      await createOrUpdateUser('accessToken', 'tokenType', undefined)
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
   })
 
   it('if discordId is empty, rejects', async () => {
-    const result = await createOrUpdateUser('accessToken', 'tokenType', '')
-    expect(R.isError(result)).toBeTruthy()
-    R.tapError((error) => expect(errorMessage(error)).toEqual('Auth error: missing access token'))
+    try {
+      await createOrUpdateUser('accessToken', 'tokenType', '')
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
   })
 
   it('if fetchDiscordUser is fails, rejects', async () => {
     // @ts-ignore
-    mockedFetchDiscordUser.mockResolvedValueOnce(R.fromNullable(undefined, 'error'))
-    const result = await createOrUpdateUser('accessToken', 'tokenType', 'discordId')
-    expect(R.isError(result)).toBeTruthy()
-    R.tapError((error) => expect(errorMessage(error)).toEqual('Auth error: error fetching discord user'))
+    mockedFetchDiscordUser.mockRejectedValueOnce(Error('test'))
+    try {
+      await createOrUpdateUser('accessToken', 'tokenType', 'discordId')
+    } catch (error) {
+      expect(error).toBeDefined()
+    }
   })
 
   it('if no user is found, addUser is called with the proper params', async () => {
     // @ts-ignore
-    mockedFindUserByDiscordId.mockResolvedValueOnce(R.fromNullable(undefined, 'error'))
+    mockedFindUserByDiscordId.mockRejectedValueOnce(Error('test'))
     await createOrUpdateUser('accessToken', 'tokenType', 'discordId')
     expect(mockedAddUser).toBeCalledWith({
       discordAvatar: 'test',

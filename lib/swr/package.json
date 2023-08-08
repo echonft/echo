@@ -28,7 +28,6 @@
   "dependencies": {
     "@echo/api": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@mobily/ts-belt": "4.0.0-rc.5",
     "ramda": "0.29.0",
     "swr": "2.1.0"
   },

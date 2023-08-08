@@ -21,9 +21,12 @@ describe('builders - user - buildUser', () => {
     discordGuilds: []
   }
 
-  it('returns empty discordGuilds if guild is not existing', async () => {
-    const user = await buildUser({ ...mockUserPrototype, discordGuildIds: ['0'] })
-    expect(user).toStrictEqual(mockUser)
+  it('throws if guild is not existing', async () => {
+    try {
+      await buildUser({ ...mockUserPrototype, discordGuildIds: ['0'] })
+    } catch (error) {
+      expect(error).toBe('getFirestoreDiscordGuildRefByDiscordId Discord Guild not found')
+    }
   })
   it('builds correctly with empty guilds', async () => {
     const user = await buildUser(mockUserPrototype)
@@ -43,11 +46,11 @@ describe('builders - user - buildUser', () => {
     expect(user.discordGuilds).toBeDefined()
     user.discordGuilds?.map((guildRef, index) => expect(guildRef.path).toBe(guildsRef[index]!.path))
   })
-  it('builds correctly with multiple guilds and an invalid one', async () => {
-    const guildsRef = [discordGuildReferences['xA40abnyBq6qQHSYmtHj'], discordGuildReferences['ncUnbpFfVCofV9bD7ctn']]
-    const user = await buildUser({ ...mockUserPrototype, discordGuildIds: ['1', '100', '0'] })
-    expect(omit(['discordGuilds'], user)).toStrictEqual(omit(['discordGuilds'], mockUser))
-    expect(user.discordGuilds).toBeDefined()
-    user.discordGuilds?.map((guildRef, index) => expect(guildRef.path).toBe(guildsRef[index]!.path))
+  it('throws with multiple guilds and an invalid one', async () => {
+    try {
+      await buildUser({ ...mockUserPrototype, discordGuildIds: ['1', '100', '0'] })
+    } catch (error) {
+      expect(error).toBe('getFirestoreDiscordGuildRefByDiscordId Discord Guild not found')
+    }
   })
 })

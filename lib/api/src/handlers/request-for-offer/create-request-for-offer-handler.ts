@@ -8,8 +8,7 @@ import { ApiRequest, CreateRequestForOfferRequest } from '@echo/api-public'
 import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@echo/firebase-admin'
 import { FirestoreRequestForOfferData } from '@echo/firestore'
 import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
-import { any, isNil, map } from 'ramda'
+import { isNil, map } from 'ramda'
 
 export const createRequestForOfferHandler: RequestHandler<
   ApiRequest<CreateRequestForOfferRequest, never>,
@@ -25,61 +24,52 @@ export const createRequestForOfferHandler: RequestHandler<
   }
   try {
     const validatedRequest = createRequestForOfferSchema.parse(req.body)
-    return findDiscordGuildByGuildId(validatedRequest.discordGuildId).then((discordGuildResult) => {
-      if (R.isError(discordGuildResult)) {
-        res.end(res.status(500).json({ error: 'Discord Guild not found' }))
-        return
-      }
-      const discordGuild = R.getExn(discordGuildResult)
-      if (userIsInGuild(user, discordGuild)) {
-        return findNftsByIds(validatedRequest.items)
-          .then((nftResults) => {
-            if (any(R.isError, nftResults)) {
-              res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
-              return
-            }
-            const nfts = map(R.getExn, nftResults)
-            return areNftsOwnedByWallets({ wallets: user.wallets, nfts: map(mapNftToNftIdWithContractAddress, nfts) })
-              .then((result) => {
-                if (R.isError(result) || !R.getExn(result)) {
-                  res.end(res.status(401).json({ error: 'User does not own all the NFTs to offer' }))
-                  return
-                }
-                return addRequestForOffer({
-                  senderId: user.id,
-                  discordGuildId: validatedRequest.discordGuildId,
-                  items: validatedRequest.items,
-                  target: validatedRequest.target
-                })
-                  .then((requestForOfferResult) => {
-                    if (R.isError(requestForOfferResult)) {
+    return findDiscordGuildByGuildId(validatedRequest.discordGuildId)
+      .then((discordGuild) => {
+        if (userIsInGuild(user, discordGuild)) {
+          return findNftsByIds(validatedRequest.items)
+            .then((nfts) => {
+              return areNftsOwnedByWallets({ wallets: user.wallets, nfts: map(mapNftToNftIdWithContractAddress, nfts) })
+                .then((owned) => {
+                  if (!owned) {
+                    res.end(res.status(401).json({ error: 'User does not own all the NFTs to offer' }))
+                    return
+                  }
+                  return addRequestForOffer({
+                    senderId: user.id,
+                    discordGuildId: validatedRequest.discordGuildId,
+                    items: validatedRequest.items,
+                    target: validatedRequest.target
+                  })
+                    .then((requestForOffer) => {
+                      return res.status(200).json(requestForOffer)
+                    })
+                    .catch((e) => {
+                      logger.error(`createRequestForOfferHandler Error creating request for offer: ${errorMessage(e)}`)
                       res.end(res.status(500).json({ error: 'Could not create listing' }))
                       return
-                    }
-                    return res.status(200).json(R.getExn(requestForOfferResult))
-                  })
-                  .catch((e) => {
-                    logger.error(`createRequestForOfferHandler Error creating request for offer: ${errorMessage(e)}`)
-                    res.end(res.status(500).json({ error: 'Could not create listing' }))
-                    return
-                  })
-              })
-              .catch((e) => {
-                logger.error(`createRequestForOfferHandler Error fetching from alchemy: ${errorMessage(e)}`)
-                res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
-                return
-              })
-          })
-          .catch((e) => {
-            logger.error(`createRequestForOfferHandler Error fetching NFTs: ${errorMessage(e)}`)
-            res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
-            return
-          })
-      } else {
-        res.end(res.status(401).json({ error: 'User is not in Discord Guild' }))
+                    })
+                })
+                .catch((e) => {
+                  logger.error(`createRequestForOfferHandler Error fetching from alchemy: ${errorMessage(e)}`)
+                  res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
+                  return
+                })
+            })
+            .catch((e) => {
+              logger.error(`createRequestForOfferHandler Error fetching NFTs: ${errorMessage(e)}`)
+              res.end(res.status(500).json({ error: 'Error fetching NFTs' }))
+              return
+            })
+        } else {
+          res.end(res.status(401).json({ error: 'User is not in Discord Guild' }))
+          return
+        }
+      })
+      .catch(() => {
+        res.end(res.status(500).json({ error: 'Discord Guild not found' }))
         return
-      }
-    })
+      })
   } catch {
     res.end(res.status(400).json({ error: 'Invalid body' }))
     return

@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="model" pattern="file[echo]:lib/model/src//*&amp;&amp;!file[echo]:lib/model/dist/*" />
-</component>

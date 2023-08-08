@@ -14,7 +14,7 @@ export const mockUpdateRequestForOfferActivities = (
   }
   idThrower(requestForOfferId)
   if (idRejecter(requestForOfferId)) {
-    return Promise.reject(new Error('Request For Offer not found'))
+    return Promise.reject('Request For Offer not found')
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

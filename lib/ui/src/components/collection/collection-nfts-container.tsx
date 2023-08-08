@@ -8,7 +8,7 @@ import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 export interface CollectionNftsContainerProps {
-  nfts: Nft[] | undefined
+  nfts: Nft[]
   selection?: string[]
   isLoading?: boolean
   onToggleSelection?: (id: string, selected: boolean) => unknown
@@ -43,7 +43,7 @@ export const CollectionNftsContainer: FunctionComponent<CollectionNftsContainerP
       <HideIfNil
         checks={nfts}
         render={() =>
-          nfts!.map((nft) => (
+          nfts.map((nft) => (
             <NftThumbnailSelectable
               key={nft.id}
               nft={nft}

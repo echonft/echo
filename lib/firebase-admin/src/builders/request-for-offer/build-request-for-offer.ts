@@ -10,7 +10,6 @@ import {
   FirestoreRequestForOfferPrototype
 } from '@echo/firestore'
 import { generateRequestForOfferActivity, RequestForOfferState } from '@echo/model'
-import { R } from '@mobily/ts-belt'
 import dayjs from 'dayjs'
 import { isEmpty } from 'ramda'
 
@@ -19,22 +18,19 @@ export const buildRequestForOffer: FirestoreBuilder<
   FirestoreRequestForOfferPrototype,
   FirestoreRequestForOffer
 > = async (prototype) => {
-  const discordGuildResult = await getFirestoreDiscordGuildRefByDiscordId(prototype.discordGuildId)
-  if (R.isError(discordGuildResult)) {
-    throw Error('buildRequestForOffer Discord Guild does not exist')
-  }
+  // TODO handle different errors
+  const discordGuild = await getFirestoreDiscordGuildRefByDiscordId(prototype.discordGuildId)
   const target = await getFirestoreContractRefsByAddress(prototype.target)
   if (isEmpty(target)) {
-    throw Error('buildRequestForOffer Invalid target')
+    return Promise.reject('buildRequestForOffer Invalid target')
   }
   const activities = await buildRequestForOfferActivity(
     generateRequestForOfferActivity(RequestForOfferState.CREATED) as FirestoreRequestForOfferActivityPrototype
   ).then((activity) => [activity])
-
   return {
     state: RequestForOfferState.CREATED,
     sender: getFirestoreUserRefById(prototype.senderId),
-    discordGuild: R.getExn(discordGuildResult),
+    discordGuild,
     target,
     items: await Promise.all(prototype.items.map(getFirestoreNftRefById)),
     activities,

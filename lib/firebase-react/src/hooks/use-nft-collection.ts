@@ -1,7 +1,6 @@
 import { CollectionName, findNftCollectionById, subscribeToDocument } from '@echo/firestore'
 import { NftCollection } from '@echo/model'
 import { SwrKey, SwrKeyNames } from '@echo/swr'
-import { R } from '@mobily/ts-belt'
 import { isNil } from 'ramda'
 import { useEffect } from 'react'
 import useSWR from 'swr'
@@ -15,7 +14,7 @@ export const useNftCollection = (collectionId: string) => {
     name: SwrKeyNames.FIRESTORE_NFT_COLLECTION,
     data: { collectionId }
   }
-  const response = useSWR<R.Result<NftCollection, Error>, Error, SwrKey<KeyData>>(
+  const response = useSWR<NftCollection, Error, SwrKey<KeyData>>(
     key,
     ({ data: { collectionId } }) => findNftCollectionById(collectionId),
     {
@@ -27,7 +26,7 @@ export const useNftCollection = (collectionId: string) => {
     if (!isNil(response)) {
       return subscribeToDocument<NftCollection>(
         (nftCollection) => {
-          void response.mutate(R.fromPromise(nftCollection))
+          void response.mutate(nftCollection)
         },
         CollectionName.NFT_COLLECTIONS,
         collectionId

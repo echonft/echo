@@ -90,7 +90,7 @@ describe('handlers - user - cancelRequestForOfferHandler', () => {
   })
   it('if updating listings returns an error, return 500', async () => {
     const { req, res } = mockRequestResponse<IdRequest, never, RequestForOfferResponse>('GET', undefined, mockedRequest)
-    mockedUpdateRequestForOfferActivities.mockRejectedValueOnce(new Error())
+    mockedUpdateRequestForOfferActivities.mockRejectedValueOnce(new Error('test'))
     await cancelRequestForOfferHandler(req, res, session)
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'Could not cancel listing' })

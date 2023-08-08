@@ -7,7 +7,6 @@ import {
 } from '@echo/api-public'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { castAs, isNilOrEmpty, putData } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
 import { always, converge, or, path, pipe } from 'ramda'
 import useSWR from 'swr'
 
@@ -21,7 +20,7 @@ export const useCreateRequestForOffer = (
   items: string[] | undefined,
   target: TargetRequest[] | undefined
 ) =>
-  useSWR<R.Result<RequestForOfferResponse, Error>, Error, SwrKey<KeyData> | undefined>(
+  useSWR<RequestForOfferResponse, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       {
         name: SwrKeyNames.API_CREATE_FOR_OFFER,

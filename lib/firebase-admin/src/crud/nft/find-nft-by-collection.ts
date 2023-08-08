@@ -8,8 +8,7 @@ import {
   getNftCollectionSnapshotByContractAddress
 } from '../nft-collection/get-nft-collection-snapshot-by-contract-address'
 import { CollectionName, FirestoreNftData } from '@echo/firestore'
-import { andThenOtherwise, errorPromise, toErrorPromise } from '@echo/utils'
-import { R } from '@mobily/ts-belt'
+import { errorPromise } from '@echo/utils'
 import { always, andThen, call, converge, head, ifElse, isEmpty, partial, pipe, prop, useWith } from 'ramda'
 
 interface Arguments {
@@ -17,12 +16,12 @@ interface Arguments {
   tokenId: number
 }
 
-export const findNftByCollection = (args: Arguments): Promise<R.Result<FirestoreNftData, Error>> =>
+export const findNftByCollection = (args: Arguments): Promise<FirestoreNftData> =>
   // @ts-ignore
   pipe(
     // @ts-ignore
     getNftCollectionSnapshotByContractAddress,
-    andThenOtherwise(
+    andThen(
       pipe(
         // @ts-ignore
         converge(call, [
@@ -30,10 +29,7 @@ export const findNftByCollection = (args: Arguments): Promise<R.Result<Firestore
           always(whereCollection('tokenId', '==', args.tokenId)(getCollectionFromPath(CollectionName.NFTS)))
         ]),
         getCollectionDocs,
-        andThen(
-          ifElse(isEmpty, pipe(errorPromise('nft not found'), R.fromPromise), pipe(head, convertNft, R.fromPromise))
-        )
-      ),
-      pipe(toErrorPromise, R.fromPromise)
+        andThen(ifElse(isEmpty, errorPromise('nft not found'), pipe(head, convertNft)))
+      )
     )
   )(args.contract)
