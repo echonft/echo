@@ -1,3 +1,4 @@
+export { mapNftTraitsToNftAttributes } from './mappers/nft/map-nft-traits-to-nft-attributes'
 export { contracts } from './mocks/contract'
 export { discordGuilds } from './mocks/discord-guild'
 export { nfts } from './mocks/nft'

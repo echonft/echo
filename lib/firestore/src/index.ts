@@ -1,7 +1,7 @@
 export { CollectionName } from './config/collection-name'
 export { firebaseConfig } from './config/firebase-config'
 export { findNftsForCollectionByTraits } from './crud/nft/find-nfts-for-collection-by-traits'
-export { findNftCollectionById } from './crud/nft-collection/find-nft-collection-by-id'
+export { findNftCollectionBySlug } from './crud/nft-collection/find-nft-collection-by-slug'
 export { mapContract } from './mappers/contract/map-contract'
 export { mapDiscordGuild } from './mappers/discord-guild/map-discord-guild'
 export { mapNft } from './mappers/nft/map-nft'

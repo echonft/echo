@@ -1,4 +1,4 @@
-import { compareNftAttributes } from '../../comparator/nft/compare-nft-attributes'
+import { compareNftAttributes } from '../../comparators/nft/compare-nft-attributes'
 import { Nft } from '../../types/nft'
 import { NftAttribute } from '../../types/nft-attribute'
 import { NftTraits } from '../../types/nft-traits'
@@ -14,7 +14,6 @@ import {
   mapObjIndexed,
   pipe,
   prop,
-  reduce,
   sort
 } from 'ramda'
 
@@ -26,10 +25,7 @@ export const getTraitsForNfts = pipe<
   Partial<Record<string, NftAttribute[]>>,
   NftTraits
 >(
-  reduce((acc: NftAttribute[][], value: Nft) => {
-    acc.push(value.attributes)
-    return acc
-  }, []),
+  map(prop('attributes')),
   flatten,
   sort(compareNftAttributes),
   groupBy(prop('trait')),

@@ -1,29 +1,19 @@
-import { LinkProvider, RouteParams, Routes } from './link-provider'
-import { isNil } from 'ramda'
-import { createContext, FunctionComponent, PropsWithChildren, useContext } from 'react'
+import { FirestoreProvider } from '../types/provider/firestore-provider'
+import { LinkProvider } from '../types/provider/link-provider'
+import { dependenciesContext } from './dependencies-context'
+import { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface Dependencies {
+  firestoreProvider: FirestoreProvider
   linkProvider: LinkProvider
 }
 
-const dependenciesContext = createContext<Dependencies | null>(null)
-
 export const DependenciesProvider: FunctionComponent<PropsWithChildren<Dependencies>> = ({
   linkProvider,
+  firestoreProvider,
   children
 }) => {
-  return <dependenciesContext.Provider value={{ linkProvider }}>{children}</dependenciesContext.Provider>
-}
-
-export const useLink = (route: Routes, params?: RouteParams): string => {
-  const contextValue = useContext(dependenciesContext)
-  if (isNil(contextValue)) {
-    throw new Error('useLink must be used within DependenciesProvider')
-  }
-
-  const { linkProvider } = contextValue
-  if (isNil(linkProvider)) {
-    throw new Error('LinkProvider was not defined')
-  }
-  return linkProvider.getLink(route, params)
+  return (
+    <dependenciesContext.Provider value={{ linkProvider, firestoreProvider }}>{children}</dependenciesContext.Provider>
+  )
 }

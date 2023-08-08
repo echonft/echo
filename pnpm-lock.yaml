@@ -270,6 +270,9 @@ importers:
       '@echo/ui':
         specifier: workspace:*
         version: link:../../lib/ui
+      '@echo/utils':
+        specifier: workspace:*
+        version: link:../../lib/utils
       browserify-zlib:
         specifier: 0.2.0
         version: 0.2.0
@@ -309,6 +312,9 @@ importers:
       stream-browserify:
         specifier: 3.0.0
         version: 3.0.0
+      swr:
+        specifier: 2.1.0
+        version: 2.1.0(react@18.2.0)
     devDependencies:
       '@storybook/addon-essentials':
         specifier: 7.2.0

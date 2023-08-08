@@ -1,9 +1,9 @@
 import { getTraitsForNfts, nftCollections, nfts } from '@echo/model'
-import { Collection as Component, CollectionSkeleton } from '@echo/ui'
+import { CollectionProvided as Component, CollectionSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Pages/Collection',
+  title: 'Pages/Collection/Provided',
   component: Component,
   argTypes: {
     onTraitSelectionChanged: {

@@ -2,6 +2,7 @@ import { DependenciesProvider, getMessages } from '@echo/ui'
 import type { Preview } from '@storybook/react'
 import '@echo/ui/dist/index.css'
 import { NextIntlProvider } from 'next-intl'
+import { firestoreProvider } from '../src/mocks/firestore-provider'
 
 const preview: Preview = {
   parameters: {
@@ -19,7 +20,7 @@ export const decorators = [
   (Story) => {
     return (
       // @ts-ignore
-      <DependenciesProvider linkProvider={{ getLink: (_route, _params) => '#' }}>
+      <DependenciesProvider linkProvider={{ getLink: (_route, _params) => '#' }} firestoreProvider={firestoreProvider}>
         {/*@ts-ignore*/}
         <NextIntlProvider messages={getMessages('en')} locale={'en'}>
           {Story()}
