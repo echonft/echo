@@ -8,6 +8,7 @@ export interface FirestoreNftCollectionPrototype extends FirestorePrototypeData 
   discordGuildId: string
   floorPrice?: number
   name: string
+  slug: string
   profilePictureUrl?: string
   totalSupply?: number
   twitterUsername?: string
