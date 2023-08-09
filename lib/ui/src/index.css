@@ -24,7 +24,6 @@
 }
 
 @layer utilities {
-
     .fill-opaque {
         fill-opacity: 1;
     }

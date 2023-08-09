@@ -54,9 +54,13 @@ export const messages = {
   },
   offer: {
     bottomSlider: {
-      title: 'Offer overview'
-    },
-  user: {
+      title: 'Offer overview',
+      assetsIn: 'Going in',
+      assetsOut: 'Going out',
+      addMore: 'Add more'
+    }
+  }
+user: {
     button: {
       makeOffer: {
         label: 'Make an offer'
@@ -67,7 +71,5 @@ export const messages = {
         title: 'Collections'
       }
     }
-  }
-
   }
 }
