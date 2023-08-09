@@ -12,8 +12,8 @@ export const getFirestoreContractRefByAddress = (
 ): Promise<DocumentReference<FirestoreContract>> =>
   pipe(
     getCollectionFromPath,
-    whereCollection<FirestoreContract>('address', '==', address),
-    whereCollection<FirestoreContract>('chainId', '==', chainId),
+    whereCollection('address', '==', address),
+    whereCollection('chainId', '==', chainId),
     getCollectionDocs,
     andThen(
       ifElse(

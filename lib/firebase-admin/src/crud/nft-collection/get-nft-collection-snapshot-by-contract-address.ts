@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { whereCollection } from '../../utils/collection/where-collection'
@@ -19,9 +18,13 @@ export const getNftCollectionSnapshotByContractAddress = pipe<
   Promise<QueryDocumentSnapshot<FirestoreNftCollectionData>>
 >(
   getContractSnapshotByAddress,
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   andThen(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     pipe(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       converge(call, [
         useWith(partial(whereCollection, ['contract', '==']), [prop('ref')]),

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createWalletHandler } from '../../src/handlers/user/create-wallet-handler'
 import { updateUserNfts } from '../../src/utils/handler/update-user-nfts'
 import { mockRequestResponse, WalletResponse } from '@echo/api-public'
@@ -6,7 +5,7 @@ import { findNonceForUser, findUserByWallet, updateUserWallets } from '@echo/fir
 import { userFirestoreData } from '@echo/firestore'
 import { Signature } from '@echo/model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { SiweMessage } from 'siwe'
+import { SiweMessage, SiweResponse, VerifyOpts, VerifyParams } from 'siwe'
 
 jest.mock('../../src/utils/handler/update-user-nfts')
 jest.mock('siwe')
@@ -49,6 +48,8 @@ describe('handlers - user - createWalletHandler', () => {
     expect(res._getJSONData()).toEqual({ error: 'Wallet is already linked to another account' })
   })
   it('if invalid signature, returns 401', async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     mockedMessage.mockImplementation(() => ({
       domain: '',
       address: '0xtest',
@@ -62,7 +63,10 @@ describe('handlers - user - createWalletHandler', () => {
       toMessage: jest.fn(),
       signMessage: jest.fn(),
       prepareMessage: jest.fn(),
-      validate: jest.fn(async (_signature, _provider) => Promise.reject<SiweMessage>())
+      validateMessage: jest.fn(async (_args) => {
+        throw Error()
+      }),
+      verify: jest.fn((_params: VerifyParams, _opts?: VerifyOpts | undefined) => Promise.reject<SiweResponse>())
     }))
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
     await createWalletHandler(
@@ -77,6 +81,8 @@ describe('handlers - user - createWalletHandler', () => {
   })
   describe('if valid signature', () => {
     beforeEach(() => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       mockedMessage.mockImplementation(() => ({
         domain: '',
         address: '0xtest',
@@ -90,7 +96,10 @@ describe('handlers - user - createWalletHandler', () => {
         toMessage: jest.fn(),
         signMessage: jest.fn(),
         prepareMessage: jest.fn(),
-        validate: jest.fn((_signature, _provider) => Promise.resolve({ nonce } as SiweMessage))
+        validateMessage: jest.fn(async (_args) => {
+          throw Error()
+        }),
+        verify: jest.fn((_params: VerifyParams, _opts?: VerifyOpts | undefined) => Promise.reject<SiweResponse>())
       }))
     })
     it('if nonce not found, returns 403', async () => {
@@ -140,6 +149,7 @@ describe('handlers - user - createWalletHandler', () => {
       mockedFindNonce.mockResolvedValue(nonce)
       const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
       await createWalletHandler(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         { ...user, wallets: undefined },
         wallet,

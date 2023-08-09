@@ -22,12 +22,12 @@ export const createWalletHandler = (
       }
       const siweMessage = new SiweMessage(message)
       return siweMessage
-        .validate(signature)
+        .verify({ signature })
         .then((validatedMessage) => {
-          const { nonce } = validatedMessage
+          const { data: nonce } = validatedMessage
           return findNonceForUser(user.id)
             .then((foundNonce) => {
-              if (isNilOrEmpty(nonce) || nonce !== foundNonce) {
+              if (isNilOrEmpty(nonce) || nonce.nonce !== foundNonce) {
                 res.end(res.status(422).json({ error: 'Invalid nonce.' }))
                 return
               }

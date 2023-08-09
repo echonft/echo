@@ -32,7 +32,7 @@ export function mockGuild(client: Client, owner?: User, data: Partial<APIGuild> 
     explicit_content_filter: 0,
     application_id: null,
     system_channel_id: null,
-    system_channel_flags: 0,
+    system_channel_flags: 1,
     rules_channel_id: null,
     vanity_url_code: null,
     premium_tier: 0,
@@ -41,6 +41,7 @@ export function mockGuild(client: Client, owner?: User, data: Partial<APIGuild> 
     nsfw_level: 0,
     stickers: [],
     premium_progress_bar_enabled: false,
+    safety_alerts_channel_id: null,
     ...omit(['id'], data)
   }
   const guild = Reflect.construct(Guild, [client, rawData]) as Guild
@@ -88,6 +89,7 @@ export function mockRole(
     name: 'test',
     position: 0,
     permissions: PermissionsBitField.resolve(permissions).toString(),
+    flags: 1,
     ...role
   }
   const createdRole = Reflect.construct(Role, [client, roleData, guild]) as Role

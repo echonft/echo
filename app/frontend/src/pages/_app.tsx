@@ -13,32 +13,28 @@ interface PageProps extends Record<string, unknown> {
   session: Session
 }
 
-const DynamicWagmiProvider = dynamic(
-  () => import('@components/providers/wagmi-provider').then((mod) => mod.WagmiProvider),
-  { ssr: false }
-)
-
 const DynamicConnectKitProvider = dynamic(() => import('connectkit').then((mod) => mod.ConnectKitProvider), {
   ssr: false
 })
 
+// FIXME add WagmiProvider
 function MyApp({ Component, pageProps }: AppProps<PageProps> & { Component: PageWithAuth }) {
   return (
     <SessionProvider session={pageProps.session}>
       <FirebaseUserProvider>
-        <DynamicWagmiProvider>
-          <DynamicConnectKitProvider>
-            <NextIntlProvider timeZone={'America/New_York'} messages={pageProps.messages}>
-              {Component.authenticationEnabled ? (
-                <Auth>
-                  <Component {...pageProps} />
-                </Auth>
-              ) : (
+        {/*<DynamicWagmiProvider>*/}
+        <DynamicConnectKitProvider>
+          <NextIntlProvider timeZone={'America/New_York'} messages={pageProps.messages}>
+            {Component.authenticationEnabled ? (
+              <Auth>
                 <Component {...pageProps} />
-              )}
-            </NextIntlProvider>
-          </DynamicConnectKitProvider>
-        </DynamicWagmiProvider>
+              </Auth>
+            ) : (
+              <Component {...pageProps} />
+            )}
+          </NextIntlProvider>
+        </DynamicConnectKitProvider>
+        {/*</DynamicWagmiProvider>*/}
       </FirebaseUserProvider>
     </SessionProvider>
   )

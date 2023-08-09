@@ -24,7 +24,7 @@ export function getGuildTextChannelMockDataBase<Type extends GuildTextChannelTyp
     position: 0,
     default_auto_archive_duration: 60,
     rate_limit_per_user: 0,
-    flags: 0,
+    flags: undefined,
     guild_id: guild?.id,
     last_message_id: null,
     last_pin_timestamp: null,
@@ -255,7 +255,7 @@ export function mockPrivateThread(client: Client, parentChannel: TextChannel, da
       id: randomSnowflake().toString(),
       user_id: randomSnowflake().toString(),
       join_timestamp: new Date().toISOString(),
-      flags: 0
+      flags: 8
     },
     guild_id: parentChannel.guild.id,
     parent_id: parentChannel.id,
@@ -295,7 +295,7 @@ export function mockAndSetupPrivateThread(input: {
         id: randomSnowflake().toString(),
         user_id: randomSnowflake().toString(),
         join_timestamp: new Date().toISOString(),
-        flags: 0
+        flags: 8
       },
       guild_id: guild.id,
       parent_id: parentChannel.id,
