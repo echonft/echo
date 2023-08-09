@@ -3,13 +3,12 @@ import { mockGetContractMetadataResponse } from '../../src/mocks/alchemy/get-con
 import { mockFindContractByAddress } from '../../src/mocks/firebase-admin/find-contract-by-address'
 import { fetchContractMetadataFromRequest } from '../../src/utils/handler/fetch-contract-metadata-from-request'
 import { findContractByAddress } from '@echo/firebase-admin'
+import { errorMessage } from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/firebase-admin')
 jest.mock('@echo/alchemy', () => ({
-  getContractMetadata: (address: string) => {
-    return mockGetContractMetadata(address)
-  }
+  getContractMetadata: async (address: string) => Promise.resolve(mockGetContractMetadata(address))
 }))
 
 describe('utils - handlers - fetchContractMetadataFromRequest', () => {
@@ -20,12 +19,12 @@ describe('utils - handlers - fetchContractMetadataFromRequest', () => {
   })
 
   it('if contract exists rejects', () => {
-    fetchContractMetadataFromRequest({ address: '0x320e2fa93a4010ba47edcde762802374bac8d3f7', chainId: 1 })
+    fetchContractMetadataFromRequest({ address: '37dBlwJYahEAKeL0rNP8', chainId: 1 })
       .then(() => {
         expect(true).toBeFalsy()
       })
       .catch((e) => {
-        expect(e).toBeDefined()
+        expect(errorMessage(e)).toBe('Contract already exist')
       })
   })
   it('if contract does not exist and getContractMetadata is error, rejects', () => {
@@ -34,7 +33,7 @@ describe('utils - handlers - fetchContractMetadataFromRequest', () => {
         expect(true).toBeFalsy()
       })
       .catch((e) => {
-        expect(e).toBeDefined()
+        expect(errorMessage(e)).toBe('Error fetching contract metadata')
       })
   })
   it('if contract does not exist and getContractMetadata throws, rejects', () => {
@@ -43,7 +42,7 @@ describe('utils - handlers - fetchContractMetadataFromRequest', () => {
         expect(true).toBeFalsy()
       })
       .catch((e) => {
-        expect(e).toBeDefined()
+        expect(errorMessage(e)).toBe('Error fetching contract metadata')
       })
   })
   it('if contract does not exist and getContractMetadata returns, returns result', () => {

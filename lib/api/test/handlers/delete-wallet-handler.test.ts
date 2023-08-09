@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { deleteWalletHandler } from '../../src/handlers/user/delete-wallet-handler'
 import { updateUserNfts } from '../../src/utils/handler/update-user-nfts'
 import { mockRequestResponse, WalletResponse } from '@echo/api-public'
@@ -13,7 +14,6 @@ jest.mock('@echo/alchemy', () => ({
 
 describe('handlers - user - deleteWalletHandler', () => {
   const mockedUpdateWallets = jest.mocked(updateUserWallets)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   jest.mocked(updateUserNfts).mockResolvedValue(true)
   const user = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
@@ -40,7 +40,6 @@ describe('handlers - user - deleteWalletHandler', () => {
   it('if valid but no wallet (undefined), returns empty array', async () => {
     mockedUpdateWallets.mockResolvedValue(undefined)
     const { res } = mockRequestResponse<never, never, WalletResponse>('GET')
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     await deleteWalletHandler({ ...user, wallets: undefined }, [wallet], res)
     expect(res.statusCode).toBe(200)
