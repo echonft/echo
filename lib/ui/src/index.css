@@ -24,6 +24,10 @@
 }
 
 @layer utilities {
+
+    .fill-opaque {
+        fill-opacity: 1;
+    }
     .prose-display-lg-bold {
         @apply text-display-lg-bold font-inter
     }

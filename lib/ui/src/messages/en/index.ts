@@ -52,6 +52,10 @@ export const messages = {
       makeOfferBtn: 'Make an offer'
     }
   },
+  offer: {
+    bottomSlider: {
+      title: 'Offer overview'
+    },
   user: {
     button: {
       makeOffer: {
@@ -63,5 +67,7 @@ export const messages = {
         title: 'Collections'
       }
     }
+  }
+
   }
 }
