@@ -11,7 +11,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const user = users['oE6yUEQBPn7PZ89yMjKn']!
+const user = users['6rECUMhevHfxABZ1VNOm']!
 export const Default: Story = {
   render: () => (
     <Component

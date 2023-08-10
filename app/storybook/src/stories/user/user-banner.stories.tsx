@@ -11,13 +11,10 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const user = users['oE6yUEQBPn7PZ89yMjKn']!
-// TODO when we have with a banner
-// export const Standard: Story = {
-//   render: () => (
-//     <Component discordBanner={user.discordBanner} discordId={user.discordId} />
-//   )
-// }
+const user = users['6rECUMhevHfxABZ1VNOm']!
+export const Standard: Story = {
+  render: () => <Component discordBanner={user.discordBanner} discordId={user.discordId} />
+}
 
 export const Default: Story = {
   render: () => <Component discordBanner={undefined} discordId={user.discordId} />
