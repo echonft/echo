@@ -57,7 +57,8 @@ export const messages = {
       title: 'Offer overview',
       assetsIn: 'Going in',
       assetsOut: 'Going out',
-      addMore: 'Add more'
+      add: 'Add more',
+      finalize: 'Finalize offer'
     }
   }
 user: {

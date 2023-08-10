@@ -8,9 +8,10 @@ import { FunctionComponent } from 'react'
 interface Props {
   counterparty: boolean
   assets?: Nft[]
+  addMore?: () => void
 }
 
-export const OfferBottomSliderAssetsContainer: FunctionComponent<Props> = ({ counterparty, assets = [] }) => {
+export const OfferBottomSliderAssetsContainer: FunctionComponent<Props> = ({ counterparty, assets = [], addMore }) => {
   return (
     <div className={clsx('flex', 'flex-col', 'gap-8')}>
       <OfferBottomSliderAssetsTitle counterparty={counterparty} />
@@ -18,7 +19,7 @@ export const OfferBottomSliderAssetsContainer: FunctionComponent<Props> = ({ cou
         {assets.map((nft) => (
           <NftThumbnailOffer nft={nft} key={nft.id} />
         ))}
-        <NftThumbnailOfferAddMore />
+        <NftThumbnailOfferAddMore onClick={addMore} />
       </div>
       <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
     </div>

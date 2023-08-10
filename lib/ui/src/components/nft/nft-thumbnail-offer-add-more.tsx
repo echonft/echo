@@ -29,7 +29,7 @@ export const NftThumbnailOfferAddMore: FunctionComponent<NftThumbnailOfferAddMor
       <span className={clsx('bg-yellow-500', 'rounded-lg', 'p-2')}>
         <AddIconSvg />
       </span>
-      <span className={clsx('prose-label-sm', 'text-white')}>{t('addMore')}</span>
+      <span className={clsx('prose-label-sm', 'text-white')}>{t('add')}</span>
     </div>
   )
 }
