@@ -132,6 +132,30 @@
     .prose-label-caps-sm {
         @apply text-caps-sm font-inter uppercase
     }
+    .btn {
+        @apply h-max flex flex-row justify-center items-center
+    }
+    .btn-primary {
+        @apply btn bg-white/[0.08] enabled:hover:bg-yellow-500 enabled:active:bg-yellow-700 disabled:bg-white/[0.08]
+    }
+    .btn-gradient {
+        @apply btn border border-solid border-transparent bg-main-gradient bg-origin-border enabled:hover:bg-main-gradient/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700 disabled:bg-main-gradient/40
+    }
+    .btn-action {
+        @apply btn bg-purple-300
+    }
+    .btn-label {
+        @apply h-max w-max truncate
+    }
+    .btn-label-primary {
+    @apply btn-label text-white group-active:text-black group-enabled:group-hover:text-black group-disabled:text-white/50 group-disabled:group-hover:text-white/50
+    }
+    .btn-label-gradient {
+        @apply btn-label text-dark-500 group-enabled:group-hover:text-yellow-100 group-disabled:text-dark-500 group-disabled:group-hover:text-dark-500
+    }
+    .btn-label-action {
+        @apply btn-label text-purple-900
+    }
 }
 
 .lds-roller {

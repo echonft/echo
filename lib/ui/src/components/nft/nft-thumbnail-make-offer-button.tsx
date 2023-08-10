@@ -1,6 +1,4 @@
-import { SizeFull, SizeSM } from '../../types/size'
-import { ButtonColorScheme } from '../base/buttons/button-color-scheme'
-import { TextButton } from '../base/buttons/text-button'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent, MouseEventHandler } from 'react'
 
@@ -11,12 +9,8 @@ export interface NftThumbnailMakeOfferButtonProps {
 export const NftThumbnailMakeOfferButton: FunctionComponent<NftThumbnailMakeOfferButtonProps> = ({ onClick }) => {
   const t = useTranslations('nft.thumbnail')
   return (
-    <TextButton
-      label={t('makeOfferBtn')}
-      size={SizeSM}
-      colorScheme={ButtonColorScheme.PRIMARY}
-      fixedWidth={SizeFull}
-      onClick={onClick}
-    />
+    <button onClick={onClick} className={clsx('btn-primary', 'group', 'rounded-lg', 'w-full', 'py-[0.28rem]', 'px-2')}>
+      <span className={clsx('prose-label-sm-semi', 'btn-label-primary')}>{t('makeOfferBtn')}</span>
+    </button>
   )
 }
