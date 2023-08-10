@@ -7,6 +7,7 @@ import { addToArrayIfNotPresent, isNilOrEmpty } from '@echo/utils'
 import { NextApiResponse } from 'next'
 import { SiweMessage } from 'siwe'
 
+// TODO We shouldn't mock SIWEMessage, it should be using a real signature for thorough testing
 export const createWalletHandler = (
   user: FirestoreUserData,
   wallet: FirestoreWalletData,
@@ -22,12 +23,16 @@ export const createWalletHandler = (
       }
       const siweMessage = new SiweMessage(message)
       return siweMessage
-        .validate(signature)
-        .then((validatedMessage) => {
-          const { nonce } = validatedMessage
+        .verify({ signature, domain: siweMessage.domain, nonce: siweMessage.nonce })
+        .then((response) => {
+          const { data, success } = response
+          if (!success) {
+            res.end(res.status(401).json({ error: 'Could not validate message' }))
+            return
+          }
           return findNonceForUser(user.id)
             .then((foundNonce) => {
-              if (isNilOrEmpty(nonce) || nonce !== foundNonce) {
+              if (isNilOrEmpty(data.nonce) || data.nonce !== foundNonce) {
                 res.end(res.status(422).json({ error: 'Invalid nonce.' }))
                 return
               }

@@ -1,7 +1,7 @@
 import { dirname, join } from 'path'
 import type { StorybookConfig } from '@storybook/react-webpack5'
 const config: StorybookConfig = {
-  stories: ['../src/**/*stories.tsx'],
+  stories: ['../src/stories/**/*stories.tsx'],
   addons: [
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-essentials'),

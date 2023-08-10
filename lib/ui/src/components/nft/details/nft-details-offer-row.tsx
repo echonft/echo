@@ -1,4 +1,4 @@
-import { Routes } from '../../../dependencies/link-provider'
+import { Routes } from '../../../types/provider/link-provider'
 import { InternalLink } from '../../utils/internal-link'
 import { clsx } from 'clsx'
 import { useFormatter, useNow, useTranslations } from 'next-intl'

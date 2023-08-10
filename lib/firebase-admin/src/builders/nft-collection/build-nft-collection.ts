@@ -16,6 +16,7 @@ export const buildNftCollection: FirestoreBuilder<FirestoreNftCollectionPrototyp
   }
   return Promise.resolve({
     name: prototype.name,
+    slug: prototype.slug,
     description: prototype.description,
     contract: contractRef,
     discordGuild: discordGuildRef,

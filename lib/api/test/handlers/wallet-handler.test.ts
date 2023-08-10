@@ -17,14 +17,13 @@ describe('handlers - user - walletHandler', () => {
   const mockedCreateWallet = jest.mocked(createWalletHandler)
   const mockedDeleteWallet = jest.mocked(deleteWalletHandler)
   const message: SiweMessage = new SiweMessage({
-    domain: '',
-    address: '0xtest',
+    domain: 'domain',
+    address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',
     statement: 'test',
-    uri: '',
+    uri: 'https://bleh.com',
     version: '1',
     chainId: 1,
-    nonce: '',
-    issuedAt: ''
+    nonce: 'nonce1234567'
   })
   const wallet = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!.wallets[0]!
   const signature = '0x0000'

@@ -1,24 +1,24 @@
 import { CollectionName } from '../../config/collection-name'
 import { convertNft } from '../../converters/nft/convert-nft'
 import { mapNft } from '../../mappers/nft/map-nft'
-import { mapTraitFilters } from '../../mappers/nft/map-trait-filters'
 import { FirestoreNft } from '../../types/model/collections/nft/firestore-nft'
-import { FirestoreNftCollection } from '../../types/model/collections/nft-collection/firestore-nft-collection'
 import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
 import { getDocsFromQuery } from '../../utils/query/get-docs-from-query'
-import { Nft, NftTraits } from '@echo/model'
-import { promiseAll } from '@echo/utils'
+import { getNftCollectionSnapshotBySlug } from '../nft-collection/get-nft-collection-snapshot-by-slug'
+import { mapNftTraitsToNftAttributes, Nft, NftTraits } from '@echo/model'
+import { isNilOrEmpty, promiseAll } from '@echo/utils'
 import { query, where } from 'firebase/firestore'
-import { andThen, isNil, map, pipe } from 'ramda'
+import { andThen, map, pipe } from 'ramda'
 
-export const findNftsForCollectionByTraits = (collectionId: string, traits?: NftTraits): Promise<Nft[]> => {
+export const findNftsForCollectionByTraits = async (collectionSlug: string, traits?: NftTraits): Promise<Nft[]> => {
+  const collectionSnapshot = await getNftCollectionSnapshotBySlug(collectionSlug)
   const nftsRef = getCollectionFromPath<FirestoreNft>(CollectionName.NFTS)
-  const nftCollectionRef = getDocRefFromPath<FirestoreNftCollection>(CollectionName.NFT_COLLECTIONS, collectionId)
-  const constraints = [where('collection', '==', nftCollectionRef)]
-  if (!isNil(traits)) {
-    const attributes = mapTraitFilters(traits)
+  const constraints = [where('collection', '==', collectionSnapshot.ref)]
+  if (!isNilOrEmpty(traits)) {
+    const attributes = mapNftTraitsToNftAttributes(traits)
     constraints.push(where('attributes', 'array-contains-any', attributes))
   }
-  return pipe(andThen(pipe(map(convertNft), map(mapNft), promiseAll)))(getDocsFromQuery(query(nftsRef, ...constraints)))
+  return await pipe(andThen(pipe(map(convertNft), map(mapNft), promiseAll)))(
+    getDocsFromQuery(query(nftsRef, ...constraints))
+  )
 }

@@ -21,7 +21,7 @@ export { ProfilePicture, ProfilePictureProps } from './components/base/profile-p
 export { Spinner } from './components/base/spinner'
 export { EditIconSvg } from './components/base/svg/edit-icon-svg'
 export { SvgProps, SvgSizeProps } from './components/base/svg/svg'
-export { Collection } from './components/collection/collection'
+export { Collection, CollectionProps } from './components/collection/collection'
 export { CollectionDetails, CollectionDetailsProps } from './components/collection/collection-details'
 export { CollectionLinks, CollectionLinksProps } from './components/collection/collection-links'
 export { CollectionNftsAndFiltersContainer } from './components/collection/collection-nfts-and-filters-container'
@@ -35,6 +35,7 @@ export {
   CollectionProfilePicture,
   CollectionProfilePictureProps
 } from './components/collection/collection-profile-picture'
+export { CollectionProvided } from './components/collection/collection-provided'
 export { FiltersPanel } from './components/collection/filters/filters-panel'
 export { TraitFilterButton, TraitFilterButtonProps } from './components/collection/filters/trait-filter-button'
 export { TraitFilterPanel, TraitFilterPanelProps } from './components/collection/filters/trait-filter-panel'
@@ -44,7 +45,6 @@ export {
   TraitFilterPickerManagerProps
 } from './components/collection/filters/trait-filter-picker-manager'
 export { TraitFilterSelector, TraitFilterSelectorProps } from './components/collection/filters/trait-filter-selector'
-export { FetchNftsForOwner, FetchNftsForOwnerProps } from './components/dev/fetch-nfts-for-owner'
 export { ConnectButton, ConnectButtonProps } from './components/layout/header/connect-button'
 export { Header, HeaderProps } from './components/layout/header/header'
 export { HeaderSearchInput, HeaderSearchInputProps } from './components/layout/header/header-search-input'
@@ -77,8 +77,10 @@ export { NftDetailsTokenDetailsPanelSkeleton } from './components/skeleton/nft/d
 export { CollapsibleManager, CollapsibleManagerProps } from './components/utils/collapsible-manager'
 export { SelectionManager, SelectionManagerProps } from './components/utils/selection-manager'
 export { Dependencies, DependenciesProvider } from './dependencies/dependencies-provider'
-export { LinkProvider, Routes } from './dependencies/link-provider'
 export { getMessages } from './messages/get-messages'
 export { TraitFilterGroup } from './model/trait-filter'
 export { ColorBlack, ColorYellow } from './types/color'
+export { FirestoreHooks } from './types/provider/firestore-hooks'
+export { FirestoreProvider } from './types/provider/firestore-provider'
+export { LinkProvider } from './types/provider/link-provider'
 export { SizeLG, SizeMD, SizeSM, SizeXL, SizeXS, SizeXXL, SizeXXS } from './types/size'

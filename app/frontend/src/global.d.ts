@@ -2,12 +2,6 @@ import { MessagesType } from '@lib/messages'
 import { NextPage } from 'next'
 
 export declare global {
-  namespace NodeJS {
-    interface ProcessEnv extends Dict<string> {
-      NEXT_PUBLIC_CHAIN_ID: string
-      NEXT_PUBLIC_MOCK: string
-    }
-  }
   // get typings on translation keys
   interface IntlMessages extends MessagesType {}
 

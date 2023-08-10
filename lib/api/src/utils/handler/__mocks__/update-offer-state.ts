@@ -2,7 +2,6 @@ import { mapActivityToFirestoreData } from '../../../mappers/map-activity-to-fir
 import { ErrorResponse } from '@echo/api-public'
 import { FirestoreOfferData, FirestoreUserData, offerFirestoreData } from '@echo/firestore'
 import { generateOfferActivity, OfferState } from '@echo/model'
-import { castAs } from '@echo/utils'
 import { NextApiResponse } from 'next'
 import { append, assoc, modify, pipe } from 'ramda'
 
@@ -26,9 +25,8 @@ export const updateOfferState = (
   const newActivityData = mapActivityToFirestoreData(newActivity)
   const updatedOffer = pipe(
     modify('activities', append(newActivityData)),
-    assoc('state', state),
-    castAs<FirestoreOfferData>
-  )(offer)
+    assoc('state', state)
+  )(offer) as FirestoreOfferData
   res.status(200).json(updatedOffer)
   return
 }

@@ -21,7 +21,8 @@ export function userToAPIUser(user: User): APIUser {
     banner: user.banner,
     bot: user.bot,
     flags: user.flags?.bitfield,
-    system: user.system
+    system: user.system,
+    global_name: ''
   }
 }
 
@@ -66,7 +67,7 @@ export function channelToAPIChannel(channel: Channel): APIChannel {
         archive_timestamp:
           channel.archivedAt?.toISOString() ?? channel.createdAt?.toISOString() ?? new Date().toISOString(),
         invitable: channel.invitable ?? false,
-        auto_archive_duration: channel.autoArchiveDuration ?? 0,
+        auto_archive_duration: channel.autoArchiveDuration!,
         archived: channel.archived ?? false
       },
       owner_id: channel.ownerId ?? undefined,

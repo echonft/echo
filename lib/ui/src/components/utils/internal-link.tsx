@@ -1,5 +1,5 @@
-import { useLink } from '../../dependencies/dependencies-provider'
-import { RouteParams, Routes } from '../../dependencies/link-provider'
+import { useLink } from '../../dependencies/hooks/use-link'
+import { RouteParams, Routes } from '../../types/provider/link-provider'
 import Link from 'next/link'
 import { FunctionComponent, PropsWithChildren } from 'react'
 

@@ -8,5 +8,5 @@ export const getCollectionQueryFromPath = <T extends DocumentData>(args: {
   constraints?: QueryConstraint[]
 }) => {
   const { path, pathSegments, constraints } = args
-  return query<T>(getCollectionFromPath<T>(path, ...(pathSegments ?? [])), ...(constraints ?? []))
+  return query(getCollectionFromPath<T>(path, ...(pathSegments ?? [])), ...(constraints ?? []))
 }

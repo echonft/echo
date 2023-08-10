@@ -4,7 +4,7 @@ import { TraitFilterPanel } from './filters/trait-filter-panel'
 import { Nft, NftTraits } from '@echo/model'
 import { addToArrayIfNotPresent, removeFromArray } from '@echo/utils'
 import { clsx } from 'clsx'
-import { assoc, equals, find, isEmpty, isNil, propEq, reduce } from 'ramda'
+import { assoc, dissoc, equals, find, isEmpty, isNil, propEq, reduce } from 'ramda'
 import { FunctionComponent, useEffect, useState } from 'react'
 
 export interface CollectionNftsAndFiltersContainerProps {
@@ -52,9 +52,16 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<CollectionNfts
         <TraitFilterPanel
           traits={traits}
           onSelectionUpdate={(type, selection) => {
-            const newSelections = assoc(type, selection, traitSelection)
-            setTraitSelection(newSelections)
-            onTraitSelectionChanged?.(newSelections)
+            let newSelection: NftTraits
+            if (isEmpty(selection)) {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              newSelection = dissoc(type, selection)
+            } else {
+              newSelection = assoc(type, selection, traitSelection)
+            }
+            setTraitSelection(newSelection)
+            onTraitSelectionChanged?.(newSelection)
           }}
         />
       </div>

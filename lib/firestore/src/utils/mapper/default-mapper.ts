@@ -10,29 +10,28 @@ import { mapSwap } from '../../mappers/swap/map-swap'
 import { mapUser } from '../../mappers/user/map-user'
 import { FirestoreMapper } from '../../types/mapper/firestore-mapper'
 import { FirestoreDocumentData } from '../../types/model/data/abstract/firestore-document-data'
-import { castAs } from '@echo/utils'
 
 export const defaultMapper = <T extends FirestoreDocumentData, V>(
   collectionName: CollectionName
 ): FirestoreMapper<T, V> => {
   switch (collectionName) {
     case CollectionName.CONTRACTS:
-      return castAs<FirestoreMapper<T, V>>(mapContract)
+      return mapContract as unknown as FirestoreMapper<T, V>
     case CollectionName.GUILDS:
-      return castAs<FirestoreMapper<T, V>>(mapDiscordGuild)
+      return mapDiscordGuild as unknown as FirestoreMapper<T, V>
     case CollectionName.NFT_COLLECTIONS:
-      return castAs<FirestoreMapper<T, V>>(mapNftCollection)
+      return mapNftCollection as unknown as FirestoreMapper<T, V>
     case CollectionName.NFTS:
-      return castAs<FirestoreMapper<T, V>>(mapNft)
+      return mapNft as unknown as FirestoreMapper<T, V>
     case CollectionName.NONCES:
-      return castAs<FirestoreMapper<T, V>>(mapNonce)
+      return mapNonce as unknown as FirestoreMapper<T, V>
     case CollectionName.OFFERS:
-      return castAs<FirestoreMapper<T, V>>(mapOffer)
+      return mapOffer as unknown as FirestoreMapper<T, V>
     case CollectionName.REQUESTS_FOR_OFFER:
-      return castAs<FirestoreMapper<T, V>>(mapRequestForOffer)
+      return mapRequestForOffer as unknown as FirestoreMapper<T, V>
     case CollectionName.SWAPS:
-      return castAs<FirestoreMapper<T, V>>(mapSwap)
+      return mapSwap as unknown as FirestoreMapper<T, V>
     case CollectionName.USERS:
-      return castAs<FirestoreMapper<T, V>>(mapUser)
+      return mapUser as unknown as FirestoreMapper<T, V>
   }
 }

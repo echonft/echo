@@ -1,4 +1,4 @@
-import { Routes } from '../../../dependencies/link-provider'
+import { Routes } from '../../../types/provider/link-provider'
 import { DiscordIconSvg } from '../../base/svg/discord-icon-svg'
 import { InternalLink } from '../../utils/internal-link'
 import { NftDetailsLinks, NftDetailsLinksProps } from './nft-details-links'
