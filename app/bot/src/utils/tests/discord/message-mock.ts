@@ -83,7 +83,8 @@ export function mockMessage(input: {
       id: author.id,
       username: author.username,
       discriminator: author.discriminator,
-      avatar: author.avatar
+      avatar: author.avatar,
+      global_name: author.globalName
     },
     content: '',
     timestamp: '',

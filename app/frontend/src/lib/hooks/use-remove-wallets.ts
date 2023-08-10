@@ -1,15 +1,15 @@
 import { ApiRoutes, getApiRouteUrl, WalletRequest, WalletResponse } from '@echo/api-public'
 import { Wallet } from '@echo/model'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
-import { castAs, deleteData, isNilOrEmpty } from '@echo/utils'
-import { always, converge, path, pipe } from 'ramda'
-import useSWR from 'swr'
+import { deleteData, isNilOrEmpty } from '@echo/utils'
+import { always, converge, path } from 'ramda'
+import useSWR, { SWRResponse } from 'swr'
 
 interface KeyData {
   url: string
   request: WalletRequest | undefined
 }
-export const useRemoveWallets = (wallets: Wallet[] | undefined) =>
+export const useRemoveWallets = (wallets: Wallet[] | undefined): SWRResponse<WalletResponse, Error> =>
   useSWR<WalletResponse, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       {
@@ -23,8 +23,7 @@ export const useRemoveWallets = (wallets: Wallet[] | undefined) =>
       },
       always(isNilOrEmpty(wallets))
     ),
-    converge(
-      (url: string, data: WalletRequest) => deleteData<WalletResponse, WalletRequest>(url, data),
-      [pipe(path(['data', 'url']), castAs<string>), pipe(path(['data', 'request']), castAs<WalletRequest>)]
-    )
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    converge(deleteData, [path(['data', 'url']), path(['data', 'request'])])
   )
