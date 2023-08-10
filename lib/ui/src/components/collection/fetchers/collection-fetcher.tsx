@@ -1,11 +1,10 @@
 import { useFirestoreHooks } from '../../../dependencies/hooks/use-firestore-hooks'
 import { PaddedContainer } from '../../layout/padded-container'
-import { CollectionNftsAndFiltersContainerSkeleton } from '../../skeleton/collection/collection-nfts-and-filters-container-skeleton'
 import { CollectionDetails } from '../collection-details'
 import { CollectionNftsFetcher } from './collection-nfts-fetcher'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
-import { FunctionComponent, PropsWithChildren, Suspense, useEffect } from 'react'
+import { FunctionComponent, PropsWithChildren, useEffect } from 'react'
 
 export interface CollectionFetcherProps {
   slug: string
