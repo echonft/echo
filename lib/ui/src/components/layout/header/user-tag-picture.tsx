@@ -10,14 +10,14 @@ export interface UserTagPictureProps {
 }
 
 export const UserTagPicture: FunctionComponent<UserTagPictureProps> = ({ user }) => {
-  const userAvatarUrl = getUserAvatarUrl(user, 32, 'png')
+  const userAvatarUrl = getUserAvatarUrl(user.discordId, user.discordAvatar, 32, 'png')
   if (isNil(userAvatarUrl)) {
     return <DefaultUserProfilePicture className={clsx('w-4.5', 'h-4.5', 'rounded')} width={18} height={18} />
   }
   return (
     <img
       className={clsx('w-4.5', 'h-4.5', 'rounded')}
-      src={userAvatarUrl}
+      src={userAvatarUrl.href}
       alt={user.discordUsername}
       width={18}
       height={18}

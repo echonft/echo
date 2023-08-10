@@ -1,17 +1,17 @@
-import { User } from '@echo/model'
 import { isPowerOfTwo } from '@echo/utils'
 import { isNil } from 'ramda'
 
 export const getUserBannerUrl = (
-  user: User,
+  discordId: string,
+  discordBanner: string | undefined,
   size: number,
   format: 'png' | 'jpg' | 'webp' | 'gif' = 'png'
-): string | undefined => {
+): URL | undefined => {
   if (!isPowerOfTwo(size)) {
     throw Error(`Wrong size ${size}: size must be a power of two`)
   }
-  if (isNil(user.discordBanner)) {
+  if (isNil(discordBanner)) {
     return undefined
   }
-  return `https://cdn.discordapp.com/banners/${user.discordId}/${user.discordBanner}.${format}?size=${size}`
+  return new URL(`https://cdn.discordapp.com/banners/${discordId}/${discordBanner}.${format}?size=${size}`)
 }
