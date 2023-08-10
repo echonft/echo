@@ -23,7 +23,7 @@ export const useNftCollection = (slug: string): SWRResponse<NftCollection, Error
   )
 
   useEffect(() => {
-    if (!isNil(response)) {
+    if (!isNil(response) && !isNil(response.data)) {
       return subscribeToDocument<NftCollection>(
         (nftCollection) => {
           void response.mutate(nftCollection)

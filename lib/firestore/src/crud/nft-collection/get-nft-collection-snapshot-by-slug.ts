@@ -13,6 +13,8 @@ export const getNftCollectionSnapshotBySlug = (slug: string): Promise<FirestoreS
   pipe(
     getCollectionFromPath<FirestoreNftCollection>,
     partialRight(query, [where('slug', '==', slug)]),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     getDocsFromQuery,
     andThen(ifElse(isEmpty, errorPromise('nft-collection not found'), head))
   )(CollectionName.NFT_COLLECTIONS)
