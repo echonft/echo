@@ -55,12 +55,16 @@ export function mockGuildMember(input: {
     guild_id: guild.id,
     roles: [role.id],
     deaf: false,
-    user: {
-      id: user.id
-    },
     joined_at: '33',
     mute: false,
-    ...data
+    ...data,
+    user: {
+      id: user.id,
+      username: user.username,
+      discriminator: user.discriminator,
+      avatar: user.avatar,
+      global_name: user.globalName
+    }
   }
 
   const member = Reflect.construct(GuildMember, [client, rawData, guild]) as GuildMember

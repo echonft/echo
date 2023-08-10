@@ -1,5 +1,6 @@
 import { requestForOfferFirestoreData } from '@echo/firestore'
 import { idRejecter, idThrower } from '@echo/utils'
+import { WriteResult } from '@google-cloud/firestore'
 import { isNil } from 'ramda'
 
 export const mockUpdateRequestForOfferOffers = (requestForOfferId: string, _offerId: string) => {

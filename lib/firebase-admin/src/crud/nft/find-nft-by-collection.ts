@@ -22,6 +22,8 @@ export const findNftByCollection = (args: Arguments): Promise<FirestoreNftData> 
     // @ts-ignore
     getNftCollectionSnapshotByContractAddress,
     andThen(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       pipe(
         // @ts-ignore
         converge(call, [

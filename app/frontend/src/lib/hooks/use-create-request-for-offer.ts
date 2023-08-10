@@ -6,9 +6,9 @@ import {
   TargetRequest
 } from '@echo/api-public'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
-import { castAs, isNilOrEmpty, putData } from '@echo/utils'
-import { always, converge, or, path, pipe } from 'ramda'
-import useSWR from 'swr'
+import { isNilOrEmpty, putData } from '@echo/utils'
+import { always, converge, or, path } from 'ramda'
+import useSWR, { SWRResponse } from 'swr'
 
 interface KeyData {
   url: string
@@ -19,7 +19,7 @@ export const useCreateRequestForOffer = (
   discordId: string,
   items: string[] | undefined,
   target: TargetRequest[] | undefined
-) =>
+): SWRResponse<RequestForOfferResponse, Error> =>
   useSWR<RequestForOfferResponse, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       {
@@ -36,11 +36,10 @@ export const useCreateRequestForOffer = (
       always(or(isNilOrEmpty(items), isNilOrEmpty(target)))
     ),
     converge(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       (url: string, data: CreateRequestForOfferRequest) =>
         putData<RequestForOfferResponse, CreateRequestForOfferRequest>(url, data),
-      [
-        pipe(path(['data', 'url']), castAs<string>),
-        pipe(path(['data', 'request']), castAs<CreateRequestForOfferRequest>)
-      ]
+      [path(['data', 'url']), path(['data', 'request'])]
     )
   )

@@ -6,7 +6,7 @@ import { ApiRequest, IdRequest } from '@echo/api-public'
 import { findRequestForOfferById, updateRequestForOfferActivities } from '@echo/firebase-admin'
 import { FirestoreRequestForOfferData } from '@echo/firestore'
 import { canAddRequestForOfferActivity, generateRequestForOfferActivity, RequestForOfferState } from '@echo/model'
-import { castAs, errorMessage, logger } from '@echo/utils'
+import { errorMessage, logger } from '@echo/utils'
 import { unix } from 'dayjs'
 import { append, assoc, isNil, modify, pipe } from 'ramda'
 
@@ -43,9 +43,8 @@ export const cancelRequestForOfferHandler: RequestHandler<
         const cancelledActivityData = mapActivityToFirestoreData(cancelledActivity)
         const updatedRequestForOffer = pipe(
           modify('activities', append(cancelledActivityData)),
-          assoc('state', RequestForOfferState.CANCELLED),
-          castAs<FirestoreRequestForOfferData>
-        )(requestForOffer)
+          assoc('state', RequestForOfferState.CANCELLED)
+        )(requestForOffer) as FirestoreRequestForOfferData
         return updateRequestForOfferActivities(requestForOffer.id, requestForOffer.activities, cancelledActivityData)
           .then(() => {
             res.status(200).json(updatedRequestForOffer)

@@ -1,9 +1,9 @@
 import { convertDefault } from '../converter/convert-default'
 import { mapDefault } from '../mapper/map-default'
 import { getDocsFromQuerySnapshot } from './get-docs-from-query-snapshot'
-import { castAs, promiseAll } from '@echo/utils'
+import { promiseAll } from '@echo/utils'
 import { onSnapshot, Query, Unsubscribe } from 'firebase/firestore'
-import { andThen, ifElse, isEmpty, map, pipe } from 'ramda'
+import { always, andThen, ifElse, isEmpty, map, pipe } from 'ramda'
 
 export const subscribeToQuery = <W>(query: Query, onNext: (models: Promise<W[]>) => void): Unsubscribe =>
   onSnapshot(query, (snapshot) => {
@@ -11,10 +11,10 @@ export const subscribeToQuery = <W>(query: Query, onNext: (models: Promise<W[]>)
       getDocsFromQuerySnapshot,
       ifElse(
         isEmpty,
-        () => castAs<W[]>([]),
+        always([]),
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        pipe(map(pipe(convertDefault, mapDefault)), promiseAll, castAs, andThen(onNext))
+        pipe(map(pipe(convertDefault, mapDefault)), promiseAll, andThen(onNext))
       )
     )(snapshot)
   })

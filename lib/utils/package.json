@@ -26,17 +26,17 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "pino": "8.14.1",
+    "pino": "8.15.0",
     "ramda": "0.29.0"
   },
   "devDependencies": {
-    "@jest/globals": "29.5.0",
-    "@jest/types": "29.5.0",
-    "@types/node": "18.15.3",
+    "@jest/globals": "29.6.2",
+    "@jest/types": "29.6.1",
+    "@types/node": "20.4.9",
     "@types/ramda": "0.29.3",
-    "jest": "29.5.0",
+    "jest": "29.6.2",
     "jest-junit": "16.0.0",
-    "tsup": "7.1.0",
-    "typescript": "4.9.5"
+    "tsup": "7.2.0",
+    "typescript": "5.1.6"
   }
 }

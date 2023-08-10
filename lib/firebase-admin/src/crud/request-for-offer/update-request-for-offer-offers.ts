@@ -20,7 +20,7 @@ export const updateRequestForOfferOffers = (requestForOfferId: string, offerId: 
     // Only change the state from created to offer received, otherwise it should stay the same
     // TODO Should we actually add checks to avoid updating an invalid request for offer? In theory it shouldn't happen
     const newState: string =
-      requestForOffer.state === RequestForOfferState.CREATED
+      (requestForOffer.state as RequestForOfferState) === RequestForOfferState.CREATED
         ? RequestForOfferState.OFFER_RECEIVED
         : requestForOffer.state
     // Can force unwrap as we checked before if it's nil or empty

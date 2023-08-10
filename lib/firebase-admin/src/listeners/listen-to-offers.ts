@@ -1,7 +1,7 @@
 import { convertOffer } from '../converters/offer/convert-offer'
 import { getCollectionFromPath } from '../utils/collection/get-collection-from-path'
 import { CollectionName, FirestoreOffer, FirestoreOfferData } from '@echo/firestore'
-import { atIndex, castAs, errorMessage, logger, promiseAll, toPromise, Void } from '@echo/utils'
+import { atIndex, errorMessage, logger, promiseAll, toPromise, Void } from '@echo/utils'
 import { DocumentChange, QueryDocumentSnapshot } from '@google-cloud/firestore'
 import { andThen, converge, forEach, head, isNil, juxt, otherwise, pipe, prop, unless } from 'ramda'
 
@@ -15,12 +15,9 @@ export function listenToOffers(
         pipe(
           juxt([pipe(prop<QueryDocumentSnapshot<FirestoreOffer>>('doc'), convertOffer), toPromise]),
           promiseAll,
-          andThen(
-            converge(onChange, [
-              pipe(head, castAs<FirestoreOfferData>),
-              pipe(atIndex(1), castAs<DocumentChange<FirestoreOffer>>)
-            ])
-          ),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          andThen(converge(onChange, [head, atIndex(1)])),
           otherwise((error) => {
             logger.error(`Error mapping offer in listenToOffer: ${errorMessage(error)}`)
           }),

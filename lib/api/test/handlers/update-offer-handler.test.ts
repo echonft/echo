@@ -56,6 +56,8 @@ describe('handlers - updateOfferHandler', () => {
   it('if wrong req, returns 400', async () => {
     const { req, res } = mockRequestResponse<UpdateOfferRequest, never, FirestoreOfferData>('GET', undefined, {
       ...mockedRequest,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       action: 10
     })
     await updateOfferHandler(req, res, session)

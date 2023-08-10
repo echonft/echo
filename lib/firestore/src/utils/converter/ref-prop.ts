@@ -3,14 +3,14 @@ import { FirestoreDocumentData } from '../../types/model/data/abstract/firestore
 import { getDocSnapshotFromRef } from '../document/get-doc-snapshot-from-ref'
 import { undefinedPromise } from '@echo/utils'
 import { DocumentData, DocumentReference } from 'firebase/firestore'
-import { allPass, andThen, complement, has, ifElse, isNil, pipe, prop } from 'ramda'
+import { allPass, andThen, has, ifElse, isNotNil, pipe, prop } from 'ramda'
 
 export const refProp = <T extends DocumentData, V extends FirestoreDocumentData>(
   key: string,
   converter: FirestoreConverter<T, V>
 ) =>
   ifElse<[unknown], Promise<V>, Promise<V>>(
-    allPass([has(key), pipe(prop(key), complement(isNil))]),
+    allPass([has(key), pipe(prop(key), isNotNil)]),
     pipe(prop<DocumentReference<T>>(key), pipe(getDocSnapshotFromRef, andThen(converter))),
     undefinedPromise<V>
   )
