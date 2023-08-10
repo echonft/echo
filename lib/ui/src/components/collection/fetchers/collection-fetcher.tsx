@@ -36,7 +36,7 @@ export const CollectionFetcher: FunctionComponent<PropsWithChildren<CollectionFe
   const { description, totalSupply, name, profilePictureUrl, bannerUrl, discordUrl, websiteUrl, twitterUsername } = data
   return (
     <PaddedContainer>
-      <div className={clsx('flex', 'flex-col', 'self-stretch', 'grow')}>
+      <div className={clsx('flex', 'flex-col', 'self-stretch', 'grow', 'gap-14')}>
         <CollectionDetails
           description={description}
           size={totalSupply}
@@ -47,8 +47,8 @@ export const CollectionFetcher: FunctionComponent<PropsWithChildren<CollectionFe
           websiteUrl={websiteUrl}
           twitterUsername={twitterUsername}
         />
+        <CollectionNftsFetcher collectionSlug={slug} onMakeOfferForNft={onMakeOfferForNft} onError={onNftsError} />
       </div>
-      <CollectionNftsFetcher collectionSlug={slug} onMakeOfferForNft={onMakeOfferForNft} onError={onNftsError} />
     </PaddedContainer>
   )
 }

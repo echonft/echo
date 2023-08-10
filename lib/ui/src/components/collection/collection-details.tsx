@@ -30,7 +30,7 @@ export const CollectionDetails: FunctionComponent<CollectionDetailsProps> = ({
           twitterUsername={twitterUsername}
         />
       </div>
-      <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pb-14')}>
+      <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full')}>
         <p className={clsx('prose-header-xs', 'text-white/60', 'w-[37rem]')}>{description}</p>
       </div>
     </div>

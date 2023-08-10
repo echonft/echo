@@ -5,13 +5,13 @@ import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
-export interface CollectionProfilePictureProps {
+export interface UserProfilePictureProps {
   discordUsername: string
   discordId: string
   discordAvatar: string | undefined
 }
 
-export const UserProfilePicture: FunctionComponent<CollectionProfilePictureProps> = ({
+export const UserProfilePicture: FunctionComponent<UserProfilePictureProps> = ({
   discordUsername,
   discordId,
   discordAvatar

@@ -3,7 +3,7 @@ import { CollectionProfile as Component, CollectionProfileSkeleton } from '@echo
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Collection/Collection Profile',
+  title: 'Collection/Profile',
   component: Component
 }
 

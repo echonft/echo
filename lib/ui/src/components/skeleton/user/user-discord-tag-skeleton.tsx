@@ -7,7 +7,7 @@ export const UserDiscordTagSkeleton: FunctionComponent = () => {
       className={clsx(
         'flex',
         'flex-row',
-        'h-[2.125rem]',
+        'h-[2.5rem]',
         'w-[16rem]',
         'py-0.25',
         'px-2.5',

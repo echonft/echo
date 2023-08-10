@@ -3,7 +3,7 @@ import { CollectionNftsAndFiltersContainer as Component, CollectionNftsAndFilter
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Collection/Collection NFTs and Filters Container',
+  title: 'Collection/NFTs and Filters Container',
   component: Component,
   argTypes: {
     onTraitSelectionChanged: {
