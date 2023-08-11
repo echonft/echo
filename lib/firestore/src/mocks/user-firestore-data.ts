@@ -8,8 +8,8 @@ export const userFirestoreData: { [key: string]: FirestoreUserData } = {
     discordId: '884593489189433364',
     discordUsername: 'crewNFT_#2034',
     discordGuilds: [discordGuildFirestoreData['Y8GBFtPZKElp44z0k10D']!],
-    discordAvatar: '4b4d6722cb2b98b0b817020257a9c3ec',
-    discordBanner: undefined,
+    discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
+    discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
     wallets: [
       {
         address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',

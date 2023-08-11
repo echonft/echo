@@ -50,7 +50,7 @@ export const TraitFilterSelector: FunctionComponent<TraitFilterSelectorProps> = 
         </div>
         <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>{value.value}</span>
       </div>
-      <span className={clsx('prose-label-sm', 'text-white')}>{value.count}</span>
+      <span className={clsx('prose-label-sm-light', 'text-white')}>{value.count}</span>
     </button>
   )
 }

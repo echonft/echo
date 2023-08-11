@@ -51,5 +51,17 @@ export const messages = {
     thumbnail: {
       makeOfferBtn: 'Make an offer'
     }
+  },
+  user: {
+    button: {
+      makeOffer: {
+        label: 'Make an offer'
+      }
+    },
+    filters: {
+      collection: {
+        title: 'Collections'
+      }
+    }
   }
 }

@@ -24,7 +24,7 @@ export const CollectionNftsContainer: FunctionComponent<CollectionNftsContainerP
 }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'self-stretch', 'grow', 'flex-wrap', 'gap-6', 'relative')}>
-      <ShowIf condition={!isNil(isLoading) && isLoading}>
+      <ShowIf condition={Boolean(isLoading)}>
         <div
           className={clsx(
             'absolute',

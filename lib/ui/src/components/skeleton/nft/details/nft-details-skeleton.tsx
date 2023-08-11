@@ -1,6 +1,3 @@
-import { SizeLG } from '../../../../types/size'
-import { ButtonColorScheme } from '../../../base/buttons/button-color-scheme'
-import { TextButton } from '../../../base/buttons/text-button'
 import { PaddedContainer } from '../../../layout/padded-container'
 import { NftDetailsAttributesPanelSkeleton } from './nft-details-attributes-panel-skeleton'
 import { NftDetailsHeaderSkeleton } from './nft-details-header-skeleton'
@@ -21,8 +18,10 @@ export const NftDetailsSkeleton: FunctionComponent = () => {
         </div>
         <div className={clsx('flex', 'flex-col', 'flex-grow', 'gap-10')}>
           <NftDetailsHeaderSkeleton />
-          <div className={clsx('flex', 'flex-row', 'gap-12', 'self-stretch')}>
-            <TextButton label={t('makeOfferBtn')} size={SizeLG} colorScheme={ButtonColorScheme.PRIMARY} disabled />
+          <div className={clsx('flex', 'flex-row', 'flex-grow', 'gap-12', 'self-stretch')}>
+            <button disabled className={clsx('btn-primary', 'group', 'rounded-lg', 'w-max', 'py-[0.88rem]', 'px-10')}>
+              <span className={clsx('prose-label-lg-semi', 'btn-label-primary')}>{t('makeOfferBtn')}</span>
+            </button>
             <NftDetailsOffersPanelSkeleton />
           </div>
           <NftDetailsAttributesPanelSkeleton />

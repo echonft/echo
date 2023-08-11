@@ -1,4 +1,4 @@
-import { TraitFilterGroup } from '../trait-filter'
+import { TraitFilterGroup } from '../../types/model/trait-filter'
 import { NftTraits } from '@echo/model'
 import { forEachObjIndexed } from 'ramda'
 

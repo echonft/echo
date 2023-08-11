@@ -50,7 +50,7 @@ export const CollectionNftsFetcher: FunctionComponent<CollectionNftsFetcherProps
       traits={traits}
       isFetchingNfts={isLoading}
       onMakeOfferForNft={onMakeOfferForNft}
-      onTraitSelectionChanged={(selection) => {
+      onTraitSelectionUpdate={(selection) => {
         setTraitsFilter(selection)
       }}
     />

@@ -1,6 +1,3 @@
-import { SizeLG } from '../../../types/size'
-import { ButtonColorScheme } from '../../base/buttons/button-color-scheme'
-import { TextButton } from '../../base/buttons/text-button'
 import { PaddedContainer } from '../../layout/padded-container'
 import { NftDetailsAttributesPanel } from './nft-details-attributes-panel'
 import { NftDetailsHeader } from './nft-details-header'
@@ -44,12 +41,12 @@ export const NftDetails: FunctionComponent<NftDetailsProps> = ({ nft, offers, on
             owner={nft.owner}
           />
           <div className={clsx('flex', 'flex-row', 'gap-12', 'self-stretch')}>
-            <TextButton
-              label={t('makeOfferBtn')}
-              size={SizeLG}
-              colorScheme={ButtonColorScheme.PRIMARY}
+            <button
               onClick={onMakeOffer}
-            />
+              className={clsx('btn-primary', 'group', 'rounded-lg', 'w-max', 'py-[0.88rem]', 'px-10')}
+            >
+              <span className={clsx('prose-label-lg-semi', 'btn-label-primary')}>{t('makeOfferBtn')}</span>
+            </button>
             <NftDetailsOffersPanel offers={offers} />
           </div>
           <NftDetailsAttributesPanel attributes={nft.attributes} />

@@ -3,7 +3,7 @@ import { CollectionLinks as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Collection/Collection Links',
+  title: 'Collection/Links',
   component: Component
 }
 

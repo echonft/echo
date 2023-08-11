@@ -1,17 +1,17 @@
-import { User } from '@echo/model'
 import { isPowerOfTwo } from '@echo/utils'
 import { isNil } from 'ramda'
 
 export const getUserAvatarUrl = (
-  user: User,
+  discordId: string,
+  discordAvatar: string | undefined,
   size: number,
   format: 'png' | 'jpg' | 'webp' | 'gif' = 'png'
-): string | undefined => {
+): URL | undefined => {
   if (!isPowerOfTwo(size)) {
     throw Error(`Wrong size ${size}: size must be a power of two`)
   }
-  if (isNil(user.discordAvatar)) {
+  if (isNil(discordAvatar)) {
     return undefined
   }
-  return `https://cdn.discordapp.com/avatars/${user.discordId}/${user.discordAvatar}.${format}?size=${size}`
+  return new URL(`https://cdn.discordapp.com/avatars/${discordId}/${discordAvatar}.${format}?size=${size}`)
 }

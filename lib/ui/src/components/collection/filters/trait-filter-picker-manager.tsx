@@ -1,4 +1,4 @@
-import { TraitFilterGroup } from '../../../model/trait-filter'
+import { TraitFilterGroup } from '../../../types/model/trait-filter'
 import { TraitFilterPicker } from './trait-filter-picker'
 import { NftTraitValue } from '@echo/model'
 import { concat, isEmpty, isNil, without } from 'ramda'

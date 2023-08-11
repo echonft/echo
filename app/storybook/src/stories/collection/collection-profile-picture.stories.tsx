@@ -3,7 +3,7 @@ import { CollectionProfilePicture as Component, CollectionProfilePictureSkeleton
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Collection/Collection Profile Picture',
+  title: 'Collection/Profile Picture',
   component: Component
 }
 

@@ -20,14 +20,13 @@ export const NftThumbnailOwner: FunctionComponent<NftThumbnailOwnerProps> = ({ o
         'bg-purple-500',
         'rounded-lg',
         'px-1.5',
-        'py-0.5',
         'gap-0.5',
         'text-white',
         'shadow-[2px_2px_4px_rgba(0,0,0,0.57)]'
       )}
     >
       <DiscordIconSvg width={9} />
-      <span className={clsx('font-inter', 'text-[0.625rem]', 'font-medium', 'leading-normal', 'tracking-[0.01rem]')}>
+      <span className={clsx('font-inter', 'text-[0.625rem]', 'font-medium', 'leading-[155%]', 'tracking-[0.00625rem]')}>
         {owner}
       </span>
     </div>

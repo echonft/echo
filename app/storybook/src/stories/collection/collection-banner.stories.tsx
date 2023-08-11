@@ -3,7 +3,7 @@ import { Banner as Component, BannerSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Collection/Collection Banner',
+  title: 'Collection/Banner',
   component: Component
 }
 

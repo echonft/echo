@@ -2,7 +2,7 @@ import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
 import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { FirestoreContract } from '../../types/model/collections/contract/firestore-contract'
 import { FirestoreContractData } from '../../types/model/data/contract/firestore-contract-data'
-import { convertRootCollectionDocumentSnapshot } from '../../utils/converter/convert-root-collection-document-snapshot'
+import { convertRootCollectionDocumentSnapshot } from '../../utils/converters/convert-root-collection-document-snapshot'
 import { toPromise } from '@echo/utils'
 import { pipe } from 'ramda'
 

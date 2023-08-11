@@ -10,6 +10,7 @@ export const NftDetailsOffersPanelSkeleton: FunctionComponent = () => {
       className={clsx(
         'flex',
         'flex-col',
+        'self-stretch',
         'flex-grow',
         'h-max',
         'bg-white/[0.09]',

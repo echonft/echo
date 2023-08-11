@@ -10,7 +10,7 @@ export const CollectionDetailsSkeleton: FunctionComponent = () => {
       <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-40', 'pb-8')}>
         <CollectionProfileSkeleton />
       </div>
-      <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pb-14')}>
+      <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full')}>
         <div className={clsx('bg-white/60', 'w-[37rem]', 'h-16', 'animate-pulse', 'rounded-lg')} />
       </div>
     </div>

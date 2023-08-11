@@ -2,7 +2,7 @@ import { CollectionOfferButton as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Collection/Collection Offer Button',
+  title: 'Collection/Offer Button',
   component: Component,
   argTypes: {
     onMakeOffer: {
