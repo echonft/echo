@@ -1,5 +1,5 @@
-import { TraitFilterGroup } from '../../../model/trait-filter'
 import { CollapsibleProps } from '../../../types/collapsible-props'
+import { TraitFilterGroup } from '../../../types/model/trait-filter'
 import { MultiSelectableProps } from '../../../types/multi-selectable-props'
 import { TraitFilterButton } from './trait-filter-button'
 import { TraitFilterSelector } from './trait-filter-selector'

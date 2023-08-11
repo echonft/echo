@@ -1,4 +1,4 @@
-import 'index.css'
+import './index.css'
 
 export { Banner, BannerProps } from './components/base/banner'
 export { Callout, CalloutProps, CalloutSeverity, CalloutVariant } from './components/base/callout/callout'
@@ -31,7 +31,6 @@ export {
   CollectionProfilePictureProps
 } from './components/collection/collection-profile-picture'
 export { CollectionProvided } from './components/collection/collection-provided'
-export { FiltersPanel } from './components/collection/filters/filters-panel'
 export { TraitFilterButton, TraitFilterButtonProps } from './components/collection/filters/trait-filter-button'
 export { TraitFilterPanel, TraitFilterPanelProps } from './components/collection/filters/trait-filter-panel'
 export { TraitFilterPicker, TraitFilterPickerProps } from './components/collection/filters/trait-filter-picker'
@@ -40,6 +39,7 @@ export {
   TraitFilterPickerManagerProps
 } from './components/collection/filters/trait-filter-picker-manager'
 export { TraitFilterSelector, TraitFilterSelectorProps } from './components/collection/filters/trait-filter-selector'
+export { FiltersPanel } from './components/layout/filters-panel'
 export { ConnectButton, ConnectButtonProps } from './components/layout/header/connect-button'
 export { Header, HeaderProps } from './components/layout/header/header'
 export { HeaderSearchInput, HeaderSearchInputProps } from './components/layout/header/header-search-input'
@@ -69,19 +69,35 @@ export { NftDetailsHeaderSkeleton } from './components/skeleton/nft/details/nft-
 export { NftDetailsOffersPanelSkeleton } from './components/skeleton/nft/details/nft-details-offers-panel-skeleton'
 export { NftDetailsSkeleton } from './components/skeleton/nft/details/nft-details-skeleton'
 export { NftDetailsTokenDetailsPanelSkeleton } from './components/skeleton/nft/details/nft-details-token-details-panel'
+export { CollectionFilterPanelSkeleton } from './components/skeleton/user/filters/collection-filter-panel-skeleton'
 export { UserDetailsSkeleton } from './components/skeleton/user/user-details-skeleton'
 export { UserDiscordTagSkeleton } from './components/skeleton/user/user-discord-tag-skeleton'
+export { UserNftsAndFiltersContainerSkeleton } from './components/skeleton/user/user-nfts-and-filters-container-skeleton'
 export { UserProfilePictureSkeleton } from './components/skeleton/user/user-profile-picture-skeleton'
+export { UserSkeleton } from './components/skeleton/user/user-skeleton'
+export { CollectionFilterPanel, CollectionFilterPanelProps } from './components/user/filters/collection-filter-panel'
+export {
+  CollectionFilterSelector,
+  CollectionFilterSelectorProps
+} from './components/user/filters/collection-filter-selector'
 export { UserBanner, UserBannerProps } from './components/user/user-banner'
 export { UserDetails, UserDetailsProps } from './components/user/user-details'
 export { UserDiscordTag, UserDiscordTagProps } from './components/user/user-discord-tag'
+export {
+  UserNftsAndFiltersContainer,
+  UserNftsAndFiltersContainerProps
+} from './components/user/user-nfts-and-filters-container'
+export { UserNftsContainer, UserNftsContainerProps } from './components/user/user-nfts-container'
 export { UserProfilePicture, UserProfilePictureProps } from './components/user/user-profile-picture'
+export { UserProvided, UserProvidedProps } from './components/user/user-provided'
 export { CollapsibleManager, CollapsibleManagerProps } from './components/utils/collapsible-manager'
 export { SelectionManager, SelectionManagerProps } from './components/utils/selection-manager'
 export { Dependencies, DependenciesProvider } from './dependencies/dependencies-provider'
 export { getMessages } from './messages/get-messages'
-export { TraitFilterGroup } from './model/trait-filter'
+export { getCollectionFiltersForNfts } from './model/utils/get-collection-filters-for-nfts'
 export { ColorBlack, ColorYellow } from './types/color'
+export { CollectionFilter } from './types/model/collection-filter'
+export { TraitFilterGroup } from './types/model/trait-filter'
 export { FirestoreHooks } from './types/provider/firestore-hooks'
 export { FirestoreProvider } from './types/provider/firestore-provider'
 export { LinkProvider } from './types/provider/link-provider'

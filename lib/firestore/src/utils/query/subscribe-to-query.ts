@@ -1,5 +1,5 @@
-import { convertDefault } from '../converter/convert-default'
-import { mapDefault } from '../mapper/map-default'
+import { convertDefault } from '../converters/convert-default'
+import { mapDefault } from '../mappers/map-default'
 import { getDocsFromQuerySnapshot } from './get-docs-from-query-snapshot'
 import { promiseAll } from '@echo/utils'
 import { onSnapshot, Query, Unsubscribe } from 'firebase/firestore'

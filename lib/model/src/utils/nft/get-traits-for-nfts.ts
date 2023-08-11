@@ -1,6 +1,5 @@
 import { compareNftAttributes } from '../../comparators/nft/compare-nft-attributes'
 import { Nft } from '../../types/nft'
-import { NftAttribute } from '../../types/nft-attribute'
 import { NftTraits } from '../../types/nft-traits'
 import {
   applySpec,
@@ -17,17 +16,12 @@ import {
   sort
 } from 'ramda'
 
-export const getTraitsForNfts = pipe<
-  [Nft[]],
-  NftAttribute[][],
-  NftAttribute[],
-  NftAttribute[],
-  Partial<Record<string, NftAttribute[]>>,
-  NftTraits
->(
+export const getTraitsForNfts = pipe(
   map(prop('attributes')),
   flatten,
   sort(compareNftAttributes),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   groupBy(prop('trait')),
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

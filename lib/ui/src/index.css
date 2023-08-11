@@ -117,6 +117,9 @@
     .prose-label-sm-semi {
         @apply text-label-sm-semi font-inter
     }
+    .prose-label-sm-light {
+        @apply text-label-sm-light font-inter
+    }
     .prose-label-xs {
         @apply text-label-xs font-inter
     }

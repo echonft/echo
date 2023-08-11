@@ -6,7 +6,7 @@ const metadata: Meta<typeof Component> = {
   title: 'Collection/NFTs and Filters Container',
   component: Component,
   argTypes: {
-    onTraitSelectionChanged: {
+    onTraitSelectionUpdate: {
       control: false,
       action: 'traits selection changed'
     },

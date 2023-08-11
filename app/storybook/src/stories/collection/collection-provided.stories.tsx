@@ -6,9 +6,9 @@ const metadata: Meta<typeof Component> = {
   title: 'Pages/Collection/Provided',
   component: Component,
   argTypes: {
-    onTraitSelectionChanged: {
+    onTraitSelectionUpdate: {
       control: false,
-      action: 'traits selection changed'
+      action: 'traits selection updated'
     },
     onMakeOfferForNft: {
       control: false,

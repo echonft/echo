@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   render: () => (
-    <FiltersPanel>
+    <FiltersPanel title={'Attributes'}>
       <Component trait={'Trait'} selectionCount={0} />
     </FiltersPanel>
   )
@@ -20,7 +20,7 @@ export const Default: Story = {
 
 export const Overflow: Story = {
   render: () => (
-    <FiltersPanel>
+    <FiltersPanel title={'Attributes'}>
       <Component trait={'This Trait is waaaayyyyyyyyy too long'} selectionCount={0} />
     </FiltersPanel>
   )
@@ -28,7 +28,7 @@ export const Overflow: Story = {
 
 export const Collapsed: Story = {
   render: () => (
-    <FiltersPanel>
+    <FiltersPanel title={'Attributes'}>
       <Component trait={'Trait'} collapsed selectionCount={1} />
     </FiltersPanel>
   )
@@ -36,7 +36,7 @@ export const Collapsed: Story = {
 
 export const Managed: Story = {
   render: () => (
-    <FiltersPanel>
+    <FiltersPanel title={'Attributes'}>
       <CollapsibleManager>
         <Component trait={'Trait'} selectionCount={0} />
       </CollapsibleManager>
@@ -46,7 +46,7 @@ export const Managed: Story = {
 
 export const Skeleton: Story = {
   render: () => (
-    <FiltersPanel>
+    <FiltersPanel title={'Attributes'}>
       <TraitFilterButtonSkeleton />
     </FiltersPanel>
   )

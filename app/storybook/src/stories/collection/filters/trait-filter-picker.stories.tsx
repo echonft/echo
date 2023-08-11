@@ -22,7 +22,7 @@ const traitFilterGroup: TraitFilterGroup = {
 
 export const Default: Story = {
   render: () => (
-    <FiltersPanel>
+    <FiltersPanel title={'Attributes'}>
       <Component traitFilterGroup={traitFilterGroup} />
     </FiltersPanel>
   )
@@ -30,7 +30,7 @@ export const Default: Story = {
 
 export const Collapsed: Story = {
   render: () => (
-    <FiltersPanel>
+    <FiltersPanel title={'Attributes'}>
       <Component traitFilterGroup={traitFilterGroup} collapsed />
     </FiltersPanel>
   )
@@ -38,7 +38,7 @@ export const Collapsed: Story = {
 
 export const AAndDSelected: Story = {
   render: () => (
-    <FiltersPanel>
+    <FiltersPanel title={'Attributes'}>
       <Component
         traitFilterGroup={traitFilterGroup}
         selection={[
@@ -53,7 +53,7 @@ export const AAndDSelected: Story = {
 
 export const Managed: Story = {
   render: () => (
-    <FiltersPanel>
+    <FiltersPanel title={'Attributes'}>
       <TraitFilterPickerManager traitFilterGroup={traitFilterGroup} />
     </FiltersPanel>
   )

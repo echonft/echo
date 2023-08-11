@@ -11,7 +11,7 @@ export interface CollectionNftsAndFiltersContainerProps {
   nfts: Nft[]
   traits: NftTraits
   isFetchingNfts?: boolean
-  onTraitSelectionChanged?: (selection: NftTraits) => unknown
+  onTraitSelectionUpdate?: (selection: NftTraits) => unknown
   onMakeOfferForNft?: (id: string) => unknown
 }
 
@@ -19,13 +19,13 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<CollectionNfts
   nfts,
   traits,
   isFetchingNfts,
-  onTraitSelectionChanged,
+  onTraitSelectionUpdate,
   onMakeOfferForNft
 }) => {
   const [nftSelection, setNftSelection] = useState<string[]>([])
   const [traitSelection, setTraitSelection] = useState<NftTraits>({})
 
-  // check if the selection is still valid (if selected NFTs are still in the array) when receiving new NFTs
+  // check if the selection is still valid (if selected NFTs are still in the filtered NFTs) when receiving new NFTs
   useEffect(() => {
     if (!isEmpty(nfts) && !isEmpty(nftSelection)) {
       const reducedSelection = reduce(
@@ -52,16 +52,11 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<CollectionNfts
         <TraitFilterPanel
           traits={traits}
           onSelectionUpdate={(type, selection) => {
-            let newSelection: NftTraits
-            if (isEmpty(selection)) {
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              newSelection = dissoc(type, selection)
-            } else {
-              newSelection = assoc(type, selection, traitSelection)
-            }
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const newSelection = isEmpty(selection) ? dissoc(type, selection) : assoc(type, selection, traitSelection)
             setTraitSelection(newSelection)
-            onTraitSelectionChanged?.(newSelection)
+            onTraitSelectionUpdate?.(newSelection)
           }}
         />
       </div>

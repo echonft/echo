@@ -1,6 +1,6 @@
 import { CollectionName } from '../../config/collection-name'
-import { convertDefault } from '../converter/convert-default'
-import { mapDefault } from '../mapper/map-default'
+import { convertDefault } from '../converters/convert-default'
+import { mapDefault } from '../mappers/map-default'
 import { getDocRefFromPath } from './get-doc-ref-from-path'
 import { onSnapshot, Unsubscribe } from 'firebase/firestore'
 import { pipe } from 'ramda'

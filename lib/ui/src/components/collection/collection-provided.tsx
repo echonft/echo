@@ -10,7 +10,7 @@ export interface CollectionProvidedProps {
   nfts: Nft[]
   traits: NftTraits
   isFetchingNfts?: boolean
-  onTraitSelectionChanged?: (selection: NftTraits) => unknown
+  onTraitSelectionUpdate?: (selection: NftTraits) => unknown
   onMakeOfferForNft?: (id: string) => unknown
 }
 
@@ -19,7 +19,7 @@ export const CollectionProvided: FunctionComponent<CollectionProvidedProps> = ({
   nfts,
   traits,
   isFetchingNfts,
-  onTraitSelectionChanged,
+  onTraitSelectionUpdate,
   onMakeOfferForNft
 }) => {
   const { description, twitterUsername, name, discordUrl, websiteUrl, bannerUrl, profilePictureUrl, totalSupply } =
@@ -42,7 +42,7 @@ export const CollectionProvided: FunctionComponent<CollectionProvidedProps> = ({
           traits={traits}
           isFetchingNfts={isFetchingNfts}
           onMakeOfferForNft={onMakeOfferForNft}
-          onTraitSelectionChanged={onTraitSelectionChanged}
+          onTraitSelectionUpdate={onTraitSelectionUpdate}
         />
       </div>
     </PaddedContainer>

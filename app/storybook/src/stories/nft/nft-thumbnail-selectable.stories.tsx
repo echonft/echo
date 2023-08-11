@@ -40,6 +40,13 @@ export const Default: Story = {
 //   }
 // }
 
+export const OwnerHidden: Story = {
+  args: {
+    nft: mockNft,
+    hideOwner: true
+  }
+}
+
 export const Selected: Story = {
   args: {
     nft: mockNft,

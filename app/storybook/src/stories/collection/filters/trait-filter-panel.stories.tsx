@@ -4,7 +4,18 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Collection/Filters/Trait Filter Panel',
-  component: Component
+  component: Component,
+  argTypes: {
+    onSelectionUpdate: {
+      control: false,
+      action: 'selection updated'
+    }
+  },
+  parameters: {
+    controls: {
+      exclude: ['traits', 'selection']
+    }
+  }
 }
 
 export default metadata
@@ -31,7 +42,7 @@ const traits: NftTraits = {
   ]
 }
 
-const initialSelection: NftTraits = {
+const selection: NftTraits = {
   'Trait 1': [
     { value: 'Trait Name A', count: 123 },
     { value: 'Trait Name C', count: 789 },
@@ -42,14 +53,14 @@ const initialSelection: NftTraits = {
 
 export const Default: Story = {
   args: {
-    traits: traits
+    traits
   }
 }
 
 export const SomeSelected: Story = {
   args: {
-    traits: traits,
-    initialSelection
+    traits,
+    selection
   }
 }
 
