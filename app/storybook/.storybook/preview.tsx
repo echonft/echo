@@ -1,7 +1,8 @@
 import { DependenciesProvider, getMessages } from '@echo/ui'
-import type { Preview } from '@storybook/react'
 import '@echo/ui/dist/index.css'
+import type { Preview } from '@storybook/react'
 import { NextIntlProvider } from 'next-intl'
+import { RecoilRoot } from 'recoil'
 import { firestoreProvider } from '../src/mocks/firestore-provider'
 
 const preview: Preview = {
@@ -20,12 +21,18 @@ export const decorators = [
   (Story) => {
     return (
       // @ts-ignore
-      <DependenciesProvider linkProvider={{ getLink: (_route, _params) => '#' }} firestoreProvider={firestoreProvider}>
+      <RecoilRoot>
         {/*@ts-ignore*/}
-        <NextIntlProvider messages={getMessages('en')} locale={'en'}>
-          {Story()}
-        </NextIntlProvider>
-      </DependenciesProvider>
+        <DependenciesProvider
+          linkProvider={{ getLink: (_route, _params) => '#' }}
+          firestoreProvider={firestoreProvider}
+        >
+          {/*@ts-ignore*/}
+          <NextIntlProvider messages={getMessages('en')} locale={'en'}>
+            {Story()}
+          </NextIntlProvider>
+        </DependenciesProvider>
+      </RecoilRoot>
     )
   }
 ]
