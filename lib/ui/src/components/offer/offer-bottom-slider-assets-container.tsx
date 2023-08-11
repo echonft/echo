@@ -8,18 +8,24 @@ import { FunctionComponent } from 'react'
 interface Props {
   counterparty: boolean
   assets?: Nft[]
-  addMore?: () => void
+  onAddMore?: () => void
+  onRemove?: (id: string) => void
 }
 
-export const OfferBottomSliderAssetsContainer: FunctionComponent<Props> = ({ counterparty, assets = [], addMore }) => {
+export const OfferBottomSliderAssetsContainer: FunctionComponent<Props> = ({
+  counterparty,
+  assets = [],
+  onAddMore,
+  onRemove
+}) => {
   return (
     <div className={clsx('flex', 'flex-col', 'gap-8')}>
       <OfferBottomSliderAssetsTitle counterparty={counterparty} />
       <div className={clsx('flex', 'flex-row', 'gap-4')}>
         {assets.map((nft) => (
-          <NftThumbnailOffer nft={nft} key={nft.id} />
+          <NftThumbnailOffer nft={nft} key={nft.id} onRemove={onRemove} />
         ))}
-        <NftThumbnailOfferAddMore onClick={addMore} />
+        <NftThumbnailOfferAddMore onClick={onAddMore} />
       </div>
       <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
     </div>
