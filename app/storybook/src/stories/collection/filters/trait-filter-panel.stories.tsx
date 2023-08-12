@@ -1,5 +1,4 @@
-import { TraitFilterPanel as Component, TraitFilterPanelSkeleton } from '@echo/ui'
-import { NftTraits } from '@echo/ui-model'
+import { NftTraits, TraitFilterPanel as Component, TraitFilterPanelSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

@@ -5,7 +5,7 @@ import { mockRequestResponse } from '../mocks/request-response'
 import { mockSession } from '../mocks/session'
 import { UpdateOfferAction, UpdateOfferRequest } from '@echo/api-public'
 import { FirestoreOfferData } from '@echo/firestore'
-import { OfferState } from '../../../ui-model'
+import { OfferState } from '@echo/ui'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { omit } from 'ramda'
 

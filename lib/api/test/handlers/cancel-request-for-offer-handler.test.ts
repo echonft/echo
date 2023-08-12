@@ -13,7 +13,7 @@ import {
   updateRequestForOfferActivities
 } from '@echo/firestore'
 import * as firestore from '@echo/firestore'
-import { RequestForOfferState } from '../../../ui-model'
+import { RequestForOfferState } from '@echo/ui'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { omit } from 'ramda'
 

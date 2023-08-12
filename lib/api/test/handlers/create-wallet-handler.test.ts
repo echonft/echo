@@ -5,7 +5,7 @@ import { mockRequestResponse } from '../mocks/request-response'
 import { userFirestoreData } from '../mocks/user-firestore-data'
 import { WalletResponse } from '@echo/api-public'
 import { findNonceForUser, findUserByWallet, FirestoreNonceData, updateUserWallets } from '@echo/firestore'
-import { Signature } from '../../../ui-model'
+import { Signature } from '@echo/ui'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { SiweMessage, SiweResponse, VerifyOpts, VerifyParams } from 'siwe'
 

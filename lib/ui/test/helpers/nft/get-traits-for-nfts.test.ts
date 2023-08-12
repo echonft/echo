@@ -2,7 +2,7 @@ import { getTraitsForNfts } from '../../../src/helpers/nft/get-traits-for-nfts'
 import { Nft } from '../../../src/types/nft'
 import { describe, expect, test } from '@jest/globals'
 
-describe('utils - nft - getTraitsForNfts', () => {
+describe('getTraitsForNfts', () => {
   test('returns the right traits for a set of nfts', () => {
     const nft1: Nft = {
       attributes: [

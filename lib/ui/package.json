@@ -32,11 +32,11 @@
   },
   "dependencies": {
     "@echo/discord": "workspace:*",
-    "@echo/ui-model": "workspace:*",
     "@echo/swr": "workspace:*",
     "@echo/utils": "workspace:*",
     "@headlessui/react": "1.7.16",
     "clsx": "2.0.0",
+    "dayjs": "1.11.9",
     "next-intl": "2.19.1",
     "ramda": "0.29.0",
     "swr": "2.2.0"

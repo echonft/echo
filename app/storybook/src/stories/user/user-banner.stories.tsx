@@ -1,5 +1,4 @@
-import { BannerSkeleton, UserBanner as Component } from '@echo/ui'
-import { users } from '@echo/ui-model'
+import { BannerSkeleton, UserBanner as Component, users } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

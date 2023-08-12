@@ -1,6 +1,6 @@
 import { mapContract } from '../../src/mappers/contract/map-contract'
 import { contractFirestoreData } from '../mocks/contract-firestore-data'
-import { contracts } from '../../../ui-model'
+import { contracts } from '@echo/ui'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapContract', () => {

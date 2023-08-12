@@ -5,7 +5,7 @@ import { offerFirestoreData } from './offer-firestore-data'
 import { swapFirestoreData } from './swap-firestore-data'
 import { userFirestoreData } from './user-firestore-data'
 import { FirestoreRequestForOfferData } from '@echo/firestore'
-import { RequestForOfferState } from '../../../ui-model'
+import { RequestForOfferState } from '@echo/ui'
 
 export const requestForOfferFirestoreData: { [key: string]: FirestoreRequestForOfferData } = {
   jUzMtPGKM62mMhEcmbN4: {

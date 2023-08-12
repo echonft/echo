@@ -1,4 +1,3 @@
-import { RequestForOffer } from '../../../../ui-model'
 import { FirestoreMapper } from '../../types/mappers/firestore-mapper'
 import { propToDate } from '../base/prop-to-date'
 import { propToMappedDocument } from '../base/prop-to-mapped-document'
@@ -11,6 +10,7 @@ import { mapSwap } from '../swap/map-swap'
 import { mapUser } from '../user/map-user'
 import { mapRequestForOfferActivity } from './map-request-for-offer-activity'
 import { FirestoreRequestForOfferData } from '@echo/firestore'
+import { RequestForOffer } from '@echo/ui'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, omit, pipe } from 'ramda'
 

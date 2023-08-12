@@ -1,4 +1,4 @@
-import { Wallet } from '../../../../ui-model'
+import { Wallet } from '@echo/ui'
 
 export interface MockAreNftsOwnedByWalletsArgs {
   nfts: never[]

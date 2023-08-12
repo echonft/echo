@@ -1,7 +1,7 @@
-import { mapNftTraits } from '../../../model/mappers/map-nft-traits'
+import { mapNftTraits } from '../../../mappers/nft/map-nft-traits'
+import { NftTraits, NftTraitValue } from '../../../types/nft-traits'
 import { FiltersPanel } from '../../layout/filters-panel'
 import { TraitFilterPickerManager } from './trait-filter-picker-manager'
-import { NftTraits, NftTraitValue } from '../../../../../ui-model'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 

@@ -1,8 +1,8 @@
-import { DiscordGuild } from '../../../../ui-model'
 import { FirestoreMapper } from '../../types/mappers/firestore-mapper'
 import { propToMappedDocumentArray } from '../base/prop-to-mapped-document-array'
 import { mapContract } from '../contract/map-contract'
 import { FirestoreDiscordGuildData } from '@echo/firestore'
+import { DiscordGuild } from '@echo/ui'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, omit, pipe } from 'ramda'
 

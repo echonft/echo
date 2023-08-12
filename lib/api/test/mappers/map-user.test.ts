@@ -1,6 +1,6 @@
 import { mapUser } from '../../src/mappers/user/map-user'
 import { userFirestoreData } from '../mocks/user-firestore-data'
-import { users } from '../../../ui-model'
+import { users } from '@echo/ui'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mapUser', () => {

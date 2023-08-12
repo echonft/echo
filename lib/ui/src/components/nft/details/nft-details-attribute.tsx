@@ -1,4 +1,4 @@
-import { NftAttribute } from '../../../../../ui-model'
+import { NftAttribute } from '../../../types/nft-attribute'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

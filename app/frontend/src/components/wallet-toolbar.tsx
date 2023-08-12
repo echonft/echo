@@ -1,6 +1,6 @@
 import { AddWalletButton } from '@components/add-wallet-button'
 import { WalletList } from '@components/wallet-list'
-import { Wallet } from '@echo/ui-model'
+import { Wallet } from '@echo/ui'
 import { ConnectKitButton } from 'connectkit'
 import { isNil } from 'ramda'
 import React, { useEffect, useState } from 'react'

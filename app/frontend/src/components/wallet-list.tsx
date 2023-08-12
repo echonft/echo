@@ -1,5 +1,5 @@
 import { RemoveWalletButton } from '@components/remove-wallet-button'
-import { Wallet } from '@echo/ui-model'
+import { Wallet } from '@echo/ui'
 import { FunctionComponent } from 'react'
 
 interface Props {

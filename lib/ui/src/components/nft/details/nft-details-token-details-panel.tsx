@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { TokenType } from '../../../types/token-type'
 import { NftDetailsTokenDetailsPanelRow } from './nft-details-token-details-panel-row'
-import { TokenType } from '../../../../../ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'

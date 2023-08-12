@@ -1,9 +1,10 @@
 import { createOfferSchema } from '../../src/types/validators/create-offer'
-import { offers } from '../../../ui-model'
+import { offers } from '@echo/ui'
 import { describe, expect, it } from '@jest/globals'
+import { prop } from 'ramda'
 
 describe('validators - createOffer', () => {
-  const mockOfferItems = offers['LyCfl6Eg7JKuD7XJ6IPi']!.senderItems.map((nft) => nft.id).concat(
+  const mockOfferItems = offers['LyCfl6Eg7JKuD7XJ6IPi']!.senderItems.map(prop('id')).concat(
     offers['LyCfl6Eg7JKuD7XJ6IPi']!.receiverItems.map((nft) => nft.id)
   )
 

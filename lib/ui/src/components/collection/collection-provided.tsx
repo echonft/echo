@@ -1,7 +1,9 @@
+import { Nft } from '../../types/nft'
+import { NftCollection } from '../../types/nft-collection'
+import { NftTraits } from '../../types/nft-traits'
 import { PaddedContainer } from '../layout/padded-container'
 import { CollectionDetails } from './collection-details'
 import { CollectionNftsAndFiltersContainer } from './collection-nfts-and-filters-container'
-import { Nft, NftCollection, NftTraits } from '../../../../ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

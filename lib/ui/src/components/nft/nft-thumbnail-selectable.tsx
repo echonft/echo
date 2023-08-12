@@ -1,3 +1,4 @@
+import { Nft } from '../../types/nft'
 import { SelectableProps } from '../../types/selectable-props'
 import { HideIf } from '../utils/hide-if'
 import { NftThumbnailMakeOfferButton } from './nft-thumbnail-make-offer-button'
@@ -5,7 +6,6 @@ import { NftThumbnailOwner } from './nft-thumbnail-owner'
 import { NftThumbnailPicture } from './nft-thumbnail-picture'
 import { NftThumbnailSelector } from './nft-thumbnail-selector'
 import { NftThumbnailTitle } from './nft-thumbnail-title'
-import { Nft } from '../../../../ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

@@ -1,4 +1,3 @@
-import { Offer } from '../../../../ui-model'
 import { FirestoreMapper } from '../../types/mappers/firestore-mapper'
 import { propToDate } from '../base/prop-to-date'
 import { propToMappedDocument } from '../base/prop-to-mapped-document'
@@ -8,6 +7,7 @@ import { mapNft } from '../nft/map-nft'
 import { mapUser } from '../user/map-user'
 import { mapOfferActivity } from './map-offer-activity'
 import { FirestoreOfferData } from '@echo/firestore'
+import { Offer } from '@echo/ui'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, omit, pipe } from 'ramda'
 

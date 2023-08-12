@@ -1,6 +1,6 @@
 import { dateToNumber } from '../../src/mappers/base/date-to-number'
 import { offerFirestoreData } from '../mocks/offer-firestore-data'
-import { offers } from '../../../ui-model'
+import { offers } from '@echo/ui'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapDateToNumber', () => {

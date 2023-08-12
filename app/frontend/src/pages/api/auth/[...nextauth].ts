@@ -1,6 +1,6 @@
 import { createOrUpdateUser } from '@echo/api'
 import { getDiscordAuthorizationUrl, getDiscordConfig } from '@echo/discord'
-import { User } from '@echo/ui-model'
+import { User } from '@echo/ui'
 import NextAuth, { AuthOptions } from 'next-auth'
 import Discord from 'next-auth/providers/discord'
 import { isNil } from 'ramda'

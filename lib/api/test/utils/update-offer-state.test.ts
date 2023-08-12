@@ -14,7 +14,7 @@ import {
   updateOfferActivities,
   updateRequestForOfferActivities
 } from '@echo/firestore'
-import { OfferState } from '../../../ui-model'
+import { OfferState } from '@echo/ui'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { omit } from 'ramda'
 

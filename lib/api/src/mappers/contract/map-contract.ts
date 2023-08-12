@@ -1,6 +1,6 @@
-import { Contract } from '../../../../ui-model'
 import { FirestoreMapper } from '../../types/mappers/firestore-mapper'
 import { FirestoreContractData } from '@echo/firestore'
+import { Contract } from '@echo/ui'
 import { andThen, omit } from 'ramda'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -1,6 +1,6 @@
 import { ApiRoutes, getApiRouteUrl, WalletRequest, WalletResponse } from '@echo/api-public'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
-import { Signature, Wallet } from '@echo/ui-model'
+import { Signature, Wallet } from '@echo/ui'
 import { isNilOrEmpty, putData } from '@echo/utils'
 import { always, converge, path } from 'ramda'
 import { SiweMessage } from 'siwe'
@@ -10,7 +10,7 @@ interface KeyData {
   url: string
   request: WalletRequest | undefined
 }
-export const useAddWallet = (message: SiweMessage, signature: Signature, wallet: Wallet | undefined) =>
+export const useAddWallet = (message: SiweMessage, signature: Signature, wallet: Wallet) =>
   useSWR<WalletResponse, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       {
@@ -18,7 +18,7 @@ export const useAddWallet = (message: SiweMessage, signature: Signature, wallet:
         data: {
           url: getApiRouteUrl(ApiRoutes.WALLET),
           request: {
-            wallet: wallet!,
+            wallet,
             message,
             signature
           }

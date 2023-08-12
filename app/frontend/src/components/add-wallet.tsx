@@ -1,4 +1,4 @@
-import { Signature, Wallet } from '@echo/ui-model'
+import { Signature, Wallet } from '@echo/ui'
 import { useAddWallet } from '@lib/hooks/use-add-wallet'
 import { isNil } from 'ramda'
 import { FunctionComponent, useEffect } from 'react'

@@ -1,5 +1,6 @@
-import { compareNftCollections, Nft } from '../../../../ui-model'
+import { compareNftCollections } from '../../comparators/nft-collection/compare-nft-collections'
 import { CollectionFilter } from '../../types/model/collection-filter'
+import { Nft } from '../../types/nft'
 import { applySpec, equals, groupWith, head, length, map, pipe, prop, sort } from 'ramda'
 
 export const getCollectionFiltersForNfts = pipe(

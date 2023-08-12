@@ -1,5 +1,5 @@
 import { CreateRequestForOfferRequest } from '@echo/api-public'
-import { requestsForOffer } from '../../../ui-model'
+import { requestsForOffer } from '@echo/ui'
 
 export const mockCreateRequestForOfferRequest: CreateRequestForOfferRequest = {
   discordGuildId: '1002691062374088794',

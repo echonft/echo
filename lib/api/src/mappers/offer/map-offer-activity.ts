@@ -1,7 +1,7 @@
-import { OfferActivity } from '../../../../ui-model'
 import { FirestoreMapper } from '../../types/mappers/firestore-mapper'
 import { propToDate } from '../base/prop-to-date'
 import { FirestoreActivityData } from '@echo/firestore'
+import { OfferActivity } from '@echo/ui'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { andThen, juxt, pipe } from 'ramda'
 

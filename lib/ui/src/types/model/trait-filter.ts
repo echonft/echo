@@ -1,4 +1,4 @@
-import { NftTraitValue } from '../../../../ui-model'
+import { NftTraitValue } from '../nft-traits'
 
 export interface TraitFilterGroup {
   trait: string

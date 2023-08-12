@@ -6,7 +6,7 @@ import { mockSession } from '../mocks/session'
 import { userFirestoreData } from '../mocks/user-firestore-data'
 import { WalletRequest, WalletResponse } from '@echo/api-public'
 import { FirestoreUserData } from '@echo/firestore'
-import { Wallet } from '../../../ui-model'
+import { Wallet } from '@echo/ui'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { SiweMessage } from 'siwe'
 

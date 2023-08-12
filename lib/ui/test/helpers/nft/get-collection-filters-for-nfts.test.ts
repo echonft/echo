@@ -1,8 +1,8 @@
-import { getCollectionFiltersForNfts } from '../../../src/model/utils/get-collection-filters-for-nfts'
-import { nfts } from '../../../../ui-model'
+import { getCollectionFiltersForNfts } from '../../../src/helpers/nft/get-collection-filters-for-nfts'
+import { nfts } from '../../../src/mocks/nft'
 import { describe, expect, test } from '@jest/globals'
 
-describe('model - utils - getCollectionFiltersForNfts', () => {
+describe('getCollectionFiltersForNfts', () => {
   test('returns the right collection filters for a set of nfts', () => {
     const nft1 = nfts['QFjMRNChUAHNswkRADXh']!
     const nft2 = nfts['8hHFadIrrooORfTOLkBg']!

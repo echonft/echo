@@ -26,7 +26,7 @@
     "@echo/api": "workspace:*",
     "@echo/api-public": "workspace:*",
     "@echo/discord": "workspace:*",
-    "@echo/ui-model": "workspace:*",
+    "@echo/ui": "workspace:*",
     "@echo/swr": "workspace:*",
     "@echo/utils": "workspace:*",
     "@headlessui/react": "1.7.16",

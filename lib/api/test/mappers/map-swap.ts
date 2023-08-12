@@ -1,6 +1,6 @@
 import { mapSwap } from '../../src/mappers/swap/map-swap'
 import { swapFirestoreData } from '../mocks/swap-firestore-data'
-import { swaps } from '../../../ui-model'
+import { swaps } from '@echo/ui'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mapSwap', () => {

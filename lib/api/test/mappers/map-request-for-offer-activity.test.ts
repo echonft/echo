@@ -1,6 +1,6 @@
 import { mapRequestForOfferActivity } from '../../src/mappers/request-for-offer/map-request-for-offer-activity'
 import { requestForOfferFirestoreData } from '../mocks/request-for-offer-firestore-data'
-import { requestsForOffer } from '../../../ui-model'
+import { requestsForOffer } from '@echo/ui'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapRequestForOfferActivity', () => {

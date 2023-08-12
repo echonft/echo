@@ -1,6 +1,6 @@
+import { User } from '../../../types/user'
 import { DefaultUserProfilePicture } from '../../base/svg/default-user-profile-picture'
 import { getUserAvatarUrl } from '@echo/discord'
-import { User } from '../../../../../ui-model'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'

@@ -1,5 +1,4 @@
-import { NftDetailsOffersPanel as Component, NftDetailsOffersPanelSkeleton } from '@echo/ui'
-import { offers } from '@echo/ui-model'
+import { NftDetailsOffersPanel as Component, NftDetailsOffersPanelSkeleton, offers } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { assoc } from 'ramda'

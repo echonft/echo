@@ -1,6 +1,6 @@
 import { mapDiscordGuild } from '../../src/mappers/discord-guild/map-discord-guild'
 import { discordGuildFirestoreData } from '../mocks/discord-guild-firestore-data'
-import { discordGuilds } from '../../../ui-model'
+import { discordGuilds } from '@echo/ui'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapDiscordGuild', () => {

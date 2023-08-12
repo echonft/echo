@@ -1,8 +1,11 @@
-import { Signature, Wallet } from '../../../../ui-model'
 import { SiweMessage } from 'siwe'
 
+interface Wallet {
+  chainId: number
+  address: string
+}
 export interface WalletRequest {
   wallet: Wallet | Wallet[]
   message?: SiweMessage
-  signature?: Signature
+  signature?: `0x${string}`
 }
