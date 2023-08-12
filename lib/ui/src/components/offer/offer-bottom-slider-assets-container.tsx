@@ -6,28 +6,28 @@ import clsx from 'clsx'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  counterparty: boolean
+  isReceiver: boolean
   assets?: Nft[]
   onAddMore?: () => void
-  onRemove?: (id: string) => void
+  onRemove?: (nft: Nft) => void
 }
 
 export const OfferBottomSliderAssetsContainer: FunctionComponent<Props> = ({
-  counterparty,
+  isReceiver,
   assets = [],
   onAddMore,
   onRemove
 }) => {
   return (
     <div className={clsx('flex', 'flex-col', 'gap-8')}>
-      <OfferBottomSliderAssetsTitle counterparty={counterparty} />
-      <div className={clsx('flex', 'flex-row', 'gap-4')}>
+      <OfferBottomSliderAssetsTitle isReceiver={isReceiver} />
+      {/* We need to force height in case there is only the add more button */}
+      <div className={clsx('flex', 'flex-row', 'gap-4', '!h-[174px]')}>
         {assets.map((nft) => (
           <NftThumbnailOffer nft={nft} key={nft.id} onRemove={onRemove} />
         ))}
         <NftThumbnailOfferAddMore onClick={onAddMore} />
       </div>
-      <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
     </div>
   )
 }

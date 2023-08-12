@@ -60,8 +60,8 @@ export const messages = {
       add: 'Add more',
       finalize: 'Finalize offer'
     }
-  }
-user: {
+  },
+  user: {
     button: {
       makeOffer: {
         label: 'Make an offer'

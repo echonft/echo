@@ -2,6 +2,7 @@ import './index.css'
 
 export { compareNftCollections } from './comparators/nft-collection/compare-nft-collections'
 export { Banner, BannerProps } from './components/base/banner'
+export { BottomSlider } from './components/base/bottom-slider'
 export { Callout, CalloutProps, CalloutSeverity, CalloutVariant } from './components/base/callout/callout'
 export { DiscordIcon, DiscordIconProps } from './components/base/icons/discord-icon'
 export { EchoIcon, EchoIconColor, echoIconColors, EchoIconProps } from './components/base/icons/echo-icon'
