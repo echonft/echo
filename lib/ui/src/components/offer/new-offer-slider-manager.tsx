@@ -3,24 +3,15 @@ import { BottomSlider } from '../base/bottom-slider'
 import { HideIfNilOrEmpty } from '../utils/hide-if-nil-or-empty'
 import { OfferBottomSliderInnerContainer } from './offer-bottom-slider-inner-container'
 import { OfferBottomSliderTitle } from './offer-bottom-slider-title'
-import { Nft, nftEquals, nfts, users } from '@echo/model'
+import { Nft, nftEquals } from '@echo/model'
 import { removeFromArray } from '@echo/utils'
-import { FunctionComponent, useCallback, useEffect } from 'react'
+import { FunctionComponent, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
-
-const mockReceiverItems = [nfts['QFjMRNChUAHNswkRADXh']!]
-const mockSenderItems = [nfts['8hHFadIrrooORfTOLkBg']!]
-const mockUser = users['oE6yUEQBPn7PZ89yMjKn']!
 
 // TODO Add more action
 // TODO Add finalize offer
 export const NewOfferSliderManager: FunctionComponent = () => {
   const [newOffer, setNewOffer] = useRecoilState(newOfferState)
-
-  // NOTE For testing
-  useEffect(() => {
-    setNewOffer({ receiverItems: mockReceiverItems, receiver: mockUser, senderItems: mockSenderItems })
-  }, [])
 
   const onRemoveAsset = useCallback(
     (nftToRemove: Nft, isReceiver: boolean) => {

@@ -20,7 +20,6 @@ type Story = StoryObj<typeof Component>
 const RenderedComponent = () => {
   const [, setNewOffer] = useRecoilState(newOfferState)
   useEffect(() => {
-    console.log('will reset offer')
     setNewOffer({ receiverItems: mockReceiverItems, receiver: mockUser, senderItems: mockSenderItems })
   }, [])
   return <Component />
