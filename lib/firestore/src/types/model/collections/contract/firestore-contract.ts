@@ -1,4 +1,4 @@
-import { DocumentData } from 'firebase/firestore'
+import { DocumentData } from '@google-cloud/firestore'
 
 export interface FirestoreContract extends DocumentData {
   address: string

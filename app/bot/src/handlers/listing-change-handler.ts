@@ -24,7 +24,7 @@ export async function listingChangeHandler(
       const channel = await getDiscordChannel(client, listing.discordGuild.channelId)
       void channel
         .send({
-          components: [buildNewListingButtons(listing)],
+          components: [buildNewListingButtons(listing.id, listing.discordGuild.discordId)],
           embeds: [buildListingEmbed(listing)]
         })
         .then(() => {

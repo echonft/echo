@@ -1,5 +1,5 @@
-import { getTraitsForNfts, nfts } from '@echo/model'
 import { CollectionNftsAndFiltersContainer as Component, CollectionNftsAndFiltersContainerSkeleton } from '@echo/ui'
+import { getTraitsForNfts, nfts } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

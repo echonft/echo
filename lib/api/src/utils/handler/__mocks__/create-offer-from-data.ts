@@ -1,5 +1,6 @@
+import { offerFirestoreData } from '../../../../test/mocks/offer-firestore-data'
 import { ErrorResponse } from '@echo/api-public'
-import { FirestoreDiscordGuildData, FirestoreOfferData, FirestoreUserData, offerFirestoreData } from '@echo/firestore'
+import { FirestoreDiscordGuildData, FirestoreOfferData, FirestoreUserData } from '@echo/firestore'
 import { NextApiResponse } from 'next'
 
 export function createOfferFromData(

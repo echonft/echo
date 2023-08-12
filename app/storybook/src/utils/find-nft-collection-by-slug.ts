@@ -1,4 +1,4 @@
-import { NftCollection, nftCollections } from '@echo/model'
+import { NftCollection, nftCollections } from '@echo/ui-model'
 import { isNil } from 'ramda'
 
 export const findNftCollectionBySlug = (slug: string): NftCollection => {

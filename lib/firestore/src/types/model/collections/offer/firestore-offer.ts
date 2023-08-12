@@ -1,11 +1,11 @@
+import { FirestoreActivity } from '../activity/firestore-activity'
 import { FirestoreDiscordGuild } from '../discord-guild/firestore-discord-guild'
 import { FirestoreNft } from '../nft/firestore-nft'
 import { FirestoreUser } from '../user/firestore-user'
-import { FirestoreOfferActivity } from './firestore-offer-activity'
-import { DocumentData, DocumentReference } from 'firebase/firestore'
+import { DocumentData, DocumentReference } from '@google-cloud/firestore'
 
 export interface FirestoreOffer extends DocumentData {
-  activities: FirestoreOfferActivity[]
+  activities: FirestoreActivity[]
   createdAt: number
   discordGuild: DocumentReference<FirestoreDiscordGuild>
   expiresAt: number

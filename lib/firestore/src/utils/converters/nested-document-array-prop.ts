@@ -1,7 +1,7 @@
 import { FirestoreNestedDocumentConverter } from '../../types/converter/firestore-nested-document-converter'
 import { FirestoreDocumentData } from '../../types/model/data/abstract/firestore-document-data'
 import { promiseAll, undefinedPromise } from '@echo/utils'
-import { DocumentData } from 'firebase/firestore'
+import { DocumentData } from '@google-cloud/firestore'
 import { allPass, has, ifElse, isNotNil, map, pipe, prop } from 'ramda'
 
 export const nestedDocumentArrayProp = <T extends DocumentData, V extends FirestoreDocumentData>(

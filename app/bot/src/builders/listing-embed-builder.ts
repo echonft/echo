@@ -12,7 +12,7 @@ export function buildListingEmbed(listing: FirestoreRequestForOfferData) {
     .setDescription(description(listing))
     .setColor(color())
     .setFields(fields(listing.items, listing.target))
-    .setURL(listingLink(listing))
+    .setURL(listingLink(listing.id, listing.discordGuild.discordId))
 }
 
 // Can't mention user on a title

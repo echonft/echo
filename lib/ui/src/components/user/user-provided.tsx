@@ -2,7 +2,7 @@ import { CollectionFilter } from '../../types/model/collection-filter'
 import { PaddedContainer } from '../layout/padded-container'
 import { UserDetails } from './user-details'
 import { UserNftsAndFiltersContainer } from './user-nfts-and-filters-container'
-import { Nft, User } from '@echo/model'
+import { Nft, User } from '../../../../ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

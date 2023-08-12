@@ -1,20 +1,22 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { mockGetNftsForOwner } from '../../src/mocks/alchemy/get-nfts-for-owner'
 import { updateUserNfts } from '../../src/utils/handler/update-user-nfts'
+import { mockGetNftsForOwner, MockGetNftsForOwnerArgs } from '../mocks/alchemy/get-nfts-for-owner'
+import { nftCollectionFirestoreData } from '../mocks/nft-collection-firestore-data'
+import { nftFirestoreData } from '../mocks/nft-firestore-data'
+import { userFirestoreData } from '../mocks/user-firestore-data'
 import {
   addNft,
-  findCollectionByAddress,
   findNftByCollection,
+  findNftCollectionByAddress,
   getAllContractsAddresses,
   getUserWalletAddresses,
   updateNftOwner
-} from '@echo/firebase-admin'
-import { nftCollectionFirestoreData, nftFirestoreData, userFirestoreData } from '@echo/firestore'
+} from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 jest.mock('@echo/alchemy', () => ({
-  getNftsForOwner: mockGetNftsForOwner
+  getNftsForOwner: (args: MockGetNftsForOwnerArgs) => mockGetNftsForOwner(args)
 }))
 
 describe('utils - handler - updateUserNfts', () => {
@@ -28,7 +30,7 @@ describe('utils - handler - updateUserNfts', () => {
     .mockResolvedValue(['0x12c63bbD266dB84e117356e664f3604055166CEc', '0x320e2fa93a4010ba47edcde762802374bac8d3f7'])
   // @ts-ignore
   const mockedUpdateNftOwner = jest.mocked(updateNftOwner).mockResolvedValue({})
-  const mockedFindCollectionByAddress = jest.mocked(findCollectionByAddress).mockResolvedValue(mockNftCollection)
+  const mockedFindCollectionByAddress = jest.mocked(findNftCollectionByAddress).mockResolvedValue(mockNftCollection)
   // @ts-ignore
   const mockedAddNft = jest.mocked(addNft).mockResolvedValue({})
   jest.mocked(getUserWalletAddresses).mockImplementation((user) => user.wallets.map((wallet) => wallet.address))

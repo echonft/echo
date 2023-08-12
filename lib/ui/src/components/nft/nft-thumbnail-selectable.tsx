@@ -5,7 +5,7 @@ import { NftThumbnailOwner } from './nft-thumbnail-owner'
 import { NftThumbnailPicture } from './nft-thumbnail-picture'
 import { NftThumbnailSelector } from './nft-thumbnail-selector'
 import { NftThumbnailTitle } from './nft-thumbnail-title'
-import { Nft } from '@echo/model'
+import { Nft } from '../../../../ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
@@ -37,7 +37,7 @@ export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectablePro
       )}
     >
       <div className={'relative'}>
-        <NftThumbnailPicture title={name} tokenId={tokenId} pictureUrl={thumbnailUrl} />
+        <NftThumbnailPicture alt={name} tokenId={tokenId} pictureUrl={thumbnailUrl} />
         {/*<NftThumbnailFlagIcon flagged={flagged} />*/}
         <NftThumbnailSelector
           selected={selected}
@@ -50,7 +50,7 @@ export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectablePro
         </HideIf>
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-2', 'rounded-b-2xl', 'bg-white/[0.08]', 'w-full', 'p-2')}>
-        <NftThumbnailTitle name={name} tokenId={tokenId} collectionName={collection.name} />
+        <NftThumbnailTitle tokenId={tokenId} collectionName={collection.name} />
         <NftThumbnailMakeOfferButton
           onClick={() => {
             onMakeOffer?.(id)

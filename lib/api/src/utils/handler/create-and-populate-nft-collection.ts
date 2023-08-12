@@ -1,6 +1,5 @@
 import { populateNftCollection } from './populate-nft-collection'
-import { addNftCollection } from '@echo/firebase-admin'
-import { FirestoreNftCollectionData, FirestoreNftCollectionPrototype } from '@echo/firestore'
+import { addNftCollection, FirestoreNftCollectionData, FirestoreNftCollectionPrototype } from '@echo/firestore'
 
 // TODO: Remove NFT generation here, we won't use it that way
 export const createAndPopulateNftCollection = (

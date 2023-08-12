@@ -1,7 +1,7 @@
 import { useFirestoreHooks } from '../../../dependencies/hooks/use-firestore-hooks'
 import { CollectionNftsAndFiltersContainerSkeleton } from '../../skeleton/collection/collection-nfts-and-filters-container-skeleton'
 import { CollectionNftsAndFiltersContainer } from '../collection-nfts-and-filters-container'
-import { getTraitsForNfts, Nft, NftTraits } from '@echo/model'
+import { getTraitsForNfts, Nft, NftTraits } from '../../../../../ui-model'
 import { isNil } from 'ramda'
 import { FunctionComponent, useEffect, useRef, useState } from 'react'
 

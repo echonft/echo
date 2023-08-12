@@ -1,7 +1,7 @@
 import { CollectionNftsContainer } from './collection-nfts-container'
 import { CollectionOfferButton } from './collection-offer-button'
 import { TraitFilterPanel } from './filters/trait-filter-panel'
-import { Nft, NftTraits } from '@echo/model'
+import { Nft, NftTraits } from '../../../../ui-model'
 import { addToArrayIfNotPresent, removeFromArray } from '@echo/utils'
 import { clsx } from 'clsx'
 import { assoc, dissoc, equals, find, isEmpty, isNil, propEq, reduce } from 'ramda'

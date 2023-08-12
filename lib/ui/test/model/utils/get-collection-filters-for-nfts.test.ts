@@ -1,5 +1,5 @@
 import { getCollectionFiltersForNfts } from '../../../src/model/utils/get-collection-filters-for-nfts'
-import { nfts } from '@echo/model'
+import { nfts } from '../../../../ui-model'
 import { describe, expect, test } from '@jest/globals'
 
 describe('model - utils - getCollectionFiltersForNfts', () => {

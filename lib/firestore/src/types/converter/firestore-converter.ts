@@ -1,6 +1,6 @@
 import { FirestoreSnapshot } from '../abstract/firestore-snapshot'
 import { FirestoreDocumentData } from '../model/data/abstract/firestore-document-data'
-import { DocumentData } from 'firebase/firestore'
+import { DocumentData } from '@google-cloud/firestore'
 
 /**
  * Converts a document snapshot to a firestore model object

@@ -2,7 +2,7 @@ import { Routes } from '../../../types/provider/link-provider'
 import { DiscordIconSvg } from '../../base/svg/discord-icon-svg'
 import { InternalLink } from '../../utils/internal-link'
 import { NftDetailsLinks, NftDetailsLinksProps } from './nft-details-links'
-import { User } from '@echo/model'
+import { User } from '../../../../../ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

@@ -1,11 +1,15 @@
-import { mapActivityToFirestoreData } from '../../mappers/map-activity-to-firestore-data'
+import { mapActivityToFirestoreData } from '../../mappers/activity/map-activity-to-firestore-data'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { idRequestSchema } from '../../types/validators/id-request'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { ApiRequest, IdRequest } from '@echo/api-public'
-import { findRequestForOfferById, updateRequestForOfferActivities } from '@echo/firebase-admin'
-import { FirestoreRequestForOfferData } from '@echo/firestore'
-import { canAddRequestForOfferActivity, generateRequestForOfferActivity, RequestForOfferState } from '@echo/model'
+import {
+  canAddRequestForOfferActivity,
+  findRequestForOfferById,
+  FirestoreRequestForOfferData,
+  generateRequestForOfferActivity,
+  updateRequestForOfferActivities
+} from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
 import { unix } from 'dayjs'
 import { append, assoc, isNil, modify, pipe } from 'ramda'
@@ -26,24 +30,16 @@ export const cancelRequestForOfferHandler: RequestHandler<
           res.end(res.status(401).json({ error: 'Cannot cancel listing' }))
           return
         }
-        const cancelledActivity = generateRequestForOfferActivity(
-          RequestForOfferState.CANCELLED,
-          requestForOffer.state as RequestForOfferState
-        )
-        if (
-          !canAddRequestForOfferActivity(
-            requestForOffer.state as RequestForOfferState,
-            unix(requestForOffer.expiresAt),
-            cancelledActivity
-          )
-        ) {
+        const cancelledActivity = generateRequestForOfferActivity('CANCELLED', requestForOffer.state)
+        // FIXME should be in firestore directly
+        if (!canAddRequestForOfferActivity(requestForOffer.state, unix(requestForOffer.expiresAt), cancelledActivity)) {
           res.end(res.status(401).json({ error: 'Cannot cancel listing' }))
           return
         }
         const cancelledActivityData = mapActivityToFirestoreData(cancelledActivity)
         const updatedRequestForOffer = pipe(
           modify('activities', append(cancelledActivityData)),
-          assoc('state', RequestForOfferState.CANCELLED)
+          assoc('state', 'CANCELLED')
         )(requestForOffer) as FirestoreRequestForOfferData
         return updateRequestForOfferActivities(requestForOffer.id, requestForOffer.activities, cancelledActivityData)
           .then(() => {

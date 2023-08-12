@@ -1,18 +1,10 @@
 import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
-import { DocumentData, DocumentReference, getDoc } from 'firebase/firestore'
-import { andThen, pipe, unless } from 'ramda'
+import { DocumentData, DocumentReference } from '@google-cloud/firestore'
 
+/**
+ * Get the document from a document reference
+ * @param ref The document reference
+ */
 export const getDocSnapshotFromRef = <T extends DocumentData>(
   ref: DocumentReference<T>
-): Promise<FirestoreSnapshot<T>> =>
-  pipe(
-    getDoc,
-    andThen(
-      unless(
-        (snapshot) => snapshot.exists(),
-        (_snapshot) => {
-          throw new Error('Not found')
-        }
-      )
-    )
-  )(ref)
+): Promise<FirestoreSnapshot<T>> => ref.get()

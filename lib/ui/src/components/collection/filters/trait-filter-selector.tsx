@@ -1,5 +1,5 @@
 import { SelectableProps } from '../../../types/selectable-props'
-import { NftTraitValue } from '@echo/model'
+import { NftTraitValue } from '../../../../../ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

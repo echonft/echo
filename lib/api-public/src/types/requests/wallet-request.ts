@@ -1,4 +1,4 @@
-import { Signature, Wallet } from '@echo/model'
+import { Signature, Wallet } from '../../../../ui-model'
 import { SiweMessage } from 'siwe'
 
 export interface WalletRequest {

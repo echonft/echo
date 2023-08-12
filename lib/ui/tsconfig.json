@@ -1,6 +1,8 @@
 {
   "extends": "../tsconfig/react-library.json",
   "compilerOptions": {
+    "sourceRoot": "src",
+    "rootDir": ".",
     "outDir": "dist"
   },
   "include": ["src", "test"],

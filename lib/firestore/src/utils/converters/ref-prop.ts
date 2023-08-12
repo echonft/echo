@@ -2,7 +2,7 @@ import { FirestoreConverter } from '../../types/converter/firestore-converter'
 import { FirestoreDocumentData } from '../../types/model/data/abstract/firestore-document-data'
 import { getDocSnapshotFromRef } from '../document/get-doc-snapshot-from-ref'
 import { undefinedPromise } from '@echo/utils'
-import { DocumentData, DocumentReference } from 'firebase/firestore'
+import { DocumentData, DocumentReference } from '@google-cloud/firestore'
 import { allPass, andThen, has, ifElse, isNotNil, pipe, prop } from 'ramda'
 
 export const refProp = <T extends DocumentData, V extends FirestoreDocumentData>(

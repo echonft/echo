@@ -1,4 +1,4 @@
-import { Wallet } from '@echo/model'
+import { Wallet } from '../../../../ui-model'
 
 export interface WalletResponse {
   wallets: Wallet[]

@@ -1,7 +1,7 @@
 import { PaddedContainer } from '../layout/padded-container'
 import { CollectionDetails } from './collection-details'
 import { CollectionNftsAndFiltersContainer } from './collection-nfts-and-filters-container'
-import { Nft, NftCollection, NftTraits } from '@echo/model'
+import { Nft, NftCollection, NftTraits } from '../../../../ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

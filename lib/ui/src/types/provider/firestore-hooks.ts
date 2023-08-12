@@ -1,4 +1,4 @@
-import { Nft, NftCollection, NftTraits } from '@echo/model'
+import { Nft, NftCollection, NftTraits } from '../../../../ui-model'
 import { SWRResponse } from 'swr'
 
 export interface FirestoreHooks {

@@ -1,4 +1,4 @@
-import { NftAttribute } from '@echo/model'
+import { NftAttribute } from '../../../../../ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

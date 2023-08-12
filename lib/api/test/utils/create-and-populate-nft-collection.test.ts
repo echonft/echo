@@ -1,15 +1,15 @@
-import { mockGetNftsForContract } from '../../src/mocks/alchemy/get-nfts-for-contract'
-import { mockAddNft } from '../../src/mocks/firebase-admin/add-nft'
-import { mockAddNftCollection } from '../../src/mocks/firebase-admin/add-nft-collection'
 import { createAndPopulateNftCollection } from '../../src/utils/handler/create-and-populate-nft-collection'
-import { addNft, addNftCollection } from '@echo/firebase-admin'
-import { FirestoreNftCollectionPrototype, nftCollectionFirestoreData } from '@echo/firestore'
+import { mockGetNftsForContract } from '../mocks/alchemy/get-nfts-for-contract'
+import { mockAddNft } from '../mocks/firestore/add-nft'
+import { mockAddNftCollection } from '../mocks/firestore/add-nft-collection'
+import { nftCollectionFirestoreData } from '../mocks/nft-collection-firestore-data'
+import { addNft, addNftCollection, FirestoreNftCollectionPrototype } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/alchemy', () => ({
   getNftsForContract: (address: string) => mockGetNftsForContract(address)
 }))
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 
 describe('utils - handlers - createAndPopulateNftCollection', () => {
   const mockedAddNft = jest.mocked(addNft).mockImplementation(mockAddNft)

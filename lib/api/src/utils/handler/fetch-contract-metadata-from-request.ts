@@ -1,6 +1,6 @@
 import { getContractMetadata, GetContractMetadataResponse } from '@echo/alchemy'
 import { TargetRequest } from '@echo/api-public'
-import { findContractByAddress } from '@echo/firebase-admin'
+import { findContractByAddress } from '@echo/firestore'
 import { errorMessage } from '@echo/utils'
 import { identity } from 'ramda'
 

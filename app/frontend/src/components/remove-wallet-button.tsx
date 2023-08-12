@@ -1,4 +1,4 @@
-import { Wallet } from '@echo/model'
+import { Wallet } from '@echo/ui-model'
 import { useRemoveWallets } from '@lib/hooks/use-remove-wallets'
 import { isNil } from 'ramda'
 import { FunctionComponent, useEffect, useState } from 'react'

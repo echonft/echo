@@ -4,7 +4,7 @@ const config: Config = {
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
   collectCoverage: true,
   collectCoverageFrom: [
-    '<rootDir>/src/**/*.{ts,js}',
+    '<rootDir>/src/**/*.{ts,js,tsx,jsx}',
     '!<rootDir>/src/**/*.d.ts',
     '!<rootDir>/src/**/index.ts',
     '!<rootDir>/src/**/__tests__/**',
@@ -18,10 +18,11 @@ const config: Config = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../../.coverage/lib/firestore'
+        outputDirectory: '<rootDir>/../../.coverage/lib/firebase-admin'
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/firestore'
+  coverageDirectory: '<rootDir>/../../.coverage/lib/firebase-admin',
+  testTimeout: 30000
 }
 export default config

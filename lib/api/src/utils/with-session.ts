@@ -1,5 +1,5 @@
 import { RequestHandler } from '../types/handlers/request-handler'
-import { findUserById } from '@echo/firebase-admin'
+import { findUserById } from '@echo/firestore'
 import { NextApiRequest } from 'next'
 import { AuthOptions, getServerSession } from 'next-auth'
 import { isNil } from 'ramda'

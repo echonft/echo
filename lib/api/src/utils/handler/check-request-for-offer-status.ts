@@ -1,20 +1,20 @@
-import { mapActivityToFirestoreData } from '../../mappers/map-activity-to-firestore-data'
-import { FirestoreRequestForOfferActivityData, FirestoreRequestForOfferData } from '@echo/firestore'
+import { mapActivityToFirestoreData } from '../../mappers/activity/map-activity-to-firestore-data'
 import {
   canAddRequestForOfferActivity,
+  FirestoreActivityData,
+  FirestoreOfferState,
+  FirestoreRequestForOfferData,
   generateRequestForOfferActivity,
-  generateRequestForOfferStateFromOfferState,
-  OfferState,
-  RequestForOfferState
-} from '@echo/model'
+  generateRequestForOfferStateFromOfferState
+} from '@echo/firestore'
 import { unix } from 'dayjs'
 import { isNil } from 'ramda'
 
 export function checkRequestForOfferStatus(
   requestForOffer: FirestoreRequestForOfferData | undefined,
-  offerState: OfferState
+  offerState: FirestoreOfferState
 ): {
-  activity: FirestoreRequestForOfferActivityData | undefined
+  activity: FirestoreActivityData | undefined
   requestForOffer: FirestoreRequestForOfferData | undefined
 } {
   // Offer is tied to a request for offer, need to do some checks
@@ -22,17 +22,10 @@ export function checkRequestForOfferStatus(
     return { activity: undefined, requestForOffer: undefined }
   }
   const newRequestForOfferState = generateRequestForOfferStateFromOfferState(offerState)
-  const newRequestForOfferActivity = generateRequestForOfferActivity(
-    newRequestForOfferState,
-    requestForOffer.state as RequestForOfferState
-  )
+  const newRequestForOfferActivity = generateRequestForOfferActivity(newRequestForOfferState, requestForOffer.state)
 
   if (
-    !canAddRequestForOfferActivity(
-      requestForOffer.state as RequestForOfferState,
-      unix(requestForOffer.expiresAt),
-      newRequestForOfferActivity
-    )
+    !canAddRequestForOfferActivity(requestForOffer.state, unix(requestForOffer.expiresAt), newRequestForOfferActivity)
   ) {
     throw new Error('Cannot update request for offer')
   }

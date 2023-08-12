@@ -1,6 +1,6 @@
 import { ApiRoutes, getApiRouteUrl, WalletRequest, WalletResponse } from '@echo/api-public'
-import { Wallet } from '@echo/model'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
+import { Wallet } from '@echo/ui-model'
 import { deleteData, isNilOrEmpty } from '@echo/utils'
 import { always, converge, path } from 'ramda'
 import useSWR, { SWRResponse } from 'swr'

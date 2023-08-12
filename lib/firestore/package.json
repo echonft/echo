@@ -26,12 +26,13 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
+    "@google-cloud/firestore": "6.7.0",
     "dayjs": "1.11.9",
     "ethers": "6.7.0",
-    "firebase": "10.1.0",
-    "ramda": "0.29.0"
+    "firebase-admin": "11.10.1",
+    "ramda": "0.29.0",
+    "siwe": "2.1.4"
   },
   "devDependencies": {
     "@jest/globals": "29.6.2",

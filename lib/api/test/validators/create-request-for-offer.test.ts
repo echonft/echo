@@ -1,5 +1,5 @@
 import { createRequestForOfferSchema } from '../../src/types/validators/create-request-for-offer'
-import { offerFirestoreData } from '@echo/firestore'
+import { offerFirestoreData } from '../mocks/offer-firestore-data'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - createListing', () => {

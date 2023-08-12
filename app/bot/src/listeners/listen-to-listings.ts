@@ -1,5 +1,5 @@
 import { listingChangeHandler } from '../handlers/listing-change-handler'
-import { listenToRequestForOffers } from '@echo/firebase-admin'
+import { listenToRequestForOffers } from '@echo/firestore'
 import { Client } from 'discord.js'
 
 export function listenToListings(client: Client) {

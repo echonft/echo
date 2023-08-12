@@ -1,5 +1,5 @@
 import { addWalletSchema } from '../../src/types/validators/add-wallet'
-import { users } from '@echo/model'
+import { users } from '../../../ui-model'
 import { describe, expect, it } from '@jest/globals'
 import { SiweMessage } from 'siwe'
 

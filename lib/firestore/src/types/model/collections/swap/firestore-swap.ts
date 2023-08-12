@@ -1,11 +1,11 @@
+import { FirestoreActivity } from '../activity/firestore-activity'
 import { FirestoreOffer } from '../offer/firestore-offer'
-import { FirestoreSwapActivity } from './firestore-swap-activity'
-import { DocumentData, DocumentReference } from 'firebase/firestore'
+import { DocumentData, DocumentReference } from '@google-cloud/firestore'
 
 export interface FirestoreSwap extends DocumentData {
   state: string
   offer: DocumentReference<FirestoreOffer>
-  activities: FirestoreSwapActivity[]
+  activities: FirestoreActivity[]
   expiresAt: number
   createdAt: number
 }

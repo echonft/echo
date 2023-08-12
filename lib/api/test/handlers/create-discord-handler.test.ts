@@ -1,12 +1,14 @@
 import { createDiscordGuildHandler } from '../../src/handlers/discord-guild/create-discord-guild-handler'
-import { mockGetNftsForContract } from '../../src/mocks/alchemy/get-nfts-for-contract'
 import { createDiscordFromRequest } from '../../src/utils/handler/create-discord-from-request'
-import { CreateDiscordRequest, DiscordGuildResponse, mockRequestResponse } from '@echo/api-public'
-import { findContractsByAddresses } from '@echo/firebase-admin'
-import { contractFirestoreData, discordGuildFirestoreData } from '@echo/firestore'
+import { mockGetNftsForContract } from '../mocks/alchemy/get-nfts-for-contract'
+import { contractFirestoreData } from '../mocks/contract-firestore-data'
+import { discordGuildFirestoreData } from '../mocks/discord-guild-firestore-data'
+import { mockRequestResponse } from '../mocks/request-response'
+import { CreateDiscordRequest, DiscordGuildResponse } from '@echo/api-public'
+import { findContractsByAddresses } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 jest.mock('../../src/utils/handler/create-discord-from-request')
 jest.mock('@echo/alchemy', () => ({
   getNftsForContract: (address: string) => mockGetNftsForContract(address)

@@ -1,5 +1,5 @@
 import { createOfferSchema } from '../../src/types/validators/create-offer'
-import { offers } from '@echo/model'
+import { offers } from '../../../ui-model'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - createOffer', () => {

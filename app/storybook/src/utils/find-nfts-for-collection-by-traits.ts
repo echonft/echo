@@ -1,4 +1,4 @@
-import { mapNftTraitsToNftAttributes, Nft, nfts, NftTraits } from '@echo/model'
+import { mapNftTraitsToNftAttributes, Nft, nfts, NftTraits } from '@echo/ui-model'
 import { intersects, isNilOrEmpty } from '@echo/utils'
 import { isEmpty, isNil } from 'ramda'
 

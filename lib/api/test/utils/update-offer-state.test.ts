@@ -1,25 +1,24 @@
-import { mockFindOfferById } from '../../src/mocks/firebase-admin/find-offer-by-id'
-import { mockUpdateOfferActivities } from '../../src/mocks/firebase-admin/update-offer-activities'
-import { mockUpdateRequestForOfferActivities } from '../../src/mocks/firebase-admin/update-request-for-offer-activities'
 import { updateOfferState } from '../../src/utils/handler/update-offer-state'
-import { mockRequestResponse, UpdateOfferRequest } from '@echo/api-public'
+import { mockFindOfferById } from '../mocks/firestore/find-offer-by-id'
+import { mockUpdateOfferActivities } from '../mocks/firestore/update-offer-activities'
+import { mockUpdateRequestForOfferActivities } from '../mocks/firestore/update-request-for-offer-activities'
+import { offerFirestoreData } from '../mocks/offer-firestore-data'
+import { requestForOfferFirestoreData } from '../mocks/request-for-offer-firestore-data'
+import { mockRequestResponse } from '../mocks/request-response'
+import { userFirestoreData } from '../mocks/user-firestore-data'
+import { UpdateOfferRequest } from '@echo/api-public'
 import {
   findOfferById,
   findRequestForOfferByOfferId,
+  FirestoreOfferData,
   updateOfferActivities,
   updateRequestForOfferActivities
-} from '@echo/firebase-admin'
-import {
-  FirestoreOfferData,
-  offerFirestoreData,
-  requestForOfferFirestoreData,
-  userFirestoreData
 } from '@echo/firestore'
-import { OfferState } from '@echo/model'
+import { OfferState } from '../../../ui-model'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { omit } from 'ramda'
 
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 
 describe('utils - handler - createOfferFromData', () => {
   const mockedUpdateOfferActivities = jest.mocked(updateOfferActivities).mockImplementation(mockUpdateOfferActivities)

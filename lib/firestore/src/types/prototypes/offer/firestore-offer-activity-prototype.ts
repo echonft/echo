@@ -1,4 +1,9 @@
+import { FirestoreOfferState } from '../../model/data/offer/firestore-offer-state'
 import { FirestorePrototypeData } from '../base/firestore-prototype-data'
-import { OfferActivity } from '@echo/model'
+import dayjs from 'dayjs'
 
-export interface FirestoreOfferActivityPrototype extends FirestorePrototypeData, OfferActivity {}
+export interface FirestoreOfferActivityPrototype extends FirestorePrototypeData {
+  date: dayjs.Dayjs
+  fromState: FirestoreOfferState | undefined
+  toState: FirestoreOfferState
+}

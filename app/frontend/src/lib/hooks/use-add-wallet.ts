@@ -1,6 +1,6 @@
 import { ApiRoutes, getApiRouteUrl, WalletRequest, WalletResponse } from '@echo/api-public'
-import { Signature, Wallet } from '@echo/model'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
+import { Signature, Wallet } from '@echo/ui-model'
 import { isNilOrEmpty, putData } from '@echo/utils'
 import { always, converge, path } from 'ramda'
 import { SiweMessage } from 'siwe'

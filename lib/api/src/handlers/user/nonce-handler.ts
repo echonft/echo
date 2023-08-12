@@ -1,7 +1,7 @@
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { validateSession } from '../../utils/handler/validate-session'
 import { ApiRequest, NonceResponse } from '@echo/api-public'
-import { setNonceForUser } from '@echo/firebase-admin'
+import { setNonceForUser } from '@echo/firestore'
 import { isNil } from 'ramda'
 
 export const nonceHandler: RequestHandler<ApiRequest<null, never>, NonceResponse> = async (_req, res, session) => {

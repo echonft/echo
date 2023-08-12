@@ -1,13 +1,14 @@
 import { getNftsForOwner } from '@echo/alchemy'
 import {
   addNft,
-  findCollectionByAddress,
   findNftByCollection,
+  findNftCollectionByAddress,
+  FirestoreNftPrototype,
+  FirestoreUserData,
   getAllContractsAddresses,
   getUserWalletAddresses,
   updateNftOwner
-} from '@echo/firebase-admin'
-import { FirestoreNftPrototype, FirestoreUserData } from '@echo/firestore'
+} from '@echo/firestore'
 import { isNilOrEmpty } from '@echo/utils'
 import { flatten, omit } from 'ramda'
 
@@ -38,7 +39,7 @@ export const updateUserNfts = (user: FirestoreUserData) =>
                     .catch(() =>
                       // NFT is not in DB, add it
                       // TODO Should support multi chain, right now only ETH (chainId 1) is supported
-                      findCollectionByAddress({ address: nft.contractAddress, chainId: 1 }).then((collection) =>
+                      findNftCollectionByAddress({ address: nft.contractAddress, chainId: 1 }).then((collection) =>
                         addNft({
                           ...omit(['contractAddress'], nft),
                           collectionId: collection.id,

@@ -1,12 +1,16 @@
-import { mapNftToNftIdWithContractAddress } from '../../mappers/map-nft-to-nft-id-with-contract-address'
+import { mapNftToNftIdWithContractAddress } from '../../mappers/nft/map-nft-to-nft-id-with-contract-address'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { createRequestForOfferSchema } from '../../types/validators/create-request-for-offer'
-import { userIsInGuild } from '../../utils/handler/user-is-in-guild'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { areNftsOwnedByWallets } from '@echo/alchemy'
 import { ApiRequest, CreateRequestForOfferRequest } from '@echo/api-public'
-import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@echo/firebase-admin'
-import { FirestoreRequestForOfferData } from '@echo/firestore'
+import {
+  addRequestForOffer,
+  findDiscordGuildByGuildId,
+  findNftsByIds,
+  FirestoreRequestForOfferData,
+  userIsInGuild
+} from '@echo/firestore'
 import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
 import { isNil, map } from 'ramda'
 

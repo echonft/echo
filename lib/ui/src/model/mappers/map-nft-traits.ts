@@ -1,5 +1,5 @@
+import { NftTraits } from '../../../../ui-model'
 import { TraitFilterGroup } from '../../types/model/trait-filter'
-import { NftTraits } from '@echo/model'
 import { forEachObjIndexed } from 'ramda'
 
 export const mapNftTraits = (traits: NftTraits): TraitFilterGroup[] => {

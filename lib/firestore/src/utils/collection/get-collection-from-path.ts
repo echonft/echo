@@ -1,5 +1,6 @@
 import { CollectionName } from '../../config/collection-name'
-import { collection, CollectionReference, getFirestore } from 'firebase/firestore'
+import { firestore } from '../../services/firestore'
+import { CollectionReference, DocumentData } from '@google-cloud/firestore'
 
-export const getCollectionFromPath = <T>(path: CollectionName, ...pathSegments: string[]): CollectionReference<T> =>
-  collection(getFirestore(), path, ...pathSegments) as CollectionReference<T>
+export const getCollectionFromPath = <T extends DocumentData>(collectionName: CollectionName): CollectionReference<T> =>
+  firestore().collection(collectionName) as CollectionReference<T>

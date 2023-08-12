@@ -1,11 +1,12 @@
 import { FirestoreRootCollectionDocumentData } from '../abstract/firestore-root-collection-document-data'
+import { FirestoreActivityData } from '../activity/firestore-activity-data'
 import { FirestoreOfferData } from '../offer/firestore-offer-data'
-import { FirestoreSwapActivityData } from './firestore-swap-activity-data'
+import { FirestoreSwapState } from './firestore-swap-state'
 
 export interface FirestoreSwapData extends FirestoreRootCollectionDocumentData {
-  state: string
-  expiresAt: number
-  createdAt: number
+  activities: FirestoreActivityData[]
   offer: FirestoreOfferData
-  activities: FirestoreSwapActivityData[]
+  state: FirestoreSwapState
+  createdAt: number
+  expiresAt: number
 }

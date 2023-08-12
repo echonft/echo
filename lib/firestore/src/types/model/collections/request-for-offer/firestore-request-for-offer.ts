@@ -1,14 +1,14 @@
+import { FirestoreActivity } from '../activity/firestore-activity'
 import { FirestoreContract } from '../contract/firestore-contract'
 import { FirestoreDiscordGuild } from '../discord-guild/firestore-discord-guild'
 import { FirestoreNft } from '../nft/firestore-nft'
 import { FirestoreOffer } from '../offer/firestore-offer'
 import { FirestoreSwap } from '../swap/firestore-swap'
 import { FirestoreUser } from '../user/firestore-user'
-import { FirestoreRequestForOfferActivity } from './firestore-request-for-offer-activity'
-import { DocumentData, DocumentReference } from 'firebase/firestore'
+import { DocumentData, DocumentReference } from '@google-cloud/firestore'
 
 export interface FirestoreRequestForOffer extends DocumentData {
-  activities: FirestoreRequestForOfferActivity[]
+  activities: FirestoreActivity[]
   createdAt: number
   discordGuild: DocumentReference<FirestoreDiscordGuild>
   expiresAt: number

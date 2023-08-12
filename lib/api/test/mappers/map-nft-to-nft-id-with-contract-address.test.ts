@@ -1,5 +1,5 @@
-import { mapNftToNftIdWithContractAddress } from '../../src/mappers/map-nft-to-nft-id-with-contract-address'
-import { nftFirestoreData } from '@echo/firestore'
+import { mapNftToNftIdWithContractAddress } from '../../src/mappers/nft/map-nft-to-nft-id-with-contract-address'
+import { nftFirestoreData } from '../mocks/nft-firestore-data'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapNftToId', () => {

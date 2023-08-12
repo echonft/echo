@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@echo/discord": "workspace:*",
-    "@echo/model": "workspace:*",
+    "@echo/ui-model": "workspace:*",
     "@echo/swr": "workspace:*",
     "@echo/utils": "workspace:*",
     "@headlessui/react": "1.7.16",

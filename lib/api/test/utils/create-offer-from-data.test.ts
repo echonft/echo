@@ -1,17 +1,20 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { mockAreNftsOwnedByWallets } from '../../src/mocks/alchemy/are-nfts-owned-by-wallets'
-import { mockAddOffer } from '../../src/mocks/firebase-admin/add-offer'
-import { mockFindNftsByIds } from '../../src/mocks/firebase-admin/find-nfts-by-ids'
-import { mockUpdateRequestForOfferOffers } from '../../src/mocks/firebase-admin/update-request-for-offer-offers'
 import { createOfferFromData } from '../../src/utils/handler/create-offer-from-data'
-import { CreateOfferRequest, mockRequestResponse } from '@echo/api-public'
-import { addOffer, findNftsByIds, updateRequestForOfferOffers } from '@echo/firebase-admin'
-import { discordGuildFirestoreData, FirestoreOfferData, offerFirestoreData, userFirestoreData } from '@echo/firestore'
+import { mockAreNftsOwnedByWallets, MockAreNftsOwnedByWalletsArgs } from '../mocks/alchemy/are-nfts-owned-by-wallets'
+import { discordGuildFirestoreData } from '../mocks/discord-guild-firestore-data'
+import { mockAddOffer } from '../mocks/firestore/add-offer'
+import { mockFindNftsByIds } from '../mocks/firestore/find-nfts-by-ids'
+import { mockUpdateRequestForOfferOffers } from '../mocks/firestore/update-request-for-offer-offers'
+import { offerFirestoreData } from '../mocks/offer-firestore-data'
+import { mockRequestResponse } from '../mocks/request-response'
+import { userFirestoreData } from '../mocks/user-firestore-data'
+import { CreateOfferRequest } from '@echo/api-public'
+import { addOffer, findNftsByIds, FirestoreOfferData, updateRequestForOfferOffers } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 jest.mock('@echo/alchemy', () => ({
-  areNftsOwnedByWallets: mockAreNftsOwnedByWallets
+  areNftsOwnedByWallets: (args: MockAreNftsOwnedByWalletsArgs) => mockAreNftsOwnedByWallets(args)
 }))
 
 describe('utils - handler - createOfferFromData', () => {

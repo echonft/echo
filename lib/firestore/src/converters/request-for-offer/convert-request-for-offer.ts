@@ -5,13 +5,13 @@ import { convertRootCollectionDocumentSnapshot } from '../../utils/converters/co
 import { nestedDocumentArrayProp } from '../../utils/converters/nested-document-array-prop'
 import { refArrayProp } from '../../utils/converters/ref-array-prop'
 import { refProp } from '../../utils/converters/ref-prop'
+import { convertActivity } from '../activity/convert-activity'
 import { convertContract } from '../contract/convert-contract'
 import { convertDiscordGuild } from '../discord-guild/convert-discord-guild'
 import { convertNft } from '../nft/convert-nft'
 import { convertOffer } from '../offer/convert-offer'
 import { convertSwap } from '../swap/convert-swap'
 import { convertUser } from '../user/convert-user'
-import { convertRequestForOfferActivity } from './convert-request-for-offer-activity'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 
@@ -25,7 +25,7 @@ export const convertRequestForOffer: FirestoreConverter<FirestoreRequestForOffer
     refArrayProp('items', convertNft),
     refProp('discordGuild', convertDiscordGuild),
     refArrayProp('target', convertContract),
-    nestedDocumentArrayProp('activities', convertRequestForOfferActivity),
+    nestedDocumentArrayProp('activities', convertActivity),
     refArrayProp('offers', convertOffer),
     refArrayProp('swaps', convertSwap),
     propToPromise('expiresAt'),
