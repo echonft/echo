@@ -18,11 +18,11 @@ const config: Config = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../../.coverage/lib/firebase-admin'
+        outputDirectory: '<rootDir>/../../.coverage/lib/firestore'
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/firebase-admin',
+  coverageDirectory: '<rootDir>/../../.coverage/lib/firestore',
   testTimeout: 30000
 }
 export default config

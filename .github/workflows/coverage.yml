@@ -26,16 +26,18 @@ jobs:
                 multiple-files: |
                   app/bot, ./.coverage/app/bot/coverage-summary.json
                   app/frontend, ./.coverage/app/frontend/coverage-summary.json
+                  lib/alchemy, ./.coverage/lib/api/coverage-summary.json
                   lib/api, ./.coverage/lib/api/coverage-summary.json
-                  lib/utils, ./.coverage/lib/utils/coverage-summary.json
-                  lib/model, ./.coverage/lib/model/coverage-summary.json
-                  lib/firebase-admin, ./.coverage/lib/firebase-admin/coverage-summary.json
+                  lib/api-public, ./.coverage/lib/api-public/coverage-summary.json
                   lib/firestore, ./.coverage/lib/firestore/coverage-summary.json
+                  lib/ui, ./.coverage/lib/ui/coverage-summary.json                  
+                  lib/utils, ./.coverage/lib/utils/coverage-summary.json
                 multiple-junitxml-files: |
                   app/bot, ./.coverage/app/bot/junit.xml
                   app/frontend, ./.coverage/app/frontend/junit.xml
+                  lib/alchemy, ./.coverage/lib/api/junit.xml
                   lib/api, ./.coverage/lib/api/junit.xml
-                  lib/utils, ./.coverage/lib/utils/junit.xml
-                  lib/model, ./.coverage/lib/model/junit.xml
-                  lib/firebase-admin, ./.coverage/lib/firebase-admin/junit.xml
+                  lib/api-public, ./.coverage/lib/api-public/junit.xml
                   lib/firestore, ./.coverage/lib/firestore/junit.xml
+                  lib/ui, ./.coverage/lib/ui/junit.xml                  
+                  lib/utils, ./.coverage/lib/utils/junit.xml
