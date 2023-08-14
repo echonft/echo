@@ -6,5 +6,5 @@ export function generateOfferActivity(
   toState: FirestoreOfferState,
   fromState?: FirestoreOfferState
 ): FirestoreOfferActivityPrototype {
-  return { toState, fromState: fromState ?? undefined, date: dayjs() }
+  return { toState, fromState: fromState, date: dayjs() }
 }
