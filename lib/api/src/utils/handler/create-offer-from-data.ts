@@ -1,14 +1,19 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { mapNftToId } from '../../mappers/map-nft-to-id'
-import { mapNftToNftIdWithContractAddress } from '../../mappers/map-nft-to-nft-id-with-contract-address'
-import { userIsInGuild } from './user-is-in-guild'
+import { mapNftToNftIdWithContractAddress } from '../../mappers/nft/map-nft-to-nft-id-with-contract-address'
 import { areNftsOwnedByWallets } from '@echo/alchemy'
 import { ErrorResponse } from '@echo/api-public'
-import { addOffer, findNftsByIds, updateRequestForOfferOffers } from '@echo/firebase-admin'
-import { FirestoreDiscordGuildData, FirestoreOfferData, FirestoreUserData } from '@echo/firestore'
+import {
+  addOffer,
+  findNftsByIds,
+  FirestoreDiscordGuildData,
+  FirestoreOfferData,
+  FirestoreUserData,
+  updateRequestForOfferOffers,
+  userIsInGuild
+} from '@echo/firestore'
 import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
 import { NextApiResponse } from 'next'
-import { isNil, map, not } from 'ramda'
+import { isNil, map, not, prop } from 'ramda'
 
 /**
  * Validates data and creates the offer
@@ -54,9 +59,9 @@ export function createOfferFromData(
             return addOffer({
               discordGuildId: discordGuild.id,
               senderId: sender.id,
-              senderItems: senderNfts.map(mapNftToId),
+              senderItems: senderNfts.map(prop('id')),
               receiverId: receiver.id,
-              receiverItems: receiverNfts.map(mapNftToId)
+              receiverItems: receiverNfts.map(prop('id'))
             })
               .then((offer) => {
                 // If request is bound to a request for offer, append the offer ref

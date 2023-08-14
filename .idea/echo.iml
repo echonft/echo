@@ -8,11 +8,9 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/inspectionProfiles" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/jsLinters" />
       <excludeFolder url="file://$MODULE_DIR$/.idea/scopes" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/firebase-admin/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/.vercel" />
       <excludeFolder url="file://$MODULE_DIR$/app/frontend/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/model/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/app/frontend/.vercel" />
       <excludeFolder url="file://$MODULE_DIR$/app/bot/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/discord/.turbo" />
@@ -30,15 +28,24 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/api/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/app/frontend/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/app/bot/coverage" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/firebase-admin/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/lib/firestore/coverage" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/model/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/lib/utils/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/.coverage" />
       <excludeFolder url="file://$MODULE_DIR$/lib/alchemy/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/alchemy/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/app/frontend/.swc" />
       <excludeFolder url="file://$MODULE_DIR$/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/alchemy" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/api-public" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/discord" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/firestore" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/model" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/utils" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/firestore/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/firestore/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/model/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/ui-model/.turbo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/ui-model/coverage" />
       <excludePattern pattern="tsconfig.tsbuildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />
@@ -50,6 +57,13 @@
       <excludePattern pattern=".swc" />
       <excludePattern pattern="storybook-static" />
     </content>
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/alchemy" />
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/api-public" />
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/discord" />
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/firestore" />
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/model" />
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/model/dist" />
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/utils" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

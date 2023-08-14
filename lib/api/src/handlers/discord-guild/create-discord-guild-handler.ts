@@ -2,7 +2,7 @@ import { RequestHandler } from '../../types/handlers/request-handler'
 import { createDiscordSchema } from '../../types/validators/create-discord'
 import { createDiscordFromRequest } from '../../utils/handler/create-discord-from-request'
 import { ApiRequest, CreateDiscordRequest, DiscordGuildResponse } from '@echo/api-public'
-import { findContractsByAddresses } from '@echo/firebase-admin'
+import { findContractsByAddresses } from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
 
 export const createDiscordGuildHandler: RequestHandler<

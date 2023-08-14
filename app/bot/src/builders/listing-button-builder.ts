@@ -1,11 +1,13 @@
 import { listingLink } from '../routing/listing-link'
-import { FirestoreRequestForOfferData } from '@echo/firestore'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 
-export function buildNewListingButtons(listing: FirestoreRequestForOfferData) {
-  return new ActionRowBuilder<ButtonBuilder>().addComponents(buildListingLinkButton(listing))
+export function buildNewListingButtons(listingId: string, discordGuildId: string) {
+  return new ActionRowBuilder<ButtonBuilder>().addComponents(buildListingLinkButton(listingId, discordGuildId))
 }
 
-function buildListingLinkButton(listing: FirestoreRequestForOfferData) {
-  return new ButtonBuilder().setLabel('View on Echo').setURL(listingLink(listing)).setStyle(ButtonStyle.Link)
+function buildListingLinkButton(listingId: string, discordGuildId: string) {
+  return new ButtonBuilder()
+    .setLabel('View on Echo')
+    .setURL(listingLink(listingId, discordGuildId))
+    .setStyle(ButtonStyle.Link)
 }

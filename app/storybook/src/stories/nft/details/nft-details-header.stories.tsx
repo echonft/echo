@@ -1,5 +1,4 @@
-import { nftCollections, nfts } from '@echo/model'
-import { NftDetailsHeader as Component, NftDetailsHeaderSkeleton } from '@echo/ui'
+import { nftCollections, NftDetailsHeader as Component, NftDetailsHeaderSkeleton, nfts } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

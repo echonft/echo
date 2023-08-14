@@ -1,7 +1,6 @@
 import { updateUserNfts } from './update-user-nfts'
 import { ErrorResponse, WalletResponse } from '@echo/api-public'
-import { updateUserWallets } from '@echo/firebase-admin'
-import { FirestoreUserData, FirestoreWalletData } from '@echo/firestore'
+import { FirestoreUserData, FirestoreWalletData, updateUserWallets } from '@echo/firestore'
 import { NextApiResponse } from 'next'
 
 export const updateUserWalletsAndUpdateNfts = (

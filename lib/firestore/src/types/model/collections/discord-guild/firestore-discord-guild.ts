@@ -1,5 +1,5 @@
 import { FirestoreContract } from '../contract/firestore-contract'
-import { DocumentData, DocumentReference } from 'firebase/firestore'
+import { DocumentData, DocumentReference } from '@google-cloud/firestore'
 
 export interface FirestoreDiscordGuild extends DocumentData {
   channelId: string

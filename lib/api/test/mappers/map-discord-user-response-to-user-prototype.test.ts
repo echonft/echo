@@ -1,4 +1,4 @@
-import { mapDiscordUserResponseToUserPrototype } from '../../src/mappers/map-discord-user-response-to-user-prototype'
+import { mapDiscordUserResponseToUserPrototype } from '../../src/mappers/discord/map-discord-user-response-to-user-prototype'
 import { DiscordUserResponse } from '@echo/discord'
 import { describe, expect, it } from '@jest/globals'
 

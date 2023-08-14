@@ -1,5 +1,4 @@
-import { nfts, offers } from '@echo/model'
-import { NftDetails as Component, NftDetailsSkeleton } from '@echo/ui'
+import { NftDetails as Component, NftDetailsSkeleton, nfts, offers } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { assoc } from 'ramda'

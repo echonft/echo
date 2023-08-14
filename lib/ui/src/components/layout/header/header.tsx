@@ -1,8 +1,8 @@
+import { User } from '../../../types/user'
 import { EchoLogoSvg } from '../../base/svg/echo-logo-svg'
 import { PaddedContainer } from '../padded-container'
 import { HeaderSearchInput } from './header-search-input'
 import { UserTag } from './user-tag'
-import { User } from '@echo/model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

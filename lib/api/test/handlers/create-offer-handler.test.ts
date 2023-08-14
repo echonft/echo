@@ -1,31 +1,37 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createOfferHandler } from '../../src/handlers/offer/create-offer-handler'
-import { mockAddOffer } from '../../src/mocks/firebase-admin/add-offer'
-import { mockFindDiscordGuildById } from '../../src/mocks/firebase-admin/find-discord-guild-by-id'
-import { mockFindRequestForOfferById } from '../../src/mocks/firebase-admin/find-request-for-offer-by-id'
-import { mockFindUserById } from '../../src/mocks/firebase-admin/find-user-by-id'
-import { mockUpdateRequestForOfferOffers } from '../../src/mocks/firebase-admin/update-request-for-offer-offers'
-import { CreateOfferRequest, mockRequestResponse, mockSession, OfferResponse } from '@echo/api-public'
+import { mockAddOffer } from '../mocks/firestore/add-offer'
+import { mockFindDiscordGuildById } from '../mocks/firestore/find-discord-guild-by-id'
+import { mockFindRequestForOfferById } from '../mocks/firestore/find-request-for-offer-by-id'
+import { mockFindUserById } from '../mocks/firestore/find-user-by-id'
+import { mockUpdateRequestForOfferOffers } from '../mocks/firestore/update-request-for-offer-offers'
+import { offerFirestoreData } from '../mocks/offer-firestore-data'
+import { requestForOfferFirestoreData } from '../mocks/request-for-offer-firestore-data'
+import { mockRequestResponse } from '../mocks/request-response'
+import { mockSession } from '../mocks/session'
+import { CreateOfferRequest, OfferResponse } from '@echo/api-public'
 import {
   addOffer,
+  canRequestForOfferReceiveOffers,
   findDiscordGuildById,
   findRequestForOfferById,
   findUserById,
   updateRequestForOfferOffers
-} from '@echo/firebase-admin'
-import { offerFirestoreData, requestForOfferFirestoreData } from '@echo/firestore'
-import { RequestForOfferState } from '@echo/model'
+} from '@echo/firestore'
+import { RequestForOfferState } from '@echo/ui'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import dayjs from 'dayjs'
 import { omit } from 'ramda'
 
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 jest.mock('../../src/utils/handler/create-offer-from-data')
 
 describe('handlers - offer - createOfferHandler', () => {
   const mockedFindRequestForOfferById = jest
     .mocked(findRequestForOfferById)
     .mockImplementation(mockFindRequestForOfferById)
+  const mockedCanRequestForOfferReceiveOffers = jest.mocked(canRequestForOfferReceiveOffers).mockReturnValue(true)
+
   jest.mocked(findUserById).mockImplementation(mockFindUserById)
   jest.mocked(findDiscordGuildById).mockImplementation(mockFindDiscordGuildById)
   jest.mocked(addOffer).mockImplementation(mockAddOffer)
@@ -124,6 +130,7 @@ describe('handlers - offer - createOfferHandler', () => {
         undefined,
         mockedRequestWithRequestForOffer
       )
+      mockedCanRequestForOfferReceiveOffers.mockReturnValueOnce(false)
       await createOfferHandler(req, res, session)
       expect(res.statusCode).toBe(500)
       expect(res._getJSONData()).toEqual({ error: 'Request for offer cannot accept offers' })

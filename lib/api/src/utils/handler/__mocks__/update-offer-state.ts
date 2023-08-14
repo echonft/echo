@@ -1,7 +1,7 @@
-import { mapActivityToFirestoreData } from '../../../mappers/map-activity-to-firestore-data'
+import { offerFirestoreData } from '../../../../test/mocks/offer-firestore-data'
+import { mapActivityToFirestoreData } from '../../../mappers/activity/map-activity-to-firestore-data'
 import { ErrorResponse } from '@echo/api-public'
-import { FirestoreOfferData, FirestoreUserData, offerFirestoreData } from '@echo/firestore'
-import { generateOfferActivity, OfferState } from '@echo/model'
+import { FirestoreOfferData, FirestoreOfferState, FirestoreUserData, generateOfferActivity } from '@echo/firestore'
 import { NextApiResponse } from 'next'
 import { append, assoc, modify, pipe } from 'ramda'
 
@@ -16,12 +16,12 @@ import { append, assoc, modify, pipe } from 'ramda'
 export const updateOfferState = (
   id: string,
   _user: FirestoreUserData,
-  state: OfferState,
+  state: FirestoreOfferState,
   _fromSender: boolean,
   res: NextApiResponse<FirestoreOfferData | ErrorResponse>
 ) => {
   const offer = offerFirestoreData[id]!
-  const newActivity = generateOfferActivity(state, offer.state as OfferState)
+  const newActivity = generateOfferActivity(state, offer.state)
   const newActivityData = mapActivityToFirestoreData(newActivity)
   const updatedOffer = pipe(
     modify('activities', append(newActivityData)),

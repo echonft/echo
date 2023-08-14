@@ -1,6 +1,6 @@
-import { successHandler } from '../../src/mocks/handler'
 import { withMethodValidation } from '../../src/utils/with-method-validation'
-import { mockRequestResponse } from '@echo/api-public'
+import { successHandler } from '../mocks/handler'
+import { mockRequestResponse } from '../mocks/request-response'
 import { describe, expect, it } from '@jest/globals'
 
 describe('utils - withMethodValidation', () => {

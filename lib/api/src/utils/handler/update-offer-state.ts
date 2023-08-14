@@ -1,14 +1,17 @@
-import { mapActivityToFirestoreData } from '../../mappers/map-activity-to-firestore-data'
+import { mapActivityToFirestoreData } from '../../mappers/activity/map-activity-to-firestore-data'
 import { checkRequestForOfferStatus } from './check-request-for-offer-status'
 import { ErrorResponse } from '@echo/api-public'
 import {
+  canAddOfferActivity,
   findOfferById,
   findRequestForOfferByOfferId,
+  FirestoreOfferData,
+  FirestoreOfferState,
+  FirestoreUserData,
+  generateOfferActivity,
   updateOfferActivities,
   updateRequestForOfferActivities
-} from '@echo/firebase-admin'
-import { FirestoreOfferData, FirestoreUserData } from '@echo/firestore'
-import { canAddOfferActivity, generateOfferActivity, OfferState } from '@echo/model'
+} from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
 import { unix } from 'dayjs'
 import { NextApiResponse } from 'next'
@@ -17,7 +20,7 @@ import { append, assoc, isNil, modify, pipe } from 'ramda'
 export const updateOfferState = (
   id: string,
   user: FirestoreUserData,
-  state: OfferState,
+  state: FirestoreOfferState,
   fromSender: boolean,
   res: NextApiResponse<FirestoreOfferData | ErrorResponse>
 ) =>
@@ -31,8 +34,8 @@ export const updateOfferState = (
       }
       return findRequestForOfferByOfferId(offer.id)
         .then((requestForOfferData) => {
-          const newActivity = generateOfferActivity(state, offer.state as OfferState)
-          if (!canAddOfferActivity(offer.state as OfferState, unix(offer.expiresAt), newActivity)) {
+          const newActivity = generateOfferActivity(state, offer.state)
+          if (!canAddOfferActivity(offer.state, unix(offer.expiresAt), newActivity)) {
             res.end(res.status(401).json({ error: 'Cannot update offer' }))
             return
           }

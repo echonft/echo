@@ -1,14 +1,15 @@
-import { successHandler } from '../../src/mocks/handler'
 import { withSession } from '../../src/utils/with-session'
-import { mockRequestResponse, mockSession } from '@echo/api-public'
-import { findUserById } from '@echo/firebase-admin'
-import { userFirestoreData } from '@echo/firestore'
+import { successHandler } from '../mocks/handler'
+import { mockRequestResponse } from '../mocks/request-response'
+import { mockSession } from '../mocks/session'
+import { userFirestoreData } from '../mocks/user-firestore-data'
+import { findUserById } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { AuthOptions } from 'next-auth'
 import * as auth from 'next-auth/next'
 
 jest.mock('next-auth/next')
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 describe('utils - withSession', () => {
   const mockUser = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
   jest.spyOn(auth, 'getServerSession').mockImplementation(() => Promise.resolve(mockSession))

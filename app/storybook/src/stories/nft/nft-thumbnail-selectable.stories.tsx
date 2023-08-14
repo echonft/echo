@@ -1,5 +1,4 @@
-import { nfts } from '@echo/model'
-import { NftThumbnailSelectable as Component, SelectionManager } from '@echo/ui'
+import { nfts, NftThumbnailSelectable as Component, SelectionManager } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

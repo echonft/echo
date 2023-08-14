@@ -1,8 +1,11 @@
 import { createDiscordSchema } from '../../types/validators/create-discord'
 import { createAndPopulateNftCollection } from './create-and-populate-nft-collection'
 import { fetchContractMetadataFromRequest } from './fetch-contract-metadata-from-request'
-import { addDiscordGuildAndContracts } from '@echo/firebase-admin'
-import { FirestoreContractPrototype, FirestoreNftCollectionPrototype } from '@echo/firestore'
+import {
+  addDiscordGuildAndContracts,
+  FirestoreContractPrototype,
+  FirestoreNftCollectionPrototype
+} from '@echo/firestore'
 import { equals, find, omit, pipe, prop } from 'ramda'
 import { z } from 'zod'
 

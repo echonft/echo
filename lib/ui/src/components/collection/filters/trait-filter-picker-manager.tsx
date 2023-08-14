@@ -1,6 +1,6 @@
 import { TraitFilterGroup } from '../../../types/model/trait-filter'
+import { NftTraitValue } from '../../../types/nft-traits'
 import { TraitFilterPicker } from './trait-filter-picker'
-import { NftTraitValue } from '@echo/model'
 import { concat, isEmpty, isNil, without } from 'ramda'
 import { FunctionComponent, useState } from 'react'
 

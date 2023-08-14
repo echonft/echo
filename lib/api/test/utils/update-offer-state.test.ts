@@ -1,37 +1,48 @@
-import { mockFindOfferById } from '../../src/mocks/firebase-admin/find-offer-by-id'
-import { mockUpdateOfferActivities } from '../../src/mocks/firebase-admin/update-offer-activities'
-import { mockUpdateRequestForOfferActivities } from '../../src/mocks/firebase-admin/update-request-for-offer-activities'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { mapActivityToFirestoreData } from '../../src/mappers/activity/map-activity-to-firestore-data'
 import { updateOfferState } from '../../src/utils/handler/update-offer-state'
-import { mockRequestResponse, UpdateOfferRequest } from '@echo/api-public'
+import { mockFindOfferById } from '../mocks/firestore/find-offer-by-id'
+import { mockUpdateOfferActivities } from '../mocks/firestore/update-offer-activities'
+import { mockUpdateRequestForOfferActivities } from '../mocks/firestore/update-request-for-offer-activities'
+import { offerFirestoreData } from '../mocks/offer-firestore-data'
+import { requestForOfferFirestoreData } from '../mocks/request-for-offer-firestore-data'
+import { mockRequestResponse } from '../mocks/request-response'
+import { userFirestoreData } from '../mocks/user-firestore-data'
+import { UpdateOfferRequest } from '@echo/api-public'
 import {
+  canAddOfferActivity,
+  canAddRequestForOfferActivity,
   findOfferById,
   findRequestForOfferByOfferId,
+  FirestoreOfferData,
+  generateOfferActivity,
   updateOfferActivities,
   updateRequestForOfferActivities
-} from '@echo/firebase-admin'
-import {
-  FirestoreOfferData,
-  offerFirestoreData,
-  requestForOfferFirestoreData,
-  userFirestoreData
 } from '@echo/firestore'
-import { OfferState } from '@echo/model'
+import { OfferState } from '@echo/ui'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
+import dayjs from 'dayjs'
 import { omit } from 'ramda'
 
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
+jest.mock('../../src/mappers/activity/map-activity-to-firestore-data')
 
-describe('utils - handler - createOfferFromData', () => {
+describe('utils - handler - updateOfferState', () => {
   const mockedUpdateOfferActivities = jest.mocked(updateOfferActivities).mockImplementation(mockUpdateOfferActivities)
   const mockedFindRequestForOfferByOfferId = jest
     .mocked(findRequestForOfferByOfferId)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    .mockResolvedValue(undefined)
+    .mockResolvedValue(requestForOfferFirestoreData['open']!)
   const mockedUpdateRequestForOfferActivities = jest
     .mocked(updateRequestForOfferActivities)
     .mockImplementation(mockUpdateRequestForOfferActivities)
+  const mockedCanAddOfferActivity = jest.mocked(canAddOfferActivity).mockReturnValue(true)
+  const mockedCanAddRequestForOfferActivity = jest.mocked(canAddRequestForOfferActivity).mockReturnValue(true)
+  jest
+    .mocked(mapActivityToFirestoreData)
+    .mockReturnValue({ date: dayjs().unix(), toState: 'ACCEPTED', fromState: 'OPEN' })
   jest.mocked(findOfferById).mockImplementation(mockFindOfferById)
+  jest.mocked(generateOfferActivity).mockReturnValue({ date: dayjs(), toState: 'ACCEPTED', fromState: 'OPEN' })
 
   const mockId = 'LyCfl6Eg7JKuD7XJ6IPi'
   const mockUser = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
@@ -48,19 +59,13 @@ describe('utils - handler - createOfferFromData', () => {
   })
   it('if user is not sender, returns 401', async () => {
     const { res } = mockRequestResponse<UpdateOfferRequest, never, FirestoreOfferData>('GET')
-    await updateOfferState(mockId, { ...mockUser, id: 'not sender' }, mockState, true, res)
+    await updateOfferState('open', { ...mockUser, id: 'wrong' }, mockState, true, res)
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'Cannot update offer' })
   })
   it('if user is not receiver, returns 401', async () => {
     const { res } = mockRequestResponse<UpdateOfferRequest, never, FirestoreOfferData>('GET')
-    await updateOfferState(mockId, { ...mockUser, id: 'not receiver' }, mockState, false, res)
-    expect(res.statusCode).toBe(401)
-    expect(res._getJSONData()).toEqual({ error: 'Cannot update offer' })
-  })
-  it('if offer cannot be updated, returns 401', async () => {
-    const { res } = mockRequestResponse<UpdateOfferRequest, never, FirestoreOfferData>('GET')
-    await updateOfferState(mockId, mockUser, mockState, false, res)
+    await updateOfferState('open', { ...mockUser, id: 'wrong' }, mockState, false, res)
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'Cannot update offer' })
   })
@@ -71,9 +76,16 @@ describe('utils - handler - createOfferFromData', () => {
     expect(res.statusCode).toBe(500)
     expect(res._getJSONData()).toEqual({ error: 'Could not update offer' })
   })
+  it('if canAddOfferActivity returns false, returns 401', async () => {
+    const { res } = mockRequestResponse<UpdateOfferRequest, never, FirestoreOfferData>('GET')
+    mockedCanAddOfferActivity.mockReturnValueOnce(false)
+    await updateOfferState(mockId, mockUser, mockState, true, res)
+    expect(res.statusCode).toBe(401)
+    expect(res._getJSONData()).toEqual({ error: 'Cannot update offer' })
+  })
   it('if checkRequestForOfferStatus throws, returns 401', async () => {
     const { res } = mockRequestResponse<UpdateOfferRequest, never, FirestoreOfferData>('GET')
-    mockedFindRequestForOfferByOfferId.mockResolvedValueOnce(requestForOfferFirestoreData['jUzMtPGKM62mMhEcmbN4']!)
+    mockedCanAddRequestForOfferActivity.mockReturnValueOnce(false)
     await updateOfferState('open', mockUser, mockState, false, res)
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'Cannot update offer' })
@@ -87,7 +99,6 @@ describe('utils - handler - createOfferFromData', () => {
   })
   it('if updateRequestForOfferActivities fails, returns 200', async () => {
     const { res } = mockRequestResponse<UpdateOfferRequest, never, FirestoreOfferData>('GET')
-    mockedFindRequestForOfferByOfferId.mockResolvedValueOnce(requestForOfferFirestoreData['open']!)
     mockedUpdateRequestForOfferActivities.mockRejectedValueOnce(new Error())
     await updateOfferState('open', mockUser, mockState, false, res)
     expect(res.statusCode).toBe(200)
@@ -100,7 +111,6 @@ describe('utils - handler - createOfferFromData', () => {
   })
   it('if offer can be updated (with request for offer), returns 200', async () => {
     const { res } = mockRequestResponse<UpdateOfferRequest, never, FirestoreOfferData>('GET')
-    mockedFindRequestForOfferByOfferId.mockResolvedValueOnce(requestForOfferFirestoreData['open']!)
     await updateOfferState('open', mockUser, mockState, false, res)
     expect(res.statusCode).toBe(200)
     const newOffer = res._getJSONData() as FirestoreOfferData
@@ -112,6 +122,8 @@ describe('utils - handler - createOfferFromData', () => {
   })
   it('if offer can be updated (no request for offer), returns 200', async () => {
     const { res } = mockRequestResponse<UpdateOfferRequest, never, FirestoreOfferData>('GET')
+    // @ts-ignore
+    mockedFindRequestForOfferByOfferId.mockResolvedValueOnce(undefined)
     await updateOfferState('open', mockUser, mockState, false, res)
     expect(res.statusCode).toBe(200)
     const newOffer = res._getJSONData() as FirestoreOfferData

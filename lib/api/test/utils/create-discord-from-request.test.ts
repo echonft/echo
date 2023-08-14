@@ -1,16 +1,16 @@
-import { mockAddDiscordGuildAndContracts } from '../../src/mocks/firebase-admin/add-discord-guild-and-contracts'
 import { createDiscordSchema } from '../../src/types/validators/create-discord'
 import { createAndPopulateNftCollection } from '../../src/utils/handler/__mocks__/create-and-populate-nft-collection'
 import * as createAndPopulate from '../../src/utils/handler/create-and-populate-nft-collection'
 import { createDiscordFromRequest } from '../../src/utils/handler/create-discord-from-request'
-import { addDiscordGuildAndContracts } from '@echo/firebase-admin'
-import { discordGuildFirestoreData, FirestoreNftCollectionPrototype } from '@echo/firestore'
+import { discordGuildFirestoreData } from '../mocks/discord-guild-firestore-data'
+import { mockAddDiscordGuildAndContracts } from '../mocks/firestore/add-discord-guild-and-contracts'
+import { addDiscordGuildAndContracts, FirestoreNftCollectionPrototype } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { z } from 'zod'
 
 jest.mock('../../src/utils/handler/fetch-contract-metadata-from-request')
 jest.mock('../../src/utils/handler/create-and-populate-nft-collection')
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 
 describe('utils - handlers - createDiscordFromRequest', () => {
   const mockedCreateAndPopulate = jest.spyOn(createAndPopulate, 'createAndPopulateNftCollection')

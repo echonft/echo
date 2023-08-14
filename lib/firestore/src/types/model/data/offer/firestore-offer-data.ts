@@ -1,11 +1,12 @@
 import { FirestoreRootCollectionDocumentData } from '../abstract/firestore-root-collection-document-data'
+import { FirestoreActivityData } from '../activity/firestore-activity-data'
 import { FirestoreDiscordGuildData } from '../discord-guild/firestore-discord-guild-data'
 import { FirestoreNftData } from '../nft/firestore-nft-data'
 import { FirestoreUserData } from '../user/firestore-user-data'
-import { FirestoreOfferActivityData } from './firestore-offer-activity-data'
+import { FirestoreOfferState } from './firestore-offer-state'
 
 export interface FirestoreOfferData extends FirestoreRootCollectionDocumentData {
-  activities: FirestoreOfferActivityData[]
+  activities: FirestoreActivityData[]
   createdAt: number
   discordGuild: FirestoreDiscordGuildData
   expiresAt: number
@@ -14,6 +15,6 @@ export interface FirestoreOfferData extends FirestoreRootCollectionDocumentData 
   receiverItems: FirestoreNftData[]
   sender: FirestoreUserData
   senderItems: FirestoreNftData[]
-  state: string
+  state: FirestoreOfferState
   threadId?: string
 }

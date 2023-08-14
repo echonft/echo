@@ -3,12 +3,12 @@ import { listingChangeHandler } from '../../src/handlers/listing-change-handler'
 import { mockAndSetupChannel } from '../../src/utils/tests/discord/channel-mock'
 import { mockClient } from '../../src/utils/tests/discord/client-mock'
 import { mockGuild } from '../../src/utils/tests/discord/guild-mock'
-import { FirestoreRequestForOffer, FirestoreRequestForOfferData, requestForOfferFirestoreData } from '@echo/firestore'
+import { FirestoreRequestForOffer, FirestoreRequestForOfferData } from '@echo/firestore'
 import { DocumentChange } from '@google-cloud/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { Client } from 'discord.js'
 
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 jest.mock('../../src/utils/get-discord-channel')
 jest.mock('../../src/routing/get-base-url')
 
@@ -20,7 +20,48 @@ function setChannelForRequestForOffer(
 }
 
 describe('handlers - listingChangeHandler', () => {
-  const mockRequestForOffer = requestForOfferFirestoreData['jUzMtPGKM62mMhEcmbN4']!
+  const mockRequestForOffer: FirestoreRequestForOfferData = {
+    id: 'jUzMtPGKM62mMhEcmbN4',
+    sender: {
+      discordId: 'senderDiscordId'
+    },
+    items: [
+      {
+        id: '8hHFadIrrooORfTOLkBg',
+        collection: {
+          id: '1aomCtnoesD7WVll6Yi1',
+          name: 'Spiral Frequencies'
+        },
+        name: 'Spiral Frequencies #1376',
+        tokenId: 1376
+      },
+      {
+        id: 'QFjMRNChUAHNswkRADXh',
+        collection: {
+          id: 'Rc8pLQXxgyQGIRL0fr13',
+          name: 'pxMythics Genesis'
+        },
+        name: 'Creative Demigod #024',
+        tokenId: 17
+      }
+    ],
+    discordGuild: {
+      id: 'xA40abnyBq6qQHSYmtHj',
+      discordId: '1',
+      channelId: '1',
+      name: 'Spiral Frequencies'
+    },
+    target: [
+      {
+        id: '37dBlwJYahEAKeL0rNP8',
+        tokenType: 'ERC721',
+        address: '0x12c63bbD266dB84e117356e664f3604055166CEc',
+        chainId: 1,
+        name: 'Mythics Genesis',
+        symbol: 'MGEN'
+      }
+    ]
+  } as unknown as FirestoreRequestForOfferData
   const mockedUpdate = jest.fn()
   const mockedAddedDocChange = {
     type: 'added',

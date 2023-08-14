@@ -4,8 +4,8 @@ import { FirestoreSwapData } from '../../types/model/data/swap/firestore-swap-da
 import { convertRootCollectionDocumentSnapshot } from '../../utils/converters/convert-root-collection-document-snapshot'
 import { nestedDocumentArrayProp } from '../../utils/converters/nested-document-array-prop'
 import { refProp } from '../../utils/converters/ref-prop'
+import { convertActivity } from '../activity/convert-activity'
 import { convertOffer } from '../offer/convert-offer'
-import { convertSwapActivity } from './convert-swap-activity'
 import { promiseAll, propToPromise, zipPromisesToObject } from '@echo/utils'
 import { juxt, pipe } from 'ramda'
 
@@ -16,7 +16,7 @@ export const convertSwap: FirestoreConverter<FirestoreSwap, FirestoreSwapData> =
     propToPromise('id'),
     propToPromise('state'),
     refProp('offer', convertOffer),
-    nestedDocumentArrayProp('activities', convertSwapActivity),
+    nestedDocumentArrayProp('activities', convertActivity),
     propToPromise('expiresAt'),
     propToPromise('createdAt')
   ]),

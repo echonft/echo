@@ -1,5 +1,4 @@
-import { nfts } from '@echo/model'
-import { CollectionNftsContainer as Component } from '@echo/ui'
+import { CollectionNftsContainer as Component, nfts } from '@echo/ui'
 import { Story } from '@storybook/blocks'
 import type { Meta, StoryObj } from '@storybook/react'
 

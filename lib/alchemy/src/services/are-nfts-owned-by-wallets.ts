@@ -1,10 +1,10 @@
 import { GetOwnersForNftRequest } from '../types/request/get-owners-for-nft-request'
 import { isNftOwnedByWallets } from './is-nft-owned-by-wallets'
-import { Wallet } from '@echo/model'
+import { FirestoreWalletData } from '@echo/firestore'
 
 interface Arguments {
   nfts: GetOwnersForNftRequest[]
-  wallets: Wallet[]
+  wallets: FirestoreWalletData[]
 }
 
 export const areNftsOwnedByWallets = ({ nfts, wallets }: Arguments): Promise<boolean> => {

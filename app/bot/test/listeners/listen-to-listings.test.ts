@@ -4,11 +4,11 @@ import { listenToListings } from '../../src/listeners/listen-to-listings'
 import { mockAndSetupChannel } from '../../src/utils/tests/discord/channel-mock'
 import { mockClient } from '../../src/utils/tests/discord/client-mock'
 import { mockGuild } from '../../src/utils/tests/discord/guild-mock'
-import { listenToRequestForOffers } from '@echo/firebase-admin'
+import { listenToRequestForOffers } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { Client } from 'discord.js'
 
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 jest.mock('../../src/utils/get-discord-channel')
 jest.mock('../../src/handlers/listing-change-handler')
 

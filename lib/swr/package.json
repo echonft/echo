@@ -26,7 +26,6 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@echo/api": "workspace:*",
     "@echo/utils": "workspace:*",
     "ramda": "0.29.0",
     "swr": "2.2.0"

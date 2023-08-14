@@ -3,9 +3,13 @@ import { createOfferSchema } from '../../types/validators/create-offer'
 import { createOfferFromData } from '../../utils/handler/create-offer-from-data'
 import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { ApiRequest, CreateOfferRequest } from '@echo/api-public'
-import { findDiscordGuildById, findRequestForOfferById, findUserById } from '@echo/firebase-admin'
-import { FirestoreOfferData } from '@echo/firestore'
-import { canRequestForOfferReceiveOffers, RequestForOfferState } from '@echo/model'
+import {
+  canRequestForOfferReceiveOffers,
+  findDiscordGuildById,
+  findRequestForOfferById,
+  findUserById,
+  FirestoreOfferData
+} from '@echo/firestore'
 import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
@@ -25,15 +29,11 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
   }
   try {
     const validatedRequest = createOfferSchema.parse(req.body)
+    // With Request For Offer
     if (validatedRequest.withRequestForOffer) {
       return findRequestForOfferById(validatedRequest.requestForOfferId)
         .then((requestForOffer) => {
-          if (
-            !canRequestForOfferReceiveOffers(
-              dayjs.unix(requestForOffer.expiresAt),
-              requestForOffer.state as RequestForOfferState
-            )
-          ) {
+          if (!canRequestForOfferReceiveOffers(dayjs.unix(requestForOffer.expiresAt), requestForOffer.state)) {
             res.end(res.status(500).json({ error: 'Request for offer cannot accept offers' }))
             return
           }

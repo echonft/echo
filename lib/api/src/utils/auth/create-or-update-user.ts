@@ -1,7 +1,7 @@
-import { mapDiscordUserResponseToUserPrototype } from '../../mappers/map-discord-user-response-to-user-prototype'
+import { mapDiscordUserResponseToUserPrototype } from '../../mappers/discord/map-discord-user-response-to-user-prototype'
 import { updateUserNfts } from '../handler/update-user-nfts'
 import { fetchDiscordUser } from '@echo/discord'
-import { addUser, findUserByDiscordId, updateUserDiscordInfo } from '@echo/firebase-admin'
+import { addUser, findUserByDiscordId, updateUserDiscordInfo } from '@echo/firestore'
 import { isNilOrEmpty } from '@echo/utils'
 
 export function createOrUpdateUser(

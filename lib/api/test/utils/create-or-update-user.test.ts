@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { mockAreNftsOwnedByWallets } from '../../src/mocks/alchemy/are-nfts-owned-by-wallets'
 import { createOrUpdateUser } from '../../src/utils/auth/create-or-update-user'
 import { updateUserNfts } from '../../src/utils/handler/update-user-nfts'
+import { mockAreNftsOwnedByWallets, MockAreNftsOwnedByWalletsArgs } from '../mocks/alchemy/are-nfts-owned-by-wallets'
+import { userFirestoreData } from '../mocks/user-firestore-data'
 import { fetchDiscordUser } from '@echo/discord'
-import { addUser, findUserByDiscordId, updateUserDiscordInfo } from '@echo/firebase-admin'
-import { userFirestoreData } from '@echo/firestore'
+import { addUser, findUserByDiscordId, updateUserDiscordInfo } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../src/utils/handler/update-user-nfts')
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 jest.mock('@echo/discord')
 jest.mock('@echo/alchemy', () => ({
-  areNftsOwnedByWallets: mockAreNftsOwnedByWallets
+  areNftsOwnedByWallets: (args: MockAreNftsOwnedByWalletsArgs) => mockAreNftsOwnedByWallets(args)
 }))
 
 describe('utils - auth - createOrUpdateUser', () => {

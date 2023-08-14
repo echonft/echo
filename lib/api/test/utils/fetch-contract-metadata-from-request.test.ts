@@ -1,12 +1,12 @@
-import { mockGetContractMetadata } from '../../src/mocks/alchemy/get-contract-metadata'
-import { mockGetContractMetadataResponse } from '../../src/mocks/alchemy/get-contract-metadata-response'
-import { mockFindContractByAddress } from '../../src/mocks/firebase-admin/find-contract-by-address'
 import { fetchContractMetadataFromRequest } from '../../src/utils/handler/fetch-contract-metadata-from-request'
-import { findContractByAddress } from '@echo/firebase-admin'
+import { mockGetContractMetadata } from '../mocks/alchemy/get-contract-metadata'
+import { mockGetContractMetadataResponse } from '../mocks/alchemy/get-contract-metadata-response'
+import { mockFindContractByAddress } from '../mocks/firestore/find-contract-by-address'
+import { findContractByAddress } from '@echo/firestore'
 import { errorMessage } from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 jest.mock('@echo/alchemy', () => ({
   getContractMetadata: async (address: string) => Promise.resolve(mockGetContractMetadata(address))
 }))

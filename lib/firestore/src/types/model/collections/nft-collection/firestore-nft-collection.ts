@@ -1,6 +1,6 @@
 import { FirestoreContract } from '../contract/firestore-contract'
 import { FirestoreDiscordGuild } from '../discord-guild/firestore-discord-guild'
-import { DocumentData, DocumentReference } from 'firebase/firestore'
+import { DocumentData, DocumentReference } from '@google-cloud/firestore'
 
 export interface FirestoreNftCollection extends DocumentData {
   bannerUrl?: string

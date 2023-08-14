@@ -1,4 +1,4 @@
-import { NftTraitValue } from '@echo/model'
+import { NftTraitValue } from '../nft-traits'
 
 export interface TraitFilterGroup {
   trait: string

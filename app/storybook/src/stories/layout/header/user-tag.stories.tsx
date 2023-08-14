@@ -1,5 +1,4 @@
-import { users } from '@echo/model'
-import { UserTag as Component } from '@echo/ui'
+import { users, UserTag as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import { assoc } from 'ramda'
 

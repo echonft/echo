@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { deleteWalletHandler } from '../../src/handlers/user/delete-wallet-handler'
 import { updateUserNfts } from '../../src/utils/handler/update-user-nfts'
-import { mockRequestResponse, WalletResponse } from '@echo/api-public'
-import { updateUserWallets } from '@echo/firebase-admin'
-import { userFirestoreData } from '@echo/firestore'
+import { mockRequestResponse } from '../mocks/request-response'
+import { userFirestoreData } from '../mocks/user-firestore-data'
+import { WalletResponse } from '@echo/api-public'
+import { updateUserWallets } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../src/utils/handler/update-user-nfts')
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 jest.mock('@echo/alchemy', () => ({
   getNftsForOwner: () => Promise.resolve([])
 }))

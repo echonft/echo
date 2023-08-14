@@ -1,6 +1,6 @@
-import { nfts } from '@echo/model'
 import {
   getCollectionFiltersForNfts,
+  nfts,
   UserNftsAndFiltersContainer as Component,
   UserNftsAndFiltersContainerSkeleton
 } from '@echo/ui'

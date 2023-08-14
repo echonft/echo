@@ -1,30 +1,39 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { cancelRequestForOfferHandler } from '../../src/handlers/request-for-offer/cancel-request-for-offer-handler'
-import { mapActivityToFirestoreData } from '../../src/mappers/map-activity-to-firestore-data'
-import { mockFindRequestForOfferById } from '../../src/mocks/firebase-admin/find-request-for-offer-by-id'
-import { mockUpdateRequestForOfferActivities } from '../../src/mocks/firebase-admin/update-request-for-offer-activities'
-import { IdRequest, mockRequestResponse, mockSession, RequestForOfferResponse } from '@echo/api-public'
-import { findRequestForOfferById, updateRequestForOfferActivities } from '@echo/firebase-admin'
-import { requestForOfferFirestoreData } from '@echo/firestore'
-import * as model from '@echo/model'
-import { generateRequestForOfferActivity, RequestForOfferState } from '@echo/model'
+import { mapActivityToFirestoreData } from '../../src/mappers/activity/map-activity-to-firestore-data'
+import { mockFindRequestForOfferById } from '../mocks/firestore/find-request-for-offer-by-id'
+import { mockUpdateRequestForOfferActivities } from '../mocks/firestore/update-request-for-offer-activities'
+import { requestForOfferFirestoreData } from '../mocks/request-for-offer-firestore-data'
+import { mockRequestResponse } from '../mocks/request-response'
+import { mockSession } from '../mocks/session'
+import { IdRequest, RequestForOfferResponse } from '@echo/api-public'
+import {
+  canAddRequestForOfferActivity,
+  findRequestForOfferById,
+  generateRequestForOfferActivity,
+  updateRequestForOfferActivities
+} from '@echo/firestore'
+import { RequestForOfferState } from '@echo/ui'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
+import dayjs from 'dayjs'
 import { omit } from 'ramda'
 
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 
 describe('handlers - user - cancelRequestForOfferHandler', () => {
-  const mockedCanAddRequestForOfferActivity = jest.spyOn(model, 'canAddRequestForOfferActivity').mockReturnValue(true)
   const session = mockSession
   const mockedRequest: IdRequest = {
     id: 'jUzMtPGKM62mMhEcmbN4'
   }
-
+  const mockedCanAddRequestForOfferActivity = jest.mocked(canAddRequestForOfferActivity).mockReturnValue(true)
   const mockedUpdateRequestForOfferActivities = jest
     .mocked(updateRequestForOfferActivities)
     .mockImplementation(mockUpdateRequestForOfferActivities)
 
   jest.mocked(findRequestForOfferById).mockImplementation(mockFindRequestForOfferById)
+  jest
+    .mocked(generateRequestForOfferActivity)
+    .mockReturnValue({ toState: 'CANCELLED', fromState: 'EXPIRED', date: dayjs() })
   beforeEach(() => {
     jest.clearAllMocks()
   })

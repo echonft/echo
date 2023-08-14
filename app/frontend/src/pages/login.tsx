@@ -1,5 +1,4 @@
 import { ConnectButton } from '@components/connect-button'
-import { useFirebaseUser } from '@components/providers/firebase-user-provider'
 import { Redirect } from '@components/redirect'
 import { isNilOrEmpty } from '@echo/utils'
 import { getMessages, MessagesType } from '@lib/messages'
@@ -14,14 +13,11 @@ interface Props {
 
 const Login: NextPage<Props> = () => {
   const { data: session } = useSession()
-  const { loggedInFirebase } = useFirebaseUser()
   const router = useRouter()
   const { callbackUrl } = router.query
 
   if (isNil(session)) {
     return <ConnectButton />
-  } else if (!loggedInFirebase) {
-    return <>Logging in...</>
   } else {
     if (isNilOrEmpty(callbackUrl)) {
       return <Redirect to={'/'} />

@@ -1,5 +1,5 @@
+import { NftAttribute } from '../../../types/nft-attribute'
 import { NftDetailsAttribute } from './nft-details-attribute'
-import { NftAttribute } from '@echo/model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'

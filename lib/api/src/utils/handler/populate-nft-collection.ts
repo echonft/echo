@@ -1,6 +1,5 @@
 import { getNftsForContract } from '@echo/alchemy'
-import { addNft } from '@echo/firebase-admin'
-import { FirestoreNftCollectionData, FirestoreNftPrototype } from '@echo/firestore'
+import { addNft, FirestoreNftCollectionData, FirestoreNftPrototype } from '@echo/firestore'
 import { omit } from 'ramda'
 
 export const populateNftCollection = (collection: FirestoreNftCollectionData, address: string) =>

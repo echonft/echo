@@ -1,9 +1,11 @@
 import { nonceHandler } from '../../src/handlers/user/nonce-handler'
-import { mockRequestResponse, mockSession, NonceResponse } from '@echo/api-public'
-import { setNonceForUser } from '@echo/firebase-admin'
+import { mockRequestResponse } from '../mocks/request-response'
+import { mockSession } from '../mocks/session'
+import { NonceResponse } from '@echo/api-public'
+import { setNonceForUser } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
-jest.mock('@echo/firebase-admin')
+jest.mock('@echo/firestore')
 describe('handlers - nonceHandler', () => {
   const session = mockSession
   beforeEach(() => {

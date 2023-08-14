@@ -1,6 +1,5 @@
 import { buildNewListingButtons } from '../../src/builders/listing-button-builder'
 import { listingLink } from '../../src/routing/listing-link'
-import { requestForOfferFirestoreData } from '@echo/firestore'
 import { describe, expect, it, jest } from '@jest/globals'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 
@@ -8,9 +7,10 @@ jest.mock('../../src/routing/get-base-url')
 
 describe('builders - buildNewListingButtons', () => {
   it('should build a new listing button with a link to the listing', () => {
-    const requestForOffer = requestForOfferFirestoreData['jUzMtPGKM62mMhEcmbN4']!
-    const result = buildNewListingButtons(requestForOffer)
-    const expectedLink = listingLink(requestForOffer)
+    const listingId = 'listingId'
+    const guildId = 'guildId'
+    const result = buildNewListingButtons(listingId, guildId)
+    const expectedLink = listingLink(listingId, guildId)
     expect(result).toBeInstanceOf(ActionRowBuilder)
     const components = result.components
     expect(components).toHaveLength(1)

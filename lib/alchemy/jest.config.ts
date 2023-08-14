@@ -19,10 +19,10 @@ const config: Config = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../../.coverage/lib/api'
+        outputDirectory: '<rootDir>/../../.coverage/lib/alchemy'
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/api'
+  coverageDirectory: '<rootDir>/../../.coverage/lib/alchemy'
 }
 export default config

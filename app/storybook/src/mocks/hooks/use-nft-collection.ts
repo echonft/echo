@@ -1,6 +1,6 @@
 import { delayPromise } from '../../utils/delay-promise'
 import { findNftCollectionBySlug } from '../../utils/find-nft-collection-by-slug'
-import { NftCollection } from '@echo/model'
+import { NftCollection } from '@echo/ui'
 import useSWR from 'swr'
 
 export const useNftCollection = (slug: string) =>

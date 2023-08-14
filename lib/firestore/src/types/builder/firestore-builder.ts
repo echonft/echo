@@ -1,5 +1,5 @@
 import { FirestorePrototypeData } from '../prototypes/base/firestore-prototype-data'
-import { DocumentData } from 'firebase/firestore'
+import { DocumentData } from '@google-cloud/firestore'
 
 /**
  * Converts a prototype object to a firestore object ready to be written in the db

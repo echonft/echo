@@ -11,6 +11,8 @@ const config: Config = {
     '!<rootDir>/src/**/test/**',
     '!<rootDir>/src/**/__mocks__/**',
     '!<rootDir>/src/**/mocks/**',
+    '!<rootDir>/src/constants/**',
+    '!<rootDir>/src/types/**',
     '!<rootDir>/test/**'
   ],
   coverageReporters: ['json-summary', 'text'],
@@ -19,10 +21,10 @@ const config: Config = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../../.coverage/lib/api'
+        outputDirectory: '<rootDir>/../../.coverage/lib/api-public'
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/api'
+  coverageDirectory: '<rootDir>/../../.coverage/lib/api-public'
 }
 export default config

@@ -1,5 +1,5 @@
 import { removeWalletsSchema } from '../../src/types/validators/remove-wallets'
-import { users } from '@echo/model'
+import { users } from '@echo/ui'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - removeWallet', () => {

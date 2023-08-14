@@ -1,5 +1,4 @@
-import { users } from '@echo/model'
-import { Header as Component } from '@echo/ui'
+import { Header as Component, users } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
