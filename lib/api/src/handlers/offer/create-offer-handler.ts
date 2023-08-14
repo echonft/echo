@@ -29,10 +29,10 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
   }
   try {
     const validatedRequest = createOfferSchema.parse(req.body)
+    // With Request For Offer
     if (validatedRequest.withRequestForOffer) {
       return findRequestForOfferById(validatedRequest.requestForOfferId)
         .then((requestForOffer) => {
-          // FIXME should be in firestore directly
           if (!canRequestForOfferReceiveOffers(dayjs.unix(requestForOffer.expiresAt), requestForOffer.state)) {
             res.end(res.status(500).json({ error: 'Request for offer cannot accept offers' }))
             return

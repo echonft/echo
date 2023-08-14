@@ -9,7 +9,13 @@ import { offerFirestoreData } from '../mocks/offer-firestore-data'
 import { mockRequestResponse } from '../mocks/request-response'
 import { userFirestoreData } from '../mocks/user-firestore-data'
 import { CreateOfferRequest } from '@echo/api-public'
-import { addOffer, findNftsByIds, FirestoreOfferData, updateRequestForOfferOffers } from '@echo/firestore'
+import {
+  addOffer,
+  findNftsByIds,
+  FirestoreOfferData,
+  updateRequestForOfferOffers,
+  userIsInGuild
+} from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('@echo/firestore')
@@ -19,6 +25,7 @@ jest.mock('@echo/alchemy', () => ({
 
 describe('utils - handler - createOfferFromData', () => {
   const mockedAddOffer = jest.mocked(addOffer).mockImplementation(mockAddOffer)
+  const mockedUserIsInGuild = jest.mocked(userIsInGuild).mockReturnValue(true)
   jest.mocked(updateRequestForOfferOffers).mockImplementation(mockUpdateRequestForOfferOffers)
   jest.mocked(findNftsByIds).mockImplementation(mockFindNftsByIds)
   const mockOffer = offerFirestoreData['LyCfl6Eg7JKuD7XJ6IPi']!
@@ -46,6 +53,7 @@ describe('utils - handler - createOfferFromData', () => {
   })
   it('if user is not in guild, return 401', async () => {
     const { res } = mockRequestResponse<CreateOfferRequest, never, FirestoreOfferData>('GET')
+    mockedUserIsInGuild.mockReturnValueOnce(false)
     await createOfferFromData(
       { ...mockUser, discordGuilds: [] },
       mockSenderItems,

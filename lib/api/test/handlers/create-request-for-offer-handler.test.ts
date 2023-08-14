@@ -8,7 +8,7 @@ import { requestForOfferFirestoreData } from '../mocks/request-for-offer-firesto
 import { mockRequestResponse } from '../mocks/request-response'
 import { mockSession } from '../mocks/session'
 import { CreateRequestForOfferRequest, RequestForOfferResponse } from '@echo/api-public'
-import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds } from '@echo/firestore'
+import { addRequestForOffer, findDiscordGuildByGuildId, findNftsByIds, userIsInGuild } from '@echo/firestore'
 import { nfts } from '@echo/ui'
 import { errorPromise } from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
@@ -23,6 +23,7 @@ jest.mock('@echo/alchemy', () => ({
 
 describe('handlers - user - createRequestForOfferHandler', () => {
   const mockedAddRequestForOffer = jest.mocked(addRequestForOffer).mockImplementation(mockAddRequestForOffer)
+  const mockedUserIsInGuild = jest.mocked(userIsInGuild).mockReturnValue(true)
   jest.mocked(findDiscordGuildByGuildId).mockImplementation(mockFindDiscordGuildById)
   jest.mocked(findNftsByIds).mockImplementation(mockFindNftsByIds)
   const session = mockSession
@@ -73,6 +74,7 @@ describe('handlers - user - createRequestForOfferHandler', () => {
       undefined,
       mockedRequest
     )
+    mockedUserIsInGuild.mockReturnValueOnce(false)
     await createRequestForOfferHandler(req, res, { ...session, user: { ...session.user, discordGuilds: [] } })
     expect(res.statusCode).toBe(401)
     expect(res._getJSONData()).toEqual({ error: 'User is not in Discord Guild' })

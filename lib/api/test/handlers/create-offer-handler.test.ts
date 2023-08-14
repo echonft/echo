@@ -12,6 +12,7 @@ import { mockSession } from '../mocks/session'
 import { CreateOfferRequest, OfferResponse } from '@echo/api-public'
 import {
   addOffer,
+  canRequestForOfferReceiveOffers,
   findDiscordGuildById,
   findRequestForOfferById,
   findUserById,
@@ -29,6 +30,8 @@ describe('handlers - offer - createOfferHandler', () => {
   const mockedFindRequestForOfferById = jest
     .mocked(findRequestForOfferById)
     .mockImplementation(mockFindRequestForOfferById)
+  const mockedCanRequestForOfferReceiveOffers = jest.mocked(canRequestForOfferReceiveOffers).mockReturnValue(true)
+
   jest.mocked(findUserById).mockImplementation(mockFindUserById)
   jest.mocked(findDiscordGuildById).mockImplementation(mockFindDiscordGuildById)
   jest.mocked(addOffer).mockImplementation(mockAddOffer)
@@ -127,6 +130,7 @@ describe('handlers - offer - createOfferHandler', () => {
         undefined,
         mockedRequestWithRequestForOffer
       )
+      mockedCanRequestForOfferReceiveOffers.mockReturnValueOnce(false)
       await createOfferHandler(req, res, session)
       expect(res.statusCode).toBe(500)
       expect(res._getJSONData()).toEqual({ error: 'Request for offer cannot accept offers' })

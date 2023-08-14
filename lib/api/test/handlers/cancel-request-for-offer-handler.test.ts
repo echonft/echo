@@ -8,31 +8,32 @@ import { mockRequestResponse } from '../mocks/request-response'
 import { mockSession } from '../mocks/session'
 import { IdRequest, RequestForOfferResponse } from '@echo/api-public'
 import {
+  canAddRequestForOfferActivity,
   findRequestForOfferById,
   generateRequestForOfferActivity,
   updateRequestForOfferActivities
 } from '@echo/firestore'
-import * as firestore from '@echo/firestore'
 import { RequestForOfferState } from '@echo/ui'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
+import dayjs from 'dayjs'
 import { omit } from 'ramda'
 
 jest.mock('@echo/firestore')
 
 describe('handlers - user - cancelRequestForOfferHandler', () => {
-  const mockedCanAddRequestForOfferActivity = jest
-    .spyOn(firestore, 'canAddRequestForOfferActivity')
-    .mockReturnValue(true)
   const session = mockSession
   const mockedRequest: IdRequest = {
     id: 'jUzMtPGKM62mMhEcmbN4'
   }
-
+  const mockedCanAddRequestForOfferActivity = jest.mocked(canAddRequestForOfferActivity).mockReturnValue(true)
   const mockedUpdateRequestForOfferActivities = jest
     .mocked(updateRequestForOfferActivities)
     .mockImplementation(mockUpdateRequestForOfferActivities)
 
   jest.mocked(findRequestForOfferById).mockImplementation(mockFindRequestForOfferById)
+  jest
+    .mocked(generateRequestForOfferActivity)
+    .mockReturnValue({ toState: 'CANCELLED', fromState: 'EXPIRED', date: dayjs() })
   beforeEach(() => {
     jest.clearAllMocks()
   })
