@@ -26,7 +26,7 @@ jobs:
                 multiple-files: |
                   app/bot, ./.coverage/app/bot/coverage-summary.json
                   app/frontend, ./.coverage/app/frontend/coverage-summary.json
-                  lib/alchemy, ./.coverage/lib/api/coverage-summary.json
+                  lib/alchemy, ./.coverage/lib/alchemy/coverage-summary.json
                   lib/api, ./.coverage/lib/api/coverage-summary.json
                   lib/api-public, ./.coverage/lib/api-public/coverage-summary.json
                   lib/firestore, ./.coverage/lib/firestore/coverage-summary.json
@@ -35,7 +35,7 @@ jobs:
                 multiple-junitxml-files: |
                   app/bot, ./.coverage/app/bot/junit.xml
                   app/frontend, ./.coverage/app/frontend/junit.xml
-                  lib/alchemy, ./.coverage/lib/api/junit.xml
+                  lib/alchemy, ./.coverage/lib/alchemy/junit.xml
                   lib/api, ./.coverage/lib/api/junit.xml
                   lib/api-public, ./.coverage/lib/api-public/junit.xml
                   lib/firestore, ./.coverage/lib/firestore/junit.xml
