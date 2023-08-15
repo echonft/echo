@@ -1,26 +1,26 @@
-export enum UserProfilePictureSize {
-  LARGE = 'Large',
-  MEDIUM = 'Medium'
-}
+import { SizeLG, SizeMD } from '../../types/size'
 
-export const userProfilePictureSize = (size: UserProfilePictureSize) => {
+export const userProfilePictureSizes = [SizeMD, SizeLG] as const
+export type UserProfilePictureSize = (typeof userProfilePictureSizes)[number]
+
+export const getUserProfilePictureSize = (size: UserProfilePictureSize) => {
   switch (size) {
-    case UserProfilePictureSize.LARGE:
+    case SizeLG:
       return 160
-    case UserProfilePictureSize.MEDIUM:
+    case SizeMD:
       return 120
   }
 }
 
-const userProfileTailwindSize = (size: UserProfilePictureSize) => {
+const getUserProfileTailwindSize = (size: UserProfilePictureSize) => {
   switch (size) {
-    case UserProfilePictureSize.LARGE:
+    case SizeLG:
       return '-40'
-    case UserProfilePictureSize.MEDIUM:
+    case SizeMD:
       return '-[120px]'
   }
 }
 
-export const userProfilePictureHeight = (size: UserProfilePictureSize) => `h${userProfileTailwindSize(size)}`
+export const getUserProfilePictureHeight = (size: UserProfilePictureSize) => `h${getUserProfileTailwindSize(size)}`
 
-export const userProfilePictureWidth = (size: UserProfilePictureSize) => `w${userProfileTailwindSize(size)}`
+export const getUserProfilePictureWidth = (size: UserProfilePictureSize) => `w${getUserProfileTailwindSize(size)}`

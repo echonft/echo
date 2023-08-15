@@ -1,5 +1,4 @@
-import { nfts, users } from '@echo/model'
-import { NewOfferSliderManager as Component, newOfferState } from '@echo/ui'
+import { NewOfferSliderManager as Component, newOfferState, nfts, users } from '@echo/ui'
 import { Meta, StoryObj } from '@storybook/react'
 import { useEffect } from 'react'
 import { RecoilRoot, useRecoilState } from 'recoil'

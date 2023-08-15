@@ -1,10 +1,11 @@
+import { SizeLG } from '../../types/size'
 import { ProfilePicture } from '../base/profile-picture'
 import { DefaultUserProfilePicture } from '../base/svg/default-user-profile-picture'
 import {
-  userProfilePictureHeight,
-  UserProfilePictureSize,
-  userProfilePictureSize,
-  userProfilePictureWidth
+  getUserProfilePictureHeight,
+  getUserProfilePictureSize,
+  getUserProfilePictureWidth,
+  UserProfilePictureSize
 } from './nft-profile-picture-size'
 import { getUserAvatarUrl } from '@echo/discord'
 import { clsx } from 'clsx'
@@ -22,7 +23,7 @@ export const UserProfilePicture: FunctionComponent<UserProfilePictureProps> = ({
   discordUsername,
   discordId,
   discordAvatar,
-  size = UserProfilePictureSize.LARGE
+  size = SizeLG
 }) => {
   const pictureUrl = getUserAvatarUrl(discordId, discordAvatar, 256)
   if (isNil(pictureUrl)) {
@@ -33,11 +34,11 @@ export const UserProfilePicture: FunctionComponent<UserProfilePictureProps> = ({
           'border-solid',
           'border-3',
           'border-yellow-500',
-          userProfilePictureWidth(size),
-          userProfilePictureHeight(size)
+          getUserProfilePictureWidth(size),
+          getUserProfilePictureHeight(size)
         )}
-        width={userProfilePictureSize(size)}
-        height={userProfilePictureSize(size)}
+        width={getUserProfilePictureSize(size)}
+        height={getUserProfilePictureSize(size)}
       />
     )
   }

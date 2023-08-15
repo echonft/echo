@@ -1,7 +1,7 @@
-import { UserProfilePictureSize } from '../user/nft-profile-picture-size'
+import { SizeMD } from '../../types/size'
+import { User } from '../../types/user'
 import { UserDiscordTag } from '../user/user-discord-tag'
 import { UserProfilePicture } from '../user/user-profile-picture'
-import { User } from '@echo/model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
@@ -16,7 +16,7 @@ export const OfferBottomSliderReceiverContainer: FunctionComponent<Props> = ({ r
         discordUsername={receiver.discordUsername}
         discordId={receiver.discordId}
         discordAvatar={receiver.discordAvatar}
-        size={UserProfilePictureSize.MEDIUM}
+        size={SizeMD}
       />
       <div className={clsx('flex', 'flex-col', 'gap-2.5', 'py-3')}>
         <UserDiscordTag discordUsername={receiver.discordUsername} />

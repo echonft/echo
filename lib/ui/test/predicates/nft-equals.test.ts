@@ -1,4 +1,6 @@
-import { Nft, nftEquals, nfts } from '../../src'
+import { nfts } from '../../src/mocks/nft'
+import { nftEquals } from '../../src/predicates/nft/nft-equals'
+import { Nft } from '../../src/types/nft'
 import { describe, expect, it } from '@jest/globals'
 
 describe('predicates - nft - nftEquals', () => {

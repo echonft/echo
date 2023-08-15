@@ -1,8 +1,9 @@
+import { SizeLG } from '../../types/size'
 import {
-  userProfilePictureHeight,
-  UserProfilePictureSize,
-  userProfilePictureSize,
-  userProfilePictureWidth
+  getUserProfilePictureHeight,
+  getUserProfilePictureSize,
+  getUserProfilePictureWidth,
+  UserProfilePictureSize
 } from '../user/nft-profile-picture-size'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
@@ -13,11 +14,7 @@ export interface ProfilePictureProps {
   size?: UserProfilePictureSize
 }
 
-export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
-  pictureUrl,
-  alt,
-  size = UserProfilePictureSize.LARGE
-}) => {
+export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({ pictureUrl, alt, size = SizeLG }) => {
   return (
     <img
       className={clsx(
@@ -25,13 +22,13 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
         'border-solid',
         'border-3',
         'border-yellow-500',
-        userProfilePictureWidth(size),
-        userProfilePictureHeight(size)
+        getUserProfilePictureWidth(size),
+        getUserProfilePictureHeight(size)
       )}
       src={pictureUrl.href}
       alt={alt}
-      width={userProfilePictureSize(size)}
-      height={userProfilePictureSize(size)}
+      width={getUserProfilePictureSize(size)}
+      height={getUserProfilePictureSize(size)}
     />
   )
 }

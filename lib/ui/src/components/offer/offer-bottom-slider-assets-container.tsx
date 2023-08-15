@@ -1,7 +1,7 @@
+import { Nft } from '../../types/nft'
 import { NftThumbnailOffer } from '../nft/nft-thumbnail-offer'
 import { NftThumbnailOfferAddMore } from '../nft/nft-thumbnail-offer-add-more'
 import { OfferBottomSliderAssetsTitle } from './offer-bottom-slider-assets-title'
-import { Nft } from '@echo/model'
 import clsx from 'clsx'
 import { FunctionComponent } from 'react'
 

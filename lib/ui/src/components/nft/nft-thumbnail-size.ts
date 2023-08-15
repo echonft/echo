@@ -1,13 +1,12 @@
-export enum NftThumbnailSize {
-  LARGE = 'Large',
-  MEDIUM = 'Medium'
-}
+import { SizeLG, SizeMD } from '../../types/size'
 
-export const nftThumbnailSize = (size: NftThumbnailSize) => {
+export const nftThumbnailSizes = [SizeMD, SizeLG] as const
+export type NftThumbnailSize = (typeof nftThumbnailSizes)[number]
+export const getNftThumbnailSize = (size: NftThumbnailSize) => {
   switch (size) {
-    case NftThumbnailSize.LARGE:
+    case SizeLG:
       return 208
-    case NftThumbnailSize.MEDIUM:
+    case SizeMD:
       return 128
   }
 }

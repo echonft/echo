@@ -1,6 +1,7 @@
+import { Nft } from '../../types/nft'
+import { User } from '../../types/user'
 import { OfferBottomSliderAssetsContainer } from './offer-bottom-slider-assets-container'
 import { OfferBottomSliderReceiverContainer } from './offer-bottom-slider-receiver-container'
-import { Nft, User } from '@echo/model'
 import { isNilOrEmpty } from '@echo/utils'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
