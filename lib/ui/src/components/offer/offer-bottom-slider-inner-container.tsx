@@ -39,7 +39,7 @@ export const OfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
           onAddMore={onAddMoreReceiverAsset}
           onRemove={onRemoveReceiverAsset}
         />
-        <div className={clsx('w-full', 'h-1', 'bg-white/[0.08]')} />
+        <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
       </div>
       <OfferBottomSliderAssetsContainer
         isReceiver={false}

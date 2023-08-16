@@ -93,6 +93,7 @@ export {
 export { UserNftsContainer, UserNftsContainerProps } from './components/user/user-nfts-container'
 export { UserProfilePicture, UserProfilePictureProps } from './components/user/user-profile-picture'
 export { UserProvided, UserProvidedProps } from './components/user/user-provided'
+export { UserWallet } from './components/user/user-wallet'
 export { CollapsibleManager, CollapsibleManagerProps } from './components/utils/collapsible-manager'
 export { SelectionManager, SelectionManagerProps } from './components/utils/selection-manager'
 export { Dependencies, DependenciesProvider } from './dependencies/dependencies-provider'

@@ -45,6 +45,9 @@
     .prose-display-sm {
         @apply text-display-sm font-inter
     }
+    .prose-display-sm-bold {
+        @apply text-display-sm-bold font-inter
+    }
     .prose-display-sm-light {
         @apply text-display-sm-light font-inter
     }
