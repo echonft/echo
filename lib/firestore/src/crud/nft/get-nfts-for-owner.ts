@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
 import { convertNft } from '../../converters/nft/convert-nft'
+import { getCollectionDocs } from '../../helpers/collection/get-collection-docs'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
+import { whereCollection } from '../../helpers/collection/where-collection'
+import { getDocSnapshot } from '../../helpers/document/get-doc-snapshot'
 import { FirestoreNftData } from '../../types/model/data/nft/firestore-nft-data'
-import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { whereCollection } from '../../utils/collection/where-collection'
-import { getDocSnapshot } from '../../utils/document/get-doc-snapshot'
 import { promiseAll } from '@echo/utils'
 import { always, andThen, call, converge, map, partial, pipe, prop, useWith } from 'ramda'
 

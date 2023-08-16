@@ -1,5 +1,5 @@
-import { CollectionName } from '../../config/collection-name'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
+import { CollectionName } from '../../constants/collection-name'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
 import { always } from 'ramda'
 import { generateNonce } from 'siwe'
 

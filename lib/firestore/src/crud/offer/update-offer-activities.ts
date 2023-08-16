@@ -1,6 +1,6 @@
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
+import { getDocRefFromPath } from '../../helpers/document/get-doc-ref-from-path'
 import { FirestoreActivityData } from '../../types/model/data/activity/firestore-activity-data'
-import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
 import { isNil } from 'ramda'
 
 // TODO Maybe just an update?

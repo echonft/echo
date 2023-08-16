@@ -1,9 +1,9 @@
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
 import { convertUser } from '../../converters/user/convert-user'
 import { getFirestoreDiscordGuildRefsByDiscordIds } from '../../data/discord-guild/get-firestore-discord-guild-refs-by-discord-ids'
+import { getDocRefFromPath } from '../../helpers/document/get-doc-ref-from-path'
 import { FirestoreUser } from '../../types/model/collections/user/firestore-user'
 import { FirestoreUserPrototype } from '../../types/prototypes/user/firestore-user-prototype'
-import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
 import { always, andThen, isNil, pipe } from 'ramda'
 
 export const updateUserDiscordInfo = (userId: string, userPrototype: FirestoreUserPrototype) => {

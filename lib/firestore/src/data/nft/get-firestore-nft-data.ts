@@ -1,6 +1,6 @@
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
 import { convertNft } from '../../converters/nft/convert-nft'
-import { getDocSnapshot } from '../../utils/document/get-doc-snapshot'
+import { getDocSnapshot } from '../../helpers/document/get-doc-snapshot'
 import { andThen, pipe } from 'ramda'
 
 export const getFirestoreNftData = (documentPath: string) =>

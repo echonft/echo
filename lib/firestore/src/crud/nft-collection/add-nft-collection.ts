@@ -1,10 +1,10 @@
 import { buildNftCollection } from '../../builders/nft-collection/build-nft-collection'
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
 import { convertNftCollection } from '../../converters/nft-collection/convert-nft-collection'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
+import { setDocAndReturnSnapshot } from '../../helpers/document/set-doc-and-return-snapshot'
 import { FirestoreNftCollectionData } from '../../types/model/data/nft-collection/firestore-nft-collection-data'
 import { FirestoreNftCollectionPrototype } from '../../types/prototypes/nft-collection/firestore-nft-collection-prototype'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
 import { andThen, partial, pipe } from 'ramda'
 
 export const addNftCollection: (

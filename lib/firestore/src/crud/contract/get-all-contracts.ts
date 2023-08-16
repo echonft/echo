@@ -1,9 +1,9 @@
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
 import { convertContract } from '../../converters/contract/convert-contract'
+import { getCollectionDocs } from '../../helpers/collection/get-collection-docs'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
 import { FirestoreContract } from '../../types/model/collections/contract/firestore-contract'
 import { FirestoreContractData } from '../../types/model/data/contract/firestore-contract-data'
-import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { promiseAll } from '@echo/utils'
 import { andThen, map, pipe } from 'ramda'
 

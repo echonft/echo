@@ -1,10 +1,10 @@
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
+import { getCollectionDocs } from '../../helpers/collection/get-collection-docs'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
+import { whereCollection } from '../../helpers/collection/where-collection'
 import { FirestoreContract } from '../../types/model/collections/contract/firestore-contract'
-import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { whereCollection } from '../../utils/collection/where-collection'
 import { errorPromise } from '@echo/utils'
-import { DocumentReference } from '@google-cloud/firestore'
+import { DocumentReference } from 'firebase-admin/firestore'
 import { andThen, head, ifElse, isEmpty, pipe, prop } from 'ramda'
 
 export const getFirestoreContractRefByAddress = (

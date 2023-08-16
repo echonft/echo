@@ -1,10 +1,10 @@
 import { buildNft } from '../../builders/nft/build-nft'
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
 import { convertNft } from '../../converters/nft/convert-nft'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
+import { setDocAndReturnSnapshot } from '../../helpers/document/set-doc-and-return-snapshot'
 import { FirestoreNftData } from '../../types/model/data/nft/firestore-nft-data'
 import { FirestoreNftPrototype } from '../../types/prototypes/nft/firestore-nft-prototype'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
 import { andThen, partial, pipe } from 'ramda'
 
 export const addNft: (nftPrototype: FirestoreNftPrototype) => Promise<FirestoreNftData> = pipe(

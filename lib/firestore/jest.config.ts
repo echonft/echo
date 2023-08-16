@@ -1,16 +1,14 @@
 import type { Config } from 'jest'
 
 const config: Config = {
-  modulePathIgnorePatterns: ['<rootDir>/dist/'],
+  modulePathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/test.old/'],
   collectCoverage: true,
   collectCoverageFrom: [
-    '<rootDir>/src/**/*.{ts,js,tsx,jsx}',
+    '<rootDir>/src/**/*.ts',
     '!<rootDir>/src/**/*.d.ts',
     '!<rootDir>/src/**/index.ts',
     '!<rootDir>/src/**/__tests__/**',
-    '!<rootDir>/src/**/__mocks__/**',
-    '!<rootDir>/src/**/mocks/**',
-    '!<rootDir>/test/**'
+    '!<rootDir>/src/**/__mocks__/**'
   ],
   coverageReporters: ['json-summary', 'text'],
   reporters: [

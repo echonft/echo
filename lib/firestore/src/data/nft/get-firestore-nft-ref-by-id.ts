@@ -1,7 +1,7 @@
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
+import { getDocRefFromPath } from '../../helpers/document/get-doc-ref-from-path'
 import { FirestoreNft } from '../../types/model/collections/nft/firestore-nft'
-import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
-import { DocumentReference } from '@google-cloud/firestore'
+import { DocumentReference } from 'firebase-admin/firestore'
 
 export const getFirestoreNftRefById = (id: string): DocumentReference<FirestoreNft> =>
   getDocRefFromPath(CollectionName.NFTS, id)
