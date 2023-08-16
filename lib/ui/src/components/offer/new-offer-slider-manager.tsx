@@ -9,7 +9,6 @@ import { removeFromArray } from '@echo/utils'
 import { FunctionComponent, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
 
-// TODO Add more action
 // TODO Add finalize offer
 export const NewOfferSliderManager: FunctionComponent = () => {
   const [newOffer, setNewOffer] = useRecoilState(newOfferState)
@@ -28,8 +27,9 @@ export const NewOfferSliderManager: FunctionComponent = () => {
   )
 
   return (
-    <HideIfNilOrEmpty checks={newOffer?.receiverItems}>
+    <HideIfNilOrEmpty checks={newOffer}>
       <BottomSlider renderTitle={() => <OfferBottomSliderTitle itemsSelected={newOffer?.receiverItems?.length || 0} />}>
+        {/* TODO Add action on add more */}
         <OfferBottomSliderInnerContainer
           receiver={newOffer?.receiver}
           receiverAssets={newOffer?.receiverItems}

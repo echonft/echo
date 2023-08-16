@@ -58,7 +58,9 @@ export const messages = {
       assetsIn: 'Going in',
       assetsOut: 'Going out',
       add: 'Add more',
-      finalize: 'Finalize offer'
+      finalize: 'Finalize offer',
+      noNftsTitle: 'No NFTs selected yet',
+      noNftsButton: 'Select NFTs now'
     }
   },
   user: {
