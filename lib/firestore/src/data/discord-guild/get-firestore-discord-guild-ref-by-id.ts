@@ -1,7 +1,7 @@
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
+import { getDocRefFromPath } from '../../helpers/document/get-doc-ref-from-path'
 import { FirestoreDiscordGuild } from '../../types/model/collections/discord-guild/firestore-discord-guild'
-import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
-import { DocumentReference } from '@google-cloud/firestore'
+import { DocumentReference } from 'firebase-admin/firestore'
 
 export const getFirestoreDiscordGuildRefById = (id: string): DocumentReference<FirestoreDiscordGuild> =>
   getDocRefFromPath(CollectionName.GUILDS, id)

@@ -1,10 +1,10 @@
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
+import { getCollectionDocs } from '../../helpers/collection/get-collection-docs'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
+import { whereCollection } from '../../helpers/collection/where-collection'
 import { FirestoreContractData } from '../../types/model/data/contract/firestore-contract-data'
-import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { whereCollection } from '../../utils/collection/where-collection'
 import { errorPromise } from '@echo/utils'
-import { QueryDocumentSnapshot } from '@google-cloud/firestore'
+import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, head, ifElse, isEmpty, pipe } from 'ramda'
 
 interface ContractQuery {

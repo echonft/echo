@@ -1,10 +1,10 @@
-import { CollectionName } from '../config/collection-name'
+import { CollectionName } from '../constants/collection-name'
 import { convertOffer } from '../converters/offer/convert-offer'
+import { getCollectionFromPath } from '../helpers/collection/get-collection-from-path'
 import { FirestoreOffer } from '../types/model/collections/offer/firestore-offer'
 import { FirestoreOfferData } from '../types/model/data/offer/firestore-offer-data'
-import { getCollectionFromPath } from '../utils/collection/get-collection-from-path'
 import { atIndex, errorMessage, logger, promiseAll, toPromise, Void } from '@echo/utils'
-import { DocumentChange, QueryDocumentSnapshot } from '@google-cloud/firestore'
+import { DocumentChange, QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { andThen, converge, forEach, head, isNil, juxt, otherwise, pipe, prop, unless } from 'ramda'
 
 export function listenToOffers(

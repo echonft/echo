@@ -1,10 +1,10 @@
 import { buildUser } from '../../builders/user/build-user'
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
 import { convertUser } from '../../converters/user/convert-user'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
+import { setDocAndReturnSnapshot } from '../../helpers/document/set-doc-and-return-snapshot'
 import { FirestoreUserData } from '../../types/model/data/user/firestore-user-data'
 import { FirestoreUserPrototype } from '../../types/prototypes/user/firestore-user-prototype'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
 import { andThen, partial, pipe } from 'ramda'
 
 export const addUser: (userPrototype: FirestoreUserPrototype) => Promise<FirestoreUserData> = pipe(

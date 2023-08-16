@@ -1,9 +1,9 @@
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
 import { convertNftCollection } from '../../converters/nft-collection/convert-nft-collection'
+import { getCollectionDocs } from '../../helpers/collection/get-collection-docs'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
 import { FirestoreNftCollection } from '../../types/model/collections/nft-collection/firestore-nft-collection'
 import { FirestoreNftCollectionData } from '../../types/model/data/nft-collection/firestore-nft-collection-data'
-import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { promiseAll } from '@echo/utils'
 import { andThen, map, pipe } from 'ramda'
 

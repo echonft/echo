@@ -1,9 +1,9 @@
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
 import { convertNft } from '../../converters/nft/convert-nft'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
 import { FirestoreNft } from '../../types/model/collections/nft/firestore-nft'
 import { FirestoreNftAttributeData } from '../../types/model/data/nft/firestore-nft-attribute-data'
 import { FirestoreNftData } from '../../types/model/data/nft/firestore-nft-data'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
 import { getNftCollectionSnapshotBySlug } from '../nft-collection/get-nft-collection-snapshot-by-slug'
 import { isNilOrEmpty } from '@echo/utils'
 

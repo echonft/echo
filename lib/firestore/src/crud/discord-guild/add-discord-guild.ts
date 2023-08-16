@@ -1,10 +1,10 @@
 import { buildDiscordGuild } from '../../builders/discord-guild/build-discord-guild'
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
 import { convertDiscordGuild } from '../../converters/discord-guild/convert-discord-guild'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
+import { setDocAndReturnSnapshot } from '../../helpers/document/set-doc-and-return-snapshot'
 import { FirestoreDiscordGuildData } from '../../types/model/data/discord-guild/firestore-discord-guild-data'
 import { FirestoreDiscordGuildPrototype } from '../../types/prototypes/discord-guild/firestore-discord-guild-prototype'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
 import { andThen, partial, pipe } from 'ramda'
 
 export const addDiscordGuild: (

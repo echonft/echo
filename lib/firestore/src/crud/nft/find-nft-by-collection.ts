@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
 import { convertNft } from '../../converters/nft/convert-nft'
+import { getCollectionDocs } from '../../helpers/collection/get-collection-docs'
+import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
+import { whereCollection } from '../../helpers/collection/where-collection'
 import { FirestoreNftData } from '../../types/model/data/nft/firestore-nft-data'
-import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { whereCollection } from '../../utils/collection/where-collection'
 import {
   Arguments as GetNftCollectionArguments,
   getNftCollectionSnapshotByContractAddress

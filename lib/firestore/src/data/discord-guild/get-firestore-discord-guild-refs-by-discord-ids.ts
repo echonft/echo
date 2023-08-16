@@ -1,7 +1,7 @@
 import { FirestoreDiscordGuild } from '../../types/model/collections/discord-guild/firestore-discord-guild'
 import { getFirestoreDiscordGuildRefByDiscordId } from './get-firestore-discord-guild-ref-by-discord-id'
 import { promiseAll } from '@echo/utils'
-import { DocumentReference } from '@google-cloud/firestore'
+import { DocumentReference } from 'firebase-admin/firestore'
 import { andThen, isNil, map, pipe, reject } from 'ramda'
 
 /**

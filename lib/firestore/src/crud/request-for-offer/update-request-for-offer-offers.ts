@@ -1,7 +1,7 @@
-import { CollectionName } from '../../config/collection-name'
+import { CollectionName } from '../../constants/collection-name'
+import { getDocRefFromPath } from '../../helpers/document/get-doc-ref-from-path'
 import { FirestoreOffer } from '../../types/model/collections/offer/firestore-offer'
 import { FirestoreRequestForOffer } from '../../types/model/collections/request-for-offer/firestore-request-for-offer'
-import { getDocRefFromPath } from '../../utils/document/get-doc-ref-from-path'
 import { isNil } from 'ramda'
 
 export const updateRequestForOfferOffers = (requestForOfferId: string, offerId: string) => {

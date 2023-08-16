@@ -1,7 +1,7 @@
 import { FirestoreContract } from '../../types/model/collections/contract/firestore-contract'
 import { getFirestoreContractRefByAddress } from './get-firestore-contract-ref-by-address'
 import { promiseAll } from '@echo/utils'
-import { DocumentReference } from '@google-cloud/firestore'
+import { DocumentReference } from 'firebase-admin/firestore'
 import { andThen, converge, isNil, map, pipe, prop, reject } from 'ramda'
 
 interface ContractQuery {
