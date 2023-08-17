@@ -1,0 +1,35 @@
+import { documentDataPropToModel } from '../helpers/converters/document-data-prop-to-model'
+import { modelPropToDocumentData } from '../helpers/converters/model-prop-to-document-data'
+import { stringPropToUrl } from '../helpers/converters/string-prop-to-url'
+import { urlPropToString } from '../helpers/converters/url-prop-to-string'
+import { FirestoreDocumentDataConverter } from '../types/converters/firestore-document-data-converter'
+import { Nft } from '../types/model/nft'
+import { NftDocumentData } from '../types/model/nft-document-data'
+import { nftCollectionDocumentDataConverter } from './nft-collection-document-data-converter'
+import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
+import { pipe } from 'ramda'
+
+export const nftDocumentDataConverter: FirestoreDocumentDataConverter<NftDocumentData, Nft> = {
+  fromFirestore: pipe(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    stringPropToUrl('blurUrl'),
+    documentDataPropToModel('collection', nftCollectionDocumentDataConverter),
+    stringPropToUrl('openSeaUrl'),
+    documentDataPropToModel('owner', userDetailsDocumentDataConverter),
+    stringPropToUrl('pictureUrl'),
+    stringPropToUrl('thumbnailUrl')
+  ),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  toFirestore: pipe(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    urlPropToString('blurUrl'),
+    modelPropToDocumentData('collection', nftCollectionDocumentDataConverter),
+    urlPropToString('openSeaUrl'),
+    modelPropToDocumentData('owner', userDetailsDocumentDataConverter),
+    urlPropToString('pictureUrl'),
+    urlPropToString('thumbnailUrl')
+  )
+}

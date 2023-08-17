@@ -1,7 +1,0 @@
-export type SwapState =
-  | 'PENDING_APPROVALS'
-  | 'SENDER_APPROVED'
-  | 'RECEIVER_APPROVED'
-  | 'COMPLETED'
-  | 'REJECTED'
-  | 'EXPIRED'

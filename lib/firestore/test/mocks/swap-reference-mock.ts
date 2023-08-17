@@ -1,4 +1,4 @@
-import { SwapDocumentData } from '../../src/types/model/document-data/swap-document-data'
+import { SwapDocumentData } from '../../src/types/model/swap-document-data'
 import { DocumentReference } from 'firebase-admin/firestore'
 
 export const swapReferenceMock: { [key: string]: DocumentReference<SwapDocumentData> } = {

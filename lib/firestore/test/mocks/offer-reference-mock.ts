@@ -1,4 +1,4 @@
-import { OfferDocumentData } from '../../src/types/model/document-data/offer-document-data'
+import { OfferDocumentData } from '../../src/types/model/offer-document-data'
 import { DocumentReference } from 'firebase-admin/firestore'
 
 export const offerReferenceMock: { [key: string]: DocumentReference<OfferDocumentData> } = {

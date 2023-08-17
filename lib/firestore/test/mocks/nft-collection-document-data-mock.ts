@@ -1,14 +1,22 @@
-import { NftCollectionDocumentData } from '../../src/types/model/document-data/nft-collection-document-data'
-import { contractReferenceMock } from './contract-reference-mock'
-import { discordGuildReferenceMock } from './discord-guild-reference-mock'
+import { NftCollectionDocumentData } from '../../src/types/model/nft-collection-document-data'
 
 export const nftCollectionDocumentDataMock: { [key: string]: NftCollectionDocumentData } = {
   Rc8pLQXxgyQGIRL0fr13: {
     bannerUrl:
       'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ?auto=format&dpr=1&w=3840',
-    contract: contractReferenceMock['37dBlwJYahEAKeL0rNP8']!,
+    contract: {
+      tokenType: 'ERC721',
+      address: '0x12c63bbD266dB84e117356e664f3604055166CEc',
+      addressLowercase: '0x12c63bbd266db84e117356e664f3604055166cec',
+      chainId: 1,
+      name: 'Mythics Genesis',
+      symbol: 'MGEN'
+    },
     description: 'pxMythics is an 1,077 piece NFT collection based on the greatest mythologies throughout history.',
-    discordGuild: discordGuildReferenceMock['ncUnbpFfVCofV9bD7ctn']!,
+    discordGuild: {
+      discordId: '100',
+      channelId: '100'
+    },
     discordUrl: 'https://discord.gg/pxmythics',
     floorPrice: 0.025,
     name: 'pxMythics Genesis',
@@ -17,15 +25,27 @@ export const nftCollectionDocumentDataMock: { [key: string]: NftCollectionDocume
     profilePictureUrl:
       'https://i.seadn.io/gae/R3b_Ju-BF7Ae45pp1f7UxCS5wF06dfFG7ydux_v9S8lJ7CL3j4kgv7a0nM4yVw-GhOH21ZigeaNluK-nuo6Dclq9LdQYH2Cvj8PfMQ?w=500&auto=format',
     totalSupply: 1077,
-    websiteUrl: 'https://pxmythics.io'
+    websiteUrl: 'https://pxmythics.io/',
+    blurUrl: undefined,
+    twitterUsername: undefined
   },
   '1aomCtnoesD7WVll6Yi1': {
     bannerUrl:
       'https://i.seadn.io/gae/ujBmfCu4_m30X3zkmyEA6wYPFubX0qkQJ5CEm5D9Eo2M1jHkDx1K4hUQQitd912A6-M8nyvOsuCuIv8RZokw83runTcR_kTs45xF?auto=format&dpr=1&w=3840',
     blurUrl: 'https://blur.io/collection/spiral-frequencies',
-    contract: contractReferenceMock['hK2XrmnMpCVneRH7Mbo6']!,
+    contract: {
+      tokenType: 'ERC721',
+      address: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
+      addressLowercase: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
+      chainId: 1,
+      name: 'Spiral Frequencies',
+      symbol: 'GCP1'
+    },
     description: 'A Genetic Chain Project.',
-    discordGuild: discordGuildReferenceMock['xA40abnyBq6qQHSYmtHj']!,
+    discordGuild: {
+      discordId: '1',
+      channelId: '1'
+    },
     discordUrl: 'https://discord.gg/genetic-chain',
     floorPrice: 0.037,
     name: 'Spiral Frequencies',
