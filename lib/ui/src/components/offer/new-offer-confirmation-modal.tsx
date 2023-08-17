@@ -1,4 +1,4 @@
-import { newOfferDataState, newOfferState, shouldOpenNewOfferSliderState } from '../../services/state'
+import { newOfferDataState, newOfferState } from '../../services/state'
 import { Modal } from '../base/modal'
 import { NewOfferConfirmationModalInnerContainer } from './new-offer-confirmation-modal-inner-container'
 import { NewOfferConfirmedModalInnerContainer } from './new-offer-confirmed-modal-inner-container'
@@ -12,7 +12,6 @@ export const NewOfferConfirmationModal: FunctionComponent = () => {
   const t = useTranslations('offer.new')
   const [newOffer, setNewOffer] = useRecoilState(newOfferDataState)
   const [modalState, setModalState] = useRecoilState(newOfferState)
-  const [, setShouldOpenNewOfferSlider] = useRecoilState(shouldOpenNewOfferSliderState)
 
   // We check state and data because when we close the modal we reset the state but then data will be undefined
   const isConfirmed = useCallback(() => modalState === 'CONFIRMED' || isNil(newOffer), [modalState, newOffer])
@@ -37,7 +36,7 @@ export const NewOfferConfirmationModal: FunctionComponent = () => {
               setNewOffer(undefined)
             }}
             onEdit={() => {
-              setShouldOpenNewOfferSlider(true)
+              // TODO Should reopen the drawer?
               setModalState('NONE')
             }}
           />

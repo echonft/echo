@@ -11,8 +11,3 @@ export const newOfferState = atom<NewOfferState>({
   key: 'newOfferState',
   default: 'NONE'
 })
-
-export const shouldOpenNewOfferSliderState = atom<boolean>({
-  key: 'shouldOpenNewOfferSlider',
-  default: false
-})

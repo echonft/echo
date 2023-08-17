@@ -1,5 +1,5 @@
 import { nftEquals } from '../../predicates/nft/nft-equals'
-import { newOfferDataState, shouldOpenNewOfferSliderState } from '../../services/state'
+import { newOfferDataState } from '../../services/state'
 import { Nft } from '../../types/nft'
 import { BottomSlider } from '../base/bottom-slider'
 import { HideIfNil } from '../utils/hide-if-nil'
@@ -12,7 +12,6 @@ import { useRecoilState } from 'recoil'
 // TODO Add finalize offer
 export const NewOfferSliderManager: FunctionComponent = () => {
   const [newOffer, setNewOffer] = useRecoilState(newOfferDataState)
-  const [defaultOpen] = useRecoilState(shouldOpenNewOfferSliderState)
 
   const onRemoveAsset = useCallback(
     (nftToRemove: Nft, isReceiver: boolean) => {
@@ -35,10 +34,7 @@ export const NewOfferSliderManager: FunctionComponent = () => {
     <HideIfNil
       checks={newOffer}
       render={() => (
-        <BottomSlider
-          defaultOpen={defaultOpen}
-          renderTitle={() => <NewOfferBottomSliderTitle itemsSelected={newOffer!.receiverItems.length} />}
-        >
+        <BottomSlider renderTitle={() => <NewOfferBottomSliderTitle itemsSelected={newOffer!.receiverItems.length} />}>
           {/* TODO Add action on add more */}
           <NewOfferBottomSliderInnerContainer
             receiver={newOffer!.receiver}
