@@ -1,9 +1,7 @@
 import { datePropToNumber } from '../helpers/converters/date-prop-to-number'
 import { documentDataArrayPropToModelArray } from '../helpers/converters/document-data-array-prop-to-model-array'
-import { documentDataPropToModel } from '../helpers/converters/document-data-prop-to-model'
 import { getSnapshotData } from '../helpers/converters/get-snapshot-data'
 import { modelArrayPropToDocumentDataArray } from '../helpers/converters/model-array-prop-to-document-data-array'
-import { modelPropToDocumentData } from '../helpers/converters/model-prop-to-document-data'
 import { numberPropToDate } from '../helpers/converters/number-prop-to-date'
 import { FirestoreModel } from '../types/abstract/firestore-model'
 import { Listing } from '../types/model/listing'
@@ -13,7 +11,6 @@ import { listingTargetDocumentDataConverter } from './listing-target-document-da
 import { offerDocumentDataConverter } from './offer-document-data-converter'
 import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
 import { swapDocumentDataConverter } from './swap-document-data-converter'
-import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
 import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
@@ -27,7 +24,6 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
       // @ts-ignore
       documentDataArrayPropToModelArray('activities', activityDocumentDataConverter),
       numberPropToDate('createdAt'),
-      documentDataPropToModel('creator', userDetailsDocumentDataConverter),
       numberPropToDate('expiresAt'),
       documentDataArrayPropToModelArray('items', offerItemDocumentDataConverter),
       documentDataArrayPropToModelArray('offers', offerDocumentDataConverter),
@@ -44,7 +40,6 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
       // @ts-ignore
       modelArrayPropToDocumentDataArray('activities', activityDocumentDataConverter),
       datePropToNumber('createdAt'),
-      modelPropToDocumentData('creator', userDetailsDocumentDataConverter),
       datePropToNumber('expiresAt'),
       modelArrayPropToDocumentDataArray('items', offerItemDocumentDataConverter),
       modelArrayPropToDocumentDataArray('offers', offerDocumentDataConverter),

@@ -15,7 +15,6 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
       discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
-        addressLowercase: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e',
         chainId: 1
       }
     },
@@ -28,7 +27,6 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
       discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
       wallet: {
         address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
-        addressLowercase: '0xf672715f2ba85794659a7150e8c21f8d157bfe1d',
         chainId: 1
       }
     },

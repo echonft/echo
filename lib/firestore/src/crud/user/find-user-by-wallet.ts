@@ -1,14 +1,13 @@
 import { CollectionName } from '../../constants/collection-name'
 import { userDataConverter } from '../../converters/user-data-converter'
-import { walletDocumentDataConverter } from '../../converters/wallet-document-data-converter'
 import { firestore } from '../../services/firestore'
 import { Wallet } from '../../types/model/wallet'
 
 export const findUserByWallet = async (wallet: Wallet) => {
-  const walletDocumentData = walletDocumentDataConverter.toFirestore(wallet)
+  // wallet DocumentData is the same as the model so we don't need to convert it
   const querySnapshot = await firestore()
     .collection(CollectionName.USERS)
-    .where('wallets', 'array-contains', walletDocumentData)
+    .where('wallets', 'array-contains', wallet)
     .withConverter(userDataConverter)
     .get()
 

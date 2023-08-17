@@ -6,7 +6,6 @@ import { FirestoreDocumentDataConverter } from '../types/converters/firestore-do
 import { OfferItem } from '../types/model/offer-item'
 import { OfferItemDocumentData } from '../types/model/offer-item-document-data'
 import { nftCollectionDocumentDataConverter } from './nft-collection-document-data-converter'
-import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
 import { pipe } from 'ramda'
 
 export const offerItemDocumentDataConverter: FirestoreDocumentDataConverter<OfferItemDocumentData, OfferItem> = {
@@ -16,7 +15,6 @@ export const offerItemDocumentDataConverter: FirestoreDocumentDataConverter<Offe
     stringPropToUrl('blurUrl'),
     documentDataPropToModel('collection', nftCollectionDocumentDataConverter),
     stringPropToUrl('openSeaUrl'),
-    documentDataPropToModel('owner', userDetailsDocumentDataConverter),
     stringPropToUrl('pictureUrl'),
     stringPropToUrl('thumbnailUrl')
   ),
@@ -28,7 +26,6 @@ export const offerItemDocumentDataConverter: FirestoreDocumentDataConverter<Offe
     urlPropToString('blurUrl'),
     modelPropToDocumentData('collection', nftCollectionDocumentDataConverter),
     urlPropToString('openSeaUrl'),
-    modelPropToDocumentData('owner', userDetailsDocumentDataConverter),
     urlPropToString('pictureUrl'),
     urlPropToString('thumbnailUrl')
   )

@@ -25,7 +25,6 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
       discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
-        addressLowercase: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e',
         chainId: 1
       }
     },
@@ -50,7 +49,6 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
       discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
-        addressLowercase: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e',
         chainId: 1
       }
     },
