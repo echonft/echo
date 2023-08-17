@@ -1,4 +1,5 @@
 import { User } from '../../src/types/model/user'
+import dayjs from 'dayjs'
 
 export const userMock: { [key: string]: User } = {
   '6rECUMhevHfxABZ1VNOm': {
@@ -14,7 +15,7 @@ export const userMock: { [key: string]: User } = {
     discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
     discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
     nonce: undefined,
-    updatedAt: undefined,
+    updatedAt: dayjs.unix(1676984897),
     wallets: [
       {
         address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',

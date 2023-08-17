@@ -1,6 +1,5 @@
 import { updateUser } from './update-user'
-import { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 import { WriteResult } from 'firebase-admin/firestore'
 
-export const setUserUpdatedAt = (userId: string, updatedAt: Dayjs): Promise<WriteResult> =>
-  updateUser(userId, { updatedAt })
+export const setUserUpdatedAt = (id: string): Promise<WriteResult> => updateUser(id, { updatedAt: dayjs() })

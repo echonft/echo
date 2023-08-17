@@ -4,7 +4,7 @@ import { offerMock } from '../mocks/offer-mock'
 import { offerSnapshotMock } from '../mocks/offer-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
-describe('offerDataConverter', () => {
+describe('converters - offerDataConverter', () => {
   it('from Firestore conversion', () => {
     const offerSnapshot = offerSnapshotMock['LyCfl6Eg7JKuD7XJ6IPi']!
     const offer = offerMock['LyCfl6Eg7JKuD7XJ6IPi']

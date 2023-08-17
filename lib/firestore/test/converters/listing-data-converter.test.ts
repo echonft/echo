@@ -4,7 +4,7 @@ import { listingMock } from '../mocks/listing-mock'
 import { listingSnapshotMock } from '../mocks/listing-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
-describe('listingDataConverter', () => {
+describe('converters - listingDataConverter', () => {
   it('from Firestore conversion', () => {
     const listingSnapshot = listingSnapshotMock['jUzMtPGKM62mMhEcmbN4']!
     const listing = listingMock['jUzMtPGKM62mMhEcmbN4']

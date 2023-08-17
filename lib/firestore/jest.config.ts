@@ -10,7 +10,10 @@ const config: Config = {
     '!<rootDir>/src/**/__tests__/**',
     '!<rootDir>/src/**/__mocks__/**'
   ],
+  coverageDirectory: '<rootDir>/../../.coverage/lib/firestore',
   coverageReporters: ['json-summary', 'text'],
+  maxConcurrency: 1,
+  maxWorkers: 1,
   reporters: [
     'default',
     [
@@ -20,7 +23,6 @@ const config: Config = {
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/firestore',
   testTimeout: 30000
 }
 export default config

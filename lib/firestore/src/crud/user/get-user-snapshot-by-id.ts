@@ -1,16 +1,14 @@
 import { CollectionName } from '../../constants/collection-name'
 import { userDataConverter } from '../../converters/user-data-converter'
-import { firestore } from '../../services/firestore'
 import { User } from '../../types/model/user'
-import { Wallet } from '../../types/model/wallet'
-import { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
+import { firestore } from 'firebase-admin'
+import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 
-export const findUserByWallet = async (wallet: Wallet) => {
-  // wallet DocumentData is the same as the model so we don't need to convert it
+export const getUserSnapshotById = async (id: string) => {
   const querySnapshot = await firestore()
     .collection(CollectionName.USERS)
-    .where('wallets', 'array-contains', wallet)
+    .where('id', '==', id)
     .withConverter(userDataConverter)
     .get()
 
@@ -23,5 +21,5 @@ export const findUserByWallet = async (wallet: Wallet) => {
     return Promise.reject('user not found')
   }
 
-  return documentSnapshot.data()
+  return documentSnapshot
 }

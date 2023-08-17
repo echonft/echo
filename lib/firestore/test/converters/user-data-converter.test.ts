@@ -4,7 +4,7 @@ import { userMock } from '../mocks/user-mock'
 import { userSnapshotMock } from '../mocks/user-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
-describe('userDataConverter', () => {
+describe('converters - userDataConverter', () => {
   it('from Firestore conversion', () => {
     const userSnapshot = userSnapshotMock['6rECUMhevHfxABZ1VNOm']!
     const user = userMock['6rECUMhevHfxABZ1VNOm']

@@ -4,7 +4,7 @@ import { nftMock } from '../mocks/nft-mock'
 import { nftSnapshotMock } from '../mocks/nft-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
-describe('nftDataConverter', () => {
+describe('converters - nftDataConverter', () => {
   it('from Firestore conversion', () => {
     const nftSnapshot = nftSnapshotMock['8hHFadIrrooORfTOLkBg']!
     const nft = nftMock['8hHFadIrrooORfTOLkBg']

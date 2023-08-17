@@ -4,7 +4,7 @@ import { swapMock } from '../mocks/swap-mock'
 import { swapSnapshotMock } from '../mocks/swap-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
-describe('swapDataConverter', () => {
+describe('converters - swapDataConverter', () => {
   it('from Firestore conversion', () => {
     const swapSnapshot = swapSnapshotMock['hS6KtAJ03bSolumoHvDJ']!
     const swap = swapMock['hS6KtAJ03bSolumoHvDJ']

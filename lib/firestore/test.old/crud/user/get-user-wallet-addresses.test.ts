@@ -1,4 +1,4 @@
-import { getUserWalletAddresses } from '../../../src/crud/user/get-user-wallet-addresses'
+import { getUserWalletAddresses } from '../../../src/helpers/user/get-user-wallet-addresses'
 import { userFirestoreData } from '../../mocks/user/user-firestore-data'
 import { describe, expect, it } from '@jest/globals'
 
