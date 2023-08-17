@@ -1,11 +1,14 @@
+import { newOfferState } from '../../services/state'
 import { Nft } from '../../types/nft'
 import { User } from '../../types/user'
 import { NewOfferBottomSliderAssetsContainer } from './new-offer-bottom-slider-assets-container'
 import { NewOfferBottomSliderReceiverContainer } from './new-offer-bottom-slider-receiver-container'
 import { isNilOrEmpty } from '@echo/utils'
+import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
+import { useRecoilState } from 'recoil'
 
 interface Props {
   receiver: User
@@ -27,6 +30,7 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
   onRemoveReceiverAsset
 }) => {
   const t = useTranslations('offer.new.bottomSlider')
+  const [, setModalState] = useRecoilState(newOfferState)
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('pt-6', 'pb-1')}>
@@ -48,12 +52,13 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
         onRemove={onRemoveSenderAsset}
       />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6')}>
-        <button
+        <Disclosure.Button
           className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')}
           disabled={isNilOrEmpty(receiverAssets) || isNilOrEmpty(senderAssets)}
+          onClick={() => setModalState('TO CONFIRM')}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalize')}</span>
-        </button>
+        </Disclosure.Button>
       </div>
     </div>
   )

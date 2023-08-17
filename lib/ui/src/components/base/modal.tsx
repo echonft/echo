@@ -13,7 +13,7 @@ interface Props {
 export const Modal: FunctionComponent<Props> = ({ open, onClose, renderTitle, renderDescription }) => {
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog open={open} onClose={onClose}>
+      <Dialog as={'div'} className={clsx('relative z-10')} onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -62,8 +62,8 @@ export const Modal: FunctionComponent<Props> = ({ open, onClose, renderTitle, re
                     </span>
                   </button>
                 </div>
-                {renderTitle && <Dialog.Title>{renderTitle()}</Dialog.Title>}
-                {renderDescription && <Dialog.Description>{renderDescription()}</Dialog.Description>}
+                {renderTitle && <Dialog.Title as={Fragment}>{renderTitle()}</Dialog.Title>}
+                {renderDescription && <Dialog.Description as={Fragment}>{renderDescription()}</Dialog.Description>}
               </Dialog.Panel>
             </Transition.Child>
           </div>
