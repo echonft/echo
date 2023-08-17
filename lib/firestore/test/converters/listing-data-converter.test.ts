@@ -8,12 +8,12 @@ describe('listingDataConverter', () => {
   it('from Firestore conversion', () => {
     const listingSnapshot = listingSnapshotMock['jUzMtPGKM62mMhEcmbN4']!
     const listing = listingMock['jUzMtPGKM62mMhEcmbN4']
-    expect(listingDataConverter.fromFirestore(listingSnapshot)).toEqual(listing)
+    expect(listingDataConverter.fromFirestore(listingSnapshot)).toStrictEqual(listing)
   })
 
   it('to Firestore conversion', () => {
     const listing = listingMock['jUzMtPGKM62mMhEcmbN4']!
     const listingDocumentData = listingDocumentDataMock['jUzMtPGKM62mMhEcmbN4']
-    expect(listingDataConverter.toFirestore(listing)).toEqual(listingDocumentData)
+    expect(listingDataConverter.toFirestore(listing)).toStrictEqual(listingDocumentData)
   })
 })

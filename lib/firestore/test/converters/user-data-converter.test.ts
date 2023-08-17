@@ -8,12 +8,12 @@ describe('userDataConverter', () => {
   it('from Firestore conversion', () => {
     const userSnapshot = userSnapshotMock['6rECUMhevHfxABZ1VNOm']!
     const user = userMock['6rECUMhevHfxABZ1VNOm']
-    expect(userDataConverter.fromFirestore(userSnapshot)).toEqual(user)
+    expect(userDataConverter.fromFirestore(userSnapshot)).toStrictEqual(user)
   })
 
   it('to Firestore conversion', () => {
     const user = userMock['6rECUMhevHfxABZ1VNOm']!
     const userDocumentData = userDocumentDataMock['6rECUMhevHfxABZ1VNOm']
-    expect(userDataConverter.toFirestore(user)).toEqual(userDocumentData)
+    expect(userDataConverter.toFirestore(user)).toStrictEqual(userDocumentData)
   })
 })

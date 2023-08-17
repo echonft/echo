@@ -2,18 +2,18 @@ import { ContractDocumentData } from './contract-document-data'
 import { DiscordGuildDocumentData } from './discord-guild-document-data'
 
 export interface NftCollectionDocumentData {
-  bannerUrl: string | undefined
-  blurUrl: string | undefined
+  bannerUrl?: string
+  blurUrl?: string
   contract: ContractDocumentData
   description: string
   discordGuild: DiscordGuildDocumentData
-  discordUrl: string | undefined
-  floorPrice: number | undefined
+  discordUrl?: string
+  floorPrice?: number
   name: string
-  openSeaUrl: string | undefined
-  profilePictureUrl: string | undefined
+  openSeaUrl?: string
+  profilePictureUrl?: string
   slug: string
-  totalSupply: number | undefined
-  twitterUsername: string | undefined
-  websiteUrl: string | undefined
+  totalSupply?: number
+  twitterUsername?: string
+  websiteUrl?: string
 }

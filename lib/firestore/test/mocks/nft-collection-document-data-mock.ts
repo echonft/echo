@@ -24,9 +24,7 @@ export const nftCollectionDocumentDataMock: { [key: string]: NftCollectionDocume
     profilePictureUrl:
       'https://i.seadn.io/gae/R3b_Ju-BF7Ae45pp1f7UxCS5wF06dfFG7ydux_v9S8lJ7CL3j4kgv7a0nM4yVw-GhOH21ZigeaNluK-nuo6Dclq9LdQYH2Cvj8PfMQ?w=500&auto=format',
     totalSupply: 1077,
-    websiteUrl: 'https://pxmythics.io/',
-    blurUrl: undefined,
-    twitterUsername: undefined
+    websiteUrl: 'https://pxmythics.io/'
   },
   '1aomCtnoesD7WVll6Yi1': {
     bannerUrl:

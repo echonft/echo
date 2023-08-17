@@ -13,14 +13,12 @@ export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
     ],
     discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
     discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
-    nonce: undefined,
     wallets: [
       {
         address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
         chainId: 1
       }
-    ],
-    updatedAt: undefined
+    ]
   },
   oE6yUEQBPn7PZ89yMjKn: {
     id: 'oE6yUEQBPn7PZ89yMjKn',
@@ -37,7 +35,6 @@ export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
       }
     ],
     discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-    discordBanner: undefined,
     nonce: 'nonce',
     wallets: [
       {
@@ -56,7 +53,6 @@ export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1
       }
-    ],
-    updatedAt: undefined
+    ]
   }
 }

@@ -1,5 +1,5 @@
 export interface ActivityDocumentData {
   date: number
-  fromState: string | undefined
+  fromState?: string
   toState: string
 }

@@ -1,4 +1,4 @@
-import { getSnapshotData } from '../helpers/converters/get-snapshot-data'
+import { getSnapshotData } from '../helpers/converters/from-firestore/get-snapshot-data'
 import { FirestoreModel } from '../types/abstract/firestore-model'
 import { NftCollection } from '../types/model/nft-collection'
 import { NftCollectionDocumentData } from '../types/model/nft-collection-document-data'

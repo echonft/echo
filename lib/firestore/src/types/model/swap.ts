@@ -9,5 +9,6 @@ export interface Swap {
   createdAt: Dayjs
   expiresAt: Dayjs
   offer: Offer
+  postedAt: Dayjs | undefined
   state: SwapState
 }

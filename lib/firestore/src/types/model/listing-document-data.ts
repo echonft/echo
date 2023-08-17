@@ -14,7 +14,7 @@ export interface ListingDocumentData {
   expiresAt: number
   items: OfferItemDocumentData[]
   offers: OfferDocumentData[]
-  postedAt: number | undefined
+  postedAt?: number
   state: ListingState
   swaps: SwapDocumentData[]
   targets: ListingTargetDocumentData[]

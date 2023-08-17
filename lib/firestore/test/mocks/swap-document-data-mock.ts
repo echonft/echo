@@ -7,7 +7,6 @@ export const swapDocumentDataMock: { [key: string]: SwapDocumentData } = {
     activities: [
       {
         date: 1676984897,
-        fromState: undefined,
         toState: 'PENDING_APPROVALS'
       }
     ],

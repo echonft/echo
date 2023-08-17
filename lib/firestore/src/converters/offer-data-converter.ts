@@ -1,4 +1,4 @@
-import { getSnapshotData } from '../helpers/converters/get-snapshot-data'
+import { getSnapshotData } from '../helpers/converters/from-firestore/get-snapshot-data'
 import { FirestoreModel } from '../types/abstract/firestore-model'
 import { Offer } from '../types/model/offer'
 import { OfferDocumentData } from '../types/model/offer-document-data'

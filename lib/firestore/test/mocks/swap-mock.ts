@@ -14,6 +14,7 @@ export const swapMock: { [key: string]: Swap } = {
     ],
     createdAt: dayjs.unix(1676984897),
     expiresAt: dayjs.unix(1676984897),
+    postedAt: undefined,
     offer: offerMock['LyCfl6Eg7JKuD7XJ6IPi']!,
     state: 'PENDING_APPROVALS'
   }

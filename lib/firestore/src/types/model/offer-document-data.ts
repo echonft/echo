@@ -8,11 +8,11 @@ export interface OfferDocumentData {
   activities: ActivityDocumentData[]
   createdAt: number
   expiresAt: number
-  postedAt: number | undefined
+  postedAt?: number
   receiver: UserDetailsDocumentData
   receiverItems: OfferItemDocumentData[]
   sender: UserDetailsDocumentData
   senderItems: OfferItemDocumentData[]
   state: OfferState
-  threadId: string | undefined
+  threadId?: string
 }

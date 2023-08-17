@@ -5,11 +5,11 @@ import { UserDetailsDocumentData } from './user-details-document-data'
 
 export interface NftDocumentData {
   attributes: NftAttributeDocumentData[]
-  balance: number | undefined
-  blurUrl: string | undefined
+  balance?: number
+  blurUrl?: string
   collection: NftCollectionDocumentData
   name: string
-  openSeaUrl: string | undefined
+  openSeaUrl?: string
   owner: UserDetailsDocumentData
   pictureUrl: string
   thumbnailUrl: string

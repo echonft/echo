@@ -106,8 +106,9 @@
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
     },
-    "@echo/firebase-admin#build": {
+    "@echo/firestore#build": {
       "dependsOn": ["^build"],
+      "env": ["NODE_ENV"],
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
     },

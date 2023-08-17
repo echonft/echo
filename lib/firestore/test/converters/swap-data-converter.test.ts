@@ -8,12 +8,12 @@ describe('swapDataConverter', () => {
   it('from Firestore conversion', () => {
     const swapSnapshot = swapSnapshotMock['hS6KtAJ03bSolumoHvDJ']!
     const swap = swapMock['hS6KtAJ03bSolumoHvDJ']
-    expect(swapDataConverter.fromFirestore(swapSnapshot)).toEqual(swap)
+    expect(swapDataConverter.fromFirestore(swapSnapshot)).toStrictEqual(swap)
   })
 
   it('to Firestore conversion', () => {
     const swap = swapMock['hS6KtAJ03bSolumoHvDJ']!
     const swapDocumentData = swapDocumentDataMock['hS6KtAJ03bSolumoHvDJ']
-    expect(swapDataConverter.toFirestore(swap)).toEqual(swapDocumentData)
+    expect(swapDataConverter.toFirestore(swap)).toStrictEqual(swapDocumentData)
   })
 })

@@ -8,5 +8,6 @@ export interface SwapDocumentData {
   createdAt: number
   expiresAt: number
   offer: OfferDocumentData
+  postedAt?: number
   state: SwapState
 }

@@ -3,12 +3,12 @@ import { WalletDocumentData } from './wallet-document-data'
 
 export interface UserDocumentData {
   id: string
-  discordAvatar: string | undefined
-  discordBanner: string | undefined
+  discordAvatar?: string
+  discordBanner?: string
   discordGuilds: DiscordGuildDocumentData[]
   discordId: string
   discordUsername: string
-  nonce: string | undefined
-  updatedAt: number | undefined
+  nonce?: string
+  updatedAt?: number
   wallets: WalletDocumentData[]
 }

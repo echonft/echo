@@ -1,4 +1,4 @@
-import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
+import { FirestoreSnapshot } from '../../../types/abstract/firestore-snapshot'
 import { DocumentData } from 'firebase-admin/firestore'
 
 export const getSnapshotData = <T extends DocumentData>(snapshot: FirestoreSnapshot<T>): T => {

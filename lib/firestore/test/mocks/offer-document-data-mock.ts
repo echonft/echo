@@ -4,7 +4,7 @@ import { nftDocumentDataMock } from './nft-document-data-mock'
 export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
-    activities: [{ date: 1676984897, fromState: undefined, toState: 'OPEN' }],
+    activities: [{ date: 1676984897, toState: 'OPEN' }],
     createdAt: 1676984897,
     expiresAt: 1676984897,
     receiver: {
@@ -12,7 +12,6 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-      discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1
@@ -32,7 +31,6 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
     },
     senderItems: [{ amount: 1, ...nftDocumentDataMock['QFjMRNChUAHNswkRADXh']! }],
     state: 'OPEN',
-    threadId: '1231',
-    postedAt: undefined
+    threadId: '1231'
   }
 }

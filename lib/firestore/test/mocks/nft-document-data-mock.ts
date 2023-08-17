@@ -22,7 +22,6 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-      discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1
@@ -46,7 +45,6 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-      discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1
@@ -58,7 +56,6 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
     thumbnailUrl:
       'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
     tokenId: 17,
-    tokenType: 'ERC721',
-    blurUrl: undefined
+    tokenType: 'ERC721'
   }
 }
