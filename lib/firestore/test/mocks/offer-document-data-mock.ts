@@ -1,52 +1,40 @@
-import { OfferDocumentData } from '../../src/types/model/document-data/offer-document-data'
-import { discordGuildReferenceMock } from './discord-guild-reference-mock'
+import { OfferDocumentData } from '../../src/types/model/offer-document-data'
 import { nftDocumentDataMock } from './nft-document-data-mock'
-import { nftReferenceMock } from './nft-reference-mock'
-import { userDocumentDataMock } from './user-document-data-mock'
-import { userReferenceMock } from './user-reference-mock'
 
 export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
-    activities: [{ date: 1676984897, toState: 'OPEN' }],
+    id: 'LyCfl6Eg7JKuD7XJ6IPi',
+    activities: [{ date: 1676984897, fromState: undefined, toState: 'OPEN' }],
     createdAt: 1676984897,
-    discordGuild: discordGuildReferenceMock['xA40abnyBq6qQHSYmtHj']!,
     expiresAt: 1676984897,
-    receiver: userReferenceMock['oE6yUEQBPn7PZ89yMjKn']!,
-    receiverDiscordAvatar: userDocumentDataMock['oE6yUEQBPn7PZ89yMjKn']!.discordAvatar,
-    receiverDiscordId: userDocumentDataMock['oE6yUEQBPn7PZ89yMjKn']!.discordId,
-    receiverDiscordUsername: userDocumentDataMock['oE6yUEQBPn7PZ89yMjKn']!.discordUsername,
-    receiverItems: [nftReferenceMock['8hHFadIrrooORfTOLkBg']!],
-    receiverItemsDetails: [
-      {
-        amount: 1,
-        blurUrl: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']!.blurUrl,
-        collectionName: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']!.collectionName,
-        name: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']!.name,
-        openSeaUrl: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']!.openSeaUrl,
-        ownerWallet: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']!.ownerWallet,
-        pictureUrl: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']!.pictureUrl,
-        thumbnailUrl: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']!.thumbnailUrl,
-        tokenId: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']!.tokenId
+    receiver: {
+      id: 'user1',
+      discordId: '462798252543049728',
+      discordUsername: 'johnnycage#0890',
+      discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      discordBanner: undefined,
+      wallet: {
+        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        addressLowercase: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e',
+        chainId: 1
       }
-    ],
-    sender: userReferenceMock['6rECUMhevHfxABZ1VNOm']!,
-    senderDiscordAvatar: userDocumentDataMock['6rECUMhevHfxABZ1VNOm']!.discordAvatar,
-    senderDiscordId: userDocumentDataMock['6rECUMhevHfxABZ1VNOm']!.discordId,
-    senderDiscordUsername: userDocumentDataMock['6rECUMhevHfxABZ1VNOm']!.discordUsername,
-    senderItems: [nftReferenceMock['QFjMRNChUAHNswkRADXh']!],
-    senderItemsDetails: [
-      {
-        amount: 1,
-        collectionName: nftDocumentDataMock['QFjMRNChUAHNswkRADXh']!.collectionName,
-        name: nftDocumentDataMock['QFjMRNChUAHNswkRADXh']!.name,
-        openSeaUrl: nftDocumentDataMock['QFjMRNChUAHNswkRADXh']!.openSeaUrl,
-        ownerWallet: nftDocumentDataMock['QFjMRNChUAHNswkRADXh']!.ownerWallet,
-        pictureUrl: nftDocumentDataMock['QFjMRNChUAHNswkRADXh']!.pictureUrl,
-        thumbnailUrl: nftDocumentDataMock['QFjMRNChUAHNswkRADXh']!.thumbnailUrl,
-        tokenId: nftDocumentDataMock['QFjMRNChUAHNswkRADXh']!.tokenId
+    },
+    receiverItems: [{ amount: 1, ...nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! }],
+    sender: {
+      id: 'user2',
+      discordId: '884593489189433364',
+      discordUsername: 'crewNFT_#2034',
+      discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
+      discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
+      wallet: {
+        address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
+        addressLowercase: '0xf672715f2ba85794659a7150e8c21f8d157bfe1d',
+        chainId: 1
       }
-    ],
+    },
+    senderItems: [{ amount: 1, ...nftDocumentDataMock['QFjMRNChUAHNswkRADXh']! }],
     state: 'OPEN',
-    threadId: '1231'
+    threadId: '1231',
+    postedAt: undefined
   }
 }

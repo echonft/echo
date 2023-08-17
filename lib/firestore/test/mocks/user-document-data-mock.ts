@@ -1,41 +1,45 @@
-import { UserDocumentData } from '../../src/types/model/document-data/user-document-data'
-import { discordGuildReferenceMock } from './discord-guild-reference-mock'
+import { UserDocumentData } from '../../src/types/model/user-document-data'
 
 export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
   '6rECUMhevHfxABZ1VNOm': {
+    id: '6rECUMhevHfxABZ1VNOm',
     discordId: '884593489189433364',
     discordUsername: 'crewNFT_#2034',
-    discordGuilds: [discordGuildReferenceMock['Y8GBFtPZKElp44z0k10D']!],
+    discordGuilds: [
+      {
+        discordId: '100',
+        channelId: '100'
+      }
+    ],
     discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
     discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
+    nonce: undefined,
     wallets: [
       {
         address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
         addressLowercase: '0xf672715f2ba85794659a7150e8c21f8d157bfe1d',
         chainId: 1
       }
-    ]
-  },
-  '9tPlFOv1XkR3ng7KI46B': {
-    discordId: '462798252543049728',
-    discordUsername: 'johnnycage#0890',
-    discordGuilds: [
-      discordGuildReferenceMock['xA40abnyBq6qQHSYmtHj']!,
-      discordGuildReferenceMock['ncUnbpFfVCofV9bD7ctn']!
     ],
-    discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-    discordBanner: undefined,
-    wallets: []
+    updatedAt: undefined
   },
   oE6yUEQBPn7PZ89yMjKn: {
+    id: 'oE6yUEQBPn7PZ89yMjKn',
     discordId: '462798252543049728',
     discordUsername: 'johnnycage#0890',
     discordGuilds: [
-      discordGuildReferenceMock['xA40abnyBq6qQHSYmtHj']!,
-      discordGuildReferenceMock['ncUnbpFfVCofV9bD7ctn']!
+      {
+        discordId: '100',
+        channelId: '100'
+      },
+      {
+        discordId: '1',
+        channelId: '1'
+      }
     ],
     discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
     discordBanner: undefined,
+    nonce: 'nonce',
     wallets: [
       {
         address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',
@@ -57,22 +61,7 @@ export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
         addressLowercase: '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e',
         chainId: 1
       }
-    ]
-  },
-  xUcl0enoVsuvpsAf9syg: {
-    discordId: '460255274461167616',
-    discordUsername: 'gabeyc#0',
-    discordGuilds: [
-      discordGuildReferenceMock['xA40abnyBq6qQHSYmtHj']!,
-      discordGuildReferenceMock['ncUnbpFfVCofV9bD7ctn']!
     ],
-    discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-    wallets: [
-      {
-        address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
-        addressLowercase: '0xf672715f2ba85794659a7150e8c21f8d157bfe1d',
-        chainId: 1
-      }
-    ]
+    updatedAt: undefined
   }
 }
