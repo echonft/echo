@@ -1,12 +1,10 @@
 import { CollectionName } from '../../constants/collection-name'
-import { convertUser } from '../../converters/user/convert-user'
-import { getCollectionDocs } from '../../helpers/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
-import { FirestoreUserData } from '../../types/model/data/user/firestore-user-data'
-import { promiseAll } from '@echo/utils'
-import { andThen, map, pipe } from 'ramda'
+import { userDataConverter } from '../../converters/user-data-converter'
+import { firestore } from '../../services/firestore'
+import { User } from '../../types/model/user'
+import { map } from 'ramda'
 
-export const getAllUsers = (): Promise<FirestoreUserData[]> =>
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  pipe(getCollectionFromPath, getCollectionDocs, andThen(pipe(map(convertUser), promiseAll)))(CollectionName.USERS)
+export const getAllUsers = async (): Promise<User[]> => {
+  const querySnapshot = await firestore().collection(CollectionName.USERS).withConverter(userDataConverter).get()
+  return map((doc) => doc.data(), querySnapshot.docs)
+}

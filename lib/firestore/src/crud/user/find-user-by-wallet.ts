@@ -1,16 +1,20 @@
 import { CollectionName } from '../../constants/collection-name'
-import { convertUser } from '../../converters/user/convert-user'
-import { getCollectionDocs } from '../../helpers/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
-import { whereCollection } from '../../helpers/collection/where-collection'
-import { FirestoreWallet } from '../../types/model/collections/user/firestore-wallet'
-import { errorPromise, isNilOrEmpty } from '@echo/utils'
-import { andThen, head, ifElse, pipe } from 'ramda'
+import { userDataConverter } from '../../converters/user-data-converter'
+import { walletDocumentDataConverter } from '../../converters/wallet-document-data-converter'
+import { firestore } from '../../services/firestore'
+import { Wallet } from '../../types/model/wallet'
 
-export const findUserByWallet = (wallet: FirestoreWallet) =>
-  pipe(
-    getCollectionFromPath,
-    whereCollection('wallets', 'array-contains', wallet),
-    getCollectionDocs,
-    andThen(ifElse(isNilOrEmpty, errorPromise('User not found'), pipe(head, convertUser)))
-  )(CollectionName.USERS)
+export const findUserByWallet = async (wallet: Wallet) => {
+  const walletDocumentData = walletDocumentDataConverter.toFirestore(wallet)
+  const querySnapshot = await firestore()
+    .collection(CollectionName.USERS)
+    .where('wallets', 'array-contains', walletDocumentData)
+    .withConverter(userDataConverter)
+    .get()
+
+  if (querySnapshot.empty) {
+    return Promise.reject('user not found')
+  }
+
+  return querySnapshot.docs[0]!.data()
+}

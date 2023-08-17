@@ -1,5 +1,5 @@
 import { CollectionName } from '../../../src/constants/collection-name'
-import { addRequestForOffer } from '../../../src/crud/request-for-offer/add-request-for-offer'
+import { addRequestForOffer } from '../../../src/crud/listing/add-request-for-offer'
 import { getDocSnapshot } from '../../../src/helpers/document/get-doc-snapshot'
 import { setDocAndReturnSnapshot } from '../../../src/helpers/document/set-doc-and-return-snapshot'
 import { requestForOfferFirestoreData } from '../../mocks/request-for-offer/request-for-offer-firestore-data'

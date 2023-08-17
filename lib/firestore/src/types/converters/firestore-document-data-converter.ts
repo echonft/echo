@@ -1,6 +1,6 @@
-import { PartialWithFieldValue, WithFieldValue } from 'firebase-admin/lib/firestore'
+import { FirestoreModel } from '../abstract/firestore-model'
 
 export interface FirestoreDocumentDataConverter<T, U> {
-  toFirestore: (modelObject: PartialWithFieldValue<U> | WithFieldValue<U>) => T
+  toFirestore: (modelObject: FirestoreModel<U>) => T
   fromFirestore: (documentData: T) => U
 }

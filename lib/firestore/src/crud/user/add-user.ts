@@ -1,16 +1,10 @@
-import { buildUser } from '../../builders/user/build-user'
 import { CollectionName } from '../../constants/collection-name'
-import { convertUser } from '../../converters/user/convert-user'
-import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
-import { setDocAndReturnSnapshot } from '../../helpers/document/set-doc-and-return-snapshot'
-import { FirestoreUserData } from '../../types/model/data/user/firestore-user-data'
-import { FirestoreUserPrototype } from '../../types/prototypes/user/firestore-user-prototype'
-import { andThen, partial, pipe } from 'ramda'
+import { userDataConverter } from '../../converters/user-data-converter'
+import { firestore } from '../../services/firestore'
+import { User } from '../../types/model/user'
+import { WriteResult } from 'firebase-admin/firestore'
 
-export const addUser: (userPrototype: FirestoreUserPrototype) => Promise<FirestoreUserData> = pipe(
-  buildUser,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  andThen(partial(setDocAndReturnSnapshot, [getCollectionFromPath(CollectionName.USERS).doc()])),
-  andThen(convertUser)
-)
+export const addUser = (user: Omit<User, 'id'>): Promise<WriteResult> => {
+  const userReference = firestore().collection(CollectionName.USERS).doc()
+  return userReference.withConverter(userDataConverter).set({ ...user, id: userReference.id })
+}
