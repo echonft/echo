@@ -12,7 +12,7 @@ interface Props {
   receiver: User
 }
 
-export const OfferBottomSliderReceiverContainer: FunctionComponent<Props> = ({ receiver }) => {
+export const NewOfferBottomSliderReceiverContainer: FunctionComponent<Props> = ({ receiver }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-5')}>
       <UserProfilePicture

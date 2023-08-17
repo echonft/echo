@@ -1,9 +1,10 @@
 import { Nft } from '../../types/nft'
 import { NftThumbnailOffer } from '../nft/nft-thumbnail-offer'
-import { NftThumbnailOfferAddMore } from '../nft/nft-thumbnail-offer-add-more'
-import { OfferBottomSliderAssetsTitle } from './offer-bottom-slider-assets-title'
-import { OfferBottomSliderEmptyAssets } from './offer-bottom-slider-empty-assets'
+import { NewOfferAddMoreButton } from './new-offer-add-more-button'
+import { NewOfferAssetsTitle } from './new-offer-assets-title'
+import { NewOfferEmptyAssets } from './new-offer-empty-assets'
 import clsx from 'clsx'
+import { useTranslations } from 'next-intl'
 import { isEmpty } from 'ramda'
 import { FunctionComponent } from 'react'
 
@@ -14,25 +15,25 @@ interface Props {
   onRemove?: (nft: Nft) => void
 }
 
-export const OfferBottomSliderAssetsContainer: FunctionComponent<Props> = ({
+export const NewOfferBottomSliderAssetsContainer: FunctionComponent<Props> = ({
   isReceiver,
   assets = [],
   onAddMore,
   onRemove
 }) => {
+  const t = useTranslations('offer.new.misc')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-11')}>
-      <OfferBottomSliderAssetsTitle isReceiver={isReceiver} />
-      {/* We need to force height in case there is only the add more button */}
+      <NewOfferAssetsTitle isReceiver={isReceiver} title={t(isReceiver ? 'assetsInTitle' : 'assetsOutTitle')} />
       <div className={clsx('flex', 'flex-row', 'gap-4')}>
         {isEmpty(assets) ? (
-          <OfferBottomSliderEmptyAssets onAddMore={onAddMore} />
+          <NewOfferEmptyAssets onAddMore={onAddMore} />
         ) : (
           <>
             {assets.map((nft) => (
               <NftThumbnailOffer nft={nft} key={nft.id} onRemove={onRemove} />
             ))}
-            <NftThumbnailOfferAddMore onClick={onAddMore} />)
+            <NewOfferAddMoreButton onClick={onAddMore} />)
           </>
         )}
       </div>

@@ -4,12 +4,13 @@ import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
 interface Props extends PropsWithChildren {
+  defaultOpen?: boolean
   renderTitle?: () => ReactNode
 }
 
-export const BottomSlider: FunctionComponent<Props> = ({ renderTitle, children }) => {
+export const BottomSlider: FunctionComponent<Props> = ({ defaultOpen, renderTitle, children }) => {
   return (
-    <Disclosure>
+    <Disclosure defaultOpen={defaultOpen ?? false}>
       <div className={clsx('fixed', 'bottom-0', 'right-2', 'bg-main-gradient', 'rounded-t-md')}>
         <div
           className={clsx('flex', 'flex-col', 'py-3', 'pl-5', 'pr-2.5', 'm-0.5', 'mb-0', 'bg-dark-500', 'rounded-t-md')}

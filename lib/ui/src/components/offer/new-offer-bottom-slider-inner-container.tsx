@@ -1,7 +1,7 @@
 import { Nft } from '../../types/nft'
 import { User } from '../../types/user'
-import { OfferBottomSliderAssetsContainer } from './offer-bottom-slider-assets-container'
-import { OfferBottomSliderReceiverContainer } from './offer-bottom-slider-receiver-container'
+import { NewOfferBottomSliderAssetsContainer } from './new-offer-bottom-slider-assets-container'
+import { NewOfferBottomSliderReceiverContainer } from './new-offer-bottom-slider-receiver-container'
 import { isNilOrEmpty } from '@echo/utils'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -17,7 +17,7 @@ interface Props {
   onRemoveReceiverAsset?: (nft: Nft) => void
 }
 
-export const OfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
+export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
   receiver,
   receiverAssets,
   senderAssets = [],
@@ -26,14 +26,14 @@ export const OfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
   onAddMoreReceiverAsset,
   onRemoveReceiverAsset
 }) => {
-  const t = useTranslations('offer.bottomSlider')
+  const t = useTranslations('offer.new.bottomSlider')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('pt-6', 'pb-1')}>
-        <OfferBottomSliderReceiverContainer receiver={receiver} />
+        <NewOfferBottomSliderReceiverContainer receiver={receiver} />
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-8')}>
-        <OfferBottomSliderAssetsContainer
+        <NewOfferBottomSliderAssetsContainer
           isReceiver
           assets={receiverAssets}
           onAddMore={onAddMoreReceiverAsset}
@@ -41,7 +41,7 @@ export const OfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
         />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
       </div>
-      <OfferBottomSliderAssetsContainer
+      <NewOfferBottomSliderAssetsContainer
         isReceiver={false}
         assets={senderAssets}
         onAddMore={onAddMoreSenderAsset}
@@ -49,7 +49,7 @@ export const OfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
       />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6')}>
         <button
-          className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-[9.875rem]', 'py-1.5', '!h-10')}
+          className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')}
           disabled={isNilOrEmpty(receiverAssets) || isNilOrEmpty(senderAssets)}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalize')}</span>

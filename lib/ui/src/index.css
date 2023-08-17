@@ -151,7 +151,7 @@
         @apply btn border border-solid border-transparent bg-main-gradient bg-origin-border enabled:hover:bg-main-gradient/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700 disabled:bg-main-gradient/40
     }
     .btn-action {
-        @apply btn bg-purple-300
+        @apply btn bg-purple-400
     }
     .btn-label {
         @apply h-max w-max truncate

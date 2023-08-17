@@ -53,14 +53,25 @@ export const messages = {
     }
   },
   offer: {
-    bottomSlider: {
-      title: 'Offer overview',
-      assetsIn: 'Going in',
-      assetsOut: 'Going out',
-      add: 'Add more',
-      finalize: 'Finalize offer',
-      noNftsTitle: 'No NFTs selected yet',
-      noNftsButton: 'Select NFTs now'
+    new: {
+      misc: {
+        assetsInSubtitle: 'Your assets',
+        assetsInTitle: 'Going out',
+        assetsOutSubtitle: "Counterparty's assets",
+        assetsOutTitle: 'Going in'
+      },
+      bottomSlider: {
+        title: 'Offer overview',
+        add: 'Add more',
+        finalize: 'Finalize offer',
+        noNftsTitle: 'No NFTs selected yet',
+        noNftsButton: 'Select NFTs now'
+      },
+      confirmationModal: {
+        title: 'Confirm Offer',
+        confirmButton: 'Confirm',
+        editButton: 'Edit'
+      }
     }
   },
   user: {

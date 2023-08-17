@@ -1,15 +1,14 @@
 import { DirectionLeft, DirectionRight } from '../../types/direction'
 import { SideCaretSvg } from '../base/svg/side-caret-svg'
 import { clsx } from 'clsx'
-import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 interface Props {
   isReceiver: boolean
+  title: string
 }
 
-export const OfferBottomSliderAssetsTitle: FunctionComponent<Props> = ({ isReceiver }) => {
-  const t = useTranslations('offer.bottomSlider')
+export const NewOfferAssetsTitle: FunctionComponent<Props> = ({ isReceiver, title }) => {
   return (
     <div className={clsx('flex', 'gap-2', 'items-center')}>
       <span
@@ -25,7 +24,7 @@ export const OfferBottomSliderAssetsTitle: FunctionComponent<Props> = ({ isRecei
       >
         <SideCaretSvg direction={isReceiver ? DirectionRight : DirectionLeft} />
       </span>
-      <span className={clsx('prose-label-lg', 'text-white')}>{t(isReceiver ? 'assetsIn' : 'assetsOut')}</span>
+      <span className={clsx('prose-label-lg', 'text-white')}>{title}</span>
     </div>
   )
 }

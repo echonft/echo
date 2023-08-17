@@ -1,7 +1,18 @@
 import { NewOffer } from '../types/new-offer'
+import { NewOfferState } from '../types/new-offer-state'
 import { atom } from 'recoil'
 
-export const newOfferState = atom<NewOffer>({
-  key: 'newOffer',
+export const newOfferDataState = atom<NewOffer>({
+  key: 'newOfferData',
   default: undefined
+})
+
+export const newOfferState = atom<NewOfferState>({
+  key: 'newOfferState',
+  default: 'NONE'
+})
+
+export const shouldOpenNewOfferSliderState = atom<boolean>({
+  key: 'shouldOpenNewOfferSlider',
+  default: false
 })

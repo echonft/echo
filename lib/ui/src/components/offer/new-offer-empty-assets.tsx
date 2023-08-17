@@ -7,8 +7,8 @@ interface Props {
   onAddMore?: () => void
 }
 
-export const OfferBottomSliderEmptyAssets: FunctionComponent<Props> = ({ onAddMore }) => {
-  const t = useTranslations('offer.bottomSlider')
+export const NewOfferEmptyAssets: FunctionComponent<Props> = ({ onAddMore }) => {
+  const t = useTranslations('offer.new.bottomSlider')
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-2', 'pt-8', 'items-center', 'grow')}>

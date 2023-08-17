@@ -6,8 +6,8 @@ interface Props {
   itemsSelected: number
 }
 
-export const OfferBottomSliderTitle: FunctionComponent<Props> = ({ itemsSelected }) => {
-  const t = useTranslations('offer.bottomSlider')
+export const NewOfferBottomSliderTitle: FunctionComponent<Props> = ({ itemsSelected }) => {
+  const t = useTranslations('offer.new.bottomSlider')
   return (
     <div className={clsx('flex', 'items-center', 'justify-between', 'gap-2.5')}>
       <span
