@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { updateRequestForOfferActivities } from '../../../src/crud/request-for-offer/update-request-for-offer-activities'
+import { updateRequestForOfferActivities } from '../../../src/crud/listing/update-request-for-offer-activities'
 import { getDocRefFromPath } from '../../../src/helpers/document/get-doc-ref-from-path'
 import { requestForOfferFirestoreData } from '../../mocks/request-for-offer/request-for-offer-firestore-data'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'

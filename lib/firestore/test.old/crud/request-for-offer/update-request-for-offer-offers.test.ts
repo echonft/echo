@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { CollectionName } from '../../../src/constants/collection-name'
-import { updateRequestForOfferOffers } from '../../../src/crud/request-for-offer/update-request-for-offer-offers'
+import { updateRequestForOfferOffers } from '../../../src/crud/listing/update-request-for-offer-offers'
 import { getDocRefFromPath } from '../../../src/helpers/document/get-doc-ref-from-path'
 import { offerFirestoreData } from '../../mocks/offer/offer-firestore-data'
 import { requestForOfferFirestoreData } from '../../mocks/request-for-offer/request-for-offer-firestore-data'

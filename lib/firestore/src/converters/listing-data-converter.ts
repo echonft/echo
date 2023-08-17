@@ -5,6 +5,7 @@ import { getSnapshotData } from '../helpers/converters/get-snapshot-data'
 import { modelArrayPropToDocumentDataArray } from '../helpers/converters/model-array-prop-to-document-data-array'
 import { modelPropToDocumentData } from '../helpers/converters/model-prop-to-document-data'
 import { numberPropToDate } from '../helpers/converters/number-prop-to-date'
+import { FirestoreModel } from '../types/abstract/firestore-model'
 import { Listing } from '../types/model/listing'
 import { ListingDocumentData } from '../types/model/listing-document-data'
 import { activityDocumentDataConverter } from './activity-document-data-converter'
@@ -13,13 +14,7 @@ import { offerDocumentDataConverter } from './offer-document-data-converter'
 import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
 import { swapDocumentDataConverter } from './swap-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
-import {
-  FirestoreDataConverter,
-  PartialWithFieldValue,
-  QueryDocumentSnapshot,
-  SetOptions,
-  WithFieldValue
-} from 'firebase-admin/firestore'
+import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
 export const listingDataConverter: FirestoreDataConverter<Listing> = {
@@ -41,10 +36,7 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
       documentDataArrayPropToModelArray('targets', listingTargetDocumentDataConverter)
     )(snapshot)
   },
-  toFirestore(
-    modelObject: PartialWithFieldValue<Listing> | WithFieldValue<Listing>,
-    _options?: SetOptions
-  ): ListingDocumentData {
+  toFirestore(modelObject: FirestoreModel<Listing>, _options?: SetOptions): ListingDocumentData {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return pipe(

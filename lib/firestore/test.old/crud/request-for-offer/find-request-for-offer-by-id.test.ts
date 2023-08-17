@@ -1,4 +1,4 @@
-import { findRequestForOfferById } from '../../../src/crud/request-for-offer/find-request-for-offer-by-id'
+import { findRequestForOfferById } from '../../../src/crud/listing/find-request-for-offer-by-id'
 import { getFirestoreRequestForOfferData } from '../../../src/data/request-for-offer/get-firestore-request-for-offer-data'
 import { requestForOfferFirestoreData } from '../../mocks/request-for-offer/request-for-offer-firestore-data'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'

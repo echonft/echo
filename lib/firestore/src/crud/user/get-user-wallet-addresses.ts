@@ -1,9 +1,8 @@
-import { FirestoreUserData } from '../../types/model/data/user/firestore-user-data'
-import { FirestoreWalletData } from '../../types/model/data/user/firestore-wallet-data'
+import { User } from '../../types/model/user'
+import { Wallet } from '../../types/model/wallet'
 import { map, pipe, prop } from 'ramda'
 
-// TODO Should support multi chain
-export const getUserWalletAddresses = pipe<[FirestoreUserData], FirestoreWalletData[], string[]>(
-  prop<FirestoreWalletData[]>('wallets'),
-  map<FirestoreWalletData, string>(prop<string>('address'))
+export const getUserWalletAddresses = pipe<[User], Wallet[], string[]>(
+  prop<Wallet[]>('wallets'),
+  map<Wallet, string>(prop<string>('address'))
 )
