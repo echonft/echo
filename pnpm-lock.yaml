@@ -702,7 +702,7 @@ importers:
         specifier: 18.2.19
         version: 18.2.19
       '@types/react-copy-to-clipboard':
-        specifier: ^5.0.4
+        specifier: 5.0.4
         version: 5.0.4
       '@types/react-dom':
         specifier: 18.2.7
