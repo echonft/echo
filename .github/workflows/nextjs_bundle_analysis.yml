@@ -7,18 +7,17 @@ on:
   pull_request:
   push:
     branches:
-      - main # change this if your default branch is named differently
+      - main
   workflow_dispatch:
 
 defaults:
   run:
-    # change this if your nextjs app does not live at the root of the repo
     working-directory: ./
 
 permissions:
-  contents: read # for checkout repository
-  actions: read # for fetching base branch bundle stats
-  pull-requests: write # for comments
+  contents: read
+  actions: read
+  pull-requests: write
 
 jobs:
   analyze:
