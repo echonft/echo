@@ -1,5 +1,5 @@
-import { FirestoreNftPrototype } from '@echo/firestore'
+import { Nft } from '@echo/firestore'
 
-export interface GetNftResponse extends Omit<FirestoreNftPrototype, 'collectionId' | 'ownerId'> {
+export type GetNftResponse = Omit<Nft, 'id' | 'blurUrl' | 'collection' | 'openSeaUrl' | 'owner'> & {
   contractAddress: string
 }

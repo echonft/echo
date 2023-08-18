@@ -1,17 +1,16 @@
 import { GetNftResponse } from '../types/response/get-nft-response'
 import { NftResponse } from '../types/response/nft-response'
-import { mapInt } from './map-int'
-import { applyToProp, isNilOrEmpty } from '@echo/utils'
+import { applyToProp, isNilOrEmpty, unlessNil } from '@echo/utils'
 import { always, applySpec, ifElse, map, path, pipe, prop } from 'ramda'
 
 export const mapNft: (nftResponse: NftResponse) => GetNftResponse = applySpec({
-  balance: applyToProp('balance', mapInt),
+  balance: applyToProp('balance', unlessNil(Number.parseInt)),
   contractAddress: path(['contract', 'address']),
   description: prop('description'),
   name: prop('name'),
   pictureUrl: path(['image', 'pngUrl']),
   thumbnailUrl: path(['image', 'thumbnailUrl']),
-  tokenId: applyToProp('tokenId', mapInt),
+  tokenId: applyToProp('tokenId', Number.parseInt),
   tokenType: path(['contract', 'tokenType']),
   attributes: pipe(
     path(['raw', 'metadata']),

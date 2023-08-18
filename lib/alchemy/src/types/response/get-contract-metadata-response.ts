@@ -1,6 +1,6 @@
-import { FirestoreContractPrototype, FirestoreNftCollectionPrototype } from '@echo/firestore'
+import { NftCollection } from '@echo/firestore'
 
-export interface GetContractMetadataResponse
-  extends Omit<FirestoreNftCollectionPrototype, 'discordGuildId' | 'contractId'> {
-  contract: FirestoreContractPrototype
-}
+export type GetContractMetadataResponse = Omit<
+  NftCollection,
+  'id' | 'bannerUrl' | 'blurUrl' | 'discordGuild' | 'openSeaUrl' | 'slug'
+>
