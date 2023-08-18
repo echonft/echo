@@ -1,5 +1,5 @@
-import { ConfirmationIconSvg } from '../base/svg/confirmation-icon-svg'
-import { CopyIconSvg } from '../base/svg/copy-icon-svg'
+import { ConfirmationIconSvg } from '../../base/svg/confirmation-icon-svg'
+import { CopyIconSvg } from '../../base/svg/copy-icon-svg'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'

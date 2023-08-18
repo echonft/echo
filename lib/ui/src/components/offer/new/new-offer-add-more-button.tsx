@@ -1,4 +1,4 @@
-import { AddIconSvg } from '../base/svg/add-icon-svg'
+import { AddIconSvg } from '../../base/svg/add-icon-svg'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

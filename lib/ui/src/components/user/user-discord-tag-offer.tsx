@@ -6,14 +6,10 @@ export interface NftThumbnailOwnerProps {
   owner: string
 }
 
-export const NftThumbnailOwner: FunctionComponent<NftThumbnailOwnerProps> = ({ owner }) => {
+export const UserDiscordTagOffer: FunctionComponent<NftThumbnailOwnerProps> = ({ owner }) => {
   return (
     <div
       className={clsx(
-        'absolute',
-        'bottom-2',
-        'left-2',
-        'z-10',
         'flex',
         'flex-row',
         'items-center',
@@ -22,7 +18,7 @@ export const NftThumbnailOwner: FunctionComponent<NftThumbnailOwnerProps> = ({ o
         'px-1.5',
         'gap-0.5',
         'text-white',
-        'shadow-[2px_2px_4px_rgba(0,0,0,0.57)]'
+        'shadow-tag'
       )}
     >
       <DiscordIconSvg width={9} />

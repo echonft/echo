@@ -53,6 +53,14 @@ export const messages = {
     }
   },
   offer: {
+    state: {
+      OPEN: 'Pending',
+      ACCEPTED: 'Accepted',
+      CANCELLED: 'Cancelled',
+      COMPLETED: 'Completed',
+      REJECTED: 'Rejected',
+      EXPIRED: 'Expired'
+    },
     new: {
       misc: {
         assetsInSubtitle: 'Your assets',

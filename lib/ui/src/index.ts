@@ -57,9 +57,13 @@ export {
   NftDetailsTokenDetailsPanel,
   NftDetailsTokenDetailsPanelProps
 } from './components/nft/details/nft-details-token-details-panel'
+export { NftThumbnailOffer } from './components/nft/nft-thumbnail-offer'
 export { NftThumbnailSelectable, NftThumbnailSelectableProps } from './components/nft/nft-thumbnail-selectable'
-export { NewOfferConfirmationModal } from './components/offer/new-offer-confirmation-modal'
-export { NewOfferSliderManager } from './components/offer/new-offer-slider-manager'
+export { NewOfferConfirmationModal } from './components/offer/new/new-offer-confirmation-modal'
+export { NewOfferSliderManager } from './components/offer/new/new-offer-slider-manager'
+export { Offer as OfferComponent } from './components/offer/offer'
+export { OfferInfoContainer } from './components/offer/offer-info-container'
+export { OfferState as OfferStateComponent } from './components/offer/offer-state'
 export { BannerSkeleton } from './components/skeleton/base/banner-skeleton'
 export { CollectionDetailsSkeleton } from './components/skeleton/collection/collection-details-skeleton'
 export { CollectionNftsAndFiltersContainerSkeleton } from './components/skeleton/collection/collection-nfts-and-filters-container-skeleton'
