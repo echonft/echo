@@ -14,6 +14,7 @@ export const nftCollectionDocumentDataConverter: FirestoreDocumentDataConverter<
   NftCollection
 > = {
   fromFirestore: applySpec<NftCollection>({
+    id: prop('id'),
     bannerUrl: stringPropToUrl('bannerUrl'),
     blurUrl: stringPropToUrl('blurUrl'),
     contract: documentDataPropToModel('contract', contractDocumentDataConverter),

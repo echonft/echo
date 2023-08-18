@@ -2,9 +2,9 @@ import { CollectionName } from '../../constants/collection-name'
 import { userDataConverter } from '../../converters/user-data-converter'
 import { firestore } from '../../services/firestore'
 import { User } from '../../types/model/user'
-import { map } from 'ramda'
+import { invoker, map } from 'ramda'
 
-export const getAllUsers = async (): Promise<User[]> => {
+export const getAllUsers = async () => {
   const querySnapshot = await firestore().collection(CollectionName.USERS).withConverter(userDataConverter).get()
-  return map((doc) => doc.data(), querySnapshot.docs)
+  return map(invoker(0, 'data'), querySnapshot.docs) as User[]
 }

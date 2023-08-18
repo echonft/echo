@@ -3,6 +3,7 @@ import { nftCollectionDocumentDataMock } from './nft-collection-document-data-mo
 
 export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
   '8hHFadIrrooORfTOLkBg': {
+    id: '8hHFadIrrooORfTOLkBg',
     attributes: [
       { value: 'archimedean', trait: 'Algorithm' },
       { value: 'main', trait: 'Ring' },
@@ -36,6 +37,7 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
     tokenType: 'ERC721'
   },
   QFjMRNChUAHNswkRADXh: {
+    id: 'QFjMRNChUAHNswkRADXh',
     attributes: [{ value: 'Creative', trait: 'Demigod' }],
     balance: 1,
     collection: nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']!,

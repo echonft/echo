@@ -2,6 +2,7 @@ import { ContractDocumentData } from './contract-document-data'
 import { DiscordGuildDocumentData } from './discord-guild-document-data'
 
 export interface NftCollectionDocumentData {
+  id: string
   bannerUrl?: string
   blurUrl?: string
   contract: ContractDocumentData

@@ -2,6 +2,7 @@ import { Contract } from './contract'
 import { DiscordGuild } from './discord-guild'
 
 export interface NftCollection {
+  id: string
   bannerUrl: URL | undefined
   blurUrl: URL | undefined
   contract: Contract

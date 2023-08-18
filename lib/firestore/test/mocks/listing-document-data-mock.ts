@@ -7,17 +7,6 @@ import { swapDocumentDataMock } from './swap-document-data-mock'
 export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
   jUzMtPGKM62mMhEcmbN4: {
     id: 'jUzMtPGKM62mMhEcmbN4',
-    activities: [
-      {
-        date: 1676984897,
-        toState: 'CREATED'
-      },
-      {
-        date: 1676900000,
-        toState: 'EXPIRED',
-        fromState: 'CREATED'
-      }
-    ],
     createdAt: 1676984897,
     creator: {
       id: 'user1',
@@ -35,6 +24,7 @@ export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
       { amount: 1, ...nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! }
     ],
     offers: [offerDocumentDataMock['LyCfl6Eg7JKuD7XJ6IPi']!],
+    postedAt: 1676984897,
     state: 'EXPIRED',
     swaps: [swapDocumentDataMock['hS6KtAJ03bSolumoHvDJ']!],
     targets: [

@@ -1,4 +1,6 @@
-import { getFirestoreOfferData } from '../../data/offer/get-firestore-offer-data'
+import { getOfferSnapshotById } from './get-offer-snapshot-by-id'
 
-// TODO Should add a check if ID does not exist
-export const findOfferById = (id: string) => getFirestoreOfferData(id)
+export const findOfferById = async (id: string) => {
+  const documentSnapshot = await getOfferSnapshotById(id)
+  return documentSnapshot.data()
+}

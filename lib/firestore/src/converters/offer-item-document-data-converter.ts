@@ -12,6 +12,7 @@ import { applySpec, pipe, prop } from 'ramda'
 
 export const offerItemDocumentDataConverter: FirestoreDocumentDataConverter<OfferItemDocumentData, OfferItem> = {
   fromFirestore: applySpec<OfferItem>({
+    id: prop('id'),
     amount: prop('amount'),
     attributes: prop('attributes'),
     balance: prop('balance'),

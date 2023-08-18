@@ -3,6 +3,7 @@ import { nftCollectionMock } from './nft-collection-mock'
 
 export const nftMock: { [key: string]: Nft } = {
   '8hHFadIrrooORfTOLkBg': {
+    id: '8hHFadIrrooORfTOLkBg',
     attributes: [
       { value: 'archimedean', trait: 'Algorithm' },
       { value: 'main', trait: 'Ring' },
@@ -39,6 +40,7 @@ export const nftMock: { [key: string]: Nft } = {
     tokenType: 'ERC721'
   },
   QFjMRNChUAHNswkRADXh: {
+    id: 'QFjMRNChUAHNswkRADXh',
     attributes: [{ value: 'Creative', trait: 'Demigod' }],
     balance: 1,
     blurUrl: undefined,

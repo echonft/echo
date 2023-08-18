@@ -2,6 +2,7 @@ import { NftCollectionDocumentData } from '../../src/types/model/nft-collection-
 
 export const nftCollectionDocumentDataMock: { [key: string]: NftCollectionDocumentData } = {
   Rc8pLQXxgyQGIRL0fr13: {
+    id: 'Rc8pLQXxgyQGIRL0fr13',
     bannerUrl:
       'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ?auto=format&dpr=1&w=3840',
     contract: {
@@ -27,6 +28,7 @@ export const nftCollectionDocumentDataMock: { [key: string]: NftCollectionDocume
     websiteUrl: 'https://pxmythics.io/'
   },
   '1aomCtnoesD7WVll6Yi1': {
+    id: '1aomCtnoesD7WVll6Yi1',
     bannerUrl:
       'https://i.seadn.io/gae/ujBmfCu4_m30X3zkmyEA6wYPFubX0qkQJ5CEm5D9Eo2M1jHkDx1K4hUQQitd912A6-M8nyvOsuCuIv8RZokw83runTcR_kTs45xF?auto=format&dpr=1&w=3840',
     blurUrl: 'https://blur.io/collection/spiral-frequencies',

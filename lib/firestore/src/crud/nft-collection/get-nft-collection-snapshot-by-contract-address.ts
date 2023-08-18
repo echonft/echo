@@ -1,36 +1,26 @@
 import { CollectionName } from '../../constants/collection-name'
-import { getCollectionDocs } from '../../helpers/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../helpers/collection/get-collection-from-path'
-import { whereCollection } from '../../helpers/collection/where-collection'
-import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
-import { FirestoreNftCollection } from '../../types/model/collections/nft-collection/firestore-nft-collection'
-import { getContractSnapshotByAddress } from '../contract/get-contract-snapshot-by-address'
-import { errorPromise } from '@echo/utils'
-import { always, andThen, call, converge, head, ifElse, isEmpty, partial, pipe, prop, useWith } from 'ramda'
+import { nftCollectionDataConverter } from '../../converters/nft-collection-data-converter'
+import { NftCollection } from '../../types/model/nft-collection'
+import { firestore } from 'firebase-admin'
+import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import { head, isNil } from 'ramda'
 
-export interface Arguments {
-  address: string
-  chainId: number
+export const getNftCollectionSnapshotByContractAddress = async (address: string, chainId: number) => {
+  const querySnapshot = await firestore()
+    .collection(CollectionName.NFT_COLLECTIONS)
+    .where('contract.address', '==', address)
+    .where('contract.chainId', '==', chainId)
+    .withConverter(nftCollectionDataConverter)
+    .get()
+
+  if (querySnapshot.empty) {
+    return Promise.reject('collection not found')
+  }
+
+  const documentSnapshot = head<QueryDocumentSnapshot<NftCollection>>(querySnapshot.docs)
+  if (isNil(documentSnapshot)) {
+    return Promise.reject('collection not found')
+  }
+
+  return documentSnapshot
 }
-
-export const getNftCollectionSnapshotByContractAddress = pipe(
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  getContractSnapshotByAddress,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  andThen(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    pipe(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      converge(call, [
-        useWith(partial(whereCollection, ['contract', '==']), [prop('ref')]),
-        always(getCollectionFromPath(CollectionName.NFT_COLLECTIONS))
-      ]),
-      getCollectionDocs,
-      andThen(ifElse(isEmpty, errorPromise('nft collection not found'), head))
-    )
-  )
-) as (args: Arguments) => Promise<FirestoreSnapshot<FirestoreNftCollection>>

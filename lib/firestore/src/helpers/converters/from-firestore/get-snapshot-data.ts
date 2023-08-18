@@ -1,7 +1,6 @@
-import { FirestoreSnapshot } from '../../../types/abstract/firestore-snapshot'
-import { DocumentData } from 'firebase-admin/firestore'
+import { DocumentData, QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
-export const getSnapshotData = <T extends DocumentData>(snapshot: FirestoreSnapshot<T>): T => {
+export const getSnapshotData = <T extends DocumentData>(snapshot: QueryDocumentSnapshot<T>): T => {
   if (!snapshot.exists) {
     throw Error(`Document does not exist. Path: ${snapshot?.ref?.path} ID: ${snapshot?.id}`)
   }

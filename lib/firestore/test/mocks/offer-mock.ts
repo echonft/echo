@@ -5,10 +5,9 @@ import dayjs from 'dayjs'
 export const offerMock: { [key: string]: Offer } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
-    activities: [{ date: dayjs.unix(1676984897), fromState: undefined, toState: 'OPEN' }],
     createdAt: dayjs.unix(1676984897),
     expiresAt: dayjs.unix(1676984897),
-    postedAt: undefined,
+    postedAt: dayjs.unix(1676984897),
     receiver: {
       id: 'user1',
       discordId: '462798252543049728',

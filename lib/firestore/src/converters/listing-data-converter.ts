@@ -9,7 +9,6 @@ import { removeUndefinedProps } from '../helpers/converters/to-firestore/remove-
 import { FirestoreModel } from '../types/abstract/firestore-model'
 import { Listing } from '../types/model/listing'
 import { ListingDocumentData } from '../types/model/listing-document-data'
-import { activityDocumentDataConverter } from './activity-document-data-converter'
 import { listingTargetDocumentDataConverter } from './listing-target-document-data-converter'
 import { offerDocumentDataConverter } from './offer-document-data-converter'
 import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
@@ -24,7 +23,6 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
       getSnapshotData<ListingDocumentData>,
       applySpec<Listing>({
         id: prop('id'),
-        activities: documentDataArrayPropToModelArray('activities', activityDocumentDataConverter),
         createdAt: numberPropToDate('createdAt'),
         creator: documentDataPropToModel('creator', userDetailsDocumentDataConverter),
         expiresAt: numberPropToDate('expiresAt'),
@@ -42,10 +40,9 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
     // @ts-ignore
     return pipe(
       removeUndefinedProps,
-      modelArrayPropToDocumentDataArray('activities', activityDocumentDataConverter),
+      datePropToNumber('createdAt'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      datePropToNumber('createdAt'),
       modelPropToDocumentData('creator', userDetailsDocumentDataConverter),
       datePropToNumber('expiresAt'),
       modelArrayPropToDocumentDataArray('items', offerItemDocumentDataConverter),

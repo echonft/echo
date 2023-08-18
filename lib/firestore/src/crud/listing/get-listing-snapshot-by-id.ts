@@ -1,0 +1,25 @@
+import { CollectionName } from '../../constants/collection-name'
+import { listingDataConverter } from '../../converters/listing-data-converter'
+import { Listing } from '../../types/model/listing'
+import { firestore } from 'firebase-admin'
+import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import { head, isNil } from 'ramda'
+
+export const getListingSnapshotById = async (id: string) => {
+  const querySnapshot = await firestore()
+    .collection(CollectionName.LISTINGS)
+    .where('id', '==', id)
+    .withConverter(listingDataConverter)
+    .get()
+
+  if (querySnapshot.empty) {
+    return Promise.reject('listing not found')
+  }
+
+  const documentSnapshot = head<QueryDocumentSnapshot<Listing>>(querySnapshot.docs)
+  if (isNil(documentSnapshot)) {
+    return Promise.reject('listing not found')
+  }
+
+  return documentSnapshot
+}

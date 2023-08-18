@@ -8,7 +8,6 @@ import { removeUndefinedProps } from '../helpers/converters/to-firestore/remove-
 import { FirestoreDocumentDataConverter } from '../types/converters/firestore-document-data-converter'
 import { Offer } from '../types/model/offer'
 import { OfferDocumentData } from '../types/model/offer-document-data'
-import { activityDocumentDataConverter } from './activity-document-data-converter'
 import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
 import { applySpec, pipe, prop } from 'ramda'
@@ -16,7 +15,6 @@ import { applySpec, pipe, prop } from 'ramda'
 export const offerDocumentDataConverter: FirestoreDocumentDataConverter<OfferDocumentData, Offer> = {
   fromFirestore: applySpec<Offer>({
     id: prop('id'),
-    activities: documentDataArrayPropToModelArray('activities', activityDocumentDataConverter),
     createdAt: numberPropToDate('createdAt'),
     expiresAt: numberPropToDate('expiresAt'),
     postedAt: numberPropToDate('postedAt'),
@@ -30,13 +28,10 @@ export const offerDocumentDataConverter: FirestoreDocumentDataConverter<OfferDoc
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   toFirestore: pipe(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     removeUndefinedProps,
-    modelArrayPropToDocumentDataArray('activities', activityDocumentDataConverter),
+    datePropToNumber('createdAt'),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    datePropToNumber('createdAt'),
     datePropToNumber('expiresAt'),
     datePropToNumber('postedAt'),
     modelPropToDocumentData('receiver', userDetailsDocumentDataConverter),

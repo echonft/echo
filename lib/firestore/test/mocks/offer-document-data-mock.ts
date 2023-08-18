@@ -4,9 +4,9 @@ import { nftDocumentDataMock } from './nft-document-data-mock'
 export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
-    activities: [{ date: 1676984897, toState: 'OPEN' }],
     createdAt: 1676984897,
     expiresAt: 1676984897,
+    postedAt: 1676984897,
     receiver: {
       id: 'user1',
       discordId: '462798252543049728',

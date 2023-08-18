@@ -12,6 +12,7 @@ import { applySpec, pipe, prop } from 'ramda'
 
 export const nftDocumentDataConverter: FirestoreDocumentDataConverter<NftDocumentData, Nft> = {
   fromFirestore: applySpec<Nft>({
+    id: prop('id'),
     attributes: prop('attributes'),
     balance: prop('balance'),
     blurUrl: stringPropToUrl('blurUrl'),

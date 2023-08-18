@@ -8,18 +8,6 @@ import dayjs from 'dayjs'
 export const listingMock: { [key: string]: Listing } = {
   jUzMtPGKM62mMhEcmbN4: {
     id: 'jUzMtPGKM62mMhEcmbN4',
-    activities: [
-      {
-        date: dayjs.unix(1676984897),
-        fromState: undefined,
-        toState: 'CREATED'
-      },
-      {
-        date: dayjs.unix(1676900000),
-        toState: 'EXPIRED',
-        fromState: 'CREATED'
-      }
-    ],
     createdAt: dayjs.unix(1676984897),
     creator: {
       id: 'user1',
@@ -38,7 +26,7 @@ export const listingMock: { [key: string]: Listing } = {
       { amount: 1, ...nftMock['8hHFadIrrooORfTOLkBg']! }
     ],
     offers: [offerMock['LyCfl6Eg7JKuD7XJ6IPi']!],
-    postedAt: undefined,
+    postedAt: dayjs.unix(1676984897),
     state: 'EXPIRED',
     swaps: [swapMock['hS6KtAJ03bSolumoHvDJ']!],
     targets: [

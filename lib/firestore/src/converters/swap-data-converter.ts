@@ -3,7 +3,7 @@ import { FirestoreModel } from '../types/abstract/firestore-model'
 import { Swap } from '../types/model/swap'
 import { SwapDocumentData } from '../types/model/swap-document-data'
 import { swapDocumentDataConverter } from './swap-document-data-converter'
-import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/lib/firestore'
+import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
 export const swapDataConverter: FirestoreDataConverter<Swap> = {

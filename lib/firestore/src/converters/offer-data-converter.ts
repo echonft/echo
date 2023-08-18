@@ -3,7 +3,7 @@ import { FirestoreModel } from '../types/abstract/firestore-model'
 import { Offer } from '../types/model/offer'
 import { OfferDocumentData } from '../types/model/offer-document-data'
 import { offerDocumentDataConverter } from './offer-document-data-converter'
-import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/lib/firestore'
+import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
 export const offerDataConverter: FirestoreDataConverter<Offer> = {

@@ -1,4 +1,3 @@
-import { ActivityDocumentData } from './activity-document-data'
 import { ListingState } from './listing-state'
 import { ListingTargetDocumentData } from './listing-target-document-data'
 import { OfferDocumentData } from './offer-document-data'
@@ -8,7 +7,6 @@ import { UserDetailsDocumentData } from './user-details-document-data'
 
 export interface ListingDocumentData {
   id: string
-  activities: ActivityDocumentData[]
   createdAt: number
   creator: UserDetailsDocumentData
   expiresAt: number

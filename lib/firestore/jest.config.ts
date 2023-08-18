@@ -1,7 +1,7 @@
 import type { Config } from 'jest'
 
 const config: Config = {
-  modulePathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/test.old/'],
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
   collectCoverage: true,
   collectCoverageFrom: [
     '<rootDir>/src/**/*.ts',

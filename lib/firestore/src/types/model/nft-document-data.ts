@@ -4,6 +4,7 @@ import { NftTokenType } from './nft-token-type'
 import { UserDetailsDocumentData } from './user-details-document-data'
 
 export interface NftDocumentData {
+  id: string
   attributes: NftAttributeDocumentData[]
   balance?: number
   blurUrl?: string
