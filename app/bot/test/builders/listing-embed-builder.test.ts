@@ -3,13 +3,13 @@ import { listingLink } from '../../src/routing/listing-link'
 import { embedSeparator } from '../../src/utils/embed/embed-separator'
 import { embedValueForNft } from '../../src/utils/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../../src/utils/embed/embed-value-for-target'
-import { FirestoreRequestForOfferData } from '@echo/firestore'
+import { Offer } from '@echo/firestore'
 import { describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../src/routing/get-base-url')
 
 describe('builders - buildListingEmbed', () => {
-  const mockRequestForOffer: FirestoreRequestForOfferData = {
+  const mockRequestForOffer: Offer = {
     id: 'jUzMtPGKM62mMhEcmbN4',
     sender: {
       discordId: 'senderDiscordId'
@@ -50,7 +50,7 @@ describe('builders - buildListingEmbed', () => {
         symbol: 'MGEN'
       }
     ]
-  } as unknown as FirestoreRequestForOfferData
+  } as unknown as Offer
   const listing = { ...mockRequestForOffer, target: mockRequestForOffer.target.concat(mockRequestForOffer.target) }
   it('should build an embed with the correct title', () => {
     const result = buildListingEmbed(listing)

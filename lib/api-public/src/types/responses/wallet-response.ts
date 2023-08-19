@@ -1,7 +1,4 @@
-interface Wallet {
-  chainId: number
-  address: string
-}
+import { Wallet } from '@echo/firestore'
 
 export interface WalletResponse {
   wallets: Wallet[]

@@ -1,5 +1,4 @@
-import { FirestoreContractData, FirestoreDiscordGuildData } from '@echo/firestore'
+import { DiscordGuild } from '@echo/firestore'
 
-export interface DiscordGuildResponse extends Omit<FirestoreDiscordGuildData, 'refPath' | 'contracts'> {
-  contracts: Omit<FirestoreContractData, 'refPath'>[]
-}
+// FIXME
+export type DiscordGuildResponse = DiscordGuild

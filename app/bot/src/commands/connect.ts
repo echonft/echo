@@ -1,6 +1,6 @@
 import { NoGuildIdError } from '../errors/no-guild-id-error'
 import { loginLink } from '../routing/login-link'
-import { findDiscordGuildByGuildId } from '@echo/firestore'
+import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore'
 import { andThenOtherwise, isNilOrEmpty } from '@echo/utils'
 import { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
 import { andThen, ifElse, pipe, prop } from 'ramda'
@@ -24,11 +24,11 @@ export function executeConnect(interaction: CommandInteraction) {
       andThen(
         pipe(
           prop<string>('guildId'),
-          findDiscordGuildByGuildId,
+          findNftCollectionByDiscordGuildDiscordId,
           andThenOtherwise(
-            (guild) => {
+            (collection) => {
               return interaction.editReply({
-                content: loginLink(guild.id)
+                content: loginLink(collection.discordGuild.discordId)
               })
             },
             () => interaction.editReply({ content: new NoGuildIdError().message })

@@ -1,3 +1,4 @@
-import { FirestoreSwapData } from '@echo/firestore'
+import { Swap } from '@echo/firestore'
 
-export interface SwapResponse extends Omit<FirestoreSwapData, 'refPath'> {}
+// FIXME
+export type SwapResponse = Swap

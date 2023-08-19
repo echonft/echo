@@ -1,7 +1,7 @@
 import { listingChangeHandler } from '../handlers/listing-change-handler'
-import { listenToRequestForOffers } from '@echo/firestore'
+import { listenToListings as firebaseListenToListings } from '@echo/firestore'
 import { Client } from 'discord.js'
 
 export function listenToListings(client: Client) {
-  listenToRequestForOffers(async (listing, change) => await listingChangeHandler(client, listing, change))
+  firebaseListenToListings((listing, changes) => listingChangeHandler(client, listing, changes))
 }
