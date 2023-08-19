@@ -1,5 +1,5 @@
+import { randomSnowflake } from '../../utils/discord/snowflake'
 import { mockTextChannel } from './channel-mock'
-import { randomSnowflake } from './snowflake'
 import { mockGuildMember, mockUser } from './user-mock'
 import {
   ActionRow,

@@ -1,7 +1,7 @@
 import { InvalidChannelIdError } from '../../src/errors/invalid-channel-id-error'
-import { getDiscordChannel } from '../../src/utils/get-discord-channel'
-import { mockAndSetupChannel, mockTextChannel } from '../../src/utils/tests/discord/channel-mock'
-import { mockClient } from '../../src/utils/tests/discord/client-mock'
+import { getDiscordChannel } from '../../src/helpers/get-discord-channel'
+import { mockAndSetupChannel, mockTextChannel } from '../mocks/discord/channel-mock'
+import { mockClient } from '../mocks/discord/client-mock'
 import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { Client, TextChannel } from 'discord.js'
 

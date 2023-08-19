@@ -1,4 +1,4 @@
-import { randomSnowflake } from './snowflake'
+import { randomSnowflake } from '../../utils/discord/snowflake'
 import { mockGuildMember, mockUser } from './user-mock'
 import { type APIGuild, Client, Guild, PermissionResolvable, PermissionsBitField, Role, User } from 'discord.js'
 import type { RawRoleData } from 'discord.js/typings/rawDataTypes'

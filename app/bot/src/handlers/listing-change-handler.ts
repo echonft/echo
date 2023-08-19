@@ -1,6 +1,7 @@
 import { buildNewListingButtons } from '../builders/listing-button-builder'
 import { buildListingEmbed } from '../builders/listing-embed-builder'
-import { getDiscordChannel } from '../utils/get-discord-channel'
+import { getDiscordChannel } from '../helpers/get-discord-channel'
+import { getListingGuild } from '../helpers/get-listing-guild'
 import { DocumentChange, Listing } from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
 import { Client } from 'discord.js'
@@ -12,33 +13,37 @@ import { isNil } from 'ramda'
  * @param listings
  * @param docChanges
  */
-export function listingChangeHandler(client: Client, listings: Listing[], docChanges: DocumentChange<Listing>[]) {
+export async function listingChangeHandler(client: Client, listings: Listing[], docChanges: DocumentChange<Listing>[]) {
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  docChanges.forEach(async (docChange, index) => {
-    const listing = listings[index]!
-    // If doc is not added and not posted, do nothing
-    if (docChange.type === 'added' && isNil(listing.postedAt)) {
-      const discordGuild = listing.items[0]!.collection.discordGuild
-      try {
-        const channel = await getDiscordChannel(client, discordGuild.channelId)
+  return Promise.all(
+    docChanges.map(async (docChange, index) => {
+      const listing = listings[index]!
+      // If doc is not added and not posted, do nothing
+      if (docChange.type === 'added' && isNil(listing.postedAt)) {
+        const discordGuild = getListingGuild(listing)
         try {
-          await channel.send({
-            components: [buildNewListingButtons(listing.id, discordGuild.discordId)],
-            embeds: [buildListingEmbed(listing)]
-          })
+          const channel = await getDiscordChannel(client, discordGuild.channelId)
           try {
-            await docChange.doc.ref.update({ postedAt: new Date().getTime() })
+            await channel.send({
+              components: [buildNewListingButtons(listing.id, discordGuild.discordId)],
+              embeds: [buildListingEmbed(listing)]
+            })
+            try {
+              await docChange.doc.ref.update({ postedAt: new Date().getTime() })
+            } catch (e) {
+              logger.error(`listingChangeHandler Error updating listing ${listing.id}: ${errorMessage(e)}`)
+            }
           } catch (e) {
-            logger.error(`listingChangeHandler Error updating listing ${listing.id}: ${errorMessage(e)}`)
+            logger.error(
+              `listingChangeHandler Error sending listing ${listing.id} to channel ${channel.id}: ${errorMessage(e)}`
+            )
           }
         } catch (e) {
           logger.error(
-            `listingChangeHandler Error sending listing ${listing.id} to channel ${channel.id}: ${errorMessage(e)}`
+            `listingChangeHandler Error getting Discord channel ${discordGuild.channelId}: ${errorMessage(e)}`
           )
         }
-      } catch (e) {
-        logger.error(`listingChangeHandler Error getting Discord channel ${discordGuild.channelId}: ${errorMessage(e)}`)
       }
-    }
-  })
+    })
+  )
 }

@@ -1,3 +1,4 @@
+import { NonEmptyArray } from '../abstract/non-empty-array'
 import { ListingState } from './listing-state'
 import { ListingTarget } from './listing-target'
 import { Offer } from './offer'
@@ -11,10 +12,10 @@ export interface Listing {
   createdAt: Dayjs
   creator: UserDetails
   expiresAt: Dayjs
-  items: OfferItem[]
+  items: NonEmptyArray<OfferItem>
   offers: Offer[]
   postedAt: Dayjs | undefined
   state: ListingState
   swaps: Swap[]
-  targets: ListingTarget[]
+  targets: NonEmptyArray<ListingTarget>
 }

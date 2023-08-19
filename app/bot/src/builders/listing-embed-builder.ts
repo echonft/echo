@@ -1,7 +1,8 @@
+import { embedSeparator } from '../helpers/embed/embed-separator'
+import { embedValueForNft } from '../helpers/embed/embed-value-for-nft'
+import { embedValueForTarget } from '../helpers/embed/embed-value-for-target'
+import { getListingGuild } from '../helpers/get-listing-guild'
 import { listingLink } from '../routing/listing-link'
-import { embedSeparator } from '../utils/embed/embed-separator'
-import { embedValueForNft } from '../utils/embed/embed-value-for-nft'
-import { embedValueForTarget } from '../utils/embed/embed-value-for-target'
 import { Listing, ListingTarget, Nft } from '@echo/firestore'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import { flatten } from 'ramda'
@@ -12,7 +13,7 @@ export function buildListingEmbed(listing: Listing) {
     .setDescription(description(listing))
     .setColor(color())
     .setFields(fields(listing.items, listing.targets))
-    .setURL(listingLink(listing.id, listing.items[0]!.collection.discordGuild.discordId))
+    .setURL(listingLink(listing.id, getListingGuild(listing).discordId))
 }
 
 // Can't mention user on a title

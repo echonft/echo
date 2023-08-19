@@ -1,3 +1,4 @@
+import { NonEmptyArray } from '../abstract/non-empty-array'
 import { OfferItem } from './offer-item'
 import { OfferState } from './offer-state'
 import { UserDetails } from './user-details'
@@ -9,9 +10,9 @@ export interface Offer {
   expiresAt: Dayjs
   postedAt: Dayjs | undefined
   receiver: UserDetails
-  receiverItems: OfferItem[]
+  receiverItems: NonEmptyArray<OfferItem>
   sender: UserDetails
-  senderItems: OfferItem[]
+  senderItems: NonEmptyArray<OfferItem>
   state: OfferState
   threadId: string | undefined
 }

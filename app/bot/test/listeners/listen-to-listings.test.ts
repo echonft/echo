@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { listingChangeHandler } from '../../src/handlers/listing-change-handler'
 import { listenToListings } from '../../src/listeners/listen-to-listings'
-import { mockAndSetupChannel } from '../../src/utils/tests/discord/channel-mock'
-import { mockClient } from '../../src/utils/tests/discord/client-mock'
-import { mockGuild } from '../../src/utils/tests/discord/guild-mock'
-import { listenToRequestForOffers } from '@echo/firestore'
+import { mockAndSetupChannel } from '../mocks/discord/channel-mock'
+import { mockClient } from '../mocks/discord/client-mock'
+import { mockGuild } from '../mocks/discord/guild-mock'
+import { listenToListings as FirestoreListenToListings } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { Client } from 'discord.js'
 
 jest.mock('@echo/firestore')
-jest.mock('../../src/utils/get-discord-channel')
+jest.mock('../../src/helpers/get-discord-channel')
 jest.mock('../../src/handlers/listing-change-handler')
 
 describe('listeners - listenToListings', () => {
-  const mockedListenToRequestForOffers = jest.mocked(listenToRequestForOffers)
+  const mockedListenToRequestForOffers = jest.mocked(FirestoreListenToListings)
   const mockedListingChangeHandler = jest.mocked(listingChangeHandler)
 
   let client: Client

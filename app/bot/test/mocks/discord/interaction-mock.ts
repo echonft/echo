@@ -1,7 +1,7 @@
+import { randomSnowflake } from '../../utils/discord/snowflake'
+import { messageToAPIData } from '../../utils/discord/to-api-data'
 import { mockTextChannel } from './channel-mock'
 import { mockMessage } from './message-mock'
-import { randomSnowflake } from './snowflake'
-import { messageToAPIData } from './to-api-data'
 import { mockGuildMember } from './user-mock'
 import {
   APIBaseInteraction,
