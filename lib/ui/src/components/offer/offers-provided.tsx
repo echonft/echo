@@ -1,33 +1,22 @@
 import { Offer } from '../../types/offer'
+import { User } from '../../types/user'
 import { PaddedContainer } from '../layout/padded-container'
+import { Offer as OfferComponent } from './offer'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 export interface OffersProvidedProps {
   offers: Offer[]
+  user: User
 }
 
-export const OffersProvided: FunctionComponent<OffersProvidedProps> = ({ offers }) => {
+export const OffersProvided: FunctionComponent<OffersProvidedProps> = ({ offers, user }) => {
   return (
     <PaddedContainer>
-      <div className={clsx('flex', 'flex-col', 'self-stretch', 'grow', 'gap-14')}>
-        {/*<CollectionNftsAndFiltersContainer*/}
-        {/*  nfts={nfts}*/}
-        {/*  traits={traits}*/}
-        {/*  isFetchingNfts={isFetchingNfts}*/}
-        {/*  onMakeOfferForNft={onMakeOfferForNft}*/}
-        {/*  onTraitSelectionUpdate={onTraitSelectionUpdate}*/}
-        {/*/>*/}
-        {/*<CollectionDetails*/}
-        {/*    description={description}*/}
-        {/*    size={totalSupply}*/}
-        {/*    collectionName={name}*/}
-        {/*    pictureUrl={profilePictureUrl}*/}
-        {/*    bannerUrl={bannerUrl}*/}
-        {/*    discordUrl={discordUrl}*/}
-        {/*    websiteUrl={websiteUrl}*/}
-        {/*    twitterUsername={twitterUsername}*/}
-        {/*/>*/}
+      <div className={clsx('flex', 'flex-col', 'self-stretch', 'grow', 'gap-12')}>
+        {offers.map((offer) => (
+          <OfferComponent offer={offer} isReceiver={offer.receiver.id === user.id} key={offer.id} />
+        ))}
       </div>
     </PaddedContainer>
   )

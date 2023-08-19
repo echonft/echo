@@ -1,4 +1,4 @@
-import { nfts, NftThumbnailOffer as Component } from '@echo/ui'
+import { nfts, NftThumbnailOffer as Component, NftThumbnailOfferSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -46,4 +46,8 @@ export const UserDisplayed: Story = {
     onRemove: undefined,
     discordUsername: 'johnnycage#0890'
   }
+}
+
+export const Skeleton: Story = {
+  render: ({ size }) => <NftThumbnailOfferSkeleton size={size} />
 }
