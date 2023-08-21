@@ -7,6 +7,7 @@ import { Dayjs } from 'dayjs'
 export interface Offer {
   id: string
   createdAt: Dayjs
+  expired: boolean
   expiresAt: Dayjs
   postedAt: Dayjs | undefined
   receiver: UserDetails

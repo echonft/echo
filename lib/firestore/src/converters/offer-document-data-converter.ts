@@ -1,5 +1,6 @@
 import { documentDataArrayPropToModelArray } from '../helpers/converters/from-firestore/document-data-array-prop-to-model-array'
 import { documentDataPropToModel } from '../helpers/converters/from-firestore/document-data-prop-to-model'
+import { getExpiredProp } from '../helpers/converters/from-firestore/get-expired-prop'
 import { numberPropToDate } from '../helpers/converters/from-firestore/number-prop-to-date'
 import { datePropToNumber } from '../helpers/converters/to-firestore/date-prop-to-number'
 import { modelArrayPropToDocumentDataArray } from '../helpers/converters/to-firestore/model-array-prop-to-document-data-array'
@@ -10,12 +11,13 @@ import { Offer } from '../types/model/offer'
 import { OfferDocumentData } from '../types/model/offer-document-data'
 import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
-import { applySpec, pipe, prop } from 'ramda'
+import { applySpec, assoc, dissoc, has, lens, map, over, pipe, prop, when } from 'ramda'
 
 export const offerDocumentDataConverter: FirestoreDocumentDataConverter<OfferDocumentData, Offer> = {
   fromFirestore: applySpec<Offer>({
     id: prop('id'),
     createdAt: numberPropToDate('createdAt'),
+    expired: getExpiredProp,
     expiresAt: numberPropToDate('expiresAt'),
     postedAt: numberPropToDate('postedAt'),
     receiver: documentDataPropToModel('receiver', userDetailsDocumentDataConverter),
@@ -29,14 +31,21 @@ export const offerDocumentDataConverter: FirestoreDocumentDataConverter<OfferDoc
   // @ts-ignore
   toFirestore: pipe(
     removeUndefinedProps,
-    datePropToNumber('createdAt'),
+    dissoc('expired'),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
+    datePropToNumber('createdAt'),
     datePropToNumber('expiresAt'),
     datePropToNumber('postedAt'),
     modelPropToDocumentData('receiver', userDetailsDocumentDataConverter),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    when(has('receiverItems'), over(lens(prop('receiverItems'), assoc('receiverItemsIds')), map(prop('id')))),
     modelArrayPropToDocumentDataArray('receiverItems', offerItemDocumentDataConverter),
     modelPropToDocumentData('sender', userDetailsDocumentDataConverter),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    when(has('senderItems'), over(lens(prop('senderItems'), assoc('senderItemsIds')), map(prop('id')))),
     modelArrayPropToDocumentDataArray('senderItems', offerItemDocumentDataConverter)
   )
 }

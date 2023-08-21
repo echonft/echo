@@ -1,7 +1,7 @@
+import { getUserFromSession } from '../../helpers/handler/get-user-from-session'
 import { mapNftToNftIdWithContractAddress } from '../../mappers/nft/map-nft-to-nft-id-with-contract-address'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { createRequestForOfferSchema } from '../../types/validators/create-request-for-offer'
-import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { areNftsOwnedByWallets } from '@echo/alchemy'
 import { ApiRequest, CreateRequestForOfferRequest } from '@echo/api-public'
 import {
@@ -18,7 +18,7 @@ export const createRequestForOfferHandler: RequestHandler<
   ApiRequest<CreateRequestForOfferRequest, never>,
   FirestoreRequestForOfferData
 > = async (req, res, session) => {
-  const user = validateAndExtractUserFromSession(session, res)
+  const user = getUserFromSession(session, res)
   if (isNil(user)) {
     return
   }

@@ -1,7 +1,7 @@
+import { getUserFromSession } from '../../helpers/handler/get-user-from-session'
 import { mapActivityToFirestoreData } from '../../mappers/activity/map-activity-to-firestore-data'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { idRequestSchema } from '../../types/validators/id-request'
-import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
 import { ApiRequest, IdRequest } from '@echo/api-public'
 import {
   canAddRequestForOfferActivity,
@@ -18,7 +18,7 @@ export const cancelRequestForOfferHandler: RequestHandler<
   ApiRequest<IdRequest, never>,
   FirestoreRequestForOfferData
 > = async (req, res, session) => {
-  const user = validateAndExtractUserFromSession(session, res)
+  const user = getUserFromSession(session, res)
   if (isNil(user)) {
     return
   }

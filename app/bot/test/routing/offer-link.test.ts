@@ -1,6 +1,5 @@
-import { getOfferGuild } from '../../src/helpers/get-offer-guild'
 import { offerLink } from '../../src/routing/offer-link'
-import { offerMock } from '@echo/firestore'
+import { getOfferGuild, offerMock } from '@echo/firestore'
 import { describe, expect, jest, test } from '@jest/globals'
 
 jest.mock('../../src/routing/get-base-url')

@@ -5,6 +5,7 @@ import { Dayjs } from 'dayjs'
 export interface Swap {
   id: string
   createdAt: Dayjs
+  expired: boolean
   expiresAt: Dayjs
   offer: Offer
   postedAt: Dayjs | undefined

@@ -1,16 +1,7 @@
-export interface CreateOfferWithRequestForOfferRequest {
-  receiverItems: string[]
-  senderItems: string[]
-  requestForOfferId: string
-  withRequestForOffer: true
-}
+import { OfferItemRequest } from './offer-item-request'
 
-export interface CreateOfferWithoutRequestForOfferRequest {
-  receiverItems: string[]
-  senderItems: string[]
-  receiverId: string
-  discordGuildId: string
-  withRequestForOffer: false
+export interface CreateOfferRequest {
+  receiverDiscordId: string
+  receiverItems: OfferItemRequest[]
+  senderItems: OfferItemRequest[]
 }
-
-export type CreateOfferRequest = CreateOfferWithRequestForOfferRequest | CreateOfferWithoutRequestForOfferRequest

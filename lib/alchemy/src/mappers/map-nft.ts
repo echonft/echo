@@ -4,12 +4,17 @@ import { applyToProp, isNilOrEmpty, unlessNil } from '@echo/utils'
 import { always, applySpec, ifElse, map, path, pipe, prop } from 'ramda'
 
 export const mapNft: (nftResponse: NftResponse) => GetNftResponse = applySpec({
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   balance: applyToProp('balance', unlessNil(Number.parseInt)),
   contractAddress: path(['contract', 'address']),
+  chainId: 1,
   description: prop('description'),
   name: prop('name'),
   pictureUrl: path(['image', 'pngUrl']),
   thumbnailUrl: path(['image', 'thumbnailUrl']),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   tokenId: applyToProp('tokenId', Number.parseInt),
   tokenType: path(['contract', 'tokenType']),
   attributes: pipe(

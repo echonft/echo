@@ -6,6 +6,7 @@ export const offerMock: { [key: string]: Offer } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
     createdAt: dayjs.unix(1676984897),
+    expired: true,
     expiresAt: dayjs.unix(1676984897),
     postedAt: dayjs.unix(1676984897),
     receiver: {

@@ -11,6 +11,7 @@ export interface Listing {
   id: string
   createdAt: Dayjs
   creator: UserDetails
+  expired: boolean
   expiresAt: Dayjs
   items: NonEmptyArray<OfferItem>
   offers: Offer[]

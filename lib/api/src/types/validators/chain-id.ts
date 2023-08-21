@@ -1,4 +1,7 @@
+import { supportedChains } from '@echo/utils'
+import { map, toString } from 'ramda'
 import { z } from 'zod'
 
-// TODO should there be a max value too?
-export const chainId = z.number().gte(1)
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export const chainId = z.enum(map(toString, supportedChains))

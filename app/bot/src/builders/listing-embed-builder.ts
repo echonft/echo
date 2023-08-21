@@ -1,9 +1,8 @@
 import { embedSeparator } from '../helpers/embed/embed-separator'
 import { embedValueForNft } from '../helpers/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../helpers/embed/embed-value-for-target'
-import { getListingGuild } from '../helpers/get-listing-guild'
 import { listingLink } from '../routing/listing-link'
-import { Listing, ListingTarget, Nft } from '@echo/firestore'
+import { getListingGuild, Listing, ListingTarget, Nft } from '@echo/firestore'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import { flatten } from 'ramda'
 

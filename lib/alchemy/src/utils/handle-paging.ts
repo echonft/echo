@@ -18,4 +18,4 @@ const handlePagingRecursive = <I extends RequestWithPaging, O>(
 export const handlePaging = <I extends RequestWithPaging, O>(
   fetcher: (_args: I) => Promise<PagingResult<O>>,
   args: I
-) => handlePagingRecursive(fetcher, args, [])
+) => handlePagingRecursive<I, O>(fetcher, args, [])

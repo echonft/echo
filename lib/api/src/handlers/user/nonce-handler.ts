@@ -1,13 +1,17 @@
+import { ApiError } from '../../helpers/api-error'
+import { getUserFromSession } from '../../helpers/handler/get-user-from-session'
+import { setUserNonce } from '../../helpers/user/set-user-nonce'
 import { RequestHandler } from '../../types/handlers/request-handler'
-import { validateSession } from '../../utils/handler/validate-session'
 import { ApiRequest, NonceResponse } from '@echo/api-public'
-import { setNonceForUser } from '@echo/firestore'
-import { isNil } from 'ramda'
 
 export const nonceHandler: RequestHandler<ApiRequest<null, never>, NonceResponse> = async (_req, res, session) => {
-  if (isNil(validateSession(session, res))) {
+  try {
+    const user = getUserFromSession(session)
+    const nonce = await setUserNonce(user)
+    return res.status(200).json({ nonce })
+  } catch (e) {
+    const { status, message } = e as ApiError
+    res.end(res.status(status).json({ error: message }))
     return
   }
-  const nonce = await setNonceForUser(session!.user.id)
-  return res.status(200).json({ nonce })
 }

@@ -2,9 +2,8 @@ import { buildListingEmbed } from '../../src/builders/listing-embed-builder'
 import { embedSeparator } from '../../src/helpers/embed/embed-separator'
 import { embedValueForNft } from '../../src/helpers/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../../src/helpers/embed/embed-value-for-target'
-import { getListingGuild } from '../../src/helpers/get-listing-guild'
 import { listingLink } from '../../src/routing/listing-link'
-import { Listing, listingMock } from '@echo/firestore'
+import { getListingGuild, Listing, listingMock } from '@echo/firestore'
 import { describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../src/routing/get-base-url')

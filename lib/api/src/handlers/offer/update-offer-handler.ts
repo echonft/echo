@@ -1,17 +1,16 @@
+import { getUserFromSession } from '../../helpers/handler/get-user-from-session'
+import { updateOfferState } from '../../helpers/handler/update-offer-state'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { updateOfferRequestSchema } from '../../types/validators/update-offer-request'
-import { updateOfferState } from '../../utils/handler/update-offer-state'
-import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
-import { ApiRequest, UpdateOfferAction, UpdateOfferRequest } from '@echo/api-public'
-import { FirestoreOfferData } from '@echo/firestore'
+import { ApiRequest, UpdateOfferAction, UpdateOfferRequest, UpdateOfferResponse } from '@echo/api-public'
 import { isNil } from 'ramda'
 
-export const updateOfferHandler: RequestHandler<ApiRequest<UpdateOfferRequest, never>, FirestoreOfferData> = async (
+export const updateOfferHandler: RequestHandler<ApiRequest<UpdateOfferRequest, never>, UpdateOfferResponse> = async (
   req,
   res,
   session
 ) => {
-  const user = validateAndExtractUserFromSession(session, res)
+  const user = getUserFromSession(session, res)
   if (isNil(user)) {
     return
   }

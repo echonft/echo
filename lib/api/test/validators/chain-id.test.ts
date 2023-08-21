@@ -1,4 +1,5 @@
 import { chainId } from '../../src/types/validators/chain-id'
+import { supportedChains } from '@echo/utils'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - chainId', () => {
@@ -8,7 +9,6 @@ describe('validators - chainId', () => {
     expect(() => chainId.parse(0)).toThrow()
   })
   it('valid chainId pass', () => {
-    expect(chainId.parse(1)).toBe(1)
-    expect(chainId.parse(12312321)).toBe(12312321)
+    expect(chainId.parse(supportedChains[0])).toBe(1)
   })
 })

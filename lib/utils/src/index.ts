@@ -1,6 +1,7 @@
 export { addToArrayIfNotPresent } from './array/add-to-array-if-not-present'
 export { removeArrayFromArray, removeFromArray } from './array/remove-from-array'
 export { isProd } from './constants/is-prod'
+export { supportedChains } from './constants/supported-chains'
 export { errorMessage } from './error/error-message'
 export { andThenOtherwise } from './fp/and-then-otherwise'
 export { applyToProp } from './fp/apply-to-prop'

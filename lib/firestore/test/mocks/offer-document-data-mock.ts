@@ -18,6 +18,7 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
       }
     },
     receiverItems: [{ amount: 1, ...nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! }],
+    receiverItemsIds: ['8hHFadIrrooORfTOLkBg'],
     sender: {
       id: 'user2',
       discordId: '884593489189433364',
@@ -30,6 +31,7 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
       }
     },
     senderItems: [{ amount: 1, ...nftDocumentDataMock['QFjMRNChUAHNswkRADXh']! }],
+    senderItemsIds: ['QFjMRNChUAHNswkRADXh'],
     state: 'OPEN',
     threadId: '1231'
   }

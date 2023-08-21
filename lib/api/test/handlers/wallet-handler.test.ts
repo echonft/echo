@@ -1,11 +1,10 @@
-import { createWalletHandler } from '../../src/handlers/user/create-wallet-handler'
-import { deleteWalletHandler } from '../../src/handlers/user/delete-wallet-handler'
+import { handleCreateWallet } from '../../src/handlers/user/handle-create-wallet'
+import { handleDeleteWallet } from '../../src/handlers/user/handle-delete-wallet'
 import { walletHandler } from '../../src/handlers/user/wallet-handler'
 import { mockRequestResponse } from '../mocks/request-response'
 import { mockSession } from '../mocks/session'
-import { userFirestoreData } from '../mocks/user-firestore-data'
 import { WalletRequest, WalletResponse } from '@echo/api-public'
-import { FirestoreUserData } from '@echo/firestore'
+import { getUserMockById, User } from '@echo/firestore'
 import { Wallet } from '@echo/ui'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { SiweMessage } from 'siwe'
@@ -17,8 +16,8 @@ jest.mock('@echo/alchemy', () => ({
 }))
 
 describe('handlers - user - walletHandler', () => {
-  const mockedCreateWallet = jest.mocked(createWalletHandler)
-  const mockedDeleteWallet = jest.mocked(deleteWalletHandler)
+  const mockedCreateWallet = jest.mocked(handleCreateWallet)
+  const mockedDeleteWallet = jest.mocked(handleDeleteWallet)
   const message: SiweMessage = new SiweMessage({
     domain: 'domain',
     address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',
@@ -28,7 +27,7 @@ describe('handlers - user - walletHandler', () => {
     chainId: 1,
     nonce: 'nonce1234567'
   })
-  const wallet = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!.wallets[0]!
+  const wallet = getUserMockById('oE6yUEQBPn7PZ89yMjKn').wallets[0]!
   const signature = '0x0000'
   beforeEach(() => {
     jest.clearAllMocks()
@@ -38,10 +37,10 @@ describe('handlers - user - walletHandler', () => {
     const { req, res } = mockRequestResponse<WalletRequest, never, WalletResponse>('GET')
     await walletHandler(req, res, undefined)
     expect(res.statusCode).toBe(401)
-    expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
+    expect(res._getJSONData()).toEqual({ error: 'Forbidden' })
   })
   it('if no user, returns 401', async () => {
-    const noUserSession = { ...mockSession, user: undefined as unknown as FirestoreUserData }
+    const noUserSession = { ...mockSession, user: undefined as unknown as User }
     const { req, res } = mockRequestResponse<WalletRequest, never, WalletResponse>('GET')
     await walletHandler(req, res, noUserSession)
     expect(res.statusCode).toBe(401)

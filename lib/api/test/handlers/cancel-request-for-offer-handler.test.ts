@@ -42,7 +42,7 @@ describe('handlers - user - cancelRequestForOfferHandler', () => {
     const { req, res } = mockRequestResponse<IdRequest, never, RequestForOfferResponse>('GET')
     await cancelRequestForOfferHandler(req, res, undefined)
     expect(res.statusCode).toBe(401)
-    expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
+    expect(res._getJSONData()).toEqual({ error: 'Forbidden' })
   })
   it('if session with no user, returns 401', async () => {
     const { req, res } = mockRequestResponse<IdRequest, never, RequestForOfferResponse>('GET')

@@ -20,6 +20,7 @@ export const listingMock: { [key: string]: Listing } = {
         chainId: 1
       }
     },
+    expired: true,
     expiresAt: dayjs.unix(1676984897),
     items: [
       { amount: 1, ...nftMock['QFjMRNChUAHNswkRADXh']! },
@@ -27,7 +28,7 @@ export const listingMock: { [key: string]: Listing } = {
     ],
     offers: [offerMock['LyCfl6Eg7JKuD7XJ6IPi']!],
     postedAt: dayjs.unix(1676984897),
-    state: 'EXPIRED',
+    state: 'OPEN',
     swaps: [swapMock['hS6KtAJ03bSolumoHvDJ']!],
     targets: [
       {

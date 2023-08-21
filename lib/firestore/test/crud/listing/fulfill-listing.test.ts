@@ -5,9 +5,11 @@ import { initialize } from '../../../src/services/initialize'
 import { terminate } from '../../../src/services/terminate'
 import { ListingState } from '../../../src/types/model/listing-state'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import dayjs, { Dayjs } from 'dayjs'
 
 describe('CRUD - listing - fulfillListing', () => {
   let initialState: ListingState
+  let initialExpiresAt: Dayjs
   const id = 'jUzMtPGKM62mMhEcmbN4'
 
   beforeAll(initialize)
@@ -15,12 +17,25 @@ describe('CRUD - listing - fulfillListing', () => {
   beforeEach(async () => {
     const listing = await findListingById(id)
     initialState = listing.state
+    initialExpiresAt = listing.expiresAt
   })
   afterEach(async () => {
-    await updateListing(id, { state: initialState })
+    await updateListing(id, { state: initialState, expiresAt: initialExpiresAt })
   })
 
-  it('fulfillListing', async () => {
+  it('throws if the listing is expired', async () => {
+    try {
+      await fulfillListing(id)
+      expect(true).toBeFalsy()
+    } catch (e) {
+      expect((e as Error).message).toEqual('listing expired')
+    }
+  })
+
+  it('fullfill listing if its not expired', async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    await updateListing(id, { expiresAt: dayjs().add(1, 'day') })
     await fulfillListing(id)
     const updatedListing = await findListingById(id)
     expect(updatedListing.state).toEqual('FULFILLED')

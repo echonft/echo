@@ -66,7 +66,7 @@ describe('handlers - offer - createOfferHandler', () => {
     const { req, res } = mockRequestResponse<CreateOfferRequest, never, OfferResponse>('GET')
     await createOfferHandler(req, res, undefined)
     expect(res.statusCode).toBe(401)
-    expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
+    expect(res._getJSONData()).toEqual({ error: 'Forbidden' })
   })
   it('if session with no user, returns 401', async () => {
     const { req, res } = mockRequestResponse<CreateOfferRequest, never, OfferResponse>('GET')

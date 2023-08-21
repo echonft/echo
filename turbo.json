@@ -4,7 +4,7 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"]
     },
     "build:fix": {
       "inputs": ["src/**/*.d.ts", "src/**/*.js"]
@@ -18,7 +18,7 @@
     },
     "lint": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", ".eslintrc.js", ".eslintrc.cjs"]
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", ".eslintrc.js", ".eslintrc.cjs"]
     },
     "lint:ci": {
       "dependsOn": ["^build"],
@@ -37,7 +37,7 @@
       "cache": false
     },
     "prettier": {
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"]
     },
     "start": {
       "dependsOn": ["^build"],
@@ -61,7 +61,7 @@
     },
     "tsc": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"]
     },
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
@@ -104,13 +104,13 @@
         "DISCORD_APP_ENV"
       ],
       "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts"]
+      "inputs": ["src/**/*.ts", "test/**/*.ts"]
     },
     "@echo/firestore#build": {
       "dependsOn": ["^build"],
       "env": ["NODE_ENV"],
       "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts"]
+      "inputs": ["src/**/*.ts", "test/**/*.ts"]
     },
     "@echo/frontend#build": {
       "dependsOn": ["^build"],
@@ -127,7 +127,7 @@
       "dependsOn": ["^build"],
       "env": ["NODE_ENV"],
       "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts"]
+      "inputs": ["src/**/*.ts", "test/**/*.ts"]
     }
   }
 }

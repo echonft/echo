@@ -57,6 +57,7 @@
       <excludePattern pattern=".swc" />
       <excludePattern pattern="storybook-static" />
     </content>
+    <content url="file://$MODULE_DIR$/app/frontend/node_modules/next-auth" />
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/alchemy" />
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/api-public" />
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/discord" />

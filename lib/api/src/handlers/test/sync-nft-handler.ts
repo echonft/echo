@@ -1,5 +1,5 @@
 import { RequestHandler } from '../../types/handlers/request-handler'
-import { updateUserNfts } from '../../utils/handler/update-user-nfts'
+import { updateUserNfts } from '../../helpers/handler/update-user-nfts'
 import { ApiRequest } from '@echo/api-public'
 import { findUserById } from '@echo/firestore'
 import { errorMessage } from '@echo/utils'

@@ -11,9 +11,13 @@ export interface ListingDocumentData {
   creator: UserDetailsDocumentData
   expiresAt: number
   items: OfferItemDocumentData[]
+  itemsIds: string[]
   offers: OfferDocumentData[]
+  offersIds: string[]
   postedAt?: number
   state: ListingState
   swaps: SwapDocumentData[]
+  swapsIds: string[]
   targets: ListingTargetDocumentData[]
+  targetsIds: string[]
 }

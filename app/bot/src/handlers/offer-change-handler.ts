@@ -1,7 +1,6 @@
 import { getDiscordChannel } from '../helpers/get-discord-channel'
-import { getOfferGuild } from '../helpers/get-offer-guild'
 import { offerLink } from '../routing/offer-link'
-import { DocumentChange, findUserById, Offer, userIsInGuild } from '@echo/firestore'
+import { DocumentChange, findUserById, getOfferGuild, Offer, userIsInGuild } from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
 import {} from '@google-cloud/firestore'
 import dayjs from 'dayjs'

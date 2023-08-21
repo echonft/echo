@@ -28,7 +28,7 @@
 //     const { req, res } = mockRequestResponse<CreateRequestForOfferRequest, never, RequestForOfferResponse>('PUT')
 //     await createRequestForOffer(req, res)
 //     expect(res.statusCode).toBe(401)
-//     expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
+//     expect(res._getJSONData()).toEqual({ error: 'Forbidden' })
 //   })
 //   it('if correct req, handler is called', async () => {
 //     mockedGetServerSession.mockResolvedValue(mockSession)

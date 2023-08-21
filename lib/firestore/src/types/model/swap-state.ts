@@ -4,5 +4,4 @@ export type SwapState =
   | 'RECEIVER_APPROVED'
   | 'COMPLETED'
   | 'REJECTED'
-  | 'EXPIRED'
   | 'INVALID'

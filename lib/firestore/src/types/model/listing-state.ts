@@ -1,1 +1,1 @@
-export type ListingState = 'OPEN' | 'FULFILLED' | 'CANCELLED' | 'EXPIRED' | 'INVALID'
+export type ListingState = 'OPEN' | 'FULFILLED' | 'CANCELLED' | 'INVALID'

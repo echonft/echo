@@ -1,7 +1,6 @@
-import { target } from './target'
 import { z } from 'zod'
 
 export const offerItem = z.object({
-  target: target,
-  tokenId: z.number().gte(0)
+  amount: z.number().gte(0),
+  id: z.string().nonempty()
 })

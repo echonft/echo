@@ -1,5 +1,5 @@
 import { updateOfferHandler } from '../../src/handlers/offer/update-offer-handler'
-import * as updateOfferState from '../../src/utils/handler/update-offer-state'
+import * as updateOfferState from '../../src/helpers/handler/update-offer-state'
 import { offerFirestoreData } from '../mocks/offer-firestore-data'
 import { mockRequestResponse } from '../mocks/request-response'
 import { mockSession } from '../mocks/session'
@@ -54,7 +54,7 @@ describe('handlers - updateOfferHandler', () => {
     const { req, res } = mockRequestResponse<UpdateOfferRequest, never, FirestoreOfferData>('GET')
     await updateOfferHandler(req, res, undefined)
     expect(res.statusCode).toBe(401)
-    expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
+    expect(res._getJSONData()).toEqual({ error: 'Forbidden' })
   })
   it('if wrong req, returns 400', async () => {
     const { req, res } = mockRequestResponse<UpdateOfferRequest, never, FirestoreOfferData>('GET', undefined, {

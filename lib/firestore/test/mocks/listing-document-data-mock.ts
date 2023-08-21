@@ -23,15 +23,19 @@ export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
       { amount: 1, ...nftDocumentDataMock['QFjMRNChUAHNswkRADXh']! },
       { amount: 1, ...nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! }
     ],
+    itemsIds: ['QFjMRNChUAHNswkRADXh', '8hHFadIrrooORfTOLkBg'],
     offers: [offerDocumentDataMock['LyCfl6Eg7JKuD7XJ6IPi']!],
+    offersIds: ['LyCfl6Eg7JKuD7XJ6IPi'],
     postedAt: 1676984897,
-    state: 'EXPIRED',
+    state: 'OPEN',
     swaps: [swapDocumentDataMock['hS6KtAJ03bSolumoHvDJ']!],
+    swapsIds: ['hS6KtAJ03bSolumoHvDJ'],
     targets: [
       {
         collection: nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']!,
         amount: 3
       }
-    ]
+    ],
+    targetsIds: ['Rc8pLQXxgyQGIRL0fr13']
   }
 }

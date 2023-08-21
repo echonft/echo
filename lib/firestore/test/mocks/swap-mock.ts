@@ -6,6 +6,7 @@ export const swapMock: { [key: string]: Swap } = {
   hS6KtAJ03bSolumoHvDJ: {
     id: 'hS6KtAJ03bSolumoHvDJ',
     createdAt: dayjs.unix(1676984897),
+    expired: true,
     expiresAt: dayjs.unix(1676984897),
     postedAt: dayjs.unix(1676984897),
     offer: offerMock['LyCfl6Eg7JKuD7XJ6IPi']!,
