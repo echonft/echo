@@ -21,7 +21,9 @@ export const NewOfferSliderManager: FunctionComponent = () => {
     <HideIfNil
       checks={newOffer}
       render={() => (
-        <BottomSlider renderTitle={() => <NewOfferBottomSliderTitle itemsSelected={newOffer!.receiverItems.length} />}>
+        <BottomSlider
+          renderTitle={() => <NewOfferBottomSliderTitle itemsSelectedCount={newOffer!.receiverItems.length} />}
+        >
           {/* TODO Add action on add more */}
           <NewOfferBottomSliderInnerContainer
             receiver={newOffer!.receiver}

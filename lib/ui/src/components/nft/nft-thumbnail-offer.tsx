@@ -53,7 +53,7 @@ export const NftThumbnailOffer: FunctionComponent<NftThumbnailOfferProps> = ({
           size === SizeLG && ['px-1', 'pt-2.5', 'pb-3.5']
         )}
       >
-        <NftThumbnailOfferTitle name={name} tokenId={tokenId} collectionName={collection.name} size={size} />
+        <NftThumbnailOfferTitle tokenId={tokenId} collectionName={collection.name} size={size} />
       </div>
     </div>
   )

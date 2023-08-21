@@ -5,14 +5,12 @@ import { FunctionComponent } from 'react'
 
 export interface NftThumbnailOfferTitleProps {
   collectionName: string
-  name: string | undefined
   tokenId: number
   size?: NftThumbnailSize
 }
 
 export const NftThumbnailOfferTitle: FunctionComponent<NftThumbnailOfferTitleProps> = ({
   collectionName,
-  name,
   tokenId,
   size
 }) => {
@@ -27,7 +25,7 @@ export const NftThumbnailOfferTitle: FunctionComponent<NftThumbnailOfferTitlePro
           '!normal-case'
         )}
       >
-        {name ?? collectionName}
+        {collectionName}
       </span>
       <span
         className={clsx(

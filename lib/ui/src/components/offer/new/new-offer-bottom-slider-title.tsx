@@ -3,10 +3,10 @@ import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  itemsSelected: number
+  itemsSelectedCount: number
 }
 
-export const NewOfferBottomSliderTitle: FunctionComponent<Props> = ({ itemsSelected }) => {
+export const NewOfferBottomSliderTitle: FunctionComponent<Props> = ({ itemsSelectedCount }) => {
   const t = useTranslations('offer.new.bottomSlider')
   return (
     <div className={clsx('flex', 'items-center', 'justify-between', 'gap-2.5')}>
@@ -16,7 +16,7 @@ export const NewOfferBottomSliderTitle: FunctionComponent<Props> = ({ itemsSelec
         {t('title')}
       </span>
       <span className={clsx('px-2', 'bg-dark-300', 'rounded-lg', 'prose-header-xs', 'text-white')}>
-        {itemsSelected}
+        {itemsSelectedCount}
       </span>
     </div>
   )

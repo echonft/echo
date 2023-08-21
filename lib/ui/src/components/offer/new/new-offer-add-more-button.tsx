@@ -29,7 +29,7 @@ export const NewOfferAddMoreButton: FunctionComponent<NewOfferAddMoreButtonProps
         'cursor-pointer'
       )}
     >
-      <span className={clsx('bg-yellow-500', 'rounded-lg', 'p-2')}>
+      <span className={clsx('bg-yellow-500', 'rounded-lg', 'p-2', 'text-black')}>
         <AddIconSvg />
       </span>
       <span className={clsx('prose-label-sm', 'text-white')}>{t('add')}</span>

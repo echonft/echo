@@ -2,7 +2,7 @@ import { getOfferById } from '../../mocks/model/offer'
 import { NewOfferConfirmationModal as Component, newOfferDataState, newOfferState } from '@echo/ui'
 import { OfferItem } from '@echo/ui-model'
 import { Meta, StoryObj } from '@storybook/react'
-import { FunctionComponent, useCallback, useEffect } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import { RecoilRoot, useRecoilState } from 'recoil'
 
 const metadata: Meta<typeof Component> = {
@@ -26,7 +26,7 @@ const RenderedComponent: FunctionComponent<{
   const resetModal = useCallback(() => {
     setNewOffer({ receiverItems, receiver: offer.receiver, senderItems })
     setModalState('TO CONFIRM')
-  }, [setNewOffer, setModalState])
+  }
 
   useEffect(() => {
     resetModal()
@@ -34,7 +34,7 @@ const RenderedComponent: FunctionComponent<{
   return (
     <div className={'bg-white'} style={{ height: '100vh' }}>
       <div className={'flex flex-row justify-center items-center h-full'}>
-        <button onClick={() => resetModal()} className={'btn-gradient group rounded-lg w-[9.875rem] py-1.5'}>
+        <button onClick={resetModal} className={'btn-gradient group rounded-lg w-[9.875rem] py-1.5'}>
           <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
         </button>
       </div>

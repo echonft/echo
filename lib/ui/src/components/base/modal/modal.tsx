@@ -1,4 +1,4 @@
-import { XIconSvg } from './svg/x-icon-svg'
+import { XIconSvg } from '../svg/x-icon-svg'
 import { Dialog, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { Fragment, FunctionComponent, ReactNode } from 'react'
@@ -57,8 +57,8 @@ export const Modal: FunctionComponent<Props> = ({ open, onClose, renderTitle, re
               >
                 <div className={clsx('flex', 'flex-row', 'items-center', 'justify-end')}>
                   <button onClick={onClose}>
-                    <span>
-                      <XIconSvg width={16} height={16} className={clsx('[&>path]:fill-white')} />
+                    <span className={clsx('text-white')}>
+                      <XIconSvg width={16} height={16} />
                     </span>
                   </button>
                 </div>

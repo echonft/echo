@@ -34,8 +34,8 @@ export const NewOfferConfirmationModalInnerContainer: FunctionComponent<Props> =
           className={clsx('btn-action', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10', 'gap-2.5')}
           onClick={onEdit}
         >
-          <span>
-            <EditIconSvg className={clsx('[&>path]:fill-purple-900', 'group-hover:[&>path]:fill-white')} />
+          <span className={clsx('text-purple-900', 'group-hover:text-white')}>
+            <EditIconSvg />
           </span>
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('editButton')}</span>
         </button>

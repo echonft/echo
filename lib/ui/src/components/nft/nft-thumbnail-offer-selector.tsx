@@ -24,8 +24,8 @@ export const NftThumbnailOfferSelector: FunctionComponent<NftThumbnailOfferSelec
       )}
       onClick={onRemove}
     >
-      <span>
-        <XIconSvg width={7} height={7} className={clsx('[&>path]:fill-white')} />
+      <span className={clsx('text-white')}>
+        <XIconSvg width={7} height={7} />
       </span>
     </button>
   )

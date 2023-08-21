@@ -19,7 +19,8 @@ export const NewOfferAssetsTitle: FunctionComponent<Props> = ({ isReceiver, titl
           'rounded-lg',
           'flex',
           'justify-center',
-          'items-center'
+          'items-center',
+          'text-dark-500'
         )}
       >
         <SideCaretSvg direction={isReceiver ? DirectionRight : DirectionLeft} />

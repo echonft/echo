@@ -34,8 +34,8 @@ export const UserProfilePicture: FunctionComponent<UserProfilePictureProps> = ({
           'border-solid',
           'border-3',
           'border-yellow-500',
-          getUserProfilePictureWidth(size),
-          getUserProfilePictureHeight(size)
+          size === SizeLG && ['h-40', 'w-40'],
+          size === SizeMD && ['h-[120px]', 'w-[120px]']
         )}
         width={getUserProfilePictureSize(size)}
         height={getUserProfilePictureSize(size)}

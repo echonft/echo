@@ -11,16 +11,3 @@ export const getUserProfilePictureSize = (size: UserProfilePictureSize) => {
       return 120
   }
 }
-
-const getUserProfileTailwindSize = (size: UserProfilePictureSize) => {
-  switch (size) {
-    case SizeLG:
-      return '-40'
-    case SizeMD:
-      return '-[120px]'
-  }
-}
-
-export const getUserProfilePictureHeight = (size: UserProfilePictureSize) => `h${getUserProfileTailwindSize(size)}`
-
-export const getUserProfilePictureWidth = (size: UserProfilePictureSize) => `w${getUserProfileTailwindSize(size)}`

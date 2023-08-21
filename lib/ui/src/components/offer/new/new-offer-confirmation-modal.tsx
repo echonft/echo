@@ -1,5 +1,5 @@
 import { newOfferDataState, newOfferState } from '../../../services/state'
-import { Modal } from '../../base/modal'
+import { Modal } from '../../base/modal/modal'
 import { NewOfferConfirmationModalInnerContainer } from './new-offer-confirmation-modal-inner-container'
 import { NewOfferConfirmedModalInnerContainer } from './new-offer-confirmed-modal-inner-container'
 import { NewOfferModalTitle } from './new-offer-modal-title'
