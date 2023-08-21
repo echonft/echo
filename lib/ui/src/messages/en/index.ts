@@ -61,6 +61,10 @@ export const messages = {
       REJECTED: 'Rejected',
       EXPIRED: 'Expired'
     },
+    details: {
+      expiresAt: 'Expires in',
+      expiredAt: 'Expired'
+    },
     new: {
       misc: {
         assetsInSubtitle: 'Your assets',
