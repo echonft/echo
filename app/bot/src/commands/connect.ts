@@ -1,9 +1,9 @@
 import { NoGuildIdError } from '../errors/no-guild-id-error'
 import { loginLink } from '../routing/login-link'
-import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore'
+import { findNftCollectionByDiscordGuildDiscordId, NftCollection } from '@echo/firestore'
 import { andThenOtherwise, isNilOrEmpty } from '@echo/utils'
 import { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
-import { andThen, ifElse, pipe, prop } from 'ramda'
+import { andThen, ifElse, isNil, pipe, prop } from 'ramda'
 
 /**
  * Connect command
@@ -24,13 +24,19 @@ export function executeConnect(interaction: CommandInteraction) {
       andThen(
         pipe(
           prop<string>('guildId'),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           findNftCollectionByDiscordGuildDiscordId,
           andThenOtherwise(
-            (collection) => {
-              return interaction.editReply({
-                content: loginLink(collection.discordGuild.discordId)
-              })
-            },
+            ifElse(
+              isNil,
+              () => interaction.editReply({ content: new NoGuildIdError().message }),
+              (collection: NftCollection) => {
+                return interaction.editReply({
+                  content: loginLink(collection.discordGuild.discordId)
+                })
+              }
+            ),
             () => interaction.editReply({ content: new NoGuildIdError().message })
           )
         )

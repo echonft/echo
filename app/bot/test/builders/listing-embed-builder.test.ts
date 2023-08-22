@@ -3,15 +3,16 @@ import { embedSeparator } from '../../src/helpers/embed/embed-separator'
 import { embedValueForNft } from '../../src/helpers/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../../src/helpers/embed/embed-value-for-target'
 import { listingLink } from '../../src/routing/listing-link'
-import { getListingGuild, Listing, listingMock } from '@echo/firestore'
+import { getListingGuild, getListingMockById, Listing } from '@echo/firestore'
 import { describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../src/routing/get-base-url')
 
 describe('builders - buildListingEmbed', () => {
+  const listingMock = getListingMockById('jUzMtPGKM62mMhEcmbN4')
   const listing = {
-    ...listingMock['jUzMtPGKM62mMhEcmbN4']!,
-    targets: [listingMock['jUzMtPGKM62mMhEcmbN4']!.targets[0], listingMock['jUzMtPGKM62mMhEcmbN4']!.targets[0]]
+    ...listingMock,
+    targets: [listingMock.targets[0], listingMock.targets[0]]
   } as Listing
   const discordGuild = getListingGuild(listing)
   it('should build an embed with the correct title', () => {

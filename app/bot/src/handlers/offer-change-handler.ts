@@ -25,6 +25,14 @@ export async function offerChangeHandler(client: Client, offers: Offer[], docCha
           const sender = await findUserById(offer.sender.id)
           const receiver = await findUserById(offer.receiver.id)
           const channel = await getDiscordChannel(client, discordGuild.channelId)
+          if (isNil(sender)) {
+            logger.error(`offerChangeHandler cannot find receiver ${offer.sender.id} for offer ${offer.id}`)
+            return
+          }
+          if (isNil(receiver)) {
+            logger.error(`offerChangeHandler cannot find receiver ${offer.receiver.id} for offer ${offer.id}`)
+            return
+          }
           // FIXME validate they might not both be in the guild
           if (!userIsInGuild(sender, discordGuild) || !userIsInGuild(receiver, discordGuild)) {
             const thread = await channel.threads.create({

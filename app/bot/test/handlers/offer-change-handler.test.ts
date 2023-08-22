@@ -3,7 +3,7 @@ import { offerChangeHandler } from '../../src/handlers/offer-change-handler'
 import { mockAndSetupChannel, mockPrivateThread } from '../mocks/discord/channel-mock'
 import { mockClient } from '../mocks/discord/client-mock'
 import { mockGuild } from '../mocks/discord/guild-mock'
-import { DocumentChange, Offer, offerMock } from '@echo/firestore'
+import { DocumentChange, getOfferMockById, Offer } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import dayjs from 'dayjs'
 import { Client } from 'discord.js'
@@ -88,7 +88,7 @@ function setChannelForOffer(offer: Offer, channelId: string): Offer {
 }
 
 describe('handlers - offerChangeHandler', () => {
-  const mockOffer = { ...offerMock['LyCfl6Eg7JKuD7XJ6IPi']!, postedAt: undefined }
+  const mockOffer = { ...getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'), postedAt: undefined }
   const mockedUpdate = jest.fn()
   const mockedAddedDocChange = {
     type: 'added',
@@ -128,7 +128,7 @@ describe('handlers - offerChangeHandler', () => {
     await offerChangeHandler(client, [offer], [mockedAddedDocChange])
     expect(mockedUpdate).toHaveBeenCalledTimes(0)
   })
-  it('if users are not in guild, do nothing', async () => {
+  it('if users are not in guild, do nothing', () => {
     //   const mockChannel = mockAndSetupChannel(client, mockGuild(client, undefined, { id: '' }))
     //   const offer = setChannelForOffer(mockOffer, mockChannel.id)
     //   const mockedThreadCreation = jest.spyOn(mockChannel.threads, 'create')
@@ -151,7 +151,7 @@ describe('handlers - offerChangeHandler', () => {
     // FIXME this one will be a little trickier to test - we need to mock findUserById
     expect(true).toBeTruthy()
   })
-  it('if adding members to thread fails, do nothing', async () => {
+  it('if adding members to thread fails, do nothing', () => {
     // const mockChannel = mockAndSetupChannel(client, mockGuild(client, undefined, { id: '' }))
     // const mockThread = mockPrivateThread(client, mockChannel)
     // const offer = setChannelForOffer(mockOffer, mockChannel.id)
