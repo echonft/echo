@@ -4,8 +4,8 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   wallets: Wallet[]
-  onSuccess?: (wallets: Wallet[]) => void
-  onError?: (error: string) => void
+  onSuccess?: () => unknown
+  onError?: (error: string) => unknown
 }
 
 export const WalletList: FunctionComponent<Props> = ({ wallets, onError, onSuccess }) => {

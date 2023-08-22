@@ -9,7 +9,7 @@ interface KeyData {
   url: string
   request: WalletRequest | undefined
 }
-export const useRemoveWallets = (wallets: Wallet[] | undefined): SWRResponse<EmptyResponse, Error> =>
+export const useRemoveWallet = (wallet: Wallet | undefined): SWRResponse<EmptyResponse, Error> =>
   useSWR<EmptyResponse, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       {
@@ -17,11 +17,11 @@ export const useRemoveWallets = (wallets: Wallet[] | undefined): SWRResponse<Emp
         data: {
           url: getUserWalletUrl(),
           request: {
-            wallet: wallets!
+            wallet: wallet!
           }
         }
       },
-      always(isNilOrEmpty(wallets))
+      always(isNilOrEmpty(wallet))
     ),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

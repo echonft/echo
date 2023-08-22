@@ -1,6 +1,6 @@
 import { AddWallet } from '@components/add-wallet'
 import { SignMessage } from '@components/sign-message'
-import { Signature, Wallet } from '@echo/ui'
+import { Signature } from '@echo/ui'
 import { useFetchNonce } from '@lib/hooks/use-fetch-nonce'
 import { isNil } from 'ramda'
 import { FunctionComponent, useState } from 'react'
@@ -17,9 +17,9 @@ interface Props {
   chainId: number
   userId: string
   retry?: boolean
-  onSignRejected?: () => void
-  onSuccess?: (wallets: Wallet[]) => void
-  onError?: (error: string) => void
+  onSignRejected?: () => unknown
+  onSuccess?: () => unknown
+  onError?: (error: string) => unknown
 }
 
 export const AddWalletButton: FunctionComponent<Props> = ({
@@ -77,10 +77,10 @@ export const AddWalletButton: FunctionComponent<Props> = ({
           wallet={{ address, chainId }}
           message={message}
           signature={signature}
-          onSuccess={(wallets) => {
+          onSuccess={() => {
             // Refetch nonce if success
             void mutate()
-            onSuccess?.(wallets)
+            onSuccess?.()
           }}
           onError={(error) => {
             // Refetch nonce if error
