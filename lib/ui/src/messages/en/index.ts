@@ -63,32 +63,36 @@ export const messages = {
     },
     details: {
       expiresAt: 'Expires in',
-      expiredAt: 'Expired'
+      expiredAt: 'Expired',
+      acceptBtn: 'Accept',
+      declineBtn: 'Decline',
+      approveBtn: 'Approve {count, plural, =0 {} =1 {NFT} other {NFTs}}',
+      completeBtn: 'Execute Swap'
+    },
+    misc: {
+      assetsInSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',
+      assetsInTitle: 'Going in',
+      assetsOutSubtitle: "Counterparty's {count, plural, =0 {} =1 {asset} other {assets}}",
+      assetsOutTitle: 'Going out'
     },
     new: {
-      misc: {
-        assetsInSubtitle: 'Your assets',
-        assetsInTitle: 'Going out',
-        assetsOutSubtitle: "Counterparty's assets",
-        assetsOutTitle: 'Going in'
-      },
       bottomSlider: {
         title: 'Offer overview',
         add: 'Add more',
         finalize: 'Finalize offer',
         noNftsTitle: 'No NFTs selected yet',
-        noNftsButton: 'Select NFTs now'
+        noNftsBtn: 'Select NFTs now'
       },
       confirmationModal: {
         title: 'Confirm Offer',
-        confirmButton: 'Confirm',
-        editButton: 'Edit'
+        confirmBtn: 'Confirm',
+        editBtn: 'Edit'
       },
       confirmedModal: {
         title: 'Offer successfully created',
         subtitle: 'Your offer was successfully created, now you can contact your counterparty',
-        confirmButton: 'Confirm',
-        copyLinkButton: 'Copy link'
+        confirmBtn: 'Confirm',
+        copyLinkBtn: 'Copy link'
       }
     }
   },

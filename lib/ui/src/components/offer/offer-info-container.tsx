@@ -1,6 +1,6 @@
 import { OfferState as OfferStateModel } from '../../types/offer-state'
 import { UserDiscordTag } from '../user/user-discord-tag'
-import { OfferState } from './offer-state'
+import { OfferStatePill } from './offer-state-pill'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
@@ -12,7 +12,7 @@ export interface OfferInfoContainerProps {
 export const OfferInfoContainer: FunctionComponent<OfferInfoContainerProps> = ({ state, discordUsername }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-4')}>
-      <OfferState state={state} />
+      <OfferStatePill state={state} />
       <UserDiscordTag discordUsername={discordUsername} />
     </div>
   )

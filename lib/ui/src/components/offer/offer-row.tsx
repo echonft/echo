@@ -11,7 +11,7 @@ export interface OfferProps {
   isReceiver: boolean
 }
 
-export const Offer: FunctionComponent<OfferProps> = ({ offer, isReceiver }) => {
+export const OfferRow: FunctionComponent<OfferProps> = ({ offer, isReceiver }) => {
   return (
     <div
       className={clsx(

@@ -26,10 +26,10 @@ export const NewOfferBottomSliderItemsContainer: FunctionComponent<Props> = ({
   onAddMore,
   onRemove
 }) => {
-  const t = useTranslations('offer.new.misc')
+  const t = useTranslations('offer.misc')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-11')}>
-      <NewOfferAssetsTitle isReceiver={isReceiver} title={t(isReceiver ? 'assetsInTitle' : 'assetsOutTitle')} />
+      <NewOfferAssetsTitle isReceiving={isReceiving} title={t(isReceiving ? 'assetsInTitle' : 'assetsOutTitle')} />
       <div className={clsx('flex', 'flex-row', 'gap-4')}>
         {isEmpty(items) ? (
           <NewOfferEmptyAssets onAddMore={onAddMore} />

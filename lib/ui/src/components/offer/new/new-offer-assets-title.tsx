@@ -4,18 +4,18 @@ import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  isReceiver: boolean
+  isReceiving: boolean
   title: string
 }
 
-export const NewOfferAssetsTitle: FunctionComponent<Props> = ({ isReceiver, title }) => {
+export const NewOfferAssetsTitle: FunctionComponent<Props> = ({ isReceiving, title }) => {
   return (
     <div className={clsx('flex', 'gap-2', 'items-center')}>
       <span
         className={clsx(
           'w-6',
           'h-6',
-          isReceiver ? 'bg-green-500' : 'bg-red-500',
+          isReceiving ? 'bg-green-500' : 'bg-red-500',
           'rounded-lg',
           'flex',
           'justify-center',
@@ -23,7 +23,7 @@ export const NewOfferAssetsTitle: FunctionComponent<Props> = ({ isReceiver, titl
           'text-dark-500'
         )}
       >
-        <SideCaretSvg direction={isReceiver ? DirectionRight : DirectionLeft} />
+        <SideCaretSvg direction={isReceiving ? DirectionRight : DirectionLeft} />
       </span>
       <span className={clsx('prose-label-lg', 'text-white')}>{title}</span>
     </div>

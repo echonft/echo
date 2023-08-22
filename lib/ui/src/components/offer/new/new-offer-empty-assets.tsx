@@ -14,7 +14,7 @@ export const NewOfferEmptyAssets: FunctionComponent<Props> = ({ onAddMore }) => 
     <div className={clsx('flex', 'flex-col', 'gap-2', 'pt-8', 'items-center', 'grow')}>
       <span className={clsx('text-white/10', 'prose-display-sm')}>{t('noNftsTitle')}</span>
       <Disclosure.Button as={'button'} onClick={onAddMore}>
-        <span className={clsx('text-white', 'prose-header-sm-semi', 'underline')}>{t('noNftsButton')}</span>
+        <span className={clsx('text-white', 'prose-header-sm-semi', 'underline')}>{t('noNftsBtn')}</span>
       </Disclosure.Button>
     </div>
   )

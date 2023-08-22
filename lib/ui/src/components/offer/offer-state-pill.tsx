@@ -8,7 +8,7 @@ export interface OfferStateProps {
   state: OfferStateModel
 }
 
-export const OfferState: FunctionComponent<OfferStateProps> = ({ state }) => {
+export const OfferStatePill: FunctionComponent<OfferStateProps> = ({ state }) => {
   const t = useTranslations('offer.state')
   return (
     <div

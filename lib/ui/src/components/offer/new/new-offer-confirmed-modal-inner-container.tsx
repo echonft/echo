@@ -19,14 +19,14 @@ export const NewOfferConfirmedModalInnerContainer: FunctionComponent<Props> = ({
       </div>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
         <button className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')} onClick={onConfirm}>
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmButton')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>
         </button>
         <CopyToClipboard text={'TODO'} onCopy={onConfirm}>
           <button className={clsx('btn-action', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10', 'gap-2.5')}>
             <span className={clsx('text-purple-900', 'group-hover:text-white')}>
               <CopyIconSvg />
             </span>
-            <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('copyLinkButton')}</span>
+            <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('copyLinkBtn')}</span>
           </button>
         </CopyToClipboard>
       </div>

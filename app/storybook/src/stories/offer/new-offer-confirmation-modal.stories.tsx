@@ -49,3 +49,14 @@ export const Default: Story = {
     </RecoilRoot>
   )
 }
+
+export const MultipleAssets: Story = {
+  render: () => (
+    <RecoilRoot>
+      <RenderedComponent
+        receiverItems={mockReceiverItems.concat(mockSenderItems)}
+        senderItems={mockSenderItems.concat(mockReceiverItems)}
+      />
+    </RecoilRoot>
+  )
+}

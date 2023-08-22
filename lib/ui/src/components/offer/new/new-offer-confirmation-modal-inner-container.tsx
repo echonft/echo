@@ -28,7 +28,7 @@ export const NewOfferConfirmationModalInnerContainer: FunctionComponent<Props> =
       <NewOfferConfirmationModalAssetsContainer isReceiver={false} items={senderItems} />
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
         <button className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')} onClick={onConfirm}>
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmButton')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>
         </button>
         <button
           className={clsx('btn-action', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10', 'gap-2.5')}
@@ -37,7 +37,7 @@ export const NewOfferConfirmationModalInnerContainer: FunctionComponent<Props> =
           <span className={clsx('text-purple-900', 'group-hover:text-white')}>
             <EditIconSvg />
           </span>
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('editButton')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('editBtn')}</span>
         </button>
       </div>
     </div>

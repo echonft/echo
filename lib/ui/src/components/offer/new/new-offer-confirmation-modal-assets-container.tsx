@@ -16,8 +16,10 @@ export const NewOfferConfirmationModalAssetsContainer: FunctionComponent<Props> 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center')}>
-        <NewOfferAssetsSubtitle subtitle={t(isReceiver ? 'assetsInSubtitle' : 'assetsOutSubtitle')} />
-        <NewOfferAssetsTitle isReceiver={isReceiver} title={t(isReceiver ? 'assetsInTitle' : 'assetsOutTitle')} />
+        <NewOfferAssetsSubtitle
+          subtitle={t(isReceiver ? 'assetsInSubtitle' : 'assetsOutSubtitle', { count: assets.length })}
+        />
+        <NewOfferAssetsTitle isReceiving={isReceiver} title={t(isReceiver ? 'assetsInTitle' : 'assetsOutTitle')} />
       </div>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'justify-center')}>
         {items.map(({ nft }) => (
