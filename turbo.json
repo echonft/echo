@@ -68,7 +68,7 @@
     },
     "@echo/alchemy#build": {
       "dependsOn": ["^build"],
-      "env": ["ALCHEMY_API_KEY"],
+      "env": ["ALCHEMY_API_KEY", "NODE_ENV"],
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
     },
