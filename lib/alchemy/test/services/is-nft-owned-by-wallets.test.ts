@@ -2,8 +2,6 @@ import { isNftOwnedByWallets } from '../../src/services/is-nft-owned-by-wallets'
 import * as utils from '@echo/utils'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
-jest.mock('../../src/constants/get-alchemy-api-key')
-
 describe('services - isNftOwnedByWallets', () => {
   jest
     .spyOn(utils, 'getData')

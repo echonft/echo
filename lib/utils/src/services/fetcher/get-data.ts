@@ -4,9 +4,9 @@ import { setMethod } from './request-init/set-method'
 import { setSearchParams } from './url/set-search-params'
 import { andThen, partialRight, pipe } from 'ramda'
 
-export const getData = <T, D extends FetcherData>(url: string, data: D): Promise<T> =>
+export const getData = <T, D extends FetcherData>(url: URL, data: D): Promise<T> =>
   pipe(
     setSearchParams(data),
     partialRight(fetch, [pipe(getJsonContentTypeRequestInit, setMethod('GET'))()]),
     andThen((response) => response.json() as T)
-  )(new URL(url))
+  )(url)

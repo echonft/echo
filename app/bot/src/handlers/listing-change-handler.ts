@@ -13,36 +13,31 @@ import { isNil } from 'ramda'
  * @param docChanges
  */
 export async function listingChangeHandler(client: Client, listings: Listing[], docChanges: DocumentChange<Listing>[]) {
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  return Promise.all(
-    docChanges.map(async (docChange, index) => {
-      const listing = listings[index]!
-      // If doc is not added and not posted, do nothing
-      if (docChange.type === 'added' && isNil(listing.postedAt)) {
-        const discordGuild = getListingGuild(listing)
+  for (const [index, docChange] of docChanges.entries()) {
+    const listing = listings[index]!
+    // If doc is not added and not posted, do nothing
+    if (docChange.type === 'added' && isNil(listing.postedAt)) {
+      const discordGuild = getListingGuild(listing)
+      try {
+        const channel = await getDiscordChannel(client, discordGuild.channelId)
         try {
-          const channel = await getDiscordChannel(client, discordGuild.channelId)
+          await channel.send({
+            components: [buildNewListingButtons(listing.id, discordGuild.discordId)],
+            embeds: [buildListingEmbed(listing)]
+          })
           try {
-            await channel.send({
-              components: [buildNewListingButtons(listing.id, discordGuild.discordId)],
-              embeds: [buildListingEmbed(listing)]
-            })
-            try {
-              await docChange.doc.ref.update({ postedAt: new Date().getTime() })
-            } catch (e) {
-              logger.error(`listingChangeHandler Error updating listing ${listing.id}: ${errorMessage(e)}`)
-            }
+            await docChange.doc.ref.update({ postedAt: new Date().getTime() })
           } catch (e) {
-            logger.error(
-              `listingChangeHandler Error sending listing ${listing.id} to channel ${channel.id}: ${errorMessage(e)}`
-            )
+            logger.error(`listingChangeHandler Error updating listing ${listing.id}: ${errorMessage(e)}`)
           }
         } catch (e) {
           logger.error(
-            `listingChangeHandler Error getting Discord channel ${discordGuild.channelId}: ${errorMessage(e)}`
+            `listingChangeHandler Error sending listing ${listing.id} to channel ${channel.id}: ${errorMessage(e)}`
           )
         }
+      } catch (e) {
+        logger.error(`listingChangeHandler Error getting Discord channel ${discordGuild.channelId}: ${errorMessage(e)}`)
       }
-    })
-  )
+    }
+  }
 }

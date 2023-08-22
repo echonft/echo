@@ -6,7 +6,7 @@ import { complement, eqProps, equals, length, map, pipe, prop, uniqWith } from '
  * Asserts the validity of listing target items
  * @param items
  */
-export const assertListingItems = (items: NonEmptyArray<OfferItem>) => {
+export const assertOfferItems = (items: NonEmptyArray<OfferItem>) => {
   // all listing items must be from the same collection to be valid
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

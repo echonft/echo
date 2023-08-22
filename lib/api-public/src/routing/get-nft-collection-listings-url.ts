@@ -1,3 +1,3 @@
-import { getNftCollectionUrl } from './get-nft-collection-url'
+import { getApiBaseUrl } from './get-api-base-url'
 
-export const getNftCollectionListingsUrl = (id: string) => `${getNftCollectionUrl(id)}/listings`
+export const getNftCollectionListingsUrl = (id: string) => new URL(`${getApiBaseUrl()}/collection/${id}/listings`)

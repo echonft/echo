@@ -1,3 +1,3 @@
 import { getApiBaseUrl } from './get-api-base-url'
 
-export const getUserWalletUrl = () => `${getApiBaseUrl()}user/wallet`
+export const getUserWalletUrl = () => new URL(`${getApiBaseUrl()}/user/wallet`)
