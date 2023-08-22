@@ -52,6 +52,34 @@ export const messages = {
       makeOfferBtn: 'Make an offer'
     }
   },
+  offer: {
+    new: {
+      misc: {
+        assetsInSubtitle: 'Your assets',
+        assetsInTitle: 'Going out',
+        assetsOutSubtitle: "Counterparty's assets",
+        assetsOutTitle: 'Going in'
+      },
+      bottomSlider: {
+        title: 'Offer overview',
+        add: 'Add more',
+        finalize: 'Finalize offer',
+        noNftsTitle: 'No NFTs selected yet',
+        noNftsButton: 'Select NFTs now'
+      },
+      confirmationModal: {
+        title: 'Confirm Offer',
+        confirmButton: 'Confirm',
+        editButton: 'Edit'
+      },
+      confirmedModal: {
+        title: 'Offer successfully created',
+        subtitle: 'Your offer was successfully created, now you can contact your counterparty',
+        confirmButton: 'Confirm',
+        copyLinkButton: 'Copy link'
+      }
+    }
+  },
   user: {
     button: {
       makeOffer: {

@@ -1,5 +1,5 @@
 import { HideIf } from './hide-if'
-import { and, either, identity, is, isEmpty, isNil, reduce, useWith } from 'ramda'
+import { either, isEmpty, isNil } from 'ramda'
 import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
 export interface HideIfNilOrEmptyProps {
@@ -11,24 +11,8 @@ export const HideIfNilOrEmpty: FunctionComponent<PropsWithChildren<HideIfNilOrEm
   checks,
   render,
   children
-}) => {
-  if (is(Array, checks)) {
-    return (
-      <HideIf
-        // eslint is confused here...
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        condition={reduce(useWith(and<boolean, boolean>, [identity, either(isNil, isEmpty)]), false, checks)}
-        render={render}
-      >
-        {children}
-      </HideIf>
-    )
-  }
-  return (
-    <HideIf condition={either(isNil, isEmpty)(checks)} render={render}>
-      {children}
-    </HideIf>
-  )
-}
+}) => (
+  <HideIf condition={either(isNil, isEmpty)(checks)} render={render}>
+    {children}
+  </HideIf>
+)

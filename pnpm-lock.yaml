@@ -188,6 +188,9 @@ importers:
       react-icons:
         specifier: 4.10.1
         version: 4.10.1(react@18.2.0)
+      recoil:
+        specifier: 0.7.7
+        version: 0.7.7(react-dom@18.2.0)(react-native@0.72.3)(react@18.2.0)
       siwe:
         specifier: 2.1.4
         version: 2.1.4(ethers@6.7.0)
@@ -294,6 +297,9 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      recoil:
+        specifier: 0.7.7
+        version: 0.7.7(react-dom@18.2.0)(react-native@0.72.3)(react@18.2.0)
       storybook:
         specifier: 7.2.1
         version: 7.2.1
@@ -661,9 +667,15 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      react-copy-to-clipboard:
+        specifier: 5.1.0
+        version: 5.1.0(react@18.2.0)
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      recoil:
+        specifier: 0.7.7
+        version: 0.7.7(react-dom@18.2.0)(react-native@0.72.3)(react@18.2.0)
       swr:
         specifier: 2.2.0
         version: 2.2.0(react@18.2.0)
@@ -689,6 +701,9 @@ importers:
       '@types/react':
         specifier: 18.2.19
         version: 18.2.19
+      '@types/react-copy-to-clipboard':
+        specifier: 5.0.4
+        version: 5.0.4
       '@types/react-dom':
         specifier: 18.2.7
         version: 18.2.7
@@ -7188,6 +7203,13 @@ packages:
     resolution:
       { integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw== }
 
+  /@types/react-copy-to-clipboard@5.0.4:
+    resolution:
+      { integrity: sha512-otTJsJpofYAeaIeOwV5xBUGpo6exXG2HX7X4nseToCB2VgPEBxGBHCm/FecZ676doNR7HCSTVtmohxfG2b3/yQ== }
+    dependencies:
+      '@types/react': 18.2.19
+    dev: true
+
   /@types/react-dom@18.2.7:
     resolution:
       { integrity: sha512-GRaAEriuT4zp9N4p1i8BDBYmEyfo+xQ3yHjJU4eiK5NDa1RmUZG+unZABUTK4/Ox/M+GaHwb6Ow8rUITrtjszA== }
@@ -13341,6 +13363,11 @@ packages:
       through2: 2.0.5
     dev: false
 
+  /hamt_plus@1.0.2:
+    resolution:
+      { integrity: sha512-t2JXKaehnMb9paaYA7J0BX8QQAY8lwfQ9Gjf4pg/mk4krt+cmwmU652HOoWonf+7+EQV97ARPMhhVgU1ra2GhA== }
+    dev: false
+
   /handlebars@4.7.8:
     resolution:
       { integrity: sha512-vafaFqs8MZkRrSX7sFVUdo3ap/eNiLnb4IakshzvP56X5Nr1iGKAIqdX6tMlm6HcNRIkr6AxO5jFEoJzzpT8aQ== }
@@ -18580,6 +18607,17 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: true
 
+  /react-copy-to-clipboard@5.1.0(react@18.2.0):
+    resolution:
+      { integrity: sha512-k61RsNgAayIJNoy9yDsYzDe/yAZAzEbEgcz3DZMhF686LEyukcE1hzurxe85JandPUG+yTfGVFzuEw3xt8WP/A== }
+    peerDependencies:
+      react: ^15.3.0 || 16 || 17 || 18
+    dependencies:
+      copy-to-clipboard: 3.3.3
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
   /react-devtools-core@4.28.0:
     resolution:
       { integrity: sha512-E3C3X1skWBdBzwpOUbmXG8SgH6BtsluSMe+s6rRcujNKG1DGi8uIfhdhszkgDpAsMoE55hwqRUzeXCmETDBpTg== }
@@ -18968,6 +19006,25 @@ packages:
       esprima: 4.0.1
       source-map: 0.6.1
       tslib: 2.6.1
+
+  /recoil@0.7.7(react-dom@18.2.0)(react-native@0.72.3)(react@18.2.0):
+    resolution:
+      { integrity: sha512-8Og5KPQW9LwC577Vc7Ug2P0vQshkv1y3zG3tSSkWMqkWSwHmE+by06L8JtnGocjW6gcCvfwB3YtrJG6/tWivNQ== }
+    peerDependencies:
+      react: '>=16.13.1'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      hamt_plus: 1.0.2
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-native: 0.72.3(@babel/core@7.22.10)(@babel/preset-env@7.22.10)(react@18.2.0)
+    dev: false
 
   /redent@3.0.0:
     resolution:

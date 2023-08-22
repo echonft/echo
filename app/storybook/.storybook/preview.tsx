@@ -1,6 +1,6 @@
 import { DependenciesProvider, getMessages } from '@echo/ui'
-import type { Preview } from '@storybook/react'
 import '@echo/ui/dist/index.css'
+import type { Preview } from '@storybook/react'
 import { NextIntlProvider } from 'next-intl'
 import { firestoreProvider } from '../src/mocks/firestore-provider'
 

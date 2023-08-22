@@ -1,6 +1,6 @@
-import { contracts as mockContracts } from '../../../mocks/contract'
-import { DiscordGuild } from '../../../types/discord-guild'
-import { discordGuildEquals } from '../discord-guild-equals'
+import { contracts as mockContracts } from '../../src/mocks/contract'
+import { discordGuildEquals } from '../../src/predicates/discord-guild/discord-guild-equals'
+import { DiscordGuild } from '../../src/types/discord-guild'
 import { describe, expect, it } from '@jest/globals'
 
 describe('predicates - discord-guild - discordGuildEquals', () => {

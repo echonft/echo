@@ -2,7 +2,7 @@
 import { intersects } from '../../src/fp/intersects'
 import { describe, expect, it } from '@jest/globals'
 
-describe('intersects', () => {
+describe('fp - intersects', () => {
   it('returns false if the first list is undefined', () => {
     // @ts-ignore
     expect(intersects(undefined)(['a', 'b'])).toBe(false)

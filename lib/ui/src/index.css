@@ -24,6 +24,9 @@
 }
 
 @layer utilities {
+    .fill-opaque {
+        fill-opacity: 1;
+    }
     .prose-display-lg-bold {
         @apply text-display-lg-bold font-inter
     }
@@ -41,6 +44,9 @@
     }
     .prose-display-sm {
         @apply text-display-sm font-inter
+    }
+    .prose-display-sm-bold {
+        @apply text-display-sm-bold font-inter
     }
     .prose-display-sm-light {
         @apply text-display-sm-light font-inter
@@ -145,7 +151,7 @@
         @apply btn border border-solid border-transparent bg-main-gradient bg-origin-border enabled:hover:bg-main-gradient/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700 disabled:bg-main-gradient/40
     }
     .btn-action {
-        @apply btn bg-purple-300
+        @apply btn bg-purple-400
     }
     .btn-label {
         @apply h-max w-max truncate

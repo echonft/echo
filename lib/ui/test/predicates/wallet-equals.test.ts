@@ -1,5 +1,5 @@
-import { Wallet } from '../../../types/wallet'
-import { walletEquals } from '../wallet-equals'
+import { walletEquals } from '../../src/predicates/wallet/wallet-equals'
+import { Wallet } from '../../src/types/wallet'
 import { describe, expect, it } from '@jest/globals'
 
 describe('predicates - wallet - walletEquals', () => {
