@@ -1,6 +1,7 @@
 import { CollectionName } from '../../constants/collection-name'
 import { DEFAULT_EXPIRATION_TIME } from '../../constants/default-expiration-time'
 import { listingDataConverter } from '../../converters/listing-data-converter'
+import { assertListingItems } from '../../helpers/listing/assert-listing-items'
 import { firestore } from '../../services/firestore'
 import { ListingTarget } from '../../types/model/listing-target'
 import { OfferItem } from '../../types/model/offer-item'
@@ -17,6 +18,7 @@ interface NewListing {
 }
 
 export const addListing = async (listing: NewListing): Promise<string> => {
+  assertListingItems(listing.items)
   const reference = firestore().collection(CollectionName.LISTINGS).doc()
   const id = reference.id
   const offers = await getOffersForListing(listing.items, listing.targets)

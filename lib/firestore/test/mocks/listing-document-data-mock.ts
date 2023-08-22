@@ -20,10 +20,10 @@ export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
     },
     expiresAt: 1676984897,
     items: [
-      { amount: 1, ...nftDocumentDataMock['QFjMRNChUAHNswkRADXh']! },
-      { amount: 1, ...nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! }
+      { amount: 1, ...nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! },
+      { amount: 1, ...nftDocumentDataMock['iRZFKEujarikVjpiFAkE']! }
     ],
-    itemsIds: ['QFjMRNChUAHNswkRADXh', '8hHFadIrrooORfTOLkBg'],
+    itemsIds: ['8hHFadIrrooORfTOLkBg', 'iRZFKEujarikVjpiFAkE'],
     offers: [offerDocumentDataMock['LyCfl6Eg7JKuD7XJ6IPi']!],
     offersIds: ['LyCfl6Eg7JKuD7XJ6IPi'],
     postedAt: 1676984897,

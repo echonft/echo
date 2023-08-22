@@ -1,10 +1,11 @@
 import { ApiError } from '../api-error'
+import { getAllNftCollections } from '../nft-collection/get-all-nft-collections'
 import { getNftCollectionByContract } from '../nft-collection/get-nft-collection-by-contract'
+import { setUserUpdatedAt } from './set-user-updated-at'
 import { getNftsForOwner } from '@echo/alchemy'
 import {
   addNft,
   findNftByCollectionContract,
-  getAllNftCollections,
   getUserWalletAddresses,
   mapUserToUserDetails,
   Nft,
@@ -19,11 +20,11 @@ export const updateUserNfts = async (user: User) => {
   if (isNilOrEmpty(user.wallets)) {
     return
   }
+  const collections = await getAllNftCollections()
+  const addresses = map(path(['contract', 'address']), collections) as string[]
+  // TODO Should support multi chain, right now only ETH (chainId 1) is supported
+  const userWalletAddresses = getUserWalletAddresses(1)(user)
   try {
-    const collections = await getAllNftCollections()
-    const addresses = map(path(['contract', 'address']), collections) as string[]
-    // TODO Should support multi chain, right now only ETH (chainId 1) is supported
-    const userWalletAddresses = getUserWalletAddresses(1)(user)
     await Promise.all(
       map(async (address) => {
         // TODO Should support multi chain, right now only ETH (chainId 1) is supported
@@ -47,8 +48,8 @@ export const updateUserNfts = async (user: User) => {
         )
       }, userWalletAddresses)
     )
-    return
   } catch (error) {
     throw new ApiError(500, 'Error updating user NFTs')
   }
+  await setUserUpdatedAt(user)
 }

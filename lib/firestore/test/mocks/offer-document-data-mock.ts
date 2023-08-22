@@ -8,7 +8,7 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
     expiresAt: 1676984897,
     postedAt: 1676984897,
     receiver: {
-      id: 'user1',
+      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -20,7 +20,7 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
     receiverItems: [{ amount: 1, ...nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! }],
     receiverItemsIds: ['8hHFadIrrooORfTOLkBg'],
     sender: {
-      id: 'user2',
+      id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
       discordUsername: 'crewNFT_#2034',
       discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
@@ -30,8 +30,8 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
         chainId: 1
       }
     },
-    senderItems: [{ amount: 1, ...nftDocumentDataMock['QFjMRNChUAHNswkRADXh']! }],
-    senderItemsIds: ['QFjMRNChUAHNswkRADXh'],
+    senderItems: [{ amount: 1, ...nftDocumentDataMock['kRE3UCfXWkJ33nwzj2X1']! }],
+    senderItemsIds: ['kRE3UCfXWkJ33nwzj2X1'],
     state: 'OPEN',
     threadId: '1231'
   }
