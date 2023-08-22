@@ -1,6 +1,6 @@
-import { getListingsForOfferId } from '../../../dist'
 import { Offer } from '../../types/model/offer'
 import { OfferState } from '../../types/model/offer-state'
+import { getListingsForOfferId } from './get-listings-for-offer-id'
 import { updateListing } from './update-listing'
 import { always, map, modify, propEq, when } from 'ramda'
 
