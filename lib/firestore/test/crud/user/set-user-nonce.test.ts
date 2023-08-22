@@ -13,7 +13,7 @@ describe('CRUD - user - setUserNonce', () => {
   afterAll(terminate)
   beforeEach(async () => {
     const user = await findUserById(id)
-    initialNonce = user.nonce!
+    initialNonce = user!.nonce!
   })
   afterEach(async () => {
     await updateUser(id, { nonce: initialNonce })
@@ -22,6 +22,6 @@ describe('CRUD - user - setUserNonce', () => {
   it('setUserNonce', async () => {
     const nonce = await setUserNonce(id)
     const updatedUser = await findUserById(id)
-    expect(updatedUser.nonce).toEqual(nonce)
+    expect(updatedUser!.nonce).toEqual(nonce)
   })
 })

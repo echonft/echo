@@ -1,12 +1,21 @@
 import { offerDataConverter } from '../../converters/offer-data-converter'
+import { OfferState } from '../../types/model/offer-state'
+import { updateListingsWithOfferNewState } from '../listing/update-listings-with-offer-new-state'
 import { getOfferSnapshotById } from './get-offer-snapshot-by-id'
+import { isNil } from 'ramda'
 
 export const rejectOffer = async (id: string) => {
   const documentSnapshot = await getOfferSnapshotById(id)
+  if (isNil(documentSnapshot)) {
+    throw Error('invalid offer id')
+  }
   if (documentSnapshot.data().expired) {
     throw Error('offer expired')
   }
+
+  const state: OfferState = 'REJECTED'
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  return documentSnapshot.ref.update(offerDataConverter.toFirestore({ state: 'REJECTED' }))
+  await documentSnapshot.ref.update(offerDataConverter.toFirestore({ state }))
+  await updateListingsWithOfferNewState(id, state)
 }

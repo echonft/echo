@@ -13,12 +13,12 @@ export const getNftCollectionSnapshotById = async (id: string) => {
     .get()
 
   if (querySnapshot.empty) {
-    return Promise.reject('collection not found')
+    return undefined
   }
 
   const documentSnapshot = head<QueryDocumentSnapshot<NftCollection>>(querySnapshot.docs)
   if (isNil(documentSnapshot)) {
-    return Promise.reject('collection not found')
+    return undefined
   }
 
   return documentSnapshot

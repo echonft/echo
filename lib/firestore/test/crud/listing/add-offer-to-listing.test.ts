@@ -15,7 +15,7 @@ describe('CRUD - listing - addOfferToListing', () => {
   afterAll(terminate)
   beforeEach(async () => {
     const listing = await findListingById(id)
-    initialOffers = listing.offers!
+    initialOffers = listing!.offers
   })
   afterEach(async () => {
     await updateListing(id, { offers: initialOffers })
@@ -25,7 +25,7 @@ describe('CRUD - listing - addOfferToListing', () => {
     const offer = offerMock['LyCfl6Eg7JKuD7XJ6IPi']!
     await addOfferToListing(id, offer)
     const newListing = await findListingById(id)
-    expect(newListing.offers.length).toEqual(initialOffers.length + 1)
-    expect(newListing.offers[initialOffers.length]).toStrictEqual(offer)
+    expect(newListing!.offers.length).toEqual(initialOffers.length + 1)
+    expect(newListing!.offers[initialOffers.length]).toStrictEqual(offer)
   })
 })

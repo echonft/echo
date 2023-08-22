@@ -3,7 +3,6 @@ import { DiscordUserGuildResponse } from '../types/model/discord-user-guild-resp
 import { getUrl } from '@echo/utils'
 import { join } from 'ramda'
 
-// TODO Functional this shit
 export function fetchDiscordUserGuilds(accessToken: string, tokenType: string) {
   return getUrl<DiscordUserGuildResponse[]>(DiscordRoutes.USER_GUILDS, join(' ', [tokenType, accessToken]))
 }

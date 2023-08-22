@@ -14,12 +14,12 @@ export const getNftCollectionSnapshotByContractAddress = async (address: string,
     .get()
 
   if (querySnapshot.empty) {
-    return Promise.reject('collection not found')
+    return undefined
   }
 
   const documentSnapshot = head<QueryDocumentSnapshot<NftCollection>>(querySnapshot.docs)
   if (isNil(documentSnapshot)) {
-    return Promise.reject('collection not found')
+    return undefined
   }
 
   return documentSnapshot

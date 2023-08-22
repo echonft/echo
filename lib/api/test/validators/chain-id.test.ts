@@ -1,14 +1,14 @@
-import { chainId } from '../../src/types/validators/chain-id'
+import { chainIdSchema } from '../../src/types/validators/chain-id-schema'
 import { supportedChains } from '@echo/utils'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - chainId', () => {
   it('wrong chainId fails validation', () => {
-    expect(() => chainId.parse('')).toThrow()
-    expect(() => chainId.parse(undefined)).toThrow()
-    expect(() => chainId.parse(0)).toThrow()
+    expect(() => chainIdSchema.parse('')).toThrow()
+    expect(() => chainIdSchema.parse(undefined)).toThrow()
+    expect(() => chainIdSchema.parse(0)).toThrow()
   })
   it('valid chainId pass', () => {
-    expect(chainId.parse(supportedChains[0])).toBe(1)
+    expect(chainIdSchema.parse(supportedChains[0])).toBe(1)
   })
 })

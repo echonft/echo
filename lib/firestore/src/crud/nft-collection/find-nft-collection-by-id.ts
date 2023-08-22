@@ -2,5 +2,5 @@ import { getNftCollectionSnapshotById } from './get-nft-collection-snapshot-by-i
 
 export const findNftCollectionById = async (id: string) => {
   const documentSnapshot = await getNftCollectionSnapshotById(id)
-  return documentSnapshot.data()
+  return documentSnapshot?.data()
 }

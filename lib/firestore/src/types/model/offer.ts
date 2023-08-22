@@ -1,7 +1,7 @@
-import { NonEmptyArray } from '../abstract/non-empty-array'
 import { OfferItem } from './offer-item'
 import { OfferState } from './offer-state'
 import { UserDetails } from './user-details'
+import { NonEmptyArray } from '@echo/utils'
 import { Dayjs } from 'dayjs'
 
 export interface Offer {

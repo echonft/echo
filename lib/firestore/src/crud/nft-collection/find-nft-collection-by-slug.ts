@@ -2,5 +2,5 @@ import { getNftCollectionSnapshotBySlug } from './get-nft-collection-snapshot-by
 
 export const findNftCollectionBySlug = async (slug: string) => {
   const documentSnapshot = await getNftCollectionSnapshotBySlug(slug)
-  return documentSnapshot.data()
+  return documentSnapshot?.data()
 }

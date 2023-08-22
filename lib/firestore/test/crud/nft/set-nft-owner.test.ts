@@ -15,7 +15,7 @@ describe('CRUD - nft - setNftOwner', () => {
   afterAll(terminate)
   beforeEach(async () => {
     const user = await findNftById(id)
-    initialOwner = user.owner!
+    initialOwner = user!.owner!
   })
   afterEach(async () => {
     await updateNft(id, { owner: initialOwner })
@@ -25,7 +25,8 @@ describe('CRUD - nft - setNftOwner', () => {
     const user = userMock['6rECUMhevHfxABZ1VNOm']!
     const wallet = user.wallets[0]!
     await setNftOwner(id, user.id, wallet)
-    const { owner } = await findNftById(id)
+    const nft = await findNftById(id)
+    const { owner } = nft!
     expect(owner.id).toEqual(user.id)
     expect(owner.wallet).toEqual(wallet)
     expect(owner.discordId).toEqual(user.discordId)

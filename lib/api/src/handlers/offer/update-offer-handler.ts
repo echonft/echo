@@ -1,31 +1,29 @@
-import { getUserFromSession } from '../../helpers/handler/get-user-from-session'
-import { updateOfferState } from '../../helpers/handler/update-offer-state'
+import { ApiError } from '../../helpers/api-error'
+import { parseUpdateOfferRequest } from '../../helpers/offer/parse-update-offer-request'
 import { RequestHandler } from '../../types/handlers/request-handler'
-import { updateOfferRequestSchema } from '../../types/validators/update-offer-request'
-import { ApiRequest, UpdateOfferAction, UpdateOfferRequest, UpdateOfferResponse } from '@echo/api-public'
-import { isNil } from 'ramda'
+import { handleAcceptOffer } from './handle-accept-offer'
+import { handleCancelOffer } from './handle-cancel-offer'
+import { handleRejectOffer } from './handle-reject-offer'
+import { ApiRequest, EmptyResponse, UpdateOfferAction, UpdateOfferRequest } from '@echo/api-public'
 
-export const updateOfferHandler: RequestHandler<ApiRequest<UpdateOfferRequest, never>, UpdateOfferResponse> = async (
+export const updateOfferHandler: RequestHandler<ApiRequest<UpdateOfferRequest, never>, EmptyResponse> = async (
   req,
   res,
   session
 ) => {
-  const user = getUserFromSession(session, res)
-  if (isNil(user)) {
-    return
-  }
   try {
-    const { id, action } = updateOfferRequestSchema.parse(req.body)
+    const { id, action } = parseUpdateOfferRequest(req.body)
     switch (action) {
       case UpdateOfferAction.ACCEPT:
-        return updateOfferState(id, user, 'ACCEPTED', false, res)
+        return handleAcceptOffer(id, session, res)
       case UpdateOfferAction.CANCEL:
-        return updateOfferState(id, user, 'CANCELLED', true, res)
+        return handleCancelOffer(id, session, res)
       case UpdateOfferAction.REJECT:
-        return updateOfferState(id, user, 'REJECTED', false, res)
+        return handleRejectOffer(id, session, res)
     }
   } catch (e) {
-    res.end(res.status(400).json({ error: 'Invalid body' }))
+    const { status, message } = e as ApiError
+    res.end(res.status(status).json({ error: message }))
     return
   }
 }

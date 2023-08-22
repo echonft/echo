@@ -16,8 +16,8 @@ describe('CRUD - listing - invalidateListing', () => {
   afterAll(terminate)
   beforeEach(async () => {
     const listing = await findListingById(id)
-    initialState = listing.state
-    initialExpiresAt = listing.expiresAt
+    initialState = listing!.state
+    initialExpiresAt = listing!.expiresAt
   })
   afterEach(async () => {
     await updateListing(id, { state: initialState, expiresAt: initialExpiresAt })
@@ -38,6 +38,6 @@ describe('CRUD - listing - invalidateListing', () => {
     await updateListing(id, { expiresAt: dayjs().add(1, 'day') })
     await invalidateListing(id)
     const updatedListing = await findListingById(id)
-    expect(updatedListing.state).toEqual('INVALID')
+    expect(updatedListing!.state).toEqual('INVALID')
   })
 })

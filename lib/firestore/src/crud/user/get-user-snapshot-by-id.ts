@@ -13,12 +13,12 @@ export const getUserSnapshotById = async (id: string) => {
     .get()
 
   if (querySnapshot.empty) {
-    return Promise.reject('user not found')
+    return undefined
   }
 
   const documentSnapshot = head<QueryDocumentSnapshot<User>>(querySnapshot.docs)
   if (isNil(documentSnapshot)) {
-    return Promise.reject('user not found')
+    return undefined
   }
 
   return documentSnapshot

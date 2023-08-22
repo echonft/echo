@@ -1,20 +1,18 @@
 import { ApiError } from '../../helpers/api-error'
-import { getUserFromSession } from '../../helpers/handler/get-user-from-session'
-import { parseAddWalletRequest } from '../../helpers/wallet/parse-add-wallet-request'
-import { parseRemoveWalletRequest } from '../../helpers/wallet/parse-remove-wallet-request'
+import { parseAddWalletRequest } from '../../helpers/user/parse-add-wallet-request'
+import { parseRemoveWalletRequest } from '../../helpers/user/parse-remove-wallet-request'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { handleCreateWallet } from './handle-create-wallet'
 import { handleDeleteWallet } from './handle-delete-wallet'
-import { ApiRequest, WalletRequest, WalletResponse } from '@echo/api-public'
+import { ApiRequest, EmptyResponse, WalletRequest } from '@echo/api-public'
 import { SiweMessage } from 'siwe'
 
-export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, WalletResponse> = async (
+export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, EmptyResponse> = async (
   req,
   res,
   session
 ) => {
   try {
-    const user = getUserFromSession(session)
     switch (req.method) {
       case 'PUT':
         // We need to create the SiweMessage here because that's the only way to validate its type
@@ -24,7 +22,7 @@ export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, Wal
           message: new SiweMessage(req.body.message ?? '')
         })
         return handleCreateWallet(
-          user,
+          session,
           validatedAddWalletRequest.wallet,
           validatedAddWalletRequest.message,
           validatedAddWalletRequest.signature,
@@ -32,7 +30,7 @@ export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, Wal
         )
       case 'DELETE':
         const validatedRemoveWalletRequest = parseRemoveWalletRequest(req.body)
-        return handleDeleteWallet(user, validatedRemoveWalletRequest.wallet, res)
+        return handleDeleteWallet(session, validatedRemoveWalletRequest.wallet, res)
       default:
         res.end(res.status(500).json({ error: 'Unhandled error' }))
         return

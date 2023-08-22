@@ -8,13 +8,9 @@ describe('CRUD - nft - findNftById', () => {
   beforeAll(initialize)
   afterAll(terminate)
 
-  it('throws an error if the nft is not found', async () => {
-    try {
-      await findNftById('not-found')
-      expect(false).toBeTruthy()
-    } catch (error) {
-      expect(error).toBeDefined()
-    }
+  it('returns undefined if the nft is not found', async () => {
+    const nft = await findNftById('not-found')
+    expect(nft).toBeUndefined()
   })
 
   it('returns the nft with the given id', async () => {

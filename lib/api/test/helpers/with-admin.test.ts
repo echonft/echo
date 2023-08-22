@@ -3,7 +3,7 @@ import { successHandler } from '../mocks/handler'
 import { mockRequestResponse } from '../mocks/request-response'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
-jest.mock('../../src/utils/auth/get-admin-api-key')
+jest.mock('../../src/helpers/auth/get-admin-api-key')
 
 describe('utils - withAdmin', () => {
   beforeEach(() => {

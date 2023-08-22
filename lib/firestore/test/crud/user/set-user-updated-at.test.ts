@@ -14,7 +14,7 @@ describe('CRUD - user - setUserUpdatedAt', () => {
   afterAll(terminate)
   beforeEach(async () => {
     const user = await findUserById(id)
-    initialUpdatedAt = user.updatedAt!
+    initialUpdatedAt = user!.updatedAt!
   })
   afterEach(async () => {
     await updateUser(id, { updatedAt: initialUpdatedAt })
@@ -23,7 +23,7 @@ describe('CRUD - user - setUserUpdatedAt', () => {
   it('setUserUpdatedAt', async () => {
     await setUserUpdatedAt(id)
     const updatedUser = await findUserById(id)
-    expect(updatedUser.updatedAt?.isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(updatedUser.updatedAt?.isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
+    expect(updatedUser!.updatedAt?.isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(updatedUser!.updatedAt?.isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
   })
 })

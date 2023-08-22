@@ -5,7 +5,7 @@ export interface UserDocumentData {
   id: string
   discordAvatar?: string
   discordBanner?: string
-  discordGuilds: DiscordGuildDocumentData[]
+  discordGuilds: Omit<DiscordGuildDocumentData, 'channelId'>[]
   discordId: string
   discordUsername: string
   nonce?: string

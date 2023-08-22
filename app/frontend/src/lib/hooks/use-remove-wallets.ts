@@ -1,4 +1,4 @@
-import { ApiRoutes, getApiRouteUrl, WalletRequest, WalletResponse } from '@echo/api-public'
+import { EmptyResponse, getUserWalletUrl, WalletRequest } from '@echo/api-public'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { Wallet } from '@echo/ui'
 import { deleteData, isNilOrEmpty } from '@echo/utils'
@@ -9,13 +9,13 @@ interface KeyData {
   url: string
   request: WalletRequest | undefined
 }
-export const useRemoveWallets = (wallets: Wallet[] | undefined): SWRResponse<WalletResponse, Error> =>
-  useSWR<WalletResponse, Error, SwrKey<KeyData> | undefined>(
+export const useRemoveWallets = (wallets: Wallet[] | undefined): SWRResponse<EmptyResponse, Error> =>
+  useSWR<EmptyResponse, Error, SwrKey<KeyData> | undefined>(
     getConditionalFetchKey<KeyData>(
       {
         name: SwrKeyNames.API_REMOVE_WALLETS,
         data: {
-          url: getApiRouteUrl(ApiRoutes.WALLET),
+          url: getUserWalletUrl(),
           request: {
             wallet: wallets!
           }

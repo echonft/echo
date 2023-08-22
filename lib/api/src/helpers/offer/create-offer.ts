@@ -1,13 +1,14 @@
 import { ApiError } from '../api-error'
 import { addOffer, mapUserToUserDetails, OfferItem, User, Wallet } from '@echo/firestore'
+import { NonEmptyArray } from '@echo/utils'
 
 export const createOffer = async (
   sender: User,
   senderWallet: Wallet,
-  senderItems: OfferItem[],
+  senderItems: NonEmptyArray<OfferItem>,
   receiver: User,
   receiverWallet: Wallet,
-  receiverItems: OfferItem[]
+  receiverItems: NonEmptyArray<OfferItem>
 ) => {
   try {
     return await addOffer({

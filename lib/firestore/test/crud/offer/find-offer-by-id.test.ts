@@ -8,13 +8,9 @@ describe('CRUD - offer - findOfferById', () => {
   beforeAll(initialize)
   afterAll(terminate)
 
-  it('throws an error if the offer is not found', async () => {
-    try {
-      await findOfferById('not-found')
-      expect(false).toBeTruthy()
-    } catch (error) {
-      expect(error).toBeDefined()
-    }
+  it('returns undefined if the offer is not found', async () => {
+    const offer = await findOfferById('not-found')
+    expect(offer).toBeUndefined()
   })
 
   it('returns the offer with the given id', async () => {

@@ -13,12 +13,12 @@ export const getOfferSnapshotById = async (id: string) => {
     .get()
 
   if (querySnapshot.empty) {
-    return Promise.reject('offer not found')
+    return undefined
   }
 
   const documentSnapshot = head<QueryDocumentSnapshot<Offer>>(querySnapshot.docs)
   if (isNil(documentSnapshot)) {
-    return Promise.reject('offer not found')
+    return undefined
   }
 
   return documentSnapshot

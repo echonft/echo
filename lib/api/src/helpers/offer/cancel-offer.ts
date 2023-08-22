@@ -1,9 +1,9 @@
 import { ApiError } from '../api-error'
-import { cancelOffer as FirestoreCancelOffer } from '@echo/firestore'
+import { cancelOffer as firestoreCancelOffer } from '@echo/firestore'
 
 export const cancelOffer = async (offerId: string) => {
   try {
-    await FirestoreCancelOffer(offerId)
+    await firestoreCancelOffer(offerId)
   } catch (e) {
     throw new ApiError(500, 'Error cancelling offer')
   }

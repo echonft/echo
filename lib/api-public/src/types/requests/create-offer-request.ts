@@ -1,7 +1,8 @@
 import { OfferItemRequest } from './offer-item-request'
+import { NonEmptyArray } from '@echo/utils'
 
 export interface CreateOfferRequest {
-  receiverDiscordId: string
-  receiverItems: OfferItemRequest[]
-  senderItems: OfferItemRequest[]
+  receiverId: string
+  receiverItems: NonEmptyArray<OfferItemRequest>
+  senderItems: NonEmptyArray<OfferItemRequest>
 }

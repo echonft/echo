@@ -6,7 +6,7 @@ import { terminate } from '../../../src/services/terminate'
 import { Wallet } from '../../../src/types/model/wallet'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 
-describe('CRUD - user - setUserUpdatedAt', () => {
+describe('CRUD - user - updateUserWallets', () => {
   let initialWallets: Wallet[]
   const id = 'oE6yUEQBPn7PZ89yMjKn'
 
@@ -14,20 +14,20 @@ describe('CRUD - user - setUserUpdatedAt', () => {
   afterAll(terminate)
   beforeEach(async () => {
     const user = await findUserById(id)
-    initialWallets = user.wallets
+    initialWallets = user!.wallets
   })
   afterEach(async () => {
     await updateUser(id, { wallets: initialWallets })
   })
 
-  it('setUserUpdatedAt', async () => {
+  it('updateUserWallets', async () => {
     const newWallet = {
       address: '0xnewAdress',
       chainId: 0
     }
     await updateUserWallets(id, [newWallet])
     const updatedUser = await findUserById(id)
-    const { wallets } = updatedUser
+    const { wallets } = updatedUser!
     expect(wallets.length).toEqual(1)
     expect(wallets[0]).toStrictEqual(newWallet)
   })

@@ -1,8 +1,7 @@
 import { getDiscordChannel } from '../helpers/get-discord-channel'
 import { offerLink } from '../routing/offer-link'
-import { DocumentChange, findUserById, getOfferGuild, Offer, userIsInGuild } from '@echo/firestore'
+import { DocumentChange, findUserById, getOfferReceiverGuild, Offer, userIsInGuild } from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
-import {} from '@google-cloud/firestore'
 import dayjs from 'dayjs'
 import { ChannelType, Client } from 'discord.js'
 import { isNil } from 'ramda'
@@ -21,11 +20,12 @@ export async function offerChangeHandler(client: Client, offers: Offer[], docCha
       // If doc is not added and not posted, do nothing
       if (docChange.type === 'added' && isNil(offer.postedAt)) {
         try {
-          const discordGuild = getOfferGuild(offer)
+          // FIXME validate
+          const discordGuild = getOfferReceiverGuild(offer)
           const sender = await findUserById(offer.sender.id)
           const receiver = await findUserById(offer.receiver.id)
           const channel = await getDiscordChannel(client, discordGuild.channelId)
-          // Should not happen
+          // FIXME validate they might not both be in the guild
           if (!userIsInGuild(sender, discordGuild) || !userIsInGuild(receiver, discordGuild)) {
             const thread = await channel.threads.create({
               name: `Offer-${offer.id}`,

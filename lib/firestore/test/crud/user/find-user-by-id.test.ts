@@ -8,13 +8,9 @@ describe('CRUD - user - findUserById', () => {
   beforeAll(initialize)
   afterAll(terminate)
 
-  it('throws an error if the user is not found', async () => {
-    try {
-      await findUserById('not-found')
-      expect(false).toBeTruthy()
-    } catch (error) {
-      expect(error).toBeDefined()
-    }
+  it('returns undefined if the user is not found', async () => {
+    const user = await findUserById('not-found')
+    expect(user).toBeUndefined()
   })
 
   it('returns the user with the given id', async () => {

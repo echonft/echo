@@ -6,7 +6,7 @@ export interface User {
   id: string
   discordAvatar: string | undefined
   discordBanner: string | undefined
-  discordGuilds: DiscordGuild[]
+  discordGuilds: Omit<DiscordGuild, 'channelId'>[]
   discordId: string
   discordUsername: string
   nonce: string | undefined

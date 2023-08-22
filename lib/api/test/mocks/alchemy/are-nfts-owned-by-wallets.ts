@@ -1,4 +1,4 @@
-import { Wallet } from '@echo/ui'
+import { Wallet } from '@echo/firestore'
 
 export interface MockAreNftsOwnedByWalletsArgs {
   nfts: never[]

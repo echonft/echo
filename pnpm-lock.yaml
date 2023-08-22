@@ -401,9 +401,6 @@ importers:
       '@echo/firestore':
         specifier: workspace:*
         version: link:../firestore
-      '@echo/ui':
-        specifier: workspace:*
-        version: link:../ui
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -465,9 +462,6 @@ importers:
 
   lib/api-public:
     dependencies:
-      '@echo/firestore':
-        specifier: workspace:*
-        version: link:../firestore
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils

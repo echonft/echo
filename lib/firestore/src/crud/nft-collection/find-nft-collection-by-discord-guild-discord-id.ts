@@ -13,12 +13,12 @@ export const findNftCollectionByDiscordGuildDiscordId = async (guildDiscordId: s
     .get()
 
   if (querySnapshot.empty) {
-    return Promise.reject('collection not found')
+    return undefined
   }
 
   const documentSnapshot = head<QueryDocumentSnapshot<NftCollection>>(querySnapshot.docs)
   if (isNil(documentSnapshot)) {
-    return Promise.reject('collection not found')
+    return undefined
   }
   return documentSnapshot.data()
 }

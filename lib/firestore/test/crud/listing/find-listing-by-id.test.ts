@@ -8,13 +8,9 @@ describe('CRUD - listing - findListingById', () => {
   beforeAll(initialize)
   afterAll(terminate)
 
-  it('throws an error if the listing is not found', async () => {
-    try {
-      await findListingById('not-found')
-      expect(false).toBeTruthy()
-    } catch (error) {
-      expect(error).toBeDefined()
-    }
+  it('returns undefined if the listing is not found', async () => {
+    const listing = await findListingById('not-found')
+    expect(listing).toBeUndefined()
   })
 
   it('returns the listing with the given id', async () => {

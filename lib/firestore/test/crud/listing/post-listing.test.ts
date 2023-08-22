@@ -14,7 +14,7 @@ describe('CRUD - listing - postListing', () => {
   afterAll(terminate)
   beforeEach(async () => {
     const listing = await findListingById(id)
-    initialPostedAt = listing.postedAt!
+    initialPostedAt = listing!.postedAt!
   })
   afterEach(async () => {
     await updateListing(id, { postedAt: initialPostedAt })
@@ -23,7 +23,7 @@ describe('CRUD - listing - postListing', () => {
   it('postListing', async () => {
     await postListing(id)
     const postedListing = await findListingById(id)
-    expect(postedListing.postedAt?.isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
-    expect(postedListing.postedAt?.isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
+    expect(postedListing!.postedAt?.isAfter(dayjs().subtract(1, 'minute'))).toBeTruthy()
+    expect(postedListing!.postedAt?.isBefore(dayjs().add(1, 'minute'))).toBeTruthy()
   })
 })

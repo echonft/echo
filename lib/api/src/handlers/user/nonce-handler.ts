@@ -1,5 +1,5 @@
 import { ApiError } from '../../helpers/api-error'
-import { getUserFromSession } from '../../helpers/handler/get-user-from-session'
+import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
 import { setUserNonce } from '../../helpers/user/set-user-nonce'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { ApiRequest, NonceResponse } from '@echo/api-public'

@@ -1,9 +1,9 @@
 import { ApiError } from '../api-error'
-import { acceptOffer as FirestoreAcceptOffer } from '@echo/firestore'
+import { acceptOffer as firestoreAcceptOffer } from '@echo/firestore'
 
 export const acceptOffer = async (offerId: string) => {
   try {
-    await FirestoreAcceptOffer(offerId)
+    await firestoreAcceptOffer(offerId)
   } catch (e) {
     throw new ApiError(500, 'Error accepting offer')
   }

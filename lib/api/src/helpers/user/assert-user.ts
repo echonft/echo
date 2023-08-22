@@ -1,10 +1,9 @@
 import { ApiError } from '../api-error'
-import { getUserFromSession } from '../handler/get-user-from-session'
-import { Session } from 'next-auth'
+import { User } from '@echo/firestore'
+import { isNil } from 'ramda'
 
-export const assertUser = (userId: string, session: Session | undefined) => {
-  const user = getUserFromSession(session)
-  if (user.id !== userId) {
-    throw new ApiError(401, 'Forbidden')
+export const assertUser = (user: User | undefined) => {
+  if (isNil(user)) {
+    throw new ApiError(400, 'Invalid user id')
   }
 }

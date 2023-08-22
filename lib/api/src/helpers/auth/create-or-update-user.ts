@@ -1,27 +1,28 @@
-import { mapDiscordUserResponseToUserPrototype } from '../../mappers/discord/map-discord-user-response-to-user-prototype'
-import { updateUserNfts } from '../handler/update-user-nfts'
-import { fetchDiscordUser } from '@echo/discord'
-import { addUser, findUserByDiscordId, updateUserDiscordInfo } from '@echo/firestore'
+import { createUser } from '../user/create-user'
+import { fetchDiscordUser } from '../user/fetch-discord-user'
+import { findUserByDiscordId } from '../user/find-user-by-discord-id'
+import { updateUser } from '../user/update-user'
+import { updateUserNfts } from '../user/update-user-nfts'
 import { isNilOrEmpty } from '@echo/utils'
+import { isNil } from 'ramda'
 
-export function createOrUpdateUser(
+export const createOrUpdateUser = async (
   accessToken: string | undefined,
   tokenType: string | undefined,
   discordId: string | undefined
-) {
+) => {
   if (isNilOrEmpty(accessToken) || isNilOrEmpty(tokenType)) {
-    return Promise.reject('Auth error: missing access token')
+    throw Error('Auth error: missing access token')
   }
   if (isNilOrEmpty(discordId)) {
-    return Promise.reject('Auth error: missing Discord Id')
+    throw Error('Auth error: missing Discord Id')
   }
-  return fetchDiscordUser(accessToken, tokenType, true)
-    .then((discordUserResponse) => {
-      const userPrototype = mapDiscordUserResponseToUserPrototype(discordUserResponse)
-      // TODO Add validation on response
-      return findUserByDiscordId(discordId)
-        .then((user) => updateUserNfts(user).then(() => updateUserDiscordInfo(user.id, userPrototype)))
-        .catch(() => addUser(userPrototype))
-    })
-    .catch(() => Promise.reject('Auth error: error fetching discord user'))
+  const user = await fetchDiscordUser(accessToken, tokenType)
+  const foundUser = await findUserByDiscordId(user.discordId)
+  if (isNil(foundUser)) {
+    await createUser(user)
+  } else {
+    await updateUserNfts(foundUser)
+    await updateUser(foundUser.id, user)
+  }
 }

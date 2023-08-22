@@ -8,13 +8,9 @@ describe('CRUD - nft-collection - findNftCollectionByDiscordGuildDiscordId', () 
   beforeAll(initialize)
   afterAll(terminate)
 
-  it('throws an error if the collection is not found', async () => {
-    try {
-      await findNftCollectionByDiscordGuildDiscordId('not-found')
-      expect(false).toBeTruthy()
-    } catch (error) {
-      expect(error).toBeDefined()
-    }
+  it('returns undefined if the collection is not found', async () => {
+    const collection = await findNftCollectionByDiscordGuildDiscordId('not-found')
+    expect(collection).toBeUndefined()
   })
 
   it('returns the collection with the given discord guild', async () => {

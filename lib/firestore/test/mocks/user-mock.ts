@@ -8,8 +8,7 @@ export const userMock: { [key: string]: User } = {
     discordUsername: 'crewNFT_#2034',
     discordGuilds: [
       {
-        discordId: '100',
-        channelId: '100'
+        discordId: '100'
       }
     ],
     discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
@@ -29,12 +28,10 @@ export const userMock: { [key: string]: User } = {
     discordUsername: 'johnnycage#0890',
     discordGuilds: [
       {
-        discordId: '100',
-        channelId: '100'
+        discordId: '100'
       },
       {
-        discordId: '1',
-        channelId: '1'
+        discordId: '1'
       }
     ],
     discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',

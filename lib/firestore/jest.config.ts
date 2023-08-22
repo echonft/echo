@@ -8,7 +8,12 @@ const config: Config = {
     '!<rootDir>/src/**/*.d.ts',
     '!<rootDir>/src/**/index.ts',
     '!<rootDir>/src/**/__tests__/**',
-    '!<rootDir>/src/**/__mocks__/**'
+    '!<rootDir>/src/**/test/**',
+    '!<rootDir>/src/**/__mocks__/**',
+    '!<rootDir>/src/**/mocks/**',
+    '!<rootDir>/src/**/*.test.ts',
+    '!<rootDir>/src/constants/**',
+    '!<rootDir>/src/types/**'
   ],
   coverageDirectory: '<rootDir>/../../.coverage/lib/firestore',
   coverageReporters: ['json-summary', 'text'],

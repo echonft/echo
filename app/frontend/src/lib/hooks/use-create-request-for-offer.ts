@@ -1,7 +1,6 @@
 import {
-  ApiRoutes,
   CreateRequestForOfferRequest,
-  getApiRouteUrl,
+  getCreateOfferUrl,
   RequestForOfferResponse,
   TargetRequest
 } from '@echo/api-public'
@@ -25,7 +24,7 @@ export const useCreateRequestForOffer = (
       {
         name: SwrKeyNames.API_CREATE_FOR_OFFER,
         data: {
-          url: getApiRouteUrl(ApiRoutes.CREATE_REQUEST_FOR_OFFER),
+          url: getCreateOfferUrl(),
           request: {
             discordGuildId: discordId,
             items: items!,

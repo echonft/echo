@@ -17,13 +17,9 @@ describe('CRUD - nft-collection - findNftCollectionByAddress', () => {
     }
   })
 
-  it('throws an error if the collection if the chain id is wrong', async () => {
-    try {
-      await findNftCollectionByAddress('0x12c63bbD266dB84e117356e664f3604055166CEc', 0)
-      expect(false).toBeTruthy()
-    } catch (error) {
-      expect(error).toBeDefined()
-    }
+  it('returns undefined if the collection if the chain id is wrong', async () => {
+    const collection = await findNftCollectionByAddress('0x12c63bbD266dB84e117356e664f3604055166CEc', 0)
+    expect(collection).toBeUndefined()
   })
 
   it('returns the collection with the given contract address and chain id', async () => {

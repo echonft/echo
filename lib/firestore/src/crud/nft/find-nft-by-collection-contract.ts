@@ -19,12 +19,12 @@ export const findNftByCollectionContract = async (
     .get()
 
   if (querySnapshot.empty) {
-    return Promise.reject('nft not found')
+    return undefined
   }
 
   const documentSnapshot = head<QueryDocumentSnapshot<Nft>>(querySnapshot.docs)
   if (isNil(documentSnapshot)) {
-    return Promise.reject('nft not found')
+    return undefined
   }
 
   return documentSnapshot.data()

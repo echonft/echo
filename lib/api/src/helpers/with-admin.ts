@@ -10,7 +10,6 @@ export function withAdmin<T extends NextApiRequest, U>(handler: RequestHandler<T
       // FIXME this is not caught
       throw Error('Admin access restricted')
     }
-
     return handler(req, res)
   }
 }
