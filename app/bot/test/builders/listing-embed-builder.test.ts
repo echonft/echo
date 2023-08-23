@@ -30,12 +30,12 @@ describe('builders - buildListingEmbed', () => {
     expect(json.fields?.[1]).toEqual({
       inline: true,
       name: 'Items for sale',
-      value: embedValueForNft(listing.items[0])
+      value: embedValueForNft(listing.items[0].nft)
     })
     expect(json.fields?.[2]).toEqual({
       inline: true,
       name: '\u200b',
-      value: embedValueForNft(listing.items[1]!)
+      value: embedValueForNft(listing.items[1]!.nft)
     })
     expect(json.fields?.[3]).toEqual(embedSeparator())
     expect(json.fields?.[4]).toEqual({

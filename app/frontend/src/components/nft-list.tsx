@@ -1,4 +1,4 @@
-import { Nft } from '@echo/ui'
+import { Nft } from '@echo/ui-model'
 import { FunctionComponent } from 'react'
 
 interface Props {

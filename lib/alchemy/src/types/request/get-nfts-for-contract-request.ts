@@ -1,6 +1,4 @@
-import { FetcherData } from '@echo/utils'
-
-export interface GetNftsForContractRequest extends FetcherData {
+export interface GetNftsForContractRequest {
   contractAddress: string
   limit: string
   withMetadata: string

@@ -1,4 +1,5 @@
-import { iconSizes, RedFlagIcon as Component, SizeSM } from '@echo/ui'
+import { iconSizes, RedFlagIcon as Component } from '@echo/ui'
+import { SizeSM } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

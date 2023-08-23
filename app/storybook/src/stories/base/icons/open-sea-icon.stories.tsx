@@ -1,4 +1,5 @@
-import { iconSizes, OpenSeaIcon as Component, SizeMD } from '@echo/ui'
+import { iconSizes, OpenSeaIcon as Component } from '@echo/ui'
+import { SizeMD } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

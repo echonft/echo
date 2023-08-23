@@ -1,6 +1,6 @@
 import { AddWallet } from '@components/add-wallet'
 import { SignMessage } from '@components/sign-message'
-import { Signature } from '@echo/ui'
+import { Signature } from '@echo/ui-model'
 import { useFetchNonce } from '@lib/hooks/use-fetch-nonce'
 import { isNil } from 'ramda'
 import { FunctionComponent, useState } from 'react'

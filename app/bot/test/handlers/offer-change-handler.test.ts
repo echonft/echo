@@ -18,70 +18,72 @@ function setChannelForOffer(offer: Offer, channelId: string): Offer {
     senderItems: [
       {
         amount: 1,
-        id: '8hHFadIrrooORfTOLkBg',
-        attributes: [
-          { value: 'archimedean', trait: 'Algorithm' },
-          { value: 'main', trait: 'Ring' },
-          { value: 'movie', trait: 'Animation' },
-          { value: '5', trait: 'Speed' },
-          { value: 'cumulus', trait: 'Density' },
-          { value: '0001', trait: 'Colors' },
-          { value: 'random1', trait: 'Palette' },
-          { value: '#complement', trait: 'Background' }
-        ],
-        balance: 1,
-        blurUrl: new URL('https://blur.io/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376'),
-        collection: {
-          id: '1aomCtnoesD7WVll6Yi1',
-          bannerUrl: new URL(
-            'https://i.seadn.io/gae/ujBmfCu4_m30X3zkmyEA6wYPFubX0qkQJ5CEm5D9Eo2M1jHkDx1K4hUQQitd912A6-M8nyvOsuCuIv8RZokw83runTcR_kTs45xF?auto=format&dpr=1&w=3840'
-          ),
-          blurUrl: new URL('https://blur.io/collection/spiral-frequencies'),
-          contract: {
-            tokenType: 'ERC721',
-            address: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
-            chainId: 1,
+        nft: {
+          id: '8hHFadIrrooORfTOLkBg',
+          attributes: [
+            { value: 'archimedean', trait: 'Algorithm' },
+            { value: 'main', trait: 'Ring' },
+            { value: 'movie', trait: 'Animation' },
+            { value: '5', trait: 'Speed' },
+            { value: 'cumulus', trait: 'Density' },
+            { value: '0001', trait: 'Colors' },
+            { value: 'random1', trait: 'Palette' },
+            { value: '#complement', trait: 'Background' }
+          ],
+          balance: 1,
+          blurUrl: new URL('https://blur.io/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376'),
+          collection: {
+            id: '1aomCtnoesD7WVll6Yi1',
+            bannerUrl: new URL(
+              'https://i.seadn.io/gae/ujBmfCu4_m30X3zkmyEA6wYPFubX0qkQJ5CEm5D9Eo2M1jHkDx1K4hUQQitd912A6-M8nyvOsuCuIv8RZokw83runTcR_kTs45xF?auto=format&dpr=1&w=3840'
+            ),
+            blurUrl: new URL('https://blur.io/collection/spiral-frequencies'),
+            contract: {
+              tokenType: 'ERC721',
+              address: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
+              chainId: 1,
+              name: 'Spiral Frequencies',
+              symbol: 'GCP1'
+            },
+            description: 'A Genetic Chain Project.',
+            discordGuild: {
+              discordId: '1',
+              channelId
+            },
+            discordUrl: new URL('https://discord.gg/genetic-chain'),
+            floorPrice: 0.037,
             name: 'Spiral Frequencies',
-            symbol: 'GCP1'
+            openSeaUrl: new URL('https://opensea.io/collection/spiral-frequencies'),
+            slug: 'spiral-frequencies',
+            profilePictureUrl: new URL(
+              'https://i.seadn.io/gae/dPCp-lwVmhNgEqZCIsTVos7mDu7qY5A_LARb8PMULBrIfTIlRSlX58fphv8AQm8axjszuT-LOwbBlIbXRwZuA6Ua9Btp3aJWpMCMWu8?w=500&auto=format'
+            ),
+            totalSupply: 6315,
+            twitterUsername: 'GeneticChain',
+            websiteUrl: new URL('https://geneticchain.io/project/1')
           },
-          description: 'A Genetic Chain Project.',
-          discordGuild: {
-            discordId: '1',
-            channelId
+          name: 'Spiral Frequencies #1376',
+          owner: {
+            id: 'oE6yUEQBPn7PZ89yMjKn',
+            discordId: '462798252543049728',
+            discordUsername: 'johnnycage#0890',
+            discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+            discordBanner: undefined,
+            wallet: {
+              address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+              chainId: 1
+            }
           },
-          discordUrl: new URL('https://discord.gg/genetic-chain'),
-          floorPrice: 0.037,
-          name: 'Spiral Frequencies',
-          openSeaUrl: new URL('https://opensea.io/collection/spiral-frequencies'),
-          slug: 'spiral-frequencies',
-          profilePictureUrl: new URL(
-            'https://i.seadn.io/gae/dPCp-lwVmhNgEqZCIsTVos7mDu7qY5A_LARb8PMULBrIfTIlRSlX58fphv8AQm8axjszuT-LOwbBlIbXRwZuA6Ua9Btp3aJWpMCMWu8?w=500&auto=format'
+          openSeaUrl: new URL('https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376'),
+          pictureUrl: new URL(
+            'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/bc7e85d32d9391374695bc88926b532b'
           ),
-          totalSupply: 6315,
-          twitterUsername: 'GeneticChain',
-          websiteUrl: new URL('https://geneticchain.io/project/1')
-        },
-        name: 'Spiral Frequencies #1376',
-        owner: {
-          id: 'oE6yUEQBPn7PZ89yMjKn',
-          discordId: '462798252543049728',
-          discordUsername: 'johnnycage#0890',
-          discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-          discordBanner: undefined,
-          wallet: {
-            address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
-            chainId: 1
-          }
-        },
-        openSeaUrl: new URL('https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376'),
-        pictureUrl: new URL(
-          'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/bc7e85d32d9391374695bc88926b532b'
-        ),
-        thumbnailUrl: new URL(
-          'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/bc7e85d32d9391374695bc88926b532b'
-        ),
-        tokenId: 1376,
-        tokenType: 'ERC721'
+          thumbnailUrl: new URL(
+            'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/bc7e85d32d9391374695bc88926b532b'
+          ),
+          tokenId: 1376,
+          tokenType: 'ERC721'
+        }
       }
     ]
   }

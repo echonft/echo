@@ -1,4 +1,5 @@
-import { CollectionDetails as Component, CollectionDetailsSkeleton, nftCollections } from '@echo/ui'
+import { getCollectionById } from '../../mocks/model/nft-collection'
+import { CollectionDetails as Component, CollectionDetailsSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -8,19 +9,19 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-const mockNftCollection = nftCollections['Rc8pLQXxgyQGIRL0fr13']!
+const collection = getCollectionById('Rc8pLQXxgyQGIRL0fr13')
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   render: () => (
     <Component
-      collectionName={mockNftCollection.name}
+      collectionName={collection.name}
       size={10000}
-      pictureUrl={mockNftCollection.profilePictureUrl}
-      discordUrl={mockNftCollection.discordUrl}
-      twitterUsername={mockNftCollection.twitterUsername}
-      websiteUrl={mockNftCollection.websiteUrl}
-      bannerUrl={mockNftCollection.bannerUrl}
+      pictureUrl={collection.profilePictureUrl}
+      discordUrl={collection.discordUrl}
+      twitterUsername={collection.twitterUsername}
+      websiteUrl={collection.websiteUrl}
+      bannerUrl={collection.bannerUrl}
       description={
         'A handcrafted collection of 10,000 characters developed by artist DirtyRobot. Each with their own identity to be discovered within the wider stories of RENGA. In its purest form, RENGA is the art of storytelling'
       }

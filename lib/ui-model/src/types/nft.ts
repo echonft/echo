@@ -8,10 +8,10 @@ export interface Nft {
   id: string
   attributes: NftAttribute[]
   balance: number
-  blurUrl: URL
+  blurUrl: URL | undefined
   collection: NftCollection
   name: string
-  openSeaUrl: URL
+  openSeaUrl: URL | undefined
   owner: User & { wallet: Wallet }
   pictureUrl: URL
   thumbnailUrl: URL

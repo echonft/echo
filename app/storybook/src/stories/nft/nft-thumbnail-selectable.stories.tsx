@@ -1,4 +1,5 @@
-import { nfts, NftThumbnailSelectable as Component, SelectionManager } from '@echo/ui'
+import { getNftById } from '../../mocks/model/nft'
+import { NftThumbnailSelectable as Component, SelectionManager } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -23,12 +24,12 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-const mockNft = nfts['QFjMRNChUAHNswkRADXh']!
+const nft = getNftById('QFjMRNChUAHNswkRADXh')
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    nft: mockNft
+    nft
   }
 }
 
@@ -41,14 +42,14 @@ export const Default: Story = {
 
 export const OwnerHidden: Story = {
   args: {
-    nft: mockNft,
+    nft,
     hideOwner: true
   }
 }
 
 export const Selected: Story = {
   args: {
-    nft: mockNft,
+    nft,
     selected: true
   }
 }
@@ -56,7 +57,7 @@ export const Selected: Story = {
 export const Managed: Story = {
   render: () => (
     <SelectionManager>
-      <Component nft={mockNft} />
+      <Component nft={nft} />
     </SelectionManager>
   )
 }

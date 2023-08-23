@@ -1,9 +1,6 @@
-import {
-  CollectionNftsAndFiltersContainer as Component,
-  CollectionNftsAndFiltersContainerSkeleton,
-  getTraitsForNfts,
-  nfts
-} from '@echo/ui'
+import { getAllNfts } from '../../mocks/model/nft'
+import { CollectionNftsAndFiltersContainer as Component, CollectionNftsAndFiltersContainerSkeleton } from '@echo/ui'
+import { getTraitsForNfts } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -29,29 +26,15 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-const mockNft = nfts['8hHFadIrrooORfTOLkBg']!
-const mockNft2 = nfts['QFjMRNChUAHNswkRADXh']!
-const mockNfts = [
-  mockNft,
-  mockNft,
-  mockNft2,
-  mockNft,
-  mockNft2,
-  mockNft2,
-  mockNft2,
-  mockNft,
-  mockNft,
-  mockNft2,
-  mockNft2
-]
-const traits = getTraitsForNfts(mockNfts)
+const nfts = getAllNfts()
+const traits = getTraitsForNfts(nfts)
 
 export const Default: Story = {
-  render: () => <Component nfts={mockNfts} traits={traits} />
+  render: () => <Component nfts={nfts} traits={traits} />
 }
 
 export const FetchingNewNFTS: Story = {
-  render: () => <Component nfts={mockNfts} traits={traits} isFetchingNfts={true} />
+  render: () => <Component nfts={nfts} traits={traits} isFetchingNfts={true} />
 }
 
 export const Skeleton: Story = {

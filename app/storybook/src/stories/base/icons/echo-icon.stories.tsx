@@ -1,4 +1,5 @@
-import { ColorYellow, EchoIcon as Component, echoIconColors, iconSizes, SizeSM } from '@echo/ui'
+import { EchoIcon as Component, echoIconColors, iconSizes } from '@echo/ui'
+import { ColorYellow, SizeSM } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

@@ -2,9 +2,9 @@ import { embedSeparator } from '../helpers/embed/embed-separator'
 import { embedValueForNft } from '../helpers/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../helpers/embed/embed-value-for-target'
 import { listingLink } from '../routing/listing-link'
-import { getListingGuild, Listing, ListingTarget, Nft } from '@echo/firestore'
+import { getListingGuild, Listing, ListingTarget, OfferItem } from '@echo/firestore'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
-import { flatten } from 'ramda'
+import { flatten, map, prop } from 'ramda'
 
 export function buildListingEmbed(listing: Listing) {
   return new EmbedBuilder()
@@ -29,11 +29,12 @@ function color(): number {
   return 0x00ff66
 }
 
-function fields(nfts: Nft[], targets: ListingTarget[]): APIEmbedField[] {
-  return flatten([embedSeparator(), listingItemsFields(nfts), embedSeparator(), listingTargets(targets)])
+function fields(items: OfferItem[], targets: ListingTarget[]): APIEmbedField[] {
+  return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), listingTargets(targets)])
 }
 
-function listingItemsFields(nfts: Nft[]): APIEmbedField[] {
+function listingItemsFields(items: OfferItem[]): APIEmbedField[] {
+  const nfts = map(prop('nft'), items)
   return nfts.map((nft, index) => ({
     name: index === 0 ? listingItemsName() : '\u200b',
     value: embedValueForNft(nft),

@@ -1,10 +1,21 @@
 import { createOrUpdateUser } from '@echo/api'
 import { getDiscordAuthorizationUrl, getDiscordConfig } from '@echo/discord'
-import { User } from '@echo/ui'
+import { Dayjs } from 'dayjs'
 import NextAuth, { AuthOptions } from 'next-auth'
 import Discord from 'next-auth/providers/discord'
 import { isNil } from 'ramda'
 
+type User = {
+  id: string
+  discordAvatar: string | undefined
+  discordBanner: string | undefined
+  discordGuilds: { discordId: string }[]
+  discordId: string
+  discordUsername: string
+  nonce: string | undefined
+  updatedAt: Dayjs | undefined
+  wallets: { address: string; chainId: number }[]
+}
 export const authOptions: AuthOptions = {
   providers: [
     Discord({

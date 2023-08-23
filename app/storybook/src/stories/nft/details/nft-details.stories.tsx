@@ -1,4 +1,6 @@
-import { NftDetails as Component, NftDetailsSkeleton, nfts, offers } from '@echo/ui'
+import { getNftById } from '../../../mocks/model/nft'
+import { getOfferById } from '../../../mocks/model/offer'
+import { NftDetails as Component, NftDetailsSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { assoc } from 'ramda'
@@ -23,21 +25,22 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
+const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
 export const Default: Story = {
   args: {
-    nft: nfts['QFjMRNChUAHNswkRADXh']!,
+    nft: getNftById('QFjMRNChUAHNswkRADXh'),
     offers: [
-      assoc('expiresAt', dayjs().add(1, 'hour'), offers['LyCfl6Eg7JKuD7XJ6IPi']!),
-      assoc('expiresAt', dayjs().add(6, 'hour'), offers['LyCfl6Eg7JKuD7XJ6IPi']!),
-      assoc('expiresAt', dayjs().add(1, 'day'), offers['LyCfl6Eg7JKuD7XJ6IPi']!),
-      assoc('expiresAt', dayjs().add(40, 'hour'), offers['LyCfl6Eg7JKuD7XJ6IPi']!)
+      assoc('expiresAt', dayjs().add(1, 'hour'), offer),
+      assoc('expiresAt', dayjs().add(6, 'hour'), offer),
+      assoc('expiresAt', dayjs().add(1, 'day'), offer),
+      assoc('expiresAt', dayjs().add(40, 'hour'), offer)
     ]
   }
 }
 
 export const NoOffers: Story = {
   args: {
-    nft: nfts['QFjMRNChUAHNswkRADXh']!,
+    nft: getNftById('QFjMRNChUAHNswkRADXh'),
     offers: []
   }
 }

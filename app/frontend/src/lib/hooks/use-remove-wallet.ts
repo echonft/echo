@@ -1,12 +1,12 @@
 import { EmptyResponse, getUserWalletUrl, WalletRequest } from '@echo/api-public'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
-import { Wallet } from '@echo/ui'
+import { Wallet } from '@echo/ui-model'
 import { deleteData, isNilOrEmpty } from '@echo/utils'
 import { always, converge, path } from 'ramda'
 import useSWR, { SWRResponse } from 'swr'
 
 interface KeyData {
-  url: string
+  url: URL
   request: WalletRequest | undefined
 }
 export const useRemoveWallet = (wallet: Wallet | undefined): SWRResponse<EmptyResponse, Error> =>
