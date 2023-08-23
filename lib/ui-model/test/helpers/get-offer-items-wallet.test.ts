@@ -10,8 +10,10 @@ describe('helpers - ', () => {
       chainId: 1
     }
     const offerItem = {
-      owner: {
-        wallet
+      nft: {
+        owner: {
+          wallet
+        }
       }
     } as OfferItem
     expect(getOfferItemsWallet([offerItem, offerItem, offerItem])).toStrictEqual(wallet)

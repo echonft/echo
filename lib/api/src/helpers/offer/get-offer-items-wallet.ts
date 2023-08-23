@@ -11,8 +11,8 @@ export const getOfferItemsWallet = (items: NonEmptyArray<OfferItem>, user: User)
     map(
       async (item) =>
         await getOwnersForNft(
-          { address: item.collection.contract.address, chainId: item.collection.contract.chainId },
-          item.tokenId
+          { address: item.nft.collection.contract.address, chainId: item.nft.collection.contract.chainId },
+          item.nft.tokenId
         ),
       items
     )

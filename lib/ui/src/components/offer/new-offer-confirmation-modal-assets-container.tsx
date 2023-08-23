@@ -20,7 +20,7 @@ export const NewOfferConfirmationModalAssetsContainer: FunctionComponent<Props> 
         <NewOfferAssetsTitle isReceiver={isReceiver} title={t(isReceiver ? 'assetsInTitle' : 'assetsOutTitle')} />
       </div>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'justify-center')}>
-        {items.map((nft) => (
+        {items.map(({ nft }) => (
           <NftThumbnailOffer nft={nft} key={nft.id} />
         ))}
       </div>

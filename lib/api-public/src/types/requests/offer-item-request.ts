@@ -1,5 +1,6 @@
 import { IdRequest } from './id-request'
 
-export interface OfferItemRequest extends IdRequest {
+export interface OfferItemRequest {
   amount: number
+  nft: IdRequest
 }

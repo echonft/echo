@@ -1,6 +1,4 @@
-import { Nft } from '../nft'
-import { NftCollection } from '../nft-collection'
-import { NftTraits } from '../nft-traits'
+import { Nft, NftCollection, NftTraits } from '@echo/ui-model'
 import { SWRResponse } from 'swr'
 
 export interface FirestoreHooks {

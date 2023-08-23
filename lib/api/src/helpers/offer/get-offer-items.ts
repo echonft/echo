@@ -7,11 +7,11 @@ import { isNil, map } from 'ramda'
 export const getOfferItems = (itemRequests: NonEmptyArray<OfferItemRequest>) =>
   Promise.all(
     map(async (item) => {
-      const { id, amount } = item
-      const nft = await findNftById(id)
-      if (isNil(nft)) {
+      const { nft, amount } = item
+      const foundNft = await findNftById(nft.id)
+      if (isNil(foundNft)) {
         throw new ApiError(400, 'Invalid body')
       }
-      return { amount, ...nft } as OfferItem
+      return { amount, nft: foundNft } as OfferItem
     }, itemRequests)
   ) as Promise<Awaited<NonEmptyArray<OfferItem>>>

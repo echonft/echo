@@ -1,5 +1,6 @@
 import { Nft } from './nft'
 
-export interface OfferItem extends Nft {
+export interface OfferItem {
   amount: number
+  nft: Nft
 }

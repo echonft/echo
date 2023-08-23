@@ -1,5 +1,6 @@
 import { IdRequest } from './id-request'
 
-export interface ListingTargetRequest extends IdRequest {
+export interface ListingTargetRequest {
   amount: number
+  collection: IdRequest
 }
