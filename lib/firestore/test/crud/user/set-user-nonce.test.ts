@@ -20,8 +20,8 @@ describe('CRUD - user - setUserNonce', () => {
   })
 
   it('setUserNonce', async () => {
-    const nonce = await setUserNonce(id)
+    await setUserNonce(id, 'nonce')
     const updatedUser = await findUserById(id)
-    expect(updatedUser!.nonce).toEqual(nonce)
+    expect(updatedUser!.nonce).toEqual('nonce')
   })
 })

@@ -20,6 +20,7 @@ export const updateUserNfts = async (user: User) => {
     const nfts = await getNftsForOwner({ owner: address, contractAddresses: addresses })
     for (const alchemyNft of nfts) {
       const { contractAddress, chainId, tokenId } = alchemyNft
+      // FIXME this is true only for ERC721
       const nft = await findNftByCollectionContract(contractAddress, chainId, tokenId)
       if (isNil(nft)) {
         await createNft(alchemyNft, user, userWallet, collections)

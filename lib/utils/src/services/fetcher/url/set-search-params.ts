@@ -1,8 +1,8 @@
 import { FetcherData } from '../../../types/fetcher-data'
+import { isNil } from 'ramda'
 
-export const setSearchParams =
-  <T extends FetcherData>(data: T) =>
-  (url: URL) => {
+export const setSearchParams = <T extends FetcherData>(url: URL, data: T) => {
+  if (!isNil(data)) {
     Object.entries(data).forEach((dataPair) => {
       if (Array.isArray(dataPair[1])) {
         const name = dataPair[0]
@@ -14,5 +14,6 @@ export const setSearchParams =
         url.searchParams.set(...(dataPair as [string, string]))
       }
     })
-    return url
   }
+  return url
+}

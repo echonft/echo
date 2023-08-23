@@ -18,7 +18,19 @@ describe('services - fetcher - postData', () => {
     jest.clearAllMocks()
   })
 
-  it('url and request init should match passed values', async () => {
+  it('without data', async () => {
+    const url = new URL('https://echo.xyz/')
+    const fetched = await deleteData<FetchResponse>(url)
+    expect(fetched.url).toEqual('https://echo.xyz/')
+    expect(fetched.requestInit).toEqual({
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'DELETE'
+    })
+  })
+
+  it('with data', async () => {
     const url = new URL('https://echo.xyz/')
     const fetched = await deleteData<FetchResponse, { query: string }>(url, { query: 'test' })
     expect(fetched.url).toEqual('https://echo.xyz/')

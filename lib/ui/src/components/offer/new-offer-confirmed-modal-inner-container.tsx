@@ -6,7 +6,7 @@ import { FunctionComponent } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 interface Props {
-  onConfirm?: () => void
+  onConfirm?: () => unknown
 }
 
 export const NewOfferConfirmedModalInnerContainer: FunctionComponent<Props> = ({ onConfirm }) => {

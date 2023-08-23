@@ -1,5 +1,5 @@
-import { SizeSM } from '../../types/size'
 import { RedFlagIcon } from '../base/icons/red-flag-icon'
+import { SizeSM } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

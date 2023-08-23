@@ -1,8 +1,8 @@
 import { Routes } from '../../../types/provider/link-provider'
-import { User } from '../../../types/user'
 import { DiscordIconSvg } from '../../base/svg/discord-icon-svg'
 import { InternalLink } from '../../utils/internal-link'
 import { NftDetailsLinks, NftDetailsLinksProps } from './nft-details-links'
+import { User } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

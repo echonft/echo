@@ -28,8 +28,8 @@ export const NewOfferConfirmationModal: FunctionComponent = () => {
           <NewOfferConfirmedModalInnerContainer onConfirm={() => setModalState('NONE')} />
         ) : (
           <NewOfferConfirmationModalInnerContainer
-            senderAssets={newOffer?.senderItems ?? []}
-            receiverAssets={newOffer?.receiverItems ?? []}
+            senderItems={newOffer?.senderItems ?? []}
+            receiverItems={newOffer?.receiverItems ?? []}
             onConfirm={() => {
               // TODO Add call to API to create offer
               setModalState('CONFIRMED')

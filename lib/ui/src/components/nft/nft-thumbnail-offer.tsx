@@ -1,8 +1,7 @@
-import { Nft } from '../../types/nft'
-import { SizeMD } from '../../types/size'
 import { NftThumbnailOfferSelector } from './nft-thumbnail-offer-selector'
 import { NftThumbnailOfferTitle } from './nft-thumbnail-offer-title'
 import { NftThumbnailPicture } from './nft-thumbnail-picture'
+import { Nft, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

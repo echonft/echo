@@ -1,5 +1,5 @@
-import { User } from '../../../types/user'
 import { UserTagPicture } from './user-tag-picture'
+import { User } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

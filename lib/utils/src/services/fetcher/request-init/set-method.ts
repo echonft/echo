@@ -1,6 +1,4 @@
-import { assoc } from 'ramda'
+import { assocPath } from 'ramda'
 
-export const setMethod =
-  (method: 'GET' | 'POST' | 'PUT' | 'DELETE') =>
-  (requestInit: RequestInit): RequestInit =>
-    assoc('method', method)(requestInit)
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
+export const setMethod = (method: HttpMethod) => assocPath<HttpMethod, RequestInit>(['method'], method)

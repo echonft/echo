@@ -1,12 +1,18 @@
 import { FetcherData } from '../../types/fetcher-data'
-import { getJsonContentTypeRequestInit } from './request-init/get-json-content-type-request-init'
+import { jsonContentTypeRequestInit } from './request-init/json-content-type-request-init'
+import { setAuthorization } from './request-init/set-authorization'
 import { setMethod } from './request-init/set-method'
 import { setSearchParams } from './url/set-search-params'
-import { andThen, partialRight, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
-export const getData = <T, D extends FetcherData>(url: URL, data: D): Promise<T> =>
-  pipe(
-    setSearchParams(data),
-    partialRight(fetch, [pipe(getJsonContentTypeRequestInit, setMethod('GET'))()]),
-    andThen((response) => response.json() as T)
-  )(url)
+export const getData = async <T, D extends FetcherData = undefined>(
+  url: URL,
+  data: D,
+  authorization?: string
+): Promise<T> => {
+  const response = await fetch(
+    setSearchParams(url, data),
+    pipe(setMethod('GET'), setAuthorization(authorization))(jsonContentTypeRequestInit)
+  )
+  return (await response.json()) as T
+}

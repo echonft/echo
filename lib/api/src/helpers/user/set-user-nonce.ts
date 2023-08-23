@@ -1,9 +1,12 @@
 import { ApiError } from '../api-error'
 import { setUserNonce as FirestoreSetUserNonce, User } from '@echo/firestore'
+import { generateNonce } from 'siwe'
 
 export const setUserNonce = async (user: User) => {
   try {
-    return await FirestoreSetUserNonce(user.id)
+    const nonce = generateNonce()
+    await FirestoreSetUserNonce(user.id, nonce)
+    return nonce
   } catch (e) {
     throw new ApiError(500, 'Error setting user nonce')
   }
