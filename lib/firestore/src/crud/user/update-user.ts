@@ -1,4 +1,5 @@
 import { userDataConverter } from '../../converters/user-data-converter'
+import { cleanAndUpdateDocumentRef } from '../../helpers/crud/clean-and-update-document-ref'
 import { User } from '../../types/model/user'
 import { getUserSnapshotById } from './get-user-snapshot-by-id'
 import { WriteResult } from 'firebase-admin/firestore'
@@ -12,7 +13,6 @@ export const updateUser = async (
   if (isNil(documentSnapshot)) {
     throw Error('invalid user id')
   }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return documentSnapshot.ref.update(userDataConverter.toFirestore(user))
+
+  return cleanAndUpdateDocumentRef(documentSnapshot.ref, user, userDataConverter)
 }
