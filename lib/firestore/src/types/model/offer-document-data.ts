@@ -9,10 +9,10 @@ export interface OfferDocumentData {
   postedAt?: number
   receiver: UserDetailsDocumentData
   receiverItems: OfferItemDocumentData[]
-  receiverItemsIds: string[]
+  receiverItemsNftIds: string[]
   sender: UserDetailsDocumentData
   senderItems: OfferItemDocumentData[]
-  senderItemsIds: string[]
+  senderItemsNftIds: string[]
   state: OfferState
   threadId?: string
 }

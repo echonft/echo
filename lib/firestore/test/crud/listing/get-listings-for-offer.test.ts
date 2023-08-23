@@ -4,7 +4,7 @@ import { terminate } from '../../../src/services/terminate'
 import { getListingMockById } from '../../mocks/get-listing-mock-by-id'
 import { getOfferMockById } from '../../mocks/get-offer-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { always, map, modify, modifyPath } from 'ramda'
+import { always, map, modifyPath } from 'ramda'
 
 describe('CRUD - listing - getListingsForOffer', () => {
   beforeAll(initialize)
@@ -15,7 +15,7 @@ describe('CRUD - listing - getListingsForOffer', () => {
     const listings = await getListingsForOffer(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      map(modifyPath(['collection', 'id'], always('not-found')), senderItems),
+      map(modifyPath(['nft', 'collection', 'id'], always('not-found')), senderItems),
       receiverItems
     )
     expect(listings).toEqual([])
@@ -27,7 +27,7 @@ describe('CRUD - listing - getListingsForOffer', () => {
       senderItems,
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      map(modify('id', always('not-found')), receiverItems)
+      map(modifyPath(['nft', 'id'], always('not-found')), receiverItems)
     )
     expect(listings).toEqual([])
   })

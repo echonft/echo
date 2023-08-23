@@ -7,12 +7,12 @@ import { Offer } from '../../types/model/offer'
 import { OfferItem } from '../../types/model/offer-item'
 import { isNotIn, NonEmptyArray } from '@echo/utils'
 import { firestore } from 'firebase-admin'
-import { invoker, map, pipe, prop, reject } from 'ramda'
+import { invoker, map, path, pipe, prop, reject } from 'ramda'
 
 export const getOffersForListing = async (items: NonEmptyArray<OfferItem>, targets: NonEmptyArray<ListingTarget>) => {
   const querySnapshot = await firestore()
     .collection(CollectionName.OFFERS)
-    .where('receiverItemsIds', 'array-contains-any', map(prop('id'), items))
+    .where('receiverItemsNftIds', 'array-contains-any', map(path(['nft', 'id']), items))
     .withConverter(offerDataConverter)
     .get()
 

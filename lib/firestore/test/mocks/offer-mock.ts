@@ -20,7 +20,7 @@ export const offerMock: { [key: string]: Offer } = {
         chainId: 1
       }
     },
-    receiverItems: [{ amount: 1, ...nftMock['8hHFadIrrooORfTOLkBg']! }],
+    receiverItems: [{ amount: 1, nft: nftMock['8hHFadIrrooORfTOLkBg']! }],
     sender: {
       id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
@@ -32,7 +32,7 @@ export const offerMock: { [key: string]: Offer } = {
         chainId: 1
       }
     },
-    senderItems: [{ amount: 1, ...nftMock['kRE3UCfXWkJ33nwzj2X1']! }],
+    senderItems: [{ amount: 1, nft: nftMock['kRE3UCfXWkJ33nwzj2X1']! }],
     state: 'OPEN',
     threadId: '1231'
   }

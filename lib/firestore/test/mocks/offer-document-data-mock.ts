@@ -17,8 +17,8 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
         chainId: 1
       }
     },
-    receiverItems: [{ amount: 1, ...nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! }],
-    receiverItemsIds: ['8hHFadIrrooORfTOLkBg'],
+    receiverItems: [{ amount: 1, nft: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! }],
+    receiverItemsNftIds: ['8hHFadIrrooORfTOLkBg'],
     sender: {
       id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
@@ -30,8 +30,8 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
         chainId: 1
       }
     },
-    senderItems: [{ amount: 1, ...nftDocumentDataMock['kRE3UCfXWkJ33nwzj2X1']! }],
-    senderItemsIds: ['kRE3UCfXWkJ33nwzj2X1'],
+    senderItems: [{ amount: 1, nft: nftDocumentDataMock['kRE3UCfXWkJ33nwzj2X1']! }],
+    senderItemsNftIds: ['kRE3UCfXWkJ33nwzj2X1'],
     state: 'OPEN',
     threadId: '1231'
   }

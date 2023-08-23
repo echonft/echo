@@ -23,8 +23,8 @@ export const listingMock: { [key: string]: Listing } = {
     expired: true,
     expiresAt: dayjs.unix(1676984897),
     items: [
-      { amount: 1, ...nftMock['8hHFadIrrooORfTOLkBg']! },
-      { amount: 1, ...nftMock['iRZFKEujarikVjpiFAkE']! }
+      { amount: 1, nft: nftMock['8hHFadIrrooORfTOLkBg']! },
+      { amount: 1, nft: nftMock['iRZFKEujarikVjpiFAkE']! }
     ],
     offers: [offerMock['LyCfl6Eg7JKuD7XJ6IPi']!],
     postedAt: dayjs.unix(1676984897),

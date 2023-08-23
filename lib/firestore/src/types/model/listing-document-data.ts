@@ -11,7 +11,7 @@ export interface ListingDocumentData {
   creator: UserDetailsDocumentData
   expiresAt: number
   items: OfferItemDocumentData[]
-  itemsIds: string[]
+  itemsNftIds: string[]
   offers: OfferDocumentData[]
   offersIds: string[]
   postedAt?: number
