@@ -1,4 +1,4 @@
-import { walletSchema } from '../../src/types/validators/wallet-schema'
+import { walletSchema } from '../../src/validators/wallet-schema'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - wallet', () => {

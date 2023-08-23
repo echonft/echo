@@ -1,4 +1,4 @@
-import { ApiError } from '../../helpers/api-error'
+import { endResponseOnApiError } from '../../helpers/error/end-response-on-api-error'
 import { assertOffer } from '../../helpers/offer/assert-offer'
 import { cancelOffer } from '../../helpers/offer/cancel-offer'
 import { getOffer } from '../../helpers/offer/get-offer'
@@ -19,8 +19,6 @@ export const handleCancelOffer = async (
     await cancelOffer(offerId)
     return res.status(200).json({})
   } catch (e) {
-    const { status, message } = e as ApiError
-    res.end(res.status(status).json({ error: message }))
-    return
+    return endResponseOnApiError(e, res)
   }
 }

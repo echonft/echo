@@ -1,4 +1,4 @@
-import { idRequestSchema } from '../../src/types/validators/id-request-schema'
+import { idRequestSchema } from '../../src/validators/id-request-schema'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - id', () => {

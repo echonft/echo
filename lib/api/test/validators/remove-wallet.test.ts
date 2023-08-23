@@ -1,4 +1,4 @@
-import { removeWalletSchema } from '../../src/types/validators/remove-wallet-schema'
+import { removeWalletSchema } from '../../src/validators/remove-wallet-schema'
 import { getUserMockById } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 

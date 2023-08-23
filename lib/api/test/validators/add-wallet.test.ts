@@ -1,4 +1,4 @@
-import { addWalletSchema } from '../../src/types/validators/add-wallet-schema'
+import { addWalletSchema } from '../../src/validators/add-wallet-schema'
 import { getUserMockById } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 import { SiweMessage } from 'siwe'

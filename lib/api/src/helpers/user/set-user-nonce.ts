@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { setUserNonce as FirestoreSetUserNonce, User } from '@echo/firestore'
 import { generateNonce } from 'siwe'
 

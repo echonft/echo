@@ -1,5 +1,5 @@
-import { ApiError } from '../../helpers/api-error'
 import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
+import { ApiError } from '../../helpers/error/api-error'
 import { addUserWallet } from '../../helpers/user/add-user-wallet'
 import { findUserByWallet } from '../../helpers/user/find-user-by-wallet'
 import { updateUserNfts } from '../../helpers/user/update-user-nfts'

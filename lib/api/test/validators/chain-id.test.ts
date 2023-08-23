@@ -1,4 +1,4 @@
-import { chainIdSchema } from '../../src/types/validators/chain-id-schema'
+import { chainIdSchema } from '../../src/validators/chain-id-schema'
 import { supportedChains } from '@echo/utils'
 import { describe, expect, it } from '@jest/globals'
 

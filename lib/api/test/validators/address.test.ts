@@ -1,4 +1,4 @@
-import { addressSchema } from '../../src/types/validators/address-schema'
+import { addressSchema } from '../../src/validators/address-schema'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - address', () => {

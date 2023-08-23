@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { Offer } from '@echo/firestore'
 import { isNil } from 'ramda'
 

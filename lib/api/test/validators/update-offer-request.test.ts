@@ -1,4 +1,4 @@
-import { updateOfferRequestSchema } from '../../src/types/validators/update-offer-request-schema'
+import { updateOfferRequestSchema } from '../../src/validators/update-offer-request-schema'
 import { UpdateOfferAction } from '@echo/api-public'
 import { describe, expect, it } from '@jest/globals'
 

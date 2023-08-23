@@ -43,7 +43,7 @@ export async function offerChangeHandler(client: Client, changeType: DocumentCha
             offer
           )}`
         })
-        await postOffer(thread.id)
+        await postOffer(offer.id, thread.id)
       }
     } catch (e) {
       logger.error(`Error while listening to added offer ${offer.id}: ${errorMessage(e)}`)

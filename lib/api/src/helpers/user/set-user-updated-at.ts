@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { setUserUpdatedAt as FirestoreSetUserUpdatedAt, User } from '@echo/firestore'
 
 export const setUserUpdatedAt = async (user: User) => {

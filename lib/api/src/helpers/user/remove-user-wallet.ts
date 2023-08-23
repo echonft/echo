@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { removeUserWallet as firestoreRemoveUserWallet, Wallet } from '@echo/firestore'
 
 export const removeUserWallet = async (userId: string, wallet: Wallet) => {

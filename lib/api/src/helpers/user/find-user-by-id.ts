@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { findUserById as firestoreFindUserById } from '@echo/firestore'
 
 export const findUserById = async (userId: string) => {

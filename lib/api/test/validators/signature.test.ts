@@ -1,4 +1,4 @@
-import { signatureSchema } from '../../src/types/validators/signature-schema'
+import { signatureSchema } from '../../src/validators/signature-schema'
 import { describe, expect, it } from '@jest/globals'
 
 describe('validators - signature', () => {
