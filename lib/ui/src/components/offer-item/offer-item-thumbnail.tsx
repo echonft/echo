@@ -49,7 +49,7 @@ export const OfferItemThumbnail: FunctionComponent<OfferItemThumbnailProps> = ({
           'bg-white/[0.08]',
           'w-full',
           size === SizeMD && ['px-1.5', 'pt-1', 'pb-2'],
-          size === SizeLG && ['px-1', 'pt-2.5', 'pb-3.5']
+          size === SizeLG && ['px-2', 'pt-2.5', 'pb-3.5']
         )}
       >
         <OfferItemThumbnailTitle tokenId={tokenId} collectionName={collection.name} size={size} />
