@@ -2,11 +2,12 @@ import { ContractResponse } from '../types/response/contract-response'
 import { GetContractMetadataResponse } from '../types/response/get-contract-metadata-response'
 import { NftTokenType } from '@echo/firestore'
 import { unlessNil } from '@echo/utils'
+import { getAddress } from 'ethers'
 import { always, applySpec, path, pipe, prop } from 'ramda'
 
 export const mapContractMetadata: (contractResponse: ContractResponse) => GetContractMetadataResponse = applySpec({
   contract: applySpec({
-    address: prop<string>('address'),
+    address: pipe(prop<string>('address'), getAddress),
     chainId: always(1),
     tokenType: prop<NftTokenType>('tokenType'),
     name: prop('name'),
