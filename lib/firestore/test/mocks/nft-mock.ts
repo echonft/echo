@@ -15,7 +15,7 @@ export const nftMock: { [key: string]: Nft } = {
       { value: '#complement', trait: 'Background' }
     ],
     balance: 1,
-    blurUrl: new URL('https://blur.io/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376'),
+    blurUrl: new URL('https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/1376'),
     collection: nftCollectionMock['1aomCtnoesD7WVll6Yi1']!,
     name: 'Spiral Frequencies #1376',
     owner: {
@@ -29,7 +29,7 @@ export const nftMock: { [key: string]: Nft } = {
         chainId: 1
       }
     },
-    openSeaUrl: new URL('https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376'),
+    openSeaUrl: new URL('https://opensea.io/assets/ethereum/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/1376'),
     pictureUrl: new URL(
       'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/bc7e85d32d9391374695bc88926b532b'
     ),
@@ -76,7 +76,7 @@ export const nftMock: { [key: string]: Nft } = {
       }
     ],
     balance: 1,
-    blurUrl: new URL('https://blur.io/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/2414'),
+    blurUrl: new URL('https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/2414'),
     collection: nftCollectionMock['1aomCtnoesD7WVll6Yi1']!,
     name: 'Spiral Frequencies #2414',
     owner: {
@@ -90,7 +90,7 @@ export const nftMock: { [key: string]: Nft } = {
         chainId: 1
       }
     },
-    openSeaUrl: new URL('https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/2414'),
+    openSeaUrl: new URL('https://opensea.io/assets/ethereum/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/2414'),
     pictureUrl: new URL(
       'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de'
     ),
@@ -137,7 +137,7 @@ export const nftMock: { [key: string]: Nft } = {
       }
     ],
     balance: 1,
-    blurUrl: new URL('https://blur.io/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/3035'),
+    blurUrl: new URL('https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/3035'),
     collection: nftCollectionMock['1aomCtnoesD7WVll6Yi1']!,
     name: 'Spiral Frequencies #3035',
     owner: {
@@ -151,7 +151,7 @@ export const nftMock: { [key: string]: Nft } = {
         chainId: 1
       }
     },
-    openSeaUrl: new URL('https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/3035'),
+    openSeaUrl: new URL('https://opensea.io/assets/ethereum/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/3035'),
     pictureUrl: new URL(
       'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/f7adbf923a17d9b1f9b33d7a23d2b621'
     ),

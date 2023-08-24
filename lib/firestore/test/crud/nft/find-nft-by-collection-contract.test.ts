@@ -14,12 +14,12 @@ describe('CRUD - nft - findNftByCollectionContract', () => {
   })
 
   it('returns undefined if the token id is not found', async () => {
-    const collection = await findNftByCollectionContract('0x320e2fa93a4010ba47edcde762802374bac8d3f7', 1, 1)
+    const collection = await findNftByCollectionContract('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1, 1)
     expect(collection).toBeUndefined()
   })
 
   it('returns the nft with the given collection and token id', async () => {
-    const collection = await findNftByCollectionContract('0x320e2fa93a4010ba47edcde762802374bac8d3f7', 1, 1376)
+    const collection = await findNftByCollectionContract('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1, 1376)
     expect(collection).toStrictEqual(nftMock['8hHFadIrrooORfTOLkBg'])
   })
 })

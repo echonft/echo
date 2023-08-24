@@ -14,7 +14,7 @@ describe('CRUD - nft - getNftsForCollection', () => {
   })
 
   it('returns the nfts of the collection', async () => {
-    const nfts = await getNftsForCollection('0x320e2fa93a4010ba47edcde762802374bac8d3f7', 1)
+    const nfts = await getNftsForCollection('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1)
     expect(nfts.length).toEqual(3)
     const nftIds = map(prop('id'), nfts)
     expect(includes('8hHFadIrrooORfTOLkBg', nftIds)).toBeTruthy()

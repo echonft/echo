@@ -24,7 +24,7 @@ jest.mock('../../src/routing/get-base-url')
 //             { value: '#complement', trait: 'Background' }
 //           ],
 //           balance: 1,
-//           blurUrl: new URL('https://blur.io/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376'),
+//           blurUrl: new URL('https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/1376'),
 //           collection: {
 //             id: '1aomCtnoesD7WVll6Yi1',
 //             bannerUrl: new URL(
@@ -33,7 +33,7 @@ jest.mock('../../src/routing/get-base-url')
 //             blurUrl: new URL('https://blur.io/collection/spiral-frequencies'),
 //             contract: {
 //               tokenType: 'ERC721',
-//               address: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
+//               address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
 //               chainId: 1,
 //               name: 'Spiral Frequencies',
 //               symbol: 'GCP1'
@@ -67,7 +67,7 @@ jest.mock('../../src/routing/get-base-url')
 //               chainId: 1
 //             }
 //           },
-//           openSeaUrl: new URL('https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376'),
+//           openSeaUrl: new URL('https://opensea.io/assets/ethereum/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/1376'),
 //           pictureUrl: new URL(
 //             'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/bc7e85d32d9391374695bc88926b532b'
 //           ),

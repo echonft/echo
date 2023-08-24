@@ -39,7 +39,7 @@ export const nftCollectionMock: { [key: string]: NftCollection } = {
     blurUrl: new URL('https://blur.io/collection/spiral-frequencies'),
     contract: {
       tokenType: 'ERC721',
-      address: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
+      address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
       chainId: 1,
       name: 'Spiral Frequencies',
       symbol: 'GCP1'

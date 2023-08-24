@@ -10,7 +10,7 @@ describe('mappers - mapContractMetadata', () => {
         'https://i.seadn.io/gae/ujBmfCu4_m30X3zkmyEA6wYPFubX0qkQJ5CEm5D9Eo2M1jHkDx1K4hUQQitd912A6-M8nyvOsuCuIv8RZokw83runTcR_kTs45xF?auto=format&dpr=1&w=3840',
       contract: {
         tokenType: 'ERC721',
-        address: '0x320e2fa93a4010ba47edcde762802374bac8d3f7',
+        address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
         chainId: 1,
         name: 'Spiral Frequencies',
         symbol: 'GCP1'
@@ -27,7 +27,7 @@ describe('mappers - mapContractMetadata', () => {
       twitterUsername: 'GeneticChain',
       websiteUrl: 'https://geneticchain.io/project/1'
     }
-    const result = mapContractMetadata(getContractMetadataResponse['0x320e2fa93a4010ba47edcde762802374bac8d3f7']!)
+    const result = mapContractMetadata(getContractMetadataResponse['0x320e2fa93A4010ba47edcdE762802374bac8d3F7']!)
     expect(result.contract.address.toLocaleLowerCase()).toEqual(expected.contract.address)
     expect(result.contract.chainId).toEqual(expected.contract.chainId)
     expect(result.contract.tokenType).toEqual(expected.contract.tokenType)
