@@ -1,3 +1,4 @@
+import { acceptOffer } from '../../../src'
 import { getListingsForOfferId } from '../../../src/crud/listing/get-listings-for-offer-id'
 import { updateListing } from '../../../src/crud/listing/update-listing'
 import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
@@ -33,19 +34,32 @@ describe('CRUD - offer - rejectOffer', () => {
     }
   })
 
+  it('throws if the offer is undefined', async () => {
+    await expect(acceptOffer('not-found')).rejects.toBeDefined()
+  })
   it('throws if the offer is expired', async () => {
-    try {
-      await rejectOffer(id)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as Error).message).toEqual('offer expired')
-    }
+    await updateOffer(id, { state: 'OPEN', expiresAt: dayjs().subtract(1, 'day') })
+    await expect(acceptOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is cancelled', async () => {
+    await updateOffer(id, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day') })
+    await expect(acceptOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is accepted', async () => {
+    await updateOffer(id, { state: 'ACCEPTED', expiresAt: dayjs().add(1, 'day') })
+    await expect(acceptOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is rejected', async () => {
+    await updateOffer(id, { state: 'REJECTED', expiresAt: dayjs().add(1, 'day') })
+    await expect(acceptOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is invalid', async () => {
+    await updateOffer(id, { state: 'INVALID', expiresAt: dayjs().add(1, 'day') })
+    await expect(acceptOffer(id)).rejects.toBeDefined()
   })
 
   it('reject offer if its not expired', async () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    await updateOffer(id, { expiresAt: dayjs().add(1, 'day') })
+    await updateOffer(id, { state: 'OPEN', expiresAt: dayjs().add(1, 'day') })
     await rejectOffer(id)
     const updatedOffer = await findOfferById(id)
     expect(updatedOffer!.state).toEqual('REJECTED')

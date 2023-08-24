@@ -1,7 +1,8 @@
 import { addressSchema } from './address-schema'
+import { chainIdSchema } from './chain-id-schema'
 import { z } from 'zod'
 
 export const walletSchema = z.object({
-  chainId: z.number().gte(1),
+  chainId: chainIdSchema,
   address: addressSchema
 })

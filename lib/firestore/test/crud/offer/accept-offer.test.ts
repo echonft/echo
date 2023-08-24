@@ -33,19 +33,32 @@ describe('CRUD - offer - acceptOffer', () => {
     }
   })
 
+  it('throws if the offer is undefined', async () => {
+    await expect(acceptOffer('not-found')).rejects.toBeDefined()
+  })
   it('throws if the offer is expired', async () => {
-    try {
-      await acceptOffer(id)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as Error).message).toEqual('offer expired')
-    }
+    await updateOffer(id, { state: 'OPEN', expiresAt: dayjs().subtract(1, 'day') })
+    await expect(acceptOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is cancelled', async () => {
+    await updateOffer(id, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day') })
+    await expect(acceptOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is accepted', async () => {
+    await updateOffer(id, { state: 'ACCEPTED', expiresAt: dayjs().add(1, 'day') })
+    await expect(acceptOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is rejected', async () => {
+    await updateOffer(id, { state: 'REJECTED', expiresAt: dayjs().add(1, 'day') })
+    await expect(acceptOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is invalid', async () => {
+    await updateOffer(id, { state: 'INVALID', expiresAt: dayjs().add(1, 'day') })
+    await expect(acceptOffer(id)).rejects.toBeDefined()
   })
 
-  it('accept offer if its not expired', async () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    await updateOffer(id, { expiresAt: dayjs().add(1, 'day') })
+  it('accept offer if its not expired and open', async () => {
+    await updateOffer(id, { state: 'OPEN', expiresAt: dayjs().add(1, 'day') })
     await acceptOffer(id)
     const updatedOffer = await findOfferById(id)
     expect(updatedOffer!.state).toEqual('ACCEPTED')

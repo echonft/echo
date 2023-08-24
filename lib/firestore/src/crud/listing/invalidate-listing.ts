@@ -1,16 +1,11 @@
 import { listingDataConverter } from '../../converters/listing-data-converter'
+import { assertListing } from '../../helpers/listing/assert-listing'
 import { getListingSnapshotById } from './get-listing-snapshot-by-id'
 import { WriteResult } from 'firebase-admin/firestore'
-import { isNil } from 'ramda'
 
 export const invalidateListing = async (id: string): Promise<WriteResult> => {
   const documentSnapshot = await getListingSnapshotById(id)
-  if (isNil(documentSnapshot)) {
-    throw Error('invalid listing id')
-  }
-  if (documentSnapshot.data().expired) {
-    throw Error('listing expired')
-  }
+  assertListing(documentSnapshot?.data())
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return documentSnapshot.ref.update(listingDataConverter.toFirestore({ state: 'INVALID' }))
