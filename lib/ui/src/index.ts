@@ -58,6 +58,7 @@ export {
   NftDetailsTokenDetailsPanelProps
 } from './components/nft/details/nft-details-token-details-panel'
 export { NftThumbnailSelectable, NftThumbnailSelectableProps } from './components/nft/nft-thumbnail-selectable'
+export { OfferDetailsActionModal } from './components/offer/details/offer-details-action-modal'
 export { OfferDetailsButtonsContainer } from './components/offer/details/offer-details-buttons-container'
 export { OfferDetailsContainer } from './components/offer/details/offer-details-container'
 export { OfferDetailsState } from './components/offer/details/offer-details-state'

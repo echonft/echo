@@ -1,5 +1,5 @@
 import { getOfferById } from '../../mocks/model/offer'
-import { NftThumbnailOfferSkeleton, OfferItemThumbnail as Component } from '@echo/ui'
+import { OfferItemThumbnail as Component, OfferItemThumbnailSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -50,5 +50,5 @@ export const UserDisplayed: Story = {
 }
 
 export const Skeleton: Story = {
-  render: ({ size }) => <NftThumbnailOfferSkeleton size={size} />
+  render: ({ size }) => <OfferItemThumbnailSkeleton size={size} />
 }

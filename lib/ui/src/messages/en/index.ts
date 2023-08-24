@@ -67,7 +67,25 @@ export const messages = {
       acceptBtn: 'Accept',
       declineBtn: 'Decline',
       approveBtn: 'Approve {count, plural, =0 {} =1 {NFT} other {NFTs}}',
-      completeBtn: 'Execute Swap'
+      completeBtn: 'Execute Swap',
+      actionModal: {
+        ACCEPTED: {
+          title: 'Offer accepted',
+          subtitle: 'You have successfully accepted the offer',
+          confirmBtn: 'Confirm',
+          copyLinkBtn: 'Copy Link'
+        },
+        CANCELLED: {
+          title: 'Offer cancelled',
+          subtitle: 'You have successfully cancelled the offer',
+          dismissBtn: 'Dismiss'
+        },
+        REJECTED: {
+          title: 'Offer rejected',
+          subtitle: 'You have successfully rejected the offer',
+          dismissBtn: 'Dismiss'
+        }
+      }
     },
     misc: {
       assetsInSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',

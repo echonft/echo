@@ -6,10 +6,7 @@ export interface OffersFetcherProps {
   onOffersError?: (error: Error) => unknown
 }
 
-export const UserOffersFetcher: FunctionComponent<PropsWithChildren<OffersFetcherProps>> = ({
-  user,
-  onOffersError
-}) => {
+export const UserOffersFetcher: FunctionComponent<PropsWithChildren<OffersFetcherProps>> = ({}) => {
   // TODO
   // const { data, error } = useUserOffers()
   //

@@ -11,6 +11,7 @@ export interface OfferDetailsButtonsContainerProps {
   onAccept?: () => unknown
   onDecline?: () => unknown
   onApprove?: () => unknown
+  // TODO This case could change as it is a swap at this stage
   onComplete?: () => unknown
 }
 

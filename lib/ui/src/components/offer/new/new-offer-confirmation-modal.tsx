@@ -1,8 +1,8 @@
 import { newOfferDataState, newOfferState } from '../../../services/state'
 import { Modal } from '../../base/modal/modal'
+import { ModalTitle } from '../../base/modal/modal-title'
 import { NewOfferConfirmationModalInnerContainer } from './new-offer-confirmation-modal-inner-container'
 import { NewOfferConfirmedModalInnerContainer } from './new-offer-confirmed-modal-inner-container'
-import { NewOfferModalTitle } from './new-offer-modal-title'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { FunctionComponent, useCallback } from 'react'
@@ -20,9 +20,7 @@ export const NewOfferConfirmationModal: FunctionComponent = () => {
     <Modal
       open={modalState !== 'NONE'}
       onClose={() => setModalState('NONE')}
-      renderTitle={() => (
-        <NewOfferModalTitle title={t(`${isConfirmed() ? 'confirmedModal' : 'confirmationModal'}.title`)} />
-      )}
+      renderTitle={() => <ModalTitle title={t(`${isConfirmed() ? 'confirmedModal' : 'confirmationModal'}.title`)} />}
       renderDescription={() =>
         isConfirmed() ? (
           <NewOfferConfirmedModalInnerContainer onConfirm={() => setModalState('NONE')} />
