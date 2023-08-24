@@ -29,5 +29,5 @@ export const getOfferItemsWallet = (items: NonEmptyArray<OfferItem>, user: User)
       )
     )
     .catch(() => {
-      throw new ApiError(401, 'User do not own all the NFTs')
+      throw new ApiError(401, 'Error fetching NFTs owners')
     })
