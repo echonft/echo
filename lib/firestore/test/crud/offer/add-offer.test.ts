@@ -5,17 +5,17 @@ import { updateListing } from '../../../src/crud/listing/update-listing'
 import { addOffer } from '../../../src/crud/offer/add-offer'
 import { deleteOffer } from '../../../src/crud/offer/delete-offer'
 import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { offerMock } from '../../mocks/offer-mock'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 import { find, propEq, reject } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
   let id: string
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
   afterEach(async () => {
     try {
       await deleteOffer(id)

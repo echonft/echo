@@ -3,7 +3,7 @@ import { OfferItem } from '../../src/types/offer-item'
 import { Wallet } from '../../src/types/wallet'
 import { describe, expect, it } from '@jest/globals'
 
-describe('helpers - ', () => {
+describe('helpers - getOfferItemsWallet', () => {
   it('returns the wallet of the first item since they are all the same', () => {
     const wallet: Wallet = {
       address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',

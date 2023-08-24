@@ -7,7 +7,7 @@ import { isNil } from 'ramda'
 
 export const updateNftCollection = async (
   id: string,
-  nftCollection: Omit<NftCollection, 'id'> | Partial<Omit<NftCollection, 'id'>>
+  nftCollection: Partial<Omit<NftCollection, 'id'>>
 ): Promise<WriteResult> => {
   const documentSnapshot = await getNftCollectionSnapshotById(id)
   if (isNil(documentSnapshot)) {

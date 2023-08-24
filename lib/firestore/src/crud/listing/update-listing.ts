@@ -5,10 +5,7 @@ import { getListingSnapshotById } from './get-listing-snapshot-by-id'
 import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
-export const updateListing = async (
-  id: string,
-  listing: Omit<Listing, 'id'> | Partial<Omit<Listing, 'id'>>
-): Promise<WriteResult> => {
+export const updateListing = async (id: string, listing: Partial<Omit<Listing, 'id'>>): Promise<WriteResult> => {
   const documentSnapshot = await getListingSnapshotById(id)
   if (isNil(documentSnapshot)) {
     throw Error('invalid listing id')

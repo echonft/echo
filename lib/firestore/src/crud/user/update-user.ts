@@ -5,10 +5,7 @@ import { getUserSnapshotById } from './get-user-snapshot-by-id'
 import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
-export const updateUser = async (
-  id: string,
-  user: Omit<User, 'id'> | Partial<Omit<User, 'id'>>
-): Promise<WriteResult> => {
+export const updateUser = async (id: string, user: Partial<Omit<User, 'id'>>): Promise<WriteResult> => {
   const documentSnapshot = await getUserSnapshotById(id)
   if (isNil(documentSnapshot)) {
     throw Error('invalid user id')

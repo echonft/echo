@@ -1,17 +1,22 @@
 import { getAllUsers } from '../../../src/crud/user/get-all-users'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
-import { userMock } from '../../mocks/user-mock'
+import { User } from '../../../src/types/model/user'
+import { getAllUserMocks } from '../../mocks/get-all-user-mocks'
+import { getUserMockById } from '../../mocks/get-user-mock-by-id'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { forEach } from 'ramda'
 
 describe('CRUD - user - getAllUsers', () => {
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
 
   it('get all users', async () => {
+    const userMocks = getAllUserMocks()
     const users = await getAllUsers()
-    expect(users.length).toEqual(2)
-    expect(users[0]).toStrictEqual(userMock['6rECUMhevHfxABZ1VNOm'])
-    expect(users[1]).toStrictEqual(userMock['oE6yUEQBPn7PZ89yMjKn'])
+    expect(users.length).toEqual(userMocks.length)
+    forEach((user: User) => {
+      expect(getUserMockById(user.id)).toStrictEqual(user)
+    }, users)
   })
 })

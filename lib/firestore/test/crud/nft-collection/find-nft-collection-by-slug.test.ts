@@ -1,12 +1,12 @@
 import { findNftCollectionBySlug } from '../../../src/crud/nft-collection/find-nft-collection-by-slug'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { nftCollectionMock } from '../../mocks/nft-collection-mock'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - nft-collection - findNftCollectionBySlug', () => {
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
 
   it('returns undefined if the collection is not found', async () => {
     const collection = await findNftCollectionBySlug('not-found')

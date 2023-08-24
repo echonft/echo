@@ -1,12 +1,12 @@
 import { getNftsForCollection } from '../../../src/crud/nft/get-nfts-for-collection'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { includes, map, prop } from 'ramda'
 
 describe('CRUD - nft - getNftsForCollection', () => {
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
 
   it('returns an empty array the collection is not found', async () => {
     const result = await getNftsForCollection('not-found', 1)

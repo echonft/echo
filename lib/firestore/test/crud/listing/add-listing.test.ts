@@ -3,16 +3,16 @@ import { addListing } from '../../../src/crud/listing/add-listing'
 import { deleteListing } from '../../../src/crud/listing/delete-listing'
 import { findListingById } from '../../../src/crud/listing/find-listing-by-id'
 import { getOffersForListing } from '../../../src/crud/offer/get-offers-for-listing'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { listingMock } from '../../mocks/listing-mock'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 
 describe('CRUD - listing - addListing', () => {
   let id: string
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
   afterEach(async () => {
     try {
       await deleteListing(id)

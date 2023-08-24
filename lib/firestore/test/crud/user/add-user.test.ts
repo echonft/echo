@@ -1,15 +1,15 @@
 import { addUser } from '../../../src/crud/user/add-user'
 import { deleteUser } from '../../../src/crud/user/delete-user'
 import { findUserById } from '../../../src/crud/user/find-user-by-id'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { getUserMockById } from '../../mocks/get-user-mock-by-id'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - addUser', () => {
   let id: string
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
   afterEach(async () => {
     try {
       await deleteUser(id)

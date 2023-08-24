@@ -3,10 +3,10 @@ import { updateListing } from '../../../src/crud/listing/update-listing'
 import { acceptOffer } from '../../../src/crud/offer/accept-offer'
 import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
 import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { Offer } from '../../../src/types/model/offer'
 import { OfferState } from '../../../src/types/model/offer-state'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs, { Dayjs } from 'dayjs'
 import { filter, map, pick, propEq } from 'ramda'
@@ -17,8 +17,8 @@ describe('CRUD - offer - acceptOffer', () => {
   let initialListingsOffers: { id: string; offers: Offer[] }[]
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
 
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
   beforeEach(async () => {
     const offer = await findOfferById(id)
     initialState = offer!.state

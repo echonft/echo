@@ -5,10 +5,7 @@ import { getOfferSnapshotById } from './get-offer-snapshot-by-id'
 import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
-export const updateOffer = async (
-  id: string,
-  offer: Omit<Offer, 'id'> | Partial<Omit<Offer, 'id'>>
-): Promise<WriteResult> => {
+export const updateOffer = async (id: string, offer: Partial<Omit<Offer, 'id'>>): Promise<WriteResult> => {
   const documentSnapshot = await getOfferSnapshotById(id)
   if (isNil(documentSnapshot)) {
     throw Error('invalid offer id')

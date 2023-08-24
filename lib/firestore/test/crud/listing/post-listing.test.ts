@@ -1,8 +1,8 @@
 import { findListingById } from '../../../src/crud/listing/find-listing-by-id'
 import { postListing } from '../../../src/crud/listing/post-listing'
 import { updateListing } from '../../../src/crud/listing/update-listing'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs, { Dayjs } from 'dayjs'
 
@@ -10,8 +10,8 @@ describe('CRUD - listing - postListing', () => {
   let initialPostedAt: Dayjs
   const id = 'jUzMtPGKM62mMhEcmbN4'
 
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
   beforeEach(async () => {
     const listing = await findListingById(id)
     initialPostedAt = listing!.postedAt!

@@ -1,12 +1,12 @@
 import { getAllUserWalletAddresses } from '../../../src/crud/user/get-all-user-wallet-addresses'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { userMock } from '../../mocks/user-mock'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - getAllUserWalletAddresses', () => {
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
 
   it('getAllUserWalletAddresses', async () => {
     const addresses = await getAllUserWalletAddresses(1)
