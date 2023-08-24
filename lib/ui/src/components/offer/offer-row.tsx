@@ -1,13 +1,12 @@
-import { DirectionLeft } from '../../types/direction'
-import { Offer as OfferModel } from '../../types/offer'
 import { SwapIconSvg } from '../base/svg/swap-icon-svg'
-import { OfferAssetsContainer } from './offer-assets-container'
 import { OfferInfoContainer } from './offer-info-container'
+import { OfferItemsContainer } from './offer-items-container'
+import { DirectionLeft, Offer } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 export interface OfferProps {
-  offer: OfferModel
+  offer: Offer
   isReceiver: boolean
 }
 
@@ -31,9 +30,9 @@ export const OfferRow: FunctionComponent<OfferProps> = ({ offer, isReceiver }) =
         discordUsername={isReceiver ? offer.sender.discordUsername : offer.receiver.discordUsername}
       />
       <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-2')}>
-        <OfferAssetsContainer items={isReceiver ? offer.receiverItems : offer.senderItems} />
+        <OfferItemsContainer items={isReceiver ? offer.receiverItems : offer.senderItems} />
         <SwapIconSvg direction={DirectionLeft} />
-        <OfferAssetsContainer
+        <OfferItemsContainer
           items={isReceiver ? offer.senderItems : offer.receiverItems}
           discordUsername={isReceiver ? offer.sender.discordUsername : offer.receiver.discordUsername}
         />

@@ -1,4 +1,6 @@
-import { offers, OffersProvided as Component, OfferState, UserOffersSkeleton, users } from '@echo/ui'
+import { getOfferById } from '../../mocks/model/offer'
+import { getUserById } from '../../mocks/model/user'
+import { OffersProvided as Component, UserOffersSkeleton } from '@echo/ui'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -13,21 +15,21 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
+const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
+
 type Story = StoryObj<typeof Component>
 export const Fetched: Story = {
   args: {
-    user: users['oE6yUEQBPn7PZ89yMjKn']!,
+    user: getUserById('oE6yUEQBPn7PZ89yMjKn'),
     offers: [
-      offers['LyCfl6Eg7JKuD7XJ6IPi']!,
-      { ...offers['LyCfl6Eg7JKuD7XJ6IPi']!, state: OfferState.ACCEPTED },
-      { ...offers['LyCfl6Eg7JKuD7XJ6IPi']!, state: OfferState.CANCELLED },
-      { ...offers['LyCfl6Eg7JKuD7XJ6IPi']!, state: OfferState.EXPIRED },
-      { ...offers['LyCfl6Eg7JKuD7XJ6IPi']!, state: OfferState.COMPLETED },
-      { ...offers['LyCfl6Eg7JKuD7XJ6IPi']!, state: OfferState.REJECTED }
+      offer,
+      { ...offer, state: 'ACCEPTED' },
+      { ...offer, state: 'CANCELLED' },
+      { ...offer, state: 'REJECTED' },
+      { ...offer, state: 'INVALID' }
     ]
   }
 }
-
 export const Fetching: Story = {
   render: () => <UserOffersSkeleton />
 }

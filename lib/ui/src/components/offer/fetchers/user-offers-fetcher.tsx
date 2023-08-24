@@ -1,4 +1,4 @@
-import { User } from '../../../types/user'
+import { User } from '@echo/ui-model'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface OffersFetcherProps {

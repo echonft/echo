@@ -1,4 +1,5 @@
-import { OfferDetailsContainer as Component, offers, OfferState } from '@echo/ui'
+import { getOfferById } from '../../../mocks/model/offer'
+import { OfferDetailsContainer as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -13,23 +14,23 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-const mockOffer = offers['LyCfl6Eg7JKuD7XJ6IPi']!
+const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')!
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    offer: mockOffer
+    offer
   }
 }
 
 export const Rejected: Story = {
   args: {
-    offer: { ...mockOffer, state: OfferState.REJECTED }
+    offer: { ...offer, state: 'INVALID' }
   }
 }
 
 export const Accepted: Story = {
   args: {
-    offer: { ...mockOffer, state: OfferState.ACCEPTED }
+    offer: { ...offer, state: 'ACCEPTED' }
   }
 }

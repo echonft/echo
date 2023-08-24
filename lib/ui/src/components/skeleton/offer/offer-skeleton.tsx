@@ -1,9 +1,8 @@
-import { DirectionLeft } from '../../../types/direction'
-import { SizeLG } from '../../../types/size'
 import { SwapIconSvg } from '../../base/svg/swap-icon-svg'
-import { NftThumbnailOfferSkeleton } from '../nft/thumbnail/nft-thumbnail-offer-skeleton'
+import { OfferItemThumbnailSkeleton } from '../offer-item/offer-item-thumbnail-skeleton'
 import { UserDiscordTagSkeleton } from '../user/user-discord-tag-skeleton'
 import { OfferStateSkeleton } from './offer-state-skeleton'
+import { DirectionLeft, SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
@@ -17,13 +16,13 @@ export const OfferSkeleton: FunctionComponent = () => (
     </div>
     <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-2')}>
       <div className={clsx('flex', 'flex-row', 'gap-4')}>
-        <NftThumbnailOfferSkeleton size={SizeLG} />
-        <NftThumbnailOfferSkeleton size={SizeLG} />
+        <OfferItemThumbnailSkeleton size={SizeLG} />
+        <OfferItemThumbnailSkeleton size={SizeLG} />
       </div>
       <SwapIconSvg direction={DirectionLeft} />
       <div className={clsx('flex', 'flex-row', 'gap-4')}>
-        <NftThumbnailOfferSkeleton size={SizeLG} />
-        <NftThumbnailOfferSkeleton size={SizeLG} />
+        <OfferItemThumbnailSkeleton size={SizeLG} />
+        <OfferItemThumbnailSkeleton size={SizeLG} />
       </div>
     </div>
   </div>

@@ -2,11 +2,11 @@ import { XIconSvg } from '../base/svg/x-icon-svg'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface NftThumbnailOfferSelectorProps {
+export interface OfferItemThumbnailSelectorProps {
   onRemove?: () => void
 }
 
-export const NftThumbnailOfferSelector: FunctionComponent<NftThumbnailOfferSelectorProps> = ({ onRemove }) => {
+export const OfferItemThumbnailSelector: FunctionComponent<OfferItemThumbnailSelectorProps> = ({ onRemove }) => {
   return (
     <button
       className={clsx(

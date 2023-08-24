@@ -59,7 +59,7 @@ export const messages = {
       CANCELLED: 'Cancelled',
       COMPLETED: 'Completed',
       REJECTED: 'Rejected',
-      EXPIRED: 'Expired'
+      INVALID: 'Invalid'
     },
     details: {
       expiresAt: 'Expires in',

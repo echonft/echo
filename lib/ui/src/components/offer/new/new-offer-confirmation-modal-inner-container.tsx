@@ -1,9 +1,9 @@
-import { EditIconSvg } from '../base/svg/edit-icon-svg'
-import { NewOfferConfirmationModalAssetsContainer } from './new-offer-confirmation-modal-assets-container'
 import { OfferItem } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
+import { EditIconSvg } from '../../base/svg/edit-icon-svg'
+import { NewOfferConfirmationModalItemsContainer } from './new-offer-confirmation-modal-items-container'
 
 interface Props {
   receiverItems: OfferItem[]
@@ -22,10 +22,10 @@ export const NewOfferConfirmationModalInnerContainer: FunctionComponent<Props> =
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
-        <NewOfferConfirmationModalAssetsContainer isReceiver items={receiverItems} />
+        <NewOfferConfirmationModalItemsContainer isReceiver items={receiverItems} />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
       </div>
-      <NewOfferConfirmationModalAssetsContainer isReceiver={false} items={senderItems} />
+      <NewOfferConfirmationModalItemsContainer isReceiver={false} items={senderItems} />
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
         <button className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')} onClick={onConfirm}>
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>

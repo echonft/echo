@@ -1,7 +1,7 @@
-import { removeItemFromNewOffer } from '../../helpers/remove-item-from-new-offer'
-import { newOfferDataState } from '../../services/state'
-import { BottomSlider } from '../base/bottom-slider'
-import { HideIfNil } from '../utils/hide-if-nil'
+import { removeItemFromNewOffer } from '../../../helpers/remove-item-from-new-offer'
+import { newOfferDataState } from '../../../services/state'
+import { BottomSlider } from '../../base/bottom-slider'
+import { HideIfNil } from '../../utils/hide-if-nil'
 import { NewOfferBottomSliderInnerContainer } from './new-offer-bottom-slider-inner-container'
 import { NewOfferBottomSliderTitle } from './new-offer-bottom-slider-title'
 import { OfferItem } from '@echo/ui-model'
@@ -29,8 +29,8 @@ export const NewOfferSliderManager: FunctionComponent = () => {
             receiver={newOffer!.receiver}
             receiverItems={newOffer!.receiverItems}
             senderItems={newOffer!.senderItems}
-            onRemoveReceiverItem={(nftToRemove) => onRemoveAsset(nftToRemove, true)}
-            onRemoveSenderItem={(nftToRemove) => onRemoveAsset(nftToRemove, false)}
+            onRemoveReceiverItem={(itemToRemove) => onRemoveAsset(itemToRemove, true)}
+            onRemoveSenderItem={(itemToRemove) => onRemoveAsset(itemToRemove, false)}
           />
         </BottomSlider>
       )}

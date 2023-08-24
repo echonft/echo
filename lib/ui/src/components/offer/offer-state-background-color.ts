@@ -1,18 +1,14 @@
-import { OfferState } from '../../types/offer-state'
+import { OfferState } from '@echo/ui-model'
 
 export const offerStateBackgroundColor = (state: OfferState) => {
   switch (state) {
-    case OfferState.OPEN:
+    case 'OPEN':
       return 'bg-yellow-500'
-    case OfferState.ACCEPTED:
+    case 'ACCEPTED':
       return 'bg-green-500'
-    case OfferState.CANCELLED:
-      return 'bg-red-400'
-    case OfferState.COMPLETED:
-      return 'bg-green-500'
-    case OfferState.REJECTED:
-      return 'bg-red-400'
-    case OfferState.EXPIRED:
+    case 'INVALID':
+    case 'CANCELLED':
+    case 'REJECTED':
       return 'bg-red-400'
   }
 }

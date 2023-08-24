@@ -1,11 +1,11 @@
-import { OfferState as OfferStateModel } from '../../types/offer-state'
 import { offerStateBackgroundColor } from './offer-state-background-color'
+import { OfferState } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 export interface OfferStateProps {
-  state: OfferStateModel
+  state: OfferState
 }
 
 export const OfferStatePill: FunctionComponent<OfferStateProps> = ({ state }) => {

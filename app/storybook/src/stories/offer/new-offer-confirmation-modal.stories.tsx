@@ -23,7 +23,7 @@ const RenderedComponent: FunctionComponent<{
   const [, setNewOffer] = useRecoilState(newOfferDataState)
   const [, setModalState] = useRecoilState(newOfferState)
 
-  const resetModal = useCallback(() => {
+  const resetModal = () => {
     setNewOffer({ receiverItems, receiver: offer.receiver, senderItems })
     setModalState('TO CONFIRM')
   }
@@ -54,8 +54,8 @@ export const MultipleAssets: Story = {
   render: () => (
     <RecoilRoot>
       <RenderedComponent
-        receiverItems={mockReceiverItems.concat(mockSenderItems)}
-        senderItems={mockSenderItems.concat(mockReceiverItems)}
+        receiverItems={offer.receiverItems.concat(offer.senderItems)}
+        senderItems={offer.senderItems.concat(offer.receiverItems)}
       />
     </RecoilRoot>
   )

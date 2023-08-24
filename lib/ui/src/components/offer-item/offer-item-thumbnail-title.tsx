@@ -1,19 +1,15 @@
-import { SizeLG, SizeMD } from '../../types/size'
-import { NftThumbnailSize } from './nft-thumbnail-size'
+import { OfferItemThumbnailSize } from './offer-item-thumbnail-size'
+import { SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface NftThumbnailOfferTitleProps {
+export interface OfferItemTitleProps {
   collectionName: string
   tokenId: number
-  size?: NftThumbnailSize
+  size?: OfferItemThumbnailSize
 }
 
-export const NftThumbnailOfferTitle: FunctionComponent<NftThumbnailOfferTitleProps> = ({
-  collectionName,
-  tokenId,
-  size
-}) => {
+export const OfferItemThumbnailTitle: FunctionComponent<OfferItemTitleProps> = ({ collectionName, tokenId, size }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-1')}>
       <span

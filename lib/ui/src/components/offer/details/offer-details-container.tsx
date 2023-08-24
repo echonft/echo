@@ -1,10 +1,10 @@
-import { Offer } from '../../../types/offer'
-import { offerDetailsContainerBackgroundImage } from '../offer-details-container-background-image'
 import { OfferReceiverDetailsContainer } from '../offer-receiver-details-container'
-import { OfferDetailsAssetsContainer } from './offer-details-assets-container'
 import { OfferDetailsAssetsSeparator } from './offer-details-assets-separator'
 import { OfferDetailsButtonsContainer } from './offer-details-buttons-container'
+import { offerDetailsContainerBackgroundImage } from './offer-details-container-background-image'
+import { OfferDetailsItemsContainer } from './offer-details-items-container'
 import { OfferDetailsState } from './offer-details-state'
+import { Offer } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
@@ -32,18 +32,18 @@ export const OfferDetailsContainer: FunctionComponent<OfferDetailsContainerProps
       )}
     >
       <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
-        <OfferReceiverDetailsContainer receiver={isReceiving ? offer.sender : offer.receiver} />
+        <OfferReceiverDetailsContainer
+          receiver={isReceiving ? offer.sender : offer.receiver}
+          receiverWalletAddress={isReceiving ? offer.sender.wallet.address : offer.receiver.wallet.address}
+        />
         <OfferDetailsState state={offer.state} expiresAt={offer.expiresAt} />
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-5')}>
-        <OfferDetailsAssetsContainer assets={isReceiving ? offer.senderItems : offer.receiverItems} isReceiving />
+        <OfferDetailsItemsContainer items={isReceiving ? offer.senderItems : offer.receiverItems} isReceiving />
         <div className={clsx('pb-4')}>
           <OfferDetailsAssetsSeparator />
         </div>
-        <OfferDetailsAssetsContainer
-          assets={isReceiving ? offer.receiverItems : offer.senderItems}
-          isReceiving={false}
-        />
+        <OfferDetailsItemsContainer items={isReceiving ? offer.receiverItems : offer.senderItems} isReceiving={false} />
         <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
           <OfferDetailsButtonsContainer
             state={offer.state}

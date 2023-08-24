@@ -1,6 +1,6 @@
-import { User } from '../../types/user'
 import { UserOffersSkeleton } from '../skeleton/offer/user-offers-skeleton'
 import { UserOffersFetcher } from './fetchers/user-offers-fetcher'
+import { User } from '@echo/ui-model'
 import { FunctionComponent, Suspense } from 'react'
 
 interface Props {

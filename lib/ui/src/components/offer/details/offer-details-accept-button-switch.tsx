@@ -1,5 +1,5 @@
-import { OfferState } from '../../../types/offer-state'
 import { OfferDetailsAcceptButton } from './offer-details-accept-button'
+import { OfferState } from '@echo/ui-model'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
@@ -23,9 +23,9 @@ export const OfferDetailsAcceptButtonSwitch: FunctionComponent<OfferDetailsAccep
   const t = useTranslations('offer.details')
   const actionForState = () => {
     switch (state) {
-      case OfferState.OPEN:
+      case 'OPEN':
         return onAccept
-      case OfferState.ACCEPTED:
+      case 'ACCEPTED':
         return hasApprovedNFTs ? onComplete : onApprove
     }
     // Should not happen
@@ -33,14 +33,14 @@ export const OfferDetailsAcceptButtonSwitch: FunctionComponent<OfferDetailsAccep
   }
   const titleForState = () => {
     switch (state) {
-      case OfferState.OPEN:
+      case 'OPEN':
         return t('acceptBtn')
-      case OfferState.ACCEPTED:
+      case 'ACCEPTED':
         return hasApprovedNFTs ? t('completeBtn') : t('approveBtn', { count: nftsCount })
     }
     // Should not happen
     return ''
   }
-  const hasAcceptButton = state === OfferState.OPEN || state === OfferState.ACCEPTED
+  const hasAcceptButton = state === 'OPEN' || state === 'ACCEPTED'
   return hasAcceptButton && <OfferDetailsAcceptButton title={titleForState()} onAction={actionForState()} />
 }

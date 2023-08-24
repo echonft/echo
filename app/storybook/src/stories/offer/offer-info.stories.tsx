@@ -1,4 +1,4 @@
-import { OfferInfoContainer as Component, OfferState } from '@echo/ui'
+import { OfferInfoContainer as Component } from '@echo/ui'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -6,7 +6,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     state: {
-      options: Object.values(OfferState),
+      options: ['OPEN', 'ACCEPTED', 'CANCELLED', 'REJECTED', 'INVALID'],
       control: { type: 'radio' }
     }
   }
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    state: OfferState.OPEN,
+    state: 'OPEN',
     discordUsername: 'johnnycage#0890'
   }
 }

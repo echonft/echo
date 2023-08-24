@@ -1,4 +1,4 @@
-import { OfferDetailsState as Component, OfferState } from '@echo/ui'
+import { OfferDetailsState as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import RelativeTime from 'dayjs/plugin/relativeTime'
@@ -10,8 +10,8 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     state: {
-      defaultValue: OfferState.OPEN,
-      options: Object.values(OfferState),
+      defaultValue: 'OPEN',
+      options: ['OPEN', 'ACCEPTED', 'CANCELLED', 'REJECTED', 'INVALID'],
       control: { type: 'radio' }
     },
     expiresAt: {
@@ -35,7 +35,7 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    state: OfferState.OPEN,
+    state: 'OPEN',
     expiresAt: dayjs().add(1, 'd')
   }
 }

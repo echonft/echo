@@ -1,6 +1,6 @@
-import { OfferState } from '../../../types/offer-state'
 import { OfferDetailsAcceptButtonSwitch } from './offer-details-accept-button-switch'
 import { OfferDetailsDeclineButtonSwitch } from './offer-details-decline-button-switch'
+import { OfferState } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

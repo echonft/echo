@@ -10,10 +10,7 @@ interface Props {
   receiverWalletAddress: string
 }
 
-export const NewOfferBottomSliderReceiverContainer: FunctionComponent<Props> = ({
-  receiver,
-  receiverWalletAddress
-}) => {
+export const OfferReceiverDetailsContainer: FunctionComponent<Props> = ({ receiver, receiverWalletAddress }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-5')}>
       <UserProfilePicture

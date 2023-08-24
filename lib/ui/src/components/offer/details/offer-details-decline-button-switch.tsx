@@ -1,5 +1,5 @@
-import { OfferState } from '../../../types/offer-state'
 import { OfferDetailsDeclineButton } from './offer-details-decline-button'
+import { OfferState } from '@echo/ui-model'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
@@ -15,6 +15,6 @@ export const OfferDetailsDeclineButtonSwitch: FunctionComponent<OfferDetailsAcce
   onDecline
 }) => {
   const t = useTranslations('offer.details')
-  const canDecline = state === OfferState.OPEN || state === OfferState.ACCEPTED
+  const canDecline = state === 'OPEN' || state === 'ACCEPTED'
   return canDecline && <OfferDetailsDeclineButton title={t('declineBtn')} onAction={onDecline} />
 }

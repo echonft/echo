@@ -1,27 +1,26 @@
-import { Nft } from '../../types/nft'
-import { SizeLG, SizeMD } from '../../types/size'
+import { NftThumbnailPicture } from '../nft/nft-thumbnail-picture'
 import { UserDiscordTagOffer } from '../user/user-discord-tag-offer'
-import { NftThumbnailOfferSelector } from './nft-thumbnail-offer-selector'
-import { NftThumbnailOfferTitle } from './nft-thumbnail-offer-title'
-import { NftThumbnailPicture } from './nft-thumbnail-picture'
-import { NftThumbnailSize } from './nft-thumbnail-size'
+import { OfferItemThumbnailSelector } from './offer-item-thumbnail-selector'
+import { OfferItemThumbnailSize } from './offer-item-thumbnail-size'
+import { OfferItemThumbnailTitle } from './offer-item-thumbnail-title'
+import { OfferItem, SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface NftThumbnailOfferProps {
-  nft: Nft
-  size?: NftThumbnailSize
+export interface OfferItemThumbnailProps {
+  item: OfferItem
+  size?: OfferItemThumbnailSize
   discordUsername?: string
-  onRemove?: (nft: Nft) => unknown
+  onRemove?: (item: OfferItem) => unknown
 }
 
-export const NftThumbnailOffer: FunctionComponent<NftThumbnailOfferProps> = ({
-  nft,
+export const OfferItemThumbnail: FunctionComponent<OfferItemThumbnailProps> = ({
+  item,
   discordUsername,
   size = SizeMD,
   onRemove
 }) => {
-  const { name, tokenId, thumbnailUrl, collection } = nft
+  const { name, tokenId, thumbnailUrl, collection } = item.nft
   return (
     <div
       className={clsx(
@@ -36,7 +35,7 @@ export const NftThumbnailOffer: FunctionComponent<NftThumbnailOfferProps> = ({
       <div className={'relative'}>
         <NftThumbnailPicture alt={name} tokenId={tokenId} pictureUrl={thumbnailUrl} size={size} />
 
-        {onRemove && <NftThumbnailOfferSelector onRemove={() => onRemove?.(nft)} />}
+        {onRemove && <OfferItemThumbnailSelector onRemove={() => onRemove?.(item)} />}
         {discordUsername && (
           <div className={clsx('absolute', 'bottom-[0.69rem]', 'left-2', 'z-10')}>
             <UserDiscordTagOffer owner={discordUsername} />
@@ -53,7 +52,7 @@ export const NftThumbnailOffer: FunctionComponent<NftThumbnailOfferProps> = ({
           size === SizeLG && ['px-1', 'pt-2.5', 'pb-3.5']
         )}
       >
-        <NftThumbnailOfferTitle tokenId={tokenId} collectionName={collection.name} size={size} />
+        <OfferItemThumbnailTitle tokenId={tokenId} collectionName={collection.name} size={size} />
       </div>
     </div>
   )

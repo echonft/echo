@@ -1,5 +1,5 @@
-import { OfferState } from '../../../types/offer-state'
 import { OfferDetailsStateTextContainer } from './offer-details-state-text-container'
+import { OfferState } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import RelativeTime from 'dayjs/plugin/relativeTime'

@@ -1,4 +1,4 @@
-import { OfferDetailsButtonsContainer as Component, OfferState } from '@echo/ui'
+import { OfferDetailsButtonsContainer as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -6,8 +6,8 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     state: {
-      defaultValue: OfferState.OPEN,
-      options: [OfferState.OPEN, OfferState.ACCEPTED],
+      defaultValue: 'OPEN',
+      options: ['OPEN', 'ACCEPTED'],
       control: { type: 'radio' }
     },
     hasApprovedNFTs: { defaultValue: false, control: 'boolean' },
@@ -21,7 +21,7 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    state: OfferState.OPEN,
+    state: 'OPEN',
     hasApprovedNFTs: false,
     nftsCount: 1
   }

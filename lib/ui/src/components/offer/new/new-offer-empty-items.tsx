@@ -7,7 +7,7 @@ interface Props {
   onAddMore?: () => void
 }
 
-export const NewOfferEmptyAssets: FunctionComponent<Props> = ({ onAddMore }) => {
+export const NewOfferEmptyItems: FunctionComponent<Props> = ({ onAddMore }) => {
   const t = useTranslations('offer.new.bottomSlider')
 
   return (

@@ -1,6 +1,6 @@
-import { newOfferState } from '../../services/state'
+import { newOfferState } from '../../../services/state'
+import { OfferReceiverDetailsContainer } from '../offer-receiver-details-container'
 import { NewOfferBottomSliderItemsContainer } from './new-offer-bottom-slider-items-container'
-import { NewOfferBottomSliderReceiverContainer } from './new-offer-bottom-slider-receiver-container'
 import { getOfferItemsWallet, OfferItem, User } from '@echo/ui-model'
 import { isNilOrEmpty } from '@echo/utils'
 import { Disclosure } from '@headlessui/react'
@@ -33,7 +33,7 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('pt-6', 'pb-1')}>
-        <NewOfferBottomSliderReceiverContainer
+        <OfferReceiverDetailsContainer
           receiver={receiver}
           receiverWalletAddress={getOfferItemsWallet(receiverItems).address}
         />

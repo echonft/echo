@@ -1,11 +1,11 @@
-import { OfferState as OfferStateModel } from '../../types/offer-state'
 import { UserDiscordTag } from '../user/user-discord-tag'
 import { OfferStatePill } from './offer-state-pill'
+import { OfferState } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 export interface OfferInfoContainerProps {
-  state: OfferStateModel
+  state: OfferState
   discordUsername: string
 }
 

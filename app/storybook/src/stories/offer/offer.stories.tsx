@@ -1,5 +1,8 @@
-import { OfferRow as Component, offers, OfferSkeleton } from '@echo/ui'
+import { getOfferById } from '../../mocks/model/offer'
+import { OfferRow as Component, OfferSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
+
+const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')!
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Row',
@@ -8,23 +11,29 @@ const metadata: Meta<typeof Component> = {
     isReceiver: {
       control: 'boolean',
       defaultValue: false
-    }
-  },
-  parameters: {
-    controls: {
-      exclude: ['receiver', 'offer']
+    },
+    offer: {
+      defaultValue: offer,
+      options: {
+        Open: offer,
+        Accepted: { ...offer, state: 'ACCEPTED' },
+        Cancelled: { ...offer, state: 'CANCELLED' },
+        Rejected: { ...offer, state: 'REJECTED' },
+        Invalid: { ...offer, state: 'INVALID' }
+      },
+      control: { type: 'radio' }
     }
   }
 }
 
 export default metadata
 
-const mockOffer = offers['LyCfl6Eg7JKuD7XJ6IPi']!
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    offer: mockOffer
+    offer,
+    isReceiver: true
   }
 }
 

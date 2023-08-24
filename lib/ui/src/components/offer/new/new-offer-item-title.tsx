@@ -1,4 +1,4 @@
-import { SideCaretSvg } from '../base/svg/side-caret-svg'
+import { SideCaretSvg } from '../../base/svg/side-caret-svg'
 import { DirectionLeft, DirectionRight } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
@@ -8,7 +8,7 @@ interface Props {
   title: string
 }
 
-export const NewOfferAssetsTitle: FunctionComponent<Props> = ({ isReceiving, title }) => {
+export const NewOfferItemTitle: FunctionComponent<Props> = ({ isReceiving, title }) => {
   return (
     <div className={clsx('flex', 'gap-2', 'items-center')}>
       <span

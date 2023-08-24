@@ -1,7 +1,6 @@
-import { Offer } from '../../types/offer'
-import { User } from '../../types/user'
 import { PaddedContainer } from '../layout/padded-container'
 import { OfferRow as OfferComponent } from './offer-row'
+import { Offer, User } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

@@ -1,8 +1,9 @@
-import { nfts, NftThumbnailOffer as Component, NftThumbnailOfferSkeleton } from '@echo/ui'
+import { getOfferById } from '../../mocks/model/offer'
+import { NftThumbnailOfferSkeleton, OfferItemThumbnail as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Nft/Thumbnail/Offer',
+  title: 'Offer Items/Thumbnail',
   component: Component,
   argTypes: {
     onRemove: {
@@ -23,26 +24,26 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-const mockNft = nfts['QFjMRNChUAHNswkRADXh']!
+const item = getOfferById('LyCfl6Eg7JKuD7XJ6IPi').receiverItems[0]!
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    nft: mockNft,
+    item,
     discordUsername: undefined
   }
 }
 
 export const NotRemovable: Story = {
   args: {
-    nft: mockNft,
+    item,
     onRemove: undefined
   }
 }
 
 export const UserDisplayed: Story = {
   args: {
-    nft: mockNft,
+    item,
     onRemove: undefined,
     discordUsername: 'johnnycage#0890'
   }
