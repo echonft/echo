@@ -1,4 +1,4 @@
-import { SizeLG } from '../../types/size'
+import { getUserAvatarUrl } from '../../helpers/get-user-avatar-url'
 import { ProfilePicture } from '../base/profile-picture'
 import { DefaultUserProfilePicture } from '../base/svg/default-user-profile-picture'
 import {
@@ -7,7 +7,7 @@ import {
   getUserProfilePictureWidth,
   UserProfilePictureSize
 } from './nft-profile-picture-size'
-import { getUserAvatarUrl } from '@echo/discord'
+import { SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'

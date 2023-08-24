@@ -1,5 +1,5 @@
-import { DirectionLeft, DirectionRight } from '../../../types/direction'
 import { Svg, SvgProps } from './svg'
+import { DirectionLeft, DirectionRight } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

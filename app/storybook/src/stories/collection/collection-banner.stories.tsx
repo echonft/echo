@@ -1,4 +1,5 @@
-import { Banner as Component, BannerSkeleton, nftCollections } from '@echo/ui'
+import { getCollectionById } from '../../mocks/model/nft-collection'
+import { Banner as Component, BannerSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -11,7 +12,7 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 export const Standard: Story = {
-  render: () => <Component bannerUrl={nftCollections['Rc8pLQXxgyQGIRL0fr13']!.bannerUrl} />
+  render: () => <Component bannerUrl={getCollectionById('Rc8pLQXxgyQGIRL0fr13').bannerUrl} />
 }
 
 export const Default: Story = {

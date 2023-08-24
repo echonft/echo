@@ -1,4 +1,5 @@
-import { BannerSkeleton, UserBanner as Component, users } from '@echo/ui'
+import { getUserById } from '../../mocks/model/user'
+import { BannerSkeleton, UserBanner as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -10,7 +11,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const user = users['6rECUMhevHfxABZ1VNOm']!
+const user = getUserById('6rECUMhevHfxABZ1VNOm')
 export const Standard: Story = {
   render: () => <Component discordBanner={user.discordBanner} discordId={user.discordId} />
 }

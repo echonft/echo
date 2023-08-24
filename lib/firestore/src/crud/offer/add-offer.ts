@@ -1,6 +1,7 @@
 import { CollectionName } from '../../constants/collection-name'
 import { DEFAULT_EXPIRATION_TIME } from '../../constants/default-expiration-time'
 import { offerDataConverter } from '../../converters/offer-data-converter'
+import { assertOfferItems } from '../../helpers/offer/assert-offer-items'
 import { firestore } from '../../services/firestore'
 import { OfferItem } from '../../types/model/offer-item'
 import { UserDetails } from '../../types/model/user-details'
@@ -20,6 +21,8 @@ interface NewOffer {
 
 export const addOffer = async (offer: NewOffer): Promise<string> => {
   const reference = firestore().collection(CollectionName.OFFERS).doc()
+  assertOfferItems(offer.receiverItems)
+  assertOfferItems(offer.senderItems)
   const offerId = reference.id
   const newOffer = pipe(
     assoc('id', offerId),

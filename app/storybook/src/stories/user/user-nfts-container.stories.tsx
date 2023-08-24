@@ -1,4 +1,5 @@
-import { nfts, UserNftsContainer as Component } from '@echo/ui'
+import { getAllNfts } from '../../mocks/model/nft'
+import { UserNftsContainer as Component } from '@echo/ui'
 import { Story } from '@storybook/blocks'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -24,32 +25,18 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-const mockNft = nfts['QFjMRNChUAHNswkRADXh']!
-const mockedNfts = [
-  mockNft,
-  mockNft,
-  mockNft,
-  mockNft,
-  mockNft,
-  mockNft,
-  mockNft,
-  mockNft,
-  mockNft,
-  mockNft,
-  mockNft,
-  mockNft
-]
+const nfts = getAllNfts()
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    nfts: mockedNfts
+    nfts
   }
 }
 
 export const Loading: Story = {
   args: {
-    nfts: mockedNfts,
+    nfts,
     isLoading: true
   }
 }

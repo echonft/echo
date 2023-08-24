@@ -1,9 +1,9 @@
-import { SizeMD } from '../../types/size'
 import { ExternalLink } from '../base/external-link'
 import { DiscordIcon } from '../base/icons/discord-icon'
 import { TwitterIcon } from '../base/icons/twitter-icon'
 import { WebsiteIcon } from '../base/icons/website-icon'
 import { HideIfNil } from '../utils/hide-if-nil'
+import { SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

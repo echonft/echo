@@ -1,9 +1,5 @@
-import {
-  contracts,
-  NftDetailsTokenDetailsPanel as Component,
-  NftDetailsTokenDetailsPanelSkeleton,
-  nfts
-} from '@echo/ui'
+import { getNftById } from '../../../mocks/model/nft'
+import { NftDetailsTokenDetailsPanel as Component, NftDetailsTokenDetailsPanelSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -19,12 +15,12 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-
+const nft = getNftById('QFjMRNChUAHNswkRADXh')
 export const Default: Story = {
   args: {
-    chainId: contracts['37dBlwJYahEAKeL0rNP8']!.chainId,
-    tokenId: nfts['QFjMRNChUAHNswkRADXh']!.tokenId,
-    tokenType: contracts['37dBlwJYahEAKeL0rNP8']!.tokenType
+    chainId: nft.collection.contract.chainId,
+    tokenId: nft.tokenId,
+    tokenType: nft.collection.contract.tokenType
   }
 }
 

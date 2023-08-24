@@ -1,5 +1,5 @@
-import { Offer } from '../../../types/offer'
 import { NftDetailsOfferRow } from './nft-details-offer-row'
+import { Offer } from '@echo/ui-model'
 import { isNilOrEmpty } from '@echo/utils'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

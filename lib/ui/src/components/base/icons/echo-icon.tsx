@@ -1,8 +1,8 @@
-import { ColorBlack, ColorYellow } from '../../../types/color'
 import { EchoIconSvg } from '../svg/echo-icon-svg'
 import { IconContainer } from './icon-container'
 import { IconContainerColor } from './icon-container-color'
 import { getIconSizeInPx, IconSize } from './icon-size'
+import { ColorBlack, ColorYellow } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

@@ -1,8 +1,9 @@
 import { findNftsForCollectionByAttributes } from '../../../src/crud/nft/find-nfts-for-collection-by-attributes'
 import { initialize } from '../../../src/services/initialize'
 import { terminate } from '../../../src/services/terminate'
-import { nftMock } from '../../mocks/nft-mock'
+import { getNftMockById } from '../../mocks/get-nft-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { includes, map, prop } from 'ramda'
 
 describe('CRUD - nft - findNftsForCollectionByAttributes', () => {
   beforeAll(initialize)
@@ -24,11 +25,17 @@ describe('CRUD - nft - findNftsForCollectionByAttributes', () => {
 
   it('returns all the nfts of the collection if no attributes are provided', async () => {
     const result = await findNftsForCollectionByAttributes('spiral-frequencies')
-    expect(result.length).toEqual(1)
-    expect(result[0]).toStrictEqual(nftMock['8hHFadIrrooORfTOLkBg'])
+    expect(result.length).toEqual(3)
+    const nftIds = map(prop('id'), result)
+    expect(includes('8hHFadIrrooORfTOLkBg', nftIds)).toBeTruthy()
+    expect(includes('iRZFKEujarikVjpiFAkE', nftIds)).toBeTruthy()
+    expect(includes('5SeF1NSN5uPUxtWSr516', nftIds)).toBeTruthy()
     const result2 = await findNftsForCollectionByAttributes('spiral-frequencies', [])
-    expect(result2.length).toEqual(1)
-    expect(result2[0]).toStrictEqual(nftMock['8hHFadIrrooORfTOLkBg'])
+    expect(result2.length).toEqual(3)
+    const nftIds2 = map(prop('id'), result2)
+    expect(includes('8hHFadIrrooORfTOLkBg', nftIds2)).toBeTruthy()
+    expect(includes('iRZFKEujarikVjpiFAkE', nftIds2)).toBeTruthy()
+    expect(includes('5SeF1NSN5uPUxtWSr516', nftIds2)).toBeTruthy()
   })
 
   it('returns the nfts of the collection with at least one of the given attributes', async () => {
@@ -38,6 +45,6 @@ describe('CRUD - nft - findNftsForCollectionByAttributes', () => {
       { value: 'not-found', trait: 'not-found' }
     ])
     expect(result.length).toEqual(1)
-    expect(result[0]).toStrictEqual(nftMock['8hHFadIrrooORfTOLkBg'])
+    expect(result[0]).toStrictEqual(getNftMockById('8hHFadIrrooORfTOLkBg'))
   })
 })

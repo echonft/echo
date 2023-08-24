@@ -1,5 +1,3 @@
-import { FetcherData } from '@echo/utils'
-
-export interface GetContractMetadataRequest extends FetcherData {
+export interface GetContractMetadataRequest {
   contractAddress: string
 }

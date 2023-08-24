@@ -1,6 +1,4 @@
-import { FetcherData } from '@echo/utils'
-
-export interface RequestWithPaging extends FetcherData {
+export interface RequestWithPaging {
   pageKey?: string
   pageSize?: number // max 100
 }

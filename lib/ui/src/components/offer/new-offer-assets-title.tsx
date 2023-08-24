@@ -1,5 +1,5 @@
-import { DirectionLeft, DirectionRight } from '../../types/direction'
 import { SideCaretSvg } from '../base/svg/side-caret-svg'
+import { DirectionLeft, DirectionRight } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

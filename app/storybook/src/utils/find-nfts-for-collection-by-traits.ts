@@ -1,9 +1,10 @@
-import { mapNftTraitsToNftAttributes, Nft, nfts, NftTraits } from '@echo/ui'
+import { getAllNfts } from '../mocks/model/nft'
+import { mapNftTraitsToNftAttributes, Nft, NftTraits } from '@echo/ui-model'
 import { intersects, isNilOrEmpty } from '@echo/utils'
 import { isEmpty, isNil } from 'ramda'
 
 export const findNftsForCollectionByTraits = (collectionSlug: string, traits?: NftTraits): Nft[] => {
-  const collectionNfts = Object.values(nfts).filter((nft) => nft.collection.slug === collectionSlug)
+  const collectionNfts = getAllNfts().filter((nft) => nft.collection.slug === collectionSlug)
   if (isNil(collectionNfts)) {
     throw Error(`No NFTs found for nft-collection with slug ${collectionSlug}`)
   }

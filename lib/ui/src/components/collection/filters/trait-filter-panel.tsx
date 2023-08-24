@@ -1,9 +1,8 @@
-import { mapNftTraits } from '../../../mappers/nft/map-nft-traits'
-import { NftTraits, NftTraitValue } from '../../../types/nft-traits'
 import { FiltersPanel } from '../../layout/filters-panel'
 import { TraitFilterPickerManager } from './trait-filter-picker-manager'
+import { mapNftTraits, NftTraits, NftTraitValue } from '@echo/ui-model'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useDeferredValue } from 'react'
 
 export interface TraitFilterPanelProps {
   traits: NftTraits
@@ -17,7 +16,7 @@ export const TraitFilterPanel: FunctionComponent<TraitFilterPanelProps> = ({
   onSelectionUpdate
 }) => {
   const t = useTranslations('collection.filters.traits')
-  const traitFilterGroups = mapNftTraits(traits)
+  const traitFilterGroups = useDeferredValue(mapNftTraits(traits))
   return (
     <FiltersPanel title={t('title')}>
       {traitFilterGroups.map((traitFilterGroup) => (

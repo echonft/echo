@@ -4,19 +4,14 @@ import { findNftCollectionById, ListingTarget } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
 import { isNil, map } from 'ramda'
 
-export const getListingTargets = (listingTargetRequests: NonEmptyArray<ListingTargetRequest>) => {
-  try {
-    return Promise.all(
-      map(async (item) => {
-        const { id, amount } = item
-        const collection = await findNftCollectionById(id)
-        if (isNil(collection)) {
-          throw new ApiError(400, 'Invalid body')
-        }
-        return { amount, collection } as ListingTarget
-      }, listingTargetRequests)
-    ) as Promise<Awaited<NonEmptyArray<ListingTarget>>>
-  } catch (e) {
-    throw new ApiError(400, 'Invalid body')
-  }
-}
+export const getListingTargets = (listingTargetRequests: NonEmptyArray<ListingTargetRequest>) =>
+  Promise.all(
+    map(async (item) => {
+      const { collection, amount } = item
+      const foundCollection = await findNftCollectionById(collection.id)
+      if (isNil(foundCollection)) {
+        throw new ApiError(400, 'Invalid body')
+      }
+      return { amount, collection: foundCollection } as ListingTarget
+    }, listingTargetRequests)
+  ) as Promise<Awaited<NonEmptyArray<ListingTarget>>>

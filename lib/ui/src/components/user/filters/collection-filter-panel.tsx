@@ -1,6 +1,6 @@
-import { CollectionFilter } from '../../../types/model/collection-filter'
 import { FiltersPanel } from '../../layout/filters-panel'
 import { CollectionFilterSelector } from './collection-filter-selector'
+import { CollectionFilter } from '@echo/ui-model'
 import { useTranslations } from 'next-intl'
 import { any, propEq } from 'ramda'
 import { FunctionComponent } from 'react'

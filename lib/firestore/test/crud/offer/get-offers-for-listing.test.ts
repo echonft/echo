@@ -14,7 +14,7 @@ describe('CRUD - offer - getOffersForListing', () => {
   afterAll(terminate)
 
   it('returns an empty array if no offer matches the listing items', async () => {
-    const items: NonEmptyArray<OfferItem> = [{ amount: 1, ...getNftMockById('QFjMRNChUAHNswkRADXh') }]
+    const items: NonEmptyArray<OfferItem> = [{ amount: 1, nft: getNftMockById('QFjMRNChUAHNswkRADXh') }]
     const targets: NonEmptyArray<ListingTarget> = [
       { amount: 1, collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13') }
     ]
@@ -23,7 +23,7 @@ describe('CRUD - offer - getOffersForListing', () => {
   })
 
   it('returns an empty array if no offer matches the targets', async () => {
-    const items: NonEmptyArray<OfferItem> = [{ amount: 1, ...getNftMockById('8hHFadIrrooORfTOLkBg') }]
+    const items: NonEmptyArray<OfferItem> = [{ amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') }]
     const targets: NonEmptyArray<ListingTarget> = [
       { amount: 1, collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1') }
     ]
@@ -32,7 +32,7 @@ describe('CRUD - offer - getOffersForListing', () => {
   })
 
   it('returns offers that are tied to the listing', async () => {
-    const items: NonEmptyArray<OfferItem> = [{ amount: 1, ...getNftMockById('8hHFadIrrooORfTOLkBg') }]
+    const items: NonEmptyArray<OfferItem> = [{ amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') }]
     const targets: NonEmptyArray<ListingTarget> = [
       { amount: 1, collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13') }
     ]

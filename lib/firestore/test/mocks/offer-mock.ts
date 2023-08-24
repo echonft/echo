@@ -10,7 +10,7 @@ export const offerMock: { [key: string]: Offer } = {
     expiresAt: dayjs.unix(1676984897),
     postedAt: dayjs.unix(1676984897),
     receiver: {
-      id: 'user1',
+      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -20,9 +20,9 @@ export const offerMock: { [key: string]: Offer } = {
         chainId: 1
       }
     },
-    receiverItems: [{ amount: 1, ...nftMock['8hHFadIrrooORfTOLkBg']! }],
+    receiverItems: [{ amount: 1, nft: nftMock['8hHFadIrrooORfTOLkBg']! }],
     sender: {
-      id: 'user2',
+      id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
       discordUsername: 'crewNFT_#2034',
       discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
@@ -32,7 +32,7 @@ export const offerMock: { [key: string]: Offer } = {
         chainId: 1
       }
     },
-    senderItems: [{ amount: 1, ...nftMock['QFjMRNChUAHNswkRADXh']! }],
+    senderItems: [{ amount: 1, nft: nftMock['kRE3UCfXWkJ33nwzj2X1']! }],
     state: 'OPEN',
     threadId: '1231'
   }

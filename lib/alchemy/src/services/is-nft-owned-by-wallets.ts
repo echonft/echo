@@ -13,5 +13,7 @@ interface Arguments {
 export const isNftOwnedByWallets = ({ nft, wallets }: Arguments): Promise<boolean> =>
   pipe(getData, andThen(pipe(prop<string[]>('owners'), intersects(map(prop('address'), wallets)))))(
     getRoute(AlchemyV3Routes.GET_OWNERS_FOR_NFT),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     nft
   )

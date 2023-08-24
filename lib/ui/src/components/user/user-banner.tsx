@@ -1,5 +1,5 @@
+import { getUserBannerUrl } from '../../helpers/get-user-banner-url'
 import { Banner } from '../base/banner'
-import { getUserBannerUrl } from '@echo/discord'
 import { FunctionComponent } from 'react'
 
 export interface UserBannerProps {

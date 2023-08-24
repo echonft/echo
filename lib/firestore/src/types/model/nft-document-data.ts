@@ -6,7 +6,7 @@ import { UserDetailsDocumentData } from './user-details-document-data'
 export interface NftDocumentData {
   id: string
   attributes: NftAttributeDocumentData[]
-  balance?: number
+  balance: number
   blurUrl?: string
   collection: NftCollectionDocumentData
   name: string

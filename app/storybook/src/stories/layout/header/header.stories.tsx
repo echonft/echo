@@ -1,4 +1,5 @@
-import { Header as Component, users } from '@echo/ui'
+import { getUserById } from '../../../mocks/model/user'
+import { Header as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -17,5 +18,5 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 export const Header: Story = {
-  render: () => <Component user={users['oE6yUEQBPn7PZ89yMjKn']} />
+  render: () => <Component user={getUserById('oE6yUEQBPn7PZ89yMjKn')} />
 }

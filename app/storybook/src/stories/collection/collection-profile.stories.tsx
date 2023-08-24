@@ -1,4 +1,5 @@
-import { CollectionProfile as Component, CollectionProfileSkeleton, nftCollections } from '@echo/ui'
+import { getCollectionById } from '../../mocks/model/nft-collection'
+import { CollectionProfile as Component, CollectionProfileSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -8,18 +9,18 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-const mockNftCollection = nftCollections['Rc8pLQXxgyQGIRL0fr13']!
+const collection = getCollectionById('Rc8pLQXxgyQGIRL0fr13')
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   render: () => (
     <Component
-      collectionName={mockNftCollection.name}
+      collectionName={collection.name}
       size={10000}
-      pictureUrl={mockNftCollection.profilePictureUrl}
-      discordUrl={mockNftCollection.discordUrl}
-      twitterUsername={mockNftCollection.twitterUsername}
-      websiteUrl={mockNftCollection.websiteUrl}
+      pictureUrl={collection.profilePictureUrl}
+      discordUrl={collection.discordUrl}
+      twitterUsername={collection.twitterUsername}
+      websiteUrl={collection.websiteUrl}
     />
   )
 }

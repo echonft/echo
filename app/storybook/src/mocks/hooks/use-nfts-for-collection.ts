@@ -1,6 +1,6 @@
 import { delayPromise } from '../../utils/delay-promise'
 import { findNftsForCollectionByTraits } from '../../utils/find-nfts-for-collection-by-traits'
-import { Nft, NftTraits } from '@echo/ui'
+import { Nft, NftTraits } from '@echo/ui-model'
 import useSWR, { SWRResponse } from 'swr'
 
 interface Key {

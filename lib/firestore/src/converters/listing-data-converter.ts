@@ -50,7 +50,7 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
       datePropToNumber('expiresAt'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      when(has('items'), over(lens(prop('items'), assoc('itemsIds')), map(prop('id')))),
+      when(has('items'), over(lens(prop('items'), assoc('itemsNftIds')), map(path(['nft', 'id'])))),
       modelArrayPropToDocumentDataArray('items', offerItemDocumentDataConverter),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

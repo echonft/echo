@@ -1,13 +1,13 @@
 import { EmptyResponse, getUserWalletUrl, WalletRequest } from '@echo/api-public'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
-import { Signature, Wallet } from '@echo/ui'
+import { Signature, Wallet } from '@echo/ui-model'
 import { isNilOrEmpty, putData } from '@echo/utils'
 import { always, converge, path } from 'ramda'
 import { SiweMessage } from 'siwe'
 import useSWR from 'swr'
 
 interface KeyData {
-  url: string
+  url: URL
   request: WalletRequest | undefined
 }
 export const useAddWallet = (message: SiweMessage, signature: Signature, wallet: Wallet) =>

@@ -28,6 +28,5 @@ describe('mappers - mapNft', () => {
     }
     const result = mapNft(getNftsResponse['0x320e2fa93A4010ba47edcdE762802374bac8d3F7:1376']!)
     expect(result).toStrictEqual(expected)
-    // expect(result.contractAddress.toLowerCase()).toEqual(expected.collection.contract.address)
   })
 })

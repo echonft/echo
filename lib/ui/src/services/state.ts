@@ -1,5 +1,4 @@
-import { NewOffer } from '../types/new-offer'
-import { NewOfferState } from '../types/new-offer-state'
+import { NewOffer } from '@echo/ui-model'
 import { atom } from 'recoil'
 
 export const newOfferDataState = atom<NewOffer | undefined>({
@@ -7,7 +6,7 @@ export const newOfferDataState = atom<NewOffer | undefined>({
   default: undefined
 })
 
-export const newOfferState = atom<NewOfferState>({
+export const newOfferState = atom<'NONE' | 'TO CONFIRM' | 'CONFIRMED'>({
   key: 'newOfferState',
   default: 'NONE'
 })

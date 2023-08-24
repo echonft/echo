@@ -1,4 +1,5 @@
-import { FiltersPanel, TraitFilterGroup, TraitFilterPicker as Component, TraitFilterPickerManager } from '@echo/ui'
+import { FiltersPanel, TraitFilterPicker as Component, TraitFilterPickerManager } from '@echo/ui'
+import { TraitFilterGroup } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

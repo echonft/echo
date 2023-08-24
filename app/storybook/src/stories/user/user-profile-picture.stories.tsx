@@ -1,4 +1,5 @@
-import { UserProfilePicture as Component, UserProfilePictureSkeleton, users } from '@echo/ui'
+import { getUserById } from '../../mocks/model/user'
+import { UserProfilePicture as Component, UserProfilePictureSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -10,7 +11,8 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const user = users['oE6yUEQBPn7PZ89yMjKn']!
+const user = getUserById('6rECUMhevHfxABZ1VNOm')
+
 export const Standard: Story = {
   render: () => (
     <Component discordAvatar={user.discordAvatar} discordId={user.discordId} discordUsername={user.discordUsername} />

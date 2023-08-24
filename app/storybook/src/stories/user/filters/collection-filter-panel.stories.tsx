@@ -1,4 +1,5 @@
-import { CollectionFilter, CollectionFilterPanel as Component, CollectionFilterPanelSkeleton } from '@echo/ui'
+import { CollectionFilterPanel as Component, CollectionFilterPanelSkeleton } from '@echo/ui'
+import { CollectionFilter } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

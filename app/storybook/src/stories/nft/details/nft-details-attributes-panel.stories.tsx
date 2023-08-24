@@ -1,4 +1,5 @@
-import { NftDetailsAttributesPanel as Component, NftDetailsAttributesPanelSkeleton, nfts } from '@echo/ui'
+import { getNftById } from '../../../mocks/model/nft'
+import { NftDetailsAttributesPanel as Component, NftDetailsAttributesPanelSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -17,7 +18,7 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    attributes: nfts['QFjMRNChUAHNswkRADXh']!.attributes
+    attributes: getNftById('QFjMRNChUAHNswkRADXh').attributes
   }
 }
 

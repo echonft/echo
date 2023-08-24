@@ -1,4 +1,4 @@
-import { users, UserWallet as Component } from '@echo/ui'
+import { UserWallet as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -10,7 +10,6 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const user = users['6rECUMhevHfxABZ1VNOm']!
 export const Default: Story = {
-  render: () => <Component address={user.wallets![0]!.address} />
+  render: () => <Component address={'0xf672715f2bA85794659a7150e8C21F8d157bFe1D'} />
 }

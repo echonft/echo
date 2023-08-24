@@ -6,7 +6,7 @@ import { UserDetails } from './user-details'
 export interface Nft {
   id: string
   attributes: NftAttribute[]
-  balance: number | undefined
+  balance: number
   blurUrl: URL | undefined
   collection: NftCollection
   name: string

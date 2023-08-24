@@ -1,10 +1,10 @@
-import { getJsonContentTypeRequestInit } from './request-init/get-json-content-type-request-init'
+import { FetcherData } from '../../types/fetcher-data'
+import { jsonContentTypeRequestInit } from './request-init/json-content-type-request-init'
 import { setBody } from './request-init/set-body'
 import { setMethod } from './request-init/set-method'
-import { andThen, partialRight, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
-export const putData = <T, D extends object>(url: string, data: D): Promise<T> =>
-  pipe(
-    partialRight(fetch, [pipe(getJsonContentTypeRequestInit, setBody(data), setMethod('PUT'))()]),
-    andThen((response) => response.json() as T)
-  )(url)
+export const putData = async <T, D extends FetcherData = undefined>(url: URL, data?: D): Promise<T> => {
+  const response = await fetch(url, pipe(setMethod('PUT'), setBody(data))(jsonContentTypeRequestInit))
+  return (await response.json()) as T
+}

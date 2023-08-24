@@ -1,10 +1,10 @@
-import { SizeLG } from '../../types/size'
 import {
   getUserProfilePictureHeight,
   getUserProfilePictureSize,
   getUserProfilePictureWidth,
   UserProfilePictureSize
 } from '../user/nft-profile-picture-size'
+import { SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

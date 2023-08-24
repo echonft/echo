@@ -6,7 +6,7 @@ import { Listing } from '../../types/model/listing'
 import { OfferItem } from '../../types/model/offer-item'
 import { NonEmptyArray } from '@echo/utils'
 import { firestore } from 'firebase-admin'
-import { invoker, map, none, pipe, prop, reject } from 'ramda'
+import { invoker, map, none, path, pipe, prop, reject } from 'ramda'
 
 export const getListingsForOffer = async (
   senderItems: NonEmptyArray<OfferItem>,
@@ -14,7 +14,7 @@ export const getListingsForOffer = async (
 ) => {
   const querySnapshot = await firestore()
     .collection(CollectionName.LISTINGS)
-    .where('itemsIds', 'array-contains-any', map(prop('id'), receiverItems))
+    .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), receiverItems))
     // cannot have 2 array-contains in a query :(
     // .where('targetsIds', 'array-contains', getOfferItemsCollectionId(senderItems))
     .withConverter(listingDataConverter)

@@ -1,5 +1,5 @@
-import { CollectionFilter } from '../../../types/model/collection-filter'
 import { SelectableProps } from '../../../types/selectable-props'
+import { CollectionFilter } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

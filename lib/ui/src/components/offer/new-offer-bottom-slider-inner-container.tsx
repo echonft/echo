@@ -1,8 +1,7 @@
 import { newOfferState } from '../../services/state'
-import { Nft } from '../../types/nft'
-import { User } from '../../types/user'
-import { NewOfferBottomSliderAssetsContainer } from './new-offer-bottom-slider-assets-container'
+import { NewOfferBottomSliderItemsContainer } from './new-offer-bottom-slider-items-container'
 import { NewOfferBottomSliderReceiverContainer } from './new-offer-bottom-slider-receiver-container'
+import { getOfferItemsWallet, OfferItem, User } from '@echo/ui-model'
 import { isNilOrEmpty } from '@echo/utils'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
@@ -12,49 +11,52 @@ import { useRecoilState } from 'recoil'
 
 interface Props {
   receiver: User
-  receiverAssets: Nft[]
-  senderAssets: Nft[]
-  onAddMoreSenderAsset?: () => void
-  onRemoveSenderAsset?: (nft: Nft) => void
-  onAddMoreReceiverAsset?: () => void
-  onRemoveReceiverAsset?: (nft: Nft) => void
+  receiverItems: OfferItem[]
+  senderItems: OfferItem[]
+  onAddMoreSenderItem?: () => unknown
+  onRemoveSenderItem?: (item: OfferItem) => unknown
+  onAddMoreReceiverItem?: () => unknown
+  onRemoveReceiverItem?: (item: OfferItem) => unknown
 }
 
 export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
   receiver,
-  receiverAssets,
-  senderAssets = [],
-  onAddMoreSenderAsset,
-  onRemoveSenderAsset,
-  onAddMoreReceiverAsset,
-  onRemoveReceiverAsset
+  receiverItems,
+  senderItems = [],
+  onAddMoreSenderItem,
+  onRemoveSenderItem,
+  onAddMoreReceiverItem,
+  onRemoveReceiverItem
 }) => {
   const t = useTranslations('offer.new.bottomSlider')
   const [, setModalState] = useRecoilState(newOfferState)
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('pt-6', 'pb-1')}>
-        <NewOfferBottomSliderReceiverContainer receiver={receiver} />
+        <NewOfferBottomSliderReceiverContainer
+          receiver={receiver}
+          receiverWalletAddress={getOfferItemsWallet(receiverItems).address}
+        />
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-8')}>
-        <NewOfferBottomSliderAssetsContainer
+        <NewOfferBottomSliderItemsContainer
           isReceiver
-          assets={receiverAssets}
-          onAddMore={onAddMoreReceiverAsset}
-          onRemove={onRemoveReceiverAsset}
+          items={receiverItems}
+          onAddMore={onAddMoreReceiverItem}
+          onRemove={onRemoveReceiverItem}
         />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
       </div>
-      <NewOfferBottomSliderAssetsContainer
+      <NewOfferBottomSliderItemsContainer
         isReceiver={false}
-        assets={senderAssets}
-        onAddMore={onAddMoreSenderAsset}
-        onRemove={onRemoveSenderAsset}
+        items={senderItems}
+        onAddMore={onAddMoreSenderItem}
+        onRemove={onRemoveSenderItem}
       />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6')}>
         <Disclosure.Button
           className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')}
-          disabled={isNilOrEmpty(receiverAssets) || isNilOrEmpty(senderAssets)}
+          disabled={isNilOrEmpty(receiverItems) || isNilOrEmpty(senderItems)}
           onClick={() => setModalState('TO CONFIRM')}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalize')}</span>

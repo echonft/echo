@@ -1,5 +1,5 @@
-import { SizeLG, SizeMD } from '../../types/size'
 import { getNftThumbnailSize, NftThumbnailSize } from './nft-thumbnail-size'
+import { SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
