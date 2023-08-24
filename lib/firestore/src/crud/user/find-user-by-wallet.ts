@@ -1,16 +1,27 @@
-import { CollectionName } from '../../config/collection-name'
-import { convertUser } from '../../converters/user/convert-user'
-import { FirestoreWallet } from '../../types/model/collections/user/firestore-wallet'
-import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { whereCollection } from '../../utils/collection/where-collection'
-import { errorPromise, isNilOrEmpty } from '@echo/utils'
-import { andThen, head, ifElse, pipe } from 'ramda'
+import { CollectionName } from '../../constants/collection-name'
+import { userDataConverter } from '../../converters/user-data-converter'
+import { firestore } from '../../services/firestore'
+import { User } from '../../types/model/user'
+import { Wallet } from '../../types/model/wallet'
+import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import { head, isNil } from 'ramda'
 
-export const findUserByWallet = (wallet: FirestoreWallet) =>
-  pipe(
-    getCollectionFromPath,
-    whereCollection('wallets', 'array-contains', wallet),
-    getCollectionDocs,
-    andThen(ifElse(isNilOrEmpty, errorPromise('User not found'), pipe(head, convertUser)))
-  )(CollectionName.USERS)
+export const findUserByWallet = async (wallet: Wallet) => {
+  // wallet DocumentData is the same as the model so we don't need to convert it
+  const querySnapshot = await firestore()
+    .collection(CollectionName.USERS)
+    .where('wallets', 'array-contains', wallet)
+    .withConverter(userDataConverter)
+    .get()
+
+  if (querySnapshot.empty) {
+    return undefined
+  }
+
+  const documentSnapshot = head<QueryDocumentSnapshot<User>>(querySnapshot.docs)
+  if (isNil(documentSnapshot)) {
+    return undefined
+  }
+
+  return documentSnapshot.data()
+}

@@ -46,6 +46,12 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/model/dist" />
       <excludeFolder url="file://$MODULE_DIR$/lib/ui-model/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/ui-model/coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/app/frontend/node_modules/next-auth" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/@echo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/@jest" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/@types" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/jest" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/jest-junit" />
       <excludePattern pattern="tsconfig.tsbuildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />
@@ -57,6 +63,12 @@
       <excludePattern pattern=".swc" />
       <excludePattern pattern="storybook-static" />
     </content>
+    <content url="file://$MODULE_DIR$/app/frontend/node_modules/next-auth" />
+    <content url="file://$MODULE_DIR$/lib/api-public/node_modules/@echo" />
+    <content url="file://$MODULE_DIR$/lib/api-public/node_modules/@jest" />
+    <content url="file://$MODULE_DIR$/lib/api-public/node_modules/@types" />
+    <content url="file://$MODULE_DIR$/lib/api-public/node_modules/jest" />
+    <content url="file://$MODULE_DIR$/lib/api-public/node_modules/jest-junit" />
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/alchemy" />
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/api-public" />
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/discord" />

@@ -8,8 +8,8 @@ interface Props {
   wallet: Wallet
   message: SiweMessage
   signature: Signature
-  onSuccess?: (wallets: Wallet[]) => void
-  onError?: (error: string) => void
+  onSuccess?: () => unknown
+  onError?: (error: string) => unknown
 }
 
 export const AddWallet: FunctionComponent<Props> = ({ wallet, message, signature, onSuccess, onError }) => {
@@ -24,7 +24,7 @@ export const AddWallet: FunctionComponent<Props> = ({ wallet, message, signature
 
   useEffect(() => {
     if (!isNil(data)) {
-      onSuccess?.(data.wallets)
+      onSuccess?.()
     }
   }, [data, onSuccess])
 

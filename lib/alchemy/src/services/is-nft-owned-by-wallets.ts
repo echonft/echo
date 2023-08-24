@@ -1,13 +1,13 @@
 import { getRoute } from '../constants/get-route'
 import { AlchemyV3Routes } from '../constants/routes'
 import { GetOwnersForNftRequest } from '../types/request/get-owners-for-nft-request'
-import { FirestoreWalletData } from '@echo/firestore'
+import { Wallet } from '@echo/firestore'
 import { getData, intersects } from '@echo/utils'
 import { andThen, map, pipe, prop } from 'ramda'
 
 interface Arguments {
   nft: GetOwnersForNftRequest
-  wallets: FirestoreWalletData[]
+  wallets: Wallet[]
 }
 
 export const isNftOwnedByWallets = ({ nft, wallets }: Arguments): Promise<boolean> =>

@@ -1,19 +1,25 @@
-import { CollectionName } from '../../config/collection-name'
-import { FirestoreSnapshot } from '../../types/abstract/firestore-snapshot'
-import { FirestoreNftCollection } from '../../types/model/collections/nft-collection/firestore-nft-collection'
-import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { whereCollection } from '../../utils/collection/where-collection'
-import { errorPromise } from '@echo/utils'
-import { always, andThen, call, converge, head, identity, ifElse, isEmpty, partial, pipe, useWith } from 'ramda'
+import { CollectionName } from '../../constants/collection-name'
+import { nftCollectionDataConverter } from '../../converters/nft-collection-data-converter'
+import { NftCollection } from '../../types/model/nft-collection'
+import { firestore } from 'firebase-admin'
+import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import { head, isNil } from 'ramda'
 
-export const getNftCollectionSnapshotBySlug = pipe(
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  converge(call, [
-    useWith(partial(whereCollection, ['slug', '==']), [identity]),
-    always(getCollectionFromPath(CollectionName.NFT_COLLECTIONS))
-  ]),
-  getCollectionDocs,
-  andThen(ifElse(isEmpty, errorPromise('nft collection not found'), head))
-) as (slug: string) => Promise<FirestoreSnapshot<FirestoreNftCollection>>
+export const getNftCollectionSnapshotBySlug = async (slug: string) => {
+  const querySnapshot = await firestore()
+    .collection(CollectionName.NFT_COLLECTIONS)
+    .where('slug', '==', slug)
+    .withConverter(nftCollectionDataConverter)
+    .get()
+
+  if (querySnapshot.empty) {
+    return undefined
+  }
+
+  const documentSnapshot = head<QueryDocumentSnapshot<NftCollection>>(querySnapshot.docs)
+  if (isNil(documentSnapshot)) {
+    return undefined
+  }
+
+  return documentSnapshot
+}

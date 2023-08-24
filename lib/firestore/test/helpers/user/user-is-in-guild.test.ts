@@ -1,20 +1,24 @@
 import { userIsInGuild } from '../../../src/helpers/user/user-is-in-guild'
-import { discordGuildFirestoreData } from '../../mocks/discord-guild/discord-guild-firestore-data'
-import { userFirestoreData } from '../../mocks/user/user-firestore-data'
-import { beforeEach, describe, expect, it, jest } from '@jest/globals'
+import { DiscordGuild } from '../../../src/types/model/discord-guild'
+import { userMock } from '../../mocks/user-mock'
+import { describe, expect, it } from '@jest/globals'
 
-describe('utils - handler - userIsInGuild', () => {
-  const user = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
-  const discordGuild = discordGuildFirestoreData['ncUnbpFfVCofV9bD7ctn']!
-  beforeEach(() => {
-    jest.clearAllMocks()
+describe('helpers - user - userIsInGuild', () => {
+  it('return false if discord id is not found in user guilds', () => {
+    const user = userMock['oE6yUEQBPn7PZ89yMjKn']!
+    const discordGuild: DiscordGuild = {
+      channelId: '1',
+      discordId: 'wrong'
+    }
+    expect(userIsInGuild(user, discordGuild)).toBeFalsy()
   })
-  it('if user is not in guild, returns false', () => {
-    expect(userIsInGuild({ ...user, discordGuilds: [] }, discordGuild)).toBeFalsy()
-    expect(userIsInGuild({ ...user, discordGuilds: undefined }, discordGuild)).toBeFalsy()
-    expect(userIsInGuild(user, { ...discordGuild, discordId: '0' })).toBeFalsy()
-  })
-  it('if user is in guild, returns true', () => {
+
+  it('return true if the user is in the guild', () => {
+    const user = userMock['oE6yUEQBPn7PZ89yMjKn']!
+    const discordGuild: DiscordGuild = {
+      channelId: '1',
+      discordId: '1'
+    }
     expect(userIsInGuild(user, discordGuild)).toBeTruthy()
   })
 })

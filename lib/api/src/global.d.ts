@@ -1,4 +1,4 @@
-import { FirestoreUserData } from '@echo/firestore'
+import { User } from '@echo/firestore'
 
 export declare global {
   namespace NodeJS {
@@ -15,13 +15,13 @@ declare module 'next-auth' {
    * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
    */
   interface Session {
-    user: FirestoreUserData
+    user: User
   }
 }
 
 declare module 'next-auth/jwt' {
   /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
   interface JWT {
-    user?: FirestoreUserData
+    user?: User
   }
 }

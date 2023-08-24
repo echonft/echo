@@ -1,6 +1,6 @@
-import { collectionOffersLink } from './collection-offers-link'
-import { FirestoreOfferData } from '@echo/firestore'
+import { getBaseUrl } from './get-base-url'
+import { Offer } from '@echo/firestore'
 
-export function offerLink(offer: FirestoreOfferData): string {
-  return `${collectionOffersLink(offer.discordGuild.discordId)}/${offer.id}`
+export function offerLink(offer: Offer): string {
+  return encodeURI(`${getBaseUrl()}/offers/${offer.id}`)
 }

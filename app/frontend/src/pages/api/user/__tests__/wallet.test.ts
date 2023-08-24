@@ -26,7 +26,7 @@
 //     const { req, res } = mockRequestResponse<WalletRequest, never, WalletResponse>('PUT')
 //     await wallet(req, res)
 //     expect(res.statusCode).toBe(401)
-//     expect(res._getJSONData()).toEqual({ error: 'You must be logged in' })
+//     expect(res._getJSONData()).toEqual({ error: 'Forbidden' })
 //   })
 //   it('if correct req, handler is called', async () => {
 //     mockedGetServerSession.mockResolvedValue(mockSession)

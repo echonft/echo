@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@echo/utils": "workspace:*",
-    "@google-cloud/firestore": "6.7.0",
     "dayjs": "1.11.9",
     "ethers": "6.7.0",
     "firebase-admin": "11.10.1",

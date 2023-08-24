@@ -1,29 +1,21 @@
-import { CollectionName } from '../../config/collection-name'
-import { convertNft } from '../../converters/nft/convert-nft'
-import { FirestoreNft } from '../../types/model/collections/nft/firestore-nft'
-import { FirestoreNftAttributeData } from '../../types/model/data/nft/firestore-nft-attribute-data'
-import { FirestoreNftData } from '../../types/model/data/nft/firestore-nft-data'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { getNftCollectionSnapshotBySlug } from '../nft-collection/get-nft-collection-snapshot-by-slug'
+import { CollectionName } from '../../constants/collection-name'
+import { nftDataConverter } from '../../converters/nft-data-converter'
+import { Nft } from '../../types/model/nft'
+import { NftAttribute } from '../../types/model/nft-attribute'
 import { isNilOrEmpty } from '@echo/utils'
+import { firestore } from 'firebase-admin'
+import { invoker, map } from 'ramda'
 
-export const findNftsForCollectionByAttributes = async (
-  collectionSlug: string,
-  attributes?: FirestoreNftAttributeData[]
-): Promise<FirestoreNftData[]> => {
-  const collectionSnapshot = await getNftCollectionSnapshotBySlug(collectionSlug)
-  let query = getCollectionFromPath<FirestoreNft>(CollectionName.NFTS).where('collection', '==', collectionSnapshot.ref)
+export const findNftsForCollectionByAttributes = async (collectionSlug: string, attributes?: NftAttribute[]) => {
+  let query = firestore().collection(CollectionName.NFTS).where('collection.slug', '==', collectionSlug)
   if (!isNilOrEmpty(attributes)) {
     query = query.where('attributes', 'array-contains-any', attributes)
   }
-  query = query.orderBy('tokenId')
-  const querySnapshot = await query.get()
+
+  const querySnapshot = await query.withConverter(nftDataConverter).get()
   if (querySnapshot.empty) {
-    return []
+    return [] as Nft[]
   }
-  const promises = new Array<Promise<FirestoreNftData>>(querySnapshot.size)
-  querySnapshot.forEach((doc) => {
-    promises.push(convertNft(doc))
-  })
-  return Promise.all(promises)
+
+  return map(invoker(0, 'data'), querySnapshot.docs) as Nft[]
 }

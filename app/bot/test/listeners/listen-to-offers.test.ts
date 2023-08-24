@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { offerChangeHandler } from '../../src/handlers/offer-change-handler'
 import { listenToOffers } from '../../src/listeners/listen-to-offers'
-import { mockAndSetupChannel } from '../../src/utils/tests/discord/channel-mock'
-import { mockClient } from '../../src/utils/tests/discord/client-mock'
-import { mockGuild } from '../../src/utils/tests/discord/guild-mock'
+import { mockAndSetupChannel } from '../mocks/discord/channel-mock'
+import { mockClient } from '../mocks/discord/client-mock'
+import { mockGuild } from '../mocks/discord/guild-mock'
 import { listenToOffers as firebaseListenToOffers } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { Client } from 'discord.js'
 
 jest.mock('@echo/firestore')
-jest.mock('../../src/utils/get-discord-channel')
+jest.mock('../../src/helpers/get-discord-channel')
 jest.mock('../../src/handlers/offer-change-handler')
 
 describe('listeners - listenToOffers', () => {

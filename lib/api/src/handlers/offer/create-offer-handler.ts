@@ -1,85 +1,36 @@
+import { ApiError } from '../../helpers/api-error'
+import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
+import { createOffer } from '../../helpers/offer/create-offer'
+import { getOfferItems } from '../../helpers/offer/get-offer-items'
+import { getOfferItemsWallet } from '../../helpers/offer/get-offer-items-wallet'
+import { parseCreateOfferSchema } from '../../helpers/offer/parse-create-offer-schema'
+import { assertUser } from '../../helpers/user/assert-user'
+import { assertUserHasWallets } from '../../helpers/user/assert-user-has-wallets'
+import { findUserById } from '../../helpers/user/find-user-by-id'
 import { RequestHandler } from '../../types/handlers/request-handler'
-import { createOfferSchema } from '../../types/validators/create-offer'
-import { createOfferFromData } from '../../utils/handler/create-offer-from-data'
-import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
-import { ApiRequest, CreateOfferRequest } from '@echo/api-public'
-import {
-  canRequestForOfferReceiveOffers,
-  findDiscordGuildById,
-  findRequestForOfferById,
-  findUserById,
-  FirestoreOfferData
-} from '@echo/firestore'
-import { errorMessage, isNilOrEmpty, logger } from '@echo/utils'
-import dayjs from 'dayjs'
-import { isNil } from 'ramda'
+import { ApiRequest, CreateOfferRequest, IdResponse } from '@echo/api-public'
 
-export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, never>, FirestoreOfferData> = async (
+export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, never>, IdResponse> = async (
   req,
   res,
   session
 ) => {
-  const user = validateAndExtractUserFromSession(session, res)
-  if (isNil(user)) {
-    return
-  }
-  if (isNilOrEmpty(user.wallets)) {
-    res.end(res.status(401).json({ error: 'User does not have wallets' }))
-    return
-  }
   try {
-    const validatedRequest = createOfferSchema.parse(req.body)
-    // With Request For Offer
-    if (validatedRequest.withRequestForOffer) {
-      return findRequestForOfferById(validatedRequest.requestForOfferId)
-        .then((requestForOffer) => {
-          if (!canRequestForOfferReceiveOffers(dayjs.unix(requestForOffer.expiresAt), requestForOffer.state)) {
-            res.end(res.status(500).json({ error: 'Request for offer cannot accept offers' }))
-            return
-          }
-          return createOfferFromData(
-            user,
-            validatedRequest.senderItems,
-            requestForOffer.sender,
-            validatedRequest.receiverItems,
-            requestForOffer.discordGuild,
-            res,
-            validatedRequest.requestForOfferId
-          )
-        })
-        .catch((error) => {
-          logger.error(`createOfferHandler error on findRequestForOfferById: ${errorMessage(error)}`)
-          res.end(res.status(500).json({ error: 'Request for offer is not found' }))
-          return
-        })
-      // No request for offer included, fetch receiver and discord guild
-    } else {
-      return Promise.all([
-        findUserById(validatedRequest.receiverId),
-        findDiscordGuildById(validatedRequest.discordGuildId)
-      ])
-        .then((users) => {
-          const receiver = users[0]
-          const discordGuild = users[1]
-          return createOfferFromData(
-            user,
-            validatedRequest.senderItems,
-            receiver,
-            validatedRequest.receiverItems,
-            discordGuild,
-            res
-          )
-        })
-        .catch((error) => {
-          logger.error(
-            `createOfferHandler error thrown on findUserById or findDiscordGuildById: ${errorMessage(error)}`
-          )
-          res.end(res.status(500).json({ error: 'Could not create offer' }))
-          return
-        })
-    }
-  } catch {
-    res.end(res.status(400).json({ error: 'Invalid body' }))
+    const sender = getUserFromSession(session)
+    assertUserHasWallets(sender)
+    const { receiverItems, receiverId, senderItems } = parseCreateOfferSchema(req.body)
+    const receiver = await findUserById(receiverId)
+    assertUser(receiver)
+    assertUserHasWallets(receiver!)
+    const receiverNfts = await getOfferItems(receiverItems)
+    const senderNfts = await getOfferItems(senderItems)
+    const receiverWallet = await getOfferItemsWallet(receiverNfts, receiver!)
+    const senderWallet = await getOfferItemsWallet(senderNfts, sender)
+    const id = await createOffer(sender, senderWallet, senderNfts, receiver!, receiverWallet, receiverNfts)
+    return res.status(200).json({ id })
+  } catch (e) {
+    const { status, message } = e as ApiError
+    res.end(res.status(status).json({ error: message }))
     return
   }
 }

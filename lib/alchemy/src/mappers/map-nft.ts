@@ -1,17 +1,24 @@
 import { GetNftResponse } from '../types/response/get-nft-response'
 import { NftResponse } from '../types/response/nft-response'
-import { mapInt } from './map-int'
-import { applyToProp, isNilOrEmpty } from '@echo/utils'
-import { always, applySpec, ifElse, map, path, pipe, prop } from 'ramda'
+import { applyToProp, isNilOrEmpty, unlessNil } from '@echo/utils'
+import { always, applySpec, ifElse, map, path, pathEq, pipe, prop } from 'ramda'
 
 export const mapNft: (nftResponse: NftResponse) => GetNftResponse = applySpec({
-  balance: applyToProp('balance', mapInt),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  balance: ifElse(
+    pathEq('ERC721', ['contract', 'tokenType']),
+    always(1),
+    applyToProp('balance', unlessNil(Number.parseInt))
+  ),
   contractAddress: path(['contract', 'address']),
-  description: prop('description'),
+  chainId: always(1),
   name: prop('name'),
   pictureUrl: path(['image', 'pngUrl']),
   thumbnailUrl: path(['image', 'thumbnailUrl']),
-  tokenId: applyToProp('tokenId', mapInt),
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  tokenId: applyToProp('tokenId', Number.parseInt),
   tokenType: path(['contract', 'tokenType']),
   attributes: pipe(
     path(['raw', 'metadata']),

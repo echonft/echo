@@ -1,17 +1,17 @@
 import { authOptions } from '../auth/[...nextauth]'
 import { withMethodValidation, withSession } from '@echo/api'
-import { ApiRequest, ErrorResponse, IdRequest, RequestForOfferResponse } from '@echo/api-public'
+import { ApiRequest, EmptyResponse, ErrorResponse, IdRequest } from '@echo/api-public'
 import { NextApiResponse } from 'next'
 
-const cancelRequestForOffer = async (
+const cancelListing = async (
   req: ApiRequest<IdRequest, never>,
-  res: NextApiResponse<ErrorResponse | RequestForOfferResponse>
+  res: NextApiResponse<ErrorResponse | EmptyResponse>
 ) => {
   try {
-    await withMethodValidation(withSession(cancelRequestForOffer, authOptions), ['PUT'])(req, res)
+    await withMethodValidation(withSession(cancelListing, authOptions), ['PUT'])(req, res)
   } catch (error) {
     return
   }
 }
 
-export default cancelRequestForOffer
+export default cancelListing

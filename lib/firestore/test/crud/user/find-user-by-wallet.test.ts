@@ -1,28 +1,30 @@
 import { findUserByWallet } from '../../../src/crud/user/find-user-by-wallet'
-import { userFirestoreData } from '../../mocks/user/user-firestore-data'
-import { describe, expect, test } from '@jest/globals'
+import { initialize } from '../../../src/services/initialize'
+import { terminate } from '../../../src/services/terminate'
+import { userMock } from '../../mocks/user-mock'
+import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 
-describe('crud - user - findUserByWallet', () => {
-  const user = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!
-  const wallet = user.wallets[0]!
-  test('no user is found if wallet is not on the proper chain', async () => {
-    const wrongChainWallet = { ...wallet, chainId: 0 }
-    try {
-      await findUserByWallet(wrongChainWallet)
-    } catch (error) {
-      expect(error).toBe('User not found')
-    }
+describe('CRUD - user - findUserByWallet', () => {
+  beforeAll(initialize)
+  afterAll(terminate)
+
+  it('returns undefined if the address is wrong', async () => {
+    const user = await findUserByWallet({ address: 'wrong', chainId: 1 })
+    expect(user).toBeUndefined()
   })
-  test('no user is found if wallet address is not found', async () => {
-    const wrongChainWallet = { ...wallet, address: '0xtest' }
-    try {
-      await findUserByWallet(wrongChainWallet)
-    } catch (error) {
-      expect(error).toBe('User not found')
-    }
+
+  it('returns undefined if the chain id is wrong', async () => {
+    const user = await findUserByWallet({ address: '0x5f8BF75666a6B4bC452DC4Ac680f0A8Ac35b25DE', chainId: 0 })
+    expect(user).toBeUndefined()
   })
-  test('user is found with proper wallet', async () => {
-    const foundUser = await findUserByWallet(wallet)
-    expect(foundUser).toEqual(user)
+
+  it('returns undefined if both the address and the chain id are wrong', async () => {
+    const user = await findUserByWallet({ address: 'wrong', chainId: 0 })
+    expect(user).toBeUndefined()
+  })
+
+  it('returns the user with the given wallet', async () => {
+    const user = await findUserByWallet({ address: '0x5f8BF75666a6B4bC452DC4Ac680f0A8Ac35b25DE', chainId: 1 })
+    expect(user).toStrictEqual(userMock['oE6yUEQBPn7PZ89yMjKn'])
   })
 })

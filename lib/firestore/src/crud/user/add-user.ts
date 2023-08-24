@@ -1,16 +1,20 @@
-import { buildUser } from '../../builders/user/build-user'
-import { CollectionName } from '../../config/collection-name'
-import { convertUser } from '../../converters/user/convert-user'
-import { FirestoreUserData } from '../../types/model/data/user/firestore-user-data'
-import { FirestoreUserPrototype } from '../../types/prototypes/user/firestore-user-prototype'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
-import { andThen, partial, pipe } from 'ramda'
+import { CollectionName } from '../../constants/collection-name'
+import { userDataConverter } from '../../converters/user-data-converter'
+import { firestore } from '../../services/firestore'
+import { User } from '../../types/model/user'
+import { assoc, pipe } from 'ramda'
 
-export const addUser: (userPrototype: FirestoreUserPrototype) => Promise<FirestoreUserData> = pipe(
-  buildUser,
+export const addUser = async (user: Omit<User, 'id' | 'nonce' | 'updatedAt' | 'wallets'>): Promise<string> => {
+  const reference = firestore().collection(CollectionName.USERS).doc()
+  const id = reference.id
+  const newUser = pipe(
+    assoc('id', id),
+    assoc('nonce', undefined),
+    assoc('updatedAt', undefined),
+    assoc('wallets', [])
+  )(user)
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  andThen(partial(setDocAndReturnSnapshot, [getCollectionFromPath(CollectionName.USERS).doc()])),
-  andThen(convertUser)
-)
+  await reference.set(userDataConverter.toFirestore(newUser))
+  return id
+}

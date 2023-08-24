@@ -31,7 +31,6 @@
     "siwe": "^2.1.4"
   },
   "dependencies": {
-    "@echo/firestore": "workspace:*",
     "@echo/utils": "workspace:*",
     "ramda": "0.29.0",
     "request": "2.88.2"

@@ -1,3 +1,6 @@
-import { getFirestoreNftData } from '../../data/nft/get-firestore-nft-data'
+import { getNftSnapshotById } from './get-nft-snapshot-by-id'
 
-export const findNftById = (id: string) => getFirestoreNftData(id)
+export const findNftById = async (id: string) => {
+  const documentSnapshot = await getNftSnapshotById(id)
+  return documentSnapshot?.data()
+}

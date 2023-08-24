@@ -1,10 +1,10 @@
-import { addWalletSchema } from '../../src/types/validators/add-wallet'
-import { users } from '@echo/ui'
+import { addWalletSchema } from '../../src/types/validators/add-wallet-schema'
+import { getUserMockById } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 import { SiweMessage } from 'siwe'
 
 describe('validators - addWallet', () => {
-  const wallet = users['oE6yUEQBPn7PZ89yMjKn']!.wallets![0]!
+  const wallet = getUserMockById('oE6yUEQBPn7PZ89yMjKn').wallets[0]!
   const signature = '0x0000'
   const message: SiweMessage = new SiweMessage({
     domain: 'domain',

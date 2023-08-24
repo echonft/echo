@@ -1,18 +1,17 @@
-import { Wallet } from '@echo/ui'
-import { useRemoveWallets } from '@lib/hooks/use-remove-wallets'
+import { useRemoveWallet } from '@lib/hooks/use-remove-wallet'
 import { isNil } from 'ramda'
 import { FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
   address: string
   chainId: number
-  onSuccess?: (wallets: Wallet[]) => void
-  onError?: (error: string) => void
+  onSuccess?: () => unknown
+  onError?: (error: string) => unknown
 }
 
 export const RemoveWalletButton: FunctionComponent<Props> = ({ address, chainId, onError, onSuccess }) => {
   const [toDelete, setToDelete] = useState(false)
-  const { data, error } = useRemoveWallets(toDelete ? [{ address, chainId }] : undefined)
+  const { data, error } = useRemoveWallet(toDelete ? { address, chainId } : undefined)
   useEffect(() => {
     if (!isNil(error)) {
       // TODO We should get the error here
@@ -23,7 +22,7 @@ export const RemoveWalletButton: FunctionComponent<Props> = ({ address, chainId,
 
   useEffect(() => {
     if (!isNil(data)) {
-      onSuccess?.(data.wallets)
+      onSuccess?.()
       setToDelete(false)
     }
   }, [data, onSuccess])

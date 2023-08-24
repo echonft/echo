@@ -1,5 +1,5 @@
-import { FirestoreContractData } from '../../types/model/data/contract/firestore-contract-data'
-import { FirestoreWalletData } from '../../types/model/data/user/firestore-wallet-data'
+import { Contract } from '../../types/model/contract'
+import { Wallet } from '../../types/model/wallet'
 import { allPass, complement, groupBy, isEmpty, mapObjIndexed, pickBy, pipe, prop, toString } from 'ramda'
 
 /**
@@ -10,7 +10,7 @@ import { allPass, complement, groupBy, isEmpty, mapObjIndexed, pickBy, pipe, pro
  * @param wallets The array of wallets
  * @param contracts The array of contracts
  */
-export function mergeWalletsAndContractsByChainId(wallets: FirestoreWalletData[], contracts: FirestoreContractData[]) {
+export function mergeWalletsAndContractsByChainId(wallets: Wallet[], contracts: Contract[]) {
   return pipe(
     groupBy(pipe(prop('chainId'), toString)),
     mapObjIndexed((contracts, chainId) => ({
@@ -20,8 +20,8 @@ export function mergeWalletsAndContractsByChainId(wallets: FirestoreWalletData[]
     pickBy(allPass([pipe(prop('contracts'), complement(isEmpty)), pipe(prop('wallets'), complement(isEmpty))]))
   )(contracts) as {
     [key: string]: {
-      contracts: FirestoreContractData[]
-      wallets: FirestoreWalletData[]
+      contracts: Contract[]
+      wallets: Wallet[]
     }
   }
 }

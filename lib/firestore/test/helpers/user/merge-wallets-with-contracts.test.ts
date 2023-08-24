@@ -1,13 +1,19 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { mergeWalletsAndContractsByChainId } from '../../../src/helpers/user/merge-wallets-with-contracts'
-import { contractFirestoreData } from '../../mocks/contract/contract-firestore-data'
-import { userFirestoreData } from '../../mocks/user/user-firestore-data'
+import { Contract } from '../../../src/types/model/contract'
+import { userMock } from '../../mocks/user-mock'
 import { describe, expect, test } from '@jest/globals'
 
 describe('Merge wallets with contracts', () => {
   // @ts-ignore
-  const mockWallet = userFirestoreData['oE6yUEQBPn7PZ89yMjKn']!.wallets[0]!
-  const mockContract = contractFirestoreData['37dBlwJYahEAKeL0rNP8']!
+  const mockWallet = userMock['oE6yUEQBPn7PZ89yMjKn']!.wallets[0]!
+  const mockContract: Contract = {
+    tokenType: 'ERC721',
+    address: '0x12c63bbD266dB84e117356e664f3604055166CEc',
+    chainId: 1,
+    name: 'Mythics Genesis',
+    symbol: 'MGEN'
+  }
   test('Empty contracts and wallets returns empty array', () => {
     expect(mergeWalletsAndContractsByChainId([], [])).toEqual({})
   })

@@ -1,17 +1,17 @@
 import { authOptions } from '../auth/[...nextauth]'
-import { createRequestForOfferHandler, withMethodValidation, withSession } from '@echo/api'
-import { ApiRequest, CreateRequestForOfferRequest, ErrorResponse, RequestForOfferResponse } from '@echo/api-public'
+import { createListingHandler, withMethodValidation, withSession } from '@echo/api'
+import { ApiRequest, CreateListingRequest, ErrorResponse, IdResponse } from '@echo/api-public'
 import { NextApiResponse } from 'next'
 
-const createRequestForOffer = async (
-  req: ApiRequest<CreateRequestForOfferRequest, never>,
-  res: NextApiResponse<ErrorResponse | RequestForOfferResponse>
+const createListing = async (
+  req: ApiRequest<CreateListingRequest, never>,
+  res: NextApiResponse<ErrorResponse | IdResponse>
 ) => {
   try {
-    await withMethodValidation(withSession(createRequestForOfferHandler, authOptions), ['PUT'])(req, res)
+    await withMethodValidation(withSession(createListingHandler, authOptions), ['PUT'])(req, res)
   } catch (error) {
     return
   }
 }
 
-export default createRequestForOffer
+export default createListing

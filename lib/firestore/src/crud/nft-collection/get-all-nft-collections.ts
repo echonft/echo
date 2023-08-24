@@ -1,15 +1,13 @@
-import { CollectionName } from '../../config/collection-name'
-import { convertNftCollection } from '../../converters/nft-collection/convert-nft-collection'
-import { FirestoreNftCollection } from '../../types/model/collections/nft-collection/firestore-nft-collection'
-import { FirestoreNftCollectionData } from '../../types/model/data/nft-collection/firestore-nft-collection-data'
-import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { promiseAll } from '@echo/utils'
-import { andThen, map, pipe } from 'ramda'
+import { CollectionName } from '../../constants/collection-name'
+import { nftCollectionDataConverter } from '../../converters/nft-collection-data-converter'
+import { firestore } from '../../services/firestore'
+import { NftCollection } from '../../types/model/nft-collection'
+import { invoker, map } from 'ramda'
 
-export const getAllNftCollections = (): Promise<FirestoreNftCollectionData[]> =>
-  pipe(
-    getCollectionFromPath<FirestoreNftCollection>,
-    getCollectionDocs,
-    andThen(pipe(map(convertNftCollection), promiseAll))
-  )(CollectionName.NFT_COLLECTIONS)
+export const getAllNftCollections = async () => {
+  const querySnapshot = await firestore()
+    .collection(CollectionName.NFT_COLLECTIONS)
+    .withConverter(nftCollectionDataConverter)
+    .get()
+  return map(invoker(0, 'data'), querySnapshot.docs) as NftCollection[]
+}

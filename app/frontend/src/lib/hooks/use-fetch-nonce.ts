@@ -1,4 +1,4 @@
-import { ApiRoutes, getApiRouteUrl, NonceResponse } from '@echo/api-public'
+import { getUserNonceUrl, NonceResponse } from '@echo/api-public'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { getUrl, isNilOrEmpty } from '@echo/utils'
 import { always, converge, path } from 'ramda'
@@ -15,7 +15,7 @@ export const useFetchNonce = (userId: string | undefined): SWRResponse<NonceResp
       {
         name: SwrKeyNames.API_FETCH_NONCE,
         data: {
-          url: getApiRouteUrl(ApiRoutes.NONCE)
+          url: getUserNonceUrl()
         }
       },
       always(isNilOrEmpty(userId))

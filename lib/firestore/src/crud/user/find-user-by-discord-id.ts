@@ -1,16 +1,18 @@
-import { CollectionName } from '../../config/collection-name'
-import { convertUser } from '../../converters/user/convert-user'
-import { FirestoreUserData } from '../../types/model/data/user/firestore-user-data'
-import { getCollectionDocs } from '../../utils/collection/get-collection-docs'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { whereCollection } from '../../utils/collection/where-collection'
-import { errorPromise } from '@echo/utils'
-import { andThen, head, ifElse, isEmpty, pipe } from 'ramda'
+import { CollectionName } from '../../constants/collection-name'
+import { userDataConverter } from '../../converters/user-data-converter'
+import { firestore } from '../../services/firestore'
+import { User } from '../../types/model/user'
 
-export const findUserByDiscordId = (discordId: string): Promise<FirestoreUserData> =>
-  pipe(
-    getCollectionFromPath,
-    whereCollection('discordId', '==', discordId),
-    getCollectionDocs,
-    andThen(ifElse(isEmpty, errorPromise<FirestoreUserData>('not found'), pipe(head, convertUser)))
-  )(CollectionName.USERS)
+export const findUserByDiscordId = async (discordId: string): Promise<User> => {
+  const querySnapshot = await firestore()
+    .collection(CollectionName.USERS)
+    .where('discordId', '==', discordId)
+    .withConverter(userDataConverter)
+    .get()
+
+  if (querySnapshot.empty) {
+    return Promise.reject('user not found')
+  }
+
+  return querySnapshot.docs[0]!.data()
+}

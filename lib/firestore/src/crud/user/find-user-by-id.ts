@@ -1,3 +1,6 @@
-import { getFirestoreUserData } from '../../data/user/get-firestore-user-data'
+import { getUserSnapshotById } from './get-user-snapshot-by-id'
 
-export const findUserById = (id: string) => getFirestoreUserData(id)
+export const findUserById = async (id: string) => {
+  const documentSnapshot = await getUserSnapshotById(id)
+  return documentSnapshot?.data()
+}

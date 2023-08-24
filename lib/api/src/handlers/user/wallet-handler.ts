@@ -1,46 +1,43 @@
+import { ApiError } from '../../helpers/api-error'
+import { parseAddWalletRequest } from '../../helpers/user/parse-add-wallet-request'
+import { parseRemoveWalletRequest } from '../../helpers/user/parse-remove-wallet-request'
 import { RequestHandler } from '../../types/handlers/request-handler'
-import { addWalletSchema } from '../../types/validators/add-wallet'
-import { removeWalletsSchema } from '../../types/validators/remove-wallets'
-import { validateAndExtractUserFromSession } from '../../utils/handler/validate-and-extract-user-from-session'
-import { createWalletHandler } from './create-wallet-handler'
-import { deleteWalletHandler } from './delete-wallet-handler'
-import { ApiRequest, WalletRequest, WalletResponse } from '@echo/api-public'
-import { isNil } from 'ramda'
+import { handleCreateWallet } from './handle-create-wallet'
+import { handleDeleteWallet } from './handle-delete-wallet'
+import { ApiRequest, EmptyResponse, WalletRequest } from '@echo/api-public'
 import { SiweMessage } from 'siwe'
 
-export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, WalletResponse> = async (
+export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, EmptyResponse> = async (
   req,
   res,
   session
 ) => {
-  const user = validateAndExtractUserFromSession(session, res)
-  if (isNil(user)) {
-    return
-  }
-  let validatedRequest
   try {
     switch (req.method) {
       case 'PUT':
         // We need to create the SiweMessage here because that's the only way to validate its type
         // Validation could be improved and check some values instead of types
-        validatedRequest = addWalletSchema.parse({ ...req.body, message: new SiweMessage(req.body.message ?? '') })
-
-        return createWalletHandler(
-          user,
-          validatedRequest.wallet,
-          validatedRequest.message,
-          validatedRequest.signature,
+        const validatedAddWalletRequest = parseAddWalletRequest({
+          ...req.body,
+          message: new SiweMessage(req.body.message ?? '')
+        })
+        return handleCreateWallet(
+          session,
+          validatedAddWalletRequest.wallet,
+          validatedAddWalletRequest.message,
+          validatedAddWalletRequest.signature,
           res
         )
       case 'DELETE':
-        validatedRequest = removeWalletsSchema.parse(req.body)
-        return deleteWalletHandler(user, validatedRequest.wallet, res)
+        const validatedRemoveWalletRequest = parseRemoveWalletRequest(req.body)
+        return handleDeleteWallet(session, validatedRemoveWalletRequest.wallet, res)
       default:
         res.end(res.status(500).json({ error: 'Unhandled error' }))
         return
     }
   } catch (e) {
-    res.end(res.status(400).json({ error: 'Invalid body' }))
+    const { status, message } = e as ApiError
+    res.end(res.status(status).json({ error: message }))
     return
   }
 }

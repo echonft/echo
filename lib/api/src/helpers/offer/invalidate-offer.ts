@@ -1,0 +1,10 @@
+import { ApiError } from '../api-error'
+import { invalidateOffer as firestoreInvalidateOffer } from '@echo/firestore'
+
+export const invalidateOffer = async (offerId: string) => {
+  try {
+    await firestoreInvalidateOffer(offerId)
+  } catch (e) {
+    throw new ApiError(500, 'Error invalidating offer')
+  }
+}

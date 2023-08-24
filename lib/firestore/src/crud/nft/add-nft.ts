@@ -1,16 +1,11 @@
-import { buildNft } from '../../builders/nft/build-nft'
-import { CollectionName } from '../../config/collection-name'
-import { convertNft } from '../../converters/nft/convert-nft'
-import { FirestoreNftData } from '../../types/model/data/nft/firestore-nft-data'
-import { FirestoreNftPrototype } from '../../types/prototypes/nft/firestore-nft-prototype'
-import { getCollectionFromPath } from '../../utils/collection/get-collection-from-path'
-import { setDocAndReturnSnapshot } from '../../utils/document/set-doc-and-return-snapshot'
-import { andThen, partial, pipe } from 'ramda'
+import { CollectionName } from '../../constants/collection-name'
+import { nftDataConverter } from '../../converters/nft-data-converter'
+import { firestore } from '../../services/firestore'
+import { Nft } from '../../types/model/nft'
 
-export const addNft: (nftPrototype: FirestoreNftPrototype) => Promise<FirestoreNftData> = pipe(
-  buildNft,
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  andThen(partial(setDocAndReturnSnapshot, [getCollectionFromPath(CollectionName.NFTS).doc()])),
-  andThen(convertNft)
-)
+export const addNft = async (nft: Omit<Nft, 'id'>): Promise<string> => {
+  const reference = firestore().collection(CollectionName.NFTS).doc()
+  const id = reference.id
+  await reference.set(nftDataConverter.toFirestore({ ...nft, id }))
+  return id
+}

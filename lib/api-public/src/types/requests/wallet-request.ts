@@ -5,7 +5,7 @@ interface Wallet {
   address: string
 }
 export interface WalletRequest {
-  wallet: Wallet | Wallet[]
+  wallet: Wallet
   message?: SiweMessage
   signature?: `0x${string}`
 }
