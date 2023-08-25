@@ -1,17 +1,9 @@
 import { authOptions } from '../auth/[...nextauth]'
-import { withMethodValidation, withSession } from '@echo/api'
-import { ApiRequest, EmptyResponse, ErrorResponse, IdRequest } from '@echo/api-public'
-import { NextApiResponse } from 'next'
+import { cancelListingRouteHandler } from '@echo/api'
+import { ApiRequest, ApiResponse, EmptyResponse, IdRequest } from '@echo/api-public'
 
-const cancelListing = async (
-  req: ApiRequest<IdRequest, never>,
-  res: NextApiResponse<ErrorResponse | EmptyResponse>
-) => {
-  try {
-    await withMethodValidation(withSession(cancelListing, authOptions), ['PUT'])(req, res)
-  } catch (error) {
-    return
-  }
+const cancelListing = async (req: ApiRequest<IdRequest>, res: ApiResponse<EmptyResponse>) => {
+  await cancelListingRouteHandler(req, res, authOptions)
 }
 
 export default cancelListing

@@ -1,4 +1,4 @@
-import { EmptyResponse, getUserWalletUrl, WalletRequest } from '@echo/api-public'
+import { AddWalletRequest, EmptyResponse, getUserWalletUrl } from '@echo/api-public'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { Signature, Wallet } from '@echo/ui-model'
 import { isNilOrEmpty, putData } from '@echo/utils'
@@ -8,7 +8,7 @@ import useSWR from 'swr'
 
 interface KeyData {
   url: URL
-  request: WalletRequest | undefined
+  request: AddWalletRequest | undefined
 }
 export const useAddWallet = (message: SiweMessage, signature: Signature, wallet: Wallet) =>
   useSWR<EmptyResponse, Error, SwrKey<KeyData> | undefined>(

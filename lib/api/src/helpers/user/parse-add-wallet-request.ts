@@ -1,10 +1,9 @@
 import { addWalletSchema } from '../../validators/add-wallet-schema'
 import { ApiError } from '../error/api-error'
-import { WalletRequest } from '@echo/api-public'
+import { AddWalletRequest } from '@echo/api-public'
 import { errorMessage } from '@echo/utils'
-import { SiweMessage } from 'siwe'
 
-export const parseAddWalletRequest = (request: WalletRequest & { message: SiweMessage }) => {
+export const parseAddWalletRequest = (request: AddWalletRequest) => {
   try {
     return addWalletSchema.parse(request)
   } catch (e) {

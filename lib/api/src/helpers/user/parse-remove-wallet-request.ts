@@ -1,9 +1,9 @@
 import { removeWalletSchema } from '../../validators/remove-wallet-schema'
 import { ApiError } from '../error/api-error'
-import { WalletRequest } from '@echo/api-public'
+import { RemoveWalletRequest } from '@echo/api-public'
 import { errorMessage } from '@echo/utils'
 
-export const parseRemoveWalletRequest = (request: WalletRequest) => {
+export const parseRemoveWalletRequest = (request: RemoveWalletRequest) => {
   try {
     return removeWalletSchema.parse(request)
   } catch (e) {

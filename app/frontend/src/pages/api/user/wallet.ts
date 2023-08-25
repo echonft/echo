@@ -1,14 +1,9 @@
 import { authOptions } from '../auth/[...nextauth]'
-import { walletHandler, withMethodValidation, withSession } from '@echo/api'
-import { ApiRequest, EmptyResponse, ErrorResponse, WalletRequest } from '@echo/api-public'
-import { NextApiResponse } from 'next'
+import { walletRouteHandler } from '@echo/api'
+import { AddWalletRequest, ApiRequest, ApiResponse, EmptyResponse, RemoveWalletRequest } from '@echo/api-public'
 
-const wallet = async (req: ApiRequest<WalletRequest, never>, res: NextApiResponse<ErrorResponse | EmptyResponse>) => {
-  try {
-    await withMethodValidation(withSession(walletHandler, authOptions), ['PUT', 'DELETE'])(req, res)
-  } catch (error) {
-    return
-  }
+const wallet = async (req: ApiRequest<AddWalletRequest | RemoveWalletRequest>, res: ApiResponse<EmptyResponse>) => {
+  await walletRouteHandler(req, res, authOptions)
 }
 
 export default wallet

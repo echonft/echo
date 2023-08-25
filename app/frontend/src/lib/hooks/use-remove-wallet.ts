@@ -1,4 +1,4 @@
-import { EmptyResponse, getUserWalletUrl, WalletRequest } from '@echo/api-public'
+import { EmptyResponse, getUserWalletUrl, RemoveWalletRequest } from '@echo/api-public'
 import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
 import { Wallet } from '@echo/ui-model'
 import { deleteData, isNilOrEmpty } from '@echo/utils'
@@ -7,7 +7,7 @@ import useSWR, { SWRResponse } from 'swr'
 
 interface KeyData {
   url: URL
-  request: WalletRequest | undefined
+  request: RemoveWalletRequest | undefined
 }
 export const useRemoveWallet = (wallet: Wallet | undefined): SWRResponse<EmptyResponse, Error> =>
   useSWR<EmptyResponse, Error, SwrKey<KeyData> | undefined>(

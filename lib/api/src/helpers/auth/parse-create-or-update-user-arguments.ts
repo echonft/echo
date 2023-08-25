@@ -1,9 +1,12 @@
-import { CreateOrUpdateUserArguments } from '../../types/auth/create-or-update-user-arguments'
 import { createOrUpdateUserArgumentsSchema } from '../../validators/create-or-update-user-arguments-schema'
 import { ApiError } from '../error/api-error'
 import { errorMessage } from '@echo/utils'
 
-export const parseCreateOrUpdateUserArguments = (args: CreateOrUpdateUserArguments) => {
+export const parseCreateOrUpdateUserArguments = (args: {
+  accessToken: string | undefined
+  tokenType: string | undefined
+  discordId: string | undefined
+}) => {
   try {
     return createOrUpdateUserArgumentsSchema.parse(args)
   } catch (e) {
