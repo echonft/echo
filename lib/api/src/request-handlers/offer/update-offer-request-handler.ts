@@ -13,8 +13,8 @@ export async function updateOfferRequestHandler(
   authOptions: AuthOptions
 ) {
   assertAllowedMethods(req, ['POST'])
-  const user = await getUserFromSession(req, res, authOptions)
   const { id, action } = parseUpdateOfferRequest(req.body)
+  const user = await getUserFromSession(req, res, authOptions)
   switch (action) {
     case UpdateOfferAction.ACCEPT:
       return handleAcceptOffer(id, user, res)

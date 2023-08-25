@@ -1,8 +1,8 @@
-import { ApiError } from '../../src/helpers/error/api-error'
-import { findUserById } from '../../src/helpers/user/find-user-by-id'
-import { setUserNonce } from '../../src/helpers/user/set-user-nonce'
-import { nonceRequestHandler } from '../../src/request-handlers/user/nonce-request-handler'
-import { mockRequestResponse } from '../mocks/request-response'
+import { ApiError } from '../../../src/helpers/error/api-error'
+import { findUserById } from '../../../src/helpers/user/find-user-by-id'
+import { setUserNonce } from '../../../src/helpers/user/set-user-nonce'
+import { nonceRequestHandler } from '../../../src/request-handlers/user/nonce-request-handler'
+import { mockRequestResponse } from '../../mocks/request-response'
 import { NonceResponse } from '@echo/api-public'
 import { User } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
@@ -11,9 +11,9 @@ import { AuthOptions, getServerSession } from 'next-auth'
 import { equals, reject } from 'ramda'
 
 jest.mock('next-auth')
-jest.mock('../../src/helpers/user/find-user-by-id')
-jest.mock('../../src/helpers/user/set-user-nonce')
-describe('handlers - nonceHandler', () => {
+jest.mock('../../../src/helpers/user/find-user-by-id')
+jest.mock('../../../src/helpers/user/set-user-nonce')
+describe('request-handlers - user - nonceRequestHandler', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })

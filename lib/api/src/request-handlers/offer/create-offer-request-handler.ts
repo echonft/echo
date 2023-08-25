@@ -16,9 +16,9 @@ export async function createOfferRequestHandler(
   authOptions: AuthOptions
 ) {
   assertAllowedMethods(req, ['PUT'])
+  const { receiverItems, receiverId, senderItems } = parseCreateOfferSchema(req.body)
   const sender = await getUserFromSession(req, res, authOptions)
   assertUserHasWallets(sender)
-  const { receiverItems, receiverId, senderItems } = parseCreateOfferSchema(req.body)
   const receiver = await findUserById(receiverId)
   assertUser(receiver)
   assertUserHasWallets(receiver!)

@@ -1,5 +1,4 @@
-import { ErrorResponse } from '@echo/api-public'
-import { NextApiResponse } from 'next'
+import { ApiResponse, ErrorResponse } from '@echo/api-public'
 
 export class ApiError extends Error {
   status: number
@@ -8,7 +7,7 @@ export class ApiError extends Error {
     this.status = status
   }
 
-  endResponse(res: NextApiResponse<ErrorResponse>) {
+  endResponse(res: ApiResponse<ErrorResponse>) {
     res.end(res.status(this.status).json({ error: this.message }))
   }
 }

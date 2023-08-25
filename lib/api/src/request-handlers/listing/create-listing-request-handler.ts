@@ -15,9 +15,9 @@ export async function createListingRequestHandler(
   authOptions: AuthOptions
 ) {
   assertAllowedMethods(req, ['PUT'])
+  const { items, targets } = parseCreateListingRequest(req.body)
   const creator = await getUserFromSession(req, res, authOptions)
   assertUserHasWallets(creator)
-  const { items, targets } = parseCreateListingRequest(req.body)
   const nfts = await getOfferItems(items)
   const listingTargets = await getListingTargets(targets)
   const creatorWallet = await getOfferItemsWallet(nfts, creator)

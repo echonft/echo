@@ -1,7 +1,7 @@
 import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
 import { assertAllowedMethods } from '../../helpers/error/assert-allowed-methods'
 import { handleAddWallet } from './handle-add-wallet'
-import { handleDeleteWallet } from './handle-delete-wallet'
+import { handleRemoveWallet } from './handle-remove-wallet'
 import { AddWalletRequest, ApiRequest, ApiResponse, EmptyResponse, RemoveWalletRequest } from '@echo/api-public'
 import { AuthOptions } from 'next-auth'
 
@@ -15,6 +15,6 @@ export async function walletRequestHandler(
   if (req.method === 'PUT') {
     return handleAddWallet(req as ApiRequest<AddWalletRequest>, res, user)
   } else {
-    return handleDeleteWallet(req, res, user)
+    return handleRemoveWallet(req, res, user)
   }
 }

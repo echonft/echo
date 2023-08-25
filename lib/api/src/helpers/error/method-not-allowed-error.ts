@@ -1,6 +1,5 @@
 import { ApiError } from './api-error'
-import { ErrorResponse } from '@echo/api-public'
-import { NextApiResponse } from 'next'
+import { ApiResponse, ErrorResponse } from '@echo/api-public'
 import { HTTP_METHOD } from 'next/dist/server/web/http'
 
 export class MethodNotAllowedError extends ApiError {
@@ -11,7 +10,7 @@ export class MethodNotAllowedError extends ApiError {
     this.allowedMethods = allowedMethods
   }
 
-  endResponse(res: NextApiResponse<ErrorResponse>) {
+  endResponse(res: ApiResponse<ErrorResponse>) {
     res.setHeader('Allow', this.allowedMethods)
     super.endResponse(res)
   }

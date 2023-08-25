@@ -4,7 +4,7 @@ import { updateUserNfts } from '../../helpers/user/update-user-nfts'
 import { ApiRequest, ApiResponse, EmptyResponse, RemoveWalletRequest } from '@echo/api-public'
 import { User } from '@echo/firestore'
 
-export async function handleDeleteWallet(
+export async function handleRemoveWallet(
   req: ApiRequest<RemoveWalletRequest>,
   res: ApiResponse<EmptyResponse>,
   user: User
