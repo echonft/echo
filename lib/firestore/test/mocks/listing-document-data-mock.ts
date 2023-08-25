@@ -1,8 +1,6 @@
 import { ListingDocumentData } from '../../src/types/model/listing-document-data'
-import { nftCollectionDocumentDataMock } from './nft-collection-document-data-mock'
-import { nftDocumentDataMock } from './nft-document-data-mock'
-import { offerDocumentDataMock } from './offer-document-data-mock'
-import { swapDocumentDataMock } from './swap-document-data-mock'
+import { getNftCollectionDocumentDataMockById } from './get-nft-collection-document-data-mock-by-id'
+import { getNftDocumentDataMockById } from './get-nft-document-data-mock-by-id'
 
 export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
   jUzMtPGKM62mMhEcmbN4: {
@@ -18,21 +16,17 @@ export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
         chainId: 1
       }
     },
-    expiresAt: 1676984897,
+    expiresAt: 2324074781,
     items: [
-      { amount: 1, nft: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! },
-      { amount: 1, nft: nftDocumentDataMock['iRZFKEujarikVjpiFAkE']! }
+      { amount: 1, nft: getNftDocumentDataMockById('8hHFadIrrooORfTOLkBg') },
+      { amount: 1, nft: getNftDocumentDataMockById('iRZFKEujarikVjpiFAkE') }
     ],
     itemsNftIds: ['8hHFadIrrooORfTOLkBg', 'iRZFKEujarikVjpiFAkE'],
-    offers: [offerDocumentDataMock['LyCfl6Eg7JKuD7XJ6IPi']!],
     offersIds: ['LyCfl6Eg7JKuD7XJ6IPi'],
-    postedAt: 1676984897,
     state: 'OPEN',
-    swaps: [swapDocumentDataMock['hS6KtAJ03bSolumoHvDJ']!],
-    swapsIds: ['hS6KtAJ03bSolumoHvDJ'],
     targets: [
       {
-        collection: nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']!,
+        collection: getNftCollectionDocumentDataMockById('Rc8pLQXxgyQGIRL0fr13'),
         amount: 3
       }
     ],

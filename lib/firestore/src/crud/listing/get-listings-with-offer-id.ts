@@ -4,7 +4,7 @@ import { Listing } from '../../types/model/listing'
 import { firestore } from 'firebase-admin'
 import { invoker, map } from 'ramda'
 
-export const getListingsForOfferId = async (offerId: string) => {
+export const getListingsWithOfferId = async (offerId: string) => {
   const querySnapshot = await firestore()
     .collection(CollectionName.LISTINGS)
     .where('offersIds', 'array-contains', offerId)

@@ -6,8 +6,6 @@ import { deleteNftCollection } from '../../src/crud/nft-collection/delete-nft-co
 import { getAllNftCollections } from '../../src/crud/nft-collection/get-all-nft-collections'
 import { deleteOffer } from '../../src/crud/offer/delete-offer'
 import { getAllOffers } from '../../src/crud/offer/get-all-offers'
-import { deleteSwap } from '../../src/crud/swap/delete-swap'
-import { getAllSwaps } from '../../src/crud/swap/get-all-swaps'
 import { deleteUser } from '../../src/crud/user/delete-user'
 import { getAllUsers } from '../../src/crud/user/get-all-users'
 
@@ -27,10 +25,6 @@ export async function clearDb() {
   const offers = await getAllOffers()
   for (const offer of offers) {
     await deleteOffer(offer.id)
-  }
-  const swaps = await getAllSwaps()
-  for (const swap of swaps) {
-    await deleteSwap(swap.id)
   }
   const users = await getAllUsers()
   for (const user of users) {

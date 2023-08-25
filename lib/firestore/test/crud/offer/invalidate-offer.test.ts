@@ -1,20 +1,15 @@
-import { getListingsForOfferId } from '../../../src/crud/listing/get-listings-for-offer-id'
-import { updateListing } from '../../../src/crud/listing/update-listing'
 import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
 import { invalidateOffer } from '../../../src/crud/offer/invalidate-offer'
 import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { Offer } from '../../../src/types/model/offer'
 import { OfferState } from '../../../src/types/model/offer-state'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs, { Dayjs } from 'dayjs'
-import { filter, map, pick, propEq } from 'ramda'
 
 describe('CRUD - offer - invalidateOffer', () => {
   let initialState: OfferState
   let initialExpiresAt: Dayjs
-  let initialListingsOffers: { id: string; offers: Offer[] }[]
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
 
   beforeAll(tearUpRemoteFirestoreTests)
@@ -23,14 +18,9 @@ describe('CRUD - offer - invalidateOffer', () => {
     const offer = await findOfferById(id)
     initialState = offer!.state
     initialExpiresAt = offer!.expiresAt
-    const listings = await getListingsForOfferId(id)
-    initialListingsOffers = map(pick(['id', 'offers']), listings)
   })
   afterEach(async () => {
     await updateOffer(id, { state: initialState, expiresAt: initialExpiresAt })
-    for (const { id, offers } of initialListingsOffers) {
-      await updateListing(id, { offers })
-    }
   })
 
   it('throws if the offer is undefined', async () => {
@@ -44,8 +34,8 @@ describe('CRUD - offer - invalidateOffer', () => {
     await updateOffer(id, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day') })
     await expect(invalidateOffer(id)).rejects.toBeDefined()
   })
-  it('throws if the offer is accepted', async () => {
-    await updateOffer(id, { state: 'ACCEPTED', expiresAt: dayjs().add(1, 'day') })
+  it('throws if the offer is completed', async () => {
+    await updateOffer(id, { state: 'COMPLETED', expiresAt: dayjs().add(1, 'day') })
     await expect(invalidateOffer(id)).rejects.toBeDefined()
   })
   it('throws if the offer is rejected', async () => {
@@ -56,17 +46,10 @@ describe('CRUD - offer - invalidateOffer', () => {
     await updateOffer(id, { state: 'INVALID', expiresAt: dayjs().add(1, 'day') })
     await expect(invalidateOffer(id)).rejects.toBeDefined()
   })
-  it('invalidate offer if its not expired', async () => {
+  it('invalidate offer', async () => {
     await updateOffer(id, { state: 'OPEN', expiresAt: dayjs().add(1, 'day') })
     await invalidateOffer(id)
     const updatedOffer = await findOfferById(id)
     expect(updatedOffer!.state).toEqual('INVALID')
-    const listings = await getListingsForOfferId(id)
-    for (const listing of listings) {
-      const offers = filter(propEq(id, 'id'), listing.offers)
-      for (const offer of offers) {
-        expect(offer.state).toEqual('INVALID')
-      }
-    }
   })
 })

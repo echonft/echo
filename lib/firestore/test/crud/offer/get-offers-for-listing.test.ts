@@ -14,7 +14,9 @@ describe('CRUD - offer - getOffersForListing', () => {
   afterAll(tearDownRemoteFirestoreTests)
 
   it('returns an empty array if no offer matches the listing items', async () => {
-    const items: NonEmptyArray<OfferItem> = [{ amount: 1, nft: getNftMockById('QFjMRNChUAHNswkRADXh') }]
+    const items: NonEmptyArray<OfferItem> = [
+      { amount: 1, nft: getNftMockById('QFjMRNChUAHNswkRADXh'), approved: false }
+    ]
     const targets: NonEmptyArray<ListingTarget> = [
       { amount: 1, collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13') }
     ]
@@ -23,7 +25,9 @@ describe('CRUD - offer - getOffersForListing', () => {
   })
 
   it('returns an empty array if no offer matches the targets', async () => {
-    const items: NonEmptyArray<OfferItem> = [{ amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') }]
+    const items: NonEmptyArray<OfferItem> = [
+      { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg'), approved: false }
+    ]
     const targets: NonEmptyArray<ListingTarget> = [
       { amount: 1, collection: getNftCollectionMockById('1aomCtnoesD7WVll6Yi1') }
     ]
@@ -32,7 +36,9 @@ describe('CRUD - offer - getOffersForListing', () => {
   })
 
   it('returns offers that are tied to the listing', async () => {
-    const items: NonEmptyArray<OfferItem> = [{ amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') }]
+    const items: NonEmptyArray<OfferItem> = [
+      { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg'), approved: false }
+    ]
     const targets: NonEmptyArray<ListingTarget> = [
       { amount: 1, collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13') }
     ]

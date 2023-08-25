@@ -6,8 +6,8 @@ import { complement, eqProps, equals, length, map, path, pipe, prop, uniqWith } 
  * Asserts the validity of offer items
  * @param items
  */
-export const assertOfferItems = (items: NonEmptyArray<OfferItem>) => {
-  // all listing items must be from the same collection to be valid
+export function assertOfferItems(items: NonEmptyArray<OfferItem>) {
+  // all items must be from the same collection to be valid
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   if (pipe(map(path(['nft', 'collection'])), uniqWith(eqProps('id')), length, complement(equals(1)))(items)) {

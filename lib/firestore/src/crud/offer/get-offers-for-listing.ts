@@ -2,14 +2,14 @@ import { CollectionName } from '../../constants/collection-name'
 import { offerDataConverter } from '../../converters/offer-data-converter'
 import { getListingTargetsCollectionIds } from '../../helpers/listing/get-listing-targets-collection-ids'
 import { getOfferItemsCollectionId } from '../../helpers/offer/get-offer-items-collection-id'
+import { ListingItem } from '../../types/model/listing-item'
 import { ListingTarget } from '../../types/model/listing-target'
 import { Offer } from '../../types/model/offer'
-import { OfferItem } from '../../types/model/offer-item'
 import { isNotIn, NonEmptyArray } from '@echo/utils'
 import { firestore } from 'firebase-admin'
 import { invoker, map, path, pipe, prop, reject } from 'ramda'
 
-export const getOffersForListing = async (items: NonEmptyArray<OfferItem>, targets: NonEmptyArray<ListingTarget>) => {
+export const getOffersForListing = async (items: NonEmptyArray<ListingItem>, targets: NonEmptyArray<ListingTarget>) => {
   const querySnapshot = await firestore()
     .collection(CollectionName.OFFERS)
     .where('receiverItemsNftIds', 'array-contains-any', map(path(['nft', 'id']), items))

@@ -1,15 +1,16 @@
 import { offerDataConverter } from '../../converters/offer-data-converter'
 import { assertOffer } from '../../helpers/offer/assert-offer'
+import { assertOfferState } from '../../helpers/offer/assert-offer-state'
 import { OfferState } from '../../types/model/offer-state'
-import { updateListingsWithOfferNewState } from '../listing/update-listings-with-offer-new-state'
 import { getOfferSnapshotById } from './get-offer-snapshot-by-id'
 
 export const cancelOffer = async (id: string) => {
   const documentSnapshot = await getOfferSnapshotById(id)
-  assertOffer(documentSnapshot?.data())
+  const offer = documentSnapshot?.data()
+  assertOffer(offer)
   const state: OfferState = 'CANCELLED'
+  assertOfferState(offer!, state)
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await documentSnapshot!.ref.update(offerDataConverter.toFirestore({ state }))
-  await updateListingsWithOfferNewState(id, state)
 }

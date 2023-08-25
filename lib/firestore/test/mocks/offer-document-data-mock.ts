@@ -5,8 +5,8 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
     createdAt: 1676984897,
-    expiresAt: 1676984897,
-    postedAt: 1676984897,
+    expiresAt: 2324074781,
+    listingsIds: ['jUzMtPGKM62mMhEcmbN4'],
     receiver: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
@@ -17,7 +17,7 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
         chainId: 1
       }
     },
-    receiverItems: [{ amount: 1, nft: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! }],
+    receiverItems: [{ amount: 1, nft: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']!, approved: false }],
     receiverItemsNftIds: ['8hHFadIrrooORfTOLkBg'],
     sender: {
       id: '6rECUMhevHfxABZ1VNOm',
@@ -30,7 +30,7 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
         chainId: 1
       }
     },
-    senderItems: [{ amount: 1, nft: nftDocumentDataMock['kRE3UCfXWkJ33nwzj2X1']! }],
+    senderItems: [{ amount: 1, nft: nftDocumentDataMock['kRE3UCfXWkJ33nwzj2X1']!, approved: false }],
     senderItemsNftIds: ['kRE3UCfXWkJ33nwzj2X1'],
     state: 'OPEN',
     threadId: '1231'

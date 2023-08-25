@@ -10,6 +10,7 @@ export interface Offer {
   expired: boolean
   expiresAt: Dayjs
   postedAt: Dayjs | undefined
+  listingsIds: string[]
   receiver: UserDetails
   receiverItems: NonEmptyArray<OfferItem>
   sender: UserDetails

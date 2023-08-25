@@ -1,1 +1,1 @@
-export type OfferState = 'OPEN' | 'ACCEPTED' | 'CANCELLED' | 'REJECTED' | 'INVALID'
+export type OfferState = 'OPEN' | 'ACCEPTED' | 'CANCELLED' | 'REJECTED' | 'INVALID' | 'COMPLETED'

@@ -1,8 +1,6 @@
+import { ListingItem } from './listing-item'
 import { ListingState } from './listing-state'
 import { ListingTarget } from './listing-target'
-import { Offer } from './offer'
-import { OfferItem } from './offer-item'
-import { Swap } from './swap'
 import { UserDetails } from './user-details'
 import { NonEmptyArray } from '@echo/utils'
 import { Dayjs } from 'dayjs'
@@ -13,10 +11,9 @@ export interface Listing {
   creator: UserDetails
   expired: boolean
   expiresAt: Dayjs
-  items: NonEmptyArray<OfferItem>
-  offers: Offer[]
+  items: NonEmptyArray<ListingItem>
+  offersIds: string[]
   postedAt: Dayjs | undefined
   state: ListingState
-  swaps: Swap[]
   targets: NonEmptyArray<ListingTarget>
 }

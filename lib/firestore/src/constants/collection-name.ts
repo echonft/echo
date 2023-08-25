@@ -3,6 +3,5 @@ export enum CollectionName {
   NFTS = 'nfts',
   OFFERS = 'offers',
   LISTINGS = 'listings',
-  SWAPS = 'swaps',
   USERS = 'users'
 }

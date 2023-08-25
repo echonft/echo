@@ -1,14 +1,15 @@
 import { Offer } from '../../src/types/model/offer'
-import { nftMock } from './nft-mock'
+import { getNftMockById } from './get-nft-mock-by-id'
 import dayjs from 'dayjs'
 
 export const offerMock: { [key: string]: Offer } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
     createdAt: dayjs.unix(1676984897),
-    expired: true,
-    expiresAt: dayjs.unix(1676984897),
-    postedAt: dayjs.unix(1676984897),
+    expired: false,
+    expiresAt: dayjs.unix(2324074781),
+    postedAt: undefined,
+    listingsIds: ['jUzMtPGKM62mMhEcmbN4'],
     receiver: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
@@ -20,7 +21,7 @@ export const offerMock: { [key: string]: Offer } = {
         chainId: 1
       }
     },
-    receiverItems: [{ amount: 1, nft: nftMock['8hHFadIrrooORfTOLkBg']! }],
+    receiverItems: [{ amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg'), approved: false }],
     sender: {
       id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
@@ -32,7 +33,7 @@ export const offerMock: { [key: string]: Offer } = {
         chainId: 1
       }
     },
-    senderItems: [{ amount: 1, nft: nftMock['kRE3UCfXWkJ33nwzj2X1']! }],
+    senderItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1'), approved: false }],
     state: 'OPEN',
     threadId: '1231'
   }
