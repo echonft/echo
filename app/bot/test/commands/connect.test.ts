@@ -42,7 +42,7 @@ describe('discord commands - connect', () => {
       expect(e).toStrictEqual(new NoGuildIdError())
     }
   })
-  test('If guildId not in the database, returns error message', async () => {
+  test('If guildId not in the database, returns error message', () => {
     // const mockChannel = mockAndSetupChannel(client, mockGuild(client, undefined, { id: '1234' }))
     // const mockInteraction = mockChatInputCommandInteraction({
     //   client,

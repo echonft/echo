@@ -30,12 +30,12 @@ export const NewOfferBottomSliderItemsContainer: FunctionComponent<Props> = ({
           <NewOfferEmptyAssets onAddMore={onAddMore} />
         ) : (
           <>
-            {items.map(({ amount, nft }) => (
+            {items.map(({ amount, nft, approved }) => (
               <NftThumbnailOffer
                 nft={nft}
                 key={nft.id}
                 onRemove={(nftToRemove) => {
-                  onRemove?.({ amount, nft: nftToRemove })
+                  onRemove?.({ amount, nft: nftToRemove, approved })
                 }}
               />
             ))}

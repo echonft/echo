@@ -2,7 +2,7 @@ import { embedSeparator } from '../helpers/embed/embed-separator'
 import { embedValueForNft } from '../helpers/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../helpers/embed/embed-value-for-target'
 import { listingLink } from '../routing/listing-link'
-import { getListingGuild, Listing, ListingTarget, OfferItem } from '@echo/firestore'
+import { getListingGuild, Listing, ListingItem, ListingTarget } from '@echo/firestore'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import { flatten, map, prop } from 'ramda'
 
@@ -29,11 +29,11 @@ function color(): number {
   return 0x00ff66
 }
 
-function fields(items: OfferItem[], targets: ListingTarget[]): APIEmbedField[] {
+function fields(items: ListingItem[], targets: ListingTarget[]): APIEmbedField[] {
   return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), listingTargets(targets)])
 }
 
-function listingItemsFields(items: OfferItem[]): APIEmbedField[] {
+function listingItemsFields(items: ListingItem[]): APIEmbedField[] {
   const nfts = map(prop('nft'), items)
   return nfts.map((nft, index) => ({
     name: index === 0 ? listingItemsName() : '\u200b',
