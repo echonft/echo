@@ -1,4 +1,4 @@
-import { ApiError } from '../error/api-error'
+import { BadRequestError } from '../error/bad-request-error'
 import { OfferItemRequest } from '@echo/api-public'
 import { findNftById, OfferItem } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
@@ -10,7 +10,7 @@ export const getOfferItems = (itemRequests: NonEmptyArray<OfferItemRequest>) =>
       const { nft, amount } = item
       const foundNft = await findNftById(nft.id)
       if (isNil(foundNft)) {
-        throw new ApiError(400, 'Invalid body')
+        throw new BadRequestError()
       }
       return { amount, nft: foundNft } as OfferItem
     }, itemRequests)

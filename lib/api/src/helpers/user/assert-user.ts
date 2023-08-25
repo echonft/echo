@@ -1,9 +1,9 @@
-import { ApiError } from '../error/api-error'
+import { BadRequestError } from '../error/bad-request-error'
 import { User } from '@echo/firestore'
 import { isNil } from 'ramda'
 
 export const assertUser = (user: User | undefined) => {
   if (isNil(user)) {
-    throw new ApiError(400, 'Invalid user id')
+    throw new BadRequestError()
   }
 }

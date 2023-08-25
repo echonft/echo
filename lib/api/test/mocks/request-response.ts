@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ApiRequest, ErrorResponse } from '@echo/api-public'
-import { NextApiResponse } from 'next'
+import { ApiRequest, ApiResponse } from '@echo/api-public'
 import { Body, createMocks, Headers, MockRequest, MockResponse, RequestMethod } from 'node-mocks-http'
 
 export function mockRequestResponse<T, Q extends Partial<{ [key: string]: string | string[] }>, R>(
@@ -18,6 +17,6 @@ export function mockRequestResponse<T, Q extends Partial<{ [key: string]: string
     // @ts-ignore
     req: MockRequest<ApiRequest<T, Q>>
     // @ts-ignore
-    res: MockResponse<NextApiResponse<R | ErrorResponse>>
+    res: MockResponse<ApiResponse<R>>
   }
 }

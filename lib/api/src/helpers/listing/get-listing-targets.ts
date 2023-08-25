@@ -1,4 +1,4 @@
-import { ApiError } from '../error/api-error'
+import { BadRequestError } from '../error/bad-request-error'
 import { ListingTargetRequest } from '@echo/api-public'
 import { findNftCollectionById, ListingTarget } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
@@ -10,7 +10,7 @@ export const getListingTargets = (listingTargetRequests: NonEmptyArray<ListingTa
       const { collection, amount } = item
       const foundCollection = await findNftCollectionById(collection.id)
       if (isNil(foundCollection)) {
-        throw new ApiError(400, 'Invalid body')
+        throw new BadRequestError()
       }
       return { amount, collection: foundCollection } as ListingTarget
     }, listingTargetRequests)
