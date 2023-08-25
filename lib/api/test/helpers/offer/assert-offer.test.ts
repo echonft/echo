@@ -1,0 +1,12 @@
+import { assertOffer } from '../../../src/helpers/offer/assert-offer'
+import { Offer } from '@echo/firestore'
+import { describe, expect, it } from '@jest/globals'
+
+describe('helpers - offer - assertOffer', () => {
+  it('throws if offer is undefined', () => {
+    expect(() => assertOffer(undefined)).toThrow()
+  })
+  it('does not throw if offer is defined', () => {
+    expect(() => assertOffer({ id: 'offerId' } as Offer)).not.toThrow()
+  })
+})

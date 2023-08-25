@@ -2,7 +2,7 @@ import { siweMessageSchema } from '../../src/validators/siwe-message-schema'
 import { describe, expect, it } from '@jest/globals'
 import { SiweMessage } from 'siwe'
 
-describe('validators - wallet', () => {
+describe('validators - siweMessageSchema', () => {
   it('valid siwe message pass', () => {
     const message = new SiweMessage({
       domain: 'echo.xyz',

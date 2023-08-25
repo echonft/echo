@@ -1,7 +1,7 @@
 import { walletSchema } from '../../src/validators/wallet-schema'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - wallet', () => {
+describe('validators - walletSchema', () => {
   it('wrong address fails validation', () => {
     expect(() => walletSchema.parse({ address: undefined, chainId: 1 })).toThrow()
     expect(() => walletSchema.parse({ address: '', chainId: 1 })).toThrow()

@@ -3,7 +3,7 @@ import { supportedChains } from '@echo/utils'
 import { describe, expect, it } from '@jest/globals'
 import { forEach, includes } from 'ramda'
 
-describe('validators - chainId', () => {
+describe('validators - chainIdSchema', () => {
   it('wrong chainId fails validation', () => {
     expect(() => chainIdSchema.parse('')).toThrow()
     expect(() => chainIdSchema.parse(undefined)).toThrow()

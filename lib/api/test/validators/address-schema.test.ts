@@ -1,7 +1,7 @@
 import { addressSchema } from '../../src/validators/address-schema'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - address', () => {
+describe('validators - addressSchema', () => {
   it('wrong address fails validation', () => {
     expect(() => addressSchema.parse(undefined)).toThrow()
     expect(() => addressSchema.parse('')).toThrow()

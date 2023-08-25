@@ -79,9 +79,7 @@ describe('request-handlers - user - handleAddWallet', () => {
 
   it('throws if the siwe message cannot be validated', async () => {
     jest.mocked(findUserByWallet).mockResolvedValueOnce(undefined)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    jest.mocked(getSiweMessage).mockResolvedValueOnce({})
+    jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ data: {} as SiweMessage, success: false })
     const { req, res } = mockRequestResponse<AddWalletRequest, never, EmptyResponse>('PUT', undefined, validRequest)
     try {
@@ -93,13 +91,8 @@ describe('request-handlers - user - handleAddWallet', () => {
   })
 
   it('throws if the nonce is not the same as the user nonce', async () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    // jest.mocked(parseAddWalletRequest).mockResolvedValueOnce({})
     jest.mocked(findUserByWallet).mockResolvedValueOnce(undefined)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    jest.mocked(getSiweMessage).mockResolvedValueOnce({})
+    jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ data: { nonce: 'nonce' } as SiweMessage, success: true })
     const { req, res } = mockRequestResponse<AddWalletRequest, never, EmptyResponse>('PUT', undefined, validRequest)
     try {
@@ -112,9 +105,7 @@ describe('request-handlers - user - handleAddWallet', () => {
 
   it('returns a 200 if the wallet is not already in the db and the nonce is valid', async () => {
     jest.mocked(findUserByWallet).mockResolvedValueOnce(undefined)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    jest.mocked(getSiweMessage).mockResolvedValueOnce({})
+    jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ data: { nonce: 'nonce' } as SiweMessage, success: true })
     jest.mocked(addUserWallet).mockResolvedValueOnce()
     jest.mocked(updateUserNfts).mockResolvedValueOnce()

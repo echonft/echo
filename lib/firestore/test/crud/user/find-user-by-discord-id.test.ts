@@ -8,13 +8,9 @@ describe('CRUD - user - findUserByDiscordId', () => {
   beforeAll(tearUpRemoteFirestoreTests)
   afterAll(tearDownRemoteFirestoreTests)
 
-  it('throws an error if the user is not found', async () => {
-    try {
-      await findUserByDiscordId('not-found')
-      expect(false).toBeTruthy()
-    } catch (error) {
-      expect(error).toBeDefined()
-    }
+  it('returns undefined if the user is not found', async () => {
+    const user = await findUserByDiscordId('not-found')
+    expect(user).toBeUndefined()
   })
 
   it('returns the user with the given discord id', async () => {

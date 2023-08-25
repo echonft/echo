@@ -2,7 +2,7 @@ import { getNftCollectionByContract } from '../../../src/helpers/nft-collection/
 import { getAllNftCollectionMocks, getNftCollectionMockById } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 
-describe('helpers - nft-collection - findNftCollectionByContract', () => {
+describe('helpers - nft-collection - getNftCollectionByContract', () => {
   it('returns undefined if no collection is found with the given address', () => {
     const collections = getAllNftCollectionMocks()
     expect(getNftCollectionByContract('not-found', 1, collections)).toBeUndefined()

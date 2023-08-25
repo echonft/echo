@@ -1,8 +1,9 @@
 import { createNft } from '../nft/create-nft'
+import { updateNftOwner } from '../nft/update-nft-owner'
 import { getAllNftCollections } from '../nft-collection/get-all-nft-collections'
 import { setUserUpdatedAt } from './set-user-updated-at'
 import { getNftsForOwner } from '@echo/alchemy'
-import { findNftByCollectionContract, getUserWalletAddresses, setNftOwner, User, Wallet } from '@echo/firestore'
+import { findNftByCollectionContract, getUserWalletAddresses, User, Wallet } from '@echo/firestore'
 import { isNilOrEmpty } from '@echo/utils'
 import { isNil, map, path } from 'ramda'
 
@@ -25,7 +26,7 @@ export const updateUserNfts = async (user: User) => {
       if (isNil(nft)) {
         await createNft(alchemyNft, user, userWallet, collections)
       } else {
-        await setNftOwner(nft.id, user.id, userWallet)
+        await updateNftOwner(nft.id, user, userWallet)
       }
     }
   }

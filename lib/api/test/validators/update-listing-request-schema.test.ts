@@ -2,7 +2,7 @@ import { updateListingRequestSchema } from '../../src/validators/update-listing-
 import { UpdateListingAction } from '@echo/api-public'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - updateOfferRequest', () => {
+describe('validators - updateListingRequestSchema', () => {
   it('wrong id fails validation', () => {
     expect(() => updateListingRequestSchema.parse({ id: '', action: UpdateListingAction.CANCEL })).toThrow()
     expect(() => updateListingRequestSchema.parse({ id: undefined, action: UpdateListingAction.CANCEL })).toThrow()

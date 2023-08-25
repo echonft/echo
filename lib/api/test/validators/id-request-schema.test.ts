@@ -1,7 +1,7 @@
 import { idRequestSchema } from '../../src/validators/id-request-schema'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - id', () => {
+describe('validators - idRequestSchema', () => {
   it('wrong id fails validation', () => {
     expect(() => idRequestSchema.parse({ id: '' })).toThrow()
     expect(() => idRequestSchema.parse({ id: undefined })).toThrow()

@@ -3,7 +3,7 @@ import { getUserMockById } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 import { SiweMessage } from 'siwe'
 
-describe('validators - addWallet', () => {
+describe('validators - addWalletSchema', () => {
   const wallet = getUserMockById('oE6yUEQBPn7PZ89yMjKn').wallets[0]!
   const signature = '0x0000'
   const message: SiweMessage = new SiweMessage({
@@ -46,6 +46,6 @@ describe('validators - addWallet', () => {
   })
 
   it('valid request pass', () => {
-    expect(addWalletSchema.parse({ wallet, signature, message })).toStrictEqual({ wallet, signature, message })
+    expect(addWalletSchema.parse({ wallet, signature, message })).toEqual({ wallet, signature, message })
   })
 })

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { getAdminApiKey } from '../../src/helpers/auth/get-admin-api-key'
+import { getAdminApiKey } from '../../../src/helpers/auth/get-admin-api-key'
 import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 describe('utils - auth - getAdminApiKey', () => {

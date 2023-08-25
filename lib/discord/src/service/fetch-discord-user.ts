@@ -20,10 +20,14 @@ export async function fetchDiscordUser(
     throw Error('Error fetching discord user data')
   }
   if (fetchGuilds) {
-    const guilds = await fetchDiscordUserGuilds(tokenType, accessToken)
-    return {
-      ...discordUserResponse,
-      guilds
+    try {
+      const guilds = await fetchDiscordUserGuilds(tokenType, accessToken)
+      return {
+        ...discordUserResponse,
+        guilds
+      }
+    } catch (e) {
+      throw Error(`Error fetching discord user ${discordUserResponse.id} guilds`)
     }
   }
   return { ...discordUserResponse, guilds: [] }
