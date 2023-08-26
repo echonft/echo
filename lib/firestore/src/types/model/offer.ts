@@ -1,3 +1,4 @@
+import { OfferDiscordGuild } from './offer-discord-guild'
 import { OfferItem } from './offer-item'
 import { OfferState } from './offer-state'
 import { UserDetails } from './user-details'
@@ -7,13 +8,14 @@ import { Dayjs } from 'dayjs'
 export interface Offer {
   id: string
   createdAt: Dayjs
+  discordGuild: OfferDiscordGuild | undefined
   expired: boolean
   expiresAt: Dayjs
-  postedAt: Dayjs | undefined
+  listingsIds: string[]
   receiver: UserDetails
   receiverItems: NonEmptyArray<OfferItem>
   sender: UserDetails
   senderItems: NonEmptyArray<OfferItem>
   state: OfferState
-  threadId: string | undefined
+  swapTransactionId: string | undefined
 }

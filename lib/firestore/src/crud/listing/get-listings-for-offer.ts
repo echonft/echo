@@ -1,12 +1,11 @@
 import { CollectionName } from '../../constants/collection-name'
 import { listingDataConverter } from '../../converters/listing-data-converter'
 import { getOfferItemsCollectionId } from '../../helpers/offer/get-offer-items-collection-id'
-import { listingTargetCollectionEquals } from '../../predicates/listing-target-collection-equals'
 import { Listing } from '../../types/model/listing'
 import { OfferItem } from '../../types/model/offer-item'
 import { NonEmptyArray } from '@echo/utils'
 import { firestore } from 'firebase-admin'
-import { invoker, map, none, path, pipe, prop, reject } from 'ramda'
+import { invoker, map, none, path, pathEq, pipe, prop, reject } from 'ramda'
 
 export const getListingsForOffer = async (
   senderItems: NonEmptyArray<OfferItem>,
@@ -26,6 +25,6 @@ export const getListingsForOffer = async (
 
   return pipe(
     map(invoker(0, 'data')),
-    reject(pipe(prop('targets'), none(listingTargetCollectionEquals(getOfferItemsCollectionId(senderItems)))))
+    reject(pipe(prop('targets'), none(pathEq(getOfferItemsCollectionId(senderItems), ['collection', 'id']))))
   )(querySnapshot.docs) as Listing[]
 }

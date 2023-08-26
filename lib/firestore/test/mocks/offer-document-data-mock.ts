@@ -5,8 +5,8 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
     createdAt: 1676984897,
-    expiresAt: 1676984897,
-    postedAt: 1676984897,
+    expiresAt: 2324074781,
+    listingsIds: ['jUzMtPGKM62mMhEcmbN4'],
     receiver: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
@@ -32,7 +32,6 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
     },
     senderItems: [{ amount: 1, nft: nftDocumentDataMock['kRE3UCfXWkJ33nwzj2X1']! }],
     senderItemsNftIds: ['kRE3UCfXWkJ33nwzj2X1'],
-    state: 'OPEN',
-    threadId: '1231'
+    state: 'OPEN'
   }
 }

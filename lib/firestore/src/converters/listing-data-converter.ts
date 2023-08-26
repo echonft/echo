@@ -10,10 +10,8 @@ import { removeUndefinedProps } from '../helpers/converters/to-firestore/remove-
 import { FirestoreModel } from '../types/abstract/firestore-model'
 import { Listing } from '../types/model/listing'
 import { ListingDocumentData } from '../types/model/listing-document-data'
+import { listingItemDocumentDataConverter } from './listing-item-document-data-converter'
 import { listingTargetDocumentDataConverter } from './listing-target-document-data-converter'
-import { offerDocumentDataConverter } from './offer-document-data-converter'
-import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
-import { swapDocumentDataConverter } from './swap-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
 import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { applySpec, assoc, dissoc, has, lens, map, over, path, pipe, prop, when } from 'ramda'
@@ -28,11 +26,9 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
         creator: documentDataPropToModel('creator', userDetailsDocumentDataConverter),
         expired: getExpiredProp,
         expiresAt: numberPropToDate('expiresAt'),
-        items: documentDataArrayPropToModelArray('items', offerItemDocumentDataConverter),
-        offers: documentDataArrayPropToModelArray('offers', offerDocumentDataConverter),
-        postedAt: numberPropToDate('postedAt'),
+        items: documentDataArrayPropToModelArray('items', listingItemDocumentDataConverter),
+        offersIds: prop('offersIds'),
         state: prop('state'),
-        swaps: documentDataArrayPropToModelArray('swaps', swapDocumentDataConverter),
         targets: documentDataArrayPropToModelArray('targets', listingTargetDocumentDataConverter)
       })
     )(snapshot)
@@ -51,16 +47,7 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       when(has('items'), over(lens(prop('items'), assoc('itemsNftIds')), map(path(['nft', 'id'])))),
-      modelArrayPropToDocumentDataArray('items', offerItemDocumentDataConverter),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      when(has('offers'), over(lens(prop('offers'), assoc('offersIds')), map(prop('id')))),
-      modelArrayPropToDocumentDataArray('offers', offerDocumentDataConverter),
-      datePropToNumber('postedAt'),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      when(has('swaps'), over(lens(prop('swaps'), assoc('swapsIds')), map(prop('id')))),
-      modelArrayPropToDocumentDataArray('swaps', swapDocumentDataConverter),
+      modelArrayPropToDocumentDataArray('items', listingItemDocumentDataConverter),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       when(has('targets'), over(lens(prop('targets'), assoc('targetsIds')), map(path(['collection', 'id'])))),

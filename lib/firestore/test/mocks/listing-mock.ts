@@ -1,8 +1,6 @@
 import { Listing } from '../../src/types/model/listing'
 import { nftCollectionMock } from './nft-collection-mock'
 import { nftMock } from './nft-mock'
-import { offerMock } from './offer-mock'
-import { swapMock } from './swap-mock'
 import dayjs from 'dayjs'
 
 export const listingMock: { [key: string]: Listing } = {
@@ -20,16 +18,14 @@ export const listingMock: { [key: string]: Listing } = {
         chainId: 1
       }
     },
-    expired: true,
-    expiresAt: dayjs.unix(1676984897),
+    expired: false,
+    expiresAt: dayjs.unix(2324074781),
     items: [
       { amount: 1, nft: nftMock['8hHFadIrrooORfTOLkBg']! },
       { amount: 1, nft: nftMock['iRZFKEujarikVjpiFAkE']! }
     ],
-    offers: [offerMock['LyCfl6Eg7JKuD7XJ6IPi']!],
-    postedAt: dayjs.unix(1676984897),
+    offersIds: ['LyCfl6Eg7JKuD7XJ6IPi'],
     state: 'OPEN',
-    swaps: [swapMock['hS6KtAJ03bSolumoHvDJ']!],
     targets: [
       {
         collection: nftCollectionMock['Rc8pLQXxgyQGIRL0fr13']!,

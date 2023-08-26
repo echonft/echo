@@ -2,7 +2,7 @@ import { embedSeparator } from '../helpers/embed/embed-separator'
 import { embedValueForNft } from '../helpers/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../helpers/embed/embed-value-for-target'
 import { listingLink } from '../routing/listing-link'
-import { getListingGuild, Listing, ListingTarget, OfferItem } from '@echo/firestore'
+import { getListingItemsGuild, Listing, ListingItem, ListingTarget } from '@echo/firestore'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import { flatten, map, prop } from 'ramda'
 
@@ -12,7 +12,7 @@ export function buildListingEmbed(listing: Listing) {
     .setDescription(description(listing))
     .setColor(color())
     .setFields(fields(listing.items, listing.targets))
-    .setURL(listingLink(listing.id, getListingGuild(listing).discordId))
+    .setURL(listingLink(listing.id, getListingItemsGuild(listing).discordId))
 }
 
 // Can't mention user on a title
@@ -29,11 +29,11 @@ function color(): number {
   return 0x00ff66
 }
 
-function fields(items: OfferItem[], targets: ListingTarget[]): APIEmbedField[] {
+function fields(items: ListingItem[], targets: ListingTarget[]): APIEmbedField[] {
   return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), listingTargets(targets)])
 }
 
-function listingItemsFields(items: OfferItem[]): APIEmbedField[] {
+function listingItemsFields(items: ListingItem[]): APIEmbedField[] {
   const nfts = map(prop('nft'), items)
   return nfts.map((nft, index) => ({
     name: index === 0 ? listingItemsName() : '\u200b',

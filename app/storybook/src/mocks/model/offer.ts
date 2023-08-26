@@ -21,7 +21,7 @@ const offers: { [key: string]: Offer } = {
         chainId: 1
       }
     },
-    receiverItems: [{ amount: 1, nft: getNftById('8hHFadIrrooORfTOLkBg') }],
+    receiverItems: [{ amount: 1, nft: getNftById('8hHFadIrrooORfTOLkBg'), approved: false }],
     sender: {
       id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
@@ -33,7 +33,7 @@ const offers: { [key: string]: Offer } = {
         chainId: 1
       }
     },
-    senderItems: [{ amount: 1, nft: getNftById('kRE3UCfXWkJ33nwzj2X1') }],
+    senderItems: [{ amount: 1, nft: getNftById('kRE3UCfXWkJ33nwzj2X1'), approved: false }],
     state: 'OPEN'
   }
 }

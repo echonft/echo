@@ -1,22 +1,19 @@
 import { contractDocumentDataConverter } from '../../src/converters/contract-document-data-converter'
+import { getNftCollectionDocumentDataMockById } from '../mocks/get-nft-collection-document-data-mock-by-id'
 import { getNftCollectionMockById } from '../mocks/get-nft-collection-mock-by-id'
-import { nftCollectionDocumentDataMock } from '../mocks/nft-collection-document-data-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - userDataConverter', () => {
+  const nftCollectionDocumentData = getNftCollectionDocumentDataMockById('Rc8pLQXxgyQGIRL0fr13')!
+  const nftCollection = getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
+  const contractDocumentData = nftCollectionDocumentData.contract
+  const contract = nftCollection.contract
+
   it('from Firestore conversion', () => {
-    const nftCollectionDocumentData = nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']!
-    const nftCollection = getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
-    const contract = nftCollection.contract
-    const contractDocumentData = nftCollectionDocumentData.contract
-    expect(contractDocumentDataConverter.fromFirestore(contract)).toStrictEqual(contractDocumentData)
+    expect(contractDocumentDataConverter.fromFirestore(contractDocumentData)).toStrictEqual(contract)
   })
 
   it('to Firestore conversion', () => {
-    const nftCollectionDocumentData = nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']!
-    const nftCollection = getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
-    const contract = nftCollection.contract
-    const contractDocumentData = nftCollectionDocumentData.contract
-    expect(contractDocumentDataConverter.toFirestore(contractDocumentData)).toStrictEqual(contract)
+    expect(contractDocumentDataConverter.toFirestore(contract)).toStrictEqual(contractDocumentData)
   })
 })

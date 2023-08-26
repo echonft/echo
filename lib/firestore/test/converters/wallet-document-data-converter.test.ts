@@ -1,22 +1,19 @@
 import { walletDocumentDataConverter } from '../../src/converters/wallet-document-data-converter'
+import { getUserDocumentDataMockById } from '../mocks/get-user-document-data-mock-by-id'
 import { getUserMockById } from '../mocks/get-user-mock-by-id'
-import { userDocumentDataMock } from '../mocks/user-document-data-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - userDataConverter', () => {
+  const userDocumentData = getUserDocumentDataMockById('6rECUMhevHfxABZ1VNOm')!
+  const user = getUserMockById('6rECUMhevHfxABZ1VNOm')
+  const wallet = user.wallets[0]!
+  const walletDocumentData = userDocumentData.wallets[0]!
+
   it('from Firestore conversion', () => {
-    const userDocumentData = userDocumentDataMock['6rECUMhevHfxABZ1VNOm']!
-    const user = getUserMockById('6rECUMhevHfxABZ1VNOm')
-    const wallet = user.wallets[0]!
-    const walletDocumentData = userDocumentData.wallets[0]!
-    expect(walletDocumentDataConverter.fromFirestore(wallet)).toStrictEqual(walletDocumentData)
+    expect(walletDocumentDataConverter.fromFirestore(walletDocumentData)).toStrictEqual(wallet)
   })
 
   it('to Firestore conversion', () => {
-    const userDocumentData = userDocumentDataMock['6rECUMhevHfxABZ1VNOm']!
-    const user = getUserMockById('6rECUMhevHfxABZ1VNOm')
-    const wallet = user.wallets[0]!
-    const walletDocumentData = userDocumentData.wallets[0]!
-    expect(walletDocumentDataConverter.toFirestore(walletDocumentData)).toStrictEqual(wallet)
+    expect(walletDocumentDataConverter.toFirestore(wallet)).toStrictEqual(walletDocumentData)
   })
 })

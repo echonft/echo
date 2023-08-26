@@ -4,7 +4,6 @@ import { listingDocumentDataMock } from '../mocks/listing-document-data-mock'
 import { nftCollectionDocumentDataMock } from '../mocks/nft-collection-document-data-mock'
 import { nftDocumentDataMock } from '../mocks/nft-document-data-mock'
 import { offerDocumentDataMock } from '../mocks/offer-document-data-mock'
-import { swapDocumentDataMock } from '../mocks/swap-document-data-mock'
 import { userDocumentDataMock } from '../mocks/user-document-data-mock'
 
 export async function initializeDb() {
@@ -23,10 +22,6 @@ export async function initializeDb() {
   const offers = Object.values(offerDocumentDataMock)
   for (const offer of offers) {
     await firestore().collection(CollectionName.OFFERS).doc(offer.id).set(offer)
-  }
-  const swaps = Object.values(swapDocumentDataMock)
-  for (const swap of swaps) {
-    await firestore().collection(CollectionName.SWAPS).doc(swap.id).set(swap)
   }
   const users = Object.values(userDocumentDataMock)
   for (const user of users) {
