@@ -1,3 +1,4 @@
+import { ModalOfferState } from '../../../types/modal-offer-state'
 import { Modal } from '../../base/modal/modal'
 import { OfferDetailsActionModalInnerContainer } from './offer-details-action-modal-inner-container'
 import { OfferDetailsOfferActionModalTitle } from './offer-details-offer-action-modal-title'
@@ -18,18 +19,13 @@ export const OfferDetailsActionModal: FunctionComponent<OfferDetailsActionModalP
     }
   }, [setIsOpen, offerState])
 
-  // Should never happen but otherwise typescript complains on the typing
-  if (offerState === 'OPEN' || offerState === 'INVALID') {
-    return null
-  }
-
   return (
     <Modal
       open={isOpen}
       onClose={() => setIsOpen(false)}
-      renderTitle={() => <OfferDetailsOfferActionModalTitle state={offerState} />}
+      renderTitle={() => <OfferDetailsOfferActionModalTitle state={offerState as ModalOfferState} />}
       renderDescription={() => (
-        <OfferDetailsActionModalInnerContainer state={offerState} onClose={() => setIsOpen(false)} />
+        <OfferDetailsActionModalInnerContainer state={offerState as ModalOfferState} onClose={() => setIsOpen(false)} />
       )}
     />
   )

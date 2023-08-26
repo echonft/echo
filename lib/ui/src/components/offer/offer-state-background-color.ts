@@ -4,6 +4,7 @@ export const offerStateBackgroundColor = (state: OfferState) => {
   switch (state) {
     case 'OPEN':
       return 'bg-yellow-500'
+    case 'COMPLETED':
     case 'ACCEPTED':
       return 'bg-green-500'
     case 'INVALID':
