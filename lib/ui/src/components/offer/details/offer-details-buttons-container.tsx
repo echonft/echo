@@ -1,40 +1,44 @@
-import { OfferDetailsAcceptButtonSwitch } from './offer-details-accept-button-switch'
-import { OfferDetailsDeclineButtonSwitch } from './offer-details-decline-button-switch'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { getOfferModalAcceptButtonTitleForState } from '../../../helpers/get-offer-modal-accept-button-title-for-state'
+import { getOfferModalDeclineButtonTitleForState } from '../../../helpers/get-offer-modal-decline-button-title-for-state'
+import { isOfferModalAcceptButtonDisplayed } from '../../../helpers/is-offer-modal-accept-button-displayed'
+import { isOfferModalDeclineButtonDisplayed } from '../../../helpers/is-offer-modal-decline-button-displayed'
+import { HideIfNil } from '../../utils/hide-if-nil'
+import { OfferDetailsAcceptButton } from './offer-details-accept-button'
+import { OfferDetailsDeclineButton } from './offer-details-decline-button'
 import { OfferState } from '@echo/ui-model'
 import { clsx } from 'clsx'
+import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 export interface OfferDetailsButtonsContainerProps {
   state: OfferState
-  hasApprovedNFTs: boolean
   nftsCount: number
   onAccept?: () => unknown
   onDecline?: () => unknown
-  onApprove?: () => unknown
-  // TODO This case could change as it is a swap at this stage
-  onComplete?: () => unknown
 }
 
 export const OfferDetailsButtonsContainer: FunctionComponent<OfferDetailsButtonsContainerProps> = ({
   state,
-  hasApprovedNFTs,
   nftsCount,
   onAccept,
-  onDecline,
-  onApprove,
-  onComplete
+  onDecline
 }) => {
+  const t = useTranslations('offer.details')
   return (
     <div className={clsx('flex', 'flex-row', 'gap-8')}>
-      <OfferDetailsAcceptButtonSwitch
-        state={state}
-        hasApprovedNFTs={hasApprovedNFTs}
-        nftsCount={nftsCount}
-        onAccept={onAccept}
-        onApprove={onApprove}
-        onComplete={onComplete}
-      />
-      <OfferDetailsDeclineButtonSwitch state={state} onDecline={onDecline} />
+      <HideIfNil checks={isOfferModalAcceptButtonDisplayed(state)}>
+        <OfferDetailsAcceptButton onAction={onAccept}>
+          {/* @ts-ignore */}
+          {t(getOfferModalAcceptButtonTitleForState(state), { count: nftsCount })}
+        </OfferDetailsAcceptButton>
+      </HideIfNil>
+      <HideIfNil checks={isOfferModalDeclineButtonDisplayed(state)}>
+        <OfferDetailsDeclineButton onAction={onDecline}>
+          {/* @ts-ignore */}
+          {t(getOfferModalDeclineButtonTitleForState(state))}
+        </OfferDetailsDeclineButton>
+      </HideIfNil>
     </div>
   )
 }

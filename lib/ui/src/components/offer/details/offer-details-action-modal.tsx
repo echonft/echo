@@ -10,7 +10,6 @@ export interface OfferDetailsActionModalProps {
 
 export const OfferDetailsActionModal: FunctionComponent<OfferDetailsActionModalProps> = ({ offerState }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-
   useEffect(() => {
     if (offerState === 'ACCEPTED' || offerState === 'CANCELLED' || offerState === 'REJECTED') {
       setIsOpen(true)

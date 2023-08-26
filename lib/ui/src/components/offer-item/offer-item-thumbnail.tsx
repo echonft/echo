@@ -9,7 +9,7 @@ import { FunctionComponent } from 'react'
 
 export interface OfferItemThumbnailProps {
   item: OfferItem
-  size?: OfferItemThumbnailSize
+  size: OfferItemThumbnailSize
   discordUsername?: string
   onRemove?: (item: OfferItem) => unknown
 }
@@ -17,7 +17,7 @@ export interface OfferItemThumbnailProps {
 export const OfferItemThumbnail: FunctionComponent<OfferItemThumbnailProps> = ({
   item,
   discordUsername,
-  size = SizeMD,
+  size,
   onRemove
 }) => {
   const { name, tokenId, thumbnailUrl, collection } = item.nft

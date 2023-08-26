@@ -11,22 +11,15 @@ import { FunctionComponent } from 'react'
 export interface OfferDetailsContainerProps {
   offer: Offer
   isReceiving: boolean
-  hasApprovedNFTs: boolean
   onAccept?: () => unknown
   onDecline?: () => unknown
-  onApprove?: () => unknown
-  // TODO This case could change as it is a swap at this stage
-  onComplete?: () => unknown
 }
 
 export const OfferDetailsContainer: FunctionComponent<OfferDetailsContainerProps> = ({
   offer,
   isReceiving,
-  hasApprovedNFTs,
   onAccept,
-  onDecline,
-  onApprove,
-  onComplete
+  onDecline
 }) => {
   return (
     <div
@@ -56,11 +49,8 @@ export const OfferDetailsContainer: FunctionComponent<OfferDetailsContainerProps
         <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
           <OfferDetailsButtonsContainer
             state={offer.state}
-            hasApprovedNFTs={hasApprovedNFTs}
             nftsCount={isReceiving ? offer.receiverItems.length : offer.senderItems.length}
             onAccept={onAccept}
-            onApprove={onApprove}
-            onComplete={onComplete}
             onDecline={onDecline}
           />
         </div>

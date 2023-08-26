@@ -1,3 +1,4 @@
+import { isUserOfferReceiver } from '../../helpers/is-user-offer-receiver'
 import { PaddedContainer } from '../layout/padded-container'
 import { OfferRow as OfferComponent } from './offer-row'
 import { Offer, User } from '@echo/ui-model'
@@ -14,7 +15,7 @@ export const OffersProvided: FunctionComponent<OffersProvidedProps> = ({ offers,
     <PaddedContainer>
       <div className={clsx('flex', 'flex-col', 'self-stretch', 'grow', 'gap-12')}>
         {offers.map((offer) => (
-          <OfferComponent offer={offer} isReceiver={offer.receiver.id === user.id} key={offer.id} />
+          <OfferComponent offer={offer} isReceiver={isUserOfferReceiver(user, offer)} key={offer.id} />
         ))}
       </div>
     </PaddedContainer>

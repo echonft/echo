@@ -6,6 +6,7 @@ import RelativeTime from 'dayjs/plugin/relativeTime'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
+// TODO Should be somewhere more global
 dayjs.extend(RelativeTime)
 export interface OfferDetailsStateProps {
   state: OfferState

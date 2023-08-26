@@ -2,7 +2,7 @@ import { OfferItemThumbnail } from '../../offer-item/offer-item-thumbnail'
 import { NewOfferAddMoreButton } from './new-offer-add-more-button'
 import { NewOfferEmptyItems } from './new-offer-empty-items'
 import { NewOfferItemTitle } from './new-offer-item-title'
-import { OfferItem } from '@echo/ui-model'
+import { OfferItem, SizeMD } from '@echo/ui-model'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isEmpty } from 'ramda'
@@ -34,6 +34,7 @@ export const NewOfferBottomSliderItemsContainer: FunctionComponent<Props> = ({
               <OfferItemThumbnail
                 item={item}
                 key={item.nft.id}
+                size={SizeMD}
                 onRemove={(itemToRemove) => {
                   onRemove?.(itemToRemove)
                 }}

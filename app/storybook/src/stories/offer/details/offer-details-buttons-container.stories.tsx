@@ -7,11 +7,18 @@ const metadata: Meta<typeof Component> = {
   argTypes: {
     state: {
       defaultValue: 'OPEN',
+      // TODO Add other states
       options: ['OPEN', 'ACCEPTED'],
       control: { type: 'radio' }
     },
-    hasApprovedNFTs: { defaultValue: false, control: 'boolean' },
-    nftsCount: { control: { type: 'range', min: 1, max: 2, step: 1 } }
+    nftsCount: {
+      defaultValue: 1,
+      options: {
+        Single: 1,
+        Multiple: 2
+      },
+      control: { type: 'radio' }
+    }
   }
 }
 
@@ -22,7 +29,6 @@ type Story = StoryObj<typeof Component>
 export const Default: Story = {
   args: {
     state: 'OPEN',
-    hasApprovedNFTs: false,
     nftsCount: 1
   }
 }

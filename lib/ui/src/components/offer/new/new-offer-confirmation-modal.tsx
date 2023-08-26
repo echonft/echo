@@ -20,7 +20,9 @@ export const NewOfferConfirmationModal: FunctionComponent = () => {
     <Modal
       open={modalState !== 'NONE'}
       onClose={() => setModalState('NONE')}
-      renderTitle={() => <ModalTitle title={t(`${isConfirmed() ? 'confirmedModal' : 'confirmationModal'}.title`)} />}
+      renderTitle={() => (
+        <ModalTitle>{t(`${isConfirmed() ? 'confirmedModal' : 'confirmationModal'}.title`)}</ModalTitle>
+      )}
       renderDescription={() =>
         isConfirmed() ? (
           <NewOfferConfirmedModalInnerContainer onConfirm={() => setModalState('NONE')} />

@@ -1,3 +1,4 @@
+import { ModalOfferState } from '../../../types/modal-offer-state'
 import { ConfirmationIconSvg } from '../../base/svg/confirmation-icon-svg'
 import { OfferDetailsOfferActionModalButtonSwitch } from './offer-details-offer-action-modal-button-switch'
 import { OfferDetailsOfferActionModalSubtitle } from './offer-details-offer-action-modal-subtitle'
@@ -6,7 +7,7 @@ import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 export interface OfferDetailsActionModalInnerContainerProps {
-  state: 'CANCELLED' | 'REJECTED' | 'ACCEPTED'
+  state: ModalOfferState
   onClose?: () => unknown
 }
 

@@ -7,17 +7,27 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     onRemove: {
-      control: false,
+      defaultValue: 'false',
+      options: {
+        true: true,
+        false: undefined
+      },
+      control: { type: 'radio' },
       action: 'removable'
     },
     size: {
+      defaultValue: 'Medium',
       options: ['Medium', 'Large'],
       control: { type: 'radio' }
+    },
+    discordUsername: {
+      defaultValue: undefined,
+      control: { type: 'text' }
     }
   },
   parameters: {
     controls: {
-      exclude: ['nft']
+      exclude: ['item']
     }
   }
 }
@@ -50,5 +60,10 @@ export const UserDisplayed: Story = {
 }
 
 export const Skeleton: Story = {
-  render: ({ size }) => <OfferItemThumbnailSkeleton size={size} />
+  render: ({ size }) => <OfferItemThumbnailSkeleton size={size} />,
+  parameters: {
+    controls: {
+      exclude: ['item', 'onRemove', 'discordUsername']
+    }
+  }
 }

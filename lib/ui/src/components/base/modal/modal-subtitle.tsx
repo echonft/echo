@@ -1,10 +1,6 @@
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, PropsWithChildren } from 'react'
 
-export interface ModalSubtitleProps {
-  subtitle: string
-}
-
-export const ModalSubtitle: FunctionComponent<ModalSubtitleProps> = ({ subtitle }) => (
-  <span className={clsx('prose-label-lg', 'text-white/50')}>{subtitle}</span>
+export const ModalSubtitle: FunctionComponent<PropsWithChildren> = ({ children }) => (
+  <span className={clsx('prose-label-lg', 'text-white/50')}>{children}</span>
 )

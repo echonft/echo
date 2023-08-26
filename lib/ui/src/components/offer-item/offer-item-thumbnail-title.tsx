@@ -6,7 +6,7 @@ import { FunctionComponent } from 'react'
 export interface OfferItemTitleProps {
   collectionName: string
   tokenId: number
-  size?: OfferItemThumbnailSize
+  size: OfferItemThumbnailSize
 }
 
 export const OfferItemThumbnailTitle: FunctionComponent<OfferItemTitleProps> = ({ collectionName, tokenId, size }) => {

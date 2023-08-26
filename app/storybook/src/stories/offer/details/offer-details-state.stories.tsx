@@ -1,9 +1,6 @@
 import { OfferDetailsState as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
-import RelativeTime from 'dayjs/plugin/relativeTime'
-
-dayjs.extend(RelativeTime)
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Details/State',

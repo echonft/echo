@@ -1,9 +1,10 @@
+import { ModalOfferState } from '../../../types/modal-offer-state'
 import { OfferDetailsOfferActionAcceptedButtons } from './offer-details-offer-action-accepted-buttons'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 export interface OfferDetailsOfferActionModalButtonSwitchProps {
-  state: 'CANCELLED' | 'REJECTED' | 'ACCEPTED'
+  state: ModalOfferState
   onClose?: () => unknown
 }
 

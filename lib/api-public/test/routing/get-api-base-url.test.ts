@@ -16,7 +16,7 @@ describe('routing - getApiBaseUrl', () => {
   test('if no NEXT_PUBLIC_API_URL, throws', () => {
     expect(() => getApiBaseUrl()).toThrow(Error('.env should contain NEXT_PUBLIC_API_URL'))
   })
-  test('if no NEXT_PUBLIC_API_URL, throws', () => {
+  test('if NEXT_PUBLIC_API_URL exists, returns value', () => {
     process.env.NEXT_PUBLIC_API_URL = 'https://test.com'
     expect(getApiBaseUrl()).toBe('https://test.com')
   })
