@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { acceptOffer as firestoreAcceptOffer } from '@echo/firestore'
 
 export const acceptOffer = async (offerId: string) => {

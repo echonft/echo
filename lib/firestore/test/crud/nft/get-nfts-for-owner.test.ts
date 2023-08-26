@@ -1,12 +1,12 @@
 import { getNftsForOwner } from '../../../src/crud/nft/get-nfts-for-owner'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { includes, map, prop } from 'ramda'
 
 describe('CRUD - nft - getNftsForOwner', () => {
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
 
   it('returns an empty array the user is not found', async () => {
     const result = await getNftsForOwner('not-found')

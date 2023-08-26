@@ -49,7 +49,7 @@
     },
     "test": {
       "dependsOn": ["^build"],
-      "inputs": ["jest.config.*", "**/*.test.*"]
+      "inputs": ["jest.config.*", "src/**/*.ts", "**/*.test.*"]
     },
     "test:ci": {
       "dependsOn": ["^build"],

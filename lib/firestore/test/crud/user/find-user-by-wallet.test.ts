@@ -1,12 +1,12 @@
 import { findUserByWallet } from '../../../src/crud/user/find-user-by-wallet'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { userMock } from '../../mocks/user-mock'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - findUserByWallet', () => {
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
 
   it('returns undefined if the address is wrong', async () => {
     const user = await findUserByWallet({ address: 'wrong', chainId: 1 })

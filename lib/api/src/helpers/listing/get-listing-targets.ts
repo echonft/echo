@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { ListingTargetRequest } from '@echo/api-public'
 import { findNftCollectionById, ListingTarget } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'

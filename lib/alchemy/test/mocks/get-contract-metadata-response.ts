@@ -1,7 +1,7 @@
 import { ContractResponse } from '../../src/types/response/contract-response'
 
 export const getContractMetadataResponse: { [key: string]: ContractResponse } = {
-  '0x320e2fa93a4010ba47edcde762802374bac8d3f7': {
+  '0x320e2fa93A4010ba47edcdE762802374bac8d3F7': {
     address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
     name: 'Spiral Frequencies',
     symbol: 'GCP1',

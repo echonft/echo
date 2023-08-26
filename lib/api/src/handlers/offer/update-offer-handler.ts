@@ -1,4 +1,4 @@
-import { ApiError } from '../../helpers/api-error'
+import { endResponseOnApiError } from '../../helpers/error/end-response-on-api-error'
 import { parseUpdateOfferRequest } from '../../helpers/offer/parse-update-offer-request'
 import { RequestHandler } from '../../types/handlers/request-handler'
 import { handleAcceptOffer } from './handle-accept-offer'
@@ -22,8 +22,6 @@ export const updateOfferHandler: RequestHandler<ApiRequest<UpdateOfferRequest, n
         return handleRejectOffer(id, session, res)
     }
   } catch (e) {
-    const { status, message } = e as ApiError
-    res.end(res.status(status).json({ error: message }))
-    return
+    return endResponseOnApiError(e, res)
   }
 }

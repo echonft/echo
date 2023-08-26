@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
+// FIXME
 describe('handlers - user - createWalletHandler', () => {
   // const mockedMessage = jest.mocked(SiweMessage)
   beforeEach(() => {

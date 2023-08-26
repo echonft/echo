@@ -27,7 +27,7 @@ describe('mappers - mapContractMetadata', () => {
       twitterUsername: 'GeneticChain',
       websiteUrl: 'https://geneticchain.io/project/1'
     }
-    const result = mapContractMetadata(getContractMetadataResponse['0x320e2fa93a4010ba47edcde762802374bac8d3f7']!)
+    const result = mapContractMetadata(getContractMetadataResponse['0x320e2fa93A4010ba47edcdE762802374bac8d3F7']!)
     expect(result.contract.address.toLocaleLowerCase()).toEqual(expected.contract.address)
     expect(result.contract.chainId).toEqual(expected.contract.chainId)
     expect(result.contract.tokenType).toEqual(expected.contract.tokenType)

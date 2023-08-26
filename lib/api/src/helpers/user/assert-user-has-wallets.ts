@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { User } from '@echo/firestore'
 import { isEmpty } from 'ramda'
 

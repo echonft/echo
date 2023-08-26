@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { cancelListing as firestoreCancelListing } from '@echo/firestore'
 
 export const cancelListing = async (listingId: string) => {

@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { addListing, ListingTarget, mapUserToUserDetails, OfferItem, User, Wallet } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
 

@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { addUserWallet as firestoreAddUserWallet, Wallet } from '@echo/firestore'
 
 export const addUserWallet = async (userId: string, wallet: Wallet) => {

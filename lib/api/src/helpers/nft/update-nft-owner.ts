@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { setNftOwner, User, Wallet } from '@echo/firestore'
 
 export const updateNftOwner = async (nftId: string, user: User, wallet: Wallet) => {

@@ -3,7 +3,7 @@ import { fetchDiscordUser } from '../user/fetch-discord-user'
 import { findUserByDiscordId } from '../user/find-user-by-discord-id'
 import { updateUser } from '../user/update-user'
 import { updateUserNfts } from '../user/update-user-nfts'
-import { isNilOrEmpty } from '@echo/utils'
+import { parseCreateOrUpdateUserArguments } from './parse-create-or-update-user-arguments'
 import { isNil } from 'ramda'
 
 export const createOrUpdateUser = async (
@@ -11,13 +11,9 @@ export const createOrUpdateUser = async (
   tokenType: string | undefined,
   discordId: string | undefined
 ) => {
-  if (isNilOrEmpty(accessToken) || isNilOrEmpty(tokenType)) {
-    throw Error('Auth error: missing access token')
-  }
-  if (isNilOrEmpty(discordId)) {
-    throw Error('Auth error: missing Discord Id')
-  }
-  const user = await fetchDiscordUser(accessToken, tokenType)
+  // FIXME do we even need discordId here?!
+  const validatedArguments = parseCreateOrUpdateUserArguments({ accessToken, tokenType, discordId })
+  const user = await fetchDiscordUser(validatedArguments.accessToken, validatedArguments.tokenType)
   const foundUser = await findUserByDiscordId(user.discordId)
   if (isNil(foundUser)) {
     await createUser(user)

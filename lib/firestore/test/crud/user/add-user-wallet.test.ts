@@ -1,9 +1,9 @@
 import { addUserWallet } from '../../../src/crud/user/add-user-wallet'
 import { findUserById } from '../../../src/crud/user/find-user-by-id'
 import { updateUser } from '../../../src/crud/user/update-user'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { Wallet } from '../../../src/types/model/wallet'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { includes } from 'ramda'
 
@@ -11,8 +11,8 @@ describe('CRUD - user - addUserWallet', () => {
   let initialWallets: Wallet[]
   const id = 'oE6yUEQBPn7PZ89yMjKn'
 
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
   beforeEach(async () => {
     const user = await findUserById(id)
     initialWallets = user!.wallets

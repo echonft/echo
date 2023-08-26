@@ -1,5 +1,5 @@
-import { ApiError } from '../../helpers/api-error'
 import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
+import { endResponseOnApiError } from '../../helpers/error/end-response-on-api-error'
 import { createOffer } from '../../helpers/offer/create-offer'
 import { getOfferItems } from '../../helpers/offer/get-offer-items'
 import { getOfferItemsWallet } from '../../helpers/offer/get-offer-items-wallet'
@@ -29,8 +29,6 @@ export const createOfferHandler: RequestHandler<ApiRequest<CreateOfferRequest, n
     const id = await createOffer(sender, senderWallet, senderNfts, receiver!, receiverWallet, receiverNfts)
     return res.status(200).json({ id })
   } catch (e) {
-    const { status, message } = e as ApiError
-    res.end(res.status(status).json({ error: message }))
-    return
+    return endResponseOnApiError(e, res)
   }
 }

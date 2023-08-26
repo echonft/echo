@@ -1,5 +1,5 @@
-import { ApiError } from '../api-error'
 import { getUserFromSession } from '../auth/get-user-from-session'
+import { ApiError } from '../error/api-error'
 import { Session } from 'next-auth'
 
 export const assertUserIs = (userId: string, session: Session | undefined) => {

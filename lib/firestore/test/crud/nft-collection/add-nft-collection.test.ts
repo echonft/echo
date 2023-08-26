@@ -1,16 +1,16 @@
 import { addNftCollection } from '../../../src/crud/nft-collection/add-nft-collection'
 import { deleteNftCollection } from '../../../src/crud/nft-collection/delete-nft-collection'
 import { findNftCollectionById } from '../../../src/crud/nft-collection/find-nft-collection-by-id'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { nftCollectionMock } from '../../mocks/nft-collection-mock'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
 import { omit } from 'ramda'
 
 describe('CRUD - nft-collection - addNftCollection', () => {
   let id: string
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
   afterEach(async () => {
     try {
       await deleteNftCollection(id)

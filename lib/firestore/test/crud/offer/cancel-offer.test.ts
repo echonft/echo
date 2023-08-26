@@ -3,10 +3,10 @@ import { updateListing } from '../../../src/crud/listing/update-listing'
 import { cancelOffer } from '../../../src/crud/offer/cancel-offer'
 import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
 import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { Offer } from '../../../src/types/model/offer'
 import { OfferState } from '../../../src/types/model/offer-state'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs, { Dayjs } from 'dayjs'
 import { filter, map, pick, propEq } from 'ramda'
@@ -17,8 +17,8 @@ describe('CRUD - offer - cancelOffer', () => {
   let initialListingsOffers: { id: string; offers: Offer[] }[]
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
 
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
   beforeEach(async () => {
     const offer = await findOfferById(id)
     initialState = offer!.state
@@ -33,19 +33,32 @@ describe('CRUD - offer - cancelOffer', () => {
     }
   })
 
+  it('throws if the offer is undefined', async () => {
+    await expect(cancelOffer('not-found')).rejects.toBeDefined()
+  })
   it('throws if the offer is expired', async () => {
-    try {
-      await cancelOffer(id)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as Error).message).toEqual('offer expired')
-    }
+    await updateOffer(id, { state: 'OPEN', expiresAt: dayjs().subtract(1, 'day') })
+    await expect(cancelOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is cancelled', async () => {
+    await updateOffer(id, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day') })
+    await expect(cancelOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is accepted', async () => {
+    await updateOffer(id, { state: 'ACCEPTED', expiresAt: dayjs().add(1, 'day') })
+    await expect(cancelOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is rejected', async () => {
+    await updateOffer(id, { state: 'REJECTED', expiresAt: dayjs().add(1, 'day') })
+    await expect(cancelOffer(id)).rejects.toBeDefined()
+  })
+  it('throws if the offer is invalid', async () => {
+    await updateOffer(id, { state: 'INVALID', expiresAt: dayjs().add(1, 'day') })
+    await expect(cancelOffer(id)).rejects.toBeDefined()
   })
 
   it('cancel offer if its not expired', async () => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    await updateOffer(id, { expiresAt: dayjs().add(1, 'day') })
+    await updateOffer(id, { state: 'OPEN', expiresAt: dayjs().add(1, 'day') })
     await cancelOffer(id)
     const updatedOffer = await findOfferById(id)
     expect(updatedOffer!.state).toEqual('CANCELLED')

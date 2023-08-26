@@ -1,14 +1,14 @@
 import { getListingsForOffer } from '../../../src/crud/listing/get-listings-for-offer'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { getListingMockById } from '../../mocks/get-listing-mock-by-id'
 import { getOfferMockById } from '../../mocks/get-offer-mock-by-id'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { always, map, modifyPath } from 'ramda'
 
 describe('CRUD - listing - getListingsForOffer', () => {
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
 
   it('returns an empty array if no listings matches the target collection', async () => {
     const { senderItems, receiverItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')

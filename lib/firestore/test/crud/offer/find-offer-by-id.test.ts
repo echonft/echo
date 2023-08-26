@@ -1,12 +1,12 @@
 import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { offerMock } from '../../mocks/offer-mock'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer - findOfferById', () => {
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
 
   it('returns undefined if the offer is not found', async () => {
     const offer = await findOfferById('not-found')

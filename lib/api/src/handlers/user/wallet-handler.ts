@@ -1,4 +1,4 @@
-import { ApiError } from '../../helpers/api-error'
+import { endResponseOnApiError } from '../../helpers/error/end-response-on-api-error'
 import { parseAddWalletRequest } from '../../helpers/user/parse-add-wallet-request'
 import { parseRemoveWalletRequest } from '../../helpers/user/parse-remove-wallet-request'
 import { RequestHandler } from '../../types/handlers/request-handler'
@@ -36,8 +36,6 @@ export const walletHandler: RequestHandler<ApiRequest<WalletRequest, never>, Emp
         return
     }
   } catch (e) {
-    const { status, message } = e as ApiError
-    res.end(res.status(status).json({ error: message }))
-    return
+    return endResponseOnApiError(e, res)
   }
 }

@@ -1,9 +1,9 @@
 import { findListingById } from '../../../src/crud/listing/find-listing-by-id'
 import { updateListing } from '../../../src/crud/listing/update-listing'
 import { updateListingsWithOfferNewState } from '../../../src/crud/listing/update-listings-with-offer-new-state'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { Offer } from '../../../src/types/model/offer'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { find, propEq } from 'ramda'
 
@@ -11,8 +11,8 @@ describe('CRUD - listing - updateListingsWithOfferNewState', () => {
   let initialOffers: Offer[]
   const id = 'jUzMtPGKM62mMhEcmbN4'
 
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
   beforeEach(async () => {
     const listing = await findListingById(id)
     initialOffers = listing!.offers

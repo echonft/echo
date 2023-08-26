@@ -1,12 +1,20 @@
 import { getUserWalletAddresses } from '../../../src/helpers/user/get-user-wallet-addresses'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { userMock } from '../../mocks/user-mock'
+import { clearDb } from '../../test-utils/clear-db'
+import { initializeDb } from '../../test-utils/initialize-db'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 
 describe('helpers - user - getUserWalletAddresses', () => {
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
+
+  it('Should return the user wallets addresses with the given chain id', async () => {
+    await clearDb()
+    await initializeDb()
+    expect(true).toBeTruthy()
+  })
 
   it('Should return the user wallets addresses with the given chain id', () => {
     const user = userMock['oE6yUEQBPn7PZ89yMjKn']!

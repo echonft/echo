@@ -1,4 +1,4 @@
-import { ApiError } from '../../helpers/api-error'
+import { endResponseOnApiError } from '../../helpers/error/end-response-on-api-error'
 import { assertListing } from '../../helpers/listing/assert-listing'
 import { cancelListing } from '../../helpers/listing/cancel-listing'
 import { getListing } from '../../helpers/listing/get-listing'
@@ -20,8 +20,6 @@ export const cancelListingHandler: RequestHandler<ApiRequest<IdRequest, never>, 
     await cancelListing(id)
     return res.status(200).json({})
   } catch (e) {
-    const { status, message } = e as ApiError
-    res.end(res.status(status).json({ error: message }))
-    return
+    return endResponseOnApiError(e, res)
   }
 }

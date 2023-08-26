@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { getAllNftCollections as firestoreGetAllNftCollections } from '@echo/firestore'
 
 export const getAllNftCollections = async () => {

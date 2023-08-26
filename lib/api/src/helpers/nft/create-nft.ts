@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { mapAlchemyNftToFirestore } from './map-alchemy-nft-to-firestore'
 import { GetNftResponse } from '@echo/alchemy'
 import { addNft, NftCollection, User, Wallet } from '@echo/firestore'

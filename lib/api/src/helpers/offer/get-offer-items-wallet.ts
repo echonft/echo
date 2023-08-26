@@ -1,4 +1,4 @@
-import { ApiError } from '../api-error'
+import { ApiError } from '../error/api-error'
 import { getOwnersForNft } from '@echo/alchemy'
 import { OfferItem, User, Wallet } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
@@ -29,5 +29,5 @@ export const getOfferItemsWallet = (items: NonEmptyArray<OfferItem>, user: User)
       )
     )
     .catch(() => {
-      throw new ApiError(401, 'User do not own all the NFTs')
+      throw new ApiError(401, 'Error fetching NFTs owners')
     })

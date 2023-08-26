@@ -1,18 +1,18 @@
 import { findNftById } from '../../../src/crud/nft/find-nft-by-id'
 import { setNftOwner } from '../../../src/crud/nft/set-nft-owner'
 import { updateNft } from '../../../src/crud/nft/update-nft'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { UserDetails } from '../../../src/types/model/user-details'
 import { userMock } from '../../mocks/user-mock'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - nft - setNftOwner', () => {
   let initialOwner: UserDetails
   const id = '8hHFadIrrooORfTOLkBg'
 
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
   beforeEach(async () => {
     const user = await findNftById(id)
     initialOwner = user!.owner!

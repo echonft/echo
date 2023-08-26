@@ -1,12 +1,12 @@
 import { findNftById } from '../../../src/crud/nft/find-nft-by-id'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { nftMock } from '../../mocks/nft-mock'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - nft - findNftById', () => {
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
 
   it('returns undefined if the nft is not found', async () => {
     const nft = await findNftById('not-found')

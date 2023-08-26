@@ -4,7 +4,7 @@ import { mockAndSetupChannel } from '../mocks/discord/channel-mock'
 import { setupBot } from '../mocks/discord/client-mock'
 import { mockGuild } from '../mocks/discord/guild-mock'
 import { mockChatInputCommandInteraction } from '../mocks/discord/interaction-mock'
-import { findNftCollectionByDiscordGuildDiscordId, getAllCollectionMocks, NftCollection } from '@echo/firestore'
+import { findNftCollectionByDiscordGuildDiscordId, getAllNftCollectionMocks, NftCollection } from '@echo/firestore'
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { Client } from 'discord.js'
 import { filter, isNil, pathEq } from 'ramda'
@@ -17,7 +17,7 @@ describe('discord commands - connect', () => {
   jest.mocked(findNftCollectionByDiscordGuildDiscordId).mockImplementation((guildId: string) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const collection: NftCollection = filter(pathEq(['discordGuild', 'discordId'], guildId), getAllCollectionMocks())
+    const collection: NftCollection = filter(pathEq(['discordGuild', 'discordId'], guildId), getAllNftCollectionMocks())
     if (isNil(collection)) {
       return Promise.reject('not found')
     }

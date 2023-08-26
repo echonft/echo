@@ -35,7 +35,7 @@ export const addOffer = async (offer: NewOffer): Promise<string> => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await reference.set(offerDataConverter.toFirestore(newOffer))
-  // update listings tied to these NFTs (if any)
+  // update listings tied to this offer (if any)
   const { receiverItems, senderItems } = offer
   const listings = await getListingsForOffer(senderItems, receiverItems)
   if (!isEmpty(listings)) {

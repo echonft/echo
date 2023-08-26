@@ -1,13 +1,13 @@
 import { findNftsForCollectionByAttributes } from '../../../src/crud/nft/find-nfts-for-collection-by-attributes'
-import { initialize } from '../../../src/services/initialize'
-import { terminate } from '../../../src/services/terminate'
 import { getNftMockById } from '../../mocks/get-nft-mock-by-id'
+import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { includes, map, prop } from 'ramda'
 
 describe('CRUD - nft - findNftsForCollectionByAttributes', () => {
-  beforeAll(initialize)
-  afterAll(terminate)
+  beforeAll(tearUpRemoteFirestoreTests)
+  afterAll(tearDownRemoteFirestoreTests)
 
   it('returns an empty array the collection is not found', async () => {
     const result = await findNftsForCollectionByAttributes('not-found')

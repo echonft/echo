@@ -1,5 +1,5 @@
-import { ApiError } from '../../helpers/api-error'
 import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
+import { endResponseOnApiError } from '../../helpers/error/end-response-on-api-error'
 import { createListing } from '../../helpers/listing/create-listing'
 import { getListingTargets } from '../../helpers/listing/get-listing-targets'
 import { parseCreateListingRequest } from '../../helpers/listing/parse-create-listing-request'
@@ -24,8 +24,6 @@ export const createListingHandler: RequestHandler<ApiRequest<CreateListingReques
     const id = await createListing(creator, creatorWallet, nfts, listingTargets)
     return res.status(200).json({ id })
   } catch (e) {
-    const { status, message } = e as ApiError
-    res.end(res.status(status).json({ error: message }))
-    return
+    return endResponseOnApiError(e, res)
   }
 }

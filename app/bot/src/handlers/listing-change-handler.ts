@@ -1,43 +1,28 @@
 import { buildNewListingButtons } from '../builders/listing-button-builder'
 import { buildListingEmbed } from '../builders/listing-embed-builder'
 import { getDiscordChannel } from '../helpers/get-discord-channel'
-import { DocumentChange, getListingGuild, Listing } from '@echo/firestore'
+import { DocumentChangeType, getListingGuild, Listing, postListing } from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
 import { Client } from 'discord.js'
-import { isNil } from 'ramda'
 
 /**
- * Handles listing changes, only check for new listings that have not been posted
+ * Handles listing changes - only check for new listings
  * @param client
- * @param listings
- * @param docChanges
+ * @param changeType
+ * @param listing
  */
-export async function listingChangeHandler(client: Client, listings: Listing[], docChanges: DocumentChange<Listing>[]) {
-  for (const [index, docChange] of docChanges.entries()) {
-    const listing = listings[index]!
-    // If doc is not added and not posted, do nothing
-    if (docChange.type === 'added' && isNil(listing.postedAt)) {
+export async function listingChangeHandler(client: Client, changeType: DocumentChangeType, listing: Listing) {
+  if (changeType === 'added') {
+    try {
       const discordGuild = getListingGuild(listing)
-      try {
-        const channel = await getDiscordChannel(client, discordGuild.channelId)
-        try {
-          await channel.send({
-            components: [buildNewListingButtons(listing.id, discordGuild.discordId)],
-            embeds: [buildListingEmbed(listing)]
-          })
-          try {
-            await docChange.doc.ref.update({ postedAt: new Date().getTime() })
-          } catch (e) {
-            logger.error(`listingChangeHandler Error updating listing ${listing.id}: ${errorMessage(e)}`)
-          }
-        } catch (e) {
-          logger.error(
-            `listingChangeHandler Error sending listing ${listing.id} to channel ${channel.id}: ${errorMessage(e)}`
-          )
-        }
-      } catch (e) {
-        logger.error(`listingChangeHandler Error getting Discord channel ${discordGuild.channelId}: ${errorMessage(e)}`)
-      }
+      const channel = await getDiscordChannel(client, discordGuild.channelId)
+      await channel.send({
+        components: [buildNewListingButtons(listing.id, discordGuild.discordId)],
+        embeds: [buildListingEmbed(listing)]
+      })
+      await postListing(listing.id)
+    } catch (e) {
+      logger.error(`Error while listening to added listings: ${errorMessage(e)}`)
     }
   }
 }
