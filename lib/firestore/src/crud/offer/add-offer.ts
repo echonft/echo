@@ -18,7 +18,7 @@ interface NewOffer {
   senderItems: NonEmptyArray<OfferItem>
 }
 
-export const addOffer = async (offer: NewOffer): Promise<string> => {
+export async function addOffer(offer: NewOffer): Promise<string> {
   const { receiverItems, senderItems } = offer
   const listings = await getListingsForOffer(senderItems, receiverItems)
   const reference = firestore().collection(CollectionName.OFFERS).doc()
@@ -28,11 +28,10 @@ export const addOffer = async (offer: NewOffer): Promise<string> => {
   const newOffer = pipe(
     assoc('id', offerId),
     assoc('createdAt', dayjs()),
+    assoc('discordGuild', undefined),
     assoc('expiresAt', dayjs().add(DEFAULT_EXPIRATION_TIME, 'day')),
     assoc('listingsIds', map(prop('id'), listings)),
-    assoc('postedAt', undefined),
-    assoc('state', 'OPEN'),
-    assoc('threadId', undefined)
+    assoc('state', 'OPEN')
   )(offer)
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

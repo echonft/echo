@@ -9,8 +9,7 @@ import { applySpec, pipe, prop } from 'ramda'
 export const offerItemDocumentDataConverter: FirestoreDocumentDataConverter<OfferItemDocumentData, OfferItem> = {
   fromFirestore: applySpec<OfferItem>({
     amount: prop('amount'),
-    nft: documentDataPropToModel('nft', nftDocumentDataConverter),
-    approved: prop('approved')
+    nft: documentDataPropToModel('nft', nftDocumentDataConverter)
   }),
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

@@ -1,4 +1,4 @@
-import { DiscordGuild } from '../../types/model/discord-guild'
 import { NftCollection } from '../../types/model/nft-collection'
+import { NftCollectionDiscordGuild } from '../../types/model/nft-collection-discord-guild'
 
-export const getNftCollectionGuild = (collection: NftCollection): DiscordGuild => collection.discordGuild
+export const getNftCollectionGuild = (collection: NftCollection): NftCollectionDiscordGuild => collection.discordGuild

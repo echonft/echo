@@ -25,7 +25,6 @@ export const listingMock: { [key: string]: Listing } = {
       { amount: 1, nft: nftMock['iRZFKEujarikVjpiFAkE']! }
     ],
     offersIds: ['LyCfl6Eg7JKuD7XJ6IPi'],
-    postedAt: undefined,
     state: 'OPEN',
     targets: [
       {

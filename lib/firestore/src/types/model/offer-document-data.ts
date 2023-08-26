@@ -1,3 +1,4 @@
+import { OfferDiscordGuildDocumentData } from './offer-discord-guild-document-data'
 import { OfferItemDocumentData } from './offer-item-document-data'
 import { OfferState } from './offer-state'
 import { UserDetailsDocumentData } from './user-details-document-data'
@@ -6,8 +7,8 @@ import { NonEmptyArray } from '@echo/utils'
 export interface OfferDocumentData {
   id: string
   createdAt: number
+  discordGuild?: OfferDiscordGuildDocumentData
   expiresAt: number
-  postedAt?: number
   listingsIds: string[]
   receiver: UserDetailsDocumentData
   receiverItems: NonEmptyArray<OfferItemDocumentData>
@@ -16,5 +17,5 @@ export interface OfferDocumentData {
   senderItems: NonEmptyArray<OfferItemDocumentData>
   senderItemsNftIds: NonEmptyArray<string>
   state: OfferState
-  threadId?: string
+  swapTransactionId?: string
 }

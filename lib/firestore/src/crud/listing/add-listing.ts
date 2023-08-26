@@ -19,7 +19,7 @@ interface NewListing {
   targets: NonEmptyArray<ListingTarget>
 }
 
-export const addListing = async (listing: NewListing): Promise<string> => {
+export async function addListing(listing: NewListing): Promise<string> {
   assertListingTargets(listing.targets)
   assertListingItems(listing.items)
   const reference = firestore().collection(CollectionName.LISTINGS).doc()
@@ -30,7 +30,6 @@ export const addListing = async (listing: NewListing): Promise<string> => {
     assoc('createdAt', dayjs()),
     assoc('expiresAt', dayjs().add(DEFAULT_EXPIRATION_TIME, 'day')),
     assoc('offersIds', map(prop('id'), offers)),
-    assoc('postedAt', undefined),
     assoc('state', 'OPEN')
   )(listing)
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

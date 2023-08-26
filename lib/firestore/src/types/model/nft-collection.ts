@@ -1,5 +1,5 @@
 import { Contract } from './contract'
-import { DiscordGuild } from './discord-guild'
+import { NftCollectionDiscordGuild } from './nft-collection-discord-guild'
 
 export interface NftCollection {
   id: string
@@ -7,7 +7,7 @@ export interface NftCollection {
   blurUrl: URL | undefined
   contract: Contract
   description: string
-  discordGuild: DiscordGuild
+  discordGuild: NftCollectionDiscordGuild
   discordUrl: URL | undefined
   floorPrice: number | undefined
   name: string

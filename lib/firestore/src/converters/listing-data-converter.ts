@@ -28,7 +28,6 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
         expiresAt: numberPropToDate('expiresAt'),
         items: documentDataArrayPropToModelArray('items', listingItemDocumentDataConverter),
         offersIds: prop('offersIds'),
-        postedAt: numberPropToDate('postedAt'),
         state: prop('state'),
         targets: documentDataArrayPropToModelArray('targets', listingTargetDocumentDataConverter)
       })
@@ -49,7 +48,6 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
       // @ts-ignore
       when(has('items'), over(lens(prop('items'), assoc('itemsNftIds')), map(path(['nft', 'id'])))),
       modelArrayPropToDocumentDataArray('items', listingItemDocumentDataConverter),
-      datePropToNumber('postedAt'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       when(has('targets'), over(lens(prop('targets'), assoc('targetsIds')), map(path(['collection', 'id'])))),

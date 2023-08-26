@@ -38,6 +38,7 @@ describe('CRUD - offer - addOffer', () => {
     const listings = await getListingsForOffer(senderItems, receiverItems)
     expect(newOffer!.createdAt?.isAfter(now.subtract(1, 'minute'))).toBeTruthy()
     expect(newOffer!.createdAt?.isBefore(now.add(1, 'minute'))).toBeTruthy()
+    expect(newOffer!.discordGuild).toBeUndefined()
     expect(newOffer!.expiresAt?.isAfter(expirationDate.subtract(1, 'minute'))).toBeTruthy()
     expect(newOffer!.expiresAt?.isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()
     expect(newOffer!.receiver).toStrictEqual(receiver)
@@ -45,9 +46,7 @@ describe('CRUD - offer - addOffer', () => {
     expect(newOffer!.sender).toStrictEqual(sender)
     expect(newOffer!.senderItems).toStrictEqual(senderItems)
     expect(newOffer!.listingsIds).toStrictEqual(map(prop('id'), listings))
-    expect(newOffer!.postedAt).toBeUndefined()
     expect(newOffer!.state).toBe('OPEN')
-    expect(newOffer!.threadId).toBeUndefined()
     // check if offer has been added to tied listings
     const newOfferListings = await getListingsForOffer(senderItems, receiverItems)
     for (const listing of newOfferListings) {

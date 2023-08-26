@@ -1,11 +1,11 @@
-import { DiscordGuildDocumentData } from './discord-guild-document-data'
+import { UserDiscordGuildDocumentData } from './user-discord-guild-document-data'
 import { WalletDocumentData } from './wallet-document-data'
 
 export interface UserDocumentData {
   id: string
   discordAvatar?: string
   discordBanner?: string
-  discordGuilds: Omit<DiscordGuildDocumentData, 'channelId'>[]
+  discordGuilds: UserDiscordGuildDocumentData[]
   discordId: string
   discordUsername: string
   nonce?: string

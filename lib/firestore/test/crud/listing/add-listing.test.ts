@@ -6,7 +6,6 @@ import { getOffersForListing } from '../../../src/crud/offer/get-offers-for-list
 import { getOffersWithListingId } from '../../../src/crud/offer/get-offers-with-listing-id'
 import { updateOffer } from '../../../src/crud/offer/update-offer'
 import { getListingMockById } from '../../mocks/get-listing-mock-by-id'
-import { resetDb } from '../../test-utils/reset-db'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
@@ -31,11 +30,6 @@ describe('CRUD - listing - addListing', () => {
   })
 
   it('add a listing', async () => {
-    await resetDb()
-    expect(true).toBeTruthy()
-  })
-
-  it('add a listing', async () => {
     const { creator, items, targets } = getListingMockById('jUzMtPGKM62mMhEcmbN4')
     id = await addListing({ creator, items, targets })
     const newListing = await findListingById(id)
@@ -49,7 +43,6 @@ describe('CRUD - listing - addListing', () => {
     expect(newListing!.expiresAt?.isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()
     expect(newListing!.items).toStrictEqual(items)
     expect(newListing!.offersIds).toStrictEqual(map(prop('id'), offers))
-    expect(newListing!.postedAt).toBeUndefined()
     expect(newListing!.state).toBe('OPEN')
     expect(newListing!.targets).toStrictEqual(targets)
     // check if listing has been added to tied offers

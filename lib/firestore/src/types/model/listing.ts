@@ -13,7 +13,6 @@ export interface Listing {
   expiresAt: Dayjs
   items: NonEmptyArray<ListingItem>
   offersIds: string[]
-  postedAt: Dayjs | undefined
   state: ListingState
   targets: NonEmptyArray<ListingTarget>
 }

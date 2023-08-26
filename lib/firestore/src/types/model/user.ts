@@ -1,4 +1,4 @@
-import { DiscordGuild } from './discord-guild'
+import { UserDiscordGuild } from './user-discord-guild'
 import { Wallet } from './wallet'
 import { Dayjs } from 'dayjs'
 
@@ -6,7 +6,7 @@ export interface User {
   id: string
   discordAvatar: string | undefined
   discordBanner: string | undefined
-  discordGuilds: Omit<DiscordGuild, 'channelId'>[]
+  discordGuilds: UserDiscordGuild[]
   discordId: string
   discordUsername: string
   nonce: string | undefined

@@ -12,7 +12,6 @@ export interface ListingDocumentData {
   items: NonEmptyArray<ListingItemDocumentData>
   itemsNftIds: NonEmptyArray<string>
   offersIds: string[]
-  postedAt?: number
   state: ListingState
   targets: NonEmptyArray<ListingTargetDocumentData>
   targetsIds: NonEmptyArray<string>

@@ -1,5 +1,5 @@
 import { ContractDocumentData } from './contract-document-data'
-import { DiscordGuildDocumentData } from './discord-guild-document-data'
+import { NftCollectionDiscordGuildDocumentData } from './nft-collection-discord-guild-document-data'
 
 export interface NftCollectionDocumentData {
   id: string
@@ -7,7 +7,7 @@ export interface NftCollectionDocumentData {
   blurUrl?: string
   contract: ContractDocumentData
   description: string
-  discordGuild: DiscordGuildDocumentData
+  discordGuild: NftCollectionDiscordGuildDocumentData
   discordUrl?: string
   floorPrice?: number
   name: string

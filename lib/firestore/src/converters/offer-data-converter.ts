@@ -22,16 +22,16 @@ export const offerDataConverter: FirestoreDataConverter<Offer> = {
       applySpec<Offer>({
         id: prop('id'),
         createdAt: numberPropToDate('createdAt'),
+        discordGuild: prop('discordGuild'),
         expired: getExpiredProp,
         expiresAt: numberPropToDate('expiresAt'),
         listingsIds: prop('listingsIds'),
-        postedAt: numberPropToDate('postedAt'),
         receiver: documentDataPropToModel('receiver', userDetailsDocumentDataConverter),
         receiverItems: documentDataArrayPropToModelArray('receiverItems', offerItemDocumentDataConverter),
         sender: documentDataPropToModel('sender', userDetailsDocumentDataConverter),
         senderItems: documentDataArrayPropToModelArray('senderItems', offerItemDocumentDataConverter),
         state: prop('state'),
-        threadId: prop('threadId')
+        swapTransactionId: prop('swapTransactionId')
       })
     )(snapshot)
   },
@@ -45,7 +45,6 @@ export const offerDataConverter: FirestoreDataConverter<Offer> = {
       // @ts-ignore
       datePropToNumber('createdAt'),
       datePropToNumber('expiresAt'),
-      datePropToNumber('postedAt'),
       modelPropToDocumentData('receiver', userDetailsDocumentDataConverter),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

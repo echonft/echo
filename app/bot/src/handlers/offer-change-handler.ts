@@ -3,9 +3,9 @@ import { offerLink } from '../routing/offer-link'
 import {
   DocumentChangeType,
   findUserById,
-  getOfferReceiverGuild,
+  getOfferReceiverItemsGuild,
   Offer,
-  postOffer,
+  setOfferDiscordGuild,
   userIsInGuild
 } from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
@@ -21,7 +21,7 @@ export async function offerChangeHandler(client: Client, changeType: DocumentCha
   if (changeType === 'added') {
     try {
       // FIXME validate
-      const discordGuild = getOfferReceiverGuild(offer)
+      const discordGuild = getOfferReceiverItemsGuild(offer)
       const sender = await findUserById(offer.sender.id)
       const receiver = await findUserById(offer.receiver.id)
       const channel = await getDiscordChannel(client, discordGuild.channelId)
@@ -43,7 +43,7 @@ export async function offerChangeHandler(client: Client, changeType: DocumentCha
             offer
           )}`
         })
-        await postOffer(offer.id, thread.id)
+        await setOfferDiscordGuild(offer.id, discordGuild, thread.id)
       }
     } catch (e) {
       logger.error(`Error while listening to added offer ${offer.id}: ${errorMessage(e)}`)
