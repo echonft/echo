@@ -1,4 +1,4 @@
-import { OfferDetailsState as Component } from '@echo/ui'
+import { OfferDetailsState as Component, OfferDetailsStateSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 
@@ -34,5 +34,14 @@ export const Default: Story = {
   args: {
     state: 'OPEN',
     expiresAt: dayjs().add(1, 'd')
+  }
+}
+
+export const Skeleton: Story = {
+  render: () => <OfferDetailsStateSkeleton />,
+  parameters: {
+    controls: {
+      exclude: ['state', 'expiresAt']
+    }
   }
 }

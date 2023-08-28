@@ -1,5 +1,5 @@
 import { getOfferById } from '../../../mocks/model/offer'
-import { OfferDetailsContainer as Component } from '@echo/ui'
+import { OfferDetailsContainer as Component, OfferDetailsSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -33,4 +33,8 @@ export const Accepted: Story = {
   args: {
     offer: { ...offer, state: 'ACCEPTED' }
   }
+}
+
+export const Skeleton: Story = {
+  render: () => <OfferDetailsSkeleton />
 }

@@ -12,14 +12,14 @@ export interface UserProfilePictureProps {
   discordUsername: string
   discordId: string
   discordAvatar: string | undefined
-  size?: UserProfilePictureSize
+  size: UserProfilePictureSize
 }
 
 export const UserProfilePicture: FunctionComponent<UserProfilePictureProps> = ({
   discordUsername,
   discordId,
   discordAvatar,
-  size = SizeLG
+  size
 }) => {
   const pictureUrl = getUserAvatarUrl(discordId, discordAvatar, 256)
   if (isNil(pictureUrl)) {

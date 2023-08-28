@@ -16,6 +16,6 @@ describe('CRUD - offer - getAllOffersByUserId', () => {
   it('returns the offers with the proper user id', async () => {
     const offers = await getAllOffersByUserId('oE6yUEQBPn7PZ89yMjKn')
     expect(offers?.length).toBe(1)
-    expect(offers[0]).toStrictEqual(offerMock['LyCfl6Eg7JKuD7XJ6IPi'])
+    expect(offers?.[0]).toStrictEqual(offerMock['LyCfl6Eg7JKuD7XJ6IPi'])
   })
 })
