@@ -1,5 +1,5 @@
 import { HideIf } from './hide-if'
-import { either, isEmpty, isNil } from 'ramda'
+import { isNilOrEmpty } from '@echo/utils'
 import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
 export interface HideIfNilOrEmptyProps {
@@ -12,7 +12,7 @@ export const HideIfNilOrEmpty: FunctionComponent<PropsWithChildren<HideIfNilOrEm
   render,
   children
 }) => (
-  <HideIf condition={either(isNil, isEmpty)(checks)} render={render}>
+  <HideIf condition={isNilOrEmpty(checks)} render={render}>
     {children}
   </HideIf>
 )

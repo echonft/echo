@@ -18,12 +18,7 @@ export const NftThumbnailPicture: FunctionComponent<NftThumbnailPictureProps> = 
 }) => {
   return (
     <img
-      className={clsx(
-        size === SizeLG && ['w-52', 'h-52'],
-        size === SizeMD && ['w-32', 'h-32'],
-        'rounded-t-2xl',
-        'select-none'
-      )}
+      className={clsx(size === SizeLG && ['w-52', 'h-52'], size === SizeMD && ['w-32', 'h-32'], 'select-none')}
       src={pictureUrl.href}
       alt={alt ?? tokenId.toString()}
       width={getNftThumbnailSize(size)}

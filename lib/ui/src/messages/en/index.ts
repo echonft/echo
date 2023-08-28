@@ -53,30 +53,64 @@ export const messages = {
     }
   },
   offer: {
+    state: {
+      OPEN: 'Pending',
+      ACCEPTED: 'Accepted',
+      CANCELLED: 'Cancelled',
+      COMPLETED: 'Completed',
+      REJECTED: 'Rejected',
+      INVALID: 'Invalid'
+    },
+    details: {
+      expiresAt: 'Expires in',
+      expiredAt: 'Expired',
+      acceptBtn: 'Accept',
+      declineBtn: 'Decline',
+      approveBtn: 'Approve {count, plural, =0 {} =1 {NFT} other {NFTs}}',
+      completeBtn: 'Execute Swap',
+      actionModal: {
+        ACCEPTED: {
+          title: 'Offer accepted',
+          subtitle: 'You have successfully accepted the offer',
+          confirmBtn: 'Confirm',
+          copyLinkBtn: 'Copy Link'
+        },
+        CANCELLED: {
+          title: 'Offer cancelled',
+          subtitle: 'You have successfully cancelled the offer',
+          dismissBtn: 'Dismiss'
+        },
+        REJECTED: {
+          title: 'Offer rejected',
+          subtitle: 'You have successfully rejected the offer',
+          dismissBtn: 'Dismiss'
+        }
+      }
+    },
+    misc: {
+      assetsInSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',
+      assetsInTitle: 'Going in',
+      assetsOutSubtitle: "Counterparty's {count, plural, =0 {} =1 {asset} other {assets}}",
+      assetsOutTitle: 'Going out'
+    },
     new: {
-      misc: {
-        assetsInSubtitle: 'Your assets',
-        assetsInTitle: 'Going out',
-        assetsOutSubtitle: "Counterparty's assets",
-        assetsOutTitle: 'Going in'
-      },
       bottomSlider: {
         title: 'Offer overview',
         add: 'Add more',
         finalize: 'Finalize offer',
         noNftsTitle: 'No NFTs selected yet',
-        noNftsButton: 'Select NFTs now'
+        noNftsBtn: 'Select NFTs now'
       },
       confirmationModal: {
         title: 'Confirm Offer',
-        confirmButton: 'Confirm',
-        editButton: 'Edit'
+        confirmBtn: 'Confirm',
+        editBtn: 'Edit'
       },
       confirmedModal: {
         title: 'Offer successfully created',
         subtitle: 'Your offer was successfully created, now you can contact your counterparty',
-        confirmButton: 'Confirm',
-        copyLinkButton: 'Copy link'
+        confirmBtn: 'Confirm',
+        copyLinkBtn: 'Copy link'
       }
     }
   },

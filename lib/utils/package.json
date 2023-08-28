@@ -26,6 +26,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "ethers": "6.7.0",
     "pino": "8.15.0",
     "ramda": "0.29.0"
   },

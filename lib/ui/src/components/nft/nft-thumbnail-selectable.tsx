@@ -1,7 +1,7 @@
 import { SelectableProps } from '../../types/selectable-props'
+import { UserDiscordTagOffer } from '../user/user-discord-tag-offer'
 import { HideIf } from '../utils/hide-if'
 import { NftThumbnailMakeOfferButton } from './nft-thumbnail-make-offer-button'
-import { NftThumbnailOwner } from './nft-thumbnail-owner'
 import { NftThumbnailPicture } from './nft-thumbnail-picture'
 import { NftThumbnailSelector } from './nft-thumbnail-selector'
 import { NftThumbnailTitle } from './nft-thumbnail-title'
@@ -33,7 +33,8 @@ export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectablePro
         'h-max',
         'border',
         'border-solid',
-        selected ? 'border-yellow-500' : 'border-transparent'
+        selected ? 'border-yellow-500' : 'border-transparent',
+        'overflow-clip'
       )}
     >
       <div className={'relative'}>
@@ -45,11 +46,14 @@ export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectablePro
             onToggleSelection?.(id, selected)
           }}
         />
+
         <HideIf condition={Boolean(hideOwner)}>
-          <NftThumbnailOwner owner={owner.discordUsername} />
+          <div className={clsx('absolute', 'bottom-2', 'left-2', 'z-10')}>
+            <UserDiscordTagOffer owner={owner.discordUsername} />
+          </div>
         </HideIf>
       </div>
-      <div className={clsx('flex', 'flex-col', 'gap-2', 'rounded-b-2xl', 'bg-white/[0.08]', 'w-full', 'p-2')}>
+      <div className={clsx('flex', 'flex-col', 'gap-2', 'bg-white/[0.08]', 'w-full', 'p-2')}>
         <NftThumbnailTitle tokenId={tokenId} collectionName={collection.name} />
         <NftThumbnailMakeOfferButton
           onClick={() => {

@@ -19,7 +19,7 @@ export const BottomSlider: FunctionComponent<Props> = ({ renderTitle, children }
               <>{renderTitle?.()}</>
               <span
                 className={clsx(
-                  'text-white/50',
+                  'text-white',
                   'transition-transform',
                   'ui-open:rotate-180',
                   'rounded-full',
@@ -31,7 +31,7 @@ export const BottomSlider: FunctionComponent<Props> = ({ renderTitle, children }
                   'items-center'
                 )}
               >
-                <DownCaretSvg width={22} height={14} className={clsx('[&>path]:fill-opaque')} />
+                <DownCaretSvg width={22} height={14} />
               </span>
             </div>
           </Disclosure.Button>

@@ -1,13 +1,8 @@
 import { getUserAvatarUrl } from '../../helpers/get-user-avatar-url'
 import { ProfilePicture } from '../base/profile-picture'
 import { DefaultUserProfilePicture } from '../base/svg/default-user-profile-picture'
-import {
-  getUserProfilePictureHeight,
-  getUserProfilePictureSize,
-  getUserProfilePictureWidth,
-  UserProfilePictureSize
-} from './nft-profile-picture-size'
-import { SizeLG } from '@echo/ui-model'
+import { getUserProfilePictureSize, UserProfilePictureSize } from './nft-profile-picture-size'
+import { SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
@@ -34,8 +29,8 @@ export const UserProfilePicture: FunctionComponent<UserProfilePictureProps> = ({
           'border-solid',
           'border-3',
           'border-yellow-500',
-          getUserProfilePictureWidth(size),
-          getUserProfilePictureHeight(size)
+          size === SizeLG && ['h-40', 'w-40'],
+          size === SizeMD && ['h-[120px]', 'w-[120px]']
         )}
         width={getUserProfilePictureSize(size)}
         height={getUserProfilePictureSize(size)}

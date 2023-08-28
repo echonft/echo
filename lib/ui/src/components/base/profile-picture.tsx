@@ -1,10 +1,5 @@
-import {
-  getUserProfilePictureHeight,
-  getUserProfilePictureSize,
-  getUserProfilePictureWidth,
-  UserProfilePictureSize
-} from '../user/nft-profile-picture-size'
-import { SizeLG } from '@echo/ui-model'
+import { getUserProfilePictureSize, UserProfilePictureSize } from '../user/nft-profile-picture-size'
+import { SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
@@ -22,8 +17,8 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({ picture
         'border-solid',
         'border-3',
         'border-yellow-500',
-        getUserProfilePictureWidth(size),
-        getUserProfilePictureHeight(size)
+        size === SizeLG && ['h-40', 'w-40'],
+        size === SizeMD && ['h-[120px]', 'w-[120px]']
       )}
       src={pictureUrl.href}
       alt={alt}
