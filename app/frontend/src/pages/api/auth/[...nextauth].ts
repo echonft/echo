@@ -33,7 +33,7 @@ export const authOptions: AuthOptions = {
     async jwt({ token, account }) {
       // No firebase token means user is not logged in firebase
       if (account) {
-        return createOrUpdateUser(account.access_token, account.token_type, token.sub)
+        return createOrUpdateUser(account.access_token, account.token_type)
           .then((user) => {
             return { ...token, user }
           })

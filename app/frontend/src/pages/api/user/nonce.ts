@@ -1,13 +1,8 @@
 import { authOptions } from '../auth/[...nextauth]'
-import { nonceHandler, withMethodValidation, withSession } from '@echo/api'
-import { ApiRequest, ErrorResponse, NonceResponse } from '@echo/api-public'
-import { NextApiResponse } from 'next'
+import { nonceRouteHandler } from '@echo/api'
+import { ApiRequest, ApiResponse, NonceResponse } from '@echo/api-public'
 
-const nonce = async (req: ApiRequest<null, never>, res: NextApiResponse<ErrorResponse | NonceResponse>) => {
-  try {
-    await withMethodValidation(withSession(nonceHandler, authOptions), ['GET'])(req, res)
-  } catch (error) {
-    return
-  }
+const nonce = async (req: ApiRequest<never>, res: ApiResponse<NonceResponse>) => {
+  await nonceRouteHandler(req, res, authOptions)
 }
 export default nonce

@@ -1,13 +1,11 @@
 import { addWalletSchema } from '../../validators/add-wallet-schema'
-import { ApiError } from '../error/api-error'
-import { WalletRequest } from '@echo/api-public'
-import { errorMessage } from '@echo/utils'
-import { SiweMessage } from 'siwe'
+import { BadRequestError } from '../error/bad-request-error'
+import { AddWalletRequest } from '@echo/api-public'
 
-export const parseAddWalletRequest = (request: WalletRequest & { message: SiweMessage }) => {
+export const parseAddWalletRequest = (request: AddWalletRequest) => {
   try {
     return addWalletSchema.parse(request)
   } catch (e) {
-    throw new ApiError(400, `Invalid request: ${errorMessage(e)}`)
+    throw new BadRequestError()
   }
 }

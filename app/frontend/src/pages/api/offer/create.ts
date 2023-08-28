@@ -1,17 +1,9 @@
 import { authOptions } from '../auth/[...nextauth]'
-import { withMethodValidation, withSession } from '@echo/api'
-import { ApiRequest, CreateOfferRequest, ErrorResponse, IdResponse } from '@echo/api-public'
-import { NextApiResponse } from 'next'
+import { createOfferRouteHandler } from '@echo/api'
+import { ApiRequest, ApiResponse, CreateOfferRequest, IdResponse } from '@echo/api-public'
 
-const createOffer = async (
-  req: ApiRequest<CreateOfferRequest, never>,
-  res: NextApiResponse<ErrorResponse | IdResponse>
-) => {
-  try {
-    await withMethodValidation(withSession(createOffer, authOptions), ['PUT'])(req, res)
-  } catch (error) {
-    return
-  }
+const createOffer = async (req: ApiRequest<CreateOfferRequest>, res: ApiResponse<IdResponse>) => {
+  await createOfferRouteHandler(req, res, authOptions)
 }
 
 export default createOffer

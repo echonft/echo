@@ -1,8 +1,8 @@
+import { ListingItemRequest } from './listing-item-request'
 import { ListingTargetRequest } from './listing-target-request'
-import { OfferItemRequest } from './offer-item-request'
 import { NonEmptyArray } from '@echo/utils'
 
 export interface CreateListingRequest {
-  items: NonEmptyArray<OfferItemRequest>
+  items: NonEmptyArray<ListingItemRequest>
   targets: NonEmptyArray<ListingTargetRequest>
 }

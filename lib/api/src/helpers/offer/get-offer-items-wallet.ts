@@ -1,4 +1,5 @@
 import { ApiError } from '../error/api-error'
+import { ForbiddenError } from '../error/forbidden-error'
 import { getOwnersForNft } from '@echo/alchemy'
 import { OfferItem, User, Wallet } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
@@ -24,10 +25,10 @@ export const getOfferItemsWallet = (items: NonEmptyArray<OfferItem>, user: User)
         intersection(user.wallets),
         ifElse(pipe(length, equals(1)), head, () => {
           // FIXME edge case for ERC1155 where a user would hold them in multiple of their wallets
-          throw new ApiError(401, 'User do not own all the NFTs')
+          throw new ForbiddenError('User do not own all the NFTs')
         })
       )
     )
     .catch(() => {
-      throw new ApiError(401, 'Error fetching NFTs owners')
+      throw new ApiError(500, 'Error fetching NFTs owners')
     })

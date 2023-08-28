@@ -2,7 +2,7 @@ import { removeWalletSchema } from '../../src/validators/remove-wallet-schema'
 import { getUserMockById } from '@echo/firestore'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - removeWallet', () => {
+describe('validators - removeWalletSchema', () => {
   const wallet = getUserMockById('oE6yUEQBPn7PZ89yMjKn').wallets[0]!
   it('wrong wallet fails validation', () => {
     expect(() => removeWalletSchema.parse({ wallet: { address: '', chainId: 1 } })).toThrow()

@@ -1,11 +1,23 @@
-import { ApiError } from '../error/api-error'
-import { User } from '@echo/firestore'
-import { Session } from 'next-auth'
+import { ForbiddenError } from '../error/forbidden-error'
+import { findUserById } from '../user/find-user-by-id'
+import { getSession } from './get-session'
+import { ApiResponse } from '@echo/api-public'
+import { NextApiRequest } from 'next'
+import { AuthOptions } from 'next-auth'
 import { isNil } from 'ramda'
 
-export function getUserFromSession(session: Session | undefined): User {
-  if (isNil(session) || isNil(session.user)) {
-    throw new ApiError(401, 'Unauthorized')
+export async function getUserFromSession<T extends NextApiRequest, U>(
+  req: T,
+  res: ApiResponse<U>,
+  authOptions: AuthOptions
+) {
+  const session = await getSession(req, res, authOptions)
+  if (isNil(session)) {
+    throw new ForbiddenError()
   }
-  return session.user
+  const user = await findUserById(session.user.id)
+  if (isNil(user)) {
+    throw new ForbiddenError()
+  }
+  return user
 }

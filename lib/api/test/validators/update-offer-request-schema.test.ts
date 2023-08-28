@@ -2,7 +2,7 @@ import { updateOfferRequestSchema } from '../../src/validators/update-offer-requ
 import { UpdateOfferAction } from '@echo/api-public'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - updateOfferRequest', () => {
+describe('validators - updateOfferRequestSchema', () => {
   it('wrong id fails validation', () => {
     expect(() => updateOfferRequestSchema.parse({ id: '', action: UpdateOfferAction.ACCEPT })).toThrow()
     expect(() => updateOfferRequestSchema.parse({ id: undefined, action: UpdateOfferAction.ACCEPT })).toThrow()

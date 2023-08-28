@@ -1,7 +1,7 @@
 import { signatureSchema } from '../../src/validators/signature-schema'
 import { describe, expect, it } from '@jest/globals'
 
-describe('validators - signature', () => {
+describe('validators - signatureSchema', () => {
   it('wrong signature fails validation', () => {
     expect(() => signatureSchema.parse(undefined)).toThrow()
     expect(() => signatureSchema.parse('')).toThrow()
