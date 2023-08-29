@@ -1,4 +1,4 @@
-import { useFirestoreHooks } from '../../../dependencies/hooks/use-firestore-hooks'
+import { useApiHooks } from '../../../dependencies/hooks/use-api-hooks'
 import { CollectionNftsAndFiltersContainerSkeleton } from '../../skeleton/collection/collection-nfts-and-filters-container-skeleton'
 import { CollectionNftsAndFiltersContainer } from '../collection-nfts-and-filters-container'
 import { getTraitsForNfts, Nft, NftTraits } from '@echo/ui-model'
@@ -16,7 +16,7 @@ export const CollectionNftsFetcher: FunctionComponent<CollectionNftsFetcherProps
   onMakeOfferForNft,
   onError
 }) => {
-  const { useNftsForCollection } = useFirestoreHooks()
+  const { useNftsForCollection } = useApiHooks()
   const [traitsFilter, setTraitsFilter] = useState<NftTraits>()
   const [traits, setTraits] = useState<NftTraits>()
   const loadedDataRef = useRef<Nft[]>()

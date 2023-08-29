@@ -4,11 +4,24 @@ import { Nft } from '../../types/model/nft'
 import { firestore } from 'firebase-admin'
 import { invoker, map } from 'ramda'
 
-export const getNftsForCollection = async (collectionContractAddress: string, collectionContractChainId: number) => {
+export const getNftsForCollection = async (collectionId: string) => {
   const querySnapshot = await firestore()
     .collection(CollectionName.NFTS)
-    .where('collection.contract.address', '==', collectionContractAddress)
-    .where('collection.contract.chainId', '==', collectionContractChainId)
+    .where('collection.id', '==', collectionId)
+    // do not return the collection for this query - we already have it
+    .select(
+      'id',
+      'attributes',
+      'balance',
+      'blurUrl',
+      'name',
+      'openSeaUrl',
+      'owner',
+      'pictureUrl',
+      'thumbnailUrl',
+      'tokenId',
+      'tokenType'
+    )
     .withConverter(nftDataConverter)
     .get()
 

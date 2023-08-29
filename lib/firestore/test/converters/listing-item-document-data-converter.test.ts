@@ -3,7 +3,7 @@ import { getListingDocumentDataMockById } from '../mocks/get-listing-document-da
 import { getListingMockById } from '../mocks/get-listing-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
-describe('converters - userDataConverter', () => {
+describe('converters - listingItemDocumentDataConverter', () => {
   const listingDocumentData = getListingDocumentDataMockById('jUzMtPGKM62mMhEcmbN4')
   const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
   const listingItemDocumentData = listingDocumentData.items[0]

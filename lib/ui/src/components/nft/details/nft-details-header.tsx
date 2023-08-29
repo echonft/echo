@@ -1,4 +1,4 @@
-import { Routes } from '../../../types/provider/link-provider'
+import { useLinks } from '../../../dependencies/hooks/use-links'
 import { DiscordIconSvg } from '../../base/svg/discord-icon-svg'
 import { InternalLink } from '../../utils/internal-link'
 import { NftDetailsLinks, NftDetailsLinksProps } from './nft-details-links'
@@ -21,6 +21,7 @@ export const NftDetailsHeader: FunctionComponent<NftDetailsHeaderProps> = ({
   openSeaUrl,
   blurUrl
 }) => {
+  const { userLink } = useLinks()
   return (
     <div className={clsx('flex', 'flex-col')}>
       <h2 className={clsx('prose-label-lg', 'text-white', 'mb-4.5', 'w-max')}>{collectionName}</h2>
@@ -30,7 +31,7 @@ export const NftDetailsHeader: FunctionComponent<NftDetailsHeaderProps> = ({
         } #${tokenId.toString()}`}</span>
         <NftDetailsLinks openSeaUrl={openSeaUrl} blurUrl={blurUrl} />
       </div>
-      <InternalLink route={Routes.USER} params={{ id: owner.id }}>
+      <InternalLink link={userLink(owner.id)}>
         <div
           className={clsx(
             'flex',

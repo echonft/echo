@@ -1,19 +1,21 @@
-import { FirestoreProvider } from '../types/provider/firestore-provider'
+import { ApiProvider } from '../types/provider/api-provider'
 import { LinkProvider } from '../types/provider/link-provider'
 import { dependenciesContext } from './dependencies-context'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface Dependencies {
-  firestoreProvider: FirestoreProvider
+  apiProvider: ApiProvider
   linkProvider: LinkProvider
 }
 
 export const DependenciesProvider: FunctionComponent<PropsWithChildren<Dependencies>> = ({
   linkProvider,
-  firestoreProvider,
+  apiProvider,
   children
 }) => {
   return (
-    <dependenciesContext.Provider value={{ linkProvider, firestoreProvider }}>{children}</dependenciesContext.Provider>
+    <dependenciesContext.Provider value={{ linkProvider, apiProvider: apiProvider }}>
+      {children}
+    </dependenciesContext.Provider>
   )
 }

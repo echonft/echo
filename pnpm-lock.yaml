@@ -143,9 +143,6 @@ importers:
       '@echo/discord':
         specifier: workspace:*
         version: link:../../lib/discord
-      '@echo/swr':
-        specifier: workspace:*
-        version: link:../../lib/swr
       '@echo/ui':
         specifier: workspace:*
         version: link:../../lib/ui
@@ -191,9 +188,6 @@ importers:
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
-      react-icons:
-        specifier: 4.10.1
-        version: 4.10.1(react@18.2.0)
       recoil:
         specifier: 0.7.7
         version: 0.7.7(react-dom@18.2.0)(react-native@0.72.3)(react@18.2.0)
@@ -255,9 +249,6 @@ importers:
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
-      tailwindcss:
-        specifier: 3.3.3
-        version: 3.3.3
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -413,9 +404,6 @@ importers:
       '@echo/firestore':
         specifier: workspace:*
         version: link:../firestore
-      '@echo/ui-model':
-        specifier: workspace:*
-        version: link:../ui-model
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -601,48 +589,8 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
-  lib/swr:
-    dependencies:
-      '@echo/utils':
-        specifier: workspace:*
-        version: link:../utils
-      ramda:
-        specifier: 0.29.0
-        version: 0.29.0
-      swr:
-        specifier: 2.2.0
-        version: 2.2.0(react@18.2.0)
-    devDependencies:
-      '@jest/globals':
-        specifier: 29.6.2
-        version: 29.6.2
-      '@jest/types':
-        specifier: 29.6.1
-        version: 29.6.1
-      '@types/node':
-        specifier: 20.4.9
-        version: 20.4.9
-      '@types/ramda':
-        specifier: 0.29.3
-        version: 0.29.3
-      jest:
-        specifier: 29.6.2
-        version: 29.6.2(@types/node@20.4.9)
-      jest-junit:
-        specifier: 16.0.0
-        version: 16.0.0
-      tsup:
-        specifier: 7.2.0
-        version: 7.2.0(postcss@8.4.27)(typescript@5.1.6)
-      typescript:
-        specifier: 5.1.6
-        version: 5.1.6
-
   lib/ui:
     dependencies:
-      '@echo/swr':
-        specifier: workspace:*
-        version: link:../swr
       '@echo/ui-model':
         specifier: workspace:*
         version: link:../ui-model
@@ -734,6 +682,9 @@ importers:
 
   lib/ui-model:
     dependencies:
+      '@echo/api-public':
+        specifier: workspace:*
+        version: link:../api-public
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -771,6 +722,9 @@ importers:
 
   lib/utils:
     dependencies:
+      dayjs:
+        specifier: 1.11.9
+        version: 1.11.9
       ethers:
         specifier: 6.7.0
         version: 6.7.0
@@ -18803,6 +18757,7 @@ packages:
       react: '*'
     dependencies:
       react: 18.2.0
+    dev: true
 
   /react-inspector@6.0.2(react@18.2.0):
     resolution:

@@ -1,12 +1,17 @@
 import { getSnapshotData } from '../helpers/converters/from-firestore/get-snapshot-data'
-import { numberPropToDate } from '../helpers/converters/from-firestore/number-prop-to-date'
-import { datePropToNumber } from '../helpers/converters/to-firestore/date-prop-to-number'
-import { removeUndefinedProps } from '../helpers/converters/to-firestore/remove-undefined-props'
+import { modifyDocumentDataArrayProp } from '../helpers/converters/from-firestore/modify-document-data-array-prop'
 import { FirestoreModel } from '../types/abstract/firestore-model'
 import { User } from '../types/model/user'
 import { UserDocumentData } from '../types/model/user-document-data'
+import { walletDocumentDataConverter } from './wallet-document-data-converter'
+import {
+  assocUndefinedIfPropNotPresent,
+  modifyDatePropToNumber,
+  modifyNumberPropToDate,
+  removeUndefinedProps
+} from '@echo/utils'
 import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
-import { applySpec, pipe, prop } from 'ramda'
+import { pipe } from 'ramda'
 
 export const userDataConverter: FirestoreDataConverter<User> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<UserDocumentData>): User {
@@ -14,22 +19,14 @@ export const userDataConverter: FirestoreDataConverter<User> = {
     // @ts-ignore
     return pipe(
       getSnapshotData<UserDocumentData>,
-      applySpec<User>({
-        id: prop('id'),
-        discordAvatar: prop('discordAvatar'),
-        discordBanner: prop('discordBanner'),
-        discordGuilds: prop('discordGuilds'),
-        discordId: prop('discordId'),
-        discordUsername: prop('discordUsername'),
-        nonce: prop('nonce'),
-        updatedAt: numberPropToDate('updatedAt'),
-        wallets: prop('wallets')
-      })
+      assocUndefinedIfPropNotPresent('nonce'),
+      modifyNumberPropToDate('updatedAt'),
+      modifyDocumentDataArrayProp('wallets', walletDocumentDataConverter)
     )(snapshot)
   },
   toFirestore(modelObject: FirestoreModel<User>, _options?: SetOptions): UserDocumentData {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return pipe(removeUndefinedProps, datePropToNumber('updatedAt'))(modelObject)
+    return pipe(removeUndefinedProps, modifyDatePropToNumber('updatedAt'))(modelObject)
   }
 }

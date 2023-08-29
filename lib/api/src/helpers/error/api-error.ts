@@ -1,8 +1,8 @@
 import { ApiResponse, ErrorResponse } from '@echo/api-public'
 
-export class ApiError extends Error {
+export abstract class ApiError extends Error {
   status: number
-  constructor(status: number, message: string) {
+  protected constructor(status: number, message: string) {
     super(message)
     this.status = status
   }

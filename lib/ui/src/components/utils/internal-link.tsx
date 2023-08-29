@@ -1,15 +1,12 @@
-import { useLink } from '../../dependencies/hooks/use-link'
-import { RouteParams, Routes } from '../../types/provider/link-provider'
+import { Url } from 'next/dist/shared/lib/router/router'
 import Link from 'next/link'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface InternalLinkProps {
-  route: Routes
-  params?: RouteParams
+  link: Url
 }
 
-export const InternalLink: FunctionComponent<PropsWithChildren<InternalLinkProps>> = ({ route, params, children }) => {
-  const link = useLink(route, params)
+export const InternalLink: FunctionComponent<PropsWithChildren<InternalLinkProps>> = ({ link, children }) => {
   return (
     <Link
       href={link}

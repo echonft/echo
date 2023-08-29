@@ -1,5 +1,5 @@
-import { ApiError } from '../error/api-error'
 import { ForbiddenError } from '../error/forbidden-error'
+import { ServerError } from '../error/server-error'
 import { getOwnersForNft } from '@echo/alchemy'
 import { OfferItem, User, Wallet } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
@@ -8,16 +8,7 @@ import { equals, flatten, head, ifElse, intersection, length, map, pipe, uniq } 
 export const getOfferItemsWallet = (items: NonEmptyArray<OfferItem>, user: User): Promise<Wallet> =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  Promise.all(
-    map(
-      async (item) =>
-        await getOwnersForNft(
-          { address: item.nft.collection.contract.address, chainId: item.nft.collection.contract.chainId },
-          item.nft.tokenId
-        ),
-      items
-    )
-  )
+  Promise.all(map(async ({ nft }) => await getOwnersForNft(nft.collection.contract, nft.tokenId), items))
     .then(
       pipe(
         flatten,
@@ -30,5 +21,5 @@ export const getOfferItemsWallet = (items: NonEmptyArray<OfferItem>, user: User)
       )
     )
     .catch(() => {
-      throw new ApiError(500, 'Error fetching NFTs owners')
+      throw new ServerError('Error fetching NFTs owners')
     })

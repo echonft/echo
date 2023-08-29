@@ -113,6 +113,6 @@ export { SelectionManager, SelectionManagerProps } from './components/utils/sele
 export { Dependencies, DependenciesProvider } from './dependencies/dependencies-provider'
 export { getMessages } from './messages/get-messages'
 export { newOfferDataState, newOfferState } from './services/state'
-export { FirestoreHooks } from './types/provider/firestore-hooks'
-export { FirestoreProvider } from './types/provider/firestore-provider'
+export { ApiHooks } from './types/provider/api-hooks'
+export { ApiProvider } from './types/provider/api-provider'
 export { LinkProvider } from './types/provider/link-provider'

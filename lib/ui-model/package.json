@@ -26,6 +26,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "@echo/api-public": "workspace:*",
     "@echo/utils": "workspace:*",
     "dayjs": "1.11.9",
     "ramda": "0.29.0"

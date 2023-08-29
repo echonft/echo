@@ -121,6 +121,6 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     await createListingRequestHandler(req, res, {} as AuthOptions)
     expect(createListing).toHaveBeenCalledTimes(1)
     expect(res.statusCode).toBe(200)
-    expect(res._getJSONData()).toEqual({ id: 'listingId' })
+    expect(res._getJSONData()).toStrictEqual({ id: 'listingId' })
   })
 })

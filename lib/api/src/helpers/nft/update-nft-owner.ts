@@ -1,10 +1,10 @@
-import { ApiError } from '../error/api-error'
+import { ServerError } from '../error/server-error'
 import { setNftOwner, User, Wallet } from '@echo/firestore'
 
 export const updateNftOwner = async (nftId: string, user: User, wallet: Wallet) => {
   try {
     await setNftOwner(nftId, user.id, wallet)
   } catch (e) {
-    throw new ApiError(500, 'Error updating NFT')
+    throw new ServerError('Error updating NFT')
   }
 }

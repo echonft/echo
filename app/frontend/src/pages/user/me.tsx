@@ -10,7 +10,7 @@ const Me: PageWithAuth<Props> = () => {
 
 Me.authenticationEnabled = true
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({ locale, defaultLocale }) => {
+export const getServerSideProps: GetServerSideProps<Props> = ({ locale, defaultLocale }) => {
   return Promise.resolve({
     props: {
       messages: getMessages(locale, defaultLocale)

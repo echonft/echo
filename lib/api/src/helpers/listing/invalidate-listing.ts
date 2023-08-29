@@ -1,10 +1,10 @@
-import { ApiError } from '../error/api-error'
+import { ServerError } from '../error/server-error'
 import { cancelListing as firestoreCancelListing } from '@echo/firestore'
 
 export const cancelListing = async (listingId: string) => {
   try {
     await firestoreCancelListing(listingId)
   } catch (e) {
-    throw new ApiError(500, 'Error cancelling listing')
+    throw new ServerError('Error cancelling listing')
   }
 }

@@ -1,4 +1,4 @@
-import { useFirestoreHooks } from '../../../dependencies/hooks/use-firestore-hooks'
+import { useApiHooks } from '../../../dependencies/hooks/use-api-hooks'
 import { PaddedContainer } from '../../layout/padded-container'
 import { CollectionDetails } from '../collection-details'
 import { CollectionNftsFetcher } from './collection-nfts-fetcher'
@@ -19,7 +19,7 @@ export const CollectionFetcher: FunctionComponent<PropsWithChildren<CollectionFe
   onCollectionError,
   onNftsError
 }) => {
-  const { useNftCollection } = useFirestoreHooks()
+  const { useNftCollection } = useApiHooks()
   const { data, error } = useNftCollection(slug)
 
   // error handling

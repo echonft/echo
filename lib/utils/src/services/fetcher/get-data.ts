@@ -7,7 +7,7 @@ import { pipe } from 'ramda'
 
 export const getData = async <T, D extends FetcherData = undefined>(
   url: URL,
-  data: D,
+  data?: D,
   authorization?: string
 ): Promise<T> => {
   const response = await fetch(

@@ -3,13 +3,7 @@ import { RestrictedRequestHandler } from '../types/request-handlers/restricted-r
 import { ApiRequest, ApiResponse, ErrorResponse } from '@echo/api-public'
 import { AuthOptions } from 'next-auth'
 
-export async function handleRestrictedRequest<
-  T,
-  Q extends Partial<{
-    [key: string]: string | string[]
-  }>,
-  U
->(
+export async function handleRestrictedRequest<T, Q extends Record<string, string | string[]>, U>(
   req: ApiRequest<T, Q>,
   res: ApiResponse<U | ErrorResponse>,
   authOptions: AuthOptions,

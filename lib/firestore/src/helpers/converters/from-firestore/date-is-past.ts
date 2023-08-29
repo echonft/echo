@@ -1,3 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs'
 
-export const dateIsPast = (date: Dayjs) => date.isBefore(dayjs())
+export function dateIsPast(date: Dayjs) {
+  return date.isBefore(dayjs())
+}

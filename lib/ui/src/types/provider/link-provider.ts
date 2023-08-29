@@ -1,12 +1,6 @@
-export enum Routes {
-  OFFER = 'offer',
-  USER = 'user'
-}
-
-export interface RouteParams {
-  id?: string
-}
+import { Url } from 'next/dist/shared/lib/router/router'
 
 export interface LinkProvider {
-  getLink: (route: Routes, params?: RouteParams) => string
+  offerLink: (offerId: string) => Url
+  userLink: (userId: string) => Url
 }

@@ -32,7 +32,6 @@
     "recoil": "0.7.7"
   },
   "dependencies": {
-    "@echo/swr": "workspace:*",
     "@echo/ui-model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@headlessui/react": "1.7.16",

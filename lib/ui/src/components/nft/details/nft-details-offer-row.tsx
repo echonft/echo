@@ -1,4 +1,4 @@
-import { Routes } from '../../../types/provider/link-provider'
+import { useLinks } from '../../../dependencies/hooks/use-links'
 import { InternalLink } from '../../utils/internal-link'
 import { clsx } from 'clsx'
 import { useFormatter, useNow, useTranslations } from 'next-intl'
@@ -16,8 +16,9 @@ export const NftDetailsOfferRow: FunctionComponent<NftDetailsOfferRowProps> = ({
     updateInterval: 10000
   })
   const format = useFormatter()
+  const { offerLink } = useLinks()
   return (
-    <InternalLink route={Routes.OFFER} params={{ id }}>
+    <InternalLink link={offerLink(id)}>
       <div
         className={clsx(
           'flex',

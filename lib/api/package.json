@@ -34,7 +34,6 @@
     "@echo/api-public": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/firestore": "workspace:*",
-    "@echo/ui-model": "workspace:*",
     "@echo/utils": "workspace:*",
     "dayjs": "1.11.9",
     "ethers": "6.7.0",

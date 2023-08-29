@@ -1,4 +1,4 @@
-import { mapDiscordUserResponseToUser } from '../../mappers/map-discord-user-response-to-user'
+import { mapDiscordUserResponseToUser } from '../../mappers/from-discord/map-discord-user-response-to-user'
 import { fetchDiscordUser as discordFetchDiscordUser } from '@echo/discord'
 
 export const fetchDiscordUser = async (accessToken: string, tokenType: string) => {

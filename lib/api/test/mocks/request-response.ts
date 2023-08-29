@@ -2,7 +2,7 @@
 import { ApiRequest, ApiResponse } from '@echo/api-public'
 import { Body, createMocks, Headers, MockRequest, MockResponse, RequestMethod } from 'node-mocks-http'
 
-export function mockRequestResponse<T, Q extends Partial<{ [key: string]: string | string[] }>, R>(
+export function mockRequestResponse<T, Q extends Record<string, string | string[]>, R>(
   method: RequestMethod,
   query?: Q,
   body?: T,
