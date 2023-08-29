@@ -3,8 +3,8 @@ import { getUserById } from '../../../mocks/model/user'
 import { OfferDetails as Component, OfferDetailsProvided, OfferDetailsSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
-const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')!
-const user = getUserById('oE6yUEQBPn7PZ89yMjKn')!
+const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
+const user = getUserById('oE6yUEQBPn7PZ89yMjKn')
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Details/Container',
@@ -13,14 +13,11 @@ const metadata: Meta<typeof Component> = {
     renderModal: false
   },
   argTypes: {
-    // FIXME Does not behave as it should be
     user: {
-      table: {
-        defaultValue: user
-      },
-      options: {
-        true: user,
-        false: { ...user, id: 'oE6yUEQBPn7PZ89yMjKn' }
+      options: ['receiver', 'sender'],
+      mapping: {
+        receiver: user,
+        sender: getUserById('6rECUMhevHfxABZ1VNOm')
       },
       control: { type: 'radio' },
       name: 'isReceiver'

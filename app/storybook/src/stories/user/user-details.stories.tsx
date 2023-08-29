@@ -11,6 +11,11 @@ const metadata: Meta<typeof Component> = {
       options: ['Medium', 'Large'],
       control: { type: 'radio' }
     }
+  },
+  parameters: {
+    controls: {
+      exclude: ['discordUsername', 'discordAvatar', 'discordBanner', 'discordId']
+    }
   }
 }
 
@@ -25,7 +30,8 @@ export const Default: Story = {
     discordUsername: user.discordUsername,
     discordAvatar: user.discordAvatar,
     discordBanner: user.discordBanner,
-    discordId: user.discordId
+    discordId: user.discordId,
+    size: 'Large'
   }
 }
 

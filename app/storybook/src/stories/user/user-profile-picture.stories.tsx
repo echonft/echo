@@ -1,10 +1,22 @@
 import { getUserById } from '../../mocks/model/user'
 import { UserProfilePicture as Component, UserProfilePictureSkeleton } from '@echo/ui'
+import { SizeLG } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'User/Profile Picture',
-  component: Component
+  component: Component,
+  argTypes: {
+    size: {
+      options: ['Medium', 'Large'],
+      control: { type: 'radio' }
+    }
+  },
+  parameters: {
+    controls: {
+      exclude: ['discordUsername', 'discordAvatar', 'discordId']
+    }
+  }
 }
 
 export default metadata
@@ -14,17 +26,23 @@ type Story = StoryObj<typeof Component>
 const user = getUserById('6rECUMhevHfxABZ1VNOm')
 
 export const Standard: Story = {
-  render: () => (
-    <Component discordAvatar={user.discordAvatar} discordId={user.discordId} discordUsername={user.discordUsername} />
-  )
+  args: {
+    discordUsername: user.discordUsername,
+    discordAvatar: user.discordAvatar,
+    discordId: user.discordId,
+    size: SizeLG
+  }
 }
 
 export const Default: Story = {
-  render: () => (
-    <Component discordAvatar={undefined} discordId={user.discordId} discordUsername={user.discordUsername} />
-  )
+  args: {
+    discordUsername: user.discordUsername,
+    discordAvatar: undefined,
+    discordId: user.discordId,
+    size: SizeLG
+  }
 }
 
 export const Skeleton: Story = {
-  render: () => <UserProfilePictureSkeleton />
+  render: () => <UserProfilePictureSkeleton size={SizeLG} />
 }
