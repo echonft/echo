@@ -1,7 +1,7 @@
-import { getApiBaseUrl } from '../../src/routing/get-api-base-url'
+import { apiBaseUrl } from '../../src/routing/api-base-url'
 import { afterAll, beforeEach, describe, expect, jest, test } from '@jest/globals'
 
-describe('routing - getApiBaseUrl', () => {
+describe('routing - apiBaseUrl', () => {
   const OLD_ENV = process.env
 
   beforeEach(() => {
@@ -14,10 +14,10 @@ describe('routing - getApiBaseUrl', () => {
   })
 
   test('if no NEXT_PUBLIC_API_URL, throws', () => {
-    expect(() => getApiBaseUrl()).toThrow(Error('.env should contain NEXT_PUBLIC_API_URL'))
+    expect(() => apiBaseUrl()).toThrow(Error('.env should contain NEXT_PUBLIC_API_URL'))
   })
   test('if NEXT_PUBLIC_API_URL exists, returns value', () => {
     process.env.NEXT_PUBLIC_API_URL = 'https://test.com'
-    expect(getApiBaseUrl()).toBe('https://test.com')
+    expect(apiBaseUrl()).toBe('https://test.com')
   })
 })

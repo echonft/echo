@@ -10,7 +10,6 @@ import {
   GetNftCollectionResponse,
   NftCollectionRequest
 } from '@echo/api-public'
-import { initialize } from '@echo/firestore'
 
 export async function nftCollectionRequestHandler(
   req: ApiRequest<never, NftCollectionRequest>,
@@ -18,7 +17,6 @@ export async function nftCollectionRequestHandler(
 ) {
   assertAllowedMethods(req, ['GET'])
   const { slug: slugParts } = parseNftCollectionRequest(req.query)
-  initialize()
   if (slugParts.length === 1) {
     return handleGetNftCollection(slugParts[0]!, res)
   }

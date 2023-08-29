@@ -1,7 +1,7 @@
 import { ApiError } from '../helpers/error/api-error'
 import { RestrictedRequestHandler } from '../types/request-handlers/restricted-request-handler'
 import { ApiRequest, ApiResponse, ErrorResponse } from '@echo/api-public'
-import { terminate } from '@echo/firestore'
+import { initialize, terminate } from '@echo/firestore'
 import { errorMessage } from '@echo/utils'
 import { AuthOptions } from 'next-auth'
 
@@ -12,6 +12,7 @@ export async function handleRestrictedRequest<T, Q extends Record<string, string
   requestHandler: RestrictedRequestHandler<T, Q, U>
 ) {
   try {
+    initialize()
     await requestHandler(req, res, authOptions)
   } catch (error) {
     if (error instanceof ApiError) {

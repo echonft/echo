@@ -1,4 +1,4 @@
-import { offerStateBackgroundColor } from './offer-state-background-color'
+import { getOfferStateBackgroundColor } from '../../helpers/get-offer-state-background-color'
 import { OfferState } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -17,7 +17,7 @@ export const OfferStatePill: FunctionComponent<OfferStateProps> = ({ state }) =>
         'px-4',
         'py-1.5',
         'rounded-lg',
-        offerStateBackgroundColor(state),
+        getOfferStateBackgroundColor(state),
         'h-max',
         'w-max',
         'items-center'

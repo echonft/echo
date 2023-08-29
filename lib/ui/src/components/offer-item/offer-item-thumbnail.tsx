@@ -1,7 +1,7 @@
+import { OfferItemThumbnailSize } from '../../constants/offer-item-thumbnail-size'
 import { NftThumbnailPicture } from '../nft/nft-thumbnail-picture'
 import { UserDiscordTagOffer } from '../user/user-discord-tag-offer'
 import { OfferItemThumbnailSelector } from './offer-item-thumbnail-selector'
-import { OfferItemThumbnailSize } from './offer-item-thumbnail-size'
 import { OfferItemThumbnailTitle } from './offer-item-thumbnail-title'
 import { OfferItem, SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
@@ -20,7 +20,7 @@ export const OfferItemThumbnail: FunctionComponent<OfferItemThumbnailProps> = ({
   size,
   onRemove
 }) => {
-  const { name, tokenId, thumbnailUrl, collection } = item.nft
+  const { name, tokenId, thumbnailUrl, collectionName } = item.nft
   return (
     <div
       className={clsx(
@@ -52,7 +52,7 @@ export const OfferItemThumbnail: FunctionComponent<OfferItemThumbnailProps> = ({
           size === SizeLG && ['px-2', 'pt-2.5', 'pb-3.5']
         )}
       >
-        <OfferItemThumbnailTitle tokenId={tokenId} collectionName={collection.name} size={size} />
+        <OfferItemThumbnailTitle tokenId={tokenId} collectionName={collectionName} size={size} />
       </div>
     </div>
   )

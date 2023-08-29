@@ -1,6 +1,6 @@
 import { OfferState } from '@echo/ui-model'
 
-export const offerStateBackgroundColor = (state: OfferState) => {
+export const getOfferStateBackgroundColor = (state: OfferState) => {
   switch (state) {
     case 'OPEN':
       return 'bg-yellow-500'

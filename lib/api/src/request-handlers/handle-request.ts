@@ -1,7 +1,7 @@
 import { ApiError } from '../helpers/error/api-error'
 import { RequestHandler } from '../types/request-handlers/request-handler'
 import { ApiRequest, ApiResponse } from '@echo/api-public'
-import { terminate } from '@echo/firestore'
+import { initialize, terminate } from '@echo/firestore'
 import { errorMessage } from '@echo/utils'
 
 export async function handleRequest<T, Q extends Record<string, string | string[]>, U>(
@@ -10,6 +10,7 @@ export async function handleRequest<T, Q extends Record<string, string | string[
   requestHandler: RequestHandler<T, Q, U>
 ) {
   try {
+    initialize()
     await requestHandler(req, res)
   } catch (error) {
     if (error instanceof ApiError) {

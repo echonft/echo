@@ -1,4 +1,5 @@
-import { getIconSizeInPx, IconSize } from '../../../constants/icon-size'
+import { IconSize } from '../../../constants/icon-size'
+import { getIconSizeInPx } from '../../../helpers/get-icon-size-in-px'
 import { TwitterIconSvg } from '../svg/twitter-icon-svg'
 import { IconContainer } from './icon-container'
 import { IconContainerColor } from './icon-container-color'
