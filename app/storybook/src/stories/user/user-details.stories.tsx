@@ -4,7 +4,14 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'User/Details ',
-  component: Component
+  component: Component,
+  argTypes: {
+    size: {
+      defaultValue: 'Medium',
+      options: ['Medium', 'Large'],
+      control: { type: 'radio' }
+    }
+  }
 }
 
 export default metadata
@@ -14,14 +21,12 @@ type Story = StoryObj<typeof Component>
 const user = getUserById('6rECUMhevHfxABZ1VNOm')
 
 export const Default: Story = {
-  render: () => (
-    <Component
-      discordUsername={user.discordUsername}
-      discordAvatar={user.discordAvatar}
-      discordBanner={user.discordBanner}
-      discordId={user.discordId}
-    />
-  )
+  args: {
+    discordUsername: user.discordUsername,
+    discordAvatar: user.discordAvatar,
+    discordBanner: user.discordBanner,
+    discordId: user.discordId
+  }
 }
 
 export const Skeleton: Story = {
