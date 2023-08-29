@@ -2,7 +2,7 @@ import { mapNftCollection } from '../../../src/mappers/from-api/map-nft-collecti
 import { NftCollectionResponse } from '@echo/api-public'
 import { describe, expect, it } from '@jest/globals'
 
-describe('', () => {
+describe('mappers - from-api - mapNftCollection', () => {
   it('maps correctly', () => {
     const response: NftCollectionResponse = {
       id: 'Rc8pLQXxgyQGIRL0fr13',

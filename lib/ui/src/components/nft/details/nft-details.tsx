@@ -3,13 +3,13 @@ import { NftDetailsAttributesPanel } from './nft-details-attributes-panel'
 import { NftDetailsHeader } from './nft-details-header'
 import { NftDetailsOffersPanel } from './nft-details-offers-panel'
 import { NftDetailsTokenDetailsPanel } from './nft-details-token-details-panel'
-import { Nft, Offer } from '@echo/ui-model'
+import { NftWithCollection, Offer } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 export interface NftDetailsProps {
-  nft: Nft
+  nft: NftWithCollection
   offers?: Offer[]
   onMakeOffer?: () => unknown
 }

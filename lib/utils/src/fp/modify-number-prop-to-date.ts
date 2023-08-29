@@ -1,4 +1,4 @@
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 import { assoc, has, ifElse, invoker, isNil, modify, pipe, prop, unless } from 'ramda'
 
 export const modifyNumberPropToDate = <K extends string, T>(propKey: K) =>
@@ -15,4 +15,4 @@ export const modifyNumberPropToDate = <K extends string, T>(propKey: K) =>
       })
     ),
     assoc(propKey, undefined)
-  ) as (obj: T) => T & Record<K, Dayjs | undefined>
+  ) as (obj: T) => T & Record<K, dayjs.Dayjs | undefined>

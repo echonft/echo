@@ -4,7 +4,7 @@ import { ServiceAccount } from 'firebase-admin'
 import { cert, initializeApp } from 'firebase-admin/app'
 import { getFirestore } from 'firebase-admin/firestore'
 
-export const initialize = () => {
+export function initialize() {
   const serviceAccountObj = process.env.NODE_ENV === 'test' ? testServiceAccount : serviceAccount
   const app = initializeApp({
     credential: cert(serviceAccountObj as ServiceAccount)

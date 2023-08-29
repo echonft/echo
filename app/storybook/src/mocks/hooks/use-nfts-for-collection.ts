@@ -1,13 +1,14 @@
 import { delayPromise } from '../../utils/delay-promise'
-import { findNftsForCollectionByTraits } from '../../utils/find-nfts-for-collection-by-traits'
-import { Nft, NftTraits } from '@echo/ui-model'
+import { findNftCollectionBySlug } from '../../utils/find-nft-collection-by-slug'
+import { getAllNfts } from '../model/nft'
+import { Nft } from '@echo/ui-model'
+import { filter, propEq } from 'ramda'
 import useSWR, { SWRResponse } from 'swr'
 
-interface Key {
-  collectionSlug: string
-  traits?: NftTraits
-}
-export const useNftsForCollection = (collectionSlug: string, traits?: NftTraits): SWRResponse<Nft[], Error> =>
-  useSWR<Nft[], Error, Key>({ collectionSlug, traits }, () =>
-    delayPromise(Promise.resolve(findNftsForCollectionByTraits(collectionSlug, traits)))
+export const useNftsForCollection = (collectionSlug: string): SWRResponse<Nft[], Error> => {
+  const collection = findNftCollectionBySlug(collectionSlug)
+  const nfts = getAllNfts()
+  return useSWR<Nft[], Error, string>(`useNftsForCollection-${collectionSlug}`, () =>
+    delayPromise(Promise.resolve(filter(propEq(collection.id, 'collectionId'))(nfts)))
   )
+}

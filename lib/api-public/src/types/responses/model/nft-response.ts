@@ -1,4 +1,3 @@
-import { NftCollectionResponse } from './nft-collection-response'
 import { NftTokenType } from './nft-token-type'
 import { UserResponse } from './user-response'
 
@@ -10,7 +9,8 @@ export interface NftResponse {
   }[]
   balance: number
   blurUrl?: string
-  collection: NftCollectionResponse | Pick<NftCollectionResponse, 'id'>
+  collectionId: string
+  collectionName: string
   name: string
   openSeaUrl?: string
   owner: UserResponse

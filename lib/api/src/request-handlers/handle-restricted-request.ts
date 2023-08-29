@@ -1,6 +1,8 @@
 import { ApiError } from '../helpers/error/api-error'
 import { RestrictedRequestHandler } from '../types/request-handlers/restricted-request-handler'
 import { ApiRequest, ApiResponse, ErrorResponse } from '@echo/api-public'
+import { terminate } from '@echo/firestore'
+import { errorMessage } from '@echo/utils'
 import { AuthOptions } from 'next-auth'
 
 export async function handleRestrictedRequest<T, Q extends Record<string, string | string[]>, U>(
@@ -12,8 +14,12 @@ export async function handleRestrictedRequest<T, Q extends Record<string, string
   try {
     await requestHandler(req, res, authOptions)
   } catch (error) {
-    const apiError = error as ApiError
-    apiError.endResponse(res)
-    return
+    if (error instanceof ApiError) {
+      error.endResponse(res)
+    } else {
+      res.end(res.status(500).json({ error: errorMessage(error) }))
+    }
+  } finally {
+    await terminate()
   }
 }

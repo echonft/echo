@@ -1,9 +1,9 @@
 import { useApiHooks } from '../../../dependencies/hooks/use-api-hooks'
 import { CollectionNftsAndFiltersContainerSkeleton } from '../../skeleton/collection/collection-nfts-and-filters-container-skeleton'
 import { CollectionNftsAndFiltersContainer } from '../collection-nfts-and-filters-container'
-import { getTraitsForNfts, Nft, NftTraits } from '@echo/ui-model'
+import { filterNftsByTraits, getTraitsForNfts, NftTraits } from '@echo/ui-model'
 import { isNil } from 'ramda'
-import { FunctionComponent, useEffect, useRef, useState } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 
 export interface CollectionNftsFetcherProps {
   collectionSlug: string
@@ -19,8 +19,7 @@ export const CollectionNftsFetcher: FunctionComponent<CollectionNftsFetcherProps
   const { useNftsForCollection } = useApiHooks()
   const [traitsFilter, setTraitsFilter] = useState<NftTraits>()
   const [traits, setTraits] = useState<NftTraits>()
-  const loadedDataRef = useRef<Nft[]>()
-  const { data, isLoading, error } = useNftsForCollection(collectionSlug, traitsFilter)
+  const { data, isLoading, error } = useNftsForCollection(collectionSlug)
 
   // error handling
   useEffect(() => {
@@ -30,13 +29,9 @@ export const CollectionNftsFetcher: FunctionComponent<CollectionNftsFetcherProps
   }, [error, onError])
 
   useEffect(() => {
-    if (!isNil(data)) {
-      // update fetched NFTs
-      loadedDataRef.current = [...data]
-      // set the collection traits if it's the first fetch
-      if (isNil(traits)) {
-        setTraits(getTraitsForNfts([...data]))
-      }
+    // set the collection traits if it's the first fetch
+    if (isNil(traits) && !isNil(data)) {
+      setTraits(getTraitsForNfts([...data]))
     }
   }, [data, traits])
 
@@ -46,7 +41,7 @@ export const CollectionNftsFetcher: FunctionComponent<CollectionNftsFetcherProps
 
   return (
     <CollectionNftsAndFiltersContainer
-      nfts={(data ?? loadedDataRef.current)!}
+      nfts={filterNftsByTraits(data!, traitsFilter)}
       traits={traits}
       isFetchingNfts={isLoading}
       onMakeOfferForNft={onMakeOfferForNft}

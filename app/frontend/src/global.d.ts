@@ -1,4 +1,4 @@
-import { MessagesType } from '@lib/messages'
+import { MessagesType } from '@echo/ui'
 import { NextPage } from 'next'
 
 export declare global {

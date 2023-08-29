@@ -9,5 +9,5 @@ export async function handleGetNftCollectionNfts(slug: string, res: ApiResponse<
   const nftCollection = await getNftCollectionBySlug(slug)
   assertNftCollection(nftCollection)
   const nfts = await getNftCollectionNfts(nftCollection!)
-  return res.status(200).json({ nfts: map(partialRight(mapNft, [nftCollection]), nfts) })
+  return res.status(200).json({ nfts: map(partialRight(mapNft, [nftCollection!]), nfts) })
 }

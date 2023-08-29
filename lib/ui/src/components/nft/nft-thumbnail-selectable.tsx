@@ -22,7 +22,7 @@ export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectablePro
   onToggleSelection,
   onMakeOffer
 }) => {
-  const { id, name, tokenId, thumbnailUrl, owner, collection } = nft
+  const { id, name, tokenId, thumbnailUrl, owner, collectionName } = nft
   return (
     <div
       className={clsx(
@@ -54,7 +54,7 @@ export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectablePro
         </HideIf>
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-2', 'bg-white/[0.08]', 'w-full', 'p-2')}>
-        <NftThumbnailTitle tokenId={tokenId} collectionName={collection.name} />
+        <NftThumbnailTitle tokenId={tokenId} collectionName={collectionName} />
         <NftThumbnailMakeOfferButton
           onClick={() => {
             onMakeOffer?.(id)

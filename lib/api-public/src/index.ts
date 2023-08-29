@@ -30,5 +30,6 @@ export { GetNftCollectionResponse } from './types/responses/get-nft-collection-r
 export { IdResponse } from './types/responses/id-response'
 export { NftCollectionResponse } from './types/responses/model/nft-collection-response'
 export { NftResponse } from './types/responses/model/nft-response'
+export { NftWithCollectionResponse } from './types/responses/model/nft-with-collection-response'
 export { UserResponse } from './types/responses/model/user-response'
 export { NonceResponse } from './types/responses/nonce-response'

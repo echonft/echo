@@ -31,7 +31,6 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
     )(snapshot)
   },
   toFirestore(modelObject: FirestoreModel<Listing>, _options?: SetOptions): ListingDocumentData {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return pipe(
       removeUndefinedProps,
       dissoc('expired'),
@@ -52,6 +51,6 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
       modifyModelArrayProp('targets', listingTargetDocumentDataConverter)
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-    )(modelObject)
+    )(modelObject) as ListingDocumentData
   }
 }

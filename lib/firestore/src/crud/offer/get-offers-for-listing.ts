@@ -2,11 +2,11 @@ import { CollectionName } from '../../constants/collection-name'
 import { offerDataConverter } from '../../converters/offer-data-converter'
 import { getListingTargetsCollectionIds } from '../../helpers/listing/get-listing-targets-collection-ids'
 import { getOfferItemsCollectionId } from '../../helpers/offer/get-offer-items-collection-id'
+import { firestore } from '../../services/firestore'
 import { ListingItem } from '../../types/model/listing-item'
 import { ListingTarget } from '../../types/model/listing-target'
 import { Offer } from '../../types/model/offer'
 import { isNotIn, NonEmptyArray } from '@echo/utils'
-import { firestore } from 'firebase-admin'
 import { invoker, map, path, pipe, prop, reject } from 'ramda'
 
 export const getOffersForListing = async (items: NonEmptyArray<ListingItem>, targets: NonEmptyArray<ListingTarget>) => {

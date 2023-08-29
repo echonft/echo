@@ -20,7 +20,6 @@ import { assoc, dissoc, has, lens, map, over, path, pipe, prop, when } from 'ram
 
 export const offerDataConverter: FirestoreDataConverter<Offer> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData>): Offer {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return pipe(
       getSnapshotData<OfferDocumentData>,
       modifyNumberPropToDate('createdAt'),
@@ -33,10 +32,9 @@ export const offerDataConverter: FirestoreDataConverter<Offer> = {
       modifyDocumentDataArrayProp('senderItems', offerItemDocumentDataConverter),
       dissoc('senderItemsNftIds'),
       assocUndefinedIfPropNotPresent('swapTransactionId')
-    )(snapshot)
+    )(snapshot) as Offer
   },
   toFirestore(modelObject: FirestoreModel<Offer>, _options?: SetOptions): OfferDocumentData {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return pipe(
       removeUndefinedProps,
       dissoc('expired'),
@@ -61,6 +59,6 @@ export const offerDataConverter: FirestoreDataConverter<Offer> = {
       // @ts-ignore
       when(has('senderItems'), over(lens(prop('senderItems'), assoc('senderItemsNftIds')), map(path(['nft', 'id'])))),
       modifyModelArrayProp('senderItems', offerItemDocumentDataConverter)
-    )(modelObject)
+    )(modelObject) as OfferDocumentData
   }
 }

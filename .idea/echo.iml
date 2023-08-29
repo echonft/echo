@@ -52,6 +52,7 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/@types" />
       <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/jest" />
       <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/jest-junit" />
+      <excludeFolder url="file://$MODULE_DIR$/app/frontend/node_modules/next" />
       <excludePattern pattern="tsconfig.tsbuildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />
@@ -63,6 +64,7 @@
       <excludePattern pattern=".swc" />
       <excludePattern pattern="storybook-static" />
     </content>
+    <content url="file://$MODULE_DIR$/app/frontend/node_modules/next" />
     <content url="file://$MODULE_DIR$/app/frontend/node_modules/next-auth" />
     <content url="file://$MODULE_DIR$/lib/api-public/node_modules/@echo" />
     <content url="file://$MODULE_DIR$/lib/api-public/node_modules/@jest" />

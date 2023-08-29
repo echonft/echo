@@ -40,7 +40,7 @@
     "ramda": "0.29.0",
     "request": "2.88.2",
     "siwe": "2.1.4",
-    "zod": "^3.21.4"
+    "zod": "3.21.4"
   },
   "devDependencies": {
     "@jest/globals": "29.6.2",

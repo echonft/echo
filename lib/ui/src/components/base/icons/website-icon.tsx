@@ -1,7 +1,7 @@
+import { getIconSizeInPx, IconSize } from '../../../constants/icon-size'
 import { WebsiteIconSvg } from '../svg/website-icon-svg'
 import { IconContainer } from './icon-container'
 import { IconContainerColor } from './icon-container-color'
-import { getIconSizeInPx, IconSize } from './icon-size'
 import { FunctionComponent } from 'react'
 
 export interface WebsiteIconProps {

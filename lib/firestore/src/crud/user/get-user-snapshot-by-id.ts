@@ -1,7 +1,7 @@
 import { CollectionName } from '../../constants/collection-name'
 import { userDataConverter } from '../../converters/user-data-converter'
+import { firestore } from '../../services/firestore'
 import { User } from '../../types/model/user'
-import { firestore } from 'firebase-admin'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 

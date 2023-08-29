@@ -1,21 +1,21 @@
-import { getMessages, MessagesType } from '@lib/messages'
-import { GetServerSideProps, NextPage } from 'next'
+import { Collection } from '@echo/ui'
+import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 
-interface Props {
-  messages: MessagesType
-}
-
-const CollectionPage: NextPage<Props> = () => {
+const CollectionPage: NextPage = () => {
   const router = useRouter()
-}
-
-export const getServerSideProps: GetServerSideProps<Props> = ({ locale, defaultLocale }) => {
-  return Promise.resolve({
-    props: {
-      messages: getMessages(locale, defaultLocale)
-    }
-  })
+  return (
+    <Collection
+      slug={router.query.slug as string}
+      onCollectionError={(error) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        if (error.status === 404) {
+          void router.replace('/404')
+        }
+      }}
+    />
+  )
 }
 
 export default CollectionPage

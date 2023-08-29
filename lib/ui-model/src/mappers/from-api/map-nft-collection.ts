@@ -4,8 +4,6 @@ import { assocUndefinedIfPropNotPresent, modifyStringPropToUrl } from '@echo/uti
 import { pipe } from 'ramda'
 
 export function mapNftCollection(response: NftCollectionResponse): NftCollection {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   return pipe(
     modifyStringPropToUrl('bannerUrl'),
     modifyStringPropToUrl('blurUrl'),
@@ -16,5 +14,5 @@ export function mapNftCollection(response: NftCollectionResponse): NftCollection
     assocUndefinedIfPropNotPresent('totalSupply'),
     assocUndefinedIfPropNotPresent('twitterUsername'),
     modifyStringPropToUrl('websiteUrl')
-  )(response)
+  )(response) as NftCollection
 }

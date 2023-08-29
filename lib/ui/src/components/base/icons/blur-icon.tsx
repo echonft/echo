@@ -1,5 +1,5 @@
+import { getIconSizeInPx, IconSize } from '../../../constants/icon-size'
 import { IconContainer } from './icon-container'
-import { getIconSizeInPx, IconSize } from './icon-size'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
