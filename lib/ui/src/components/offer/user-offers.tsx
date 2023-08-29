@@ -8,10 +8,8 @@ interface Props {
   onOffersError?: (error: Error) => unknown
 }
 
-export const UserOffers: FunctionComponent<Props> = ({ user, onOffersError }) => {
-  return (
-    <Suspense fallback={<UserOffersSkeleton />}>
-      <UserOffersFetcher user={user} onOffersError={onOffersError} />
-    </Suspense>
-  )
-}
+export const UserOffers: FunctionComponent<Props> = ({ user, onOffersError }) => (
+  <Suspense fallback={<UserOffersSkeleton />}>
+    <UserOffersFetcher user={user} onOffersError={onOffersError} />
+  </Suspense>
+)

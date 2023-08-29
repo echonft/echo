@@ -9,5 +9,5 @@ export const getOfferModalAcceptButtonTitleForState = (state: OfferState) => {
     // TODO Add the other cases
   }
   // Should not happen
-  return null
+  return undefined
 }

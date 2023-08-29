@@ -29,6 +29,7 @@ type Story = StoryObj<typeof Component>
 export const Default: Story = {
   args: {
     state: 'OPEN',
-    nftsCount: 1
+    nftsCount: 1,
+    isUpdating: false
   }
 }

@@ -3,7 +3,7 @@ import { getOfferModalAcceptButtonTitleForState } from '../../../helpers/get-off
 import { getOfferModalDeclineButtonTitleForState } from '../../../helpers/get-offer-modal-decline-button-title-for-state'
 import { isOfferModalAcceptButtonDisplayed } from '../../../helpers/is-offer-modal-accept-button-displayed'
 import { isOfferModalDeclineButtonDisplayed } from '../../../helpers/is-offer-modal-decline-button-displayed'
-import { HideIfNil } from '../../base/hide-if-nil'
+import { HideIf } from '../../utils/hide-if'
 import { OfferDetailsAcceptButton } from './offer-details-accept-button'
 import { OfferDetailsDeclineButton } from './offer-details-decline-button'
 import { OfferState } from '@echo/ui-model'
@@ -13,27 +13,36 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   state: OfferState
+  isReceiving: boolean
   nftsCount: number
+  isUpdating: boolean
   onAccept?: () => unknown
   onDecline?: () => unknown
 }
 
-export const OfferDetailsButtonsContainer: FunctionComponent<Props> = ({ state, nftsCount, onAccept, onDecline }) => {
+export const OfferDetailsButtonsContainer: FunctionComponent<Props> = ({
+  state,
+  isReceiving,
+  nftsCount,
+  isUpdating,
+  onAccept,
+  onDecline
+}) => {
   const t = useTranslations('offer.details')
   return (
     <div className={clsx('flex', 'flex-row', 'gap-8')}>
-      <HideIfNil checks={isOfferModalAcceptButtonDisplayed(state)}>
-        <OfferDetailsAcceptButton onAction={onAccept}>
+      <HideIf condition={!isOfferModalAcceptButtonDisplayed(state, isReceiving)}>
+        <OfferDetailsAcceptButton onAction={onAccept} disabled={isUpdating}>
           {/* @ts-ignore */}
           {t(getOfferModalAcceptButtonTitleForState(state), { count: nftsCount })}
         </OfferDetailsAcceptButton>
-      </HideIfNil>
-      <HideIfNil checks={isOfferModalDeclineButtonDisplayed(state)}>
-        <OfferDetailsDeclineButton onAction={onDecline}>
+      </HideIf>
+      <HideIf condition={!isOfferModalDeclineButtonDisplayed(state)}>
+        <OfferDetailsDeclineButton onAction={onDecline} disabled={isUpdating}>
           {/* @ts-ignore */}
-          {t(getOfferModalDeclineButtonTitleForState(state))}
+          {t(getOfferModalDeclineButtonTitleForState(state, isReceiving))}
         </OfferDetailsDeclineButton>
-      </HideIfNil>
+      </HideIf>
     </div>
   )
 }

@@ -65,7 +65,8 @@ export const messages = {
       expiresAt: 'Expires in',
       expiredAt: 'Expired',
       acceptBtn: 'Accept',
-      declineBtn: 'Decline',
+      cancelBtn: 'Cancel',
+      rejectBtn: 'Reject',
       approveBtn: 'Approve {count, plural, =0 {} =1 {NFT} other {NFTs}}',
       completeBtn: 'Execute Swap',
       actionModal: {

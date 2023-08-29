@@ -11,8 +11,8 @@ describe('helpers - getOfferModalAcceptButtonTitleForState', () => {
   })
 
   it('if state is not ACCEPTED or OPEN, returns null', () => {
-    expect(getOfferModalAcceptButtonTitleForState('CANCELLED')).toBeNull()
-    expect(getOfferModalAcceptButtonTitleForState('INVALID')).toBeNull()
-    expect(getOfferModalAcceptButtonTitleForState('REJECTED')).toBeNull()
+    expect(getOfferModalAcceptButtonTitleForState('CANCELLED')).toBeUndefined()
+    expect(getOfferModalAcceptButtonTitleForState('INVALID')).toBeUndefined()
+    expect(getOfferModalAcceptButtonTitleForState('REJECTED')).toBeUndefined()
   })
 })

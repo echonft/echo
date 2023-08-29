@@ -1,40 +1,99 @@
 import { getOfferById } from '../../../mocks/model/offer'
-import { OfferDetailsContainer as Component, OfferDetailsSkeleton } from '@echo/ui'
+import { getUserById } from '../../../mocks/model/user'
+import { OfferDetails as Component, OfferDetailsProvided, OfferDetailsSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
+
+const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')!
+const user = getUserById('oE6yUEQBPn7PZ89yMjKn')!
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Details/Container',
   component: Component,
-  parameters: {
-    controls: {
-      exclude: ['offer']
+  args: {
+    renderModal: false
+  },
+  argTypes: {
+    // FIXME Does not behave as it should be
+    user: {
+      table: {
+        defaultValue: user
+      },
+      options: {
+        true: user,
+        false: { ...user, id: 'oE6yUEQBPn7PZ89yMjKn' }
+      },
+      control: { type: 'radio' },
+      name: 'isReceiver'
+    },
+    renderModal: {
+      table: {
+        disable: true
+      }
+    },
+    offerId: {
+      table: {
+        disable: true
+      }
+    },
+    offer: {
+      table: {
+        disable: true
+      }
     }
   }
 }
 
 export default metadata
 
-const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')!
 type Story = StoryObj<typeof Component>
 
-export const Default: Story = {
+export const Managed: Story = {
   args: {
-    offer
+    offerId: 'LyCfl6Eg7JKuD7XJ6IPi',
+    user
+  }
+}
+export const Open: Story = {
+  render: () => {
+    return <OfferDetailsProvided offer={offer} isReceiving={false} />
   }
 }
 
 export const Rejected: Story = {
-  args: {
-    offer: { ...offer, state: 'INVALID' }
+  render: () => {
+    return <OfferDetailsProvided offer={{ ...offer, state: 'REJECTED' }} isReceiving={false} />
+  }
+}
+export const Cancelled: Story = {
+  render: () => {
+    return <OfferDetailsProvided offer={{ ...offer, state: 'CANCELLED' }} isReceiving={false} />
   }
 }
 
+export const Invalid: Story = {
+  render: () => {
+    return <OfferDetailsProvided offer={{ ...offer, state: 'INVALID' }} isReceiving={false} />
+  }
+}
+
+export const Completed: Story = {
+  render: () => {
+    return <OfferDetailsProvided offer={{ ...offer, state: 'COMPLETED' }} isReceiving={false} />
+  }
+}
 export const Accepted: Story = {
-  args: {
-    offer: { ...offer, state: 'ACCEPTED' }
+  render: () => {
+    return <OfferDetailsProvided offer={{ ...offer, state: 'ACCEPTED' }} isReceiving={false} />
   }
 }
 
 export const Skeleton: Story = {
+  argTypes: {
+    user: {
+      table: {
+        disable: true
+      }
+    }
+  },
   render: () => <OfferDetailsSkeleton />
 }

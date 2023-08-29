@@ -39,9 +39,16 @@ export const Default: Story = {
 
 export const Skeleton: Story = {
   render: () => <OfferDetailsStateSkeleton />,
-  parameters: {
-    controls: {
-      exclude: ['state', 'expiresAt']
+  argTypes: {
+    state: {
+      table: {
+        disable: true
+      }
+    },
+    expiresAt: {
+      table: {
+        disable: true
+      }
     }
   }
 }

@@ -1,11 +1,12 @@
+import { useGetOffer } from './hooks/use-get-offer'
 import { useGetUserOffers } from './hooks/use-get-user-offers'
+import { useUpdateOffer } from './hooks/use-update-offer'
 import { ApiProvider } from '@echo/ui'
 
-// TODO Implement other hooks
 export const apiProvider: ApiProvider = {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   hooks: {
-    useGetUserOffers
+    useGetUserOffers,
+    useGetOffer,
+    useUpdateOffer
   }
 }
