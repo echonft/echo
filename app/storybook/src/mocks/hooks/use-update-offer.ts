@@ -19,13 +19,7 @@ export const useUpdateOffer = (offerId: string, action: number) => {
       offer.setData((oldValue) => ({ ...oldValue, state: 'COMPLETED' }))
     }
   }, [action])
-  return useSWR<string, Error, string>(
-    `useUpdateOffer-${offerId}`,
-    () => {
-      return delayPromise(Promise.resolve(offerId))
-    },
-    {
-      suspense: true
-    }
-  )
+  return useSWR<string, Error, string>(`useUpdateOffer-${offerId}`, () => delayPromise(Promise.resolve(offerId)), {
+    suspense: true
+  })
 }
