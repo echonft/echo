@@ -1,6 +1,5 @@
-import { ProfilePicture } from '../base/profile-picture'
+import { RoundedProfilePicture } from '../base/rounded-profile-picture'
 import { DefaultCollectionProfilePicture } from '../base/svg/default-collection-profile-picture'
-import { SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
@@ -10,18 +9,18 @@ export interface CollectionProfilePictureProps {
   pictureUrl: URL | undefined
 }
 
-export const CollectionProfilePicture: FunctionComponent<CollectionProfilePictureProps> = ({
+export const CollectionRoundedProfilePicture: FunctionComponent<CollectionProfilePictureProps> = ({
   collectionName,
   pictureUrl
 }) => {
   if (isNil(pictureUrl)) {
     return (
       <DefaultCollectionProfilePicture
-        className={clsx('rounded-2xl', 'border-solid', 'border-3', 'border-yellow-500', 'w-40', 'h-40')}
-        width={160}
-        height={160}
+        className={clsx('rounded-full', 'h-[3.75rem]', 'w-[3.75rem]')}
+        width={60}
+        height={60}
       />
     )
   }
-  return <ProfilePicture pictureUrl={pictureUrl} alt={collectionName} size={SizeLG} />
+  return <RoundedProfilePicture pictureUrl={pictureUrl} alt={collectionName} />
 }

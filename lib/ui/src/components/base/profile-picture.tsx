@@ -7,7 +7,7 @@ import { FunctionComponent } from 'react'
 interface Props {
   pictureUrl: URL
   alt?: string
-  size?: UserProfilePictureSize
+  size: UserProfilePictureSize
 }
 
 export const ProfilePicture: FunctionComponent<Props> = ({ pictureUrl, alt, size = SizeLG }) => {

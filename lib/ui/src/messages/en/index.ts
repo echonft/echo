@@ -59,6 +59,8 @@ details: {
       bottomSlider: {
         title: 'Listing overview',
         add: 'Add more',
+        searchPlaceholder: 'Search by collection name',
+        itemsCount: '{count} {count, plural, =0 {} =1 {item} other {items}}',
         finalizeBtn: 'Finalize',
         dismissBtn: 'Dismiss',
         noNftsTitle: 'No NFTs selected yet',

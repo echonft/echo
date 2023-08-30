@@ -2,6 +2,7 @@ import { newListingDataState } from '../../../services/state'
 import { BottomSlider } from '../../base/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '../../base/bottom-slider/bottom-slider-title'
 import { HideIfNil } from '../../utils/hide-if-nil'
+import { NewListingSliderInnerContainer } from './new-listing-slider-inner-container'
 import { getListingItemsCount } from '@echo/ui-model'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
@@ -18,7 +19,7 @@ export const NewListingSliderManager: FunctionComponent = () => {
         <BottomSlider
           renderTitle={() => <BottomSliderTitle title={t('title')} count={getListingItemsCount(newListing!)} />}
         >
-          TODO
+          <NewListingSliderInnerContainer />
         </BottomSlider>
       )}
     ></HideIfNil>
