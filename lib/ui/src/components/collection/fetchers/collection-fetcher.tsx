@@ -1,3 +1,4 @@
+'use client'
 import { useApiHooks } from '../../../dependencies/hooks/use-api-hooks'
 import { PaddedContainer } from '../../layout/padded-container'
 import { CollectionDetails } from '../collection-details'

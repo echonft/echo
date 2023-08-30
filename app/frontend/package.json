@@ -22,7 +22,6 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@echo/alchemy": "workspace:*",
     "@echo/api": "workspace:*",
     "@echo/api-public": "workspace:*",
     "@echo/discord": "workspace:*",
@@ -36,7 +35,7 @@
     "dayjs": "1.11.9",
     "ethers": "6.7.0",
     "firebase": "10.1.0",
-    "next": "13.4.13",
+    "next": "13.4.19",
     "next-auth": "4.22.5",
     "next-intl": "2.19.1",
     "ramda": "0.29.0",

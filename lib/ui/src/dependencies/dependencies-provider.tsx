@@ -1,3 +1,4 @@
+'use client'
 import { ApiProvider } from '../types/provider/api-provider'
 import { LinkProvider } from '../types/provider/link-provider'
 import { dependenciesContext } from './dependencies-context'

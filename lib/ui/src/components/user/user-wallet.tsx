@@ -3,11 +3,11 @@ import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-interface Props {
+export interface UserWalletProps {
   address: string
 }
 
-export const UserWallet: FunctionComponent<Props> = ({ address }) => {
+export const UserWallet: FunctionComponent<UserWalletProps> = ({ address }) => {
   return (
     <div className={clsx('flex', 'py-px', 'px-2', 'bg-white/[0.08]', 'rounded-lg', 'w-max', 'items-center')}>
       <CopyToClipboard text={address}>

@@ -1,3 +1,4 @@
+'use client'
 import { CollectionFilterPanel } from './filters/collection-filter-panel'
 import { UserNftsContainer } from './user-nfts-container'
 import { UserOfferButton } from './user-offer-button'

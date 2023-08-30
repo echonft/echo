@@ -1,4 +1,4 @@
-import { ApiError } from '../../../src'
+import { ApiError } from '../../../src/helpers/error/api-error'
 import { cancelOffer } from '../../../src/helpers/offer/cancel-offer'
 import { getOffer } from '../../../src/helpers/offer/get-offer'
 import { handleCancelOffer } from '../../../src/request-handlers/offer/handle-cancel-offer'

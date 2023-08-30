@@ -1,4 +1,4 @@
-import { ApiError } from '../../../src'
+import { ApiError } from '../../../src/helpers/error/api-error'
 import { cancelListing } from '../../../src/helpers/listing/cancel-listing'
 import { getListing } from '../../../src/helpers/listing/get-listing'
 import { handleCancelListing } from '../../../src/request-handlers/listing/handle-cancel-listing'

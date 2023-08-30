@@ -19,6 +19,8 @@ export const userDataConverter: FirestoreDataConverter<User> = {
     // @ts-ignore
     return pipe(
       getSnapshotData<UserDocumentData>,
+      assocUndefinedIfPropNotPresent('discordAvatar'),
+      assocUndefinedIfPropNotPresent('discordBanner'),
       assocUndefinedIfPropNotPresent('nonce'),
       modifyNumberPropToDate('updatedAt'),
       modifyDocumentDataArrayProp('wallets', walletDocumentDataConverter)

@@ -4,13 +4,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Layout/Header/Header',
-  component: Component,
-  argTypes: {
-    onSearchQueryChange: {
-      control: false,
-      action: 'changed'
-    }
-  }
+  component: Component
 }
 
 export default metadata

@@ -1,3 +1,4 @@
+'use client'
 import { TraitFilterPicker } from './trait-filter-picker'
 import { NftTraitValue, TraitFilterGroup } from '@echo/ui-model'
 import { concat, isEmpty, isNil, without } from 'ramda'

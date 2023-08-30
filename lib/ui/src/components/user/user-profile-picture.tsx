@@ -1,8 +1,6 @@
 import { UserProfilePictureSize } from '../../constants/user-profile-picture-size'
 import { getUserAvatarUrl } from '../../helpers/get-user-avatar-url'
-import { getUserProfilePictureHeight } from '../../helpers/get-user-profile-picture-height'
 import { getUserProfilePictureSize } from '../../helpers/get-user-profile-picture-size'
-import { getUserProfilePictureWidth } from '../../helpers/get-user-profile-picture-width'
 import { ProfilePicture } from '../base/profile-picture'
 import { DefaultUserProfilePicture } from '../base/svg/default-user-profile-picture'
 import { SizeLG, SizeMD } from '@echo/ui-model'

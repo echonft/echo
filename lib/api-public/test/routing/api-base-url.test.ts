@@ -14,6 +14,9 @@ describe('routing - apiBaseUrl', () => {
   })
 
   test('if no NEXT_PUBLIC_API_URL, throws', () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    delete process.env.NEXT_PUBLIC_API_URL
     expect(() => apiBaseUrl()).toThrow(Error('.env should contain NEXT_PUBLIC_API_URL'))
   })
   test('if NEXT_PUBLIC_API_URL exists, returns value', () => {

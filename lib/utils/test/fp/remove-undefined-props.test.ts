@@ -1,4 +1,4 @@
-import { removeUndefinedProps } from '../../src'
+import { removeUndefinedProps } from '../../src/fp/remove-undefined-props'
 import { describe, expect, it } from '@jest/globals'
 
 describe('', () => {

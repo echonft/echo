@@ -1,4 +1,4 @@
-import { ApiError } from '../../../src'
+import { ApiError } from '../../../src/helpers/error/api-error'
 import { createOffer } from '../../../src/helpers/offer/create-offer'
 import { getOfferItems } from '../../../src/helpers/offer/get-offer-items'
 import { getOfferItemsWallet } from '../../../src/helpers/offer/get-offer-items-wallet'

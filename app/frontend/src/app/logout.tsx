@@ -1,5 +1,5 @@
-import { getMessages, MessagesType } from '@echo/ui'
-import { GetServerSideProps, NextPage } from 'next'
+import { MessagesType } from '@echo/ui'
+import { NextPage } from 'next'
 import { signOut, useSession } from 'next-auth/react'
 import { isNil } from 'ramda'
 
@@ -12,11 +12,11 @@ const Logout: NextPage<Props> = () => {
   return isNil(session) ? <>Already logged out</> : <button onClick={() => void signOut()}>Sign out</button>
 }
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({ locale }) => {
-  return Promise.resolve({
-    props: {
-      messages: getMessages(locale)
-    }
-  })
-}
+// export const getServerSideProps: GetServerSideProps<Props> = async ({ locale }) => {
+//   return Promise.resolve({
+//     props: {
+//       messages: getMessages(locale)
+//     }
+//   })
+// }
 export default Logout

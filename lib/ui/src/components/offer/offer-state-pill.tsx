@@ -4,11 +4,11 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface OfferStateProps {
+export interface OfferStatePillProps {
   state: OfferState
 }
 
-export const OfferStatePill: FunctionComponent<OfferStateProps> = ({ state }) => {
+export const OfferStatePill: FunctionComponent<OfferStatePillProps> = ({ state }) => {
   const t = useTranslations('offer.state')
   return (
     <div

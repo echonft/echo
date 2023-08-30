@@ -13,7 +13,8 @@ const nextConfig = {
   i18n: {
     locales: ['en'],
     defaultLocale: 'en'
-  }
+  },
+  transpilePackages: ['@echo/api', '@echo/api-public', '@echo/discord', '@echo/ui', '@echo/ui-model', '@echo/utils']
 }
 
 module.exports = nextConfig

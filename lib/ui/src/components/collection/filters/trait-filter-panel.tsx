@@ -1,8 +1,9 @@
+'use client'
+import { FiltersPanel } from '../../layout/filters-panel'
+import { TraitFilterPickerManager } from './trait-filter-picker-manager'
 import { groupNftTraits, NftTraits, NftTraitValue } from '@echo/ui-model'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent, useDeferredValue } from 'react'
-import { FiltersPanel } from '../../layout/filters-panel'
-import { TraitFilterPickerManager } from './trait-filter-picker-manager'
 
 export interface TraitFilterPanelProps {
   traits: NftTraits

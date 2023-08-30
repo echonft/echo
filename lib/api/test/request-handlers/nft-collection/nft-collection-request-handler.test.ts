@@ -1,4 +1,4 @@
-import { ApiError } from '../../../src'
+import { ApiError } from '../../../src/helpers/error/api-error'
 import { handleGetNftCollection } from '../../../src/request-handlers/nft-collection/handle-get-nft-collection'
 import { handleGetNftCollectionNfts } from '../../../src/request-handlers/nft-collection/handle-get-nft-collection-nfts'
 import { nftCollectionRequestHandler } from '../../../src/request-handlers/nft-collection/nft-collection-request-handler'

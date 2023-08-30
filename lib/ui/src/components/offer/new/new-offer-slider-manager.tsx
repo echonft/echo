@@ -1,3 +1,4 @@
+'use client'
 import { removeItemFromNewOffer } from '../../../helpers/remove-item-from-new-offer'
 import { newOfferDataState } from '../../../services/state'
 import { BottomSlider } from '../../base/bottom-slider'

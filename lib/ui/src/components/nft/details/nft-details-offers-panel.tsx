@@ -1,3 +1,4 @@
+'use client'
 import { HandIconSvg } from '../../base/svg/hand-icon-svg'
 import { NftDetailsOffersPanelList } from './nft-details-offers-panel-list'
 import { Offer } from '@echo/ui-model'

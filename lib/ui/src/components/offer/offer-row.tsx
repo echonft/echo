@@ -5,12 +5,12 @@ import { DirectionLeft, Offer } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface OfferProps {
+export interface OfferRowProps {
   offer: Offer
   isReceiver: boolean
 }
 
-export const OfferRow: FunctionComponent<OfferProps> = ({ offer, isReceiver }) => {
+export const OfferRow: FunctionComponent<OfferRowProps> = ({ offer, isReceiver }) => {
   return (
     <div
       className={clsx(

@@ -1,4 +1,4 @@
-import { ApiError } from '../../../src'
+import { ApiError } from '../../../src/helpers/error/api-error'
 import { findUserById } from '../../../src/helpers/user/find-user-by-id'
 import { handleCancelListing } from '../../../src/request-handlers/listing/handle-cancel-listing'
 import { updateListingRequestHandler } from '../../../src/request-handlers/listing/update-listing-request-handler'

@@ -1,3 +1,4 @@
+'use client'
 import { CollapsibleProps } from '../../types/collapsible-props'
 import { cloneElement, ReactElement, useState } from 'react'
 

@@ -1,4 +1,4 @@
-import '@echo/ui/dist/index.css'
+import '../../../../lib/ui/dist/index.css'
 import { Auth } from '@components/auth'
 import { DependenciesProvider, MessagesType } from '@echo/ui'
 import { wagmiConfig } from '@lib/constants/wagmi-config'

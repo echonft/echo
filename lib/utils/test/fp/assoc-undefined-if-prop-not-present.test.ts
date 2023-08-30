@@ -1,4 +1,4 @@
-import { assocUndefinedIfPropNotPresent } from '../../src'
+import { assocUndefinedIfPropNotPresent } from '../../src/fp/assoc-undefined-if-prop-not-present'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - assocUndefinedIfPropNotPresent', () => {

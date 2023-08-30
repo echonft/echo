@@ -1,5 +1,5 @@
-import { Nft } from '../../src'
 import { getTraitsForNfts } from '../../src/helpers/get-traits-for-nfts'
+import { Nft } from '../../src/types/nft'
 import { describe, expect, test } from '@jest/globals'
 
 describe('helpers - getTraitsForNfts', () => {

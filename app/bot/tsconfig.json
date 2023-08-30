@@ -1,5 +1,10 @@
 {
   "extends": "../../lib/tsconfig/base.json",
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
   "compilerOptions": {
     "outDir": "dist",
     "sourceRoot": "src",

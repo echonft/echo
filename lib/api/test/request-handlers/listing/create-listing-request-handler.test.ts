@@ -1,4 +1,4 @@
-import { ApiError } from '../../../src'
+import { ApiError } from '../../../src/helpers/error/api-error'
 import { createListing } from '../../../src/helpers/listing/create-listing'
 import { getListingTargets } from '../../../src/helpers/listing/get-listing-targets'
 import { getOfferItems } from '../../../src/helpers/offer/get-offer-items'

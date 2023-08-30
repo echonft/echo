@@ -1,4 +1,4 @@
-import { ApiError } from '../../../src'
+import { ApiError } from '../../../src/helpers/error/api-error'
 import { getOffer } from '../../../src/helpers/offer/get-offer'
 import { rejectOffer } from '../../../src/helpers/offer/reject-offer'
 import { handleRejectOffer } from '../../../src/request-handlers/offer/handle-reject-offer'

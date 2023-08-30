@@ -1,27 +1,16 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"]
-    },
     "build:fix": {
       "inputs": ["src/**/*.d.ts", "src/**/*.js"]
     },
     "clean": {
       "cache": false
     },
-    "dev": {
-      "dependsOn": ["^build"],
-      "cache": false
-    },
     "lint": {
-      "dependsOn": ["^build"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", ".eslintrc.js", ".eslintrc.cjs"]
     },
     "lint:ci": {
-      "dependsOn": ["^build"],
       "cache": false
     },
     "lint:clean-cache": {
@@ -40,63 +29,28 @@
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"]
     },
     "start": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build"],
       "outputs": [".next/**", "dist/**"]
     },
-    "start:dev": {
-      "dependsOn": ["build"],
-      "cache": false
-    },
     "test": {
-      "dependsOn": ["^build"],
-      "inputs": ["jest.config.*", "src/**/*.ts", "**/*.test.*"]
+      "inputs": ["jest.config.*", "src/**/*.ts", "test/**/*.ts", "**/*.test.*"]
     },
     "test:ci": {
-      "dependsOn": ["^build"],
       "cache": false
     },
     "test:watch": {
-      "dependsOn": ["^build"],
       "cache": false
     },
     "tsc": {
-      "dependsOn": ["^build"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"]
     },
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
     },
-    "@echo/alchemy#build": {
-      "dependsOn": ["^build"],
-      "env": ["ALCHEMY_API_KEY", "NODE_ENV"],
-      "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts"]
-    },
-    "@echo/api#build": {
-      "dependsOn": ["^build"],
-      "env": ["NEXTAUTH_URL_INTERNAL", "NEXTAUTH_URL", "ADMIN_API_KEY"],
-      "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts"]
-    },
-    "@echo/api-public#build": {
-      "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_API_URL"],
-      "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts"]
-    },
     "@echo/bot#build": {
-      "dependsOn": ["^build"],
-      "env": ["BASE_URL"],
-      "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts"]
-    },
-    "@echo/bot#deploy-commands": {
-      "dependsOn": ["^build"],
-      "cache": false
-    },
-    "@echo/discord#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["@echo/ui#build"],
       "env": [
+        "BASE_URL",
         "DISCORD_CLIENT_TOKEN",
         "DISCORD_CLIENT_ID",
         "DISCORD_CLIENT_SECRET",
@@ -104,30 +58,49 @@
         "DISCORD_APP_ENV"
       ],
       "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts", "test/**/*.ts"]
+      "inputs": ["src/**/*.ts"]
     },
-    "@echo/firestore#build": {
-      "dependsOn": ["^build"],
-      "env": ["NODE_ENV"],
-      "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts", "test/**/*.ts"]
+    "@echo/bot#dev": {
+      "dependsOn": ["@echo/ui#build"],
+      "cache": false
+    },
+    "@echo/bot#deploy-commands": {
+      "cache": false
     },
     "@echo/frontend#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["@echo/ui#build"],
+      "env": [
+        "ALCHEMY_API_KEY",
+        "NODE_ENV",
+        "NEXTAUTH_URL_INTERNAL",
+        "NEXTAUTH_URL",
+        "ADMIN_API_KEY",
+        "DISCORD_CLIENT_TOKEN",
+        "DISCORD_CLIENT_ID",
+        "DISCORD_CLIENT_SECRET",
+        "DISCORD_REDIRECT_URI",
+        "DISCORD_APP_ENV"
+      ],
       "outputs": [".next/**", "!.next/cache/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
+    "@echo/frontend#dev": {
+      "dependsOn": ["@echo/ui#build"],
+      "cache": false
+    },
     "@echo/storybook#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["@echo/ui#build"],
       "env": ["ALCHEMY_API_KEY", "STORYBOOK_ALCHEMY_API_KEY"],
       "outputs": ["storybook-static/**", "dist/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
-    "@echo/utils#build": {
-      "dependsOn": ["^build"],
-      "env": ["NODE_ENV"],
+    "@echo/storybook#dev": {
+      "dependsOn": ["@echo/ui#build"],
+      "cache": false
+    },
+    "@echo/ui#build": {
       "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts", "test/**/*.ts"]
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     }
   }
 }

@@ -1,3 +1,4 @@
+'use client'
 import { ModalOfferState } from '../../../types/modal-offer-state'
 import { Modal } from '../../base/modal/modal'
 import { OfferDetailsActionModalInnerContainer } from './offer-details-action-modal-inner-container'

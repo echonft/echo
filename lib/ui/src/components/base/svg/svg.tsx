@@ -18,7 +18,7 @@ interface Props extends SvgProps {
 export const Svg: FunctionComponent<Props> = ({ children, className, ...props }) => {
   const { viewBox, height, width } = useSvgSize(props)
   // remove viewBoxWidth and viewBoxHeight from props
-  const cleanProps = omit(['viewBoxWidth', 'viewBoxHeight'], props)
+  const cleanProps = omit(['viewBoxWidth', 'viewBoxHeight', 'ref'], props)
   return (
     <svg
       {...cleanProps}

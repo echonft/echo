@@ -1,4 +1,4 @@
-import { modifyNumberPropToDate } from '../../src'
+import { modifyNumberPropToDate } from '../../src/fp/modify-number-prop-to-date'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 

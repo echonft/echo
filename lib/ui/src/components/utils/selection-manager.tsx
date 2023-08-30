@@ -1,3 +1,4 @@
+'use client'
 import { SelectableProps } from '../../types/selectable-props'
 import { cloneElement, ReactElement, useState } from 'react'
 

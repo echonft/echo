@@ -1,3 +1,4 @@
+'use client'
 import { useLinks } from '../../../dependencies/hooks/use-links'
 import { DiscordIconSvg } from '../../base/svg/discord-icon-svg'
 import { InternalLink } from '../../utils/internal-link'

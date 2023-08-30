@@ -1,3 +1,4 @@
+'use client'
 import { useApiHooks } from '../../../dependencies/hooks/use-api-hooks'
 import { CollectionNftsAndFiltersContainerSkeleton } from '../../skeleton/collection/collection-nfts-and-filters-container-skeleton'
 import { CollectionNftsAndFiltersContainer } from '../collection-nfts-and-filters-container'

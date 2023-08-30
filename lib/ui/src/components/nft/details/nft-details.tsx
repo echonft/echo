@@ -1,3 +1,4 @@
+'use client'
 import { PaddedContainer } from '../../layout/padded-container'
 import { NftDetailsAttributesPanel } from './nft-details-attributes-panel'
 import { NftDetailsHeader } from './nft-details-header'

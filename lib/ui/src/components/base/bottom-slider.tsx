@@ -1,13 +1,14 @@
+'use client'
 import { DownCaretSvg } from './svg/down-caret-svg'
 import { Disclosure, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
-interface Props extends PropsWithChildren {
+export interface BottomSliderProps extends PropsWithChildren {
   renderTitle?: () => ReactNode
 }
 
-export const BottomSlider: FunctionComponent<Props> = ({ renderTitle, children }) => {
+export const BottomSlider: FunctionComponent<BottomSliderProps> = ({ renderTitle, children }) => {
   return (
     <Disclosure>
       <div className={clsx('fixed', 'bottom-0', 'right-2', 'bg-main-gradient', 'rounded-t-md')}>

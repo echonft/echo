@@ -1,16 +1,17 @@
+'use client'
 import { XIconSvg } from '../svg/x-icon-svg'
 import { Dialog, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { Fragment, FunctionComponent, ReactNode } from 'react'
 
-interface Props {
+export interface ModalProps {
   open: boolean
   onClose: () => void
   renderTitle?: () => ReactNode
   renderDescription?: () => ReactNode
 }
 
-export const Modal: FunctionComponent<Props> = ({ open, onClose, renderTitle, renderDescription }) => {
+export const Modal: FunctionComponent<ModalProps> = ({ open, onClose, renderTitle, renderDescription }) => {
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as={'div'} className={clsx('relative z-10')} onClose={onClose}>

@@ -1,5 +1,5 @@
-import { NftTraits } from '../../dist'
-import { groupNftTraits } from '../../src'
+import { groupNftTraits } from '../../src/helpers/group-nft-traits'
+import { NftTraits } from '../../src/types/nft-traits'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - groupNftTraits', () => {

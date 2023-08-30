@@ -1,3 +1,4 @@
+'use client'
 import { SearchIconSvg } from '../../base/svg/search-icon-svg'
 import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
