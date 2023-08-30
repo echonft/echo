@@ -38,7 +38,11 @@ export const messages = {
     }
   },
   listing: {
-    details: {
+    misc: {
+      assetsInTitle: 'Going in',
+      assetsOutTitle: 'Going out'
+    },
+details: {
       expiresAt: 'Expires in',
       expiredAt: 'Expired',
       assets: {
@@ -46,6 +50,19 @@ export const messages = {
           in: 'Interested in',
           out: 'Offering'
         }
+
+
+
+
+      }
+    new: {
+      bottomSlider: {
+        title: 'Listing overview',
+        add: 'Add more',
+        finalizeBtn: 'Finalize',
+        dismissBtn: 'Dismiss',
+        noNftsTitle: 'No NFTs selected yet',
+        noNftsBtn: 'Select NFTs now'
       }
     }
   },
