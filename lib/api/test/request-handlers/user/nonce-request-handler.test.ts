@@ -18,19 +18,6 @@ describe('request-handlers - user - nonceRequestHandler', () => {
     jest.clearAllMocks()
   })
 
-  it('throws if the request is not GET', async () => {
-    const notAllowedMethods = reject(equals('GET'))(HTTP_METHODS)
-    for (const method of notAllowedMethods) {
-      const { req, res } = mockRequestResponse<never, never, NonceResponse>(method)
-      try {
-        await nonceRequestHandler(req, res, {} as AuthOptions)
-        expect(true).toBeFalsy()
-      } catch (e) {
-        expect((e as ApiError).status).toBe(405)
-      }
-    }
-  })
-
   it('throws if not authenticated', async () => {
     jest.mocked(getServerSession).mockResolvedValueOnce(null)
     const { req, res } = mockRequestResponse<never, never, NonceResponse>('GET')

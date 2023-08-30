@@ -1,11 +1,7 @@
-import { NextPage } from 'next'
+import { FunctionComponent } from 'react'
 
-const Home: NextPage = () => {
-  return (
-    <>
-      <h1>Hello Botto!</h1>
-    </>
-  )
+const Home: FunctionComponent = () => {
+  return <h1>Hello Botto!</h1>
 }
 
 export default Home

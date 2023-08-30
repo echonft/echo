@@ -4,7 +4,7 @@ import { ApiError } from '../../../src/helpers/error/api-error'
 import { addUserWallet } from '../../../src/helpers/user/add-user-wallet'
 import { findUserByWallet } from '../../../src/helpers/user/find-user-by-wallet'
 import { updateUserNfts } from '../../../src/helpers/user/update-user-nfts'
-import { handleAddWallet } from '../../../src/request-handlers/user/handle-add-wallet'
+import { addWalletRequestHandler } from '../../../src/request-handlers/user/add-wallet-request-handler'
 import { mockRequestResponse } from '../../mocks/request-response'
 import { AddWalletRequest, EmptyResponse } from '@echo/api-public'
 import { User } from '@echo/firestore'
@@ -48,7 +48,7 @@ describe('request-handlers - user - handleAddWallet', () => {
       {} as AddWalletRequest
     )
     try {
-      await handleAddWallet(req, res, { id: 'userId' } as User)
+      await addWalletRequestHandler(req, res, { id: 'userId' } as User)
       expect(true).toBeFalsy()
     } catch (e) {
       expect((e as ApiError).status).toBe(400)
@@ -59,7 +59,7 @@ describe('request-handlers - user - handleAddWallet', () => {
     jest.mocked(findUserByWallet).mockResolvedValueOnce({ id: 'userId' } as User)
     const { req, res } = mockRequestResponse<AddWalletRequest, never, EmptyResponse>('PUT', undefined, validRequest)
     try {
-      await handleAddWallet(req, res, { id: 'userId' } as User)
+      await addWalletRequestHandler(req, res, { id: 'userId' } as User)
       expect(true).toBeFalsy()
     } catch (e) {
       expect((e as ApiError).status).toBe(400)
@@ -70,7 +70,7 @@ describe('request-handlers - user - handleAddWallet', () => {
     jest.mocked(findUserByWallet).mockResolvedValueOnce({ id: 'userId' } as User)
     const { req, res } = mockRequestResponse<AddWalletRequest, never, EmptyResponse>('PUT', undefined, validRequest)
     try {
-      await handleAddWallet(req, res, { id: 'another-id' } as User)
+      await addWalletRequestHandler(req, res, { id: 'another-id' } as User)
       expect(true).toBeFalsy()
     } catch (e) {
       expect((e as ApiError).status).toBe(403)
@@ -83,7 +83,7 @@ describe('request-handlers - user - handleAddWallet', () => {
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ data: {} as SiweMessage, success: false })
     const { req, res } = mockRequestResponse<AddWalletRequest, never, EmptyResponse>('PUT', undefined, validRequest)
     try {
-      await handleAddWallet(req, res, { id: 'userId' } as User)
+      await addWalletRequestHandler(req, res, { id: 'userId' } as User)
       expect(true).toBeFalsy()
     } catch (e) {
       expect((e as ApiError).status).toBe(400)
@@ -96,7 +96,7 @@ describe('request-handlers - user - handleAddWallet', () => {
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ data: { nonce: 'nonce' } as SiweMessage, success: true })
     const { req, res } = mockRequestResponse<AddWalletRequest, never, EmptyResponse>('PUT', undefined, validRequest)
     try {
-      await handleAddWallet(req, res, { id: 'userId', nonce: 'another-nonce' } as User)
+      await addWalletRequestHandler(req, res, { id: 'userId', nonce: 'another-nonce' } as User)
       expect(true).toBeFalsy()
     } catch (e) {
       expect((e as ApiError).status).toBe(403)
@@ -110,7 +110,7 @@ describe('request-handlers - user - handleAddWallet', () => {
     jest.mocked(addUserWallet).mockResolvedValueOnce()
     jest.mocked(updateUserNfts).mockResolvedValueOnce()
     const { req, res } = mockRequestResponse<AddWalletRequest, never, EmptyResponse>('PUT', undefined, validRequest)
-    await handleAddWallet(req, res, { id: 'userId', nonce: 'nonce' } as User)
+    await addWalletRequestHandler(req, res, { id: 'userId', nonce: 'nonce' } as User)
     expect(addUserWallet).toHaveBeenCalledTimes(1)
     expect(updateUserNfts).toHaveBeenCalledTimes(1)
     expect(res.statusCode).toBe(200)

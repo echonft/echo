@@ -1,4 +1,6 @@
-import { ApiResponse, ErrorResponse } from '@echo/api-public'
+import { ErrorResponse } from '@echo/api-public'
+import { errorMessage } from '@echo/utils'
+import { NextResponse } from 'next/server'
 
 export abstract class ApiError extends Error {
   status: number
@@ -7,7 +9,12 @@ export abstract class ApiError extends Error {
     this.status = status
   }
 
-  endResponse(res: ApiResponse<ErrorResponse>) {
-    res.end(res.status(this.status).json({ error: this.message }))
+  getErrorResponse(): NextResponse<ErrorResponse> {
+    return NextResponse.json(
+      {
+        error: errorMessage(this.message)
+      },
+      { status: this.status }
+    )
   }
 }

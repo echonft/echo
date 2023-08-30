@@ -1,7 +1,7 @@
-import { DependenciesProvider, getMessages } from '@echo/ui'
+import { DependenciesProvider, messages } from '@echo/ui'
 import '@echo/ui/dist/index.css'
 import type { Preview } from '@storybook/react'
-import { NextIntlProvider } from 'next-intl'
+import { NextIntlClientProvider } from 'next-intl'
 import { apiProvider } from '../src/mocks/api-provider'
 
 const preview: Preview = {
@@ -22,9 +22,9 @@ export const decorators = [
       // @ts-ignore
       <DependenciesProvider linkProvider={{ getLink: (_route, _params) => '/nfts' }} apiProvider={apiProvider}>
         {/*@ts-ignore*/}
-        <NextIntlProvider messages={getMessages('en')} locale={'en'}>
+        <NextIntlClientProvider messages={messages} locale={'en'}>
           {Story()}
-        </NextIntlProvider>
+        </NextIntlClientProvider>
       </DependenciesProvider>
     )
   }

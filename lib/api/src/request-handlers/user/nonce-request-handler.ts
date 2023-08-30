@@ -1,16 +1,11 @@
 import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
-import { assertAllowedMethods } from '../../helpers/error/assert-allowed-methods'
 import { setUserNonce } from '../../helpers/user/set-user-nonce'
-import { ApiRequest, ApiResponse, NonceResponse } from '@echo/api-public'
+import { ApiRequest, NonceResponse } from '@echo/api-public'
+import { NextResponse } from 'next/server'
 import { AuthOptions } from 'next-auth'
 
-export async function nonceRequestHandler(
-  req: ApiRequest<never>,
-  res: ApiResponse<NonceResponse>,
-  authOptions: AuthOptions
-) {
-  assertAllowedMethods(req, ['GET'])
-  const user = await getUserFromSession(req, res, authOptions)
+export async function nonceRequestHandler(_req: ApiRequest<never>, authOptions: AuthOptions) {
+  const user = await getUserFromSession(authOptions)
   const nonce = await setUserNonce(user)
-  return res.status(200).json({ nonce })
+  return NextResponse.json<NonceResponse>({ nonce })
 }

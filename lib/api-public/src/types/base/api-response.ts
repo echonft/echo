@@ -1,4 +1,4 @@
 import { ErrorResponse } from '../responses/error-response'
-import { NextApiResponse } from 'next'
+import { NextResponse } from 'next/server'
 
-export type ApiResponse<T> = NextApiResponse<T | ErrorResponse>
+export type ApiResponse<T> = NextResponse<T | ErrorResponse>

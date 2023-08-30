@@ -9,9 +9,7 @@ import { mockRequestResponse } from '../../mocks/request-response'
 import { CreateListingRequest, IdResponse } from '@echo/api-public'
 import { User } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { HTTP_METHODS } from 'next/dist/server/web/http'
 import { AuthOptions, getServerSession } from 'next-auth'
-import { equals, reject } from 'ramda'
 
 jest.mock('next-auth')
 jest.mock('../../../src/helpers/user/find-user-by-id')
@@ -41,19 +39,6 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
   }
   beforeEach(() => {
     jest.clearAllMocks()
-  })
-
-  it('throws if the request is not PUT', async () => {
-    const notAllowedMethods = reject(equals('PUT'))(HTTP_METHODS)
-    for (const method of notAllowedMethods) {
-      const { req, res } = mockRequestResponse<CreateListingRequest, never, IdResponse>(method)
-      try {
-        await createListingRequestHandler(req, res, {} as AuthOptions)
-        expect(true).toBeFalsy()
-      } catch (e) {
-        expect((e as ApiError).status).toBe(405)
-      }
-    }
   })
 
   it('throws if the request cannot be parsed', async () => {

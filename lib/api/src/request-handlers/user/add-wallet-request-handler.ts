@@ -1,4 +1,5 @@
 import { getSiweMessage } from '../../helpers/auth/get-siwe-message'
+import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
 import { verifySiweMessage } from '../../helpers/auth/verify-siwe-message'
 import { BadRequestError } from '../../helpers/error/bad-request-error'
 import { ForbiddenError } from '../../helpers/error/forbidden-error'
@@ -6,13 +7,16 @@ import { addUserWallet } from '../../helpers/user/add-user-wallet'
 import { findUserByWallet } from '../../helpers/user/find-user-by-wallet'
 import { parseAddWalletRequest } from '../../helpers/user/parse-add-wallet-request'
 import { updateUserNfts } from '../../helpers/user/update-user-nfts'
-import { AddWalletRequest, ApiRequest, ApiResponse, EmptyResponse } from '@echo/api-public'
-import { User } from '@echo/firestore'
+import { AddWalletRequest, ApiRequest, EmptyResponse } from '@echo/api-public'
 import { isNilOrEmpty } from '@echo/utils'
+import { NextResponse } from 'next/server'
+import { AuthOptions } from 'next-auth'
 import { isNil } from 'ramda'
 
-export async function handleAddWallet(req: ApiRequest<AddWalletRequest>, res: ApiResponse<EmptyResponse>, user: User) {
-  const { message, wallet, signature } = parseAddWalletRequest(req.body)
+export async function addWalletRequestHandler(req: ApiRequest<AddWalletRequest>, authOptions: AuthOptions) {
+  const user = await getUserFromSession(authOptions)
+  const requestBody = await req.json()
+  const { message, wallet, signature } = parseAddWalletRequest(requestBody)
   const foundUser = await findUserByWallet(wallet)
   if (!isNil(foundUser)) {
     if (user.id === foundUser.id) {
@@ -30,5 +34,5 @@ export async function handleAddWallet(req: ApiRequest<AddWalletRequest>, res: Ap
   }
   await addUserWallet(user.id, wallet)
   await updateUserNfts(user)
-  return res.status(200).json({})
+  return NextResponse.json<EmptyResponse>({})
 }

@@ -6,7 +6,7 @@ import { Fragment, FunctionComponent, ReactNode } from 'react'
 
 export interface ModalProps {
   open: boolean
-  onClose: () => void
+  onClose: () => unknown
   renderTitle?: () => ReactNode
   renderDescription?: () => ReactNode
 }

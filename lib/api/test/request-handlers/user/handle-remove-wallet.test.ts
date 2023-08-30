@@ -1,7 +1,7 @@
 import { ApiError } from '../../../src/helpers/error/api-error'
 import { removeUserWallet } from '../../../src/helpers/user/remove-user-wallet'
 import { updateUserNfts } from '../../../src/helpers/user/update-user-nfts'
-import { handleRemoveWallet } from '../../../src/request-handlers/user/handle-remove-wallet'
+import { removeWalletRequestHandler } from '../../../src/request-handlers/user/remove-wallet-request-handler'
 import { mockRequestResponse } from '../../mocks/request-response'
 import { EmptyResponse, RemoveWalletRequest } from '@echo/api-public'
 import { User } from '@echo/firestore'
@@ -30,7 +30,7 @@ describe('request-handlers - user - handleAddWallet', () => {
       {} as RemoveWalletRequest
     )
     try {
-      await handleRemoveWallet(req, res, { id: 'userId' } as User)
+      await removeWalletRequestHandler(req, res, { id: 'userId' } as User)
       expect(true).toBeFalsy()
     } catch (e) {
       expect((e as ApiError).status).toBe(400)
@@ -45,7 +45,7 @@ describe('request-handlers - user - handleAddWallet', () => {
       undefined,
       validRequest
     )
-    await handleRemoveWallet(req, res, { id: 'userId' } as User)
+    await removeWalletRequestHandler(req, res, { id: 'userId' } as User)
     expect(removeUserWallet).toHaveBeenCalledTimes(1)
     expect(updateUserNfts).toHaveBeenCalledTimes(1)
     expect(res.statusCode).toBe(200)

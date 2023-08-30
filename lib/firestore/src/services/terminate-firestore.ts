@@ -1,6 +1,6 @@
 import { firestore } from './firestore'
 
-export async function terminate() {
+export async function terminateFirestore() {
   try {
     await firestore().terminate()
   } catch (e) {

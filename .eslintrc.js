@@ -44,7 +44,8 @@ module.exports = {
       {
         groups: []
       }
-    ]
+    ],
+    'turbo/no-undeclared-env-vars': 'off'
   },
   settings: {
     'import/resolver': {

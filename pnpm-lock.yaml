@@ -180,8 +180,8 @@ importers:
         specifier: 4.22.5
         version: 4.22.5(next@13.4.19)(react-dom@18.2.0)(react@18.2.0)
       next-intl:
-        specifier: 2.19.1
-        version: 2.19.1(next@13.4.19)(react@18.2.0)
+        specifier: 3.0.0-beta.14
+        version: 3.0.0-beta.14(next@13.4.19)(react@18.2.0)
       ramda:
         specifier: 0.29.0
         version: 0.29.0
@@ -286,8 +286,8 @@ importers:
         specifier: 13.4.19
         version: 13.4.19(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0)
       next-intl:
-        specifier: 2.19.1
-        version: 2.19.1(next@13.4.19)(react@18.2.0)
+        specifier: 3.0.0-beta.14
+        version: 3.0.0-beta.14(next@13.4.19)(react@18.2.0)
       path-browserify:
         specifier: 1.0.1
         version: 1.0.1
@@ -458,8 +458,8 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
       zod:
-        specifier: 3.21.4
-        version: 3.21.4
+        specifier: 3.22.2
+        version: 3.22.2
 
   lib/api-public:
     devDependencies:
@@ -635,8 +635,8 @@ importers:
         specifier: 13.4.19
         version: 13.4.19(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0)
       next-intl:
-        specifier: 2.19.1
-        version: 2.19.1(next@13.4.19)(react@18.2.0)
+        specifier: 3.0.0-beta.14
+        version: 3.0.0-beta.14(next@13.4.19)(react@18.2.0)
       ramda:
         specifier: 0.29.0
         version: 0.29.0
@@ -16481,9 +16481,9 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
       uuid: 8.3.2
 
-  /next-intl@2.19.1(next@13.4.19)(react@18.2.0):
+  /next-intl@3.0.0-beta.14(next@13.4.19)(react@18.2.0):
     resolution:
-      { integrity: sha512-fk+IGWXxA+UOk+3rIhQqSPYxka+Hk9qKaIpbeF3nNlf8dp1td0oT6srVrPw/uZl5Qoj8El3qQ2mVd3RTLA25cg== }
+      { integrity: sha512-/nDS1Y8yrRJU2wVcqUw0pAdmN/+Z8JuGHJslzaOAjZ/UqJTYsBci+BiczkMGB8Tqk1F7OoDVRIxKQFtS3wu6mg== }
     engines: { node: '>=10' }
     peerDependencies:
       next: ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0
@@ -16493,7 +16493,8 @@ packages:
       negotiator: 0.6.3
       next: 13.4.19(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
-      use-intl: 2.20.0(react@18.2.0)
+      server-only: 0.0.1
+      use-intl: 3.0.0-beta.2(react@18.2.0)
 
   /next@13.4.19(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0):
     resolution:
@@ -19613,6 +19614,10 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
+  /server-only@0.0.1:
+    resolution:
+      { integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA== }
+
   /set-blocking@2.0.0:
     resolution:
       { integrity: sha512-KiKBS8AnWGEyLzofFfmvKwpdPzqiy16LvQfK3yv/fVH7Bj13/wl3JSR1J+rfgRE9q7xUJK4qvgS8raSOeLUehw== }
@@ -21409,9 +21414,9 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /use-intl@2.20.0(react@18.2.0):
+  /use-intl@3.0.0-beta.2(react@18.2.0):
     resolution:
-      { integrity: sha512-h9aOveHyqUSNshPvWSx88f0ny0w/F4kTG3oM1lGZYTlfK7vE6Ic9vVM7TDn/7idD3v6b2Vasp7q0le/opn6j/Q== }
+      { integrity: sha512-6q3p15QFpiYk0UptLXPOTHHczZRle4fRCb+VKcaM6m9m3LDZ28nN0SFsE3STdnYGvXXsozE6t6O3t9GC1/WdPA== }
     engines: { node: '>=10' }
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -22204,6 +22209,11 @@ packages:
   /zod@3.21.4:
     resolution:
       { integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw== }
+
+  /zod@3.22.2:
+    resolution:
+      { integrity: sha512-wvWkphh5WQsJbVk1tbx1l1Ly4yg+XecD+Mq280uBGt9wa5BKSWf4Mhp6GmrkPixhMxmabYY7RbzlwVP32pbGCg== }
+    dev: true
 
   /zustand@4.4.1(@types/react@18.2.19)(react@18.2.0):
     resolution:

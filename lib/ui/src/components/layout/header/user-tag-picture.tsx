@@ -1,12 +1,12 @@
 import { getUserAvatarUrl } from '../../../helpers/get-user-avatar-url'
 import { DefaultUserProfilePicture } from '../../base/svg/default-user-profile-picture'
-import { User } from '@echo/ui-model'
+import { AuthUser } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 export interface UserTagPictureProps {
-  user: User
+  user: AuthUser
 }
 
 export const UserTagPicture: FunctionComponent<UserTagPictureProps> = ({ user }) => {

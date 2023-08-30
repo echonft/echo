@@ -2,7 +2,7 @@ import { listenToInteractions } from './listeners/listen-to-interactions'
 import { listenToListings } from './listeners/listen-to-listings'
 import { listenToOffers } from './listeners/listen-to-offers'
 import { getDiscordSecret } from '@echo/discord'
-import { initialize } from '@echo/firestore'
+import { initializeFirebase } from '@echo/firestore'
 import { errorMessage, logger } from '@echo/utils'
 import { BaseInteraction, Client, Events, GatewayIntentBits } from 'discord.js'
 import { isEmpty, isNil } from 'ramda'
@@ -10,7 +10,7 @@ import { isEmpty, isNil } from 'ramda'
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) //create new client
 
 client.once(Events.ClientReady, (c) => {
-  initialize()
+  initializeFirebase()
   logger.info(`Ready! Logged in as ${c.user.tag}`)
   listenToListings(c)
   logger.info(`Listening to Firebase listings`)
