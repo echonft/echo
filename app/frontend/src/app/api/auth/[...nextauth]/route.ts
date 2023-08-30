@@ -1,21 +1,10 @@
 import { createOrUpdateUser } from '@echo/api'
 import { getDiscordAuthorizationUrl, getDiscordConfig } from '@echo/discord'
-import { Dayjs } from 'dayjs'
+import { logger } from '@echo/utils'
 import NextAuth, { AuthOptions } from 'next-auth'
 import Discord from 'next-auth/providers/discord'
 import { isNil } from 'ramda'
 
-type User = {
-  id: string
-  discordAvatar: string | undefined
-  discordBanner: string | undefined
-  discordGuilds: { discordId: string }[]
-  discordId: string
-  discordUsername: string
-  nonce: string | undefined
-  updatedAt: Dayjs | undefined
-  wallets: { address: string; chainId: number }[]
-}
 export const authOptions: AuthOptions = {
   providers: [
     Discord({
@@ -33,13 +22,13 @@ export const authOptions: AuthOptions = {
     async jwt({ token, account }) {
       // No firebase token means user is not logged in firebase
       if (account) {
-        return createOrUpdateUser(account.access_token, account.token_type)
-          .then((user) => {
-            return { ...token, user }
-          })
-          .catch(() => {
-            throw Error('Auth error: error creating or updating user')
-          })
+        try {
+          const user = await createOrUpdateUser(account.access_token, account.token_type, token.user)
+          return { user, ...token }
+        } catch (e) {
+          logger.error('Auth error: error creating or updating user')
+          return token
+        }
       }
       return token
     },
@@ -49,10 +38,12 @@ export const authOptions: AuthOptions = {
         throw Error('Auth error: invalid token data')
       }
       // Inject user in session
-      // TODO Not sure if casting like this here makes sense
-      return { ...session, user: user as User }
+      return { ...session, user: user }
     }
   }
 }
 
-export default NextAuth(authOptions)
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+const handler = NextAuth(authOptions)
+
+export { handler as GET, handler as POST }

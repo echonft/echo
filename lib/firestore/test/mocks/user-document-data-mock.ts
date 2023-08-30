@@ -33,6 +33,7 @@ export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
       }
     ],
     discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+    updatedAt: 1676984897,
     nonce: 'nonce',
     wallets: [
       {

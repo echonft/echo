@@ -8,6 +8,6 @@ describe('routing - createListingApiUrl', () => {
   })
 
   test('returns proper URL', () => {
-    expect(createListingApiUrl()).toStrictEqual(new URL('https://test.com/create/listing'))
+    expect(createListingApiUrl()).toStrictEqual(new URL('https://test.com/listing'))
   })
 })

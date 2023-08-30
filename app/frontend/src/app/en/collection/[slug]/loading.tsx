@@ -1,4 +1,4 @@
-import { CollectionSkeleton } from '@echo/ui'
+import { CollectionSkeleton } from '../../../../../../../lib/ui'
 import { FunctionComponent } from 'react'
 
 const Loading: FunctionComponent = () => {

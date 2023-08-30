@@ -1,7 +1,7 @@
-import { getUserById } from '../../../mocks/model/user'
+import { getAuthUser } from '../../../mocks/model/auth-user'
 import { UserTag as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
-import { assoc } from 'ramda'
+import { dissoc } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Layout/Header/User Tag',
@@ -11,11 +11,10 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-const user = getUserById('oE6yUEQBPn7PZ89yMjKn')
 export const Standard: Story = {
-  render: () => <Component user={user} />
+  render: () => <Component user={getAuthUser()} />
 }
 
 export const DefaultPicture: Story = {
-  render: () => <Component user={assoc('discordAvatar', undefined, user)} />
+  render: () => <Component user={dissoc('discordAvatar', getAuthUser())} />
 }

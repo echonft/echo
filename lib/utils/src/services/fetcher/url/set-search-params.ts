@@ -1,7 +1,9 @@
-import { FetcherData } from '../../../types/fetcher-data'
 import { isNil } from 'ramda'
 
-export const setSearchParams = <T extends FetcherData>(url: URL, data: T) => {
+export const setSearchParams = <T extends Record<string, string | number | string[] | undefined> | undefined>(
+  url: URL,
+  data: T
+) => {
   if (!isNil(data)) {
     Object.entries(data).forEach((dataPair) => {
       if (Array.isArray(dataPair[1])) {

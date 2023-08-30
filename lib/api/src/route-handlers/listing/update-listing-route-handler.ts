@@ -3,6 +3,10 @@ import { updateListingRequestHandler } from '../../request-handlers/listing/upda
 import { ApiRequest, UpdateListingRequest } from '@echo/api-public'
 import { AuthOptions } from 'next-auth'
 
-export async function updateListingRouteHandler(req: ApiRequest<UpdateListingRequest>, authOptions: AuthOptions) {
-  return await handleRestrictedRequest(req, authOptions, updateListingRequestHandler)
+export async function updateListingRouteHandler(
+  req: ApiRequest<UpdateListingRequest>,
+  authOptions: AuthOptions,
+  id: string
+) {
+  return await handleRestrictedRequest(req, authOptions, updateListingRequestHandler, id)
 }

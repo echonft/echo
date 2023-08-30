@@ -1,34 +1,38 @@
+import { getSession } from '../../../src/helpers/auth/get-session'
 import { ApiError } from '../../../src/helpers/error/api-error'
 import { findUserById } from '../../../src/helpers/user/find-user-by-id'
 import { handleAcceptOffer } from '../../../src/request-handlers/offer/handle-accept-offer'
 import { handleCancelOffer } from '../../../src/request-handlers/offer/handle-cancel-offer'
 import { handleRejectOffer } from '../../../src/request-handlers/offer/handle-reject-offer'
 import { updateOfferRequestHandler } from '../../../src/request-handlers/offer/update-offer-request-handler'
-import { mockRequestResponse } from '../../mocks/request-response'
-import { EmptyResponse, UpdateOfferAction, UpdateOfferRequest } from '@echo/api-public'
+import { mockRequest } from '../../mocks/request-response'
+import { UpdateOfferAction, UpdateOfferRequest } from '@echo/api-public'
 import { User } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
-import { AuthOptions, getServerSession } from 'next-auth'
+import { AuthOptions, Session } from 'next-auth'
 
-jest.mock('next-auth')
+jest.mock('../../../src/helpers/auth/get-session')
 jest.mock('../../../src/helpers/user/find-user-by-id')
 jest.mock('../../../src/request-handlers/offer/handle-accept-offer')
 jest.mock('../../../src/request-handlers/offer/handle-cancel-offer')
 jest.mock('../../../src/request-handlers/offer/handle-reject-offer')
 
 describe('request-handlers - offer - updateOfferRequestHandler', () => {
+  const id = 'offerId'
+  const session = {
+    user: {
+      id: 'userId'
+    }
+  } as unknown as Session
+
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
   it('throws if the request cannot be parsed', async () => {
-    const { req, res } = mockRequestResponse<UpdateOfferRequest, never, EmptyResponse>(
-      'POST',
-      undefined,
-      {} as UpdateOfferRequest
-    )
+    const req = mockRequest<UpdateOfferRequest>({} as UpdateOfferRequest)
     try {
-      await updateOfferRequestHandler(req, res, {} as AuthOptions)
+      await updateOfferRequestHandler(req, {} as AuthOptions, id)
       expect(true).toBeFalsy()
     } catch (e) {
       expect((e as ApiError).status).toBe(400)
@@ -36,13 +40,12 @@ describe('request-handlers - offer - updateOfferRequestHandler', () => {
   })
 
   it('throws if not authenticated', async () => {
-    jest.mocked(getServerSession).mockResolvedValueOnce(null)
-    const { req, res } = mockRequestResponse<UpdateOfferRequest, never, EmptyResponse>('POST', undefined, {
-      id: 'offerId',
+    jest.mocked(getSession).mockResolvedValueOnce(null)
+    const req = mockRequest<UpdateOfferRequest>({
       action: UpdateOfferAction.ACCEPT
     })
     try {
-      await updateOfferRequestHandler(req, res, {} as AuthOptions)
+      await updateOfferRequestHandler(req, {} as AuthOptions, id)
       expect(true).toBeFalsy()
     } catch (e) {
       expect((e as ApiError).status).toBe(403)
@@ -50,50 +53,41 @@ describe('request-handlers - offer - updateOfferRequestHandler', () => {
   })
 
   it('if authenticated and request action is ACCEPT, handleAcceptOffer should be called', async () => {
-    jest.mocked(getServerSession).mockResolvedValueOnce({
-      user: {
-        id: 'userId'
-      }
-    })
+    jest.mocked(getSession).mockResolvedValueOnce(session)
     jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     jest.mocked(handleAcceptOffer).mockResolvedValueOnce()
-    const { req, res } = mockRequestResponse<UpdateOfferRequest, never, EmptyResponse>('POST', undefined, {
-      id: 'offerId',
+    const req = mockRequest<UpdateOfferRequest>({
       action: UpdateOfferAction.ACCEPT
     })
-    await updateOfferRequestHandler(req, res, {} as AuthOptions)
+    await updateOfferRequestHandler(req, {} as AuthOptions, id)
     expect(handleAcceptOffer).toHaveBeenCalledTimes(1)
   })
 
   it('if authenticated and request action is CANCEL, handleCancelOffer should be called', async () => {
-    jest.mocked(getServerSession).mockResolvedValueOnce({
-      user: {
-        id: 'userId'
-      }
-    })
+    jest.mocked(getSession).mockResolvedValueOnce(session)
     jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     jest.mocked(handleCancelOffer).mockResolvedValueOnce()
-    const { req, res } = mockRequestResponse<UpdateOfferRequest, never, EmptyResponse>('POST', undefined, {
-      id: 'offerId',
+    const req = mockRequest<UpdateOfferRequest>({
       action: UpdateOfferAction.CANCEL
     })
-    await updateOfferRequestHandler(req, res, {} as AuthOptions)
+    await updateOfferRequestHandler(req, {} as AuthOptions, id)
     expect(handleCancelOffer).toHaveBeenCalledTimes(1)
   })
 
   it('if authenticated and request action is REJECT, handleRejectOffer should be called', async () => {
-    jest.mocked(getServerSession).mockResolvedValueOnce({
-      user: {
-        id: 'userId'
-      }
-    })
+    jest.mocked(getSession).mockResolvedValueOnce(session)
     jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     jest.mocked(handleRejectOffer).mockResolvedValueOnce()
-    const { req, res } = mockRequestResponse<UpdateOfferRequest, never, EmptyResponse>('POST', undefined, {
-      id: 'offerId',
+    const req = mockRequest<UpdateOfferRequest>({
       action: UpdateOfferAction.REJECT
     })
-    await updateOfferRequestHandler(req, res, {} as AuthOptions)
+    await updateOfferRequestHandler(req, {} as AuthOptions, id)
     expect(handleRejectOffer).toHaveBeenCalledTimes(1)
   })
 })

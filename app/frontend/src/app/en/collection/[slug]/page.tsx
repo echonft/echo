@@ -2,7 +2,6 @@ import { GetNftCollectionResponse, nftCollectionApiUrl } from '@echo/api-public'
 import { mapNftCollection } from '@echo/ui-model'
 import { getData } from '@echo/utils'
 import { notFound } from 'next/navigation'
-import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
@@ -11,12 +10,13 @@ interface Props {
   }
 }
 const CollectionPage: FunctionComponent<Props> = async ({ params: { slug } }) => {
-  const nftCollectionResponse = await getData<GetNftCollectionResponse>(nftCollectionApiUrl(slug))
-  if (isNil(nftCollectionResponse)) {
+  try {
+    const nftCollectionResponse = await getData<GetNftCollectionResponse>(nftCollectionApiUrl(slug))
+    const mappedCollection = mapNftCollection(nftCollectionResponse.collection)
+    return <p>{`collection: ${JSON.stringify(mappedCollection)}`}</p>
+  } catch (e) {
     notFound()
   }
-  const mappedCollection = mapNftCollection(nftCollectionResponse.collection)
-  return <p>{`collection: ${JSON.stringify(mappedCollection)}`}</p>
 }
 
 export default CollectionPage

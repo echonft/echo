@@ -8,6 +8,6 @@ describe('routing - userNonceApiUrl', () => {
   })
 
   test('returns proper URL', () => {
-    expect(userNonceApiUrl()).toStrictEqual(new URL('https://test.com/user/nonce'))
+    expect(userNonceApiUrl()).toStrictEqual(new URL('https://test.com/user/me/nonce'))
   })
 })

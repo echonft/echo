@@ -8,6 +8,6 @@ describe('routing - userWalletApiUrl', () => {
   })
 
   test('returns proper URL', () => {
-    expect(userWalletApiUrl()).toStrictEqual(new URL('https://test.com/user/wallet'))
+    expect(userWalletApiUrl()).toStrictEqual(new URL('https://test.com/user/me/wallet'))
   })
 })
