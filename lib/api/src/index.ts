@@ -1,5 +1,4 @@
 export { createOrUpdateUser } from './helpers/auth/create-or-update-user'
-export { ApiError } from './helpers/error/api-error'
 export { updateUserNfts } from './helpers/user/update-user-nfts'
 export { createListingRouteHandler } from './route-handlers/listing/create-listing-route-handler'
 export { updateListingRouteHandler } from './route-handlers/listing/update-listing-route-handler'
