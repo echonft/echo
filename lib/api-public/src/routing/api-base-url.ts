@@ -1,5 +1,4 @@
 import { isNilOrEmpty } from '@echo/utils'
-import * as process from 'process'
 
 export function apiBaseUrl() {
   if (process.env.NODE_ENV === 'development') {

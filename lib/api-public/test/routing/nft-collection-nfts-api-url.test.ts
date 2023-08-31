@@ -1,12 +1,7 @@
 import { nftCollectionNftsApiUrl } from '../../src/routing/nft-collection-nfts-api-url'
-import { setupEnv } from '../setup-env'
-import { beforeEach, describe, expect, test } from '@jest/globals'
+import { describe, expect, test } from '@jest/globals'
 
 describe('routing - nftCollectionNftsApiUrl', () => {
-  beforeEach(() => {
-    setupEnv()
-  })
-
   test('throws if slug is empty', () => {
     expect(() => nftCollectionNftsApiUrl('')).toThrow()
   })

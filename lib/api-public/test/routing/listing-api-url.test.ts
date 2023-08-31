@@ -1,12 +1,7 @@
 import { listingApiUrl } from '../../src/routing/listing-api-url'
-import { setupEnv } from '../setup-env'
-import { beforeEach, describe, expect, test } from '@jest/globals'
+import { describe, expect, test } from '@jest/globals'
 
 describe('routing - listingApiUrl', () => {
-  beforeEach(() => {
-    setupEnv()
-  })
-
   test('throws if id is empty', () => {
     expect(() => listingApiUrl('')).toThrow()
   })
