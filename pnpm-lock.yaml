@@ -580,6 +580,9 @@ importers:
       '@babel/preset-react':
         specifier: 7.22.5
         version: 7.22.5(@babel/core@7.22.10)
+      '@echo/api-public':
+        specifier: workspace:*
+        version: link:../api-public
       '@echo/ui-model':
         specifier: workspace:*
         version: link:../ui-model

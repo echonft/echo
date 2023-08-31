@@ -1,6 +1,6 @@
 'use client'
 import { useApiHooks } from '../../../dependencies/hooks/use-api-hooks'
-import { CollectionNftsAndFiltersContainerSkeleton } from '../../skeleton/collection/collection-nfts-and-filters-container-skeleton'
+import { CollectionNftsSkeleton } from '../../skeleton/collection/collection-nfts-skeleton'
 import { CollectionNftsAndFiltersContainer } from '../collection-nfts-and-filters-container'
 import { filterNftsByTraits, getTraitsForNfts, NftTraits } from '@echo/ui-model'
 import { isNil } from 'ramda'
@@ -37,7 +37,7 @@ export const CollectionNftsFetcher: FunctionComponent<CollectionNftsFetcherProps
   }, [data, traits])
 
   if (isNil(traits)) {
-    return <CollectionNftsAndFiltersContainerSkeleton />
+    return <CollectionNftsSkeleton />
   }
 
   return (

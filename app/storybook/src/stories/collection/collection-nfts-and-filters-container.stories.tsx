@@ -1,5 +1,5 @@
 import { getAllNfts } from '../../mocks/model/nft'
-import { CollectionNftsAndFiltersContainer as Component, CollectionNftsAndFiltersContainerSkeleton } from '@echo/ui'
+import { CollectionNftsAndFiltersContainer as Component, CollectionNftsSkeleton } from '@echo/ui'
 import { getTraitsForNfts } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -38,5 +38,5 @@ export const FetchingNewNFTS: Story = {
 }
 
 export const Skeleton: Story = {
-  render: () => <CollectionNftsAndFiltersContainerSkeleton />
+  render: () => <CollectionNftsSkeleton />
 }

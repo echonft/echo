@@ -1,4 +1,5 @@
 import '@echo/ui/dist/index.css'
+import '../index.css'
 import { authOptions } from '@app/api/auth/[...nextauth]/route'
 import { Providers } from '@components/providers'
 import { Metadata } from 'next'

@@ -6,7 +6,7 @@ import { FunctionComponent } from 'react'
 
 export const CollectionDetailsSkeleton: FunctionComponent = () => {
   return (
-    <div className={clsx('flex', 'flex-col', 'self-stretch', 'w-full')}>
+    <div className={clsx('flex', 'flex-col', 'w-full')}>
       <BannerSkeleton />
       <PaddedContainer>
         <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-40', 'pb-8')}>

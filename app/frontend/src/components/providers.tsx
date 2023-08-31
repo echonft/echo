@@ -1,11 +1,12 @@
 'use client'
-import { DependenciesProvider } from '@echo/ui'
+import { DependenciesProvider, messages } from '@echo/ui'
 import { apiProvider } from '@lib/dependencies/api-provider'
 import dayjs from 'dayjs'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { Session } from 'next-auth'
 import { SessionProvider } from 'next-auth/react'
+import { NextIntlClientProvider } from 'next-intl'
 import { FunctionComponent, PropsWithChildren } from 'react'
 import { RecoilRoot } from 'recoil'
 
@@ -25,9 +26,9 @@ export const Providers: FunctionComponent<PropsWithChildren<ProvidersProps>> = (
     <RecoilRoot>
       {/*<WagmiConfig config={wagmiConfig}>*/}
       {/*  <DynamicConnectKitProvider>*/}
-      {/*<NextIntlClientProvider timeZone={dayjs.tz.guess()} messages={messages} locale={'en'}>*/}
-      <DependenciesProvider apiProvider={apiProvider}>{children}</DependenciesProvider>
-      {/*</NextIntlClientProvider>*/}
+      <NextIntlClientProvider timeZone={dayjs.tz.guess()} messages={messages} locale={'en'}>
+        <DependenciesProvider apiProvider={apiProvider}>{children}</DependenciesProvider>
+      </NextIntlClientProvider>
       {/*</DynamicConnectKitProvider>*/}
       {/*</WagmiConfig>*/}
     </RecoilRoot>

@@ -10,7 +10,7 @@ const Layout: FunctionComponent<PropsWithChildren> = async ({ children }) => {
   return (
     <div className={clsx('w-screen', 'min-h-screen')}>
       <Header user={session?.user} />
-      <main>{children}</main>
+      <main className={clsx('w-full')}>{children}</main>
     </div>
   )
 }

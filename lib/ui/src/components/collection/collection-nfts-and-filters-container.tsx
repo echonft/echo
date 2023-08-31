@@ -1,4 +1,5 @@
 'use client'
+import { PaddedContainer } from '../layout/padded-container'
 import { CollectionNftsContainer } from './collection-nfts-container'
 import { CollectionOfferButton } from './collection-offer-button'
 import { TraitFilterPanel } from './filters/trait-filter-panel'
@@ -47,33 +48,37 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<CollectionNfts
   }, [nfts, nftSelection, setNftSelection])
 
   return (
-    <div className={clsx('flex', 'flex-row', 'self-stretch', 'grow', 'gap-8')}>
-      <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4')}>
-        <CollectionOfferButton count={nftSelection.length} />
-        <TraitFilterPanel
-          traits={traits}
-          onSelectionUpdate={(type, selection) => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            const newSelection = isEmpty(selection) ? dissoc(type, selection) : assoc(type, selection, traitSelection)
-            setTraitSelection(newSelection)
-            onTraitSelectionUpdate?.(newSelection)
+    <PaddedContainer>
+      <div className={clsx('flex', 'flex-row', 'self-stretch', 'grow', 'gap-8')}>
+        <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4')}>
+          <CollectionOfferButton count={nftSelection.length} />
+          <TraitFilterPanel
+            traits={traits}
+            onSelectionUpdate={(type, selection) => {
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
+              const newSelection = isEmpty(selection)
+                ? dissoc(type, traitSelection)
+                : assoc(type, selection, traitSelection)
+              setTraitSelection(newSelection)
+              onTraitSelectionUpdate?.(newSelection)
+            }}
+          />
+        </div>
+        <CollectionNftsContainer
+          nfts={nfts}
+          selection={nftSelection}
+          onToggleSelection={(id, selected) => {
+            if (selected) {
+              setNftSelection(addToArrayIfNotPresent(nftSelection, id, equals))
+            } else {
+              setNftSelection(removeFromArray(nftSelection, id, equals))
+            }
           }}
+          onMakeOfferForNft={onMakeOfferForNft}
+          isLoading={isFetchingNfts}
         />
       </div>
-      <CollectionNftsContainer
-        nfts={nfts}
-        selection={nftSelection}
-        onToggleSelection={(id, selected) => {
-          if (selected) {
-            setNftSelection(addToArrayIfNotPresent(nftSelection, id, equals))
-          } else {
-            setNftSelection(removeFromArray(nftSelection, id, equals))
-          }
-        }}
-        onMakeOfferForNft={onMakeOfferForNft}
-        isLoading={isFetchingNfts}
-      />
-    </div>
+    </PaddedContainer>
   )
 }

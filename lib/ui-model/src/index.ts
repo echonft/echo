@@ -6,6 +6,7 @@ export { getCollectionFiltersForNfts } from './helpers/get-collection-filters-fo
 export { getOfferItemsWallet } from './helpers/get-offer-items-wallet'
 export { getTraitsForNfts } from './helpers/get-traits-for-nfts'
 export { groupNftTraits } from './helpers/group-nft-traits'
+export { mapNft } from './mappers/from-api/map-nft'
 export { mapNftCollection } from './mappers/from-api/map-nft-collection'
 export { mapNftTraitsToNftAttributes } from './mappers/map-nft-traits-to-nft-attributes'
 export type { AuthUser } from './types/auth-user'

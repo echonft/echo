@@ -7,7 +7,7 @@ import { FunctionComponent } from 'react'
 export const NotFound: FunctionComponent = () => {
   const t = useTranslations('notFoundPage')
   return (
-    <div className={clsx('w-max', 'flex', 'flex-col', 'mt-44', 'mx-auto', 'items-center')}>
+    <div className={clsx('w-max', 'h-full', 'flex', 'flex-col', 'pt-44', 'mx-auto', 'items-center')}>
       <div
         className={clsx(
           'relative',
