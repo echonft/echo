@@ -1,21 +1,16 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { NftDetailsTokenDetailsPanelRow } from './nft-details-token-details-panel-row'
 import { TokenType } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface NftDetailsTokenDetailsPanelProps {
+interface Props {
   chainId: number
   tokenId: number
   tokenType: TokenType
 }
 
-export const NftDetailsTokenDetailsPanel: FunctionComponent<NftDetailsTokenDetailsPanelProps> = ({
-  chainId,
-  tokenType,
-  tokenId
-}) => {
+export const NftDetailsTokenDetailsPanel: FunctionComponent<Props> = ({ chainId, tokenType, tokenId }) => {
   const t = useTranslations()
   return (
     <div className={clsx('flex', 'flex-col', 'flex-none', 'w-[33rem]', 'rounded-2xl', 'bg-white/[0.09]')}>
@@ -36,6 +31,7 @@ export const NftDetailsTokenDetailsPanel: FunctionComponent<NftDetailsTokenDetai
         <NftDetailsTokenDetailsPanelRow name={t('nft.details.tokenDetails.tokenId')} value={tokenId.toString()} />
         <NftDetailsTokenDetailsPanelRow
           name={t('nft.details.tokenDetails.blockchain')}
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           value={t(`chain.name.id${chainId}`)}
         />

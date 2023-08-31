@@ -8,12 +8,12 @@ import { FunctionComponent } from 'react'
 
 // TODO Should be somewhere more global
 dayjs.extend(RelativeTime)
-export interface OfferDetailsStateProps {
+interface Props {
   state: OfferState
   expiresAt: dayjs.Dayjs
 }
 
-export const OfferDetailsState: FunctionComponent<OfferDetailsStateProps> = ({ state, expiresAt }) => {
+export const OfferDetailsState: FunctionComponent<Props> = ({ state, expiresAt }) => {
   const tState = useTranslations('offer.state')
   const tDetails = useTranslations('offer.details')
   return (

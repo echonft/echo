@@ -9,7 +9,7 @@ import { clsx } from 'clsx'
 import { assoc, dissoc, equals, find, isEmpty, isNil, propEq, reduce } from 'ramda'
 import { FunctionComponent, useEffect, useState } from 'react'
 
-export interface CollectionNftsAndFiltersContainerProps {
+interface Props {
   nfts: Nft[]
   traits: NftTraits
   isFetchingNfts?: boolean
@@ -17,7 +17,7 @@ export interface CollectionNftsAndFiltersContainerProps {
   onMakeOfferForNft?: (id: string) => unknown
 }
 
-export const CollectionNftsAndFiltersContainer: FunctionComponent<CollectionNftsAndFiltersContainerProps> = ({
+export const CollectionNftsAndFiltersContainer: FunctionComponent<Props> = ({
   nfts,
   traits,
   isFetchingNfts,

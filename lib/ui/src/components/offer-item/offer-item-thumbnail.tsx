@@ -7,19 +7,14 @@ import { OfferItem, SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface OfferItemThumbnailProps {
+interface Props {
   item: OfferItem
   size: OfferItemThumbnailSize
   discordUsername?: string
   onRemove?: (item: OfferItem) => unknown
 }
 
-export const OfferItemThumbnail: FunctionComponent<OfferItemThumbnailProps> = ({
-  item,
-  discordUsername,
-  size,
-  onRemove
-}) => {
+export const OfferItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername, size, onRemove }) => {
   const { name, tokenId, thumbnailUrl, collectionName } = item.nft
   return (
     <div

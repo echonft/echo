@@ -6,14 +6,14 @@ import { User } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface NftDetailsHeaderProps extends NftDetailsLinksProps {
+interface Props extends NftDetailsLinksProps {
   collectionName: string
   title: string | undefined
   tokenId: number
   owner: User
 }
 
-export const NftDetailsHeader: FunctionComponent<NftDetailsHeaderProps> = ({
+export const NftDetailsHeader: FunctionComponent<Props> = ({
   collectionName,
   tokenId,
   title,

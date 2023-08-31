@@ -3,15 +3,11 @@ import { NftTraitValue } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface TraitFilterSelectorProps extends SelectableProps<NftTraitValue> {
+interface Props extends SelectableProps<NftTraitValue> {
   value: NftTraitValue
 }
 
-export const TraitFilterSelector: FunctionComponent<TraitFilterSelectorProps> = ({
-  value,
-  selected,
-  onToggleSelection
-}) => {
+export const TraitFilterSelector: FunctionComponent<Props> = ({ value, selected, onToggleSelection }) => {
   return (
     <button
       className={clsx(

@@ -11,19 +11,14 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface OfferDetailsButtonsContainerProps {
+interface Props {
   state: OfferState
   nftsCount: number
   onAccept?: () => unknown
   onDecline?: () => unknown
 }
 
-export const OfferDetailsButtonsContainer: FunctionComponent<OfferDetailsButtonsContainerProps> = ({
-  state,
-  nftsCount,
-  onAccept,
-  onDecline
-}) => {
+export const OfferDetailsButtonsContainer: FunctionComponent<Props> = ({ state, nftsCount, onAccept, onDecline }) => {
   const t = useTranslations('offer.details')
   return (
     <div className={clsx('flex', 'flex-row', 'gap-8')}>

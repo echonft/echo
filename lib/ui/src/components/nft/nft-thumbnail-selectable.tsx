@@ -9,13 +9,13 @@ import { Nft } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface NftThumbnailSelectableProps extends SelectableProps<string> {
+interface Props extends SelectableProps<string> {
   nft: Nft
   hideOwner?: boolean
   onMakeOffer?: (id: string) => unknown
 }
 
-export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectableProps> = ({
+export const NftThumbnailSelectable: FunctionComponent<Props> = ({
   nft,
   hideOwner,
   selected,

@@ -6,11 +6,11 @@ import { OfferDetailsOfferActionModalTitle } from './offer-details-offer-action-
 import { OfferState } from '@echo/ui-model'
 import { FunctionComponent, useEffect, useState } from 'react'
 
-export interface OfferDetailsActionModalProps {
+interface Props {
   offerState: OfferState
 }
 
-export const OfferDetailsActionModal: FunctionComponent<OfferDetailsActionModalProps> = ({ offerState }) => {
+export const OfferDetailsActionModal: FunctionComponent<Props> = ({ offerState }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   useEffect(() => {
     if (offerState === 'ACCEPTED' || offerState === 'CANCELLED' || offerState === 'REJECTED') {

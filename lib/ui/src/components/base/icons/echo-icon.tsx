@@ -10,11 +10,11 @@ import { FunctionComponent } from 'react'
 export const echoIconColors = [ColorBlack, ColorYellow] as const
 export type EchoIconColor = (typeof echoIconColors)[number]
 
-export interface EchoIconProps {
+interface Props {
   color: EchoIconColor
   size: IconSize
 }
-export const EchoIcon: FunctionComponent<EchoIconProps> = ({ color, size }) => {
+export const EchoIcon: FunctionComponent<Props> = ({ color, size }) => {
   const sizeInPx = Math.floor(getIconSizeInPx(size) * (13 / 24))
   return (
     <IconContainer size={size}>

@@ -3,16 +3,12 @@ import { SizeLG, SizeMD, SizeSM } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
-export interface IconContainerProps {
+interface Props {
   size: IconSize
   className?: string
 }
 
-export const IconContainer: FunctionComponent<PropsWithChildren<IconContainerProps>> = ({
-  size,
-  className,
-  children
-}) => {
+export const IconContainer: FunctionComponent<PropsWithChildren<Props>> = ({ size, className, children }) => {
   return (
     <div
       className={clsx(

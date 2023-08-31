@@ -9,13 +9,13 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface NftDetailsProps {
+interface Props {
   nft: NftWithCollection
   offers?: Offer[]
   onMakeOffer?: () => unknown
 }
 
-export const NftDetails: FunctionComponent<NftDetailsProps> = ({ nft, offers, onMakeOffer }) => {
+export const NftDetails: FunctionComponent<Props> = ({ nft, offers, onMakeOffer }) => {
   const t = useTranslations('nft.details')
   return (
     <PaddedContainer>

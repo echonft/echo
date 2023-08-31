@@ -1,8 +1,9 @@
+import { CalloutSeverity } from '../../../constants/callout-severity'
+import { CalloutVariant } from '../../../constants/callout-variant'
 import { CheckmarkIconSvg } from '../svg/checkmark-icon-svg'
 import { QuestionMarkIconSvg } from '../svg/question-mark-icon-svg'
 import { WarningSignIconSvg } from '../svg/warning-sign-icon-svg'
 import { XIconSvg } from '../svg/x-icon-svg'
-import { CalloutSeverity, CalloutVariant } from './callout'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

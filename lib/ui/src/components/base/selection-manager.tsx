@@ -2,15 +2,12 @@
 import { SelectableProps } from '../../types/selectable-props'
 import { cloneElement, ReactElement, useState } from 'react'
 
-export interface SelectionManagerProps<T, U extends SelectableProps<T>> {
+interface Props<T, U extends SelectableProps<T>> {
   initialSelection?: boolean
   children: ReactElement<U>
 }
 
-export const SelectionManager = <T, U extends SelectableProps<T>>({
-  initialSelection,
-  children
-}: SelectionManagerProps<T, U>) => {
+export const SelectionManager = <T, U extends SelectableProps<T>>({ initialSelection, children }: Props<T, U>) => {
   const [selected, setSelected] = useState(initialSelection ?? false)
   return cloneElement<U>(children, {
     ...children.props,

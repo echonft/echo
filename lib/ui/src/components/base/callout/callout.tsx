@@ -1,26 +1,16 @@
+import { CalloutSeverity } from '../../../constants/callout-severity'
+import { CalloutVariant } from '../../../constants/callout-variant'
 import { CalloutIcon } from './callout-icon'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export enum CalloutSeverity {
-  INFO = 'Info',
-  WARNING = 'Warning',
-  ERROR = 'Error',
-  SUCCESS = 'Success'
-}
-
-export enum CalloutVariant {
-  SOLID = 'Solid',
-  OUTLINE = 'Outline'
-}
-
-export interface CalloutProps {
+interface Props {
   severity: CalloutSeverity
   variant?: CalloutVariant
   children: string
 }
 
-export const Callout: FunctionComponent<CalloutProps> = ({ severity, variant = CalloutVariant.SOLID, children }) => {
+export const Callout: FunctionComponent<Props> = ({ severity, variant = CalloutVariant.SOLID, children }) => {
   return (
     <div
       className={clsx(

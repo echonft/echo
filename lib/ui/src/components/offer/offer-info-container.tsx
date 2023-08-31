@@ -4,12 +4,12 @@ import { OfferState } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface OfferInfoContainerProps {
+interface Props {
   state: OfferState
   discordUsername: string
 }
 
-export const OfferInfoContainer: FunctionComponent<OfferInfoContainerProps> = ({ state, discordUsername }) => {
+export const OfferInfoContainer: FunctionComponent<Props> = ({ state, discordUsername }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-4')}>
       <OfferStatePill state={state} />

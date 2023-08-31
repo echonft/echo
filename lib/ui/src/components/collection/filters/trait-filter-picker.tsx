@@ -9,7 +9,7 @@ import { clsx } from 'clsx'
 import { any, eqProps, isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
-export interface TraitFilterPickerProps extends CollapsibleProps, MultiSelectableProps<NftTraitValue> {
+interface Props extends CollapsibleProps, MultiSelectableProps<NftTraitValue> {
   traitFilterGroup: TraitFilterGroup
 }
 
@@ -20,7 +20,7 @@ function isTraitSelected(trait: NftTraitValue, selection: NftTraitValue[] | unde
   return any(eqProps('value', trait), selection)
 }
 
-export const TraitFilterPicker: FunctionComponent<TraitFilterPickerProps> = ({
+export const TraitFilterPicker: FunctionComponent<Props> = ({
   traitFilterGroup,
   selection,
   collapsed,

@@ -4,11 +4,11 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
-export interface BottomSliderProps extends PropsWithChildren {
+interface Props {
   renderTitle?: () => ReactNode
 }
 
-export const BottomSlider: FunctionComponent<BottomSliderProps> = ({ renderTitle, children }) => {
+export const BottomSlider: FunctionComponent<PropsWithChildren<Props>> = ({ renderTitle, children }) => {
   return (
     <Disclosure>
       <div className={clsx('fixed', 'bottom-0', 'right-2', 'bg-main-gradient', 'rounded-t-md')}>

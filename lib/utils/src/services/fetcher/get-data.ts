@@ -17,7 +17,6 @@ export const getData = async <
     pipe(setMethod('GET'), setAuthorization(authorization))(jsonContentTypeRequestInit)
   )
   if (!response.ok) {
-    console.log(`fetch error ${JSON.stringify(response)}`)
     throw Error()
   }
   return (await response.json()) as T

@@ -6,11 +6,11 @@ import { IconContainerColor } from './icon-container-color'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface RedFlagIconProps {
+interface Props {
   size: IconSize
 }
 
-export const RedFlagIcon: FunctionComponent<RedFlagIconProps> = ({ size }) => {
+export const RedFlagIcon: FunctionComponent<Props> = ({ size }) => {
   const width = Math.floor(getIconSizeInPx(size) * (13 / 24))
   const height = Math.floor(getIconSizeInPx(size) * (14 / 24))
   return (

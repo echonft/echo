@@ -4,11 +4,11 @@ import { CollectionProfile, CollectionProfileProps } from './collection-profile'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface CollectionDetailsProps extends CollectionProfileProps, BannerProps {
+interface Props extends CollectionProfileProps, BannerProps {
   description: string
 }
 
-export const CollectionDetails: FunctionComponent<CollectionDetailsProps> = ({
+export const CollectionDetails: FunctionComponent<Props> = ({
   bannerUrl,
   size,
   collectionName,

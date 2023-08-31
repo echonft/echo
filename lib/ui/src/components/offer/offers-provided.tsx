@@ -5,12 +5,12 @@ import { Offer, User } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface OffersProvidedProps {
+interface Props {
   offers: Offer[]
   user: User
 }
 
-export const OffersProvided: FunctionComponent<OffersProvidedProps> = ({ offers, user }) => {
+export const OffersProvided: FunctionComponent<Props> = ({ offers, user }) => {
   return (
     <PaddedContainer>
       <div className={clsx('flex', 'flex-col', 'self-stretch', 'grow', 'gap-12')}>

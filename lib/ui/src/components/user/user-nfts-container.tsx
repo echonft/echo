@@ -7,7 +7,7 @@ import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
-export interface UserNftsContainerProps {
+interface Props {
   nfts: Nft[]
   selection?: string[]
   isLoading?: boolean
@@ -15,7 +15,7 @@ export interface UserNftsContainerProps {
   onMakeOfferForNft?: (id: string) => unknown
 }
 
-export const UserNftsContainer: FunctionComponent<UserNftsContainerProps> = ({
+export const UserNftsContainer: FunctionComponent<Props> = ({
   nfts,
   selection,
   isLoading,

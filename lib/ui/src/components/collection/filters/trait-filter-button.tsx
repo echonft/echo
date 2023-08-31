@@ -4,12 +4,12 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface TraitFilterButtonProps extends CollapsibleProps {
+interface Props extends CollapsibleProps {
   trait: string
   selectionCount: number
 }
 
-export const TraitFilterButton: FunctionComponent<TraitFilterButtonProps> = ({
+export const TraitFilterButton: FunctionComponent<Props> = ({
   trait,
   selectionCount,
   collapsed,

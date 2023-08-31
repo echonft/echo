@@ -2,11 +2,11 @@ import { DiscordIconSvg } from '../base/svg/discord-icon-svg'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface UserDiscordTagProps {
+interface Props {
   discordUsername: string
 }
 
-export const UserDiscordTag: FunctionComponent<UserDiscordTagProps> = ({ discordUsername }) => {
+export const UserDiscordTag: FunctionComponent<Props> = ({ discordUsername }) => {
   return (
     <div
       className={clsx(

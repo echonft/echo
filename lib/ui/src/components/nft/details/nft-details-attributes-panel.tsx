@@ -4,11 +4,11 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface NftDetailsAttributesPanelProps {
+interface Props {
   attributes: NftAttribute[]
 }
 
-export const NftDetailsAttributesPanel: FunctionComponent<NftDetailsAttributesPanelProps> = ({ attributes }) => {
+export const NftDetailsAttributesPanel: FunctionComponent<Props> = ({ attributes }) => {
   const t = useTranslations('nft.details.attributes')
 
   return (

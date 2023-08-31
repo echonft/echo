@@ -5,9 +5,6 @@
   "compilerOptions": {
     "plugins": [{ "name": "next" }],
     "jsx": "preserve",
-    "lib": ["dom", "dom.iterable", "esnext"],
     "noEmit": true
-  },
-  "include": ["src", "next-env.d.ts"],
-  "exclude": ["node_modules"]
+  }
 }
