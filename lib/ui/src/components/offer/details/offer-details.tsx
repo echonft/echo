@@ -5,29 +5,15 @@ import { FunctionComponent, Suspense } from 'react'
 
 export interface OfferDetailsProps {
   user: User
-  offer?: Offer
+  initialOffer?: Offer
   offerId?: string
   onOfferError?: (error: Error) => unknown
-  // For testing purposes only
-  renderModal?: boolean
 }
 
-export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({
-  user,
-  offer,
-  offerId,
-  onOfferError,
-  renderModal = true
-}) => {
+export const OfferDetails: FunctionComponent<OfferDetailsProps> = ({ user, initialOffer, offerId, onOfferError }) => {
   return (
     <Suspense fallback={<OfferDetailsSkeleton />}>
-      <OfferDetailsFetcher
-        offerId={offerId}
-        offer={offer}
-        user={user}
-        onOfferError={onOfferError}
-        renderModal={renderModal}
-      />
+      <OfferDetailsFetcher offerId={offerId} initialOffer={initialOffer} user={user} onOfferError={onOfferError} />
     </Suspense>
   )
 }

@@ -2,7 +2,7 @@ import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface OfferDetailsAcceptButtonProps extends PropsWithChildren {
-  disabled: boolean
+  disabled?: boolean
   onAction?: () => unknown
 }
 
@@ -27,7 +27,12 @@ export const OfferDetailsDeclineButton: FunctionComponent<OfferDetailsAcceptButt
       disabled={disabled}
     >
       <span
-        className={clsx('prose-label-lg', 'text-dark-500', 'group-hover:text-white', 'group-disabled:text-dark-500')}
+        className={clsx(
+          'prose-label-lg',
+          'text-dark-500',
+          'group-active:group-hover:text-white',
+          'group-disabled:text-dark-500'
+        )}
       >
         {children}
       </span>

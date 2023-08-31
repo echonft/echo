@@ -2,6 +2,5 @@
 export enum UpdateOfferAction {
   CANCEL,
   REJECT,
-  ACCEPT,
-  COMPLETE
+  ACCEPT
 }

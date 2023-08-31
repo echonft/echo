@@ -1,3 +1,4 @@
+import { getUpdateOfferActionFromOffer } from '../../../helpers/get-update-offer-action-from-offer'
 import { UpdateOfferFetcher } from '../fetchers/update-offer-fetcher'
 import { OfferReceiverDetailsContainer } from '../offer-receiver-details-container'
 import { OfferDetailsActionModal } from './offer-details-action-modal'
@@ -6,9 +7,8 @@ import { OfferDetailsButtonsContainer } from './offer-details-buttons-container'
 import { offerDetailsContainerBackgroundImage } from './offer-details-container-background-image'
 import { OfferDetailsItemsContainer } from './offer-details-items-container'
 import { OfferDetailsState } from './offer-details-state'
-import { getUpdateOfferActionFromOffer, Offer } from '@echo/ui-model'
+import { Offer } from '@echo/ui-model'
 import { clsx } from 'clsx'
-import { isNil } from 'ramda'
 import { FunctionComponent, useMemo, useState } from 'react'
 
 export interface OfferDetailsProvidedProps {
@@ -80,7 +80,7 @@ export const OfferDetailsProvided: FunctionComponent<OfferDetailsProvidedProps> 
         </div>
       </div>
       {renderModal && <OfferDetailsActionModal offerState={offer.state} />}
-      {renderModal && shouldUpdate && !isNil(getUpdateOfferAction) && (
+      {renderModal && shouldUpdate && (
         <UpdateOfferFetcher
           offerId={offer.id}
           updateAction={getUpdateOfferAction}

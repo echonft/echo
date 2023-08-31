@@ -2,7 +2,7 @@ import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface OfferDetailsAcceptButtonProps extends PropsWithChildren {
-  disabled: boolean
+  disabled?: boolean
   onAction?: () => unknown
 }
 

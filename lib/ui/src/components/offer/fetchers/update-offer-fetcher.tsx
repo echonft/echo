@@ -1,11 +1,10 @@
 import { useApiHooks } from '../../../dependencies/hooks/use-api-hooks'
-import { UpdateOfferAction } from '@echo/api-public'
 import { isNil } from 'ramda'
 import { FunctionComponent, useEffect } from 'react'
 
 export interface UpdateOfferFetcherProps {
   offerId: string
-  updateAction: UpdateOfferAction
+  updateAction: number
   onOfferUpdated?: () => unknown
   onOfferUpdateError?: (error: Error) => unknown
 }
@@ -29,6 +28,7 @@ export const UpdateOfferFetcher: FunctionComponent<UpdateOfferFetcherProps> = ({
   // data handling
   useEffect(() => {
     if (!isNil(data) && !isNil(onOfferUpdated)) {
+      // TODO Should simply mutate data here via global config
       onOfferUpdated()
     }
   }, [data, onOfferUpdated])

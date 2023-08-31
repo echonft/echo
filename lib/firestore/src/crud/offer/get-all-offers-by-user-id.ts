@@ -1,7 +1,7 @@
 import { CollectionName } from '../../constants/collection-name'
 import { offerDataConverter } from '../../converters/offer-data-converter'
 import { firestore } from '../../services/firestore'
-import { isNil } from 'ramda'
+import { isNil, or } from 'ramda'
 
 export const getAllOffersByUserId = async (userId: string) => {
   const queryReceiverSnapshot = await firestore()
@@ -21,7 +21,7 @@ export const getAllOffersByUserId = async (userId: string) => {
 
   const receiverDocumentSnapshot = queryReceiverSnapshot.docs
   const senderDocumentSnapshot = querySenderSnapshot.docs
-  if (isNil(receiverDocumentSnapshot) && isNil(senderDocumentSnapshot)) {
+  if (or(isNil(receiverDocumentSnapshot), isNil(senderDocumentSnapshot))) {
     return undefined
   }
   // TODO Add sorting by date and state (rejected should be last)

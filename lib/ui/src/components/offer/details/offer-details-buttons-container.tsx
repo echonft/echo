@@ -15,7 +15,7 @@ interface Props {
   state: OfferState
   isReceiving: boolean
   nftsCount: number
-  isUpdating: boolean
+  isUpdating?: boolean
   onAccept?: () => unknown
   onDecline?: () => unknown
 }
