@@ -8,19 +8,14 @@ import { Offer } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface OfferDetailsContainerProps {
+interface Props {
   offer: Offer
   isReceiving: boolean
   onAccept?: () => unknown
   onDecline?: () => unknown
 }
 
-export const OfferDetailsContainer: FunctionComponent<OfferDetailsContainerProps> = ({
-  offer,
-  isReceiving,
-  onAccept,
-  onDecline
-}) => {
+export const OfferDetailsContainer: FunctionComponent<Props> = ({ offer, isReceiving, onAccept, onDecline }) => {
   return (
     <div
       className={clsx(

@@ -1,7 +1,7 @@
 import { CollectionName } from '../../constants/collection-name'
 import { nftDataConverter } from '../../converters/nft-data-converter'
+import { firestore } from '../../services/firestore'
 import { Nft } from '../../types/model/nft'
-import { firestore } from 'firebase-admin'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 

@@ -1,13 +1,13 @@
 import { UserTagPicture } from './user-tag-picture'
-import { User } from '@echo/ui-model'
+import { AuthUser } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface UserTagProps {
-  user: User
+interface Props {
+  user: AuthUser
 }
 
-export const UserTag: FunctionComponent<UserTagProps> = ({ user }) => {
+export const UserTag: FunctionComponent<Props> = ({ user }) => {
   return (
     <div
       className={clsx(

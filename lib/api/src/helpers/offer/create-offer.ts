@@ -1,4 +1,4 @@
-import { ApiError } from '../error/api-error'
+import { ServerError } from '../error/server-error'
 import { addOffer, mapUserToUserDetails, OfferItem, User, Wallet } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
 
@@ -18,6 +18,6 @@ export const createOffer = async (
       receiverItems
     })
   } catch (e) {
-    throw new ApiError(500, 'Error creating offer')
+    throw new ServerError('Error creating offer')
   }
 }

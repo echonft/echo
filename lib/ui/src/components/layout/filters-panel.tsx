@@ -1,15 +1,11 @@
 import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
-export interface FiltersPanelProps {
+interface Props {
   title: string
   className?: string
 }
-export const FiltersPanel: FunctionComponent<PropsWithChildren<FiltersPanelProps>> = ({
-  title,
-  className,
-  children
-}) => {
+export const FiltersPanel: FunctionComponent<PropsWithChildren<Props>> = ({ title, className, children }) => {
   return (
     <div
       className={clsx('flex', 'flex-col', 'p-2', 'rounded-2xl', 'bg-white/[0.09]', 'w-52', 'h-max', 'gap-2', className)}

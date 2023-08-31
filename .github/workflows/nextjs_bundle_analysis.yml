@@ -51,6 +51,14 @@ jobs:
       - name: Build next.js app
         # change this if your site requires a custom build command
         run: pnpm frontend:build
+        env:
+          ALCHEMY_API_KEY: alchemy-key
+          NEXT_PUBLIC_API_URL: https://echo.xyz
+          DISCORD_CLIENT_TOKEN: discord-client-token
+          DISCORD_CLIENT_SECRET: discord-client-secret
+          DISCORD_CLIENT_ID: discord-client-id
+          DISCORD_REDIRECT_URI: discord-redirect-uri
+          ADMIN_API_KEY: admin-api-key
 
       # Here's the first place where next-bundle-analysis' own script is used
       # This step pulls the raw bundle stats for the current bundle

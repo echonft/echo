@@ -1,11 +1,10 @@
 import { isNftOwnedByWallets } from '../../src/services/is-nft-owned-by-wallets'
-import * as utils from '@echo/utils'
+import { getData } from '@echo/utils/src/services/fetcher/get-data'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
+jest.mock('@echo/utils/src/services/fetcher/get-data')
 describe('services - isNftOwnedByWallets', () => {
-  jest
-    .spyOn(utils, 'getData')
-    .mockImplementation(() => Promise.resolve({ owners: ['0xf672715f2bA85794659a7150e8C21F8d157bFe1D'] }))
+  jest.mocked(getData).mockResolvedValue({ owners: ['0xf672715f2bA85794659a7150e8C21F8d157bFe1D'] })
 
   beforeEach(() => {
     jest.clearAllMocks()

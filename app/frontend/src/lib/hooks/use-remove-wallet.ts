@@ -1,29 +1,22 @@
-import { EmptyResponse, getUserWalletUrl, RemoveWalletRequest } from '@echo/api-public'
-import { getConditionalFetchKey, SwrKey, SwrKeyNames } from '@echo/swr'
+import { EmptyResponse, RemoveWalletRequest, userWalletApiUrl } from '@echo/api-public'
 import { Wallet } from '@echo/ui-model'
-import { deleteData, isNilOrEmpty } from '@echo/utils'
-import { always, converge, path } from 'ramda'
-import useSWR, { SWRResponse } from 'swr'
+import { deleteData } from '@echo/utils'
+import { converge, prop } from 'ramda'
+import useSWR from 'swr'
 
 interface KeyData {
   url: URL
-  request: RemoveWalletRequest | undefined
+  request: RemoveWalletRequest
 }
-export const useRemoveWallet = (wallet: Wallet | undefined): SWRResponse<EmptyResponse, Error> =>
-  useSWR<EmptyResponse, Error, SwrKey<KeyData> | undefined>(
-    getConditionalFetchKey<KeyData>(
-      {
-        name: SwrKeyNames.API_REMOVE_WALLETS,
-        data: {
-          url: getUserWalletUrl(),
-          request: {
-            wallet: wallet!
-          }
-        }
-      },
-      always(isNilOrEmpty(wallet))
-    ),
+export const useRemoveWallet = (wallet: Wallet) =>
+  useSWR<EmptyResponse, Error, KeyData>(
+    {
+      url: userWalletApiUrl(),
+      request: {
+        wallet
+      }
+    },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    converge(deleteData, [path(['data', 'url']), path(['data', 'request'])])
+    converge(deleteData, [prop('url'), prop('request')])
   )

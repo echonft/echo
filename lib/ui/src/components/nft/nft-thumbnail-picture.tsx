@@ -1,7 +1,10 @@
-import { getNftThumbnailSize, NftThumbnailSize } from './nft-thumbnail-size'
+import { getNftThumbnailSize } from '../../helpers/get-nft-thumbnail-size'
 import { SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
+
+export const nftThumbnailSizes = [SizeMD, SizeLG] as const
+export type NftThumbnailSize = (typeof nftThumbnailSizes)[number]
 
 export interface NftThumbnailPictureProps {
   tokenId: number

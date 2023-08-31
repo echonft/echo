@@ -1,6 +1,7 @@
-import { NextApiRequest } from 'next'
+import { NextRequest } from 'next/server'
 
-export interface ApiRequest<T, Q extends Partial<{ [key: string]: string | string[] }> = never> extends NextApiRequest {
-  query: Q
-  body: T
+export class ApiRequest<T> extends NextRequest {
+  json(): Promise<T> {
+    return super.json() as Promise<T>
+  }
 }

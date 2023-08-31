@@ -1,4 +1,4 @@
-import { OfferItemThumbnailSize } from './offer-item-thumbnail-size'
+import { OfferItemThumbnailSize } from '../../constants/offer-item-thumbnail-size'
 import { SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'

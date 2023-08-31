@@ -1,7 +1,7 @@
 import { CollectionName } from '../../constants/collection-name'
 import { listingDataConverter } from '../../converters/listing-data-converter'
+import { firestore } from '../../services/firestore'
 import { Listing } from '../../types/model/listing'
-import { firestore } from 'firebase-admin'
 import { invoker, map } from 'ramda'
 
 export const getListingsWithOfferId = async (offerId: string) => {

@@ -1,37 +1,33 @@
+import { HideIfNil } from '../../base/hide-if-nil'
+import { InternalLink } from '../../base/internal-link'
+import { ShowIfNil } from '../../base/show-if-nil'
 import { EchoLogoSvg } from '../../base/svg/echo-logo-svg'
 import { PaddedContainer } from '../padded-container'
-import { HeaderSearchInput } from './header-search-input'
+import { ConnectButton } from './connect-button'
 import { UserTag } from './user-tag'
-import { User } from '@echo/ui-model'
+import { AuthUser } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface HeaderProps {
-  user?: User
-  onSearchQueryChange?: (query: string) => never
+interface Props {
+  user?: AuthUser
+  onConnectClick?: () => unknown
 }
 
-// TODO connect button if user is nil
-export const Header: FunctionComponent<HeaderProps> = ({ user, onSearchQueryChange }) => {
+export const Header: FunctionComponent<Props> = ({ user, onConnectClick }) => {
   return (
-    <header className={clsx('bg-dark-500', 'border', 'border-b-2', 'border-solid', 'border-black/[0.09]')}>
+    <header
+      className={clsx('bg-dark-500', 'border', 'border-b-2', 'border-solid', 'border-black/[0.09]', 'w-full', 'h-max')}
+    >
       <PaddedContainer>
         <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-12')}>
-          <EchoLogoSvg width={144} />
-          <div
-            className={clsx(
-              'flex',
-              'flex-row',
-              'grow',
-              'justify-center',
-              'max-w-[20rem]',
-              'lg:max-w-[32rem]',
-              'xl:max-w-[38rem]'
-            )}
-          >
-            <HeaderSearchInput onChange={onSearchQueryChange} />
-          </div>
-          <UserTag user={user!} />
+          <InternalLink link={'/'}>
+            <EchoLogoSvg width={144} />
+          </InternalLink>
+          <HideIfNil checks={user} render={() => <UserTag user={user!} />} />
+          <ShowIfNil checks={user}>
+            <ConnectButton onConnectClick={onConnectClick} />
+          </ShowIfNil>
         </div>
       </PaddedContainer>
     </header>

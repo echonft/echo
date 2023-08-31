@@ -3,7 +3,7 @@ import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 export interface OfferItemThumbnailSelectorProps {
-  onRemove?: () => void
+  onRemove?: () => unknown
 }
 
 export const OfferItemThumbnailSelector: FunctionComponent<OfferItemThumbnailSelectorProps> = ({ onRemove }) => {

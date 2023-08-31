@@ -5,7 +5,7 @@ import { Nft, NftCollection, NftTraits } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface CollectionProvidedProps {
+interface Props {
   collection: NftCollection
   nfts: Nft[]
   traits: NftTraits
@@ -14,7 +14,7 @@ export interface CollectionProvidedProps {
   onMakeOfferForNft?: (id: string) => unknown
 }
 
-export const CollectionProvided: FunctionComponent<CollectionProvidedProps> = ({
+export const CollectionProvided: FunctionComponent<Props> = ({
   collection,
   nfts,
   traits,

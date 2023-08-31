@@ -1,5 +1,5 @@
 import { putData } from '../../../src/services/fetcher/put-data'
-import { beforeEach, describe, expect, it, jest } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 interface FetchResponse {
   url: string
@@ -8,14 +8,26 @@ interface FetchResponse {
 describe('services - fetcher - postData', () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  global.fetch = jest.fn((url: URL, requestInit: RequestInit) =>
-    Promise.resolve({
-      json: () => Promise.resolve({ url: url.href, requestInit })
-    })
-  )
+  let initialFetch
 
   beforeEach(() => {
+    initialFetch = global.fetch
     jest.clearAllMocks()
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    global.fetch = jest.fn((url: URL, requestInit: RequestInit) =>
+      Promise.resolve({
+        json: () => Promise.resolve({ url: url.href, requestInit }),
+        ok: true
+      })
+    )
+  })
+
+  afterEach(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    global.fetch = initialFetch
   })
 
   it('without data', async () => {
@@ -43,5 +55,18 @@ describe('services - fetcher - postData', () => {
         query: 'test'
       }
     })
+  })
+
+  it('throws if response is not ok', async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    global.fetch = jest.fn((url: URL, requestInit: RequestInit) =>
+      Promise.resolve({
+        json: () => Promise.resolve({ url: url.href, requestInit }),
+        ok: false
+      })
+    )
+    const url = new URL('https://echo.xyz/')
+    await expect(putData<FetchResponse>(url)).rejects.toBeDefined()
   })
 })

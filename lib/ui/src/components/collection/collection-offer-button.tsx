@@ -2,12 +2,12 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface CollectionOfferButtonProps {
+interface Props {
   count: number
   onMakeOffer?: () => unknown
 }
 
-export const CollectionOfferButton: FunctionComponent<CollectionOfferButtonProps> = ({ count, onMakeOffer }) => {
+export const CollectionOfferButton: FunctionComponent<Props> = ({ count, onMakeOffer }) => {
   const t = useTranslations('collection.button.makeOffer')
   return (
     <button

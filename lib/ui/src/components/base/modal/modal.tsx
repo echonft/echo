@@ -1,3 +1,4 @@
+'use client'
 import { XIconSvg } from '../svg/x-icon-svg'
 import { Dialog, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
@@ -5,7 +6,7 @@ import { Fragment, FunctionComponent, ReactNode } from 'react'
 
 interface Props {
   open: boolean
-  onClose: () => void
+  onClose: () => unknown
   renderTitle?: () => ReactNode
   renderDescription?: () => ReactNode
 }

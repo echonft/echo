@@ -1,4 +1,4 @@
-import { ApiError } from '../error/api-error'
+import { ServerError } from '../error/server-error'
 import { addListing, ListingTarget, mapUserToUserDetails, OfferItem, User, Wallet } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
 
@@ -15,6 +15,6 @@ export const createListing = async (
       targets
     })
   } catch (e) {
-    throw new ApiError(500, 'Error creating listing')
+    throw new ServerError('Error creating listing')
   }
 }

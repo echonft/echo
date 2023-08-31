@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
 export const ModalTitle: FunctionComponent<PropsWithChildren> = ({ children }) => (

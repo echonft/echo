@@ -4,14 +4,9 @@ import { UserProfilePicture, UserProfilePictureProps } from './user-profile-pict
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface UserDetailsProps extends UserProfilePictureProps, UserBannerProps {}
+interface Props extends UserProfilePictureProps, UserBannerProps {}
 
-export const UserDetails: FunctionComponent<UserDetailsProps> = ({
-  discordUsername,
-  discordBanner,
-  discordId,
-  discordAvatar
-}) => {
+export const UserDetails: FunctionComponent<Props> = ({ discordUsername, discordBanner, discordId, discordAvatar }) => {
   return (
     <div className={clsx('flex', 'flex-col', 'self-stretch', 'w-full')}>
       <UserBanner discordId={discordId} discordBanner={discordBanner} />

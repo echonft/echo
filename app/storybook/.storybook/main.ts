@@ -2,6 +2,12 @@ import { dirname, join } from 'path'
 import type { StorybookConfig } from '@storybook/react-webpack5'
 const config: StorybookConfig = {
   stories: ['../src/stories/**/*stories.tsx'],
+  babel: async (options) => {
+    // options.plugins.push('@babel/plugin-syntax-flow')
+    options.presets.push('@babel/preset-typescript')
+    // options.presets.push('@babel/preset-react')
+    return options
+  },
   addons: [
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-essentials'),
@@ -32,7 +38,8 @@ const config: StorybookConfig = {
   },
   env: (config) => ({
     ...config,
-    ALCHEMY_API_KEY: process.env.STORYBOOK_ALCHEMY_API_KEY
+    ALCHEMY_API_KEY: process.env.STORYBOOK_ALCHEMY_API_KEY,
+    NODE_ENV: 'mock'
   })
 }
 export default config

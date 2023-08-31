@@ -1,22 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { ApiRequest, ApiResponse } from '@echo/api-public'
-import { Body, createMocks, Headers, MockRequest, MockResponse, RequestMethod } from 'node-mocks-http'
+import { ApiRequest } from '@echo/api-public'
+import { NextRequest } from 'next/server'
+import { isNil } from 'ramda'
 
-export function mockRequestResponse<T, Q extends Partial<{ [key: string]: string | string[] }>, R>(
-  method: RequestMethod,
-  query?: Q,
-  body?: T,
-  headers?: Headers
-) {
-  const { req, res } = createMocks({ method, query, body: body as Body | undefined })
-  req.headers = {
-    'Content-Type': 'application/json',
-    ...headers
+export function mockRequest<T = undefined>(body?: T) {
+  if (isNil(body)) {
+    return new NextRequest('https://echo.xyz/') as ApiRequest<T>
   }
-  return { req, res } as unknown as {
-    // @ts-ignore
-    req: MockRequest<ApiRequest<T, Q>>
-    // @ts-ignore
-    res: MockResponse<ApiResponse<R>>
-  }
+
+  return new NextRequest('https://echo.xyz/', {
+    body: JSON.stringify(body),
+    method: 'POST'
+  }) as ApiRequest<T>
 }

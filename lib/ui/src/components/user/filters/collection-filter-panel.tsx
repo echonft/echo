@@ -5,17 +5,13 @@ import { useTranslations } from 'next-intl'
 import { any, propEq } from 'ramda'
 import { FunctionComponent } from 'react'
 
-export interface CollectionFilterPanelProps {
+interface Props {
   filters: CollectionFilter[]
   selection?: CollectionFilter[]
   onSelectionUpdate?: (filter: CollectionFilter, selected: boolean) => unknown
 }
 
-export const CollectionFilterPanel: FunctionComponent<CollectionFilterPanelProps> = ({
-  filters,
-  selection,
-  onSelectionUpdate
-}) => {
+export const CollectionFilterPanel: FunctionComponent<Props> = ({ filters, selection, onSelectionUpdate }) => {
   const t = useTranslations('user.filters.collection')
   return (
     <FiltersPanel title={t('title')}>

@@ -1,8 +1,8 @@
-import { DependenciesProvider, getMessages } from '@echo/ui'
+import { DependenciesProvider, messages } from '@echo/ui'
 import '@echo/ui/dist/index.css'
 import type { Preview } from '@storybook/react'
-import { NextIntlProvider } from 'next-intl'
-import { firestoreProvider } from '../src/mocks/firestore-provider'
+import { NextIntlClientProvider } from 'next-intl'
+import { apiProvider } from '../src/mocks/api-provider'
 
 const preview: Preview = {
   parameters: {
@@ -17,14 +17,14 @@ const preview: Preview = {
 }
 
 export const decorators = [
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   (Story) => {
     return (
-      // @ts-ignore
-      <DependenciesProvider linkProvider={{ getLink: (_route, _params) => '#' }} firestoreProvider={firestoreProvider}>
-        {/*@ts-ignore*/}
-        <NextIntlProvider messages={getMessages('en')} locale={'en'}>
+      <DependenciesProvider apiProvider={apiProvider}>
+        <NextIntlClientProvider messages={messages} locale={'en'}>
           {Story()}
-        </NextIntlProvider>
+        </NextIntlClientProvider>
       </DependenciesProvider>
     )
   }

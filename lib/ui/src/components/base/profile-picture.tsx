@@ -1,15 +1,16 @@
-import { getUserProfilePictureSize, UserProfilePictureSize } from '../user/nft-profile-picture-size'
+import { UserProfilePictureSize } from '../../constants/user-profile-picture-size'
+import { getUserProfilePictureSize } from '../../helpers/get-user-profile-picture-size'
 import { SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface ProfilePictureProps {
+interface Props {
   pictureUrl: URL
   alt?: string
   size?: UserProfilePictureSize
 }
 
-export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({ pictureUrl, alt, size = SizeLG }) => {
+export const ProfilePicture: FunctionComponent<Props> = ({ pictureUrl, alt, size = SizeLG }) => {
   return (
     <img
       className={clsx(

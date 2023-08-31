@@ -1,0 +1,13 @@
+import { assoc, has, ifElse, isNil, modify, pipe, prop, unless } from 'ramda'
+
+export const modifyStringPropToUrl = <K extends string, T>(propKey: K) =>
+  ifElse(
+    has(propKey),
+    unless(
+      pipe(prop(propKey), isNil),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      modify(propKey, (url: string) => new URL(url))
+    ),
+    assoc(propKey, undefined)
+  ) as (obj: T) => T & Record<K, URL | undefined>

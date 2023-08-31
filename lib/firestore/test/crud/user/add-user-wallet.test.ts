@@ -30,7 +30,7 @@ describe('CRUD - user - addUserWallet', () => {
 
   it('add the wallet if its not in the user wallets', async () => {
     const newWallet = {
-      address: '0xnewAdress',
+      address: '0x12c63bbD266dB84e117356e664f3604055166CEc',
       chainId: 0
     }
     await addUserWallet(id, newWallet)

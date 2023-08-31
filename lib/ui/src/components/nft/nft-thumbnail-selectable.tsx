@@ -1,6 +1,6 @@
 import { SelectableProps } from '../../types/selectable-props'
+import { HideIf } from '../base/hide-if'
 import { UserDiscordTagOffer } from '../user/user-discord-tag-offer'
-import { HideIf } from '../utils/hide-if'
 import { NftThumbnailMakeOfferButton } from './nft-thumbnail-make-offer-button'
 import { NftThumbnailPicture } from './nft-thumbnail-picture'
 import { NftThumbnailSelector } from './nft-thumbnail-selector'
@@ -9,20 +9,20 @@ import { Nft } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface NftThumbnailSelectableProps extends SelectableProps<string> {
+interface Props extends SelectableProps<string> {
   nft: Nft
   hideOwner?: boolean
   onMakeOffer?: (id: string) => unknown
 }
 
-export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectableProps> = ({
+export const NftThumbnailSelectable: FunctionComponent<Props> = ({
   nft,
   hideOwner,
   selected,
   onToggleSelection,
   onMakeOffer
 }) => {
-  const { id, name, tokenId, thumbnailUrl, owner, collection } = nft
+  const { id, name, tokenId, thumbnailUrl, owner, collectionName } = nft
   return (
     <div
       className={clsx(
@@ -54,7 +54,7 @@ export const NftThumbnailSelectable: FunctionComponent<NftThumbnailSelectablePro
         </HideIf>
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-2', 'bg-white/[0.08]', 'w-full', 'p-2')}>
-        <NftThumbnailTitle tokenId={tokenId} collectionName={collection.name} />
+        <NftThumbnailTitle tokenId={tokenId} collectionName={collectionName} />
         <NftThumbnailMakeOfferButton
           onClick={() => {
             onMakeOffer?.(id)

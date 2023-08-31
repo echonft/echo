@@ -1,2 +1,4 @@
 .next
 next-env.d.ts
+src/i18n.ts
+tailwind.config.ts

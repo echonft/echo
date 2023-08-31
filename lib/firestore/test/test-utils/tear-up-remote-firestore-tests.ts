@@ -1,6 +1,6 @@
-import { initialize } from '../../src/services/initialize'
+import { initializeFirebase } from '../../src/services/initialize-firebase'
 
 export function tearUpRemoteFirestoreTests() {
-  initialize()
+  initializeFirebase()
   // await resetDb()
 }

@@ -1,9 +1,7 @@
-import { ApiError } from '../../../src'
+import { ApiError } from '../../../src/helpers/error/api-error'
 import { acceptOffer } from '../../../src/helpers/offer/accept-offer'
 import { getOffer } from '../../../src/helpers/offer/get-offer'
 import { handleAcceptOffer } from '../../../src/request-handlers/offer/handle-accept-offer'
-import { mockRequestResponse } from '../../mocks/request-response'
-import { EmptyResponse, UpdateOfferRequest } from '@echo/api-public'
 import { Offer, User } from '@echo/firestore'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
@@ -17,9 +15,8 @@ describe('request-handlers - offer - handleAcceptOffer', () => {
 
   it('throws if the offer does not exist', async () => {
     jest.mocked(getOffer).mockResolvedValueOnce(undefined)
-    const { res } = mockRequestResponse<UpdateOfferRequest, never, EmptyResponse>('POST')
     try {
-      await handleAcceptOffer('offerId', { id: 'userId' } as User, res)
+      await handleAcceptOffer('offerId', { id: 'userId' } as User)
       expect(true).toBeFalsy()
     } catch (e) {
       expect((e as ApiError).status).toBe(400)
@@ -28,9 +25,8 @@ describe('request-handlers - offer - handleAcceptOffer', () => {
 
   it('throws if the user is not the offer receiver', async () => {
     jest.mocked(getOffer).mockResolvedValueOnce({ receiver: { id: 'another-user-id' } } as Offer)
-    const { res } = mockRequestResponse<UpdateOfferRequest, never, EmptyResponse>('POST')
     try {
-      await handleAcceptOffer('offerId', { id: 'userId' } as User, res)
+      await handleAcceptOffer('offerId', { id: 'userId' } as User)
       expect(true).toBeFalsy()
     } catch (e) {
       expect((e as ApiError).status).toBe(403)
@@ -40,9 +36,8 @@ describe('request-handlers - offer - handleAcceptOffer', () => {
   it('returns a 200 if the user is the offer receiver', async () => {
     jest.mocked(getOffer).mockResolvedValueOnce({ receiver: { id: 'userId' } } as Offer)
     jest.mocked(acceptOffer).mockResolvedValueOnce()
-    const { res } = mockRequestResponse<UpdateOfferRequest, never, EmptyResponse>('POST')
-    await handleAcceptOffer('offerId', { id: 'userId' } as User, res)
+    const res = await handleAcceptOffer('offerId', { id: 'userId' } as User)
     expect(acceptOffer).toHaveBeenCalledTimes(1)
-    expect(res.statusCode).toBe(200)
+    expect(res.status).toBe(200)
   })
 })

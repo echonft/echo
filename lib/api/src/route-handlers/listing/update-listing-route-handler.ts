@@ -1,12 +1,12 @@
 import { handleRestrictedRequest } from '../../request-handlers/handle-restricted-request'
 import { updateListingRequestHandler } from '../../request-handlers/listing/update-listing-request-handler'
-import { ApiRequest, ApiResponse, EmptyResponse, UpdateListingRequest } from '@echo/api-public'
+import { ApiRequest, UpdateListingRequest } from '@echo/api-public'
 import { AuthOptions } from 'next-auth'
 
-export function updateListingRouteHandler(
+export async function updateListingRouteHandler(
   req: ApiRequest<UpdateListingRequest>,
-  res: ApiResponse<EmptyResponse>,
-  authOptions: AuthOptions
+  authOptions: AuthOptions,
+  id: string
 ) {
-  return handleRestrictedRequest(req, res, authOptions, updateListingRequestHandler)
+  return await handleRestrictedRequest(req, authOptions, updateListingRequestHandler, id)
 }

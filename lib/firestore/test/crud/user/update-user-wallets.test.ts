@@ -22,8 +22,8 @@ describe('CRUD - user - updateUserWallets', () => {
 
   it('updateUserWallets', async () => {
     const newWallet = {
-      address: '0xnewAdress',
-      chainId: 0
+      address: '0x12c63bbD266dB84e117356e664f3604055166CEc',
+      chainId: 1
     }
     await updateUserWallets(id, [newWallet])
     const updatedUser = await findUserById(id)

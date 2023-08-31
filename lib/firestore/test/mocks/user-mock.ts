@@ -37,7 +37,7 @@ export const userMock: { [key: string]: User } = {
     discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
     discordBanner: undefined,
     nonce: 'nonce',
-    updatedAt: undefined,
+    updatedAt: dayjs.unix(1676984897),
     wallets: [
       {
         address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',

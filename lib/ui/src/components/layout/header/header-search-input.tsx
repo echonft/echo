@@ -1,14 +1,15 @@
+'use client'
 import { SearchIconSvg } from '../../base/svg/search-icon-svg'
 import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { ChangeEvent, FunctionComponent } from 'react'
 
-export interface HeaderSearchInputProps {
+interface Props {
   onChange?: (query: string) => never
 }
 
-export const HeaderSearchInput: FunctionComponent<HeaderSearchInputProps> = ({ onChange }) => {
+export const HeaderSearchInput: FunctionComponent<Props> = ({ onChange }) => {
   const t = useTranslations('layout.header')
   return (
     <Combobox

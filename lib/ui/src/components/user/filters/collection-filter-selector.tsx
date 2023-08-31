@@ -3,15 +3,11 @@ import { CollectionFilter } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface CollectionFilterSelectorProps extends SelectableProps<CollectionFilter> {
+interface Props extends SelectableProps<CollectionFilter> {
   filter: CollectionFilter
 }
 
-export const CollectionFilterSelector: FunctionComponent<CollectionFilterSelectorProps> = ({
-  filter,
-  selected,
-  onToggleSelection
-}) => {
+export const CollectionFilterSelector: FunctionComponent<Props> = ({ filter, selected, onToggleSelection }) => {
   return (
     <button
       className={clsx(

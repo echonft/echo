@@ -9,6 +9,6 @@ export interface UserDocumentData {
   discordId: string
   discordUsername: string
   nonce?: string
-  updatedAt?: number
+  updatedAt: number
   wallets: WalletDocumentData[]
 }

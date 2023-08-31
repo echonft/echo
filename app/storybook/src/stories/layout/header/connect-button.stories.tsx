@@ -5,7 +5,7 @@ const metadata: Meta<typeof Component> = {
   title: 'Layout/Header/Connect Button',
   component: Component,
   argTypes: {
-    onConnect: {
+    onConnectClick: {
       control: false,
       action: 'clicked'
     }

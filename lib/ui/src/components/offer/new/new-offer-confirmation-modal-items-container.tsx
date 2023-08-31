@@ -2,7 +2,7 @@ import { ModalSubtitle } from '../../base/modal/modal-subtitle'
 import { OfferItemThumbnail } from '../../offer-item/offer-item-thumbnail'
 import { NewOfferItemTitle } from './new-offer-item-title'
 import { OfferItem, SizeMD } from '@echo/ui-model'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 

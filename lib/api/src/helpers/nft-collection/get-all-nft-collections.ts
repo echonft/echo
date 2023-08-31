@@ -1,10 +1,10 @@
-import { ApiError } from '../error/api-error'
+import { ServerError } from '../error/server-error'
 import { getAllNftCollections as firestoreGetAllNftCollections } from '@echo/firestore'
 
-export const getAllNftCollections = async () => {
+export async function getAllNftCollections() {
   try {
     return await firestoreGetAllNftCollections()
   } catch (e) {
-    throw new ApiError(500, 'Error fetching collections')
+    throw new ServerError('Error fetching collections')
   }
 }

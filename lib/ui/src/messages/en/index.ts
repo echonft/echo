@@ -52,6 +52,12 @@ export const messages = {
       makeOfferBtn: 'Make an offer'
     }
   },
+  notFoundPage: {
+    title: 'Sorry, there’s<br></br>nothing here',
+    button: {
+      label: 'Go home'
+    }
+  },
   offer: {
     state: {
       OPEN: 'Pending',

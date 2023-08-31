@@ -11,9 +11,7 @@ const nftCollections: { [key: string]: NftCollection } = {
     contract: {
       tokenType: 'ERC721',
       address: '0x12c63bbD266dB84e117356e664f3604055166CEc',
-      chainId: 1,
-      name: 'Mythics Genesis',
-      symbol: 'MGEN'
+      chainId: 1
     },
     description: 'pxMythics is an 1,077 piece NFT collection based on the greatest mythologies throughout history.',
     discordUrl: new URL('https://discord.gg/pxmythics'),
@@ -37,9 +35,7 @@ const nftCollections: { [key: string]: NftCollection } = {
     contract: {
       tokenType: 'ERC721',
       address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
-      chainId: 1,
-      name: 'Spiral Frequencies',
-      symbol: 'GCP1'
+      chainId: 1
     },
     description: 'A Genetic Chain Project.',
     discordUrl: new URL('https://discord.gg/genetic-chain'),

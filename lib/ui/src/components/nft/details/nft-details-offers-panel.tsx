@@ -1,3 +1,4 @@
+'use client'
 import { HandIconSvg } from '../../base/svg/hand-icon-svg'
 import { NftDetailsOffersPanelList } from './nft-details-offers-panel-list'
 import { Offer } from '@echo/ui-model'
@@ -5,11 +6,11 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface NftDetailsOffersPanelProps {
+interface Props {
   offers?: Offer[]
 }
 
-export const NftDetailsOffersPanel: FunctionComponent<NftDetailsOffersPanelProps> = ({ offers }) => {
+export const NftDetailsOffersPanel: FunctionComponent<Props> = ({ offers }) => {
   const t = useTranslations('nft.details.offers')
   return (
     <div

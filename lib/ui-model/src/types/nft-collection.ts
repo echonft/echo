@@ -1,10 +1,14 @@
-import { Contract } from './contract'
+import { NftTokenType } from './nft-token-type'
 
 export interface NftCollection {
   id: string
   bannerUrl: URL | undefined
   blurUrl: URL | undefined
-  contract: Contract
+  contract: {
+    address: string
+    chainId: number
+    tokenType: NftTokenType
+  }
   description: string
   discordUrl: URL | undefined
   floorPrice: number | undefined

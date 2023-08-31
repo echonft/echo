@@ -10,6 +10,6 @@ export interface User {
   discordId: string
   discordUsername: string
   nonce: string | undefined
-  updatedAt: Dayjs | undefined
+  updatedAt: Dayjs
   wallets: Wallet[]
 }

@@ -1,10 +1,10 @@
 import { UnauthorizedError } from '../error/unauthorized-error'
 import { getAdminApiKey } from './get-admin-api-key'
-import { NextApiRequest } from 'next'
-import { isNil } from 'ramda'
+import { ApiRequest } from '@echo/api-public'
 
-export const assertAdmin = <T extends NextApiRequest>(req: T) => {
-  if (isNil(req.headers.authorization) || req.headers.authorization !== `Bearer ${getAdminApiKey()}`) {
+export const assertAdmin = <T>(req: ApiRequest<T>) => {
+  const authorizationHeader = 'Authorization'
+  if (!req.headers.has(authorizationHeader) || req.headers.get(authorizationHeader) !== `Bearer ${getAdminApiKey()}`) {
     throw new UnauthorizedError()
   }
 }

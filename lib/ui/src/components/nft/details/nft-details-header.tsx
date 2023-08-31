@@ -1,19 +1,19 @@
-import { Routes } from '../../../types/provider/link-provider'
+import { links } from '../../../helpers/links'
+import { InternalLink } from '../../base/internal-link'
 import { DiscordIconSvg } from '../../base/svg/discord-icon-svg'
-import { InternalLink } from '../../utils/internal-link'
 import { NftDetailsLinks, NftDetailsLinksProps } from './nft-details-links'
 import { User } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface NftDetailsHeaderProps extends NftDetailsLinksProps {
+interface Props extends NftDetailsLinksProps {
   collectionName: string
   title: string | undefined
   tokenId: number
   owner: User
 }
 
-export const NftDetailsHeader: FunctionComponent<NftDetailsHeaderProps> = ({
+export const NftDetailsHeader: FunctionComponent<Props> = ({
   collectionName,
   tokenId,
   title,
@@ -30,7 +30,7 @@ export const NftDetailsHeader: FunctionComponent<NftDetailsHeaderProps> = ({
         } #${tokenId.toString()}`}</span>
         <NftDetailsLinks openSeaUrl={openSeaUrl} blurUrl={blurUrl} />
       </div>
-      <InternalLink route={Routes.USER} params={{ id: owner.id }}>
+      <InternalLink link={links.userLink(owner.id)}>
         <div
           className={clsx(
             'flex',

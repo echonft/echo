@@ -1,7 +1,8 @@
+import { IconSize } from '../../../constants/icon-size'
+import { getIconSizeInPx } from '../../../helpers/get-icon-size-in-px'
 import { EchoIconSvg } from '../svg/echo-icon-svg'
 import { IconContainer } from './icon-container'
 import { IconContainerColor } from './icon-container-color'
-import { getIconSizeInPx, IconSize } from './icon-size'
 import { ColorBlack, ColorYellow } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
@@ -9,11 +10,11 @@ import { FunctionComponent } from 'react'
 export const echoIconColors = [ColorBlack, ColorYellow] as const
 export type EchoIconColor = (typeof echoIconColors)[number]
 
-export interface EchoIconProps {
+interface Props {
   color: EchoIconColor
   size: IconSize
 }
-export const EchoIcon: FunctionComponent<EchoIconProps> = ({ color, size }) => {
+export const EchoIcon: FunctionComponent<Props> = ({ color, size }) => {
   const sizeInPx = Math.floor(getIconSizeInPx(size) * (13 / 24))
   return (
     <IconContainer size={size}>

@@ -1,20 +1,17 @@
 import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
-import { assertAllowedMethods } from '../../helpers/error/assert-allowed-methods'
 import { parseUpdateListingRequest } from '../../helpers/listing/parse-update-listing-request'
 import { handleCancelListing } from './handle-cancel-listing'
-import { ApiRequest, ApiResponse, EmptyResponse, UpdateListingAction, UpdateListingRequest } from '@echo/api-public'
+import { ApiRequest, UpdateListingRequest } from '@echo/api-public'
 import { AuthOptions } from 'next-auth'
 
 export async function updateListingRequestHandler(
   req: ApiRequest<UpdateListingRequest>,
-  res: ApiResponse<EmptyResponse>,
-  authOptions: AuthOptions
+  authOptions: AuthOptions,
+  id: string
 ) {
-  assertAllowedMethods(req, ['POST'])
-  const { id, action } = parseUpdateListingRequest(req.body)
-  const user = await getUserFromSession(req, res, authOptions)
-  switch (action) {
-    case UpdateListingAction.CANCEL:
-      return handleCancelListing(id, user, res)
-  }
+  const requestBody = await req.json()
+  parseUpdateListingRequest(requestBody)
+  const user = await getUserFromSession(authOptions)
+  // only cancel is possible and it's been validated
+  return handleCancelListing(id, user)
 }

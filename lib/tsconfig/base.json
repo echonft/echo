@@ -11,7 +11,8 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": false,
     "inlineSources": false,
-    "lib": ["esnext"],
+    "isolatedModules": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -26,6 +27,5 @@
     "strict": true,
     "strictNullChecks": true,
     "target": "esnext"
-  },
-  "exclude": ["node_modules"]
+  }
 }

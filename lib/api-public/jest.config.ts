@@ -25,6 +25,7 @@ const config: Config = {
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/api-public'
+  coverageDirectory: '<rootDir>/../../.coverage/lib/api-public',
+  setupFilesAfterEnv: ['<rootDir>/test/setup-env.ts']
 }
 export default config
