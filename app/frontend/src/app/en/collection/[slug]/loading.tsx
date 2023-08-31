@@ -1,8 +1,8 @@
-import { CollectionSkeleton } from '../../../../../../../lib/ui'
+import { CollectionDetailsSkeleton } from '@echo/ui'
 import { FunctionComponent } from 'react'
 
 const Loading: FunctionComponent = () => {
-  return <CollectionSkeleton />
+  return <CollectionDetailsSkeleton />
 }
 
 export default Loading

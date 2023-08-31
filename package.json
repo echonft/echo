@@ -25,7 +25,7 @@
     "build:fix": "turbo run build:fix",
     "clean": "turbo run clean",
     "frontend:build": "turbo run build --filter=@echo/frontend",
-    "frontend:dev": "env-cmd -f .env turbo run dev --filter=@echo/frontend",
+    "frontend:dev": "env-cmd -f .env turbo run dev --filter=@echo/frontend --filter=@echo/ui",
     "frontend:start": "turbo run start --filter=@echo/frontend",
     "lint": "turbo run lint",
     "lint:ci": "turbo run lint:ci",
@@ -36,13 +36,14 @@
     "prepare": "husky install",
     "prettier": "turbo run prettier",
     "storybook:build": "turbo run build --filter=@echo/storybook",
-    "storybook:dev": "env-cmd -f .env turbo run dev --filter=@echo/storybook",
+    "storybook:dev": "env-cmd -f .env turbo run dev --filter=@echo/storybook --filter=@echo/ui",
     "test": "turbo run test",
     "test:ci": "turbo run test:ci",
     "test:watch": "turbo run test:watch",
     "tsc": "turbo run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache",
-    "vercel": "env-cmd -f .env vercel dev"
+    "vercel": "turbo run //#vercel:dev dev --filter=@echo/ui",
+    "vercel:dev": "env-cmd -f .env vercel dev"
   },
   "devDependencies": {
     "@babel/core": "7.22.10",

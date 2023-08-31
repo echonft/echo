@@ -1,3 +1,4 @@
+import { isMockEnvironment } from '../../helpers/is-mock-environment'
 import { Url } from 'next/dist/shared/lib/router/router'
 import Link from 'next/link'
 import { FunctionComponent, PropsWithChildren } from 'react'
@@ -11,7 +12,7 @@ export const InternalLink: FunctionComponent<PropsWithChildren<InternalLinkProps
     <Link
       href={link}
       onClick={
-        link === '#'
+        isMockEnvironment()
           ? (event) => {
               event.preventDefault()
             }

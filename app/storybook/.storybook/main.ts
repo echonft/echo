@@ -38,7 +38,8 @@ const config: StorybookConfig = {
   },
   env: (config) => ({
     ...config,
-    ALCHEMY_API_KEY: process.env.STORYBOOK_ALCHEMY_API_KEY
+    ALCHEMY_API_KEY: process.env.STORYBOOK_ALCHEMY_API_KEY,
+    NODE_ENV: 'mock'
   })
 }
 export default config

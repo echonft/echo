@@ -1,6 +1,6 @@
 import { OfferItemThumbnail } from '../offer-item/offer-item-thumbnail'
 import { OfferItem, SizeLG } from '@echo/ui-model'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 export interface OfferAssetsContainerProps {

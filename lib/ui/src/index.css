@@ -10,7 +10,7 @@
         @apply w-screen h-screen text-transparent
     }
     body {
-        @apply w-screen min-h-screen font-medium bg-dark-500 text-white text-base flex flex-col
+        @apply w-screen min-h-screen font-medium bg-dark-500 text-white text-base
     }
 }
 
@@ -147,6 +147,9 @@
     .btn-primary {
         @apply btn bg-white/[0.08] enabled:hover:bg-yellow-500 enabled:active:bg-yellow-700 disabled:bg-white/[0.08]
     }
+    .btn-primary-reverse {
+        @apply btn bg-yellow-500 enabled:hover:bg-white/[0.08] enabled:active:bg-white/[0.06] disabled:bg-yellow-500
+    }
     .btn-gradient {
         @apply btn border border-solid border-transparent bg-main-gradient bg-origin-border enabled:hover:bg-main-gradient/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700 disabled:bg-main-gradient/40
     }
@@ -158,6 +161,9 @@
     }
     .btn-label-primary {
     @apply btn-label text-white group-active:text-black group-enabled:group-hover:text-black group-disabled:text-white/50 group-disabled:group-hover:text-white/50
+    }
+    .btn-label-primary-reverse {
+        @apply btn-label text-black group-active:text-white group-enabled:group-hover:text-white group-disabled:text-white/50 group-disabled:group-hover:text-white/50
     }
     .btn-label-gradient {
         @apply btn-label text-dark-500 group-enabled:group-hover:text-yellow-100 group-disabled:text-dark-500 group-disabled:group-hover:text-dark-500

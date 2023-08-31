@@ -1,4 +1,4 @@
-import { HideIfNil } from '../utils/hide-if-nil'
+import { HideIfNil } from '../base/hide-if-nil'
 import { CollectionLinks, CollectionLinksProps } from './collection-links'
 import { CollectionProfilePicture, CollectionProfilePictureProps } from './collection-profile-picture'
 import { clsx } from 'clsx'

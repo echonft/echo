@@ -7,6 +7,9 @@
     "clean": {
       "cache": false
     },
+    "dev": {
+      "cache": false
+    },
     "lint": {
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", ".eslintrc.js", ".eslintrc.cjs"]
     },
@@ -101,6 +104,10 @@
     "@echo/ui#build": {
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "//#vercel:dev": {
+      "dependsOn": ["@echo/ui#build"],
+      "cache": false
     }
   }
 }

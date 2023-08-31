@@ -1,6 +1,7 @@
+import { HideIfNil } from '../../base/hide-if-nil'
+import { InternalLink } from '../../base/internal-link'
+import { ShowIfNil } from '../../base/show-if-nil'
 import { EchoLogoSvg } from '../../base/svg/echo-logo-svg'
-import { HideIfNil } from '../../utils/hide-if-nil'
-import { ShowIfNil } from '../../utils/show-if-nil'
 import { PaddedContainer } from '../padded-container'
 import { ConnectButton } from './connect-button'
 import { UserTag } from './user-tag'
@@ -20,7 +21,9 @@ export const Header: FunctionComponent<HeaderProps> = ({ user, onConnectClick })
     >
       <PaddedContainer>
         <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-12')}>
-          <EchoLogoSvg width={144} />
+          <InternalLink link={'/'}>
+            <EchoLogoSvg width={144} />
+          </InternalLink>
           <HideIfNil checks={user} render={() => <UserTag user={user!} />} />
           <ShowIfNil checks={user}>
             <ConnectButton onConnectClick={onConnectClick} />

@@ -1,6 +1,6 @@
 import { SelectableProps } from '../../types/selectable-props'
+import { HideIf } from '../base/hide-if'
 import { UserDiscordTagOffer } from '../user/user-discord-tag-offer'
-import { HideIf } from '../utils/hide-if'
 import { NftThumbnailMakeOfferButton } from './nft-thumbnail-make-offer-button'
 import { NftThumbnailPicture } from './nft-thumbnail-picture'
 import { NftThumbnailSelector } from './nft-thumbnail-selector'

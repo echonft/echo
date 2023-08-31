@@ -1,5 +1,5 @@
-import { useLinks } from '../../../dependencies/hooks/use-links'
-import { InternalLink } from '../../utils/internal-link'
+import { links } from '../../../helpers/links'
+import { InternalLink } from '../../base/internal-link'
 import { clsx } from 'clsx'
 import { useFormatter, useNow, useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
@@ -16,9 +16,8 @@ export const NftDetailsOfferRow: FunctionComponent<NftDetailsOfferRowProps> = ({
     updateInterval: 10000
   })
   const format = useFormatter()
-  const { offerLink } = useLinks()
   return (
-    <InternalLink link={offerLink(id)}>
+    <InternalLink link={links.offerLink(id)}>
       <div
         className={clsx(
           'flex',

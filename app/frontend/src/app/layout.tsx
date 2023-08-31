@@ -1,9 +1,12 @@
 import '@echo/ui/dist/index.css'
+import { authOptions } from '@app/api/auth/[...nextauth]/route'
+import { Providers } from '@components/providers'
 import { Metadata } from 'next'
+import { getServerSession } from 'next-auth/next'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
 export const metadata: Metadata = {
-  title: 'Echo oh oh',
+  title: 'Echo',
   description: 'Echo',
   applicationName: 'Echo',
   viewport: {
@@ -15,11 +18,13 @@ export const metadata: Metadata = {
   }
 }
 
-const Layout: FunctionComponent<PropsWithChildren> = ({ children }) => {
+const Layout: FunctionComponent<PropsWithChildren> = async ({ children }) => {
+  const session = await getServerSession(authOptions)
+
   return (
     <html lang="en">
       <body>
-        <main>{children}</main>
+        <Providers session={session}>{children}</Providers>
       </body>
     </html>
   )

@@ -1,7 +1,7 @@
 import { ExternalLink } from '../../base/external-link'
+import { HideIfNilOrEmpty } from '../../base/hide-if-nil-or-empty'
 import { BlurIcon } from '../../base/icons/blur-icon'
 import { OpenSeaIcon } from '../../base/icons/open-sea-icon'
-import { HideIfNilOrEmpty } from '../../utils/hide-if-nil-or-empty'
 import { SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'

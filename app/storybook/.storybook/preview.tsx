@@ -17,11 +17,11 @@ const preview: Preview = {
 }
 
 export const decorators = [
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   (Story) => {
     return (
-      // @ts-ignore
-      <DependenciesProvider linkProvider={{ getLink: (_route, _params) => '/nfts' }} apiProvider={apiProvider}>
-        {/*@ts-ignore*/}
+      <DependenciesProvider apiProvider={apiProvider}>
         <NextIntlClientProvider messages={messages} locale={'en'}>
           {Story()}
         </NextIntlClientProvider>

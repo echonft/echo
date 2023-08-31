@@ -1,7 +1,8 @@
+import { NotFound as NotFoundComponent } from '@echo/ui'
 import { FunctionComponent } from 'react'
 
 const NotFound: FunctionComponent = () => {
-  return <h1>Not Found :(</h1>
+  return <NotFoundComponent />
 }
 
 export default NotFound

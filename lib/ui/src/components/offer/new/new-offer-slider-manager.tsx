@@ -2,7 +2,7 @@
 import { removeItemFromNewOffer } from '../../../helpers/remove-item-from-new-offer'
 import { newOfferDataState } from '../../../services/state'
 import { BottomSlider } from '../../base/bottom-slider'
-import { HideIfNil } from '../../utils/hide-if-nil'
+import { HideIfNil } from '../../base/hide-if-nil'
 import { NewOfferBottomSliderInnerContainer } from './new-offer-bottom-slider-inner-container'
 import { NewOfferBottomSliderTitle } from './new-offer-bottom-slider-title'
 import { OfferItem } from '@echo/ui-model'
