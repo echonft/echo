@@ -2,6 +2,7 @@
 import { DependenciesProvider, messages } from '@echo/ui'
 import { apiProvider } from '@lib/dependencies/api-provider'
 import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { Session } from 'next-auth'
@@ -12,6 +13,7 @@ import { RecoilRoot } from 'recoil'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
+dayjs.extend(relativeTime)
 
 // const DynamicConnectKitProvider = dynamic(() => import('connectkit').then((mod) => mod.ConnectKitProvider), {
 //   ssr: false

@@ -10,11 +10,6 @@ const nextConfig = {
       }
     ]
   },
-  // i18n: {
-  //   locales: ['en'],
-  //   defaultLocale: 'en',
-  //   localeDetection: false
-  // },
   transpilePackages: ['@echo/api', '@echo/api-public', '@echo/discord', '@echo/ui', '@echo/ui-model', '@echo/utils']
 }
 
