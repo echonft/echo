@@ -4,7 +4,7 @@ import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-
 import { setUserNonce } from '../../../src/lib/server/helpers/user/set-user-nonce'
 import { nonceRequestHandler } from '../../../src/lib/server/request-handlers/user/nonce-request-handler'
 import { mockRequest } from '../../mocks/request-response'
-import { NonceResponse } from '@echo/api-public'
+import { NonceResponse } from '@echo/api'
 import { User } from '@echo/firestore'
 import { AuthOptions, Session } from 'next-auth'
 

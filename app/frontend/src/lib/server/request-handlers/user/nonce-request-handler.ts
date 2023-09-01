@@ -1,6 +1,6 @@
 import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
 import { setUserNonce } from '../../helpers/user/set-user-nonce'
-import { ApiRequest, NonceResponse } from '@echo/api-public'
+import { ApiRequest, NonceResponse } from '@echo/api'
 import { NextResponse } from 'next/server'
 import { AuthOptions } from 'next-auth'
 

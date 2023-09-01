@@ -1,5 +1,5 @@
 import { fetcher } from '../helpers/fetcher'
-import { AddWalletRequest, EmptyResponse, userWalletApiUrl } from '@echo/api-public'
+import { AddWalletRequest, EmptyResponse, userWalletApiUrl } from '@echo/api'
 import { Signature, Wallet } from '@echo/ui-model'
 import { SiweMessage } from 'siwe'
 import useSWR from 'swr'

@@ -1,5 +1,5 @@
 import { updateOfferRequestSchema } from '../../src/lib/server/validators/update-offer-request-schema'
-import { UpdateOfferAction } from '@echo/api-public'
+import { UpdateOfferAction } from '@echo/api'
 
 describe('validators - updateOfferRequestSchema', () => {
   it('wrong action fails validation', () => {

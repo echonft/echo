@@ -1,4 +1,4 @@
-import { NftCollectionResponse } from '@echo/api-public'
+import { NftCollectionResponse } from '@echo/api'
 import { NftCollection } from '@echo/firestore'
 import { modifyUrlPropToString, removeUndefinedProps } from '@echo/utils'
 import { dissoc, modify, pick, pipe } from 'ramda'

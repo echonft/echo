@@ -1,6 +1,6 @@
 import { BadRequestError } from '../error/bad-request-error'
 import { findNftById } from '../nft/find-nft-by-id'
-import { OfferItemRequest } from '@echo/api-public'
+import { OfferItemRequest } from '@echo/api'
 import { OfferItem } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
 import { isNil, map } from 'ramda'

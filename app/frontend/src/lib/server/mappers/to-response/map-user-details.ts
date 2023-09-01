@@ -1,4 +1,4 @@
-import { UserResponse } from '@echo/api-public'
+import { UserResponse } from '@echo/api'
 import { UserDetails } from '@echo/firestore'
 import { removeUndefinedProps } from '@echo/utils'
 

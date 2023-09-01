@@ -1,4 +1,4 @@
-import { ApiRequest } from '@echo/api-public'
+import { ApiRequest } from '@echo/api'
 import { NextRequest } from 'next/server'
 import { isNil } from 'ramda'
 

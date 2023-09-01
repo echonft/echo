@@ -4,7 +4,7 @@ import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-
 import { handleCancelListing } from '../../../src/lib/server/request-handlers/listing/handle-cancel-listing'
 import { updateListingRequestHandler } from '../../../src/lib/server/request-handlers/listing/update-listing-request-handler'
 import { mockRequest } from '../../mocks/request-response'
-import { UpdateListingAction, UpdateListingRequest } from '@echo/api-public'
+import { UpdateListingAction, UpdateListingRequest } from '@echo/api'
 import { User } from '@echo/firestore'
 import { AuthOptions, Session } from 'next-auth'
 

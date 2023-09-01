@@ -1,4 +1,4 @@
-import { ApiRequest, ApiResponse } from '@echo/api-public'
+import { ApiRequest, ApiResponse } from '@echo/api'
 import { AuthOptions } from 'next-auth'
 
 export type RestrictedRequestHandler<ResponseBody, RequestBody = never> = (

@@ -2,7 +2,7 @@ import { getNftCollectionBySlug } from '../../../src/lib/server/helpers/nft-coll
 import { mapNftCollection } from '../../../src/lib/server/mappers/to-response/map-nft-collection'
 import { getNftCollectionRequestHandler } from '../../../src/lib/server/request-handlers/nft-collection/get-nft-collection-request-handler'
 import { mockRequest } from '../../mocks/request-response'
-import { GetNftCollectionResponse } from '@echo/api-public'
+import { GetNftCollectionResponse } from '@echo/api'
 import { getNftCollectionMockById } from '@echo/firestore'
 
 jest.mock('../../../src/lib/server/helpers/nft-collection/get-nft-collection-by-slug')

@@ -5,7 +5,7 @@ import { removeUserWallet } from '../../../src/lib/server/helpers/user/remove-us
 import { updateUserNfts } from '../../../src/lib/server/helpers/user/update-user-nfts'
 import { removeWalletRequestHandler } from '../../../src/lib/server/request-handlers/user/remove-wallet-request-handler'
 import { mockRequest } from '../../mocks/request-response'
-import { RemoveWalletRequest } from '@echo/api-public'
+import { RemoveWalletRequest } from '@echo/api'
 import { User } from '@echo/firestore'
 import { AuthOptions, Session } from 'next-auth'
 

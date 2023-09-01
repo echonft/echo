@@ -1,5 +1,5 @@
 import { fetcher } from '../helpers/fetcher'
-import { EmptyResponse, RemoveWalletRequest, userWalletApiUrl } from '@echo/api-public'
+import { EmptyResponse, RemoveWalletRequest, userWalletApiUrl } from '@echo/api'
 import { Wallet } from '@echo/ui-model'
 import useSWR from 'swr'
 

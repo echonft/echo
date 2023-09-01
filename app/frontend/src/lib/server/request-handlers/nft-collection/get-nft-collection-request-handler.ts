@@ -1,7 +1,7 @@
 import { assertNftCollection } from '../../helpers/nft-collection/assert-nft-collection'
 import { getNftCollectionBySlug } from '../../helpers/nft-collection/get-nft-collection-by-slug'
 import { mapNftCollection } from '../../mappers/to-response/map-nft-collection'
-import { ApiRequest, GetNftCollectionResponse } from '@echo/api-public'
+import { ApiRequest, GetNftCollectionResponse } from '@echo/api'
 import { NextResponse } from 'next/server'
 
 export async function getNftCollectionRequestHandler(_req: ApiRequest<never>, slug: string) {

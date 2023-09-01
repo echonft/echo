@@ -5,7 +5,7 @@ import { parseCreateListingRequest } from '../../helpers/listing/parse-create-li
 import { getOfferItems } from '../../helpers/offer/get-offer-items'
 import { getOfferItemsWallet } from '../../helpers/offer/get-offer-items-wallet'
 import { assertUserHasWallets } from '../../helpers/user/assert-user-has-wallets'
-import { ApiRequest, CreateListingRequest, IdResponse } from '@echo/api-public'
+import { ApiRequest, CreateListingRequest, IdResponse } from '@echo/api'
 import { NextResponse } from 'next/server'
 import { AuthOptions } from 'next-auth'
 

@@ -1,6 +1,6 @@
 import { createListingSchema } from '../../validators/create-listing-schema'
 import { BadRequestError } from '../error/bad-request-error'
-import { CreateListingRequest } from '@echo/api-public'
+import { CreateListingRequest } from '@echo/api'
 
 export const parseCreateListingRequest = (request: CreateListingRequest) => {
   try {

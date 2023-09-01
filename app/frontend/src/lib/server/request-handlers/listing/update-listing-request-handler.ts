@@ -1,7 +1,7 @@
 import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
 import { parseUpdateListingRequest } from '../../helpers/listing/parse-update-listing-request'
 import { handleCancelListing } from './handle-cancel-listing'
-import { ApiRequest, UpdateListingRequest } from '@echo/api-public'
+import { ApiRequest, UpdateListingRequest } from '@echo/api'
 import { AuthOptions } from 'next-auth'
 
 export async function updateListingRequestHandler(

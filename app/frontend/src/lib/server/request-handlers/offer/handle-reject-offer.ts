@@ -2,7 +2,7 @@ import { assertOffer } from '../../helpers/offer/assert-offer'
 import { getOffer } from '../../helpers/offer/get-offer'
 import { rejectOffer } from '../../helpers/offer/reject-offer'
 import { assertUserIs } from '../../helpers/user/assert-user-is'
-import { EmptyResponse } from '@echo/api-public'
+import { EmptyResponse } from '@echo/api'
 import { User } from '@echo/firestore'
 import { NextResponse } from 'next/server'
 

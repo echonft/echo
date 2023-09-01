@@ -1,4 +1,3 @@
-export { ErrorStatus } from './constants/error-status'
 export { UpdateListingAction } from './constants/update-listing-action'
 export { UpdateOfferAction } from './constants/update-offer-action'
 export { createListingApiUrl } from './routing/create-listing-api-url'

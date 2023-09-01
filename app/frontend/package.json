@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@echo/alchemy": "workspace:*",
-    "@echo/api-public": "workspace:*",
+    "@echo/api": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/ui": "workspace:*",

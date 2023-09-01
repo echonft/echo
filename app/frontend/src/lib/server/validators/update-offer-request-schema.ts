@@ -1,4 +1,4 @@
-import { UpdateOfferAction } from '@echo/api-public'
+import { UpdateOfferAction } from '@echo/api'
 import { z } from 'zod'
 
 export const updateOfferRequestSchema = z.object({

@@ -1,6 +1,6 @@
 import { findNftById } from '../../../src/lib/server/helpers/nft/find-nft-by-id'
 import { getOfferItems } from '../../../src/lib/server/helpers/offer/get-offer-items'
-import { OfferItemRequest } from '@echo/api-public'
+import { OfferItemRequest } from '@echo/api'
 import { getNftMockById } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
 import { forEach } from 'ramda'

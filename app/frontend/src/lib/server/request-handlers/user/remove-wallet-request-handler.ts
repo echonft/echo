@@ -2,7 +2,7 @@ import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
 import { parseRemoveWalletRequest } from '../../helpers/user/parse-remove-wallet-request'
 import { removeUserWallet } from '../../helpers/user/remove-user-wallet'
 import { updateUserNfts } from '../../helpers/user/update-user-nfts'
-import { ApiRequest, EmptyResponse, RemoveWalletRequest } from '@echo/api-public'
+import { ApiRequest, EmptyResponse, RemoveWalletRequest } from '@echo/api'
 import { NextResponse } from 'next/server'
 import { AuthOptions } from 'next-auth'
 

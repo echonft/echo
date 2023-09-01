@@ -1,5 +1,6 @@
 import { fetcher } from '../../../../../lib/helpers/fetcher'
-import { ErrorStatus, GetNftCollectionNftsResponse, nftCollectionNftsApiUrl } from '@echo/api-public'
+import { ErrorStatus } from '../../../../../lib/server/constants/error-status'
+import { GetNftCollectionNftsResponse, nftCollectionNftsApiUrl } from '@echo/api'
 import { CollectionNftsApiProvided } from '@echo/ui'
 import { notFound } from 'next/navigation'
 import { isNil } from 'ramda'

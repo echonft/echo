@@ -1,4 +1,4 @@
-import { ApiRequest, ApiResponse } from '@echo/api-public'
+import { ApiRequest, ApiResponse } from '@echo/api'
 
 export type RequestHandler<ResponseBody, RequestBody = never> = (
   req: ApiRequest<RequestBody>,

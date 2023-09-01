@@ -1,5 +1,5 @@
 import { getListingTargets } from '../../../src/lib/server/helpers/listing/get-listing-targets'
-import { ListingTargetRequest } from '@echo/api-public'
+import { ListingTargetRequest } from '@echo/api'
 import { findNftCollectionById, ListingTarget, NftCollection } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
 import { forEach } from 'ramda'

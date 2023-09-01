@@ -1,6 +1,6 @@
 import { updateOfferRequestSchema } from '../../validators/update-offer-request-schema'
 import { BadRequestError } from '../error/bad-request-error'
-import { UpdateOfferRequest } from '@echo/api-public'
+import { UpdateOfferRequest } from '@echo/api'
 
 export const parseUpdateOfferRequest = (request: UpdateOfferRequest) => {
   try {

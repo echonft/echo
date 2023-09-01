@@ -2,7 +2,7 @@ import { assertListing } from '../../helpers/listing/assert-listing'
 import { cancelListing } from '../../helpers/listing/cancel-listing'
 import { getListing } from '../../helpers/listing/get-listing'
 import { assertUserIs } from '../../helpers/user/assert-user-is'
-import { EmptyResponse } from '@echo/api-public'
+import { EmptyResponse } from '@echo/api'
 import { User } from '@echo/firestore'
 import { NextResponse } from 'next/server'
 

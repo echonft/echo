@@ -1,6 +1,6 @@
 import { UnauthorizedError } from '../error/unauthorized-error'
 import { getAdminApiKey } from './get-admin-api-key'
-import { ApiRequest } from '@echo/api-public'
+import { ApiRequest } from '@echo/api'
 
 export const assertAdmin = <T>(req: ApiRequest<T>) => {
   const authorizationHeader = 'Authorization'

@@ -1,5 +1,6 @@
 import { fetcher } from '../../../../lib/helpers/fetcher'
-import { ErrorStatus, GetNftCollectionResponse, nftCollectionApiUrl } from '@echo/api-public'
+import { ErrorStatus } from '../../../../lib/server/constants/error-status'
+import { GetNftCollectionResponse, nftCollectionApiUrl } from '@echo/api'
 import { CollectionDetailsApiProvided } from '@echo/ui'
 import { clsx } from 'clsx'
 import { notFound } from 'next/navigation'

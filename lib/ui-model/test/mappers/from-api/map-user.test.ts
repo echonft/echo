@@ -1,5 +1,5 @@
 import { mapUser } from '../../../src/mappers/from-api/map-user'
-import { UserResponse } from '@echo/api-public'
+import { UserResponse } from '@echo/api'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - from-api - mapUser', () => {

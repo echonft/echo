@@ -3,7 +3,7 @@ import { parseUpdateOfferRequest } from '../../helpers/offer/parse-update-offer-
 import { handleAcceptOffer } from './handle-accept-offer'
 import { handleCancelOffer } from './handle-cancel-offer'
 import { handleRejectOffer } from './handle-reject-offer'
-import { ApiRequest, UpdateOfferAction, UpdateOfferRequest } from '@echo/api-public'
+import { ApiRequest, UpdateOfferAction, UpdateOfferRequest } from '@echo/api'
 import { AuthOptions } from 'next-auth'
 
 export async function updateOfferRequestHandler(

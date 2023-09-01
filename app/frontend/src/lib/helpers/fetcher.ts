@@ -1,4 +1,5 @@
-import { ErrorResponse, ErrorStatus } from '@echo/api-public'
+import { ErrorStatus } from '../server/constants/error-status'
+import { ErrorResponse } from '@echo/api'
 import { HTTP_METHOD } from 'next/dist/server/web/http'
 import { assoc, assocPath, forEach, forEachObjIndexed, is, isNil, pathEq } from 'ramda'
 

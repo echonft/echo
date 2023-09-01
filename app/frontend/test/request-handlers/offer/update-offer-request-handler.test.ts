@@ -6,7 +6,7 @@ import { handleCancelOffer } from '../../../src/lib/server/request-handlers/offe
 import { handleRejectOffer } from '../../../src/lib/server/request-handlers/offer/handle-reject-offer'
 import { updateOfferRequestHandler } from '../../../src/lib/server/request-handlers/offer/update-offer-request-handler'
 import { mockRequest } from '../../mocks/request-response'
-import { UpdateOfferAction, UpdateOfferRequest } from '@echo/api-public'
+import { UpdateOfferAction, UpdateOfferRequest } from '@echo/api'
 import { User } from '@echo/firestore'
 import { AuthOptions, Session } from 'next-auth'
 

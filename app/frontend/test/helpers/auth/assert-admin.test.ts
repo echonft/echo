@@ -1,6 +1,6 @@
 import { assertAdmin } from '../../../src/lib/server/helpers/auth/assert-admin'
 import { getAdminApiKey } from '../../../src/lib/server/helpers/auth/get-admin-api-key'
-import { ApiRequest } from '@echo/api-public'
+import { ApiRequest } from '@echo/api'
 import { NextRequest } from 'next/server'
 
 jest.mock('../../../src/lib/server/helpers/auth/get-admin-api-key')

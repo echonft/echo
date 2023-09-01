@@ -1,5 +1,5 @@
+import { ErrorStatus } from '../../constants/error-status'
 import { ApiError } from './api-error'
-import { ErrorStatus } from '@echo/api-public'
 
 export class UnauthorizedError extends ApiError {
   constructor(message?: string) {

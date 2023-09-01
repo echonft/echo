@@ -6,7 +6,7 @@ import { parseCreateOfferSchema } from '../../helpers/offer/parse-create-offer-s
 import { assertUser } from '../../helpers/user/assert-user'
 import { assertUserHasWallets } from '../../helpers/user/assert-user-has-wallets'
 import { findUserById } from '../../helpers/user/find-user-by-id'
-import { ApiRequest, CreateOfferRequest, IdResponse } from '@echo/api-public'
+import { ApiRequest, CreateOfferRequest, IdResponse } from '@echo/api'
 import { NextResponse } from 'next/server'
 import { AuthOptions } from 'next-auth'
 

@@ -1,6 +1,6 @@
 import { addWalletSchema } from '../../validators/add-wallet-schema'
 import { BadRequestError } from '../error/bad-request-error'
-import { AddWalletRequest } from '@echo/api-public'
+import { AddWalletRequest } from '@echo/api'
 
 export const parseAddWalletRequest = (request: AddWalletRequest) => {
   try {

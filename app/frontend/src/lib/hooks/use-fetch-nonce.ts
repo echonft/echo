@@ -1,5 +1,5 @@
 import { fetcher } from '../helpers/fetcher'
-import { NonceResponse, userNonceApiUrl } from '@echo/api-public'
+import { NonceResponse, userNonceApiUrl } from '@echo/api'
 import useSWR from 'swr'
 
 export const useFetchNonce = () =>

@@ -6,7 +6,7 @@ import { getOfferItemsWallet } from '../../../src/lib/server/helpers/offer/get-o
 import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-id'
 import { createOfferRequestHandler } from '../../../src/lib/server/request-handlers/offer/create-offer-request-handler'
 import { mockRequest } from '../../mocks/request-response'
-import { CreateOfferRequest, IdResponse } from '@echo/api-public'
+import { CreateOfferRequest, IdResponse } from '@echo/api'
 import { User } from '@echo/firestore'
 import { AuthOptions, Session } from 'next-auth'
 
