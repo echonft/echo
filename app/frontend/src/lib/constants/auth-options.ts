@@ -1,4 +1,4 @@
-import { createOrUpdateUser } from '@echo/api'
+import { createOrUpdateUser } from '../server/helpers/auth/create-or-update-user'
 import { getDiscordAuthorizationUrl, getDiscordConfig } from '@echo/discord'
 import { logger } from '@echo/utils'
 import { AuthOptions } from 'next-auth'

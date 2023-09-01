@@ -1,13 +1,12 @@
 {
-  "extends": "../../lib/tsconfig/nextjs.json",
+  "extends": "../../lib/tsconfig/react.json",
   "compilerOptions": {
-    "baseUrl": "src",
-    "paths": {
-      "@app/*": ["app/*"],
-      "@components/*": ["components/*"],
-      "@lib/*": ["lib/*"],
-      "@pages/*": ["pages/*"]
-    }
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "noEmit": true
   },
   "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "test"],
   "exclude": ["node_modules", "src/i18n.ts"]
