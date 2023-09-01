@@ -1,5 +1,5 @@
-import { AuthUser } from '../../types/auth/auth-user'
 import { User } from '@echo/firestore'
+import { AuthUser } from '@echo/ui-model'
 import { modifyDatePropToNumber, removeUndefinedProps } from '@echo/utils'
 import { dissoc, pipe } from 'ramda'
 

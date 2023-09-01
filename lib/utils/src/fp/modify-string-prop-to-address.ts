@@ -1,5 +1,5 @@
-import { getAddress } from 'ethers'
 import { assoc, has, ifElse, isNil, modify, pipe, prop, unless } from 'ramda'
+import { getAddress } from 'viem'
 
 export const modifyStringPropToAddress = <K extends string, T>(propKey: K) =>
   ifElse(

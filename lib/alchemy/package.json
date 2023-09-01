@@ -8,7 +8,7 @@
   "types": "src/index.ts",
   "scripts": {
     "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",
-    "lint:ci": "eslint .ts src/ && eslint .ts test/",
+    "lint:ci": "eslint --ext .ts src/ && eslint --ext .ts test/",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
@@ -26,10 +26,10 @@
     "@jest/types": "29.6.1",
     "@types/node": "20.4.9",
     "@types/ramda": "0.29.3",
-    "ethers": "6.7.0",
     "jest": "29.6.2",
     "jest-junit": "16.0.0",
     "ramda": "0.29.0",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "viem": "^1.9.5"
   }
 }

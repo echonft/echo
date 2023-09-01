@@ -2,7 +2,7 @@ import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
 import { createOffer } from '../../helpers/offer/create-offer'
 import { getOfferItems } from '../../helpers/offer/get-offer-items'
 import { getOfferItemsWallet } from '../../helpers/offer/get-offer-items-wallet'
-import { parseCreateOfferSchema } from '../../helpers/offer/parse-create-offer-schema'
+import { parseCreateOfferRequest } from '../../helpers/offer/parse-create-offer-request'
 import { assertUser } from '../../helpers/user/assert-user'
 import { assertUserHasWallets } from '../../helpers/user/assert-user-has-wallets'
 import { findUserById } from '../../helpers/user/find-user-by-id'
@@ -12,7 +12,7 @@ import { AuthOptions } from 'next-auth'
 
 export async function createOfferRequestHandler(req: ApiRequest<CreateOfferRequest>, authOptions: AuthOptions) {
   const requestBody = await req.json()
-  const { receiverItems, receiverId, senderItems } = parseCreateOfferSchema(requestBody)
+  const { receiverItems, receiverId, senderItems } = parseCreateOfferRequest(requestBody)
   const sender = await getUserFromSession(authOptions)
   assertUserHasWallets(sender)
   const receiver = await findUserById(receiverId)

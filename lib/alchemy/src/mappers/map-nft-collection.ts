@@ -1,8 +1,8 @@
 import { AlchemyNftCollection } from '../types/model/alchemy-nft-collection'
 import { ContractResponse } from '../types/response/contract-response'
 import { unlessNil } from '@echo/utils'
-import { getAddress } from 'ethers'
 import { always, applySpec, path, pipe, prop } from 'ramda'
+import { getAddress } from 'viem'
 
 export function mapNftCollection(contractResponse: ContractResponse): AlchemyNftCollection {
   return applySpec<AlchemyNftCollection>({
@@ -18,7 +18,7 @@ export function mapNftCollection(contractResponse: ContractResponse): AlchemyNft
     floorPrice: path(['openSeaMetadata', 'floorPrice']),
     name: prop('name'),
     profilePictureUrl: path(['openSeaMetadata', 'imageUrl']),
-    totalSupply: pipe(prop<string>('totalSupply'), unlessNil(Number.parseInt)),
+    totalSupply: pipe(prop<string>('totalSupply'), unlessNil(parseInt)),
     twitterUsername: path(['openSeaMetadata', 'twitterUsername']),
     websiteUrl: path(['openSeaMetadata', 'externalUrl'])
   })(contractResponse)

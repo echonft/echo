@@ -30,4 +30,5 @@ export type { NftCollectionResponse } from './types/responses/model/nft-collecti
 export type { NftResponse } from './types/responses/model/nft-response'
 export type { NftWithCollectionResponse } from './types/responses/model/nft-with-collection-response'
 export type { UserResponse } from './types/responses/model/user-response'
+export type { WalletResponse } from './types/responses/model/wallet-response'
 export type { NonceResponse } from './types/responses/nonce-response'

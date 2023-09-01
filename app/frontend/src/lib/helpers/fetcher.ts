@@ -1,7 +1,8 @@
 import { ErrorStatus } from '../server/constants/error-status'
+import { setUrlQuery } from './set-url-query'
 import { ErrorResponse } from '@echo/api'
 import { HTTP_METHOD } from 'next/dist/server/web/http'
-import { assoc, assocPath, forEach, forEachObjIndexed, is, isNil, pathEq } from 'ramda'
+import { assoc, assocPath, is, pathEq } from 'ramda'
 
 interface FetchResult<T> {
   data: T | undefined
@@ -74,18 +75,7 @@ class Fetcher {
   }
 
   query<T extends Record<string, string | number | string[] | undefined>>(query: T) {
-    forEachObjIndexed<T>((value, key) => {
-      const name = key as string
-      if (!isNil(value)) {
-        if (Array.isArray(value)) {
-          forEach((arrayValue: string) => {
-            this.url.searchParams.append(`${name}[]`, arrayValue)
-          }, value)
-        } else {
-          this.url.searchParams.set(name, value.toString())
-        }
-      }
-    }, query)
+    setUrlQuery(this.url, query)
     return this
   }
 

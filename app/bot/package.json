@@ -12,7 +12,7 @@
     "deploy-commands": "node dist/scripts/deploy-commands.js",
     "dev": "nodemon --watch \"src/**\" --watch \"node_modules/@echo/**/src/**\" --ext \"ts\" --exec \"ts-node src/index.ts\"",
     "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",
-    "lint:ci": "eslint .ts src/ && eslint .ts test/",
+    "lint:ci": "eslint --ext .ts src/ && eslint --ext .ts test/",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",

@@ -1,3 +1,4 @@
+import { getChainNameById } from '../../../helpers/get-chain-name-by-id'
 import { NftDetailsTokenDetailsPanelRow } from './nft-details-token-details-panel-row'
 import { TokenType } from '@echo/ui-model'
 import { clsx } from 'clsx'
@@ -31,9 +32,7 @@ export const NftDetailsTokenDetailsPanel: FunctionComponent<Props> = ({ chainId,
         <NftDetailsTokenDetailsPanelRow name={t('nft.details.tokenDetails.tokenId')} value={tokenId.toString()} />
         <NftDetailsTokenDetailsPanelRow
           name={t('nft.details.tokenDetails.blockchain')}
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          value={t(`chain.name.id${chainId}`)}
+          value={getChainNameById(chainId)}
         />
         <NftDetailsTokenDetailsPanelRow name={t('nft.details.tokenDetails.tokenType')} value={tokenType} />
       </div>
