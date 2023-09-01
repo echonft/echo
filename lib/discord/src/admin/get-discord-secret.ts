@@ -1,4 +1,4 @@
-import { DiscordSecret } from '../types/admin/discord-secret'
+import { DiscordSecret } from '../types/discord-secret'
 import { isEmpty, isNil } from 'ramda'
 
 export const getDiscordSecret = (): DiscordSecret => {

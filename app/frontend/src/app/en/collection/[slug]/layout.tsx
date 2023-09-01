@@ -1,8 +1,9 @@
-import { GetNftCollectionResponse, nftCollectionApiUrl } from '@echo/api-public'
+import { ErrorStatus, GetNftCollectionResponse, nftCollectionApiUrl } from '@echo/api-public'
 import { CollectionDetailsApiProvided } from '@echo/ui'
-import { getData } from '@echo/utils'
+import { fetcher } from '@lib/helpers/fetcher'
 import { clsx } from 'clsx'
 import { notFound } from 'next/navigation'
+import { isNil } from 'ramda'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
@@ -11,19 +12,26 @@ interface Props {
   }
 }
 const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { slug }, children }) => {
-  try {
-    const collectionResponse = await getData<GetNftCollectionResponse>(nftCollectionApiUrl(slug))
-    return (
-      <>
-        <section className={clsx('w-full')}>
-          <CollectionDetailsApiProvided collectionResponse={collectionResponse} />
-        </section>
-        <section className={clsx('w-full', 'pt-14')}>{children}</section>
-      </>
-    )
-  } catch (e) {
-    notFound()
+  const { data, error } = await fetcher(nftCollectionApiUrl(slug)).fetch<GetNftCollectionResponse>()
+
+  if (isNil(data)) {
+    if (!isNil(error)) {
+      if (error.status === ErrorStatus.NOT_FOUND) {
+        notFound()
+      }
+      throw Error(error.message)
+    }
+    throw Error()
   }
+
+  return (
+    <>
+      <section className={clsx('w-full')}>
+        <CollectionDetailsApiProvided collectionResponse={data} />
+      </section>
+      <section className={clsx('w-full', 'pt-14')}>{children}</section>
+    </>
+  )
 }
 
 export default CollectionLayout

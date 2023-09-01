@@ -9,6 +9,6 @@
       "@pages/*": ["pages/*"]
     }
   },
-  "include": ["src", "next-env.d.ts", ".next/types/**/*.ts"],
+  "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "test"],
   "exclude": ["node_modules", "src/i18n.ts"]
 }

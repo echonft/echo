@@ -1,5 +1,3 @@
 export { getDiscordSecret } from './admin/get-discord-secret'
 export { getDiscordAuthorizationUrl } from './config/get-discord-authorization-url'
 export { getDiscordConfig } from './config/get-discord-config'
-export { fetchDiscordUser } from './service/fetch-discord-user'
-export type { DiscordUserResponse } from './types/model/discord-user-response'

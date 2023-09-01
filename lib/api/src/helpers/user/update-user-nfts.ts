@@ -1,13 +1,13 @@
+import { getNftsForOwner } from '../alchemy/get-nfts-for-owner'
 import { createNft } from '../nft/create-nft'
 import { updateNftOwner } from '../nft/update-nft-owner'
 import { getAllNftCollections } from '../nft-collection/get-all-nft-collections'
 import { setUserUpdatedAt } from './set-user-updated-at'
-import { getNftsForOwner } from '@echo/alchemy'
 import { findNftByCollectionContract, getUserWalletAddresses, User, Wallet } from '@echo/firestore'
 import { isNilOrEmpty } from '@echo/utils'
 import { isNil, map, path } from 'ramda'
 
-export const updateUserNfts = async (user: User) => {
+export async function updateUserNfts(user: User) {
   if (isNilOrEmpty(user.wallets)) {
     return
   }
@@ -18,7 +18,7 @@ export const updateUserNfts = async (user: User) => {
   for (const address of userWalletAddresses) {
     // TODO Should support multi chain, right now only ETH (chainId 1) is supported
     const userWallet: Wallet = { address, chainId: 1 }
-    const nfts = await getNftsForOwner({ owner: address, contractAddresses: addresses })
+    const nfts = await getNftsForOwner(address, addresses)
     for (const alchemyNft of nfts) {
       const { contractAddress, chainId, tokenId } = alchemyNft
       // FIXME this is true only for ERC721

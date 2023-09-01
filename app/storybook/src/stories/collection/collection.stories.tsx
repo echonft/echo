@@ -1,17 +1,16 @@
-import { Collection as Component } from '@echo/ui'
-import { Meta, StoryObj } from '@storybook/react'
+import { getAllNfts } from '../../mocks/model/nft'
+import { getCollectionById } from '../../mocks/model/nft-collection'
+import { Collection as Component, CollectionSkeleton } from '@echo/ui'
+import { getTraitsForNfts } from '@echo/ui-model'
+import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Pages/Collection/Fetched',
+  title: 'Pages/Collection',
   component: Component,
   argTypes: {
-    onCollectionError: {
+    onTraitSelectionUpdate: {
       control: false,
-      action: 'collection error'
-    },
-    onNftsError: {
-      control: false,
-      action: 'NFTs error'
+      action: 'traits selection updated'
     },
     onMakeOfferForNft: {
       control: false,
@@ -20,7 +19,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['slug']
+      exclude: 'isFetchingNfts'
     }
   }
 }
@@ -28,8 +27,18 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-export const Fetched: Story = {
-  args: {
-    slug: 'pxmythics-genesis'
-  }
+const collection = getCollectionById('Rc8pLQXxgyQGIRL0fr13')
+const nfts = getAllNfts()
+const traits = getTraitsForNfts(nfts)
+
+export const Default: Story = {
+  render: () => <Component collection={collection} nfts={nfts} traits={traits} />
+}
+
+export const FetchingNewNFTS: Story = {
+  render: () => <Component collection={collection} nfts={nfts} traits={traits} isFetchingNfts={true} />
+}
+
+export const Skeleton: Story = {
+  render: () => <CollectionSkeleton />
 }

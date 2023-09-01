@@ -1,10 +1,23 @@
 import { mapDiscordUserResponseToUser } from '../../mappers/from-discord/map-discord-user-response-to-user'
-import { fetchDiscordUser as discordFetchDiscordUser } from '@echo/discord'
+import { DiscordUserGuildResponse } from '../../types/user/discord-user-guild-response'
+import { DiscordUserResponse } from '../../types/user/discord-user-response'
+import { fetcher } from '../fetcher'
 
-export const fetchDiscordUser = async (accessToken: string, tokenType: string) => {
+export async function fetchDiscordUser(accessToken: string, tokenType: string) {
   try {
-    const discordUserResponse = await discordFetchDiscordUser(accessToken, tokenType, true)
-    return mapDiscordUserResponseToUser(discordUserResponse)
+    const user = await fetcher('https://discord.com/api/users/@me')
+      .authorization(tokenType, accessToken)
+      .revalidate(3600)
+      .fetch<DiscordUserResponse>()
+    const guilds = await fetcher('https://discord.com/api/users/@me/guilds')
+      .authorization(tokenType, accessToken)
+      .revalidate(3600)
+      .fetch<DiscordUserGuildResponse[]>()
+
+    return mapDiscordUserResponseToUser({
+      ...user,
+      guilds
+    })
   } catch (e) {
     throw Error('Error fetching discord user')
   }

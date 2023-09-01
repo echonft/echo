@@ -1,13 +1,13 @@
 import { EmptyResponse, RemoveWalletRequest, userWalletApiUrl } from '@echo/api-public'
 import { Wallet } from '@echo/ui-model'
-import { deleteData } from '@echo/utils'
-import { converge, prop } from 'ramda'
+import { fetcher } from '@lib/helpers/fetcher'
 import useSWR from 'swr'
 
 interface KeyData {
   url: URL
   request: RemoveWalletRequest
 }
+
 export const useRemoveWallet = (wallet: Wallet) =>
   useSWR<EmptyResponse, Error, KeyData>(
     {
@@ -16,7 +16,5 @@ export const useRemoveWallet = (wallet: Wallet) =>
         wallet
       }
     },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    converge(deleteData, [prop('url'), prop('request')])
+    ({ url, request }) => fetcher(url).method('DELETE').body(request).fetchResponse<EmptyResponse>()
   )

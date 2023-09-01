@@ -1,7 +1,6 @@
 import { AddWalletRequest, EmptyResponse, userWalletApiUrl } from '@echo/api-public'
 import { Signature, Wallet } from '@echo/ui-model'
-import { putData } from '@echo/utils'
-import { converge, prop } from 'ramda'
+import { fetcher } from '@lib/helpers/fetcher'
 import { SiweMessage } from 'siwe'
 import useSWR from 'swr'
 
@@ -20,7 +19,5 @@ export const useAddWallet = (message: SiweMessage, signature: Signature, wallet:
         signature
       }
     },
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    converge(putData, [prop('url'), prop('request')])
+    ({ url, request }) => fetcher(url).method('PUT').body(request).fetchResponse<EmptyResponse>()
   )

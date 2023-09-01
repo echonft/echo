@@ -1,5 +1,5 @@
 import { DiscordUser } from '../../types/user/discord-user'
-import { DiscordUserResponse } from '@echo/discord'
+import { DiscordUserResponse } from '../../types/user/discord-user-response'
 import { UserDiscordGuild } from '@echo/firestore'
 import { applySpec, map, pipe, prop } from 'ramda'
 

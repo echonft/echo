@@ -1,7 +1,8 @@
 import { ApiError } from './api-error'
+import { ErrorStatus } from '@echo/api-public'
 
 export class UnauthorizedError extends ApiError {
   constructor(message?: string) {
-    super(401, message ?? 'Unauthorized')
+    super(ErrorStatus.UNAUTHORIZED, message ?? 'Unauthorized')
   }
 }

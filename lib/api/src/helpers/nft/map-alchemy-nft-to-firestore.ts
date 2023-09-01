@@ -1,12 +1,13 @@
 import { getNftCollectionByContract } from '../nft-collection/get-nft-collection-by-contract'
 import { getNftBlurUrl } from './get-nft-blur-url'
 import { getOpenSeaUrl } from './get-open-sea-url'
-import { GetNftResponse } from '@echo/alchemy'
+import { AlchemyNft } from '@echo/alchemy'
 import { mapUserToUserDetails, Nft, NftCollection, User, Wallet } from '@echo/firestore'
-import { isNil, omit } from 'ramda'
+import { modifyStringPropToUrl } from '@echo/utils'
+import { isNil, omit, pipe } from 'ramda'
 
 export const mapAlchemyNftToFirestore = (
-  alchemyNft: GetNftResponse,
+  alchemyNft: AlchemyNft,
   user: User,
   userWallet: Wallet,
   collections: NftCollection[]
@@ -16,8 +17,14 @@ export const mapAlchemyNftToFirestore = (
   if (isNil(collection)) {
     throw Error(`collection address: ${contractAddress} chainId: ${chainId} not found`)
   }
+  const partialNft = pipe(
+    omit(['contractAddress', 'chainId']),
+    modifyStringPropToUrl('pictureUrl'),
+    modifyStringPropToUrl('thumbnailUrl')
+  )(alchemyNft)
+
   return {
-    ...omit(['contractAddress', 'chainId'], alchemyNft),
+    ...partialNft,
     blurUrl: getNftBlurUrl(contractAddress, tokenId),
     openSeaUrl: getOpenSeaUrl(contractAddress, chainId, tokenId),
     collection,

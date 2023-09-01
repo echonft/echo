@@ -1,5 +1,5 @@
-import { authOptions } from '@app/api/auth/[...nextauth]/route'
 import { Header } from '@echo/ui'
+import { authOptions } from '@lib/constants/auth-options'
 import { clsx } from 'clsx'
 import { getServerSession } from 'next-auth/next'
 import { FunctionComponent, PropsWithChildren } from 'react'

@@ -15,8 +15,7 @@ export const getContractMetadataResponse: { [key: string]: ContractResponse } = 
       safelistRequestStatus: 'verified',
       imageUrl:
         'https://i.seadn.io/gae/dPCp-lwVmhNgEqZCIsTVos7mDu7qY5A_LARb8PMULBrIfTIlRSlX58fphv8AQm8axjszuT-LOwbBlIbXRwZuA6Ua9Btp3aJWpMCMWu8?w=500&auto=format',
-      description:
-        'A **[Genetic Chain](https://geneticchain.io)** Project.\r\n\r\nProject #1: [Spiral Frequencies](https://geneticchain.io/project/1) by papaver\r\n\r\nSpirals twisting their beauty through hypnotic frequencies.\r\n\r\nThis is an on-chain dynamic NFT project. Token owners can customize certain art traits. Go to the [Spiral Frequencies DApp](https://geneticchain.io/project/1/dapp) and login using your MetaMask wallet.',
+      description: 'description',
       externalUrl: 'https://geneticchain.io/project/1',
       twitterUsername: 'GeneticChain',
       discordUrl: 'https://discord.gg/genetic-chain',

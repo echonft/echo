@@ -1,5 +1,6 @@
 import { NonceResponse, userNonceApiUrl } from '@echo/api-public'
-import { getData } from '@echo/utils'
+import { fetcher } from '@lib/helpers/fetcher'
 import useSWR from 'swr'
 
-export const useFetchNonce = () => useSWR<NonceResponse, Error, URL>(userNonceApiUrl(), getData)
+export const useFetchNonce = () =>
+  useSWR<NonceResponse, Error, URL>(userNonceApiUrl(), (url) => fetcher(url).fetchResponse<NonceResponse>())

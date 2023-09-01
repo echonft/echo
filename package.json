@@ -25,6 +25,7 @@
     "build:fix": "turbo run build:fix",
     "clean": "turbo run clean",
     "frontend:build": "turbo run build --filter=@echo/frontend",
+    "frontend:clean": "turbo run clean --filter=@echo/frontend",
     "frontend:dev": "env-cmd -f .env turbo run dev --filter=@echo/frontend --filter=@echo/ui",
     "frontend:start": "turbo run start --filter=@echo/frontend",
     "lint": "turbo run lint",
@@ -69,7 +70,7 @@
     "turbo": "1.10.13",
     "vercel": "31.2.3"
   },
-  "packageManager": "pnpm@8.7.0",
+  "packageManager": "pnpm@8.7.1",
   "nextBundleAnalysis": {
     "budget": 358400,
     "budgetPercentIncreaseRed": 20,

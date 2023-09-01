@@ -1,13 +1,13 @@
 import { mapAlchemyNftToFirestore } from '../../../src/helpers/nft/map-alchemy-nft-to-firestore'
 import { getNftCollectionByContract } from '../../../src/helpers/nft-collection/get-nft-collection-by-contract'
-import { GetNftResponse } from '@echo/alchemy'
+import { AlchemyNft } from '@echo/alchemy'
 import { getNftCollectionMockById, getUserMockById, Wallet } from '@echo/firestore'
 import { describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../../src/helpers/nft-collection/get-nft-collection-by-contract')
 
 describe('helpers - nft - mapAlchemyNftToFirestore', () => {
-  const alchemyNft: GetNftResponse = {
+  const alchemyNft: AlchemyNft = {
     contractAddress: '0x12c63bbD266dB84e117356e664f3604055166CEc',
     chainId: 1,
     attributes: [
@@ -18,8 +18,8 @@ describe('helpers - nft - mapAlchemyNftToFirestore', () => {
     ],
     balance: 1,
     name: 'nft-name',
-    pictureUrl: new URL('https://echo.xyz'),
-    thumbnailUrl: new URL('https://echo.xyz'),
+    pictureUrl: 'https://echo.xyz',
+    thumbnailUrl: 'https://echo.xyz',
     tokenId: 1,
     tokenType: 'ERC721'
   }
