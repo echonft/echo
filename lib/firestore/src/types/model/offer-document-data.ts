@@ -11,9 +11,11 @@ export interface OfferDocumentData {
   expiresAt: number
   listingsIds: string[]
   receiver: UserDetailsDocumentData
+  receiverId: string
   receiverItems: NonEmptyArray<OfferItemDocumentData>
   receiverItemsNftIds: NonEmptyArray<string>
   sender: UserDetailsDocumentData
+  senderId: string
   senderItems: NonEmptyArray<OfferItemDocumentData>
   senderItemsNftIds: NonEmptyArray<string>
   state: OfferState
