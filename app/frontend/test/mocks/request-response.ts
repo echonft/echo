@@ -1,4 +1,4 @@
-import { setUrlQuery } from '../../src/lib/helpers/set-url-query'
+import { setUrlQuery } from '../../src/lib/helpers/request/set-url-query'
 import { ApiRequest } from '@echo/api'
 import { NextRequest } from 'next/server'
 import { isNil } from 'ramda'

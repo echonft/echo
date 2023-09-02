@@ -1,4 +1,3 @@
-import { Field } from '../../types/abstract/field'
 import { QueryConstraints } from '../../types/abstract/query-constraints'
 import { addLimitConstraint } from './add-limit-constraint'
 import { addLimitToLastConstraint } from './add-limit-to-last-constraint'
@@ -10,9 +9,13 @@ import { isNil } from 'ramda'
 
 export function addConstraintsToQuery<T>(
   query: CollectionReference<T> | Query<T>,
-  constraints: QueryConstraints,
-  availableFields?: Field[]
+  constraints: QueryConstraints | undefined,
+  availableFields?: string[]
 ) {
+  if (isNil(constraints)) {
+    return query
+  }
+
   let queryWithConstraints = query
   const { select, orderBy, limit, limitToLast, offset } = constraints
   if (!isNil(select)) {

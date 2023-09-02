@@ -1,4 +1,3 @@
-import { Field } from '../abstract/field'
 import { Contract } from './contract'
 import { NftCollectionDiscordGuild } from './nft-collection-discord-guild'
 
@@ -19,23 +18,3 @@ export interface NftCollection {
   twitterUsername: string | undefined
   websiteUrl: URL | undefined
 }
-
-export const nftCollectionFields: Field[] = [
-  'id',
-  'bannerUrl',
-  ['contract', 'address'],
-  ['contract', 'chainId'],
-  ['contract', 'name'],
-  ['contract', 'symbol'],
-  ['contract', 'tokenType'],
-  'description',
-  ['discordGuild', 'channelId'],
-  ['discordGuild', 'discordId'],
-  'floorPrice',
-  'name',
-  'openSeaUrl',
-  'profilePictureUrl',
-  'totalSupply',
-  'twitterUsername',
-  'websiteUrl'
-]

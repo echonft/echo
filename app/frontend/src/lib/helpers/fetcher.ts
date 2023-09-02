@@ -1,5 +1,5 @@
 import { ErrorStatus } from '../server/constants/error-status'
-import { setUrlQuery } from './set-url-query'
+import { setUrlQuery } from './request/set-url-query'
 import { ErrorResponse } from '@echo/api'
 import { HTTP_METHOD } from 'next/dist/server/web/http'
 import { assoc, assocPath, is, pathEq } from 'ramda'

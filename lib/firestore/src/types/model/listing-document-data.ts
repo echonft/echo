@@ -17,3 +17,20 @@ export interface ListingDocumentData {
   targets: NonEmptyArray<ListingTargetDocumentData>
   targetsIds: NonEmptyArray<string>
 }
+
+export const listingFields = [
+  'id',
+  'createdAt',
+  'creator.discordAvatar',
+  'creator.discordBanner',
+  'creator.discordId',
+  'creator.discordUsername',
+  'creator.wallet',
+  'creatorId',
+  'expiresAt',
+  'items',
+  'itemsNftIds',
+  'state',
+  'targets',
+  'targetsIds'
+]

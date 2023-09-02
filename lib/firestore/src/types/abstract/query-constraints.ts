@@ -1,8 +1,7 @@
-import { Field } from './field'
 import { OrderByParameters } from './order-by-parameters'
 
 export interface QueryConstraints {
-  select?: Field | Field[]
+  select?: string | string[]
   orderBy?: OrderByParameters | OrderByParameters[]
   limit?: number
   limitToLast?: number

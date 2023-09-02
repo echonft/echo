@@ -1,3 +1,3 @@
-import { queryContraintFieldSchema } from './query-contraint-field-schema'
+import { z } from 'zod'
 
-export const queryContraintSelectSchema = queryContraintFieldSchema.array().nonempty()
+export const queryContraintSelectSchema = z.string().nonempty().array().nonempty()
