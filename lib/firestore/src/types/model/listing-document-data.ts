@@ -8,6 +8,7 @@ export interface ListingDocumentData {
   id: string
   createdAt: number
   creator: UserDetailsDocumentData
+  creatorId: string
   expiresAt: number
   items: NonEmptyArray<ListingItemDocumentData>
   itemsNftIds: NonEmptyArray<string>

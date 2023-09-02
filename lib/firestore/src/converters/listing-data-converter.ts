@@ -22,6 +22,7 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
     return pipe(
       getSnapshotData<ListingDocumentData>,
       modifyNumberPropToDate('createdAt'),
+      dissoc('creatorId'),
       modifyDocumentDataProp('creator', userDetailsDocumentDataConverter),
       modifyExpiresAtProp,
       modifyDocumentDataArrayProp('items', offerItemDocumentDataConverter),
@@ -39,6 +40,7 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
       modifyDatePropToNumber('createdAt'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
+      when(has('creator'), over(lens(prop('creator'), assoc('creatorId')), prop('id'))),
       modifyModelProp('creator', userDetailsDocumentDataConverter),
       modifyDatePropToNumber('expiresAt'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
