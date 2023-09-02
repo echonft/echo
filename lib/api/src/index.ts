@@ -1,5 +1,6 @@
 export { UpdateListingAction } from './constants/update-listing-action'
 export { UpdateOfferAction } from './constants/update-offer-action'
+export { allNftCollectionApiUrl } from './routing/all-nft-collection-api-url'
 export { createListingApiUrl } from './routing/create-listing-api-url'
 export { createOfferApiUrl } from './routing/create-offer-api-url'
 export { listingApiUrl } from './routing/listing-api-url'
