@@ -1,4 +1,4 @@
-import { OfferItem } from '../../types/model/offer-item'
+import { OfferItem } from '@echo/firestore-types'
 import { NonEmptyArray } from '@echo/utils'
 import { head, path, pipe } from 'ramda'
 

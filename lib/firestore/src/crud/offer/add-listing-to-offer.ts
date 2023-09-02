@@ -1,6 +1,6 @@
-import { Offer } from '../../types/model/offer'
 import { findListingById } from '../listing/find-listing-by-id'
 import { updateOffer } from './update-offer'
+import { Offer } from '@echo/firestore-types'
 import { WriteResult } from 'firebase-admin/firestore'
 import { includes, isNil } from 'ramda'
 

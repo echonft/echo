@@ -1,0 +1,29 @@
+{
+  "name": "@echo/firestore-types",
+  "version": "1.0.0",
+  "private": true,
+  "sideEffects": false,
+  "license": "MIT",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "lint": "eslint --cache --fix --ext .ts src/",
+    "lint:ci": "eslint --ext .ts src/",
+    "lint:clean-cache": "rm -f .eslintcache",
+    "modules:remove-all": "rm -rf node_modules",
+    "modules:update-all": "ncu -u",
+    "modules:upgrade": "pnpm upgrade",
+    "prettier": "prettier -u -c src/",
+    "test": "jest",
+    "test:ci": "jest --ci",
+    "test:watch": "jest --watch",
+    "tsc": "tsc --noEmit",
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
+  },
+  "peerDependencies": {
+    "@types/node": "20.4.9",
+    "@echo/utils": "workspace:*",
+    "dayjs": "1.11.9",
+    "firebase-admin": "11.10.1",
+    "typescript": "5.1.6"
+  }
+}

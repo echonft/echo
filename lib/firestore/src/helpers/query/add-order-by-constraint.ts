@@ -1,4 +1,4 @@
-import { OrderByParameters } from '../../types/abstract/order-by-parameters'
+import { OrderByParameters } from '@echo/firestore-types'
 import { isIn } from '@echo/utils'
 import { CollectionReference, OrderByDirection, Query } from 'firebase-admin/firestore'
 import { filter, head, is, isEmpty, propSatisfies, tail } from 'ramda'

@@ -1,4 +1,4 @@
-import { User, UserDiscordGuild } from '@echo/firestore'
+import { User, UserDiscordGuild } from '@echo/firestore-types'
 import { AuthUser, Wallet } from '@echo/ui-model'
 import { modifyDatePropToNumber, removeUndefinedProps } from '@echo/utils'
 import { Dayjs } from 'dayjs'

@@ -1,5 +1,4 @@
-import { NftCollectionDiscordGuild } from '../../types/model/nft-collection-discord-guild'
-import { Offer } from '../../types/model/offer'
+import { NftCollectionDiscordGuild, Offer } from '@echo/firestore-types'
 import { head, path, pipe, prop } from 'ramda'
 
 export function getOfferSenderItemsGuild(offer: Offer): NftCollectionDiscordGuild {

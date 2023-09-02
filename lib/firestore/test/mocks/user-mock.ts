@@ -1,4 +1,4 @@
-import { User } from '../../src/types/model/user'
+import { User } from '@echo/firestore-types'
 import dayjs from 'dayjs'
 
 export const userMock: { [key: string]: User } = {

@@ -5,8 +5,8 @@ import { findUserByDiscordId } from '../../../src/lib/server/helpers/user/find-u
 import { updateUser } from '../../../src/lib/server/helpers/user/update-user'
 import { updateUserNfts } from '../../../src/lib/server/helpers/user/update-user-nfts'
 import { mapUserToAuthUser } from '../../../src/lib/server/mappers/auth/map-user-to-auth-user'
-import { User } from '@echo/firestore'
 import { expectDateIsNow } from '@echo/firestore/test/test-utils/expect-date-is-now'
+import { User } from '@echo/firestore-types'
 import dayjs from 'dayjs'
 import { assoc, has, pipe } from 'ramda'
 

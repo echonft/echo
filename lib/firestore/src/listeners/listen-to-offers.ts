@@ -1,8 +1,7 @@
 import { CollectionName } from '../constants/collection-name'
 import { offerDataConverter } from '../converters/offer-data-converter'
 import { firestore } from '../services/firestore'
-import { DocumentChangeType } from '../types/abstract/document-change-type'
-import { Offer } from '../types/model/offer'
+import { DocumentChangeType, Offer } from '@echo/firestore-types'
 
 export function listenToOffers(onChange: (changeType: DocumentChangeType, offer: Offer) => unknown) {
   return firestore()

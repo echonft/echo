@@ -1,6 +1,6 @@
 import { FirestoreDocumentDataConverter } from '../types/converters/firestore-document-data-converter'
-import { Wallet } from '../types/model/wallet'
 import { WalletDocumentData } from '../types/model/wallet-document-data'
+import { Wallet } from '@echo/firestore-types'
 import { modifyStringPropToAddress } from '@echo/utils'
 
 export const walletDocumentDataConverter: FirestoreDocumentDataConverter<WalletDocumentData, Wallet> = {

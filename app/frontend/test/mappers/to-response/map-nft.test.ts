@@ -1,5 +1,6 @@
 import { mapNft } from '../../../src/lib/server/mappers/to-response/map-nft'
-import { getNftCollectionMockById, Nft, NftCollection } from '@echo/firestore'
+import { getNftCollectionMockById } from '@echo/firestore'
+import { Nft, NftCollection } from '@echo/firestore-types'
 
 describe('mappers - to-response - mapNft', () => {
   const collection = {

@@ -5,7 +5,7 @@ import { queryContraintOffsetSchema } from '../../server/validators/query-contra
 import { queryContraintOrderBySchema } from '../../server/validators/query-contraint-order-by-schema'
 import { queryContraintSelectSchema } from '../../server/validators/query-contraint-select-schema'
 import { ApiRequest } from '@echo/api'
-import { QueryConstraints } from '@echo/firestore'
+import { QueryConstraints } from '@echo/firestore-types'
 import { assoc, isEmpty, splitEvery } from 'ramda'
 
 export function parseContraintsQuery<T>(req: ApiRequest<T>) {

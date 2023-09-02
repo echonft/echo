@@ -1,7 +1,8 @@
 import { ServerError } from '../error/server-error'
 import { mapAlchemyNftToFirestore } from './map-alchemy-nft-to-firestore'
 import { AlchemyNft } from '@echo/alchemy'
-import { addNft, NftCollection, User, Wallet } from '@echo/firestore'
+import { addNft } from '@echo/firestore'
+import { NftCollection, User, Wallet } from '@echo/firestore-types'
 
 export const createNft = async (
   alchemyNft: AlchemyNft,

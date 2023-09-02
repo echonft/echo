@@ -2,7 +2,8 @@ import { getNftCollectionByContract } from '../nft-collection/get-nft-collection
 import { getNftBlurUrl } from './get-nft-blur-url'
 import { getOpenSeaUrl } from './get-open-sea-url'
 import { AlchemyNft } from '@echo/alchemy'
-import { mapUserToUserDetails, Nft, NftCollection, User, Wallet } from '@echo/firestore'
+import { mapUserToUserDetails } from '@echo/firestore'
+import { Nft, NftCollection, User, Wallet } from '@echo/firestore-types'
 import { modifyStringPropToUrl } from '@echo/utils'
 import { isNil, omit, pipe } from 'ramda'
 

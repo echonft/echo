@@ -5,10 +5,10 @@ import { modifyExpiresAtProp } from '../helpers/converters/from-firestore/modify
 import { modifyModelArrayProp } from '../helpers/converters/to-firestore/modify-model-array-prop'
 import { modifyModelProp } from '../helpers/converters/to-firestore/modify-model-prop'
 import { FirestoreModel } from '../types/abstract/firestore-model'
-import { Offer } from '../types/model/offer'
 import { OfferDocumentData } from '../types/model/offer-document-data'
 import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
+import { Offer } from '@echo/firestore-types'
 import {
   assocUndefinedIfPropNotPresent,
   modifyDatePropToNumber,

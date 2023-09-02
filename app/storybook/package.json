@@ -13,7 +13,7 @@
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
-    "prettier": "prettier -c src/",
+    "prettier": "prettier -u -c src/",
     "tsc": "tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },

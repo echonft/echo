@@ -8,5 +8,5 @@ export const cancelListing = async (id: string): Promise<WriteResult> => {
   assertListing(documentSnapshot?.data())
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  return documentSnapshot!.ref.update(listingDataConverter.toFirestore({ state: 'CANCELLED' }))
+  return documentSnapshot.ref.update(listingDataConverter.toFirestore({ state: 'CANCELLED' }))
 }

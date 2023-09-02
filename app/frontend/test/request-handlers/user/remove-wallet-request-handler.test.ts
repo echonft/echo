@@ -6,7 +6,7 @@ import { updateUserNfts } from '../../../src/lib/server/helpers/user/update-user
 import { removeWalletRequestHandler } from '../../../src/lib/server/request-handlers/user/remove-wallet-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { RemoveWalletRequest } from '@echo/api'
-import { User } from '@echo/firestore'
+import { User } from '@echo/firestore-types'
 import { AuthOptions, Session } from 'next-auth'
 
 jest.mock('../../../src/lib/server/helpers/auth/get-session')

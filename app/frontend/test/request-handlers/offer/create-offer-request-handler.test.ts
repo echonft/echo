@@ -7,7 +7,7 @@ import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-
 import { createOfferRequestHandler } from '../../../src/lib/server/request-handlers/offer/create-offer-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { CreateOfferRequest, IdResponse } from '@echo/api'
-import { User } from '@echo/firestore'
+import { User } from '@echo/firestore-types'
 import { AuthOptions, Session } from 'next-auth'
 
 jest.mock('../../../src/lib/server/helpers/auth/get-session')

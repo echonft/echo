@@ -1,9 +1,9 @@
 import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
 import { invalidateOffer } from '../../../src/crud/offer/invalidate-offer'
 import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { OfferState } from '../../../src/types/model/offer-state'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { OfferState } from '@echo/firestore-types'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 

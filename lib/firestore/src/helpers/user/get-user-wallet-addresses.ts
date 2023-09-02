@@ -1,5 +1,4 @@
-import { User } from '../../types/model/user'
-import { Wallet } from '../../types/model/wallet'
+import { User, Wallet } from '@echo/firestore-types'
 import { filter, isNil, map, pipe, prop, propEq } from 'ramda'
 
 function internalFn(chainId: number): (user: User) => string[] {

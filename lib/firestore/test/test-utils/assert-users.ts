@@ -1,7 +1,7 @@
 import { getAllUsers } from '../../src/crud/user/get-all-users'
-import { User } from '../../src/types/model/user'
 import { getAllUserMocks } from '../mocks/get-all-user-mocks'
 import { getUserMockById } from '../mocks/get-user-mock-by-id'
+import { User } from '@echo/firestore-types'
 import { expect } from '@jest/globals'
 import { forEach } from 'ramda'
 

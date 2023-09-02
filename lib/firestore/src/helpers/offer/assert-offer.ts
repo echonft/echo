@@ -1,7 +1,7 @@
-import { Offer } from '../../types/model/offer'
+import { Offer } from '@echo/firestore-types'
 import { isNil } from 'ramda'
 
-export function assertOffer(offer: Offer | undefined) {
+export function assertOffer(offer: Offer | undefined): asserts offer is NonNullable<Offer> {
   if (isNil(offer)) {
     throw Error('invalid offer id')
   }

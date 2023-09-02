@@ -1,9 +1,9 @@
 import { cancelListing } from '../../../src/crud/listing/cancel-listing'
 import { findListingById } from '../../../src/crud/listing/find-listing-by-id'
 import { updateListing } from '../../../src/crud/listing/update-listing'
-import { ListingState } from '../../../src/types/model/listing-state'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { ListingState } from '@echo/firestore-types'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 

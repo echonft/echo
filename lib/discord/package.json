@@ -13,7 +13,7 @@
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
-    "prettier": "prettier -c src/",
+    "prettier": "prettier -u -c src/",
     "test": "jest --passWithNoTests",
     "test:ci": "jest --ci --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",

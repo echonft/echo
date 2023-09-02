@@ -1,9 +1,9 @@
 import { getAllUsers } from '../../../src/crud/user/get-all-users'
-import { User } from '../../../src/types/model/user'
 import { getAllUserMocks } from '../../mocks/get-all-user-mocks'
 import { getUserMockById } from '../../mocks/get-user-mock-by-id'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { User } from '@echo/firestore-types'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { forEach } from 'ramda'
 

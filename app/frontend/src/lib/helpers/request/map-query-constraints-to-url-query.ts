@@ -1,5 +1,5 @@
 import { mapOrderByParametersToTuple } from './map-order-by-parameters-to-tuple'
-import { QueryConstraints } from '@echo/firestore'
+import { QueryConstraints } from '@echo/firestore-types'
 import { flatten, modify, pipe } from 'ramda'
 
 export function mapQueryConstraintsToUrlQuery(constraints: QueryConstraints): {

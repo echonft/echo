@@ -1,9 +1,9 @@
-import { QueryConstraints } from '../../types/abstract/query-constraints'
 import { addLimitConstraint } from './add-limit-constraint'
 import { addLimitToLastConstraint } from './add-limit-to-last-constraint'
 import { addOffsetConstraint } from './add-offset-constraint'
 import { addOrderByConstraint } from './add-order-by-constraint'
 import { addSelectConstraint } from './add-select-constraint'
+import { QueryConstraints } from '@echo/firestore-types'
 import { CollectionReference, Query } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 

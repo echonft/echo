@@ -1,7 +1,7 @@
 import { nftDataConverter } from '../../converters/nft-data-converter'
 import { cleanAndUpdateDocumentRef } from '../../helpers/crud/clean-and-update-document-ref'
-import { Nft } from '../../types/model/nft'
 import { getNftSnapshotById } from './get-nft-snapshot-by-id'
+import { Nft } from '@echo/firestore-types'
 import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 

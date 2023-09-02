@@ -1,5 +1,5 @@
 import { queryContraintOrderByDirectionSchema } from './query-contraint-order-by-direction-schema'
-import { OrderByParameters } from '@echo/firestore'
+import { OrderByParameters } from '@echo/firestore-types'
 import { applySpec, head, last } from 'ramda'
 import { z } from 'zod'
 
