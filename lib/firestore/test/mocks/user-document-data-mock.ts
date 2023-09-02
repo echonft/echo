@@ -12,6 +12,7 @@ export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
     ],
     discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
     discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
+    nftsUpdatedAt: 1676984897,
     updatedAt: 1676984897,
     wallets: [
       {
@@ -33,8 +34,9 @@ export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
       }
     ],
     discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-    updatedAt: 1676984897,
+    nftsUpdatedAt: 1676984897,
     nonce: 'nonce',
+    updatedAt: 1676984897,
     wallets: [
       {
         address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',

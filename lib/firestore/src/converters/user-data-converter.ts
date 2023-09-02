@@ -22,6 +22,7 @@ export const userDataConverter: FirestoreDataConverter<User> = {
       assocUndefinedIfPropNotPresent('discordAvatar'),
       assocUndefinedIfPropNotPresent('discordBanner'),
       assocUndefinedIfPropNotPresent('nonce'),
+      modifyNumberPropToDate('nftsUpdatedAt'),
       modifyNumberPropToDate('updatedAt'),
       modifyDocumentDataArrayProp('wallets', walletDocumentDataConverter)
     )(snapshot)
@@ -29,6 +30,10 @@ export const userDataConverter: FirestoreDataConverter<User> = {
   toFirestore(modelObject: FirestoreModel<User>, _options?: SetOptions): UserDocumentData {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return pipe(removeUndefinedProps, modifyDatePropToNumber('updatedAt'))(modelObject)
+    return pipe(
+      removeUndefinedProps,
+      modifyDatePropToNumber('nftsUpdatedAt'),
+      modifyDatePropToNumber('updatedAt')
+    )(modelObject)
   }
 }

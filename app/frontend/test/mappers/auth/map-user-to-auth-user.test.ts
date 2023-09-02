@@ -12,6 +12,7 @@ describe('mappers - auth - mapUserToAuthUser', () => {
       discordUsername: 'discordUsername',
       id: 'user-id',
       nonce: undefined,
+      nftsUpdatedAt: dayjs.unix(1676984897),
       updatedAt: dayjs.unix(1676984897),
       wallets: [
         {
@@ -29,6 +30,7 @@ describe('mappers - auth - mapUserToAuthUser', () => {
       discordId: 'discordId',
       discordUsername: 'discordUsername',
       id: 'user-id',
+      nftsUpdatedAt: 1676984897,
       updatedAt: 1676984897,
       wallets: [
         {
@@ -52,6 +54,7 @@ describe('mappers - auth - mapUserToAuthUser', () => {
       discordUsername: 'discordUsername',
       id: 'user-id',
       nonce: 'noncenoncenonce',
+      nftsUpdatedAt: dayjs.unix(1676984897),
       updatedAt: dayjs.unix(1676984897),
       wallets: [
         {
@@ -71,6 +74,7 @@ describe('mappers - auth - mapUserToAuthUser', () => {
       discordId: 'discordId',
       discordUsername: 'discordUsername',
       id: 'user-id',
+      nftsUpdatedAt: 1676984897,
       updatedAt: 1676984897,
       wallets: [
         {

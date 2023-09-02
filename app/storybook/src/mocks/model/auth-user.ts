@@ -11,6 +11,7 @@ const authUser: AuthUser = {
       discordId: '100'
     }
   ],
+  nftsUpdatedAt: 1676984897,
   updatedAt: 1676984897,
   wallets: [
     {

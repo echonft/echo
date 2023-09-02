@@ -9,5 +9,5 @@ export const mapUserToUserDetails = (user: User, wallet: Wallet): UserDetails =>
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  return pipe(omit(['discordGuilds', 'nonce', 'updatedAt', 'wallets']), assoc('wallet', wallet))(user)
+  return pipe(omit(['discordGuilds', 'nonce', 'nftsUpdatedAt', 'updatedAt', 'wallets']), assoc('wallet', wallet))(user)
 }

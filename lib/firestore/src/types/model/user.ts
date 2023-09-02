@@ -9,6 +9,7 @@ export interface User {
   discordGuilds: UserDiscordGuild[]
   discordId: string
   discordUsername: string
+  nftsUpdatedAt: Dayjs
   nonce: string | undefined
   updatedAt: Dayjs
   wallets: Wallet[]

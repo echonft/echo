@@ -5,11 +5,11 @@ import { OfferState } from '../../../src/types/model/offer-state'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 describe('CRUD - offer - acceptOffer', () => {
   let initialState: OfferState
-  let initialExpiresAt: Dayjs
+  let initialExpiresAt: dayjs.Dayjs
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
 
   beforeAll(tearUpRemoteFirestoreTests)

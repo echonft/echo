@@ -1,6 +1,7 @@
-import { addUser, User } from '@echo/firestore'
+import { DiscordUser } from '../../types/user/discord-user'
+import { addUser } from '@echo/firestore'
 
-export const createUser = async (user: Omit<User, 'id' | 'nonce' | 'updatedAt' | 'wallets'>) => {
+export const createUser = async (user: DiscordUser) => {
   try {
     return await addUser(user)
   } catch (e) {

@@ -13,6 +13,7 @@ export const userMock: { [key: string]: User } = {
     ],
     discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
     discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
+    nftsUpdatedAt: dayjs.unix(1676984897),
     nonce: undefined,
     updatedAt: dayjs.unix(1676984897),
     wallets: [
@@ -36,6 +37,7 @@ export const userMock: { [key: string]: User } = {
     ],
     discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
     discordBanner: undefined,
+    nftsUpdatedAt: dayjs.unix(1676984897),
     nonce: 'nonce',
     updatedAt: dayjs.unix(1676984897),
     wallets: [
