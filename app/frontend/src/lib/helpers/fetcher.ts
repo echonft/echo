@@ -74,8 +74,8 @@ class Fetcher {
     return this
   }
 
-  query<T extends Record<string, string | number | string[] | undefined>>(query: T) {
-    setUrlQuery(this.url, query)
+  query<T extends Record<string, string | number | string[] | undefined>>(query: T, addArrayBrackets = false) {
+    setUrlQuery(this.url, query, addArrayBrackets)
     return this
   }
 

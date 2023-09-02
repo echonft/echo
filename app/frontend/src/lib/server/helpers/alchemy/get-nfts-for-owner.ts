@@ -11,7 +11,7 @@ import {
 
 function fetchNftsForOwner(request: GetNftsForOwnerRequest) {
   return fetcher(getAlchemyRoute(AlchemyRoutes.GET_NFTS_FOR_OWNER))
-    .query(request)
+    .query(request, true)
     .revalidate(3600)
     .fetchResponse<GetNftsForOwnerResponse>()
     .then(mapGetNftsForOwnerResponse)
