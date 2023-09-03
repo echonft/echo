@@ -1,4 +1,4 @@
-import { parseContraintsQuery } from '../../../helpers/request/parse-contraints-query'
+import { parseContraintsQuery } from '../../helpers/request/parse-contraints-query'
 import { mapNftCollection } from '../../mappers/to-response/map-nft-collection'
 import { ApiRequest, GetNftCollectionsResponse } from '@echo/api'
 import { getAllNftCollections } from '@echo/firestore'

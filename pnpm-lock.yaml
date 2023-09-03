@@ -401,6 +401,9 @@ importers:
 
   lib/api:
     devDependencies:
+      '@echo/firestore-types':
+        specifier: workspace:*
+        version: link:../firestore-types
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils

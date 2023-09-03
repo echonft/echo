@@ -15,10 +15,9 @@
   },
   "homepage": "https://github.com/echonft/echo#readme",
   "lint-staged": {
-    "{src,test}/**/*.{ts,tsx}": [
+    "*.(ts|tsx)": [
       "eslint --fix",
-      "prettier --write -u",
-      "tsc-files --noEmit"
+      "prettier --write -u"
     ]
   },
   "scripts": {

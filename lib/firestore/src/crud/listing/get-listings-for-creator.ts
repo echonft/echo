@@ -1,24 +1,19 @@
 import { CollectionName } from '../../constants/collection-name'
 import { listingDataConverter } from '../../converters/listing-data-converter'
+import { dateIsPast } from '../../helpers/converters/from-firestore/date-is-past'
 import { addConstraintsToQuery } from '../../helpers/query/add-constraints-to-query'
+import { addExpiresAtToSelectConstraint } from '../../helpers/query/add-expires-at-to-select-constraint'
 import { firestore } from '../../services/firestore'
 import { listingFields } from '../../types/model/listing-document-data'
-import { Listing, ListingState, QueryConstraints } from '@echo/firestore-types'
+import { Listing, ListingsQueryFilters, QueryConstraints } from '@echo/firestore-types'
 import { intersects, isNilOrEmpty, single } from '@echo/utils'
-import dayjs from 'dayjs'
 import { Query } from 'firebase-admin/firestore'
 import { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
-import { head, invoker, isNil, map } from 'ramda'
-
-export interface GetListingsForCreatorFilters {
-  states?: ListingState[]
-  notStates?: ListingState[]
-  includeExpired?: boolean
-}
+import { dissoc, head, invoker, is, isNil, map, pipe, propSatisfies, reject } from 'ramda'
 
 export async function getListingsForCreator(
   userId: string,
-  filters?: GetListingsForCreatorFilters,
+  filters?: ListingsQueryFilters,
   constraints?: QueryConstraints
 ) {
   let query = firestore()
@@ -27,7 +22,10 @@ export async function getListingsForCreator(
     .withConverter(listingDataConverter)
 
   query = applyFilters(query, filters)
-  query = addConstraintsToQuery(query, constraints, listingFields)
+  // we need expiresAt for the filter, so we add it if it's not in the select constraint
+  // we will remove it after
+  const validConstraints = addExpiresAtToSelectConstraint(constraints)
+  query = addConstraintsToQuery(query, validConstraints, listingFields)
   const querySnapshot = await query.get()
   if (querySnapshot.empty) {
     return [] as Listing[]
@@ -38,15 +36,27 @@ export async function getListingsForCreator(
     return [] as Listing[]
   }
 
-  return map(invoker(0, 'data'), querySnapshot.docs) as Listing[]
+  let results = map(invoker(0, 'data'), querySnapshot.docs) as Listing[]
+  // can't use a filter on expiration date with anything else in Firestore, so we filter them manually if needed
+  if (isNil(filters?.includeExpired) || !filters?.includeExpired) {
+    results = reject(propSatisfies(dateIsPast, 'expiresAt'), results)
+  }
+  // if expiresAt was not in the select constraint, remove it from the results
+  if (!isNil(constraints) && !isNil(constraints.select)) {
+    const { select } = constraints
+    if ((is(Array, select) && !select.includes('expiresAt')) || select !== 'expiresAt') {
+      return map(pipe(dissoc('expiresAt'), dissoc('expired')), results) as Listing[]
+    }
+  }
+  return results
 }
 
-function applyFilters(query: Query<Listing>, filters?: GetListingsForCreatorFilters) {
+function applyFilters(query: Query<Listing>, filters?: ListingsQueryFilters) {
   if (isNil(filters)) {
     return query
   }
   let filteredQuery = query
-  const { states, notStates, includeExpired } = filters
+  const { states, notStates } = filters
 
   if (!isNilOrEmpty(states) && !isNilOrEmpty(notStates)) {
     if (intersects(states, notStates)) {
@@ -64,11 +74,8 @@ function applyFilters(query: Query<Listing>, filters?: GetListingsForCreatorFilt
     if (single(notStates)) {
       filteredQuery = filteredQuery.where('state', '!=', head(notStates))
     } else {
-      filteredQuery = filteredQuery.where('state', 'not-in', states)
+      filteredQuery = filteredQuery.where('state', 'not-in', notStates)
     }
-  }
-  if (isNil(includeExpired) || !includeExpired) {
-    filteredQuery = filteredQuery.where('expiresAt', '>', dayjs().unix())
   }
   return filteredQuery
 }

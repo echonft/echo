@@ -1,10 +1,7 @@
+import { QueryType } from '@echo/utils'
 import { forEach, forEachObjIndexed, isNil } from 'ramda'
 
-export function setUrlQuery<T extends Record<string, string | number | string[] | undefined>>(
-  url: URL,
-  query: T,
-  addArrayBrackets = false
-) {
+export function setUrlQuery<T extends QueryType>(url: URL, query: T, addArrayBrackets = false) {
   forEachObjIndexed<T>((value, key) => {
     const name = key as string
     if (!isNil(value)) {

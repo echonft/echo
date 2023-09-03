@@ -21,6 +21,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "devDependencies": {
+    "@echo/firestore-types": "workspace:*",
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.6.2",
     "@jest/types": "29.6.1",
