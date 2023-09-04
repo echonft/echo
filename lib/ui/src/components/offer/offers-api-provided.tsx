@@ -10,12 +10,12 @@ interface Props {
   user: User
 }
 
-export const OffersProvided: FunctionComponent<Props> = ({ offers, user }) => {
+export const OffersApiProvided: FunctionComponent<Props> = ({ offers, user }) => {
   return (
     <PaddedContainer>
       <div className={clsx('flex', 'flex-col', 'self-stretch', 'grow', 'gap-12')}>
         {offers.map((offer) => (
-          <OfferComponent offer={offer} isReceiver={isUserOfferReceiver(user, offer)} key={offer.id} />
+          <OfferComponent offer={offer} isReceiver={isUserOfferReceiver(user.id, offer.receiver.id)} key={offer.id} />
         ))}
       </div>
     </PaddedContainer>

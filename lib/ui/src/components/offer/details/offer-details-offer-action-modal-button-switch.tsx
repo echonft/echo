@@ -3,14 +3,12 @@ import { OfferDetailsOfferActionAcceptedButtons } from './offer-details-offer-ac
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface OfferDetailsOfferActionModalButtonSwitchProps {
+interface Props {
   state: ModalOfferState
   onClose?: () => unknown
 }
 
-export const OfferDetailsOfferActionModalButtonSwitch: FunctionComponent<
-  OfferDetailsOfferActionModalButtonSwitchProps
-> = ({ state, onClose }) => (
+export const OfferDetailsOfferActionModalButtonSwitch: FunctionComponent<Props> = ({ state, onClose }) => (
   <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
     {state === 'ACCEPTED' && <OfferDetailsOfferActionAcceptedButtons onClose={onClose} />}
   </div>

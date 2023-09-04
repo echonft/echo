@@ -5,15 +5,12 @@ import { OfferDetailsOfferActionModalSubtitle } from './offer-details-offer-acti
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface OfferDetailsActionModalInnerContainerProps {
+interface Props {
   state: ModalOfferState
   onClose?: () => unknown
 }
 
-export const OfferDetailsActionModalInnerContainer: FunctionComponent<OfferDetailsActionModalInnerContainerProps> = ({
-  state,
-  onClose
-}) => {
+export const OfferDetailsActionModalInnerContainer: FunctionComponent<Props> = ({ state, onClose }) => {
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <OfferDetailsOfferActionModalSubtitle state={state} />

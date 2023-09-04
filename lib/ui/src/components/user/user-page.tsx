@@ -1,7 +1,7 @@
 import { PaddedContainer } from '../layout/padded-container'
 import { UserDetails } from './user-details'
 import { UserNftsAndFiltersContainer } from './user-nfts-and-filters-container'
-import { CollectionFilter, Nft, User } from '@echo/ui-model'
+import { CollectionFilter, Nft, SizeLG, User } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
@@ -31,6 +31,7 @@ export const UserPage: FunctionComponent<Props> = ({
           discordId={discordId}
           discordAvatar={discordAvatar}
           discordBanner={discordBanner}
+          size={SizeLG}
         />
         <UserNftsAndFiltersContainer
           filters={filters}

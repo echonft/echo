@@ -6,12 +6,23 @@ import { FunctionComponent } from 'react'
 
 interface Props extends UserProfilePictureProps, UserBannerProps {}
 
-export const UserDetails: FunctionComponent<Props> = ({ discordUsername, discordBanner, discordId, discordAvatar }) => {
+export const UserDetails: FunctionComponent<Props> = ({
+  discordUsername,
+  discordBanner,
+  discordId,
+  discordAvatar,
+  size
+}) => {
   return (
     <div className={clsx('flex', 'flex-col', 'self-stretch', 'w-full')}>
       <UserBanner discordId={discordId} discordBanner={discordBanner} />
       <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-40', 'gap-8', 'items-end')}>
-        <UserProfilePicture discordUsername={discordUsername} discordId={discordId} discordAvatar={discordAvatar} />
+        <UserProfilePicture
+          discordUsername={discordUsername}
+          discordId={discordId}
+          discordAvatar={discordAvatar}
+          size={size}
+        />
         <UserDiscordTag discordUsername={discordUsername} />
       </div>
     </div>

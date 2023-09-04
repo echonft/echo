@@ -1,0 +1,13 @@
+import { OfferDetailsSkeleton } from '@echo/ui'
+import { clsx } from 'clsx'
+import { FunctionComponent } from 'react'
+
+const OfferLoading: FunctionComponent = () => {
+  return (
+    <section className={clsx('w-full')}>
+      <OfferDetailsSkeleton />
+    </section>
+  )
+}
+
+export default OfferLoading

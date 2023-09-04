@@ -40,6 +40,7 @@ type Story = StoryObj<typeof Component>
 export const Default: Story = {
   args: {
     item,
+    size: 'Medium',
     discordUsername: undefined
   }
 }
@@ -47,6 +48,7 @@ export const Default: Story = {
 export const NotRemovable: Story = {
   args: {
     item,
+    size: 'Medium',
     onRemove: undefined
   }
 }
@@ -54,6 +56,7 @@ export const NotRemovable: Story = {
 export const UserDisplayed: Story = {
   args: {
     item,
+    size: 'Medium',
     onRemove: undefined,
     discordUsername: 'johnnycage#0890'
   }

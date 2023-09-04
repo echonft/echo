@@ -1,6 +1,6 @@
 import { getOfferById } from '../../mocks/model/offer'
 import { getUserById } from '../../mocks/model/user'
-import { OffersProvided as Component, UserOffersSkeleton } from '@echo/ui'
+import { OffersApiProvided as Component } from '@echo/ui'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -18,6 +18,7 @@ export default metadata
 const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
 
 type Story = StoryObj<typeof Component>
+
 export const Fetched: Story = {
   args: {
     user: getUserById('oE6yUEQBPn7PZ89yMjKn'),
@@ -29,7 +30,4 @@ export const Fetched: Story = {
       { ...offer, state: 'INVALID' }
     ]
   }
-}
-export const Fetching: Story = {
-  render: () => <UserOffersSkeleton />
 }
