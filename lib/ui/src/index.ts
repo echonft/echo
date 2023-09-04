@@ -71,6 +71,7 @@ export { NftDetailsOffersPanelSkeleton } from './components/skeleton/nft/details
 export { NftDetailsSkeleton } from './components/skeleton/nft/details/nft-details-skeleton'
 export { NftDetailsTokenDetailsPanelSkeleton } from './components/skeleton/nft/details/nft-details-token-details-panel'
 export { OfferDetailsSkeleton } from './components/skeleton/offer/offer-details-skeleton'
+export { OfferDetailsStateSkeleton } from './components/skeleton/offer/offer-details-state-skeleton'
 export { OfferSkeleton } from './components/skeleton/offer/offer-skeleton'
 export { OfferStateSkeleton } from './components/skeleton/offer/offer-state-skeleton'
 export { UserOffersSkeleton } from './components/skeleton/offer/user-offers-skeleton'

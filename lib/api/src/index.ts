@@ -36,7 +36,6 @@ export type { ListingTargetResponse } from './types/responses/model/listing-targ
 export type { NftCollectionResponse } from './types/responses/model/nft-collection-response'
 export type { NftResponse } from './types/responses/model/nft-response'
 export type { NftWithCollectionResponse } from './types/responses/model/nft-with-collection-response'
-export type { OfferDiscordGuildResponse } from './types/responses/model/offer-discord-guild-response'
 export type { OfferItemResponse } from './types/responses/model/offer-item-response'
 export type { OfferResponse } from './types/responses/model/offer-response'
 export type { UserResponse } from './types/responses/model/user-response'

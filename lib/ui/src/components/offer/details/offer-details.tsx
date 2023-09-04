@@ -1,3 +1,4 @@
+'use client'
 import { OfferReceiverDetailsContainer } from '../offer-receiver-details-container'
 import { OfferDetailsActionModal } from './offer-details-action-modal'
 import { OfferDetailsAssetsSeparator } from './offer-details-assets-separator'
