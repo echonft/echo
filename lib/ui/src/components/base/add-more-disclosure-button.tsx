@@ -1,16 +1,14 @@
-import { AddIconSvg } from '../../base/svg/add-icon-svg'
+import { AddIconSvg } from './svg/add-icon-svg'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 interface Props {
+  title: string
   onClick?: () => void
 }
 
-export const NewOfferAddMoreButton: FunctionComponent<Props> = ({ onClick }) => {
-  const t = useTranslations('offer.new.bottomSlider')
-  // Not ideal to have a disclosure button here as it means it is only usable within a
+export const AddMoreDisclosureButton: FunctionComponent<Props> = ({ title, onClick }) => {
   return (
     <Disclosure.Button
       as={'div'}
@@ -19,6 +17,7 @@ export const NewOfferAddMoreButton: FunctionComponent<Props> = ({ onClick }) => 
         'flex',
         'flex-col',
         'rounded-2xl',
+        'min-h-full',
         'w-32',
         'gap-2',
         'border',
@@ -32,7 +31,7 @@ export const NewOfferAddMoreButton: FunctionComponent<Props> = ({ onClick }) => 
       <span className={clsx('bg-yellow-500', 'rounded-lg', 'p-2', 'text-black')}>
         <AddIconSvg />
       </span>
-      <span className={clsx('prose-label-sm', 'text-white')}>{t('add')}</span>
+      <span className={clsx('prose-label-sm', 'text-white')}>{title}</span>
     </Disclosure.Button>
   )
 }

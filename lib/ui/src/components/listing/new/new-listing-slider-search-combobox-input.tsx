@@ -3,15 +3,12 @@ import { SearchableObject } from '@echo/ui-model'
 import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
 
-export interface NewListingSliderSearchComboboxInputProps {
+interface Props {
   placeholder?: string
   onSearch?: (searchQuery: string) => unknown
 }
 
-export const NewListingSliderSearchComboboxInput = <T,>({
-  placeholder,
-  onSearch
-}: NewListingSliderSearchComboboxInputProps) => (
+export const NewListingSliderSearchComboboxInput = <T,>({ placeholder, onSearch }: Props) => (
   <div className={clsx('relative', 'items-center', 'bg-dark-400', 'rounded-lg', 'w-full')}>
     <span className={clsx('text-yellow-500', 'absolute', 'left-2.5', 'top-2')}>
       <SearchIconSvg />

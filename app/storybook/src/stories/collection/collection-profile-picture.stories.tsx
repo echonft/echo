@@ -1,5 +1,6 @@
 import { getCollectionById } from '../../mocks/model/nft-collection'
 import { CollectionProfilePicture as Component, CollectionProfilePictureSkeleton } from '@echo/ui'
+import { SizeLG } from '@echo/ui-model/dist'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -16,12 +17,13 @@ export const Standard: Story = {
     <Component
       collectionName={'Sun Flyers'}
       pictureUrl={getCollectionById('Rc8pLQXxgyQGIRL0fr13')!.profilePictureUrl}
+      supplyCount={SizeLG}
     />
   )
 }
 
 export const Default: Story = {
-  render: () => <Component collectionName={'Sun Flyers'} pictureUrl={undefined} />
+  render: () => <Component collectionName={'Sun Flyers'} pictureUrl={undefined} supplyCount={SizeLG} />
 }
 
 export const Skeleton: Story = {

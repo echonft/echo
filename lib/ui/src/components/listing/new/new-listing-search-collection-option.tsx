@@ -1,22 +1,23 @@
 import { CollectionRoundedProfilePicture } from '../../collection/collection-rounded-profile-picture'
-import { NftCollection, SearchableObject } from '@echo/ui-model'
-import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface NewListingSearchCollectionOptionProps {
-  item: SearchableObject<NftCollection>
+interface Props {
+  pictureUrl: URL | undefined
+  collectionName: string
+  collectionSupply: number | undefined
 }
 
-export const NewListingSearchCollectionOption: FunctionComponent<NewListingSearchCollectionOptionProps> = ({
-  item
+export const NewListingSearchCollectionOption: FunctionComponent<Props> = ({
+  pictureUrl,
+  collectionName,
+  collectionSupply
 }) => {
   const t = useTranslations('listing.new.bottomSlider')
 
   return (
-    <Combobox.Option
-      value={item}
+    <div
       className={clsx(
         'hover:bg-white/[0.08]',
         'selected:bg-white/[0.08]',
@@ -24,18 +25,18 @@ export const NewListingSearchCollectionOption: FunctionComponent<NewListingSearc
         'p-2',
         'flex',
         'flex-row',
-        'gap-3',
-        'mb-2.5',
-        'last:mb-0'
+        'gap-3'
       )}
     >
-      <CollectionRoundedProfilePicture pictureUrl={item.value.profilePictureUrl} collectionName={item.value.name} />
+      <CollectionRoundedProfilePicture pictureUrl={pictureUrl} collectionName={collectionName} />
       <div className={clsx('flex', 'flex-col', 'gap-1', 'justify-center')}>
-        <span className={clsx('prose-header-sm-semi', 'text-white')}>{item.value.name}</span>
-        <span className={clsx('prose-header-sm', 'text-white/70')}>
-          {t('itemsCount', { count: item.value.totalSupply })}
-        </span>
+        <span className={clsx('prose-header-sm-semi', 'text-white')}>{collectionName}</span>
+        {collectionSupply && (
+          <span className={clsx('prose-header-sm', 'text-white/70')}>
+            {t('itemsCount', { count: collectionSupply })}
+          </span>
+        )}
       </div>
-    </Combobox.Option>
+    </div>
   )
 }

@@ -40,7 +40,9 @@ export const messages = {
   listing: {
     misc: {
       assetsInTitle: 'Going in',
-      assetsOutTitle: 'Going out'
+      assetsOutTitle: 'Going out',
+      add: 'Add more',
+      collection: 'Collection'
     },
 details: {
       expiresAt: 'Expires in',
@@ -58,7 +60,6 @@ details: {
     new: {
       bottomSlider: {
         title: 'Listing overview',
-        add: 'Add more',
         searchPlaceholder: 'Search by collection name',
         itemsCount: '{count} {count, plural, =0 {} =1 {item} other {items}}',
         finalizeBtn: 'Finalize',
@@ -137,12 +138,12 @@ details: {
       assetsInSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',
       assetsInTitle: 'Going in',
       assetsOutSubtitle: "Counterparty's {count, plural, =0 {} =1 {asset} other {assets}}",
-      assetsOutTitle: 'Going out'
+      assetsOutTitle: 'Going out',
+      add: 'Add more'
     },
     new: {
       bottomSlider: {
         title: 'Offer overview',
-        add: 'Add more',
         finalize: 'Finalize offer',
         noNftsTitle: 'No NFTs selected yet',
         noNftsBtn: 'Select NFTs now'

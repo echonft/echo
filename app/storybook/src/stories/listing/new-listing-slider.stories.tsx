@@ -1,3 +1,4 @@
+import { getCollectionById } from '../../mocks/model/nft-collection'
 import { newListingDataState, NewListingSliderManager as Component } from '@echo/ui'
 import { NewListing } from '@echo/ui-model'
 import { Meta, StoryObj } from '@storybook/react'
@@ -12,13 +13,14 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
+const collection = getCollectionById('Rc8pLQXxgyQGIRL0fr13')
 
 const RenderedComponent: FunctionComponent<{
   data?: NewListing
 }> = ({ data }) => {
   const [, setNewListing] = useRecoilState(newListingDataState)
   useEffect(() => {
-    setNewListing({ items: data?.items ?? [], targets: data?.targets ?? [] })
+    setNewListing({ items: data?.items ?? [], targets: data?.targets ?? [{ collection, amount: 1 }] })
   }, [])
   return <Component />
 }

@@ -16,7 +16,7 @@ export const Default: Story = {
   render: () => (
     <Component
       collectionName={collection.name}
-      size={10000}
+      supplyCount={10000}
       pictureUrl={collection.profilePictureUrl}
       discordUrl={collection.discordUrl}
       twitterUsername={collection.twitterUsername}

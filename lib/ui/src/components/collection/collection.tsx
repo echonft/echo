@@ -20,7 +20,7 @@ export const Collection: FunctionComponent<Props> = ({ collection, nfts, traits,
       <div className={clsx('flex', 'flex-col', 'self-stretch', 'grow', 'gap-14')}>
         <CollectionDetails
           description={description}
-          size={totalSupply}
+          supplyCount={totalSupply}
           collectionName={name}
           pictureUrl={profilePictureUrl}
           bannerUrl={bannerUrl}

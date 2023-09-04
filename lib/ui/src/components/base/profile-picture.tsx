@@ -1,5 +1,5 @@
-import { UserProfilePictureSize } from '../../constants/user-profile-picture-size'
-import { getUserProfilePictureSize } from '../../helpers/get-user-profile-picture-size'
+import { ProfilePictureSize } from '../../constants/profile-picture-size'
+import { getProfilePictureSize } from '../../helpers/get-profile-picture-size'
 import { SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
@@ -7,7 +7,7 @@ import { FunctionComponent } from 'react'
 interface Props {
   pictureUrl: URL
   alt?: string
-  size: UserProfilePictureSize
+  size: ProfilePictureSize
 }
 
 export const ProfilePicture: FunctionComponent<Props> = ({ pictureUrl, alt, size = SizeLG }) => {
@@ -23,8 +23,8 @@ export const ProfilePicture: FunctionComponent<Props> = ({ pictureUrl, alt, size
       )}
       src={pictureUrl.href}
       alt={alt}
-      width={getUserProfilePictureSize(size)}
-      height={getUserProfilePictureSize(size)}
+      width={getProfilePictureSize(size)}
+      height={getProfilePictureSize(size)}
     />
   )
 }

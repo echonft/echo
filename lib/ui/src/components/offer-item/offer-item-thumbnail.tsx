@@ -3,15 +3,15 @@ import { NftThumbnailPicture } from '../nft/nft-thumbnail-picture'
 import { UserDiscordTagOffer } from '../user/user-discord-tag-offer'
 import { OfferItemThumbnailSelector } from './offer-item-thumbnail-selector'
 import { OfferItemThumbnailTitle } from './offer-item-thumbnail-title'
-import { OfferItem, SizeLG, SizeMD } from '@echo/ui-model'
+import { ListingItem, OfferItem, SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  item: OfferItem
+  item: OfferItem | ListingItem
   size: OfferItemThumbnailSize
   discordUsername?: string
-  onRemove?: (item: OfferItem) => unknown
+  onRemove?: (item: OfferItem | ListingItem) => unknown
 }
 
 export const OfferItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername, size, onRemove }) => {

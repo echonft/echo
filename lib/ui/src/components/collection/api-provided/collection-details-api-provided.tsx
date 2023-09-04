@@ -13,7 +13,7 @@ export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ respons
   return (
     <CollectionDetails
       bannerUrl={bannerUrl}
-      size={totalSupply}
+      supplyCount={totalSupply}
       collectionName={name}
       description={description}
       pictureUrl={profilePictureUrl}

@@ -1,11 +1,11 @@
-import { UserProfilePictureSize } from '../../constants/user-profile-picture-size'
+import { ProfilePictureSize } from '../../constants/profile-picture-size'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 export interface RoundedProfilePictureProps {
   pictureUrl: URL
   alt?: string
-  size?: UserProfilePictureSize
+  size?: ProfilePictureSize
 }
 
 export const RoundedProfilePicture: FunctionComponent<RoundedProfilePictureProps> = ({ pictureUrl, alt }) => {

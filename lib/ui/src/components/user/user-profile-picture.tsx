@@ -1,6 +1,6 @@
-import { UserProfilePictureSize } from '../../constants/user-profile-picture-size'
+import { ProfilePictureSize } from '../../constants/profile-picture-size'
+import { getProfilePictureSize } from '../../helpers/get-profile-picture-size'
 import { getUserAvatarUrl } from '../../helpers/get-user-avatar-url'
-import { getUserProfilePictureSize } from '../../helpers/get-user-profile-picture-size'
 import { ProfilePicture } from '../base/profile-picture'
 import { DefaultUserProfilePicture } from '../base/svg/default-user-profile-picture'
 import { SizeLG, SizeMD } from '@echo/ui-model'
@@ -12,7 +12,7 @@ export interface UserProfilePictureProps {
   discordUsername: string
   discordId: string
   discordAvatar: string | undefined
-  size: UserProfilePictureSize
+  size: ProfilePictureSize
 }
 
 export const UserProfilePicture: FunctionComponent<UserProfilePictureProps> = ({
@@ -33,8 +33,8 @@ export const UserProfilePicture: FunctionComponent<UserProfilePictureProps> = ({
           size === SizeLG && ['h-40', 'w-40'],
           size === SizeMD && ['h-[7.5rem]', 'w-[7.5rem]']
         )}
-        width={getUserProfilePictureSize(size)}
-        height={getUserProfilePictureSize(size)}
+        width={getProfilePictureSize(size)}
+        height={getProfilePictureSize(size)}
       />
     )
   }

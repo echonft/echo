@@ -10,7 +10,7 @@ interface Props extends CollectionProfileProps, BannerProps {
 
 export const CollectionDetails: FunctionComponent<Props> = ({
   bannerUrl,
-  size,
+  supplyCount,
   collectionName,
   description,
   pictureUrl,
@@ -25,7 +25,7 @@ export const CollectionDetails: FunctionComponent<Props> = ({
         <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-40', 'pb-8')}>
           <CollectionProfile
             collectionName={collectionName}
-            size={size}
+            supplyCount={supplyCount}
             pictureUrl={pictureUrl}
             discordUrl={discordUrl}
             websiteUrl={websiteUrl}
