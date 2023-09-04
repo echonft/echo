@@ -1,5 +1,5 @@
-import { Nft } from '../../src/types/model/nft'
 import { nftCollectionMock } from './nft-collection-mock'
+import { Nft } from '@echo/firestore-types'
 
 export const nftMock: { [key: string]: Nft } = {
   '8hHFadIrrooORfTOLkBg': {

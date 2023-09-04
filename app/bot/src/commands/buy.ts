@@ -1,8 +1,8 @@
-import { BuyOwnListingError } from '../errors/buy-own-listing-error'
-import { getDiscordChannel } from '../helpers/get-discord-channel'
-import { Offer } from '@echo/firestore'
-import { errorMessage, logger } from '@echo/utils'
-import { ButtonInteraction, ChannelType } from 'discord.js'
+import {BuyOwnListingError} from '../errors/buy-own-listing-error'
+import {getDiscordChannel} from '../helpers/get-discord-channel'
+import {Offer} from '@echo/firestore-types'
+import {errorMessage, logger} from '@echo/utils'
+import {ButtonInteraction, ChannelType} from 'discord.js'
 
 // TODO Might be renamed here if we go for listings and offers
 export function executeBuy(interaction: ButtonInteraction, listing: Offer) {

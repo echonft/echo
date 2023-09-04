@@ -2,6 +2,12 @@ import { handleRequest } from '../../../../lib/server/request-handlers/handle-re
 import { getAllCollectionsRequestHandler } from '../../../../lib/server/request-handlers/nft-collection/get-all-collections-request-handler'
 import { ApiRequest } from '@echo/api'
 
+/**
+ * Available query params:
+ *  - query constraints see {@link QueryConstraintsQueryParams}
+ * @param request
+ * @constructor
+ */
 export async function GET(request: ApiRequest<never>) {
   return await handleRequest(request, getAllCollectionsRequestHandler)
 }

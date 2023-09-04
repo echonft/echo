@@ -1,5 +1,6 @@
 import { BadRequestError } from '../error/bad-request-error'
-import { getNftsForCollection, NftCollection } from '@echo/firestore'
+import { getNftsForCollection } from '@echo/firestore'
+import { NftCollection } from '@echo/firestore-types'
 
 export async function getNftCollectionNfts(collection: NftCollection) {
   try {

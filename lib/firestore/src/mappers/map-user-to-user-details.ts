@@ -1,6 +1,4 @@
-import { User } from '../types/model/user'
-import { UserDetails } from '../types/model/user-details'
-import { Wallet } from '../types/model/wallet'
+import { User, UserDetails, Wallet } from '@echo/firestore-types'
 import { assoc, includes, omit, pipe } from 'ramda'
 
 export const mapUserToUserDetails = (user: User, wallet: Wallet): UserDetails => {

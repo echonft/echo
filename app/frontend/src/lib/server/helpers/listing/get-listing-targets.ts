@@ -1,6 +1,7 @@
 import { BadRequestError } from '../error/bad-request-error'
 import { ListingTargetRequest } from '@echo/api'
-import { findNftCollectionById, ListingTarget } from '@echo/firestore'
+import { findNftCollectionById } from '@echo/firestore'
+import { ListingTarget } from '@echo/firestore-types'
 import { NonEmptyArray } from '@echo/utils'
 import { isNil, map } from 'ramda'
 

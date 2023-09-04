@@ -1,7 +1,7 @@
 import { CollectionName } from '../../constants/collection-name'
 import { offerDataConverter } from '../../converters/offer-data-converter'
 import { firestore } from '../../services/firestore'
-import { Offer } from '../../types/model/offer'
+import { Offer } from '@echo/firestore-types'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 

@@ -1,5 +1,6 @@
 import { ServerError } from '../error/server-error'
-import { setNftOwner, Wallet } from '@echo/firestore'
+import { setNftOwner } from '@echo/firestore'
+import { Wallet } from '@echo/firestore-types'
 
 export const updateNftOwner = async (nftId: string, userId: string, wallet: Wallet) => {
   try {

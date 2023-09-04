@@ -1,15 +1,9 @@
-import { getDiscordChannel } from '../helpers/get-discord-channel'
-import { offerLink } from '../routing/offer-link'
-import {
-  DocumentChangeType,
-  findUserById,
-  getOfferReceiverItemsGuild,
-  Offer,
-  setOfferDiscordGuild,
-  userIsInGuild
-} from '@echo/firestore'
-import { errorMessage, logger } from '@echo/utils'
-import { ChannelType, Client } from 'discord.js'
+import {getDiscordChannel} from '../helpers/get-discord-channel'
+import {offerLink} from '../routing/offer-link'
+import {findUserById, getOfferReceiverItemsGuild, setOfferDiscordGuild, userIsInGuild} from '@echo/firestore'
+import {DocumentChangeType, Offer} from '@echo/firestore-types'
+import {errorMessage, logger} from '@echo/utils'
+import {ChannelType, Client} from 'discord.js'
 
 /**
  * Handles offer changes -  only check for new offers

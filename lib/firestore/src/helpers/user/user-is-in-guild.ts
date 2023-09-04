@@ -1,5 +1,4 @@
-import { NftCollectionDiscordGuild } from '../../types/model/nft-collection-discord-guild'
-import { User } from '../../types/model/user'
+import { NftCollectionDiscordGuild, User } from '@echo/firestore-types'
 import { includes, map, prop } from 'ramda'
 
 export const userIsInGuild = (user: User, discordGuild: NftCollectionDiscordGuild) =>

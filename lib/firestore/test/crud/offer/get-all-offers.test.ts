@@ -1,9 +1,9 @@
 import { getAllOffers } from '../../../src/crud/offer/get-all-offers'
-import { Offer } from '../../../src/types/model/offer'
 import { getAllOfferMocks } from '../../mocks/get-all-offer-mocks'
 import { getOfferMockById } from '../../mocks/get-offer-mock-by-id'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { Offer } from '@echo/firestore-types'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { forEach } from 'ramda'
 

@@ -1,5 +1,5 @@
 import { assertListing } from '../../../src/helpers/listing/assert-listing'
-import { Listing } from '../../../src/types/model/listing'
+import { Listing } from '@echo/firestore-types'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - listing - assertListing', () => {

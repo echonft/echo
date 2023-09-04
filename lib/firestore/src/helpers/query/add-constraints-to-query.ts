@@ -1,18 +1,21 @@
-import { Field } from '../../types/abstract/field'
-import { QueryConstraints } from '../../types/abstract/query-constraints'
 import { addLimitConstraint } from './add-limit-constraint'
 import { addLimitToLastConstraint } from './add-limit-to-last-constraint'
 import { addOffsetConstraint } from './add-offset-constraint'
 import { addOrderByConstraint } from './add-order-by-constraint'
 import { addSelectConstraint } from './add-select-constraint'
+import { QueryConstraints } from '@echo/firestore-types'
 import { CollectionReference, Query } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
 export function addConstraintsToQuery<T>(
   query: CollectionReference<T> | Query<T>,
-  constraints: QueryConstraints,
-  availableFields?: Field[]
+  constraints: QueryConstraints | undefined,
+  availableFields?: string[]
 ) {
+  if (isNil(constraints)) {
+    return query
+  }
+
   let queryWithConstraints = query
   const { select, orderBy, limit, limitToLast, offset } = constraints
   if (!isNil(select)) {

@@ -7,7 +7,7 @@ import { handleRejectOffer } from '../../../src/lib/server/request-handlers/offe
 import { updateOfferRequestHandler } from '../../../src/lib/server/request-handlers/offer/update-offer-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { UpdateOfferAction, UpdateOfferRequest } from '@echo/api'
-import { User } from '@echo/firestore'
+import { User } from '@echo/firestore-types'
 import { AuthOptions, Session } from 'next-auth'
 
 jest.mock('../../../src/lib/server/helpers/auth/get-session')

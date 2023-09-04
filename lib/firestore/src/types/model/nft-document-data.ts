@@ -1,7 +1,7 @@
 import { NftAttributeDocumentData } from './nft-attribute-document-data'
 import { NftCollectionDocumentData } from './nft-collection-document-data'
-import { NftTokenType } from './nft-token-type'
 import { UserDetailsDocumentData } from './user-details-document-data'
+import { NftTokenType } from '@echo/firestore-types'
 
 export interface NftDocumentData {
   id: string

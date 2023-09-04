@@ -5,12 +5,12 @@ import { modifyExpiresAtProp } from '../helpers/converters/from-firestore/modify
 import { modifyModelArrayProp } from '../helpers/converters/to-firestore/modify-model-array-prop'
 import { modifyModelProp } from '../helpers/converters/to-firestore/modify-model-prop'
 import { FirestoreModel } from '../types/abstract/firestore-model'
-import { Listing } from '../types/model/listing'
 import { ListingDocumentData } from '../types/model/listing-document-data'
 import { listingItemDocumentDataConverter } from './listing-item-document-data-converter'
 import { listingTargetDocumentDataConverter } from './listing-target-document-data-converter'
 import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
+import { Listing } from '@echo/firestore-types'
 import { modifyDatePropToNumber, modifyNumberPropToDate, removeUndefinedProps } from '@echo/utils'
 import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { assoc, dissoc, has, lens, map, over, path, pipe, prop, when } from 'ramda'
@@ -22,6 +22,7 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
     return pipe(
       getSnapshotData<ListingDocumentData>,
       modifyNumberPropToDate('createdAt'),
+      dissoc('creatorId'),
       modifyDocumentDataProp('creator', userDetailsDocumentDataConverter),
       modifyExpiresAtProp,
       modifyDocumentDataArrayProp('items', offerItemDocumentDataConverter),
@@ -39,6 +40,7 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
       modifyDatePropToNumber('createdAt'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
+      when(has('creator'), over(lens(prop('creator'), assoc('creatorId')), prop('id'))),
       modifyModelProp('creator', userDetailsDocumentDataConverter),
       modifyDatePropToNumber('expiresAt'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

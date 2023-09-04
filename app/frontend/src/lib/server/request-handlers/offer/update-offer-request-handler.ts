@@ -1,5 +1,6 @@
 import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
-import { parseUpdateOfferRequest } from '../../helpers/offer/parse-update-offer-request'
+import { BadRequestError } from '../../helpers/error/bad-request-error'
+import { updateOfferRequestSchema } from '../../validators/update-offer-request-schema'
 import { handleAcceptOffer } from './handle-accept-offer'
 import { handleCancelOffer } from './handle-cancel-offer'
 import { handleRejectOffer } from './handle-reject-offer'
@@ -21,5 +22,13 @@ export async function updateOfferRequestHandler(
       return handleCancelOffer(id, user)
     case UpdateOfferAction.REJECT:
       return handleRejectOffer(id, user)
+  }
+}
+
+function parseUpdateOfferRequest(request: UpdateOfferRequest) {
+  try {
+    return updateOfferRequestSchema.parse(request)
+  } catch (e) {
+    throw new BadRequestError()
   }
 }

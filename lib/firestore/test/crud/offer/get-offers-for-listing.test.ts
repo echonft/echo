@@ -1,11 +1,10 @@
 import { getOffersForListing } from '../../../src/crud/offer/get-offers-for-listing'
-import { ListingTarget } from '../../../src/types/model/listing-target'
-import { OfferItem } from '../../../src/types/model/offer-item'
 import { getNftCollectionMockById } from '../../mocks/get-nft-collection-mock-by-id'
 import { getNftMockById } from '../../mocks/get-nft-mock-by-id'
 import { getOfferMockById } from '../../mocks/get-offer-mock-by-id'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { ListingTarget, OfferItem } from '@echo/firestore-types'
 import { NonEmptyArray } from '@echo/utils'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 

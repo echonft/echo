@@ -2,7 +2,8 @@ import { embedSeparator } from '../helpers/embed/embed-separator'
 import { embedValueForNft } from '../helpers/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../helpers/embed/embed-value-for-target'
 import { listingLink } from '../routing/listing-link'
-import { getListingItemsGuild, Listing, ListingItem, ListingTarget } from '@echo/firestore'
+import { getListingItemsGuild } from '@echo/firestore'
+import { Listing, ListingItem, ListingTarget } from '@echo/firestore-types'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import { flatten, map, prop } from 'ramda'
 
@@ -53,6 +54,7 @@ function listingTargets(targets: ListingTarget[]): APIEmbedField[] {
 function listingItemsName(): string {
   return 'Items for sale'
 }
+
 function listingTargetsName(): string {
   return 'Looking for'
 }

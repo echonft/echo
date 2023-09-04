@@ -1,7 +1,7 @@
 import { assertOffer } from '../../helpers/offer/assert-offer'
-import { NftCollectionDiscordGuild } from '../../types/model/nft-collection-discord-guild'
 import { findOfferById } from './find-offer-by-id'
 import { updateOffer } from './update-offer'
+import { NftCollectionDiscordGuild } from '@echo/firestore-types'
 import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 

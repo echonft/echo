@@ -5,7 +5,7 @@ import { setUserNonce } from '../../../src/lib/server/helpers/user/set-user-nonc
 import { nonceRequestHandler } from '../../../src/lib/server/request-handlers/user/nonce-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { NonceResponse } from '@echo/api'
-import { User } from '@echo/firestore'
+import { User } from '@echo/firestore-types'
 import { AuthOptions, Session } from 'next-auth'
 
 jest.mock('../../../src/lib/server/helpers/auth/get-session')

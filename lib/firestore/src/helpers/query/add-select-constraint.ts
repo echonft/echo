@@ -1,13 +1,11 @@
-import { Field } from '../../types/abstract/field'
-import { mapFieldToFieldPath } from './map-field-to-field-path'
 import { isIn } from '@echo/utils'
 import { CollectionReference, Query } from 'firebase-admin/firestore'
-import { filter, is, isEmpty, map } from 'ramda'
+import { filter, is, isEmpty } from 'ramda'
 
 export function addSelectConstraint<T>(
   query: CollectionReference<T> | Query<T>,
-  selectFields: Field | Field[],
-  availableFields: Field[]
+  selectFields: string | string[],
+  availableFields: string[]
 ) {
   const validFields = is(Array, selectFields)
     ? filter(isIn(availableFields), selectFields)
@@ -15,6 +13,5 @@ export function addSelectConstraint<T>(
   if (isEmpty(validFields)) {
     return query
   }
-  const validSelectFields = map(mapFieldToFieldPath, validFields)
-  return query.select(...validSelectFields) as Query<T>
+  return query.select(...validFields) as Query<T>
 }
