@@ -1,8 +1,7 @@
-import { DependenciesProvider, messages } from '@echo/ui'
+import { messages } from '@echo/ui'
 import '@echo/ui/dist/index.css'
 import type { Preview } from '@storybook/react'
 import { NextIntlClientProvider } from 'next-intl'
-import { apiProvider } from '../src/mocks/api-provider'
 
 const preview: Preview = {
   parameters: {
@@ -21,11 +20,9 @@ export const decorators = [
   // @ts-ignore
   (Story) => {
     return (
-      <DependenciesProvider apiProvider={apiProvider}>
-        <NextIntlClientProvider messages={messages} locale={'en'}>
-          {Story()}
-        </NextIntlClientProvider>
-      </DependenciesProvider>
+      <NextIntlClientProvider messages={messages} locale={'en'}>
+        {Story()}
+      </NextIntlClientProvider>
     )
   }
 ]

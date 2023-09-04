@@ -3,7 +3,7 @@ import { getAllNftMocks } from '../../mocks/get-all-nft-mocks'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { equals, filter, forEach, includes, map, path, pipe, prop } from 'ramda'
+import { assoc, equals, filter, find, forEach, map, path, pipe, propEq } from 'ramda'
 
 describe('CRUD - nft - getNftsForCollection', () => {
   beforeAll(tearUpRemoteFirestoreTests)
@@ -14,19 +14,21 @@ describe('CRUD - nft - getNftsForCollection', () => {
     expect(result).toEqual([])
   })
 
-  it('returns the nfts of the collection', async () => {
+  it('returns the nfts of the collection - with collection prop undefined', async () => {
     const collectionId = '1aomCtnoesD7WVll6Yi1'
     const nfts = await getNftsForCollection(collectionId)
-    const nftMocksIds = pipe(
+    const nftMocks = pipe(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       filter(pipe(path(['collection', 'id']), equals(collectionId))),
-      map(prop('id'))
+      map(assoc('collection', undefined))
     )(getAllNftMocks())
-    const nftsIds = map(prop('id'), nfts)
-    expect(nftsIds.length).toEqual(nftMocksIds.length)
-    forEach((nftId) => {
-      expect(includes(nftId, nftMocksIds)).toBeTruthy()
-    }, nftsIds)
+    expect(nfts.length).toEqual(nftMocks.length)
+    forEach((nft) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const mock = find(propEq(nft.id, 'id'), nftMocks)
+      expect(nft).toStrictEqual(mock)
+    }, nfts)
   })
 })

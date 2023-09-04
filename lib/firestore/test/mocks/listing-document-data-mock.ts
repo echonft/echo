@@ -5,9 +5,10 @@ import { getNftDocumentDataMockById } from './get-nft-document-data-mock-by-id'
 export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
   jUzMtPGKM62mMhEcmbN4: {
     id: 'jUzMtPGKM62mMhEcmbN4',
+    creatorId: 'oE6yUEQBPn7PZ89yMjKn',
     createdAt: 1676984897,
     creator: {
-      id: 'user1',
+      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',

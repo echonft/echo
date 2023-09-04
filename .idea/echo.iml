@@ -47,12 +47,12 @@
       <excludeFolder url="file://$MODULE_DIR$/lib/ui-model/.turbo" />
       <excludeFolder url="file://$MODULE_DIR$/lib/ui-model/coverage" />
       <excludeFolder url="file://$MODULE_DIR$/app/frontend/node_modules/next-auth" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/@echo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/@jest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/@types" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/jest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api-public/node_modules/jest-junit" />
       <excludeFolder url="file://$MODULE_DIR$/app/frontend/node_modules/next" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@jest" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@types" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/jest" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/jest-junit" />
       <excludePattern pattern="tsconfig.tsbuildinfo" />
       <excludePattern pattern=".eslintcache" />
       <excludePattern pattern="pnpm-lock.yaml" />
@@ -66,11 +66,7 @@
     </content>
     <content url="file://$MODULE_DIR$/app/frontend/node_modules/next" />
     <content url="file://$MODULE_DIR$/app/frontend/node_modules/next-auth" />
-    <content url="file://$MODULE_DIR$/lib/api-public/node_modules/@echo" />
-    <content url="file://$MODULE_DIR$/lib/api-public/node_modules/@jest" />
-    <content url="file://$MODULE_DIR$/lib/api-public/node_modules/@types" />
-    <content url="file://$MODULE_DIR$/lib/api-public/node_modules/jest" />
-    <content url="file://$MODULE_DIR$/lib/api-public/node_modules/jest-junit" />
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo" />
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/alchemy" />
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/api-public" />
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/discord" />
@@ -78,6 +74,10 @@
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/model" />
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/model/dist" />
     <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/utils" />
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/@jest" />
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/@types" />
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/jest" />
+    <content url="file://$MODULE_DIR$/lib/api/node_modules/jest-junit" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

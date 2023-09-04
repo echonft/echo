@@ -1,5 +1,5 @@
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
-export function dateIsPast(date: Dayjs) {
+export function dateIsPast(date: dayjs.Dayjs) {
   return date.isBefore(dayjs())
 }

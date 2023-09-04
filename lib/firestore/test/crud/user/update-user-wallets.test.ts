@@ -1,9 +1,9 @@
 import { findUserById } from '../../../src/crud/user/find-user-by-id'
 import { updateUser } from '../../../src/crud/user/update-user'
 import { updateUserWallets } from '../../../src/crud/user/update-user-wallets'
-import { Wallet } from '../../../src/types/model/wallet'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { Wallet } from '@echo/firestore-types'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - user - updateUserWallets', () => {

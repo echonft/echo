@@ -1,5 +1,5 @@
 import { mapNftCollection } from '../../../src/mappers/from-api/map-nft-collection'
-import { NftCollectionResponse } from '@echo/api-public'
+import { NftCollectionResponse } from '@echo/api'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - from-api - mapNftCollection', () => {

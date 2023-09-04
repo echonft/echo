@@ -1,10 +1,10 @@
 import { findNftById } from '../../../src/crud/nft/find-nft-by-id'
 import { setNftOwner } from '../../../src/crud/nft/set-nft-owner'
 import { updateNft } from '../../../src/crud/nft/update-nft'
-import { UserDetails } from '../../../src/types/model/user-details'
 import { userMock } from '../../mocks/user-mock'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { UserDetails } from '@echo/firestore-types'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - nft - setNftOwner', () => {

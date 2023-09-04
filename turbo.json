@@ -52,14 +52,7 @@
     },
     "@echo/bot#build": {
       "dependsOn": ["@echo/ui#build"],
-      "env": [
-        "BASE_URL",
-        "DISCORD_CLIENT_TOKEN",
-        "DISCORD_CLIENT_ID",
-        "DISCORD_CLIENT_SECRET",
-        "DISCORD_REDIRECT_URI",
-        "DISCORD_APP_ENV"
-      ],
+      "env": ["BASE_URL", "DISCORD_CLIENT_TOKEN", "DISCORD_CLIENT_ID", "DISCORD_CLIENT_SECRET", "DISCORD_REDIRECT_URI"],
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
     },
@@ -81,8 +74,7 @@
         "DISCORD_CLIENT_TOKEN",
         "DISCORD_CLIENT_ID",
         "DISCORD_CLIENT_SECRET",
-        "DISCORD_REDIRECT_URI",
-        "DISCORD_APP_ENV"
+        "DISCORD_REDIRECT_URI"
       ],
       "outputs": [".next/**", "!.next/cache/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]

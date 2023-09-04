@@ -1,6 +1,6 @@
 'use client'
 import { CollectionNfts } from '../collection-nfts'
-import { NftResponse } from '@echo/api-public'
+import { NftResponse } from '@echo/api'
 import { getTraitsForNfts, mapNft } from '@echo/ui-model'
 import { map } from 'ramda'
 import { FunctionComponent } from 'react'

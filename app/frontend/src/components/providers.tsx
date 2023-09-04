@@ -1,6 +1,5 @@
 'use client'
-import { DependenciesProvider, messages } from '@echo/ui'
-import { apiProvider } from '@lib/dependencies/api-provider'
+import { messages } from '@echo/ui'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import timezone from 'dayjs/plugin/timezone'
@@ -29,7 +28,7 @@ export const Providers: FunctionComponent<PropsWithChildren<ProvidersProps>> = (
       {/*<WagmiConfig config={wagmiConfig}>*/}
       {/*  <DynamicConnectKitProvider>*/}
       <NextIntlClientProvider timeZone={dayjs.tz.guess()} messages={messages} locale={'en'}>
-        <DependenciesProvider apiProvider={apiProvider}>{children}</DependenciesProvider>
+        {children}
       </NextIntlClientProvider>
       {/*</DynamicConnectKitProvider>*/}
       {/*</WagmiConfig>*/}

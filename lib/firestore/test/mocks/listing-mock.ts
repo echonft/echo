@@ -1,6 +1,6 @@
-import { Listing } from '../../src/types/model/listing'
 import { nftCollectionMock } from './nft-collection-mock'
 import { nftMock } from './nft-mock'
+import { Listing } from '@echo/firestore-types'
 import dayjs from 'dayjs'
 
 export const listingMock: { [key: string]: Listing } = {
@@ -8,7 +8,7 @@ export const listingMock: { [key: string]: Listing } = {
     id: 'jUzMtPGKM62mMhEcmbN4',
     createdAt: dayjs.unix(1676984897),
     creator: {
-      id: 'user1',
+      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',

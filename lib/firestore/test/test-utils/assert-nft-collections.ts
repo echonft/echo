@@ -1,7 +1,7 @@
 import { getAllNftCollections } from '../../src/crud/nft-collection/get-all-nft-collections'
-import { NftCollection } from '../../src/types/model/nft-collection'
 import { getAllNftCollectionMocks } from '../mocks/get-all-nft-collection-mocks'
 import { getNftCollectionMockById } from '../mocks/get-nft-collection-mock-by-id'
+import { NftCollection } from '@echo/firestore-types'
 import { expect } from '@jest/globals'
 import { forEach } from 'ramda'
 

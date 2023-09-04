@@ -1,4 +1,4 @@
-import { authOptions } from '@app/api/auth/[...nextauth]/route'
+import { authOptions } from '../../lib/constants/auth-options'
 import { Header } from '@echo/ui'
 import { clsx } from 'clsx'
 import { getServerSession } from 'next-auth/next'

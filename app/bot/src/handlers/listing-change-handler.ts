@@ -1,13 +1,8 @@
 import { buildNewListingButtons } from '../builders/listing-button-builder'
 import { buildListingEmbed } from '../builders/listing-embed-builder'
 import { getDiscordChannel } from '../helpers/get-discord-channel'
-import {
-  DocumentChangeType,
-  getListingItemsGuild,
-  getListingTargetsGuilds,
-  Listing,
-  NftCollectionDiscordGuild
-} from '@echo/firestore'
+import { getListingItemsGuild, getListingTargetsGuilds } from '@echo/firestore'
+import { DocumentChangeType, Listing, NftCollectionDiscordGuild } from '@echo/firestore-types'
 import { errorMessage, logger } from '@echo/utils'
 import { Client } from 'discord.js'
 
@@ -18,6 +13,7 @@ async function postListingToGuild(client: Client, listing: Listing, discordGuild
     embeds: [buildListingEmbed(listing)]
   })
 }
+
 /**
  * Handles listing changes - only check for new listings
  * @param client

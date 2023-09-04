@@ -1,6 +1,6 @@
 import { Nft } from '../../types/nft'
 import { mapUser } from './map-user'
-import { NftResponse } from '@echo/api-public'
+import { NftResponse } from '@echo/api'
 import { modifyStringPropToUrl } from '@echo/utils'
 import { modify, pipe } from 'ramda'
 

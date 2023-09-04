@@ -1,4 +1,4 @@
-import { TokenType } from './token-type'
+import { TokenType } from '@echo/firestore-types'
 
 export interface ContractDocumentData {
   address: string

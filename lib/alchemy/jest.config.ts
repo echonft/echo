@@ -25,6 +25,7 @@ const config: Config = {
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/alchemy'
+  coverageDirectory: '<rootDir>/../../.coverage/lib/alchemy',
+  setupFilesAfterEnv: ['<rootDir>/test/setup-env.ts']
 }
 export default config

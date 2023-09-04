@@ -1,10 +1,11 @@
+import { AlchemyNft } from '../../src'
 import { mapNft } from '../../src/mappers/map-nft'
 import { getNftsResponse } from '../mocks/get-nfts-response'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapNft', () => {
   it('returns mapped nft collection', () => {
-    const expected = {
+    const expected: AlchemyNft = {
       attributes: [
         { value: 'archimedean', trait: 'Algorithm' },
         { value: 'main', trait: 'Ring' },
@@ -26,7 +27,7 @@ describe('mappers - mapNft', () => {
       tokenId: 1376,
       tokenType: 'ERC721'
     }
-    const result = mapNft(getNftsResponse['0x320e2fa93A4010ba47edcdE762802374bac8d3F7:1376']!)
-    expect(result).toStrictEqual(expected)
+    const response = getNftsResponse['0x320e2fa93A4010ba47edcdE762802374bac8d3F7:1376']!
+    expect(mapNft(response)).toStrictEqual(expected)
   })
 })

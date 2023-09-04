@@ -1,6 +1,6 @@
-import { ListingTarget } from '../../types/model/listing-target'
-import { NonEmptyArray } from '@echo/utils'
-import { complement, eqProps, equals, length, map, pipe, prop, uniqWith } from 'ramda'
+import {ListingTarget} from '@echo/firestore-types'
+import {NonEmptyArray} from '@echo/utils'
+import {complement, eqProps, equals, length, map, pipe, prop, uniqWith} from 'ramda'
 
 /**
  * Asserts the validity of listing targets

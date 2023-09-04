@@ -1,10 +1,7 @@
 {
-  "extends": "../../lib/tsconfig/base.json",
+  "extends": "../../lib/tsconfig/react.json",
   "compilerOptions": {
-    "baseUrl": "src",
-    "jsx": "preserve",
-    "noEmit": true,
-    "noUnusedLocals": false
+    "baseUrl": "src"
   },
   "include": ["src", ".storybook/preview.tsx"],
   "exclude": ["node_modules"]
