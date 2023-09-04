@@ -1,7 +1,7 @@
 import { booleanQueryParamSchema } from '../../validators/boolean-query-param-schema'
 import { BadRequestError } from '../error/bad-request-error'
 import { ApiRequest } from '@echo/api'
-import { LISTING_STATES, ListingsQueryFilters } from '@echo/firestore-types'
+import { LISTING_STATES, ListingQueryFilters } from '@echo/firestore-types'
 import { assoc, isEmpty } from 'ramda'
 import { z } from 'zod'
 
@@ -14,7 +14,7 @@ const stateQueryParamSchema = z
 
 export function parseListingFiltersQuery<T>(req: ApiRequest<T>) {
   try {
-    let filters = {} as ListingsQueryFilters
+    let filters = {} as ListingQueryFilters
     const { searchParams } = new URL(req.url)
     if (searchParams.has('state')) {
       const states = stateQueryParamSchema.parse(searchParams.getAll('state'))
