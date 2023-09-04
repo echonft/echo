@@ -2,7 +2,7 @@ import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
 import { acceptOffer } from '../../../src/lib/server/helpers/offer/accept-offer'
 import { getOffer } from '../../../src/lib/server/helpers/offer/get-offer'
 import { handleAcceptOffer } from '../../../src/lib/server/request-handlers/offer/handle-accept-offer'
-import { Offer, User } from '@echo/firestore'
+import { Offer, User } from '@echo/firestore-types'
 
 jest.mock('../../../src/lib/server/helpers/offer/get-offer')
 jest.mock('../../../src/lib/server/helpers/offer/accept-offer')

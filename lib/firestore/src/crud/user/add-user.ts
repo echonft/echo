@@ -1,7 +1,7 @@
 import { CollectionName } from '../../constants/collection-name'
 import { userDataConverter } from '../../converters/user-data-converter'
 import { firestore } from '../../services/firestore'
-import { UserDiscordGuild } from '../../types/model/user-discord-guild'
+import { UserDiscordGuild } from '@echo/firestore-types'
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 

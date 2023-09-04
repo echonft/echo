@@ -1,5 +1,4 @@
-import { Offer } from '../../types/model/offer'
-import { OfferState } from '../../types/model/offer-state'
+import { Offer, OfferState } from '@echo/firestore-types'
 
 function assertOfferIsNotCancelled(offer: Offer) {
   if (offer.state === 'CANCELLED') {

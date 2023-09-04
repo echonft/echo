@@ -1,5 +1,5 @@
 import { embedValueForTarget } from '../../../src/helpers/embed/embed-value-for-target'
-import { ListingTarget } from '@echo/firestore'
+import { ListingTarget } from '@echo/firestore-types'
 import { describe, expect, it } from '@jest/globals'
 
 describe('utils - embed - embedValueForTarget', () => {

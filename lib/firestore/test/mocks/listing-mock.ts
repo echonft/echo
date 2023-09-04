@@ -1,6 +1,6 @@
-import { Listing } from '../../src/types/model/listing'
 import { nftCollectionMock } from './nft-collection-mock'
 import { nftMock } from './nft-mock'
+import { Listing } from '@echo/firestore-types'
 import dayjs from 'dayjs'
 
 export const listingMock: { [key: string]: Listing } = {

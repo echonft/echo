@@ -1,6 +1,6 @@
 import { FirestoreDocumentDataConverter } from '../types/converters/firestore-document-data-converter'
-import { Contract } from '../types/model/contract'
 import { ContractDocumentData } from '../types/model/contract-document-data'
+import { Contract } from '@echo/firestore-types'
 import { assocUndefinedIfPropNotPresent, modifyStringPropToAddress, removeUndefinedProps } from '@echo/utils'
 import { pipe } from 'ramda'
 

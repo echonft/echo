@@ -1,4 +1,4 @@
-import { NftCollection } from '@echo/firestore'
+import { NftCollection } from '@echo/firestore-types'
 import { both, find, pathEq } from 'ramda'
 
 export const getNftCollectionByContract = (address: string, chainId: number, collections: NftCollection[]) =>

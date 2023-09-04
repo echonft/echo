@@ -1,8 +1,7 @@
 import { CollectionName } from '../../constants/collection-name'
 import { offerDataConverter } from '../../converters/offer-data-converter'
 import { firestore } from '../../services/firestore'
-import { Offer } from '../../types/model/offer'
-import { OfferState } from '../../types/model/offer-state'
+import { Offer, OfferState } from '@echo/firestore-types'
 import { invoker, isNil, map } from 'ramda'
 
 export const getOffersForSender = async (senderId: string, state?: OfferState) => {

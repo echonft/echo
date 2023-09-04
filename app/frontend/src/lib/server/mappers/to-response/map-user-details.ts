@@ -1,5 +1,5 @@
 import { UserResponse } from '@echo/api'
-import { UserDetails } from '@echo/firestore'
+import { UserDetails } from '@echo/firestore-types'
 import { removeUndefinedProps } from '@echo/utils'
 
 export function mapUserDetails(user: UserDetails): UserResponse {

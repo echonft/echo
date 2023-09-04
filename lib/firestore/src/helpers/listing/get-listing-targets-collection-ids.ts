@@ -1,4 +1,4 @@
-import { ListingTarget } from '../../types/model/listing-target'
+import { ListingTarget } from '@echo/firestore-types'
 import { NonEmptyArray } from '@echo/utils'
 import { map, path, pipe, uniq } from 'ramda'
 

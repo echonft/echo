@@ -1,8 +1,8 @@
 import { BadRequestError } from '../error/bad-request-error'
-import { User } from '@echo/firestore'
+import { User, Wallet } from '@echo/firestore-types'
 import { isEmpty } from 'ramda'
 
-export const assertUserHasWallets = (user: User) => {
+export function assertUserHasWallets(user: User): asserts user is User & { wallets: Wallet[] } {
   if (isEmpty(user.wallets)) {
     throw new BadRequestError()
   }

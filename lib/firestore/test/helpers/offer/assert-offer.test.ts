@@ -1,5 +1,5 @@
 import { assertOffer } from '../../../src/helpers/offer/assert-offer'
-import { Offer } from '../../../src/types/model/offer'
+import { Offer } from '@echo/firestore-types'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - offer - assertOffer', () => {

@@ -1,9 +1,9 @@
 import { getSnapshotData } from '../helpers/converters/from-firestore/get-snapshot-data'
 import { modifyDocumentDataArrayProp } from '../helpers/converters/from-firestore/modify-document-data-array-prop'
 import { FirestoreModel } from '../types/abstract/firestore-model'
-import { User } from '../types/model/user'
 import { UserDocumentData } from '../types/model/user-document-data'
 import { walletDocumentDataConverter } from './wallet-document-data-converter'
+import { User } from '@echo/firestore-types'
 import {
   assocUndefinedIfPropNotPresent,
   modifyDatePropToNumber,

@@ -1,10 +1,11 @@
 import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
+import { BadRequestError } from '../../helpers/error/bad-request-error'
 import { createListing } from '../../helpers/listing/create-listing'
 import { getListingTargets } from '../../helpers/listing/get-listing-targets'
-import { parseCreateListingRequest } from '../../helpers/listing/parse-create-listing-request'
 import { getOfferItems } from '../../helpers/offer/get-offer-items'
 import { getOfferItemsWallet } from '../../helpers/offer/get-offer-items-wallet'
 import { assertUserHasWallets } from '../../helpers/user/assert-user-has-wallets'
+import { createListingSchema } from '../../validators/create-listing-schema'
 import { ApiRequest, CreateListingRequest, IdResponse } from '@echo/api'
 import { NextResponse } from 'next/server'
 import { AuthOptions } from 'next-auth'
@@ -19,4 +20,12 @@ export async function createListingRequestHandler(req: ApiRequest<CreateListingR
   const creatorWallet = await getOfferItemsWallet(nfts, creator)
   const id = await createListing(creator, creatorWallet, nfts, listingTargets)
   return NextResponse.json<IdResponse>({ id })
+}
+
+function parseCreateListingRequest(request: CreateListingRequest) {
+  try {
+    return createListingSchema.parse(request)
+  } catch (e) {
+    throw new BadRequestError()
+  }
 }

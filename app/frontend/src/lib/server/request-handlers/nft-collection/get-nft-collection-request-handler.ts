@@ -7,5 +7,5 @@ import { NextResponse } from 'next/server'
 export async function getNftCollectionRequestHandler(_req: ApiRequest<never>, slug: string) {
   const nftCollection = await getNftCollectionBySlug(slug)
   assertNftCollection(nftCollection)
-  return NextResponse.json<GetNftCollectionResponse>({ collection: mapNftCollection(nftCollection!) })
+  return NextResponse.json<GetNftCollectionResponse>({ collection: mapNftCollection(nftCollection) })
 }

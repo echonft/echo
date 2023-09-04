@@ -1,6 +1,6 @@
-import { OfferItem } from '../../types/model/offer-item'
-import { NonEmptyArray } from '@echo/utils'
-import { complement, eqProps, equals, length, map, path, pipe, prop, uniqWith } from 'ramda'
+import {OfferItem} from '@echo/firestore-types'
+import {NonEmptyArray} from '@echo/utils'
+import {complement, eqProps, equals, length, map, path, pipe, prop, uniqWith} from 'ramda'
 
 /**
  * Asserts the validity of offer items

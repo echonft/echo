@@ -5,8 +5,8 @@ import { BadRequestError } from '../../helpers/error/bad-request-error'
 import { ForbiddenError } from '../../helpers/error/forbidden-error'
 import { addUserWallet } from '../../helpers/user/add-user-wallet'
 import { findUserByWallet } from '../../helpers/user/find-user-by-wallet'
-import { parseAddWalletRequest } from '../../helpers/user/parse-add-wallet-request'
 import { updateUserNfts } from '../../helpers/user/update-user-nfts'
+import { addWalletSchema } from '../../validators/add-wallet-schema'
 import { AddWalletRequest, ApiRequest, EmptyResponse } from '@echo/api'
 import { isNilOrEmpty } from '@echo/utils'
 import { NextResponse } from 'next/server'
@@ -35,4 +35,12 @@ export async function addWalletRequestHandler(req: ApiRequest<AddWalletRequest>,
   await addUserWallet(user.id, wallet)
   await updateUserNfts(user)
   return NextResponse.json<EmptyResponse>({})
+}
+
+function parseAddWalletRequest(request: AddWalletRequest) {
+  try {
+    return addWalletSchema.parse(request)
+  } catch (e) {
+    throw new BadRequestError()
+  }
 }

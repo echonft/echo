@@ -1,6 +1,6 @@
 import { DiscordUser } from '../../types/user/discord-user'
 import { DiscordUserResponse } from '../../types/user/discord-user-response'
-import { UserDiscordGuild } from '@echo/firestore'
+import { UserDiscordGuild } from '@echo/firestore-types'
 import { applySpec, map, pipe, prop } from 'ramda'
 
 export function mapDiscordUserResponseToUser(discordUserResponse: DiscordUserResponse): DiscordUser {

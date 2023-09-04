@@ -1,6 +1,7 @@
 import { ErrorStatus } from '../server/constants/error-status'
-import { setUrlQuery } from './set-url-query'
+import { setUrlQuery } from './request/set-url-query'
 import { ErrorResponse } from '@echo/api'
+import { QueryType } from '@echo/utils'
 import { HTTP_METHOD } from 'next/dist/server/web/http'
 import { assoc, assocPath, is, pathEq } from 'ramda'
 
@@ -74,7 +75,7 @@ class Fetcher {
     return this
   }
 
-  query<T extends Record<string, string | number | string[] | undefined>>(query: T, addArrayBrackets = false) {
+  query<T extends QueryType>(query: T, addArrayBrackets = false) {
     setUrlQuery(this.url, query, addArrayBrackets)
     return this
   }

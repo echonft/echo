@@ -5,7 +5,7 @@ import { handleCancelListing } from '../../../src/lib/server/request-handlers/li
 import { updateListingRequestHandler } from '../../../src/lib/server/request-handlers/listing/update-listing-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { UpdateListingAction, UpdateListingRequest } from '@echo/api'
-import { User } from '@echo/firestore'
+import { User } from '@echo/firestore-types'
 import { AuthOptions, Session } from 'next-auth'
 
 jest.mock('../../../src/lib/server/helpers/auth/get-session')

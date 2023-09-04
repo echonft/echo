@@ -1,5 +1,5 @@
-import { Offer } from '../../src/types/model/offer'
 import { getNftMockById } from './get-nft-mock-by-id'
+import { Offer } from '@echo/firestore-types'
 import dayjs from 'dayjs'
 
 export const offerMock: { [key: string]: Offer } = {

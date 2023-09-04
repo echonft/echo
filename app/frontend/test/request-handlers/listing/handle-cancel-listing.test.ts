@@ -2,7 +2,7 @@ import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
 import { cancelListing } from '../../../src/lib/server/helpers/listing/cancel-listing'
 import { getListing } from '../../../src/lib/server/helpers/listing/get-listing'
 import { handleCancelListing } from '../../../src/lib/server/request-handlers/listing/handle-cancel-listing'
-import { Listing, User } from '@echo/firestore'
+import { Listing, User } from '@echo/firestore-types'
 
 jest.mock('../../../src/lib/server/helpers/listing/get-listing')
 jest.mock('../../../src/lib/server/helpers/listing/cancel-listing')

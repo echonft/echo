@@ -1,8 +1,7 @@
 import { CollectionName } from '../constants/collection-name'
 import { listingDataConverter } from '../converters/listing-data-converter'
 import { firestore } from '../services/firestore'
-import { DocumentChangeType } from '../types/abstract/document-change-type'
-import { Listing } from '../types/model/listing'
+import { DocumentChangeType, Listing } from '@echo/firestore-types'
 
 export function listenToListings(onChange: (changeType: DocumentChangeType, listing: Listing) => unknown) {
   return firestore()

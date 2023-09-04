@@ -1,5 +1,4 @@
-import { Listing } from '../../types/model/listing'
-import { NftCollectionDiscordGuild } from '../../types/model/nft-collection-discord-guild'
+import { Listing, NftCollectionDiscordGuild } from '@echo/firestore-types'
 import { head, path, pipe, prop } from 'ramda'
 
 export function getListingItemsGuild(listing: Listing): NftCollectionDiscordGuild {
