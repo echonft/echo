@@ -1,12 +1,12 @@
 import { AlchemyNft } from '../types/model/alchemy-nft'
 import { NftResponse } from '../types/response/nft-response'
 import { applyToProp, isNilOrEmpty } from '@echo/utils'
-import { getAddress } from 'ethers'
 import { always, applySpec, ifElse, map, path, pathEq, pipe, prop } from 'ramda'
+import { getAddress } from 'viem'
 
 export function mapNft(nftResponse: NftResponse): AlchemyNft {
   return applySpec<AlchemyNft>({
-    balance: ifElse(pathEq('ERC1155', ['contract', 'tokenType']), applyToProp('balance', Number.parseInt), always(1)),
+    balance: ifElse(pathEq('ERC1155', ['contract', 'tokenType']), applyToProp('balance', parseInt), always(1)),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     contractAddress: pipe(path(['contract', 'address']), getAddress),
@@ -16,7 +16,7 @@ export function mapNft(nftResponse: NftResponse): AlchemyNft {
     thumbnailUrl: path(['image', 'thumbnailUrl']),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    tokenId: applyToProp('tokenId', Number.parseInt),
+    tokenId: applyToProp('tokenId', parseInt),
     tokenType: path(['contract', 'tokenType']),
     attributes: pipe(
       path(['raw', 'metadata']),

@@ -1,7 +1,7 @@
 import { userDataConverter } from '../../converters/user-data-converter'
 import { cleanAndUpdateDocumentRef } from '../../helpers/crud/clean-and-update-document-ref'
-import { User } from '../../types/model/user'
 import { getUserSnapshotById } from './get-user-snapshot-by-id'
+import { User } from '@echo/firestore-types'
 import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 

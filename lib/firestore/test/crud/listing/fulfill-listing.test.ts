@@ -1,15 +1,15 @@
 import { findListingById } from '../../../src/crud/listing/find-listing-by-id'
 import { fulfillListing } from '../../../src/crud/listing/fulfill-listing'
 import { updateListing } from '../../../src/crud/listing/update-listing'
-import { ListingState } from '../../../src/types/model/listing-state'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { ListingState } from '@echo/firestore-types'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 describe('CRUD - listing - fulfillListing', () => {
   let initialState: ListingState
-  let initialExpiresAt: Dayjs
+  let initialExpiresAt: dayjs.Dayjs
   const id = 'jUzMtPGKM62mMhEcmbN4'
 
   beforeAll(tearUpRemoteFirestoreTests)

@@ -1,5 +1,6 @@
 import { ServerError } from '../error/server-error'
-import { addOffer, mapUserToUserDetails, OfferItem, User, Wallet } from '@echo/firestore'
+import { addOffer, mapUserToUserDetails } from '@echo/firestore'
+import { OfferItem, User, Wallet } from '@echo/firestore-types'
 import { NonEmptyArray } from '@echo/utils'
 
 export const createOffer = async (

@@ -1,6 +1,6 @@
 import { assertUser } from '../../../src/lib/server/helpers/user/assert-user'
 import { assertUserIs } from '../../../src/lib/server/helpers/user/assert-user-is'
-import { User } from '@echo/firestore'
+import { User } from '@echo/firestore-types'
 
 describe('helpers - user - assertUserIs', () => {
   it('throws if the user id is not the same as the passed parameter', () => {

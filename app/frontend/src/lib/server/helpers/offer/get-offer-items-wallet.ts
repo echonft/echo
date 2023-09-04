@@ -1,7 +1,7 @@
 import { getOwnersForNft } from '../alchemy/get-owners-for-nft'
 import { ForbiddenError } from '../error/forbidden-error'
 import { ServerError } from '../error/server-error'
-import { OfferItem, User, Wallet } from '@echo/firestore'
+import { OfferItem, User, Wallet } from '@echo/firestore-types'
 import { NonEmptyArray } from '@echo/utils'
 import { equals, flatten, head, ifElse, intersection, length, map, pipe, uniq } from 'ramda'
 

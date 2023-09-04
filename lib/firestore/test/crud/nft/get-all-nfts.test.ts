@@ -1,9 +1,9 @@
 import { getAllNfts } from '../../../src/crud/nft/get-all-nfts'
-import { Nft } from '../../../src/types/model/nft'
 import { getAllNftMocks } from '../../mocks/get-all-nft-mocks'
 import { getNftMockById } from '../../mocks/get-nft-mock-by-id'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { Nft } from '@echo/firestore-types'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { forEach } from 'ramda'
 

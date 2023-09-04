@@ -9,6 +9,7 @@ export interface AuthUser {
   }[]
   discordId: string
   discordUsername: string
+  nftsUpdatedAt: number
   updatedAt: number
   wallets: Wallet[]
 }

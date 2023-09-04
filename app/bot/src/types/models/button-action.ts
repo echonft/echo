@@ -1,4 +1,4 @@
-import { Offer } from '@echo/firestore'
+import { Offer } from '@echo/firestore-types'
 
 export enum ButtonAction {
   BUY = 'buy',

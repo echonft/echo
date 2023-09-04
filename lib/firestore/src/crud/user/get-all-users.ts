@@ -1,7 +1,7 @@
 import { CollectionName } from '../../constants/collection-name'
 import { userDataConverter } from '../../converters/user-data-converter'
 import { firestore } from '../../services/firestore'
-import { User } from '../../types/model/user'
+import { User } from '@echo/firestore-types'
 import { invoker, map } from 'ramda'
 
 export const getAllUsers = async () => {

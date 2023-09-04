@@ -18,7 +18,7 @@ describe('helpers - user - getUserWalletAddresses', () => {
 
   it('Should return the user wallets addresses with the given chain id', () => {
     const user = userMock['oE6yUEQBPn7PZ89yMjKn']!
-    const addresses = getUserWalletAddresses(1)(user)
+    const addresses = getUserWalletAddresses(1, user)
     expect(addresses.length).toEqual(user.wallets.length)
     expect(addresses[0]).toStrictEqual(user.wallets[0]!.address)
     expect(addresses[1]).toStrictEqual(user.wallets[1]!.address)

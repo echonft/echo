@@ -1,10 +1,26 @@
-import { AuthUser } from '../../types/auth/auth-user'
-import { User } from '@echo/firestore'
+import { User, UserDiscordGuild } from '@echo/firestore-types'
+import { AuthUser, Wallet } from '@echo/ui-model'
 import { modifyDatePropToNumber, removeUndefinedProps } from '@echo/utils'
+import { Dayjs } from 'dayjs'
 import { dissoc, pipe } from 'ramda'
 
-export function mapUserToAuthUser(user: User): AuthUser {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return pipe(removeUndefinedProps, dissoc('nonce'), modifyDatePropToNumber('updatedAt'))(user)
+interface RequiredProps {
+  id: string
+  discordAvatar: string | undefined
+  discordBanner: string | undefined
+  discordGuilds: UserDiscordGuild[]
+  discordId: string
+  discordUsername: string
+  nftsUpdatedAt: Dayjs
+  updatedAt: Dayjs
+  wallets: Wallet[]
+}
+
+export function mapUserToAuthUser(user: Partial<User> & RequiredProps) {
+  return pipe(
+    removeUndefinedProps,
+    dissoc('nonce'),
+    modifyDatePropToNumber('nftsUpdatedAt'),
+    modifyDatePropToNumber('updatedAt')
+  )(user) as AuthUser
 }

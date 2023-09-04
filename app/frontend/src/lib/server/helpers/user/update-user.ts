@@ -1,4 +1,5 @@
-import { updateUser as firestoreUpdateUser, User } from '@echo/firestore'
+import { updateUser as firestoreUpdateUser } from '@echo/firestore'
+import { User } from '@echo/firestore-types'
 
 export const updateUser = async (userId: string, user: Partial<User>) => {
   try {

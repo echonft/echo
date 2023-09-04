@@ -9,7 +9,7 @@ import { updateUserNfts } from '../../../src/lib/server/helpers/user/update-user
 import { addWalletRequestHandler } from '../../../src/lib/server/request-handlers/user/add-wallet-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { AddWalletRequest } from '@echo/api'
-import { User } from '@echo/firestore'
+import { User } from '@echo/firestore-types'
 import { AuthOptions, Session } from 'next-auth'
 import { SiweMessage } from 'siwe'
 

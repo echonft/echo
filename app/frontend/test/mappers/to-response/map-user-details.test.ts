@@ -1,5 +1,5 @@
 import { mapUserDetails } from '../../../src/lib/server/mappers/to-response/map-user-details'
-import { UserDetails } from '@echo/firestore'
+import { UserDetails } from '@echo/firestore-types'
 
 describe('mappers - to-response - mapUserDetails', () => {
   it('returns the object as is if there are no undefined props', () => {

@@ -1,6 +1,6 @@
 import { mapUserDetails } from './map-user-details'
 import { NftResponse } from '@echo/api'
-import { Nft, NftCollection } from '@echo/firestore'
+import { Nft, NftCollection } from '@echo/firestore-types'
 import { modifyUrlPropToString, removeUndefinedProps } from '@echo/utils'
 import { assoc, dissoc, modify, pipe } from 'ramda'
 

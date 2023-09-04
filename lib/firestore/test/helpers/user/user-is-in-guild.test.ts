@@ -1,6 +1,6 @@
 import { userIsInGuild } from '../../../src/helpers/user/user-is-in-guild'
-import { NftCollectionDiscordGuild } from '../../../src/types/model/nft-collection-discord-guild'
 import { userMock } from '../../mocks/user-mock'
+import { NftCollectionDiscordGuild } from '@echo/firestore-types'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - user - userIsInGuild', () => {

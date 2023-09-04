@@ -1,7 +1,7 @@
 import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
 import { getUserFromSession } from '../../../src/lib/server/helpers/auth/get-user-from-session'
 import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-id'
-import { User } from '@echo/firestore'
+import { User } from '@echo/firestore-types'
 import { AuthOptions, Session } from 'next-auth'
 
 jest.mock('../../../src/lib/server/helpers/auth/get-session')

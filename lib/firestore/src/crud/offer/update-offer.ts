@@ -1,7 +1,7 @@
 import { offerDataConverter } from '../../converters/offer-data-converter'
 import { cleanAndUpdateDocumentRef } from '../../helpers/crud/clean-and-update-document-ref'
-import { Offer } from '../../types/model/offer'
 import { getOfferSnapshotById } from './get-offer-snapshot-by-id'
+import { Offer } from '@echo/firestore-types'
 import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 

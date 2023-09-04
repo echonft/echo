@@ -9,6 +9,6 @@ import { map, partialRight } from 'ramda'
 export async function getNftCollectionNftsRequestHandler(_req: ApiRequest<never>, slug: string) {
   const nftCollection = await getNftCollectionBySlug(slug)
   assertNftCollection(nftCollection)
-  const nfts = await getNftCollectionNfts(nftCollection!)
-  return NextResponse.json<GetNftCollectionNftsResponse>({ nfts: map(partialRight(mapNft, [nftCollection!]), nfts) })
+  const nfts = await getNftCollectionNfts(nftCollection)
+  return NextResponse.json<GetNftCollectionNftsResponse>({ nfts: map(partialRight(mapNft, [nftCollection]), nfts) })
 }

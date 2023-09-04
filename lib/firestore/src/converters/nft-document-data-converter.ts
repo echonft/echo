@@ -1,10 +1,10 @@
 import { modifyDocumentDataProp } from '../helpers/converters/from-firestore/modify-document-data-prop'
 import { modifyModelProp } from '../helpers/converters/to-firestore/modify-model-prop'
 import { FirestoreDocumentDataConverter } from '../types/converters/firestore-document-data-converter'
-import { Nft } from '../types/model/nft'
 import { NftDocumentData } from '../types/model/nft-document-data'
 import { nftCollectionDocumentDataConverter } from './nft-collection-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
+import { Nft } from '@echo/firestore-types'
 import { modifyStringPropToUrl, modifyUrlPropToString, removeUndefinedProps } from '@echo/utils'
 import { pipe } from 'ramda'
 

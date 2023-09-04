@@ -3,7 +3,8 @@ import { embedSeparator } from '../../src/helpers/embed/embed-separator'
 import { embedValueForNft } from '../../src/helpers/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../../src/helpers/embed/embed-value-for-target'
 import { listingLink } from '../../src/routing/listing-link'
-import { getListingItemsGuild, getListingMockById, Listing } from '@echo/firestore'
+import { getListingItemsGuild, getListingMockById } from '@echo/firestore'
+import { Listing } from '@echo/firestore-types'
 import { describe, expect, it, jest } from '@jest/globals'
 
 jest.mock('../../src/routing/get-base-url')

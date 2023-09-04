@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { mergeWalletsAndContractsByChainId } from '../../../src/helpers/user/merge-wallets-with-contracts'
-import { Contract } from '../../../src/types/model/contract'
 import { userMock } from '../../mocks/user-mock'
+import { Contract } from '@echo/firestore-types'
 import { describe, expect, test } from '@jest/globals'
 
 describe('Merge wallets with contracts', () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const mockWallet = userMock['oE6yUEQBPn7PZ89yMjKn']!.wallets[0]!
   const mockContract: Contract = {
