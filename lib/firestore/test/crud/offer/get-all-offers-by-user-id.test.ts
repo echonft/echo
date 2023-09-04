@@ -1,4 +1,4 @@
-import { getAllOffersByUserId } from '../../../src'
+import { getAllOffersByUserId } from '../../../src/crud/offer/get-all-offers-by-user-id'
 import { offerMock } from '../../mocks/offer-mock'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'

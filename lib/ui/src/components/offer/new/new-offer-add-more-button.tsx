@@ -4,11 +4,11 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface NewOfferAddMoreButtonProps {
+interface Props {
   onClick?: () => void
 }
 
-export const NewOfferAddMoreButton: FunctionComponent<NewOfferAddMoreButtonProps> = ({ onClick }) => {
+export const NewOfferAddMoreButton: FunctionComponent<Props> = ({ onClick }) => {
   const t = useTranslations('offer.new.bottomSlider')
   // Not ideal to have a disclosure button here as it means it is only usable within a
   return (

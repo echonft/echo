@@ -3,13 +3,11 @@ import { ModalTitle } from '../../base/modal/modal-title'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface OfferDetailsOfferActionModalTitleProps {
+interface Props {
   state: ModalOfferState
 }
 
-export const OfferDetailsOfferActionModalTitle: FunctionComponent<OfferDetailsOfferActionModalTitleProps> = ({
-  state
-}) => {
+export const OfferDetailsOfferActionModalTitle: FunctionComponent<Props> = ({ state }) => {
   const t = useTranslations(`offer.details.actionModal.${state}`)
   return <ModalTitle>{t('title')}</ModalTitle>
 }

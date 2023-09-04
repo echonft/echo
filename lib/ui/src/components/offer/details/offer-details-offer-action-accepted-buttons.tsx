@@ -4,13 +4,11 @@ import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-export interface OfferDetailsOfferActionAcceptedButtonsProps {
+interface Props {
   onClose?: () => unknown
 }
 
-export const OfferDetailsOfferActionAcceptedButtons: FunctionComponent<OfferDetailsOfferActionAcceptedButtonsProps> = ({
-  onClose
-}) => {
+export const OfferDetailsOfferActionAcceptedButtons: FunctionComponent<Props> = ({ onClose }) => {
   const t = useTranslations('offer.details.actionModal.ACCEPTED')
   return (
     <>

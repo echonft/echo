@@ -3,12 +3,12 @@ import { OfferItem, SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface OfferAssetsContainerProps {
+interface Props {
   items: OfferItem[]
   discordUsername?: string
 }
 
-export const OfferItemsContainer: FunctionComponent<OfferAssetsContainerProps> = ({ items, discordUsername }) => {
+export const OfferItemsContainer: FunctionComponent<Props> = ({ items, discordUsername }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-4')}>
       {items.map((item) => (

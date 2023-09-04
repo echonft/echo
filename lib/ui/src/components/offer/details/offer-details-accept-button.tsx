@@ -1,12 +1,12 @@
 import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
-export interface OfferDetailsAcceptButtonProps extends PropsWithChildren {
+interface Props {
   disabled?: boolean
   onAction?: () => unknown
 }
 
-export const OfferDetailsAcceptButton: FunctionComponent<OfferDetailsAcceptButtonProps> = ({
+export const OfferDetailsAcceptButton: FunctionComponent<PropsWithChildren<Props>> = ({
   disabled,
   onAction,
   children

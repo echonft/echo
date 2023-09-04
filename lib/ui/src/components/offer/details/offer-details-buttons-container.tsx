@@ -3,7 +3,7 @@ import { getOfferModalAcceptButtonTitleForState } from '../../../helpers/get-off
 import { getOfferModalDeclineButtonTitleForState } from '../../../helpers/get-offer-modal-decline-button-title-for-state'
 import { isOfferModalAcceptButtonDisplayed } from '../../../helpers/is-offer-modal-accept-button-displayed'
 import { isOfferModalDeclineButtonDisplayed } from '../../../helpers/is-offer-modal-decline-button-displayed'
-import { HideIf } from '../../utils/hide-if'
+import { HideIf } from '../../base/hide-if'
 import { OfferDetailsAcceptButton } from './offer-details-accept-button'
 import { OfferDetailsDeclineButton } from './offer-details-decline-button'
 import { OfferState } from '@echo/ui-model'

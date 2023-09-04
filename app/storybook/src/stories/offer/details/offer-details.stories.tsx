@@ -1,10 +1,8 @@
 import { getOfferById } from '../../../mocks/model/offer'
-import { getUserById } from '../../../mocks/model/user'
-import { OfferDetailsProvided as Component, OfferDetailsSkeleton } from '@echo/ui'
+import { OfferDetails as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
-const user = getUserById('oE6yUEQBPn7PZ89yMjKn')
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Details/Container',
@@ -13,14 +11,8 @@ const metadata: Meta<typeof Component> = {
     renderModal: false
   },
   argTypes: {
-    user: {
-      options: ['receiver', 'sender'],
-      mapping: {
-        receiver: user,
-        sender: getUserById('6rECUMhevHfxABZ1VNOm')
-      },
-      control: { type: 'radio' },
-      name: 'isReceiver'
+    isReceiving: {
+      control: { type: 'radio' }
     },
     // TODO Use exclude if possible
     renderModal: {
@@ -40,15 +32,9 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Managed: Story = {
-  args: {
-    offerId: 'LyCfl6Eg7JKuD7XJ6IPi',
-    user
-  }
-}
 export const Open: Story = {
   args: {
-    offer,
+    offer: offer,
     isReceiving: false
   }
 }
@@ -84,15 +70,4 @@ export const Accepted: Story = {
     offer: { ...offer, state: 'ACCEPTED' },
     isReceiving: false
   }
-}
-
-export const Skeleton: Story = {
-  argTypes: {
-    user: {
-      table: {
-        disable: true
-      }
-    }
-  },
-  render: () => <OfferDetailsSkeleton />
 }
