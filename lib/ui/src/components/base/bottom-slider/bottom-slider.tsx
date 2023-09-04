@@ -1,5 +1,5 @@
 'use client'
-import { DownCaretSvg } from './svg/down-caret-svg'
+import { DownCaretSvg } from '../svg/down-caret-svg'
 import { Disclosure, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'

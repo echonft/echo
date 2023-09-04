@@ -1,5 +1,5 @@
 import { OfferState } from '../types/offer-state'
-import { UpdateOfferAction } from '@echo/api-public'
+import { UpdateOfferAction } from '@echo/api'
 
 /**
  * Get the proper UpdateOfferAction (API) based on Offer state

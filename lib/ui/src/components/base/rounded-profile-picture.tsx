@@ -1,4 +1,4 @@
-import { UserProfilePictureSize } from '../user/nft-profile-picture-size'
+import { UserProfilePictureSize } from '../../constants/user-profile-picture-size'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

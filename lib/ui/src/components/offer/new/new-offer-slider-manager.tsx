@@ -3,7 +3,7 @@ import { removeItemFromNewOffer } from '../../../helpers/remove-item-from-new-of
 import { newOfferDataState } from '../../../services/state'
 import { BottomSlider } from '../../base/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '../../base/bottom-slider/bottom-slider-title'
-import { HideIfNil } from '../../utils/hide-if-nil'
+import { HideIfNil } from '../../base/hide-if-nil'
 import { NewOfferBottomSliderInnerContainer } from './new-offer-bottom-slider-inner-container'
 import { OfferItem } from '@echo/ui-model'
 import { useTranslations } from 'next-intl'

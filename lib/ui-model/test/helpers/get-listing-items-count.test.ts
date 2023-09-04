@@ -1,5 +1,6 @@
-import { getListingItemsCount, ListingTarget } from '../../src'
+import { getListingItemsCount } from '../../src/helpers/get-listing-items-count'
 import { ListingItem } from '../../src/types/listing-item'
+import { ListingTarget } from '../../src/types/listing-target'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - getListingItemsCount', () => {

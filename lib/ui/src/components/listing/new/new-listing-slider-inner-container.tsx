@@ -4,9 +4,7 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface NewListingSliderInnerContainerProps {}
-
-export const NewListingSliderInnerContainer: FunctionComponent<NewListingSliderInnerContainerProps> = ({}) => {
+export const NewListingSliderInnerContainer: FunctionComponent = () => {
   const t = useTranslations('listing.new.bottomSlider')
 
   return (

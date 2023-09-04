@@ -93,7 +93,10 @@ export const NewListingSliderSearchBox: FunctionComponent<NewListingSliderSearch
     () => options?.filter((option) => option.label.includes(searchQuery ?? '')) ?? [],
     [searchQuery, options]
   )
+
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <Combobox value={selectedOptions} onChange={setSelectedOptions} name={name} multiple>
       <NewListingSliderSearchComboboxInput
         placeholder={placeholder}

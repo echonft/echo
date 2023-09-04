@@ -12,15 +12,18 @@ export const NewListingSliderSearchComboboxInput = <T,>({
   placeholder,
   onSearch
 }: NewListingSliderSearchComboboxInputProps) => (
-  <div className={clsx('flex', 'flex-row', 'gap-2', 'px-2.5', 'items-center', 'bg-dark-400', 'rounded-lg', 'w-full')}>
-    <span className={'text-yellow-500'}>
+  <div className={clsx('relative', 'items-center', 'bg-dark-400', 'rounded-lg', 'w-full')}>
+    <span className={clsx('text-yellow-500', 'absolute', 'left-2.5', 'top-2')}>
       <SearchIconSvg />
     </span>
     <Combobox.Input
       className={clsx(
         'h-9',
+        'pl-9',
+        'pr-2.5',
         'w-full',
-        'prose-header-sm-semi',
+        'rounded-lg',
+        'prose-label-sm-semi',
         'text-white',
         'bg-transparent',
         'placeholder:text-white/50'

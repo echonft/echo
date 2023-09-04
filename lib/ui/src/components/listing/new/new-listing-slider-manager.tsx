@@ -1,7 +1,8 @@
+'use client'
 import { newListingDataState } from '../../../services/state'
 import { BottomSlider } from '../../base/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '../../base/bottom-slider/bottom-slider-title'
-import { HideIfNil } from '../../utils/hide-if-nil'
+import { HideIfNil } from '../../base/hide-if-nil'
 import { NewListingSliderInnerContainer } from './new-listing-slider-inner-container'
 import { getListingItemsCount } from '@echo/ui-model'
 import { useTranslations } from 'next-intl'
@@ -9,7 +10,7 @@ import { FunctionComponent } from 'react'
 import { useRecoilState } from 'recoil'
 
 export const NewListingSliderManager: FunctionComponent = () => {
-  const [newListing, setNewListing] = useRecoilState(newListingDataState)
+  const [newListing] = useRecoilState(newListingDataState)
   const t = useTranslations('listing.new.bottomSlider')
 
   return (
