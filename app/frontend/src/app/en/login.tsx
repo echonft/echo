@@ -1,5 +1,5 @@
-import { ConnectButton } from '@components/connect-button'
-import { Redirect } from '@components/redirect'
+import { ConnectButton } from '../../components/connect-button'
+import { Redirect } from '../../components/redirect'
 import { isNilOrEmpty } from '@echo/utils'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'

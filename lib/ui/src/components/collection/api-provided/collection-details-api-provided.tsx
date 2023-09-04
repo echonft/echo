@@ -1,5 +1,5 @@
 import { CollectionDetails } from '../collection-details'
-import { GetNftCollectionResponse } from '@echo/api-public'
+import { GetNftCollectionResponse } from '@echo/api'
 import { mapNftCollection } from '@echo/ui-model'
 import { FunctionComponent } from 'react'
 

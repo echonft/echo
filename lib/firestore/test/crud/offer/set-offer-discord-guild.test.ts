@@ -1,16 +1,15 @@
 import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
 import { setOfferDiscordGuild } from '../../../src/crud/offer/set-offer-discord-guild'
 import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { NftCollectionDiscordGuild } from '../../../src/types/model/nft-collection-discord-guild'
-import { OfferDiscordGuild } from '../../../src/types/model/offer-discord-guild'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { NftCollectionDiscordGuild, OfferDiscordGuild } from '@echo/firestore-types'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 describe('CRUD - offer - setOfferDiscordGuild', () => {
   let initialDiscordGuild: OfferDiscordGuild | undefined
-  let initialExpiresAt: Dayjs
+  let initialExpiresAt: dayjs.Dayjs
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
   const collectionGuild: NftCollectionDiscordGuild = {
     channelId: '1',

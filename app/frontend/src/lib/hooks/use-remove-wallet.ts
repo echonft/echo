@@ -1,6 +1,6 @@
-import { EmptyResponse, RemoveWalletRequest, userWalletApiUrl } from '@echo/api-public'
+import { fetcher } from '../helpers/fetcher'
+import { EmptyResponse, RemoveWalletRequest, userWalletApiUrl } from '@echo/api'
 import { Wallet } from '@echo/ui-model'
-import { fetcher } from '@lib/helpers/fetcher'
 import useSWR from 'swr'
 
 interface KeyData {

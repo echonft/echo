@@ -1,9 +1,9 @@
 import { modifyDocumentDataProp } from '../helpers/converters/from-firestore/modify-document-data-prop'
 import { modifyModelProp } from '../helpers/converters/to-firestore/modify-model-prop'
 import { FirestoreDocumentDataConverter } from '../types/converters/firestore-document-data-converter'
-import { NftCollection } from '../types/model/nft-collection'
 import { NftCollectionDocumentData } from '../types/model/nft-collection-document-data'
 import { contractDocumentDataConverter } from './contract-document-data-converter'
+import { NftCollection } from '@echo/firestore-types'
 import {
   assocUndefinedIfPropNotPresent,
   modifyStringPropToUrl,

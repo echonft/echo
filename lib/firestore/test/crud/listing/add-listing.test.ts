@@ -6,6 +6,7 @@ import { getOffersForListing } from '../../../src/crud/offer/get-offers-for-list
 import { getOffersWithListingId } from '../../../src/crud/offer/get-offers-with-listing-id'
 import { updateOffer } from '../../../src/crud/offer/update-offer'
 import { getListingMockById } from '../../mocks/get-listing-mock-by-id'
+import { expectDateIsNow } from '../../test-utils/expect-date-is-now'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
@@ -36,11 +37,10 @@ describe('CRUD - listing - addListing', () => {
     const offers = await getOffersForListing(items, targets)
     const now = dayjs()
     const expirationDate = now.add(DEFAULT_EXPIRATION_TIME, 'day')
-    expect(newListing!.createdAt?.isAfter(now.subtract(1, 'minute'))).toBeTruthy()
-    expect(newListing!.createdAt?.isBefore(now.add(1, 'minute'))).toBeTruthy()
+    expectDateIsNow(newListing!.createdAt)
     expect(newListing!.creator).toStrictEqual(creator)
-    expect(newListing!.expiresAt?.isAfter(expirationDate.subtract(1, 'minute'))).toBeTruthy()
-    expect(newListing!.expiresAt?.isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()
+    expect(newListing!.expiresAt.isAfter(expirationDate.subtract(1, 'minute'))).toBeTruthy()
+    expect(newListing!.expiresAt.isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()
     expect(newListing!.items).toStrictEqual(items)
     expect(newListing!.offersIds).toStrictEqual(map(prop('id'), offers))
     expect(newListing!.state).toBe('OPEN')

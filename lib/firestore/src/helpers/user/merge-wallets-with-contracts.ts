@@ -1,6 +1,5 @@
-import { Contract } from '../../types/model/contract'
-import { Wallet } from '../../types/model/wallet'
-import { allPass, complement, groupBy, isEmpty, mapObjIndexed, pickBy, pipe, prop, toString } from 'ramda'
+import {Contract, Wallet} from '@echo/firestore-types'
+import {allPass, complement, groupBy, isEmpty, mapObjIndexed, pickBy, pipe, prop, toString} from 'ramda'
 
 /**
  * Takes an array of wallets and contracts and merge them into a new structure.

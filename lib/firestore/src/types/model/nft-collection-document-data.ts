@@ -18,3 +18,23 @@ export interface NftCollectionDocumentData {
   twitterUsername?: string
   websiteUrl?: string
 }
+
+export const nftCollectionFields = [
+  'id',
+  'bannerUrl',
+  'contract.address',
+  'contract.chainId',
+  'contract.name',
+  'contract.symbol',
+  'contract.tokenType',
+  'description',
+  'discordGuild.channelId',
+  'discordGuild.discordId',
+  'floorPrice',
+  'name',
+  'openSeaUrl',
+  'profilePictureUrl',
+  'totalSupply',
+  'twitterUsername',
+  'websiteUrl'
+]

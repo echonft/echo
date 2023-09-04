@@ -1,4 +1,4 @@
-import { getAddress } from 'ethers'
+import { getAddress } from 'viem'
 
 /**
  * Shorten the address to display the 4 first chars and 4 last chars.

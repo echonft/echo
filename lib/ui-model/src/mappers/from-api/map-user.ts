@@ -1,5 +1,5 @@
 import { User } from '../../types/user'
-import { UserResponse } from '@echo/api-public'
+import { UserResponse } from '@echo/api'
 import { assocUndefinedIfPropNotPresent } from '@echo/utils'
 import { pipe } from 'ramda'
 

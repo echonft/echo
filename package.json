@@ -15,7 +15,10 @@
   },
   "homepage": "https://github.com/echonft/echo#readme",
   "lint-staged": {
-    "*.(json|yaml|cjs|js|ts|tsx)": "prettier --write --cache"
+    "*.(ts|tsx)": [
+      "eslint --fix",
+      "prettier --write -u"
+    ]
   },
   "scripts": {
     "bot:build": "turbo run build --filter=@echo/bot",
@@ -67,6 +70,7 @@
     "lint-staged": "13.2.3",
     "npm-check-updates": "16.10.18",
     "prettier": "3.0.1",
+    "tsc-files": "^1.1.4",
     "turbo": "1.10.13",
     "vercel": "31.2.3"
   },

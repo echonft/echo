@@ -1,5 +1,5 @@
 import { NftCollection } from '../../types/nft-collection'
-import { NftCollectionResponse } from '@echo/api-public'
+import { NftCollectionResponse } from '@echo/api'
 import { assocUndefinedIfPropNotPresent, modifyStringPropToUrl } from '@echo/utils'
 import { pipe } from 'ramda'
 

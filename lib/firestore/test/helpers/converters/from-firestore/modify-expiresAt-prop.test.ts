@@ -3,14 +3,6 @@ import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 
 describe('helpers - converters - from-firestore - modifyExpiresAtProp', () => {
-  it('throws if expiresAt prop is not present', () => {
-    const obj = {
-      a: 1,
-      b: 2
-    }
-    expect(() => modifyExpiresAtProp(obj)).toThrow()
-  })
-
   it('throws if expiresAt prop is not a valid unix time', () => {
     const obj = {
       a: 1,

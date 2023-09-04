@@ -1,7 +1,8 @@
-import { updateOfferRouteHandler } from '@echo/api'
-import { ApiRequest, UpdateOfferRequest } from '@echo/api-public'
-import { authOptions } from '@lib/constants/auth-options'
+import { authOptions } from '../../../../lib/constants/auth-options'
+import { handleRestrictedRequest } from '../../../../lib/server/request-handlers/handle-restricted-request'
+import { updateOfferRequestHandler } from '../../../../lib/server/request-handlers/offer/update-offer-request-handler'
+import { ApiRequest, UpdateOfferRequest } from '@echo/api'
 
 export async function POST(request: ApiRequest<UpdateOfferRequest>, { params }: { params: { id: string } }) {
-  return await updateOfferRouteHandler(request, authOptions, params.id)
+  return await handleRestrictedRequest(request, authOptions, updateOfferRequestHandler, params.id)
 }

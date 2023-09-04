@@ -1,6 +1,7 @@
-import { ErrorStatus, GetNftCollectionResponse, nftCollectionApiUrl } from '@echo/api-public'
+import { fetcher } from '../../../../lib/helpers/fetcher'
+import { ErrorStatus } from '../../../../lib/server/constants/error-status'
+import { GetNftCollectionResponse, nftCollectionApiUrl } from '@echo/api'
 import { CollectionDetailsApiProvided } from '@echo/ui'
-import { fetcher } from '@lib/helpers/fetcher'
 import { clsx } from 'clsx'
 import { notFound } from 'next/navigation'
 import { isNil } from 'ramda'
@@ -11,6 +12,7 @@ interface Props {
     slug: string
   }
 }
+
 const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { slug }, children }) => {
   const { data, error } = await fetcher(nftCollectionApiUrl(slug)).fetch<GetNftCollectionResponse>()
 

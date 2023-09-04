@@ -1,6 +1,9 @@
-import { ErrorResponse, ErrorStatus } from '@echo/api-public'
+import { ErrorStatus } from '../server/constants/error-status'
+import { setUrlQuery } from './request/set-url-query'
+import { ErrorResponse } from '@echo/api'
+import { QueryType } from '@echo/utils'
 import { HTTP_METHOD } from 'next/dist/server/web/http'
-import { assoc, assocPath, forEach, forEachObjIndexed, is, isNil, pathEq } from 'ramda'
+import { assoc, assocPath, is, pathEq } from 'ramda'
 
 interface FetchResult<T> {
   data: T | undefined
@@ -30,8 +33,8 @@ class Fetcher {
     }
   }
 
-  bearerToken(token: string) {
-    this.authorization(`Bearer ${token}`)
+  authorization(scheme: string, token: string) {
+    this.init = assocPath<string, RequestInit>(['headers', 'Authorization'], `${scheme} ${token}`, this.init)
     return this
   }
 
@@ -72,19 +75,8 @@ class Fetcher {
     return this
   }
 
-  query<T extends Record<string, string | number | string[] | undefined>>(query: T) {
-    forEachObjIndexed<T>((value, key) => {
-      const name = key as string
-      if (!isNil(value)) {
-        if (Array.isArray(value)) {
-          forEach((arrayValue: string) => {
-            this.url.searchParams.append(`${name}[]`, arrayValue)
-          }, value)
-        } else {
-          this.url.searchParams.set(name, value.toString())
-        }
-      }
-    }, query)
+  query<T extends QueryType>(query: T, addArrayBrackets = false) {
+    setUrlQuery(this.url, query, addArrayBrackets)
     return this
   }
 
@@ -99,11 +91,6 @@ class Fetcher {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.init = assoc<'tags', RequestInit>('tags', tags, this.init)
-    return this
-  }
-
-  private authorization(authorization: string) {
-    this.init = assocPath<string, RequestInit>(['headers', 'Authorization'], authorization, this.init)
     return this
   }
 }

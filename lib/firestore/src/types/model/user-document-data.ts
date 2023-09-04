@@ -8,6 +8,7 @@ export interface UserDocumentData {
   discordGuilds: UserDiscordGuildDocumentData[]
   discordId: string
   discordUsername: string
+  nftsUpdatedAt: number
   nonce?: string
   updatedAt: number
   wallets: WalletDocumentData[]

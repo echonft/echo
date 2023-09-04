@@ -1,9 +1,9 @@
 import { addListingToOffer } from '../../../src/crud/offer/add-listing-to-offer'
 import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
 import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { Offer } from '../../../src/types/model/offer'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { Offer } from '@echo/firestore-types'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer - addListingToOffer', () => {

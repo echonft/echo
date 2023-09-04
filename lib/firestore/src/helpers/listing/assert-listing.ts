@@ -1,7 +1,7 @@
-import { Listing } from '../../types/model/listing'
+import { Listing } from '@echo/firestore-types'
 import { isNil } from 'ramda'
 
-export function assertListing(listing: Listing | undefined) {
+export function assertListing(listing: Listing | undefined): asserts listing is NonNullable<Listing> {
   if (isNil(listing)) {
     throw Error('invalid listing id')
   }

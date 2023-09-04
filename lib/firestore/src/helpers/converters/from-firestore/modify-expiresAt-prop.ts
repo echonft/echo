@@ -1,7 +1,7 @@
 import { dateIsPast } from './date-is-past'
-import { modifyNumberPropToDate } from '@echo/utils'
+import { modifyNumberPropToDate, propIsNotNil } from '@echo/utils'
 import { Dayjs } from 'dayjs'
-import { assoc, ifElse, isNil, lens, over, pipe, prop } from 'ramda'
+import { assoc, ifElse, isNil, lens, over, pipe, prop, when } from 'ramda'
 
 /**
  * Converts the expiresAt prop to date and set the right expired prop
@@ -14,16 +14,19 @@ export const modifyExpiresAtProp = <T, U extends Record<'expiresAt', Dayjs> & Re
   // @ts-ignore
   pipe(
     modifyNumberPropToDate('expiresAt'),
-    over(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      lens(prop('expiresAt'), assoc('expired')),
-      ifElse(
-        isNil,
-        () => {
-          throw Error(`prop expiresAt is undefined`)
-        },
-        dateIsPast
+    when(
+      propIsNotNil('expiresAt'),
+      over(
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        lens(prop('expiresAt'), assoc('expired')),
+        ifElse(
+          isNil,
+          () => {
+            throw Error(`prop expiresAt is undefined`)
+          },
+          dateIsPast
+        )
       )
     )
   )(documentData)

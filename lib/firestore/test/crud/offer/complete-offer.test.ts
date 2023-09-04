@@ -1,15 +1,15 @@
 import { completeOffer } from '../../../src/crud/offer/complete-offer'
 import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
 import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { OfferState } from '../../../src/types/model/offer-state'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { OfferState } from '@echo/firestore-types'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 describe('CRUD - offer - completeOffer', () => {
   let initialState: OfferState
-  let initialExpiresAt: Dayjs
+  let initialExpiresAt: dayjs.Dayjs
   let initialSwapTransactionId: string | undefined
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
   const swapTransactionId = 'swap-transaction-id'

@@ -1,13 +1,15 @@
-import { addWalletRouteHandler, removeWalletRouteHandler } from '@echo/api'
-import { AddWalletRequest, ApiRequest, RemoveWalletRequest } from '@echo/api-public'
-import { authOptions } from '@lib/constants/auth-options'
+import { authOptions } from '../../../../../lib/constants/auth-options'
+import { handleRestrictedRequest } from '../../../../../lib/server/request-handlers/handle-restricted-request'
+import { addWalletRequestHandler } from '../../../../../lib/server/request-handlers/user/add-wallet-request-handler'
+import { removeWalletRequestHandler } from '../../../../../lib/server/request-handlers/user/remove-wallet-request-handler'
+import { AddWalletRequest, ApiRequest, RemoveWalletRequest } from '@echo/api'
 
 async function PUT(request: ApiRequest<AddWalletRequest>) {
-  return await addWalletRouteHandler(request, authOptions)
+  return await handleRestrictedRequest(request, authOptions, addWalletRequestHandler)
 }
 
 async function DELETE(request: ApiRequest<RemoveWalletRequest>) {
-  return await removeWalletRouteHandler(request, authOptions)
+  return await handleRestrictedRequest(request, authOptions, removeWalletRequestHandler)
 }
 
 export { DELETE, PUT }

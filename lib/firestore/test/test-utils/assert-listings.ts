@@ -1,7 +1,7 @@
 import { getAllListings } from '../../src/crud/listing/get-all-listings'
-import { Listing } from '../../src/types/model/listing'
 import { getAllListingMocks } from '../mocks/get-all-listing-mocks'
 import { getListingMockById } from '../mocks/get-listing-mock-by-id'
+import { Listing } from '@echo/firestore-types'
 import { expect } from '@jest/globals'
 import { forEach } from 'ramda'
 
