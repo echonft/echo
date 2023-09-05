@@ -1,8 +1,17 @@
 import { OfferItem } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
-import { head, path, pipe } from 'ramda'
+import { NonEmptyArray, propIsNil } from '@echo/utils'
+import { pathIsNil } from '@echo/utils/src/fp/path-is-nil'
+import { forEach, head, path, pipe } from 'ramda'
 
-export const getOfferItemsCollectionId = (items: NonEmptyArray<OfferItem>): string =>
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  pipe(head, path(['nft', 'collection', 'id']))(items)
+export function getOfferItemsCollectionId(items: NonEmptyArray<OfferItem>): string {
+  forEach((item: OfferItem) => {
+    if (
+      propIsNil('nft', item) ||
+      pathIsNil(['nft', 'collection'], item) ||
+      pathIsNil(['nft', 'collection', 'id'], item)
+    ) {
+      throw Error('not every items have an nft with a collection')
+    }
+  }, items)
+  return pipe(head, path(['nft', 'collection', 'id']))(items) as string
+}

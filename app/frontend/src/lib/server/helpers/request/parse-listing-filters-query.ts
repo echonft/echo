@@ -24,9 +24,9 @@ export function parseListingFiltersQuery<T>(req: ApiRequest<T>) {
       const notStates = stateQueryParamSchema.parse(searchParams.getAll('notState'))
       filters = assoc('notStates', notStates, filters)
     }
-    if (searchParams.has('includedExpired')) {
-      const includedExpired = booleanQueryParamSchema.parse(searchParams.get('includedExpired'))
-      filters = assoc('includedExpired', includedExpired, filters)
+    if (searchParams.has('includeExpired')) {
+      const includeExpired = booleanQueryParamSchema.parse(searchParams.get('includeExpired'))
+      filters = assoc('includeExpired', includeExpired, filters)
     }
     if (isEmpty(filters)) {
       return undefined

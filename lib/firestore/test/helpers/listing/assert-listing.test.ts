@@ -1,43 +1,20 @@
-import { assertListing } from '../../../src/helpers/listing/assert-listing'
+import { assertListing } from '../../../src/helpers/listing/assert/assert-listing'
 import { Listing } from '@echo/firestore-types'
 import { describe, expect, it } from '@jest/globals'
 
-describe('helpers - listing - assertListing', () => {
+describe('helpers - listing - assert - assertListing', () => {
   it('throw if the listing is undefined', () => {
     expect(() => assertListing(undefined)).toThrow()
   })
-  it('throw if the listing is expired', () => {
+  it('throw if the listing does not have an id', () => {
     const listing = {
-      expired: true,
-      state: 'OPEN'
-    } as Listing
+      id: undefined
+    } as unknown as Listing
     expect(() => assertListing(listing)).toThrow()
   })
-  it('throw if the listing is cancelled', () => {
+  it('does not throw if the listing defined and have an id', () => {
     const listing = {
-      expired: false,
-      state: 'CANCELLED'
-    } as Listing
-    expect(() => assertListing(listing)).toThrow()
-  })
-  it('throw if the listing is fulfilled', () => {
-    const listing = {
-      expired: false,
-      state: 'FULFILLED'
-    } as Listing
-    expect(() => assertListing(listing)).toThrow()
-  })
-  it('throw if the listing is invalid', () => {
-    const listing = {
-      expired: false,
-      state: 'INVALID'
-    } as Listing
-    expect(() => assertListing(listing)).toThrow()
-  })
-  it('does not throw if the listing is open and not expired', () => {
-    const listing = {
-      expired: false,
-      state: 'OPEN'
+      id: 'listing-id'
     } as Listing
     expect(() => assertListing(listing)).not.toThrow()
   })

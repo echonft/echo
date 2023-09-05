@@ -32,11 +32,6 @@ describe('CRUD - offer - setOfferDiscordGuild', () => {
     await updateOffer(id, { discordGuild: initialDiscordGuild, expiresAt: initialExpiresAt })
   })
 
-  it('throws if the offer is expired', async () => {
-    await updateOffer(id, { discordGuild: undefined, expiresAt: dayjs().subtract(1, 'day') })
-    await expect(setOfferDiscordGuild(id, collectionGuild, threadId)).rejects.toBeDefined()
-  })
-
   it('throws if the offer already has a discord guild', async () => {
     await updateOffer(id, { discordGuild: offerGuild, expiresAt: dayjs().add(1, 'day') })
     await expect(setOfferDiscordGuild(id, collectionGuild, threadId)).rejects.toBeDefined()

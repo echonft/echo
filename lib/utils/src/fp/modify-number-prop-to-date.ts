@@ -1,18 +1,24 @@
+import { propIsNil } from './prop-is-nil'
 import dayjs from 'dayjs'
-import { assoc, has, ifElse, invoker, isNil, modify, pipe, prop, unless } from 'ramda'
+import { dissoc, has, ifElse, invoker, modify, pipe, prop, when } from 'ramda'
 
-export const modifyNumberPropToDate = <K extends string, T>(propKey: K) =>
+export const modifyNumberPropToDate = <K extends keyof T, T>(propKey: K) =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  ifElse(
+  when(
     has(propKey),
-    unless(
-      pipe(prop(propKey), isNil),
+    ifElse(
+      propIsNil(propKey),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      dissoc(propKey),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       ifElse(pipe(prop(propKey), dayjs, invoker(0, 'isValid')), modify(propKey, dayjs.unix), () => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         throw Error(`prop ${propKey} is not a valid unix time`)
       })
-    ),
-    assoc(propKey, undefined)
+    )
   ) as (obj: T) => T & Record<K, dayjs.Dayjs | undefined>

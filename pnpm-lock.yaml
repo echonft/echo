@@ -500,9 +500,6 @@ importers:
       dayjs:
         specifier: 1.11.9
         version: 1.11.9
-      ethers:
-        specifier: 6.7.0
-        version: 6.7.0
       firebase-admin:
         specifier: 11.10.1
         version: 11.10.1
@@ -536,6 +533,19 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
+    devDependencies:
+      '@jest/globals':
+        specifier: 29.6.2
+        version: 29.6.2
+      '@jest/types':
+        specifier: 29.6.1
+        version: 29.6.1
+      jest:
+        specifier: 29.6.2
+        version: 29.6.2(@types/node@20.4.9)(ts-node@10.9.1)
+      jest-junit:
+        specifier: 16.0.0
+        version: 16.0.0
 
   lib/ui:
     devDependencies:
@@ -969,13 +979,6 @@ packages:
       '@babel/helper-validator-identifier': 7.22.5
       chalk: 2.4.2
       js-tokens: 4.0.0
-
-  /@babel/parser@7.22.13:
-    resolution: {integrity: sha512-3l6+4YOvc9wx7VlCSw4yQfcBo01ECA8TicQfbnCPuCEpRQrf+gTUyGdxNw+pyTUyywp6JRD1w0YQs9TpBXYlkw==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-    dependencies:
-      '@babel/types': 7.22.11
 
   /@babel/parser@7.22.14:
     resolution: {integrity: sha512-1KucTHgOvaw/LzCVrEOAyXkr9rQlp0A1HiHRYnSUE9dmb8PvPW7o5sscg+5169r54n3vGlbx6GevTE/Iw/P3AQ==}
@@ -2055,7 +2058,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/code-frame': 7.22.13
-      '@babel/parser': 7.22.13
+      '@babel/parser': 7.22.14
       '@babel/types': 7.22.11
 
   /@babel/traverse@7.22.11(supports-color@5.5.0):

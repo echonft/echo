@@ -12,7 +12,6 @@ export const listingMock: { [key: string]: Listing } = {
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-      discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1

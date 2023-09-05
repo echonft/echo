@@ -1,6 +1,6 @@
-import { NftWithCollectionResponse } from './nft-with-collection-response'
+import { NftResponse } from './nft-response'
 
 export interface OfferItemResponse {
   amount: number
-  nft: NftWithCollectionResponse
+  nft: Partial<NftResponse>
 }

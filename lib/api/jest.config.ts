@@ -21,11 +21,11 @@ const config: Config = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../../.coverage/lib/api-public'
+        outputDirectory: '<rootDir>/../../.coverage/lib/api'
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/api-public',
+  coverageDirectory: '<rootDir>/../../.coverage/lib/api',
   setupFilesAfterEnv: ['<rootDir>/test/setup-env.ts']
 }
 export default config

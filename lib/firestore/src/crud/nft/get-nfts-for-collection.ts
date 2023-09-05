@@ -14,6 +14,8 @@ export const getNftsForCollection = async (collectionId: string) => {
       'attributes',
       'balance',
       'blurUrl',
+      'collection.id',
+      'collection.name',
       'name',
       'openSeaUrl',
       'owner',

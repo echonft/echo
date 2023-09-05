@@ -3,11 +3,11 @@ import { embedValueForNft } from '../helpers/embed/embed-value-for-nft'
 import { embedValueForTarget } from '../helpers/embed/embed-value-for-target'
 import { listingLink } from '../routing/listing-link'
 import { getListingItemsGuild } from '@echo/firestore'
-import { Listing, ListingItem, ListingTarget } from '@echo/firestore-types'
+import { ListingComplete, ListingItem, ListingTarget } from '@echo/firestore-types'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import { flatten, map, prop } from 'ramda'
 
-export function buildListingEmbed(listing: Listing) {
+export function buildListingEmbed(listing: ListingComplete) {
   return new EmbedBuilder()
     .setTitle(title())
     .setDescription(description(listing))
@@ -21,7 +21,7 @@ function title(): string {
   return `A new listing was created`
 }
 
-function description(listing: Listing): string {
+function description(listing: ListingComplete): string {
   return `Created by ${userMention(listing.creator.discordId)}`
 }
 

@@ -1,8 +1,8 @@
 import { CollectionName } from '../../constants/collection-name'
 import { DEFAULT_EXPIRATION_TIME } from '../../constants/default-expiration-time'
 import { listingDataConverter } from '../../converters/listing-data-converter'
-import { assertListingItems } from '../../helpers/listing/assert-listing-items'
-import { assertListingTargets } from '../../helpers/listing/assert-listing-targets'
+import { assertListingItems } from '../../helpers/listing/assert/assert-listing-items'
+import { assertListingTargets } from '../../helpers/listing/assert/assert-listing-targets'
 import { firestore } from '../../services/firestore'
 import { addListingToOffer } from '../offer/add-listing-to-offer'
 import { getOffersForListing } from '../offer/get-offers-for-listing'
@@ -12,7 +12,7 @@ import dayjs from 'dayjs'
 import { assoc, map, pipe, prop } from 'ramda'
 
 interface NewListing {
-  creator: UserDetails
+  creator: Partial<UserDetails>
   items: NonEmptyArray<ListingItem>
   targets: NonEmptyArray<ListingTarget>
 }
@@ -30,8 +30,6 @@ export async function addListing(listing: NewListing): Promise<string> {
     assoc('offersIds', map(prop('id'), offers)),
     assoc('state', 'OPEN')
   )(listing)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   await reference.set(listingDataConverter.toFirestore(newListing))
   // add listing to the offers (if any)
   for (const offer of offers) {

@@ -3,58 +3,7 @@ import { NftResponse } from '@echo/api'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - from-api - mapNft', () => {
-  it('maps non-existent props to undefined props', () => {
-    const response: NftResponse = {
-      attributes: [
-        { trait: 'trait', value: 'value' },
-        { trait: 'trait2', value: 'value2' }
-      ],
-      balance: 1,
-      collectionId: 'collectionId',
-      collectionName: 'collectionName',
-      id: 'id',
-      name: 'name',
-      owner: {
-        discordId: 'discordId',
-        discordUsername: 'discordUsername',
-        id: 'id',
-        wallet: { address: '0xaddress', chainId: 1 },
-        discordAvatar: 'discordAvatar',
-        discordBanner: 'discordBanner'
-      },
-      pictureUrl: 'https://echo.xyz/',
-      thumbnailUrl: 'https://echo.xyz/',
-      tokenId: 1,
-      tokenType: 'ERC721'
-    }
-    expect(mapNft(response)).toStrictEqual({
-      attributes: [
-        { trait: 'trait', value: 'value' },
-        { trait: 'trait2', value: 'value2' }
-      ],
-      balance: 1,
-      blurUrl: undefined,
-      collectionId: 'collectionId',
-      collectionName: 'collectionName',
-      id: 'id',
-      name: 'name',
-      openSeaUrl: undefined,
-      owner: {
-        discordId: 'discordId',
-        discordUsername: 'discordUsername',
-        id: 'id',
-        wallet: { address: '0xaddress', chainId: 1 },
-        discordAvatar: 'discordAvatar',
-        discordBanner: 'discordBanner'
-      },
-      pictureUrl: new URL('https://echo.xyz/'),
-      thumbnailUrl: new URL('https://echo.xyz/'),
-      tokenId: 1,
-      tokenType: 'ERC721'
-    })
-  })
-
-  it('maps all props', () => {
+  it('maps correctly', () => {
     const response: NftResponse = {
       attributes: [
         { trait: 'trait', value: 'value' },
@@ -62,8 +11,10 @@ describe('mappers - from-api - mapNft', () => {
       ],
       balance: 1,
       blurUrl: 'https://echo.xyz/',
-      collectionId: 'collectionId',
-      collectionName: 'collectionName',
+      collection: {
+        id: 'collectionId',
+        name: 'collectionName'
+      },
       id: 'id',
       name: 'name',
       openSeaUrl: 'https://echo.xyz/',
@@ -87,8 +38,10 @@ describe('mappers - from-api - mapNft', () => {
       ],
       balance: 1,
       blurUrl: new URL('https://echo.xyz/'),
-      collectionId: 'collectionId',
-      collectionName: 'collectionName',
+      collection: {
+        id: 'collectionId',
+        name: 'collectionName'
+      },
       id: 'id',
       name: 'name',
       openSeaUrl: new URL('https://echo.xyz/'),

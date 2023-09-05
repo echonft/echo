@@ -1,4 +1,4 @@
-import { parseContraintsQuery } from '../../helpers/request/parse-contraints-query'
+import { parseConstraintsQuery } from '../../helpers/request/parse-constraints-query'
 import { parseOfferFiltersQuery } from '../../helpers/request/parse-offer-filters-query'
 import { mapOffer } from '../../mappers/to-response/map-offer'
 import { ApiRequest } from '@echo/api'
@@ -10,7 +10,7 @@ import { NextResponse } from 'next/server'
 import { isNil, map } from 'ramda'
 
 export async function getUserOffersRequestHandler(req: ApiRequest<never>, userId: string) {
-  const constraints = parseContraintsQuery(req)
+  const constraints = parseConstraintsQuery(req)
   const filters = parseOfferFiltersQuery(req)
   let offers: Partial<Offer>[]
   if (!isNil(filters) && !isNil(filters.as)) {

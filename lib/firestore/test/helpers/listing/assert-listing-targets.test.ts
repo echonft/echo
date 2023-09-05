@@ -1,10 +1,10 @@
-import { assertListingTargets } from '../../../src/helpers/listing/assert-listing-targets'
+import { assertListingTargets } from '../../../src/helpers/listing/assert/assert-listing-targets'
 import { getListingMockById } from '../../mocks/get-listing-mock-by-id'
 import { ListingTarget } from '@echo/firestore-types'
 import { describe, expect, it } from '@jest/globals'
 import { assocPath, pipe } from 'ramda'
 
-describe('helpers - listing - assertListingTargets', () => {
+describe('helpers - listing - assert - assertListingTargets', () => {
   it('throws if some targets have the same id', () => {
     const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
     const target = listing.targets[0]

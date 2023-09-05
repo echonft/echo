@@ -23,7 +23,6 @@ export const nftMock: { [key: string]: Nft } = {
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-      discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1
@@ -84,7 +83,6 @@ export const nftMock: { [key: string]: Nft } = {
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-      discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1
@@ -214,7 +212,6 @@ export const nftMock: { [key: string]: Nft } = {
       }
     ],
     balance: 1,
-    blurUrl: undefined,
     collection: nftCollectionMock['Rc8pLQXxgyQGIRL0fr13']!,
     name: 'Creative Demigod #024',
     owner: {
@@ -222,7 +219,6 @@ export const nftMock: { [key: string]: Nft } = {
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-      discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1
@@ -279,7 +275,6 @@ export const nftMock: { [key: string]: Nft } = {
       }
     ],
     balance: 1,
-    blurUrl: undefined,
     collection: nftCollectionMock['Rc8pLQXxgyQGIRL0fr13']!,
     name: 'Water Elemental #020',
     owner: {
@@ -287,7 +282,6 @@ export const nftMock: { [key: string]: Nft } = {
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-      discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1
@@ -348,7 +342,6 @@ export const nftMock: { [key: string]: Nft } = {
       }
     ],
     balance: 1,
-    blurUrl: undefined,
     collection: nftCollectionMock['Rc8pLQXxgyQGIRL0fr13']!,
     name: 'Creative Demigod #009',
     owner: {

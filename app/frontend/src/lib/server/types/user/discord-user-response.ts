@@ -4,7 +4,7 @@ export interface DiscordUserResponse {
   id: string
   username: string
   discriminator: string
-  avatar: string | undefined
+  avatar?: string
   banner?: string
   guilds: DiscordUserGuildResponse[]
 }

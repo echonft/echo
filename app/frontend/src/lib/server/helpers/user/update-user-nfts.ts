@@ -10,8 +10,8 @@ import { isNil, map, path } from 'ramda'
 
 interface RequiredUserProps {
   id: string
-  discordAvatar: string | undefined
-  discordBanner: string | undefined
+  discordAvatar?: string
+  discordBanner?: string
   discordId: string
   discordUsername: string
   wallets: Wallet[]

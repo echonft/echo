@@ -6,7 +6,6 @@ export const nftCollectionMock: { [key: string]: NftCollection } = {
     bannerUrl: new URL(
       'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ?auto=format&dpr=1&w=3840'
     ),
-    blurUrl: undefined,
     contract: {
       tokenType: 'ERC721',
       address: '0x12c63bbD266dB84e117356e664f3604055166CEc',
@@ -28,7 +27,6 @@ export const nftCollectionMock: { [key: string]: NftCollection } = {
       'https://i.seadn.io/gae/R3b_Ju-BF7Ae45pp1f7UxCS5wF06dfFG7ydux_v9S8lJ7CL3j4kgv7a0nM4yVw-GhOH21ZigeaNluK-nuo6Dclq9LdQYH2Cvj8PfMQ?w=500&auto=format'
     ),
     totalSupply: 1077,
-    twitterUsername: undefined,
     websiteUrl: new URL('https://pxmythics.io')
   },
   '1aomCtnoesD7WVll6Yi1': {

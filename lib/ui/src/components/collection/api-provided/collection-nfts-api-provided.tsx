@@ -6,7 +6,7 @@ import { map } from 'ramda'
 import { FunctionComponent } from 'react'
 
 export interface CollectionNftsApiProvidedProps {
-  nftResponses: NftResponse[]
+  nftResponses: Array<Partial<NftResponse>>
 }
 
 export const CollectionNftsApiProvided: FunctionComponent<CollectionNftsApiProvidedProps> = ({ nftResponses }) => {

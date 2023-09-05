@@ -1,12 +1,24 @@
-import {OfferItem} from '@echo/firestore-types'
-import {NonEmptyArray} from '@echo/utils'
-import {complement, eqProps, equals, length, map, path, pipe, prop, uniqWith} from 'ramda'
+import { OfferItem } from '@echo/firestore-types'
+import { NonEmptyArray, propIsNil } from '@echo/utils'
+import { pathIsNil } from '@echo/utils/src/fp/path-is-nil'
+import { complement, eqProps, equals, forEach, length, map, path, pipe, prop, uniqWith } from 'ramda'
 
 /**
  * Asserts the validity of offer items
  * @param items
  */
 export function assertOfferItems(items: NonEmptyArray<OfferItem>) {
+  forEach((item: OfferItem) => {
+    if (propIsNil('nft', item) || pathIsNil(['nft', 'id'], item) || pathIsNil(['nft', 'tokenId'], item)) {
+      throw Error('not every items have an nft with a token id')
+    }
+    if (pathIsNil(['nft', 'collection'], item) || pathIsNil(['nft', 'collection', 'id'], item)) {
+      throw Error('not every items have an nft with a collection')
+    }
+    if (pathIsNil(['nft', 'owner'], item) || pathIsNil(['nft', 'owner', 'wallet'], item)) {
+      throw Error('not every items have an nft with an owner')
+    }
+  }, items)
   // all items must be from the same collection to be valid
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

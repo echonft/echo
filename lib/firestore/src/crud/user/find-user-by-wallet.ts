@@ -17,7 +17,7 @@ export const findUserByWallet = async (wallet: Wallet) => {
     return undefined
   }
 
-  const documentSnapshot = head<QueryDocumentSnapshot<User>>(querySnapshot.docs)
+  const documentSnapshot = head(querySnapshot.docs) as QueryDocumentSnapshot<User>
   if (isNil(documentSnapshot)) {
     return undefined
   }

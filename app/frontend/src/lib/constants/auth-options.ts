@@ -20,7 +20,6 @@ export const authOptions: AuthOptions = {
   // TODO Validate the persistence of session
   callbacks: {
     async jwt({ token, account }) {
-      // No firebase token means user is not logged in firebase
       if (account) {
         try {
           const user = await createOrUpdateUser(account.access_token, account.token_type, token.user)
@@ -38,7 +37,7 @@ export const authOptions: AuthOptions = {
         throw Error('Auth error: invalid token data')
       }
       // Inject user in session
-      return { ...session, user: user }
+      return { ...session, user }
     }
   }
 }

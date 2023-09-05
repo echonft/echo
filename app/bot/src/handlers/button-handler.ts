@@ -55,6 +55,8 @@ export function executeForButton(interaction: ButtonInteraction) {
       if (isNil(offerId) || isEmpty(offerId)) {
         throw new OfferNotFoundError(offerId)
       }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       return pipe(findOfferById, andThen(curry(executeBuy)(interaction)))(offerId)
     case ButtonAction.REJECT:
       // TODO

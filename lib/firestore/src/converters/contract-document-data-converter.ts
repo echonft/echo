@@ -1,14 +1,14 @@
 import { FirestoreDocumentDataConverter } from '../types/converters/firestore-document-data-converter'
 import { ContractDocumentData } from '../types/model/contract-document-data'
 import { Contract } from '@echo/firestore-types'
-import { assocUndefinedIfPropNotPresent, modifyStringPropToAddress, removeUndefinedProps } from '@echo/utils'
-import { pipe } from 'ramda'
+import { modifyStringPropToAddress } from '@echo/utils'
+import { identity } from 'ramda'
 
 export const contractDocumentDataConverter: FirestoreDocumentDataConverter<ContractDocumentData, Contract> = {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  fromFirestore: pipe(assocUndefinedIfPropNotPresent('name'), assocUndefinedIfPropNotPresent('symbol')),
+  fromFirestore: identity,
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  toFirestore: pipe(removeUndefinedProps, modifyStringPropToAddress('address'))
+  toFirestore: modifyStringPropToAddress('address')
 }

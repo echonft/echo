@@ -1,3 +1,4 @@
+import { Id } from './id'
 import { ListingItem } from './listing-item'
 import { ListingState } from './listing-state'
 import { ListingTarget } from './listing-target'
@@ -8,7 +9,7 @@ import { Dayjs } from 'dayjs'
 export interface Listing {
   id: string
   createdAt: Dayjs
-  creator: UserDetails
+  creator: Partial<UserDetails> & Id
   expired: boolean
   expiresAt: Dayjs
   items: NonEmptyArray<ListingItem>

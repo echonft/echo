@@ -4,13 +4,13 @@ import { Dayjs } from 'dayjs'
 
 export interface User {
   id: string
-  discordAvatar: string | undefined
-  discordBanner: string | undefined
+  discordAvatar?: string
+  discordBanner?: string
   discordGuilds: UserDiscordGuild[]
   discordId: string
   discordUsername: string
   nftsUpdatedAt: Dayjs
-  nonce: string | undefined
+  nonce?: string
   updatedAt: Dayjs
   wallets: Wallet[]
 }

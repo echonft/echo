@@ -3,7 +3,7 @@ import { intersects, isNilOrEmpty, single } from '@echo/utils'
 import { Query } from 'firebase-admin/lib/firestore'
 import { head, isNil } from 'ramda'
 
-export function addOfferQueryFilters(query: Query<Offer>, filters?: OfferQueryFilters) {
+export function addOfferQueryFilters(query: Query<Partial<Offer>>, filters?: OfferQueryFilters) {
   if (isNil(filters)) {
     return query
   }

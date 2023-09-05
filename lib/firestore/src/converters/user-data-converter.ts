@@ -4,24 +4,14 @@ import { FirestoreModel } from '../types/abstract/firestore-model'
 import { UserDocumentData } from '../types/model/user-document-data'
 import { walletDocumentDataConverter } from './wallet-document-data-converter'
 import { User } from '@echo/firestore-types'
-import {
-  assocUndefinedIfPropNotPresent,
-  modifyDatePropToNumber,
-  modifyNumberPropToDate,
-  removeUndefinedProps
-} from '@echo/utils'
+import { modifyDatePropToNumber, modifyNumberPropToDate } from '@echo/utils'
 import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export const userDataConverter: FirestoreDataConverter<User> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<UserDocumentData>): User {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+export const userDataConverter: FirestoreDataConverter<Partial<User>> = {
+  fromFirestore(snapshot: QueryDocumentSnapshot<UserDocumentData>) {
     return pipe(
       getSnapshotData<UserDocumentData>,
-      assocUndefinedIfPropNotPresent('discordAvatar'),
-      assocUndefinedIfPropNotPresent('discordBanner'),
-      assocUndefinedIfPropNotPresent('nonce'),
       modifyNumberPropToDate('nftsUpdatedAt'),
       modifyNumberPropToDate('updatedAt'),
       modifyDocumentDataArrayProp('wallets', walletDocumentDataConverter)
@@ -30,10 +20,6 @@ export const userDataConverter: FirestoreDataConverter<User> = {
   toFirestore(modelObject: FirestoreModel<User>, _options?: SetOptions): UserDocumentData {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return pipe(
-      removeUndefinedProps,
-      modifyDatePropToNumber('nftsUpdatedAt'),
-      modifyDatePropToNumber('updatedAt')
-    )(modelObject)
+    return pipe(modifyDatePropToNumber('nftsUpdatedAt'), modifyDatePropToNumber('updatedAt'))(modelObject)
   }
 }

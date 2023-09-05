@@ -1,11 +1,9 @@
 import { getNftById } from '../../../mocks/model/nft'
-import { getCollectionById } from '../../../mocks/model/nft-collection'
 import { getOfferById } from '../../../mocks/model/offer'
 import { NftDetails as Component, NftDetailsSkeleton } from '@echo/ui'
-import { NftWithCollection } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
-import { assoc, dissoc, pipe } from 'ramda'
+import { assoc } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Pages/NFT Details',
@@ -28,16 +26,10 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 const nft = getNftById('QFjMRNChUAHNswkRADXh')
-const collection = getCollectionById(nft.collectionId)
-const nftWithCollection = pipe(
-  dissoc('collectionId'),
-  dissoc('collectionName'),
-  assoc('collection', collection)
-)(nft) as NftWithCollection
 const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
 export const Default: Story = {
   args: {
-    nft: nftWithCollection,
+    nft,
     offers: [
       assoc('expiresAt', dayjs().add(1, 'hour'), offer),
       assoc('expiresAt', dayjs().add(6, 'hour'), offer),
@@ -49,7 +41,7 @@ export const Default: Story = {
 
 export const NoOffers: Story = {
   args: {
-    nft: nftWithCollection,
+    nft,
     offers: []
   }
 }

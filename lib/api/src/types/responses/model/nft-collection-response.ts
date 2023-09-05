@@ -1,4 +1,4 @@
-import { NftTokenType } from './nft-token-type'
+import { NftTokenType } from '@echo/firestore-types'
 
 export interface NftCollectionResponse {
   id: string

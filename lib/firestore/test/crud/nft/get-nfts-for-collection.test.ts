@@ -3,7 +3,7 @@ import { getAllNftMocks } from '../../mocks/get-all-nft-mocks'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { assoc, equals, filter, find, forEach, map, path, pipe, propEq } from 'ramda'
+import { equals, filter, find, forEach, map, modify, path, pick, pipe, propEq } from 'ramda'
 
 describe('CRUD - nft - getNftsForCollection', () => {
   beforeAll(tearUpRemoteFirestoreTests)
@@ -21,7 +21,9 @@ describe('CRUD - nft - getNftsForCollection', () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       filter(pipe(path(['collection', 'id']), equals(collectionId))),
-      map(assoc('collection', undefined))
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      map(modify('collection', pick(['id', 'name'])))
     )(getAllNftMocks())
     expect(nfts.length).toEqual(nftMocks.length)
     forEach((nft) => {

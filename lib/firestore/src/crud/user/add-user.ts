@@ -6,8 +6,8 @@ import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 
 export interface NewUser {
-  discordAvatar: string | undefined
-  discordBanner: string | undefined
+  discordAvatar?: string
+  discordBanner?: string
   discordGuilds: UserDiscordGuild[]
   discordId: string
   discordUsername: string
@@ -23,8 +23,6 @@ export const addUser = async (user: NewUser): Promise<string> => {
     assoc('updatedAt', dayjs()),
     assoc('wallets', [])
   )(user)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   await reference.set(userDataConverter.toFirestore(newUser))
   return id
 }

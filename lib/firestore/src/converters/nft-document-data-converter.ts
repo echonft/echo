@@ -5,7 +5,7 @@ import { NftDocumentData } from '../types/model/nft-document-data'
 import { nftCollectionDocumentDataConverter } from './nft-collection-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
 import { Nft } from '@echo/firestore-types'
-import { modifyStringPropToUrl, modifyUrlPropToString, removeUndefinedProps } from '@echo/utils'
+import { modifyStringPropToUrl, modifyUrlPropToString } from '@echo/utils'
 import { pipe } from 'ramda'
 
 export const nftDocumentDataConverter: FirestoreDocumentDataConverter<NftDocumentData, Nft> = {
@@ -22,7 +22,6 @@ export const nftDocumentDataConverter: FirestoreDocumentDataConverter<NftDocumen
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   toFirestore: pipe(
-    removeUndefinedProps,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     modifyUrlPropToString('blurUrl'),

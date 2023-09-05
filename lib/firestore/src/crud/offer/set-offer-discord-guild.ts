@@ -1,4 +1,4 @@
-import { assertOffer } from '../../helpers/offer/assert-offer'
+import { assertOffer } from '../../helpers/offer/assert/assert-offer'
 import { findOfferById } from './find-offer-by-id'
 import { updateOffer } from './update-offer'
 import { NftCollectionDiscordGuild } from '@echo/firestore-types'
@@ -12,7 +12,7 @@ export async function setOfferDiscordGuild(
 ): Promise<WriteResult> {
   const offer = await findOfferById(id)
   assertOffer(offer)
-  if (!isNil(offer?.discordGuild)) {
+  if (!isNil(offer.discordGuild)) {
     throw Error('offer already has a discord guild')
   }
   return updateOffer(id, {

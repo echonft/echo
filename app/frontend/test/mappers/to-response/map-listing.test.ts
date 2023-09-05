@@ -16,6 +16,7 @@ describe('mappers - to-response - mapListingItem', () => {
           chainId: 1
         }
       },
+      createdAt: 1676984897,
       expired: false,
       expiresAt: 2324074781,
       items: [

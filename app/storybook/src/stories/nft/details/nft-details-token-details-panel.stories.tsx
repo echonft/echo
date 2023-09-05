@@ -1,5 +1,4 @@
 import { getNftById } from '../../../mocks/model/nft'
-import { getCollectionById } from '../../../mocks/model/nft-collection'
 import { NftDetailsTokenDetailsPanel as Component, NftDetailsTokenDetailsPanelSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -17,12 +16,11 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 const nft = getNftById('QFjMRNChUAHNswkRADXh')
-const collection = getCollectionById(nft.collectionId)
 export const Default: Story = {
   args: {
-    chainId: collection.contract.chainId,
+    chainId: nft.collection.contract.chainId,
     tokenId: nft.tokenId,
-    tokenType: collection.contract.tokenType
+    tokenType: nft.collection.contract.tokenType
   }
 }
 

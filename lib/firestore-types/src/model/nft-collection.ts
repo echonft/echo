@@ -3,18 +3,18 @@ import { NftCollectionDiscordGuild } from './nft-collection-discord-guild'
 
 export interface NftCollection {
   id: string
-  bannerUrl: URL | undefined
-  blurUrl: URL | undefined
+  bannerUrl?: URL
+  blurUrl?: URL
   contract: Contract
   description: string
   discordGuild: NftCollectionDiscordGuild
-  discordUrl: URL | undefined
-  floorPrice: number | undefined
+  discordUrl?: URL
+  floorPrice?: number
   name: string
-  openSeaUrl: URL | undefined
-  profilePictureUrl: URL | undefined
+  openSeaUrl?: URL
+  profilePictureUrl?: URL
   slug: string
-  totalSupply: number | undefined
-  twitterUsername: string | undefined
-  websiteUrl: URL | undefined
+  totalSupply?: number
+  twitterUsername?: string
+  websiteUrl?: URL
 }

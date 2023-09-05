@@ -16,7 +16,7 @@ export const getOfferSnapshotById = async (id: string) => {
     return undefined
   }
 
-  const documentSnapshot = head<QueryDocumentSnapshot<Offer>>(querySnapshot.docs)
+  const documentSnapshot = head(querySnapshot.docs) as QueryDocumentSnapshot<Offer>
   if (isNil(documentSnapshot)) {
     return undefined
   }

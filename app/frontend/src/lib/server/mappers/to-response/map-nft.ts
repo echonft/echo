@@ -1,21 +1,19 @@
-import { mapUserDetails } from './map-user-details'
+import { mapNftCollection } from './map-nft-collection'
 import { NftResponse } from '@echo/api'
-import { Nft, NftCollection } from '@echo/firestore-types'
-import { modifyUrlPropToString, removeUndefinedProps } from '@echo/utils'
-import { assoc, dissoc, modify, pipe } from 'ramda'
+import { Nft } from '@echo/firestore-types'
+import { modifyUrlPropToString } from '@echo/utils'
+import { modify, pipe } from 'ramda'
 
-export function mapNft(nft: Nft, collection: NftCollection): NftResponse {
+export function mapNft(nft: Partial<Nft>): NftResponse {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return pipe(
-    removeUndefinedProps,
-    modifyUrlPropToString('blurUrl'),
+    modifyUrlPropToString<'blurUrl', Partial<Nft>>('blurUrl'),
     modifyUrlPropToString('openSeaUrl'),
-    dissoc('collection'),
-    assoc('collectionId', collection.id),
-    assoc('collectionName', collection.name),
+    modifyUrlPropToString('pictureUrl'),
+    modifyUrlPropToString('thumbnailUrl'),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    modify('owner', mapUserDetails),
-    modifyUrlPropToString('pictureUrl'),
-    modifyUrlPropToString('thumbnailUrl')
-  )(nft) as NftResponse
+    modify('collection', mapNftCollection)
+  )(nft)
 }

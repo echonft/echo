@@ -16,18 +16,17 @@ describe("helpers - converters - from-firestore - modifyDocumentDataPropToModel'
     }
   }
 
-  it('returns undefined prop if the prop is not in the original object', () => {
+  it('returns the object as is if the prop is not in the original object', () => {
     const obj = {
       a: 1,
       b: 2
     }
     expect(modifyDocumentDataProp('c', stringToNumberConverter)(obj)).toStrictEqual({
       a: 1,
-      b: 2,
-      c: undefined
+      b: 2
     })
   })
-  it('returns undefined prop if the original prop is undefined', () => {
+  it('removes the prop if the original prop is undefined', () => {
     const obj = {
       a: 1,
       b: 2,
@@ -35,8 +34,7 @@ describe("helpers - converters - from-firestore - modifyDocumentDataPropToModel'
     }
     expect(modifyDocumentDataProp('c', stringToNumberConverter)(obj)).toStrictEqual({
       a: 1,
-      b: 2,
-      c: undefined
+      b: 2
     })
   })
   it('returns converted document if the prop is a document data', () => {

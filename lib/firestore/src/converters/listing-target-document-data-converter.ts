@@ -4,8 +4,6 @@ import { FirestoreDocumentDataConverter } from '../types/converters/firestore-do
 import { ListingTargetDocumentData } from '../types/model/listing-target-document-data'
 import { nftCollectionDocumentDataConverter } from './nft-collection-document-data-converter'
 import { ListingTarget } from '@echo/firestore-types'
-import { removeUndefinedProps } from '@echo/utils'
-import { pipe } from 'ramda'
 
 export const listingTargetDocumentDataConverter: FirestoreDocumentDataConverter<
   ListingTargetDocumentData,
@@ -16,5 +14,5 @@ export const listingTargetDocumentDataConverter: FirestoreDocumentDataConverter<
   fromFirestore: modifyDocumentDataProp('collection', nftCollectionDocumentDataConverter),
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  toFirestore: pipe(removeUndefinedProps, modifyModelProp('collection', nftCollectionDocumentDataConverter))
+  toFirestore: modifyModelProp('collection', nftCollectionDocumentDataConverter)
 }

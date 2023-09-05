@@ -1,17 +1,17 @@
 import { OfferItemResponse } from './offer-item-response'
 import { UserResponse } from './user-response'
-import { OfferDiscordGuild, OfferState } from '@echo/firestore-types'
+import { OfferState } from '@echo/firestore-types'
 import { NonEmptyArray } from '@echo/utils'
 
 export interface OfferResponse {
   id: string
-  discordGuild?: OfferDiscordGuild
+  createdAt: number
   expired: boolean
   expiresAt: number
   listingsIds: string[]
-  receiver: UserResponse
+  receiver: Partial<UserResponse>
   receiverItems: NonEmptyArray<OfferItemResponse>
-  sender: UserResponse
+  sender: Partial<UserResponse>
   senderItems: NonEmptyArray<OfferItemResponse>
   state: OfferState
   swapTransactionId?: string

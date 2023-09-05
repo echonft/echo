@@ -2,38 +2,38 @@ import { modifyStringPropToUrl } from '../../src/fp/modify-string-prop-to-url'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - modifyStringPropToUrl', () => {
-  it('prop should get added as undefined if it was not present', () => {
+  it('object is returned as is if prop is not present', () => {
     const obj = {
       a: 1,
       b: 2
     }
-    expect(modifyStringPropToUrl('c')(obj)).toStrictEqual({
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(modifyStringPropToUrl<'c', typeof obj>('c')(obj)).toStrictEqual({
       a: 1,
-      b: 2,
-      c: undefined
+      b: 2
     })
   })
 
-  it('prop should get stay as is if it was present and undefined', () => {
+  it('prop should get removed if it is present and undefined', () => {
     const obj = {
       a: 1,
       b: 2,
       c: undefined
     }
-    expect(modifyStringPropToUrl('c')(obj)).toStrictEqual({
+    expect(modifyStringPropToUrl<'c', typeof obj>('c')(obj)).toStrictEqual({
       a: 1,
-      b: 2,
-      c: undefined
+      b: 2
     })
   })
 
-  it('shoud throw if the prop is defined but not a valid URL string', () => {
+  it('should throw if the prop is defined but not a valid URL string', () => {
     const obj = {
       a: 1,
       b: 2,
       c: 'not-a-valid-url'
     }
-    expect(() => modifyStringPropToUrl('c')(obj)).toThrow()
+    expect(() => modifyStringPropToUrl<'c', typeof obj>('c')(obj)).toThrow()
   })
 
   it('prop should be converted to a URL if it was present and a valid URL string', () => {
@@ -43,7 +43,7 @@ describe('fp - modifyStringPropToUrl', () => {
       b: 2,
       c: url
     }
-    expect(modifyStringPropToUrl('c')(obj)).toStrictEqual({
+    expect(modifyStringPropToUrl<'c', typeof obj>('c')(obj)).toStrictEqual({
       a: 1,
       b: 2,
       c: new URL(url)

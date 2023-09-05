@@ -15,7 +15,7 @@ const config: Config = {
     '!<rootDir>/src/constants/**',
     '!<rootDir>/src/types/**'
   ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/firestore',
+  coverageDirectory: '<rootDir>/../../.coverage/lib/firestore-types',
   coverageReporters: ['json-summary', 'text'],
   maxConcurrency: 1,
   maxWorkers: 1,
@@ -24,7 +24,7 @@ const config: Config = {
     [
       'jest-junit',
       {
-        outputDirectory: '<rootDir>/../../.coverage/lib/firestore'
+        outputDirectory: '<rootDir>/../../.coverage/lib/firestore-types'
       }
     ]
   ],

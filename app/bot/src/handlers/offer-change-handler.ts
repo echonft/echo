@@ -1,9 +1,9 @@
-import {getDiscordChannel} from '../helpers/get-discord-channel'
-import {offerLink} from '../routing/offer-link'
-import {findUserById, getOfferReceiverItemsGuild, setOfferDiscordGuild, userIsInGuild} from '@echo/firestore'
-import {DocumentChangeType, Offer} from '@echo/firestore-types'
-import {errorMessage, logger} from '@echo/utils'
-import {ChannelType, Client} from 'discord.js'
+import { getDiscordChannel } from '../helpers/get-discord-channel'
+import { offerLink } from '../routing/offer-link'
+import { findUserById, getOfferReceiverItemsGuild, setOfferDiscordGuild, userIsInGuild } from '@echo/firestore'
+import { DocumentChangeType, OfferComplete } from '@echo/firestore-types'
+import { errorMessage, logger } from '@echo/utils'
+import { ChannelType, Client } from 'discord.js'
 
 /**
  * Handles offer changes -  only check for new offers
@@ -11,7 +11,7 @@ import {ChannelType, Client} from 'discord.js'
  * @param changeType
  * @param offer
  */
-export async function offerChangeHandler(client: Client, changeType: DocumentChangeType, offer: Offer) {
+export async function offerChangeHandler(client: Client, changeType: DocumentChangeType, offer: OfferComplete) {
   if (changeType === 'added') {
     try {
       // FIXME validate

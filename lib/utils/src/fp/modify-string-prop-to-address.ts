@@ -1,14 +1,10 @@
-import { assoc, has, ifElse, isNil, modify, pipe, prop, unless } from 'ramda'
+import { propIsNil } from './prop-is-nil'
+import { dissoc, has, ifElse, modify, when } from 'ramda'
 import { getAddress } from 'viem'
 
-export const modifyStringPropToAddress = <K extends string, T>(propKey: K) =>
-  ifElse(
-    has(propKey),
-    unless(
-      pipe(prop(propKey), isNil),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      modify(propKey, getAddress)
-    ),
-    assoc(propKey, undefined)
-  ) as (obj: T) => T & Record<K, string | undefined>
+export const modifyStringPropToAddress = <K extends keyof T, T>(propKey: K) =>
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  when(has(propKey), ifElse(propIsNil(propKey), dissoc(propKey), modify(propKey, getAddress))) as (
+    obj: T
+  ) => T & Record<K, string | undefined>

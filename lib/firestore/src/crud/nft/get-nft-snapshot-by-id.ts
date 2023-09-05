@@ -16,7 +16,7 @@ export const getNftSnapshotById = async (id: string) => {
     return undefined
   }
 
-  const documentSnapshot = head<QueryDocumentSnapshot<Nft>>(querySnapshot.docs)
+  const documentSnapshot = head(querySnapshot.docs) as QueryDocumentSnapshot<Nft>
   if (isNil(documentSnapshot)) {
     return undefined
   }

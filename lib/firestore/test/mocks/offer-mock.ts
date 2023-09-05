@@ -6,7 +6,6 @@ export const offerMock: { [key: string]: Offer } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
     createdAt: dayjs.unix(1676984897),
-    discordGuild: undefined,
     expired: false,
     expiresAt: dayjs.unix(2324074781),
     listingsIds: ['jUzMtPGKM62mMhEcmbN4'],
@@ -15,7 +14,6 @@ export const offerMock: { [key: string]: Offer } = {
       discordId: '462798252543049728',
       discordUsername: 'johnnycage#0890',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-      discordBanner: undefined,
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1
@@ -34,7 +32,6 @@ export const offerMock: { [key: string]: Offer } = {
       }
     },
     senderItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }],
-    state: 'OPEN',
-    swapTransactionId: undefined
+    state: 'OPEN'
   }
 }

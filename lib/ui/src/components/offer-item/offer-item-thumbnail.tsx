@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const OfferItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername, size, onRemove }) => {
-  const { name, tokenId, thumbnailUrl, collectionName } = item.nft
+  const { name, tokenId, thumbnailUrl, collection } = item.nft
   return (
     <div
       className={clsx(
@@ -47,7 +47,7 @@ export const OfferItemThumbnail: FunctionComponent<Props> = ({ item, discordUser
           size === SizeLG && ['px-2', 'pt-2.5', 'pb-3.5']
         )}
       >
-        <OfferItemThumbnailTitle tokenId={tokenId} collectionName={collectionName} size={size} />
+        <OfferItemThumbnailTitle tokenId={tokenId} collectionName={collection.name} size={size} />
       </div>
     </div>
   )

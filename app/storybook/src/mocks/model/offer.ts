@@ -9,7 +9,6 @@ const offers: { [key: string]: Offer } = {
     createdAt: dayjs.unix(1676984897),
     expired: true,
     expiresAt: dayjs.unix(1676984897),
-    postedAt: dayjs.unix(1676984897),
     receiver: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
@@ -21,7 +20,7 @@ const offers: { [key: string]: Offer } = {
         chainId: 1
       }
     },
-    receiverItems: [{ amount: 1, nft: getNftById('8hHFadIrrooORfTOLkBg'), approved: false }],
+    receiverItems: [{ amount: 1, nft: getNftById('8hHFadIrrooORfTOLkBg') }],
     sender: {
       id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
@@ -33,7 +32,7 @@ const offers: { [key: string]: Offer } = {
         chainId: 1
       }
     },
-    senderItems: [{ amount: 1, nft: getNftById('kRE3UCfXWkJ33nwzj2X1'), approved: false }],
+    senderItems: [{ amount: 1, nft: getNftById('kRE3UCfXWkJ33nwzj2X1') }],
     state: 'OPEN'
   }
 }

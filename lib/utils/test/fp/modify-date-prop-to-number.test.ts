@@ -8,7 +8,9 @@ describe('fp - modifyDatePropToNumber', () => {
       a: 1,
       b: 2
     }
-    expect(modifyDatePropToNumber('c')(obj)).toStrictEqual(obj)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(modifyDatePropToNumber<'c', typeof obj>('c')(obj)).toStrictEqual(obj)
   })
 
   it('removes the prop if it was present and undefined', () => {
@@ -17,7 +19,7 @@ describe('fp - modifyDatePropToNumber', () => {
       b: 2,
       c: undefined
     }
-    expect(modifyDatePropToNumber('c')(obj)).toStrictEqual({
+    expect(modifyDatePropToNumber<'c', typeof obj>('c')(obj)).toStrictEqual({
       a: 1,
       b: 2
     })
@@ -30,7 +32,7 @@ describe('fp - modifyDatePropToNumber', () => {
       b: 2,
       c: dayjs.unix(unixTime)
     }
-    expect(modifyDatePropToNumber('c')(obj)).toStrictEqual({
+    expect(modifyDatePropToNumber<'c', typeof obj>('c')(obj)).toStrictEqual({
       a: 1,
       b: 2,
       c: unixTime
