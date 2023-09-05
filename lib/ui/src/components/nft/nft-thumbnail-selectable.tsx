@@ -1,3 +1,4 @@
+'use client'
 import { SelectableProps } from '../../types/selectable-props'
 import { HideIf } from '../base/hide-if'
 import { UserDiscordTagOffer } from '../user/user-discord-tag-offer'
@@ -7,21 +8,28 @@ import { NftThumbnailSelector } from './nft-thumbnail-selector'
 import { NftThumbnailTitle } from './nft-thumbnail-title'
 import { Nft } from '@echo/ui-model'
 import { clsx } from 'clsx'
+import { useRouter } from 'next/navigation'
 import { FunctionComponent } from 'react'
 
 interface Props extends SelectableProps<string> {
   nft: Nft
+  link: {
+    path: string
+    disabled?: boolean
+  }
   hideOwner?: boolean
   onMakeOffer?: (id: string) => unknown
 }
 
 export const NftThumbnailSelectable: FunctionComponent<Props> = ({
   nft,
+  link,
   hideOwner,
   selected,
   onToggleSelection,
   onMakeOffer
 }) => {
+  const router = useRouter()
   const { id, name, tokenId, thumbnailUrl, owner, collection } = nft
   return (
     <div
@@ -33,9 +41,17 @@ export const NftThumbnailSelectable: FunctionComponent<Props> = ({
         'h-max',
         'border',
         'border-solid',
+        'cursor-pointer',
         selected ? 'border-yellow-500' : 'border-transparent',
         'overflow-clip'
       )}
+      onClick={() => {
+        if (link.disabled) {
+          onToggleSelection?.(id, !selected)
+        } else {
+          router.push(link.path)
+        }
+      }}
     >
       <div className={'relative'}>
         <NftThumbnailPicture alt={name} tokenId={tokenId} pictureUrl={thumbnailUrl} />
@@ -56,7 +72,8 @@ export const NftThumbnailSelectable: FunctionComponent<Props> = ({
       <div className={clsx('flex', 'flex-col', 'gap-2', 'bg-white/[0.08]', 'w-full', 'p-2')}>
         <NftThumbnailTitle tokenId={tokenId} collectionName={collection.name} />
         <NftThumbnailMakeOfferButton
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation()
             onMakeOffer?.(id)
           }}
         />

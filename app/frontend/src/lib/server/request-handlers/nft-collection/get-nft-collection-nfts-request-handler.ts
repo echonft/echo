@@ -1,14 +1,12 @@
 import { getNftCollectionNfts } from '../../helpers/nft/get-nft-collection-nfts'
-import { assertNftCollection } from '../../helpers/nft-collection/assert-nft-collection'
-import { getNftCollectionBySlug } from '../../helpers/nft-collection/get-nft-collection-by-slug'
+import { parseConstraintsQuery } from '../../helpers/request/parse-constraints-query'
 import { mapNft } from '../../mappers/to-response/map-nft'
 import { ApiRequest, GetNftCollectionNftsResponse } from '@echo/api'
 import { NextResponse } from 'next/server'
 import { map } from 'ramda'
 
-export async function getNftCollectionNftsRequestHandler(_req: ApiRequest<never>, slug: string) {
-  const nftCollection = await getNftCollectionBySlug(slug)
-  assertNftCollection(nftCollection)
-  const nfts = await getNftCollectionNfts(nftCollection)
+export async function getNftCollectionNftsRequestHandler(req: ApiRequest<never>, slug: string) {
+  const constraints = parseConstraintsQuery(req)
+  const nfts = await getNftCollectionNfts(slug, constraints)
   return NextResponse.json<GetNftCollectionNftsResponse>({ nfts: map(mapNft, nfts) })
 }

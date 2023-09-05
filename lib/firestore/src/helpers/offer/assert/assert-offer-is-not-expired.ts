@@ -11,10 +11,10 @@ export function assertOfferIsNotExpired(
   if (propIsNil('expired', offer)) {
     // try with the date
     if (propIsNil('expiresAt', offer)) {
-      throw Error('listing is missing expiration date')
+      throw Error('offer is missing expiration date')
     }
     if (pipe(prop('expiresAt'), dateIsPast)(offer)) {
-      throw Error('listing is expired')
+      throw Error('offer is expired')
     }
   }
   if (offer.expired) {

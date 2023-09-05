@@ -4,6 +4,9 @@ export const links = {
     collectionListingsLink: (slug: string) => `/collection/${slug}/listings`,
     collectionSwapsLink: (slug: string) => `/collection/${slug}/swaps`
   },
+  nft: {
+    nftLink: (collectionSlug: string, tokenId: number) => `/collection/${collectionSlug}/item/${tokenId}`
+  },
   offerLink: (offerId: string) => `/offer/${offerId}`,
   userLink: (userId: string) => `/user/${userId}`
 }

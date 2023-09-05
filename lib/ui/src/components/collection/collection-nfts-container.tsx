@@ -1,10 +1,11 @@
+import { links } from '../../helpers/links'
 import { HideIfNil } from '../base/hide-if-nil'
 import { ShowIf } from '../base/show-if'
 import { Spinner } from '../base/spinner'
 import { NftThumbnailSelectable } from '../nft/nft-thumbnail-selectable'
 import { Nft } from '@echo/ui-model'
 import { clsx } from 'clsx'
-import { isNil } from 'ramda'
+import { isEmpty, isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
@@ -47,6 +48,10 @@ export const CollectionNftsContainer: FunctionComponent<Props> = ({
             <NftThumbnailSelectable
               key={nft.id}
               nft={nft}
+              link={{
+                path: links.nft.nftLink(nft.collection.slug, nft.tokenId),
+                disabled: !isEmpty(selection)
+              }}
               selected={!isNil(selection) && selection.includes(nft.id)}
               onToggleSelection={onToggleSelection}
               onMakeOffer={onMakeOfferForNft}

@@ -1,3 +1,4 @@
+'use client'
 import { NavigationPill } from './navigation-pill'
 import { NavigationItem } from '@echo/ui-model'
 import { clsx } from 'clsx'

@@ -60,7 +60,7 @@ export const Default: Story = {
 export const SomeSelected: Story = {
   args: {
     traits,
-    selection
+    initialSelection: selection
   }
 }
 

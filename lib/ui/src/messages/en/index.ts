@@ -28,6 +28,12 @@ export const messages = {
       searchInput: 'Search for a collection or a user'
     }
   },
+  errorPage: {
+    title: 'Something went wrong',
+    button: {
+      label: 'Go home'
+    }
+  },
   nft: {
     details: {
       attributes: {

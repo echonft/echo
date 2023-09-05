@@ -4,14 +4,14 @@ import { mapNftCollection } from '@echo/ui-model'
 import { FunctionComponent } from 'react'
 
 export interface CollectionDetailsServerComponentProps {
-  collectionResponse: GetNftCollectionResponse
+  response: GetNftCollectionResponse
 }
 
 export const CollectionDetailsApiProvided: FunctionComponent<CollectionDetailsServerComponentProps> = ({
-  collectionResponse
+  response
 }) => {
   const { bannerUrl, totalSupply, name, description, profilePictureUrl, twitterUsername, discordUrl, websiteUrl } =
-    mapNftCollection(collectionResponse.collection)
+    mapNftCollection(response.collection)
   return (
     <CollectionDetails
       bannerUrl={bannerUrl}

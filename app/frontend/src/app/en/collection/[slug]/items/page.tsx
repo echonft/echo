@@ -1,4 +1,5 @@
 import { fetcher } from '../../../../../lib/helpers/fetcher'
+import { mapQueryConstraintsToQueryParams } from '../../../../../lib/helpers/request/map-query-constraints-to-query-params'
 import { ErrorStatus } from '../../../../../lib/server/constants/error-status'
 import { GetNftCollectionNftsResponse, nftCollectionNftsApiUrl } from '@echo/api'
 import { CollectionNftsApiProvided } from '@echo/ui'
@@ -13,8 +14,28 @@ interface Props {
 }
 
 const CollectionNftsPage: FunctionComponent<Props> = async ({ params: { slug } }) => {
+  const queryParams = mapQueryConstraintsToQueryParams({
+    select: [
+      'id',
+      'attributes',
+      'balance',
+      'blurUrl',
+      'collection.id',
+      'collection.name',
+      'collection.slug',
+      'name',
+      'openSeaUrl',
+      'owner',
+      'pictureUrl',
+      'thumbnailUrl',
+      'tokenId',
+      'tokenType'
+    ],
+    orderBy: [{ field: 'owner.discordUsername' }, { field: 'tokenId' }]
+  })
   const { data, error } = await fetcher(nftCollectionNftsApiUrl(slug))
     .revalidate(3600)
+    .query(queryParams)
     .fetch<GetNftCollectionNftsResponse>()
 
   if (isNil(data)) {
@@ -27,7 +48,7 @@ const CollectionNftsPage: FunctionComponent<Props> = async ({ params: { slug } }
     throw Error()
   }
 
-  return <CollectionNftsApiProvided collectionSlug={slug} nftResponses={data.nfts} selectedNavigationItemId={'items'} />
+  return <CollectionNftsApiProvided collectionSlug={slug} responses={data.nfts} selectedNavigationItemId={'items'} />
 }
 
 export default CollectionNftsPage

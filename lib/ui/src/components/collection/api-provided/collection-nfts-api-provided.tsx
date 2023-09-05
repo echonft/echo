@@ -1,5 +1,5 @@
 'use client'
-import { CollectionNftsAndFiltersContainer, NAVIGATION_ITEM_IDS } from '../collection-nfts-and-filters-container'
+import { CollectionNftsAndFiltersContainer } from '../collection-nfts-and-filters-container'
 import { NftResponse } from '@echo/api'
 import { getTraitsForNfts, mapNft } from '@echo/ui-model'
 import { map } from 'ramda'
@@ -7,17 +7,17 @@ import { FunctionComponent } from 'react'
 
 export interface CollectionNftsApiProvidedProps {
   collectionSlug: string
-  nftResponses: Array<Partial<NftResponse>>
-  selectedNavigationItemId: (typeof NAVIGATION_ITEM_IDS)[number]
+  responses: Array<Partial<NftResponse>>
+  selectedNavigationItemId: 'items' | 'listings' | 'swaps'
 }
 
 export const CollectionNftsApiProvided: FunctionComponent<CollectionNftsApiProvidedProps> = ({
   collectionSlug,
-  nftResponses,
+  responses,
   selectedNavigationItemId
 }) => {
   // TODO we might have to show the skeleton if this is slow
-  const nfts = map(mapNft, nftResponses)
+  const nfts = map(mapNft, responses)
   const traits = getTraitsForNfts(nfts)
 
   return (

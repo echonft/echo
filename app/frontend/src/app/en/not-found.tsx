@@ -1,4 +1,4 @@
-import { NotFound as NotFoundComponent } from '@echo/ui'
+import { NotFoundPage as NotFoundComponent } from '@echo/ui'
 import { FunctionComponent } from 'react'
 
 const NotFound: FunctionComponent = () => {

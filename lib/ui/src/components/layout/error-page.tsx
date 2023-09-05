@@ -4,8 +4,8 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export const NotFound: FunctionComponent = () => {
-  const t = useTranslations('notFoundPage')
+export const ErrorPage: FunctionComponent = () => {
+  const t = useTranslations('errorPage')
   return (
     <div className={clsx('w-max', 'h-full', 'flex', 'flex-col', 'pt-44', 'mx-auto', 'items-center')}>
       <div
@@ -24,8 +24,8 @@ export const NotFound: FunctionComponent = () => {
           className={clsx('absolute', 'top-[200px]', 'left-[230px]', 'z-20', 'text-yellow-500')}
           height={400}
         />
-        <span className={clsx('h-max', 'mr-[130px]')}>4</span>
-        <span className={clsx('h-max', 'ml-[130px]')}>4</span>
+        <span className={clsx('h-max', 'mr-[130px]')}>5</span>
+        <span className={clsx('h-max', 'ml-[130px]')}>0</span>
       </div>
       <div className={clsx('flex', 'flex-col', 'items-center', '-translate-y-20')}>
         <p
@@ -42,9 +42,7 @@ export const NotFound: FunctionComponent = () => {
             'mb-12'
           )}
         >
-          {t.rich('title', {
-            br: () => <br />
-          })}
+          {t('title')}
         </p>
         <InternalLink path={'/'}>
           <button className={clsx('btn-primary-reverse', 'group', 'w-max', 'rounded-lg', 'px-5', 'py-2.5')}>

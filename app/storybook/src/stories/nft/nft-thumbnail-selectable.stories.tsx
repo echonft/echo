@@ -29,7 +29,11 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    nft
+    nft,
+    link: {
+      path: '#',
+      disabled: true
+    }
   }
 }
 
@@ -43,6 +47,10 @@ export const Default: Story = {
 export const OwnerHidden: Story = {
   args: {
     nft,
+    link: {
+      path: '#',
+      disabled: true
+    },
     hideOwner: true
   }
 }
@@ -50,6 +58,10 @@ export const OwnerHidden: Story = {
 export const Selected: Story = {
   args: {
     nft,
+    link: {
+      path: '#',
+      disabled: true
+    },
     selected: true
   }
 }
@@ -57,7 +69,13 @@ export const Selected: Story = {
 export const Managed: Story = {
   render: () => (
     <SelectionManager>
-      <Component nft={nft} />
+      <Component
+        nft={nft}
+        link={{
+          path: '#',
+          disabled: true
+        }}
+      />
     </SelectionManager>
   )
 }
