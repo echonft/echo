@@ -5,7 +5,7 @@ import { setupBot } from '../mocks/discord/client-mock'
 import { mockGuild } from '../mocks/discord/guild-mock'
 import { mockChatInputCommandInteraction } from '../mocks/discord/interaction-mock'
 import { findNftCollectionByDiscordGuildDiscordId, getAllNftCollectionMocks } from '@echo/firestore'
-import {NftCollection} from "@echo/firestore-types";
+import { NftCollection } from '@echo/firestore-types'
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { Client } from 'discord.js'
 import { filter, isNil, pathEq } from 'ramda'

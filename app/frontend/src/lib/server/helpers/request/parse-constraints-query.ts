@@ -16,7 +16,7 @@ const queryContraintOrderBySchema = z.tuple([z.string().nonempty(), queryContrai
 )
 const queryContraintSelectSchema = z.string().nonempty().array().nonempty()
 
-export function parseContraintsQuery<T>(req: ApiRequest<T>) {
+export function parseConstraintsQuery<T>(req: ApiRequest<T>) {
   try {
     let constraints = {} as QueryConstraints
     const { searchParams } = new URL(req.url)
