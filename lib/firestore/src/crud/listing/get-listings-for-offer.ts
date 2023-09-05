@@ -13,8 +13,6 @@ export const getListingsForOffer = async (
   const querySnapshot = await firestore()
     .collection(CollectionName.LISTINGS)
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), receiverItems))
-    // cannot have 2 array-contains in a query :(
-    // .where('targetsIds', 'array-contains', getOfferItemsCollectionId(senderItems))
     .withConverter(listingDataConverter)
     .get()
 

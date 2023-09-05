@@ -1,5 +1,5 @@
-import { CollectionReference, Query } from 'firebase-admin/firestore'
+import { Query } from 'firebase-admin/firestore'
 
-export function addLimitToLastConstraint<T>(query: CollectionReference<T> | Query<T>, limitToLast: number) {
+export function addLimitToLastConstraint<T>(query: Query<T>, limitToLast: number) {
   return query.limitToLast(limitToLast)
 }

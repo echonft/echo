@@ -1,14 +1,23 @@
 import { DiscordUser } from '../../types/user/discord-user'
 import { DiscordUserResponse } from '../../types/user/discord-user-response'
-import { UserDiscordGuild } from '@echo/firestore-types'
-import { applySpec, map, pipe, prop } from 'ramda'
+import { modifyPropName } from '@echo/utils/src/fp/modify-prop-name'
+import { map, modify, pick, pipe } from 'ramda'
 
 export function mapDiscordUserResponseToUser(discordUserResponse: DiscordUserResponse): DiscordUser {
-  return applySpec<DiscordUser>({
-    discordAvatar: prop('avatar'),
-    discordBanner: prop('banner'),
-    discordGuilds: pipe(prop('guilds'), map(applySpec<UserDiscordGuild>({ discordId: prop('id') }))),
-    discordId: prop('id'),
-    discordUsername: prop('username')
-  })(discordUserResponse)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return pipe(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    pick(['id', 'avatar', 'banner', 'id', 'username', 'guilds']),
+    modifyPropName<'avatar', DiscordUserResponse>('avatar', 'discordAvatar'),
+    modifyPropName('banner', 'discordBanner'),
+    modifyPropName('id', 'discordId'),
+    modifyPropName('username', 'discordUsername'),
+    modifyPropName('guilds', 'discordGuilds'),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    modify('discordGuilds', map(pipe(pick(['id']), modifyPropName('id', 'discordId'))))
+  )(discordUserResponse)
 }

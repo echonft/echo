@@ -9,21 +9,15 @@ import { OfferDocumentData } from '../types/model/offer-document-data'
 import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
 import { Offer } from '@echo/firestore-types'
-import {
-  assocUndefinedIfPropNotPresent,
-  modifyDatePropToNumber,
-  modifyNumberPropToDate,
-  removeUndefinedProps
-} from '@echo/utils'
+import { modifyDatePropToNumber, modifyNumberPropToDate } from '@echo/utils'
 import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { assoc, dissoc, has, lens, map, over, path, pipe, prop, when } from 'ramda'
 
-export const offerDataConverter: FirestoreDataConverter<Offer> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData>): Offer {
+export const offerDataConverter: FirestoreDataConverter<Partial<Offer>> = {
+  fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData>) {
     return pipe(
       getSnapshotData<OfferDocumentData>,
       modifyNumberPropToDate('createdAt'),
-      assocUndefinedIfPropNotPresent('discordGuild'),
       modifyExpiresAtProp,
       modifyDocumentDataProp('receiver', userDetailsDocumentDataConverter),
       dissoc('receiverId'),
@@ -32,17 +26,17 @@ export const offerDataConverter: FirestoreDataConverter<Offer> = {
       modifyDocumentDataProp('sender', userDetailsDocumentDataConverter),
       dissoc('senderId'),
       modifyDocumentDataArrayProp('senderItems', offerItemDocumentDataConverter),
-      dissoc('senderItemsNftIds'),
-      assocUndefinedIfPropNotPresent('swapTransactionId')
-    )(snapshot) as Offer
+      dissoc('senderItemsNftIds')
+    )(snapshot)
   },
   toFirestore(modelObject: FirestoreModel<Offer>, _options?: SetOptions): OfferDocumentData {
     return pipe(
-      removeUndefinedProps,
       dissoc('expired'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       modifyDatePropToNumber('createdAt'),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       modifyDatePropToNumber('expiresAt'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

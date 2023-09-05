@@ -1,8 +1,21 @@
-import { NftCollectionDiscordGuild, Offer } from '@echo/firestore-types'
-import { head, path, pipe, prop } from 'ramda'
+import { NftCollectionDiscordGuild, Offer, OfferItem } from '@echo/firestore-types'
+import { propIsNil } from '@echo/utils'
+import { pathIsNil } from '@echo/utils/src/fp/path-is-nil'
+import { forEach, head, isNil, path, pipe } from 'ramda'
 
-export function getOfferReceiverItemsGuild(offer: Offer): NftCollectionDiscordGuild {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return pipe(prop('receiverItems'), head, path(['nft', 'collection', 'discordGuild']))(offer)
+export function getOfferReceiverItemsGuild(offer: Partial<Offer>): NftCollectionDiscordGuild {
+  if (isNil(offer.receiverItems)) {
+    throw Error('offer does not have receiver items')
+  }
+  const { receiverItems } = offer
+  forEach((item: OfferItem) => {
+    if (
+      propIsNil('nft', item) ||
+      pathIsNil(['nft', 'collection'], item) ||
+      pathIsNil(['nft', 'collection', 'discordGuild'], item)
+    ) {
+      throw Error('not every items have an nft with a collection with a discord guild')
+    }
+  }, receiverItems)
+  return pipe(head, path(['nft', 'collection', 'discordGuild']))(receiverItems) as NftCollectionDiscordGuild
 }

@@ -7,7 +7,9 @@ describe('fp - modifyBooleanPropToString', () => {
       a: 1,
       b: 2
     }
-    expect(modifyBooleanPropToString('c')(obj)).toStrictEqual(obj)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(modifyBooleanPropToString<'c', typeof obj>('c')(obj)).toStrictEqual(obj)
   })
 
   it('removes the prop if it was present and undefined', () => {
@@ -16,7 +18,7 @@ describe('fp - modifyBooleanPropToString', () => {
       b: 2,
       c: undefined
     }
-    expect(modifyBooleanPropToString('c')(obj)).toStrictEqual({
+    expect(modifyBooleanPropToString<'c', typeof obj>('c')(obj)).toStrictEqual({
       a: 1,
       b: 2
     })
@@ -28,7 +30,7 @@ describe('fp - modifyBooleanPropToString', () => {
       b: 2,
       c: true
     }
-    expect(modifyBooleanPropToString('c')(obj)).toStrictEqual({
+    expect(modifyBooleanPropToString<'c', typeof obj>('c')(obj)).toStrictEqual({
       a: 1,
       b: 2,
       c: 'true'
@@ -41,7 +43,7 @@ describe('fp - modifyBooleanPropToString', () => {
       b: 2,
       c: false
     }
-    expect(modifyBooleanPropToString('c')(obj)).toStrictEqual({
+    expect(modifyBooleanPropToString<'c', typeof obj>('c')(obj)).toStrictEqual({
       a: 1,
       b: 2,
       c: 'false'

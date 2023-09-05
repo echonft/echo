@@ -6,7 +6,8 @@ import { NonEmptyArray } from '@echo/utils'
 
 export interface ListingResponse {
   id: string
-  creator: UserResponse
+  createdAt: number
+  creator: Partial<UserResponse>
   expired: boolean
   expiresAt: number
   items: NonEmptyArray<ListingItemResponse>

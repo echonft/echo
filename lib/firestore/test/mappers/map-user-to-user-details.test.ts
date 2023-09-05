@@ -1,34 +1,23 @@
 import { mapUserToUserDetails } from '../../src/mappers/map-user-to-user-details'
-import { userMock } from '../mocks/user-mock'
+import { getUserMockById } from '../mocks/get-user-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
+import { dissoc, pick } from 'ramda'
 
 describe('mappers - mapUserToUserDetails', () => {
-  it('throws an error if the user does not own the passed wallet', () => {
-    const user = userMock['oE6yUEQBPn7PZ89yMjKn']!
-    try {
-      mapUserToUserDetails(user, { address: 'not-owned', chainId: 1 })
-      expect(true).toBeFalsy()
-    } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      expect(error.message).toEqual('user does not own wallet')
-    }
+  it('throws an error if the user does not have an id', () => {
+    const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
+    expect(() => mapUserToUserDetails(dissoc('id', user), { address: '0xaddress', chainId: 1 })).toThrow()
   })
 
   it('to Firestore conversion', () => {
-    const user = userMock['oE6yUEQBPn7PZ89yMjKn']!
+    const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
     const wallet = {
       address: '0x5f8BF75666a6B4bC452DC4Ac680f0A8Ac35b25DE',
       chainId: 1
     }
     const userDetails = mapUserToUserDetails(user, wallet)
-    const { id, discordAvatar, discordBanner, discordId, discordUsername } = user
     expect(userDetails).toStrictEqual({
-      id,
-      discordAvatar,
-      discordBanner,
-      discordId,
-      discordUsername,
+      ...pick(['id', 'discordAvatar', 'discordBanner', 'discordId', 'discordUsername'], user),
       wallet
     })
   })

@@ -4,34 +4,27 @@ import { FirestoreDocumentDataConverter } from '../types/converters/firestore-do
 import { NftCollectionDocumentData } from '../types/model/nft-collection-document-data'
 import { contractDocumentDataConverter } from './contract-document-data-converter'
 import { NftCollection } from '@echo/firestore-types'
-import {
-  assocUndefinedIfPropNotPresent,
-  modifyStringPropToUrl,
-  modifyUrlPropToString,
-  removeUndefinedProps
-} from '@echo/utils'
+import { modifyStringPropToUrl, modifyUrlPropToString } from '@echo/utils'
 import { pipe } from 'ramda'
 
 export const nftCollectionDocumentDataConverter: FirestoreDocumentDataConverter<
   NftCollectionDocumentData,
   NftCollection
 > = {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   fromFirestore: pipe(
     modifyStringPropToUrl('bannerUrl'),
     modifyStringPropToUrl('blurUrl'),
     modifyDocumentDataProp('contract', contractDocumentDataConverter),
     modifyStringPropToUrl('discordUrl'),
-    assocUndefinedIfPropNotPresent('floorPrice'),
     modifyStringPropToUrl('openSeaUrl'),
     modifyStringPropToUrl('profilePictureUrl'),
-    assocUndefinedIfPropNotPresent('totalSupply'),
-    assocUndefinedIfPropNotPresent('twitterUsername'),
     modifyStringPropToUrl('websiteUrl')
   ),
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   toFirestore: pipe(
-    removeUndefinedProps,
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     modifyUrlPropToString('bannerUrl'),

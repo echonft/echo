@@ -3,7 +3,7 @@ import { intersects, isNilOrEmpty, single } from '@echo/utils'
 import { Query } from 'firebase-admin/lib/firestore'
 import { head, isNil } from 'ramda'
 
-export function addListingQueryFilters(query: Query<Listing>, filters?: ListingQueryFilters) {
+export function addListingQueryFilters(query: Query<Partial<Listing>>, filters?: ListingQueryFilters) {
   if (isNil(filters)) {
     return query
   }

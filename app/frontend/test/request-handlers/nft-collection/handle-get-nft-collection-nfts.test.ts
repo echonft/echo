@@ -23,7 +23,7 @@ describe('request-handlers - nft-collection - handleGetNftCollectionNfts', () =>
   it('returns the collection nfts when it exists', async () => {
     const collection = getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
     const nfts = [getNftMockById('8hHFadIrrooORfTOLkBg')]
-    const nftsResponses = [mapNft(nfts[0]!, collection)]
+    const nftsResponses = [mapNft(nfts[0]!)]
     jest.mocked(getNftCollectionBySlug).mockResolvedValueOnce(collection)
     jest.mocked(getNftCollectionNfts).mockResolvedValueOnce(nfts)
     const req = mockRequest<never>()

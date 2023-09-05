@@ -1,5 +1,6 @@
-import { NftTokenType } from './nft-token-type'
+import { NftCollectionResponse } from './nft-collection-response'
 import { UserResponse } from './user-response'
+import { NftTokenType } from '@echo/firestore-types'
 
 export interface NftResponse {
   id: string
@@ -9,11 +10,10 @@ export interface NftResponse {
   }[]
   balance: number
   blurUrl?: string
-  collectionId: string
-  collectionName: string
+  collection: Partial<NftCollectionResponse>
   name: string
   openSeaUrl?: string
-  owner: UserResponse
+  owner: Partial<UserResponse>
   pictureUrl: string
   thumbnailUrl: string
   tokenId: number

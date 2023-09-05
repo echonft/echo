@@ -4,13 +4,13 @@ import { addConstraintsToQuery } from '../../helpers/query/add-constraints-to-qu
 import { firestore } from '../../services/firestore'
 import { nftCollectionFields } from '../../types/model/nft-collection-document-data'
 import { NftCollection, QueryConstraints } from '@echo/firestore-types'
-import { CollectionReference, Query } from 'firebase-admin/firestore'
+import { Query } from 'firebase-admin/lib/firestore'
 import { invoker, map } from 'ramda'
 
 export async function getAllNftCollections(constraints?: QueryConstraints) {
-  let query: CollectionReference<NftCollection> | Query<NftCollection> = firestore()
+  let query = firestore()
     .collection(CollectionName.NFT_COLLECTIONS)
-    .withConverter(nftCollectionDataConverter)
+    .withConverter(nftCollectionDataConverter) as Query<NftCollection>
 
   query = addConstraintsToQuery(query, constraints, nftCollectionFields)
   const querySnapshot = await query.get()

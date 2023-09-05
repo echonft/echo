@@ -4,11 +4,11 @@ import { addOffsetConstraint } from './add-offset-constraint'
 import { addOrderByConstraint } from './add-order-by-constraint'
 import { addSelectConstraint } from './add-select-constraint'
 import { QueryConstraints } from '@echo/firestore-types'
-import { CollectionReference, Query } from 'firebase-admin/firestore'
+import { Query } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
 export function addConstraintsToQuery<T>(
-  query: CollectionReference<T> | Query<T>,
+  query: Query<T>,
   constraints: QueryConstraints | undefined,
   availableFields?: string[]
 ) {

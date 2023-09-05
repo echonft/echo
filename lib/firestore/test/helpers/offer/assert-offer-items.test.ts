@@ -1,10 +1,10 @@
-import { assertOfferItems } from '../../../src/helpers/offer/assert-offer-items'
+import { assertOfferItems } from '../../../src/helpers/offer/assert/assert-offer-items'
 import { getOfferMockById } from '../../mocks/get-offer-mock-by-id'
 import { OfferItem } from '@echo/firestore-types'
 import { describe, expect, it } from '@jest/globals'
 import { assocPath, pipe } from 'ramda'
 
-describe('helpers - offer - assertOfferItems', () => {
+describe('helpers - offer - assert - assertOfferItems', () => {
   it('throws if not all the items are from the same collection', () => {
     const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
     const item = offer.senderItems[0]

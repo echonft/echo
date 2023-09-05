@@ -1,7 +1,7 @@
 import { CollectionName } from '../../constants/collection-name'
 import { DEFAULT_EXPIRATION_TIME } from '../../constants/default-expiration-time'
 import { offerDataConverter } from '../../converters/offer-data-converter'
-import { assertOfferItems } from '../../helpers/offer/assert-offer-items'
+import { assertOfferItems } from '../../helpers/offer/assert/assert-offer-items'
 import { firestore } from '../../services/firestore'
 import { addOfferToListing } from '../listing/add-offer-to-listing'
 import { getListingsForOffer } from '../listing/get-listings-for-offer'
@@ -11,9 +11,9 @@ import dayjs from 'dayjs'
 import { assoc, isEmpty, map, pipe, prop } from 'ramda'
 
 interface NewOffer {
-  receiver: UserDetails
+  receiver: Partial<UserDetails>
   receiverItems: NonEmptyArray<OfferItem>
-  sender: UserDetails
+  sender: Partial<UserDetails>
   senderItems: NonEmptyArray<OfferItem>
 }
 

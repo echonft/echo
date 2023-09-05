@@ -7,7 +7,6 @@ import { addExpiresAtToSelectConstraint } from '../../helpers/query/add-expires-
 import { firestore } from '../../services/firestore'
 import { listingFields } from '../../types/model/listing-document-data'
 import { Listing, ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
-import { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 import { head, invoker, isNil, map } from 'ramda'
 
 export async function getListingsForCreator(
@@ -29,7 +28,7 @@ export async function getListingsForCreator(
     return []
   }
 
-  const documentSnapshot = head<QueryDocumentSnapshot<Listing>>(querySnapshot.docs)
+  const documentSnapshot = head(querySnapshot.docs)
   if (isNil(documentSnapshot)) {
     return []
   }

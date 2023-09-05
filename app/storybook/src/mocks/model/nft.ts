@@ -1,3 +1,4 @@
+import { getCollectionById } from './nft-collection'
 import { Nft } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
 
@@ -16,8 +17,7 @@ const nfts: { [key: string]: Nft } = {
     ],
     balance: 1,
     blurUrl: new URL('https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/1376'),
-    collectionId: '1aomCtnoesD7WVll6Yi1',
-    collectionName: 'Spiral Frequencies',
+    collection: getCollectionById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #1376',
     owner: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
@@ -78,8 +78,7 @@ const nfts: { [key: string]: Nft } = {
     ],
     balance: 1,
     blurUrl: new URL('https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/2414'),
-    collectionId: '1aomCtnoesD7WVll6Yi1',
-    collectionName: 'Spiral Frequencies',
+    collection: getCollectionById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #2414',
     owner: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
@@ -140,8 +139,7 @@ const nfts: { [key: string]: Nft } = {
     ],
     balance: 1,
     blurUrl: new URL('https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/3035'),
-    collectionId: '1aomCtnoesD7WVll6Yi1',
-    collectionName: 'Spiral Frequencies',
+    collection: getCollectionById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #3035',
     owner: {
       id: '6rECUMhevHfxABZ1VNOm',
@@ -218,8 +216,7 @@ const nfts: { [key: string]: Nft } = {
     ],
     balance: 1,
     blurUrl: undefined,
-    collectionId: 'Rc8pLQXxgyQGIRL0fr13',
-    collectionName: 'pxMythics Genesis',
+    collection: getCollectionById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Creative Demigod #024',
     owner: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
@@ -284,8 +281,7 @@ const nfts: { [key: string]: Nft } = {
     ],
     balance: 1,
     blurUrl: undefined,
-    collectionId: 'Rc8pLQXxgyQGIRL0fr13',
-    collectionName: 'pxMythics Genesis',
+    collection: getCollectionById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Water Elemental #020',
     owner: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
@@ -354,8 +350,7 @@ const nfts: { [key: string]: Nft } = {
     ],
     balance: 1,
     blurUrl: undefined,
-    collectionId: 'Rc8pLQXxgyQGIRL0fr13',
-    collectionName: 'pxMythics Genesis',
+    collection: getCollectionById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Creative Demigod #009',
     owner: {
       id: '6rECUMhevHfxABZ1VNOm',

@@ -1,3 +1,4 @@
+import { Id } from './id'
 import { NftAttribute } from './nft-attribute'
 import { NftCollection } from './nft-collection'
 import { NftTokenType } from './nft-token-type'
@@ -7,11 +8,11 @@ export interface Nft {
   id: string
   attributes: NftAttribute[]
   balance: number
-  blurUrl: URL | undefined
-  collection: NftCollection
+  blurUrl?: URL
+  collection: Partial<NftCollection> & Id
   name: string
-  openSeaUrl: URL | undefined
-  owner: UserDetails
+  openSeaUrl?: URL
+  owner: Partial<UserDetails> & Id
   pictureUrl: URL
   thumbnailUrl: URL
   tokenId: number

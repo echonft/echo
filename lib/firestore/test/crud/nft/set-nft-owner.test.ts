@@ -4,11 +4,11 @@ import { updateNft } from '../../../src/crud/nft/update-nft'
 import { userMock } from '../../mocks/user-mock'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
-import { UserDetails } from '@echo/firestore-types'
+import { Id, UserDetails } from '@echo/firestore-types'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - nft - setNftOwner', () => {
-  let initialOwner: UserDetails
+  let initialOwner: Partial<UserDetails> & Id
   const id = '8hHFadIrrooORfTOLkBg'
 
   beforeAll(tearUpRemoteFirestoreTests)

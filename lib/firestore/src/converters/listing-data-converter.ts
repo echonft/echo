@@ -11,14 +11,12 @@ import { listingTargetDocumentDataConverter } from './listing-target-document-da
 import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
 import { Listing } from '@echo/firestore-types'
-import { modifyDatePropToNumber, modifyNumberPropToDate, removeUndefinedProps } from '@echo/utils'
+import { modifyDatePropToNumber, modifyNumberPropToDate } from '@echo/utils'
 import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { assoc, dissoc, has, lens, map, over, path, pipe, prop, when } from 'ramda'
 
-export const listingDataConverter: FirestoreDataConverter<Listing> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<ListingDocumentData>): Listing {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+export const listingDataConverter: FirestoreDataConverter<Partial<Listing>> = {
+  fromFirestore(snapshot: QueryDocumentSnapshot<ListingDocumentData>) {
     return pipe(
       getSnapshotData<ListingDocumentData>,
       modifyNumberPropToDate('createdAt'),
@@ -33,7 +31,6 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
   },
   toFirestore(modelObject: FirestoreModel<Listing>, _options?: SetOptions): ListingDocumentData {
     return pipe(
-      removeUndefinedProps,
       dissoc('expired'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
@@ -42,6 +39,8 @@ export const listingDataConverter: FirestoreDataConverter<Listing> = {
       // @ts-ignore
       when(has('creator'), over(lens(prop('creator'), assoc('creatorId')), prop('id'))),
       modifyModelProp('creator', userDetailsDocumentDataConverter),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       modifyDatePropToNumber('expiresAt'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

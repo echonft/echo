@@ -5,7 +5,7 @@ import { AuthUser, mapOffer } from '@echo/ui-model'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  offerResponse: OfferResponse
+  offerResponse: Partial<OfferResponse>
   user: AuthUser
 }
 

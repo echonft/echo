@@ -9,6 +9,8 @@ describe('helpers - converters - from-firestore - modifyExpiresAtProp', () => {
       b: 2,
       expiresAt: 'not-a-valid-date'
     }
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     expect(() => modifyExpiresAtProp(obj)).toThrow()
   })
 

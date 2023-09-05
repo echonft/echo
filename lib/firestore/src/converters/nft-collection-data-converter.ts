@@ -6,8 +6,8 @@ import { NftCollection } from '@echo/firestore-types'
 import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export const nftCollectionDataConverter: FirestoreDataConverter<NftCollection> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<NftCollectionDocumentData>): NftCollection {
+export const nftCollectionDataConverter: FirestoreDataConverter<Partial<NftCollection>> = {
+  fromFirestore(snapshot: QueryDocumentSnapshot<NftCollectionDocumentData>) {
     return pipe(getSnapshotData<NftCollectionDocumentData>, nftCollectionDocumentDataConverter.fromFirestore)(snapshot)
   },
   toFirestore(modelObject: FirestoreModel<NftCollection>, _options?: SetOptions): NftCollectionDocumentData {

@@ -10,7 +10,6 @@ export interface Offer {
   createdAt: Dayjs
   expired: boolean
   expiresAt: Dayjs
-  postedAt: Dayjs | undefined
   receiver: User & { wallet: Wallet }
   receiverItems: NonEmptyArray<OfferItem>
   sender: User & { wallet: Wallet }

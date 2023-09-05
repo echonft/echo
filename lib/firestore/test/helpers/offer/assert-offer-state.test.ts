@@ -1,8 +1,8 @@
-import { assertOfferState } from '../../../src/helpers/offer/assert-offer-state'
+import { assertOfferState } from '../../../src/helpers/offer/assert/assert-offer-state'
 import { Offer } from '@echo/firestore-types'
 import { describe, expect, it } from '@jest/globals'
 
-describe('helpers - offer - assertOfferStateState - to state ACCEPTED', () => {
+describe('helpers - offer - assert - assertOfferStateState', () => {
   it('throw if the offer is cancelled', () => {
     const offer = {
       state: 'CANCELLED'

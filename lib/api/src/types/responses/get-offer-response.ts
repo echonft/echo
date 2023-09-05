@@ -1,5 +1,5 @@
 import { OfferResponse } from './model/offer-response'
 
 export interface GetOfferResponse {
-  offer: OfferResponse
+  offer: Partial<OfferResponse>
 }

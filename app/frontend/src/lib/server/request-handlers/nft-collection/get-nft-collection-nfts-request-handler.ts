@@ -4,11 +4,11 @@ import { getNftCollectionBySlug } from '../../helpers/nft-collection/get-nft-col
 import { mapNft } from '../../mappers/to-response/map-nft'
 import { ApiRequest, GetNftCollectionNftsResponse } from '@echo/api'
 import { NextResponse } from 'next/server'
-import { map, partialRight } from 'ramda'
+import { map } from 'ramda'
 
 export async function getNftCollectionNftsRequestHandler(_req: ApiRequest<never>, slug: string) {
   const nftCollection = await getNftCollectionBySlug(slug)
   assertNftCollection(nftCollection)
   const nfts = await getNftCollectionNfts(nftCollection)
-  return NextResponse.json<GetNftCollectionNftsResponse>({ nfts: map(partialRight(mapNft, [nftCollection]), nfts) })
+  return NextResponse.json<GetNftCollectionNftsResponse>({ nfts: map(mapNft, nfts) })
 }

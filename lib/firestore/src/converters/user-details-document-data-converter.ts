@@ -4,18 +4,12 @@ import { FirestoreDocumentDataConverter } from '../types/converters/firestore-do
 import { UserDetailsDocumentData } from '../types/model/user-details-document-data'
 import { walletDocumentDataConverter } from './wallet-document-data-converter'
 import { UserDetails } from '@echo/firestore-types'
-import { assocUndefinedIfPropNotPresent, removeUndefinedProps } from '@echo/utils'
-import { pipe } from 'ramda'
 
 export const userDetailsDocumentDataConverter: FirestoreDocumentDataConverter<UserDetailsDocumentData, UserDetails> = {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  fromFirestore: pipe(
-    assocUndefinedIfPropNotPresent('discordAvatar'),
-    assocUndefinedIfPropNotPresent('discordBanner'),
-    modifyDocumentDataProp('wallet', walletDocumentDataConverter)
-  ),
+  fromFirestore: modifyDocumentDataProp('wallet', walletDocumentDataConverter),
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  toFirestore: pipe(removeUndefinedProps, modifyModelProp('wallet', walletDocumentDataConverter))
+  toFirestore: modifyModelProp('wallet', walletDocumentDataConverter)
 }

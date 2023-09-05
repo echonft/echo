@@ -1,6 +1,6 @@
+import { getNftBlurUrl } from '../nft/get-nft-blur-url'
+import { getOpenSeaUrl } from '../nft/get-open-sea-url'
 import { getNftCollectionByContract } from '../nft-collection/get-nft-collection-by-contract'
-import { getNftBlurUrl } from './get-nft-blur-url'
-import { getOpenSeaUrl } from './get-open-sea-url'
 import { AlchemyNft } from '@echo/alchemy'
 import { mapUserToUserDetails } from '@echo/firestore'
 import { Nft, NftCollection, User, Wallet } from '@echo/firestore-types'
@@ -19,11 +19,13 @@ export const mapAlchemyNftToFirestore = (
     throw Error(`collection address: ${contractAddress} chainId: ${chainId} not found`)
   }
   const partialNft = pipe(
-    omit(['contractAddress', 'chainId']),
-    modifyStringPropToUrl('pictureUrl'),
-    modifyStringPropToUrl('thumbnailUrl')
+    modifyStringPropToUrl<'pictureUrl', AlchemyNft>('pictureUrl'),
+    modifyStringPropToUrl<'thumbnailUrl', AlchemyNft>('thumbnailUrl'),
+    omit(['contractAddress', 'chainId'])
   )(alchemyNft)
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return {
     ...partialNft,
     blurUrl: getNftBlurUrl(contractAddress, tokenId),

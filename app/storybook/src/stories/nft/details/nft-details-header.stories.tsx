@@ -15,10 +15,10 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-const { collectionName, tokenId, owner, openSeaUrl, blurUrl } = getNftById('5SeF1NSN5uPUxtWSr516')
+const { collection, tokenId, owner, openSeaUrl, blurUrl } = getNftById('5SeF1NSN5uPUxtWSr516')
 export const Default: Story = {
   args: {
-    collectionName,
+    collectionName: collection.name,
     tokenId,
     owner,
     openSeaUrl,

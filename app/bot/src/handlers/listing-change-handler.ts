@@ -2,11 +2,11 @@ import { buildNewListingButtons } from '../builders/listing-button-builder'
 import { buildListingEmbed } from '../builders/listing-embed-builder'
 import { getDiscordChannel } from '../helpers/get-discord-channel'
 import { getListingItemsGuild, getListingTargetsGuilds } from '@echo/firestore'
-import { DocumentChangeType, Listing, NftCollectionDiscordGuild } from '@echo/firestore-types'
+import { DocumentChangeType, ListingComplete, NftCollectionDiscordGuild } from '@echo/firestore-types'
 import { errorMessage, logger } from '@echo/utils'
 import { Client } from 'discord.js'
 
-async function postListingToGuild(client: Client, listing: Listing, discordGuild: NftCollectionDiscordGuild) {
+async function postListingToGuild(client: Client, listing: ListingComplete, discordGuild: NftCollectionDiscordGuild) {
   const channel = await getDiscordChannel(client, discordGuild.channelId)
   await channel.send({
     components: [buildNewListingButtons(listing.id, discordGuild.discordId)],
@@ -20,7 +20,7 @@ async function postListingToGuild(client: Client, listing: Listing, discordGuild
  * @param changeType
  * @param listing
  */
-export async function listingChangeHandler(client: Client, changeType: DocumentChangeType, listing: Listing) {
+export async function listingChangeHandler(client: Client, changeType: DocumentChangeType, listing: ListingComplete) {
   if (changeType === 'added') {
     try {
       const listingItemsGuild = getListingItemsGuild(listing)
