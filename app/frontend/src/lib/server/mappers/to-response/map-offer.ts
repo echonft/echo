@@ -5,7 +5,7 @@ import { Offer } from '@echo/firestore-types'
 import { modifyDatePropToNumber, removeUndefinedProps } from '@echo/utils'
 import { dissoc, map, modify, pipe } from 'ramda'
 
-export function mapOffer(offer: Offer): OfferResponse {
+export function mapOffer(offer: Partial<Offer>): OfferResponse {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return pipe(

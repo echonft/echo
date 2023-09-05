@@ -5,7 +5,7 @@ import { NonEmptyArray } from '@echo/utils'
 
 export interface OfferResponse {
   id: string
-  discordGuild: OfferDiscordGuild | undefined
+  discordGuild?: OfferDiscordGuild
   expired: boolean
   expiresAt: number
   listingsIds: string[]
@@ -14,5 +14,5 @@ export interface OfferResponse {
   sender: UserResponse
   senderItems: NonEmptyArray<OfferItemResponse>
   state: OfferState
-  swapTransactionId: string | undefined
+  swapTransactionId?: string
 }
