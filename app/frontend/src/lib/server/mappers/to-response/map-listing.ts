@@ -6,7 +6,7 @@ import { Listing } from '@echo/firestore-types'
 import { modifyDatePropToNumber, removeUndefinedProps } from '@echo/utils'
 import { dissoc, map, modify, pipe } from 'ramda'
 
-export function mapListing(listing: Listing): ListingResponse {
+export function mapListing(listing: Partial<Listing>): ListingResponse {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return pipe(

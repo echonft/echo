@@ -1,23 +1,39 @@
 import { CollectionName } from '../../constants/collection-name'
 import { offerDataConverter } from '../../converters/offer-data-converter'
+import { filterExpiredResults } from '../../helpers/crud/filter-expired-results'
+import { addOfferQueryFilters } from '../../helpers/crud/offer/add-offer-query-filters'
+import { addConstraintsToQuery } from '../../helpers/query/add-constraints-to-query'
+import { addExpiresAtToSelectConstraint } from '../../helpers/query/add-expires-at-to-select-constraint'
 import { firestore } from '../../services/firestore'
-import { Offer, OfferState } from '@echo/firestore-types'
-import { invoker, isNil, map } from 'ramda'
+import { listingFields } from '../../types/model/listing-document-data'
+import { ListingQueryFilters, Offer, QueryConstraints } from '@echo/firestore-types'
+import { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
+import { head, invoker, isNil, map } from 'ramda'
 
-export const getOffersForReceiver = async (receiverId: string, state?: OfferState) => {
+export const getOffersForReceiver = async (
+  receiverId: string,
+  filters?: ListingQueryFilters,
+  constraints?: QueryConstraints
+): Promise<Partial<Offer>[]> => {
   let query = firestore()
     .collection(CollectionName.OFFERS)
     .where('receiverId', '==', receiverId)
     .withConverter(offerDataConverter)
 
-  if (!isNil(state)) {
-    query = query.where('state', '==', state)
-  }
-
+  query = addOfferQueryFilters(query, filters)
+  // we need expiresAt for the filter, so we add it if it's not in the select constraint - it'll get removed later
+  const validConstraints = addExpiresAtToSelectConstraint(constraints)
+  query = addConstraintsToQuery(query, validConstraints, listingFields)
   const querySnapshot = await query.get()
   if (querySnapshot.empty) {
-    return [] as Offer[]
+    return []
   }
 
-  return map(invoker(0, 'data'))(querySnapshot.docs) as Offer[]
+  const documentSnapshot = head<QueryDocumentSnapshot<Offer>>(querySnapshot.docs)
+  if (isNil(documentSnapshot)) {
+    return []
+  }
+
+  const results = map(invoker(0, 'data'), querySnapshot.docs)
+  return filterExpiredResults(results, constraints, filters)
 }

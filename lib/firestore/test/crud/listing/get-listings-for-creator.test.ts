@@ -1,4 +1,4 @@
-import { findListingById } from '../../../src'
+import { findListingById } from '../../../src/crud/listing/find-listing-by-id'
 import { getListingsForCreator } from '../../../src/crud/listing/get-listings-for-creator'
 import { updateListing } from '../../../src/crud/listing/update-listing'
 import { getListingMockById } from '../../mocks/get-listing-mock-by-id'
