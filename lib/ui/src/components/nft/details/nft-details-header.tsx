@@ -30,7 +30,7 @@ export const NftDetailsHeader: FunctionComponent<Props> = ({
         } #${tokenId.toString()}`}</span>
         <NftDetailsLinks openSeaUrl={openSeaUrl} blurUrl={blurUrl} />
       </div>
-      <InternalLink link={links.userLink(owner.id)}>
+      <InternalLink path={links.userLink(owner.id)}>
         <div
           className={clsx(
             'flex',

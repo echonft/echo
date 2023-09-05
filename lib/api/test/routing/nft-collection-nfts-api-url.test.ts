@@ -7,6 +7,6 @@ describe('routing - nftCollectionNftsApiUrl', () => {
   })
 
   test('returns proper URL', () => {
-    expect(nftCollectionNftsApiUrl('test')).toStrictEqual(new URL('https://test.com/collection/test/nfts'))
+    expect(nftCollectionNftsApiUrl('test')).toStrictEqual(new URL('https://test.com/collection/test/items'))
   })
 })

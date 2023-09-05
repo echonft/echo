@@ -1,29 +1,58 @@
 'use client'
+import { links } from '../../helpers/links'
+import { NavigationPills } from '../base/navigation/navigation-pills'
 import { PaddedContainer } from '../layout/padded-container'
 import { CollectionNftsContainer } from './collection-nfts-container'
 import { CollectionOfferButton } from './collection-offer-button'
 import { TraitFilterPanel } from './filters/trait-filter-panel'
-import { Nft, NftTraits } from '@echo/ui-model'
+import { filterNftsByTraits, NavigationItem, Nft, NftTraits } from '@echo/ui-model'
 import { addToArrayIfNotPresent, removeFromArray } from '@echo/utils'
 import { clsx } from 'clsx'
+import { useTranslations } from 'next-intl'
 import { assoc, dissoc, equals, find, isEmpty, isNil, propEq, reduce } from 'ramda'
 import { FunctionComponent, useEffect, useState } from 'react'
 
+export const NAVIGATION_ITEM_IDS = ['items', 'listings', 'swaps']
+
 interface Props {
+  collectionSlug: string
   nfts: Nft[]
   traits: NftTraits
-  isFetchingNfts?: boolean
-  onTraitSelectionUpdate?: (selection: NftTraits) => unknown
+  selectedNavigationItemId: (typeof NAVIGATION_ITEM_IDS)[number]
   onMakeOfferForNft?: (id: string) => unknown
 }
 
 export const CollectionNftsAndFiltersContainer: FunctionComponent<Props> = ({
+  collectionSlug,
+  selectedNavigationItemId,
   nfts,
   traits,
-  isFetchingNfts,
-  onTraitSelectionUpdate,
   onMakeOfferForNft
 }) => {
+  const t = useTranslations('collection.navigation')
+  const navigationItems: NavigationItem[] = [
+    {
+      id: NAVIGATION_ITEM_IDS[0]!,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      name: t(NAVIGATION_ITEM_IDS[0]!),
+      path: links.collection.collectionItemsLink(collectionSlug)
+    },
+    {
+      id: NAVIGATION_ITEM_IDS[1]!,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      name: t(NAVIGATION_ITEM_IDS[1]!),
+      path: links.collection.collectionListingsLink(collectionSlug)
+    },
+    {
+      id: NAVIGATION_ITEM_IDS[2]!,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      name: t(NAVIGATION_ITEM_IDS[2]!),
+      path: links.collection.collectionSwapsLink(collectionSlug)
+    }
+  ]
   const [nftSelection, setNftSelection] = useState<string[]>([])
   const [traitSelection, setTraitSelection] = useState<NftTraits>({})
 
@@ -49,6 +78,9 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<Props> = ({
 
   return (
     <PaddedContainer>
+      <div className={'py-12'}>
+        <NavigationPills items={navigationItems} selectedItemId={selectedNavigationItemId} />
+      </div>
       <div className={clsx('flex', 'flex-row', 'self-stretch', 'grow', 'gap-8')}>
         <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4')}>
           <CollectionOfferButton count={nftSelection.length} />
@@ -61,12 +93,11 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<Props> = ({
                 ? dissoc(type, traitSelection)
                 : assoc(type, selection, traitSelection)
               setTraitSelection(newSelection)
-              onTraitSelectionUpdate?.(newSelection)
             }}
           />
         </div>
         <CollectionNftsContainer
-          nfts={nfts}
+          nfts={filterNftsByTraits(nfts, traitSelection)}
           selection={nftSelection}
           onToggleSelection={(id, selected) => {
             if (selected) {
@@ -76,7 +107,6 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<Props> = ({
             }
           }}
           onMakeOfferForNft={onMakeOfferForNft}
-          isLoading={isFetchingNfts}
         />
       </div>
     </PaddedContainer>

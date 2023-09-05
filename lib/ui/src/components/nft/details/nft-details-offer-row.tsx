@@ -17,7 +17,7 @@ export const NftDetailsOfferRow: FunctionComponent<NftDetailsOfferRowProps> = ({
   })
   const format = useFormatter()
   return (
-    <InternalLink link={links.offerLink(id)}>
+    <InternalLink path={links.offerLink(id)}>
       <div
         className={clsx(
           'flex',

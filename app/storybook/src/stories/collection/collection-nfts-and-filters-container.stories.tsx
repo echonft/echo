@@ -7,10 +7,6 @@ const metadata: Meta<typeof Component> = {
   title: 'Collection/NFTs and Filters Container',
   component: Component,
   argTypes: {
-    onTraitSelectionUpdate: {
-      control: false,
-      action: 'traits selection changed'
-    },
     onMakeOfferForNft: {
       control: false,
       action: 'make offer for an NFT clicked'
@@ -18,7 +14,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: 'isFetchingNfts'
+      exclude: ['collectionSlug', 'nfts', 'traits', 'selectedNavigationItemId', 'onMakeOfferForNft']
     }
   }
 }
@@ -30,13 +26,14 @@ const nfts = getAllNfts()
 const traits = getTraitsForNfts(nfts)
 
 export const Default: Story = {
-  render: () => <Component nfts={nfts} traits={traits} />
-}
-
-export const FetchingNewNFTS: Story = {
-  render: () => <Component nfts={nfts} traits={traits} isFetchingNfts={true} />
+  args: {
+    nfts,
+    traits,
+    collectionSlug: '#',
+    selectedNavigationItemId: 'items'
+  }
 }
 
 export const Skeleton: Story = {
-  render: () => <CollectionNftsSkeleton />
+  render: () => <CollectionNftsSkeleton selectedNavigationItemId={'items'} />
 }

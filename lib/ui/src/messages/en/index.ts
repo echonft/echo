@@ -15,6 +15,11 @@ export const messages = {
         },
         title: 'Attributes'
       }
+    },
+    navigation: {
+      items: 'Items',
+      listings: 'Listings',
+      swaps: 'Swaps'
     }
   },
   layout: {

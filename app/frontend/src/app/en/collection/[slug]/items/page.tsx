@@ -27,7 +27,7 @@ const CollectionNftsPage: FunctionComponent<Props> = async ({ params: { slug } }
     throw Error()
   }
 
-  return <CollectionNftsApiProvided nftResponses={data.nfts} />
+  return <CollectionNftsApiProvided collectionSlug={slug} nftResponses={data.nfts} selectedNavigationItemId={'items'} />
 }
 
 export default CollectionNftsPage

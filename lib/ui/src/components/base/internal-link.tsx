@@ -1,18 +1,26 @@
 import { isMockEnvironment } from '../../helpers/is-mock-environment'
-import { Url } from 'next/dist/shared/lib/router/router'
+import { clsx } from 'clsx'
 import Link from 'next/link'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
 export interface InternalLinkProps {
-  link: Url
+  path: string
+  disabled?: boolean
+  className?: string
 }
 
-export const InternalLink: FunctionComponent<PropsWithChildren<InternalLinkProps>> = ({ link, children }) => {
+export const InternalLink: FunctionComponent<PropsWithChildren<InternalLinkProps>> = ({
+  path,
+  disabled,
+  className,
+  children
+}) => {
   return (
     <Link
-      href={link}
+      className={clsx(disabled && 'cursor-default', className)}
+      href={path}
       onClick={
-        isMockEnvironment()
+        isMockEnvironment() || disabled
           ? (event) => {
               event.preventDefault()
             }

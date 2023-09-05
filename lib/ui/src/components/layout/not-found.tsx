@@ -46,7 +46,7 @@ export const NotFound: FunctionComponent = () => {
             br: () => <br />
           })}
         </p>
-        <InternalLink link={'/'}>
+        <InternalLink path={'/'}>
           <button className={clsx('btn-primary-reverse', 'group', 'w-max', 'rounded-lg', 'px-5', 'py-2.5')}>
             <span
               className={clsx(
