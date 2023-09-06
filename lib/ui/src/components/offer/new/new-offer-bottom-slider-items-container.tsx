@@ -1,8 +1,8 @@
 import { OfferItemThumbnail } from '../../offer-item/offer-item-thumbnail'
+import { SwapDirectionHeader } from '../../shared/swap-direction-header'
 import { NewOfferAddMoreButton } from './new-offer-add-more-button'
 import { NewOfferEmptyItems } from './new-offer-empty-items'
-import { NewOfferItemTitle } from './new-offer-item-title'
-import { OfferItem, SizeMD } from '@echo/ui-model'
+import { DirectionIn, DirectionOut, OfferItem, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isEmpty } from 'ramda'
@@ -24,7 +24,10 @@ export const NewOfferBottomSliderItemsContainer: FunctionComponent<Props> = ({
   const t = useTranslations('offer.misc')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-11')}>
-      <NewOfferItemTitle isReceiving={isReceiver} title={t(isReceiver ? 'assetsInTitle' : 'assetsOutTitle')} />
+      <SwapDirectionHeader
+        direction={isReceiver ? DirectionIn : DirectionOut}
+        title={t(isReceiver ? 'assetsInTitle' : 'assetsOutTitle')}
+      />
       <div className={clsx('flex', 'flex-row', 'gap-4')}>
         {isEmpty(items) ? (
           <NewOfferEmptyItems onAddMore={onAddMore} />
@@ -40,7 +43,7 @@ export const NewOfferBottomSliderItemsContainer: FunctionComponent<Props> = ({
                 }}
               />
             ))}
-            <NewOfferAddMoreButton onClick={onAddMore} />)
+            <NewOfferAddMoreButton onClick={onAddMore} />
           </>
         )}
       </div>

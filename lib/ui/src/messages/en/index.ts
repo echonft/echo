@@ -20,6 +20,9 @@ export const messages = {
       items: 'Items',
       listings: 'Listings',
       swaps: 'Swaps'
+    },
+    thumbnail: {
+      title: 'Any {collectionName}'
     }
   },
   layout: {
@@ -61,6 +64,18 @@ export const messages = {
     title: 'Sorry, there’s<br></br>nothing here',
     button: {
       label: 'Go home'
+    }
+  },
+  listing: {
+    details: {
+      expiresAt: 'Expires in',
+      expiredAt: 'Expired',
+      assets: {
+        title: {
+          in: 'Interested in',
+          out: 'Offering'
+        }
+      }
     }
   },
   offer: {

@@ -7,14 +7,12 @@ export const nftThumbnailSizes = [SizeMD, SizeLG] as const
 export type NftThumbnailSize = (typeof nftThumbnailSizes)[number]
 
 export interface NftThumbnailPictureProps {
-  tokenId: number
   pictureUrl: URL
   size?: NftThumbnailSize
   alt: string | undefined
 }
 
 export const NftThumbnailPicture: FunctionComponent<NftThumbnailPictureProps> = ({
-  tokenId,
   pictureUrl,
   size = SizeLG,
   alt
@@ -23,7 +21,7 @@ export const NftThumbnailPicture: FunctionComponent<NftThumbnailPictureProps> = 
     <img
       className={clsx(size === SizeLG && ['w-52', 'h-52'], size === SizeMD && ['w-32', 'h-32'], 'select-none')}
       src={pictureUrl.href}
-      alt={alt ?? tokenId.toString()}
+      alt={alt}
       width={getNftThumbnailSize(size)}
       height={getNftThumbnailSize(size)}
     />

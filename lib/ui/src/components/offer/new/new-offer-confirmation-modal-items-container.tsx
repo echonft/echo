@@ -1,7 +1,7 @@
 import { ModalSubtitle } from '../../base/modal/modal-subtitle'
 import { OfferItemThumbnail } from '../../offer-item/offer-item-thumbnail'
-import { NewOfferItemTitle } from './new-offer-item-title'
-import { OfferItem, SizeMD } from '@echo/ui-model'
+import { SwapDirectionHeader } from '../../shared/swap-direction-header'
+import { DirectionIn, DirectionOut, OfferItem, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
@@ -19,7 +19,10 @@ export const NewOfferConfirmationModalItemsContainer: FunctionComponent<Props> =
         <ModalSubtitle>
           {t(isReceiver ? 'assetsInSubtitle' : 'assetsOutSubtitle', { count: items.length })}
         </ModalSubtitle>
-        <NewOfferItemTitle isReceiving={isReceiver} title={t(isReceiver ? 'assetsInTitle' : 'assetsOutTitle')} />
+        <SwapDirectionHeader
+          direction={isReceiver ? DirectionIn : DirectionOut}
+          title={t(isReceiver ? 'assetsInTitle' : 'assetsOutTitle')}
+        />
       </div>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'justify-center')}>
         {items.map((item) => (

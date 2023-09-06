@@ -26,7 +26,7 @@ export const NftThumbnailSelector: FunctionComponent<NftThumbnailSelectorProps> 
         'bg-transparent'
       )}
       onClick={(event) => {
-        event.stopPropagation()
+        event.preventDefault()
         onToggleSelection?.(!selected)
       }}
     >

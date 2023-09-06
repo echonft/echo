@@ -1,4 +1,3 @@
-import { links } from '../../helpers/links'
 import { HideIfNil } from '../base/hide-if-nil'
 import { ShowIf } from '../base/show-if'
 import { Spinner } from '../base/spinner'
@@ -48,10 +47,7 @@ export const CollectionNftsContainer: FunctionComponent<Props> = ({
             <NftThumbnailSelectable
               key={nft.id}
               nft={nft}
-              link={{
-                path: links.nft.nftLink(nft.collection.slug, nft.tokenId),
-                disabled: !isEmpty(selection)
-              }}
+              linkDisabled={!isEmpty(selection)}
               selected={!isNil(selection) && selection.includes(nft.id)}
               onToggleSelection={onToggleSelection}
               onMakeOffer={onMakeOfferForNft}

@@ -1,5 +1,5 @@
 'use client'
-import { OfferReceiverDetailsContainer } from '../offer-receiver-details-container'
+import { UserDetailsContainer } from '../../shared/user-details-container'
 import { OfferDetailsActionModal } from './offer-details-action-modal'
 import { OfferDetailsAssetsSeparator } from './offer-details-assets-separator'
 import { OfferDetailsButtonsContainer } from './offer-details-buttons-container'
@@ -24,7 +24,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
   // onOfferUpdated,
   renderModal = true
 }) => {
-  const { state, sender, receiver, expiresAt, senderItems, receiverItems } = offer
+  const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = offer
   const [shouldUpdate, setShouldUpdate] = useState<boolean>(false)
   const [, setIsDeclining] = useState<boolean>(false)
 
@@ -47,11 +47,11 @@ export const OfferDetails: FunctionComponent<Props> = ({
         )}
       >
         <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
-          <OfferReceiverDetailsContainer
-            receiver={isReceiving ? sender : receiver}
-            receiverWalletAddress={isReceiving ? sender.wallet.address : receiver.wallet.address}
+          <UserDetailsContainer
+            user={isReceiving ? sender : receiver}
+            userWalletAddress={isReceiving ? sender.wallet.address : receiver.wallet.address}
           />
-          <OfferDetailsState state={state} expiresAt={expiresAt} />
+          <OfferDetailsState state={state} expired={expired} expiresAt={expiresAt} />
         </div>
         <div className={clsx('flex', 'flex-col', 'gap-5')}>
           <OfferDetailsItemsContainer items={isReceiving ? senderItems : receiverItems} isReceiving />
