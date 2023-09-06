@@ -1,7 +1,7 @@
+import { getAllNftCollections } from '../../helpers/nft-collection/get-all-nft-collections'
 import { parseConstraintsQuery } from '../../helpers/request/parse-constraints-query'
 import { mapNftCollection } from '../../mappers/to-response/map-nft-collection'
 import { ApiRequest, GetNftCollectionsResponse } from '@echo/api'
-import { getAllNftCollections } from '@echo/firestore'
 import { NextResponse } from 'next/server'
 import { map } from 'ramda'
 

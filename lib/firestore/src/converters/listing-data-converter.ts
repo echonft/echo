@@ -13,7 +13,7 @@ import { userDetailsDocumentDataConverter } from './user-details-document-data-c
 import { Listing } from '@echo/firestore-types'
 import { modifyDatePropToNumber, modifyNumberPropToDate } from '@echo/utils'
 import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
-import { assoc, dissoc, has, lens, map, over, path, pipe, prop, when } from 'ramda'
+import { assoc, dissoc, has, lens, map, over, path, pipe, prop, uniq, when } from 'ramda'
 
 export const listingDataConverter: FirestoreDataConverter<Partial<Listing>> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<ListingDocumentData>) {
@@ -25,6 +25,7 @@ export const listingDataConverter: FirestoreDataConverter<Partial<Listing>> = {
       modifyExpiresAtProp,
       modifyDocumentDataArrayProp('items', offerItemDocumentDataConverter),
       dissoc('itemsNftIds'),
+      dissoc('itemsNftCollectionIds'),
       modifyDocumentDataArrayProp('targets', listingTargetDocumentDataConverter),
       dissoc('targetsIds')
     )(snapshot)
@@ -44,11 +45,22 @@ export const listingDataConverter: FirestoreDataConverter<Partial<Listing>> = {
       modifyDatePropToNumber('expiresAt'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      when(has('items'), over(lens(prop('items'), assoc('itemsNftIds')), map(path(['nft', 'id'])))),
+      when(has('items'), over(lens(prop('items'), assoc('itemsNftIds')), pipe(map(path(['nft', 'id'])), uniq))),
+      when(
+        has('items'),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        over(lens(prop('items'), assoc('itemsNftCollectionIds')), pipe(map(path(['nft', 'collection', 'id'])), uniq))
+      ),
       modifyModelArrayProp('items', listingItemDocumentDataConverter),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      when(has('targets'), over(lens(prop('targets'), assoc('targetsIds')), map(path(['collection', 'id'])))),
+      when(
+        has('targets'),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        over(lens(prop('targets'), assoc('targetsIds')), pipe(map(path(['collection', 'id'])), uniq))
+      ),
       modifyModelArrayProp('targets', listingTargetDocumentDataConverter)
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

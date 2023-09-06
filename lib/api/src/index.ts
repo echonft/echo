@@ -24,6 +24,7 @@ export type { UpdateListingRequest } from './types/requests/update-listing-reque
 export type { UpdateOfferRequest } from './types/requests/update-offer-request'
 export type { EmptyResponse } from './types/responses/empty-response'
 export type { ErrorResponse } from './types/responses/error-response'
+export type { GetListingsResponse } from './types/responses/get-listings-response'
 export type { GetNftCollectionNftsResponse } from './types/responses/get-nft-collection-nfts-response'
 export type { GetNftCollectionResponse } from './types/responses/get-nft-collection-response'
 export type { GetNftCollectionsResponse } from './types/responses/get-nft-collections-response'

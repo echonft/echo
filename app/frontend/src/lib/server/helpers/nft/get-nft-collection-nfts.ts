@@ -1,4 +1,4 @@
-import { BadRequestError } from '../error/bad-request-error'
+import { ServerError } from '../error/server-error'
 import { getNftsForCollection } from '@echo/firestore'
 import { QueryConstraints } from '@echo/firestore-types'
 
@@ -6,6 +6,6 @@ export async function getNftCollectionNfts(collectionSlug: string, constraints?:
   try {
     return await getNftsForCollection(collectionSlug, constraints)
   } catch (e) {
-    throw new BadRequestError()
+    throw new ServerError()
   }
 }
