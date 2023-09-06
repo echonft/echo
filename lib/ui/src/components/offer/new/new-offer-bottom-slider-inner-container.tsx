@@ -1,7 +1,8 @@
 import { newOfferState } from '../../../services/state'
-import { UserDetailsContainer } from '../../shared/user-details-container'
-import { NewOfferBottomSliderItemsContainer } from './new-offer-bottom-slider-items-container'
-import { getOfferItemsWallet, OfferItem, User } from '@echo/ui-model'
+import { NewItemsContainer } from '../../item/new-items-container'
+import { NewItemsEmptyContainer } from '../../item/new-items-empty-container'
+import { OfferReceiverDetailsContainer } from '../offer-receiver-details-container'
+import { OfferItem, User } from '@echo/ui-model'
 import { isNilOrEmpty } from '@echo/utils'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
@@ -33,22 +34,24 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('pt-6', 'pb-1')}>
-        <UserDetailsContainer user={receiver} userWalletAddress={getOfferItemsWallet(receiverItems).address} />
+        <OfferReceiverDetailsContainer receiver={receiver} receiverWalletAddress={receiver.wallet.address} />
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-8')}>
-        <NewOfferBottomSliderItemsContainer
-          isReceiver
+        <NewItemsContainer
+          isReceiving
           items={receiverItems}
           onAddMore={onAddMoreReceiverItem}
           onRemove={onRemoveReceiverItem}
+          renderEmpty={() => <NewItemsEmptyContainer onAddMore={onAddMoreReceiverItem} />}
         />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
       </div>
-      <NewOfferBottomSliderItemsContainer
-        isReceiver={false}
+      <NewItemsContainer
+        isReceiving={false}
         items={senderItems}
         onAddMore={onAddMoreSenderItem}
         onRemove={onRemoveSenderItem}
+        renderEmpty={() => <NewItemsEmptyContainer onAddMore={onAddMoreSenderItem} />}
       />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6')}>
         <Disclosure.Button

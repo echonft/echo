@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const NewOfferConfirmationModalItemsContainer: FunctionComponent<Props> = ({ isReceiver, items = [] }) => {
-  const t = useTranslations('offer.misc')
+  const t = useTranslations('offer.new.confirmationModal')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center')}>
@@ -26,7 +26,7 @@ export const NewOfferConfirmationModalItemsContainer: FunctionComponent<Props> =
       </div>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'justify-center')}>
         {items.map((item) => (
-          <OfferItemThumbnail item={item} key={item.nft.id} size={SizeMD} />
+          <ItemThumbnail item={item} key={item.nft.id} size={SizeMD} />
         ))}
       </div>
     </div>

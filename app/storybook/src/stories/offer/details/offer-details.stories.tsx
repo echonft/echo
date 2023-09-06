@@ -11,7 +11,7 @@ const metadata: Meta<typeof Component> = {
     renderModal: false
   },
   argTypes: {
-    isReceiving: {
+    isReceiver: {
       control: { type: 'radio' }
     },
     // TODO Use exclude if possible
@@ -35,39 +35,39 @@ type Story = StoryObj<typeof Component>
 export const Open: Story = {
   args: {
     offer: offer,
-    isReceiving: false
+    isReceiver: false
   }
 }
 
 export const Rejected: Story = {
   args: {
     offer: { ...offer, state: 'REJECTED' },
-    isReceiving: false
+    isReceiver: false
   }
 }
 export const Cancelled: Story = {
   args: {
     offer: { ...offer, state: 'CANCELLED' },
-    isReceiving: false
+    isReceiver: false
   }
 }
 
 export const Invalid: Story = {
   args: {
     offer: { ...offer, state: 'INVALID' },
-    isReceiving: false
+    isReceiver: false
   }
 }
 
 export const Completed: Story = {
   args: {
     offer: { ...offer, state: 'COMPLETED' },
-    isReceiving: false
+    isReceiver: false
   }
 }
 export const Accepted: Story = {
   args: {
     offer: { ...offer, state: 'ACCEPTED' },
-    isReceiving: false
+    isReceiver: false
   }
 }

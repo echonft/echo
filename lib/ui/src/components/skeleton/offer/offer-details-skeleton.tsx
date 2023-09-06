@@ -13,11 +13,11 @@ export const OfferDetailsSkeleton: FunctionComponent = () => (
       <OfferDetailsStateSkeleton />
     </div>
     <div className={clsx('flex', 'flex-col', 'gap-5')}>
-      <OfferDetailsItemsContainerSkeleton isReceiving />
+      <OfferDetailsItemsContainerSkeleton isReceiver />
       <div className={clsx('pb-4')}>
         <OfferDetailsAssetsSeparator />
       </div>
-      <OfferDetailsItemsContainerSkeleton isReceiving={false} />
+      <OfferDetailsItemsContainerSkeleton isReceiver={false} />
       <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
         <OfferDetailsButtonsContainerSkeleton />
       </div>

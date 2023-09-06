@@ -7,22 +7,25 @@ import { DirectionIn, DirectionOut, OfferItem, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isEmpty } from 'ramda'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, ReactNode } from 'react'
 
 interface Props {
-  isReceiver: boolean
+  isReceiving: boolean
+
   items: OfferItem[]
   onAddMore?: () => unknown
-  onRemove?: (item: OfferItem) => unknown
+  onRemove?: (item: OfferItem | ListingItem) => unknown
+  renderEmpty?: () => ReactNode
 }
 
-export const NewOfferBottomSliderItemsContainer: FunctionComponent<Props> = ({
-  isReceiver,
+export const NewItemsContainer: FunctionComponent<Props> = ({
+  isReceiving,
   items = [],
   onAddMore,
-  onRemove
+  onRemove,
+  renderEmpty
 }) => {
-  const t = useTranslations('offer.misc')
+  const t = useTranslations('items.new')
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-11')}>
@@ -32,11 +35,11 @@ export const NewOfferBottomSliderItemsContainer: FunctionComponent<Props> = ({
       />
       <div className={clsx('flex', 'flex-row', 'gap-4')}>
         {isEmpty(items) ? (
-          <NewOfferEmptyItems onAddMore={onAddMore} />
+          renderEmpty?.()
         ) : (
           <>
             {items.map((item) => (
-              <OfferItemThumbnail
+              <ItemThumbnail
                 item={item}
                 key={item.nft.id}
                 size={SizeMD}

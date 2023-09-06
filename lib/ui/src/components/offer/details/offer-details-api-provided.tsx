@@ -11,5 +11,5 @@ interface Props {
 
 export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offerResponse, user }) => {
   const offer = mapOffer(offerResponse)
-  return <OfferDetails offer={offer} isReceiving={isUserOfferReceiver(user.id, offer.receiver.id)} />
+  return <OfferDetails offer={offer} isReceiver={isUserOfferReceiver(user.id, offer.receiver.id)} />
 }

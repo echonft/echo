@@ -1,4 +1,4 @@
-import { OfferItemThumbnail } from '../offer-item/offer-item-thumbnail'
+import { ItemThumbnail } from '../item/item-thumbnail'
 import { OfferItem, SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
@@ -12,7 +12,7 @@ export const OfferItemsContainer: FunctionComponent<Props> = ({ items, discordUs
   return (
     <div className={clsx('flex', 'flex-row', 'gap-4')}>
       {items.map((item) => (
-        <OfferItemThumbnail item={item} key={item.nft.id} size={SizeLG} discordUsername={discordUsername} />
+        <ItemThumbnail item={item} key={item.nft.id} size={SizeLG} discordUsername={discordUsername} />
       ))}
     </div>
   )

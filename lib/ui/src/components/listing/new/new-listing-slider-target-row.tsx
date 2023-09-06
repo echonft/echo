@@ -6,13 +6,14 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   collectionName: string
+  quantity: number
   bannerUrl: URL | undefined
   pictureUrl: URL | undefined
 }
 
-export const TargetRow: FunctionComponent<Props> = ({ collectionName, bannerUrl, pictureUrl }) => {
+export const NewListingSliderTargetRow: FunctionComponent<Props> = ({ collectionName, bannerUrl, pictureUrl }) => {
   return (
-    <div className={clsx('relative', 'w-full', 'h-40')}>
+    <div className={clsx('relative', 'w-full', 'h-40', 'rounded-lg', 'overflow-clip')}>
       <Banner bannerUrl={bannerUrl} size={SizeMD} />
       <div className={clsx('absolute', 'left-2.5', 'bottom-3')}>
         <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} size={SizeMD} />

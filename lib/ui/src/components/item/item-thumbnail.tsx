@@ -1,20 +1,20 @@
-import { OfferItemThumbnailSize } from '../../constants/offer-item-thumbnail-size'
+import { ItemThumbnailSize } from '../../constants/item-thumbnail-size'
 import { NftThumbnailPicture } from '../nft/nft-thumbnail-picture'
 import { UserDiscordTagOffer } from '../user/user-discord-tag-offer'
-import { OfferItemThumbnailSelector } from './offer-item-thumbnail-selector'
-import { OfferItemThumbnailTitle } from './offer-item-thumbnail-title'
+import { ItemThumbnailSelector } from './item-thumbnail-selector'
+import { ItemThumbnailTitle } from './item-thumbnail-title'
 import { ListingItem, OfferItem, SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 interface Props {
   item: OfferItem | ListingItem
-  size: OfferItemThumbnailSize
+  size: ItemThumbnailSize
   discordUsername?: string
   onRemove?: (item: OfferItem | ListingItem) => unknown
 }
 
-export const OfferItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername, size, onRemove }) => {
+export const ItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername, size, onRemove }) => {
   const { name, tokenId, thumbnailUrl, collection } = item.nft
   return (
     <div
@@ -30,7 +30,7 @@ export const OfferItemThumbnail: FunctionComponent<Props> = ({ item, discordUser
       <div className={'relative'}>
         <NftThumbnailPicture alt={name} pictureUrl={thumbnailUrl} size={size} />
 
-        {onRemove && <OfferItemThumbnailSelector onRemove={() => onRemove?.(item)} />}
+        {onRemove && <ItemThumbnailSelector onRemove={() => onRemove?.(item)} />}
         {discordUsername && (
           <div className={clsx('absolute', 'bottom-[0.69rem]', 'left-2', 'z-10')}>
             <UserDiscordTagOffer owner={discordUsername} />
@@ -47,7 +47,7 @@ export const OfferItemThumbnail: FunctionComponent<Props> = ({ item, discordUser
           size === SizeLG && ['px-2', 'pt-2.5', 'pb-3.5']
         )}
       >
-        <OfferItemThumbnailTitle tokenId={tokenId} collectionName={collection.name} size={size} />
+        <ItemThumbnailTitle tokenId={tokenId} collectionName={collection.name} size={size} />
       </div>
     </div>
   )
