@@ -6,7 +6,7 @@ import { BottomSlider } from '../../base/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '../../base/bottom-slider/bottom-slider-title'
 import { HideIfNil } from '../../base/hide-if-nil'
 import { NewListingSliderInnerContainer } from './new-listing-slider-inner-container'
-import { getListingItemsCount, ListingItem, ListingTarget } from '@echo/ui-model'
+import { getListingItemsCount, ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 import { useRecoilState } from 'recoil'
@@ -15,10 +15,14 @@ export const NewListingSliderManager: FunctionComponent = () => {
   const [newListing, setNewListing] = useRecoilState(newListingDataState)
   const t = useTranslations('listing.new.bottomSlider')
 
-  const onRemoveItem = (itemToRemove: ListingItem) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    setNewListing(removeItemFromNewListing(itemToRemove))
+  const onTargetsSelected = (newTargets: NftCollection[]) => {
+    setNewListing(
+      (currVal) =>
+        currVal && {
+          ...currVal,
+          targets: newTargets.map((target) => ({ collection: target, amount: 1 }))
+        }
+    )
   }
 
   const onRemoveTarget = (targetToRemove: ListingTarget) => {
@@ -26,6 +30,13 @@ export const NewListingSliderManager: FunctionComponent = () => {
     // @ts-ignore
     setNewListing(removeTargetFromNewListing(targetToRemove))
   }
+
+  const onRemoveItem = (itemToRemove: ListingItem) => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    setNewListing(removeItemFromNewListing(itemToRemove))
+  }
+
   return (
     <HideIfNil
       checks={newListing}
@@ -36,8 +47,9 @@ export const NewListingSliderManager: FunctionComponent = () => {
           <NewListingSliderInnerContainer
             items={newListing?.items ?? []}
             targets={newListing?.targets ?? []}
-            onRemoveItem={onRemoveItem}
+            onTargetsSelected={onTargetsSelected}
             onRemoveTarget={onRemoveTarget}
+            onRemoveItem={onRemoveItem}
           />
         </BottomSlider>
       )}

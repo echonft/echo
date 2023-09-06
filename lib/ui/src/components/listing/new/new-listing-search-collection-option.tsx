@@ -5,12 +5,14 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   pictureUrl: URL | undefined
+  selected: boolean
   collectionName: string
   collectionSupply: number | undefined
 }
 
 export const NewListingSearchCollectionOption: FunctionComponent<Props> = ({
   pictureUrl,
+  selected,
   collectionName,
   collectionSupply
 }) => {
@@ -20,7 +22,7 @@ export const NewListingSearchCollectionOption: FunctionComponent<Props> = ({
     <div
       className={clsx(
         'hover:bg-white/[0.08]',
-        'selected:bg-white/[0.08]',
+        selected && 'bg-white/[0.08]',
         'rounded-lg',
         'p-2',
         'flex',

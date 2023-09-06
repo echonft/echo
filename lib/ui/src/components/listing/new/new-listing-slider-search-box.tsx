@@ -44,6 +44,7 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
               <Combobox.Option value={item} key={`${item.id}-${item.name}`} className={'cursor-pointer'}>
                 <NewListingSearchCollectionOption
                   pictureUrl={item.profilePictureUrl}
+                  selected={selectedOptions?.includes(item) ?? false}
                   collectionName={item.name}
                   collectionSupply={item.totalSupply}
                 />
