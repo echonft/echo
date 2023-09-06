@@ -1,6 +1,6 @@
-import { NewListingSearchCollectionOption } from './new-listing-search-collection-option'
+import { NewListingSliderSearchCollectionOption } from './new-listing-slider-search-collection-option'
 import { NewListingSliderSearchComboboxInput } from './new-listing-slider-search-combobox-input'
-import { NftCollection } from '@echo/ui-model'
+import { ListingTarget } from '@echo/ui-model'
 import { Combobox, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { isEmpty, isNil } from 'ramda'
@@ -9,10 +9,10 @@ import { forwardRef, ForwardRefRenderFunction, ReactNode } from 'react'
 interface Props {
   placeholder: string
   name?: string
-  options?: NftCollection[]
-  selectedOptions?: NftCollection[]
+  options?: ListingTarget[]
+  selectedOptions?: ListingTarget[]
   onSearch?: (searchQuery: string) => void
-  onSelected?: (selected: NftCollection[]) => void
+  onSelected?: (selected: ListingTarget[]) => void
   renderLoading?: () => ReactNode
 }
 
@@ -30,7 +30,7 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
         leave={'transition ease-in duration-100'}
         leaveFrom={'opacity-100'}
         leaveTo={'opacity-0'}
-        className={clsx('fixed', 'top-12', 'z-10', 'w-full', 'py-6')}
+        className={clsx('fixed', 'top-12', 'z-20', 'w-full', 'py-6')}
       >
         <Combobox.Options
           className={clsx('flex', 'flex-col', 'w-full', 'py-2', 'px-9', 'rounded-lg', 'bg-dark-400', 'gap-2.5')}
@@ -40,13 +40,23 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
           ) : isEmpty(options) ? (
             <span>No collections found</span>
           ) : (
-            options.map((item) => (
-              <Combobox.Option value={item} key={`${item.id}-${item.name}`} className={'cursor-pointer'}>
-                <NewListingSearchCollectionOption
-                  pictureUrl={item.profilePictureUrl}
-                  selected={selectedOptions?.includes(item) ?? false}
-                  collectionName={item.name}
-                  collectionSupply={item.totalSupply}
+            options.map((target) => (
+              <Combobox.Option
+                value={target}
+                key={`${target.collection.id}-${target.collection.name}`}
+                className={'cursor-pointer'}
+              >
+                <NewListingSliderSearchCollectionOption
+                  pictureUrl={target.collection.profilePictureUrl}
+                  selected={
+                    !isNil(
+                      selectedOptions?.find(
+                        (selectedTarget) => selectedTarget.collection.name === target.collection.name
+                      )
+                    )
+                  }
+                  collectionName={target.collection.name}
+                  collectionSupply={target.collection.totalSupply}
                 />
               </Combobox.Option>
             ))

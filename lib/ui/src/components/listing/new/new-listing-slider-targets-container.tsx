@@ -9,10 +9,16 @@ import { FunctionComponent } from 'react'
 interface Props {
   targets: ListingTarget[]
   onAddMore?: () => unknown
+  onEdit?: (target: ListingTarget) => unknown
   onRemove?: (target: ListingTarget) => unknown
 }
 
-export const NewListingSliderTargetsContainer: FunctionComponent<Props> = ({ targets, onAddMore }) => {
+export const NewListingSliderTargetsContainer: FunctionComponent<Props> = ({
+  targets,
+  onAddMore,
+  onEdit,
+  onRemove
+}) => {
   const t = useTranslations('listing.new.bottomSlider')
   // TODO Add quantity selector
   return (
@@ -23,9 +29,11 @@ export const NewListingSliderTargetsContainer: FunctionComponent<Props> = ({ tar
           {targets.map((target) => (
             <NewListingSliderTargetRow
               collectionName={target.collection.name}
-              quantity={1}
+              quantity={target.amount}
+              onQuantityChange={(newQuantity) => onEdit?.({ ...target, amount: newQuantity })}
               pictureUrl={target.collection.profilePictureUrl}
               bannerUrl={target.collection.bannerUrl}
+              onRemove={() => onRemove?.(target)}
               key={target.collection.id}
             />
           ))}

@@ -63,7 +63,8 @@ const testCollections: NftCollection[] = [
 interface Props {
   items: ListingItem[]
   targets: ListingTarget[]
-  onTargetsSelected?: (newTargets: NftCollection[]) => unknown
+  onTargetsSelected?: (newTargets: ListingTarget[]) => unknown
+  onEditTarget?: (target: ListingTarget) => unknown
   onRemoveTarget?: (target: ListingTarget) => unknown
   onRemoveItem?: (item: ListingItem) => unknown
   onAddMoreItem?: () => unknown
@@ -73,6 +74,7 @@ export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
   items,
   targets,
   onTargetsSelected,
+  onEditTarget,
   onRemoveTarget,
   onRemoveItem,
   onAddMoreItem
@@ -86,15 +88,19 @@ export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
   }
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6', 'py-3', 'pb-32')}>
-      {/* TODO Fix values here */}
       <NewListingSliderSearchBoxManager
         placeholder={t('searchPlaceholder')}
         ref={searchBarRef}
-        selectedOptions={targets.map((target) => target.collection)}
-        options={testCollections}
+        selectedOptions={targets}
+        options={testCollections.map((collection) => ({ collection, amount: 1 }))}
         onTargetsSelected={onTargetsSelected}
       />
-      <NewListingSliderTargetsContainer targets={targets} onAddMore={onAddMoreTarget} onRemove={onRemoveTarget} />
+      <NewListingSliderTargetsContainer
+        targets={targets}
+        onAddMore={onAddMoreTarget}
+        onRemove={onRemoveTarget}
+        onEdit={onEditTarget}
+      />
       <NewItemsContainer
         items={items}
         onRemove={onRemoveItem}

@@ -1,14 +1,14 @@
 import { NewListingSearchCollectionOptionSkeleton } from '../../skeleton/listing/new-listing-search-collection-option-skeleton'
 import { NewListingSliderSearchBox } from './new-listing-slider-search-box'
-import { NftCollection } from '@echo/ui-model'
+import { ListingTarget } from '@echo/ui-model'
 import { forwardRef, ForwardRefRenderFunction, useCallback, useState } from 'react'
 
 interface Props {
   placeholder: string
   name?: string
-  options?: NftCollection[]
-  selectedOptions: NftCollection[]
-  onTargetsSelected?: (newTargets: NftCollection[]) => unknown
+  options?: ListingTarget[]
+  selectedOptions: ListingTarget[]
+  onTargetsSelected?: (newTargets: ListingTarget[]) => unknown
 }
 
 const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
@@ -18,7 +18,7 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
   const [searchQuery, setSearchQuery] = useState<string>()
 
   const getOptions = useCallback(
-    () => options?.filter((option) => option.name.includes(searchQuery ?? '')) ?? [],
+    () => options?.filter((option) => option.collection.name.includes(searchQuery ?? '')) ?? [],
     [searchQuery]
   )
   return (

@@ -10,7 +10,7 @@ interface Props {
   collectionSupply: number | undefined
 }
 
-export const NewListingSearchCollectionOption: FunctionComponent<Props> = ({
+export const NewListingSliderSearchCollectionOption: FunctionComponent<Props> = ({
   pictureUrl,
   selected,
   collectionName,
