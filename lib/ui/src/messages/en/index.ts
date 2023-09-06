@@ -47,6 +47,16 @@ export const messages = {
     }
   },
   listing: {
+    details: {
+      expiresAt: 'Expires in',
+      expiredAt: 'Expired',
+      assets: {
+        title: {
+          in: 'Interested in',
+          out: 'Offering'
+        }
+      }
+    },
     new: {
       bottomSlider: {
         title: 'Listing overview',
@@ -54,7 +64,10 @@ export const messages = {
         addCollectionBtn: 'Collection',
         itemsCount: '{count} {count, plural, =0 {} =1 {item} other {items}}',
         finalizeBtn: 'Finalize',
-        dismissBtn: 'Dismiss'
+        dismissBtn: 'Dismiss',
+        expirationTitle: 'Expires in',
+        expirationSubtitle: 'During beta, the expiration is locked to 7 days',
+        expirationValue: '7 days'
       }
     }
   },
@@ -143,6 +156,12 @@ export const messages = {
         confirmBtn: 'Confirm',
         copyLinkBtn: 'Copy link'
       }
+    }
+  },
+  shared: {
+    assets: {
+      in: 'Going in',
+      out: 'Going out'
     }
   },
   user: {

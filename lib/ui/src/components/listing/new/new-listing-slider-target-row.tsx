@@ -26,7 +26,7 @@ export const NewListingSliderTargetRow: FunctionComponent<Props> = ({
   return (
     <div className={clsx('relative', 'w-full', 'h-40', 'rounded-lg', 'overflow-clip')}>
       {onRemove && <ItemThumbnailSelector onRemove={onRemove} />}
-      <Banner bannerUrl={bannerUrl} size={SizeMD} />
+      <Banner bannerUrl={bannerUrl} bannerSize={SizeMD} />
       <div className={clsx('absolute', 'left-2.5', 'bottom-3')}>
         <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} size={SizeMD} />
       </div>

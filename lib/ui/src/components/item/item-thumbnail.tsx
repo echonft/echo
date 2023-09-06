@@ -29,7 +29,6 @@ export const ItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername,
     >
       <div className={'relative'}>
         <NftThumbnailPicture alt={name} pictureUrl={thumbnailUrl} size={size} />
-
         {onRemove && <ItemThumbnailSelector onRemove={() => onRemove?.(item)} />}
         {discordUsername && (
           <div className={clsx('absolute', 'bottom-[0.69rem]', 'left-2', 'z-10')}>

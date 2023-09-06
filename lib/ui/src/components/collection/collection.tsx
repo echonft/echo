@@ -2,6 +2,7 @@ import { PaddedContainer } from '../layout/padded-container'
 import { CollectionDetails } from './collection-details'
 import { CollectionNftsAndFiltersContainer } from './collection-nfts-and-filters-container'
 import { Nft, NftCollection, NftTraits } from '@echo/ui-model'
+import { SizeLG } from '@echo/ui-model/dist'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
@@ -27,6 +28,7 @@ export const Collection: FunctionComponent<Props> = ({ collection, nfts, traits,
           discordUrl={discordUrl}
           websiteUrl={websiteUrl}
           twitterUsername={twitterUsername}
+          size={SizeLG}
         />
         <CollectionNftsAndFiltersContainer
           collectionSlug={collection.slug}

@@ -1,5 +1,5 @@
 import { ModalSubtitle } from '../../base/modal/modal-subtitle'
-import { OfferItemThumbnail } from '../../offer-item/offer-item-thumbnail'
+import { ItemThumbnail } from '../../item/item-thumbnail'
 import { SwapDirectionHeader } from '../../shared/swap-direction-header'
 import { DirectionIn, DirectionOut, OfferItem, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
@@ -13,6 +13,7 @@ interface Props {
 
 export const NewOfferConfirmationModalItemsContainer: FunctionComponent<Props> = ({ isReceiver, items = [] }) => {
   const t = useTranslations('offer.new.confirmationModal')
+  const tShared = useTranslations('shared.assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center')}>
@@ -21,7 +22,7 @@ export const NewOfferConfirmationModalItemsContainer: FunctionComponent<Props> =
         </ModalSubtitle>
         <SwapDirectionHeader
           direction={isReceiver ? DirectionIn : DirectionOut}
-          title={t(isReceiver ? 'assetsInTitle' : 'assetsOutTitle')}
+          title={tShared(isReceiver ? 'in' : 'out')}
         />
       </div>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'justify-center')}>

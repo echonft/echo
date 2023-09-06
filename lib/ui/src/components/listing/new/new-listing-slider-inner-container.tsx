@@ -1,5 +1,6 @@
 import { NewItemsContainer } from '../../item/new-items-container'
 import { NewItemsEmptyContainer } from '../../item/new-items-empty-container'
+import { NewListingSliderExpirationContainer } from './new-listing-slider-expiration-container'
 import { NewListingSliderSearchBoxManager } from './new-listing-slider-search-box-manager'
 import { NewListingSliderTargetsContainer } from './new-listing-slider-targets-container'
 import { ListingItem, ListingTarget } from '@echo/ui-model'
@@ -58,9 +59,10 @@ export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
         items={items}
         onRemove={onRemoveItem}
         onAddMore={onAddMoreItem}
-        isReceiving={false}
+        isReceiver={false}
         renderEmpty={() => <NewItemsEmptyContainer onAddMore={onAddMoreItem} />}
       />
+      <NewListingSliderExpirationContainer />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6', 'gap-5')}>
         <Disclosure.Button
           className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')}

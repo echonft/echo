@@ -1,7 +1,7 @@
 import { newOfferState } from '../../../services/state'
 import { NewItemsContainer } from '../../item/new-items-container'
 import { NewItemsEmptyContainer } from '../../item/new-items-empty-container'
-import { OfferReceiverDetailsContainer } from '../offer-receiver-details-container'
+import { UserDetailsContainer } from '../../shared/user-details-container'
 import { OfferItem, User } from '@echo/ui-model'
 import { isNilOrEmpty } from '@echo/utils'
 import { Disclosure } from '@headlessui/react'
@@ -34,11 +34,11 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('pt-6', 'pb-1')}>
-        <OfferReceiverDetailsContainer receiver={receiver} receiverWalletAddress={receiver.wallet.address} />
+        <UserDetailsContainer user={receiver} userWalletAddress={receiver.wallet.address} />
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-8')}>
         <NewItemsContainer
-          isReceiving
+          isReceiver
           items={receiverItems}
           onAddMore={onAddMoreReceiverItem}
           onRemove={onRemoveReceiverItem}
@@ -47,7 +47,7 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
       </div>
       <NewItemsContainer
-        isReceiving={false}
+        isReceiver={false}
         items={senderItems}
         onAddMore={onAddMoreSenderItem}
         onRemove={onRemoveSenderItem}

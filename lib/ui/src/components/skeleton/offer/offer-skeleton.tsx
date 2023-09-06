@@ -1,5 +1,5 @@
 import { SwapIconSvg } from '../../base/svg/swap-icon-svg'
-import { OfferItemThumbnailSkeleton } from '../offer-item/offer-item-thumbnail-skeleton'
+import { ItemThumbnailSkeleton } from '../item/item-thumbnail-skeleton'
 import { UserDiscordTagSkeleton } from '../user/user-discord-tag-skeleton'
 import { OfferStateSkeleton } from './offer-state-skeleton'
 import { DirectionLeft, SizeLG } from '@echo/ui-model'
@@ -16,13 +16,13 @@ export const OfferSkeleton: FunctionComponent = () => (
     </div>
     <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-2')}>
       <div className={clsx('flex', 'flex-row', 'gap-4')}>
-        <OfferItemThumbnailSkeleton size={SizeLG} />
-        <OfferItemThumbnailSkeleton size={SizeLG} />
+        <ItemThumbnailSkeleton size={SizeLG} />
+        <ItemThumbnailSkeleton size={SizeLG} />
       </div>
       <SwapIconSvg direction={DirectionLeft} />
       <div className={clsx('flex', 'flex-row', 'gap-4')}>
-        <OfferItemThumbnailSkeleton size={SizeLG} />
-        <OfferItemThumbnailSkeleton size={SizeLG} />
+        <ItemThumbnailSkeleton size={SizeLG} />
+        <ItemThumbnailSkeleton size={SizeLG} />
       </div>
     </div>
   </div>

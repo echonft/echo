@@ -8,10 +8,10 @@ import { FunctionComponent } from 'react'
 
 export interface BannerProps {
   bannerUrl: URL | undefined
-  size?: BannerPictureSize
+  bannerSize?: BannerPictureSize
 }
 
-export const Banner: FunctionComponent<BannerProps> = ({ bannerUrl, size = SizeLG }) => {
+export const Banner: FunctionComponent<BannerProps> = ({ bannerUrl, bannerSize = SizeLG }) => {
   if (isNil(bannerUrl)) {
     return (
       <>
@@ -21,20 +21,20 @@ export const Banner: FunctionComponent<BannerProps> = ({ bannerUrl, size = SizeL
             'top-0',
             'inset-x-0',
             '-z-10',
-            size === SizeLG && 'h-64',
-            size === SizeMD && 'h-40',
+            bannerSize === SizeLG && 'h-64',
+            bannerSize === SizeMD && 'h-40',
             'bg-banner'
           )}
         />
         <DefaultBannerSvg
-          height={getBannerPictureSize(size)}
+          height={getBannerPictureSize(bannerSize)}
           className={clsx(
             'absolute',
             'top-0',
             'inset-x-0',
             '-z-20',
-            size === SizeLG && 'h-64',
-            size === SizeMD && 'h-40'
+            bannerSize === SizeLG && 'h-64',
+            bannerSize === SizeMD && 'h-40'
           )}
         />
       </>
@@ -45,7 +45,14 @@ export const Banner: FunctionComponent<BannerProps> = ({ bannerUrl, size = SizeL
       style={{
         backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, #121212 100%), url('${bannerUrl.href}')`
       }}
-      className={clsx('absolute', 'top-0', 'inset-x-0', '-z-10', size === SizeLG && 'h-64', size === SizeMD && 'h-40')}
+      className={clsx(
+        'absolute',
+        'top-0',
+        'inset-x-0',
+        '-z-10',
+        bannerSize === SizeLG && 'h-64',
+        bannerSize === SizeMD && 'h-40'
+      )}
     />
   )
 }

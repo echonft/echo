@@ -1,6 +1,7 @@
 import { Banner, BannerProps } from '../base/banner'
 import { PaddedContainer } from '../layout/padded-container'
 import { CollectionProfile, CollectionProfileProps } from './collection-profile'
+import { SizeLG } from '@echo/ui-model/dist'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
@@ -30,6 +31,7 @@ export const CollectionDetails: FunctionComponent<Props> = ({
             discordUrl={discordUrl}
             websiteUrl={websiteUrl}
             twitterUsername={twitterUsername}
+            size={SizeLG}
           />
         </div>
         <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full')}>

@@ -1,7 +1,6 @@
 import { HideIfNil } from '../base/hide-if-nil'
 import { CollectionLinks, CollectionLinksProps } from './collection-links'
 import { CollectionProfilePicture, CollectionProfilePictureProps } from './collection-profile-picture'
-import { SizeLG } from '@echo/ui-model/dist'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
@@ -16,12 +15,13 @@ export const CollectionProfile: FunctionComponent<CollectionProfileProps> = ({
   pictureUrl,
   twitterUsername,
   discordUrl,
-  websiteUrl
+  websiteUrl,
+  size
 }) => {
   const t = useTranslations('collection')
   return (
     <div className={clsx('flex', 'flex-row', 'w-full', 'gap-8')}>
-      <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} size={SizeLG} />
+      <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} size={size} />
       <div className={clsx('flex', 'flex-col', 'grow', 'gap-4')}>
         <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase', 'truncate')}>{collectionName}</h1>
         <div className={clsx('flex', 'flex-row', 'self-stretch', 'justify-between')}>

@@ -25,7 +25,8 @@ export const NewOfferConfirmationModal: FunctionComponent = () => {
       )}
       renderDescription={() =>
         isConfirmed() ? (
-          <NewOfferConfirmedModalInnerContainer onConfirm={() => setModalState('NONE')} />
+          // TODO Add transaction ID here
+          <NewOfferConfirmedModalInnerContainer onConfirm={() => setModalState('NONE')} transactionId={'TODO'} />
         ) : (
           <NewOfferConfirmationModalInnerContainer
             senderItems={newOffer?.senderItems ?? []}

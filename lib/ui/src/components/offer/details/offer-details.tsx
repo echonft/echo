@@ -48,8 +48,8 @@ export const OfferDetails: FunctionComponent<Props> = ({
       >
         <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
           <UserDetailsContainer
-            user={isReceiving ? sender : receiver}
-            userWalletAddress={isReceiving ? sender.wallet.address : receiver.wallet.address}
+            user={isReceiver ? sender : receiver}
+            userWalletAddress={isReceiver ? sender.wallet.address : receiver.wallet.address}
           />
           <OfferDetailsState state={state} expired={expired} expiresAt={expiresAt} />
         </div>
