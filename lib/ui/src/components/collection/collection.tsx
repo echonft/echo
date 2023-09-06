@@ -30,7 +30,6 @@ export const Collection: FunctionComponent<Props> = ({ collection, nfts, traits,
         />
         <CollectionNftsAndFiltersContainer
           collectionSlug={collection.slug}
-          selectedNavigationItemId={'items'}
           nfts={nfts}
           traits={traits}
           onMakeOfferForNft={onMakeOfferForNft}

@@ -17,13 +17,11 @@ interface Props {
   collectionSlug: string
   nfts: Nft[]
   traits: NftTraits
-  selectedNavigationItemId: 'items' | 'listings' | 'swaps'
   onMakeOfferForNft?: (id: string) => unknown
 }
 
 export const CollectionNftsAndFiltersContainer: FunctionComponent<Props> = ({
   collectionSlug,
-  selectedNavigationItemId,
   nfts,
   traits,
   onMakeOfferForNft
@@ -80,7 +78,7 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<Props> = ({
   return (
     <PaddedContainer>
       <div className={'py-12'}>
-        <NavigationPills items={navigationItems} selectedItemId={selectedNavigationItemId} />
+        <NavigationPills items={navigationItems} selectedItemId={'items'} />
       </div>
       <div className={clsx('flex', 'flex-row', 'self-stretch', 'grow', 'gap-8')}>
         <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4')}>

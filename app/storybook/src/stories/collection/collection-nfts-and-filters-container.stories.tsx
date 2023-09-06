@@ -14,7 +14,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['collectionSlug', 'nfts', 'traits', 'selectedNavigationItemId', 'onMakeOfferForNft']
+      exclude: ['collectionSlug', 'nfts', 'traits', 'onMakeOfferForNft']
     }
   }
 }
@@ -29,11 +29,10 @@ export const Default: Story = {
   args: {
     nfts,
     traits,
-    collectionSlug: '#',
-    selectedNavigationItemId: 'items'
+    collectionSlug: '#'
   }
 }
 
 export const Skeleton: Story = {
-  render: () => <CollectionNftsSkeleton selectedNavigationItemId={'items'} />
+  render: () => <CollectionNftsSkeleton />
 }

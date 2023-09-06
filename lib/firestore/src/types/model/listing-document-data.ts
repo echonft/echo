@@ -31,6 +31,7 @@ export const listingFields = [
   'expiresAt',
   'items',
   'itemsNftIds',
+  'itemsNftCollectionIds',
   'state',
   'targets',
   'targetsIds'

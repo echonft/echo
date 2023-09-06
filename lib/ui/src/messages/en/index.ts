@@ -25,16 +25,28 @@ export const messages = {
       title: 'Any {collectionName}'
     }
   },
+  errorPage: {
+    title: 'Something went wrong',
+    button: {
+      label: 'Go home'
+    }
+  },
   layout: {
     header: {
       connectButton: 'Connect',
       searchInput: 'Search for a collection or a user'
     }
   },
-  errorPage: {
-    title: 'Something went wrong',
-    button: {
-      label: 'Go home'
+  listing: {
+    details: {
+      expiresAt: 'Expires in',
+      expiredAt: 'Expired',
+      assets: {
+        title: {
+          in: 'Interested in',
+          out: 'Offering'
+        }
+      }
     }
   },
   nft: {
@@ -64,18 +76,6 @@ export const messages = {
     title: 'Sorry, there’s<br></br>nothing here',
     button: {
       label: 'Go home'
-    }
-  },
-  listing: {
-    details: {
-      expiresAt: 'Expires in',
-      expiredAt: 'Expired',
-      assets: {
-        title: {
-          in: 'Interested in',
-          out: 'Offering'
-        }
-      }
     }
   },
   offer: {

@@ -12,7 +12,6 @@ export interface Listing {
   expired: boolean
   expiresAt: Dayjs
   items: NonEmptyArray<ListingItem>
-  offersIds: string[]
   state: ListingState
   targets: NonEmptyArray<ListingTarget>
 }

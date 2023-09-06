@@ -24,7 +24,6 @@ const listings: { [key: string]: Listing } = {
       { amount: 1, nft: getNftById('8hHFadIrrooORfTOLkBg') },
       { amount: 1, nft: getNftById('iRZFKEujarikVjpiFAkE') }
     ],
-    offersIds: ['LyCfl6Eg7JKuD7XJ6IPi'],
     state: 'OPEN',
     targets: [
       {

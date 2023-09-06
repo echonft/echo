@@ -3,28 +3,22 @@ import { CollectionNftsAndFiltersContainer } from '../collection-nfts-and-filter
 import { NftResponse } from '@echo/api'
 import { getTraitsForNfts, mapNft } from '@echo/ui-model'
 import { map } from 'ramda'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useMemo } from 'react'
 
-export interface CollectionNftsApiProvidedProps {
+interface Props {
   collectionSlug: string
   responses: Array<Partial<NftResponse>>
-  selectedNavigationItemId: 'items' | 'listings' | 'swaps'
 }
 
-export const CollectionNftsApiProvided: FunctionComponent<CollectionNftsApiProvidedProps> = ({
-  collectionSlug,
-  responses,
-  selectedNavigationItemId
-}) => {
+export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses }) => {
   // TODO we might have to show the skeleton if this is slow
-  const nfts = map(mapNft, responses)
-  const traits = getTraitsForNfts(nfts)
+  const mappedNfts = useMemo(() => map(mapNft, responses), [responses])
+  const traits = useMemo(() => getTraitsForNfts(mappedNfts), [mappedNfts])
 
   return (
     <CollectionNftsAndFiltersContainer
       collectionSlug={collectionSlug}
-      selectedNavigationItemId={selectedNavigationItemId}
-      nfts={nfts}
+      nfts={mappedNfts}
       traits={traits}
       // TODO
       onMakeOfferForNft={() => undefined}

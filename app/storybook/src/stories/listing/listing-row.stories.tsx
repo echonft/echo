@@ -1,5 +1,5 @@
 import { getListingById } from '../../mocks/model/listing'
-import { ListingRow as Component } from '@echo/ui'
+import { ListingRow as Component, ListingRowSkeleton } from '@echo/ui'
 import { Listing } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
@@ -32,4 +32,8 @@ export const NotExpired: Story = {
   args: {
     listing: notExpiredListing
   }
+}
+
+export const Skeleton: Story = {
+  render: () => <ListingRowSkeleton />
 }
