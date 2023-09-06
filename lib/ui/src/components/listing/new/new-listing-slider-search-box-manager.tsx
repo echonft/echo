@@ -18,8 +18,8 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
   const [searchQuery, setSearchQuery] = useState<string>()
 
   const getOptions = useCallback(
-    () => options?.filter((option) => option.collection.name.includes(searchQuery ?? '')) ?? [],
-    [searchQuery]
+    () => options?.filter((option) => option.collection.name.includes(searchQuery ?? '')),
+    [searchQuery, options]
   )
   return (
     <NewListingSliderSearchBox

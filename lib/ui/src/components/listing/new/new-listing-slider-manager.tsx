@@ -7,12 +7,16 @@ import { BottomSlider } from '../../base/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '../../base/bottom-slider/bottom-slider-title'
 import { HideIfNil } from '../../base/hide-if-nil'
 import { NewListingSliderInnerContainer } from './new-listing-slider-inner-container'
-import { getListingItemsCount, ListingItem, ListingTarget } from '@echo/ui-model'
+import { getListingItemsCount, ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 import { useRecoilState } from 'recoil'
 
-export const NewListingSliderManager: FunctionComponent = () => {
+interface Props {
+  collections?: NftCollection[]
+}
+
+export const NewListingSliderManager: FunctionComponent<Props> = ({ collections }) => {
   const [newListing, setNewListing] = useRecoilState(newListingDataState)
   const t = useTranslations('listing.new.bottomSlider')
 
@@ -44,6 +48,10 @@ export const NewListingSliderManager: FunctionComponent = () => {
     setNewListing(removeItemFromNewListing(itemToRemove))
   }
 
+  const onDismissListing = () => {
+    setNewListing(undefined)
+  }
+
   return (
     <HideIfNil
       checks={newListing}
@@ -54,10 +62,12 @@ export const NewListingSliderManager: FunctionComponent = () => {
           <NewListingSliderInnerContainer
             items={newListing?.items ?? []}
             targets={newListing?.targets ?? []}
+            targetOptions={collections?.map((collection) => ({ collection, amount: 1 }))}
             onTargetsSelected={onTargetsSelected}
             onEditTarget={onEditTarget}
             onRemoveTarget={onRemoveTarget}
             onRemoveItem={onRemoveItem}
+            onDismissListing={onDismissListing}
           />
         </BottomSlider>
       )}
