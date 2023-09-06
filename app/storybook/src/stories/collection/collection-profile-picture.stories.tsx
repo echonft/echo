@@ -17,13 +17,13 @@ export const Standard: Story = {
     <Component
       collectionName={'Sun Flyers'}
       pictureUrl={getCollectionById('Rc8pLQXxgyQGIRL0fr13')!.profilePictureUrl}
-      supplyCount={SizeLG}
+      size={SizeLG}
     />
   )
 }
 
 export const Default: Story = {
-  render: () => <Component collectionName={'Sun Flyers'} pictureUrl={undefined} supplyCount={SizeLG} />
+  render: () => <Component collectionName={'Sun Flyers'} pictureUrl={undefined} size={SizeLG} />
 }
 
 export const Skeleton: Story = {

@@ -25,6 +25,7 @@ export const Default: Story = {
       description={
         'A handcrafted collection of 10,000 characters developed by artist DirtyRobot. Each with their own identity to be discovered within the wider stories of RENGA. In its purest form, RENGA is the art of storytelling'
       }
+      size={'Large'}
     />
   )
 }

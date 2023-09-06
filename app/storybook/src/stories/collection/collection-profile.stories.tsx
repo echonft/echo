@@ -21,6 +21,7 @@ export const Default: Story = {
       discordUrl={collection.discordUrl}
       twitterUsername={collection.twitterUsername}
       websiteUrl={collection.websiteUrl}
+      size={'Large'}
     />
   )
 }
