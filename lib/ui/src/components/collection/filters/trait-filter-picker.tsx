@@ -47,11 +47,11 @@ export const TraitFilterPicker: FunctionComponent<Props> = ({
         leaveTo="transform scale-95 opacity-0"
       >
         <div className={clsx('flex', 'flex-col', 'gap-2', 'w-full', 'h-max')}>
-          {values.map((trait) => (
+          {values.map((traitValue) => (
             <TraitFilterSelector
-              key={trait.value}
-              value={trait}
-              selected={isTraitSelected(trait, selection)}
+              key={`${trait}-${traitValue.value}`}
+              value={traitValue}
+              selected={isTraitSelected(traitValue, selection)}
               onToggleSelection={(value, selected) => {
                 if (selected) {
                   onAddSelection?.(value)

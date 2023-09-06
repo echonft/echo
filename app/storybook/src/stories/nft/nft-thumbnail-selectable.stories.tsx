@@ -17,7 +17,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['nft']
+      exclude: ['nft', 'linkDisabled']
     }
   }
 }
@@ -29,7 +29,8 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    nft
+    nft,
+    linkDisabled: true
   }
 }
 
@@ -43,6 +44,7 @@ export const Default: Story = {
 export const OwnerHidden: Story = {
   args: {
     nft,
+    linkDisabled: true,
     hideOwner: true
   }
 }
@@ -50,6 +52,7 @@ export const OwnerHidden: Story = {
 export const Selected: Story = {
   args: {
     nft,
+    linkDisabled: true,
     selected: true
   }
 }
@@ -57,7 +60,7 @@ export const Selected: Story = {
 export const Managed: Story = {
   render: () => (
     <SelectionManager>
-      <Component nft={nft} />
+      <Component nft={nft} linkDisabled={true} />
     </SelectionManager>
   )
 }

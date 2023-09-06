@@ -5,7 +5,7 @@ import { is, isNil } from 'ramda'
 export function addExpiresAtToSelectConstraint(
   constraints: QueryConstraints | undefined
 ): QueryConstraints | undefined {
-  if (!isNil(constraints) && !selectConstraintContainsExpiredAt(constraints)) {
+  if (!isNil(constraints) && !isNil(constraints.select) && !selectConstraintContainsExpiredAt(constraints)) {
     const { select } = constraints
     if (is(Array, select)) {
       if (select.includes('expiresAt')) {

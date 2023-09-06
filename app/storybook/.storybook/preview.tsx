@@ -1,7 +1,11 @@
 import { messages } from '@echo/ui'
 import '@echo/ui/dist/index.css'
 import type { Preview } from '@storybook/react'
+import dayjs from 'dayjs'
+import RelativeTime from 'dayjs/plugin/relativeTime'
 import { NextIntlClientProvider } from 'next-intl'
+
+dayjs.extend(RelativeTime)
 
 const preview: Preview = {
   parameters: {

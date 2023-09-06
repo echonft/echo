@@ -1,6 +1,6 @@
 import { OfferItemThumbnail } from '../../offer-item/offer-item-thumbnail'
-import { NewOfferItemTitle } from '../new/new-offer-item-title'
-import { OfferItem, SizeLG } from '@echo/ui-model'
+import { SwapDirectionHeader } from '../../shared/swap-direction-header'
+import { DirectionIn, DirectionOut, OfferItem, SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
@@ -15,7 +15,10 @@ export const OfferDetailsItemsContainer: FunctionComponent<Props> = ({ isReceivi
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
-      <NewOfferItemTitle isReceiving={isReceiving} title={t(isReceiving ? 'assetsInTitle' : 'assetsOutTitle')} />
+      <SwapDirectionHeader
+        direction={isReceiving ? DirectionIn : DirectionOut}
+        title={t(isReceiving ? 'assetsInTitle' : 'assetsOutTitle')}
+      />
       <div className={clsx('flex', 'flex-row', 'gap-4', 'justify-center')}>
         {items.map((item) => (
           <OfferItemThumbnail item={item} key={item.nft.id} size={SizeLG} />

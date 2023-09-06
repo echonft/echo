@@ -15,12 +15,38 @@ export const messages = {
         },
         title: 'Attributes'
       }
+    },
+    navigation: {
+      items: 'Items',
+      listings: 'Listings',
+      swaps: 'Swaps'
+    },
+    thumbnail: {
+      title: 'Any {collectionName}'
+    }
+  },
+  errorPage: {
+    title: 'Something went wrong',
+    button: {
+      label: 'Go home'
     }
   },
   layout: {
     header: {
       connectButton: 'Connect',
       searchInput: 'Search for a collection or a user'
+    }
+  },
+  listing: {
+    details: {
+      expiresAt: 'Expires in',
+      expiredAt: 'Expired',
+      assets: {
+        title: {
+          in: 'Interested in',
+          out: 'Offering'
+        }
+      }
     }
   },
   nft: {

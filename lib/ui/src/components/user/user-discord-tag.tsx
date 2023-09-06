@@ -12,31 +12,20 @@ export const UserDiscordTag: FunctionComponent<Props> = ({ discordUsername }) =>
       className={clsx(
         'flex',
         'flex-row',
-        'h-max',
+        'h-[2.625rem]',
         'w-max',
-        'py-0.25',
-        'px-2.5',
+        'px-5',
+        'py-2.5',
         'rounded-lg',
         'items-center',
         'bg-purple-500',
-        'gap-[0.31rem]'
+        'gap-2.5',
+        'text-white',
+        'prose-paragraph-sm'
       )}
     >
-      <span className={clsx('text-yellow-500')}>
-        <DiscordIconSvg width={22} />
-      </span>
-      <span
-        className={clsx(
-          'text-white',
-          'font-inter',
-          'font-bold',
-          'tracking-[0.015rem]',
-          'leading-[155%]',
-          'text-[1.5rem]'
-        )}
-      >
-        {discordUsername}
-      </span>
+      <DiscordIconSvg width={22} />
+      <span>{discordUsername}</span>
     </div>
   )
 }

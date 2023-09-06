@@ -14,6 +14,7 @@ export function mapOffer(offer: Partial<Offer>): Partial<OfferResponse> {
     // @ts-ignore
     modify('receiverItems', map(mapOfferItem)),
     modify('senderItems', map(mapOfferItem)),
+    dissoc('listingsIds'),
     dissoc('discordGuild')
   )(offer)
 }

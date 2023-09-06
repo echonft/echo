@@ -14,16 +14,17 @@ export const OfferStatePill: FunctionComponent<Props> = ({ state }) => {
     <div
       className={clsx(
         'flex',
-        'px-4',
-        'py-1.5',
+        'flex-row',
+        'px-5',
+        'py-2.5',
         'rounded-lg',
         getOfferStateBackgroundColor(state),
-        'h-max',
+        'h-[2.625rem]',
         'w-max',
         'items-center'
       )}
     >
-      <span className={clsx('prose-paragraph-lg', 'text-dark-500')}>{t(state)}</span>
+      <span className={clsx('prose-paragraph-sm', 'text-dark-500')}>{t(state)}</span>
     </div>
   )
 }

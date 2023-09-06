@@ -9,9 +9,9 @@ interface Props {
 
 export const UserWallet: FunctionComponent<Props> = ({ address }) => {
   return (
-    <div className={clsx('flex', 'py-px', 'px-2', 'bg-white/[0.08]', 'rounded-lg', 'w-max', 'items-center')}>
+    <div className={clsx('prose-label-xs-semi', 'px-5', 'py-2.5', 'bg-white/[0.08]', 'rounded-lg', 'w-max', 'h-max')}>
       <CopyToClipboard text={address}>
-        <span className={clsx('prose-display-sm-bold', 'text-white', 'cursor-pointer')}>{shortenAddress(address)}</span>
+        <span className={clsx('text-white', 'cursor-pointer')}>{shortenAddress(address)}</span>
       </CopyToClipboard>
     </div>
   )

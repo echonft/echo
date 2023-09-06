@@ -8,7 +8,6 @@ export interface OfferResponse {
   createdAt: number
   expired: boolean
   expiresAt: number
-  listingsIds: string[]
   receiver: Partial<UserResponse>
   receiverItems: NonEmptyArray<OfferItemResponse>
   sender: Partial<UserResponse>

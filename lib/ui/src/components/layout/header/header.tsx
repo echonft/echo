@@ -21,7 +21,7 @@ export const Header: FunctionComponent<Props> = ({ user, onConnectClick }) => {
     >
       <PaddedContainer>
         <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-12')}>
-          <InternalLink link={'/'}>
+          <InternalLink path={'/'}>
             <EchoLogoSvg width={144} />
           </InternalLink>
           <HideIfNil checks={user} render={() => <UserTag user={user!} />} />

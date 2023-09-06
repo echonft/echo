@@ -1,4 +1,4 @@
-import { nftCollectionMock } from './nft-collection-mock'
+import { getNftCollectionMockById } from './get-nft-collection-mock-by-id'
 import { Nft } from '@echo/firestore-types'
 
 export const nftMock: { [key: string]: Nft } = {
@@ -16,7 +16,7 @@ export const nftMock: { [key: string]: Nft } = {
     ],
     balance: 1,
     blurUrl: new URL('https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/1376'),
-    collection: nftCollectionMock['1aomCtnoesD7WVll6Yi1']!,
+    collection: getNftCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #1376',
     owner: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
@@ -76,7 +76,7 @@ export const nftMock: { [key: string]: Nft } = {
     ],
     balance: 1,
     blurUrl: new URL('https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/2414'),
-    collection: nftCollectionMock['1aomCtnoesD7WVll6Yi1']!,
+    collection: getNftCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #2414',
     owner: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
@@ -136,7 +136,7 @@ export const nftMock: { [key: string]: Nft } = {
     ],
     balance: 1,
     blurUrl: new URL('https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/3035'),
-    collection: nftCollectionMock['1aomCtnoesD7WVll6Yi1']!,
+    collection: getNftCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #3035',
     owner: {
       id: '6rECUMhevHfxABZ1VNOm',
@@ -212,7 +212,7 @@ export const nftMock: { [key: string]: Nft } = {
       }
     ],
     balance: 1,
-    collection: nftCollectionMock['Rc8pLQXxgyQGIRL0fr13']!,
+    collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Creative Demigod #024',
     owner: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
@@ -275,7 +275,7 @@ export const nftMock: { [key: string]: Nft } = {
       }
     ],
     balance: 1,
-    collection: nftCollectionMock['Rc8pLQXxgyQGIRL0fr13']!,
+    collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Water Elemental #020',
     owner: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
@@ -342,7 +342,7 @@ export const nftMock: { [key: string]: Nft } = {
       }
     ],
     balance: 1,
-    collection: nftCollectionMock['Rc8pLQXxgyQGIRL0fr13']!,
+    collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Creative Demigod #009',
     owner: {
       id: '6rECUMhevHfxABZ1VNOm',

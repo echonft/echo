@@ -1,31 +1,19 @@
 import { CollectionName } from '../../constants/collection-name'
 import { nftDataConverter } from '../../converters/nft-data-converter'
+import { addConstraintsToQuery } from '../../helpers/query/add-constraints-to-query'
 import { firestore } from '../../services/firestore'
-import { Nft } from '@echo/firestore-types'
+import { nftFields } from '../../types/model/nft-document-data'
+import { Nft, QueryConstraints } from '@echo/firestore-types'
 import { invoker, map } from 'ramda'
 
-export const getNftsForCollection = async (collectionId: string) => {
-  const querySnapshot = await firestore()
+export const getNftsForCollection = async (collectionSlug: string, constraints?: QueryConstraints) => {
+  let query = firestore()
     .collection(CollectionName.NFTS)
-    .where('collection.id', '==', collectionId)
-    // do not return the collection for this query - we already have it
-    .select(
-      'id',
-      'attributes',
-      'balance',
-      'blurUrl',
-      'collection.id',
-      'collection.name',
-      'name',
-      'openSeaUrl',
-      'owner',
-      'pictureUrl',
-      'thumbnailUrl',
-      'tokenId',
-      'tokenType'
-    )
+    .where('collection.slug', '==', collectionSlug)
     .withConverter(nftDataConverter)
-    .get()
+
+  query = addConstraintsToQuery(query, constraints, nftFields)
+  const querySnapshot = await query.get()
 
   if (querySnapshot.empty) {
     return [] as Nft[]

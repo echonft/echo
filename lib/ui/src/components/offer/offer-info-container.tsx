@@ -11,7 +11,7 @@ interface Props {
 
 export const OfferInfoContainer: FunctionComponent<Props> = ({ state, discordUsername }) => {
   return (
-    <div className={clsx('flex', 'flex-row', 'gap-4')}>
+    <div className={clsx('flex', 'flex-row', 'gap-4', 'grow', 'w-full')}>
       <OfferStatePill state={state} />
       <UserDiscordTag discordUsername={discordUsername} />
     </div>

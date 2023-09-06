@@ -12,6 +12,7 @@ export interface ListingDocumentData {
   expiresAt: number
   items: NonEmptyArray<ListingItemDocumentData>
   itemsNftIds: NonEmptyArray<string>
+  itemsNftCollectionIds: NonEmptyArray<string>
   offersIds: string[]
   state: ListingState
   targets: NonEmptyArray<ListingTargetDocumentData>
@@ -30,6 +31,7 @@ export const listingFields = [
   'expiresAt',
   'items',
   'itemsNftIds',
+  'itemsNftCollectionIds',
   'state',
   'targets',
   'targetsIds'

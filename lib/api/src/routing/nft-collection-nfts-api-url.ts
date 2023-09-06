@@ -5,5 +5,5 @@ export function nftCollectionNftsApiUrl(slug: string) {
   if (isEmpty(slug)) {
     throw Error('collection slug is required')
   }
-  return new URL(`${apiBaseUrl()}/collection/${slug}/nfts`)
+  return new URL(`${apiBaseUrl()}/collection/${slug}/items`)
 }

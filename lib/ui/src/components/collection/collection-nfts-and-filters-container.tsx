@@ -1,31 +1,59 @@
 'use client'
+import { links } from '../../helpers/links'
+import { NavigationPills } from '../base/navigation/navigation-pills'
 import { PaddedContainer } from '../layout/padded-container'
 import { CollectionNftsContainer } from './collection-nfts-container'
 import { CollectionOfferButton } from './collection-offer-button'
 import { TraitFilterPanel } from './filters/trait-filter-panel'
-import { Nft, NftTraits } from '@echo/ui-model'
+import { filterNftsByTraits, NavigationItem, Nft, NftTraits, User } from '@echo/ui-model'
+import { filterNftsByOwner } from '@echo/ui-model/src/helpers/filter-nfts-by-owner'
 import { addToArrayIfNotPresent, removeFromArray } from '@echo/utils'
 import { clsx } from 'clsx'
-import { assoc, dissoc, equals, find, isEmpty, isNil, propEq, reduce } from 'ramda'
-import { FunctionComponent, useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { assoc, dissoc, equals, find, head, isEmpty, isNil, partialRight, pipe, prop, propEq, reduce } from 'ramda'
+import { FunctionComponent, useEffect, useMemo, useState } from 'react'
 
 interface Props {
+  collectionSlug: string
   nfts: Nft[]
   traits: NftTraits
-  isFetchingNfts?: boolean
-  onTraitSelectionUpdate?: (selection: NftTraits) => unknown
   onMakeOfferForNft?: (id: string) => unknown
 }
 
 export const CollectionNftsAndFiltersContainer: FunctionComponent<Props> = ({
+  collectionSlug,
   nfts,
   traits,
-  isFetchingNfts,
-  onTraitSelectionUpdate,
   onMakeOfferForNft
 }) => {
+  const t = useTranslations('collection.navigation')
+  const navigationItems: NavigationItem[] = [
+    {
+      id: 'items',
+      name: t('items'),
+      path: links.collection.collectionItemsLink(collectionSlug)
+    },
+    {
+      id: 'listings',
+      name: t('listings'),
+      path: links.collection.collectionListingsLink(collectionSlug)
+    },
+    {
+      id: 'swaps',
+      name: t('swaps'),
+      path: links.collection.collectionSwapsLink(collectionSlug)
+    }
+  ]
   const [nftSelection, setNftSelection] = useState<string[]>([])
   const [traitSelection, setTraitSelection] = useState<NftTraits>({})
+  const filteredNfts = useMemo(() => {
+    let owner: User | undefined = undefined
+    if (!isEmpty(nftSelection)) {
+      const nftId = head(nftSelection)
+      owner = pipe(find(propEq(nftId, 'id')), prop('owner'))(nfts)
+    }
+    return pipe(partialRight(filterNftsByTraits, [traitSelection]), partialRight(filterNftsByOwner, [owner]))(nfts)
+  }, [nfts, traitSelection, nftSelection])
 
   // check if the selection is still valid (if selected NFTs are still in the filtered NFTs) when receiving new NFTs
   useEffect(() => {
@@ -49,24 +77,24 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<Props> = ({
 
   return (
     <PaddedContainer>
+      <div className={'py-12'}>
+        <NavigationPills items={navigationItems} selectedItemId={'items'} />
+      </div>
       <div className={clsx('flex', 'flex-row', 'self-stretch', 'grow', 'gap-8')}>
         <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4')}>
           <CollectionOfferButton count={nftSelection.length} />
           <TraitFilterPanel
             traits={traits}
             onSelectionUpdate={(type, selection) => {
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
               const newSelection = isEmpty(selection)
                 ? dissoc(type, traitSelection)
                 : assoc(type, selection, traitSelection)
               setTraitSelection(newSelection)
-              onTraitSelectionUpdate?.(newSelection)
             }}
           />
         </div>
         <CollectionNftsContainer
-          nfts={nfts}
+          nfts={filteredNfts}
           selection={nftSelection}
           onToggleSelection={(id, selected) => {
             if (selected) {
@@ -76,7 +104,6 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<Props> = ({
             }
           }}
           onMakeOfferForNft={onMakeOfferForNft}
-          isLoading={isFetchingNfts}
         />
       </div>
     </PaddedContainer>

@@ -1,9 +1,9 @@
 import { ErrorStatus } from '../server/constants/error-status'
 import { setUrlQuery } from './request/set-url-query'
 import { ErrorResponse } from '@echo/api'
-import { QueryType } from '@echo/utils'
+import { isDev, QueryType } from '@echo/utils'
 import { HTTP_METHOD } from 'next/dist/server/web/http'
-import { assoc, assocPath, is, pathEq } from 'ramda'
+import { assoc, assocPath, dissocPath, has, hasPath, is, pathEq, pipe } from 'ramda'
 
 interface FetchResult<T> {
   data: T | undefined
@@ -48,11 +48,18 @@ class Fetcher {
   }
 
   disableCache() {
+    if (hasPath(['next', 'revalidate'], this.init)) {
+      throw Error(`Trying to disable cache on a request with revalidate. Only one should be specified`)
+    }
     this.init = assoc<'cache', RequestInit>('cache', 'no-store', this.init)
     return this
   }
 
   async fetch<T>(): Promise<FetchResult<T>> {
+    // in dev, always disable cache
+    if (isDev) {
+      this.forceDisableCache()
+    }
     const response = await fetch(this.url, this.init)
     if (response.ok) {
       const data = (await response.json()) as T
@@ -66,8 +73,13 @@ class Fetcher {
     }
   }
 
-  fetchResponse<T>(): Promise<T> {
-    return fetch(this.url, this.init).then((response) => response.json() as T)
+  async fetchResponse<T>(): Promise<T> {
+    // in dev, always disable cache
+    if (isDev) {
+      this.forceDisableCache()
+    }
+    const response = await fetch(this.url, this.init)
+    return (await response.json()) as T
   }
 
   method(method: HTTP_METHOD) {
@@ -81,6 +93,9 @@ class Fetcher {
   }
 
   revalidate(revalidate: number) {
+    if (has('cache', this.init)) {
+      throw Error(`Trying to set revalidate on a request with a cache policy. Only one should be specified`)
+    }
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.init = assocPath<string, RequestInit>(['next', 'revalidate'], revalidate, this.init)
@@ -91,6 +106,13 @@ class Fetcher {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.init = assoc<'tags', RequestInit>('tags', tags, this.init)
+    return this
+  }
+
+  private forceDisableCache() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    this.init = pipe(dissocPath(['next', 'revalidate']), assoc('cache', 'no-store'))(this.init)
     return this
   }
 }

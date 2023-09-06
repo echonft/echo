@@ -9,19 +9,10 @@ interface Props {
   collection: NftCollection
   nfts: Nft[]
   traits: NftTraits
-  isFetchingNfts?: boolean
-  onTraitSelectionUpdate?: (selection: NftTraits) => unknown
   onMakeOfferForNft?: (id: string) => unknown
 }
 
-export const Collection: FunctionComponent<Props> = ({
-  collection,
-  nfts,
-  traits,
-  isFetchingNfts,
-  onTraitSelectionUpdate,
-  onMakeOfferForNft
-}) => {
+export const Collection: FunctionComponent<Props> = ({ collection, nfts, traits, onMakeOfferForNft }) => {
   const { description, twitterUsername, name, discordUrl, websiteUrl, bannerUrl, profilePictureUrl, totalSupply } =
     collection
   return (
@@ -38,11 +29,10 @@ export const Collection: FunctionComponent<Props> = ({
           twitterUsername={twitterUsername}
         />
         <CollectionNftsAndFiltersContainer
+          collectionSlug={collection.slug}
           nfts={nfts}
           traits={traits}
-          isFetchingNfts={isFetchingNfts}
           onMakeOfferForNft={onMakeOfferForNft}
-          onTraitSelectionUpdate={onTraitSelectionUpdate}
         />
       </div>
     </PaddedContainer>

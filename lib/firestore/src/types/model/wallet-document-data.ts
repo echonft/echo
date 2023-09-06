@@ -1,4 +1,4 @@
 export interface WalletDocumentData {
-  chainId: number
   address: string
+  chainId: number
 }

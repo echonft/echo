@@ -13,24 +13,17 @@ interface Props extends NftDetailsLinksProps {
   owner: User
 }
 
-export const NftDetailsHeader: FunctionComponent<Props> = ({
-  collectionName,
-  tokenId,
-  title,
-  owner,
-  openSeaUrl,
-  blurUrl
-}) => {
+export const NftDetailsHeader: FunctionComponent<Props> = ({ collectionName, tokenId, owner, openSeaUrl, blurUrl }) => {
   return (
     <div className={clsx('flex', 'flex-col')}>
       <h2 className={clsx('prose-label-lg', 'text-white', 'mb-4.5', 'w-max')}>{collectionName}</h2>
       <div className={clsx('flex', 'flex-row', 'grow', 'justify-between', 'items-center', 'mb-2.5')}>
-        <span className={clsx('prose-display-md-bold', 'text-white')}>{`${
-          title ?? collectionName
-        } #${tokenId.toString()}`}</span>
+        <span
+          className={clsx('prose-display-md-bold', 'text-white')}
+        >{`${collectionName} #${tokenId.toString()}`}</span>
         <NftDetailsLinks openSeaUrl={openSeaUrl} blurUrl={blurUrl} />
       </div>
-      <InternalLink link={links.userLink(owner.id)}>
+      <InternalLink path={links.userLink(owner.id)}>
         <div
           className={clsx(
             'flex',

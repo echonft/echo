@@ -7,6 +7,6 @@ export function assertListingStateIs(
 ): asserts listing is NonNullable<Partial<Listing>> {
   assertListing(listing)
   if (listing.state !== state) {
-    throw Error(`listing is state is not ${state}`)
+    throw Error(`listing state is not ${state}`)
   }
 }
