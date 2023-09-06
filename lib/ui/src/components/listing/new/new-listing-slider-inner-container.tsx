@@ -6,14 +6,13 @@ import { ListingItem, ListingTarget } from '@echo/ui-model'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useRef } from 'react'
 
 interface Props {
   items: ListingItem[]
   targets: ListingTarget[]
   onAddMoreItem?: () => unknown
   onRemoveItem?: (item: ListingItem) => unknown
-  onAddMoreTarget?: () => unknown
   onRemoveTarget?: (target: ListingTarget) => unknown
 }
 
@@ -22,14 +21,17 @@ export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
   targets,
   onAddMoreItem,
   onRemoveItem,
-  onAddMoreTarget,
   onRemoveTarget
 }) => {
   const t = useTranslations('listing.new.bottomSlider')
+  const searchBarRef = useRef<HTMLButtonElement | null>(null)
 
+  const onAddMoreTarget = () => {
+    searchBarRef?.current?.click()
+  }
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6', 'py-3', 'pb-32')}>
-      <NewListingSliderSearchBoxManager placeholder={t('searchPlaceholder')} />
+      <NewListingSliderSearchBoxManager placeholder={t('searchPlaceholder')} ref={searchBarRef} />
       <NewListingSliderTargetsContainer targets={targets} onAddMore={onAddMoreTarget} onRemove={onRemoveTarget} />
       <NewItemsContainer
         items={items}

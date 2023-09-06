@@ -4,31 +4,25 @@ import { NftCollection } from '@echo/ui-model'
 import { Combobox, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { isEmpty, isNil } from 'ramda'
-import { FunctionComponent, ReactNode } from 'react'
+import { forwardRef, ForwardRefRenderFunction, ReactNode } from 'react'
 
 interface Props {
   placeholder: string
+  name?: string
   options?: NftCollection[]
   selectedOptions?: NftCollection[]
   onSearch?: (searchQuery: string) => void
   onSelected?: (selected: NftCollection[]) => void
   renderLoading?: () => ReactNode
-  name?: string
 }
 
-export const NewListingSliderSearchBox: FunctionComponent<Props> = ({
-  placeholder,
-  options,
-  onSearch,
-
-  renderLoading,
-  name,
-  selectedOptions,
-  onSelected
-}) => {
+const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
+  { placeholder, name, options, selectedOptions, onSearch, onSelected, renderLoading },
+  ref
+) => {
   return (
     <Combobox value={selectedOptions} onChange={onSelected} name={name} multiple>
-      <NewListingSliderSearchComboboxInput placeholder={placeholder} onSearch={onSearch} />
+      <NewListingSliderSearchComboboxInput placeholder={placeholder} onSearch={onSearch} ref={ref} />
       <Transition
         enter={'transition ease-in duration-100'}
         enterFrom={'opacity-0'}
@@ -61,3 +55,5 @@ export const NewListingSliderSearchBox: FunctionComponent<Props> = ({
     </Combobox>
   )
 }
+
+export const NewListingSliderSearchBox = forwardRef(Component)

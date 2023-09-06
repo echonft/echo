@@ -1,6 +1,6 @@
 import { NewListingSliderSearchBox } from './new-listing-slider-search-box'
 import { NftCollection } from '@echo/ui-model'
-import { FunctionComponent, useCallback, useState } from 'react'
+import { forwardRef, ForwardRefRenderFunction, useCallback, useState } from 'react'
 
 const testCollections: NftCollection[] = [
   {
@@ -58,7 +58,7 @@ interface Props {
   name?: string
 }
 
-export const NewListingSliderSearchBoxManager: FunctionComponent<Props> = ({ placeholder, name }) => {
+const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = ({ placeholder, name }, ref) => {
   const [selectedOptions, setSelectedOptions] = useState<NftCollection[]>([])
   const [searchQuery, setSearchQuery] = useState<string>()
 
@@ -70,6 +70,7 @@ export const NewListingSliderSearchBoxManager: FunctionComponent<Props> = ({ pla
     <NewListingSliderSearchBox
       placeholder={placeholder}
       name={name}
+      ref={ref}
       onSearch={(query) => setSearchQuery(query)}
       selectedOptions={selectedOptions}
       onSelected={setSelectedOptions}
@@ -77,3 +78,5 @@ export const NewListingSliderSearchBoxManager: FunctionComponent<Props> = ({ pla
     />
   )
 }
+
+export const NewListingSliderSearchBoxManager = forwardRef(Component)
