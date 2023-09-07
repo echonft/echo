@@ -1,6 +1,8 @@
 import { apiBaseUrl } from './api-base-url'
 import { isEmpty } from 'ramda'
 
+export function collectionSwapsApiUrl(slug: string) {
+========
 <<<<<<<< HEAD:lib/api/src/routing/collection-api-url.ts
 export function collectionApiUrl(slug: string) {
   if (isEmpty(slug)) {
