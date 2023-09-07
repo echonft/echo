@@ -4,14 +4,14 @@ import { clsx } from 'clsx'
 import Link from 'next/link'
 import { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
 
-export interface InternalLinkProps {
+interface Props {
   path: string
   disabled?: boolean
   className?: string
   onClick?: MouseEventHandler
 }
 
-export const InternalLink: FunctionComponent<PropsWithChildren<InternalLinkProps>> = ({
+export const InternalLink: FunctionComponent<PropsWithChildren<Props>> = ({
   path,
   disabled,
   className,

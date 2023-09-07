@@ -1,22 +1,17 @@
-'use client'
-import { HandIconSvg } from '../../base/svg/hand-icon-svg'
-import { NftDetailsOffersPanelList } from './nft-details-offers-panel-list'
-import { Offer } from '@echo/ui-model'
+import { HandIconSvg } from '../../../base/svg/hand-icon-svg'
+import { NftDetailsListingRowSkeleton } from './nft-details-listing-row-skeleton'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-interface Props {
-  offers?: Offer[]
-}
-
-export const NftDetailsOffersPanel: FunctionComponent<Props> = ({ offers }) => {
-  const t = useTranslations('nft.details.offers')
+export const NftDetailsListingsPanelSkeleton: FunctionComponent = () => {
+  const t = useTranslations('nft.details.listings')
   return (
     <div
       className={clsx(
         'flex',
         'flex-col',
+        'self-stretch',
         'flex-grow',
         'h-max',
         'bg-white/[0.09]',
@@ -31,7 +26,10 @@ export const NftDetailsOffersPanel: FunctionComponent<Props> = ({ offers }) => {
         <HandIconSvg width={17} />
         <span className={clsx('prose-label-md-semi')}>{t('title')}</span>
       </div>
-      <NftDetailsOffersPanelList offers={offers} />
+      <div className={clsx('flex', 'flex-col', 'flex-grow', 'gap-2.5', 'self-stretch', 'w-full')}>
+        <NftDetailsListingRowSkeleton />
+        <NftDetailsListingRowSkeleton />
+      </div>
     </div>
   )
 }

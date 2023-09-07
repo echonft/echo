@@ -55,11 +55,11 @@ export const messages = {
         title: 'Attributes'
       },
       makeOfferBtn: 'Make an offer',
-      offers: {
-        title: 'Latest offers',
-        empty: 'No offers made yet',
+      listings: {
+        title: 'Latest listings',
+        empty: 'No listings posted yet',
         by: 'By',
-        expiresIn: 'Expires {time}'
+        expiresIn: 'Expires in {time}'
       },
       tokenDetails: {
         title: 'Token Details',

@@ -1,7 +1,7 @@
 import { apiBaseUrl } from './api-base-url'
 import { isEmpty } from 'ramda'
 
-export function nftCollectionNftsApiUrl(slug: string) {
+export function collectionNftsApiUrl(slug: string) {
   if (isEmpty(slug)) {
     throw Error('collection slug is required')
   }

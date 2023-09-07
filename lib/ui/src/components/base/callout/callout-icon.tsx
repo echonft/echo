@@ -7,12 +7,12 @@ import { XIconSvg } from '../svg/x-icon-svg'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface CalloutIconProps {
+interface Props {
   severity: CalloutSeverity
   variant: CalloutVariant
 }
 
-export const CalloutIcon: FunctionComponent<CalloutIconProps> = ({ severity, variant }) => {
+export const CalloutIcon: FunctionComponent<Props> = ({ severity, variant }) => {
   if (severity === CalloutSeverity.INFO) {
     return (
       <div

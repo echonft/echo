@@ -2,11 +2,11 @@ import { NftAttribute } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface NftDetailsAttributeProps {
+interface Props {
   attribute: NftAttribute
 }
 
-export const NftDetailsAttribute: FunctionComponent<NftDetailsAttributeProps> = ({ attribute }) => {
+export const NftDetailsAttribute: FunctionComponent<Props> = ({ attribute }) => {
   return (
     <div
       className={clsx(

@@ -1,10 +1,10 @@
 import { FunctionComponent, PropsWithChildren } from 'react'
 
-export interface ExternalLinkProps {
+interface Props {
   href: string
 }
 
-export const ExternalLink: FunctionComponent<PropsWithChildren<ExternalLinkProps>> = ({ href, children }) => {
+export const ExternalLink: FunctionComponent<PropsWithChildren<Props>> = ({ href, children }) => {
   return (
     <a href={href} target={'_blank'} rel={'noopener noreferrer nofollow'}>
       {children}

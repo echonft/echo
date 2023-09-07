@@ -3,13 +3,13 @@ import { SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface OfferItemTitleProps {
+interface Props {
   collectionName: string
   tokenId: number
   size: OfferItemThumbnailSize
 }
 
-export const OfferItemThumbnailTitle: FunctionComponent<OfferItemTitleProps> = ({ collectionName, tokenId, size }) => {
+export const OfferItemThumbnailTitle: FunctionComponent<Props> = ({ collectionName, tokenId, size }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-1')}>
       <span

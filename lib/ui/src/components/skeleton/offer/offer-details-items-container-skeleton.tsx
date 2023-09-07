@@ -5,13 +5,11 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface OfferDetailsItemsContainerProps {
+interface Props {
   isReceiving: boolean
 }
 
-export const OfferDetailsItemsContainerSkeleton: FunctionComponent<OfferDetailsItemsContainerProps> = ({
-  isReceiving
-}) => {
+export const OfferDetailsItemsContainerSkeleton: FunctionComponent<Props> = ({ isReceiving }) => {
   const t = useTranslations('offer.misc')
 
   return (
