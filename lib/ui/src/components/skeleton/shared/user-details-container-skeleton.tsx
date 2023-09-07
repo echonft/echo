@@ -1,5 +1,5 @@
+import { UserDiscordTagSkeleton } from '../user/user-discord-tag-skeleton'
 import { UserProfilePictureSkeleton } from '../user/user-profile-picture-skeleton'
-import { UserDiscordTagSkeleton } from './user-discord-tag-skeleton'
 import { UserWalletSkeleton } from './user-wallet-skeleton'
 import { SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'

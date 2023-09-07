@@ -65,7 +65,7 @@ describe('CRUD - listing - getListingsForCreator', () => {
     expect(listings.length).toBe(0)
   })
 
-  it('includeExpirer filter', async () => {
+  it('includeExpired filter', async () => {
     const mock = await setExpired(getListingMockById(id))
     let listings = await getListingsForCreator('oE6yUEQBPn7PZ89yMjKn', { includeExpired: true })
     expect(listings.length).toBe(1)

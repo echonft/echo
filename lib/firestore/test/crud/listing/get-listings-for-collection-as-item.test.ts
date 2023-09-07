@@ -66,7 +66,7 @@ describe('CRUD - listing - getListingsForCollectionAsItem', () => {
     expect(listings.length).toBe(0)
   })
 
-  it('includeExpirer filter', async () => {
+  it('includeExpired filter', async () => {
     const mock = await setExpired(getListingMockById(id))
     let listings = await getListingsForCollectionAsItem(collectionId, { includeExpired: true })
     expect(listings.length).toBe(1)

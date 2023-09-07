@@ -4,7 +4,7 @@ import { filterExpiredResults } from '../../helpers/crud/filter-expired-results'
 import { addOfferQueryFilters } from '../../helpers/crud/offer/add-offer-query-filters'
 import { addConstraintsToQuery } from '../../helpers/query/add-constraints-to-query'
 import { firestore } from '../../services/firestore'
-import { listingFields } from '../../types/model/listing-document-data'
+import { offerFields } from '../../types/model/offer-document-data'
 import { ListingQueryFilters, Offer, QueryConstraints } from '@echo/firestore-types'
 import { head, invoker, isNil, map } from 'ramda'
 
@@ -19,7 +19,7 @@ export async function getOffersForCollectionAsSenderItem(
     .withConverter(offerDataConverter)
 
   query = addOfferQueryFilters(query, filters)
-  query = addConstraintsToQuery(query, constraints, listingFields, true)
+  query = addConstraintsToQuery(query, constraints, offerFields, true)
   const querySnapshot = await query.get()
   if (querySnapshot.empty) {
     return []

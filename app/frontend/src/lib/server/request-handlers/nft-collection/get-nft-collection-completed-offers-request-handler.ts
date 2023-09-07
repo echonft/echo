@@ -6,13 +6,18 @@ import { parseOfferFiltersQuery } from '../../helpers/request/parse-offer-filter
 import { mapOffer } from '../../mappers/to-response/map-offer'
 import { ApiRequest, GetOffersResponse } from '@echo/api'
 import { NextResponse } from 'next/server'
-import { map } from 'ramda'
+import { assoc, dissoc, map, pipe } from 'ramda'
 
-export async function getNftCollectionOffersRequestHandler(req: ApiRequest<never>, slug: string) {
+export async function getNftCollectionCompletedOffersRequestHandler(req: ApiRequest<never>, slug: string) {
   const constraints = parseConstraintsQuery(req)
   const filters = parseOfferFiltersQuery(req)
   const collection = await getNftCollectionBySlug(slug)
+  const completedOffersFilters = pipe(
+    assoc('states', ['COMPLETED']),
+    dissoc('notStates'),
+    assoc('includeExpired', true)
+  )(filters)
   assertNftCollection(collection)
-  const results = await getNftCollectionOffers(collection.id, constraints, filters)
+  const results = await getNftCollectionOffers(collection.id, constraints, completedOffersFilters)
   return NextResponse.json<GetOffersResponse>({ offers: map(mapOffer, results) })
 }

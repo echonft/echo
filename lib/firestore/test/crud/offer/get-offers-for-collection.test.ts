@@ -8,10 +8,13 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 
-describe('CRUD - listing - getOffersForCollection', () => {
+describe('CRUD - offer - getOffersForCollection', () => {
   const collectionId = 'Rc8pLQXxgyQGIRL0fr13'
-  const id = 'LyCfl6Eg7JKuD7XJ6IPi'
+  const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
+  const offerId2 = 'ASkFpKoHEHVH0gd69t1G'
+
   let initialExpiresAt: dayjs.Dayjs
+  let initialExpiresAt2: dayjs.Dayjs
 
   async function setExpired(offer: Offer) {
     const expiresAt = dayjs().subtract(1, 'day').set('ms', 0)
@@ -28,11 +31,14 @@ describe('CRUD - listing - getOffersForCollection', () => {
   beforeAll(tearUpRemoteFirestoreTests)
   afterAll(tearDownRemoteFirestoreTests)
   beforeEach(async () => {
-    const offer = await findOfferById(id)
+    const offer = await findOfferById(offerId)
     initialExpiresAt = offer!.expiresAt
+    const offer2 = await findOfferById(offerId2)
+    initialExpiresAt2 = offer2!.expiresAt
   })
   afterEach(async () => {
-    await updateOffer(id, { expiresAt: initialExpiresAt })
+    await updateOffer(offerId, { expiresAt: initialExpiresAt })
+    await updateOffer(offerId2, { expiresAt: initialExpiresAt2 })
   })
 
   it('returns an empty array if no offers are found', async () => {
@@ -41,14 +47,16 @@ describe('CRUD - listing - getOffersForCollection', () => {
   })
 
   it('returns the offers for the which the collection is included in the receiver or sender items', async () => {
-    const mock = await setNotExpired(getOfferMockById(id))
+    const mock = await setNotExpired(getOfferMockById(offerId))
+    const mock2 = await setNotExpired(getOfferMockById(offerId2))
     const listings = await getOffersForCollection(collectionId)
-    expect(listings.length).toBe(1)
-    expect(listings[0]).toStrictEqual(mock)
+    expect(listings.length).toBe(2)
+    expect(listings[0]).toStrictEqual(mock2)
+    expect(listings[1]).toStrictEqual(mock)
   })
 
   it('filter by state (included)', async () => {
-    const mock = await setNotExpired(getOfferMockById(id))
+    const mock = await setNotExpired(getOfferMockById(offerId))
     let listings = await getOffersForCollection(collectionId, { states: ['OPEN', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
@@ -57,19 +65,23 @@ describe('CRUD - listing - getOffersForCollection', () => {
   })
 
   it('filter by state (excluded)', async () => {
-    const mock = await setNotExpired(getOfferMockById(id))
+    const mock = await setNotExpired(getOfferMockById(offerId))
+    const mock2 = await setNotExpired(getOfferMockById(offerId2))
     let listings = await getOffersForCollection(collectionId, { notStates: ['INVALID', 'CANCELLED'] })
-    expect(listings.length).toBe(1)
-    expect(listings[0]).toStrictEqual(mock)
-    listings = await getOffersForCollection(collectionId, { notStates: ['OPEN', 'FULFILLED'] })
+    expect(listings.length).toBe(2)
+    expect(listings[0]).toStrictEqual(mock2)
+    expect(listings[1]).toStrictEqual(mock)
+    listings = await getOffersForCollection(collectionId, { notStates: ['OPEN', 'COMPLETED'] })
     expect(listings.length).toBe(0)
   })
 
-  it('includeExpirer filter', async () => {
-    const mock = await setExpired(getOfferMockById(id))
+  it('includeExpired filter', async () => {
+    const mock = await setExpired(getOfferMockById(offerId))
+    const mock2 = await setExpired(getOfferMockById(offerId2))
     let listings = await getOffersForCollection(collectionId, { includeExpired: true })
-    expect(listings.length).toBe(1)
-    expect(listings[0]).toStrictEqual(mock)
+    expect(listings.length).toBe(2)
+    expect(listings[0]).toStrictEqual(mock2)
+    expect(listings[1]).toStrictEqual(mock)
     listings = await getOffersForCollection(collectionId, { includeExpired: false })
     expect(listings.length).toBe(0)
     listings = await getOffersForCollection(collectionId)
