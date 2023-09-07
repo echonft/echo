@@ -5,7 +5,7 @@ import { Listing } from '@echo/firestore-types'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 
-export const getListingSnapshotById = async (id: string) => {
+export async function getListingSnapshotById(id: string) {
   const querySnapshot = await firestore()
     .collection(CollectionName.LISTINGS)
     .where('id', '==', id)

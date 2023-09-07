@@ -2,12 +2,14 @@ import { FirestoreDocumentDataConverter } from '../../../types/converters/firest
 import { propIsNil } from '@echo/utils'
 import { dissoc, has, ifElse, map, modify, when } from 'ramda'
 
-export const modifyDocumentDataArrayProp = <K extends string, T, U, V>(
+export function modifyDocumentDataArrayProp<K extends string, T, U, V>(
   propKey: K,
   converter: FirestoreDocumentDataConverter<U, V>
-) =>
+) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  when(has(propKey), ifElse(propIsNil(propKey), dissoc(propKey), modify(propKey, map(converter.fromFirestore)))) as (
-    documentData: T
-  ) => T & Record<K, V[] | undefined>
+  return when(
+    has(propKey),
+    ifElse(propIsNil(propKey), dissoc(propKey), modify(propKey, map(converter.fromFirestore)))
+  ) as (documentData: T) => T & Record<K, V[] | undefined>
+}

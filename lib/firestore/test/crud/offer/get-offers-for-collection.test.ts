@@ -1,7 +1,6 @@
-import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
-import { getOffersForReceiver } from '../../../src/crud/offer/get-offers-for-receiver'
+import { findOfferById, getOfferMockById } from '../../../src'
+import { getOffersForCollection } from '../../../src/crud/offer/get-offers-for-collection'
 import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { getOfferMockById } from '../../mocks/get-offer-mock-by-id'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { Offer } from '@echo/firestore-types'
@@ -9,7 +8,8 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 
-describe('CRUD - offer - getOffersForReceiver', () => {
+describe('CRUD - listing - getOffersForCollection', () => {
+  const collectionId = 'Rc8pLQXxgyQGIRL0fr13'
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
   let initialExpiresAt: dayjs.Dayjs
 
@@ -36,43 +36,43 @@ describe('CRUD - offer - getOffersForReceiver', () => {
   })
 
   it('returns an empty array if no offers are found', async () => {
-    const offers = await getOffersForReceiver('6rECUMhevHfxABZ1VNOm')
-    expect(offers).toEqual([])
+    const listings = await getOffersForCollection('not-found')
+    expect(listings).toEqual([])
   })
 
-  it('returns the offers for the receiver', async () => {
+  it('returns the offers for the which the collection is included in the receiver or sender items', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    const offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn')
-    expect(offers.length).toBe(1)
-    expect(offers[0]).toStrictEqual(mock)
+    const listings = await getOffersForCollection(collectionId)
+    expect(listings.length).toBe(1)
+    expect(listings[0]).toStrictEqual(mock)
   })
 
   it('filter by state (included)', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    let offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { states: ['OPEN', 'CANCELLED'] })
-    expect(offers.length).toBe(1)
-    expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { states: ['CANCELLED'] })
-    expect(offers.length).toBe(0)
+    let listings = await getOffersForCollection(collectionId, { states: ['OPEN', 'CANCELLED'] })
+    expect(listings.length).toBe(1)
+    expect(listings[0]).toStrictEqual(mock)
+    listings = await getOffersForCollection(collectionId, { states: ['CANCELLED'] })
+    expect(listings.length).toBe(0)
   })
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    let offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { notStates: ['INVALID', 'CANCELLED'] })
-    expect(offers.length).toBe(1)
-    expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { notStates: ['OPEN', 'FULFILLED'] })
-    expect(offers.length).toBe(0)
+    let listings = await getOffersForCollection(collectionId, { notStates: ['INVALID', 'CANCELLED'] })
+    expect(listings.length).toBe(1)
+    expect(listings[0]).toStrictEqual(mock)
+    listings = await getOffersForCollection(collectionId, { notStates: ['OPEN', 'FULFILLED'] })
+    expect(listings.length).toBe(0)
   })
 
   it('includeExpirer filter', async () => {
     const mock = await setExpired(getOfferMockById(id))
-    let offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { includeExpired: true })
-    expect(offers.length).toBe(1)
-    expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { includeExpired: false })
-    expect(offers.length).toBe(0)
-    offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn')
-    expect(offers.length).toBe(0)
+    let listings = await getOffersForCollection(collectionId, { includeExpired: true })
+    expect(listings.length).toBe(1)
+    expect(listings[0]).toStrictEqual(mock)
+    listings = await getOffersForCollection(collectionId, { includeExpired: false })
+    expect(listings.length).toBe(0)
+    listings = await getOffersForCollection(collectionId)
+    expect(listings.length).toBe(0)
   })
 })

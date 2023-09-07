@@ -4,7 +4,7 @@ import { firestore } from '../../services/firestore'
 import { Nft } from '@echo/firestore-types'
 import { map } from 'ramda'
 
-export const findNftsByIds = async (ids: string[]) => {
+export async function findNftsByIds(ids: string[]) {
   const querySnapshot = await firestore()
     .collection(CollectionName.NFTS)
     .where('id', 'in', ids)

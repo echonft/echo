@@ -7,15 +7,13 @@ import { assoc, ifElse, isNil, lens, over, pipe, prop, when } from 'ramda'
  * Converts the expiresAt prop to date and set the right expired prop
  * @param documentData
  */
-export const modifyExpiresAtProp = <
+export function modifyExpiresAtProp<
   T extends Record<'expiresAt', number>,
   U extends Record<'expiresAt', Dayjs> & Record<'expired', boolean>
->(
-  documentData: T
-): U =>
+>(documentData: T): U {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  pipe(
+  return pipe(
     modifyNumberPropToDate<'expiresAt', T>('expiresAt'),
     when(
       propIsNotNil('expiresAt'),
@@ -33,3 +31,4 @@ export const modifyExpiresAtProp = <
       )
     )
   )(documentData)
+}

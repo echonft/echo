@@ -20,6 +20,7 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
     receiverId: 'oE6yUEQBPn7PZ89yMjKn',
     receiverItems: [{ amount: 1, nft: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! }],
     receiverItemsNftIds: ['8hHFadIrrooORfTOLkBg'],
+    receiverItemsNftCollectionIds: ['1aomCtnoesD7WVll6Yi1'],
     sender: {
       id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
@@ -34,6 +35,7 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
     senderId: '6rECUMhevHfxABZ1VNOm',
     senderItems: [{ amount: 1, nft: nftDocumentDataMock['kRE3UCfXWkJ33nwzj2X1']! }],
     senderItemsNftIds: ['kRE3UCfXWkJ33nwzj2X1'],
+    senderItemsNftCollectionIds: ['Rc8pLQXxgyQGIRL0fr13'],
     state: 'OPEN'
   }
 }

@@ -14,10 +14,12 @@ export interface OfferDocumentData {
   receiverId: string
   receiverItems: NonEmptyArray<OfferItemDocumentData>
   receiverItemsNftIds: NonEmptyArray<string>
+  receiverItemsNftCollectionIds: NonEmptyArray<string>
   sender: UserDetailsDocumentData
   senderId: string
   senderItems: NonEmptyArray<OfferItemDocumentData>
   senderItemsNftIds: NonEmptyArray<string>
+  senderItemsNftCollectionIds: NonEmptyArray<string>
   state: OfferState
   swapTransactionId?: string
 }

@@ -4,7 +4,7 @@ import { Listing } from '@echo/firestore-types'
 import { WriteResult } from 'firebase-admin/firestore'
 import { includes, isNil } from 'ramda'
 
-export const addOfferToListing = async (listing: Listing, offerId: string): Promise<WriteResult> => {
+export async function addOfferToListing(listing: Listing, offerId: string): Promise<WriteResult> {
   const offer = await findOfferById(offerId)
   if (isNil(offer)) {
     throw Error('invalid offer id')

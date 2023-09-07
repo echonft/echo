@@ -4,7 +4,7 @@ import { firestore } from '../../services/firestore'
 import { Nft } from '@echo/firestore-types'
 import { invoker, map } from 'ramda'
 
-export const getNftsForOwner = async (userId: string) => {
+export async function getNftsForOwner(userId: string) {
   const querySnapshot = await firestore()
     .collection(CollectionName.NFTS)
     .where('owner.id', '==', userId)

@@ -5,10 +5,10 @@ import { NftCollection } from '@echo/firestore-types'
 import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
-export const updateNftCollection = async (
+export async function updateNftCollection(
   id: string,
   nftCollection: Partial<Omit<NftCollection, 'id'>>
-): Promise<WriteResult> => {
+): Promise<WriteResult> {
   const documentSnapshot = await getNftCollectionSnapshotById(id)
   if (isNil(documentSnapshot)) {
     throw Error('invalid nft-collection id')

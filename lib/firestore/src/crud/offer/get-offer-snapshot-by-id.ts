@@ -5,7 +5,7 @@ import { Offer } from '@echo/firestore-types'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 
-export const getOfferSnapshotById = async (id: string) => {
+export async function getOfferSnapshotById(id: string) {
   const querySnapshot = await firestore()
     .collection(CollectionName.OFFERS)
     .where('id', '==', id)

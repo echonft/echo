@@ -1,6 +1,6 @@
 import { getNftCollectionSnapshotBySlug } from './get-nft-collection-snapshot-by-slug'
 
-export const findNftCollectionBySlug = async (slug: string) => {
+export async function findNftCollectionBySlug(slug: string) {
   const documentSnapshot = await getNftCollectionSnapshotBySlug(slug)
   return documentSnapshot?.data()
 }

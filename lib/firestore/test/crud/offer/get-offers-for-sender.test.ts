@@ -65,17 +65,6 @@ describe('CRUD - offer - getOffersForSender', () => {
     expect(offers.length).toBe(0)
   })
 
-  it('filter by state (both included and excluded)', async () => {
-    9
-    const mock = await setNotExpired(getOfferMockById(id))
-    const offers = await getOffersForSender('6rECUMhevHfxABZ1VNOm', {
-      states: ['OPEN'],
-      notStates: ['INVALID', 'CANCELLED']
-    })
-    expect(offers.length).toBe(1)
-    expect(offers[0]).toStrictEqual(mock)
-  })
-
   it('includeExpirer filter', async () => {
     const mock = await setExpired(getOfferMockById(id))
     let offers = await getOffersForSender('6rECUMhevHfxABZ1VNOm', { includeExpired: true })

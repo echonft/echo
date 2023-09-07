@@ -4,7 +4,7 @@ import { assertOfferState } from '../../helpers/offer/assert/assert-offer-state'
 import { getOfferSnapshotById } from './get-offer-snapshot-by-id'
 import { OfferState } from '@echo/firestore-types'
 
-export const completeOffer = async (id: string, swapTransactionId: string) => {
+export async function completeOffer(id: string, swapTransactionId: string) {
   const documentSnapshot = await getOfferSnapshotById(id)
   const offer = documentSnapshot?.data()
   assertOfferIsNotExpired(offer)
