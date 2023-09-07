@@ -1,21 +1,22 @@
 import { SwapIconSvg } from '../base/svg/swap-icon-svg'
 import { OfferInfoContainer } from './offer-info-container'
 import { OfferItemsContainer } from './offer-items-container'
-import { DirectionLeft, Offer } from '@echo/ui-model'
+import { DirectionLeft, Offer, OfferRole, OfferRoleReceiver } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 interface Props {
   offer: Offer
-  isReceiver: boolean
+  role: OfferRole
 }
 
-export const OfferRow: FunctionComponent<Props> = ({ offer, isReceiver }) => {
+export const OfferUserRow: FunctionComponent<Props> = ({ offer, role }) => {
+  const isReceiver = role === OfferRoleReceiver
   return (
-    <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4', 'p-5', 'rounded-lg', 'bg-white/[0.05]')}>
+    <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4', 'p-4', 'rounded-lg', 'bg-white/[0.05]')}>
       <OfferInfoContainer
         state={offer.state}
-        discordUsername={isReceiver ? offer.sender.discordUsername : offer.receiver.discordUsername}
+        discordUsername={isReceiver ? offer.receiver.discordUsername : offer.sender.discordUsername}
       />
       <div className={clsx('flex', 'flex-row', 'grow')}>
         <OfferItemsContainer items={isReceiver ? offer.receiverItems : offer.senderItems} />

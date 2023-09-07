@@ -36,7 +36,7 @@ describe('CRUD - offer - getOffersForReceiver', () => {
   })
 
   it('returns an empty array if no offers are found', async () => {
-    const offers = await getOffersForReceiver('6rECUMhevHfxABZ1VNOm')
+    const offers = await getOffersForReceiver('not-found')
     expect(offers).toEqual([])
   })
 
@@ -65,7 +65,7 @@ describe('CRUD - offer - getOffersForReceiver', () => {
     expect(offers.length).toBe(0)
   })
 
-  it('includeExpirer filter', async () => {
+  it('includeExpired filter', async () => {
     const mock = await setExpired(getOfferMockById(id))
     let offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { includeExpired: true })
     expect(offers.length).toBe(1)

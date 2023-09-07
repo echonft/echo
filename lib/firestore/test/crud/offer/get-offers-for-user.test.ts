@@ -1,23 +1,17 @@
 import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
 import { getOffersForUser } from '../../../src/crud/offer/get-offers-for-user'
 import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { getOfferMockById } from '../../mocks/get-offer-mock-by-id'
+import { getAllOfferMocks } from '../../mocks/get-all-offer-mocks'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { Offer } from '@echo/firestore-types'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
-import { assoc, pipe } from 'ramda'
+import { either, filter, find, forEach, pathEq, propEq } from 'ramda'
 
 describe('CRUD - offer - getOffersForUser', () => {
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
   let initialExpiresAt: dayjs.Dayjs
-
-  async function setNotExpired(offer: Offer) {
-    const expiresAt = dayjs().add(1, 'day').set('ms', 0)
-    await updateOffer(offer.id, { expiresAt })
-    return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(offer)
-  }
 
   beforeAll(tearUpRemoteFirestoreTests)
   afterAll(tearDownRemoteFirestoreTests)
@@ -30,12 +24,16 @@ describe('CRUD - offer - getOffersForUser', () => {
   })
 
   it('returns the offers for the user (as a receiver or a sender)', async () => {
-    const mock = await setNotExpired(getOfferMockById(id))
-    let offers = await getOffersForUser('oE6yUEQBPn7PZ89yMjKn')
-    expect(offers.length).toBe(1)
-    expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForUser('6rECUMhevHfxABZ1VNOm')
-    expect(offers.length).toBe(1)
-    expect(offers[0]).toStrictEqual(mock)
+    const userId = 'oE6yUEQBPn7PZ89yMjKn'
+    const userOfferMocks = filter(
+      either(pathEq(userId, ['sender', 'id']), pathEq(userId, ['receiver', 'id'])),
+      getAllOfferMocks()
+    )
+    const offers = await getOffersForUser(userId, { includeExpired: true })
+    expect(offers.length).toBe(userOfferMocks.length)
+    forEach((offer: Partial<Offer>) => {
+      const offerMock = find(propEq(offer.id, 'id'), userOfferMocks)
+      expect(offer).toStrictEqual(offerMock)
+    }, offers)
   })
 })

@@ -8,7 +8,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 
-describe('CRUD - listing - getOffersForCollectionAsSenderItem', () => {
+describe('CRUD - offer - getOffersForCollectionAsSenderItem', () => {
   const collectionId = 'Rc8pLQXxgyQGIRL0fr13'
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
   let initialExpiresAt: dayjs.Dayjs
@@ -36,7 +36,7 @@ describe('CRUD - listing - getOffersForCollectionAsSenderItem', () => {
   })
 
   it('returns an empty array if no offers are found', async () => {
-    const listings = await getOffersForCollectionAsSenderItem('1aomCtnoesD7WVll6Yi1')
+    const listings = await getOffersForCollectionAsSenderItem('not-found')
     expect(listings).toEqual([])
   })
 
@@ -65,7 +65,7 @@ describe('CRUD - listing - getOffersForCollectionAsSenderItem', () => {
     expect(listings.length).toBe(0)
   })
 
-  it('includeExpirer filter', async () => {
+  it('includeExpired filter', async () => {
     const mock = await setExpired(getOfferMockById(id))
     let listings = await getOffersForCollectionAsSenderItem(collectionId, { includeExpired: true })
     expect(listings.length).toBe(1)

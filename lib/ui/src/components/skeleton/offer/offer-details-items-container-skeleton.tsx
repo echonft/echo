@@ -1,5 +1,5 @@
-import { SwapDirectionHeader } from '../../shared/swap-direction-header'
-import { ItemThumbnailSkeleton } from '../item/item-thumbnail-skeleton'
+import { OfferItemThumbnailSkeleton } from '../offer-item/offer-item-thumbnail-skeleton'
+import { SwapDirectionHeaderSkeleton } from '../shared/swap-direction-header-skeleton'
 import { DirectionIn, DirectionOut, SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
