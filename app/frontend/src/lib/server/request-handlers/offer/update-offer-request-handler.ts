@@ -23,7 +23,6 @@ export async function updateOfferRequestHandler(
     case UpdateOfferAction.REJECT:
       return handleRejectOffer(id, user)
   }
-  throw new BadRequestError()
 }
 
 function parseUpdateOfferRequest(request: UpdateOfferRequest) {
