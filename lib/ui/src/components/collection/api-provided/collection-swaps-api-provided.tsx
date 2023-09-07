@@ -1,9 +1,15 @@
 'use client'
+import { messages } from '../../../messages/en'
 import { CollectionSwapsContainer } from '../collection-swaps-container'
 import { OfferResponse } from '@echo/api'
 import { mapOffer } from '@echo/ui-model'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import { NextIntlClientProvider } from 'next-intl'
 import { map } from 'ramda'
 import { FunctionComponent, useMemo } from 'react'
+
+dayjs.extend(timezone)
 
 interface Props {
   collectionSlug: string
@@ -14,5 +20,9 @@ export const CollectionSwapsApiProvided: FunctionComponent<Props> = ({ collectio
   // TODO we might have to show the skeleton if this is slow
   const mappedOffers = useMemo(() => map(mapOffer, responses), [responses])
 
-  return <CollectionSwapsContainer collectionSlug={collectionSlug} offers={mappedOffers} />
+  return (
+    <NextIntlClientProvider timeZone={dayjs.tz.guess()} messages={messages} locale={'en'}>
+      <CollectionSwapsContainer collectionSlug={collectionSlug} offers={mappedOffers} />
+    </NextIntlClientProvider>
+  )
 }
