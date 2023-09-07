@@ -31,7 +31,8 @@ const NftPage: FunctionComponent<Props> = async ({ params: { slug, tokenId } }) 
   }
 
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
-    orderBy: { field: 'expiresAt' }
+    orderBy: { field: 'expiresAt' },
+    limit: 5
   })
   const filtersQueryParam = mapListingFiltersToQueryParams({ states: ['OPEN'] })
   const { data: listingsData, error: listingsError } = await fetcher(nftListingsApiUrl(data.nft.id!))
