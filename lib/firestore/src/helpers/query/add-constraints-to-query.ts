@@ -1,3 +1,4 @@
+import { addExpiresAtToSelectConstraint } from './add-expires-at-to-select-constraint'
 import { addLimitConstraint } from './add-limit-constraint'
 import { addLimitToLastConstraint } from './add-limit-to-last-constraint'
 import { addOffsetConstraint } from './add-offset-constraint'
@@ -10,12 +11,15 @@ import { isNil } from 'ramda'
 export function addConstraintsToQuery<T>(
   query: Query<T>,
   constraints: QueryConstraints | undefined,
-  availableFields?: string[]
+  availableFields?: string[],
+  validateExpiresAt?: boolean
 ) {
   if (isNil(constraints)) {
     return query
   }
-
+  if (validateExpiresAt) {
+    constraints = addExpiresAtToSelectConstraint(constraints)
+  }
   let queryWithConstraints = query
   const { select, orderBy, limit, limitToLast, offset } = constraints
   if (!isNil(select)) {

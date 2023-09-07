@@ -4,7 +4,7 @@ import { firestore } from '../../services/firestore'
 import { Listing } from '@echo/firestore-types'
 import { invoker, map } from 'ramda'
 
-export const getAllListings = async () => {
+export async function getAllListings() {
   const querySnapshot = await firestore().collection(CollectionName.LISTINGS).withConverter(listingDataConverter).get()
   return map(invoker(0, 'data'), querySnapshot.docs) as Listing[]
 }

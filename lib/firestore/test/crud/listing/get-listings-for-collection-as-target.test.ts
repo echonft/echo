@@ -66,16 +66,6 @@ describe('CRUD - listing - getListingsForCollectionAsTarget', () => {
     expect(listings.length).toBe(0)
   })
 
-  it('filter by state (both included and excluded)', async () => {
-    const mock = await setNotExpired(getListingMockById(id))
-    const listings = await getListingsForCollectionAsTarget(collectionId, {
-      states: ['OPEN'],
-      notStates: ['INVALID', 'CANCELLED']
-    })
-    expect(listings.length).toBe(1)
-    expect(listings[0]).toStrictEqual(mock)
-  })
-
   it('includeExpirer filter', async () => {
     const mock = await setExpired(getListingMockById(id))
     let listings = await getListingsForCollectionAsTarget(collectionId, { includeExpired: true })

@@ -11,7 +11,7 @@ import { userDetailsDocumentDataConverter } from './user-details-document-data-c
 import { Offer } from '@echo/firestore-types'
 import { modifyDatePropToNumber, modifyNumberPropToDate } from '@echo/utils'
 import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
-import { assoc, dissoc, has, lens, map, over, path, pipe, prop, when } from 'ramda'
+import { assoc, dissoc, has, lens, map, over, path, pipe, prop, uniq, when } from 'ramda'
 
 export const offerDataConverter: FirestoreDataConverter<Partial<Offer>> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData>) {
@@ -23,10 +23,12 @@ export const offerDataConverter: FirestoreDataConverter<Partial<Offer>> = {
       dissoc('receiverId'),
       modifyDocumentDataArrayProp('receiverItems', offerItemDocumentDataConverter),
       dissoc('receiverItemsNftIds'),
+      dissoc('receiverItemsNftCollectionIds'),
       modifyDocumentDataProp('sender', userDetailsDocumentDataConverter),
       dissoc('senderId'),
       modifyDocumentDataArrayProp('senderItems', offerItemDocumentDataConverter),
-      dissoc('senderItemsNftIds')
+      dissoc('senderItemsNftIds'),
+      dissoc('senderItemsNftCollectionIds')
     )(snapshot)
   },
   toFirestore(modelObject: FirestoreModel<Offer>, _options?: SetOptions): OfferDocumentData {
@@ -48,16 +50,37 @@ export const offerDataConverter: FirestoreDataConverter<Partial<Offer>> = {
         has('receiverItems'),
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        over(lens(prop('receiverItems'), assoc('receiverItemsNftIds')), map(path(['nft', 'id'])))
+        over(lens(prop('receiverItems'), assoc('receiverItemsNftIds')), pipe(map(path(['nft', 'id'])), uniq))
+      ),
+      when(
+        has('receiverItems'),
+        over(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          lens(prop('receiverItems'), assoc('receiverItemsNftCollectionIds')),
+          pipe(map(path(['nft', 'collection', 'id'])), uniq)
+        )
       ),
       modifyModelArrayProp('receiverItems', offerItemDocumentDataConverter),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       when(has('sender'), over(lens(prop('sender'), assoc('senderId')), prop('id'))),
       modifyModelProp('sender', userDetailsDocumentDataConverter),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      when(has('senderItems'), over(lens(prop('senderItems'), assoc('senderItemsNftIds')), map(path(['nft', 'id'])))),
+      when(
+        has('senderItems'),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        over(lens(prop('senderItems'), assoc('senderItemsNftIds')), pipe(map(path(['nft', 'id'])), uniq))
+      ),
+      when(
+        has('senderItems'),
+        over(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          lens(prop('senderItems'), assoc('senderItemsNftCollectionIds')),
+          pipe(map(path(['nft', 'collection', 'id'])), uniq)
+        )
+      ),
       modifyModelArrayProp('senderItems', offerItemDocumentDataConverter)
     )(modelObject) as OfferDocumentData
   }

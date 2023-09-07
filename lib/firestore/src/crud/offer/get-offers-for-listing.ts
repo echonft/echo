@@ -7,7 +7,7 @@ import { ListingItem, ListingTarget, Offer } from '@echo/firestore-types'
 import { isNotIn, NonEmptyArray } from '@echo/utils'
 import { invoker, map, path, pipe, prop, reject } from 'ramda'
 
-export const getOffersForListing = async (items: NonEmptyArray<ListingItem>, targets: NonEmptyArray<ListingTarget>) => {
+export async function getOffersForListing(items: NonEmptyArray<ListingItem>, targets: NonEmptyArray<ListingTarget>) {
   const querySnapshot = await firestore()
     .collection(CollectionName.OFFERS)
     .where('receiverItemsNftIds', 'array-contains-any', map(path(['nft', 'id']), items))

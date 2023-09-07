@@ -5,7 +5,7 @@ import { NftCollection } from '@echo/firestore-types'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 
-export const getNftCollectionSnapshotByContractAddress = async (address: string, chainId: number) => {
+export async function getNftCollectionSnapshotByContractAddress(address: string, chainId: number) {
   const querySnapshot = await firestore()
     .collection(CollectionName.NFT_COLLECTIONS)
     .where('contract.address', '==', address)

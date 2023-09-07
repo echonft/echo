@@ -1,24 +1,24 @@
 import { CollectionName } from '../../constants/collection-name'
-import { listingDataConverter } from '../../converters/listing-data-converter'
+import { offerDataConverter } from '../../converters/offer-data-converter'
 import { filterExpiredResults } from '../../helpers/crud/filter-expired-results'
-import { addListingQueryFilters } from '../../helpers/crud/listing/add-listing-query-filters'
+import { addOfferQueryFilters } from '../../helpers/crud/offer/add-offer-query-filters'
 import { addConstraintsToQuery } from '../../helpers/query/add-constraints-to-query'
 import { firestore } from '../../services/firestore'
 import { listingFields } from '../../types/model/listing-document-data'
-import { Listing, ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import { ListingQueryFilters, Offer, QueryConstraints } from '@echo/firestore-types'
 import { head, invoker, isNil, map } from 'ramda'
 
-export async function getListingsForCreator(
-  userId: string,
+export async function getOffersForCollectionAsReceiverItem(
+  collectionId: string,
   filters?: ListingQueryFilters,
   constraints?: QueryConstraints
-): Promise<Partial<Listing>[]> {
+): Promise<Partial<Offer>[]> {
   let query = firestore()
-    .collection(CollectionName.LISTINGS)
-    .where('creatorId', '==', userId)
-    .withConverter(listingDataConverter)
+    .collection(CollectionName.OFFERS)
+    .where('receiverItemsNftCollectionIds', 'array-contains', collectionId)
+    .withConverter(offerDataConverter)
 
-  query = addListingQueryFilters(query, filters)
+  query = addOfferQueryFilters(query, filters)
   query = addConstraintsToQuery(query, constraints, listingFields, true)
   const querySnapshot = await query.get()
   if (querySnapshot.empty) {

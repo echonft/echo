@@ -4,7 +4,7 @@ import { firestore } from '../../services/firestore'
 import { Nft } from '@echo/firestore-types'
 import { invoker, map } from 'ramda'
 
-export const getAllNfts = async () => {
+export async function getAllNfts() {
   const querySnapshot = await firestore().collection(CollectionName.NFTS).withConverter(nftDataConverter).get()
   return map(invoker(0, 'data'), querySnapshot.docs) as Nft[]
 }

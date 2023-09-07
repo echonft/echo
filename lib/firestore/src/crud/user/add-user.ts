@@ -13,7 +13,7 @@ export interface NewUser {
   discordUsername: string
 }
 
-export const addUser = async (user: NewUser): Promise<string> => {
+export async function addUser(user: NewUser): Promise<string> {
   const reference = firestore().collection(CollectionName.USERS).doc()
   const id = reference.id
   const newUser = pipe(

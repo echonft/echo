@@ -5,7 +5,7 @@ import { User } from '@echo/firestore-types'
 import { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 import { head, isNil } from 'ramda'
 
-export const findUserByDiscordId = async (discordId: string) => {
+export async function findUserByDiscordId(discordId: string) {
   const querySnapshot = await firestore()
     .collection(CollectionName.USERS)
     .where('discordId', '==', discordId)
