@@ -1,5 +1,5 @@
 'use client'
-import { links } from '../../helpers/links'
+import { links } from '../../constants/links'
 import { SelectableProps } from '../../types/selectable-props'
 import { HideIf } from '../base/hide-if'
 import { InternalLink } from '../base/internal-link'

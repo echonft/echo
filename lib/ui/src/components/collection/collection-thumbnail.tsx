@@ -1,5 +1,5 @@
 'use client'
-import { links } from '../../helpers/links'
+import { links } from '../../constants/links'
 import { InternalLink } from '../base/internal-link'
 import { NftThumbnailPicture } from '../nft/nft-thumbnail-picture'
 import { CollectionThumbnailTitle } from './filters/collection-thumbnail-title'

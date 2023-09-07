@@ -1,4 +1,4 @@
-import { links } from '../../../helpers/links'
+import { links } from '../../../constants/links'
 import { InternalLink } from '../../base/internal-link'
 import { clsx } from 'clsx'
 import { useFormatter, useNow, useTranslations } from 'next-intl'
