@@ -1,5 +1,6 @@
 import { getUserById } from '../../mocks/model/user'
-import { UserDetails as Component, UserDetailsSkeleton } from '@echo/ui'
+import { UserDetails as Component } from '@echo/ui'
+import { SizeLG } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -14,7 +15,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['discordUsername', 'discordAvatar', 'discordBanner', 'discordId']
+      exclude: ['discordUsername', 'discordAvatar', 'discordBanner', 'discordId', 'wallets']
     }
   }
 }
@@ -23,18 +24,15 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const user = getUserById('6rECUMhevHfxABZ1VNOm')
+const { discordUsername, discordBanner, discordAvatar, discordId, wallet } = getUserById('6rECUMhevHfxABZ1VNOm')
 
-export const Default: Story = {
+export const Details: Story = {
   args: {
-    discordUsername: user.discordUsername,
-    discordAvatar: user.discordAvatar,
-    discordBanner: user.discordBanner,
-    discordId: user.discordId,
-    size: 'Large'
+    discordUsername,
+    discordAvatar,
+    discordBanner,
+    discordId,
+    wallet,
+    size: SizeLG
   }
-}
-
-export const Skeleton: Story = {
-  render: () => <UserDetailsSkeleton />
 }

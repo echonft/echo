@@ -14,6 +14,7 @@ interface RequiredUserProps {
   discordBanner?: string
   discordId: string
   discordUsername: string
+  username: string
   wallets: Wallet[]
 }
 

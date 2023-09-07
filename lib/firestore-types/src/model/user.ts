@@ -12,5 +12,6 @@ export interface User {
   nftsUpdatedAt: Dayjs
   nonce?: string
   updatedAt: Dayjs
+  username: string
   wallets: Wallet[]
 }

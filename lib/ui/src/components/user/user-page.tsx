@@ -31,6 +31,7 @@ export const UserPage: FunctionComponent<Props> = ({
           discordId={discordId}
           discordAvatar={discordAvatar}
           discordBanner={discordBanner}
+          wallet={user.wallet}
           size={SizeLG}
         />
         <UserNftsAndFiltersContainer

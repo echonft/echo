@@ -12,7 +12,7 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    discordUsername: 'johnnycage#0890'
+    discordUsername: 'johnnycagewins'
   }
 }
 

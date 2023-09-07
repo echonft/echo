@@ -47,8 +47,9 @@ describe('mappers - from-api - mapListing', () => {
       owner: {
         id: 'oE6yUEQBPn7PZ89yMjKn',
         discordId: '462798252543049728',
-        discordUsername: 'johnnycage#0890',
+        discordUsername: 'johnnycagewins',
         discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+        username: 'johnnycagewins',
         wallet: {
           address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
           chainId: 1
@@ -90,8 +91,9 @@ describe('mappers - from-api - mapListing', () => {
     creator: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
-      discordUsername: 'johnnycage#0890',
+      discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1
@@ -144,8 +146,9 @@ describe('mappers - from-api - mapListing', () => {
       owner: {
         id: 'oE6yUEQBPn7PZ89yMjKn',
         discordId: '462798252543049728',
-        discordUsername: 'johnnycage#0890',
+        discordUsername: 'johnnycagewins',
         discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+        username: 'johnnycagewins',
         wallet: {
           address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
           chainId: 1
@@ -187,8 +190,9 @@ describe('mappers - from-api - mapListing', () => {
     creator: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
-      discordUsername: 'johnnycage#0890',
+      discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1

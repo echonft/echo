@@ -52,6 +52,7 @@ export const nftFields = [
   'owner.discordBanner',
   'owner.discordId',
   'owner.discordUsername',
+  'owner.username',
   'owner.wallet',
   'owner.wallet.address',
   'owner.wallet.chainId',

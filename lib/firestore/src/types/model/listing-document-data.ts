@@ -27,6 +27,7 @@ export const listingFields = [
   'creator.discordBanner',
   'creator.discordId',
   'creator.discordUsername',
+  'creator.username',
   'creator.wallet',
   'creatorId',
   'expiresAt',

@@ -58,6 +58,6 @@ export const UserDisplayed: Story = {
     item,
     size: 'Medium',
     onRemove: undefined,
-    discordUsername: 'johnnycage#0890'
+    discordUsername: 'johnnycagewins'
   }
 }

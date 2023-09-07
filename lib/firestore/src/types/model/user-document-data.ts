@@ -11,5 +11,20 @@ export interface UserDocumentData {
   nftsUpdatedAt: number
   nonce?: string
   updatedAt: number
+  username: string
   wallets: WalletDocumentData[]
 }
+
+export const userFields = [
+  'id',
+  'discordAvatar',
+  'discordBanner',
+  'discordGuilds',
+  'discordId',
+  'discordUsername',
+  'nftsUpdatedAt',
+  'nonce',
+  'updatedAt',
+  'username',
+  'wallets'
+]

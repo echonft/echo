@@ -21,6 +21,7 @@ interface RequiredUserProps {
   discordGuilds: UserDiscordGuild[]
   nftsUpdatedAt: dayjs.Dayjs
   updatedAt: dayjs.Dayjs
+  username: string
   wallets: Wallet[]
 }
 
@@ -55,10 +56,19 @@ export async function createOrUpdateUser(
     const discordUser = await fetchDiscordUser(accessToken, tokenType)
     const existingUser = await findUserByDiscordId(discordUser.discordId)
     if (isNil(existingUser)) {
-      const userId = await createUser(discordUser)
-      return mapUserToAuthUser({ ...discordUser, id: userId, nftsUpdatedAt: dayjs(), updatedAt: dayjs(), wallets: [] })
+      // for now we set username = discordUsername
+      const userId = await createUser({ ...discordUser, username: discordUser.discordUsername })
+      return mapUserToAuthUser({
+        ...discordUser,
+        id: userId,
+        nftsUpdatedAt: dayjs(),
+        updatedAt: dayjs(),
+        username: discordUser.discordUsername,
+        wallets: []
+      })
     } else {
-      return await updateUserAndNftsIfNeeded({ ...existingUser, ...discordUser })
+      // for now we set username = discordUsername
+      return await updateUserAndNftsIfNeeded({ ...existingUser, ...discordUser, username: discordUser.discordUsername })
     }
   } else {
     const nftsUpdatedAt = dayjs.unix(user.nftsUpdatedAt)
@@ -66,7 +76,14 @@ export async function createOrUpdateUser(
     // if the user has last been updated more than 1h ago, update it
     if (userDiscordInfoNeedsUpdate(updatedAt) || userNftsNeedsUpdate(nftsUpdatedAt)) {
       const discordUser = await fetchDiscordUser(accessToken, tokenType)
-      return await updateUserAndNftsIfNeeded({ ...user, ...discordUser, nftsUpdatedAt, updatedAt })
+      // for now we set username = discordUsername
+      return await updateUserAndNftsIfNeeded({
+        ...user,
+        ...discordUser,
+        username: discordUser.discordUsername,
+        nftsUpdatedAt,
+        updatedAt
+      })
     }
     // else return the user as is
     return user

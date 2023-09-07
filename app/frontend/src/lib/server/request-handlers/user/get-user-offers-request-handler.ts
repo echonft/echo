@@ -1,27 +1,19 @@
+import { getUserOffers } from '../../helpers/offer/get-user-offers'
 import { parseConstraintsQuery } from '../../helpers/request/parse-constraints-query'
 import { parseOfferFiltersQuery } from '../../helpers/request/parse-offer-filters-query'
+import { assertUser } from '../../helpers/user/assert-user'
 import { mapOffer } from '../../mappers/to-response/map-offer'
 import { ApiRequest } from '@echo/api'
 import { GetUserOffersResponse } from '@echo/api/src/types/responses/get-user-offers-response'
-import { getOffersForReceiver, getOffersForSender } from '@echo/firestore'
-import { getOffersForUser } from '@echo/firestore/src/crud/offer/get-offers-for-user'
-import { Offer } from '@echo/firestore-types'
+import { findUserByUsername } from '@echo/firestore/src/crud/user/find-user-by-username'
 import { NextResponse } from 'next/server'
-import { isNil, map } from 'ramda'
+import { map } from 'ramda'
 
-export async function getUserOffersRequestHandler(req: ApiRequest<never>, userId: string) {
+export async function getUserOffersRequestHandler(req: ApiRequest<never>, username: string) {
   const constraints = parseConstraintsQuery(req)
   const filters = parseOfferFiltersQuery(req)
-  let offers: Partial<Offer>[]
-  if (!isNil(filters) && !isNil(filters.as)) {
-    const { as } = filters
-    if (as === 'sender') {
-      offers = await getOffersForSender(userId, filters, constraints)
-    } else {
-      offers = await getOffersForReceiver(userId, filters, constraints)
-    }
-  } else {
-    offers = await getOffersForUser(userId, filters, constraints)
-  }
+  const user = await findUserByUsername(username)
+  assertUser(user)
+  const offers = await getUserOffers(user.id, filters, constraints)
   return NextResponse.json<GetUserOffersResponse>({ offers: map(mapOffer, offers) })
 }

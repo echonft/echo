@@ -24,7 +24,8 @@ describe('mappers - from-api - mapNft', () => {
         id: 'id',
         wallet: { address: '0xaddress', chainId: 1 },
         discordAvatar: 'discordAvatar',
-        discordBanner: 'discordBanner'
+        discordBanner: 'discordBanner',
+        username: 'discordUsername'
       },
       pictureUrl: 'https://echo.xyz/',
       thumbnailUrl: 'https://echo.xyz/',
@@ -51,7 +52,8 @@ describe('mappers - from-api - mapNft', () => {
         id: 'id',
         wallet: { address: '0xaddress', chainId: 1 },
         discordAvatar: 'discordAvatar',
-        discordBanner: 'discordBanner'
+        discordBanner: 'discordBanner',
+        username: 'discordUsername'
       },
       pictureUrl: new URL('https://echo.xyz/'),
       thumbnailUrl: new URL('https://echo.xyz/'),

@@ -6,5 +6,6 @@ export interface UserDetails {
   discordBanner?: string
   discordId: string
   discordUsername: string
+  username: string
   wallet: Wallet
 }

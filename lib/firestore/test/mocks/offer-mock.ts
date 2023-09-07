@@ -12,8 +12,9 @@ export const offerMock: { [key: string]: Offer } = {
     receiver: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
-      discordUsername: 'johnnycage#0890',
+      discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1
@@ -23,9 +24,10 @@ export const offerMock: { [key: string]: Offer } = {
     sender: {
       id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
-      discordUsername: 'crewNFT_#2034',
+      discordUsername: 'crewnft_',
       discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
       discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
+      username: 'crewnft_',
       wallet: {
         address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
         chainId: 1
@@ -43,9 +45,10 @@ export const offerMock: { [key: string]: Offer } = {
     receiver: {
       id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
-      discordUsername: 'crewNFT_#2034',
+      discordUsername: 'crewnft_',
       discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
       discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
+      username: 'crewnft_',
       wallet: {
         address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
         chainId: 1
@@ -55,8 +58,9 @@ export const offerMock: { [key: string]: Offer } = {
     sender: {
       id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
-      discordUsername: 'johnnycage#0890',
+      discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
         chainId: 1

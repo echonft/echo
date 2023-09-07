@@ -15,19 +15,20 @@ describe('CRUD - user - addUser', () => {
     try {
       await deleteUser(id)
     } catch (_err) {
-      // listing was never created, test must have failed
+      // user was never created, test must have failed
     }
   })
 
   it('add  a user', async () => {
-    const { discordAvatar, discordBanner, discordId, discordUsername, discordGuilds } =
+    const { discordAvatar, discordBanner, discordId, discordUsername, discordGuilds, username } =
       getUserMockById('6rECUMhevHfxABZ1VNOm')
-    id = await addUser({ discordAvatar, discordBanner, discordId, discordUsername, discordGuilds })
+    id = await addUser({ discordAvatar, discordBanner, discordId, discordUsername, discordGuilds, username })
     const newUser = await findUserById(id)
     expect(newUser!.discordAvatar).toStrictEqual(discordAvatar)
     expect(newUser!.discordBanner).toStrictEqual(discordBanner)
     expect(newUser!.discordId).toStrictEqual(discordId)
     expect(newUser!.discordUsername).toStrictEqual(discordUsername)
+    expect(newUser!.username).toStrictEqual(username)
     expect(newUser!.wallets).toStrictEqual([])
     expect(newUser!.discordGuilds).toStrictEqual(discordGuilds)
     expect(newUser!.nonce).toBeUndefined()

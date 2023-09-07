@@ -13,6 +13,7 @@ describe('mappers - auth - mapUserToAuthUser', () => {
       id: 'user-id',
       nonce: 'noncenoncenonce',
       nftsUpdatedAt: dayjs.unix(1676984897),
+      username: 'username',
       updatedAt: dayjs.unix(1676984897),
       wallets: [
         {
@@ -34,6 +35,7 @@ describe('mappers - auth - mapUserToAuthUser', () => {
       id: 'user-id',
       nftsUpdatedAt: 1676984897,
       updatedAt: 1676984897,
+      username: 'username',
       wallets: [
         {
           address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',
