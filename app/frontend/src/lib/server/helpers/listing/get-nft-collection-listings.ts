@@ -4,19 +4,17 @@ import {
   getListingsForCollectionAsItem,
   getListingsForCollectionAsTarget
 } from '@echo/firestore'
-import { ListingAsQueryFilter, ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
-import { isNil } from 'ramda'
+import { ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import { both, has, isNotNil } from 'ramda'
 
 export async function getNftCollectionListings(
   collectionId: string,
   constraints?: QueryConstraints,
-  filters?: ListingQueryFilters,
-  asFilter?: ListingAsQueryFilter
+  filters?: ListingQueryFilters
 ) {
   try {
-    if (!isNil(asFilter)) {
-      const { as } = asFilter
-      if (as === 'target') {
+    if (both(isNotNil, has('as'))(filters)) {
+      if (filters.as === 'target') {
         return await getListingsForCollectionAsTarget(collectionId, filters, constraints)
       }
       return await getListingsForCollectionAsItem(collectionId, filters, constraints)

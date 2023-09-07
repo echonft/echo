@@ -2,7 +2,6 @@ import { getNftCollectionListings } from '../../helpers/listing/get-nft-collecti
 import { assertNftCollection } from '../../helpers/nft-collection/assert-nft-collection'
 import { getNftCollectionBySlug } from '../../helpers/nft-collection/get-nft-collection-by-slug'
 import { parseConstraintsQuery } from '../../helpers/request/parse-constraints-query'
-import { parseListingAsFilterQuery } from '../../helpers/request/parse-listing-as-filter-query'
 import { parseListingFiltersQuery } from '../../helpers/request/parse-listing-filters-query'
 import { mapListing } from '../../mappers/to-response/map-listing'
 import { ApiRequest, GetListingsResponse } from '@echo/api'
@@ -12,9 +11,8 @@ import { map } from 'ramda'
 export async function getNftCollectionListingsRequestHandler(req: ApiRequest<never>, slug: string) {
   const constraints = parseConstraintsQuery(req)
   const filters = parseListingFiltersQuery(req)
-  const asFilter = parseListingAsFilterQuery(req)
   const collection = await getNftCollectionBySlug(slug)
   assertNftCollection(collection)
-  const results = await getNftCollectionListings(collection.id, constraints, filters, asFilter)
+  const results = await getNftCollectionListings(collection.id, constraints, filters)
   return NextResponse.json<GetListingsResponse>({ listings: map(mapListing, results) })
 }

@@ -30,6 +30,7 @@ export type { GetNftCollectionResponse } from './types/responses/get-nft-collect
 export type { GetNftCollectionsResponse } from './types/responses/get-nft-collections-response'
 export type { GetNftResponse } from './types/responses/get-nft-response'
 export type { GetOfferResponse } from './types/responses/get-offer-response'
+export type { GetOffersResponse } from './types/responses/get-offers-response'
 export type { GetUserListingsResponse } from './types/responses/get-user-listings-response'
 export type { IdResponse } from './types/responses/id-response'
 export type { ListingItemResponse } from './types/responses/model/listing-item-response'
