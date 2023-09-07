@@ -2,12 +2,12 @@ import { ShowIf } from './show-if'
 import { isNil } from 'ramda'
 import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
-export interface ShowIfNilProp {
+interface Props {
   checks: unknown
   render?: () => ReactNode
 }
 
-export const ShowIfNil: FunctionComponent<PropsWithChildren<ShowIfNilProp>> = ({ checks, render, children }) => {
+export const ShowIfNil: FunctionComponent<PropsWithChildren<Props>> = ({ checks, render, children }) => {
   return (
     <ShowIf condition={isNil(checks)} render={render}>
       {children}

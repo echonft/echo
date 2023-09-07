@@ -2,7 +2,7 @@ import { fetcher } from '../../../../../lib/helpers/fetcher'
 import { mapListingFiltersToQueryParams } from '../../../../../lib/helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '../../../../../lib/helpers/request/map-query-constraints-to-query-params'
 import { ErrorStatus } from '../../../../../lib/server/constants/error-status'
-import { GetListingsResponse, nftCollectionListingsApiUrl } from '@echo/api'
+import { collectionListingsApiUrl, GetListingsResponse } from '@echo/api'
 import { CollectionListingsApiProvided } from '@echo/ui'
 import { notFound } from 'next/navigation'
 import { isNil, mergeLeft } from 'ramda'
@@ -20,7 +20,7 @@ const CollectionListingsPage: FunctionComponent<Props> = async ({ params: { slug
   })
   const filtersQueryParam = mapListingFiltersToQueryParams({ states: ['OPEN'] })
 
-  const { data, error } = await fetcher(nftCollectionListingsApiUrl(slug))
+  const { data, error } = await fetcher(collectionListingsApiUrl(slug))
     .revalidate(3600)
     .query(mergeLeft(constraintsQueryParams, filtersQueryParam))
     .fetch<GetListingsResponse>()

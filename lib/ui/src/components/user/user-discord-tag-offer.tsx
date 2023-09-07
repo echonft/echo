@@ -2,11 +2,11 @@ import { DiscordIconSvg } from '../base/svg/discord-icon-svg'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface NftThumbnailOwnerProps {
+interface Props {
   owner: string
 }
 
-export const UserDiscordTagOffer: FunctionComponent<NftThumbnailOwnerProps> = ({ owner }) => {
+export const UserDiscordTagOffer: FunctionComponent<Props> = ({ owner }) => {
   return (
     <div
       className={clsx(

@@ -17,7 +17,6 @@ interface Props {
 }
 
 export const CollectionListingsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses }) => {
-  // TODO we might have to show the skeleton if this is slow
   const mappedListings = useMemo(() => map(mapListing, responses), [responses])
 
   return (

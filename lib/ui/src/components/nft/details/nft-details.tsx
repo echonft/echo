@@ -2,20 +2,20 @@
 import { PaddedContainer } from '../../layout/padded-container'
 import { NftDetailsAttributesPanel } from './nft-details-attributes-panel'
 import { NftDetailsHeader } from './nft-details-header'
-import { NftDetailsOffersPanel } from './nft-details-offers-panel'
+import { NftDetailsListingsPanel } from './nft-details-listings-panel'
 import { NftDetailsTokenDetailsPanel } from './nft-details-token-details-panel'
-import { Nft, Offer } from '@echo/ui-model'
+import { Listing, Nft } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 interface Props {
   nft: Nft
-  offers?: Offer[]
+  listings: Array<Listing>
   onMakeOffer?: () => unknown
 }
 
-export const NftDetails: FunctionComponent<Props> = ({ nft, offers, onMakeOffer }) => {
+export const NftDetails: FunctionComponent<Props> = ({ nft, listings, onMakeOffer }) => {
   const t = useTranslations('nft.details')
   return (
     <PaddedContainer>
@@ -48,7 +48,7 @@ export const NftDetails: FunctionComponent<Props> = ({ nft, offers, onMakeOffer 
             >
               <span className={clsx('prose-label-lg-semi', 'btn-label-primary')}>{t('makeOfferBtn')}</span>
             </button>
-            <NftDetailsOffersPanel offers={offers} />
+            <NftDetailsListingsPanel listings={listings} />
           </div>
           <NftDetailsAttributesPanel attributes={nft.attributes} />
         </div>

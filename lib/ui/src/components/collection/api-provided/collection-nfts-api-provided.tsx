@@ -17,7 +17,6 @@ interface Props {
 }
 
 export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses }) => {
-  // TODO we might have to show the skeleton if this is slow
   const mappedNfts = useMemo(() => map(mapNft, responses), [responses])
   const traits = useMemo(() => getTraitsForNfts(mappedNfts), [mappedNfts])
 

@@ -1,5 +1,5 @@
+import { getListingById } from '../../../mocks/model/listing'
 import { getNftById } from '../../../mocks/model/nft'
-import { getOfferById } from '../../../mocks/model/offer'
 import { NftDetails as Component, NftDetailsSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
@@ -26,15 +26,15 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 const nft = getNftById('QFjMRNChUAHNswkRADXh')
-const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
+const listing = getListingById('jUzMtPGKM62mMhEcmbN4')
 export const Default: Story = {
   args: {
     nft,
-    offers: [
-      assoc('expiresAt', dayjs().add(1, 'hour'), offer),
-      assoc('expiresAt', dayjs().add(6, 'hour'), offer),
-      assoc('expiresAt', dayjs().add(1, 'day'), offer),
-      assoc('expiresAt', dayjs().add(40, 'hour'), offer)
+    listings: [
+      assoc('expiresAt', dayjs().add(1, 'hour'), listing),
+      assoc('expiresAt', dayjs().add(6, 'hour'), listing),
+      assoc('expiresAt', dayjs().add(1, 'day'), listing),
+      assoc('expiresAt', dayjs().add(40, 'hour'), listing)
     ]
   }
 }
@@ -42,7 +42,7 @@ export const Default: Story = {
 export const NoOffers: Story = {
   args: {
     nft,
-    offers: []
+    listings: []
   }
 }
 

@@ -4,11 +4,11 @@ import { IconContainer } from './icon-container'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface BlurIconProps {
+interface Props {
   size: IconSize
 }
 
-export const BlurIcon: FunctionComponent<BlurIconProps> = ({ size }) => {
+export const BlurIcon: FunctionComponent<Props> = ({ size }) => {
   const sizeInPx = Math.floor(getIconSizeInPx(size))
   return (
     <IconContainer size={size}>

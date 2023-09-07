@@ -5,11 +5,11 @@ import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 
-export interface UserTagPictureProps {
+interface Props {
   user: AuthUser
 }
 
-export const UserTagPicture: FunctionComponent<UserTagPictureProps> = ({ user }) => {
+export const UserTagPicture: FunctionComponent<Props> = ({ user }) => {
   const userAvatarUrl = getUserAvatarUrl(user.discordId, user.discordAvatar, 32, 'png')
   if (isNil(userAvatarUrl)) {
     return <DefaultUserProfilePicture className={clsx('w-4.5', 'h-4.5', 'rounded')} width={18} height={18} />

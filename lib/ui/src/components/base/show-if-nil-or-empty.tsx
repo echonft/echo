@@ -2,16 +2,12 @@ import { ShowIf } from './show-if'
 import { isNilOrEmpty } from '@echo/utils'
 import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
-export interface ShowIfNilOrEmptyProps {
+interface Props {
   checks: unknown
   render?: () => ReactNode
 }
 
-export const ShowIfNilOrEmpty: FunctionComponent<PropsWithChildren<ShowIfNilOrEmptyProps>> = ({
-  checks,
-  render,
-  children
-}) => (
+export const ShowIfNilOrEmpty: FunctionComponent<PropsWithChildren<Props>> = ({ checks, render, children }) => (
   <ShowIf condition={isNilOrEmpty(checks)} render={render}>
     {children}
   </ShowIf>

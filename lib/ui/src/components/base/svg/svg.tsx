@@ -2,12 +2,10 @@ import { useSvgSize } from '../../../hooks/use-svg-size'
 import { omit } from 'ramda'
 import { FunctionComponent, SVGProps } from 'react'
 
-export interface SvgSizeProps {
+export interface SvgProps extends Omit<SVGProps<SVGElement>, 'width' | 'height'> {
+  className?: string
   width?: number
   height?: number
-}
-export interface SvgProps extends Omit<SVGProps<SVGElement>, 'width' | 'height'>, SvgSizeProps {
-  className?: string
 }
 
 interface Props extends SvgProps {

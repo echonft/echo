@@ -1,7 +1,7 @@
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface Props {
+interface Props {
   title?: string
   subtitle: string
 }

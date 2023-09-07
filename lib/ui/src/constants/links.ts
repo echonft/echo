@@ -7,6 +7,5 @@ export const links = {
   nft: {
     nftLink: (collectionSlug: string, tokenId: number) => `/collection/${collectionSlug}/item/${tokenId}`
   },
-  offerLink: (offerId: string) => `/offer/${offerId}`,
-  userLink: (userId: string) => `/user/${userId}`
+  userLink: (username: string) => `/user/${username}`
 }
