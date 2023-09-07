@@ -18,7 +18,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['nfts', 'selection', 'isLoading']
+      exclude: ['nfts', 'selection']
     }
   }
 }
@@ -28,15 +28,8 @@ export default metadata
 const nfts = getAllNfts()
 type Story = StoryObj<typeof Component>
 
-export const Default: Story = {
+export const NftsContainer: Story = {
   args: {
     nfts
-  }
-}
-
-export const Loading: Story = {
-  args: {
-    nfts,
-    isLoading: true
   }
 }

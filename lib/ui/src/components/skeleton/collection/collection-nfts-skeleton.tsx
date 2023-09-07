@@ -1,7 +1,7 @@
-import { CollectionNftsContainer } from '../../collection/collection-nfts-container'
 import { CollectionOfferButton } from '../../collection/collection-offer-button'
 import { PaddedContainer } from '../../layout/padded-container'
 import { NavigationPillsSkeleton } from '../base/navigation-pills-skeleton'
+import { NftThumbnailSkeleton } from '../nft/nft-thumbnail-skeleton'
 import { TraitFilterPanelSkeleton } from './filters/trait-filter-panel-skeleton'
 import { NavigationItem } from '@echo/ui-model'
 import { clsx } from 'clsx'
@@ -38,7 +38,12 @@ export const CollectionNftsSkeleton: FunctionComponent = () => {
           <CollectionOfferButton count={0} />
           <TraitFilterPanelSkeleton />
         </div>
-        <CollectionNftsContainer nfts={[]} />
+        <div className={clsx('flex', 'flex-row', 'self-stretch', 'grow', 'flex-wrap', 'gap-6', 'relative')}>
+          <NftThumbnailSkeleton />
+          <NftThumbnailSkeleton />
+          <NftThumbnailSkeleton />
+          <NftThumbnailSkeleton />
+        </div>
       </div>
     </PaddedContainer>
   )
