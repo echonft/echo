@@ -67,7 +67,8 @@ export const messages = {
         dismissBtn: 'Dismiss',
         expirationTitle: 'Expires in',
         expirationSubtitle: 'During beta, the expiration is locked to 7 days',
-        expirationValue: '7 days'
+        expirationValue: '7 days',
+        emptySearch: 'No collections found'
       }
     }
   },

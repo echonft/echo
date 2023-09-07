@@ -19,7 +19,7 @@ export const ProfilePicture: FunctionComponent<Props> = ({ pictureUrl, alt, size
         'border-3',
         'border-yellow-500',
         size === SizeLG && ['h-40', 'w-40'],
-        size === SizeMD && ['h-[120px]', 'w-[120px]']
+        size === SizeMD && ['h-[7.5rem]', 'w-[7.5rem]']
       )}
       src={pictureUrl.href}
       alt={alt}

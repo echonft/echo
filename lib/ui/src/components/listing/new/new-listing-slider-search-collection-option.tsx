@@ -1,3 +1,4 @@
+import { HideIfNil } from '../../base/hide-if-nil'
 import { CollectionRoundedProfilePicture } from '../../collection/collection-rounded-profile-picture'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -33,11 +34,14 @@ export const NewListingSliderSearchCollectionOption: FunctionComponent<Props> = 
       <CollectionRoundedProfilePicture pictureUrl={pictureUrl} collectionName={collectionName} />
       <div className={clsx('flex', 'flex-col', 'gap-1', 'justify-center')}>
         <span className={clsx('prose-header-sm-semi', 'text-white')}>{collectionName}</span>
-        {collectionSupply && (
-          <span className={clsx('prose-header-sm', 'text-white/70')}>
-            {t('itemsCount', { count: collectionSupply })}
-          </span>
-        )}
+        <HideIfNil
+          checks={collectionSupply}
+          render={(collectionSupply) => (
+            <span className={clsx('prose-header-sm', 'text-white/70')}>
+              {t('itemsCount', { count: collectionSupply })}
+            </span>
+          )}
+        />
       </div>
     </div>
   )

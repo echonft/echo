@@ -1,16 +1,16 @@
-import { HideIf } from './hide-if'
 import { isNil } from 'ramda'
-import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
-export interface HideIfNilProps {
-  checks: unknown
-  render?: () => ReactNode
+interface Props<T> {
+  checks: T
+  render: (checks: NonNullable<T>) => ReactNode
 }
 
-export const HideIfNil: FunctionComponent<PropsWithChildren<HideIfNilProps>> = ({ checks, render, children }) => {
-  return (
-    <HideIf condition={isNil(checks)} render={render}>
-      {children}
-    </HideIf>
-  )
+export function HideIfNil<T>({ checks, render }: Props<T>) {
+  if (isNil(checks)) {
+    return null as ReactNode
+  }
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return render(checks)
 }

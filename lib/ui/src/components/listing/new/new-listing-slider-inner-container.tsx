@@ -1,3 +1,4 @@
+'use client'
 import { NewItemsContainer } from '../../item/new-items-container'
 import { NewItemsEmptyContainer } from '../../item/new-items-empty-container'
 import { NewListingSliderExpirationContainer } from './new-listing-slider-expiration-container'

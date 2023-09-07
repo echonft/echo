@@ -1,7 +1,9 @@
 import { NewListingSearchCollectionOptionSkeleton } from '../../skeleton/listing/new-listing-search-collection-option-skeleton'
 import { NewListingSliderSearchBox } from './new-listing-slider-search-box'
 import { ListingTarget } from '@echo/ui-model'
-import { forwardRef, ForwardRefRenderFunction, useCallback, useState } from 'react'
+import { isNilOrEmpty, stringIncludes } from '@echo/utils'
+import { always, either, filter, identity, ifElse, isNil, path, pipe } from 'ramda'
+import { forwardRef, ForwardRefRenderFunction, useMemo, useState } from 'react'
 
 interface Props {
   placeholder: string
@@ -17,8 +19,20 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 ) => {
   const [searchQuery, setSearchQuery] = useState<string>()
 
-  const getOptions = useCallback(
-    () => options?.filter((option) => option.collection.name.includes(searchQuery ?? '')),
+  const filteredOptions = useMemo<ListingTarget[] | undefined>(
+    () =>
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      ifElse(
+        either(isNil, always(isNilOrEmpty(searchQuery))),
+        identity,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-call
+        filter(pipe(path(['collection', 'name']), stringIncludes(searchQuery)))
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+      )(options),
     [searchQuery, options]
   )
   return (
@@ -26,10 +40,10 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
       placeholder={placeholder}
       name={name}
       ref={ref}
-      onSearch={(query) => setSearchQuery(query)}
+      onSearch={setSearchQuery}
       selectedOptions={selectedOptions}
       onSelected={onTargetsSelected}
-      options={getOptions()}
+      options={filteredOptions}
       renderLoading={() => (
         <>
           <NewListingSearchCollectionOptionSkeleton />

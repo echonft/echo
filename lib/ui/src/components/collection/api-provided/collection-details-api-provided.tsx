@@ -1,7 +1,6 @@
 import { CollectionDetails } from '../collection-details'
 import { GetNftCollectionResponse } from '@echo/api'
-import { mapNftCollection } from '@echo/ui-model'
-import { SizeLG } from '@echo/ui-model/dist'
+import { mapNftCollection, SizeLG } from '@echo/ui-model'
 import { FunctionComponent } from 'react'
 
 interface Props {

@@ -1,7 +1,7 @@
 import { Banner, BannerProps } from '../base/banner'
 import { PaddedContainer } from '../layout/padded-container'
 import { CollectionProfile, CollectionProfileProps } from './collection-profile'
-import { SizeLG } from '@echo/ui-model/dist'
+import { SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

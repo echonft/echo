@@ -1,8 +1,9 @@
 import { Banner } from '../../base/banner'
+import { HideIfNil } from '../../base/hide-if-nil'
 import { CollectionProfilePicture } from '../../collection/collection-profile-picture'
 import { ItemThumbnailSelector } from '../../item/item-thumbnail-selector'
 import { NewListingSliderTargetRowQuantitySelector } from './new-listing-slider-target-row-quantity-selector'
-import { SizeMD } from '@echo/ui-model/dist'
+import { SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
@@ -25,7 +26,7 @@ export const NewListingSliderTargetRow: FunctionComponent<Props> = ({
 }) => {
   return (
     <div className={clsx('relative', 'w-full', 'h-40', 'rounded-lg', 'overflow-clip')}>
-      {onRemove && <ItemThumbnailSelector onRemove={onRemove} />}
+      <HideIfNil checks={onRemove} render={(onRemove) => <ItemThumbnailSelector onRemove={onRemove} />} />
       <Banner bannerUrl={bannerUrl} bannerSize={SizeMD} />
       <div className={clsx('absolute', 'left-2.5', 'bottom-3')}>
         <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} size={SizeMD} />

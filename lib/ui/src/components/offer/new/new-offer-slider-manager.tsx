@@ -6,7 +6,9 @@ import { BottomSliderTitle } from '../../base/bottom-slider/bottom-slider-title'
 import { HideIfNil } from '../../base/hide-if-nil'
 import { NewOfferBottomSliderInnerContainer } from './new-offer-bottom-slider-inner-container'
 import { OfferItem } from '@echo/ui-model'
+import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
+import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 import { useRecoilState } from 'recoil'
 
@@ -20,22 +22,32 @@ export const NewOfferSliderManager: FunctionComponent = () => {
     setNewOffer(removeItemFromNewOffer(itemToRemove, isReceiver))
   }
   return (
-    <HideIfNil
-      checks={newOffer}
-      render={() => (
-        <BottomSlider
-          renderTitle={() => <BottomSliderTitle title={t('title')} count={newOffer?.receiverItems.length} />}
-        >
-          {/* TODO Add action on add more */}
-          <NewOfferBottomSliderInnerContainer
-            receiver={newOffer!.receiver}
-            receiverItems={newOffer!.receiverItems}
-            senderItems={newOffer!.senderItems}
-            onRemoveReceiverItem={(itemToRemove) => onRemoveAsset(itemToRemove, true)}
-            onRemoveSenderItem={(itemToRemove) => onRemoveAsset(itemToRemove, false)}
-          />
-        </BottomSlider>
-      )}
-    ></HideIfNil>
+    <Transition
+      show={!isNil(newOffer)}
+      enter="ease-out duration-300"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
+      leave="ease-in duration-200"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
+    >
+      <HideIfNil
+        checks={newOffer}
+        render={(newOffer) => (
+          <BottomSlider
+            renderTitle={() => <BottomSliderTitle title={t('title')} count={newOffer.receiverItems.length} />}
+          >
+            {/* TODO Add action on add more */}
+            <NewOfferBottomSliderInnerContainer
+              receiver={newOffer.receiver}
+              receiverItems={newOffer.receiverItems}
+              senderItems={newOffer.senderItems}
+              onRemoveReceiverItem={(itemToRemove) => onRemoveAsset(itemToRemove, true)}
+              onRemoveSenderItem={(itemToRemove) => onRemoveAsset(itemToRemove, false)}
+            />
+          </BottomSlider>
+        )}
+      />
+    </Transition>
   )
 }

@@ -5,10 +5,11 @@ import { removeTargetFromNewListing } from '../../../helpers/remove-target-from-
 import { newListingDataState } from '../../../services/state'
 import { BottomSlider } from '../../base/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '../../base/bottom-slider/bottom-slider-title'
-import { HideIfNil } from '../../base/hide-if-nil'
 import { NewListingSliderInnerContainer } from './new-listing-slider-inner-container'
 import { getListingItemsCount, ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
+import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
+import { assoc, isNil, pipe } from 'ramda'
 import { FunctionComponent } from 'react'
 import { useRecoilState } from 'recoil'
 
@@ -20,57 +21,56 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({ collections 
   const [newListing, setNewListing] = useRecoilState(newListingDataState)
   const t = useTranslations('listing.new.bottomSlider')
 
-  const onTargetsSelected = (newTargets: ListingTarget[]) => {
-    setNewListing(
-      (currVal) =>
-        currVal && {
-          ...currVal,
-          targets: newTargets
-        }
-    )
+  function onTargetsSelected(newTargets: ListingTarget[]) {
+    pipe(assoc('targets'), setNewListing)(newTargets)
   }
 
-  const onEditTarget = (newTarget: ListingTarget) => {
+  function onEditTarget(newTarget: ListingTarget) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    setNewListing(editTargetFromNewListing(newTarget))
+    pipe(editTargetFromNewListing, setNewListing)(newTarget)
   }
 
-  const onRemoveTarget = (targetToRemove: ListingTarget) => {
+  function onRemoveTarget(targetToRemove: ListingTarget) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    setNewListing(removeTargetFromNewListing(targetToRemove))
+    pipe(removeTargetFromNewListing, setNewListing)(targetToRemove)
   }
 
-  const onRemoveItem = (itemToRemove: ListingItem) => {
+  function onRemoveItem(itemToRemove: ListingItem) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    setNewListing(removeItemFromNewListing(itemToRemove))
+    pipe(removeItemFromNewListing, setNewListing)(itemToRemove)
   }
 
-  const onDismissListing = () => {
+  function onDismissListing() {
     setNewListing(undefined)
   }
 
   return (
-    <HideIfNil
-      checks={newListing}
-      render={() => (
-        <BottomSlider
-          renderTitle={() => <BottomSliderTitle title={t('title')} count={getListingItemsCount(newListing!)} />}
-        >
-          <NewListingSliderInnerContainer
-            items={newListing?.items ?? []}
-            targets={newListing?.targets ?? []}
-            targetOptions={collections?.map((collection) => ({ collection, amount: 1 }))}
-            onTargetsSelected={onTargetsSelected}
-            onEditTarget={onEditTarget}
-            onRemoveTarget={onRemoveTarget}
-            onRemoveItem={onRemoveItem}
-            onDismissListing={onDismissListing}
-          />
-        </BottomSlider>
-      )}
-    ></HideIfNil>
+    <Transition
+      show={!isNil(newListing)}
+      enter="ease-out duration-300"
+      enterFrom="opacity-0"
+      enterTo="opacity-100"
+      leave="ease-in duration-200"
+      leaveFrom="opacity-100"
+      leaveTo="opacity-0"
+    >
+      <BottomSlider
+        renderTitle={() => <BottomSliderTitle title={t('title')} count={getListingItemsCount(newListing!)} />}
+      >
+        <NewListingSliderInnerContainer
+          items={newListing?.items ?? []}
+          targets={newListing?.targets ?? []}
+          targetOptions={collections?.map((collection) => ({ collection, amount: 1 }))}
+          onTargetsSelected={onTargetsSelected}
+          onEditTarget={onEditTarget}
+          onRemoveTarget={onRemoveTarget}
+          onRemoveItem={onRemoveItem}
+          onDismissListing={onDismissListing}
+        />
+      </BottomSlider>
+    </Transition>
   )
 }

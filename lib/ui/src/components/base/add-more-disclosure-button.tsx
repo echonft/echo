@@ -1,11 +1,11 @@
 import { AddIconSvg } from './svg/add-icon-svg'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, MouseEventHandler } from 'react'
 
 interface Props {
   title: string
-  onClick?: () => void
+  onClick?: MouseEventHandler
 }
 
 export const AddMoreDisclosureButton: FunctionComponent<Props> = ({ title, onClick }) => {

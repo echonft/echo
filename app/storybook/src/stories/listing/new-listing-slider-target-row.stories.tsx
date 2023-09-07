@@ -18,7 +18,6 @@ export const Default: Story = {
     collectionName: collection.name,
     bannerUrl: collection.bannerUrl,
     pictureUrl: collection.profilePictureUrl,
-    onRemove: () => {},
     quantity: 1
   },
   render: (args) => {

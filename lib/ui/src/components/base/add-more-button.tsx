@@ -1,10 +1,10 @@
 import { AddIconSvg } from './svg/add-icon-svg'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, MouseEventHandler } from 'react'
 
 interface Props {
   title: string
-  onClick?: () => void
+  onClick?: MouseEventHandler
 }
 
 export const AddMoreButton: FunctionComponent<Props> = ({ title, onClick }) => {
@@ -21,8 +21,7 @@ export const AddMoreButton: FunctionComponent<Props> = ({ title, onClick }) => {
         'border-dashed',
         'border-white/30',
         'justify-center',
-        'items-center',
-        'cursor-pointer'
+        'items-center'
       )}
       onClick={onClick}
     >

@@ -1,4 +1,5 @@
 import { ItemThumbnailSize } from '../../constants/item-thumbnail-size'
+import { HideIfNil } from '../base/hide-if-nil'
 import { NftThumbnailPicture } from '../nft/nft-thumbnail-picture'
 import { UserDiscordTagOffer } from '../user/user-discord-tag-offer'
 import { ItemThumbnailSelector } from './item-thumbnail-selector'
@@ -29,12 +30,18 @@ export const ItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername,
     >
       <div className={'relative'}>
         <NftThumbnailPicture alt={name} pictureUrl={thumbnailUrl} size={size} />
-        {onRemove && <ItemThumbnailSelector onRemove={() => onRemove?.(item)} />}
-        {discordUsername && (
-          <div className={clsx('absolute', 'bottom-[0.69rem]', 'left-2', 'z-10')}>
-            <UserDiscordTagOffer owner={discordUsername} />
-          </div>
-        )}
+        <HideIfNil
+          checks={onRemove}
+          render={(onRemove) => <ItemThumbnailSelector onRemove={() => onRemove?.(item)} />}
+        />
+        <HideIfNil
+          checks={discordUsername}
+          render={(discordUsername) => (
+            <div className={clsx('absolute', 'bottom-[0.69rem]', 'left-2', 'z-10')}>
+              <UserDiscordTagOffer owner={discordUsername} />
+            </div>
+          )}
+        />
       </div>
       <div
         className={clsx(

@@ -11,7 +11,6 @@ export interface Listing {
   createdAt: Dayjs
   expired: boolean
   expiresAt: Dayjs
-  // TODO Validate this behaviour, items could be empty if targets isnt and vice versa
   items: NonEmptyArray<ListingItem>
   state: ListingState
   targets: NonEmptyArray<ListingTarget>

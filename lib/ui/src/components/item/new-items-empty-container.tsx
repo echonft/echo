@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  onAddMore?: () => void
+  onAddMore?: () => unknown
 }
 
 export const NewItemsEmptyContainer: FunctionComponent<Props> = ({ onAddMore }) => {

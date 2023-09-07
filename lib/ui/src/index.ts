@@ -1,5 +1,6 @@
 export { Banner } from './components/base/banner'
 export { BottomSlider } from './components/base/bottom-slider/bottom-slider'
+export { BottomSliderTitle } from './components/base/bottom-slider/bottom-slider-title'
 export { Callout } from './components/base/callout/callout'
 export { CollapsibleManager } from './components/base/collapsible-manager'
 export { DiscordIcon } from './components/base/icons/discord-icon'

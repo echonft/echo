@@ -15,7 +15,7 @@ export const NewListingSliderTargetRowQuantitySelector: FunctionComponent<Props>
       <HideIf condition={quantity <= 1}>
         <span
           className={clsx('text-dark-900', 'bg-yellow-500', 'py-1', 'pl-1.5', 'pr-[0.44rem]', 'rounded-md')}
-          onClick={() => onQuantityChange?.(quantity - 1)}
+          onClick={() => onQuantityChange?.(quantity++)}
         >
           <SideCaretSvg direction={DirectionLeft} />
         </span>
@@ -38,7 +38,7 @@ export const NewListingSliderTargetRowQuantitySelector: FunctionComponent<Props>
       </div>
       <span
         className={clsx('text-dark-900', 'bg-yellow-500', 'py-1', 'pr-1.5', 'pl-[0.44rem]', 'rounded-md')}
-        onClick={() => onQuantityChange?.(quantity + 1)}
+        onClick={() => onQuantityChange?.(quantity--)}
       >
         <SideCaretSvg direction={DirectionRight} />
       </span>

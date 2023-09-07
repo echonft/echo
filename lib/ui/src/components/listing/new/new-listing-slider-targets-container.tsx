@@ -4,6 +4,7 @@ import { NewListingSliderTargetRow } from './new-listing-slider-target-row'
 import { DirectionIn, ListingTarget } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { assoc } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
@@ -31,7 +32,7 @@ export const NewListingSliderTargetsContainer: FunctionComponent<Props> = ({
             <NewListingSliderTargetRow
               collectionName={target.collection.name}
               quantity={target.amount}
-              onQuantityChange={(newQuantity) => onEdit?.({ ...target, amount: newQuantity })}
+              onQuantityChange={(newQuantity) => onEdit?.(assoc('amount', newQuantity, target))}
               pictureUrl={target.collection.profilePictureUrl}
               bannerUrl={target.collection.bannerUrl}
               onRemove={() => onRemove?.(target)}

@@ -1,5 +1,5 @@
 export interface SearchableObject<T> {
-  id: string | number
+  id: string
   label: string
   value: T
 }

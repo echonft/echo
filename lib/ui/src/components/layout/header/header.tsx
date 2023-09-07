@@ -24,7 +24,7 @@ export const Header: FunctionComponent<Props> = ({ user, onConnectClick }) => {
           <InternalLink path={'/'}>
             <EchoLogoSvg width={144} />
           </InternalLink>
-          <HideIfNil checks={user} render={() => <UserTag user={user!} />} />
+          <HideIfNil checks={user} render={(user) => <UserTag user={user} />} />
           <ShowIfNil checks={user}>
             <ConnectButton onConnectClick={onConnectClick} />
           </ShowIfNil>

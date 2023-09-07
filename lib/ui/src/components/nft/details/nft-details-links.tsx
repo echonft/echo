@@ -1,5 +1,5 @@
 import { ExternalLink } from '../../base/external-link'
-import { HideIfNilOrEmpty } from '../../base/hide-if-nil-or-empty'
+import { HideIfNil } from '../../base/hide-if-nil'
 import { BlurIcon } from '../../base/icons/blur-icon'
 import { OpenSeaIcon } from '../../base/icons/open-sea-icon'
 import { SizeLG } from '@echo/ui-model'
@@ -14,18 +14,18 @@ export interface NftDetailsLinksProps {
 export const NftDetailsLinks: FunctionComponent<NftDetailsLinksProps> = ({ openSeaUrl, blurUrl }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-5', 'items-center')}>
-      <HideIfNilOrEmpty
+      <HideIfNil
         checks={openSeaUrl}
-        render={() => (
-          <ExternalLink href={openSeaUrl!.href}>
+        render={(openSeaUrl) => (
+          <ExternalLink href={openSeaUrl.href}>
             <OpenSeaIcon size={SizeLG} />
           </ExternalLink>
         )}
       />
-      <HideIfNilOrEmpty
+      <HideIfNil
         checks={blurUrl}
-        render={() => (
-          <ExternalLink href={blurUrl!.href}>
+        render={(blurUrl) => (
+          <ExternalLink href={blurUrl.href}>
             <BlurIcon size={SizeLG} />
           </ExternalLink>
         )}
