@@ -1,42 +1,35 @@
 import { CollapsibleProps } from '../../../types/collapsible-props'
 import { DownCaretSvg } from '../../base/svg/down-caret-svg'
 import { clsx } from 'clsx'
-import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 interface Props extends CollapsibleProps {
-  trait: string
-  selectionCount: number
+  collectionName: string
 }
 
-export const TraitFilterButton: FunctionComponent<Props> = ({
-  trait,
-  selectionCount,
+export const NftsByCollectionDisclosureButton: FunctionComponent<Props> = ({
+  collectionName,
   collapsed,
   onToggleCollapsed
 }) => {
-  const t = useTranslations('collection.filters.traits.button')
   return (
     <button
       className={clsx(
         'flex',
         'flex-row',
-        'justify-between',
-        'items-center',
-        'w-full',
         'h-max',
-        'px-3',
-        'py-2',
-        'rounded-lg',
-        'bg-white/[0.08]'
+        'w-max',
+        'items-center',
+        'gap-2.5',
+        'p-2.5',
+        'prose-label-md',
+        'outline-none'
       )}
       onClick={() => {
         onToggleCollapsed?.(!collapsed)
       }}
     >
-      <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>
-        {t('title', { trait, count: selectionCount })}
-      </span>
+      <span className={clsx('prose-label-md', 'text-white')}>{collectionName}</span>
       <span className={clsx('text-white/50', 'transition-transform', collapsed && 'rotate-180')}>
         <DownCaretSvg />
       </span>

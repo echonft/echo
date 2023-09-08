@@ -19,7 +19,7 @@ export const CollectionFilterPanel: FunctionComponent<Props> = ({ filters, selec
         <CollectionFilterSelector
           key={filter.id}
           filter={filter}
-          selected={any(propEq(filter, 'id'))(selection ?? [])}
+          selected={any(propEq(filter.id, 'id'))(selection ?? [])}
           onToggleSelection={onSelectionUpdate}
         />
       ))}

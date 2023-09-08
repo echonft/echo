@@ -2,7 +2,7 @@
 import { links } from '../../constants/links'
 import { InternalLink } from '../base/internal-link'
 import { NftThumbnailPicture } from '../nft/nft-thumbnail-picture'
-import { CollectionThumbnailTitle } from './filters/collection-thumbnail-title'
+import { CollectionThumbnailTitle } from './collection-thumbnail-title'
 import { NftCollection } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'

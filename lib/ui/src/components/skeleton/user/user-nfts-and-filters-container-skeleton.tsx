@@ -1,4 +1,4 @@
-import { UserNftsContainer } from '../../user/user-nfts-container'
+import { UserNftsContainer } from '../../user/nft/user-nfts-container'
 import { UserOfferButton } from '../../user/user-offer-button'
 import { CollectionFilterPanelSkeleton } from './filters/collection-filter-panel-skeleton'
 import { clsx } from 'clsx'

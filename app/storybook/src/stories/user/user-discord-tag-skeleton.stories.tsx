@@ -1,4 +1,4 @@
-import { UserDiscordTag as Component } from '@echo/ui'
+import { UserDiscordTagSkeleton as Component } from '@echo/ui'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -10,8 +10,4 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Default: Story = {
-  args: {
-    discordUsername: 'johnnycagewins'
-  }
-}
+export const Skeleton: Story = {}

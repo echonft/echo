@@ -15,7 +15,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['discordUsername', 'discordAvatar', 'discordBanner', 'discordId', 'wallets']
+      exclude: ['discordUsername', 'discordAvatar', 'discordBanner', 'discordId', 'wallet']
     }
   }
 }
