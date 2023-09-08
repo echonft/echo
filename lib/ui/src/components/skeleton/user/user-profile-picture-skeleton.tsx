@@ -4,7 +4,7 @@ import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  size: UserProfilePictureSize
+  size: ProfilePictureSize
 }
 
 export const UserProfilePictureSkeleton: FunctionComponent<Props> = ({ size }) => {

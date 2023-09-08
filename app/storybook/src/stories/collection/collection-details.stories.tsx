@@ -1,5 +1,6 @@
 import { getCollectionById } from '../../mocks/model/nft-collection'
 import { CollectionDetails as Component } from '@echo/ui'
+import { SizeLG } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -25,7 +26,7 @@ export const Details: Story = {
       description={
         'A handcrafted collection of 10,000 characters developed by artist DirtyRobot. Each with their own identity to be discovered within the wider stories of RENGA. In its purest form, RENGA is the art of storytelling'
       }
-      size={'Large'}
+      size={SizeLG}
     />
   )
 }

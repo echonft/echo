@@ -30,6 +30,7 @@ export const NftThumbnailSelectable: FunctionComponent<Props> = ({
   const { id, name, tokenId, thumbnailUrl, owner, collection } = nft
   return (
     <InternalLink
+      className={clsx('h-max')}
       path={links.nft.nftLink(collection.slug, tokenId)}
       disabled={linkDisabled}
       onClick={() => {

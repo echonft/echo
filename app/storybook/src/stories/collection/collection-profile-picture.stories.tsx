@@ -24,7 +24,7 @@ export const Standard: Story = {
 export const DefaultPicture: Story = {
   args: {
     collectionName: name,
-    pictureUrl: undefined.
+    pictureUrl: undefined,
     size: SizeLG
   }
 }

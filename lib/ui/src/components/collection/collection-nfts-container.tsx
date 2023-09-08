@@ -18,7 +18,7 @@ export const CollectionNftsContainer: FunctionComponent<Props> = ({
   onMakeOfferForNft
 }) => {
   return (
-    <div className={clsx('flex', 'flex-row', 'self-stretch', 'grow', 'flex-wrap', 'gap-6', 'relative')}>
+    <div className={clsx('flex', 'flex-row', 'grow', 'flex-wrap', 'gap-6', 'h-max')}>
       {map(
         (nft) => (
           <NftThumbnailSelectable
