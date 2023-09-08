@@ -12,6 +12,7 @@ export const UserOfferButton: FunctionComponent<Props> = ({ count, onMakeOffer }
   return (
     <button
       onClick={onMakeOffer}
+      disabled={count === 0}
       className={clsx('!justify-between', 'btn-gradient', 'group', 'rounded-lg', 'w-full', 'px-2', 'py-0.5')}
     >
       <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>{t('label')}</span>

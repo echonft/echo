@@ -1,3 +1,4 @@
+'use client'
 import { CollapsibleProps } from '../../../types/collapsible-props'
 import { MultiSelectableProps } from '../../../types/multi-selectable-props'
 import { NftThumbnailSelectable } from '../../nft/nft-thumbnail-selectable'
