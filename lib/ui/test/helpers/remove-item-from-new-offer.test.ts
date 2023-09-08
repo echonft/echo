@@ -13,7 +13,7 @@ describe('helpers - removeItemFromNewOffer', () => {
       receiverItems: [item1, item2, item3],
       senderItems: [item1, item2, item3]
     } as NewOffer
-    expect(removeItemFromNewOffer(item2, true)(offer)).toStrictEqual({
+    expect(removeItemFromNewOffer(item2.nft.id, true)(offer)).toStrictEqual({
       receiver,
       receiverItems: [item1, item3],
       senderItems: [item1, item2, item3]
@@ -30,7 +30,7 @@ describe('helpers - removeItemFromNewOffer', () => {
       receiverItems: [item1, item2, item3],
       senderItems: [item1, item2, item3]
     } as NewOffer
-    expect(removeItemFromNewOffer(item3, false)(offer)).toStrictEqual({
+    expect(removeItemFromNewOffer(item3.nft.id, false)(offer)).toStrictEqual({
       receiver,
       receiverItems: [item1, item2, item3],
       senderItems: [item1, item2]

@@ -15,9 +15,9 @@ interface Props {
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
   onAddMoreSenderItem?: () => unknown
-  onRemoveSenderItem?: (item: OfferItem) => unknown
+  onRemoveSenderItem?: (itemNftId: string) => unknown
   onAddMoreReceiverItem?: () => unknown
-  onRemoveReceiverItem?: (item: OfferItem) => unknown
+  onRemoveReceiverItem?: (itemNftId: string) => unknown
 }
 
 export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({

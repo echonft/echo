@@ -5,7 +5,6 @@ import { BottomSlider } from '../../base/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '../../base/bottom-slider/bottom-slider-title'
 import { HideIfNil } from '../../base/hide-if-nil'
 import { NewOfferBottomSliderInnerContainer } from './new-offer-bottom-slider-inner-container'
-import { OfferItem } from '@echo/ui-model'
 import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -16,10 +15,10 @@ import { useRecoilState } from 'recoil'
 export const NewOfferSliderManager: FunctionComponent = () => {
   const [newOffer, setNewOffer] = useRecoilState(newOfferDataState)
   const t = useTranslations('offer.new.bottomSlider')
-  const onRemoveAsset = (itemToRemove: OfferItem, isReceiver: boolean) => {
+  const onRemoveAsset = (itemNftId: string, isReceiver: boolean) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    setNewOffer(removeItemFromNewOffer(itemToRemove, isReceiver))
+    setNewOffer(removeItemFromNewOffer(itemNftId, isReceiver))
   }
   return (
     <Transition
@@ -42,8 +41,8 @@ export const NewOfferSliderManager: FunctionComponent = () => {
               receiver={newOffer.receiver}
               receiverItems={newOffer.receiverItems}
               senderItems={newOffer.senderItems}
-              onRemoveReceiverItem={(itemToRemove) => onRemoveAsset(itemToRemove, true)}
-              onRemoveSenderItem={(itemToRemove) => onRemoveAsset(itemToRemove, false)}
+              onRemoveReceiverItem={(itemNftId) => onRemoveAsset(itemNftId, true)}
+              onRemoveSenderItem={(itemNftId) => onRemoveAsset(itemNftId, false)}
             />
           </BottomSlider>
         )}
