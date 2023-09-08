@@ -12,7 +12,7 @@ import { FunctionComponent, useState } from 'react'
 
 interface Props {
   offer: Offer
-  isReceiving: boolean
+  isReceiver: boolean
   onOfferUpdated?: () => unknown
   // For testing purposes only
   renderModal?: boolean
@@ -20,7 +20,7 @@ interface Props {
 
 export const OfferDetails: FunctionComponent<Props> = ({
   offer,
-  isReceiving,
+  isReceiver,
   // onOfferUpdated,
   renderModal = true
 }) => {
@@ -48,22 +48,22 @@ export const OfferDetails: FunctionComponent<Props> = ({
       >
         <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
           <UserDetailsContainer
-            user={isReceiving ? sender : receiver}
-            userWalletAddress={isReceiving ? sender.wallet.address : receiver.wallet.address}
+            user={isReceiver ? sender : receiver}
+            userWalletAddress={isReceiver ? sender.wallet.address : receiver.wallet.address}
           />
           <OfferDetailsState state={state} expired={expired} expiresAt={expiresAt} />
         </div>
         <div className={clsx('flex', 'flex-col', 'gap-5')}>
-          <OfferDetailsItemsContainer items={isReceiving ? senderItems : receiverItems} isReceiving />
+          <OfferDetailsItemsContainer items={isReceiver ? senderItems : receiverItems} isReceiver />
           <div className={clsx('pb-4')}>
             <OfferDetailsAssetsSeparator />
           </div>
-          <OfferDetailsItemsContainer items={isReceiving ? receiverItems : senderItems} isReceiving={false} />
+          <OfferDetailsItemsContainer items={isReceiver ? receiverItems : senderItems} isReceiver={false} />
           <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
             <OfferDetailsButtonsContainer
               state={state}
-              nftsCount={isReceiving ? receiverItems.length : senderItems.length}
-              isReceiving={isReceiving}
+              nftsCount={isReceiver ? receiverItems.length : senderItems.length}
+              isReceiving={isReceiver}
               isUpdating={shouldUpdate}
               onAccept={() => onAction(false)}
               onDecline={() => onAction(true)}

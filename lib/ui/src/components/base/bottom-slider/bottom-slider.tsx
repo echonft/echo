@@ -1,5 +1,5 @@
 'use client'
-import { DownCaretSvg } from './svg/down-caret-svg'
+import { DownCaretSvg } from '../svg/down-caret-svg'
 import { Disclosure, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
@@ -15,7 +15,7 @@ export const BottomSlider: FunctionComponent<PropsWithChildren<Props>> = ({ rend
         <div
           className={clsx('flex', 'flex-col', 'py-3', 'pl-5', 'pr-2.5', 'm-0.5', 'mb-0', 'bg-dark-500', 'rounded-t-md')}
         >
-          <Disclosure.Button>
+          <Disclosure.Button className={clsx('outline-none')}>
             <div className={clsx('flex', 'items-center', 'justify-between', 'gap-72')}>
               <>{renderTitle?.()}</>
               <span

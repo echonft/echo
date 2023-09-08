@@ -1,12 +1,12 @@
-import { UserProfilePictureSize } from '../../../constants/user-profile-picture-size'
-import { getUserProfilePictureSize } from '../../../helpers/get-user-profile-picture-size'
+import { ProfilePictureSize } from '../../../constants/profile-picture-size'
+import { getProfilePictureSize } from '../../../helpers/get-profile-picture-size'
 import { DefaultUserProfilePicture } from '../../base/svg/default-user-profile-picture'
 import { SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 export interface UserProfilePictureSkeletonProps {
-  size: UserProfilePictureSize
+  size: ProfilePictureSize
 }
 
 export const UserProfilePictureSkeleton: FunctionComponent<UserProfilePictureSkeletonProps> = ({ size }) => {
@@ -21,8 +21,8 @@ export const UserProfilePictureSkeleton: FunctionComponent<UserProfilePictureSke
         size === SizeMD && ['h-[7.5rem]', 'w-[7.5rem]'],
         'blur-sm'
       )}
-      width={getUserProfilePictureSize(size)}
-      height={getUserProfilePictureSize(size)}
+      width={getProfilePictureSize(size)}
+      height={getProfilePictureSize(size)}
     />
   )
 }

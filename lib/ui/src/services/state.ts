@@ -1,6 +1,7 @@
 import { NewOffer } from '@echo/ui-model'
 import { atom } from 'recoil'
 
+// New Offer
 export const newOfferDataState = atom<NewOffer | undefined>({
   key: 'newOfferData',
   default: undefined

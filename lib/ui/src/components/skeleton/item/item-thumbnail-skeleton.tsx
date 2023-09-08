@@ -1,13 +1,13 @@
-import { OfferItemThumbnailSize } from '../../../constants/offer-item-thumbnail-size'
+import { ItemThumbnailSize } from '../../../constants/item-thumbnail-size'
 import { SizeLG, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  size?: OfferItemThumbnailSize
+  size?: ItemThumbnailSize
 }
 
-export const OfferItemThumbnailSkeleton: FunctionComponent<Props> = ({ size = SizeMD }) => (
+export const ItemThumbnailSkeleton: FunctionComponent<Props> = ({ size = SizeMD }) => (
   <div
     className={clsx(
       size === SizeMD && ['rounded-lg', 'w-32', 'h-[9.6275rem]'],

@@ -1,9 +1,9 @@
 import { getOfferById } from '../../mocks/model/offer'
-import { OfferItemThumbnail as Component, OfferItemThumbnailSkeleton } from '@echo/ui'
+import { ItemThumbnail as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Offer Items/Thumbnail',
+  title: 'Items/Thumbnail',
   component: Component,
   argTypes: {
     onRemove: {
@@ -59,14 +59,5 @@ export const UserDisplayed: Story = {
     size: 'Medium',
     onRemove: undefined,
     discordUsername: 'johnnycage#0890'
-  }
-}
-
-export const Skeleton: Story = {
-  render: ({ size }) => <OfferItemThumbnailSkeleton size={size} />,
-  parameters: {
-    controls: {
-      exclude: ['item', 'onRemove', 'discordUsername']
-    }
   }
 }

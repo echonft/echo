@@ -31,6 +31,15 @@ export const messages = {
       label: 'Go home'
     }
   },
+  items: {
+    new: {
+      assetsInTitle: 'Going in',
+      assetsOutTitle: 'Going out',
+      addMoreBtn: 'Add more',
+      noItemsTitle: 'No NFTs selected yet',
+      noItemsBtn: 'Select NFTs now'
+    }
+  },
   layout: {
     header: {
       connectButton: 'Connect',
@@ -46,6 +55,20 @@ export const messages = {
           in: 'Interested in',
           out: 'Offering'
         }
+      }
+    },
+    new: {
+      bottomSlider: {
+        title: 'Listing overview',
+        searchPlaceholder: 'Search by collection name',
+        addCollectionBtn: 'Collection',
+        itemsCount: '{count} {count, plural, =0 {} =1 {item} other {items}}',
+        finalizeBtn: 'Finalize',
+        dismissBtn: 'Dismiss',
+        expirationTitle: 'Expires in',
+        expirationSubtitle: 'During beta, the expiration is locked to 7 days',
+        expirationValue: '7 days',
+        emptySearch: 'No collections found'
       }
     }
   },
@@ -114,22 +137,17 @@ export const messages = {
         }
       }
     },
-    misc: {
-      assetsInSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',
-      assetsInTitle: 'Going in',
-      assetsOutSubtitle: "Counterparty's {count, plural, =0 {} =1 {asset} other {assets}}",
-      assetsOutTitle: 'Going out'
-    },
     new: {
       bottomSlider: {
         title: 'Offer overview',
-        add: 'Add more',
         finalize: 'Finalize offer',
         noNftsTitle: 'No NFTs selected yet',
         noNftsBtn: 'Select NFTs now'
       },
       confirmationModal: {
         title: 'Confirm Offer',
+        assetsInSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',
+        assetsOutSubtitle: "Counterparty's {count, plural, =0 {} =1 {asset} other {assets}}",
         confirmBtn: 'Confirm',
         editBtn: 'Edit'
       },
@@ -139,6 +157,12 @@ export const messages = {
         confirmBtn: 'Confirm',
         copyLinkBtn: 'Copy link'
       }
+    }
+  },
+  shared: {
+    assets: {
+      in: 'Going in',
+      out: 'Going out'
     }
   },
   user: {

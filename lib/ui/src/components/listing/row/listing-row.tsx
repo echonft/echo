@@ -37,7 +37,7 @@ export const ListingRow: FunctionComponent<Props> = ({ listing }) => {
             className={clsx(
               'mx-10',
               'h-full',
-              'w-[2px]',
+              'w-[0.125rem]',
               'box-border',
               'border-solid',
               'border-x',

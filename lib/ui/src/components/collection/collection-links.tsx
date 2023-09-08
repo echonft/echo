@@ -20,21 +20,31 @@ export const CollectionLinks: FunctionComponent<CollectionLinksProps> = ({
 }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-2')}>
-      <HideIfNil checks={websiteUrl}>
-        <ExternalLink href={websiteUrl!.href}>
-          <WebsiteIcon size={SizeMD} />
-        </ExternalLink>
-      </HideIfNil>
-      <HideIfNil checks={twitterUsername}>
-        <ExternalLink href={`https://twitter.com/${twitterUsername!}`}>
-          <TwitterIcon size={SizeMD} />
-        </ExternalLink>
-      </HideIfNil>
-      <HideIfNil checks={discordUrl}>
-        <ExternalLink href={discordUrl!.href}>
-          <DiscordIcon size={SizeMD} />
-        </ExternalLink>
-      </HideIfNil>
+      <HideIfNil
+        checks={websiteUrl}
+        render={(websiteUrl) => (
+          <ExternalLink href={websiteUrl.href}>
+            <WebsiteIcon size={SizeMD} />
+          </ExternalLink>
+        )}
+      />
+
+      <HideIfNil
+        checks={twitterUsername}
+        render={(twitterUsername) => (
+          <ExternalLink href={`https://twitter.com/${twitterUsername}`}>
+            <TwitterIcon size={SizeMD} />
+          </ExternalLink>
+        )}
+      />
+      <HideIfNil
+        checks={discordUrl}
+        render={(discordUrl) => (
+          <ExternalLink href={discordUrl.href}>
+            <DiscordIcon size={SizeMD} />
+          </ExternalLink>
+        )}
+      />
     </div>
   )
 }

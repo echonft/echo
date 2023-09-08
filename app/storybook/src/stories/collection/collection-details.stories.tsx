@@ -16,7 +16,7 @@ export const Default: Story = {
   render: () => (
     <Component
       collectionName={collection.name}
-      size={10000}
+      supplyCount={10000}
       pictureUrl={collection.profilePictureUrl}
       discordUrl={collection.discordUrl}
       twitterUsername={collection.twitterUsername}
@@ -25,6 +25,7 @@ export const Default: Story = {
       description={
         'A handcrafted collection of 10,000 characters developed by artist DirtyRobot. Each with their own identity to be discovered within the wider stories of RENGA. In its purest form, RENGA is the art of storytelling'
       }
+      size={'Large'}
     />
   )
 }

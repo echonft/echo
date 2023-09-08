@@ -1,29 +1,23 @@
 import { SwapDirectionHeader } from '../../shared/swap-direction-header'
-import { OfferItemThumbnailSkeleton } from '../offer-item/offer-item-thumbnail-skeleton'
+import { ItemThumbnailSkeleton } from '../item/item-thumbnail-skeleton'
 import { DirectionIn, DirectionOut, SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
-export interface OfferDetailsItemsContainerProps {
-  isReceiving: boolean
+interface Props {
+  isReceiver: boolean
 }
 
-export const OfferDetailsItemsContainerSkeleton: FunctionComponent<OfferDetailsItemsContainerProps> = ({
-  isReceiving
-}) => {
-  const t = useTranslations('offer.misc')
-
+export const OfferDetailsItemsContainerSkeleton: FunctionComponent<Props> = ({ isReceiver }) => {
+  const t = useTranslations('shared.assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
-      <SwapDirectionHeader
-        direction={isReceiving ? DirectionIn : DirectionOut}
-        title={t(isReceiving ? 'assetsInTitle' : 'assetsOutTitle')}
-      />
+      <SwapDirectionHeader direction={isReceiver ? DirectionIn : DirectionOut} title={t(isReceiver ? 'in' : 'out')} />
       <div className={clsx('flex', 'flex-row', 'gap-4', 'justify-center')}>
-        <OfferItemThumbnailSkeleton size={SizeLG} />
-        <OfferItemThumbnailSkeleton size={SizeLG} />
-        <OfferItemThumbnailSkeleton size={SizeLG} />
+        <ItemThumbnailSkeleton size={SizeLG} />
+        <ItemThumbnailSkeleton size={SizeLG} />
+        <ItemThumbnailSkeleton size={SizeLG} />
       </div>
     </div>
   )

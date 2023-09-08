@@ -42,7 +42,7 @@ export const CollectionNftsContainer: FunctionComponent<Props> = ({
       </ShowIf>
       <HideIfNil
         checks={nfts}
-        render={() =>
+        render={(nfts) =>
           nfts.map((nft) => (
             <NftThumbnailSelectable
               key={nft.id}

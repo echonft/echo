@@ -1,6 +1,7 @@
 import { Banner, BannerProps } from '../base/banner'
 import { PaddedContainer } from '../layout/padded-container'
 import { CollectionProfile, CollectionProfileProps } from './collection-profile'
+import { SizeLG } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
@@ -10,7 +11,7 @@ interface Props extends CollectionProfileProps, BannerProps {
 
 export const CollectionDetails: FunctionComponent<Props> = ({
   bannerUrl,
-  size,
+  supplyCount,
   collectionName,
   description,
   pictureUrl,
@@ -25,11 +26,12 @@ export const CollectionDetails: FunctionComponent<Props> = ({
         <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-40', 'pb-8')}>
           <CollectionProfile
             collectionName={collectionName}
-            size={size}
+            supplyCount={supplyCount}
             pictureUrl={pictureUrl}
             discordUrl={discordUrl}
             websiteUrl={websiteUrl}
             twitterUsername={twitterUsername}
+            size={SizeLG}
           />
         </div>
         <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full')}>

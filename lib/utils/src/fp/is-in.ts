@@ -1,7 +1,8 @@
 import { NonEmptyArray } from '../types/non-empty-array'
 import { includes } from 'ramda'
 
-export const isIn =
-  <T>(list: T[] | NonEmptyArray<T>) =>
-  (value: T) =>
-    includes(value, list)
+export function isIn<T>(list: T[] | NonEmptyArray<T>) {
+  return function (value: T) {
+    return includes(value, list)
+  }
+}

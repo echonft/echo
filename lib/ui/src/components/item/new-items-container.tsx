@@ -1,40 +1,42 @@
-import { OfferItemThumbnail } from '../../offer-item/offer-item-thumbnail'
-import { SwapDirectionHeader } from '../../shared/swap-direction-header'
-import { NewOfferAddMoreButton } from './new-offer-add-more-button'
-import { NewOfferEmptyItems } from './new-offer-empty-items'
+import { AddMoreDisclosureButton } from '../base/add-more-disclosure-button'
+import { SwapDirectionHeader } from '../shared/swap-direction-header'
+import { ItemThumbnail } from './item-thumbnail'
 import { DirectionIn, DirectionOut, OfferItem, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isEmpty } from 'ramda'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, ReactNode } from 'react'
 
 interface Props {
   isReceiver: boolean
   items: OfferItem[]
   onAddMore?: () => unknown
-  onRemove?: (item: OfferItem) => unknown
+  onRemove?: (itemNftId: string) => unknown
+  renderEmpty?: () => ReactNode
 }
 
-export const NewOfferBottomSliderItemsContainer: FunctionComponent<Props> = ({
+export const NewItemsContainer: FunctionComponent<Props> = ({
   isReceiver,
   items = [],
   onAddMore,
-  onRemove
+  onRemove,
+  renderEmpty
 }) => {
-  const t = useTranslations('offer.misc')
+  const t = useTranslations('items.new')
+  const tShared = useTranslations('shared.assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-11')}>
       <SwapDirectionHeader
         direction={isReceiver ? DirectionIn : DirectionOut}
-        title={t(isReceiver ? 'assetsInTitle' : 'assetsOutTitle')}
+        title={tShared(isReceiver ? 'in' : 'out')}
       />
       <div className={clsx('flex', 'flex-row', 'gap-4')}>
         {isEmpty(items) ? (
-          <NewOfferEmptyItems onAddMore={onAddMore} />
+          renderEmpty?.()
         ) : (
           <>
             {items.map((item) => (
-              <OfferItemThumbnail
+              <ItemThumbnail
                 item={item}
                 key={item.nft.id}
                 size={SizeMD}
@@ -43,7 +45,7 @@ export const NewOfferBottomSliderItemsContainer: FunctionComponent<Props> = ({
                 }}
               />
             ))}
-            <NewOfferAddMoreButton onClick={onAddMore} />
+            <AddMoreDisclosureButton title={t('addMoreBtn')} onClick={onAddMore} />
           </>
         )}
       </div>

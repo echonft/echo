@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const ListingRowItemsContainer: FunctionComponent<Props> = ({ items }) => {
-  const t = useTranslations('listing.details.assets.title')
+  const t = useTranslations('shared.assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-5')}>
       <SwapDirectionHeader direction={DirectionOut} title={t('out')} />
