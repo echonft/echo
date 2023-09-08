@@ -1,7 +1,7 @@
 import { AddMoreDisclosureButton } from '../base/add-more-disclosure-button'
 import { SwapDirectionHeader } from '../shared/swap-direction-header'
 import { ItemThumbnail } from './item-thumbnail'
-import { DirectionIn, DirectionOut, ListingItem, OfferItem, SizeMD } from '@echo/ui-model'
+import { DirectionIn, DirectionOut, OfferItem, SizeMD } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isEmpty } from 'ramda'
@@ -11,7 +11,7 @@ interface Props {
   isReceiver: boolean
   items: OfferItem[]
   onAddMore?: () => unknown
-  onRemove?: (item: OfferItem | ListingItem) => unknown
+  onRemove?: (itemNftId: string) => unknown
   renderEmpty?: () => ReactNode
 }
 

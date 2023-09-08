@@ -6,6 +6,6 @@ export async function getAllNftCollections(constraints?: QueryConstraints) {
   try {
     return await firestoreGetAllNftCollections(constraints)
   } catch (e) {
-    throw new ServerError('Error fetching collections')
+    throw new ServerError()
   }
 }

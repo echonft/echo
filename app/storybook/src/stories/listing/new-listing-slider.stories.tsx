@@ -1,78 +1,69 @@
 import { getListingById } from '../../mocks/model/listing'
 import { getAllCollections } from '../../mocks/model/nft-collection'
-import { newListingDataState, NewListingSliderManager as Component } from '@echo/ui'
-import { NewListing, NftCollection } from '@echo/ui-model'
+import { NewListingSliderManager as Component } from '@echo/ui'
 import { Meta, StoryObj } from '@storybook/react'
-import { FunctionComponent, useEffect } from 'react'
-import { RecoilRoot, useRecoilState } from 'recoil'
 
 const metadata: Meta<typeof Component> = {
   title: 'Listing/New Listing Bottom Slider',
-  component: Component
+  component: Component,
+  argTypes: {
+    onDismiss: {
+      control: false,
+      action: 'dismissed'
+    }
+  },
+  parameters: {
+    controls: {
+      exclude: ['collectionProvider', 'show', 'onDismiss', 'initialTargets', 'initialItems']
+    }
+  }
 }
 
 export default metadata
 
 type Story = StoryObj<typeof Component>
-
-const RenderedComponent: FunctionComponent<{
-  data?: NewListing
-  options?: NftCollection[]
-}> = ({ data, options }) => {
-  const [, setNewListing] = useRecoilState(newListingDataState)
-  useEffect(() => {
-    setNewListing({ items: data?.items ?? [], targets: data?.targets ?? [] })
-  }, [])
-  return <Component collections={options} />
+const collectionProvider = {
+  get: () => Promise.resolve(getAllCollections())
 }
+const { targets, items } = getListingById('jUzMtPGKM62mMhEcmbN4')
+
 export const Empty: Story = {
-  render: () => (
-    <RecoilRoot>
-      <RenderedComponent options={getAllCollections()} />
-    </RecoilRoot>
-  )
+  args: {
+    collectionProvider,
+    show: true
+  }
 }
 
-export const LoadingCollections: Story = {
-  render: () => (
-    <RecoilRoot>
-      <RenderedComponent options={undefined} />
-    </RecoilRoot>
-  )
+export const Loading: Story = {
+  args: {
+    collectionProvider: {
+      get: () => new Promise(() => {})
+    },
+    show: true
+  }
 }
 
-export const WithTarget: Story = {
-  render: () => (
-    <RecoilRoot>
-      <RenderedComponent
-        options={getAllCollections()}
-        data={{ targets: getListingById('jUzMtPGKM62mMhEcmbN4').targets, items: [] }}
-      />
-    </RecoilRoot>
-  )
+export const WithTargets: Story = {
+  args: {
+    collectionProvider,
+    show: true,
+    initialTargets: targets
+  }
 }
 
-export const WithItem: Story = {
-  render: () => (
-    <RecoilRoot>
-      <RenderedComponent
-        options={getAllCollections()}
-        data={{ targets: [], items: getListingById('jUzMtPGKM62mMhEcmbN4').items }}
-      />
-    </RecoilRoot>
-  )
+export const WithItems: Story = {
+  args: {
+    collectionProvider,
+    show: true,
+    initialItems: items
+  }
 }
 
-export const Complete: Story = {
-  render: () => (
-    <RecoilRoot>
-      <RenderedComponent
-        options={getAllCollections()}
-        data={{
-          targets: getListingById('jUzMtPGKM62mMhEcmbN4').targets,
-          items: getListingById('jUzMtPGKM62mMhEcmbN4').items
-        }}
-      />
-    </RecoilRoot>
-  )
+export const WithTargetsAndItems: Story = {
+  args: {
+    collectionProvider,
+    show: true,
+    initialTargets: targets,
+    initialItems: items
+  }
 }

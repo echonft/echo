@@ -12,7 +12,7 @@ interface Props {
   item: OfferItem | ListingItem
   size: ItemThumbnailSize
   discordUsername?: string
-  onRemove?: (item: OfferItem | ListingItem) => unknown
+  onRemove?: (itemNftId: string) => unknown
 }
 
 export const ItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername, size, onRemove }) => {
@@ -32,7 +32,13 @@ export const ItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername,
         <NftThumbnailPicture alt={name} pictureUrl={thumbnailUrl} size={size} />
         <HideIfNil
           checks={onRemove}
-          render={(onRemove) => <ItemThumbnailSelector onRemove={() => onRemove?.(item)} />}
+          render={(onRemove) => (
+            <ItemThumbnailSelector
+              onRemove={() => {
+                onRemove?.(item.nft.id)
+              }}
+            />
+          )}
         />
         <HideIfNil
           checks={discordUsername}

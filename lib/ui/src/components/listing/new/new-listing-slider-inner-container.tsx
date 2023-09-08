@@ -4,21 +4,22 @@ import { NewItemsEmptyContainer } from '../../item/new-items-empty-container'
 import { NewListingSliderExpirationContainer } from './new-listing-slider-expiration-container'
 import { NewListingSliderSearchBoxManager } from './new-listing-slider-search-box-manager'
 import { NewListingSliderTargetsContainer } from './new-listing-slider-targets-container'
-import { ListingItem, ListingTarget } from '@echo/ui-model'
+import { ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
 import { isNilOrEmpty } from '@echo/utils'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { map, prop } from 'ramda'
 import { FunctionComponent, useRef } from 'react'
 
 interface Props {
   items: ListingItem[]
   targets: ListingTarget[]
-  targetOptions?: ListingTarget[]
-  onTargetsSelected?: (newTargets: ListingTarget[]) => unknown
-  onEditTarget?: (target: ListingTarget) => unknown
-  onRemoveTarget?: (target: ListingTarget) => unknown
-  onRemoveItem?: (item: ListingItem) => unknown
+  collections: Array<NftCollection> | undefined
+  onCollectionSelectionChange?: (selection: Array<NftCollection>) => unknown
+  onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
+  onRemoveTarget?: (targetCollectionId: string) => unknown
+  onRemoveItem?: (itemNftId: string) => unknown
   onAddMoreItem?: () => unknown
   onDismissListing?: () => unknown
 }
@@ -26,9 +27,9 @@ interface Props {
 export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
   items,
   targets,
-  targetOptions,
-  onTargetsSelected,
-  onEditTarget,
+  collections,
+  onCollectionSelectionChange,
+  onTargetAmountChange,
   onRemoveTarget,
   onRemoveItem,
   onAddMoreItem,
@@ -46,15 +47,15 @@ export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
       <NewListingSliderSearchBoxManager
         placeholder={t('searchPlaceholder')}
         ref={searchBarRef}
-        selectedOptions={targets}
-        options={targetOptions}
-        onTargetsSelected={onTargetsSelected}
+        selectedOptions={map(prop('collection'), targets)}
+        options={collections}
+        onSelectionChange={onCollectionSelectionChange}
       />
       <NewListingSliderTargetsContainer
         targets={targets}
         onAddMore={onAddMoreTarget}
         onRemove={onRemoveTarget}
-        onEdit={onEditTarget}
+        onEdit={onTargetAmountChange}
       />
       <NewItemsContainer
         items={items}
@@ -68,7 +69,6 @@ export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
         <Disclosure.Button
           className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')}
           disabled={isNilOrEmpty(items) || isNilOrEmpty(targets)}
-          // onClick={() => setModalState('TO CONFIRM')}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalizeBtn')}</span>
         </Disclosure.Button>

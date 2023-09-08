@@ -1,4 +1,6 @@
 import { HideIfNil } from '../../base/hide-if-nil'
+import { ShowIf } from '../../base/show-if'
+import { CheckmarkIconSvg } from '../../base/svg/checkmark-icon-svg'
 import { CollectionRoundedProfilePicture } from '../../collection/collection-rounded-profile-picture'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -23,26 +25,31 @@ export const NewListingSliderSearchCollectionOption: FunctionComponent<Props> = 
     <div
       className={clsx(
         'hover:bg-white/[0.08]',
-        selected && 'bg-white/[0.08]',
         'rounded-lg',
         'p-2',
         'flex',
         'flex-row',
-        'gap-3'
+        'justify-between',
+        'items-center'
       )}
     >
-      <CollectionRoundedProfilePicture pictureUrl={pictureUrl} collectionName={collectionName} />
-      <div className={clsx('flex', 'flex-col', 'gap-1', 'justify-center')}>
-        <span className={clsx('prose-header-sm-semi', 'text-white')}>{collectionName}</span>
-        <HideIfNil
-          checks={collectionSupply}
-          render={(collectionSupply) => (
-            <span className={clsx('prose-header-sm', 'text-white/70')}>
-              {t('itemsCount', { count: collectionSupply })}
-            </span>
-          )}
-        />
+      <div className={clsx('flex', 'flex-row', 'self-stretch', 'gap-3')}>
+        <CollectionRoundedProfilePicture pictureUrl={pictureUrl} collectionName={collectionName} />
+        <div className={clsx('flex', 'flex-col', 'gap-1', 'justify-center')}>
+          <span className={clsx('prose-header-sm-semi', 'text-white')}>{collectionName}</span>
+          <HideIfNil
+            checks={collectionSupply}
+            render={(collectionSupply) => (
+              <span className={clsx('prose-header-sm', 'text-white/70')}>
+                {t('itemsCount', { count: collectionSupply })}
+              </span>
+            )}
+          />
+        </div>
       </div>
+      <ShowIf condition={selected}>
+        <CheckmarkIconSvg className={clsx('text-white')} width={24} />
+      </ShowIf>
     </div>
   )
 }

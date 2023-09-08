@@ -9,7 +9,6 @@ export const NewListingSliderExpirationContainer: FunctionComponent = () => {
     <div className={clsx('flex', 'flex-col', 'gap-4')}>
       <div className={clsx('flex', 'flex-col', 'gap-2')}>
         <span className={clsx('prose-label-lg', 'text-white')}>{t('expirationTitle')}</span>
-        <span className={clsx('prose-caps-sm', 'text-white')}>{t('expirationSubtitle')}</span>
       </div>
       <div className={clsx('rounded-lg', 'border-white/[0.05]', 'px-2.5', 'py-0.5', 'border', 'w-max')}>
         <span className={clsx('prose-label-sm-semi', 'text-white')}>{t('expirationValue')}</span>

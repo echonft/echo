@@ -1,4 +1,3 @@
-import { HideIf } from '../../base/hide-if'
 import { SideCaretSvg } from '../../base/svg/side-caret-svg'
 import { DirectionLeft, DirectionRight } from '@echo/ui-model'
 import { clsx } from 'clsx'
@@ -12,14 +11,21 @@ interface Props {
 export const NewListingSliderTargetRowQuantitySelector: FunctionComponent<Props> = ({ quantity, onQuantityChange }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-1.5', 'items-center')}>
-      <HideIf condition={quantity <= 1}>
-        <span
-          className={clsx('text-dark-900', 'bg-yellow-500', 'py-1', 'pl-1.5', 'pr-[0.44rem]', 'rounded-md')}
-          onClick={() => onQuantityChange?.(quantity++)}
-        >
-          <SideCaretSvg direction={DirectionLeft} />
-        </span>
-      </HideIf>
+      <button
+        disabled={quantity <= 1}
+        className={clsx(
+          'text-dark-900',
+          'bg-yellow-500',
+          'py-1',
+          'pl-1.5',
+          'pr-[0.44rem]',
+          'rounded-md',
+          'disabled:bg-yellow-500/[0.3]'
+        )}
+        onClick={() => onQuantityChange?.(quantity - 1)}
+      >
+        <SideCaretSvg direction={DirectionLeft} />
+      </button>
       <div
         className={clsx(
           'flex',
@@ -36,12 +42,12 @@ export const NewListingSliderTargetRowQuantitySelector: FunctionComponent<Props>
       >
         <span className={clsx('prose-label-lg-semi', 'text-white')}>{quantity}</span>
       </div>
-      <span
+      <button
         className={clsx('text-dark-900', 'bg-yellow-500', 'py-1', 'pr-1.5', 'pl-[0.44rem]', 'rounded-md')}
-        onClick={() => onQuantityChange?.(quantity--)}
+        onClick={() => onQuantityChange?.(quantity + 1)}
       >
         <SideCaretSvg direction={DirectionRight} />
-      </span>
+      </button>
     </div>
   )
 }

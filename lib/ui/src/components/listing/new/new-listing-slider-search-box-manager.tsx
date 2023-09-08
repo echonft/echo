@@ -1,56 +1,66 @@
-import { NewListingSearchCollectionOptionSkeleton } from '../../skeleton/listing/new-listing-search-collection-option-skeleton'
 import { NewListingSliderSearchBox } from './new-listing-slider-search-box'
-import { ListingTarget } from '@echo/ui-model'
-import { isNilOrEmpty, stringIncludes } from '@echo/utils'
-import { always, either, filter, identity, ifElse, isNil, path, pipe } from 'ramda'
-import { forwardRef, ForwardRefRenderFunction, useMemo, useState } from 'react'
+import { NftCollection } from '@echo/ui-model'
+import { stringIncludes } from '@echo/utils'
+import { filter, isNil, pipe, prop, toLower } from 'ramda'
+import { forwardRef, ForwardRefRenderFunction, useCallback, useEffect, useRef, useState } from 'react'
 
 interface Props {
   placeholder: string
+  options: Array<NftCollection> | undefined
+  selectedOptions: Array<NftCollection>
   name?: string
-  options?: ListingTarget[]
-  selectedOptions: ListingTarget[]
-  onTargetsSelected?: (newTargets: ListingTarget[]) => unknown
+  onSelectionChange?: (selection: Array<NftCollection>) => unknown
 }
 
 const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-  { placeholder, name, options, onTargetsSelected, selectedOptions },
+  { placeholder, name, options, onSelectionChange, selectedOptions },
   ref
 ) => {
-  const [searchQuery, setSearchQuery] = useState<string>()
-
-  const filteredOptions = useMemo<ListingTarget[] | undefined>(
-    () =>
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      ifElse(
-        either(isNil, always(isNilOrEmpty(searchQuery))),
-        identity,
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-call
-        filter(pipe(path(['collection', 'name']), stringIncludes(searchQuery)))
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-      )(options),
-    [searchQuery, options]
+  const [searching, setSearching] = useState(false)
+  const [filteredOptions, setFilteredOptions] = useState<Array<NftCollection>>()
+  const filterOptions = useCallback(
+    (searchQuery: string) => {
+      setSearching(true)
+      if (!isNil(options)) {
+        setFilteredOptions(filter(pipe(prop('name'), toLower, stringIncludes(toLower(searchQuery))))(options))
+      }
+    },
+    [options]
   )
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
+
+  // clear the timeout if needed
+  useEffect(
+    () => () => {
+      if (!isNil(timeoutRef.current)) {
+        clearTimeout(timeoutRef.current)
+      }
+    },
+    []
+  )
+
+  function resetOptions() {
+    if (searching) {
+      setSearching(false)
+      // wait for the transition to finish
+      timeoutRef.current = setTimeout(() => {
+        setFilteredOptions(undefined)
+        timeoutRef.current = undefined
+      }, 200)
+    }
+  }
+
   return (
     <NewListingSliderSearchBox
       placeholder={placeholder}
       name={name}
       ref={ref}
-      onSearch={setSearchQuery}
-      selectedOptions={selectedOptions}
-      onSelected={onTargetsSelected}
       options={filteredOptions}
-      renderLoading={() => (
-        <>
-          <NewListingSearchCollectionOptionSkeleton />
-          <NewListingSearchCollectionOptionSkeleton />
-          <NewListingSearchCollectionOptionSkeleton />
-        </>
-      )}
+      selectedOptions={selectedOptions}
+      searching={searching}
+      onSearch={filterOptions}
+      onSearchClear={resetOptions}
+      onSelectionChange={onSelectionChange}
     />
   )
 }

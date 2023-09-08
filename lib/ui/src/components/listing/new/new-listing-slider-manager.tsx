@@ -1,55 +1,80 @@
 'use client'
-import { editTargetFromNewListing } from '../../../helpers/edit-target-from-new-listing'
-import { removeItemFromNewListing } from '../../../helpers/remove-item-from-new-listing'
-import { removeTargetFromNewListing } from '../../../helpers/remove-target-from-new-listing'
-import { newListingDataState } from '../../../services/state'
 import { BottomSlider } from '../../base/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '../../base/bottom-slider/bottom-slider-title'
 import { NewListingSliderInnerContainer } from './new-listing-slider-inner-container'
-import { getListingItemsCount, ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
+import { ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
 import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
-import { assoc, isNil, pipe } from 'ramda'
-import { FunctionComponent } from 'react'
-import { useRecoilState } from 'recoil'
+import { assoc, find, isNil, map, pathEq, pipe, reject, when } from 'ramda'
+import { FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
-  collections?: NftCollection[]
+  collectionProvider: {
+    get: () => Promise<Array<NftCollection>>
+  }
+  initialTargets?: Array<ListingTarget>
+  initialItems?: Array<ListingItem>
+  show?: boolean
+  onDismiss?: () => unknown
 }
 
-export const NewListingSliderManager: FunctionComponent<Props> = ({ collections }) => {
-  const [newListing, setNewListing] = useRecoilState(newListingDataState)
+export const NewListingSliderManager: FunctionComponent<Props> = ({
+  collectionProvider,
+  initialTargets,
+  initialItems,
+  show,
+  onDismiss
+}) => {
+  const [collections, setCollections] = useState<Array<NftCollection>>()
+  const [targets, setTargets] = useState<ListingTarget[]>(initialTargets ?? [])
+  const [items, setItems] = useState<ListingItem[]>(initialItems ?? [])
   const t = useTranslations('listing.new.bottomSlider')
 
-  function onTargetsSelected(newTargets: ListingTarget[]) {
-    pipe(assoc('targets'), setNewListing)(newTargets)
+  useEffect(() => {
+    void collectionProvider.get().then(setCollections)
+  }, [collectionProvider])
+
+  function onCollectionSelectionChange(selection: Array<NftCollection>) {
+    setTargets(
+      map((collection) => {
+        const target = find(pathEq(collection.id, ['collection', 'id']), targets)
+        if (isNil(target)) {
+          return {
+            amount: 1,
+            collection
+          }
+        }
+        return {
+          amount: target.amount,
+          collection
+        }
+      }, selection)
+    )
   }
 
-  function onEditTarget(newTarget: ListingTarget) {
+  function onTargetAmountChange(targetCollectionId: string, amount: number) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    pipe(editTargetFromNewListing, setNewListing)(newTarget)
+    pipe(map(when(pathEq(targetCollectionId, ['collection', 'id']), assoc('amount', amount))), setTargets)(targets)
   }
 
-  function onRemoveTarget(targetToRemove: ListingTarget) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    pipe(removeTargetFromNewListing, setNewListing)(targetToRemove)
+  function onRemoveTarget(targetCollectionId: string) {
+    pipe(reject(pathEq(targetCollectionId, ['collection', 'id'])), setTargets)(targets)
   }
 
-  function onRemoveItem(itemToRemove: ListingItem) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    pipe(removeItemFromNewListing, setNewListing)(itemToRemove)
+  function onRemoveItem(itemNftId: string) {
+    pipe(reject(pathEq(itemNftId, ['nft', 'id'])), setItems)(items)
   }
 
   function onDismissListing() {
-    setNewListing(undefined)
+    setTargets([])
+    setItems([])
+    onDismiss?.()
   }
 
   return (
     <Transition
-      show={!isNil(newListing)}
+      show={show}
       enter="ease-out duration-300"
       enterFrom="opacity-0"
       enterTo="opacity-100"
@@ -57,15 +82,13 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({ collections 
       leaveFrom="opacity-100"
       leaveTo="opacity-0"
     >
-      <BottomSlider
-        renderTitle={() => <BottomSliderTitle title={t('title')} count={getListingItemsCount(newListing!)} />}
-      >
+      <BottomSlider renderTitle={() => <BottomSliderTitle title={t('title')} count={items.length} />}>
         <NewListingSliderInnerContainer
-          items={newListing?.items ?? []}
-          targets={newListing?.targets ?? []}
-          targetOptions={collections?.map((collection) => ({ collection, amount: 1 }))}
-          onTargetsSelected={onTargetsSelected}
-          onEditTarget={onEditTarget}
+          items={items}
+          targets={targets}
+          collections={collections}
+          onCollectionSelectionChange={onCollectionSelectionChange}
+          onTargetAmountChange={onTargetAmountChange}
           onRemoveTarget={onRemoveTarget}
           onRemoveItem={onRemoveItem}
           onDismissListing={onDismissListing}
