@@ -4,7 +4,7 @@ import { assertListingStateIs } from '../../helpers/listing/assert/assert-listin
 import { getListingSnapshotById } from './get-listing-snapshot-by-id'
 import { WriteResult } from 'firebase-admin/firestore'
 
-export const cancelListing = async (id: string): Promise<WriteResult> => {
+export async function cancelListing(id: string): Promise<WriteResult> {
   const documentSnapshot = await getListingSnapshotById(id)
   assertListingIsNotExpired(documentSnapshot?.data())
   assertListingStateIs(documentSnapshot?.data(), 'OPEN')

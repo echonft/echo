@@ -17,6 +17,7 @@ export { getListingsForCollection } from './crud/listing/get-listings-for-collec
 export { getListingsForCollectionAsItem } from './crud/listing/get-listings-for-collection-as-item'
 export { getListingsForCollectionAsTarget } from './crud/listing/get-listings-for-collection-as-target'
 export { getListingsForCreator } from './crud/listing/get-listings-for-creator'
+export { getListingsForNft } from './crud/listing/get-listings-for-nft'
 export { getListingsForOffer } from './crud/listing/get-listings-for-offer'
 export { getListingsWithOfferId } from './crud/listing/get-listings-with-offer-id'
 export { invalidateListing } from './crud/listing/invalidate-listing'

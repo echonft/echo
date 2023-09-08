@@ -3,11 +3,11 @@ import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { ChangeEvent, FunctionComponent } from 'react'
 
-export interface TraitFilterSearchQueryProps {
+interface Props {
   onSearchQueryChange?: (searchQuery: string) => unknown
 }
 
-export const TraitFilterSearchQuery: FunctionComponent<TraitFilterSearchQueryProps> = ({ onSearchQueryChange }) => {
+export const TraitFilterSearchQuery: FunctionComponent<Props> = ({ onSearchQueryChange }) => {
   return (
     <Combobox
       className={clsx('relative', 'w-full', 'h-max', 'flex', 'flex-row', 'items-center')}

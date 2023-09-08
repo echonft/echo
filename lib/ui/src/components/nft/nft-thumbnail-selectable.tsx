@@ -1,5 +1,5 @@
 'use client'
-import { links } from '../../helpers/links'
+import { links } from '../../constants/links'
 import { SelectableProps } from '../../types/selectable-props'
 import { HideIf } from '../base/hide-if'
 import { InternalLink } from '../base/internal-link'
@@ -30,6 +30,7 @@ export const NftThumbnailSelectable: FunctionComponent<Props> = ({
   const { id, name, tokenId, thumbnailUrl, owner, collection } = nft
   return (
     <InternalLink
+      className={clsx('h-max')}
       path={links.nft.nftLink(collection.slug, tokenId)}
       disabled={linkDisabled}
       onClick={() => {

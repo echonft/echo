@@ -5,8 +5,7 @@ import { User, Wallet } from '@echo/firestore-types'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 
-export const findUserByWallet = async (wallet: Wallet) => {
-  // wallet DocumentData is the same as the model so we don't need to convert it
+export async function findUserByWallet(wallet: Wallet) {
   const querySnapshot = await firestore()
     .collection(CollectionName.USERS)
     .where('wallets', 'array-contains', wallet)

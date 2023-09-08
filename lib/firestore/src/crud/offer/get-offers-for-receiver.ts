@@ -3,26 +3,23 @@ import { offerDataConverter } from '../../converters/offer-data-converter'
 import { filterExpiredResults } from '../../helpers/crud/filter-expired-results'
 import { addOfferQueryFilters } from '../../helpers/crud/offer/add-offer-query-filters'
 import { addConstraintsToQuery } from '../../helpers/query/add-constraints-to-query'
-import { addExpiresAtToSelectConstraint } from '../../helpers/query/add-expires-at-to-select-constraint'
 import { firestore } from '../../services/firestore'
-import { listingFields } from '../../types/model/listing-document-data'
+import { offerFields } from '../../types/model/offer-document-data'
 import { ListingQueryFilters, Offer, QueryConstraints } from '@echo/firestore-types'
 import { head, invoker, isNil, map } from 'ramda'
 
-export const getOffersForReceiver = async (
+export async function getOffersForReceiver(
   receiverId: string,
   filters?: ListingQueryFilters,
   constraints?: QueryConstraints
-): Promise<Partial<Offer>[]> => {
+): Promise<Partial<Offer>[]> {
   let query = firestore()
     .collection(CollectionName.OFFERS)
     .where('receiverId', '==', receiverId)
     .withConverter(offerDataConverter)
 
   query = addOfferQueryFilters(query, filters)
-  // we need expiresAt for the filter, so we add it if it's not in the select constraint - it'll get removed later
-  const validConstraints = addExpiresAtToSelectConstraint(constraints)
-  query = addConstraintsToQuery(query, validConstraints, listingFields)
+  query = addConstraintsToQuery(query, constraints, offerFields, true)
   const querySnapshot = await query.get()
   if (querySnapshot.empty) {
     return []

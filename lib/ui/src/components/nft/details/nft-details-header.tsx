@@ -1,4 +1,4 @@
-import { links } from '../../../helpers/links'
+import { links } from '../../../constants/links'
 import { InternalLink } from '../../base/internal-link'
 import { DiscordIconSvg } from '../../base/svg/discord-icon-svg'
 import { NftDetailsLinks, NftDetailsLinksProps } from './nft-details-links'

@@ -1,12 +1,12 @@
 import { isNil } from 'ramda'
 import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
-export interface HideIfProps {
+interface Props {
   condition: boolean
   render?: () => ReactNode
 }
 
-export const HideIf: FunctionComponent<PropsWithChildren<HideIfProps>> = ({ condition, render, children }) => {
+export const HideIf: FunctionComponent<PropsWithChildren<Props>> = ({ condition, render, children }) => {
   if (condition) {
     return null
   }

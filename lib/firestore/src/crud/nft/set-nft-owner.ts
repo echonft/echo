@@ -4,7 +4,7 @@ import { updateNft } from './update-nft'
 import { Wallet } from '@echo/firestore-types'
 import { isNil } from 'ramda'
 
-export const setNftOwner = async (nftId: string, userId: string, wallet: Wallet) => {
+export async function setNftOwner(nftId: string, userId: string, wallet: Wallet) {
   const user = await findUserById(userId)
   if (isNil(user)) {
     throw Error('invalid user id')

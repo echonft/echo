@@ -22,6 +22,7 @@ export interface ListingDocumentData {
 export const listingFields = [
   'id',
   'createdAt',
+  'creator',
   'creator.discordAvatar',
   'creator.discordBanner',
   'creator.discordId',

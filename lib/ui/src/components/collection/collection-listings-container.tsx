@@ -1,5 +1,5 @@
 'use client'
-import { links } from '../../helpers/links'
+import { links } from '../../constants/links'
 import { NavigationPills } from '../base/navigation/navigation-pills'
 import { PaddedContainer } from '../layout/padded-container'
 import { ListingRow } from '../listing/row/listing-row'

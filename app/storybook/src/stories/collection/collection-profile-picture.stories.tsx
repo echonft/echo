@@ -1,5 +1,5 @@
 import { getCollectionById } from '../../mocks/model/nft-collection'
-import { CollectionProfilePicture as Component, CollectionProfilePictureSkeleton } from '@echo/ui'
+import { CollectionProfilePicture as Component } from '@echo/ui'
 import { SizeLG } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
@@ -11,23 +11,20 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
+const { name, profilePictureUrl } = getCollectionById('Rc8pLQXxgyQGIRL0fr13')
 
 export const Standard: Story = {
   args: {
-    collectionName: 'Sun Flyers',
-    pictureUrl: getCollectionById('Rc8pLQXxgyQGIRL0fr13')!.profilePictureUrl,
+    collectionName: name,
+    pictureUrl: profilePictureUrl,
     size: SizeLG
   }
 }
 
-export const Default: Story = {
+export const DefaultPicture: Story = {
   args: {
-    collectionName: 'Sun Flyers',
+    collectionName: name,
     pictureUrl: undefined,
     size: SizeLG
   }
-}
-
-export const Skeleton: Story = {
-  render: () => <CollectionProfilePictureSkeleton />
 }

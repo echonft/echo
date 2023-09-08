@@ -1,7 +1,7 @@
 import { BadRequestError } from '../error/bad-request-error'
 import { ApiRequest } from '@echo/api'
 import { OrderByParameters, QueryConstraints } from '@echo/firestore-types'
-import { applySpec, assoc, head, isEmpty, last, splitEvery } from 'ramda'
+import { applySpec, assoc, has, head, isEmpty, last, splitEvery } from 'ramda'
 import { z } from 'zod'
 
 const queryContraintLimitSchema = z.number().gt(0)
@@ -33,20 +33,31 @@ export function parseConstraintsQuery<T>(req: ApiRequest<T>) {
       constraints = assoc('orderBy', orderByParameters, constraints)
     }
     if (searchParams.has('limit')) {
-      const limit = queryContraintLimitSchema.parse(searchParams.get('limit'))
+      const limit = queryContraintLimitSchema.parse(parseInt(searchParams.get('limit')!))
       constraints = assoc('limit', limit, constraints)
     }
     if (searchParams.has('limitToLast')) {
-      const limitToLast = queryContraintLimitToLastSchema.parse(searchParams.get('limitToLast'))
+      const limitToLast = queryContraintLimitToLastSchema.parse(parseInt(searchParams.get('limitToLast')!))
       constraints = assoc('limitToLast', limitToLast, constraints)
     }
     if (searchParams.has('offset')) {
-      const offset = queryContraintOffsetSchema.parse(searchParams.get('offset'))
+      const offset = queryContraintOffsetSchema.parse(parseInt(searchParams.get('offset')!))
       constraints = assoc('offset', offset, constraints)
     }
+
     if (isEmpty(constraints)) {
       return undefined
     }
+
+    if (has('limitToLast', constraints)) {
+      if (has('limit', constraints)) {
+        throw Error('limit and limitToLast query constraints are mutually exclusive')
+      }
+      if (!has('orderBy', constraints)) {
+        throw Error('You must specify at least one orderBy clause for limitToLast queries')
+      }
+    }
+
     return constraints
   } catch (e) {
     throw new BadRequestError()

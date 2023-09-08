@@ -1,3 +1,4 @@
+import { NftDetailsAttributeSkeleton } from './nft-details-attribute-skeleton'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
@@ -6,18 +7,7 @@ export const NftDetailsAttributesPanelSkeleton: FunctionComponent = () => {
   const t = useTranslations('nft.details.attributes')
 
   return (
-    <div
-      className={clsx(
-        'flex',
-        'flex-col',
-        'h-max',
-        'min-h-[24.575rem]',
-        'rounded-2xl',
-        'bg-white/[0.09]',
-        'py-5',
-        'animate-pulse'
-      )}
-    >
+    <div className={clsx('flex', 'flex-col', 'h-max', 'min-h-[24.575rem]', 'rounded-2xl', 'bg-white/[0.09]', 'py-5')}>
       <p
         className={clsx(
           'px-7',
@@ -32,6 +22,11 @@ export const NftDetailsAttributesPanelSkeleton: FunctionComponent = () => {
       >
         {t('title')}
       </p>
+      <div className={clsx('flex', 'flex-row', 'px-7', 'pt-6', 'gap-x-8', 'gap-y-4', 'flex-wrap')}>
+        <NftDetailsAttributeSkeleton />
+        <NftDetailsAttributeSkeleton />
+        <NftDetailsAttributeSkeleton />
+      </div>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 'use client'
-import { links } from '../../helpers/links'
+import { links } from '../../constants/links'
 import { NavigationPills } from '../base/navigation/navigation-pills'
 import { PaddedContainer } from '../layout/padded-container'
 import { CollectionNftsContainer } from './collection-nfts-container'
@@ -80,8 +80,8 @@ export const CollectionNftsAndFiltersContainer: FunctionComponent<Props> = ({
       <div className={'py-12'}>
         <NavigationPills items={navigationItems} selectedItemId={'items'} />
       </div>
-      <div className={clsx('flex', 'flex-row', 'self-stretch', 'grow', 'gap-8')}>
-        <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4')}>
+      <div className={clsx('flex', 'flex-row', 'grow', 'gap-8')}>
+        <div className={clsx('flex', 'flex-col', 'gap-4')}>
           <CollectionOfferButton count={nftSelection.length} />
           <TraitFilterPanel
             traits={traits}

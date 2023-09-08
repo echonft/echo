@@ -4,7 +4,7 @@ import { firestore } from '../../services/firestore'
 import { Listing } from '@echo/firestore-types'
 import { invoker, map } from 'ramda'
 
-export const getListingsWithOfferId = async (offerId: string) => {
+export async function getListingsWithOfferId(offerId: string) {
   const querySnapshot = await firestore()
     .collection(CollectionName.LISTINGS)
     .where('offersIds', 'array-contains', offerId)

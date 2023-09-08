@@ -4,7 +4,7 @@ import { Spinner } from '../base/spinner'
 import { NftThumbnailSelectable } from '../nft/nft-thumbnail-selectable'
 import { Nft } from '@echo/ui-model'
 import { clsx } from 'clsx'
-import { isNil } from 'ramda'
+import { isNil, map } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
@@ -43,16 +43,19 @@ export const UserNftsContainer: FunctionComponent<Props> = ({
       <HideIfNil
         checks={nfts}
         render={(nfts) =>
-          nfts.map((nft) => (
-            <NftThumbnailSelectable
-              key={nft.id}
-              nft={nft}
-              hideOwner={true}
-              selected={!isNil(selection) && selection.includes(nft.id)}
-              onToggleSelection={onToggleSelection}
-              onMakeOffer={onMakeOfferForNft}
-            />
-          ))
+          map(
+            (nft) => (
+              <NftThumbnailSelectable
+                key={nft.id}
+                nft={nft}
+                hideOwner={true}
+                selected={!isNil(selection) && selection.includes(nft.id)}
+                onToggleSelection={onToggleSelection}
+                onMakeOffer={onMakeOfferForNft}
+              />
+            ),
+            nfts
+          )
         }
       />
     </div>

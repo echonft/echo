@@ -1,12 +1,12 @@
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface NftThumbnailSelectorProps {
+interface Props {
   selected?: boolean
   onToggleSelection?: (selected: boolean) => unknown
 }
 
-export const NftThumbnailSelector: FunctionComponent<NftThumbnailSelectorProps> = ({ selected, onToggleSelection }) => {
+export const NftThumbnailSelector: FunctionComponent<Props> = ({ selected, onToggleSelection }) => {
   return (
     <button
       className={clsx(

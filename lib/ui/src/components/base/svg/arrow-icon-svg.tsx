@@ -6,11 +6,11 @@ import { FunctionComponent } from 'react'
 export const arrowIconDirections = [DirectionRight, DirectionLeft] as const
 export type ArrowIconDirection = (typeof arrowIconDirections)[number]
 
-export interface ArrowIconSvgProps extends SvgProps {
+interface Props extends SvgProps {
   direction: ArrowIconDirection
 }
 
-export const ArrowIconSvg: FunctionComponent<ArrowIconSvgProps> = ({ direction, ...rest }) => {
+export const ArrowIconSvg: FunctionComponent<Props> = ({ direction, ...rest }) => {
   return (
     <Svg
       viewBoxHeight={14}

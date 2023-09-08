@@ -5,10 +5,12 @@ import { FunctionComponent } from 'react'
 
 export const caretIconDirections = [DirectionRight, DirectionLeft] as const
 export type CaretIconDirection = (typeof caretIconDirections)[number]
-export interface SideCaretIconSvgProps extends SvgProps {
+
+interface Props extends SvgProps {
   direction: CaretIconDirection
 }
-export const SideCaretSvg: FunctionComponent<SideCaretIconSvgProps> = ({ direction, ...rest }) => (
+
+export const SideCaretSvg: FunctionComponent<Props> = ({ direction, ...rest }) => (
   <Svg viewBoxWidth={9} viewBoxHeight={14} className={clsx(direction === DirectionLeft ? 'rotate-180' : '')} {...rest}>
     <path
       fillRule="evenodd"

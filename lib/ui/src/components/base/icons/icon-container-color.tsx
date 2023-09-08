@@ -1,14 +1,11 @@
 import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren } from 'react'
 
-export interface IconContainerColorProps {
+interface Props {
   className?: string
 }
 
-export const IconContainerColor: FunctionComponent<PropsWithChildren<IconContainerColorProps>> = ({
-  children,
-  className
-}) => {
+export const IconContainerColor: FunctionComponent<PropsWithChildren<Props>> = ({ children, className }) => {
   return (
     <div
       className={clsx(

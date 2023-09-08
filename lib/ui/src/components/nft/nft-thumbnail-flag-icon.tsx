@@ -3,11 +3,11 @@ import { SizeSM } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
-export interface NftThumbnailFlagIconProps {
+interface Props {
   flagged?: boolean
 }
 
-export const NftThumbnailFlagIcon: FunctionComponent<NftThumbnailFlagIconProps> = ({ flagged }) => {
+export const NftThumbnailFlagIcon: FunctionComponent<Props> = ({ flagged }) => {
   if (flagged) {
     return (
       <div className={clsx('absolute', 'top-2', 'left-2', 'z-10')}>

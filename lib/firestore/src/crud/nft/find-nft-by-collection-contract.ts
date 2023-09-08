@@ -5,11 +5,11 @@ import { Nft } from '@echo/firestore-types'
 import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 
-export const findNftByCollectionContract = async (
+export async function findNftByCollectionContract(
   collectionContractAddress: string,
   collectionContractChainId: number,
   tokenId: number
-) => {
+) {
   const querySnapshot = await firestore()
     .collection(CollectionName.NFTS)
     .where('tokenId', '==', tokenId)

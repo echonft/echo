@@ -3,7 +3,6 @@ import { listingDataConverter } from '../../converters/listing-data-converter'
 import { filterExpiredResults } from '../../helpers/crud/filter-expired-results'
 import { addListingQueryFilters } from '../../helpers/crud/listing/add-listing-query-filters'
 import { addConstraintsToQuery } from '../../helpers/query/add-constraints-to-query'
-import { addExpiresAtToSelectConstraint } from '../../helpers/query/add-expires-at-to-select-constraint'
 import { firestore } from '../../services/firestore'
 import { listingFields } from '../../types/model/listing-document-data'
 import { Listing, ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
@@ -20,9 +19,7 @@ export async function getListingsForCreator(
     .withConverter(listingDataConverter)
 
   query = addListingQueryFilters(query, filters)
-  // we need expiresAt for the filter, so we add it if it's not in the select constraint - it'll get removed later
-  const validConstraints = addExpiresAtToSelectConstraint(constraints)
-  query = addConstraintsToQuery(query, validConstraints, listingFields)
+  query = addConstraintsToQuery(query, constraints, listingFields, true)
   const querySnapshot = await query.get()
   if (querySnapshot.empty) {
     return []

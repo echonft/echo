@@ -6,7 +6,7 @@ import { nftFields } from '../../types/model/nft-document-data'
 import { Nft, QueryConstraints } from '@echo/firestore-types'
 import { invoker, map } from 'ramda'
 
-export const getNftsForCollection = async (collectionSlug: string, constraints?: QueryConstraints) => {
+export async function getNftsForCollection(collectionSlug: string, constraints?: QueryConstraints) {
   let query = firestore()
     .collection(CollectionName.NFTS)
     .where('collection.slug', '==', collectionSlug)

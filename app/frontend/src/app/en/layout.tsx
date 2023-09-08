@@ -1,12 +1,19 @@
 import '@echo/ui/dist/index.css'
 import '../../index.css'
-import { Providers } from '../../components/providers'
 import { authOptions } from '../../lib/constants/auth-options'
 import { Header } from '@echo/ui'
 import { clsx } from 'clsx'
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth/next'
 import { FunctionComponent, PropsWithChildren } from 'react'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.extend(relativeTime)
 
 export const metadata: Metadata = {
   title: 'Echo',
@@ -27,12 +34,10 @@ const Layout: FunctionComponent<PropsWithChildren> = async ({ children }) => {
   return (
     <html lang="en">
       <body>
-        <Providers session={session}>
-          <div className={clsx('w-full', 'h-full')}>
-            <Header user={session?.user} />
-            <main className={clsx('w-full')}>{children}</main>
-          </div>
-        </Providers>
+        <div className={clsx('w-full', 'h-full')}>
+          <Header user={session?.user} />
+          <main className={clsx('w-full')}>{children}</main>
+        </div>
       </body>
     </html>
   )

@@ -3,7 +3,7 @@ import { updateUserWallets } from './update-user-wallets'
 import { Wallet } from '@echo/firestore-types'
 import { includes, isNil } from 'ramda'
 
-export const addUserWallet = async (id: string, wallet: Wallet) => {
+export async function addUserWallet(id: string, wallet: Wallet) {
   const user = await findUserById(id)
   if (isNil(user)) {
     throw Error('invalid user id')

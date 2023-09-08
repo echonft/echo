@@ -1,4 +1,4 @@
-import { getAllUserWalletAddresses } from '../../../src/crud/user/get-all-user-wallet-addresses'
+import { getAllUserWalletAddresses } from '../../../src/helpers/user/get-all-user-wallet-addresses'
 import { userMock } from '../../mocks/user-mock'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'

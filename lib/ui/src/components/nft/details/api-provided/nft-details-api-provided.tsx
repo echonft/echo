@@ -1,18 +1,31 @@
 'use client'
+import { messages } from '../../../../messages/en'
 import { NftDetails } from '../nft-details'
-import { NftResponse } from '@echo/api'
-import { mapNft } from '@echo/ui-model'
+import { ListingResponse, NftResponse } from '@echo/api'
+import { mapListing, mapNft } from '@echo/ui-model'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import { NextIntlClientProvider } from 'next-intl'
+import { map } from 'ramda'
+import { FunctionComponent, useMemo } from 'react'
+
+dayjs.extend(timezone)
 
 interface Props {
-  response: Partial<NftResponse>
+  nftResponse: Partial<NftResponse>
+  listingsResponses: Array<Partial<ListingResponse>>
 }
 
-export const NftDetailsApiProvided: FunctionComponent<Props> = ({ response }) => {
+export const NftDetailsApiProvided: FunctionComponent<Props> = ({ nftResponse, listingsResponses }) => {
+  const nft = useMemo(() => mapNft(nftResponse), [nftResponse])
+  const listings = useMemo(() => map(mapListing, listingsResponses), [listingsResponses])
+
   return (
-    <section className={clsx('w-full', 'pt-12')}>
-      <NftDetails nft={mapNft(response)} />
-    </section>
+    <NextIntlClientProvider timeZone={dayjs.tz.guess()} messages={messages} locale={'en'}>
+      <section className={clsx('w-full', 'pt-12')}>
+        <NftDetails nft={nft} listings={listings} />
+      </section>
+    </NextIntlClientProvider>
   )
 }

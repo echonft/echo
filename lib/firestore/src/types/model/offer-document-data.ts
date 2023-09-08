@@ -14,10 +14,44 @@ export interface OfferDocumentData {
   receiverId: string
   receiverItems: NonEmptyArray<OfferItemDocumentData>
   receiverItemsNftIds: NonEmptyArray<string>
+  receiverItemsNftCollectionIds: NonEmptyArray<string>
   sender: UserDetailsDocumentData
   senderId: string
   senderItems: NonEmptyArray<OfferItemDocumentData>
   senderItemsNftIds: NonEmptyArray<string>
+  senderItemsNftCollectionIds: NonEmptyArray<string>
   state: OfferState
   swapTransactionId?: string
 }
+
+export const offerFields = [
+  'id',
+  'createdAt',
+  'discordGuild',
+  'discordGuild.discordId',
+  'discordGuild.threadId',
+  'expiresAt',
+  'listingsIds',
+  'receiver',
+  'receiver.discordAvatar',
+  'receiver.discordBanner',
+  'receiver.discordId',
+  'receiver.discordUsername',
+  'receiver.wallet',
+  'receiverId',
+  'receiverItems',
+  'receiverItemsNftIds',
+  'receiverItemsNftCollectionIds',
+  'sender',
+  'sender.discordAvatar',
+  'sender.discordBanner',
+  'sender.discordId',
+  'sender.discordUsername',
+  'sender.wallet',
+  'senderId',
+  'senderItems',
+  'senderItemsNftIds',
+  'senderItemsNftCollectionIds',
+  'state',
+  'swapTransactionId'
+]

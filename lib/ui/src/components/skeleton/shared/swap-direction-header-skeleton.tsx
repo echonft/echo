@@ -26,7 +26,7 @@ export const SwapDirectionHeaderSkeleton: FunctionComponent<Props> = ({ directio
       >
         <SideCaretSvg direction={assetsOut ? DirectionRight : DirectionLeft} />
       </span>
-      <span className={clsx('prose-label-lg', 'text-white', 'blur-lg', 'w-max')}>{title}</span>
+      <span className={clsx('prose-label-lg', 'text-white', 'w-max')}>{title}</span>
     </div>
   )
 }

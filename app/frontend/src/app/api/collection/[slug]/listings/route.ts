@@ -6,7 +6,6 @@ import { ApiRequest } from '@echo/api'
  * Available query params:
  *  - query constraints see {@link QueryConstraintsQueryParams}
  *  - listing filters see {@link ListingQueryFilters}
- *  - listing as filter {@link ListingAsQueryFilter}
  * @param request
  * @param params
  * @constructor
