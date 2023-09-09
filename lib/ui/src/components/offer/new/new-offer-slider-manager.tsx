@@ -11,8 +11,12 @@ import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 import { useRecoilState } from 'recoil'
 
-// TODO Add finalize offer
-export const NewOfferSliderManager: FunctionComponent = () => {
+interface Props {
+  onAddMoreSenderItem?: () => unknown
+  onAddMoreReceiverItem?: () => unknown
+}
+
+export const NewOfferSliderManager: FunctionComponent<Props> = ({ onAddMoreSenderItem, onAddMoreReceiverItem }) => {
   const [newOffer, setNewOffer] = useRecoilState(newOfferDataState)
   const t = useTranslations('offer.new.bottomSlider')
   const onRemoveAsset = (itemNftId: string, isReceiver: boolean) => {
@@ -36,13 +40,15 @@ export const NewOfferSliderManager: FunctionComponent = () => {
           <BottomSlider
             renderTitle={() => <BottomSliderTitle title={t('title')} count={newOffer.receiverItems.length} />}
           >
-            {/* TODO Add action on add more */}
             <NewOfferBottomSliderInnerContainer
               receiver={newOffer.receiver}
               receiverItems={newOffer.receiverItems}
               senderItems={newOffer.senderItems}
+              onAddMoreReceiverItem={onAddMoreReceiverItem}
               onRemoveReceiverItem={(itemNftId) => onRemoveAsset(itemNftId, true)}
+              onAddMoreSenderItem={onAddMoreSenderItem}
               onRemoveSenderItem={(itemNftId) => onRemoveAsset(itemNftId, false)}
+              onDismissOffer={() => setNewOffer(undefined)}
             />
           </BottomSlider>
         )}

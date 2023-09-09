@@ -158,7 +158,8 @@ export const messages = {
         title: 'Offer overview',
         finalize: 'Finalize offer',
         noNftsTitle: 'No NFTs selected yet',
-        noNftsBtn: 'Select NFTs now'
+        noNftsBtn: 'Select NFTs now',
+        dismissBtn: 'Dismiss'
       },
       confirmationModal: {
         title: 'Confirm Offer',

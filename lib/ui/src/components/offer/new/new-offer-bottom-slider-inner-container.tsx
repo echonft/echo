@@ -20,6 +20,7 @@ interface Props {
   onRemoveSenderItem?: (itemNftId: string) => unknown
   onAddMoreReceiverItem?: () => unknown
   onRemoveReceiverItem?: (itemNftId: string) => unknown
+  onDismissOffer?: () => unknown
 }
 
 export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
@@ -29,7 +30,8 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
   onAddMoreSenderItem,
   onRemoveSenderItem,
   onAddMoreReceiverItem,
-  onRemoveReceiverItem
+  onRemoveReceiverItem,
+  onDismissOffer
 }) => {
   const t = useTranslations('offer.new.bottomSlider')
   const [, setModalState] = useRecoilState(newOfferState)
@@ -55,7 +57,8 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
         onRemove={onRemoveSenderItem}
         renderEmpty={() => <NewItemsEmptyContainer onAddMore={onAddMoreSenderItem} />}
       />
-      <div className={clsx('flex', 'items-center', 'justify-center', 'py-6')}>
+      <div className={clsx('flex', 'items-center', 'justify-center', 'py-6', 'gap-5')}>
+        {/*TODO Here we should add a fetcher to update. We don't need the state for modal, we can use offer id */}
         <Disclosure.Button
           className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')}
           disabled={isNilOrEmpty(receiverItems) || isNilOrEmpty(senderItems)}
@@ -63,6 +66,21 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalize')}</span>
         </Disclosure.Button>
+        <button
+          className={clsx('bg-red-400', 'disabled:bg-red-400/40', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')}
+          onClick={onDismissOffer}
+        >
+          <span
+            className={clsx(
+              'prose-label-lg',
+              'text-dark-500',
+              'group-active:group-hover:text-white',
+              'group-disabled:text-dark-500'
+            )}
+          >
+            {t('dismissBtn')}
+          </span>
+        </button>
       </div>
     </div>
   )
