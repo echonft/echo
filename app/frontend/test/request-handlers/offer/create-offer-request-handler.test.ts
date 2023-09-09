@@ -11,7 +11,7 @@ import { User } from '@echo/firestore-types'
 import { AuthOptions, Session } from 'next-auth'
 
 jest.mock('../../../src/lib/server/helpers/auth/get-session')
-jest.mock('../../../src/lib/server/helpers/user/find-user-by-id')
+jest.mock('../../../src/lib/server/helpers/user/get-user-by-id')
 jest.mock('../../../src/lib/server/helpers/offer/create-offer')
 jest.mock('../../../src/lib/server/helpers/offer/get-offer-items')
 jest.mock('../../../src/lib/server/helpers/offer/get-offer-items-wallet')

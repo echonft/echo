@@ -12,7 +12,7 @@ import { assoc, has, pipe } from 'ramda'
 
 jest.mock('../../../src/lib/server/helpers/user/create-user')
 jest.mock('../../../src/lib/server/helpers/user/fetch-discord-user')
-jest.mock('../../../src/lib/server/helpers/user/find-user-by-discord-id')
+jest.mock('../../../src/lib/server/helpers/user/get-user-by-discord-id')
 jest.mock('../../../src/lib/server/helpers/user/update-user')
 jest.mock('../../../src/lib/server/helpers/user/update-user-nfts')
 

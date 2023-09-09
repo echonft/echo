@@ -5,7 +5,7 @@ import { getNftMockById } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
 import { forEach } from 'ramda'
 
-jest.mock('../../../src/lib/server/helpers/nft/find-nft-by-id')
+jest.mock('../../../src/lib/server/helpers/nft/get-nft-by-id')
 
 describe('helpers - offer - getOfferItems', () => {
   const item: OfferItemRequest = {

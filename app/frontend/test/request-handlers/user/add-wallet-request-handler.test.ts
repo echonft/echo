@@ -14,8 +14,8 @@ import { AuthOptions, Session } from 'next-auth'
 import { SiweMessage } from 'siwe'
 
 jest.mock('../../../src/lib/server/helpers/auth/get-session')
-jest.mock('../../../src/lib/server/helpers/user/find-user-by-id')
-jest.mock('../../../src/lib/server/helpers/user/find-user-by-wallet')
+jest.mock('../../../src/lib/server/helpers/user/get-user-by-id')
+jest.mock('../../../src/lib/server/helpers/user/get-user-by-wallet')
 jest.mock('../../../src/lib/server/helpers/auth/verify-siwe-message')
 jest.mock('../../../src/lib/server/helpers/user/add-user-wallet')
 jest.mock('../../../src/lib/server/helpers/user/update-user-nfts')
