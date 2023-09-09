@@ -5,12 +5,12 @@ import { addOfferQueryFilters } from '../../helpers/crud/offer/add-offer-query-f
 import { addConstraintsToQuery } from '../../helpers/query/add-constraints-to-query'
 import { firestore } from '../../services/firestore'
 import { offerFields } from '../../types/model/offer-document-data'
-import { ListingQueryFilters, Offer, QueryConstraints } from '@echo/firestore-types'
+import { Offer, OfferQueryFilters, QueryConstraints } from '@echo/firestore-types'
 import { head, invoker, isNil, map } from 'ramda'
 
 export async function getOffersForCollectionAsReceiverItem(
   collectionId: string,
-  filters?: ListingQueryFilters,
+  filters?: OfferQueryFilters,
   constraints?: QueryConstraints
 ): Promise<Partial<Offer>[]> {
   let query = firestore()

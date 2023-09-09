@@ -12,12 +12,12 @@ export async function getNftCollectionCompletedOffersRequestHandler(req: ApiRequ
   const constraints = parseConstraintsQuery(req)
   const filters = parseOfferFiltersQuery(req)
   const collection = await getNftCollectionBySlug(slug)
+  assertNftCollection(collection)
   const completedOffersFilters = pipe(
     assoc('states', ['COMPLETED']),
     dissoc('notStates'),
     assoc('includeExpired', true)
   )(filters)
-  assertNftCollection(collection)
-  const results = await getNftCollectionOffers(collection.id, constraints, completedOffersFilters)
+  const results = await getNftCollectionOffers(collection.id, completedOffersFilters, constraints)
   return NextResponse.json<GetOffersResponse>({ offers: map(mapOffer, results) })
 }

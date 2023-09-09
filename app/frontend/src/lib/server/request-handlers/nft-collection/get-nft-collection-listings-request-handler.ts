@@ -13,6 +13,6 @@ export async function getNftCollectionListingsRequestHandler(req: ApiRequest<nev
   const filters = parseListingFiltersQuery(req)
   const collection = await getNftCollectionBySlug(slug)
   assertNftCollection(collection)
-  const results = await getNftCollectionListings(collection.id, constraints, filters)
+  const results = await getNftCollectionListings(collection.id, filters, constraints)
   return NextResponse.json<GetListingsResponse>({ listings: map(mapListing, results) })
 }

@@ -1,11 +1,11 @@
 import { getOfferById } from '../../mocks/model/offer'
-import { OfferCollectionRow as Component, OfferCollectionRowSkeleton } from '@echo/ui'
+import { OfferRow as Component, OfferRowSkeleton } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')!
 
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/Collection Row',
+  title: 'Offer/Row',
   component: Component,
   parameters: {
     controls: {
@@ -25,5 +25,5 @@ export const Default: Story = {
 }
 
 export const Skeleton: Story = {
-  render: () => <OfferCollectionRowSkeleton />
+  render: () => <OfferRowSkeleton />
 }

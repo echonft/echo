@@ -13,7 +13,7 @@ interface Props {
   role: OfferRole
 }
 
-export const OfferUserRow: FunctionComponent<Props> = ({ offer, role }) => {
+export const CurrentUserOfferRow: FunctionComponent<Props> = ({ offer, role }) => {
   const isReceiver = role === OfferRoleReceiver
   return (
     <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4', 'p-4', 'rounded-lg', 'bg-white/[0.05]')}>

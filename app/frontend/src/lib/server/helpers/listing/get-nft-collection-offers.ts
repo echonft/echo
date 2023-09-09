@@ -7,8 +7,8 @@ import { both, has, isNotNil } from 'ramda'
 
 export async function getNftCollectionOffers(
   collectionId: string,
-  constraints?: QueryConstraints,
-  filters?: OfferQueryFilters
+  filters?: OfferQueryFilters,
+  constraints?: QueryConstraints
 ) {
   try {
     if (both(isNotNil, has('as'))(filters)) {

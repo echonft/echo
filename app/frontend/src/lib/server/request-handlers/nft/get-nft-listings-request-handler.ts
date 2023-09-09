@@ -9,6 +9,6 @@ import { map } from 'ramda'
 export async function getNftListingsRequestHandler(req: ApiRequest<never>, nftId: string) {
   const constraints = parseConstraintsQuery(req)
   const filters = parseListingFiltersQuery(req)
-  const results = await getNftListings(nftId, constraints, filters)
+  const results = await getNftListings(nftId, filters, constraints)
   return NextResponse.json<GetListingsResponse>({ listings: map(mapListing, results) })
 }

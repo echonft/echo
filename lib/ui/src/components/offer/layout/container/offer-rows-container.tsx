@@ -1,4 +1,4 @@
-import { OfferCollectionRow } from '../../row/offer-collection-row'
+import { OfferRow } from '../../row/offer-row'
 import { OfferRowsLayout } from '../offer-rows-layout'
 import { Offer } from '@echo/ui-model'
 import { map } from 'ramda'
@@ -8,12 +8,12 @@ interface Props {
   offers: Array<Offer>
 }
 
-export const CollectionOfferRowsContainer: FunctionComponent<Props> = ({ offers }) => {
+export const OfferRowsContainer: FunctionComponent<Props> = ({ offers }) => {
   return (
     <OfferRowsLayout>
       {map(
         (offer) => (
-          <OfferCollectionRow key={offer.id} offer={offer} />
+          <OfferRow key={offer.id} offer={offer} />
         ),
         offers
       )}

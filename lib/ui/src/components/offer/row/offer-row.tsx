@@ -10,7 +10,7 @@ interface Props {
   offer: Offer
 }
 
-export const OfferCollectionRow: FunctionComponent<Props> = ({ offer }) => {
+export const OfferRow: FunctionComponent<Props> = ({ offer }) => {
   return (
     <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4', 'p-4', 'rounded-lg', 'bg-white/[0.05]')}>
       <OfferStatePill state={offer.state} />

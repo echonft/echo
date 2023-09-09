@@ -2,7 +2,7 @@
 import { NavigationSwaps } from '../../../constants/navigation-item'
 import { messages } from '../../../messages/en'
 import { OfferRowsContainer } from '../../offer/layout/container/offer-rows-container'
-import { CollectionNavigationLayout } from '../layout/collection-navigation-layout'
+import { UserNavigationLayout } from '../layout/user-navigation-layout'
 import { OfferResponse } from '@echo/api'
 import { mapOffer } from '@echo/ui-model'
 import dayjs from 'dayjs'
@@ -14,18 +14,18 @@ import { FunctionComponent, useMemo } from 'react'
 dayjs.extend(timezone)
 
 interface Props {
-  collectionSlug: string
+  username: string
   responses: Array<Partial<OfferResponse>>
 }
 
-export const CollectionSwapsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses }) => {
+export const UserSwapsApiProvided: FunctionComponent<Props> = ({ username, responses }) => {
   const mappedOffers = useMemo(() => map(mapOffer, responses), [responses])
 
   return (
     <NextIntlClientProvider timeZone={dayjs.tz.guess()} messages={messages} locale={'en'}>
-      <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationSwaps}>
+      <UserNavigationLayout username={username} activeNavigationItem={NavigationSwaps}>
         <OfferRowsContainer offers={mappedOffers} />
-      </CollectionNavigationLayout>
+      </UserNavigationLayout>
     </NextIntlClientProvider>
   )
 }
