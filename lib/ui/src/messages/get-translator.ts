@@ -1,8 +1,8 @@
 import { messages } from './en'
 import { createTranslator } from 'next-intl'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// Note: we're not gonna get message types with this because TS complains about the type
+// so make sure the key is valid
 export function getTranslator() {
-  return createTranslator({ locale: 'en', messages })
+  return createTranslator({ locale: 'en', messages }) as (key: string) => string
 }
