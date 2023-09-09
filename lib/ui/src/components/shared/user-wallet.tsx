@@ -1,3 +1,4 @@
+'use client'
 import { shortenAddress } from '@echo/utils'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'

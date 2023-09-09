@@ -1,11 +1,13 @@
 export const links = {
   collection: {
-    collectionItemsLink: (slug: string) => `/collection/${slug}/items`,
-    collectionListingsLink: (slug: string) => `/collection/${slug}/listings`,
-    collectionSwapsLink: (slug: string) => `/collection/${slug}/swaps`
+    items: (slug: string) => `/collection/${slug}/items`,
+    listings: (slug: string) => `/collection/${slug}/listings`,
+    nft: (slug: string, tokenId: number) => `/collection/${slug}/item/${tokenId}`,
+    swaps: (slug: string) => `/collection/${slug}/swaps`
   },
-  nft: {
-    nftLink: (collectionSlug: string, tokenId: number) => `/collection/${collectionSlug}/item/${tokenId}`
-  },
-  userLink: (username: string) => `/user/${username}`
+  user: {
+    items: (username: string) => `/user/${username}/items`,
+    listings: (username: string) => `/user/${username}/listings`,
+    swaps: (username: string) => `/user/${username}/swaps`
+  }
 }

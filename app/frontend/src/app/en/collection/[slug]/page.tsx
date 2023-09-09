@@ -9,7 +9,7 @@ interface Props {
 }
 
 const CollectionPage: FunctionComponent<Props> = ({ params: { slug } }) => {
-  redirect(links.collection.collectionItemsLink(slug))
+  redirect(links.collection.items(slug))
 }
 
 export default CollectionPage

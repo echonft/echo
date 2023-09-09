@@ -1,8 +1,8 @@
 'use client'
 import { NavigationSwaps } from '../../../constants/navigation-item'
 import { messages } from '../../../messages/en'
+import { CollectionOfferRowsContainer } from '../../offer/layout/container/collection-offer-rows-container'
 import { CollectionNavigationLayout } from '../layout/collection-navigation-layout'
-import { CollectionSwapsContainer } from '../swap/collection-swaps-container'
 import { OfferResponse } from '@echo/api'
 import { mapOffer } from '@echo/ui-model'
 import dayjs from 'dayjs'
@@ -24,7 +24,7 @@ export const CollectionSwapsApiProvided: FunctionComponent<Props> = ({ collectio
   return (
     <NextIntlClientProvider timeZone={dayjs.tz.guess()} messages={messages} locale={'en'}>
       <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationSwaps}>
-        <CollectionSwapsContainer collectionSlug={collectionSlug} offers={mappedOffers} />
+        <CollectionOfferRowsContainer offers={mappedOffers} />
       </CollectionNavigationLayout>
     </NextIntlClientProvider>
   )

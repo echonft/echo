@@ -1,5 +1,7 @@
 'use client'
 import { NftFilterCollections, NftFilterTraits } from '../../../../constants/nft-filter'
+import { filterNftsByCollection } from '../../../../helpers/nft/filter-nfts-by-collection'
+import { filterNftsByTraits } from '../../../../helpers/nft/filter-nfts-by-traits'
 import { CollectionFilter } from '../../../../types/collection-filter'
 import { NftFilter } from '../../../../types/nft-filter'
 import { ShowIf } from '../../../base/utils/show-if'
@@ -10,7 +12,7 @@ import { NftFiltersPanelLayout } from '../nft-filters-panel-layout'
 import { Nft, NftTraits } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
 import { includes } from 'ramda'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useMemo } from 'react'
 
 interface Props {
   nfts: Array<Nft>
@@ -34,18 +36,29 @@ export const NftFiltersContainer: FunctionComponent<Props> = ({
   const includeTraitFilter = includes(NftFilterTraits, availableFilters)
   const includeCollectionFilter = includes(NftFilterCollections, availableFilters)
 
+  // adjust filters according to other selected
+  const nftsFilteredByCollection = useMemo(
+    () => filterNftsByCollection(nfts, collectionFilterSelection),
+    [nfts, collectionFilterSelection]
+  )
+  const nftsFilteredByTraits = useMemo(() => filterNftsByTraits(nfts, traitSelection), [nfts, traitSelection])
+
   return (
     <NftFiltersPanelLayout>
       <MakeOfferButton count={nftSelectionCount} />
       <ShowIf condition={includeCollectionFilter}>
         <CollectionFilterPanel
-          nfts={nfts}
+          nfts={nftsFilteredByTraits}
           selection={collectionFilterSelection}
           onSelectionUpdate={onCollectionSelectionUpdate}
         />
       </ShowIf>
       <ShowIf condition={includeTraitFilter}>
-        <TraitFilterPanel nfts={nfts} selection={traitSelection} onSelectionUpdate={onTraitSelectionUpdate} />
+        <TraitFilterPanel
+          nfts={nftsFilteredByCollection}
+          selection={traitSelection}
+          onSelectionUpdate={onTraitSelectionUpdate}
+        />
       </ShowIf>
     </NftFiltersPanelLayout>
   )

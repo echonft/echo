@@ -2,7 +2,7 @@ import { parseConstraintsQuery } from '../../helpers/request/parse-constraints-q
 import { parseListingFiltersQuery } from '../../helpers/request/parse-listing-filters-query'
 import { assertUser } from '../../helpers/user/assert-user'
 import { mapListing } from '../../mappers/to-response/map-listing'
-import { ApiRequest, GetUserListingsResponse } from '@echo/api'
+import { ApiRequest, GetListingsResponse } from '@echo/api'
 import { getListingsForCreator } from '@echo/firestore'
 import { findUserByUsername } from '@echo/firestore/src/crud/user/find-user-by-username'
 import { NextResponse } from 'next/server'
@@ -14,5 +14,5 @@ export async function getUserListingsRequestHandler(req: ApiRequest<never>, user
   const user = await findUserByUsername(username)
   assertUser(user)
   const listings = await getListingsForCreator(user.id, filters, constraints)
-  return NextResponse.json<GetUserListingsResponse>({ listings: map(mapListing, listings) })
+  return NextResponse.json<GetListingsResponse>({ listings: map(mapListing, listings) })
 }

@@ -3,7 +3,7 @@ import { getNftCollectionBySlug } from '../../../src/lib/server/helpers/nft-coll
 import { mapNft } from '../../../src/lib/server/mappers/to-response/map-nft'
 import { getNftCollectionNftsRequestHandler } from '../../../src/lib/server/request-handlers/nft-collection/get-nft-collection-nfts-request-handler'
 import { mockRequest } from '../../mocks/request-response'
-import { GetNftCollectionNftsResponse } from '@echo/api'
+import { GetNftsResponse } from '@echo/api'
 import { getNftCollectionMockById, getNftMockById } from '@echo/firestore'
 
 jest.mock('../../../src/lib/server/helpers/nft-collection/get-nft-collection-by-slug')
@@ -29,7 +29,7 @@ describe('request-handlers - nft-collection - handleGetNftCollectionNfts', () =>
     const req = mockRequest<never>()
     const res = await getNftCollectionNftsRequestHandler(req, 'slug')
     expect(res.status).toBe(200)
-    const responseData = (await res.json()) as GetNftCollectionNftsResponse
+    const responseData = (await res.json()) as GetNftsResponse
     expect(responseData).toEqual({ nfts: nftsResponses })
   })
 })

@@ -18,7 +18,7 @@ interface Props {
 export const NftThumbnail: FunctionComponent<Props> = ({ nft, linkDisabled, hideOwner }) => {
   const { name, tokenId, thumbnailUrl, owner, collection } = nft
   return (
-    <InternalLink path={links.nft.nftLink(nft.collection.slug, nft.tokenId)} disabled={linkDisabled}>
+    <InternalLink path={links.collection.nft(nft.collection.slug, nft.tokenId)} disabled={linkDisabled}>
       <div className={clsx('flex', 'flex-col', 'rounded-2xl', 'w-52', 'h-max', 'cursor-pointer', 'overflow-clip')}>
         <div className={'relative'}>
           <NftThumbnailPicture alt={name} pictureUrl={thumbnailUrl} />

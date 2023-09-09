@@ -15,7 +15,7 @@ interface Props {
 export const CollectionThumbnail: FunctionComponent<Props> = ({ collection, linkDisabled }) => {
   const { name, slug, profilePictureUrl } = collection
   return (
-    <InternalLink path={links.collection.collectionItemsLink(slug)} disabled={linkDisabled}>
+    <InternalLink path={links.collection.items(slug)} disabled={linkDisabled}>
       <div className={clsx('flex', 'flex-col', 'rounded-2xl', 'w-52', 'h-max', 'cursor-pointer', 'overflow-clip')}>
         <div className={'relative'}>
           {/*TODO make sure we have a fallback*/}
