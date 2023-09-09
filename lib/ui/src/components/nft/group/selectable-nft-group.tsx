@@ -13,9 +13,16 @@ import { FunctionComponent, useState } from 'react'
 interface Props extends MultiSelectableProps<string> {
   nfts: NonEmptyArray<Nft>
   name: string
+  disabled?: boolean
 }
 
-export const SelectableNftGroup: FunctionComponent<Props> = ({ nfts, name, selection, onSelectionUpdate }) => {
+export const SelectableNftGroup: FunctionComponent<Props> = ({
+  nfts,
+  name,
+  selection,
+  onSelectionUpdate,
+  disabled
+}) => {
   const [collapsed, setCollapsed] = useState(true)
 
   return (
@@ -47,7 +54,8 @@ export const SelectableNftGroup: FunctionComponent<Props> = ({ nfts, name, selec
                 key={nft.id}
                 nft={nft}
                 linkDisabled={!isEmpty(selection)}
-                selected={!isNil(selection) && selection.includes(nft.id)}
+                selected={!disabled && !isNil(selection) && selection.includes(nft.id)}
+                disabled={disabled}
                 onToggleSelection={(nftId: string, selected: boolean) => {
                   if (selected) {
                     onSelectionUpdate?.(concat([nftId], selection))

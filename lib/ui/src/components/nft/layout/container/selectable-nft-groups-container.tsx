@@ -37,11 +37,12 @@ export const SelectableNftGroupsContainer: FunctionComponent<Props> = ({ groups,
   return (
     <NftGroupsLayout>
       {map(
-        ({ id, name, items }) => (
+        ({ id, name, items, disabled }) => (
           <SelectableNftGroup
             key={id}
             nfts={items}
             name={name}
+            disabled={disabled}
             selection={getGroupSelection(id, selection)}
             onSelectionUpdate={(newSelection) => {
               onSelectionUpdate?.(updateGroupSelection(id, newSelection, selection))

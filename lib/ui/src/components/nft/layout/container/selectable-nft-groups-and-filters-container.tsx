@@ -10,8 +10,24 @@ import { NftsAndFiltersLayout } from '../nfts-and-filters-layout'
 import { NftFiltersContainer } from './nft-filters-container'
 import { SelectableNftGroupsContainer } from './selectable-nft-groups-container'
 import { Nft, NftTraits } from '@echo/ui-model'
-import { isIn, NonEmptyArray, propIsEmpty } from '@echo/utils'
-import { add, filter, length, map, modify, partialRight, pipe, prop, reduce, reject } from 'ramda'
+import { isIn, NonEmptyArray, propIsEmpty, propIsNotEmpty } from '@echo/utils'
+import {
+  add,
+  assoc,
+  filter,
+  find,
+  isNil,
+  length,
+  map,
+  modify,
+  partialRight,
+  pipe,
+  prop,
+  propEq,
+  reduce,
+  reject,
+  unless
+} from 'ramda'
 import { FunctionComponent, useEffect, useMemo, useState } from 'react'
 
 interface Props {
@@ -60,6 +76,22 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
     setGroupSelection(filter(pipe(prop('selection'), isIn(filteredNftsIds))))
   }, [filteredGroups])
 
+  // adjust disabled state according to groupSelection
+  const validGroups = useMemo(() => {
+    // get the group that has a selected NFT
+    const selectedGroup = find(propIsNotEmpty('selection'), groupSelection)
+    if (isNil(selectedGroup)) {
+      return filteredGroups
+    }
+    // disable all the other groups
+    return map(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      unless(propEq(selectedGroup.id, 'id'), assoc('disabled', true)),
+      filteredGroups
+    ) as NonEmptyArray<Group<Nft>>
+  }, [filteredGroups, groupSelection])
+
   return (
     <NftsAndFiltersLayout>
       <NftFiltersContainer
@@ -72,7 +104,7 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
         onCollectionSelectionUpdate={setCollectionFilterSelection}
       />
       <SelectableNftGroupsContainer
-        groups={filteredGroups}
+        groups={validGroups}
         selection={groupSelection}
         onSelectionUpdate={setGroupSelection}
       />
