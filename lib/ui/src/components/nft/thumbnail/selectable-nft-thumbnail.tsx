@@ -15,21 +15,28 @@ interface Props extends SelectableProps<string> {
   nft: Nft
   linkDisabled?: boolean
   hideOwner?: boolean
+  disabled?: boolean
 }
 
-export const NftThumbnailSelectable: FunctionComponent<Props> = ({
+export const SelectableNftThumbnail: FunctionComponent<Props> = ({
   nft,
   linkDisabled,
   hideOwner,
   selected,
+  disabled,
   onToggleSelection
 }) => {
   const { id, name, tokenId, thumbnailUrl, owner, collection } = nft
+
+  if (selected && disabled) {
+    throw Error('Selectable NFTs cant be selected when disabled')
+  }
+
   return (
     <InternalLink
       className={clsx('h-max')}
       path={links.collection.nft(collection.slug, tokenId)}
-      disabled={linkDisabled}
+      disabled={disabled || linkDisabled}
       onClick={() => {
         if (linkDisabled) {
           onToggleSelection?.(id, !selected)
@@ -46,19 +53,21 @@ export const NftThumbnailSelectable: FunctionComponent<Props> = ({
           'border',
           'border-solid',
           'cursor-pointer',
+          'overflow-clip',
           selected ? 'border-yellow-500' : 'border-transparent',
-          'overflow-clip'
+          disabled && 'opacity-40'
         )}
       >
         <div className={'relative'}>
-          <NftThumbnailPicture alt={name} pictureUrl={thumbnailUrl} />
-          <NftThumbnailSelector
-            selected={selected}
-            onToggleSelection={(selected) => {
-              onToggleSelection?.(id, selected)
-            }}
-          />
-
+          <NftThumbnailPicture alt={name} pictureUrl={thumbnailUrl} disabled={disabled} />
+          <HideIf condition={Boolean(disabled)}>
+            <NftThumbnailSelector
+              selected={selected}
+              onToggleSelection={(selected) => {
+                onToggleSelection?.(id, selected)
+              }}
+            />
+          </HideIf>
           <HideIf condition={Boolean(hideOwner)}>
             <div className={clsx('absolute', 'bottom-2', 'left-2', 'z-10')}>
               <UserDiscordTagOffer owner={owner.discordUsername} />

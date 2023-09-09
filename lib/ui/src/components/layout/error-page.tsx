@@ -37,7 +37,7 @@ export const ErrorPage: FunctionComponent = () => {
             'font-normal',
             'font-inter',
             'text-yellow-500',
-            'opacity-40',
+            `opacity-40`,
             'uppercase',
             'mb-12'
           )}

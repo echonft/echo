@@ -2,7 +2,7 @@
 import { MultiSelectableProps } from '../../../types/multi-selectable-props'
 import { NftGroupLayout } from '../layout/nft-group-layout'
 import { NftsLayout } from '../layout/nfts-layout'
-import { NftThumbnailSelectable } from '../thumbnail/nft-thumbnail-selectable'
+import { SelectableNftThumbnail } from '../thumbnail/selectable-nft-thumbnail'
 import { NftGroupButton } from './nft-group-button'
 import { Nft } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
@@ -43,7 +43,7 @@ export const SelectableNftGroup: FunctionComponent<Props> = ({ nfts, name, selec
         <NftsLayout>
           {map(
             (nft) => (
-              <NftThumbnailSelectable
+              <SelectableNftThumbnail
                 key={nft.id}
                 nft={nft}
                 linkDisabled={!isEmpty(selection)}

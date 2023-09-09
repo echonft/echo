@@ -1,6 +1,6 @@
 'use client'
 import { MultiSelectableProps } from '../../../../types/multi-selectable-props'
-import { NftThumbnailSelectable } from '../../thumbnail/nft-thumbnail-selectable'
+import { SelectableNftThumbnail } from '../../thumbnail/selectable-nft-thumbnail'
 import { NftsLayout } from '../nfts-layout'
 import { Nft } from '@echo/ui-model'
 import { concat, isEmpty, isNil, map, without } from 'ramda'
@@ -15,7 +15,7 @@ export const SelectableNftsContainer: FunctionComponent<Props> = ({ nfts, select
     <NftsLayout>
       {map(
         (nft) => (
-          <NftThumbnailSelectable
+          <SelectableNftThumbnail
             key={nft.id}
             nft={nft}
             linkDisabled={!isEmpty(selection)}

@@ -63,7 +63,7 @@ export { TraitFilterPanelSkeleton } from './components/nft/filters/by-traits/ske
 export { TraitFilterButton } from './components/nft/filters/by-traits/trait-filter-button'
 export { TraitFilterPanel } from './components/nft/filters/by-traits/trait-filter-panel'
 export { TraitFilterSelector } from './components/nft/filters/by-traits/trait-filter-selector'
-export { NftThumbnailSelectable } from './components/nft/thumbnail/nft-thumbnail-selectable'
+export { SelectableNftThumbnail } from './components/nft/thumbnail/selectable-nft-thumbnail'
 export { OfferDetails } from './components/offer/details/offer-details'
 export { OfferDetailsActionModal } from './components/offer/details/offer-details-action-modal'
 export { OfferDetailsApiProvided } from './components/offer/details/offer-details-api-provided'
