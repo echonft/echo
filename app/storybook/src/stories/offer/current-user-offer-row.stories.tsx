@@ -1,10 +1,5 @@
 import { getOfferById } from '../../mocks/model/offer'
-import {
-  CurrentUserOfferRow as Component,
-  CurrentUserOfferRowSkeleton,
-  OfferRoleReceiver,
-  OfferRoleSender
-} from '@echo/ui'
+import { CurrentUserOfferRow as Component, OfferRoleReceiver, OfferRoleSender } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')!
@@ -35,8 +30,4 @@ export const CurrentUserReceiver: Story = {
     offer,
     role: OfferRoleReceiver
   }
-}
-
-export const Skeleton: Story = {
-  render: () => <CurrentUserOfferRowSkeleton />
 }
