@@ -10,7 +10,7 @@
         @apply w-screen h-screen text-transparent
     }
     body {
-        @apply w-screen min-h-screen font-medium bg-dark-500 text-white text-base
+        @apply w-screen min-h-screen font-medium bg-dark-500 text-white text-base overflow-x-hidden
     }
 }
 

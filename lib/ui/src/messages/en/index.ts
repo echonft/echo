@@ -8,6 +8,20 @@ export const messages = {
     details: {
       size: '{size, number, ::K} NFTs'
     },
+    empty: {
+      listings: {
+        message: 'There is currently no active listing for this collection',
+        btn: {
+          label: 'Create listing'
+        }
+      },
+      swaps: {
+        message: 'No swap has been done for this collection yet',
+        btn: {
+          label: 'Create listing'
+        }
+      }
+    },
     filters: {
       traits: {
         button: {
@@ -169,6 +183,23 @@ export const messages = {
     button: {
       makeOffer: {
         label: 'Make an offer'
+      }
+    },
+    empty: {
+      items: {
+        message: 'This user does not own any NFT'
+      },
+      listings: {
+        message: 'This user does not have any active listing',
+        btn: {
+          label: 'Make an offer'
+        }
+      },
+      swaps: {
+        message: 'This user has not made any swap',
+        btn: {
+          label: 'Make an offer'
+        }
       }
     },
     filters: {

@@ -36,7 +36,7 @@ const Layout: FunctionComponent<PropsWithChildren> = async ({ children }) => {
       <body>
         <div className={clsx('w-full', 'h-full')}>
           <Header user={session?.user} />
-          <main className={clsx('w-full')}>{children}</main>
+          <main className={clsx('w-full', 'pb-14')}>{children}</main>
         </div>
       </body>
     </html>
