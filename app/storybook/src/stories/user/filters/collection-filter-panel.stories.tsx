@@ -1,5 +1,5 @@
+import { getAllNfts } from '../../../mocks/model/nft'
 import { CollectionFilterPanel as Component, CollectionFilterPanelSkeleton } from '@echo/ui'
-import { CollectionFilter } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -22,24 +22,10 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const filters: CollectionFilter[] = [
-  { id: 'pxMythics', name: 'pxMythics', count: 5 },
-  { id: 'Spiral Frequencies', name: 'Spiral Frequencies', count: 2 },
-  { id: 'Sun Flyers', name: 'Sun Flyers', count: 999 }
-]
-
-const selection: CollectionFilter[] = [{ id: 'Sun Flyers', name: 'Sun Flyers', count: 999 }]
-
 export const Default: Story = {
   args: {
-    filters
-  }
-}
-
-export const SomeSelected: Story = {
-  args: {
-    filters,
-    selection
+    nfts: getAllNfts(),
+    selection: []
   }
 }
 

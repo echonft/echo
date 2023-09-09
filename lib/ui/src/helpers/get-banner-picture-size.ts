@@ -1,5 +1,5 @@
-import { BannerPictureSize } from '../constants/banner-picture-size'
-import { SizeLG, SizeMD } from '@echo/ui-model'
+import { SizeLG, SizeMD } from '../constants/size'
+import { BannerPictureSize } from '../types/banner-picture-size'
 
 export const getBannerPictureSize = (size: BannerPictureSize) => {
   switch (size) {

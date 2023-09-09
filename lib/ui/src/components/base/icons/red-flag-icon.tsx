@@ -1,5 +1,5 @@
-import { IconSize } from '../../../constants/icon-size'
 import { getIconSizeInPx } from '../../../helpers/get-icon-size-in-px'
+import { IconSize } from '../../../types/icon-size'
 import { FlagIconSvg } from '../svg/flag-icon-svg'
 import { IconContainer } from './icon-container'
 import { IconContainerColor } from './icon-container-color'

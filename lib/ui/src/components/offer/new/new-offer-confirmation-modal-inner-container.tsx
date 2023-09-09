@@ -1,9 +1,9 @@
+import { EditIconSvg } from '../../base/svg/edit-icon-svg'
+import { NewOfferConfirmationModalItemsContainer } from './new-offer-confirmation-modal-items-container'
 import { OfferItem } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
-import { EditIconSvg } from '../../base/svg/edit-icon-svg'
-import { NewOfferConfirmationModalItemsContainer } from './new-offer-confirmation-modal-items-container'
 
 interface Props {
   receiverItems: OfferItem[]

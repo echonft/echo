@@ -9,10 +9,6 @@ const metadata: Meta<typeof Component> = {
     onToggleSelection: {
       control: false,
       action: 'selection toggled'
-    },
-    onMakeOffer: {
-      control: false,
-      action: 'make offer clicked'
     }
   },
   parameters: {
@@ -33,13 +29,6 @@ export const Default: Story = {
     linkDisabled: true
   }
 }
-
-// export const Flagged: Story = {
-//   args: {
-//     nft: mockNft,
-//     flagged: true
-//   }
-// }
 
 export const OwnerHidden: Story = {
   args: {

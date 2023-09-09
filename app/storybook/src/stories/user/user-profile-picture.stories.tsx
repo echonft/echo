@@ -1,6 +1,5 @@
 import { getUserById } from '../../mocks/model/user'
-import { UserProfilePicture as Component } from '@echo/ui'
-import { SizeLG } from '@echo/ui-model'
+import { SizeLG, UserProfilePicture as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

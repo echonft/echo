@@ -1,15 +1,17 @@
-import { CollectionDetails } from '../collection-details'
+import { SizeLG } from '../../../constants/size'
+import { CollectionDetails } from '../details/collection-details'
 import { GetNftCollectionResponse } from '@echo/api'
-import { mapNftCollection, SizeLG } from '@echo/ui-model'
-import { FunctionComponent } from 'react'
+import { mapNftCollection } from '@echo/ui-model'
+import { FunctionComponent, useMemo } from 'react'
 
 interface Props {
   response: GetNftCollectionResponse
 }
 
 export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ response }) => {
+  const collection = useMemo(() => mapNftCollection(response.collection), [response])
   const { bannerUrl, totalSupply, name, description, profilePictureUrl, twitterUsername, discordUrl, websiteUrl } =
-    mapNftCollection(response.collection)
+    collection
   return (
     <CollectionDetails
       bannerUrl={bannerUrl}

@@ -645,6 +645,9 @@ importers:
       typescript:
         specifier: 5.1.6
         version: 5.1.6
+      use-intl:
+        specifier: ^2.20.0
+        version: 2.20.0(react@18.2.0)
 
   lib/ui-model:
     devDependencies:
@@ -18966,6 +18969,17 @@ packages:
       '@types/react': 18.2.19
       react: 18.2.0
       tslib: 2.6.2
+    dev: true
+
+  /use-intl@2.20.0(react@18.2.0):
+    resolution: {integrity: sha512-h9aOveHyqUSNshPvWSx88f0ny0w/F4kTG3oM1lGZYTlfK7vE6Ic9vVM7TDn/7idD3v6b2Vasp7q0le/opn6j/Q==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.17.0
+      intl-messageformat: 9.13.0
+      react: 18.2.0
     dev: true
 
   /use-intl@3.0.0-beta.2(react@18.2.0):

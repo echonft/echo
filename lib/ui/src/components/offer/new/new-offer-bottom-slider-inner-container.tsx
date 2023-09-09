@@ -1,6 +1,6 @@
 import { newOfferState } from '../../../services/state'
-import { NewItemsContainer } from '../../item/new-items-container'
-import { NewItemsEmptyContainer } from '../../item/new-items-empty-container'
+import { NewItemsEmptyContainer } from '../../item/empty/new-items-empty-container'
+import { NewItemsContainer } from '../../item/new/new-items-container'
 import { UserDetailsContainer } from '../../shared/user-details-container'
 import { OfferItem, User } from '@echo/ui-model'
 import { isNilOrEmpty } from '@echo/utils'

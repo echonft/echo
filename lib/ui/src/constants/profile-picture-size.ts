@@ -1,4 +1,3 @@
-import { SizeLG, SizeMD } from '@echo/ui-model'
+import { SizeLG, SizeMD } from './size'
 
 export const profilePictureSizes = [SizeMD, SizeLG] as const
-export type ProfilePictureSize = (typeof profilePictureSizes)[number]

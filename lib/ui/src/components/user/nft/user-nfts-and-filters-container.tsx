@@ -1,29 +1,22 @@
 'use client'
-import { TraitFilterPanel } from '../../nft/filters/trait-filter-panel'
-import { CollectionFilterPanel } from '../filters/collection-filter-panel'
-import { UserOfferButton } from '../user-offer-button'
+import { filterNftsByCollection } from '../../../helpers/nft/filter-nfts-by-collection'
+import { filterNftsByTraits } from '../../../helpers/nft/filter-nfts-by-traits'
+import { CollectionFilter } from '../../../types/collection-filter'
+import { NftsByCollectionSelection } from '../../../types/nfts-by-collection-selection'
+import { CollectionFilterPanel } from '../../nft/filters/by-collection/collection-filter-panel'
+import { TraitFilterPanel } from '../../nft/filters/by-traits/trait-filter-panel'
+import { NftFiltersPanelLayout } from '../../nft/layout/nft-filters-panel-layout'
 import { UserNftsContainer } from './user-nfts-container'
-import {
-  CollectionFilter,
-  filterNftsByCollection,
-  filterNftsByTraits,
-  getCollectionFiltersForNfts,
-  getTraitsForNfts,
-  Nft,
-  NftsByCollectionSelection,
-  NftTraits
-} from '@echo/ui-model'
-import { addToArrayIfNotPresent, isIn, NonEmptyArray, propIsEmpty, removeFromArray } from '@echo/utils'
+import { UserOfferButton } from './user-offer-button'
+import { Nft, NftTraits } from '@echo/ui-model'
+import { isIn, NonEmptyArray, propIsEmpty } from '@echo/utils'
 import { clsx } from 'clsx'
 import {
   add,
   assoc,
   concat,
-  dissoc,
-  equals,
   filter,
   findIndex,
-  isEmpty,
   length,
   map,
   modify,
@@ -55,14 +48,6 @@ export const UserNftsAndFiltersContainer: FunctionComponent<Props> = ({ nfts, on
       )(nfts) as NonEmptyArray<Nft>,
     [nfts, collectionFilterSelection, traitSelection]
   )
-  const collectionFilters = useMemo(
-    () => pipe(partialRight(filterNftsByTraits, [traitSelection]), getCollectionFiltersForNfts)(nfts),
-    [nfts, traitSelection]
-  )
-  const traits = useMemo(
-    () => pipe(partialRight(filterNftsByCollection, [collectionFilterSelection]), getTraitsForNfts)(nfts),
-    [nfts, collectionFilterSelection]
-  )
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const nftSelectionCount = useMemo(
@@ -82,7 +67,7 @@ export const UserNftsAndFiltersContainer: FunctionComponent<Props> = ({ nfts, on
 
   return (
     <div className={clsx('flex', 'flex-row', 'grow', 'gap-8')}>
-      <div className={clsx('flex', 'flex-col', 'gap-4')}>
+      <NftFiltersPanelLayout>
         <UserOfferButton
           count={nftSelectionCount}
           onMakeOffer={() => {
@@ -90,25 +75,12 @@ export const UserNftsAndFiltersContainer: FunctionComponent<Props> = ({ nfts, on
           }}
         />
         <CollectionFilterPanel
-          filters={collectionFilters}
+          nfts={filteredNfts}
           selection={collectionFilterSelection}
-          onSelectionUpdate={(filter, selected) => {
-            const newSelection = selected
-              ? addToArrayIfNotPresent(collectionFilterSelection, filter, equals)
-              : removeFromArray(collectionFilterSelection, filter, equals)
-            setCollectionFilterSelection(newSelection)
-          }}
+          onSelectionUpdate={setCollectionFilterSelection}
         />
-        <TraitFilterPanel
-          traits={traits}
-          onSelectionUpdate={(type, selection) => {
-            const newSelection = isEmpty(selection)
-              ? dissoc(type, traitSelection)
-              : assoc(type, selection, traitSelection)
-            setTraitSelection(newSelection)
-          }}
-        />
-      </div>
+        <TraitFilterPanel nfts={filteredNfts} selection={traitSelection} onSelectionUpdate={setTraitSelection} />
+      </NftFiltersPanelLayout>
       <UserNftsContainer
         nfts={filteredNfts}
         onSelectionUpdate={(collectionId, selection) => {

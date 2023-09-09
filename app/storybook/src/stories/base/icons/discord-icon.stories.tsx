@@ -1,5 +1,4 @@
-import { DiscordIcon as Component, iconSizes } from '@echo/ui'
-import { SizeMD } from '@echo/ui-model'
+import { DiscordIcon as Component, iconSizes, SizeMD } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

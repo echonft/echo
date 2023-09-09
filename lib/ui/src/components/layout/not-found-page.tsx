@@ -1,4 +1,4 @@
-import { InternalLink } from '../base/internal-link'
+import { InternalLink } from '../base/link/internal-link'
 import { EchoIconSvg } from '../base/svg/echo-icon-svg'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

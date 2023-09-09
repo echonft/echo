@@ -1,4 +1,4 @@
-import { isUserOfferReceiver } from '../../../helpers/is-user-offer-receiver'
+import { isUserOfferReceiver } from '../../../helpers/offer/is-user-offer-receiver'
 import { OfferDetails } from './offer-details'
 import { OfferResponse } from '@echo/api'
 import { AuthUser, mapOffer } from '@echo/ui-model'

@@ -1,5 +1,5 @@
+import { DirectionUp } from '../../../constants/direction'
 import { SwapIconSvg } from '../../base/svg/swap-icon-svg'
-import { DirectionUp } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

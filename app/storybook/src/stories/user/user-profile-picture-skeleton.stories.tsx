@@ -1,5 +1,4 @@
-import { UserProfilePictureSkeleton as Component } from '@echo/ui'
-import { SizeLG } from '@echo/ui-model'
+import { SizeLG, UserProfilePictureSkeleton as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

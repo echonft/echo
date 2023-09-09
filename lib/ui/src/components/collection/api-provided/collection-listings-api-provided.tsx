@@ -1,6 +1,8 @@
 'use client'
+import { NavigationListings } from '../../../constants/navigation-item'
 import { messages } from '../../../messages/en'
-import { CollectionListingsContainer } from '../collection-listings-container'
+import { CollectionNavigationLayout } from '../layout/collection-navigation-layout'
+import { CollectionListingsContainer } from '../listing/collection-listings-container'
 import { ListingResponse } from '@echo/api'
 import { mapListing } from '@echo/ui-model'
 import dayjs from 'dayjs'
@@ -21,7 +23,9 @@ export const CollectionListingsApiProvided: FunctionComponent<Props> = ({ collec
 
   return (
     <NextIntlClientProvider timeZone={dayjs.tz.guess()} messages={messages} locale={'en'}>
-      <CollectionListingsContainer collectionSlug={collectionSlug} listings={mappedListings} />
+      <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationListings}>
+        <CollectionListingsContainer collectionSlug={collectionSlug} listings={mappedListings} />
+      </CollectionNavigationLayout>
     </NextIntlClientProvider>
   )
 }

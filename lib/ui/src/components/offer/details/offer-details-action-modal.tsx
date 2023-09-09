@@ -1,6 +1,6 @@
 'use client'
 import { ModalOfferState } from '../../../types/modal-offer-state'
-import { Modal } from '../../base/modal/modal'
+import { Modal } from '../../layout/modal/modal'
 import { OfferDetailsActionModalInnerContainer } from './offer-details-action-modal-inner-container'
 import { OfferDetailsOfferActionModalTitle } from './offer-details-offer-action-modal-title'
 import { OfferState } from '@echo/ui-model'

@@ -1,5 +1,4 @@
-import { iconSizes, WebsiteIcon as Component } from '@echo/ui'
-import { SizeMD } from '@echo/ui-model'
+import { iconSizes, SizeMD, WebsiteIcon as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

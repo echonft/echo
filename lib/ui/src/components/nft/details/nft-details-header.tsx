@@ -1,5 +1,5 @@
 import { links } from '../../../constants/links'
-import { InternalLink } from '../../base/internal-link'
+import { InternalLink } from '../../base/link/internal-link'
 import { DiscordIconSvg } from '../../base/svg/discord-icon-svg'
 import { NftDetailsLinks, NftDetailsLinksProps } from './nft-details-links'
 import { User } from '@echo/ui-model'

@@ -1,8 +1,8 @@
-import { ExternalLink } from '../../base/external-link'
-import { HideIfNil } from '../../base/hide-if-nil'
+import { SizeLG } from '../../../constants/size'
 import { BlurIcon } from '../../base/icons/blur-icon'
 import { OpenSeaIcon } from '../../base/icons/open-sea-icon'
-import { SizeLG } from '@echo/ui-model'
+import { ExternalLink } from '../../base/link/external-link'
+import { HideIfNil } from '../../base/utils/hide-if-nil'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

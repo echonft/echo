@@ -1,9 +1,10 @@
 'use client'
-import { NftsByCollectionDisclosureManager } from './nfts-by-collection-disclosure-manager'
-import { Nft, NftsByCollectionSelection } from '@echo/ui-model'
+import { NftsByCollectionSelection } from '../../../types/nfts-by-collection-selection'
+import { NftsByCollectionDisclosureManager } from '../../nft/layout/group/by-collection/nfts-by-collection-disclosure-manager'
+import { NftGroupsContainer } from '../../nft/layout/group/nft-groups-container'
+import { Nft } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
 import { eqPaths } from '@echo/utils/src/fp/eq-paths'
-import { clsx } from 'clsx'
 import { find, groupWith, head, isNil, map, pathEq } from 'ramda'
 import { FunctionComponent, useMemo } from 'react'
 
@@ -25,7 +26,7 @@ export const UserNftsContainer: FunctionComponent<Props> = ({ nfts, initialSelec
     NonEmptyArray<Nft>
   >
   return (
-    <div className={clsx('flex', 'flex-col', 'grow', 'gap-12', 'h-max')}>
+    <NftGroupsContainer>
       {map((nftGroup: NonEmptyArray<Nft>) => {
         const collectionId = head(nftGroup).collection.id
         const groupInitialSelection = getSelectionForCollection(collectionId, initialSelection)
@@ -40,6 +41,6 @@ export const UserNftsContainer: FunctionComponent<Props> = ({ nfts, initialSelec
           />
         )
       }, groupedNfts)}
-    </div>
+    </NftGroupsContainer>
   )
 }

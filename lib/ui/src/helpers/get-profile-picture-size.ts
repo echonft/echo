@@ -1,5 +1,5 @@
-import { ProfilePictureSize } from '../constants/profile-picture-size'
-import { SizeLG, SizeMD } from '@echo/ui-model'
+import { SizeLG, SizeMD } from '../constants/size'
+import { ProfilePictureSize } from '../types/profile-picture-size'
 
 export const getProfilePictureSize = (size: ProfilePictureSize) => {
   switch (size) {
