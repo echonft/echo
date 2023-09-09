@@ -1,5 +1,5 @@
 import { getOfferById } from '../../mocks/model/offer'
-import { OfferRow as Component, OfferRowSkeleton } from '@echo/ui'
+import { OfferRow as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')!
@@ -22,8 +22,4 @@ export const Default: Story = {
   args: {
     offer
   }
-}
-
-export const Skeleton: Story = {
-  render: () => <OfferRowSkeleton />
 }
