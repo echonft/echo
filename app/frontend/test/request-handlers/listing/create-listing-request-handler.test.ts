@@ -4,7 +4,7 @@ import { createListing } from '../../../src/lib/server/helpers/listing/create-li
 import { getListingTargets } from '../../../src/lib/server/helpers/listing/get-listing-targets'
 import { getOfferItems } from '../../../src/lib/server/helpers/offer/get-offer-items'
 import { getOfferItemsWallet } from '../../../src/lib/server/helpers/offer/get-offer-items-wallet'
-import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-id'
+import { getUserById } from '../../../src/lib/server/helpers/user/get-user-by-id'
 import { createListingRequestHandler } from '../../../src/lib/server/request-handlers/listing/create-listing-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { CreateListingRequest, IdResponse } from '@echo/api'
@@ -70,7 +70,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('throws if user does not have any wallet', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId', wallets: [] } as unknown as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId', wallets: [] } as unknown as User)
     const req = mockRequest<CreateListingRequest>(validRequest)
     try {
       await createListingRequestHandler(req, {} as AuthOptions)
@@ -82,7 +82,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('returns 200 if the user has a wallet', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValueOnce({
+    jest.mocked(getUserById).mockResolvedValueOnce({
       id: 'userId',
       wallets: [{ chainId: 1, address: '0x12c63bbD266dB84e117356e664f3604055166CEc' }]
     } as unknown as User)

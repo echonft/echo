@@ -1,7 +1,7 @@
 import { createOrUpdateUser } from '../../../src/lib/server/helpers/auth/create-or-update-user'
 import { createUser } from '../../../src/lib/server/helpers/user/create-user'
 import { fetchDiscordUser } from '../../../src/lib/server/helpers/user/fetch-discord-user'
-import { findUserByDiscordId } from '../../../src/lib/server/helpers/user/find-user-by-discord-id'
+import { getUserByDiscordId } from '../../../src/lib/server/helpers/user/get-user-by-discord-id'
 import { updateUser } from '../../../src/lib/server/helpers/user/update-user'
 import { updateUserNfts } from '../../../src/lib/server/helpers/user/update-user-nfts'
 import { mapUserToAuthUser } from '../../../src/lib/server/mappers/auth/map-user-to-auth-user'
@@ -62,7 +62,7 @@ describe('helpers - auth - createOrUpdateUser', () => {
   })
   it('createUser is called if the user is not in the JWT token', async () => {
     jest.mocked(fetchDiscordUser).mockResolvedValueOnce(discordUser)
-    jest.mocked(findUserByDiscordId).mockResolvedValueOnce(undefined)
+    jest.mocked(getUserByDiscordId).mockResolvedValueOnce(undefined)
     jest.mocked(createUser).mockResolvedValueOnce(createdUserId)
     jest.mocked(updateUserNfts).mockResolvedValueOnce()
     jest.mocked(updateUser).mockResolvedValueOnce()
@@ -88,7 +88,7 @@ describe('helpers - auth - createOrUpdateUser', () => {
     const nftsUpdatedAt = dayjs().subtract(3, 'hour')
     const updatedAt = dayjs().subtract(3, 'hour')
     jest.mocked(fetchDiscordUser).mockResolvedValueOnce(assoc('discordId', 'existing-discordId')(discordUser))
-    jest.mocked(findUserByDiscordId).mockResolvedValueOnce(
+    jest.mocked(getUserByDiscordId).mockResolvedValueOnce(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       pipe(assoc('nftsUpdatedAt', nftsUpdatedAt), assoc('updatedAt', updatedAt))(existingUser)
@@ -120,7 +120,7 @@ describe('helpers - auth - createOrUpdateUser', () => {
     const nftsUpdatedAt = dayjs().subtract(3, 'hour')
     const updatedAt = dayjs().subtract(3, 'hour')
     jest.mocked(fetchDiscordUser).mockResolvedValueOnce(discordUser)
-    jest.mocked(findUserByDiscordId).mockResolvedValueOnce(existingUser)
+    jest.mocked(getUserByDiscordId).mockResolvedValueOnce(existingUser)
     jest.mocked(createUser).mockResolvedValueOnce(createdUserId)
     jest.mocked(updateUserNfts).mockResolvedValueOnce()
     jest.mocked(updateUser).mockResolvedValueOnce()
@@ -154,7 +154,7 @@ describe('helpers - auth - createOrUpdateUser', () => {
     const nftsUpdatedAt = dayjs().subtract(3, 'minute')
     const updatedAt = dayjs().subtract(3, 'minute')
     jest.mocked(fetchDiscordUser).mockResolvedValueOnce(discordUser)
-    jest.mocked(findUserByDiscordId).mockResolvedValueOnce(existingUser)
+    jest.mocked(getUserByDiscordId).mockResolvedValueOnce(existingUser)
     jest.mocked(createUser).mockResolvedValueOnce(createdUserId)
     jest.mocked(updateUserNfts).mockResolvedValueOnce()
     jest.mocked(updateUser).mockResolvedValueOnce()
@@ -169,7 +169,7 @@ describe('helpers - auth - createOrUpdateUser', () => {
     expect(updateUserNfts).toHaveBeenCalledTimes(0)
     expect(updateUser).toHaveBeenCalledTimes(0)
     expect(fetchDiscordUser).toHaveBeenCalledTimes(0)
-    expect(findUserByDiscordId).toHaveBeenCalledTimes(0)
+    expect(getUserByDiscordId).toHaveBeenCalledTimes(0)
     expect(updatedUser.id).toEqual(existingUser.id)
     expect(updatedUser.discordAvatar).toEqual(existingUser.discordAvatar)
     expect(updatedUser.discordBanner).toEqual(existingUser.discordBanner)

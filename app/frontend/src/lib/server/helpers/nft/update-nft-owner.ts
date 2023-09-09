@@ -6,6 +6,9 @@ export const updateNftOwner = async (nftId: string, userId: string, wallet: Wall
   try {
     await setNftOwner(nftId, userId, wallet)
   } catch (e) {
-    throw new ServerError('Error updating NFT')
+    throw new ServerError(
+      `error updating nft with id ${nftId} with user with id ${userId} and wallet ${JSON.stringify(wallet)}`,
+      e
+    )
   }
 }

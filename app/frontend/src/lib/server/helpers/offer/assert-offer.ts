@@ -4,6 +4,6 @@ import { isNil } from 'ramda'
 
 export function assertOffer(offer: Offer | undefined): asserts offer is NonNullable<Offer> {
   if (isNil(offer)) {
-    throw new BadRequestError()
+    throw new BadRequestError('offer is nil')
   }
 }

@@ -6,6 +6,11 @@ export async function getNftListings(nftId: string, filters?: ListingQueryFilter
   try {
     return await getListingsForNft(nftId, filters, constraints)
   } catch (e) {
-    throw new ServerError()
+    throw new ServerError(
+      `error getting nft with id ${nftId} listings with filters ${JSON.stringify(
+        filters
+      )} and constraints ${JSON.stringify(constraints)}`,
+      e
+    )
   }
 }

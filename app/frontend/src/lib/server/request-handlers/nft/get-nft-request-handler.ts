@@ -10,7 +10,7 @@ function parseTokenId(tokenId: number): number {
   try {
     return tokenIdSchema.parse(tokenId)
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(`error parsing token id ${tokenId}`, e)
   }
 }
 

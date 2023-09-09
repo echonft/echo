@@ -1,6 +1,6 @@
 import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
 import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-id'
+import { getUserById } from '../../../src/lib/server/helpers/user/get-user-by-id'
 import { handleAcceptOffer } from '../../../src/lib/server/request-handlers/offer/handle-accept-offer'
 import { handleCancelOffer } from '../../../src/lib/server/request-handlers/offer/handle-cancel-offer'
 import { handleRejectOffer } from '../../../src/lib/server/request-handlers/offer/handle-reject-offer'
@@ -53,7 +53,7 @@ describe('request-handlers - offer - updateOfferRequestHandler', () => {
 
   it('if authenticated and request action is ACCEPT, handleAcceptOffer should be called', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(handleAcceptOffer).mockResolvedValueOnce()
@@ -66,7 +66,7 @@ describe('request-handlers - offer - updateOfferRequestHandler', () => {
 
   it('if authenticated and request action is CANCEL, handleCancelOffer should be called', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(handleCancelOffer).mockResolvedValueOnce()
@@ -79,7 +79,7 @@ describe('request-handlers - offer - updateOfferRequestHandler', () => {
 
   it('if authenticated and request action is REJECT, handleRejectOffer should be called', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(handleRejectOffer).mockResolvedValueOnce()

@@ -16,10 +16,15 @@ export const getOfferItemsWallet = (items: NonEmptyArray<OfferItem>, user: User)
         intersection(user.wallets),
         ifElse(pipe(length, equals(1)), head, () => {
           // FIXME edge case for ERC1155 where a user would hold them in multiple of their wallets
-          throw new ForbiddenError('User do not own all the NFTs')
+          throw new ForbiddenError(
+            `user with id ${user.id} do not own all the NFTs in offer items ${JSON.stringify(items)}`
+          )
         })
       )
     )
-    .catch(() => {
-      throw new ServerError('Error fetching NFTs owners')
+    .catch((e) => {
+      throw new ServerError(
+        `error fetching nft owners from alchemy for items ${JSON.stringify(items)} and user ${JSON.stringify(user)}`,
+        e
+      )
     })

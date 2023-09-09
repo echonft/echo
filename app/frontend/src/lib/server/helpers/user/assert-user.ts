@@ -4,6 +4,6 @@ import { isNil } from 'ramda'
 
 export function assertUser(user: Partial<User> | undefined): asserts user is NonNullable<Partial<User>> {
   if (isNil(user)) {
-    throw new BadRequestError()
+    throw new BadRequestError('user is nil')
   }
 }

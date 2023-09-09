@@ -5,6 +5,6 @@ export const rejectOffer = async (offerId: string) => {
   try {
     await firestoreRejectOffer(offerId)
   } catch (e) {
-    throw new ServerError('Error rejecting offer')
+    throw new ServerError(`error rejecting offer with id ${offerId}`, e)
   }
 }

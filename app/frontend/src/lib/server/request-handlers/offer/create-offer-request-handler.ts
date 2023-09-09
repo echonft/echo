@@ -5,7 +5,7 @@ import { getOfferItems } from '../../helpers/offer/get-offer-items'
 import { getOfferItemsWallet } from '../../helpers/offer/get-offer-items-wallet'
 import { assertUser } from '../../helpers/user/assert-user'
 import { assertUserHasWallets } from '../../helpers/user/assert-user-has-wallets'
-import { findUserById } from '../../helpers/user/find-user-by-id'
+import { getUserById } from '../../helpers/user/get-user-by-id'
 import { createOfferSchema } from '../../validators/create-offer-schema'
 import { ApiRequest, CreateOfferRequest, IdResponse } from '@echo/api'
 import { NextResponse } from 'next/server'
@@ -16,7 +16,7 @@ export async function createOfferRequestHandler(req: ApiRequest<CreateOfferReque
   const { receiverItems, receiverId, senderItems } = parseCreateOfferRequest(requestBody)
   const sender = await getUserFromSession(authOptions)
   assertUserHasWallets(sender)
-  const receiver = await findUserById(receiverId)
+  const receiver = await getUserById(receiverId)
   assertUser(receiver)
   assertUserHasWallets(receiver)
   const receiverNfts = await getOfferItems(receiverItems)
@@ -31,6 +31,6 @@ function parseCreateOfferRequest(request: CreateOfferRequest) {
   try {
     return createOfferSchema.parse(request)
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(`error parsing create offer request ${JSON.stringify(request)}`, e)
   }
 }

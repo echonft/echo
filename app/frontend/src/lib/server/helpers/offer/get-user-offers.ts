@@ -17,6 +17,11 @@ export async function getUserOffers(userId: string, filters?: OfferQueryFilters,
       return await getOffersForUser(userId, filters, constraints)
     }
   } catch (e) {
-    throw new ServerError()
+    throw new ServerError(
+      `error getting offers for user with id ${userId} with filters ${JSON.stringify(
+        filters
+      )} and constraints ${JSON.stringify(constraints)}`,
+      e
+    )
   }
 }

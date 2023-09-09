@@ -6,6 +6,9 @@ export async function getNftsForUser(userId: string, constraints?: QueryConstrai
   try {
     return await getNftsForOwner(userId, constraints)
   } catch (e) {
-    throw new ServerError()
+    throw new ServerError(
+      `error getting nfts for user with id ${userId} with constraints ${JSON.stringify(constraints)}`,
+      e
+    )
   }
 }

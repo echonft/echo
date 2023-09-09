@@ -5,6 +5,6 @@ export async function getNftCollectionBySlug(slug: string) {
   try {
     return await findNftCollectionBySlug(slug)
   } catch (e) {
-    throw new ServerError()
+    throw new ServerError(`error getting collection with slug ${slug}`, e)
   }
 }

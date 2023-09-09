@@ -29,6 +29,6 @@ function parseUpdateOfferRequest(request: UpdateOfferRequest) {
   try {
     return updateOfferRequestSchema.parse(request)
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(`error parsing update offer request ${JSON.stringify(request)}`, e)
   }
 }

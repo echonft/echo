@@ -1,3 +1,4 @@
+'use client'
 import { newOfferDataState, newOfferState } from '../../../services/state'
 import { Modal } from '../../layout/modal/modal'
 import { ModalTitle } from '../../layout/modal/modal-title'

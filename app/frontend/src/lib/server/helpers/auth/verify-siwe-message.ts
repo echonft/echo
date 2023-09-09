@@ -9,6 +9,6 @@ export async function verifySiweMessage(signature: string, siweMessage: SiweMess
       nonce: siweMessage.nonce
     })
   } catch (e) {
-    throw new ForbiddenError()
+    throw new ForbiddenError(`cannot verify siwe message ${JSON.stringify(siweMessage)} with signature ${signature}`, e)
   }
 }

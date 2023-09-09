@@ -21,6 +21,6 @@ function parseUpdateListingRequest(request: UpdateListingRequest) {
   try {
     return updateListingRequestSchema.parse(request)
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(`error parsing update listing request ${JSON.stringify(request)}`, e)
   }
 }

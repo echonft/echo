@@ -5,6 +5,6 @@ export const cancelListing = async (listingId: string) => {
   try {
     await firestoreCancelListing(listingId)
   } catch (e) {
-    throw new ServerError('Error cancelling listing')
+    throw new ServerError(`error cancelling listing with id ${listingId}`, e)
   }
 }

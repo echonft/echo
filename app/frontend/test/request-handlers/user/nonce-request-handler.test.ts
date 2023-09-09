@@ -1,6 +1,6 @@
 import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
 import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-id'
+import { getUserById } from '../../../src/lib/server/helpers/user/get-user-by-id'
 import { setUserNonce } from '../../../src/lib/server/helpers/user/set-user-nonce'
 import { nonceRequestHandler } from '../../../src/lib/server/request-handlers/user/nonce-request-handler'
 import { mockRequest } from '../../mocks/request-response'
@@ -35,7 +35,7 @@ describe('request-handlers - user - nonceRequestHandler', () => {
   it('if authenticated, returns success and updates DB', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
     jest.mocked(setUserNonce).mockResolvedValueOnce('testNonce')
-    jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
     const req = mockRequest<never>()
     const res = await nonceRequestHandler(req, {} as AuthOptions)
     expect(setUserNonce).toHaveBeenCalledTimes(1)

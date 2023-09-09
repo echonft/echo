@@ -2,6 +2,7 @@ import { fetcher } from '../../../helpers/fetcher'
 import { mapDiscordUserResponseToUser } from '../../mappers/from-discord/map-discord-user-response-to-user'
 import { DiscordUserGuildResponse } from '../../types/user/discord-user-guild-response'
 import { DiscordUserResponse } from '../../types/user/discord-user-response'
+import { ServerError } from '../error/server-error'
 
 export async function fetchDiscordUser(accessToken: string, tokenType: string) {
   try {
@@ -19,6 +20,6 @@ export async function fetchDiscordUser(accessToken: string, tokenType: string) {
       guilds
     })
   } catch (e) {
-    throw Error('Error fetching discord user')
+    throw new ServerError('error fetching discord user', e)
   }
 }

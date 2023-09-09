@@ -9,13 +9,14 @@ export const createListing = async (
   items: NonEmptyArray<OfferItem>,
   targets: NonEmptyArray<ListingTarget>
 ) => {
+  const newListing = {
+    creator: mapUserToUserDetails(creator, creatorWallet),
+    items,
+    targets
+  }
   try {
-    return await addListing({
-      creator: mapUserToUserDetails(creator, creatorWallet),
-      items,
-      targets
-    })
+    return await addListing(newListing)
   } catch (e) {
-    throw new ServerError('Error creating listing')
+    throw new ServerError(`error creating listing ${JSON.stringify(newListing)}`, e)
   }
 }

@@ -6,6 +6,6 @@ export const addUserWallet = async (userId: string, wallet: Wallet) => {
   try {
     await firestoreAddUserWallet(userId, wallet)
   } catch (e) {
-    throw new ServerError('Error adding wallet')
+    throw new ServerError(`error adding wallet ${JSON.stringify(wallet)} for user with id ${userId}`, e)
   }
 }

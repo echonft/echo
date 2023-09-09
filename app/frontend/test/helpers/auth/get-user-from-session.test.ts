@@ -1,6 +1,6 @@
 import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
 import { getUserFromSession } from '../../../src/lib/server/helpers/auth/get-user-from-session'
-import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-id'
+import { getUserById } from '../../../src/lib/server/helpers/user/get-user-by-id'
 import { User } from '@echo/firestore-types'
 import { AuthOptions, Session } from 'next-auth'
 
@@ -23,7 +23,7 @@ describe('helpers - auth - getUserFromSession', () => {
         id: 'userId'
       }
     } as Session)
-    jest.mocked(findUserById).mockResolvedValueOnce(undefined)
+    jest.mocked(getUserById).mockResolvedValueOnce(undefined)
     await expect(getUserFromSession({} as AuthOptions)).rejects.toBeDefined()
   })
 
@@ -36,7 +36,7 @@ describe('helpers - auth - getUserFromSession', () => {
         id: 'userId'
       }
     } as Session)
-    jest.mocked(findUserById).mockResolvedValueOnce(user)
+    jest.mocked(getUserById).mockResolvedValueOnce(user)
     const sessionUser = await getUserFromSession({} as AuthOptions)
     expect(sessionUser).toStrictEqual(user)
   })

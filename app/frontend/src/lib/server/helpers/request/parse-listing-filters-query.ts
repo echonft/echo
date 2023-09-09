@@ -14,9 +14,9 @@ const stateQueryParamSchema = z
   .nonempty()
 
 export function parseListingFiltersQuery<T>(req: ApiRequest<T>) {
+  let filters = {} as ListingQueryFilters
+  const { searchParams } = new URL(req.url)
   try {
-    let filters = {} as ListingQueryFilters
-    const { searchParams } = new URL(req.url)
     if (searchParams.has('as')) {
       const asFilter = asQueryParamSchema.parse(searchParams.get('as'))
       filters = assoc('as', asFilter, filters)
@@ -44,6 +44,9 @@ export function parseListingFiltersQuery<T>(req: ApiRequest<T>) {
 
     return filters
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(
+      `error parsing listing filters query parameters: ${JSON.stringify(searchParams.toString())}`,
+      e
+    )
   }
 }

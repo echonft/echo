@@ -20,6 +20,6 @@ function parseRemoveWalletRequest(request: RemoveWalletRequest) {
   try {
     return removeWalletSchema.parse(request)
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(`error parsing remove wallet request ${JSON.stringify(request)}`, e)
   }
 }

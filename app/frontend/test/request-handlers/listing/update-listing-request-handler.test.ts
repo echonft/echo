@@ -1,6 +1,6 @@
 import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
 import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-id'
+import { getUserById } from '../../../src/lib/server/helpers/user/get-user-by-id'
 import { handleCancelListing } from '../../../src/lib/server/request-handlers/listing/handle-cancel-listing'
 import { updateListingRequestHandler } from '../../../src/lib/server/request-handlers/listing/update-listing-request-handler'
 import { mockRequest } from '../../mocks/request-response'
@@ -50,7 +50,7 @@ describe('request-handlers - listing - updateListingRequestHandler', () => {
 
   it('if authenticated and request action is CANCEL, handleCancelListing should be called', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(handleCancelListing).mockResolvedValueOnce(undefined)

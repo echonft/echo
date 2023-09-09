@@ -11,14 +11,15 @@ export const createOffer = async (
   receiverWallet: Wallet,
   receiverItems: NonEmptyArray<OfferItem>
 ) => {
+  const newOffer = {
+    sender: mapUserToUserDetails(sender, senderWallet),
+    senderItems,
+    receiver: mapUserToUserDetails(receiver, receiverWallet),
+    receiverItems
+  }
   try {
-    return await addOffer({
-      sender: mapUserToUserDetails(sender, senderWallet),
-      senderItems,
-      receiver: mapUserToUserDetails(receiver, receiverWallet),
-      receiverItems
-    })
+    return await addOffer(newOffer)
   } catch (e) {
-    throw new ServerError('Error creating offer')
+    throw new ServerError(`error creating offer ${JSON.stringify(newOffer)}`, e)
   }
 }

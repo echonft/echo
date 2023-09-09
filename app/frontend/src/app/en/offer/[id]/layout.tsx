@@ -1,10 +1,8 @@
 import { authOptions } from '../../../../lib/constants/auth-options'
 import { fetcher } from '../../../../lib/helpers/fetcher'
-import { ErrorStatus } from '../../../../lib/server/constants/error-status'
 import { GetOfferResponse, offerApiUrl } from '@echo/api'
 import { OfferDetailsApiProvided } from '@echo/ui'
 import { clsx } from 'clsx'
-import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { isNil } from 'ramda'
 import { FunctionComponent, PropsWithChildren } from 'react'
@@ -21,9 +19,6 @@ const OfferLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params
 
   if (isNil(data)) {
     if (!isNil(error)) {
-      if (error.status === ErrorStatus.NOT_FOUND) {
-        notFound()
-      }
       throw Error(error.message)
     }
     throw Error()

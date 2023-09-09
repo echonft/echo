@@ -6,6 +6,9 @@ export async function getNftCollectionNfts(collectionSlug: string, constraints?:
   try {
     return await getNftsForCollection(collectionSlug, constraints)
   } catch (e) {
-    throw new ServerError()
+    throw new ServerError(
+      `error getting nfts for collection with slug ${collectionSlug} with constraints ${JSON.stringify(constraints)}`,
+      e
+    )
   }
 }

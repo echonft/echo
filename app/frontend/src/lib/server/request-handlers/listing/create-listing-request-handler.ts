@@ -26,6 +26,6 @@ function parseCreateListingRequest(request: CreateListingRequest) {
   try {
     return createListingSchema.parse(request)
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(`error parsing create listing request ${JSON.stringify(request)}`, e)
   }
 }

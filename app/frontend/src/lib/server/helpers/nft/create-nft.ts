@@ -13,6 +13,12 @@ export const createNft = async (
   try {
     await addNft(mapAlchemyNftToFirestore(alchemyNft, user, userWallet, collections))
   } catch (e) {
-    throw new ServerError('Error adding NFT')
+    const nft = {
+      alchemyNft,
+      user,
+      userWallet,
+      collections
+    }
+    throw new ServerError(`error adding nft ${JSON.stringify(nft)}`, e)
   }
 }

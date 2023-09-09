@@ -1,7 +1,7 @@
 import { mapUserToAuthUser } from '../../mappers/auth/map-user-to-auth-user'
 import { createUser } from '../user/create-user'
 import { fetchDiscordUser } from '../user/fetch-discord-user'
-import { findUserByDiscordId } from '../user/find-user-by-discord-id'
+import { getUserByDiscordId } from '../user/get-user-by-discord-id'
 import { updateUser } from '../user/update-user'
 import { updateUserNfts } from '../user/update-user-nfts'
 import { userDiscordInfoNeedsUpdate } from './user-discord-info-needs-update'
@@ -54,7 +54,7 @@ export async function createOrUpdateUser(
   }
   if (isNil(user)) {
     const discordUser = await fetchDiscordUser(accessToken, tokenType)
-    const existingUser = await findUserByDiscordId(discordUser.discordId)
+    const existingUser = await getUserByDiscordId(discordUser.discordId)
     if (isNil(existingUser)) {
       // for now we set username = discordUsername
       const userId = await createUser({ ...discordUser, username: discordUser.discordUsername })

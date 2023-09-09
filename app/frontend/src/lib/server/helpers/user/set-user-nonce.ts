@@ -9,6 +9,6 @@ export const setUserNonce = async (user: User) => {
     await FirestoreSetUserNonce(user.id, nonce)
     return nonce
   } catch (e) {
-    throw new ServerError('Error setting user nonce')
+    throw new ServerError(`error setting nonce for user ${JSON.stringify(user)}`, e)
   }
 }

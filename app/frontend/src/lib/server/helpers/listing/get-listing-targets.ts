@@ -11,7 +11,9 @@ export const getListingTargets = (listingTargetRequests: NonEmptyArray<ListingTa
       const { collection, amount } = item
       const foundCollection = await findNftCollectionById(collection.id)
       if (isNil(foundCollection)) {
-        throw new BadRequestError()
+        throw new BadRequestError(
+          `collection with id ${collection.id} not found in firestore while trying to get listing targets`
+        )
       }
       return { amount, collection: foundCollection } as ListingTarget
     }, listingTargetRequests)

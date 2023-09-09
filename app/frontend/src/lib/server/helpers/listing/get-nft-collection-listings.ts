@@ -21,6 +21,11 @@ export async function getNftCollectionListings(
     }
     return await getListingsForCollection(collectionId, filters, constraints)
   } catch (e) {
-    throw new ServerError()
+    throw new ServerError(
+      `error getting collection with id ${collectionId} listings with filters ${JSON.stringify(
+        filters
+      )} and constraints ${JSON.stringify(constraints)}`,
+      e
+    )
   }
 }
