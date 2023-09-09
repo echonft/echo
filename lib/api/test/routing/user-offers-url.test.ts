@@ -1,12 +1,12 @@
-import { userOffersUrl } from '../../src/routing/user-offers-url'
+import { userOffersApiUrl } from '../../src/routing/user-offers-api-url'
 import { describe, expect, test } from '@jest/globals'
 
-describe('routing - userOffersUrl', () => {
-  test('throws if id is empty', () => {
-    expect(() => userOffersUrl('')).toThrow()
+describe('routing - userOffersApiUrl', () => {
+  test('throws if username is empty', () => {
+    expect(() => userOffersApiUrl('')).toThrow()
   })
 
   test('returns proper URL', () => {
-    expect(userOffersUrl('test')).toStrictEqual(new URL('https://test.com/user/test/offers'))
+    expect(userOffersApiUrl('test')).toStrictEqual(new URL('https://test.com/user/test/offers'))
   })
 })

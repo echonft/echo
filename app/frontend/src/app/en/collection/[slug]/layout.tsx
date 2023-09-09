@@ -29,7 +29,7 @@ const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ p
   return (
     <>
       <section className={clsx('w-full')}>
-        <CollectionDetailsApiProvided response={data} />
+        <CollectionDetailsApiProvided response={data.collection} />
       </section>
       <section className={clsx('w-full')}>{children}</section>
     </>

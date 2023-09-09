@@ -1,5 +1,5 @@
 import { links } from '../../../constants/links'
-import { InternalLink } from '../../base/internal-link'
+import { InternalLink } from '../../base/link/internal-link'
 import { DiscordIconSvg } from '../../base/svg/discord-icon-svg'
 import { NftDetailsLinks, NftDetailsLinksProps } from './nft-details-links'
 import { User } from '@echo/ui-model'
@@ -23,7 +23,7 @@ export const NftDetailsHeader: FunctionComponent<Props> = ({ collectionName, tok
         >{`${collectionName} #${tokenId.toString()}`}</span>
         <NftDetailsLinks openSeaUrl={openSeaUrl} blurUrl={blurUrl} />
       </div>
-      <InternalLink path={links.userLink(owner.id)}>
+      <InternalLink path={links.user.items(owner.username)}>
         <div
           className={clsx(
             'flex',

@@ -1,6 +1,6 @@
 import { newOfferDataState, newOfferState } from '../../../services/state'
-import { Modal } from '../../base/modal/modal'
-import { ModalTitle } from '../../base/modal/modal-title'
+import { Modal } from '../../layout/modal/modal'
+import { ModalTitle } from '../../layout/modal/modal-title'
 import { NewOfferConfirmationModalInnerContainer } from './new-offer-confirmation-modal-inner-container'
 import { NewOfferConfirmedModalInnerContainer } from './new-offer-confirmed-modal-inner-container'
 import { useTranslations } from 'next-intl'

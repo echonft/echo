@@ -5,6 +5,7 @@ interface Props {
   title: string
   className?: string
 }
+
 export const FiltersPanel: FunctionComponent<PropsWithChildren<Props>> = ({ title, className, children }) => {
   return (
     <div

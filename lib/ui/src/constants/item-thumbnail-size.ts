@@ -1,4 +1,3 @@
-import { SizeLG, SizeMD } from '@echo/ui-model'
+import { SizeLG, SizeMD } from './size'
 
 export const itemThumbnailSizes = [SizeMD, SizeLG] as const
-export type ItemThumbnailSize = (typeof itemThumbnailSizes)[number]

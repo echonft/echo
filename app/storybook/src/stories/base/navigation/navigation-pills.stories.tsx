@@ -34,6 +34,6 @@ export const NavigationPills: Story = {
         path: '#'
       }
     ],
-    selectedItemId: 'items'
+    activeItem: 'items'
   }
 }

@@ -1,8 +1,8 @@
 'use client'
-import { NewItemsContainer } from '../../item/new-items-container'
-import { NewItemsEmptyContainer } from '../../item/new-items-empty-container'
+import { CollectionSearchBoxManager } from '../../collection/search/collection-search-box-manager'
+import { NewItemsEmptyContainer } from '../../item/empty/new-items-empty-container'
+import { NewItemsContainer } from '../../item/new/new-items-container'
 import { NewListingSliderExpirationContainer } from './new-listing-slider-expiration-container'
-import { NewListingSliderSearchBoxManager } from './new-listing-slider-search-box-manager'
 import { NewListingSliderTargetsContainer } from './new-listing-slider-targets-container'
 import { ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
 import { isNilOrEmpty } from '@echo/utils'
@@ -44,7 +44,7 @@ export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
   }
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6', 'py-3', 'pb-32')}>
-      <NewListingSliderSearchBoxManager
+      <CollectionSearchBoxManager
         placeholder={t('searchPlaceholder')}
         ref={searchBarRef}
         selectedOptions={map(prop('collection'), targets)}

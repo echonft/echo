@@ -6,5 +6,6 @@ export interface UserDetailsDocumentData {
   discordBanner?: string
   discordId: string
   discordUsername: string
+  username: string
   wallet: WalletDocumentData
 }

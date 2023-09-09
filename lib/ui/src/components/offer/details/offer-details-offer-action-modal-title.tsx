@@ -1,5 +1,5 @@
 import { ModalOfferState } from '../../../types/modal-offer-state'
-import { ModalTitle } from '../../base/modal/modal-title'
+import { ModalTitle } from '../../layout/modal/modal-title'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 

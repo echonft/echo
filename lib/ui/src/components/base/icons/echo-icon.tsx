@@ -1,14 +1,12 @@
-import { IconSize } from '../../../constants/icon-size'
+import { ColorBlack, ColorYellow } from '../../../constants/color'
 import { getIconSizeInPx } from '../../../helpers/get-icon-size-in-px'
+import { EchoIconColor } from '../../../types/echo-icon-color'
+import { IconSize } from '../../../types/icon-size'
 import { EchoIconSvg } from '../svg/echo-icon-svg'
 import { IconContainer } from './icon-container'
 import { IconContainerColor } from './icon-container-color'
-import { ColorBlack, ColorYellow } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
-
-export const echoIconColors = [ColorBlack, ColorYellow] as const
-export type EchoIconColor = (typeof echoIconColors)[number]
 
 interface Props {
   color: EchoIconColor

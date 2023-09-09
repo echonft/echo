@@ -17,7 +17,7 @@ describe('mappers - mapUserToUserDetails', () => {
     }
     const userDetails = mapUserToUserDetails(user, wallet)
     expect(userDetails).toStrictEqual({
-      ...pick(['id', 'discordAvatar', 'discordBanner', 'discordId', 'discordUsername'], user),
+      ...pick(['id', 'discordAvatar', 'discordBanner', 'discordId', 'discordUsername', 'username'], user),
       wallet
     })
   })

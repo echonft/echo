@@ -1,0 +1,12 @@
+import { userListingsApiUrl } from '../../src/routing/user-listings-api-url'
+import { describe, expect, test } from '@jest/globals'
+
+describe('routing - userListingsApiUrl', () => {
+  test('throws if username is empty', () => {
+    expect(() => userListingsApiUrl('')).toThrow()
+  })
+
+  test('returns proper URL', () => {
+    expect(userListingsApiUrl('test')).toStrictEqual(new URL('https://test.com/user/test/listings'))
+  })
+})

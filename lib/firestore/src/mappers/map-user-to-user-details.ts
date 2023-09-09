@@ -7,7 +7,7 @@ export function mapUserToUserDetails(user: Partial<User>, wallet: Wallet): Parti
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return pipe(
-    pick(['id', 'discordAvatar', 'discordBanner', 'discordId', 'discordUsername']),
+    pick(['id', 'discordAvatar', 'discordBanner', 'discordId', 'discordUsername', 'username']),
     assoc('wallet', wallet)
   )(user)
 }

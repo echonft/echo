@@ -1,7 +1,8 @@
-import { AddMoreButton } from '../../base/add-more-button'
+import { DirectionIn } from '../../../constants/swap-direction'
 import { SwapDirectionHeader } from '../../shared/swap-direction-header'
+import { NewListingSliderAddMoreTargetButton } from './new-listing-slider-add-more-target-button'
 import { NewListingSliderTargetRow } from './new-listing-slider-target-row'
-import { DirectionIn, ListingTarget } from '@echo/ui-model'
+import { ListingTarget } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
@@ -39,7 +40,7 @@ export const NewListingSliderTargetsContainer: FunctionComponent<Props> = ({
             />
           ))}
           <div className={clsx('h-40')}>
-            <AddMoreButton onClick={onAddMore} title={t('addCollectionBtn')} />
+            <NewListingSliderAddMoreTargetButton onClick={onAddMore} title={t('addCollectionBtn')} />
           </div>
         </>
       </div>

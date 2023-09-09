@@ -54,9 +54,10 @@ describe('helpers - nft - mapAlchemyNftToFirestore', () => {
       owner: {
         id: '6rECUMhevHfxABZ1VNOm',
         discordId: '884593489189433364',
-        discordUsername: 'crewNFT_#2034',
+        discordUsername: 'crewnft_',
         discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
         discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
+        username: 'crewnft_',
         wallet: userWallet
       }
     })

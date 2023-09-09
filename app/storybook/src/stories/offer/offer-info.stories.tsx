@@ -19,6 +19,6 @@ type Story = StoryObj<typeof Component>
 export const Default: Story = {
   args: {
     state: 'OPEN',
-    discordUsername: 'johnnycage#0890'
+    discordUsername: 'johnnycagewins'
   }
 }

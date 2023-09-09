@@ -1,5 +1,5 @@
 import { findUserById } from '../../../src/crud/user/find-user-by-id'
-import { userMock } from '../../mocks/user-mock'
+import { getUserMockById } from '../../mocks/get-user-mock-by-id'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
@@ -15,6 +15,6 @@ describe('CRUD - user - findUserById', () => {
 
   it('returns the user with the given id', async () => {
     const user = await findUserById('oE6yUEQBPn7PZ89yMjKn')
-    expect(user).toStrictEqual(userMock['oE6yUEQBPn7PZ89yMjKn'])
+    expect(user).toStrictEqual(getUserMockById('oE6yUEQBPn7PZ89yMjKn'))
   })
 })

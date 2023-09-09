@@ -16,11 +16,6 @@ export const messages = {
         title: 'Attributes'
       }
     },
-    navigation: {
-      items: 'Items',
-      listings: 'Listings',
-      swaps: 'Swaps'
-    },
     thumbnail: {
       title: 'Any {collectionName}'
     }
@@ -71,6 +66,11 @@ export const messages = {
         emptySearch: 'No collections found'
       }
     }
+  },
+  navigation: {
+    items: 'Items',
+    listings: 'Listings',
+    swaps: 'Swaps'
   },
   nft: {
     details: {

@@ -4,7 +4,7 @@ export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
   '6rECUMhevHfxABZ1VNOm': {
     id: '6rECUMhevHfxABZ1VNOm',
     discordId: '884593489189433364',
-    discordUsername: 'crewNFT_#2034',
+    discordUsername: 'crewnft_',
     discordGuilds: [
       {
         discordId: '100'
@@ -14,6 +14,7 @@ export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
     discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
     nftsUpdatedAt: 1676984897,
     updatedAt: 1676984897,
+    username: 'crewnft_',
     wallets: [
       {
         address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
@@ -24,7 +25,7 @@ export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
   oE6yUEQBPn7PZ89yMjKn: {
     id: 'oE6yUEQBPn7PZ89yMjKn',
     discordId: '462798252543049728',
-    discordUsername: 'johnnycage#0890',
+    discordUsername: 'johnnycagewins',
     discordGuilds: [
       {
         discordId: '100'
@@ -37,6 +38,7 @@ export const userDocumentDataMock: { [key: string]: UserDocumentData } = {
     nftsUpdatedAt: 1676984897,
     nonce: 'nonce',
     updatedAt: 1676984897,
+    username: 'johnnycagewins',
     wallets: [
       {
         address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',

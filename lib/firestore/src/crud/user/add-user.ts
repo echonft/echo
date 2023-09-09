@@ -11,6 +11,7 @@ export interface NewUser {
   discordGuilds: UserDiscordGuild[]
   discordId: string
   discordUsername: string
+  username: string
 }
 
 export async function addUser(user: NewUser): Promise<string> {

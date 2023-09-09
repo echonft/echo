@@ -1,7 +1,8 @@
-import { UserDiscordTag } from '../user/user-discord-tag'
-import { UserProfilePicture } from '../user/user-profile-picture'
-import { UserWallet } from '../user/user-wallet'
-import { SizeMD, User } from '@echo/ui-model'
+import { SizeMD } from '../../constants/size'
+import { UserDiscordTag } from './user-discord-tag'
+import { UserProfilePicture } from './user-profile-picture'
+import { UserWallet } from './user-wallet'
+import { User } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

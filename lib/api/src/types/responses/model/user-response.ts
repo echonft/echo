@@ -6,5 +6,6 @@ export interface UserResponse {
   discordBanner?: string
   discordId: string
   discordUsername: string
+  username: string
   wallet: WalletResponse
 }

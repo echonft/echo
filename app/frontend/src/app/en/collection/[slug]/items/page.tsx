@@ -1,7 +1,7 @@
 import { fetcher } from '../../../../../lib/helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '../../../../../lib/helpers/request/map-query-constraints-to-query-params'
 import { ErrorStatus } from '../../../../../lib/server/constants/error-status'
-import { collectionNftsApiUrl, GetNftCollectionNftsResponse } from '@echo/api'
+import { collectionNftsApiUrl, GetNftsResponse } from '@echo/api'
 import { CollectionNftsApiProvided } from '@echo/ui'
 import { notFound } from 'next/navigation'
 import { isNil } from 'ramda'
@@ -36,7 +36,7 @@ const CollectionNftsPage: FunctionComponent<Props> = async ({ params: { slug } }
   const { data, error } = await fetcher(collectionNftsApiUrl(slug))
     .revalidate(3600)
     .query(queryParams)
-    .fetch<GetNftCollectionNftsResponse>()
+    .fetch<GetNftsResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {

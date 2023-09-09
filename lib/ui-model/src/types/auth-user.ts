@@ -11,5 +11,6 @@ export interface AuthUser {
   discordUsername: string
   nftsUpdatedAt: number
   updatedAt: number
+  username: string
   wallets: Wallet[]
 }

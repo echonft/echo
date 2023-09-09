@@ -1,6 +1,5 @@
 import { getUserById } from '../../mocks/model/user'
-import { UserProfilePicture as Component, UserProfilePictureSkeleton } from '@echo/ui'
-import { SizeLG } from '@echo/ui-model'
+import { SizeLG, UserProfilePicture as Component } from '@echo/ui'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -41,8 +40,4 @@ export const Default: Story = {
     discordId: user.discordId,
     size: SizeLG
   }
-}
-
-export const Skeleton: Story = {
-  render: () => <UserProfilePictureSkeleton size={SizeLG} />
 }

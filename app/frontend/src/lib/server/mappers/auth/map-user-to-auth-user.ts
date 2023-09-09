@@ -10,6 +10,7 @@ interface RequiredProps {
   discordId: string
   discordUsername: string
   nftsUpdatedAt: Dayjs
+  username: string
   updatedAt: Dayjs
   wallets: Wallet[]
 }
@@ -25,6 +26,7 @@ export function mapUserToAuthUser(user: Partial<User> & RequiredProps) {
       'discordUsername',
       'nftsUpdatedAt',
       'updatedAt',
+      'username',
       'wallets'
     ]),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

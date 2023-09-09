@@ -1,5 +1,5 @@
 import { getCollectionById } from '../../mocks/model/nft-collection'
-import { NewListingSliderSearchCollectionOption as Component } from '@echo/ui'
+import { CollectionSearchCollectionOption as Component } from '@echo/ui'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

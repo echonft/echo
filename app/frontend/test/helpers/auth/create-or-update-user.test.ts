@@ -48,7 +48,8 @@ describe('helpers - auth - createOrUpdateUser', () => {
     discordBanner: 'existing-discordBanner',
     discordGuilds: [{ discordId: 'guild-id' }, { discordId: 'other-guild-id' }],
     discordId: 'existing-discordId',
-    discordUsername: 'existing-discordUsername'
+    discordUsername: 'existing-discordUsername',
+    username: 'existing-username'
   }
 
   it('throws if accessToken is invalid', async () => {
@@ -75,6 +76,8 @@ describe('helpers - auth - createOrUpdateUser', () => {
     expect(createdUser.discordGuilds).toEqual(discordUser.discordGuilds)
     expect(createdUser.discordId).toEqual(discordUser.discordId)
     expect(createdUser.discordUsername).toEqual(discordUser.discordUsername)
+    // for now we use username = discordUsername
+    expect(createdUser.username).toEqual(discordUser.discordUsername)
     expect(has('nonce', createdUser)).toBeFalsy()
     expect(createdUser.wallets).toEqual([])
     const updatedAt = dayjs.unix(createdUser.updatedAt)
@@ -103,6 +106,8 @@ describe('helpers - auth - createOrUpdateUser', () => {
     expect(updatedUser.discordGuilds).toEqual(discordUser.discordGuilds)
     expect(updatedUser.discordId).toEqual('existing-discordId')
     expect(updatedUser.discordUsername).toEqual(discordUser.discordUsername)
+    // for now we use username = discordUsername
+    expect(updatedUser.username).toEqual(discordUser.discordUsername)
     expect(has('nonce', updatedUser)).toBeFalsy()
     expect(updatedUser.wallets).toEqual(existingUser.wallets)
     const newUpdatedAt = dayjs.unix(updatedUser.updatedAt)
@@ -135,6 +140,8 @@ describe('helpers - auth - createOrUpdateUser', () => {
     expect(updatedUser.discordGuilds).toEqual(discordUser.discordGuilds)
     expect(updatedUser.discordId).toEqual(discordUser.discordId)
     expect(updatedUser.discordUsername).toEqual(discordUser.discordUsername)
+    // for now we use username = discordUsername
+    expect(updatedUser.username).toEqual(discordUser.discordUsername)
     expect(has('nonce', updatedUser)).toBeFalsy()
     expect(updatedUser.wallets).toEqual(existingUser.wallets)
     const newUpdatedAt = dayjs.unix(updatedUser.updatedAt)
@@ -169,6 +176,8 @@ describe('helpers - auth - createOrUpdateUser', () => {
     expect(updatedUser.discordGuilds).toEqual(existingUser.discordGuilds)
     expect(updatedUser.discordId).toEqual(existingUser.discordId)
     expect(updatedUser.discordUsername).toEqual(existingUser.discordUsername)
+    // for now we use username = discordUsername
+    expect(updatedUser.username).toEqual(existingUser.username)
     expect(has('nonce', updatedUser)).toBeFalsy()
     expect(updatedUser.wallets).toEqual(existingUser.wallets)
   })
