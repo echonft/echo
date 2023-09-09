@@ -10,7 +10,7 @@ interface Props extends MultiSelectableProps<string> {
   nfts: Array<Nft>
 }
 
-export const SelectableNftContainer: FunctionComponent<Props> = ({ nfts, selection, onSelectionUpdate }) => {
+export const SelectableNftsContainer: FunctionComponent<Props> = ({ nfts, selection, onSelectionUpdate }) => {
   return (
     <NftsLayout>
       {map(

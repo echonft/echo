@@ -1,17 +1,13 @@
-import { CollapsibleProps } from '../../../../../types/collapsible-props'
-import { DownCaretSvg } from '../../../../base/svg/down-caret-svg'
+import { CollapsibleProps } from '../../../types/collapsible-props'
+import { DownCaretSvg } from '../../base/svg/down-caret-svg'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 interface Props extends CollapsibleProps {
-  collectionName: string
+  name: string
 }
 
-export const NftsByCollectionDisclosureButton: FunctionComponent<Props> = ({
-  collectionName,
-  collapsed,
-  onToggleCollapsed
-}) => {
+export const NftGroupButton: FunctionComponent<Props> = ({ name, collapsed, onToggleCollapsed }) => {
   return (
     <button
       className={clsx(
@@ -29,7 +25,7 @@ export const NftsByCollectionDisclosureButton: FunctionComponent<Props> = ({
         onToggleCollapsed?.(!collapsed)
       }}
     >
-      <span className={clsx('prose-label-md', 'text-white')}>{collectionName}</span>
+      <span className={clsx('prose-label-md', 'text-white')}>{name}</span>
       <span className={clsx('text-white/50', 'transition-transform', collapsed && 'rotate-180')}>
         <DownCaretSvg />
       </span>

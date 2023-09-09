@@ -1,33 +1,35 @@
 'use client'
-import { CollapsibleProps } from '../../../../../types/collapsible-props'
-import { MultiSelectableProps } from '../../../../../types/multi-selectable-props'
-import { NftThumbnailSelectable } from '../../../thumbnail/nft-thumbnail-selectable'
-import { NftsLayout } from '../../nfts-layout'
-import { NftsByCollectionDisclosureButton } from './nfts-by-collection-disclosure-button'
+import { MultiSelectableProps } from '../../../types/multi-selectable-props'
+import { NftGroupLayout } from '../layout/nft-group-layout'
+import { NftsLayout } from '../layout/nfts-layout'
+import { NftThumbnailSelectable } from '../thumbnail/nft-thumbnail-selectable'
+import { NftGroupButton } from './nft-group-button'
 import { Nft } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
 import { Transition } from '@headlessui/react'
-import { clsx } from 'clsx'
-import { concat, head, isEmpty, isNil, map, without } from 'ramda'
-import { FunctionComponent } from 'react'
+import { concat, isEmpty, isNil, map, without } from 'ramda'
+import { FunctionComponent, useState } from 'react'
 
-interface Props extends CollapsibleProps, MultiSelectableProps<string> {
+interface Props extends MultiSelectableProps<string> {
   nfts: NonEmptyArray<Nft>
+  name: string
 }
 
-export const NftsByCollectionDisclosure: FunctionComponent<Props> = ({
-  nfts,
-  selection,
-  collapsed,
-  onToggleCollapsed,
-  onSelectionUpdate
-}) => {
+export const SelectableNftGroup: FunctionComponent<Props> = ({ nfts, name, selection, onSelectionUpdate }) => {
+  const [collapsed, setCollapsed] = useState(true)
+
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-4', 'h-max')}>
-      <NftsByCollectionDisclosureButton
-        collectionName={head(nfts).collection.name}
+    <NftGroupLayout>
+      <NftGroupButton
+        name={name}
         collapsed={collapsed ?? false}
-        onToggleCollapsed={onToggleCollapsed}
+        onToggleCollapsed={(collapsed) => {
+          // can't collapse if at least one NFT is selected
+          if (!collapsed && !isEmpty(selection)) {
+            return
+          }
+          setCollapsed(collapsed)
+        }}
       />
       <Transition
         show={collapsed ?? false}
@@ -59,6 +61,6 @@ export const NftsByCollectionDisclosure: FunctionComponent<Props> = ({
           )}
         </NftsLayout>
       </Transition>
-    </div>
+    </NftGroupLayout>
   )
 }

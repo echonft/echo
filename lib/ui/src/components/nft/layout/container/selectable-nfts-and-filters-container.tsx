@@ -5,7 +5,7 @@ import { CollectionFilter } from '../../../../types/collection-filter'
 import { NftFilter } from '../../../../types/nft-filter'
 import { NftsAndFiltersLayout } from '../nfts-and-filters-layout'
 import { NftFiltersContainer } from './nft-filters-container'
-import { SelectableNftContainer } from './selectable-nft-container'
+import { SelectableNftsContainer } from './selectable-nfts-container'
 import { Nft, NftTraits } from '@echo/ui-model'
 import { isIn, NonEmptyArray } from '@echo/utils'
 import { filter, map, partialRight, pipe, prop } from 'ramda'
@@ -16,7 +16,7 @@ interface Props {
   availableFilters: NonEmptyArray<NftFilter>
 }
 
-export const NftsAndFiltersContainer: FunctionComponent<Props> = ({ nfts, availableFilters }) => {
+export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({ nfts, availableFilters }) => {
   const [nftSelection, setNftSelection] = useState<string[]>([])
   const [traitSelection, setTraitSelection] = useState<NftTraits>({})
   const [collectionFilterSelection, setCollectionFilterSelection] = useState<CollectionFilter[]>([])
@@ -38,9 +38,8 @@ export const NftsAndFiltersContainer: FunctionComponent<Props> = ({ nfts, availa
 
   return (
     <NftsAndFiltersLayout>
-      <SelectableNftContainer nfts={filteredNfts} selection={nftSelection} onSelectionUpdate={setNftSelection} />
       <NftFiltersContainer
-        nfts={filteredNfts}
+        nfts={nfts}
         nftSelectionCount={nftSelection.length}
         availableFilters={availableFilters}
         traitSelection={traitSelection}
@@ -48,6 +47,7 @@ export const NftsAndFiltersContainer: FunctionComponent<Props> = ({ nfts, availa
         onTraitSelectionUpdate={setTraitSelection}
         onCollectionSelectionUpdate={setCollectionFilterSelection}
       />
+      <SelectableNftsContainer nfts={filteredNfts} selection={nftSelection} onSelectionUpdate={setNftSelection} />
     </NftsAndFiltersLayout>
   )
 }

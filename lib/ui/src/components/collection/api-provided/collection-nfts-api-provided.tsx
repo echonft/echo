@@ -2,7 +2,7 @@
 import { NavigationItems } from '../../../constants/navigation-item'
 import { NftFilterTraits } from '../../../constants/nft-filter'
 import { messages } from '../../../messages/en'
-import { NftsAndFiltersContainer } from '../../nft/layout/container/nfts-and-filters-container'
+import { SelectableNftsAndFiltersContainer } from '../../nft/layout/container/selectable-nfts-and-filters-container'
 import { CollectionNavigationLayout } from '../layout/collection-navigation-layout'
 import { NftResponse } from '@echo/api'
 import { mapNft, Nft } from '@echo/ui-model'
@@ -26,7 +26,7 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
   return (
     <NextIntlClientProvider timeZone={dayjs.tz.guess()} messages={messages} locale={'en'}>
       <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationItems}>
-        <NftsAndFiltersContainer nfts={mappedNfts} availableFilters={[NftFilterTraits]} />
+        <SelectableNftsAndFiltersContainer nfts={mappedNfts} availableFilters={[NftFilterTraits]} />
       </CollectionNavigationLayout>
     </NextIntlClientProvider>
   )

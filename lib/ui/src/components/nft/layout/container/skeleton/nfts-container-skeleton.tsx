@@ -2,7 +2,7 @@ import { NftThumbnailSkeleton } from '../../../thumbnail/skeleton/nft-thumbnail-
 import { NftsLayout } from '../../nfts-layout'
 import { FunctionComponent } from 'react'
 
-export const NftContainerSkeleton: FunctionComponent = () => {
+export const NftsContainerSkeleton: FunctionComponent = () => {
   return (
     <NftsLayout>
       <NftThumbnailSkeleton />
