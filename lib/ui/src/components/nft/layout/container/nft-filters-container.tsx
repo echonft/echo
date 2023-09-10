@@ -7,12 +7,12 @@ import { NftFilter } from '../../../../types/nft-filter'
 import { ShowIf } from '../../../base/utils/show-if'
 import { CollectionFilterPanel } from '../../filters/by-collection/collection-filter-panel'
 import { TraitFilterPanel } from '../../filters/by-traits/trait-filter-panel'
-import { MakeOfferButton } from '../make-offer-button'
+import { FiltersPanelButton } from '../filters-panel-button'
 import { NftFiltersPanelLayout } from '../nft-filters-panel-layout'
 import { Nft, NftTraits } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
 import { includes } from 'ramda'
-import { FunctionComponent, useMemo } from 'react'
+import { FunctionComponent, MouseEventHandler, useMemo } from 'react'
 
 interface Props {
   nfts: Array<Nft>
@@ -20,6 +20,8 @@ interface Props {
   availableFilters: NonEmptyArray<NftFilter>
   traitSelection: NftTraits
   collectionFilterSelection: CollectionFilter[]
+  btnLabel: string
+  onButtonClick?: MouseEventHandler
   onTraitSelectionUpdate?: (selection: NftTraits) => unknown
   onCollectionSelectionUpdate?: (selection: CollectionFilter[]) => unknown
 }
@@ -30,6 +32,8 @@ export const NftFiltersContainer: FunctionComponent<Props> = ({
   availableFilters,
   traitSelection,
   collectionFilterSelection,
+  btnLabel,
+  onButtonClick,
   onTraitSelectionUpdate,
   onCollectionSelectionUpdate
 }) => {
@@ -45,7 +49,7 @@ export const NftFiltersContainer: FunctionComponent<Props> = ({
 
   return (
     <NftFiltersPanelLayout>
-      <MakeOfferButton count={nftSelectionCount} />
+      <FiltersPanelButton count={nftSelectionCount} label={btnLabel} onClick={onButtonClick} />
       <ShowIf condition={includeCollectionFilter}>
         <CollectionFilterPanel
           nfts={nftsFilteredByTraits}

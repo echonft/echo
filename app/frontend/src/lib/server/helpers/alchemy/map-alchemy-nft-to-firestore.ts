@@ -9,7 +9,7 @@ import { isNil, omit, pipe } from 'ramda'
 
 export const mapAlchemyNftToFirestore = (
   alchemyNft: AlchemyNft,
-  user: User,
+  user: Partial<User>,
   userWallet: Wallet,
   collections: NftCollection[]
 ): Omit<Nft, 'id'> => {

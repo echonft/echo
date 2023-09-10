@@ -3,7 +3,7 @@ import { mapListingFiltersToQueryParams } from '../../../../../lib/helpers/reque
 import { mapQueryConstraintsToQueryParams } from '../../../../../lib/helpers/request/map-query-constraints-to-query-params'
 import { GetListingsResponse } from '@echo/api'
 import { userListingsApiUrl } from '@echo/api/src/routing/user-listings-api-url'
-import { UserListingsApiProvided } from '@echo/ui'
+import { UserListingsApiProvided } from '@echo/ui/src/components/user/api-provided/user-listings-api-provided'
 import { isNil, mergeLeft } from 'ramda'
 import { FunctionComponent } from 'react'
 

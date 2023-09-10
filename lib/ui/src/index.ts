@@ -19,7 +19,6 @@ export { CollectionLinks } from './components/collection/details/collection-link
 export { CollectionProfile } from './components/collection/details/collection-profile'
 export { CollectionProfilePicture } from './components/collection/details/collection-profile-picture'
 export { CollectionListingsSkeleton } from './components/collection/listing/skeleton/collection-listings-skeleton'
-export { CollectionOfferButton } from './components/collection/nft/collection-offer-button'
 export { CollectionNftsSkeleton } from './components/collection/nft/skeleton/collection-nfts-skeleton'
 export { CollectionSearchCollectionOption } from './components/collection/search/collection-search-collection-option'
 export { CollectionSwapsSkeleton } from './components/collection/swap/skeleton/collection-swaps-skeleton'

@@ -1,5 +1,5 @@
 'use client'
-import { ErrorPage } from '@echo/ui'
+import { ErrorPage } from '@echo/ui/src/components/layout/error-page'
 import { FunctionComponent } from 'react'
 
 interface Props {

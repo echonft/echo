@@ -1,9 +1,7 @@
 export const messages = {
   collection: {
     button: {
-      makeOffer: {
-        label: 'Make an offer'
-      }
+      label: 'Make an offer'
     },
     details: {
       size: '{size, number, ::K} NFTs'
@@ -31,7 +29,7 @@ export const messages = {
       }
     },
     thumbnail: {
-      title: 'Any {collectionName}'
+      title: '{count} {collectionName}'
     }
   },
   errorPage: {
@@ -175,6 +173,9 @@ export const messages = {
     }
   },
   profile: {
+    button: {
+      label: 'Create listing'
+    },
     empty: {
       items: {
         message: 'You do not own any NFT'
@@ -197,9 +198,7 @@ export const messages = {
   },
   user: {
     button: {
-      makeOffer: {
-        label: 'Make an offer'
-      }
+      label: 'Make an offer'
     },
     empty: {
       items: {

@@ -1,7 +1,7 @@
 import { fetcher } from '../../../../../lib/helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '../../../../../lib/helpers/request/map-query-constraints-to-query-params'
 import { GetNftsResponse, userNftsApiUrl } from '@echo/api'
-import { UserNftsApiProvided } from '@echo/ui'
+import { UserNftsApiProvided } from '@echo/ui/src/components/user/api-provided/user-nfts-api-provided'
 import { isNil } from 'ramda'
 import { FunctionComponent } from 'react'
 

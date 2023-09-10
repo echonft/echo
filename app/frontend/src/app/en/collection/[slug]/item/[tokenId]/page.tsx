@@ -3,7 +3,7 @@ import { mapListingFiltersToQueryParams } from '../../../../../../lib/helpers/re
 import { mapQueryConstraintsToQueryParams } from '../../../../../../lib/helpers/request/map-query-constraints-to-query-params'
 import { GetListingsResponse, GetNftResponse, nftListingsApiUrl } from '@echo/api'
 import { nftApiUrl } from '@echo/api/src/routing/nft-api-url'
-import { NftDetailsApiProvided } from '@echo/ui'
+import { NftDetailsApiProvided } from '@echo/ui/src/components/nft/details/api-provided/nft-details-api-provided'
 import { clsx } from 'clsx'
 import { isNil, mergeLeft } from 'ramda'
 import { FunctionComponent } from 'react'

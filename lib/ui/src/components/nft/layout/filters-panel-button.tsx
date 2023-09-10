@@ -1,21 +1,20 @@
 import { clsx } from 'clsx'
-import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, MouseEventHandler } from 'react'
 
 interface Props {
+  label: string
   count: number
-  onMakeOffer?: () => unknown
+  onClick?: MouseEventHandler
 }
 
-export const CollectionOfferButton: FunctionComponent<Props> = ({ count, onMakeOffer }) => {
-  const t = useTranslations('collection.button.makeOffer')
+export const FiltersPanelButton: FunctionComponent<Props> = ({ label, count, onClick }) => {
   return (
     <button
       disabled={count === 0}
-      onClick={onMakeOffer}
+      onClick={onClick}
       className={clsx('!justify-between', 'btn-gradient', 'group', 'rounded-lg', 'w-full', 'p-2.5')}
     >
-      <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>{t('label')}</span>
+      <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>{label}</span>
       <div className={clsx('flex', 'items-center', 'justify-center', 'w-6', 'h-6', 'rounded-lg', 'bg-dark-300')}>
         <span
           className={clsx(

@@ -8,11 +8,12 @@ import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 
 interface Props {
+  count: number
   collection: NftCollection
   linkDisabled?: boolean
 }
 
-export const CollectionThumbnail: FunctionComponent<Props> = ({ collection, linkDisabled }) => {
+export const CollectionThumbnail: FunctionComponent<Props> = ({ count, collection, linkDisabled }) => {
   const { name, slug, profilePictureUrl } = collection
   return (
     <InternalLink path={links.collection.items(slug)} disabled={linkDisabled}>
@@ -22,7 +23,7 @@ export const CollectionThumbnail: FunctionComponent<Props> = ({ collection, link
           <NftThumbnailPicture alt={name} pictureUrl={profilePictureUrl!} />
         </div>
         <div className={clsx('flex', 'flex-row', 'justify-center', 'grow', 'bg-white/[0.08]', 'p-2')}>
-          <CollectionThumbnailTitle collectionName={collection.name} />
+          <CollectionThumbnailTitle count={count} collectionName={collection.name} />
         </div>
       </div>
     </InternalLink>

@@ -1,4 +1,4 @@
-import { links } from '@echo/ui'
+import { links } from '@echo/ui/src/constants/links'
 import { redirect } from 'next/navigation'
 import { FunctionComponent } from 'react'
 

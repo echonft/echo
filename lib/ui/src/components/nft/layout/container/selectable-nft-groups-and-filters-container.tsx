@@ -28,14 +28,23 @@ import {
   reject,
   unless
 } from 'ramda'
-import { FunctionComponent, useEffect, useMemo, useState } from 'react'
+import { FunctionComponent, MouseEventHandler, useEffect, useMemo, useState } from 'react'
 
 interface Props {
   groups: NonEmptyArray<Group<Nft>>
   availableFilters: NonEmptyArray<NftFilter>
+  btnLabel: string
+  hideOwner?: boolean
+  onButtonClick?: MouseEventHandler
 }
 
-export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = ({ groups, availableFilters }) => {
+export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = ({
+  groups,
+  availableFilters,
+  btnLabel,
+  hideOwner,
+  onButtonClick
+}) => {
   const [groupSelection, setGroupSelection] = useState<GroupSelection[]>([])
   const [traitSelection, setTraitSelection] = useState<NftTraits>({})
   const [collectionFilterSelection, setCollectionFilterSelection] = useState<CollectionFilter[]>([])
@@ -100,12 +109,15 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
         availableFilters={availableFilters}
         traitSelection={traitSelection}
         collectionFilterSelection={collectionFilterSelection}
+        btnLabel={btnLabel}
+        onButtonClick={onButtonClick}
         onTraitSelectionUpdate={setTraitSelection}
         onCollectionSelectionUpdate={setCollectionFilterSelection}
       />
       <SelectableNftGroupsContainer
         groups={validGroups}
         selection={groupSelection}
+        hideOwner={hideOwner}
         onSelectionUpdate={setGroupSelection}
       />
     </NftsAndFiltersLayout>

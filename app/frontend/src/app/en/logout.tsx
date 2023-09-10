@@ -1,4 +1,4 @@
-import { MessagesType } from '@echo/ui'
+import { MessagesType } from '@echo/ui/src/types/messages'
 import { NextPage } from 'next'
 import { signOut, useSession } from 'next-auth/react'
 import { isNil } from 'ramda'
