@@ -110,7 +110,8 @@ export const messages = {
     }
   },
   notFoundPage: {
-    title: 'Sorry, there’s<br></br>nothing here',
+    title: 'Sorry, there’s',
+    subtitle: 'nothing here',
     button: {
       label: 'Go home'
     }
@@ -171,6 +172,21 @@ export const messages = {
         confirmBtn: 'Confirm',
         copyLinkBtn: 'Copy link'
       }
+    }
+  },
+  profile: {
+    empty: {
+      items: {
+        message: 'You do not own any NFT'
+      }
+    },
+    navigation: {
+      items: 'My Items',
+      listingsCreated: 'My Listings',
+      listingsReceived: 'Listings for me',
+      offersCreated: 'My Offers',
+      offersReceived: 'Offers Received',
+      swaps: 'My Swaps'
     }
   },
   shared: {

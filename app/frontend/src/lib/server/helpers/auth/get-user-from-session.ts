@@ -11,7 +11,7 @@ export async function getUserFromSession(authOptions: AuthOptions) {
   }
   const user = await getUserById(session.user.id)
   if (isNil(user)) {
-    throw new ForbiddenError('user is nil')
+    throw new ForbiddenError('user from session is nil')
   }
   return user
 }

@@ -1,4 +1,4 @@
 export interface NftAttributeDocumentData {
-  trait: string
-  value: string
+  trait: string | number
+  value: string | number
 }

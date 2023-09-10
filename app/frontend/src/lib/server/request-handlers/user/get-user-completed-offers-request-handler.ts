@@ -5,7 +5,6 @@ import { assertUser } from '../../helpers/user/assert-user'
 import { getUserByUsername } from '../../helpers/user/get-user-by-username'
 import { mapOffer } from '../../mappers/to-response/map-offer'
 import { ApiRequest, GetOffersResponse } from '@echo/api'
-import { logger } from '@echo/utils'
 import { NextResponse } from 'next/server'
 import { assoc, dissoc, map, pipe } from 'ramda'
 
@@ -20,6 +19,5 @@ export async function getUserCompletedOffersRequestHandler(req: ApiRequest<never
     assoc('includeExpired', true)
   )(filters)
   const offers = await getUserOffers(user.id, completedOffersFilters, constraints)
-  logger.error(`does it log?!`)
   return NextResponse.json<GetOffersResponse>({ offers: map(mapOffer, offers) })
 }

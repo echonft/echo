@@ -1,3 +1,4 @@
+'use client'
 import { InternalLink } from '../../base/link/internal-link'
 import { EchoLogoSvg } from '../../base/svg/echo-logo-svg'
 import { HideIfNil } from '../../base/utils/hide-if-nil'
@@ -11,10 +12,9 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   user?: AuthUser
-  onConnectClick?: () => unknown
 }
 
-export const Header: FunctionComponent<Props> = ({ user, onConnectClick }) => {
+export const Header: FunctionComponent<Props> = ({ user }) => {
   return (
     <header
       className={clsx('bg-dark-500', 'border', 'border-b-2', 'border-solid', 'border-black/[0.09]', 'w-full', 'h-max')}
@@ -26,7 +26,7 @@ export const Header: FunctionComponent<Props> = ({ user, onConnectClick }) => {
           </InternalLink>
           <HideIfNil checks={user} render={(user) => <UserTag user={user} />} />
           <ShowIfNil checks={user}>
-            <ConnectButton onConnectClick={onConnectClick} />
+            <ConnectButton />
           </ShowIfNil>
         </div>
       </PaddedContainer>

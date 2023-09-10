@@ -56,6 +56,9 @@ export async function createOrUpdateUser(
     const discordUser = await fetchDiscordUser(accessToken, tokenType)
     const existingUser = await getUserByDiscordId(discordUser.discordId)
     if (isNil(existingUser)) {
+      if (discordUser.discordUsername === 'me') {
+        throw Error('"me" discord username... who would have thought?')
+      }
       // for now we set username = discordUsername
       const userId = await createUser({ ...discordUser, username: discordUser.discordUsername })
       return mapUserToAuthUser({
