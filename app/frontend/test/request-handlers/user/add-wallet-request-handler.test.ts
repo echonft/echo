@@ -1,6 +1,6 @@
-import { mockRequest } from '../../mocks/request-response'
 import { AddWalletRequest } from '@echo/api'
 import { User } from '@echo/firestore-types'
+import { mockRequest } from '@mocks/request-response'
 import { getSession } from '@server/helpers/auth/get-session'
 import { getSiweMessage } from '@server/helpers/auth/get-siwe-message'
 import { verifySiweMessage } from '@server/helpers/auth/verify-siwe-message'

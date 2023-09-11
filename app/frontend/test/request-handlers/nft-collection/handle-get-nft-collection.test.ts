@@ -1,6 +1,6 @@
-import { mockRequest } from '../../mocks/request-response'
 import { GetNftCollectionResponse } from '@echo/api'
 import { getNftCollectionMockById } from '@echo/firestore'
+import { mockRequest } from '@mocks/request-response'
 import { getNftCollectionBySlug } from '@server/helpers/nft-collection/get-nft-collection-by-slug'
 import { mapNftCollection } from '@server/mappers/to-response/map-nft-collection'
 import { getNftCollectionRequestHandler } from '@server/request-handlers/nft-collection/get-nft-collection-request-handler'

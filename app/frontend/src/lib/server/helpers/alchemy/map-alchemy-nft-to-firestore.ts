@@ -1,4 +1,4 @@
-import type { AlchemyNft } from '@echo/alchemy'
+import type { AlchemyNft } from '@echo/alchemy/types'
 import { mapUserToUserDetails } from '@echo/firestore'
 import type { Nft, NftCollection, User, Wallet } from '@echo/firestore-types'
 import { modifyStringPropToUrl } from '@echo/utils'

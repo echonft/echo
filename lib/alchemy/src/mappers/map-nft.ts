@@ -1,6 +1,6 @@
-import { AlchemyNft } from '../types/model/alchemy-nft'
-import { NftResponse } from '../types/response/nft-response'
 import { applyToProp, isNilOrEmpty } from '@echo/utils'
+import type { AlchemyNft } from '@echo-alchemy/types/model/alchemy-nft'
+import type { NftResponse } from '@echo-alchemy/types/response/nft-response'
 import { always, applySpec, ifElse, map, path, pathEq, pipe, prop } from 'ramda'
 import { getAddress } from 'viem'
 

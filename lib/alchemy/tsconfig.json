@@ -3,8 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": ".",
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@echo-alchemy/*": ["src/*"],
+      "@echo-alchemy-test/*": ["test/*"]
+    }
   },
-  "include": ["src", "test"],
+  "include": ["src", "test", "exports"],
   "exclude": ["dist", "node_modules"]
 }

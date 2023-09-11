@@ -1,11 +1,8 @@
-import {
-  AlchemyRoutes,
-  getAlchemyRoute,
-  GetOwnersForNftRequest,
-  GetOwnersForNftResponse,
-  handlePaging,
-  mapGetOwnersForNftResponse
-} from '@echo/alchemy'
+import AlchemyRoutes from '@echo/alchemy/alchemy-routes'
+import getAlchemyRoute from '@echo/alchemy/get-alchemy-route'
+import handlePaging from '@echo/alchemy/handle-paging'
+import mapGetOwnersForNftResponse from '@echo/alchemy/map-get-owners-for-nft-response'
+import type { GetOwnersForNftRequest, GetOwnersForNftResponse } from '@echo/alchemy/types'
 import type { Wallet } from '@echo/firestore-types'
 import { fetcher } from '@helpers/fetcher'
 

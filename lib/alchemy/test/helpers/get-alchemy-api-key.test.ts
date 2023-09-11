@@ -1,4 +1,4 @@
-import { getAlchemyApiKey } from '../../src/helpers/get-alchemy-api-key'
+import { getAlchemyApiKey } from '@echo-alchemy/helpers/get-alchemy-api-key'
 import { describe, expect, jest, test } from '@jest/globals'
 
 describe('helpers - getAlchemyApiKey', () => {

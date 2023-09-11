@@ -1,6 +1,6 @@
-import { AlchemyNftCollection } from '../types/model/alchemy-nft-collection'
-import { ContractResponse } from '../types/response/contract-response'
 import { unlessNil } from '@echo/utils'
+import type { AlchemyNftCollection } from '@echo-alchemy/types/model/alchemy-nft-collection'
+import type { ContractResponse } from '@echo-alchemy/types/response/contract-response'
 import { always, applySpec, path, pipe, prop } from 'ramda'
 import { getAddress } from 'viem'
 

@@ -1,4 +1,4 @@
-import { ContractResponse } from './contract-response'
+import type { ContractResponse } from '@echo-alchemy/types/response/contract-response'
 
 export interface NftResponse {
   contract: ContractResponse

@@ -1,6 +1,6 @@
-import { mockRequest } from '../../mocks/request-response'
 import { CreateOfferRequest, IdResponse } from '@echo/api'
 import { User } from '@echo/firestore-types'
+import { mockRequest } from '@mocks/request-response'
 import { getSession } from '@server/helpers/auth/get-session'
 import { ApiError } from '@server/helpers/error/api-error'
 import { createOffer } from '@server/helpers/offer/create-offer'

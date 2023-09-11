@@ -7,8 +7,11 @@
       "@app/*": ["src/app/*"],
       "@constants/*": ["src/lib/constants/*"],
       "@helpers/*": ["src/lib/helpers/*"],
+      "@mocks/*": ["test/mocks/*"],
       "@server/*": ["src/lib/server/*"],
-      "@type/*": ["src/lib/types/*"]
+      "@type/*": ["src/lib/types/*"],
+      "@echo/alchemy/*": ["../../lib/alchemy/exports/*"],
+      "@echo-alchemy/*": ["../../lib/alchemy/src/*"]
     },
     "plugins": [
       {

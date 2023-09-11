@@ -1,4 +1,4 @@
-import { AlchemyNft } from '@echo/alchemy'
+import type { AlchemyNft } from '@echo/alchemy/types'
 import { getNftCollectionMockById, getUserMockById } from '@echo/firestore'
 import { Wallet } from '@echo/firestore-types'
 import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nft-to-firestore'
