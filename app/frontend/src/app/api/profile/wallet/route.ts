@@ -1,5 +1,5 @@
 import { authOptions } from '@constants/auth-options'
-import type { AddWalletRequest, ApiRequest, RemoveWalletRequest } from '@echo/api'
+import type { AddWalletRequest, ApiRequest, RemoveWalletRequest } from '@echo/api/types'
 import { handleRestrictedRequest } from '@server/request-handlers/handle-restricted-request'
 import { addWalletRequestHandler } from '@server/request-handlers/user/add-wallet-request-handler'
 import { removeWalletRequestHandler } from '@server/request-handlers/user/remove-wallet-request-handler'

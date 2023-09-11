@@ -24,7 +24,9 @@ const config: Config = {
     '^@server/(.*)$': '<rootDir>/src/lib/server/$1',
     '^@type/(.*)$': '<rootDir>/src/lib/types/$1',
     '^@echo/alchemy/(.*)$': '<rootDir>/../../lib/alchemy/exports/$1',
-    '^@echo-alchemy/(.*)$': '<rootDir>/../../lib/alchemy/src/$1'
+    '^@echo-alchemy/(.*)$': '<rootDir>/../../lib/alchemy/src/$1',
+    '^@echo/api/(.*)$': '<rootDir>/../../lib/api/exports/$1',
+    '^@echo-api/(.*)$': '<rootDir>/../../lib/api/src/$1'
   },
   reporters: [
     'default',

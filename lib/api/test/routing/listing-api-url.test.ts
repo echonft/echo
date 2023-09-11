@@ -1,4 +1,4 @@
-import { listingApiUrl } from '../../src/routing/listing-api-url'
+import { listingApiUrl } from '@echo-api/routing/listing-api-url'
 import { describe, expect, test } from '@jest/globals'
 
 describe('routing - listingApiUrl', () => {

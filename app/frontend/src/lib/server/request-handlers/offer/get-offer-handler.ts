@@ -1,4 +1,4 @@
-import type { ApiRequest, GetOfferResponse } from '@echo/api'
+import type { ApiRequest, GetOfferResponse } from '@echo/api/types'
 import { assertOffer } from '@server/helpers/offer/assert-offer'
 import { getOffer } from '@server/helpers/offer/get-offer'
 import { mapOffer } from '@server/mappers/to-response/map-offer'

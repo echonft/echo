@@ -1,8 +1,8 @@
-import { ListingItemResponse } from './listing-item-response'
-import { ListingTargetResponse } from './listing-target-response'
-import { UserResponse } from './user-response'
-import { ListingState } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { ListingState } from '@echo/firestore-types'
+import type { NonEmptyArray } from '@echo/utils'
+import type { ListingItemResponse } from '@echo-api/types/responses/model/listing-item-response'
+import type { ListingTargetResponse } from '@echo-api/types/responses/model/listing-target-response'
+import type { UserResponse } from '@echo-api/types/responses/model/user-response'
 
 export interface ListingResponse {
   id: string

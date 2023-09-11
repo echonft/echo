@@ -1,4 +1,4 @@
-import { OfferItemRequest } from '@echo/api'
+import type { OfferItemRequest } from '@echo/api/types'
 import { getNftMockById } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
 import { getNftById } from '@server/helpers/nft/get-nft-by-id'

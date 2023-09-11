@@ -2,7 +2,6 @@
   "extends": "../tsconfig/base.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": ".",
     "outDir": "dist",
     "paths": {
       "@echo-alchemy/*": ["src/*"],

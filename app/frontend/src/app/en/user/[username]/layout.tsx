@@ -1,4 +1,5 @@
-import { GetUserResponse, userApiUrl } from '@echo/api'
+import userApiUrl from '@echo/api/routing/user-api-url'
+import { GetUserResponse } from '@echo/api/types'
 import { UserDetailsApiProvided } from '@echo/ui/src/components/user/api-provided/user-details-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { ErrorStatus } from '@server/constants/error-status'

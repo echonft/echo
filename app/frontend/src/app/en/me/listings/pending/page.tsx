@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
-import { GetListingsResponse } from '@echo/api'
-import { userListingsApiUrl } from '@echo/api/src/routing/user-listings-api-url'
+import userListingsApiUrl from '@echo/api/routing/user-listings-api-url'
+import type { GetListingsResponse } from '@echo/api/types'
 import { ListingFilterAsTarget } from '@echo/firestore-types'
 import { ProfileListingsReceivedApiProvided } from '@echo/ui/src/components/profile/api-provided/profile-listings-received-api-provided'
 import { fetcher } from '@helpers/fetcher'

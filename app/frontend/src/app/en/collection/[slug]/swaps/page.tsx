@@ -1,5 +1,5 @@
-import type { GetOffersResponse } from '@echo/api'
-import { collectionSwapsApiUrl } from '@echo/api/src/routing/collection-swaps-api-url'
+import collectionSwapsApiUrl from '@echo/api/routing/collection-swaps-api-url'
+import type { GetOffersResponse } from '@echo/api/types'
 import { CollectionSwapsApiProvided } from '@echo/ui/src/components/collection/api-provided/collection-swaps-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'

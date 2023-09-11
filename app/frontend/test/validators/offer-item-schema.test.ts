@@ -1,4 +1,4 @@
-import { OfferItemRequest } from '@echo/api'
+import type { OfferItemRequest } from '@echo/api/types'
 import { offerItemSchema } from '@server/validators/offer-item-schema'
 import { assoc, dissoc, dissocPath } from 'ramda'
 

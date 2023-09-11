@@ -1,4 +1,4 @@
-import type { ListingTargetResponse } from '@echo/api'
+import type { ListingTargetResponse } from '@echo/api/types'
 import type { ListingTarget } from '@echo/firestore-types'
 import { mapNftCollection } from '@server/mappers/to-response/map-nft-collection'
 import { modify } from 'ramda'

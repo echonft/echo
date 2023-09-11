@@ -1,4 +1,4 @@
-import type { ApiRequest, GetListingsResponse } from '@echo/api'
+import type { ApiRequest, GetListingsResponse } from '@echo/api/types'
 import { getNftListings } from '@server/helpers/listing/get-nft-listings'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
 import { parseListingFiltersQuery } from '@server/helpers/request/parse-listing-filters-query'

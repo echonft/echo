@@ -1,6 +1,6 @@
 import { SizeLG } from '../../../constants/size'
 import { UserDetails } from '../details/user-details'
-import { UserResponse } from '@echo/api'
+import type { UserResponse } from '@echo/api/types'
 import { mapUser } from '@echo/ui-model'
 import { FunctionComponent, useMemo } from 'react'
 

@@ -1,4 +1,4 @@
-import type { ApiRequest, GetNftsResponse } from '@echo/api'
+import type { ApiRequest, GetNftsResponse } from '@echo/api/types'
 import { getNftCollectionNfts } from '@server/helpers/nft/get-nft-collection-nfts'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
 import { mapNft } from '@server/mappers/to-response/map-nft'

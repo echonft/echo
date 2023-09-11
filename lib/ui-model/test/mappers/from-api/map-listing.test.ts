@@ -2,7 +2,7 @@ import { mapListing } from '../../../src/mappers/from-api/map-listing'
 import { Listing } from '../../../src/types/listing'
 import { ListingItem } from '../../../src/types/listing-item'
 import { ListingTarget } from '../../../src/types/listing-target'
-import { ListingItemResponse, ListingResponse, ListingTargetResponse } from '@echo/api'
+import type { ListingItemResponse, ListingResponse, ListingTargetResponse } from '@echo/api/types'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 

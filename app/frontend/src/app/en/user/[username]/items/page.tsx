@@ -1,4 +1,5 @@
-import { GetNftsResponse, userNftsApiUrl } from '@echo/api'
+import userNftsApiUrl from '@echo/api/routing/user-nfts-api-url'
+import { GetNftsResponse } from '@echo/api/types'
 import { UserNftsApiProvided } from '@echo/ui/src/components/user/api-provided/user-nfts-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'

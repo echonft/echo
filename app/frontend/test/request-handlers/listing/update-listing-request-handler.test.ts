@@ -1,4 +1,5 @@
-import { UpdateListingAction, UpdateListingRequest } from '@echo/api'
+import UpdateListingAction from '@echo/api/constants/update-listing-action'
+import type { UpdateListingRequest } from '@echo/api/types'
 import { User } from '@echo/firestore-types'
 import { mockRequest } from '@mocks/request-response'
 import { getSession } from '@server/helpers/auth/get-session'

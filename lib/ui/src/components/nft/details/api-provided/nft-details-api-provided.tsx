@@ -1,6 +1,6 @@
 'use client'
 import { NftDetails } from '../nft-details'
-import { ListingResponse, NftResponse } from '@echo/api'
+import type { ListingResponse, NftResponse } from '@echo/api/types'
 import { mapListing, mapNft } from '@echo/ui-model'
 import { map } from 'ramda'
 import { FunctionComponent, useMemo } from 'react'

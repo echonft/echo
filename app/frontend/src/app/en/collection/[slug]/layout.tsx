@@ -1,4 +1,5 @@
-import { collectionApiUrl, GetNftCollectionResponse } from '@echo/api'
+import collectionApiUrl from '@echo/api/routing/collection-api-url'
+import type { GetNftCollectionResponse } from '@echo/api/types'
 import { CollectionDetailsApiProvided } from '@echo/ui/src/components/collection/api-provided/collection-details-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { ErrorStatus } from '@server/constants/error-status'

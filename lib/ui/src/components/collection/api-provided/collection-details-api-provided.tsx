@@ -1,6 +1,6 @@
 import { SizeLG } from '../../../constants/size'
 import { CollectionDetails } from '../details/collection-details'
-import { NftCollectionResponse } from '@echo/api'
+import type { NftCollectionResponse } from '@echo/api/types'
 import { mapNftCollection } from '@echo/ui-model'
 import { FunctionComponent, useMemo } from 'react'
 

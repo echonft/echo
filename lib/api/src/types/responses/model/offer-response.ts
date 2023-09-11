@@ -1,7 +1,7 @@
-import { OfferItemResponse } from './offer-item-response'
-import { UserResponse } from './user-response'
-import { OfferState } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { OfferState } from '@echo/firestore-types'
+import type { NonEmptyArray } from '@echo/utils'
+import type { OfferItemResponse } from '@echo-api/types/responses/model/offer-item-response'
+import type { UserResponse } from '@echo-api/types/responses/model/user-response'
 
 export interface OfferResponse {
   id: string

@@ -15,7 +15,11 @@ const config: Config = {
     '!<rootDir>/src/constants/**',
     '!<rootDir>/src/types/**'
   ],
+  coverageDirectory: '<rootDir>/../../.coverage/lib/api',
   coverageReporters: ['json-summary', 'text'],
+  moduleNameMapper: {
+    '^@echo-api/(.*)$': '<rootDir>/src/$1'
+  },
   reporters: [
     'default',
     [
@@ -25,7 +29,6 @@ const config: Config = {
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/api',
   setupFilesAfterEnv: ['<rootDir>/test/setup-env.ts']
 }
 export default config

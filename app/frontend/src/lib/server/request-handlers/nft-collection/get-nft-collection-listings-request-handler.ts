@@ -1,4 +1,4 @@
-import type { ApiRequest, GetListingsResponse } from '@echo/api'
+import type { ApiRequest, GetListingsResponse } from '@echo/api/types'
 import { getNftCollectionListings } from '@server/helpers/listing/get-nft-collection-listings'
 import { assertNftCollection } from '@server/helpers/nft-collection/assert-nft-collection'
 import { getNftCollectionBySlug } from '@server/helpers/nft-collection/get-nft-collection-by-slug'

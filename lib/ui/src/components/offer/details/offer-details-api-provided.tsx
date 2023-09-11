@@ -1,6 +1,6 @@
 import { isUserOfferReceiver } from '../../../helpers/offer/is-user-offer-receiver'
 import { OfferDetails } from './offer-details'
-import { OfferResponse } from '@echo/api'
+import type { OfferResponse } from '@echo/api/types'
 import { AuthUser, mapOffer } from '@echo/ui-model'
 import { FunctionComponent } from 'react'
 

@@ -15,7 +15,12 @@ const config: Config = {
     '!<rootDir>/src/constants/**',
     '!<rootDir>/src/types/**'
   ],
+  coverageDirectory: '<rootDir>/../../.coverage/lib/ui',
   coverageReporters: ['json-summary', 'text'],
+  moduleNameMapper: {
+    '^@echo/api/(.*)$': '<rootDir>/../api/exports/$1',
+    '^@echo-api/(.*)$': '<rootDir>/../api/src/$1'
+  },
   reporters: [
     'default',
     [
@@ -24,7 +29,6 @@ const config: Config = {
         outputDirectory: '<rootDir>/../../.coverage/lib/ui'
       }
     ]
-  ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/ui'
+  ]
 }
 export default config

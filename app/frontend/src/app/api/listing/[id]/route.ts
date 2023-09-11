@@ -1,5 +1,5 @@
 import { authOptions } from '@constants/auth-options'
-import type { ApiRequest, UpdateListingRequest } from '@echo/api'
+import type { ApiRequest, UpdateListingRequest } from '@echo/api/types'
 import { handleRestrictedRequest } from '@server/request-handlers/handle-restricted-request'
 import { updateListingRequestHandler } from '@server/request-handlers/listing/update-listing-request-handler'
 

@@ -1,4 +1,4 @@
-import type { OfferItemRequest } from '@echo/api'
+import type { OfferItemRequest } from '@echo/api/types'
 import type { OfferItem } from '@echo/firestore-types'
 import type { NonEmptyArray } from '@echo/utils'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'

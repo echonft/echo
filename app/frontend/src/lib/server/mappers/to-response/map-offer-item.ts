@@ -1,4 +1,4 @@
-import type { OfferItemResponse } from '@echo/api'
+import type { OfferItemResponse } from '@echo/api/types'
 import type { OfferItem } from '@echo/firestore-types'
 import { mapNft } from '@server/mappers/to-response/map-nft'
 import { modify } from 'ramda'

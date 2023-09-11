@@ -1,4 +1,4 @@
-import { GetNftCollectionResponse } from '@echo/api'
+import type { GetNftCollectionResponse } from '@echo/api/types'
 import { getNftCollectionMockById } from '@echo/firestore'
 import { mockRequest } from '@mocks/request-response'
 import { getNftCollectionBySlug } from '@server/helpers/nft-collection/get-nft-collection-by-slug'

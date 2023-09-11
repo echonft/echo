@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
-import { GetOffersResponse } from '@echo/api'
-import { userSwapsApiUrl } from '@echo/api/src/routing/user-swaps-api-url'
+import userSwapsApiUrl from '@echo/api/routing/user-swaps-api-url'
+import type { GetOffersResponse } from '@echo/api/types'
 import { ProfileSwapsApiProvided } from '@echo/ui/src/components/profile/api-provided/profile-swaps-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'

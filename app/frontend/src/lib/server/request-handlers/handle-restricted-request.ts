@@ -1,6 +1,6 @@
 import { ApiError } from '../helpers/error/api-error'
 import { RestrictedRequestHandler } from '../types/request-handlers/restricted-request-handler'
-import { ApiRequest, ApiResponse } from '@echo/api'
+import type { ApiRequest, ApiResponse } from '@echo/api/types'
 import { initializeFirebase } from '@echo/firestore'
 import { errorMessage } from '@echo/utils'
 import { NextResponse } from 'next/server'

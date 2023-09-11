@@ -1,4 +1,4 @@
-import type { ApiRequest, GetUserResponse } from '@echo/api'
+import type { ApiRequest, GetUserResponse } from '@echo/api/types'
 import { assertUserExists } from '@server/helpers/user/assert-user-exists'
 import { getUserByUsername } from '@server/helpers/user/get-user-by-username'
 import { mapUser } from '@server/mappers/to-response/map-user'

@@ -1,4 +1,4 @@
-import type { UserResponse } from '@echo/api'
+import type { UserResponse } from '@echo/api/types'
 import type { User } from '@echo/firestore-types'
 import { assoc, dissoc, head, lens, over, pick, pipe, prop } from 'ramda'
 

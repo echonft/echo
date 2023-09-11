@@ -1,4 +1,4 @@
-import { ApiRequest } from '@echo/api'
+import type { ApiRequest } from '@echo/api/types'
 import { QueryType } from '@echo/utils'
 import { setUrlQuery } from '@helpers/request/set-url-query'
 import { NextRequest } from 'next/server'

@@ -1,4 +1,4 @@
-import { NftResponse } from '@echo/api'
+import type { NftResponse } from '@echo/api/types'
 import { Nft } from '@echo/firestore-types'
 import { modifyUrlPropToString } from '@echo/utils'
 import { mapNftCollection } from '@server/mappers/to-response/map-nft-collection'

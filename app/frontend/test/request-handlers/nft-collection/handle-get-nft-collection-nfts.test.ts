@@ -1,5 +1,5 @@
 import { mockRequest } from '../../mocks/request-response'
-import { GetNftsResponse } from '@echo/api'
+import type { GetNftsResponse } from '@echo/api/types'
 import { getNftCollectionMockById, getNftMockById } from '@echo/firestore'
 import { getNftCollectionNfts } from '@server/helpers/nft/get-nft-collection-nfts'
 import { getNftCollectionBySlug } from '@server/helpers/nft-collection/get-nft-collection-by-slug'

@@ -1,4 +1,4 @@
-import type { OfferResponse } from '@echo/api'
+import type { OfferResponse } from '@echo/api/types'
 import type { Offer } from '@echo/firestore-types'
 import { modifyDatePropToNumber } from '@echo/utils'
 import { mapOfferItem } from '@server/mappers/to-response/map-offer-item'

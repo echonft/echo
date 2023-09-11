@@ -1,4 +1,4 @@
-import type { ApiRequest, NonceResponse } from '@echo/api'
+import type { ApiRequest, NonceResponse } from '@echo/api/types'
 import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
 import { setUserNonce } from '@server/helpers/user/set-user-nonce'
 import { NextResponse } from 'next/server'

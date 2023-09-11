@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api'
+import type { ApiRequest } from '@echo/api/types'
 import { LISTING_FILTER_AS, LISTING_STATES, ListingQueryFilters } from '@echo/firestore-types'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { booleanQueryParamSchema } from '@server/validators/boolean-query-param-schema'

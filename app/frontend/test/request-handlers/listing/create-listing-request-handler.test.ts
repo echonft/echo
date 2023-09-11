@@ -1,4 +1,4 @@
-import { CreateListingRequest, IdResponse } from '@echo/api'
+import type { CreateListingRequest, IdResponse } from '@echo/api/types'
 import { User } from '@echo/firestore-types'
 import { mockRequest } from '@mocks/request-response'
 import { getSession } from '@server/helpers/auth/get-session'

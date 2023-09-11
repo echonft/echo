@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
-import { GetListingsResponse } from '@echo/api'
-import { userListingsApiUrl } from '@echo/api/src/routing/user-listings-api-url'
+import userListingsApiUrl from '@echo/api/routing/user-listings-api-url'
+import type { GetListingsResponse } from '@echo/api/types'
 import { ProfileListingsCreatedApiProvided } from '@echo/ui/src/components/profile/api-provided/profile-listings-created-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'

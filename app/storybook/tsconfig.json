@@ -1,7 +1,10 @@
 {
   "extends": "../../lib/tsconfig/react.json",
   "compilerOptions": {
-    "baseUrl": "src"
+    "paths": {
+      "@echo/api/*": ["../../lib/api/exports/*"],
+      "@echo-api/*": ["../../lib/api/src/*"]
+    }
   },
   "include": ["src", ".storybook/preview.tsx"],
   "exclude": ["node_modules"]

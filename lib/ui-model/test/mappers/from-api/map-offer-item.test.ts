@@ -1,6 +1,6 @@
 import { mapOfferItem } from '../../../src/mappers/from-api/map-offer-item'
 import { OfferItem } from '../../../src/types/offer-item'
-import { OfferItemResponse } from '@echo/api'
+import type { OfferItemResponse } from '@echo/api/types'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - from-api - mapOfferItem', () => {

@@ -1,4 +1,4 @@
-import { ListingTargetRequest } from '@echo/api'
+import type { ListingTargetRequest } from '@echo/api/types'
 import { findNftCollectionById } from '@echo/firestore'
 import { ListingTarget, NftCollection } from '@echo/firestore-types'
 import { NonEmptyArray } from '@echo/utils'

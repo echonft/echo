@@ -1,5 +1,6 @@
 import { authOptions } from '@constants/auth-options'
-import { GetNftsResponse, userNftsApiUrl } from '@echo/api'
+import userNftsApiUrl from '@echo/api/routing/user-nfts-api-url'
+import type { GetNftsResponse } from '@echo/api/types'
 import { ProfileNftsApiProvided } from '@echo/ui/src/components/profile/api-provided/profile-nfts-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'

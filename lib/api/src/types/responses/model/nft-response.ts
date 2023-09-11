@@ -1,6 +1,6 @@
-import { NftCollectionResponse } from './nft-collection-response'
-import { UserResponse } from './user-response'
 import { NftTokenType } from '@echo/firestore-types'
+import type { NftCollectionResponse } from '@echo-api/types/responses/model/nft-collection-response'
+import type { UserResponse } from '@echo-api/types/responses/model/user-response'
 
 export interface NftResponse {
   id: string

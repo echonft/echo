@@ -1,4 +1,4 @@
-import { NonceResponse } from '@echo/api'
+import type { NonceResponse } from '@echo/api/types'
 import { User } from '@echo/firestore-types'
 import { mockRequest } from '@mocks/request-response'
 import { getSession } from '@server/helpers/auth/get-session'

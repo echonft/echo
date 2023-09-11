@@ -1,5 +1,6 @@
 import { authOptions } from '@constants/auth-options'
-import { GetOfferResponse, offerApiUrl } from '@echo/api'
+import offerApiUrl from '@echo/api/routing/offer-api-url'
+import type { GetOfferResponse } from '@echo/api/types'
 import { OfferDetailsApiProvided } from '@echo/ui/src/components/offer/details/offer-details-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { clsx } from 'clsx'

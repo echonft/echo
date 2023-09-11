@@ -1,4 +1,4 @@
-import type { ErrorResponse } from '@echo/api'
+import type { ErrorResponse } from '@echo/api/types'
 import { isDev, QueryType } from '@echo/utils'
 import { setUrlQuery } from '@helpers/request/set-url-query'
 import { ErrorStatus } from '@server/constants/error-status'

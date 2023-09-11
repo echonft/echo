@@ -1,5 +1,6 @@
-import { GetListingsResponse, GetNftResponse, nftListingsApiUrl } from '@echo/api'
-import { nftApiUrl } from '@echo/api/src/routing/nft-api-url'
+import nftApiUrl from '@echo/api/routing/nft-api-url'
+import nftListingsApiUrl from '@echo/api/routing/nft-listings-api-url'
+import type { GetListingsResponse, GetNftResponse } from '@echo/api/types'
 import { NftDetailsApiProvided } from '@echo/ui/src/components/nft/details/api-provided/nft-details-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapListingFiltersToQueryParams } from '@helpers/request/map-listing-filters-to-query-params'

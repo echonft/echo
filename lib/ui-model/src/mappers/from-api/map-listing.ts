@@ -1,7 +1,7 @@
 import { Listing } from '../../types/listing'
 import { mapListingItem } from './map-listing-item'
 import { mapListingTarget } from './map-listing-target'
-import { ListingResponse } from '@echo/api'
+import type { ListingResponse } from '@echo/api/types'
 import { modifyNumberPropToDate } from '@echo/utils'
 import { map, modify, pipe } from 'ramda'
 

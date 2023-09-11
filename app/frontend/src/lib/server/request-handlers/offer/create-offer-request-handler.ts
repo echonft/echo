@@ -1,4 +1,4 @@
-import type { ApiRequest, CreateOfferRequest, IdResponse } from '@echo/api'
+import type { ApiRequest, CreateOfferRequest, IdResponse } from '@echo/api/types'
 import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { createOffer } from '@server/helpers/offer/create-offer'

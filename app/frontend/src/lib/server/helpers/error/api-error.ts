@@ -1,4 +1,4 @@
-import type { ErrorResponse } from '@echo/api'
+import type { ErrorResponse } from '@echo/api/types'
 import { errorMessage, logger } from '@echo/utils'
 import { ErrorStatus } from '@server/constants/error-status'
 import { NextResponse } from 'next/server'

@@ -1,4 +1,5 @@
-import { UpdateOfferAction, UpdateOfferRequest } from '@echo/api'
+import UpdateOfferAction from '@echo/api/constants/update-offer-action'
+import type { UpdateOfferRequest } from '@echo/api/types'
 import { User } from '@echo/firestore-types'
 import { mockRequest } from '@mocks/request-response'
 import { getSession } from '@server/helpers/auth/get-session'

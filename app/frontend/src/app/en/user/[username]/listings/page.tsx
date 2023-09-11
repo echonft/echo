@@ -1,5 +1,5 @@
-import type { GetListingsResponse } from '@echo/api'
-import { userListingsApiUrl } from '@echo/api/src/routing/user-listings-api-url'
+import userListingsApiUrl from '@echo/api/routing/user-listings-api-url'
+import type { GetListingsResponse } from '@echo/api/types'
 import { UserListingsApiProvided } from '@echo/ui/src/components/user/api-provided/user-listings-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapListingFiltersToQueryParams } from '@helpers/request/map-listing-filters-to-query-params'

@@ -1,4 +1,4 @@
-import { ListingTargetRequest } from '@echo/api'
+import type { ListingTargetRequest } from '@echo/api/types'
 import { listingTargetSchema } from '@server/validators/listing-target-schema'
 import { assoc, dissoc, dissocPath } from 'ramda'
 

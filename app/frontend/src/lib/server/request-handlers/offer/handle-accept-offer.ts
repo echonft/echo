@@ -1,4 +1,4 @@
-import type { EmptyResponse } from '@echo/api'
+import type { EmptyResponse } from '@echo/api/types'
 import type { User } from '@echo/firestore-types'
 import { acceptOffer } from '@server/helpers/offer/accept-offer'
 import { assertOffer } from '@server/helpers/offer/assert-offer'

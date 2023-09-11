@@ -1,7 +1,7 @@
 import { mapOffer } from '../../../src/mappers/from-api/map-offer'
 import { Offer } from '../../../src/types/offer'
 import { OfferItem } from '../../../src/types/offer-item'
-import { OfferItemResponse, OfferResponse } from '@echo/api'
+import type { OfferItemResponse, OfferResponse } from '@echo/api/types'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 

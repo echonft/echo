@@ -1,6 +1,6 @@
 import { Offer } from '../../types/offer'
 import { mapOfferItem } from './map-offer-item'
-import { OfferResponse } from '@echo/api'
+import type { OfferResponse } from '@echo/api/types'
 import { modifyNumberPropToDate } from '@echo/utils'
 import { map, modify, pipe } from 'ramda'
 

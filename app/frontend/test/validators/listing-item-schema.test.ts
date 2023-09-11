@@ -1,4 +1,4 @@
-import { ListingItemRequest } from '@echo/api'
+import type { ListingItemRequest } from '@echo/api/types'
 import { listingItemSchema } from '@server/validators/listing-item-schema'
 import { assoc, dissoc, dissocPath } from 'ramda'
 

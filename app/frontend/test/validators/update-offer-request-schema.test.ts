@@ -1,4 +1,4 @@
-import { UpdateOfferAction } from '@echo/api'
+import UpdateOfferAction from '@echo/api/constants/update-offer-action'
 import { updateOfferRequestSchema } from '@server/validators/update-offer-request-schema'
 
 describe('validators - updateOfferRequestSchema', () => {

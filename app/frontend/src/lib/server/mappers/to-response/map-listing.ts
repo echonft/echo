@@ -1,4 +1,4 @@
-import type { ListingResponse } from '@echo/api'
+import type { ListingResponse } from '@echo/api/types'
 import type { Listing } from '@echo/firestore-types'
 import { modifyDatePropToNumber } from '@echo/utils'
 import { mapListingItem } from '@server/mappers/to-response/map-listing-item'

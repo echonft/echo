@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
-import { GetOffersResponse } from '@echo/api'
-import { profileOffersApiUrl } from '@echo/api/src/routing/profile-offers-api-url'
+import profileOffersApiUrl from '@echo/api/routing/profile-offers-api-url'
+import type { GetOffersResponse } from '@echo/api/types'
 import { OfferFilterAsReceiver } from '@echo/firestore-types'
 import { ProfileOffersReceivedApiProvided } from '@echo/ui/src/components/profile/api-provided/profile-offers-received-api-provided'
 import { fetcher } from '@helpers/fetcher'
