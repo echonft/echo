@@ -1,5 +1,5 @@
-import { removeWalletSchema } from '../../src/lib/server/validators/remove-wallet-schema'
 import { getUserMockById } from '@echo/firestore'
+import { removeWalletSchema } from '@server/validators/remove-wallet-schema'
 
 describe('validators - removeWalletSchema', () => {
   const wallet = getUserMockById('oE6yUEQBPn7PZ89yMjKn').wallets[0]!

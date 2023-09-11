@@ -1,6 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "build": {
+      "inputs": ["src/**/*.ts", "src/**/*.tsx"]
+    },
     "build:fix": {
       "inputs": ["src/**/*.d.ts", "src/**/*.js"]
     },

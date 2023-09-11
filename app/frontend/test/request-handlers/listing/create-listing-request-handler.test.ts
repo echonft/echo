@@ -1,22 +1,22 @@
-import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
-import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { createListing } from '../../../src/lib/server/helpers/listing/create-listing'
-import { getListingTargets } from '../../../src/lib/server/helpers/listing/get-listing-targets'
-import { getOfferItems } from '../../../src/lib/server/helpers/offer/get-offer-items'
-import { getOfferItemsWallet } from '../../../src/lib/server/helpers/offer/get-offer-items-wallet'
-import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-id'
-import { createListingRequestHandler } from '../../../src/lib/server/request-handlers/listing/create-listing-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { CreateListingRequest, IdResponse } from '@echo/api'
 import { User } from '@echo/firestore-types'
+import { getSession } from '@server/helpers/auth/get-session'
+import { ApiError } from '@server/helpers/error/api-error'
+import { createListing } from '@server/helpers/listing/create-listing'
+import { getListingTargets } from '@server/helpers/listing/get-listing-targets'
+import { getOfferItems } from '@server/helpers/offer/get-offer-items'
+import { getOfferItemsWallet } from '@server/helpers/offer/get-offer-items-wallet'
+import { getUserById } from '@server/helpers/user/get-user-by-id'
+import { createListingRequestHandler } from '@server/request-handlers/listing/create-listing-request-handler'
 import { AuthOptions, Session } from 'next-auth'
 
-jest.mock('../../../src/lib/server/helpers/auth/get-session')
-jest.mock('../../../src/lib/server/helpers/user/find-user-by-id')
-jest.mock('../../../src/lib/server/helpers/listing/create-listing')
-jest.mock('../../../src/lib/server/helpers/listing/get-listing-targets')
-jest.mock('../../../src/lib/server/helpers/offer/get-offer-items')
-jest.mock('../../../src/lib/server/helpers/offer/get-offer-items-wallet')
+jest.mock('@server/helpers/auth/get-session')
+jest.mock('@server/helpers/user/get-user-by-id')
+jest.mock('@server/helpers/listing/create-listing')
+jest.mock('@server/helpers/listing/get-listing-targets')
+jest.mock('@server/helpers/offer/get-offer-items')
+jest.mock('@server/helpers/offer/get-offer-items-wallet')
 
 describe('request-handlers - listing - createListingRequestHandler', () => {
   const validRequest: CreateListingRequest = {
@@ -70,7 +70,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('throws if user does not have any wallet', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId', wallets: [] } as unknown as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId', wallets: [] } as unknown as User)
     const req = mockRequest<CreateListingRequest>(validRequest)
     try {
       await createListingRequestHandler(req, {} as AuthOptions)
@@ -82,7 +82,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('returns 200 if the user has a wallet', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValueOnce({
+    jest.mocked(getUserById).mockResolvedValueOnce({
       id: 'userId',
       wallets: [{ chainId: 1, address: '0x12c63bbD266dB84e117356e664f3604055166CEc' }]
     } as unknown as User)

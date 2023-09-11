@@ -6,14 +6,20 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   pictureUrl: URL
-  size?: NftThumbnailSize
   alt: string | undefined
+  size?: NftThumbnailSize
+  disabled?: boolean
 }
 
-export const NftThumbnailPicture: FunctionComponent<Props> = ({ pictureUrl, size = SizeLG, alt }) => {
+export const NftThumbnailPicture: FunctionComponent<Props> = ({ pictureUrl, size = SizeLG, alt, disabled }) => {
   return (
     <img
-      className={clsx(size === SizeLG && ['w-52', 'h-52'], size === SizeMD && ['w-32', 'h-32'], 'select-none')}
+      className={clsx(
+        size === SizeLG && ['w-52', 'h-52'],
+        size === SizeMD && ['w-32', 'h-32'],
+        'select-none',
+        disabled && 'grayscale'
+      )}
       src={pictureUrl.href}
       alt={alt}
       width={getNftThumbnailSize(size)}

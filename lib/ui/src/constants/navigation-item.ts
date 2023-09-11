@@ -1,3 +1,7 @@
 export const NavigationItems = 'items'
 export const NavigationListings = 'listings'
+export const NavigationListingsCreated = 'listings-created'
+export const NavigationListingsReceived = 'listings-received'
+export const NavigationOffersCreated = 'offers-created'
+export const NavigationOffersReceived = 'offers-received'
 export const NavigationSwaps = 'swaps'

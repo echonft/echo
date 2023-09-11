@@ -1,4 +1,4 @@
-import { PublicClient, WebSocketPublicClient } from '@wagmi/core'
+import type { PublicClient, WebSocketPublicClient } from '@wagmi/core'
 import { getDefaultConfig } from 'connectkit'
 import { Config, createConfig } from 'wagmi'
 

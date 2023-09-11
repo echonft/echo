@@ -1,8 +1,8 @@
-import { getOwnersForNft } from '../../../src/lib/server/helpers/alchemy/get-owners-for-nft'
-import { getOfferItemsWallet } from '../../../src/lib/server/helpers/offer/get-offer-items-wallet'
 import { getOfferMockById, getUserMockById } from '@echo/firestore'
+import { getOwnersForNft } from '@server/helpers/alchemy/get-owners-for-nft'
+import { getOfferItemsWallet } from '@server/helpers/offer/get-offer-items-wallet'
 
-jest.mock('../../../src/lib/server/helpers/alchemy/get-owners-for-nft')
+jest.mock('@server/helpers/alchemy/get-owners-for-nft')
 describe('helpers - offer - findNftCollectionByContract', () => {
   beforeEach(() => {
     jest.clearAllMocks()

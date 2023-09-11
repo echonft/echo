@@ -1,5 +1,5 @@
 import { getNftById } from '../../../mocks/model/nft'
-import { NftDetailsHeader as Component, NftDetailsHeaderSkeleton } from '@echo/ui'
+import { NftDetailsHeader as Component } from '@echo/ui/src/components/nft/details/nft-details-header'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -24,8 +24,4 @@ export const Default: Story = {
     openSeaUrl,
     blurUrl
   }
-}
-
-export const Skeleton: Story = {
-  render: () => <NftDetailsHeaderSkeleton />
 }

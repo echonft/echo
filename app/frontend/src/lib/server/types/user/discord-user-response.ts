@@ -1,4 +1,4 @@
-import { DiscordUserGuildResponse } from './discord-user-guild-response'
+import type { DiscordUserGuildResponse } from '@server/types/user/discord-user-guild-response'
 
 export interface DiscordUserResponse {
   id: string

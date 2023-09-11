@@ -1,8 +1,8 @@
-import { ErrorStatus } from '../../constants/error-status'
-import { ApiError } from './api-error'
+import { ErrorStatus } from '@server/constants/error-status'
+import { ApiError } from '@server/helpers/error/api-error'
 
 export class ServerError extends ApiError {
-  constructor(message?: string) {
-    super(ErrorStatus.SERVER_ERROR, message ?? 'Internal Server Error')
+  constructor(message: string, error: unknown) {
+    super(ErrorStatus.SERVER_ERROR, message, error)
   }
 }

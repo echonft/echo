@@ -1,4 +1,4 @@
-import { USER_NFTS_VALIDITY_TIME } from '../../constants/user-nfts-validity-time'
+import { USER_NFTS_VALIDITY_TIME } from '@server/constants/user-nfts-validity-time'
 import dayjs from 'dayjs'
 
 export function userNftsNeedsUpdate(nftsUpdatedAt: dayjs.Dayjs) {

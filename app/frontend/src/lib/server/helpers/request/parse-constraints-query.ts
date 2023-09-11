@@ -1,6 +1,6 @@
-import { BadRequestError } from '../error/bad-request-error'
 import { ApiRequest } from '@echo/api'
-import { OrderByParameters, QueryConstraints } from '@echo/firestore-types'
+import type { OrderByParameters, QueryConstraints } from '@echo/firestore-types'
+import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { applySpec, assoc, has, head, isEmpty, last, splitEvery } from 'ramda'
 import { z } from 'zod'
 
@@ -17,9 +17,9 @@ const queryContraintOrderBySchema = z.tuple([z.string().nonempty(), queryContrai
 const queryContraintSelectSchema = z.string().nonempty().array().nonempty()
 
 export function parseConstraintsQuery<T>(req: ApiRequest<T>) {
+  let constraints = {} as QueryConstraints
+  const { searchParams } = new URL(req.url)
   try {
-    let constraints = {} as QueryConstraints
-    const { searchParams } = new URL(req.url)
     if (searchParams.has('select')) {
       const select = queryContraintSelectSchema.parse(searchParams.getAll('select'))
       constraints = assoc('select', select, constraints)
@@ -60,6 +60,9 @@ export function parseConstraintsQuery<T>(req: ApiRequest<T>) {
 
     return constraints
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(
+      `error parsing constraints query parameters: ${JSON.stringify(searchParams.toString())}`,
+      e
+    )
   }
 }

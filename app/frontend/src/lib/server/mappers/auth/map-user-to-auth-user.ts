@@ -1,7 +1,7 @@
-import { User, UserDiscordGuild } from '@echo/firestore-types'
-import { AuthUser, Wallet } from '@echo/ui-model'
+import type { User, UserDiscordGuild } from '@echo/firestore-types'
+import type { AuthUser, Wallet } from '@echo/ui-model'
 import { modifyDatePropToNumber } from '@echo/utils'
-import { Dayjs } from 'dayjs'
+import type { Dayjs } from 'dayjs'
 import { pick, pipe } from 'ramda'
 
 interface RequiredProps {

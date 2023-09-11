@@ -1,11 +1,11 @@
-import { assertUser } from '../../helpers/user/assert-user'
-import { getUserByUsername } from '../../helpers/user/get-user-by-username'
-import { mapUser } from '../../mappers/to-response/map-user'
-import { ApiRequest, GetUserResponse } from '@echo/api'
+import type { ApiRequest, GetUserResponse } from '@echo/api'
+import { assertUserExists } from '@server/helpers/user/assert-user-exists'
+import { getUserByUsername } from '@server/helpers/user/get-user-by-username'
+import { mapUser } from '@server/mappers/to-response/map-user'
 import { NextResponse } from 'next/server'
 
 export async function getUserRequestHandler(_req: ApiRequest<never>, username: string) {
   const user = await getUserByUsername(username)
-  assertUser(user)
+  assertUserExists(username, user)
   return NextResponse.json<GetUserResponse>({ user: mapUser(user) })
 }

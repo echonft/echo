@@ -1,8 +1,8 @@
 import { ListingRow } from '../../row/listing-row'
 import { ListingRowsLayout } from '../listing-rows-layout'
-import { Listing } from '@echo/ui-model'
+import type { Listing } from '@echo/ui-model'
 import { map } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   listings: Array<Listing>

@@ -1,11 +1,11 @@
 import { getOffersForReceiver } from './get-offers-for-receiver'
 import { getOffersForSender } from './get-offers-for-sender'
-import { ListingQueryFilters, Offer, QueryConstraints } from '@echo/firestore-types'
+import { Offer, OfferQueryFilters, QueryConstraints } from '@echo/firestore-types'
 import { concat, eqProps, pipe, uniqWith } from 'ramda'
 
 export async function getOffersForUser(
   userId: string,
-  filters?: ListingQueryFilters,
+  filters?: OfferQueryFilters,
   constraints?: QueryConstraints
 ): Promise<Partial<Offer>[]> {
   const offersAsReceiver = await getOffersForReceiver(userId, filters, constraints)

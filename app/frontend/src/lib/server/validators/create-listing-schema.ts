@@ -1,5 +1,5 @@
-import { listingItemSchema } from './listing-item-schema'
-import { listingTargetSchema } from './listing-target-schema'
+import { listingItemSchema } from '@server/validators/listing-item-schema'
+import { listingTargetSchema } from '@server/validators/listing-target-schema'
 import { z } from 'zod'
 
 export const createListingSchema = z.object({

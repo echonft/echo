@@ -1,5 +1,5 @@
-import { assertNftCollection } from '../../../src/lib/server/helpers/nft-collection/assert-nft-collection'
 import { NftCollection } from '@echo/firestore-types'
+import { assertNftCollection } from '@server/helpers/nft-collection/assert-nft-collection'
 
 describe('helpers - nft-collection - assertNftCollection', () => {
   it('throws if collection is undefined', () => {

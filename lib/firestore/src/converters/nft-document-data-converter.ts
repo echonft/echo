@@ -1,7 +1,9 @@
+import { modifyDocumentDataArrayProp } from '../helpers/converters/from-firestore/modify-document-data-array-prop'
 import { modifyDocumentDataProp } from '../helpers/converters/from-firestore/modify-document-data-prop'
 import { modifyModelProp } from '../helpers/converters/to-firestore/modify-model-prop'
 import { FirestoreDocumentDataConverter } from '../types/converters/firestore-document-data-converter'
 import { NftDocumentData } from '../types/model/nft-document-data'
+import { nftAttributeDocumentDataConverter } from './nft-attribute-document-data-converter'
 import { nftCollectionDocumentDataConverter } from './nft-collection-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
 import { Nft } from '@echo/firestore-types'
@@ -12,6 +14,7 @@ export const nftDocumentDataConverter: FirestoreDocumentDataConverter<NftDocumen
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   fromFirestore: pipe(
+    modifyDocumentDataArrayProp('attributes', nftAttributeDocumentDataConverter),
     modifyStringPropToUrl('blurUrl'),
     modifyDocumentDataProp('collection', nftCollectionDocumentDataConverter),
     modifyStringPropToUrl('openSeaUrl'),

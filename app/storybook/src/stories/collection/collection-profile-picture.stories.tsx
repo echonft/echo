@@ -1,5 +1,6 @@
 import { getCollectionById } from '../../mocks/model/nft-collection'
-import { CollectionProfilePicture as Component, SizeLG } from '@echo/ui'
+import { CollectionProfilePicture as Component } from '@echo/ui/src/components/collection/details/collection-profile-picture'
+import { SizeLG } from '@echo/ui/src/constants/size'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

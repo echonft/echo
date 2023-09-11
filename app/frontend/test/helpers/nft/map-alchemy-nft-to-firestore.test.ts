@@ -1,10 +1,10 @@
-import { mapAlchemyNftToFirestore } from '../../../src/lib/server/helpers/alchemy/map-alchemy-nft-to-firestore'
-import { getNftCollectionByContract } from '../../../src/lib/server/helpers/nft-collection/get-nft-collection-by-contract'
 import { AlchemyNft } from '@echo/alchemy'
 import { getNftCollectionMockById, getUserMockById } from '@echo/firestore'
 import { Wallet } from '@echo/firestore-types'
+import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nft-to-firestore'
+import { getNftCollectionByContract } from '@server/helpers/nft-collection/get-nft-collection-by-contract'
 
-jest.mock('../../../src/lib/server/helpers/nft-collection/get-nft-collection-by-contract')
+jest.mock('@server/helpers/nft-collection/get-nft-collection-by-contract')
 
 describe('helpers - nft - mapAlchemyNftToFirestore', () => {
   const alchemyNft: AlchemyNft = {

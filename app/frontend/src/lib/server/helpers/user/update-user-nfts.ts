@@ -1,11 +1,15 @@
-import { getNftsForOwner } from '../alchemy/get-nfts-for-owner'
-import { createNft } from '../nft/create-nft'
-import { updateNftOwner } from '../nft/update-nft-owner'
-import { getAllNftCollections } from '../nft-collection/get-all-nft-collections'
-import { setUserNftsUpdated } from './set-user-nfts-updated'
-import { findNftByCollectionContract, getUserWalletAddresses } from '@echo/firestore'
+import {
+  addNft,
+  findNftByCollectionContract,
+  getAllNftCollections,
+  getUserWalletAddresses,
+  setNftOwner,
+  setUserNftsUpdated
+} from '@echo/firestore'
 import { User, Wallet } from '@echo/firestore-types'
 import { isNilOrEmpty } from '@echo/utils'
+import { getNftsForOwner } from '@server/helpers/alchemy/get-nfts-for-owner'
+import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nft-to-firestore'
 import { isNil, map, path } from 'ramda'
 
 interface RequiredUserProps {
@@ -36,9 +40,9 @@ export async function updateUserNfts(user: Partial<User> & RequiredUserProps) {
       // FIXME this is true only for ERC721
       const nft = await findNftByCollectionContract(contractAddress, chainId, tokenId)
       if (isNil(nft)) {
-        await createNft(alchemyNft, user as User, userWallet, collections)
+        await addNft(mapAlchemyNftToFirestore(alchemyNft, user, userWallet, collections))
       } else {
-        await updateNftOwner(nft.id, user.id, userWallet)
+        await setNftOwner(nft.id, user.id, userWallet)
       }
     }
   }

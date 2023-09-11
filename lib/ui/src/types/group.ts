@@ -4,4 +4,5 @@ export interface Group<T> {
   id: string
   name: string
   items: NonEmptyArray<T>
+  disabled?: boolean
 }

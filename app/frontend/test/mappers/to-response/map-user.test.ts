@@ -1,5 +1,5 @@
-import { mapUser } from '../../../src/lib/server/mappers/to-response/map-user'
 import { getUserMockById } from '@echo/firestore'
+import { mapUser } from '@server/mappers/to-response/map-user'
 
 describe('mappers - to-response - mapUser', () => {
   const user = getUserMockById('6rECUMhevHfxABZ1VNOm')

@@ -1,20 +1,20 @@
-import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
-import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { createOffer } from '../../../src/lib/server/helpers/offer/create-offer'
-import { getOfferItems } from '../../../src/lib/server/helpers/offer/get-offer-items'
-import { getOfferItemsWallet } from '../../../src/lib/server/helpers/offer/get-offer-items-wallet'
-import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-id'
-import { createOfferRequestHandler } from '../../../src/lib/server/request-handlers/offer/create-offer-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { CreateOfferRequest, IdResponse } from '@echo/api'
 import { User } from '@echo/firestore-types'
+import { getSession } from '@server/helpers/auth/get-session'
+import { ApiError } from '@server/helpers/error/api-error'
+import { createOffer } from '@server/helpers/offer/create-offer'
+import { getOfferItems } from '@server/helpers/offer/get-offer-items'
+import { getOfferItemsWallet } from '@server/helpers/offer/get-offer-items-wallet'
+import { getUserById } from '@server/helpers/user/get-user-by-id'
+import { createOfferRequestHandler } from '@server/request-handlers/offer/create-offer-request-handler'
 import { AuthOptions, Session } from 'next-auth'
 
-jest.mock('../../../src/lib/server/helpers/auth/get-session')
-jest.mock('../../../src/lib/server/helpers/user/find-user-by-id')
-jest.mock('../../../src/lib/server/helpers/offer/create-offer')
-jest.mock('../../../src/lib/server/helpers/offer/get-offer-items')
-jest.mock('../../../src/lib/server/helpers/offer/get-offer-items-wallet')
+jest.mock('@server/helpers/auth/get-session')
+jest.mock('@server/helpers/user/get-user-by-id')
+jest.mock('@server/helpers/offer/create-offer')
+jest.mock('@server/helpers/offer/get-offer-items')
+jest.mock('@server/helpers/offer/get-offer-items-wallet')
 
 describe('request-handlers - offer - createOfferRequestHandler', () => {
   const validRequest: CreateOfferRequest = {
@@ -69,7 +69,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
 
   it('throws if user or receiver does not have any wallet', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId', wallets: [] } as unknown as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId', wallets: [] } as unknown as User)
     const req = mockRequest<CreateOfferRequest>(validRequest)
     try {
       await createOfferRequestHandler(req, {} as AuthOptions)
@@ -81,7 +81,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
 
   it('returns a 200 if the user is authenticated and both sender and receiver have a wallet', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValue({
+    jest.mocked(getUserById).mockResolvedValue({
       id: 'userId',
       wallets: [{ chainId: 1, address: '0x12c63bbD266dB84e117356e664f3604055166CEc' }]
     } as unknown as User)

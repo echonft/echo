@@ -1,6 +1,15 @@
 {
   "extends": "../../lib/tsconfig/react.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@constants/*": ["src/lib/constants/*"],
+      "@helpers/*": ["src/lib/helpers/*"],
+      "@server/*": ["src/lib/server/*"],
+      "@type/*": ["src/lib/types/*"]
+    },
     "plugins": [
       {
         "name": "next"
@@ -8,5 +17,5 @@
     ]
   },
   "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "test"],
-  "exclude": ["node_modules", "src/i18n.ts"]
+  "exclude": ["node_modules"]
 }

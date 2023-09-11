@@ -2,7 +2,7 @@
 import { MultiSelectableProps } from '../../../types/multi-selectable-props'
 import { NftGroupLayout } from '../layout/nft-group-layout'
 import { NftsLayout } from '../layout/nfts-layout'
-import { NftThumbnailSelectable } from '../thumbnail/nft-thumbnail-selectable'
+import { SelectableNftThumbnail } from '../thumbnail/selectable-nft-thumbnail'
 import { NftGroupButton } from './nft-group-button'
 import { Nft } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
@@ -13,9 +13,18 @@ import { FunctionComponent, useState } from 'react'
 interface Props extends MultiSelectableProps<string> {
   nfts: NonEmptyArray<Nft>
   name: string
+  disabled?: boolean
+  hideOwner?: boolean
 }
 
-export const SelectableNftGroup: FunctionComponent<Props> = ({ nfts, name, selection, onSelectionUpdate }) => {
+export const SelectableNftGroup: FunctionComponent<Props> = ({
+  nfts,
+  name,
+  selection,
+  hideOwner,
+  onSelectionUpdate,
+  disabled
+}) => {
   const [collapsed, setCollapsed] = useState(true)
 
   return (
@@ -43,11 +52,13 @@ export const SelectableNftGroup: FunctionComponent<Props> = ({ nfts, name, selec
         <NftsLayout>
           {map(
             (nft) => (
-              <NftThumbnailSelectable
+              <SelectableNftThumbnail
                 key={nft.id}
                 nft={nft}
                 linkDisabled={!isEmpty(selection)}
-                selected={!isNil(selection) && selection.includes(nft.id)}
+                selected={!disabled && !isNil(selection) && selection.includes(nft.id)}
+                hideOwner={hideOwner}
+                disabled={disabled}
                 onToggleSelection={(nftId: string, selected: boolean) => {
                   if (selected) {
                     onSelectionUpdate?.(concat([nftId], selection))

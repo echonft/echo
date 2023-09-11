@@ -1,9 +1,17 @@
-import { CollapsibleManager, FiltersPanel, TraitFilterButton as Component, TraitFilterButtonSkeleton } from '@echo/ui'
+import { CollapsibleManager } from '@echo/ui/src/components/base/manager/collapsible-manager'
+import { FiltersPanel as Component } from '@echo/ui/src/components/layout/filters-panel'
+import { TraitFilterButtonSkeleton } from '@echo/ui/src/components/nft/filters/by-traits/skeleton/trait-filter-button-skeleton'
+import { TraitFilterButton } from '@echo/ui/src/components/nft/filters/by-traits/trait-filter-button'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Collection/Filters/Trait Filter Button',
-  component: Component
+  component: Component,
+  parameters: {
+    controls: {
+      exclude: ['title', 'children']
+    }
+  }
 }
 
 export default metadata
@@ -11,43 +19,35 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
-  render: () => (
-    <FiltersPanel title={'Attributes'}>
-      <Component trait={'Trait'} selectionCount={0} />
-    </FiltersPanel>
-  )
+  args: {
+    children: <TraitFilterButton trait={'Trait'} selectionCount={0} />
+  }
 }
 
 export const Overflow: Story = {
-  render: () => (
-    <FiltersPanel title={'Attributes'}>
-      <Component trait={'This Trait is waaaayyyyyyyyy too long'} selectionCount={0} />
-    </FiltersPanel>
-  )
+  args: {
+    children: <TraitFilterButton trait={'This Trait is waaaayyyyyyyyy too long'} selectionCount={0} />
+  }
 }
 
 export const Collapsed: Story = {
-  render: () => (
-    <FiltersPanel title={'Attributes'}>
-      <Component trait={'Trait'} collapsed selectionCount={1} />
-    </FiltersPanel>
-  )
+  args: {
+    children: <TraitFilterButton trait={'Trait'} collapsed selectionCount={1} />
+  }
 }
 
 export const Managed: Story = {
-  render: () => (
-    <FiltersPanel title={'Attributes'}>
+  args: {
+    children: (
       <CollapsibleManager>
-        <Component trait={'Trait'} selectionCount={0} />
+        <TraitFilterButton trait={'Trait'} selectionCount={0} />
       </CollapsibleManager>
-    </FiltersPanel>
-  )
+    )
+  }
 }
 
 export const Skeleton: Story = {
-  render: () => (
-    <FiltersPanel title={'Attributes'}>
-      <TraitFilterButtonSkeleton />
-    </FiltersPanel>
-  )
+  args: {
+    children: <TraitFilterButtonSkeleton />
+  }
 }

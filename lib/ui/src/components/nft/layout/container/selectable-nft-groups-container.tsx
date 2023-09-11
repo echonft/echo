@@ -10,6 +10,7 @@ import { FunctionComponent } from 'react'
 
 interface Props extends MultiSelectableProps<GroupSelection> {
   groups: NonEmptyArray<Group<Nft>>
+  hideOwner?: boolean
 }
 
 function getGroupSelection(groupId: string, selection: Array<GroupSelection>) {
@@ -33,15 +34,22 @@ function updateGroupSelection(
   return update(groupIndex, updatedSelection, groupSelection)
 }
 
-export const SelectableNftGroupsContainer: FunctionComponent<Props> = ({ groups, selection, onSelectionUpdate }) => {
+export const SelectableNftGroupsContainer: FunctionComponent<Props> = ({
+  groups,
+  selection,
+  hideOwner,
+  onSelectionUpdate
+}) => {
   return (
     <NftGroupsLayout>
       {map(
-        ({ id, name, items }) => (
+        ({ id, name, items, disabled }) => (
           <SelectableNftGroup
             key={id}
             nfts={items}
             name={name}
+            hideOwner={hideOwner}
+            disabled={disabled}
             selection={getGroupSelection(id, selection)}
             onSelectionUpdate={(newSelection) => {
               onSelectionUpdate?.(updateGroupSelection(id, newSelection, selection))

@@ -19,6 +19,6 @@ export function getSiweMessage(message: SiweMessageType) {
   try {
     return new SiweMessage(message)
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(`cannot get siwe message ${JSON.stringify(message)}`, e)
   }
 }

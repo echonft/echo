@@ -1,6 +1,6 @@
-import { OfferFiltersQueryParams } from '../../types/request/offer-filters-query-params'
-import { OfferQueryFilters } from '@echo/firestore-types'
+import type { OfferQueryFilters } from '@echo/firestore-types'
 import { modifyBooleanPropToString } from '@echo/utils/src/fp/modify-boolean-prop-to-string'
+import type { OfferFiltersQueryParams } from '@type/request/offer-filters-query-params'
 
 export function mapOfferFiltersToQueryParams(filters: OfferQueryFilters): OfferFiltersQueryParams {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

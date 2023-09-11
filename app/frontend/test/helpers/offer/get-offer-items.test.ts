@@ -1,11 +1,11 @@
-import { findNftById } from '../../../src/lib/server/helpers/nft/find-nft-by-id'
-import { getOfferItems } from '../../../src/lib/server/helpers/offer/get-offer-items'
 import { OfferItemRequest } from '@echo/api'
 import { getNftMockById } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
+import { getNftById } from '@server/helpers/nft/get-nft-by-id'
+import { getOfferItems } from '@server/helpers/offer/get-offer-items'
 import { forEach } from 'ramda'
 
-jest.mock('../../../src/lib/server/helpers/nft/find-nft-by-id')
+jest.mock('@server/helpers/nft/get-nft-by-id')
 
 describe('helpers - offer - getOfferItems', () => {
   const item: OfferItemRequest = {
@@ -21,12 +21,12 @@ describe('helpers - offer - getOfferItems', () => {
   })
 
   it('throws if any NFTs are not found', async () => {
-    jest.mocked(findNftById).mockResolvedValueOnce(undefined)
+    jest.mocked(getNftById).mockResolvedValueOnce(undefined)
     await expect(getOfferItems(items)).rejects.toBeDefined()
   })
   it('returns the items when all NFTs are found', async () => {
     const nft = getNftMockById('8hHFadIrrooORfTOLkBg')
-    jest.mocked(findNftById).mockResolvedValue(nft)
+    jest.mocked(getNftById).mockResolvedValue(nft)
     const offerItems = await getOfferItems(items)
     expect(offerItems.length).toEqual(2)
     forEach((offerItem) => {

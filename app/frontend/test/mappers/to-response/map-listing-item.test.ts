@@ -1,5 +1,5 @@
-import { mapListingItem } from '../../../src/lib/server/mappers/to-response/map-listing-item'
 import { getListingMockById } from '@echo/firestore'
+import { mapListingItem } from '@server/mappers/to-response/map-listing-item'
 
 describe('mappers - to-response - mapListingItem', () => {
   const item = getListingMockById('jUzMtPGKM62mMhEcmbN4').items[0]

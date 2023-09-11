@@ -1,13 +1,13 @@
-import { getNftCollectionNfts } from '../../../src/lib/server/helpers/nft/get-nft-collection-nfts'
-import { getNftCollectionBySlug } from '../../../src/lib/server/helpers/nft-collection/get-nft-collection-by-slug'
-import { mapNft } from '../../../src/lib/server/mappers/to-response/map-nft'
-import { getNftCollectionNftsRequestHandler } from '../../../src/lib/server/request-handlers/nft-collection/get-nft-collection-nfts-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { GetNftsResponse } from '@echo/api'
 import { getNftCollectionMockById, getNftMockById } from '@echo/firestore'
+import { getNftCollectionNfts } from '@server/helpers/nft/get-nft-collection-nfts'
+import { getNftCollectionBySlug } from '@server/helpers/nft-collection/get-nft-collection-by-slug'
+import { mapNft } from '@server/mappers/to-response/map-nft'
+import { getNftCollectionNftsRequestHandler } from '@server/request-handlers/nft-collection/get-nft-collection-nfts-request-handler'
 
-jest.mock('../../../src/lib/server/helpers/nft-collection/get-nft-collection-by-slug')
-jest.mock('../../../src/lib/server/helpers/nft/get-nft-collection-nfts')
+jest.mock('@server/helpers/nft-collection/get-nft-collection-by-slug')
+jest.mock('@server/helpers/nft/get-nft-collection-nfts')
 
 describe('request-handlers - nft-collection - handleGetNftCollectionNfts', () => {
   beforeEach(() => {
