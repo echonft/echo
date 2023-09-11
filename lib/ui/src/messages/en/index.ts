@@ -1,9 +1,7 @@
 export const messages = {
   collection: {
     button: {
-      makeOffer: {
-        label: 'Make an offer'
-      }
+      label: 'Make an offer'
     },
     details: {
       size: '{size, number, ::K} NFTs'
@@ -31,7 +29,7 @@ export const messages = {
       }
     },
     thumbnail: {
-      title: 'Any {collectionName}'
+      title: '{count} {collectionName}'
     }
   },
   errorPage: {
@@ -117,14 +115,6 @@ export const messages = {
     }
   },
   offer: {
-    state: {
-      OPEN: 'Pending',
-      ACCEPTED: 'Accepted',
-      CANCELLED: 'Cancelled',
-      COMPLETED: 'Completed',
-      REJECTED: 'Rejected',
-      INVALID: 'Invalid'
-    },
     details: {
       expiresAt: 'Expires in',
       expiredAt: 'Expired',
@@ -152,6 +142,7 @@ export const messages = {
         }
       }
     },
+    expired: 'Expired',
     new: {
       bottomSlider: {
         title: 'Offer overview',
@@ -172,20 +163,61 @@ export const messages = {
         confirmBtn: 'Confirm',
         copyLinkBtn: 'Copy link'
       }
+    },
+    state: {
+      OPEN: 'Pending',
+      ACCEPTED: 'Accepted',
+      CANCELLED: 'Cancelled',
+      COMPLETED: 'Completed',
+      REJECTED: 'Rejected',
+      INVALID: 'Invalid'
     }
   },
   profile: {
+    button: {
+      label: 'Create listing'
+    },
     empty: {
       items: {
         message: 'You do not own any NFT'
+      },
+      listingsReceived: {
+        message: 'There is currently no pending listing for you',
+        btn: {
+          label: 'Create listing'
+        }
+      },
+      listingsCreated: {
+        message: 'You have not created any listing yet',
+        btn: {
+          label: 'Create listing'
+        }
+      },
+      offersReceived: {
+        message: 'You currently do not have any pending offer',
+        btn: {
+          label: 'Create listing'
+        }
+      },
+      offersCreated: {
+        message: 'You have not made any offer yet',
+        btn: {
+          label: 'Create listing'
+        }
+      },
+      swaps: {
+        message: 'You have not done any swap yet',
+        btn: {
+          label: 'Create listing'
+        }
       }
     },
     navigation: {
       items: 'My Items',
       listingsCreated: 'My Listings',
-      listingsReceived: 'Listings for me',
+      listingsReceived: 'Pending Listings',
       offersCreated: 'My Offers',
-      offersReceived: 'Offers Received',
+      offersReceived: 'Pending Offers',
       swaps: 'My Swaps'
     }
   },
@@ -197,9 +229,7 @@ export const messages = {
   },
   user: {
     button: {
-      makeOffer: {
-        label: 'Make an offer'
-      }
+      label: 'Make an offer'
     },
     empty: {
       items: {

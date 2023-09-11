@@ -1,5 +1,5 @@
-import { NftCollectionResponse } from '@echo/api'
-import { NftCollection } from '@echo/firestore-types'
+import type { NftCollectionResponse } from '@echo/api'
+import type { NftCollection } from '@echo/firestore-types'
 import { modifyUrlPropToString } from '@echo/utils'
 import { dissoc, modify, pick, pipe } from 'ramda'
 

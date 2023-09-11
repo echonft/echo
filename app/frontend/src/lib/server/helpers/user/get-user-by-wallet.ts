@@ -1,6 +1,6 @@
-import { ServerError } from '../error/server-error'
 import { findUserByWallet } from '@echo/firestore'
-import { Wallet } from '@echo/firestore-types'
+import type { Wallet } from '@echo/firestore-types'
+import { ServerError } from '@server/helpers/error/server-error'
 
 export const getUserByWallet = async (wallet: Wallet) => {
   try {

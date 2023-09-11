@@ -9,14 +9,21 @@ import { SelectableNftsContainer } from './selectable-nfts-container'
 import { Nft, NftTraits } from '@echo/ui-model'
 import { isIn, NonEmptyArray } from '@echo/utils'
 import { filter, map, partialRight, pipe, prop } from 'ramda'
-import { FunctionComponent, useEffect, useMemo, useState } from 'react'
+import { FunctionComponent, MouseEventHandler, useEffect, useMemo, useState } from 'react'
 
 interface Props {
   nfts: NonEmptyArray<Nft>
   availableFilters: NonEmptyArray<NftFilter>
+  btnLabel: string
+  onButtonClick?: MouseEventHandler
 }
 
-export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({ nfts, availableFilters }) => {
+export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
+  nfts,
+  availableFilters,
+  btnLabel,
+  onButtonClick
+}) => {
   const [nftSelection, setNftSelection] = useState<string[]>([])
   const [traitSelection, setTraitSelection] = useState<NftTraits>({})
   const [collectionFilterSelection, setCollectionFilterSelection] = useState<CollectionFilter[]>([])
@@ -44,6 +51,8 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({ nf
         availableFilters={availableFilters}
         traitSelection={traitSelection}
         collectionFilterSelection={collectionFilterSelection}
+        btnLabel={btnLabel}
+        onButtonClick={onButtonClick}
         onTraitSelectionUpdate={setTraitSelection}
         onCollectionSelectionUpdate={setCollectionFilterSelection}
       />

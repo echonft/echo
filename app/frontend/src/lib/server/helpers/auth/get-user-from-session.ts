@@ -1,7 +1,7 @@
-import { ForbiddenError } from '../error/forbidden-error'
-import { getUserById } from '../user/get-user-by-id'
-import { getSession } from './get-session'
-import { AuthOptions } from 'next-auth'
+import { getSession } from '@server/helpers/auth/get-session'
+import { ForbiddenError } from '@server/helpers/error/forbidden-error'
+import { getUserById } from '@server/helpers/user/get-user-by-id'
+import type { AuthOptions } from 'next-auth'
 import { isNil } from 'ramda'
 
 export async function getUserFromSession(authOptions: AuthOptions) {

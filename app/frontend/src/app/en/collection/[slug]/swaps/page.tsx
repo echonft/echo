@@ -1,10 +1,10 @@
-import { fetcher } from '../../../../../lib/helpers/fetcher'
-import { mapQueryConstraintsToQueryParams } from '../../../../../lib/helpers/request/map-query-constraints-to-query-params'
-import { GetOffersResponse } from '@echo/api'
+import type { GetOffersResponse } from '@echo/api'
 import { collectionSwapsApiUrl } from '@echo/api/src/routing/collection-swaps-api-url'
-import { CollectionSwapsApiProvided } from '@echo/ui'
+import { CollectionSwapsApiProvided } from '@echo/ui/src/components/collection/api-provided/collection-swaps-api-provided'
+import { fetcher } from '@helpers/fetcher'
+import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { isNil } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   params: {

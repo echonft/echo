@@ -1,9 +1,9 @@
-import { createOrUpdateUser } from '../server/helpers/auth/create-or-update-user'
 import { getDiscordAuthorizationUrl, getDiscordConfig } from '@echo/discord'
 import { errorMessage, logger } from '@echo/utils'
-import { AuthOptions } from 'next-auth'
+import { createOrUpdateUser } from '@server/helpers/auth/create-or-update-user'
+import type { AuthOptions } from 'next-auth'
 import Discord from 'next-auth/providers/discord'
-import { isNil } from 'ramda'
+import { dissoc, isNil } from 'ramda'
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -32,7 +32,8 @@ export const authOptions: AuthOptions = {
     },
     session({ session, token: { user } }) {
       if (isNil(user)) {
-        throw Error('Auth error: user is nil in session callback')
+        logger.error('Auth error: user is nil in session callback')
+        return dissoc('user', session)
       }
       return { ...session, user }
     }

@@ -1,4 +1,4 @@
-import { User } from '@echo/ui-model'
+import type { User } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
 
 const users: { [key: string]: User } = {

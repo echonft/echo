@@ -11,7 +11,7 @@ interface Props {
 
 export const NavigationPillsSkeleton: FunctionComponent<Props> = ({ navigationItems, activeNavigationItem }) => {
   return (
-    <div className={clsx('flex', 'flex-row', 'w-full', 'gap-3.5')}>
+    <div className={clsx('flex', 'flex-row', 'w-full', 'gap-3.5', 'py-12')}>
       {map(
         ({ id, name }) => (
           <span

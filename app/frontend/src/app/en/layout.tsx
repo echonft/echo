@@ -1,20 +1,13 @@
 import '@echo/ui/dist/index.css'
 import '../../index.css'
-import { authOptions } from '../../lib/constants/auth-options'
-import { Header, messages } from '@echo/ui'
+import { authOptions } from '@constants/auth-options'
+import { Header } from '@echo/ui/src/components/layout/header/header'
+import { messages } from '@echo/ui/src/messages/en'
 import { clsx } from 'clsx'
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import timezone from 'dayjs/plugin/timezone'
-import utc from 'dayjs/plugin/utc'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth/next'
 import { NextIntlClientProvider } from 'next-intl'
-import { FunctionComponent, PropsWithChildren } from 'react'
-
-dayjs.extend(utc)
-dayjs.extend(timezone)
-dayjs.extend(relativeTime)
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 export const metadata: Metadata = {
   title: 'Echo',

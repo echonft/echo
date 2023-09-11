@@ -1,8 +1,8 @@
-import { getOwnersForNft } from '../alchemy/get-owners-for-nft'
-import { ForbiddenError } from '../error/forbidden-error'
-import { ServerError } from '../error/server-error'
-import { OfferItem, User, Wallet } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { OfferItem, User, Wallet } from '@echo/firestore-types'
+import type { NonEmptyArray } from '@echo/utils'
+import { getOwnersForNft } from '@server/helpers/alchemy/get-owners-for-nft'
+import { ForbiddenError } from '@server/helpers/error/forbidden-error'
+import { ServerError } from '@server/helpers/error/server-error'
 import { equals, flatten, head, ifElse, intersection, length, map, pipe, uniq } from 'ramda'
 
 export const getOfferItemsWallet = (items: NonEmptyArray<OfferItem>, user: User): Promise<Wallet> =>

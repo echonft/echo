@@ -1,15 +1,9 @@
-import { ConnectButton as Component } from '@echo/ui'
+import { ConnectButton as Component } from '@echo/ui/src/components/layout/header/connect-button'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Layout/Header/Connect Button',
-  component: Component,
-  argTypes: {
-    onConnectClick: {
-      control: false,
-      action: 'clicked'
-    }
-  }
+  component: Component
 }
 
 export default metadata

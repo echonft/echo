@@ -1,5 +1,5 @@
-import { ServerError } from '../error/server-error'
 import { findUserById } from '@echo/firestore'
+import { ServerError } from '@server/helpers/error/server-error'
 
 export const getUserById = async (userId: string) => {
   try {

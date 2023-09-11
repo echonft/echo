@@ -1,7 +1,7 @@
-import { assertNftCollectionExists } from '../../helpers/nft-collection/assert-nft-collection-exists'
-import { getNftCollectionBySlug } from '../../helpers/nft-collection/get-nft-collection-by-slug'
-import { mapNftCollection } from '../../mappers/to-response/map-nft-collection'
-import { ApiRequest, GetNftCollectionResponse } from '@echo/api'
+import type { ApiRequest, GetNftCollectionResponse } from '@echo/api'
+import { assertNftCollectionExists } from '@server/helpers/nft-collection/assert-nft-collection-exists'
+import { getNftCollectionBySlug } from '@server/helpers/nft-collection/get-nft-collection-by-slug'
+import { mapNftCollection } from '@server/mappers/to-response/map-nft-collection'
 import { NextResponse } from 'next/server'
 
 export async function getNftCollectionRequestHandler(_req: ApiRequest<never>, slug: string) {

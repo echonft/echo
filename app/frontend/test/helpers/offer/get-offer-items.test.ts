@@ -1,11 +1,11 @@
-import { getNftById } from '../../../src/lib/server/helpers/nft/get-nft-by-id'
-import { getOfferItems } from '../../../src/lib/server/helpers/offer/get-offer-items'
 import { OfferItemRequest } from '@echo/api'
 import { getNftMockById } from '@echo/firestore'
 import { NonEmptyArray } from '@echo/utils'
+import { getNftById } from '@server/helpers/nft/get-nft-by-id'
+import { getOfferItems } from '@server/helpers/offer/get-offer-items'
 import { forEach } from 'ramda'
 
-jest.mock('../../../src/lib/server/helpers/nft/get-nft-by-id')
+jest.mock('@server/helpers/nft/get-nft-by-id')
 
 describe('helpers - offer - getOfferItems', () => {
   const item: OfferItemRequest = {

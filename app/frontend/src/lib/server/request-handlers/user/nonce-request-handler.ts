@@ -1,8 +1,8 @@
-import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
-import { setUserNonce } from '../../helpers/user/set-user-nonce'
-import { ApiRequest, NonceResponse } from '@echo/api'
+import type { ApiRequest, NonceResponse } from '@echo/api'
+import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
+import { setUserNonce } from '@server/helpers/user/set-user-nonce'
 import { NextResponse } from 'next/server'
-import { AuthOptions } from 'next-auth'
+import type { AuthOptions } from 'next-auth'
 
 export async function nonceRequestHandler(_req: ApiRequest<never>, authOptions: AuthOptions) {
   const user = await getUserFromSession(authOptions)

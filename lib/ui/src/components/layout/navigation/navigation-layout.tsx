@@ -16,9 +16,7 @@ export const NavigationLayout: FunctionComponent<PropsWithChildren<Props>> = ({
 }) => {
   return (
     <PaddedContainer>
-      <div className={'py-12'}>
-        <NavigationPills items={navigationItems} activeItem={activeNavigationItem} />
-      </div>
+      <NavigationPills items={navigationItems} activeItem={activeNavigationItem} />
       {children}
     </PaddedContainer>
   )

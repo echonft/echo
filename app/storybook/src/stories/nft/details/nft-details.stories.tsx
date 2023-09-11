@@ -1,6 +1,6 @@
 import { getListingById } from '../../../mocks/model/listing'
 import { getNftById } from '../../../mocks/model/nft'
-import { NftDetails as Component, NftDetailsSkeleton } from '@echo/ui'
+import { NftDetails as Component } from '@echo/ui/src/components/nft/details/nft-details'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { assoc } from 'ramda'
@@ -44,8 +44,4 @@ export const NoOffers: Story = {
     nft,
     listings: []
   }
-}
-
-export const Skeleton: Story = {
-  render: () => <NftDetailsSkeleton />
 }

@@ -1,4 +1,3 @@
-import { fetcher } from '../../../helpers/fetcher'
 import {
   AlchemyRoutes,
   getAlchemyRoute,
@@ -7,7 +6,8 @@ import {
   handlePaging,
   mapGetOwnersForNftResponse
 } from '@echo/alchemy'
-import { Wallet } from '@echo/firestore-types'
+import type { Wallet } from '@echo/firestore-types'
+import { fetcher } from '@helpers/fetcher'
 
 function fetchOwnersForNft(request: GetOwnersForNftRequest) {
   return fetcher(getAlchemyRoute(AlchemyRoutes.GET_OWNERS_FOR_NFT))

@@ -1,15 +1,10 @@
-'use-client'
+import { getTranslator } from '../../../messages/get-translator'
 import { clsx } from 'clsx'
 import { signIn } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
-import { FunctionComponent, MouseEventHandler } from 'react'
+import { FunctionComponent } from 'react'
 
-interface Props {
-  onConnectClick?: MouseEventHandler
-}
-
-export const ConnectButton: FunctionComponent<Props> = () => {
-  const t = useTranslations('layout.header')
+export const ConnectButton: FunctionComponent = () => {
+  const t = getTranslator()
   return (
     <button
       onClick={() => {
@@ -17,7 +12,7 @@ export const ConnectButton: FunctionComponent<Props> = () => {
       }}
       className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-[9.875rem]', 'py-1.5')}
     >
-      <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>{t('connectButton')}</span>
+      <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>{t('layout.header.connectButton')}</span>
     </button>
   )
 }

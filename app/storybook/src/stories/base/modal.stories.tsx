@@ -1,10 +1,15 @@
-import { Modal as Component } from '@echo/ui'
+import { Modal as Component } from '@echo/ui/src/components/layout/modal/modal'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Base/Modal',
-  component: Component
+  component: Component,
+  parameters: {
+    controls: {
+      exclude: ['open', 'onClose', 'renderTitle', 'renderDescription']
+    }
+  }
 }
 
 export default metadata

@@ -8,9 +8,9 @@ export const links = {
   profile: {
     items: '/me/items',
     listingsCreated: '/me/listings/created',
-    listingsReceived: '/me/listings/received',
+    listingsReceived: '/me/listings/pending',
     offersCreated: '/me/offers/created',
-    offersReceived: '/me/offers/received',
+    offersReceived: '/me/offers/pending',
     swaps: '/me/swaps'
   },
   user: {

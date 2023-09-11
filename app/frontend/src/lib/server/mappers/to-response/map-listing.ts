@@ -1,8 +1,8 @@
-import { mapListingItem } from './map-listing-item'
-import { mapListingTarget } from './map-listing-target'
-import { ListingResponse } from '@echo/api'
-import { Listing } from '@echo/firestore-types'
+import type { ListingResponse } from '@echo/api'
+import type { Listing } from '@echo/firestore-types'
 import { modifyDatePropToNumber } from '@echo/utils'
+import { mapListingItem } from '@server/mappers/to-response/map-listing-item'
+import { mapListingTarget } from '@server/mappers/to-response/map-listing-target'
 import { dissoc, map, modify, pipe } from 'ramda'
 
 export function mapListing(listing: Partial<Listing>): Partial<ListingResponse> {

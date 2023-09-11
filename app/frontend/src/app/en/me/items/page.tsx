@@ -1,12 +1,12 @@
-import { authOptions } from '../../../../lib/constants/auth-options'
-import { fetcher } from '../../../../lib/helpers/fetcher'
-import { mapQueryConstraintsToQueryParams } from '../../../../lib/helpers/request/map-query-constraints-to-query-params'
+import { authOptions } from '@constants/auth-options'
 import { GetNftsResponse, userNftsApiUrl } from '@echo/api'
 import { ProfileNftsApiProvided } from '@echo/ui/src/components/profile/api-provided/profile-nfts-api-provided'
+import { fetcher } from '@helpers/fetcher'
+import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { isNil } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 const ProfileNftsPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)

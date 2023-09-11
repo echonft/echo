@@ -1,9 +1,15 @@
-import { BottomSlider as Component, BottomSliderTitle } from '@echo/ui'
+import { BottomSlider as Component } from '@echo/ui/src/components/layout/bottom-slider/bottom-slider'
+import { BottomSliderTitle } from '@echo/ui/src/components/layout/bottom-slider/bottom-slider-title'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Base/Bottom Slider',
-  component: Component
+  component: Component,
+  parameters: {
+    controls: {
+      exclude: ['renderTitle']
+    }
+  }
 }
 
 export default metadata
@@ -11,21 +17,23 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
-  render: () => (
-    <Component renderTitle={() => <BottomSliderTitle title={'This is the title'} />}>
+  args: {
+    renderTitle: () => <BottomSliderTitle title={'This is the title'} />,
+    children: (
       <div>
         <span className={'text-white'}>This is the inside container</span>
       </div>
-    </Component>
-  )
+    )
+  }
 }
 
 export const WithCount: Story = {
-  render: () => (
-    <Component renderTitle={() => <BottomSliderTitle title={'This is the title'} count={10} />}>
+  args: {
+    renderTitle: () => <BottomSliderTitle title={'This is the title'} count={10} />,
+    children: (
       <div>
         <span className={'text-white'}>This is the inside container</span>
       </div>
-    </Component>
-  )
+    )
+  }
 }

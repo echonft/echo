@@ -1,7 +1,7 @@
-import { mapNftCollection } from './map-nft-collection'
 import { NftResponse } from '@echo/api'
 import { Nft } from '@echo/firestore-types'
 import { modifyUrlPropToString } from '@echo/utils'
+import { mapNftCollection } from '@server/mappers/to-response/map-nft-collection'
 import { modify, pipe } from 'ramda'
 
 export function mapNft(nft: Partial<Nft>): NftResponse {

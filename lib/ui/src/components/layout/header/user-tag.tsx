@@ -1,7 +1,7 @@
 import { UserTagPicture } from './user-tag-picture'
-import { AuthUser } from '@echo/ui-model'
+import type { AuthUser } from '@echo/ui-model'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   user: AuthUser

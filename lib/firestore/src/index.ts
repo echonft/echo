@@ -19,6 +19,7 @@ export { getListingsForCollectionAsTarget } from './crud/listing/get-listings-fo
 export { getListingsForCreator } from './crud/listing/get-listings-for-creator'
 export { getListingsForNft } from './crud/listing/get-listings-for-nft'
 export { getListingsForOffer } from './crud/listing/get-listings-for-offer'
+export { getListingsForUserTarget } from './crud/listing/get-listings-for-user-target'
 export { getListingsWithOfferId } from './crud/listing/get-listings-with-offer-id'
 export { invalidateListing } from './crud/listing/invalidate-listing'
 export { addNft } from './crud/nft/add-nft'

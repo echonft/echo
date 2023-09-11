@@ -1,4 +1,4 @@
-import { siweMessageSchema } from '../../src/lib/server/validators/siwe-message-schema'
+import { siweMessageSchema } from '@server/validators/siwe-message-schema'
 import { SiweMessage } from 'siwe'
 
 describe('validators - siweMessageSchema', () => {

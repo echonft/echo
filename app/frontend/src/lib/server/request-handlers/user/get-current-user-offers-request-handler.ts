@@ -1,11 +1,11 @@
-import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
-import { getUserOffers } from '../../helpers/offer/get-user-offers'
-import { parseConstraintsQuery } from '../../helpers/request/parse-constraints-query'
-import { parseOfferFiltersQuery } from '../../helpers/request/parse-offer-filters-query'
-import { mapOffer } from '../../mappers/to-response/map-offer'
-import { ApiRequest, GetOffersResponse } from '@echo/api'
+import type { ApiRequest, GetOffersResponse } from '@echo/api'
+import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
+import { getUserOffers } from '@server/helpers/offer/get-user-offers'
+import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
+import { parseOfferFiltersQuery } from '@server/helpers/request/parse-offer-filters-query'
+import { mapOffer } from '@server/mappers/to-response/map-offer'
 import { NextResponse } from 'next/server'
-import { AuthOptions } from 'next-auth'
+import type { AuthOptions } from 'next-auth'
 import { map } from 'ramda'
 
 export async function getCurrentUserOffersRequestHandler(req: ApiRequest<never>, authOptions: AuthOptions) {

@@ -1,4 +1,4 @@
-import { QueryType } from '@echo/utils'
+import type { QueryType } from '@echo/utils'
 
 export interface QueryConstraintsQueryParams extends QueryType {
   select?: string | string[]

@@ -1,8 +1,8 @@
-import { getNftListings } from '../../helpers/listing/get-nft-listings'
-import { parseConstraintsQuery } from '../../helpers/request/parse-constraints-query'
-import { parseListingFiltersQuery } from '../../helpers/request/parse-listing-filters-query'
-import { mapListing } from '../../mappers/to-response/map-listing'
-import { ApiRequest, GetListingsResponse } from '@echo/api'
+import type { ApiRequest, GetListingsResponse } from '@echo/api'
+import { getNftListings } from '@server/helpers/listing/get-nft-listings'
+import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
+import { parseListingFiltersQuery } from '@server/helpers/request/parse-listing-filters-query'
+import { mapListing } from '@server/mappers/to-response/map-listing'
 import { NextResponse } from 'next/server'
 import { map } from 'ramda'
 

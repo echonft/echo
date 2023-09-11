@@ -1,4 +1,4 @@
-import { Signature } from '@echo/ui-model'
+import type { Signature } from '@echo/ui-model'
 import { logger } from '@echo/utils'
 import { isNil } from 'ramda'
 import { FunctionComponent, useEffect, useRef } from 'react'

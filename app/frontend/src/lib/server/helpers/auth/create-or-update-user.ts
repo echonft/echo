@@ -1,14 +1,12 @@
-import { mapUserToAuthUser } from '../../mappers/auth/map-user-to-auth-user'
-import { createUser } from '../user/create-user'
-import { fetchDiscordUser } from '../user/fetch-discord-user'
-import { getUserByDiscordId } from '../user/get-user-by-discord-id'
-import { updateUser } from '../user/update-user'
-import { updateUserNfts } from '../user/update-user-nfts'
-import { userDiscordInfoNeedsUpdate } from './user-discord-info-needs-update'
-import { userNftsNeedsUpdate } from './user-nfts-needs-update'
-import { User, UserDiscordGuild, Wallet } from '@echo/firestore-types'
-import { AuthUser } from '@echo/ui-model'
+import { addUser, findUserByDiscordId, initializeFirebase, terminateFirestore, updateUser } from '@echo/firestore'
+import type { User, UserDiscordGuild, Wallet } from '@echo/firestore-types'
+import type { AuthUser } from '@echo/ui-model'
 import { isNilOrEmpty } from '@echo/utils'
+import { userDiscordInfoNeedsUpdate } from '@server/helpers/auth/user-discord-info-needs-update'
+import { userNftsNeedsUpdate } from '@server/helpers/auth/user-nfts-needs-update'
+import { fetchDiscordUser } from '@server/helpers/user/fetch-discord-user'
+import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
+import { mapUserToAuthUser } from '@server/mappers/auth/map-user-to-auth-user'
 import dayjs from 'dayjs'
 import { assoc, isNil, omit, pipe } from 'ramda'
 
@@ -38,6 +36,7 @@ async function updateUserAndNftsIfNeeded(user: Partial<User> & RequiredUserProps
       pipe(omit(['nftsUpdatedAt', 'updatedAt', 'wallets']), assoc('updatedAt', updatedAt))(user)
     )
   }
+  await terminateFirestore()
   return mapUserToAuthUser({ ...user, updatedAt, nftsUpdatedAt })
 }
 
@@ -52,15 +51,13 @@ export async function createOrUpdateUser(
   if (isNilOrEmpty(tokenType)) {
     throw Error(`invalid token type`)
   }
+  initializeFirebase()
   if (isNil(user)) {
     const discordUser = await fetchDiscordUser(accessToken, tokenType)
-    const existingUser = await getUserByDiscordId(discordUser.discordId)
+    const existingUser = await findUserByDiscordId(discordUser.discordId)
     if (isNil(existingUser)) {
-      if (discordUser.discordUsername === 'me') {
-        throw Error('"me" discord username... who would have thought?')
-      }
       // for now we set username = discordUsername
-      const userId = await createUser({ ...discordUser, username: discordUser.discordUsername })
+      const userId = await addUser({ ...discordUser, username: discordUser.discordUsername })
       return mapUserToAuthUser({
         ...discordUser,
         id: userId,
