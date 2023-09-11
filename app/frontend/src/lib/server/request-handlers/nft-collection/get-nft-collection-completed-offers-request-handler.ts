@@ -1,7 +1,7 @@
 import type { ApiRequest, GetOffersResponse } from '@echo/api'
-import { getNftCollectionOffers } from '@server/helpers/listing/get-nft-collection-offers'
 import { assertNftCollection } from '@server/helpers/nft-collection/assert-nft-collection'
 import { getNftCollectionBySlug } from '@server/helpers/nft-collection/get-nft-collection-by-slug'
+import { getNftCollectionOffers } from '@server/helpers/offer/get-nft-collection-offers'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
 import { parseOfferFiltersQuery } from '@server/helpers/request/parse-offer-filters-query'
 import { mapOffer } from '@server/mappers/to-response/map-offer'

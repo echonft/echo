@@ -1,5 +1,5 @@
-import { createListingSchema } from '../../src/lib/server/validators/create-listing-schema'
 import { CreateListingRequest } from '@echo/api'
+import { createListingSchema } from '@server/validators/create-listing-schema'
 import { assoc, dissoc } from 'ramda'
 
 describe('validators - createListingSchema', () => {

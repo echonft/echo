@@ -6,13 +6,14 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   state: OfferState
+  expired: boolean
   discordUsername: string
 }
 
-export const OfferInfoContainer: FunctionComponent<Props> = ({ state, discordUsername }) => {
+export const CurrentUserOfferRowHeader: FunctionComponent<Props> = ({ state, expired, discordUsername }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-4', 'grow', 'w-full')}>
-      <OfferStatePill state={state} />
+      <OfferStatePill expired={expired} state={state} />
       <UserDiscordTag discordUsername={discordUsername} />
     </div>
   )

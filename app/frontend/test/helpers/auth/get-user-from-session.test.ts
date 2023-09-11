@@ -1,11 +1,11 @@
-import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
-import { getUserFromSession } from '../../../src/lib/server/helpers/auth/get-user-from-session'
-import { getUserById } from '../../../src/lib/server/helpers/user/get-user-by-id'
 import { User } from '@echo/firestore-types'
+import { getSession } from '@server/helpers/auth/get-session'
+import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
+import { getUserById } from '@server/helpers/user/get-user-by-id'
 import { AuthOptions, Session } from 'next-auth'
 
-jest.mock('../../../src/lib/server/helpers/auth/get-session')
-jest.mock('../../../src/lib/server/helpers/user/get-user-by-id')
+jest.mock('@server/helpers/auth/get-session')
+jest.mock('@server/helpers/user/get-user-by-id')
 
 describe('helpers - auth - getUserFromSession', () => {
   beforeEach(() => {

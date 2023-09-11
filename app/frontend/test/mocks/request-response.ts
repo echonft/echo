@@ -1,6 +1,6 @@
-import { setUrlQuery } from '../../src/lib/helpers/request/set-url-query'
 import { ApiRequest } from '@echo/api'
 import { QueryType } from '@echo/utils'
+import { setUrlQuery } from '@helpers/request/set-url-query'
 import { NextRequest } from 'next/server'
 import { isNil } from 'ramda'
 

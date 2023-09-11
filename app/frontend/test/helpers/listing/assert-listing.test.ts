@@ -1,5 +1,5 @@
-import { assertListing } from '../../../src/lib/server/helpers/listing/assert-listing'
 import { Listing } from '@echo/firestore-types'
+import { assertListing } from '@server/helpers/listing/assert-listing'
 
 describe('helpers - listing - assertListing', () => {
   it('throws if listing is undefined', () => {

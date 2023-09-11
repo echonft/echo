@@ -15,6 +15,13 @@ const config: Config = {
     '!<rootDir>/src/types/**'
   ],
   coverageReporters: ['json-summary', 'text'],
+  moduleNameMapper: {
+    '^@app/(.*)$': '<rootDir>/src/app/$1',
+    '^@constants/(.*)$': '<rootDir>/src/lib/constants/$1',
+    '^@helpers/(.*)$': '<rootDir>/src/lib/helpers/$1',
+    '^@server/(.*)$': '<rootDir>/src/lib/server/$1',
+    '^@type/(.*)$': '<rootDir>/src/lib/types/$1'
+  },
   reporters: [
     'default',
     [

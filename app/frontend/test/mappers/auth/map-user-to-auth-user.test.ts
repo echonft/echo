@@ -1,5 +1,5 @@
-import { mapUserToAuthUser } from '../../../src/lib/server/mappers/auth/map-user-to-auth-user'
 import { User } from '@echo/firestore-types'
+import { mapUserToAuthUser } from '@server/mappers/auth/map-user-to-auth-user'
 import dayjs from 'dayjs'
 
 describe('mappers - auth - mapUserToAuthUser', () => {
