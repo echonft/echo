@@ -1,5 +1,5 @@
 import { getNftById } from './nft'
-import { Offer } from '@echo/ui-model'
+import type { Offer } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
 import dayjs from 'dayjs'
 

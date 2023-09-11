@@ -14,12 +14,14 @@ interface Props extends MultiSelectableProps<string> {
   nfts: NonEmptyArray<Nft>
   name: string
   disabled?: boolean
+  hideOwner?: boolean
 }
 
 export const SelectableNftGroup: FunctionComponent<Props> = ({
   nfts,
   name,
   selection,
+  hideOwner,
   onSelectionUpdate,
   disabled
 }) => {
@@ -55,6 +57,7 @@ export const SelectableNftGroup: FunctionComponent<Props> = ({
                 nft={nft}
                 linkDisabled={!isEmpty(selection)}
                 selected={!disabled && !isNil(selection) && selection.includes(nft.id)}
+                hideOwner={hideOwner}
                 disabled={disabled}
                 onToggleSelection={(nftId: string, selected: boolean) => {
                   if (selected) {

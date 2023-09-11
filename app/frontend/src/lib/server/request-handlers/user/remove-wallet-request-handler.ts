@@ -1,11 +1,11 @@
-import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
-import { BadRequestError } from '../../helpers/error/bad-request-error'
-import { removeUserWallet } from '../../helpers/user/remove-user-wallet'
-import { updateUserNfts } from '../../helpers/user/update-user-nfts'
-import { removeWalletSchema } from '../../validators/remove-wallet-schema'
-import { ApiRequest, EmptyResponse, RemoveWalletRequest } from '@echo/api'
+import type { ApiRequest, EmptyResponse, RemoveWalletRequest } from '@echo/api'
+import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
+import { BadRequestError } from '@server/helpers/error/bad-request-error'
+import { removeUserWallet } from '@server/helpers/user/remove-user-wallet'
+import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
+import { removeWalletSchema } from '@server/validators/remove-wallet-schema'
 import { NextResponse } from 'next/server'
-import { AuthOptions } from 'next-auth'
+import type { AuthOptions } from 'next-auth'
 
 export async function removeWalletRequestHandler(req: ApiRequest<RemoveWalletRequest>, authOptions: AuthOptions) {
   const user = await getUserFromSession(authOptions)

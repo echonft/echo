@@ -1,16 +1,16 @@
-import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
-import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { getUserById } from '../../../src/lib/server/helpers/user/get-user-by-id'
-import { handleCancelListing } from '../../../src/lib/server/request-handlers/listing/handle-cancel-listing'
-import { updateListingRequestHandler } from '../../../src/lib/server/request-handlers/listing/update-listing-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { UpdateListingAction, UpdateListingRequest } from '@echo/api'
 import { User } from '@echo/firestore-types'
+import { getSession } from '@server/helpers/auth/get-session'
+import { ApiError } from '@server/helpers/error/api-error'
+import { getUserById } from '@server/helpers/user/get-user-by-id'
+import { handleCancelListing } from '@server/request-handlers/listing/handle-cancel-listing'
+import { updateListingRequestHandler } from '@server/request-handlers/listing/update-listing-request-handler'
 import { AuthOptions, Session } from 'next-auth'
 
-jest.mock('../../../src/lib/server/helpers/auth/get-session')
-jest.mock('../../../src/lib/server/helpers/user/get-user-by-id')
-jest.mock('../../../src/lib/server/request-handlers/listing/handle-cancel-listing')
+jest.mock('@server/helpers/auth/get-session')
+jest.mock('@server/helpers/user/get-user-by-id')
+jest.mock('@server/request-handlers/listing/handle-cancel-listing')
 
 describe('request-handlers - listing - updateListingRequestHandler', () => {
   const id = 'listingId'

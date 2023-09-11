@@ -1,5 +1,5 @@
-import { assertUser } from '../../../src/lib/server/helpers/user/assert-user'
 import { User } from '@echo/firestore-types'
+import { assertUser } from '@server/helpers/user/assert-user'
 
 describe('helpers - user - assertUser', () => {
   it('throws if user is undefined', () => {

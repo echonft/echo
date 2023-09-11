@@ -1,34 +1,34 @@
 import { DirectionLeft } from '../../../constants/direction'
 import { OfferRoleReceiver } from '../../../constants/offer-role'
-import { OfferRole } from '../../../types/offer-role'
+import { OfferWithRole } from '../../../types/offer-with-role'
 import { SwapIconSvg } from '../../base/svg/swap-icon-svg'
-import { OfferInfoContainer } from './offer-info-container'
+import { CurrentUserOfferRowHeader } from './current-user-offer-row-header'
 import { OfferItemsContainer } from './offer-items-container'
-import { Offer } from '@echo/ui-model'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
-  offer: Offer
-  role: OfferRole
+  offer: OfferWithRole
 }
 
-export const CurrentUserOfferRow: FunctionComponent<Props> = ({ offer, role }) => {
+export const CurrentUserOfferRow: FunctionComponent<Props> = ({ offer }) => {
+  const { state, receiver, receiverItems, sender, senderItems, role, expired } = offer
   const isReceiver = role === OfferRoleReceiver
   return (
     <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4', 'p-4', 'rounded-lg', 'bg-white/[0.05]')}>
-      <OfferInfoContainer
-        state={offer.state}
-        discordUsername={isReceiver ? offer.receiver.discordUsername : offer.sender.discordUsername}
+      <CurrentUserOfferRowHeader
+        expired={expired}
+        state={state}
+        discordUsername={isReceiver ? receiver.discordUsername : sender.discordUsername}
       />
       <div className={clsx('flex', 'flex-row', 'grow')}>
-        <OfferItemsContainer items={isReceiver ? offer.receiverItems : offer.senderItems} />
+        <OfferItemsContainer items={isReceiver ? receiverItems : senderItems} />
         <div className={clsx('flex', 'flex-row', 'grow', 'self-stretch', 'items-center', 'justify-center', 'px-4')}>
           <SwapIconSvg direction={DirectionLeft} />
         </div>
         <OfferItemsContainer
-          items={isReceiver ? offer.senderItems : offer.receiverItems}
-          discordUsername={isReceiver ? offer.sender.discordUsername : offer.receiver.discordUsername}
+          items={isReceiver ? senderItems : receiverItems}
+          discordUsername={isReceiver ? sender.discordUsername : receiver.discordUsername}
         />
       </div>
     </div>

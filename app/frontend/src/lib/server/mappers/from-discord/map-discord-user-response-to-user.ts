@@ -1,6 +1,6 @@
-import { DiscordUser } from '../../types/user/discord-user'
-import { DiscordUserResponse } from '../../types/user/discord-user-response'
 import { modifyPropName } from '@echo/utils/src/fp/modify-prop-name'
+import type { DiscordUser } from '@server/types/user/discord-user'
+import type { DiscordUserResponse } from '@server/types/user/discord-user-response'
 import { map, modify, pick, pipe } from 'ramda'
 
 export function mapDiscordUserResponseToUser(discordUserResponse: DiscordUserResponse): DiscordUser {

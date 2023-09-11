@@ -1,5 +1,5 @@
 import { getCollectionById } from '../../mocks/model/nft-collection'
-import { CollectionSearchCollectionOption as Component } from '@echo/ui'
+import { CollectionSearchCollectionOption as Component } from '@echo/ui/src/components/collection/search/collection-search-collection-option'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -10,19 +10,19 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-const collection = getCollectionById('Rc8pLQXxgyQGIRL0fr13')
+const { profilePictureUrl, name, totalSupply } = getCollectionById('Rc8pLQXxgyQGIRL0fr13')
 
 export const Default: Story = {
   args: {
-    pictureUrl: collection.profilePictureUrl,
-    collectionName: collection.name,
-    collectionSupply: collection.totalSupply
+    pictureUrl: profilePictureUrl,
+    collectionName: name,
+    collectionSupply: totalSupply
   }
 }
 
 export const NoSupply: Story = {
   args: {
-    pictureUrl: collection.profilePictureUrl,
-    collectionName: collection.name
+    pictureUrl: profilePictureUrl,
+    collectionName: name
   }
 }

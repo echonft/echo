@@ -1,6 +1,6 @@
-import { ServerError } from '../error/server-error'
 import { getNftsForCollection } from '@echo/firestore'
-import { QueryConstraints } from '@echo/firestore-types'
+import type { QueryConstraints } from '@echo/firestore-types'
+import { ServerError } from '@server/helpers/error/server-error'
 
 export async function getNftCollectionNfts(collectionSlug: string, constraints?: QueryConstraints) {
   try {

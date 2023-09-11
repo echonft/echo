@@ -1,4 +1,4 @@
-import { NftCollection } from '@echo/ui-model'
+import type { NftCollection } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
 
 const nftCollections: { [key: string]: NftCollection } = {

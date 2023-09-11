@@ -1,11 +1,10 @@
-import { getUserOffers } from '../../helpers/offer/get-user-offers'
-import { parseConstraintsQuery } from '../../helpers/request/parse-constraints-query'
-import { parseOfferFiltersQuery } from '../../helpers/request/parse-offer-filters-query'
-import { assertUser } from '../../helpers/user/assert-user'
-import { getUserByUsername } from '../../helpers/user/get-user-by-username'
-import { mapOffer } from '../../mappers/to-response/map-offer'
-import { ApiRequest, GetOffersResponse } from '@echo/api'
-import { logger } from '@echo/utils'
+import type { ApiRequest, GetOffersResponse } from '@echo/api'
+import { getUserOffers } from '@server/helpers/offer/get-user-offers'
+import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
+import { parseOfferFiltersQuery } from '@server/helpers/request/parse-offer-filters-query'
+import { assertUser } from '@server/helpers/user/assert-user'
+import { getUserByUsername } from '@server/helpers/user/get-user-by-username'
+import { mapOffer } from '@server/mappers/to-response/map-offer'
 import { NextResponse } from 'next/server'
 import { assoc, dissoc, map, pipe } from 'ramda'
 
@@ -20,6 +19,5 @@ export async function getUserCompletedOffersRequestHandler(req: ApiRequest<never
     assoc('includeExpired', true)
   )(filters)
   const offers = await getUserOffers(user.id, completedOffersFilters, constraints)
-  logger.error(`does it log?!`)
   return NextResponse.json<GetOffersResponse>({ offers: map(mapOffer, offers) })
 }

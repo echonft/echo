@@ -1,5 +1,5 @@
-import { ServerError } from '../error/server-error'
 import { rejectOffer as firestoreRejectOffer } from '@echo/firestore'
+import { ServerError } from '@server/helpers/error/server-error'
 
 export const rejectOffer = async (offerId: string) => {
   try {

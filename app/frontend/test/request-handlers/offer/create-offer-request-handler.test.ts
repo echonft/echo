@@ -1,20 +1,20 @@
-import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
-import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { createOffer } from '../../../src/lib/server/helpers/offer/create-offer'
-import { getOfferItems } from '../../../src/lib/server/helpers/offer/get-offer-items'
-import { getOfferItemsWallet } from '../../../src/lib/server/helpers/offer/get-offer-items-wallet'
-import { getUserById } from '../../../src/lib/server/helpers/user/get-user-by-id'
-import { createOfferRequestHandler } from '../../../src/lib/server/request-handlers/offer/create-offer-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { CreateOfferRequest, IdResponse } from '@echo/api'
 import { User } from '@echo/firestore-types'
+import { getSession } from '@server/helpers/auth/get-session'
+import { ApiError } from '@server/helpers/error/api-error'
+import { createOffer } from '@server/helpers/offer/create-offer'
+import { getOfferItems } from '@server/helpers/offer/get-offer-items'
+import { getOfferItemsWallet } from '@server/helpers/offer/get-offer-items-wallet'
+import { getUserById } from '@server/helpers/user/get-user-by-id'
+import { createOfferRequestHandler } from '@server/request-handlers/offer/create-offer-request-handler'
 import { AuthOptions, Session } from 'next-auth'
 
-jest.mock('../../../src/lib/server/helpers/auth/get-session')
-jest.mock('../../../src/lib/server/helpers/user/get-user-by-id')
-jest.mock('../../../src/lib/server/helpers/offer/create-offer')
-jest.mock('../../../src/lib/server/helpers/offer/get-offer-items')
-jest.mock('../../../src/lib/server/helpers/offer/get-offer-items-wallet')
+jest.mock('@server/helpers/auth/get-session')
+jest.mock('@server/helpers/user/get-user-by-id')
+jest.mock('@server/helpers/offer/create-offer')
+jest.mock('@server/helpers/offer/get-offer-items')
+jest.mock('@server/helpers/offer/get-offer-items-wallet')
 
 describe('request-handlers - offer - createOfferRequestHandler', () => {
   const validRequest: CreateOfferRequest = {

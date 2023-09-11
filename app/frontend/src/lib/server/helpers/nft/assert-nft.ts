@@ -1,5 +1,5 @@
-import { BadRequestError } from '../error/bad-request-error'
-import { Nft } from '@echo/firestore-types'
+import type { Nft } from '@echo/firestore-types'
+import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil } from 'ramda'
 
 export function assertNft(nft: Partial<Nft> | undefined): asserts nft is NonNullable<Partial<Nft>> {

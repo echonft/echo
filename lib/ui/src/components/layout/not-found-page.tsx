@@ -1,13 +1,13 @@
+import { getTranslator } from '../../messages/get-translator'
 import { InternalLink } from '../base/link/internal-link'
 import { EchoIconSvg } from '../base/svg/echo-icon-svg'
 import { clsx } from 'clsx'
-import { useTranslations } from 'next-intl'
 import { FunctionComponent } from 'react'
 
 export const NotFoundPage: FunctionComponent = () => {
-  const t = useTranslations('notFoundPage')
+  const t = getTranslator()
   return (
-    <div className={clsx('w-max', 'h-full', 'flex', 'flex-col', 'pt-44', 'mx-auto', 'items-center')}>
+    <div className={clsx('w-max', 'h-full', 'flex', 'flex-col', 'mx-auto', 'items-center')}>
       <div
         className={clsx(
           'relative',
@@ -42,9 +42,9 @@ export const NotFoundPage: FunctionComponent = () => {
             'mb-12'
           )}
         >
-          {t.rich('title', {
-            br: () => <br />
-          })}
+          {t('notFoundPage.title')}
+          <br />
+          {t('notFoundPage.subtitle')}
         </p>
         <InternalLink path={'/'}>
           <button className={clsx('btn-primary-reverse', 'group', 'w-max', 'rounded-lg', 'px-5', 'py-2.5')}>
@@ -59,7 +59,7 @@ export const NotFoundPage: FunctionComponent = () => {
                 'whitespace-pre-line'
               )}
             >
-              {t('button.label')}
+              {t('notFoundPage.button.label')}
             </span>
           </button>
         </InternalLink>

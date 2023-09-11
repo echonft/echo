@@ -1,5 +1,5 @@
 import { getCollectionById } from './nft-collection'
-import { Nft } from '@echo/ui-model'
+import type { Nft } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
 
 const nfts: { [key: string]: Nft } = {

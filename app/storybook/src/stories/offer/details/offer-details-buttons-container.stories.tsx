@@ -1,4 +1,4 @@
-import { OfferDetailsButtonsContainer as Component } from '@echo/ui'
+import { OfferDetailsButtonsContainer as Component } from '@echo/ui/src/components/offer/details/offer-details-buttons-container'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

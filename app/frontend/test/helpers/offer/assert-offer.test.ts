@@ -1,5 +1,5 @@
-import { assertOffer } from '../../../src/lib/server/helpers/offer/assert-offer'
 import { Offer } from '@echo/firestore-types'
+import { assertOffer } from '@server/helpers/offer/assert-offer'
 
 describe('helpers - offer - assertOffer', () => {
   it('throws if offer is undefined', () => {

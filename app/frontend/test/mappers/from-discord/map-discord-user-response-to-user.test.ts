@@ -1,4 +1,4 @@
-import { mapDiscordUserResponseToUser } from '../../../src/lib/server/mappers/from-discord/map-discord-user-response-to-user'
+import { mapDiscordUserResponseToUser } from '@server/mappers/from-discord/map-discord-user-response-to-user'
 
 describe('mappers - from-discord - mapDiscordUserResponseToUser', () => {
   it('correctly maps the user', () => {

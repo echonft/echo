@@ -1,5 +1,5 @@
-import { OfferFilterAs } from '@echo/firestore-types'
-import { QueryType } from '@echo/utils'
+import type { OfferFilterAs } from '@echo/firestore-types'
+import type { QueryType } from '@echo/utils'
 
 export interface OfferFiltersQueryParams extends QueryType {
   as?: OfferFilterAs

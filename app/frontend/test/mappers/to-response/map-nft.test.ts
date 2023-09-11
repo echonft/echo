@@ -1,6 +1,6 @@
-import { mapNft } from '../../../src/lib/server/mappers/to-response/map-nft'
 import { getNftCollectionMockById } from '@echo/firestore'
 import { Nft } from '@echo/firestore-types'
+import { mapNft } from '@server/mappers/to-response/map-nft'
 import { pick } from 'ramda'
 
 describe('mappers - to-response - mapNft', () => {

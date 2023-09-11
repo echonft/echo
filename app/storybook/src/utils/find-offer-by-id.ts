@@ -1,5 +1,5 @@
 import { getAllOffers } from '../mocks/model/offer'
-import { Offer } from '@echo/ui-model'
+import type { Offer } from '@echo/ui-model'
 import { isNil } from 'ramda'
 
 export const findOfferById = (offerId: string): Offer => {

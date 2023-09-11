@@ -1,8 +1,8 @@
-import { ErrorStatus } from '../server/constants/error-status'
-import { setUrlQuery } from './request/set-url-query'
-import { ErrorResponse } from '@echo/api'
+import type { ErrorResponse } from '@echo/api'
 import { isDev, QueryType } from '@echo/utils'
-import { HTTP_METHOD } from 'next/dist/server/web/http'
+import { setUrlQuery } from '@helpers/request/set-url-query'
+import { ErrorStatus } from '@server/constants/error-status'
+import type { HTTP_METHOD } from 'next/dist/server/web/http'
 import { assoc, assocPath, dissocPath, has, hasPath, is, pathEq, pipe } from 'ramda'
 
 interface FetchResult<T> {

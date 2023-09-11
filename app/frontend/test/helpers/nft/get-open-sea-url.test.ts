@@ -1,4 +1,4 @@
-import { getOpenSeaUrl } from '../../../src/lib/server/helpers/nft/get-open-sea-url'
+import { getOpenSeaUrl } from '@server/helpers/nft/get-open-sea-url'
 
 describe('helpers - nft - getOpenSeaUrl', () => {
   it('returns the URL', () => {

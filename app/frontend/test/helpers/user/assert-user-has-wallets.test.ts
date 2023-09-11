@@ -1,6 +1,6 @@
-import { assertUser } from '../../../src/lib/server/helpers/user/assert-user'
-import { assertUserHasWallets } from '../../../src/lib/server/helpers/user/assert-user-has-wallets'
 import { User } from '@echo/firestore-types'
+import { assertUser } from '@server/helpers/user/assert-user'
+import { assertUserHasWallets } from '@server/helpers/user/assert-user-has-wallets'
 
 describe('helpers - user - assertUserHasWallets', () => {
   it('throws if user is does not have wallets', () => {

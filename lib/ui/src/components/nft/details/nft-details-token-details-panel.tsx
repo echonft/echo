@@ -1,9 +1,9 @@
 import { getChainNameById } from '../../../helpers/get-chain-name-by-id'
 import { NftDetailsTokenDetailsPanelRow } from './nft-details-token-details-panel-row'
-import { TokenType } from '@echo/ui-model'
+import type { TokenType } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   chainId: number

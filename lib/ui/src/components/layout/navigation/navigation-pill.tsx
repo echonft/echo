@@ -10,22 +10,20 @@ interface Props {
 
 export const NavigationPill: FunctionComponent<Props> = ({ name, path, selected }) => {
   return (
-    <InternalLink className={'group'} path={path} disabled={selected}>
-      <span
-        className={clsx(
-          'w-max',
-          'h-max',
-          'prose-label-md',
-          'text-white',
-          'py-3',
-          'px-6',
-          'rounded-lg',
-          selected ? 'bg-white/[0.05]' : 'bg-transparent',
-          !selected && 'group-hover:bg-white/[0.05]'
-        )}
-      >
-        {name}
-      </span>
+    <InternalLink
+      className={clsx(
+        'w-max',
+        'h-max',
+        'py-3',
+        'px-6',
+        'rounded-lg',
+        selected ? 'bg-white/[0.05]' : 'bg-transparent',
+        !selected && 'hover:bg-white/[0.05]'
+      )}
+      path={path}
+      disabled={selected}
+    >
+      <span className={clsx('prose-label-md', 'text-white', 'select-none')}>{name}</span>
     </InternalLink>
   )
 }

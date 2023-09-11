@@ -1,6 +1,6 @@
-import { ServerError } from '../error/server-error'
 import { setUserNonce as FirestoreSetUserNonce } from '@echo/firestore'
-import { User } from '@echo/firestore-types'
+import type { User } from '@echo/firestore-types'
+import { ServerError } from '@server/helpers/error/server-error'
 import { generateNonce } from 'siwe'
 
 export const setUserNonce = async (user: User) => {

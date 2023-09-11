@@ -1,7 +1,7 @@
-import { mapOfferItem } from './map-offer-item'
-import { OfferResponse } from '@echo/api'
-import { Offer } from '@echo/firestore-types'
+import type { OfferResponse } from '@echo/api'
+import type { Offer } from '@echo/firestore-types'
 import { modifyDatePropToNumber } from '@echo/utils'
+import { mapOfferItem } from '@server/mappers/to-response/map-offer-item'
 import { dissoc, map, modify, pipe } from 'ramda'
 
 export function mapOffer(offer: Partial<Offer>): Partial<OfferResponse> {
