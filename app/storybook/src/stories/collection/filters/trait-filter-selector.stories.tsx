@@ -1,9 +1,16 @@
-import { FiltersPanel, SelectionManager, TraitFilterSelector as Component } from '@echo/ui'
+import { SelectionManager } from '@echo/ui/src/components/base/manager/selection-manager'
+import { FiltersPanel as Component } from '@echo/ui/src/components/layout/filters-panel'
+import { TraitFilterSelector } from '@echo/ui/src/components/nft/filters/by-traits/trait-filter-selector'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Collection/Filters/Trait Filter Selector',
-  component: Component
+  component: Component,
+  parameters: {
+    controls: {
+      exclude: ['className']
+    }
+  }
 }
 
 export default metadata
@@ -11,56 +18,56 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
-  render: () => (
-    <FiltersPanel title={'Attributes'}>
-      <Component
+  args: {
+    children: (
+      <TraitFilterSelector
         value={{
           value: 'Trait Name',
           count: 1754
         }}
       />
-    </FiltersPanel>
-  )
+    )
+  }
 }
 
 export const Overflow: Story = {
-  render: () => (
-    <FiltersPanel title={'Attributes'}>
-      <Component
+  args: {
+    children: (
+      <TraitFilterSelector
         value={{
           value: 'This Trait Name is waaaayyyyyyyyy too long',
           count: 1754
         }}
       />
-    </FiltersPanel>
-  )
+    )
+  }
 }
 
 export const Selected: Story = {
-  render: () => (
-    <FiltersPanel title={'Attributes'}>
-      <Component
+  args: {
+    children: (
+      <TraitFilterSelector
         value={{
           value: 'Trait Name',
           count: 1754
         }}
         selected
       />
-    </FiltersPanel>
-  )
+    )
+  }
 }
 
 export const Managed: Story = {
-  render: () => (
-    <FiltersPanel title={'Attributes'}>
+  args: {
+    children: (
       <SelectionManager>
-        <Component
+        <TraitFilterSelector
           value={{
             value: 'Trait Name',
             count: 1754
           }}
         />
       </SelectionManager>
-    </FiltersPanel>
-  )
+    )
+  }
 }

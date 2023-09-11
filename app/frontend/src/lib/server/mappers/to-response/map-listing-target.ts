@@ -1,6 +1,6 @@
-import { mapNftCollection } from './map-nft-collection'
-import { ListingTargetResponse } from '@echo/api'
-import { ListingTarget } from '@echo/firestore-types'
+import type { ListingTargetResponse } from '@echo/api'
+import type { ListingTarget } from '@echo/firestore-types'
+import { mapNftCollection } from '@server/mappers/to-response/map-nft-collection'
 import { modify } from 'ramda'
 
 export function mapListingTarget(target: ListingTarget): ListingTargetResponse {

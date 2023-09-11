@@ -1,4 +1,4 @@
-import { AuthUser } from '@echo/ui-model'
+import type { AuthUser } from '@echo/ui-model'
 
 const authUser: AuthUser = {
   id: '6rECUMhevHfxABZ1VNOm',

@@ -1,23 +1,48 @@
-import { ErrorStatus } from '../../constants/error-status'
-import { ErrorResponse } from '@echo/api'
-import { errorMessage } from '@echo/utils'
+import type { ErrorResponse } from '@echo/api'
+import { errorMessage, logger } from '@echo/utils'
+import { ErrorStatus } from '@server/constants/error-status'
 import { NextResponse } from 'next/server'
+import { assoc, isNil, pick } from 'ramda'
 
+type ApiErrorLogLevel = 'error' | 'warn' | 'debug'
 export abstract class ApiError extends Error {
   status: ErrorStatus
+  protected caughtError: Error | undefined
+  protected logLevel: ApiErrorLogLevel
 
-  protected constructor(status: ErrorStatus, message: string) {
+  protected constructor(status: ErrorStatus, message: string, error?: unknown, logLevel?: ApiErrorLogLevel) {
     super(message)
     this.status = status
+    this.caughtError = isNil(error) ? undefined : (error as Error)
+    this.logLevel = logLevel ?? 'error'
+  }
+
+  logError() {
+    let logObject = {
+      status: this.status,
+      message: this.message,
+      cause: this.cause,
+      stack: this.stack
+    }
+    if (!isNil(this.caughtError)) {
+      logObject = assoc('originalError', pick(['name', 'message', 'cause', 'stack'], this.caughtError), logObject)
+    }
+    const logMessage = `API error: ${JSON.stringify(logObject)}`
+    if (this.logLevel === 'error') {
+      logger.error(logMessage)
+    } else if (this.logLevel === 'warn') {
+      logger.warn(logMessage)
+    } else {
+      logger.debug(logMessage)
+    }
   }
 
   getErrorResponse(): NextResponse<ErrorResponse> {
+    this.logError()
     return NextResponse.json(
       {
         error: errorMessage(this.message)
       },
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       { status: this.status }
     )
   }

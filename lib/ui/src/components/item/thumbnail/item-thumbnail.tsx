@@ -1,13 +1,13 @@
 import { SizeLG, SizeMD } from '../../../constants/size'
-import { ItemThumbnailSize } from '../../../types/item-thumbnail-size'
+import type { ItemThumbnailSize } from '../../../types/item-thumbnail-size'
 import { HideIfNil } from '../../base/utils/hide-if-nil'
 import { NftThumbnailPicture } from '../../nft/thumbnail/nft-thumbnail-picture'
 import { UserDiscordTagOffer } from '../../shared/user-discord-tag-offer'
 import { ItemThumbnailSelector } from './item-thumbnail-selector'
 import { ItemThumbnailTitle } from './item-thumbnail-title'
-import { ListingItem, OfferItem } from '@echo/ui-model'
+import type { ListingItem, OfferItem } from '@echo/ui-model'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   item: OfferItem | ListingItem

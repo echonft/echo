@@ -1,16 +1,16 @@
-import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
-import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-id'
-import { setUserNonce } from '../../../src/lib/server/helpers/user/set-user-nonce'
-import { nonceRequestHandler } from '../../../src/lib/server/request-handlers/user/nonce-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { NonceResponse } from '@echo/api'
 import { User } from '@echo/firestore-types'
+import { getSession } from '@server/helpers/auth/get-session'
+import { ApiError } from '@server/helpers/error/api-error'
+import { getUserById } from '@server/helpers/user/get-user-by-id'
+import { setUserNonce } from '@server/helpers/user/set-user-nonce'
+import { nonceRequestHandler } from '@server/request-handlers/user/nonce-request-handler'
 import { AuthOptions, Session } from 'next-auth'
 
-jest.mock('../../../src/lib/server/helpers/auth/get-session')
-jest.mock('../../../src/lib/server/helpers/user/find-user-by-id')
-jest.mock('../../../src/lib/server/helpers/user/set-user-nonce')
+jest.mock('@server/helpers/auth/get-session')
+jest.mock('@server/helpers/user/get-user-by-id')
+jest.mock('@server/helpers/user/set-user-nonce')
 describe('request-handlers - user - nonceRequestHandler', () => {
   const session = {
     user: {
@@ -35,7 +35,7 @@ describe('request-handlers - user - nonceRequestHandler', () => {
   it('if authenticated, returns success and updates DB', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
     jest.mocked(setUserNonce).mockResolvedValueOnce('testNonce')
-    jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
     const req = mockRequest<never>()
     const res = await nonceRequestHandler(req, {} as AuthOptions)
     expect(setUserNonce).toHaveBeenCalledTimes(1)

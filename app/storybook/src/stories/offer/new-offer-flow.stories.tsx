@@ -1,11 +1,8 @@
 import { getOfferById } from '../../mocks/model/offer'
-import {
-  NewOfferConfirmationModal,
-  newOfferDataState,
-  NewOfferSliderManager as Component,
-  newOfferState
-} from '@echo/ui'
-import { OfferItem } from '@echo/ui-model'
+import { NewOfferConfirmationModal } from '@echo/ui/src/components/offer/new/new-offer-confirmation-modal'
+import { NewOfferSliderManager as Component } from '@echo/ui/src/components/offer/new/new-offer-slider-manager'
+import { newOfferDataState, newOfferState } from '@echo/ui/src/services/state'
+import type { OfferItem } from '@echo/ui-model'
 import { Meta, StoryObj } from '@storybook/react'
 import { FunctionComponent, useCallback, useEffect } from 'react'
 import { RecoilRoot, useRecoilState } from 'recoil'

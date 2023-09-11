@@ -18,8 +18,8 @@ export const ListingRowTargetsContainer: FunctionComponent<Props> = ({ targets }
       <SwapDirectionHeader direction={DirectionIn} title={t('in')} />
       <div className={clsx('flex', 'grow', 'gap-5', 'flex-wrap')}>
         {map(
-          ({ collection }) => (
-            <CollectionThumbnail key={collection.id} collection={collection} />
+          ({ amount, collection }) => (
+            <CollectionThumbnail key={collection.id} collection={collection} count={amount} />
           ),
           targets
         )}

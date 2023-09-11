@@ -1,14 +1,12 @@
-import { fetcher } from '../../../../../../lib/helpers/fetcher'
-import { mapListingFiltersToQueryParams } from '../../../../../../lib/helpers/request/map-listing-filters-to-query-params'
-import { mapQueryConstraintsToQueryParams } from '../../../../../../lib/helpers/request/map-query-constraints-to-query-params'
-import { ErrorStatus } from '../../../../../../lib/server/constants/error-status'
 import { GetListingsResponse, GetNftResponse, nftListingsApiUrl } from '@echo/api'
 import { nftApiUrl } from '@echo/api/src/routing/nft-api-url'
-import { NftDetailsApiProvided } from '@echo/ui'
+import { NftDetailsApiProvided } from '@echo/ui/src/components/nft/details/api-provided/nft-details-api-provided'
+import { fetcher } from '@helpers/fetcher'
+import { mapListingFiltersToQueryParams } from '@helpers/request/map-listing-filters-to-query-params'
+import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { clsx } from 'clsx'
-import { notFound } from 'next/navigation'
 import { isNil, mergeLeft } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   params: {
@@ -22,9 +20,6 @@ const NftPage: FunctionComponent<Props> = async ({ params: { slug, tokenId } }) 
 
   if (isNil(data)) {
     if (!isNil(error)) {
-      if (error.status === ErrorStatus.NOT_FOUND) {
-        notFound()
-      }
       throw Error(error.message)
     }
     throw Error()

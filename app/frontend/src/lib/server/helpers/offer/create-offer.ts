@@ -1,7 +1,7 @@
-import { ServerError } from '../error/server-error'
 import { addOffer, mapUserToUserDetails } from '@echo/firestore'
-import { OfferItem, User, Wallet } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { OfferItem, User, Wallet } from '@echo/firestore-types'
+import type { NonEmptyArray } from '@echo/utils'
+import { ServerError } from '@server/helpers/error/server-error'
 
 export const createOffer = async (
   sender: User,
@@ -11,14 +11,15 @@ export const createOffer = async (
   receiverWallet: Wallet,
   receiverItems: NonEmptyArray<OfferItem>
 ) => {
+  const newOffer = {
+    sender: mapUserToUserDetails(sender, senderWallet),
+    senderItems,
+    receiver: mapUserToUserDetails(receiver, receiverWallet),
+    receiverItems
+  }
   try {
-    return await addOffer({
-      sender: mapUserToUserDetails(sender, senderWallet),
-      senderItems,
-      receiver: mapUserToUserDetails(receiver, receiverWallet),
-      receiverItems
-    })
+    return await addOffer(newOffer)
   } catch (e) {
-    throw new ServerError('Error creating offer')
+    throw new ServerError(`error creating offer ${JSON.stringify(newOffer)}`, e)
   }
 }

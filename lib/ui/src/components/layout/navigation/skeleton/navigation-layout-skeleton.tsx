@@ -16,9 +16,7 @@ export const NavigationLayoutSkeleton: FunctionComponent<PropsWithChildren<Props
 }) => {
   return (
     <PaddedContainer>
-      <div className={'py-12'}>
-        <NavigationPillsSkeleton navigationItems={navigationItems} activeNavigationItem={activeNavigationItem} />
-      </div>
+      <NavigationPillsSkeleton navigationItems={navigationItems} activeNavigationItem={activeNavigationItem} />
       {children}
     </PaddedContainer>
   )

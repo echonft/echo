@@ -1,11 +1,11 @@
-import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { cancelListing } from '../../../src/lib/server/helpers/listing/cancel-listing'
-import { getListing } from '../../../src/lib/server/helpers/listing/get-listing'
-import { handleCancelListing } from '../../../src/lib/server/request-handlers/listing/handle-cancel-listing'
 import { Listing, User } from '@echo/firestore-types'
+import { ApiError } from '@server/helpers/error/api-error'
+import { cancelListing } from '@server/helpers/listing/cancel-listing'
+import { getListing } from '@server/helpers/listing/get-listing'
+import { handleCancelListing } from '@server/request-handlers/listing/handle-cancel-listing'
 
-jest.mock('../../../src/lib/server/helpers/listing/get-listing')
-jest.mock('../../../src/lib/server/helpers/listing/cancel-listing')
+jest.mock('@server/helpers/listing/get-listing')
+jest.mock('@server/helpers/listing/cancel-listing')
 
 describe('request-handlers - listing - handleCancelListing', () => {
   beforeEach(() => {

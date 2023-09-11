@@ -1,6 +1,6 @@
-import { mapNft } from './map-nft'
-import { ListingItemResponse } from '@echo/api'
-import { ListingItem } from '@echo/firestore-types'
+import type { ListingItemResponse } from '@echo/api'
+import type { ListingItem } from '@echo/firestore-types'
+import { mapNft } from '@server/mappers/to-response/map-nft'
 import { modify } from 'ramda'
 
 export function mapListingItem(item: ListingItem): ListingItemResponse {

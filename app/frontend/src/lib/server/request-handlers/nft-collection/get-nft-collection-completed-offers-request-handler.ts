@@ -1,10 +1,10 @@
-import { getNftCollectionOffers } from '../../helpers/listing/get-nft-collection-offers'
-import { assertNftCollection } from '../../helpers/nft-collection/assert-nft-collection'
-import { getNftCollectionBySlug } from '../../helpers/nft-collection/get-nft-collection-by-slug'
-import { parseConstraintsQuery } from '../../helpers/request/parse-constraints-query'
-import { parseOfferFiltersQuery } from '../../helpers/request/parse-offer-filters-query'
-import { mapOffer } from '../../mappers/to-response/map-offer'
-import { ApiRequest, GetOffersResponse } from '@echo/api'
+import type { ApiRequest, GetOffersResponse } from '@echo/api'
+import { assertNftCollection } from '@server/helpers/nft-collection/assert-nft-collection'
+import { getNftCollectionBySlug } from '@server/helpers/nft-collection/get-nft-collection-by-slug'
+import { getNftCollectionOffers } from '@server/helpers/offer/get-nft-collection-offers'
+import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
+import { parseOfferFiltersQuery } from '@server/helpers/request/parse-offer-filters-query'
+import { mapOffer } from '@server/mappers/to-response/map-offer'
 import { NextResponse } from 'next/server'
 import { assoc, dissoc, map, pipe } from 'ramda'
 
@@ -12,12 +12,12 @@ export async function getNftCollectionCompletedOffersRequestHandler(req: ApiRequ
   const constraints = parseConstraintsQuery(req)
   const filters = parseOfferFiltersQuery(req)
   const collection = await getNftCollectionBySlug(slug)
+  assertNftCollection(collection)
   const completedOffersFilters = pipe(
     assoc('states', ['COMPLETED']),
     dissoc('notStates'),
     assoc('includeExpired', true)
   )(filters)
-  assertNftCollection(collection)
-  const results = await getNftCollectionOffers(collection.id, constraints, completedOffersFilters)
+  const results = await getNftCollectionOffers(collection.id, completedOffersFilters, constraints)
   return NextResponse.json<GetOffersResponse>({ offers: map(mapOffer, results) })
 }

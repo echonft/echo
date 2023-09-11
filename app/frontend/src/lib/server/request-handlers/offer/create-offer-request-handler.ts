@@ -1,22 +1,22 @@
-import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
-import { BadRequestError } from '../../helpers/error/bad-request-error'
-import { createOffer } from '../../helpers/offer/create-offer'
-import { getOfferItems } from '../../helpers/offer/get-offer-items'
-import { getOfferItemsWallet } from '../../helpers/offer/get-offer-items-wallet'
-import { assertUser } from '../../helpers/user/assert-user'
-import { assertUserHasWallets } from '../../helpers/user/assert-user-has-wallets'
-import { findUserById } from '../../helpers/user/find-user-by-id'
-import { createOfferSchema } from '../../validators/create-offer-schema'
-import { ApiRequest, CreateOfferRequest, IdResponse } from '@echo/api'
+import type { ApiRequest, CreateOfferRequest, IdResponse } from '@echo/api'
+import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
+import { BadRequestError } from '@server/helpers/error/bad-request-error'
+import { createOffer } from '@server/helpers/offer/create-offer'
+import { getOfferItems } from '@server/helpers/offer/get-offer-items'
+import { getOfferItemsWallet } from '@server/helpers/offer/get-offer-items-wallet'
+import { assertUser } from '@server/helpers/user/assert-user'
+import { assertUserHasWallets } from '@server/helpers/user/assert-user-has-wallets'
+import { getUserById } from '@server/helpers/user/get-user-by-id'
+import { createOfferSchema } from '@server/validators/create-offer-schema'
 import { NextResponse } from 'next/server'
-import { AuthOptions } from 'next-auth'
+import type { AuthOptions } from 'next-auth'
 
 export async function createOfferRequestHandler(req: ApiRequest<CreateOfferRequest>, authOptions: AuthOptions) {
   const requestBody = await req.json()
   const { receiverItems, receiverId, senderItems } = parseCreateOfferRequest(requestBody)
   const sender = await getUserFromSession(authOptions)
   assertUserHasWallets(sender)
-  const receiver = await findUserById(receiverId)
+  const receiver = await getUserById(receiverId)
   assertUser(receiver)
   assertUserHasWallets(receiver)
   const receiverNfts = await getOfferItems(receiverItems)
@@ -31,6 +31,6 @@ function parseCreateOfferRequest(request: CreateOfferRequest) {
   try {
     return createOfferSchema.parse(request)
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(`error parsing create offer request ${JSON.stringify(request)}`, e)
   }
 }

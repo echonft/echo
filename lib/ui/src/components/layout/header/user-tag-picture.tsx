@@ -1,9 +1,9 @@
 import { getUserAvatarUrl } from '../../../helpers/get-user-avatar-url'
 import { DefaultUserProfilePicture } from '../../base/svg/default-user-profile-picture'
-import { AuthUser } from '@echo/ui-model'
+import type { AuthUser } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   user: AuthUser

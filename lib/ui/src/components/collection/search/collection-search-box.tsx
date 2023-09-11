@@ -1,6 +1,6 @@
 import { CollectionSearchBoxOptions } from './collection-search-box-options'
 import { CollectionSearchComboboxInput } from './collection-search-combobox-input'
-import { NftCollection } from '@echo/ui-model'
+import type { NftCollection } from '@echo/ui-model'
 import { Combobox, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { forwardRef, ForwardRefRenderFunction } from 'react'

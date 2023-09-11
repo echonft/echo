@@ -4,7 +4,7 @@ import { NewItemsEmptyContainer } from '../../item/empty/new-items-empty-contain
 import { NewItemsContainer } from '../../item/new/new-items-container'
 import { NewListingSliderExpirationContainer } from './new-listing-slider-expiration-container'
 import { NewListingSliderTargetsContainer } from './new-listing-slider-targets-container'
-import { ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
+import type { ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
 import { isNilOrEmpty } from '@echo/utils'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'

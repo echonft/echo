@@ -1,4 +1,4 @@
-import { NotFoundPage as Component } from '@echo/ui'
+import { NotFoundPage as Component } from '@echo/ui/src/components/layout/not-found-page'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

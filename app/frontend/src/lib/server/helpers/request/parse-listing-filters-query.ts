@@ -1,7 +1,7 @@
-import { booleanQueryParamSchema } from '../../validators/boolean-query-param-schema'
-import { BadRequestError } from '../error/bad-request-error'
-import { ApiRequest } from '@echo/api'
+import type { ApiRequest } from '@echo/api'
 import { LISTING_FILTER_AS, LISTING_STATES, ListingQueryFilters } from '@echo/firestore-types'
+import { BadRequestError } from '@server/helpers/error/bad-request-error'
+import { booleanQueryParamSchema } from '@server/validators/boolean-query-param-schema'
 import { assoc, both, has, isEmpty } from 'ramda'
 import { z } from 'zod'
 
@@ -14,9 +14,9 @@ const stateQueryParamSchema = z
   .nonempty()
 
 export function parseListingFiltersQuery<T>(req: ApiRequest<T>) {
+  let filters = {} as ListingQueryFilters
+  const { searchParams } = new URL(req.url)
   try {
-    let filters = {} as ListingQueryFilters
-    const { searchParams } = new URL(req.url)
     if (searchParams.has('as')) {
       const asFilter = asQueryParamSchema.parse(searchParams.get('as'))
       filters = assoc('as', asFilter, filters)
@@ -44,6 +44,9 @@ export function parseListingFiltersQuery<T>(req: ApiRequest<T>) {
 
     return filters
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(
+      `error parsing listing filters query parameters: ${JSON.stringify(searchParams.toString())}`,
+      e
+    )
   }
 }

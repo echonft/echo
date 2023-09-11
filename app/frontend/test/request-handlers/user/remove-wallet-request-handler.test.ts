@@ -1,18 +1,18 @@
-import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
-import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { findUserById } from '../../../src/lib/server/helpers/user/find-user-by-id'
-import { removeUserWallet } from '../../../src/lib/server/helpers/user/remove-user-wallet'
-import { updateUserNfts } from '../../../src/lib/server/helpers/user/update-user-nfts'
-import { removeWalletRequestHandler } from '../../../src/lib/server/request-handlers/user/remove-wallet-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { RemoveWalletRequest } from '@echo/api'
 import { User } from '@echo/firestore-types'
+import { getSession } from '@server/helpers/auth/get-session'
+import { ApiError } from '@server/helpers/error/api-error'
+import { getUserById } from '@server/helpers/user/get-user-by-id'
+import { removeUserWallet } from '@server/helpers/user/remove-user-wallet'
+import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
+import { removeWalletRequestHandler } from '@server/request-handlers/user/remove-wallet-request-handler'
 import { AuthOptions, Session } from 'next-auth'
 
-jest.mock('../../../src/lib/server/helpers/auth/get-session')
-jest.mock('../../../src/lib/server/helpers/user/find-user-by-id')
-jest.mock('../../../src/lib/server/helpers/user/remove-user-wallet')
-jest.mock('../../../src/lib/server/helpers/user/update-user-nfts')
+jest.mock('@server/helpers/auth/get-session')
+jest.mock('@server/helpers/user/get-user-by-id')
+jest.mock('@server/helpers/user/remove-user-wallet')
+jest.mock('@server/helpers/user/update-user-nfts')
 
 describe('request-handlers - user - removeWalletRequestHandler', () => {
   const validWallet = {
@@ -45,7 +45,7 @@ describe('request-handlers - user - removeWalletRequestHandler', () => {
 
   it('throws if the request cannot be parsed', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
     const req = mockRequest<RemoveWalletRequest>({} as RemoveWalletRequest)
     try {
       await removeWalletRequestHandler(req, {} as AuthOptions)
@@ -57,7 +57,7 @@ describe('request-handlers - user - removeWalletRequestHandler', () => {
 
   it('returns a 200 if the request is valid', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(findUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
     jest.mocked(removeUserWallet).mockResolvedValueOnce()
     jest.mocked(updateUserNfts).mockResolvedValueOnce()
     const req = mockRequest<RemoveWalletRequest>(validRequest)

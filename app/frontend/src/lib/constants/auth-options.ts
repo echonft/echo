@@ -1,9 +1,9 @@
-import { createOrUpdateUser } from '../server/helpers/auth/create-or-update-user'
 import { getDiscordAuthorizationUrl, getDiscordConfig } from '@echo/discord'
-import { logger } from '@echo/utils'
-import { AuthOptions } from 'next-auth'
+import { errorMessage, logger } from '@echo/utils'
+import { createOrUpdateUser } from '@server/helpers/auth/create-or-update-user'
+import type { AuthOptions } from 'next-auth'
 import Discord from 'next-auth/providers/discord'
-import { isNil } from 'ramda'
+import { dissoc, isNil } from 'ramda'
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -17,7 +17,6 @@ export const authOptions: AuthOptions = {
     signIn: '/login',
     signOut: '/logout'
   },
-  // TODO Validate the persistence of session
   callbacks: {
     async jwt({ token, account }) {
       if (account) {
@@ -25,18 +24,17 @@ export const authOptions: AuthOptions = {
           const user = await createOrUpdateUser(account.access_token, account.token_type, token.user)
           return { user, ...token }
         } catch (e) {
-          logger.error('Auth error: error creating or updating user')
+          logger.error(`Auth error: error creating or updating user: ${errorMessage(e)}`)
           return token
         }
       }
       return token
     },
     session({ session, token: { user } }) {
-      // Should never happen, only for type guarding
       if (isNil(user)) {
-        throw Error('Auth error: invalid token data')
+        logger.error('Auth error: user is nil in session callback')
+        return dissoc('user', session)
       }
-      // Inject user in session
       return { ...session, user }
     }
   }

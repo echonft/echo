@@ -1,16 +1,16 @@
-import { BadRequestError } from '../../helpers/error/bad-request-error'
-import { assertNft } from '../../helpers/nft/assert-nft'
-import { getNftByCollection } from '../../helpers/nft/get-nft-by-collection'
-import { mapNft } from '../../mappers/to-response/map-nft'
-import { tokenIdSchema } from '../../validators/token-id-schema'
-import { ApiRequest, GetNftResponse } from '@echo/api'
+import type { ApiRequest, GetNftResponse } from '@echo/api'
+import { BadRequestError } from '@server/helpers/error/bad-request-error'
+import { assertNft } from '@server/helpers/nft/assert-nft'
+import { getNftByCollection } from '@server/helpers/nft/get-nft-by-collection'
+import { mapNft } from '@server/mappers/to-response/map-nft'
+import { tokenIdSchema } from '@server/validators/token-id-schema'
 import { NextResponse } from 'next/server'
 
 function parseTokenId(tokenId: number): number {
   try {
     return tokenIdSchema.parse(tokenId)
   } catch (e) {
-    throw new BadRequestError()
+    throw new BadRequestError(`error parsing token id ${tokenId}`, e)
   }
 }
 

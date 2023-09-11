@@ -1,6 +1,6 @@
-import { NftDetailsSkeleton } from '@echo/ui'
+import { NftDetailsSkeleton } from '@echo/ui/src/components/nft/details/skeleton/nft-details-skeleton'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 const NftDetailsLoading: FunctionComponent = () => {
   return (
