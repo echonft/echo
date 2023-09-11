@@ -1,6 +1,6 @@
 import { getAllNfts } from '../../../mocks/model/nft'
-import { TraitFilterPanel as Component, TraitFilterPanelSkeleton } from '@echo/ui'
-import { NftTraits } from '@echo/ui-model'
+import { TraitFilterPanel as Component } from '@echo/ui/src/components/nft/filters/by-traits/trait-filter-panel'
+import type { NftTraits } from '@echo/ui-model'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -28,8 +28,4 @@ export const Default: Story = {
     nfts: getAllNfts(),
     selection: {} as NftTraits
   }
-}
-
-export const Skeleton: Story = {
-  render: () => <TraitFilterPanelSkeleton />
 }

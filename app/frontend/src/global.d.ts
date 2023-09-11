@@ -1,5 +1,5 @@
-import { MessagesType } from '@echo/ui'
-import { AuthUser } from '@echo/ui-model'
+import type { MessagesType } from '@echo/ui/src/types/messages'
+import type { AuthUser } from '@echo/ui-model'
 
 export declare global {
   // get typings on translation keys

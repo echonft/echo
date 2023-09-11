@@ -1,5 +1,5 @@
 import { getNftById } from '../../mocks/model/nft'
-import { SelectableNftThumbnail as Component, SelectionManager } from '@echo/ui'
+import { SelectableNftThumbnail as Component } from '@echo/ui/src/components/nft/thumbnail/selectable-nft-thumbnail'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -52,12 +52,4 @@ export const Disabled: Story = {
     linkDisabled: true,
     disabled: true
   }
-}
-
-export const Managed: Story = {
-  render: () => (
-    <SelectionManager>
-      <Component nft={nft} linkDisabled={true} />
-    </SelectionManager>
-  )
 }

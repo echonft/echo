@@ -1,4 +1,4 @@
-import { OfferInfoContainer as Component } from '@echo/ui'
+import { OfferInfoContainer as Component } from '@echo/ui/src/components/offer/row/offer-info-container'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

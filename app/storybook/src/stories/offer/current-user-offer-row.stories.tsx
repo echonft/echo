@@ -1,5 +1,6 @@
 import { getOfferById } from '../../mocks/model/offer'
-import { CurrentUserOfferRow as Component, OfferRoleReceiver, OfferRoleSender } from '@echo/ui'
+import { CurrentUserOfferRow as Component } from '@echo/ui/src/components/offer/row/current-user-offer-row'
+import { OfferRoleReceiver, OfferRoleSender } from '@echo/ui/src/constants/offer-role'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')!

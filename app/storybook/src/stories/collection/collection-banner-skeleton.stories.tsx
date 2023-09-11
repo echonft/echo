@@ -1,8 +1,8 @@
-import { NotFoundPage as Component } from '@echo/ui/src/components/layout/not-found-page'
+import { BannerSkeleton as Component } from '@echo/ui/src/components/shared/skeleton/banner-skeleton'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Pages/Not Found',
+  title: 'Collection/Banner',
   component: Component
 }
 
@@ -10,4 +10,4 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const NotFound: Story = {}
+export const Skeleton: Story = {}

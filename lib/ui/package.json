@@ -4,8 +4,6 @@
   "private": true,
   "sideEffects": false,
   "license": "MIT",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
   "scripts": {
     "build": "tsup",
     "build:fix": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",

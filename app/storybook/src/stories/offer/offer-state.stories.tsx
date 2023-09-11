@@ -1,4 +1,4 @@
-import { OfferStatePill as Component, OfferStatePillSkeleton } from '@echo/ui'
+import { OfferStatePill as Component } from '@echo/ui/src/components/offer/row/offer-state-pill'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -20,8 +20,4 @@ export const Default: Story = {
   args: {
     state: 'OPEN'
   }
-}
-
-export const Skeleton: Story = {
-  render: () => <OfferStatePillSkeleton />
 }

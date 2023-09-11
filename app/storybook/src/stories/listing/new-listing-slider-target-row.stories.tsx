@@ -1,5 +1,5 @@
 import { getCollectionById } from '../../mocks/model/nft-collection'
-import { NewListingSliderTargetRow as Component } from '@echo/ui'
+import { NewListingSliderTargetRow as Component } from '@echo/ui/src/components/listing/new/new-listing-slider-target-row'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
@@ -21,7 +21,6 @@ export const Default: Story = {
     quantity: 1
   },
   render: (args) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument,@typescript-eslint/no-unsafe-member-access
     const [quantity, setQuantity] = useState<number>(args.quantity)
     return <Component {...args} quantity={quantity} onQuantityChange={setQuantity} />
   }

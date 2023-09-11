@@ -1,4 +1,4 @@
-import { Logo as Component } from '@echo/ui'
+import { Logo as Component } from '@echo/ui/src/components/base/logo/logo'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
