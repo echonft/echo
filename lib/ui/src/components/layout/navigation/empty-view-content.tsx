@@ -5,7 +5,7 @@ interface Props {
   message: string
 }
 
-export const EmptyContent: FunctionComponent<PropsWithChildren<Props>> = ({ message, children }) => {
+export const EmptyViewContent: FunctionComponent<PropsWithChildren<Props>> = ({ message, children }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'grow', 'h-96', 'justify-center', 'items-center')}>
       <div className={clsx('flex', 'flex-col', 'w-max', 'h-max', 'items-center', 'gap-12')}>
