@@ -1,7 +1,7 @@
-import { booleanQueryParamSchema } from '../../validators/boolean-query-param-schema'
-import { BadRequestError } from '../error/bad-request-error'
-import { ApiRequest } from '@echo/api'
+import type { ApiRequest } from '@echo/api'
 import { OFFER_FILTER_AS, OFFER_STATES, OfferQueryFilters } from '@echo/firestore-types'
+import { BadRequestError } from '@server/helpers/error/bad-request-error'
+import { booleanQueryParamSchema } from '@server/validators/boolean-query-param-schema'
 import { assoc, both, has, isEmpty } from 'ramda'
 import { z } from 'zod'
 

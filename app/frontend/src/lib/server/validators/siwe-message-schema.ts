@@ -1,5 +1,5 @@
-import { addressSchema } from './address-schema'
-import { chainIdSchema } from './chain-id-schema'
+import { addressSchema } from '@server/validators/address-schema'
+import { chainIdSchema } from '@server/validators/chain-id-schema'
 import { z } from 'zod'
 
 export const siweMessageSchema = z.object({

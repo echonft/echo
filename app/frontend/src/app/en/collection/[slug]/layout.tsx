@@ -1,12 +1,12 @@
-import { fetcher } from '../../../../lib/helpers/fetcher'
-import { ErrorStatus } from '../../../../lib/server/constants/error-status'
-import { ApiError } from '../../../../lib/server/helpers/error/api-error'
 import { collectionApiUrl, GetNftCollectionResponse } from '@echo/api'
 import { CollectionDetailsApiProvided } from '@echo/ui/src/components/collection/api-provided/collection-details-api-provided'
+import { fetcher } from '@helpers/fetcher'
+import { ErrorStatus } from '@server/constants/error-status'
+import { ApiError } from '@server/helpers/error/api-error'
 import { clsx } from 'clsx'
 import { notFound } from 'next/navigation'
 import { isNil } from 'ramda'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
   params: {

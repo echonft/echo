@@ -1,6 +1,6 @@
-import { ServerError } from '../error/server-error'
 import { removeUserWallet as firestoreRemoveUserWallet } from '@echo/firestore'
-import { Wallet } from '@echo/firestore-types'
+import type { Wallet } from '@echo/firestore-types'
+import { ServerError } from '@server/helpers/error/server-error'
 
 export const removeUserWallet = async (userId: string, wallet: Wallet) => {
   try {

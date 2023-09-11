@@ -1,7 +1,7 @@
-import { ServerError } from '../error/server-error'
 import { getOffersForReceiver, getOffersForSender } from '@echo/firestore'
 import { getOffersForUser } from '@echo/firestore/src/crud/offer/get-offers-for-user'
-import { OfferQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import type { OfferQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import { ServerError } from '@server/helpers/error/server-error'
 import { isNil } from 'ramda'
 
 export async function getUserOffers(userId: string, filters?: OfferQueryFilters, constraints?: QueryConstraints) {

@@ -1,11 +1,11 @@
-import { authOptions } from '../../../lib/constants/auth-options'
+import { authOptions } from '@constants/auth-options'
 import { ProfileDetails } from '@echo/ui/src/components/profile/details/profile-details'
 import { SizeLG } from '@echo/ui/src/constants/size'
 import { clsx } from 'clsx'
 import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { head, isEmpty, isNil } from 'ramda'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 const UserLayout: FunctionComponent<PropsWithChildren> = async ({ children }) => {
   const session = await getServerSession(authOptions)

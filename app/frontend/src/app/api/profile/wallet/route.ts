@@ -1,8 +1,8 @@
-import { authOptions } from '../../../../lib/constants/auth-options'
-import { handleRestrictedRequest } from '../../../../lib/server/request-handlers/handle-restricted-request'
-import { addWalletRequestHandler } from '../../../../lib/server/request-handlers/user/add-wallet-request-handler'
-import { removeWalletRequestHandler } from '../../../../lib/server/request-handlers/user/remove-wallet-request-handler'
-import { AddWalletRequest, ApiRequest, RemoveWalletRequest } from '@echo/api'
+import { authOptions } from '@constants/auth-options'
+import type { AddWalletRequest, ApiRequest, RemoveWalletRequest } from '@echo/api'
+import { handleRestrictedRequest } from '@server/request-handlers/handle-restricted-request'
+import { addWalletRequestHandler } from '@server/request-handlers/user/add-wallet-request-handler'
+import { removeWalletRequestHandler } from '@server/request-handlers/user/remove-wallet-request-handler'
 
 async function PUT(request: ApiRequest<AddWalletRequest>) {
   return await handleRestrictedRequest(request, authOptions, addWalletRequestHandler)

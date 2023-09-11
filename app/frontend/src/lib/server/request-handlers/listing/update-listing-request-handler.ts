@@ -1,9 +1,9 @@
-import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
-import { BadRequestError } from '../../helpers/error/bad-request-error'
-import { updateListingRequestSchema } from '../../validators/update-listing-request-schema'
-import { handleCancelListing } from './handle-cancel-listing'
-import { ApiRequest, UpdateListingRequest } from '@echo/api'
-import { AuthOptions } from 'next-auth'
+import type { ApiRequest, UpdateListingRequest } from '@echo/api'
+import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
+import { BadRequestError } from '@server/helpers/error/bad-request-error'
+import { handleCancelListing } from '@server/request-handlers/listing/handle-cancel-listing'
+import { updateListingRequestSchema } from '@server/validators/update-listing-request-schema'
+import type { AuthOptions } from 'next-auth'
 
 export async function updateListingRequestHandler(
   req: ApiRequest<UpdateListingRequest>,

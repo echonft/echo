@@ -1,10 +1,10 @@
-import { ServerError } from '../error/server-error'
 import {
   getListingsForCollection,
   getListingsForCollectionAsItem,
   getListingsForCollectionAsTarget
 } from '@echo/firestore'
-import { ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import type { ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import { ServerError } from '@server/helpers/error/server-error'
 import { both, has, isNotNil } from 'ramda'
 
 export async function getNftCollectionListings(

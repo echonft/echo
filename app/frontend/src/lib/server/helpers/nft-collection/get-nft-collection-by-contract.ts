@@ -1,5 +1,5 @@
-import { ServerError } from '../error/server-error'
-import { NftCollection } from '@echo/firestore-types'
+import type { NftCollection } from '@echo/firestore-types'
+import { ServerError } from '@server/helpers/error/server-error'
 import { both, find, pathEq } from 'ramda'
 
 export function getNftCollectionByContract(address: string, chainId: number, collections: NftCollection[]) {

@@ -2,7 +2,7 @@
 import { BottomSlider } from '../../layout/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '../../layout/bottom-slider/bottom-slider-title'
 import { NewListingSliderInnerContainer } from './new-listing-slider-inner-container'
-import { ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
+import type { ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
 import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
 import { assoc, find, isNil, map, pathEq, pipe, reject, when } from 'ramda'

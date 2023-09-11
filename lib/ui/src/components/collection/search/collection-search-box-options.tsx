@@ -1,10 +1,10 @@
 import { NewListingSearchCollectionOptionSkeleton } from '../../listing/new/skeleton/new-listing-search-collection-option-skeleton'
 import { CollectionSearchCollectionOption } from './collection-search-collection-option'
 import { CollectionSearchNoResults } from './collection-search-no-results'
-import { NftCollection } from '@echo/ui-model'
+import type { NftCollection } from '@echo/ui-model'
 import { Combobox } from '@headlessui/react'
 import { any, isEmpty, isNil, map, propEq } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   options: Array<NftCollection> | undefined

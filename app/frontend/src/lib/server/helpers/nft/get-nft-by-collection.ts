@@ -1,5 +1,5 @@
-import { ServerError } from '../error/server-error'
 import { findNftByCollection } from '@echo/firestore'
+import { ServerError } from '@server/helpers/error/server-error'
 
 export async function getNftByCollection(collectionSlug: string, tokenId: number) {
   try {

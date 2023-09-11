@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 const Home: FunctionComponent = () => {
   return <h1>Hello Botto!</h1>

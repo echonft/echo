@@ -1,10 +1,10 @@
-import { getNftBlurUrl } from '../nft/get-nft-blur-url'
-import { getOpenSeaUrl } from '../nft/get-open-sea-url'
-import { getNftCollectionByContract } from '../nft-collection/get-nft-collection-by-contract'
-import { AlchemyNft } from '@echo/alchemy'
+import type { AlchemyNft } from '@echo/alchemy'
 import { mapUserToUserDetails } from '@echo/firestore'
-import { Nft, NftCollection, User, Wallet } from '@echo/firestore-types'
+import type { Nft, NftCollection, User, Wallet } from '@echo/firestore-types'
 import { modifyStringPropToUrl } from '@echo/utils'
+import { getNftBlurUrl } from '@server/helpers/nft/get-nft-blur-url'
+import { getOpenSeaUrl } from '@server/helpers/nft/get-open-sea-url'
+import { getNftCollectionByContract } from '@server/helpers/nft-collection/get-nft-collection-by-contract'
 import { isNil, omit, pipe } from 'ramda'
 
 export const mapAlchemyNftToFirestore = (

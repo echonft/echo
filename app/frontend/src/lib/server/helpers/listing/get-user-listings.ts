@@ -1,6 +1,6 @@
-import { ServerError } from '../error/server-error'
 import { getListingsForCreator } from '@echo/firestore'
-import { ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import type { ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import { ServerError } from '@server/helpers/error/server-error'
 
 export async function getUserListings(userId: string, filters?: ListingQueryFilters, constraints?: QueryConstraints) {
   try {

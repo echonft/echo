@@ -1,8 +1,8 @@
-import { ServerError } from '../error/server-error'
 import { getOffersForCollection } from '@echo/firestore/src/crud/offer/get-offers-for-collection'
 import { getOffersForCollectionAsReceiverItem } from '@echo/firestore/src/crud/offer/get-offers-for-collection-as-receiver-item'
 import { getOffersForCollectionAsSenderItem } from '@echo/firestore/src/crud/offer/get-offers-for-collection-as-sender-item'
-import { OfferQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import type { OfferQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import { ServerError } from '@server/helpers/error/server-error'
 import { both, has, isNotNil } from 'ramda'
 
 export async function getNftCollectionOffers(

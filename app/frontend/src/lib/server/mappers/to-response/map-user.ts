@@ -1,5 +1,5 @@
-import { UserResponse } from '@echo/api'
-import { User } from '@echo/firestore-types'
+import type { UserResponse } from '@echo/api'
+import type { User } from '@echo/firestore-types'
 import { assoc, dissoc, head, lens, over, pick, pipe, prop } from 'ramda'
 
 export function mapUser(user: User) {

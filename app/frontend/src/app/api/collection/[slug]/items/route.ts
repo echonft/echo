@@ -1,6 +1,6 @@
-import { handleRequest } from '../../../../../lib/server/request-handlers/handle-request'
-import { getNftCollectionNftsRequestHandler } from '../../../../../lib/server/request-handlers/nft-collection/get-nft-collection-nfts-request-handler'
-import { ApiRequest } from '@echo/api'
+import type { ApiRequest } from '@echo/api'
+import { handleRequest } from '@server/request-handlers/handle-request'
+import { getNftCollectionNftsRequestHandler } from '@server/request-handlers/nft-collection/get-nft-collection-nfts-request-handler'
 
 /**
  * Available query params:

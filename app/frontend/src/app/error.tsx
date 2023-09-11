@@ -1,6 +1,6 @@
 'use client'
 import { ErrorPage } from '@echo/ui/src/components/layout/error-page'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   error: Error & { digest?: string }

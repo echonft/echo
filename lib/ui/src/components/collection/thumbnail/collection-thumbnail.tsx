@@ -3,9 +3,9 @@ import { links } from '../../../constants/links'
 import { InternalLink } from '../../base/link/internal-link'
 import { NftThumbnailPicture } from '../../nft/thumbnail/nft-thumbnail-picture'
 import { CollectionThumbnailTitle } from './collection-thumbnail-title'
-import { NftCollection } from '@echo/ui-model'
+import type { NftCollection } from '@echo/ui-model'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   count: number

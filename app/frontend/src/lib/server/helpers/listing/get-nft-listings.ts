@@ -1,6 +1,6 @@
-import { ServerError } from '../error/server-error'
 import { getListingsForNft } from '@echo/firestore'
-import { ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import type { ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import { ServerError } from '@server/helpers/error/server-error'
 
 export async function getNftListings(nftId: string, filters?: ListingQueryFilters, constraints?: QueryConstraints) {
   try {

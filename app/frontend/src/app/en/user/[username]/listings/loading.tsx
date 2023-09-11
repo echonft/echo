@@ -1,5 +1,5 @@
 import { UserListingsSkeleton } from '@echo/ui/src/components/user/listing/skeleton/user-listings-skeleton'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 const UserListingsLoading: FunctionComponent = () => {
   return <UserListingsSkeleton />

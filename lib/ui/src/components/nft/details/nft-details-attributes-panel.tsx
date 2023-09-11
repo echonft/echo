@@ -1,8 +1,8 @@
 import { NftDetailsAttribute } from './nft-details-attribute'
-import { NftAttribute } from '@echo/ui-model'
+import type { NftAttribute } from '@echo/ui-model'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   attributes: NftAttribute[]

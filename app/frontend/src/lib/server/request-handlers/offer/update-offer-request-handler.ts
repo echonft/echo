@@ -1,11 +1,11 @@
-import { getUserFromSession } from '../../helpers/auth/get-user-from-session'
-import { BadRequestError } from '../../helpers/error/bad-request-error'
-import { updateOfferRequestSchema } from '../../validators/update-offer-request-schema'
-import { handleAcceptOffer } from './handle-accept-offer'
-import { handleCancelOffer } from './handle-cancel-offer'
-import { handleRejectOffer } from './handle-reject-offer'
 import { ApiRequest, UpdateOfferAction, UpdateOfferRequest } from '@echo/api'
-import { AuthOptions } from 'next-auth'
+import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
+import { BadRequestError } from '@server/helpers/error/bad-request-error'
+import { handleAcceptOffer } from '@server/request-handlers/offer/handle-accept-offer'
+import { handleCancelOffer } from '@server/request-handlers/offer/handle-cancel-offer'
+import { handleRejectOffer } from '@server/request-handlers/offer/handle-reject-offer'
+import { updateOfferRequestSchema } from '@server/validators/update-offer-request-schema'
+import type { AuthOptions } from 'next-auth'
 
 export async function updateOfferRequestHandler(
   req: ApiRequest<UpdateOfferRequest>,

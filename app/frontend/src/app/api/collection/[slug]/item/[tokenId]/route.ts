@@ -1,6 +1,6 @@
-import { handleRequest } from '../../../../../../lib/server/request-handlers/handle-request'
-import { getNftRequestHandler } from '../../../../../../lib/server/request-handlers/nft/get-nft-request-handler'
-import { ApiRequest } from '@echo/api'
+import type { ApiRequest } from '@echo/api'
+import { handleRequest } from '@server/request-handlers/handle-request'
+import { getNftRequestHandler } from '@server/request-handlers/nft/get-nft-request-handler'
 
 export async function GET(request: ApiRequest<never>, { params }: { params: { slug: string; tokenId: string } }) {
   return await handleRequest(request, getNftRequestHandler, params.slug, params.tokenId)

@@ -6,9 +6,9 @@ import { ShowIfNil } from '../../base/utils/show-if-nil'
 import { PaddedContainer } from '../padded-container'
 import { ConnectButton } from './connect-button'
 import { UserTag } from './user-tag'
-import { AuthUser } from '@echo/ui-model'
+import type { AuthUser } from '@echo/ui-model'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   user?: AuthUser

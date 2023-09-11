@@ -1,4 +1,3 @@
-import { fetcher } from '../../../helpers/fetcher'
 import {
   AlchemyNft,
   AlchemyRoutes,
@@ -8,6 +7,7 @@ import {
   handlePaging,
   mapGetNftsForOwnerResponse
 } from '@echo/alchemy'
+import { fetcher } from '@helpers/fetcher'
 
 function fetchNftsForOwner(request: GetNftsForOwnerRequest) {
   return fetcher(getAlchemyRoute(AlchemyRoutes.GET_NFTS_FOR_OWNER))

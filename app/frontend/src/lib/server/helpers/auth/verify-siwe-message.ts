@@ -1,5 +1,5 @@
 import { ForbiddenError } from '../error/forbidden-error'
-import { SiweMessage, SiweResponse } from 'siwe'
+import type { SiweMessage, SiweResponse } from 'siwe'
 
 export async function verifySiweMessage(signature: string, siweMessage: SiweMessage): Promise<SiweResponse> {
   try {

@@ -1,9 +1,9 @@
-import { fetcher } from '../../../../../lib/helpers/fetcher'
-import { mapQueryConstraintsToQueryParams } from '../../../../../lib/helpers/request/map-query-constraints-to-query-params'
 import { GetNftsResponse, userNftsApiUrl } from '@echo/api'
 import { UserNftsApiProvided } from '@echo/ui/src/components/user/api-provided/user-nfts-api-provided'
+import { fetcher } from '@helpers/fetcher'
+import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { isNil } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   params: {

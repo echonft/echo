@@ -1,15 +1,15 @@
-import { getNftsForOwner } from '../alchemy/get-nfts-for-owner'
-import { mapAlchemyNftToFirestore } from '../alchemy/map-alchemy-nft-to-firestore'
-import { setUserNftsUpdated } from './set-user-nfts-updated'
 import {
   addNft,
   findNftByCollectionContract,
   getAllNftCollections,
   getUserWalletAddresses,
-  setNftOwner
+  setNftOwner,
+  setUserNftsUpdated
 } from '@echo/firestore'
 import { User, Wallet } from '@echo/firestore-types'
 import { isNilOrEmpty } from '@echo/utils'
+import { getNftsForOwner } from '@server/helpers/alchemy/get-nfts-for-owner'
+import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nft-to-firestore'
 import { isNil, map, path } from 'ramda'
 
 interface RequiredUserProps {

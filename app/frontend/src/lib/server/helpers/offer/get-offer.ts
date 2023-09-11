@@ -1,5 +1,5 @@
-import { ServerError } from '../error/server-error'
 import { findOfferById } from '@echo/firestore'
+import { ServerError } from '@server/helpers/error/server-error'
 
 export const getOffer = async (offerId: string) => {
   try {
