@@ -13,7 +13,7 @@ interface Props {
 
 export const NavigationPills: FunctionComponent<Props> = ({ items, activeItem }) => {
   return (
-    <div className={clsx('flex', 'flex-row', 'w-full', 'gap-3.5')}>
+    <div className={clsx('flex', 'flex-row', 'w-full', 'gap-3.5', 'h-max', 'py-12')}>
       {map(
         ({ id, name, path }) => (
           <NavigationPill key={id} name={name} path={path} selected={id === activeItem} />

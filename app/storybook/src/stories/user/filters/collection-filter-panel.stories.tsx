@@ -1,5 +1,5 @@
 import { getAllNfts } from '../../../mocks/model/nft'
-import { CollectionFilterPanel as Component, CollectionFilterPanelSkeleton } from '@echo/ui'
+import { CollectionFilterPanel as Component } from '@echo/ui/src/components/nft/filters/by-collection/collection-filter-panel'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -27,8 +27,4 @@ export const Default: Story = {
     nfts: getAllNfts(),
     selection: []
   }
-}
-
-export const Skeleton: Story = {
-  render: () => <CollectionFilterPanelSkeleton />
 }

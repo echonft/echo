@@ -1,5 +1,5 @@
-import { updateListingRequestSchema } from '../../src/lib/server/validators/update-listing-request-schema'
 import { UpdateListingAction } from '@echo/api'
+import { updateListingRequestSchema } from '@server/validators/update-listing-request-schema'
 
 describe('validators - updateListingRequestSchema', () => {
   it('wrong action fails validation', () => {

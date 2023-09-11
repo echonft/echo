@@ -1,4 +1,4 @@
-import { NavigationPills as Component } from '@echo/ui'
+import { NavigationPills as Component } from '@echo/ui/src/components/layout/navigation/navigation-pills'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

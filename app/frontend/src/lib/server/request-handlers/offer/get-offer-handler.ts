@@ -1,7 +1,7 @@
-import { assertOffer } from '../../helpers/offer/assert-offer'
-import { getOffer } from '../../helpers/offer/get-offer'
-import { mapOffer } from '../../mappers/to-response/map-offer'
-import { ApiRequest, GetOfferResponse } from '@echo/api'
+import type { ApiRequest, GetOfferResponse } from '@echo/api'
+import { assertOffer } from '@server/helpers/offer/assert-offer'
+import { getOffer } from '@server/helpers/offer/get-offer'
+import { mapOffer } from '@server/mappers/to-response/map-offer'
 import { NextResponse } from 'next/server'
 
 export async function getOfferHandler(_req: ApiRequest<never>, offerId: string) {

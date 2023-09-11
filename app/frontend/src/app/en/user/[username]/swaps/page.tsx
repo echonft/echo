@@ -1,12 +1,10 @@
-import { fetcher } from '../../../../../lib/helpers/fetcher'
-import { mapQueryConstraintsToQueryParams } from '../../../../../lib/helpers/request/map-query-constraints-to-query-params'
-import { ErrorStatus } from '../../../../../lib/server/constants/error-status'
-import { GetOffersResponse } from '@echo/api'
+import type { GetOffersResponse } from '@echo/api'
 import { userSwapsApiUrl } from '@echo/api/src/routing/user-swaps-api-url'
-import { UserSwapsApiProvided } from '@echo/ui'
-import { notFound } from 'next/navigation'
+import { UserSwapsApiProvided } from '@echo/ui/src/components/user/api-provided/user-swaps-api-provided'
+import { fetcher } from '@helpers/fetcher'
+import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { isNil } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   params: {
@@ -26,9 +24,6 @@ const UserSwapsPage: FunctionComponent<Props> = async ({ params: { username } })
 
   if (isNil(data)) {
     if (!isNil(error)) {
-      if (error.status === ErrorStatus.NOT_FOUND) {
-        notFound()
-      }
       throw Error(error.message)
     }
     throw Error()

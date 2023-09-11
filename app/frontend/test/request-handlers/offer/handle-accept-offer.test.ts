@@ -1,11 +1,11 @@
-import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { acceptOffer } from '../../../src/lib/server/helpers/offer/accept-offer'
-import { getOffer } from '../../../src/lib/server/helpers/offer/get-offer'
-import { handleAcceptOffer } from '../../../src/lib/server/request-handlers/offer/handle-accept-offer'
 import { Offer, User } from '@echo/firestore-types'
+import { ApiError } from '@server/helpers/error/api-error'
+import { acceptOffer } from '@server/helpers/offer/accept-offer'
+import { getOffer } from '@server/helpers/offer/get-offer'
+import { handleAcceptOffer } from '@server/request-handlers/offer/handle-accept-offer'
 
-jest.mock('../../../src/lib/server/helpers/offer/get-offer')
-jest.mock('../../../src/lib/server/helpers/offer/accept-offer')
+jest.mock('@server/helpers/offer/get-offer')
+jest.mock('@server/helpers/offer/accept-offer')
 
 describe('request-handlers - offer - handleAcceptOffer', () => {
   beforeEach(() => {

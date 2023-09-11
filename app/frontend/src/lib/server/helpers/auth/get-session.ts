@@ -6,6 +6,6 @@ export async function getSession(authOptions: AuthOptions) {
   try {
     return await getServerSession(authOptions)
   } catch (e) {
-    throw new ServerError('Error retrieving session')
+    throw new ServerError('error retrieving session', e)
   }
 }

@@ -1,6 +1,6 @@
-import { ServerError } from '../error/server-error'
 import { setUserNonce as FirestoreSetUserNonce } from '@echo/firestore'
-import { User } from '@echo/firestore-types'
+import type { User } from '@echo/firestore-types'
+import { ServerError } from '@server/helpers/error/server-error'
 import { generateNonce } from 'siwe'
 
 export const setUserNonce = async (user: User) => {
@@ -9,6 +9,6 @@ export const setUserNonce = async (user: User) => {
     await FirestoreSetUserNonce(user.id, nonce)
     return nonce
   } catch (e) {
-    throw new ServerError('Error setting user nonce')
+    throw new ServerError(`error setting nonce for user ${JSON.stringify(user)}`, e)
   }
 }

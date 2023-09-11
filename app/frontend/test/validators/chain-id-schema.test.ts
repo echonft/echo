@@ -1,5 +1,5 @@
-import { chainIdSchema } from '../../src/lib/server/validators/chain-id-schema'
 import { supportedChains } from '@echo/utils'
+import { chainIdSchema } from '@server/validators/chain-id-schema'
 import { forEach, includes } from 'ramda'
 
 describe('validators - chainIdSchema', () => {

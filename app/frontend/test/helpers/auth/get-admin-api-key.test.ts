@@ -1,4 +1,4 @@
-import { getAdminApiKey } from '../../../src/lib/server/helpers/auth/get-admin-api-key'
+import { getAdminApiKey } from '@server/helpers/auth/get-admin-api-key'
 
 describe('utils - auth - getAdminApiKey', () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -1,6 +1,6 @@
 import { getNftById } from './nft'
 import { getCollectionById } from './nft-collection'
-import { Listing } from '@echo/ui-model'
+import type { Listing } from '@echo/ui-model'
 import { NonEmptyArray } from '@echo/utils'
 import dayjs from 'dayjs'
 

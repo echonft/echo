@@ -1,13 +1,11 @@
-import { fetcher } from '../../../../../lib/helpers/fetcher'
-import { mapListingFiltersToQueryParams } from '../../../../../lib/helpers/request/map-listing-filters-to-query-params'
-import { mapQueryConstraintsToQueryParams } from '../../../../../lib/helpers/request/map-query-constraints-to-query-params'
-import { ErrorStatus } from '../../../../../lib/server/constants/error-status'
-import { GetListingsResponse } from '@echo/api'
+import type { GetListingsResponse } from '@echo/api'
 import { userListingsApiUrl } from '@echo/api/src/routing/user-listings-api-url'
-import { UserListingsApiProvided } from '@echo/ui'
-import { notFound } from 'next/navigation'
+import { UserListingsApiProvided } from '@echo/ui/src/components/user/api-provided/user-listings-api-provided'
+import { fetcher } from '@helpers/fetcher'
+import { mapListingFiltersToQueryParams } from '@helpers/request/map-listing-filters-to-query-params'
+import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { isNil, mergeLeft } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   params: {
@@ -28,9 +26,6 @@ const UserListingsPage: FunctionComponent<Props> = async ({ params: { username }
 
   if (isNil(data)) {
     if (!isNil(error)) {
-      if (error.status === ErrorStatus.NOT_FOUND) {
-        notFound()
-      }
       throw Error(error.message)
     }
     throw Error()

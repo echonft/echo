@@ -1,5 +1,5 @@
-import { getNftCollectionByContract } from '../../../src/lib/server/helpers/nft-collection/get-nft-collection-by-contract'
 import { getAllNftCollectionMocks, getNftCollectionMockById } from '@echo/firestore'
+import { getNftCollectionByContract } from '@server/helpers/nft-collection/get-nft-collection-by-contract'
 
 describe('helpers - nft-collection - getNftCollectionByContract', () => {
   it('returns undefined if no collection is found with the given address', () => {

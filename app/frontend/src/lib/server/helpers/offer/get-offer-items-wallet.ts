@@ -1,8 +1,8 @@
-import { getOwnersForNft } from '../alchemy/get-owners-for-nft'
-import { ForbiddenError } from '../error/forbidden-error'
-import { ServerError } from '../error/server-error'
-import { OfferItem, User, Wallet } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { OfferItem, User, Wallet } from '@echo/firestore-types'
+import type { NonEmptyArray } from '@echo/utils'
+import { getOwnersForNft } from '@server/helpers/alchemy/get-owners-for-nft'
+import { ForbiddenError } from '@server/helpers/error/forbidden-error'
+import { ServerError } from '@server/helpers/error/server-error'
 import { equals, flatten, head, ifElse, intersection, length, map, pipe, uniq } from 'ramda'
 
 export const getOfferItemsWallet = (items: NonEmptyArray<OfferItem>, user: User): Promise<Wallet> =>
@@ -16,10 +16,15 @@ export const getOfferItemsWallet = (items: NonEmptyArray<OfferItem>, user: User)
         intersection(user.wallets),
         ifElse(pipe(length, equals(1)), head, () => {
           // FIXME edge case for ERC1155 where a user would hold them in multiple of their wallets
-          throw new ForbiddenError('User do not own all the NFTs')
+          throw new ForbiddenError(
+            `user with id ${user.id} do not own all the NFTs in offer items ${JSON.stringify(items)}`
+          )
         })
       )
     )
-    .catch(() => {
-      throw new ServerError('Error fetching NFTs owners')
+    .catch((e) => {
+      throw new ServerError(
+        `error fetching nft owners from alchemy for items ${JSON.stringify(items)} and user ${JSON.stringify(user)}`,
+        e
+      )
     })

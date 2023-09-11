@@ -1,6 +1,6 @@
-import { signatureSchema } from './signature-schema'
-import { siweMessageSchema } from './siwe-message-schema'
-import { walletSchema } from './wallet-schema'
+import { signatureSchema } from '@server/validators/signature-schema'
+import { siweMessageSchema } from '@server/validators/siwe-message-schema'
+import { walletSchema } from '@server/validators/wallet-schema'
 import { z } from 'zod'
 
 export const addWalletSchema = z.object({

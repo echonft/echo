@@ -1,5 +1,5 @@
-import { addWalletSchema } from '../../src/lib/server/validators/add-wallet-schema'
 import { getUserMockById } from '@echo/firestore'
+import { addWalletSchema } from '@server/validators/add-wallet-schema'
 import { SiweMessage } from 'siwe'
 
 describe('validators - addWalletSchema', () => {

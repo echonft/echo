@@ -1,4 +1,4 @@
-import { QueryType } from '@echo/utils'
+import type { QueryType } from '@echo/utils'
 import { forEach, forEachObjIndexed, isNil } from 'ramda'
 
 export function setUrlQuery<T extends QueryType>(url: URL, query: T, addArrayBrackets = false) {

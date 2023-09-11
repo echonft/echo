@@ -1,11 +1,11 @@
-import { NotFoundError } from '../error/not-found-error'
-import { NftCollection } from '@echo/firestore-types'
+import type { NftCollection } from '@echo/firestore-types'
+import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil } from 'ramda'
 
 export function assertNftCollection(
-  nftCollection: Partial<NftCollection> | undefined
-): asserts nftCollection is NonNullable<Partial<NftCollection>> {
-  if (isNil(nftCollection)) {
-    throw new NotFoundError()
+  collection: Partial<NftCollection> | undefined
+): asserts collection is NonNullable<Partial<NftCollection>> {
+  if (isNil(collection)) {
+    throw new BadRequestError('collection is nil')
   }
 }

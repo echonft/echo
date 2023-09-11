@@ -1,4 +1,4 @@
-import { OfferDetailsState as Component } from '@echo/ui'
+import { OfferDetailsState as Component } from '@echo/ui/src/components/offer/details/offer-details-state'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 

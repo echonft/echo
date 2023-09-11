@@ -1,4 +1,4 @@
-import { walletSchema } from '../../src/lib/server/validators/wallet-schema'
+import { walletSchema } from '@server/validators/wallet-schema'
 
 describe('validators - walletSchema', () => {
   it('wrong address fails validation', () => {

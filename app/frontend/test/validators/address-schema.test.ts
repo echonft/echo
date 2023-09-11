@@ -1,4 +1,4 @@
-import { addressSchema } from '../../src/lib/server/validators/address-schema'
+import { addressSchema } from '@server/validators/address-schema'
 
 describe('validators - addressSchema', () => {
   it('wrong address fails validation', () => {

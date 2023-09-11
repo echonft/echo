@@ -1,8 +1,8 @@
-import { ErrorStatus } from '../../constants/error-status'
-import { ApiError } from './api-error'
+import { ErrorStatus } from '@server/constants/error-status'
+import { ApiError } from '@server/helpers/error/api-error'
 
 export class BadRequestError extends ApiError {
-  constructor(message?: string) {
-    super(ErrorStatus.BAD_REQUEST, message ?? 'Bad Request')
+  constructor(message: string, error?: unknown) {
+    super(ErrorStatus.BAD_REQUEST, message, error, 'warn')
   }
 }
