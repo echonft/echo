@@ -18,6 +18,14 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    state: 'OPEN'
+    state: 'OPEN',
+    expired: false
+  }
+}
+
+export const Expired: Story = {
+  args: {
+    state: 'OPEN',
+    expired: true
   }
 }

@@ -23,7 +23,7 @@ export const NavigationPill: FunctionComponent<Props> = ({ name, path, selected 
       path={path}
       disabled={selected}
     >
-      <span className={clsx('prose-label-md', 'text-white')}>{name}</span>
+      <span className={clsx('prose-label-md', 'text-white', 'select-none')}>{name}</span>
     </InternalLink>
   )
 }

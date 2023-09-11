@@ -1,7 +1,6 @@
 import { OfferItem } from './offer-item'
 import { OfferState } from './offer-state'
 import { User } from './user'
-import { Wallet } from './wallet'
 import { NonEmptyArray } from '@echo/utils'
 import { Dayjs } from 'dayjs'
 
@@ -10,9 +9,9 @@ export interface Offer {
   createdAt: Dayjs
   expired: boolean
   expiresAt: Dayjs
-  receiver: User & { wallet: Wallet }
+  receiver: User
   receiverItems: NonEmptyArray<OfferItem>
-  sender: User & { wallet: Wallet }
+  sender: User
   senderItems: NonEmptyArray<OfferItem>
   state: OfferState
   swapTransactionId?: string

@@ -11,15 +11,16 @@ interface Props {
 }
 
 export const OfferRow: FunctionComponent<Props> = ({ offer }) => {
+  const { state, sender, senderItems, receiverItems, receiver } = offer
   return (
     <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4', 'p-4', 'rounded-lg', 'bg-white/[0.05]')}>
-      <OfferStatePill state={offer.state} />
+      <OfferStatePill state={state} />
       <div className={clsx('flex', 'flex-row', 'grow')}>
-        <OfferItemsContainer items={offer.senderItems} discordUsername={offer.sender.discordUsername} />
+        <OfferItemsContainer items={senderItems} discordUsername={sender.discordUsername} />
         <div className={clsx('flex', 'flex-row', 'grow', 'self-stretch', 'items-center', 'justify-center', 'px-4')}>
           <SwapIconSvg direction={DirectionLeft} />
         </div>
-        <OfferItemsContainer items={offer.receiverItems} discordUsername={offer.receiver.discordUsername} />
+        <OfferItemsContainer items={receiverItems} discordUsername={receiver.discordUsername} />
       </div>
     </div>
   )

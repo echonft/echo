@@ -2,6 +2,7 @@ import { getOffersForCollection } from '@echo/firestore/src/crud/offer/get-offer
 import { getOffersForCollectionAsReceiverItem } from '@echo/firestore/src/crud/offer/get-offers-for-collection-as-receiver-item'
 import { getOffersForCollectionAsSenderItem } from '@echo/firestore/src/crud/offer/get-offers-for-collection-as-sender-item'
 import type { OfferQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import { OfferFilterAsReceiver } from '@echo/firestore-types'
 import { ServerError } from '@server/helpers/error/server-error'
 import { both, has, isNotNil } from 'ramda'
 
@@ -12,7 +13,7 @@ export async function getNftCollectionOffers(
 ) {
   try {
     if (both(isNotNil, has('as'))(filters)) {
-      if (filters.as === 'receiver') {
+      if (filters.as === OfferFilterAsReceiver) {
         return await getOffersForCollectionAsReceiverItem(collectionId, filters, constraints)
       }
       return await getOffersForCollectionAsSenderItem(collectionId, filters, constraints)
@@ -20,7 +21,7 @@ export async function getNftCollectionOffers(
     return await getOffersForCollection(collectionId, filters, constraints)
   } catch (e) {
     throw new ServerError(
-      `error getting collection with id ${collectionId} offers with filters ${JSON.stringify(
+      `error getting offers for collection with id ${collectionId} with filters ${JSON.stringify(
         filters
       )} and constraints ${JSON.stringify(constraints)}`,
       e

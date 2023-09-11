@@ -1,8 +1,8 @@
-import { OfferInfoContainer as Component } from '@echo/ui/src/components/offer/row/offer-info-container'
+import { CurrentUserOfferRowHeader as Component } from '@echo/ui/src/components/offer/row/current-user-offer-row-header'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/Info',
+  title: 'Offer/Current User/Row Header',
   component: Component,
   argTypes: {
     state: {
@@ -19,6 +19,15 @@ type Story = StoryObj<typeof Component>
 export const Default: Story = {
   args: {
     state: 'OPEN',
-    discordUsername: 'johnnycagewins'
+    discordUsername: 'johnnycagewins',
+    expired: false
+  }
+}
+
+export const Expired: Story = {
+  args: {
+    state: 'OPEN',
+    discordUsername: 'johnnycagewins',
+    expired: true
   }
 }
