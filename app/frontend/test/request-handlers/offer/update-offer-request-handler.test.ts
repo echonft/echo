@@ -1,20 +1,20 @@
-import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
-import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { getUserById } from '../../../src/lib/server/helpers/user/get-user-by-id'
-import { handleAcceptOffer } from '../../../src/lib/server/request-handlers/offer/handle-accept-offer'
-import { handleCancelOffer } from '../../../src/lib/server/request-handlers/offer/handle-cancel-offer'
-import { handleRejectOffer } from '../../../src/lib/server/request-handlers/offer/handle-reject-offer'
-import { updateOfferRequestHandler } from '../../../src/lib/server/request-handlers/offer/update-offer-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { UpdateOfferAction, UpdateOfferRequest } from '@echo/api'
 import { User } from '@echo/firestore-types'
+import { getSession } from '@server/helpers/auth/get-session'
+import { ApiError } from '@server/helpers/error/api-error'
+import { getUserById } from '@server/helpers/user/get-user-by-id'
+import { handleAcceptOffer } from '@server/request-handlers/offer/handle-accept-offer'
+import { handleCancelOffer } from '@server/request-handlers/offer/handle-cancel-offer'
+import { handleRejectOffer } from '@server/request-handlers/offer/handle-reject-offer'
+import { updateOfferRequestHandler } from '@server/request-handlers/offer/update-offer-request-handler'
 import { AuthOptions, Session } from 'next-auth'
 
-jest.mock('../../../src/lib/server/helpers/auth/get-session')
-jest.mock('../../../src/lib/server/helpers/user/get-user-by-id')
-jest.mock('../../../src/lib/server/request-handlers/offer/handle-accept-offer')
-jest.mock('../../../src/lib/server/request-handlers/offer/handle-cancel-offer')
-jest.mock('../../../src/lib/server/request-handlers/offer/handle-reject-offer')
+jest.mock('@server/helpers/auth/get-session')
+jest.mock('@server/helpers/user/get-user-by-id')
+jest.mock('@server/request-handlers/offer/handle-accept-offer')
+jest.mock('@server/request-handlers/offer/handle-cancel-offer')
+jest.mock('@server/request-handlers/offer/handle-reject-offer')
 
 describe('request-handlers - offer - updateOfferRequestHandler', () => {
   const id = 'offerId'

@@ -1,17 +1,16 @@
-import { createOrUpdateUser } from '../../../src/lib/server/helpers/auth/create-or-update-user'
-import { fetchDiscordUser } from '../../../src/lib/server/helpers/user/fetch-discord-user'
-import { updateUserNfts } from '../../../src/lib/server/helpers/user/update-user-nfts'
-import { mapUserToAuthUser } from '../../../src/lib/server/mappers/auth/map-user-to-auth-user'
 import { addUser, findUserByDiscordId, updateUser } from '@echo/firestore'
 import { expectDateIsNow } from '@echo/firestore/test/test-utils/expect-date-is-now'
 import { User } from '@echo/firestore-types'
+import { createOrUpdateUser } from '@server/helpers/auth/create-or-update-user'
+import { fetchDiscordUser } from '@server/helpers/user/fetch-discord-user'
+import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
+import { mapUserToAuthUser } from '@server/mappers/auth/map-user-to-auth-user'
 import dayjs from 'dayjs'
 import { assoc, has, pipe } from 'ramda'
 
 jest.mock('@echo/firestore')
-jest.mock('../../../src/lib/server/helpers/user/fetch-discord-user')
-jest.mock('../../../src/lib/server/helpers/user/update-user')
-jest.mock('../../../src/lib/server/helpers/user/update-user-nfts')
+jest.mock('@server/helpers/user/fetch-discord-user')
+jest.mock('@server/helpers/user/update-user-nfts')
 
 describe('helpers - auth - createOrUpdateUser', () => {
   beforeEach(() => {

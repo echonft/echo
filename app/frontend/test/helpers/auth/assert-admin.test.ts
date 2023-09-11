@@ -1,9 +1,9 @@
-import { assertAdmin } from '../../../src/lib/server/helpers/auth/assert-admin'
-import { getAdminApiKey } from '../../../src/lib/server/helpers/auth/get-admin-api-key'
 import { ApiRequest } from '@echo/api'
+import { assertAdmin } from '@server/helpers/auth/assert-admin'
+import { getAdminApiKey } from '@server/helpers/auth/get-admin-api-key'
 import { NextRequest } from 'next/server'
 
-jest.mock('../../../src/lib/server/helpers/auth/get-admin-api-key')
+jest.mock('@server/helpers/auth/get-admin-api-key')
 
 describe('helpers - auth - assertAdmin', () => {
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { signatureSchema } from '../../src/lib/server/validators/signature-schema'
+import { signatureSchema } from '@server/validators/signature-schema'
 
 describe('validators - signatureSchema', () => {
   it('wrong signature fails validation', () => {

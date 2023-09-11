@@ -1,5 +1,5 @@
-import { mapOffer } from '../../../src/lib/server/mappers/to-response/map-offer'
 import { getOfferMockById } from '@echo/firestore'
+import { mapOffer } from '@server/mappers/to-response/map-offer'
 
 describe('mappers - to-response - mapOffer', () => {
   const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')

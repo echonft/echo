@@ -1,25 +1,25 @@
-import { getSession } from '../../../src/lib/server/helpers/auth/get-session'
-import { getSiweMessage } from '../../../src/lib/server/helpers/auth/get-siwe-message'
-import { verifySiweMessage } from '../../../src/lib/server/helpers/auth/verify-siwe-message'
-import { ApiError } from '../../../src/lib/server/helpers/error/api-error'
-import { addUserWallet } from '../../../src/lib/server/helpers/user/add-user-wallet'
-import { getUserById } from '../../../src/lib/server/helpers/user/get-user-by-id'
-import { getUserByWallet } from '../../../src/lib/server/helpers/user/get-user-by-wallet'
-import { updateUserNfts } from '../../../src/lib/server/helpers/user/update-user-nfts'
-import { addWalletRequestHandler } from '../../../src/lib/server/request-handlers/user/add-wallet-request-handler'
 import { mockRequest } from '../../mocks/request-response'
 import { AddWalletRequest } from '@echo/api'
 import { User } from '@echo/firestore-types'
+import { getSession } from '@server/helpers/auth/get-session'
+import { getSiweMessage } from '@server/helpers/auth/get-siwe-message'
+import { verifySiweMessage } from '@server/helpers/auth/verify-siwe-message'
+import { ApiError } from '@server/helpers/error/api-error'
+import { addUserWallet } from '@server/helpers/user/add-user-wallet'
+import { getUserById } from '@server/helpers/user/get-user-by-id'
+import { getUserByWallet } from '@server/helpers/user/get-user-by-wallet'
+import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
+import { addWalletRequestHandler } from '@server/request-handlers/user/add-wallet-request-handler'
 import { AuthOptions, Session } from 'next-auth'
 import { SiweMessage } from 'siwe'
 
-jest.mock('../../../src/lib/server/helpers/auth/get-session')
-jest.mock('../../../src/lib/server/helpers/user/get-user-by-id')
-jest.mock('../../../src/lib/server/helpers/user/get-user-by-wallet')
-jest.mock('../../../src/lib/server/helpers/auth/verify-siwe-message')
-jest.mock('../../../src/lib/server/helpers/user/add-user-wallet')
-jest.mock('../../../src/lib/server/helpers/user/update-user-nfts')
-jest.mock('../../../src/lib/server/helpers/auth/get-siwe-message')
+jest.mock('@server/helpers/auth/get-session')
+jest.mock('@server/helpers/user/get-user-by-id')
+jest.mock('@server/helpers/user/get-user-by-wallet')
+jest.mock('@server/helpers/auth/verify-siwe-message')
+jest.mock('@server/helpers/user/add-user-wallet')
+jest.mock('@server/helpers/user/update-user-nfts')
+jest.mock('@server/helpers/auth/get-siwe-message')
 
 describe('request-handlers - user - addWalletRequestHandler', () => {
   const validSiweMessage = new SiweMessage({
