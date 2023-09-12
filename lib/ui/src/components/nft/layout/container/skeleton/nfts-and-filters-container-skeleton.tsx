@@ -2,7 +2,7 @@ import { NftFilter } from '../../../../../types/nft-filter'
 import { NftsAndFiltersLayout } from '../../nfts-and-filters-layout'
 import { NftFiltersContainerSkeleton } from './nft-filters-container-skeleton'
 import { NftsContainerSkeleton } from './nfts-container-skeleton'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { FunctionComponent } from 'react'
 
 interface Props {

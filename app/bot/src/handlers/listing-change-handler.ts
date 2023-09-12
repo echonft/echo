@@ -3,7 +3,8 @@ import { buildListingEmbed } from '../builders/listing-embed-builder'
 import { getDiscordChannel } from '../helpers/get-discord-channel'
 import { getListingItemsGuild, getListingTargetsGuilds } from '@echo/firestore'
 import { DocumentChangeType, ListingComplete, NftCollectionDiscordGuild } from '@echo/firestore-types'
-import { errorMessage, logger } from '@echo/utils'
+import errorMessage from '@echo/utils/error-message'
+import logger from '@echo/utils/logger'
 import { Client } from 'discord.js'
 
 async function postListingToGuild(client: Client, listing: ListingComplete, discordGuild: NftCollectionDiscordGuild) {

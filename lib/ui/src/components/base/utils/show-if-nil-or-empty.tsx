@@ -1,5 +1,5 @@
 import { ShowIf } from './show-if'
-import { isNilOrEmpty } from '@echo/utils'
+import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
 import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
 interface Props {

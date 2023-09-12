@@ -1,4 +1,4 @@
-import { removeArrayFromArray, removeFromArray } from '../../src/array/remove-from-array'
+import { removeArrayFromArray, removeFromArray } from '@echo-utils/array/remove-from-array'
 import { describe, expect, it } from '@jest/globals'
 
 // TODO move these tests to utils

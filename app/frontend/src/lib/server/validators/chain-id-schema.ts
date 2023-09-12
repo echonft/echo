@@ -1,4 +1,5 @@
-import { isIn, supportedChains } from '@echo/utils'
+import isIn from '@echo/utils/is-in'
+import supportedChains from '@echo/utils/supported-chains'
 import { z } from 'zod'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

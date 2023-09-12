@@ -19,7 +19,9 @@ const config: Config = {
   coverageReporters: ['json-summary', 'text'],
   moduleNameMapper: {
     '^@echo-alchemy/(.*)$': '<rootDir>/src/$1',
-    '^@echo-alchemy-test/(.*)$': '<rootDir>/test/$1'
+    '^@echo-alchemy-test/(.*)$': '<rootDir>/test/$1',
+    '^@echo/utils/(.*)$': '<rootDir>/../utils/exports/$1',
+    '^@echo-utils/(.*)$': '<rootDir>/../utils/src/$1'
   },
   reporters: [
     'default',

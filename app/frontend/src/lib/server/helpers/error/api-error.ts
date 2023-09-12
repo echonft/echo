@@ -1,5 +1,6 @@
 import type { ErrorResponse } from '@echo/api/types'
-import { errorMessage, logger } from '@echo/utils'
+import errorMessage from '@echo/utils/error-message'
+import logger from '@echo/utils/logger'
 import { ErrorStatus } from '@server/constants/error-status'
 import { NextResponse } from 'next/server'
 import { assoc, isNil, pick } from 'ramda'

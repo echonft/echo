@@ -1,6 +1,6 @@
 import { NftCollection } from '../../types/nft-collection'
 import type { NftCollectionResponse } from '@echo/api/types'
-import { modifyStringPropToUrl } from '@echo/utils'
+import modifyStringPropToUrl from '@echo/utils/modify-string-prop-to-url'
 import { pipe } from 'ramda'
 
 export function mapNftCollection(response: Partial<NftCollectionResponse>): NftCollection {

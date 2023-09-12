@@ -2,7 +2,7 @@ import { OfferDiscordGuildDocumentData } from './offer-discord-guild-document-da
 import { OfferItemDocumentData } from './offer-item-document-data'
 import { UserDetailsDocumentData } from './user-details-document-data'
 import { OfferState } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 
 export interface OfferDocumentData {
   id: string

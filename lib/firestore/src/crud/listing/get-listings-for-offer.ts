@@ -3,7 +3,7 @@ import { listingDataConverter } from '../../converters/listing-data-converter'
 import { getOfferItemsCollectionId } from '../../helpers/offer/get-offer-items-collection-id'
 import { firestore } from '../../services/firestore'
 import { Listing, OfferItem } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { invoker, map, none, path, pathEq, pipe, prop, reject } from 'ramda'
 
 export async function getListingsForOffer(

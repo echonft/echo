@@ -2,7 +2,7 @@ import { Listing } from '../../types/listing'
 import { mapListingItem } from './map-listing-item'
 import { mapListingTarget } from './map-listing-target'
 import type { ListingResponse } from '@echo/api/types'
-import { modifyNumberPropToDate } from '@echo/utils'
+import modifyNumberPropToDate from '@echo/utils/modify-number-prop-to-date'
 import { map, modify, pipe } from 'ramda'
 
 export function mapListing(response: Partial<ListingResponse>) {

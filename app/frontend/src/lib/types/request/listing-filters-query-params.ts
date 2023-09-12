@@ -1,5 +1,5 @@
 import type { ListingFilterAs } from '@echo/firestore-types'
-import type { QueryType } from '@echo/utils'
+import type { QueryType } from '@echo/utils/types'
 
 export interface ListingFiltersQueryParams extends QueryType {
   as?: ListingFilterAs

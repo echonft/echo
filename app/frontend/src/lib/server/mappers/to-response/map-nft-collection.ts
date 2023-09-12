@@ -1,6 +1,6 @@
 import type { NftCollectionResponse } from '@echo/api/types'
 import type { NftCollection } from '@echo/firestore-types'
-import { modifyUrlPropToString } from '@echo/utils'
+import modifyUrlPropToString from '@echo/utils/modify-url-prop-to-string'
 import { dissoc, modify, pick, pipe } from 'ramda'
 
 export function mapNftCollection(collection: Partial<NftCollection>): NftCollectionResponse {

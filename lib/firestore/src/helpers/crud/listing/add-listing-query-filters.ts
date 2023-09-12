@@ -1,5 +1,7 @@
 import { Listing, ListingQueryFilters } from '@echo/firestore-types'
-import { intersects, isNilOrEmpty, single } from '@echo/utils'
+import intersects from '@echo/utils/intersects'
+import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
+import single from '@echo/utils/single'
 import { Query } from 'firebase-admin/lib/firestore'
 import { head, isNil } from 'ramda'
 

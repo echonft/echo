@@ -1,4 +1,4 @@
-import { propIsNotEmpty } from '../../src/fp/prop-is-not-empty'
+import { propIsNotEmpty } from '@echo-utils/fp/prop-is-not-empty'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - propIsNotEmpty', () => {

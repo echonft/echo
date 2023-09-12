@@ -1,7 +1,8 @@
 import { BuyOwnListingError } from '../errors/buy-own-listing-error'
 import { getDiscordChannel } from '../helpers/get-discord-channel'
 import { OfferComplete } from '@echo/firestore-types'
-import { errorMessage, logger } from '@echo/utils'
+import errorMessage from '@echo/utils/error-message'
+import logger from '@echo/utils/logger'
 import { ButtonInteraction, ChannelType } from 'discord.js'
 
 // TODO Might be renamed here if we go for listings and offers

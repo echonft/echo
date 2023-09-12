@@ -4,7 +4,8 @@ import { FirestoreDocumentDataConverter } from '../types/converters/firestore-do
 import { NftCollectionDocumentData } from '../types/model/nft-collection-document-data'
 import { contractDocumentDataConverter } from './contract-document-data-converter'
 import { NftCollection } from '@echo/firestore-types'
-import { modifyStringPropToUrl, modifyUrlPropToString } from '@echo/utils'
+import modifyStringPropToUrl from '@echo/utils/modify-string-prop-to-url'
+import modifyUrlPropToString from '@echo/utils/modify-url-prop-to-string'
 import { pipe } from 'ramda'
 
 export const nftCollectionDocumentDataConverter: FirestoreDocumentDataConverter<

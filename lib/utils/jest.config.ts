@@ -16,6 +16,10 @@ const config: Config = {
     '!<rootDir>/src/types/**'
   ],
   coverageReporters: ['json-summary', 'text'],
+  coverageDirectory: '<rootDir>/../../.coverage/lib/utils',
+  moduleNameMapper: {
+    '^@echo-utils/(.*)$': '<rootDir>/src/$1'
+  },
   reporters: [
     'default',
     [
@@ -24,7 +28,6 @@ const config: Config = {
         outputDirectory: '<rootDir>/../../.coverage/lib/utils'
       }
     ]
-  ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/utils'
+  ]
 }
 export default config

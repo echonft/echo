@@ -5,7 +5,7 @@ import { CollectionFilterPanelSkeleton } from '../../../filters/by-collection/sk
 import { TraitFilterPanelSkeleton } from '../../../filters/by-traits/skeleton/trait-filter-panel-skeleton'
 import { FiltersPanelButton } from '../../filters-panel-button'
 import { NftFiltersPanelLayout } from '../../nft-filters-panel-layout'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { includes } from 'ramda'
 import { FunctionComponent } from 'react'
 

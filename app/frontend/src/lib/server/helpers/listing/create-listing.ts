@@ -1,6 +1,6 @@
 import { addListing, mapUserToUserDetails } from '@echo/firestore'
 import type { ListingTarget, OfferItem, User, Wallet } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export const createListing = async (

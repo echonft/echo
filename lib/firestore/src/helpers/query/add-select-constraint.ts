@@ -1,4 +1,4 @@
-import { isIn } from '@echo/utils'
+import isIn from '@echo/utils/is-in'
 import { Query } from 'firebase-admin/firestore'
 import { filter, includes, is, isEmpty } from 'ramda'
 

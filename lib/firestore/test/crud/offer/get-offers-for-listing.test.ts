@@ -5,7 +5,7 @@ import { getOfferMockById } from '../../mocks/get-offer-mock-by-id'
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { ListingTarget, OfferItem } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer - getOffersForListing', () => {

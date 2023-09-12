@@ -1,5 +1,5 @@
 import { Id, Listing } from '@echo/firestore-types'
-import { propIsNil } from '@echo/utils'
+import propIsNil from '@echo/utils/prop-is-nil'
 import { isNil } from 'ramda'
 
 export function assertListing(

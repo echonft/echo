@@ -1,4 +1,4 @@
-import { isIn } from '../../src/fp/is-in'
+import { isIn } from '@echo-utils/fp/is-in'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - isIn', () => {

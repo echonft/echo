@@ -1,6 +1,6 @@
 import { CollectionSearchBox } from './collection-search-box'
 import type { NftCollection } from '@echo/ui-model'
-import { stringIncludes } from '@echo/utils'
+import stringIncludes from '@echo/utils/string-includes'
 import { filter, isNil, pipe, prop, toLower } from 'ramda'
 import { forwardRef, ForwardRefRenderFunction, useCallback, useEffect, useRef, useState } from 'react'
 

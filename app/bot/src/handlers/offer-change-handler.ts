@@ -2,7 +2,8 @@ import { getDiscordChannel } from '../helpers/get-discord-channel'
 import { offerLink } from '../routing/offer-link'
 import { findUserById, getOfferReceiverItemsGuild, setOfferDiscordGuild, userIsInGuild } from '@echo/firestore'
 import { DocumentChangeType, OfferComplete } from '@echo/firestore-types'
-import { errorMessage, logger } from '@echo/utils'
+import errorMessage from '@echo/utils/error-message'
+import logger from '@echo/utils/logger'
 import { ChannelType, Client } from 'discord.js'
 
 /**

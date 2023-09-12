@@ -1,5 +1,5 @@
 import { Id, Offer } from '@echo/firestore-types'
-import { propIsNil } from '@echo/utils'
+import propIsNil from '@echo/utils/prop-is-nil'
 import { isNil } from 'ramda'
 
 export function assertOffer(offer: Partial<Offer> | undefined): asserts offer is NonNullable<Partial<Offer>> & Id {

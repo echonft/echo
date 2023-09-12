@@ -11,7 +11,8 @@ import { listingTargetDocumentDataConverter } from './listing-target-document-da
 import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
 import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
 import { Listing } from '@echo/firestore-types'
-import { modifyDatePropToNumber, modifyNumberPropToDate } from '@echo/utils'
+import modifyDatePropToNumber from '@echo/utils/modify-date-prop-to-number'
+import modifyNumberPropToDate from '@echo/utils/modify-number-prop-to-date'
 import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { assoc, dissoc, has, lens, map, over, path, pipe, prop, uniq, when } from 'ramda'
 

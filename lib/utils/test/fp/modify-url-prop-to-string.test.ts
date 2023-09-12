@@ -1,4 +1,4 @@
-import { modifyUrlPropToString } from '../../src/fp/modify-url-prop-to-string'
+import { modifyUrlPropToString } from '@echo-utils/fp/modify-url-prop-to-string'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - modifyUrlPropToString', () => {

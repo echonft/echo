@@ -3,7 +3,7 @@ import { NewItemsEmptyContainer } from '../../item/empty/new-items-empty-contain
 import { NewItemsContainer } from '../../item/new/new-items-container'
 import { UserDetailsContainer } from '../../shared/user-details-container'
 import { OfferItem, User } from '@echo/ui-model'
-import { isNilOrEmpty } from '@echo/utils'
+import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

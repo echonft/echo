@@ -1,6 +1,6 @@
 import type { OfferItemRequest } from '@echo/api/types'
 import { getNftMockById } from '@echo/firestore'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { getNftById } from '@server/helpers/nft/get-nft-by-id'
 import { getOfferItems } from '@server/helpers/offer/get-offer-items'
 import { forEach } from 'ramda'

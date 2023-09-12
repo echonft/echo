@@ -10,7 +10,7 @@ import { TraitFilterPanel } from '../../filters/by-traits/trait-filter-panel'
 import { FiltersPanelButton } from '../filters-panel-button'
 import { NftFiltersPanelLayout } from '../nft-filters-panel-layout'
 import { Nft, NftTraits } from '@echo/ui-model'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { includes } from 'ramda'
 import { FunctionComponent, MouseEventHandler, useMemo } from 'react'
 

@@ -10,7 +10,10 @@ import { NftsAndFiltersLayout } from '../nfts-and-filters-layout'
 import { NftFiltersContainer } from './nft-filters-container'
 import { SelectableNftGroupsContainer } from './selectable-nft-groups-container'
 import { Nft, NftTraits } from '@echo/ui-model'
-import { isIn, NonEmptyArray, propIsEmpty, propIsNotEmpty } from '@echo/utils'
+import isIn from '@echo/utils/is-in'
+import propIsEmpty from '@echo/utils/prop-is-empty'
+import propIsNotEmpty from '@echo/utils/prop-is-not-empty'
+import type { NonEmptyArray } from '@echo/utils/types'
 import {
   add,
   assoc,

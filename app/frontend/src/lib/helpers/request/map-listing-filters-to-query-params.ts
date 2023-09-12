@@ -1,6 +1,6 @@
 import type { ListingQueryFilters } from '@echo/firestore-types'
-import { modifyBooleanPropToString } from '@echo/utils/src/fp/modify-boolean-prop-to-string'
-import { modifyPropName } from '@echo/utils/src/fp/modify-prop-name'
+import modifyBooleanPropToString from '@echo/utils/modify-boolean-prop-to-string'
+import modifyPropName from '@echo/utils/modify-prop-name'
 import type { ListingFiltersQueryParams } from '@type/request/listing-filters-query-params'
 import { pipe } from 'ramda'
 

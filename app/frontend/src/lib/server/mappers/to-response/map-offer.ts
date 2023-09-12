@@ -1,6 +1,6 @@
 import type { OfferResponse } from '@echo/api/types'
 import type { Offer } from '@echo/firestore-types'
-import { modifyDatePropToNumber } from '@echo/utils'
+import modifyDatePropToNumber from '@echo/utils/modify-date-prop-to-number'
 import { mapOfferItem } from '@server/mappers/to-response/map-offer-item'
 import { dissoc, map, modify, pipe } from 'ramda'
 

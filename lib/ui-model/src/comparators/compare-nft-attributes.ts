@@ -1,5 +1,6 @@
 import { NftAttribute } from '../types/nft-attribute'
-import { errorMessage, logger } from '@echo/utils'
+import errorMessage from '@echo/utils/error-message'
+import logger from '@echo/utils/logger'
 
 export function compareNftAttributes(attributeA: NftAttribute, attributeB: NftAttribute) {
   try {

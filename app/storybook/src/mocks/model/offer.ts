@@ -1,6 +1,6 @@
 import { getNftById } from './nft'
 import type { Offer } from '@echo/ui-model'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import dayjs from 'dayjs'
 
 const offers: { [key: string]: Offer } = {

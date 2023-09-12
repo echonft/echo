@@ -1,4 +1,4 @@
-import { propIsNil } from './prop-is-nil'
+import { propIsNil } from '@echo-utils/fp/prop-is-nil'
 import dayjs from 'dayjs'
 import { dissoc, has, ifElse, invoker, modify, pipe, prop, when } from 'ramda'
 

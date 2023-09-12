@@ -1,5 +1,5 @@
 import { Offer, OfferState } from '@echo/firestore-types'
-import { propIsNil } from '@echo/utils'
+import propIsNil from '@echo/utils/prop-is-nil'
 
 function assertOfferIsNotCancelled(offer: Partial<Offer>) {
   if (offer.state === 'CANCELLED') {

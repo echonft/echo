@@ -1,5 +1,5 @@
 import type { ApiRequest } from '@echo/api/types'
-import { QueryType } from '@echo/utils'
+import type { QueryType } from '@echo/utils/types'
 import { setUrlQuery } from '@helpers/request/set-url-query'
 import { NextRequest } from 'next/server'
 import { isNil } from 'ramda'

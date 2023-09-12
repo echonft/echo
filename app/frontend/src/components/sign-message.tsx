@@ -1,5 +1,5 @@
 import type { Signature } from '@echo/ui-model'
-import { logger } from '@echo/utils'
+import logger from '@echo/utils/logger'
 import { isNil } from 'ramda'
 import { FunctionComponent, useEffect, useRef } from 'react'
 import { SiweMessage } from 'siwe'

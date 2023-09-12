@@ -1,5 +1,5 @@
 import type { User } from '@echo/ui-model'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 
 const users: { [key: string]: User } = {
   '6rECUMhevHfxABZ1VNOm': {

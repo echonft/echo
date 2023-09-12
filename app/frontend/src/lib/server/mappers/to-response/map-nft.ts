@@ -1,6 +1,6 @@
 import type { NftResponse } from '@echo/api/types'
 import { Nft } from '@echo/firestore-types'
-import { modifyUrlPropToString } from '@echo/utils'
+import modifyUrlPropToString from '@echo/utils/modify-url-prop-to-string'
 import { mapNftCollection } from '@server/mappers/to-response/map-nft-collection'
 import { modify, pipe } from 'ramda'
 

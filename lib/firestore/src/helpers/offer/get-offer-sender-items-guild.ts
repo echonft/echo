@@ -1,6 +1,6 @@
 import { NftCollectionDiscordGuild, Offer, OfferItem } from '@echo/firestore-types'
-import { propIsNil } from '@echo/utils'
-import { pathIsNil } from '@echo/utils/src/fp/path-is-nil'
+import pathIsNil from '@echo/utils/path-is-nil'
+import propIsNil from '@echo/utils/prop-is-nil'
 import { forEach, head, isNil, path, pipe } from 'ramda'
 
 export function getOfferSenderItemsGuild(offer: Offer): NftCollectionDiscordGuild {

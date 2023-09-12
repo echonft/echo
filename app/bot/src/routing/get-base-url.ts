@@ -1,4 +1,4 @@
-import { isNilOrEmpty } from '@echo/utils'
+import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
 
 export const getBaseUrl = (): string => {
   const baseUrl = process.env.BASE_URL

@@ -15,7 +15,14 @@ const config: Config = {
     '!<rootDir>/src/constants/**',
     '!<rootDir>/src/types/**'
   ],
+  coverageDirectory: '<rootDir>/../../.coverage/app/bot',
   coverageReporters: ['json-summary', 'text'],
+  moduleNameMapper: {
+    '^@echo/discord/(.*)$': '<rootDir>/../../lib/discord/exports/$1',
+    '^@echo-discord/(.*)$': '<rootDir>/../../lib/discord/src/$1',
+    '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/exports/$1',
+    '^@echo-utils/(.*)$': '<rootDir>/../../lib/utils/src/$1'
+  },
   reporters: [
     'default',
     [
@@ -24,7 +31,6 @@ const config: Config = {
         outputDirectory: '<rootDir>/../../.coverage/app/bot'
       }
     ]
-  ],
-  coverageDirectory: '<rootDir>/../../.coverage/app/bot'
+  ]
 }
 export default config

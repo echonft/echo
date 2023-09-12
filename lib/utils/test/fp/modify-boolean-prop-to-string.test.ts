@@ -1,4 +1,4 @@
-import { modifyBooleanPropToString } from '../../src/fp/modify-boolean-prop-to-string'
+import { modifyBooleanPropToString } from '@echo-utils/fp/modify-boolean-prop-to-string'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - modifyBooleanPropToString', () => {

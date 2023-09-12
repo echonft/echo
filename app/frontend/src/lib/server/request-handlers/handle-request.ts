@@ -2,7 +2,7 @@ import { ApiError } from '../helpers/error/api-error'
 import { RequestHandler } from '../types/request-handlers/request-handler'
 import type { ApiRequest, ApiResponse } from '@echo/api/types'
 import { initializeFirebase } from '@echo/firestore'
-import { errorMessage } from '@echo/utils'
+import errorMessage from '@echo/utils/error-message'
 import { NextResponse } from 'next/server'
 
 export async function handleRequest<ResponseBody, RequestBody = never>(

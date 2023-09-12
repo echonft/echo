@@ -1,5 +1,5 @@
 import { OrderByParameters } from '@echo/firestore-types'
-import { isIn } from '@echo/utils'
+import isIn from '@echo/utils/is-in'
 import { OrderByDirection, Query } from 'firebase-admin/firestore'
 import { filter, head, is, isEmpty, propSatisfies, tail } from 'ramda'
 

@@ -1,5 +1,5 @@
 import type { OfferItem, User, Wallet } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { getOwnersForNft } from '@server/helpers/alchemy/get-owners-for-nft'
 import { ForbiddenError } from '@server/helpers/error/forbidden-error'
 import { ServerError } from '@server/helpers/error/server-error'

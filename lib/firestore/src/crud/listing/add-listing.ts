@@ -7,7 +7,7 @@ import { firestore } from '../../services/firestore'
 import { addListingToOffer } from '../offer/add-listing-to-offer'
 import { getOffersForListing } from '../offer/get-offers-for-listing'
 import { ListingItem, ListingTarget, UserDetails } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import dayjs from 'dayjs'
 import { assoc, map, pipe, prop } from 'ramda'
 

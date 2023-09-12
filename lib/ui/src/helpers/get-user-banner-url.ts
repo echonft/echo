@@ -1,4 +1,4 @@
-import { isPowerOfTwo } from '@echo/utils'
+import isPowerOfTwo from '@echo/utils/is-power-of-two'
 import { isNil } from 'ramda'
 
 export const getUserBannerUrl = (

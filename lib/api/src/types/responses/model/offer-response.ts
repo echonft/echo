@@ -1,5 +1,5 @@
 import type { OfferState } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import type { OfferItemResponse } from '@echo-api/types/responses/model/offer-item-response'
 import type { UserResponse } from '@echo-api/types/responses/model/user-response'
 

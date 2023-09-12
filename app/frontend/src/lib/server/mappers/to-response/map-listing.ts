@@ -1,6 +1,6 @@
 import type { ListingResponse } from '@echo/api/types'
 import type { Listing } from '@echo/firestore-types'
-import { modifyDatePropToNumber } from '@echo/utils'
+import modifyDatePropToNumber from '@echo/utils/modify-date-prop-to-number'
 import { mapListingItem } from '@server/mappers/to-response/map-listing-item'
 import { mapListingTarget } from '@server/mappers/to-response/map-listing-target'
 import { dissoc, map, modify, pipe } from 'ramda'

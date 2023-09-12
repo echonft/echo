@@ -1,6 +1,7 @@
 import { ListingTarget } from '@echo/firestore-types'
-import { NonEmptyArray, propIsNil } from '@echo/utils'
-import { pathIsNil } from '@echo/utils/src/fp/path-is-nil'
+import pathIsNil from '@echo/utils/path-is-nil'
+import propIsNil from '@echo/utils/prop-is-nil'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { forEach, map, path, pipe, uniq } from 'ramda'
 
 export function getListingTargetsCollectionIds(targets: NonEmptyArray<ListingTarget>) {

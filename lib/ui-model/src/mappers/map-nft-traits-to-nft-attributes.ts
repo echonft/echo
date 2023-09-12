@@ -1,6 +1,6 @@
 import { NftAttribute } from '../types/nft-attribute'
 import { NftTraits } from '../types/nft-traits'
-import { isNilOrEmpty } from '@echo/utils'
+import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
 import { forEachObjIndexed } from 'ramda'
 
 export function mapNftTraitsToNftAttributes(nftTraits: NftTraits): NftAttribute[] {

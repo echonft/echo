@@ -1,4 +1,5 @@
-import { applyToProp, isNilOrEmpty } from '@echo/utils'
+import applyToProp from '@echo/utils/apply-to-prop'
+import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
 import type { AlchemyNft } from '@echo-alchemy/types/model/alchemy-nft'
 import type { NftResponse } from '@echo-alchemy/types/response/nft-response'
 import { always, applySpec, ifElse, map, path, pathEq, pipe, prop } from 'ramda'
@@ -19,6 +20,8 @@ export function mapNft(nftResponse: NftResponse): AlchemyNft {
     tokenId: applyToProp('tokenId', parseInt),
     tokenType: path(['contract', 'tokenType']),
     attributes: pipe(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       path(['raw', 'metadata']),
       ifElse(
         isNilOrEmpty,

@@ -1,5 +1,6 @@
 import type { ErrorResponse } from '@echo/api/types'
-import { isDev, QueryType } from '@echo/utils'
+import isDev from '@echo/utils/is-dev'
+import type { QueryType } from '@echo/utils/types'
 import { setUrlQuery } from '@helpers/request/set-url-query'
 import { ErrorStatus } from '@server/constants/error-status'
 import type { HTTP_METHOD } from 'next/dist/server/web/http'

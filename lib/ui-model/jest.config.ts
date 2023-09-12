@@ -18,7 +18,9 @@ const config: Config = {
   coverageReporters: ['json-summary', 'text'],
   moduleNameMapper: {
     '^@echo/api/(.*)$': '<rootDir>/../api/exports/$1',
-    '^@echo-api/(.*)$': '<rootDir>/../api/src/$1'
+    '^@echo-api/(.*)$': '<rootDir>/../api/src/$1',
+    '^@echo/utils/(.*)$': '<rootDir>/../utils/exports/$1',
+    '^@echo-utils/(.*)$': '<rootDir>/../utils/src/$1'
   },
   reporters: [
     'default',

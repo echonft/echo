@@ -13,7 +13,11 @@
       "@echo/alchemy/*": ["../../lib/alchemy/exports/*"],
       "@echo-alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/api/*": ["../../lib/api/exports/*"],
-      "@echo-api/*": ["../../lib/api/src/*"]
+      "@echo-api/*": ["../../lib/api/src/*"],
+      "@echo/discord/*": ["../../lib/discord/exports/*"],
+      "@echo-discord/*": ["../../lib/discord/src/*"],
+      "@echo/utils/*": ["../../lib/utils/exports/*"],
+      "@echo-utils/*": ["../../lib/utils/src/*"]
     },
     "plugins": [
       {

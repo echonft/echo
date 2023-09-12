@@ -1,7 +1,7 @@
 import { addUser, findUserByDiscordId, initializeFirebase, terminateFirestore, updateUser } from '@echo/firestore'
 import type { User, UserDiscordGuild, Wallet } from '@echo/firestore-types'
 import type { AuthUser } from '@echo/ui-model'
-import { isNilOrEmpty } from '@echo/utils'
+import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
 import { userDiscordInfoNeedsUpdate } from '@server/helpers/auth/user-discord-info-needs-update'
 import { userNftsNeedsUpdate } from '@server/helpers/auth/user-nfts-needs-update'
 import { fetchDiscordUser } from '@server/helpers/user/fetch-discord-user'

@@ -1,7 +1,7 @@
 import { dateIsPast } from '../../converters/from-firestore/date-is-past'
 import { assertOffer } from './assert-offer'
 import { Offer } from '@echo/firestore-types'
-import { propIsNil } from '@echo/utils'
+import propIsNil from '@echo/utils/prop-is-nil'
 import { pipe, prop } from 'ramda'
 
 export function assertOfferIsNotExpired(

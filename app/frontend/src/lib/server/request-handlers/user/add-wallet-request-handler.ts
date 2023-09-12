@@ -1,5 +1,5 @@
 import type { AddWalletRequest, ApiRequest, EmptyResponse } from '@echo/api/types'
-import { isNilOrEmpty } from '@echo/utils'
+import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
 import { getSiweMessage } from '@server/helpers/auth/get-siwe-message'
 import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
 import { verifySiweMessage } from '@server/helpers/auth/verify-siwe-message'

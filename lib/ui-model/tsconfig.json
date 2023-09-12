@@ -5,7 +5,9 @@
     "outDir": "dist",
     "paths": {
       "@echo/api/*": ["../api/exports/*"],
-      "@echo-api/*": ["../api/src/*"]
+      "@echo-api/*": ["../api/src/*"],
+      "@echo/utils/*": ["../utils/exports/*"],
+      "@echo-utils/*": ["../utils/src/*"]
     }
   },
   "include": ["src", "test"],

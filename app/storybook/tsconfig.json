@@ -3,7 +3,9 @@
   "compilerOptions": {
     "paths": {
       "@echo/api/*": ["../../lib/api/exports/*"],
-      "@echo-api/*": ["../../lib/api/src/*"]
+      "@echo-api/*": ["../../lib/api/src/*"],
+      "@echo/utils/*": ["../../lib/utils/exports/*"],
+      "@echo-utils/*": ["../../lib/utils/src/*"]
     }
   },
   "include": ["src", ".storybook/preview.tsx"],

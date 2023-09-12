@@ -1,13 +1,12 @@
 import { defineConfig, Options } from 'tsup'
 
+const isProd = process.env.NODE_ENV === 'production'
 export default defineConfig((options: Options) => ({
-  treeshake: true,
-  splitting: true,
-  sourcemap: true,
+  treeshake: isProd,
+  splitting: isProd,
   entry: ['src/index.ts'],
   format: ['esm'],
-  dts: true,
-  minify: true,
+  minify: isProd,
   clean: true,
   ...options
 }))

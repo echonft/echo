@@ -4,7 +4,7 @@ import { getNftCollectionMockById } from '../../mocks/get-nft-collection-mock-by
 import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
 import { NftCollection } from '@echo/firestore-types'
-import { removeUndefinedProps } from '@echo/utils'
+import removeUndefinedProps from '@echo/utils/remove-undefined-props'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { forEach, pick } from 'ramda'
 

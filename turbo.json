@@ -54,7 +54,6 @@
       "inputs": ["tsconfig.tsbuildinfo"]
     },
     "@echo/bot#build": {
-      "dependsOn": ["@echo/ui#build"],
       "env": ["BASE_URL", "DISCORD_CLIENT_TOKEN", "DISCORD_CLIENT_ID", "DISCORD_CLIENT_SECRET", "DISCORD_REDIRECT_URI"],
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]

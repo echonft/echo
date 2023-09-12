@@ -1,4 +1,4 @@
-import { eqPaths } from '../../src/fp/eq-paths'
+import { eqPaths } from '@echo-utils/fp/eq-paths'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - eqPaths', () => {

@@ -1,4 +1,4 @@
-import { addToArrayIfNotPresent } from '../../src/array/add-to-array-if-not-present'
+import { addToArrayIfNotPresent } from '@echo-utils/array/add-to-array-if-not-present'
 import { describe, expect, it } from '@jest/globals'
 
 describe('array - addToArrayIfNotPresent', () => {

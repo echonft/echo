@@ -1,7 +1,7 @@
 import { dateIsPast } from '../../converters/from-firestore/date-is-past'
 import { assertListing } from './assert-listing'
 import { Listing } from '@echo/firestore-types'
-import { propIsNil } from '@echo/utils'
+import propIsNil from '@echo/utils/prop-is-nil'
 import { pipe, prop } from 'ramda'
 
 export function assertListingIsNotExpired(

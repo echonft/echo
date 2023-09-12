@@ -1,7 +1,7 @@
 import type { ListingTargetRequest } from '@echo/api/types'
 import { findNftCollectionById } from '@echo/firestore'
 import { ListingTarget, NftCollection } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { getListingTargets } from '@server/helpers/listing/get-listing-targets'
 import { forEach } from 'ramda'
 

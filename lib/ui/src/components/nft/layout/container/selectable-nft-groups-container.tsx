@@ -4,7 +4,7 @@ import { MultiSelectableProps } from '../../../../types/multi-selectable-props'
 import { SelectableNftGroup } from '../../group/selectable-nft-group'
 import { NftGroupsLayout } from '../nft-groups-layout'
 import { Nft } from '@echo/ui-model'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { assoc, concat, find, findIndex, isNil, map, propEq, update } from 'ramda'
 import { FunctionComponent } from 'react'
 

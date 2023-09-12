@@ -1,2 +1,5 @@
 dist
 jest.config.ts
+tsup.config.ts
+prettier.config.js
+babel.config.cjs

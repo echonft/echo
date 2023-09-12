@@ -1,6 +1,6 @@
 import type { User, UserDiscordGuild } from '@echo/firestore-types'
 import type { AuthUser, Wallet } from '@echo/ui-model'
-import { modifyDatePropToNumber } from '@echo/utils'
+import modifyDatePropToNumber from '@echo/utils/modify-date-prop-to-number'
 import type { Dayjs } from 'dayjs'
 import { pick, pipe } from 'ramda'
 

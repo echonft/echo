@@ -1,5 +1,5 @@
 import { Id, User } from '@echo/firestore-types'
-import { propIsNil } from '@echo/utils'
+import propIsNil from '@echo/utils/prop-is-nil'
 import { isNil } from 'ramda'
 
 export function assertUser(user: Partial<User> | undefined): asserts user is NonNullable<Partial<User>> & Id {

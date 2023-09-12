@@ -1,5 +1,5 @@
 import { NftCollectionDiscordGuild, User, UserDiscordGuild } from '@echo/firestore-types'
-import { propIsNil } from '@echo/utils'
+import propIsNil from '@echo/utils/prop-is-nil'
 import { forEach, includes, map, prop } from 'ramda'
 
 export function userIsInGuild(user: Partial<User>, discordGuild: Partial<NftCollectionDiscordGuild>) {

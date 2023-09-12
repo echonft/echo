@@ -19,6 +19,10 @@ const config: Config = {
   coverageReporters: ['json-summary', 'text'],
   maxConcurrency: 1,
   maxWorkers: 1,
+  moduleNameMapper: {
+    '^@echo/utils/(.*)$': '<rootDir>/../utils/exports/$1',
+    '^@echo-utils/(.*)$': '<rootDir>/../utils/src/$1'
+  },
   reporters: [
     'default',
     [

@@ -1,5 +1,5 @@
 import { Listing, NftCollectionDiscordGuild } from '@echo/firestore-types'
-import { propIsNil } from '@echo/utils'
+import propIsNil from '@echo/utils/prop-is-nil'
 import { head, path, pipe, prop } from 'ramda'
 
 export function getListingItemsGuild(listing: Partial<Listing>): NftCollectionDiscordGuild {

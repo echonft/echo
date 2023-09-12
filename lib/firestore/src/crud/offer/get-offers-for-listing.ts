@@ -4,7 +4,8 @@ import { getListingTargetsCollectionIds } from '../../helpers/listing/get-listin
 import { getOfferItemsCollectionId } from '../../helpers/offer/get-offer-items-collection-id'
 import { firestore } from '../../services/firestore'
 import { ListingItem, ListingTarget, Offer } from '@echo/firestore-types'
-import { isNotIn, NonEmptyArray } from '@echo/utils'
+import isNotIn from '@echo/utils/is-not-in'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { invoker, map, path, pipe, prop, reject } from 'ramda'
 
 export async function getOffersForListing(items: NonEmptyArray<ListingItem>, targets: NonEmptyArray<ListingTarget>) {

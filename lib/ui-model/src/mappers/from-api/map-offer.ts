@@ -1,7 +1,7 @@
 import { Offer } from '../../types/offer'
 import { mapOfferItem } from './map-offer-item'
 import type { OfferResponse } from '@echo/api/types'
-import { modifyNumberPropToDate } from '@echo/utils'
+import modifyNumberPropToDate from '@echo/utils/modify-number-prop-to-date'
 import { map, modify, pipe } from 'ramda'
 
 export function mapOffer(response: Partial<OfferResponse>) {

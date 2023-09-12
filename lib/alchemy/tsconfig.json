@@ -5,7 +5,9 @@
     "outDir": "dist",
     "paths": {
       "@echo-alchemy/*": ["src/*"],
-      "@echo-alchemy-test/*": ["test/*"]
+      "@echo-alchemy-test/*": ["test/*"],
+      "@echo/utils/*": ["../utils/exports/*"],
+      "@echo-utils/*": ["../utils/src/*"]
     }
   },
   "include": ["src", "test", "exports"],

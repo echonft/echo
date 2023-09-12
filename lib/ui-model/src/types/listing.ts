@@ -2,7 +2,7 @@ import { ListingItem } from './listing-item'
 import { ListingState } from './listing-state'
 import { ListingTarget } from './listing-target'
 import { User } from './user'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { Dayjs } from 'dayjs'
 
 export interface Listing {

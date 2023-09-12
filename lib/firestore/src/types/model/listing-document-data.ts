@@ -2,7 +2,7 @@ import { ListingItemDocumentData } from './listing-item-document-data'
 import { ListingTargetDocumentData } from './listing-target-document-data'
 import { UserDetailsDocumentData } from './user-details-document-data'
 import { ListingState } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 
 export interface ListingDocumentData {
   id: string

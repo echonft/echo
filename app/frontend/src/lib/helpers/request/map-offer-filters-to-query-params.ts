@@ -1,5 +1,5 @@
 import type { OfferQueryFilters } from '@echo/firestore-types'
-import { modifyBooleanPropToString } from '@echo/utils/src/fp/modify-boolean-prop-to-string'
+import modifyBooleanPropToString from '@echo/utils/modify-boolean-prop-to-string'
 import type { OfferFiltersQueryParams } from '@type/request/offer-filters-query-params'
 
 export function mapOfferFiltersToQueryParams(filters: OfferQueryFilters): OfferFiltersQueryParams {

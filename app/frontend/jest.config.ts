@@ -26,7 +26,11 @@ const config: Config = {
     '^@echo/alchemy/(.*)$': '<rootDir>/../../lib/alchemy/exports/$1',
     '^@echo-alchemy/(.*)$': '<rootDir>/../../lib/alchemy/src/$1',
     '^@echo/api/(.*)$': '<rootDir>/../../lib/api/exports/$1',
-    '^@echo-api/(.*)$': '<rootDir>/../../lib/api/src/$1'
+    '^@echo-api/(.*)$': '<rootDir>/../../lib/api/src/$1',
+    '^@echo/discord/(.*)$': '<rootDir>/../../lib/discord/exports/$1',
+    '^@echo-discord/(.*)$': '<rootDir>/../../lib/discord/src/$1',
+    '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/exports/$1',
+    '^@echo-utils/(.*)$': '<rootDir>/../../lib/utils/src/$1'
   },
   reporters: [
     'default',

@@ -4,7 +4,7 @@ import { ListingTarget } from './listing-target'
 import { Nft } from './nft'
 import { NftCollection } from './nft-collection'
 import { UserDetails } from './user-details'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { Dayjs } from 'dayjs'
 
 export interface ListingComplete {

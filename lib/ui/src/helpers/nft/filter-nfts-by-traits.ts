@@ -1,5 +1,5 @@
 import { mapNftTraitsToNftAttributes, Nft, NftAttribute, NftTraits } from '@echo/ui-model'
-import { intersects } from '@echo/utils'
+import intersects from '@echo/utils/intersects'
 import { eqProps, filter, groupWith, head, isEmpty, pipe, prop, tail } from 'ramda'
 
 function filterNftByAttributes(nfts: Nft[], attributesGroups: NftAttribute[][]) {

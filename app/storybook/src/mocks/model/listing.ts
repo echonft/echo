@@ -1,7 +1,7 @@
 import { getNftById } from './nft'
 import { getCollectionById } from './nft-collection'
 import type { Listing } from '@echo/ui-model'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import dayjs from 'dayjs'
 
 const listings: { [key: string]: Listing } = {

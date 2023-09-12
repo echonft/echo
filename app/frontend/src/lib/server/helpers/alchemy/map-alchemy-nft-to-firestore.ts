@@ -1,7 +1,7 @@
 import type { AlchemyNft } from '@echo/alchemy/types'
 import { mapUserToUserDetails } from '@echo/firestore'
 import type { Nft, NftCollection, User, Wallet } from '@echo/firestore-types'
-import { modifyStringPropToUrl } from '@echo/utils'
+import modifyStringPropToUrl from '@echo/utils/modify-string-prop-to-url'
 import { getNftBlurUrl } from '@server/helpers/nft/get-nft-blur-url'
 import { getOpenSeaUrl } from '@server/helpers/nft/get-open-sea-url'
 import { getNftCollectionByContract } from '@server/helpers/nft-collection/get-nft-collection-by-contract'

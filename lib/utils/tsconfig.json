@@ -2,8 +2,11 @@
   "extends": "../tsconfig/base.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@echo-utils/*": ["src/*"]
+    }
   },
-  "include": ["src", "test"],
+  "include": ["src", "test", "exports"],
   "exclude": ["dist", "node_modules"]
 }

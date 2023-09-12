@@ -1,4 +1,4 @@
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 
 export const ListingFilterAsItem = 'item'
 export const ListingFilterAsTarget = 'target'

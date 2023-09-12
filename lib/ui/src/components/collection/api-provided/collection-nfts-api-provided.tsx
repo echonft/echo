@@ -5,7 +5,7 @@ import { SelectableNftsAndFiltersContainer } from '../../nft/layout/container/se
 import { CollectionNavigationLayout } from '../layout/collection-navigation-layout'
 import type { NftResponse } from '@echo/api/types'
 import { mapNft, Nft } from '@echo/ui-model'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { useTranslations } from 'next-intl'
 import { map } from 'ramda'
 import { FunctionComponent, useMemo } from 'react'

@@ -1,5 +1,5 @@
 import type { ListingState } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import type { ListingItemResponse } from '@echo-api/types/responses/model/listing-item-response'
 import type { ListingTargetResponse } from '@echo-api/types/responses/model/listing-target-response'
 import type { UserResponse } from '@echo-api/types/responses/model/user-response'

@@ -7,7 +7,7 @@ import {
   setUserNftsUpdated
 } from '@echo/firestore'
 import { User, Wallet } from '@echo/firestore-types'
-import { isNilOrEmpty } from '@echo/utils'
+import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
 import { getNftsForOwner } from '@server/helpers/alchemy/get-nfts-for-owner'
 import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nft-to-firestore'
 import { isNil, map, path } from 'ramda'

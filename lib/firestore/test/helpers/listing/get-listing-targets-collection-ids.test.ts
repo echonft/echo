@@ -1,7 +1,7 @@
 import { getListingTargetsCollectionIds } from '../../../src/helpers/listing/get-listing-targets-collection-ids'
 import { getNftCollectionMockById } from '../../mocks/get-nft-collection-mock-by-id'
 import { ListingTarget } from '@echo/firestore-types'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - listing - getListingTargetsCollectionIds', () => {

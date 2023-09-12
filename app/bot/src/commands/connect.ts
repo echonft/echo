@@ -1,10 +1,11 @@
-import {NoGuildIdError} from '../errors/no-guild-id-error'
-import {loginLink} from '../routing/login-link'
-import {findNftCollectionByDiscordGuildDiscordId} from '@echo/firestore'
-import {NftCollection} from '@echo/firestore-types'
-import {andThenOtherwise, isNilOrEmpty} from '@echo/utils'
-import {CommandInteraction, SlashCommandSubcommandBuilder} from 'discord.js'
-import {andThen, ifElse, isNil, pipe, prop} from 'ramda'
+import { NoGuildIdError } from '../errors/no-guild-id-error'
+import { loginLink } from '../routing/login-link'
+import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore'
+import { NftCollection } from '@echo/firestore-types'
+import andThenOtherwise from '@echo/utils/and-then-otherwise'
+import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
+import { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
+import { andThen, ifElse, isNil, pipe, prop } from 'ramda'
 
 /**
  * Connect command

@@ -3,7 +3,7 @@ import { OfferDiscordGuild } from './offer-discord-guild'
 import { OfferItem } from './offer-item'
 import { OfferState } from './offer-state'
 import { UserDetails } from './user-details'
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types'
 import { Dayjs } from 'dayjs'
 
 export interface Offer {
