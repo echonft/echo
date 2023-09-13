@@ -17,7 +17,7 @@ interface Props {
   nfts: NonEmptyArray<Nft>
   availableFilters: NonEmptyArray<NftFilter>
   btnLabel: string
-  onButtonClick?: MouseEventHandler
+  onButtonClick?: (selectedIds: string[]) => unknown
 }
 
 export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
@@ -54,7 +54,7 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
         traitSelection={traitSelection}
         collectionFilterSelection={collectionFilterSelection}
         btnLabel={btnLabel}
-        onButtonClick={onButtonClick}
+        onButtonClick={() => onButtonClick?.(nftSelection)}
         onTraitSelectionUpdate={setTraitSelection}
         onCollectionSelectionUpdate={setCollectionFilterSelection}
       />

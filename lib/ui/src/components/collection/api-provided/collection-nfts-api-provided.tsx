@@ -18,11 +18,23 @@ interface Props {
 
 export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses }) => {
   const t = useTranslations('collection.button')
-  const mappedNfts = useMemo(() => map(mapNftFromResponse, responses), [responses]) as NonEmptyArray<Nft>
+  const mappedNfts = useMemo(() => map(mapNft, responses), [responses]) as NonEmptyArray<Nft>
+  const { setReceiverItems } = useNewOfferStore()
+
+  const onMakeOffer = useCallback(
+    (nftIds: string[]) =>
+      setReceiverItems(pipe(filter(pipe(prop('id'), isIn(nftIds))), map(mapNftToOfferItem))(mappedNfts)),
+    [mappedNfts]
+  )
 
   return (
     <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationItems}>
-      <SelectableNftsAndFiltersContainer nfts={mappedNfts} availableFilters={[NftFilterTraits]} btnLabel={t('label')} />
+      <SelectableNftsAndFiltersContainer
+        nfts={mappedNfts}
+        availableFilters={[NftFilterTraits]}
+        btnLabel={t('label')}
+        onButtonClick={onMakeOffer}
+      />
     </CollectionNavigationLayout>
   )
 }

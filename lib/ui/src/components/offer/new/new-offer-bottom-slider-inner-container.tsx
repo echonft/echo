@@ -20,6 +20,7 @@ interface Props {
   onRemoveSenderItem?: (itemNftId: string) => unknown
   onAddMoreReceiverItem?: () => unknown
   onRemoveReceiverItem?: (itemNftId: string) => unknown
+  onConfirmOffer?: () => unknown
   onDismissOffer?: () => unknown
 }
 
@@ -31,10 +32,10 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
   onRemoveSenderItem,
   onAddMoreReceiverItem,
   onRemoveReceiverItem,
+  onConfirmOffer,
   onDismissOffer
 }) => {
   const t = useTranslations('offer.new.bottomSlider')
-  const [, setModalState] = useRecoilState(newOfferState)
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('pt-6', 'pb-1')}>
@@ -62,7 +63,7 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
         <Disclosure.Button
           className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')}
           disabled={isNilOrEmpty(receiverItems) || isNilOrEmpty(senderItems)}
-          onClick={() => setModalState('TO CONFIRM')}
+          onClick={onConfirmOffer}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalize')}</span>
         </Disclosure.Button>
