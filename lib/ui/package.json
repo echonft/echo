@@ -17,7 +17,6 @@
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier -u -c src/ && prettier -u -c test/",
     "test": "jest",
-    "test:ci": "jest --ci",
     "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
