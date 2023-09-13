@@ -1,9 +1,9 @@
-import { findUserById } from '../../../src/crud/user/find-user-by-id'
-import { setUserNonce } from '../../../src/crud/user/set-user-nonce'
-import { updateUser } from '../../../src/crud/user/update-user'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
+import { setUserNonce } from '@echo/firestore/crud/user/set-user-nonce'
+import { updateUser } from '@echo/firestore/crud/user/update-user'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - user - setUserNonce', () => {
   let initialNonce: string

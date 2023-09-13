@@ -1,6 +1,6 @@
-import { ShowIf } from './show-if'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { isNil } from 'ramda'
-import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
+import type { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
 interface Props {
   checks: unknown

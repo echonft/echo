@@ -1,6 +1,6 @@
-import { getCollectionById } from './nft-collection'
-import type { Nft } from '@echo/ui-model'
-import type { NonEmptyArray } from '@echo/utils/types'
+import type { Nft } from '@echo/ui/types/model/nft'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import { getCollectionById } from '@mocks/model/nft-collection'
 
 const nfts: { [key: string]: Nft } = {
   '8hHFadIrrooORfTOLkBg': {

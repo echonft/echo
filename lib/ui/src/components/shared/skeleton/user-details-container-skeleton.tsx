@@ -1,9 +1,9 @@
-import { SizeMD } from '../../../constants/size'
-import { UserDiscordTagSkeleton } from './user-discord-tag-skeleton'
-import { UserProfilePictureSkeleton } from './user-profile-picture-skeleton'
-import { UserWalletSkeleton } from './user-wallet-skeleton'
+import { UserDiscordTagSkeleton } from '@echo/ui/components/shared/skeleton/user-discord-tag-skeleton'
+import { UserProfilePictureSkeleton } from '@echo/ui/components/shared/skeleton/user-profile-picture-skeleton'
+import { UserWalletSkeleton } from '@echo/ui/components/shared/skeleton/user-wallet-skeleton'
+import { SizeMD } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const UserDetailsContainerSkeleton: FunctionComponent = () => {
   return (

@@ -1,4 +1,4 @@
-import { UserDiscordTagSkeleton as Component } from '@echo/ui/src/components/shared/skeleton/user-discord-tag-skeleton'
+import { UserDiscordTagSkeleton as Component } from '@echo/ui/components/shared/skeleton/user-discord-tag-skeleton'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

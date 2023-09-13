@@ -1,10 +1,10 @@
-import { addListingToOffer } from '../../../src/crud/offer/add-listing-to-offer'
-import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
-import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
-import { Offer } from '@echo/firestore-types'
+import { addListingToOffer } from '@echo/firestore/crud/offer/add-listing-to-offer'
+import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
+import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - offer - addListingToOffer', () => {
   let initialListingIds: string[]
@@ -13,7 +13,7 @@ describe('CRUD - offer - addListingToOffer', () => {
   beforeAll(tearUpRemoteFirestoreTests)
   afterAll(tearDownRemoteFirestoreTests)
   beforeEach(async () => {
-    const offer = (await findOfferById(id)) as Offer
+    const offer = (await findOfferById(id)) as FirestoreOffer
     initialListingIds = offer.listingsIds
     await updateOffer(id, { listingsIds: [] })
   })
@@ -22,15 +22,15 @@ describe('CRUD - offer - addListingToOffer', () => {
   })
 
   it('throws if the listing is not found', async () => {
-    const offer = (await findOfferById(id)) as Offer
+    const offer = (await findOfferById(id)) as FirestoreOffer
     await expect(addListingToOffer(offer, 'not-found')).rejects.toBeDefined()
   })
 
   it('add listing id if the listing exists and is not already in the offer', async () => {
-    const offer = (await findOfferById(id)) as Offer
+    const offer = (await findOfferById(id)) as FirestoreOffer
     const listingId = 'jUzMtPGKM62mMhEcmbN4'
     await addListingToOffer(offer, listingId)
-    const updatedOffer = (await findOfferById(id)) as Offer
+    const updatedOffer = (await findOfferById(id)) as FirestoreOffer
     expect(updatedOffer.listingsIds.length).toEqual(1)
     expect(updatedOffer.listingsIds[0]).toEqual(listingId)
     // throw if trying to add an offer id which is already in the listing

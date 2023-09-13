@@ -1,4 +1,4 @@
-import { getBaseUrl } from '@echo-alchemy/helpers/get-base-url'
+import { getBaseUrl } from '@echo/alchemy/helpers/get-base-url'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - getBaseUrl', () => {

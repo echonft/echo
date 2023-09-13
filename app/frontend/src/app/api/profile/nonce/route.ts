@@ -1,5 +1,5 @@
 import { authOptions } from '@constants/auth-options'
-import type { ApiRequest } from '@echo/api/types'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
 import { handleRestrictedRequest } from '@server/request-handlers/handle-restricted-request'
 import { nonceRequestHandler } from '@server/request-handlers/user/nonce-request-handler'
 

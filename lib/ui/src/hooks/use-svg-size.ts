@@ -1,4 +1,4 @@
-import { SvgProps } from '../components/base/svg/svg'
+import type { SvgProps } from '@echo/ui/components/base/svg/svg'
 import { isNil } from 'ramda'
 
 export const useSvgSize = ({

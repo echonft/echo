@@ -1,10 +1,10 @@
-import { User } from '@echo/firestore-types'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import { mapUserToAuthUser } from '@server/mappers/auth/map-user-to-auth-user'
 import dayjs from 'dayjs'
 
 describe('mappers - auth - mapUserToAuthUser', () => {
   it('maps correctly', () => {
-    const user: User = {
+    const user: FirestoreUser = {
       discordAvatar: 'discordAvatar',
       discordBanner: 'discordBanner',
       discordGuilds: [{ discordId: 'guild-id' }, { discordId: 'another-guild-id' }],

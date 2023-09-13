@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { describe, expect, it, jest } from '@jest/globals'
 
-jest.mock('@echo/firestore')
 jest.mock('../../src/helpers/get-discord-channel')
 jest.mock('../../src/routing/get-base-url')
 

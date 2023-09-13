@@ -1,4 +1,4 @@
-import { User } from '@echo/firestore-types'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import { assertUser } from '@server/helpers/user/assert-user'
 
 describe('helpers - user - assertUser', () => {
@@ -6,6 +6,6 @@ describe('helpers - user - assertUser', () => {
     expect(() => assertUser(undefined)).toThrow()
   })
   it('does not throw if user is defined', () => {
-    expect(() => assertUser({ id: 'userId' } as User)).not.toThrow()
+    expect(() => assertUser({ id: 'userId' } as FirestoreUser)).not.toThrow()
   })
 })

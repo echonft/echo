@@ -1,7 +1,7 @@
-import { dateIsPast } from './date-is-past'
-import modifyNumberPropToDate from '@echo/utils/modify-number-prop-to-date'
-import propIsNotNil from '@echo/utils/prop-is-not-nil'
-import { Dayjs } from 'dayjs'
+import { dateIsPast } from '@echo/firestore/helpers/converters/from-firestore/date-is-past'
+import { modifyNumberPropToDate } from '@echo/utils/fp/modify-number-prop-to-date'
+import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
+import type { Dayjs } from 'dayjs'
 import { assoc, ifElse, isNil, lens, over, pipe, prop, when } from 'ramda'
 
 /**

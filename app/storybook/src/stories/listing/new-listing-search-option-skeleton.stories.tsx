@@ -1,4 +1,4 @@
-import { NewListingSearchCollectionOptionSkeleton as Component } from '@echo/ui/src/components/listing/new/skeleton/new-listing-search-collection-option-skeleton'
+import { NewListingSearchCollectionOptionSkeleton as Component } from '@echo/ui/components/listing/new/skeleton/new-listing-search-collection-option-skeleton'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

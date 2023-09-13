@@ -1,47 +1,48 @@
-import { Offer, OfferState } from '@echo/firestore-types'
-import propIsNil from '@echo/utils/prop-is-nil'
+import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import type { FirestoreOfferState } from '@echo/firestore/types/model/firestore-offer-state'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 
-function assertOfferIsNotCancelled(offer: Partial<Offer>) {
+function assertOfferIsNotCancelled(offer: Partial<FirestoreOffer>) {
   if (offer.state === 'CANCELLED') {
     throw Error('offer has already been cancelled')
   }
 }
 
-function assertOfferIsNotAccepted(offer: Partial<Offer>) {
+function assertOfferIsNotAccepted(offer: Partial<FirestoreOffer>) {
   if (offer.state === 'ACCEPTED') {
     throw Error('offer has already been accepted')
   }
 }
 
-function assertOfferIsNotRejected(offer: Partial<Offer>) {
+function assertOfferIsNotRejected(offer: Partial<FirestoreOffer>) {
   if (offer.state === 'REJECTED') {
     throw Error('offer has already been rejected')
   }
 }
 
-function assertOfferIsNotInvalid(offer: Partial<Offer>) {
+function assertOfferIsNotInvalid(offer: Partial<FirestoreOffer>) {
   if (offer.state === 'INVALID') {
     throw Error('offer is not valid')
   }
 }
 
-function assertOfferIsNotCompleted(offer: Partial<Offer>) {
+function assertOfferIsNotCompleted(offer: Partial<FirestoreOffer>) {
   if (offer.state === 'COMPLETED') {
     throw Error('trade has already been completed')
   }
 }
 
-function assertOfferIsNotOpen(offer: Partial<Offer>) {
+function assertOfferIsNotOpen(offer: Partial<FirestoreOffer>) {
   if (offer.state === 'OPEN') {
     throw Error('offer needs to be accepted or rejected first')
   }
 }
 
 export function assertOfferState(
-  offer: Partial<Offer>,
-  toState: OfferState
-): asserts offer is Partial<Offer> & {
-  state: OfferState
+  offer: Partial<FirestoreOffer>,
+  toState: FirestoreOfferState
+): asserts offer is Partial<FirestoreOffer> & {
+  state: FirestoreOfferState
 } {
   if (propIsNil('state', offer)) {
     throw Error('offer does not have a state')

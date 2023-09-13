@@ -1,8 +1,8 @@
-import { NavigationItem } from '../../../types/navigation-item'
-import { NavigationItemId } from '../../../types/navigation-item-id'
-import { PaddedContainer } from '../padded-container'
-import { NavigationPills } from './navigation-pills'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import { NavigationPills } from '@echo/ui/components/layout/navigation/navigation-pills'
+import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
+import type { NavigationItem } from '@echo/ui/types/navigation-item'
+import type { NavigationItemId } from '@echo/ui/types/navigation-item-id'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
   navigationItems: Array<NavigationItem>

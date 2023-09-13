@@ -1,6 +1,6 @@
-import { ProfilePictureSize } from '../../types/profile-picture-size'
+import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export interface RoundedProfilePictureProps {
   pictureUrl: URL

@@ -1,9 +1,9 @@
-import { NftDetailsListingRow } from './nft-details-listing-row'
-import { Listing } from '@echo/ui-model'
+import { NftDetailsListingRow } from '@echo/ui/components/nft/details/nft-details-listing-row'
+import type { Listing } from '@echo/ui/types/model/listing'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isEmpty, map } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   listings: Array<Listing>

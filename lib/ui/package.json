@@ -25,7 +25,6 @@
   "devDependencies": {
     "@babel/preset-react": "7.22.5",
     "@echo/api": "workspace:*",
-    "@echo/ui-model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@headlessui/react": "1.7.16",
     "@headlessui/tailwindcss": "0.2.0",

@@ -1,6 +1,6 @@
-import { DownCaretSvg } from '../../../../base/svg/down-caret-svg'
+import { DownCaretSvg } from '@echo/ui/components/base/svg/down-caret-svg'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const TraitFilterButtonSkeleton: FunctionComponent = () => {
   return (

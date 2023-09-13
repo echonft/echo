@@ -1,6 +1,6 @@
-import { AddIconSvg } from '../../base/svg/add-icon-svg'
+import { AddIconSvg } from '@echo/ui/components/base/svg/add-icon-svg'
 import { clsx } from 'clsx'
-import { FunctionComponent, MouseEventHandler } from 'react'
+import type { FunctionComponent, MouseEventHandler } from 'react'
 
 interface Props {
   title: string

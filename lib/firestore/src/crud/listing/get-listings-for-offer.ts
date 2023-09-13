@@ -1,27 +1,28 @@
-import { CollectionName } from '../../constants/collection-name'
-import { listingDataConverter } from '../../converters/listing-data-converter'
-import { getOfferItemsCollectionId } from '../../helpers/offer/get-offer-items-collection-id'
-import { firestore } from '../../services/firestore'
-import { Listing, OfferItem } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils/types'
+import { CollectionName } from '@echo/firestore/constants/collection-name'
+import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
+import { getOfferItemsCollectionId } from '@echo/firestore/helpers/offer/get-offer-items-collection-id'
+import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { invoker, map, none, path, pathEq, pipe, prop, reject } from 'ramda'
 
 export async function getListingsForOffer(
-  senderItems: NonEmptyArray<OfferItem>,
-  receiverItems: NonEmptyArray<OfferItem>
+  senderItems: NonEmptyArray<FirestoreOfferItem>,
+  receiverItems: NonEmptyArray<FirestoreOfferItem>
 ) {
-  const querySnapshot = await firestore()
+  const querySnapshot = await firestoreApp()
     .collection(CollectionName.LISTINGS)
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), receiverItems))
     .withConverter(listingDataConverter)
     .get()
 
   if (querySnapshot.empty) {
-    return [] as Listing[]
+    return [] as FirestoreListing[]
   }
 
   return pipe(
     map(invoker(0, 'data')),
     reject(pipe(prop('targets'), none(pathEq(getOfferItemsCollectionId(senderItems), ['collection', 'id']))))
-  )(querySnapshot.docs) as Listing[]
+  )(querySnapshot.docs) as FirestoreListing[]
 }

@@ -1,8 +1,8 @@
-import { mockRequest } from '../mocks/request-response'
+import { mockRequest } from '@mocks/request-response'
 import { getSession } from '@server/helpers/auth/get-session'
 import { handleRestrictedRequest } from '@server/request-handlers/handle-restricted-request'
 import { nonceRequestHandler } from '@server/request-handlers/user/nonce-request-handler'
-import { AuthOptions } from 'next-auth'
+import type { AuthOptions } from 'next-auth'
 
 jest.mock('@server/helpers/auth/get-session')
 

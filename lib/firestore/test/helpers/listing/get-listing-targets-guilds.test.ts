@@ -1,5 +1,5 @@
-import { getListingTargetsGuilds } from '../../../src/helpers/listing/get-listing-targets-guilds'
-import { getListingMockById } from '../../mocks/get-listing-mock-by-id'
+import { getListingTargetsGuilds } from '@echo/firestore/helpers/listing/get-listing-targets-guilds'
+import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - listing - getListingTargetsGuilds', () => {

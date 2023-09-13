@@ -1,4 +1,4 @@
-import { propIsEmpty } from '@echo-utils/fp/prop-is-empty'
+import { propIsEmpty } from '@echo/utils/fp/prop-is-empty'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - propIsEmpty', () => {

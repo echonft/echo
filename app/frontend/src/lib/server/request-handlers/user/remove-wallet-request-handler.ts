@@ -1,4 +1,6 @@
-import type { ApiRequest, EmptyResponse, RemoveWalletRequest } from '@echo/api/types'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
+import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { removeUserWallet } from '@server/helpers/user/remove-user-wallet'

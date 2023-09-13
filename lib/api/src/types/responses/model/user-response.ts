@@ -1,4 +1,4 @@
-import type { WalletResponse } from '@echo-api/types/responses/model/wallet-response'
+import type { WalletResponse } from '@echo/api/types/responses/model/wallet-response'
 
 export interface UserResponse {
   id: string

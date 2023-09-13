@@ -1,7 +1,7 @@
-import { mapNftCollection } from '@echo-alchemy/mappers/map-nft-collection'
-import type { AlchemyNftCollection } from '@echo-alchemy/types/model/alchemy-nft-collection'
-import { getContractMetadataResponse } from '@echo-alchemy-test/mocks/get-contract-metadata-response'
+import { mapNftCollection } from '@echo/alchemy/mappers/map-nft-collection'
+import type { AlchemyNftCollection } from '@echo/alchemy/types/model/alchemy-nft-collection'
 import { describe, expect, it } from '@jest/globals'
+import { getContractMetadataResponse } from '@test/mocks/get-contract-metadata-response'
 
 describe('mappers - mapNftCollection', () => {
   it('returns mapped nft collection', () => {

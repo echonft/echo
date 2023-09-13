@@ -1,8 +1,8 @@
-import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
-import { offerMock } from '../../mocks/offer-mock'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { offerMock } from '@echo/firestore-mocks/offer-mock'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - offer - findOfferById', () => {
   beforeAll(tearUpRemoteFirestoreTests)

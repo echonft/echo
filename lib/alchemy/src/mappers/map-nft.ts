@@ -1,7 +1,7 @@
-import applyToProp from '@echo/utils/apply-to-prop'
-import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
-import type { AlchemyNft } from '@echo-alchemy/types/model/alchemy-nft'
-import type { NftResponse } from '@echo-alchemy/types/response/nft-response'
+import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
+import type { NftResponse } from '@echo/alchemy/types/response/nft-response'
+import { applyToProp } from '@echo/utils/fp/apply-to-prop'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { always, applySpec, ifElse, map, path, pathEq, pipe, prop } from 'ramda'
 import { getAddress } from 'viem'
 

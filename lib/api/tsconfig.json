@@ -4,11 +4,11 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "@echo-api/*": ["src/*"],
-      "@echo/utils/*": ["../utils/exports/*"],
-      "@echo-utils/*": ["../utils/src/*"]
+      "@echo/api/*": ["src/*"],
+      "@echo/firestore/*": ["../firestore/src/*"],
+      "@echo/utils/*": ["../utils/src/*"]
     }
   },
-  "include": ["src", "test", "exports"],
+  "include": ["src", "test"],
   "exclude": ["dist", "node_modules"]
 }

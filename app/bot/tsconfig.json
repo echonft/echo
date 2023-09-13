@@ -10,10 +10,10 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@echo/discord/*": ["../../lib/discord/exports/*"],
-      "@echo-discord/*": ["../../lib/discord/src/*"],
-      "@echo/utils/*": ["../../lib/utils/exports/*"],
-      "@echo-utils/*": ["../../lib/utils/src/*"]
+      "@echo/discord/*": ["../../lib/discord/src/*"],
+      "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/firestore-mocks/*": ["../../lib/firestore/test/mocks/*"],
+      "@echo/utils/*": ["../../lib/utils/src/*"]
     }
   },
   "include": ["src", "test"],

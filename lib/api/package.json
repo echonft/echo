@@ -4,9 +4,6 @@
   "private": true,
   "sideEffects": false,
   "license": "MIT",
-  "exports": {
-    "./exports": "./src/exports/**/index.ts"
-  },
   "scripts": {
     "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",
     "lint:ci": "eslint --ext .ts src/ && eslint --ext .ts test/",
@@ -22,7 +19,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "devDependencies": {
-    "@echo/firestore-types": "workspace:*",
+    "@echo/firestore": "workspace:*",
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.6.2",
     "@jest/types": "29.6.1",

@@ -1,4 +1,4 @@
-import { BannerSkeleton as Component } from '@echo/ui/src/components/shared/skeleton/banner-skeleton'
+import { BannerSkeleton as Component } from '@echo/ui/components/shared/skeleton/banner-skeleton'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

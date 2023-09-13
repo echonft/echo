@@ -1,5 +1,6 @@
-import {Contract, Wallet} from '@echo/firestore-types'
-import {allPass, complement, groupBy, isEmpty, mapObjIndexed, pickBy, pipe, prop, toString} from 'ramda'
+import type { FirestoreContract } from '@echo/firestore/types/model/firestore-contract'
+import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
+import { allPass, complement, groupBy, isEmpty, mapObjIndexed, pickBy, pipe, prop, toString } from 'ramda'
 
 /**
  * Takes an array of wallets and contracts and merge them into a new structure.
@@ -9,7 +10,7 @@ import {allPass, complement, groupBy, isEmpty, mapObjIndexed, pickBy, pipe, prop
  * @param wallets The array of wallets
  * @param contracts The array of contracts
  */
-export function mergeWalletsAndContractsByChainId(wallets: Wallet[], contracts: Contract[]) {
+export function mergeWalletsAndContractsByChainId(wallets: FirestoreWallet[], contracts: FirestoreContract[]) {
   return pipe(
     groupBy(pipe(prop('chainId'), toString)),
     mapObjIndexed((contracts, chainId) => ({
@@ -19,8 +20,8 @@ export function mergeWalletsAndContractsByChainId(wallets: Wallet[], contracts: 
     pickBy(allPass([pipe(prop('contracts'), complement(isEmpty)), pipe(prop('wallets'), complement(isEmpty))]))
   )(contracts) as {
     [key: string]: {
-      contracts: Contract[]
-      wallets: Wallet[]
+      contracts: FirestoreContract[]
+      wallets: FirestoreWallet[]
     }
   }
 }

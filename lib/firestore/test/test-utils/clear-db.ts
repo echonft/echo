@@ -1,13 +1,13 @@
-import { deleteListing } from '../../src/crud/listing/delete-listing'
-import { getAllListings } from '../../src/crud/listing/get-all-listings'
-import { deleteNft } from '../../src/crud/nft/delete-nft'
-import { getAllNfts } from '../../src/crud/nft/get-all-nfts'
-import { deleteNftCollection } from '../../src/crud/nft-collection/delete-nft-collection'
-import { getAllNftCollections } from '../../src/crud/nft-collection/get-all-nft-collections'
-import { deleteOffer } from '../../src/crud/offer/delete-offer'
-import { getAllOffers } from '../../src/crud/offer/get-all-offers'
-import { deleteUser } from '../../src/crud/user/delete-user'
-import { getAllUsers } from '../../src/crud/user/get-all-users'
+import { deleteListing } from '@echo/firestore/crud/listing/delete-listing'
+import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
+import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
+import { getAllNfts } from '@echo/firestore/crud/nft/get-all-nfts'
+import { deleteNftCollection } from '@echo/firestore/crud/nft-collection/delete-nft-collection'
+import { getAllNftCollections } from '@echo/firestore/crud/nft-collection/get-all-nft-collections'
+import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
+import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
+import { deleteUser } from '@echo/firestore/crud/user/delete-user'
+import { getAllUsers } from '@echo/firestore/crud/user/get-all-users'
 
 export async function clearDb() {
   const listings = await getAllListings()

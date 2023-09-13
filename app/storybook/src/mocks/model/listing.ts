@@ -1,7 +1,7 @@
-import { getNftById } from './nft'
-import { getCollectionById } from './nft-collection'
-import type { Listing } from '@echo/ui-model'
-import type { NonEmptyArray } from '@echo/utils/types'
+import type { Listing } from '@echo/ui/types/model/listing'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import { getNftById } from '@mocks/model/nft'
+import { getCollectionById } from '@mocks/model/nft-collection'
 import dayjs from 'dayjs'
 
 const listings: { [key: string]: Listing } = {

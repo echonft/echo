@@ -1,7 +1,7 @@
 import { echoCommand } from '../commands/echo'
-import getDiscordConfig from '@echo/discord/get-discord-config'
-import getDiscordSecret from '@echo/discord/get-discord-secret'
-import logger from '@echo/utils/logger'
+import { getDiscordSecret } from '@echo/discord/admin/get-discord-secret'
+import { getDiscordConfig } from '@echo/discord/config/get-discord-config'
+import { logger } from '@echo/utils/services/logger'
 import { REST, Routes } from 'discord.js'
 import { isEmpty, isNil } from 'ramda'
 

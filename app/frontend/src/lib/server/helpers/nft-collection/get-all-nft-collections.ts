@@ -1,5 +1,5 @@
-import { getAllNftCollections as firestoreGetAllNftCollections } from '@echo/firestore'
-import type { QueryConstraints } from '@echo/firestore-types'
+import { getAllNftCollections as firestoreGetAllNftCollections } from '@echo/firestore/crud/nft-collection/get-all-nft-collections'
+import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export async function getAllNftCollections(constraints?: QueryConstraints) {

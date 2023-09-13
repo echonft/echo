@@ -1,8 +1,8 @@
-import { CollectionSearchBox } from './collection-search-box'
-import type { NftCollection } from '@echo/ui-model'
-import stringIncludes from '@echo/utils/string-includes'
+import { CollectionSearchBox } from '@echo/ui/components/collection/search/collection-search-box'
+import type { NftCollection } from '@echo/ui/types/model/nft-collection'
+import { stringIncludes } from '@echo/utils/fp/string-includes'
 import { filter, isNil, pipe, prop, toLower } from 'ramda'
-import { forwardRef, ForwardRefRenderFunction, useCallback, useEffect, useRef, useState } from 'react'
+import { forwardRef, type ForwardRefRenderFunction, useCallback, useEffect, useRef, useState } from 'react'
 
 interface Props {
   placeholder: string

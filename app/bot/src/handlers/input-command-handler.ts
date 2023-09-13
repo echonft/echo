@@ -4,10 +4,10 @@ import { InvalidSubcommandError } from '../errors/invalid-subcommand-error'
 import { NotConfiguredError } from '../errors/not-configured-error'
 import { WrongChannelError } from '../errors/wrong-channel-error'
 import { InputSubcommands } from '../types/commands/input-subcommands'
-import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore'
-import { NftCollection } from '@echo/firestore-types'
-import errorMessage from '@echo/utils/error-message'
-import logger from '@echo/utils/logger'
+import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-discord-guild-discord-id'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import { errorMessage } from '@echo/utils/error/error-message'
+import { logger } from '@echo/utils/services/logger'
 import { ChatInputCommandInteraction, CommandInteraction } from 'discord.js'
 import { isEmpty, isNil } from 'ramda'
 
@@ -27,7 +27,7 @@ export async function executeForCommand(interaction: ChatInputCommandInteraction
   if (isNil(guildId) || isEmpty(guildId)) {
     throw new NotConfiguredError(guildId)
   }
-  let collection: NftCollection | undefined
+  let collection: FirestoreNftCollection | undefined
   try {
     collection = await findNftCollectionByDiscordGuildDiscordId(guildId)
   } catch (error) {

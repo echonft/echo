@@ -1,4 +1,4 @@
-import { NftCollectionDocumentData } from '../../src/types/model/nft-collection-document-data'
+import type { NftCollectionDocumentData } from '@echo/firestore/types/model/nft-collection-document-data'
 
 export const nftCollectionDocumentDataMock: { [key: string]: NftCollectionDocumentData } = {
   Rc8pLQXxgyQGIRL0fr13: {

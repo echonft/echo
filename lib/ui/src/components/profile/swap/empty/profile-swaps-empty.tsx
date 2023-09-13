@@ -1,9 +1,9 @@
-import { links } from '../../../../constants/links'
-import { InternalLink } from '../../../base/link/internal-link'
-import { EmptyViewContent } from '../../../layout/navigation/empty-view-content'
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { EmptyViewContent } from '@echo/ui/components/layout/navigation/empty-view-content'
+import { links } from '@echo/ui/constants/links'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const ProfileSwapsEmpty: FunctionComponent = () => {
   const t = useTranslations('profile.empty.swaps')

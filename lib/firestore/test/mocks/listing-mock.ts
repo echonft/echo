@@ -1,9 +1,9 @@
-import { nftCollectionMock } from './nft-collection-mock'
-import { nftMock } from './nft-mock'
-import { Listing } from '@echo/firestore-types'
+import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import { nftCollectionMock } from '@echo/firestore-mocks/nft-collection-mock'
+import { nftMock } from '@echo/firestore-mocks/nft-mock'
 import dayjs from 'dayjs'
 
-export const listingMock: { [key: string]: Listing } = {
+export const listingMock: { [key: string]: FirestoreListing } = {
   jUzMtPGKM62mMhEcmbN4: {
     id: 'jUzMtPGKM62mMhEcmbN4',
     createdAt: dayjs.unix(1676984897),

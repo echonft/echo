@@ -1,8 +1,8 @@
-import { findUserByWallet } from '../../../src/crud/user/find-user-by-wallet'
-import { userMock } from '../../mocks/user-mock'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { findUserByWallet } from '@echo/firestore/crud/user/find-user-by-wallet'
+import { userMock } from '@echo/firestore-mocks/user-mock'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - user - findUserByWallet', () => {
   beforeAll(tearUpRemoteFirestoreTests)

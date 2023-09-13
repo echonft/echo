@@ -1,10 +1,10 @@
-import { Id, Listing } from '@echo/firestore-types'
-import propIsNil from '@echo/utils/prop-is-nil'
+import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { isNil } from 'ramda'
 
 export function assertListing(
-  listing: Partial<Listing> | undefined
-): asserts listing is NonNullable<Partial<Listing>> & Id {
+  listing: Partial<FirestoreListing> | undefined
+): asserts listing is NonNullable<Partial<FirestoreListing>> {
   if (isNil(listing)) {
     throw Error('listing is not defined')
   }

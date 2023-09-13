@@ -1,7 +1,7 @@
-import { SelectableProps } from '../../../../types/selectable-props'
-import { NftTraitValue } from '@echo/ui-model'
+import type { NftTraitValue } from '@echo/ui/types/model/nft-trait-value'
+import type { SelectableProps } from '@echo/ui/types/selectable-props'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props extends SelectableProps<NftTraitValue> {
   value: NftTraitValue

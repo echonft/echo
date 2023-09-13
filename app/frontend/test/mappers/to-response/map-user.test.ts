@@ -1,4 +1,4 @@
-import { getUserMockById } from '@echo/firestore'
+import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
 import { mapUser } from '@server/mappers/to-response/map-user'
 
 describe('mappers - to-response - mapUser', () => {

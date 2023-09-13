@@ -1,11 +1,12 @@
-import type { ListingTargetRequest } from '@echo/api/types'
-import { findNftCollectionById } from '@echo/firestore'
-import { ListingTarget, NftCollection } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils/types'
+import type { ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
+import { findNftCollectionById } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-id'
+import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getListingTargets } from '@server/helpers/listing/get-listing-targets'
 import { forEach } from 'ramda'
 
-jest.mock('@echo/firestore')
+jest.mock('@echo/firestore/crud/nft-collection/find-nft-collection-by-id')
 
 describe('helpers - listing - getListingTargets', () => {
   const listingTargetRequest: ListingTargetRequest = {
@@ -17,11 +18,11 @@ describe('helpers - listing - getListingTargets', () => {
   const collection = {
     id: 'collection-id',
     name: 'collection-name'
-  } as NftCollection
+  } as FirestoreNftCollection
   const listingTarget = {
     amount: 1,
     collection
-  } as ListingTarget
+  } as FirestoreListingTarget
   const listingTargetRequests: NonEmptyArray<ListingTargetRequest> = [listingTargetRequest, listingTargetRequest]
 
   beforeEach(() => {

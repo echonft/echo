@@ -1,11 +1,11 @@
-import { SizeMD } from '../../../constants/size'
-import { DiscordIcon } from '../../base/icons/discord-icon'
-import { TwitterIcon } from '../../base/icons/twitter-icon'
-import { WebsiteIcon } from '../../base/icons/website-icon'
-import { ExternalLink } from '../../base/link/external-link'
-import { HideIfNil } from '../../base/utils/hide-if-nil'
+import { DiscordIcon } from '@echo/ui/components/base/icons/discord-icon'
+import { TwitterIcon } from '@echo/ui/components/base/icons/twitter-icon'
+import { WebsiteIcon } from '@echo/ui/components/base/icons/website-icon'
+import { ExternalLink } from '@echo/ui/components/base/link/external-link'
+import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
+import { SizeMD } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export interface CollectionLinksProps {
   websiteUrl?: URL | undefined

@@ -1,4 +1,4 @@
-import { QueryConstraints } from '@echo/firestore-types'
+import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { is, isNil } from 'ramda'
 
 export function selectConstraintContainsExpiredAt(constraints: QueryConstraints | undefined) {

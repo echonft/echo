@@ -1,14 +1,14 @@
 'use client'
-import { NavigationListings } from '../../../constants/navigation-item'
-import { HideIf } from '../../base/utils/hide-if'
-import { ShowIf } from '../../base/utils/show-if'
-import { ListingRowsContainer } from '../../listing/layout/container/listing-rows-container'
-import { UserNavigationLayout } from '../layout/user-navigation-layout'
-import { UserListingsEmpty } from '../listing/empty/user-listings-empty'
-import type { ListingResponse } from '@echo/api/types'
-import { mapListing } from '@echo/ui-model'
+import type { ListingResponse } from '@echo/api/types/responses/model/listing-response'
+import { HideIf } from '@echo/ui/components/base/utils/hide-if'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { ListingRowsContainer } from '@echo/ui/components/listing/layout/container/listing-rows-container'
+import { UserNavigationLayout } from '@echo/ui/components/user/layout/user-navigation-layout'
+import { UserListingsEmpty } from '@echo/ui/components/user/listing/empty/user-listings-empty'
+import { NavigationListings } from '@echo/ui/constants/navigation-item'
+import { mapListing } from '@echo/ui/mappers/from-api/map-listing'
 import { isEmpty, map } from 'ramda'
-import { FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   username: string

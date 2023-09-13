@@ -1,4 +1,5 @@
-import type { ApiRequest, GetListingsResponse } from '@echo/api/types'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { GetListingsResponse } from '@echo/api/types/responses/get-listings-response'
 import { getUserListings } from '@server/helpers/listing/get-user-listings'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
 import { parseListingFiltersQuery } from '@server/helpers/request/parse-listing-filters-query'

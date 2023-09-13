@@ -1,4 +1,4 @@
-import { dateIsPast } from '../../../../src/helpers/converters/from-firestore/date-is-past'
+import { dateIsPast } from '@echo/firestore/helpers/converters/from-firestore/date-is-past'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 

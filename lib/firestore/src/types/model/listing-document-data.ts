@@ -1,8 +1,8 @@
-import { ListingItemDocumentData } from './listing-item-document-data'
-import { ListingTargetDocumentData } from './listing-target-document-data'
-import { UserDetailsDocumentData } from './user-details-document-data'
-import { ListingState } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils/types'
+import type { FirestoreListingState } from '@echo/firestore/types/model/firestore-listing-state'
+import type { ListingItemDocumentData } from '@echo/firestore/types/model/listing-item-document-data'
+import type { ListingTargetDocumentData } from '@echo/firestore/types/model/listing-target-document-data'
+import type { UserDetailsDocumentData } from '@echo/firestore/types/model/user-details-document-data'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export interface ListingDocumentData {
   id: string
@@ -14,7 +14,7 @@ export interface ListingDocumentData {
   itemsNftIds: NonEmptyArray<string>
   itemsNftCollectionIds: NonEmptyArray<string>
   offersIds: string[]
-  state: ListingState
+  state: FirestoreListingState
   targets: NonEmptyArray<ListingTargetDocumentData>
   targetsIds: NonEmptyArray<string>
 }

@@ -1,5 +1,5 @@
-import { ContractDocumentData } from './contract-document-data'
-import { NftCollectionDiscordGuildDocumentData } from './nft-collection-discord-guild-document-data'
+import type { ContractDocumentData } from '@echo/firestore/types/model/contract-document-data'
+import type { NftCollectionDiscordGuildDocumentData } from '@echo/firestore/types/model/nft-collection-discord-guild-document-data'
 
 export interface NftCollectionDocumentData {
   id: string

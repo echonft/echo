@@ -1,8 +1,8 @@
-import { OfferWithRole } from '../../../../types/offer-with-role'
-import { CurrentUserOfferRow } from '../../row/current-user-offer-row'
-import { OfferRowsLayout } from '../offer-rows-layout'
+import { OfferRowsLayout } from '@echo/ui/components/offer/layout/offer-rows-layout'
+import { CurrentUserOfferRow } from '@echo/ui/components/offer/row/current-user-offer-row'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { map } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   offers: Array<OfferWithRole>

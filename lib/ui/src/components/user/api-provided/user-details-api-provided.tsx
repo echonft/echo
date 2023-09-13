@@ -1,8 +1,8 @@
-import { SizeLG } from '../../../constants/size'
-import { UserDetails } from '../details/user-details'
-import type { UserResponse } from '@echo/api/types'
-import { mapUser } from '@echo/ui-model'
-import { FunctionComponent, useMemo } from 'react'
+import type { UserResponse } from '@echo/api/types/responses/model/user-response'
+import { UserDetails } from '@echo/ui/components/user/details/user-details'
+import { SizeLG } from '@echo/ui/constants/size'
+import { mapUser } from '@echo/ui/mappers/from-api/map-user'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   response: UserResponse

@@ -1,4 +1,5 @@
-import type { ApiRequest, GetNftsResponse } from '@echo/api/types'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { GetNftsResponse } from '@echo/api/types/responses/get-nfts-response'
 import { getNftsForUser } from '@server/helpers/nft/get-nfts-for-user'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
 import { assertUser } from '@server/helpers/user/assert-user'

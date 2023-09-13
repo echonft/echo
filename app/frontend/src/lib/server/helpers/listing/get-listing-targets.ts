@@ -1,7 +1,7 @@
-import type { ListingTargetRequest } from '@echo/api/types'
-import { findNftCollectionById } from '@echo/firestore'
-import type { ListingTarget } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils/types'
+import type { ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
+import { findNftCollectionById } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-id'
+import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil, map } from 'ramda'
 
@@ -15,6 +15,6 @@ export const getListingTargets = (listingTargetRequests: NonEmptyArray<ListingTa
           `collection with id ${collection.id} not found in firestore while trying to get listing targets`
         )
       }
-      return { amount, collection: foundCollection } as ListingTarget
+      return { amount, collection: foundCollection } as FirestoreListingTarget
     }, listingTargetRequests)
-  ) as Promise<Awaited<NonEmptyArray<ListingTarget>>>
+  ) as Promise<Awaited<NonEmptyArray<FirestoreListingTarget>>>

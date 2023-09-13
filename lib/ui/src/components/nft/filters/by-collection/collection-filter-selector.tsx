@@ -1,7 +1,7 @@
-import { CollectionFilter } from '../../../../types/collection-filter'
-import { SelectableProps } from '../../../../types/selectable-props'
+import type { CollectionFilter } from '@echo/ui/types/collection-filter'
+import type { SelectableProps } from '@echo/ui/types/selectable-props'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props extends SelectableProps<CollectionFilter> {
   filter: CollectionFilter

@@ -1,4 +1,4 @@
-import { getListingSnapshotById } from './get-listing-snapshot-by-id'
+import { getListingSnapshotById } from '@echo/firestore/crud/listing/get-listing-snapshot-by-id'
 
 export async function findListingById(id: string) {
   const documentSnapshot = await getListingSnapshotById(id)

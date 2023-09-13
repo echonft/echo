@@ -1,8 +1,10 @@
-import { User } from '@echo/firestore-types'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil } from 'ramda'
 
-export function assertUser(user: Partial<User> | undefined): asserts user is NonNullable<Partial<User>> {
+export function assertUser(
+  user: Partial<FirestoreUser> | undefined
+): asserts user is NonNullable<Partial<FirestoreUser>> {
   if (isNil(user)) {
     throw new BadRequestError('user is nil')
   }

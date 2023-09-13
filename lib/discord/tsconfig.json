@@ -4,9 +4,9 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "@echo-discord/*": ["src/*"]
+      "@echo/discord/*": ["src/*"]
     }
   },
-  "include": ["src", "exports"],
+  "include": ["src"],
   "exclude": ["dist", "node_modules"]
 }

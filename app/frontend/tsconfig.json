@@ -10,14 +10,14 @@
       "@mocks/*": ["test/mocks/*"],
       "@server/*": ["src/lib/server/*"],
       "@type/*": ["src/lib/types/*"],
-      "@echo/alchemy/*": ["../../lib/alchemy/exports/*"],
-      "@echo-alchemy/*": ["../../lib/alchemy/src/*"],
-      "@echo/api/*": ["../../lib/api/exports/*"],
-      "@echo-api/*": ["../../lib/api/src/*"],
-      "@echo/discord/*": ["../../lib/discord/exports/*"],
-      "@echo-discord/*": ["../../lib/discord/src/*"],
-      "@echo/utils/*": ["../../lib/utils/exports/*"],
-      "@echo-utils/*": ["../../lib/utils/src/*"]
+      "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
+      "@echo/api/*": ["../../lib/api/src/*"],
+      "@echo/discord/*": ["../../lib/discord/src/*"],
+      "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/firestore-mocks/*": ["../../lib/firestore/test/mocks/*"],
+      "@echo/test-utils/*": ["../../lib/utils/test/test-utils/*"],
+      "@echo/ui/*": ["../../lib/ui/src/*"],
+      "@echo/utils/*": ["../../lib/utils/src/*"]
     },
     "plugins": [
       {

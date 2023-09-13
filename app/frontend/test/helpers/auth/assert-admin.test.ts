@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
 import { assertAdmin } from '@server/helpers/auth/assert-admin'
 import { getAdminApiKey } from '@server/helpers/auth/get-admin-api-key'
 import { NextRequest } from 'next/server'

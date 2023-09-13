@@ -1,10 +1,10 @@
-import { DirectionIn, DirectionOut } from '../../../../constants/swap-direction'
-import { NftThumbnailSkeleton } from '../../../nft/thumbnail/skeleton/nft-thumbnail-skeleton'
-import { SwapDirectionHeaderSkeleton } from '../../../shared/skeleton/swap-direction-header-skeleton'
-import { UserDetailsContainerSkeleton } from '../../../shared/skeleton/user-details-container-skeleton'
+import { NftThumbnailSkeleton } from '@echo/ui/components/nft/thumbnail/skeleton/nft-thumbnail-skeleton'
+import { SwapDirectionHeaderSkeleton } from '@echo/ui/components/shared/skeleton/swap-direction-header-skeleton'
+import { UserDetailsContainerSkeleton } from '@echo/ui/components/shared/skeleton/user-details-container-skeleton'
+import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const ListingRowSkeleton: FunctionComponent = () => {
   const t = useTranslations('shared.assets')

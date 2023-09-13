@@ -18,8 +18,8 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "@echo/api": "workspace:*",
     "@echo/ui": "workspace:*",
-    "@echo/ui-model": "workspace:*",
     "@echo/utils": "workspace:*",
     "browserify-zlib": "0.2.0",
     "constants-browserify": "1.0.0",

@@ -1,4 +1,4 @@
-import { findNftById } from '@echo/firestore'
+import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export const getNftById = async (id: string) => {

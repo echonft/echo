@@ -1,14 +1,14 @@
 'use client'
-import { MultiSelectableProps } from '../../../types/multi-selectable-props'
-import { NftGroupLayout } from '../layout/nft-group-layout'
-import { NftsLayout } from '../layout/nfts-layout'
-import { SelectableNftThumbnail } from '../thumbnail/selectable-nft-thumbnail'
-import { NftGroupButton } from './nft-group-button'
-import { Nft } from '@echo/ui-model'
-import type { NonEmptyArray } from '@echo/utils/types'
+import { NftGroupButton } from '@echo/ui/components/nft/group/nft-group-button'
+import { NftGroupLayout } from '@echo/ui/components/nft/layout/nft-group-layout'
+import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
+import { SelectableNftThumbnail } from '@echo/ui/components/nft/thumbnail/selectable-nft-thumbnail'
+import type { Nft } from '@echo/ui/types/model/nft'
+import type { MultiSelectableProps } from '@echo/ui/types/multi-selectable-props'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { Transition } from '@headlessui/react'
 import { concat, isEmpty, isNil, map, without } from 'ramda'
-import { FunctionComponent, useState } from 'react'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props extends MultiSelectableProps<string> {
   nfts: NonEmptyArray<Nft>

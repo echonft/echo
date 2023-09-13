@@ -1,7 +1,7 @@
-import { ModalOfferState } from '../../../types/modal-offer-state'
-import { OfferDetailsOfferActionAcceptedButtons } from './offer-details-offer-action-accepted-buttons'
+import { OfferDetailsOfferActionAcceptedButtons } from '@echo/ui/components/offer/details/offer-details-offer-action-accepted-buttons'
+import type { ModalOfferState } from '@echo/ui/types/modal-offer-state'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   state: ModalOfferState

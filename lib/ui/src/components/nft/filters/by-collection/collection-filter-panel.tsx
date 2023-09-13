@@ -1,13 +1,13 @@
-import { getCollectionFiltersForNfts } from '../../../../helpers/nft/get-collection-filters-for-nfts'
-import { CollectionFilter } from '../../../../types/collection-filter'
-import { FiltersPanel } from '../../../layout/filters-panel'
-import { CollectionFilterSelector } from './collection-filter-selector'
-import { Nft } from '@echo/ui-model'
-import addToArrayIfNotPresent from '@echo/utils/add-to-array-if-not-present'
-import removeFromArray from '@echo/utils/remove-from-array'
+import { FiltersPanel } from '@echo/ui/components/layout/filters-panel'
+import { CollectionFilterSelector } from '@echo/ui/components/nft/filters/by-collection/collection-filter-selector'
+import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/get-collection-filters-for-nfts'
+import type { CollectionFilter } from '@echo/ui/types/collection-filter'
+import type { Nft } from '@echo/ui/types/model/nft'
+import { addToArrayIfNotPresent } from '@echo/utils/array/add-to-array-if-not-present'
+import { removeFromArray } from '@echo/utils/array/remove-from-array'
 import { useTranslations } from 'next-intl'
 import { any, equals, map, propEq } from 'ramda'
-import { FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   nfts: Nft[]

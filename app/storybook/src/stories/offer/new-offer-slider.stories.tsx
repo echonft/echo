@@ -1,9 +1,9 @@
-import { getOfferById } from '../../mocks/model/offer'
-import { NewOfferSliderManager as Component } from '@echo/ui/src/components/offer/new/new-offer-slider-manager'
-import { newOfferDataState } from '@echo/ui/src/services/state'
-import type { OfferItem } from '@echo/ui-model'
-import { Meta, StoryObj } from '@storybook/react'
-import { FunctionComponent, useEffect } from 'react'
+import { NewOfferSliderManager as Component } from '@echo/ui/components/offer/new/new-offer-slider-manager'
+import { newOfferDataState } from '@echo/ui/services/state'
+import type { OfferItem } from '@echo/ui/types/model/offer-item'
+import { getOfferById } from '@mocks/model/offer'
+import type { Meta, StoryObj } from '@storybook/react'
+import { type FunctionComponent, useEffect } from 'react'
 import { RecoilRoot, useRecoilState } from 'recoil'
 
 const metadata: Meta<typeof Component> = {

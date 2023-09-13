@@ -1,14 +1,14 @@
-import type { NftResponse } from '@echo/api/types'
-import { Nft } from '@echo/firestore-types'
-import modifyUrlPropToString from '@echo/utils/modify-url-prop-to-string'
+import type { NftResponse } from '@echo/api/types/responses/model/nft-response'
+import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
+import { modifyUrlPropToString } from '@echo/utils/fp/modify-url-prop-to-string'
 import { mapNftCollection } from '@server/mappers/to-response/map-nft-collection'
 import { modify, pipe } from 'ramda'
 
-export function mapNft(nft: Partial<Nft>): NftResponse {
+export function mapNft(nft: Partial<FirestoreNft>): NftResponse {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return pipe(
-    modifyUrlPropToString<'blurUrl', Partial<Nft>>('blurUrl'),
+    modifyUrlPropToString<'blurUrl', Partial<FirestoreNft>>('blurUrl'),
     modifyUrlPropToString('openSeaUrl'),
     modifyUrlPropToString('pictureUrl'),
     modifyUrlPropToString('thumbnailUrl'),

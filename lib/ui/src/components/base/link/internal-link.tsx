@@ -1,8 +1,8 @@
 'use client'
-import { isMockEnvironment } from '../../../helpers/is-mock-environment'
+import { isMockEnvironment } from '@echo/ui/helpers/is-mock-environment'
 import { clsx } from 'clsx'
 import Link from 'next/link'
-import { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
+import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
 
 interface Props {
   path: string

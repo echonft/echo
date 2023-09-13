@@ -1,8 +1,13 @@
-import { assertUser } from '../helpers/user/assert-user'
-import { Id, User, UserDetails, Wallet } from '@echo/firestore-types'
+import { assertUser } from '@echo/firestore/helpers/user/assert-user'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreUserDetails } from '@echo/firestore/types/model/firestore-user-details'
+import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
 import { assoc, pick, pipe } from 'ramda'
 
-export function mapUserToUserDetails(user: Partial<User>, wallet: Wallet): Partial<UserDetails> & Id {
+export function mapUserToUserDetails(
+  user: Partial<FirestoreUser>,
+  wallet: FirestoreWallet
+): Partial<FirestoreUserDetails> {
   assertUser(user)
   try {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

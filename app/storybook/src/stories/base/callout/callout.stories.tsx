@@ -1,6 +1,6 @@
-import { Callout as Component } from '@echo/ui/src/components/layout/callout/callout'
-import { CalloutSeverity } from '@echo/ui/src/constants/callout-severity'
-import { CalloutVariant } from '@echo/ui/src/constants/callout-variant'
+import { Callout as Component } from '@echo/ui/components/layout/callout/callout'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { CalloutVariant } from '@echo/ui/constants/callout-variant'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

@@ -1,7 +1,7 @@
-import { CollapsibleProps } from '../../../types/collapsible-props'
-import { DownCaretSvg } from '../../base/svg/down-caret-svg'
+import { DownCaretSvg } from '@echo/ui/components/base/svg/down-caret-svg'
+import type { CollapsibleProps } from '@echo/ui/types/collapsible-props'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props extends CollapsibleProps {
   name: string

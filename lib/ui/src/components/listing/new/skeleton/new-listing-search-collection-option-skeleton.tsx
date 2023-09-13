@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const NewListingSearchCollectionOptionSkeleton: FunctionComponent = () => (
   <div className={clsx('rounded-lg', 'p-2', 'flex', 'flex-row', 'gap-3')}>

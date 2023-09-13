@@ -1,7 +1,7 @@
-import { getNftCollectionMockById } from './get-nft-collection-mock-by-id'
-import { Nft } from '@echo/firestore-types'
+import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
+import { getNftCollectionMockById } from '@echo/firestore-mocks/get-nft-collection-mock-by-id'
 
-export const nftMock: { [key: string]: Nft } = {
+export const nftMock: { [key: string]: FirestoreNft } = {
   '8hHFadIrrooORfTOLkBg': {
     id: '8hHFadIrrooORfTOLkBg',
     attributes: [

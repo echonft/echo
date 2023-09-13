@@ -1,5 +1,5 @@
-import { nftCollectionMock } from './nft-collection-mock'
-import { NftCollection } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils/types'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import { nftCollectionMock } from '@echo/firestore-mocks/nft-collection-mock'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
-export const getAllNftCollectionMocks = () => Object.values(nftCollectionMock) as NonEmptyArray<NftCollection>
+export const getAllNftCollectionMocks = () => Object.values(nftCollectionMock) as NonEmptyArray<FirestoreNftCollection>

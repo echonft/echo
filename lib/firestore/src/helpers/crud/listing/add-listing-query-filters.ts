@@ -1,11 +1,12 @@
-import { Listing, ListingQueryFilters } from '@echo/firestore-types'
-import intersects from '@echo/utils/intersects'
-import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
-import single from '@echo/utils/single'
-import { Query } from 'firebase-admin/lib/firestore'
+import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
+import { intersects } from '@echo/utils/fp/intersects'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { single } from '@echo/utils/fp/single'
+import type { Query } from 'firebase-admin/lib/firestore'
 import { head, isNil } from 'ramda'
 
-export function addListingQueryFilters(query: Query<Partial<Listing>>, filters?: ListingQueryFilters) {
+export function addListingQueryFilters(query: Query<Partial<FirestoreListing>>, filters?: ListingQueryFilters) {
   if (isNil(filters)) {
     return query
   }

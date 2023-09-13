@@ -4,9 +4,6 @@
   "private": true,
   "sideEffects": false,
   "license": "MIT",
-  "exports": {
-    "./exports": "./src/exports/**/index.ts"
-  },
   "scripts": {
     "lint": "eslint --cache --fix --ext .ts src/",
     "lint:ci": "eslint --ext .ts src/",

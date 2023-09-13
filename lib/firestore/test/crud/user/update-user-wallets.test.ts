@@ -1,13 +1,13 @@
-import { findUserById } from '../../../src/crud/user/find-user-by-id'
-import { updateUser } from '../../../src/crud/user/update-user'
-import { updateUserWallets } from '../../../src/crud/user/update-user-wallets'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
-import { Wallet } from '@echo/firestore-types'
+import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
+import { updateUser } from '@echo/firestore/crud/user/update-user'
+import { updateUserWallets } from '@echo/firestore/crud/user/update-user-wallets'
+import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - user - updateUserWallets', () => {
-  let initialWallets: Wallet[]
+  let initialWallets: FirestoreWallet[]
   const id = 'oE6yUEQBPn7PZ89yMjKn'
 
   beforeAll(tearUpRemoteFirestoreTests)

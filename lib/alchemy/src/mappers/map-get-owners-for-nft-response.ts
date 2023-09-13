@@ -1,6 +1,6 @@
-import { AlchemyWallet } from '@echo-alchemy/types/model/alchemy-wallet'
-import { PagingResult } from '@echo-alchemy/types/paging/paging-result'
-import { GetOwnersForNftResponse } from '@echo-alchemy/types/response/get-owners-for-nft-response'
+import { AlchemyWallet } from '@echo/alchemy/types/model/alchemy-wallet'
+import { PagingResult } from '@echo/alchemy/types/paging/paging-result'
+import { GetOwnersForNftResponse } from '@echo/alchemy/types/response/get-owners-for-nft-response'
 import { applySpec, map, pipe, prop } from 'ramda'
 
 export function mapGetOwnersForNftResponse(response: GetOwnersForNftResponse): PagingResult<AlchemyWallet> {

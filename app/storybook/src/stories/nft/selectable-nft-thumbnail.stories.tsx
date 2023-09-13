@@ -1,5 +1,5 @@
-import { getNftById } from '../../mocks/model/nft'
-import { SelectableNftThumbnail as Component } from '@echo/ui/src/components/nft/thumbnail/selectable-nft-thumbnail'
+import { SelectableNftThumbnail as Component } from '@echo/ui/components/nft/thumbnail/selectable-nft-thumbnail'
+import { getNftById } from '@mocks/model/nft'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

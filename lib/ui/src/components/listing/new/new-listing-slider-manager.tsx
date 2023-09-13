@@ -1,12 +1,14 @@
 'use client'
-import { BottomSlider } from '../../layout/bottom-slider/bottom-slider'
-import { BottomSliderTitle } from '../../layout/bottom-slider/bottom-slider-title'
-import { NewListingSliderInnerContainer } from './new-listing-slider-inner-container'
-import type { ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
+import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
+import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
+import { NewListingSliderInnerContainer } from '@echo/ui/components/listing/new/new-listing-slider-inner-container'
+import type { ListingItem } from '@echo/ui/types/model/listing-item'
+import type { ListingTarget } from '@echo/ui/types/model/listing-target'
+import type { NftCollection } from '@echo/ui/types/model/nft-collection'
 import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
 import { assoc, find, isNil, map, pathEq, pipe, reject, when } from 'ramda'
-import { FunctionComponent, useEffect, useState } from 'react'
+import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
   collectionProvider: {

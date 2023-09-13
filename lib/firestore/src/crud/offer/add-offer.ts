@@ -1,26 +1,27 @@
-import { CollectionName } from '../../constants/collection-name'
-import { DEFAULT_EXPIRATION_TIME } from '../../constants/default-expiration-time'
-import { offerDataConverter } from '../../converters/offer-data-converter'
-import { assertOfferItems } from '../../helpers/offer/assert/assert-offer-items'
-import { firestore } from '../../services/firestore'
-import { addOfferToListing } from '../listing/add-offer-to-listing'
-import { getListingsForOffer } from '../listing/get-listings-for-offer'
-import { OfferItem, UserDetails } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils/types'
+import { CollectionName } from '@echo/firestore/constants/collection-name'
+import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
+import { offerDataConverter } from '@echo/firestore/converters/offer-data-converter'
+import { addOfferToListing } from '@echo/firestore/crud/listing/add-offer-to-listing'
+import { getListingsForOffer } from '@echo/firestore/crud/listing/get-listings-for-offer'
+import { assertOfferItems } from '@echo/firestore/helpers/offer/assert/assert-offer-items'
+import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import type { FirestoreUserDetails } from '@echo/firestore/types/model/firestore-user-details'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import dayjs from 'dayjs'
 import { assoc, isEmpty, map, pipe, prop } from 'ramda'
 
 interface NewOffer {
-  receiver: Partial<UserDetails>
-  receiverItems: NonEmptyArray<OfferItem>
-  sender: Partial<UserDetails>
-  senderItems: NonEmptyArray<OfferItem>
+  receiver: Partial<FirestoreUserDetails>
+  receiverItems: NonEmptyArray<FirestoreOfferItem>
+  sender: Partial<FirestoreUserDetails>
+  senderItems: NonEmptyArray<FirestoreOfferItem>
 }
 
 export async function addOffer(offer: NewOffer): Promise<string> {
   const { receiverItems, senderItems } = offer
   const listings = await getListingsForOffer(senderItems, receiverItems)
-  const reference = firestore().collection(CollectionName.OFFERS).doc()
+  const reference = firestoreApp().collection(CollectionName.OFFERS).doc()
   assertOfferItems(receiverItems)
   assertOfferItems(senderItems)
   const offerId = reference.id

@@ -5,7 +5,7 @@ import {
   NavigationOffersCreated,
   NavigationOffersReceived,
   NavigationSwaps
-} from '../constants/navigation-item'
+} from '@echo/ui/constants/navigation-item'
 
 export type ProfileNavigationItem =
   | typeof NavigationItems

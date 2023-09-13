@@ -1,5 +1,6 @@
-import { isUserOfferReceiver } from '../../../src/helpers/offer/is-user-offer-receiver'
-import { Offer, User } from '@echo/ui-model'
+import { isUserOfferReceiver } from '@echo/ui/helpers/offer/is-user-offer-receiver'
+import type { Offer } from '@echo/ui/types/model/offer'
+import type { User } from '@echo/ui/types/model/user'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - offer - isUserReceiver', () => {

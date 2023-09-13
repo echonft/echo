@@ -1,13 +1,14 @@
-import { StateTextContainer } from '../../shared/state-text-container'
-import { UserDetailsContainer } from '../../shared/user-details-container'
-import { ListingRowItemsContainer } from './listing-row-items-container'
-import { ListingRowTargetsContainer } from './listing-row-targets-container'
-import { getListingCreatorWallet, Listing } from '@echo/ui-model'
+import { ListingRowItemsContainer } from '@echo/ui/components/listing/row/listing-row-items-container'
+import { ListingRowTargetsContainer } from '@echo/ui/components/listing/row/listing-row-targets-container'
+import { StateTextContainer } from '@echo/ui/components/shared/state-text-container'
+import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
+import { getListingCreatorWallet } from '@echo/ui/helpers/listing/get-listing-creator-wallet'
+import type { Listing } from '@echo/ui/types/model/listing'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import RelativeTime from 'dayjs/plugin/relativeTime'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 dayjs.extend(RelativeTime)
 

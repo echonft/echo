@@ -1,11 +1,11 @@
-import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
-import { getOffersForReceiver } from '../../../src/crud/offer/get-offers-for-receiver'
-import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { getOfferMockById } from '../../mocks/get-offer-mock-by-id'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
-import { Offer } from '@echo/firestore-types'
+import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { getOffersForReceiver } from '@echo/firestore/crud/offer/get-offers-for-receiver'
+import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
+import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 
@@ -13,13 +13,13 @@ describe('CRUD - offer - getOffersForReceiver', () => {
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
   let initialExpiresAt: dayjs.Dayjs
 
-  async function setExpired(offer: Offer) {
+  async function setExpired(offer: FirestoreOffer) {
     const expiresAt = dayjs().subtract(1, 'day').set('ms', 0)
     await updateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', true))(offer)
   }
 
-  async function setNotExpired(offer: Offer) {
+  async function setNotExpired(offer: FirestoreOffer) {
     const expiresAt = dayjs().add(1, 'day').set('ms', 0)
     await updateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(offer)

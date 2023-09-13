@@ -1,4 +1,4 @@
-import { User } from '@echo/firestore-types'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import { getSession } from '@server/helpers/auth/get-session'
 import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
 import { getUserById } from '@server/helpers/user/get-user-by-id'
@@ -30,7 +30,7 @@ describe('helpers - auth - getUserFromSession', () => {
   it('returns the user if both session and user are defined', async () => {
     const user = {
       id: 'userId'
-    } as User
+    } as FirestoreUser
     jest.mocked(getSession).mockResolvedValueOnce({
       user: {
         id: 'userId'

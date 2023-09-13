@@ -1,13 +1,13 @@
-import { nftCollectionDataConverter } from '../../converters/nft-collection-data-converter'
-import { cleanAndUpdateDocumentRef } from '../../helpers/crud/clean-and-update-document-ref'
-import { getNftCollectionSnapshotById } from './get-nft-collection-snapshot-by-id'
-import { NftCollection } from '@echo/firestore-types'
-import { WriteResult } from 'firebase-admin/firestore'
+import { nftCollectionDataConverter } from '@echo/firestore/converters/nft-collection-data-converter'
+import { getNftCollectionSnapshotById } from '@echo/firestore/crud/nft-collection/get-nft-collection-snapshot-by-id'
+import { cleanAndUpdateDocumentRef } from '@echo/firestore/helpers/crud/clean-and-update-document-ref'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import type { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
 export async function updateNftCollection(
   id: string,
-  nftCollection: Partial<Omit<NftCollection, 'id'>>
+  nftCollection: Partial<Omit<FirestoreNftCollection, 'id'>>
 ): Promise<WriteResult> {
   const documentSnapshot = await getNftCollectionSnapshotById(id)
   if (isNil(documentSnapshot)) {

@@ -1,14 +1,14 @@
-import { findListingById } from '../../../src/crud/listing/find-listing-by-id'
-import { invalidateListing } from '../../../src/crud/listing/invalidate-listing'
-import { updateListing } from '../../../src/crud/listing/update-listing'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
-import { ListingState } from '@echo/firestore-types'
+import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
+import { invalidateListing } from '@echo/firestore/crud/listing/invalidate-listing'
+import { updateListing } from '@echo/firestore/crud/listing/update-listing'
+import type { FirestoreListingState } from '@echo/firestore/types/model/firestore-listing-state'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
 
 describe('CRUD - listing - invalidateListing', () => {
-  let initialState: ListingState
+  let initialState: FirestoreListingState
   let initialExpiresAt: dayjs.Dayjs
   const id = 'jUzMtPGKM62mMhEcmbN4'
 

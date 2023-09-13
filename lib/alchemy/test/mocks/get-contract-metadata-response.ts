@@ -1,4 +1,4 @@
-import type { ContractResponse } from '@echo-alchemy/types/response/contract-response'
+import type { ContractResponse } from '@echo/alchemy/types/response/contract-response'
 
 export const getContractMetadataResponse: { [key: string]: ContractResponse } = {
   '0x320e2fa93A4010ba47edcdE762802374bac8d3F7': {

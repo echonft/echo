@@ -1,4 +1,4 @@
-import { getNftCollectionMockById } from '@echo/firestore'
+import { getNftCollectionMockById } from '@echo/firestore-mocks/get-nft-collection-mock-by-id'
 import { mapNftCollection } from '@server/mappers/to-response/map-nft-collection'
 
 describe('mappers - to-response - mapNftCollection', () => {

@@ -1,5 +1,5 @@
-import { ItemThumbnailSkeleton as Component } from '@echo/ui/src/components/item/thumbnail/skeleton/item-thumbnail-skeleton'
-import { SizeMD } from '@echo/ui/src/constants/size'
+import { ItemThumbnailSkeleton as Component } from '@echo/ui/components/item/thumbnail/skeleton/item-thumbnail-skeleton'
+import { SizeMD } from '@echo/ui/constants/size'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

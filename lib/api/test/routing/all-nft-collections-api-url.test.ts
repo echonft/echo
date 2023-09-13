@@ -1,4 +1,4 @@
-import { allNftCollectionsApiUrl } from '@echo-api/routing/all-nft-collections-api-url'
+import { allNftCollectionsApiUrl } from '@echo/api/routing/all-nft-collections-api-url'
 import { describe, expect, test } from '@jest/globals'
 
 describe('routing - allNftCollectionApiUrl', () => {

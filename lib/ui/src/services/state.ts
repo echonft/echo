@@ -1,4 +1,4 @@
-import { NewOffer } from '@echo/ui-model'
+import type { NewOffer } from '@echo/ui/types/model/new-offer'
 import { atom } from 'recoil'
 
 // New Offer

@@ -1,5 +1,5 @@
-import { searchCollectionsByName } from '../../../src/helpers/collection/search-collections-by-name'
-import { NftCollection } from '@echo/ui-model'
+import { searchCollectionsByName } from '@echo/ui/helpers/collection/search-collections-by-name'
+import type { NftCollection } from '@echo/ui/types/model/nft-collection'
 import { describe, expect, it } from '@jest/globals'
 import { includes } from 'ramda'
 

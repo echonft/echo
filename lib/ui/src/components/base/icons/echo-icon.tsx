@@ -1,12 +1,12 @@
-import { ColorBlack, ColorYellow } from '../../../constants/color'
-import { getIconSizeInPx } from '../../../helpers/get-icon-size-in-px'
-import { EchoIconColor } from '../../../types/echo-icon-color'
-import { IconSize } from '../../../types/icon-size'
-import { EchoIconSvg } from '../svg/echo-icon-svg'
-import { IconContainer } from './icon-container'
-import { IconContainerColor } from './icon-container-color'
+import { IconContainer } from '@echo/ui/components/base/icons/icon-container'
+import { IconContainerColor } from '@echo/ui/components/base/icons/icon-container-color'
+import { EchoIconSvg } from '@echo/ui/components/base/svg/echo-icon-svg'
+import { ColorBlack, ColorYellow } from '@echo/ui/constants/color'
+import { getIconSizeInPx } from '@echo/ui/helpers/get-icon-size-in-px'
+import type { EchoIconColor } from '@echo/ui/types/echo-icon-color'
+import type { IconSize } from '@echo/ui/types/icon-size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   color: EchoIconColor

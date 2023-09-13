@@ -18,7 +18,7 @@ const config: Config = {
   coverageReporters: ['json-summary', 'text'],
   coverageDirectory: '<rootDir>/../../.coverage/lib/utils',
   moduleNameMapper: {
-    '^@echo-utils/(.*)$': '<rootDir>/src/$1'
+    '^@echo/utils/(.*)$': '<rootDir>/src/$1'
   },
   reporters: [
     'default',

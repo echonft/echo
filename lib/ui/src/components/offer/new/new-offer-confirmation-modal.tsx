@@ -1,12 +1,12 @@
 'use client'
-import { newOfferDataState, newOfferState } from '../../../services/state'
-import { Modal } from '../../layout/modal/modal'
-import { ModalTitle } from '../../layout/modal/modal-title'
-import { NewOfferConfirmationModalInnerContainer } from './new-offer-confirmation-modal-inner-container'
-import { NewOfferConfirmedModalInnerContainer } from './new-offer-confirmed-modal-inner-container'
+import { Modal } from '@echo/ui/components/layout/modal/modal'
+import { ModalTitle } from '@echo/ui/components/layout/modal/modal-title'
+import { NewOfferConfirmationModalInnerContainer } from '@echo/ui/components/offer/new/new-offer-confirmation-modal-inner-container'
+import { NewOfferConfirmedModalInnerContainer } from '@echo/ui/components/offer/new/new-offer-confirmed-modal-inner-container'
+import { newOfferDataState, newOfferState } from '@echo/ui/services/state'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
-import { FunctionComponent, useCallback } from 'react'
+import { type FunctionComponent, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
 
 export const NewOfferConfirmationModal: FunctionComponent = () => {

@@ -1,4 +1,4 @@
-import { removeOrAddFromArray } from '@echo-utils/fp/remove-or-add-from-array'
+import { removeOrAddFromArray } from '@echo/utils/fp/remove-or-add-from-array'
 import { head, isEmpty, tail, uniqWith } from 'ramda'
 
 function removeOrAddArrayFromArrayRecursive<T>(

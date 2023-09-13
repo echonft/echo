@@ -1,8 +1,8 @@
-import { SizeLG } from '../../../constants/size'
-import { CollectionDetails } from '../details/collection-details'
-import type { NftCollectionResponse } from '@echo/api/types'
-import { mapNftCollection } from '@echo/ui-model'
-import { FunctionComponent, useMemo } from 'react'
+import type { NftCollectionResponse } from '@echo/api/types/responses/model/nft-collection-response'
+import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
+import { SizeLG } from '@echo/ui/constants/size'
+import { mapNftCollection } from '@echo/ui/mappers/from-api/map-nft-collection'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   response: Partial<NftCollectionResponse>

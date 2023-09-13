@@ -1,9 +1,11 @@
 'use client'
-import { NftDetails } from '../nft-details'
-import type { ListingResponse, NftResponse } from '@echo/api/types'
-import { mapListing, mapNft } from '@echo/ui-model'
+import type { ListingResponse } from '@echo/api/types/responses/model/listing-response'
+import type { NftResponse } from '@echo/api/types/responses/model/nft-response'
+import { NftDetails } from '@echo/ui/components/nft/details/nft-details'
+import { mapListing } from '@echo/ui/mappers/from-api/map-listing'
+import { mapNft } from '@echo/ui/mappers/from-api/map-nft'
 import { map } from 'ramda'
-import { FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   nftResponse: Partial<NftResponse>

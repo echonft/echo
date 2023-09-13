@@ -36,7 +36,6 @@
     "ramda": "0.29.0"
   },
   "devDependencies": {
-    "@echo/firestore-types": "workspace:*",
     "@jest/globals": "29.6.2",
     "@jest/types": "29.6.1",
     "@types/ramda": "0.29.3",

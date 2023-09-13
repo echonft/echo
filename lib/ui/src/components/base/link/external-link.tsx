@@ -1,4 +1,4 @@
-import { FunctionComponent, PropsWithChildren } from 'react'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
   href: string

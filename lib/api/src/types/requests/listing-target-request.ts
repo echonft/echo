@@ -1,4 +1,4 @@
-import type { IdRequest } from '@echo-api/types/requests/id-request'
+import type { IdRequest } from '@echo/api/types/requests/id-request'
 
 export interface ListingTargetRequest {
   amount: number

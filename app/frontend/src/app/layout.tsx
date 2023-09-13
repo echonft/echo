@@ -1,4 +1,4 @@
-import '@echo/ui/dist/index.css'
+import '../../../../lib/ui/dist/index.css'
 import '../index.css'
 import type { Metadata } from 'next'
 import type { FunctionComponent, PropsWithChildren } from 'react'

@@ -1,11 +1,16 @@
-import type { OfferItem, User, Wallet } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils/types'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getOwnersForNft } from '@server/helpers/alchemy/get-owners-for-nft'
 import { ForbiddenError } from '@server/helpers/error/forbidden-error'
 import { ServerError } from '@server/helpers/error/server-error'
 import { equals, flatten, head, ifElse, intersection, length, map, pipe, uniq } from 'ramda'
 
-export const getOfferItemsWallet = (items: NonEmptyArray<OfferItem>, user: User): Promise<Wallet> =>
+export const getOfferItemsWallet = (
+  items: NonEmptyArray<FirestoreOfferItem>,
+  user: FirestoreUser
+): Promise<FirestoreWallet> =>
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   Promise.all(map(async ({ nft }) => await getOwnersForNft(nft.collection.contract, nft.tokenId), items))

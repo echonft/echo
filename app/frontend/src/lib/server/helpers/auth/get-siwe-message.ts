@@ -1,4 +1,4 @@
-import { BadRequestError } from '../error/bad-request-error'
+import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { SiweMessage } from 'siwe'
 
 type SiweMessageType = {

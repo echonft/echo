@@ -1,8 +1,8 @@
-import { getNftMockById } from './get-nft-mock-by-id'
-import { Offer } from '@echo/firestore-types'
+import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import { getNftMockById } from '@echo/firestore-mocks/get-nft-mock-by-id'
 import dayjs from 'dayjs'
 
-export const offerMock: { [key: string]: Offer } = {
+export const offerMock: { [key: string]: FirestoreOffer } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
     createdAt: dayjs.unix(1676984897),

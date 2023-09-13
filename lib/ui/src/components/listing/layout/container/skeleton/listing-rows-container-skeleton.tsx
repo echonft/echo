@@ -1,6 +1,6 @@
-import { ListingRowSkeleton } from '../../../row/skeleton/listing-row-skeleton'
-import { ListingRowsLayout } from '../../listing-rows-layout'
-import { FunctionComponent } from 'react'
+import { ListingRowsLayout } from '@echo/ui/components/listing/layout/listing-rows-layout'
+import { ListingRowSkeleton } from '@echo/ui/components/listing/row/skeleton/listing-row-skeleton'
+import type { FunctionComponent } from 'react'
 
 export const ListingRowsContainerSkeleton: FunctionComponent = () => {
   return (

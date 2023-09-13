@@ -1,10 +1,10 @@
-import { getIconSizeInPx } from '../../../helpers/get-icon-size-in-px'
-import { IconSize } from '../../../types/icon-size'
-import { FlagIconSvg } from '../svg/flag-icon-svg'
-import { IconContainer } from './icon-container'
-import { IconContainerColor } from './icon-container-color'
+import { IconContainer } from '@echo/ui/components/base/icons/icon-container'
+import { IconContainerColor } from '@echo/ui/components/base/icons/icon-container-color'
+import { FlagIconSvg } from '@echo/ui/components/base/svg/flag-icon-svg'
+import { getIconSizeInPx } from '@echo/ui/helpers/get-icon-size-in-px'
+import type { IconSize } from '@echo/ui/types/icon-size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   size: IconSize

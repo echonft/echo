@@ -1,14 +1,14 @@
-import { completeOffer } from '../../../src/crud/offer/complete-offer'
-import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
-import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
-import { OfferState } from '@echo/firestore-types'
+import { completeOffer } from '@echo/firestore/crud/offer/complete-offer'
+import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
+import type { FirestoreOfferState } from '@echo/firestore/types/model/firestore-offer-state'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
 
 describe('CRUD - offer - completeOffer', () => {
-  let initialState: OfferState
+  let initialState: FirestoreOfferState
   let initialExpiresAt: dayjs.Dayjs
   let initialSwapTransactionId: string | undefined
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'

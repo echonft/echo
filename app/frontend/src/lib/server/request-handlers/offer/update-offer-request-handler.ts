@@ -1,5 +1,6 @@
-import UpdateOfferAction from '@echo/api/constants/update-offer-action'
-import type { ApiRequest, UpdateOfferRequest } from '@echo/api/types'
+import { UpdateOfferAction } from '@echo/api/constants/update-offer-action'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { UpdateOfferRequest } from '@echo/api/types/requests/update-offer-request'
 import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { handleAcceptOffer } from '@server/request-handlers/offer/handle-accept-offer'

@@ -1,6 +1,6 @@
-import { ListingRow } from '../../row/listing-row'
-import { ListingRowsLayout } from '../listing-rows-layout'
-import type { Listing } from '@echo/ui-model'
+import { ListingRowsLayout } from '@echo/ui/components/listing/layout/listing-rows-layout'
+import { ListingRow } from '@echo/ui/components/listing/row/listing-row'
+import type { Listing } from '@echo/ui/types/model/listing'
 import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 

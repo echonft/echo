@@ -1,5 +1,7 @@
-import { removeItemFromNewOffer } from '../../../src/helpers/offer/remove-item-from-new-offer'
-import { NewOffer, OfferItem, User } from '@echo/ui-model'
+import { removeItemFromNewOffer } from '@echo/ui/helpers/offer/remove-item-from-new-offer'
+import type { NewOffer } from '@echo/ui/types/model/new-offer'
+import type { OfferItem } from '@echo/ui/types/model/offer-item'
+import type { User } from '@echo/ui/types/model/user'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - offer - removeItemFromNewOffer', () => {

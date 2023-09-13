@@ -1,5 +1,6 @@
 import { listingLink } from '../../src/routing/listing-link'
-import { getListingItemsGuild, getListingMockById } from '@echo/firestore'
+import { getListingItemsGuild } from '@echo/firestore/helpers/listing/get-listing-items-guild'
+import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
 import { describe, expect, jest, test } from '@jest/globals'
 
 jest.mock('../../src/routing/get-base-url')

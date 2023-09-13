@@ -1,4 +1,4 @@
-import { rejectOffer as firestoreRejectOffer } from '@echo/firestore'
+import { rejectOffer as firestoreRejectOffer } from '@echo/firestore/crud/offer/reject-offer'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export const rejectOffer = async (offerId: string) => {

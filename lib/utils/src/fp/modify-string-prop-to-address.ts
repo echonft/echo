@@ -1,4 +1,4 @@
-import { propIsNil } from '@echo-utils/fp/prop-is-nil'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { dissoc, has, ifElse, modify, when } from 'ramda'
 import { getAddress } from 'viem'
 

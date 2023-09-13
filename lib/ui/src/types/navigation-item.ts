@@ -1,4 +1,4 @@
-import { NavigationItemId } from './navigation-item-id'
+import type { NavigationItemId } from '@echo/ui/types/navigation-item-id'
 
 export interface NavigationItem {
   id: NavigationItemId

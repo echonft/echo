@@ -1,12 +1,12 @@
-import { CollectionName } from '../../constants/collection-name'
-import { listingDataConverter } from '../../converters/listing-data-converter'
-import { firestore } from '../../services/firestore'
-import { Listing } from '@echo/firestore-types'
-import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import { CollectionName } from '@echo/firestore/constants/collection-name'
+import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
+import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 
 export async function getListingSnapshotById(id: string) {
-  const querySnapshot = await firestore()
+  const querySnapshot = await firestoreApp()
     .collection(CollectionName.LISTINGS)
     .where('id', '==', id)
     .withConverter(listingDataConverter)
@@ -16,7 +16,7 @@ export async function getListingSnapshotById(id: string) {
     return undefined
   }
 
-  const documentSnapshot = head(querySnapshot.docs) as QueryDocumentSnapshot<Listing>
+  const documentSnapshot = head(querySnapshot.docs) as QueryDocumentSnapshot<FirestoreListing>
   if (isNil(documentSnapshot)) {
     return undefined
   }

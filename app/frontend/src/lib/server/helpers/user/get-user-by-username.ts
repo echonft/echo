@@ -1,4 +1,4 @@
-import { findUserByUsername } from '@echo/firestore'
+import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export async function getUserByUsername(username: string) {

@@ -1,4 +1,4 @@
-import { propIsNil } from '@echo-utils/fp/prop-is-nil'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { assoc, dissoc, has, identity, isNil, lens, over, pipe, prop, unless, when } from 'ramda'
 
 function internalFn<K extends keyof T, T>(

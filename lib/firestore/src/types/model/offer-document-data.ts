@@ -1,8 +1,8 @@
-import { OfferDiscordGuildDocumentData } from './offer-discord-guild-document-data'
-import { OfferItemDocumentData } from './offer-item-document-data'
-import { UserDetailsDocumentData } from './user-details-document-data'
-import { OfferState } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils/types'
+import type { FirestoreOfferState } from '@echo/firestore/types/model/firestore-offer-state'
+import type { OfferDiscordGuildDocumentData } from '@echo/firestore/types/model/offer-discord-guild-document-data'
+import type { OfferItemDocumentData } from '@echo/firestore/types/model/offer-item-document-data'
+import type { UserDetailsDocumentData } from '@echo/firestore/types/model/user-details-document-data'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export interface OfferDocumentData {
   id: string
@@ -20,7 +20,7 @@ export interface OfferDocumentData {
   senderItems: NonEmptyArray<OfferItemDocumentData>
   senderItemsNftIds: NonEmptyArray<string>
   senderItemsNftCollectionIds: NonEmptyArray<string>
-  state: OfferState
+  state: FirestoreOfferState
   swapTransactionId?: string
 }
 

@@ -1,4 +1,4 @@
-import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 
 export const getAdminApiKey = (): string => {
   const adminApiKey = process.env.ADMIN_API_KEY

@@ -1,5 +1,5 @@
-import { Nft } from '@echo/firestore-types'
+import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
 
-export function embedValueForNft(nft: Partial<Nft>): string {
+export function embedValueForNft(nft: Partial<FirestoreNft>): string {
   return `${nft.collection!.name} #${nft.tokenId}`
 }

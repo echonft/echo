@@ -1,7 +1,7 @@
-import { getCollectionNavigationItems } from '../../../helpers/collection/get-collection-navigation-items'
-import { NavigationItemId } from '../../../types/navigation-item-id'
-import { NavigationLayout } from '../../layout/navigation/navigation-layout'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import { NavigationLayout } from '@echo/ui/components/layout/navigation/navigation-layout'
+import { getCollectionNavigationItems } from '@echo/ui/helpers/collection/get-collection-navigation-items'
+import type { NavigationItemId } from '@echo/ui/types/navigation-item-id'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
   slug: string

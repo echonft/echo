@@ -1,8 +1,10 @@
-import AlchemyRoutes from '@echo/alchemy/alchemy-routes'
-import getAlchemyRoute from '@echo/alchemy/get-alchemy-route'
-import handlePaging from '@echo/alchemy/handle-paging'
-import mapGetNftsForOwnerResponse from '@echo/alchemy/map-get-nfts-for-owner-response'
-import type { AlchemyNft, GetNftsForOwnerRequest, GetNftsForOwnerResponse } from '@echo/alchemy/types'
+import { AlchemyRoutes } from '@echo/alchemy/constants/alchemy-routes'
+import { getAlchemyRoute } from '@echo/alchemy/helpers/get-alchemy-route'
+import { handlePaging } from '@echo/alchemy/helpers/handle-paging'
+import { mapGetNftsForOwnerResponse } from '@echo/alchemy/mappers/map-get-nfts-for-owner-response'
+import { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
+import type { GetNftsForOwnerRequest } from '@echo/alchemy/types/request/get-nfts-for-owner-request'
+import type { GetNftsForOwnerResponse } from '@echo/alchemy/types/response/get-nfts-for-owner-response'
 import { fetcher } from '@helpers/fetcher'
 
 function fetchNftsForOwner(request: GetNftsForOwnerRequest) {

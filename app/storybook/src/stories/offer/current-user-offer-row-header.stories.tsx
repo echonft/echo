@@ -1,4 +1,4 @@
-import { CurrentUserOfferRowHeader as Component } from '@echo/ui/src/components/offer/row/current-user-offer-row-header'
+import { CurrentUserOfferRowHeader as Component } from '@echo/ui/components/offer/row/current-user-offer-row-header'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

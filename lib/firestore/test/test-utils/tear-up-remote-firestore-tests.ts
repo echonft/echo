@@ -1,4 +1,4 @@
-import { initializeFirebase } from '../../src/services/initialize-firebase'
+import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 
 export function tearUpRemoteFirestoreTests() {
   initializeFirebase()

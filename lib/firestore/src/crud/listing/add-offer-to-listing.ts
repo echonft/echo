@@ -1,10 +1,10 @@
-import { findOfferById } from '../offer/find-offer-by-id'
-import { updateListing } from './update-listing'
-import { Listing } from '@echo/firestore-types'
-import { WriteResult } from 'firebase-admin/firestore'
+import { updateListing } from '@echo/firestore/crud/listing/update-listing'
+import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { WriteResult } from 'firebase-admin/firestore'
 import { includes, isNil } from 'ramda'
 
-export async function addOfferToListing(listing: Listing, offerId: string): Promise<WriteResult> {
+export async function addOfferToListing(listing: FirestoreListing, offerId: string): Promise<WriteResult> {
   const offer = await findOfferById(offerId)
   if (isNil(offer)) {
     throw Error('invalid offer id')

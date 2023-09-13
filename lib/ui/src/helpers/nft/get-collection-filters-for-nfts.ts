@@ -1,5 +1,6 @@
-import { CollectionFilter } from '../../types/collection-filter'
-import { compareNftByCollection, Nft } from '@echo/ui-model'
+import { compareNftByCollection } from '@echo/ui/comparators/compare-nft-by-collections'
+import type { CollectionFilter } from '@echo/ui/types/collection-filter'
+import type { Nft } from '@echo/ui/types/model/nft'
 import { applySpec, eqProps, groupWith, head, length, map, pipe, prop, sort } from 'ramda'
 
 export function getCollectionFiltersForNfts(nfts: Nft[]): CollectionFilter[] {

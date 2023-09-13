@@ -1,6 +1,6 @@
-import unlessNil from '@echo/utils/unless-nil'
-import type { AlchemyNftCollection } from '@echo-alchemy/types/model/alchemy-nft-collection'
-import type { ContractResponse } from '@echo-alchemy/types/response/contract-response'
+import type { AlchemyNftCollection } from '@echo/alchemy/types/model/alchemy-nft-collection'
+import type { ContractResponse } from '@echo/alchemy/types/response/contract-response'
+import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { always, applySpec, path, pipe, prop } from 'ramda'
 import { getAddress } from 'viem'
 

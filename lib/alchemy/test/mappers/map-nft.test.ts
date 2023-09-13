@@ -1,7 +1,7 @@
-import { mapNft } from '@echo-alchemy/mappers/map-nft'
-import type { AlchemyNft } from '@echo-alchemy/types/model/alchemy-nft'
-import { getNftsResponse } from '@echo-alchemy-test/mocks/get-nfts-response'
+import { mapNft } from '@echo/alchemy/mappers/map-nft'
+import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
 import { describe, expect, it } from '@jest/globals'
+import { getNftsResponse } from '@test/mocks/get-nfts-response'
 
 describe('mappers - mapNft', () => {
   it('returns mapped nft collection', () => {

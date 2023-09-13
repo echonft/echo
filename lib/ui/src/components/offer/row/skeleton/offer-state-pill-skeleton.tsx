@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const OfferStatePillSkeleton: FunctionComponent = () => (
   <div

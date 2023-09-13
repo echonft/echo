@@ -1,14 +1,14 @@
-import { findNftById } from '../../../src/crud/nft/find-nft-by-id'
-import { setNftOwner } from '../../../src/crud/nft/set-nft-owner'
-import { updateNft } from '../../../src/crud/nft/update-nft'
-import { userMock } from '../../mocks/user-mock'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
-import { Id, UserDetails } from '@echo/firestore-types'
+import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
+import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
+import { updateNft } from '@echo/firestore/crud/nft/update-nft'
+import type { FirestoreUserDetails } from '@echo/firestore/types/model/firestore-user-details'
+import { userMock } from '@echo/firestore-mocks/user-mock'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - nft - setNftOwner', () => {
-  let initialOwner: Partial<UserDetails> & Id
+  let initialOwner: Partial<FirestoreUserDetails>
   const id = '8hHFadIrrooORfTOLkBg'
 
   beforeAll(tearUpRemoteFirestoreTests)

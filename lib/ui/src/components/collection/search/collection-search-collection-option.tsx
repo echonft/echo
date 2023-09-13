@@ -1,10 +1,10 @@
-import { CheckmarkIconSvg } from '../../base/svg/checkmark-icon-svg'
-import { HideIfNil } from '../../base/utils/hide-if-nil'
-import { ShowIf } from '../../base/utils/show-if'
-import { CollectionRoundedProfilePicture } from './collection-rounded-profile-picture'
+import { CheckmarkIconSvg } from '@echo/ui/components/base/svg/checkmark-icon-svg'
+import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { CollectionRoundedProfilePicture } from '@echo/ui/components/collection/search/collection-rounded-profile-picture'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   pictureUrl: URL | undefined

@@ -1,4 +1,5 @@
-import type { ApiRequest, UpdateListingRequest } from '@echo/api/types'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { UpdateListingRequest } from '@echo/api/types/requests/update-listing-request'
 import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { handleCancelListing } from '@server/request-handlers/listing/handle-cancel-listing'

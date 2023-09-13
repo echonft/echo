@@ -1,10 +1,10 @@
-import type { NftCollection } from '@echo/firestore-types'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil } from 'ramda'
 
 export function assertNftCollection(
-  collection: Partial<NftCollection> | undefined
-): asserts collection is NonNullable<Partial<NftCollection>> {
+  collection: Partial<FirestoreNftCollection> | undefined
+): asserts collection is NonNullable<Partial<FirestoreNftCollection>> {
   if (isNil(collection)) {
     throw new BadRequestError('collection is nil')
   }

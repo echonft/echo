@@ -1,6 +1,6 @@
 import { getBaseUrl } from './get-base-url'
-import { Offer } from '@echo/firestore-types'
+import { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
 
-export function offerLink(offer: Offer): string {
+export function offerLink(offer: FirestoreOffer): string {
   return encodeURI(`${getBaseUrl()}/offers/${offer.id}`)
 }

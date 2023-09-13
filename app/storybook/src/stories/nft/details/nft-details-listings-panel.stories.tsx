@@ -1,5 +1,5 @@
 import { getListingById } from '../../../mocks/model/listing'
-import { NftDetailsListingsPanel as Component } from '@echo/ui/src/components/nft/details/nft-details-listings-panel'
+import { NftDetailsListingsPanel as Component } from '@echo/ui/components/nft/details/nft-details-listings-panel'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { assoc } from 'ramda'

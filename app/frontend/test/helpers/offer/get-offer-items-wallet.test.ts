@@ -1,4 +1,5 @@
-import { getOfferMockById, getUserMockById } from '@echo/firestore'
+import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
+import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
 import { getOwnersForNft } from '@server/helpers/alchemy/get-owners-for-nft'
 import { getOfferItemsWallet } from '@server/helpers/offer/get-offer-items-wallet'
 

@@ -1,4 +1,5 @@
-import { getAllNftCollectionMocks, getNftCollectionMockById } from '@echo/firestore'
+import { getAllNftCollectionMocks } from '@echo/firestore-mocks/get-all-nft-collection-mocks'
+import { getNftCollectionMockById } from '@echo/firestore-mocks/get-nft-collection-mock-by-id'
 import { getNftCollectionByContract } from '@server/helpers/nft-collection/get-nft-collection-by-contract'
 
 describe('helpers - nft-collection - getNftCollectionByContract', () => {

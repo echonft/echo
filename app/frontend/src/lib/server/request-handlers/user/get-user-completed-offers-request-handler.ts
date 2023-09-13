@@ -1,4 +1,5 @@
-import type { ApiRequest, GetOffersResponse } from '@echo/api/types'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { GetOffersResponse } from '@echo/api/types/responses/get-offers-response'
 import { getUserOffers } from '@server/helpers/offer/get-user-offers'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
 import { parseOfferFiltersQuery } from '@server/helpers/request/parse-offer-filters-query'

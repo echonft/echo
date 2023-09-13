@@ -1,8 +1,8 @@
-import type { ListingState } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils/types'
-import type { ListingItemResponse } from '@echo-api/types/responses/model/listing-item-response'
-import type { ListingTargetResponse } from '@echo-api/types/responses/model/listing-target-response'
-import type { UserResponse } from '@echo-api/types/responses/model/user-response'
+import type { ListingItemResponse } from '@echo/api/types/responses/model/listing-item-response'
+import type { ListingTargetResponse } from '@echo/api/types/responses/model/listing-target-response'
+import type { UserResponse } from '@echo/api/types/responses/model/user-response'
+import type { FirestoreListingState } from '@echo/firestore/types/model/firestore-listing-state'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export interface ListingResponse {
   id: string
@@ -11,6 +11,6 @@ export interface ListingResponse {
   expired: boolean
   expiresAt: number
   items: NonEmptyArray<ListingItemResponse>
-  state: ListingState
+  state: FirestoreListingState
   targets: NonEmptyArray<ListingTargetResponse>
 }

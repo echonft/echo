@@ -1,9 +1,9 @@
-import { CollectionSearchBoxOptions } from './collection-search-box-options'
-import { CollectionSearchComboboxInput } from './collection-search-combobox-input'
-import type { NftCollection } from '@echo/ui-model'
+import { CollectionSearchBoxOptions } from '@echo/ui/components/collection/search/collection-search-box-options'
+import { CollectionSearchComboboxInput } from '@echo/ui/components/collection/search/collection-search-combobox-input'
+import type { NftCollection } from '@echo/ui/types/model/nft-collection'
 import { Combobox, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { forwardRef, ForwardRefRenderFunction } from 'react'
+import { forwardRef, type ForwardRefRenderFunction } from 'react'
 
 interface Props {
   placeholder: string

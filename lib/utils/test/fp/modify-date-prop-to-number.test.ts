@@ -1,4 +1,4 @@
-import { modifyDatePropToNumber } from '@echo-utils/fp/modify-date-prop-to-number'
+import { modifyDatePropToNumber } from '@echo/utils/fp/modify-date-prop-to-number'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 

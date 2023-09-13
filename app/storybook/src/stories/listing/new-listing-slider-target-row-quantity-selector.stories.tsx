@@ -1,4 +1,4 @@
-import { NewListingSliderTargetRowQuantitySelector as Component } from '@echo/ui/src/components/listing/new/new-listing-slider-target-row-quantity-selector'
+import { NewListingSliderTargetRowQuantitySelector as Component } from '@echo/ui/components/listing/new/new-listing-slider-target-row-quantity-selector'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

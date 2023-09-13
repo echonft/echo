@@ -1,11 +1,11 @@
-import { getNftCollectionMockById } from '@echo/firestore'
-import { Nft } from '@echo/firestore-types'
+import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
+import { getNftCollectionMockById } from '@echo/firestore-mocks/get-nft-collection-mock-by-id'
 import { mapNft } from '@server/mappers/to-response/map-nft'
 import { pick } from 'ramda'
 
 describe('mappers - to-response - mapNft', () => {
   it('converts the object (no undefined props)', () => {
-    const nft: Nft = {
+    const nft: FirestoreNft = {
       id: '8hHFadIrrooORfTOLkBg',
       attributes: [
         { value: 'archimedean', trait: 'Algorithm' },

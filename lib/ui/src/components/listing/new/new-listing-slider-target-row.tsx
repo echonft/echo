@@ -1,11 +1,11 @@
-import { SizeMD } from '../../../constants/size'
-import { HideIfNil } from '../../base/utils/hide-if-nil'
-import { CollectionProfilePicture } from '../../collection/details/collection-profile-picture'
-import { ItemThumbnailSelector } from '../../item/thumbnail/item-thumbnail-selector'
-import { Banner } from '../../shared/banner'
-import { NewListingSliderTargetRowQuantitySelector } from './new-listing-slider-target-row-quantity-selector'
+import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
+import { CollectionProfilePicture } from '@echo/ui/components/collection/details/collection-profile-picture'
+import { ItemThumbnailSelector } from '@echo/ui/components/item/thumbnail/item-thumbnail-selector'
+import { NewListingSliderTargetRowQuantitySelector } from '@echo/ui/components/listing/new/new-listing-slider-target-row-quantity-selector'
+import { Banner } from '@echo/ui/components/shared/banner'
+import { SizeMD } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   collectionName: string

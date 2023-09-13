@@ -1,4 +1,4 @@
-import { getUpdateOfferActionFromOffer } from '../../../src/helpers/offer/get-update-offer-action-from-offer'
+import { getUpdateOfferActionFromOffer } from '@echo/ui/helpers/offer/get-update-offer-action-from-offer'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - offer - getUpdateOfferActionFromOffer', () => {

@@ -1,7 +1,7 @@
 'use client'
-import shortenAddress from '@echo/utils/shorten-address'
+import { shortenAddress } from '@echo/utils/string/shorten-address'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 interface Props {

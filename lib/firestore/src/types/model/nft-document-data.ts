@@ -1,7 +1,7 @@
-import { NftAttributeDocumentData } from './nft-attribute-document-data'
-import { NftCollectionDocumentData } from './nft-collection-document-data'
-import { UserDetailsDocumentData } from './user-details-document-data'
-import { NftTokenType } from '@echo/firestore-types'
+import type { FirestoreNftTokenType } from '@echo/firestore/types/model/firestore-nft-token-type'
+import type { NftAttributeDocumentData } from '@echo/firestore/types/model/nft-attribute-document-data'
+import type { NftCollectionDocumentData } from '@echo/firestore/types/model/nft-collection-document-data'
+import type { UserDetailsDocumentData } from '@echo/firestore/types/model/user-details-document-data'
 
 export interface NftDocumentData {
   id: string
@@ -15,7 +15,7 @@ export interface NftDocumentData {
   pictureUrl: string
   thumbnailUrl: string
   tokenId: number
-  tokenType: NftTokenType
+  tokenType: FirestoreNftTokenType
 }
 
 export const nftFields = [

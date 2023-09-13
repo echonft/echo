@@ -1,5 +1,5 @@
 import { offerLink } from '../../src/routing/offer-link'
-import { getOfferMockById } from '@echo/firestore'
+import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
 import { describe, expect, jest, test } from '@jest/globals'
 
 jest.mock('../../src/routing/get-base-url')

@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
 import { getAdminApiKey } from '@server/helpers/auth/get-admin-api-key'
 import { UnauthorizedError } from '@server/helpers/error/unauthorized-error'
 

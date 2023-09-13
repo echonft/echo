@@ -1,8 +1,8 @@
-import { listingDataConverter } from '../../converters/listing-data-converter'
-import { assertListingIsNotExpired } from '../../helpers/listing/assert/assert-listing-is-not-expired'
-import { assertListingStateIs } from '../../helpers/listing/assert/assert-listing-state-is'
-import { getListingSnapshotById } from './get-listing-snapshot-by-id'
-import { WriteResult } from 'firebase-admin/firestore'
+import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
+import { getListingSnapshotById } from '@echo/firestore/crud/listing/get-listing-snapshot-by-id'
+import { assertListingIsNotExpired } from '@echo/firestore/helpers/listing/assert/assert-listing-is-not-expired'
+import { assertListingStateIs } from '@echo/firestore/helpers/listing/assert/assert-listing-state-is'
+import type { WriteResult } from 'firebase-admin/firestore'
 
 export async function cancelListing(id: string): Promise<WriteResult> {
   const documentSnapshot = await getListingSnapshotById(id)

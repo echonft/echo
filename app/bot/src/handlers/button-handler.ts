@@ -4,7 +4,7 @@ import { InvalidButtonDataError } from '../errors/invalid-button-data-error'
 import { InvalidButtonIdError } from '../errors/invalid-button-id-error'
 import { OfferNotFoundError } from '../errors/offer-not-found-error'
 import { ButtonAction, buttonIdPrefixes } from '../types/models/button-action'
-import { findOfferById } from '@echo/firestore'
+import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { ButtonComponent, ButtonInteraction } from 'discord.js'
 import { andThen, curry, drop, isEmpty, isNil, pipe } from 'ramda'
 

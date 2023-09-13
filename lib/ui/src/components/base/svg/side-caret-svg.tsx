@@ -1,7 +1,7 @@
-import { DirectionLeft, DirectionRight } from '../../../constants/direction'
-import { Svg, SvgProps } from './svg'
+import { Svg, type SvgProps } from '@echo/ui/components/base/svg/svg'
+import { DirectionLeft, DirectionRight } from '@echo/ui/constants/direction'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const caretIconDirections = [DirectionRight, DirectionLeft] as const
 export type CaretIconDirection = (typeof caretIconDirections)[number]

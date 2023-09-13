@@ -1,4 +1,4 @@
-import { collectionApiUrl } from '@echo-api/routing/collection-api-url'
+import { collectionApiUrl } from '@echo/api/routing/collection-api-url'
 import { describe, expect, test } from '@jest/globals'
 
 describe('routing - collectionApiUrl', () => {

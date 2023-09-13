@@ -1,5 +1,5 @@
-import { AlchemyRoutes } from '@echo-alchemy/constants/alchemy-routes'
-import { getAlchemyRoute } from '@echo-alchemy/helpers/get-alchemy-route'
+import { AlchemyRoutes } from '@echo/alchemy/constants/alchemy-routes'
+import { getAlchemyRoute } from '@echo/alchemy/helpers/get-alchemy-route'
 import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 
 describe('helpers - getRoute', () => {

@@ -1,8 +1,8 @@
 'use client'
-import { XIconSvg } from '../../base/svg/x-icon-svg'
+import { XIconSvg } from '@echo/ui/components/base/svg/x-icon-svg'
 import { Dialog, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { Fragment, FunctionComponent, ReactNode } from 'react'
+import { Fragment, type FunctionComponent, type ReactNode } from 'react'
 
 interface Props {
   open: boolean

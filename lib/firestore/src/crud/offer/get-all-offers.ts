@@ -1,10 +1,10 @@
-import { CollectionName } from '../../constants/collection-name'
-import { offerDataConverter } from '../../converters/offer-data-converter'
-import { firestore } from '../../services/firestore'
-import { Offer } from '@echo/firestore-types'
+import { CollectionName } from '@echo/firestore/constants/collection-name'
+import { offerDataConverter } from '@echo/firestore/converters/offer-data-converter'
+import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
 import { invoker, map } from 'ramda'
 
 export async function getAllOffers() {
-  const querySnapshot = await firestore().collection(CollectionName.OFFERS).withConverter(offerDataConverter).get()
-  return map(invoker(0, 'data'), querySnapshot.docs) as Offer[]
+  const querySnapshot = await firestoreApp().collection(CollectionName.OFFERS).withConverter(offerDataConverter).get()
+  return map(invoker(0, 'data'), querySnapshot.docs) as FirestoreOffer[]
 }

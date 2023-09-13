@@ -1,7 +1,7 @@
-import { NftCollectionDocumentData } from '../../src/types/model/nft-collection-document-data'
-import { nftCollectionDocumentDataMock } from './nft-collection-document-data-mock'
-import { nftCollectionReferenceMock } from './nft-collection-reference-mock'
-import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import type { NftCollectionDocumentData } from '@echo/firestore/types/model/nft-collection-document-data'
+import { nftCollectionDocumentDataMock } from '@echo/firestore-mocks/nft-collection-document-data-mock'
+import { nftCollectionReferenceMock } from '@echo/firestore-mocks/nft-collection-reference-mock'
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
 export const nftCollectionSnapshotMock: { [key: string]: QueryDocumentSnapshot<NftCollectionDocumentData> } = {
   Rc8pLQXxgyQGIRL0fr13: {

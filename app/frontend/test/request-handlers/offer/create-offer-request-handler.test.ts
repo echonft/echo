@@ -1,5 +1,6 @@
-import type { CreateOfferRequest, IdResponse } from '@echo/api/types'
-import { User } from '@echo/firestore-types'
+import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
+import type { IdResponse } from '@echo/api/types/responses/id-response'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import { mockRequest } from '@mocks/request-response'
 import { getSession } from '@server/helpers/auth/get-session'
 import { ApiError } from '@server/helpers/error/api-error'
@@ -8,7 +9,7 @@ import { getOfferItems } from '@server/helpers/offer/get-offer-items'
 import { getOfferItemsWallet } from '@server/helpers/offer/get-offer-items-wallet'
 import { getUserById } from '@server/helpers/user/get-user-by-id'
 import { createOfferRequestHandler } from '@server/request-handlers/offer/create-offer-request-handler'
-import { AuthOptions, Session } from 'next-auth'
+import type { AuthOptions, Session } from 'next-auth'
 
 jest.mock('@server/helpers/auth/get-session')
 jest.mock('@server/helpers/user/get-user-by-id')
@@ -69,7 +70,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
 
   it('throws if user or receiver does not have any wallet', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId', wallets: [] } as unknown as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId', wallets: [] } as unknown as FirestoreUser)
     const req = mockRequest<CreateOfferRequest>(validRequest)
     try {
       await createOfferRequestHandler(req, {} as AuthOptions)
@@ -84,7 +85,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
     jest.mocked(getUserById).mockResolvedValue({
       id: 'userId',
       wallets: [{ chainId: 1, address: '0x12c63bbD266dB84e117356e664f3604055166CEc' }]
-    } as unknown as User)
+    } as unknown as FirestoreUser)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(getOfferItems).mockResolvedValue([])

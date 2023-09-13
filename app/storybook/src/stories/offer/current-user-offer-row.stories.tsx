@@ -1,7 +1,7 @@
-import { getOfferById } from '../../mocks/model/offer'
-import { CurrentUserOfferRow as Component } from '@echo/ui/src/components/offer/row/current-user-offer-row'
-import { OfferRoleSender } from '@echo/ui/src/constants/offer-role'
-import { OfferWithRole } from '@echo/ui/src/types/offer-with-role'
+import { CurrentUserOfferRow as Component } from '@echo/ui/components/offer/row/current-user-offer-row'
+import { OfferRoleSender } from '@echo/ui/constants/offer-role'
+import { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { getOfferById } from '@mocks/model/offer'
 import type { Meta, StoryObj } from '@storybook/react'
 import { assoc, pipe } from 'ramda'
 

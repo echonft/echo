@@ -1,4 +1,4 @@
-import { getUserMockById } from '@echo/firestore'
+import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
 import { addWalletSchema } from '@server/validators/add-wallet-schema'
 import { SiweMessage } from 'siwe'
 

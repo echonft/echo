@@ -1,6 +1,6 @@
-import { DefaultBannerSvg } from '../../base/svg/default-banner-svg'
+import { DefaultBannerSvg } from '@echo/ui/components/base/svg/default-banner-svg'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const BannerSkeleton: FunctionComponent = () => {
   return (

@@ -1,6 +1,6 @@
 'use client'
-import { CollapsibleProps } from '../../../types/collapsible-props'
-import { cloneElement, ReactElement, useState } from 'react'
+import type { CollapsibleProps } from '@echo/ui/types/collapsible-props'
+import { cloneElement, type ReactElement, useState } from 'react'
 
 interface Props<T extends CollapsibleProps> {
   initialCollapsedState?: boolean

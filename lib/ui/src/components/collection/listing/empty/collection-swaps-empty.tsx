@@ -1,9 +1,9 @@
 'use client'
-import { InternalLink } from '../../../base/link/internal-link'
-import { EmptyViewContent } from '../../../layout/navigation/empty-view-content'
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { EmptyViewContent } from '@echo/ui/components/layout/navigation/empty-view-content'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const CollectionSwapsEmpty: FunctionComponent = () => {
   const t = useTranslations('collection.empty.swaps')

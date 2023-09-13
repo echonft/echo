@@ -1,5 +1,5 @@
 import '@echo/ui/dist/index.css'
-import { messages } from '@echo/ui/src/messages/en'
+import { messages } from '@echo/ui/messages/en'
 import type { Preview } from '@storybook/react'
 import dayjs from 'dayjs'
 import RelativeTime from 'dayjs/plugin/relativeTime'

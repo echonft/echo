@@ -1,10 +1,10 @@
-import { DirectionLeft } from '../../../constants/direction'
-import { SwapIconSvg } from '../../base/svg/swap-icon-svg'
-import { OfferItemsContainer } from './offer-items-container'
-import { OfferStatePill } from './offer-state-pill'
-import { Offer } from '@echo/ui-model'
+import { SwapIconSvg } from '@echo/ui/components/base/svg/swap-icon-svg'
+import { OfferItemsContainer } from '@echo/ui/components/offer/row/offer-items-container'
+import { OfferStatePill } from '@echo/ui/components/offer/row/offer-state-pill'
+import { DirectionLeft } from '@echo/ui/constants/direction'
+import type { Offer } from '@echo/ui/types/model/offer'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   offer: Offer

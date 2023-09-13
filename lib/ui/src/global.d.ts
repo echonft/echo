@@ -1,4 +1,4 @@
-import { MessagesType } from './types/messages'
+import { MessagesType } from '@echo/ui/types/messages'
 
 export declare global {
   // get typings on translation keys

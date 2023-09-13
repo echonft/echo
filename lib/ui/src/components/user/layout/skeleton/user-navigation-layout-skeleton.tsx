@@ -1,7 +1,7 @@
-import { getUserNavigationItems } from '../../../../helpers/user/get-user-navigation-items'
-import { NavigationItemId } from '../../../../types/navigation-item-id'
-import { NavigationLayoutSkeleton } from '../../../layout/navigation/skeleton/navigation-layout-skeleton'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import { NavigationLayoutSkeleton } from '@echo/ui/components/layout/navigation/skeleton/navigation-layout-skeleton'
+import { getUserNavigationItems } from '@echo/ui/helpers/user/get-user-navigation-items'
+import type { NavigationItemId } from '@echo/ui/types/navigation-item-id'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
   activeNavigationItem: NavigationItemId

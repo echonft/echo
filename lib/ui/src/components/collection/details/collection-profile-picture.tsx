@@ -1,11 +1,11 @@
-import { SizeLG, SizeMD } from '../../../constants/size'
-import { getProfilePictureSize } from '../../../helpers/get-profile-picture-size'
-import { ProfilePictureSize } from '../../../types/profile-picture-size'
-import { DefaultCollectionProfilePicture } from '../../base/svg/default-collection-profile-picture'
-import { ProfilePicture } from '../../shared/profile-picture'
+import { DefaultCollectionProfilePicture } from '@echo/ui/components/base/svg/default-collection-profile-picture'
+import { ProfilePicture } from '@echo/ui/components/shared/profile-picture'
+import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import { getProfilePictureSize } from '@echo/ui/helpers/get-profile-picture-size'
+import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export interface CollectionProfilePictureProps {
   collectionName: string

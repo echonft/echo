@@ -1,4 +1,4 @@
-import { errorMessage } from '@echo-utils/error/error-message'
+import { errorMessage } from '@echo/utils/error/error-message'
 
 /**
  * Wraps an error in a rejected promise

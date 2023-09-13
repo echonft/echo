@@ -1,4 +1,4 @@
-import { getOfferModalDeclineButtonTitleForState } from '../../../src/helpers/offer/get-offer-modal-decline-button-title-for-state'
+import { getOfferModalDeclineButtonTitleForState } from '@echo/ui/helpers/offer/get-offer-modal-decline-button-title-for-state'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - getOfferModalDeclineButtonTitleForState', () => {

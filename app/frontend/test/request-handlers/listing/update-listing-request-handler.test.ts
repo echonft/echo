@@ -1,13 +1,13 @@
-import UpdateListingAction from '@echo/api/constants/update-listing-action'
-import type { UpdateListingRequest } from '@echo/api/types'
-import { User } from '@echo/firestore-types'
+import { UpdateListingAction } from '@echo/api/constants/update-listing-action'
+import type { UpdateListingRequest } from '@echo/api/types/requests/update-listing-request'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import { mockRequest } from '@mocks/request-response'
 import { getSession } from '@server/helpers/auth/get-session'
 import { ApiError } from '@server/helpers/error/api-error'
 import { getUserById } from '@server/helpers/user/get-user-by-id'
 import { handleCancelListing } from '@server/request-handlers/listing/handle-cancel-listing'
 import { updateListingRequestHandler } from '@server/request-handlers/listing/update-listing-request-handler'
-import { AuthOptions, Session } from 'next-auth'
+import type { AuthOptions, Session } from 'next-auth'
 
 jest.mock('@server/helpers/auth/get-session')
 jest.mock('@server/helpers/user/get-user-by-id')
@@ -51,7 +51,7 @@ describe('request-handlers - listing - updateListingRequestHandler', () => {
 
   it('if authenticated and request action is CANCEL, handleCancelListing should be called', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreUser)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(handleCancelListing).mockResolvedValueOnce(undefined)

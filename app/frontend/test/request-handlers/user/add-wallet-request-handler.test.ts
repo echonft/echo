@@ -1,5 +1,5 @@
-import type { AddWalletRequest } from '@echo/api/types'
-import { User } from '@echo/firestore-types'
+import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import { mockRequest } from '@mocks/request-response'
 import { getSession } from '@server/helpers/auth/get-session'
 import { getSiweMessage } from '@server/helpers/auth/get-siwe-message'
@@ -10,7 +10,7 @@ import { getUserById } from '@server/helpers/user/get-user-by-id'
 import { getUserByWallet } from '@server/helpers/user/get-user-by-wallet'
 import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
 import { addWalletRequestHandler } from '@server/request-handlers/user/add-wallet-request-handler'
-import { AuthOptions, Session } from 'next-auth'
+import type { AuthOptions, Session } from 'next-auth'
 import { SiweMessage } from 'siwe'
 
 jest.mock('@server/helpers/auth/get-session')
@@ -64,7 +64,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
 
   it('throws if the request cannot be parsed', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreUser)
     const req = mockRequest<AddWalletRequest>({} as AddWalletRequest)
     try {
       await addWalletRequestHandler(req, {} as AuthOptions)
@@ -76,8 +76,8 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
 
   it('throws if the wallet is already linked to this account', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
-    jest.mocked(getUserByWallet).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreUser)
+    jest.mocked(getUserByWallet).mockResolvedValueOnce({ id: 'userId' } as FirestoreUser)
     const req = mockRequest<AddWalletRequest>(validRequest)
     try {
       await addWalletRequestHandler(req, {} as AuthOptions)
@@ -89,8 +89,8 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
 
   it('throws if the wallet is already linked to another account', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
-    jest.mocked(getUserByWallet).mockResolvedValueOnce({ id: 'another-userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreUser)
+    jest.mocked(getUserByWallet).mockResolvedValueOnce({ id: 'another-userId' } as FirestoreUser)
     const req = mockRequest<AddWalletRequest>(validRequest)
     try {
       await addWalletRequestHandler(req, {} as AuthOptions)
@@ -102,7 +102,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
 
   it('throws if the siwe message cannot be validated', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreUser)
     jest.mocked(getUserByWallet).mockResolvedValueOnce(undefined)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ data: {} as SiweMessage, success: false })
@@ -117,7 +117,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
 
   it('throws if the nonce is not the same as the user nonce', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ nonce: 'another-nonce' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ nonce: 'another-nonce' } as FirestoreUser)
     jest.mocked(getUserByWallet).mockResolvedValueOnce(undefined)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ data: { nonce: 'nonce' } as SiweMessage, success: true })
@@ -132,7 +132,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
 
   it('returns a 200 if the wallet is not already in the db and the nonce is valid', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ nonce: 'nonce' } as User)
+    jest.mocked(getUserById).mockResolvedValueOnce({ nonce: 'nonce' } as FirestoreUser)
     jest.mocked(getUserByWallet).mockResolvedValueOnce(undefined)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ data: { nonce: 'nonce' } as SiweMessage, success: true })

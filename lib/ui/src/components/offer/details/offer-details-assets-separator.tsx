@@ -1,7 +1,7 @@
-import { DirectionUp } from '../../../constants/direction'
-import { SwapIconSvg } from '../../base/svg/swap-icon-svg'
+import { SwapIconSvg } from '@echo/ui/components/base/svg/swap-icon-svg'
+import { DirectionUp } from '@echo/ui/constants/direction'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const OfferDetailsAssetsSeparator: FunctionComponent = () => (
   <div className={clsx('flex', 'flex-row', 'gap-7', 'items-center', 'min-w-max')}>

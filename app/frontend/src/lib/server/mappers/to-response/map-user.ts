@@ -1,8 +1,8 @@
-import type { UserResponse } from '@echo/api/types'
-import type { User } from '@echo/firestore-types'
+import type { UserResponse } from '@echo/api/types/responses/model/user-response'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import { assoc, dissoc, head, lens, over, pick, pipe, prop } from 'ramda'
 
-export function mapUser(user: User) {
+export function mapUser(user: FirestoreUser) {
   return pipe(
     pick(['id', 'discordAvatar', 'discordBanner', 'discordId', 'discordUsername', 'username', 'wallets']),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

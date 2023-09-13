@@ -1,21 +1,23 @@
-import type { User, UserDiscordGuild } from '@echo/firestore-types'
-import type { AuthUser, Wallet } from '@echo/ui-model'
-import modifyDatePropToNumber from '@echo/utils/modify-date-prop-to-number'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreUserDiscordGuild } from '@echo/firestore/types/model/firestore-user-discord-guild'
+import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
+import type { AuthUser } from '@echo/ui/types/model/auth-user'
+import { modifyDatePropToNumber } from '@echo/utils/fp/modify-date-prop-to-number'
 import type { Dayjs } from 'dayjs'
 import { pick, pipe } from 'ramda'
 
 interface RequiredProps {
   id: string
-  discordGuilds: UserDiscordGuild[]
+  discordGuilds: FirestoreUserDiscordGuild[]
   discordId: string
   discordUsername: string
   nftsUpdatedAt: Dayjs
   username: string
   updatedAt: Dayjs
-  wallets: Wallet[]
+  wallets: FirestoreWallet[]
 }
 
-export function mapUserToAuthUser(user: Partial<User> & RequiredProps) {
+export function mapUserToAuthUser(user: Partial<FirestoreUser> & RequiredProps) {
   return pipe(
     pick([
       'id',

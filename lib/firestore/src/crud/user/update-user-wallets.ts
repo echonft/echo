@@ -1,6 +1,6 @@
-import { updateUser } from './update-user'
-import { Wallet } from '@echo/firestore-types'
+import { updateUser } from '@echo/firestore/crud/user/update-user'
+import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
 
-export async function updateUserWallets(id: string, wallets: Wallet[]) {
+export async function updateUserWallets(id: string, wallets: FirestoreWallet[]) {
   return await updateUser(id, { wallets })
 }

@@ -1,10 +1,10 @@
-import { SizeLG } from '../../../../constants/size'
-import { DirectionIn, DirectionOut } from '../../../../constants/swap-direction'
-import { ItemThumbnailSkeleton } from '../../../item/thumbnail/skeleton/item-thumbnail-skeleton'
-import { SwapDirectionHeaderSkeleton } from '../../../shared/skeleton/swap-direction-header-skeleton'
+import { ItemThumbnailSkeleton } from '@echo/ui/components/item/thumbnail/skeleton/item-thumbnail-skeleton'
+import { SwapDirectionHeaderSkeleton } from '@echo/ui/components/shared/skeleton/swap-direction-header-skeleton'
+import { SizeLG } from '@echo/ui/constants/size'
+import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   isReceiver: boolean

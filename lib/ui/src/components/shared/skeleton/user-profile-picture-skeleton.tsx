@@ -1,7 +1,7 @@
-import { SizeLG, SizeMD } from '../../../constants/size'
-import { ProfilePictureSize } from '../../../types/profile-picture-size'
+import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   size: ProfilePictureSize

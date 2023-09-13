@@ -1,5 +1,5 @@
-import { UserDocumentData } from '../../src/types/model/user-document-data'
-import { DocumentReference } from 'firebase-admin/firestore'
+import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
+import type { DocumentReference } from 'firebase-admin/firestore'
 
 export const userReferenceMock: { [key: string]: DocumentReference<UserDocumentData> } = {
   '6rECUMhevHfxABZ1VNOm': {

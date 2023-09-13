@@ -1,4 +1,4 @@
-import { getUserMockById } from '@echo/firestore'
+import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
 import { removeWalletSchema } from '@server/validators/remove-wallet-schema'
 
 describe('validators - removeWalletSchema', () => {

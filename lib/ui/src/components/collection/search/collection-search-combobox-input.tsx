@@ -1,9 +1,9 @@
-import { SearchIconSvg } from '../../base/svg/search-icon-svg'
-import { CollectionSearchComboboxInputClearButton } from './collection-search-combobox-input-clear-button'
+import { SearchIconSvg } from '@echo/ui/components/base/svg/search-icon-svg'
+import { CollectionSearchComboboxInputClearButton } from '@echo/ui/components/collection/search/collection-search-combobox-input-clear-button'
 import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { isEmpty, isNil } from 'ramda'
-import { forwardRef, ForwardRefRenderFunction, useCallback } from 'react'
+import { forwardRef, type ForwardRefRenderFunction, useCallback } from 'react'
 import { debounce } from 'throttle-debounce'
 
 interface Props {

@@ -1,8 +1,8 @@
-import { findUserByUsername } from '../../../src/crud/user/find-user-by-username'
-import { getUserMockById } from '../../mocks/get-user-mock-by-id'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
+import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - user - findUserByUsername', () => {
   beforeAll(tearUpRemoteFirestoreTests)

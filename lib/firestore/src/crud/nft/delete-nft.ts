@@ -1,4 +1,4 @@
-import { getNftSnapshotById } from './get-nft-snapshot-by-id'
+import { getNftSnapshotById } from '@echo/firestore/crud/nft/get-nft-snapshot-by-id'
 import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 

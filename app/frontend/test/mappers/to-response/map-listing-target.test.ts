@@ -1,4 +1,4 @@
-import { getListingMockById } from '@echo/firestore'
+import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
 import { mapListingTarget } from '@server/mappers/to-response/map-listing-target'
 
 describe('mappers - to-response - mapListingTarget', () => {

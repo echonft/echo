@@ -1,5 +1,5 @@
-import { mapUserToUserDetails } from '../../src/mappers/map-user-to-user-details'
-import { getUserMockById } from '../mocks/get-user-mock-by-id'
+import { mapUserToUserDetails } from '@echo/firestore/mappers/map-user-to-user-details'
+import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 import { dissoc, pick } from 'ramda'
 

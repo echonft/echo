@@ -1,3 +1,3 @@
-import { NavigationItems, NavigationListings, NavigationSwaps } from '../constants/navigation-item'
+import { NavigationItems, NavigationListings } from '@echo/ui/constants/navigation-item'
 
-export type UserNavigationItem = typeof NavigationItems | typeof NavigationListings | typeof NavigationSwaps
+export type UserNavigationItem = typeof NavigationItems | typeof NavigationListings

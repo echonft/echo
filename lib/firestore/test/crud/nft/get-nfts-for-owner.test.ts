@@ -1,7 +1,7 @@
-import { getNftsForOwner } from '../../../src/crud/nft/get-nfts-for-owner'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { includes, map, prop } from 'ramda'
 
 describe('CRUD - nft - getNftsForOwner', () => {

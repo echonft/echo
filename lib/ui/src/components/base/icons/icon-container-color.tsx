@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
   className?: string

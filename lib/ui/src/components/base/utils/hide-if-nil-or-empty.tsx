@@ -1,5 +1,5 @@
-import isNilOrEmpty from '@echo/utils/is-nil-or-empty'
-import type { NonEmptyArray } from '@echo/utils/types'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import type { ReactNode } from 'react'
 
 interface Props<T> {

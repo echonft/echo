@@ -1,6 +1,6 @@
-import type { OfferItemRequest } from '@echo/api/types'
-import type { OfferItem } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils/types'
+import type { OfferItemRequest } from '@echo/api/types/requests/offer-item-request'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { getNftById } from '@server/helpers/nft/get-nft-by-id'
 import { isNil, map } from 'ramda'
@@ -13,6 +13,6 @@ export const getOfferItems = (itemRequests: NonEmptyArray<OfferItemRequest>) =>
       if (isNil(foundNft)) {
         throw new BadRequestError(`nft with id ${nft.id} not found in firestore while trying to get offer items`)
       }
-      return { amount, nft: foundNft } as OfferItem
+      return { amount, nft: foundNft } as FirestoreOfferItem
     }, itemRequests)
-  ) as Promise<Awaited<NonEmptyArray<OfferItem>>>
+  ) as Promise<Awaited<NonEmptyArray<FirestoreOfferItem>>>

@@ -1,14 +1,14 @@
 'use client'
-import { NavigationSwaps } from '../../../constants/navigation-item'
-import { HideIf } from '../../base/utils/hide-if'
-import { ShowIf } from '../../base/utils/show-if'
-import { OfferRowsContainer } from '../../offer/layout/container/offer-rows-container'
-import { CollectionNavigationLayout } from '../layout/collection-navigation-layout'
-import { CollectionSwapsEmpty } from '../listing/empty/collection-swaps-empty'
-import type { OfferResponse } from '@echo/api/types'
-import { mapOffer } from '@echo/ui-model'
+import type { OfferResponse } from '@echo/api/types/responses/model/offer-response'
+import { HideIf } from '@echo/ui/components/base/utils/hide-if'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { CollectionNavigationLayout } from '@echo/ui/components/collection/layout/collection-navigation-layout'
+import { CollectionSwapsEmpty } from '@echo/ui/components/collection/listing/empty/collection-swaps-empty'
+import { OfferRowsContainer } from '@echo/ui/components/offer/layout/container/offer-rows-container'
+import { NavigationSwaps } from '@echo/ui/constants/navigation-item'
+import { mapOffer } from '@echo/ui/mappers/from-api/map-offer'
 import { isEmpty, map } from 'ramda'
-import { FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   collectionSlug: string

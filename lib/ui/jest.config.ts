@@ -18,10 +18,9 @@ const config: Config = {
   coverageDirectory: '<rootDir>/../../.coverage/lib/ui',
   coverageReporters: ['json-summary', 'text'],
   moduleNameMapper: {
-    '^@echo/api/(.*)$': '<rootDir>/../api/exports/$1',
-    '^@echo-api/(.*)$': '<rootDir>/../api/src/$1',
-    '^@echo/utils/(.*)$': '<rootDir>/../utils/exports/$1',
-    '^@echo-utils/(.*)$': '<rootDir>/../utils/src/$1'
+    '^@echo/api/(.*)$': '<rootDir>/../api/src/$1',
+    '^@echo/ui/(.*)$': '<rootDir>/src/$1',
+    '^@echo/utils/(.*)$': '<rootDir>/../utils/src/$1'
   },
   reporters: [
     'default',

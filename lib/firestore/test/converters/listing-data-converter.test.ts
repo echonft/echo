@@ -1,7 +1,7 @@
-import { listingDataConverter } from '../../src/converters/listing-data-converter'
-import { getListingMockById } from '../mocks/get-listing-mock-by-id'
-import { listingDocumentDataMock } from '../mocks/listing-document-data-mock'
-import { listingSnapshotMock } from '../mocks/listing-snapshot-mock'
+import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
+import { getListingDocumentDataMockById } from '@echo/firestore-mocks/get-listing-document-data-mock-by-id'
+import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
+import { listingSnapshotMock } from '@echo/firestore-mocks/listing-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - listingDataConverter', () => {
@@ -13,7 +13,7 @@ describe('converters - listingDataConverter', () => {
 
   it('to Firestore conversion', () => {
     const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
-    const listingDocumentData = listingDocumentDataMock['jUzMtPGKM62mMhEcmbN4']
+    const listingDocumentData = getListingDocumentDataMockById('jUzMtPGKM62mMhEcmbN4')
     expect(listingDataConverter.toFirestore(listing)).toStrictEqual(listingDocumentData)
   })
 })

@@ -1,16 +1,16 @@
-import { modifyDocumentDataProp } from '../helpers/converters/from-firestore/modify-document-data-prop'
-import { modifyModelProp } from '../helpers/converters/to-firestore/modify-model-prop'
-import { FirestoreDocumentDataConverter } from '../types/converters/firestore-document-data-converter'
-import { NftCollectionDocumentData } from '../types/model/nft-collection-document-data'
-import { contractDocumentDataConverter } from './contract-document-data-converter'
-import { NftCollection } from '@echo/firestore-types'
-import modifyStringPropToUrl from '@echo/utils/modify-string-prop-to-url'
-import modifyUrlPropToString from '@echo/utils/modify-url-prop-to-string'
+import { contractDocumentDataConverter } from '@echo/firestore/converters/contract-document-data-converter'
+import { modifyDocumentDataProp } from '@echo/firestore/helpers/converters/from-firestore/modify-document-data-prop'
+import { modifyModelProp } from '@echo/firestore/helpers/converters/to-firestore/modify-model-prop'
+import type { FirestoreDocumentDataConverter } from '@echo/firestore/types/converters/firestore-document-data-converter'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import type { NftCollectionDocumentData } from '@echo/firestore/types/model/nft-collection-document-data'
+import { modifyStringPropToUrl } from '@echo/utils/fp/modify-string-prop-to-url'
+import { modifyUrlPropToString } from '@echo/utils/fp/modify-url-prop-to-string'
 import { pipe } from 'ramda'
 
 export const nftCollectionDocumentDataConverter: FirestoreDocumentDataConverter<
   NftCollectionDocumentData,
-  NftCollection
+  FirestoreNftCollection
 > = {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

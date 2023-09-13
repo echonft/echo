@@ -1,5 +1,5 @@
 import { isNil } from 'ramda'
-import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
+import type { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
 interface Props {
   condition: boolean

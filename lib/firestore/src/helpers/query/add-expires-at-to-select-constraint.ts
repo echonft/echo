@@ -1,5 +1,5 @@
-import { selectConstraintContainsExpiredAt } from './select-constraint-contains-expired-at'
-import { QueryConstraints } from '@echo/firestore-types'
+import { selectConstraintContainsExpiredAt } from '@echo/firestore/helpers/query/select-constraint-contains-expired-at'
+import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { is, isNil } from 'ramda'
 
 export function addExpiresAtToSelectConstraint(constraints: QueryConstraints): QueryConstraints {

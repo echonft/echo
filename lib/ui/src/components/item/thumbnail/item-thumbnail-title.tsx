@@ -1,7 +1,7 @@
-import { SizeLG, SizeMD } from '../../../constants/size'
-import { ItemThumbnailSize } from '../../../types/item-thumbnail-size'
+import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import type { ItemThumbnailSize } from '@echo/ui/types/item-thumbnail-size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   collectionName: string

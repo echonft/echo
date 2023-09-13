@@ -1,7 +1,7 @@
-import { userDataConverter } from '../../src/converters/user-data-converter'
-import { userDocumentDataMock } from '../mocks/user-document-data-mock'
-import { userMock } from '../mocks/user-mock'
-import { userSnapshotMock } from '../mocks/user-snapshot-mock'
+import { userDataConverter } from '@echo/firestore/converters/user-data-converter'
+import { userDocumentDataMock } from '@echo/firestore-mocks/user-document-data-mock'
+import { userMock } from '@echo/firestore-mocks/user-mock'
+import { userSnapshotMock } from '@echo/firestore-mocks/user-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - userDataConverter', () => {

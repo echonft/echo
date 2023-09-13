@@ -1,5 +1,5 @@
-import { OfferDocumentData } from '../../src/types/model/offer-document-data'
-import { nftDocumentDataMock } from './nft-document-data-mock'
+import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
+import { nftDocumentDataMock } from '@echo/firestore-mocks/nft-document-data-mock'
 
 export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
   LyCfl6Eg7JKuD7XJ6IPi: {
