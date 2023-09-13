@@ -1,5 +1,7 @@
-import { dirname, join } from 'path'
 import type { StorybookConfig } from '@storybook/react-webpack5'
+import { dirname, join } from 'path'
+import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
+
 const config: StorybookConfig = {
   stories: ['../src/stories/**/*stories.tsx'],
   babel: async (options) => {
@@ -25,6 +27,7 @@ const config: StorybookConfig = {
       ...config,
       resolve: {
         ...config.resolve,
+        plugins: [new TsconfigPathsPlugin()],
         fallback: {
           ...config.resolve.fallback,
           constants: require.resolve('constants-browserify'),

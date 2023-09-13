@@ -17,7 +17,7 @@ export const connectSubcommand = (subCommand: SlashCommandSubcommandBuilder) =>
 
 export function executeConnect(interaction: CommandInteraction) {
   return ifElse(
-    pipe(prop('guildId'), isNilOrEmpty),
+    pipe(prop('guildId'), isNilOrEmpty<string>),
     () => {
       throw new NoGuildIdError()
     },
