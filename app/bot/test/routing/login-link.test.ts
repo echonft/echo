@@ -1,7 +1,5 @@
-import { loginLink } from '../../src/routing/login-link'
-import { describe, expect, jest, test } from '@jest/globals'
-
-jest.mock('../../src/routing/get-base-url')
+import { loginLink } from '@echo/bot/routing/login-link'
+import { describe, expect, test } from '@jest/globals'
 
 describe('Routing - loginLink', () => {
   test('returns login link with proper callback', () => {

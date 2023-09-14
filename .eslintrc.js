@@ -57,9 +57,13 @@ module.exports = {
               '@echo/discord/src/*',
               '@echo/firestore/src/*',
               '@echo/ui/src/*',
-              '@echo/utils/src/*'
+              '@echo/utils/src/*',
+              'lib/*',
+              'src/*',
+              './*',
+              '../*'
             ],
-            message: 'Do not import directly from src/ directory'
+            message: 'Use path mapping instead'
           }
         ]
       }

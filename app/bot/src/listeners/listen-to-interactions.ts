@@ -1,6 +1,6 @@
-import { InteractionError } from '../errors/interaction-error'
-import { executeForButton } from '../handlers/button-handler'
-import { executeForCommand } from '../handlers/input-command-handler'
+import { InteractionError } from '@echo/bot/errors/interaction-error'
+import { executeForButton } from '@echo/bot/handlers/button-handler'
+import { executeForCommand } from '@echo/bot/handlers/input-command-handler'
 import { logger } from '@echo/utils/services/logger'
 import { BaseInteraction } from 'discord.js'
 

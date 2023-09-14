@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { randomSnowflake } from '../../utils/discord/snowflake'
-import { mockGuild } from './guild-mock'
+import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'
+import { randomSnowflake } from '@echo/bot-test/discord/snowflake'
 import {
   APIGuildTextChannel,
   APITextChannel,

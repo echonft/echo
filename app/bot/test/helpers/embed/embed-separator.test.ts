@@ -1,4 +1,4 @@
-import { embedSeparator } from '../../../src/helpers/embed/embed-separator'
+import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { describe, expect, it } from '@jest/globals'
 
 describe('utils - embed - embedSeparator', () => {

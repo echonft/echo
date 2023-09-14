@@ -1,7 +1,5 @@
-import { createListingLink } from '../../src/routing/create-listing-link'
-import { describe, expect, jest, test } from '@jest/globals'
-
-jest.mock('../../src/routing/get-base-url')
+import { createListingLink } from '@echo/bot/routing/create-listing-link'
+import { describe, expect, test } from '@jest/globals'
 
 describe('Routing - createListingLink', () => {
   test('returns link for collection listing creation', () => {

@@ -1,4 +1,4 @@
-import { listingChangeHandler } from '../handlers/listing-change-handler'
+import { listingChangeHandler } from '@echo/bot/handlers/listing-change-handler'
 import { listenToListings as firebaseListenToListings } from '@echo/firestore/listeners/listen-to-listings'
 import { Client } from 'discord.js'
 

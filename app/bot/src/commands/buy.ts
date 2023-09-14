@@ -1,5 +1,5 @@
-import { BuyOwnListingError } from '../errors/buy-own-listing-error'
-import { getDiscordChannel } from '../helpers/get-discord-channel'
+import { BuyOwnListingError } from '@echo/bot/errors/buy-own-listing-error'
+import { getDiscordChannel } from '@echo/bot/helpers/get-discord-channel'
 import type { FirestoreOfferComplete } from '@echo/firestore/types/model/firestore-offer-complete'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'

@@ -11,6 +11,9 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
+      "@echo/bot/*": ["./src/*"],
+      "@echo/bot-mocks/*": ["./test/mocks/*"],
+      "@echo/bot-test/*": ["./test/utils/*"],
       "@echo/discord/*": ["../../lib/discord/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/firestore-mocks/*": ["../../lib/firestore/test/mocks/*"],

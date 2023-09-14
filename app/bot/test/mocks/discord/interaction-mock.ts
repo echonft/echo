@@ -1,8 +1,8 @@
-import { randomSnowflake } from '../../utils/discord/snowflake'
-import { messageToAPIData } from '../../utils/discord/to-api-data'
-import { mockTextChannel } from './channel-mock'
-import { mockMessage } from './message-mock'
-import { mockGuildMember } from './user-mock'
+import { mockTextChannel } from '@echo/bot-mocks/discord/channel-mock'
+import { mockMessage } from '@echo/bot-mocks/discord/message-mock'
+import { mockGuildMember } from '@echo/bot-mocks/discord/user-mock'
+import { randomSnowflake } from '@echo/bot-test/discord/snowflake'
+import { messageToAPIData } from '@echo/bot-test/discord/to-api-data'
 import {
   APIBaseInteraction,
   APIChatInputApplicationCommandInteraction,

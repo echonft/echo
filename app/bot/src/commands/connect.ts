@@ -1,5 +1,5 @@
-import { NoGuildIdError } from '../errors/no-guild-id-error'
-import { loginLink } from '../routing/login-link'
+import { NoGuildIdError } from '@echo/bot/errors/no-guild-id-error'
+import { loginLink } from '@echo/bot/routing/login-link'
 import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-discord-guild-discord-id'
 import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
 import { andThenOtherwise } from '@echo/utils/fp/and-then-otherwise'

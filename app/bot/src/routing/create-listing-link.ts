@@ -1,4 +1,4 @@
-import { collectionListingsLink } from './collection-listings-link'
+import { collectionListingsLink } from '@echo/bot/routing/collection-listings-link'
 
 /**
  * Creates a link to the listing creation page on website

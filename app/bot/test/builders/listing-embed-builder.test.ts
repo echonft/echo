@@ -1,14 +1,12 @@
-import { buildListingEmbed } from '../../src/builders/listing-embed-builder'
-import { embedSeparator } from '../../src/helpers/embed/embed-separator'
-import { embedValueForNft } from '../../src/helpers/embed/embed-value-for-nft'
-import { embedValueForTarget } from '../../src/helpers/embed/embed-value-for-target'
-import { listingLink } from '../../src/routing/listing-link'
+import { buildListingEmbed } from '@echo/bot/builders/listing-embed-builder'
+import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
+import { embedValueForNft } from '@echo/bot/helpers/embed/embed-value-for-nft'
+import { embedValueForTarget } from '@echo/bot/helpers/embed/embed-value-for-target'
+import { listingLink } from '@echo/bot/routing/listing-link'
 import { getListingItemsGuild } from '@echo/firestore/helpers/listing/get-listing-items-guild'
 import type { FirestoreListingComplete } from '@echo/firestore/types/model/firestore-listing-complete'
 import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
-import { describe, expect, it, jest } from '@jest/globals'
-
-jest.mock('../../src/routing/get-base-url')
+import { describe, expect, it } from '@jest/globals'
 
 describe('builders - buildListingEmbed', () => {
   const listingMock = getListingMockById('jUzMtPGKM62mMhEcmbN4')

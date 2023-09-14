@@ -1,4 +1,4 @@
-import { offerChangeHandler } from '../handlers/offer-change-handler'
+import { offerChangeHandler } from '@echo/bot/handlers/offer-change-handler'
 import { listenToOffers as firebaseListenToOffers } from '@echo/firestore/listeners/listen-to-offers'
 import { Client } from 'discord.js'
 
