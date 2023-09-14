@@ -1,4 +1,7 @@
 export const messages = {
+  auth: {
+    disconnect: 'Disconnect'
+  },
   collection: {
     button: {
       label: 'Make an offer'

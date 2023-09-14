@@ -19,7 +19,8 @@ export const UserTag: FunctionComponent<Props> = ({ user }) => {
         'px-2.5',
         'py-1.5',
         'bg-white/[0.08]',
-        'w-max'
+        'w-max',
+        'outline-none'
       )}
     >
       <UserTagPicture user={user} />

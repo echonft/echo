@@ -4,7 +4,7 @@ import { EchoLogoSvg } from '@echo/ui/components/base/svg/echo-logo-svg'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import { ConnectButton } from '@echo/ui/components/layout/header/connect-button'
-import { UserTag } from '@echo/ui/components/layout/header/user-tag'
+import { DisconnectButton } from '@echo/ui/components/layout/header/disconnect-button'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import type { AuthUser } from '@echo/ui/types/model/auth-user'
 import { clsx } from 'clsx'
@@ -24,7 +24,7 @@ export const Header: FunctionComponent<Props> = ({ user }) => {
           <InternalLink path={'/'}>
             <EchoLogoSvg width={144} />
           </InternalLink>
-          <HideIfNil checks={user} render={(user) => <UserTag user={user} />} />
+          <HideIfNil checks={user} render={(user) => <DisconnectButton user={user} />} />
           <ShowIfNil checks={user}>
             <ConnectButton />
           </ShowIfNil>
