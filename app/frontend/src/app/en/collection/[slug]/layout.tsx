@@ -1,5 +1,5 @@
 import { collectionApiUrl } from '@echo/api/routing/collection-api-url'
-import type { GetNftCollectionResponse } from '@echo/api/types/responses/get-nft-collection-response'
+import type { GetCollectionResponse } from '@echo/api/types/responses/get-collection-response'
 import { CollectionDetailsApiProvided } from '@echo/ui/components/collection/api-provided/collection-details-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { ErrorStatus } from '@server/constants/error-status'
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { slug }, children }) => {
-  const { data, error } = await fetcher(collectionApiUrl(slug)).fetch<GetNftCollectionResponse>()
+  const { data, error } = await fetcher(collectionApiUrl(slug)).fetch<GetCollectionResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {

@@ -6,7 +6,7 @@ import { OfferRowsContainer } from '@echo/ui/components/offer/layout/container/o
 import { UserNavigationLayout } from '@echo/ui/components/user/layout/user-navigation-layout'
 import { UserSwapsEmpty } from '@echo/ui/components/user/swap/empty/user-swaps-empty'
 import { NavigationSwaps } from '@echo/ui/constants/navigation-item'
-import { mapOffer } from '@echo/ui/mappers/from-api/map-offer'
+import { mapOfferFromResponse } from '@echo/ui/mappers/from-api/map-offer-from-response'
 import { isEmpty, map } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const UserSwapsApiProvided: FunctionComponent<Props> = ({ username, responses }) => {
-  const mappedOffers = useMemo(() => map(mapOffer, responses), [responses])
+  const mappedOffers = useMemo(() => map(mapOfferFromResponse, responses), [responses])
   const dataIsEmpty = isEmpty(mappedOffers)
 
   return (

@@ -8,7 +8,7 @@ import { UserNftsEmpty } from '@echo/ui/components/user/nft/empty/user-nfts-empt
 import { NavigationItems } from '@echo/ui/constants/navigation-item'
 import { NftFilterCollections, NftFilterTraits } from '@echo/ui/constants/nft-filter'
 import { groupNftsByCollection } from '@echo/ui/helpers/nft/group-nfts-by-collection'
-import { mapNft } from '@echo/ui/mappers/from-api/map-nft'
+import { mapNftFromResponse } from '@echo/ui/mappers/from-api/map-nft-from-response'
 import type { Group } from '@echo/ui/types/group'
 import type { Nft } from '@echo/ui/types/model/nft'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
@@ -23,7 +23,7 @@ interface Props {
 
 export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, responses }) => {
   const t = useTranslations('user.button')
-  const nftGroups = useMemo(() => pipe(map(mapNft), groupNftsByCollection)(responses), [responses])
+  const nftGroups = useMemo(() => pipe(map(mapNftFromResponse), groupNftsByCollection)(responses), [responses])
   const dataIsEmpty = isEmpty(nftGroups)
 
   return (

@@ -1,4 +1,4 @@
-import type { GetNftCollectionResponse } from '@echo/api/types/responses/get-nft-collection-response'
+import type { GetCollectionResponse } from '@echo/api/types/responses/get-collection-response'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/get-nft-collection-mock-by-id'
 import { getCollectionBySlug } from '@server/helpers/collection/get-collection-by-slug'
 import { mapCollectionToResponse } from '@server/mappers/to-response/map-collection-to-response'
@@ -25,7 +25,7 @@ describe('request-handlers - collection - getCollectionRequestHandler', () => {
     const req = mockRequest<never>()
     const res = await getCollectionRequestHandler(req, 'slug')
     expect(res.status).toBe(200)
-    const responseData = (await res.json()) as GetNftCollectionResponse
+    const responseData = (await res.json()) as GetCollectionResponse
     expect(responseData).toEqual({ collection: collectionResponse })
   })
 })

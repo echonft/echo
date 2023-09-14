@@ -1,7 +1,7 @@
 import type { Listing } from '@echo/ui/types/model/listing'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import { getCollectionById } from '@mocks/model/collection'
 import { getNftById } from '@mocks/model/nft'
-import { getCollectionById } from '@mocks/model/nft-collection'
 import dayjs from 'dayjs'
 
 const listings: { [key: string]: Listing } = {

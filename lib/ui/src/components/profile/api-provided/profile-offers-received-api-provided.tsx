@@ -7,7 +7,7 @@ import { ProfileOffersReceivedEmpty } from '@echo/ui/components/profile/offer/em
 import { ProfileNavigationLayout } from '@echo/ui/components/profile/profile-navigation-layout'
 import { NavigationListingsReceived } from '@echo/ui/constants/navigation-item'
 import { OfferRoleReceiver } from '@echo/ui/constants/offer-role'
-import { mapOffer } from '@echo/ui/mappers/from-api/map-offer'
+import { mapOfferFromResponse } from '@echo/ui/mappers/from-api/map-offer-from-response'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { assoc, isEmpty, map, pipe } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
@@ -18,7 +18,7 @@ interface Props {
 
 export const ProfileOffersReceivedApiProvided: FunctionComponent<Props> = ({ responses }) => {
   const mappedOffers = useMemo(
-    () => map(pipe(mapOffer, assoc('role', OfferRoleReceiver)), responses),
+    () => map(pipe(mapOfferFromResponse, assoc('role', OfferRoleReceiver)), responses),
     [responses]
   ) as Array<OfferWithRole>
   const dataIsEmpty = isEmpty(mappedOffers)

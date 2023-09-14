@@ -7,7 +7,7 @@ import { ProfileNavigationLayout } from '@echo/ui/components/profile/profile-nav
 import { ProfileSwapsEmpty } from '@echo/ui/components/profile/swap/empty/profile-swaps-empty'
 import { NavigationSwaps } from '@echo/ui/constants/navigation-item'
 import { OfferRoleReceiver, OfferRoleSender } from '@echo/ui/constants/offer-role'
-import { mapOffer } from '@echo/ui/mappers/from-api/map-offer'
+import { mapOfferFromResponse } from '@echo/ui/mappers/from-api/map-offer-from-response'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { assoc, ifElse, isEmpty, map, pathEq, pipe } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
@@ -22,7 +22,7 @@ export const ProfileSwapsApiProvided: FunctionComponent<Props> = ({ userId, resp
     () =>
       map(
         pipe(
-          mapOffer,
+          mapOfferFromResponse,
           ifElse(pathEq(userId, ['sender', 'id']), assoc('role', OfferRoleReceiver), assoc('role', OfferRoleSender))
         ),
         responses

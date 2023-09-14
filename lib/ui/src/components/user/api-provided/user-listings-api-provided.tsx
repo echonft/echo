@@ -6,7 +6,7 @@ import { ListingRowsContainer } from '@echo/ui/components/listing/layout/contain
 import { UserNavigationLayout } from '@echo/ui/components/user/layout/user-navigation-layout'
 import { UserListingsEmpty } from '@echo/ui/components/user/listing/empty/user-listings-empty'
 import { NavigationListings } from '@echo/ui/constants/navigation-item'
-import { mapListing } from '@echo/ui/mappers/from-api/map-listing'
+import { mapListingFromResponse } from '@echo/ui/mappers/from-api/map-listing-from-response'
 import { isEmpty, map } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const UserListingsApiProvided: FunctionComponent<Props> = ({ username, responses }) => {
-  const mappedListings = useMemo(() => map(mapListing, responses), [responses])
+  const mappedListings = useMemo(() => map(mapListingFromResponse, responses), [responses])
   const dataIsEmpty = isEmpty(mappedListings)
 
   return (

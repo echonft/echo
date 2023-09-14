@@ -1,6 +1,6 @@
-import type { NftCollection } from '@echo/ui/types/model/nft-collection'
+import type { Collection } from '@echo/ui/types/model/collection'
 
 export interface ListingTarget {
-  collection: NftCollection
+  collection: Collection
   amount: number
 }

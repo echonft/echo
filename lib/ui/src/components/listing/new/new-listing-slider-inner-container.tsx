@@ -4,9 +4,9 @@ import { NewItemsEmptyContainer } from '@echo/ui/components/item/empty/new-items
 import { NewItemsContainer } from '@echo/ui/components/item/new/new-items-container'
 import { NewListingSliderExpirationContainer } from '@echo/ui/components/listing/new/new-listing-slider-expiration-container'
 import { NewListingSliderTargetsContainer } from '@echo/ui/components/listing/new/new-listing-slider-targets-container'
+import type { Collection } from '@echo/ui/types/model/collection'
 import type { ListingItem } from '@echo/ui/types/model/listing-item'
 import type { ListingTarget } from '@echo/ui/types/model/listing-target'
-import type { NftCollection } from '@echo/ui/types/model/nft-collection'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
@@ -17,8 +17,8 @@ import { type FunctionComponent, useRef } from 'react'
 interface Props {
   items: ListingItem[]
   targets: ListingTarget[]
-  collections: Array<NftCollection> | undefined
-  onCollectionSelectionChange?: (selection: Array<NftCollection>) => unknown
+  collections: Array<Collection> | undefined
+  onCollectionSelectionChange?: (selection: Array<Collection>) => unknown
   onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
   onRemoveTarget?: (targetCollectionId: string) => unknown
   onRemoveItem?: (itemNftId: string) => unknown

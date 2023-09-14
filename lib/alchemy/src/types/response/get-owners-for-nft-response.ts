@@ -1,5 +1,5 @@
-import { ResponseWithPaging } from './response-with-paging'
+import { AlchemyResponseWithPaging } from '@echo/alchemy/types/response/alchemy-response-with-paging'
 
-export interface GetOwnersForNftResponse extends ResponseWithPaging {
+export interface GetOwnersForNftResponse extends AlchemyResponseWithPaging {
   owners: string[]
 }

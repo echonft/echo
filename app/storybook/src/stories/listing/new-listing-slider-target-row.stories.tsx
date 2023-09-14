@@ -1,5 +1,5 @@
 import { NewListingSliderTargetRow as Component } from '@echo/ui/components/listing/new/new-listing-slider-target-row'
-import { getCollectionById } from '@mocks/model/nft-collection'
+import { getCollectionById } from '@mocks/model/collection'
 import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

@@ -1,6 +1,6 @@
 import { AlchemyRoutes } from '@echo/alchemy/constants/alchemy-routes'
-import { getBaseUrl } from '@echo/alchemy/helpers/get-base-url'
+import { getAlchemyBaseUrl } from '@echo/alchemy/helpers/get-alchemy-base-url'
 
 export function getAlchemyRoute(route: AlchemyRoutes) {
-  return new URL(`${getBaseUrl()}${route}`)
+  return new URL(`${getAlchemyBaseUrl()}${route}`)
 }
