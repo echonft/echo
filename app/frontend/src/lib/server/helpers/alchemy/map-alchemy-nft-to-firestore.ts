@@ -5,9 +5,9 @@ import type { FirestoreNftCollection } from '@echo/firestore/types/model/firesto
 import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
 import { modifyStringPropToUrl } from '@echo/utils/fp/modify-string-prop-to-url'
+import { getCollectionByContract } from '@server/helpers/collection/get-collection-by-contract'
 import { getNftBlurUrl } from '@server/helpers/nft/get-nft-blur-url'
 import { getOpenSeaUrl } from '@server/helpers/nft/get-open-sea-url'
-import { getNftCollectionByContract } from '@server/helpers/nft-collection/get-nft-collection-by-contract'
 import { isNil, omit, pipe } from 'ramda'
 
 export const mapAlchemyNftToFirestore = (
@@ -17,7 +17,7 @@ export const mapAlchemyNftToFirestore = (
   collections: FirestoreNftCollection[]
 ): Omit<FirestoreNft, 'id'> => {
   const { contractAddress, chainId, tokenId } = alchemyNft
-  const collection = getNftCollectionByContract(contractAddress, chainId, collections)!
+  const collection = getCollectionByContract(contractAddress, chainId, collections)!
   if (isNil(collection)) {
     throw Error(`collection address: ${contractAddress} chainId: ${chainId} not found`)
   }

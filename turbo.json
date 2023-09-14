@@ -56,7 +56,6 @@
       "inputs": ["src/**/*.ts"]
     },
     "@echo/bot#dev": {
-      "dependsOn": ["@echo/ui#build"],
       "cache": false
     },
     "@echo/bot#deploy-commands": {

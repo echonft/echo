@@ -2,7 +2,7 @@ import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { userDataConverter } from '@echo/firestore/converters/user-data-converter'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
-import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 
 export async function findUserByDiscordId(discordId: string) {
