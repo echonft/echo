@@ -1,5 +1,3 @@
-import '../../../../../lib/ui/dist/index.css'
-import '../../index.css'
 import { authOptions } from '@constants/auth-options'
 import { Header } from '@echo/ui/components/layout/header/header'
 import { messages } from '@echo/ui/messages/en'

@@ -9,6 +9,7 @@
       "@helpers/*": ["src/lib/helpers/*"],
       "@server/*": ["src/lib/server/*"],
       "@server-mocks/*": ["test/lib/server/mocks/*"],
+      "@styles/*": ["src/styles/*"],
       "@type/*": ["src/lib/types/*"],
       "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/api/*": ["../../lib/api/src/*"],
@@ -17,6 +18,7 @@
       "@echo/firestore-mocks/*": ["../../lib/firestore/test/mocks/*"],
       "@echo/test-utils/*": ["../../lib/utils/test/test-utils/*"],
       "@echo/ui/*": ["../../lib/ui/src/*"],
+      "@echo/ui-css/*": ["../../lib/ui/dist/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"]
     },
     "plugins": [

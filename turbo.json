@@ -54,7 +54,6 @@
       "dependsOn": ["@echo/ui#build"],
       "env": [
         "ALCHEMY_API_KEY",
-        "NODE_ENV",
         "NEXTAUTH_URL_INTERNAL",
         "NEXTAUTH_URL",
         "ADMIN_API_KEY",

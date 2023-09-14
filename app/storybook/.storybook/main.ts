@@ -5,9 +5,7 @@ import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 const config: StorybookConfig = {
   stories: ['../src/stories/**/*stories.tsx'],
   babel: async (options) => {
-    // options.plugins.push('@babel/plugin-syntax-flow')
     options.presets.push('@babel/preset-typescript')
-    // options.presets.push('@babel/preset-react')
     return options
   },
   addons: [
@@ -38,11 +36,7 @@ const config: StorybookConfig = {
         }
       }
     }
-  },
-  env: (config) => ({
-    ...config,
-    NODE_ENV: 'mock'
-  })
+  }
 }
 export default config
 /**

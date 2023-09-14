@@ -1,5 +1,5 @@
 'use client'
-import { isMockEnvironment } from '@echo/ui/helpers/is-mock-environment'
+import { isStorybook } from '@echo/ui/helpers/is-storybook'
 import { clsx } from 'clsx'
 import Link from 'next/link'
 import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
@@ -23,7 +23,7 @@ export const InternalLink: FunctionComponent<PropsWithChildren<Props>> = ({
       className={clsx(disabled && 'cursor-default', className)}
       href={path}
       onClick={(event) => {
-        if (isMockEnvironment() || disabled) {
+        if (isStorybook() || disabled) {
           event.preventDefault()
         }
         onClick?.(event)
