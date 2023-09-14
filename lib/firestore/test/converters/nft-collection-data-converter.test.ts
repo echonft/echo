@@ -1,7 +1,7 @@
-import { nftCollectionDataConverter } from '../../src/converters/nft-collection-data-converter'
-import { nftCollectionDocumentDataMock } from '../mocks/nft-collection-document-data-mock'
-import { nftCollectionMock } from '../mocks/nft-collection-mock'
-import { nftCollectionSnapshotMock } from '../mocks/nft-collection-snapshot-mock'
+import { nftCollectionDataConverter } from '@echo/firestore/converters/nft-collection-data-converter'
+import { nftCollectionDocumentDataMock } from '@echo/firestore-mocks/nft-collection-document-data-mock'
+import { nftCollectionMock } from '@echo/firestore-mocks/nft-collection-mock'
+import { nftCollectionSnapshotMock } from '@echo/firestore-mocks/nft-collection-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - nftCollectionDataConverter', () => {

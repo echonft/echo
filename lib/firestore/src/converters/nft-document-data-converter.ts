@@ -1,16 +1,17 @@
-import { modifyDocumentDataArrayProp } from '../helpers/converters/from-firestore/modify-document-data-array-prop'
-import { modifyDocumentDataProp } from '../helpers/converters/from-firestore/modify-document-data-prop'
-import { modifyModelProp } from '../helpers/converters/to-firestore/modify-model-prop'
-import { FirestoreDocumentDataConverter } from '../types/converters/firestore-document-data-converter'
-import { NftDocumentData } from '../types/model/nft-document-data'
-import { nftAttributeDocumentDataConverter } from './nft-attribute-document-data-converter'
-import { nftCollectionDocumentDataConverter } from './nft-collection-document-data-converter'
-import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
-import { Nft } from '@echo/firestore-types'
-import { modifyStringPropToUrl, modifyUrlPropToString } from '@echo/utils'
+import { nftAttributeDocumentDataConverter } from '@echo/firestore/converters/nft-attribute-document-data-converter'
+import { nftCollectionDocumentDataConverter } from '@echo/firestore/converters/nft-collection-document-data-converter'
+import { userDetailsDocumentDataConverter } from '@echo/firestore/converters/user-details-document-data-converter'
+import { modifyDocumentDataArrayProp } from '@echo/firestore/helpers/converters/from-firestore/modify-document-data-array-prop'
+import { modifyDocumentDataProp } from '@echo/firestore/helpers/converters/from-firestore/modify-document-data-prop'
+import { modifyModelProp } from '@echo/firestore/helpers/converters/to-firestore/modify-model-prop'
+import type { FirestoreDocumentDataConverter } from '@echo/firestore/types/converters/firestore-document-data-converter'
+import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
+import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
+import { modifyStringPropToUrl } from '@echo/utils/fp/modify-string-prop-to-url'
+import { modifyUrlPropToString } from '@echo/utils/fp/modify-url-prop-to-string'
 import { pipe } from 'ramda'
 
-export const nftDocumentDataConverter: FirestoreDocumentDataConverter<NftDocumentData, Nft> = {
+export const nftDocumentDataConverter: FirestoreDocumentDataConverter<NftDocumentData, FirestoreNft> = {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   fromFirestore: pipe(

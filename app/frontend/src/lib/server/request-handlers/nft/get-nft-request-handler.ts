@@ -1,8 +1,9 @@
-import type { ApiRequest, GetNftResponse } from '@echo/api'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { GetNftResponse } from '@echo/api/types/responses/get-nft-response'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { assertNft } from '@server/helpers/nft/assert-nft'
 import { getNftByCollection } from '@server/helpers/nft/get-nft-by-collection'
-import { mapNft } from '@server/mappers/to-response/map-nft'
+import { mapNftToResponse } from '@server/mappers/to-response/map-nft-to-response'
 import { tokenIdSchema } from '@server/validators/token-id-schema'
 import { NextResponse } from 'next/server'
 
@@ -18,5 +19,5 @@ export async function getNftRequestHandler(_req: ApiRequest<never>, slug: string
   const validTokenId = parseTokenId(parseInt(tokenId))
   const nft = await getNftByCollection(slug, validTokenId)
   assertNft(nft)
-  return NextResponse.json<GetNftResponse>({ nft: mapNft(nft) })
+  return NextResponse.json<GetNftResponse>({ nft: mapNftToResponse(nft) })
 }

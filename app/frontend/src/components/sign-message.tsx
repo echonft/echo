@@ -1,7 +1,7 @@
-import type { Signature } from '@echo/ui-model'
-import { logger } from '@echo/utils'
+import type { Signature } from '@echo/ui/types/model/signature'
+import { logger } from '@echo/utils/services/logger'
 import { isNil } from 'ramda'
-import { FunctionComponent, useEffect, useRef } from 'react'
+import { type FunctionComponent, useEffect, useRef } from 'react'
 import { SiweMessage } from 'siwe'
 import { useAccount, useSignMessage } from 'wagmi'
 

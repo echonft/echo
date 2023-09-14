@@ -1,4 +1,4 @@
-import { AlchemyNftAttribute } from './alchemy-nft-attribute'
+import type { AlchemyNftAttribute } from '@echo/alchemy/types/model/alchemy-nft-attribute'
 
 export type AlchemyNft = {
   contractAddress: string

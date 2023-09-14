@@ -1,5 +1,5 @@
-import { searchCollectionsByName } from '../../../src/helpers/collection/search-collections-by-name'
-import { NftCollection } from '@echo/ui-model'
+import { searchCollectionsByName } from '@echo/ui/helpers/collection/search-collections-by-name'
+import type { Collection } from '@echo/ui/types/model/collection'
 import { describe, expect, it } from '@jest/globals'
 import { includes } from 'ramda'
 
@@ -7,15 +7,15 @@ describe('helpers - collection - searchCollectionsByName', () => {
   const collection1 = {
     id: '1',
     name: 'First Collection'
-  } as NftCollection
+  } as Collection
   const collection2 = {
     id: '2',
     name: 'Second Collection'
-  } as NftCollection
+  } as Collection
   const collection3 = {
     id: '3',
     name: 'Echo Collection'
-  } as NftCollection
+  } as Collection
   const collections = [collection1, collection2, collection3]
   it('find matching collections', () => {
     const results = searchCollectionsByName('coll', collections)

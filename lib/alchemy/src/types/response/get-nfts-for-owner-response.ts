@@ -1,6 +1,6 @@
-import { NftResponse } from './nft-response'
-import { ResponseWithPaging } from './response-with-paging'
+import type { AlchemyNftResponse } from '@echo/alchemy/types/response/alchemy-nft-response'
+import type { AlchemyResponseWithPaging } from '@echo/alchemy/types/response/alchemy-response-with-paging'
 
-export interface GetNftsForOwnerResponse extends ResponseWithPaging {
-  ownedNfts: NftResponse[]
+export interface GetNftsForOwnerResponse extends AlchemyResponseWithPaging {
+  ownedNfts: AlchemyNftResponse[]
 }

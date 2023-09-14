@@ -1,4 +1,4 @@
-import { NonEmptyArray } from '@echo/utils'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export const OfferRoleReceiver = 'receiver'
 export const OfferRoleSender = 'sender'

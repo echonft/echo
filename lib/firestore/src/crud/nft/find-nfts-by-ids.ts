@@ -1,18 +1,18 @@
-import { CollectionName } from '../../constants/collection-name'
-import { nftDataConverter } from '../../converters/nft-data-converter'
-import { firestore } from '../../services/firestore'
-import { Nft } from '@echo/firestore-types'
+import { CollectionName } from '@echo/firestore/constants/collection-name'
+import { nftDataConverter } from '@echo/firestore/converters/nft-data-converter'
+import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
 import { map } from 'ramda'
 
 export async function findNftsByIds(ids: string[]) {
-  const querySnapshot = await firestore()
+  const querySnapshot = await firestoreApp()
     .collection(CollectionName.NFTS)
     .where('id', 'in', ids)
     .withConverter(nftDataConverter)
     .get()
 
   if (querySnapshot.empty) {
-    return [] as Nft[]
+    return [] as FirestoreNft[]
   }
 
   return map((snapshot) => snapshot.data(), querySnapshot.docs)

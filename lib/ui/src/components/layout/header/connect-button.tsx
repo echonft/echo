@@ -1,7 +1,7 @@
-import { getTranslator } from '../../../messages/get-translator'
+import { getTranslator } from '@echo/ui/messages/get-translator'
 import { clsx } from 'clsx'
 import { signIn } from 'next-auth/react'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const ConnectButton: FunctionComponent = () => {
   const t = getTranslator()

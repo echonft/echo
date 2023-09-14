@@ -1,8 +1,8 @@
-import { SizeLG } from '../../../constants/size'
-import { ItemThumbnail } from '../../item/thumbnail/item-thumbnail'
-import { OfferItem } from '@echo/ui-model'
+import { ItemThumbnail } from '@echo/ui/components/item/thumbnail/item-thumbnail'
+import { SizeLG } from '@echo/ui/constants/size'
+import type { OfferItem } from '@echo/ui/types/model/offer-item'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   items: OfferItem[]

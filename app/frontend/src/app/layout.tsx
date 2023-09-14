@@ -1,5 +1,5 @@
-import '@echo/ui/dist/index.css'
-import '../index.css'
+import '@echo/ui-css/index.css'
+import '@styles/index.css'
 import type { Metadata } from 'next'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 

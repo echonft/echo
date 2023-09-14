@@ -1,6 +1,6 @@
-import { CommandInterface } from '../types/commands/command-interface'
-import { connectSubcommand } from './connect'
-import { createListingSubcommand } from './create-listing'
+import { connectSubcommand } from '@echo/bot/commands/connect'
+import { createListingSubcommand } from '@echo/bot/commands/create-listing'
+import type { CommandInterface } from '@echo/bot/types/commands/command-interface'
 import { SlashCommandBuilder } from 'discord.js'
 
 export const echoCommand: CommandInterface = {

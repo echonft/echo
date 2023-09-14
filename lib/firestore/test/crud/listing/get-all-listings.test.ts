@@ -1,10 +1,10 @@
-import { getAllListings } from '../../../src/crud/listing/get-all-listings'
-import { getAllListingMocks } from '../../mocks/get-all-listing-mocks'
-import { getListingMockById } from '../../mocks/get-listing-mock-by-id'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
-import { Listing } from '@echo/firestore-types'
+import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
+import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import { getAllListingMocks } from '@echo/firestore-mocks/get-all-listing-mocks'
+import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { forEach } from 'ramda'
 
 describe('CRUD - listing- getAllListings', () => {
@@ -15,7 +15,7 @@ describe('CRUD - listing- getAllListings', () => {
     const listingMocks = getAllListingMocks()
     const listings = await getAllListings()
     expect(listings.length).toEqual(listingMocks.length)
-    forEach((listing: Listing) => {
+    forEach((listing: FirestoreListing) => {
       expect(getListingMockById(listing.id)).toStrictEqual(listing)
     }, listings)
   })

@@ -1,4 +1,4 @@
-import { isOfferModalDeclineButtonDisplayed } from '../../../src/helpers/offer/is-offer-modal-decline-button-displayed'
+import { isOfferModalDeclineButtonDisplayed } from '@echo/ui/helpers/offer/is-offer-modal-decline-button-displayed'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - offer - isOfferModalDeclineButtonDisplayed', () => {

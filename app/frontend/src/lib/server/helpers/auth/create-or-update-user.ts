@@ -1,7 +1,13 @@
-import { addUser, findUserByDiscordId, initializeFirebase, terminateFirestore, updateUser } from '@echo/firestore'
-import type { User, UserDiscordGuild, Wallet } from '@echo/firestore-types'
-import type { AuthUser } from '@echo/ui-model'
-import { isNilOrEmpty } from '@echo/utils'
+import { addUser } from '@echo/firestore/crud/user/add-user'
+import { findUserByDiscordId } from '@echo/firestore/crud/user/find-user-by-discord-id'
+import { updateUser } from '@echo/firestore/crud/user/update-user'
+import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreUserDiscordGuild } from '@echo/firestore/types/model/firestore-user-discord-guild'
+import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
+import type { AuthUser } from '@echo/ui/types/model/auth-user'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { userDiscordInfoNeedsUpdate } from '@server/helpers/auth/user-discord-info-needs-update'
 import { userNftsNeedsUpdate } from '@server/helpers/auth/user-nfts-needs-update'
 import { fetchDiscordUser } from '@server/helpers/user/fetch-discord-user'
@@ -16,14 +22,14 @@ interface RequiredUserProps {
   discordBanner: string | undefined
   discordId: string
   discordUsername: string
-  discordGuilds: UserDiscordGuild[]
+  discordGuilds: FirestoreUserDiscordGuild[]
   nftsUpdatedAt: dayjs.Dayjs
   updatedAt: dayjs.Dayjs
   username: string
-  wallets: Wallet[]
+  wallets: FirestoreWallet[]
 }
 
-async function updateUserAndNftsIfNeeded(user: Partial<User> & RequiredUserProps) {
+async function updateUserAndNftsIfNeeded(user: Partial<FirestoreUser> & RequiredUserProps) {
   let { nftsUpdatedAt, updatedAt } = user
   if (userNftsNeedsUpdate(nftsUpdatedAt)) {
     await updateUserNfts(user)

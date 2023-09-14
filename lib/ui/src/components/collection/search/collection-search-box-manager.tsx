@@ -1,15 +1,15 @@
-import { CollectionSearchBox } from './collection-search-box'
-import type { NftCollection } from '@echo/ui-model'
-import { stringIncludes } from '@echo/utils'
+import { CollectionSearchBox } from '@echo/ui/components/collection/search/collection-search-box'
+import type { Collection } from '@echo/ui/types/model/collection'
+import { stringIncludes } from '@echo/utils/fp/string-includes'
 import { filter, isNil, pipe, prop, toLower } from 'ramda'
-import { forwardRef, ForwardRefRenderFunction, useCallback, useEffect, useRef, useState } from 'react'
+import { forwardRef, type ForwardRefRenderFunction, useCallback, useEffect, useRef, useState } from 'react'
 
 interface Props {
   placeholder: string
-  options: Array<NftCollection> | undefined
-  selectedOptions: Array<NftCollection>
+  options: Array<Collection> | undefined
+  selectedOptions: Array<Collection>
   name?: string
-  onSelectionChange?: (selection: Array<NftCollection>) => unknown
+  onSelectionChange?: (selection: Array<Collection>) => unknown
 }
 
 const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
@@ -17,7 +17,7 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
   ref
 ) => {
   const [searching, setSearching] = useState(false)
-  const [filteredOptions, setFilteredOptions] = useState<Array<NftCollection>>()
+  const [filteredOptions, setFilteredOptions] = useState<Array<Collection>>()
   const filterOptions = useCallback(
     (searchQuery: string) => {
       setSearching(true)

@@ -1,4 +1,4 @@
-import { getOfferModalAcceptButtonTitleForState } from '../../../src/helpers/offer/get-offer-modal-accept-button-title-for-state'
+import { getOfferModalAcceptButtonTitleForState } from '@echo/ui/helpers/offer/get-offer-modal-accept-button-title-for-state'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - offer - getOfferModalAcceptButtonTitleForState', () => {

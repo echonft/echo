@@ -1,6 +1,6 @@
-import { getUserBannerUrl } from '../../../helpers/get-user-banner-url'
-import { Banner } from '../../shared/banner'
-import { FunctionComponent } from 'react'
+import { Banner } from '@echo/ui/components/shared/banner'
+import { getUserBannerUrl } from '@echo/ui/helpers/get-user-banner-url'
+import type { FunctionComponent } from 'react'
 
 export interface UserBannerProps {
   discordId: string

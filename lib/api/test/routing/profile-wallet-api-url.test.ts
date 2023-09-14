@@ -1,4 +1,4 @@
-import { profileWalletApiUrl } from '../../src/routing/profile-wallet-api-url'
+import { profileWalletApiUrl } from '@echo/api/routing/profile-wallet-api-url'
 import { describe, expect, test } from '@jest/globals'
 
 describe('routing - profileWalletApiUrl', () => {

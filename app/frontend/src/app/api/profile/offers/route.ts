@@ -1,5 +1,5 @@
 import { authOptions } from '@constants/auth-options'
-import type { ApiRequest } from '@echo/api'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
 import { handleRestrictedRequest } from '@server/request-handlers/handle-restricted-request'
 import { getCurrentUserOffersRequestHandler } from '@server/request-handlers/user/get-current-user-offers-request-handler'
 

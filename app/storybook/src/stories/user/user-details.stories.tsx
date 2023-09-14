@@ -1,6 +1,6 @@
-import { getUserById } from '../../mocks/model/user'
-import { UserDetails as Component } from '@echo/ui/src/components/user/details/user-details'
-import { SizeLG } from '@echo/ui/src/constants/size'
+import { UserDetails as Component } from '@echo/ui/components/user/details/user-details'
+import { SizeLG } from '@echo/ui/constants/size'
+import { getUserById } from '@mocks/model/user'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

@@ -1,6 +1,6 @@
-import { HideIfNil } from '../../base/utils/hide-if-nil'
+import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export interface BottomSliderTitleProps {
   title: string

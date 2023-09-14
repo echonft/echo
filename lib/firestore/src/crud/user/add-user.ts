@@ -1,21 +1,21 @@
-import { CollectionName } from '../../constants/collection-name'
-import { userDataConverter } from '../../converters/user-data-converter'
-import { firestore } from '../../services/firestore'
-import { UserDiscordGuild } from '@echo/firestore-types'
+import { CollectionName } from '@echo/firestore/constants/collection-name'
+import { userDataConverter } from '@echo/firestore/converters/user-data-converter'
+import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import type { FirestoreUserDiscordGuild } from '@echo/firestore/types/model/firestore-user-discord-guild'
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 
 export interface NewUser {
   discordAvatar?: string
   discordBanner?: string
-  discordGuilds: UserDiscordGuild[]
+  discordGuilds: FirestoreUserDiscordGuild[]
   discordId: string
   discordUsername: string
   username: string
 }
 
 export async function addUser(user: NewUser): Promise<string> {
-  const reference = firestore().collection(CollectionName.USERS).doc()
+  const reference = firestoreApp().collection(CollectionName.USERS).doc()
   const id = reference.id
   const newUser = pipe(
     assoc('id', id),

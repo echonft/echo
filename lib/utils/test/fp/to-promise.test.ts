@@ -1,4 +1,4 @@
-import { toPromise } from '../../src/fp/to-promise'
+import { toPromise } from '@echo/utils/fp/to-promise'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - toPromise', () => {

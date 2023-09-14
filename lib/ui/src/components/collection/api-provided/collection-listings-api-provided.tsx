@@ -1,14 +1,14 @@
 'use client'
-import { NavigationListings } from '../../../constants/navigation-item'
-import { HideIf } from '../../base/utils/hide-if'
-import { ShowIf } from '../../base/utils/show-if'
-import { ListingRowsContainer } from '../../listing/layout/container/listing-rows-container'
-import { CollectionNavigationLayout } from '../layout/collection-navigation-layout'
-import { CollectionListingsEmpty } from '../swap/empty/collection-listings-empty'
-import { ListingResponse } from '@echo/api'
-import { mapListing } from '@echo/ui-model'
+import type { ListingResponse } from '@echo/api/types/responses/model/listing-response'
+import { HideIf } from '@echo/ui/components/base/utils/hide-if'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { CollectionNavigationLayout } from '@echo/ui/components/collection/layout/collection-navigation-layout'
+import { CollectionListingsEmpty } from '@echo/ui/components/collection/swap/empty/collection-listings-empty'
+import { ListingRowsContainer } from '@echo/ui/components/listing/layout/container/listing-rows-container'
+import { NavigationListings } from '@echo/ui/constants/navigation-item'
+import { mapListingFromResponse } from '@echo/ui/mappers/from-api/map-listing-from-response'
 import { isEmpty, map } from 'ramda'
-import { FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   collectionSlug: string
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const CollectionListingsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses }) => {
-  const mappedListings = useMemo(() => map(mapListing, responses), [responses])
+  const mappedListings = useMemo(() => map(mapListingFromResponse, responses), [responses])
   const dataIsEmpty = isEmpty(mappedListings)
 
   return (

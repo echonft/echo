@@ -1,22 +1,23 @@
-import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
-import { setOfferDiscordGuild } from '../../../src/crud/offer/set-offer-discord-guild'
-import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
-import { NftCollectionDiscordGuild, OfferDiscordGuild } from '@echo/firestore-types'
+import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { setOfferDiscordGuild } from '@echo/firestore/crud/offer/set-offer-discord-guild'
+import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
+import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/firestore-nft-collection-discord-guild'
+import type { FirestoreOfferDiscordGuild } from '@echo/firestore/types/model/firestore-offer-discord-guild'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
 
 describe('CRUD - offer - setOfferDiscordGuild', () => {
-  let initialDiscordGuild: OfferDiscordGuild | undefined
+  let initialDiscordGuild: FirestoreOfferDiscordGuild | undefined
   let initialExpiresAt: dayjs.Dayjs
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
-  const collectionGuild: NftCollectionDiscordGuild = {
+  const collectionGuild: FirestoreNftCollectionDiscordGuild = {
     channelId: '1',
     discordId: '1'
   }
   const threadId = 'thread-id'
-  const offerGuild: OfferDiscordGuild = {
+  const offerGuild: FirestoreOfferDiscordGuild = {
     discordId: '1',
     threadId
   }

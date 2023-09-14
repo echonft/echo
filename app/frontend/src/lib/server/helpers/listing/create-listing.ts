@@ -1,13 +1,17 @@
-import { addListing, mapUserToUserDetails } from '@echo/firestore'
-import type { ListingTarget, OfferItem, User, Wallet } from '@echo/firestore-types'
-import type { NonEmptyArray } from '@echo/utils'
+import { addListing } from '@echo/firestore/crud/listing/add-listing'
+import { mapUserToUserDetails } from '@echo/firestore/mappers/map-user-to-user-details'
+import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export const createListing = async (
-  creator: User,
-  creatorWallet: Wallet,
-  items: NonEmptyArray<OfferItem>,
-  targets: NonEmptyArray<ListingTarget>
+  creator: FirestoreUser,
+  creatorWallet: FirestoreWallet,
+  items: NonEmptyArray<FirestoreOfferItem>,
+  targets: NonEmptyArray<FirestoreListingTarget>
 ) => {
   const newListing = {
     creator: mapUserToUserDetails(creator, creatorWallet),

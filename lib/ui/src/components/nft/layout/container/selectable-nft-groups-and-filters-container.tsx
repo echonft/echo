@@ -1,16 +1,20 @@
 'use client'
-import { getItemsFromGroups } from '../../../../helpers/get-items-from-groups'
-import { filterNftsByCollection } from '../../../../helpers/nft/filter-nfts-by-collection'
-import { filterNftsByTraits } from '../../../../helpers/nft/filter-nfts-by-traits'
-import { CollectionFilter } from '../../../../types/collection-filter'
-import { Group } from '../../../../types/group'
-import { GroupSelection } from '../../../../types/group-selection'
-import { NftFilter } from '../../../../types/nft-filter'
-import { NftsAndFiltersLayout } from '../nfts-and-filters-layout'
-import { NftFiltersContainer } from './nft-filters-container'
-import { SelectableNftGroupsContainer } from './selectable-nft-groups-container'
-import { Nft, NftTraits } from '@echo/ui-model'
-import { isIn, NonEmptyArray, propIsEmpty, propIsNotEmpty } from '@echo/utils'
+import { NftFiltersContainer } from '@echo/ui/components/nft/layout/container/nft-filters-container'
+import { SelectableNftGroupsContainer } from '@echo/ui/components/nft/layout/container/selectable-nft-groups-container'
+import { NftsAndFiltersLayout } from '@echo/ui/components/nft/layout/nfts-and-filters-layout'
+import { getItemsFromGroups } from '@echo/ui/helpers/get-items-from-groups'
+import { filterNftsByCollection } from '@echo/ui/helpers/nft/filter-nfts-by-collection'
+import { filterNftsByTraits } from '@echo/ui/helpers/nft/filter-nfts-by-traits'
+import type { CollectionFilter } from '@echo/ui/types/collection-filter'
+import type { Group } from '@echo/ui/types/group'
+import type { GroupSelection } from '@echo/ui/types/group-selection'
+import type { Nft } from '@echo/ui/types/model/nft'
+import type { NftTraits } from '@echo/ui/types/model/nft-traits'
+import type { NftFilter } from '@echo/ui/types/nft-filter'
+import { isIn } from '@echo/utils/fp/is-in'
+import { propIsEmpty } from '@echo/utils/fp/prop-is-empty'
+import { propIsNotEmpty } from '@echo/utils/fp/prop-is-not-empty'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import {
   add,
   assoc,
@@ -28,7 +32,7 @@ import {
   reject,
   unless
 } from 'ramda'
-import { FunctionComponent, MouseEventHandler, useEffect, useMemo, useState } from 'react'
+import { type FunctionComponent, type MouseEventHandler, useEffect, useMemo, useState } from 'react'
 
 interface Props {
   groups: NonEmptyArray<Group<Nft>>

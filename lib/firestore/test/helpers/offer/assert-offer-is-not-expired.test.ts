@@ -1,5 +1,5 @@
-import { assertOfferIsNotExpired } from '../../../src/helpers/offer/assert/assert-offer-is-not-expired'
-import { Offer } from '@echo/firestore-types'
+import { assertOfferIsNotExpired } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-expired'
+import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 
@@ -11,24 +11,24 @@ describe('helpers - offer - assert - assertOfferIsNotExpired', () => {
     let offer = {
       id: 'offer-id',
       expired: true
-    } as Offer
+    } as FirestoreOffer
     expect(() => assertOfferIsNotExpired(offer)).toThrow()
     offer = {
       id: 'offer-id',
       expiresAt: dayjs().subtract(1, 'd')
-    } as Offer
+    } as FirestoreOffer
     expect(() => assertOfferIsNotExpired(offer)).toThrow()
   })
   it('does not throw if the offer is not expired', () => {
     let offer = {
       id: 'offer-id',
       expired: false
-    } as Offer
+    } as FirestoreOffer
     expect(() => assertOfferIsNotExpired(offer)).not.toThrow()
     offer = {
       id: 'offer-id',
       expiresAt: dayjs().add(1, 'd')
-    } as Offer
+    } as FirestoreOffer
     expect(() => assertOfferIsNotExpired(offer)).not.toThrow()
   })
 })

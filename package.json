@@ -21,11 +21,9 @@
     ]
   },
   "scripts": {
-    "bot:build": "turbo run build --filter=@echo/bot",
     "bot:deploy-commands": "env-cmd -f .env turbo run @echo/bot#deploy-commands",
     "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot",
     "bot:start": "turbo run start --filter=@echo/bot",
-    "build:fix": "turbo run build:fix",
     "clean": "turbo run clean",
     "frontend:build": "turbo run build --filter=@echo/frontend",
     "frontend:clean": "turbo run clean --filter=@echo/frontend",
@@ -42,7 +40,6 @@
     "storybook:build": "turbo run build --filter=@echo/storybook",
     "storybook:dev": "env-cmd -f .env turbo run dev --filter=@echo/storybook --filter=@echo/ui",
     "test": "turbo run test",
-    "test:ci": "turbo run test:ci",
     "test:watch": "turbo run test:watch",
     "tsc": "turbo run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache",
@@ -70,11 +67,11 @@
     "lint-staged": "13.2.3",
     "npm-check-updates": "16.10.18",
     "prettier": "3.0.1",
-    "tsc-files": "^1.1.4",
+    "tsc-files": "1.1.4",
     "turbo": "1.10.13",
     "vercel": "31.2.3"
   },
-  "packageManager": "pnpm@8.7.4",
+  "packageManager": "pnpm@8.7.5",
   "nextBundleAnalysis": {
     "budget": 358400,
     "budgetPercentIncreaseRed": 20,

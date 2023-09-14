@@ -1,15 +1,15 @@
 import { clsx } from 'clsx'
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 dayjs.extend(relativeTime)
 
 interface Props {
   id: string
   sender: string
-  expiresAt: Dayjs
+  expiresAt: dayjs.Dayjs
 }
 
 export const NftDetailsListingRow: FunctionComponent<Props> = ({ sender, expiresAt }) => {

@@ -1,5 +1,6 @@
-import { getListingsForNft } from '@echo/firestore'
-import type { ListingQueryFilters, QueryConstraints } from '@echo/firestore-types'
+import { getListingsForNft } from '@echo/firestore/crud/listing/get-listings-for-nft'
+import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
+import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export async function getNftListings(nftId: string, filters?: ListingQueryFilters, constraints?: QueryConstraints) {

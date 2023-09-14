@@ -1,7 +1,7 @@
-import { NavigationSwaps } from '../../../../constants/navigation-item'
-import { OfferRowsContainerSkeleton } from '../../../offer/layout/container/skeleton/offer-rows-container-skeleton'
-import { CollectionNavigationLayoutSkeleton } from '../../layout/skeleton/collection-navigation-layout-skeleton'
-import { FunctionComponent } from 'react'
+import { CollectionNavigationLayoutSkeleton } from '@echo/ui/components/collection/layout/skeleton/collection-navigation-layout-skeleton'
+import { OfferRowsContainerSkeleton } from '@echo/ui/components/offer/layout/container/skeleton/offer-rows-container-skeleton'
+import { NavigationSwaps } from '@echo/ui/constants/navigation-item'
+import type { FunctionComponent } from 'react'
 
 export const CollectionSwapsSkeleton: FunctionComponent = () => {
   return (

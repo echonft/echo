@@ -1,8 +1,8 @@
-import { getAllUserWalletAddresses } from '../../../src/helpers/user/get-all-user-wallet-addresses'
-import { userMock } from '../../mocks/user-mock'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { getAllUserWalletAddresses } from '@echo/firestore/helpers/user/get-all-user-wallet-addresses'
+import { userMock } from '@echo/firestore-mocks/user-mock'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - user - getAllUserWalletAddresses', () => {
   beforeAll(tearUpRemoteFirestoreTests)

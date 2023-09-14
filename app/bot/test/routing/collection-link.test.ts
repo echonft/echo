@@ -1,7 +1,5 @@
-import { collectionLink } from '../../src/routing/collection-link'
-import { describe, expect, jest, test } from '@jest/globals'
-
-jest.mock('../../src/routing/get-base-url')
+import { collectionLink } from '@echo/bot/routing/collection-link'
+import { describe, expect, test } from '@jest/globals'
 
 describe('Routing - collectionLink', () => {
   test('returns link for collection', () => {

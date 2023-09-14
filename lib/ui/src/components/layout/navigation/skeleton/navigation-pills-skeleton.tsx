@@ -1,8 +1,8 @@
-import { NavigationItem } from '../../../../types/navigation-item'
-import { NavigationItemId } from '../../../../types/navigation-item-id'
+import type { NavigationItem } from '@echo/ui/types/navigation-item'
+import type { NavigationItemId } from '@echo/ui/types/navigation-item-id'
 import { clsx } from 'clsx'
 import { map } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   navigationItems: Array<NavigationItem>

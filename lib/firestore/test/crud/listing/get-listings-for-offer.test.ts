@@ -1,9 +1,9 @@
-import { getListingsForOffer } from '../../../src/crud/listing/get-listings-for-offer'
-import { getListingMockById } from '../../mocks/get-listing-mock-by-id'
-import { getOfferMockById } from '../../mocks/get-offer-mock-by-id'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { getListingsForOffer } from '@echo/firestore/crud/listing/get-listings-for-offer'
+import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
+import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { always, map, modifyPath } from 'ramda'
 
 describe('CRUD - listing - getListingsForOffer', () => {

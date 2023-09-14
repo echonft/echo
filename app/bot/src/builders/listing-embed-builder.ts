@@ -1,13 +1,15 @@
-import { embedSeparator } from '../helpers/embed/embed-separator'
-import { embedValueForNft } from '../helpers/embed/embed-value-for-nft'
-import { embedValueForTarget } from '../helpers/embed/embed-value-for-target'
-import { listingLink } from '../routing/listing-link'
-import { getListingItemsGuild } from '@echo/firestore'
-import { ListingComplete, ListingItem, ListingTarget } from '@echo/firestore-types'
+import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
+import { embedValueForNft } from '@echo/bot/helpers/embed/embed-value-for-nft'
+import { embedValueForTarget } from '@echo/bot/helpers/embed/embed-value-for-target'
+import { listingLink } from '@echo/bot/routing/listing-link'
+import { getListingItemsGuild } from '@echo/firestore/helpers/listing/get-listing-items-guild'
+import type { FirestoreListingComplete } from '@echo/firestore/types/model/firestore-listing-complete'
+import type { FirestoreListingItem } from '@echo/firestore/types/model/firestore-listing-item'
+import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import { flatten, map, prop } from 'ramda'
 
-export function buildListingEmbed(listing: ListingComplete) {
+export function buildListingEmbed(listing: FirestoreListingComplete) {
   return new EmbedBuilder()
     .setTitle(title())
     .setDescription(description(listing))
@@ -21,7 +23,7 @@ function title(): string {
   return `A new listing was created`
 }
 
-function description(listing: ListingComplete): string {
+function description(listing: FirestoreListingComplete): string {
   return `Created by ${userMention(listing.creator.discordId)}`
 }
 
@@ -30,11 +32,11 @@ function color(): number {
   return 0x00ff66
 }
 
-function fields(items: ListingItem[], targets: ListingTarget[]): APIEmbedField[] {
-  return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), listingTargets(targets)])
+function fields(items: FirestoreListingItem[], targets: FirestoreListingTarget[]): APIEmbedField[] {
+  return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), FirestoreListingTargets(targets)])
 }
 
-function listingItemsFields(items: ListingItem[]): APIEmbedField[] {
+function listingItemsFields(items: FirestoreListingItem[]): APIEmbedField[] {
   const nfts = map(prop('nft'), items)
   return nfts.map((nft, index) => ({
     name: index === 0 ? listingItemsName() : '\u200b',
@@ -43,9 +45,9 @@ function listingItemsFields(items: ListingItem[]): APIEmbedField[] {
   }))
 }
 
-function listingTargets(targets: ListingTarget[]): APIEmbedField[] {
+function FirestoreListingTargets(targets: FirestoreListingTarget[]): APIEmbedField[] {
   return targets.map((target, index) => ({
-    name: index === 0 ? listingTargetsName() : '\u200b',
+    name: index === 0 ? FirestoreListingTargetsName() : '\u200b',
     value: embedValueForTarget(target),
     inline: true
   }))
@@ -55,6 +57,6 @@ function listingItemsName(): string {
   return 'Items for sale'
 }
 
-function listingTargetsName(): string {
+function FirestoreListingTargetsName(): string {
   return 'Looking for'
 }

@@ -1,5 +1,5 @@
-import { getOfferSenderItemsGuild } from '../../../src/helpers/offer/get-offer-sender-items-guild'
-import { getOfferMockById } from '../../mocks/get-offer-mock-by-id'
+import { getOfferSenderItemsGuild } from '@echo/firestore/helpers/offer/get-offer-sender-items-guild'
+import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - offer - getOfferSenderItemsGuild', () => {

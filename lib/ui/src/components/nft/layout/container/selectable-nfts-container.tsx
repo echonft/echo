@@ -1,10 +1,10 @@
 'use client'
-import { MultiSelectableProps } from '../../../../types/multi-selectable-props'
-import { SelectableNftThumbnail } from '../../thumbnail/selectable-nft-thumbnail'
-import { NftsLayout } from '../nfts-layout'
-import { Nft } from '@echo/ui-model'
+import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
+import { SelectableNftThumbnail } from '@echo/ui/components/nft/thumbnail/selectable-nft-thumbnail'
+import type { Nft } from '@echo/ui/types/model/nft'
+import type { MultiSelectableProps } from '@echo/ui/types/multi-selectable-props'
 import { concat, isEmpty, isNil, map, without } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props extends MultiSelectableProps<string> {
   nfts: Array<Nft>

@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
-import { ProfileDetails } from '@echo/ui/src/components/profile/details/profile-details'
-import { SizeLG } from '@echo/ui/src/constants/size'
+import { ProfileDetails } from '@echo/ui/components/profile/details/profile-details'
+import { SizeLG } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
 import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'

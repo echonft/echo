@@ -1,14 +1,19 @@
-import { Listing, ListingTarget, NftCollectionDiscordGuild } from '@echo/firestore-types'
-import { NonEmptyArray, propIsNil } from '@echo/utils'
-import { pathIsNil } from '@echo/utils/src/fp/path-is-nil'
+import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
+import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/firestore-nft-collection-discord-guild'
+import { pathIsNil } from '@echo/utils/fp/path-is-nil'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { forEach, isNil, map, path } from 'ramda'
 
-export function getListingTargetsGuilds(listing: Partial<Listing>): NonEmptyArray<NftCollectionDiscordGuild> {
+export function getListingTargetsGuilds(
+  listing: Partial<FirestoreListing>
+): NonEmptyArray<FirestoreNftCollectionDiscordGuild> {
   if (isNil(listing.targets)) {
     throw Error('no targets in the listing')
   }
   const { targets } = listing
-  forEach((target: ListingTarget) => {
+  forEach((target: FirestoreListingTarget) => {
     if (propIsNil('collection', target) || pathIsNil(['collection', 'discordGuild'], target)) {
       throw Error('not every targets have a collection with a discord guild')
     }

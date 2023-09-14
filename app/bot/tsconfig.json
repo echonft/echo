@@ -1,13 +1,24 @@
 {
   "extends": "../../lib/tsconfig/base.json",
   "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "transpileOnly": true,
     "compilerOptions": {
       "module": "commonjs"
     }
   },
   "compilerOptions": {
     "outDir": "dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@echo/bot/*": ["./src/*"],
+      "@echo/bot-mocks/*": ["./test/mocks/*"],
+      "@echo/bot-test/*": ["./test/utils/*"],
+      "@echo/discord/*": ["../../lib/discord/src/*"],
+      "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/firestore-mocks/*": ["../../lib/firestore/test/mocks/*"],
+      "@echo/utils/*": ["../../lib/utils/src/*"]
+    }
   },
   "include": ["src", "test"],
   "exclude": ["dist", "node_modules"]

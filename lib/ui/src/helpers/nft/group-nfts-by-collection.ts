@@ -1,6 +1,6 @@
-import { Group } from '../../types/group'
-import { Nft } from '@echo/ui-model'
-import { eqPaths } from '@echo/utils/src/fp/eq-paths'
+import type { Group } from '@echo/ui/types/group'
+import type { Nft } from '@echo/ui/types/model/nft'
+import { eqPaths } from '@echo/utils/fp/eq-paths'
 import { applySpec, groupWith, head, identity, isEmpty, map, path, pipe, unless } from 'ramda'
 
 export function groupNftsByCollection(nfts: Array<Nft>): Array<Group<Nft>> {

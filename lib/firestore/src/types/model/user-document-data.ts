@@ -1,5 +1,5 @@
-import { UserDiscordGuildDocumentData } from './user-discord-guild-document-data'
-import { WalletDocumentData } from './wallet-document-data'
+import type { UserDiscordGuildDocumentData } from '@echo/firestore/types/model/user-discord-guild-document-data'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 
 export interface UserDocumentData {
   id: string

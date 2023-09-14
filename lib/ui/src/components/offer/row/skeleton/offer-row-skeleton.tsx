@@ -1,10 +1,10 @@
-import { DirectionLeft } from '../../../../constants/direction'
-import { SizeLG } from '../../../../constants/size'
-import { SwapIconSvg } from '../../../base/svg/swap-icon-svg'
-import { ItemThumbnailSkeleton } from '../../../item/thumbnail/skeleton/item-thumbnail-skeleton'
-import { OfferStatePillSkeleton } from './offer-state-pill-skeleton'
+import { SwapIconSvg } from '@echo/ui/components/base/svg/swap-icon-svg'
+import { ItemThumbnailSkeleton } from '@echo/ui/components/item/thumbnail/skeleton/item-thumbnail-skeleton'
+import { OfferStatePillSkeleton } from '@echo/ui/components/offer/row/skeleton/offer-state-pill-skeleton'
+import { DirectionLeft } from '@echo/ui/constants/direction'
+import { SizeLG } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const OfferRowSkeleton: FunctionComponent = () => (
   <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4', 'p-4', 'rounded-lg', 'bg-white/[0.05]')}>

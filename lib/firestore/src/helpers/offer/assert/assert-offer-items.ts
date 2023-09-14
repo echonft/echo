@@ -1,14 +1,15 @@
-import { OfferItem } from '@echo/firestore-types'
-import { NonEmptyArray, propIsNil } from '@echo/utils'
-import { pathIsNil } from '@echo/utils/src/fp/path-is-nil'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import { pathIsNil } from '@echo/utils/fp/path-is-nil'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { complement, eqProps, equals, forEach, length, map, path, pipe, prop, uniqWith } from 'ramda'
 
 /**
  * Asserts the validity of offer items
  * @param items
  */
-export function assertOfferItems(items: NonEmptyArray<OfferItem>) {
-  forEach((item: OfferItem) => {
+export function assertOfferItems(items: NonEmptyArray<FirestoreOfferItem>) {
+  forEach((item: FirestoreOfferItem) => {
     if (propIsNil('nft', item) || pathIsNil(['nft', 'id'], item) || pathIsNil(['nft', 'tokenId'], item)) {
       throw Error('not every items have an nft with a token id')
     }

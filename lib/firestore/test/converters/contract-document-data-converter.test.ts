@@ -1,6 +1,6 @@
-import { contractDocumentDataConverter } from '../../src/converters/contract-document-data-converter'
-import { getNftCollectionDocumentDataMockById } from '../mocks/get-nft-collection-document-data-mock-by-id'
-import { getNftCollectionMockById } from '../mocks/get-nft-collection-mock-by-id'
+import { contractDocumentDataConverter } from '@echo/firestore/converters/contract-document-data-converter'
+import { getNftCollectionDocumentDataMockById } from '@echo/firestore-mocks/get-nft-collection-document-data-mock-by-id'
+import { getNftCollectionMockById } from '@echo/firestore-mocks/get-nft-collection-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - userDataConverter', () => {

@@ -1,4 +1,4 @@
-import { NewOffer } from '@echo/ui-model'
+import type { NewOffer } from '@echo/ui/types/model/new-offer'
 import { always, identity, ifElse, modify, pathEq, pipe, reject } from 'ramda'
 
 export function removeItemFromNewOffer(itemNftId: string, isReceiver: boolean) {

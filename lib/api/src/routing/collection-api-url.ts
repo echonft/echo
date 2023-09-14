@@ -1,4 +1,4 @@
-import { apiBaseUrl } from './api-base-url'
+import { apiBaseUrl } from '@echo/api/routing/api-base-url'
 import { isEmpty } from 'ramda'
 
 export function collectionApiUrl(slug: string) {

@@ -1,6 +1,6 @@
-import { SelectionManager } from '@echo/ui/src/components/base/manager/selection-manager'
-import { FiltersPanel as Component } from '@echo/ui/src/components/layout/filters-panel'
-import { TraitFilterSelector } from '@echo/ui/src/components/nft/filters/by-traits/trait-filter-selector'
+import { SelectionManager } from '@echo/ui/components/base/manager/selection-manager'
+import { FiltersPanel as Component } from '@echo/ui/components/layout/filters-panel'
+import { TraitFilterSelector } from '@echo/ui/components/nft/filters/by-traits/trait-filter-selector'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

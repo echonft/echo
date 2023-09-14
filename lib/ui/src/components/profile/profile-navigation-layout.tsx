@@ -1,7 +1,7 @@
-import { getProfileNavigationItems } from '../../helpers/profile/get-profile-navigation-items'
-import { NavigationItemId } from '../../types/navigation-item-id'
-import { NavigationLayout } from '../layout/navigation/navigation-layout'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import { NavigationLayout } from '@echo/ui/components/layout/navigation/navigation-layout'
+import { getProfileNavigationItems } from '@echo/ui/helpers/profile/get-profile-navigation-items'
+import type { NavigationItemId } from '@echo/ui/types/navigation-item-id'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
   activeNavigationItem: NavigationItemId

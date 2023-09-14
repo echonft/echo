@@ -1,8 +1,8 @@
-import { getTranslator } from '../../messages/get-translator'
-import { InternalLink } from '../base/link/internal-link'
-import { EchoIconSvg } from '../base/svg/echo-icon-svg'
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { EchoIconSvg } from '@echo/ui/components/base/svg/echo-icon-svg'
+import { getTranslator } from '@echo/ui/messages/get-translator'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const NotFoundPage: FunctionComponent = () => {
   const t = getTranslator()

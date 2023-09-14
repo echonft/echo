@@ -1,4 +1,4 @@
-import { createOfferApiUrl } from '../../src/routing/create-offer-api-url'
+import { createOfferApiUrl } from '@echo/api/routing/create-offer-api-url'
 import { describe, expect, test } from '@jest/globals'
 
 describe('routing - createOfferApiUrl', () => {

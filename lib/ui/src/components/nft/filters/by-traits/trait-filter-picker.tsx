@@ -1,14 +1,14 @@
 'use client'
-import { CollapsibleProps } from '../../../../types/collapsible-props'
-import { MultiSelectableProps } from '../../../../types/multi-selectable-props'
-import { TraitFilterGroup } from '../../../../types/trait-filter-group'
-import { TraitFilterButton } from './trait-filter-button'
-import { TraitFilterSelector } from './trait-filter-selector'
-import { NftTraitValue } from '@echo/ui-model'
+import { TraitFilterButton } from '@echo/ui/components/nft/filters/by-traits/trait-filter-button'
+import { TraitFilterSelector } from '@echo/ui/components/nft/filters/by-traits/trait-filter-selector'
+import type { CollapsibleProps } from '@echo/ui/types/collapsible-props'
+import type { NftTraitValue } from '@echo/ui/types/model/nft-trait-value'
+import type { MultiSelectableProps } from '@echo/ui/types/multi-selectable-props'
+import type { TraitFilterGroup } from '@echo/ui/types/trait-filter-group'
 import { Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { any, concat, eqProps, isNil, without } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props extends CollapsibleProps, MultiSelectableProps<NftTraitValue> {
   traitFilterGroup: TraitFilterGroup

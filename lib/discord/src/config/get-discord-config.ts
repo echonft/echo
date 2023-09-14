@@ -1,4 +1,4 @@
-import { DiscordConfig } from '../types/discord-config'
+import type { DiscordConfig } from '@echo/discord/types/discord-config'
 import { isEmpty, isNil } from 'ramda'
 
 export function getDiscordConfig(): DiscordConfig {

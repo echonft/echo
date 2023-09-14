@@ -1,4 +1,4 @@
-import { WalletDocumentData } from './wallet-document-data'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
 
 export interface UserDetailsDocumentData {
   id: string

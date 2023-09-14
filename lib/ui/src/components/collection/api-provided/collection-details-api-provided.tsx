@@ -1,15 +1,15 @@
-import { SizeLG } from '../../../constants/size'
-import { CollectionDetails } from '../details/collection-details'
-import { NftCollectionResponse } from '@echo/api'
-import { mapNftCollection } from '@echo/ui-model'
-import { FunctionComponent, useMemo } from 'react'
+import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
+import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
+import { SizeLG } from '@echo/ui/constants/size'
+import { mapCollectionFromResponse } from '@echo/ui/mappers/from-api/map-collection-from-response'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
-  response: Partial<NftCollectionResponse>
+  response: Partial<CollectionResponse>
 }
 
 export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ response }) => {
-  const collection = useMemo(() => mapNftCollection(response), [response])
+  const collection = useMemo(() => mapCollectionFromResponse(response), [response])
   const { bannerUrl, totalSupply, name, description, profilePictureUrl, twitterUsername, discordUrl, websiteUrl } =
     collection
   return (

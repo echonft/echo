@@ -1,3 +1,3 @@
-import { listingDocumentDataMock } from './listing-document-data-mock'
+import { listingDocumentDataMock } from '@echo/firestore-mocks/listing-document-data-mock'
 
 export const getListingDocumentDataMockById = (id: string) => listingDocumentDataMock[id]!

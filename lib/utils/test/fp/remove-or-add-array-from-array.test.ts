@@ -1,4 +1,4 @@
-import { removeOrAddArrayFromArray } from '../../src/fp/remove-or-add-array-from-array'
+import { removeOrAddArrayFromArray } from '@echo/utils/fp/remove-or-add-array-from-array'
 import { describe, expect, it } from '@jest/globals'
 import { eqProps } from 'ramda'
 

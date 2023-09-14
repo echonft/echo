@@ -1,14 +1,14 @@
-import { NewListingSearchCollectionOptionSkeleton } from '../../listing/new/skeleton/new-listing-search-collection-option-skeleton'
-import { CollectionSearchCollectionOption } from './collection-search-collection-option'
-import { CollectionSearchNoResults } from './collection-search-no-results'
-import type { NftCollection } from '@echo/ui-model'
+import { CollectionSearchCollectionOption } from '@echo/ui/components/collection/search/collection-search-collection-option'
+import { CollectionSearchNoResults } from '@echo/ui/components/collection/search/collection-search-no-results'
+import { NewListingSearchCollectionOptionSkeleton } from '@echo/ui/components/listing/new/skeleton/new-listing-search-collection-option-skeleton'
+import type { Collection } from '@echo/ui/types/model/collection'
 import { Combobox } from '@headlessui/react'
 import { any, isEmpty, isNil, map, propEq } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  options: Array<NftCollection> | undefined
-  selectedOptions: Array<NftCollection>
+  options: Array<Collection> | undefined
+  selectedOptions: Array<Collection>
   searching: boolean
 }
 

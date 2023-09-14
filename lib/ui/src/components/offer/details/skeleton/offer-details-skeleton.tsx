@@ -1,11 +1,11 @@
-import { SizeMD } from '../../../../constants/size'
-import { UserDiscordTagSkeleton } from '../../../shared/skeleton/user-discord-tag-skeleton'
-import { UserProfilePictureSkeleton } from '../../../shared/skeleton/user-profile-picture-skeleton'
-import { OfferDetailsAssetsSeparator } from '../offer-details-assets-separator'
-import { OfferDetailsItemsContainerSkeleton } from './offer-details-items-container-skeleton'
-import { OfferDetailsStateSkeleton } from './offer-details-state-skeleton'
+import { OfferDetailsAssetsSeparator } from '@echo/ui/components/offer/details/offer-details-assets-separator'
+import { OfferDetailsItemsContainerSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-items-container-skeleton'
+import { OfferDetailsStateSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-state-skeleton'
+import { UserDiscordTagSkeleton } from '@echo/ui/components/shared/skeleton/user-discord-tag-skeleton'
+import { UserProfilePictureSkeleton } from '@echo/ui/components/shared/skeleton/user-profile-picture-skeleton'
+import { SizeMD } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const OfferDetailsSkeleton: FunctionComponent = () => (
   <div className={clsx('flex', 'flex-col', 'gap-16', 'p-4', 'rounded-lg', 'bg-white/[0.05]')}>

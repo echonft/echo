@@ -1,5 +1,5 @@
-import { assertOffer } from '../../../src/helpers/offer/assert/assert-offer'
-import { Offer } from '@echo/firestore-types'
+import { assertOffer } from '@echo/firestore/helpers/offer/assert/assert-offer'
+import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - offer - assert - assertOffer', () => {
@@ -9,7 +9,7 @@ describe('helpers - offer - assert - assertOffer', () => {
   it('does not throw if the offer is defined', () => {
     const offer = {
       id: 'offer-id'
-    } as Offer
+    } as FirestoreOffer
     expect(() => assertOffer(offer)).not.toThrow()
   })
 })

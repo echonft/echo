@@ -1,4 +1,4 @@
-import { mockClientUser } from './user-mock'
+import { mockClientUser } from '@echo/bot-mocks/discord/user-mock'
 import { Client, ClientOptions, Options } from 'discord.js'
 
 // Credit: https://github.com/AnswerOverflow/AnswerOverflow

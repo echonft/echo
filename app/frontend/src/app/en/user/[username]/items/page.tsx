@@ -1,5 +1,6 @@
-import { GetNftsResponse, userNftsApiUrl } from '@echo/api'
-import { UserNftsApiProvided } from '@echo/ui/src/components/user/api-provided/user-nfts-api-provided'
+import { userNftsApiUrl } from '@echo/api/routing/user-nfts-api-url'
+import type { GetNftsResponse } from '@echo/api/types/responses/get-nfts-response'
+import { UserNftsApiProvided } from '@echo/ui/components/user/api-provided/user-nfts-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { isNil } from 'ramda'

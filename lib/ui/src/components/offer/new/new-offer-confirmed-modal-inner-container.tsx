@@ -1,8 +1,8 @@
-import { ConfirmationIconSvg } from '../../base/svg/confirmation-icon-svg'
-import { CopyIconSvg } from '../../base/svg/copy-icon-svg'
+import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
+import { CopyIconSvg } from '@echo/ui/components/base/svg/copy-icon-svg'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 interface Props {

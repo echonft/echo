@@ -1,9 +1,9 @@
-import { NavigationItems } from '../../../../constants/navigation-item'
-import { NftFilterTraits } from '../../../../constants/nft-filter'
-import { getTranslator } from '../../../../messages/get-translator'
-import { NftGroupsAndFiltersContainerSkeleton } from '../../../nft/layout/container/skeleton/nft-group-and-filters-container-skeleton'
-import { ProfileNavigationLayoutSkeleton } from '../../layout/skeleton/profile-navigation-layout-skeleton'
-import { FunctionComponent } from 'react'
+import { NftGroupsAndFiltersContainerSkeleton } from '@echo/ui/components/nft/layout/container/skeleton/nft-group-and-filters-container-skeleton'
+import { ProfileNavigationLayoutSkeleton } from '@echo/ui/components/profile/layout/skeleton/profile-navigation-layout-skeleton'
+import { NavigationItems } from '@echo/ui/constants/navigation-item'
+import { NftFilterTraits } from '@echo/ui/constants/nft-filter'
+import { getTranslator } from '@echo/ui/messages/get-translator'
+import type { FunctionComponent } from 'react'
 
 export const ProfileNftsSkeleton: FunctionComponent = () => {
   const t = getTranslator()

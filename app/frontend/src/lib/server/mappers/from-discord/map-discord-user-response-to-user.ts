@@ -1,4 +1,4 @@
-import { modifyPropName } from '@echo/utils/src/fp/modify-prop-name'
+import { modifyPropName } from '@echo/utils/fp/modify-prop-name'
 import type { DiscordUser } from '@server/types/user/discord-user'
 import type { DiscordUserResponse } from '@server/types/user/discord-user-response'
 import { map, modify, pick, pipe } from 'ramda'

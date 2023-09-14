@@ -1,4 +1,4 @@
-import { collectionLink } from './collection-link'
+import { collectionLink } from '@echo/bot/routing/collection-link'
 
 /**
  * Creates a link to the offers page for a guild

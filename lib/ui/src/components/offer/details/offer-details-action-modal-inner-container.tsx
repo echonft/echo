@@ -1,9 +1,9 @@
-import { ModalOfferState } from '../../../types/modal-offer-state'
-import { ConfirmationIconSvg } from '../../base/svg/confirmation-icon-svg'
-import { OfferDetailsOfferActionModalButtonSwitch } from './offer-details-offer-action-modal-button-switch'
-import { OfferDetailsOfferActionModalSubtitle } from './offer-details-offer-action-modal-subtitle'
+import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
+import { OfferDetailsOfferActionModalButtonSwitch } from '@echo/ui/components/offer/details/offer-details-offer-action-modal-button-switch'
+import { OfferDetailsOfferActionModalSubtitle } from '@echo/ui/components/offer/details/offer-details-offer-action-modal-subtitle'
+import type { ModalOfferState } from '@echo/ui/types/modal-offer-state'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   state: ModalOfferState

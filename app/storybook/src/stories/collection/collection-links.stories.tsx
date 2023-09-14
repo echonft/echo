@@ -1,5 +1,5 @@
-import { getCollectionById } from '../../mocks/model/nft-collection'
-import { CollectionLinks as Component } from '@echo/ui/src/components/collection/details/collection-links'
+import { CollectionLinks as Component } from '@echo/ui/components/collection/details/collection-links'
+import { getCollectionById } from '@mocks/model/collection'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

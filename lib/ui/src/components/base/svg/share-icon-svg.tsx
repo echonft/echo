@@ -1,5 +1,5 @@
-import { Svg, SvgProps } from './svg'
-import { FunctionComponent } from 'react'
+import { Svg, type SvgProps } from '@echo/ui/components/base/svg/svg'
+import type { FunctionComponent } from 'react'
 
 export const ShareIconSvg: FunctionComponent<SvgProps> = (props) => {
   return (

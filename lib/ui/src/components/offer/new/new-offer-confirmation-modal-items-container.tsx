@@ -1,12 +1,12 @@
-import { SizeMD } from '../../../constants/size'
-import { DirectionIn, DirectionOut } from '../../../constants/swap-direction'
-import { ItemThumbnail } from '../../item/thumbnail/item-thumbnail'
-import { ModalSubtitle } from '../../layout/modal/modal-subtitle'
-import { SwapDirectionHeader } from '../../shared/swap-direction-header'
-import { OfferItem } from '@echo/ui-model'
+import { ItemThumbnail } from '@echo/ui/components/item/thumbnail/item-thumbnail'
+import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
+import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
+import { SizeMD } from '@echo/ui/constants/size'
+import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
+import type { OfferItem } from '@echo/ui/types/model/offer-item'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   isReceiver: boolean

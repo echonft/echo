@@ -1,11 +1,11 @@
-import { findOfferById } from '../../../src/crud/offer/find-offer-by-id'
-import { getOffersForUser } from '../../../src/crud/offer/get-offers-for-user'
-import { updateOffer } from '../../../src/crud/offer/update-offer'
-import { getAllOfferMocks } from '../../mocks/get-all-offer-mocks'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
-import { Offer } from '@echo/firestore-types'
+import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
+import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
+import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import { getAllOfferMocks } from '@echo/firestore-mocks/get-all-offer-mocks'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
 import { either, filter, find, forEach, pathEq, propEq } from 'ramda'
 
@@ -31,7 +31,7 @@ describe('CRUD - offer - getOffersForUser', () => {
     )
     const offers = await getOffersForUser(userId, { includeExpired: true })
     expect(offers.length).toBe(userOfferMocks.length)
-    forEach((offer: Partial<Offer>) => {
+    forEach((offer: Partial<FirestoreOffer>) => {
       const offerMock = find(propEq(offer.id, 'id'), userOfferMocks)
       expect(offer).toStrictEqual(offerMock)
     }, offers)

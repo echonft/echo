@@ -1,12 +1,12 @@
-import { CollectionName } from '../../constants/collection-name'
-import { nftCollectionDataConverter } from '../../converters/nft-collection-data-converter'
-import { firestore } from '../../services/firestore'
-import { NftCollection } from '@echo/firestore-types'
-import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import { CollectionName } from '@echo/firestore/constants/collection-name'
+import { nftCollectionDataConverter } from '@echo/firestore/converters/nft-collection-data-converter'
+import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 
 export async function getNftCollectionSnapshotByContractAddress(address: string, chainId: number) {
-  const querySnapshot = await firestore()
+  const querySnapshot = await firestoreApp()
     .collection(CollectionName.NFT_COLLECTIONS)
     .where('contract.address', '==', address)
     .where('contract.chainId', '==', chainId)
@@ -17,7 +17,7 @@ export async function getNftCollectionSnapshotByContractAddress(address: string,
     return undefined
   }
 
-  const documentSnapshot = head(querySnapshot.docs) as QueryDocumentSnapshot<NftCollection>
+  const documentSnapshot = head(querySnapshot.docs) as QueryDocumentSnapshot<FirestoreNftCollection>
   if (isNil(documentSnapshot)) {
     return undefined
   }

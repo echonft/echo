@@ -1,4 +1,4 @@
-import { stringIncludes } from '../../src/fp/string-includes'
+import { stringIncludes } from '@echo/utils/fp/string-includes'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - stringIncldes', () => {

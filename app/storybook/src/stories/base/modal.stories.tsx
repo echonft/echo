@@ -1,4 +1,4 @@
-import { Modal as Component } from '@echo/ui/src/components/layout/modal/modal'
+import { Modal as Component } from '@echo/ui/components/layout/modal/modal'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

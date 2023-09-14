@@ -1,14 +1,14 @@
-import { addUserWallet } from '../../../src/crud/user/add-user-wallet'
-import { findUserById } from '../../../src/crud/user/find-user-by-id'
-import { updateUser } from '../../../src/crud/user/update-user'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
-import { Wallet } from '@echo/firestore-types'
+import { addUserWallet } from '@echo/firestore/crud/user/add-user-wallet'
+import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
+import { updateUser } from '@echo/firestore/crud/user/update-user'
+import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { includes } from 'ramda'
 
 describe('CRUD - user - addUserWallet', () => {
-  let initialWallets: Wallet[]
+  let initialWallets: FirestoreWallet[]
   const id = 'oE6yUEQBPn7PZ89yMjKn'
 
   beforeAll(tearUpRemoteFirestoreTests)

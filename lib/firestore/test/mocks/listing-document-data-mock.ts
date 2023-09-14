@@ -1,6 +1,6 @@
-import { ListingDocumentData } from '../../src/types/model/listing-document-data'
-import { getNftCollectionDocumentDataMockById } from './get-nft-collection-document-data-mock-by-id'
-import { getNftDocumentDataMockById } from './get-nft-document-data-mock-by-id'
+import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
+import { getNftCollectionDocumentDataMockById } from '@echo/firestore-mocks/get-nft-collection-document-data-mock-by-id'
+import { getNftDocumentDataMockById } from '@echo/firestore-mocks/get-nft-document-data-mock-by-id'
 
 export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
   jUzMtPGKM62mMhEcmbN4: {

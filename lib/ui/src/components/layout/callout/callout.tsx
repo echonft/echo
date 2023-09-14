@@ -1,8 +1,8 @@
-import { CalloutSeverity } from '../../../constants/callout-severity'
-import { CalloutVariant } from '../../../constants/callout-variant'
-import { CalloutIcon } from './callout-icon'
+import { CalloutIcon } from '@echo/ui/components/layout/callout/callout-icon'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { CalloutVariant } from '@echo/ui/constants/callout-variant'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   severity: CalloutSeverity

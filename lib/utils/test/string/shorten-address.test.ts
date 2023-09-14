@@ -1,4 +1,4 @@
-import { shortenAddress } from '../../src/string/shorten-address'
+import { shortenAddress } from '@echo/utils/string/shorten-address'
 import { describe, expect, it } from '@jest/globals'
 
 describe('string - shortenAddress', () => {

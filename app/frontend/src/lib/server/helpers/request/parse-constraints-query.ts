@@ -1,5 +1,6 @@
-import { ApiRequest } from '@echo/api'
-import type { OrderByParameters, QueryConstraints } from '@echo/firestore-types'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { OrderByParameters } from '@echo/firestore/types/query/order-by-parameters'
+import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { applySpec, assoc, has, head, isEmpty, last, splitEvery } from 'ramda'
 import { z } from 'zod'

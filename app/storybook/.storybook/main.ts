@@ -1,11 +1,11 @@
-import { dirname, join } from 'path'
 import type { StorybookConfig } from '@storybook/react-webpack5'
+import { dirname, join } from 'path'
+import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
+
 const config: StorybookConfig = {
   stories: ['../src/stories/**/*stories.tsx'],
   babel: async (options) => {
-    // options.plugins.push('@babel/plugin-syntax-flow')
     options.presets.push('@babel/preset-typescript')
-    // options.presets.push('@babel/preset-react')
     return options
   },
   addons: [
@@ -25,6 +25,7 @@ const config: StorybookConfig = {
       ...config,
       resolve: {
         ...config.resolve,
+        plugins: [new TsconfigPathsPlugin()],
         fallback: {
           ...config.resolve.fallback,
           constants: require.resolve('constants-browserify'),
@@ -35,12 +36,7 @@ const config: StorybookConfig = {
         }
       }
     }
-  },
-  env: (config) => ({
-    ...config,
-    ALCHEMY_API_KEY: process.env.STORYBOOK_ALCHEMY_API_KEY,
-    NODE_ENV: 'mock'
-  })
+  }
 }
 export default config
 /**

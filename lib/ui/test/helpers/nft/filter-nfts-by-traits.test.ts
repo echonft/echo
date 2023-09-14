@@ -1,6 +1,6 @@
-import { filterNftsByTraits } from '../../../src/helpers/nft/filter-nfts-by-traits'
-import { Nft } from '@echo/ui-model/src/types/nft'
-import { NftTraits } from '@echo/ui-model/src/types/nft-traits'
+import { filterNftsByTraits } from '@echo/ui/helpers/nft/filter-nfts-by-traits'
+import type { Nft } from '@echo/ui/types/model/nft'
+import type { NftTraits } from '@echo/ui/types/model/nft-traits'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - nft - filterNftsByTraits', () => {

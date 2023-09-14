@@ -1,4 +1,4 @@
-import { isNilOrEmpty } from './is-nil-or-empty'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { complement, isNil, pipe, prop } from 'ramda'
 
 function internalFn<V, P extends keyof V>(propKey: P) {

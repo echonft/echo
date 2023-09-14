@@ -1,6 +1,6 @@
-import { ShowIf } from './show-if'
-import { isNilOrEmpty } from '@echo/utils'
-import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import type { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
 interface Props {
   checks: unknown

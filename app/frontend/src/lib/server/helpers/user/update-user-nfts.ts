@@ -1,13 +1,12 @@
-import {
-  addNft,
-  findNftByCollectionContract,
-  getAllNftCollections,
-  getUserWalletAddresses,
-  setNftOwner,
-  setUserNftsUpdated
-} from '@echo/firestore'
-import { User, Wallet } from '@echo/firestore-types'
-import { isNilOrEmpty } from '@echo/utils'
+import { addNft } from '@echo/firestore/crud/nft/add-nft'
+import { findNftByCollectionContract } from '@echo/firestore/crud/nft/find-nft-by-collection-contract'
+import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
+import { getAllNftCollections } from '@echo/firestore/crud/nft-collection/get-all-nft-collections'
+import { setUserNftsUpdated } from '@echo/firestore/crud/user/set-user-nfts-updated'
+import { getUserWalletAddresses } from '@echo/firestore/helpers/user/get-user-wallet-addresses'
+import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { getNftsForOwner } from '@server/helpers/alchemy/get-nfts-for-owner'
 import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nft-to-firestore'
 import { isNil, map, path } from 'ramda'
@@ -19,12 +18,12 @@ interface RequiredUserProps {
   discordId: string
   discordUsername: string
   username: string
-  wallets: Wallet[]
+  wallets: FirestoreWallet[]
 }
 
-export async function updateUserNfts(user: Partial<User> & RequiredUserProps) {
+export async function updateUserNfts(user: Partial<FirestoreUser> & RequiredUserProps) {
   // TODO adjust when we support more chains
-  const userWalletAddresses = getUserWalletAddresses(1, user as User)
+  const userWalletAddresses = getUserWalletAddresses(1, user as FirestoreUser)
   if (isNilOrEmpty(userWalletAddresses)) {
     return
   }
@@ -33,7 +32,7 @@ export async function updateUserNfts(user: Partial<User> & RequiredUserProps) {
   // TODO Should support multi chain, right now only ETH (chainId 1) is supported
   for (const address of userWalletAddresses) {
     // TODO Should support multi chain, right now only ETH (chainId 1) is supported
-    const userWallet: Wallet = { address, chainId: 1 }
+    const userWallet: FirestoreWallet = { address, chainId: 1 }
     const nfts = await getNftsForOwner(address, addresses)
     for (const alchemyNft of nfts) {
       const { contractAddress, chainId, tokenId } = alchemyNft

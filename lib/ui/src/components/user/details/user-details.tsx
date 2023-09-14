@@ -1,14 +1,14 @@
-import { HideIfNil } from '../../base/utils/hide-if-nil'
-import { PaddedContainer } from '../../layout/padded-container'
-import { UserDiscordTag } from '../../shared/user-discord-tag'
-import { UserProfilePicture, UserProfilePictureProps } from '../../shared/user-profile-picture'
-import { UserWallet } from '../../shared/user-wallet'
-import { UserDetailsLayout } from '../layout/user-details-layout'
-import { UserInfoLayout } from '../layout/user-info-layout'
-import { UserPictureAndInfoLayout } from '../layout/user-picture-and-info-layout'
-import { UserBanner, UserBannerProps } from './user-banner'
-import { Wallet } from '@echo/ui-model'
-import { FunctionComponent } from 'react'
+import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
+import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
+import { UserDiscordTag } from '@echo/ui/components/shared/user-discord-tag'
+import { UserProfilePicture, type UserProfilePictureProps } from '@echo/ui/components/shared/user-profile-picture'
+import { UserWallet } from '@echo/ui/components/shared/user-wallet'
+import { UserBanner, type UserBannerProps } from '@echo/ui/components/user/details/user-banner'
+import { UserDetailsLayout } from '@echo/ui/components/user/layout/user-details-layout'
+import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout'
+import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
+import type { Wallet } from '@echo/ui/types/model/wallet'
+import type { FunctionComponent } from 'react'
 
 interface Props extends UserProfilePictureProps, UserBannerProps {
   wallet: Wallet | undefined
@@ -35,7 +35,7 @@ export const UserDetails: FunctionComponent<Props> = ({
           />
           <UserInfoLayout>
             <UserDiscordTag discordUsername={discordUsername} />
-            <HideIfNil checks={wallet} render={() => <UserWallet address={wallet!.address} />} />
+            <HideIfNil checks={wallet} render={(wallet) => <UserWallet address={wallet.address} />} />
           </UserInfoLayout>
         </UserPictureAndInfoLayout>
       </PaddedContainer>

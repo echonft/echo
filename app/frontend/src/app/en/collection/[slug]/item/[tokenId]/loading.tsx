@@ -1,4 +1,4 @@
-import { NftDetailsSkeleton } from '@echo/ui/src/components/nft/details/skeleton/nft-details-skeleton'
+import { NftDetailsSkeleton } from '@echo/ui/components/nft/details/skeleton/nft-details-skeleton'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 

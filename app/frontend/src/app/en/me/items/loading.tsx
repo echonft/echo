@@ -1,4 +1,4 @@
-import { ProfileNftsSkeleton } from '@echo/ui/src/components/profile/nft/skeleton/profile-nfts-skeleton'
+import { ProfileNftsSkeleton } from '@echo/ui/components/profile/nft/skeleton/profile-nfts-skeleton'
 import type { FunctionComponent } from 'react'
 
 const ProfileNftsLoading: FunctionComponent = () => {

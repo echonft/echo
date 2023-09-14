@@ -1,8 +1,8 @@
 'use client'
-import { DownCaretSvg } from '../../base/svg/down-caret-svg'
+import { DownCaretSvg } from '@echo/ui/components/base/svg/down-caret-svg'
 import { Disclosure, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
+import type { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 
 interface Props {
   renderTitle?: () => ReactNode

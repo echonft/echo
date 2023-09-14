@@ -1,9 +1,9 @@
-import { getIconSizeInPx } from '../../../helpers/get-icon-size-in-px'
-import { IconSize } from '../../../types/icon-size'
-import { TwitterIconSvg } from '../svg/twitter-icon-svg'
-import { IconContainer } from './icon-container'
-import { IconContainerColor } from './icon-container-color'
-import { FunctionComponent } from 'react'
+import { IconContainer } from '@echo/ui/components/base/icons/icon-container'
+import { IconContainerColor } from '@echo/ui/components/base/icons/icon-container-color'
+import { TwitterIconSvg } from '@echo/ui/components/base/svg/twitter-icon-svg'
+import { getIconSizeInPx } from '@echo/ui/helpers/get-icon-size-in-px'
+import type { IconSize } from '@echo/ui/types/icon-size'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   size: IconSize

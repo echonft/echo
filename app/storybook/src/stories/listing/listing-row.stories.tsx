@@ -1,6 +1,6 @@
 import { getListingById } from '../../mocks/model/listing'
-import { ListingRow as Component } from '@echo/ui/src/components/listing/row/listing-row'
-import type { Listing } from '@echo/ui-model'
+import { ListingRow as Component } from '@echo/ui/components/listing/row/listing-row'
+import type { Listing } from '@echo/ui/types/model/listing'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'

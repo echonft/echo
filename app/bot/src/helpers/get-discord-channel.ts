@@ -1,4 +1,4 @@
-import { InvalidChannelIdError } from '../errors/invalid-channel-id-error'
+import { InvalidChannelIdError } from '@echo/bot/errors/invalid-channel-id-error'
 import { Client, TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 

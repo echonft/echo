@@ -1,5 +1,5 @@
-import { getAuthUser } from '../../../mocks/model/auth-user'
-import { UserTag as Component } from '@echo/ui/src/components/layout/header/user-tag'
+import { UserTag as Component } from '@echo/ui/components/layout/header/user-tag'
+import { getAuthUser } from '@mocks/model/auth-user'
 import type { Meta, StoryObj } from '@storybook/react'
 import { dissoc } from 'ramda'
 

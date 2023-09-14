@@ -1,6 +1,6 @@
-import { CollectionFilter } from '../../types/collection-filter'
-import { Nft } from '@echo/ui-model'
-import { isIn } from '@echo/utils'
+import type { CollectionFilter } from '@echo/ui/types/collection-filter'
+import type { Nft } from '@echo/ui/types/model/nft'
+import { isIn } from '@echo/utils/fp/is-in'
 import { filter, isEmpty, map, path, pipe, prop } from 'ramda'
 
 export function filterNftsByCollection(nfts: Nft[], collectionFilters: CollectionFilter[]) {

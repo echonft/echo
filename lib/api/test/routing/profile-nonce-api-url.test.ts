@@ -1,4 +1,4 @@
-import { profileNonceApiUrl } from '../../src/routing/profile-nonce-api-url'
+import { profileNonceApiUrl } from '@echo/api/routing/profile-nonce-api-url'
 import { describe, expect, test } from '@jest/globals'
 
 describe('routing - profileNonceApiUrl', () => {

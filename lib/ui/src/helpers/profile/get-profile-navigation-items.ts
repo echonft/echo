@@ -1,4 +1,4 @@
-import { links } from '../../constants/links'
+import { links } from '@echo/ui/constants/links'
 import {
   NavigationItems,
   NavigationListingsCreated,
@@ -6,9 +6,9 @@ import {
   NavigationOffersCreated,
   NavigationOffersReceived,
   NavigationSwaps
-} from '../../constants/navigation-item'
-import { getTranslator } from '../../messages/get-translator'
-import { NavigationItem } from '../../types/navigation-item'
+} from '@echo/ui/constants/navigation-item'
+import { getTranslator } from '@echo/ui/messages/get-translator'
+import type { NavigationItem } from '@echo/ui/types/navigation-item'
 
 export function getProfileNavigationItems(disableLinks?: boolean): NavigationItem[] {
   const t = getTranslator()

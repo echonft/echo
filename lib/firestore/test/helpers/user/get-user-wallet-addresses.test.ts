@@ -1,10 +1,10 @@
-import { getUserWalletAddresses } from '../../../src/helpers/user/get-user-wallet-addresses'
-import { userMock } from '../../mocks/user-mock'
-import { clearDb } from '../../test-utils/clear-db'
-import { initializeDb } from '../../test-utils/initialize-db'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { getUserWalletAddresses } from '@echo/firestore/helpers/user/get-user-wallet-addresses'
+import { userMock } from '@echo/firestore-mocks/user-mock'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { clearDb } from '@test-utils/clear-db'
+import { initializeDb } from '@test-utils/initialize-db'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('helpers - user - getUserWalletAddresses', () => {
   beforeAll(tearUpRemoteFirestoreTests)

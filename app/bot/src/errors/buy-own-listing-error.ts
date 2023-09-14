@@ -1,4 +1,4 @@
-import { InteractionError } from './interaction-error'
+import { InteractionError } from '@echo/bot/errors/interaction-error'
 import { InteractionReplyOptions } from 'discord.js'
 
 export class BuyOwnListingError extends InteractionError {

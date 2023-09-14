@@ -1,11 +1,11 @@
-import { DirectionOut } from '../../../constants/swap-direction'
-import { NftsContainer } from '../../nft/layout/container/nfts-container'
-import { SwapDirectionHeader } from '../../shared/swap-direction-header'
-import { ListingItem } from '@echo/ui-model'
+import { NftsContainer } from '@echo/ui/components/nft/layout/container/nfts-container'
+import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
+import { DirectionOut } from '@echo/ui/constants/swap-direction'
+import type { ListingItem } from '@echo/ui/types/model/listing-item'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map, prop } from 'ramda'
-import { FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   items: Array<ListingItem>

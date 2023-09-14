@@ -1,4 +1,4 @@
-import { apiBaseUrl } from '../../src/routing/api-base-url'
+import { apiBaseUrl } from '@echo/api/routing/api-base-url'
 import { describe, expect, jest, test } from '@jest/globals'
 
 describe('routing - apiBaseUrl', () => {

@@ -1,19 +1,20 @@
-import { getSnapshotData } from '../helpers/converters/from-firestore/get-snapshot-data'
-import { modifyDocumentDataArrayProp } from '../helpers/converters/from-firestore/modify-document-data-array-prop'
-import { modifyDocumentDataProp } from '../helpers/converters/from-firestore/modify-document-data-prop'
-import { modifyExpiresAtProp } from '../helpers/converters/from-firestore/modify-expiresAt-prop'
-import { modifyModelArrayProp } from '../helpers/converters/to-firestore/modify-model-array-prop'
-import { modifyModelProp } from '../helpers/converters/to-firestore/modify-model-prop'
-import { FirestoreModel } from '../types/abstract/firestore-model'
-import { OfferDocumentData } from '../types/model/offer-document-data'
-import { offerItemDocumentDataConverter } from './offer-item-document-data-converter'
-import { userDetailsDocumentDataConverter } from './user-details-document-data-converter'
-import { Offer } from '@echo/firestore-types'
-import { modifyDatePropToNumber, modifyNumberPropToDate } from '@echo/utils'
-import { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
+import { offerItemDocumentDataConverter } from '@echo/firestore/converters/offer-item-document-data-converter'
+import { userDetailsDocumentDataConverter } from '@echo/firestore/converters/user-details-document-data-converter'
+import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
+import { modifyDocumentDataArrayProp } from '@echo/firestore/helpers/converters/from-firestore/modify-document-data-array-prop'
+import { modifyDocumentDataProp } from '@echo/firestore/helpers/converters/from-firestore/modify-document-data-prop'
+import { modifyExpiresAtProp } from '@echo/firestore/helpers/converters/from-firestore/modify-expiresAt-prop'
+import { modifyModelArrayProp } from '@echo/firestore/helpers/converters/to-firestore/modify-model-array-prop'
+import { modifyModelProp } from '@echo/firestore/helpers/converters/to-firestore/modify-model-prop'
+import type { FirestoreModel } from '@echo/firestore/types/abstract/firestore-model'
+import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import type { OfferDocumentData } from '@echo/firestore/types/model/offer-document-data'
+import { modifyDatePropToNumber } from '@echo/utils/fp/modify-date-prop-to-number'
+import { modifyNumberPropToDate } from '@echo/utils/fp/modify-number-prop-to-date'
+import type { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
 import { assoc, dissoc, has, lens, map, over, path, pipe, prop, uniq, when } from 'ramda'
 
-export const offerDataConverter: FirestoreDataConverter<Partial<Offer>> = {
+export const offerDataConverter: FirestoreDataConverter<Partial<FirestoreOffer>> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData>) {
     return pipe(
       getSnapshotData<OfferDocumentData>,
@@ -31,7 +32,7 @@ export const offerDataConverter: FirestoreDataConverter<Partial<Offer>> = {
       dissoc('senderItemsNftCollectionIds')
     )(snapshot)
   },
-  toFirestore(modelObject: FirestoreModel<Offer>, _options?: SetOptions): OfferDocumentData {
+  toFirestore(modelObject: FirestoreModel<FirestoreOffer>, _options?: SetOptions): OfferDocumentData {
     return pipe(
       dissoc('expired'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

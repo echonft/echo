@@ -1,15 +1,15 @@
 'use client'
-import { links } from '../../../constants/links'
-import { InternalLink } from '../../base/link/internal-link'
-import { NftThumbnailPicture } from '../../nft/thumbnail/nft-thumbnail-picture'
-import { CollectionThumbnailTitle } from './collection-thumbnail-title'
-import type { NftCollection } from '@echo/ui-model'
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { CollectionThumbnailTitle } from '@echo/ui/components/collection/thumbnail/collection-thumbnail-title'
+import { NftThumbnailPicture } from '@echo/ui/components/nft/thumbnail/nft-thumbnail-picture'
+import { links } from '@echo/ui/constants/links'
+import type { Collection } from '@echo/ui/types/model/collection'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
   count: number
-  collection: NftCollection
+  collection: Collection
   linkDisabled?: boolean
 }
 

@@ -1,4 +1,4 @@
-import { propIsNil } from './prop-is-nil'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { dissoc, has, ifElse, modify, prop, when } from 'ramda'
 
 export function modifyUrlPropToString<K extends keyof T, T>(propKey: K) {

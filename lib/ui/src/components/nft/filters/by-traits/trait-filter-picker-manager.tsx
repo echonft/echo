@@ -1,9 +1,9 @@
 'use client'
-import type { TraitFilterGroup } from '../../../../types/trait-filter-group'
-import { TraitFilterPicker } from './trait-filter-picker'
-import type { NftTraitValue } from '@echo/ui-model'
+import { TraitFilterPicker } from '@echo/ui/components/nft/filters/by-traits/trait-filter-picker'
+import type { NftTraitValue } from '@echo/ui/types/model/nft-trait-value'
+import type { TraitFilterGroup } from '@echo/ui/types/trait-filter-group'
 import { isEmpty, isNil } from 'ramda'
-import { FunctionComponent, useState } from 'react'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   traitFilterGroup: TraitFilterGroup

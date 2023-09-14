@@ -1,5 +1,5 @@
-import { modifyModelProp } from '../../../../src/helpers/converters/to-firestore/modify-model-prop'
-import { FirestoreDocumentDataConverter } from '../../../../src/types/converters/firestore-document-data-converter'
+import { modifyModelProp } from '@echo/firestore/helpers/converters/to-firestore/modify-model-prop'
+import type { FirestoreDocumentDataConverter } from '@echo/firestore/types/converters/firestore-document-data-converter'
 import { describe, expect, it } from '@jest/globals'
 import { invoker, modify } from 'ramda'
 

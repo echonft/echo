@@ -1,10 +1,10 @@
-import { addNftCollection } from '../../../src/crud/nft-collection/add-nft-collection'
-import { deleteNftCollection } from '../../../src/crud/nft-collection/delete-nft-collection'
-import { findNftCollectionById } from '../../../src/crud/nft-collection/find-nft-collection-by-id'
-import { nftCollectionMock } from '../../mocks/nft-collection-mock'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { addNftCollection } from '@echo/firestore/crud/nft-collection/add-nft-collection'
+import { deleteNftCollection } from '@echo/firestore/crud/nft-collection/delete-nft-collection'
+import { findNftCollectionById } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-id'
+import { nftCollectionMock } from '@echo/firestore-mocks/nft-collection-mock'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { omit } from 'ramda'
 
 describe('CRUD - nft-collection - addNftCollection', () => {

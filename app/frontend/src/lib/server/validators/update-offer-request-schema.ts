@@ -1,4 +1,4 @@
-import { UpdateOfferAction } from '@echo/api'
+import { UpdateOfferAction } from '@echo/api/constants/update-offer-action'
 import { z } from 'zod'
 
 export const updateOfferRequestSchema = z.object({

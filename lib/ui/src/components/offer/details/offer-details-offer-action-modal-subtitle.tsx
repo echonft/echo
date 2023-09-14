@@ -1,7 +1,7 @@
-import { ModalOfferState } from '../../../types/modal-offer-state'
-import { ModalSubtitle } from '../../layout/modal/modal-subtitle'
+import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
+import type { ModalOfferState } from '@echo/ui/types/modal-offer-state'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   state: ModalOfferState

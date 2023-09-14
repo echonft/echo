@@ -1,4 +1,4 @@
-import { findListingById } from '@echo/firestore'
+import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export const getListing = async (listingId: string) => {

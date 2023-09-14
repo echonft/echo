@@ -1,22 +1,24 @@
 'use client'
-import { CollectionSearchBoxManager } from '../../collection/search/collection-search-box-manager'
-import { NewItemsEmptyContainer } from '../../item/empty/new-items-empty-container'
-import { NewItemsContainer } from '../../item/new/new-items-container'
-import { NewListingSliderExpirationContainer } from './new-listing-slider-expiration-container'
-import { NewListingSliderTargetsContainer } from './new-listing-slider-targets-container'
-import type { ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
-import { isNilOrEmpty } from '@echo/utils'
+import { CollectionSearchBoxManager } from '@echo/ui/components/collection/search/collection-search-box-manager'
+import { NewItemsEmptyContainer } from '@echo/ui/components/item/empty/new-items-empty-container'
+import { NewItemsContainer } from '@echo/ui/components/item/new/new-items-container'
+import { NewListingSliderExpirationContainer } from '@echo/ui/components/listing/new/new-listing-slider-expiration-container'
+import { NewListingSliderTargetsContainer } from '@echo/ui/components/listing/new/new-listing-slider-targets-container'
+import type { Collection } from '@echo/ui/types/model/collection'
+import type { ListingItem } from '@echo/ui/types/model/listing-item'
+import type { ListingTarget } from '@echo/ui/types/model/listing-target'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map, prop } from 'ramda'
-import { FunctionComponent, useRef } from 'react'
+import { type FunctionComponent, useRef } from 'react'
 
 interface Props {
   items: ListingItem[]
   targets: ListingTarget[]
-  collections: Array<NftCollection> | undefined
-  onCollectionSelectionChange?: (selection: Array<NftCollection>) => unknown
+  collections: Array<Collection> | undefined
+  onCollectionSelectionChange?: (selection: Array<Collection>) => unknown
   onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
   onRemoveTarget?: (targetCollectionId: string) => unknown
   onRemoveItem?: (itemNftId: string) => unknown

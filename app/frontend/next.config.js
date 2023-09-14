@@ -10,7 +10,7 @@ const nextConfig = {
       }
     ]
   },
-  transpilePackages: ['@echo/api', '@echo/discord', '@echo/ui', '@echo/ui-model', '@echo/utils']
+  transpilePackages: ['@echo/alchemy', '@echo/api', '@echo/discord', '@echo/firestore', '@echo/ui', '@echo/utils']
 }
 
 const withNextIntl = require('next-intl/plugin')(

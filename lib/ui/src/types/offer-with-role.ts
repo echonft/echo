@@ -1,5 +1,5 @@
-import type { OfferRole } from './offer-role'
-import type { Offer } from '@echo/ui-model'
+import type { Offer } from '@echo/ui/types/model/offer'
+import type { OfferRole } from '@echo/ui/types/offer-role'
 
 export interface OfferWithRole extends Offer {
   role: OfferRole

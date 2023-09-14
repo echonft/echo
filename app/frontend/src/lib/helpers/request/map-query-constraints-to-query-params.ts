@@ -1,4 +1,4 @@
-import type { QueryConstraints } from '@echo/firestore-types'
+import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import type { QueryConstraintsQueryParams } from '@type/request/query-constraints-query-params'
 import { always, flatten, has, ifElse, is, juxt, map, modify, pipe, prop } from 'ramda'
 

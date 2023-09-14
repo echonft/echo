@@ -1,12 +1,10 @@
-import {
-  AlchemyRoutes,
-  getAlchemyRoute,
-  GetOwnersForNftRequest,
-  GetOwnersForNftResponse,
-  handlePaging,
-  mapGetOwnersForNftResponse
-} from '@echo/alchemy'
-import type { Wallet } from '@echo/firestore-types'
+import { AlchemyRoutes } from '@echo/alchemy/constants/alchemy-routes'
+import { getAlchemyRoute } from '@echo/alchemy/helpers/get-alchemy-route'
+import { handleAlchemyPaging } from '@echo/alchemy/helpers/handle-alchemy-paging'
+import { mapGetOwnersForNftResponse } from '@echo/alchemy/mappers/map-get-owners-for-nft-response'
+import type { GetOwnersForNftRequest } from '@echo/alchemy/types/request/get-owners-for-nft-request'
+import type { GetOwnersForNftResponse } from '@echo/alchemy/types/response/get-owners-for-nft-response'
+import { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
 import { fetcher } from '@helpers/fetcher'
 
 function fetchOwnersForNft(request: GetOwnersForNftRequest) {
@@ -18,5 +16,5 @@ function fetchOwnersForNft(request: GetOwnersForNftRequest) {
 }
 
 export function getOwnersForNft(contractAddress: string, tokenId: number) {
-  return handlePaging<GetOwnersForNftRequest, Wallet>(fetchOwnersForNft, { contractAddress, tokenId })
+  return handleAlchemyPaging<GetOwnersForNftRequest, FirestoreWallet>(fetchOwnersForNft, { contractAddress, tokenId })
 }

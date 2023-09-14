@@ -1,10 +1,10 @@
-import { SizeLG } from '../../../constants/size'
-import { BlurIcon } from '../../base/icons/blur-icon'
-import { OpenSeaIcon } from '../../base/icons/open-sea-icon'
-import { ExternalLink } from '../../base/link/external-link'
-import { HideIfNil } from '../../base/utils/hide-if-nil'
+import { BlurIcon } from '@echo/ui/components/base/icons/blur-icon'
+import { OpenSeaIcon } from '@echo/ui/components/base/icons/open-sea-icon'
+import { ExternalLink } from '@echo/ui/components/base/link/external-link'
+import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
+import { SizeLG } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export interface NftDetailsLinksProps {
   openSeaUrl?: URL

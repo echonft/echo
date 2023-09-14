@@ -15,7 +15,13 @@ const config: Config = {
     '!<rootDir>/src/constants/**',
     '!<rootDir>/src/types/**'
   ],
+  coverageDirectory: '<rootDir>/../../.coverage/lib/alchemy',
   coverageReporters: ['json-summary', 'text'],
+  moduleNameMapper: {
+    '^@echo/alchemy/(.*)$': '<rootDir>/src/$1',
+    '^@test/(.*)$': '<rootDir>/test/$1',
+    '^@echo/utils/(.*)$': '<rootDir>/../utils/src/$1'
+  },
   reporters: [
     'default',
     [
@@ -25,7 +31,6 @@ const config: Config = {
       }
     ]
   ],
-  coverageDirectory: '<rootDir>/../../.coverage/lib/alchemy',
   setupFilesAfterEnv: ['<rootDir>/test/setup-env.ts']
 }
 export default config

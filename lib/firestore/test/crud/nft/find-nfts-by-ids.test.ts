@@ -1,8 +1,8 @@
-import { findNftsByIds } from '../../../src/crud/nft/find-nfts-by-ids'
-import { nftMock } from '../../mocks/nft-mock'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { findNftsByIds } from '@echo/firestore/crud/nft/find-nfts-by-ids'
+import { nftMock } from '@echo/firestore-mocks/nft-mock'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - nft - findNftsByIds', () => {
   beforeAll(tearUpRemoteFirestoreTests)

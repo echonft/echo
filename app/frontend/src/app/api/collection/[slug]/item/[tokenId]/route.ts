@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
 import { handleRequest } from '@server/request-handlers/handle-request'
 import { getNftRequestHandler } from '@server/request-handlers/nft/get-nft-request-handler'
 

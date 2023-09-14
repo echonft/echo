@@ -1,6 +1,6 @@
-import { CurrentUserOfferRowSkeleton } from '../../../row/skeleton/current-user-offer-row-skeleton'
-import { OfferRowsLayout } from '../../offer-rows-layout'
-import { FunctionComponent } from 'react'
+import { OfferRowsLayout } from '@echo/ui/components/offer/layout/offer-rows-layout'
+import { CurrentUserOfferRowSkeleton } from '@echo/ui/components/offer/row/skeleton/current-user-offer-row-skeleton'
+import type { FunctionComponent } from 'react'
 
 export const CurrentUserOfferRowsContainerSkeleton: FunctionComponent = () => {
   return (

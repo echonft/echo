@@ -1,10 +1,11 @@
-import type { ApiRequest, GetOffersResponse } from '@echo/api'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { GetOffersResponse } from '@echo/api/types/responses/get-offers-response'
 import { getUserOffers } from '@server/helpers/offer/get-user-offers'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
 import { parseOfferFiltersQuery } from '@server/helpers/request/parse-offer-filters-query'
 import { assertUser } from '@server/helpers/user/assert-user'
 import { getUserByUsername } from '@server/helpers/user/get-user-by-username'
-import { mapOffer } from '@server/mappers/to-response/map-offer'
+import { mapOfferToResponse } from '@server/mappers/to-response/map-offer-to-response'
 import { NextResponse } from 'next/server'
 import { assoc, dissoc, map, pipe } from 'ramda'
 
@@ -19,5 +20,5 @@ export async function getUserCompletedOffersRequestHandler(req: ApiRequest<never
     assoc('includeExpired', true)
   )(filters)
   const offers = await getUserOffers(user.id, completedOffersFilters, constraints)
-  return NextResponse.json<GetOffersResponse>({ offers: map(mapOffer, offers) })
+  return NextResponse.json<GetOffersResponse>({ offers: map(mapOfferToResponse, offers) })
 }

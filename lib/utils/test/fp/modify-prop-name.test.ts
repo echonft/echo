@@ -1,4 +1,4 @@
-import { modifyPropName } from '../../src/fp/modify-prop-name'
+import { modifyPropName } from '@echo/utils/fp/modify-prop-name'
 import { describe, expect, it } from '@jest/globals'
 
 describe('', () => {

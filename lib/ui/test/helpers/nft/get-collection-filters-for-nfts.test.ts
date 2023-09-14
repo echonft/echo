@@ -1,5 +1,5 @@
-import { getCollectionFiltersForNfts } from '../../../src/helpers/nft/get-collection-filters-for-nfts'
-import { Nft } from '@echo/ui-model/src/types/nft'
+import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/get-collection-filters-for-nfts'
+import type { Nft } from '@echo/ui/types/model/nft'
 import { describe, expect, test } from '@jest/globals'
 
 describe('helpers - nft - getCollectionFiltersForNfts', () => {

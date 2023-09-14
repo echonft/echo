@@ -1,4 +1,6 @@
-import type { ApiRequest, CreateListingRequest, IdResponse } from '@echo/api'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
+import type { IdResponse } from '@echo/api/types/responses/id-response'
 import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { createListing } from '@server/helpers/listing/create-listing'

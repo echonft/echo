@@ -1,14 +1,15 @@
 'use client'
-import { NavigationItems } from '../../../constants/navigation-item'
-import { NftFilterTraits } from '../../../constants/nft-filter'
-import { SelectableNftsAndFiltersContainer } from '../../nft/layout/container/selectable-nfts-and-filters-container'
-import { CollectionNavigationLayout } from '../layout/collection-navigation-layout'
-import { NftResponse } from '@echo/api'
-import { mapNft, Nft } from '@echo/ui-model'
-import { NonEmptyArray } from '@echo/utils'
+import type { NftResponse } from '@echo/api/types/responses/model/nft-response'
+import { CollectionNavigationLayout } from '@echo/ui/components/collection/layout/collection-navigation-layout'
+import { SelectableNftsAndFiltersContainer } from '@echo/ui/components/nft/layout/container/selectable-nfts-and-filters-container'
+import { NavigationItems } from '@echo/ui/constants/navigation-item'
+import { NftFilterTraits } from '@echo/ui/constants/nft-filter'
+import { mapNftFromResponse } from '@echo/ui/mappers/from-api/map-nft-from-response'
+import type { Nft } from '@echo/ui/types/model/nft'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { useTranslations } from 'next-intl'
 import { map } from 'ramda'
-import { FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   collectionSlug: string
@@ -17,7 +18,7 @@ interface Props {
 
 export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses }) => {
   const t = useTranslations('collection.button')
-  const mappedNfts = useMemo(() => map(mapNft, responses), [responses]) as NonEmptyArray<Nft>
+  const mappedNfts = useMemo(() => map(mapNftFromResponse, responses), [responses]) as NonEmptyArray<Nft>
 
   return (
     <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationItems}>

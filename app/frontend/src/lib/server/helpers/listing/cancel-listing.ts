@@ -1,4 +1,4 @@
-import { cancelListing as firestoreCancelListing } from '@echo/firestore'
+import { cancelListing as firestoreCancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export const cancelListing = async (listingId: string) => {

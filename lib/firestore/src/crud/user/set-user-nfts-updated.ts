@@ -1,4 +1,4 @@
-import { updateUser } from './update-user'
+import { updateUser } from '@echo/firestore/crud/user/update-user'
 import dayjs from 'dayjs'
 import { WriteResult } from 'firebase-admin/firestore'
 

@@ -1,5 +1,5 @@
-import { getOfferById } from '../../mocks/model/offer'
-import { ItemThumbnail as Component } from '@echo/ui/src/components/item/thumbnail/item-thumbnail'
+import { ItemThumbnail as Component } from '@echo/ui/components/item/thumbnail/item-thumbnail'
+import { getOfferById } from '@mocks/model/offer'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

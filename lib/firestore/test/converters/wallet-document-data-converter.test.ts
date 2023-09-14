@@ -1,6 +1,6 @@
-import { walletDocumentDataConverter } from '../../src/converters/wallet-document-data-converter'
-import { getUserDocumentDataMockById } from '../mocks/get-user-document-data-mock-by-id'
-import { getUserMockById } from '../mocks/get-user-mock-by-id'
+import { walletDocumentDataConverter } from '@echo/firestore/converters/wallet-document-data-converter'
+import { getUserDocumentDataMockById } from '@echo/firestore-mocks/get-user-document-data-mock-by-id'
+import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - userDataConverter', () => {

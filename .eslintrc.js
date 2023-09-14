@@ -45,7 +45,29 @@ module.exports = {
         groups: []
       }
     ],
-    'turbo/no-undeclared-env-vars': 'off'
+    'turbo/no-undeclared-env-vars': 'off',
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: [
+              '@echo/alchemy/src/*',
+              '@echo/api/src/*',
+              '@echo/discord/src/*',
+              '@echo/firestore/src/*',
+              '@echo/ui/src/*',
+              '@echo/utils/src/*',
+              'lib/*',
+              'src/*',
+              './*',
+              '../*'
+            ],
+            message: 'Use path mapping instead'
+          }
+        ]
+      }
+    ]
   },
   settings: {
     'import/resolver': {

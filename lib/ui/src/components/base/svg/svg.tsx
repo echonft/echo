@@ -1,6 +1,6 @@
-import { useSvgSize } from '../../../hooks/use-svg-size'
+import { useSvgSize } from '@echo/ui/hooks/use-svg-size'
 import { omit } from 'ramda'
-import { FunctionComponent, SVGProps } from 'react'
+import type { FunctionComponent, SVGProps } from 'react'
 
 export interface SvgProps extends Omit<SVGProps<SVGElement>, 'width' | 'height'> {
   className?: string

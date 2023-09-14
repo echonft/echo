@@ -1,6 +1,6 @@
-import { randomSnowflake } from '../../utils/discord/snowflake'
-import { mockTextChannel } from './channel-mock'
-import { mockGuildMember, mockUser } from './user-mock'
+import { mockTextChannel } from '@echo/bot-mocks/discord/channel-mock'
+import { mockGuildMember, mockUser } from '@echo/bot-mocks/discord/user-mock'
+import { randomSnowflake } from '@echo/bot-test/discord/snowflake'
 import {
   ActionRow,
   ActionRowData,

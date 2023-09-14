@@ -1,10 +1,10 @@
-import { links } from '../../../constants/links'
-import { InternalLink } from '../../base/link/internal-link'
-import { DiscordIconSvg } from '../../base/svg/discord-icon-svg'
-import { NftDetailsLinks, NftDetailsLinksProps } from './nft-details-links'
-import type { User } from '@echo/ui-model'
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
+import { NftDetailsLinks, NftDetailsLinksProps } from '@echo/ui/components/nft/details/nft-details-links'
+import { links } from '@echo/ui/constants/links'
+import type { User } from '@echo/ui/types/model/user'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props extends NftDetailsLinksProps {
   collectionName: string

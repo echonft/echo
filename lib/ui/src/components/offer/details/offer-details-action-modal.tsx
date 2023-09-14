@@ -1,10 +1,10 @@
 'use client'
-import { ModalOfferState } from '../../../types/modal-offer-state'
-import { Modal } from '../../layout/modal/modal'
-import { OfferDetailsActionModalInnerContainer } from './offer-details-action-modal-inner-container'
-import { OfferDetailsOfferActionModalTitle } from './offer-details-offer-action-modal-title'
-import { OfferState } from '@echo/ui-model'
-import { FunctionComponent, useEffect, useState } from 'react'
+import { Modal } from '@echo/ui/components/layout/modal/modal'
+import { OfferDetailsActionModalInnerContainer } from '@echo/ui/components/offer/details/offer-details-action-modal-inner-container'
+import { OfferDetailsOfferActionModalTitle } from '@echo/ui/components/offer/details/offer-details-offer-action-modal-title'
+import type { ModalOfferState } from '@echo/ui/types/modal-offer-state'
+import type { OfferState } from '@echo/ui/types/model/offer-state'
+import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
   offerState: OfferState

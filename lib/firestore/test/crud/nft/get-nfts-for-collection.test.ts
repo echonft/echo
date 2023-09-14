@@ -1,8 +1,8 @@
-import { getNftsForCollection } from '../../../src/crud/nft/get-nfts-for-collection'
-import { getAllNftMocks } from '../../mocks/get-all-nft-mocks'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
+import { getAllNftMocks } from '@echo/firestore-mocks/get-all-nft-mocks'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { equals, filter, find, forEach, path, pipe, propEq } from 'ramda'
 
 describe('CRUD - nft - getNftsForCollection', () => {

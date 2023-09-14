@@ -1,5 +1,5 @@
-import { embedValueForTarget } from '../../../src/helpers/embed/embed-value-for-target'
-import { ListingTarget } from '@echo/firestore-types'
+import { embedValueForTarget } from '@echo/bot/helpers/embed/embed-value-for-target'
+import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
 import { describe, expect, it } from '@jest/globals'
 
 describe('utils - embed - embedValueForTarget', () => {
@@ -8,7 +8,7 @@ describe('utils - embed - embedValueForTarget', () => {
       collection: {
         name: 'Test Token'
       }
-    } as unknown as ListingTarget
+    } as unknown as FirestoreListingTarget
     const expectedResult = 'Any NFT from Test Token'
     const result = embedValueForTarget(target)
     expect(result).toEqual(expectedResult)

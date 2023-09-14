@@ -1,8 +1,8 @@
-import { firestore } from './firestore'
+import { firestoreApp } from '@echo/firestore/services/firestore-app'
 
 export async function terminateFirestore() {
   try {
-    await firestore().terminate()
+    await firestoreApp().terminate()
   } catch (e) {
     return Promise.resolve()
   }

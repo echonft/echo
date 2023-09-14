@@ -1,5 +1,5 @@
-import { assertListingStateIs } from '../../../src/helpers/listing/assert/assert-listing-state-is'
-import { Listing } from '@echo/firestore-types'
+import { assertListingStateIs } from '@echo/firestore/helpers/listing/assert/assert-listing-state-is'
+import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - listing - assert - assertListingStateIs', () => {
@@ -10,19 +10,19 @@ describe('helpers - listing - assert - assertListingStateIs', () => {
     let listing = {
       id: 'listing-id',
       state: undefined
-    } as unknown as Listing
+    } as unknown as FirestoreListing
     expect(() => assertListingStateIs(listing, 'OPEN')).toThrow()
     listing = {
       id: 'listing-id',
       state: 'CANCELLED'
-    } as Listing
+    } as FirestoreListing
     expect(() => assertListingStateIs(listing, 'OPEN')).toThrow()
   })
   it('does not throw if the listing is not expired', () => {
     const listing = {
       id: 'listing-id',
       state: 'OPEN'
-    } as Listing
+    } as FirestoreListing
     expect(() => assertListingStateIs(listing, 'OPEN')).not.toThrow()
   })
 })

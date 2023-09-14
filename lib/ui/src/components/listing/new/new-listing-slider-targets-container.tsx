@@ -1,11 +1,11 @@
-import { DirectionIn } from '../../../constants/swap-direction'
-import { SwapDirectionHeader } from '../../shared/swap-direction-header'
-import { NewListingSliderAddMoreTargetButton } from './new-listing-slider-add-more-target-button'
-import { NewListingSliderTargetRow } from './new-listing-slider-target-row'
-import { ListingTarget } from '@echo/ui-model'
+import { NewListingSliderAddMoreTargetButton } from '@echo/ui/components/listing/new/new-listing-slider-add-more-target-button'
+import { NewListingSliderTargetRow } from '@echo/ui/components/listing/new/new-listing-slider-target-row'
+import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
+import { DirectionIn } from '@echo/ui/constants/swap-direction'
+import type { ListingTarget } from '@echo/ui/types/model/listing-target'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   targets: ListingTarget[]

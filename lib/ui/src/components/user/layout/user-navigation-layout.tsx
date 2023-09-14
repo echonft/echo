@@ -1,7 +1,7 @@
-import { getUserNavigationItems } from '../../../helpers/user/get-user-navigation-items'
-import { NavigationItemId } from '../../../types/navigation-item-id'
-import { NavigationLayout } from '../../layout/navigation/navigation-layout'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import { NavigationLayout } from '@echo/ui/components/layout/navigation/navigation-layout'
+import { getUserNavigationItems } from '@echo/ui/helpers/user/get-user-navigation-items'
+import type { NavigationItemId } from '@echo/ui/types/navigation-item-id'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
   username: string

@@ -1,8 +1,9 @@
-import { isUserOfferReceiver } from '../../../helpers/offer/is-user-offer-receiver'
-import { OfferDetails } from './offer-details'
-import { OfferResponse } from '@echo/api'
-import { AuthUser, mapOffer } from '@echo/ui-model'
-import { FunctionComponent } from 'react'
+import type { OfferResponse } from '@echo/api/types/responses/model/offer-response'
+import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
+import { isUserOfferReceiver } from '@echo/ui/helpers/offer/is-user-offer-receiver'
+import { mapOfferFromResponse } from '@echo/ui/mappers/from-api/map-offer-from-response'
+import type { AuthUser } from '@echo/ui/types/model/auth-user'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   offerResponse: Partial<OfferResponse>
@@ -10,6 +11,6 @@ interface Props {
 }
 
 export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offerResponse, user }) => {
-  const offer = mapOffer(offerResponse)
+  const offer = mapOfferFromResponse(offerResponse)
   return <OfferDetails offer={offer} isReceiver={isUserOfferReceiver(user.id, offer.receiver.id)} />
 }

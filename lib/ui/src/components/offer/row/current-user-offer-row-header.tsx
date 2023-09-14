@@ -1,8 +1,8 @@
-import { UserDiscordTag } from '../../shared/user-discord-tag'
-import { OfferStatePill } from './offer-state-pill'
-import { OfferState } from '@echo/ui-model'
+import { OfferStatePill } from '@echo/ui/components/offer/row/offer-state-pill'
+import { UserDiscordTag } from '@echo/ui/components/shared/user-discord-tag'
+import type { OfferState } from '@echo/ui/types/model/offer-state'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   state: OfferState

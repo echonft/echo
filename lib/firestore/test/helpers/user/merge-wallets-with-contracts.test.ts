@@ -1,13 +1,13 @@
-import { mergeWalletsAndContractsByChainId } from '../../../src/helpers/user/merge-wallets-with-contracts'
-import { userMock } from '../../mocks/user-mock'
-import { Contract } from '@echo/firestore-types'
+import { mergeWalletsAndContractsByChainId } from '@echo/firestore/helpers/user/merge-wallets-with-contracts'
+import type { FirestoreContract } from '@echo/firestore/types/model/firestore-contract'
+import { userMock } from '@echo/firestore-mocks/user-mock'
 import { describe, expect, test } from '@jest/globals'
 
 describe('Merge wallets with contracts', () => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const mockWallet = userMock['oE6yUEQBPn7PZ89yMjKn']!.wallets[0]!
-  const mockContract: Contract = {
+  const mockContract: FirestoreContract = {
     tokenType: 'ERC721',
     address: '0x12c63bbD266dB84e117356e664f3604055166CEc',
     chainId: 1,

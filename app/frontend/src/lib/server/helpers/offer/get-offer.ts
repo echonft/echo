@@ -1,4 +1,4 @@
-import { findOfferById } from '@echo/firestore'
+import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export const getOffer = async (offerId: string) => {

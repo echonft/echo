@@ -1,5 +1,5 @@
-import { FirestoreDocumentDataConverter } from '../../../types/converters/firestore-document-data-converter'
-import { propIsNil } from '@echo/utils'
+import type { FirestoreDocumentDataConverter } from '@echo/firestore/types/converters/firestore-document-data-converter'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { dissoc, has, ifElse, modify, when } from 'ramda'
 
 export function modifyModelProp<K extends string, T, U, V>(

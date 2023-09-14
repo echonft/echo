@@ -1,7 +1,7 @@
-import { NavigationListingsCreated, NavigationListingsReceived } from '../../../../constants/navigation-item'
-import { ListingRowsContainerSkeleton } from '../../../listing/layout/container/skeleton/listing-rows-container-skeleton'
-import { ProfileNavigationLayoutSkeleton } from '../../layout/skeleton/profile-navigation-layout-skeleton'
-import { FunctionComponent } from 'react'
+import { ListingRowsContainerSkeleton } from '@echo/ui/components/listing/layout/container/skeleton/listing-rows-container-skeleton'
+import { ProfileNavigationLayoutSkeleton } from '@echo/ui/components/profile/layout/skeleton/profile-navigation-layout-skeleton'
+import { NavigationListingsCreated, NavigationListingsReceived } from '@echo/ui/constants/navigation-item'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   activeNavigationItem: typeof NavigationListingsCreated | typeof NavigationListingsReceived

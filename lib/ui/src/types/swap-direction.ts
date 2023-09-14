@@ -1,3 +1,3 @@
-import { DirectionIn, DirectionOut } from '../constants/swap-direction'
+import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 
 export type SwapDirection = typeof DirectionIn | typeof DirectionOut

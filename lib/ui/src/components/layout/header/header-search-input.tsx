@@ -1,9 +1,9 @@
 'use client'
-import { SearchIconSvg } from '../../base/svg/search-icon-svg'
+import { SearchIconSvg } from '@echo/ui/components/base/svg/search-icon-svg'
 import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { ChangeEvent, FunctionComponent } from 'react'
+import type { ChangeEvent, FunctionComponent } from 'react'
 
 interface Props {
   onChange?: (query: string) => never

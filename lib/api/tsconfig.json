@@ -2,8 +2,12 @@
   "extends": "../tsconfig/react.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "rootDir": ".",
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "@echo/api/*": ["src/*"],
+      "@echo/firestore/*": ["../firestore/src/*"],
+      "@echo/utils/*": ["../utils/src/*"]
+    }
   },
   "include": ["src", "test"],
   "exclude": ["dist", "node_modules"]

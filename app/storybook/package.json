@@ -18,8 +18,8 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "@echo/api": "workspace:*",
     "@echo/ui": "workspace:*",
-    "@echo/ui-model": "workspace:*",
     "@echo/utils": "workspace:*",
     "browserify-zlib": "0.2.0",
     "constants-browserify": "1.0.0",
@@ -50,6 +50,7 @@
     "@types/react": "18.2.19",
     "@types/react-dom": "18.2.7",
     "eslint-plugin-storybook": "0.6.13",
+    "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "5.1.6"
   }
 }

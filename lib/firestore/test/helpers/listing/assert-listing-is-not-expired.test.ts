@@ -1,5 +1,5 @@
-import { assertListingIsNotExpired } from '../../../src/helpers/listing/assert/assert-listing-is-not-expired'
-import { Listing } from '@echo/firestore-types'
+import { assertListingIsNotExpired } from '@echo/firestore/helpers/listing/assert/assert-listing-is-not-expired'
+import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 
@@ -11,24 +11,24 @@ describe('helpers - listing - assert - assertListingIsNotExpired', () => {
     let listing = {
       id: 'listing-id',
       expired: true
-    } as Listing
+    } as FirestoreListing
     expect(() => assertListingIsNotExpired(listing)).toThrow()
     listing = {
       id: 'listing-id',
       expiresAt: dayjs().subtract(1, 'd')
-    } as Listing
+    } as FirestoreListing
     expect(() => assertListingIsNotExpired(listing)).toThrow()
   })
   it('does not throw if the listing is not expired', () => {
     let listing = {
       id: 'listing-id',
       expired: false
-    } as Listing
+    } as FirestoreListing
     expect(() => assertListingIsNotExpired(listing)).not.toThrow()
     listing = {
       id: 'listing-id',
       expiresAt: dayjs().add(1, 'd')
-    } as Listing
+    } as FirestoreListing
     expect(() => assertListingIsNotExpired(listing)).not.toThrow()
   })
 })

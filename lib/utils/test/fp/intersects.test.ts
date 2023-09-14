@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { intersects } from '../../src/fp/intersects'
+import { intersects } from '@echo/utils/fp/intersects'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - intersects', () => {

@@ -1,16 +1,18 @@
 'use client'
-import { BottomSlider } from '../../layout/bottom-slider/bottom-slider'
-import { BottomSliderTitle } from '../../layout/bottom-slider/bottom-slider-title'
-import { NewListingSliderInnerContainer } from './new-listing-slider-inner-container'
-import type { ListingItem, ListingTarget, NftCollection } from '@echo/ui-model'
+import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
+import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
+import { NewListingSliderInnerContainer } from '@echo/ui/components/listing/new/new-listing-slider-inner-container'
+import type { Collection } from '@echo/ui/types/model/collection'
+import type { ListingItem } from '@echo/ui/types/model/listing-item'
+import type { ListingTarget } from '@echo/ui/types/model/listing-target'
 import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
 import { assoc, find, isNil, map, pathEq, pipe, reject, when } from 'ramda'
-import { FunctionComponent, useEffect, useState } from 'react'
+import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
   collectionProvider: {
-    get: () => Promise<Array<NftCollection>>
+    get: () => Promise<Array<Collection>>
   }
   initialTargets?: Array<ListingTarget>
   initialItems?: Array<ListingItem>
@@ -25,7 +27,7 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
   show,
   onDismiss
 }) => {
-  const [collections, setCollections] = useState<Array<NftCollection>>()
+  const [collections, setCollections] = useState<Array<Collection>>()
   const [targets, setTargets] = useState<ListingTarget[]>(initialTargets ?? [])
   const [items, setItems] = useState<ListingItem[]>(initialItems ?? [])
   const t = useTranslations('listing.new.bottomSlider')
@@ -34,7 +36,7 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
     void collectionProvider.get().then(setCollections)
   }, [collectionProvider])
 
-  function onCollectionSelectionChange(selection: Array<NftCollection>) {
+  function onCollectionSelectionChange(selection: Array<Collection>) {
     setTargets(
       map((collection) => {
         const target = find(pathEq(collection.id, ['collection', 'id']), targets)

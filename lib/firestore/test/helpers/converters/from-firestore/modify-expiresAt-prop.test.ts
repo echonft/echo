@@ -1,4 +1,4 @@
-import { modifyExpiresAtProp } from '../../../../src/helpers/converters/from-firestore/modify-expiresAt-prop'
+import { modifyExpiresAtProp } from '@echo/firestore/helpers/converters/from-firestore/modify-expiresAt-prop'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 

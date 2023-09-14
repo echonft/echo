@@ -1,6 +1,6 @@
-import type { ApiRequest } from '@echo/api'
+import type { ApiRequest } from '@echo/api/types/base/api-request'
+import { getCollectionCompletedOffersRequestHandler } from '@server/request-handlers/collection/get-collection-completed-offers-request-handler'
 import { handleRequest } from '@server/request-handlers/handle-request'
-import { getNftCollectionCompletedOffersRequestHandler } from '@server/request-handlers/nft-collection/get-nft-collection-completed-offers-request-handler'
 
 /**
  * Available query params:
@@ -11,5 +11,5 @@ import { getNftCollectionCompletedOffersRequestHandler } from '@server/request-h
  * @constructor
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { slug: string } }) {
-  return await handleRequest(request, getNftCollectionCompletedOffersRequestHandler, params.slug)
+  return await handleRequest(request, getCollectionCompletedOffersRequestHandler, params.slug)
 }

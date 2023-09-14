@@ -1,10 +1,10 @@
 'use client'
-import { HandIconSvg } from '../../base/svg/hand-icon-svg'
-import { NftDetailsListingsPanelList } from './nft-details-listings-panel-list'
-import { Listing } from '@echo/ui-model'
+import { HandIconSvg } from '@echo/ui/components/base/svg/hand-icon-svg'
+import { NftDetailsListingsPanelList } from '@echo/ui/components/nft/details/nft-details-listings-panel-list'
+import type { Listing } from '@echo/ui/types/model/listing'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   listings: Array<Listing>

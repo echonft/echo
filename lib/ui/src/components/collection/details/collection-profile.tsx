@@ -1,9 +1,12 @@
-import { HideIfNil } from '../../base/utils/hide-if-nil'
-import { CollectionLinks, CollectionLinksProps } from './collection-links'
-import { CollectionProfilePicture, CollectionProfilePictureProps } from './collection-profile-picture'
+import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
+import { CollectionLinks, type CollectionLinksProps } from '@echo/ui/components/collection/details/collection-links'
+import {
+  CollectionProfilePicture,
+  type CollectionProfilePictureProps
+} from '@echo/ui/components/collection/details/collection-profile-picture'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export interface CollectionProfileProps extends CollectionLinksProps, CollectionProfilePictureProps {
   supplyCount: number | undefined

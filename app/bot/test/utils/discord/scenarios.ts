@@ -1,5 +1,5 @@
-import { mockGuild } from '../../mocks/discord/guild-mock'
-import { mockGuildMember } from '../../mocks/discord/user-mock'
+import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'
+import { mockGuildMember } from '@echo/bot-mocks/discord/user-mock'
 import { Client, Guild, PermissionFlagsBits } from 'discord.js'
 
 export type GuildMemberVariants = Awaited<ReturnType<typeof createGuildMemberVariants>>

@@ -1,7 +1,7 @@
-import { NftDocumentData } from '../../src/types/model/nft-document-data'
-import { nftDocumentDataMock } from './nft-document-data-mock'
-import { nftReferenceMock } from './nft-reference-mock'
-import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import type { NftDocumentData } from '@echo/firestore/types/model/nft-document-data'
+import { nftDocumentDataMock } from '@echo/firestore-mocks/nft-document-data-mock'
+import { nftReferenceMock } from '@echo/firestore-mocks/nft-reference-mock'
+import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
 export const nftSnapshotMock: { [key: string]: QueryDocumentSnapshot<NftDocumentData> } = {
   '8hHFadIrrooORfTOLkBg': {

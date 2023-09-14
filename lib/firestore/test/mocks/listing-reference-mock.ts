@@ -1,5 +1,5 @@
-import { ListingDocumentData } from '../../src/types/model/listing-document-data'
-import { DocumentReference } from 'firebase-admin/firestore'
+import type { ListingDocumentData } from '@echo/firestore/types/model/listing-document-data'
+import type { DocumentReference } from 'firebase-admin/firestore'
 
 export const listingReferenceMock: { [key: string]: DocumentReference<ListingDocumentData> } = {
   jUzMtPGKM62mMhEcmbN4: {

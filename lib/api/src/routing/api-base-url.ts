@@ -1,4 +1,4 @@
-import { isNilOrEmpty } from '@echo/utils'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 
 export function apiBaseUrl() {
   if (process.env.NODE_ENV === 'development') {

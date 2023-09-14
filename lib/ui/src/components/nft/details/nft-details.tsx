@@ -1,13 +1,14 @@
 'use client'
-import { PaddedContainer } from '../../layout/padded-container'
-import { NftDetailsAttributesPanel } from './nft-details-attributes-panel'
-import { NftDetailsHeader } from './nft-details-header'
-import { NftDetailsListingsPanel } from './nft-details-listings-panel'
-import { NftDetailsTokenDetailsPanel } from './nft-details-token-details-panel'
-import { Listing, Nft } from '@echo/ui-model'
+import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
+import { NftDetailsAttributesPanel } from '@echo/ui/components/nft/details/nft-details-attributes-panel'
+import { NftDetailsHeader } from '@echo/ui/components/nft/details/nft-details-header'
+import { NftDetailsListingsPanel } from '@echo/ui/components/nft/details/nft-details-listings-panel'
+import { NftDetailsTokenDetailsPanel } from '@echo/ui/components/nft/details/nft-details-token-details-panel'
+import type { Listing } from '@echo/ui/types/model/listing'
+import type { Nft } from '@echo/ui/types/model/nft'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   nft: Nft

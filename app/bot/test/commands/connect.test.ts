@@ -1,24 +1,32 @@
-import { executeConnect } from '../../src/commands/connect'
-import { NoGuildIdError } from '../../src/errors/no-guild-id-error'
-import { mockAndSetupChannel } from '../mocks/discord/channel-mock'
-import { setupBot } from '../mocks/discord/client-mock'
-import { mockGuild } from '../mocks/discord/guild-mock'
-import { mockChatInputCommandInteraction } from '../mocks/discord/interaction-mock'
-import { findNftCollectionByDiscordGuildDiscordId, getAllNftCollectionMocks } from '@echo/firestore'
-import { NftCollection } from '@echo/firestore-types'
+import { executeConnect } from '@echo/bot/commands/connect'
+import { NoGuildIdError } from '@echo/bot/errors/no-guild-id-error'
+import { mockAndSetupChannel } from '@echo/bot-mocks/discord/channel-mock'
+import { setupBot } from '@echo/bot-mocks/discord/client-mock'
+import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'
+import { mockChatInputCommandInteraction } from '@echo/bot-mocks/discord/interaction-mock'
+import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-discord-guild-discord-id'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import { getAllNftCollectionMocks } from '@echo/firestore-mocks/get-all-nft-collection-mocks'
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { Client } from 'discord.js'
 import { filter, isNil, pathEq } from 'ramda'
 
-jest.mock('@echo/firestore')
-jest.mock('../../src/routing/get-base-url')
+jest.mock('@echo/firestore/crud/nft-collection/find-nft-collection-by-discord-guild-discord-id')
 
-// FIXME gotta find a way to not mock firestore completely
 describe('discord commands - connect', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
   jest.mocked(findNftCollectionByDiscordGuildDiscordId).mockImplementation((guildId: string) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const collection: NftCollection = filter(pathEq(['discordGuild', 'discordId'], guildId), getAllNftCollectionMocks())
+    const collection: FirestoreNftCollection = filter(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      pathEq(['discordGuild', 'discordId'], guildId),
+      getAllNftCollectionMocks()
+    )
     if (isNil(collection)) {
       return Promise.reject('not found')
     }

@@ -1,11 +1,11 @@
-import { PaddedContainer } from '../../../layout/padded-container'
-import { NftDetailsAttributesPanelSkeleton } from './nft-details-attributes-panel-skeleton'
-import { NftDetailsHeaderSkeleton } from './nft-details-header-skeleton'
-import { NftDetailsListingsPanelSkeleton } from './nft-details-listings-panel-skeleton'
-import { NftDetailsTokenDetailsPanelSkeleton } from './nft-details-token-details-panel-skeleton'
+import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
+import { NftDetailsAttributesPanelSkeleton } from '@echo/ui/components/nft/details/skeleton/nft-details-attributes-panel-skeleton'
+import { NftDetailsHeaderSkeleton } from '@echo/ui/components/nft/details/skeleton/nft-details-header-skeleton'
+import { NftDetailsListingsPanelSkeleton } from '@echo/ui/components/nft/details/skeleton/nft-details-listings-panel-skeleton'
+import { NftDetailsTokenDetailsPanelSkeleton } from '@echo/ui/components/nft/details/skeleton/nft-details-token-details-panel-skeleton'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const NftDetailsSkeleton: FunctionComponent = () => {
   const t = useTranslations('nft.details')

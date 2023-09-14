@@ -1,5 +1,6 @@
-import { collectionListingsApiUrl, GetListingsResponse } from '@echo/api'
-import { CollectionListingsApiProvided } from '@echo/ui/src/components/collection/api-provided/collection-listings-api-provided'
+import { collectionListingsApiUrl } from '@echo/api/routing/collection-listings-api-url'
+import type { GetListingsResponse } from '@echo/api/types/responses/get-listings-response'
+import { CollectionListingsApiProvided } from '@echo/ui/components/collection/api-provided/collection-listings-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapListingFiltersToQueryParams } from '@helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'

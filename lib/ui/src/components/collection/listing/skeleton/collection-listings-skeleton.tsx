@@ -1,7 +1,7 @@
-import { NavigationListings } from '../../../../constants/navigation-item'
-import { ListingRowsContainerSkeleton } from '../../../listing/layout/container/skeleton/listing-rows-container-skeleton'
-import { CollectionNavigationLayoutSkeleton } from '../../layout/skeleton/collection-navigation-layout-skeleton'
-import { FunctionComponent } from 'react'
+import { CollectionNavigationLayoutSkeleton } from '@echo/ui/components/collection/layout/skeleton/collection-navigation-layout-skeleton'
+import { ListingRowsContainerSkeleton } from '@echo/ui/components/listing/layout/container/skeleton/listing-rows-container-skeleton'
+import { NavigationListings } from '@echo/ui/constants/navigation-item'
+import type { FunctionComponent } from 'react'
 
 export const CollectionListingsSkeleton: FunctionComponent = () => {
   return (

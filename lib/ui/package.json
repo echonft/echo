@@ -6,7 +6,6 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup",
-    "build:fix": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "clean": "rm -rf dist",
     "dev": "tsup --watch src/",
     "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",
@@ -17,7 +16,6 @@
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier -u -c src/ && prettier -u -c test/",
     "test": "jest",
-    "test:ci": "jest --ci",
     "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
@@ -25,7 +23,6 @@
   "devDependencies": {
     "@babel/preset-react": "7.22.5",
     "@echo/api": "workspace:*",
-    "@echo/ui-model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@headlessui/react": "1.7.16",
     "@headlessui/tailwindcss": "0.2.0",

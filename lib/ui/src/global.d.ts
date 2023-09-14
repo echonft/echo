@@ -1,4 +1,4 @@
-import { MessagesType } from './types/messages'
+import { MessagesType } from '@echo/ui/types/messages'
 
 export declare global {
   // get typings on translation keys
@@ -6,7 +6,7 @@ export declare global {
 
   namespace NodeJS {
     interface ProcessEnv extends Dict<string> {
-      NODE_ENV: 'production' | 'development' | 'test' | 'mock'
+      STORYBOOK: undefined | 'true'
     }
   }
 }

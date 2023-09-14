@@ -1,7 +1,7 @@
-import { NftDetailsAttributeSkeleton } from './nft-details-attribute-skeleton'
+import { NftDetailsAttributeSkeleton } from '@echo/ui/components/nft/details/skeleton/nft-details-attribute-skeleton'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const NftDetailsAttributesPanelSkeleton: FunctionComponent = () => {
   const t = useTranslations('nft.details.attributes')

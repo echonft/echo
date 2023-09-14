@@ -1,10 +1,10 @@
-import { SizeLG, SizeMD } from '../../constants/size'
-import { getBannerPictureSize } from '../../helpers/get-banner-picture-size'
-import { BannerPictureSize } from '../../types/banner-picture-size'
-import { DefaultBannerSvg } from '../base/svg/default-banner-svg'
+import { DefaultBannerSvg } from '@echo/ui/components/base/svg/default-banner-svg'
+import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import { getBannerPictureSize } from '@echo/ui/helpers/get-banner-picture-size'
+import type { BannerPictureSize } from '@echo/ui/types/banner-picture-size'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export interface BannerProps {
   bannerUrl: URL | undefined

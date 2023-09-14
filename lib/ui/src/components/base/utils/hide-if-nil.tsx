@@ -1,5 +1,5 @@
 import { isNil } from 'ramda'
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 interface Props<T> {
   checks: T

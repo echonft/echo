@@ -1,4 +1,4 @@
-import { propIsNilOrEmpty } from '../../src/fp/prop-is-nil-or-empty'
+import { propIsNilOrEmpty } from '@echo/utils/fp/prop-is-nil-or-empty'
 import { describe, expect, it } from '@jest/globals'
 
 describe('fp - propIsNilOrEmpty', () => {

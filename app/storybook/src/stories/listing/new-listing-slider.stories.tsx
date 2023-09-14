@@ -1,6 +1,6 @@
-import { getListingById } from '../../mocks/model/listing'
-import { getAllCollections } from '../../mocks/model/nft-collection'
-import { NewListingSliderManager as Component } from '@echo/ui/src/components/listing/new/new-listing-slider-manager'
+import { NewListingSliderManager as Component } from '@echo/ui/components/listing/new/new-listing-slider-manager'
+import { getAllCollections } from '@mocks/model/collection'
+import { getListingById } from '@mocks/model/listing'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

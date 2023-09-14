@@ -1,11 +1,11 @@
-import { addUser } from '../../../src/crud/user/add-user'
-import { deleteUser } from '../../../src/crud/user/delete-user'
-import { findUserById } from '../../../src/crud/user/find-user-by-id'
-import { getUserMockById } from '../../mocks/get-user-mock-by-id'
-import { expectDateIsNow } from '../../test-utils/expect-date-is-now'
-import { tearDownRemoteFirestoreTests } from '../../test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '../../test-utils/tear-up-remote-firestore-tests'
+import { addUser } from '@echo/firestore/crud/user/add-user'
+import { deleteUser } from '@echo/firestore/crud/user/delete-user'
+import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
+import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
+import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
+import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - user - addUser', () => {
   let id: string

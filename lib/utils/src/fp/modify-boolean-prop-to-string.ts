@@ -1,4 +1,4 @@
-import { propIsNil } from './prop-is-nil'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { always, dissoc, has, ifElse, isNil, modify, when } from 'ramda'
 
 function internalFn<K extends keyof T, T>(propKey: K): (obj: T) => T | (T & Record<K, string>) {

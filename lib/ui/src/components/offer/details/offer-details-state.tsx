@@ -1,10 +1,10 @@
-import { StateTextContainer } from '../../shared/state-text-container'
-import { OfferState } from '@echo/ui-model'
+import { StateTextContainer } from '@echo/ui/components/shared/state-text-container'
+import type { OfferState } from '@echo/ui/types/model/offer-state'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import RelativeTime from 'dayjs/plugin/relativeTime'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 dayjs.extend(RelativeTime)
 

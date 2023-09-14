@@ -1,6 +1,6 @@
-import { InternalLink } from '../../base/link/internal-link'
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   name: string

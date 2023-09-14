@@ -1,6 +1,6 @@
-import { DiscordIconSvg } from '../base/svg/discord-icon-svg'
+import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   discordUsername: string

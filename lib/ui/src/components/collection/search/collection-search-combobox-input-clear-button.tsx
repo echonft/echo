@@ -1,4 +1,4 @@
-import { XIconSvg } from '../../base/svg/x-icon-svg'
+import { XIconSvg } from '@echo/ui/components/base/svg/x-icon-svg'
 import { clsx } from 'clsx'
 import { FunctionComponent, MouseEventHandler } from 'react'
 

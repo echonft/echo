@@ -1,9 +1,9 @@
-import { NftFilter } from '../../../../../types/nft-filter'
-import { NftsAndFiltersLayout } from '../../nfts-and-filters-layout'
-import { NftFiltersContainerSkeleton } from './nft-filters-container-skeleton'
-import { NftsContainerSkeleton } from './nfts-container-skeleton'
-import { NonEmptyArray } from '@echo/utils'
-import { FunctionComponent } from 'react'
+import { NftFiltersContainerSkeleton } from '@echo/ui/components/nft/layout/container/skeleton/nft-filters-container-skeleton'
+import { NftsContainerSkeleton } from '@echo/ui/components/nft/layout/container/skeleton/nfts-container-skeleton'
+import { NftsAndFiltersLayout } from '@echo/ui/components/nft/layout/nfts-and-filters-layout'
+import type { NftFilter } from '@echo/ui/types/nft-filter'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   availableFilters: NonEmptyArray<NftFilter>

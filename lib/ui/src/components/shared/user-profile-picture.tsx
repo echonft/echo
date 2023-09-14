@@ -1,12 +1,12 @@
-import { SizeLG, SizeMD } from '../../constants/size'
-import { getProfilePictureSize } from '../../helpers/get-profile-picture-size'
-import { getUserAvatarUrl } from '../../helpers/get-user-avatar-url'
-import { ProfilePictureSize } from '../../types/profile-picture-size'
-import { DefaultUserProfilePicture } from '../base/svg/default-user-profile-picture'
-import { ProfilePicture } from './profile-picture'
+import { DefaultUserProfilePicture } from '@echo/ui/components/base/svg/default-user-profile-picture'
+import { ProfilePicture } from '@echo/ui/components/shared/profile-picture'
+import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import { getProfilePictureSize } from '@echo/ui/helpers/get-profile-picture-size'
+import { getUserAvatarUrl } from '@echo/ui/helpers/get-user-avatar-url'
+import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export interface UserProfilePictureProps {
   discordUsername: string

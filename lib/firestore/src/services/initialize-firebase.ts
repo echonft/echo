@@ -1,5 +1,5 @@
-import serviceAccount from '../service-accout-key.json'
-import testServiceAccount from '../service-accout-key.test.json'
+import serviceAccount from '@echo/firestore/services/service-accout-key.json'
+import testServiceAccount from '@echo/firestore/services/service-accout-key.test.json'
 import { ServiceAccount } from 'firebase-admin'
 import { cert, initializeApp } from 'firebase-admin/app'
 import { getFirestore } from 'firebase-admin/firestore'

@@ -1,5 +1,5 @@
-import { SizeLG, SizeMD, SizeSM } from '../constants/size'
-import { IconSize } from '../types/icon-size'
+import { SizeLG, SizeMD, SizeSM } from '@echo/ui/constants/size'
+import type { IconSize } from '@echo/ui/types/icon-size'
 
 export const getIconSizeInPx = (size: IconSize) => {
   switch (size) {

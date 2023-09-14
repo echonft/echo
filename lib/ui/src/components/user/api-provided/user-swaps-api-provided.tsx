@@ -1,14 +1,14 @@
 'use client'
-import { NavigationSwaps } from '../../../constants/navigation-item'
-import { HideIf } from '../../base/utils/hide-if'
-import { ShowIf } from '../../base/utils/show-if'
-import { OfferRowsContainer } from '../../offer/layout/container/offer-rows-container'
-import { UserNavigationLayout } from '../layout/user-navigation-layout'
-import { UserSwapsEmpty } from '../swap/empty/user-swaps-empty'
-import { OfferResponse } from '@echo/api'
-import { mapOffer } from '@echo/ui-model'
+import type { OfferResponse } from '@echo/api/types/responses/model/offer-response'
+import { HideIf } from '@echo/ui/components/base/utils/hide-if'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { OfferRowsContainer } from '@echo/ui/components/offer/layout/container/offer-rows-container'
+import { UserNavigationLayout } from '@echo/ui/components/user/layout/user-navigation-layout'
+import { UserSwapsEmpty } from '@echo/ui/components/user/swap/empty/user-swaps-empty'
+import { NavigationSwaps } from '@echo/ui/constants/navigation-item'
+import { mapOfferFromResponse } from '@echo/ui/mappers/from-api/map-offer-from-response'
 import { isEmpty, map } from 'ramda'
-import { FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   username: string
@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const UserSwapsApiProvided: FunctionComponent<Props> = ({ username, responses }) => {
-  const mappedOffers = useMemo(() => map(mapOffer, responses), [responses])
+  const mappedOffers = useMemo(() => map(mapOfferFromResponse, responses), [responses])
   const dataIsEmpty = isEmpty(mappedOffers)
 
   return (

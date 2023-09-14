@@ -1,11 +1,11 @@
-import { CalloutSeverity } from '../../../constants/callout-severity'
-import { CalloutVariant } from '../../../constants/callout-variant'
-import { CheckmarkIconSvg } from '../../base/svg/checkmark-icon-svg'
-import { QuestionMarkIconSvg } from '../../base/svg/question-mark-icon-svg'
-import { WarningSignIconSvg } from '../../base/svg/warning-sign-icon-svg'
-import { XIconSvg } from '../../base/svg/x-icon-svg'
+import { CheckmarkIconSvg } from '@echo/ui/components/base/svg/checkmark-icon-svg'
+import { QuestionMarkIconSvg } from '@echo/ui/components/base/svg/question-mark-icon-svg'
+import { WarningSignIconSvg } from '@echo/ui/components/base/svg/warning-sign-icon-svg'
+import { XIconSvg } from '@echo/ui/components/base/svg/x-icon-svg'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { CalloutVariant } from '@echo/ui/constants/callout-variant'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   severity: CalloutSeverity

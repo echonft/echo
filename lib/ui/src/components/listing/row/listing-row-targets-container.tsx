@@ -1,11 +1,11 @@
-import { DirectionIn } from '../../../constants/swap-direction'
-import { CollectionThumbnail } from '../../collection/thumbnail/collection-thumbnail'
-import { SwapDirectionHeader } from '../../shared/swap-direction-header'
-import { ListingTarget } from '@echo/ui-model'
+import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
+import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
+import { DirectionIn } from '@echo/ui/constants/swap-direction'
+import type { ListingTarget } from '@echo/ui/types/model/listing-target'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   targets: Array<ListingTarget>

@@ -1,5 +1,5 @@
-import { getAllNfts } from '../../../mocks/model/nft'
-import { CollectionFilterPanel as Component } from '@echo/ui/src/components/nft/filters/by-collection/collection-filter-panel'
+import { CollectionFilterPanel as Component } from '@echo/ui/components/nft/filters/by-collection/collection-filter-panel'
+import { getAllNfts } from '@mocks/model/nft'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

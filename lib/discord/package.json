@@ -4,8 +4,6 @@
   "private": true,
   "sideEffects": false,
   "license": "MIT",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
   "scripts": {
     "lint": "eslint --cache --fix --ext .ts src/",
     "lint:ci": "eslint --ext .ts src/",
@@ -15,7 +13,6 @@
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier -u -c src/",
     "test": "jest --passWithNoTests",
-    "test:ci": "jest --ci --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",
     "tsc": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"

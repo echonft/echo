@@ -1,4 +1,4 @@
-import { CollectionListingsSkeleton } from '@echo/ui/src/components/collection/listing/skeleton/collection-listings-skeleton'
+import { CollectionListingsSkeleton } from '@echo/ui/components/collection/listing/skeleton/collection-listings-skeleton'
 import type { FunctionComponent } from 'react'
 
 const CollectionListingsLoading: FunctionComponent = () => {

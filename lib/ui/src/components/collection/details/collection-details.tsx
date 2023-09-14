@@ -1,9 +1,12 @@
-import { SizeLG } from '../../../constants/size'
-import { PaddedContainer } from '../../layout/padded-container'
-import { Banner, BannerProps } from '../../shared/banner'
-import { CollectionProfile, CollectionProfileProps } from './collection-profile'
+import {
+  CollectionProfile,
+  type CollectionProfileProps
+} from '@echo/ui/components/collection/details/collection-profile'
+import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
+import { Banner, type BannerProps } from '@echo/ui/components/shared/banner'
+import { SizeLG } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props extends CollectionProfileProps, BannerProps {
   description: string

@@ -1,4 +1,4 @@
-import { OfferDetailsSkeleton } from '@echo/ui/src/components/offer/details/skeleton/offer-details-skeleton'
+import { OfferDetailsSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-skeleton'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 

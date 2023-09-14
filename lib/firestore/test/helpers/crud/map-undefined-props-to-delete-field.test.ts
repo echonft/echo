@@ -1,4 +1,4 @@
-import { mapUndefinedPropsToDeleteField } from '../../../src/helpers/crud/map-undefined-props-to-delete-field'
+import { mapUndefinedPropsToDeleteField } from '@echo/firestore/helpers/crud/map-undefined-props-to-delete-field'
 import { describe, expect, it } from '@jest/globals'
 import { FieldValue } from 'firebase-admin/firestore'
 

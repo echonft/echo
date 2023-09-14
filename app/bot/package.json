@@ -3,14 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsup",
-    "build:fix": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "clean": "rm -rf dist",
-    "deploy-commands": "node dist/scripts/deploy-commands.js",
-    "dev": "nodemon --watch \"src/**\" --watch \"node_modules/@echo/**/src/**\" --ext \"ts\" --exec \"ts-node src/index.ts\"",
+    "deploy-commands": "ts-node --project tsconfig.json src/scripts/deploy-commands.ts",
+    "dev": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"ts-node --project tsconfig.json src/index.ts\"",
     "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",
     "lint:ci": "eslint --ext .ts src/ && eslint --ext .ts test/",
     "lint:clean-cache": "rm -f .eslintcache",
@@ -18,9 +14,8 @@
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier -u -c src/ && prettier -u -c test/",
-    "start": "node dist/index.js",
+    "start": "ts-node --project tsconfig.json src/index.ts",
     "test": "jest",
-    "test:ci": "jest --ci",
     "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
@@ -40,12 +35,12 @@
   "devDependencies": {
     "@jest/globals": "29.6.2",
     "@jest/types": "29.6.1",
-    "@echo/firestore-types": "workspace:*",
     "@types/ramda": "0.29.3",
     "jest": "29.6.2",
     "jest-junit": "16.0.0",
     "nodemon": "3.0.1",
     "ts-node": "10.9.1",
+    "tsconfig-paths": "4.2.0",
     "tsup": "7.2.0",
     "typescript": "5.1.6"
   }

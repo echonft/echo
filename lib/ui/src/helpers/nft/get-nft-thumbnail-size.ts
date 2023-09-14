@@ -1,5 +1,5 @@
-import { SizeLG, SizeMD } from '../../constants/size'
-import { NftThumbnailSize } from '../../types/nft-thumbnail-size'
+import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import type { NftThumbnailSize } from '@echo/ui/types/nft-thumbnail-size'
 
 export const getNftThumbnailSize = (size: NftThumbnailSize) => {
   switch (size) {

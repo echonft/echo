@@ -1,10 +1,11 @@
-import { OfferItem } from '@echo/firestore-types'
-import { NonEmptyArray, propIsNil } from '@echo/utils'
-import { pathIsNil } from '@echo/utils/src/fp/path-is-nil'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import { pathIsNil } from '@echo/utils/fp/path-is-nil'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { forEach, head, path, pipe } from 'ramda'
 
-export function getOfferItemsCollectionId(items: NonEmptyArray<OfferItem>): string {
-  forEach((item: OfferItem) => {
+export function getOfferItemsCollectionId(items: NonEmptyArray<FirestoreOfferItem>): string {
+  forEach((item: FirestoreOfferItem) => {
     if (
       propIsNil('nft', item) ||
       pathIsNil(['nft', 'collection'], item) ||

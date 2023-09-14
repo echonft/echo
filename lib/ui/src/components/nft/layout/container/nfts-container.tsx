@@ -1,8 +1,8 @@
-import { NftThumbnail } from '../../thumbnail/nft-thumbnail'
-import { NftsLayout } from '../nfts-layout'
-import { Nft } from '@echo/ui-model'
+import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
+import { NftThumbnail } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
+import type { Nft } from '@echo/ui/types/model/nft'
 import { map } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   nfts: Array<Nft>

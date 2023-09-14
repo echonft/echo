@@ -1,12 +1,12 @@
-import { Group } from '../../../../types/group'
-import { GroupSelection } from '../../../../types/group-selection'
-import { MultiSelectableProps } from '../../../../types/multi-selectable-props'
-import { SelectableNftGroup } from '../../group/selectable-nft-group'
-import { NftGroupsLayout } from '../nft-groups-layout'
-import { Nft } from '@echo/ui-model'
-import { NonEmptyArray } from '@echo/utils'
+import { SelectableNftGroup } from '@echo/ui/components/nft/group/selectable-nft-group'
+import { NftGroupsLayout } from '@echo/ui/components/nft/layout/nft-groups-layout'
+import type { Group } from '@echo/ui/types/group'
+import type { GroupSelection } from '@echo/ui/types/group-selection'
+import type { Nft } from '@echo/ui/types/model/nft'
+import type { MultiSelectableProps } from '@echo/ui/types/multi-selectable-props'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { assoc, concat, find, findIndex, isNil, map, propEq, update } from 'ramda'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props extends MultiSelectableProps<GroupSelection> {
   groups: NonEmptyArray<Group<Nft>>

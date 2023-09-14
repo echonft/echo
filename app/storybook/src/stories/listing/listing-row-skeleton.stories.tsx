@@ -1,4 +1,4 @@
-import { ListingRowSkeleton as Component } from '@echo/ui/src/components/listing/row/skeleton/listing-row-skeleton'
+import { ListingRowSkeleton as Component } from '@echo/ui/components/listing/row/skeleton/listing-row-skeleton'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

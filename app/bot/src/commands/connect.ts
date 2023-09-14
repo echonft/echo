@@ -1,10 +1,11 @@
-import {NoGuildIdError} from '../errors/no-guild-id-error'
-import {loginLink} from '../routing/login-link'
-import {findNftCollectionByDiscordGuildDiscordId} from '@echo/firestore'
-import {NftCollection} from '@echo/firestore-types'
-import {andThenOtherwise, isNilOrEmpty} from '@echo/utils'
-import {CommandInteraction, SlashCommandSubcommandBuilder} from 'discord.js'
-import {andThen, ifElse, isNil, pipe, prop} from 'ramda'
+import { NoGuildIdError } from '@echo/bot/errors/no-guild-id-error'
+import { loginLink } from '@echo/bot/routing/login-link'
+import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-discord-guild-discord-id'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import { andThenOtherwise } from '@echo/utils/fp/and-then-otherwise'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import type { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
+import { andThen, ifElse, isNil, pipe, prop } from 'ramda'
 
 /**
  * Connect command
@@ -16,7 +17,7 @@ export const connectSubcommand = (subCommand: SlashCommandSubcommandBuilder) =>
 
 export function executeConnect(interaction: CommandInteraction) {
   return ifElse(
-    pipe(prop('guildId'), isNilOrEmpty),
+    pipe(prop('guildId'), isNilOrEmpty<string>),
     () => {
       throw new NoGuildIdError()
     },
@@ -32,7 +33,7 @@ export function executeConnect(interaction: CommandInteraction) {
             ifElse(
               isNil,
               () => interaction.editReply({ content: new NoGuildIdError().message }),
-              (collection: NftCollection) => {
+              (collection: FirestoreNftCollection) => {
                 return interaction.editReply({
                   content: loginLink(collection.discordGuild.discordId)
                 })

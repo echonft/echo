@@ -1,14 +1,14 @@
 'use client'
-import { UserDetailsContainer } from '../../shared/user-details-container'
-import { OfferDetailsActionModal } from './offer-details-action-modal'
-import { OfferDetailsAssetsSeparator } from './offer-details-assets-separator'
-import { OfferDetailsButtonsContainer } from './offer-details-buttons-container'
-import { offerDetailsContainerBackgroundImage } from './offer-details-container-background-image'
-import { OfferDetailsItemsContainer } from './offer-details-items-container'
-import { OfferDetailsState } from './offer-details-state'
-import { Offer } from '@echo/ui-model'
+import { OfferDetailsActionModal } from '@echo/ui/components/offer/details/offer-details-action-modal'
+import { OfferDetailsAssetsSeparator } from '@echo/ui/components/offer/details/offer-details-assets-separator'
+import { OfferDetailsButtonsContainer } from '@echo/ui/components/offer/details/offer-details-buttons-container'
+import { offerDetailsContainerBackgroundImage } from '@echo/ui/components/offer/details/offer-details-container-background-image'
+import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
+import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
+import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
+import type { Offer } from '@echo/ui/types/model/offer'
 import { clsx } from 'clsx'
-import { FunctionComponent, useState } from 'react'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   offer: Offer
