@@ -4,9 +4,6 @@
     "build": {
       "inputs": ["src/**/*.ts", "src/**/*.tsx"]
     },
-    "build:fix": {
-      "inputs": ["src/**/*.d.ts", "src/**/*.js"]
-    },
     "clean": {
       "cache": false
     },
@@ -50,14 +47,6 @@
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
     },
-    "@echo/bot#build": {
-      "env": ["BASE_URL", "DISCORD_CLIENT_TOKEN", "DISCORD_CLIENT_ID", "DISCORD_CLIENT_SECRET", "DISCORD_REDIRECT_URI"],
-      "outputs": ["dist/**"],
-      "inputs": ["src/**/*.ts"]
-    },
-    "@echo/bot#dev": {
-      "cache": false
-    },
     "@echo/bot#deploy-commands": {
       "cache": false
     },
@@ -83,7 +72,6 @@
     },
     "@echo/storybook#build": {
       "dependsOn": ["@echo/ui#build"],
-      "env": ["ALCHEMY_API_KEY", "STORYBOOK_ALCHEMY_API_KEY"],
       "outputs": ["storybook-static/**", "dist/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
@@ -92,8 +80,8 @@
       "cache": false
     },
     "@echo/ui#build": {
-      "outputs": ["dist/**"],
-      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+      "outputs": ["dist/index.css"],
+      "inputs": ["tailwind.config.cjs", "src/index.css", "src/**/*.tsx", "src/**/*.ts"]
     },
     "//#vercel:dev": {
       "dependsOn": ["@echo/ui#build"],

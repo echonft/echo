@@ -6,7 +6,6 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup",
-    "build:fix": "find src/ -name \"*.js\" -type f -delete && find src/ -name \"*.d.ts*\" -type f -delete",
     "clean": "rm -rf dist",
     "dev": "tsup --watch src/",
     "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",

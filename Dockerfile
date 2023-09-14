@@ -18,9 +18,6 @@ FROM base AS build
 COPY --link . .
 RUN pnpm install
 
-# Build application
-RUN pnpm bot:build
-
 # Final stage for app image
 FROM base
 # Set production environment

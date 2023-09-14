@@ -21,11 +21,9 @@
     ]
   },
   "scripts": {
-    "bot:build": "turbo run build --filter=@echo/bot",
     "bot:deploy-commands": "env-cmd -f .env turbo run @echo/bot#deploy-commands",
     "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot",
     "bot:start": "turbo run start --filter=@echo/bot",
-    "build:fix": "turbo run build:fix",
     "clean": "turbo run clean",
     "frontend:build": "turbo run build --filter=@echo/frontend",
     "frontend:clean": "turbo run clean --filter=@echo/frontend",
