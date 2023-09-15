@@ -6,6 +6,7 @@ import { nftCollectionDocumentDataMock } from '@echo/firestore-mocks/nft-collect
 import { nftDocumentDataMock } from '@echo/firestore-mocks/nft-document-data-mock'
 import { offerDocumentDataMock } from '@echo/firestore-mocks/offer-document-data-mock'
 import { sessionDocumentDataMock } from '@echo/firestore-mocks/session-document-data-mock'
+import { userDiscordGuildDocumentDataMock } from '@echo/firestore-mocks/user-discord-guild-document-data-mock'
 import { userDocumentDataMock } from '@echo/firestore-mocks/user-document-data-mock'
 import { walletDocumentDataMock } from '@echo/firestore-mocks/wallet-document-data-mock'
 
@@ -37,6 +38,10 @@ export async function initializeDb() {
   const users = Object.values(userDocumentDataMock)
   for (const user of users) {
     await firestoreApp().collection(CollectionName.USERS).doc(user.id).set(user)
+  }
+  const userDiscordGuilds = Object.values(userDiscordGuildDocumentDataMock)
+  for (const userDiscordGuild of userDiscordGuilds) {
+    await firestoreApp().collection(CollectionName.USER_DISCORD_GUILDS).doc(userDiscordGuild.id).set(userDiscordGuild)
   }
   const wallets = Object.values(walletDocumentDataMock)
   for (const wallet of wallets) {

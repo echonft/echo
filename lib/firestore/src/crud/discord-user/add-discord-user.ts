@@ -3,21 +3,17 @@ import { discordUserDataConverter } from '@echo/firestore/converters/discord-use
 import { findDiscordUserByUserId } from '@echo/firestore/crud/discord-user/find-discord-user-by-user-id'
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import type { FirestoreUserDiscordGuild } from '@echo/firestore/types/model/firestore-user-discord-guild'
 import dayjs from 'dayjs'
 import { assoc, isNil, pipe } from 'ramda'
 
 export interface NewFirestoreDiscordUser {
   discordAvatar?: string
   discordBanner?: string
-  discordGuilds: FirestoreUserDiscordGuild[]
   discordId: string
   discordUsername: string
-  userId: string
 }
 
-export async function addDiscordUser(newDiscordUser: NewFirestoreDiscordUser): Promise<string> {
-  const { userId } = newDiscordUser
+export async function addDiscordUser(userId: string, newDiscordUser: NewFirestoreDiscordUser): Promise<string> {
   const discordUser = await findDiscordUserByUserId(userId)
   if (!isNil(discordUser)) {
     throw Error(`trying to add discord user with userId ${userId} while it already exists`)
@@ -28,7 +24,7 @@ export async function addDiscordUser(newDiscordUser: NewFirestoreDiscordUser): P
   }
   const reference = firestoreApp().collection(CollectionName.DISCORD_USERS).doc()
   const id = reference.id
-  const newUser = pipe(assoc('id', id), assoc('updatedAt', dayjs()))(newDiscordUser)
+  const newUser = pipe(assoc('id', id), assoc('updatedAt', dayjs()), assoc('userId', userId))(newDiscordUser)
   await reference.set(discordUserDataConverter.toFirestore(newUser))
   return id
 }

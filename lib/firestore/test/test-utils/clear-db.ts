@@ -12,6 +12,8 @@ import { deleteSession } from '@echo/firestore/crud/session/delete-session'
 import { getAllSessions } from '@echo/firestore/crud/session/get-all-sessions'
 import { deleteUser } from '@echo/firestore/crud/user/delete-user'
 import { getAllUsers } from '@echo/firestore/crud/user/get-all-users'
+import { deleteUserDiscordGuild } from '@echo/firestore/crud/user-discord-guild/delete-user-discord-guild'
+import { getAllUserDiscordGuilds } from '@echo/firestore/crud/user-discord-guild/get-all-user-discord-guilds'
 import { deleteWallet } from '@echo/firestore/crud/wallet/delete-wallet'
 import { getAllWallets } from '@echo/firestore/crud/wallet/get-all-wallets'
 
@@ -68,6 +70,14 @@ export async function clearDb() {
   for (const user of users) {
     try {
       await deleteUser(user.id)
+    } catch (e) {
+      // nothing to do
+    }
+  }
+  const userDiscordGuilds = await getAllUserDiscordGuilds()
+  for (const userDiscordGuild of userDiscordGuilds) {
+    try {
+      await deleteUserDiscordGuild(userDiscordGuild.id)
     } catch (e) {
       // nothing to do
     }

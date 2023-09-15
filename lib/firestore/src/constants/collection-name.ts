@@ -6,5 +6,6 @@ export enum CollectionName {
   LISTINGS = 'listings',
   SESSIONS = 'sessions',
   USERS = 'users',
+  USER_DISCORD_GUILDS = 'userDiscordGuilds',
   WALLETS = 'wallets'
 }

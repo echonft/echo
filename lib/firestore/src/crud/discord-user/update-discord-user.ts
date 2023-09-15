@@ -17,7 +17,7 @@ export async function updateDiscordUser(
 
   return cleanAndUpdateDocumentRef(
     documentSnapshot.ref,
-    assoc('updatedAt', dayjs(), discordUser),
+    assoc('updatedAt', dayjs(), { ...discordUser, userId }),
     discordUserDataConverter
   )
 }

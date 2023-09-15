@@ -1,19 +1,22 @@
 import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
 import type { FirestoreModel } from '@echo/firestore/types/abstract/firestore-model'
-import type { DiscordUserDocumentData } from '@echo/firestore/types/model/discord-user-document-data'
-import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
+import { FirestoreUserDiscordGuild } from '@echo/firestore/types/model/firestore-user-discord-guild'
+import { UserDiscordGuildDocumentData } from '@echo/firestore/types/model/user-discord-guild-document-data'
 import { modifyDatePropToNumber } from '@echo/utils/fp/modify-date-prop-to-number'
 import { modifyNumberPropToDate } from '@echo/utils/fp/modify-number-prop-to-date'
 import type { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/lib/firestore'
 import { pipe } from 'ramda'
 
-export const discordUserDataConverter: FirestoreDataConverter<Partial<FirestoreDiscordUser>> = {
+export const userDiscordGuildDataConverter: FirestoreDataConverter<Partial<FirestoreUserDiscordGuild>> = {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  fromFirestore(snapshot: QueryDocumentSnapshot<DiscordUserDocumentData>) {
-    return pipe(getSnapshotData<DiscordUserDocumentData>, modifyNumberPropToDate('updatedAt'))(snapshot)
+  fromFirestore(snapshot: QueryDocumentSnapshot<UserDiscordGuildDocumentData>) {
+    return pipe(getSnapshotData<UserDiscordGuildDocumentData>, modifyNumberPropToDate('updatedAt'))(snapshot)
   },
-  toFirestore(modelObject: FirestoreModel<FirestoreDiscordUser>, _options?: SetOptions): DiscordUserDocumentData {
+  toFirestore(
+    modelObject: FirestoreModel<FirestoreUserDiscordGuild>,
+    _options?: SetOptions
+  ): UserDiscordGuildDocumentData {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return modifyDatePropToNumber('updatedAt', modelObject)

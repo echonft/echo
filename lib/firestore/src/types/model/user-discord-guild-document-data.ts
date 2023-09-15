@@ -1,3 +1,6 @@
 export interface UserDiscordGuildDocumentData {
-  discordId: string
+  id: string
+  userId: string
+  guilds: { discordId: string }[]
+  updatedAt: number
 }
