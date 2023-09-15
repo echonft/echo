@@ -28,7 +28,6 @@ const Layout: FunctionComponent<PropsWithChildren> = async ({ children }) => {
       <div className={clsx('w-full', 'h-full')}>
         <Header user={session?.user} />
         <main className={clsx('w-full', 'pb-14')}>{children}</main>
-        <NewOfferSliderManager />
       </div>
     </NextIntlClientProvider>
   )

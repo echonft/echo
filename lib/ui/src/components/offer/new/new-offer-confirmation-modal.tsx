@@ -3,11 +3,11 @@ import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { ModalTitle } from '@echo/ui/components/layout/modal/modal-title'
 import { NewOfferConfirmationModalInnerContainer } from '@echo/ui/components/offer/new/new-offer-confirmation-modal-inner-container'
 import { NewOfferConfirmedModalInnerContainer } from '@echo/ui/components/offer/new/new-offer-confirmed-modal-inner-container'
-import { newOfferDataState, newOfferState } from '@echo/ui/services/state'
+import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
+import { NewOffer } from '@echo/ui/types/model/new-offer'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
-import { type FunctionComponent, useCallback } from 'react'
-import { useRecoilState } from 'recoil'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   newOffer: NewOffer | undefined
@@ -42,8 +42,8 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({ newOffer, 
           />
         ) : (
           <NewOfferConfirmationModalInnerContainer
-            senderItems={newOffer!.senderItems}
-            receiverItems={newOffer!.receiverItems}
+            senderItems={newOffer?.senderItems ?? []}
+            receiverItems={newOffer?.receiverItems ?? []}
             onConfirm={() => {
               // TODO Add call to API to create offer
               setTransactionId('TEST')

@@ -3,13 +3,11 @@ import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
 import { NewOfferBottomSliderInnerContainer } from '@echo/ui/components/offer/new/new-offer-bottom-slider-inner-container'
-import { removeItemFromNewOffer } from '@echo/ui/helpers/offer/remove-item-from-new-offer'
-import { newOfferDataState } from '@echo/ui/services/state'
+import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
+import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
-import type { FunctionComponent } from 'react'
-import { useRecoilState } from 'recoil'
+import { type FunctionComponent, useCallback, useState } from 'react'
 
 interface Props {
   onAddMoreSenderItem?: () => unknown
@@ -25,14 +23,14 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ onAddMoreSende
     (nftId: string) => {
       setSenderItems(offer.senderItems.filter((item) => item.nft.id !== nftId))
     },
-    [offer]
+    [offer, setSenderItems]
   )
 
   const onRemoveReceiverItems = useCallback(
     (nftId: string) => {
       setReceiverItems(offer.receiverItems.filter((item) => item.nft.id !== nftId))
     },
-    [offer]
+    [offer, setReceiverItems]
   )
   return (
     <>
