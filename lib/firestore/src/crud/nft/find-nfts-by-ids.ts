@@ -2,6 +2,7 @@ import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { nftDataConverter } from '@echo/firestore/converters/nft-data-converter'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { map } from 'ramda'
 
 export async function findNftsByIds(ids: string[]) {
@@ -11,7 +12,7 @@ export async function findNftsByIds(ids: string[]) {
     .withConverter(nftDataConverter)
     .get()
 
-  if (querySnapshot.empty) {
+  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
     return [] as FirestoreNft[]
   }
 

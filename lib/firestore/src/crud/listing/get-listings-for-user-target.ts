@@ -9,7 +9,8 @@ import type { FirestoreListing } from '@echo/firestore/types/model/firestore-lis
 import { listingFields } from '@echo/firestore/types/model/listing-document-data'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { head, invoker, isNil, map, path, pipe, uniq } from 'ramda'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { invoker, map, path, pipe, uniq } from 'ramda'
 
 /**
  * Find listings for which the targets include any of the collection of the NFTs owned by a user
@@ -35,12 +36,7 @@ export async function getListingsForUserTarget(
   query = addListingQueryFilters(query, filters)
   query = addConstraintsToQuery(query, constraints, listingFields, true)
   const querySnapshot = await query.get()
-  if (querySnapshot.empty) {
-    return []
-  }
-
-  const documentSnapshot = head(querySnapshot.docs)
-  if (isNil(documentSnapshot)) {
+  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
     return []
   }
 

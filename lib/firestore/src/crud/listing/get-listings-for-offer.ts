@@ -4,6 +4,7 @@ import { getOfferItemsCollectionId } from '@echo/firestore/helpers/offer/get-off
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
 import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { invoker, map, none, path, pathEq, pipe, prop, reject } from 'ramda'
 
@@ -17,7 +18,7 @@ export async function getListingsForOffer(
     .withConverter(listingDataConverter)
     .get()
 
-  if (querySnapshot.empty) {
+  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
     return [] as FirestoreListing[]
   }
 

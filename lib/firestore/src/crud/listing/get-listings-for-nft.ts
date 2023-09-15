@@ -8,7 +8,8 @@ import type { FirestoreListing } from '@echo/firestore/types/model/firestore-lis
 import { listingFields } from '@echo/firestore/types/model/listing-document-data'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { head, invoker, isNil, map } from 'ramda'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { invoker, map } from 'ramda'
 
 export async function getListingsForNft(
   nftId: string,
@@ -23,12 +24,7 @@ export async function getListingsForNft(
   query = addListingQueryFilters(query, filters)
   query = addConstraintsToQuery(query, constraints, listingFields, true)
   const querySnapshot = await query.get()
-  if (querySnapshot.empty) {
-    return []
-  }
-
-  const documentSnapshot = head(querySnapshot.docs)
-  if (isNil(documentSnapshot)) {
+  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
     return []
   }
 
