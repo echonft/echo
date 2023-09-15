@@ -1,9 +1,9 @@
-import { addUser } from '@echo/firestore/crud/user/add-user'
+import { addDiscordUser } from '@echo/firestore/crud/discord-user/add-discord-user'
 import { findUserByDiscordId } from '@echo/firestore/crud/user/find-user-by-discord-id'
 import { updateUser } from '@echo/firestore/crud/user/update-user'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
 import type { FirestoreUserDiscordGuild } from '@echo/firestore/types/model/firestore-user-discord-guild'
 import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
 import type { AuthUser } from '@echo/ui/types/model/auth-user'
@@ -29,7 +29,7 @@ interface RequiredUserProps {
   wallets: FirestoreWallet[]
 }
 
-async function updateUserAndNftsIfNeeded(user: Partial<FirestoreUser> & RequiredUserProps) {
+async function updateUserAndNftsIfNeeded(user: Partial<FirestoreDiscordUser> & RequiredUserProps) {
   let { nftsUpdatedAt, updatedAt } = user
   if (userNftsNeedsUpdate(nftsUpdatedAt)) {
     await updateUserNfts(user)
@@ -63,7 +63,7 @@ export async function createOrUpdateUser(
     const existingUser = await findUserByDiscordId(discordUser.discordId)
     if (isNil(existingUser)) {
       // for now we set username = discordUsername
-      const userId = await addUser({ ...discordUser, username: discordUser.discordUsername })
+      const userId = await addDiscordUser({ ...discordUser, username: discordUser.discordUsername })
       return mapUserToAuthUser({
         ...discordUser,
         id: userId,

@@ -11,13 +11,13 @@ import type { QueryConstraints } from '@echo/firestore/types/query/query-constra
 import { head, invoker, isNil, map } from 'ramda'
 
 export async function getOffersForReceiver(
-  receiverId: string,
+  receiverUsername: string,
   filters?: OfferQueryFilters,
   constraints?: QueryConstraints
 ): Promise<Partial<FirestoreOffer>[]> {
   let query = firestoreApp()
     .collection(CollectionName.OFFERS)
-    .where('receiverId', '==', receiverId)
+    .where('receiver.username', '==', receiverUsername)
     .withConverter(offerDataConverter)
 
   query = addOfferQueryFilters(query, filters)

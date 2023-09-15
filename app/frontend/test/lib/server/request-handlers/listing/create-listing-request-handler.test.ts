@@ -1,6 +1,6 @@
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import type { IdResponse } from '@echo/api/types/responses/id-response'
-import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
 import { getSession } from '@server/helpers/auth/get-session'
 import { ApiError } from '@server/helpers/error/api-error'
 import { createListing } from '@server/helpers/listing/create-listing'
@@ -71,7 +71,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('throws if user does not have any wallet', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId', wallets: [] } as unknown as FirestoreUser)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId', wallets: [] } as unknown as FirestoreDiscordUser)
     const req = mockRequest<CreateListingRequest>(validRequest)
     try {
       await createListingRequestHandler(req, {} as AuthOptions)
@@ -86,7 +86,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     jest.mocked(getUserById).mockResolvedValueOnce({
       id: 'userId',
       wallets: [{ chainId: 1, address: '0x12c63bbD266dB84e117356e664f3604055166CEc' }]
-    } as unknown as FirestoreUser)
+    } as unknown as FirestoreDiscordUser)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(getOfferItems).mockResolvedValue([])

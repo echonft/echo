@@ -1,6 +1,6 @@
 import { UpdateOfferAction } from '@echo/api/constants/update-offer-action'
 import type { UpdateOfferRequest } from '@echo/api/types/requests/update-offer-request'
-import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
 import { getSession } from '@server/helpers/auth/get-session'
 import { ApiError } from '@server/helpers/error/api-error'
 import { getUserById } from '@server/helpers/user/get-user-by-id'
@@ -54,7 +54,7 @@ describe('request-handlers - offer - updateOfferRequestHandler', () => {
 
   it('if authenticated and request action is ACCEPT, handleAcceptOffer should be called', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreUser)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreDiscordUser)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(handleAcceptOffer).mockResolvedValueOnce()
@@ -67,7 +67,7 @@ describe('request-handlers - offer - updateOfferRequestHandler', () => {
 
   it('if authenticated and request action is CANCEL, handleCancelOffer should be called', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreUser)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreDiscordUser)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(handleCancelOffer).mockResolvedValueOnce()
@@ -80,7 +80,7 @@ describe('request-handlers - offer - updateOfferRequestHandler', () => {
 
   it('if authenticated and request action is REJECT, handleRejectOffer should be called', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreUser)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreDiscordUser)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(handleRejectOffer).mockResolvedValueOnce()

@@ -5,7 +5,7 @@ import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
 import { nftCollectionFields } from '@echo/firestore/types/model/nft-collection-document-data'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import type { Query } from 'firebase-admin/firestore'
+import type { Query } from 'firebase-admin/lib/firestore'
 import { invoker, map } from 'ramda'
 
 export async function getAllNftCollections(constraints?: QueryConstraints) {

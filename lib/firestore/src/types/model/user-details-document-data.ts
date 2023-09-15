@@ -1,11 +1,10 @@
-import type { WalletDocumentData } from '@echo/firestore/types/model/wallet-document-data'
+import { WalletData } from '@echo/firestore/types/model/wallet-data'
 
 export interface UserDetailsDocumentData {
-  id: string
   discordAvatar?: string
   discordBanner?: string
   discordId: string
   discordUsername: string
   username: string
-  wallet: WalletDocumentData
+  wallet: WalletData
 }

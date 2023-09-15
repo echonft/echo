@@ -3,7 +3,7 @@ import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firesto
 import type { FirestoreModel } from '@echo/firestore/types/abstract/firestore-model'
 import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
 import type { NftCollectionDocumentData } from '@echo/firestore/types/model/nft-collection-document-data'
-import type { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/firestore'
+import type { FirestoreDataConverter, QueryDocumentSnapshot, SetOptions } from 'firebase-admin/lib/firestore'
 import { pipe } from 'ramda'
 
 export const nftCollectionDataConverter: FirestoreDataConverter<Partial<FirestoreNftCollection>> = {

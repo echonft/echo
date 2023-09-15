@@ -8,7 +8,6 @@ export interface ListingDocumentData {
   id: string
   createdAt: number
   creator: UserDetailsDocumentData
-  creatorId: string
   expiresAt: number
   items: NonEmptyArray<ListingItemDocumentData>
   itemsNftIds: NonEmptyArray<string>
@@ -27,9 +26,10 @@ export const listingFields = [
   'creator.discordBanner',
   'creator.discordId',
   'creator.discordUsername',
-  'creator.username',
   'creator.wallet',
-  'creatorId',
+  'creator.wallet.address',
+  'creator.wallet.chainId',
+  'creator.username',
   'expiresAt',
   'items',
   'itemsNftIds',

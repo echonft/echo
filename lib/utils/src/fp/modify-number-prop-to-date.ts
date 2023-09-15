@@ -2,10 +2,10 @@ import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import dayjs from 'dayjs'
 import { dissoc, has, ifElse, invoker, modify, pipe, prop, when } from 'ramda'
 
-export const modifyNumberPropToDate = <K extends keyof T, T>(propKey: K) =>
+export function modifyNumberPropToDate<K extends keyof T, T>(propKey: K) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  when(
+  return when(
     has(propKey),
     ifElse(
       propIsNil(propKey),
@@ -22,3 +22,4 @@ export const modifyNumberPropToDate = <K extends keyof T, T>(propKey: K) =>
       })
     )
   ) as (obj: T) => T & Record<K, dayjs.Dayjs | undefined>
+}

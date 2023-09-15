@@ -1,7 +1,4 @@
 export const messages = {
-  auth: {
-    disconnect: 'Disconnect'
-  },
   collection: {
     button: {
       label: 'Make an offer'
@@ -52,7 +49,17 @@ export const messages = {
   },
   layout: {
     header: {
-      connectButton: 'Connect',
+      button: {
+        connect: {
+          label: 'Connect'
+        },
+        connecting: {
+          label: 'Connecting...'
+        },
+        disconnect: {
+          label: 'Disconnect'
+        }
+      },
       searchInput: 'Search for a collection or a user'
     }
   },

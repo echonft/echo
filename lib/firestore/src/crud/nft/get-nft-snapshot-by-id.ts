@@ -2,7 +2,7 @@ import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { nftDataConverter } from '@echo/firestore/converters/nft-data-converter'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
-import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 import { head, isNil } from 'ramda'
 
 export async function getNftSnapshotById(id: string) {

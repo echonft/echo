@@ -1,8 +1,8 @@
 import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
 import { mapUserToUserDetails } from '@echo/firestore/mappers/map-user-to-user-details'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
 import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
 import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
-import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
 import { modifyStringPropToUrl } from '@echo/utils/fp/modify-string-prop-to-url'
 import { getCollectionByContract } from '@server/helpers/collection/get-collection-by-contract'
@@ -12,7 +12,7 @@ import { isNil, omit, pipe } from 'ramda'
 
 export const mapAlchemyNftToFirestore = (
   alchemyNft: AlchemyNft,
-  user: Partial<FirestoreUser>,
+  user: Partial<FirestoreDiscordUser>,
   userFirestoreWallet: FirestoreWallet,
   collections: FirestoreNftCollection[]
 ): Omit<FirestoreNft, 'id'> => {

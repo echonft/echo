@@ -47,7 +47,6 @@ export const nftFields = [
   'name',
   'openSeaUrl',
   'owner',
-  'owner.id',
   'owner.discordAvatar',
   'owner.discordBanner',
   'owner.discordId',

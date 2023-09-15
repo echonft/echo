@@ -42,37 +42,37 @@ describe('CRUD - offer - getOffersForReceiver', () => {
 
   it('returns the offers for the receiver', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    const offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn')
+    const offers = await getOffersForReceiver('johnnycagewins')
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
   })
 
   it('filter by state (included)', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    let offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { states: ['OPEN', 'CANCELLED'] })
+    let offers = await getOffersForReceiver('johnnycagewins', { states: ['OPEN', 'CANCELLED'] })
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { states: ['CANCELLED'] })
+    offers = await getOffersForReceiver('johnnycagewins', { states: ['CANCELLED'] })
     expect(offers.length).toBe(0)
   })
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    let offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { notStates: ['INVALID', 'CANCELLED'] })
+    let offers = await getOffersForReceiver('johnnycagewins', { notStates: ['INVALID', 'CANCELLED'] })
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { notStates: ['OPEN', 'FULFILLED'] })
+    offers = await getOffersForReceiver('johnnycagewins', { notStates: ['OPEN', 'FULFILLED'] })
     expect(offers.length).toBe(0)
   })
 
   it('includeExpired filter', async () => {
     const mock = await setExpired(getOfferMockById(id))
-    let offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { includeExpired: true })
+    let offers = await getOffersForReceiver('johnnycagewins', { includeExpired: true })
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn', { includeExpired: false })
+    offers = await getOffersForReceiver('johnnycagewins', { includeExpired: false })
     expect(offers.length).toBe(0)
-    offers = await getOffersForReceiver('oE6yUEQBPn7PZ89yMjKn')
+    offers = await getOffersForReceiver('johnnycagewins')
     expect(offers.length).toBe(0)
   })
 })

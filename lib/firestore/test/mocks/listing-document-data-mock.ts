@@ -5,10 +5,8 @@ import { getNftDocumentDataMockById } from '@echo/firestore-mocks/get-nft-docume
 export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
   jUzMtPGKM62mMhEcmbN4: {
     id: 'jUzMtPGKM62mMhEcmbN4',
-    creatorId: 'oE6yUEQBPn7PZ89yMjKn',
     createdAt: 1676984897,
     creator: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',

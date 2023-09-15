@@ -1,4 +1,4 @@
-import { addUserWallet as firestoreAddUserWallet } from '@echo/firestore/crud/user/add-user-wallet'
+import { addWallet as firestoreAddUserWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
 import { ServerError } from '@server/helpers/error/server-error'
 

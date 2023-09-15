@@ -1,16 +1,6 @@
-import { Wallet } from '@echo/ui/types/model/wallet'
-
 export interface AuthUser {
   id: string
-  discordAvatar?: string
-  discordBanner?: string
-  discordGuilds: {
-    discordId: string
-  }[]
-  discordId: string
-  discordUsername: string
-  nftsUpdatedAt: number
+  image: string
+  name: string
   updatedAt: number
-  username: string
-  wallets: Wallet[]
 }

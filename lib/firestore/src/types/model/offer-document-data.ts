@@ -11,12 +11,10 @@ export interface OfferDocumentData {
   expiresAt: number
   listingsIds: string[]
   receiver: UserDetailsDocumentData
-  receiverId: string
   receiverItems: NonEmptyArray<OfferItemDocumentData>
   receiverItemsNftIds: NonEmptyArray<string>
   receiverItemsNftCollectionIds: NonEmptyArray<string>
   sender: UserDetailsDocumentData
-  senderId: string
   senderItems: NonEmptyArray<OfferItemDocumentData>
   senderItemsNftIds: NonEmptyArray<string>
   senderItemsNftCollectionIds: NonEmptyArray<string>
@@ -39,7 +37,8 @@ export const offerFields = [
   'receiver.discordUsername',
   'receiver.username',
   'receiver.wallet',
-  'receiverId',
+  'receiver.wallet.address',
+  'receiver.wallet.chainId',
   'receiverItems',
   'receiverItemsNftIds',
   'receiverItemsNftCollectionIds',
@@ -50,7 +49,8 @@ export const offerFields = [
   'sender.discordUsername',
   'sender.username',
   'sender.wallet',
-  'senderId',
+  'sender.wallet.address',
+  'sender.wallet.chainId',
   'senderItems',
   'senderItemsNftIds',
   'senderItemsNftCollectionIds',

@@ -24,7 +24,7 @@ export const UserTag: FunctionComponent<Props> = ({ user }) => {
       )}
     >
       <UserTagPicture user={user} />
-      <span className={clsx('prose-label-sm-semi', 'text-yellow-400')}>{user.discordUsername}</span>
+      <span className={clsx('prose-label-sm-semi', 'text-yellow-400')}>{user.name}</span>
     </div>
   )
 }

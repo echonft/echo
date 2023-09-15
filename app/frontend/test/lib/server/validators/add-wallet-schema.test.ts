@@ -1,9 +1,9 @@
-import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
+import { getDiscordUserMockById } from '@echo/firestore-mocks/get-discord-user-mock-by-id'
 import { addWalletSchema } from '@server/validators/add-wallet-schema'
 import { SiweMessage } from 'siwe'
 
 describe('validators - addWalletSchema', () => {
-  const wallet = getUserMockById('oE6yUEQBPn7PZ89yMjKn').wallets[0]!
+  const wallet = getDiscordUserMockById('oE6yUEQBPn7PZ89yMjKn').wallets[0]!
   const signature = '0x0000'
   const message: SiweMessage = new SiweMessage({
     domain: 'domain',

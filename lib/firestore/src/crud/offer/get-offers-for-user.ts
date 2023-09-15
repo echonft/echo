@@ -6,12 +6,12 @@ import type { QueryConstraints } from '@echo/firestore/types/query/query-constra
 import { concat, eqProps, pipe, uniqWith } from 'ramda'
 
 export async function getOffersForUser(
-  userId: string,
+  username: string,
   filters?: OfferQueryFilters,
   constraints?: QueryConstraints
 ): Promise<Partial<FirestoreOffer>[]> {
-  const offersAsReceiver = await getOffersForReceiver(userId, filters, constraints)
-  const offersAsSender = await getOffersForSender(userId, filters, constraints)
+  const offersAsReceiver = await getOffersForReceiver(username, filters, constraints)
+  const offersAsSender = await getOffersForSender(username, filters, constraints)
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

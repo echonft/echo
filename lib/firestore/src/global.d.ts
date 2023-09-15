@@ -1,7 +1,9 @@
 export declare global {
   namespace NodeJS {
     interface ProcessEnv extends Dict<string> {
-      NODE_ENV: 'production' | 'development' | 'test'
+      FIREBASE_PROJECT_ID: string | undefined
+      FIREBASE_CLIENT_EMAIL: string | undefined
+      FIREBASE_PRIVATE_KEY: string | undefined
     }
   }
 }

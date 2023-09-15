@@ -1,6 +1,6 @@
 import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
-import { nftCollectionMock } from '@echo/firestore-mocks/nft-collection-mock'
-import { nftMock } from '@echo/firestore-mocks/nft-mock'
+import { getNftCollectionMockById } from '@echo/firestore-mocks/get-nft-collection-mock-by-id'
+import { getNftMockById } from '@echo/firestore-mocks/get-nft-mock-by-id'
 import dayjs from 'dayjs'
 
 export const listingMock: { [key: string]: FirestoreListing } = {
@@ -8,7 +8,6 @@ export const listingMock: { [key: string]: FirestoreListing } = {
     id: 'jUzMtPGKM62mMhEcmbN4',
     createdAt: dayjs.unix(1676984897),
     creator: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -21,14 +20,14 @@ export const listingMock: { [key: string]: FirestoreListing } = {
     expired: false,
     expiresAt: dayjs.unix(2324074781),
     items: [
-      { amount: 1, nft: nftMock['8hHFadIrrooORfTOLkBg']! },
-      { amount: 1, nft: nftMock['iRZFKEujarikVjpiFAkE']! }
+      { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
+      { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
     ],
     offersIds: ['LyCfl6Eg7JKuD7XJ6IPi'],
     state: 'OPEN',
     targets: [
       {
-        collection: nftCollectionMock['Rc8pLQXxgyQGIRL0fr13']!,
+        collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
         amount: 3
       }
     ]

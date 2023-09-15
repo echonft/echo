@@ -14,7 +14,7 @@ describe('CRUD - nft - getNftsForOwner', () => {
   })
 
   it('returns the nfts of the user', async () => {
-    const nfts = await getNftsForOwner('oE6yUEQBPn7PZ89yMjKn')
+    const nfts = await getNftsForOwner('johnnycagewins')
     expect(nfts.length).toEqual(4)
     const nftIds = map(prop('id'), nfts)
     expect(includes('8hHFadIrrooORfTOLkBg', nftIds)).toBeTruthy()

@@ -1,7 +1,7 @@
 import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
 import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
+import { getDiscordUserMockById } from '@echo/firestore-mocks/get-discord-user-mock-by-id'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/get-nft-collection-mock-by-id'
-import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
 import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nft-to-firestore'
 import { getCollectionByContract } from '@server/helpers/collection/get-collection-by-contract'
 
@@ -24,7 +24,7 @@ describe('helpers - alchemy - mapAlchemyNftToFirestore', () => {
     tokenId: 1,
     tokenType: 'ERC721'
   }
-  const user = getUserMockById('6rECUMhevHfxABZ1VNOm')
+  const user = getDiscordUserMockById('6rECUMhevHfxABZ1VNOm')
   const userWallet: FirestoreWallet = {
     address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
     chainId: 1

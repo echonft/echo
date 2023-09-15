@@ -2,9 +2,9 @@ import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { findNftByCollectionContract } from '@echo/firestore/crud/nft/find-nft-by-collection-contract'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { getAllNftCollections } from '@echo/firestore/crud/nft-collection/get-all-nft-collections'
-import { setUserNftsUpdated } from '@echo/firestore/crud/user/set-user-nfts-updated'
-import { getUserWalletAddresses } from '@echo/firestore/helpers/user/get-user-wallet-addresses'
-import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import { setUserUpdated } from '@echo/firestore/crud/user/set-user-updated'
+import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
 import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { getNftsForOwner } from '@server/helpers/alchemy/get-nfts-for-owner'
@@ -21,9 +21,9 @@ interface RequiredUserProps {
   wallets: FirestoreWallet[]
 }
 
-export async function updateUserNfts(user: Partial<FirestoreUser> & RequiredUserProps) {
+export async function updateUserNfts(user: Partial<FirestoreDiscordUser> & RequiredUserProps) {
   // TODO adjust when we support more chains
-  const userWalletAddresses = getUserWalletAddresses(1, user as FirestoreUser)
+  const userWalletAddresses = getWalletsForUser(user.id)
   if (isNilOrEmpty(userWalletAddresses)) {
     return
   }
@@ -45,5 +45,5 @@ export async function updateUserNfts(user: Partial<FirestoreUser> & RequiredUser
       }
     }
   }
-  await setUserNftsUpdated(user.id)
+  await setUserUpdated(user.id)
 }

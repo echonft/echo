@@ -24,10 +24,6 @@
     "@echo/discord": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@jest/globals": "29.6.2",
-    "@jest/types": "29.6.1",
-    "@types/node": "20.4.9",
-    "axios": "1.4.0",
     "dayjs": "1.11.9",
     "discord.js": "14.12.1",
     "ramda": "0.29.0"
@@ -41,7 +37,6 @@
     "nodemon": "3.0.1",
     "ts-node": "10.9.1",
     "tsconfig-paths": "4.2.0",
-    "tsup": "7.2.0",
     "typescript": "5.1.6"
   }
 }

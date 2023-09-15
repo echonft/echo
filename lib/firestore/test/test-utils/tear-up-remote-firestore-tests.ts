@@ -1,6 +1,6 @@
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { initializeTestFirebase } from '@test-utils/initialize-test-firebase'
 
 export function tearUpRemoteFirestoreTests() {
-  initializeFirebase()
+  initializeTestFirebase()
   // await resetDb()
 }

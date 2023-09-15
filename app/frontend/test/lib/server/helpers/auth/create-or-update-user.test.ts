@@ -1,7 +1,7 @@
-import { addUser } from '@echo/firestore/crud/user/add-user'
+import { addDiscordUser } from '@echo/firestore/crud/discord-user/add-discord-user'
 import { findUserByDiscordId } from '@echo/firestore/crud/user/find-user-by-discord-id'
 import { updateUser } from '@echo/firestore/crud/user/update-user'
-import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
 import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { createOrUpdateUser } from '@server/helpers/auth/create-or-update-user'
 import { fetchDiscordUser } from '@server/helpers/user/fetch-discord-user'
@@ -29,7 +29,7 @@ describe('helpers - auth - createOrUpdateUser', () => {
     discordId: 'discordId',
     discordUsername: 'discordUsername'
   }
-  const existingUser: FirestoreUser = {
+  const existingUser: FirestoreDiscordUser = {
     id: 'existing-user-id',
     nonce: 'noncenoncenonce',
     nftsUpdatedAt: dayjs(),
@@ -63,13 +63,13 @@ describe('helpers - auth - createOrUpdateUser', () => {
   it('addUser is called if the user is not in the JWT token', async () => {
     jest.mocked(fetchDiscordUser).mockResolvedValueOnce(discordUser)
     jest.mocked(findUserByDiscordId).mockResolvedValueOnce(undefined)
-    jest.mocked(addUser).mockResolvedValueOnce(createdUserId)
+    jest.mocked(addDiscordUser).mockResolvedValueOnce(createdUserId)
     jest.mocked(updateUserNfts).mockResolvedValueOnce()
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(updateUser).mockResolvedValueOnce()
     const createdUser = await createOrUpdateUser('accessToken', 'tokenType', undefined)
-    expect(addUser).toHaveBeenCalledTimes(1)
+    expect(addDiscordUser).toHaveBeenCalledTimes(1)
     expect(updateUserNfts).toHaveBeenCalledTimes(0)
     expect(updateUser).toHaveBeenCalledTimes(0)
     expect(createdUser.id).toEqual(createdUserId)
@@ -95,13 +95,13 @@ describe('helpers - auth - createOrUpdateUser', () => {
       // @ts-ignore
       pipe(assoc('nftsUpdatedAt', nftsUpdatedAt), assoc('updatedAt', updatedAt))(existingUser)
     )
-    jest.mocked(addUser).mockResolvedValueOnce(createdUserId)
+    jest.mocked(addDiscordUser).mockResolvedValueOnce(createdUserId)
     jest.mocked(updateUserNfts).mockResolvedValueOnce()
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(updateUser).mockResolvedValueOnce()
     const updatedUser = await createOrUpdateUser('accessToken', 'tokenType', undefined)
-    expect(addUser).toHaveBeenCalledTimes(0)
+    expect(addDiscordUser).toHaveBeenCalledTimes(0)
     expect(updateUserNfts).toHaveBeenCalledTimes(1)
     expect(updateUser).toHaveBeenCalledTimes(1)
     expect(updatedUser.id).toEqual(existingUser.id)
@@ -125,7 +125,7 @@ describe('helpers - auth - createOrUpdateUser', () => {
     const updatedAt = dayjs().subtract(3, 'hour')
     jest.mocked(fetchDiscordUser).mockResolvedValueOnce(discordUser)
     jest.mocked(findUserByDiscordId).mockResolvedValueOnce(existingUser)
-    jest.mocked(addUser).mockResolvedValueOnce(createdUserId)
+    jest.mocked(addDiscordUser).mockResolvedValueOnce(createdUserId)
     jest.mocked(updateUserNfts).mockResolvedValueOnce()
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -137,7 +137,7 @@ describe('helpers - auth - createOrUpdateUser', () => {
       // @ts-ignore
       mapUserToAuthUser(pipe(assoc('nftsUpdatedAt', nftsUpdatedAt), assoc('updatedAt', updatedAt))(existingUser))
     )
-    expect(addUser).toHaveBeenCalledTimes(0)
+    expect(addDiscordUser).toHaveBeenCalledTimes(0)
     expect(updateUserNfts).toHaveBeenCalledTimes(1)
     expect(updateUser).toHaveBeenCalledTimes(1)
     expect(updatedUser.id).toEqual(existingUser.id)
@@ -161,7 +161,7 @@ describe('helpers - auth - createOrUpdateUser', () => {
     const updatedAt = dayjs().subtract(3, 'minute')
     jest.mocked(fetchDiscordUser).mockResolvedValueOnce(discordUser)
     jest.mocked(findUserByDiscordId).mockResolvedValueOnce(existingUser)
-    jest.mocked(addUser).mockResolvedValueOnce(createdUserId)
+    jest.mocked(addDiscordUser).mockResolvedValueOnce(createdUserId)
     jest.mocked(updateUserNfts).mockResolvedValueOnce()
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -173,7 +173,7 @@ describe('helpers - auth - createOrUpdateUser', () => {
       // @ts-ignore
       mapUserToAuthUser(pipe(assoc('nftsUpdatedAt', nftsUpdatedAt), assoc('updatedAt', updatedAt))(existingUser))
     )
-    expect(addUser).toHaveBeenCalledTimes(0)
+    expect(addDiscordUser).toHaveBeenCalledTimes(0)
     expect(updateUserNfts).toHaveBeenCalledTimes(0)
     expect(updateUser).toHaveBeenCalledTimes(0)
     expect(fetchDiscordUser).toHaveBeenCalledTimes(0)

@@ -13,6 +13,6 @@ export async function getCurrentUserOffersRequestHandler(req: ApiRequest<never>,
   const constraints = parseConstraintsQuery(req)
   const filters = parseOfferFiltersQuery(req)
   const user = await getUserFromSession(authOptions)
-  const offers = await getUserOffers(user.id, filters, constraints)
+  const offers = await getUserOffers(user.name, filters, constraints)
   return NextResponse.json<GetOffersResponse>({ offers: map(mapOfferToResponse, offers) })
 }

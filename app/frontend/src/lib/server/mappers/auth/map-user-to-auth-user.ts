@@ -1,4 +1,4 @@
-import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
 import type { FirestoreUserDiscordGuild } from '@echo/firestore/types/model/firestore-user-discord-guild'
 import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
 import type { AuthUser } from '@echo/ui/types/model/auth-user'
@@ -17,7 +17,7 @@ interface RequiredProps {
   wallets: FirestoreWallet[]
 }
 
-export function mapUserToAuthUser(user: Partial<FirestoreUser> & RequiredProps) {
+export function mapUserToAuthUser(user: Partial<FirestoreDiscordUser> & RequiredProps) {
   return pipe(
     pick([
       'id',

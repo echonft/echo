@@ -1,7 +1,7 @@
 import type { UserDocumentData } from '@echo/firestore/types/model/user-document-data'
 import { userDocumentDataMock } from '@echo/firestore-mocks/user-document-data-mock'
 import { userReferenceMock } from '@echo/firestore-mocks/user-reference-mock'
-import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 
 export const userSnapshotMock: { [key: string]: QueryDocumentSnapshot<UserDocumentData> } = {
   '6rECUMhevHfxABZ1VNOm': {

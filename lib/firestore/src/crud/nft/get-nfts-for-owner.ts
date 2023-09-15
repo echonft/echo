@@ -7,10 +7,10 @@ import { nftFields } from '@echo/firestore/types/model/nft-document-data'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { invoker, map } from 'ramda'
 
-export async function getNftsForOwner(userId: string, constraints?: QueryConstraints) {
+export async function getNftsForOwner(username: string, constraints?: QueryConstraints) {
   let query = firestoreApp()
     .collection(CollectionName.NFTS)
-    .where('owner.id', '==', userId)
+    .where('owner.username', '==', username)
     .withConverter(nftDataConverter)
 
   query = addConstraintsToQuery(query, constraints, nftFields)

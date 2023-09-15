@@ -11,13 +11,13 @@ import type { QueryConstraints } from '@echo/firestore/types/query/query-constra
 import { head, invoker, isNil, map } from 'ramda'
 
 export async function getListingsForCreator(
-  userId: string,
+  username: string,
   filters?: ListingQueryFilters,
   constraints?: QueryConstraints
 ): Promise<Partial<FirestoreListing>[]> {
   let query = firestoreApp()
     .collection(CollectionName.LISTINGS)
-    .where('creatorId', '==', userId)
+    .where('creator.username', '==', username)
     .withConverter(listingDataConverter)
 
   query = addListingQueryFilters(query, filters)

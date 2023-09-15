@@ -1,8 +1,8 @@
-import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
+import { getDiscordUserMockById } from '@echo/firestore-mocks/get-discord-user-mock-by-id'
 import { mapUserToResponse } from '@server/mappers/to-response/map-user-to-response'
 
 describe('mappers - to-response - mapUserToResponse', () => {
-  const user = getUserMockById('6rECUMhevHfxABZ1VNOm')
+  const user = getDiscordUserMockById('6rECUMhevHfxABZ1VNOm')
   it('converts the object', () => {
     expect(mapUserToResponse(user)).toStrictEqual({
       id: '6rECUMhevHfxABZ1VNOm',

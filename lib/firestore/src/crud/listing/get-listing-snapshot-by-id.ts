@@ -2,7 +2,7 @@ import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
-import type { QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 import { head, isNil } from 'ramda'
 
 export async function getListingSnapshotById(id: string) {

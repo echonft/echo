@@ -2,7 +2,9 @@ import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { updateNft } from '@echo/firestore/crud/nft/update-nft'
 import type { FirestoreUserDetails } from '@echo/firestore/types/model/firestore-user-details'
-import { userMock } from '@echo/firestore-mocks/user-mock'
+import { getDiscordUserMockById } from '@echo/firestore-mocks/get-discord-user-mock-by-id'
+import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
+import { getWalletMockById } from '@echo/firestore-mocks/get-wallet-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
@@ -21,17 +23,16 @@ describe('CRUD - nft - setNftOwner', () => {
     await updateNft(id, { owner: initialOwner })
   })
 
-  it('setUserNonce', async () => {
-    const user = userMock['6rECUMhevHfxABZ1VNOm']!
-    const wallet = user.wallets[0]!
-    await setNftOwner(id, user.id, wallet)
+  it('set the right owner data', async () => {
+    const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
+    const wallet = getWalletMockById('i28NWtlxElPXCnO0c6BC')
+    await setNftOwner(id, user.id, user.name, wallet)
     const nft = await findNftById(id)
+    const discordUser = getDiscordUserMockById('WpgDZHmdpvHjykHRRWp7')
     const { owner } = nft!
-    expect(owner.id).toEqual(user.id)
-    expect(owner.wallet).toEqual(wallet)
-    expect(owner.discordId).toEqual(user.discordId)
-    expect(owner.discordAvatar).toEqual(user.discordAvatar)
-    expect(owner.discordBanner).toEqual(user.discordBanner)
-    expect(owner.discordUsername).toEqual(user.discordUsername)
+    expect(owner.wallet?.address).toEqual(wallet.address)
+    expect(owner.wallet?.chainId).toEqual(wallet.chainId)
+    expect(owner.discordId).toEqual(discordUser.discordId)
+    expect(owner.discordUsername).toEqual(discordUser.discordUsername)
   })
 })

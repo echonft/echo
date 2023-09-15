@@ -1,5 +1,5 @@
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
-import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
 import { getSession } from '@server/helpers/auth/get-session'
 import { ApiError } from '@server/helpers/error/api-error'
 import { getUserById } from '@server/helpers/user/get-user-by-id'
@@ -35,7 +35,7 @@ describe('request-handlers - user - nonceRequestHandler', () => {
   it('if authenticated, returns success and updates DB', async () => {
     jest.mocked(getSession).mockResolvedValueOnce(session)
     jest.mocked(setUserNonce).mockResolvedValueOnce('testNonce')
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreUser)
+    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreDiscordUser)
     const req = mockRequest<never>()
     const res = await nonceRequestHandler(req, {} as AuthOptions)
     expect(setUserNonce).toHaveBeenCalledTimes(1)

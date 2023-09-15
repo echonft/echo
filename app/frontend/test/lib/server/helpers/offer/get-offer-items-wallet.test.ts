@@ -1,5 +1,5 @@
+import { getDiscordUserMockById } from '@echo/firestore-mocks/get-discord-user-mock-by-id'
 import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
-import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
 import { getOwnersForNft } from '@server/helpers/alchemy/get-owners-for-nft'
 import { getOfferItemsWallet } from '@server/helpers/offer/get-offer-items-wallet'
 
@@ -16,7 +16,7 @@ describe('helpers - offer - findNftCollectionByContract', () => {
       { address: '0x5f8BF75666a6B4bC452DC4Ac680f0A8Ac35b25DE', chainId: 1 }
     ])
     const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    const user = getUserMockById('6rECUMhevHfxABZ1VNOm')
+    const user = getDiscordUserMockById('6rECUMhevHfxABZ1VNOm')
     try {
       await getOfferItemsWallet(offer.senderItems, user)
       expect(true).toBeFalsy()
@@ -34,7 +34,7 @@ describe('helpers - offer - findNftCollectionByContract', () => {
       { address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8', chainId: 1 }
     ])
     const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
+    const user = getDiscordUserMockById('oE6yUEQBPn7PZ89yMjKn')
     const wallet = await getOfferItemsWallet(offer.senderItems, user)
     expect(wallet).toStrictEqual({ address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8', chainId: 1 })
   })

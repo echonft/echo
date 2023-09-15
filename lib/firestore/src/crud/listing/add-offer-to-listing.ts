@@ -1,7 +1,7 @@
 import { updateListing } from '@echo/firestore/crud/listing/update-listing'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
-import type { WriteResult } from 'firebase-admin/firestore'
+import type { WriteResult } from 'firebase-admin/lib/firestore'
 import { includes, isNil } from 'ramda'
 
 export async function addOfferToListing(listing: FirestoreListing, offerId: string): Promise<WriteResult> {
