@@ -25,6 +25,10 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({ newOffer, 
     return !isNil(offer?.swapTransactionId)
   }
 
+  function getOffer() {
+    return newOffer ?? offer
+  }
+
   return (
     <Modal
       open={!isNil(newOffer) || !isNil(offer)}
@@ -43,8 +47,8 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({ newOffer, 
           />
         ) : (
           <NewOfferConfirmationModalInnerContainer
-            senderItems={newOffer?.senderItems ?? []}
-            receiverItems={newOffer?.receiverItems ?? []}
+            senderItems={getOffer()?.senderItems ?? []}
+            receiverItems={getOffer()?.receiverItems ?? []}
             onConfirm={() => {
               onConfirm?.()
               clearOffer()
