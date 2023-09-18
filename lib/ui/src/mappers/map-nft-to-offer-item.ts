@@ -1,5 +1,5 @@
-import { Nft } from '../types/nft'
-import { OfferItem } from '../types/offer-item'
+import { Nft } from '@echo/ui/types/model/nft'
+import { OfferItem } from '@echo/ui/types/model/offer-item'
 
 /**
  * Map an NFT to an OfferItem

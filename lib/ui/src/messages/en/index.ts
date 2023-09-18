@@ -1,7 +1,8 @@
 export const messages = {
   collection: {
     button: {
-      label: 'Make an offer'
+      create: 'Make an offer',
+      edit: 'Edit offer'
     },
     details: {
       size: '{size, number, ::K} NFTs'
