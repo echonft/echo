@@ -1,6 +1,6 @@
-import { mapNftToOfferItem } from '../../src/mappers/map-nft-to-offer-item'
+import { mapNftToOfferItem } from '@echo/ui/mappers/map-nft-to-offer-item'
+import { Nft } from '@echo/ui/types/model/nft'
 import { describe, expect, it } from '@jest/globals'
-import { Nft } from 'src/types/nft'
 
 describe('mappers - mapNftToOfferItem', () => {
   it('maps correctly', () => {

@@ -5,27 +5,29 @@ import { NewOfferConfirmationModalInnerContainer } from '@echo/ui/components/off
 import { NewOfferConfirmedModalInnerContainer } from '@echo/ui/components/offer/new/new-offer-confirmed-modal-inner-container'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { NewOffer } from '@echo/ui/types/model/new-offer'
+import { Offer } from '@echo/ui/types/model/offer'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
-import { type FunctionComponent, useState } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   newOffer: NewOffer | undefined
+  offer: Offer | undefined
+  onConfirm?: () => unknown
   onClose?: () => unknown
 }
 
-export const NewOfferConfirmationModal: FunctionComponent<Props> = ({ newOffer, onClose }) => {
+export const NewOfferConfirmationModal: FunctionComponent<Props> = ({ newOffer, offer, onConfirm, onClose }) => {
   const t = useTranslations('offer.new')
   const { clearOffer } = useNewOfferStore()
-  const [transactionId, setTransactionId] = useState<string | undefined>()
 
   function isConfirmed() {
-    return !isNil(transactionId)
+    return !isNil(offer?.swapTransactionId)
   }
 
   return (
     <Modal
-      open={!isNil(newOffer) || !isNil(transactionId)}
+      open={!isNil(newOffer) || !isNil(offer)}
       onClose={() => onClose?.()}
       renderTitle={() => (
         <ModalTitle>{t(`${isConfirmed() ? 'confirmedModal' : 'confirmationModal'}.title`)}</ModalTitle>
@@ -35,18 +37,16 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({ newOffer, 
           // TODO I dont think it's transaction id here
           <NewOfferConfirmedModalInnerContainer
             onConfirm={() => {
-              setTransactionId(undefined)
               onClose?.()
             }}
-            transactionId={transactionId!}
+            transactionId={offer!.swapTransactionId!}
           />
         ) : (
           <NewOfferConfirmationModalInnerContainer
             senderItems={newOffer?.senderItems ?? []}
             receiverItems={newOffer?.receiverItems ?? []}
             onConfirm={() => {
-              // TODO Add call to API to create offer
-              setTransactionId('TEST')
+              onConfirm?.()
               clearOffer()
             }}
             onEdit={onClose}

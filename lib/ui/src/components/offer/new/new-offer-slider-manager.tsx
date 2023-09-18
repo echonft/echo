@@ -5,6 +5,7 @@ import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bott
 import { NewOfferBottomSliderInnerContainer } from '@echo/ui/components/offer/new/new-offer-bottom-slider-inner-container'
 import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
+import { Offer } from '@echo/ui/types/model/offer'
 import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useCallback, useState } from 'react'
@@ -13,6 +14,7 @@ export const NewOfferSliderManager: FunctionComponent = () => {
   const t = useTranslations('offer.new.bottomSlider')
   const { hasNewOfferPending, setReceiverItems, setSenderItems, offer, clearOffer } = useNewOfferStore()
   const [confirmNewOffer, setConfirmNewOffer] = useState(false)
+  const [createdOffer, setCreatedOffer] = useState<Offer>()
 
   const onRemoveSenderItems = useCallback(
     (nftId: string) => {
@@ -27,6 +29,13 @@ export const NewOfferSliderManager: FunctionComponent = () => {
     },
     [offer, setReceiverItems]
   )
+
+  function onConfirmNewOffer() {
+    // TODO need to have a backend call to create the offer
+    // FIXME Not the right behaviour
+    setCreatedOffer({ ...offer, swapTransactionId: 'test' } as Offer)
+  }
+
   return (
     <>
       {/*  FIXME There is a display problem with some of the items appearing on top during animation */}
@@ -61,6 +70,8 @@ export const NewOfferSliderManager: FunctionComponent = () => {
       </Transition>
       <NewOfferConfirmationModal
         newOffer={confirmNewOffer ? offer : undefined}
+        offer={createdOffer}
+        onConfirm={onConfirmNewOffer}
         onClose={() => setConfirmNewOffer(false)}
       />
     </>
