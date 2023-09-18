@@ -1,21 +1,20 @@
-import { NewItemsEmptyContainer } from '@echo/ui/components/item/empty/new-items-empty-container'
 import { NewItemsContainer } from '@echo/ui/components/item/new/new-items-container'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
+import { links } from '@echo/ui/constants/links'
 import type { OfferItem } from '@echo/ui/types/model/offer-item'
 import type { User } from '@echo/ui/types/model/user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { always, head, ifElse, isNil, path, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
   receiver: User
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
-  onAddMoreSenderItem?: () => unknown
   onRemoveSenderItem?: (itemNftId: string) => unknown
-  onAddMoreReceiverItem?: () => unknown
   onRemoveReceiverItem?: (itemNftId: string) => unknown
   onConfirmOffer?: () => unknown
   onDismissOffer?: () => unknown
@@ -25,14 +24,18 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
   receiver,
   receiverItems,
   senderItems = [],
-  onAddMoreSenderItem,
   onRemoveSenderItem,
-  onAddMoreReceiverItem,
   onRemoveReceiverItem,
   onConfirmOffer,
   onDismissOffer
 }) => {
   const t = useTranslations('offer.new.bottomSlider')
+
+  function getCollectionSlug(): string {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return pipe(head, ifElse(isNil, always(''), path<string>(['nft', 'collection', 'slug'])))(receiverItems)
+  }
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('pt-6', 'pb-1')}>
@@ -42,18 +45,16 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
         <NewItemsContainer
           isReceiver
           items={receiverItems}
-          onAddMore={onAddMoreReceiverItem}
+          addMorePath={links.collection.items(getCollectionSlug())}
           onRemove={onRemoveReceiverItem}
-          renderEmpty={() => <NewItemsEmptyContainer onAddMore={onAddMoreReceiverItem} />}
         />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
       </div>
       <NewItemsContainer
         isReceiver={false}
         items={senderItems}
-        onAddMore={onAddMoreSenderItem}
+        addMorePath={links.profile.items}
         onRemove={onRemoveSenderItem}
-        renderEmpty={() => <NewItemsEmptyContainer onAddMore={onAddMoreSenderItem} />}
       />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6', 'gap-5')}>
         {/*TODO Here we should add a fetcher to update. We don't need the state for modal, we can use offer id */}

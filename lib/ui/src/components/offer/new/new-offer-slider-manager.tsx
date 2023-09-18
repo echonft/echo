@@ -9,12 +9,7 @@ import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useCallback, useState } from 'react'
 
-interface Props {
-  onAddMoreSenderItem?: () => unknown
-  onAddMoreReceiverItem?: () => unknown
-}
-
-export const NewOfferSliderManager: FunctionComponent<Props> = ({ onAddMoreSenderItem, onAddMoreReceiverItem }) => {
+export const NewOfferSliderManager: FunctionComponent = () => {
   const t = useTranslations('offer.new.bottomSlider')
   const { hasNewOfferPending, setReceiverItems, setSenderItems, offer, clearOffer } = useNewOfferStore()
   const [confirmNewOffer, setConfirmNewOffer] = useState(false)
@@ -34,6 +29,7 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ onAddMoreSende
   )
   return (
     <>
+      {/*  FIXME There is a display problem with some of the items appearing on top during animation */}
       <Transition
         show={hasNewOfferPending()}
         enter="ease-out duration-300"
@@ -54,9 +50,7 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ onAddMoreSende
                 receiver={newOffer.receiver}
                 receiverItems={newOffer.receiverItems}
                 senderItems={newOffer.senderItems}
-                onAddMoreReceiverItem={onAddMoreReceiverItem}
                 onRemoveReceiverItem={onRemoveReceiverItems}
-                onAddMoreSenderItem={onAddMoreSenderItem}
                 onRemoveSenderItem={onRemoveSenderItems}
                 onDismissOffer={clearOffer}
                 onConfirmOffer={() => setConfirmNewOffer(true)}

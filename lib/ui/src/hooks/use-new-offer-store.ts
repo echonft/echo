@@ -24,7 +24,12 @@ export const useNewOfferStore = create<NewOfferState>()(
           offer: {
             ...state.offer,
             receiverItems,
-            receiver: ifElse(isNilOrEmpty, always(undefined), pipe(head, path<User>(['nft', 'owner'])))(receiverItems)
+            receiver: ifElse(
+              isNilOrEmpty,
+              // We keep the original receiver when all NFTs are erased. User can overwrite by choosing other NFTs
+              always(state.offer?.receiver),
+              pipe(head, path<User>(['nft', 'owner']))
+            )(receiverItems)
           } as NewOffer
         })),
       setSenderItems: (senderItems) =>
