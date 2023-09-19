@@ -1,20 +1,21 @@
 import { FirestoreAdapter } from '@auth/firebase-adapter'
 import { getDiscordAuthorizationUrl } from '@echo/discord/config/get-discord-authorization-url'
 import { getDiscordConfig } from '@echo/discord/config/get-discord-config'
-import { authFirestore } from '@echo/firestore/constants/auth-firestore'
+import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { getSessionToken } from '@server/helpers/auth/get-session-token'
 import { setUserIdIfNeeded } from '@server/helpers/user/set-user-id-if-needed'
 import { updateDiscordUserIfNeeded } from '@server/helpers/user/update-discord-user-if-needed'
 import { updateUserNftsIfNeeded } from '@server/helpers/user/update-user-nfts-if-needed'
 import type { AuthOptions } from 'next-auth'
 import Discord from 'next-auth/providers/discord'
+import { isNil, omit } from 'ramda'
 
 export const authOptions: AuthOptions = {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  adapter: FirestoreAdapter(authFirestore),
+  adapter: FirestoreAdapter(initializeFirebase()),
   providers: [
     Discord({
       clientId: getDiscordConfig().clientId,
@@ -29,21 +30,22 @@ export const authOptions: AuthOptions = {
   callbacks: {
     session: async ({ session }) => {
       const { user } = session
-      initializeFirebase()
-      const id = await setUserIdIfNeeded(user.name)
-      const sessionToken = getSessionToken(id)
-      await updateDiscordUserIfNeeded(user)
-      // TODO get the chain id
-      await updateUserNftsIfNeeded(user, 1)
-      await terminateFirestore()
-      return {
-        ...session,
-        user: {
-          ...user,
-          id,
-          sessionToken
+      if (!isNil(user) && !isNilOrEmpty(user.name)) {
+        const foundUser = await findUserByUsername(user.name)
+        const userWithId = await setUserIdIfNeeded(foundUser!)
+        const sessionToken = await getSessionToken(userWithId.id)
+        await updateDiscordUserIfNeeded(userWithId.id)
+        // TODO get the chain id
+        await updateUserNftsIfNeeded(userWithId, 1)
+        return {
+          ...session,
+          user: {
+            ...omit(['updatedAt'], userWithId),
+            sessionToken
+          }
         }
       }
+      return session
     }
   }
 }

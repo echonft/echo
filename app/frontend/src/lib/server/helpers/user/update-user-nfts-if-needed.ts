@@ -5,7 +5,7 @@ import { getAllNftCollections } from '@echo/firestore/crud/nft-collection/get-al
 import { setUserUpdated } from '@echo/firestore/crud/user/set-user-updated'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
-import type { AuthUser } from '@echo/ui/types/model/auth-user'
+import { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { USER_NFTS_VALIDITY_TIME } from '@server/constants/user-nfts-validity-time'
 import { getNftsForOwner } from '@server/helpers/alchemy/get-nfts-for-owner'
@@ -13,8 +13,8 @@ import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nf
 import dayjs from 'dayjs'
 import { filter, find, isNil, map, path, pathEq, propEq } from 'ramda'
 
-export async function updateUserNftsIfNeeded(user: AuthUser, chainId: number) {
-  if (isNil(user.updatedAt) || dayjs.unix(user.updatedAt).add(USER_NFTS_VALIDITY_TIME, 'minute').isBefore(dayjs())) {
+export async function updateUserNftsIfNeeded(user: FirestoreUser, chainId: number) {
+  if (isNil(user.updatedAt) || user.updatedAt.add(USER_NFTS_VALIDITY_TIME, 'minute').isBefore(dayjs())) {
     const userWallets = await getWalletsForUser(user.id)
     const userWalletsForChain = filter(propEq(chainId, 'chainId'), userWallets)
     if (isNilOrEmpty(userWalletsForChain)) {

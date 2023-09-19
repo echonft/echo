@@ -2,6 +2,7 @@ import { authOptions } from '@constants/auth-options'
 import { profileOffersApiUrl } from '@echo/api/routing/profile-offers-api-url'
 import type { GetOffersResponse } from '@echo/api/types/responses/get-offers-response'
 import { OfferFilterAsSender } from '@echo/firestore/constants/offer-filter-as'
+import { ProfileOffersCreatedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-created-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapOfferFiltersToQueryParams } from '@helpers/request/map-offer-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
@@ -29,6 +30,7 @@ const ProfileOffersCreatedPage: FunctionComponent = async () => {
   const { data, error } = await fetcher(profileOffersApiUrl())
     .revalidate(3600)
     .query(mergeLeft(filterParams, queryParams))
+    .bearerToken(session.user.sessionToken!)
     .fetch<GetOffersResponse>()
 
   if (isNil(data)) {
@@ -37,8 +39,7 @@ const ProfileOffersCreatedPage: FunctionComponent = async () => {
     }
     throw Error()
   }
-  return <p>{JSON.stringify(data)}</p>
-  // return <ProfileOffersCreatedApiProvided responses={data.offers} />
+  return <ProfileOffersCreatedApiProvided responses={data.offers} />
 }
 
 export default ProfileOffersCreatedPage

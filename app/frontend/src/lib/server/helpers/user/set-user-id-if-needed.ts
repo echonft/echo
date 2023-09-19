@@ -1,15 +1,12 @@
-import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { setUserId } from '@echo/firestore/crud/user/set-user-id'
+import { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { complement, either, has, isNil } from 'ramda'
+import { complement, either, has } from 'ramda'
 
-export async function setUserIdIfNeeded(username: string) {
-  const user = await findUserByUsername(username)
-  if (isNil(user)) {
-    throw Error(`user with username ${username} does not exist`)
-  }
+export async function setUserIdIfNeeded(user: FirestoreUser) {
   if (either(complement(has('id')), propIsNil('id'))(user)) {
-    return await setUserId(username)
+    const id = await setUserId(user.name)
+    return { ...user, id }
   }
-  return user.id
+  return user
 }

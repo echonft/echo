@@ -29,6 +29,7 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
   const { data, error } = await fetcher(profileOffersApiUrl())
     .revalidate(3600)
     .query(mergeLeft(filterParams, queryParams))
+    .bearerToken(session.user.sessionToken!)
     .fetch<GetOffersResponse>()
 
   if (isNil(data)) {

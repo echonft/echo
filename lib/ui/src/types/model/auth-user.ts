@@ -3,5 +3,4 @@ export interface AuthUser {
   image?: string
   name: string
   sessionToken?: string
-  updatedAt?: number
 }
