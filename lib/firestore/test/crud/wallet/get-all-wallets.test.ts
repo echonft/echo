@@ -8,8 +8,12 @@ import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore
 import { forEach } from 'ramda'
 
 describe('CRUD - wallet - getAllWallets', () => {
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
 
   it('get all wallets', async () => {
     const walletMocks = getAllWalletMocks()

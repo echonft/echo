@@ -3,6 +3,7 @@ import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
 import type { FirestoreOfferState } from '@echo/firestore/types/model/firestore-offer-state'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { assertOffers } from '@test-utils/assert-offers'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -12,8 +13,14 @@ describe('CRUD - offer - acceptOffer', () => {
   let initialExpiresAt: dayjs.Dayjs
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
 
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await assertOffers()
+    await tearDownRemoteFirestoreTests()
+  })
+
   beforeEach(async () => {
     const offer = await findOfferById(id)
     initialState = offer!.state

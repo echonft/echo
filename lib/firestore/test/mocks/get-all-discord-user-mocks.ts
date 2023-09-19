@@ -2,4 +2,6 @@ import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore
 import { discordUserMock } from '@echo/firestore-mocks/discord-user-mock'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
-export const getAllDiscordUserMocks = () => Object.values(discordUserMock) as NonEmptyArray<FirestoreDiscordUser>
+export function getAllDiscordUserMocks() {
+  return Object.values(discordUserMock) as NonEmptyArray<FirestoreDiscordUser>
+}

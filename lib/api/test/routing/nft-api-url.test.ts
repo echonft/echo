@@ -11,6 +11,6 @@ describe('routing - nftApiUrl', () => {
   })
 
   test('returns proper URL', () => {
-    expect(nftApiUrl('test', '11')).toStrictEqual(new URL('https://test.com/collection/test/item/11'))
+    expect(nftApiUrl('test', '11')).toStrictEqual(new URL('https://echonft.xyz/api/collection/test/item/11'))
   })
 })

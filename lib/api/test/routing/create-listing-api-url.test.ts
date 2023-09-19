@@ -3,6 +3,6 @@ import { describe, expect, test } from '@jest/globals'
 
 describe('routing - createListingApiUrl', () => {
   test('returns proper URL', () => {
-    expect(createListingApiUrl()).toStrictEqual(new URL('https://test.com/listing'))
+    expect(createListingApiUrl()).toStrictEqual(new URL('https://echonft.xyz/api/listing'))
   })
 })

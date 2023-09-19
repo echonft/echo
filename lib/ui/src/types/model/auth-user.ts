@@ -1,6 +1,7 @@
 export interface AuthUser {
   id: string
-  image: string
+  image?: string
   name: string
-  updatedAt: number
+  sessionToken?: string
+  updatedAt?: number
 }

@@ -3,6 +3,7 @@ import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
 import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { assertOffers } from '@test-utils/assert-offers'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
@@ -10,8 +11,14 @@ describe('CRUD - offer - addListingToOffer', () => {
   let initialListingIds: string[]
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
 
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await assertOffers()
+    await tearDownRemoteFirestoreTests()
+  })
+
   beforeEach(async () => {
     const offer = (await findOfferById(id)) as FirestoreOffer
     initialListingIds = offer.listingsIds

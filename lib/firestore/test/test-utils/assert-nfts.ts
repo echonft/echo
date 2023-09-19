@@ -10,6 +10,6 @@ export async function assertNfts() {
   const nfts = await getAllNfts()
   expect(nfts.length).toEqual(nftMocks.length)
   forEach((nft: FirestoreNft) => {
-    expect(getNftMockById(nft.id)).toStrictEqual(nft)
+    expect(nft).toStrictEqual(getNftMockById(nft.id))
   }, nfts)
 }

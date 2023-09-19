@@ -3,6 +3,6 @@ import { describe, expect, test } from '@jest/globals'
 
 describe('routing - profileNonceApiUrl', () => {
   test('returns proper URL', () => {
-    expect(profileNonceApiUrl()).toStrictEqual(new URL('https://test.com/profile/nonce'))
+    expect(profileNonceApiUrl()).toStrictEqual(new URL('https://echonft.xyz/api/profile/nonce'))
   })
 })

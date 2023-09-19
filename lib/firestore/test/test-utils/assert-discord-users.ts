@@ -10,6 +10,6 @@ export async function assertDiscordUsers() {
   const discordUsers = await getAllDiscordUsers()
   expect(discordUsers.length).toEqual(discordUserMocks.length)
   forEach((discordUser: FirestoreDiscordUser) => {
-    expect(getDiscordUserMockById(discordUser.id)).toStrictEqual(discordUser)
+    expect(discordUser).toStrictEqual(getDiscordUserMockById(discordUser.id))
   }, discordUsers)
 }

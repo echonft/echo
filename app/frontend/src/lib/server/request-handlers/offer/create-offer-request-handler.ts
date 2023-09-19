@@ -1,31 +1,27 @@
 import type { ApiRequest } from '@echo/api/types/base/api-request'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import type { IdResponse } from '@echo/api/types/responses/id-response'
-import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
+import { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
+import { assertNftOwner } from '@server/helpers/nft/assert-nft-owner'
 import { createOffer } from '@server/helpers/offer/create-offer'
 import { getOfferItems } from '@server/helpers/offer/get-offer-items'
-import { getOfferItemsWallet } from '@server/helpers/offer/get-offer-items-wallet'
-import { assertUser } from '@server/helpers/user/assert-user'
-import { assertUserHasWallets } from '@server/helpers/user/assert-user-has-wallets'
-import { getUserById } from '@server/helpers/user/get-user-by-id'
+import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
 import { createOfferSchema } from '@server/validators/create-offer-schema'
 import { NextResponse } from 'next/server'
-import type { AuthOptions } from 'next-auth'
+import { forEach } from 'ramda'
 
-export async function createOfferRequestHandler(req: ApiRequest<CreateOfferRequest>, authOptions: AuthOptions) {
+export async function createOfferRequestHandler(req: ApiRequest<CreateOfferRequest>) {
   const requestBody = await req.json()
-  const { receiverItems, receiverId, senderItems } = parseCreateOfferRequest(requestBody)
-  const sender = await getUserFromSession(authOptions)
-  assertUserHasWallets(sender)
-  const receiver = await getUserById(receiverId)
-  assertUser(receiver)
-  assertUserHasWallets(receiver)
-  const receiverNfts = await getOfferItems(receiverItems)
-  const senderNfts = await getOfferItems(senderItems)
-  const receiverWallet = await getOfferItemsWallet(receiverNfts, receiver)
-  const senderWallet = await getOfferItemsWallet(senderNfts, sender)
-  const id = await createOffer(sender, senderWallet, senderNfts, receiver, receiverWallet, receiverNfts)
+  const { receiverItems, senderItems } = parseCreateOfferRequest(requestBody)
+  const sender = await getUserFromRequest(req)
+  const receiverOfferItems = await getOfferItems(receiverItems)
+  const senderOfferItems = await getOfferItems(senderItems)
+  // make sure the receiver is the owner of every item
+  forEach((item: FirestoreOfferItem) => {
+    assertNftOwner(item.nft, sender.name)
+  }, senderOfferItems)
+  const id = await createOffer(senderOfferItems, receiverOfferItems)
   return NextResponse.json<IdResponse>({ id })
 }
 

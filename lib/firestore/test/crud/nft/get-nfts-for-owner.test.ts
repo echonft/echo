@@ -5,8 +5,12 @@ import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore
 import { includes, map, prop } from 'ramda'
 
 describe('CRUD - nft - getNftsForOwner', () => {
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
 
   it('returns an empty array the user is not found', async () => {
     const result = await getNftsForOwner('not-found')

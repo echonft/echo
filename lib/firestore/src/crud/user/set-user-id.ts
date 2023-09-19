@@ -1,5 +1,4 @@
 import { getUserSnapshotByUsername } from '@echo/firestore/crud/user/get-user-snapshot-by-username'
-import type { WriteResult } from 'firebase-admin/lib/firestore'
 import { isNil } from 'ramda'
 
 /**
@@ -8,10 +7,12 @@ import { isNil } from 'ramda'
  * @param {string} username
  * @return {Promise<FirebaseFirestore.WriteResult>}
  */
-export async function setUserId(username: string): Promise<WriteResult> {
+export async function setUserId(username: string): Promise<string> {
   const documentSnapshot = await getUserSnapshotByUsername(username)
   if (isNil(documentSnapshot)) {
     throw Error(`user with username ${username} does not exist`)
   }
-  return await documentSnapshot.ref.update({ id: documentSnapshot.id })
+  const { id } = documentSnapshot
+  await documentSnapshot.ref.update({ id })
+  return id
 }

@@ -1,6 +1,7 @@
 import { NewItemsEmptyContainer } from '@echo/ui/components/item/empty/new-items-empty-container'
 import { NewItemsContainer } from '@echo/ui/components/item/new/new-items-container'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
+import { getOfferItemsWallet } from '@echo/ui/helpers/offer/get-offer-items-wallet'
 import { newOfferState } from '@echo/ui/services/state'
 import type { OfferItem } from '@echo/ui/types/model/offer-item'
 import type { User } from '@echo/ui/types/model/user'
@@ -35,7 +36,7 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('pt-6', 'pb-1')}>
-        <UserDetailsContainer user={receiver} userWalletAddress={receiver.wallet.address} />
+        <UserDetailsContainer user={receiver} userWalletAddress={getOfferItemsWallet(receiverItems).address} />
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-8')}>
         <NewItemsContainer

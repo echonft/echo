@@ -10,6 +10,6 @@ export async function assertSessions() {
   const sessions = await getAllSessions()
   expect(sessions.length).toEqual(sessionMocks.length)
   forEach((session: FirestoreSession) => {
-    expect(getSessionMockByUserId(session.userId)).toStrictEqual(session)
+    expect(session).toStrictEqual(getSessionMockByUserId(session.userId))
   }, sessions)
 }

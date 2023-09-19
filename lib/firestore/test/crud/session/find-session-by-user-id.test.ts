@@ -5,12 +5,16 @@ import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-fires
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - session - findSessionByUserId', () => {
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
 
   it('returns undefined if the session is not found', async () => {
-    const user = await findSessionByUserId('not-found')
-    expect(user).toBeUndefined()
+    const session = await findSessionByUserId('not-found')
+    expect(session).toBeUndefined()
   })
 
   it('returns the session for the given user id', async () => {

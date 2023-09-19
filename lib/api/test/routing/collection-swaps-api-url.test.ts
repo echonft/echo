@@ -7,6 +7,6 @@ describe('routing - collectionSwapsApiUrl', () => {
   })
 
   test('returns proper URL', () => {
-    expect(collectionSwapsApiUrl('test')).toStrictEqual(new URL('https://test.com/collection/test/swaps'))
+    expect(collectionSwapsApiUrl('test')).toStrictEqual(new URL('https://echonft.xyz/api/collection/test/swaps'))
   })
 })

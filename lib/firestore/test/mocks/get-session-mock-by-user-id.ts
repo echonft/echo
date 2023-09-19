@@ -1,3 +1,5 @@
 import { sessionMock } from '@echo/firestore-mocks/session-mock'
 
-export const getSessionMockByUserId = (userId: string) => sessionMock[userId]!
+export function getSessionMockByUserId(userId: string) {
+  return sessionMock[userId]!
+}

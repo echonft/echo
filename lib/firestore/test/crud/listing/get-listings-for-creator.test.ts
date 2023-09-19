@@ -25,8 +25,12 @@ describe('CRUD - listing - getListingsForCreator', () => {
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(listing)
   }
 
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
   beforeEach(async () => {
     const listing = await findListingById(id)
     initialExpiresAt = listing!.expiresAt

@@ -25,8 +25,12 @@ describe('CRUD - offer - getOffersForReceiver', () => {
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(offer)
   }
 
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
   beforeEach(async () => {
     const offer = await findOfferById(id)
     initialExpiresAt = offer!.expiresAt

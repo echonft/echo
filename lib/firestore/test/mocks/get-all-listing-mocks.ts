@@ -2,4 +2,6 @@ import type { FirestoreListing } from '@echo/firestore/types/model/firestore-lis
 import { listingMock } from '@echo/firestore-mocks/listing-mock'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
-export const getAllListingMocks = () => Object.values(listingMock) as NonEmptyArray<FirestoreListing>
+export function getAllListingMocks() {
+  return Object.values(listingMock) as NonEmptyArray<FirestoreListing>
+}

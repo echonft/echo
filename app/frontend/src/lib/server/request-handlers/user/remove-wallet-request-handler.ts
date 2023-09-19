@@ -1,21 +1,19 @@
 import type { ApiRequest } from '@echo/api/types/base/api-request'
 import type { RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
-import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
+import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
+import { emptyResponse } from '@server/helpers/response/empty-response'
 import { removeUserWallet } from '@server/helpers/user/remove-user-wallet'
-import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
+import { updateUserNftsIfNeeded } from '@server/helpers/user/update-user-nfts-if-needed'
 import { removeWalletSchema } from '@server/validators/remove-wallet-schema'
-import { NextResponse } from 'next/server'
-import type { AuthOptions } from 'next-auth'
 
-export async function removeWalletRequestHandler(req: ApiRequest<RemoveWalletRequest>, authOptions: AuthOptions) {
-  const user = await getUserFromSession(authOptions)
+export async function removeWalletRequestHandler(req: ApiRequest<RemoveWalletRequest>) {
   const requestBody = await req.json()
   const { wallet } = parseRemoveWalletRequest(requestBody)
+  const user = await getUserFromRequest(req)
   await removeUserWallet(user.id, wallet)
-  await updateUserNfts(user)
-  return NextResponse.json<EmptyResponse>({})
+  await updateUserNftsIfNeeded(user, wallet.chainId)
+  return emptyResponse()
 }
 
 function parseRemoveWalletRequest(request: RemoveWalletRequest) {

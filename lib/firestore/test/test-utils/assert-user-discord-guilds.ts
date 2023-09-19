@@ -10,6 +10,6 @@ export async function assertUserDiscordGuilds() {
   const userDiscordGuilds = await getAllUserDiscordGuilds()
   expect(userDiscordGuilds.length).toEqual(userDiscordGuildMocks.length)
   forEach((userDiscordGuild: FirestoreUserDiscordGuild) => {
-    expect(getUserDiscordGuildMockById(userDiscordGuild.id)).toStrictEqual(userDiscordGuild)
+    expect(userDiscordGuild).toStrictEqual(getUserDiscordGuildMockById(userDiscordGuild.id))
   }, userDiscordGuilds)
 }

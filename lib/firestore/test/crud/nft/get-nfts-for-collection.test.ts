@@ -6,8 +6,12 @@ import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore
 import { equals, filter, find, forEach, path, pipe, propEq } from 'ramda'
 
 describe('CRUD - nft - getNftsForCollection', () => {
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
 
   it('returns an empty array the collection is not found', async () => {
     const result = await getNftsForCollection('not-found')

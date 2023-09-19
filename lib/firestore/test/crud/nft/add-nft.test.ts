@@ -3,14 +3,21 @@ import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
 import { nftMock } from '@echo/firestore-mocks/nft-mock'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
+import { assertNfts } from '@test-utils/assert-nfts'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { omit } from 'ramda'
 
 describe('CRUD - nft - addNft', () => {
   let id: string
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await assertNfts()
+    await tearDownRemoteFirestoreTests()
+  })
+
   afterEach(async () => {
     try {
       await deleteNft(id)

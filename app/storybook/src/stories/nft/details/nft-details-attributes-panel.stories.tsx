@@ -1,5 +1,5 @@
-import { getNftById } from '../../../mocks/model/nft'
 import { NftDetailsAttributesPanel as Component } from '@echo/ui/components/nft/details/nft-details-attributes-panel'
+import { getNftById } from '@mocks/model/nft'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

@@ -4,13 +4,19 @@ import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { getWalletMockById } from '@echo/firestore-mocks/get-wallet-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { assertWallets } from '@test-utils/assert-wallets'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { pick } from 'ramda'
 
 describe('CRUD - wallet - removeWallet', () => {
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await assertWallets()
+    await tearDownRemoteFirestoreTests()
+  })
 
   it('throws if the wallet does not exists', async () => {
     await expect(

@@ -3,6 +3,7 @@ import { fulfillListing } from '@echo/firestore/crud/listing/fulfill-listing'
 import { updateListing } from '@echo/firestore/crud/listing/update-listing'
 import type { FirestoreListingState } from '@echo/firestore/types/model/firestore-listing-state'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { assertListings } from '@test-utils/assert-listings'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -12,8 +13,14 @@ describe('CRUD - listing - fulfillListing', () => {
   let initialExpiresAt: dayjs.Dayjs
   const id = 'jUzMtPGKM62mMhEcmbN4'
 
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await assertListings()
+    await tearDownRemoteFirestoreTests()
+  })
+
   beforeEach(async () => {
     const listing = await findListingById(id)
     initialState = listing!.state

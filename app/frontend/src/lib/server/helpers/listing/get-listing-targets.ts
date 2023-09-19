@@ -5,8 +5,8 @@ import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil, map } from 'ramda'
 
-export const getListingTargets = (listingTargetRequests: NonEmptyArray<ListingTargetRequest>) =>
-  Promise.all(
+export function getListingTargets(listingTargetRequests: NonEmptyArray<ListingTargetRequest>) {
+  return Promise.all(
     map(async (item) => {
       const { collection, amount } = item
       const foundCollection = await findNftCollectionById(collection.id)
@@ -18,3 +18,4 @@ export const getListingTargets = (listingTargetRequests: NonEmptyArray<ListingTa
       return { amount, collection: foundCollection } as FirestoreListingTarget
     }, listingTargetRequests)
   ) as Promise<Awaited<NonEmptyArray<FirestoreListingTarget>>>
+}

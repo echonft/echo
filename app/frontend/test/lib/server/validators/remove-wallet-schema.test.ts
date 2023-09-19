@@ -1,8 +1,9 @@
-import { getDiscordUserMockById } from '@echo/firestore-mocks/get-discord-user-mock-by-id'
+import { getWalletMockByUserId } from '@echo/firestore-mocks/get-wallet-mock-by-user-id'
 import { removeWalletSchema } from '@server/validators/remove-wallet-schema'
+import { pick } from 'ramda'
 
 describe('validators - removeWalletSchema', () => {
-  const wallet = getDiscordUserMockById('oE6yUEQBPn7PZ89yMjKn').wallets[0]!
+  const wallet = pick(['address', 'chainId'], getWalletMockByUserId('oE6yUEQBPn7PZ89yMjKn'))
   it('wrong wallet fails validation', () => {
     expect(() => removeWalletSchema.parse({ wallet: { address: '', chainId: 1 } })).toThrow()
     expect(() => removeWalletSchema.parse({ wallet: { address: undefined, chainId: 1 } })).toThrow()

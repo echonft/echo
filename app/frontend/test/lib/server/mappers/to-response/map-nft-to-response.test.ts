@@ -22,7 +22,6 @@ describe('mappers - to-response - mapNftToResponse', () => {
       collection: pick(['id', 'name'], getNftCollectionMockById('1aomCtnoesD7WVll6Yi1')),
       name: 'Spiral Frequencies #1376',
       owner: {
-        id: 'oE6yUEQBPn7PZ89yMjKn',
         discordId: '462798252543049728',
         discordUsername: 'johnnycagewins',
         discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -38,6 +37,7 @@ describe('mappers - to-response - mapNftToResponse', () => {
       tokenId: 1376,
       tokenType: 'ERC721'
     }
+
     expect(mapNftToResponse(nft)).toStrictEqual({
       id: '8hHFadIrrooORfTOLkBg',
       attributes: [
@@ -58,7 +58,6 @@ describe('mappers - to-response - mapNftToResponse', () => {
       },
       name: 'Spiral Frequencies #1376',
       owner: {
-        id: 'oE6yUEQBPn7PZ89yMjKn',
         discordId: '462798252543049728',
         discordUsername: 'johnnycagewins',
         discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',

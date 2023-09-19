@@ -20,6 +20,6 @@ export const Standard: Story = {
 
 export const DefaultPicture: Story = {
   args: {
-    user: dissoc('discordAvatar', getAuthUser())
+    user: dissoc('image', getAuthUser())
   }
 }

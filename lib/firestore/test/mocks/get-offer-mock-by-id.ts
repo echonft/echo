@@ -1,3 +1,5 @@
 import { offerMock } from '@echo/firestore-mocks/offer-mock'
 
-export const getOfferMockById = (id: string) => offerMock[id]!
+export function getOfferMockById(id: string) {
+  return offerMock[id]!
+}

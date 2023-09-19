@@ -1,3 +1,5 @@
 import { listingMock } from '@echo/firestore-mocks/listing-mock'
 
-export const getListingMockById = (id: string) => listingMock[id]!
+export function getListingMockById(id: string) {
+  return listingMock[id]!
+}

@@ -1,3 +1,5 @@
 import { nftCollectionMock } from '@echo/firestore-mocks/nft-collection-mock'
 
-export const getNftCollectionMockById = (id: string) => nftCollectionMock[id]!
+export function getNftCollectionMockById(id: string) {
+  return nftCollectionMock[id]!
+}

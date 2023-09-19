@@ -10,6 +10,6 @@ export async function assertWallets() {
   const wallets = await getAllWallets()
   expect(wallets.length).toEqual(walletMocks.length)
   forEach((wallet: FirestoreWallet) => {
-    expect(getWalletMockById(wallet.id)).toStrictEqual(wallet)
+    expect(wallet).toStrictEqual(getWalletMockById(wallet.id))
   }, wallets)
 }

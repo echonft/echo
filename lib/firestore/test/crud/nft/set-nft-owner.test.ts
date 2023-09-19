@@ -6,6 +6,7 @@ import { getDiscordUserMockById } from '@echo/firestore-mocks/get-discord-user-m
 import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/get-wallet-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { assertNfts } from '@test-utils/assert-nfts'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
@@ -13,8 +14,14 @@ describe('CRUD - nft - setNftOwner', () => {
   let initialOwner: Partial<FirestoreUserDetails>
   const id = '8hHFadIrrooORfTOLkBg'
 
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await assertNfts()
+    await tearDownRemoteFirestoreTests()
+  })
+
   beforeEach(async () => {
     const user = await findNftById(id)
     initialOwner = user!.owner!

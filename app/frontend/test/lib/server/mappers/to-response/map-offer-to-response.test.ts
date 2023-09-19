@@ -10,7 +10,6 @@ describe('mappers - to-response - mapOfferToResponse', () => {
       expiresAt: 2324074781,
       expired: false,
       receiver: {
-        id: 'oE6yUEQBPn7PZ89yMjKn',
         discordId: '462798252543049728',
         discordUsername: 'johnnycagewins',
         discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -61,7 +60,6 @@ describe('mappers - to-response - mapOfferToResponse', () => {
             },
             name: 'Spiral Frequencies #1376',
             owner: {
-              id: 'oE6yUEQBPn7PZ89yMjKn',
               discordId: '462798252543049728',
               discordUsername: 'johnnycagewins',
               discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -82,7 +80,6 @@ describe('mappers - to-response - mapOfferToResponse', () => {
         }
       ],
       sender: {
-        id: '6rECUMhevHfxABZ1VNOm',
         discordId: '884593489189433364',
         discordUsername: 'crewnft_',
         discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
@@ -164,7 +161,6 @@ describe('mappers - to-response - mapOfferToResponse', () => {
             },
             name: 'Creative Demigod #009',
             owner: {
-              id: '6rECUMhevHfxABZ1VNOm',
               discordId: '884593489189433364',
               discordUsername: 'crewnft_',
               discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
