@@ -2,7 +2,7 @@ import type { SessionDocumentData } from '@echo/firestore/types/model/session-do
 import { Timestamp } from 'firebase-admin/firestore'
 
 export const sessionDocumentDataMock: { [key: string]: SessionDocumentData } = {
-  '6rECUMhevHfxABZ1VNOm': {
+  KI5AJISonKCYslDm51Tn: {
     userId: '6rECUMhevHfxABZ1VNOm',
     sessionToken: 'token',
     expires: Timestamp.fromMillis(1694777183175)

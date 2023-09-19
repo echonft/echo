@@ -1,2 +1,4 @@
 // FIXME
-export const getHasNft = (_discordId: string, _guildId: string) => Promise.resolve(true)
+export function getHasNft(_discordId: string, _guildId: string) {
+  return Promise.resolve(true)
+}

@@ -5,8 +5,8 @@ import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { getNftById } from '@server/helpers/nft/get-nft-by-id'
 import { isNil, map } from 'ramda'
 
-export const getOfferItems = (itemRequests: NonEmptyArray<OfferItemRequest>) =>
-  Promise.all(
+export function getOfferItems(itemRequests: NonEmptyArray<OfferItemRequest>) {
+  return Promise.all(
     map(async (item) => {
       const { nft, amount } = item
       const foundNft = await getNftById(nft.id)
@@ -16,3 +16,4 @@ export const getOfferItems = (itemRequests: NonEmptyArray<OfferItemRequest>) =>
       return { amount, nft: foundNft } as FirestoreOfferItem
     }, itemRequests)
   ) as Promise<Awaited<NonEmptyArray<FirestoreOfferItem>>>
+}

@@ -34,6 +34,11 @@ class Fetcher {
     }
   }
 
+  authorization(scheme: string, token: string) {
+    this.init = assocPath<string, RequestInit>(['headers', 'Authorization'], `${scheme} ${token}`, this.init)
+    return this
+  }
+
   bearerToken(token: string) {
     return this.authorization('Bearer', token)
   }
@@ -106,11 +111,6 @@ class Fetcher {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     this.init = assoc<'tags', RequestInit>('tags', tags, this.init)
-    return this
-  }
-
-  private authorization(scheme: string, token: string) {
-    this.init = assocPath<string, RequestInit>(['headers', 'Authorization'], `${scheme} ${token}`, this.init)
     return this
   }
 

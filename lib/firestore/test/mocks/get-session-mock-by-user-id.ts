@@ -1,5 +1,8 @@
-import { sessionMock } from '@echo/firestore-mocks/session-mock'
+import { FirestoreSession } from '@echo/firestore/types/model/firestore-session'
+import { getAllSessionMocks } from '@echo/firestore-mocks/get-all-session-mocks'
+import { find, propEq } from 'ramda'
 
 export function getSessionMockByUserId(userId: string) {
-  return sessionMock[userId]!
+  const mocks = getAllSessionMocks()
+  return find(propEq(userId, 'userId'), mocks) as FirestoreSession
 }

@@ -1,19 +1,19 @@
 import { sessionDataConverter } from '@echo/firestore/converters/session-data-converter'
-import { getSessionDocumentDataMockByUserId } from '@echo/firestore-mocks/get-session-document-data-mock-by-user-id'
-import { getSessionMockByUserId } from '@echo/firestore-mocks/get-session-mock-by-user-id'
+import { getSessionDocumentDataMockById } from '@echo/firestore-mocks/get-session-document-data-mock-by-id'
+import { getSessionMockById } from '@echo/firestore-mocks/get-session-mock-by-id'
 import { sessionSnapshotMock } from '@echo/firestore-mocks/session-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - sessionDataConverter', () => {
-  const session = getSessionMockByUserId('6rECUMhevHfxABZ1VNOm')
+  const session = getSessionMockById('KI5AJISonKCYslDm51Tn')
 
   it('from Firestore conversion', () => {
-    const sessionSnapshot = sessionSnapshotMock['6rECUMhevHfxABZ1VNOm']!
+    const sessionSnapshot = sessionSnapshotMock['KI5AJISonKCYslDm51Tn']!
     expect(sessionDataConverter.fromFirestore(sessionSnapshot)).toStrictEqual(session)
   })
 
   it('to Firestore conversion', () => {
-    const sessionDocumentData = getSessionDocumentDataMockByUserId('6rECUMhevHfxABZ1VNOm')
+    const sessionDocumentData = getSessionDocumentDataMockById('KI5AJISonKCYslDm51Tn')
     expect(sessionDataConverter.toFirestore(session)).toStrictEqual(sessionDocumentData)
   })
 })
