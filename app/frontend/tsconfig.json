@@ -28,5 +28,5 @@
     ]
   },
   "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "test"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", ".next"]
 }

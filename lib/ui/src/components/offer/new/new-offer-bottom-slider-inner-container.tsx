@@ -1,6 +1,7 @@
 import { NewItemsContainer } from '@echo/ui/components/item/new/new-items-container'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
 import { links } from '@echo/ui/constants/links'
+import { getOfferItemsWallet } from '@echo/ui/helpers/offer/get-offer-items-wallet'
 import type { OfferItem } from '@echo/ui/types/model/offer-item'
 import type { User } from '@echo/ui/types/model/user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
