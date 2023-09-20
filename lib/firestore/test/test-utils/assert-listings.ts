@@ -10,6 +10,6 @@ export async function assertListings() {
   const listings = await getAllListings()
   expect(listings.length).toEqual(listingMocks.length)
   forEach((listing: FirestoreListing) => {
-    expect(getListingMockById(listing.id)).toStrictEqual(listing)
+    expect(listing).toStrictEqual(getListingMockById(listing.id))
   }, listings)
 }

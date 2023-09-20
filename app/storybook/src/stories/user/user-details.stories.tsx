@@ -2,6 +2,7 @@ import { UserDetails as Component } from '@echo/ui/components/user/details/user-
 import { SizeLG } from '@echo/ui/constants/size'
 import { getUserById } from '@mocks/model/user'
 import type { Meta, StoryObj } from '@storybook/react'
+import { head } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'User/Details ',
@@ -24,7 +25,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const { discordUsername, discordBanner, discordAvatar, discordId, wallet } = getUserById('6rECUMhevHfxABZ1VNOm')
+const { discordUsername, discordBanner, discordAvatar, discordId, wallets } = getUserById('6rECUMhevHfxABZ1VNOm')
 
 export const Details: Story = {
   args: {
@@ -32,7 +33,7 @@ export const Details: Story = {
     discordAvatar,
     discordBanner,
     discordId,
-    wallet,
+    wallet: head(wallets!),
     size: SizeLG
   }
 }

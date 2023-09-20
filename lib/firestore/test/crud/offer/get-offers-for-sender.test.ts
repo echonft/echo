@@ -25,8 +25,12 @@ describe('CRUD - offer - getOffersForSender', () => {
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(offer)
   }
 
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
   beforeEach(async () => {
     const offer = await findOfferById(id)
     initialExpiresAt = offer!.expiresAt
@@ -42,37 +46,37 @@ describe('CRUD - offer - getOffersForSender', () => {
 
   it('returns the offers for the sender', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    const offers = await getOffersForSender('6rECUMhevHfxABZ1VNOm')
+    const offers = await getOffersForSender('crewnft_')
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
   })
 
   it('filter by state (included)', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    let offers = await getOffersForSender('6rECUMhevHfxABZ1VNOm', { states: ['OPEN', 'CANCELLED'] })
+    let offers = await getOffersForSender('crewnft_', { states: ['OPEN', 'CANCELLED'] })
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForSender('6rECUMhevHfxABZ1VNOm', { states: ['CANCELLED'] })
+    offers = await getOffersForSender('crewnft_', { states: ['CANCELLED'] })
     expect(offers.length).toBe(0)
   })
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    let offers = await getOffersForSender('6rECUMhevHfxABZ1VNOm', { notStates: ['INVALID', 'CANCELLED'] })
+    let offers = await getOffersForSender('crewnft_', { notStates: ['INVALID', 'CANCELLED'] })
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForSender('6rECUMhevHfxABZ1VNOm', { notStates: ['OPEN', 'FULFILLED'] })
+    offers = await getOffersForSender('crewnft_', { notStates: ['OPEN', 'FULFILLED'] })
     expect(offers.length).toBe(0)
   })
 
   it('includeExpired filter', async () => {
     const mock = await setExpired(getOfferMockById(id))
-    let offers = await getOffersForSender('6rECUMhevHfxABZ1VNOm', { includeExpired: true })
+    let offers = await getOffersForSender('crewnft_', { includeExpired: true })
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForSender('6rECUMhevHfxABZ1VNOm', { includeExpired: false })
+    offers = await getOffersForSender('crewnft_', { includeExpired: false })
     expect(offers.length).toBe(0)
-    offers = await getOffersForSender('6rECUMhevHfxABZ1VNOm')
+    offers = await getOffersForSender('crewnft_')
     expect(offers.length).toBe(0)
   })
 })

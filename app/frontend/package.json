@@ -21,6 +21,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "@auth/firebase-adapter": "1.0.0",
     "@echo/alchemy": "workspace:*",
     "@echo/api": "workspace:*",
     "@echo/discord": "workspace:*",

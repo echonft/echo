@@ -19,7 +19,6 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
     collection: nftCollectionDocumentDataMock['1aomCtnoesD7WVll6Yi1']!,
     name: 'Spiral Frequencies #1376',
     owner: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -78,7 +77,6 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
     collection: nftCollectionDocumentDataMock['1aomCtnoesD7WVll6Yi1']!,
     name: 'Spiral Frequencies #2414',
     owner: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -137,7 +135,6 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
     collection: nftCollectionDocumentDataMock['1aomCtnoesD7WVll6Yi1']!,
     name: 'Spiral Frequencies #3035',
     owner: {
-      id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
       discordUsername: 'crewnft_',
       discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
@@ -212,7 +209,6 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
     collection: nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']!,
     name: 'Creative Demigod #024',
     owner: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -274,7 +270,6 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
     collection: nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']!,
     name: 'Water Elemental #020',
     owner: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -340,7 +335,6 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
     collection: nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']!,
     name: 'Creative Demigod #009',
     owner: {
-      id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
       discordUsername: 'crewnft_',
       discordAvatar: '6080eecbd12f0f7bb2299690661535cf',

@@ -7,8 +7,12 @@ import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore
 import { always, map, modifyPath } from 'ramda'
 
 describe('CRUD - listing - getListingsForOffer', () => {
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
 
   it('returns an empty array if no listings matches the target collection', async () => {
     const { senderItems, receiverItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')

@@ -4,6 +4,7 @@ import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
 import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/firestore-nft-collection-discord-guild'
 import type { FirestoreOfferDiscordGuild } from '@echo/firestore/types/model/firestore-offer-discord-guild'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { assertOffers } from '@test-utils/assert-offers'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -22,8 +23,14 @@ describe('CRUD - offer - setOfferDiscordGuild', () => {
     threadId
   }
 
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await assertOffers()
+    await tearDownRemoteFirestoreTests()
+  })
+
   beforeEach(async () => {
     const offer = await findOfferById(id)
     initialDiscordGuild = offer!.discordGuild

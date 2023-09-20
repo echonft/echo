@@ -8,6 +8,8 @@ import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { offerMock } from '@echo/firestore-mocks/offer-mock'
 import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
+import { assertListings } from '@test-utils/assert-listings'
+import { assertOffers } from '@test-utils/assert-offers'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -15,8 +17,15 @@ import { equals, find, map, prop, reject } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
   let id: string
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await assertOffers()
+    await assertListings()
+    await tearDownRemoteFirestoreTests()
+  })
+
   afterEach(async () => {
     try {
       await deleteOffer(id)
@@ -32,7 +41,7 @@ describe('CRUD - offer - addOffer', () => {
 
   it('add an offer', async () => {
     const { receiver, receiverItems, sender, senderItems } = offerMock['LyCfl6Eg7JKuD7XJ6IPi']!
-    id = await addOffer({ receiver, receiverItems, sender, senderItems })
+    id = await addOffer(receiverItems, senderItems)
     const newOffer = await findOfferById(id)
     const now = dayjs()
     const expirationDate = now.add(DEFAULT_EXPIRATION_TIME, 'day')

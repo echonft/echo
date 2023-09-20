@@ -5,7 +5,8 @@ import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
 import { nftCollectionFields } from '@echo/firestore/types/model/nft-collection-document-data'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import type { Query } from 'firebase-admin/firestore'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import type { Query } from 'firebase-admin/lib/firestore'
 import { invoker, map } from 'ramda'
 
 export async function getAllNftCollections(constraints?: QueryConstraints) {
@@ -15,7 +16,7 @@ export async function getAllNftCollections(constraints?: QueryConstraints) {
 
   query = addConstraintsToQuery(query, constraints, nftCollectionFields)
   const querySnapshot = await query.get()
-  if (querySnapshot.empty) {
+  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
     return [] as FirestoreNftCollection[]
   }
   return map(invoker(0, 'data'), querySnapshot.docs) as FirestoreNftCollection[]

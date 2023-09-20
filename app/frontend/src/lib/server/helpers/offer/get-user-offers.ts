@@ -7,21 +7,21 @@ import type { QueryConstraints } from '@echo/firestore/types/query/query-constra
 import { ServerError } from '@server/helpers/error/server-error'
 import { isNil } from 'ramda'
 
-export async function getUserOffers(userId: string, filters?: OfferQueryFilters, constraints?: QueryConstraints) {
+export async function getUserOffers(username: string, filters?: OfferQueryFilters, constraints?: QueryConstraints) {
   try {
     if (!isNil(filters) && !isNil(filters.as)) {
       const { as } = filters
       if (as === OfferFilterAsReceiver) {
-        return await getOffersForReceiver(userId, filters, constraints)
+        return await getOffersForReceiver(username, filters, constraints)
       } else {
-        return await getOffersForSender(userId, filters, constraints)
+        return await getOffersForSender(username, filters, constraints)
       }
     } else {
-      return await getOffersForUser(userId, filters, constraints)
+      return await getOffersForUser(username, filters, constraints)
     }
   } catch (e) {
     throw new ServerError(
-      `error getting offers for user with id ${userId} with filters ${JSON.stringify(
+      `error getting offers for user with username ${username} with filters ${JSON.stringify(
         filters
       )} and constraints ${JSON.stringify(constraints)}`,
       e

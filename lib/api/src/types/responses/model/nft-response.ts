@@ -1,5 +1,5 @@
 import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
-import type { UserResponse } from '@echo/api/types/responses/model/user-response'
+import type { UserDetailsResponse } from '@echo/api/types/responses/model/user-details-response'
 import type { FirestoreNftTokenType } from '@echo/firestore/types/model/firestore-nft-token-type'
 
 export interface NftResponse {
@@ -13,7 +13,7 @@ export interface NftResponse {
   collection: Partial<CollectionResponse>
   name: string
   openSeaUrl?: string
-  owner: Partial<UserResponse>
+  owner: Partial<UserDetailsResponse>
   pictureUrl: string
   thumbnailUrl: string
   tokenId: number

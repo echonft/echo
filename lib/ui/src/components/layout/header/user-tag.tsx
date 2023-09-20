@@ -19,11 +19,12 @@ export const UserTag: FunctionComponent<Props> = ({ user }) => {
         'px-2.5',
         'py-1.5',
         'bg-white/[0.08]',
-        'w-max'
+        'w-max',
+        'outline-none'
       )}
     >
       <UserTagPicture user={user} />
-      <span className={clsx('prose-label-sm-semi', 'text-yellow-400')}>{user.discordUsername}</span>
+      <span className={clsx('prose-label-sm-semi', 'text-yellow-400')}>{user.name}</span>
     </div>
   )
 }

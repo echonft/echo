@@ -1,43 +1,26 @@
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
-import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
-import { getSession } from '@server/helpers/auth/get-session'
-import { ApiError } from '@server/helpers/error/api-error'
-import { getUserById } from '@server/helpers/user/get-user-by-id'
+import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
 import { setUserNonce } from '@server/helpers/user/set-user-nonce'
 import { nonceRequestHandler } from '@server/request-handlers/user/nonce-request-handler'
 import { mockRequest } from '@server-mocks/request-response'
-import type { AuthOptions, Session } from 'next-auth'
 
-jest.mock('@server/helpers/auth/get-session')
-jest.mock('@server/helpers/user/get-user-by-id')
+jest.mock('@server/helpers/request/get-user-from-request')
 jest.mock('@server/helpers/user/set-user-nonce')
-describe('request-handlers - user - nonceRequestHandler', () => {
-  const session = {
-    user: {
-      id: 'userId'
-    }
-  } as unknown as Session
 
+describe('request-handlers - user - nonceRequestHandler', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  it('throws if not authenticated', async () => {
-    jest.mocked(getSession).mockResolvedValueOnce(null)
-    const req = mockRequest<never>()
-    try {
-      await nonceRequestHandler(req, {} as AuthOptions)
-      expect(true).toBeFalsy()
-    } catch (e) {
-      expect((e as ApiError).status).toBe(403)
-    }
-  })
   it('if authenticated, returns success and updates DB', async () => {
-    jest.mocked(getSession).mockResolvedValueOnce(session)
+    jest.mocked(getUserFromRequest).mockResolvedValueOnce({
+      id: 'user-id',
+      name: 'user-name',
+      image: 'user-image'
+    })
     jest.mocked(setUserNonce).mockResolvedValueOnce('testNonce')
-    jest.mocked(getUserById).mockResolvedValueOnce({ id: 'userId' } as FirestoreUser)
     const req = mockRequest<never>()
-    const res = await nonceRequestHandler(req, {} as AuthOptions)
+    const res = await nonceRequestHandler(req)
     expect(setUserNonce).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as NonceResponse

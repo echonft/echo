@@ -21,14 +21,12 @@
     ]
   },
   "scripts": {
-    "bot:deploy-commands": "env-cmd -f .env turbo run @echo/bot#deploy-commands",
+    "bot:deploy-commands": "turbo run @echo/bot#deploy-commands",
     "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot",
     "bot:start": "turbo run start --filter=@echo/bot",
     "clean": "turbo run clean",
     "frontend:build": "turbo run build --filter=@echo/frontend",
     "frontend:clean": "turbo run clean --filter=@echo/frontend",
-    "frontend:dev": "env-cmd -f .env turbo run dev --filter=@echo/frontend --filter=@echo/ui",
-    "frontend:start": "turbo run start --filter=@echo/frontend",
     "lint": "turbo run lint",
     "lint:ci": "turbo run lint:ci",
     "lint:clean-cache": "rm -f .eslintcache && turbo run lint:clean-cache",
@@ -38,13 +36,13 @@
     "prepare": "husky install",
     "prettier": "turbo run prettier",
     "storybook:build": "turbo run build --filter=@echo/storybook",
-    "storybook:dev": "env-cmd -f .env turbo run dev --filter=@echo/storybook --filter=@echo/ui",
+    "storybook:dev": "turbo run dev --filter=@echo/storybook --filter=@echo/ui",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",
     "tsc": "turbo run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache",
     "vercel": "turbo run //#vercel:dev dev --filter=@echo/ui",
-    "vercel:dev": "env-cmd -f .env vercel dev"
+    "vercel:dev": "vercel dev"
   },
   "devDependencies": {
     "@babel/core": "7.22.10",
@@ -68,7 +66,7 @@
     "npm-check-updates": "16.10.18",
     "prettier": "3.0.1",
     "tsc-files": "1.1.4",
-    "turbo": "1.10.13",
+    "turbo": "1.10.14",
     "vercel": "31.2.3"
   },
   "packageManager": "pnpm@8.7.5",

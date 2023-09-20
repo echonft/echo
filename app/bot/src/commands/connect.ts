@@ -12,8 +12,9 @@ import { andThen, ifElse, isNil, pipe, prop } from 'ramda'
  * @param subCommand The builder
  * @return SlashCommandSubcommandBuilder
  */
-export const connectSubcommand = (subCommand: SlashCommandSubcommandBuilder) =>
-  subCommand.setName('connect').setDescription('Connect to the bot via Discord and Wallet')
+export function connectSubcommand(subCommand: SlashCommandSubcommandBuilder) {
+  return subCommand.setName('connect').setDescription('Connect to the bot via Discord and Wallet')
+}
 
 export function executeConnect(interaction: CommandInteraction) {
   return ifElse(

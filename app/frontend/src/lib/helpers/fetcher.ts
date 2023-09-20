@@ -39,6 +39,10 @@ class Fetcher {
     return this
   }
 
+  bearerToken(token: string) {
+    return this.authorization('Bearer', token)
+  }
+
   body<T extends object>(body: T) {
     if (pathEq('GET', ['headers', 'method'], this.init)) {
       throw Error('GET requests cannot have a body')

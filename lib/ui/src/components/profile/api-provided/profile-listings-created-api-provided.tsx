@@ -5,7 +5,7 @@ import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { ListingRowsContainer } from '@echo/ui/components/listing/layout/container/listing-rows-container'
 import { ProfileListingsCreatedEmpty } from '@echo/ui/components/profile/listing/empty/profile-listings-created-empty'
 import { ProfileNavigationLayout } from '@echo/ui/components/profile/profile-navigation-layout'
-import { NavigationListingsReceived } from '@echo/ui/constants/navigation-item'
+import { NavigationListingsCreated } from '@echo/ui/constants/navigation-item'
 import { mapListingFromResponse } from '@echo/ui/mappers/from-api/map-listing-from-response'
 import { isEmpty, map } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
@@ -19,7 +19,7 @@ export const ProfileListingsCreatedApiProvided: FunctionComponent<Props> = ({ re
   const dataIsEmpty = isEmpty(mappedListings)
 
   return (
-    <ProfileNavigationLayout activeNavigationItem={NavigationListingsReceived}>
+    <ProfileNavigationLayout activeNavigationItem={NavigationListingsCreated}>
       <HideIf condition={dataIsEmpty}>
         <ListingRowsContainer listings={mappedListings} />
       </HideIf>

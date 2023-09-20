@@ -8,22 +8,11 @@ describe('mappers - from-discord - mapDiscordUserResponseToUser', () => {
         username: 'username',
         discriminator: 'discriminator',
         avatar: 'avatar',
-        banner: 'banner',
-        guilds: [
-          {
-            id: 'guildId',
-            name: 'guildName',
-            icon: 'guildIcon',
-            owner: false,
-            permissions: 5,
-            features: ['feature1', 'feature2']
-          }
-        ]
+        banner: 'banner'
       })
     ).toStrictEqual({
       discordAvatar: 'avatar',
       discordBanner: 'banner',
-      discordGuilds: [{ discordId: 'guildId' }],
       discordId: 'id',
       discordUsername: 'username'
     })

@@ -1,26 +1,28 @@
 import type { ApiRequest } from '@echo/api/types/base/api-request'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import type { IdResponse } from '@echo/api/types/responses/id-response'
-import { getUserFromSession } from '@server/helpers/auth/get-user-from-session'
+import type { FirestoreListingItem } from '@echo/firestore/types/model/firestore-listing-item'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { createListing } from '@server/helpers/listing/create-listing'
+import { getListingItems } from '@server/helpers/listing/get-listing-items'
 import { getListingTargets } from '@server/helpers/listing/get-listing-targets'
-import { getOfferItems } from '@server/helpers/offer/get-offer-items'
-import { getOfferItemsWallet } from '@server/helpers/offer/get-offer-items-wallet'
-import { assertUserHasWallets } from '@server/helpers/user/assert-user-has-wallets'
+import { assertNftOwner } from '@server/helpers/nft/assert-nft-owner'
+import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
 import { createListingSchema } from '@server/validators/create-listing-schema'
 import { NextResponse } from 'next/server'
-import type { AuthOptions } from 'next-auth'
+import { forEach } from 'ramda'
 
-export async function createListingRequestHandler(req: ApiRequest<CreateListingRequest>, authOptions: AuthOptions) {
+export async function createListingRequestHandler(req: ApiRequest<CreateListingRequest>) {
   const requestBody = await req.json()
   const { items, targets } = parseCreateListingRequest(requestBody)
-  const creator = await getUserFromSession(authOptions)
-  assertUserHasWallets(creator)
-  const nfts = await getOfferItems(items)
+  const creator = await getUserFromRequest(req)
+  const listingItems = await getListingItems(items)
   const listingTargets = await getListingTargets(targets)
-  const creatorWallet = await getOfferItemsWallet(nfts, creator)
-  const id = await createListing(creator, creatorWallet, nfts, listingTargets)
+  // make sure the creator is the owner of every item
+  forEach((item: FirestoreListingItem) => {
+    assertNftOwner(item.nft, creator.name)
+  }, listingItems)
+  const id = await createListing(listingItems, listingTargets)
   return NextResponse.json<IdResponse>({ id })
 }
 

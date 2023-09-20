@@ -7,6 +7,6 @@ describe('routing - listingApiUrl', () => {
   })
 
   test('returns proper URL', () => {
-    expect(listingApiUrl('test')).toStrictEqual(new URL('https://test.com/listing/test'))
+    expect(listingApiUrl('test')).toStrictEqual(new URL('https://echonft.xyz/api/listing/test'))
   })
 })

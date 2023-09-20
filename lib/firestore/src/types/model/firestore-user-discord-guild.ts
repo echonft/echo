@@ -1,3 +1,8 @@
+import { Dayjs } from 'dayjs'
+
 export interface FirestoreUserDiscordGuild {
-  discordId: string
+  id: string
+  userId: string
+  guilds: { discordId: string }[]
+  updatedAt: Dayjs
 }

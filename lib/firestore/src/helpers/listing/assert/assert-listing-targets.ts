@@ -8,7 +8,7 @@ import { complement, eqProps, equals, forEach, length, map, pipe, prop, uniqWith
  * Asserts the validity of listing targets
  * @param targets
  */
-export const assertListingTargets = (targets: NonEmptyArray<FirestoreListingTarget>) => {
+export function assertListingTargets(targets: NonEmptyArray<FirestoreListingTarget>) {
   forEach((target: FirestoreListingTarget) => {
     if (propIsNil('collection', target) || pathIsNil(['collection', 'id'], target)) {
       throw Error('not every targets have a collection')

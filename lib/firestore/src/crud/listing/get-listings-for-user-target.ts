@@ -9,38 +9,34 @@ import type { FirestoreListing } from '@echo/firestore/types/model/firestore-lis
 import { listingFields } from '@echo/firestore/types/model/listing-document-data'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { head, invoker, isNil, map, path, pipe, uniq } from 'ramda'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { invoker, map, path, pipe, uniq } from 'ramda'
 
 /**
  * Find listings for which the targets include any of the collection of the NFTs owned by a user
  * TODO array-contains-any is limited to 30 disjunctions, so we will have to make this call recursive when we can reach that number
  * in this case we will have to filter and apply the constraints to the results instead of the queries
- * @param userId
+ * @param username
  * @param filters
  * @param constraints
  */
 export async function getListingsForUserTarget(
-  userId: string,
+  username: string,
   filters?: ListingQueryFilters,
   constraints?: QueryConstraints
 ): Promise<Partial<FirestoreListing>[]> {
-  const nfts = await getNftsForOwner(userId)
+  const nfts = await getNftsForOwner(username)
   const collectionIds = pipe(map(path(['collection', 'id'])), uniq)(nfts)
   let query = firestoreApp()
     .collection(CollectionName.LISTINGS)
-    .where('creatorId', '!=', userId)
+    .where('creator.username', '!=', username)
     .where('targetsIds', 'array-contains-any', collectionIds)
     .withConverter(listingDataConverter)
 
   query = addListingQueryFilters(query, filters)
   query = addConstraintsToQuery(query, constraints, listingFields, true)
   const querySnapshot = await query.get()
-  if (querySnapshot.empty) {
-    return []
-  }
-
-  const documentSnapshot = head(querySnapshot.docs)
-  if (isNil(documentSnapshot)) {
+  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
     return []
   }
 

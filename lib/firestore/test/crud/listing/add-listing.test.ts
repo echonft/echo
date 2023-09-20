@@ -8,6 +8,8 @@ import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
 import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
 import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
+import { assertListings } from '@test-utils/assert-listings'
+import { assertOffers } from '@test-utils/assert-offers'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -15,8 +17,15 @@ import { equals, find, map, prop, reject } from 'ramda'
 
 describe('CRUD - listing - addListing', () => {
   let id: string
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await assertListings()
+    await assertOffers()
+    await tearDownRemoteFirestoreTests()
+  })
+
   afterEach(async () => {
     try {
       await deleteListing(id)
@@ -32,7 +41,7 @@ describe('CRUD - listing - addListing', () => {
 
   it('add a listing', async () => {
     const { creator, items, targets } = getListingMockById('jUzMtPGKM62mMhEcmbN4')
-    id = await addListing({ creator, items, targets })
+    id = await addListing(items, targets)
     const newListing = await findListingById(id)
     const offers = await getOffersForListing(items, targets)
     const now = dayjs()

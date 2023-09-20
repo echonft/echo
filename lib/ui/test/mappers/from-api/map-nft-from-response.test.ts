@@ -21,7 +21,6 @@ describe('mappers - from-api - mapNftFromResponse', () => {
       owner: {
         discordId: 'discordId',
         discordUsername: 'discordUsername',
-        id: 'id',
         wallet: { address: '0xaddress', chainId: 1 },
         discordAvatar: 'discordAvatar',
         discordBanner: 'discordBanner',
@@ -32,6 +31,7 @@ describe('mappers - from-api - mapNftFromResponse', () => {
       tokenId: 1,
       tokenType: 'ERC721'
     }
+
     expect(mapNftFromResponse(response)).toStrictEqual({
       attributes: [
         { trait: 'trait', value: 'value' },
@@ -49,7 +49,6 @@ describe('mappers - from-api - mapNftFromResponse', () => {
       owner: {
         discordId: 'discordId',
         discordUsername: 'discordUsername',
-        id: 'id',
         wallet: { address: '0xaddress', chainId: 1 },
         discordAvatar: 'discordAvatar',
         discordBanner: 'discordBanner',

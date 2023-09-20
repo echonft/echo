@@ -9,8 +9,12 @@ import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore
 import { forEach, pick } from 'ramda'
 
 describe('CRUD - nft-collection - getAllNftCollections', () => {
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
 
   it('without any constraint', async () => {
     const collectionMocks = getAllNftCollectionMocks()

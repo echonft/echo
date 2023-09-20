@@ -1,10 +1,10 @@
-import { addUserWallet as firestoreAddUserWallet } from '@echo/firestore/crud/user/add-user-wallet'
-import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
+import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
+import { WalletData } from '@echo/firestore/types/model/wallet-data'
 import { ServerError } from '@server/helpers/error/server-error'
 
-export const addUserWallet = async (userId: string, wallet: FirestoreWallet) => {
+export async function addUserWallet(userId: string, wallet: WalletData) {
   try {
-    await firestoreAddUserWallet(userId, wallet)
+    await addWallet(userId, wallet)
   } catch (e) {
     throw new ServerError(`error adding wallet ${JSON.stringify(wallet)} for user with id ${userId}`, e)
   }

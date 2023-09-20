@@ -1,5 +1,5 @@
-import { getBotBaseUrl } from '@echo/bot/routing/get-bot-base-url'
+import { getAppUrl } from '@echo/bot/routing/get-app-url'
 
 export function collectionLink(collectionId: string) {
-  return encodeURI(`${getBotBaseUrl()}/collection/${collectionId}`)
+  return encodeURI(`${getAppUrl()}/collection/${collectionId}`)
 }

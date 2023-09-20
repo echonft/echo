@@ -1,5 +1,5 @@
-import { getOfferById } from '../../../mocks/model/offer'
 import { OfferDetails as Component } from '@echo/ui/components/offer/details/offer-details'
+import { getOfferById } from '@mocks/model/offer'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')

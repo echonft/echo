@@ -12,8 +12,9 @@ import { andThen, applySpec, call, converge, head, ifElse, invoker, juxt, last, 
  * @param subCommand The builder
  * @return SlashCommandSubcommandBuilder
  */
-export const createListingSubcommand = (subCommand: SlashCommandSubcommandBuilder) =>
-  subCommand.setName('create').setDescription('Create a listing')
+export function createListingSubcommand(subCommand: SlashCommandSubcommandBuilder) {
+  return subCommand.setName('create').setDescription('Create a listing')
+}
 
 // TODO Must have a cleaner way to use ramda here
 export const executeCreateListing: (interaction: CommandInteraction) => Promise<Message<boolean>> = ifElse(

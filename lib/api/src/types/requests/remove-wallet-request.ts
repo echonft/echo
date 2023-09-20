@@ -1,6 +1,5 @@
+import { WalletRequest } from '@echo/api/types/requests/wallet-request'
+
 export interface RemoveWalletRequest {
-  wallet: {
-    chainId: number
-    address: string
-  }
+  wallet: WalletRequest
 }

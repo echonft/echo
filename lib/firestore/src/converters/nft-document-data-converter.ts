@@ -1,6 +1,5 @@
 import { nftAttributeDocumentDataConverter } from '@echo/firestore/converters/nft-attribute-document-data-converter'
 import { nftCollectionDocumentDataConverter } from '@echo/firestore/converters/nft-collection-document-data-converter'
-import { userDetailsDocumentDataConverter } from '@echo/firestore/converters/user-details-document-data-converter'
 import { modifyDocumentDataArrayProp } from '@echo/firestore/helpers/converters/from-firestore/modify-document-data-array-prop'
 import { modifyDocumentDataProp } from '@echo/firestore/helpers/converters/from-firestore/modify-document-data-prop'
 import { modifyModelProp } from '@echo/firestore/helpers/converters/to-firestore/modify-model-prop'
@@ -19,7 +18,6 @@ export const nftDocumentDataConverter: FirestoreDocumentDataConverter<NftDocumen
     modifyStringPropToUrl('blurUrl'),
     modifyDocumentDataProp('collection', nftCollectionDocumentDataConverter),
     modifyStringPropToUrl('openSeaUrl'),
-    modifyDocumentDataProp('owner', userDetailsDocumentDataConverter),
     modifyStringPropToUrl('pictureUrl'),
     modifyStringPropToUrl('thumbnailUrl')
   ),
@@ -32,7 +30,6 @@ export const nftDocumentDataConverter: FirestoreDocumentDataConverter<NftDocumen
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     modifyModelProp('collection', nftCollectionDocumentDataConverter),
-    modifyModelProp('owner', userDetailsDocumentDataConverter),
     modifyUrlPropToString('openSeaUrl'),
     modifyUrlPropToString('pictureUrl'),
     modifyUrlPropToString('thumbnailUrl')

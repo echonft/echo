@@ -25,8 +25,12 @@ describe('CRUD - listing - getListingsForCreator', () => {
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(listing)
   }
 
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
   beforeEach(async () => {
     const listing = await findListingById(id)
     initialExpiresAt = listing!.expiresAt
@@ -42,37 +46,37 @@ describe('CRUD - listing - getListingsForCreator', () => {
 
   it('returns the listings for the creator', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    const listings = await getListingsForCreator('oE6yUEQBPn7PZ89yMjKn')
+    const listings = await getListingsForCreator('johnnycagewins')
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
   })
 
   it('filter by state (included)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForCreator('oE6yUEQBPn7PZ89yMjKn', { states: ['OPEN', 'CANCELLED'] })
+    let listings = await getListingsForCreator('johnnycagewins', { states: ['OPEN', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getListingsForCreator('oE6yUEQBPn7PZ89yMjKn', { states: ['CANCELLED'] })
+    listings = await getListingsForCreator('johnnycagewins', { states: ['CANCELLED'] })
     expect(listings.length).toBe(0)
   })
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForCreator('oE6yUEQBPn7PZ89yMjKn', { notStates: ['INVALID', 'CANCELLED'] })
+    let listings = await getListingsForCreator('johnnycagewins', { notStates: ['INVALID', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getListingsForCreator('oE6yUEQBPn7PZ89yMjKn', { notStates: ['OPEN', 'FULFILLED'] })
+    listings = await getListingsForCreator('johnnycagewins', { notStates: ['OPEN', 'FULFILLED'] })
     expect(listings.length).toBe(0)
   })
 
   it('includeExpired filter', async () => {
     const mock = await setExpired(getListingMockById(id))
-    let listings = await getListingsForCreator('oE6yUEQBPn7PZ89yMjKn', { includeExpired: true })
+    let listings = await getListingsForCreator('johnnycagewins', { includeExpired: true })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getListingsForCreator('oE6yUEQBPn7PZ89yMjKn', { includeExpired: false })
+    listings = await getListingsForCreator('johnnycagewins', { includeExpired: false })
     expect(listings.length).toBe(0)
-    listings = await getListingsForCreator('oE6yUEQBPn7PZ89yMjKn')
+    listings = await getListingsForCreator('johnnycagewins')
     expect(listings.length).toBe(0)
   })
 })

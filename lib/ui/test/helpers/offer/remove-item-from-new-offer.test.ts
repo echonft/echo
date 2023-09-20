@@ -6,7 +6,7 @@ import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - offer - removeItemFromNewOffer', () => {
   it('remove the right receiver item', () => {
-    const receiver = { id: 'receiver' } as User
+    const receiver = { username: 'receiver' } as User
     const item1 = { nft: { id: '1' } } as OfferItem
     const item2 = { nft: { id: '2' } } as OfferItem
     const item3 = { nft: { id: '3' } } as OfferItem
@@ -23,7 +23,7 @@ describe('helpers - offer - removeItemFromNewOffer', () => {
   })
 
   it('remove the right sender item', () => {
-    const receiver = { id: 'receiver' } as User
+    const receiver = { username: 'receiver' } as User
     const item1 = { nft: { id: '1' } } as OfferItem
     const item2 = { nft: { id: '2' } } as OfferItem
     const item3 = { nft: { id: '3' } } as OfferItem

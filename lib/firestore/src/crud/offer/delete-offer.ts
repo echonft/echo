@@ -1,5 +1,5 @@
 import { getOfferSnapshotById } from '@echo/firestore/crud/offer/get-offer-snapshot-by-id'
-import type { WriteResult } from 'firebase-admin/firestore'
+import type { WriteResult } from 'firebase-admin/lib/firestore'
 import { isNil } from 'ramda'
 
 export async function deleteOffer(id: string): Promise<WriteResult> {

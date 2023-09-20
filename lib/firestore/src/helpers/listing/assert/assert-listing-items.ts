@@ -16,11 +16,7 @@ export function assertListingItems(items: NonEmptyArray<FirestoreListingItem>) {
     if (pathIsNil(['nft', 'collection'], item) || pathIsNil(['nft', 'collection', 'id'], item)) {
       throw Error('not every items have an nft with a collection')
     }
-    if (
-      pathIsNil(['nft', 'owner'], item) ||
-      pathIsNil(['nft', 'owner', 'id'], item) ||
-      pathIsNil(['nft', 'owner', 'wallet'], item)
-    ) {
+    if (pathIsNil(['nft', 'owner'], item) || pathIsNil(['nft', 'owner', 'wallet'], item)) {
       throw Error('not every items have an nft with an owner')
     }
   }, items)

@@ -10,7 +10,6 @@ export const offerMock: { [key: string]: FirestoreOffer } = {
     expiresAt: dayjs.unix(2324074781),
     listingsIds: ['jUzMtPGKM62mMhEcmbN4'],
     receiver: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -22,7 +21,6 @@ export const offerMock: { [key: string]: FirestoreOffer } = {
     },
     receiverItems: [{ amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') }],
     sender: {
-      id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
       discordUsername: 'crewnft_',
       discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
@@ -43,7 +41,6 @@ export const offerMock: { [key: string]: FirestoreOffer } = {
     expired: false,
     listingsIds: [],
     receiver: {
-      id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
       discordUsername: 'crewnft_',
       discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
@@ -56,7 +53,6 @@ export const offerMock: { [key: string]: FirestoreOffer } = {
     },
     receiverItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }],
     sender: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',

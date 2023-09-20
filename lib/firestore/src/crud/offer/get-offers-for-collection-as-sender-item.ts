@@ -8,7 +8,8 @@ import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer
 import { offerFields } from '@echo/firestore/types/model/offer-document-data'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { head, invoker, isNil, map } from 'ramda'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { invoker, map } from 'ramda'
 
 export async function getOffersForCollectionAsSenderItem(
   collectionId: string,
@@ -23,12 +24,7 @@ export async function getOffersForCollectionAsSenderItem(
   query = addOfferQueryFilters(query, filters)
   query = addConstraintsToQuery(query, constraints, offerFields, true)
   const querySnapshot = await query.get()
-  if (querySnapshot.empty) {
-    return []
-  }
-
-  const documentSnapshot = head(querySnapshot.docs)
-  if (isNil(documentSnapshot)) {
+  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
     return []
   }
 

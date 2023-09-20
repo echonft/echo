@@ -49,7 +49,17 @@ export const messages = {
   },
   layout: {
     header: {
-      connectButton: 'Connect',
+      button: {
+        connect: {
+          label: 'Connect'
+        },
+        connecting: {
+          label: 'Connecting...'
+        },
+        disconnect: {
+          label: 'Disconnect'
+        }
+      },
       searchInput: 'Search for a collection or a user'
     }
   },

@@ -1,5 +1,5 @@
 import { mapUndefinedPropsToDeleteField } from '@echo/firestore/helpers/crud/map-undefined-props-to-delete-field'
-import type { DocumentReference, FirestoreDataConverter, UpdateData } from 'firebase-admin/firestore'
+import type { DocumentReference, FirestoreDataConverter, UpdateData } from 'firebase-admin/lib/firestore'
 import { mergeLeft } from 'ramda'
 
 export async function cleanAndUpdateDocumentRef<T>(

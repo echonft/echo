@@ -7,7 +7,6 @@ describe('mappers - to-response - mapListingToResponse', () => {
     expect(mapListingToResponse(listing)).toStrictEqual({
       id: 'jUzMtPGKM62mMhEcmbN4',
       creator: {
-        id: 'oE6yUEQBPn7PZ89yMjKn',
         discordId: '462798252543049728',
         discordUsername: 'johnnycagewins',
         discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -61,7 +60,6 @@ describe('mappers - to-response - mapListingToResponse', () => {
             },
             name: 'Spiral Frequencies #1376',
             owner: {
-              id: 'oE6yUEQBPn7PZ89yMjKn',
               discordId: '462798252543049728',
               discordUsername: 'johnnycagewins',
               discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -144,7 +142,6 @@ describe('mappers - to-response - mapListingToResponse', () => {
             },
             name: 'Spiral Frequencies #2414',
             owner: {
-              id: 'oE6yUEQBPn7PZ89yMjKn',
               discordId: '462798252543049728',
               discordUsername: 'johnnycagewins',
               discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',

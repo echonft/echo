@@ -13,8 +13,12 @@ describe('CRUD - offer - getOffersForUser', () => {
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
   let initialExpiresAt: dayjs.Dayjs
 
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
   beforeEach(async () => {
     const offer = await findOfferById(id)
     initialExpiresAt = offer!.expiresAt
@@ -24,12 +28,12 @@ describe('CRUD - offer - getOffersForUser', () => {
   })
 
   it('returns the offers for the user (as a receiver or a sender)', async () => {
-    const userId = 'oE6yUEQBPn7PZ89yMjKn'
+    const username = 'johnnycagewins'
     const userOfferMocks = filter(
-      either(pathEq(userId, ['sender', 'id']), pathEq(userId, ['receiver', 'id'])),
+      either(pathEq(username, ['sender', 'username']), pathEq(username, ['receiver', 'username'])),
       getAllOfferMocks()
     )
-    const offers = await getOffersForUser(userId, { includeExpired: true })
+    const offers = await getOffersForUser(username, { includeExpired: true })
     expect(offers.length).toBe(userOfferMocks.length)
     forEach((offer: Partial<FirestoreOffer>) => {
       const offerMock = find(propEq(offer.id, 'id'), userOfferMocks)

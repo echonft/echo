@@ -1,13 +1,21 @@
+import { FirestoreAdapter } from '@auth/firebase-adapter'
 import { getDiscordAuthorizationUrl } from '@echo/discord/config/get-discord-authorization-url'
 import { getDiscordConfig } from '@echo/discord/config/get-discord-config'
-import { errorMessage } from '@echo/utils/error/error-message'
-import { logger } from '@echo/utils/services/logger'
-import { createOrUpdateUser } from '@server/helpers/auth/create-or-update-user'
+import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
+import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { getSessionToken } from '@server/helpers/auth/get-session-token'
+import { setUserIdIfNeeded } from '@server/helpers/user/set-user-id-if-needed'
+import { updateDiscordUserIfNeeded } from '@server/helpers/user/update-discord-user-if-needed'
+import { updateUserNftsIfNeeded } from '@server/helpers/user/update-user-nfts-if-needed'
 import type { AuthOptions } from 'next-auth'
 import Discord from 'next-auth/providers/discord'
-import { dissoc, isNil } from 'ramda'
+import { isNil, omit } from 'ramda'
 
 export const authOptions: AuthOptions = {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  adapter: FirestoreAdapter(initializeFirebase()),
   providers: [
     Discord({
       clientId: getDiscordConfig().clientId,
@@ -15,29 +23,29 @@ export const authOptions: AuthOptions = {
       authorization: getDiscordAuthorizationUrl()
     })
   ],
-  pages: {
-    signIn: '/login',
-    signOut: '/logout'
-  },
+  // TODO
+  // pages: {
+  //   signIn: '/login',
+  // },
   callbacks: {
-    async jwt({ token, account }) {
-      if (account) {
-        try {
-          const user = await createOrUpdateUser(account.access_token, account.token_type, token.user)
-          return { user, ...token }
-        } catch (e) {
-          logger.error(`Auth error: error creating or updating user: ${errorMessage(e)}`)
-          return token
+    session: async ({ session }) => {
+      const { user } = session
+      if (!isNil(user) && !isNilOrEmpty(user.name)) {
+        const foundUser = await findUserByUsername(user.name)
+        const userWithId = await setUserIdIfNeeded(foundUser!)
+        const sessionToken = await getSessionToken(userWithId.id)
+        await updateDiscordUserIfNeeded(userWithId.id)
+        // TODO get the chain id
+        await updateUserNftsIfNeeded(userWithId, 1)
+        return {
+          ...session,
+          user: {
+            ...omit(['updatedAt'], userWithId),
+            sessionToken
+          }
         }
       }
-      return token
-    },
-    session({ session, token: { user } }) {
-      if (isNil(user)) {
-        logger.error('Auth error: user is nil in session callback')
-        return dissoc('user', session)
-      }
-      return { ...session, user }
+      return session
     }
   }
 }

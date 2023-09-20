@@ -5,8 +5,12 @@ import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-fires
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - listing - getListingsWithOfferId', () => {
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
 
   it('returns an empty array there are no listings with the given offer', async () => {
     const listings = await getListingsWithOfferId('not-found')

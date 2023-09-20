@@ -7,6 +7,6 @@ describe('routing - userSwapsApiUrl', () => {
   })
 
   test('returns proper URL', () => {
-    expect(userSwapsApiUrl('test')).toStrictEqual(new URL('https://test.com/user/test/swaps'))
+    expect(userSwapsApiUrl('test')).toStrictEqual(new URL('https://echonft.xyz/api/user/test/swaps'))
   })
 })

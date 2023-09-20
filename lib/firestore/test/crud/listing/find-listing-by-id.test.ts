@@ -5,8 +5,12 @@ import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-fires
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - listing - findListingById', () => {
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
 
   it('returns undefined if the listing is not found', async () => {
     const listing = await findListingById('not-found')

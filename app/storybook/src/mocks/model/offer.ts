@@ -10,7 +10,6 @@ const offers: { [key: string]: Offer } = {
     expired: true,
     expiresAt: dayjs.unix(1676984897),
     receiver: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -23,7 +22,6 @@ const offers: { [key: string]: Offer } = {
     },
     receiverItems: [{ amount: 1, nft: getNftById('8hHFadIrrooORfTOLkBg') }],
     sender: {
-      id: '6rECUMhevHfxABZ1VNOm',
       discordId: '884593489189433364',
       discordUsername: 'crewnft_',
       discordAvatar: '6080eecbd12f0f7bb2299690661535cf',

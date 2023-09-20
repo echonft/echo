@@ -45,7 +45,6 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       },
       name: 'Spiral Frequencies #1376',
       owner: {
-        id: 'oE6yUEQBPn7PZ89yMjKn',
         discordId: '462798252543049728',
         discordUsername: 'johnnycagewins',
         discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -68,7 +67,6 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
     expired: false,
     expiresAt: 2324074781,
     receiver: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -80,7 +78,6 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
     },
     receiverItems: [offerItemResponse],
     sender: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -133,7 +130,6 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       },
       name: 'Spiral Frequencies #1376',
       owner: {
-        id: 'oE6yUEQBPn7PZ89yMjKn',
         discordId: '462798252543049728',
         discordUsername: 'johnnycagewins',
         discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -156,7 +152,6 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
     expired: false,
     expiresAt: dayjs.unix(2324074781),
     receiver: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
@@ -168,7 +163,6 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
     },
     receiverItems: [offerItem],
     sender: {
-      id: 'oE6yUEQBPn7PZ89yMjKn',
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
       discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',

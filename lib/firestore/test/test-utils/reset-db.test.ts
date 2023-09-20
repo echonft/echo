@@ -3,11 +3,15 @@ import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-fires
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('resets the db - use only when needed', () => {
-  beforeAll(tearUpRemoteFirestoreTests)
-  afterAll(tearDownRemoteFirestoreTests)
+  beforeAll(async () => {
+    await tearUpRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await tearDownRemoteFirestoreTests()
+  })
 
-  it('resets the db', () => {
+  it('resets the db', async () => {
     // await resetDb()
-    expect(true).toBeTruthy()
+    await expect(Promise.resolve(true)).resolves.toBeDefined()
   })
 })

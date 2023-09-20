@@ -7,6 +7,6 @@ describe('routing - collectionApiUrl', () => {
   })
 
   test('returns proper URL', () => {
-    expect(collectionApiUrl('test')).toStrictEqual(new URL('https://test.com/collection/test'))
+    expect(collectionApiUrl('test')).toStrictEqual(new URL('https://echonft.xyz/api/collection/test'))
   })
 })

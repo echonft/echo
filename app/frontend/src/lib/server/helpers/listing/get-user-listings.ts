@@ -6,15 +6,15 @@ import type { QueryConstraints } from '@echo/firestore/types/query/query-constra
 import { ServerError } from '@server/helpers/error/server-error'
 import { isNil } from 'ramda'
 
-export async function getUserListings(userId: string, filters?: ListingQueryFilters, constraints?: QueryConstraints) {
+export async function getUserListings(username: string, filters?: ListingQueryFilters, constraints?: QueryConstraints) {
   try {
     if (!isNil(filters) && filters.as === ListingFilterAsTarget) {
-      return await getListingsForUserTarget(userId, filters, constraints)
+      return await getListingsForUserTarget(username, filters, constraints)
     }
-    return await getListingsForCreator(userId, filters, constraints)
+    return await getListingsForCreator(username, filters, constraints)
   } catch (e) {
     throw new ServerError(
-      `error getting listings for user with id ${userId} with filters ${JSON.stringify(
+      `error getting listings for user with username ${username} with filters ${JSON.stringify(
         filters
       )} and constraints ${JSON.stringify(constraints)}`,
       e

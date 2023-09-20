@@ -52,22 +52,8 @@
     },
     "@echo/frontend#build": {
       "dependsOn": ["@echo/ui#build"],
-      "env": [
-        "ALCHEMY_API_KEY",
-        "NEXTAUTH_URL_INTERNAL",
-        "NEXTAUTH_URL",
-        "ADMIN_API_KEY",
-        "DISCORD_CLIENT_TOKEN",
-        "DISCORD_CLIENT_ID",
-        "DISCORD_CLIENT_SECRET",
-        "DISCORD_REDIRECT_URI"
-      ],
       "outputs": [".next/**", "!.next/cache/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
-    },
-    "@echo/frontend#dev": {
-      "dependsOn": ["@echo/ui#build"],
-      "cache": false
     },
     "@echo/storybook#build": {
       "dependsOn": ["@echo/ui#build"],

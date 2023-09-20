@@ -1,6 +1,6 @@
 import type { OrderByParameters } from '@echo/firestore/types/query/order-by-parameters'
 import { isIn } from '@echo/utils/fp/is-in'
-import type { OrderByDirection, Query } from 'firebase-admin/firestore'
+import type { OrderByDirection, Query } from 'firebase-admin/lib/firestore'
 import { filter, head, is, isEmpty, propSatisfies, tail } from 'ramda'
 
 function addOrderByConstraintRecursive<T>(
