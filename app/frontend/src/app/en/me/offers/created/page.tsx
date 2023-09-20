@@ -14,7 +14,7 @@ import type { FunctionComponent } from 'react'
 const ProfileOffersCreatedPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
 
-  if (isNil(session) || isNil(session.user)) {
+  if (isNil(session) || isNil(session.user) || isNil(session.user.sessionToken)) {
     // TODO redirect to login (modal I guess)
     notFound()
   }
@@ -30,7 +30,7 @@ const ProfileOffersCreatedPage: FunctionComponent = async () => {
   const { data, error } = await fetcher(profileOffersApiUrl())
     .revalidate(3600)
     .query(mergeLeft(filterParams, queryParams))
-    .bearerToken(session.user.sessionToken!)
+    .bearerToken(session.user.sessionToken)
     .fetch<GetOffersResponse>()
 
   if (isNil(data)) {

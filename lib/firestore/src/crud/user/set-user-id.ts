@@ -5,7 +5,7 @@ import { isNil } from 'ramda'
  * Sets the user id
  * This is used to set the "id" field to user in the database because next-auth firestore adapter doesn't
  * @param {string} username
- * @return {Promise<FirebaseFirestore.WriteResult>}
+ * @return {Promise<string>}
  */
 export async function setUserId(username: string): Promise<string> {
   const documentSnapshot = await getUserSnapshotByUsername(username)

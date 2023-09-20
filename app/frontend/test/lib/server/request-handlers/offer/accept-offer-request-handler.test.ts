@@ -47,11 +47,11 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
     }
   })
 
-  it('throws if the user is not the offer sender', async () => {
+  it('throws if the user is not the offer receiver', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest
       .mocked(getOffer)
-      .mockResolvedValueOnce({ state: 'OPEN', sender: { username: 'another-user-name' } } as FirestoreOffer)
+      .mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'another-user-name' } } as FirestoreOffer)
     const req = mockRequest<never>()
     try {
       await acceptOfferRequestHandler(req, offerId)
@@ -63,7 +63,9 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce({ state: 'OPEN', sender: { username: 'user-name' } } as FirestoreOffer)
+    jest
+      .mocked(getOffer)
+      .mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'user-name' } } as FirestoreOffer)
     jest.mocked(acceptOffer).mockResolvedValueOnce()
     const req = mockRequest<never>()
     const res = await acceptOfferRequestHandler(req, offerId)

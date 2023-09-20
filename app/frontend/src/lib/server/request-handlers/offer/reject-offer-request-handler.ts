@@ -1,6 +1,6 @@
 import { ApiRequest } from '@echo/api/types/base/api-request'
 import { assertOffer } from '@server/helpers/offer/assert-offer'
-import { assertOfferSenderIs } from '@server/helpers/offer/assert-offer-sender-is'
+import { assertOfferReceiverIs } from '@server/helpers/offer/assert-offer-receiver-is'
 import { assertOfferState } from '@server/helpers/offer/assert-offer-state'
 import { getOffer } from '@server/helpers/offer/get-offer'
 import { rejectOffer } from '@server/helpers/offer/reject-offer'
@@ -12,7 +12,7 @@ export async function rejectOfferRequestHandler(req: ApiRequest<never>, offerId:
   assertOffer(offer)
   assertOfferState(offer, 'OPEN')
   const user = await getUserFromRequest(req)
-  assertOfferSenderIs(offer, user.name)
+  assertOfferReceiverIs(offer, user.name)
   await rejectOffer(offerId)
   return emptyResponse()
 }
