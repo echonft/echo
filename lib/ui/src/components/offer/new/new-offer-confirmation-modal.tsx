@@ -1,62 +1,73 @@
 'use client'
+import { EditIconSvg } from '@echo/ui/components/base/svg/edit-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { ModalTitle } from '@echo/ui/components/layout/modal/modal-title'
-import { NewOfferConfirmationModalInnerContainer } from '@echo/ui/components/offer/new/new-offer-confirmation-modal-inner-container'
-import { NewOfferConfirmedModalInnerContainer } from '@echo/ui/components/offer/new/new-offer-confirmed-modal-inner-container'
-import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
-import { NewOffer } from '@echo/ui/types/model/new-offer'
-import { Offer } from '@echo/ui/types/model/offer'
+import { NewOfferConfirmationModalItemsContainer } from '@echo/ui/components/offer/new/new-offer-confirmation-modal-items-container'
+import { OfferItem } from '@echo/ui/types/model/offer-item'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  newOffer: NewOffer | undefined
-  offer: Offer | undefined
+  receiverItems: OfferItem[]
+  senderItems: OfferItem[]
+  show?: boolean
+  confirming?: boolean
   onConfirm?: () => unknown
   onClose?: () => unknown
 }
 
-export const NewOfferConfirmationModal: FunctionComponent<Props> = ({ newOffer, offer, onConfirm, onClose }) => {
-  const t = useTranslations('offer.new')
-  const { clearOffer } = useNewOfferStore()
-
-  function isConfirmed() {
-    return !isNil(offer?.swapTransactionId)
-  }
-
-  function getOffer() {
-    return newOffer ?? offer
-  }
+export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
+  receiverItems,
+  senderItems,
+  show,
+  confirming,
+  onConfirm,
+  onClose
+}) => {
+  const t = useTranslations('offer.new.confirmationModal')
 
   return (
     <Modal
-      open={!isNil(newOffer) || !isNil(offer)}
+      open={Boolean(show)}
       onClose={() => onClose?.()}
-      renderTitle={() => (
-        <ModalTitle>{t(`${isConfirmed() ? 'confirmedModal' : 'confirmationModal'}.title`)}</ModalTitle>
+      renderTitle={() => <ModalTitle>{t('title')}</ModalTitle>}
+      renderDescription={() => (
+        <div className={clsx('flex', 'flex-col', 'gap-6')}>
+          <div className={clsx('flex', 'flex-col', 'gap-6')}>
+            <NewOfferConfirmationModalItemsContainer isReceiver items={receiverItems} />
+            <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
+          </div>
+          <NewOfferConfirmationModalItemsContainer isReceiver={false} items={senderItems} />
+          <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
+            <button
+              className={clsx('btn-action', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10', 'gap-2.5')}
+              disabled={confirming}
+              onClick={onClose}
+            >
+              <span className={clsx('text-purple-900', 'group-active:group-hover:text-white')}>
+                <EditIconSvg />
+              </span>
+              <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('editBtn')}</span>
+            </button>
+            <button
+              className={clsx(
+                'btn-gradient',
+                'group',
+                'rounded-lg',
+                'w-40',
+                'py-1.5',
+                '!h-10',
+                confirming && 'animate-pulse'
+              )}
+              onClick={onConfirm}
+              disabled={confirming}
+            >
+              <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>
+            </button>
+          </div>
+        </div>
       )}
-      renderDescription={() =>
-        isConfirmed() ? (
-          // TODO I dont think it's transaction id here
-          <NewOfferConfirmedModalInnerContainer
-            onConfirm={() => {
-              onClose?.()
-            }}
-            transactionId={offer!.swapTransactionId!}
-          />
-        ) : (
-          <NewOfferConfirmationModalInnerContainer
-            senderItems={getOffer()?.senderItems ?? []}
-            receiverItems={getOffer()?.receiverItems ?? []}
-            onConfirm={() => {
-              onConfirm?.()
-              clearOffer()
-            }}
-            onEdit={onClose}
-          />
-        )
-      }
     />
   )
 }

@@ -1,40 +1,44 @@
 'use client'
-import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
+import { createOfferFetcher } from '@echo/api/helpers/create-offer-fetcher'
 import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
 import { NewOfferBottomSliderInnerContainer } from '@echo/ui/components/offer/new/new-offer-bottom-slider-inner-container'
 import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
+import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
-import { Offer } from '@echo/ui/types/model/offer'
+import { mapOfferItemsToRequests } from '@echo/ui/mappers/to-api/map-offer-items-to-requests'
 import { Transition } from '@headlessui/react'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
+import { pathEq, reject } from 'ramda'
 import { type FunctionComponent, useCallback, useState } from 'react'
+import useSWRMutation from 'swr/mutation'
 
 export const NewOfferSliderManager: FunctionComponent = () => {
   const t = useTranslations('offer.new.bottomSlider')
-  const { hasNewOfferPending, setReceiverItems, setSenderItems, offer, clearOffer } = useNewOfferStore()
-  const [confirmNewOffer, setConfirmNewOffer] = useState(false)
-  const [createdOffer, setCreatedOffer] = useState<Offer>()
+  const { hasNewOfferPending, setReceiverItems, setSenderItems, receiverItems, senderItems, clearOffer } =
+    useNewOfferStore()
+  const { data: session } = useSession()
+  const [confirmOfferModalShown, setConfirmOfferModalShown] = useState(false)
+  const [confirmedModalShown, setConfirmedModalShown] = useState(false)
+  const { trigger, isMutating } = useSWRMutation(
+    { receiverItems: mapOfferItemsToRequests(receiverItems), senderItems: mapOfferItemsToRequests(senderItems) },
+    ({ receiverItems, senderItems }) => createOfferFetcher(senderItems, receiverItems, session?.user.sessionToken)
+  )
 
   const onRemoveSenderItems = useCallback(
     (nftId: string) => {
-      setSenderItems(offer.senderItems.filter((item) => item.nft.id !== nftId))
+      setSenderItems(reject(pathEq(nftId, ['nft', 'id'])))
     },
-    [offer, setSenderItems]
+    [setSenderItems]
   )
 
   const onRemoveReceiverItems = useCallback(
     (nftId: string) => {
-      setReceiverItems(offer.receiverItems.filter((item) => item.nft.id !== nftId))
+      setReceiverItems(reject(pathEq(nftId, ['nft', 'id'])))
     },
-    [offer, setReceiverItems]
+    [setReceiverItems]
   )
-
-  function onConfirmNewOffer() {
-    // TODO need to have a backend call to create the offer
-    // FIXME Not the right behaviour
-    setCreatedOffer({ ...offer, swapTransactionId: 'test' } as Offer)
-  }
 
   return (
     <>
@@ -48,31 +52,40 @@ export const NewOfferSliderManager: FunctionComponent = () => {
         leaveFrom="opacity-100"
         leaveTo="opacity-0"
       >
-        {/* FIXME Because of the HideIfNil, the transition out does not work */}
-        <HideIfNil
-          checks={offer}
-          render={(newOffer) => (
-            <BottomSlider
-              renderTitle={() => <BottomSliderTitle title={t('title')} count={newOffer.receiverItems.length} />}
-            >
-              <NewOfferBottomSliderInnerContainer
-                receiver={newOffer.receiver}
-                receiverItems={newOffer.receiverItems}
-                senderItems={newOffer.senderItems}
-                onRemoveReceiverItem={onRemoveReceiverItems}
-                onRemoveSenderItem={onRemoveSenderItems}
-                onDismissOffer={clearOffer}
-                onConfirmOffer={() => setConfirmNewOffer(true)}
-              />
-            </BottomSlider>
-          )}
-        />
+        <BottomSlider renderTitle={() => <BottomSliderTitle title={t('title')} count={receiverItems.length} />}>
+          <NewOfferBottomSliderInnerContainer
+            receiverItems={receiverItems}
+            senderItems={senderItems}
+            onRemoveReceiverItem={onRemoveReceiverItems}
+            onRemoveSenderItem={onRemoveSenderItems}
+            onDismissOffer={clearOffer}
+            onConfirmOffer={() => setConfirmOfferModalShown(true)}
+          />
+        </BottomSlider>
       </Transition>
       <NewOfferConfirmationModal
-        newOffer={confirmNewOffer ? offer : undefined}
-        offer={createdOffer}
-        onConfirm={onConfirmNewOffer}
-        onClose={() => setConfirmNewOffer(false)}
+        receiverItems={receiverItems}
+        senderItems={senderItems}
+        show={confirmOfferModalShown}
+        confirming={isMutating}
+        onClose={() => setConfirmOfferModalShown(false)}
+        onConfirm={() => {
+          trigger()
+            .then(() => {
+              clearOffer()
+              setConfirmOfferModalShown(false)
+              setConfirmedModalShown(true)
+            })
+            .catch((_err) => {
+              // TODO show the error
+            })
+        }}
+      />
+      <NewOfferConfirmedModal
+        show={confirmedModalShown}
+        onClose={() => {
+          setConfirmedModalShown(false)
+        }}
       />
     </>
   )

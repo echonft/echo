@@ -1,18 +1,16 @@
-import { NewItemsContainer } from '@echo/ui/components/item/new/new-items-container'
+import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
+import { NewReceiverItemsContainer } from '@echo/ui/components/item/new/new-receiver-items-container'
+import { NewSenderItemsContainer } from '@echo/ui/components/item/new/new-sender-items-container'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
-import { links } from '@echo/ui/constants/links'
-import { getOfferItemsWallet } from '@echo/ui/helpers/offer/get-offer-items-wallet'
 import type { OfferItem } from '@echo/ui/types/model/offer-item'
-import type { User } from '@echo/ui/types/model/user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { always, head, ifElse, isNil, path, pipe } from 'ramda'
+import { head } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  receiver: User
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
   onRemoveSenderItem?: (itemNftId: string) => unknown
@@ -22,9 +20,8 @@ interface Props {
 }
 
 export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
-  receiver,
   receiverItems,
-  senderItems = [],
+  senderItems,
   onRemoveSenderItem,
   onRemoveReceiverItem,
   onConfirmOffer,
@@ -32,31 +29,21 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.new.bottomSlider')
 
-  function getCollectionSlug(): string {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return pipe(head, ifElse(isNil, always(''), path<string>(['nft', 'collection', 'slug'])))(receiverItems)
-  }
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
-      <div className={clsx('pt-6', 'pb-1')}>
-        <UserDetailsContainer user={receiver} userWalletAddress={getOfferItemsWallet(receiverItems).address} />
-      </div>
+      <HideIfEmpty
+        checks={receiverItems}
+        render={(receiverItems) => (
+          <div className={clsx('pt-6', 'pb-1')}>
+            <UserDetailsContainer user={head<OfferItem, OfferItem>(receiverItems).nft.owner} />
+          </div>
+        )}
+      />
       <div className={clsx('flex', 'flex-col', 'gap-8')}>
-        <NewItemsContainer
-          isReceiver
-          items={receiverItems}
-          addMorePath={links.collection.items(getCollectionSlug())}
-          onRemove={onRemoveReceiverItem}
-        />
+        <NewReceiverItemsContainer items={receiverItems} onRemove={onRemoveReceiverItem} />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
       </div>
-      <NewItemsContainer
-        isReceiver={false}
-        items={senderItems}
-        addMorePath={links.profile.items}
-        onRemove={onRemoveSenderItem}
-      />
+      <NewSenderItemsContainer items={senderItems} onRemove={onRemoveSenderItem} />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6', 'gap-5')}>
         {/*TODO Here we should add a fetcher to update. We don't need the state for modal, we can use offer id */}
         <Disclosure.Button

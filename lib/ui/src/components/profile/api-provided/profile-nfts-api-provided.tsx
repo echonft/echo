@@ -25,6 +25,7 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ responses }) 
   const nftGroups = useMemo(() => pipe(map(mapNftFromResponse), groupNftsByCollection)(responses), [responses])
   const dataIsEmpty = isEmpty(nftGroups)
 
+  // TODO set the right label for the button and hook the action
   return (
     <ProfileNavigationLayout activeNavigationItem={NavigationItems}>
       <HideIf condition={dataIsEmpty}>

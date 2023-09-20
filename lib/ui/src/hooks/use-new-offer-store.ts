@@ -1,15 +1,16 @@
-import { NewOffer } from '@echo/ui/types/model/new-offer'
 import { OfferItem } from '@echo/ui/types/model/offer-item'
-import { User } from '@echo/ui/types/model/user'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { always, head, ifElse, omit, path, pipe } from 'ramda'
+import { eqPaths } from '@echo/utils/fp/eq-paths'
+import { propIsNotEmpty } from '@echo/utils/fp/prop-is-not-empty'
+import { removeOrAddArrayFromArray } from '@echo/utils/fp/remove-or-add-array-from-array'
+import { assoc, either, head, is, isEmpty, pipe } from 'ramda'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 interface NewOfferState {
-  offer: NewOffer
-  setReceiverItems: (receiverItems: OfferItem[]) => void
-  setSenderItems: (senderItems: OfferItem[]) => void
+  receiverItems: OfferItem[]
+  senderItems: OfferItem[]
+  setReceiverItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
+  setSenderItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
   clearOffer: () => void
   hasNewOfferPending: () => boolean
 }
@@ -17,31 +18,46 @@ interface NewOfferState {
 export const useNewOfferStore = create<NewOfferState>()(
   devtools(
     (set, get) => ({
-      offer: {} as NewOffer,
-      setReceiverItems: (receiverItems) =>
-        set((state) => ({
-          ...state,
-          offer: {
-            ...state.offer,
-            receiverItems,
-            receiver: ifElse(
-              isNilOrEmpty,
-              // We keep the original receiver when all NFTs are erased. User can overwrite by choosing other NFTs
-              always(state.offer?.receiver),
-              pipe(head, path<User>(['nft', 'owner']))
-            )(receiverItems)
-          } as NewOffer
-        })),
-      setSenderItems: (senderItems) =>
-        set((state) => ({
-          ...state,
-          offer: {
-            ...state.offer,
-            senderItems
-          }
-        })),
-      clearOffer: () => set(omit(['offer']), true),
-      hasNewOfferPending: () => !isNilOrEmpty(get().offer)
+      receiver: undefined,
+      receiverItems: [],
+      senderItems: [],
+      setReceiverItems: (args) => {
+        function setState(items: OfferItem[]) {
+          set((state) => {
+            const { receiverItems: currentReceiverItems } = state
+            if (isEmpty(currentReceiverItems) || isEmpty(items)) {
+              return assoc('receiverItems', items, state)
+            }
+            // it's a new receiver, replace everything
+            if (head(items)!.nft.owner.username !== head(currentReceiverItems)!.nft.owner.username) {
+              return assoc('receiverItems', items, state)
+            }
+            // it's the same receiver, update the items
+            return assoc(
+              'receiverItems',
+              removeOrAddArrayFromArray(currentReceiverItems, items, eqPaths(['nft', 'id'])),
+              state
+            )
+          })
+        }
+        if (is(Function, args)) {
+          setState(args(get().receiverItems))
+        } else {
+          setState(args)
+        }
+      },
+      setSenderItems: (args) => {
+        function setState(items: OfferItem[]) {
+          set(assoc('senderItems', items))
+        }
+        if (is(Function, args)) {
+          setState(args(get().senderItems))
+        } else {
+          setState(args)
+        }
+      },
+      clearOffer: () => set(pipe(assoc('receiverItems', []), assoc('senderItems', []))),
+      hasNewOfferPending: () => pipe(get, either(propIsNotEmpty('receiverItems'), propIsNotEmpty('senderItems')))()
     }),
     {
       name: 'new-offer-storage'

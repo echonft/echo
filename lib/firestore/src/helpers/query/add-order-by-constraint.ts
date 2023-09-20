@@ -1,19 +1,14 @@
 import type { OrderByParameters } from '@echo/firestore/types/query/order-by-parameters'
 import { isIn } from '@echo/utils/fp/is-in'
-import type { OrderByDirection, Query } from 'firebase-admin/lib/firestore'
+import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import type { Query } from 'firebase-admin/lib/firestore'
 import { filter, head, is, isEmpty, propSatisfies, tail } from 'ramda'
 
-function addOrderByConstraintRecursive<T>(
-  query: Query<T>,
-  orderBy: {
-    field: string
-    direction?: OrderByDirection
-  }[]
-) {
+function addOrderByConstraintRecursive<T>(query: Query<T>, orderBy: OrderByParameters[]) {
   if (isEmpty(orderBy)) {
     return query
   }
-  const { field, direction } = head(orderBy)!
+  const { field, direction } = head<OrderByParameters, OrderByParameters>(orderBy as NonEmptyArray<OrderByParameters>)
   return addOrderByConstraintRecursive(query.orderBy(field, direction), tail(orderBy))
 }
 
@@ -25,6 +20,7 @@ export function addOrderByConstraint<T>(
   const validParameters = is(Array, orderBy)
     ? filter(propSatisfies(isIn(availableFields), 'field'), orderBy)
     : filter(propSatisfies(isIn(availableFields), 'field'), [orderBy])
+
   if (isEmpty(validParameters)) {
     return query
   }

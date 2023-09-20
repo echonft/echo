@@ -1,10 +1,12 @@
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import type { IdResponse } from '@echo/api/types/responses/id-response'
+import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
 import type { AuthUser } from '@echo/ui/types/model/auth-user'
 import { ApiError } from '@server/helpers/error/api-error'
 import { createOffer } from '@server/helpers/offer/create-offer'
 import { getOfferItems } from '@server/helpers/offer/get-offer-items'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
+import { mapOfferToResponse } from '@server/mappers/to-response/map-offer-to-response'
 import { createOfferRequestHandler } from '@server/request-handlers/offer/create-offer-request-handler'
 import { mockRequest } from '@server-mocks/request-response'
 
@@ -54,7 +56,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
   it('throws if the user is not the owner of every item', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest.mocked(getOfferItems).mockResolvedValue([{ amount: 1, nft: { owner: { username: 'another-username' } } }])
-    jest.mocked(createOffer).mockResolvedValue('offerId')
+    jest.mocked(createOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
     const req = mockRequest<CreateOfferRequest>(validRequest)
     try {
       await createOfferRequestHandler(req)
@@ -65,16 +67,15 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
   })
 
   it('returns a 200 if the user is authenticated and both sender and receiver have a wallet', async () => {
+    const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     jest.mocked(getOfferItems).mockResolvedValue([{ amount: 1, nft: { owner: { username: 'user-name' } } }])
-    jest.mocked(createOffer).mockResolvedValue('offerId')
+    jest.mocked(createOffer).mockResolvedValue(offer)
     const req = mockRequest<CreateOfferRequest>(validRequest)
     const res = await createOfferRequestHandler(req)
     expect(createOffer).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as IdResponse
-    expect(responseData).toEqual({ id: 'offerId' })
+    expect(responseData).toEqual({ offer: mapOfferToResponse(offer) })
   })
 })

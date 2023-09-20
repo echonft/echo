@@ -172,7 +172,7 @@ export const messages = {
       confirmedModal: {
         title: 'Offer successfully created',
         subtitle: 'Your offer was successfully created, now you can contact your counterparty',
-        confirmBtn: 'Confirm',
+        closeBtn: 'Close',
         copyLinkBtn: 'Copy link'
       }
     },

@@ -57,7 +57,7 @@ export const Modal: FunctionComponent<Props> = ({ open, onClose, renderTitle, re
                 )}
               >
                 <div className={clsx('flex', 'flex-row', 'items-center', 'justify-end')}>
-                  <button onClick={onClose}>
+                  <button className={clsx('outline-none')} onClick={onClose}>
                     <span className={clsx('text-white')}>
                       <XIconSvg width={16} height={16} />
                     </span>

@@ -1,9 +1,8 @@
 'use client'
 import { CollectionSearchBoxManager } from '@echo/ui/components/collection/search/collection-search-box-manager'
-import { NewItemsContainer } from '@echo/ui/components/item/new/new-items-container'
+import { NewSenderItemsContainer } from '@echo/ui/components/item/new/new-sender-items-container'
 import { NewListingSliderExpirationContainer } from '@echo/ui/components/listing/new/new-listing-slider-expiration-container'
 import { NewListingSliderTargetsContainer } from '@echo/ui/components/listing/new/new-listing-slider-targets-container'
-import { links } from '@echo/ui/constants/links'
 import type { Collection } from '@echo/ui/types/model/collection'
 import type { ListingItem } from '@echo/ui/types/model/listing-item'
 import type { ListingTarget } from '@echo/ui/types/model/listing-target'
@@ -57,7 +56,7 @@ export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
         onRemove={onRemoveTarget}
         onEdit={onTargetAmountChange}
       />
-      <NewItemsContainer items={items} onRemove={onRemoveItem} addMorePath={links.profile.items} isReceiver={false} />
+      <NewSenderItemsContainer items={items} onRemove={onRemoveItem} />
       <NewListingSliderExpirationContainer />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6', 'gap-5')}>
         <Disclosure.Button
