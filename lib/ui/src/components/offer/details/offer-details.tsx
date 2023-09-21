@@ -6,8 +6,6 @@ import { offerDetailsContainerBackgroundImage } from '@echo/ui/components/offer/
 import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
-import { getOfferReceiverWallet } from '@echo/ui/helpers/offer/get-offer-receiver-wallet'
-import { getOfferSenderWallet } from '@echo/ui/helpers/offer/get-offer-sender-wallet'
 import type { Offer } from '@echo/ui/types/model/offer'
 import { clsx } from 'clsx'
 import { type FunctionComponent, useState } from 'react'
@@ -49,10 +47,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
         )}
       >
         <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
-          <UserDetailsContainer
-            user={isReceiver ? sender : receiver}
-            userWalletAddress={isReceiver ? getOfferSenderWallet(offer).address : getOfferReceiverWallet(offer).address}
-          />
+          <UserDetailsContainer user={isReceiver ? sender : receiver} />
           <OfferDetailsState state={state} expired={expired} expiresAt={expiresAt} />
         </div>
         <div className={clsx('flex', 'flex-col', 'gap-5')}>

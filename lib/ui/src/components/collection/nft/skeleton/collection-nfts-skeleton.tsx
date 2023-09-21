@@ -9,7 +9,7 @@ export const CollectionNftsSkeleton: FunctionComponent = () => {
   const t = getTranslator()
   return (
     <CollectionNavigationLayoutSkeleton activeNavigationItem={NavigationItems}>
-      <NftsAndFiltersContainerSkeleton availableFilters={[NftFilterTraits]} btnLabel={t('collection.button.label')} />
+      <NftsAndFiltersContainerSkeleton availableFilters={[NftFilterTraits]} btnLabel={t('collection.button.create')} />
     </CollectionNavigationLayoutSkeleton>
   )
 }

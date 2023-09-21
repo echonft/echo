@@ -1,12 +1,13 @@
 import type { ApiRequest } from '@echo/api/types/base/api-request'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
-import type { IdResponse } from '@echo/api/types/responses/id-response'
+import { GetOfferResponse } from '@echo/api/types/responses/get-offer-response'
 import { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { assertNftOwner } from '@server/helpers/nft/assert-nft-owner'
 import { createOffer } from '@server/helpers/offer/create-offer'
 import { getOfferItems } from '@server/helpers/offer/get-offer-items'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
+import { mapOfferToResponse } from '@server/mappers/to-response/map-offer-to-response'
 import { createOfferSchema } from '@server/validators/create-offer-schema'
 import { NextResponse } from 'next/server'
 import { forEach } from 'ramda'
@@ -21,8 +22,8 @@ export async function createOfferRequestHandler(req: ApiRequest<CreateOfferReque
   forEach((item: FirestoreOfferItem) => {
     assertNftOwner(item.nft, sender.name)
   }, senderOfferItems)
-  const id = await createOffer(senderOfferItems, receiverOfferItems)
-  return NextResponse.json<IdResponse>({ id })
+  const createdOffer = await createOffer(senderOfferItems, receiverOfferItems)
+  return NextResponse.json<GetOfferResponse>({ offer: mapOfferToResponse(createdOffer) })
 }
 
 function parseCreateOfferRequest(request: CreateOfferRequest) {

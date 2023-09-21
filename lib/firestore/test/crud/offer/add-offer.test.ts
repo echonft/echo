@@ -41,7 +41,8 @@ describe('CRUD - offer - addOffer', () => {
 
   it('add an offer', async () => {
     const { receiver, receiverItems, sender, senderItems } = offerMock['LyCfl6Eg7JKuD7XJ6IPi']!
-    id = await addOffer(receiverItems, senderItems)
+    const createdOffer = await addOffer(receiverItems, senderItems)
+    id = createdOffer.id
     const newOffer = await findOfferById(id)
     const now = dayjs()
     const expirationDate = now.add(DEFAULT_EXPIRATION_TIME, 'day')

@@ -1,7 +1,8 @@
 export const messages = {
   collection: {
     button: {
-      label: 'Make an offer'
+      create: 'Make an offer',
+      edit: 'Edit offer'
     },
     details: {
       size: '{size, number, ::K} NFTs'
@@ -158,7 +159,8 @@ export const messages = {
         title: 'Offer overview',
         finalize: 'Finalize offer',
         noNftsTitle: 'No NFTs selected yet',
-        noNftsBtn: 'Select NFTs now'
+        noNftsBtn: 'Select NFTs now',
+        dismissBtn: 'Dismiss'
       },
       confirmationModal: {
         title: 'Confirm Offer',
@@ -170,7 +172,7 @@ export const messages = {
       confirmedModal: {
         title: 'Offer successfully created',
         subtitle: 'Your offer was successfully created, now you can contact your counterparty',
-        confirmBtn: 'Confirm',
+        closeBtn: 'Close',
         copyLinkBtn: 'Copy link'
       }
     },

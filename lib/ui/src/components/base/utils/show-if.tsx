@@ -1,16 +1,11 @@
-import { isNil } from 'ramda'
-import type { FunctionComponent, PropsWithChildren, ReactNode } from 'react'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
   condition: boolean
-  render?: () => ReactNode
 }
 
-export const ShowIf: FunctionComponent<PropsWithChildren<Props>> = ({ condition, render, children }) => {
+export const ShowIf: FunctionComponent<PropsWithChildren<Props>> = ({ condition, children }) => {
   if (condition) {
-    if (!isNil(render)) {
-      return <>{render()}</>
-    }
     return <>{children}</>
   }
   return null

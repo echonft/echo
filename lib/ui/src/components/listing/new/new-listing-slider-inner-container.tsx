@@ -1,7 +1,6 @@
 'use client'
 import { CollectionSearchBoxManager } from '@echo/ui/components/collection/search/collection-search-box-manager'
-import { NewItemsEmptyContainer } from '@echo/ui/components/item/empty/new-items-empty-container'
-import { NewItemsContainer } from '@echo/ui/components/item/new/new-items-container'
+import { NewSenderItemsContainer } from '@echo/ui/components/item/new/new-sender-items-container'
 import { NewListingSliderExpirationContainer } from '@echo/ui/components/listing/new/new-listing-slider-expiration-container'
 import { NewListingSliderTargetsContainer } from '@echo/ui/components/listing/new/new-listing-slider-targets-container'
 import type { Collection } from '@echo/ui/types/model/collection'
@@ -22,7 +21,6 @@ interface Props {
   onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
   onRemoveTarget?: (targetCollectionId: string) => unknown
   onRemoveItem?: (itemNftId: string) => unknown
-  onAddMoreItem?: () => unknown
   onDismissListing?: () => unknown
 }
 
@@ -34,7 +32,6 @@ export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
   onTargetAmountChange,
   onRemoveTarget,
   onRemoveItem,
-  onAddMoreItem,
   onDismissListing
 }) => {
   const t = useTranslations('listing.new.bottomSlider')
@@ -59,13 +56,7 @@ export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
         onRemove={onRemoveTarget}
         onEdit={onTargetAmountChange}
       />
-      <NewItemsContainer
-        items={items}
-        onRemove={onRemoveItem}
-        onAddMore={onAddMoreItem}
-        isReceiver={false}
-        renderEmpty={() => <NewItemsEmptyContainer onAddMore={onAddMoreItem} />}
-      />
+      <NewSenderItemsContainer items={items} onRemove={onRemoveItem} />
       <NewListingSliderExpirationContainer />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6', 'gap-5')}>
         <Disclosure.Button

@@ -11,20 +11,20 @@ import type { NftFilter } from '@echo/ui/types/nft-filter'
 import { isIn } from '@echo/utils/fp/is-in'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { filter, map, partialRight, pipe, prop } from 'ramda'
-import { type FunctionComponent, type MouseEventHandler, useEffect, useMemo, useState } from 'react'
+import { type FunctionComponent, useEffect, useMemo, useState } from 'react'
 
 interface Props {
   nfts: NonEmptyArray<Nft>
   availableFilters: NonEmptyArray<NftFilter>
   btnLabel: string
-  onButtonClick?: MouseEventHandler
+  onMakeOffer?: (selectedIds: string[]) => unknown
 }
 
 export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
   nfts,
   availableFilters,
   btnLabel,
-  onButtonClick
+  onMakeOffer
 }) => {
   const [nftSelection, setNftSelection] = useState<string[]>([])
   const [traitSelection, setTraitSelection] = useState<NftTraits>({})
@@ -54,7 +54,7 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
         traitSelection={traitSelection}
         collectionFilterSelection={collectionFilterSelection}
         btnLabel={btnLabel}
-        onButtonClick={onButtonClick}
+        onButtonClick={() => onMakeOffer?.(nftSelection)}
         onTraitSelectionUpdate={setTraitSelection}
         onCollectionSelectionUpdate={setCollectionFilterSelection}
       />

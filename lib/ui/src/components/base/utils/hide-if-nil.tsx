@@ -10,7 +10,5 @@ export function HideIfNil<T>({ checks, render }: Props<T>) {
   if (isNil(checks)) {
     return null as ReactNode
   }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return render(checks)
+  return render(checks as NonNullable<T>)
 }

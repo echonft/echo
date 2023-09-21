@@ -1,49 +1,73 @@
 'use client'
+import { EditIconSvg } from '@echo/ui/components/base/svg/edit-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { ModalTitle } from '@echo/ui/components/layout/modal/modal-title'
-import { NewOfferConfirmationModalInnerContainer } from '@echo/ui/components/offer/new/new-offer-confirmation-modal-inner-container'
-import { NewOfferConfirmedModalInnerContainer } from '@echo/ui/components/offer/new/new-offer-confirmed-modal-inner-container'
-import { newOfferDataState, newOfferState } from '@echo/ui/services/state'
+import { NewOfferConfirmationModalItemsContainer } from '@echo/ui/components/offer/new/new-offer-confirmation-modal-items-container'
+import { OfferItem } from '@echo/ui/types/model/offer-item'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
-import { type FunctionComponent, useCallback } from 'react'
-import { useRecoilState } from 'recoil'
+import { type FunctionComponent } from 'react'
 
-export const NewOfferConfirmationModal: FunctionComponent = () => {
-  const t = useTranslations('offer.new')
-  const [newOffer, setNewOffer] = useRecoilState(newOfferDataState)
-  const [modalState, setModalState] = useRecoilState(newOfferState)
+interface Props {
+  receiverItems: OfferItem[]
+  senderItems: OfferItem[]
+  show?: boolean
+  confirming?: boolean
+  onConfirm?: () => unknown
+  onClose?: () => unknown
+}
 
-  // We check state and data because when we close the modal we reset the state but then data will be undefined
-  const isConfirmed = useCallback(() => modalState === 'CONFIRMED' || isNil(newOffer), [modalState, newOffer])
+export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
+  receiverItems,
+  senderItems,
+  show,
+  confirming,
+  onConfirm,
+  onClose
+}) => {
+  const t = useTranslations('offer.new.confirmationModal')
 
   return (
     <Modal
-      open={modalState !== 'NONE'}
-      onClose={() => setModalState('NONE')}
-      renderTitle={() => (
-        <ModalTitle>{t(`${isConfirmed() ? 'confirmedModal' : 'confirmationModal'}.title`)}</ModalTitle>
+      open={Boolean(show)}
+      onClose={() => onClose?.()}
+      renderTitle={() => <ModalTitle>{t('title')}</ModalTitle>}
+      renderDescription={() => (
+        <div className={clsx('flex', 'flex-col', 'gap-6')}>
+          <div className={clsx('flex', 'flex-col', 'gap-6')}>
+            <NewOfferConfirmationModalItemsContainer isReceiver items={receiverItems} />
+            <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
+          </div>
+          <NewOfferConfirmationModalItemsContainer isReceiver={false} items={senderItems} />
+          <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
+            <button
+              className={clsx('btn-action', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10', 'gap-2.5')}
+              disabled={confirming}
+              onClick={onClose}
+            >
+              <span className={clsx('text-purple-900', 'group-active:group-hover:text-white')}>
+                <EditIconSvg />
+              </span>
+              <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('editBtn')}</span>
+            </button>
+            <button
+              className={clsx(
+                'btn-gradient',
+                'group',
+                'rounded-lg',
+                'w-40',
+                'py-1.5',
+                '!h-10',
+                confirming && 'animate-pulse'
+              )}
+              onClick={onConfirm}
+              disabled={confirming}
+            >
+              <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>
+            </button>
+          </div>
+        </div>
       )}
-      renderDescription={() =>
-        isConfirmed() ? (
-          // TODO Add transaction ID here
-          <NewOfferConfirmedModalInnerContainer onConfirm={() => setModalState('NONE')} transactionId={'TODO'} />
-        ) : (
-          <NewOfferConfirmationModalInnerContainer
-            senderItems={newOffer?.senderItems ?? []}
-            receiverItems={newOffer?.receiverItems ?? []}
-            onConfirm={() => {
-              // TODO Add call to API to create offer
-              setModalState('CONFIRMED')
-              setNewOffer(undefined)
-            }}
-            onEdit={() => {
-              // TODO Should reopen the drawer?
-              setModalState('NONE')
-            }}
-          />
-        )
-      }
     />
   )
 }

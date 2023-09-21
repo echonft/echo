@@ -1,10 +1,8 @@
 import { NewOfferSliderManager as Component } from '@echo/ui/components/offer/new/new-offer-slider-manager'
-import { newOfferDataState } from '@echo/ui/services/state'
-import type { OfferItem } from '@echo/ui/types/model/offer-item'
+import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { getOfferById } from '@mocks/model/offer'
 import type { Meta, StoryObj } from '@storybook/react'
-import { type FunctionComponent, useEffect } from 'react'
-import { RecoilRoot, useRecoilState } from 'recoil'
+import { useEffect } from 'react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/New Offer Bottom Slider',
@@ -17,36 +15,35 @@ const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
 
 type Story = StoryObj<typeof Component>
 
-const RenderedComponent: FunctionComponent<{
-  receiverItems?: OfferItem[]
-  senderItems?: OfferItem[]
-}> = ({ receiverItems = [], senderItems = [] }) => {
-  const [, setNewOffer] = useRecoilState(newOfferDataState)
-  useEffect(() => {
-    setNewOffer({ receiverItems, receiver: offer.receiver, senderItems })
-  }, [])
-  return <Component />
-}
 export const Default: Story = {
-  render: () => (
-    <RecoilRoot>
-      <RenderedComponent receiverItems={offer.receiverItems} senderItems={offer.senderItems} />
-    </RecoilRoot>
-  )
+  render: () => {
+    const { setReceiverItems, setSenderItems } = useNewOfferStore()
+    useEffect(() => {
+      setReceiverItems(offer.receiverItems)
+      setSenderItems(offer.senderItems)
+    }, [])
+    return <Component />
+  }
 }
 
 export const EmptySenderItems: Story = {
-  render: () => (
-    <RecoilRoot>
-      <RenderedComponent receiverItems={offer.receiverItems} />
-    </RecoilRoot>
-  )
+  render: () => {
+    const { setReceiverItems, setSenderItems } = useNewOfferStore()
+    useEffect(() => {
+      setReceiverItems(offer.receiverItems)
+      setSenderItems([])
+    }, [])
+    return <Component />
+  }
 }
 
 export const EmptyReceiverItems: Story = {
-  render: () => (
-    <RecoilRoot>
-      <RenderedComponent senderItems={offer.senderItems} />
-    </RecoilRoot>
-  )
+  render: () => {
+    const { setReceiverItems, setSenderItems } = useNewOfferStore()
+    useEffect(() => {
+      setReceiverItems([])
+      setSenderItems(offer.senderItems)
+    }, [])
+    return <Component />
+  }
 }

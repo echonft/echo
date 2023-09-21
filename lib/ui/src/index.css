@@ -142,16 +142,16 @@
         @apply text-caps-sm font-inter uppercase
     }
     .btn {
-        @apply h-max flex flex-row justify-center items-center
+        @apply h-max flex flex-row justify-center items-center disabled:opacity-40
     }
     .btn-primary {
-        @apply btn bg-white/[0.08] enabled:hover:bg-yellow-500 enabled:active:bg-yellow-700 disabled:bg-white/[0.08]
+        @apply btn bg-white/[0.08] enabled:hover:bg-yellow-500 enabled:active:bg-yellow-700
     }
     .btn-primary-reverse {
-        @apply btn bg-yellow-500 enabled:hover:bg-white/[0.08] enabled:active:bg-white/[0.06] disabled:bg-yellow-500
+        @apply btn bg-yellow-500 enabled:hover:bg-white/[0.08] enabled:active:bg-white/[0.06]
     }
     .btn-gradient {
-        @apply btn border border-solid border-transparent bg-main-gradient bg-origin-border enabled:hover:bg-main-gradient/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700 disabled:bg-main-gradient/40
+        @apply btn border border-solid border-transparent bg-main-gradient bg-origin-border enabled:hover:bg-main-gradient/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700
     }
     .btn-action {
         @apply btn bg-purple-400
