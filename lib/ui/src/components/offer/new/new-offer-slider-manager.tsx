@@ -11,7 +11,7 @@ import { Transition } from '@headlessui/react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { pathEq, reject } from 'ramda'
-import { type FunctionComponent, useCallback, useState } from 'react'
+import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 export const NewOfferSliderManager: FunctionComponent = () => {
@@ -21,24 +21,25 @@ export const NewOfferSliderManager: FunctionComponent = () => {
   const { data: session } = useSession()
   const [confirmOfferModalShown, setConfirmOfferModalShown] = useState(false)
   const [confirmedModalShown, setConfirmedModalShown] = useState(false)
-  const { trigger, isMutating } = useSWRMutation(
-    { receiverItems: mapOfferItemsToRequests(receiverItems), senderItems: mapOfferItemsToRequests(senderItems) },
-    ({ receiverItems, senderItems }) => createOfferFetcher(senderItems, receiverItems, session?.user.sessionToken)
-  )
-
   const onRemoveSenderItems = useCallback(
     (nftId: string) => {
       setSenderItems(reject(pathEq(nftId, ['nft', 'id'])))
     },
     [setSenderItems]
   )
-
   const onRemoveReceiverItems = useCallback(
     (nftId: string) => {
       setReceiverItems(reject(pathEq(nftId, ['nft', 'id'])))
     },
     [setReceiverItems]
   )
+  const receiverItemRequests = useMemo(() => mapOfferItemsToRequests(receiverItems), [receiverItems])
+  const senderItemRequests = useMemo(() => mapOfferItemsToRequests(senderItems), [senderItems])
+  const createOffer = useCallback(
+    () => createOfferFetcher(senderItemRequests, receiverItemRequests, session?.user.sessionToken),
+    [receiverItemRequests, senderItemRequests, session]
+  )
+  const { trigger, isMutating } = useSWRMutation('create-offer', createOffer)
 
   return (
     <>

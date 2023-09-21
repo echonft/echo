@@ -1,10 +1,8 @@
 import { OfferItem } from '@echo/ui/types/model/offer-item'
 import { UserDetails } from '@echo/ui/types/model/user-details'
-import { eqPaths } from '@echo/utils/fp/eq-paths'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { propIsNotEmpty } from '@echo/utils/fp/prop-is-not-empty'
-import { removeOrAddArrayFromArray } from '@echo/utils/fp/remove-or-add-array-from-array'
-import { assoc, either, head, is, isEmpty, pipe } from 'ramda'
+import { assoc, either, head, is, pipe } from 'ramda'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
@@ -32,22 +30,7 @@ export const useNewOfferStore = create<NewOfferState>()(
       },
       setReceiverItems: (args) => {
         function setState(items: OfferItem[]) {
-          set((state) => {
-            const { receiverItems: currentReceiverItems } = state
-            if (isEmpty(currentReceiverItems) || isEmpty(items)) {
-              return assoc('receiverItems', items, state)
-            }
-            // it's a new receiver, replace everything
-            if (head(items)!.nft.owner.username !== head(currentReceiverItems)!.nft.owner.username) {
-              return assoc('receiverItems', items, state)
-            }
-            // it's the same receiver, update the items
-            return assoc(
-              'receiverItems',
-              removeOrAddArrayFromArray(currentReceiverItems, items, eqPaths(['nft', 'id'])),
-              state
-            )
-          })
+          set(assoc('receiverItems', items))
         }
         if (is(Function, args)) {
           setState(args(get().receiverItems))
