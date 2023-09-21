@@ -1,5 +1,5 @@
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
-import { WalletData } from '@echo/firestore/types/model/wallet-data'
+import { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export async function addUserWallet(userId: string, wallet: WalletData) {

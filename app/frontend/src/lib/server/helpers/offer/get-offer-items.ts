@@ -1,5 +1,5 @@
 import type { OfferItemRequest } from '@echo/api/types/requests/offer-item-request'
-import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { getNftById } from '@server/helpers/nft/get-nft-by-id'

@@ -1,4 +1,4 @@
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil } from 'ramda'
 

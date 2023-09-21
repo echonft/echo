@@ -1,7 +1,7 @@
-import { collectionLink } from '@echo/bot/routing/collection-link'
 import { getAppUrl } from '@echo/bot/routing/get-app-url'
+import { links } from '@echo/ui/constants/links'
 
-export function loginLink(guildId: string) {
-  const callbackQuery = new URLSearchParams({ callbackUrl: collectionLink(guildId) })
+export function loginLink(collectionSlug: string) {
+  const callbackQuery = new URLSearchParams({ callbackUrl: `${getAppUrl()}${links.collection.items(collectionSlug)}` })
   return `${getAppUrl()}/login?${callbackQuery.toString()}`
 }

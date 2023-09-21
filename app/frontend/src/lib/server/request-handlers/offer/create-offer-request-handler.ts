@@ -1,7 +1,7 @@
 import type { ApiRequest } from '@echo/api/types/base/api-request'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import { GetOfferResponse } from '@echo/api/types/responses/get-offer-response'
-import { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { assertNftOwner } from '@server/helpers/nft/assert-nft-owner'
 import { createOffer } from '@server/helpers/offer/create-offer'

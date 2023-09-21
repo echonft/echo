@@ -24,6 +24,7 @@ describe('mappers - from-api - mapListingTargetFromResponse', () => {
       profilePictureUrl: 'https://echo.xyz',
       totalSupply: 6315,
       twitterUsername: 'GeneticChain',
+      verified: false,
       websiteUrl: 'https://echo.xyz'
     }
   }
@@ -47,6 +48,7 @@ describe('mappers - from-api - mapListingTargetFromResponse', () => {
       profilePictureUrl: new URL('https://echo.xyz'),
       totalSupply: 6315,
       twitterUsername: 'GeneticChain',
+      verified: false,
       websiteUrl: new URL('https://echo.xyz')
     }
   }

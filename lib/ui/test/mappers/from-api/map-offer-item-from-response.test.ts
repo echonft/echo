@@ -38,6 +38,7 @@ describe('mappers - from-api - mapOfferItemFromResponse', () => {
         profilePictureUrl: 'https://echo.xyz',
         totalSupply: 6315,
         twitterUsername: 'GeneticChain',
+        verified: false,
         websiteUrl: 'https://echo.xyz'
       },
       name: 'Spiral Frequencies #1376',
@@ -92,6 +93,7 @@ describe('mappers - from-api - mapOfferItemFromResponse', () => {
         profilePictureUrl: new URL('https://echo.xyz'),
         totalSupply: 6315,
         twitterUsername: 'GeneticChain',
+        verified: false,
         websiteUrl: new URL('https://echo.xyz')
       },
       name: 'Spiral Frequencies #1376',

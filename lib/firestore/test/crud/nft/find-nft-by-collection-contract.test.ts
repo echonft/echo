@@ -1,5 +1,5 @@
 import { findNftByCollectionContract } from '@echo/firestore/crud/nft/find-nft-by-collection-contract'
-import { getNftMockById } from '@echo/firestore-mocks/get-nft-mock-by-id'
+import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'

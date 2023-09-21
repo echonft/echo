@@ -1,7 +1,7 @@
 import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
 import { getListingSnapshotById } from '@echo/firestore/crud/listing/get-listing-snapshot-by-id'
 import { cleanAndUpdateDocumentRef } from '@echo/firestore/helpers/crud/clean-and-update-document-ref'
-import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import type { WriteResult } from 'firebase-admin/lib/firestore'
 import { isNil } from 'ramda'
 

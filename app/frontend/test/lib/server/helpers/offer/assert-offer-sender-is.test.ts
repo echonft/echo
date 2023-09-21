@@ -1,4 +1,4 @@
-import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { assertOfferSenderIs } from '@server/helpers/offer/assert-offer-sender-is'
 
 describe('helpers - offer - assertOfferSenderIs', () => {

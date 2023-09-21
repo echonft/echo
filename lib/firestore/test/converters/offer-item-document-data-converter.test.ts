@@ -1,6 +1,6 @@
 import { offerItemDocumentDataConverter } from '@echo/firestore/converters/offer-item-document-data-converter'
-import { getOfferDocumentDataMockById } from '@echo/firestore-mocks/get-offer-document-data-mock-by-id'
-import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
+import { getOfferDocumentDataMockById } from '@echo/firestore-mocks/offer/get-offer-document-data-mock-by-id'
+import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - userDataConverter', () => {

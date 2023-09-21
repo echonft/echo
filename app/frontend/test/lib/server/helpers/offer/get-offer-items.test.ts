@@ -1,5 +1,5 @@
 import type { OfferItemRequest } from '@echo/api/types/requests/offer-item-request'
-import { getNftMockById } from '@echo/firestore-mocks/get-nft-mock-by-id'
+import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getNftById } from '@server/helpers/nft/get-nft-by-id'
 import { getOfferItems } from '@server/helpers/offer/get-offer-items'

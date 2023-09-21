@@ -1,7 +1,7 @@
 import { walletDataConverter } from '@echo/firestore/converters/wallet-data-converter'
-import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/get-wallet-document-data-mock-by-id'
-import { getWalletMockById } from '@echo/firestore-mocks/get-wallet-mock-by-id'
-import { walletSnapshotMock } from '@echo/firestore-mocks/wallet-snapshot-mock'
+import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
+import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
+import { walletSnapshotMock } from '@echo/firestore-mocks/wallet/wallet-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - walletDataConverter', () => {

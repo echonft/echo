@@ -1,6 +1,6 @@
 import type { ApiRequest } from '@echo/api/types/base/api-request'
 import { OFFER_FILTER_AS } from '@echo/firestore/constants/offer-filter-as'
-import { OFFER_STATES } from '@echo/firestore/types/model/firestore-offer-state'
+import { OFFER_STATES } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { booleanQueryParamSchema } from '@server/validators/boolean-query-param-schema'

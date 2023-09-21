@@ -1,5 +1,5 @@
-import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
-import { FirestoreListingState } from '@echo/firestore/types/model/firestore-listing-state'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
+import { FirestoreListingState } from '@echo/firestore/types/model/listing/firestore-listing-state'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { includes } from 'ramda'
 

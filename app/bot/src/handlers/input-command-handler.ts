@@ -2,10 +2,9 @@ import { executeConnect } from '@echo/bot/commands/connect'
 import { executeCreateListing } from '@echo/bot/commands/create-listing'
 import { InvalidSubcommandError } from '@echo/bot/errors/invalid-subcommand-error'
 import { NotConfiguredError } from '@echo/bot/errors/not-configured-error'
-import { WrongChannelError } from '@echo/bot/errors/wrong-channel-error'
 import { InputSubcommands } from '@echo/bot/types/commands/input-subcommands'
-import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-discord-guild-discord-id'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection-discord-guild/find-nft-collection-by-discord-guild-discord-id'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { ChatInputCommandInteraction, CommandInteraction } from 'discord.js'
@@ -41,8 +40,8 @@ export async function executeForCommand(interaction: ChatInputCommandInteraction
   if (isNil(collection)) {
     throw new NotConfiguredError(guildId)
   }
-  if (collection.discordGuild.channelId !== guildId) {
-    throw new WrongChannelError(guildId, collection.discordGuild.channelId)
-  }
+  // if (collection.discordGuild.channelId !== guildId) {
+  //   throw new WrongChannelError(guildId, collection.discordGuild.channelId)
+  // }
   await executeForSubcommand(interaction, interaction.options.getSubcommand() as InputSubcommands)
 }

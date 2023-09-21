@@ -1,6 +1,6 @@
 import { dateIsPast } from '@echo/firestore/helpers/converters/from-firestore/date-is-past'
 import { assertListing } from '@echo/firestore/helpers/listing/assert/assert-listing'
-import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { pipe, prop } from 'ramda'
 

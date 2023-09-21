@@ -1,5 +1,5 @@
-import { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
-import type { FirestoreUserDetails } from '@echo/firestore/types/model/firestore-user-details'
+import { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
+import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { ForbiddenError } from '@server/helpers/error/forbidden-error'

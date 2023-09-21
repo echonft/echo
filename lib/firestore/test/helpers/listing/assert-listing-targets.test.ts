@@ -1,6 +1,6 @@
 import { assertListingTargets } from '@echo/firestore/helpers/listing/assert/assert-listing-targets'
-import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
-import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
+import type { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
+import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 import { assocPath, pipe } from 'ramda'
 

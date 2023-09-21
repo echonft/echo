@@ -1,7 +1,7 @@
 import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
-import { getListingDocumentDataMockById } from '@echo/firestore-mocks/get-listing-document-data-mock-by-id'
-import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
-import { listingSnapshotMock } from '@echo/firestore-mocks/listing-snapshot-mock'
+import { getListingDocumentDataMockById } from '@echo/firestore-mocks/listing/get-listing-document-data-mock-by-id'
+import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
+import { listingSnapshotMock } from '@echo/firestore-mocks/listing/listing-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - listingDataConverter', () => {

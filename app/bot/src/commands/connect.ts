@@ -1,7 +1,7 @@
 import { NoGuildIdError } from '@echo/bot/errors/no-guild-id-error'
 import { loginLink } from '@echo/bot/routing/login-link'
-import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-discord-guild-discord-id'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection-discord-guild/find-nft-collection-by-discord-guild-discord-id'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 import { andThenOtherwise } from '@echo/utils/fp/and-then-otherwise'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
@@ -27,6 +27,7 @@ export function executeConnect(interaction: CommandInteraction) {
       andThen(
         pipe(
           prop<string>('guildId'),
+          // TODO this is not gonna work for collections in the Echo server, so we need to change that
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           findNftCollectionByDiscordGuildDiscordId,
@@ -36,7 +37,7 @@ export function executeConnect(interaction: CommandInteraction) {
               () => interaction.editReply({ content: new NoGuildIdError().message }),
               (collection: FirestoreNftCollection) => {
                 return interaction.editReply({
-                  content: loginLink(collection.discordGuild.discordId)
+                  content: loginLink(collection.slug)
                 })
               }
             ),

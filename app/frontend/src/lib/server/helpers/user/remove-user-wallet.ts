@@ -1,5 +1,5 @@
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
-import type { WalletData } from '@echo/firestore/types/model/wallet-data'
+import type { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export async function removeUserWallet(userId: string, wallet: WalletData) {

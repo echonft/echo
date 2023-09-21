@@ -1,6 +1,6 @@
 import type { FirestoreDocumentDataConverter } from '@echo/firestore/types/converters/firestore-document-data-converter'
-import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
-import type { NftAttributeDocumentData } from '@echo/firestore/types/model/nft-attribute-document-data'
+import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
+import type { NftAttributeDocumentData } from '@echo/firestore/types/model/nft/nft-attribute-document-data'
 import { identity, invoker, modify, pipe } from 'ramda'
 
 export const nftAttributeDocumentDataConverter: FirestoreDocumentDataConverter<NftAttributeDocumentData, FirestoreNft> =

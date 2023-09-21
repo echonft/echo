@@ -1,5 +1,5 @@
 import { getOfferItemsCollectionId } from '@echo/firestore/helpers/offer/get-offer-items-collection-id'
-import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
+import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - offer - getOfferItemsCollectionId', () => {

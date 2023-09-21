@@ -1,8 +1,6 @@
 import { getDiscordChannel } from '@echo/bot/helpers/get-discord-channel'
 import { offerLink } from '@echo/bot/routing/offer-link'
-import { setOfferDiscordGuild } from '@echo/firestore/crud/offer/set-offer-discord-guild'
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
-import { userIsInGuild } from '@echo/firestore/crud/user-discord-guild/user-is-in-guild'
 import { getOfferReceiverItemsGuild } from '@echo/firestore/helpers/offer/get-offer-receiver-items-guild'
 import type { DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
 import type { FirestoreOfferComplete } from '@echo/firestore/types/model/firestore-offer-complete'
@@ -25,7 +23,7 @@ export async function offerChangeHandler(
   if (changeType === 'added') {
     try {
       // FIXME validate
-      const discordGuild = getOfferReceiverItemsGuild(offer)
+      const discordGuild = await getOfferReceiverItemsGuild(offer)
       const sender = await findUserByUsername(offer.sender.username)
       if (isNil(sender)) {
         logger.error(`user with username ${offer.sender.username} does not exist`)
@@ -37,15 +35,16 @@ export async function offerChangeHandler(
         return
       }
       const channel = await getDiscordChannel(client, discordGuild.channelId)
-      // FIXME validate they might not both be in the guild
-      const senderIsInGuild = await userIsInGuild(sender.id, discordGuild)
+      // FIXME check this from Discord
+      const senderIsInGuild = true
       if (!senderIsInGuild) {
         logger.error(
           `sender (userId ${sender.id} of offer with id ${offer.id} is not in guild ${discordGuild.discordId}`
         )
         return
       }
-      const receiverIsInGuild = await userIsInGuild(receiver.id, discordGuild)
+      // FIXME check this from Discord
+      const receiverIsInGuild = true
       if (!receiverIsInGuild) {
         logger.error(
           `receiver (userId ${receiver.id} of offer with id ${offer.id} is not in guild ${discordGuild.discordId}`
@@ -68,7 +67,8 @@ export async function offerChangeHandler(
           offer
         )}`
       })
-      await setOfferDiscordGuild(offer.id, discordGuild, thread.id)
+      // TODO change this to offer post
+      // await setOfferDiscordGuild(offer.id, discordGuild, thread.id)
     } catch (e) {
       logger.error(`Error while listening to added offer ${offer.id}: ${errorMessage(e)}`)
     }

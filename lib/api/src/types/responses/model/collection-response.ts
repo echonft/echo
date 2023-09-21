@@ -1,4 +1,4 @@
-import type { FirestoreNftTokenType } from '@echo/firestore/types/model/firestore-nft-token-type'
+import type { FirestoreNftTokenType } from '@echo/firestore/types/model/nft/firestore-nft-token-type'
 
 export interface CollectionResponse {
   id: string
@@ -18,5 +18,6 @@ export interface CollectionResponse {
   slug: string
   totalSupply?: number
   twitterUsername?: string
+  verified: boolean
   websiteUrl?: string
 }

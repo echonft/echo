@@ -1,4 +1,4 @@
-import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
+import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
 import { mapListingToResponse } from '@server/mappers/to-response/map-listing-to-response'
 
 describe('mappers - to-response - mapListingToResponse', () => {
@@ -56,6 +56,7 @@ describe('mappers - to-response - mapListingToResponse', () => {
                 'https://i.seadn.io/gae/dPCp-lwVmhNgEqZCIsTVos7mDu7qY5A_LARb8PMULBrIfTIlRSlX58fphv8AQm8axjszuT-LOwbBlIbXRwZuA6Ua9Btp3aJWpMCMWu8?w=500&auto=format',
               totalSupply: 6315,
               twitterUsername: 'GeneticChain',
+              verified: false,
               websiteUrl: 'https://geneticchain.io/project/1'
             },
             name: 'Spiral Frequencies #1376',
@@ -138,6 +139,7 @@ describe('mappers - to-response - mapListingToResponse', () => {
                 'https://i.seadn.io/gae/dPCp-lwVmhNgEqZCIsTVos7mDu7qY5A_LARb8PMULBrIfTIlRSlX58fphv8AQm8axjszuT-LOwbBlIbXRwZuA6Ua9Btp3aJWpMCMWu8?w=500&auto=format',
               totalSupply: 6315,
               twitterUsername: 'GeneticChain',
+              verified: false,
               websiteUrl: 'https://geneticchain.io/project/1'
             },
             name: 'Spiral Frequencies #2414',
@@ -184,6 +186,7 @@ describe('mappers - to-response - mapListingToResponse', () => {
             profilePictureUrl:
               'https://i.seadn.io/gae/R3b_Ju-BF7Ae45pp1f7UxCS5wF06dfFG7ydux_v9S8lJ7CL3j4kgv7a0nM4yVw-GhOH21ZigeaNluK-nuo6Dclq9LdQYH2Cvj8PfMQ?w=500&auto=format',
             totalSupply: 1077,
+            verified: true,
             websiteUrl: 'https://pxmythics.io/'
           }
         }

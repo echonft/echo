@@ -2,8 +2,8 @@ import { nftDocumentDataConverter } from '@echo/firestore/converters/nft-documen
 import { modifyDocumentDataProp } from '@echo/firestore/helpers/converters/from-firestore/modify-document-data-prop'
 import { modifyModelProp } from '@echo/firestore/helpers/converters/to-firestore/modify-model-prop'
 import type { FirestoreDocumentDataConverter } from '@echo/firestore/types/converters/firestore-document-data-converter'
-import type { FirestoreListingItem } from '@echo/firestore/types/model/firestore-listing-item'
-import type { ListingItemDocumentData } from '@echo/firestore/types/model/listing-item-document-data'
+import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
+import type { ListingItemDocumentData } from '@echo/firestore/types/model/listing/listing-item-document-data'
 import { pipe } from 'ramda'
 
 export const listingItemDocumentDataConverter: FirestoreDocumentDataConverter<

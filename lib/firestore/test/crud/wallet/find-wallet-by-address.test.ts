@@ -1,5 +1,5 @@
 import { findWalletByAddress } from '@echo/firestore/crud/wallet/find-wallet-by-address'
-import { getWalletMockById } from '@echo/firestore-mocks/get-wallet-mock-by-id'
+import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'

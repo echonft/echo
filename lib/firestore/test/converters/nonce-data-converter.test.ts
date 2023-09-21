@@ -1,6 +1,6 @@
 import { nonceDataConverter } from '@echo/firestore/converters/nonce-data-converter'
-import type { FirestoreNonce } from '@echo/firestore/types/model/firestore-nonce'
-import type { NonceDocumentData } from '@echo/firestore/types/model/nonce-document-data'
+import type { FirestoreNonce } from '@echo/firestore/types/model/nonce/firestore-nonce'
+import type { NonceDocumentData } from '@echo/firestore/types/model/nonce/nonce-document-data'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 import type { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'

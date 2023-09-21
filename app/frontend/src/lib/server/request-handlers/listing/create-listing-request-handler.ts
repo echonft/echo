@@ -1,7 +1,7 @@
 import type { ApiRequest } from '@echo/api/types/base/api-request'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import type { IdResponse } from '@echo/api/types/responses/id-response'
-import type { FirestoreListingItem } from '@echo/firestore/types/model/firestore-listing-item'
+import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { createListing } from '@server/helpers/listing/create-listing'
 import { getListingItems } from '@server/helpers/listing/get-listing-items'

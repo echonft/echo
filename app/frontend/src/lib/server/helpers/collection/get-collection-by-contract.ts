@@ -1,4 +1,4 @@
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 import { ServerError } from '@server/helpers/error/server-error'
 import { both, find, pathEq } from 'ramda'
 

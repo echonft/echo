@@ -1,6 +1,6 @@
 import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
 import type { UserDetailsResponse } from '@echo/api/types/responses/model/user-details-response'
-import type { FirestoreNftTokenType } from '@echo/firestore/types/model/firestore-nft-token-type'
+import type { FirestoreNftTokenType } from '@echo/firestore/types/model/nft/firestore-nft-token-type'
 
 export interface NftResponse {
   id: string

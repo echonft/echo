@@ -1,8 +1,8 @@
 import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
 import { findDiscordUserByUserId } from '@echo/firestore/crud/discord-user/find-discord-user-by-user-id'
-import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
-import { getDiscordUserMockByUserId } from '@echo/firestore-mocks/get-discord-user-mock-by-user-id'
-import { getNftCollectionMockById } from '@echo/firestore-mocks/get-nft-collection-mock-by-id'
+import type { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
+import { getDiscordUserMockByUserId } from '@echo/firestore-mocks/discord-user/get-discord-user-mock-by-user-id'
+import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nft-to-firestore'
 

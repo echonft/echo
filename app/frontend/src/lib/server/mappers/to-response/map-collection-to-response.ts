@@ -1,5 +1,5 @@
 import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 import { modifyUrlPropToString } from '@echo/utils/fp/modify-url-prop-to-string'
 import { dissoc, modify, pick, pipe } from 'ramda'
 

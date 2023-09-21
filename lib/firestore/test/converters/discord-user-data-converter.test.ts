@@ -1,7 +1,7 @@
 import { discordUserDataConverter } from '@echo/firestore/converters/discord-user-data-converter'
-import { discordUserSnapshotMock } from '@echo/firestore-mocks/discord-user-snapshot-mock'
-import { getDiscordUserDocumentDataMockById } from '@echo/firestore-mocks/get-discord-user-document-data-mock-by-id'
-import { getDiscordUserMockById } from '@echo/firestore-mocks/get-discord-user-mock-by-id'
+import { discordUserSnapshotMock } from '@echo/firestore-mocks/discord-user/discord-user-snapshot-mock'
+import { getDiscordUserDocumentDataMockById } from '@echo/firestore-mocks/discord-user/get-discord-user-document-data-mock-by-id'
+import { getDiscordUserMockById } from '@echo/firestore-mocks/discord-user/get-discord-user-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - discordUserDataConverter', () => {

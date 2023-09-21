@@ -1,6 +1,6 @@
 import type { ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import { findNftCollectionById } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-id'
-import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
+import type { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil, map } from 'ramda'

@@ -1,6 +1,6 @@
 import { getListingsForOffer } from '@echo/firestore/crud/listing/get-listings-for-offer'
-import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
-import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
+import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
+import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'

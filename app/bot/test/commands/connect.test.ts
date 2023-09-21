@@ -4,14 +4,14 @@ import { mockAndSetupChannel } from '@echo/bot-mocks/discord/channel-mock'
 import { setupBot } from '@echo/bot-mocks/discord/client-mock'
 import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'
 import { mockChatInputCommandInteraction } from '@echo/bot-mocks/discord/interaction-mock'
-import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-discord-guild-discord-id'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/firestore-nft-collection'
-import { getAllNftCollectionMocks } from '@echo/firestore-mocks/get-all-nft-collection-mocks'
+import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection-discord-guild/find-nft-collection-by-discord-guild-discord-id'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
+import { getAllNftCollectionMocks } from '@echo/firestore-mocks/nft-collection/get-all-nft-collection-mocks'
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { Client } from 'discord.js'
 import { filter, isNil, pathEq } from 'ramda'
 
-jest.mock('@echo/firestore/crud/nft-collection/find-nft-collection-by-discord-guild-discord-id')
+jest.mock('@echo/firestore/crud/nft-collection-discord-guild/find-nft-collection-by-discord-guild-discord-id')
 
 describe('discord commands - connect', () => {
   beforeEach(() => {

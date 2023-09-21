@@ -1,5 +1,5 @@
 import type { ListingTargetResponse } from '@echo/api/types/responses/model/listing-target-response'
-import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
+import type { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
 import { mapCollectionToResponse } from '@server/mappers/to-response/map-collection-to-response'
 import { modify } from 'ramda'
 

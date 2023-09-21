@@ -1,4 +1,4 @@
-import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/discord-user/firestore-discord-user'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { isNil } from 'ramda'
 

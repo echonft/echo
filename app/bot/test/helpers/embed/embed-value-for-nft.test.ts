@@ -1,5 +1,5 @@
 import { embedValueForNft } from '@echo/bot/helpers/embed/embed-value-for-nft'
-import { getNftMockById } from '@echo/firestore-mocks/get-nft-mock-by-id'
+import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('utils - embed - embedValueForNft', () => {

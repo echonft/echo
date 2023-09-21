@@ -1,5 +1,5 @@
 import type { ListingResponse } from '@echo/api/types/responses/model/listing-response'
-import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import { modifyDatePropToNumber } from '@echo/utils/fp/modify-date-prop-to-number'
 import { mapListingItemToResponse } from '@server/mappers/to-response/map-listing-item-to-response'
 import { mapListingTargetToResponse } from '@server/mappers/to-response/map-listing-target-to-response'

@@ -1,9 +1,9 @@
 import { addOfferToListing } from '@echo/firestore/crud/listing/add-offer-to-listing'
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { updateListing } from '@echo/firestore/crud/listing/update-listing'
-import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { assertListings } from '@test-utils/assert-listings'
+import { assertListings } from '@test-utils/listing/assert-listings'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 

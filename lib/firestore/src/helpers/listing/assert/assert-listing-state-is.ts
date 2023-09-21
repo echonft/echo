@@ -1,6 +1,6 @@
 import { assertListing } from '@echo/firestore/helpers/listing/assert/assert-listing'
-import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
-import type { FirestoreListingState } from '@echo/firestore/types/model/firestore-listing-state'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
+import type { FirestoreListingState } from '@echo/firestore/types/model/listing/firestore-listing-state'
 
 export function assertListingStateIs(
   listing: Partial<Partial<FirestoreListing>> | undefined,

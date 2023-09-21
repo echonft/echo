@@ -1,6 +1,6 @@
 import type { UserResponse } from '@echo/api/types/responses/model/user-response'
-import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
-import { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/discord-user/firestore-discord-user'
+import { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { mapWalletToResponse } from '@server/mappers/to-response/map-wallet-to-response'
 import { dissoc, map, modify, pipe, unless } from 'ramda'

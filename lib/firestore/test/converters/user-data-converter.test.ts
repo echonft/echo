@@ -1,7 +1,7 @@
 import { userDataConverter } from '@echo/firestore/converters/user-data-converter'
-import { getUserDocumentDataMockById } from '@echo/firestore-mocks/get-user-document-data-mock-by-id'
-import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
-import { userSnapshotMock } from '@echo/firestore-mocks/user-snapshot-mock'
+import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import { userSnapshotMock } from '@echo/firestore-mocks/user/user-snapshot-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - userDataConverter', () => {

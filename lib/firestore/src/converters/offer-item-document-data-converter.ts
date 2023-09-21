@@ -2,8 +2,8 @@ import { nftDocumentDataConverter } from '@echo/firestore/converters/nft-documen
 import { modifyDocumentDataProp } from '@echo/firestore/helpers/converters/from-firestore/modify-document-data-prop'
 import { modifyModelProp } from '@echo/firestore/helpers/converters/to-firestore/modify-model-prop'
 import type { FirestoreDocumentDataConverter } from '@echo/firestore/types/converters/firestore-document-data-converter'
-import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
-import type { OfferItemDocumentData } from '@echo/firestore/types/model/offer-item-document-data'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
+import type { OfferItemDocumentData } from '@echo/firestore/types/model/offer/offer-item-document-data'
 import { pipe } from 'ramda'
 
 export const offerItemDocumentDataConverter: FirestoreDocumentDataConverter<OfferItemDocumentData, FirestoreOfferItem> =

@@ -1,5 +1,5 @@
 import { mapWalletToWalletData } from '@echo/firestore/mappers/map-wallet-to-wallet-data'
-import { getWalletMockById } from '@echo/firestore-mocks/get-wallet-mock-by-id'
+import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapWalletToWalletData', () => {
