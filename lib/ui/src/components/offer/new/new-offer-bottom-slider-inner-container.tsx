@@ -1,16 +1,17 @@
-import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
+import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { NewReceiverItemsContainer } from '@echo/ui/components/item/new/new-receiver-items-container'
 import { NewSenderItemsContainer } from '@echo/ui/components/item/new/new-sender-items-container'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
 import type { OfferItem } from '@echo/ui/types/model/offer-item'
+import { UserDetails } from '@echo/ui/types/model/user-details'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { head } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
+  receiver: UserDetails | undefined
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
   onRemoveSenderItem?: (itemNftId: string) => unknown
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
+  receiver,
   receiverItems,
   senderItems,
   onRemoveSenderItem,
@@ -31,11 +33,11 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
-      <HideIfEmpty
-        checks={receiverItems}
-        render={(receiverItems) => (
+      <HideIfNil
+        checks={receiver}
+        render={(receiver) => (
           <div className={clsx('pt-6', 'pb-1')}>
-            <UserDetailsContainer user={head<OfferItem, OfferItem>(receiverItems).nft.owner} />
+            <UserDetailsContainer user={receiver} />
           </div>
         )}
       />

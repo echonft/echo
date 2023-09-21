@@ -1,5 +1,7 @@
 import { OfferItem } from '@echo/ui/types/model/offer-item'
+import { UserDetails } from '@echo/ui/types/model/user-details'
 import { eqPaths } from '@echo/utils/fp/eq-paths'
+import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { propIsNotEmpty } from '@echo/utils/fp/prop-is-not-empty'
 import { removeOrAddArrayFromArray } from '@echo/utils/fp/remove-or-add-array-from-array'
 import { assoc, either, head, is, isEmpty, pipe } from 'ramda'
@@ -9,6 +11,7 @@ import { devtools } from 'zustand/middleware'
 interface NewOfferState {
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
+  receiver: () => UserDetails | undefined
   setReceiverItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
   setSenderItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
   clearOffer: () => void
@@ -18,9 +21,15 @@ interface NewOfferState {
 export const useNewOfferStore = create<NewOfferState>()(
   devtools(
     (set, get) => ({
-      receiver: undefined,
       receiverItems: [],
       senderItems: [],
+      receiver: () => {
+        const receiverItems = get().receiverItems
+        if (isNonEmptyArray(receiverItems)) {
+          return head(receiverItems).nft.owner
+        }
+        return undefined
+      },
       setReceiverItems: (args) => {
         function setState(items: OfferItem[]) {
           set((state) => {

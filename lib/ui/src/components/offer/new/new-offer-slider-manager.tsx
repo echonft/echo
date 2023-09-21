@@ -16,7 +16,7 @@ import useSWRMutation from 'swr/mutation'
 
 export const NewOfferSliderManager: FunctionComponent = () => {
   const t = useTranslations('offer.new.bottomSlider')
-  const { hasNewOfferPending, setReceiverItems, setSenderItems, receiverItems, senderItems, clearOffer } =
+  const { hasNewOfferPending, setReceiverItems, setSenderItems, receiver, receiverItems, senderItems, clearOffer } =
     useNewOfferStore()
   const { data: session } = useSession()
   const [confirmOfferModalShown, setConfirmOfferModalShown] = useState(false)
@@ -54,6 +54,7 @@ export const NewOfferSliderManager: FunctionComponent = () => {
       >
         <BottomSlider renderTitle={() => <BottomSliderTitle title={t('title')} count={receiverItems.length} />}>
           <NewOfferBottomSliderInnerContainer
+            receiver={receiver()}
             receiverItems={receiverItems}
             senderItems={senderItems}
             onRemoveReceiverItem={onRemoveReceiverItems}
