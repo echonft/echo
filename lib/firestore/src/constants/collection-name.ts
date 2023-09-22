@@ -7,6 +7,7 @@ export enum CollectionName {
   NONCES = 'nonces',
   OFFER_POSTS = 'offer-posts',
   OFFERS = 'offers',
+  LISTING_POSTS = 'listing-posts',
   LISTINGS = 'listings',
   SESSIONS = 'sessions',
   SWAPS = 'swaps',

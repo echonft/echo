@@ -1,5 +1,6 @@
 import { initializeDiscordUsers } from '@test-utils/discord-user/initialize-discord-users'
 import { initializeListings } from '@test-utils/listing/initialize-listings'
+import { initializeListingPosts } from '@test-utils/listing-post/initialize-listing-posts'
 import { initializeNfts } from '@test-utils/nft/initialize-nfts'
 import { initializeNftCollections } from '@test-utils/nft-collection/initialize-nft-collections'
 import { initializeNftCollectionDiscordGuilds } from '@test-utils/nft-collection-discord-guild/initialize-nft-collection-discord-guilds'
@@ -13,6 +14,7 @@ import { initializeWallets } from '@test-utils/wallet/initialize-wallets'
 export async function initializeDb() {
   await initializeDiscordUsers()
   await initializeListings()
+  await initializeListingPosts()
   await initializeNftCollections()
   await initializeNftCollectionDiscordGuilds()
   await initializeNfts()
