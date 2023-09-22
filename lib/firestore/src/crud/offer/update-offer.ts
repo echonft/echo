@@ -1,4 +1,4 @@
-import { offerDataConverter } from '@echo/firestore/converters/offer-data-converter'
+import { offerDataConverter } from '@echo/firestore/converters/offer/offer-data-converter'
 import { getOfferSnapshotById } from '@echo/firestore/crud/offer/get-offer-snapshot-by-id'
 import { cleanAndUpdateDocumentRef } from '@echo/firestore/helpers/crud/clean-and-update-document-ref'
 import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'

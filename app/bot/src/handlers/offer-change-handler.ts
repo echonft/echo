@@ -1,13 +1,13 @@
 import { getDiscordChannel } from '@echo/bot/helpers/get-discord-channel'
 import { offerLink } from '@echo/bot/routing/offer-link'
-import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
+import { getOfferReceiver } from '@echo/firestore/helpers/offer/get-offer-receiver'
 import { getOfferReceiverItemsGuild } from '@echo/firestore/helpers/offer/get-offer-receiver-items-guild'
+import { getOfferSender } from '@echo/firestore/helpers/offer/get-offer-sender'
 import type { DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
-import type { FirestoreOfferComplete } from '@echo/firestore/types/model/firestore-offer-complete'
+import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { ChannelType, Client } from 'discord.js'
-import { isNil } from 'ramda'
 
 /**
  * Handles offer changes -  only check for new offers
@@ -15,31 +15,19 @@ import { isNil } from 'ramda'
  * @param changeType
  * @param offer
  */
-export async function offerChangeHandler(
-  client: Client,
-  changeType: DocumentChangeType,
-  offer: FirestoreOfferComplete
-) {
+export async function offerChangeHandler(client: Client, changeType: DocumentChangeType, offer: FirestoreOffer) {
   if (changeType === 'added') {
     try {
       // FIXME validate
       const discordGuild = await getOfferReceiverItemsGuild(offer)
-      const sender = await findUserByUsername(offer.sender.username)
-      if (isNil(sender)) {
-        logger.error(`user with username ${offer.sender.username} does not exist`)
-        return
-      }
-      const receiver = await findUserByUsername(offer.receiver.username)
-      if (isNil(receiver)) {
-        logger.error(`user with username ${offer.receiver.username} does not exist`)
-        return
-      }
+      const sender = getOfferSender(offer)
+      const receiver = getOfferReceiver(offer)
       const channel = await getDiscordChannel(client, discordGuild.channelId)
       // FIXME check this from Discord
       const senderIsInGuild = true
       if (!senderIsInGuild) {
         logger.error(
-          `sender (userId ${sender.id} of offer with id ${offer.id} is not in guild ${discordGuild.discordId}`
+          `sender with username ${sender.username} of offer with id ${offer.id} is not in guild ${discordGuild.discordId}`
         )
         return
       }
@@ -47,7 +35,7 @@ export async function offerChangeHandler(
       const receiverIsInGuild = true
       if (!receiverIsInGuild) {
         logger.error(
-          `receiver (userId ${receiver.id} of offer with id ${offer.id} is not in guild ${discordGuild.discordId}`
+          `receiver with username ${receiver.username} of offer with id ${offer.id} is not in guild ${discordGuild.discordId}`
         )
         return
       }
@@ -60,8 +48,8 @@ export async function offerChangeHandler(
           offer
         )}`
       })
-      await thread.members.add(offer.sender.discordId)
-      await thread.members.add(offer.receiver.discordId)
+      await thread.members.add(sender.discordId)
+      await thread.members.add(receiver.discordId)
       await thread.send({
         content: `Private thread to negotiate the offer. To accept, reject or cancel the offer, go to: ${offerLink(
           offer

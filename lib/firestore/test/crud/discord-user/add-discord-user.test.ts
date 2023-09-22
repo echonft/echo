@@ -1,5 +1,5 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { discordUserDataConverter } from '@echo/firestore/converters/discord-user-data-converter'
+import { discordUserDataConverter } from '@echo/firestore/converters/discord-user/discord-user-data-converter'
 import { addDiscordUser, NewFirestoreDiscordUser } from '@echo/firestore/crud/discord-user/add-discord-user'
 import { deleteDiscordUser } from '@echo/firestore/crud/discord-user/delete-discord-user'
 import { findDiscordUserByUserId } from '@echo/firestore/crud/discord-user/find-discord-user-by-user-id'

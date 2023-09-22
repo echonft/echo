@@ -1,5 +1,5 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { walletDataConverter } from '@echo/firestore/converters/wallet-data-converter'
+import { walletDataConverter } from '@echo/firestore/converters/wallet/wallet-data-converter'
 import { findWalletByAddress } from '@echo/firestore/crud/wallet/find-wallet-by-address'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'

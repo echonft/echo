@@ -89,8 +89,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       }
     },
     senderItems: [offerItemResponse],
-    state: 'OPEN',
-    swapTransactionId: 'tx-id'
+    state: 'OPEN'
   }
 
   const offerItem: OfferItem = {
@@ -175,8 +174,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       }
     },
     senderItems: [offerItem],
-    state: 'OPEN',
-    swapTransactionId: 'tx-id'
+    state: 'OPEN'
   }
 
   it('maps correctly', () => {

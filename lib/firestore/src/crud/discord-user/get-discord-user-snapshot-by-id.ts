@@ -1,5 +1,5 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { discordUserDataConverter } from '@echo/firestore/converters/discord-user-data-converter'
+import { discordUserDataConverter } from '@echo/firestore/converters/discord-user/discord-user-data-converter'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreDiscordUser } from '@echo/firestore/types/model/discord-user/firestore-discord-user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

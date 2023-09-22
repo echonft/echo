@@ -17,5 +17,4 @@ export interface FirestoreOffer {
   sender: Partial<FirestoreUserDetails>
   senderItems: NonEmptyArray<FirestoreOfferItem>
   state: FirestoreOfferState
-  swapTransactionId?: string
 }

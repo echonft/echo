@@ -8,6 +8,7 @@ export enum CollectionName {
   OFFERS = 'offers',
   LISTINGS = 'listings',
   SESSIONS = 'sessions',
+  SWAPS = 'swaps',
   USERS = 'users',
   WALLETS = 'wallets'
 }

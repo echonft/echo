@@ -1,5 +1,5 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
+import { listingDataConverter } from '@echo/firestore/converters/listing/listing-data-converter'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

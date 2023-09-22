@@ -1,5 +1,5 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { walletDataConverter } from '@echo/firestore/converters/wallet-data-converter'
+import { walletDataConverter } from '@echo/firestore/converters/wallet/wallet-data-converter'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
