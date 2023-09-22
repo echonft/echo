@@ -1,6 +1,6 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import type { AccountDocumentData } from '@echo/firestore/types/model/account-document-data'
+import type { FirestoreAccount } from '@echo/firestore/types/model/account/firestore-account'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 import { head } from 'ramda'
@@ -12,6 +12,6 @@ export async function findAccountForUser(userId: string) {
     return undefined
   }
 
-  const documentSnapshot = head(querySnapshot.docs) as QueryDocumentSnapshot<AccountDocumentData>
+  const documentSnapshot = head(querySnapshot.docs) as QueryDocumentSnapshot<FirestoreAccount>
   return documentSnapshot.data()
 }

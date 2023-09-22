@@ -18,5 +18,6 @@ export interface Collection {
   slug: string
   totalSupply?: number
   twitterUsername?: string
+  verified: boolean
   websiteUrl?: URL
 }

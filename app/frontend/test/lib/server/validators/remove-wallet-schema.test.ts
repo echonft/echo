@@ -1,4 +1,4 @@
-import { getWalletMockByUserId } from '@echo/firestore-mocks/get-wallet-mock-by-user-id'
+import { getWalletMockByUserId } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-user-id'
 import { removeWalletSchema } from '@server/validators/remove-wallet-schema'
 import { pick } from 'ramda'
 

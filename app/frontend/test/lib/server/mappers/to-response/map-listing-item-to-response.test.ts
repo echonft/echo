@@ -1,4 +1,4 @@
-import { getListingMockById } from '@echo/firestore-mocks/get-listing-mock-by-id'
+import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
 import { mapListingItemToResponse } from '@server/mappers/to-response/map-listing-item-to-response'
 
 describe('mappers - to-response - mapListingItemToResponse', () => {
@@ -40,6 +40,7 @@ describe('mappers - to-response - mapListingItemToResponse', () => {
             'https://i.seadn.io/gae/dPCp-lwVmhNgEqZCIsTVos7mDu7qY5A_LARb8PMULBrIfTIlRSlX58fphv8AQm8axjszuT-LOwbBlIbXRwZuA6Ua9Btp3aJWpMCMWu8?w=500&auto=format',
           totalSupply: 6315,
           twitterUsername: 'GeneticChain',
+          verified: false,
           websiteUrl: 'https://geneticchain.io/project/1'
         },
         name: 'Spiral Frequencies #1376',

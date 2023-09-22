@@ -5,11 +5,11 @@ import { updateListing } from '@echo/firestore/crud/listing/update-listing'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import { offerMock } from '@echo/firestore-mocks/offer-mock'
+import { offerMock } from '@echo/firestore-mocks/offer/offer-mock'
 import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
-import { assertListings } from '@test-utils/assert-listings'
-import { assertOffers } from '@test-utils/assert-offers'
+import { assertListings } from '@test-utils/listing/assert-listings'
+import { assertOffers } from '@test-utils/offer/assert-offers'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -48,7 +48,6 @@ describe('CRUD - offer - addOffer', () => {
     const expirationDate = now.add(DEFAULT_EXPIRATION_TIME, 'day')
     const listings = await getListingsForOffer(senderItems, receiverItems)
     expectDateIsNow(newOffer!.createdAt)
-    expect(newOffer!.discordGuild).toBeUndefined()
     expect(newOffer!.expiresAt.isAfter(expirationDate.subtract(1, 'minute'))).toBeTruthy()
     expect(newOffer!.expiresAt.isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()
     expect(newOffer!.receiver).toStrictEqual(receiver)

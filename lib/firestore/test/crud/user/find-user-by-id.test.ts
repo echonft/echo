@@ -1,5 +1,5 @@
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
-import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'

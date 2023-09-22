@@ -1,4 +1,4 @@
-import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import { assertListingCreatorIs } from '@server/helpers/listing/assert-listing-creator-is'
 
 describe('helpers - listing - assertListingCreatorIs', () => {

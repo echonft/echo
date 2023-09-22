@@ -1,7 +1,7 @@
 import { getUserDetails } from '@echo/firestore/helpers/user/get-user-details'
-import { getDiscordUserMockById } from '@echo/firestore-mocks/get-discord-user-mock-by-id'
-import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
-import { getWalletMockById } from '@echo/firestore-mocks/get-wallet-mock-by-id'
+import { getDiscordUserMockById } from '@echo/firestore-mocks/discord-user/get-discord-user-mock-by-id'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - user', () => {

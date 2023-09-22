@@ -1,4 +1,4 @@
-import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import { intersects } from '@echo/utils/fp/intersects'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

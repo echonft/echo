@@ -1,5 +1,5 @@
-import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
-import type { FirestoreOfferState } from '@echo/firestore/types/model/firestore-offer-state'
+import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
+import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 
 function assertOfferIsNotCancelled(offer: Partial<FirestoreOffer>) {

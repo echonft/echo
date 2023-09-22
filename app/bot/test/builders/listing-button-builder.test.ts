@@ -5,10 +5,8 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 
 describe('builders - buildNewListingButtons', () => {
   it('should build a new listing button with a link to the listing', () => {
-    const listingId = 'listingId'
-    const guildId = 'guildId'
-    const result = buildNewListingButtons(listingId, guildId)
-    const expectedLink = listingLink(listingId, guildId)
+    const result = buildNewListingButtons('username')
+    const expectedLink = listingLink('username')
     expect(result).toBeInstanceOf(ActionRowBuilder)
     const components = result.components
     expect(components).toHaveLength(1)

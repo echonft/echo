@@ -1,5 +1,5 @@
-import { getDiscordUserMockByUserId } from '@echo/firestore-mocks/get-discord-user-mock-by-user-id'
-import { getWalletMockByUserId } from '@echo/firestore-mocks/get-wallet-mock-by-user-id'
+import { getDiscordUserMockByUserId } from '@echo/firestore-mocks/discord-user/get-discord-user-mock-by-user-id'
+import { getWalletMockByUserId } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-user-id'
 import { mapDiscordUserToResponse } from '@server/mappers/to-response/map-discord-user-to-response'
 
 describe('mappers - to-response - mapDiscordUserToResponse', () => {

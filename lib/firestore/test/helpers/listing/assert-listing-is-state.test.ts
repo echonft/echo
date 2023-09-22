@@ -1,5 +1,5 @@
 import { assertListingStateIs } from '@echo/firestore/helpers/listing/assert/assert-listing-state-is'
-import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - listing - assert - assertListingStateIs', () => {

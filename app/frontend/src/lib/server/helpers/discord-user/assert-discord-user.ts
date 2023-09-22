@@ -1,4 +1,4 @@
-import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/discord-user/firestore-discord-user'
 import { NotFoundError } from '@server/helpers/error/not-found-error'
 import { isNil } from 'ramda'
 

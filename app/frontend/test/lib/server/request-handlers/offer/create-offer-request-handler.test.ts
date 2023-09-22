@@ -1,6 +1,6 @@
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import type { IdResponse } from '@echo/api/types/responses/id-response'
-import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
+import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
 import type { AuthUser } from '@echo/ui/types/model/auth-user'
 import { ApiError } from '@server/helpers/error/api-error'
 import { createOffer } from '@server/helpers/offer/create-offer'

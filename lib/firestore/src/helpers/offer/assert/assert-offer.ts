@@ -1,4 +1,4 @@
-import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { isNil } from 'ramda'
 

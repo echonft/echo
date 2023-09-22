@@ -1,5 +1,5 @@
-import { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
-import { FirestoreUserDetails } from '@echo/firestore/types/model/firestore-user-details'
+import { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
+import { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import { ForbiddenError } from '@server/helpers/error/forbidden-error'
 import { isNil } from 'ramda'
 

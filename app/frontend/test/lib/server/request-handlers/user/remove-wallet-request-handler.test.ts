@@ -1,5 +1,5 @@
 import type { RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
-import { getUserMockById } from '@echo/firestore-mocks/get-user-mock-by-id'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import type { AuthUser } from '@echo/ui/types/model/auth-user'
 import { ApiError } from '@server/helpers/error/api-error'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'

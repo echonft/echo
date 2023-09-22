@@ -1,4 +1,4 @@
-import type { FirestoreUser } from '@echo/firestore/types/model/firestore-user'
+import type { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil } from 'ramda'
 

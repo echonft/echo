@@ -86,6 +86,9 @@ importers:
       '@echo/firestore':
         specifier: workspace:*
         version: link:../../lib/firestore
+      '@echo/ui':
+        specifier: workspace:*
+        version: link:../../lib/ui
       '@echo/utils':
         specifier: workspace:*
         version: link:../../lib/utils

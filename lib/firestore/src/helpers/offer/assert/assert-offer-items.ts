@@ -1,4 +1,4 @@
-import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'

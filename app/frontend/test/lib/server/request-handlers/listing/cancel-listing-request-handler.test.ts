@@ -1,4 +1,4 @@
-import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import type { AuthUser } from '@echo/ui/types/model/auth-user'
 import { ApiError } from '@server/helpers/error/api-error'
 import { cancelListing } from '@server/helpers/listing/cancel-listing'

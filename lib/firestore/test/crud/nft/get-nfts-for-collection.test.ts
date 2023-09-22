@@ -1,5 +1,5 @@
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
-import { getAllNftMocks } from '@echo/firestore-mocks/get-all-nft-mocks'
+import { getAllNftMocks } from '@echo/firestore-mocks/nft/get-all-nft-mocks'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'

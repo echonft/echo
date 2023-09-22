@@ -1,6 +1,6 @@
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
-import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
-import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import type { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { ServerError } from '@server/helpers/error/server-error'
 

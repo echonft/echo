@@ -1,24 +1,20 @@
-import type { FirestoreListing } from '@echo/firestore/types/model/firestore-listing'
-import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
-import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/firestore-nft-collection-discord-guild'
-import { pathIsNil } from '@echo/utils/fp/path-is-nil'
-import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { forEach, isNil, map, path } from 'ramda'
+import { getNftCollectionDiscordGuildsByNftCollectionId } from '@echo/firestore/crud/nft-collection-discord-guild/get-nft-collection-discord-guilds-by-nft-collection-id'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
+import type { NftCollectionDiscordGuildData } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection-discord-guild'
+import { promiseAll } from '@echo/utils/fp/promise-all'
+import { andThen, head, map, path, pipe, prop } from 'ramda'
 
-export function getListingTargetsGuilds(
-  listing: Partial<FirestoreListing>
-): NonEmptyArray<FirestoreNftCollectionDiscordGuild> {
-  if (isNil(listing.targets)) {
-    throw Error('no targets in the listing')
-  }
-  const { targets } = listing
-  forEach((target: FirestoreListingTarget) => {
-    if (propIsNil('collection', target) || pathIsNil(['collection', 'discordGuild'], target)) {
-      throw Error('not every targets have a collection with a discord guild')
-    }
-  }, targets)
+export function getListingTargetsGuilds(listing: Partial<FirestoreListing>): Promise<NftCollectionDiscordGuildData[]> {
+  // FIXME this is not gonna work with collections on Echo server
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  return map(path(['collection', 'discordGuild']), targets)
+  return pipe(
+    prop('targets'),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    map(path(['collection', 'id'])),
+    getNftCollectionDiscordGuildsByNftCollectionId,
+    andThen(pipe(head, prop('guild'))),
+    promiseAll
+  )(listing)
 }

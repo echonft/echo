@@ -1,4 +1,4 @@
-import type { FirestoreListingItem } from '@echo/firestore/types/model/firestore-listing-item'
+import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'

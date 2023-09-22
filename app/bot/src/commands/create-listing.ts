@@ -1,11 +1,26 @@
 import { getHasNft } from '@echo/bot/api/get-has-nft'
 import { NoGuildIdError } from '@echo/bot/errors/no-guild-id-error'
 import { collectionListingsLink } from '@echo/bot/routing/collection-listings-link'
-import { createListingLink } from '@echo/bot/routing/create-listing-link'
+import { links } from '@echo/ui/constants/links'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { toPromise } from '@echo/utils/fp/to-promise'
 import { CommandInteraction, Message, SlashCommandSubcommandBuilder } from 'discord.js'
-import { andThen, applySpec, call, converge, head, ifElse, invoker, juxt, last, path, pipe, prop, useWith } from 'ramda'
+import {
+  always,
+  andThen,
+  applySpec,
+  call,
+  converge,
+  head,
+  ifElse,
+  invoker,
+  juxt,
+  last,
+  path,
+  pipe,
+  prop,
+  useWith
+} from 'ramda'
 
 /**
  * Create listing command
@@ -35,10 +50,12 @@ export const executeCreateListing: (interaction: CommandInteraction) => Promise<
             last,
             pipe(
               head,
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               converge(call, [
                 invoker(1, 'editReply'),
-                applySpec({
-                  content: useWith(createListingLink, [prop('guildId')])
+                always({
+                  content: links.profile.items
                 })
               ])
             ),

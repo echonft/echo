@@ -1,5 +1,5 @@
 import { ApiRequest } from '@echo/api/types/base/api-request'
-import { userDataConverter } from '@echo/firestore/converters/user-data-converter'
+import { userDataConverter } from '@echo/firestore/converters/user/user-data-converter'
 import { findSessionByToken } from '@echo/firestore/crud/session/find-session-by-token'
 import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

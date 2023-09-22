@@ -24,6 +24,7 @@ const collections: { [key: string]: Collection } = {
     ),
     totalSupply: 1077,
     twitterUsername: undefined,
+    verified: true,
     websiteUrl: new URL('https://pxmythics.io')
   },
   '1aomCtnoesD7WVll6Yi1': {
@@ -48,6 +49,7 @@ const collections: { [key: string]: Collection } = {
     ),
     totalSupply: 6315,
     twitterUsername: 'GeneticChain',
+    verified: false,
     websiteUrl: new URL('https://geneticchain.io/project/1')
   }
 }

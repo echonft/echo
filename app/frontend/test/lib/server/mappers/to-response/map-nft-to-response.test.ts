@@ -1,5 +1,5 @@
-import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
-import { getNftCollectionMockById } from '@echo/firestore-mocks/get-nft-collection-mock-by-id'
+import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
+import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import { mapNftToResponse } from '@server/mappers/to-response/map-nft-to-response'
 import { pick } from 'ramda'
 

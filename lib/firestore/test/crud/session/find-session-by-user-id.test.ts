@@ -1,5 +1,5 @@
 import { findSessionByUserId } from '@echo/firestore/crud/session/find-session-by-user-id'
-import { getSessionMockByUserId } from '@echo/firestore-mocks/get-session-mock-by-user-id'
+import { getSessionMockByUserId } from '@echo/firestore-mocks/session/get-session-mock-by-user-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'

@@ -9,8 +9,6 @@ primary_region = "yul"
 [env]
   PORT = "8080"
   APP_URL='https://alpha.echonft.xyz/'
-  DISCORD_CLIENT_TOKEN='MTAyMjI1MzQyNzQzNjI5ODI1MA.GnHPwp.Vs9AXJx853unuyIAIP_mS0grPtjXqwbzVPQ_HQ'
-  DISCORD_CLIENT_SECRET='oV_m9Uvprfq_KOvHPjA48O04kh__aRNe'
 
 [http_service]
   internal_port = 8080

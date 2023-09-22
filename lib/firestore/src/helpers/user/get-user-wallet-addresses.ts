@@ -1,5 +1,5 @@
-import type { FirestoreDiscordUser } from '@echo/firestore/types/model/firestore-discord-user'
-import type { FirestoreWallet } from '@echo/firestore/types/model/firestore-wallet'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/discord-user/firestore-discord-user'
+import type { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
 import { filter, isNil, map, pipe, prop, propEq } from 'ramda'
 
 function internalFn(chainId: number): (user: Partial<FirestoreDiscordUser>) => string[] {

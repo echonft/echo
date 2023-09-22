@@ -1,5 +1,5 @@
 import { assertOfferIsNotExpired } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-expired'
-import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 

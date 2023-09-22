@@ -1,5 +1,5 @@
 import type { NftResponse } from '@echo/api/types/responses/model/nft-response'
-import type { FirestoreNft } from '@echo/firestore/types/model/firestore-nft'
+import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
 import { modifyUrlPropToString } from '@echo/utils/fp/modify-url-prop-to-string'
 import { mapCollectionToResponse } from '@server/mappers/to-response/map-collection-to-response'
 import { modify, pipe } from 'ramda'

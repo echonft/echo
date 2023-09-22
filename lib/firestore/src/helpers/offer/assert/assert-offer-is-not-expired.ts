@@ -1,6 +1,6 @@
 import { dateIsPast } from '@echo/firestore/helpers/converters/from-firestore/date-is-past'
 import { assertOffer } from '@echo/firestore/helpers/offer/assert/assert-offer'
-import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { pipe, prop } from 'ramda'
 

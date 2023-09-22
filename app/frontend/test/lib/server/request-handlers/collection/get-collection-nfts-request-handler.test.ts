@@ -1,6 +1,6 @@
 import type { GetNftsResponse } from '@echo/api/types/responses/get-nfts-response'
-import { getNftCollectionMockById } from '@echo/firestore-mocks/get-nft-collection-mock-by-id'
-import { getNftMockById } from '@echo/firestore-mocks/get-nft-mock-by-id'
+import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
+import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import { getCollectionBySlug } from '@server/helpers/collection/get-collection-by-slug'
 import { getCollectionNfts } from '@server/helpers/nft/get-collection-nfts'
 import { mapNftToResponse } from '@server/mappers/to-response/map-nft-to-response'

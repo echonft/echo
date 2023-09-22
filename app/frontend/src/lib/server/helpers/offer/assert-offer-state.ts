@@ -1,5 +1,5 @@
-import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
-import type { FirestoreOfferState } from '@echo/firestore/types/model/firestore-offer-state'
+import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
+import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { includes } from 'ramda'
 

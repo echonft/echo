@@ -1,4 +1,4 @@
-import { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import type { AuthUser } from '@echo/ui/types/model/auth-user'
 import { ApiError } from '@server/helpers/error/api-error'
 import { getOffer } from '@server/helpers/offer/get-offer'

@@ -1,5 +1,5 @@
 import type { ListingItemResponse } from '@echo/api/types/responses/model/listing-item-response'
-import type { FirestoreListingItem } from '@echo/firestore/types/model/firestore-listing-item'
+import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
 import { mapNftToResponse } from '@server/mappers/to-response/map-nft-to-response'
 import { modify } from 'ramda'
 

@@ -1,5 +1,5 @@
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
-import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { ServerError } from '@server/helpers/error/server-error'
 

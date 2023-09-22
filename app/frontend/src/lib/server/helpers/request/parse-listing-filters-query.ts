@@ -1,6 +1,6 @@
 import type { ApiRequest } from '@echo/api/types/base/api-request'
 import { LISTING_FILTER_AS } from '@echo/firestore/constants/listing-filter-as'
-import { LISTING_STATES } from '@echo/firestore/types/model/firestore-listing-state'
+import { LISTING_STATES } from '@echo/firestore/types/model/listing/firestore-listing-state'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { booleanQueryParamSchema } from '@server/validators/boolean-query-param-schema'

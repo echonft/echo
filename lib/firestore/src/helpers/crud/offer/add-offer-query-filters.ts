@@ -1,4 +1,4 @@
-import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
 import { intersects } from '@echo/utils/fp/intersects'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

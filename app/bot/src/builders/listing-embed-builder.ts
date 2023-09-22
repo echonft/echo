@@ -2,20 +2,20 @@ import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { embedValueForNft } from '@echo/bot/helpers/embed/embed-value-for-nft'
 import { embedValueForTarget } from '@echo/bot/helpers/embed/embed-value-for-target'
 import { listingLink } from '@echo/bot/routing/listing-link'
-import { getListingItemsGuild } from '@echo/firestore/helpers/listing/get-listing-items-guild'
-import type { FirestoreListingComplete } from '@echo/firestore/types/model/firestore-listing-complete'
-import type { FirestoreListingItem } from '@echo/firestore/types/model/firestore-listing-item'
-import type { FirestoreListingTarget } from '@echo/firestore/types/model/firestore-listing-target'
+import { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
+import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
+import type { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
+import { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import { flatten, map, prop } from 'ramda'
 
-export function buildListingEmbed(listing: FirestoreListingComplete) {
+export function buildListingEmbed(listing: FirestoreListing, listingCreator: FirestoreUserDetails) {
   return new EmbedBuilder()
     .setTitle(title())
-    .setDescription(description(listing))
+    .setDescription(description(listingCreator.discordId))
     .setColor(color())
     .setFields(fields(listing.items, listing.targets))
-    .setURL(listingLink(listing.id, getListingItemsGuild(listing).discordId))
+    .setURL(listingLink(listingCreator.username))
 }
 
 // Can't mention user on a title
@@ -23,8 +23,8 @@ function title(): string {
   return `A new listing was created`
 }
 
-function description(listing: FirestoreListingComplete): string {
-  return `Created by ${userMention(listing.creator.discordId)}`
+function description(creatorDiscordId: string): string {
+  return `Created by ${userMention(creatorDiscordId)}`
 }
 
 // TODO Maybe a color per collection via settings?

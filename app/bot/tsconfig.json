@@ -17,6 +17,7 @@
       "@echo/discord/*": ["../../lib/discord/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/firestore-mocks/*": ["../../lib/firestore/test/mocks/*"],
+      "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"]
     }
   },

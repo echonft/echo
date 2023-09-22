@@ -1,6 +1,6 @@
 import { assertOfferItems } from '@echo/firestore/helpers/offer/assert/assert-offer-items'
-import type { FirestoreOfferItem } from '@echo/firestore/types/model/firestore-offer-item'
-import { getOfferMockById } from '@echo/firestore-mocks/get-offer-mock-by-id'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
+import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 import { assocPath, pipe } from 'ramda'
 

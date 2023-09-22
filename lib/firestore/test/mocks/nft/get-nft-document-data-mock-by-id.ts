@@ -1,0 +1,5 @@
+import { nftDocumentDataMock } from '@echo/firestore-mocks/nft/nft-document-data-mock'
+
+export function getNftDocumentDataMockById(id: string) {
+  return nftDocumentDataMock[id]!
+}

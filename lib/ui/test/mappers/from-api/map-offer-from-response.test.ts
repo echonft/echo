@@ -41,6 +41,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
         profilePictureUrl: 'https://echo.xyz',
         totalSupply: 6315,
         twitterUsername: 'GeneticChain',
+        verified: false,
         websiteUrl: 'https://echo.xyz'
       },
       name: 'Spiral Frequencies #1376',
@@ -88,8 +89,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       }
     },
     senderItems: [offerItemResponse],
-    state: 'OPEN',
-    swapTransactionId: 'tx-id'
+    state: 'OPEN'
   }
 
   const offerItem: OfferItem = {
@@ -126,6 +126,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
         profilePictureUrl: new URL('https://echo.xyz'),
         totalSupply: 6315,
         twitterUsername: 'GeneticChain',
+        verified: false,
         websiteUrl: new URL('https://echo.xyz')
       },
       name: 'Spiral Frequencies #1376',
@@ -173,8 +174,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       }
     },
     senderItems: [offerItem],
-    state: 'OPEN',
-    swapTransactionId: 'tx-id'
+    state: 'OPEN'
   }
 
   it('maps correctly', () => {

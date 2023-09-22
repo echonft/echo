@@ -1,6 +1,6 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
-import type { FirestoreOffer } from '@echo/firestore/types/model/firestore-offer'
+import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import type { WriteResult } from 'firebase-admin/lib/firestore'
 import { includes, isNil } from 'ramda'
 
