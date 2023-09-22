@@ -17,7 +17,7 @@ describe('CRUD - listing-post - findListingPostByListingId', () => {
   it('returns the document found', async () => {
     const listingId = 'jUzMtPGKM62mMhEcmbN4'
     const document = await findListingPostByListingId(listingId)
-    expect(document!.id).toStrictEqual('hot4VWDzd6ZRsC3nsvnb')
+    expect(document!.id).toStrictEqual('jXadAgs0rtUXZWfG9t0z')
     expect(document!.listingId).toStrictEqual(listingId)
     expect(document!.guild.discordId).toStrictEqual('1')
     expect(document!.guild.channelId).toStrictEqual('1')
