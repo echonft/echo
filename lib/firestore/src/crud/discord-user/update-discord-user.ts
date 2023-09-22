@@ -1,4 +1,4 @@
-import { discordUserDataConverter } from '@echo/firestore/converters/discord-user-data-converter'
+import { discordUserDataConverter } from '@echo/firestore/converters/discord-user/discord-user-data-converter'
 import { getDiscordUserSnapshotByUserId } from '@echo/firestore/crud/discord-user/get-discord-user-snapshot-by-user-id'
 import { cleanAndUpdateDocumentRef } from '@echo/firestore/helpers/crud/clean-and-update-document-ref'
 import { FirestoreDiscordUser } from '@echo/firestore/types/model/discord-user/firestore-discord-user'

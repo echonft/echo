@@ -1,7 +1,10 @@
 import { completeOffer } from '@echo/firestore/crud/offer/complete-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
+import { deleteSwap } from '@echo/firestore/crud/swaps/delete-swap'
+import { findSwapByOfferId } from '@echo/firestore/crud/swaps/find-swap-by-offer-id'
 import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
+import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertOffers } from '@test-utils/offer/assert-offers'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -11,7 +14,6 @@ import dayjs from 'dayjs'
 describe('CRUD - offer - completeOffer', () => {
   let initialState: FirestoreOfferState
   let initialExpiresAt: dayjs.Dayjs
-  let initialSwapTransactionId: string | undefined
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
   const swapTransactionId = 'swap-transaction-id'
 
@@ -27,13 +29,11 @@ describe('CRUD - offer - completeOffer', () => {
     const offer = await findOfferById(id)
     initialState = offer!.state
     initialExpiresAt = offer!.expiresAt
-    initialSwapTransactionId = offer!.swapTransactionId
   })
   afterEach(async () => {
     await updateOffer(id, {
       state: initialState,
-      expiresAt: initialExpiresAt,
-      swapTransactionId: initialSwapTransactionId
+      expiresAt: initialExpiresAt
     })
   })
 
@@ -69,6 +69,11 @@ describe('CRUD - offer - completeOffer', () => {
     await completeOffer(id, swapTransactionId)
     const updatedOffer = await findOfferById(id)
     expect(updatedOffer!.state).toEqual('COMPLETED')
-    expect(updatedOffer!.swapTransactionId).toEqual(swapTransactionId)
+    // make sure that swap was added
+    const swap = await findSwapByOfferId(id)
+    await deleteSwap(swap!.id)
+    expect(swap?.offerId).toStrictEqual(id)
+    expect(swap?.txId).toStrictEqual(swapTransactionId)
+    expectDateIsNow(swap!.date)
   })
 })

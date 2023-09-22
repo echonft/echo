@@ -1,5 +1,5 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { nftCollectionDataConverter } from '@echo/firestore/converters/nft-collection-data-converter'
+import { nftCollectionDataConverter } from '@echo/firestore/converters/nft-collection/nft-collection-data-converter'
 import { addConstraintsToQuery } from '@echo/firestore/helpers/query/add-constraints-to-query'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'

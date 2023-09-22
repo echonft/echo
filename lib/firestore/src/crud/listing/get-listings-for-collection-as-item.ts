@@ -1,5 +1,5 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
+import { listingDataConverter } from '@echo/firestore/converters/listing/listing-data-converter'
 import { filterExpiredResults } from '@echo/firestore/helpers/crud/filter-expired-results'
 import { addListingQueryFilters } from '@echo/firestore/helpers/crud/listing/add-listing-query-filters'
 import { addConstraintsToQuery } from '@echo/firestore/helpers/query/add-constraints-to-query'

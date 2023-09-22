@@ -1,6 +1,6 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
-import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
+import { listingDataConverter } from '@echo/firestore/converters/listing/listing-data-converter'
 import { addListingToOffer } from '@echo/firestore/crud/offer/add-listing-to-offer'
 import { getOffersForListing } from '@echo/firestore/crud/offer/get-offers-for-listing'
 import { assertListingItems } from '@echo/firestore/helpers/listing/assert/assert-listing-items'

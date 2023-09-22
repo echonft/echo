@@ -1,5 +1,4 @@
 import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
-import type { OfferDiscordGuildDocumentData } from '@echo/firestore/types/model/offer/offer-discord-guild-document-data'
 import type { OfferItemDocumentData } from '@echo/firestore/types/model/offer/offer-item-document-data'
 import type { UserDetailsDocumentData } from '@echo/firestore/types/model/user/user-details-document-data'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
@@ -7,7 +6,6 @@ import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 export interface OfferDocumentData {
   id: string
   createdAt: number
-  discordGuild?: OfferDiscordGuildDocumentData
   expiresAt: number
   listingsIds: string[]
   receiver: UserDetailsDocumentData
@@ -19,15 +17,11 @@ export interface OfferDocumentData {
   senderItemsNftIds: NonEmptyArray<string>
   senderItemsNftCollectionIds: NonEmptyArray<string>
   state: FirestoreOfferState
-  swapTransactionId?: string
 }
 
 export const offerFields = [
   'id',
   'createdAt',
-  'discordGuild',
-  'discordGuild.discordId',
-  'discordGuild.threadId',
   'expiresAt',
   'listingsIds',
   'receiver',
@@ -54,6 +48,5 @@ export const offerFields = [
   'senderItems',
   'senderItemsNftIds',
   'senderItemsNftCollectionIds',
-  'state',
-  'swapTransactionId'
+  'state'
 ]

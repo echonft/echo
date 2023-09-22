@@ -1,5 +1,5 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { offerDataConverter } from '@echo/firestore/converters/offer-data-converter'
+import { offerDataConverter } from '@echo/firestore/converters/offer/offer-data-converter'
 import { filterExpiredResults } from '@echo/firestore/helpers/crud/filter-expired-results'
 import { addOfferQueryFilters } from '@echo/firestore/helpers/crud/offer/add-offer-query-filters'
 import { addConstraintsToQuery } from '@echo/firestore/helpers/query/add-constraints-to-query'

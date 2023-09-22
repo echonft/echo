@@ -1,4 +1,4 @@
-import { listingDataConverter } from '@echo/firestore/converters/listing-data-converter'
+import { listingDataConverter } from '@echo/firestore/converters/listing/listing-data-converter'
 import { getListingSnapshotById } from '@echo/firestore/crud/listing/get-listing-snapshot-by-id'
 import { assertListingIsNotExpired } from '@echo/firestore/helpers/listing/assert/assert-listing-is-not-expired'
 import { assertListingStateIs } from '@echo/firestore/helpers/listing/assert/assert-listing-state-is'

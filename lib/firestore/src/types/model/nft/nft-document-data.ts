@@ -34,7 +34,6 @@ export const nftFields = [
   'collection.contract.symbol',
   'collection.contract.tokenType',
   'collection.description',
-  'collection.discordGuild',
   'collection.discordUrl',
   'collection.floorPrice',
   'collection.name',

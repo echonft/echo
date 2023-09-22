@@ -14,5 +14,4 @@ export interface Offer {
   sender: UserDetails
   senderItems: NonEmptyArray<OfferItem>
   state: OfferState
-  swapTransactionId?: string
 }

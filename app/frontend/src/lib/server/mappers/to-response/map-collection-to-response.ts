@@ -1,7 +1,7 @@
 import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
 import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 import { modifyUrlPropToString } from '@echo/utils/fp/modify-url-prop-to-string'
-import { dissoc, modify, pick, pipe } from 'ramda'
+import { modify, pick, pipe } from 'ramda'
 
 export function mapCollectionToResponse(collection: Partial<FirestoreNftCollection>): CollectionResponse {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -15,7 +15,6 @@ export function mapCollectionToResponse(collection: Partial<FirestoreNftCollecti
     modifyUrlPropToString('websiteUrl'),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    modify('contract', pick(['address', 'chainId', 'tokenType'])),
-    dissoc('discordGuild')
+    modify('contract', pick(['address', 'chainId', 'tokenType']))
   )(collection)
 }

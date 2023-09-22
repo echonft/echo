@@ -1,4 +1,4 @@
-import { nftDataConverter } from '@echo/firestore/converters/nft-data-converter'
+import { nftDataConverter } from '@echo/firestore/converters/nft/nft-data-converter'
 import { getNftSnapshotById } from '@echo/firestore/crud/nft/get-nft-snapshot-by-id'
 import { cleanAndUpdateDocumentRef } from '@echo/firestore/helpers/crud/clean-and-update-document-ref'
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'

@@ -1,5 +1,5 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { nonceDataConverter } from '@echo/firestore/converters/nonce-data-converter'
+import { nonceDataConverter } from '@echo/firestore/converters/nonce/nonce-data-converter'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreNonce } from '@echo/firestore/types/model/nonce/firestore-nonce'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

@@ -1,6 +1,6 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
-import { offerDataConverter } from '@echo/firestore/converters/offer-data-converter'
+import { offerDataConverter } from '@echo/firestore/converters/offer/offer-data-converter'
 import { addOfferToListing } from '@echo/firestore/crud/listing/add-offer-to-listing'
 import { getListingsForOffer } from '@echo/firestore/crud/listing/get-listings-for-offer'
 import { assertOfferItems } from '@echo/firestore/helpers/offer/assert/assert-offer-items'
@@ -25,7 +25,6 @@ export async function addOffer(
   const newOffer: FirestoreOffer = {
     id,
     createdAt: dayjs(),
-    discordGuild: undefined,
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'),
     listingsIds: map(prop('id'), listings),
     receiver: head<FirestoreOfferItem, FirestoreOfferItem>(receiverItems).nft.owner!,
