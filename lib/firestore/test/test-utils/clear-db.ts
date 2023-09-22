@@ -4,6 +4,7 @@ import { clearNfts } from '@test-utils/nft/clear-nfts'
 import { clearNftCollections } from '@test-utils/nft-collection/clear-nft-collections'
 import { clearNftCollectionDiscordGuilds } from '@test-utils/nft-collection-discord-guild/clear-nft-collection-discord-guilds'
 import { clearOffers } from '@test-utils/offer/clear-offers'
+import { clearOfferPosts } from '@test-utils/offer-post/clear-offer-posts'
 import { clearSessions } from '@test-utils/session/clear-sessions'
 import { clearSwaps } from '@test-utils/swap/clear-swaps'
 import { clearUsers } from '@test-utils/user/clear-users'
@@ -16,6 +17,7 @@ export async function clearDb() {
   await clearNftCollectionDiscordGuilds()
   await clearNfts()
   await clearOffers()
+  await clearOfferPosts()
   await clearSessions()
   await clearSwaps()
   await clearUsers()

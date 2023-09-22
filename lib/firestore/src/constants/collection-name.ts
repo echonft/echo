@@ -5,6 +5,7 @@ export enum CollectionName {
   NFT_COLLECTION_DISCORD_GUILDS = 'nft-collection-discord-guilds',
   NFTS = 'nfts',
   NONCES = 'nonces',
+  OFFER_POSTS = 'offer-posts',
   OFFERS = 'offers',
   LISTINGS = 'listings',
   SESSIONS = 'sessions',

@@ -48,7 +48,6 @@ describe('CRUD - offer - addOffer', () => {
     const expirationDate = now.add(DEFAULT_EXPIRATION_TIME, 'day')
     const listings = await getListingsForOffer(senderItems, receiverItems)
     expectDateIsNow(newOffer!.createdAt)
-    expect(newOffer!.discordGuild).toBeUndefined()
     expect(newOffer!.expiresAt.isAfter(expirationDate.subtract(1, 'minute'))).toBeTruthy()
     expect(newOffer!.expiresAt.isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()
     expect(newOffer!.receiver).toStrictEqual(receiver)

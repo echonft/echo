@@ -14,7 +14,6 @@ export function mapOfferToResponse(offer: Partial<FirestoreOffer>): Partial<Offe
     // @ts-ignore
     modify('receiverItems', map(mapOfferItemToResponse)),
     modify('senderItems', map(mapOfferItemToResponse)),
-    dissoc('listingsIds'),
-    dissoc('discordGuild')
+    dissoc('listingsIds')
   )(offer)
 }

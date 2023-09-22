@@ -1,4 +1,3 @@
-import type { FirestoreOfferDiscordGuild } from '@echo/firestore/types/model/offer/firestore-offer-discord-guild'
 import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
@@ -8,7 +7,6 @@ import type { Dayjs } from 'dayjs'
 export interface FirestoreOffer {
   id: string
   createdAt: Dayjs
-  discordGuild?: FirestoreOfferDiscordGuild
   expired: boolean
   expiresAt: Dayjs
   listingsIds: string[]

@@ -25,7 +25,6 @@ export async function addOffer(
   const newOffer: FirestoreOffer = {
     id,
     createdAt: dayjs(),
-    discordGuild: undefined,
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'),
     listingsIds: map(prop('id'), listings),
     receiver: head<FirestoreOfferItem, FirestoreOfferItem>(receiverItems).nft.owner!,
