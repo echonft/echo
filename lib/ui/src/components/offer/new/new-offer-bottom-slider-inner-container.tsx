@@ -49,14 +49,14 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6', 'gap-5')}>
         {/*TODO Here we should add a fetcher to update. We don't need the state for modal, we can use offer id */}
         <Disclosure.Button
-          className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')}
+          className={clsx('btn-gradient', 'group', 'w-40', 'py-1.5', 'h-10')}
           disabled={isNilOrEmpty(receiverItems) || isNilOrEmpty(senderItems)}
           onClick={onConfirmOffer}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalize')}</span>
         </Disclosure.Button>
         <button
-          className={clsx('bg-red-400', 'disabled:bg-red-400/40', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')}
+          className={clsx('bg-red-400', 'disabled:bg-red-400/40', 'group', 'rounded-lg', 'w-40', 'py-1.5', 'h-10')}
           onClick={onDismissOffer}
         >
           <span

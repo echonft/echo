@@ -12,11 +12,11 @@ export const OfferDetailsOfferActionAcceptedButtons: FunctionComponent<Props> = 
   const t = useTranslations('offer.details.actionModal.ACCEPTED')
   return (
     <>
-      <button className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')} onClick={onClose}>
+      <button className={clsx('btn-gradient', 'group', 'w-40', 'py-1.5', 'h-10')} onClick={onClose}>
         <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>
       </button>
       <CopyToClipboard text={'TODO'} onCopy={onClose}>
-        <button className={clsx('btn-action', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10', 'gap-2.5')}>
+        <button className={clsx('btn-action', 'group', 'w-40', 'py-1.5', 'h-10', 'gap-2.5')}>
           <span className={clsx('text-purple-900', 'group-hover:text-white')}>
             <CopyIconSvg />
           </span>

@@ -20,7 +20,7 @@ export const OfferDetailsDeclineButton: FunctionComponent<PropsWithChildren<Prop
         'rounded-lg',
         'w-40',
         'py-1.5',
-        '!h-10',
+        'h-10',
         disabled && 'disabled'
       )}
       onClick={onAction}

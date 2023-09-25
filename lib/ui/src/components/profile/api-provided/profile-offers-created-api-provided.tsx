@@ -2,7 +2,7 @@
 import type { OfferResponse } from '@echo/api/types/responses/model/offer-response'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
-import { CurrentUserOfferRowsContainer } from '@echo/ui/components/offer/layout/container/current-user-offer-rows-container'
+import { OfferRowsContainer } from '@echo/ui/components/offer/layout/offer-rows-container'
 import { ProfileOffersCreatedEmpty } from '@echo/ui/components/profile/offer/empty/profile-offers-created-empty'
 import { ProfileNavigationLayout } from '@echo/ui/components/profile/profile-navigation-layout'
 import { NavigationOffersCreated } from '@echo/ui/constants/navigation-item'
@@ -26,7 +26,7 @@ export const ProfileOffersCreatedApiProvided: FunctionComponent<Props> = ({ resp
   return (
     <ProfileNavigationLayout activeNavigationItem={NavigationOffersCreated}>
       <HideIf condition={dataIsEmpty}>
-        <CurrentUserOfferRowsContainer offers={mappedOffers} />
+        <OfferRowsContainer offers={mappedOffers} />
       </HideIf>
       <ShowIf condition={dataIsEmpty}>
         <ProfileOffersCreatedEmpty />

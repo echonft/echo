@@ -45,7 +45,7 @@ export const ErrorPage: FunctionComponent = () => {
           {t('errorPage.title')}
         </p>
         <InternalLink path={'/'}>
-          <button className={clsx('btn-primary-reverse', 'group', 'w-max', 'rounded-lg', 'px-5', 'py-2.5')}>
+          <button className={clsx('btn-primary-reverse', 'group')}>
             <span
               className={clsx(
                 'btn-label-primary-reverse',

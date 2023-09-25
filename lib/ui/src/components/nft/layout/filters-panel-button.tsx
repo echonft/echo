@@ -12,7 +12,7 @@ export const FiltersPanelButton: FunctionComponent<Props> = ({ label, count, onC
     <button
       disabled={count === 0}
       onClick={onClick}
-      className={clsx('!justify-between', 'btn-gradient', 'group', 'rounded-lg', 'w-full', 'p-2.5')}
+      className={clsx('!justify-between', 'btn-gradient', 'group', 'w-full', 'p-2.5')}
     >
       <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>{label}</span>
       <div className={clsx('flex', 'items-center', 'justify-center', 'w-6', 'h-6', 'rounded-lg', 'bg-dark-300')}>

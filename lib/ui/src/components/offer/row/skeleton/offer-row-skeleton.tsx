@@ -1,24 +1,30 @@
-import { SwapIconSvg } from '@echo/ui/components/base/svg/swap-icon-svg'
 import { ItemThumbnailSkeleton } from '@echo/ui/components/item/thumbnail/skeleton/item-thumbnail-skeleton'
-import { OfferStatePillSkeleton } from '@echo/ui/components/offer/row/skeleton/offer-state-pill-skeleton'
-import { DirectionLeft } from '@echo/ui/constants/direction'
+import { OfferItemsContainerLayout } from '@echo/ui/components/offer/layout/offer-items-container-layout'
+import { OfferRowSwapContainerLayout } from '@echo/ui/components/offer/layout/offer-row-swap-container-layout'
+import { OfferRowHeaderLayout } from '@echo/ui/components/offer/row/layout/offer-row-header-layout'
+import { OfferRowLayout } from '@echo/ui/components/offer/row/layout/offer-row-layout'
+import { OfferRowSwapIcon } from '@echo/ui/components/offer/row/offer-row-swap-icon'
+import { OfferRowStatePillSkeleton } from '@echo/ui/components/offer/row/skeleton/offer-row-state-pill-skeleton'
+import { UserDiscordTagSkeleton } from '@echo/ui/components/shared/skeleton/user-discord-tag-skeleton'
 import { SizeLG } from '@echo/ui/constants/size'
-import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 export const OfferRowSkeleton: FunctionComponent = () => (
-  <div className={clsx('flex', 'flex-col', 'self-stretch', 'gap-4', 'p-4', 'rounded-lg', 'bg-white/[0.05]')}>
-    <OfferStatePillSkeleton />
-    <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-2')}>
-      <div className={clsx('flex', 'flex-row', 'gap-4')}>
+  <OfferRowLayout>
+    <OfferRowHeaderLayout>
+      <OfferRowStatePillSkeleton />
+      <UserDiscordTagSkeleton />
+    </OfferRowHeaderLayout>
+    <OfferRowSwapContainerLayout>
+      <OfferItemsContainerLayout>
         <ItemThumbnailSkeleton size={SizeLG} />
         <ItemThumbnailSkeleton size={SizeLG} />
-      </div>
-      <SwapIconSvg direction={DirectionLeft} />
-      <div className={clsx('flex', 'flex-row', 'gap-4')}>
+      </OfferItemsContainerLayout>
+      <OfferRowSwapIcon />
+      <OfferItemsContainerLayout>
         <ItemThumbnailSkeleton size={SizeLG} />
         <ItemThumbnailSkeleton size={SizeLG} />
-      </div>
-    </div>
-  </div>
+      </OfferItemsContainerLayout>
+    </OfferRowSwapContainerLayout>
+  </OfferRowLayout>
 )

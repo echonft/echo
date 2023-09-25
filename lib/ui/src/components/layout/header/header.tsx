@@ -15,7 +15,15 @@ export const Header: FunctionComponent = () => {
 
   return (
     <header
-      className={clsx('bg-dark-500', 'border', 'border-b-2', 'border-solid', 'border-black/[0.09]', 'w-full', 'h-max')}
+      className={clsx(
+        'bg-transparent',
+        'border',
+        'border-b-2',
+        'border-solid',
+        'border-black/[0.09]',
+        'w-full',
+        'h-max'
+      )}
     >
       <PaddedContainer>
         <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-12')}>
