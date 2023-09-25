@@ -20,7 +20,7 @@ export const CollectionThumbnail: FunctionComponent<Props> = ({ count, collectio
       <div className={clsx('flex', 'flex-col', 'rounded-2xl', 'w-52', 'h-max', 'cursor-pointer', 'overflow-clip')}>
         <div className={'relative'}>
           {/*TODO make sure we have a fallback*/}
-          <NftThumbnailPicture alt={name} pictureUrl={profilePictureUrl!} />
+          <NftThumbnailPicture alt={name} pictureUrl={profilePictureUrl} />
         </div>
         <div className={clsx('flex', 'flex-row', 'justify-center', 'grow', 'bg-white/[0.08]', 'p-2')}>
           <CollectionThumbnailTitle count={count} collectionName={collection.name} />

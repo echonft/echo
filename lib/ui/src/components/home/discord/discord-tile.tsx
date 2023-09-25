@@ -2,7 +2,7 @@ import { ExternalLink } from '@echo/ui/components/base/link/external-link'
 import { HomeDiscordIconSvg } from '@echo/ui/components/base/svg/home-discord-icon-svg'
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 export const DiscordTile: FunctionComponent = () => {
   const t = getTranslator()

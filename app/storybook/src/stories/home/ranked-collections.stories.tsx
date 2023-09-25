@@ -1,11 +1,11 @@
-import { TopCollections as Component } from '@echo/ui/components/home/collection/top/top-collections'
+import { RankedCollections as Component } from '@echo/ui/components/home/collection/ranked/ranked-collections'
 import type { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
 import { getAllCollections } from '@mocks/model/collection'
 import type { Meta, StoryObj } from '@storybook/react'
 import { assoc, concat, map, pick, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Home/Top Collections',
+  title: 'Home/Ranked Collections',
   component: Component,
   parameters: {
     controls: {

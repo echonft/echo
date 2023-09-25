@@ -52,6 +52,12 @@ export const messages = {
     recentSwaps: {
       title: 'Recent swaps'
     },
+    rankedCollections: {
+      btn: 'Explore all',
+      collection: 'Collection',
+      rank: 'Rank',
+      swapsCount: '# Swaps'
+    },
     topCollections: {
       title: 'Top collections'
     }

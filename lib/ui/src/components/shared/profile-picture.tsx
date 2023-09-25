@@ -1,3 +1,4 @@
+import { Img } from '@echo/ui/components/base/img'
 import { SizeLG, SizeMD } from '@echo/ui/constants/size'
 import { getProfilePictureSize } from '@echo/ui/helpers/get-profile-picture-size'
 import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
@@ -6,13 +7,13 @@ import type { FunctionComponent } from 'react'
 
 interface Props {
   pictureUrl: URL
-  alt?: string
+  alt: string
   size: ProfilePictureSize
 }
 
 export const ProfilePicture: FunctionComponent<Props> = ({ pictureUrl, alt, size = SizeLG }) => {
   return (
-    <img
+    <Img
       className={clsx(
         'rounded-2xl',
         'border-solid',

@@ -14,7 +14,7 @@ export interface Collection {
   floorPrice?: number
   name: string
   openSeaUrl?: URL
-  profilePictureUrl?: URL
+  profilePictureUrl: URL
   slug: string
   totalSupply?: number
   twitterUsername?: string

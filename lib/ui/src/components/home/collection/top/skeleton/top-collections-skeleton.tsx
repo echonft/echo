@@ -1,5 +1,5 @@
 import { CollectionTileSkeleton } from '@echo/ui/components/collection/tile/skeleton/collection-tile-skeleton'
-import { TopCollectionsLayout } from '@echo/ui/components/home/collection/layout/top-collections-layout'
+import { TopCollectionsLayout } from '@echo/ui/components/home/collection/top/layout/top-collections-layout'
 import { HomeSectionLayout } from '@echo/ui/components/home/layout/home-section-layout'
 import { SizeMD } from '@echo/ui/constants/size'
 import { getTranslator } from '@echo/ui/messages/get-translator'

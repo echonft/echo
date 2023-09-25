@@ -1,4 +1,5 @@
 'use client'
+import { Img } from '@echo/ui/components/base/img'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { NftDetailsAttributesPanel } from '@echo/ui/components/nft/details/nft-details-attributes-panel'
 import { NftDetailsHeader } from '@echo/ui/components/nft/details/nft-details-header'
@@ -22,7 +23,7 @@ export const NftDetails: FunctionComponent<Props> = ({ nft, listings, onMakeOffe
     <PaddedContainer>
       <div className={clsx('flex', 'flex-row', 'gap-12')}>
         <div className={clsx('flex', 'flex-col', 'flex-none', 'gap-10')}>
-          <img
+          <Img
             className={clsx('w-[33rem]', 'h-[33rem]', 'rounded-2xl')}
             src={nft.pictureUrl.href}
             alt={nft.tokenId.toString()}

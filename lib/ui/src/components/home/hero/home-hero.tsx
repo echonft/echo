@@ -15,7 +15,7 @@ export const HomeHero: FunctionComponent<Props> = ({ collection }) => {
 
   return (
     <HomeHeroLayout title={t('home.title')} subtitle={t('home.subtitle')}>
-      <CollectionTile slug={slug} pictureUrl={profilePictureUrl!} name={name} swapsCount={swapsCount} size={SizeLG} />
+      <CollectionTile slug={slug} pictureUrl={profilePictureUrl} name={name} swapsCount={swapsCount} size={SizeLG} />
     </HomeHeroLayout>
   )
 }
