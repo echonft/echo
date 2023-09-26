@@ -1,7 +1,7 @@
 import { addNftCollection } from '@echo/firestore/crud/nft-collection/add-nft-collection'
 import { deleteNftCollection } from '@echo/firestore/crud/nft-collection/delete-nft-collection'
 import { findNftCollectionById } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-id'
-import { nftCollectionMock } from '@echo/firestore-mocks/nft-collection/nft-collection-mock'
+import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertNftCollections } from '@test-utils/nft-collection/assert-nft-collections'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -27,7 +27,7 @@ describe('CRUD - nft-collection - addNftCollection', () => {
   })
 
   it('addNftCollection', async () => {
-    const originalCollection = omit(['id'], nftCollectionMock['Rc8pLQXxgyQGIRL0fr13']!)
+    const originalCollection = omit(['id'], getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'))
     id = await addNftCollection(originalCollection)
     const collection = await findNftCollectionById(id)
     expect(omit(['id'], collection)).toStrictEqual(originalCollection)

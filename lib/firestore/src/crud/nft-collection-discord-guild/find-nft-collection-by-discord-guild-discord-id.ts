@@ -1,7 +1,7 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { findNftCollectionById } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-id'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection-discord-guild'
+import { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/nft-collection-discord-guild/firestore-nft-collection-discord-guild'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 import { head } from 'ramda'

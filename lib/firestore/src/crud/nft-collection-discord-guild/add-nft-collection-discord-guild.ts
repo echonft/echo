@@ -5,7 +5,7 @@ import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type {
   FirestoreNftCollectionDiscordGuild,
   NftCollectionDiscordGuildData
-} from '@echo/firestore/types/model/nft-collection/firestore-nft-collection-discord-guild'
+} from '@echo/firestore/types/model/nft-collection-discord-guild/firestore-nft-collection-discord-guild'
 import { includes, isNil, map, pipe, prop } from 'ramda'
 
 export async function addNftCollectionDiscordGuild(

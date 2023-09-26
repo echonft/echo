@@ -1,6 +1,6 @@
 import { getNftCollectionDiscordGuildsByNftCollectionId } from '@echo/firestore/crud/nft-collection-discord-guild/get-nft-collection-discord-guilds-by-nft-collection-id'
 import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
-import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection-discord-guild'
+import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/nft-collection-discord-guild/firestore-nft-collection-discord-guild'
 import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import { andThen, head, path, pipe, prop } from 'ramda'
 

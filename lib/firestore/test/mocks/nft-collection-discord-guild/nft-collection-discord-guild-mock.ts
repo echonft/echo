@@ -1,4 +1,4 @@
-import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection-discord-guild'
+import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/nft-collection-discord-guild/firestore-nft-collection-discord-guild'
 
 export const nftCollectionDiscordGuildMock: { [key: string]: FirestoreNftCollectionDiscordGuild } = {
   FTtQ8IaJAffIaSk66Fy6: {
