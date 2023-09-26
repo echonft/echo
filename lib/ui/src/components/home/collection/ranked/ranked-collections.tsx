@@ -5,12 +5,13 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   collections: Array<CollectionTileDetails>
+  firstRank: number
 }
 
-export const RankedCollections: FunctionComponent<Props> = ({ collections }) => {
+export const RankedCollections: FunctionComponent<Props> = ({ collections, firstRank }) => {
   return (
     <RankedCollectionsLayout>
-      <RankedCollectionsContainer collections={collections} />
+      <RankedCollectionsContainer collections={collections} firstRank={firstRank} />
     </RankedCollectionsLayout>
   )
 }

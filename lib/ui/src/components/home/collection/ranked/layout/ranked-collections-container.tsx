@@ -11,15 +11,21 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   collections: Array<CollectionTileDetails>
+  firstRank: number
 }
 
-export const RankedCollectionsContainer: FunctionComponent<Props> = ({ collections }) => {
+export const RankedCollectionsContainer: FunctionComponent<Props> = ({ collections, firstRank }) => {
   const mapIndexed = addIndex<CollectionTileDetails>(map)
   return (
     <RankedCollectionsContainerLayout>
       {mapIndexed(({ name, slug, profilePictureUrl, swapsCount }, idx) => (
         <InternalLink key={slug} className={clsx('group', 'rounded')} path={links.collection.items(slug)}>
-          <RankedCollectionRow rank={idx + 6} name={name} pictureUrl={profilePictureUrl} swapsCount={swapsCount} />
+          <RankedCollectionRow
+            rank={idx + firstRank}
+            name={name}
+            pictureUrl={profilePictureUrl}
+            swapsCount={swapsCount}
+          />
         </InternalLink>
       ))(collections)}
       <RankedCollectionsButtonContainer>

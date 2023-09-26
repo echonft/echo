@@ -8,7 +8,7 @@ import { RecentSwaps } from '@echo/ui/components/home/swap/recent-swaps'
 import type { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
 import type { Offer } from '@echo/ui/types/model/offer'
 import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { head } from 'ramda'
+import { head, tail } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -20,7 +20,7 @@ export const Home: FunctionComponent<Props> = ({ collections, offers }) => {
   return (
     <HomeLayout>
       <HomeHero collection={head(collections)} />
-      <HomeCollections collections={collections} />
+      <HomeCollections collections={tail(collections)} />
       <HideIfEmpty checks={offers} render={(offers) => <RecentSwaps offers={offers} />} />
       <HomeDiscordTileLayout>
         <DiscordTile />

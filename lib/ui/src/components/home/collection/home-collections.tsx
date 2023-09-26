@@ -3,24 +3,34 @@ import { HomeCollectionsLayout } from '@echo/ui/components/home/collection/layou
 import { RankedCollections } from '@echo/ui/components/home/collection/ranked/ranked-collections'
 import { TopCollections } from '@echo/ui/components/home/collection/top/top-collections'
 import { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
-import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { min, slice } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  collections: NonEmptyArray<CollectionTileDetails>
+  collections: Array<CollectionTileDetails>
+  topCollectionsCount?: number
+  rankedCollectionsCount?: number
 }
 
-export const HomeCollections: FunctionComponent<Props> = ({ collections }) => {
-  const topCollections = slice(1, min(collections.length, 5), collections)
-  const rankedCollections = collections.length < 6 ? [] : slice(5, min(collections.length, 10), collections)
+export const HomeCollections: FunctionComponent<Props> = ({
+  collections,
+  topCollectionsCount = 4,
+  rankedCollectionsCount = 5
+}) => {
+  const topCollections = slice(0, min(collections.length, topCollectionsCount), collections)
+  const rankedCollections =
+    collections.length <= topCollectionsCount
+      ? []
+      : slice(topCollectionsCount, min(collections.length, topCollectionsCount + rankedCollectionsCount), collections)
+  // + 2 because the first rank is always in the Hero section of the home page
+  const firstRank = topCollectionsCount + 2
 
   return (
     <HomeCollectionsLayout>
       <TopCollections collections={topCollections} />
       <HideIfEmpty
         checks={rankedCollections}
-        render={(collections) => <RankedCollections collections={collections} />}
+        render={(collections) => <RankedCollections collections={collections} firstRank={firstRank} />}
       />
     </HomeCollectionsLayout>
   )
