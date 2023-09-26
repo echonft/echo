@@ -1,9 +1,8 @@
-import { ProfileOffersSkeleton } from '@echo/ui/components/profile/offer/skeleton/profile-offers-skeleton'
-import { NavigationSwaps } from '@echo/ui/constants/navigation-item'
+import { ProfileSwapsSkeleton } from '@echo/ui/components/profile/swap/skeleton/profile-swaps-skeleton'
 import type { FunctionComponent } from 'react'
 
 const ProfileSwapsLoading: FunctionComponent = () => {
-  return <ProfileOffersSkeleton activeNavigationItem={NavigationSwaps} />
+  return <ProfileSwapsSkeleton />
 }
 
 export default ProfileSwapsLoading

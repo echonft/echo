@@ -2,7 +2,7 @@
 import type { OfferResponse } from '@echo/api/types/responses/model/offer-response'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
-import { OfferRowsContainer } from '@echo/ui/components/offer/layout/container/offer-rows-container'
+import { SwapRowsContainer } from '@echo/ui/components/swap/layout/swap-rows-container'
 import { UserNavigationLayout } from '@echo/ui/components/user/layout/user-navigation-layout'
 import { UserSwapsEmpty } from '@echo/ui/components/user/swap/empty/user-swaps-empty'
 import { NavigationSwaps } from '@echo/ui/constants/navigation-item'
@@ -22,7 +22,7 @@ export const UserSwapsApiProvided: FunctionComponent<Props> = ({ username, respo
   return (
     <UserNavigationLayout username={username} activeNavigationItem={NavigationSwaps}>
       <HideIf condition={dataIsEmpty}>
-        <OfferRowsContainer offers={mappedOffers} />
+        <SwapRowsContainer offers={mappedOffers} />
       </HideIf>
       <ShowIf condition={dataIsEmpty}>
         <UserSwapsEmpty username={username} />

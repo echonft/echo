@@ -4,7 +4,7 @@ import { HideIf } from '@echo/ui/components/base/utils/hide-if'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { CollectionNavigationLayout } from '@echo/ui/components/collection/layout/collection-navigation-layout'
 import { CollectionSwapsEmpty } from '@echo/ui/components/collection/listing/empty/collection-swaps-empty'
-import { OfferRowsContainer } from '@echo/ui/components/offer/layout/container/offer-rows-container'
+import { SwapRowsContainer } from '@echo/ui/components/swap/layout/swap-rows-container'
 import { NavigationSwaps } from '@echo/ui/constants/navigation-item'
 import { mapOfferFromResponse } from '@echo/ui/mappers/from-api/map-offer-from-response'
 import { isEmpty, map } from 'ramda'
@@ -22,7 +22,7 @@ export const CollectionSwapsApiProvided: FunctionComponent<Props> = ({ collectio
   return (
     <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationSwaps}>
       <HideIf condition={dataIsEmpty}>
-        <OfferRowsContainer offers={mappedOffers} />
+        <SwapRowsContainer offers={mappedOffers} />
       </HideIf>
       <ShowIf condition={dataIsEmpty}>
         <CollectionSwapsEmpty />

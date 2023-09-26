@@ -10,7 +10,7 @@
         @apply w-screen h-screen text-transparent
     }
     body {
-        @apply w-screen min-h-screen font-medium bg-dark-500 text-white text-base overflow-x-hidden
+        @apply w-screen min-h-screen font-medium bg-dark-500 text-white text-base overflow-y-auto overflow-x-hidden
     }
 }
 
@@ -142,7 +142,7 @@
         @apply text-caps-sm font-inter uppercase
     }
     .btn {
-        @apply h-max flex flex-row justify-center items-center disabled:opacity-40
+        @apply h-max flex flex-row justify-center items-center disabled:opacity-40 w-max rounded-lg px-5 py-2.5
     }
     .btn-primary {
         @apply btn bg-white/[0.08] enabled:hover:bg-yellow-500 enabled:active:bg-yellow-700

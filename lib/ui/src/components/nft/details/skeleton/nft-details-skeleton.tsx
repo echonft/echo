@@ -19,7 +19,7 @@ export const NftDetailsSkeleton: FunctionComponent = () => {
         <div className={clsx('flex', 'flex-col', 'flex-grow', 'gap-10')}>
           <NftDetailsHeaderSkeleton />
           <div className={clsx('flex', 'flex-row', 'flex-grow', 'gap-12', 'self-stretch')}>
-            <button disabled className={clsx('btn-primary', 'group', 'rounded-lg', 'w-max', 'py-[0.88rem]', 'px-10')}>
+            <button disabled className={clsx('btn-primary', 'group', 'py-[0.88rem]', 'px-10')}>
               <span className={clsx('prose-label-lg-semi', 'btn-label-primary')}>{t('makeOfferBtn')}</span>
             </button>
             <NftDetailsListingsPanelSkeleton />

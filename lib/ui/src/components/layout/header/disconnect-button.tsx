@@ -1,4 +1,6 @@
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { UserTag } from '@echo/ui/components/layout/header/user-tag'
+import { links } from '@echo/ui/constants/links'
 import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
@@ -30,6 +32,9 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
         <Menu.Items
           className={clsx('absolute', 'right-0', 'mt-2', 'py-2', 'rounded-lg', 'bg-white/[0.08]', 'w-36', 'h-max')}
         >
+          <Menu.Item>
+            {({ close }) => <InternalLink path={links.profile.items} onClick={close}></InternalLink>}
+          </Menu.Item>
           <Menu.Item>
             {({ close }) => (
               <button

@@ -1,5 +1,6 @@
 export const links = {
   collection: {
+    all: '/collections/',
     items: (slug: string) => `/collection/${slug}/items`,
     listings: (slug: string) => `/collection/${slug}/listings`,
     nft: (slug: string, tokenId: number) => `/collection/${slug}/item/${tokenId}`,

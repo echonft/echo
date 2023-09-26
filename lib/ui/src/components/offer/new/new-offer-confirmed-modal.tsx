@@ -26,15 +26,12 @@ export const NewOfferConfirmedModal: FunctionComponent<Props> = ({ show, onClose
             <ConfirmationIconSvg />
           </div>
           <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
-            <button
-              className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10')}
-              onClick={onClose}
-            >
+            <button className={clsx('btn-gradient', 'group', 'w-40', 'py-1.5', 'h-10')} onClick={onClose}>
               <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('closeBtn')}</span>
             </button>
             {/*FIXME offers are private so there's no any link to them*/}
             {/*<CopyToClipboard text={} onCopy={onClose}>*/}
-            {/*  <button className={clsx('btn-action', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10', 'gap-2.5')}>*/}
+            {/*  <button className={clsx('btn-action', 'group', 'w-40', 'py-1.5', 'h-10', 'gap-2.5')}>*/}
             {/*    <span className={clsx('text-purple-900', 'group-hover:text-white')}>*/}
             {/*      <CopyIconSvg />*/}
             {/*    </span>*/}

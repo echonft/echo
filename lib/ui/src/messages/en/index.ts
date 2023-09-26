@@ -31,12 +31,35 @@ export const messages = {
     },
     thumbnail: {
       title: '{count} {collectionName}'
+    },
+    tile: {
+      swapsCount: '{count, plural, =0 {No Swap} =1 {1 Swap} other {{count} Swaps}}'
     }
   },
   errorPage: {
     title: 'Something went wrong',
     button: {
       label: 'Go home'
+    }
+  },
+  home: {
+    title: 'OTC trade your NFTs\nin the safest way',
+    subtitle: 'Revolutionizing NFT Swapping and Communication!',
+    discord: {
+      title: 'Join our community and start\nswapping now',
+      btn: 'Join our discord'
+    },
+    recentSwaps: {
+      title: 'Recent swaps'
+    },
+    rankedCollections: {
+      btn: 'Explore all',
+      collection: 'Collection',
+      rank: 'Rank',
+      swapsCount: '# Swaps'
+    },
+    topCollections: {
+      title: 'Top collections'
     }
   },
   items: {
@@ -59,6 +82,9 @@ export const messages = {
         },
         disconnect: {
           label: 'Disconnect'
+        },
+        profile: {
+          label: 'Profile'
         }
       },
       searchInput: 'Search for a collection or a user'

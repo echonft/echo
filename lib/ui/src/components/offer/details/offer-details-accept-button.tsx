@@ -13,7 +13,7 @@ export const OfferDetailsAcceptButton: FunctionComponent<PropsWithChildren<Props
 }) => {
   return (
     <button
-      className={clsx('btn-gradient', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10', disabled && 'disabled')}
+      className={clsx('btn-gradient', 'group', 'w-40', 'py-1.5', 'h-10', disabled && 'disabled')}
       onClick={onAction}
       disabled={disabled}
     >

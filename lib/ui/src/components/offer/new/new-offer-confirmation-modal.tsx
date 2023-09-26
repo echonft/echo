@@ -41,7 +41,7 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
           <NewOfferConfirmationModalItemsContainer isReceiver={false} items={senderItems} />
           <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
             <button
-              className={clsx('btn-action', 'group', 'rounded-lg', 'w-40', 'py-1.5', '!h-10', 'gap-2.5')}
+              className={clsx('btn-action', 'group', 'w-40', 'py-1.5', 'h-10', 'gap-2.5')}
               disabled={confirming}
               onClick={onClose}
             >
@@ -51,15 +51,7 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
               <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('editBtn')}</span>
             </button>
             <button
-              className={clsx(
-                'btn-gradient',
-                'group',
-                'rounded-lg',
-                'w-40',
-                'py-1.5',
-                '!h-10',
-                confirming && 'animate-pulse'
-              )}
+              className={clsx('btn-gradient', 'group', 'w-40', 'py-1.5', 'h-10', confirming && 'animate-pulse')}
               onClick={onConfirm}
               disabled={confirming}
             >
