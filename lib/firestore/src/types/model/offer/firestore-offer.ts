@@ -9,7 +9,6 @@ export interface FirestoreOffer {
   createdAt: Dayjs
   expired: boolean
   expiresAt: Dayjs
-  listingsIds: string[]
   receiver: Partial<FirestoreUserDetails>
   receiverItems: NonEmptyArray<FirestoreOfferItem>
   sender: Partial<FirestoreUserDetails>

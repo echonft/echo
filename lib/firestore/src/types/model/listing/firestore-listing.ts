@@ -12,7 +12,6 @@ export interface FirestoreListing {
   expired: boolean
   expiresAt: Dayjs
   items: NonEmptyArray<FirestoreListingItem>
-  offersIds: string[]
   state: FirestoreListingState
   targets: NonEmptyArray<FirestoreListingTarget>
 }

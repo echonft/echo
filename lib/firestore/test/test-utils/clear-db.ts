@@ -1,5 +1,6 @@
 import { clearDiscordUsers } from '@test-utils/discord-user/clear-discord-users'
 import { clearListings } from '@test-utils/listing/clear-listings'
+import { clearListingOffers } from '@test-utils/listing-offer/clear-listing-offers'
 import { clearListingPosts } from '@test-utils/listing-post/clear-listing-posts'
 import { clearNfts } from '@test-utils/nft/clear-nfts'
 import { clearNftCollections } from '@test-utils/nft-collection/clear-nft-collections'
@@ -15,6 +16,7 @@ import { clearWallets } from '@test-utils/wallet/clear-wallets'
 export async function clearDb() {
   await clearDiscordUsers()
   await clearListings()
+  await clearListingOffers()
   await clearListingPosts()
   await clearNftCollections()
   await clearNftCollectionDiscordGuilds()

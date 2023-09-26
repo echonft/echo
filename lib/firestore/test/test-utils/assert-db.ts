@@ -1,5 +1,6 @@
 import { assertDiscordUsers } from '@test-utils/discord-user/assert-discord-users'
 import { assertListings } from '@test-utils/listing/assert-listings'
+import { assertListingOffers } from '@test-utils/listing-offer/assert-listing-offers'
 import { assertListingPosts } from '@test-utils/listing-post/assert-listing-posts'
 import { assertNfts } from '@test-utils/nft/assert-nfts'
 import { assertNftCollections } from '@test-utils/nft-collection/assert-nft-collections'
@@ -15,6 +16,7 @@ import { assertWallets } from '@test-utils/wallet/assert-wallets'
 export async function assertDb() {
   await assertDiscordUsers()
   await assertListings()
+  await assertListingOffers()
   await assertListingPosts()
   await assertNftCollections()
   await assertNftCollectionDiscordGuilds()
