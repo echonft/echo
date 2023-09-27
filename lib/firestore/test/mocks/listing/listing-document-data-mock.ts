@@ -23,7 +23,6 @@ export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
     ],
     itemsNftIds: ['8hHFadIrrooORfTOLkBg', 'iRZFKEujarikVjpiFAkE'],
     itemsNftCollectionIds: ['1aomCtnoesD7WVll6Yi1'],
-    offersIds: ['LyCfl6Eg7JKuD7XJ6IPi'],
     state: 'OPEN',
     targets: [
       {

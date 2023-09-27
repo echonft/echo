@@ -8,7 +8,6 @@ export const offerMock: { [key: string]: FirestoreOffer } = {
     createdAt: dayjs.unix(1676984897),
     expired: false,
     expiresAt: dayjs.unix(2324074781),
-    listingsIds: ['jUzMtPGKM62mMhEcmbN4'],
     receiver: {
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
@@ -39,7 +38,6 @@ export const offerMock: { [key: string]: FirestoreOffer } = {
     createdAt: dayjs.unix(1676984897),
     expiresAt: dayjs.unix(2324074781),
     expired: false,
-    listingsIds: [],
     receiver: {
       discordId: '884593489189433364',
       discordUsername: 'crewnft_',

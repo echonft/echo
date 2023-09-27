@@ -12,7 +12,6 @@ export interface ListingDocumentData {
   items: NonEmptyArray<ListingItemDocumentData>
   itemsNftIds: NonEmptyArray<string>
   itemsNftCollectionIds: NonEmptyArray<string>
-  offersIds: string[]
   state: FirestoreListingState
   targets: NonEmptyArray<ListingTargetDocumentData>
   targetsIds: NonEmptyArray<string>

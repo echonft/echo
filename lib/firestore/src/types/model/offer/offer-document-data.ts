@@ -7,7 +7,6 @@ export interface OfferDocumentData {
   id: string
   createdAt: number
   expiresAt: number
-  listingsIds: string[]
   receiver: UserDetailsDocumentData
   receiverItems: NonEmptyArray<OfferItemDocumentData>
   receiverItemsNftIds: NonEmptyArray<string>
@@ -23,7 +22,6 @@ export const offerFields = [
   'id',
   'createdAt',
   'expiresAt',
-  'listingsIds',
   'receiver',
   'receiver.discordAvatar',
   'receiver.discordBanner',

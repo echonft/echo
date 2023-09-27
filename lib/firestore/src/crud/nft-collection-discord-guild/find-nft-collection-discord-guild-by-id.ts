@@ -1,5 +1,5 @@
 import { getNftCollectionDiscordGuildSnapshotById } from '@echo/firestore/crud/nft-collection-discord-guild/get-nft-collection-discord-guild-snapshot-by-id'
-import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection-discord-guild'
+import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/nft-collection-discord-guild/firestore-nft-collection-discord-guild'
 
 export async function findNftCollectionDiscordGuildById(
   id: string

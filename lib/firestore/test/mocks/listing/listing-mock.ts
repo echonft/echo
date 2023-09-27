@@ -23,7 +23,6 @@ export const listingMock: { [key: string]: FirestoreListing } = {
       { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
       { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
     ],
-    offersIds: ['LyCfl6Eg7JKuD7XJ6IPi'],
     state: 'OPEN',
     targets: [
       {

@@ -6,7 +6,6 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
     createdAt: 1676984897,
     expiresAt: 2324074781,
-    listingsIds: ['jUzMtPGKM62mMhEcmbN4'],
     receiver: {
       discordId: '462798252543049728',
       discordUsername: 'johnnycagewins',
@@ -40,7 +39,6 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
     id: 'ASkFpKoHEHVH0gd69t1G',
     createdAt: 1676984897,
     expiresAt: 2324074781,
-    listingsIds: [],
     receiver: {
       discordId: '884593489189433364',
       discordUsername: 'crewnft_',
