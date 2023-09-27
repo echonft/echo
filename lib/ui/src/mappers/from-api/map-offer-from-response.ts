@@ -11,6 +11,7 @@ export function mapOfferFromResponse(response: Partial<OfferResponse>) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     modify('receiverItems', map(mapOfferItemFromResponse)),
-    modify('senderItems', map(mapOfferItemFromResponse))
+    modify('senderItems', map(mapOfferItemFromResponse)),
+    modifyNumberPropToDate<'updatedAt', Partial<OfferResponse>>('updatedAt')
   )(response) as Offer
 }

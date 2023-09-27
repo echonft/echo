@@ -29,6 +29,7 @@ export const listingMock: { [key: string]: FirestoreListing } = {
         collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
         amount: 3
       }
-    ]
+    ],
+    updatedAt: dayjs.unix(1676984897)
   }
 }

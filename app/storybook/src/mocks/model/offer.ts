@@ -33,7 +33,8 @@ const offers: { [key: string]: Offer } = {
       }
     },
     senderItems: [{ amount: 1, nft: getNftById('kRE3UCfXWkJ33nwzj2X1') }],
-    state: 'OPEN'
+    state: 'OPEN',
+    updatedAt: dayjs.unix(1676984897)
   }
 }
 

@@ -105,7 +105,8 @@ describe('mappers - from-api - mapListingFromResponse', () => {
     expiresAt: 2324074781,
     state: 'OPEN',
     items: [listingItemResponse],
-    targets: [listingTargetResponse]
+    targets: [listingTargetResponse],
+    updatedAt: 1676984897
   }
 
   const listingItem: ListingItem = {
@@ -204,7 +205,8 @@ describe('mappers - from-api - mapListingFromResponse', () => {
     expiresAt: dayjs.unix(2324074781),
     state: 'OPEN',
     items: [listingItem],
-    targets: [listingTarget]
+    targets: [listingTarget],
+    updatedAt: dayjs.unix(1676984897)
   }
 
   it('maps correctly', () => {

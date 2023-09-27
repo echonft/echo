@@ -16,6 +16,7 @@ export interface OfferDocumentData {
   senderItemsNftIds: NonEmptyArray<string>
   senderItemsNftCollectionIds: NonEmptyArray<string>
   state: FirestoreOfferState
+  updatedAt: number
 }
 
 export const offerFields = [
@@ -46,5 +47,6 @@ export const offerFields = [
   'senderItems',
   'senderItemsNftIds',
   'senderItemsNftCollectionIds',
-  'state'
+  'state',
+  'updatedAt'
 ]

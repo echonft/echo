@@ -29,7 +29,8 @@ export async function addListing(
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'),
     items,
     state: 'OPEN',
-    targets
+    targets,
+    updatedAt: dayjs()
   }
   await reference.set(listingDataConverter.toFirestore(newListing))
   // add listing offers (if any)

@@ -12,13 +12,9 @@ describe('CRUD - nft-collection - findNftCollectionByAddress', () => {
     await tearDownRemoteFirestoreTests()
   })
 
-  it('throws an error if the collection if the address is wrong', async () => {
-    try {
-      await findNftCollectionByAddress('not-found', 1)
-      expect(false).toBeTruthy()
-    } catch (error) {
-      expect(error).toBeDefined()
-    }
+  it('returns undefined if the collection if the address is wrong', async () => {
+    const collection = await findNftCollectionByAddress('not-found', 1)
+    expect(collection).toBeUndefined()
   })
 
   it('returns undefined if the collection if the chain id is wrong', async () => {

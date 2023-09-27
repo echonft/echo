@@ -33,7 +33,8 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
     senderItems: [{ amount: 1, nft: nftDocumentDataMock['kRE3UCfXWkJ33nwzj2X1']! }],
     senderItemsNftIds: ['kRE3UCfXWkJ33nwzj2X1'],
     senderItemsNftCollectionIds: ['Rc8pLQXxgyQGIRL0fr13'],
-    state: 'OPEN'
+    state: 'OPEN',
+    updatedAt: 1676984897
   },
   ASkFpKoHEHVH0gd69t1G: {
     id: 'ASkFpKoHEHVH0gd69t1G',
@@ -69,6 +70,7 @@ export const offerDocumentDataMock: { [key: string]: OfferDocumentData } = {
     ],
     senderItemsNftIds: ['8hHFadIrrooORfTOLkBg', 'iRZFKEujarikVjpiFAkE'],
     senderItemsNftCollectionIds: ['1aomCtnoesD7WVll6Yi1'],
-    state: 'COMPLETED'
+    state: 'COMPLETED',
+    updatedAt: 1676984897
   }
 }

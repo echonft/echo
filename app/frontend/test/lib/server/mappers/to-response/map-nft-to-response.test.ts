@@ -1,3 +1,4 @@
+import type { NftResponse } from '@echo/api/types/responses/model/nft-response'
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import { mapNftToResponse } from '@server/mappers/to-response/map-nft-to-response'
@@ -37,8 +38,7 @@ describe('mappers - to-response - mapNftToResponse', () => {
       tokenId: 1376,
       tokenType: 'ERC721'
     }
-
-    expect(mapNftToResponse(nft)).toStrictEqual({
+    const response: NftResponse = {
       id: '8hHFadIrrooORfTOLkBg',
       attributes: [
         { value: 'archimedean', trait: 'Algorithm' },
@@ -72,6 +72,8 @@ describe('mappers - to-response - mapNftToResponse', () => {
       thumbnailUrl: 'https://echo.xyz/',
       tokenId: 1376,
       tokenType: 'ERC721'
-    })
+    }
+
+    expect(mapNftToResponse(nft)).toStrictEqual(response)
   })
 })

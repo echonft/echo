@@ -14,4 +14,5 @@ export interface FirestoreOffer {
   sender: Partial<FirestoreUserDetails>
   senderItems: NonEmptyArray<FirestoreOfferItem>
   state: FirestoreOfferState
+  updatedAt: Dayjs
 }

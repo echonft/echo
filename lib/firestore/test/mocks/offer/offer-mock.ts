@@ -31,7 +31,8 @@ export const offerMock: { [key: string]: FirestoreOffer } = {
       }
     },
     senderItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }],
-    state: 'OPEN'
+    state: 'OPEN',
+    updatedAt: dayjs.unix(1676984897)
   },
   ASkFpKoHEHVH0gd69t1G: {
     id: 'ASkFpKoHEHVH0gd69t1G',
@@ -64,6 +65,7 @@ export const offerMock: { [key: string]: FirestoreOffer } = {
       { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
       { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
     ],
-    state: 'COMPLETED'
+    state: 'COMPLETED',
+    updatedAt: dayjs.unix(1676984897)
   }
 }

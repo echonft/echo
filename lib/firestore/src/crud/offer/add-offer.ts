@@ -28,7 +28,8 @@ export async function addOffer(
     receiverItems,
     sender: head<FirestoreOfferItem, FirestoreOfferItem>(senderItems).nft.owner!,
     senderItems,
-    state: 'OPEN'
+    state: 'OPEN',
+    updatedAt: dayjs()
   }
   await reference.set(offerDataConverter.toFirestore(newOffer))
   // add listing offers (if any)

@@ -14,4 +14,5 @@ export interface FirestoreListing {
   items: NonEmptyArray<FirestoreListingItem>
   state: FirestoreListingState
   targets: NonEmptyArray<FirestoreListingTarget>
+  updatedAt: Dayjs
 }

@@ -14,4 +14,5 @@ export interface Offer {
   sender: UserDetails
   senderItems: NonEmptyArray<OfferItem>
   state: OfferState
+  updatedAt: Dayjs
 }

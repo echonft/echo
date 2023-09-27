@@ -30,6 +30,7 @@ export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
         amount: 3
       }
     ],
-    targetsIds: ['Rc8pLQXxgyQGIRL0fr13']
+    targetsIds: ['Rc8pLQXxgyQGIRL0fr13'],
+    updatedAt: 1676984897
   }
 }

@@ -89,7 +89,8 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       }
     },
     senderItems: [offerItemResponse],
-    state: 'OPEN'
+    state: 'OPEN',
+    updatedAt: 1676984897
   }
 
   const offerItem: OfferItem = {
@@ -174,7 +175,8 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       }
     },
     senderItems: [offerItem],
-    state: 'OPEN'
+    state: 'OPEN',
+    updatedAt: dayjs.unix(1676984897)
   }
 
   it('maps correctly', () => {

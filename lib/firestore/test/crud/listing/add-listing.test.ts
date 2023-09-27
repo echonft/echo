@@ -57,6 +57,7 @@ describe('CRUD - listing - addListing', () => {
     expect(newListing.items).toStrictEqual(items)
     expect(newListing.state).toBe('OPEN')
     expect(newListing.targets).toStrictEqual(targets)
+    expectDateIsNow(newListing.updatedAt)
     // check if listing offers have been created
     const listingOffers = await getListingOffersForListing(newListing)
     const createdListingOffers = await getListingOffersByListingId(createdListingId)

@@ -15,6 +15,7 @@ export function mapListingToResponse(listing: Partial<FirestoreListing>): Partia
     // @ts-ignore
     modify('items', map(mapListingItemToResponse)),
     modify('targets', map(mapListingTargetToResponse)),
-    dissoc('offersIds')
+    dissoc('offersIds'),
+    modifyDatePropToNumber<'updatedAt', Partial<FirestoreListing>>('updatedAt')
   )(listing)
 }

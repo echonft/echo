@@ -14,6 +14,7 @@ export function mapOfferToResponse(offer: Partial<FirestoreOffer>): Partial<Offe
     // @ts-ignore
     modify('receiverItems', map(mapOfferItemToResponse)),
     modify('senderItems', map(mapOfferItemToResponse)),
-    dissoc('listingsIds')
+    dissoc('listingsIds'),
+    modifyDatePropToNumber<'updatedAt', Partial<FirestoreOffer>>('updatedAt')
   )(offer)
 }

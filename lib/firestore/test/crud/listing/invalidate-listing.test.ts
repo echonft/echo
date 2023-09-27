@@ -1,7 +1,9 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { invalidateListing } from '@echo/firestore/crud/listing/invalidate-listing'
 import { updateListing } from '@echo/firestore/crud/listing/update-listing'
+import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import type { FirestoreListingState } from '@echo/firestore/types/model/listing/firestore-listing-state'
+import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertListings } from '@test-utils/listing/assert-listings'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -11,7 +13,8 @@ import dayjs from 'dayjs'
 describe('CRUD - listing - invalidateListing', () => {
   let initialState: FirestoreListingState
   let initialExpiresAt: dayjs.Dayjs
-  const id = 'jUzMtPGKM62mMhEcmbN4'
+  let initialUpdatedAt: dayjs.Dayjs
+  const listingId = 'jUzMtPGKM62mMhEcmbN4'
 
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()
@@ -22,38 +25,40 @@ describe('CRUD - listing - invalidateListing', () => {
   })
 
   beforeEach(async () => {
-    const listing = await findListingById(id)
-    initialState = listing!.state
-    initialExpiresAt = listing!.expiresAt
+    const listing = (await findListingById(listingId)) as FirestoreListing
+    initialState = listing.state
+    initialExpiresAt = listing.expiresAt
+    initialUpdatedAt = listing.updatedAt
   })
   afterEach(async () => {
-    await updateListing(id, { state: initialState, expiresAt: initialExpiresAt })
+    await updateListing(listingId, { state: initialState, expiresAt: initialExpiresAt, updatedAt: initialUpdatedAt })
   })
 
   it('throws if the listing is undefined', async () => {
     await expect(invalidateListing('not-found')).rejects.toBeDefined()
   })
   it('throws if the listing is expired', async () => {
-    await updateListing(id, { state: 'OPEN', expiresAt: dayjs().subtract(1, 'day') })
-    await expect(invalidateListing(id)).rejects.toBeDefined()
+    await updateListing(listingId, { state: 'OPEN', expiresAt: dayjs().subtract(1, 'day') })
+    await expect(invalidateListing(listingId)).rejects.toBeDefined()
   })
   it('throws if the listing is cancelled', async () => {
-    await updateListing(id, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day') })
-    await expect(invalidateListing(id)).rejects.toBeDefined()
+    await updateListing(listingId, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day') })
+    await expect(invalidateListing(listingId)).rejects.toBeDefined()
   })
   it('throws if the listing is fulfilled', async () => {
-    await updateListing(id, { state: 'FULFILLED', expiresAt: dayjs().add(1, 'day') })
-    await expect(invalidateListing(id)).rejects.toBeDefined()
+    await updateListing(listingId, { state: 'FULFILLED', expiresAt: dayjs().add(1, 'day') })
+    await expect(invalidateListing(listingId)).rejects.toBeDefined()
   })
   it('throws if the listing is invalid', async () => {
-    await updateListing(id, { state: 'INVALID', expiresAt: dayjs().add(1, 'day') })
-    await expect(invalidateListing(id)).rejects.toBeDefined()
+    await updateListing(listingId, { state: 'INVALID', expiresAt: dayjs().add(1, 'day') })
+    await expect(invalidateListing(listingId)).rejects.toBeDefined()
   })
 
   it('invalidate listing if its not expired', async () => {
-    await updateListing(id, { state: 'OPEN', expiresAt: dayjs().add(1, 'day') })
-    await invalidateListing(id)
-    const updatedListing = await findListingById(id)
-    expect(updatedListing!.state).toEqual('INVALID')
+    await updateListing(listingId, { state: 'OPEN', expiresAt: dayjs().add(1, 'day') })
+    await invalidateListing(listingId)
+    const updatedListing = (await findListingById(listingId)) as FirestoreListing
+    expect(updatedListing.state).toEqual('INVALID')
+    expectDateIsNow(updatedListing.updatedAt)
   })
 })

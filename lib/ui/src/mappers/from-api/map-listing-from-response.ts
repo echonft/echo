@@ -12,6 +12,7 @@ export function mapListingFromResponse(response: Partial<ListingResponse>) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     modify('items', map(mapListingItemFromResponse)),
-    modify('targets', map(mapListingTargetFromResponse))
+    modify('targets', map(mapListingTargetFromResponse)),
+    modifyNumberPropToDate<'updatedAt', Partial<ListingResponse>>('updatedAt')
   )(response) as Listing
 }

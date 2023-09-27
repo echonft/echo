@@ -13,4 +13,5 @@ export interface OfferResponse {
   sender: Partial<UserDetailsResponse>
   senderItems: NonEmptyArray<OfferItemResponse>
   state: FirestoreOfferState
+  updatedAt: number
 }

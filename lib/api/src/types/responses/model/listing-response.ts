@@ -13,4 +13,5 @@ export interface ListingResponse {
   items: NonEmptyArray<ListingItemResponse>
   state: FirestoreListingState
   targets: NonEmptyArray<ListingTargetResponse>
+  updatedAt: number
 }
