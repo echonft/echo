@@ -8,6 +8,7 @@ import { map } from 'ramda'
 
 export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
   const constraints = parseConstraintsQuery(req)
+  // const filters = parseCollectionFiltersQuery(req)
   const collections = await getAllCollections(constraints)
   return NextResponse.json<GetCollectionsResponse>({ collections: map(mapCollectionToResponse, collections) })
 }

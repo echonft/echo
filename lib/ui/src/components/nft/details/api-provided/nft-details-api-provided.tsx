@@ -9,8 +9,8 @@ import { map } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
-  nftResponse: Partial<NftResponse>
-  listingsResponses: Array<Partial<ListingResponse>>
+  nftResponse: NftResponse
+  listingsResponses: Array<ListingResponse>
 }
 
 export const NftDetailsApiProvided: FunctionComponent<Props> = ({ nftResponse, listingsResponses }) => {

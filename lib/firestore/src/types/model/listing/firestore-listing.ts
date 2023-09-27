@@ -8,7 +8,7 @@ import type { Dayjs } from 'dayjs'
 export interface FirestoreListing {
   id: string
   createdAt: Dayjs
-  creator: Partial<FirestoreUserDetails>
+  creator: FirestoreUserDetails
   expired: boolean
   expiresAt: Dayjs
   items: NonEmptyArray<FirestoreListingItem>

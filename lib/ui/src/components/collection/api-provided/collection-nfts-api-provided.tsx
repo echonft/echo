@@ -16,7 +16,7 @@ import { type FunctionComponent, useCallback, useMemo } from 'react'
 
 interface Props {
   collectionSlug: string
-  responses: Array<Partial<NftResponse>>
+  responses: Array<NftResponse>
 }
 
 export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses }) => {

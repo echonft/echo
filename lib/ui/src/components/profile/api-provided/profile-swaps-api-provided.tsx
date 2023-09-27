@@ -14,7 +14,7 @@ import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   userId: string
-  responses: Array<Partial<OfferResponse>>
+  responses: Array<OfferResponse>
 }
 
 export const ProfileSwapsApiProvided: FunctionComponent<Props> = ({ userId, responses }) => {

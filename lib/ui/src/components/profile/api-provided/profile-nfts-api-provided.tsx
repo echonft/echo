@@ -17,7 +17,7 @@ import { isEmpty, map, pipe } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
-  responses: Array<Partial<NftResponse>>
+  responses: Array<NftResponse>
 }
 
 export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ responses }) => {

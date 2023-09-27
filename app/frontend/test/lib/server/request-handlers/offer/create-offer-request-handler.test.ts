@@ -1,5 +1,7 @@
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import type { IdResponse } from '@echo/api/types/responses/id-response'
+import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
+import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
 import type { AuthUser } from '@echo/ui/types/model/auth-user'
 import { ApiError } from '@server/helpers/error/api-error'
@@ -55,7 +57,11 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
 
   it('throws if the user is not the owner of every item', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOfferItems).mockResolvedValue([{ amount: 1, nft: { owner: { username: 'another-username' } } }])
+    jest
+      .mocked(getOfferItems)
+      .mockResolvedValue([
+        { amount: 1, nft: { owner: { username: 'another-username' } as FirestoreUserDetails } as FirestoreNft }
+      ])
     jest.mocked(createOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
     const req = mockRequest<CreateOfferRequest>(validRequest)
     try {
@@ -69,7 +75,11 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
   it('returns a 200 if the user is authenticated and both sender and receiver have a wallet', async () => {
     const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOfferItems).mockResolvedValue([{ amount: 1, nft: { owner: { username: 'user-name' } } }])
+    jest
+      .mocked(getOfferItems)
+      .mockResolvedValue([
+        { amount: 1, nft: { owner: { username: 'user-name' } as FirestoreUserDetails } as FirestoreNft }
+      ])
     jest.mocked(createOffer).mockResolvedValue(offer)
     const req = mockRequest<CreateOfferRequest>(validRequest)
     const res = await createOfferRequestHandler(req)

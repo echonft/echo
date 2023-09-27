@@ -10,6 +10,5 @@ export async function updateNft(id: string, nft: Partial<Omit<FirestoreNft, 'id'
   if (isNil(documentSnapshot)) {
     throw Error('invalid nft id')
   }
-
   return cleanAndUpdateDocumentRef(documentSnapshot.ref, nft, nftDataConverter)
 }

@@ -43,7 +43,7 @@ describe('CRUD - nft-collection-swaps-count - addNftCollectionDiscordGuild', () 
     await snapshot?.ref.update({ swapsCount: initialSwapsCount.swapsCount })
   })
   it('if a swap counts does not exist for the collectionId, add it with the value of 1', async () => {
-    const collectionId = await addNftCollection(omit(['id'], getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13')))
+    const { id: collectionId } = await addNftCollection(omit(['id'], getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13')))
     const initialSwapsCount = await findNftCollectionSwapsCountByNftCollectionId(collectionId)
     expect(initialSwapsCount).toBeUndefined()
     await increaseNftCollectionSwapsCount(collectionId)

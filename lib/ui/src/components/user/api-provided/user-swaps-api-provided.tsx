@@ -12,7 +12,7 @@ import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   username: string
-  responses: Array<Partial<OfferResponse>>
+  responses: Array<OfferResponse>
 }
 
 export const UserSwapsApiProvided: FunctionComponent<Props> = ({ username, responses }) => {

@@ -8,7 +8,7 @@ export function filterExpiredResults<T>(
   results: ModelWithExpiredProp<T>[],
   constraints: QueryConstraints | undefined,
   filters: IncludeExpiredQueryFilter | undefined
-): ModelWithExpiredProp<T>[] | Omit<T, 'expiresAt' | 'expired'>[] {
+): Array<T> {
   let filteredResults = results
   // can't use a filter on expiration date with anything else in Firestore, so we filter them manually if needed
   if (isNil(filters?.includeExpired) || !filters?.includeExpired) {
@@ -18,7 +18,7 @@ export function filterExpiredResults<T>(
   if (!isNil(constraints) && !isNil(constraints.select)) {
     const { select } = constraints
     if ((is(Array, select) && !select.includes('expiresAt')) || select !== 'expiresAt') {
-      return map(pipe(dissoc('expiresAt'), dissoc('expired')), filteredResults) as Omit<T, 'expiresAt' | 'expired'>[]
+      return map(pipe(dissoc('expiresAt'), dissoc('expired')), filteredResults) as Array<T>
     }
   }
   return filteredResults

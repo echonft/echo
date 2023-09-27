@@ -29,7 +29,8 @@ describe('CRUD - nft-collection - addNftCollection', () => {
 
   it('addNftCollection', async () => {
     const originalCollection = omit(['id'], getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'))
-    nftCollectionId = await addNftCollection(originalCollection)
+    const addedNftCollection = await addNftCollection(originalCollection)
+    nftCollectionId = addedNftCollection.id
     const collection = await findNftCollectionById(nftCollectionId)
     expect(omit(['id'], collection)).toStrictEqual(originalCollection)
   })

@@ -10,7 +10,7 @@ export function listenToOffers(onChange: (changeType: DocumentChangeType, offer:
     .withConverter(offerDataConverter)
     .onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
-        onChange(change.type, change.doc.data() as FirestoreOffer)
+        onChange(change.type, change.doc.data())
       })
     })
 }

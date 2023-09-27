@@ -3,9 +3,10 @@ import { nftDataConverter } from '@echo/firestore/converters/nft/nft-data-conver
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
 
-export async function addNft(nft: Omit<FirestoreNft, 'id'>): Promise<string> {
+export async function addNft(nft: Omit<FirestoreNft, 'id'>): Promise<FirestoreNft> {
   const reference = firestoreApp().collection(CollectionName.NFTS).doc()
   const id = reference.id
-  await reference.set(nftDataConverter.toFirestore({ ...nft, id }))
-  return id
+  const newNft = { ...nft, id } as FirestoreNft
+  await reference.set(nftDataConverter.toFirestore(newNft))
+  return newNft
 }

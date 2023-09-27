@@ -12,7 +12,7 @@ import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   collectionSlug: string
-  responses: Array<Partial<OfferResponse>>
+  responses: Array<OfferResponse>
 }
 
 export const CollectionSwapsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses }) => {

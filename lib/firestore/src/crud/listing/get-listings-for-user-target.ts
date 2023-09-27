@@ -2,6 +2,7 @@ import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { listingDataConverter } from '@echo/firestore/converters/listing/listing-data-converter'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { filterExpiredResults } from '@echo/firestore/helpers/crud/filter-expired-results'
+import { getQueryDocumentsData } from '@echo/firestore/helpers/crud/get-query-documents-data'
 import { addListingQueryFilters } from '@echo/firestore/helpers/crud/listing/add-listing-query-filters'
 import { addConstraintsToQuery } from '@echo/firestore/helpers/query/add-constraints-to-query'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
@@ -9,8 +10,7 @@ import type { FirestoreListing } from '@echo/firestore/types/model/listing/fires
 import { listingFields } from '@echo/firestore/types/model/listing/listing-document-data'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { invoker, map, path, pipe, uniq } from 'ramda'
+import { map, path, pipe, uniq } from 'ramda'
 
 /**
  * Find listings for which the targets include any of the collection of the NFTs owned by a user
@@ -24,7 +24,7 @@ export async function getListingsForUserTarget(
   username: string,
   filters?: ListingQueryFilters,
   constraints?: QueryConstraints
-): Promise<Partial<FirestoreListing>[]> {
+): Promise<FirestoreListing[]> {
   const nfts = await getNftsForOwner(username)
   const collectionIds = pipe(map(path(['collection', 'id'])), uniq)(nfts)
   let query = firestoreApp()
@@ -35,11 +35,6 @@ export async function getListingsForUserTarget(
 
   query = addListingQueryFilters(query, filters)
   query = addConstraintsToQuery(query, constraints, listingFields, true)
-  const querySnapshot = await query.get()
-  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
-    return []
-  }
-
-  const results = map(invoker(0, 'data'), querySnapshot.docs)
+  const results = await getQueryDocumentsData(query)
   return filterExpiredResults(results, constraints, filters)
 }

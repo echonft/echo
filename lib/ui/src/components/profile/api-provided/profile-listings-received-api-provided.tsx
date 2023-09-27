@@ -11,7 +11,7 @@ import { isEmpty, map } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
-  responses: Array<Partial<ListingResponse>>
+  responses: Array<ListingResponse>
 }
 
 export const ProfileListingsReceivedApiProvided: FunctionComponent<Props> = ({ responses }) => {

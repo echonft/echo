@@ -1,9 +1,10 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { discordUserDataConverter } from '@echo/firestore/converters/discord-user/discord-user-data-converter'
-import { addDiscordUser, NewFirestoreDiscordUser } from '@echo/firestore/crud/discord-user/add-discord-user'
+import { addDiscordUser, type NewFirestoreDiscordUser } from '@echo/firestore/crud/discord-user/add-discord-user'
 import { deleteDiscordUser } from '@echo/firestore/crud/discord-user/delete-discord-user'
 import { findDiscordUserByUserId } from '@echo/firestore/crud/discord-user/find-discord-user-by-user-id'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import type { FirestoreDiscordUser } from '@echo/firestore/types/model/discord-user/firestore-discord-user'
 import { getDiscordUserMockById } from '@echo/firestore-mocks/discord-user/get-discord-user-mock-by-id'
 import { getDiscordUserMockByUserId } from '@echo/firestore-mocks/discord-user/get-discord-user-mock-by-user-id'
 import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
@@ -35,20 +36,20 @@ describe('CRUD - discord-user - addDiscordUser', () => {
   })
 
   it('add a discord user', async () => {
-    const existingDiscordUser = await findDiscordUserByUserId('6rECUMhevHfxABZ1VNOm')
-    await deleteDiscordUser(existingDiscordUser!.id)
+    const existingDiscordUser = (await findDiscordUserByUserId('6rECUMhevHfxABZ1VNOm')) as FirestoreDiscordUser
+    await deleteDiscordUser(existingDiscordUser.id)
     const discordUserMock = getDiscordUserMockById('be5KGz2BfBRYbA1mCKQp')
     const newDiscordUserData = omit(['id', 'userId', 'updatedAt'], discordUserMock) as NewFirestoreDiscordUser
-    const id = await addDiscordUser('6rECUMhevHfxABZ1VNOm', newDiscordUserData)
-    const newUser = await findDiscordUserByUserId('6rECUMhevHfxABZ1VNOm')
+    const { id } = await addDiscordUser('6rECUMhevHfxABZ1VNOm', newDiscordUserData)
+    const newUser = (await findDiscordUserByUserId('6rECUMhevHfxABZ1VNOm')) as FirestoreDiscordUser
     await deleteDiscordUser(id)
-    const existingDiscordUserRef = firestoreApp().collection(CollectionName.DISCORD_USERS).doc(existingDiscordUser!.id)
-    await existingDiscordUserRef.set(discordUserDataConverter.toFirestore(existingDiscordUser!))
-    expect(newUser!.discordAvatar).toStrictEqual(discordUserMock.discordAvatar)
-    expect(newUser!.discordBanner).toStrictEqual(discordUserMock.discordBanner)
-    expect(newUser!.discordId).toStrictEqual(discordUserMock.discordId)
-    expect(newUser!.discordUsername).toStrictEqual(discordUserMock.discordUsername)
-    expect(newUser!.userId).toStrictEqual(discordUserMock.userId)
-    expectDateIsNow(newUser!.updatedAt)
+    const existingDiscordUserRef = firestoreApp().collection(CollectionName.DISCORD_USERS).doc(existingDiscordUser.id)
+    await existingDiscordUserRef.set(discordUserDataConverter.toFirestore(existingDiscordUser))
+    expect(newUser.discordAvatar).toStrictEqual(discordUserMock.discordAvatar)
+    expect(newUser.discordBanner).toStrictEqual(discordUserMock.discordBanner)
+    expect(newUser.discordId).toStrictEqual(discordUserMock.discordId)
+    expect(newUser.discordUsername).toStrictEqual(discordUserMock.discordUsername)
+    expect(newUser.userId).toStrictEqual(discordUserMock.userId)
+    expectDateIsNow(newUser.updatedAt)
   })
 })

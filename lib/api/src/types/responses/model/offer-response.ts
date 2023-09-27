@@ -8,9 +8,9 @@ export interface OfferResponse {
   createdAt: number
   expired: boolean
   expiresAt: number
-  receiver: Partial<UserDetailsResponse>
+  receiver: UserDetailsResponse
   receiverItems: NonEmptyArray<OfferItemResponse>
-  sender: Partial<UserDetailsResponse>
+  sender: UserDetailsResponse
   senderItems: NonEmptyArray<OfferItemResponse>
   state: FirestoreOfferState
   updatedAt: number

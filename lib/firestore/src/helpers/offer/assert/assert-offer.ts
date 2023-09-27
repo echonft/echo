@@ -2,9 +2,7 @@ import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { isNil } from 'ramda'
 
-export function assertOffer(
-  offer: Partial<FirestoreOffer> | undefined
-): asserts offer is NonNullable<Partial<FirestoreOffer>> {
+export function assertOffer(offer: FirestoreOffer | undefined): asserts offer is NonNullable<FirestoreOffer> {
   if (isNil(offer)) {
     throw Error('offer is not defined')
   }

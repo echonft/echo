@@ -13,7 +13,7 @@ import { assoc, isEmpty, map, pipe } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
-  responses: Array<Partial<OfferResponse>>
+  responses: Array<OfferResponse>
 }
 
 export const ProfileOffersCreatedApiProvided: FunctionComponent<Props> = ({ responses }) => {

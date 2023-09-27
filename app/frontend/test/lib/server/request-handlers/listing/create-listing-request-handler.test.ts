@@ -1,5 +1,7 @@
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import type { GetListingResponse } from '@echo/api/types/responses/get-listing-response'
+import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
+import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
 import type { AuthUser } from '@echo/ui/types/model/auth-user'
 import { ApiError } from '@server/helpers/error/api-error'
@@ -57,7 +59,11 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('throws if the user is not the owner of every item', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getListingItems).mockResolvedValue([{ amount: 1, nft: { owner: { username: 'another-username' } } }])
+    jest
+      .mocked(getListingItems)
+      .mockResolvedValue([
+        { amount: 1, nft: { owner: { username: 'another-username' } as FirestoreUserDetails } as FirestoreNft }
+      ])
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(getListingTargets).mockResolvedValue([])
@@ -74,7 +80,11 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
   it('returns 200 if the user owns all the items', async () => {
     const mock = getListingMockById('jUzMtPGKM62mMhEcmbN4')
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getListingItems).mockResolvedValue([{ amount: 1, nft: { owner: { username: 'user-name' } } }])
+    jest
+      .mocked(getListingItems)
+      .mockResolvedValue([
+        { amount: 1, nft: { owner: { username: 'user-name' } as FirestoreUserDetails } as FirestoreNft }
+      ])
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     jest.mocked(getListingTargets).mockResolvedValue([])

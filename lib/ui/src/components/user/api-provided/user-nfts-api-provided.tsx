@@ -18,7 +18,7 @@ import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   username: string
-  responses: Array<Partial<NftResponse>>
+  responses: Array<NftResponse>
 }
 
 export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, responses }) => {

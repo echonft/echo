@@ -4,4 +4,9 @@ export declare global {
       APP_URL: string
     }
   }
+  declare namespace FirebaseFirestore {
+    interface FirestoreDataConverter<T> {
+      toFirestore(modelObject: PartialWithFieldValue<T>): DocumentData
+    }
+  }
 }
