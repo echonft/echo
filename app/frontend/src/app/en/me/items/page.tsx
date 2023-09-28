@@ -18,7 +18,7 @@ const ProfileNftsPage: FunctionComponent = async () => {
   }
 
   const queryParams = mapQueryConstraintsToQueryParams({
-    orderBy: { field: 'tokenId' }
+    orderBy: [{ field: 'tokenId' }]
   })
   const { data, error } = await fetcher(userNftsApiUrl(session.user.name))
     .revalidate(3600)
@@ -32,7 +32,7 @@ const ProfileNftsPage: FunctionComponent = async () => {
     throw Error()
   }
 
-  return <ProfileNftsApiProvided responses={data.nfts} />
+  return <ProfileNftsApiProvided responses={data.nfts} user={session.user} />
 }
 
 export default ProfileNftsPage

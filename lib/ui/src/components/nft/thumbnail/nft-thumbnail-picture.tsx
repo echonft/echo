@@ -6,7 +6,7 @@ import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  pictureUrl: URL
+  pictureUrl: URL | string
   alt: string
   size?: NftThumbnailSize
   disabled?: boolean
@@ -21,7 +21,7 @@ export const NftThumbnailPicture: FunctionComponent<Props> = ({ pictureUrl, size
         'select-none',
         disabled && 'grayscale'
       )}
-      src={pictureUrl.href}
+      src={pictureUrl}
       alt={alt}
       width={getNftThumbnailSize(size)}
       height={getNftThumbnailSize(size)}

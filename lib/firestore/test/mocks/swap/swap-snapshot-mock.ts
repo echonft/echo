@@ -3,7 +3,7 @@ import { swapDocumentDataMock } from '@echo/firestore-mocks/swap/swap-document-d
 import { swapReferenceMock } from '@echo/firestore-mocks/swap/swap-reference-mock'
 import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 
-export const swapSnapshotMock: { [key: string]: QueryDocumentSnapshot<SwapDocumentData> } = {
+export const swapSnapshotMock: Record<string, QueryDocumentSnapshot<SwapDocumentData>> = {
   '2ipuV3drjQlzEgkUkW7q': {
     ref: swapReferenceMock['2ipuV3drjQlzEgkUkW7q']!,
     id: swapReferenceMock['2ipuV3drjQlzEgkUkW7q']!.id,

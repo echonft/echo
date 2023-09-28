@@ -10,8 +10,8 @@ interface Props {
 }
 
 export const ProfileDetailsApiProvided: FunctionComponent<Props> = ({ response }) => {
-  const user = useMemo(() => mapUserFromResponse(response), [response])
-  const { discordUsername, discordBanner, discordId, discordAvatar, wallets } = user
+  const userDetails = useMemo(() => mapUserFromResponse(response), [response])
+  const { discordUsername, discordBanner, discordId, discordAvatar, wallets } = userDetails
   return (
     <ProfileDetails
       discordUsername={discordUsername}

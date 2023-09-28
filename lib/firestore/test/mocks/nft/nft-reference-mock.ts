@@ -1,7 +1,7 @@
 import type { NftDocumentData } from '@echo/firestore/types/model/nft/nft-document-data'
 import type { DocumentReference } from 'firebase-admin/lib/firestore'
 
-export const nftReferenceMock: { [key: string]: DocumentReference<NftDocumentData> } = {
+export const nftReferenceMock: Record<string, DocumentReference<NftDocumentData>> = {
   '8hHFadIrrooORfTOLkBg': {
     id: '8hHFadIrrooORfTOLkBg',
     path: 'nfts/8hHFadIrrooORfTOLkBg'

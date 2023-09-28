@@ -7,19 +7,21 @@ import { ProfileListingsCreatedEmpty } from '@echo/ui/components/profile/listing
 import { ProfileNavigationLayout } from '@echo/ui/components/profile/profile-navigation-layout'
 import { NavigationListingsCreated } from '@echo/ui/constants/navigation-item'
 import { mapListingFromResponse } from '@echo/ui/mappers/from-api/map-listing-from-response'
+import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { isEmpty, map } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
-  responses: Array<ListingResponse>
+  responses: ListingResponse[]
+  user: AuthUser
 }
 
-export const ProfileListingsCreatedApiProvided: FunctionComponent<Props> = ({ responses }) => {
+export const ProfileListingsCreatedApiProvided: FunctionComponent<Props> = ({ responses, user }) => {
   const mappedListings = useMemo(() => map(mapListingFromResponse, responses), [responses])
   const dataIsEmpty = isEmpty(mappedListings)
 
   return (
-    <ProfileNavigationLayout activeNavigationItem={NavigationListingsCreated}>
+    <ProfileNavigationLayout activeNavigationItem={NavigationListingsCreated} user={user}>
       <HideIf condition={dataIsEmpty}>
         <ListingRowsContainer listings={mappedListings} />
       </HideIf>

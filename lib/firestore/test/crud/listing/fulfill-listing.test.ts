@@ -1,7 +1,6 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { fulfillListing } from '@echo/firestore/crud/listing/fulfill-listing'
 import { updateListing } from '@echo/firestore/crud/listing/update-listing'
-import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import type { FirestoreListingState } from '@echo/firestore/types/model/listing/firestore-listing-state'
 import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -25,7 +24,7 @@ describe('CRUD - listing - fulfillListing', () => {
   })
 
   beforeEach(async () => {
-    const listing = (await findListingById(listingId)) as FirestoreListing
+    const listing = (await findListingById(listingId))!
     initialState = listing.state
     initialExpiresAt = listing.expiresAt
     initialUpdatedAt = listing.updatedAt
@@ -57,7 +56,7 @@ describe('CRUD - listing - fulfillListing', () => {
   it('fullfill listing if its not expired', async () => {
     await updateListing(listingId, { state: 'OPEN', expiresAt: dayjs().add(1, 'day') })
     await fulfillListing(listingId)
-    const updatedListing = (await findListingById(listingId)) as FirestoreListing
+    const updatedListing = (await findListingById(listingId))!
     expect(updatedListing.state).toEqual('FULFILLED')
     expectDateIsNow(updatedListing.updatedAt)
   })

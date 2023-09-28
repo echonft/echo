@@ -24,7 +24,7 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
     states: ['OPEN', 'ACCEPTED']
   })
   const queryParams = mapQueryConstraintsToQueryParams({
-    orderBy: { field: 'expiresAt' }
+    orderBy: [{ field: 'expiresAt' }]
   })
   const { data, error } = await fetcher(profileOffersApiUrl())
     .revalidate(3600)
@@ -39,7 +39,7 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
     throw Error()
   }
 
-  return <ProfileOffersReceivedApiProvided responses={data.offers} />
+  return <ProfileOffersReceivedApiProvided responses={data.offers} user={session.user} />
 }
 
 export default ProfileOffersReceivedPage

@@ -1,6 +1,6 @@
 import type { SwapDocumentData } from '@echo/firestore/types/model/swap/swap-document-data'
 
-export const swapDocumentDataMock: { [key: string]: SwapDocumentData } = {
+export const swapDocumentDataMock: Record<string, SwapDocumentData> = {
   '2ipuV3drjQlzEgkUkW7q': {
     id: '2ipuV3drjQlzEgkUkW7q',
     offerId: 'ASkFpKoHEHVH0gd69t1G',

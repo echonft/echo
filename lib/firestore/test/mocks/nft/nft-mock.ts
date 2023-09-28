@@ -1,7 +1,7 @@
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 
-export const nftMock: { [key: string]: FirestoreNft } = {
+export const nftMock: Record<string, FirestoreNft> = {
   '8hHFadIrrooORfTOLkBg': {
     id: '8hHFadIrrooORfTOLkBg',
     attributes: [

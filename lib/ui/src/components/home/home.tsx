@@ -1,3 +1,4 @@
+import { OfferResponse } from '@echo/api/types/responses/model/offer-response'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { HomeCollections } from '@echo/ui/components/home/collection/home-collections'
 import { DiscordTile } from '@echo/ui/components/home/discord/discord-tile'
@@ -6,14 +7,13 @@ import { HomeDiscordTileLayout } from '@echo/ui/components/home/layout/home-disc
 import { HomeLayout } from '@echo/ui/components/home/layout/home-layout'
 import { RecentSwaps } from '@echo/ui/components/home/swap/recent-swaps'
 import type { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
-import type { Offer } from '@echo/ui/types/model/offer'
 import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { head, tail } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
   collections: NonEmptyArray<CollectionTileDetails>
-  offers: Array<Offer>
+  offers: OfferResponse[]
 }
 
 export const Home: FunctionComponent<Props> = ({ collections, offers }) => {

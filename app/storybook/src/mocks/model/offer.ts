@@ -3,7 +3,7 @@ import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getNftById } from '@mocks/model/nft'
 import dayjs from 'dayjs'
 
-const offers: { [key: string]: Offer } = {
+const offers: Record<string, Offer> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
     createdAt: dayjs.unix(1676984897),

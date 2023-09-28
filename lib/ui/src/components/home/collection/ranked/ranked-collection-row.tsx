@@ -10,7 +10,7 @@ import { FunctionComponent } from 'react'
 interface Props {
   rank: number
   name: string
-  pictureUrl: URL
+  pictureUrl: string
   swapsCount: number
 }
 
@@ -22,7 +22,7 @@ export const RankedCollectionRow: FunctionComponent<Props> = ({ rank, name, swap
           <RankedCollectionRowRankLabel>{rank}</RankedCollectionRowRankLabel>
           <Img
             className={clsx('w-[6.25rem]', 'h-[6.25rem]', 'rounded')}
-            src={pictureUrl.href}
+            src={pictureUrl}
             alt={name}
             width={100}
             height={100}

@@ -1,6 +1,7 @@
 import type { ApiRequest } from '@echo/api/types/base/api-request'
 import type { GetCollectionsResponse } from '@echo/api/types/responses/get-collections-response'
 import { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
+import { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 import type { FirestoreNftCollectionSwapsCount } from '@echo/firestore/types/model/nft-collection-swaps-count/firestore-nft-collection-swaps-count'
 import { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
@@ -11,27 +12,32 @@ import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints
 import { mapCollectionToResponse } from '@server/mappers/to-response/map-collection-to-response'
 import { NextResponse } from 'next/server'
 import {
+  add,
   always,
   anyPass,
   ascend,
   assoc,
+  complement,
   converge,
   descend,
   dissoc,
   find,
+  has,
   identity,
   ifElse,
   isNil,
+  length,
   map,
+  none,
+  path,
   pipe,
   prop,
   propEq,
   slice,
-  sort,
-  unless
+  sortBy
 } from 'ramda'
 
-function getSwapsCountForCollection(collectionId: string, swapsCounts: Array<FirestoreNftCollectionSwapsCount>) {
+function getSwapsCountForCollection(collectionId: string, swapsCounts: FirestoreNftCollectionSwapsCount[]) {
   const swapsCount = find(propEq(collectionId, 'collectionId'), swapsCounts)
   if (isNil(swapsCount)) {
     return 0
@@ -60,28 +66,41 @@ export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
   )({ constraints, includeSwapsCount })
   if (includeSwapsCount) {
     const swapCounts = await getAllCollectionSwapsCounts()
-    const sliceStartIndex = !isNil(constraints) && !isNil(constraints.offset) ? constraints.offset : 0
-    const sliceEndIndex =
-      !isNil(constraints) && !isNil(constraints.limit) ? constraints.limit + sliceStartIndex : collections.length
-    const orderBy =
-      !isNil(constraints) && !isNil(constraints.orderBy)
-        ? map(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            ifElse(
-              propEq('asc', 'direction'),
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              pipe(prop('field'), prop, ascend, sort),
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              pipe(prop('field'), prop, descend, sort)
-            ),
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            constraints.orderBy
-          )
-        : undefined
+    const sliceStartIndex = ifElse(anyPass([isNil, complement(has('offset'))]), always(0), prop('offset'))(constraints)
+    const sliceEndIndex = ifElse<
+      [{ constraints: QueryConstraints | undefined; collections: FirestoreNftCollection[]; sliceStartIndex: number }],
+      number,
+      number
+    >(
+      anyPass([pipe(prop('constraints'), isNil), pipe(prop('constraints'), complement(has('limit')))]),
+      pipe(prop('collections'), length),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      converge(add, [path(['constraints', 'limit']), prop('sliceStartIndex')])
+    )({ constraints, collections, sliceStartIndex })
+    const orderBy = ifElse(
+      anyPass([isNil, complement(has('orderBy')), pipe(prop('orderBy'), none(propEq('swapsCount', 'field')))]),
+      always(identity),
+      pipe(
+        prop('orderBy'),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        find(propEq('swapsCount', 'field')),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        ifElse(
+          propEq('asc', 'direction'),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          always(sortBy(ascend(prop('swapsCount')))),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          always(sortBy(descend(prop('swapsCount'))))
+        )
+      )
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+    )(constraints)
 
     return NextResponse.json<GetCollectionsResponse>({
       collections: pipe(
@@ -96,9 +115,7 @@ export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
           ])
         ),
         slice(sliceStartIndex, sliceEndIndex),
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        unless(always(isNil(orderBy)), pipe(...orderBy)),
+        orderBy,
         map(mapCollectionToResponse)
       )(collections) as CollectionResponse[]
     })

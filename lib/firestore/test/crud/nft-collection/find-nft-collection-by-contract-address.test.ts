@@ -24,6 +24,6 @@ describe('CRUD - nft-collection - findNftCollectionByAddress', () => {
 
   it('returns the collection with the given contract address and chain id', async () => {
     const collection = await findNftCollectionByAddress('0x12c63bbD266dB84e117356e664f3604055166CEc', 1)
-    expect(collection).toStrictEqual(nftCollectionMock['Rc8pLQXxgyQGIRL0fr13'])
+    expect(collection).toStrictEqual(nftCollectionMock.Rc8pLQXxgyQGIRL0fr13)
   })
 })

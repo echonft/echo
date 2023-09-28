@@ -8,7 +8,7 @@ describe('converters - discordUserDataConverter', () => {
   const discordUser = getDiscordUserMockById('WpgDZHmdpvHjykHRRWp7')
 
   it('from Firestore conversion', () => {
-    const discordUserSnapshot = discordUserSnapshotMock['WpgDZHmdpvHjykHRRWp7']!
+    const discordUserSnapshot = discordUserSnapshotMock.WpgDZHmdpvHjykHRRWp7!
     expect(discordUserDataConverter.fromFirestore(discordUserSnapshot)).toStrictEqual(discordUser)
   })
 

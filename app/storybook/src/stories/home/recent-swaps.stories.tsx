@@ -20,6 +20,8 @@ const offers = getAllOffers()
 
 export const Default: Story = {
   args: {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     offers: concat(offers, offers)
   }
 }

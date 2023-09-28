@@ -8,7 +8,7 @@ describe('converters - sessionDataConverter', () => {
   const session = getSessionMockById('KI5AJISonKCYslDm51Tn')
 
   it('from Firestore conversion', () => {
-    const sessionSnapshot = sessionSnapshotMock['KI5AJISonKCYslDm51Tn']!
+    const sessionSnapshot = sessionSnapshotMock.KI5AJISonKCYslDm51Tn!
     expect(sessionDataConverter.fromFirestore(sessionSnapshot)).toStrictEqual(session)
   })
 

@@ -7,6 +7,7 @@ import { NftFilterTraits } from '@echo/ui/constants/nft-filter'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { mapNftFromResponse } from '@echo/ui/mappers/from-api/map-nft-from-response'
 import { mapNftToOfferItem } from '@echo/ui/mappers/map-nft-to-offer-item'
+import { AuthUser } from '@echo/ui/types/model/auth-user'
 import type { Nft } from '@echo/ui/types/model/nft'
 import { isIn } from '@echo/utils/fp/is-in'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
@@ -16,10 +17,11 @@ import { type FunctionComponent, useCallback, useMemo } from 'react'
 
 interface Props {
   collectionSlug: string
-  responses: Array<NftResponse>
+  responses: NftResponse[]
+  user: AuthUser | undefined
 }
 
-export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses }) => {
+export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses, user }) => {
   const t = useTranslations('collection.button')
   const mappedNfts = useMemo(() => map(mapNftFromResponse, responses), [responses]) as NonEmptyArray<Nft>
   const { setReceiverItems, hasNewOfferPending } = useNewOfferStore()
@@ -31,7 +33,7 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
   )
 
   return (
-    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationItems}>
+    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationItems} user={user}>
       <SelectableNftsAndFiltersContainer
         nfts={mappedNfts}
         availableFilters={[NftFilterTraits]}

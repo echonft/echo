@@ -1,6 +1,6 @@
 import type { DiscordUserDocumentData } from '@echo/firestore/types/model/discord-user/discord-user-document-data'
 
-export const discordUserDocumentDataMock: { [key: string]: DiscordUserDocumentData } = {
+export const discordUserDocumentDataMock: Record<string, DiscordUserDocumentData> = {
   be5KGz2BfBRYbA1mCKQp: {
     id: 'be5KGz2BfBRYbA1mCKQp',
     userId: '6rECUMhevHfxABZ1VNOm',

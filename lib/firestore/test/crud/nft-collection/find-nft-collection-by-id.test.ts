@@ -19,6 +19,6 @@ describe('CRUD - nft-collection - findNftCollectionById', () => {
 
   it('returns the collection with the given id', async () => {
     const collection = await findNftCollectionById('Rc8pLQXxgyQGIRL0fr13')
-    expect(collection).toStrictEqual(nftCollectionMock['Rc8pLQXxgyQGIRL0fr13'])
+    expect(collection).toStrictEqual(nftCollectionMock.Rc8pLQXxgyQGIRL0fr13)
   })
 })

@@ -1,7 +1,7 @@
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { DocumentReference } from 'firebase-admin/lib/firestore'
 
-export const userReferenceMock: { [key: string]: DocumentReference<UserDocumentData> } = {
+export const userReferenceMock: Record<string, DocumentReference<UserDocumentData>> = {
   '6rECUMhevHfxABZ1VNOm': {
     id: '6rECUMhevHfxABZ1VNOm',
     path: 'users/6rECUMhevHfxABZ1VNOm'

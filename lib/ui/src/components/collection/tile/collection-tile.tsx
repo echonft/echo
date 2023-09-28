@@ -8,7 +8,7 @@ import { FunctionComponent } from 'react'
 
 interface Props {
   slug: string
-  pictureUrl: URL
+  pictureUrl: string
   name: string
   swapsCount: number
   size: typeof SizeMD | typeof SizeLG
@@ -29,7 +29,7 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
     >
       <Img
         className={clsx('rounded-2xl')}
-        src={pictureUrl.href}
+        src={pictureUrl}
         height={size === SizeLG ? 432 : 336}
         width={size === SizeLG ? 432 : 336}
         alt={name}

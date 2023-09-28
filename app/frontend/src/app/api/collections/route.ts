@@ -5,6 +5,7 @@ import { handleRequest } from '@server/request-handlers/handle-request'
 /**
  * Available query params:
  *  - query constraints see {@link QueryConstraintsQueryParams}
+ *    - limitToLast not supported
  *  - filter see {@link CollectionQueryFilters}
  * @param request
  * @constructor

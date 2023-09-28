@@ -24,9 +24,9 @@ export async function addOffer(
     createdAt: dayjs(),
     expired: false,
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'),
-    receiver: head<FirestoreOfferItem, FirestoreOfferItem>(receiverItems).nft.owner!,
+    receiver: head<FirestoreOfferItem, FirestoreOfferItem>(receiverItems).nft.owner,
     receiverItems,
-    sender: head<FirestoreOfferItem, FirestoreOfferItem>(senderItems).nft.owner!,
+    sender: head<FirestoreOfferItem, FirestoreOfferItem>(senderItems).nft.owner,
     senderItems,
     state: 'OPEN',
     updatedAt: dayjs()

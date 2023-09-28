@@ -1,11 +1,9 @@
 import { isIn } from '@echo/utils/fp/is-in'
 import type { Query } from 'firebase-admin/lib/firestore'
-import { concat, filter, includes, is, isEmpty, unless } from 'ramda'
+import { concat, filter, includes, isEmpty, unless } from 'ramda'
 
-export function addSelectConstraint<T>(query: Query<T>, selectFields: string | string[], availableFields: string[]) {
-  const validFields = is(Array, selectFields)
-    ? filter(isIn(availableFields), selectFields)
-    : filter(isIn(availableFields), [selectFields])
+export function addSelectConstraint<T>(query: Query<T>, selectFields: string[], availableFields: string[]) {
+  const validFields = filter(isIn(availableFields), selectFields)
   if (isEmpty(validFields)) {
     return query
   }

@@ -4,7 +4,6 @@ import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { getAllNftCollections } from '@echo/firestore/crud/nft-collection/get-all-nft-collections'
 import { setUserUpdated } from '@echo/firestore/crud/user/set-user-updated'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 import { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { USER_NFTS_VALIDITY_TIME } from '@server/constants/user-nfts-validity-time'
@@ -30,10 +29,7 @@ export async function updateUserNftsIfNeeded(user: FirestoreUser, chainId: numbe
         // FIXME this is true only for ERC721
         const nft = await findNftByCollectionContract(contractAddress, chainId, tokenId)
         if (isNil(nft)) {
-          const collection = find(
-            pathEq(contractAddress, ['contract', 'address']),
-            collectionsForChain
-          ) as FirestoreNftCollection
+          const collection = find(pathEq(contractAddress, ['contract', 'address']), collectionsForChain)!
           const nft = await mapAlchemyNftToFirestore(alchemyNft, user, wallet, collection)
           await addNft(nft)
         } else {

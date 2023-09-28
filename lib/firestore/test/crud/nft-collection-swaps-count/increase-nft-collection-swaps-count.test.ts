@@ -4,7 +4,6 @@ import { deleteNftCollectionSwapsCount } from '@echo/firestore/crud/nft-collecti
 import { findNftCollectionSwapsCountByNftCollectionId } from '@echo/firestore/crud/nft-collection-swaps-count/find-nft-collection-swaps-count-by-nft-collection-id'
 import { getNftCollectionSwapsCountSnapshotByCollectionId } from '@echo/firestore/crud/nft-collection-swaps-count/get-nft-collection-swaps-count-snapshot-by-collection-id'
 import { increaseNftCollectionSwapsCount } from '@echo/firestore/crud/nft-collection-swaps-count/increase-nft-collection-swaps-count'
-import { FirestoreNftCollectionSwapsCount } from '@echo/firestore/types/model/nft-collection-swaps-count/firestore-nft-collection-swaps-count'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertNftCollections } from '@test-utils/nft-collection/assert-nft-collections'
@@ -29,13 +28,9 @@ describe('CRUD - nft-collection-swaps-count - addNftCollectionDiscordGuild', () 
   })
   it('if there is already a swap counts for the collectionId, increase it', async () => {
     const collectionId = 'Rc8pLQXxgyQGIRL0fr13'
-    const initialSwapsCount = (await findNftCollectionSwapsCountByNftCollectionId(
-      collectionId
-    )) as FirestoreNftCollectionSwapsCount
+    const initialSwapsCount = (await findNftCollectionSwapsCountByNftCollectionId(collectionId))!
     await increaseNftCollectionSwapsCount(collectionId)
-    const updatedSwapsCount = (await findNftCollectionSwapsCountByNftCollectionId(
-      collectionId
-    )) as FirestoreNftCollectionSwapsCount
+    const updatedSwapsCount = (await findNftCollectionSwapsCountByNftCollectionId(collectionId))!
     expect(updatedSwapsCount.collectionId).toEqual(collectionId)
     expect(updatedSwapsCount.swapsCount).toEqual(initialSwapsCount.swapsCount + 1)
     // reset the count
@@ -47,9 +42,7 @@ describe('CRUD - nft-collection-swaps-count - addNftCollectionDiscordGuild', () 
     const initialSwapsCount = await findNftCollectionSwapsCountByNftCollectionId(collectionId)
     expect(initialSwapsCount).toBeUndefined()
     await increaseNftCollectionSwapsCount(collectionId)
-    const updatedSwapsCount = (await findNftCollectionSwapsCountByNftCollectionId(
-      collectionId
-    )) as FirestoreNftCollectionSwapsCount
+    const updatedSwapsCount = (await findNftCollectionSwapsCountByNftCollectionId(collectionId))!
     // delete the newly created collection and swaps count
     await deleteNftCollection(collectionId)
     await deleteNftCollectionSwapsCount(updatedSwapsCount.id)

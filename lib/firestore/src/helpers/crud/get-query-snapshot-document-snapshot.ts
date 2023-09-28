@@ -8,5 +8,5 @@ export function getQuerySnapshotDocumentSnapshot<T>(
   if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
     return undefined
   }
-  return head(querySnapshot.docs) as QueryDocumentSnapshot<T>
+  return head(querySnapshot.docs)!
 }

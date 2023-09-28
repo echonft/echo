@@ -1,6 +1,6 @@
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
-import { type App, cert, getApps, initializeApp } from 'firebase-admin/app'
+import { cert, getApps, initializeApp } from 'firebase-admin/app'
 import { getFirestore, initializeFirestore as firebaseInitializeFirestore } from 'firebase-admin/firestore'
 import { head, isEmpty } from 'ramda'
 
@@ -8,7 +8,7 @@ export function initializeFirebase() {
   try {
     const apps = getApps()
     if (!isEmpty(apps)) {
-      return getFirestore(head(apps) as App)
+      return getFirestore(head(apps)!)
     }
 
     return firebaseInitializeFirestore(
