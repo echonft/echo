@@ -3,7 +3,7 @@ import { isEmpty } from 'ramda'
 import type { PropsWithChildren } from 'react'
 
 interface Props<T> {
-  checks: Array<T> | string | object
+  checks: T[] | string | object
 }
 
 export function ShowIfEmpty<T>({ checks, children }: PropsWithChildren<Props<T>>) {
