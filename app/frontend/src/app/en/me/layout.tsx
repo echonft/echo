@@ -1,3 +1,4 @@
+import { ConnectButton } from '@components/connect-button'
 import { authOptions } from '@constants/auth-options'
 import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'

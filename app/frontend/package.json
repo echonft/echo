@@ -29,9 +29,8 @@
     "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
     "@headlessui/react": "1.7.16",
-    "@wagmi/core": "1.3.9",
     "clsx": "2.0.0",
-    "connectkit": "1.5.2",
+    "connectkit": "1.5.3",
     "dayjs": "1.11.9",
     "firebase": "10.1.0",
     "next": "13.4.19",
@@ -42,8 +41,8 @@
     "react-dom": "18.2.0",
     "siwe": "2.1.4",
     "swr": "2.2.0",
-    "viem": "1.9.0",
-    "wagmi": "1.3.10",
+    "viem": "1.12.2",
+    "wagmi": "1.4.2",
     "zod": "3.22.2"
   },
   "devDependencies": {

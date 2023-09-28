@@ -19,6 +19,7 @@ export const ProfileDetailsApiProvided: FunctionComponent<Props> = ({ user }) =>
       discordAvatarUrl={avatarUrl}
       wallet={isNil(wallets) ? undefined : head(wallets)}
       size={SizeLG}
+      renderWalletConnect={renderWalletConnect}
     />
   )
 }

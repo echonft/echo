@@ -5,6 +5,7 @@
     "resolveJsonModule": true,
     "paths": {
       "@app/*": ["src/app/*"],
+      "@components/*": ["src/components/*"],
       "@constants/*": ["src/lib/constants/*"],
       "@helpers/*": ["src/lib/helpers/*"],
       "@server/*": ["src/lib/server/*"],

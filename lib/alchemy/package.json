@@ -20,7 +20,7 @@
   "dependencies": {
     "@echo/utils": "workspace:*",
     "ramda": "0.29.0",
-    "viem": "1.9.5"
+    "viem": "1.12.2"
   },
   "devDependencies": {
     "@jest/globals": "29.6.2",
