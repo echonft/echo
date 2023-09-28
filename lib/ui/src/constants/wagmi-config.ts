@@ -1,5 +1,5 @@
-import { getAlchemyApiKey } from '@helpers/get-alchemy-api-key'
-import { getWalletConnectProjectId } from '@helpers/get-wallet-connect-project-id'
+import { getAlchemyApiKey } from '@echo/ui/helpers/get-alchemy-api-key'
+import { getWalletConnectProjectId } from '@echo/ui/helpers/get-wallet-connect-project-id'
 import { FallbackTransport } from 'viem'
 import { Config, configureChains, createConfig, PublicClient, sepolia, WebSocketPublicClient } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'

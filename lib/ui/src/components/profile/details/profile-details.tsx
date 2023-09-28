@@ -1,6 +1,8 @@
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
+import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
+import { ConnectWallet } from '@echo/ui/components/profile/wallet/connect-wallet'
 import { UserDiscordTag } from '@echo/ui/components/shared/user-discord-tag'
 import { UserProfilePicture, type UserProfilePictureProps } from '@echo/ui/components/shared/user-profile-picture'
 import { UserWallet } from '@echo/ui/components/shared/user-wallet'
@@ -10,11 +12,9 @@ import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
 import type { Wallet } from '@echo/ui/types/model/wallet'
 import type { FunctionComponent } from 'react'
-import { ReactNode } from 'react'
 
 interface Props extends UserProfilePictureProps, UserBannerProps {
   wallet: Wallet | undefined
-  renderWalletConnect?: () => ReactNode
 }
 
 export const ProfileDetails: FunctionComponent<Props> = ({
@@ -23,8 +23,7 @@ export const ProfileDetails: FunctionComponent<Props> = ({
   discordBannerColor,
   discordAvatarUrl,
   wallet,
-  size,
-  renderWalletConnect
+  size
 }) => {
   return (
     <UserDetailsLayout>
@@ -34,10 +33,11 @@ export const ProfileDetails: FunctionComponent<Props> = ({
           <UserProfilePicture discordUsername={discordUsername} discordAvatarUrl={discordAvatarUrl} size={size} />
           <UserInfoLayout>
             <UserDiscordTag discordUsername={discordUsername} />
-            {/*TODO I guess it should be a "link wallet" button if wallet is nil?*/}
             <HideIfNil checks={wallet} render={(wallet) => <UserWallet address={wallet.address} />} />
             <ShowIfNil checks={wallet}>
-              <HideIfNil checks={renderWalletConnect} render={(renderWalletConnect) => renderWalletConnect()} />
+              <Web3Provider>
+                <ConnectWallet />
+              </Web3Provider>
             </ShowIfNil>
           </UserInfoLayout>
         </UserPictureAndInfoLayout>
