@@ -1,6 +1,6 @@
 'use client'
 import { getNonceFetcher } from '@echo/api/helpers/get-nonce-fetcher'
-import { AddWallet } from '@echo/ui/components/profile/wallet/add-wallet'
+import { CreateSignature } from '@echo/ui/components/profile/wallet/create-signature'
 import { ConnectKitButton } from 'connectkit'
 import { isNil } from 'ramda'
 import { FunctionComponent, useCallback } from 'react'
@@ -32,7 +32,7 @@ export const ConnectWallet: FunctionComponent<Props> = ({ token }) => {
     return <ConnectKitButton />
   }
   if (!isNil(response) && !isNil(response?.data)) {
-    return <AddWallet nonce={response.data.nonce} token={token} address={address} />
+    return <CreateSignature nonce={response.data.nonce} token={token} address={address} />
   }
   // Should never happen
   return null
