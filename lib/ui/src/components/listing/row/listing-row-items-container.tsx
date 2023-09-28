@@ -8,7 +8,7 @@ import { map, prop } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
-  items: Array<ListingItem>
+  items: ListingItem[]
 }
 
 export const ListingRowItemsContainer: FunctionComponent<Props> = ({ items }) => {

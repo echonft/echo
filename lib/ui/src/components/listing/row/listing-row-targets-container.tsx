@@ -8,7 +8,7 @@ import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  targets: Array<ListingTarget>
+  targets: ListingTarget[]
 }
 
 export const ListingRowTargetsContainer: FunctionComponent<Props> = ({ targets }) => {

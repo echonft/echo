@@ -16,8 +16,8 @@ import { type FunctionComponent, useRef } from 'react'
 interface Props {
   items: ListingItem[]
   targets: ListingTarget[]
-  collections: Array<Collection> | undefined
-  onCollectionSelectionChange?: (selection: Array<Collection>) => unknown
+  collections: Collection[] | undefined
+  onCollectionSelectionChange?: (selection: Collection[]) => unknown
   onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
   onRemoveTarget?: (targetCollectionId: string) => unknown
   onRemoveItem?: (itemNftId: string) => unknown
