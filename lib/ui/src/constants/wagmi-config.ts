@@ -11,6 +11,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
   [sepolia],
   [alchemyProvider({ apiKey: getAlchemyApiKey() })]
 )
+
 const connectors = [
   new InjectedConnector({ chains }),
   new MetaMaskConnector({

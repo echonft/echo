@@ -10,11 +10,13 @@ import { UserBanner, type UserBannerProps } from '@echo/ui/components/user/detai
 import { UserDetailsLayout } from '@echo/ui/components/user/layout/user-details-layout'
 import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout'
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
+import { AuthUser } from '@echo/ui/types/model/auth-user'
 import type { Wallet } from '@echo/ui/types/model/wallet'
 import type { FunctionComponent } from 'react'
 
 interface Props extends UserProfilePictureProps, UserBannerProps {
   wallet: Wallet | undefined
+  user: AuthUser
 }
 
 export const ProfileDetails: FunctionComponent<Props> = ({
@@ -23,7 +25,8 @@ export const ProfileDetails: FunctionComponent<Props> = ({
   discordBannerColor,
   discordAvatarUrl,
   wallet,
-  size
+  size,
+  user
 }) => {
   return (
     <UserDetailsLayout>
@@ -36,7 +39,7 @@ export const ProfileDetails: FunctionComponent<Props> = ({
             <HideIfNil checks={wallet} render={(wallet) => <UserWallet address={wallet.address} />} />
             <ShowIfNil checks={wallet}>
               <Web3Provider>
-                <ConnectWallet />
+                <ConnectWallet token={user.sessionToken} />
               </Web3Provider>
             </ShowIfNil>
           </UserInfoLayout>

@@ -543,6 +543,9 @@ importers:
       recoil:
         specifier: 0.7.7
         version: 0.7.7(react-dom@18.2.0)(react@18.2.0)
+      siwe:
+        specifier: 2.1.4
+        version: 2.1.4(ethers@6.7.1)
       swr:
         specifier: 2.2.0
         version: 2.2.0(react@18.2.0)
