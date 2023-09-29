@@ -3,21 +3,20 @@ import { getDiscordAuthorizationUrl } from '@echo/discord/config/get-discord-aut
 import { getDiscordConfig } from '@echo/discord/config/get-discord-config'
 import { updateAccount } from '@echo/firestore/crud/account/update-account'
 import { findSessionByUserId } from '@echo/firestore/crud/session/find-session-by-user-id'
-import { setUserUpdated } from '@echo/firestore/crud/user/set-user-updated'
+import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { mapWalletToWalletData } from '@echo/firestore/mappers/map-wallet-to-wallet-data'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { AuthUser } from '@echo/ui/types/model/auth-user'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { getAvatarDecorationUrl } from '@helpers/auth/get-avatar-decoration-url'
 import { getDiscordAvatarUrl } from '@helpers/auth/get-discord-avatar-url'
 import { getDiscordBannerUrl } from '@helpers/auth/get-discord-banner-url'
 import { mapTokenSetToFirestoreAccount } from '@helpers/auth/map-token-set-to-firestore-account'
 import { setUserId } from '@server/helpers/user/set-user-id'
-import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
 import type { AuthOptions } from 'next-auth'
 import Discord, { DiscordProfile } from 'next-auth/providers/discord'
-import { always, assoc, isNil, map, pipe, unless } from 'ramda'
+import { always, assoc, complement, either, has, isNil, map, pipe, unless } from 'ramda'
 
 export const authOptions: AuthOptions = {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -51,18 +50,21 @@ export const authOptions: AuthOptions = {
   // },
   callbacks: {
     session: async ({ session, user }) => {
-      if (!isNilOrEmpty(user)) {
-        const userId = await setUserId(user)
-        const sessionToken = await findSessionByUserId(userId)
-        const wallets = await getWalletsForUser(userId)
+      if (!isNil(user)) {
+        const { id } = user
+        const firestoreUser = await findUserById(id)
+        if (either(complement(has('id')), propIsNil('id'))(firestoreUser)) {
+          await setUserId(user.username)
+        }
+        const sessionToken = await findSessionByUserId(id)
+        const wallets = await getWalletsForUser(id)
         const authUser = pipe(
-          assoc('id', userId),
           assoc('wallets', map(mapWalletToWalletData, wallets)),
           unless(always(isNil(sessionToken)), assoc('sessionToken', sessionToken?.sessionToken))
         )(user) as AuthUser
         // TODO get the chain id
-        await updateUserNfts(authUser, 1)
-        await setUserUpdated(userId)
+        // FIXME this cannot be here
+        // await updateUserNfts(authUser, 1)
         return {
           ...session,
           user: authUser
