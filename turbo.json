@@ -50,6 +50,12 @@
     "@echo/bot#deploy-commands": {
       "cache": false
     },
+    "@echo/firestore#db:reset:dev": {
+      "cache": false
+    },
+    "@echo/firestore#db:reset:test": {
+      "cache": false
+    },
     "@echo/frontend#build": {
       "dependsOn": ["@echo/ui#build"],
       "outputs": [".next/**", "!.next/cache/**"],

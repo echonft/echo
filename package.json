@@ -25,6 +25,8 @@
     "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot",
     "bot:start": "turbo run start --filter=@echo/bot",
     "clean": "turbo run clean",
+    "db:reset:dev": "turbo run db:reset:dev --filter=@echo/firestore",
+    "db:reset:test": "turbo run db:reset:test --filter=@echo/firestore",
     "frontend:build": "turbo run build --filter=@echo/frontend",
     "frontend:clean": "turbo run clean --filter=@echo/frontend",
     "lint": "turbo run lint",
