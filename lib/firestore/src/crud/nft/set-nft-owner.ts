@@ -1,14 +1,9 @@
-import { findDiscordUserByUserId } from '@echo/firestore/crud/discord-user/find-discord-user-by-user-id'
 import { updateNft } from '@echo/firestore/crud/nft/update-nft'
 import { getUserDetails } from '@echo/firestore/helpers/user/get-user-details'
-import type { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
-import { isNil } from 'ramda'
+import { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
+import { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
 
-export async function setNftOwner(nftId: string, userId: string, username: string, wallet: FirestoreWallet) {
-  const discordUser = await findDiscordUserByUserId(userId)
-  if (isNil(discordUser)) {
-    throw Error(`discord user with userId ${userId} not found`)
-  }
-  const userDetails = getUserDetails(username, discordUser, wallet)
+export async function setNftOwner(nftId: string, user: FirestoreUser, wallet: WalletData) {
+  const userDetails = getUserDetails(user, wallet)
   return updateNft(nftId, { owner: userDetails })
 }

@@ -19,14 +19,14 @@ export const OfferRow: FunctionComponent<Props> = ({ offer }) => {
       <OfferRowHeader
         expired={expired}
         state={state}
-        discordUsername={isReceiver ? receiver.discordUsername : sender.discordUsername}
+        discordUsername={isReceiver ? receiver.discord.username : sender.discord.username}
       />
       <OfferRowSwapContainerLayout>
         <OfferItemsContainer items={isReceiver ? receiverItems : senderItems} />
         <OfferRowSwapIcon />
         <OfferItemsContainer
           items={isReceiver ? senderItems : receiverItems}
-          discordUsername={isReceiver ? sender.discordUsername : receiver.discordUsername}
+          discordUsername={isReceiver ? sender.discord.username : receiver.discord.username}
         />
       </OfferRowSwapContainerLayout>
     </OfferRowLayout>

@@ -1,19 +1,18 @@
 import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
-import { findDiscordUserByUserId } from '@echo/firestore/crud/discord-user/find-discord-user-by-user-id'
 import { getUserDetails } from '@echo/firestore/helpers/user/get-user-details'
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
 import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
-import type { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
-import { AuthUser } from '@echo/ui/types/model/auth-user'
+import { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
+import { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
 import { modifyStringPropToUrl } from '@echo/utils/fp/modify-string-prop-to-url'
 import { getNftBlurUrl } from '@server/helpers/nft/get-nft-blur-url'
 import { getOpenSeaUrl } from '@server/helpers/nft/get-open-sea-url'
-import { isNil, omit, pipe } from 'ramda'
+import { omit, pipe } from 'ramda'
 
-export async function mapAlchemyNftToFirestore(
+export function mapAlchemyNftToFirestore(
   alchemyNft: AlchemyNft,
-  user: AuthUser,
-  wallet: FirestoreWallet,
+  user: FirestoreUser,
+  wallet: WalletData,
   collection: FirestoreNftCollection
 ) {
   const { contractAddress, chainId, tokenId } = alchemyNft
@@ -23,16 +22,11 @@ export async function mapAlchemyNftToFirestore(
     omit(['contractAddress', 'chainId'])
   )(alchemyNft) as Partial<FirestoreNft>
 
-  const discordUser = await findDiscordUserByUserId(user.id)
-  if (isNil(discordUser)) {
-    throw Error(`discord user not found for user with id ${user.id}`)
-  }
-
   return {
     ...partialNft,
     blurUrl: getNftBlurUrl(contractAddress, tokenId),
     openSeaUrl: getOpenSeaUrl(contractAddress, chainId, tokenId),
     collection,
-    owner: getUserDetails(user.name, discordUser, wallet)
+    owner: getUserDetails(user, wallet)
   } as Omit<FirestoreNft, 'id'>
 }

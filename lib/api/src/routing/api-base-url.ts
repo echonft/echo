@@ -1,3 +1,6 @@
 export function apiBaseUrl() {
-  return `${process.env.NODE_ENV === 'development' ? 'http' : 'https'}://${process.env.VERCEL_URL}/api`
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://localhost:3000/api'
+  }
+  return `https://${process.env.VERCEL_URL}/api`
 }

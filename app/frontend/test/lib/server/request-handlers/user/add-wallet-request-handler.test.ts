@@ -2,24 +2,21 @@ import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-reque
 import { findNonceForUser } from '@echo/firestore/crud/nonce/find-nonce-for-user'
 import type { FirestoreNonce } from '@echo/firestore/types/model/nonce/firestore-nonce'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
-import type { AuthUser } from '@echo/ui/types/model/auth-user'
 import { getSiweMessage } from '@server/helpers/auth/get-siwe-message'
 import { verifySiweMessage } from '@server/helpers/auth/verify-siwe-message'
 import { ApiError } from '@server/helpers/error/api-error'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
 import { addUserWallet } from '@server/helpers/user/add-user-wallet'
-import { getUserByUsername } from '@server/helpers/user/get-user-by-username'
-import { updateUserNftsIfNeeded } from '@server/helpers/user/update-user-nfts-if-needed'
+import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
 import { addWalletRequestHandler } from '@server/request-handlers/user/add-wallet-request-handler'
 import { mockRequest } from '@server-mocks/request-response'
 import { SiweMessage } from 'siwe'
 
 jest.mock('@server/helpers/request/get-user-from-request')
 jest.mock('@echo/firestore/crud/nonce/find-nonce-for-user')
-jest.mock('@server/helpers/user/get-user-by-username')
 jest.mock('@server/helpers/auth/verify-siwe-message')
 jest.mock('@server/helpers/user/add-user-wallet')
-jest.mock('@server/helpers/user/update-user-nfts-if-needed')
+jest.mock('@server/helpers/user/update-user-nfts')
 jest.mock('@server/helpers/auth/get-siwe-message')
 
 describe('request-handlers - user - addWalletRequestHandler', () => {
@@ -42,11 +39,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     signature: validSignature,
     wallet: validWallet
   }
-  const user: AuthUser = {
-    id: 'user-id',
-    name: 'user-name',
-    image: 'user-image'
-  }
+  const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -109,12 +102,11 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ data: { nonce: 'nonce' } as SiweMessage, success: true })
     jest.mocked(addUserWallet).mockResolvedValueOnce()
-    jest.mocked(updateUserNftsIfNeeded).mockResolvedValueOnce()
-    jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserMockById('6rECUMhevHfxABZ1VNOm'))
+    jest.mocked(updateUserNfts).mockResolvedValueOnce()
     const req = mockRequest<AddWalletRequest>(validRequest)
     const res = await addWalletRequestHandler(req)
     expect(addUserWallet).toHaveBeenCalledTimes(1)
-    expect(updateUserNftsIfNeeded).toHaveBeenCalledTimes(1)
+    expect(updateUserNfts).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
   })
 })

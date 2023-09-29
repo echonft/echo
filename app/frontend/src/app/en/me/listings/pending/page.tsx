@@ -27,7 +27,7 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
     // creator.username is needed for the query to work - do not remove
     orderBy: [{ field: 'creator.username' }, { field: 'expiresAt' }]
   })
-  const { data, error } = await fetcher(userListingsApiUrl(session.user.name))
+  const { data, error } = await fetcher(userListingsApiUrl(session.user.username))
     .revalidate(3600)
     .query(mergeLeft(queryParams, filterParams))
     .fetch<GetListingsResponse>()

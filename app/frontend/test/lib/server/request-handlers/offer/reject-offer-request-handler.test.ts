@@ -1,5 +1,5 @@
 import { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
-import type { AuthUser } from '@echo/ui/types/model/auth-user'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@server/helpers/error/api-error'
 import { getOffer } from '@server/helpers/offer/get-offer'
 import { rejectOffer } from '@server/helpers/offer/reject-offer'
@@ -13,11 +13,7 @@ jest.mock('@server/helpers/offer/reject-offer')
 
 describe('request-handlers - offer - rejectOfferRequestHandler', () => {
   const offerId = 'offerId'
-  const user: AuthUser = {
-    id: 'user-id',
-    name: 'user-name',
-    image: 'user-image'
-  }
+  const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -65,7 +61,7 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest
       .mocked(getOffer)
-      .mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'user-name' } } as FirestoreOffer)
+      .mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'johnnycagewins' } } as FirestoreOffer)
     jest.mocked(rejectOffer).mockResolvedValueOnce()
     const req = mockRequest<never>()
     const res = await rejectOfferRequestHandler(req, offerId)

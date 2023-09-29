@@ -1,14 +1,12 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { userDataConverter } from '@echo/firestore/converters/user/user-data-converter'
-import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/get-query-snapshot-document-snapshot'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import type { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
+import { DocumentSnapshot } from 'firebase-admin/lib/firestore'
 
 export async function getUserSnapshotById(id: string) {
-  const querySnapshot = await firestoreApp()
-    .collection(CollectionName.USERS)
-    .where('id', '==', id)
-    .withConverter(userDataConverter)
-    .get()
-
-  return getQuerySnapshotDocumentSnapshot(querySnapshot)
+  const documentSnapshot = await firestoreApp().collection(CollectionName.USERS).doc(id).get()
+  if (!documentSnapshot.exists) {
+    return undefined
+  }
+  return documentSnapshot as DocumentSnapshot<FirestoreUser>
 }

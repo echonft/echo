@@ -1,6 +1,17 @@
+import { Wallet } from '@echo/ui/types/model/wallet'
+
 export interface AuthUser {
   id: string
-  image?: string
-  name: string
+  username: string
+  discord: {
+    avatarUrl: string
+    avatarDecorationUrl?: string
+    bannerColor: string
+    bannerUrl?: string
+    id: string
+    username: string
+  }
   sessionToken?: string
+  updatedAt: number
+  wallets: Wallet[]
 }

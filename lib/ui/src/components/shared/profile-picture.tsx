@@ -6,7 +6,7 @@ import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  pictureUrl: URL
+  pictureUrl: string
   alt: string
   size: ProfilePictureSize
 }
@@ -22,7 +22,7 @@ export const ProfilePicture: FunctionComponent<Props> = ({ pictureUrl, alt, size
         size === SizeLG && ['h-40', 'w-40'],
         size === SizeMD && ['h-[7.5rem]', 'w-[7.5rem]']
       )}
-      src={pictureUrl.href}
+      src={pictureUrl}
       alt={alt}
       width={getProfilePictureSize(size)}
       height={getProfilePictureSize(size)}

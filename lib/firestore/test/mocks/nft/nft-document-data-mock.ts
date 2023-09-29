@@ -19,9 +19,10 @@ export const nftDocumentDataMock: Record<string, NftDocumentData> = {
     collection: nftCollectionDocumentDataMock['1aomCtnoesD7WVll6Yi1']!,
     name: 'Spiral Frequencies #1376',
     owner: {
-      discordId: '462798252543049728',
-      discordUsername: 'johnnycagewins',
-      discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
       username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
@@ -77,9 +78,10 @@ export const nftDocumentDataMock: Record<string, NftDocumentData> = {
     collection: nftCollectionDocumentDataMock['1aomCtnoesD7WVll6Yi1']!,
     name: 'Spiral Frequencies #2414',
     owner: {
-      discordId: '462798252543049728',
-      discordUsername: 'johnnycagewins',
-      discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
       username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
@@ -135,10 +137,10 @@ export const nftDocumentDataMock: Record<string, NftDocumentData> = {
     collection: nftCollectionDocumentDataMock['1aomCtnoesD7WVll6Yi1']!,
     name: 'Spiral Frequencies #3035',
     owner: {
-      discordId: '884593489189433364',
-      discordUsername: 'crewnft_',
-      discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
-      discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
+      discord: {
+        username: 'crewnft_',
+        avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png'
+      },
       username: 'crewnft_',
       wallet: {
         address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
@@ -209,9 +211,10 @@ export const nftDocumentDataMock: Record<string, NftDocumentData> = {
     collection: nftCollectionDocumentDataMock.Rc8pLQXxgyQGIRL0fr13!,
     name: 'Creative Demigod #024',
     owner: {
-      discordId: '462798252543049728',
-      discordUsername: 'johnnycagewins',
-      discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
       username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
@@ -270,9 +273,10 @@ export const nftDocumentDataMock: Record<string, NftDocumentData> = {
     collection: nftCollectionDocumentDataMock.Rc8pLQXxgyQGIRL0fr13!,
     name: 'Water Elemental #020',
     owner: {
-      discordId: '462798252543049728',
-      discordUsername: 'johnnycagewins',
-      discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
       username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
@@ -335,10 +339,10 @@ export const nftDocumentDataMock: Record<string, NftDocumentData> = {
     collection: nftCollectionDocumentDataMock.Rc8pLQXxgyQGIRL0fr13!,
     name: 'Creative Demigod #009',
     owner: {
-      discordId: '884593489189433364',
-      discordUsername: 'crewnft_',
-      discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
-      discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
+      discord: {
+        username: 'crewnft_',
+        avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png'
+      },
       username: 'crewnft_',
       wallet: {
         address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',

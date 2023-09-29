@@ -3,26 +3,28 @@ import { findNftByCollectionContract } from '@echo/firestore/crud/nft/find-nft-b
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { getAllNftCollections } from '@echo/firestore/crud/nft-collection/get-all-nft-collections'
 import { setUserUpdated } from '@echo/firestore/crud/user/set-user-updated'
-import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
-import { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
+import { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
+import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { USER_NFTS_VALIDITY_TIME } from '@server/constants/user-nfts-validity-time'
 import { getNftsForOwner } from '@server/helpers/alchemy/get-nfts-for-owner'
 import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nft-to-firestore'
 import dayjs from 'dayjs'
-import { filter, find, isNil, map, path, pathEq, propEq } from 'ramda'
+import { filter, find, isNil, map, path, pathEq, pipe, prop, propEq } from 'ramda'
 
-export async function updateUserNftsIfNeeded(user: FirestoreUser, chainId: number) {
-  if (isNil(user.updatedAt) || user.updatedAt.add(USER_NFTS_VALIDITY_TIME, 'minute').isBefore(dayjs())) {
-    const userWallets = await getWalletsForUser(user.id)
-    const userWalletsForChain = filter(propEq(chainId, 'chainId'), userWallets)
+export async function updateUserNfts(user: AuthUser, chainId: number) {
+  if (isNil(user.updatedAt) || dayjs.unix(user.updatedAt).add(USER_NFTS_VALIDITY_TIME, 'minute').isBefore(dayjs())) {
+    const userWalletsForChain = pipe<[AuthUser], WalletData[], WalletData[]>(
+      prop('wallets'),
+      filter(propEq(chainId, 'chainId'))
+    )(user)
     if (isNilOrEmpty(userWalletsForChain)) {
       return
     }
     const collections = await getAllNftCollections()
     const collectionsForChain = filter(pathEq(chainId, ['contract', 'chainId']), collections)
     const collectionsAddresses = map(path<string>(['contract', 'address']), collectionsForChain) as string[]
-    for (const wallet of userWallets) {
+    for (const wallet of userWalletsForChain) {
       const nfts = await getNftsForOwner(wallet.address, collectionsAddresses)
       for (const alchemyNft of nfts) {
         const { contractAddress, chainId, tokenId } = alchemyNft
@@ -30,10 +32,10 @@ export async function updateUserNftsIfNeeded(user: FirestoreUser, chainId: numbe
         const nft = await findNftByCollectionContract(contractAddress, chainId, tokenId)
         if (isNil(nft)) {
           const collection = find(pathEq(contractAddress, ['contract', 'address']), collectionsForChain)!
-          const nft = await mapAlchemyNftToFirestore(alchemyNft, user, wallet, collection)
+          const nft = mapAlchemyNftToFirestore(alchemyNft, user, wallet, collection)
           await addNft(nft)
         } else {
-          await setNftOwner(nft.id, user.id, user.name, wallet)
+          await setNftOwner(nft.id, user, wallet)
         }
       }
     }

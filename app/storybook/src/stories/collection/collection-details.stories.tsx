@@ -18,7 +18,7 @@ export const Details: Story = {
   args: {
     collectionName: name,
     supplyCount: totalSupply,
-    pictureUrl: profilePictureUrl,
+    pictureUrl: profilePictureUrl.href,
     discordUrl: discordUrl,
     twitterUsername: twitterUsername,
     websiteUrl: websiteUrl,

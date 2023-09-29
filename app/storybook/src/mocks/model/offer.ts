@@ -10,10 +10,10 @@ const offers: Record<string, Offer> = {
     expired: true,
     expiresAt: dayjs.unix(1676984897),
     receiver: {
-      discordId: '462798252543049728',
-      discordUsername: 'johnnycagewins',
-      discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
-      discordBanner: undefined,
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
       username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
@@ -22,10 +22,10 @@ const offers: Record<string, Offer> = {
     },
     receiverItems: [{ amount: 1, nft: getNftById('8hHFadIrrooORfTOLkBg') }],
     sender: {
-      discordId: '884593489189433364',
-      discordUsername: 'crewnft_',
-      discordAvatar: '6080eecbd12f0f7bb2299690661535cf',
-      discordBanner: '17f80cca207c35c7fa6d0194696c5e7b',
+      discord: {
+        username: 'crewnft_',
+        avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png'
+      },
       username: 'crewnft_',
       wallet: {
         address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',

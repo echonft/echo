@@ -1,23 +1,21 @@
 import type { UserResponse } from '@echo/api/types/responses/model/user-response'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { SizeLG } from '@echo/ui/constants/size'
-import { mapUserFromResponse } from '@echo/ui/mappers/from-api/map-user-from-response'
 import { head, isNil } from 'ramda'
-import { type FunctionComponent, useMemo } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   response: UserResponse
 }
 
 export const UserDetailsApiProvided: FunctionComponent<Props> = ({ response }) => {
-  const user = useMemo(() => mapUserFromResponse(response), [response])
-  const { discordUsername, discordBanner, discordId, discordAvatar, wallets } = user
+  const { discord, wallets } = response
   return (
     <UserDetails
-      discordUsername={discordUsername}
-      discordBanner={discordBanner}
-      discordId={discordId}
-      discordAvatar={discordAvatar}
+      discordUsername={discord.username}
+      discordBannerColor={discord.bannerColor}
+      discordBannerUrl={discord.bannerUrl}
+      discordAvatarUrl={discord.avatarUrl}
       wallet={isNil(wallets) ? undefined : head(wallets)}
       size={SizeLG}
     />

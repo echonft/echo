@@ -24,7 +24,7 @@ export const NftThumbnail: FunctionComponent<Props> = ({ nft, linkDisabled, hide
           <NftThumbnailPicture alt={name} pictureUrl={thumbnailUrl} />
           <HideIf condition={Boolean(hideOwner)}>
             <div className={clsx('absolute', 'bottom-2', 'left-2', 'z-10')}>
-              <UserDiscordTagOffer owner={owner.discordUsername} />
+              <UserDiscordTagOffer owner={owner.discord.username} />
             </div>
           </HideIf>
         </div>

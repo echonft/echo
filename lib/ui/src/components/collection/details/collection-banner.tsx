@@ -3,15 +3,15 @@ import { SizeLG, SizeMD } from '@echo/ui/constants/size'
 import { getBannerPictureSize } from '@echo/ui/helpers/get-banner-picture-size'
 import type { BannerPictureSize } from '@echo/ui/types/banner-picture-size'
 import { clsx } from 'clsx'
-import { isNil } from 'ramda'
+import { identity, ifElse, is, isNil, prop } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 export interface BannerProps {
-  bannerUrl: URL | undefined
+  bannerUrl: URL | string | undefined
   bannerSize?: BannerPictureSize
 }
 
-export const Banner: FunctionComponent<BannerProps> = ({ bannerUrl, bannerSize = SizeLG }) => {
+export const CollectionBanner: FunctionComponent<BannerProps> = ({ bannerUrl, bannerSize = SizeLG }) => {
   if (isNil(bannerUrl)) {
     return (
       <>
@@ -43,7 +43,11 @@ export const Banner: FunctionComponent<BannerProps> = ({ bannerUrl, bannerSize =
   return (
     <div
       style={{
-        backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, #121212 100%), url('${bannerUrl.href}')`
+        backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, #121212 100%), url('${ifElse(
+          is(String),
+          identity,
+          prop('href')
+        )(bannerUrl)}')`
       }}
       className={clsx(
         'absolute',

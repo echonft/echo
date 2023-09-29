@@ -3,10 +3,12 @@ import { InvalidButtonActionError } from '@echo/bot/errors/invalid-button-action
 import { InvalidButtonDataError } from '@echo/bot/errors/invalid-button-data-error'
 import { InvalidButtonIdError } from '@echo/bot/errors/invalid-button-id-error'
 import { OfferNotFoundError } from '@echo/bot/errors/offer-not-found-error'
+import { UserNotFoundError } from '@echo/bot/errors/user-not-found-error'
 import { ButtonAction, buttonIdPrefixes } from '@echo/bot/types/models/button-action'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { ButtonComponent, ButtonInteraction } from 'discord.js'
-import { andThen, curry, drop, isEmpty, isNil, pipe } from 'ramda'
+import { drop, isEmpty, isNil } from 'ramda'
 
 function getSplitId(customId: string): string[] {
   try {
@@ -37,7 +39,7 @@ function getData(action: ButtonAction, splitId: string[]): string[] {
   return data
 }
 
-export function executeForButton(interaction: ButtonInteraction) {
+export async function executeForButton(interaction: ButtonInteraction) {
   const customId = (interaction.component as ButtonComponent).customId
   if (isNil(customId)) {
     throw new InvalidButtonIdError()
@@ -57,7 +59,17 @@ export function executeForButton(interaction: ButtonInteraction) {
       }
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      return pipe(findOfferById, andThen(curry(executeBuy)(interaction)))(offerId)
+      const offer = await findOfferById(offerId)
+      if (!isNil(offer)) {
+        const sender = await findUserByUsername(offer.sender.username)
+        if (!isNil(sender)) {
+          return executeBuy(interaction, offer, sender)
+        } else {
+          throw new UserNotFoundError(offer.sender.username)
+        }
+      } else {
+        throw new OfferNotFoundError(offerId)
+      }
     case ButtonAction.REJECT:
       // TODO
       throw new InvalidButtonActionError(action)

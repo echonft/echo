@@ -1,4 +1,4 @@
-import { Banner as Component } from '@echo/ui/components/shared/banner'
+import { CollectionBanner as Component } from '@echo/ui/components/collection/details/collection-banner'
 import { getCollectionById } from '@mocks/model/collection'
 import type { Meta, StoryObj } from '@storybook/react'
 

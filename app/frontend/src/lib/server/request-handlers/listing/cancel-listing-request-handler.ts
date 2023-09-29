@@ -12,7 +12,7 @@ export async function cancelListingRequestHandler(req: ApiRequest<never>, listin
   assertListing(listing)
   assertListingState(listing, 'OPEN')
   const user = await getUserFromRequest(req)
-  assertListingCreatorIs(listing, user.name)
+  assertListingCreatorIs(listing, user.username)
   await cancelListing(listingId)
   return emptyResponse()
 }

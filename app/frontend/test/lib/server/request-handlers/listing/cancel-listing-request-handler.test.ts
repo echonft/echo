@@ -1,5 +1,5 @@
 import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
-import type { AuthUser } from '@echo/ui/types/model/auth-user'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@server/helpers/error/api-error'
 import { cancelListing } from '@server/helpers/listing/cancel-listing'
 import { getListing } from '@server/helpers/listing/get-listing'
@@ -13,11 +13,7 @@ jest.mock('@server/helpers/listing/cancel-listing')
 
 describe('request-handlers - listing - cancelListingRequestHandler', () => {
   const listingId = 'listingId'
-  const user: AuthUser = {
-    id: 'user-id',
-    name: 'user-name',
-    image: 'user-image'
-  }
+  const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -65,7 +61,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest
       .mocked(getListing)
-      .mockResolvedValueOnce({ state: 'OPEN', creator: { username: 'user-name' } } as FirestoreListing)
+      .mockResolvedValueOnce({ state: 'OPEN', creator: { username: 'johnnycagewins' } } as FirestoreListing)
     jest.mocked(cancelListing).mockResolvedValueOnce()
     const req = mockRequest<never>()
     const res = await cancelListingRequestHandler(req, listingId)

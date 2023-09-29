@@ -5,14 +5,14 @@ import { listingLink } from '@echo/bot/routing/listing-link'
 import { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
 import type { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
-import { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
+import { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
 import { APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import { flatten, map, prop } from 'ramda'
 
-export function buildListingEmbed(listing: FirestoreListing, listingCreator: FirestoreUserDetails) {
+export function buildListingEmbed(listing: FirestoreListing, listingCreator: FirestoreUser) {
   return new EmbedBuilder()
     .setTitle(title())
-    .setDescription(description(listingCreator.discordId))
+    .setDescription(description(listingCreator.discord.id))
     .setColor(color())
     .setFields(fields(listing.items, listing.targets))
     .setURL(listingLink(listingCreator.username))

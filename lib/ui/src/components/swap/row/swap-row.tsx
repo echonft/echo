@@ -13,9 +13,9 @@ export const SwapRow: FunctionComponent<Props> = ({ offer }) => {
   const { sender, senderItems, receiverItems, receiver } = offer
   return (
     <SwapRowLayout>
-      <OfferItemsContainer items={senderItems} discordUsername={sender.discordUsername} />
+      <OfferItemsContainer items={senderItems} discordUsername={sender.discord.username} />
       <OfferRowSwapIcon />
-      <OfferItemsContainer items={receiverItems} discordUsername={receiver.discordUsername} />
+      <OfferItemsContainer items={receiverItems} discordUsername={receiver.discord.username} />
     </SwapRowLayout>
   )
 }

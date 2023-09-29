@@ -21,7 +21,7 @@ export async function createListingRequestHandler(req: ApiRequest<CreateListingR
   const listingTargets = await getListingTargets(targets)
   // make sure the creator is the owner of every item
   forEach((item: FirestoreListingItem) => {
-    assertNftOwner(item.nft, creator.name)
+    assertNftOwner(item.nft, creator.username)
   }, listingItems)
   const listing = await createListing(listingItems, listingTargets)
   return NextResponse.json<GetListingResponse>({ listing: mapListingToResponse(listing) })

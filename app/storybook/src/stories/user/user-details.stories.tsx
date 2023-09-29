@@ -1,8 +1,6 @@
 import { UserDetails as Component } from '@echo/ui/components/user/details/user-details'
 import { SizeLG } from '@echo/ui/constants/size'
-import { getUserById } from '@mocks/model/user'
 import type { Meta, StoryObj } from '@storybook/react'
-import { head } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'User/Details ',
@@ -16,7 +14,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['discordUsername', 'discordAvatar', 'discordBanner', 'discordId', 'wallet']
+      exclude: ['discordUsername', 'discordBannerUrl', 'discordAvatarUrl', 'wallet']
     }
   }
 }
@@ -25,15 +23,13 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const { discordUsername, discordBanner, discordAvatar, discordId, wallets } = getUserById('6rECUMhevHfxABZ1VNOm')
-
 export const Details: Story = {
   args: {
-    discordUsername,
-    discordAvatar,
-    discordBanner,
-    discordId,
-    wallet: head(wallets!),
+    discordUsername: 'johnnycagewins',
+    discordBannerColor: '#d11bd9',
+    discordBannerUrl: undefined,
+    discordAvatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png',
+    wallet: { address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', chainId: 1 },
     size: SizeLG
   }
 }

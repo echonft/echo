@@ -12,7 +12,7 @@ export async function acceptOfferRequestHandler(req: ApiRequest<never>, offerId:
   assertOffer(offer)
   assertOfferState(offer, 'OPEN')
   const user = await getUserFromRequest(req)
-  assertOfferReceiverIs(offer, user.name)
+  assertOfferReceiverIs(offer, user.username)
   await acceptOffer(offerId)
   return emptyResponse()
 }

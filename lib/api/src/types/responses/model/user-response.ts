@@ -1,10 +1,13 @@
 import type { WalletResponse } from '@echo/api/types/responses/model/wallet-response'
 
 export interface UserResponse {
-  discordAvatar?: string
-  discordBanner?: string
-  discordId: string
-  discordUsername: string
+  discord: {
+    avatarUrl: string
+    avatarDecorationUrl?: string
+    bannerColor: string
+    bannerUrl?: string
+    username: string
+  }
   username: string
-  wallets: Array<WalletResponse>
+  wallets: WalletResponse[]
 }

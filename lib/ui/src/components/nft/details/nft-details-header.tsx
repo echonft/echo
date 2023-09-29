@@ -39,7 +39,7 @@ export const NftDetailsHeader: FunctionComponent<Props> = ({ collectionName, tok
           )}
         >
           <DiscordIconSvg width={20} />
-          <span className={clsx('prose-label-lg', 'text-white')}>{owner.discordUsername}</span>
+          <span className={clsx('prose-label-lg', 'text-white')}>{owner.discord.username}</span>
         </div>
       </InternalLink>
     </div>

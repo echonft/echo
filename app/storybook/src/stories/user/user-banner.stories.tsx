@@ -1,5 +1,4 @@
 import { UserBanner as Component } from '@echo/ui/components/user/details/user-banner'
-import { getUserById } from '@mocks/model/user'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -7,7 +6,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   parameters: {
     controls: {
-      exclude: ['discordBanner', 'discordId']
+      exclude: ['discordBannerUrl', 'discordBannerColor']
     }
   }
 }
@@ -16,17 +15,17 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const { discordBanner, discordId } = getUserById('6rECUMhevHfxABZ1VNOm')
 export const Standard: Story = {
   args: {
-    discordBanner,
-    discordId
+    // TODO we need an URL
+    discordBannerUrl: undefined,
+    discordBannerColor: '#d11bd9'
   }
 }
 
 export const Default: Story = {
   args: {
-    discordBanner: undefined,
-    discordId
+    discordBannerUrl: undefined,
+    discordBannerColor: '#d11bd9'
   }
 }
