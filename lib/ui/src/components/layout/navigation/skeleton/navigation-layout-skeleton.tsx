@@ -5,7 +5,7 @@ import type { NavigationItemId } from '@echo/ui/types/navigation-item-id'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
-  navigationItems: Array<NavigationItem>
+  navigationItems: NavigationItem[]
   activeNavigationItem: NavigationItemId
 }
 

@@ -1,9 +1,8 @@
 import { authOptions } from '@constants/auth-options'
 import { offerApiUrl } from '@echo/api/routing/offer-api-url'
 import type { GetOfferResponse } from '@echo/api/types/responses/get-offer-response'
-import { OfferDetailsApiProvided } from '@echo/ui/components/offer/details/offer-details-api-provided'
+import { OfferDetailsApiProvided } from '@echo/ui/components/offer/api-provided/offer-details-api-provided'
 import { fetcher } from '@helpers/fetcher'
-import { clsx } from 'clsx'
 import { getServerSession } from 'next-auth/next'
 import { isNil } from 'ramda'
 import type { FunctionComponent, PropsWithChildren } from 'react'
@@ -14,7 +13,7 @@ interface Props {
   }
 }
 
-const OfferLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { offerId }, children }) => {
+const OfferPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { offerId } }) => {
   const session = await getServerSession(authOptions)
   const { data, error } = await fetcher(offerApiUrl(offerId)).fetch<GetOfferResponse>()
 
@@ -25,15 +24,7 @@ const OfferLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params
     throw Error()
   }
 
-  return (
-    <>
-      <section className={clsx('w-full')}>
-        {/* TODO Should there be a way to get non optional user if the route is authenticated */}
-        <OfferDetailsApiProvided offerResponse={data.offer} user={session!.user} />
-      </section>
-      <section className={clsx('w-full')}>{children}</section>
-    </>
-  )
+  return <OfferDetailsApiProvided offerResponse={data.offer} user={session!.user} />
 }
 
-export default OfferLayout
+export default OfferPage

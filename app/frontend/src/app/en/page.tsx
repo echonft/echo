@@ -1,18 +1,21 @@
+import { authOptions } from '@constants/auth-options'
 import { allCollectionsApiUrl } from '@echo/api/routing/all-collections-api-url'
 import { allSwapsApiUrl } from '@echo/api/routing/all-swaps-api-url'
 import { GetCollectionsResponse } from '@echo/api/types/responses/get-collections-response'
 import { GetOffersResponse } from '@echo/api/types/responses/get-offers-response'
-import { Home } from '@echo/ui/components/home/home'
+import { HomePage } from '@echo/ui/components/home/layout/home-page'
 import { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
 import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { fetcher } from '@helpers/fetcher'
 import { mapCollectionFiltersToQueryParams } from '@helpers/request/map-collection-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { notFound } from 'next/navigation'
+import { getServerSession } from 'next-auth/next'
 import { isNil, mergeLeft } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-const HomePage: FunctionComponent = async () => {
+const Home: FunctionComponent = async () => {
+  const session = await getServerSession(authOptions)
   const collectionsConstraintsQueryParams = mapQueryConstraintsToQueryParams({
     select: ['id', 'slug', 'profilePictureUrl', 'name'],
     orderBy: [{ field: 'swapsCount', direction: 'desc' }, { field: 'name' }],
@@ -39,11 +42,12 @@ const HomePage: FunctionComponent = async () => {
   }
 
   return (
-    <Home
+    <HomePage
+      user={session?.user}
       collections={collectionsData.collections as unknown as NonEmptyArray<CollectionTileDetails>}
       offers={swapsData.offers}
     />
   )
 }
 
-export default HomePage
+export default Home

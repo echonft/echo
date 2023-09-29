@@ -5,39 +5,34 @@ import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import { ConnectButton } from '@echo/ui/components/layout/header/connect-button'
 import { DisconnectButton } from '@echo/ui/components/layout/header/disconnect-button'
+import { HeaderLayout, HeaderLayoutProps } from '@echo/ui/components/layout/header/header-layout'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
+import { messages } from '@echo/ui/messages/en'
 import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { clsx } from 'clsx'
+import { NextIntlClientProvider } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
-interface Props {
+interface Props extends HeaderLayoutProps {
   user: AuthUser | undefined
 }
 
-export const Header: FunctionComponent<Props> = ({ user }) => {
+export const Header: FunctionComponent<Props> = ({ user, absolute }) => {
   return (
-    <header
-      className={clsx(
-        'bg-transparent',
-        'border',
-        'border-b-2',
-        'border-solid',
-        'border-black/[0.09]',
-        'w-full',
-        'h-max'
-      )}
-    >
-      <PaddedContainer>
-        <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-12')}>
-          <InternalLink path={'/'}>
-            <EchoLogoSvg width={144} />
-          </InternalLink>
-          <HideIfNil checks={user} render={(user) => <DisconnectButton user={user} />} />
-          <ShowIfNil checks={user}>
-            <ConnectButton />
-          </ShowIfNil>
-        </div>
-      </PaddedContainer>
-    </header>
+    <NextIntlClientProvider messages={messages} locale={'en'}>
+      <HeaderLayout absolute={absolute}>
+        <PaddedContainer>
+          <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-6')}>
+            <InternalLink path={'/'}>
+              <EchoLogoSvg width={144} />
+            </InternalLink>
+            <HideIfNil checks={user} render={(user) => <DisconnectButton user={user} />} />
+            <ShowIfNil checks={user}>
+              <ConnectButton />
+            </ShowIfNil>
+          </div>
+        </PaddedContainer>
+      </HeaderLayout>
+    </NextIntlClientProvider>
   )
 }

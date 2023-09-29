@@ -3,5 +3,3 @@ next-env.d.ts
 src/i18n.ts
 jest.config.ts
 next.config.js
-postcss.config.js
-tailwind.config.ts

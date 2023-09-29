@@ -7,11 +7,11 @@ import { NftFilterTraits } from '@echo/ui/constants/nft-filter'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { mapNftFromResponse } from '@echo/ui/mappers/from-api/map-nft-from-response'
 import { mapNftToOfferItem } from '@echo/ui/mappers/map-nft-to-offer-item'
+import { getTranslator } from '@echo/ui/messages/get-translator'
 import { AuthUser } from '@echo/ui/types/model/auth-user'
 import type { Nft } from '@echo/ui/types/model/nft'
 import { isIn } from '@echo/utils/fp/is-in'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { useTranslations } from 'next-intl'
 import { filter, map, pipe, prop } from 'ramda'
 import { type FunctionComponent, useCallback, useMemo } from 'react'
 
@@ -22,7 +22,7 @@ interface Props {
 }
 
 export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collectionSlug, responses, user }) => {
-  const t = useTranslations('collection.button')
+  const t = getTranslator()
   const mappedNfts = useMemo(() => map(mapNftFromResponse, responses), [responses]) as NonEmptyArray<Nft>
   const { setReceiverItems, hasNewOfferPending } = useNewOfferStore()
 
@@ -37,7 +37,7 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
       <SelectableNftsAndFiltersContainer
         nfts={mappedNfts}
         availableFilters={[NftFilterTraits]}
-        btnLabel={t(hasNewOfferPending() ? 'edit' : 'create')}
+        btnLabel={t(hasNewOfferPending() ? 'collection.button.edit' : 'collection.button.create')}
         onMakeOffer={onMakeOffer}
       />
     </CollectionNavigationLayout>

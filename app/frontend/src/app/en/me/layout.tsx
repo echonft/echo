@@ -1,6 +1,7 @@
 import { authOptions } from '@constants/auth-options'
+import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
+import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { ProfileDetailsApiProvided } from '@echo/ui/components/profile/api-provided/profile-details-api-provided'
-import { clsx } from 'clsx'
 import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { isNil } from 'ramda'
@@ -14,12 +15,12 @@ const ProfileLayout: FunctionComponent<PropsWithChildren> = async ({ children })
   }
 
   return (
-    <>
-      <section className={clsx('w-full')}>
+    <NavigationPageLayout user={session?.user}>
+      <SectionLayout>
         <ProfileDetailsApiProvided user={session.user} />
-      </section>
-      <section className={clsx('w-full')}>{children}</section>
-    </>
+      </SectionLayout>
+      <SectionLayout>{children}</SectionLayout>
+    </NavigationPageLayout>
   )
 }
 

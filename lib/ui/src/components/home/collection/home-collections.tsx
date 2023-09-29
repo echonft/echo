@@ -7,7 +7,7 @@ import { min, slice } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  collections: Array<CollectionTileDetails>
+  collections: CollectionTileDetails[]
   topCollectionsCount?: number
   rankedCollectionsCount?: number
 }
