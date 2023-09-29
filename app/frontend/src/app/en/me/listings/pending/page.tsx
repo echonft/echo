@@ -39,7 +39,7 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
     throw Error()
   }
 
-  return <ProfileListingsReceivedApiProvided responses={data.listings} />
+  return <ProfileListingsReceivedApiProvided responses={data.listings} user={session.user} />
 }
 
 export default ProfileListingsReceivedPage

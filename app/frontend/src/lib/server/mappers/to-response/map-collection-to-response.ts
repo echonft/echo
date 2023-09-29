@@ -3,11 +3,11 @@ import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-col
 import { modifyUrlPropToString } from '@echo/utils/fp/modify-url-prop-to-string'
 import { modify, pick, pipe } from 'ramda'
 
-export function mapCollectionToResponse(collection: Partial<FirestoreNftCollection>): CollectionResponse {
+export function mapCollectionToResponse(collection: FirestoreNftCollection): CollectionResponse {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return pipe(
-    modifyUrlPropToString<'bannerUrl', Partial<FirestoreNftCollection>>('bannerUrl'),
+    modifyUrlPropToString<'bannerUrl', FirestoreNftCollection>('bannerUrl'),
     modifyUrlPropToString('blurUrl'),
     modifyUrlPropToString('discordUrl'),
     modifyUrlPropToString('openSeaUrl'),

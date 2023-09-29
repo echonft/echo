@@ -2,7 +2,7 @@ import type { FirestoreDiscordUser } from '@echo/firestore/types/model/discord-u
 import type { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
 import { filter, isNil, map, pipe, prop, propEq } from 'ramda'
 
-function internalFn(chainId: number): (user: Partial<FirestoreDiscordUser>) => string[] {
+function internalFn(chainId: number): (user: FirestoreDiscordUser) => string[] {
   return pipe(
     prop<FirestoreWallet[]>('wallets'),
     filter(propEq(chainId, 'chainId')),
@@ -10,12 +10,12 @@ function internalFn(chainId: number): (user: Partial<FirestoreDiscordUser>) => s
   )
 }
 
-export function getUserWalletAddresses(chainId: number, user: Partial<FirestoreDiscordUser>): string[]
-export function getUserWalletAddresses(chainId: number): (user: Partial<FirestoreDiscordUser>) => string[]
+export function getUserWalletAddresses(chainId: number, user: FirestoreDiscordUser): string[]
+export function getUserWalletAddresses(chainId: number): (user: FirestoreDiscordUser) => string[]
 export function getUserWalletAddresses(
   chainId: number,
-  user?: Partial<FirestoreDiscordUser>
-): string[] | ((user: Partial<FirestoreDiscordUser>) => string[]) {
+  user?: FirestoreDiscordUser
+): string[] | ((user: FirestoreDiscordUser) => string[]) {
   if (isNil(user)) {
     return internalFn(chainId)
   }

@@ -6,7 +6,7 @@ import { single } from '@echo/utils/fp/single'
 import type { Query } from 'firebase-admin/lib/firestore'
 import { head, isNil } from 'ramda'
 
-export function addOfferQueryFilters(query: Query<Partial<FirestoreOffer>>, filters?: OfferQueryFilters) {
+export function addOfferQueryFilters(query: Query<FirestoreOffer>, filters?: OfferQueryFilters) {
   if (isNil(filters)) {
     return query
   }

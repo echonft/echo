@@ -3,17 +3,17 @@ import { discordUserDocumentDataMock } from '@echo/firestore-mocks/discord-user/
 import { discordUserReferenceMock } from '@echo/firestore-mocks/discord-user/discord-user-reference-mock'
 import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 
-export const discordUserSnapshotMock: { [key: string]: QueryDocumentSnapshot<DiscordUserDocumentData> } = {
+export const discordUserSnapshotMock: Record<string, QueryDocumentSnapshot<DiscordUserDocumentData>> = {
   WpgDZHmdpvHjykHRRWp7: {
-    ref: discordUserReferenceMock['WpgDZHmdpvHjykHRRWp7']!,
-    id: discordUserReferenceMock['WpgDZHmdpvHjykHRRWp7']!.id,
+    ref: discordUserReferenceMock.WpgDZHmdpvHjykHRRWp7!,
+    id: discordUserReferenceMock.WpgDZHmdpvHjykHRRWp7!.id,
     exists: true,
-    data: () => discordUserDocumentDataMock['WpgDZHmdpvHjykHRRWp7']
+    data: () => discordUserDocumentDataMock.WpgDZHmdpvHjykHRRWp7
   } as unknown as QueryDocumentSnapshot<DiscordUserDocumentData>,
   be5KGz2BfBRYbA1mCKQp: {
-    ref: discordUserReferenceMock['be5KGz2BfBRYbA1mCKQp']!,
-    id: discordUserReferenceMock['be5KGz2BfBRYbA1mCKQp']!.id,
+    ref: discordUserReferenceMock.be5KGz2BfBRYbA1mCKQp!,
+    id: discordUserReferenceMock.be5KGz2BfBRYbA1mCKQp!.id,
     exists: true,
-    data: () => discordUserDocumentDataMock['be5KGz2BfBRYbA1mCKQp']
+    data: () => discordUserDocumentDataMock.be5KGz2BfBRYbA1mCKQp
   } as unknown as QueryDocumentSnapshot<DiscordUserDocumentData>
 }

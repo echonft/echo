@@ -15,11 +15,11 @@ export async function getListingsForCollection(
   collectionId: string,
   filters?: ListingQueryFilters,
   constraints?: QueryConstraints
-): Promise<Partial<FirestoreListing>[]> {
+): Promise<FirestoreListing[]> {
   const resultsAsItem = await getListingsForCollectionAsItem(collectionId, filters, constraints)
   const resultsAsTarget = await getListingsForCollectionAsTarget(collectionId, filters, constraints)
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  return pipe(concat, uniqWith(eqProps('id')))(resultsAsItem, resultsAsTarget) as Partial<FirestoreListing>[]
+  return pipe(concat, uniqWith(eqProps('id')))(resultsAsItem, resultsAsTarget) as FirestoreListing[]
 }

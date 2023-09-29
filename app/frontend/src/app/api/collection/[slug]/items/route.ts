@@ -7,7 +7,6 @@ import { handleRequest } from '@server/request-handlers/handle-request'
  *  - query constraints see {@link QueryConstraintsQueryParams}
  * @param request
  * @param params
- * @constructor
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { slug: string } }) {
   return await handleRequest(request, getCollectionNftsRequestHandler, params.slug)

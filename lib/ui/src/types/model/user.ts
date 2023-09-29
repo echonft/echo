@@ -6,5 +6,5 @@ export interface User {
   discordId: string
   discordUsername: string
   username: string
-  wallets?: Array<Wallet>
+  wallets?: Wallet[]
 }

@@ -1,13 +1,13 @@
+import { OfferResponse } from '@echo/api/types/responses/model/offer-response'
 import { HomeSectionLayout } from '@echo/ui/components/home/layout/home-section-layout'
 import { RecentSwapsLayout } from '@echo/ui/components/home/swap/layout/recent-swaps-layout'
 import { SwapRow } from '@echo/ui/components/swap/row/swap-row'
 import { getTranslator } from '@echo/ui/messages/get-translator'
-import type { Offer } from '@echo/ui/types/model/offer'
 import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  offers: Array<Offer>
+  offers: OfferResponse[]
 }
 
 export const RecentSwaps: FunctionComponent<Props> = ({ offers }) => {

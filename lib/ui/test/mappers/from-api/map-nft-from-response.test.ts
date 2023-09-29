@@ -1,3 +1,4 @@
+import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
 import type { NftResponse } from '@echo/api/types/responses/model/nft-response'
 import { mapNftFromResponse } from '@echo/ui/mappers/from-api/map-nft-from-response'
 import { describe, expect, it } from '@jest/globals'
@@ -14,7 +15,7 @@ describe('mappers - from-api - mapNftFromResponse', () => {
       collection: {
         id: 'collectionId',
         name: 'collectionName'
-      },
+      } as CollectionResponse,
       id: 'id',
       name: 'name',
       openSeaUrl: 'https://echo.xyz/',

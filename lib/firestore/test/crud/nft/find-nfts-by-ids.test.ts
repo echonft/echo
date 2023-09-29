@@ -29,6 +29,6 @@ describe('CRUD - nft - findNftsByIds', () => {
     const result3 = await findNftsByIds(['QFjMRNChUAHNswkRADXh', '8hHFadIrrooORfTOLkBg'])
     expect(result3.length).toEqual(2)
     expect(result3[0]).toStrictEqual(nftMock['8hHFadIrrooORfTOLkBg'])
-    expect(result3[1]).toStrictEqual(nftMock['QFjMRNChUAHNswkRADXh'])
+    expect(result3[1]).toStrictEqual(nftMock.QFjMRNChUAHNswkRADXh)
   })
 })

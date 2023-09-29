@@ -1,7 +1,7 @@
 import type { User } from '@echo/ui/types/model/user'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
-const users: { [key: string]: User } = {
+const users: Record<string, User> = {
   '6rECUMhevHfxABZ1VNOm': {
     discordId: '884593489189433364',
     discordUsername: 'crewnft_',

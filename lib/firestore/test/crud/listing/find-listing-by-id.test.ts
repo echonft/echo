@@ -19,6 +19,6 @@ describe('CRUD - listing - findListingById', () => {
 
   it('returns the listing with the given id', async () => {
     const listing = await findListingById('jUzMtPGKM62mMhEcmbN4')
-    expect(listing).toStrictEqual(listingMock['jUzMtPGKM62mMhEcmbN4'])
+    expect(listing).toStrictEqual(listingMock.jUzMtPGKM62mMhEcmbN4)
   })
 })

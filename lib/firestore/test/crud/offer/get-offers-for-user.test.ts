@@ -35,7 +35,7 @@ describe('CRUD - offer - getOffersForUser', () => {
     )
     const offers = await getOffersForUser(username, { includeExpired: true })
     expect(offers.length).toBe(userOfferMocks.length)
-    forEach((offer: Partial<FirestoreOffer>) => {
+    forEach((offer: FirestoreOffer) => {
       const offerMock = find(propEq(offer.id, 'id'), userOfferMocks)
       expect(offer).toStrictEqual(offerMock)
     }, offers)

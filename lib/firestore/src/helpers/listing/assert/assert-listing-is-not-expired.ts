@@ -5,8 +5,8 @@ import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { pipe, prop } from 'ramda'
 
 export function assertListingIsNotExpired(
-  listing: Partial<Partial<FirestoreListing>> | undefined
-): asserts listing is NonNullable<Partial<FirestoreListing>> {
+  listing: FirestoreListing | undefined
+): asserts listing is NonNullable<FirestoreListing> {
   assertListing(listing)
   if (propIsNil('expired', listing)) {
     // try with the date

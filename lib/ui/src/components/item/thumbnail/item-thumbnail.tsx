@@ -1,3 +1,5 @@
+import { ListingItemResponse } from '@echo/api/types/responses/model/listing-item-response'
+import { OfferItemResponse } from '@echo/api/types/responses/model/offer-item-response'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ItemThumbnailSelector } from '@echo/ui/components/item/thumbnail/item-thumbnail-selector'
 import { ItemThumbnailTitle } from '@echo/ui/components/item/thumbnail/item-thumbnail-title'
@@ -11,7 +13,7 @@ import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  item: OfferItem | ListingItem
+  item: OfferItem | ListingItem | OfferItemResponse | ListingItemResponse
   size: ItemThumbnailSize
   discordUsername?: string
   onRemove?: (itemNftId: string) => unknown

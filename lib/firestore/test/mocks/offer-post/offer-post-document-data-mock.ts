@@ -1,6 +1,6 @@
 import type { OfferPostDocumentData } from '@echo/firestore/types/model/offer-post/offer-post-document-data'
 
-export const offerPostDocumentDataMock: { [key: string]: OfferPostDocumentData } = {
+export const offerPostDocumentDataMock: Record<string, OfferPostDocumentData> = {
   hot4VWDzd6ZRsC3nsvnb: {
     id: 'hot4VWDzd6ZRsC3nsvnb',
     offerId: 'ASkFpKoHEHVH0gd69t1G',

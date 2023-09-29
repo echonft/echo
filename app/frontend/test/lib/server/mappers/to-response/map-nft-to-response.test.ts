@@ -1,5 +1,7 @@
+import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
 import type { NftResponse } from '@echo/api/types/responses/model/nft-response'
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import { mapNftToResponse } from '@server/mappers/to-response/map-nft-to-response'
 import { pick } from 'ramda'
@@ -20,7 +22,7 @@ describe('mappers - to-response - mapNftToResponse', () => {
       ],
       balance: 1,
       blurUrl: new URL('https://echo.xyz/'),
-      collection: pick(['id', 'name'], getNftCollectionMockById('1aomCtnoesD7WVll6Yi1')),
+      collection: pick(['id', 'name'], getNftCollectionMockById('1aomCtnoesD7WVll6Yi1')) as FirestoreNftCollection,
       name: 'Spiral Frequencies #1376',
       owner: {
         discordId: '462798252543049728',
@@ -55,7 +57,7 @@ describe('mappers - to-response - mapNftToResponse', () => {
       collection: {
         id: '1aomCtnoesD7WVll6Yi1',
         name: 'Spiral Frequencies'
-      },
+      } as CollectionResponse,
       name: 'Spiral Frequencies #1376',
       owner: {
         discordId: '462798252543049728',

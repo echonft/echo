@@ -1,6 +1,6 @@
 import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/nft-collection-discord-guild/firestore-nft-collection-discord-guild'
 
-export const nftCollectionDiscordGuildMock: { [key: string]: FirestoreNftCollectionDiscordGuild } = {
+export const nftCollectionDiscordGuildMock: Record<string, FirestoreNftCollectionDiscordGuild> = {
   FTtQ8IaJAffIaSk66Fy6: {
     id: 'FTtQ8IaJAffIaSk66Fy6',
     collectionId: 'Rc8pLQXxgyQGIRL0fr13',

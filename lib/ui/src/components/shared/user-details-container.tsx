@@ -14,8 +14,6 @@ interface Props {
  * Shared between listings and offers
  * Shows the picture of the user (if listing = creator, if offer = sender) and their wallet address
  * @param user
- * @param userWalletAddress
- * @constructor
  */
 export const UserDetailsContainer: FunctionComponent<Props> = ({ user }) => {
   const { discordUsername, discordId, discordAvatar, wallet } = user

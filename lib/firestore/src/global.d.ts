@@ -6,4 +6,10 @@ export declare global {
       FIREBASE_PRIVATE_KEY: string
     }
   }
+
+  declare namespace FirebaseFirestore {
+    interface FirestoreDataConverter<T> {
+      toFirestore(modelObject: PartialWithFieldValue<T>): DocumentData
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { always, dissoc, has, ifElse, isNil, modify, when } from 'ramda'
 
-function internalFn<K extends keyof T, T>(propKey: K): (obj: T) => T | (T & Record<K, string>) {
+function internalFn<K extends keyof T, T>(propKey: K): (obj: T) => Omit<T, K> & Record<K, string> {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return when(
@@ -12,12 +12,12 @@ function internalFn<K extends keyof T, T>(propKey: K): (obj: T) => T | (T & Reco
   )
 }
 
-export function modifyBooleanPropToString<K extends keyof T, T>(propKey: K, obj: T): T | (T & Record<K, string>)
-export function modifyBooleanPropToString<K extends keyof T, T>(propKey: K): (obj: T) => T | (T & Record<K, string>)
+export function modifyBooleanPropToString<K extends keyof T, T>(propKey: K, obj: T): Omit<T, K> & Record<K, string>
+export function modifyBooleanPropToString<K extends keyof T, T>(propKey: K): (obj: T) => Omit<T, K> & Record<K, string>
 export function modifyBooleanPropToString<K extends keyof T, T>(
   propKey: K,
   obj?: T
-): (T | (T & Record<K, string>)) | ((obj: T) => T | (T & Record<K, string>)) {
+): (Omit<T, K> & Record<K, string>) | ((obj: T) => Omit<T, K> & Record<K, string>) {
   if (isNil(obj)) {
     return internalFn<K, T>(propKey)
   }

@@ -19,6 +19,6 @@ describe('CRUD - offer - findOfferById', () => {
 
   it('returns the offer with the given id', async () => {
     const offer = await findOfferById('LyCfl6Eg7JKuD7XJ6IPi')
-    expect(offer).toStrictEqual(offerMock['LyCfl6Eg7JKuD7XJ6IPi'])
+    expect(offer).toStrictEqual(offerMock.LyCfl6Eg7JKuD7XJ6IPi)
   })
 })

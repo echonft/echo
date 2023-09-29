@@ -10,10 +10,10 @@ export interface NftResponse {
   }[]
   balance: number
   blurUrl?: string
-  collection: Partial<CollectionResponse>
+  collection: CollectionResponse
   name: string
   openSeaUrl?: string
-  owner: Partial<UserDetailsResponse>
+  owner: UserDetailsResponse
   pictureUrl: string
   thumbnailUrl: string
   tokenId: number

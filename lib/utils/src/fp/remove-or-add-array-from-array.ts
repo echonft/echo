@@ -2,10 +2,10 @@ import { removeOrAddFromArray } from '@echo/utils/fp/remove-or-add-from-array'
 import { head, isEmpty, tail, uniqWith } from 'ramda'
 
 function removeOrAddArrayFromArrayRecursive<T>(
-  list: Array<T>,
-  items: Array<T>,
+  list: T[],
+  items: T[],
   comparator: (objA: never, objB: never) => boolean
-): Array<T> {
+): T[] {
   if (isEmpty(items)) {
     return list
   }
@@ -17,10 +17,10 @@ function removeOrAddArrayFromArrayRecursive<T>(
 }
 
 export function removeOrAddArrayFromArray<T>(
-  list: Array<T>,
-  items: Array<T>,
+  list: T[],
+  items: T[],
   comparator: (objA: never, objB: never) => boolean
-): Array<T> {
+): T[] {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return removeOrAddArrayFromArrayRecursive<T>(list, uniqWith<T>(comparator, items), comparator)

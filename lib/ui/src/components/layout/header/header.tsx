@@ -6,13 +6,15 @@ import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import { ConnectButton } from '@echo/ui/components/layout/header/connect-button'
 import { DisconnectButton } from '@echo/ui/components/layout/header/disconnect-button'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
+import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { clsx } from 'clsx'
-import { useSession } from 'next-auth/react'
 import type { FunctionComponent } from 'react'
 
-export const Header: FunctionComponent = () => {
-  const { data: session } = useSession()
+interface Props {
+  user: AuthUser | undefined
+}
 
+export const Header: FunctionComponent<Props> = ({ user }) => {
   return (
     <header
       className={clsx(
@@ -30,8 +32,8 @@ export const Header: FunctionComponent = () => {
           <InternalLink path={'/'}>
             <EchoLogoSvg width={144} />
           </InternalLink>
-          <HideIfNil checks={session} render={(session) => <DisconnectButton user={session.user} />} />
-          <ShowIfNil checks={session}>
+          <HideIfNil checks={user} render={(user) => <DisconnectButton user={user} />} />
+          <ShowIfNil checks={user}>
             <ConnectButton />
           </ShowIfNil>
         </div>

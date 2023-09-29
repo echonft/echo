@@ -1,10 +1,6 @@
 import { concat, findIndex, partial, remove } from 'ramda'
 
-export function removeOrAddFromArray<T>(
-  list: Array<T>,
-  item: T,
-  comparator: (objA: never, objB: never) => boolean
-): Array<T> {
+export function removeOrAddFromArray<T>(list: T[], item: T, comparator: (objA: never, objB: never) => boolean): T[] {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const pred = partial(comparator, [item]) as (obj: T) => boolean

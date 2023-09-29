@@ -1,7 +1,7 @@
 import type { NftDocumentData } from '@echo/firestore/types/model/nft/nft-document-data'
 import { nftCollectionDocumentDataMock } from '@echo/firestore-mocks/nft-collection/nft-collection-document-data-mock'
 
-export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
+export const nftDocumentDataMock: Record<string, NftDocumentData> = {
   '8hHFadIrrooORfTOLkBg': {
     id: '8hHFadIrrooORfTOLkBg',
     attributes: [
@@ -206,7 +206,7 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
       }
     ],
     balance: 1,
-    collection: nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']!,
+    collection: nftCollectionDocumentDataMock.Rc8pLQXxgyQGIRL0fr13!,
     name: 'Creative Demigod #024',
     owner: {
       discordId: '462798252543049728',
@@ -267,7 +267,7 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
       }
     ],
     balance: 1,
-    collection: nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']!,
+    collection: nftCollectionDocumentDataMock.Rc8pLQXxgyQGIRL0fr13!,
     name: 'Water Elemental #020',
     owner: {
       discordId: '462798252543049728',
@@ -332,7 +332,7 @@ export const nftDocumentDataMock: { [key: string]: NftDocumentData } = {
       }
     ],
     balance: 1,
-    collection: nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']!,
+    collection: nftCollectionDocumentDataMock.Rc8pLQXxgyQGIRL0fr13!,
     name: 'Creative Demigod #009',
     owner: {
       discordId: '884593489189433364',

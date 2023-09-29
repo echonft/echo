@@ -8,23 +8,25 @@ import { ProfileNavigationLayout } from '@echo/ui/components/profile/profile-nav
 import { NavigationOffersCreated } from '@echo/ui/constants/navigation-item'
 import { OfferRoleSender } from '@echo/ui/constants/offer-role'
 import { mapOfferFromResponse } from '@echo/ui/mappers/from-api/map-offer-from-response'
+import { AuthUser } from '@echo/ui/types/model/auth-user'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { assoc, isEmpty, map, pipe } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
-  responses: Array<Partial<OfferResponse>>
+  responses: OfferResponse[]
+  user: AuthUser
 }
 
-export const ProfileOffersCreatedApiProvided: FunctionComponent<Props> = ({ responses }) => {
+export const ProfileOffersCreatedApiProvided: FunctionComponent<Props> = ({ responses, user }) => {
   const mappedOffers = useMemo(
     () => map(pipe(mapOfferFromResponse, assoc('role', OfferRoleSender)), responses),
     [responses]
-  ) as Array<OfferWithRole>
+  ) as OfferWithRole[]
   const dataIsEmpty = isEmpty(mappedOffers)
 
   return (
-    <ProfileNavigationLayout activeNavigationItem={NavigationOffersCreated}>
+    <ProfileNavigationLayout activeNavigationItem={NavigationOffersCreated} user={user}>
       <HideIf condition={dataIsEmpty}>
         <OfferRowsContainer offers={mappedOffers} />
       </HideIf>

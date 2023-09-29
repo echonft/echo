@@ -23,7 +23,7 @@ export async function addListing(
   const id = reference.id
   const newListing: FirestoreListing = {
     id,
-    creator: head(items).nft.owner!,
+    creator: head(items).nft.owner,
     createdAt: dayjs(),
     expired: false,
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'),

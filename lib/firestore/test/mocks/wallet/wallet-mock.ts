@@ -1,6 +1,6 @@
 import { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
 
-export const walletMock: { [key: string]: FirestoreWallet } = {
+export const walletMock: Record<string, FirestoreWallet> = {
   i28NWtlxElPXCnO0c6BC: {
     id: 'i28NWtlxElPXCnO0c6BC',
     userId: 'oE6yUEQBPn7PZ89yMjKn',

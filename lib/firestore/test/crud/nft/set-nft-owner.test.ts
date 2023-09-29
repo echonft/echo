@@ -11,7 +11,7 @@ import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-fires
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - nft - setNftOwner', () => {
-  let initialOwner: Partial<FirestoreUserDetails>
+  let initialOwner: FirestoreUserDetails
   const id = '8hHFadIrrooORfTOLkBg'
 
   beforeAll(async () => {

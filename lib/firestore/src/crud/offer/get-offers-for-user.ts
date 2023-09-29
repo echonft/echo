@@ -9,7 +9,7 @@ export async function getOffersForUser(
   username: string,
   filters?: OfferQueryFilters,
   constraints?: QueryConstraints
-): Promise<Partial<FirestoreOffer>[]> {
+): Promise<FirestoreOffer[]> {
   const offersAsReceiver = await getOffersForReceiver(username, filters, constraints)
   const offersAsSender = await getOffersForSender(username, filters, constraints)
 

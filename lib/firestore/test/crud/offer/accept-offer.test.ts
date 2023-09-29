@@ -1,7 +1,6 @@
 import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -25,7 +24,7 @@ describe('CRUD - offer - acceptOffer', () => {
   })
 
   beforeEach(async () => {
-    const offer = (await findOfferById(offerId)) as FirestoreOffer
+    const offer = (await findOfferById(offerId))!
     initialState = offer.state
     initialExpiresAt = offer.expiresAt
     initialUpdatedAt = offer.updatedAt
@@ -64,7 +63,7 @@ describe('CRUD - offer - acceptOffer', () => {
   it('accept offer', async () => {
     await updateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().add(1, 'day') })
     await acceptOffer(offerId)
-    const updatedOffer = (await findOfferById(offerId)) as FirestoreOffer
+    const updatedOffer = (await findOfferById(offerId))!
     expect(updatedOffer.state).toEqual('ACCEPTED')
     expectDateIsNow(updatedOffer.updatedAt)
   })

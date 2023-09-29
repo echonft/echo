@@ -8,7 +8,7 @@ import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  collections: Array<CollectionTileDetails>
+  collections: CollectionTileDetails[]
 }
 
 export const TopCollections: FunctionComponent<Props> = ({ collections }) => {

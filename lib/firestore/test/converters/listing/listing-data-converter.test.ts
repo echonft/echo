@@ -6,7 +6,7 @@ import { describe, expect, it } from '@jest/globals'
 
 describe('converters - listingDataConverter', () => {
   it('from Firestore conversion', () => {
-    const listingSnapshot = listingSnapshotMock['jUzMtPGKM62mMhEcmbN4']!
+    const listingSnapshot = listingSnapshotMock.jUzMtPGKM62mMhEcmbN4!
     const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
     expect(listingDataConverter.fromFirestore(listingSnapshot)).toStrictEqual(listing)
   })

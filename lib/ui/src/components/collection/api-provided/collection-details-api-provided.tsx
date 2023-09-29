@@ -5,7 +5,7 @@ import { mapCollectionFromResponse } from '@echo/ui/mappers/from-api/map-collect
 import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
-  response: Partial<CollectionResponse>
+  response: CollectionResponse
 }
 
 export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ response }) => {

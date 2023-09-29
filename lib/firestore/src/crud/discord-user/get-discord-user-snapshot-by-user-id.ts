@@ -1,10 +1,7 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { discordUserDataConverter } from '@echo/firestore/converters/discord-user/discord-user-data-converter'
+import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/get-query-snapshot-document-snapshot'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import type { FirestoreDiscordUser } from '@echo/firestore/types/model/discord-user/firestore-discord-user'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
-import { head } from 'ramda'
 
 export async function getDiscordUserSnapshotByUserId(userId: string) {
   const querySnapshot = await firestoreApp()
@@ -13,9 +10,5 @@ export async function getDiscordUserSnapshotByUserId(userId: string) {
     .withConverter(discordUserDataConverter)
     .get()
 
-  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
-    return undefined
-  }
-
-  return head(querySnapshot.docs) as QueryDocumentSnapshot<FirestoreDiscordUser>
+  return getQuerySnapshotDocumentSnapshot(querySnapshot)
 }

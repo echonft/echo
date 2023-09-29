@@ -5,7 +5,7 @@ import type { AuthUser } from '@echo/ui/types/model/auth-user'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  offerResponse: Partial<OfferResponse>
+  offerResponse: OfferResponse
   user: AuthUser
 }
 

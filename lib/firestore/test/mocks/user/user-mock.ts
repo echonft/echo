@@ -1,7 +1,7 @@
 import type { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
 import dayjs from 'dayjs'
 
-export const userMock: { [key: string]: FirestoreUser } = {
+export const userMock: Record<string, FirestoreUser> = {
   '6rECUMhevHfxABZ1VNOm': {
     id: '6rECUMhevHfxABZ1VNOm',
     image: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png',

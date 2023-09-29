@@ -1,3 +1,4 @@
+import { authOptions } from '@constants/auth-options'
 import { nftApiUrl } from '@echo/api/routing/nft-api-url'
 import { nftListingsApiUrl } from '@echo/api/routing/nft-listings-api-url'
 import type { GetListingsResponse } from '@echo/api/types/responses/get-listings-response'
@@ -7,6 +8,7 @@ import { fetcher } from '@helpers/fetcher'
 import { mapListingFiltersToQueryParams } from '@helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { clsx } from 'clsx'
+import { getServerSession } from 'next-auth/next'
 import { isNil, mergeLeft } from 'ramda'
 import type { FunctionComponent } from 'react'
 
@@ -18,6 +20,7 @@ interface Props {
 }
 
 const NftPage: FunctionComponent<Props> = async ({ params: { slug, tokenId } }) => {
+  const session = await getServerSession(authOptions)
   const { data, error } = await fetcher(nftApiUrl(slug, tokenId)).revalidate(3600).fetch<GetNftResponse>()
 
   if (isNil(data)) {
@@ -28,11 +31,11 @@ const NftPage: FunctionComponent<Props> = async ({ params: { slug, tokenId } }) 
   }
 
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
-    orderBy: { field: 'expiresAt' },
+    orderBy: [{ field: 'expiresAt' }],
     limit: 5
   })
   const filtersQueryParam = mapListingFiltersToQueryParams({ states: ['OPEN'] })
-  const { data: listingsData, error: listingsError } = await fetcher(nftListingsApiUrl(data.nft.id!))
+  const { data: listingsData, error: listingsError } = await fetcher(nftListingsApiUrl(data.nft.id))
     .revalidate(3600)
     .query(mergeLeft(constraintsQueryParams, filtersQueryParam))
     .fetch<GetListingsResponse>()
@@ -43,7 +46,11 @@ const NftPage: FunctionComponent<Props> = async ({ params: { slug, tokenId } }) 
 
   return (
     <section className={clsx('w-full', 'pt-12')}>
-      <NftDetailsApiProvided nftResponse={data.nft} listingsResponses={listingsData?.listings ?? []} />
+      <NftDetailsApiProvided
+        nftResponse={data.nft}
+        listingsResponses={listingsData?.listings ?? []}
+        user={session?.user}
+      />
     </section>
   )
 }

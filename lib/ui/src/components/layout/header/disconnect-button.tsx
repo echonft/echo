@@ -33,7 +33,26 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
           className={clsx('absolute', 'right-0', 'mt-2', 'py-2', 'rounded-lg', 'bg-white/[0.08]', 'w-36', 'h-max')}
         >
           <Menu.Item>
-            {({ close }) => <InternalLink path={links.profile.items} onClick={close}></InternalLink>}
+            {({ close }) => (
+              <InternalLink path={links.profile.items} onClick={close}>
+                <button
+                  className={clsx(
+                    'prose-label-sm',
+                    'text-white',
+                    'px-2.5',
+                    'py-1.5',
+                    'bg-transparent',
+                    'hover:bg-white/[0.08]',
+                    'w-full',
+                    'h-max',
+                    'rounded-md',
+                    'text-left'
+                  )}
+                >
+                  {t('profile.label')}
+                </button>
+              </InternalLink>
+            )}
           </Menu.Item>
           <Menu.Item>
             {({ close }) => (

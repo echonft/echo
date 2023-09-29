@@ -16,6 +16,7 @@ export interface CollectionResponse {
   openSeaUrl?: string
   profilePictureUrl?: string
   slug: string
+  swapsCount?: number
   totalSupply?: number
   twitterUsername?: string
   verified: boolean

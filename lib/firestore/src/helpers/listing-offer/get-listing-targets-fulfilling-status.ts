@@ -11,8 +11,8 @@ import { filter, pathEq } from 'ramda'
  * @return {ListingOfferFulfillingStatus}
  */
 export function getListingTargetsFulfillingStatus(
-  targets: Array<FirestoreListingTarget>,
-  offerItems: Array<FirestoreOfferItem>
+  targets: FirestoreListingTarget[],
+  offerItems: FirestoreOfferItem[]
 ): ListingOfferFulfillingStatus {
   for (const target of targets) {
     const { amount, collection } = target

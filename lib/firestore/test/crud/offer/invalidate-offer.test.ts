@@ -1,7 +1,6 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { invalidateOffer } from '@echo/firestore/crud/offer/invalidate-offer'
 import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -25,7 +24,7 @@ describe('CRUD - offer - invalidateOffer', () => {
   })
 
   beforeEach(async () => {
-    const offer = (await findOfferById(offerId)) as FirestoreOffer
+    const offer = (await findOfferById(offerId))!
     initialState = offer.state
     initialExpiresAt = offer.expiresAt
     initialUpdatedAt = offer.updatedAt
@@ -60,7 +59,7 @@ describe('CRUD - offer - invalidateOffer', () => {
   it('invalidate offer', async () => {
     await updateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().add(1, 'day') })
     await invalidateOffer(offerId)
-    const updatedOffer = (await findOfferById(offerId)) as FirestoreOffer
+    const updatedOffer = (await findOfferById(offerId))!
     expect(updatedOffer.state).toEqual('INVALID')
     expectDateIsNow(updatedOffer.updatedAt)
   })
