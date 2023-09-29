@@ -21,15 +21,12 @@ export const listingDocumentDataConverter: FirestoreDocumentDataConverter<Listin
     dissoc('itemsNftIds'),
     dissoc('itemsNftCollectionIds'),
     modifyDocumentDataArrayProp('targets', listingTargetDocumentDataConverter),
-    dissoc('targetsIds')
+    dissoc('targetsIds'),
+    modifyNumberPropToDate('updatedAt')
   ),
   toFirestore: pipe(
     dissoc('expired'),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     modifyDatePropToNumber('createdAt'),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     modifyDatePropToNumber('expiresAt'),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -41,16 +38,13 @@ export const listingDocumentDataConverter: FirestoreDocumentDataConverter<Listin
       over(lens(prop('items'), assoc('itemsNftCollectionIds')), pipe(map(path(['nft', 'collection', 'id'])), uniq))
     ),
     modifyModelArrayProp('items', listingItemDocumentDataConverter),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     when(
       has('targets'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       over(lens(prop('targets'), assoc('targetsIds')), pipe(map(path(['collection', 'id'])), uniq))
     ),
-    modifyModelArrayProp('targets', listingTargetDocumentDataConverter)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    modifyModelArrayProp('targets', listingTargetDocumentDataConverter),
+    modifyDatePropToNumber('updatedAt')
   )
 }

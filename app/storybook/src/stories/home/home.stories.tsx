@@ -35,6 +35,8 @@ const offers = pipe(concat(offerMocks), concat(offerMocks))(offerMocks)
 export const Default: Story = {
   args: {
     collections,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     offers
   }
 }

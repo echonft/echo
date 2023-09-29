@@ -5,11 +5,7 @@ import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { mapWalletToResponse } from '@server/mappers/to-response/map-wallet-to-response'
 import { dissoc, map, modify, pipe, unless } from 'ramda'
 
-export function mapDiscordUserToResponse(
-  user: FirestoreDiscordUser,
-  username: string,
-  wallets: Array<FirestoreWallet>
-) {
+export function mapDiscordUserToResponse(user: FirestoreDiscordUser, username: string, wallets: FirestoreWallet[]) {
   return pipe(
     dissoc('id'),
     dissoc('userId'),

@@ -3,7 +3,7 @@ import type { Nft } from '@echo/ui/types/model/nft'
 import { eqPaths } from '@echo/utils/fp/eq-paths'
 import { applySpec, groupWith, head, identity, isEmpty, map, path, pipe, unless } from 'ramda'
 
-export function groupNftsByCollection(nfts: Array<Nft>): Array<Group<Nft>> {
+export function groupNftsByCollection(nfts: Nft[]): Group<Nft>[] {
   return unless(
     isEmpty,
     pipe(
@@ -16,5 +16,5 @@ export function groupNftsByCollection(nfts: Array<Nft>): Array<Group<Nft>> {
         })
       )
     )
-  )(nfts) as Array<Group<Nft>>
+  )(nfts) as Group<Nft>[]
 }

@@ -1,7 +1,7 @@
 import type { FirestoreSwap } from '@echo/firestore/types/model/swap/firestore-swap'
 import dayjs from 'dayjs'
 
-export const swapMock: { [key: string]: FirestoreSwap } = {
+export const swapMock: Record<string, FirestoreSwap> = {
   '2ipuV3drjQlzEgkUkW7q': {
     id: '2ipuV3drjQlzEgkUkW7q',
     offerId: 'ASkFpKoHEHVH0gd69t1G',

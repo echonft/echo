@@ -1,7 +1,7 @@
 import type { Collection } from '@echo/ui/types/model/collection'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
-const collections: { [key: string]: Collection } = {
+const collections: Record<string, Collection> = {
   Rc8pLQXxgyQGIRL0fr13: {
     id: 'Rc8pLQXxgyQGIRL0fr13',
     bannerUrl: new URL(

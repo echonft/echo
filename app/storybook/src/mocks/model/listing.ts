@@ -4,7 +4,7 @@ import { getCollectionById } from '@mocks/model/collection'
 import { getNftById } from '@mocks/model/nft'
 import dayjs from 'dayjs'
 
-const listings: { [key: string]: Listing } = {
+const listings: Record<string, Listing> = {
   jUzMtPGKM62mMhEcmbN4: {
     id: 'jUzMtPGKM62mMhEcmbN4',
     createdAt: dayjs.unix(1676984897),
@@ -30,7 +30,8 @@ const listings: { [key: string]: Listing } = {
         collection: getCollectionById('Rc8pLQXxgyQGIRL0fr13'),
         amount: 3
       }
-    ]
+    ],
+    updatedAt: dayjs.unix(1676984897)
   }
 }
 

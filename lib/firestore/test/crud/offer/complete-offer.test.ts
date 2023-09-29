@@ -6,8 +6,6 @@ import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
 import { deleteSwap } from '@echo/firestore/crud/swaps/delete-swap'
 import { findSwapByOfferId } from '@echo/firestore/crud/swaps/find-swap-by-offer-id'
 import { getOfferCollectionIds } from '@echo/firestore/helpers/offer/get-offer-collection-ids'
-import type { FirestoreNftCollectionSwapsCount } from '@echo/firestore/types/model/nft-collection-swaps-count/firestore-nft-collection-swaps-count'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -22,6 +20,7 @@ import { map } from 'ramda'
 describe('CRUD - offer - completeOffer', () => {
   let initialState: FirestoreOfferState
   let initialExpiresAt: dayjs.Dayjs
+  let initialUpdatedAt: dayjs.Dayjs
   const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
   const swapTransactionId = 'swap-transaction-id'
 
@@ -36,14 +35,16 @@ describe('CRUD - offer - completeOffer', () => {
   })
 
   beforeEach(async () => {
-    const offer = await findOfferById(offerId)
-    initialState = offer!.state
-    initialExpiresAt = offer!.expiresAt
+    const offer = (await findOfferById(offerId))!
+    initialState = offer.state
+    initialExpiresAt = offer.expiresAt
+    initialUpdatedAt = offer.updatedAt
   })
   afterEach(async () => {
     await updateOffer(offerId, {
       state: initialState,
-      expiresAt: initialExpiresAt
+      expiresAt: initialExpiresAt,
+      updatedAt: initialUpdatedAt
     })
   })
 
@@ -75,28 +76,28 @@ describe('CRUD - offer - completeOffer', () => {
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('complete offer', async () => {
-    const offer = (await findOfferById(offerId)) as FirestoreOffer
+    const offer = (await findOfferById(offerId))!
     const collectionIds = getOfferCollectionIds(offer)
     const initialSwapsCounts = await Promise.all(
       map(async (collectionId) => {
-        return (await findNftCollectionSwapsCountByNftCollectionId(collectionId)) as FirestoreNftCollectionSwapsCount
+        return (await findNftCollectionSwapsCountByNftCollectionId(collectionId))!
       }, collectionIds)
     )
     await updateOffer(offerId, { state: 'ACCEPTED', expiresAt: dayjs().add(1, 'day') })
     await completeOffer(offerId, swapTransactionId)
-    const updatedOffer = await findOfferById(offerId)
-    expect(updatedOffer!.state).toEqual('COMPLETED')
+    const updatedOffer = (await findOfferById(offerId))!
+    expect(updatedOffer.state).toEqual('COMPLETED')
+    expectDateIsNow(updatedOffer.updatedAt)
     // make sure that swap was added
-    const swap = await findSwapByOfferId(offerId)
-    await deleteSwap(swap!.id)
-    expect(swap?.offerId).toStrictEqual(offerId)
-    expect(swap?.txId).toStrictEqual(swapTransactionId)
-    expectDateIsNow(swap!.date)
+    const swap = (await findSwapByOfferId(offerId))!
+    await deleteSwap(swap.id)
+    expect(swap.offerId).toStrictEqual(offerId)
+    expect(swap.txId).toStrictEqual(swapTransactionId)
+    expectDateIsNow(swap.date)
     // reset the swaps count
     for (const swapsCount of initialSwapsCounts) {
-      const snapshot = await getNftCollectionSwapsCountSnapshotById(swapsCount.id)
-      expect(snapshot).toBeDefined()
-      const updatedSwapsCount = snapshot?.data() as FirestoreNftCollectionSwapsCount
+      const snapshot = (await getNftCollectionSwapsCountSnapshotById(swapsCount.id))!
+      const updatedSwapsCount = snapshot.data()
       expect(updatedSwapsCount.swapsCount).toBe(swapsCount.swapsCount + 1)
       await snapshot?.ref.update({ swapsCount: swapsCount.swapsCount })
     }

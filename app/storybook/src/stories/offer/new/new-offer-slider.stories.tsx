@@ -1,5 +1,6 @@
 import { NewOfferSliderManager as Component } from '@echo/ui/components/offer/new/new-offer-slider-manager'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
+import { getAuthUser } from '@mocks/model/auth-user'
 import { getOfferById } from '@mocks/model/offer'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useEffect } from 'react'
@@ -12,6 +13,7 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
+const user = getAuthUser()
 
 type Story = StoryObj<typeof Component>
 
@@ -22,7 +24,7 @@ export const Default: Story = {
       setReceiverItems(offer.receiverItems)
       setSenderItems(offer.senderItems)
     }, [])
-    return <Component />
+    return <Component user={user} />
   }
 }
 
@@ -33,7 +35,7 @@ export const EmptySenderItems: Story = {
       setReceiverItems(offer.receiverItems)
       setSenderItems([])
     }, [])
-    return <Component />
+    return <Component user={user} />
   }
 }
 
@@ -44,6 +46,6 @@ export const EmptyReceiverItems: Story = {
       setReceiverItems([])
       setSenderItems(offer.senderItems)
     }, [])
-    return <Component />
+    return <Component user={user} />
   }
 }

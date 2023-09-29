@@ -1,10 +1,11 @@
+import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import { mapCollectionToResponse } from '@server/mappers/to-response/map-collection-to-response'
 
 describe('mappers - to-response - mapCollectionToResponse', () => {
   it('maps correctly', () => {
     const collection = getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
-    expect(mapCollectionToResponse(collection)).toStrictEqual({
+    const response: CollectionResponse = {
       id: 'Rc8pLQXxgyQGIRL0fr13',
       bannerUrl:
         'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ?auto=format&dpr=1&w=3840',
@@ -24,6 +25,7 @@ describe('mappers - to-response - mapCollectionToResponse', () => {
       totalSupply: 1077,
       verified: true,
       websiteUrl: 'https://pxmythics.io/'
-    })
+    }
+    expect(mapCollectionToResponse(collection)).toStrictEqual(response)
   })
 })

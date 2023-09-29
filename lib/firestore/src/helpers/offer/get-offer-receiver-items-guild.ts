@@ -3,7 +3,7 @@ import type { NftCollectionDiscordGuildData } from '@echo/firestore/types/model/
 import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { head, pipe, prop } from 'ramda'
 
-export function getOfferReceiverItemsGuild(offer: Partial<FirestoreOffer>): Promise<NftCollectionDiscordGuildData> {
+export function getOfferReceiverItemsGuild(offer: FirestoreOffer): Promise<NftCollectionDiscordGuildData> {
   // FIXME this is not gonna work with collections on Echo server
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

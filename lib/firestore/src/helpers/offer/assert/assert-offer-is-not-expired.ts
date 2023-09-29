@@ -5,8 +5,8 @@ import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { pipe, prop } from 'ramda'
 
 export function assertOfferIsNotExpired(
-  offer: Partial<FirestoreOffer> | undefined
-): asserts offer is NonNullable<Partial<FirestoreOffer>> {
+  offer: FirestoreOffer | undefined
+): asserts offer is NonNullable<FirestoreOffer> {
   assertOffer(offer)
   if (propIsNil('expired', offer)) {
     // try with the date

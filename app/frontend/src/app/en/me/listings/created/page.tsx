@@ -18,7 +18,7 @@ const ProfileListingsCreatedPage: FunctionComponent = async () => {
   }
 
   const queryParams = mapQueryConstraintsToQueryParams({
-    orderBy: { field: 'expiresAt' }
+    orderBy: [{ field: 'expiresAt' }]
   })
   const { data, error } = await fetcher(userListingsApiUrl(session.user.name))
     .revalidate(3600)
@@ -32,7 +32,7 @@ const ProfileListingsCreatedPage: FunctionComponent = async () => {
     throw Error()
   }
 
-  return <ProfileListingsCreatedApiProvided responses={data.listings} />
+  return <ProfileListingsCreatedApiProvided responses={data.listings} user={session.user} />
 }
 
 export default ProfileListingsCreatedPage

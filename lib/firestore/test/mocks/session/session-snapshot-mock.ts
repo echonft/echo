@@ -3,11 +3,11 @@ import { sessionDocumentDataMock } from '@echo/firestore-mocks/session/session-d
 import { sessionReferenceMock } from '@echo/firestore-mocks/session/session-reference-mock'
 import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 
-export const sessionSnapshotMock: { [key: string]: QueryDocumentSnapshot<SessionDocumentData> } = {
+export const sessionSnapshotMock: Record<string, QueryDocumentSnapshot<SessionDocumentData>> = {
   KI5AJISonKCYslDm51Tn: {
-    ref: sessionReferenceMock['KI5AJISonKCYslDm51Tn']!,
-    id: sessionReferenceMock['KI5AJISonKCYslDm51Tn']!.id,
+    ref: sessionReferenceMock.KI5AJISonKCYslDm51Tn!,
+    id: sessionReferenceMock.KI5AJISonKCYslDm51Tn!.id,
     exists: true,
-    data: () => sessionDocumentDataMock['KI5AJISonKCYslDm51Tn']
+    data: () => sessionDocumentDataMock.KI5AJISonKCYslDm51Tn
   } as unknown as QueryDocumentSnapshot<SessionDocumentData>
 }

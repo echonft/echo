@@ -4,7 +4,6 @@ import { messages } from '@echo/ui/messages/en'
 import { clsx } from 'clsx'
 import { Metadata } from 'next'
 import { getServerSession } from 'next-auth/next'
-import { SessionProvider } from 'next-auth/react'
 import { NextIntlClientProvider } from 'next-intl'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
@@ -26,12 +25,10 @@ const Layout: FunctionComponent<PropsWithChildren> = async ({ children }) => {
 
   return (
     <NextIntlClientProvider messages={messages} locale={'en'}>
-      <SessionProvider session={session}>
-        <div className={clsx('w-full', 'h-full')}>
-          <Header />
-          <main className={clsx('w-full', 'pb-14')}>{children}</main>
-        </div>
-      </SessionProvider>
+      <div className={clsx('w-full', 'h-full')}>
+        <Header user={session?.user} />
+        <main className={clsx('w-full', 'pb-14')}>{children}</main>
+      </div>
     </NextIntlClientProvider>
   )
 }

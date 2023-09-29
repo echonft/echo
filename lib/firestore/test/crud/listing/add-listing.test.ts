@@ -5,7 +5,6 @@ import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id
 import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
 import { getListingOffersByListingId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-listing-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
-import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
 import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { errorMessage } from '@echo/utils/error/error-message'
@@ -47,7 +46,7 @@ describe('CRUD - listing - addListing', () => {
     const { creator, items, targets } = getListingMockById('jUzMtPGKM62mMhEcmbN4')
     const createdListing = await addListing(items, targets)
     createdListingId = createdListing.id
-    const newListing = (await findListingById(createdListingId)) as FirestoreListing
+    const newListing = (await findListingById(createdListingId))!
     const now = dayjs()
     const expirationDate = now.add(DEFAULT_EXPIRATION_TIME, 'day')
     expectDateIsNow(newListing.createdAt)
@@ -57,6 +56,7 @@ describe('CRUD - listing - addListing', () => {
     expect(newListing.items).toStrictEqual(items)
     expect(newListing.state).toBe('OPEN')
     expect(newListing.targets).toStrictEqual(targets)
+    expectDateIsNow(newListing.updatedAt)
     // check if listing offers have been created
     const listingOffers = await getListingOffersForListing(newListing)
     const createdListingOffers = await getListingOffersByListingId(createdListingId)

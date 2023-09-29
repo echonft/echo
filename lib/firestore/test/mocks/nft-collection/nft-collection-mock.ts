@@ -1,6 +1,6 @@
 import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 
-export const nftCollectionMock: { [key: string]: FirestoreNftCollection } = {
+export const nftCollectionMock: Record<string, FirestoreNftCollection> = {
   Rc8pLQXxgyQGIRL0fr13: {
     id: 'Rc8pLQXxgyQGIRL0fr13',
     bannerUrl: new URL(

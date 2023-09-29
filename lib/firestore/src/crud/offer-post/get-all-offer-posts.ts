@@ -1,9 +1,7 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { offerPostDataConverter } from '@echo/firestore/converters/offer-post/offer-post-data-converter'
+import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { FirestoreOfferPost } from '@echo/firestore/types/model/offer-post/firestore-offer-post'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { invoker, map } from 'ramda'
 
 export async function getAllOfferPosts() {
   const querySnapshot = await firestoreApp()
@@ -11,9 +9,5 @@ export async function getAllOfferPosts() {
     .withConverter(offerPostDataConverter)
     .get()
 
-  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
-    return [] as FirestoreOfferPost[]
-  }
-
-  return map(invoker(0, 'data'), querySnapshot.docs) as FirestoreOfferPost[]
+  return getQuerySnapshotDocumentsData(querySnapshot)
 }

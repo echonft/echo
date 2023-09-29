@@ -7,18 +7,20 @@ import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-off
 import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { mapOfferItemsToRequests } from '@echo/ui/mappers/to-api/map-offer-items-to-requests'
+import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { Transition } from '@headlessui/react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { pathEq, reject } from 'ramda'
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
-export const NewOfferSliderManager: FunctionComponent = () => {
+interface Props {
+  user: AuthUser | undefined
+}
+export const NewOfferSliderManager: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('offer.new.bottomSlider')
   const { hasNewOfferPending, setReceiverItems, setSenderItems, receiver, receiverItems, senderItems, clearOffer } =
     useNewOfferStore()
-  const { data: session } = useSession()
   const [confirmOfferModalShown, setConfirmOfferModalShown] = useState(false)
   const [confirmedModalShown, setConfirmedModalShown] = useState(false)
   const onRemoveSenderItems = useCallback(
@@ -36,8 +38,8 @@ export const NewOfferSliderManager: FunctionComponent = () => {
   const receiverItemRequests = useMemo(() => mapOfferItemsToRequests(receiverItems), [receiverItems])
   const senderItemRequests = useMemo(() => mapOfferItemsToRequests(senderItems), [senderItems])
   const createOffer = useCallback(
-    () => createOfferFetcher(senderItemRequests, receiverItemRequests, session?.user.sessionToken),
-    [receiverItemRequests, senderItemRequests, session]
+    () => createOfferFetcher(senderItemRequests, receiverItemRequests, user?.sessionToken),
+    [receiverItemRequests, senderItemRequests, user]
   )
   const { trigger, isMutating } = useSWRMutation('create-offer', createOffer)
 

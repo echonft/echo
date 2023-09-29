@@ -10,7 +10,7 @@ export function listenToListings(onChange: (changeType: DocumentChangeType, list
     .withConverter(listingDataConverter)
     .onSnapshot((snapshot) => {
       snapshot.docChanges().forEach((change) => {
-        onChange(change.type, change.doc.data() as FirestoreListing)
+        onChange(change.type, change.doc.data())
       })
     })
 }

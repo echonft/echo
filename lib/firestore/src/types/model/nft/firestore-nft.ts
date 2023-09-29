@@ -8,10 +8,10 @@ export interface FirestoreNft {
   attributes: FirestoreNftAttribute[]
   balance: number
   blurUrl?: URL
-  collection: Partial<FirestoreNftCollection>
+  collection: FirestoreNftCollection
   name: string
   openSeaUrl?: URL
-  owner: Partial<FirestoreUserDetails>
+  owner: FirestoreUserDetails
   pictureUrl: URL
   thumbnailUrl: URL
   tokenId: number

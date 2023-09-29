@@ -1,25 +1,13 @@
-import { selectConstraintContainsExpiredAt } from '@echo/firestore/helpers/query/select-constraint-contains-expired-at'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { is, isNil } from 'ramda'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import { anyPass, complement, concat, has, identity, ifElse, includes, isNil, modify, pipe, prop, unless } from 'ramda'
 
 export function addExpiresAtToSelectConstraint(constraints: QueryConstraints): QueryConstraints {
-  if (!isNil(constraints.select) && !selectConstraintContainsExpiredAt(constraints)) {
-    const { select } = constraints
-    if (is(Array, select)) {
-      if (select.includes('expiresAt')) {
-        return constraints
-      }
-      ;(constraints.select as string[]).push('expiresAt')
-      return constraints
-    } else {
-      if (constraints.select != 'expiresAt') {
-        return {
-          ...constraints,
-          select: [constraints.select as string, 'expiresAt']
-        }
-      }
-      return constraints
-    }
-  }
-  return constraints
+  return ifElse<[QueryConstraints], QueryConstraints, QueryConstraints>(
+    anyPass([isNil, complement(has('select')), pipe(prop('select'), includes('expiresAt'))]),
+    identity,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    unless(propIsNil('select'), modify<'select', string[], string[]>('select', concat(['expiresAt'])))
+  )(constraints)
 }

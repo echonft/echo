@@ -5,13 +5,16 @@ import type { Listing } from '@echo/ui/types/model/listing'
 import { modifyNumberPropToDate } from '@echo/utils/fp/modify-number-prop-to-date'
 import { map, modify, pipe } from 'ramda'
 
-export function mapListingFromResponse(response: Partial<ListingResponse>) {
+export function mapListingFromResponse(response: ListingResponse) {
   return pipe(
-    modifyNumberPropToDate<'createdAt', Partial<ListingResponse>>('createdAt'),
+    modifyNumberPropToDate<'createdAt', ListingResponse>('createdAt'),
     modifyNumberPropToDate('expiresAt'),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     modify('items', map(mapListingItemFromResponse)),
-    modify('targets', map(mapListingTargetFromResponse))
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    modify('targets', map(mapListingTargetFromResponse)),
+    modifyNumberPropToDate<'updatedAt', ListingResponse>('updatedAt')
   )(response) as Listing
 }

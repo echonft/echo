@@ -3,7 +3,7 @@ import { nftDocumentDataMock } from '@echo/firestore-mocks/nft/nft-document-data
 import { nftReferenceMock } from '@echo/firestore-mocks/nft/nft-reference-mock'
 import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 
-export const nftSnapshotMock: { [key: string]: QueryDocumentSnapshot<NftDocumentData> } = {
+export const nftSnapshotMock: Record<string, QueryDocumentSnapshot<NftDocumentData>> = {
   '8hHFadIrrooORfTOLkBg': {
     ref: nftReferenceMock['8hHFadIrrooORfTOLkBg']!,
     id: nftReferenceMock['8hHFadIrrooORfTOLkBg']!.id,
@@ -11,9 +11,9 @@ export const nftSnapshotMock: { [key: string]: QueryDocumentSnapshot<NftDocument
     data: () => nftDocumentDataMock['8hHFadIrrooORfTOLkBg']
   } as unknown as QueryDocumentSnapshot<NftDocumentData>,
   QFjMRNChUAHNswkRADXh: {
-    ref: nftReferenceMock['QFjMRNChUAHNswkRADXh']!,
-    id: nftReferenceMock['QFjMRNChUAHNswkRADXh']!.id,
+    ref: nftReferenceMock.QFjMRNChUAHNswkRADXh!,
+    id: nftReferenceMock.QFjMRNChUAHNswkRADXh!.id,
     exists: true,
-    data: () => nftDocumentDataMock['QFjMRNChUAHNswkRADXh']
+    data: () => nftDocumentDataMock.QFjMRNChUAHNswkRADXh
   } as unknown as QueryDocumentSnapshot<NftDocumentData>
 }

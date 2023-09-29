@@ -7,7 +7,7 @@ import { assoc, pick, pipe } from 'ramda'
 export function getUserDetails(
   username: string,
   discordUser: FirestoreDiscordUser,
-  wallet: Partial<FirestoreWallet>
+  wallet: FirestoreWallet
 ): FirestoreUserDetails {
   return pipe(
     pick(['discordAvatar', 'discordBanner', 'discordId', 'discordUsername']),

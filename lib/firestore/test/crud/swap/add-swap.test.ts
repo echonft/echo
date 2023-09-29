@@ -4,7 +4,6 @@ import { addSwap } from '@echo/firestore/crud/swaps/add-swap'
 import { deleteSwap } from '@echo/firestore/crud/swaps/delete-swap'
 import { findSwapById } from '@echo/firestore/crud/swaps/find-swap-by-id'
 import { getOfferCollectionIds } from '@echo/firestore/helpers/offer/get-offer-collection-ids'
-import { FirestoreNftCollectionSwapsCount } from '@echo/firestore/types/model/nft-collection-swaps-count/firestore-nft-collection-swaps-count'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
 import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
@@ -35,7 +34,7 @@ describe('CRUD - swap - addSwap', () => {
     const collectionIds = getOfferCollectionIds(offer)
     const initialSwapsCounts = await Promise.all(
       map(async (collectionId) => {
-        return (await findNftCollectionSwapsCountByNftCollectionId(collectionId)) as FirestoreNftCollectionSwapsCount
+        return (await findNftCollectionSwapsCountByNftCollectionId(collectionId))!
       }, collectionIds)
     )
     const { id } = await addSwap(offerId, '0xnew')
@@ -47,9 +46,8 @@ describe('CRUD - swap - addSwap', () => {
     expectDateIsNow(newSwap!.date)
     // reset the swaps count
     for (const swapsCount of initialSwapsCounts) {
-      const snapshot = await getNftCollectionSwapsCountSnapshotById(swapsCount.id)
-      expect(snapshot).toBeDefined()
-      const updatedSwapsCount = snapshot?.data() as FirestoreNftCollectionSwapsCount
+      const snapshot = (await getNftCollectionSwapsCountSnapshotById(swapsCount.id))!
+      const updatedSwapsCount = snapshot.data()
       expect(updatedSwapsCount.swapsCount).toBe(swapsCount.swapsCount + 1)
       await snapshot?.ref.update({ swapsCount: swapsCount.swapsCount })
     }

@@ -11,8 +11,8 @@ import { find, intersection, isNil, map, path, pathEq } from 'ramda'
  * @return {ListingOfferFulfillingStatus}
  */
 export function getListingItemsFulfillingStatus(
-  listingItems: Array<FirestoreListingItem>,
-  offerItems: Array<FirestoreOfferItem>
+  listingItems: FirestoreListingItem[],
+  offerItems: FirestoreOfferItem[]
 ): ListingOfferFulfillingStatus {
   if (
     intersection(map(path(['nft', 'id']), listingItems), map(path(['nft', 'id']), offerItems)).length ===

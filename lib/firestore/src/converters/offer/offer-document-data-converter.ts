@@ -20,18 +20,13 @@ export const offerDocumentDataConverter: FirestoreDocumentDataConverter<OfferDoc
     dissoc('receiverItemsNftCollectionIds'),
     modifyDocumentDataArrayProp('senderItems', offerItemDocumentDataConverter),
     dissoc('senderItemsNftIds'),
-    dissoc('senderItemsNftCollectionIds')
+    dissoc('senderItemsNftCollectionIds'),
+    modifyNumberPropToDate('updatedAt')
   ),
   toFirestore: pipe(
     dissoc('expired'),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     modifyDatePropToNumber('createdAt'),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     modifyDatePropToNumber('expiresAt'),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     when(
       has('receiverItems'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -63,6 +58,7 @@ export const offerDocumentDataConverter: FirestoreDocumentDataConverter<OfferDoc
         pipe(map(path(['nft', 'collection', 'id'])), uniq)
       )
     ),
-    modifyModelArrayProp('senderItems', offerItemDocumentDataConverter)
+    modifyModelArrayProp('senderItems', offerItemDocumentDataConverter),
+    modifyDatePropToNumber('updatedAt')
   )
 }

@@ -6,7 +6,7 @@ import { is } from 'ramda'
 import type { ReactNode } from 'react'
 
 interface ArrayProps<T> {
-  checks: Array<T>
+  checks: T[]
   render: (checks: NonEmptyArray<T>) => ReactNode
 }
 
@@ -50,7 +50,7 @@ export function HideIfEmpty<T = unknown>(props: ArrayProps<T> | StringProps | Ob
   const { checks, render } = props
   if (is(Array, checks)) {
     return HideIfEmptyArray<T>({
-      checks: checks as Array<T>,
+      checks: checks as T[],
       render: render as (checks: NonNullable<NonEmptyArray<T>>) => ReactNode
     })
   }

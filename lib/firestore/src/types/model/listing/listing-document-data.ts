@@ -15,6 +15,7 @@ export interface ListingDocumentData {
   state: FirestoreListingState
   targets: NonEmptyArray<ListingTargetDocumentData>
   targetsIds: NonEmptyArray<string>
+  updatedAt: number
 }
 
 export const listingFields = [
@@ -35,5 +36,6 @@ export const listingFields = [
   'itemsNftCollectionIds',
   'state',
   'targets',
-  'targetsIds'
+  'targetsIds',
+  'updatedAt'
 ]

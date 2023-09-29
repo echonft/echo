@@ -7,7 +7,7 @@ describe('converters - walletDataConverter', () => {
   const wallet = getWalletMockById('i28NWtlxElPXCnO0c6BC')
 
   it('from Firestore conversion', () => {
-    const walletSnapshot = walletSnapshotMock['i28NWtlxElPXCnO0c6BC']!
+    const walletSnapshot = walletSnapshotMock.i28NWtlxElPXCnO0c6BC!
     expect(walletDataConverter.fromFirestore(walletSnapshot)).toStrictEqual(wallet)
   })
 

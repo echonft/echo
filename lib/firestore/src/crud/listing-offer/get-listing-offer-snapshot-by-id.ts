@@ -1,16 +1,10 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
+import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/get-query-snapshot-document-snapshot'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import type { FirestoreListingOffer } from '@echo/firestore/types/model/listing-offer/firestore-listing-offer'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
-import { head } from 'ramda'
+import { FirestoreListingOffer } from '@echo/firestore/types/model/listing-offer/firestore-listing-offer'
+import { QuerySnapshot } from 'firebase-admin/lib/firestore'
 
 export async function getListingOfferSnapshotById(id: string) {
   const querySnapshot = await firestoreApp().collection(CollectionName.LISTING_OFFERS).where('id', '==', id).get()
-
-  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
-    return undefined
-  }
-
-  return head(querySnapshot.docs) as QueryDocumentSnapshot<FirestoreListingOffer>
+  return getQuerySnapshotDocumentSnapshot(querySnapshot as QuerySnapshot<FirestoreListingOffer>)
 }

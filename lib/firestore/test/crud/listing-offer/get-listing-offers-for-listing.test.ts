@@ -29,7 +29,7 @@ describe('CRUD - listing-offer - getListingOffersForListing', () => {
 
   it('returns an empty array if the listing targets do not match any offer', async () => {
     const items: FirestoreListingItem[] = [{ amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') }]
-    const targets: FirestoreListingTarget[] = [{ amount: 1, collection: { id: 'not-found' } }]
+    const targets: FirestoreListingTarget[] = [{ amount: 1, collection: { id: 'not-found' } } as FirestoreListingTarget]
     const listing = { id: 'listing-id', items, targets } as FirestoreListing
     const offers = await getListingOffersForListing(listing)
     expect(offers).toEqual([])

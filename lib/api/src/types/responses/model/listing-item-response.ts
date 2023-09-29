@@ -2,5 +2,5 @@ import type { NftResponse } from '@echo/api/types/responses/model/nft-response'
 
 export interface ListingItemResponse {
   amount: number
-  nft: Partial<NftResponse>
+  nft: NftResponse
 }

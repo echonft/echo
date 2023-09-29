@@ -4,9 +4,9 @@ import type { Nft } from '@echo/ui/types/model/nft'
 import { modifyStringPropToUrl } from '@echo/utils/fp/modify-string-prop-to-url'
 import { modify, pipe } from 'ramda'
 
-export function mapNftFromResponse(response: Partial<NftResponse>) {
+export function mapNftFromResponse(response: NftResponse) {
   return pipe(
-    modifyStringPropToUrl<'blurUrl', Partial<NftResponse>>('blurUrl'),
+    modifyStringPropToUrl<'blurUrl', NftResponse>('blurUrl'),
     modifyStringPropToUrl('openSeaUrl'),
     modifyStringPropToUrl('pictureUrl'),
     modifyStringPropToUrl('thumbnailUrl'),

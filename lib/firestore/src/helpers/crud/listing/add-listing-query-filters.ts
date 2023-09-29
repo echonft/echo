@@ -6,7 +6,7 @@ import { single } from '@echo/utils/fp/single'
 import type { Query } from 'firebase-admin/lib/firestore'
 import { head, isNil } from 'ramda'
 
-export function addListingQueryFilters(query: Query<Partial<FirestoreListing>>, filters?: ListingQueryFilters) {
+export function addListingQueryFilters(query: Query<FirestoreListing>, filters?: ListingQueryFilters) {
   if (isNil(filters)) {
     return query
   }

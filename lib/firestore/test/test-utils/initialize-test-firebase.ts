@@ -1,7 +1,7 @@
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
 import serviceAccount from '@test-utils/service-accout-key.json'
-import { App, cert, getApps, initializeApp, type ServiceAccount } from 'firebase-admin/app'
+import { cert, getApps, initializeApp, type ServiceAccount } from 'firebase-admin/app'
 import { getFirestore, initializeFirestore } from 'firebase-admin/firestore'
 import { head, isEmpty } from 'ramda'
 
@@ -9,7 +9,7 @@ export async function initializeTestFirebase() {
   try {
     const apps = getApps()
     if (!isEmpty(apps)) {
-      return getFirestore(head(apps) as App)
+      return getFirestore(head(apps)!)
     }
     initializeFirestore(
       initializeApp({

@@ -14,4 +14,5 @@ export interface Listing {
   items: NonEmptyArray<ListingItem>
   state: ListingState
   targets: NonEmptyArray<ListingTarget>
+  updatedAt: Dayjs
 }

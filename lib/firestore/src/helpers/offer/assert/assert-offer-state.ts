@@ -2,46 +2,46 @@ import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore
 import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 
-function assertOfferIsNotCancelled(offer: Partial<FirestoreOffer>) {
+function assertOfferIsNotCancelled(offer: FirestoreOffer) {
   if (offer.state === 'CANCELLED') {
     throw Error('offer has already been cancelled')
   }
 }
 
-function assertOfferIsNotAccepted(offer: Partial<FirestoreOffer>) {
+function assertOfferIsNotAccepted(offer: FirestoreOffer) {
   if (offer.state === 'ACCEPTED') {
     throw Error('offer has already been accepted')
   }
 }
 
-function assertOfferIsNotRejected(offer: Partial<FirestoreOffer>) {
+function assertOfferIsNotRejected(offer: FirestoreOffer) {
   if (offer.state === 'REJECTED') {
     throw Error('offer has already been rejected')
   }
 }
 
-function assertOfferIsNotInvalid(offer: Partial<FirestoreOffer>) {
+function assertOfferIsNotInvalid(offer: FirestoreOffer) {
   if (offer.state === 'INVALID') {
     throw Error('offer is not valid')
   }
 }
 
-function assertOfferIsNotCompleted(offer: Partial<FirestoreOffer>) {
+function assertOfferIsNotCompleted(offer: FirestoreOffer) {
   if (offer.state === 'COMPLETED') {
     throw Error('trade has already been completed')
   }
 }
 
-function assertOfferIsNotOpen(offer: Partial<FirestoreOffer>) {
+function assertOfferIsNotOpen(offer: FirestoreOffer) {
   if (offer.state === 'OPEN') {
     throw Error('offer needs to be accepted or rejected first')
   }
 }
 
 export function assertOfferState(
-  offer: Partial<FirestoreOffer>,
+  offer: FirestoreOffer,
   toState: FirestoreOfferState
-): asserts offer is Partial<FirestoreOffer> & {
+): asserts offer is FirestoreOffer & {
   state: FirestoreOfferState
 } {
   if (propIsNil('state', offer)) {

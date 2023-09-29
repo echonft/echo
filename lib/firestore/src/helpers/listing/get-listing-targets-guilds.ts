@@ -4,7 +4,7 @@ import type { NftCollectionDiscordGuildData } from '@echo/firestore/types/model/
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { andThen, head, map, path, pipe, prop } from 'ramda'
 
-export function getListingTargetsGuilds(listing: Partial<FirestoreListing>): Promise<NftCollectionDiscordGuildData[]> {
+export function getListingTargetsGuilds(listing: FirestoreListing): Promise<NftCollectionDiscordGuildData[]> {
   // FIXME this is not gonna work with collections on Echo server
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

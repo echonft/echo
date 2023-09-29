@@ -1,6 +1,6 @@
 import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
 
 export interface ListingTargetResponse {
-  collection: Partial<CollectionResponse>
+  collection: CollectionResponse
   amount: number
 }

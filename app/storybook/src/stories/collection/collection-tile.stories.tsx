@@ -28,7 +28,7 @@ export const Tile: Story = {
   args: {
     slug,
     name,
-    pictureUrl: profilePictureUrl,
+    pictureUrl: profilePictureUrl.href,
     size: SizeLG,
     swapsCount: 2
   }

@@ -3,12 +3,12 @@ import { nftCollectionDocumentDataMock } from '@echo/firestore-mocks/nft-collect
 import { nftCollectionReferenceMock } from '@echo/firestore-mocks/nft-collection/nft-collection-reference-mock'
 import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 
-export const nftCollectionSnapshotMock: { [key: string]: QueryDocumentSnapshot<NftCollectionDocumentData> } = {
+export const nftCollectionSnapshotMock: Record<string, QueryDocumentSnapshot<NftCollectionDocumentData>> = {
   Rc8pLQXxgyQGIRL0fr13: {
-    ref: nftCollectionReferenceMock['Rc8pLQXxgyQGIRL0fr13']!,
-    id: nftCollectionReferenceMock['Rc8pLQXxgyQGIRL0fr13']!.id,
+    ref: nftCollectionReferenceMock.Rc8pLQXxgyQGIRL0fr13!,
+    id: nftCollectionReferenceMock.Rc8pLQXxgyQGIRL0fr13!.id,
     exists: true,
-    data: () => nftCollectionDocumentDataMock['Rc8pLQXxgyQGIRL0fr13']
+    data: () => nftCollectionDocumentDataMock.Rc8pLQXxgyQGIRL0fr13
   } as unknown as QueryDocumentSnapshot<NftCollectionDocumentData>,
   '1aomCtnoesD7WVll6Yi1': {
     ref: nftCollectionReferenceMock['1aomCtnoesD7WVll6Yi1']!,

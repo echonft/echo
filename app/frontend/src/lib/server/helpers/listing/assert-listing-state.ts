@@ -5,7 +5,7 @@ import { includes } from 'ramda'
 
 export function assertListingState(
   listing: FirestoreListing,
-  ...states: Array<FirestoreListingState>
+  ...states: FirestoreListingState[]
 ): asserts listing is FirestoreListing & { state: FirestoreListingState } {
   if (!includes(listing.state, states)) {
     throw new BadRequestError(

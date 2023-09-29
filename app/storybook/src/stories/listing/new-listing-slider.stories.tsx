@@ -37,6 +37,7 @@ export const Empty: Story = {
 export const Loading: Story = {
   args: {
     collectionProvider: {
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       get: () => new Promise(() => {})
     },
     show: true

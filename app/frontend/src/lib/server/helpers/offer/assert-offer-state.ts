@@ -5,7 +5,7 @@ import { includes } from 'ramda'
 
 export function assertOfferState(
   offer: FirestoreOffer,
-  ...states: Array<FirestoreOfferState>
+  ...states: FirestoreOfferState[]
 ): asserts offer is FirestoreOffer & { state: FirestoreOfferState } {
   if (!includes(offer.state, states)) {
     throw new BadRequestError(

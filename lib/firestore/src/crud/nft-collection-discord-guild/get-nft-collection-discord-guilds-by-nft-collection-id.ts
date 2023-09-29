@@ -1,8 +1,8 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
+import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreNftCollectionDiscordGuild } from '@echo/firestore/types/model/nft-collection-discord-guild/firestore-nft-collection-discord-guild'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { invoker, map } from 'ramda'
+import { QuerySnapshot } from 'firebase-admin/lib/firestore'
 
 export async function getNftCollectionDiscordGuildsByNftCollectionId(
   collectionId: string
@@ -12,9 +12,5 @@ export async function getNftCollectionDiscordGuildsByNftCollectionId(
     .where('collectionId', '==', collectionId)
     .get()
 
-  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
-    return [] as FirestoreNftCollectionDiscordGuild[]
-  }
-
-  return map(invoker(0, 'data'), querySnapshot.docs) as FirestoreNftCollectionDiscordGuild[]
+  return getQuerySnapshotDocumentsData(querySnapshot as QuerySnapshot<FirestoreNftCollectionDiscordGuild>)
 }

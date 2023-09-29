@@ -13,7 +13,7 @@ export async function increaseNftCollectionSwapsCount(collectionId: string): Pro
     )
   }
   const snapshot = await getNftCollectionSwapsCountSnapshotByCollectionId(collectionId)
-  if (isNil(snapshot)) {
+  if (isNil(snapshot) || isNil(snapshot.data()) || !snapshot.exists) {
     const reference = firestoreApp().collection(CollectionName.NFT_COLLECTION_SWAPS_COUNT).doc()
     const id = reference.id
     const newSwapsCount: FirestoreNftCollectionSwapsCount = { id, collectionId, swapsCount: 1 }

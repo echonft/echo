@@ -8,7 +8,6 @@ import { handleRequest } from '@server/request-handlers/handle-request'
  *  - offers filters see {@link OfferQueryFilters} - only 'as' is considered
  * @param request
  * @param params
- * @constructor
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { slug: string } }) {
   return await handleRequest(request, getCollectionCompletedOffersRequestHandler, params.slug)

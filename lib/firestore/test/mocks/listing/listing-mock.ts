@@ -3,7 +3,7 @@ import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import dayjs from 'dayjs'
 
-export const listingMock: { [key: string]: FirestoreListing } = {
+export const listingMock: Record<string, FirestoreListing> = {
   jUzMtPGKM62mMhEcmbN4: {
     id: 'jUzMtPGKM62mMhEcmbN4',
     createdAt: dayjs.unix(1676984897),
@@ -29,6 +29,7 @@ export const listingMock: { [key: string]: FirestoreListing } = {
         collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
         amount: 3
       }
-    ]
+    ],
+    updatedAt: dayjs.unix(1676984897)
   }
 }

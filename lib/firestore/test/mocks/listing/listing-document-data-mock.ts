@@ -2,7 +2,7 @@ import type { ListingDocumentData } from '@echo/firestore/types/model/listing/li
 import { getNftDocumentDataMockById } from '@echo/firestore-mocks/nft/get-nft-document-data-mock-by-id'
 import { getNftCollectionDocumentDataMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-document-data-mock-by-id'
 
-export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
+export const listingDocumentDataMock: Record<string, ListingDocumentData> = {
   jUzMtPGKM62mMhEcmbN4: {
     id: 'jUzMtPGKM62mMhEcmbN4',
     createdAt: 1676984897,
@@ -30,6 +30,7 @@ export const listingDocumentDataMock: { [key: string]: ListingDocumentData } = {
         amount: 3
       }
     ],
-    targetsIds: ['Rc8pLQXxgyQGIRL0fr13']
+    targetsIds: ['Rc8pLQXxgyQGIRL0fr13'],
+    updatedAt: 1676984897
   }
 }
