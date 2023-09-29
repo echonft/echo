@@ -23,7 +23,7 @@ const Home: FunctionComponent = async () => {
   })
   const collectionFiltersQueryParam = mapCollectionFiltersToQueryParams({ includeSwapsCount: true })
   const { data: collectionsData } = await fetcher(allCollectionsApiUrl())
-    .revalidate(3600)
+    .revalidate(600)
     .query(mergeLeft(collectionsConstraintsQueryParams, collectionFiltersQueryParam))
     .fetch<GetCollectionsResponse>()
 
@@ -32,7 +32,7 @@ const Home: FunctionComponent = async () => {
     limit: 5
   })
   const { data: swapsData } = await fetcher(allSwapsApiUrl())
-    .revalidate(3600)
+    .revalidate(600)
     .query(swapsConstraintsQueryParams)
     .fetch<GetOffersResponse>()
 
