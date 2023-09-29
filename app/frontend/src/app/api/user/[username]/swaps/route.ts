@@ -9,7 +9,6 @@ import { getUserCompletedOffersRequestHandler } from '@server/request-handlers/u
  * @param {ApiRequest<never>} request
  * @param {{username: string}} params
  * @return {Promise<NextResponse<ErrorResponse | GetOffersResponse>>}
- * @constructor
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { username: string } }) {
   return await handleRequest(request, getUserCompletedOffersRequestHandler, params.username)

@@ -8,7 +8,6 @@ import { getNftListingsRequestHandler } from '@server/request-handlers/nft/get-n
  *  - listing filters see {@link ListingQueryFilters}
  * @param request
  * @param params
- * @constructor
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { id: string } }) {
   return await handleRequest(request, getNftListingsRequestHandler, params.id)

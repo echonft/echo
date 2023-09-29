@@ -8,7 +8,6 @@ import { handleRequest } from '@server/request-handlers/handle-request'
  *  - listing filters see {@link ListingQueryFilters}
  * @param request
  * @param params
- * @constructor
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { slug: string } }) {
   return await handleRequest(request, getCollectionListingsRequestHandler, params.slug)

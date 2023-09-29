@@ -8,7 +8,6 @@ import { getUserNftsRequestHandler } from '@server/request-handlers/user/get-use
  * @param {ApiRequest<never>} request
  * @param {{username: string}} params
  * @return {Promise<NextResponse<ErrorResponse | GetNftsResponse>>}
- * @constructor
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { username: string } }) {
   return await handleRequest(request, getUserNftsRequestHandler, params.username)

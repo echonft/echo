@@ -8,7 +8,6 @@ import { getCurrentUserOffersRequestHandler } from '@server/request-handlers/use
  *  - offers filters see {@link OfferQueryFilters}
  * @param {ApiRequest<never>} request
  * @return {Promise<NextResponse<ErrorResponse | GetOffersResponse>>}
- * @constructor
  */
 export async function GET(request: ApiRequest<never>) {
   return await handleRequest(request, getCurrentUserOffersRequestHandler)

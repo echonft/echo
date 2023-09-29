@@ -5,9 +5,8 @@ import { getAllListingsRequestHandler } from '@server/request-handlers/listing/g
 /**
  * Available query params:
  * - query constraints see {@link QueryConstraintsQueryParams}
- *  - listing filters see {@link ListingQueryFilters}
+ *   - listing filters see {@link ListingQueryFilters}
  * @param request
- * @constructor
  */
 export async function GET(request: ApiRequest<never>) {
   return await handleRequest(request, getAllListingsRequestHandler)

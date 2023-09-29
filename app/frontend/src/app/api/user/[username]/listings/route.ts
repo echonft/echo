@@ -5,11 +5,10 @@ import { getUserListingsRequestHandler } from '@server/request-handlers/user/get
 /**
  * Available query params:
  * - query constraints see {@link QueryConstraintsQueryParams}
- *  - listing filters see {@link ListingQueryFilters}
+ * - listing filters see {@link ListingQueryFilters}
  * @param {ApiRequest<never>} request
  * @param {{username: string}} params
  * @return {Promise<NextResponse<ErrorResponse | GetListingsResponse>>}
- * @constructor
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { username: string } }) {
   return await handleRequest(request, getUserListingsRequestHandler, params.username)
