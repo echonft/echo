@@ -1,6 +1,7 @@
 import { FirestoreAdapter } from '@auth/firebase-adapter'
 import { getDiscordAuthorizationUrl } from '@echo/discord/config/get-discord-authorization-url'
 import { getDiscordConfig } from '@echo/discord/config/get-discord-config'
+import { updateAccount } from '@echo/firestore/crud/account/update-account'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { mapWalletToWalletData } from '@echo/firestore/mappers/map-wallet-to-wallet-data'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
@@ -46,9 +47,10 @@ export const authOptions: AuthOptions = {
       clientId: getDiscordConfig().clientId,
       clientSecret: getDiscordConfig().clientSecret,
       authorization: getDiscordAuthorizationUrl(),
-      profile(profile: DiscordProfile, tokens) {
+      profile: async (profile: DiscordProfile, tokens) => {
         logger.info(`profile is ${JSON.stringify(profile)}`)
         logger.info(`tokens are ${JSON.stringify(tokens)}`)
+        await updateAccount(profile.id, tokens)
         return {
           id: profile.id,
           username: profile.username,
