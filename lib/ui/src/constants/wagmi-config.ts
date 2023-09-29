@@ -35,7 +35,7 @@ export const wagmiConfig: Config<
   PublicClient<FallbackTransport>,
   WebSocketPublicClient<FallbackTransport>
 > = createConfig({
-  autoConnect: false,
+  autoConnect: true,
   connectors,
   publicClient,
   webSocketPublicClient
