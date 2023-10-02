@@ -14,7 +14,7 @@ interface Props {
 export const Modal: FunctionComponent<Props> = ({ open, onClose, renderTitle, renderDescription }) => {
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as={'div'} className={clsx('relative z-10')} onClose={onClose}>
+      <Dialog as={'div'} className={clsx('relative', 'z-40')} onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
