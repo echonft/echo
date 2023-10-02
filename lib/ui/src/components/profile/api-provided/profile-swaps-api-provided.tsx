@@ -2,7 +2,7 @@
 import type { OfferResponse } from '@echo/api/types/responses/model/offer-response'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
-import { ProfileNavigationLayout } from '@echo/ui/components/profile/profile-navigation-layout'
+import { ProfileNavigationLayout } from '@echo/ui/components/profile/layout/profile-navigation-layout'
 import { ProfileSwapsEmpty } from '@echo/ui/components/profile/swap/empty/profile-swaps-empty'
 import { SwapRowsContainer } from '@echo/ui/components/swap/layout/swap-rows-container'
 import { NavigationSwaps } from '@echo/ui/constants/navigation-item'

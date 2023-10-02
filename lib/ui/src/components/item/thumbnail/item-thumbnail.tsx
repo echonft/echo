@@ -1,10 +1,12 @@
 import { ListingItemResponse } from '@echo/api/types/responses/model/listing-item-response'
 import { OfferItemResponse } from '@echo/api/types/responses/model/offer-item-response'
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ItemThumbnailSelector } from '@echo/ui/components/item/thumbnail/item-thumbnail-selector'
 import { ItemThumbnailTitle } from '@echo/ui/components/item/thumbnail/item-thumbnail-title'
 import { NftThumbnailPicture } from '@echo/ui/components/nft/thumbnail/nft-thumbnail-picture'
 import { UserDiscordTagOffer } from '@echo/ui/components/shared/user-discord-tag-offer'
+import { links } from '@echo/ui/constants/links'
 import { SizeLG, SizeMD } from '@echo/ui/constants/size'
 import type { ItemThumbnailSize } from '@echo/ui/types/item-thumbnail-size'
 import type { ListingItem } from '@echo/ui/types/model/listing-item'
@@ -22,7 +24,8 @@ interface Props {
 export const ItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername, size, onRemove }) => {
   const { name, tokenId, thumbnailUrl, collection } = item.nft
   return (
-    <div
+    <InternalLink
+      path={links.collection.nft(collection.slug, tokenId)}
       className={clsx(
         'flex',
         'flex-col',
@@ -65,6 +68,6 @@ export const ItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername,
       >
         <ItemThumbnailTitle tokenId={tokenId} collectionName={collection.name} size={size} />
       </div>
-    </div>
+    </InternalLink>
   )
 }

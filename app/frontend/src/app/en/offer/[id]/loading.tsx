@@ -1,13 +1,8 @@
 import { OfferDetailsSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-skeleton'
-import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 const OfferLoading: FunctionComponent = () => {
-  return (
-    <section className={clsx('w-full')}>
-      <OfferDetailsSkeleton />
-    </section>
-  )
+  return <OfferDetailsSkeleton />
 }
 
 export default OfferLoading

@@ -1,13 +1,8 @@
 import { NftDetailsSkeleton } from '@echo/ui/components/nft/details/skeleton/nft-details-skeleton'
-import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 const NftDetailsLoading: FunctionComponent = () => {
-  return (
-    <section className={clsx('w-full', 'pt-12')}>
-      <NftDetailsSkeleton />
-    </section>
-  )
+  return <NftDetailsSkeleton />
 }
 
 export default NftDetailsLoading

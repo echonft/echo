@@ -17,23 +17,7 @@ interface Props {
 const CollectionNftsPage: FunctionComponent<Props> = async ({ params: { slug } }) => {
   const session = await getServerSession(authOptions)
   const queryParams = mapQueryConstraintsToQueryParams({
-    select: [
-      'id',
-      'attributes',
-      'balance',
-      'blurUrl',
-      'collection.id',
-      'collection.name',
-      'collection.slug',
-      'name',
-      'openSeaUrl',
-      'owner',
-      'pictureUrl',
-      'thumbnailUrl',
-      'tokenId',
-      'tokenType'
-    ],
-    orderBy: [{ field: 'owner.discordUsername' }, { field: 'tokenId' }]
+    orderBy: [{ field: 'owner.discord.username' }, { field: 'tokenId' }]
   })
   const { data, error } = await fetcher(collectionNftsApiUrl(slug))
     .revalidate(3600)

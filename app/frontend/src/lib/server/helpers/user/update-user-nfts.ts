@@ -31,9 +31,11 @@ export async function updateUserNfts(user: AuthUser, chainId: number) {
         // FIXME this is true only for ERC721
         const nft = await findNftByCollectionContract(contractAddress, chainId, tokenId)
         if (isNil(nft)) {
-          const collection = find(pathEq(contractAddress, ['contract', 'address']), collectionsForChain)!
-          const nft = mapAlchemyNftToFirestore(alchemyNft, user, wallet, collection)
-          await addNft(nft)
+          const collection = find(pathEq(contractAddress, ['contract', 'address']), collectionsForChain)
+          if (!isNil(collection)) {
+            const nft = mapAlchemyNftToFirestore(alchemyNft, user, wallet, collection)
+            await addNft(nft)
+          }
         } else {
           await setNftOwner(nft.id, user, wallet)
         }

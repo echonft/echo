@@ -1,6 +1,6 @@
 import type { AlchemyNftResponse } from '@echo/alchemy/types/response/alchemy-nft-response'
 
-export const alchemyNftResponseMock: { [key: string]: AlchemyNftResponse } = {
+export const alchemyNftResponseMock: Record<string, AlchemyNftResponse> = {
   '0x320e2fa93A4010ba47edcdE762802374bac8d3F7:1376': {
     contract: {
       address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',

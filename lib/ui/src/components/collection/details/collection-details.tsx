@@ -23,24 +23,26 @@ export const CollectionDetails: FunctionComponent<Props> = ({
   websiteUrl
 }) => {
   return (
-    <div className={clsx('w-full')}>
+    <>
       <CollectionBanner bannerUrl={bannerUrl} />
       <PaddedContainer>
-        <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-40', 'pb-8')}>
-          <CollectionProfile
-            collectionName={collectionName}
-            supplyCount={supplyCount}
-            pictureUrl={pictureUrl}
-            discordUrl={discordUrl}
-            websiteUrl={websiteUrl}
-            twitterUsername={twitterUsername}
-            size={SizeLG}
-          />
-        </div>
-        <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full')}>
-          <p className={clsx('prose-header-xs', 'text-white/60', 'w-[37rem]')}>{description}</p>
+        <div className={clsx('z-20', 'relative')}>
+          <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-40', 'pb-8')}>
+            <CollectionProfile
+              collectionName={collectionName}
+              supplyCount={supplyCount}
+              pictureUrl={pictureUrl}
+              discordUrl={discordUrl}
+              websiteUrl={websiteUrl}
+              twitterUsername={twitterUsername}
+              size={SizeLG}
+            />
+          </div>
+          <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full')}>
+            <p className={clsx('prose-header-xs', 'text-white/60', 'w-[37rem]')}>{description}</p>
+          </div>
         </div>
       </PaddedContainer>
-    </div>
+    </>
   )
 }

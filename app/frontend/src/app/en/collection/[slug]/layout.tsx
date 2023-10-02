@@ -1,11 +1,14 @@
+import { authOptions } from '@constants/auth-options'
 import { collectionApiUrl } from '@echo/api/routing/collection-api-url'
 import type { GetCollectionResponse } from '@echo/api/types/responses/get-collection-response'
 import { CollectionDetailsApiProvided } from '@echo/ui/components/collection/api-provided/collection-details-api-provided'
+import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
+import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { fetcher } from '@helpers/fetcher'
 import { ErrorStatus } from '@server/constants/error-status'
 import { ApiError } from '@server/helpers/error/api-error'
-import { clsx } from 'clsx'
 import { notFound } from 'next/navigation'
+import { getServerSession } from 'next-auth/next'
 import { isNil } from 'ramda'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
@@ -16,6 +19,7 @@ interface Props {
 }
 
 const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { slug }, children }) => {
+  const session = await getServerSession(authOptions)
   const { data, error } = await fetcher(collectionApiUrl(slug)).fetch<GetCollectionResponse>()
 
   if (isNil(data)) {
@@ -29,12 +33,12 @@ const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ p
   }
 
   return (
-    <>
-      <section className={clsx('w-full')}>
+    <NavigationPageLayout user={session?.user}>
+      <SectionLayout>
         <CollectionDetailsApiProvided response={data.collection} />
-      </section>
-      <section className={clsx('w-full')}>{children}</section>
-    </>
+      </SectionLayout>
+      <SectionLayout>{children}</SectionLayout>
+    </NavigationPageLayout>
   )
 }
 

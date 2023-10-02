@@ -9,7 +9,6 @@
       "@helpers/*": ["src/lib/helpers/*"],
       "@server/*": ["src/lib/server/*"],
       "@server-mocks/*": ["test/lib/server/mocks/*"],
-      "@styles/*": ["src/styles/*"],
       "@type/*": ["src/lib/types/*"],
       "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/api/*": ["../../lib/api/src/*"],

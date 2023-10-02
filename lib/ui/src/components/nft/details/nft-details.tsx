@@ -13,7 +13,7 @@ import type { FunctionComponent } from 'react'
 
 interface Props {
   nft: Nft
-  listings: Array<Listing>
+  listings: Listing[]
   onMakeOffer?: () => unknown
 }
 
