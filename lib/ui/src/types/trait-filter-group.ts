@@ -1,6 +1,6 @@
-import type { NftTraitValue } from '@echo/ui/types/model/nft-trait-value'
+import type { TraitFilter } from '@echo/ui/types/trait-filter'
 
 export interface TraitFilterGroup {
   trait: string
-  values: NftTraitValue[]
+  values: TraitFilter[]
 }

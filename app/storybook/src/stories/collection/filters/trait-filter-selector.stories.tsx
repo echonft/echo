@@ -1,14 +1,18 @@
-import { SelectionManager } from '@echo/ui/components/base/manager/selection-manager'
-import { FiltersPanel as Component } from '@echo/ui/components/layout/filters-panel'
-import { TraitFilterSelector } from '@echo/ui/components/nft/filters/by-traits/trait-filter-selector'
+import { TraitFilterSelector as Component } from '@echo/ui/components/nft/filters/by-traits/trait-filter-selector'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Collection/Filters/Trait Filter Selector',
   component: Component,
+  argTypes: {
+    onToggleSelection: {
+      control: false,
+      action: 'selection updated'
+    }
+  },
   parameters: {
     controls: {
-      exclude: ['className']
+      exclude: ['onToggleSelection']
     }
   }
 }
@@ -19,55 +23,23 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    children: (
-      <TraitFilterSelector
-        value={{
-          value: 'Trait Name',
-          count: 1754
-        }}
-      />
-    )
+    filter: { trait: 'Trait', value: 'Trait Value', count: 1754 }
   }
 }
 
 export const Overflow: Story = {
   args: {
-    children: (
-      <TraitFilterSelector
-        value={{
-          value: 'This Trait Name is waaaayyyyyyyyy too long',
-          count: 1754
-        }}
-      />
-    )
+    filter: { trait: 'Trait', value: 'This Trait value is waaaayyyyyyyyy too long', count: 1754 }
   }
 }
 
 export const Selected: Story = {
   args: {
-    children: (
-      <TraitFilterSelector
-        value={{
-          value: 'Trait Name',
-          count: 1754
-        }}
-        selected
-      />
-    )
-  }
-}
-
-export const Managed: Story = {
-  args: {
-    children: (
-      <SelectionManager>
-        <TraitFilterSelector
-          value={{
-            value: 'Trait Name',
-            count: 1754
-          }}
-        />
-      </SelectionManager>
-    )
+    filter: {
+      trait: 'Trait',
+      value: 'Trait Name',
+      count: 1754,
+      selected: true
+    }
   }
 }

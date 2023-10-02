@@ -10,10 +10,9 @@ import { mapNftToOfferItem } from '@echo/ui/mappers/map-nft-to-offer-item'
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import { AuthUser } from '@echo/ui/types/model/auth-user'
 import type { Nft } from '@echo/ui/types/model/nft'
-import { isIn } from '@echo/utils/fp/is-in'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { filter, map, pipe, prop } from 'ramda'
-import { type FunctionComponent, useCallback, useMemo } from 'react'
+import { map } from 'ramda'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   collectionSlug: string
@@ -26,11 +25,9 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
   const mappedNfts = useMemo(() => map(mapNftFromResponse, responses), [responses]) as NonEmptyArray<Nft>
   const { setReceiverItems, hasNewOfferPending } = useNewOfferStore()
 
-  const onMakeOffer = useCallback(
-    (nftIds: string[]) =>
-      setReceiverItems(pipe(filter(pipe(prop('id'), isIn(nftIds))), map(mapNftToOfferItem))(mappedNfts)),
-    [mappedNfts, setReceiverItems]
-  )
+  const onMakeOffer = (nfts: Nft[]) => {
+    setReceiverItems(map(mapNftToOfferItem, nfts))
+  }
 
   return (
     <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationItems} user={user}>
@@ -38,7 +35,7 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
         nfts={mappedNfts}
         availableFilters={[NftFilterTraits]}
         btnLabel={t(hasNewOfferPending() ? 'collection.button.edit' : 'collection.button.create')}
-        onMakeOffer={onMakeOffer}
+        onButtonClick={onMakeOffer}
       />
     </CollectionNavigationLayout>
   )

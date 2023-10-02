@@ -1,9 +1,10 @@
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
   selected?: boolean
-  onToggleSelection?: (selected: boolean) => unknown
+  onToggleSelection?: () => unknown
 }
 
 export const NftThumbnailSelector: FunctionComponent<Props> = ({ selected, onToggleSelection }) => {
@@ -27,10 +28,12 @@ export const NftThumbnailSelector: FunctionComponent<Props> = ({ selected, onTog
       )}
       onClick={(event) => {
         event.preventDefault()
-        onToggleSelection?.(!selected)
+        onToggleSelection?.()
       }}
     >
-      {selected && <span className={clsx('w-4.5', 'h-4.5', 'bg-yellow-500', 'rounded')} />}
+      <ShowIf condition={Boolean(selected)}>
+        <span className={clsx('w-4.5', 'h-4.5', 'bg-yellow-500', 'rounded')} />
+      </ShowIf>
     </button>
   )
 }

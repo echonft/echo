@@ -1,6 +1,6 @@
-import { NftTraitValue } from '@echo/ui/types/model/nft-trait-value'
+import { TraitFilter } from '@echo/ui/types/trait-filter'
 
 /**
  * the key name is the trait type
  */
-export type NftTraits = Record<string, NftTraitValue[]>
+export type NftTraits = Record<string, TraitFilter[]>

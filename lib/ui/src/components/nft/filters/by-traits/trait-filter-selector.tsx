@@ -1,13 +1,15 @@
-import type { NftTraitValue } from '@echo/ui/types/model/nft-trait-value'
-import type { SelectableProps } from '@echo/ui/types/selectable-props'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { isSelected } from '@echo/ui/helpers/selection/is-selected'
+import type { TraitFilter } from '@echo/ui/types/trait-filter'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
-interface Props extends SelectableProps<NftTraitValue> {
-  value: NftTraitValue
+interface Props {
+  filter: TraitFilter
+  onToggleSelection?: (filter: TraitFilter) => unknown
 }
 
-export const TraitFilterSelector: FunctionComponent<Props> = ({ value, selected, onToggleSelection }) => {
+export const TraitFilterSelector: FunctionComponent<Props> = ({ filter, onToggleSelection }) => {
   return (
     <button
       className={clsx(
@@ -23,7 +25,7 @@ export const TraitFilterSelector: FunctionComponent<Props> = ({ value, selected,
         'hover:bg-white/[0.08]'
       )}
       onClick={() => {
-        onToggleSelection?.(value, !selected)
+        onToggleSelection?.(filter)
       }}
     >
       <div className={clsx('flex', 'flex-row', 'gap-2.5', 'items-center', 'min-w-0')}>
@@ -42,11 +44,13 @@ export const TraitFilterSelector: FunctionComponent<Props> = ({ value, selected,
             'bg-transparent'
           )}
         >
-          {selected && <span className={clsx('w-4', 'h-4', 'bg-yellow-500', 'rounded')} />}
+          <ShowIf condition={isSelected(filter)}>
+            <span className={clsx('w-4', 'h-4', 'bg-yellow-500', 'rounded')} />
+          </ShowIf>
         </div>
-        <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>{value.value}</span>
+        <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>{filter.value}</span>
       </div>
-      <span className={clsx('prose-label-sm-light', 'text-white')}>{value.count}</span>
+      <span className={clsx('prose-label-sm-light', 'text-white')}>{filter.count}</span>
     </button>
   )
 }

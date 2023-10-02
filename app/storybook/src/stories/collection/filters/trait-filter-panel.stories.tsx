@@ -1,20 +1,18 @@
 import { TraitFilterPanel as Component } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
-import type { NftTraits } from '@echo/ui/types/model/nft-traits'
-import { getAllNfts } from '@mocks/model/nft'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Collection/Filters/Trait Filter Panel',
   component: Component,
   argTypes: {
-    onSelectionUpdate: {
+    onToggleSelection: {
       control: false,
-      action: 'selection updated'
+      action: 'selection toggle'
     }
   },
   parameters: {
     controls: {
-      exclude: ['nfts', 'selection']
+      exclude: ['filters', 'onToggleSelection']
     }
   }
 }
@@ -25,7 +23,11 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    nfts: getAllNfts(),
-    selection: {} as NftTraits
+    filters: [
+      { trait: 'Trait', value: 'Trait Value', count: 1754 },
+      { trait: 'Trait', value: 'Another Trait Value', count: 9 },
+      { trait: 'Another Trait', value: 'Trait Value', count: 10 },
+      { trait: 'Another Trait', value: 'Selected Trait Value', count: 2, selected: true }
+    ]
   }
 }

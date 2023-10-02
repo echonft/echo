@@ -1,8 +1,7 @@
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { NonEmptyObject } from '@echo/utils/types/non-empty-object'
 import { NonEmptyString } from '@echo/utils/types/non-empty-string'
-import { is } from 'ramda'
+import { is, isEmpty } from 'ramda'
 import type { ReactNode } from 'react'
 
 interface ArrayProps<T> {
@@ -21,21 +20,21 @@ interface ObjectProps {
 }
 
 function HideIfEmptyArray<T>({ checks, render }: ArrayProps<T>) {
-  if (isNilOrEmpty(checks)) {
+  if (isEmpty(checks)) {
     return null as ReactNode
   }
   return render(checks as NonEmptyArray<T>)
 }
 
 function HideIfEmptyString<T extends string>({ checks, render }: StringProps) {
-  if (isNilOrEmpty(checks)) {
+  if (isEmpty(checks)) {
     return null as ReactNode
   }
   return render(checks as NonEmptyString<T>)
 }
 
 function HideIfEmptyObject<T extends Record<string | number | symbol, unknown>>({ checks, render }: ObjectProps) {
-  if (isNilOrEmpty(checks)) {
+  if (isEmpty(checks)) {
     return null as ReactNode
   }
   return render(checks as NonEmptyObject<T>)
