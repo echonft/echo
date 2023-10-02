@@ -46,9 +46,10 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       },
       name: 'Spiral Frequencies #1376',
       owner: {
-        discordId: '462798252543049728',
-        discordUsername: 'johnnycagewins',
-        discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+        discord: {
+          avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+          username: 'johnnycagewins'
+        },
         username: 'johnnycagewins',
         wallet: {
           address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
@@ -68,9 +69,10 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
     expired: false,
     expiresAt: 2324074781,
     receiver: {
-      discordId: '462798252543049728',
-      discordUsername: 'johnnycagewins',
-      discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
       username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
@@ -79,9 +81,10 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
     },
     receiverItems: [offerItemResponse],
     sender: {
-      discordId: '462798252543049728',
-      discordUsername: 'johnnycagewins',
-      discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
       username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
@@ -132,9 +135,10 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       },
       name: 'Spiral Frequencies #1376',
       owner: {
-        discordId: '462798252543049728',
-        discordUsername: 'johnnycagewins',
-        discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+        discord: {
+          avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+          username: 'johnnycagewins'
+        },
         username: 'johnnycagewins',
         wallet: {
           address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
@@ -154,9 +158,10 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
     expired: false,
     expiresAt: dayjs.unix(2324074781),
     receiver: {
-      discordId: '462798252543049728',
-      discordUsername: 'johnnycagewins',
-      discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
       username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
@@ -165,9 +170,10 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
     },
     receiverItems: [offerItem],
     sender: {
-      discordId: '462798252543049728',
-      discordUsername: 'johnnycagewins',
-      discordAvatar: '6b3df6d9a8b5ab523fa24a71aca8160d',
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
       username: 'johnnycagewins',
       wallet: {
         address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',

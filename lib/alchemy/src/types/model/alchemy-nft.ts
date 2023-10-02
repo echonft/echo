@@ -1,6 +1,6 @@
 import type { AlchemyNftAttribute } from '@echo/alchemy/types/model/alchemy-nft-attribute'
 
-export type AlchemyNft = {
+export interface AlchemyNft {
   contractAddress: string
   chainId: number
   attributes: AlchemyNftAttribute[]

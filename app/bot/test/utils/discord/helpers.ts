@@ -29,7 +29,7 @@ export async function emitEvent<E extends keyof ClientEvents>(client: Client, ev
 // 	return created;
 // }
 
-export type PermissionVariantsTest = {
+export interface PermissionVariantsTest {
   permissionsThatShouldWork: PermissionResolvable[]
   operation: (permission: PermissionResolvable, isPermissionAllowed: boolean) => Promise<void> | void
 }

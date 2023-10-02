@@ -1,17 +1,17 @@
 import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import type { OfferItemDocumentData } from '@echo/firestore/types/model/offer/offer-item-document-data'
-import type { UserDetailsDocumentData } from '@echo/firestore/types/model/user/user-details-document-data'
+import { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export interface OfferDocumentData {
   id: string
   createdAt: number
   expiresAt: number
-  receiver: UserDetailsDocumentData
+  receiver: FirestoreUserDetails
   receiverItems: NonEmptyArray<OfferItemDocumentData>
   receiverItemsNftIds: NonEmptyArray<string>
   receiverItemsNftCollectionIds: NonEmptyArray<string>
-  sender: UserDetailsDocumentData
+  sender: FirestoreUserDetails
   senderItems: NonEmptyArray<OfferItemDocumentData>
   senderItemsNftIds: NonEmptyArray<string>
   senderItemsNftCollectionIds: NonEmptyArray<string>

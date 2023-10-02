@@ -1,8 +1,8 @@
-import { HomeSkeleton } from '@echo/ui/components/home/skeleton/home-skeleton'
+import { LayoutLoading } from '@echo/ui/components/layout/layout-loading'
 import type { FunctionComponent } from 'react'
 
-const HomeLoading: FunctionComponent = () => {
-  return <HomeSkeleton />
+const MainLoading: FunctionComponent = () => {
+  return <LayoutLoading />
 }
 
-export default HomeLoading
+export default MainLoading

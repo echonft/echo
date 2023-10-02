@@ -3,7 +3,7 @@ import { NewReceiverItemsContainer } from '@echo/ui/components/item/new/new-rece
 import { NewSenderItemsContainer } from '@echo/ui/components/item/new/new-sender-items-container'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
 import type { OfferItem } from '@echo/ui/types/model/offer-item'
-import { UserDetails } from '@echo/ui/types/model/user-details'
+import type { User } from '@echo/ui/types/model/user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
@@ -11,7 +11,7 @@ import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  receiver: UserDetails | undefined
+  receiver: User | undefined
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
   onRemoveSenderItem?: (itemNftId: string) => unknown

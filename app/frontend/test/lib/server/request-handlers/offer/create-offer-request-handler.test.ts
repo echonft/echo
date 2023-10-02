@@ -3,7 +3,7 @@ import type { IdResponse } from '@echo/api/types/responses/id-response'
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
 import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
-import type { AuthUser } from '@echo/ui/types/model/auth-user'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@server/helpers/error/api-error'
 import { createOffer } from '@server/helpers/offer/create-offer'
 import { getOfferItems } from '@server/helpers/offer/get-offer-items'
@@ -35,11 +35,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
       }
     ]
   }
-  const user: AuthUser = {
-    id: 'user-id',
-    name: 'user-name',
-    image: 'user-image'
-  }
+  const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -78,7 +74,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
     jest
       .mocked(getOfferItems)
       .mockResolvedValue([
-        { amount: 1, nft: { owner: { username: 'user-name' } as FirestoreUserDetails } as FirestoreNft }
+        { amount: 1, nft: { owner: { username: 'johnnycagewins' } as FirestoreUserDetails } as FirestoreNft }
       ])
     jest.mocked(createOffer).mockResolvedValue(offer)
     const req = mockRequest<CreateOfferRequest>(validRequest)

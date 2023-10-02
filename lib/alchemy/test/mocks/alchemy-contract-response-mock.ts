@@ -1,6 +1,6 @@
 import type { AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
 
-export const alchemyContractResponseMock: { [key: string]: AlchemyContractResponse } = {
+export const alchemyContractResponseMock: Record<string, AlchemyContractResponse> = {
   '0x320e2fa93A4010ba47edcdE762802374bac8d3F7': {
     address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
     name: 'Spiral Frequencies',

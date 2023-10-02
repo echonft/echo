@@ -4,27 +4,30 @@ import { HomeCollections } from '@echo/ui/components/home/collection/home-collec
 import { DiscordTile } from '@echo/ui/components/home/discord/discord-tile'
 import { HomeHero } from '@echo/ui/components/home/hero/home-hero'
 import { HomeDiscordTileLayout } from '@echo/ui/components/home/layout/home-discord-tile-layout'
-import { HomeLayout } from '@echo/ui/components/home/layout/home-layout'
+import { HomeSectionsLayout } from '@echo/ui/components/home/layout/home-sections-layout'
 import { RecentSwaps } from '@echo/ui/components/home/swap/recent-swaps'
 import type { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
 import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import { clsx } from 'clsx'
 import { head, tail } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-interface Props {
+export interface HomeProps {
   collections: NonEmptyArray<CollectionTileDetails>
   offers: OfferResponse[]
 }
 
-export const Home: FunctionComponent<Props> = ({ collections, offers }) => {
+export const Home: FunctionComponent<HomeProps> = ({ collections, offers }) => {
   return (
-    <HomeLayout>
+    <div className={clsx('min-h-full')}>
       <HomeHero collection={head(collections)} />
-      <HomeCollections collections={tail(collections)} />
-      <HideIfEmpty checks={offers} render={(offers) => <RecentSwaps offers={offers} />} />
-      <HomeDiscordTileLayout>
-        <DiscordTile />
-      </HomeDiscordTileLayout>
-    </HomeLayout>
+      <HomeSectionsLayout>
+        <HomeCollections collections={tail(collections)} />
+        <HideIfEmpty checks={offers} render={(offers) => <RecentSwaps offers={offers} />} />
+        <HomeDiscordTileLayout>
+          <DiscordTile />
+        </HomeDiscordTileLayout>
+      </HomeSectionsLayout>
+    </div>
   )
 }

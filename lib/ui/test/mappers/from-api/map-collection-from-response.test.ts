@@ -1,5 +1,6 @@
 import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
 import { mapCollectionFromResponse } from '@echo/ui/mappers/from-api/map-collection-from-response'
+import { Collection } from '@echo/ui/types/model/collection'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - from-api - mapCollectionFromResponse', () => {
@@ -25,8 +26,7 @@ describe('mappers - from-api - mapCollectionFromResponse', () => {
       verified: true,
       websiteUrl: 'https://pxmythics.io/'
     }
-
-    expect(mapCollectionFromResponse(response)).toStrictEqual({
+    const collection: Collection = {
       id: 'Rc8pLQXxgyQGIRL0fr13',
       bannerUrl: new URL(
         'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ?auto=format&dpr=1&w=3840'
@@ -48,6 +48,8 @@ describe('mappers - from-api - mapCollectionFromResponse', () => {
       totalSupply: 1077,
       verified: true,
       websiteUrl: new URL('https://pxmythics.io')
-    })
+    }
+
+    expect(mapCollectionFromResponse(response)).toStrictEqual(collection)
   })
 })

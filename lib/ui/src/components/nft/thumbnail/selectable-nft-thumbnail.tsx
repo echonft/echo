@@ -36,7 +36,7 @@ export const SelectableNftThumbnail: FunctionComponent<Props> = ({
     <InternalLink
       className={clsx('h-max')}
       path={links.collection.nft(collection.slug, tokenId)}
-      disabled={disabled || linkDisabled}
+      disabled={disabled ?? linkDisabled}
       onClick={() => {
         if (linkDisabled) {
           onToggleSelection?.(id, !selected)
@@ -70,7 +70,7 @@ export const SelectableNftThumbnail: FunctionComponent<Props> = ({
           </HideIf>
           <HideIf condition={Boolean(hideOwner)}>
             <div className={clsx('absolute', 'bottom-2', 'left-2', 'z-10')}>
-              <UserDiscordTagOffer owner={owner.discordUsername} />
+              <UserDiscordTagOffer owner={owner.discord.username} />
             </div>
           </HideIf>
         </div>

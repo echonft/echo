@@ -1,11 +1,11 @@
 export interface FirestoreAccount {
   access_token: string
   expires_at: number
-  provider: 'discord'
+  provider: string
   providerAccountId: string
   refresh_token: string
   scope: string
-  token_type: 'Bearer'
-  type: 'oauth'
+  token_type?: string
+  type: string
   userId: string
 }

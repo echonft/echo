@@ -6,7 +6,7 @@ import { isEmpty, map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  listings: Array<Listing>
+  listings: Listing[]
 }
 
 export const NftDetailsListingsPanelList: FunctionComponent<Props> = ({ listings }) => {
@@ -23,7 +23,7 @@ export const NftDetailsListingsPanelList: FunctionComponent<Props> = ({ listings
     <div className={clsx('flex', 'flex-col', 'flex-grow', 'gap-2.5', 'self-stretch', 'w-full')}>
       {map(
         ({ id, creator, expiresAt }) => (
-          <NftDetailsListingRow key={id} id={id} sender={creator.discordUsername} expiresAt={expiresAt} />
+          <NftDetailsListingRow key={id} id={id} sender={creator.discord.username} expiresAt={expiresAt} />
         ),
         listings
       )}

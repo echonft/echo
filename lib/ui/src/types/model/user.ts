@@ -1,10 +1,10 @@
 import type { Wallet } from '@echo/ui/types/model/wallet'
 
 export interface User {
-  discordAvatar?: string
-  discordBanner?: string
-  discordId: string
-  discordUsername: string
+  discord: {
+    avatarUrl: string
+    username: string
+  }
   username: string
-  wallets?: Wallet[]
+  wallet: Wallet
 }

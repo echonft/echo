@@ -1,5 +1,5 @@
 import { OfferItem } from '@echo/ui/types/model/offer-item'
-import { UserDetails } from '@echo/ui/types/model/user-details'
+import type { User } from '@echo/ui/types/model/user'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { propIsNotEmpty } from '@echo/utils/fp/prop-is-not-empty'
 import { assoc, either, head, is, pipe } from 'ramda'
@@ -9,7 +9,7 @@ import { devtools } from 'zustand/middleware'
 interface NewOfferState {
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
-  receiver: () => UserDetails | undefined
+  receiver: () => User | undefined
   setReceiverItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
   setSenderItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
   clearOffer: () => void

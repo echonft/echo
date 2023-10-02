@@ -20,7 +20,7 @@ const ProfileSwapsPage: FunctionComponent = async () => {
   const queryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt' }]
   })
-  const { data, error } = await fetcher(userSwapsApiUrl(session.user.name))
+  const { data, error } = await fetcher(userSwapsApiUrl(session.user.username))
     .revalidate(3600)
     .query(queryParams)
     .fetch<GetOffersResponse>()

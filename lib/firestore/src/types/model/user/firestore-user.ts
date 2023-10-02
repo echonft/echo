@@ -1,8 +1,13 @@
-import type { Dayjs } from 'dayjs'
-
 export interface FirestoreUser {
   id: string
-  image: string
-  name: string
-  updatedAt: Dayjs
+  username: string
+  discord: {
+    avatarUrl: string
+    avatarDecorationUrl?: string
+    bannerColor: string
+    bannerUrl?: string
+    id: string
+    username: string
+  }
+  updatedAt: number
 }

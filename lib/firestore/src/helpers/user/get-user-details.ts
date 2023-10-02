@@ -1,17 +1,16 @@
-import { mapWalletToWalletData } from '@echo/firestore/mappers/map-wallet-to-wallet-data'
-import { FirestoreDiscordUser } from '@echo/firestore/types/model/discord-user/firestore-discord-user'
-import { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
-import { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
-import { assoc, pick, pipe } from 'ramda'
+import type { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
+import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
+import { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
+import { assoc, modify, pick, pipe } from 'ramda'
 
-export function getUserDetails(
-  username: string,
-  discordUser: FirestoreDiscordUser,
-  wallet: FirestoreWallet
-): FirestoreUserDetails {
+export function getUserDetails(user: FirestoreUser, wallet: WalletData): FirestoreUserDetails {
   return pipe(
-    pick(['discordAvatar', 'discordBanner', 'discordId', 'discordUsername']),
-    assoc('username', username),
-    assoc('wallet', mapWalletToWalletData(wallet))
-  )(discordUser) as FirestoreUserDetails
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    pick(['username', 'discord']),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    modify('discord', pick(['avatarUrl', 'username'])),
+    assoc('wallet', wallet)
+  )(user) as FirestoreUserDetails
 }

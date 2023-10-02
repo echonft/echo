@@ -1,5 +1,12 @@
 {
   "extends": "../tsconfig/base.json",
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist",
@@ -11,6 +18,6 @@
       "@test-utils/*": ["./test/test-utils/*"]
     }
   },
-  "include": ["src", "test"],
+  "include": ["src", "test", "utils"],
   "exclude": ["dist", "node_modules"]
 }

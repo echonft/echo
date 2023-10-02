@@ -1,4 +1,3 @@
-import { assertDiscordUsers } from '@test-utils/discord-user/assert-discord-users'
 import { assertListings } from '@test-utils/listing/assert-listings'
 import { assertListingOffers } from '@test-utils/listing-offer/assert-listing-offers'
 import { assertListingPosts } from '@test-utils/listing-post/assert-listing-posts'
@@ -14,7 +13,6 @@ import { assertUsers } from '@test-utils/user/assert-users'
 import { assertWallets } from '@test-utils/wallet/assert-wallets'
 
 export async function assertDb() {
-  await assertDiscordUsers()
   await assertListings()
   await assertListingOffers()
   await assertListingPosts()

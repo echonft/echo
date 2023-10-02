@@ -1,3 +1,4 @@
+import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { clsx } from 'clsx'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
@@ -8,25 +9,31 @@ interface Props {
 
 export const HomeHeroLayout: FunctionComponent<PropsWithChildren<Props>> = ({ title, subtitle, children }) => {
   return (
-    <div className={clsx('flex', 'flex-row', 'items-center', 'justify-between', 'gap-28', 'w-full', 'h-max')}>
-      <div className={clsx('flex', 'flex-col', 'w-max', 'h-max', 'gap-10')}>
-        <h1
-          className={clsx(
-            'text-[3rem]',
-            'leading-[122%]',
-            'tracking-[-0.045rem]',
-            'capitalize',
-            'whitespace-pre-line',
-            'font-semibold',
-            'font-inter',
-            'text-white'
-          )}
+    <div className={clsx('w-full', 'h-max', 'pt-[3.4375rem]', 'pb-24', 'bg-home-gradient')}>
+      <PaddedContainer>
+        <div
+          className={clsx('flex', 'flex-row', 'items-center', 'justify-between', 'gap-28', 'w-full', 'h-max', 'pt-20')}
         >
-          {title}
-        </h1>
-        <h2 className={clsx('prose-header-md', 'text-white/70')}>{subtitle}</h2>
-      </div>
-      {children}
+          <div className={clsx('flex', 'flex-col', 'w-max', 'h-max', 'gap-10')}>
+            <h1
+              className={clsx(
+                'text-[3rem]',
+                'leading-[122%]',
+                'tracking-[-0.045rem]',
+                'capitalize',
+                'whitespace-pre-line',
+                'font-semibold',
+                'font-inter',
+                'text-white'
+              )}
+            >
+              {title}
+            </h1>
+            <h2 className={clsx('prose-header-md', 'text-white/70')}>{subtitle}</h2>
+          </div>
+          {children}
+        </div>
+      </PaddedContainer>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import { executeForCommand } from '@echo/bot/handlers/input-command-handler'
 import { logger } from '@echo/utils/services/logger'
 import { BaseInteraction } from 'discord.js'
 
-export function listenToInteractions(interaction: BaseInteraction) {
+export async function listenToInteractions(interaction: BaseInteraction) {
   if (interaction.isChatInputCommand()) {
     try {
       return executeForCommand(interaction)
@@ -17,7 +17,7 @@ export function listenToInteractions(interaction: BaseInteraction) {
   }
   if (interaction.isButton()) {
     try {
-      return executeForButton(interaction)
+      return await executeForButton(interaction)
     } catch (error) {
       logger.error(`Error executing button ${interaction.customId}: ${(error as InteractionError).message}`)
       return (error as InteractionError).reply(interaction)

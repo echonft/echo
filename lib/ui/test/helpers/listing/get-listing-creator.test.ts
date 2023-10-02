@@ -1,7 +1,7 @@
 import { getListingCreator } from '@echo/ui/helpers/listing/get-listing-creator'
 import type { Listing } from '@echo/ui/types/model/listing'
 import type { ListingItem } from '@echo/ui/types/model/listing-item'
-import type { UserDetails } from '@echo/ui/types/model/user-details'
+import type { User } from '@echo/ui/types/model/user'
 import type { Wallet } from '@echo/ui/types/model/wallet'
 import { describe, expect, it } from '@jest/globals'
 
@@ -11,11 +11,11 @@ describe('helpers - listing - getListingCreator', () => {
       address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
       chainId: 1
     }
-    const owner: UserDetails = {
-      discordAvatar: 'discordAvatar',
-      discordBanner: 'discordBanner',
-      discordId: 'discordId',
-      discordUsername: 'discordUsername',
+    const owner: User = {
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
       username: 'username',
       wallet
     }

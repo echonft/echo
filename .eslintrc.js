@@ -48,6 +48,12 @@ module.exports = {
     'no-restricted-imports': [
       'error',
       {
+        paths: [
+          {
+            name: 'clsx/clsx',
+            message: 'Not gonna work. Use clsx instead'
+          }
+        ],
         patterns: [
           {
             group: [

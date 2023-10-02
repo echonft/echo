@@ -1,7 +1,7 @@
 import type { Collection } from '@echo/ui/types/model/collection'
 import type { NftAttribute } from '@echo/ui/types/model/nft-attribute'
 import type { NftTokenType } from '@echo/ui/types/model/nft-token-type'
-import type { UserDetails } from '@echo/ui/types/model/user-details'
+import type { User } from '@echo/ui/types/model/user'
 
 export interface Nft {
   id: string
@@ -11,7 +11,7 @@ export interface Nft {
   collection: Collection
   name: string
   openSeaUrl?: URL
-  owner: UserDetails
+  owner: User
   pictureUrl: URL
   thumbnailUrl: URL
   tokenId: number

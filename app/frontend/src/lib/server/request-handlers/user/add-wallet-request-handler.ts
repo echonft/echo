@@ -9,10 +9,9 @@ import { ForbiddenError } from '@server/helpers/error/forbidden-error'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
 import { emptyResponse } from '@server/helpers/response/empty-response'
 import { addUserWallet } from '@server/helpers/user/add-user-wallet'
-import { assertUser } from '@server/helpers/user/assert-user'
-import { getUserByUsername } from '@server/helpers/user/get-user-by-username'
-import { updateUserNftsIfNeeded } from '@server/helpers/user/update-user-nfts-if-needed'
+import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
 import { addWalletSchema } from '@server/validators/add-wallet-schema'
+import { assoc } from 'ramda'
 
 export async function addWalletRequestHandler(req: ApiRequest<AddWalletRequest>) {
   const requestBody = await req.json()
@@ -38,9 +37,7 @@ export async function addWalletRequestHandler(req: ApiRequest<AddWalletRequest>)
     )
   }
   await addUserWallet(user.id, wallet)
-  const firestoreUser = await getUserByUsername(user.name)
-  assertUser(firestoreUser)
-  await updateUserNftsIfNeeded(firestoreUser, wallet.chainId)
+  await updateUserNfts(assoc('wallets', [wallet], user), wallet.chainId)
   return emptyResponse()
 }
 

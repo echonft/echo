@@ -16,23 +16,18 @@ interface Props extends UserProfilePictureProps, UserBannerProps {
 
 export const ProfileDetails: FunctionComponent<Props> = ({
   discordUsername,
-  discordBanner,
-  discordId,
-  discordAvatar,
+  discordBannerUrl,
+  discordBannerColor,
+  discordAvatarUrl,
   wallet,
   size
 }) => {
   return (
     <UserDetailsLayout>
-      <UserBanner discordId={discordId} discordBanner={discordBanner} />
+      <UserBanner discordBannerUrl={discordBannerUrl} discordBannerColor={discordBannerColor} />
       <PaddedContainer>
         <UserPictureAndInfoLayout>
-          <UserProfilePicture
-            discordUsername={discordUsername}
-            discordId={discordId}
-            discordAvatar={discordAvatar}
-            size={size}
-          />
+          <UserProfilePicture discordUsername={discordUsername} discordAvatarUrl={discordAvatarUrl} size={size} />
           <UserInfoLayout>
             <UserDiscordTag discordUsername={discordUsername} />
             {/*TODO I guess it should be a "link wallet" button if wallet is nil?*/}

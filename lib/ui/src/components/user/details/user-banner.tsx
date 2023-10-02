@@ -1,13 +1,26 @@
-import { Banner } from '@echo/ui/components/shared/banner'
-import { getUserBannerUrl } from '@echo/ui/helpers/get-user-banner-url'
+import { clsx } from 'clsx'
+import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 export interface UserBannerProps {
-  discordId: string
-  discordBanner: string | undefined
+  discordBannerUrl: string | undefined
+  discordBannerColor: string
 }
 
-export const UserBanner: FunctionComponent<UserBannerProps> = ({ discordId, discordBanner }) => {
-  const bannerUrl = getUserBannerUrl(discordId, discordBanner, 2048)
-  return <Banner bannerUrl={bannerUrl} />
+export const UserBanner: FunctionComponent<UserBannerProps> = ({ discordBannerUrl, discordBannerColor }) => {
+  const defaultBanner = isNil(discordBannerUrl)
+  return (
+    <div
+      style={
+        defaultBanner
+          ? {
+              backgroundColor: discordBannerColor
+            }
+          : {
+              backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, #121212 100%), url('${discordBannerUrl}')`
+            }
+      }
+      className={clsx('absolute', 'top-0', 'inset-x-0', 'h-64', defaultBanner && 'bg-banner')}
+    />
+  )
 }

@@ -1,7 +1,7 @@
 import type { FirestoreNftTokenType } from '@echo/firestore/types/model/nft/firestore-nft-token-type'
 import type { NftAttributeDocumentData } from '@echo/firestore/types/model/nft/nft-attribute-document-data'
 import type { NftCollectionDocumentData } from '@echo/firestore/types/model/nft-collection/nft-collection-document-data'
-import type { UserDetailsDocumentData } from '@echo/firestore/types/model/user/user-details-document-data'
+import { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 
 export interface NftDocumentData {
   id: string
@@ -11,7 +11,7 @@ export interface NftDocumentData {
   collection: NftCollectionDocumentData
   name: string
   openSeaUrl?: string
-  owner: UserDetailsDocumentData
+  owner: FirestoreUserDetails
   pictureUrl: string
   thumbnailUrl: string
   tokenId: number

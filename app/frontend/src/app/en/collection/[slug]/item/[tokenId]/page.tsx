@@ -3,11 +3,12 @@ import { nftApiUrl } from '@echo/api/routing/nft-api-url'
 import { nftListingsApiUrl } from '@echo/api/routing/nft-listings-api-url'
 import type { GetListingsResponse } from '@echo/api/types/responses/get-listings-response'
 import type { GetNftResponse } from '@echo/api/types/responses/get-nft-response'
-import { NftDetailsApiProvided } from '@echo/ui/components/nft/details/api-provided/nft-details-api-provided'
+import { NftDetailsApiProvided } from '@echo/ui/components/nft/api-provided/nft-details-api-provided'
+import { errorMessage } from '@echo/utils/error/error-message'
+import { logger } from '@echo/utils/services/logger'
 import { fetcher } from '@helpers/fetcher'
 import { mapListingFiltersToQueryParams } from '@helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
-import { clsx } from 'clsx'
 import { getServerSession } from 'next-auth/next'
 import { isNil, mergeLeft } from 'ramda'
 import type { FunctionComponent } from 'react'
@@ -41,17 +42,17 @@ const NftPage: FunctionComponent<Props> = async ({ params: { slug, tokenId } }) 
     .fetch<GetListingsResponse>()
 
   if (!isNil(listingsError)) {
-    // TODO log it
+    logger.error(
+      `error fetching NFT with tokenId ${tokenId} for collection with slug ${slug}: ${errorMessage(listingsError)}`
+    )
   }
 
   return (
-    <section className={clsx('w-full', 'pt-12')}>
-      <NftDetailsApiProvided
-        nftResponse={data.nft}
-        listingsResponses={listingsData?.listings ?? []}
-        user={session?.user}
-      />
-    </section>
+    <NftDetailsApiProvided
+      nftResponse={data.nft}
+      listingsResponses={listingsData?.listings ?? []}
+      user={session?.user}
+    />
   )
 }
 

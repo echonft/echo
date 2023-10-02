@@ -1,5 +1,5 @@
 import { getUserDetails } from '@echo/firestore/helpers/user/get-user-details'
-import { getDiscordUserMockById } from '@echo/firestore-mocks/discord-user/get-discord-user-mock-by-id'
+import { mapWalletToWalletData } from '@echo/firestore/mappers/map-wallet-to-wallet-data'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
@@ -7,11 +7,12 @@ import { describe, expect, it } from '@jest/globals'
 describe('helpers - user', () => {
   it('returns the user details', () => {
     const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
-    const discordUser = getDiscordUserMockById('WpgDZHmdpvHjykHRRWp7')
-    const wallet = getWalletMockById('i28NWtlxElPXCnO0c6BC')
-    expect(getUserDetails(user.name, discordUser, wallet)).toStrictEqual({
-      discordId: '462798252543049728',
-      discordUsername: 'johnnycagewins',
+    const wallet = mapWalletToWalletData(getWalletMockById('i28NWtlxElPXCnO0c6BC'))
+    expect(getUserDetails(user, wallet)).toStrictEqual({
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
       username: 'johnnycagewins',
       wallet: {
         chainId: 1,

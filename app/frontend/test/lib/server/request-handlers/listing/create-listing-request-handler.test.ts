@@ -3,7 +3,7 @@ import type { GetListingResponse } from '@echo/api/types/responses/get-listing-r
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
 import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
-import type { AuthUser } from '@echo/ui/types/model/auth-user'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@server/helpers/error/api-error'
 import { createListing } from '@server/helpers/listing/create-listing'
 import { getListingItems } from '@server/helpers/listing/get-listing-items'
@@ -37,11 +37,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
       }
     ]
   }
-  const user: AuthUser = {
-    id: 'user-id',
-    name: 'user-name',
-    image: 'user-image'
-  }
+  const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -83,7 +79,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     jest
       .mocked(getListingItems)
       .mockResolvedValue([
-        { amount: 1, nft: { owner: { username: 'user-name' } as FirestoreUserDetails } as FirestoreNft }
+        { amount: 1, nft: { owner: { username: 'johnnycagewins' } as FirestoreUserDetails } as FirestoreNft }
       ])
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

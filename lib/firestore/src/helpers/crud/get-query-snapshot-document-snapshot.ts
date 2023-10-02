@@ -1,5 +1,5 @@
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { QueryDocumentSnapshot, QuerySnapshot } from 'firebase-admin/lib/firestore'
+import type { QueryDocumentSnapshot, QuerySnapshot } from 'firebase-admin/lib/firestore'
 import { head } from 'ramda'
 
 export function getQuerySnapshotDocumentSnapshot<T>(

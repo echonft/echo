@@ -20,7 +20,7 @@ export async function createOfferRequestHandler(req: ApiRequest<CreateOfferReque
   const senderOfferItems = await getOfferItems(senderItems)
   // make sure the receiver is the owner of every item
   forEach((item: FirestoreOfferItem) => {
-    assertNftOwner(item.nft, sender.name)
+    assertNftOwner(item.nft, sender.username)
   }, senderOfferItems)
   const createdOffer = await createOffer(senderOfferItems, receiverOfferItems)
   return NextResponse.json<GetOfferResponse>({ offer: mapOfferToResponse(createdOffer) })
