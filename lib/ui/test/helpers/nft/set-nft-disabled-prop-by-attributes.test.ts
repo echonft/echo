@@ -1,9 +1,10 @@
-import { filterNftsByTraits } from '@echo/ui/helpers/nft/filter-nfts-by-traits'
+import { setNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-nft-disabled-prop-from-trait-filters'
 import type { Nft } from '@echo/ui/types/model/nft'
-import type { NftTraits } from '@echo/ui/types/model/nft-traits'
+import { TraitFilter } from '@echo/ui/types/trait-filter'
 import { describe, expect, it } from '@jest/globals'
+import { assoc, map } from 'ramda'
 
-describe('helpers - nft - filterNftsByTraits', () => {
+describe('helpers - nft - setNftDisabledPropFromTraitFilters', () => {
   const nft1 = {
     id: '8hHFadIrrooORfTOLkBg',
     attributes: [
@@ -94,58 +95,43 @@ describe('helpers - nft - filterNftsByTraits', () => {
   const nfts = [nft1, nft2, nft3]
 
   it('filters correctly', () => {
-    const traits: NftTraits = {
-      Algorithm: [
-        { value: 'archimedean', count: 1 },
-        { value: 'hyperbolic', count: 1 }
-      ]
-    }
-    const filteredNfts = filterNftsByTraits(nfts, traits)
-    expect(filteredNfts.length).toBe(2)
-    expect(filteredNfts).toStrictEqual([nft1, nft2])
+    const filters: TraitFilter[] = [
+      { trait: 'Algorithm', value: 'archimedean', count: 1, selected: true },
+      { trait: 'Algorithm', value: 'hyperbolic', count: 1, selected: true }
+    ]
+    const result = map(setNftDisabledPropFromTraitFilters(filters), nfts)
+    expect(result).toStrictEqual([nft1, nft2, assoc('disabled', true, nft3)])
   })
 
   it('filters correctly part 2', () => {
-    const traits: NftTraits = {
-      Algorithm: [
-        { value: 'archimedean', count: 1 },
-        { value: 'hyperbolic', count: 1 }
-      ],
-      Speed: [{ value: '5', count: 1 }]
-    }
-    const filteredNfts = filterNftsByTraits(nfts, traits)
-    expect(filteredNfts.length).toBe(2)
-    expect(filteredNfts).toStrictEqual([nft1, nft2])
+    const filters: TraitFilter[] = [
+      { trait: 'Algorithm', value: 'archimedean', count: 1, selected: true },
+      { trait: 'Algorithm', value: 'hyperbolic', count: 1, selected: true },
+      { trait: 'Speed', value: '5', count: 1, selected: true }
+    ]
+    const result = map(setNftDisabledPropFromTraitFilters(filters), nfts)
+    expect(result).toStrictEqual([nft1, nft2, nft3])
   })
 
   it('filters correctly part 3', () => {
-    const traits: NftTraits = {
-      Speed: [{ value: '5', count: 1 }]
-    }
-    const filteredNfts = filterNftsByTraits(nfts, traits)
-    expect(filteredNfts.length).toBe(3)
-    expect(filteredNfts).toStrictEqual([nft1, nft2, nft3])
+    const filters: TraitFilter[] = [{ trait: 'Speed', value: '5', count: 1 }]
+    const result = map(setNftDisabledPropFromTraitFilters(filters), nfts)
+    expect(result).toStrictEqual([nft1, nft2, nft3])
   })
 
   it('filters correctly part 4', () => {
-    const traits: NftTraits = {
-      Ring: [{ value: 'main', count: 1 }],
-      Speed: [{ value: '5', count: 1 }],
-      Density: [{ value: 'cumulus', count: 1 }],
-      Animation: [{ value: 'movie', count: 1 }]
-    }
-    const filteredNfts = filterNftsByTraits(nfts, traits)
-    expect(filteredNfts.length).toBe(1)
-    expect(filteredNfts).toStrictEqual([nft1])
+    const filters: TraitFilter[] = [{ trait: 'Ring', value: 'main', count: 1, selected: true }]
+    const result = map(setNftDisabledPropFromTraitFilters(filters), nfts)
+    expect(result).toStrictEqual([nft1, nft2, assoc('disabled', true, nft3)])
   })
 
   it('filters correctly part 5', () => {
-    const traits: NftTraits = {
-      Ring: [{ value: 'main', count: 1 }],
-      Speed: [{ value: '5', count: 1 }],
-      Density: [{ value: 'cumulus', count: 1 }],
-      Animation: [{ value: 'opera', count: 1 }]
-    }
-    expect(filterNftsByTraits(nfts, traits)).toEqual([])
+    const filters: TraitFilter[] = [{ trait: 'Ring', value: 'none', count: 1, selected: true }]
+    const result = map(setNftDisabledPropFromTraitFilters(filters), nfts)
+    expect(result).toEqual([
+      assoc('disabled', true, nft1),
+      assoc('disabled', true, nft2),
+      assoc('disabled', true, nft3)
+    ])
   })
 })

@@ -2,7 +2,7 @@ import type { NftAttribute } from '@echo/ui/types/model/nft-attribute'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
 
-export function compareNftAttributes(attributeA: NftAttribute, attributeB: NftAttribute) {
+export function nftAttributeEquals(attributeA: NftAttribute, attributeB: NftAttribute) {
   try {
     const traitDiff = attributeA.trait.localeCompare(attributeB.trait)
     if (traitDiff === 0) {

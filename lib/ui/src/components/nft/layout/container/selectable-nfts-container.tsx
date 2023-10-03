@@ -1,16 +1,19 @@
 'use client'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
 import { SelectableNftThumbnail } from '@echo/ui/components/nft/thumbnail/selectable-nft-thumbnail'
+import { DisableableType } from '@echo/ui/types/disableable'
 import type { Nft } from '@echo/ui/types/model/nft'
-import type { MultiSelectableProps } from '@echo/ui/types/multi-selectable-props'
-import { concat, isEmpty, isNil, map, without } from 'ramda'
+import { SelectableType } from '@echo/ui/types/selectable'
+import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-interface Props extends MultiSelectableProps<string> {
-  nfts: Array<Nft>
+interface Props {
+  nfts: DisableableType<SelectableType<Nft>>[]
+  selectionCount: number
+  onToggleSelection?: (nft: DisableableType<SelectableType<Nft>>) => unknown
 }
 
-export const SelectableNftsContainer: FunctionComponent<Props> = ({ nfts, selection, onSelectionUpdate }) => {
+export const SelectableNftsContainer: FunctionComponent<Props> = ({ nfts, selectionCount, onToggleSelection }) => {
   return (
     <NftsLayout>
       {map(
@@ -18,15 +21,8 @@ export const SelectableNftsContainer: FunctionComponent<Props> = ({ nfts, select
           <SelectableNftThumbnail
             key={nft.id}
             nft={nft}
-            linkDisabled={!isEmpty(selection)}
-            selected={!isNil(selection) && selection.includes(nft.id)}
-            onToggleSelection={(nftId: string, selected: boolean) => {
-              if (selected) {
-                onSelectionUpdate?.(concat([nftId], selection))
-              } else {
-                onSelectionUpdate?.(without([nftId], selection))
-              }
-            }}
+            linkDisabled={selectionCount > 0}
+            onToggleSelection={onToggleSelection}
           />
         ),
         nfts

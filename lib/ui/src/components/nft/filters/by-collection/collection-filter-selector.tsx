@@ -1,13 +1,15 @@
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { isSelected } from '@echo/ui/helpers/selection/is-selected'
 import type { CollectionFilter } from '@echo/ui/types/collection-filter'
-import type { SelectableProps } from '@echo/ui/types/selectable-props'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
-interface Props extends SelectableProps<CollectionFilter> {
+interface Props {
   filter: CollectionFilter
+  onToggleSelection?: (selection: CollectionFilter) => unknown
 }
 
-export const CollectionFilterSelector: FunctionComponent<Props> = ({ filter, selected, onToggleSelection }) => {
+export const CollectionFilterSelector: FunctionComponent<Props> = ({ filter, onToggleSelection }) => {
   return (
     <button
       className={clsx(
@@ -23,7 +25,7 @@ export const CollectionFilterSelector: FunctionComponent<Props> = ({ filter, sel
         'hover:bg-white/[0.08]'
       )}
       onClick={() => {
-        onToggleSelection?.(filter, !selected)
+        onToggleSelection?.(filter)
       }}
     >
       <div className={clsx('flex', 'flex-row', 'gap-2.5', 'items-center', 'min-w-0')}>
@@ -42,7 +44,9 @@ export const CollectionFilterSelector: FunctionComponent<Props> = ({ filter, sel
             'bg-transparent'
           )}
         >
-          {selected && <span className={clsx('w-4', 'h-4', 'bg-yellow-500', 'rounded')} />}
+          <ShowIf condition={isSelected(filter)}>
+            <span className={clsx('w-4', 'h-4', 'bg-yellow-500', 'rounded')} />
+          </ShowIf>
         </div>
         <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>{filter.name}</span>
       </div>

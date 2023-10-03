@@ -1,19 +1,18 @@
 import { CollectionFilterPanel as Component } from '@echo/ui/components/nft/filters/by-collection/collection-filter-panel'
-import { getAllNfts } from '@mocks/model/nft'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'User/Filters/Collection Filter Panel',
   component: Component,
   argTypes: {
-    onSelectionUpdate: {
+    onToggleSelection: {
       control: false,
-      action: 'selection updated'
+      action: 'selection toggle'
     }
   },
   parameters: {
     controls: {
-      exclude: ['filters', 'selection']
+      exclude: ['filters']
     }
   }
 }
@@ -24,7 +23,23 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    nfts: getAllNfts(),
-    selection: []
+    filters: [
+      {
+        name: 'pxMythics',
+        id: 'whatever',
+        count: 1
+      },
+      {
+        name: 'This collection name is waaaayyyyyyyyy too long',
+        id: 'whatever',
+        count: 10
+      },
+      {
+        name: 'Sun Flyers',
+        id: 'whatever',
+        count: 100,
+        selected: true
+      }
+    ]
   }
 }

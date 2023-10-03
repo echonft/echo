@@ -2,39 +2,32 @@
 import { TraitFilterButton } from '@echo/ui/components/nft/filters/by-traits/trait-filter-button'
 import { TraitFilterSelector } from '@echo/ui/components/nft/filters/by-traits/trait-filter-selector'
 import type { CollapsibleProps } from '@echo/ui/types/collapsible-props'
-import type { NftTraitValue } from '@echo/ui/types/model/nft-trait-value'
-import type { MultiSelectableProps } from '@echo/ui/types/multi-selectable-props'
-import type { TraitFilterGroup } from '@echo/ui/types/trait-filter-group'
+import type { TraitFilter } from '@echo/ui/types/trait-filter'
 import { Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { any, concat, eqProps, isNil, without } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-interface Props extends CollapsibleProps, MultiSelectableProps<NftTraitValue> {
-  traitFilterGroup: TraitFilterGroup
-}
-
-function isTraitSelected(trait: NftTraitValue, selection: NftTraitValue[] | undefined): boolean {
-  if (isNil(selection)) {
-    return false
-  }
-  return any(eqProps('value', trait), selection)
+interface Props extends CollapsibleProps {
+  trait: string
+  filters: TraitFilter[]
+  selectionCount: number
+  onToggleSelection?: (filter: TraitFilter) => unknown
 }
 
 export const TraitFilterPicker: FunctionComponent<Props> = ({
-  traitFilterGroup,
-  selection,
+  trait,
+  filters,
+  selectionCount,
   collapsed,
   onToggleCollapsed,
-  onSelectionUpdate
+  onToggleSelection
 }) => {
-  const { trait, values } = traitFilterGroup
   return (
     <div className={clsx('flex', 'flex-col', 'gap-2', 'w-full', 'h-max')}>
       <TraitFilterButton
         trait={trait}
         collapsed={collapsed ?? false}
-        selectionCount={selection?.length ?? 0}
+        selectionCount={selectionCount}
         onToggleCollapsed={onToggleCollapsed}
       />
       <Transition
@@ -47,18 +40,11 @@ export const TraitFilterPicker: FunctionComponent<Props> = ({
         leaveTo="transform scale-95 opacity-0"
       >
         <div className={clsx('flex', 'flex-col', 'gap-2', 'w-full', 'h-max')}>
-          {values.map((traitValue) => (
+          {filters.map((filter) => (
             <TraitFilterSelector
-              key={`${trait}-${traitValue.value}`}
-              value={traitValue}
-              selected={isTraitSelected(traitValue, selection)}
-              onToggleSelection={(value, selected) => {
-                if (selected) {
-                  onSelectionUpdate?.(concat([value], selection))
-                } else {
-                  onSelectionUpdate?.(without([value], selection))
-                }
-              }}
+              key={`${trait}-${filter.value}`}
+              filter={filter}
+              onToggleSelection={onToggleSelection}
             />
           ))}
         </div>

@@ -1,4 +1,3 @@
-import { SelectionManager } from '@echo/ui/components/base/manager/selection-manager'
 import { FiltersPanel as Component } from '@echo/ui/components/layout/filters-panel'
 import { CollectionFilterSelector } from '@echo/ui/components/nft/filters/by-collection/collection-filter-selector'
 import type { Meta, StoryObj } from '@storybook/react'
@@ -52,28 +51,10 @@ export const Selected: Story = {
           filter={{
             name: 'Sun Flyers',
             id: 'whatever',
-            count: 100
+            count: 100,
+            selected: true
           }}
-          selected
         />
-      </Component>
-    )
-  }
-}
-
-export const Managed: Story = {
-  args: {
-    children: (
-      <Component title={'Collections'}>
-        <SelectionManager>
-          <CollectionFilterSelector
-            filter={{
-              name: 'Spiral Frequencies',
-              id: 'whatever',
-              count: 90
-            }}
-          />
-        </SelectionManager>
       </Component>
     )
   }

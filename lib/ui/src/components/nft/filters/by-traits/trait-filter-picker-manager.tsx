@@ -1,39 +1,34 @@
 'use client'
 import { TraitFilterPicker } from '@echo/ui/components/nft/filters/by-traits/trait-filter-picker'
-import type { NftTraitValue } from '@echo/ui/types/model/nft-trait-value'
-import type { TraitFilterGroup } from '@echo/ui/types/trait-filter-group'
-import { isEmpty, isNil } from 'ramda'
-import { type FunctionComponent, useState } from 'react'
+import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
+import type { TraitFilter } from '@echo/ui/types/trait-filter'
+import { type FunctionComponent, useMemo, useState } from 'react'
 
 interface Props {
-  traitFilterGroup: TraitFilterGroup
-  initialSelection?: NftTraitValue[]
-  onSelectionUpdate?: (selection: NftTraitValue[]) => unknown
+  trait: string
+  filters: TraitFilter[]
+  onToggleSelection?: (filter: TraitFilter) => unknown
 }
 
-export const TraitFilterPickerManager: FunctionComponent<Props> = ({
-  traitFilterGroup,
-  initialSelection,
-  onSelectionUpdate
-}) => {
-  const [collapsed, setCollapsed] = useState(isNil(initialSelection) ? false : !isEmpty(initialSelection))
-  const [selection, setSelection] = useState(initialSelection ?? [])
+export const TraitFilterPickerManager: FunctionComponent<Props> = ({ trait, filters, onToggleSelection }) => {
+  const [collapsed, setCollapsed] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const selectionCount = useMemo(() => getSelectionCount(filters), [filters])
   return (
     <TraitFilterPicker
-      traitFilterGroup={traitFilterGroup}
+      trait={trait}
+      filters={filters}
       collapsed={collapsed}
+      selectionCount={selectionCount}
       onToggleCollapsed={(collapsed) => {
         // can't collapse if at least one filter is selected
-        if (!collapsed && !isEmpty(selection)) {
+        if (!collapsed && selectionCount > 0) {
           return
         }
         setCollapsed(collapsed)
       }}
-      selection={selection}
-      onSelectionUpdate={(newSelection) => {
-        setSelection(newSelection)
-        onSelectionUpdate?.(newSelection)
-      }}
+      onToggleSelection={onToggleSelection}
     />
   )
 }

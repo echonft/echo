@@ -6,42 +6,32 @@ import { NftThumbnailSelector } from '@echo/ui/components/nft/thumbnail/nft-thum
 import { NftThumbnailTitle } from '@echo/ui/components/nft/thumbnail/nft-thumbnail-title'
 import { UserDiscordTagOffer } from '@echo/ui/components/shared/user-discord-tag-offer'
 import { links } from '@echo/ui/constants/links'
+import { DisableableType } from '@echo/ui/types/disableable'
 import type { Nft } from '@echo/ui/types/model/nft'
-import type { SelectableProps } from '@echo/ui/types/selectable-props'
+import { SelectableType } from '@echo/ui/types/selectable'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
-interface Props extends SelectableProps<string> {
-  nft: Nft
+interface Props {
+  nft: DisableableType<SelectableType<Nft>>
   linkDisabled?: boolean
   hideOwner?: boolean
-  disabled?: boolean
+  onToggleSelection?: (nft: DisableableType<SelectableType<Nft>>) => unknown
 }
 
 export const SelectableNftThumbnail: FunctionComponent<Props> = ({
   nft,
   linkDisabled,
   hideOwner,
-  selected,
-  disabled,
   onToggleSelection
 }) => {
-  const { id, name, tokenId, thumbnailUrl, owner, collection } = nft
-
-  if (selected && disabled) {
-    throw Error('Selectable NFTs cant be selected when disabled')
-  }
+  const { name, tokenId, thumbnailUrl, owner, collection, selected, disabled } = nft
 
   return (
     <InternalLink
       className={clsx('h-max')}
       path={links.collection.nft(collection.slug, tokenId)}
       disabled={disabled ?? linkDisabled}
-      onClick={() => {
-        if (linkDisabled) {
-          onToggleSelection?.(id, !selected)
-        }
-      }}
     >
       <div
         className={clsx(
@@ -52,7 +42,6 @@ export const SelectableNftThumbnail: FunctionComponent<Props> = ({
           'h-max',
           'border',
           'border-solid',
-          'cursor-pointer',
           'overflow-clip',
           selected ? 'border-yellow-500' : 'border-transparent',
           disabled && 'opacity-40'
@@ -63,8 +52,8 @@ export const SelectableNftThumbnail: FunctionComponent<Props> = ({
           <HideIf condition={Boolean(disabled)}>
             <NftThumbnailSelector
               selected={selected}
-              onToggleSelection={(selected) => {
-                onToggleSelection?.(id, selected)
+              onToggleSelection={() => {
+                onToggleSelection?.(nft)
               }}
             />
           </HideIf>
