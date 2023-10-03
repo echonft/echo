@@ -1,9 +1,9 @@
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import type { FunctionComponent, MouseEventHandler } from 'react'
 
 interface Props {
   loading: boolean
-  onClick?: () => unknown
+  onClick?: MouseEventHandler
   label?: string
 }
 

@@ -14,6 +14,8 @@ export function getListingTargetsGuilds(listing: FirestoreListing): Promise<NftC
     // @ts-ignore
     map(path(['collection', 'id'])),
     getNftCollectionDiscordGuildsByNftCollectionId,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     andThen(pipe(head, prop('guild'))),
     promiseAll
   )(listing)

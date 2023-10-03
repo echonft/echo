@@ -16,8 +16,6 @@ interface Props {
 export const CreateSignature: FunctionComponent<Props> = ({ nonce, address, chainId, token }) => {
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const t = useTranslations('profile.wallet.button')
-  // FIXME Typing is not right because SiweMessage constructor can throw
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
   const siweMessage: SiweMessage = new SiweMessage({
     domain: window.location.host,
     address,
@@ -36,15 +34,19 @@ export const CreateSignature: FunctionComponent<Props> = ({ nonce, address, chai
         checks={data}
         render={(signature) => (
           // TODO handle error
-          // We can force unwrap variables because we have the message if we have the signature
-          <AddWalletFetcher
-            address={address}
-            chainId={chainId}
-            message={variables!.message}
-            signature={signature}
-            token={token}
-            onWalletAdded={() => setIsFetching(false)}
-            onWalletError={() => setIsFetching(false)}
+          <HideIfNil
+            checks={variables}
+            render={(variables: { message: string }) => (
+              <AddWalletFetcher
+                address={address}
+                chainId={chainId}
+                message={variables.message}
+                signature={signature}
+                token={token}
+                onWalletAdded={() => setIsFetching(false)}
+                onWalletError={() => setIsFetching(false)}
+              />
+            )}
           />
         )}
       />

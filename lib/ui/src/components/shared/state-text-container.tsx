@@ -20,7 +20,7 @@ export const StateTextContainer: FunctionComponent<Props> = ({ title, subtitle }
         !title && 'invisible'
       )}
     >
-      {title || 'HIDDEN'}
+      {title ?? 'HIDDEN'}
     </h2>
     <h1 className={clsx('text-white', 'text-center', 'prose-header-lg-semi')}>{subtitle}</h1>
   </div>

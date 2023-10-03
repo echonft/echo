@@ -1,5 +1,5 @@
 import type { ErrorResponse } from '@echo/api/types/responses/error-response'
-import { isNil } from 'ramda'
+import { always, assoc, isNil, unless } from 'ramda'
 
 export interface ApiFetchResult<T> {
   data: T | undefined
@@ -17,8 +17,8 @@ function getHeaders(token?: string): HeadersInit {
       }
 }
 
-function getBody<T extends object>(body: T | null): BodyInit | null {
-  return body && JSON.stringify(body)
+function getBody<T extends object>(body: T): BodyInit {
+  return JSON.stringify(body)
 }
 
 async function convertResponse<T>(response: Response): Promise<ApiFetchResult<T>> {
@@ -35,11 +35,14 @@ async function convertResponse<T>(response: Response): Promise<ApiFetchResult<T>
 }
 
 export async function putData<T extends object, U>(url: URL, body?: T, token?: string): Promise<ApiFetchResult<U>> {
-  const response = await fetch(url, {
+  const init = unless(
+    always(isNil(body)),
+    assoc('body', getBody(body!))
+  )({
     method: 'PUT',
-    headers: getHeaders(token),
-    body: getBody(body ?? null)
-  })
+    headers: getHeaders(token)
+  }) as RequestInit
+  const response = await fetch(url, init)
   return convertResponse(response)
 }
 

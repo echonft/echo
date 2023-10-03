@@ -7,8 +7,8 @@ import { any, isEmpty, isNil, map, propEq } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  options: Array<Collection> | undefined
-  selectedOptions: Array<Collection>
+  options: Collection[] | undefined
+  selectedOptions: Collection[]
   searching: boolean
 }
 

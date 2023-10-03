@@ -26,7 +26,9 @@ export function executeConnect(interaction: CommandInteraction) {
       (interaction: CommandInteraction) => interaction.deferReply({ ephemeral: true }).then(() => interaction),
       andThen(
         pipe(
-          prop<string>('guildId'),
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          prop('guildId'),
           // TODO this is not gonna work for collections in the Echo server, so we need to change that
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore

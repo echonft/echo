@@ -18,7 +18,12 @@ export async function addNftCollectionDiscordGuild(
     discordId: guildDiscordId
   }
   const discordGuilds = await getNftCollectionDiscordGuildsByNftCollectionId(collectionId)
-  if (pipe(map(prop<NftCollectionDiscordGuildData>('guild')), includes(guild))(discordGuilds)) {
+  if (
+    pipe(
+      map<FirestoreNftCollectionDiscordGuild, NftCollectionDiscordGuildData>(prop('guild')),
+      includes(guild)
+    )(discordGuilds)
+  ) {
     throw Error(
       `trying to add discord guild with discordId ${guildDiscordId} and channelId ${guildChannelId} for nft collection with id ${collectionId} while it already exists`
     )

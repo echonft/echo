@@ -25,7 +25,7 @@ export const AddWalletFetcher: FunctionComponent<Props> = ({
 }) => {
   const addWallet = useCallback(
     () => addWalletFetcher(address, chainId, message, signature, token),
-    [address, signature, message, token]
+    [address, chainId, message, signature, token]
   )
   const { data } = useSWR('add-wallet', addWallet, {
     revalidateIfStale: false,

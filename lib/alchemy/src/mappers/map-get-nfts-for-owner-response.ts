@@ -5,7 +5,7 @@ import type { GetNftsForOwnerResponse } from '@echo/alchemy/types/response/get-n
 import { applySpec, map, pipe, prop } from 'ramda'
 
 export function mapGetNftsForOwnerResponse(response: GetNftsForOwnerResponse): AlchemyPagingResult<AlchemyNft> {
-  return applySpec({
+  return applySpec<AlchemyPagingResult<AlchemyNft>>({
     data: pipe(prop('ownedNfts'), map(mapAlchemyNftResponseToAlchemyNft)),
     pageKey: prop('pageKey')
   })(response)

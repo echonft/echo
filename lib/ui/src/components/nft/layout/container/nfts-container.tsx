@@ -5,7 +5,7 @@ import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  nfts: Array<Nft>
+  nfts: Nft[]
 }
 
 export const NftsContainer: FunctionComponent<Props> = ({ nfts }) => {

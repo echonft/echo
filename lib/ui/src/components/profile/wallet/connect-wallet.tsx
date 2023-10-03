@@ -6,7 +6,7 @@ import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-c
 import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
-import { FunctionComponent, useCallback, useState } from 'react'
+import { FunctionComponent, useState } from 'react'
 import { useAccount, useNetwork } from 'wagmi'
 
 interface Props {
@@ -20,9 +20,7 @@ export const ConnectWallet: FunctionComponent<Props> = ({ token }) => {
   // TODO Manage error
   const [, setNonceError] = useState<Error>()
 
-  const isLoading = useCallback(() => isNil(address) || isNil(nonce), [address, nonce])
-
-  if (isLoading()) {
+  if (isNil(address) || isNil(nonce) || isNil(chain)) {
     return (
       <>
         <ShowIfNil checks={nonce}>
@@ -40,6 +38,5 @@ export const ConnectWallet: FunctionComponent<Props> = ({ token }) => {
       </>
     )
   }
-  // We can force unwrap here since isLoading does the check for us, but Typescript no likey
-  return <CreateSignature nonce={nonce!} token={token} address={address!} chainId={chain!.id} />
+  return <CreateSignature nonce={nonce} token={token} address={address} chainId={chain.id} />
 }

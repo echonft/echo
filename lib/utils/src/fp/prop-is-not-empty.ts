@@ -2,7 +2,9 @@ import { complement, isEmpty, isNil, pipe, prop } from 'ramda'
 
 function internalFn<V, P extends keyof V>(propKey: P) {
   return function (obj: V) {
-    return pipe(prop<V, P>(propKey), complement(isEmpty))(obj)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return pipe(prop(propKey), complement(isEmpty))(obj)
   }
 }
 
