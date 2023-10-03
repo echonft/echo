@@ -1,7 +1,8 @@
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import { Disableable } from '@echo/ui/types/disableable'
+import { Selectable } from '@echo/ui/types/selectable'
 
-export interface Group<T> {
+export interface Group<T extends Selectable & Disableable> {
   id: string
   name: string
-  items: NonEmptyArray<T>
+  items: T[]
 }

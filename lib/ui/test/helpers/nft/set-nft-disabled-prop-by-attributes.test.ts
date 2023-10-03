@@ -1,10 +1,10 @@
-import { setNftsDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-nfts-disabled-prop-from-trait-filters'
+import { setNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-nft-disabled-prop-from-trait-filters'
 import type { Nft } from '@echo/ui/types/model/nft'
 import { TraitFilter } from '@echo/ui/types/trait-filter'
 import { describe, expect, it } from '@jest/globals'
-import { assoc } from 'ramda'
+import { assoc, map } from 'ramda'
 
-describe('helpers - nft - filterNftsByTraits', () => {
+describe('helpers - nft - setNftDisabledPropFromTraitFilters', () => {
   const nft1 = {
     id: '8hHFadIrrooORfTOLkBg',
     attributes: [
@@ -99,7 +99,7 @@ describe('helpers - nft - filterNftsByTraits', () => {
       { trait: 'Algorithm', value: 'archimedean', count: 1, selected: true },
       { trait: 'Algorithm', value: 'hyperbolic', count: 1, selected: true }
     ]
-    const result = setNftsDisabledPropFromTraitFilters(filters, nfts)
+    const result = map(setNftDisabledPropFromTraitFilters(filters), nfts)
     expect(result).toStrictEqual([nft1, nft2, assoc('disabled', true, nft3)])
   })
 
@@ -109,25 +109,25 @@ describe('helpers - nft - filterNftsByTraits', () => {
       { trait: 'Algorithm', value: 'hyperbolic', count: 1, selected: true },
       { trait: 'Speed', value: '5', count: 1, selected: true }
     ]
-    const result = setNftsDisabledPropFromTraitFilters(filters, nfts)
+    const result = map(setNftDisabledPropFromTraitFilters(filters), nfts)
     expect(result).toStrictEqual([nft1, nft2, nft3])
   })
 
   it('filters correctly part 3', () => {
     const filters: TraitFilter[] = [{ trait: 'Speed', value: '5', count: 1 }]
-    const result = setNftsDisabledPropFromTraitFilters(filters, nfts)
+    const result = map(setNftDisabledPropFromTraitFilters(filters), nfts)
     expect(result).toStrictEqual([nft1, nft2, nft3])
   })
 
   it('filters correctly part 4', () => {
     const filters: TraitFilter[] = [{ trait: 'Ring', value: 'main', count: 1, selected: true }]
-    const result = setNftsDisabledPropFromTraitFilters(filters, nfts)
+    const result = map(setNftDisabledPropFromTraitFilters(filters), nfts)
     expect(result).toStrictEqual([nft1, nft2, assoc('disabled', true, nft3)])
   })
 
   it('filters correctly part 5', () => {
     const filters: TraitFilter[] = [{ trait: 'Ring', value: 'none', count: 1, selected: true }]
-    const result = setNftsDisabledPropFromTraitFilters(filters, nfts)
+    const result = map(setNftDisabledPropFromTraitFilters(filters), nfts)
     expect(result).toEqual([
       assoc('disabled', true, nft1),
       assoc('disabled', true, nft2),

@@ -7,8 +7,8 @@ import { NftFilterCollections, NftFilterTraits } from '@echo/ui/constants/nft-fi
 import { enable } from '@echo/ui/helpers/disableable/enable'
 import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/get-collection-filters-for-nfts'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
-import { setNftsDisabledPropFromCollectionFilter } from '@echo/ui/helpers/nft/set-nfts-disabled-prop-from-collection-filter'
-import { setNftsDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-nfts-disabled-prop-from-trait-filters'
+import { setNftDisabledPropFromCollectionFilter } from '@echo/ui/helpers/nft/set-nft-disabled-prop-from-collection-filter'
+import { setNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-nft-disabled-prop-from-trait-filters'
 import { getSelection } from '@echo/ui/helpers/selection/get-selection'
 import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
 import { removeSelectionWhenDisabled } from '@echo/ui/helpers/selection/remove-selection-when-disabled'
@@ -24,7 +24,7 @@ import { includes, map, omit, pipe, propEq } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo, useState } from 'react'
 
 interface Props {
-  nfts: NonEmptyArray<Nft>
+  nfts: Nft[]
   availableFilters: NonEmptyArray<NftFilterType>
   btnLabel: string
   onButtonClick?: (nfts: Nft[]) => unknown
@@ -52,16 +52,18 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
   const onNftToggleSelection = (nft: Nft) => {
     setNftsWithProps(toggleSelectionInList<SelectableType<Nft>>(propEq(nft.id, 'id')))
   }
-  const selectionCount = useMemo(() => getSelectionCount(nftsWithProps), [nftsWithProps])
+  const nftSelectionCount = useMemo(() => getSelectionCount(nftsWithProps), [nftsWithProps])
 
   // update NFTs disabled state according to filters selection
   useEffect(() => {
     setNftsWithProps(
-      pipe(
-        map(enable),
-        setNftsDisabledPropFromTraitFilters(traitFilters),
-        setNftsDisabledPropFromCollectionFilter(collectionFilters),
-        map(removeSelectionWhenDisabled)
+      map(
+        pipe(
+          enable,
+          setNftDisabledPropFromTraitFilters(traitFilters),
+          setNftDisabledPropFromCollectionFilter(collectionFilters),
+          removeSelectionWhenDisabled
+        )
       )
     )
   }, [collectionFilters, traitFilters])
@@ -69,7 +71,7 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
   return (
     <NftsAndFiltersLayout>
       <NftFiltersContainer
-        nftSelectionCount={selectionCount}
+        nftSelectionCount={nftSelectionCount}
         btnLabel={btnLabel}
         collectionFilters={collectionFilters}
         traitFilters={traitFilters}
@@ -81,7 +83,7 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
       />
       <SelectableNftsContainer
         nfts={nftsWithProps}
-        selectionCount={selectionCount}
+        selectionCount={nftSelectionCount}
         onToggleSelection={onNftToggleSelection}
       />
     </NftsAndFiltersLayout>
