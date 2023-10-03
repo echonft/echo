@@ -6,7 +6,7 @@ import { SiweMessage } from 'siwe'
 describe('validators - addWalletSchema', () => {
   const wallet = pick(['address', 'chainId'], getWalletMockById('i28NWtlxElPXCnO0c6BC'))
   const signature = '0x0000'
-  const message: SiweMessage = new SiweMessage({
+  const message: string = new SiweMessage({
     domain: 'domain',
     address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',
     statement: 'test',
@@ -14,7 +14,7 @@ describe('validators - addWalletSchema', () => {
     version: '1',
     chainId: 1,
     nonce: 'nonce1234567'
-  })
+  }).prepareMessage()
 
   it('wrong wallet fails validation', () => {
     expect(() => addWalletSchema.parse({ wallet: { address: undefined, chainId: 1 }, signature, message })).toThrow()

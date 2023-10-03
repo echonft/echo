@@ -257,6 +257,22 @@ export const messages = {
       offersCreated: 'My Offers',
       offersReceived: 'Pending Offers',
       swaps: 'My Swaps'
+    },
+    wallet: {
+      button: {
+        connect: {
+          label: 'Connect Wallet'
+        },
+        connecting: {
+          label: 'Connecting'
+        },
+        signing: {
+          label: 'Signing'
+        },
+        add: {
+          label: 'Add Wallet'
+        }
+      }
     }
   },
   shared: {

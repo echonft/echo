@@ -28,7 +28,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     version: '1',
     chainId: 1,
     nonce: 'noncenoncenoncenoncenonce'
-  })
+  }).prepareMessage()
   const validSignature = '0x000'
   const validWallet = {
     chainId: 1,

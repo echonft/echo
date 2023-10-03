@@ -14,5 +14,5 @@ export function createOfferFetcher(
   if (isNilOrEmpty(token)) {
     throw Error('not logged in')
   }
-  return putData<CreateOfferRequest, GetOfferResponse>(createOfferApiUrl(), token, { senderItems, receiverItems })
+  return putData<CreateOfferRequest, GetOfferResponse>(createOfferApiUrl(), { senderItems, receiverItems }, token)
 }

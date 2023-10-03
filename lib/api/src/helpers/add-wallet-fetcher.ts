@@ -3,20 +3,25 @@ import { profileWalletApiUrl } from '@echo/api/routing/profile-wallet-api-url'
 import { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { SiweMessage } from 'siwe'
+import { Signature } from '@echo/utils/types/signature'
 
 export function addWalletFetcher(
   address: string,
-  message: SiweMessage,
-  signature: `0x${string}`,
+  chainId: number,
+  message: string,
+  signature: Signature,
   token: string | undefined
 ) {
   if (isNilOrEmpty(token)) {
     throw Error('not logged in')
   }
-  return putData<AddWalletRequest, EmptyResponse>(profileWalletApiUrl(), token, {
-    wallet: { address, chainId: 1 },
-    message,
-    signature
-  })
+  return putData<AddWalletRequest, EmptyResponse>(
+    profileWalletApiUrl(),
+    {
+      wallet: { address, chainId },
+      message,
+      signature
+    },
+    token
+  )
 }

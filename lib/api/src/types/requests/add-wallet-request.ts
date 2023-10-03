@@ -1,8 +1,8 @@
 import { WalletRequest } from '@echo/api/types/requests/wallet-request'
-import type { SiweMessage } from 'siwe'
+import { Signature } from '@echo/utils/types/signature'
 
 export interface AddWalletRequest {
   wallet: WalletRequest
-  message: SiweMessage
-  signature: `0x${string}`
+  message: string
+  signature: Signature
 }

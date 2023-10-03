@@ -1,39 +1,45 @@
 'use client'
-import { getNonceFetcher } from '@echo/api/helpers/get-nonce-fetcher'
+import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import { CreateSignature } from '@echo/ui/components/profile/wallet/create-signature'
+import { NonceFetcher } from '@echo/ui/components/profile/wallet/nonce-fetcher'
+import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
 import { ConnectKitButton } from 'connectkit'
+import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
-import { FunctionComponent, useCallback } from 'react'
-import useSWRImmutable from 'swr/immutable'
-import { useAccount } from 'wagmi'
+import { FunctionComponent, useCallback, useState } from 'react'
+import { useAccount, useNetwork } from 'wagmi'
 
 interface Props {
   token: string | undefined
 }
 export const ConnectWallet: FunctionComponent<Props> = ({ token }) => {
-  const getNonce = useCallback(() => getNonceFetcher(token), [token])
-  const { address, isConnecting } = useAccount()
+  const t = useTranslations('profile.wallet.button')
+  const { address } = useAccount()
+  const { chain } = useNetwork()
+  const [nonce, setNonce] = useState<string>()
+  // TODO Manage error
+  const [, setNonceError] = useState<Error>()
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const { data: response, error, isLoading } = useSWRImmutable('nonce', getNonce)
-  if (error) {
-    // TODO Catch the error?
-    return null
+  const isLoading = useCallback(() => isNil(address) || isNil(nonce), [address, nonce])
+
+  if (isLoading()) {
+    return (
+      <>
+        <ShowIfNil checks={nonce}>
+          <NonceFetcher token={token} onNonceReceived={setNonce} onNonceError={setNonceError} />
+        </ShowIfNil>
+        <ConnectKitButton.Custom>
+          {({ isConnecting, show }) => (
+            <WalletConnectButton
+              loading={isNil(nonce)}
+              onClick={show}
+              label={isConnecting ? t('connecting.label') : t('connect.label')}
+            />
+          )}
+        </ConnectKitButton.Custom>
+      </>
+    )
   }
-  if (isLoading) {
-    // TODO Add loading button?
-    return <button disabled>Loading...</button>
-  }
-  if (isConnecting) {
-    // TODO Add connecting button?
-    return <button disabled>Connecting...</button>
-  }
-  if (isNil(address)) {
-    return <ConnectKitButton />
-  }
-  if (!isNil(response) && !isNil(response?.data)) {
-    return <CreateSignature nonce={response.data.nonce} token={token} address={address} />
-  }
-  // Should never happen
-  return null
+  // We can force unwrap here since isLoading does the check for us, but Typescript no likey
+  return <CreateSignature nonce={nonce!} token={token} address={address!} chainId={chain!.id} />
 }

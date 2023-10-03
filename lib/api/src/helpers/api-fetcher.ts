@@ -34,7 +34,7 @@ async function convertResponse<T>(response: Response): Promise<ApiFetchResult<T>
   }
 }
 
-export async function putData<T extends object, U>(url: URL, token?: string, body?: T): Promise<ApiFetchResult<U>> {
+export async function putData<T extends object, U>(url: URL, body?: T, token?: string): Promise<ApiFetchResult<U>> {
   const response = await fetch(url, {
     method: 'PUT',
     headers: getHeaders(token),
