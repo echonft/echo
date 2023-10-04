@@ -17,7 +17,7 @@ interface Props {
 export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('layout.header.button')
   return (
-    <Menu as="div" className={clsx('relative', 'inline-block')}>
+    <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>
       <Menu.Button>
         <UserTag user={user} />
       </Menu.Button>
