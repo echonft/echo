@@ -25,7 +25,7 @@ export const SelectableNftThumbnail: FunctionComponent<Props> = ({
   hideOwner,
   onToggleSelection
 }) => {
-  const { name, tokenId, thumbnailUrl, owner, collection, selected, disabled } = nft
+  const { name, tokenId, thumbnailUrl, owner, collection, selected, disabled, openSeaUrl } = nft
 
   return (
     <InternalLink
@@ -63,9 +63,7 @@ export const SelectableNftThumbnail: FunctionComponent<Props> = ({
             </div>
           </HideIf>
         </div>
-        <div className={clsx('flex', 'flex-col', 'bg-white/[0.08]', 'w-full', 'p-2')}>
-          <NftThumbnailTitle tokenId={tokenId} collectionName={collection.name} />
-        </div>
+        <NftThumbnailTitle tokenId={tokenId} collectionName={collection.name} openSeaUrl={openSeaUrl?.href} />
       </div>
     </InternalLink>
   )

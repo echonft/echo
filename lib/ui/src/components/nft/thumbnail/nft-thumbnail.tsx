@@ -16,10 +16,10 @@ interface Props {
 }
 
 export const NftThumbnail: FunctionComponent<Props> = ({ nft, linkDisabled, hideOwner }) => {
-  const { name, tokenId, thumbnailUrl, owner, collection } = nft
+  const { name, tokenId, thumbnailUrl, owner, collection, openSeaUrl } = nft
   return (
     <InternalLink path={links.collection.nft(nft.collection.slug, nft.tokenId)} disabled={linkDisabled}>
-      <div className={clsx('flex', 'flex-col', 'rounded-2xl', 'w-52', 'h-max', 'cursor-pointer', 'overflow-clip')}>
+      <div className={clsx('rounded-2xl', 'w-52', 'h-max', 'cursor-pointer', 'overflow-clip')}>
         <div className={'relative'}>
           <NftThumbnailPicture alt={name} pictureUrl={thumbnailUrl} />
           <HideIf condition={Boolean(hideOwner)}>
@@ -28,9 +28,7 @@ export const NftThumbnail: FunctionComponent<Props> = ({ nft, linkDisabled, hide
             </div>
           </HideIf>
         </div>
-        <div className={clsx('flex', 'flex-col', 'gap-2', 'bg-white/[0.08]', 'w-full', 'p-2')}>
-          <NftThumbnailTitle tokenId={tokenId} collectionName={collection.name} />
-        </div>
+        <NftThumbnailTitle tokenId={tokenId} collectionName={collection.name} openSeaUrl={openSeaUrl?.href} />
       </div>
     </InternalLink>
   )
