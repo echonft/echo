@@ -6,6 +6,7 @@ import { NftThumbnailSelector } from '@echo/ui/components/nft/thumbnail/nft-thum
 import { NftThumbnailTitle } from '@echo/ui/components/nft/thumbnail/nft-thumbnail-title'
 import { UserDiscordTagOffer } from '@echo/ui/components/shared/user-discord-tag-offer'
 import { links } from '@echo/ui/constants/links'
+import { getNftName } from '@echo/ui/helpers/nft/get-nft-name'
 import { DisableableType } from '@echo/ui/types/disableable'
 import type { Nft } from '@echo/ui/types/model/nft'
 import { SelectableType } from '@echo/ui/types/selectable'
@@ -25,8 +26,8 @@ export const SelectableNftThumbnail: FunctionComponent<Props> = ({
   hideOwner,
   onToggleSelection
 }) => {
-  const { name, tokenId, thumbnailUrl, owner, collection, selected, disabled, openSeaUrl } = nft
-
+  const { tokenId, thumbnailUrl, owner, collection, selected, disabled, openSeaUrl } = nft
+  const name = getNftName(nft)
   return (
     <InternalLink
       className={clsx('h-max')}
