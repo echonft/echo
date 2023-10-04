@@ -17,8 +17,22 @@ export function mapAlchemyNftResponseToAlchemyNft(chainId: number) {
         contractAddress: pipe(path(['contract', 'address']), getAddress),
         chainId: path(['contract', 'chainId']),
         name: prop('name'),
-        pictureUrl: path(['image', 'pngUrl']),
-        thumbnailUrl: path(['image', 'thumbnailUrl']),
+         // Not all links are always provided so add either cached or original if pngUrl does not exist
+    pictureUrl: ifElse(
+      pathSatisfies(isNotNil, ['image', 'pngUrl']),
+      path(['image', 'pngUrl']),
+      ifElse(
+        pathSatisfies(isNotNil, ['image', 'cachedUrl']),
+        path(['image', 'cachedUrl']),
+        path(['image', 'originalUrl'])
+      )
+    ),
+    // Not all links are always provided so add original if thumbnailUrl does not exist
+    thumbnailUrl: ifElse(
+      pathSatisfies(isNotNil, ['image', 'thumbnailUrl']),
+      path(['image', 'thumbnailUrl']),
+      path(['image', 'originalUrl'])
+    ),
         tokenId: pipe(prop('tokenId'), parseInt),
         tokenType: path(['contract', 'tokenType']),
         attributes: pipe(
