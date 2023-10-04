@@ -20,14 +20,15 @@ export const CollectionDetails: FunctionComponent<Props> = ({
   pictureUrl,
   twitterUsername,
   discordUrl,
-  websiteUrl
+  websiteUrl,
+  verified
 }) => {
   return (
     <>
       <CollectionBanner bannerUrl={bannerUrl} />
       <PaddedContainer>
         <div className={clsx('z-10', 'relative')}>
-          <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-40', 'pb-8')}>
+          <div className={clsx('w-full', 'pt-40', 'pb-8')}>
             <CollectionProfile
               collectionName={collectionName}
               supplyCount={supplyCount}
@@ -35,6 +36,7 @@ export const CollectionDetails: FunctionComponent<Props> = ({
               discordUrl={discordUrl}
               websiteUrl={websiteUrl}
               twitterUsername={twitterUsername}
+              verified={verified}
               size={SizeLG}
             />
           </div>

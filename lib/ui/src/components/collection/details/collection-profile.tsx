@@ -1,4 +1,6 @@
+import { VerifiedIconSvg } from '@echo/ui/components/base/svg/verified-icon-svg'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { CollectionLinks, type CollectionLinksProps } from '@echo/ui/components/collection/details/collection-links'
 import {
   CollectionProfilePicture,
@@ -10,6 +12,7 @@ import type { FunctionComponent } from 'react'
 
 export interface CollectionProfileProps extends CollectionLinksProps, CollectionProfilePictureProps {
   supplyCount: number | undefined
+  verified?: boolean
 }
 
 export const CollectionProfile: FunctionComponent<CollectionProfileProps> = ({
@@ -19,14 +22,20 @@ export const CollectionProfile: FunctionComponent<CollectionProfileProps> = ({
   twitterUsername,
   discordUrl,
   websiteUrl,
-  size
+  size,
+  verified
 }) => {
   const t = useTranslations('collection')
   return (
     <div className={clsx('flex', 'flex-row', 'w-full', 'gap-8')}>
       <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} size={size} />
       <div className={clsx('flex', 'flex-col', 'grow', 'gap-4')}>
-        <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase', 'truncate')}>{collectionName}</h1>
+        <div className={clsx('flex', 'flex-row', 'items-center', 'gap-2.5')}>
+          <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase', 'truncate')}>{collectionName}</h1>
+          <ShowIf condition={Boolean(verified)}>
+            <VerifiedIconSvg className={clsx('text-yellow-500')} width={30} height={28} />
+          </ShowIf>
+        </div>
         <div className={clsx('flex', 'flex-row', 'self-stretch', 'justify-between')}>
           <HideIfNil
             checks={supplyCount}

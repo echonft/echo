@@ -14,7 +14,7 @@ type Story = StoryObj<typeof Component>
 const { name, twitterUsername, totalSupply, profilePictureUrl, discordUrl, websiteUrl } =
   getCollectionById('Rc8pLQXxgyQGIRL0fr13')
 
-export const Profile: Story = {
+export const Default: Story = {
   args: {
     collectionName: name,
     supplyCount: totalSupply,
@@ -22,6 +22,19 @@ export const Profile: Story = {
     discordUrl,
     twitterUsername,
     websiteUrl,
+    size: SizeLG
+  }
+}
+
+export const Verified: Story = {
+  args: {
+    collectionName: name,
+    supplyCount: totalSupply,
+    pictureUrl: profilePictureUrl.href,
+    discordUrl,
+    twitterUsername,
+    websiteUrl,
+    verified: true,
     size: SizeLG
   }
 }

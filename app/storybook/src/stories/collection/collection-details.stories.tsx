@@ -14,16 +14,31 @@ const { name, profilePictureUrl, totalSupply, discordUrl, twitterUsername, websi
   getCollectionById('Rc8pLQXxgyQGIRL0fr13')
 type Story = StoryObj<typeof Component>
 
-export const Details: Story = {
+export const Default: Story = {
   args: {
     collectionName: name,
     supplyCount: totalSupply,
     pictureUrl: profilePictureUrl.href,
-    discordUrl: discordUrl,
-    twitterUsername: twitterUsername,
-    websiteUrl: websiteUrl,
-    bannerUrl: bannerUrl,
-    description: description,
+    discordUrl,
+    twitterUsername,
+    websiteUrl,
+    bannerUrl,
+    description,
+    size: SizeLG
+  }
+}
+
+export const Verified: Story = {
+  args: {
+    collectionName: name,
+    supplyCount: totalSupply,
+    pictureUrl: profilePictureUrl.href,
+    discordUrl,
+    twitterUsername,
+    websiteUrl,
+    bannerUrl,
+    description,
+    verified: true,
     size: SizeLG
   }
 }

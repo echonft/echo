@@ -10,8 +10,17 @@ interface Props {
 
 export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ response }) => {
   const collection = useMemo(() => mapCollectionFromResponse(response), [response])
-  const { bannerUrl, totalSupply, name, description, profilePictureUrl, twitterUsername, discordUrl, websiteUrl } =
-    collection
+  const {
+    bannerUrl,
+    totalSupply,
+    name,
+    description,
+    profilePictureUrl,
+    twitterUsername,
+    discordUrl,
+    websiteUrl,
+    verified
+  } = collection
   return (
     <CollectionDetails
       bannerUrl={bannerUrl}
@@ -22,6 +31,7 @@ export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ respons
       twitterUsername={twitterUsername}
       discordUrl={discordUrl}
       websiteUrl={websiteUrl}
+      verified={verified}
       size={SizeLG}
     />
   )
