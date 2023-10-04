@@ -16,8 +16,8 @@ type Story = StoryObj<typeof Component>
 export const Default: Story = {
   args: {
     collectionName: collection.name,
-    bannerUrl: collection.bannerUrl?.href,
-    pictureUrl: collection.profilePictureUrl.href,
+    bannerUrl: collection.bannerUrl,
+    pictureUrl: collection.profilePictureUrl,
     quantity: 1
   },
   render: (args) => {
