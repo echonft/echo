@@ -1,5 +1,6 @@
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
+import { getAddress } from 'viem'
 
 export const nftMock: Record<string, FirestoreNft> = {
   '8hHFadIrrooORfTOLkBg': {
@@ -25,7 +26,7 @@ export const nftMock: Record<string, FirestoreNft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -85,7 +86,7 @@ export const nftMock: Record<string, FirestoreNft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -145,7 +146,7 @@ export const nftMock: Record<string, FirestoreNft> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
+        address: getAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
         chainId: 1
       }
     },
@@ -220,7 +221,7 @@ export const nftMock: Record<string, FirestoreNft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -283,7 +284,7 @@ export const nftMock: Record<string, FirestoreNft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -350,7 +351,7 @@ export const nftMock: Record<string, FirestoreNft> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
+        address: getAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
         chainId: 1
       }
     },

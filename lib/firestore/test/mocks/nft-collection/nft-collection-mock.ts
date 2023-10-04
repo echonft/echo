@@ -1,4 +1,5 @@
 import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
+import { getAddress } from 'viem'
 
 export const nftCollectionMock: Record<string, FirestoreNftCollection> = {
   Rc8pLQXxgyQGIRL0fr13: {
@@ -7,7 +8,7 @@ export const nftCollectionMock: Record<string, FirestoreNftCollection> = {
       'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ?auto=format&dpr=1&w=3840',
     contract: {
       tokenType: 'ERC721',
-      address: '0x12c63bbD266dB84e117356e664f3604055166CEc',
+      address: getAddress('0x12c63bbD266dB84e117356e664f3604055166CEc', 1),
       chainId: 1,
       name: 'Mythics Genesis',
       symbol: 'MGEN'
@@ -31,7 +32,7 @@ export const nftCollectionMock: Record<string, FirestoreNftCollection> = {
     blurUrl: 'https://blur.io/collection/spiral-frequencies',
     contract: {
       tokenType: 'ERC721',
-      address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
+      address: getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1),
       chainId: 1,
       name: 'Spiral Frequencies',
       symbol: 'GCP1'

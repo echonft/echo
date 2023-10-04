@@ -4,9 +4,11 @@ import type { AlchemyPagingResult } from '@echo/alchemy/types/paging/alchemy-pag
 import type { GetNftsForOwnerResponse } from '@echo/alchemy/types/response/get-nfts-for-owner-response'
 import { applySpec, map, pipe, prop } from 'ramda'
 
-export function mapGetNftsForOwnerResponse(response: GetNftsForOwnerResponse): AlchemyPagingResult<AlchemyNft> {
-  return applySpec<AlchemyPagingResult<AlchemyNft>>({
-    data: pipe(prop('ownedNfts'), map(mapAlchemyNftResponseToAlchemyNft)),
-    pageKey: prop('pageKey')
-  })(response)
+export function mapGetNftsForOwnerResponse(chainId: number) {
+  return function (response: GetNftsForOwnerResponse): AlchemyPagingResult<AlchemyNft> {
+    return applySpec<AlchemyPagingResult<AlchemyNft>>({
+      data: pipe(prop('ownedNfts'), map(mapAlchemyNftResponseToAlchemyNft(chainId))),
+      pageKey: prop('pageKey')
+    })(response)
+  }
 }

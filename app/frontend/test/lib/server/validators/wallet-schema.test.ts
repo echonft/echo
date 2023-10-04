@@ -16,7 +16,7 @@ describe('validators - walletSchema', () => {
   })
   it('valid wallet pass', () => {
     expect(walletSchema.parse({ address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84', chainId: 1 })).toStrictEqual({
-      address: '0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84',
+      address: '0xaf1C962f799954E2a43ffDEa5aCAa942d53e1F84',
       chainId: 1
     })
   })

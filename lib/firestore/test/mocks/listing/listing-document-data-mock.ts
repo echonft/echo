@@ -1,6 +1,7 @@
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
+import { getAddress } from 'viem'
 
 export const listingDocumentDataMock: Record<string, ListingDocumentData> = {
   jUzMtPGKM62mMhEcmbN4: {
@@ -13,7 +14,7 @@ export const listingDocumentDataMock: Record<string, ListingDocumentData> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },

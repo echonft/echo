@@ -1,5 +1,6 @@
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
+import { getAddress } from 'viem'
 
 export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
@@ -13,7 +14,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -27,7 +28,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
+        address: getAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
         chainId: 1
       }
     },
@@ -48,7 +49,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
+        address: getAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
         chainId: 1
       }
     },
@@ -62,7 +63,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },

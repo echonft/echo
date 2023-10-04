@@ -24,7 +24,7 @@ export async function updateUserNfts(user: AuthUser, chainId: number) {
     const collectionsForChain = filter(pathEq(chainId, ['contract', 'chainId']), collections)
     const collectionsAddresses = map(path<string>(['contract', 'address']), collectionsForChain) as string[]
     for (const wallet of userWalletsForChain) {
-      const nfts = await getNftsForOwner(wallet.address, collectionsAddresses)
+      const nfts = await getNftsForOwner(wallet.address, collectionsAddresses, chainId)
       for (const alchemyNft of nfts) {
         const { contractAddress, chainId, tokenId } = alchemyNft
         // FIXME this is true only for ERC721

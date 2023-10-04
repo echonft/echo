@@ -2,6 +2,7 @@ import type { UserResponse } from '@echo/api/types/responses/model/user-response
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMocksByUserId } from '@echo/firestore-mocks/wallet/get-wallet-mocks-by-user-id'
 import { mapUserToResponse } from '@server/mappers/to-response/map-user-to-response'
+import { getAddress } from 'viem'
 
 describe('mappers - to-response - mapUserToResponse', () => {
   const user = getUserMockById('6rECUMhevHfxABZ1VNOm')
@@ -15,7 +16,7 @@ describe('mappers - to-response - mapUserToResponse', () => {
     username: 'crewnft_',
     wallets: [
       {
-        address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
+        address: getAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
         chainId: 1
       }
     ]

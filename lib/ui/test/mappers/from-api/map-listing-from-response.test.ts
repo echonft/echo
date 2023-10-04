@@ -7,6 +7,7 @@ import type { ListingItem } from '@echo/ui/types/model/listing-item'
 import type { ListingTarget } from '@echo/ui/types/model/listing-target'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
+import { getAddress } from 'viem'
 
 describe('mappers - from-api - mapListingFromResponse', () => {
   const listingItemResponse: ListingItemResponse = {
@@ -31,7 +32,7 @@ describe('mappers - from-api - mapListingFromResponse', () => {
         blurUrl: 'https://echo.xyz',
         contract: {
           tokenType: 'ERC721',
-          address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
+          address: getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1),
           chainId: 1
         },
         description: 'A Genetic Chain Project.',
@@ -54,7 +55,7 @@ describe('mappers - from-api - mapListingFromResponse', () => {
         },
         username: 'johnnycagewins',
         wallet: {
-          address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+          address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
           chainId: 1
         }
       },
@@ -74,7 +75,7 @@ describe('mappers - from-api - mapListingFromResponse', () => {
       blurUrl: 'https://echo.xyz',
       contract: {
         tokenType: 'ERC721',
-        address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
+        address: getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1),
         chainId: 1
       },
       description: 'A Genetic Chain Project.',
@@ -100,7 +101,7 @@ describe('mappers - from-api - mapListingFromResponse', () => {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -134,7 +135,7 @@ describe('mappers - from-api - mapListingFromResponse', () => {
         blurUrl: 'https://echo.xyz',
         contract: {
           tokenType: 'ERC721',
-          address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
+          address: getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1),
           chainId: 1
         },
         description: 'A Genetic Chain Project.',
@@ -157,7 +158,7 @@ describe('mappers - from-api - mapListingFromResponse', () => {
         },
         username: 'johnnycagewins',
         wallet: {
-          address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+          address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
           chainId: 1
         }
       },
@@ -177,7 +178,7 @@ describe('mappers - from-api - mapListingFromResponse', () => {
       blurUrl: 'https://echo.xyz',
       contract: {
         tokenType: 'ERC721',
-        address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
+        address: getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1),
         chainId: 1
       },
       description: 'A Genetic Chain Project.',
@@ -203,7 +204,7 @@ describe('mappers - from-api - mapListingFromResponse', () => {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },

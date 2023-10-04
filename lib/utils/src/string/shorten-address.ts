@@ -1,10 +1,8 @@
-import { getAddress } from 'viem'
-
 /**
  * Shorten the address to display the 4 first chars and 4 last chars.
  * Function throws if the str is not an address
- * @param str
+ * @param address
  */
-export function shortenAddress(str: string) {
-  return getAddress(str).substring(0, 6) + '...' + str.substring(str.length - 4)
+export function shortenAddress(address: string) {
+  return `${address.substring(0, 6)}...${address.substring(address.length - 4)}`
 }

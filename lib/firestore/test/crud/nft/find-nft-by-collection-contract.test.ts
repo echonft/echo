@@ -13,7 +13,7 @@ describe('CRUD - nft - findNftByCollectionContract', () => {
   })
 
   it('returns undefined if the collection is not found', async () => {
-    const collection = await findNftByCollectionContract('not-found', 1, 1376)
+    const collection = await findNftByCollectionContract('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1, 1376)
     expect(collection).toBeUndefined()
   })
 
