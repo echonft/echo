@@ -28,5 +28,5 @@ export function mapAlchemyNftToFirestore(
     openSeaUrl: getOpenSeaUrl(contractAddress, chainId, tokenId),
     collection,
     owner: getUserDetails(user, wallet)
-  } as Omit<FirestoreNft, 'id'>
+  } as Omit<FirestoreNft, 'id' | 'updatedAt'>
 }

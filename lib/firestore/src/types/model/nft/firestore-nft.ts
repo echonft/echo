@@ -16,6 +16,7 @@ export interface FirestoreNft {
   thumbnailUrl: string
   tokenId: number
   tokenType: FirestoreNftTokenType
+  updatedAt: number
 }
 
 export const nftFields = [
@@ -46,10 +47,9 @@ export const nftFields = [
   'name',
   'openSeaUrl',
   'owner',
-  'owner.discordAvatar',
-  'owner.discordBanner',
-  'owner.discordId',
-  'owner.discordUsername',
+  'owner.discord',
+  'owner.discord.avatarUrl',
+  'owner.discord.username',
   'owner.username',
   'owner.wallet',
   'owner.wallet.address',
@@ -57,5 +57,6 @@ export const nftFields = [
   'pictureUrl',
   'thumbnailUrl',
   'tokenId',
-  'tokenType'
+  'tokenType',
+  'updatedAt'
 ]

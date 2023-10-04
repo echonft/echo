@@ -1,6 +1,7 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getListingOffersCollection } from '@echo/firestore/helpers/collection/get-listing-offers-collection'
+import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query-snapshot-is-empty'
 import type { FirestoreListingOffer } from '@echo/firestore/types/model/listing-offer/firestore-listing-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { isNil } from 'ramda'
@@ -22,7 +23,7 @@ export async function addListingOffer(
     .where('listingId', '==', listingId)
     .where('offerId', '==', offerId)
     .get()
-  if (!querySnapshot.empty) {
+  if (!querySnapshotIsEmpty(querySnapshot)) {
     throw Error(
       `trying to add a listing offer for listing id ${listingId} and offer id ${offerId} but this listing offer already exists`
     )

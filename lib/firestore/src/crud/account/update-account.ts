@@ -4,7 +4,7 @@ import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/g
 import { FirestoreAccount } from '@echo/firestore/types/model/account/firestore-account'
 import { isNil } from 'ramda'
 
-export async function updateAccount(userDiscordId: string, updateData: Partial<FirestoreAccount>) {
+export async function updateAccount(userDiscordId: string, updateData: Partial<Omit<FirestoreAccount, 'id'>>) {
   const user = await findUserByDiscordId(userDiscordId)
   if (isNil(user)) {
     return
