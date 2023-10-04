@@ -18,4 +18,5 @@ export interface NftResponse {
   thumbnailUrl: string
   tokenId: number
   tokenType: FirestoreNftTokenType
+  updatedAt: number
 }

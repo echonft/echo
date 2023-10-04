@@ -2,7 +2,7 @@ import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
 import { AlchemyNftAttribute } from '@echo/alchemy/types/model/alchemy-nft-attribute'
 import type { AlchemyNftResponse } from '@echo/alchemy/types/response/alchemy-nft-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { always, applySpec, ifElse, map, path, pathEq, pipe, prop } from 'ramda'
+import { always, applySpec, ifElse, invoker, map, path, pathEq, pipe, prop } from 'ramda'
 import { getAddress } from 'viem'
 
 export function mapAlchemyNftResponseToAlchemyNft(nftResponse: AlchemyNftResponse): AlchemyNft {
@@ -35,8 +35,8 @@ export function mapAlchemyNftResponseToAlchemyNft(nftResponse: AlchemyNftRespons
             always([]),
             map(
               applySpec<AlchemyNftAttribute>({
-                value: prop('value'),
-                trait: prop('trait_type')
+                value: pipe(prop('value'), invoker(0, 'toString')),
+                trait: pipe(prop('trait_type'), invoker(0, 'toString'))
               })
             )
           )

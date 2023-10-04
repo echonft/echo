@@ -3,7 +3,7 @@ import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMocksByUserId } from '@echo/firestore-mocks/wallet/get-wallet-mocks-by-user-id'
 import { mapUserToResponse } from '@server/mappers/to-response/map-user-to-response'
 
-describe('mappers - to-response - mapDiscordUserToResponse', () => {
+describe('mappers - to-response - mapUserToResponse', () => {
   const user = getUserMockById('6rECUMhevHfxABZ1VNOm')
   const wallets = getWalletMocksByUserId('6rECUMhevHfxABZ1VNOm')
   const response: UserResponse = {

@@ -6,6 +6,6 @@ describe('helpers - nft - getOpenSeaUrl', () => {
     const chainId = 1
     const tokenId = 1376
     const openSeaUrl = getOpenSeaUrl(contractAddress, chainId, tokenId)
-    expect(openSeaUrl).toEqual(new URL(`https://opensea.io/assets/ethereum/${contractAddress}/${tokenId}`))
+    expect(openSeaUrl).toEqual(`https://opensea.io/assets/ethereum/${contractAddress}/${tokenId}`)
   })
 })
