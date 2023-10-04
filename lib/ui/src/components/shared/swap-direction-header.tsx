@@ -18,7 +18,7 @@ export const SwapDirectionHeader: FunctionComponent<Props> = ({ direction, title
         className={clsx(
           'w-6',
           'h-6',
-          assetsOut ? 'bg-red-500' : 'bg-green-500',
+          'bg-yellow-500',
           'rounded-lg',
           'flex',
           'justify-center',
