@@ -12,16 +12,16 @@ import { assoc, pipe } from 'ramda'
 describe('CRUD - offer - getOffersForCollectionAsSenderItem', () => {
   const collectionId = 'Rc8pLQXxgyQGIRL0fr13'
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
-  let initialExpiresAt: dayjs.Dayjs
+  let initialExpiresAt: number
 
   async function setExpired(offer: FirestoreOffer) {
-    const expiresAt = dayjs().subtract(1, 'day').set('ms', 0)
+    const expiresAt = dayjs().subtract(1, 'day').set('ms', 0).unix()
     await updateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', true))(offer)
   }
 
   async function setNotExpired(offer: FirestoreOffer) {
-    const expiresAt = dayjs().add(1, 'day').set('ms', 0)
+    const expiresAt = dayjs().add(1, 'day').set('ms', 0).unix()
     await updateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(offer)
   }

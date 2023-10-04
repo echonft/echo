@@ -1,14 +1,7 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
+import { getNftCollectionSwapsCountCollection } from '@echo/firestore/helpers/collection/get-nft-collection-swaps-count-collection'
 import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/get-query-snapshot-document-snapshot'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import type { FirestoreNftCollectionSwapsCount } from '@echo/firestore/types/model/nft-collection-swaps-count/firestore-nft-collection-swaps-count'
-import { QuerySnapshot } from 'firebase-admin/lib/firestore'
 
 export async function getNftCollectionSwapsCountSnapshotById(id: string) {
-  const querySnapshot = await firestoreApp()
-    .collection(CollectionName.NFT_COLLECTION_SWAPS_COUNT)
-    .where('id', '==', id)
-    .get()
-
-  return getQuerySnapshotDocumentSnapshot(querySnapshot as QuerySnapshot<FirestoreNftCollectionSwapsCount>)
+  const querySnapshot = await getNftCollectionSwapsCountCollection().where('id', '==', id).get()
+  return getQuerySnapshotDocumentSnapshot(querySnapshot)
 }

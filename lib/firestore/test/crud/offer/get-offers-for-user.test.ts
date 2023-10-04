@@ -6,12 +6,11 @@ import { getAllOfferMocks } from '@echo/firestore-mocks/offer/get-all-offer-mock
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
-import dayjs from 'dayjs'
 import { either, filter, find, forEach, pathEq, propEq } from 'ramda'
 
 describe('CRUD - offer - getOffersForUser', () => {
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
-  let initialExpiresAt: dayjs.Dayjs
+  let initialExpiresAt: number
 
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()

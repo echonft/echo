@@ -1,21 +1,11 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { sessionDataConverter } from '@echo/firestore/converters/session/session-data-converter'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { getSessionsCollection } from '@echo/firestore/helpers/collection/get-sessions-collection'
+import { assertQuerySnapshot } from '@echo/firestore/helpers/crud/assert-query-snapshot'
+import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/get-query-snapshot-document-snapshot'
 import type { WriteResult } from 'firebase-admin/lib/firestore'
-import { head } from 'ramda'
 
 export async function deleteSession(userId: string): Promise<WriteResult> {
-  const querySnapshot = await firestoreApp()
-    .collection(CollectionName.SESSIONS)
-    .where('userId', '==', userId)
-    .withConverter(sessionDataConverter)
-    .get()
-
-  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
-    throw Error(`session with user id ${userId} does not exist`)
-  }
-
-  const documentSnapshot = head(querySnapshot.docs)!
-  return documentSnapshot.ref.delete()
+  const querySnapshot = await getSessionsCollection().where('userId', '==', userId).get()
+  assertQuerySnapshot(querySnapshot)
+  const documentSnapshot = getQuerySnapshotDocumentSnapshot(querySnapshot)
+  return documentSnapshot!.ref.delete()
 }

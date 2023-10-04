@@ -12,16 +12,16 @@ import { assoc, pipe } from 'ramda'
 describe('CRUD - listing - getListingsForCollectionAsTarget', () => {
   const collectionId = 'Rc8pLQXxgyQGIRL0fr13'
   const id = 'jUzMtPGKM62mMhEcmbN4'
-  let initialExpiresAt: dayjs.Dayjs
+  let initialExpiresAt: number
 
   async function setExpired(listing: FirestoreListing) {
-    const expiresAt = dayjs().subtract(1, 'day').set('ms', 0)
+    const expiresAt = dayjs().subtract(1, 'day').set('ms', 0).unix()
     await updateListing(listing.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', true))(listing)
   }
 
   async function setNotExpired(listing: FirestoreListing) {
-    const expiresAt = dayjs().add(1, 'day').set('ms', 0)
+    const expiresAt = dayjs().add(1, 'day').set('ms', 0).unix()
     await updateListing(listing.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(listing)
   }

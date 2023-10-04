@@ -1,13 +1,12 @@
 import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
-import dayjs from 'dayjs'
 
 export const offerMock: Record<string, FirestoreOffer> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
-    createdAt: dayjs.unix(1676984897),
+    createdAt: 1676984897,
     expired: false,
-    expiresAt: dayjs.unix(2324074781),
+    expiresAt: 2324074781,
     receiver: {
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
@@ -33,12 +32,12 @@ export const offerMock: Record<string, FirestoreOffer> = {
     },
     senderItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }],
     state: 'OPEN',
-    updatedAt: dayjs.unix(1676984897)
+    updatedAt: 1676984897
   },
   ASkFpKoHEHVH0gd69t1G: {
     id: 'ASkFpKoHEHVH0gd69t1G',
-    createdAt: dayjs.unix(1676984897),
-    expiresAt: dayjs.unix(2324074781),
+    createdAt: 1676984897,
+    expiresAt: 2324074781,
     expired: false,
     receiver: {
       discord: {
@@ -68,6 +67,6 @@ export const offerMock: Record<string, FirestoreOffer> = {
       { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
     ],
     state: 'COMPLETED',
-    updatedAt: dayjs.unix(1676984897)
+    updatedAt: 1676984897
   }
 }

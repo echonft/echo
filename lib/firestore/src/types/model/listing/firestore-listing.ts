@@ -3,16 +3,15 @@ import type { FirestoreListingState } from '@echo/firestore/types/model/listing/
 import type { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
 import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import type { Dayjs } from 'dayjs'
 
 export interface FirestoreListing {
   id: string
-  createdAt: Dayjs
+  createdAt: number
   creator: FirestoreUserDetails
   expired: boolean
-  expiresAt: Dayjs
+  expiresAt: number
   items: NonEmptyArray<FirestoreListingItem>
   state: FirestoreListingState
   targets: NonEmptyArray<FirestoreListingTarget>
-  updatedAt: Dayjs
+  updatedAt: number
 }

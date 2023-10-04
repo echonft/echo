@@ -11,9 +11,7 @@ export const sessionDataConverter: FirestoreDataConverter<FirestoreSession> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<SessionDocumentData>) {
     return pipe(getSnapshotData<SessionDocumentData>, modifyTimestampPropToDate('expires'))(snapshot)
   },
-  toFirestore(modelObject: PartialWithFieldValue<FirestoreSession>): SessionDocumentData {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+  toFirestore(modelObject: PartialWithFieldValue<FirestoreSession>) {
     return modifyDatePropToTimestamp('expires', modelObject)
   }
 }

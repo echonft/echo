@@ -1,14 +1,7 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { walletDataConverter } from '@echo/firestore/converters/wallet/wallet-data-converter'
+import { getWalletsCollection } from '@echo/firestore/helpers/collection/get-wallets-collection'
 import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/get-query-snapshot-document-snapshot'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
 
 export async function getWalletSnapshotById(id: string) {
-  const querySnapshot = await firestoreApp()
-    .collection(CollectionName.WALLETS)
-    .where('id', '==', id)
-    .withConverter(walletDataConverter)
-    .get()
-
+  const querySnapshot = await getWalletsCollection().where('id', '==', id).get()
   return getQuerySnapshotDocumentSnapshot(querySnapshot)
 }

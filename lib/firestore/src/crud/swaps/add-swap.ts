@@ -1,12 +1,9 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { swapDocumentDataConverter } from '@echo/firestore/converters/swap/swap-document-data-converter'
 import { increaseNftCollectionSwapsCount } from '@echo/firestore/crud/nft-collection-swaps-count/increase-nft-collection-swaps-count'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { findSwapByOfferId } from '@echo/firestore/crud/swaps/find-swap-by-offer-id'
+import { getSwapsCollection } from '@echo/firestore/helpers/collection/get-swaps-collection'
 import { getOfferCollectionIds } from '@echo/firestore/helpers/offer/get-offer-collection-ids'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreSwap } from '@echo/firestore/types/model/swap/firestore-swap'
-import type { SwapDocumentData } from '@echo/firestore/types/model/swap/swap-document-data'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
@@ -19,14 +16,14 @@ export async function addSwap(offerId: string, txId: string): Promise<FirestoreS
   if (!isNil(foundSwap)) {
     throw Error(`trying to add swap for offer with id ${offerId} but a swap already exists for this offer`)
   }
-  const reference = firestoreApp().collection(CollectionName.SWAPS).doc()
+  const reference = getSwapsCollection().doc()
   const id = reference.id
-  const newSwap: SwapDocumentData = { id, offerId, txId, date: dayjs().unix() }
+  const newSwap: FirestoreSwap = { id, offerId, txId, date: dayjs().unix() }
   await reference.set(newSwap)
   // increase the swaps count for receiver and sender items
   const collectionIds = getOfferCollectionIds(offer)
   for (const collectionId of collectionIds) {
     await increaseNftCollectionSwapsCount(collectionId)
   }
-  return swapDocumentDataConverter.fromFirestore(newSwap)
+  return newSwap
 }

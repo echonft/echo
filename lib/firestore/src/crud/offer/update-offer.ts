@@ -1,14 +1,13 @@
-import { offerDataConverter } from '@echo/firestore/converters/offer/offer-data-converter'
 import { getOfferSnapshotById } from '@echo/firestore/crud/offer/get-offer-snapshot-by-id'
-import { cleanAndUpdateDocumentRef } from '@echo/firestore/helpers/crud/clean-and-update-document-ref'
+import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
 import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import type { WriteResult } from 'firebase-admin/lib/firestore'
-import { isNil } from 'ramda'
 
-export async function updateOffer(id: string, offer: Partial<Omit<FirestoreOffer, 'id'>>): Promise<WriteResult> {
-  const documentSnapshot = await getOfferSnapshotById(id)
-  if (isNil(documentSnapshot)) {
-    throw Error('invalid offer id')
-  }
-  return cleanAndUpdateDocumentRef(documentSnapshot.ref, offer, offerDataConverter)
+export async function updateOffer(
+  offerId: string,
+  updateData: Partial<Omit<FirestoreOffer, 'id'>>
+): Promise<WriteResult> {
+  const documentSnapshot = await getOfferSnapshotById(offerId)
+  assertQueryDocumentSnapshot(documentSnapshot)
+  return documentSnapshot.ref.update(updateData)
 }

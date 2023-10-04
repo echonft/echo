@@ -2,18 +2,39 @@ import type { FirestoreContract } from '@echo/firestore/types/model/contract/fir
 
 export interface FirestoreNftCollection {
   id: string
-  bannerUrl?: URL
-  blurUrl?: URL
+  bannerUrl?: string
+  blurUrl?: string
   contract: FirestoreContract
   description: string
-  discordUrl?: URL
+  discordUrl?: string
   floorPrice?: number
   name: string
-  openSeaUrl?: URL
-  profilePictureUrl?: URL
+  openSeaUrl?: string
+  profilePictureUrl?: string
   slug: string
   totalSupply?: number
   twitterUsername?: string
   verified: boolean
-  websiteUrl?: URL
+  websiteUrl?: string
 }
+
+export const nftCollectionFields = [
+  'id',
+  'bannerUrl',
+  'contract.address',
+  'contract.chainId',
+  'contract.name',
+  'contract.symbol',
+  'contract.tokenType',
+  'description',
+  'discordUrl',
+  'floorPrice',
+  'name',
+  'openSeaUrl',
+  'profilePictureUrl',
+  'slug',
+  'totalSupply',
+  'twitterUsername',
+  'verified',
+  'websiteUrl'
+]

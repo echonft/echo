@@ -1,10 +1,8 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { listingDataConverter } from '@echo/firestore/converters/listing/listing-data-converter'
+import { getListingsCollection } from '@echo/firestore/helpers/collection/get-listings-collection'
 import { getListingTargetsCollectionIds } from '@echo/firestore/helpers/listing/get-listing-targets-collection-ids'
 import { getListingItemsFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-items-fulfilling-status'
 import { getListingTargetsFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-targets-fulfilling-status'
 import { getOfferItemsCollectionIds } from '@echo/firestore/helpers/offer/get-offer-items-collection-ids'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import { FirestoreListingOffer } from '@echo/firestore/types/model/listing-offer/firestore-listing-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
@@ -17,10 +15,8 @@ import { concat, eqProps, filter, invoker, map, path, pipe, uniqWith } from 'ram
 async function receiverItemsListingItemsMatch(offer: FirestoreOffer) {
   const { receiverItems, senderItems } = offer
   // get the listings for which items intersect with the offer receiver items
-  const querySnapshot = await firestoreApp()
-    .collection(CollectionName.LISTINGS)
+  const querySnapshot = await getListingsCollection()
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), receiverItems))
-    .withConverter(listingDataConverter)
     .get()
 
   if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
@@ -57,10 +53,8 @@ async function receiverItemsListingItemsMatch(offer: FirestoreOffer) {
 async function senderItemsListingItemsMatch(offer: FirestoreOffer) {
   const { receiverItems, senderItems } = offer
   // get the listings for which items intersect with the offer sender items
-  const querySnapshot = await firestoreApp()
-    .collection(CollectionName.LISTINGS)
+  const querySnapshot = await getListingsCollection()
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), senderItems))
-    .withConverter(listingDataConverter)
     .get()
 
   if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {

@@ -16,9 +16,9 @@ describe('CRUD - swap - findSwapByOfferId', () => {
   })
   it('returns the document found', async () => {
     const offerId = 'ASkFpKoHEHVH0gd69t1G'
-    const document = await findSwapByOfferId(offerId)
-    expect(document!.id).toStrictEqual('2ipuV3drjQlzEgkUkW7q')
-    expect(document!.offerId).toStrictEqual(offerId)
-    expect(document!.txId).toStrictEqual('0xb384a4949fe643aa638827e381e62513e412af409b0744a37065dd59b0a5309b')
+    const document = (await findSwapByOfferId(offerId))!
+    expect(document.id).toStrictEqual('2ipuV3drjQlzEgkUkW7q')
+    expect(document.offerId).toStrictEqual(offerId)
+    expect(document.txId).toStrictEqual('0xb384a4949fe643aa638827e381e62513e412af409b0744a37065dd59b0a5309b')
   })
 })

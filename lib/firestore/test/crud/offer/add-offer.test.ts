@@ -7,7 +7,8 @@ import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
-import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
+import { expectDateNumberIs } from '@echo/test-utils/expect-date-number-is'
+import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertListingOffers } from '@test-utils/listing-offer/assert-listing-offers'
@@ -45,17 +46,14 @@ describe('CRUD - offer - addOffer', () => {
     const createdOffer = await addOffer(receiverItems, senderItems)
     createdOfferId = createdOffer.id
     const newOffer = (await findOfferById(createdOfferId))!
-    const now = dayjs()
-    const expirationDate = now.add(DEFAULT_EXPIRATION_TIME, 'day')
-    expectDateIsNow(newOffer.createdAt)
-    expect(newOffer.expiresAt.isAfter(expirationDate.subtract(1, 'minute'))).toBeTruthy()
-    expect(newOffer.expiresAt.isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()
+    expectDateNumberIsNow(newOffer.createdAt)
     expect(newOffer.receiver).toStrictEqual(receiver)
     expect(newOffer.receiverItems).toStrictEqual(receiverItems)
     expect(newOffer.sender).toStrictEqual(sender)
     expect(newOffer.senderItems).toStrictEqual(senderItems)
     expect(newOffer.state).toBe('OPEN')
-    expectDateIsNow(newOffer.updatedAt)
+    expectDateNumberIsNow(newOffer.updatedAt)
+    expectDateNumberIs(newOffer.expiresAt)(dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'))
     // check if offer has been added to tied listings
     const listingOffers = await getListingOffersForOffer(newOffer)
     expect(listingOffers.length).toBe(1)

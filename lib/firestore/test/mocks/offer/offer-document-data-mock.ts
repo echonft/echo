@@ -1,5 +1,5 @@
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
-import { nftDocumentDataMock } from '@echo/firestore-mocks/nft/nft-document-data-mock'
+import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
 
 export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
@@ -17,7 +17,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
         chainId: 1
       }
     },
-    receiverItems: [{ amount: 1, nft: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! }],
+    receiverItems: [{ amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') }],
     receiverItemsNftIds: ['8hHFadIrrooORfTOLkBg'],
     receiverItemsNftCollectionIds: ['1aomCtnoesD7WVll6Yi1'],
     sender: {
@@ -31,7 +31,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
         chainId: 1
       }
     },
-    senderItems: [{ amount: 1, nft: nftDocumentDataMock.kRE3UCfXWkJ33nwzj2X1! }],
+    senderItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }],
     senderItemsNftIds: ['kRE3UCfXWkJ33nwzj2X1'],
     senderItemsNftCollectionIds: ['Rc8pLQXxgyQGIRL0fr13'],
     state: 'OPEN',
@@ -52,7 +52,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
         chainId: 1
       }
     },
-    receiverItems: [{ amount: 1, nft: nftDocumentDataMock.kRE3UCfXWkJ33nwzj2X1! }],
+    receiverItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }],
     receiverItemsNftIds: ['kRE3UCfXWkJ33nwzj2X1'],
     receiverItemsNftCollectionIds: ['Rc8pLQXxgyQGIRL0fr13'],
     sender: {
@@ -67,8 +67,8 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       }
     },
     senderItems: [
-      { amount: 1, nft: nftDocumentDataMock['8hHFadIrrooORfTOLkBg']! },
-      { amount: 1, nft: nftDocumentDataMock.iRZFKEujarikVjpiFAkE! }
+      { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
+      { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
     ],
     senderItemsNftIds: ['8hHFadIrrooORfTOLkBg', 'iRZFKEujarikVjpiFAkE'],
     senderItemsNftCollectionIds: ['1aomCtnoesD7WVll6Yi1'],

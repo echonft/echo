@@ -5,7 +5,8 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "@echo/utils/*": ["src/*"]
+      "@echo/utils/*": ["src/*"],
+      "@echo/test-utils/*": ["test/test-utils/*"]
     }
   },
   "include": ["src", "test"],

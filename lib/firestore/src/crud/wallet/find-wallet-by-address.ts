@@ -1,15 +1,11 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { walletDataConverter } from '@echo/firestore/converters/wallet/wallet-data-converter'
+import { getWalletsCollection } from '@echo/firestore/helpers/collection/get-wallets-collection'
 import { getQuerySnapshotDocumentData } from '@echo/firestore/helpers/crud/get-query-snapshot-document-data'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
 
 export async function findWalletByAddress(wallet: WalletData) {
-  const querySnapshot = await firestoreApp()
-    .collection(CollectionName.WALLETS)
+  const querySnapshot = await getWalletsCollection()
     .where('address', '==', wallet.address)
     .where('chainId', '==', wallet.chainId)
-    .withConverter(walletDataConverter)
     .get()
 
   return getQuerySnapshotDocumentData(querySnapshot)
