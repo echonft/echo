@@ -4,9 +4,9 @@ import { GetOwnersForNftResponse } from '@echo/alchemy/types/response/get-owners
 import { applySpec, map, pipe, prop } from 'ramda'
 
 export function mapGetOwnersForNftResponse(response: GetOwnersForNftResponse): AlchemyPagingResult<AlchemyWallet> {
-  return applySpec({
+  return applySpec<AlchemyPagingResult<AlchemyWallet>>({
     data: pipe(
-      prop<string[]>('owners'),
+      prop('owners'),
       map((owner) => ({ address: owner, chainId: 1 }))
     ),
     pageKey: prop('pageKey')

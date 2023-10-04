@@ -10,7 +10,7 @@ import { addIndex, map } from 'ramda'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  collections: Array<CollectionTileDetails>
+  collections: CollectionTileDetails[]
   firstRank: number
 }
 

@@ -60,7 +60,9 @@ export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
     >(
       anyPass([propIsNil('constraints'), propEq(false, 'includeSwapsCount')]),
       prop('constraints'),
-      pipe(prop<QueryConstraints>('constraints'), dissoc('limit'), dissoc('offset'))
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      pipe(prop('constraints'), dissoc('limit'), dissoc('offset'))
     ),
     getAllCollections
   )({ constraints, includeSwapsCount })
@@ -115,6 +117,8 @@ export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
           ])
         ),
         slice(sliceStartIndex, sliceEndIndex),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         orderBy,
         map(mapCollectionToResponse)
       )(collections) as CollectionResponse[]

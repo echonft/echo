@@ -5,7 +5,7 @@ import { getOffersForCollectionAsSenderItem } from '@echo/firestore/crud/offer/g
 import { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
 import { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { ServerError } from '@server/helpers/error/server-error'
-import { both, has, isNotNil } from 'ramda'
+import { isNil } from 'ramda'
 
 export async function getCollectionOffers(
   collectionId: string,
@@ -13,7 +13,7 @@ export async function getCollectionOffers(
   constraints?: QueryConstraints
 ) {
   try {
-    if (both(isNotNil, has('as'))(filters)) {
+    if (!isNil(filters) && !isNil(filters.as)) {
       if (filters.as === OfferFilterAsReceiver) {
         return await getOffersForCollectionAsReceiverItem(collectionId, filters, constraints)
       }

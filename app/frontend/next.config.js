@@ -9,7 +9,11 @@ const nextConfig = {
       }
     ]
   },
-  transpilePackages: ['@echo/alchemy', '@echo/api', '@echo/discord', '@echo/firestore', '@echo/ui', '@echo/utils']
+  transpilePackages: ['@echo/alchemy', '@echo/api', '@echo/discord', '@echo/firestore', '@echo/ui', '@echo/utils'],
+  webpack: (config) => {
+    config.externals.push('pino-pretty', 'lokijs', 'encoding')
+    return config
+  }
 }
 
 const withNextIntl = require('next-intl/plugin')(

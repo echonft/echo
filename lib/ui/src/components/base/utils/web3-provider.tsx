@@ -1,0 +1,13 @@
+'use client'
+import { wagmiConfig } from '@echo/ui/constants/wagmi-config'
+import { ConnectKitProvider } from 'connectkit'
+import { FunctionComponent, PropsWithChildren } from 'react'
+import { WagmiConfig } from 'wagmi'
+
+export const Web3Provider: FunctionComponent<PropsWithChildren> = ({ children }) => {
+  return (
+    <WagmiConfig config={wagmiConfig}>
+      <ConnectKitProvider>{children}</ConnectKitProvider>
+    </WagmiConfig>
+  )
+}

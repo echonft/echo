@@ -15,6 +15,6 @@ export function getItemGuild(
     // @ts-ignore
     path(['nft', 'collection', 'id']),
     getNftCollectionDiscordGuildsByNftCollectionId,
-    andThen(pipe(head, prop('guild')))
+    andThen(pipe(head<FirestoreNftCollectionDiscordGuild, FirestoreNftCollectionDiscordGuild>, prop('guild')))
   )(item)
 }

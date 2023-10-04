@@ -1,72 +1,55 @@
 import type { ErrorResponse } from '@echo/api/types/responses/error-response'
-import { setUrlQuery } from '@echo/utils/helpers/set-url-query'
-import type { QueryType } from '@echo/utils/types/query-type'
-import type { HTTP_METHOD } from 'next/dist/server/web/http'
-import { assoc, assocPath, is, pathEq } from 'ramda'
+import { always, assoc, isNil, unless } from 'ramda'
 
 export interface ApiFetchResult<T> {
   data: T | undefined
   error: Error | undefined
 }
 
-export class ApiFetcher {
-  private readonly url: URL
-  private init: RequestInit
-
-  constructor(url: URL | string) {
-    if (is(String, url)) {
-      this.url = new URL(url)
-    } else {
-      this.url = url
-    }
-    this.init = {
-      headers: {
-        'Content-Type': 'application/json',
-        method: 'GET'
+function getHeaders(token?: string): HeadersInit {
+  return isNil(token)
+    ? {
+        'Content-Type': 'application/json'
       }
-    }
-  }
+    : {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+}
 
-  bearerToken(token: string) {
-    return this.authorization('Bearer', token)
-  }
+function getBody<T extends object>(body: T): BodyInit {
+  return JSON.stringify(body)
+}
 
-  body<T extends object>(body: T) {
-    if (pathEq('GET', ['headers', 'method'], this.init)) {
-      throw Error('GET requests cannot have a body')
-    }
-    const bodyString = JSON.stringify(body)
-    this.init = assoc<'body', RequestInit>('body', bodyString, this.init)
-    return this
+async function convertResponse<T>(response: Response): Promise<ApiFetchResult<T>> {
+  if (response.ok) {
+    const data = (await response.json()) as T
+    return { data, error: undefined }
   }
+  try {
+    const errorData = (await response.json()) as ErrorResponse
+    return { data: undefined, error: new Error(errorData.error) }
+  } catch (e) {
+    return { data: undefined, error: e as Error }
+  }
+}
 
-  async fetch<T>(): Promise<ApiFetchResult<T>> {
-    // in dev, always disable cache
-    const response = await fetch(this.url, this.init)
-    if (response.ok) {
-      const data = (await response.json()) as T
-      return { data, error: undefined }
-    }
-    try {
-      const errorData = (await response.json()) as ErrorResponse
-      return { data: undefined, error: new Error(errorData.error) }
-    } catch (e) {
-      return { data: undefined, error: e as Error }
-    }
-  }
+export async function putData<T extends object, U>(url: URL, body?: T, token?: string): Promise<ApiFetchResult<U>> {
+  const init = unless(
+    always(isNil(body)),
+    assoc('body', getBody(body!))
+  )({
+    method: 'PUT',
+    headers: getHeaders(token)
+  }) as RequestInit
+  const response = await fetch(url, init)
+  return convertResponse(response)
+}
 
-  method(method: HTTP_METHOD) {
-    this.init = assocPath<string, RequestInit>(['headers', 'method'], method, this.init)
-    return this
-  }
-
-  query<T extends QueryType>(query: T, addArrayBrackets = false) {
-    setUrlQuery(this.url, query, addArrayBrackets)
-    return this
-  }
-
-  private authorization(scheme: string, token: string) {
-    this.init = assocPath<string, RequestInit>(['headers', 'Authorization'], `${scheme} ${token}`, this.init)
-    return this
-  }
+export async function getData<U>(url: URL, token?: string): Promise<ApiFetchResult<U>> {
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: getHeaders(token)
+  })
+  return convertResponse(response)
 }

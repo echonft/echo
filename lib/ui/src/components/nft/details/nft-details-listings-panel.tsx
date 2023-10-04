@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  listings: Array<Listing>
+  listings: Listing[]
 }
 
 export const NftDetailsListingsPanel: FunctionComponent<Props> = ({ listings }) => {

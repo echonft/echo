@@ -6,10 +6,10 @@ import { forwardRef, type ForwardRefRenderFunction, useCallback, useEffect, useR
 
 interface Props {
   placeholder: string
-  options: Array<Collection> | undefined
-  selectedOptions: Array<Collection>
+  options: Collection[] | undefined
+  selectedOptions: Collection[]
   name?: string
-  onSelectionChange?: (selection: Array<Collection>) => unknown
+  onSelectionChange?: (selection: Collection[]) => unknown
 }
 
 const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
@@ -17,7 +17,7 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
   ref
 ) => {
   const [searching, setSearching] = useState(false)
-  const [filteredOptions, setFilteredOptions] = useState<Array<Collection>>()
+  const [filteredOptions, setFilteredOptions] = useState<Collection[]>()
   const filterOptions = useCallback(
     (searchQuery: string) => {
       setSearching(true)

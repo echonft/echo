@@ -1,13 +1,13 @@
 import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
+import { AlchemyNftAttribute } from '@echo/alchemy/types/model/alchemy-nft-attribute'
 import type { AlchemyNftResponse } from '@echo/alchemy/types/response/alchemy-nft-response'
-import { applyToProp } from '@echo/utils/fp/apply-to-prop'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { always, applySpec, ifElse, map, path, pathEq, pipe, prop } from 'ramda'
 import { getAddress } from 'viem'
 
 export function mapAlchemyNftResponseToAlchemyNft(nftResponse: AlchemyNftResponse): AlchemyNft {
   return applySpec<AlchemyNft>({
-    balance: ifElse(pathEq('ERC1155', ['contract', 'tokenType']), applyToProp('balance', parseInt), always(1)),
+    balance: ifElse(pathEq('ERC1155', ['contract', 'tokenType']), pipe(prop('balance'), parseInt), always(1)),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     contractAddress: pipe(path(['contract', 'address']), getAddress),
@@ -17,7 +17,7 @@ export function mapAlchemyNftResponseToAlchemyNft(nftResponse: AlchemyNftRespons
     thumbnailUrl: path(['image', 'thumbnailUrl']),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    tokenId: applyToProp('tokenId', parseInt),
+    tokenId: pipe(prop('tokenId'), parseInt),
     tokenType: path(['contract', 'tokenType']),
     attributes: pipe(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -34,7 +34,7 @@ export function mapAlchemyNftResponseToAlchemyNft(nftResponse: AlchemyNftRespons
             isNilOrEmpty,
             always([]),
             map(
-              applySpec({
+              applySpec<AlchemyNftAttribute>({
                 value: prop('value'),
                 trait: prop('trait_type')
               })

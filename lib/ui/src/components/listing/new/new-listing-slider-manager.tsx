@@ -12,10 +12,10 @@ import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
   collectionProvider: {
-    get: () => Promise<Array<Collection>>
+    get: () => Promise<Collection[]>
   }
-  initialTargets?: Array<ListingTarget>
-  initialItems?: Array<ListingItem>
+  initialTargets?: ListingTarget[]
+  initialItems?: ListingItem[]
   show?: boolean
   onDismiss?: () => unknown
 }
@@ -27,7 +27,7 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
   show,
   onDismiss
 }) => {
-  const [collections, setCollections] = useState<Array<Collection>>()
+  const [collections, setCollections] = useState<Collection[]>()
   const [targets, setTargets] = useState<ListingTarget[]>(initialTargets ?? [])
   const [items, setItems] = useState<ListingItem[]>(initialItems ?? [])
   const t = useTranslations('listing.new.bottomSlider')
@@ -36,7 +36,7 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
     void collectionProvider.get().then(setCollections)
   }, [collectionProvider])
 
-  function onCollectionSelectionChange(selection: Array<Collection>) {
+  function onCollectionSelectionChange(selection: Collection[]) {
     setTargets(
       map((collection) => {
         const target = find(pathEq(collection.id, ['collection', 'id']), targets)

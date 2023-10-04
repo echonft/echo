@@ -6,12 +6,10 @@ import { map, modify, omit, pick, pipe } from 'ramda'
 
 export function mapUserToResponse(user: FirestoreUser, wallets: FirestoreWallet[]) {
   return pipe(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     pick(['username', 'discord', 'wallets']),
+    modify('discord', omit(['id'])),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    modify('discord', omit(['id'])),
     modify('wallets', map(mapWalletToResponse))
   )({ ...user, wallets }) as UserResponse
 }

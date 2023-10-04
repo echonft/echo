@@ -5,7 +5,7 @@ import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  offers: Array<OfferWithRole>
+  offers: OfferWithRole[]
 }
 
 export const OfferRowsContainer: FunctionComponent<Props> = ({ offers }) => {

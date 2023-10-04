@@ -5,7 +5,7 @@ import { getListingsForCollectionAsTarget } from '@echo/firestore/crud/listing/g
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { ServerError } from '@server/helpers/error/server-error'
-import { both, has, isNotNil } from 'ramda'
+import { isNil } from 'ramda'
 
 export async function getCollectionListings(
   collectionId: string,
@@ -13,7 +13,7 @@ export async function getCollectionListings(
   constraints?: QueryConstraints
 ) {
   try {
-    if (both(isNotNil, has('as'))(filters)) {
+    if (!isNil(filters) && !isNil(filters.as)) {
       if (filters.as === ListingFilterAsTarget) {
         return await getListingsForCollectionAsTarget(collectionId, filters, constraints)
       }

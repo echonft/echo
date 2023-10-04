@@ -7,13 +7,13 @@ import { forwardRef, type ForwardRefRenderFunction } from 'react'
 
 interface Props {
   placeholder: string
-  options: Array<Collection> | undefined
-  selectedOptions: Array<Collection>
+  options: Collection[] | undefined
+  selectedOptions: Collection[]
   searching: boolean
   name?: string
   onSearch?: (searchQuery: string) => unknown
   onSearchClear?: () => unknown
-  onSelectionChange?: (selection: Array<Collection>) => unknown
+  onSelectionChange?: (selection: Collection[]) => unknown
 }
 
 const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (

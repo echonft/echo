@@ -6,8 +6,8 @@ import { find, intersection, isNil, map, path, pathEq } from 'ramda'
 /**
  * Returns the fulfilling status of offer items regarding listing items
  * This is assuming both sets already intersect
- * @param {Array<FirestoreListingItem>} listingItems
- * @param {Array<FirestoreOfferItem>} offerItems
+ * @param {FirestoreListingItem[]} listingItems
+ * @param {FirestoreOfferItem[]} offerItems
  * @return {ListingOfferFulfillingStatus}
  */
 export function getListingItemsFulfillingStatus(
