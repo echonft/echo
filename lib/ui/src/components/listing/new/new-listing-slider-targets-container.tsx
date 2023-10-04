@@ -33,8 +33,8 @@ export const NewListingSliderTargetsContainer: FunctionComponent<Props> = ({
               collectionName={target.collection.name}
               quantity={target.amount}
               onQuantityChange={(newQuantity) => onEdit?.(target.collection.id, newQuantity)}
-              pictureUrl={target.collection.profilePictureUrl.href}
-              bannerUrl={target.collection.bannerUrl?.href}
+              pictureUrl={target.collection.profilePictureUrl}
+              bannerUrl={target.collection.bannerUrl}
               onRemove={() => onRemove?.(target.collection.id)}
               key={target.collection.id}
             />

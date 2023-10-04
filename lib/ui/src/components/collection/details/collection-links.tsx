@@ -8,8 +8,8 @@ import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 export interface CollectionLinksProps {
-  websiteUrl?: URL | undefined
-  discordUrl?: URL | undefined
+  websiteUrl?: string | undefined
+  discordUrl?: string | undefined
   twitterUsername?: string | undefined
 }
 
@@ -23,7 +23,7 @@ export const CollectionLinks: FunctionComponent<CollectionLinksProps> = ({
       <HideIfNil
         checks={websiteUrl}
         render={(websiteUrl) => (
-          <ExternalLink href={websiteUrl.href}>
+          <ExternalLink href={websiteUrl}>
             <WebsiteIcon size={SizeMD} />
           </ExternalLink>
         )}
@@ -40,7 +40,7 @@ export const CollectionLinks: FunctionComponent<CollectionLinksProps> = ({
       <HideIfNil
         checks={discordUrl}
         render={(discordUrl) => (
-          <ExternalLink href={discordUrl.href}>
+          <ExternalLink href={discordUrl}>
             <DiscordIcon size={SizeMD} />
           </ExternalLink>
         )}

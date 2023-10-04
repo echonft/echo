@@ -28,7 +28,7 @@ export const NftThumbnail: FunctionComponent<Props> = ({ nft, linkDisabled, hide
             </div>
           </HideIf>
         </div>
-        <NftThumbnailTitle tokenId={tokenId} collectionName={collection.name} openSeaUrl={openSeaUrl?.href} />
+        <NftThumbnailTitle tokenId={tokenId} collectionName={collection.name} openSeaUrl={openSeaUrl} />
       </div>
     </InternalLink>
   )

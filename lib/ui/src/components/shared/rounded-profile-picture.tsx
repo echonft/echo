@@ -4,7 +4,7 @@ import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 export interface RoundedProfilePictureProps {
-  pictureUrl: URL
+  pictureUrl: string
   alt: string
   size?: ProfilePictureSize
 }
@@ -13,7 +13,7 @@ export const RoundedProfilePicture: FunctionComponent<RoundedProfilePictureProps
   return (
     <Img
       className={clsx('rounded-full', 'h-[3.75rem]', 'w-[3.75rem]')}
-      src={pictureUrl.href}
+      src={pictureUrl}
       alt={alt}
       width={60}
       height={60}

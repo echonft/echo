@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  pictureUrl: URL | undefined
+  pictureUrl: string | undefined
   selected: boolean
   collectionName: string
   collectionSupply: number | undefined
