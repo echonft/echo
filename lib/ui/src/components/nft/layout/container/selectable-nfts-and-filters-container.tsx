@@ -76,7 +76,7 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
         collectionFilters={collectionFilters}
         traitFilters={traitFilters}
         onButtonClick={() => {
-          onButtonClick?.(pipe(getSelection, omit(['selected', 'disabled']))(nftsWithProps))
+          onButtonClick?.(pipe(getSelection, map(omit(['selected', 'disabled'])))(nftsWithProps))
         }}
         onTraitSelectionToggle={onTraitFilterToggleSelection}
         onCollectionSelectionToggle={onCollectionFilterToggleSelection}
