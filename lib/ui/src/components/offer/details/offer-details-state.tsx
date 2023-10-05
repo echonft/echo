@@ -1,7 +1,7 @@
 import { StateTextContainer } from '@echo/ui/components/shared/state-text-container'
 import type { OfferState } from '@echo/ui/types/model/offer-state'
 import { clsx } from 'clsx'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
@@ -11,7 +11,7 @@ dayjs.extend(relativeTime)
 interface Props {
   state: OfferState
   expired: boolean
-  expiresAt: dayjs.Dayjs
+  expiresAt: Dayjs
 }
 
 export const OfferDetailsState: FunctionComponent<Props> = ({ state, expired, expiresAt }) => {

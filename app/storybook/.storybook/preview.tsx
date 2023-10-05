@@ -3,11 +3,11 @@ import { messages } from '@echo/ui/messages/en'
 import { getAuthUser } from '@mocks/model/auth-user'
 import type { Preview } from '@storybook/react'
 import dayjs from 'dayjs'
-import RelativeTime from 'dayjs/plugin/relativeTime'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import { SessionProvider } from 'next-auth/react'
 import { NextIntlClientProvider } from 'next-intl'
 
-dayjs.extend(RelativeTime)
+dayjs.extend(relativeTime)
 
 const preview: Preview = {
   parameters: {

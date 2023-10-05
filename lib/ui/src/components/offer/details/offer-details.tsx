@@ -32,7 +32,6 @@ export const OfferDetails: FunctionComponent<Props> = ({
     setIsDeclining(declines)
     setShouldUpdate(true)
   }
-
   return (
     <>
       <div
