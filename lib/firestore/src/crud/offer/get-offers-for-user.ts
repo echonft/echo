@@ -12,7 +12,6 @@ export async function getOffersForUser(
 ): Promise<FirestoreOffer[]> {
   const offersAsReceiver = await getOffersForReceiver(username, filters, constraints)
   const offersAsSender = await getOffersForSender(username, filters, constraints)
-
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return pipe(concat, uniqWith(eqProps('id')))(offersAsReceiver, offersAsSender)

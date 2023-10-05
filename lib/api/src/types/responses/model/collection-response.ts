@@ -1,4 +1,4 @@
-import type { FirestoreNftTokenType } from '@echo/firestore/types/model/nft/firestore-nft-token-type'
+import type { FirestoreTokenType } from '@echo/firestore/types/model/contract/firestore-token-type'
 
 export interface CollectionResponse {
   id: string
@@ -7,7 +7,9 @@ export interface CollectionResponse {
   contract: {
     address: string
     chainId: number
-    tokenType: FirestoreNftTokenType
+    name?: string
+    symbol?: string
+    tokenType: FirestoreTokenType
   }
   description: string
   discordUrl?: string

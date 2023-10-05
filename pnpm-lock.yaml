@@ -464,6 +464,9 @@ importers:
       ramda:
         specifier: 0.29.0
         version: 0.29.0
+      viem:
+        specifier: 1.12.2
+        version: 1.12.2(typescript@5.1.6)(zod@3.22.2)
     devDependencies:
       '@jest/globals':
         specifier: 29.6.2

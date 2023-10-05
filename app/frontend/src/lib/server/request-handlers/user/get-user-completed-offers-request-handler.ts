@@ -3,9 +3,8 @@ import type { GetOffersResponse } from '@echo/api/types/responses/get-offers-res
 import { getUserOffers } from '@server/helpers/offer/get-user-offers'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
 import { parseOfferFiltersQuery } from '@server/helpers/request/parse-offer-filters-query'
-import { mapOfferToResponse } from '@server/mappers/to-response/map-offer-to-response'
 import { NextResponse } from 'next/server'
-import { assoc, dissoc, map, pipe } from 'ramda'
+import { assoc, dissoc, pipe } from 'ramda'
 
 export async function getUserCompletedOffersRequestHandler(req: ApiRequest<never>, username: string) {
   const constraints = parseConstraintsQuery(req)
@@ -16,5 +15,5 @@ export async function getUserCompletedOffersRequestHandler(req: ApiRequest<never
     assoc('includeExpired', true)
   )(filters)
   const offers = await getUserOffers(username, completedOffersFilters, constraints)
-  return NextResponse.json<GetOffersResponse>({ offers: map(mapOfferToResponse, offers) })
+  return NextResponse.json<GetOffersResponse>({ offers })
 }

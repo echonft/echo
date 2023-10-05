@@ -1,9 +1,9 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { getListingsForNft } from '@echo/firestore/crud/listing/get-listings-for-nft'
-import { updateListing } from '@echo/firestore/crud/listing/update-listing'
 import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { updateListing } from '@test-utils/listing/update-listing'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -12,16 +12,16 @@ import { assoc, pipe } from 'ramda'
 describe('CRUD - listing - getListingsForNft', () => {
   const id = 'jUzMtPGKM62mMhEcmbN4'
   const nftId = '8hHFadIrrooORfTOLkBg'
-  let initialExpiresAt: dayjs.Dayjs
+  let initialExpiresAt: number
 
   async function setExpired(listing: FirestoreListing) {
-    const expiresAt = dayjs().subtract(1, 'day').set('ms', 0)
+    const expiresAt = dayjs().subtract(1, 'day').set('ms', 0).unix()
     await updateListing(listing.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', true))(listing)
   }
 
   async function setNotExpired(listing: FirestoreListing) {
-    const expiresAt = dayjs().add(1, 'day').set('ms', 0)
+    const expiresAt = dayjs().add(1, 'day').set('ms', 0).unix()
     await updateListing(listing.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(listing)
   }

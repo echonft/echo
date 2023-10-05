@@ -1,9 +1,9 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOffersForCollection } from '@echo/firestore/crud/offer/get-offers-for-collection'
-import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
 import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { updateOffer } from '@test-utils/offer/update-offer'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -13,18 +13,17 @@ describe('CRUD - offer - getOffersForCollection', () => {
   const collectionId = 'Rc8pLQXxgyQGIRL0fr13'
   const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
   const offerId2 = 'ASkFpKoHEHVH0gd69t1G'
-
-  let initialExpiresAt: dayjs.Dayjs
-  let initialExpiresAt2: dayjs.Dayjs
+  let initialExpiresAt: number
+  let initialExpiresAt2: number
 
   async function setExpired(offer: FirestoreOffer) {
-    const expiresAt = dayjs().subtract(1, 'day').set('ms', 0)
+    const expiresAt = dayjs().subtract(1, 'day').set('ms', 0).unix()
     await updateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', true))(offer)
   }
 
   async function setNotExpired(offer: FirestoreOffer) {
-    const expiresAt = dayjs().add(1, 'day').set('ms', 0)
+    const expiresAt = dayjs().add(1, 'day').set('ms', 0).unix()
     await updateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(offer)
   }

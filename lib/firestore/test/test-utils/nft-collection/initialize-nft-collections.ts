@@ -1,9 +1,9 @@
 import { CollectionName } from '@echo/firestore/constants/collection-name'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { nftCollectionDocumentDataMock } from '@echo/firestore-mocks/nft-collection/nft-collection-document-data-mock'
+import { getAllNftCollectionMocks } from '@echo/firestore-mocks/nft-collection/get-all-nft-collection-mocks'
 
 export async function initializeNftCollections() {
-  const nftCollections = Object.values(nftCollectionDocumentDataMock)
+  const nftCollections = getAllNftCollectionMocks()
   for (const collection of nftCollections) {
     await firestoreApp().collection(CollectionName.NFT_COLLECTIONS).doc(collection.id).set(collection)
   }

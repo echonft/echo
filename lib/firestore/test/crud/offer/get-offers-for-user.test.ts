@@ -1,17 +1,16 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
-import { updateOffer } from '@echo/firestore/crud/offer/update-offer'
 import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getAllOfferMocks } from '@echo/firestore-mocks/offer/get-all-offer-mocks'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { updateOffer } from '@test-utils/offer/update-offer'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
-import dayjs from 'dayjs'
 import { either, filter, find, forEach, pathEq, propEq } from 'ramda'
 
 describe('CRUD - offer - getOffersForUser', () => {
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
-  let initialExpiresAt: dayjs.Dayjs
+  let initialExpiresAt: number
 
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()

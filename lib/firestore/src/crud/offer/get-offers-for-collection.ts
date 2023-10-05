@@ -12,7 +12,6 @@ export async function getOffersForCollection(
 ): Promise<FirestoreOffer[]> {
   const resultsAsReceiverItem = await getOffersForCollectionAsReceiverItem(collectionId, filters, constraints)
   const resultsAsSenderItem = await getOffersForCollectionAsSenderItem(collectionId, filters, constraints)
-
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return pipe(concat, uniqWith(eqProps('id')))(resultsAsReceiverItem, resultsAsSenderItem) as FirestoreOffer[]

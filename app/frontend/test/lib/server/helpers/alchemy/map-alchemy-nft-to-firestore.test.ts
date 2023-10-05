@@ -28,7 +28,7 @@ describe('helpers - alchemy - mapAlchemyNftToFirestore', () => {
     address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
     chainId: 1
   }
-  const mappedNft: Omit<FirestoreNft, 'id'> = {
+  const mappedNft: Omit<FirestoreNft, 'id' | 'updatedAt'> = {
     attributes: [
       { value: 'archimedean', trait: 'Algorithm' },
       { value: 'main', trait: 'Ring' },
@@ -37,12 +37,12 @@ describe('helpers - alchemy - mapAlchemyNftToFirestore', () => {
     ],
     balance: 1,
     name: 'nft-name',
-    pictureUrl: new URL('https://echo.xyz'),
-    thumbnailUrl: new URL('https://echo.xyz'),
+    pictureUrl: 'https://echo.xyz',
+    thumbnailUrl: 'https://echo.xyz',
     tokenId: 1,
     tokenType: 'ERC721',
-    blurUrl: new URL('https://blur.io/asset/0x12c63bbD266dB84e117356e664f3604055166CEc/1'),
-    openSeaUrl: new URL('https://opensea.io/assets/ethereum/0x12c63bbD266dB84e117356e664f3604055166CEc/1'),
+    blurUrl: 'https://blur.io/asset/0x12c63bbD266dB84e117356e664f3604055166CEc/1',
+    openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbD266dB84e117356e664f3604055166CEc/1',
     collection,
     owner: {
       discord: {

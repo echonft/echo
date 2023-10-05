@@ -1,12 +1,11 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { nftDataConverter } from '@echo/firestore/converters/nft/nft-data-converter'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import { getNftsCollection } from '@echo/firestore/helpers/collection/get-nfts-collection'
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
+import dayjs from 'dayjs'
 
-export async function addNft(nft: Omit<FirestoreNft, 'id'>): Promise<FirestoreNft> {
-  const reference = firestoreApp().collection(CollectionName.NFTS).doc()
+export async function addNft(nft: Omit<FirestoreNft, 'id' | 'updatedAt'>): Promise<FirestoreNft> {
+  const reference = getNftsCollection().doc()
   const id = reference.id
-  const newNft = { ...nft, id } as FirestoreNft
-  await reference.set(nftDataConverter.toFirestore(newNft))
+  const newNft = { ...nft, id, updatedAt: dayjs().unix() } as FirestoreNft
+  await reference.set(newNft)
   return newNft
 }

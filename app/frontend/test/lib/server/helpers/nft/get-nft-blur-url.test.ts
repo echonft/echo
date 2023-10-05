@@ -5,6 +5,6 @@ describe('helpers - nft - getNftBlurUrl', () => {
     const contractAddress = '0x320e2fa93A4010ba47edcdE762802374bac8d3F7'
     const tokenId = 1376
     const blurUrl = getNftBlurUrl(contractAddress, tokenId)
-    expect(blurUrl).toEqual(new URL(`https://blur.io/asset/${contractAddress}/${tokenId}`))
+    expect(blurUrl).toEqual(`https://blur.io/asset/${contractAddress}/${tokenId}`)
   })
 })

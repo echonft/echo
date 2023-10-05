@@ -4,5 +4,5 @@
  * @param tokenId
  */
 export function getNftBlurUrl(contractAddress: string, tokenId: number) {
-  return new URL(`https://blur.io/asset/${contractAddress}/${tokenId}`)
+  return `https://blur.io/asset/${contractAddress}/${tokenId}`
 }

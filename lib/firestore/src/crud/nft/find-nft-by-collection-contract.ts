@@ -1,19 +1,16 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { nftDataConverter } from '@echo/firestore/converters/nft/nft-data-converter'
+import { getNftsCollection } from '@echo/firestore/helpers/collection/get-nfts-collection'
 import { getQuerySnapshotDocumentData } from '@echo/firestore/helpers/crud/get-query-snapshot-document-data'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
+import { getAddress } from 'viem'
 
 export async function findNftByCollectionContract(
   collectionContractAddress: string,
   collectionContractChainId: number,
   tokenId: number
 ) {
-  const querySnapshot = await firestoreApp()
-    .collection(CollectionName.NFTS)
+  const querySnapshot = await getNftsCollection()
     .where('tokenId', '==', tokenId)
-    .where('collection.contract.address', '==', collectionContractAddress)
+    .where('collection.contract.address', '==', getAddress(collectionContractAddress, collectionContractChainId))
     .where('collection.contract.chainId', '==', collectionContractChainId)
-    .withConverter(nftDataConverter)
     .get()
 
   return getQuerySnapshotDocumentData(querySnapshot)

@@ -16,7 +16,7 @@ const { name, profilePictureUrl } = getCollectionById('Rc8pLQXxgyQGIRL0fr13')
 export const Standard: Story = {
   args: {
     collectionName: name,
-    pictureUrl: profilePictureUrl.href,
+    pictureUrl: profilePictureUrl,
     size: SizeLG
   }
 }

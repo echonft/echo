@@ -6,10 +6,6 @@ import { modifyNumberPropToDate } from '@echo/utils/fp/modify-number-prop-to-dat
 
 export const offerPostDocumentDataConverter: FirestoreDocumentDataConverter<OfferPostDocumentData, FirestoreOfferPost> =
   {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     fromFirestore: modifyNumberPropToDate('postedAt'),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     toFirestore: modifyDatePropToNumber('postedAt')
   }

@@ -15,7 +15,7 @@ describe('helpers - listing - assert - assertListingIsNotExpired', () => {
     expect(() => assertListingIsNotExpired(listing)).toThrow()
     listing = {
       id: 'listing-id',
-      expiresAt: dayjs().subtract(1, 'd')
+      expiresAt: dayjs().subtract(1, 'd').unix()
     } as FirestoreListing
     expect(() => assertListingIsNotExpired(listing)).toThrow()
   })
@@ -27,7 +27,7 @@ describe('helpers - listing - assert - assertListingIsNotExpired', () => {
     expect(() => assertListingIsNotExpired(listing)).not.toThrow()
     listing = {
       id: 'listing-id',
-      expiresAt: dayjs().add(1, 'd')
+      expiresAt: dayjs().add(1, 'd').unix()
     } as FirestoreListing
     expect(() => assertListingIsNotExpired(listing)).not.toThrow()
   })

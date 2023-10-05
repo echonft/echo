@@ -1,8 +1,6 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { listingPostDocumentDataConverter } from '@echo/firestore/converters/listing-post/listing-post-document-data-converter'
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { ListingPostDocumentData } from '@echo/firestore/types/model/listing-post/listing-post-document-data'
+import { getListingPostsCollection } from '@echo/firestore/helpers/collection/get-listing-posts-collection'
+import type { FirestoreListingPost } from '@echo/firestore/types/model/listing-post/firestore-listing-post'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
@@ -11,14 +9,14 @@ export async function addListingPost(listingId: string, guildDiscordId: string, 
   if (isNil(listing)) {
     throw Error(`trying to add post for listing with id ${listingId} but this listing does not exist`)
   }
-  const reference = firestoreApp().collection(CollectionName.LISTING_POSTS).doc()
+  const reference = getListingPostsCollection().doc()
   const id = reference.id
-  const newListingPost: ListingPostDocumentData = {
+  const newListingPost: FirestoreListingPost = {
     id,
     listingId: listingId,
     guild: { discordId: guildDiscordId, channelId: guildChannelId },
-    postedAt: dayjs().unix()
+    postedAt: dayjs()
   }
   await reference.set(newListingPost)
-  return listingPostDocumentDataConverter.fromFirestore(newListingPost)
+  return newListingPost
 }

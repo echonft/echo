@@ -1,14 +1,7 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { nftCollectionDataConverter } from '@echo/firestore/converters/nft-collection/nft-collection-data-converter'
+import { getNftCollectionsCollection } from '@echo/firestore/helpers/collection/get-nft-collections-collection'
 import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/get-query-snapshot-document-snapshot'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
 
 export async function getNftCollectionSnapshotBySlug(slug: string) {
-  const querySnapshot = await firestoreApp()
-    .collection(CollectionName.NFT_COLLECTIONS)
-    .where('slug', '==', slug)
-    .withConverter(nftCollectionDataConverter)
-    .get()
-
+  const querySnapshot = await getNftCollectionsCollection().where('slug', '==', slug).get()
   return getQuerySnapshotDocumentSnapshot(querySnapshot)
 }

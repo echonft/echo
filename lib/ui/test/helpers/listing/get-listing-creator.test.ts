@@ -4,11 +4,12 @@ import type { ListingItem } from '@echo/ui/types/model/listing-item'
 import type { User } from '@echo/ui/types/model/user'
 import type { Wallet } from '@echo/ui/types/model/wallet'
 import { describe, expect, it } from '@jest/globals'
+import { getAddress } from 'viem'
 
 describe('helpers - listing - getListingCreator', () => {
   it('returns the wallet of the first item since they are all the same', () => {
     const wallet: Wallet = {
-      address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
+      address: getAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
       chainId: 1
     }
     const owner: User = {

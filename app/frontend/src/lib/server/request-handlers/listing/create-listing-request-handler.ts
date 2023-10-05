@@ -8,7 +8,6 @@ import { getListingItems } from '@server/helpers/listing/get-listing-items'
 import { getListingTargets } from '@server/helpers/listing/get-listing-targets'
 import { assertNftOwner } from '@server/helpers/nft/assert-nft-owner'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
-import { mapListingToResponse } from '@server/mappers/to-response/map-listing-to-response'
 import { createListingSchema } from '@server/validators/create-listing-schema'
 import { NextResponse } from 'next/server'
 import { forEach } from 'ramda'
@@ -24,7 +23,7 @@ export async function createListingRequestHandler(req: ApiRequest<CreateListingR
     assertNftOwner(item.nft, creator.username)
   }, listingItems)
   const listing = await createListing(listingItems, listingTargets)
-  return NextResponse.json<GetListingResponse>({ listing: mapListingToResponse(listing) })
+  return NextResponse.json<GetListingResponse>({ listing })
 }
 
 function parseCreateListingRequest(request: CreateListingRequest) {

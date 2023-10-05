@@ -2,7 +2,6 @@ import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { findNftByCollectionContract } from '@echo/firestore/crud/nft/find-nft-by-collection-contract'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { getAllNftCollections } from '@echo/firestore/crud/nft-collection/get-all-nft-collections'
-import { setUserUpdated } from '@echo/firestore/crud/user/set-user-updated'
 import { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
 import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -25,7 +24,7 @@ export async function updateUserNfts(user: AuthUser, chainId: number) {
     const collectionsForChain = filter(pathEq(chainId, ['contract', 'chainId']), collections)
     const collectionsAddresses = map(path<string>(['contract', 'address']), collectionsForChain) as string[]
     for (const wallet of userWalletsForChain) {
-      const nfts = await getNftsForOwner(wallet.address, collectionsAddresses)
+      const nfts = await getNftsForOwner(wallet.address, collectionsAddresses, chainId)
       for (const alchemyNft of nfts) {
         const { contractAddress, chainId, tokenId } = alchemyNft
         // FIXME this is true only for ERC721
@@ -41,6 +40,5 @@ export async function updateUserNfts(user: AuthUser, chainId: number) {
         }
       }
     }
-    await setUserUpdated(user.id)
   }
 }

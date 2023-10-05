@@ -6,15 +6,19 @@ import type { AlchemyWallet } from '@echo/alchemy/types/model/alchemy-wallet'
 import type { GetOwnersForNftRequest } from '@echo/alchemy/types/request/get-owners-for-nft-request'
 import type { GetOwnersForNftResponse } from '@echo/alchemy/types/response/get-owners-for-nft-response'
 import { fetcher } from '@helpers/fetcher'
+import { partialRight } from 'ramda'
 
-function fetchOwnersForNft(request: GetOwnersForNftRequest) {
+function fetchOwnersForNft(request: GetOwnersForNftRequest, chainId: number) {
   return fetcher(getAlchemyRoute(AlchemyRoutes.GET_OWNERS_FOR_NFT))
     .query(request)
     .revalidate(3600)
     .fetchResponse<GetOwnersForNftResponse>()
-    .then(mapGetOwnersForNftResponse)
+    .then(mapGetOwnersForNftResponse(chainId))
 }
 
-export function getOwnersForNft(contractAddress: string, tokenId: number) {
-  return handleAlchemyPaging<GetOwnersForNftRequest, AlchemyWallet>(fetchOwnersForNft, { contractAddress, tokenId })
+export function getOwnersForNft(contractAddress: string, tokenId: number, chainId: number) {
+  return handleAlchemyPaging<GetOwnersForNftRequest, AlchemyWallet>(partialRight(fetchOwnersForNft, [chainId]), {
+    contractAddress,
+    tokenId
+  })
 }

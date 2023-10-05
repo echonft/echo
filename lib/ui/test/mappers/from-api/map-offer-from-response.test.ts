@@ -5,6 +5,7 @@ import type { Offer } from '@echo/ui/types/model/offer'
 import type { OfferItem } from '@echo/ui/types/model/offer-item'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
+import { getAddress } from 'viem'
 
 describe('mappers - from-api - mapOfferFromResponse', () => {
   const offerItemResponse: OfferItemResponse = {
@@ -29,7 +30,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
         blurUrl: 'https://echo.xyz',
         contract: {
           tokenType: 'ERC721',
-          address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
+          address: getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1),
           chainId: 1
         },
         description: 'A Genetic Chain Project.',
@@ -52,7 +53,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
         },
         username: 'johnnycagewins',
         wallet: {
-          address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+          address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
           chainId: 1
         }
       },
@@ -60,7 +61,8 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       pictureUrl: 'https://echo.xyz',
       thumbnailUrl: 'https://echo.xyz',
       tokenId: 1376,
-      tokenType: 'ERC721'
+      tokenType: 'ERC721',
+      updatedAt: 1676984897
     }
   }
   const offerResponse: OfferResponse = {
@@ -75,7 +77,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -87,7 +89,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -111,27 +113,27 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
         { value: '#complement', trait: 'Background' }
       ],
       balance: 1,
-      blurUrl: new URL('https://echo.xyz'),
+      blurUrl: 'https://echo.xyz',
       collection: {
         id: '1aomCtnoesD7WVll6Yi1',
-        bannerUrl: new URL('https://echo.xyz'),
-        blurUrl: new URL('https://echo.xyz'),
+        bannerUrl: 'https://echo.xyz',
+        blurUrl: 'https://echo.xyz',
         contract: {
           tokenType: 'ERC721',
-          address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
+          address: getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1),
           chainId: 1
         },
         description: 'A Genetic Chain Project.',
-        discordUrl: new URL('https://echo.xyz'),
+        discordUrl: 'https://echo.xyz',
         floorPrice: 0.037,
         name: 'Spiral Frequencies',
-        openSeaUrl: new URL('https://echo.xyz'),
+        openSeaUrl: 'https://echo.xyz',
         slug: 'spiral-frequencies',
-        profilePictureUrl: new URL('https://echo.xyz'),
+        profilePictureUrl: 'https://echo.xyz',
         totalSupply: 6315,
         twitterUsername: 'GeneticChain',
         verified: false,
-        websiteUrl: new URL('https://echo.xyz')
+        websiteUrl: 'https://echo.xyz'
       },
       name: 'Spiral Frequencies #1376',
       owner: {
@@ -141,15 +143,16 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
         },
         username: 'johnnycagewins',
         wallet: {
-          address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+          address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
           chainId: 1
         }
       },
-      openSeaUrl: new URL('https://echo.xyz'),
-      pictureUrl: new URL('https://echo.xyz'),
-      thumbnailUrl: new URL('https://echo.xyz'),
+      openSeaUrl: 'https://echo.xyz',
+      pictureUrl: 'https://echo.xyz',
+      thumbnailUrl: 'https://echo.xyz',
       tokenId: 1376,
-      tokenType: 'ERC721'
+      tokenType: 'ERC721',
+      updatedAt: dayjs.unix(1676984897)
     }
   }
   const offer: Offer = {
@@ -164,7 +167,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -176,7 +179,7 @@ describe('mappers - from-api - mapOfferFromResponse', () => {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E',
+        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },

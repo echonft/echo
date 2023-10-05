@@ -1,15 +1,13 @@
 import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
 import { SizeLG } from '@echo/ui/constants/size'
-import { mapCollectionFromResponse } from '@echo/ui/mappers/from-api/map-collection-from-response'
-import { type FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   response: CollectionResponse
 }
 
 export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ response }) => {
-  const collection = useMemo(() => mapCollectionFromResponse(response), [response])
   const {
     bannerUrl,
     totalSupply,
@@ -20,14 +18,14 @@ export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ respons
     discordUrl,
     websiteUrl,
     verified
-  } = collection
+  } = response
   return (
     <CollectionDetails
       bannerUrl={bannerUrl}
       supplyCount={totalSupply}
       collectionName={name}
       description={description}
-      pictureUrl={profilePictureUrl.href}
+      pictureUrl={profilePictureUrl}
       twitterUsername={twitterUsername}
       discordUrl={discordUrl}
       websiteUrl={websiteUrl}

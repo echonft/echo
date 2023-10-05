@@ -7,8 +7,8 @@ import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 export interface NftDetailsLinksProps {
-  openSeaUrl?: URL
-  blurUrl?: URL
+  openSeaUrl?: string
+  blurUrl?: string
 }
 
 export const NftDetailsLinks: FunctionComponent<NftDetailsLinksProps> = ({ openSeaUrl, blurUrl }) => {
@@ -17,7 +17,7 @@ export const NftDetailsLinks: FunctionComponent<NftDetailsLinksProps> = ({ openS
       <HideIfNil
         checks={openSeaUrl}
         render={(openSeaUrl) => (
-          <ExternalLink href={openSeaUrl.href}>
+          <ExternalLink href={openSeaUrl}>
             <OpenSeaIcon size={SizeLG} />
           </ExternalLink>
         )}
@@ -25,7 +25,7 @@ export const NftDetailsLinks: FunctionComponent<NftDetailsLinksProps> = ({ openS
       <HideIfNil
         checks={blurUrl}
         render={(blurUrl) => (
-          <ExternalLink href={blurUrl.href}>
+          <ExternalLink href={blurUrl}>
             <BlurIcon size={SizeLG} />
           </ExternalLink>
         )}

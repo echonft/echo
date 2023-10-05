@@ -1,14 +1,7 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
-import { sessionDataConverter } from '@echo/firestore/converters/session/session-data-converter'
+import { getSessionsCollection } from '@echo/firestore/helpers/collection/get-sessions-collection'
 import { getQuerySnapshotDocumentData } from '@echo/firestore/helpers/crud/get-query-snapshot-document-data'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
 
 export async function findSessionByUserId(userId: string) {
-  const querySnapshot = await firestoreApp()
-    .collection(CollectionName.SESSIONS)
-    .where('userId', '==', userId)
-    .withConverter(sessionDataConverter)
-    .get()
-
+  const querySnapshot = await getSessionsCollection().where('userId', '==', userId).get()
   return getQuerySnapshotDocumentData(querySnapshot)
 }

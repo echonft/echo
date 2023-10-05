@@ -10,7 +10,7 @@ export const offerPostDataConverter: FirestoreDataConverter<FirestoreOfferPost> 
   fromFirestore(snapshot: QueryDocumentSnapshot<OfferPostDocumentData>) {
     return pipe(getSnapshotData<OfferPostDocumentData>, offerPostDocumentDataConverter.fromFirestore)(snapshot)
   },
-  toFirestore(modelObject: PartialWithFieldValue<FirestoreOfferPost>): OfferPostDocumentData {
+  toFirestore(modelObject: PartialWithFieldValue<FirestoreOfferPost>) {
     return offerPostDocumentDataConverter.toFirestore(modelObject)
   }
 }

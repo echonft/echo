@@ -6,15 +6,15 @@ function internalFn<K extends keyof T, T>(propKey: K) {
   // @ts-ignore
   return when(has(propKey), ifElse(propIsNil(propKey), dissoc(propKey), modify(propKey, invoker(0, 'unix')))) as (
     obj: T
-  ) => T | (T & Record<K, number>)
+  ) => Omit<T, K> & Record<K, number>
 }
 
-export function modifyDatePropToNumber<K extends keyof T, T>(propKey: K): (obj: T) => T | (T & Record<K, number>)
-export function modifyDatePropToNumber<K extends keyof T, T>(propKey: K, obj: T): T | (T & Record<K, number>)
+export function modifyDatePropToNumber<K extends keyof T, T>(propKey: K): (obj: T) => Omit<T, K> & Record<K, number>
+export function modifyDatePropToNumber<K extends keyof T, T>(propKey: K, obj: T): Omit<T, K> & Record<K, number>
 export function modifyDatePropToNumber<K extends keyof T, T>(
   propKey: K,
   obj?: T
-): (T | (T & Record<K, number>)) | ((obj: T) => T | (T & Record<K, number>)) {
+): (Omit<T, K> & Record<K, number>) | ((obj: T) => Omit<T, K> & Record<K, number>) {
   if (isNil(obj)) {
     return internalFn<K, T>(propKey)
   }

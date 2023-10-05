@@ -9,7 +9,6 @@ import { createListing } from '@server/helpers/listing/create-listing'
 import { getListingItems } from '@server/helpers/listing/get-listing-items'
 import { getListingTargets } from '@server/helpers/listing/get-listing-targets'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
-import { mapListingToResponse } from '@server/mappers/to-response/map-listing-to-response'
 import { createListingRequestHandler } from '@server/request-handlers/listing/create-listing-request-handler'
 import { mockRequest } from '@server-mocks/request-response'
 
@@ -90,6 +89,6 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     expect(createListing).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as GetListingResponse
-    expect(responseData).toEqual({ listing: mapListingToResponse(mock) })
+    expect(responseData).toEqual({ listing: mock })
   })
 })

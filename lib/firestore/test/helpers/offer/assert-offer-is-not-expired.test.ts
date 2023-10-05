@@ -15,7 +15,7 @@ describe('helpers - offer - assert - assertOfferIsNotExpired', () => {
     expect(() => assertOfferIsNotExpired(offer)).toThrow()
     offer = {
       id: 'offer-id',
-      expiresAt: dayjs().subtract(1, 'd')
+      expiresAt: dayjs().subtract(1, 'd').unix()
     } as FirestoreOffer
     expect(() => assertOfferIsNotExpired(offer)).toThrow()
   })
@@ -27,7 +27,7 @@ describe('helpers - offer - assert - assertOfferIsNotExpired', () => {
     expect(() => assertOfferIsNotExpired(offer)).not.toThrow()
     offer = {
       id: 'offer-id',
-      expiresAt: dayjs().add(1, 'd')
+      expiresAt: dayjs().add(1, 'd').unix()
     } as FirestoreOffer
     expect(() => assertOfferIsNotExpired(offer)).not.toThrow()
   })

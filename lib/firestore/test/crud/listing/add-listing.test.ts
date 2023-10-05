@@ -6,7 +6,8 @@ import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-li
 import { getListingOffersByListingId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-listing-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
 import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
-import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
+import { expectDateNumberIs } from '@echo/test-utils/expect-date-number-is'
+import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertListings } from '@test-utils/listing/assert-listings'
@@ -47,16 +48,12 @@ describe('CRUD - listing - addListing', () => {
     const createdListing = await addListing(items, targets)
     createdListingId = createdListing.id
     const newListing = (await findListingById(createdListingId))!
-    const now = dayjs()
-    const expirationDate = now.add(DEFAULT_EXPIRATION_TIME, 'day')
-    expectDateIsNow(newListing.createdAt)
     expect(newListing.creator).toStrictEqual(creator)
-    expect(newListing.expiresAt.isAfter(expirationDate.subtract(1, 'minute'))).toBeTruthy()
-    expect(newListing.expiresAt.isBefore(expirationDate.add(1, 'minute'))).toBeTruthy()
     expect(newListing.items).toStrictEqual(items)
     expect(newListing.state).toBe('OPEN')
     expect(newListing.targets).toStrictEqual(targets)
-    expectDateIsNow(newListing.updatedAt)
+    expectDateNumberIsNow(newListing.updatedAt)
+    expectDateNumberIs(newListing.expiresAt)(dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'))
     // check if listing offers have been created
     const listingOffers = await getListingOffersForListing(newListing)
     const createdListingOffers = await getListingOffersByListingId(createdListingId)

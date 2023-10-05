@@ -20,20 +20,20 @@ export function internalFn<K extends keyof T, T>(propKey: K) {
       // @ts-ignore
       modify(propKey, (date: Dayjs) => Timestamp.fromDate(date.toDate()))
     )
-  ) as (obj: T) => T & Record<K, Timestamp | undefined>
+  ) as (obj: T) => Omit<T, K> & Record<K, Timestamp | undefined>
 }
 
 export function modifyDatePropToTimestamp<K extends keyof T, T>(
   propKey: K
-): (obj: T) => T & Record<K, Timestamp | undefined>
+): (obj: T) => Omit<T, K> & Record<K, Timestamp | undefined>
 export function modifyDatePropToTimestamp<K extends keyof T, T>(
   propKey: K,
   obj: T
-): T & Record<K, Timestamp | undefined>
+): Omit<T, K> & Record<K, Timestamp | undefined>
 export function modifyDatePropToTimestamp<K extends keyof T, T>(
   propKey: K,
   obj?: T
-): (T & Record<K, Timestamp | undefined>) | ((obj: T) => T & Record<K, Timestamp | undefined>) {
+): (Omit<T, K> & Record<K, Timestamp | undefined>) | ((obj: T) => Omit<T, K> & Record<K, Timestamp | undefined>) {
   if (isNil(obj)) {
     return internalFn<K, T>(propKey)
   }

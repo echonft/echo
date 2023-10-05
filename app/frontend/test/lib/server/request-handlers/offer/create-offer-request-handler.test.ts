@@ -8,7 +8,6 @@ import { ApiError } from '@server/helpers/error/api-error'
 import { createOffer } from '@server/helpers/offer/create-offer'
 import { getOfferItems } from '@server/helpers/offer/get-offer-items'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
-import { mapOfferToResponse } from '@server/mappers/to-response/map-offer-to-response'
 import { createOfferRequestHandler } from '@server/request-handlers/offer/create-offer-request-handler'
 import { mockRequest } from '@server-mocks/request-response'
 
@@ -82,6 +81,6 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
     expect(createOffer).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as IdResponse
-    expect(responseData).toEqual({ offer: mapOfferToResponse(offer) })
+    expect(responseData).toEqual({ offer })
   })
 })

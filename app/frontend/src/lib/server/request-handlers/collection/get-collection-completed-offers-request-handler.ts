@@ -5,9 +5,8 @@ import { getCollectionBySlug } from '@server/helpers/collection/get-collection-b
 import { getCollectionOffers } from '@server/helpers/offer/get-collection-offers'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
 import { parseOfferFiltersQuery } from '@server/helpers/request/parse-offer-filters-query'
-import { mapOfferToResponse } from '@server/mappers/to-response/map-offer-to-response'
 import { NextResponse } from 'next/server'
-import { assoc, dissoc, map, pipe } from 'ramda'
+import { assoc, dissoc, pipe } from 'ramda'
 
 export async function getCollectionCompletedOffersRequestHandler(req: ApiRequest<never>, slug: string) {
   const constraints = parseConstraintsQuery(req)
@@ -19,6 +18,6 @@ export async function getCollectionCompletedOffersRequestHandler(req: ApiRequest
     dissoc('notStates'),
     assoc('includeExpired', true)
   )(filters)
-  const results = await getCollectionOffers(collection.id, completedOffersFilters, constraints)
-  return NextResponse.json<GetOffersResponse>({ offers: map(mapOfferToResponse, results) })
+  const offers = await getCollectionOffers(collection.id, completedOffersFilters, constraints)
+  return NextResponse.json<GetOffersResponse>({ offers })
 }

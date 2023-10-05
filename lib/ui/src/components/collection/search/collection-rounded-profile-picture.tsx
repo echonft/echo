@@ -6,7 +6,7 @@ import type { FunctionComponent } from 'react'
 
 export interface CollectionProfilePictureProps {
   collectionName: string
-  pictureUrl: URL | undefined
+  pictureUrl: string | undefined
 }
 
 export const CollectionRoundedProfilePicture: FunctionComponent<CollectionProfilePictureProps> = ({

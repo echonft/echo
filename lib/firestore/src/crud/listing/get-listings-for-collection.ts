@@ -18,7 +18,6 @@ export async function getListingsForCollection(
 ): Promise<FirestoreListing[]> {
   const resultsAsItem = await getListingsForCollectionAsItem(collectionId, filters, constraints)
   const resultsAsTarget = await getListingsForCollectionAsTarget(collectionId, filters, constraints)
-
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return pipe(concat, uniqWith(eqProps('id')))(resultsAsItem, resultsAsTarget) as FirestoreListing[]

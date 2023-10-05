@@ -9,7 +9,6 @@ import { getAllCollectionSwapsCounts } from '@server/helpers/collection/get-all-
 import { getAllCollections } from '@server/helpers/collection/get-all-collections'
 import { parseCollectionFiltersQuery } from '@server/helpers/request/parse-collection-filters-query'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
-import { mapCollectionToResponse } from '@server/mappers/to-response/map-collection-to-response'
 import { NextResponse } from 'next/server'
 import {
   add,
@@ -119,10 +118,9 @@ export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
         slice(sliceStartIndex, sliceEndIndex),
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        orderBy,
-        map(mapCollectionToResponse)
+        orderBy
       )(collections) as CollectionResponse[]
     })
   }
-  return NextResponse.json<GetCollectionsResponse>({ collections: map(mapCollectionToResponse, collections) })
+  return NextResponse.json<GetCollectionsResponse>({ collections })
 }

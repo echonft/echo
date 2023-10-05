@@ -1,12 +1,12 @@
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query-snapshot-is-empty'
 import type { QueryDocumentSnapshot, QuerySnapshot } from 'firebase-admin/lib/firestore'
 import { head } from 'ramda'
 
 export function getQuerySnapshotDocumentSnapshot<T>(
   querySnapshot: QuerySnapshot<T>
 ): QueryDocumentSnapshot<T> | undefined {
-  if (querySnapshot.empty || isNilOrEmpty(querySnapshot.docs)) {
+  if (querySnapshotIsEmpty(querySnapshot)) {
     return undefined
   }
-  return head(querySnapshot.docs)!
+  return head(querySnapshot.docs)
 }

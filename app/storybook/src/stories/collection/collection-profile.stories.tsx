@@ -18,7 +18,7 @@ export const Default: Story = {
   args: {
     collectionName: name,
     supplyCount: totalSupply,
-    pictureUrl: profilePictureUrl.href,
+    pictureUrl: profilePictureUrl,
     discordUrl,
     twitterUsername,
     websiteUrl,
@@ -30,7 +30,7 @@ export const Verified: Story = {
   args: {
     collectionName: name,
     supplyCount: totalSupply,
-    pictureUrl: profilePictureUrl.href,
+    pictureUrl: profilePictureUrl,
     discordUrl,
     twitterUsername,
     websiteUrl,
