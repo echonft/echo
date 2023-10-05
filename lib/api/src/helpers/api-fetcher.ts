@@ -46,6 +46,18 @@ export async function putData<T extends object, U>(url: URL, body?: T, token?: s
   return convertResponse(response)
 }
 
+export async function postData<T extends object, U>(url: URL, body?: T, token?: string): Promise<ApiFetchResult<U>> {
+  const init = unless(
+    always(isNil(body)),
+    assoc('body', getBody(body!))
+  )({
+    method: 'POST',
+    headers: getHeaders(token)
+  }) as RequestInit
+  const response = await fetch(url, init)
+  return convertResponse(response)
+}
+
 export async function getData<U>(url: URL, token?: string): Promise<ApiFetchResult<U>> {
   const response = await fetch(url, {
     method: 'GET',

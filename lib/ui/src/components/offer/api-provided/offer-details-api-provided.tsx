@@ -17,7 +17,11 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offerRespons
   const offer = useMemo(() => mapOfferFromResponse(offerResponse), [offerResponse])
   return (
     <NextIntlClientProvider messages={messages} locale={'en'}>
-      <OfferDetails offer={offer} isReceiver={user.username === offerResponse.receiver?.username} />
+      <OfferDetails
+        offer={offer}
+        isReceiver={user.username === offerResponse.receiver?.username}
+        token={user.sessionToken}
+      />
     </NextIntlClientProvider>
   )
 }

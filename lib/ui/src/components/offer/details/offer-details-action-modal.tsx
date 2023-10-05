@@ -25,9 +25,7 @@ export const OfferDetailsActionModal: FunctionComponent<Props> = ({ offerState }
       open={isOpen}
       onClose={() => setIsOpen(false)}
       renderTitle={() => <OfferDetailsOfferActionModalTitle state={offerState as ModalOfferState} />}
-      renderDescription={() => (
-        <OfferDetailsActionModalInnerContainer state={offerState as ModalOfferState} onClose={() => setIsOpen(false)} />
-      )}
+      renderDescription={() => <OfferDetailsActionModalInnerContainer state={offerState as ModalOfferState} />}
     />
   )
 }

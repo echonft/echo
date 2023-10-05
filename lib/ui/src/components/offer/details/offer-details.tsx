@@ -1,4 +1,5 @@
 'use client'
+import { updateOfferFetcher } from '@echo/api/helpers/update-offer-fetcher'
 import { OfferDetailsActionModal } from '@echo/ui/components/offer/details/offer-details-action-modal'
 import { OfferDetailsAssetsSeparator } from '@echo/ui/components/offer/details/offer-details-assets-separator'
 import { OfferDetailsButtonsContainer } from '@echo/ui/components/offer/details/offer-details-buttons-container'
@@ -8,11 +9,13 @@ import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-detai
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
 import type { Offer } from '@echo/ui/types/model/offer'
 import { clsx } from 'clsx'
-import { type FunctionComponent, useState } from 'react'
+import { type FunctionComponent, useCallback } from 'react'
+import useSWRMutation from 'swr/mutation'
 
 interface Props {
   offer: Offer
   isReceiver: boolean
+  token: string | undefined
   onOfferUpdated?: () => unknown
   // For testing purposes only
   renderModal?: boolean
@@ -21,16 +24,21 @@ interface Props {
 export const OfferDetails: FunctionComponent<Props> = ({
   offer,
   isReceiver,
+  token,
   // onOfferUpdated,
   renderModal = true
 }) => {
   const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = offer
-  const [shouldUpdate, setShouldUpdate] = useState<boolean>(false)
-  const [, setIsDeclining] = useState<boolean>(false)
-
+  const updateOffer = useCallback(
+    (_key: string, extraArgs: { arg: 'CANCEL' | 'REJECT' | 'ACCEPT' }) => {
+      return updateOfferFetcher(offer.id, extraArgs.arg, token)
+    },
+    [offer]
+  )
+  const { trigger, isMutating } = useSWRMutation('update-offer', updateOffer)
   const onAction = (declines: boolean) => {
-    setIsDeclining(declines)
-    setShouldUpdate(true)
+    const action = declines ? (isReceiver ? 'REJECT' : 'CANCEL') : 'ACCEPT'
+    void trigger(action)
   }
   return (
     <>
@@ -60,7 +68,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
               state={state}
               nftsCount={isReceiver ? receiverItems.length : senderItems.length}
               isReceiving={isReceiver}
-              isUpdating={shouldUpdate}
+              isUpdating={isMutating}
               onAccept={() => onAction(false)}
               onDecline={() => onAction(true)}
             />

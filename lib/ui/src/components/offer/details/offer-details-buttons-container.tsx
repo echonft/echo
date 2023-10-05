@@ -29,6 +29,7 @@ export const OfferDetailsButtonsContainer: FunctionComponent<Props> = ({
   onDecline
 }) => {
   const t = useTranslations('offer.details')
+
   return (
     <div className={clsx('flex', 'flex-row', 'gap-8')}>
       <HideIf condition={!isOfferModalAcceptButtonDisplayed(state, isReceiving)}>
