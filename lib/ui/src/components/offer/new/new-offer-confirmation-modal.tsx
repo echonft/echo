@@ -30,6 +30,7 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
   return (
     <Modal
       open={Boolean(show)}
+      closeDisabled={confirming}
       onClose={() => onClose?.()}
       renderTitle={() => <ModalTitle>{t('title')}</ModalTitle>}
       renderDescription={() => (

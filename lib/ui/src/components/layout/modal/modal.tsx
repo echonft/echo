@@ -2,19 +2,31 @@
 import { XIconSvg } from '@echo/ui/components/base/svg/x-icon-svg'
 import { Dialog, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { Fragment, type FunctionComponent, type ReactNode } from 'react'
+import { Fragment, type FunctionComponent, type ReactNode, useCallback } from 'react'
 
 interface Props {
   open: boolean
   onClose: () => unknown
+  closeDisabled?: boolean
   renderTitle?: () => ReactNode
   renderDescription?: () => ReactNode
 }
 
-export const Modal: FunctionComponent<Props> = ({ open, onClose, renderTitle, renderDescription }) => {
+export const Modal: FunctionComponent<Props> = ({
+  open,
+  onClose,
+  closeDisabled = false,
+  renderTitle,
+  renderDescription
+}) => {
+  const close = useCallback(() => {
+    if (!closeDisabled) {
+      onClose()
+    }
+  }, [onClose, closeDisabled])
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as={'div'} className={clsx('relative', 'z-40')} onClose={onClose}>
+      <Dialog as={'div'} className={clsx('relative', 'z-40')} onClose={close}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -57,8 +69,9 @@ export const Modal: FunctionComponent<Props> = ({ open, onClose, renderTitle, re
                 )}
               >
                 <div className={clsx('flex', 'flex-row', 'items-center', 'justify-end')}>
-                  <button className={clsx('outline-none')} onClick={onClose}>
-                    <span className={clsx('text-white')}>
+                  <button className={clsx('outline-none', 'group')} onClick={close} disabled={closeDisabled}>
+                    {/*TODO Design */}
+                    <span className={clsx('text-white', 'group-disabled:text-white/40')}>
                       <XIconSvg width={16} height={16} />
                     </span>
                   </button>
