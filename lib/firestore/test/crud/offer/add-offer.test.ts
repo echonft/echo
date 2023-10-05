@@ -43,7 +43,7 @@ describe('CRUD - offer - addOffer', () => {
 
   it('add an offer', async () => {
     const { receiver, receiverItems, sender, senderItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    const createdOffer = await addOffer(receiverItems, senderItems)
+    const createdOffer = await addOffer(senderItems, receiverItems)
     createdOfferId = createdOffer.id
     const newOffer = (await findOfferById(createdOfferId))!
     expectDateNumberIsNow(newOffer.createdAt)
