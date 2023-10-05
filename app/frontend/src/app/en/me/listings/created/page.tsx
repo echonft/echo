@@ -2,21 +2,17 @@ import { authOptions } from '@constants/auth-options'
 import { userListingsApiUrl } from '@echo/api/routing/user-listings-api-url'
 import type { GetListingsResponse } from '@echo/api/types/responses/get-listings-response'
 import { ProfileListingsCreatedApiProvided } from '@echo/ui/components/profile/api-provided/profile-listings-created-api-provided'
+import { links } from '@echo/ui/constants/links'
+import { redirectIfNotLoggedIn } from '@helpers/auth/redirect-if-not-logged-in'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
-import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 const ProfileListingsCreatedPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
-
-  if (isNil(session) || isNil(session.user)) {
-    // TODO redirect to login (modal I guess)
-    notFound()
-  }
-
+  redirectIfNotLoggedIn(session, links.profile.listingsCreated)
   const queryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt' }]
   })

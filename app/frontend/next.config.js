@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  swcMinify: true,
   images: {
     remotePatterns: [
       {
@@ -9,6 +8,7 @@ const nextConfig = {
       }
     ]
   },
+  swcMinify: true,
   transpilePackages: ['@echo/alchemy', '@echo/api', '@echo/discord', '@echo/firestore', '@echo/ui', '@echo/utils'],
   webpack: (config) => {
     config.externals.push('pino-pretty', 'lokijs', 'encoding')

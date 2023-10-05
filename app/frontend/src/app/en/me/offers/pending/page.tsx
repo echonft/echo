@@ -3,22 +3,18 @@ import { profileOffersApiUrl } from '@echo/api/routing/profile-offers-api-url'
 import type { GetOffersResponse } from '@echo/api/types/responses/get-offers-response'
 import { OfferFilterAsReceiver } from '@echo/firestore/constants/offer-filter-as'
 import { ProfileOffersReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-received-api-provided'
+import { links } from '@echo/ui/constants/links'
+import { redirectIfNotLoggedIn } from '@helpers/auth/redirect-if-not-logged-in'
 import { fetcher } from '@helpers/fetcher'
 import { mapOfferFiltersToQueryParams } from '@helpers/request/map-offer-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
-import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { isNil, mergeLeft } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 const ProfileOffersReceivedPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
-
-  if (isNil(session) || isNil(session.user) || isNil(session.user.sessionToken)) {
-    // TODO redirect to login (modal I guess)
-    notFound()
-  }
-
+  redirectIfNotLoggedIn(session, links.profile.offersReceived)
   const filterParams = mapOfferFiltersToQueryParams({
     as: OfferFilterAsReceiver,
     states: ['OPEN', 'ACCEPTED']
