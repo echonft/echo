@@ -9,8 +9,8 @@ import dayjs from 'dayjs'
 import { head } from 'ramda'
 
 export async function addOffer(
-  receiverItems: NonEmptyArray<FirestoreOfferItem>,
   senderItems: NonEmptyArray<FirestoreOfferItem>,
+  receiverItems: NonEmptyArray<FirestoreOfferItem>,
   skipListingOffers = false
 ): Promise<FirestoreOffer> {
   const reference = getOffersCollection().doc()
