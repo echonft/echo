@@ -26,5 +26,5 @@ export async function updateUserNfts(user: FirestoreUser, wallet: WalletData) {
     } else {
       await setNftOwner(nft.id, user, wallet)
     }
-  await setUserUpdated(user.id)
+  }
 }
