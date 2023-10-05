@@ -32,18 +32,24 @@ export const OfferDetailsButtonsContainer: FunctionComponent<Props> = ({
 
   return (
     <div className={clsx('flex', 'flex-row', 'gap-8')}>
-      <HideIf condition={!isOfferModalAcceptButtonDisplayed(state, isReceiving)}>
-        <OfferDetailsAcceptButton onAction={onAccept} disabled={isUpdating}>
-          {/* @ts-ignore */}
-          {t(getOfferModalAcceptButtonTitleForState(state), { count: nftsCount })}
-        </OfferDetailsAcceptButton>
-      </HideIf>
-      <HideIf condition={!isOfferModalDeclineButtonDisplayed(state)}>
-        <OfferDetailsDeclineButton onAction={onDecline} disabled={isUpdating}>
-          {/* @ts-ignore */}
-          {t(getOfferModalDeclineButtonTitleForState(state, isReceiving))}
-        </OfferDetailsDeclineButton>
-      </HideIf>
+      <HideIf
+        condition={!isOfferModalAcceptButtonDisplayed(state, isReceiving)}
+        render={() => (
+          <OfferDetailsAcceptButton onAction={onAccept} disabled={isUpdating}>
+            {/* @ts-ignore */}
+            {t(getOfferModalAcceptButtonTitleForState(state), { count: nftsCount })}
+          </OfferDetailsAcceptButton>
+        )}
+      />
+      <HideIf
+        condition={!isOfferModalDeclineButtonDisplayed(state)}
+        render={() => (
+          <OfferDetailsDeclineButton onAction={onDecline} disabled={isUpdating}>
+            {/* @ts-ignore */}
+            {t(getOfferModalDeclineButtonTitleForState(state, isReceiving))}
+          </OfferDetailsDeclineButton>
+        )}
+      />
     </div>
   )
 }

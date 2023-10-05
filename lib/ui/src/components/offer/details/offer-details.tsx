@@ -9,7 +9,7 @@ import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-detai
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
 import type { Offer } from '@echo/ui/types/model/offer'
 import { clsx } from 'clsx'
-import { type FunctionComponent, useCallback } from 'react'
+import { type FunctionComponent, useCallback, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 interface Props {
@@ -29,6 +29,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
   renderModal = true
 }) => {
   const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = offer
+  const [updated, setUpdated] = useState<boolean>(false)
   const updateOffer = useCallback(
     (_key: string, extraArgs: { arg: 'CANCEL' | 'REJECT' | 'ACCEPT' }) => {
       return updateOfferFetcher(offer.id, extraArgs.arg, token)
@@ -37,6 +38,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
   )
   const { trigger, isMutating } = useSWRMutation('update-offer', updateOffer)
   const onAction = (declines: boolean) => {
+    setUpdated(true)
     const action = declines ? (isReceiver ? 'REJECT' : 'CANCEL') : 'ACCEPT'
     void trigger(action)
   }
@@ -75,7 +77,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
           </div>
         </div>
       </div>
-      {renderModal && <OfferDetailsActionModal offerState={state} />}
+      {renderModal && updated && <OfferDetailsActionModal offerState={state} />}
     </>
   )
 }
