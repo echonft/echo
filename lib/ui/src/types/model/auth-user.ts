@@ -11,7 +11,7 @@ export interface AuthUser {
     id: string
     username: string
   }
-  sessionToken?: string
+  sessionToken: string
   updatedAt: number
   wallets: Wallet[]
 }

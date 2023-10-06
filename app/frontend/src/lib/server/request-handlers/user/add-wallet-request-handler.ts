@@ -11,7 +11,6 @@ import { emptyResponse } from '@server/helpers/response/empty-response'
 import { addUserWallet } from '@server/helpers/user/add-user-wallet'
 import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
 import { addWalletSchema } from '@server/validators/add-wallet-schema'
-import { assoc } from 'ramda'
 
 export async function addWalletRequestHandler(req: ApiRequest<AddWalletRequest>) {
   const requestBody = await req.json()
@@ -37,7 +36,7 @@ export async function addWalletRequestHandler(req: ApiRequest<AddWalletRequest>)
     )
   }
   await addUserWallet(user.id, wallet)
-  await updateUserNfts(assoc('wallets', [wallet], user), wallet.chainId)
+  await updateUserNfts(user, wallet)
   return emptyResponse()
 }
 
