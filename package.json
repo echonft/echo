@@ -43,6 +43,7 @@
     "test:watch": "turbo run test:watch",
     "tsc": "turbo run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache",
+    "turbo:update": "pnpm dlx @turbo/codemod update",
     "vercel": "turbo run //#vercel:dev dev --filter=@echo/ui",
     "vercel:dev": "vercel dev"
   },

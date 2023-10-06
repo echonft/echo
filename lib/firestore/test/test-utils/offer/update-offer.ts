@@ -9,5 +9,5 @@ export async function updateOffer(
 ): Promise<WriteResult> {
   const documentSnapshot = await getOfferSnapshotById(offerId)
   assertQueryDocumentSnapshot(documentSnapshot)
-  return documentSnapshot.ref.update(updateData)
+  return await documentSnapshot.ref.update(updateData)
 }
