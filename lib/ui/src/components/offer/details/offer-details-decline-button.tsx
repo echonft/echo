@@ -13,29 +13,11 @@ export const OfferDetailsDeclineButton: FunctionComponent<PropsWithChildren<Prop
 }) => {
   return (
     <button
-      className={clsx(
-        'bg-red-400',
-        'disabled:bg-red-400/40',
-        'group',
-        'rounded-lg',
-        'w-40',
-        'py-1.5',
-        'h-10',
-        disabled && 'disabled'
-      )}
+      className={clsx('btn-cancel', 'btn-size-alt', 'group', disabled && 'disabled')}
       onClick={onAction}
       disabled={disabled}
     >
-      <span
-        className={clsx(
-          'prose-label-lg',
-          'text-dark-500',
-          'group-active:group-hover:text-white',
-          'group-disabled:text-dark-500'
-        )}
-      >
-        {children}
-      </span>
+      <span className={clsx('prose-label-lg', 'btn-label-cancel')}>{children}</span>
     </button>
   )
 }

@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import type { GetListingResponse } from '@echo/api/types/responses/get-listing-response'
 import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'

@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import type { RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'

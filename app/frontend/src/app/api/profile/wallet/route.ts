@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
 import { handleRequest } from '@server/request-handlers/handle-request'

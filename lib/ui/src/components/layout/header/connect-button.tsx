@@ -14,7 +14,7 @@ export const ConnectButton: FunctionComponent = () => {
         setConnecting(true)
         void signIn('discord')
       }}
-      className={clsx('btn-gradient', 'group', 'w-[9.875rem]', 'py-1.5', connecting && 'animate-pulse')}
+      className={clsx('btn-gradient', 'group', 'btn-size-alt', connecting && 'animate-pulse')}
     >
       <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>
         {connecting ? t('connecting.label') : t('connect.label')}

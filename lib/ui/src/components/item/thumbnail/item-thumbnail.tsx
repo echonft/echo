@@ -8,6 +8,7 @@ import { NftThumbnailPicture } from '@echo/ui/components/nft/thumbnail/nft-thumb
 import { UserDiscordTagOffer } from '@echo/ui/components/shared/user-discord-tag-offer'
 import { links } from '@echo/ui/constants/links'
 import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import { getNftName } from '@echo/ui/helpers/nft/get-nft-name'
 import type { ItemThumbnailSize } from '@echo/ui/types/item-thumbnail-size'
 import type { ListingItem } from '@echo/ui/types/model/listing-item'
 import type { OfferItem } from '@echo/ui/types/model/offer-item'
@@ -22,7 +23,8 @@ interface Props {
 }
 
 export const ItemThumbnail: FunctionComponent<Props> = ({ item, discordUsername, size, onRemove }) => {
-  const { name, tokenId, thumbnailUrl, collection } = item.nft
+  const { tokenId, thumbnailUrl, collection } = item.nft
+  const name = getNftName(item.nft)
   return (
     <InternalLink
       path={links.collection.nft(collection.slug, tokenId)}

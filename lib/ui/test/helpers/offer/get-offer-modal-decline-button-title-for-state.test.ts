@@ -15,12 +15,12 @@ describe('helpers - getOfferModalDeclineButtonTitleForState', () => {
     expect(getOfferModalDeclineButtonTitleForState('ACCEPTED', false)).toBe('cancelBtn')
   })
 
-  it('if state is anything else, returns undefined', () => {
-    expect(getOfferModalDeclineButtonTitleForState('CANCELLED', true)).toBeUndefined()
-    expect(getOfferModalDeclineButtonTitleForState('CANCELLED', true)).toBeUndefined()
-    expect(getOfferModalDeclineButtonTitleForState('INVALID', true)).toBeUndefined()
-    expect(getOfferModalDeclineButtonTitleForState('INVALID', false)).toBeUndefined()
-    expect(getOfferModalDeclineButtonTitleForState('REJECTED', true)).toBeUndefined()
-    expect(getOfferModalDeclineButtonTitleForState('REJECTED', false)).toBeUndefined()
+  it('if state is anything else, throw', () => {
+    expect(() => getOfferModalDeclineButtonTitleForState('CANCELLED', true)).toThrow()
+    expect(() => getOfferModalDeclineButtonTitleForState('CANCELLED', true)).toThrow()
+    expect(() => getOfferModalDeclineButtonTitleForState('INVALID', true)).toThrow()
+    expect(() => getOfferModalDeclineButtonTitleForState('INVALID', false)).toThrow()
+    expect(() => getOfferModalDeclineButtonTitleForState('REJECTED', true)).toThrow()
+    expect(() => getOfferModalDeclineButtonTitleForState('REJECTED', false)).toThrow()
   })
 })

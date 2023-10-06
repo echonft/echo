@@ -50,13 +50,67 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
     }
   })
 
-  it('throws if the user is not the owner of every item', async () => {
+  it('throws if the sender is not the owner of every item (single)', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest
-      .mocked(getOfferItems)
-      .mockResolvedValue([
-        { amount: 1, nft: { owner: { username: 'another-username' } as FirestoreUserDetails } as FirestoreNft }
-      ])
+    jest.mocked(getOfferItems).mockImplementation((offerItemRequests) => {
+      if (offerItemRequests[0]!.nft.id === 'receiver-item-nft-id') {
+        return Promise.resolve([
+          { amount: 1, nft: { owner: { username: 'crewnft_' } as FirestoreUserDetails } as FirestoreNft }
+        ])
+      } else {
+        return Promise.resolve([
+          { amount: 1, nft: { owner: { username: 'another-user' } as FirestoreUserDetails } as FirestoreNft }
+        ])
+      }
+    })
+    jest.mocked(createOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
+    const req = mockRequest<CreateOfferRequest>(validRequest)
+    try {
+      await createOfferRequestHandler(req)
+      expect(true).toBeFalsy()
+    } catch (e) {
+      expect((e as ApiError).status).toBe(403)
+    }
+  })
+
+  it('throws if the sender is not the owner of every item (multiple)', async () => {
+    jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
+    jest.mocked(getOfferItems).mockImplementation((offerItemRequests) => {
+      if (offerItemRequests[0]!.nft.id === 'receiver-item-nft-id') {
+        return Promise.resolve([
+          { amount: 1, nft: { owner: { username: 'crewnft_' } as FirestoreUserDetails } as FirestoreNft }
+        ])
+      } else {
+        return Promise.resolve([
+          { amount: 1, nft: { owner: { username: 'johnnycagewins' } as FirestoreUserDetails } as FirestoreNft },
+          { amount: 1, nft: { owner: { username: 'another-user' } as FirestoreUserDetails } as FirestoreNft }
+        ])
+      }
+    })
+    jest.mocked(createOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
+    const req = mockRequest<CreateOfferRequest>(validRequest)
+    try {
+      await createOfferRequestHandler(req)
+      expect(true).toBeFalsy()
+    } catch (e) {
+      expect((e as ApiError).status).toBe(403)
+    }
+  })
+
+  it('throws if the receiver is not the owner of every item (multiple)', async () => {
+    jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
+    jest.mocked(getOfferItems).mockImplementation((offerItemRequests) => {
+      if (offerItemRequests[0]!.nft.id === 'receiver-item-nft-id') {
+        return Promise.resolve([
+          { amount: 1, nft: { owner: { username: 'crewnft_' } as FirestoreUserDetails } as FirestoreNft },
+          { amount: 1, nft: { owner: { username: 'another-user' } as FirestoreUserDetails } as FirestoreNft }
+        ])
+      } else {
+        return Promise.resolve([
+          { amount: 1, nft: { owner: { username: 'johnnycagewins' } as FirestoreUserDetails } as FirestoreNft }
+        ])
+      }
+    })
     jest.mocked(createOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
     const req = mockRequest<CreateOfferRequest>(validRequest)
     try {

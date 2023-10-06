@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import { GetOfferResponse } from '@echo/api/types/responses/get-offer-response'
 import { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
@@ -9,7 +9,7 @@ import { getOfferItems } from '@server/helpers/offer/get-offer-items'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
 import { createOfferSchema } from '@server/validators/create-offer-schema'
 import { NextResponse } from 'next/server'
-import { forEach } from 'ramda'
+import { forEach, head } from 'ramda'
 
 export async function createOfferRequestHandler(req: ApiRequest<CreateOfferRequest>) {
   const requestBody = await req.json()
@@ -17,10 +17,16 @@ export async function createOfferRequestHandler(req: ApiRequest<CreateOfferReque
   const sender = await getUserFromRequest(req)
   const receiverOfferItems = await getOfferItems(receiverItems)
   const senderOfferItems = await getOfferItems(senderItems)
-  // make sure the receiver is the owner of every item
+  // make sure the sender is the owner of every item
   forEach((item: FirestoreOfferItem) => {
     assertNftOwner(item.nft, sender.username)
   }, senderOfferItems)
+
+  // make sure the receiver is the owner of every item
+  const receiver = head(receiverOfferItems).nft.owner
+  forEach((item: FirestoreOfferItem) => {
+    assertNftOwner(item.nft, receiver.username)
+  }, receiverOfferItems)
   const offer = await createOffer(senderOfferItems, receiverOfferItems)
   return NextResponse.json<GetOfferResponse>({ offer })
 }

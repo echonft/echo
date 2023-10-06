@@ -8,7 +8,7 @@ export const RankedCollectionsButton: FunctionComponent = () => {
   const t = getTranslator()
   return (
     <InternalLink className={'group'} path={links.collection.all}>
-      <button className={clsx('btn-primary-reverse')}>
+      <button className={clsx('btn-primary-reverse', 'btn-size')}>
         <span className={clsx('btn-label-primary-reverse', 'prose-label-md-semi')}>
           {t('home.rankedCollections.btn')}
         </span>

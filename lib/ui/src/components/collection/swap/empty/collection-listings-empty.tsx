@@ -11,7 +11,7 @@ export const CollectionListingsEmpty: FunctionComponent = () => {
     <EmptyViewContent message={t('message')}>
       {/*TODO link*/}
       <InternalLink path={'#'}>
-        <button className={clsx('btn-primary', 'group')}>
+        <button className={clsx('btn-primary', 'btn-size', 'group')}>
           <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('btn.label')}</span>
         </button>
       </InternalLink>

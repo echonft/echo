@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { findNonceForUser } from '@echo/firestore/crud/nonce/find-nonce-for-user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'

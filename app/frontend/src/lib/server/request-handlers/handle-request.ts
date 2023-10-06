@@ -1,5 +1,5 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
-import type { ApiResponse } from '@echo/api/types/base/api-response'
+import type { ApiRequest } from '@echo/api/types/api-request'
+import type { ApiResponse } from '@echo/api/types/api-response'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { ApiError } from '@server/helpers/error/api-error'

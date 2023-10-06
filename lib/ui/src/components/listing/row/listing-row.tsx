@@ -5,11 +5,11 @@ import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-co
 import type { Listing } from '@echo/ui/types/model/listing'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
-import RelativeTime from 'dayjs/plugin/relativeTime'
+import relativeTime from 'dayjs/plugin/relativeTime'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
-dayjs.extend(RelativeTime)
+dayjs.extend(relativeTime)
 
 interface Props {
   listing: Listing

@@ -8,6 +8,7 @@ export const getOfferModalDeclineButtonTitleForState = (state: OfferState, isRec
       return isReceiving ? 'rejectBtn' : 'cancelBtn'
     case 'ACCEPTED':
       return 'cancelBtn'
+    default:
+      throw Error('unsupported state')
   }
-  return undefined
 }

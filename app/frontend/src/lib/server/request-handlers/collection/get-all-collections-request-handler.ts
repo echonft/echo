@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import type { GetCollectionsResponse } from '@echo/api/types/responses/get-collections-response'
 import { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
 import { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'

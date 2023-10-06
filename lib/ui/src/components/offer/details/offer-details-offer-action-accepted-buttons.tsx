@@ -9,18 +9,18 @@ interface Props {
 }
 
 export const OfferDetailsOfferActionAcceptedButtons: FunctionComponent<Props> = ({ onClose }) => {
-  const t = useTranslations('offer.details.actionModal.ACCEPTED')
+  const t = useTranslations('offer.details.actionModal.ACCEPT')
   return (
     <>
-      <button className={clsx('btn-gradient', 'group', 'w-40', 'py-1.5', 'h-10')} onClick={onClose}>
+      <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onClose}>
         <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>
       </button>
       <CopyToClipboard text={'TODO'} onCopy={onClose}>
-        <button className={clsx('btn-action', 'group', 'w-40', 'py-1.5', 'h-10', 'gap-2.5')}>
-          <span className={clsx('text-purple-900', 'group-hover:text-white')}>
+        <button className={clsx('btn-action', 'btn-size-alt', 'group')}>
+          <span className={clsx('btn-label-action')}>
             <CopyIconSvg />
           </span>
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('copyLinkBtn')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('copyLinkBtn')}</span>
         </button>
       </CopyToClipboard>
     </>

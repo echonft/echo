@@ -50,6 +50,9 @@
     "@echo/bot#deploy-commands": {
       "cache": false
     },
+    "@echo/firestore#db:add-collection:dev": {
+      "cache": false
+    },
     "@echo/firestore#db:reset:dev": {
       "cache": false
     },

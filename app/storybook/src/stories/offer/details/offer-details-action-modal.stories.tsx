@@ -5,10 +5,19 @@ const metadata: Meta<typeof Component> = {
   title: 'Offer/Details/Action Modal',
   component: Component,
   argTypes: {
-    offerState: {
-      defaultValue: 'ACCEPTED',
-      options: ['ACCEPTED', 'CANCELLED', 'REJECTED'],
+    action: {
+      defaultValue: 'ACCEPT',
+      options: ['ACCEPT', 'CANCEL', 'REJECT'],
       control: { type: 'radio' }
+    },
+    onClose: {
+      control: false,
+      action: 'closed'
+    }
+  },
+  parameters: {
+    controls: {
+      exclude: ['open', 'onClose']
     }
   }
 }
@@ -17,8 +26,9 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Default: Story = {
+export const ActionModal: Story = {
   args: {
-    offerState: 'ACCEPTED'
+    open: true,
+    action: 'ACCEPT'
   }
 }

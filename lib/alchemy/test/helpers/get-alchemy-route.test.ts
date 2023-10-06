@@ -9,6 +9,6 @@ describe('helpers - getAlchemyRoute', () => {
   it('returns proper value for all routes', () => {
     const baseUrl = 'https://eth-mainnet.g.alchemy.com/nft/v3/test/'
     const routes = Object.values(AlchemyRoutes)
-    routes.forEach((route) => expect(getAlchemyRoute(route)).toEqual(new URL(`${baseUrl}${route}`)))
+    routes.forEach((route) => expect(getAlchemyRoute(route, 1)).toEqual(new URL(`${baseUrl}${route}`)))
   })
 })

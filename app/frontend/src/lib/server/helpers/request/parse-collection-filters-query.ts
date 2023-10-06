@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { CollectionQueryFilters } from '@server/types/request/collection-query-filters'
 import { booleanQueryParamSchema } from '@server/validators/boolean-query-param-schema'

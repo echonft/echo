@@ -60,25 +60,13 @@ export const NewListingSliderInnerContainer: FunctionComponent<Props> = ({
       <NewListingSliderExpirationContainer />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6', 'gap-5')}>
         <Disclosure.Button
-          className={clsx('btn-gradient', 'group', 'w-40', 'py-1.5', 'h-10')}
+          className={clsx('btn-gradient', 'btn-size-alt', 'group')}
           disabled={isNilOrEmpty(items) || isNilOrEmpty(targets)}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalizeBtn')}</span>
         </Disclosure.Button>
-        <button
-          className={clsx('bg-red-400', 'disabled:bg-red-400/40', 'group', 'rounded-lg', 'w-40', 'py-1.5', 'h-10')}
-          onClick={onDismissListing}
-        >
-          <span
-            className={clsx(
-              'prose-label-lg',
-              'text-dark-500',
-              'group-active:group-hover:text-white',
-              'group-disabled:text-dark-500'
-            )}
-          >
-            {t('dismissBtn')}
-          </span>
+        <button className={clsx('btn-cancel', 'btn-size-alt', 'group')} onClick={onDismissListing}>
+          <span className={clsx('prose-label-lg', 'btn-label-cancel')}>{t('dismissBtn')}</span>
         </button>
       </div>
     </div>

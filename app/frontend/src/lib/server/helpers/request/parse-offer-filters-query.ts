@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import { OFFER_FILTER_AS } from '@echo/firestore/constants/offer-filter-as'
 import { OFFER_STATES } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'

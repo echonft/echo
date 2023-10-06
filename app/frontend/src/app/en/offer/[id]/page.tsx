@@ -9,13 +9,13 @@ import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
   params: {
-    offerId: string
+    id: string
   }
 }
 
-const OfferPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { offerId } }) => {
+const OfferPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { id } }) => {
   const session = await getServerSession(authOptions)
-  const { data, error } = await fetcher(offerApiUrl(offerId)).fetch<GetOfferResponse>()
+  const { data, error } = await fetcher(offerApiUrl(id)).fetch<GetOfferResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {
@@ -23,7 +23,6 @@ const OfferPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: 
     }
     throw Error()
   }
-
   return <OfferDetailsApiProvided offerResponse={data.offer} user={session!.user} />
 }
 
