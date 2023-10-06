@@ -10,9 +10,9 @@ describe('helpers - offer - getOfferModalAcceptButtonTitleForState', () => {
     expect(getOfferModalAcceptButtonTitleForState('ACCEPTED')).toBe('approveBtn')
   })
 
-  it('if state is not ACCEPTED or OPEN, returns null', () => {
-    expect(getOfferModalAcceptButtonTitleForState('CANCELLED')).toBeUndefined()
-    expect(getOfferModalAcceptButtonTitleForState('INVALID')).toBeUndefined()
-    expect(getOfferModalAcceptButtonTitleForState('REJECTED')).toBeUndefined()
+  it('if state is not ACCEPTED or OPEN, throw', () => {
+    expect(() => getOfferModalAcceptButtonTitleForState('CANCELLED')).toThrow()
+    expect(() => getOfferModalAcceptButtonTitleForState('INVALID')).toThrow()
+    expect(() => getOfferModalAcceptButtonTitleForState('REJECTED')).toThrow()
   })
 })
