@@ -9,7 +9,7 @@ import { fetcher } from '@helpers/fetcher'
 import { partialRight } from 'ramda'
 
 function fetchNftsForOwner(request: GetNftsForOwnerRequest, chainId: number) {
-  return fetcher(getAlchemyRoute(AlchemyRoutes.GET_NFTS_FOR_OWNER))
+  return fetcher(getAlchemyRoute(AlchemyRoutes.GET_NFTS_FOR_OWNER, chainId))
     .query(request, true)
     .revalidate(3600)
     .fetchResponse<GetNftsForOwnerResponse>()

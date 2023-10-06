@@ -1,13 +1,13 @@
+import { UpdateOfferAction } from '@echo/api/types/update-offer-action'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
-import type { ModalOfferState } from '@echo/ui/types/modal-offer-state'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  state: ModalOfferState
+  action: UpdateOfferAction
 }
 
-export const OfferDetailsOfferActionModalSubtitle: FunctionComponent<Props> = ({ state }) => {
-  const t = useTranslations(`offer.details.actionModal.${state}`)
+export const OfferDetailsOfferActionModalSubtitle: FunctionComponent<Props> = ({ action }) => {
+  const t = useTranslations(`offer.details.actionModal.${action}`)
   return <ModalSubtitle>{t('subtitle')}</ModalSubtitle>
 }

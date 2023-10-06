@@ -1,4 +1,4 @@
-import { ApiRequest } from '@echo/api/types/base/api-request'
+import { ApiRequest } from '@echo/api/types/api-request'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { UnauthorizedError } from '@server/helpers/error/unauthorized-error'
 

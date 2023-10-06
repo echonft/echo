@@ -1,5 +1,5 @@
 'use client'
-import { createOfferFetcher } from '@echo/api/helpers/create-offer-fetcher'
+import { createOfferFetcher } from '@echo/api/services/fetcher/create-offer-fetcher'
 import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
 import { NewOfferBottomSliderInnerContainer } from '@echo/ui/components/offer/new/new-offer-bottom-slider-inner-container'
@@ -38,7 +38,8 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ user }) => {
   const receiverItemRequests = useMemo(() => mapOfferItemsToRequests(receiverItems), [receiverItems])
   const senderItemRequests = useMemo(() => mapOfferItemsToRequests(senderItems), [senderItems])
   const createOffer = useCallback(
-    () => createOfferFetcher(senderItemRequests, receiverItemRequests, user?.sessionToken),
+    () =>
+      createOfferFetcher({ senderItems: senderItemRequests, receiverItems: receiverItemRequests }, user?.sessionToken),
     [receiverItemRequests, senderItemRequests, user]
   )
   const { trigger, isMutating } = useSWRMutation('create-offer', createOffer)

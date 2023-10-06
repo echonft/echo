@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import { GetOfferResponse } from '@echo/api/types/responses/get-offer-response'
 import { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'

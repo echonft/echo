@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import { GetListingsResponse } from '@echo/api/types/responses/get-listings-response'
 import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'

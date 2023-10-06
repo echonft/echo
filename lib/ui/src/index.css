@@ -142,7 +142,7 @@
         @apply text-caps-sm font-inter uppercase
     }
     .btn {
-        @apply h-max flex flex-row justify-center items-center disabled:opacity-40 w-max rounded-lg px-5 py-2.5
+        @apply flex flex-row justify-center items-center disabled:opacity-40 rounded-lg
     }
     .btn-primary {
         @apply btn bg-white/[0.08] enabled:hover:bg-yellow-500 enabled:active:bg-yellow-700
@@ -154,22 +154,34 @@
         @apply btn border border-solid border-transparent bg-main-gradient bg-origin-border enabled:hover:bg-main-gradient/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700
     }
     .btn-action {
-        @apply btn bg-purple-400
+        @apply btn bg-purple-400 gap-2.5
+    }
+    .btn-cancel {
+        @apply btn bg-red-400
     }
     .btn-label {
         @apply h-max w-max truncate
     }
     .btn-label-primary {
-    @apply btn-label text-white group-active:text-black group-enabled:group-hover:text-black group-disabled:text-white/50 group-disabled:group-hover:text-white/50
+    @apply btn-label text-white group-active:text-black group-enabled:group-hover:text-black
     }
     .btn-label-primary-reverse {
-        @apply btn-label text-black group-active:text-white group-enabled:group-hover:text-white group-disabled:text-white/50 group-disabled:group-hover:text-white/50
+        @apply btn-label text-black group-active:text-white group-enabled:group-hover:text-white
     }
     .btn-label-gradient {
-        @apply btn-label text-dark-500 group-enabled:group-hover:text-yellow-100 group-disabled:text-dark-500 group-disabled:group-hover:text-dark-500
+        @apply btn-label text-dark-500 group-enabled:group-hover:text-yellow-100
     }
     .btn-label-action {
         @apply btn-label text-purple-900
+    }
+    .btn-label-cancel {
+        @apply btn-label text-dark-500
+    }
+    .btn-size {
+        @apply w-max h-max px-5 py-2.5
+    }
+    .btn-size-alt {
+        @apply w-40 h-10 px-5 py-1.5
     }
 }
 

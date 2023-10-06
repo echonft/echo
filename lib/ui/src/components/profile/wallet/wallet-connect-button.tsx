@@ -12,7 +12,7 @@ export const WalletConnectButton: FunctionComponent<Props> = ({ loading, onClick
     <button
       onClick={onClick}
       disabled={loading}
-      className={clsx('btn-gradient', 'group', 'w-[9.875rem]', 'py-1.5', loading && 'animate-pulse')}
+      className={clsx('btn-gradient', 'group', 'w-[9.875rem]', 'h-max', 'py-1.5', 'px-5', loading && 'animate-pulse')}
     >
       <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>{label}</span>
     </button>

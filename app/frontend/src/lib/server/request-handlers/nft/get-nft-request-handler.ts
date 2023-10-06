@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import type { GetNftResponse } from '@echo/api/types/responses/get-nft-response'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { assertNft } from '@server/helpers/nft/assert-nft'

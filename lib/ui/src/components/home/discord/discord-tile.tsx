@@ -35,7 +35,7 @@ export const DiscordTile: FunctionComponent = () => {
           {t('home.discord.title')}
         </h1>
         <ExternalLink href={'https://discord.gg/ScXvbyPFTA'}>
-          <button className={clsx('btn-primary-reverse', 'group')}>
+          <button className={clsx('btn-primary-reverse', 'btn-size', 'group')}>
             <span className={clsx('prose-label-md-semi', 'btn-label-primary-reverse')}>{t('home.discord.btn')}</span>
           </button>
         </ExternalLink>

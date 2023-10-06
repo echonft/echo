@@ -1,26 +1,30 @@
-import { getNonceFetcher } from '@echo/api/helpers/get-nonce-fetcher'
+import { getNonceFetcher } from '@echo/api/services/fetcher/get-nonce-fetcher'
+import { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import { isNil } from 'ramda'
 import { FunctionComponent, useCallback, useEffect } from 'react'
-import useSWRImmutable from 'swr/immutable'
+import useSWR from 'swr'
 
 interface Props {
-  token: string | undefined
+  token: string
   onNonceReceived?: (nonce: string) => unknown
   onNonceError?: (error: Error) => unknown
 }
 
 export const NonceFetcher: FunctionComponent<Props> = ({ token, onNonceReceived, onNonceError }) => {
   const getNonce = useCallback(() => getNonceFetcher(token), [token])
-  const { data: response } = useSWRImmutable('nonce', getNonce)
+  const { data, error } = useSWR<NonceResponse, Error, string>('nonce', getNonce)
 
   useEffect(() => {
-    if (!isNil(response?.data)) {
-      onNonceReceived?.(response!.data.nonce)
+    if (!isNil(data)) {
+      onNonceReceived?.(data.nonce)
     }
-    if (!isNil(response?.error)) {
-      onNonceError?.(response!.error)
+  }, [data, onNonceReceived])
+
+  useEffect(() => {
+    if (!isNil(error)) {
+      onNonceError?.(error)
     }
-  }, [response, onNonceError, onNonceReceived])
+  }, [error, onNonceError])
 
   return null
 }

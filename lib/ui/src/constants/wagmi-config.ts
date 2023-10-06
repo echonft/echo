@@ -1,14 +1,15 @@
 import { getAlchemyApiKey } from '@echo/ui/helpers/get-alchemy-api-key'
+import { getChainId } from '@echo/ui/helpers/get-chain-id'
 import { getWalletConnectProjectId } from '@echo/ui/helpers/get-wallet-connect-project-id'
 import { FallbackTransport } from 'viem'
-import { Config, configureChains, createConfig, PublicClient, sepolia, WebSocketPublicClient } from 'wagmi'
+import { Config, configureChains, createConfig, mainnet, PublicClient, sepolia, WebSocketPublicClient } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [sepolia],
+  [getChainId() === 1 ? mainnet : sepolia],
   [alchemyProvider({ apiKey: getAlchemyApiKey() })]
 )
 

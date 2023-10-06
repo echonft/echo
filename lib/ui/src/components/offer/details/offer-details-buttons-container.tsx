@@ -36,7 +36,6 @@ export const OfferDetailsButtonsContainer: FunctionComponent<Props> = ({
         condition={!isOfferModalAcceptButtonDisplayed(state, isReceiving)}
         render={() => (
           <OfferDetailsAcceptButton onAction={onAccept} disabled={isUpdating}>
-            {/* @ts-ignore */}
             {t(getOfferModalAcceptButtonTitleForState(state), { count: nftsCount })}
           </OfferDetailsAcceptButton>
         )}
@@ -45,7 +44,6 @@ export const OfferDetailsButtonsContainer: FunctionComponent<Props> = ({
         condition={!isOfferModalDeclineButtonDisplayed(state)}
         render={() => (
           <OfferDetailsDeclineButton onAction={onDecline} disabled={isUpdating}>
-            {/* @ts-ignore */}
             {t(getOfferModalDeclineButtonTitleForState(state, isReceiving))}
           </OfferDetailsDeclineButton>
         )}

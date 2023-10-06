@@ -7,7 +7,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   parameters: {
     controls: {
-      exclude: ['open', 'onClose', 'closeDisabled', 'renderTitle', 'renderDescription']
+      exclude: ['open', 'onClose', 'closeDisabled']
     }
   }
 }
@@ -27,12 +27,9 @@ export const Modal: Story = {
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>
         </div>
-        <Component
-          renderTitle={() => <h1 className={'text-white'}>This a modal title</h1>}
-          renderDescription={() => <span className={'text-white'}>This is a modal description</span>}
-          open={isOpen}
-          onClose={() => setIsOpen(false)}
-        />
+        <Component title={'This a modal title'} open={isOpen} onClose={() => setIsOpen(false)}>
+          <span className={'text-white'}>This is a modal description</span>
+        </Component>
       </div>
     )
   }
@@ -48,13 +45,9 @@ export const CloseDisabled: Story = {
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>
         </div>
-        <Component
-          renderTitle={() => <h1 className={'text-white'}>This a modal title</h1>}
-          renderDescription={() => <span className={'text-white'}>This is a modal description</span>}
-          open={isOpen}
-          onClose={() => setIsOpen(false)}
-          closeDisabled={true}
-        />
+        <Component title={'This a modal title'} open={isOpen} onClose={() => setIsOpen(false)} closeDisabled={true}>
+          <span className={'text-white'}>This is a modal description</span>
+        </Component>
       </div>
     )
   }

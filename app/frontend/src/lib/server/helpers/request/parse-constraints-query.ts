@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import type { OrderByParameters } from '@echo/firestore/types/query/order-by-parameters'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'

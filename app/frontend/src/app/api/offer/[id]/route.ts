@@ -1,4 +1,4 @@
-import { ApiRequest } from '@echo/api/types/base/api-request'
+import { ApiRequest } from '@echo/api/types/api-request'
 import { handleRequest } from '@server/request-handlers/handle-request'
 import { getOfferRequestHandler } from '@server/request-handlers/offer/get-offer-request-handler'
 

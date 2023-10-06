@@ -1,4 +1,4 @@
-import { ApiRequest } from '@echo/api/types/base/api-request'
+import { ApiRequest } from '@echo/api/types/api-request'
 import { acceptOffer } from '@server/helpers/offer/accept-offer'
 import { assertOffer } from '@server/helpers/offer/assert-offer'
 import { assertOfferReceiverIs } from '@server/helpers/offer/assert-offer-receiver-is'

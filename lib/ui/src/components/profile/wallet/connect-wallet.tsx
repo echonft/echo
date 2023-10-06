@@ -10,7 +10,7 @@ import { FunctionComponent, useState } from 'react'
 import { useAccount, useNetwork } from 'wagmi'
 
 interface Props {
-  token: string | undefined
+  token: string
 }
 export const ConnectWallet: FunctionComponent<Props> = ({ token }) => {
   const t = useTranslations('profile.wallet.button')

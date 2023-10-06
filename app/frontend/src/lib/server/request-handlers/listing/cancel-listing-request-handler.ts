@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import { assertListing } from '@server/helpers/listing/assert-listing'
 import { assertListingCreatorIs } from '@server/helpers/listing/assert-listing-creator-is'
 import { assertListingState } from '@server/helpers/listing/assert-listing-state'

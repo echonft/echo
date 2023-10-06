@@ -15,7 +15,7 @@ export const UserSwapsEmpty: FunctionComponent<Props> = ({ username }) => {
   return (
     <EmptyViewContent message={t('message')}>
       <InternalLink path={links.user.items(username)}>
-        <button className={clsx('btn-primary', 'group')}>
+        <button className={clsx('btn-primary', 'btn-size', 'group')}>
           <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('btn.label')}</span>
         </button>
       </InternalLink>

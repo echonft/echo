@@ -1,29 +1,30 @@
 'use client'
-import { XIconSvg } from '@echo/ui/components/base/svg/x-icon-svg'
+import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
+import { ModalTitle } from '@echo/ui/components/layout/modal/modal-title'
 import { Dialog, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { Fragment, type FunctionComponent, type ReactNode, useCallback } from 'react'
+import { Fragment, type FunctionComponent, PropsWithChildren, useCallback } from 'react'
 
 interface Props {
   open: boolean
-  onClose: () => unknown
+  title?: string
+  onClose?: () => unknown
   closeDisabled?: boolean
-  renderTitle?: () => ReactNode
-  renderDescription?: () => ReactNode
 }
 
-export const Modal: FunctionComponent<Props> = ({
+export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
   open,
+  title,
   onClose,
   closeDisabled = false,
-  renderTitle,
-  renderDescription
+  children
 }) => {
   const close = useCallback(() => {
     if (!closeDisabled) {
-      onClose()
+      onClose?.()
     }
   }, [onClose, closeDisabled])
+
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as={'div'} className={clsx('relative', 'z-40')} onClose={close}>
@@ -68,16 +69,15 @@ export const Modal: FunctionComponent<Props> = ({
                   'transition-all'
                 )}
               >
-                <div className={clsx('flex', 'flex-row', 'items-center', 'justify-end')}>
-                  <button className={clsx('outline-none', 'group')} onClick={close} disabled={closeDisabled}>
-                    {/*TODO Design */}
-                    <span className={clsx('text-white', 'group-disabled:text-white/40')}>
-                      <XIconSvg width={16} height={16} />
-                    </span>
-                  </button>
-                </div>
-                {renderTitle && <Dialog.Title as={Fragment}>{renderTitle()}</Dialog.Title>}
-                {renderDescription && <Dialog.Description as={Fragment}>{renderDescription()}</Dialog.Description>}
+                <HideIfNilOrEmpty
+                  checks={title}
+                  render={(title) => (
+                    <Dialog.Title as={Fragment}>
+                      <ModalTitle>{title}</ModalTitle>
+                    </Dialog.Title>
+                  )}
+                />
+                <Dialog.Description as={Fragment}>{children}</Dialog.Description>
               </Dialog.Panel>
             </Transition.Child>
           </div>

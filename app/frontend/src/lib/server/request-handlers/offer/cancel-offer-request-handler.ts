@@ -1,4 +1,4 @@
-import { ApiRequest } from '@echo/api/types/base/api-request'
+import { ApiRequest } from '@echo/api/types/api-request'
 import { assertOffer } from '@server/helpers/offer/assert-offer'
 import { assertOfferSenderIs } from '@server/helpers/offer/assert-offer-sender-is'
 import { assertOfferState } from '@server/helpers/offer/assert-offer-state'

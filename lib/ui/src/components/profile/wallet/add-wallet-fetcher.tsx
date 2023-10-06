@@ -1,4 +1,4 @@
-import { addWalletFetcher } from '@echo/api/helpers/add-wallet-fetcher'
+import { addWalletFetcher } from '@echo/api/services/fetcher/add-wallet-fetcher'
 import { Signature } from '@echo/utils/types/signature'
 import { isNil } from 'ramda'
 import { FunctionComponent, useCallback, useEffect } from 'react'
@@ -24,7 +24,7 @@ export const AddWalletFetcher: FunctionComponent<Props> = ({
   onWalletError
 }) => {
   const addWallet = useCallback(
-    () => addWalletFetcher(address, chainId, message, signature, token),
+    () => addWalletFetcher({ wallet: { address, chainId }, message, signature }, token),
     [address, chainId, message, signature, token]
   )
   const { data } = useSWR('add-wallet', addWallet, {

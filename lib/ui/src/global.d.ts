@@ -8,6 +8,7 @@ export declare global {
   namespace NodeJS {
     interface ProcessEnv extends Dict<string> {
       STORYBOOK: undefined | 'true'
+      NEXT_PUBLIC_CHAIN_ID: string
       NEXT_PUBLIC_ALCHEMY_ID: undefined | string
       NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: undefined | string
     }

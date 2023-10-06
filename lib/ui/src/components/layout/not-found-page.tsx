@@ -47,7 +47,7 @@ export const NotFoundPage: FunctionComponent = () => {
           {t('notFoundPage.subtitle')}
         </p>
         <InternalLink path={'/'}>
-          <button className={clsx('btn-primary-reverse')}>
+          <button className={clsx('btn-primary-reverse', 'btn-size')}>
             <span
               className={clsx(
                 'btn-label-primary-reverse',

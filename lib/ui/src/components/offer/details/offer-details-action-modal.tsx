@@ -1,31 +1,34 @@
 'use client'
+import { UpdateOfferAction } from '@echo/api/types/update-offer-action'
+import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
-import { OfferDetailsActionModalInnerContainer } from '@echo/ui/components/offer/details/offer-details-action-modal-inner-container'
-import { OfferDetailsOfferActionModalTitle } from '@echo/ui/components/offer/details/offer-details-offer-action-modal-title'
-import type { ModalOfferState } from '@echo/ui/types/modal-offer-state'
-import type { OfferState } from '@echo/ui/types/model/offer-state'
-import { type FunctionComponent, useEffect, useState } from 'react'
+import { OfferDetailsOfferActionModalSubtitle } from '@echo/ui/components/offer/details/offer-details-offer-action-modal-subtitle'
+import { clsx } from 'clsx'
+import { useTranslations } from 'next-intl'
+import { type FunctionComponent } from 'react'
 
 interface Props {
-  offerState: OfferState
+  action: UpdateOfferAction
+  open: boolean
+  onClose?: () => unknown
 }
 
-export const OfferDetailsActionModal: FunctionComponent<Props> = ({ offerState }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  useEffect(() => {
-    if (offerState === 'ACCEPTED' || offerState === 'CANCELLED' || offerState === 'REJECTED') {
-      setIsOpen(true)
-    } else {
-      setIsOpen(false)
-    }
-  }, [setIsOpen, offerState])
+export const OfferDetailsActionModal: FunctionComponent<Props> = ({ action, open, onClose }) => {
+  const t = useTranslations('offer.details.actionModal')
 
   return (
-    <Modal
-      open={isOpen}
-      onClose={() => setIsOpen(false)}
-      renderTitle={() => <OfferDetailsOfferActionModalTitle state={offerState as ModalOfferState} />}
-      renderDescription={() => <OfferDetailsActionModalInnerContainer state={offerState as ModalOfferState} />}
-    />
+    <Modal open={open} onClose={onClose} title={t(`${action}.title`)}>
+      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
+        <OfferDetailsOfferActionModalSubtitle action={action} />
+        <div className={clsx('flex', 'flex-row', 'justify-center', 'grow')}>
+          <ConfirmationIconSvg />
+        </div>
+        <div className={clsx('flex', 'flex-row', 'items-center', 'justify-center', 'grow')}>
+          <button className={clsx('btn-gradient', 'btn-size-alt', 'group', 'outline-none')} onClick={onClose}>
+            <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('closeBtn')}</span>
+          </button>
+        </div>
+      </div>
+    </Modal>
   )
 }

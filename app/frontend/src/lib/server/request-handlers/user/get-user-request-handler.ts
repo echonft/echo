@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/base/api-request'
+import type { ApiRequest } from '@echo/api/types/api-request'
 import type { GetUserResponse } from '@echo/api/types/responses/get-user-response'
 import { assertUser } from '@server/helpers/user/assert-user'
 import { getUserByUsername } from '@server/helpers/user/get-user-by-username'

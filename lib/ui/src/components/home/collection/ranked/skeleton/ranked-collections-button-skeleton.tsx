@@ -5,7 +5,7 @@ import { FunctionComponent } from 'react'
 export const RankedCollectionsButtonSkeleton: FunctionComponent = () => {
   const t = getTranslator()
   return (
-    <button className={clsx('btn-primary-reverse', 'animate-pulse')} disabled={true}>
+    <button className={clsx('btn-primary-reverse', 'btn-size', 'animate-pulse')} disabled={true}>
       <span className={clsx('btn-label-primary-reverse', 'prose-label-md-semi')}>
         {t('home.rankedCollections.btn')}
       </span>
