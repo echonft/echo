@@ -5,11 +5,12 @@ import { type UpdateOfferAction } from '@echo/api/types/update-offer-action'
 import { type Offer } from '@echo/model/types/offer'
 import { ItemsDetailsSeparator } from '@echo/ui/components/item/details/items-details-separator'
 import { OfferDetailsActionModal } from '@echo/ui/components/offer/details/offer-details-action-modal'
-import { OfferDetailsButtonsContainer } from '@echo/ui/components/offer/details/offer-details-buttons-container'
-import { offerDetailsContainerBackgroundImage } from '@echo/ui/components/offer/details/offer-details-container-background-image'
+import { OfferDetailsApiButtonsContainer } from '@echo/ui/components/offer/details/offer-details-api-buttons-container'
+import { OfferDetailsContractButtonsContainer } from '@echo/ui/components/offer/details/offer-details-contract-buttons-container'
 import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
+import { getOfferDetailsContainerBackgroundImage } from '@echo/ui/helpers/offer/get-offer-details-container-background-image'
 import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
@@ -73,7 +74,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
           'gap-16',
           'p-4',
           'rounded-lg',
-          offerDetailsContainerBackgroundImage(state),
+          getOfferDetailsContainerBackgroundImage(state),
           'bg-white/[0.05]'
         )}
       >
@@ -88,14 +89,28 @@ export const OfferDetails: FunctionComponent<Props> = ({
           </div>
           <OfferDetailsItemsContainer items={isCreator ? senderItems : receiverItems} direction={DirectionOut} />
           <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
-            <OfferDetailsButtonsContainer
-              state={state}
+            <ShowIf condition={state === 'OPEN'}>
+              <OfferDetailsApiButtonsContainer
+                state={state}
               nftsCount={isCreator ? senderItems.length : receiverItems.length}
               isReceiving={!isCreator}
               isUpdating={getMutating || updateMutating}
               onAccept={onAccept}
               onDecline={onDecline}
-            />
+              />
+            </ShowIf>
+            <Web3Provider>
+              <OfferDetailsContractButtonsContainer
+                state={state}
+                isReceiving={isReceiver}
+                nftsCount={isReceiver ? receiverItems.length : senderItems.length}
+                senderItems={offer.senderItems}
+                senderAddress={offer.sender.wallet.address}
+                receiverItems={offer.receiverItems}
+                receiverAddress={offer.receiver.wallet.address}
+              />
+            </Web3Provider>
+            <ShowIf condition={state === 'ACCEPTED'}></ShowIf>
           </div>
         </div>
       </div>
