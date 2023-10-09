@@ -11,5 +11,7 @@ export function updateOfferApiUrl(offerId: string, action: UpdateOfferAction) {
       return acceptOfferApiUrl(offerId)
     case 'REJECT':
       return rejectOfferApiUrl(offerId)
+    default:
+      throw Error('unsupported state')
   }
 }
