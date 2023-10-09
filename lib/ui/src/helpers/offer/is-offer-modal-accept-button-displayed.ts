@@ -5,7 +5,6 @@ export const isOfferModalAcceptButtonDisplayed = (state: OfferState, isReceiving
     case 'OPEN':
       return isReceiving
     case 'ACCEPTED':
-      // TODO Add the cases where you have approved or not
       return true
     default:
       return false

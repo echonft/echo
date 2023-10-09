@@ -3,13 +3,16 @@ import { getOfferFetcher } from '@echo/api/services/fetcher/get-offer-fetcher'
 import { updateOfferFetcher } from '@echo/api/services/fetcher/update-offer-fetcher'
 import { GetOfferResponse } from '@echo/api/types/responses/get-offer-response'
 import { UpdateOfferAction } from '@echo/api/types/update-offer-action'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { OfferDetailsActionModal } from '@echo/ui/components/offer/details/offer-details-action-modal'
+import { OfferDetailsApiButtonsContainer } from '@echo/ui/components/offer/details/offer-details-api-buttons-container'
 import { OfferDetailsAssetsSeparator } from '@echo/ui/components/offer/details/offer-details-assets-separator'
-import { OfferDetailsButtonsContainer } from '@echo/ui/components/offer/details/offer-details-buttons-container'
-import { offerDetailsContainerBackgroundImage } from '@echo/ui/components/offer/details/offer-details-container-background-image'
+import { OfferDetailsContractButtonsContainer } from '@echo/ui/components/offer/details/offer-details-contract-buttons-container'
 import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
+import { getOfferDetailsContainerBackgroundImage } from '@echo/ui/helpers/offer/get-offer-details-container-background-image'
 import { mapOfferFromResponse } from '@echo/ui/mappers/from-api/map-offer-from-response'
 import type { Offer } from '@echo/ui/types/model/offer'
 import { clsx } from 'clsx'
@@ -66,7 +69,7 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
           'gap-16',
           'p-4',
           'rounded-lg',
-          offerDetailsContainerBackgroundImage(state),
+          getOfferDetailsContainerBackgroundImage(state),
           'bg-white/[0.05]'
         )}
       >
@@ -81,14 +84,28 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
           </div>
           <OfferDetailsItemsContainer items={isReceiver ? receiverItems : senderItems} isReceiver={false} />
           <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
-            <OfferDetailsButtonsContainer
-              state={state}
-              nftsCount={isReceiver ? receiverItems.length : senderItems.length}
-              isReceiving={isReceiver}
-              isUpdating={isMutating}
-              onAccept={onAccept}
-              onDecline={onDecline}
-            />
+            <ShowIf condition={state === 'OPEN'}>
+              <OfferDetailsApiButtonsContainer
+                state={state}
+                nftsCount={isReceiver ? receiverItems.length : senderItems.length}
+                isReceiving={isReceiver}
+                isUpdating={isMutating}
+                onAccept={onAccept}
+                onDecline={onDecline}
+              />
+            </ShowIf>
+            <Web3Provider>
+              <OfferDetailsContractButtonsContainer
+                state={state}
+                isReceiving={isReceiver}
+                nftsCount={isReceiver ? receiverItems.length : senderItems.length}
+                senderItems={offer.senderItems}
+                senderAddress={offer.sender.wallet.address}
+                receiverItems={offer.receiverItems}
+                receiverAddress={offer.receiver.wallet.address}
+              />
+            </Web3Provider>
+            <ShowIf condition={state === 'ACCEPTED'}></ShowIf>
           </div>
         </div>
       </div>

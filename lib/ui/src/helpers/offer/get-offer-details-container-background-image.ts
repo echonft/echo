@@ -1,6 +1,6 @@
 import type { OfferState } from '@echo/ui/types/model/offer-state'
 
-export const offerDetailsContainerBackgroundImage = (state: OfferState) => {
+export const getOfferDetailsContainerBackgroundImage = (state: OfferState) => {
   switch (state) {
     case 'OPEN':
       return 'bg-offer-yellow-gradient'
