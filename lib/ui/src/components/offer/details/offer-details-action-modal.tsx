@@ -5,10 +5,11 @@ import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { OfferDetailsOfferActionModalSubtitle } from '@echo/ui/components/offer/details/offer-details-offer-action-modal-subtitle'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  action: UpdateOfferAction
+  action: UpdateOfferAction | undefined
   open: boolean
   onClose?: () => unknown
 }
@@ -16,6 +17,9 @@ interface Props {
 export const OfferDetailsActionModal: FunctionComponent<Props> = ({ action, open, onClose }) => {
   const t = useTranslations('offer.details.actionModal')
 
+  if (isNil(action)) {
+    return null
+  }
   return (
     <Modal open={open} onClose={onClose} title={t(`${action}.title`)}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>

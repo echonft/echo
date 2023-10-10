@@ -99,28 +99,19 @@ export const OfferDetails: FunctionComponent<Props> = ({
               onDecline={onDecline}
               />
             </ShowIf>
-            <Web3Provider>
-              <OfferDetailsContractButtonsContainer
-                state={state}
-                isReceiving={isReceiver}
-                nftsCount={isReceiver ? receiverItems.length : senderItems.length}
-                senderItems={offer.senderItems}
-                senderAddress={offer.sender.wallet.address}
-                receiverItems={offer.receiverItems}
-                receiverAddress={offer.receiver.wallet.address}
-              />
-            </Web3Provider>
-            <ShowIf condition={state === 'ACCEPTED'}></ShowIf>
           </div>
         </div>
       </div>
       <OfferDetailsActionModal
-        action={action!}
+        action={action}
         open={modalShown}
         onClose={() => {
           setModalShown(false)
         }}
       />
+      <Web3Provider>
+        <OfferDetailsAcceptModal offer={offer} />
+      </Web3Provider>
     </>
   )
 }

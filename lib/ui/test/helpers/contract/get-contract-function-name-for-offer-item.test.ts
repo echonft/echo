@@ -1,4 +1,4 @@
-import { getContractOwnerOfForOfferItem } from '@echo/ui/helpers/contract/get-contract-owner-of-for-offer-item'
+import { getContractOwnerOfForTokenType } from '@echo/ui/helpers/contract/get-contract-owner-of-for-token-type'
 import { Contract } from '@echo/ui/types/model/contract'
 import { OfferItem } from '@echo/ui/types/model/offer-item'
 import { describe, expect, it } from '@jest/globals'
@@ -21,7 +21,7 @@ describe('helpers - contract - getContractFunctionNameForOfferItem', () => {
         tokenType: 'ERC721'
       }
     } as OfferItem
-    expect(getContractOwnerOfForOfferItem(offerItem)).toStrictEqual('ownerOf')
+    expect(getContractOwnerOfForTokenType(offerItem)).toStrictEqual('ownerOf')
   })
 
   it('throws for non ERC721', () => {
@@ -40,7 +40,7 @@ describe('helpers - contract - getContractFunctionNameForOfferItem', () => {
         tokenType: 'ERC1155'
       }
     } as OfferItem
-    expect(() => getContractOwnerOfForOfferItem(offerItem)).toThrow()
+    expect(() => getContractOwnerOfForTokenType(offerItem)).toThrow()
 
     contract = {
       name: 'Test',
@@ -57,6 +57,6 @@ describe('helpers - contract - getContractFunctionNameForOfferItem', () => {
         tokenType: 'ERC20'
       }
     } as unknown as OfferItem
-    expect(() => getContractOwnerOfForOfferItem(offerItem)).toThrow()
+    expect(() => getContractOwnerOfForTokenType(offerItem)).toThrow()
   })
 })

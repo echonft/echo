@@ -1,11 +1,10 @@
-import { getOfferSenderItemsUniqueContracts } from '@echo/ui/helpers/offer/get-offer-sender-items-unique-contracts'
+import { getOfferItemsUniqueContracts } from '@echo/ui/helpers/offer/get-offer-items-unique-contracts'
 import { Contract } from '@echo/ui/types/model/contract'
-import type { Offer } from '@echo/ui/types/model/offer'
 import type { OfferItem } from '@echo/ui/types/model/offer-item'
 import { describe, expect, it } from '@jest/globals'
 import { getAddress } from 'viem'
 
-describe('helpers - offer - getOfferSenderItemsUniqueContracts', () => {
+describe('helpers - offer - getOfferItemsUniqueContracts', () => {
   it('returns the contract if there is only 1 contract', () => {
     const contract: Contract = {
       name: 'Test',
@@ -21,10 +20,7 @@ describe('helpers - offer - getOfferSenderItemsUniqueContracts', () => {
         }
       }
     } as OfferItem
-    const offer = {
-      senderItems: [offerItem]
-    } as unknown as Offer
-    const contracts = getOfferSenderItemsUniqueContracts(offer)
+    const contracts = getOfferItemsUniqueContracts([offerItem])
     expect(contracts.length).toStrictEqual(1)
     expect(contracts[0]).toStrictEqual(contract)
   })
@@ -44,10 +40,8 @@ describe('helpers - offer - getOfferSenderItemsUniqueContracts', () => {
         }
       }
     } as OfferItem
-    const offer = {
-      senderItems: [offerItem, offerItem, offerItem]
-    } as unknown as Offer
-    const contracts = getOfferSenderItemsUniqueContracts(offer)
+
+    const contracts = getOfferItemsUniqueContracts([offerItem, offerItem, offerItem])
     expect(contracts.length).toStrictEqual(1)
     expect(contracts[0]).toStrictEqual(contract)
   })
@@ -83,10 +77,8 @@ describe('helpers - offer - getOfferSenderItemsUniqueContracts', () => {
         }
       }
     } as OfferItem
-    const offer = {
-      senderItems: [offerItem1, offerItem2, offerItem1, offerItem2]
-    } as unknown as Offer
-    const contracts = getOfferSenderItemsUniqueContracts(offer)
+
+    const contracts = getOfferItemsUniqueContracts([offerItem1, offerItem2, offerItem1, offerItem2])
     expect(contracts.length).toStrictEqual(2)
     expect(contracts[0]).toStrictEqual(contract1)
     expect(contracts[1]).toStrictEqual(contract2)
