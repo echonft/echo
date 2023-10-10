@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "db:add-collection:dev": "ts-node --project tsconfig.json utils/add-collection-dev.ts",
+    "db:fix-addresses:dev": "ts-node --project tsconfig.json utils/fix-addresses-dev.ts",
     "db:reset:dev": "ts-node --project tsconfig.json utils/reset-db-dev.ts",
     "db:reset:test": "ts-node --project tsconfig.json utils/reset-db-test.ts",
     "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",

@@ -53,6 +53,9 @@
     "@echo/firestore#db:add-collection:dev": {
       "cache": false
     },
+    "@echo/firestore#db:fix-addresses:dev": {
+      "cache": false
+    },
     "@echo/firestore#db:reset:dev": {
       "cache": false
     },
