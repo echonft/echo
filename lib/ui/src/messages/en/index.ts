@@ -192,6 +192,15 @@ export const messages = {
           subtitle: 'You have successfully rejected the offer',
           dismissBtn: 'Dismiss'
         }
+      },
+      acceptModal: {
+        title: 'Accept offer',
+        subtitle:
+          'To accept the offer, you need to approve the Echo contract to transfer your tokens (paid transactions) and then sign a message for the counterparty to perform the swap (not a transaction).',
+        ownerAssets: 'You own all the assets',
+        counterpartyAssets: 'Counterparty owns all the assets',
+        approval: '{collectionName} is approved by Echo',
+        signature: 'Signature is set'
       }
     },
     expired: 'Expired',

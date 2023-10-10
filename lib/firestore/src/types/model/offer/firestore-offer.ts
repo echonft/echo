@@ -14,4 +14,5 @@ export interface FirestoreOffer {
   senderItems: NonEmptyArray<FirestoreOfferItem>
   state: FirestoreOfferState
   updatedAt: number
+  signature: string | undefined
 }

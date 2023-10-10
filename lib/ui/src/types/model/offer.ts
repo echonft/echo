@@ -15,4 +15,5 @@ export interface Offer {
   senderItems: NonEmptyArray<OfferItem>
   state: OfferState
   updatedAt: Dayjs
+  signature: string | undefined
 }

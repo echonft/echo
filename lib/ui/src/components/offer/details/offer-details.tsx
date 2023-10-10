@@ -5,10 +5,10 @@ import { GetOfferResponse } from '@echo/api/types/responses/get-offer-response'
 import { UpdateOfferAction } from '@echo/api/types/update-offer-action'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
+import { OfferDetailsAcceptModal } from '@echo/ui/components/offer/details/offer-details-accept-modal'
 import { OfferDetailsActionModal } from '@echo/ui/components/offer/details/offer-details-action-modal'
 import { OfferDetailsApiButtonsContainer } from '@echo/ui/components/offer/details/offer-details-api-buttons-container'
 import { OfferDetailsAssetsSeparator } from '@echo/ui/components/offer/details/offer-details-assets-separator'
-import { OfferDetailsContractButtonsContainer } from '@echo/ui/components/offer/details/offer-details-contract-buttons-container'
 import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
@@ -94,28 +94,19 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
                 onDecline={onDecline}
               />
             </ShowIf>
-            <Web3Provider>
-              <OfferDetailsContractButtonsContainer
-                state={state}
-                isReceiving={isReceiver}
-                nftsCount={isReceiver ? receiverItems.length : senderItems.length}
-                senderItems={offer.senderItems}
-                senderAddress={offer.sender.wallet.address}
-                receiverItems={offer.receiverItems}
-                receiverAddress={offer.receiver.wallet.address}
-              />
-            </Web3Provider>
-            <ShowIf condition={state === 'ACCEPTED'}></ShowIf>
           </div>
         </div>
       </div>
       <OfferDetailsActionModal
-        action={action!}
+        action={action}
         open={modalShown}
         onClose={() => {
           setModalShown(false)
         }}
       />
+      <Web3Provider>
+        <OfferDetailsAcceptModal offer={offer} />
+      </Web3Provider>
     </>
   )
 }
