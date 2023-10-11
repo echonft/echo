@@ -1,5 +1,6 @@
 'use client'
 import type { OfferResponse } from '@echo/api/types/responses/model/offer-response'
+import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { mapOfferFromResponse } from '@echo/ui/mappers/from-api/map-offer-from-response'
 import { messages } from '@echo/ui/messages/en'
@@ -17,11 +18,13 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offerRespons
   const offer = useMemo(() => mapOfferFromResponse(offerResponse), [offerResponse])
   return (
     <NextIntlClientProvider messages={messages} locale={'en'}>
-      <OfferDetails
-        offer={offer}
-        isReceiver={user.username === offerResponse.receiver?.username}
-        token={user.sessionToken}
-      />
+      <PaddedContainer>
+        <OfferDetails
+          offer={offer}
+          isReceiver={user.username === offerResponse.receiver?.username}
+          token={user.sessionToken}
+        />
+      </PaddedContainer>
     </NextIntlClientProvider>
   )
 }
