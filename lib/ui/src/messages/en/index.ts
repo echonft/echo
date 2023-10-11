@@ -200,7 +200,9 @@ export const messages = {
         ownerAssets: 'You own all the assets',
         counterpartyAssets: 'Counterparty owns all the assets',
         approval: '{collectionName} is approved by Echo',
-        signature: 'Signature is set'
+        signature: 'Signature is set',
+        approveBtn: 'Approve {collectionName}',
+        acceptBtn: 'Sign and accept'
       }
     },
     expired: 'Expired',
