@@ -1,18 +1,23 @@
 'use client'
+import { HideIf } from '@echo/ui/components/base/utils/hide-if'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
+import { OfferDetailsAcceptModalAcceptButton } from '@echo/ui/components/offer/details/offer-details-accept-modal-accept-button'
 import { OfferDetailsApproveContract } from '@echo/ui/components/offer/details/offer-details-approve-contract'
 import { OfferItemsApprovalChecker } from '@echo/ui/components/offer/details/offer-items-approval-checker'
 import { OfferItemsOwnerChecker } from '@echo/ui/components/offer/details/offer-items-owner-checker'
 import { getOfferItemsUniqueContracts } from '@echo/ui/helpers/offer/get-offer-items-unique-contracts'
+import { Contract } from '@echo/ui/types/model/contract'
 import { ContractApprovalStatus } from '@echo/ui/types/model/contract-approval-status'
 import { Offer } from '@echo/ui/types/model/offer'
-import { addToArrayIfNotPresent } from '@echo/utils/array/add-to-array-if-not-present'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { find } from 'ramda'
+import { adjust, always, append, find, findIndex, isNil, pipe, prop, propEq, unless } from 'ramda'
 import { FunctionComponent, useCallback, useMemo, useState } from 'react'
+import { useNetwork } from 'wagmi'
 
 interface Props {
   offer: Offer
@@ -20,15 +25,47 @@ interface Props {
 
 export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer }) => {
   const t = useTranslations('offer.details.acceptModal')
+  const { chain } = useNetwork()
   const [isOpen, setIsOpen] = useState<boolean>(true)
-  const [receiverAssetsOwned, setReceiverAssetsOwned] = useState<boolean>()
-  const [senderAssetsOwned, setSenderAssetsOwned] = useState<boolean>()
+  const [ownsAllAssets, setOwnsAllAssets] = useState<boolean>()
   const [approvalStatuses, setApprovalStatuses] = useState<ContractApprovalStatus[]>([])
   const uniqueContracts = useMemo(() => getOfferItemsUniqueContracts(offer.receiverItems), [offer])
 
-  const getContractToApprove = useCallback(
-    () => find((status: ContractApprovalStatus) => !status.approved)(approvalStatuses)?.contract,
+  const getContractToApprove: () => Contract | undefined = useCallback(
+    () =>
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      pipe(find<ContractApprovalStatus>(propEq(false, 'approved')), unless(isNil, prop('contract')))(approvalStatuses),
     [approvalStatuses]
+  )
+
+  const updateApprovalStatus = useCallback(
+    (status: ContractApprovalStatus) =>
+      setApprovalStatuses((statuses) => {
+        const index = findIndex(propEq(status.contract, 'contract'))(statuses)
+        if (index === -1) {
+          return append(status, statuses)
+        }
+        return adjust(index, always(status), statuses)
+      }),
+    [setApprovalStatuses]
+  )
+
+  const updateOwnsAllAssets = useCallback(
+    (partlyOwns: boolean) => {
+      setOwnsAllAssets((prevState) => {
+        // TODO Functionnal program that shit!
+        // If it was never set, set the new value
+        if (isNil(prevState)) {
+          return partlyOwns
+        }
+        // If it was previously false, we keep it false, it means one of the parties does not own the assets
+        if (!prevState) {
+          return prevState
+        }
+        return partlyOwns
+      })
+    },
+    [setOwnsAllAssets]
   )
   return (
     <Modal open={isOpen} onClose={() => setIsOpen(false)} title={t('title')}>
@@ -39,15 +76,15 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer }) => 
             title={t('counterpartyAssets')}
             offerItems={offer.senderItems}
             ownerAddress={offer.sender.wallet.address}
-            onError={() => setSenderAssetsOwned(false)}
-            onResponse={setSenderAssetsOwned}
+            onError={() => updateOwnsAllAssets(false)}
+            onResponse={updateOwnsAllAssets}
           />
           <OfferItemsOwnerChecker
             title={t('ownerAssets')}
             offerItems={offer.receiverItems}
             ownerAddress={offer.receiver.wallet.address}
-            onError={() => setReceiverAssetsOwned(false)}
-            onResponse={setReceiverAssetsOwned}
+            onError={() => updateOwnsAllAssets(false)}
+            onResponse={updateOwnsAllAssets}
           />
           {uniqueContracts.map((contract) => (
             <OfferItemsApprovalChecker
@@ -55,27 +92,29 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer }) => 
               contract={contract}
               ownerAddress={offer.receiver.wallet.address}
               title={t('approval', { collectionName: contract.name })}
-              onResponse={(approved) => {
-                setApprovalStatuses((prevState) =>
-                  //  FIXME: Need to update if present
-                  addToArrayIfNotPresent(
-                    prevState,
-                    { contract, approved },
-                    (source) => (target) =>
-                      source.contract.address === target.contract.address &&
-                      source.contract.chainId === target.contract.chainId
-                  )
-                )
-              }}
+              onResponse={(approved) => updateApprovalStatus({ contract, approved })}
             />
           ))}
         </div>
-        <HideIfNil
-          checks={getContractToApprove()}
-          render={(contract) => (
-            <OfferDetailsApproveContract contract={contract} ownerAddress={offer.receiver.wallet.address} />
+        <HideIf
+          condition={isNil(ownsAllAssets) || !ownsAllAssets}
+          render={() => (
+            <>
+              <HideIfNil
+                checks={getContractToApprove()}
+                render={(contract) => <OfferDetailsApproveContract contract={contract} />}
+              />
+              <ShowIfNil checks={getContractToApprove()}>
+                <HideIfNil
+                  checks={chain?.id}
+                  render={(chainId) => <OfferDetailsAcceptModalAcceptButton offer={offer} chainId={chainId} />}
+                />
+              </ShowIfNil>
+            </>
           )}
         />
+
+        <ShowIf condition={!ownsAllAssets}>Reject button</ShowIf>
       </div>
     </Modal>
   )
