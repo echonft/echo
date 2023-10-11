@@ -2,6 +2,7 @@ import { NewListingSliderManager as Component } from '@echo/ui/components/listin
 import { getAllCollections } from '@mocks/model/collection'
 import { getListingById } from '@mocks/model/listing'
 import { Meta, StoryObj } from '@storybook/react'
+import { head } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Listing/New Listing Bottom Slider',
@@ -26,6 +27,7 @@ const collectionProvider = {
   get: () => Promise.resolve(getAllCollections())
 }
 const { targets, items } = getListingById('jUzMtPGKM62mMhEcmbN4')
+const target = head(targets)
 
 export const Empty: Story = {
   args: {
@@ -44,11 +46,11 @@ export const Loading: Story = {
   }
 }
 
-export const WithTargets: Story = {
+export const WithTarget: Story = {
   args: {
     collectionProvider,
     show: true,
-    initialTarget: targets
+    initialTarget: target
   }
 }
 
@@ -60,11 +62,11 @@ export const WithItems: Story = {
   }
 }
 
-export const WithTargetsAndItems: Story = {
+export const WithTargetAndItems: Story = {
   args: {
     collectionProvider,
     show: true,
-    initialTarget: targets,
+    initialTarget: target,
     initialItems: items
   }
 }

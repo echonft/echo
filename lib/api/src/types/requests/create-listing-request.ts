@@ -4,5 +4,5 @@ import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export interface CreateListingRequest {
   items: NonEmptyArray<ListingItemRequest>
-  targets: NonEmptyArray<ListingTargetRequest>
+  target: ListingTargetRequest
 }

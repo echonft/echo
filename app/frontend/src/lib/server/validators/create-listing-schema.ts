@@ -4,5 +4,5 @@ import { z } from 'zod'
 
 export const createListingSchema = z.object({
   items: listingItemSchema.array().nonempty(),
-  targets: listingTargetSchema.array().nonempty()
+  target: listingTargetSchema
 })
