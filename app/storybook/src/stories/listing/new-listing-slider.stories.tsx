@@ -5,7 +5,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { head } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Listing/New Listing Bottom Slider',
+  title: 'Listing/New/Bottom Slider',
   component: Component,
   argTypes: {
     onDismiss: {
