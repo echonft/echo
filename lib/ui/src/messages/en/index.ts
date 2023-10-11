@@ -110,9 +110,9 @@ export const messages = {
         finalizeBtn: 'Finalize',
         dismissBtn: 'Dismiss',
         expirationTitle: 'Expires in',
-        expirationSubtitle: 'During beta, the expiration is locked to 7 days',
         expirationValue: '7 days',
-        emptySearch: 'No collections found'
+        emptySearch: 'No collections found',
+        emptyTargets: 'To add a collection, type its name\nin the input above'
       }
     }
   },

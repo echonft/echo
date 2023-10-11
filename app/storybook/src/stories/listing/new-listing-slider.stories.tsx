@@ -48,7 +48,7 @@ export const WithTargets: Story = {
   args: {
     collectionProvider,
     show: true,
-    initialTargets: targets
+    initialTarget: targets
   }
 }
 
@@ -64,7 +64,7 @@ export const WithTargetsAndItems: Story = {
   args: {
     collectionProvider,
     show: true,
-    initialTargets: targets,
+    initialTarget: targets,
     initialItems: items
   }
 }

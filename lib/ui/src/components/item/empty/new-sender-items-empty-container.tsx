@@ -9,7 +9,7 @@ export const NewSenderItemsEmptyContainer: FunctionComponent = () => {
   const t = useTranslations('items.new')
 
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-2', 'pt-8', 'items-center', 'grow')}>
+    <div className={clsx('flex', 'flex-col', 'gap-2', 'justify-center', 'items-center', 'grow')}>
       <span className={clsx('text-white/10', 'prose-display-sm')}>{t('noItemsTitle')}</span>
       <InternalLink path={links.profile.items}>
         <Disclosure.Button as={'button'}>
