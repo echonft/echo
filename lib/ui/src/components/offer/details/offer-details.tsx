@@ -5,8 +5,8 @@ import { GetOfferResponse } from '@echo/api/types/responses/get-offer-response'
 import { UpdateOfferAction } from '@echo/api/types/update-offer-action'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
-import { OfferDetailsAcceptModal } from '@echo/ui/components/offer/details/offer-details-accept-modal'
-import { OfferDetailsActionModal } from '@echo/ui/components/offer/details/offer-details-action-modal'
+import { OfferDetailsAcceptModal } from '@echo/ui/components/offer/details/accept-modal/offer-details-accept-modal'
+import { OfferDetailsActionModal } from '@echo/ui/components/offer/details/action-modal/offer-details-action-modal'
 import { OfferDetailsApiButtonsContainer } from '@echo/ui/components/offer/details/offer-details-api-buttons-container'
 import { OfferDetailsAssetsSeparator } from '@echo/ui/components/offer/details/offer-details-assets-separator'
 import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
@@ -29,6 +29,7 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
   const [updatedOffer, setUpdatedOffer] = useState(offer)
   const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
   const [modalShown, setModalShown] = useState(false)
+  const [acceptModalShown, setAcceptModalShown] = useState<boolean>(false)
   const [action, setAction] = useState<UpdateOfferAction>()
   const getOffer = useCallback(() => {
     return getOfferFetcher(offer.id, token)
@@ -52,8 +53,8 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
     }
   })
   const onAccept = () => {
-    setAction('ACCEPT')
-    void updateOfferTrigger()
+    // TODO Handle the execute case
+    setAcceptModalShown(true)
   }
   const onDecline = () => {
     setAction(isReceiver ? 'REJECT' : 'CANCEL')
@@ -105,7 +106,7 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
         }}
       />
       <Web3Provider>
-        <OfferDetailsAcceptModal offer={offer} />
+        <OfferDetailsAcceptModal offer={offer} open={acceptModalShown} onClose={() => setAcceptModalShown(false)} />
       </Web3Provider>
     </>
   )

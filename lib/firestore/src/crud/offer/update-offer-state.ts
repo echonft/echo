@@ -5,11 +5,11 @@ import { assertOfferState } from '@echo/firestore/helpers/offer/assert/assert-of
 import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import dayjs from 'dayjs'
 
-export async function updateOfferState(offerId: string, state: FirestoreOfferState) {
+export async function updateOfferState(offerId: string, state: FirestoreOfferState, signature?: string) {
   const documentSnapshot = await getOfferSnapshotById(offerId)
   assertQueryDocumentSnapshot(documentSnapshot)
   const offer = documentSnapshot.data()
   assertOfferIsNotExpired(offer)
   assertOfferState(offer, state)
-  await documentSnapshot.ref.update({ state, updatedAt: dayjs().unix() })
+  await documentSnapshot.ref.update({ state, updatedAt: dayjs().unix(), signature })
 }

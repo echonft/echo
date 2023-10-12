@@ -1,5 +1,5 @@
 'use client'
-import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/offer-details-accept-modal-row'
+import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/accept-modal/offer-details-accept-modal-row'
 import { getIsApprovedForAllWagmiConfigForContract } from '@echo/ui/helpers/contract/get-is-approved-for-all-wagmi-config-for-contract'
 import { Contract } from '@echo/ui/types/model/contract'
 import { isNil } from 'ramda'
