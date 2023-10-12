@@ -10,7 +10,7 @@ import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-no
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertNftCollectionSwapsCounts } from '@test-utils/nft-collection-swaps-count/assert-nft-collection-swaps-counts'
 import { assertOffers } from '@test-utils/offer/assert-offers'
-import { updateOffer } from '@test-utils/offer/update-offer'
+import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
 import { assertSwaps } from '@test-utils/swap/assert-swaps'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
@@ -41,7 +41,7 @@ describe('CRUD - offer - completeOffer', () => {
     initialUpdatedAt = offer.updatedAt
   })
   afterEach(async () => {
-    await updateOffer(offerId, {
+    await uncheckedUpdateOffer(offerId, {
       state: initialState,
       expiresAt: initialExpiresAt,
       updatedAt: initialUpdatedAt
@@ -52,27 +52,27 @@ describe('CRUD - offer - completeOffer', () => {
     await expect(completeOffer('not-found', swapTransactionId)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
-    await updateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().subtract(1, 'day').unix() })
+    await uncheckedUpdateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().subtract(1, 'day').unix() })
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('throws if the offer is cancelled', async () => {
-    await updateOffer(offerId, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day').unix() })
+    await uncheckedUpdateOffer(offerId, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('throws if the offer is completed', async () => {
-    await updateOffer(offerId, { state: 'COMPLETED', expiresAt: dayjs().add(1, 'day').unix() })
+    await uncheckedUpdateOffer(offerId, { state: 'COMPLETED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('throws if the offer is rejected', async () => {
-    await updateOffer(offerId, { state: 'REJECTED', expiresAt: dayjs().add(1, 'day').unix() })
+    await uncheckedUpdateOffer(offerId, { state: 'REJECTED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('throws if the offer is invalid', async () => {
-    await updateOffer(offerId, { state: 'INVALID', expiresAt: dayjs().add(1, 'day').unix() })
+    await uncheckedUpdateOffer(offerId, { state: 'INVALID', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('throws if the offer is open', async () => {
-    await updateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().add(1, 'day').unix() })
+    await uncheckedUpdateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('complete offer', async () => {
@@ -83,7 +83,7 @@ describe('CRUD - offer - completeOffer', () => {
         return (await findNftCollectionSwapsCountByNftCollectionId(collectionId))!
       }, collectionIds)
     )
-    await updateOffer(offerId, { state: 'ACCEPTED', expiresAt: dayjs().add(1, 'day').unix() })
+    await uncheckedUpdateOffer(offerId, { state: 'ACCEPTED', expiresAt: dayjs().add(1, 'day').unix() })
     await completeOffer(offerId, swapTransactionId)
     const updatedOffer = (await findOfferById(offerId))!
     expect(updatedOffer.state).toEqual('COMPLETED')

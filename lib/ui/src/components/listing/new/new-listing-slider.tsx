@@ -7,7 +7,6 @@ import type { Collection } from '@echo/ui/types/model/collection'
 import type { ListingItem } from '@echo/ui/types/model/listing-item'
 import type { ListingTarget } from '@echo/ui/types/model/listing-target'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -21,6 +20,7 @@ interface Props {
   onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
   onRemoveTarget?: (targetCollectionId: string) => unknown
   onRemoveItem?: (itemNftId: string) => unknown
+  onFinalize?: () => unknown
   onDismissListing?: () => unknown
 }
 
@@ -32,6 +32,7 @@ export const NewListingSlider: FunctionComponent<Props> = ({
   onTargetAmountChange,
   onRemoveTarget,
   onRemoveItem,
+  onFinalize,
   onDismissListing
 }) => {
   const t = useTranslations('listing.new.bottomSlider')
@@ -51,12 +52,13 @@ export const NewListingSlider: FunctionComponent<Props> = ({
       <NewSenderItemsContainer items={items} onRemove={onRemoveItem} />
       <NewListingSliderExpirationContainer />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6', 'gap-5')}>
-        <Disclosure.Button
+        <button
           className={clsx('btn-gradient', 'btn-size-alt', 'group')}
           disabled={isNilOrEmpty(items) || isNil(target)}
+          onClick={onFinalize}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalizeBtn')}</span>
-        </Disclosure.Button>
+        </button>
         <button className={clsx('btn-cancel', 'btn-size-alt', 'group')} onClick={onDismissListing}>
           <span className={clsx('prose-label-lg', 'btn-label-cancel')}>{t('dismissBtn')}</span>
         </button>

@@ -5,6 +5,7 @@ import { NewOfferConfirmationModalItemsContainer } from '@echo/ui/components/off
 import { OfferItem } from '@echo/ui/types/model/offer-item'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { isEmpty } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -25,6 +26,10 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
   onClose
 }) => {
   const t = useTranslations('offer.new.confirmationModal')
+
+  if (isEmpty(receiverItems) || isEmpty(senderItems)) {
+    return null
+  }
 
   return (
     <Modal open={Boolean(show)} closeDisabled={confirming} onClose={() => onClose?.()} title={t('title')}>

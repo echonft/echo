@@ -43,7 +43,8 @@ export const NewListingSliderTargetRowQuantitySelector: FunctionComponent<Props>
           'h-10',
           'items-center',
           'justify-center',
-          'px-1'
+          'px-1',
+          'select-none'
         )}
       >
         <span className={clsx('prose-label-lg-semi', 'text-white')}>{quantity}</span>

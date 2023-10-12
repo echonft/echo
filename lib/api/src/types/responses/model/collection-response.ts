@@ -16,7 +16,7 @@ export interface CollectionResponse {
   floorPrice?: number
   name: string
   openSeaUrl?: string
-  profilePictureUrl?: string
+  profilePictureUrl: string
   slug: string
   swapsCount?: number
   totalSupply?: number

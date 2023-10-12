@@ -1,22 +1,16 @@
 import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
-import { addListingOffersFromOffer } from '@echo/firestore/crud/listing-offer/add-listing-offers-from-offer'
 import { getOffersCollection } from '@echo/firestore/helpers/collection/get-offers-collection'
-import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-a-duplicate'
-import { assertOfferItems } from '@echo/firestore/helpers/offer/assert/assert-offer-items'
 import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import dayjs from 'dayjs'
 import { head } from 'ramda'
 
-export async function addOffer(
+export async function uncheckedAddOffer(
   senderItems: NonEmptyArray<FirestoreOfferItem>,
   receiverItems: NonEmptyArray<FirestoreOfferItem>
 ): Promise<FirestoreOffer> {
   const reference = getOffersCollection().doc()
-  assertOfferItems(receiverItems)
-  assertOfferItems(senderItems)
-  await assertOfferIsNotADuplicate(senderItems, receiverItems)
   const id = reference.id
   const now = dayjs().unix()
   const newOffer: FirestoreOffer = {
@@ -32,7 +26,5 @@ export async function addOffer(
     updatedAt: now
   }
   await reference.set(newOffer)
-  // add listing offers (if any)
-  await addListingOffersFromOffer(newOffer)
   return newOffer
 }

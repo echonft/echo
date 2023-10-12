@@ -1,7 +1,6 @@
 import { addListingOffer } from '@echo/firestore/crud/listing-offer/add-listing-offer'
 import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
 import { findListingOfferById } from '@echo/firestore/crud/listing-offer/find-listing-offer-by-id'
-import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
@@ -9,6 +8,7 @@ import { errorMessage } from '@echo/utils/error/error-message'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertListingOffers } from '@test-utils/listing-offer/assert-listing-offers'
 import { assertOffers } from '@test-utils/offer/assert-offers'
+import { uncheckedAddOffer } from '@test-utils/offer/unchecked-add-offer'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
@@ -53,7 +53,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
   it('add a listing offer', async () => {
     const listingId = 'jUzMtPGKM62mMhEcmbN4'
     const { receiverItems, senderItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    const createdOffer = await addOffer(receiverItems, senderItems, true)
+    const createdOffer = await uncheckedAddOffer(receiverItems, senderItems)
     createdOfferId = createdOffer.id
     const createdListingOffer = await addListingOffer(
       listingId,

@@ -1,6 +1,7 @@
 import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
 import { addListingOffersFromListing } from '@echo/firestore/crud/listing-offer/add-listing-offers-from-listing'
 import { getListingsCollection } from '@echo/firestore/helpers/collection/get-listings-collection'
+import { assertListingIsNotADuplicate } from '@echo/firestore/helpers/listing/assert/assert-listing-is-not-a-duplicate'
 import { assertListingItems } from '@echo/firestore/helpers/listing/assert/assert-listing-items'
 import { assertListingTargets } from '@echo/firestore/helpers/listing/assert/assert-listing-targets'
 import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
@@ -12,11 +13,11 @@ import { head } from 'ramda'
 
 export async function addListing(
   items: NonEmptyArray<FirestoreOfferItem>,
-  targets: NonEmptyArray<FirestoreListingTarget>,
-  skipListingOffers = false
+  targets: NonEmptyArray<FirestoreListingTarget>
 ): Promise<FirestoreListing> {
   assertListingTargets(targets)
   assertListingItems(items)
+  await assertListingIsNotADuplicate(items, targets)
   const reference = getListingsCollection().doc()
   const id = reference.id
   const now = dayjs().unix()
@@ -33,8 +34,6 @@ export async function addListing(
   }
   await reference.set(newListing)
   // add listing offers (if any)
-  if (!skipListingOffers) {
-    await addListingOffersFromListing(newListing)
-  }
+  await addListingOffersFromListing(newListing)
   return newListing
 }

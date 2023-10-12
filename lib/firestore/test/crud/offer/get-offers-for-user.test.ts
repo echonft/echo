@@ -3,7 +3,7 @@ import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user
 import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getAllOfferMocks } from '@echo/firestore-mocks/offer/get-all-offer-mocks'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { updateOffer } from '@test-utils/offer/update-offer'
+import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { either, filter, find, forEach, pathEq, propEq } from 'ramda'
@@ -23,7 +23,7 @@ describe('CRUD - offer - getOffersForUser', () => {
     initialExpiresAt = offer!.expiresAt
   })
   afterEach(async () => {
-    await updateOffer(id, { expiresAt: initialExpiresAt })
+    await uncheckedUpdateOffer(id, { expiresAt: initialExpiresAt })
   })
 
   it('returns the offers for the user (as a receiver or a sender)', async () => {
