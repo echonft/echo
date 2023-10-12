@@ -32,6 +32,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
   updateOfferFetcher
 }) => {
   const [modalShown, setModalShown] = useState(false)
+  const [acceptModalShown, setAcceptModalShown] = useState<boolean>(false)
   const [action, setAction] = useState<UpdateOfferAction>()
   const getOffer = useCallback(() => {
     return getOfferFetcher(offer.id, token)
@@ -55,8 +56,8 @@ export const OfferDetails: FunctionComponent<Props> = ({
     }
   )
   const onAccept = () => {
-    setAction('ACCEPT')
-    void updateOfferTrigger()
+    // TODO Handle the execute case
+    setAcceptModalShown(true)
   }
   const onDecline = () => {
     setAction(isCreator ? 'CANCEL' : 'REJECT')
@@ -110,7 +111,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
         }}
       />
       <Web3Provider>
-        <OfferDetailsAcceptModal offer={offer} />
+        <OfferDetailsAcceptModal offer={offer} open={acceptModalShown} onClose={() => setAcceptModalShown(false)} />
       </Web3Provider>
     </>
   )

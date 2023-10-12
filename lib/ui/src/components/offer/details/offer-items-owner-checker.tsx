@@ -1,5 +1,5 @@
 'use client'
-import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/offer-details-accept-modal-row'
+import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/accept-modal/offer-details-accept-modal-row'
 import { getOwnerOfContractWagmiConfigForOfferItem } from '@echo/ui/helpers/contract/get-owner-of-contract-wagmi-config-for-offer-item'
 import { OfferItem } from '@echo/ui/types/model/offer-item'
 import { NonEmptyArray } from '@echo/utils/types/non-empty-array'

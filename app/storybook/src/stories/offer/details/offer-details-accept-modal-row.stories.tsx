@@ -1,4 +1,4 @@
-import { OfferDetailsAcceptModalRow as Component } from '@echo/ui/components/offer/details/offer-details-accept-modal-row'
+import { OfferDetailsAcceptModalRow as Component } from '@echo/ui/components/offer/details/accept-modal/offer-details-accept-modal-row'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

@@ -1,4 +1,4 @@
-import { OfferDetailsAcceptModalIcon } from '@echo/ui/components/offer/details/offer-details-accept-modal-icon'
+import { OfferDetailsAcceptModalIcon } from '@echo/ui/components/offer/details/accept-modal/offer-details-accept-modal-icon'
 import { ContractLoadingStatus } from '@echo/ui/types/model/contract-loading-status'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'

@@ -5,7 +5,7 @@ import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
-import { OfferDetailsAcceptModalAcceptButton } from '@echo/ui/components/offer/details/offer-details-accept-modal-accept-button'
+import { OfferDetailsAcceptModalAcceptButton } from '@echo/ui/components/offer/details/accept-modal/offer-details-accept-modal-accept-button'
 import { OfferDetailsApproveContract } from '@echo/ui/components/offer/details/offer-details-approve-contract'
 import { OfferItemsApprovalChecker } from '@echo/ui/components/offer/details/offer-items-approval-checker'
 import { OfferItemsOwnerChecker } from '@echo/ui/components/offer/details/offer-items-owner-checker'
@@ -21,12 +21,13 @@ import { useNetwork } from 'wagmi'
 
 interface Props {
   offer: Offer
+  open: boolean
+  onClose?: () => unknown
 }
 
-export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer }) => {
+export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open, onClose }) => {
   const t = useTranslations('offer.details.acceptModal')
   const { chain } = useNetwork()
-  const [isOpen, setIsOpen] = useState<boolean>(true)
   const [ownsAllAssets, setOwnsAllAssets] = useState<boolean>()
   const [approvalStatuses, setApprovalStatuses] = useState<ContractApprovalStatus[]>([])
   const uniqueContracts = useMemo(() => getOfferItemsUniqueContracts(offer.receiverItems), [offer])
@@ -68,7 +69,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer }) => 
     [setOwnsAllAssets]
   )
   return (
-    <Modal open={isOpen} onClose={() => setIsOpen(false)} title={t('title')}>
+    <Modal open={open} onClose={onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('subtitle')}</ModalSubtitle>
         <div className={clsx('flex', 'flex-col', 'gap-2')}>
