@@ -3,7 +3,7 @@ import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-i
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { type FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
   show?: boolean
@@ -14,7 +14,7 @@ export const NewOfferConfirmedModal: FunctionComponent<Props> = ({ show, onClose
   const t = useTranslations('offer.new.confirmedModal')
 
   return (
-    <Modal open={Boolean(show)} onClose={() => onClose?.()} title={t('title')}>
+    <Modal open={Boolean(show)} onClose={onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
         <span className={clsx('text-white/50', 'text-center', 'prose-header-xs')}>{t('subtitle')}</span>
         <div className={clsx('flex', 'items-center', 'justify-center')}>

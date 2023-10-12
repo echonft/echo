@@ -125,7 +125,8 @@ export const messages = {
         title: 'Listing successfully created',
         subtitle: 'Your listing was successfully created',
         closeBtn: 'Close',
-        copyLinkBtn: 'Copy link'
+        copyLinkBtn: 'Copy link',
+        linkCopied: 'Link copied!'
       }
     }
   },
@@ -213,7 +214,8 @@ export const messages = {
         title: 'Offer successfully created',
         subtitle: 'Your offer was successfully created, you can now contact your counterparty',
         closeBtn: 'Close',
-        copyLinkBtn: 'Copy link'
+        copyLinkBtn: 'Copy link',
+        linkCopied: 'Link copied!'
       }
     },
     state: {
