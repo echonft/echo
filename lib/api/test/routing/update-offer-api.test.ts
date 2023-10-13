@@ -3,17 +3,13 @@ import { describe, expect, test } from '@jest/globals'
 
 describe('routing - updateOfferApiUrl', () => {
   test('throws if id is empty', () => {
-    expect(() => updateOfferApiUrl('', 'ACCEPT')).toThrow()
+    expect(() => updateOfferApiUrl('', 'REJECT')).toThrow()
   })
 
   test('throws if action is invalid', () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     expect(() => updateOfferApiUrl('test', 'TEST')).toThrow()
-  })
-
-  test('returns accept URL with accept action', () => {
-    expect(updateOfferApiUrl('test', 'ACCEPT')).toStrictEqual(new URL('https://echonft.xyz/api/offer/test/accept'))
   })
 
   test('returns reject URL with reject action', () => {

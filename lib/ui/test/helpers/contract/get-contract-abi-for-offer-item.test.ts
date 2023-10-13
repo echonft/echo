@@ -1,7 +1,10 @@
-import { describe } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 
 // TODO Does not work with current jest config
 describe('helpers - contract - getContractAbiForOfferItem', () => {
+  it('TODO', () => {
+    expect(true).toBeTruthy()
+  })
   // it('returns the proper abi for an ERC721', () => {
   //   const contract: Contract = {
   //     name: 'Test',
