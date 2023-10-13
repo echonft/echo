@@ -26,6 +26,7 @@
     "bot:start": "turbo run start --filter=@echo/bot",
     "clean": "turbo run clean",
     "db:add-collection:dev": "env-cmd -f .env turbo run db:add-collection:dev --filter=@echo/firestore",
+    "db:fix-addresses:dev": "env-cmd -f .env turbo run db:fix-addresses:dev --filter=@echo/firestore",
     "db:reset:dev": "env-cmd -f .env turbo run db:reset:dev --filter=@echo/firestore",
     "db:reset:test": "turbo run db:reset:test --filter=@echo/firestore",
     "frontend:build": "turbo run build --filter=@echo/frontend",
