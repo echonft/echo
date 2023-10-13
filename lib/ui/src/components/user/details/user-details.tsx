@@ -1,3 +1,4 @@
+import type { Wallet } from '@echo/model/types/wallet'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { UserDiscordTag } from '@echo/ui/components/shared/user-discord-tag'
@@ -7,7 +8,6 @@ import { UserBanner, type UserBannerProps } from '@echo/ui/components/user/detai
 import { UserDetailsLayout } from '@echo/ui/components/user/layout/user-details-layout'
 import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout'
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
-import type { Wallet } from '@echo/ui/types/model/wallet'
 import type { FunctionComponent } from 'react'
 
 interface Props extends UserProfilePictureProps, UserBannerProps {

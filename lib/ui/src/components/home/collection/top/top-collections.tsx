@@ -3,7 +3,7 @@ import { TopCollectionsLayout } from '@echo/ui/components/home/collection/top/la
 import { HomeSectionLayout } from '@echo/ui/components/home/layout/home-section-layout'
 import { SizeMD } from '@echo/ui/constants/size'
 import { getTranslator } from '@echo/ui/messages/get-translator'
-import type { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
+import type { CollectionTileDetails } from '@echo/ui/types/collection-tile-details'
 import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 

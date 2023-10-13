@@ -4,7 +4,7 @@ import { RankedCollectionsContainerLayout } from '@echo/ui/components/home/colle
 import { RankedCollectionRow } from '@echo/ui/components/home/collection/ranked/ranked-collection-row'
 import { RankedCollectionsButton } from '@echo/ui/components/home/collection/ranked/ranked-collections-button'
 import { links } from '@echo/ui/constants/links'
-import { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
+import { CollectionTileDetails } from '@echo/ui/types/collection-tile-details'
 import { clsx } from 'clsx'
 import { addIndex, map } from 'ramda'
 import { FunctionComponent } from 'react'

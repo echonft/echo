@@ -1,5 +1,5 @@
 import { HomeCollections as Component } from '@echo/ui/components/home/collection/home-collections'
-import type { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
+import type { CollectionTileDetails } from '@echo/ui/types/collection-tile-details'
 import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getAllCollections } from '@mocks/model/collection'
 import type { Meta, StoryObj } from '@storybook/react'

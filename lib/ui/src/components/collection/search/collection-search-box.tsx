@@ -1,6 +1,6 @@
+import type { Collection } from '@echo/model/types/collection'
 import { CollectionSearchBoxOptions } from '@echo/ui/components/collection/search/collection-search-box-options'
 import { CollectionSearchComboboxInput } from '@echo/ui/components/collection/search/collection-search-combobox-input'
-import type { Collection } from '@echo/ui/types/model/collection'
 import { Combobox, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'

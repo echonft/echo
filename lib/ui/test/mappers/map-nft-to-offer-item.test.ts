@@ -1,7 +1,6 @@
+import type { Nft } from '@echo/model/types/nft'
 import { mapNftToOfferItem } from '@echo/ui/mappers/map-nft-to-offer-item'
-import { Nft } from '@echo/ui/types/model/nft'
 import { describe, expect, it } from '@jest/globals'
-import dayjs from 'dayjs'
 import { getAddress } from 'viem'
 
 describe('mappers - mapNftToOfferItem', () => {
@@ -54,7 +53,7 @@ describe('mappers - mapNftToOfferItem', () => {
       thumbnailUrl: 'https://echo.xyz/',
       tokenId: 1,
       tokenType: 'ERC721',
-      updatedAt: dayjs.unix(1676984897)
+      updatedAt: 1676984897
     }
     expect(mapNftToOfferItem(nft)).toEqual({ nft, amount: 1 })
   })

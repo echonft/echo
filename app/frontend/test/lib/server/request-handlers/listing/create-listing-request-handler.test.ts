@@ -1,7 +1,7 @@
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import { ListingItemRequest } from '@echo/api/types/requests/listing-item-request'
 import { ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
-import type { GetListingResponse } from '@echo/api/types/responses/get-listing-response'
+import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
 import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
@@ -74,7 +74,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     const res = await createListingRequestHandler(req)
     expect(createListing).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
-    const responseData = (await res.json()) as GetListingResponse
+    const responseData = (await res.json()) as ListingResponse
     expect(responseData).toEqual({ listing })
   })
 })

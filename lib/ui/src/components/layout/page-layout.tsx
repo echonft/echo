@@ -1,5 +1,5 @@
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { Header } from '@echo/ui/components/layout/header/header'
-import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { clsx } from 'clsx'
 import { FunctionComponent, PropsWithChildren } from 'react'
 

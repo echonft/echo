@@ -1,9 +1,9 @@
 'use client'
+import type { AuthUser } from '@echo/model/types/auth-user'
+import type { Offer } from '@echo/model/types/offer'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { messages } from '@echo/ui/messages/en'
-import type { AuthUser } from '@echo/ui/types/model/auth-user'
-import { Offer } from '@echo/ui/types/model/offer'
 import { NextIntlClientProvider } from 'next-intl'
 import type { FunctionComponent } from 'react'
 

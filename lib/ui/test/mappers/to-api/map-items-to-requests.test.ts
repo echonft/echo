@@ -1,7 +1,6 @@
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
-import { OfferItem } from '@echo/ui/types/model/offer-item'
 import { describe, expect, it } from '@jest/globals'
-import dayjs from 'dayjs'
 import { assocPath } from 'ramda'
 import { getAddress } from 'viem'
 
@@ -61,7 +60,7 @@ describe('mappers - to-api - mapItemsToRequests', () => {
         thumbnailUrl: 'https://echo.xyz',
         tokenId: 1376,
         tokenType: 'ERC721',
-        updatedAt: dayjs.unix(1676984897)
+        updatedAt: 1676984897
       }
     }
     expect(mapItemsToRequests([offerItem, assocPath(['nft', 'id'], 'offer-item-2', offerItem)])).toStrictEqual([

@@ -1,5 +1,5 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
-import type { GetOffersResponse } from '@echo/api/types/responses/get-offers-response'
+import type { OffersResponse } from '@echo/api/types/responses/offers-response'
 import { assertCollection } from '@server/helpers/collection/assert-collection'
 import { getCollectionBySlug } from '@server/helpers/collection/get-collection-by-slug'
 import { getCollectionOffers } from '@server/helpers/offer/get-collection-offers'
@@ -19,5 +19,5 @@ export async function getCollectionCompletedOffersRequestHandler(req: ApiRequest
     assoc('includeExpired', true)
   )(filters)
   const offers = await getCollectionOffers(collection.id, completedOffersFilters, constraints)
-  return NextResponse.json<GetOffersResponse>({ offers })
+  return NextResponse.json<OffersResponse>({ offers })
 }

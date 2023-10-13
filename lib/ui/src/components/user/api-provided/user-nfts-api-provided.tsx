@@ -1,4 +1,6 @@
 'use client'
+import type { AuthUser } from '@echo/model/types/auth-user'
+import type { Nft } from '@echo/model/types/nft'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { SelectableNftGroupsAndFiltersContainer } from '@echo/ui/components/nft/layout/container/selectable-nft-groups-and-filters-container'
@@ -7,8 +9,6 @@ import { UserNftsEmpty } from '@echo/ui/components/user/nft/empty/user-nfts-empt
 import { NavigationItems } from '@echo/ui/constants/navigation-item'
 import { NftFilterCollections, NftFilterTraits } from '@echo/ui/constants/nft-filter'
 import { getTranslator } from '@echo/ui/messages/get-translator'
-import { AuthUser } from '@echo/ui/types/model/auth-user'
-import { Nft } from '@echo/ui/types/model/nft'
 import { type FunctionComponent } from 'react'
 
 interface Props {

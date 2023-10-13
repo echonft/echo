@@ -2,7 +2,6 @@
   "extends": "../tsconfig/base.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "dist",
     "paths": {
       "@echo/alchemy/*": ["src/*"],
       "@test/*": ["test/*"],
@@ -10,5 +9,5 @@
     }
   },
   "include": ["src", "test"],
-  "exclude": ["dist", "node_modules"]
+  "exclude": ["node_modules"]
 }

@@ -1,6 +1,6 @@
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { Home, HomeProps } from '@echo/ui/components/home/home'
 import { Header } from '@echo/ui/components/layout/header/header'
-import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { clsx } from 'clsx'
 import { FunctionComponent } from 'react'
 

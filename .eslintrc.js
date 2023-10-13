@@ -61,6 +61,7 @@ module.exports = {
               '@echo/api/src/*',
               '@echo/discord/src/*',
               '@echo/firestore/src/*',
+              '@echo/model/src/*',
               '@echo/ui/src/*',
               '@echo/utils/src/*',
               'lib/*',

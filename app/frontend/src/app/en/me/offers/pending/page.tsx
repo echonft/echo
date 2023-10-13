@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
 import { profileOffersApiUrl } from '@echo/api/routing/profile-offers-api-url'
-import type { GetOffersResponse } from '@echo/api/types/responses/get-offers-response'
+import type { OffersResponse } from '@echo/api/types/responses/offers-response'
 import { OfferFilterAsReceiver } from '@echo/firestore/constants/offer-filter-as'
 import { ProfileOffersReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-received-api-provided'
 import { links } from '@echo/ui/constants/links'
@@ -28,7 +28,7 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
     .revalidate(3600)
     .query(mergeLeft(filterParams, queryParams))
     .bearerToken(session.user.sessionToken)
-    .fetch<GetOffersResponse>()
+    .fetch<OffersResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {

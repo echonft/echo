@@ -1,10 +1,10 @@
 import { authOptions } from '@constants/auth-options'
 import { allCollectionsApiUrl } from '@echo/api/routing/all-collections-api-url'
 import { allSwapsApiUrl } from '@echo/api/routing/all-swaps-api-url'
-import { GetCollectionsResponse } from '@echo/api/types/responses/get-collections-response'
-import { GetOffersResponse } from '@echo/api/types/responses/get-offers-response'
+import { CollectionsResponse } from '@echo/api/types/responses/collections-response'
+import { OffersResponse } from '@echo/api/types/responses/offers-response'
 import { HomePage } from '@echo/ui/components/home/layout/home-page'
-import { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
+import { CollectionTileDetails } from '@echo/ui/types/collection-tile-details'
 import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { fetcher } from '@helpers/fetcher'
 import { mapCollectionFiltersToQueryParams } from '@helpers/request/map-collection-filters-to-query-params'
@@ -25,7 +25,7 @@ const Home: FunctionComponent = async () => {
   const { data: collectionsData } = await fetcher(allCollectionsApiUrl())
     .revalidate(600)
     .query(mergeLeft(collectionsConstraintsQueryParams, collectionFiltersQueryParam))
-    .fetch<GetCollectionsResponse>()
+    .fetch<CollectionsResponse>()
 
   const swapsConstraintsQueryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'updatedAt', direction: 'desc' }],
@@ -34,7 +34,7 @@ const Home: FunctionComponent = async () => {
   const { data: swapsData } = await fetcher(allSwapsApiUrl())
     .revalidate(600)
     .query(swapsConstraintsQueryParams)
-    .fetch<GetOffersResponse>()
+    .fetch<OffersResponse>()
 
   // TODO manage errors
   if (isNil(collectionsData) || isNil(swapsData)) {

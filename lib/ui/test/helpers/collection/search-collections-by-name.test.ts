@@ -1,5 +1,5 @@
+import type { Collection } from '@echo/model/types/collection'
 import { searchCollectionsByName } from '@echo/ui/helpers/collection/search-collections-by-name'
-import type { Collection } from '@echo/ui/types/model/collection'
 import { describe, expect, it } from '@jest/globals'
 import { includes } from 'ramda'
 

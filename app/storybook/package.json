@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@echo/api": "workspace:*",
+    "@echo/model": "workspace:*",
     "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
     "browserify-zlib": "0.2.0",

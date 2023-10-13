@@ -1,5 +1,5 @@
 import { HomeHero as Component } from '@echo/ui/components/home/hero/home-hero'
-import type { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
+import type { CollectionTileDetails } from '@echo/ui/types/collection-tile-details'
 import { getCollectionById } from '@mocks/model/collection'
 import type { Meta, StoryObj } from '@storybook/react'
 import { assoc, pick, pipe } from 'ramda'

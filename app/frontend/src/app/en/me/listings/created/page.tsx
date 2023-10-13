@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
 import { userListingsApiUrl } from '@echo/api/routing/user-listings-api-url'
-import type { GetListingsResponse } from '@echo/api/types/responses/get-listings-response'
+import type { ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { ProfileListingsCreatedApiProvided } from '@echo/ui/components/profile/api-provided/profile-listings-created-api-provided'
 import { links } from '@echo/ui/constants/links'
 import { redirectIfNotLoggedIn } from '@helpers/auth/redirect-if-not-logged-in'
@@ -19,7 +19,7 @@ const ProfileListingsCreatedPage: FunctionComponent = async () => {
   const { data, error } = await fetcher(userListingsApiUrl(session.user.username))
     .revalidate(3600)
     .query(queryParams)
-    .fetch<GetListingsResponse>()
+    .fetch<ListingsResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {

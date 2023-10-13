@@ -1,8 +1,8 @@
+import type { Offer } from '@echo/model/types/offer'
+import type { OfferItem } from '@echo/model/types/offer-item'
+import type { User } from '@echo/model/types/user'
+import type { Wallet } from '@echo/model/types/wallet'
 import { getOfferSender } from '@echo/ui/helpers/offer/get-offer-sender'
-import type { Offer } from '@echo/ui/types/model/offer'
-import type { OfferItem } from '@echo/ui/types/model/offer-item'
-import type { User } from '@echo/ui/types/model/user'
-import type { Wallet } from '@echo/ui/types/model/wallet'
 import { describe, expect, it } from '@jest/globals'
 import { getAddress } from 'viem'
 

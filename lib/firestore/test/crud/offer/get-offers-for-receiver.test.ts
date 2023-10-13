@@ -65,7 +65,7 @@ describe('CRUD - offer - getOffersForReceiver', () => {
     let offers = await getOffersForReceiver('johnnycagewins', { notStates: ['INVALID', 'CANCELLED'] })
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForReceiver('johnnycagewins', { notStates: ['OPEN', 'FULFILLED'] })
+    offers = await getOffersForReceiver('johnnycagewins', { notStates: ['OPEN', 'ACCEPTED'] })
     expect(offers.length).toBe(0)
   })
 

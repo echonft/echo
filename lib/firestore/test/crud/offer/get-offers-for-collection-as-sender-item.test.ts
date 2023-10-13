@@ -66,7 +66,7 @@ describe('CRUD - offer - getOffersForCollectionAsSenderItem', () => {
     let listings = await getOffersForCollectionAsSenderItem(collectionId, { notStates: ['INVALID', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getOffersForCollectionAsSenderItem(collectionId, { notStates: ['OPEN', 'FULFILLED'] })
+    listings = await getOffersForCollectionAsSenderItem(collectionId, { notStates: ['OPEN', 'ACCEPTED'] })
     expect(listings.length).toBe(0)
   })
 

@@ -1,19 +1,14 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import { LISTING_FILTER_AS } from '@echo/firestore/constants/listing-filter-as'
-import { LISTING_STATES } from '@echo/firestore/types/model/listing/firestore-listing-state'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
+import { LISTING_STATES } from '@echo/model/constants/listing-states'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { booleanQueryParamSchema } from '@server/validators/boolean-query-param-schema'
 import { assoc, both, has, isEmpty } from 'ramda'
 import { z } from 'zod'
 
 const asQueryParamSchema = z.enum(LISTING_FILTER_AS)
-const stateQueryParamSchema = z
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  .enum(LISTING_STATES as readonly string[])
-  .array()
-  .nonempty()
+const stateQueryParamSchema = z.enum(LISTING_STATES).array().nonempty()
 
 export function parseListingFiltersQuery<T>(req: ApiRequest<T>) {
   let filters = {} as ListingQueryFilters

@@ -1,5 +1,5 @@
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
-import type { IdResponse } from '@echo/api/types/responses/id-response'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
 import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
@@ -134,7 +134,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
     const res = await createOfferRequestHandler(req)
     expect(createOffer).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
-    const responseData = (await res.json()) as IdResponse
+    const responseData = (await res.json()) as OfferResponse
     expect(responseData).toEqual({ offer })
   })
 })

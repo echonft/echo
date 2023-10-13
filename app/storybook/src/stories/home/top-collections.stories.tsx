@@ -1,5 +1,5 @@
 import { TopCollections as Component } from '@echo/ui/components/home/collection/top/top-collections'
-import type { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
+import type { CollectionTileDetails } from '@echo/ui/types/collection-tile-details'
 import { getAllCollections } from '@mocks/model/collection'
 import type { Meta, StoryObj } from '@storybook/react'
 import { assoc, concat, map, pick, pipe } from 'ramda'

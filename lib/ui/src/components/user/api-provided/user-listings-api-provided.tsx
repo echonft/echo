@@ -1,12 +1,12 @@
 'use client'
+import type { AuthUser } from '@echo/model/types/auth-user'
+import type { Listing } from '@echo/model/types/listing'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { ListingRowsContainer } from '@echo/ui/components/listing/layout/container/listing-rows-container'
 import { UserNavigationLayout } from '@echo/ui/components/user/layout/user-navigation-layout'
 import { UserListingsEmpty } from '@echo/ui/components/user/listing/empty/user-listings-empty'
 import { NavigationListings } from '@echo/ui/constants/navigation-item'
-import { AuthUser } from '@echo/ui/types/model/auth-user'
-import { Listing } from '@echo/ui/types/model/listing'
 import { type FunctionComponent } from 'react'
 
 interface Props {

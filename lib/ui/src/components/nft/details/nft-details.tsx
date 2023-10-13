@@ -1,12 +1,12 @@
 'use client'
+import type { Listing } from '@echo/model/types/listing'
+import type { Nft } from '@echo/model/types/nft'
 import { Img } from '@echo/ui/components/base/img'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { NftDetailsAttributesPanel } from '@echo/ui/components/nft/details/nft-details-attributes-panel'
 import { NftDetailsHeader } from '@echo/ui/components/nft/details/nft-details-header'
 import { NftDetailsListingsPanel } from '@echo/ui/components/nft/details/nft-details-listings-panel'
 import { NftDetailsTokenDetailsPanel } from '@echo/ui/components/nft/details/nft-details-token-details-panel'
-import type { Listing } from '@echo/ui/types/model/listing'
-import type { Nft } from '@echo/ui/types/model/nft'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
@@ -33,7 +33,7 @@ export const NftDetails: FunctionComponent<Props> = ({ nft, listings, onMakeOffe
           <NftDetailsTokenDetailsPanel
             chainId={nft.collection.contract.chainId}
             tokenId={nft.tokenId}
-            tokenType={nft.collection.contract.tokenType}
+            tokenType={nft.tokenType}
           />
         </div>
         <div className={clsx('flex', 'flex-col', 'flex-grow', 'gap-10')}>

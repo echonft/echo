@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
 import { userSwapsApiUrl } from '@echo/api/routing/user-swaps-api-url'
-import type { GetOffersResponse } from '@echo/api/types/responses/get-offers-response'
+import type { OffersResponse } from '@echo/api/types/responses/offers-response'
 import { UserSwapsApiProvided } from '@echo/ui/components/user/api-provided/user-swaps-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
@@ -23,7 +23,7 @@ const UserSwapsPage: FunctionComponent<Props> = async ({ params: { username } })
   const { data, error } = await fetcher(userSwapsApiUrl(username))
     .revalidate(3600)
     .query(constraintsQueryParams)
-    .fetch<GetOffersResponse>()
+    .fetch<OffersResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {

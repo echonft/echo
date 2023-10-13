@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
 import { collectionListingsApiUrl } from '@echo/api/routing/collection-listings-api-url'
-import type { GetListingsResponse } from '@echo/api/types/responses/get-listings-response'
+import type { ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { CollectionListingsApiProvided } from '@echo/ui/components/collection/api-provided/collection-listings-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapListingFiltersToQueryParams } from '@helpers/request/map-listing-filters-to-query-params'
@@ -25,7 +25,7 @@ const CollectionListingsPage: FunctionComponent<Props> = async ({ params: { slug
   const { data, error } = await fetcher(collectionListingsApiUrl(slug))
     .revalidate(3600)
     .query(mergeLeft(constraintsQueryParams, filtersQueryParam))
-    .fetch<GetListingsResponse>()
+    .fetch<ListingsResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {

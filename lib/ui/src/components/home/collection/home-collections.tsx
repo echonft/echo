@@ -2,7 +2,7 @@ import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { HomeCollectionsLayout } from '@echo/ui/components/home/collection/layout/home-collections-layout'
 import { RankedCollections } from '@echo/ui/components/home/collection/ranked/ranked-collections'
 import { TopCollections } from '@echo/ui/components/home/collection/top/top-collections'
-import { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
+import { CollectionTileDetails } from '@echo/ui/types/collection-tile-details'
 import { min, slice } from 'ramda'
 import { FunctionComponent } from 'react'
 

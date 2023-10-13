@@ -1,7 +1,7 @@
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { UserTag } from '@echo/ui/components/layout/header/user-tag'
 import { links } from '@echo/ui/constants/links'
-import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { Menu, Transition } from '@headlessui/react'

@@ -1,5 +1,5 @@
+import type { Listing } from '@echo/model/types/listing'
 import { NftDetailsListingRow } from '@echo/ui/components/nft/details/nft-details-listing-row'
-import type { Listing } from '@echo/ui/types/model/listing'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isEmpty, map } from 'ramda'

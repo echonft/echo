@@ -2,7 +2,7 @@ import { CollectionTile } from '@echo/ui/components/collection/tile/collection-t
 import { HomeHeroLayout } from '@echo/ui/components/home/hero/home-hero-layout'
 import { SizeLG } from '@echo/ui/constants/size'
 import { getTranslator } from '@echo/ui/messages/get-translator'
-import type { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
+import type { CollectionTileDetails } from '@echo/ui/types/collection-tile-details'
 import type { FunctionComponent } from 'react'
 
 interface Props {

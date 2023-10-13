@@ -11,10 +11,10 @@ import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-col
 import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
 import { updateNftCollection } from '@echo/firestore-mocks/nft-collection/update-nft-collection'
-import { updateListing } from '@test-utils/listing/update-listing'
-import { updateNft } from '@test-utils/nft/update-nft'
-import { updateOffer } from '@test-utils/offer/update-offer'
-import { updateWallet } from '@test-utils/wallet/update-wallet'
+import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
+import { uncheckedUpdateNft } from '@test-utils/nft/unchecked-update-nft'
+import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
+import { uncheckedUpdateWallet } from '@test-utils/wallet/unchecked-update-wallet'
 import { assoc, converge, lens, map, modify, modifyPath, omit, over, pick, pipe, prop } from 'ramda'
 import { getAddress } from 'viem'
 
@@ -40,7 +40,7 @@ void (async function () {
       modify('targets', map(modifyPath(['collection', 'contract'], updateAddress))),
       omit(['id'])
     )(listing) as FirestoreListing
-    await updateListing(listing.id, updateData)
+    await uncheckedUpdateListing(listing.id, updateData)
   }
   // fix nft collections addresses
   const nftCollections = await getAllNftCollections()
@@ -65,7 +65,7 @@ void (async function () {
       modifyPath(['collection', 'contract'], updateAddress),
       omit(['id'])
     )(nft) as FirestoreNft
-    await updateNft(nft.id, updateData)
+    await uncheckedUpdateNft(nft.id, updateData)
   }
   // fix offers addresses
   const offers = await getAllOffers()
@@ -79,13 +79,13 @@ void (async function () {
       modify('senderItems', map(modifyPath(['nft', 'owner', 'wallet'], updateAddress))),
       omit(['id'])
     )(offer) as FirestoreOffer
-    await updateOffer(offer.id, updateData)
+    await uncheckedUpdateOffer(offer.id, updateData)
   }
   // fix wallets addresses
   const wallets = await getAllWallets()
   for (const wallet of wallets) {
     const updateData = pipe(updateAddress, omit(['id']))(wallet) as FirestoreWallet
-    await updateWallet(wallet.id, updateData)
+    await uncheckedUpdateWallet(wallet.id, updateData)
   }
   await terminateFirestore()
 })()

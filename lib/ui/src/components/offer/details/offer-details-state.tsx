@@ -1,5 +1,5 @@
+import type { OfferState } from '@echo/model/types/offer-state'
 import { StateTextContainer } from '@echo/ui/components/shared/state-text-container'
-import type { OfferState } from '@echo/ui/types/model/offer-state'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'

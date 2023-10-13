@@ -1,6 +1,6 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
-import { GetOfferResponse } from '@echo/api/types/responses/get-offer-response'
+import { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { assertNftOwner } from '@server/helpers/nft/assert-nft-owner'
@@ -28,7 +28,7 @@ export async function createOfferRequestHandler(req: ApiRequest<CreateOfferReque
     assertNftOwner(item.nft, receiver.username)
   }, receiverOfferItems)
   const offer = await createOffer(senderOfferItems, receiverOfferItems)
-  return NextResponse.json<GetOfferResponse>({ offer })
+  return NextResponse.json<OfferResponse>({ offer })
 }
 
 function parseCreateOfferRequest(request: CreateOfferRequest) {

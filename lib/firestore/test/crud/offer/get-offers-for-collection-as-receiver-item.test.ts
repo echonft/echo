@@ -66,7 +66,7 @@ describe('CRUD - offer - getOffersForCollectionAsReceiverItem', () => {
     let listings = await getOffersForCollectionAsReceiverItem(collectionId, { notStates: ['INVALID', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getOffersForCollectionAsReceiverItem(collectionId, { notStates: ['OPEN', 'FULFILLED'] })
+    listings = await getOffersForCollectionAsReceiverItem(collectionId, { notStates: ['OPEN', 'ACCEPTED'] })
     expect(listings.length).toBe(0)
   })
 

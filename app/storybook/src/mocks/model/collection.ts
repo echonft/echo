@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/ui/types/model/collection'
+import type { Collection } from '@echo/model/types/collection'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 const collections: Record<string, Collection> = {

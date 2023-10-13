@@ -1,3 +1,4 @@
+import { OFFER_STATES } from '@echo/model/constants/offer-states'
 import { OfferDetailsState as Component } from '@echo/ui/components/offer/details/offer-details-state'
 import type { Meta, StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
@@ -8,7 +9,7 @@ const metadata: Meta<typeof Component> = {
   argTypes: {
     state: {
       defaultValue: 'OPEN',
-      options: ['OPEN', 'ACCEPTED', 'CANCELLED', 'REJECTED', 'INVALID'],
+      options: OFFER_STATES,
       control: { type: 'radio' }
     },
     expiresAt: {

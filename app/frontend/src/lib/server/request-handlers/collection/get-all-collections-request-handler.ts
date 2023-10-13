@@ -1,9 +1,9 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
-import type { GetCollectionsResponse } from '@echo/api/types/responses/get-collections-response'
-import { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
-import { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
+import type { CollectionsResponse } from '@echo/api/types/responses/collections-response'
+import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 import type { FirestoreNftCollectionSwapsCount } from '@echo/firestore/types/model/nft-collection-swaps-count/firestore-nft-collection-swaps-count'
-import { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import type { Collection } from '@echo/model/types/collection'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { getAllCollectionSwapsCounts } from '@server/helpers/collection/get-all-collection-swaps-counts'
 import { getAllCollections } from '@server/helpers/collection/get-all-collections'
@@ -103,7 +103,7 @@ export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
       // @ts-ignore
     )(constraints)
 
-    return NextResponse.json<GetCollectionsResponse>({
+    return NextResponse.json<CollectionsResponse>({
       collections: pipe(
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -119,8 +119,8 @@ export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         orderBy
-      )(collections) as CollectionResponse[]
+      )(collections) as Collection[]
     })
   }
-  return NextResponse.json<GetCollectionsResponse>({ collections })
+  return NextResponse.json<CollectionsResponse>({ collections })
 }
