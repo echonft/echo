@@ -20,6 +20,7 @@ export const offerDataConverter: FirestoreDataConverter<Offer> = {
       dissoc('senderItemsNftCollectionIds')
     )(snapshot)
   },
+
   toFirestore(modelObject: PartialWithFieldValue<Offer>) {
     return pipe(
       dissoc('expired'),
