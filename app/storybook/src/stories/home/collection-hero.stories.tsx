@@ -1,8 +1,8 @@
+import type { Collection } from '@echo/model/types/collection'
 import { HomeHero as Component } from '@echo/ui/components/home/hero/home-hero'
-import type { CollectionTileDetails } from '@echo/ui/types/collection-tile-details'
 import { getCollectionById } from '@mocks/model/collection'
 import type { Meta, StoryObj } from '@storybook/react'
-import { assoc, pick, pipe } from 'ramda'
+import { assoc, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Home/Hero',
@@ -17,11 +17,7 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-const collection = pipe(
-  getCollectionById,
-  pick(['slug', 'name', 'profilePictureUrl']),
-  assoc('swapsCount', 2)
-)('Rc8pLQXxgyQGIRL0fr13') as CollectionTileDetails
+const collection = pipe(getCollectionById, assoc('swapsCount', 2))('Rc8pLQXxgyQGIRL0fr13') as Collection
 
 export const Default: Story = {
   args: {

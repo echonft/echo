@@ -10,7 +10,7 @@ interface Props {
   slug: string
   pictureUrl: string
   name: string
-  swapsCount: number
+  swapsCount: number | undefined
   size: typeof SizeMD | typeof SizeLG
 }
 
@@ -51,7 +51,7 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
         <div className={clsx('flex', 'flex-col', 'gap-2')}>
           <p className={clsx('prose-header-xs-semi', 'text-white')}>{name}</p>
           <p className={clsx('prose-paragraph-xs-light', 'text-white')}>
-            {t('collection.tile.swapsCount', { count: swapsCount })}
+            {t('collection.tile.swapsCount', { count: swapsCount ?? 0 })}
           </p>
         </div>
       </div>

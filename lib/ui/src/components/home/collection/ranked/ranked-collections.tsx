@@ -1,10 +1,10 @@
+import type { Collection } from '@echo/model/types/collection'
 import { RankedCollectionsContainer } from '@echo/ui/components/home/collection/ranked/layout/ranked-collections-container'
 import { RankedCollectionsLayout } from '@echo/ui/components/home/collection/ranked/layout/ranked-collections-layout'
-import { CollectionTileDetails } from '@echo/ui/types/collection-tile-details'
 import { FunctionComponent } from 'react'
 
 interface Props {
-  collections: CollectionTileDetails[]
+  collections: Collection[]
   firstRank: number
 }
 

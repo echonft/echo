@@ -11,7 +11,7 @@ interface Props {
   rank: number
   name: string
   pictureUrl: string
-  swapsCount: number
+  swapsCount: number | undefined
 }
 
 export const RankedCollectionRow: FunctionComponent<Props> = ({ rank, name, swapsCount, pictureUrl }) => {
