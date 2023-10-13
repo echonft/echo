@@ -21,7 +21,7 @@ describe('helpers - contract - getContractFunctionNameForOfferItem', () => {
         tokenType: 'ERC721'
       }
     } as OfferItem
-    expect(getContractOwnerOfForTokenType(offerItem)).toStrictEqual('ownerOf')
+    expect(getContractOwnerOfForTokenType(offerItem.nft.tokenType)).toStrictEqual('ownerOf')
   })
 
   it('throws for non ERC721', () => {
@@ -40,7 +40,7 @@ describe('helpers - contract - getContractFunctionNameForOfferItem', () => {
         tokenType: 'ERC1155'
       }
     } as OfferItem
-    expect(() => getContractOwnerOfForTokenType(offerItem)).toThrow()
+    expect(() => getContractOwnerOfForTokenType(offerItem.nft.tokenType)).toThrow()
 
     contract = {
       name: 'Test',
@@ -57,6 +57,6 @@ describe('helpers - contract - getContractFunctionNameForOfferItem', () => {
         tokenType: 'ERC20'
       }
     } as unknown as OfferItem
-    expect(() => getContractOwnerOfForTokenType(offerItem)).toThrow()
+    expect(() => getContractOwnerOfForTokenType(offerItem.nft.tokenType)).toThrow()
   })
 })
