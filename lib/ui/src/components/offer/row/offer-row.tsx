@@ -27,10 +27,7 @@ export const OfferRow: FunctionComponent<Props> = ({ offer }) => {
         <OfferRowSwapContainerLayout>
           <OfferItemsContainer items={isReceiver ? receiverItems : senderItems} />
           <OfferRowSwapIcon />
-          <OfferItemsContainer
-            items={isReceiver ? senderItems : receiverItems}
-            discordUsername={isReceiver ? sender.discord.username : receiver.discord.username}
-          />
+          <OfferItemsContainer items={isReceiver ? senderItems : receiverItems} />
         </OfferRowSwapContainerLayout>
       </OfferRowLayout>
     </InternalLink>

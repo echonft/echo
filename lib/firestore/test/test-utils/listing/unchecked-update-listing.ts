@@ -3,7 +3,7 @@ import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert
 import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import type { WriteResult } from 'firebase-admin/lib/firestore'
 
-export async function updateListing(
+export async function uncheckedUpdateListing(
   listingId: string,
   updateData: Partial<Omit<FirestoreListing, 'id'>>
 ): Promise<WriteResult> {

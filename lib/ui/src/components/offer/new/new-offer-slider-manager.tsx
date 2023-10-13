@@ -11,7 +11,7 @@ import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
 import { pathEq, reject } from 'ramda'
-import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
+import { type FunctionComponent, useCallback, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 interface Props {
@@ -35,12 +35,13 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ user }) => {
     },
     [setReceiverItems]
   )
-  const receiverItemRequests = useMemo(() => mapOfferItemsToRequests(receiverItems), [receiverItems])
-  const senderItemRequests = useMemo(() => mapOfferItemsToRequests(senderItems), [senderItems])
   const createOffer = useCallback(
     () =>
-      createOfferFetcher({ senderItems: senderItemRequests, receiverItems: receiverItemRequests }, user?.sessionToken),
-    [receiverItemRequests, senderItemRequests, user]
+      createOfferFetcher(
+        { senderItems: mapOfferItemsToRequests(senderItems), receiverItems: mapOfferItemsToRequests(receiverItems) },
+        user?.sessionToken
+      ),
+    [receiverItems, senderItems, user]
   )
   const { trigger, isMutating } = useSWRMutation('create-offer', createOffer)
 
@@ -77,7 +78,6 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ user }) => {
         onConfirm={() => {
           trigger()
             .then(() => {
-              clearOffer()
               setConfirmOfferModalShown(false)
               setConfirmedModalShown(true)
             })
@@ -89,6 +89,7 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ user }) => {
       <NewOfferConfirmedModal
         show={confirmedModalShown}
         onClose={() => {
+          clearOffer()
           setConfirmedModalShown(false)
         }}
       />

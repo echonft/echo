@@ -10,7 +10,7 @@ export interface FirestoreNftCollection {
   floorPrice?: number
   name: string
   openSeaUrl?: string
-  profilePictureUrl?: string
+  profilePictureUrl: string
   slug: string
   totalSupply?: number
   twitterUsername?: string

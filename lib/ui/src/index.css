@@ -142,7 +142,7 @@
         @apply text-caps-sm font-inter uppercase
     }
     .btn {
-        @apply flex flex-row justify-center items-center disabled:opacity-40 rounded-lg
+        @apply flex flex-row justify-center items-center disabled:opacity-40 rounded-lg select-none outline-none
     }
     .btn-primary {
         @apply btn bg-white/[0.08] enabled:hover:bg-yellow-500 enabled:active:bg-yellow-700

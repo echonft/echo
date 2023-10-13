@@ -1,4 +1,5 @@
 'use client'
+import { NftResponse } from '@echo/api/types/responses/model/nft-response'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
 import { NftThumbnailPicture } from '@echo/ui/components/nft/thumbnail/nft-thumbnail-picture'
@@ -11,17 +12,16 @@ import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  nft: Nft
+  nft: Nft | NftResponse
   hideOwner?: boolean
-  linkDisabled?: boolean
 }
 
-export const NftThumbnail: FunctionComponent<Props> = ({ nft, linkDisabled, hideOwner }) => {
+export const NftThumbnail: FunctionComponent<Props> = ({ nft, hideOwner }) => {
   const { tokenId, thumbnailUrl, owner, collection, openSeaUrl } = nft
   const name = getNftName(nft)
   return (
-    <InternalLink path={links.collection.nft(nft.collection.slug, nft.tokenId)} disabled={linkDisabled}>
-      <div className={clsx('rounded-2xl', 'w-52', 'h-max', 'cursor-pointer', 'overflow-clip')}>
+    <InternalLink className={'outline-none'} path={links.collection.nft(collection.slug, tokenId)}>
+      <div className={clsx('rounded-2xl', 'w-52', 'h-max', 'overflow-clip')}>
         <div className={'relative'}>
           <NftThumbnailPicture alt={name} pictureUrl={thumbnailUrl} />
           <HideIf condition={Boolean(hideOwner)}>

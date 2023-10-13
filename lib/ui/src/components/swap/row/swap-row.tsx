@@ -10,12 +10,12 @@ interface Props {
 }
 
 export const SwapRow: FunctionComponent<Props> = ({ offer }) => {
-  const { sender, senderItems, receiverItems, receiver } = offer
+  const { senderItems, receiverItems } = offer
   return (
     <SwapRowLayout>
-      <OfferItemsContainer items={senderItems} discordUsername={sender.discord.username} />
+      <OfferItemsContainer items={senderItems} />
       <OfferRowSwapIcon />
-      <OfferItemsContainer items={receiverItems} discordUsername={receiver.discord.username} />
+      <OfferItemsContainer items={receiverItems} />
     </SwapRowLayout>
   )
 }

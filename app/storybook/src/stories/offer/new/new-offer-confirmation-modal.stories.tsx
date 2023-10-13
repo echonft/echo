@@ -17,7 +17,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['show', 'confirming', 'onClose', 'onConfirm']
+      exclude: ['receiverItems', 'senderItems', 'show', 'confirming', 'onClose', 'onConfirm']
     }
   }
 }

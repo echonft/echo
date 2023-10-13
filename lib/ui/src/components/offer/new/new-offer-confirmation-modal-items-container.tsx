@@ -1,7 +1,6 @@
-import { ItemThumbnail } from '@echo/ui/components/item/thumbnail/item-thumbnail'
+import { ItemThumbnailsContainer } from '@echo/ui/components/item/thumbnail/layout/item-thumbnails-container'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
-import { SizeMD } from '@echo/ui/constants/size'
 import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 import type { OfferItem } from '@echo/ui/types/model/offer-item'
 import { clsx } from 'clsx'
@@ -27,11 +26,7 @@ export const NewOfferConfirmationModalItemsContainer: FunctionComponent<Props> =
           title={tShared(isReceiver ? 'in' : 'out')}
         />
       </div>
-      <div className={clsx('flex', 'flex-row', 'gap-4', 'justify-center')}>
-        {items.map((item) => (
-          <ItemThumbnail item={item} key={item.nft.id} size={SizeMD} />
-        ))}
-      </div>
+      <ItemThumbnailsContainer items={items} centered={true} />
     </div>
   )
 }

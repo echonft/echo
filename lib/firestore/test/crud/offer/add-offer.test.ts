@@ -6,17 +6,19 @@ import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
+import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
 import { expectDateNumberIs } from '@echo/test-utils/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { errorMessage } from '@echo/utils/error/error-message'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertListingOffers } from '@test-utils/listing-offer/assert-listing-offers'
 import { assertOffers } from '@test-utils/offer/assert-offers'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
-import { head } from 'ramda'
+import { head, slice } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
   let createdOfferId: string
@@ -41,16 +43,22 @@ describe('CRUD - offer - addOffer', () => {
     await tearDownRemoteFirestoreTests()
   })
 
+  it('throws if the offer is a duplicate', async () => {
+    const { receiverItems, senderItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
+    await expect(addOffer(senderItems, receiverItems)).rejects.toBeDefined()
+  })
+
   it('add an offer', async () => {
-    const { receiver, receiverItems, sender, senderItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    const createdOffer = await addOffer(senderItems, receiverItems)
+    const { receiver, receiverItems, sender, senderItems } = getOfferMockById('ASkFpKoHEHVH0gd69t1G')
+    const newSenderItems = slice(0, 1, senderItems) as NonEmptyArray<FirestoreOfferItem>
+    const createdOffer = await addOffer(newSenderItems, receiverItems)
     createdOfferId = createdOffer.id
     const newOffer = (await findOfferById(createdOfferId))!
     expectDateNumberIsNow(newOffer.createdAt)
     expect(newOffer.receiver).toStrictEqual(receiver)
     expect(newOffer.receiverItems).toStrictEqual(receiverItems)
     expect(newOffer.sender).toStrictEqual(sender)
-    expect(newOffer.senderItems).toStrictEqual(senderItems)
+    expect(newOffer.senderItems).toStrictEqual(newSenderItems)
     expect(newOffer.state).toBe('OPEN')
     expectDateNumberIsNow(newOffer.updatedAt)
     expectDateNumberIs(newOffer.expiresAt)(dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'))

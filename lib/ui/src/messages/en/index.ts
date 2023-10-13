@@ -113,6 +113,20 @@ export const messages = {
         expirationValue: '7 days',
         emptySearch: 'No collections found',
         emptyTargets: 'To add a collection, type its name\nin the input above'
+      },
+      confirmationModal: {
+        title: 'Confirm Listing',
+        targetSubtitle: 'Target collection',
+        itemsSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',
+        confirmBtn: 'Confirm',
+        editBtn: 'Edit'
+      },
+      confirmedModal: {
+        title: 'Listing successfully created',
+        subtitle: 'Your listing was successfully created',
+        closeBtn: 'Close',
+        copyLinkBtn: 'Copy link',
+        linkCopied: 'Link copied!'
       }
     }
   },
@@ -198,9 +212,10 @@ export const messages = {
       },
       confirmedModal: {
         title: 'Offer successfully created',
-        subtitle: 'Your offer was successfully created, now you can contact your counterparty',
+        subtitle: 'Your offer was successfully created, you can now contact your counterparty',
         closeBtn: 'Close',
-        copyLinkBtn: 'Copy link'
+        copyLinkBtn: 'Copy link',
+        linkCopied: 'Link copied!'
       }
     },
     state: {

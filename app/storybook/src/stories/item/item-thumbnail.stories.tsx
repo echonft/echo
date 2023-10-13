@@ -7,27 +7,13 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     onRemove: {
-      defaultValue: 'false',
-      options: {
-        true: true,
-        false: undefined
-      },
-      control: { type: 'radio' },
-      action: 'removable'
-    },
-    size: {
-      defaultValue: 'Medium',
-      options: ['Medium', 'Large'],
-      control: { type: 'radio' }
-    },
-    discordUsername: {
-      defaultValue: undefined,
-      control: { type: 'text' }
+      control: false,
+      action: 'removed'
     }
   },
   parameters: {
     controls: {
-      exclude: ['item']
+      exclude: ['item', 'onRemove']
     }
   }
 }
@@ -40,24 +26,15 @@ type Story = StoryObj<typeof Component>
 export const Default: Story = {
   args: {
     item,
-    size: 'Medium',
-    discordUsername: undefined
+    onRemove: () => {
+      return
+    }
   }
 }
 
 export const NotRemovable: Story = {
   args: {
     item,
-    size: 'Medium',
     onRemove: undefined
-  }
-}
-
-export const UserDisplayed: Story = {
-  args: {
-    item,
-    size: 'Medium',
-    onRemove: undefined,
-    discordUsername: 'johnnycagewins'
   }
 }
