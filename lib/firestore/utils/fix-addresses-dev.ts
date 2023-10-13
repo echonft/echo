@@ -1,16 +1,16 @@
+import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
 import { getAllNfts } from '@echo/firestore/crud/nft/get-all-nfts'
-import { getAllNftCollections } from '@echo/firestore/crud/nft-collection/get-all-nft-collections'
 import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
 import { getAllWallets } from '@echo/firestore/crud/wallet/get-all-wallets'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { updateNftCollection } from '@echo/firestore-mocks/nft-collection/update-nft-collection'
 import type { Collection } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
+import { uncheckedUpdateCollection } from '@test-utils/collection/unchecked-update-collection'
 import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
 import { uncheckedUpdateNft } from '@test-utils/nft/unchecked-update-nft'
 import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
@@ -42,16 +42,16 @@ void (async function () {
     )(listing) as Listing
     await uncheckedUpdateListing(listing.id, updateData)
   }
-  // fix nft collections addresses
-  const nftCollections = await getAllNftCollections()
-  for (const nftCollection of nftCollections) {
+  // fix collections addresses
+  const collections = await getAllCollections()
+  for (const collection of collections) {
     const updateData = pipe(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       modify('contract', updateAddress),
       omit(['id'])
-    )(nftCollection) as Collection
-    await updateNftCollection(nftCollection.id, updateData)
+    )(collection) as Collection
+    await uncheckedUpdateCollection(collection.id, updateData)
   }
   // fix nfts addresses
   const nfts = await getAllNfts()

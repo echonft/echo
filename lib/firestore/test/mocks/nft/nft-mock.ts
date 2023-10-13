@@ -1,4 +1,4 @@
-import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
+import { getCollectionMockById } from '@echo/firestore-mocks/collection/get-collection-mock-by-id'
 import type { Nft } from '@echo/model/types/nft'
 import { getAddress } from 'viem'
 
@@ -17,7 +17,7 @@ export const nftMock: Record<string, Nft> = {
     ],
     balance: 1,
     blurUrl: 'https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/1376',
-    collection: getNftCollectionMockById('1aomCtnoesD7WVll6Yi1'),
+    collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #1376',
     owner: {
       discord: {
@@ -77,7 +77,7 @@ export const nftMock: Record<string, Nft> = {
     ],
     balance: 1,
     blurUrl: 'https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/2414',
-    collection: getNftCollectionMockById('1aomCtnoesD7WVll6Yi1'),
+    collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #2414',
     owner: {
       discord: {
@@ -137,7 +137,7 @@ export const nftMock: Record<string, Nft> = {
     ],
     balance: 1,
     blurUrl: 'https://blur.io/asset/0x320e2fa93A4010ba47edcdE762802374bac8d3F7/3035',
-    collection: getNftCollectionMockById('1aomCtnoesD7WVll6Yi1'),
+    collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #3035',
     owner: {
       discord: {
@@ -212,7 +212,7 @@ export const nftMock: Record<string, Nft> = {
       }
     ],
     balance: 1,
-    collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
+    collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Creative Demigod #024',
     owner: {
       discord: {
@@ -275,7 +275,7 @@ export const nftMock: Record<string, Nft> = {
       }
     ],
     balance: 1,
-    collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
+    collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Water Elemental #020',
     owner: {
       discord: {
@@ -342,7 +342,7 @@ export const nftMock: Record<string, Nft> = {
       }
     ],
     balance: 1,
-    collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
+    collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Creative Demigod #009',
     owner: {
       discord: {

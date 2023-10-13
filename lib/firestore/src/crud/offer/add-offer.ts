@@ -1,6 +1,6 @@
 import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
 import { addListingOffersFromOffer } from '@echo/firestore/crud/listing-offer/add-listing-offers-from-offer'
-import { getOffersCollection } from '@echo/firestore/helpers/collection/get-offers-collection'
+import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-a-duplicate'
 import { assertOfferItems } from '@echo/firestore/helpers/offer/assert/assert-offer-items'
 import type { Offer } from '@echo/model/types/offer'
@@ -13,7 +13,7 @@ export async function addOffer(
   senderItems: NonEmptyArray<OfferItem>,
   receiverItems: NonEmptyArray<OfferItem>
 ): Promise<Offer> {
-  const reference = getOffersCollection().doc()
+  const reference = getOffersCollectionReference().doc()
   assertOfferItems(receiverItems)
   assertOfferItems(senderItems)
   await assertOfferIsNotADuplicate(senderItems, receiverItems)

@@ -1,7 +1,7 @@
-import { getUsersCollection } from '@echo/firestore/helpers/collection/get-users-collection'
+import { getUsersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-users-collection-reference'
 import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/get-query-snapshot-document-snapshot'
 
 export async function getUserSnapshotByUsername(username: string) {
-  const querySnapshot = await getUsersCollection().where('username', '==', username).get()
+  const querySnapshot = await getUsersCollectionReference().where('username', '==', username).get()
   return getQuerySnapshotDocumentSnapshot(querySnapshot)
 }

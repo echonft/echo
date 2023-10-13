@@ -1,6 +1,6 @@
 import { listingFields } from '@echo/firestore/constants/fields/listing/listing-fields'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import { getListingsCollection } from '@echo/firestore/helpers/collection/get-listings-collection'
+import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { filterExpiredResults } from '@echo/firestore/helpers/crud/filter-expired-results'
 import { getQueryDocumentsData } from '@echo/firestore/helpers/crud/get-query-documents-data'
 import { addListingQueryFilters } from '@echo/firestore/helpers/crud/listing/add-listing-query-filters'
@@ -25,7 +25,7 @@ export async function getListingsForUserTarget(
 ): Promise<Listing[]> {
   const nfts = await getNftsForOwner(username)
   const collectionIds = pipe(map(path(['collection', 'id'])), uniq)(nfts)
-  let query = getListingsCollection()
+  let query = getListingsCollectionReference()
     .where('creator.username', '!=', username)
     .where('targetsIds', 'array-contains-any', collectionIds)
   query = addListingQueryFilters(query, filters)

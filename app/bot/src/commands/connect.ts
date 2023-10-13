@@ -1,6 +1,6 @@
 import { NoGuildIdError } from '@echo/bot/errors/no-guild-id-error'
 import { loginLink } from '@echo/bot/routing/login-link'
-import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection-discord-guild/find-nft-collection-by-discord-guild-discord-id'
+import { findCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/collection-discord-guild/find-collection-by-discord-guild-discord-id'
 import type { Collection } from '@echo/model/types/collection'
 import { andThenOtherwise } from '@echo/utils/fp/and-then-otherwise'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -32,7 +32,7 @@ export function executeConnect(interaction: CommandInteraction) {
           // TODO this is not gonna work for collections in the Echo server, so we need to change that
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          findNftCollectionByDiscordGuildDiscordId,
+          findCollectionByDiscordGuildDiscordId,
           andThenOtherwise(
             ifElse(
               isNil,

@@ -1,4 +1,4 @@
-import { getListingsCollection } from '@echo/firestore/helpers/collection/get-listings-collection'
+import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
 import { getListingOfferFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status'
 import { offerItemsIncludeListingTargets } from '@echo/firestore/helpers/offer/offer-items-include-listing-targets'
@@ -12,7 +12,7 @@ import { concat, eqProps, filter, map, path, pipe, uniqWith } from 'ramda'
 async function receiverItemsListingItemsMatch(offer: Offer) {
   const { receiverItems, senderItems } = offer
   // get the listings for which items intersect with the offer receiver items
-  const querySnapshot = await getListingsCollection()
+  const querySnapshot = await getListingsCollectionReference()
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), receiverItems))
     .get()
 
@@ -39,7 +39,7 @@ async function receiverItemsListingItemsMatch(offer: Offer) {
 async function senderItemsListingItemsMatch(offer: Offer) {
   const { receiverItems, senderItems } = offer
   // get the listings for which items intersect with the offer sender items
-  const querySnapshot = await getListingsCollection()
+  const querySnapshot = await getListingsCollectionReference()
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), senderItems))
     .get()
 

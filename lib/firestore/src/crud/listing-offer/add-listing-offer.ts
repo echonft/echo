@@ -1,6 +1,6 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import { getListingOffersCollection } from '@echo/firestore/helpers/collection/get-listing-offers-collection'
+import { getListingOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-offers-collection-reference'
 import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query-snapshot-is-empty'
 import type { ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
@@ -19,7 +19,7 @@ export async function addListingOffer(
   if (isNil(offer)) {
     throw Error(`trying to add a listing offer for offer id ${offerId} but this offer does not exist`)
   }
-  const querySnapshot = await getListingOffersCollection()
+  const querySnapshot = await getListingOffersCollectionReference()
     .where('listingId', '==', listingId)
     .where('offerId', '==', offerId)
     .get()
@@ -28,7 +28,7 @@ export async function addListingOffer(
       `trying to add a listing offer for listing id ${listingId} and offer id ${offerId} but this listing offer already exists`
     )
   }
-  const reference = getListingOffersCollection().doc()
+  const reference = getListingOffersCollectionReference().doc()
   const id = reference.id
   const newDocument: ListingOffer = { id, listingId, offerId, fulfillingStatus }
   await reference.set(newDocument)

@@ -1,7 +1,7 @@
 import { addListingPost } from '@echo/firestore/crud/listing-post/add-listing-post'
 import { deleteListingPost } from '@echo/firestore/crud/listing-post/delete-listing-post'
 import { findListingPostById } from '@echo/firestore/crud/listing-post/find-listing-post-by-id'
-import { expectDateIsNow } from '@echo/test-utils/expect-date-is-now'
+import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertListingPosts } from '@test-utils/listing-post/assert-listing-posts'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -21,12 +21,12 @@ describe('CRUD - listing-post - addListingPost', () => {
   it('add a listing post', async () => {
     const listingId = 'jUzMtPGKM62mMhEcmbN4'
     const { id } = await addListingPost(listingId, 'discordId', 'channelId')
-    const newDocument = await findListingPostById(id)
+    const newDocument = (await findListingPostById(id))!
     await deleteListingPost(id)
-    expect(newDocument!.id).toStrictEqual(id)
-    expect(newDocument!.listingId).toStrictEqual(listingId)
-    expect(newDocument!.guild.discordId).toStrictEqual('discordId')
-    expect(newDocument!.guild.channelId).toStrictEqual('channelId')
-    expectDateIsNow(newDocument!.postedAt)
+    expect(newDocument.id).toStrictEqual(id)
+    expect(newDocument.listingId).toStrictEqual(listingId)
+    expect(newDocument.guild.discordId).toStrictEqual('discordId')
+    expect(newDocument.guild.channelId).toStrictEqual('channelId')
+    expectDateNumberIsNow(newDocument.postedAt)
   })
 })

@@ -1,5 +1,5 @@
 import { listingFields } from '@echo/firestore/constants/fields/listing/listing-fields'
-import { getListingsCollection } from '@echo/firestore/helpers/collection/get-listings-collection'
+import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { filterExpiredResults } from '@echo/firestore/helpers/crud/filter-expired-results'
 import { getQueryDocumentsData } from '@echo/firestore/helpers/crud/get-query-documents-data'
 import { addListingQueryFilters } from '@echo/firestore/helpers/crud/listing/add-listing-query-filters'
@@ -13,7 +13,7 @@ export async function getListingsForNft(
   filters?: ListingQueryFilters,
   constraints?: QueryConstraints
 ): Promise<Listing[]> {
-  let query = getListingsCollection().where('itemsNftIds', 'array-contains', nftId)
+  let query = getListingsCollectionReference().where('itemsNftIds', 'array-contains', nftId)
   query = addListingQueryFilters(query, filters)
   query = addConstraintsToQuery(query, constraints, listingFields, true)
   const results = await getQueryDocumentsData(query)

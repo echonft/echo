@@ -1,5 +1,5 @@
 import { offerFields } from '@echo/firestore/constants/fields/offer/offer-fields'
-import { getOffersCollection } from '@echo/firestore/helpers/collection/get-offers-collection'
+import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { filterExpiredResults } from '@echo/firestore/helpers/crud/filter-expired-results'
 import { getQueryDocumentsData } from '@echo/firestore/helpers/crud/get-query-documents-data'
 import { addOfferQueryFilters } from '@echo/firestore/helpers/crud/offer/add-offer-query-filters'
@@ -13,7 +13,7 @@ export async function getOffersForSender(
   filters?: OfferQueryFilters,
   constraints?: QueryConstraints
 ): Promise<Offer[]> {
-  let query = getOffersCollection().where('sender.username', '==', senderUsername)
+  let query = getOffersCollectionReference().where('sender.username', '==', senderUsername)
   query = addOfferQueryFilters(query, filters)
   query = addConstraintsToQuery(query, constraints, offerFields, true)
   const results = await getQueryDocumentsData(query)

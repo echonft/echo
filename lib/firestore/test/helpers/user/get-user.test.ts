@@ -1,5 +1,5 @@
 import { getUser } from '@echo/firestore/helpers/user/get-user'
-import { mapWalletToWalletData } from '@echo/firestore/mappers/map-wallet-to-wallet-data'
+import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/map-wallet-document-data-to-wallet'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
@@ -8,7 +8,7 @@ import { getAddress } from 'viem'
 describe('helpers - user - getUser', () => {
   it('returns the user', () => {
     const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
-    const wallet = mapWalletToWalletData(getWalletMockById('i28NWtlxElPXCnO0c6BC'))
+    const wallet = mapWalletDocumentDataToWallet(getWalletMockById('i28NWtlxElPXCnO0c6BC'))
     expect(getUser(user, wallet)).toStrictEqual({
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',

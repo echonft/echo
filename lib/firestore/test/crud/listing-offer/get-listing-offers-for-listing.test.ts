@@ -1,7 +1,7 @@
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
+import { getCollectionMockById } from '@echo/firestore-mocks/collection/get-collection-mock-by-id'
 import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
-import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingItem } from '@echo/model/types/listing-item'
 import type { ListingTarget } from '@echo/model/types/listing-target'
@@ -19,7 +19,7 @@ describe('CRUD - listing-offer - getListingOffersForListing', () => {
 
   it('returns an empty array if the listing items do not match any offer', async () => {
     const items: ListingItem[] = [{ amount: 1, nft: getNftMockById('5SeF1NSN5uPUxtWSr516') }]
-    const targets: ListingTarget[] = [{ amount: 1, collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13') }]
+    const targets: ListingTarget[] = [{ amount: 1, collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13') }]
     const listing = { id: 'listing-id', items, targets } as Listing
     const offers = await getListingOffersForListing(listing)
     expect(offers).toEqual([])
@@ -41,7 +41,7 @@ describe('CRUD - listing-offer - getListingOffersForListing', () => {
       { amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') },
       { amount: 1, nft: getNftMockById('QFjMRNChUAHNswkRADXh') }
     ]
-    const targets: ListingTarget[] = [{ amount: 1, collection: getNftCollectionMockById('1aomCtnoesD7WVll6Yi1') }]
+    const targets: ListingTarget[] = [{ amount: 1, collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1') }]
     const listing = { id: listingId, items, targets } as Listing
     const listingOffers = await getListingOffersForListing(listing)
     expect(listingOffers.length).toEqual(2)
@@ -58,7 +58,7 @@ describe('CRUD - listing-offer - getListingOffersForListing', () => {
     const offerId2 = 'LyCfl6Eg7JKuD7XJ6IPi'
     const listingId = 'listing-id'
     const items: ListingItem[] = [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }]
-    const targets: ListingTarget[] = [{ amount: 3, collection: getNftCollectionMockById('1aomCtnoesD7WVll6Yi1') }]
+    const targets: ListingTarget[] = [{ amount: 3, collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1') }]
     const listing = { id: listingId, items, targets } as Listing
     const listingOffers = await getListingOffersForListing(listing)
     expect(listingOffers.length).toEqual(2)
@@ -75,7 +75,7 @@ describe('CRUD - listing-offer - getListingOffersForListing', () => {
     const offerId2 = 'LyCfl6Eg7JKuD7XJ6IPi'
     const listingId = 'listing-id'
     const items: ListingItem[] = [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }]
-    const targets: ListingTarget[] = [{ amount: 1, collection: getNftCollectionMockById('1aomCtnoesD7WVll6Yi1') }]
+    const targets: ListingTarget[] = [{ amount: 1, collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1') }]
     const listing = { id: listingId, items, targets } as Listing
     const listingOffers = await getListingOffersForListing(listing)
     expect(listingOffers.length).toEqual(2)

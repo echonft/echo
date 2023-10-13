@@ -1,5 +1,5 @@
-import { addNftCollection } from '@echo/firestore/crud/nft-collection/add-nft-collection'
-import { addNftCollectionDiscordGuild } from '@echo/firestore/crud/nft-collection-discord-guild/add-nft-collection-discord-guild'
+import { addCollection } from '@echo/firestore/crud/collection/add-collection'
+import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import type { Collection } from '@echo/model/types/collection'
@@ -32,7 +32,7 @@ const collectionToAdd: Omit<Collection, 'id'> = {
 
 void (async function () {
   initializeFirebase()
-  const newCollection = await addNftCollection(collectionToAdd)
-  await addNftCollectionDiscordGuild(newCollection.id, '1002691062374088794', '1032728052209295450')
+  const newCollection = await addCollection(collectionToAdd)
+  await addCollectionDiscordGuild(newCollection.id, '1002691062374088794', '1032728052209295450')
   await terminateFirestore()
 })()

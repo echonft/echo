@@ -1,5 +1,5 @@
 import type { CollectionResponse } from '@echo/api/types/responses/collection-response'
-import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
+import { getCollectionMockById } from '@echo/firestore-mocks/collection/get-collection-mock-by-id'
 import { getCollectionBySlug } from '@server/helpers/collection/get-collection-by-slug'
 import { getCollectionRequestHandler } from '@server/request-handlers/collection/get-collection-request-handler'
 import { mockRequest } from '@server-mocks/request-response'
@@ -18,7 +18,7 @@ describe('request-handlers - collection - getCollectionRequestHandler', () => {
   })
 
   it('returns the collection when it exists', async () => {
-    const collection = getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
+    const collection = getCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
     jest.mocked(getCollectionBySlug).mockResolvedValueOnce(collection)
     const req = mockRequest<never>()
     const res = await getCollectionRequestHandler(req, 'slug')

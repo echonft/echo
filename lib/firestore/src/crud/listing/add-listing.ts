@@ -1,6 +1,6 @@
 import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
 import { addListingOffersFromListing } from '@echo/firestore/crud/listing-offer/add-listing-offers-from-listing'
-import { getListingsCollection } from '@echo/firestore/helpers/collection/get-listings-collection'
+import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { assertListingIsNotADuplicate } from '@echo/firestore/helpers/listing/assert/assert-listing-is-not-a-duplicate'
 import { assertListingItems } from '@echo/firestore/helpers/listing/assert/assert-listing-items'
 import { assertListingTargets } from '@echo/firestore/helpers/listing/assert/assert-listing-targets'
@@ -18,7 +18,7 @@ export async function addListing(
   assertListingTargets(targets)
   assertListingItems(items)
   await assertListingIsNotADuplicate(items, targets)
-  const reference = getListingsCollection().doc()
+  const reference = getListingsCollectionReference().doc()
   const id = reference.id
   const now = dayjs().unix()
   const newListing: Listing = {

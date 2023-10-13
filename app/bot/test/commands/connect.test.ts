@@ -4,33 +4,33 @@ import { mockAndSetupChannel } from '@echo/bot-mocks/discord/channel-mock'
 import { setupBot } from '@echo/bot-mocks/discord/client-mock'
 import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'
 import { mockChatInputCommandInteraction } from '@echo/bot-mocks/discord/interaction-mock'
-import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection-discord-guild/find-nft-collection-by-discord-guild-discord-id'
-import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
-import { getAllNftCollectionDiscordGuildMocks } from '@echo/firestore-mocks/nft-collection-discord-guild/get-all-nft-collection-discord-guild-mocks'
+import { findCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/collection-discord-guild/find-collection-by-discord-guild-discord-id'
+import { getCollectionMockById } from '@echo/firestore-mocks/collection/get-collection-mock-by-id'
+import { getAllCollectionDiscordGuildMocks } from '@echo/firestore-mocks/collection-discord-guild/get-all-collection-discord-guild-mocks'
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { Client } from 'discord.js'
 import { find, isNil, pathEq } from 'ramda'
 
-jest.mock('@echo/firestore/crud/nft-collection-discord-guild/find-nft-collection-by-discord-guild-discord-id')
+jest.mock('@echo/firestore/crud/collection-discord-guild/find-collection-by-discord-guild-discord-id')
 
 describe('discord commands - connect', () => {
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  jest.mocked(findNftCollectionByDiscordGuildDiscordId).mockImplementation((guildId: string) => {
+  jest.mocked(findCollectionByDiscordGuildDiscordId).mockImplementation((guildId: string) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const collectionDiscordGuild = find(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       pathEq(['guild', 'discordId'], guildId),
-      getAllNftCollectionDiscordGuildMocks()
+      getAllCollectionDiscordGuildMocks()
     )
     if (isNil(collectionDiscordGuild)) {
       return Promise.reject('not found')
     }
-    return Promise.resolve(getNftCollectionMockById(collectionDiscordGuild.collectionId))
+    return Promise.resolve(getCollectionMockById(collectionDiscordGuild.collectionId))
   })
   let client: Client
   beforeEach(async () => {

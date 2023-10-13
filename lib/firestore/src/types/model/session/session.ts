@@ -1,7 +1,6 @@
-import type { Dayjs } from 'dayjs'
-
 export interface Session {
-  expires: Dayjs
+  expired: boolean
+  expires: number
   sessionToken: string
   userId: string
 }

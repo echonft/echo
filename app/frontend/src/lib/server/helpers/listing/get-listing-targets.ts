@@ -1,5 +1,5 @@
 import type { ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
-import { findNftCollectionById } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-id'
+import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
@@ -9,7 +9,7 @@ export function getListingTargets(listingTargetRequests: NonEmptyArray<ListingTa
   return Promise.all(
     map(async (item) => {
       const { collection, amount } = item
-      const foundCollection = await findNftCollectionById(collection.id)
+      const foundCollection = await findCollectionById(collection.id)
       if (isNil(foundCollection)) {
         throw new BadRequestError(
           `collection with id ${collection.id} not found in firestore while trying to get listing targets`

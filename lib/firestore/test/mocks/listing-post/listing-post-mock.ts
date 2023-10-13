@@ -1,5 +1,4 @@
 import type { ListingPost } from '@echo/firestore/types/model/listing-post/listing-post'
-import dayjs from 'dayjs'
 
 export const listingPostMock: Record<string, ListingPost> = {
   jXadAgs0rtUXZWfG9t0z: {
@@ -9,6 +8,6 @@ export const listingPostMock: Record<string, ListingPost> = {
       discordId: '1',
       channelId: '1'
     },
-    postedAt: dayjs.unix(1676984897)
+    postedAt: 1676984897
   }
 }

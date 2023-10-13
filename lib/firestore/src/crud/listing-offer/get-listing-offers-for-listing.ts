@@ -1,4 +1,4 @@
-import { getOffersCollection } from '@echo/firestore/helpers/collection/get-offers-collection'
+import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
 import { listingTargetsIncludeOfferReceiverItems } from '@echo/firestore/helpers/listing/listing-targets-include-offer-receiver-items'
 import { listingTargetsIncludeOfferSenderItems } from '@echo/firestore/helpers/listing/listing-targets-include-offer-sender-items'
@@ -13,7 +13,7 @@ import { concat, eqProps, filter, map, path, pipe, uniqWith } from 'ramda'
 async function receiverItemsMatch(listing: Listing) {
   const { items } = listing
   // get the offers for which the receiver items intersect with the listing items
-  const querySnapshot = await getOffersCollection()
+  const querySnapshot = await getOffersCollectionReference()
     .where('receiverItemsNftIds', 'array-contains-any', map(path(['nft', 'id']), items))
     .get()
 
@@ -40,7 +40,7 @@ async function receiverItemsMatch(listing: Listing) {
 async function senderItemsMatch(listing: Listing) {
   const { items } = listing
   // get the offers for which the sender items intersect with the listing items
-  const querySnapshot = await getOffersCollection()
+  const querySnapshot = await getOffersCollectionReference()
     .where('senderItemsNftIds', 'array-contains-any', map(path(['nft', 'id']), items))
     .get()
 

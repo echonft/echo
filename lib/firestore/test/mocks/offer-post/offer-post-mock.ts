@@ -1,5 +1,4 @@
 import type { OfferPost } from '@echo/firestore/types/model/offer-post/offer-post'
-import dayjs from 'dayjs'
 
 export const offerPostMock: Record<string, OfferPost> = {
   hot4VWDzd6ZRsC3nsvnb: {
@@ -9,6 +8,6 @@ export const offerPostMock: Record<string, OfferPost> = {
       discordId: '100',
       threadId: '1'
     },
-    postedAt: dayjs.unix(1676984897)
+    postedAt: 1676984897
   }
 }

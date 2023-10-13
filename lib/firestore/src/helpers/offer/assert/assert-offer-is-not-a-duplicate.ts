@@ -1,4 +1,4 @@
-import { getOffersCollection } from '@echo/firestore/helpers/collection/get-offers-collection'
+import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
 import type { Nft } from '@echo/model/types/nft'
 import type { OfferItem } from '@echo/model/types/offer-item'
@@ -24,7 +24,7 @@ export async function assertOfferIsNotADuplicate(
 ) {
   const receiverItemsNftIds = map(path(['nft', 'id']), receiverItems) as string[]
   const senderItemsNftIds = map(path(['nft', 'id']), senderItems) as string[]
-  const querySnapshot = await getOffersCollection()
+  const querySnapshot = await getOffersCollectionReference()
     .where('receiverItemsNftIds', '==', receiverItemsNftIds)
     .where('senderItemsNftIds', '==', senderItemsNftIds)
     .get()

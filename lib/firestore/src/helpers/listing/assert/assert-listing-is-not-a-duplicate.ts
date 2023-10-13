@@ -1,4 +1,4 @@
-import { getListingsCollection } from '@echo/firestore/helpers/collection/get-listings-collection'
+import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
 import type { ListingItem } from '@echo/model/types/listing-item'
 import type { ListingTarget } from '@echo/model/types/listing-target'
@@ -26,7 +26,7 @@ export async function assertListingIsNotADuplicate(
 ) {
   const targetIds = map(path(['collection', 'id']), targets) as string[]
   const itemIds = map(path(['nft', 'id']), items) as string[]
-  const querySnapshot = await getListingsCollection()
+  const querySnapshot = await getListingsCollectionReference()
     .where('targetsIds', '==', targetIds)
     .where('itemsNftIds', '==', itemIds)
     .get()
