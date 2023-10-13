@@ -20,11 +20,9 @@ interface Props {
   offer: Offer
   isReceiver: boolean
   token: string
-  // For testing purposes only
-  renderModal?: boolean
 }
 
-export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, token, renderModal = true }) => {
+export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, token }) => {
   const [updatedOffer, setUpdatedOffer] = useState(offer)
   const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
   const [modalShown, setModalShown] = useState(false)
@@ -96,7 +94,7 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
       </div>
       <OfferDetailsActionModal
         action={action!}
-        open={renderModal || modalShown}
+        open={modalShown}
         onClose={() => {
           setModalShown(false)
         }}

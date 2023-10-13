@@ -7,23 +7,14 @@ const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Details/Container',
   component: Component,
-  args: {
-    renderModal: false
-  },
   argTypes: {
     isReceiver: {
       control: { type: 'radio' }
-    },
-    // TODO Use exclude if possible
-    renderModal: {
-      table: {
-        disable: true
-      }
-    },
-    offer: {
-      table: {
-        disable: true
-      }
+    }
+  },
+  parameters: {
+    controls: {
+      exclude: ['offer', 'token']
     }
   }
 }

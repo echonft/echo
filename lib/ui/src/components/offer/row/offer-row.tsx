@@ -17,7 +17,7 @@ export const OfferRow: FunctionComponent<Props> = ({ offer }) => {
   const { state, receiver, receiverItems, sender, senderItems, role, expired } = offer
   const isReceiver = role === OfferRoleReceiver
   return (
-    <InternalLink path={links.offer.details(offer.id)}>
+    <InternalLink path={links.profile.offer(offer.id)}>
       <OfferRowLayout>
         <OfferRowHeader
           expired={expired}
