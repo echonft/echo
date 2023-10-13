@@ -22,11 +22,25 @@ import { useNetwork } from 'wagmi'
 interface Props {
   offer: Offer
   open: boolean
+  token: string
   onClose?: () => unknown
+  onSuccess?: () => unknown
+  onInvalidate?: () => unknown
+  onError?: (error: Error) => unknown
 }
 
-export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open, onClose }) => {
+export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
+  offer,
+  open,
+  token,
+  onClose,
+  onSuccess,
+  onInvalidate,
+  onError
+}) => {
   const t = useTranslations('offer.details.acceptModal')
+  // TODO Maybe we should add a line to check for the chain and if hes connected.
+  // Because if wallet is locked it doesn't show as connected.
   const { chain } = useNetwork()
   const [ownsAllAssets, setOwnsAllAssets] = useState<boolean>()
   const [approvalStatuses, setApprovalStatuses] = useState<ContractApprovalStatus[]>([])
@@ -42,6 +56,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
   const updateApprovalStatus = useCallback(
     (status: ContractApprovalStatus) =>
       setApprovalStatuses((statuses) => {
+        // TODO Functionnal program that shit!
         const index = findIndex(propEq(status.contract, 'contract'))(statuses)
         if (index === -1) {
           return append(status, statuses)
@@ -108,14 +123,25 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
               <ShowIfNil checks={getContractToApprove()}>
                 <HideIfNil
                   checks={chain?.id}
-                  render={(chainId) => <OfferDetailsAcceptModalAcceptButton offer={offer} chainId={chainId} />}
+                  render={(chainId) => (
+                    <OfferDetailsAcceptModalAcceptButton
+                      offer={offer}
+                      chainId={chainId}
+                      token={token}
+                      onSuccess={onSuccess}
+                      onError={onError}
+                    />
+                  )}
                 />
               </ShowIfNil>
             </>
           )}
         />
 
-        <ShowIf condition={!ownsAllAssets}>Reject button</ShowIf>
+        <ShowIf condition={!ownsAllAssets}>
+          {/*  TODO Need to have the invalidate call */}
+          <button onClick={onInvalidate}>Reject button</button>
+        </ShowIf>
       </div>
     </Modal>
   )

@@ -59,6 +59,13 @@ export const OfferDetails: FunctionComponent<Props> = ({
     // TODO Handle the execute case
     setAcceptModalShown(true)
   }
+
+  const onAcceptSuccess = () => {
+    void getOfferTrigger()
+    setAcceptModalShown(false)
+    setAction('ACCEPT')
+    setModalShown(true)
+  }
   const onDecline = () => {
     setAction(isCreator ? 'CANCEL' : 'REJECT')
     void updateOfferTrigger()
@@ -111,7 +118,14 @@ export const OfferDetails: FunctionComponent<Props> = ({
         }}
       />
       <Web3Provider>
-        <OfferDetailsAcceptModal offer={offer} open={acceptModalShown} onClose={() => setAcceptModalShown(false)} />
+        {/*  TODO Add error and invalidate case */}
+        <OfferDetailsAcceptModal
+          offer={offer}
+          open={acceptModalShown}
+          token={token}
+          onClose={() => setAcceptModalShown(false)}
+          onSuccess={onAcceptSuccess}
+        />
       </Web3Provider>
     </>
   )
