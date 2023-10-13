@@ -12,16 +12,19 @@ const metadata: Meta<typeof Component> = {
       control: { type: 'radio' }
     },
     expiresAt: {
-      defaultValue: dayjs().add(1, 'd'),
+      defaultValue: dayjs().add(1, 'd').unix(),
       options: {
-        '1 year ago': dayjs().subtract(1, 'year'),
-        '1 month ago': dayjs().subtract(1, 'month'),
-        '1 week ago': dayjs().subtract(1, 'week'),
-        'in 1 minute': dayjs().add(1, 'minute'),
-        'in 1 hour': dayjs().add(1, 'hour'),
-        'in 3 days': dayjs().add(3, 'days')
+        '1 year ago': dayjs().subtract(1, 'year').unix(),
+        '1 month ago': dayjs().subtract(1, 'month').unix(),
+        '1 week ago': dayjs().subtract(1, 'week').unix(),
+        'in 1 minute': dayjs().add(1, 'minute').unix(),
+        'in 1 hour': dayjs().add(1, 'hour').unix(),
+        'in 3 days': dayjs().add(3, 'days').unix()
       },
       control: { type: 'radio' }
+    },
+    expired: {
+      control: 'boolean'
     }
   }
 }
@@ -29,10 +32,11 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
+const expiresAt = dayjs().add(1, 'd').unix()
 
 export const Default: Story = {
   args: {
     state: 'OPEN',
-    expiresAt: dayjs().add(1, 'd')
+    expiresAt
   }
 }

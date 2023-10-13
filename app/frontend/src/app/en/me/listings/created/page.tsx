@@ -28,7 +28,7 @@ const ProfileListingsCreatedPage: FunctionComponent = async () => {
     throw Error()
   }
 
-  return <ProfileListingsCreatedApiProvided responses={data.listings} user={session.user} />
+  return <ProfileListingsCreatedApiProvided listings={data.listings} user={session.user} />
 }
 
 export default ProfileListingsCreatedPage

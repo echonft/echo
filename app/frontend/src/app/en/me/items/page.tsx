@@ -28,7 +28,7 @@ const ProfileNftsPage: FunctionComponent = async () => {
     throw Error()
   }
 
-  return <ProfileNftsApiProvided responses={data.nfts} user={session.user} />
+  return <ProfileNftsApiProvided nfts={data.nfts} user={session.user} />
 }
 
 export default ProfileNftsPage

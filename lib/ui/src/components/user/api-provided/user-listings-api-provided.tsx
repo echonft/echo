@@ -1,34 +1,27 @@
 'use client'
-import type { ListingResponse } from '@echo/api/types/responses/model/listing-response'
-import { HideIf } from '@echo/ui/components/base/utils/hide-if'
-import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
+import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { ListingRowsContainer } from '@echo/ui/components/listing/layout/container/listing-rows-container'
 import { UserNavigationLayout } from '@echo/ui/components/user/layout/user-navigation-layout'
 import { UserListingsEmpty } from '@echo/ui/components/user/listing/empty/user-listings-empty'
 import { NavigationListings } from '@echo/ui/constants/navigation-item'
-import { mapListingFromResponse } from '@echo/ui/mappers/from-api/map-listing-from-response'
 import { AuthUser } from '@echo/ui/types/model/auth-user'
-import { isEmpty, map } from 'ramda'
-import { type FunctionComponent, useMemo } from 'react'
+import { Listing } from '@echo/ui/types/model/listing'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   username: string
-  responses: ListingResponse[]
+  listings: Listing[]
   user: AuthUser | undefined
 }
 
-export const UserListingsApiProvided: FunctionComponent<Props> = ({ username, responses, user }) => {
-  const mappedListings = useMemo(() => map(mapListingFromResponse, responses), [responses])
-  const dataIsEmpty = isEmpty(mappedListings)
-
+export const UserListingsApiProvided: FunctionComponent<Props> = ({ username, listings, user }) => {
   return (
     <UserNavigationLayout username={username} activeNavigationItem={NavigationListings} user={user}>
-      <HideIf condition={dataIsEmpty}>
-        <ListingRowsContainer listings={mappedListings} />
-      </HideIf>
-      <ShowIf condition={dataIsEmpty}>
+      <HideIfEmpty checks={listings} render={(listings) => <ListingRowsContainer listings={listings} />} />
+      <ShowIfEmpty checks={listings}>
         <UserListingsEmpty username={username} />
-      </ShowIf>
+      </ShowIfEmpty>
     </UserNavigationLayout>
   )
 }

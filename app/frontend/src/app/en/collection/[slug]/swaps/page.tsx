@@ -32,7 +32,7 @@ const CollectionSwapsPage: FunctionComponent<Props> = async ({ params: { slug } 
     throw Error()
   }
 
-  return <CollectionSwapsApiProvided collectionSlug={slug} responses={data.offers} user={session?.user} />
+  return <CollectionSwapsApiProvided collectionSlug={slug} offers={data.offers} user={session?.user} />
 }
 
 export default CollectionSwapsPage

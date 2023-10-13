@@ -34,7 +34,7 @@ const UserListingsPage: FunctionComponent<Props> = async ({ params: { username }
     throw Error()
   }
 
-  return <UserListingsApiProvided username={username} responses={data.listings} user={session?.user} />
+  return <UserListingsApiProvided username={username} listings={data.listings} user={session?.user} />
 }
 
 export default UserListingsPage

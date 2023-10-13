@@ -34,7 +34,7 @@ const CollectionListingsPage: FunctionComponent<Props> = async ({ params: { slug
     throw Error()
   }
 
-  return <CollectionListingsApiProvided collectionSlug={slug} responses={data.listings} user={session?.user} />
+  return <CollectionListingsApiProvided collectionSlug={slug} listings={data.listings} user={session?.user} />
 }
 
 export default CollectionListingsPage

@@ -47,13 +47,7 @@ const NftPage: FunctionComponent<Props> = async ({ params: { slug, tokenId } }) 
     )
   }
 
-  return (
-    <NftDetailsApiProvided
-      nftResponse={data.nft}
-      listingsResponses={listingsData?.listings ?? []}
-      user={session?.user}
-    />
-  )
+  return <NftDetailsApiProvided nft={data.nft} listings={listingsData?.listings ?? []} user={session?.user} />
 }
 
 export default NftPage

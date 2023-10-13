@@ -11,7 +11,6 @@ import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/of
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
 import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
-import { mapOfferFromResponse } from '@echo/ui/mappers/from-api/map-offer-from-response'
 import type { Offer } from '@echo/ui/types/model/offer'
 import { clsx } from 'clsx'
 import { type FunctionComponent, useCallback, useState } from 'react'
@@ -39,7 +38,7 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, token
     getOffer,
     {
       onSuccess: (data) => {
-        setUpdatedOffer(mapOfferFromResponse(data.offer))
+        setUpdatedOffer(data.offer)
       }
     }
   )

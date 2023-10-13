@@ -35,7 +35,7 @@ const OfferPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: 
     }
     throw Error()
   }
-  return <OfferDetailsApiProvided offerResponse={data.offer} user={session.user} />
+  return <OfferDetailsApiProvided offer={data.offer} user={session.user} />
 }
 
 export default OfferPage

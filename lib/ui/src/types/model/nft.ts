@@ -2,7 +2,6 @@ import type { Collection } from '@echo/ui/types/model/collection'
 import type { NftAttribute } from '@echo/ui/types/model/nft-attribute'
 import type { NftTokenType } from '@echo/ui/types/model/nft-token-type'
 import type { User } from '@echo/ui/types/model/user'
-import { Dayjs } from 'dayjs'
 
 export interface Nft {
   id: string
@@ -17,5 +16,5 @@ export interface Nft {
   thumbnailUrl: string
   tokenId: number
   tokenType: NftTokenType
-  updatedAt: Dayjs
+  updatedAt: number
 }

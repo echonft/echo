@@ -31,7 +31,7 @@ const CollectionNftsPage: FunctionComponent<Props> = async ({ params: { slug } }
     throw Error()
   }
 
-  return <CollectionNftsApiProvided collectionSlug={slug} responses={data.nfts} user={session?.user} />
+  return <CollectionNftsApiProvided collectionSlug={slug} nfts={data.nfts} user={session?.user} />
 }
 
 export default CollectionNftsPage

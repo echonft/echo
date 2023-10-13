@@ -31,7 +31,7 @@ const UserNftsPage: FunctionComponent<Props> = async ({ params: { username } }) 
     throw Error()
   }
 
-  return <UserNftsApiProvided username={username} responses={data.nfts} user={session?.user} />
+  return <UserNftsApiProvided username={username} nfts={data.nfts} user={session?.user} />
 }
 
 export default UserNftsPage

@@ -32,7 +32,7 @@ const UserSwapsPage: FunctionComponent<Props> = async ({ params: { username } })
     throw Error()
   }
 
-  return <UserSwapsApiProvided username={username} responses={data.offers} user={session?.user} />
+  return <UserSwapsApiProvided username={username} offers={data.offers} user={session?.user} />
 }
 
 export default UserSwapsPage
