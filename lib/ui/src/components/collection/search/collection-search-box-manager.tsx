@@ -2,20 +2,23 @@ import { CollectionSearchBox } from '@echo/ui/components/collection/search/colle
 import type { Collection } from '@echo/ui/types/model/collection'
 import { stringIncludes } from '@echo/utils/fp/string-includes'
 import { filter, isNil, pipe, prop, toLower } from 'ramda'
-import { forwardRef, type ForwardRefRenderFunction, useCallback, useEffect, useRef, useState } from 'react'
+import { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 
 interface Props {
   placeholder: string
   options: Collection[] | undefined
-  selectedOptions: Collection[]
+  selectedOption: Collection | undefined
   name?: string
-  onSelectionChange?: (selection: Collection[]) => unknown
+  onSelectionChange?: (selection: Collection | undefined) => unknown
 }
 
-const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
-  { placeholder, name, options, onSelectionChange, selectedOptions },
-  ref
-) => {
+export const CollectionSearchBoxManager: FunctionComponent<Props> = ({
+  placeholder,
+  name,
+  options,
+  onSelectionChange,
+  selectedOption
+}) => {
   const [searching, setSearching] = useState(false)
   const [filteredOptions, setFilteredOptions] = useState<Collection[]>()
   const filterOptions = useCallback(
@@ -47,6 +50,8 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
         setFilteredOptions(undefined)
         timeoutRef.current = undefined
       }, 200)
+    } else {
+      setFilteredOptions(undefined)
     }
   }
 
@@ -54,9 +59,8 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
     <CollectionSearchBox
       placeholder={placeholder}
       name={name}
-      ref={ref}
       options={filteredOptions}
-      selectedOptions={selectedOptions}
+      selectedOption={selectedOption}
       searching={searching}
       onSearch={filterOptions}
       onSearchClear={resetOptions}
@@ -64,5 +68,3 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
     />
   )
 }
-
-export const CollectionSearchBoxManager = forwardRef(Component)

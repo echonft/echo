@@ -3,7 +3,7 @@ import { CollectionSearchComboboxInputClearButton } from '@echo/ui/components/co
 import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { isEmpty, isNil } from 'ramda'
-import { forwardRef, type ForwardRefRenderFunction, useCallback } from 'react'
+import { FunctionComponent, useCallback } from 'react'
 import { debounce } from 'throttle-debounce'
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
   onClear?: () => unknown
 }
 
-const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = ({ placeholder, onClear, onSearch }, ref) => {
+export const CollectionSearchComboboxInput: FunctionComponent<Props> = ({ placeholder, onClear, onSearch }) => {
   const search = useCallback(
     (searchQuery: string) => {
       if (isEmpty(searchQuery)) {
@@ -28,19 +28,13 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = ({ placeho
   const debouncedClear = isNil(onClear) ? undefined : debounce(200, onClear)
 
   return (
-    <Combobox.Button
-      as={'div'}
-      className={clsx('relative', 'items-center', 'bg-dark-400', 'rounded-lg', 'w-full')}
-      ref={ref}
-    >
+    <Combobox.Button as={'div'} className={clsx('relative', 'items-center', 'bg-dark-400', 'rounded-lg', 'w-full')}>
       <span className={clsx('text-yellow-500', 'absolute', 'left-2.5', 'top-2')}>
         <SearchIconSvg />
       </span>
       <CollectionSearchComboboxInputClearButton
         className={clsx('absolute', 'right-2.5', 'top-2.5')}
-        onClick={() => {
-          debouncedClear?.()
-        }}
+        onClick={debouncedClear}
       />
       <Combobox.Input
         className={clsx(
@@ -54,6 +48,9 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = ({ placeho
           'placeholder:text-white/50',
           'outline-none'
         )}
+        onBlur={() => {
+          onClear?.()
+        }}
         onChange={(event) => {
           debouncedSearch(event.target.value)
         }}
@@ -62,5 +59,3 @@ const Component: ForwardRefRenderFunction<HTMLButtonElement, Props> = ({ placeho
     </Combobox.Button>
   )
 }
-
-export const CollectionSearchComboboxInput = forwardRef(Component)

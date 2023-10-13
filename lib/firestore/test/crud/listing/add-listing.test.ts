@@ -5,17 +5,19 @@ import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id
 import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
 import { getListingOffersByListingId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-listing-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
+import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
 import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
 import { expectDateNumberIs } from '@echo/test-utils/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { errorMessage } from '@echo/utils/error/error-message'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertListings } from '@test-utils/listing/assert-listings'
 import { assertListingOffers } from '@test-utils/listing-offer/assert-listing-offers'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
-import { find, map, omit, prop, propEq } from 'ramda'
+import { find, map, omit, prop, propEq, slice } from 'ramda'
 
 describe('CRUD - listing - addListing', () => {
   let createdListingId: string
@@ -43,13 +45,19 @@ describe('CRUD - listing - addListing', () => {
     await tearDownRemoteFirestoreTests()
   })
 
+  it('throws if the listing is a duplicate', async () => {
+    const { items, targets } = getListingMockById('jUzMtPGKM62mMhEcmbN4')
+    await expect(addListing(items, targets)).rejects.toBeDefined()
+  })
+
   it('add a listing', async () => {
     const { creator, items, targets } = getListingMockById('jUzMtPGKM62mMhEcmbN4')
-    const createdListing = await addListing(items, targets)
+    const newItems = slice(0, 1, items) as NonEmptyArray<FirestoreListingItem>
+    const createdListing = await addListing(newItems, targets)
     createdListingId = createdListing.id
     const newListing = (await findListingById(createdListingId))!
     expect(newListing.creator).toStrictEqual(creator)
-    expect(newListing.items).toStrictEqual(items)
+    expect(newListing.items).toStrictEqual(newItems)
     expect(newListing.state).toBe('OPEN')
     expect(newListing.targets).toStrictEqual(targets)
     expectDateNumberIsNow(newListing.updatedAt)

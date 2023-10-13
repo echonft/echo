@@ -9,14 +9,36 @@ export interface BottomSliderTitleProps {
 
 export const BottomSliderTitle: FunctionComponent<BottomSliderTitleProps> = ({ title, count }) => (
   <div className={clsx('flex', 'items-center', 'justify-between', 'gap-2.5')}>
-    <span className={clsx('prose-label-lg-semi', 'text-transparent', 'bg-main-gradient', 'bg-clip-text', 'uppercase')}>
+    <span
+      className={clsx(
+        'prose-label-lg-semi',
+        'text-transparent',
+        'bg-main-gradient',
+        'bg-clip-text',
+        'uppercase',
+        'select-none'
+      )}
+    >
       {title}
     </span>
-
     <HideIfNil
       checks={count}
       render={(count) => (
-        <span className={clsx('px-2', 'bg-dark-300', 'rounded-lg', 'prose-header-xs', 'text-white')}>{count}</span>
+        <div className={clsx('w-7', 'h-7', 'bg-dark-300', 'rounded-lg', 'relative')}>
+          <span
+            className={clsx(
+              'prose-header-xs',
+              '!leading-7',
+              'text-white',
+              'absolute',
+              'inset-0',
+              'text-center',
+              'select-none'
+            )}
+          >
+            {count}
+          </span>
+        </div>
       )}
     />
   </div>

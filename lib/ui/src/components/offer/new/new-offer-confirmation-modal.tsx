@@ -5,6 +5,7 @@ import { NewOfferConfirmationModalItemsContainer } from '@echo/ui/components/off
 import { OfferItem } from '@echo/ui/types/model/offer-item'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { isEmpty } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -26,13 +27,15 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.new.confirmationModal')
 
+  if (isEmpty(receiverItems) || isEmpty(senderItems)) {
+    return null
+  }
+
   return (
     <Modal open={Boolean(show)} closeDisabled={confirming} onClose={() => onClose?.()} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
-        <div className={clsx('flex', 'flex-col', 'gap-6')}>
-          <NewOfferConfirmationModalItemsContainer isReceiver items={receiverItems} />
-          <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
-        </div>
+        <NewOfferConfirmationModalItemsContainer isReceiver={true} items={receiverItems} />
+        <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
         <NewOfferConfirmationModalItemsContainer isReceiver={false} items={senderItems} />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
           <button className={clsx('btn-action', 'btn-size-alt', 'group')} disabled={confirming} onClick={onClose}>

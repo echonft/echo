@@ -1,11 +1,11 @@
-import { mapOfferItemsToRequests } from '@echo/ui/mappers/to-api/map-offer-items-to-requests'
+import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
 import { OfferItem } from '@echo/ui/types/model/offer-item'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 import { assocPath } from 'ramda'
 import { getAddress } from 'viem'
 
-describe('mappers - to-api - mapOfferItemsToRequests', () => {
+describe('mappers - to-api - mapItemsToRequests', () => {
   it('maps correctly', () => {
     const offerItem: OfferItem = {
       amount: 1,
@@ -64,7 +64,7 @@ describe('mappers - to-api - mapOfferItemsToRequests', () => {
         updatedAt: dayjs.unix(1676984897)
       }
     }
-    expect(mapOfferItemsToRequests([offerItem, assocPath(['nft', 'id'], 'offer-item-2', offerItem)])).toStrictEqual([
+    expect(mapItemsToRequests([offerItem, assocPath(['nft', 'id'], 'offer-item-2', offerItem)])).toStrictEqual([
       {
         amount: 1,
         nft: {

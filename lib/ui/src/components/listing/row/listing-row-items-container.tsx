@@ -1,4 +1,4 @@
-import { NftsContainer } from '@echo/ui/components/nft/layout/container/nfts-container'
+import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { DirectionOut } from '@echo/ui/constants/swap-direction'
 import type { ListingItem } from '@echo/ui/types/model/listing-item'

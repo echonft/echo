@@ -3,7 +3,7 @@ import { getCollectionById } from '@mocks/model/collection'
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Listing/New Listing Search Collection Option',
+  title: 'Listing/New/Search Collection Option',
   component: Component
 }
 

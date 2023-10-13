@@ -14,10 +14,10 @@ import { forEach } from 'ramda'
 
 export async function createListingRequestHandler(req: ApiRequest<CreateListingRequest>) {
   const requestBody = await req.json()
-  const { items, targets } = parseCreateListingRequest(requestBody)
+  const { items, target } = parseCreateListingRequest(requestBody)
   const creator = await getUserFromRequest(req)
   const listingItems = await getListingItems(items)
-  const listingTargets = await getListingTargets(targets)
+  const listingTargets = await getListingTargets([target])
   // make sure the creator is the owner of every item
   forEach((item: FirestoreListingItem) => {
     assertNftOwner(item.nft, creator.username)

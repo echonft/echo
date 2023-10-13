@@ -3,16 +3,16 @@ import { CollectionSearchNoResults } from '@echo/ui/components/collection/search
 import { NewListingSearchCollectionOptionSkeleton } from '@echo/ui/components/listing/new/skeleton/new-listing-search-collection-option-skeleton'
 import type { Collection } from '@echo/ui/types/model/collection'
 import { Combobox } from '@headlessui/react'
-import { any, isEmpty, isNil, map, propEq } from 'ramda'
+import { isEmpty, isNil, map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
   options: Collection[] | undefined
-  selectedOptions: Collection[]
+  selectedOption: Collection | undefined
   searching: boolean
 }
 
-export const CollectionSearchBoxOptions: FunctionComponent<Props> = ({ options, selectedOptions, searching }) => {
+export const CollectionSearchBoxOptions: FunctionComponent<Props> = ({ options, selectedOption, searching }) => {
   if (isNil(options)) {
     if (searching) {
       return (
@@ -35,7 +35,7 @@ export const CollectionSearchBoxOptions: FunctionComponent<Props> = ({ options, 
           <Combobox.Option value={collection} key={collection.id} className={'cursor-pointer'}>
             <CollectionSearchCollectionOption
               pictureUrl={collection.profilePictureUrl}
-              selected={any(propEq(collection.id, 'id'), selectedOptions)}
+              selected={!isNil(selectedOption) && collection.id === selectedOption.id}
               collectionName={collection.name}
               collectionSupply={collection.totalSupply}
             />

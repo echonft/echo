@@ -1,21 +1,15 @@
 import { OfferItemResponse } from '@echo/api/types/responses/model/offer-item-response'
-import { ItemThumbnail } from '@echo/ui/components/item/thumbnail/item-thumbnail'
-import { OfferItemsContainerLayout } from '@echo/ui/components/offer/layout/offer-items-container-layout'
-import { SizeLG } from '@echo/ui/constants/size'
+import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
 import type { OfferItem } from '@echo/ui/types/model/offer-item'
+import { map, prop } from 'ramda'
 import type { FunctionComponent } from 'react'
+import { useMemo } from 'react'
 
 interface Props {
   items: OfferItem[] | OfferItemResponse[]
-  discordUsername?: string
 }
 
-export const OfferItemsContainer: FunctionComponent<Props> = ({ items, discordUsername }) => {
-  return (
-    <OfferItemsContainerLayout>
-      {items.map((item) => (
-        <ItemThumbnail item={item} key={item.nft.id} size={SizeLG} discordUsername={discordUsername} />
-      ))}
-    </OfferItemsContainerLayout>
-  )
+export const OfferItemsContainer: FunctionComponent<Props> = ({ items }) => {
+  const nfts = useMemo(() => map(prop('nft'), items as OfferItem[]), [items])
+  return <NftsContainer nfts={nfts} />
 }

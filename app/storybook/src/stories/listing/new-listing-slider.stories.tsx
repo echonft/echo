@@ -1,10 +1,14 @@
+import { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
+import { ListingResponse } from '@echo/api/types/responses/model/listing-response'
 import { NewListingSliderManager as Component } from '@echo/ui/components/listing/new/new-listing-slider-manager'
+import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { getAllCollections } from '@mocks/model/collection'
 import { getListingById } from '@mocks/model/listing'
 import { Meta, StoryObj } from '@storybook/react'
+import { head } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Listing/New Listing Bottom Slider',
+  title: 'Listing/New/Bottom Slider',
   component: Component,
   argTypes: {
     onDismiss: {
@@ -14,7 +18,15 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['collectionProvider', 'show', 'onDismiss', 'initialTargets', 'initialItems']
+      exclude: [
+        'createListingFetcher',
+        'collectionProvider',
+        'show',
+        'onDismiss',
+        'initialTargets',
+        'initialItems',
+        'user'
+      ]
     }
   }
 }
@@ -22,49 +34,67 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
+const listing = getListingById('jUzMtPGKM62mMhEcmbN4')
+const createListingFetcher = (_parameters: CreateListingRequest, _token: string | undefined) =>
+  delayPromise(
+    Promise.resolve({
+      listing: listing as unknown as ListingResponse
+    })
+  )
 const collectionProvider = {
-  get: () => Promise.resolve(getAllCollections())
+  get: () => delayPromise(Promise.resolve(getAllCollections()))
 }
-const { targets, items } = getListingById('jUzMtPGKM62mMhEcmbN4')
+const { targets, items } = listing
+const target = head(targets)
 
 export const Empty: Story = {
   args: {
+    createListingFetcher,
     collectionProvider,
-    show: true
+    show: true,
+    user: undefined
   }
 }
 
 export const Loading: Story = {
   args: {
+    createListingFetcher,
     collectionProvider: {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       get: () => new Promise(() => {})
     },
-    show: true
+    show: true,
+    user: undefined
   }
 }
 
-export const WithTargets: Story = {
+export const WithTarget: Story = {
   args: {
+    createListingFetcher,
     collectionProvider,
     show: true,
-    initialTargets: targets
+    initialTarget: target,
+    user: undefined
   }
 }
 
 export const WithItems: Story = {
   args: {
+    createListingFetcher,
     collectionProvider,
     show: true,
-    initialItems: items
+    initialItems: items,
+    user: undefined
   }
 }
 
-export const WithTargetsAndItems: Story = {
+export const WithTargetAndItems: Story = {
   args: {
+    createListingFetcher,
     collectionProvider,
     show: true,
-    initialTargets: targets,
-    initialItems: items
+    initialTarget: target,
+    initialItems: items,
+    user: undefined
   }
 }

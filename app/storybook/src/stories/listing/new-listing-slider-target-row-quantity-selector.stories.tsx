@@ -3,7 +3,7 @@ import { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Listing/New Listing Target Row Quantity Selector',
+  title: 'Listing/New/Target Row',
   component: Component
 }
 
@@ -11,7 +11,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Default: Story = {
+export const QuantitySelector: Story = {
   render: () => {
     const [quantity, setQuantity] = useState(1)
     return <Component quantity={quantity} onQuantityChange={setQuantity} />

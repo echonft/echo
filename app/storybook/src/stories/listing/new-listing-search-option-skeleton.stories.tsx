@@ -2,7 +2,7 @@ import { NewListingSearchCollectionOptionSkeleton as Component } from '@echo/ui/
 import { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Listing/New Listing Search Collection Option',
+  title: 'Listing/New/Search Collection Option',
   component: Component
 }
 

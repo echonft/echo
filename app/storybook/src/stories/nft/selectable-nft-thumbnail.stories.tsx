@@ -14,7 +14,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['nft', 'linkDisabled']
+      exclude: ['nft']
     }
   }
 }
@@ -28,14 +28,6 @@ export const Default: Story = {
   args: {
     nft,
     linkDisabled: true
-  }
-}
-
-export const OwnerHidden: Story = {
-  args: {
-    nft,
-    linkDisabled: true,
-    hideOwner: true
   }
 }
 

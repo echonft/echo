@@ -12,14 +12,12 @@ describe('validators - createListingSchema', () => {
         }
       }
     ],
-    targets: [
-      {
-        amount: 1,
-        collection: {
-          id: 'collection-id'
-        }
+    target: {
+      amount: 1,
+      collection: {
+        id: 'collection-id'
       }
-    ]
+    }
   }
   it('throws if items are not valid', () => {
     expect(() => createListingSchema.parse(dissoc('items', validRequest))).toThrow()
@@ -40,14 +38,50 @@ describe('validators - createListingSchema', () => {
     ).toThrow()
   })
   it('throws if targets are not valid', () => {
-    expect(() => createListingSchema.parse(dissoc('targets', validRequest))).toThrow()
-    expect(() => createListingSchema.parse(assoc('targets', [], validRequest))).toThrow()
+    expect(() => createListingSchema.parse(dissoc('target', validRequest))).toThrow()
+    expect(() => createListingSchema.parse(assoc('target', undefined, validRequest))).toThrow()
     expect(() =>
       createListingSchema.parse(
         assoc(
-          'targets',
+          'target',
           {
             amount: 1,
+            collection: {}
+          },
+          validRequest
+        )
+      )
+    ).toThrow()
+    expect(() =>
+      createListingSchema.parse(
+        assoc(
+          'target',
+          {
+            amount: 1
+          },
+          validRequest
+        )
+      )
+    ).toThrow()
+    expect(() =>
+      createListingSchema.parse(
+        assoc(
+          'target',
+          {
+            collection: {
+              id: 'collection-id'
+            }
+          },
+          validRequest
+        )
+      )
+    ).toThrow()
+    expect(() =>
+      createListingSchema.parse(
+        assoc(
+          'target',
+          {
+            amount: 0,
             collection: {
               id: 'collection-id'
             }
