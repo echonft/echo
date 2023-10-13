@@ -15,7 +15,7 @@ export const NewListingConfirmationModalTargetContainer: FunctionComponent<Props
   const { amount, collection } = target
 
   const t = useTranslations('listing.new.confirmationModal')
-  const tShared = useTranslations('shared.assets')
+  const tShared = useTranslations('assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center')}>

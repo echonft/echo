@@ -157,7 +157,7 @@
         @apply btn bg-purple-400 gap-2.5
     }
     .btn-cancel {
-        @apply btn bg-red-400
+        @apply btn bg-red-400 enabled:hover:bg-red-600
     }
     .btn-label {
         @apply h-max w-max truncate

@@ -16,7 +16,7 @@ interface Props {
 
 export const NewListingSliderTargetContainer: FunctionComponent<Props> = ({ target, onEdit, onRemove }) => {
   const t = useTranslations('listing.new.bottomSlider')
-  const tShared = useTranslations('shared.assets')
+  const tShared = useTranslations('assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-11')}>
       <SwapDirectionHeader direction={DirectionIn} title={tShared('in')} />

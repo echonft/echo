@@ -1,4 +1,8 @@
 export const messages = {
+  assets: {
+    in: 'Going in',
+    out: 'Going out'
+  },
   collection: {
     button: {
       create: 'Make an offer',
@@ -91,6 +95,10 @@ export const messages = {
     }
   },
   listing: {
+    assets: {
+      in: 'Looking for',
+      out: 'Offering'
+    },
     details: {
       expiresAt: 'Expires in',
       expiredAt: 'Expired',
@@ -167,6 +175,10 @@ export const messages = {
   },
   offer: {
     details: {
+      assets: {
+        in: 'Getting in your wallet',
+        out: 'Leaving your wallet'
+      },
       expiresAt: 'Expires in',
       expiredAt: 'Expired',
       acceptBtn: 'Accept',
@@ -289,12 +301,6 @@ export const messages = {
           label: 'Add Wallet'
         }
       }
-    }
-  },
-  shared: {
-    assets: {
-      in: 'Going in',
-      out: 'Going out'
     }
   },
   user: {

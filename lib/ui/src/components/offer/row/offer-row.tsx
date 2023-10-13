@@ -4,6 +4,7 @@ import { OfferRowSwapContainerLayout } from '@echo/ui/components/offer/layout/of
 import { OfferRowLayout } from '@echo/ui/components/offer/row/layout/offer-row-layout'
 import { OfferRowHeader } from '@echo/ui/components/offer/row/offer-row-header'
 import { OfferRowSwapIcon } from '@echo/ui/components/offer/row/offer-row-swap-icon'
+import { AlignmentRight } from '@echo/ui/constants/alignment'
 import { links } from '@echo/ui/constants/links'
 import { OfferRoleReceiver } from '@echo/ui/constants/offer-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -27,7 +28,7 @@ export const OfferRow: FunctionComponent<Props> = ({ offer }) => {
         <OfferRowSwapContainerLayout>
           <OfferItemsContainer items={isReceiver ? receiverItems : senderItems} />
           <OfferRowSwapIcon />
-          <OfferItemsContainer items={isReceiver ? senderItems : receiverItems} />
+          <OfferItemsContainer items={isReceiver ? senderItems : receiverItems} alignment={AlignmentRight} />
         </OfferRowSwapContainerLayout>
       </OfferRowLayout>
     </InternalLink>

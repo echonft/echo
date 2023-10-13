@@ -21,7 +21,7 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offerRespons
       <PaddedContainer>
         <OfferDetails
           offer={offer}
-          isReceiver={user.username === offerResponse.receiver?.username}
+          isCreator={user.username === offerResponse.sender?.username}
           token={user.sessionToken}
         />
       </PaddedContainer>

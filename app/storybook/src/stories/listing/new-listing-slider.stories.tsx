@@ -56,18 +56,6 @@ export const Empty: Story = {
   }
 }
 
-export const Loading: Story = {
-  args: {
-    createListingFetcher,
-    collectionProvider: {
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      get: () => new Promise(() => {})
-    },
-    show: true,
-    user: undefined
-  }
-}
-
 export const WithTarget: Story = {
   args: {
     createListingFetcher,

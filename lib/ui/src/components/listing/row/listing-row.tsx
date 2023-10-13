@@ -29,9 +29,7 @@ export const ListingRow: FunctionComponent<Props> = ({ listing }) => {
         </div>
       </div>
       <div className={clsx('flex', 'flex-row', 'grow')}>
-        <div className={clsx('flex', 'flex-row-reverse', 'grow', 'basis-0')}>
-          <ListingRowItemsContainer items={listing.items} />
-        </div>
+        <ListingRowItemsContainer items={listing.items} />
         <div className={clsx('flex', 'self-stretch', 'flex-none', 'py-6')}>
           <span
             className={clsx(
@@ -45,9 +43,7 @@ export const ListingRow: FunctionComponent<Props> = ({ listing }) => {
             )}
           />
         </div>
-        <div className={clsx('flex', 'grow', 'basis-0')}>
-          <ListingRowTargetsContainer targets={listing.targets} />
-        </div>
+        <ListingRowTargetsContainer targets={listing.targets} />
       </div>
     </div>
   )

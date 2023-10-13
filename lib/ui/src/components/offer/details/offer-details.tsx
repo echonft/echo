@@ -10,6 +10,7 @@ import { offerDetailsContainerBackgroundImage } from '@echo/ui/components/offer/
 import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
+import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 import { mapOfferFromResponse } from '@echo/ui/mappers/from-api/map-offer-from-response'
 import type { Offer } from '@echo/ui/types/model/offer'
 import { clsx } from 'clsx'
@@ -18,11 +19,11 @@ import useSWRMutation from 'swr/mutation'
 
 interface Props {
   offer: Offer
-  isReceiver: boolean
+  isCreator: boolean
   token: string
 }
 
-export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, token }) => {
+export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, token }) => {
   const [updatedOffer, setUpdatedOffer] = useState(offer)
   const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
   const [modalShown, setModalShown] = useState(false)
@@ -53,7 +54,7 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
     void updateOfferTrigger()
   }
   const onDecline = () => {
-    setAction(isReceiver ? 'REJECT' : 'CANCEL')
+    setAction(isCreator ? 'CANCEL' : 'REJECT')
     void updateOfferTrigger()
   }
 
@@ -71,20 +72,20 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
         )}
       >
         <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
-          <UserDetailsContainer user={isReceiver ? sender : receiver} />
+          <UserDetailsContainer user={isCreator ? receiver : sender} />
           <OfferDetailsState state={state} expired={expired} expiresAt={expiresAt} />
         </div>
         <div className={clsx('flex', 'flex-col', 'gap-5')}>
-          <OfferDetailsItemsContainer items={isReceiver ? senderItems : receiverItems} isReceiver />
+          <OfferDetailsItemsContainer items={isCreator ? receiverItems : senderItems} direction={DirectionIn} />
           <div className={clsx('pb-4')}>
             <OfferDetailsAssetsSeparator />
           </div>
-          <OfferDetailsItemsContainer items={isReceiver ? receiverItems : senderItems} isReceiver={false} />
+          <OfferDetailsItemsContainer items={isCreator ? senderItems : receiverItems} direction={DirectionOut} />
           <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
             <OfferDetailsButtonsContainer
               state={state}
-              nftsCount={isReceiver ? receiverItems.length : senderItems.length}
-              isReceiving={isReceiver}
+              nftsCount={isCreator ? senderItems.length : receiverItems.length}
+              isReceiving={!isCreator}
               isUpdating={isMutating}
               onAccept={onAccept}
               onDecline={onDecline}

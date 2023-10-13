@@ -11,7 +11,6 @@ interface Props {
 }
 
 export const SwapDirectionHeader: FunctionComponent<Props> = ({ direction, title }) => {
-  const assetsOut = direction === DirectionOut
   return (
     <div className={clsx('flex', 'gap-2', 'items-center')}>
       <span
@@ -26,7 +25,7 @@ export const SwapDirectionHeader: FunctionComponent<Props> = ({ direction, title
           'text-dark-500'
         )}
       >
-        <SideCaretSvg direction={assetsOut ? DirectionRight : DirectionLeft} />
+        <SideCaretSvg direction={direction === DirectionOut ? DirectionLeft : DirectionRight} />
       </span>
       <span className={clsx('prose-label-lg', 'text-white')}>{title}</span>
     </div>

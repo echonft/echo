@@ -14,7 +14,7 @@ interface Props {
 
 export const NewOfferConfirmationModalItemsContainer: FunctionComponent<Props> = ({ isReceiver, items = [] }) => {
   const t = useTranslations('offer.new.confirmationModal')
-  const tShared = useTranslations('shared.assets')
+  const tShared = useTranslations('assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center')}>

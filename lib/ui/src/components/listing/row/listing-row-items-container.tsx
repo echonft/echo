@@ -12,12 +12,14 @@ interface Props {
 }
 
 export const ListingRowItemsContainer: FunctionComponent<Props> = ({ items }) => {
-  const t = useTranslations('shared.assets')
+  const t = useTranslations('listing.assets')
   const nfts = useMemo(() => map(prop('nft'), items), [items])
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-5')}>
-      <SwapDirectionHeader direction={DirectionOut} title={t('out')} />
-      <NftsContainer nfts={nfts} />
+    <div className={clsx('flex', 'flex-row', 'grow', 'h-max', 'basis-0')}>
+      <div className={clsx('flex', 'flex-col', 'gap-5', 'self-stretch', 'h-max')}>
+        <SwapDirectionHeader direction={DirectionOut} title={t('out')} />
+        <NftsContainer nfts={nfts} />
+      </div>
     </div>
   )
 }

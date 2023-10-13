@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const NewSenderItemsContainer: FunctionComponent<Props> = ({ items, onRemove }) => {
-  const t = useTranslations('shared.assets')
+  const t = useTranslations('assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-11')}>
       <SwapDirectionHeader direction={DirectionOut} title={t('out')} />

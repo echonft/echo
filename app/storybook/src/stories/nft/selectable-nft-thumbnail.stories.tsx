@@ -7,6 +7,9 @@ const metadata: Meta<typeof Component> = {
   title: 'Nft/Thumbnail/Selectable',
   component: Component,
   argTypes: {
+    hideOwner: {
+      control: 'boolean'
+    },
     onToggleSelection: {
       control: false,
       action: 'selection toggled'
