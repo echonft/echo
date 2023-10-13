@@ -1,9 +1,9 @@
-import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
+import type { Listing } from '@echo/model/types/listing'
 import { getAddress } from 'viem'
 
-export const listingMock: Record<string, FirestoreListing> = {
+export const listingMock: Record<string, Listing> = {
   jUzMtPGKM62mMhEcmbN4: {
     id: 'jUzMtPGKM62mMhEcmbN4',
     createdAt: 1676984897,

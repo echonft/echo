@@ -2,7 +2,7 @@ import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getListingOffersCollection } from '@echo/firestore/helpers/collection/get-listing-offers-collection'
 import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query-snapshot-is-empty'
-import type { FirestoreListingOffer } from '@echo/firestore/types/model/listing-offer/firestore-listing-offer'
+import type { ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { isNil } from 'ramda'
 
@@ -10,7 +10,7 @@ export async function addListingOffer(
   listingId: string,
   offerId: string,
   fulfillingStatus: ListingOfferFulfillingStatus
-): Promise<FirestoreListingOffer> {
+): Promise<ListingOffer> {
   const listing = await findListingById(listingId)
   if (isNil(listing)) {
     throw Error(`trying to add a listing offer for listing id ${listingId} but this listing does not exist`)
@@ -30,7 +30,7 @@ export async function addListingOffer(
   }
   const reference = getListingOffersCollection().doc()
   const id = reference.id
-  const newDocument: FirestoreListingOffer = { id, listingId, offerId, fulfillingStatus }
+  const newDocument: ListingOffer = { id, listingId, offerId, fulfillingStatus }
   await reference.set(newDocument)
   return newDocument
 }

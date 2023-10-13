@@ -1,7 +1,7 @@
-import { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
-import { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
+import { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import type { Wallet } from '@echo/model/types/wallet'
 import { pick } from 'ramda'
 
-export function mapWalletToWalletData(wallet: FirestoreWallet): WalletData {
-  return pick(['address', 'chainId'])(wallet) as WalletData
+export function mapWalletToWalletData(wallet: WalletDocumentData): Wallet {
+  return pick(['address', 'chainId'])(wallet) as Wallet
 }

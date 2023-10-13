@@ -1,6 +1,6 @@
-import type { FirestoreNftCollectionSwapsCount } from '@echo/firestore/types/model/nft-collection-swaps-count/firestore-nft-collection-swaps-count'
+import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 
-export const nftCollectionSwapsCountMock: Record<string, FirestoreNftCollectionSwapsCount> = {
+export const nftCollectionSwapsCountMock: Record<string, CollectionSwapsCount> = {
   zkLBR3tGni1Z695gFQVU: {
     id: 'zkLBR3tGni1Z695gFQVU',
     collectionId: 'Rc8pLQXxgyQGIRL0fr13',

@@ -1,4 +1,4 @@
-export interface SwapDocumentData {
+export interface Swap {
   id: string
   offerId: string
   txId: string

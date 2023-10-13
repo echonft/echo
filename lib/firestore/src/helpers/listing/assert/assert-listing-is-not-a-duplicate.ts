@@ -1,28 +1,28 @@
 import { getListingsCollection } from '@echo/firestore/helpers/collection/get-listings-collection'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
-import { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
-import { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
-import { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
-import { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
-import { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
-import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import type { ListingItem } from '@echo/model/types/listing-item'
+import type { ListingTarget } from '@echo/model/types/listing-target'
+import type { Nft } from '@echo/model/types/nft'
+import type { OfferItem } from '@echo/model/types/offer-item'
+import type { User } from '@echo/model/types/user'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { intersection, isEmpty, map, modify, path, pick } from 'ramda'
 
 interface PartialListingItem {
   amount: number
-  nft: { id: string; owner: FirestoreUserDetails }
+  nft: { id: string; owner: User }
 }
 
-function mapItems(items: FirestoreListingItem[]): PartialListingItem[] {
-  return map<FirestoreListingItem, PartialListingItem>(
-    modify<'nft', FirestoreNft, Pick<FirestoreNft, 'id' | 'owner'>>('nft', pick(['id', 'owner'])),
+function mapItems(items: ListingItem[]): PartialListingItem[] {
+  return map<ListingItem, PartialListingItem>(
+    modify<'nft', Nft, Pick<Nft, 'id' | 'owner'>>('nft', pick(['id', 'owner'])),
     items
   )
 }
 
 export async function assertListingIsNotADuplicate(
-  items: NonEmptyArray<FirestoreOfferItem>,
-  targets: NonEmptyArray<FirestoreListingTarget>
+  items: NonEmptyArray<OfferItem>,
+  targets: NonEmptyArray<ListingTarget>
 ) {
   const targetIds = map(path(['collection', 'id']), targets) as string[]
   const itemIds = map(path(['nft', 'id']), items) as string[]

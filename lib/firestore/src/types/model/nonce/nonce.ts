@@ -1,6 +1,6 @@
 import { Dayjs } from 'dayjs'
 
-export interface FirestoreNonce {
+export interface Nonce {
   id: string
   nonce: string
   expired: boolean

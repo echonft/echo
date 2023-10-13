@@ -1,4 +1,4 @@
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
+import type { Offer } from '@echo/model/types/offer'
 
 export enum ButtonAction {
   BUY = 'buy',
@@ -12,7 +12,7 @@ interface ButtonData {
 }
 
 export interface BuyButtonData extends ButtonData {
-  offer: FirestoreOffer | undefined
+  offer: Offer | undefined
 }
 
 export type ButtonWithData = BuyButtonData

@@ -6,8 +6,8 @@ import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { expectDateNumberIs } from '@echo/test-utils/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { errorMessage } from '@echo/utils/error/error-message'
@@ -50,7 +50,7 @@ describe('CRUD - offer - addOffer', () => {
 
   it('add an offer', async () => {
     const { receiver, receiverItems, sender, senderItems } = getOfferMockById('ASkFpKoHEHVH0gd69t1G')
-    const newSenderItems = slice(0, 1, senderItems) as NonEmptyArray<FirestoreOfferItem>
+    const newSenderItems = slice(0, 1, senderItems) as NonEmptyArray<OfferItem>
     const createdOffer = await addOffer(newSenderItems, receiverItems)
     createdOfferId = createdOffer.id
     const newOffer = (await findOfferById(createdOfferId))!

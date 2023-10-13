@@ -1,7 +1,7 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { assertNftOwner } from '@server/helpers/nft/assert-nft-owner'
 import { createOffer } from '@server/helpers/offer/create-offer'
@@ -18,13 +18,13 @@ export async function createOfferRequestHandler(req: ApiRequest<CreateOfferReque
   const receiverOfferItems = await getOfferItems(receiverItems)
   const senderOfferItems = await getOfferItems(senderItems)
   // make sure the sender is the owner of every item
-  forEach((item: FirestoreOfferItem) => {
+  forEach((item: OfferItem) => {
     assertNftOwner(item.nft, sender.username)
   }, senderOfferItems)
 
   // make sure the receiver is the owner of every item
   const receiver = head(receiverOfferItems).nft.owner
-  forEach((item: FirestoreOfferItem) => {
+  forEach((item: OfferItem) => {
     assertNftOwner(item.nft, receiver.username)
   }, receiverOfferItems)
   const offer = await createOffer(senderOfferItems, receiverOfferItems)

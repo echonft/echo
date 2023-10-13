@@ -1,6 +1,6 @@
 import type { Dayjs } from 'dayjs'
 
-export interface FirestoreSession {
+export interface Session {
   expires: Dayjs
   sessionToken: string
   userId: string

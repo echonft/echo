@@ -1,8 +1,8 @@
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
+import type { Offer } from '@echo/model/types/offer'
 import { getAddress } from 'viem'
 
-export const offerMock: Record<string, FirestoreOffer> = {
+export const offerMock: Record<string, Offer> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
     createdAt: 1676984897,

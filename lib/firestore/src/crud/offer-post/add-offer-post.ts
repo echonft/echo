@@ -1,6 +1,6 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOfferPostsCollection } from '@echo/firestore/helpers/collection/get-offer-posts-collection'
-import type { FirestoreOfferPost } from '@echo/firestore/types/model/offer-post/firestore-offer-post'
+import type { OfferPost } from '@echo/firestore/types/model/offer-post/offer-post'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
@@ -11,7 +11,7 @@ export async function addOfferPost(offerId: string, guildDiscordId: string, guil
   }
   const reference = getOfferPostsCollection().doc()
   const id = reference.id
-  const newOfferPost: FirestoreOfferPost = {
+  const newOfferPost: OfferPost = {
     id,
     offerId,
     guild: { discordId: guildDiscordId, threadId: guildThreadId },

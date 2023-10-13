@@ -1,9 +1,9 @@
 import { updateNft } from '@echo/firestore/crud/nft/update-nft'
-import { getUserDetails } from '@echo/firestore/helpers/user/get-user-details'
-import { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
-import { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
+import { getUser } from '@echo/firestore/helpers/user/get-user'
+import { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { Wallet } from '@echo/model/types/wallet'
 
-export async function setNftOwner(nftId: string, user: FirestoreUser, wallet: WalletData) {
-  const userDetails = getUserDetails(user, wallet)
+export async function setNftOwner(nftId: string, user: UserDocumentData, wallet: Wallet) {
+  const userDetails = getUser(user, wallet)
   return updateNft(nftId, { owner: userDetails })
 }

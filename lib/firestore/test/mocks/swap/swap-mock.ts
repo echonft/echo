@@ -1,6 +1,6 @@
-import type { FirestoreSwap } from '@echo/firestore/types/model/swap/firestore-swap'
+import type { Swap } from '@echo/firestore/types/model/swap/swap'
 
-export const swapMock: Record<string, FirestoreSwap> = {
+export const swapMock: Record<string, Swap> = {
   '2ipuV3drjQlzEgkUkW7q': {
     id: '2ipuV3drjQlzEgkUkW7q',
     offerId: 'ASkFpKoHEHVH0gd69t1G',

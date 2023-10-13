@@ -1,12 +1,10 @@
 import { getNftCollectionsCollection } from '@echo/firestore/helpers/collection/get-nft-collections-collection'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
+import type { Collection } from '@echo/model/types/collection'
 
-export async function addNftCollection(
-  nftCollection: Omit<FirestoreNftCollection, 'id'>
-): Promise<FirestoreNftCollection> {
+export async function addNftCollection(nftCollection: Omit<Collection, 'id'>) {
   const reference = getNftCollectionsCollection().doc()
   const id = reference.id
-  const newNftCollection = { ...nftCollection, id } as FirestoreNftCollection
+  const newNftCollection = { ...nftCollection, id } as Collection
   await reference.set(newNftCollection)
   return newNftCollection
 }

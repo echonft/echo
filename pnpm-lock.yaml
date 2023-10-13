@@ -92,6 +92,9 @@ importers:
       '@echo/firestore':
         specifier: workspace:*
         version: link:../../lib/firestore
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../../lib/model
       '@echo/ui':
         specifier: workspace:*
         version: link:../../lib/ui

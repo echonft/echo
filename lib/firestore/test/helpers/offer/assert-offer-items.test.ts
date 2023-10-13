@@ -1,6 +1,6 @@
 import { assertOfferItems } from '@echo/firestore/helpers/offer/assert/assert-offer-items'
-import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { describe, expect, it } from '@jest/globals'
 import { assocPath, pipe } from 'ramda'
 
@@ -12,7 +12,7 @@ describe('helpers - offer - assert - assertOfferItems', () => {
       assocPath(['nft', 'id'], 'different-id'),
       assocPath(['nft', 'tokenId'], 0),
       assocPath(['nft', 'collection', 'id'], 'other-collection')
-    )(item) as FirestoreOfferItem
+    )(item) as OfferItem
     expect(() => assertOfferItems([item, differentCollectionItem])).toThrow()
   })
 
@@ -37,7 +37,7 @@ describe('helpers - offer - assert - assertOfferItems', () => {
       assocPath(['nft', 'id'], 'different-id'),
       assocPath(['nft', 'tokenId'], 0),
       assocPath(['nft', 'owner', 'wallet'], { address: '0xanotheraddress', chainId: 1 })
-    )(item) as FirestoreOfferItem
+    )(item) as OfferItem
     expect(() => assertOfferItems([item, differentWalletItem])).toThrow()
   })
 
@@ -47,7 +47,7 @@ describe('helpers - offer - assert - assertOfferItems', () => {
     const differentItem = pipe(
       assocPath(['nft', 'id'], 'different-id'),
       assocPath(['nft', 'tokenId'], 0)
-    )(item) as FirestoreOfferItem
+    )(item) as OfferItem
     expect(() => assertOfferItems([item, differentItem])).not.toThrow()
   })
 })

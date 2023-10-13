@@ -1,12 +1,12 @@
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
-import { ListingItemRequest } from '@echo/api/types/requests/listing-item-request'
-import { ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
+import type { ListingItemRequest } from '@echo/api/types/requests/listing-item-request'
+import type { ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
-import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
-import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
-import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import type { Nft } from '@echo/model/types/nft'
+import type { User } from '@echo/model/types/user'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { ApiError } from '@server/helpers/error/api-error'
 import { createListing } from '@server/helpers/listing/create-listing'
 import { getListingItems } from '@server/helpers/listing/get-listing-items'
@@ -51,9 +51,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest
       .mocked(getListingItems)
-      .mockResolvedValue([
-        { amount: 1, nft: { owner: { username: 'another-username' } as FirestoreUserDetails } as FirestoreNft }
-      ])
+      .mockResolvedValue([{ amount: 1, nft: { owner: { username: 'another-username' } as User } as Nft }])
     jest.mocked(getListingTargets).mockResolvedValue(listing.targets)
     jest.mocked(createListing).mockResolvedValue(listing)
     const req = mockRequest<CreateListingRequest>(validRequest)

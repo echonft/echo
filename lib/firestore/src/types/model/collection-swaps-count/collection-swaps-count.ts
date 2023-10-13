@@ -1,4 +1,4 @@
-export interface FirestoreNftCollectionSwapsCount {
+export interface CollectionSwapsCount {
   id: string
   collectionId: string
   swapsCount: number

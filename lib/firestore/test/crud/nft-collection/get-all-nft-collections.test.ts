@@ -1,7 +1,7 @@
 import { getAllNftCollections } from '@echo/firestore/crud/nft-collection/get-all-nft-collections'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
 import { getAllNftCollectionMocks } from '@echo/firestore-mocks/nft-collection/get-all-nft-collection-mocks'
 import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
+import type { Collection } from '@echo/model/types/collection'
 import { removeUndefinedProps } from '@echo/utils/fp/remove-undefined-props'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -20,7 +20,7 @@ describe('CRUD - nft-collection - getAllNftCollections', () => {
     const collectionMocks = getAllNftCollectionMocks()
     const collections = await getAllNftCollections()
     expect(collections.length).toEqual(collectionMocks.length)
-    forEach((collection: FirestoreNftCollection) => {
+    forEach((collection: Collection) => {
       expect(getNftCollectionMockById(collection.id)).toStrictEqual(collection)
     }, collections)
   })
@@ -31,7 +31,7 @@ describe('CRUD - nft-collection - getAllNftCollections', () => {
       select: ['id', 'name']
     })
     expect(collections.length).toEqual(collectionMocks.length)
-    forEach((collection: FirestoreNftCollection) => {
+    forEach((collection: Collection) => {
       const mock = getNftCollectionMockById(collection.id)
       expect(pick(['id', 'name'], mock)).toStrictEqual(removeUndefinedProps(collection))
     }, collections)

@@ -1,4 +1,4 @@
-export interface FirestoreUser {
+export interface UserDocumentData {
   id: string
   username: string
   discord: {

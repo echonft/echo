@@ -1,10 +1,10 @@
-import type { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
-import type { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
+import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { UserProfile } from '@echo/model/types/user-profile'
 import { mapFirestoreWalletToWallet } from '@server/mappers/map-firestore-wallet-to-wallet'
 import { map, modify, omit, pick, pipe } from 'ramda'
 
-export function mapFirestoreUserToUserProfile(user: FirestoreUser, wallets: FirestoreWallet[]) {
+export function mapFirestoreUserToUserProfile(user: UserDocumentData, wallets: WalletDocumentData[]) {
   return pipe(
     pick(['username', 'discord', 'wallets']),
     modify('discord', omit(['id'])),

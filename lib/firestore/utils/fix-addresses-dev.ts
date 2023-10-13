@@ -5,12 +5,12 @@ import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
 import { getAllWallets } from '@echo/firestore/crud/wallet/get-all-wallets'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
-import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
-import { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
+import { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { updateNftCollection } from '@echo/firestore-mocks/nft-collection/update-nft-collection'
+import type { Collection } from '@echo/model/types/collection'
+import type { Listing } from '@echo/model/types/listing'
+import type { Nft } from '@echo/model/types/nft'
+import type { Offer } from '@echo/model/types/offer'
 import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
 import { uncheckedUpdateNft } from '@test-utils/nft/unchecked-update-nft'
 import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
@@ -39,7 +39,7 @@ void (async function () {
       // @ts-ignore
       modify('targets', map(modifyPath(['collection', 'contract'], updateAddress))),
       omit(['id'])
-    )(listing) as FirestoreListing
+    )(listing) as Listing
     await uncheckedUpdateListing(listing.id, updateData)
   }
   // fix nft collections addresses
@@ -50,7 +50,7 @@ void (async function () {
       // @ts-ignore
       modify('contract', updateAddress),
       omit(['id'])
-    )(nftCollection) as FirestoreNftCollection
+    )(nftCollection) as Collection
     await updateNftCollection(nftCollection.id, updateData)
   }
   // fix nfts addresses
@@ -64,7 +64,7 @@ void (async function () {
       // @ts-ignore
       modifyPath(['collection', 'contract'], updateAddress),
       omit(['id'])
-    )(nft) as FirestoreNft
+    )(nft) as Nft
     await uncheckedUpdateNft(nft.id, updateData)
   }
   // fix offers addresses
@@ -78,13 +78,13 @@ void (async function () {
       // @ts-ignore
       modify('senderItems', map(modifyPath(['nft', 'owner', 'wallet'], updateAddress))),
       omit(['id'])
-    )(offer) as FirestoreOffer
+    )(offer) as Offer
     await uncheckedUpdateOffer(offer.id, updateData)
   }
   // fix wallets addresses
   const wallets = await getAllWallets()
   for (const wallet of wallets) {
-    const updateData = pipe(updateAddress, omit(['id']))(wallet) as FirestoreWallet
+    const updateData = pipe(updateAddress, omit(['id']))(wallet) as WalletDocumentData
     await uncheckedUpdateWallet(wallet.id, updateData)
   }
   await terminateFirestore()

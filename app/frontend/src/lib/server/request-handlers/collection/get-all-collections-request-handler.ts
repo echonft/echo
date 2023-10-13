@@ -1,7 +1,6 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import type { CollectionsResponse } from '@echo/api/types/responses/collections-response'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
-import type { FirestoreNftCollectionSwapsCount } from '@echo/firestore/types/model/nft-collection-swaps-count/firestore-nft-collection-swaps-count'
+import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import type { Collection } from '@echo/model/types/collection'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
@@ -36,7 +35,7 @@ import {
   sortBy
 } from 'ramda'
 
-function getSwapsCountForCollection(collectionId: string, swapsCounts: FirestoreNftCollectionSwapsCount[]) {
+function getSwapsCountForCollection(collectionId: string, swapsCounts: CollectionSwapsCount[]) {
   const swapsCount = find(propEq(collectionId, 'collectionId'), swapsCounts)
   if (isNil(swapsCount)) {
     return 0
@@ -69,7 +68,7 @@ export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
     const swapCounts = await getAllCollectionSwapsCounts()
     const sliceStartIndex = ifElse(anyPass([isNil, complement(has('offset'))]), always(0), prop('offset'))(constraints)
     const sliceEndIndex = ifElse<
-      [{ constraints: QueryConstraints | undefined; collections: FirestoreNftCollection[]; sliceStartIndex: number }],
+      [{ constraints: QueryConstraints | undefined; collections: Collection[]; sliceStartIndex: number }],
       number,
       number
     >(

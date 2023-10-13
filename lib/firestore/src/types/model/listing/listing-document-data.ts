@@ -1,40 +1,19 @@
-import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
-import type { FirestoreListingState } from '@echo/firestore/types/model/listing/firestore-listing-state'
-import type { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
-import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
+import type { ListingItem } from '@echo/model/types/listing-item'
+import type { ListingState } from '@echo/model/types/listing-state'
+import type { ListingTarget } from '@echo/model/types/listing-target'
+import type { User } from '@echo/model/types/user'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export interface ListingDocumentData {
   id: string
   createdAt: number
-  creator: FirestoreUserDetails
+  creator: User
   expiresAt: number
-  items: NonEmptyArray<FirestoreListingItem>
+  items: NonEmptyArray<ListingItem>
   itemsNftIds: NonEmptyArray<string>
   itemsNftCollectionIds: NonEmptyArray<string>
-  state: FirestoreListingState
-  targets: NonEmptyArray<FirestoreListingTarget>
+  state: ListingState
+  targets: NonEmptyArray<ListingTarget>
   targetsIds: NonEmptyArray<string>
   updatedAt: number
 }
-
-export const listingFields = [
-  'id',
-  'createdAt',
-  'creator',
-  'creator.discord',
-  'creator.discord.avatarUrl',
-  'creator.discord.username',
-  'creator.username',
-  'creator.wallet',
-  'creator.wallet.address',
-  'creator.wallet.chainId',
-  'expiresAt',
-  'items',
-  'itemsNftIds',
-  'itemsNftCollectionIds',
-  'state',
-  'targets',
-  'targetsIds',
-  'updatedAt'
-]

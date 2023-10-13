@@ -2,10 +2,10 @@ import { addNftCollection } from '@echo/firestore/crud/nft-collection/add-nft-co
 import { addNftCollectionDiscordGuild } from '@echo/firestore/crud/nft-collection-discord-guild/add-nft-collection-discord-guild'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
+import type { Collection } from '@echo/model/types/collection'
 import { getAddress } from 'viem'
 
-const collectionToAdd: Omit<FirestoreNftCollection, 'id'> = {
+const collectionToAdd: Omit<Collection, 'id'> = {
   bannerUrl:
     'https://i.seadn.io/gae/i5dYZRkVCUK97bfprQ3WXyrT9BnLSZtVKGJlKQ919uaUB0sxbngVCioaiyu9r6snqfi2aaTyIvv6DHm4m2R3y7hMajbsv14pSZK8mhs?auto=format&dpr=1&w=2048',
   blurUrl: 'https://blur.io/collection/boredapeyachtclub',

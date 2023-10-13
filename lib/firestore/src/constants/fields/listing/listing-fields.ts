@@ -1,0 +1,20 @@
+export const listingFields = [
+  'id',
+  'createdAt',
+  'creator',
+  'creator.discord',
+  'creator.discord.avatarUrl',
+  'creator.discord.username',
+  'creator.username',
+  'creator.wallet',
+  'creator.wallet.address',
+  'creator.wallet.chainId',
+  'expiresAt',
+  'items',
+  'itemsNftIds',
+  'itemsNftCollectionIds',
+  'state',
+  'targets',
+  'targetsIds',
+  'updatedAt'
+]

@@ -1,7 +1,7 @@
 import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getAllOfferMocks } from '@echo/firestore-mocks/offer/get-all-offer-mocks'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
+import type { Offer } from '@echo/model/types/offer'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
@@ -19,7 +19,7 @@ describe('CRUD - offer - getAllOffers', () => {
     const offerMocks = getAllOfferMocks()
     const offers = await getAllOffers()
     expect(offers.length).toEqual(offerMocks.length)
-    forEach((offer: FirestoreOffer) => {
+    forEach((offer: Offer) => {
       expect(getOfferMockById(offer.id)).toStrictEqual(offer)
     }, offers)
   })

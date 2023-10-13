@@ -1,7 +1,7 @@
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
+import type { Collection } from '@echo/model/types/collection'
 import { getAddress } from 'viem'
 
-export const nftCollectionMock: Record<string, FirestoreNftCollection> = {
+export const nftCollectionMock: Record<string, Collection> = {
   Rc8pLQXxgyQGIRL0fr13: {
     id: 'Rc8pLQXxgyQGIRL0fr13',
     bannerUrl:

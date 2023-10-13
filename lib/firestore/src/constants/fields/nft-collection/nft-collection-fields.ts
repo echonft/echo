@@ -1,0 +1,20 @@
+export const nftCollectionFields = [
+  'id',
+  'bannerUrl',
+  'contract.address',
+  'contract.chainId',
+  'contract.name',
+  'contract.symbol',
+  'contract.tokenType',
+  'description',
+  'discordUrl',
+  'floorPrice',
+  'name',
+  'openSeaUrl',
+  'profilePictureUrl',
+  'slug',
+  'totalSupply',
+  'twitterUsername',
+  'verified',
+  'websiteUrl'
+]

@@ -1,6 +1,6 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { getListingPostsCollection } from '@echo/firestore/helpers/collection/get-listing-posts-collection'
-import type { FirestoreListingPost } from '@echo/firestore/types/model/listing-post/firestore-listing-post'
+import type { ListingPost } from '@echo/firestore/types/model/listing-post/listing-post'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 
@@ -11,7 +11,7 @@ export async function addListingPost(listingId: string, guildDiscordId: string, 
   }
   const reference = getListingPostsCollection().doc()
   const id = reference.id
-  const newListingPost: FirestoreListingPost = {
+  const newListingPost: ListingPost = {
     id,
     listingId: listingId,
     guild: { discordId: guildDiscordId, channelId: guildChannelId },

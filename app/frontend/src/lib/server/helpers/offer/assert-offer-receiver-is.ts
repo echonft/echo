@@ -1,14 +1,11 @@
-import { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
-import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
+import type { Offer } from '@echo/model/types/offer'
+import type { User } from '@echo/model/types/user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { ForbiddenError } from '@server/helpers/error/forbidden-error'
 import { isNil } from 'ramda'
 
-export function assertOfferReceiverIs(
-  offer: FirestoreOffer,
-  username: string
-): asserts offer is FirestoreOffer & { receiver: FirestoreUserDetails } {
+export function assertOfferReceiverIs(offer: Offer, username: string): asserts offer is Offer & { receiver: User } {
   if (isNil(offer.receiver) || isNilOrEmpty(offer.receiver.username)) {
     throw new BadRequestError(`offer with id ${offer.id} does not contain a receiver`)
   }

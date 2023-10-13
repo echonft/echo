@@ -5,11 +5,11 @@ import { setupBot } from '@echo/bot-mocks/discord/client-mock'
 import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'
 import { mockChatInputCommandInteraction } from '@echo/bot-mocks/discord/interaction-mock'
 import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection-discord-guild/find-nft-collection-by-discord-guild-discord-id'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
+import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import { getAllNftCollectionDiscordGuildMocks } from '@echo/firestore-mocks/nft-collection-discord-guild/get-all-nft-collection-discord-guild-mocks'
 import { beforeEach, describe, expect, jest, test } from '@jest/globals'
 import { Client } from 'discord.js'
-import { filter, isNil, pathEq } from 'ramda'
+import { find, isNil, pathEq } from 'ramda'
 
 jest.mock('@echo/firestore/crud/nft-collection-discord-guild/find-nft-collection-by-discord-guild-discord-id')
 
@@ -21,16 +21,16 @@ describe('discord commands - connect', () => {
   jest.mocked(findNftCollectionByDiscordGuildDiscordId).mockImplementation((guildId: string) => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const collection: FirestoreNftCollection = filter(
+    const collectionDiscordGuild = find(
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       pathEq(['guild', 'discordId'], guildId),
       getAllNftCollectionDiscordGuildMocks()
     )
-    if (isNil(collection)) {
+    if (isNil(collectionDiscordGuild)) {
       return Promise.reject('not found')
     }
-    return Promise.resolve(collection)
+    return Promise.resolve(getNftCollectionMockById(collectionDiscordGuild.collectionId))
   })
   let client: Client
   beforeEach(async () => {

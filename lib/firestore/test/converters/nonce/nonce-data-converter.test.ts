@@ -1,5 +1,5 @@
 import { nonceDataConverter } from '@echo/firestore/converters/nonce/nonce-data-converter'
-import type { FirestoreNonce } from '@echo/firestore/types/model/nonce/firestore-nonce'
+import type { Nonce } from '@echo/firestore/types/model/nonce/nonce'
 import type { NonceDocumentData } from '@echo/firestore/types/model/nonce/nonce-document-data'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -12,7 +12,7 @@ describe('converters - nonceDataConverter', () => {
     userId: 'user-id',
     nonce: 'nonce'
   }
-  const nonce: FirestoreNonce = {
+  const nonce: Nonce = {
     id: 'nonce-id',
     expired: true,
     expiresAt: dayjs.unix(1676984897),

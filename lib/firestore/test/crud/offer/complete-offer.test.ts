@@ -5,7 +5,7 @@ import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { deleteSwap } from '@echo/firestore/crud/swaps/delete-swap'
 import { findSwapByOfferId } from '@echo/firestore/crud/swaps/find-swap-by-offer-id'
 import { getOfferCollectionIds } from '@echo/firestore/helpers/offer/get-offer-collection-ids'
-import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
+import type { OfferState } from '@echo/model/types/offer-state'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertNftCollectionSwapsCounts } from '@test-utils/nft-collection-swaps-count/assert-nft-collection-swaps-counts'
@@ -18,7 +18,7 @@ import dayjs from 'dayjs'
 import { map } from 'ramda'
 
 describe('CRUD - offer - completeOffer', () => {
-  let initialState: FirestoreOfferState
+  let initialState: OfferState
   let initialExpiresAt: number
   let initialUpdatedAt: number
   const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'

@@ -1,4 +1,4 @@
-import { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
+import type { Wallet } from '@echo/model/types/wallet'
 import { addressSchema } from '@server/validators/address-schema'
 import { chainIdSchema } from '@server/validators/chain-id-schema'
 import { applySpec, converge, prop } from 'ramda'
@@ -11,7 +11,7 @@ export const walletSchema = z
     address: addressSchema
   })
   .transform(
-    applySpec<WalletData>({
+    applySpec<Wallet>({
       chainId: prop('chainId'),
       address: converge(getAddress, [prop('address'), prop('chainId')])
     })

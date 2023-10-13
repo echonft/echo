@@ -1,7 +1,7 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getAllOfferMocks } from '@echo/firestore-mocks/offer/get-all-offer-mocks'
+import type { Offer } from '@echo/model/types/offer'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -19,8 +19,8 @@ describe('CRUD - offer - getOffersForUser', () => {
     await tearDownRemoteFirestoreTests()
   })
   beforeEach(async () => {
-    const offer = await findOfferById(id)
-    initialExpiresAt = offer!.expiresAt
+    const offer = (await findOfferById(id))!
+    initialExpiresAt = offer.expiresAt
   })
   afterEach(async () => {
     await uncheckedUpdateOffer(id, { expiresAt: initialExpiresAt })
@@ -34,7 +34,7 @@ describe('CRUD - offer - getOffersForUser', () => {
     )
     const offers = await getOffersForUser(username, { includeExpired: true })
     expect(offers.length).toBe(userOfferMocks.length)
-    forEach((offer: FirestoreOffer) => {
+    forEach((offer: Offer) => {
       const offerMock = find(propEq(offer.id, 'id'), userOfferMocks)
       expect(offer).toStrictEqual(offerMock)
     }, offers)

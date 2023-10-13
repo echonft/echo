@@ -1,9 +1,9 @@
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import type { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
-import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import type { Nft } from '@echo/model/types/nft'
+import type { User } from '@echo/model/types/user'
 import { ApiError } from '@server/helpers/error/api-error'
 import { createOffer } from '@server/helpers/offer/create-offer'
 import { getOfferItems } from '@server/helpers/offer/get-offer-items'
@@ -54,13 +54,9 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest.mocked(getOfferItems).mockImplementation((offerItemRequests) => {
       if (offerItemRequests[0]!.nft.id === 'receiver-item-nft-id') {
-        return Promise.resolve([
-          { amount: 1, nft: { owner: { username: 'crewnft_' } as FirestoreUserDetails } as FirestoreNft }
-        ])
+        return Promise.resolve([{ amount: 1, nft: { owner: { username: 'crewnft_' } as User } as Nft }])
       } else {
-        return Promise.resolve([
-          { amount: 1, nft: { owner: { username: 'another-user' } as FirestoreUserDetails } as FirestoreNft }
-        ])
+        return Promise.resolve([{ amount: 1, nft: { owner: { username: 'another-user' } as User } as Nft }])
       }
     })
     jest.mocked(createOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
@@ -77,13 +73,11 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest.mocked(getOfferItems).mockImplementation((offerItemRequests) => {
       if (offerItemRequests[0]!.nft.id === 'receiver-item-nft-id') {
-        return Promise.resolve([
-          { amount: 1, nft: { owner: { username: 'crewnft_' } as FirestoreUserDetails } as FirestoreNft }
-        ])
+        return Promise.resolve([{ amount: 1, nft: { owner: { username: 'crewnft_' } as User } as Nft }])
       } else {
         return Promise.resolve([
-          { amount: 1, nft: { owner: { username: 'johnnycagewins' } as FirestoreUserDetails } as FirestoreNft },
-          { amount: 1, nft: { owner: { username: 'another-user' } as FirestoreUserDetails } as FirestoreNft }
+          { amount: 1, nft: { owner: { username: 'johnnycagewins' } as User } as Nft },
+          { amount: 1, nft: { owner: { username: 'another-user' } as User } as Nft }
         ])
       }
     })
@@ -102,13 +96,11 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
     jest.mocked(getOfferItems).mockImplementation((offerItemRequests) => {
       if (offerItemRequests[0]!.nft.id === 'receiver-item-nft-id') {
         return Promise.resolve([
-          { amount: 1, nft: { owner: { username: 'crewnft_' } as FirestoreUserDetails } as FirestoreNft },
-          { amount: 1, nft: { owner: { username: 'another-user' } as FirestoreUserDetails } as FirestoreNft }
+          { amount: 1, nft: { owner: { username: 'crewnft_' } as User } as Nft },
+          { amount: 1, nft: { owner: { username: 'another-user' } as User } as Nft }
         ])
       } else {
-        return Promise.resolve([
-          { amount: 1, nft: { owner: { username: 'johnnycagewins' } as FirestoreUserDetails } as FirestoreNft }
-        ])
+        return Promise.resolve([{ amount: 1, nft: { owner: { username: 'johnnycagewins' } as User } as Nft }])
       }
     })
     jest.mocked(createOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
@@ -126,9 +118,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest
       .mocked(getOfferItems)
-      .mockResolvedValue([
-        { amount: 1, nft: { owner: { username: 'johnnycagewins' } as FirestoreUserDetails } as FirestoreNft }
-      ])
+      .mockResolvedValue([{ amount: 1, nft: { owner: { username: 'johnnycagewins' } as User } as Nft }])
     jest.mocked(createOffer).mockResolvedValue(offer)
     const req = mockRequest<CreateOfferRequest>(validRequest)
     const res = await createOfferRequestHandler(req)
