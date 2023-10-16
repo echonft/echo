@@ -1,5 +1,5 @@
+import type { ListingTarget } from '@echo/model/types/listing-target'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
-import { ListingTarget } from '@echo/ui/types/model/listing-target'
 import { describe, expect, it } from '@jest/globals'
 import { getAddress } from 'viem'
 

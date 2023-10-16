@@ -1,14 +1,14 @@
-import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
-import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
+import type { Listing } from '@echo/model/types/listing'
+import type { User } from '@echo/model/types/user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { ForbiddenError } from '@server/helpers/error/forbidden-error'
 import { isNil } from 'ramda'
 
 export function assertListingCreatorIs(
-  listing: FirestoreListing,
+  listing: Listing,
   username: string
-): asserts listing is FirestoreListing & { creator: FirestoreUserDetails } {
+): asserts listing is Listing & { creator: User } {
   if (isNil(listing.creator) || isNilOrEmpty(listing.creator.username)) {
     throw new BadRequestError(`listing with id ${listing.id} does not contain a creator`)
   }

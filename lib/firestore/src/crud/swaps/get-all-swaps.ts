@@ -1,7 +1,7 @@
-import { getSwapsCollection } from '@echo/firestore/helpers/collection/get-swaps-collection'
+import { getSwapsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swaps-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
 
 export async function getAllSwaps() {
-  const querySnapshot = await getSwapsCollection().get()
+  const querySnapshot = await getSwapsCollectionReference().get()
   return getQuerySnapshotDocumentsData(querySnapshot)
 }

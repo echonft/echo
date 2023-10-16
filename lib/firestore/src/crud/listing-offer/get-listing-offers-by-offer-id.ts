@@ -1,8 +1,8 @@
-import { getListingOffersCollection } from '@echo/firestore/helpers/collection/get-listing-offers-collection'
+import { getListingOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-offers-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
-import { FirestoreListingOffer } from '@echo/firestore/types/model/listing-offer/firestore-listing-offer'
+import { ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 
-export async function getListingOffersByOfferId(offerId: string): Promise<FirestoreListingOffer[]> {
-  const querySnapshot = await getListingOffersCollection().where('offerId', '==', offerId).get()
+export async function getListingOffersByOfferId(offerId: string): Promise<ListingOffer[]> {
+  const querySnapshot = await getListingOffersCollectionReference().where('offerId', '==', offerId).get()
   return getQuerySnapshotDocumentsData(querySnapshot)
 }

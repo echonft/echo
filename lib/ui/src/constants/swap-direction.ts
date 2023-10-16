@@ -1,2 +1,2 @@
-export const DirectionIn = 'In'
-export const DirectionOut = 'Out'
+export const DirectionIn = 'in'
+export const DirectionOut = 'out'

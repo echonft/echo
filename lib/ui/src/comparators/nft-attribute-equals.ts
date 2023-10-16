@@ -1,4 +1,4 @@
-import type { NftAttribute } from '@echo/ui/types/model/nft-attribute'
+import type { NftAttribute } from '@echo/model/types/nft-attribute'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
 

@@ -5,6 +5,11 @@ import type { Meta, StoryObj } from '@storybook/react'
 const metadata: Meta<typeof Component> = {
   title: 'Nft/Thumbnail',
   component: Component,
+  argTypes: {
+    hideOwner: {
+      control: 'boolean'
+    }
+  },
   parameters: {
     controls: {
       exclude: ['nft']

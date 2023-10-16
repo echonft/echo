@@ -1,16 +1,17 @@
+import type { Nft } from '@echo/model/types/nft'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
 import { NftThumbnail } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
-import { Nft } from '@echo/ui/types/model/nft'
+import { AlignmentCenter, AlignmentLeft, AlignmentRight } from '@echo/ui/constants/alignment'
 import { map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
   nfts: Nft[]
-  centered?: boolean
+  alignment?: typeof AlignmentLeft | typeof AlignmentCenter | typeof AlignmentRight
 }
-export const NftsContainer: FunctionComponent<Props> = ({ nfts, centered }) => {
+export const NftsContainer: FunctionComponent<Props> = ({ nfts, alignment }) => {
   return (
-    <NftsLayout centered={centered}>
+    <NftsLayout alignment={alignment}>
       {map(
         (nft) => (
           <NftThumbnail key={nft.id} nft={nft} />

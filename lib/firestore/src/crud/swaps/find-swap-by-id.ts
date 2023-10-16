@@ -1,7 +1,7 @@
 import { getSwapSnapshotById } from '@echo/firestore/crud/swaps/get-swap-snapshot-by-id'
-import type { FirestoreSwap } from '@echo/firestore/types/model/swap/firestore-swap'
+import type { Swap } from '@echo/firestore/types/model/swap/swap'
 
-export async function findSwapById(id: string): Promise<FirestoreSwap | undefined> {
+export async function findSwapById(id: string): Promise<Swap | undefined> {
   const documentSnapshot = await getSwapSnapshotById(id)
   return documentSnapshot?.data()
 }

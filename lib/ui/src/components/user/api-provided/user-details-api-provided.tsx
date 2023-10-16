@@ -1,15 +1,15 @@
-import type { UserResponse } from '@echo/api/types/responses/model/user-response'
+import type { UserProfile } from '@echo/model/types/user-profile'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { SizeLG } from '@echo/ui/constants/size'
 import { head, isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  response: UserResponse
+  user: UserProfile
 }
 
-export const UserDetailsApiProvided: FunctionComponent<Props> = ({ response }) => {
-  const { discord, wallets } = response
+export const UserDetailsApiProvided: FunctionComponent<Props> = ({ user }) => {
+  const { discord, wallets } = user
   return (
     <UserDetails
       discordUsername={discord.username}

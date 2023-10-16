@@ -1,13 +1,13 @@
 import { BuyOwnListingError } from '@echo/bot/errors/buy-own-listing-error'
 import { getDiscordChannel } from '@echo/bot/helpers/get-discord-channel'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
-import { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
+import { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { Offer } from '@echo/model/types/offer'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { ButtonInteraction, ChannelType } from 'discord.js'
 
 // TODO Might be renamed here if we go for listings and offers
-export function executeBuy(interaction: ButtonInteraction, offer: FirestoreOffer, sender: FirestoreUser) {
+export function executeBuy(interaction: ButtonInteraction, offer: Offer, sender: UserDocumentData) {
   if (sender.discord.id === interaction.user.id) {
     throw new BuyOwnListingError(offer.id)
   }

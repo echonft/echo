@@ -1,8 +1,8 @@
+import type { Listing } from '@echo/model/types/listing'
+import type { ListingItem } from '@echo/model/types/listing-item'
+import type { User } from '@echo/model/types/user'
+import type { Wallet } from '@echo/model/types/wallet'
 import { getListingCreator } from '@echo/ui/helpers/listing/get-listing-creator'
-import type { Listing } from '@echo/ui/types/model/listing'
-import type { ListingItem } from '@echo/ui/types/model/listing-item'
-import type { User } from '@echo/ui/types/model/user'
-import type { Wallet } from '@echo/ui/types/model/wallet'
 import { describe, expect, it } from '@jest/globals'
 import { getAddress } from 'viem'
 

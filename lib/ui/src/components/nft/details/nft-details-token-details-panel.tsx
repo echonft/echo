@@ -1,6 +1,6 @@
+import type { NftTokenType } from '@echo/model/types/nft-token-type'
 import { NftDetailsTokenDetailsPanelRow } from '@echo/ui/components/nft/details/nft-details-token-details-panel-row'
 import { getChainNameById } from '@echo/ui/helpers/get-chain-name-by-id'
-import type { TokenType } from '@echo/ui/types/model/token-type'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
@@ -8,7 +8,7 @@ import type { FunctionComponent } from 'react'
 interface Props {
   chainId: number
   tokenId: number
-  tokenType: TokenType
+  tokenType: NftTokenType
 }
 
 export const NftDetailsTokenDetailsPanel: FunctionComponent<Props> = ({ chainId, tokenType, tokenId }) => {

@@ -1,7 +1,7 @@
-import { getListingPostsCollection } from '@echo/firestore/helpers/collection/get-listing-posts-collection'
+import { getListingPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-posts-collection-reference'
 import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/get-query-snapshot-document-snapshot'
 
 export async function getListingPostSnapshotById(id: string) {
-  const querySnapshot = await getListingPostsCollection().where('id', '==', id).get()
+  const querySnapshot = await getListingPostsCollectionReference().where('id', '==', id).get()
   return getQuerySnapshotDocumentSnapshot(querySnapshot)
 }

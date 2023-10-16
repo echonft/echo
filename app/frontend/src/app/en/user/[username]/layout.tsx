@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
 import { userApiUrl } from '@echo/api/routing/user-api-url'
-import type { GetUserResponse } from '@echo/api/types/responses/get-user-response'
+import type { UserResponse } from '@echo/api/types/responses/user-response'
 import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { UserDetailsApiProvided } from '@echo/ui/components/user/api-provided/user-details-api-provided'
@@ -20,7 +20,7 @@ interface Props {
 
 const UserLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { username }, children }) => {
   const session = await getServerSession(authOptions)
-  const { data, error } = await fetcher(userApiUrl(username)).fetch<GetUserResponse>()
+  const { data, error } = await fetcher(userApiUrl(username)).fetch<UserResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {
@@ -35,7 +35,7 @@ const UserLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params:
   return (
     <NavigationPageLayout user={session?.user}>
       <SectionLayout>
-        <UserDetailsApiProvided response={data.user} />
+        <UserDetailsApiProvided user={data.user} />
       </SectionLayout>
       <SectionLayout>{children}</SectionLayout>
     </NavigationPageLayout>

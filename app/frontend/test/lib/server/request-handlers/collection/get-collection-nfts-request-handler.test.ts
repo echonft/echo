@@ -1,4 +1,4 @@
-import type { GetNftsResponse } from '@echo/api/types/responses/get-nfts-response'
+import type { NftsResponse } from '@echo/api/types/responses/nfts-response'
 import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
 import { getCollectionNfts } from '@server/helpers/nft/get-collection-nfts'
 import { getCollectionNftsRequestHandler } from '@server/request-handlers/collection/get-collection-nfts-request-handler'
@@ -17,7 +17,7 @@ describe('request-handlers - collection - getCollectionNftsRequestHandler', () =
     const req = mockRequest<never>()
     const res = await getCollectionNftsRequestHandler(req, 'slug')
     expect(res.status).toBe(200)
-    const responseData = (await res.json()) as GetNftsResponse
+    const responseData = (await res.json()) as NftsResponse
     expect(responseData).toEqual({ nfts })
   })
 })

@@ -3,7 +3,7 @@ import { offerLink } from '@echo/bot/routing/offer-link'
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { getOfferReceiverItemsGuild } from '@echo/firestore/helpers/offer/get-offer-receiver-items-guild'
 import type { DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
+import type { Offer } from '@echo/model/types/offer'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { ChannelType, Client } from 'discord.js'
@@ -15,7 +15,7 @@ import { isNil } from 'ramda'
  * @param changeType
  * @param offer
  */
-export async function offerChangeHandler(client: Client, changeType: DocumentChangeType, offer: FirestoreOffer) {
+export async function offerChangeHandler(client: Client, changeType: DocumentChangeType, offer: Offer) {
   if (changeType === 'added') {
     try {
       // FIXME validate

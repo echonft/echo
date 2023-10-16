@@ -1,11 +1,11 @@
 import { assocExpiredProp } from '@echo/firestore/helpers/converters/from-firestore/assoc-expired-prop'
 import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
-import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import type { Listing } from '@echo/model/types/listing'
 import type { FirestoreDataConverter, PartialWithFieldValue, QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 import { assoc, dissoc, has, lens, map, over, path, pipe, prop, uniq, when } from 'ramda'
 
-export const listingDataConverter: FirestoreDataConverter<FirestoreListing> = {
+export const listingDataConverter: FirestoreDataConverter<Listing> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<ListingDocumentData>) {
     return pipe(
       getSnapshotData<ListingDocumentData>,
@@ -15,7 +15,7 @@ export const listingDataConverter: FirestoreDataConverter<FirestoreListing> = {
       dissoc('targetsIds')
     )(snapshot)
   },
-  toFirestore(modelObject: PartialWithFieldValue<FirestoreListing>) {
+  toFirestore(modelObject: PartialWithFieldValue<Listing>) {
     return pipe(
       dissoc('expired'),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

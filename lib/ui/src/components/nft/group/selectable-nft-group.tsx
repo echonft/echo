@@ -1,4 +1,5 @@
 'use client'
+import type { Nft } from '@echo/model/types/nft'
 import { NftGroupButton } from '@echo/ui/components/nft/group/nft-group-button'
 import { NftGroupLayout } from '@echo/ui/components/nft/layout/nft-group-layout'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
@@ -6,7 +7,6 @@ import { SelectableNftThumbnail } from '@echo/ui/components/nft/thumbnail/select
 import { getGroupSelectionCount } from '@echo/ui/helpers/selection/get-group-selection-count'
 import { DisableableType } from '@echo/ui/types/disableable'
 import { Group } from '@echo/ui/types/group'
-import type { Nft } from '@echo/ui/types/model/nft'
 import { SelectableType } from '@echo/ui/types/selectable'
 import { Transition } from '@headlessui/react'
 import { map } from 'ramda'

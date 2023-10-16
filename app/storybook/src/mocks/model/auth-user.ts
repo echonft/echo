@@ -1,4 +1,4 @@
-import type { AuthUser } from '@echo/ui/types/model/auth-user'
+import type { AuthUser } from '@echo/model/types/auth-user'
 
 const authUser: AuthUser = {
   id: '6rECUMhevHfxABZ1VNOm',

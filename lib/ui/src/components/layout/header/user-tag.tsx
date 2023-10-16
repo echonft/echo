@@ -1,5 +1,5 @@
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { UserTagPicture } from '@echo/ui/components/layout/header/user-tag-picture'
-import type { AuthUser } from '@echo/ui/types/model/auth-user'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 

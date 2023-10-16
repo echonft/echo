@@ -1,5 +1,5 @@
-import { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import type { Offer } from '@echo/model/types/offer'
 import { ApiError } from '@server/helpers/error/api-error'
 import { cancelOffer } from '@server/helpers/offer/cancel-offer'
 import { getOffer } from '@server/helpers/offer/get-offer'
@@ -33,7 +33,7 @@ describe('request-handlers - offer - cancelOfferRequestHandler', () => {
 
   it('throws if the offer state is not OPEN or ACCEPTED', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce({ id: offerId, state: 'CANCELLED' } as FirestoreOffer)
+    jest.mocked(getOffer).mockResolvedValueOnce({ id: offerId, state: 'CANCELLED' } as Offer)
     const req = mockRequest<never>()
     try {
       await cancelOfferRequestHandler(req, offerId)
@@ -45,9 +45,7 @@ describe('request-handlers - offer - cancelOfferRequestHandler', () => {
 
   it('throws if the user is not the offer sender', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest
-      .mocked(getOffer)
-      .mockResolvedValueOnce({ state: 'OPEN', sender: { username: 'another-user-name' } } as FirestoreOffer)
+    jest.mocked(getOffer).mockResolvedValueOnce({ state: 'OPEN', sender: { username: 'another-user-name' } } as Offer)
     const req = mockRequest<never>()
     try {
       await cancelOfferRequestHandler(req, offerId)
@@ -59,9 +57,7 @@ describe('request-handlers - offer - cancelOfferRequestHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest
-      .mocked(getOffer)
-      .mockResolvedValueOnce({ state: 'ACCEPTED', sender: { username: 'johnnycagewins' } } as FirestoreOffer)
+    jest.mocked(getOffer).mockResolvedValueOnce({ state: 'ACCEPTED', sender: { username: 'johnnycagewins' } } as Offer)
     jest.mocked(cancelOffer).mockResolvedValueOnce()
     const req = mockRequest<never>()
     const res = await cancelOfferRequestHandler(req, offerId)

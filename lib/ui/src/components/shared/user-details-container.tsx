@@ -1,8 +1,8 @@
+import type { User } from '@echo/model/types/user'
 import { UserDiscordTag } from '@echo/ui/components/shared/user-discord-tag'
 import { UserProfilePicture } from '@echo/ui/components/shared/user-profile-picture'
 import { UserWallet } from '@echo/ui/components/shared/user-wallet'
 import { SizeMD } from '@echo/ui/constants/size'
-import type { User } from '@echo/ui/types/model/user'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 

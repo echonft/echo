@@ -1,11 +1,11 @@
-import { addNftCollection } from '@echo/firestore/crud/nft-collection/add-nft-collection'
-import { addNftCollectionDiscordGuild } from '@echo/firestore/crud/nft-collection-discord-guild/add-nft-collection-discord-guild'
+import { addCollection } from '@echo/firestore/crud/collection/add-collection'
+import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
+import type { Collection } from '@echo/model/types/collection'
 import { getAddress } from 'viem'
 
-const collectionToAdd: Omit<FirestoreNftCollection, 'id'> = {
+const collectionToAdd: Omit<Collection, 'id'> = {
   bannerUrl:
     'https://i.seadn.io/gae/i5dYZRkVCUK97bfprQ3WXyrT9BnLSZtVKGJlKQ919uaUB0sxbngVCioaiyu9r6snqfi2aaTyIvv6DHm4m2R3y7hMajbsv14pSZK8mhs?auto=format&dpr=1&w=2048',
   blurUrl: 'https://blur.io/collection/boredapeyachtclub',
@@ -32,7 +32,7 @@ const collectionToAdd: Omit<FirestoreNftCollection, 'id'> = {
 
 void (async function () {
   initializeFirebase()
-  const newCollection = await addNftCollection(collectionToAdd)
-  await addNftCollectionDiscordGuild(newCollection.id, '1002691062374088794', '1032728052209295450')
+  const newCollection = await addCollection(collectionToAdd)
+  await addCollectionDiscordGuild(newCollection.id, '1002691062374088794', '1032728052209295450')
   await terminateFirestore()
 })()

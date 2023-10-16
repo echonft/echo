@@ -1,12 +1,12 @@
 import { assocExpiredProp } from '@echo/firestore/helpers/converters/from-firestore/assoc-expired-prop'
 import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
+import type { Offer } from '@echo/model/types/offer'
 import type { FirestoreDataConverter, QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 import { PartialWithFieldValue } from 'firebase-admin/lib/firestore'
 import { assoc, dissoc, has, lens, map, over, path, pipe, prop, uniq, when } from 'ramda'
 
-export const offerDataConverter: FirestoreDataConverter<FirestoreOffer> = {
+export const offerDataConverter: FirestoreDataConverter<Offer> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData>) {
     return pipe(
       getSnapshotData<OfferDocumentData>,
@@ -17,7 +17,7 @@ export const offerDataConverter: FirestoreDataConverter<FirestoreOffer> = {
       dissoc('senderItemsNftCollectionIds')
     )(snapshot)
   },
-  toFirestore(modelObject: PartialWithFieldValue<FirestoreOffer>) {
+  toFirestore(modelObject: PartialWithFieldValue<Offer>) {
     return pipe(
       dissoc('expired'),
       when(

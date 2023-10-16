@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
 import { userNftsApiUrl } from '@echo/api/routing/user-nfts-api-url'
-import { GetNftsResponse } from '@echo/api/types/responses/get-nfts-response'
+import { NftsResponse } from '@echo/api/types/responses/nfts-response'
 import { ProfileNftsApiProvided } from '@echo/ui/components/profile/api-provided/profile-nfts-api-provided'
 import { links } from '@echo/ui/constants/links'
 import { redirectIfNotLoggedIn } from '@helpers/auth/redirect-if-not-logged-in'
@@ -19,7 +19,7 @@ const ProfileNftsPage: FunctionComponent = async () => {
   const { data, error } = await fetcher(userNftsApiUrl(session.user.username))
     .revalidate(3600)
     .query(queryParams)
-    .fetch<GetNftsResponse>()
+    .fetch<NftsResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {
@@ -28,7 +28,7 @@ const ProfileNftsPage: FunctionComponent = async () => {
     throw Error()
   }
 
-  return <ProfileNftsApiProvided responses={data.nfts} user={session.user} />
+  return <ProfileNftsApiProvided nfts={data.nfts} user={session.user} />
 }
 
 export default ProfileNftsPage

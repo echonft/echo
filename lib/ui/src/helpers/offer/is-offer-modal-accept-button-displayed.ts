@@ -1,4 +1,4 @@
-import type { OfferState } from '@echo/ui/types/model/offer-state'
+import type { OfferState } from '@echo/model/types/offer-state'
 
 export const isOfferModalAcceptButtonDisplayed = (state: OfferState, isReceiving: boolean) => {
   switch (state) {

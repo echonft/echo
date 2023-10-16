@@ -1,5 +1,5 @@
-import type { OfferItem } from '@echo/ui/types/model/offer-item'
-import type { Wallet } from '@echo/ui/types/model/wallet'
+import type { OfferItem } from '@echo/model/types/offer-item'
+import type { Wallet } from '@echo/model/types/wallet'
 import { head, path, pipe } from 'ramda'
 
 export function getOfferItemsWallet(offerItems: OfferItem[]) {

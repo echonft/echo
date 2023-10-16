@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@auth/firebase-adapter": "1.0.0",
+    "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "dayjs": "1.11.9",
     "firebase-admin": "11.10.1",

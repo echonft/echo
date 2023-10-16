@@ -1,5 +1,5 @@
 // TODO Use T instead of returning a string
-import type { OfferState } from '@echo/ui/types/model/offer-state'
+import type { OfferState } from '@echo/model/types/offer-state'
 
 export const getOfferModalAcceptButtonTitleForState = (state: OfferState) => {
   switch (state) {

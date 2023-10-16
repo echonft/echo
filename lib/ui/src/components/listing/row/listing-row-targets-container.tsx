@@ -1,7 +1,9 @@
+import type { ListingTarget } from '@echo/model/types/listing-target'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
+import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
+import { AlignmentRight } from '@echo/ui/constants/alignment'
 import { DirectionIn } from '@echo/ui/constants/swap-direction'
-import type { ListingTarget } from '@echo/ui/types/model/listing-target'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map } from 'ramda'
@@ -12,17 +14,21 @@ interface Props {
 }
 
 export const ListingRowTargetsContainer: FunctionComponent<Props> = ({ targets }) => {
-  const t = useTranslations('shared.assets')
+  const t = useTranslations('listing.assets')
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-5')}>
-      <SwapDirectionHeader direction={DirectionIn} title={t('in')} />
-      <div className={clsx('flex', 'grow', 'gap-5', 'flex-wrap')}>
-        {map(
-          ({ amount, collection }) => (
-            <CollectionThumbnail key={collection.id} collection={collection} count={amount} />
-          ),
-          targets
-        )}
+    <div className={clsx('flex', 'flex-row-reverse', 'grow', 'h-max', 'basis-0')}>
+      <div className={clsx('flex', 'flex-col', 'gap-5', 'self-stretch', 'h-max')}>
+        <div className={clsx('flex', 'flex-row-reverse', 'h-max')}>
+          <SwapDirectionHeader direction={DirectionIn} title={t('in')} />
+        </div>
+        <NftsLayout alignment={AlignmentRight}>
+          {map(
+            ({ amount, collection }) => (
+              <CollectionThumbnail key={collection.id} collection={collection} count={amount} />
+            ),
+            targets
+          )}
+        </NftsLayout>
       </div>
     </div>
   )

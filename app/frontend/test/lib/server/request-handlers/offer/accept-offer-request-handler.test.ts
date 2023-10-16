@@ -1,5 +1,5 @@
-import { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import type { Offer } from '@echo/model/types/offer'
 import { ApiError } from '@server/helpers/error/api-error'
 import { acceptOffer } from '@server/helpers/offer/accept-offer'
 import { getOffer } from '@server/helpers/offer/get-offer'
@@ -33,7 +33,7 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
 
   it('throws if the offer state is not OPEN', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce({ id: offerId, state: 'CANCELLED' } as FirestoreOffer)
+    jest.mocked(getOffer).mockResolvedValueOnce({ id: offerId, state: 'CANCELLED' } as Offer)
     const req = mockRequest<never>()
     try {
       await acceptOfferRequestHandler(req, offerId)
@@ -45,9 +45,7 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
 
   it('throws if the user is not the offer receiver', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest
-      .mocked(getOffer)
-      .mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'another-user-name' } } as FirestoreOffer)
+    jest.mocked(getOffer).mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'another-user-name' } } as Offer)
     const req = mockRequest<never>()
     try {
       await acceptOfferRequestHandler(req, offerId)
@@ -59,9 +57,7 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest
-      .mocked(getOffer)
-      .mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'johnnycagewins' } } as FirestoreOffer)
+    jest.mocked(getOffer).mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'johnnycagewins' } } as Offer)
     jest.mocked(acceptOffer).mockResolvedValueOnce()
     const req = mockRequest<never>()
     const res = await acceptOfferRequestHandler(req, offerId)

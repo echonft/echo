@@ -9,7 +9,7 @@ dayjs.extend(relativeTime)
 interface Props {
   id: string
   sender: string
-  expiresAt: dayjs.Dayjs
+  expiresAt: number
 }
 
 export const NftDetailsListingRow: FunctionComponent<Props> = ({ sender, expiresAt }) => {
@@ -33,7 +33,7 @@ export const NftDetailsListingRow: FunctionComponent<Props> = ({ sender, expires
       <span className={clsx('prose-label-xs', 'text-white/[0.55]')}>{t('by')}</span>
       <span className={clsx('prose-label-xs-semi', 'text-white')}>{sender}</span>
       <span className={clsx('prose-label-xs', 'text-white/[0.55]')}>
-        {t('expiresIn', { time: expiresAt.toNow(true) })}
+        {t('expiresIn', { time: dayjs.unix(expiresAt).toNow(true) })}
       </span>
     </div>
     // </InternalLink>

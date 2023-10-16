@@ -23,6 +23,7 @@ const config: Config = {
   moduleNameMapper: {
     '^@echo/firestore/(.*)$': '<rootDir>/src/$1',
     '^@echo/firestore-mocks/(.*)$': '<rootDir>/test/mocks/$1',
+    '^@echo/model/(.*)$': '<rootDir>/../model/src/$1',
     '^@test-utils/(.*)$': '<rootDir>/test/test-utils/$1',
     '^@echo/test-utils/(.*)$': '<rootDir>/../utils/test/test-utils/$1',
     '^@echo/utils/(.*)$': '<rootDir>/../utils/src/$1'

@@ -1,5 +1,5 @@
-import type { Listing } from '@echo/ui/types/model/listing'
-import type { User } from '@echo/ui/types/model/user'
+import type { Listing } from '@echo/model/types/listing'
+import type { User } from '@echo/model/types/user'
 import { head, path, pipe, prop } from 'ramda'
 
 export function getListingCreator(listing: Listing) {

@@ -1,5 +1,5 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
-import type { GetNftResponse } from '@echo/api/types/responses/get-nft-response'
+import type { NftResponse } from '@echo/api/types/responses/nft-response'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { assertNft } from '@server/helpers/nft/assert-nft'
 import { getNftByCollection } from '@server/helpers/nft/get-nft-by-collection'
@@ -18,5 +18,5 @@ export async function getNftRequestHandler(_req: ApiRequest<never>, slug: string
   const validTokenId = parseTokenId(parseInt(tokenId))
   const nft = await getNftByCollection(slug, validTokenId)
   assertNft(nft)
-  return NextResponse.json<GetNftResponse>({ nft })
+  return NextResponse.json<NftResponse>({ nft })
 }

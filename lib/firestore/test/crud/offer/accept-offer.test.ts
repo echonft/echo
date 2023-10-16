@@ -1,6 +1,6 @@
 import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import type { FirestoreOfferState } from '@echo/firestore/types/model/offer/firestore-offer-state'
+import type { OfferState } from '@echo/model/types/offer-state'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertOffers } from '@test-utils/offer/assert-offers'
@@ -10,7 +10,7 @@ import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore
 import dayjs from 'dayjs'
 
 describe('CRUD - offer - acceptOffer', () => {
-  let initialState: FirestoreOfferState
+  let initialState: OfferState
   let initialExpiresAt: number
   let initialUpdatedAt: number
   const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'

@@ -92,6 +92,9 @@ importers:
       '@echo/firestore':
         specifier: workspace:*
         version: link:../../lib/firestore
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../../lib/model
       '@echo/ui':
         specifier: workspace:*
         version: link:../../lib/ui
@@ -153,6 +156,9 @@ importers:
       '@echo/firestore':
         specifier: workspace:*
         version: link:../../lib/firestore
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../../lib/model
       '@echo/ui':
         specifier: workspace:*
         version: link:../../lib/ui
@@ -241,6 +247,9 @@ importers:
       '@echo/api':
         specifier: workspace:*
         version: link:../../lib/api
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../../lib/model
       '@echo/ui':
         specifier: workspace:*
         version: link:../../lib/ui
@@ -375,6 +384,9 @@ importers:
       '@echo/firestore':
         specifier: workspace:*
         version: link:../firestore
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../model
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -452,6 +464,9 @@ importers:
       '@auth/firebase-adapter':
         specifier: 1.0.0
         version: 1.0.0(firebase-admin@11.10.1)
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../model
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils
@@ -496,11 +511,33 @@ importers:
         specifier: 5.1.6
         version: 5.1.6
 
+  lib/model:
+    dependencies:
+      '@echo/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@types/node':
+        specifier: 20.4.9
+        version: 20.4.9
+      jest:
+        specifier: 29.6.2
+        version: 29.6.2(@types/node@20.4.9)(ts-node@10.9.1)
+      jest-junit:
+        specifier: 16.0.0
+        version: 16.0.0
+      typescript:
+        specifier: 5.1.6
+        version: 5.1.6
+
   lib/ui:
     dependencies:
       '@echo/api':
         specifier: workspace:*
         version: link:../api
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../model
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils

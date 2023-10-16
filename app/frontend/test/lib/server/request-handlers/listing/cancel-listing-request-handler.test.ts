@@ -1,5 +1,5 @@
-import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import type { Listing } from '@echo/model/types/listing'
 import { ApiError } from '@server/helpers/error/api-error'
 import { cancelListing } from '@server/helpers/listing/cancel-listing'
 import { getListing } from '@server/helpers/listing/get-listing'
@@ -33,7 +33,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('throws if the listing state is not OPEN', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getListing).mockResolvedValueOnce({ id: listingId, state: 'CANCELLED' } as FirestoreListing)
+    jest.mocked(getListing).mockResolvedValueOnce({ id: listingId, state: 'CANCELLED' } as Listing)
     const req = mockRequest<never>()
     try {
       await cancelListingRequestHandler(req, listingId)
@@ -47,7 +47,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest
       .mocked(getListing)
-      .mockResolvedValueOnce({ state: 'OPEN', creator: { username: 'another-user-name' } } as FirestoreListing)
+      .mockResolvedValueOnce({ state: 'OPEN', creator: { username: 'another-user-name' } } as Listing)
     const req = mockRequest<never>()
     try {
       await cancelListingRequestHandler(req, listingId)
@@ -59,9 +59,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest
-      .mocked(getListing)
-      .mockResolvedValueOnce({ state: 'OPEN', creator: { username: 'johnnycagewins' } } as FirestoreListing)
+    jest.mocked(getListing).mockResolvedValueOnce({ state: 'OPEN', creator: { username: 'johnnycagewins' } } as Listing)
     jest.mocked(cancelListing).mockResolvedValueOnce()
     const req = mockRequest<never>()
     const res = await cancelListingRequestHandler(req, listingId)

@@ -1,13 +1,13 @@
+import { listingFields } from '@echo/firestore/constants/fields/listing/listing-fields'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import { getListingsCollection } from '@echo/firestore/helpers/collection/get-listings-collection'
+import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { filterExpiredResults } from '@echo/firestore/helpers/crud/filter-expired-results'
 import { getQueryDocumentsData } from '@echo/firestore/helpers/crud/get-query-documents-data'
 import { addListingQueryFilters } from '@echo/firestore/helpers/crud/listing/add-listing-query-filters'
 import { addConstraintsToQuery } from '@echo/firestore/helpers/query/add-constraints-to-query'
-import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
-import { listingFields } from '@echo/firestore/types/model/listing/listing-document-data'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import type { Listing } from '@echo/model/types/listing'
 import { map, path, pipe, uniq } from 'ramda'
 
 /**
@@ -22,10 +22,10 @@ export async function getListingsForUserTarget(
   username: string,
   filters?: ListingQueryFilters,
   constraints?: QueryConstraints
-): Promise<FirestoreListing[]> {
+): Promise<Listing[]> {
   const nfts = await getNftsForOwner(username)
   const collectionIds = pipe(map(path(['collection', 'id'])), uniq)(nfts)
-  let query = getListingsCollection()
+  let query = getListingsCollectionReference()
     .where('creator.username', '!=', username)
     .where('targetsIds', 'array-contains-any', collectionIds)
   query = addListingQueryFilters(query, filters)

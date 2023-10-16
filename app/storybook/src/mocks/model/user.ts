@@ -1,4 +1,4 @@
-import type { User } from '@echo/ui/types/model/user'
+import type { User } from '@echo/model/types/user'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 const users: Record<string, User> = {

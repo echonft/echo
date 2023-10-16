@@ -8,8 +8,8 @@ const metadata: Meta<typeof Component> = {
   title: 'Offer/Details/Container',
   component: Component,
   argTypes: {
-    isReceiver: {
-      control: { type: 'radio' }
+    isCreator: {
+      control: 'boolean'
     }
   },
   parameters: {
@@ -26,39 +26,39 @@ type Story = StoryObj<typeof Component>
 export const Open: Story = {
   args: {
     offer: offer,
-    isReceiver: false
+    isCreator: true
   }
 }
 
 export const Rejected: Story = {
   args: {
     offer: { ...offer, state: 'REJECTED' },
-    isReceiver: false
+    isCreator: true
   }
 }
 export const Cancelled: Story = {
   args: {
     offer: { ...offer, state: 'CANCELLED' },
-    isReceiver: false
+    isCreator: true
   }
 }
 
 export const Invalid: Story = {
   args: {
     offer: { ...offer, state: 'INVALID' },
-    isReceiver: false
+    isCreator: true
   }
 }
 
 export const Completed: Story = {
   args: {
     offer: { ...offer, state: 'COMPLETED' },
-    isReceiver: false
+    isCreator: true
   }
 }
 export const Accepted: Story = {
   args: {
     offer: { ...offer, state: 'ACCEPTED' },
-    isReceiver: false
+    isCreator: true
   }
 }

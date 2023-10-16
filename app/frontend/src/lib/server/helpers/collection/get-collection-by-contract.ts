@@ -1,8 +1,8 @@
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
+import type { Collection } from '@echo/model/types/collection'
 import { ServerError } from '@server/helpers/error/server-error'
 import { both, find, pathEq } from 'ramda'
 
-export function getCollectionByContract(address: string, chainId: number, collections: FirestoreNftCollection[]) {
+export function getCollectionByContract(address: string, chainId: number, collections: Collection[]) {
   try {
     return find(both(pathEq(address, ['contract', 'address']), pathEq(chainId, ['contract', 'chainId'])), collections)
   } catch (e) {

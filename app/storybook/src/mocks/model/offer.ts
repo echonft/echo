@@ -1,14 +1,13 @@
-import type { Offer } from '@echo/ui/types/model/offer'
+import type { Offer } from '@echo/model/types/offer'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getNftById } from '@mocks/model/nft'
-import dayjs from 'dayjs'
 
 const offers: Record<string, Offer> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
-    createdAt: dayjs.unix(1676984897),
+    createdAt: 1676984897,
     expired: true,
-    expiresAt: dayjs.unix(1676984897),
+    expiresAt: 1676984897,
     receiver: {
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
@@ -34,7 +33,7 @@ const offers: Record<string, Offer> = {
     },
     senderItems: [{ amount: 1, nft: getNftById('kRE3UCfXWkJ33nwzj2X1') }],
     state: 'OPEN',
-    updatedAt: dayjs.unix(1676984897)
+    updatedAt: 1676984897
   }
 }
 

@@ -1,8 +1,8 @@
-import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
+import type { Listing } from '@echo/model/types/listing'
 import { assertListingState } from '@server/helpers/listing/assert-listing-state'
 
 describe('helpers - listing - assertListingState', () => {
-  const listing = { state: 'OPEN' } as FirestoreListing
+  const listing = { state: 'OPEN' } as Listing
   it('throws if listing state is not in the passed states', () => {
     expect(() => assertListingState(listing, 'FULFILLED', 'CANCELLED', 'INVALID')).toThrow()
   })

@@ -1,30 +1,30 @@
-import { getOffersCollection } from '@echo/firestore/helpers/collection/get-offers-collection'
+import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
-import { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
-import { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
-import { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
-import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import type { Nft } from '@echo/model/types/nft'
+import type { OfferItem } from '@echo/model/types/offer-item'
+import type { User } from '@echo/model/types/user'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { intersection, isEmpty, map, modify, path, pick } from 'ramda'
 
 interface PartialOfferItem {
   amount: number
-  nft: { id: string; owner: FirestoreUserDetails }
+  nft: { id: string; owner: User }
 }
 
-function mapItems(items: FirestoreOfferItem[]): PartialOfferItem[] {
-  return map<FirestoreOfferItem, PartialOfferItem>(
-    modify<'nft', FirestoreNft, Pick<FirestoreNft, 'id' | 'owner'>>('nft', pick(['id', 'owner'])),
+function mapItems(items: OfferItem[]): PartialOfferItem[] {
+  return map<OfferItem, PartialOfferItem>(
+    modify<'nft', Nft, Pick<Nft, 'id' | 'owner'>>('nft', pick(['id', 'owner'])),
     items
   )
 }
 
 export async function assertOfferIsNotADuplicate(
-  senderItems: NonEmptyArray<FirestoreOfferItem>,
-  receiverItems: NonEmptyArray<FirestoreOfferItem>
+  senderItems: NonEmptyArray<OfferItem>,
+  receiverItems: NonEmptyArray<OfferItem>
 ) {
   const receiverItemsNftIds = map(path(['nft', 'id']), receiverItems) as string[]
   const senderItemsNftIds = map(path(['nft', 'id']), senderItems) as string[]
-  const querySnapshot = await getOffersCollection()
+  const querySnapshot = await getOffersCollectionReference()
     .where('receiverItemsNftIds', '==', receiverItemsNftIds)
     .where('senderItemsNftIds', '==', senderItemsNftIds)
     .get()

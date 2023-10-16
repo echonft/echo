@@ -1,8 +1,8 @@
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { ItemThumbnailsContainer } from '@echo/ui/components/item/thumbnail/layout/item-thumbnails-container'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
-import type { OfferItem } from '@echo/ui/types/model/offer-item'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
@@ -14,7 +14,7 @@ interface Props {
 
 export const NewOfferConfirmationModalItemsContainer: FunctionComponent<Props> = ({ isReceiver, items = [] }) => {
   const t = useTranslations('offer.new.confirmationModal')
-  const tShared = useTranslations('shared.assets')
+  const tShared = useTranslations('assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center')}>

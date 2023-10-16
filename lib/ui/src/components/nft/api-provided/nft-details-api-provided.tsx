@@ -1,26 +1,20 @@
 'use client'
-import type { ListingResponse } from '@echo/api/types/responses/model/listing-response'
-import type { NftResponse } from '@echo/api/types/responses/model/nft-response'
+import type { AuthUser } from '@echo/model/types/auth-user'
+import type { Listing } from '@echo/model/types/listing'
+import type { Nft } from '@echo/model/types/nft'
 import { NftDetails } from '@echo/ui/components/nft/details/nft-details'
 import { NewOfferSliderManager } from '@echo/ui/components/offer/new/new-offer-slider-manager'
-import { mapListingFromResponse } from '@echo/ui/mappers/from-api/map-listing-from-response'
-import { mapNftFromResponse } from '@echo/ui/mappers/from-api/map-nft-from-response'
 import { messages } from '@echo/ui/messages/en'
-import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { NextIntlClientProvider } from 'next-intl'
-import { map } from 'ramda'
-import { type FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
-  nftResponse: NftResponse
-  listingsResponses: ListingResponse[]
+  nft: Nft
+  listings: Listing[]
   user: AuthUser | undefined
 }
 
-export const NftDetailsApiProvided: FunctionComponent<Props> = ({ nftResponse, listingsResponses, user }) => {
-  const nft = useMemo(() => mapNftFromResponse(nftResponse), [nftResponse])
-  const listings = useMemo(() => map(mapListingFromResponse, listingsResponses), [listingsResponses])
-
+export const NftDetailsApiProvided: FunctionComponent<Props> = ({ nft, listings, user }) => {
   return (
     <NextIntlClientProvider messages={messages} locale={'en'}>
       <NftDetails nft={nft} listings={listings} />

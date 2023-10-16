@@ -1,3 +1,4 @@
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
@@ -13,7 +14,6 @@ import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
 import { SizeLG } from '@echo/ui/constants/size'
 import { messages } from '@echo/ui/messages/en'
-import { AuthUser } from '@echo/ui/types/model/auth-user'
 import { NextIntlClientProvider } from 'next-intl'
 import { head, isNil } from 'ramda'
 import { type FunctionComponent } from 'react'

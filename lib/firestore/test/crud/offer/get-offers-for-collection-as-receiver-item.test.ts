@@ -1,7 +1,7 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOffersForCollectionAsReceiverItem } from '@echo/firestore/crud/offer/get-offers-for-collection-as-receiver-item'
-import { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
+import type { Offer } from '@echo/model/types/offer'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -14,13 +14,13 @@ describe('CRUD - offer - getOffersForCollectionAsReceiverItem', () => {
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
   let initialExpiresAt: number
 
-  async function setExpired(offer: FirestoreOffer) {
+  async function setExpired(offer: Offer) {
     const expiresAt = dayjs().subtract(1, 'day').set('ms', 0).unix()
     await uncheckedUpdateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', true))(offer)
   }
 
-  async function setNotExpired(offer: FirestoreOffer) {
+  async function setNotExpired(offer: Offer) {
     const expiresAt = dayjs().add(1, 'day').set('ms', 0).unix()
     await uncheckedUpdateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(offer)
@@ -33,8 +33,8 @@ describe('CRUD - offer - getOffersForCollectionAsReceiverItem', () => {
     await tearDownRemoteFirestoreTests()
   })
   beforeEach(async () => {
-    const offer = await findOfferById(id)
-    initialExpiresAt = offer!.expiresAt
+    const offer = (await findOfferById(id))!
+    initialExpiresAt = offer.expiresAt
   })
   afterEach(async () => {
     await uncheckedUpdateOffer(id, { expiresAt: initialExpiresAt })
@@ -66,7 +66,7 @@ describe('CRUD - offer - getOffersForCollectionAsReceiverItem', () => {
     let listings = await getOffersForCollectionAsReceiverItem(collectionId, { notStates: ['INVALID', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getOffersForCollectionAsReceiverItem(collectionId, { notStates: ['OPEN', 'FULFILLED'] })
+    listings = await getOffersForCollectionAsReceiverItem(collectionId, { notStates: ['OPEN', 'ACCEPTED'] })
     expect(listings.length).toBe(0)
   })
 

@@ -1,12 +1,12 @@
 import { getUserSnapshotById } from '@echo/firestore/crud/user/get-user-snapshot-by-id'
-import type { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
+import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import dayjs from 'dayjs'
 import type { WriteResult } from 'firebase-admin/lib/firestore'
 import { assoc, isNil } from 'ramda'
 
 export async function updateUser(
   userId: string,
-  updateData: Partial<Omit<FirestoreUser, 'id' | 'updatedAt'>>
+  updateData: Partial<Omit<UserDocumentData, 'id' | 'updatedAt'>>
 ): Promise<WriteResult> {
   const documentSnapshot = await getUserSnapshotById(userId)
   if (isNil(documentSnapshot)) {

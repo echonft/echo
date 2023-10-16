@@ -20,6 +20,7 @@ const config: Config = {
   moduleNameMapper: {
     '^@echo/api/(.*)$': '<rootDir>/src/$1',
     '^@echo/firestore/(.*)$': '<rootDir>/../firestore/src/$1',
+    '^@echo/model/(.*)$': '<rootDir>/../model/src/$1',
     '^@echo/utils/(.*)$': '<rootDir>/../utils/src/$1'
   },
   reporters: [

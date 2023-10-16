@@ -1,6 +1,6 @@
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { ItemThumbnail } from '@echo/ui/components/item/thumbnail/item-thumbnail'
 import { ItemThumbnailsContainerLayout } from '@echo/ui/components/item/thumbnail/layout/item-thumbnails-container-layout'
-import { OfferItem } from '@echo/ui/types/model/offer-item'
 import { FunctionComponent } from 'react'
 
 interface Props {

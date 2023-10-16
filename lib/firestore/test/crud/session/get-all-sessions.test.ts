@@ -1,5 +1,5 @@
 import { getAllSessions } from '@echo/firestore/crud/session/get-all-sessions'
-import { FirestoreSession } from '@echo/firestore/types/model/session/firestore-session'
+import { Session } from '@echo/firestore/types/model/session/session'
 import { getAllSessionMocks } from '@echo/firestore-mocks/session/get-all-session-mocks'
 import { getSessionMockByUserId } from '@echo/firestore-mocks/session/get-session-mock-by-user-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
@@ -19,7 +19,7 @@ describe('CRUD - session - getAllSessions', () => {
     const sessionMocks = getAllSessionMocks()
     const sessions = await getAllSessions()
     expect(sessions.length).toEqual(sessionMocks.length)
-    forEach((session: FirestoreSession) => {
+    forEach((session: Session) => {
       expect(getSessionMockByUserId(session.userId)).toStrictEqual(session)
     }, sessions)
   })

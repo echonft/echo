@@ -1,7 +1,7 @@
+import type { ListingItem } from '@echo/model/types/listing-item'
 import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { DirectionOut } from '@echo/ui/constants/swap-direction'
-import type { ListingItem } from '@echo/ui/types/model/listing-item'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map, prop } from 'ramda'
@@ -12,12 +12,14 @@ interface Props {
 }
 
 export const ListingRowItemsContainer: FunctionComponent<Props> = ({ items }) => {
-  const t = useTranslations('shared.assets')
+  const t = useTranslations('listing.assets')
   const nfts = useMemo(() => map(prop('nft'), items), [items])
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-5')}>
-      <SwapDirectionHeader direction={DirectionOut} title={t('out')} />
-      <NftsContainer nfts={nfts} />
+    <div className={clsx('flex', 'flex-row', 'grow', 'h-max', 'basis-0')}>
+      <div className={clsx('flex', 'flex-col', 'gap-5', 'self-stretch', 'h-max')}>
+        <SwapDirectionHeader direction={DirectionOut} title={t('out')} />
+        <NftsContainer nfts={nfts} />
+      </div>
     </div>
   )
 }
