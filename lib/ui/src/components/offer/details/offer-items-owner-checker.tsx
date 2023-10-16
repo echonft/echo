@@ -3,8 +3,8 @@ import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/ac
 import { getOwnerOfContractWagmiConfigForOfferItem } from '@echo/ui/helpers/contract/get-owner-of-contract-wagmi-config-for-offer-item'
 import { OfferItem } from '@echo/ui/types/model/offer-item'
 import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { all, equals, isNil, pipe, prop } from 'ramda'
-import { FunctionComponent, useEffect } from 'react'
+import { all, equals, F, ifElse, isNil, pipe, prop } from 'ramda'
+import { FunctionComponent, useEffect, useMemo } from 'react'
 import { getAddress } from 'viem'
 import { useContractReads } from 'wagmi'
 
@@ -29,13 +29,22 @@ export const OfferItemsOwnerChecker: FunctionComponent<Props> = ({
     contracts: offerItems.map(getOwnerOfContractWagmiConfigForOfferItem)
   })
 
+  const ownsAllTokens = useMemo(
+    () => ifElse(isNil, F, all(pipe(prop('result'), getAddress, equals(getAddress(ownerAddress)))))(data),
+    [data, ownerAddress]
+  )
+
+  useEffect(() => {
+    if (!isNil(data)) {
+      onResponse?.(ownsAllTokens)
+    }
+  }, [data])
+
   useEffect(() => {
     if (!isNil(error)) {
       onError?.(error)
-    } else if (!isNil(data)) {
-      onResponse?.(all(pipe(prop('result'), getAddress, equals(getAddress(ownerAddress))))(data))
     }
-  }, [data, error])
+  }, [error])
 
-  return <OfferDetailsAcceptModalRow title={title} status={status} />
+  return <OfferDetailsAcceptModalRow title={title} loading={status === 'loading'} success={ownsAllTokens} />
 }

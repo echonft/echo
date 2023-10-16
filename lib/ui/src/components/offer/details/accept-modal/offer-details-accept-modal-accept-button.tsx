@@ -30,7 +30,7 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
   const { data, status, error, signTypedData } = useSignTypedData(getSignatureConfigForOffer(offer, chainId))
 
   const acceptOffer = useCallback(() => {
-    return acceptOfferFetcher(offer.id, data!, token)
+    return acceptOfferFetcher(offer.id, data, token)
   }, [offer, data, token])
 
   const { trigger: acceptOfferTrigger, isMutating } = useSWRMutation(`accept-offer-${offer.id}`, acceptOffer, {
@@ -42,10 +42,14 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
     if (!isNil(data)) {
       void acceptOfferTrigger()
     }
+  }, [data])
+
+  useEffect(() => {
     if (!isNil(error)) {
       onError?.(error)
     }
-  }, [data, error])
+  }, [error])
+
   return (
     <button
       className={clsx('btn-gradient', 'btn-size-alt', 'group', 'outline-none')}

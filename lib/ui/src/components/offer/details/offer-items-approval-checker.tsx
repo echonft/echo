@@ -3,7 +3,7 @@ import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/ac
 import { getIsApprovedForAllWagmiConfigForContract } from '@echo/ui/helpers/contract/get-is-approved-for-all-wagmi-config-for-contract'
 import { Contract } from '@echo/ui/types/model/contract'
 import { isNil } from 'ramda'
-import { FunctionComponent, useCallback, useEffect } from 'react'
+import { FunctionComponent, useEffect } from 'react'
 import { useContractRead } from 'wagmi'
 
 interface Props {
@@ -26,23 +26,22 @@ export const OfferItemsApprovalChecker: FunctionComponent<Props> = ({
     watch: true
   })
 
-  const getStatus = useCallback(() => {
-    if (!isNil(data)) {
-      return data ? 'success' : 'error'
-    }
-    return status
-  }, [status, data])
-
   useEffect(() => {
     if (!isNil(error)) {
       onError?.(error)
-    } else if (!isNil(data)) {
+    }
+  }, [error])
+
+  useEffect(() => {
+    if (!isNil(data)) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       onResponse?.(data)
     }
-  }, [data, error])
+  }, [data])
 
-  return <OfferDetailsAcceptModalRow status={getStatus()} title={title} />
+  return (
+    <OfferDetailsAcceptModalRow title={title} loading={status === 'loading'} success={!isNil(data) && Boolean(data)} />
+  )
 }

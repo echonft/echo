@@ -18,7 +18,7 @@ export const OfferDetailsApproveContract: FunctionComponent<Props> = ({ contract
   return (
     <button
       className={clsx('btn-gradient', 'btn-size-alt', 'group', 'outline-none')}
-      onClick={() => write?.()}
+      onClick={write}
       disabled={status !== 'idle'}
     >
       <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
