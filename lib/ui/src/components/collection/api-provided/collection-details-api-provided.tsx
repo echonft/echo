@@ -1,13 +1,13 @@
-import type { CollectionResponse } from '@echo/api/types/responses/model/collection-response'
+import type { Collection } from '@echo/model/types/collection'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
 import { SizeLG } from '@echo/ui/constants/size'
-import { type FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
 
 interface Props {
-  response: CollectionResponse
+  collection: Collection
 }
 
-export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ response }) => {
+export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ collection }) => {
   const {
     bannerUrl,
     totalSupply,
@@ -18,7 +18,7 @@ export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ respons
     discordUrl,
     websiteUrl,
     verified
-  } = response
+  } = collection
   return (
     <CollectionDetails
       bannerUrl={bannerUrl}

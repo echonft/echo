@@ -1,6 +1,6 @@
+import type { Nft } from '@echo/model/types/nft'
+import type { NftAttribute } from '@echo/model/types/nft-attribute'
 import { nftAttributeEquals } from '@echo/ui/comparators/nft-attribute-equals'
-import type { Nft } from '@echo/ui/types/model/nft'
-import { NftAttribute } from '@echo/ui/types/model/nft-attribute'
 import { TraitFilter } from '@echo/ui/types/trait-filter'
 import { applySpec, collectBy, eqProps, flatten, groupWith, head, length, map, pipe, prop, sort } from 'ramda'
 

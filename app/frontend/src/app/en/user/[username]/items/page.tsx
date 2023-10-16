@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
 import { userNftsApiUrl } from '@echo/api/routing/user-nfts-api-url'
-import type { GetNftsResponse } from '@echo/api/types/responses/get-nfts-response'
+import type { NftsResponse } from '@echo/api/types/responses/nfts-response'
 import { UserNftsApiProvided } from '@echo/ui/components/user/api-provided/user-nfts-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
@@ -22,7 +22,7 @@ const UserNftsPage: FunctionComponent<Props> = async ({ params: { username } }) 
   const { data, error } = await fetcher(userNftsApiUrl(username))
     .revalidate(3600)
     .query(queryParams)
-    .fetch<GetNftsResponse>()
+    .fetch<NftsResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {
@@ -31,7 +31,7 @@ const UserNftsPage: FunctionComponent<Props> = async ({ params: { username } }) 
     throw Error()
   }
 
-  return <UserNftsApiProvided username={username} responses={data.nfts} user={session?.user} />
+  return <UserNftsApiProvided username={username} nfts={data.nfts} user={session?.user} />
 }
 
 export default UserNftsPage

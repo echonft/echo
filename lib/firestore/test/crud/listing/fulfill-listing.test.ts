@@ -1,6 +1,6 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { fulfillListing } from '@echo/firestore/crud/listing/fulfill-listing'
-import type { FirestoreListingState } from '@echo/firestore/types/model/listing/firestore-listing-state'
+import type { ListingState } from '@echo/model/types/listing-state'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertListings } from '@test-utils/listing/assert-listings'
@@ -10,7 +10,7 @@ import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore
 import dayjs from 'dayjs'
 
 describe('CRUD - listing - fulfillListing', () => {
-  let initialState: FirestoreListingState
+  let initialState: ListingState
   let initialExpiresAt: number
   let initialUpdatedAt: number
   const listingId = 'jUzMtPGKM62mMhEcmbN4'

@@ -3,8 +3,8 @@ import { executeCreateListing } from '@echo/bot/commands/create-listing'
 import { InvalidSubcommandError } from '@echo/bot/errors/invalid-subcommand-error'
 import { NotConfiguredError } from '@echo/bot/errors/not-configured-error'
 import { InputSubcommands } from '@echo/bot/types/commands/input-subcommands'
-import { findNftCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/nft-collection-discord-guild/find-nft-collection-by-discord-guild-discord-id'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
+import { findCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/collection-discord-guild/find-collection-by-discord-guild-discord-id'
+import type { Collection } from '@echo/model/types/collection'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { ChatInputCommandInteraction, CommandInteraction } from 'discord.js'
@@ -26,9 +26,9 @@ export async function executeForCommand(interaction: ChatInputCommandInteraction
   if (isNil(guildId) || isEmpty(guildId)) {
     throw new NotConfiguredError(guildId)
   }
-  let collection: FirestoreNftCollection | undefined
+  let collection: Collection | undefined
   try {
-    collection = await findNftCollectionByDiscordGuildDiscordId(guildId)
+    collection = await findCollectionByDiscordGuildDiscordId(guildId)
   } catch (error) {
     logger.error(
       `Error fetching collection${isNil(guildId) || isEmpty(guildId) ? '' : ` for guild ${guildId}`}: ${errorMessage(

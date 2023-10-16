@@ -17,8 +17,9 @@ export default metadata
 type Story = StoryObj<typeof Component>
 const {
   collection: {
-    contract: { chainId, tokenType }
+    contract: { chainId }
   },
+  tokenType,
   tokenId
 } = getNftById('QFjMRNChUAHNswkRADXh')
 export const Default: Story = {

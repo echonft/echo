@@ -1,4 +1,4 @@
-import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
+import type { Listing } from '@echo/model/types/listing'
 import { assertListing } from '@server/helpers/listing/assert-listing'
 
 describe('helpers - listing - assertListing', () => {
@@ -6,6 +6,6 @@ describe('helpers - listing - assertListing', () => {
     expect(() => assertListing(undefined)).toThrow()
   })
   it('does not throw if listing is defined', () => {
-    expect(() => assertListing({ id: 'listingId' } as FirestoreListing)).not.toThrow()
+    expect(() => assertListing({ id: 'listingId' } as Listing)).not.toThrow()
   })
 })

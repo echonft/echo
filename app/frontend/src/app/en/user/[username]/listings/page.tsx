@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
 import { userListingsApiUrl } from '@echo/api/routing/user-listings-api-url'
-import type { GetListingsResponse } from '@echo/api/types/responses/get-listings-response'
+import type { ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { UserListingsApiProvided } from '@echo/ui/components/user/api-provided/user-listings-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapListingFiltersToQueryParams } from '@helpers/request/map-listing-filters-to-query-params'
@@ -25,7 +25,7 @@ const UserListingsPage: FunctionComponent<Props> = async ({ params: { username }
   const { data, error } = await fetcher(userListingsApiUrl(username))
     .revalidate(3600)
     .query(mergeLeft(constraintsQueryParams, filtersQueryParam))
-    .fetch<GetListingsResponse>()
+    .fetch<ListingsResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {
@@ -34,7 +34,7 @@ const UserListingsPage: FunctionComponent<Props> = async ({ params: { username }
     throw Error()
   }
 
-  return <UserListingsApiProvided username={username} responses={data.listings} user={session?.user} />
+  return <UserListingsApiProvided username={username} listings={data.listings} user={session?.user} />
 }
 
 export default UserListingsPage

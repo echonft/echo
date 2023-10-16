@@ -5,9 +5,9 @@ import { updateAccount } from '@echo/firestore/crud/account/update-account'
 import { findSessionByUserId } from '@echo/firestore/crud/session/find-session-by-user-id'
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
-import { mapWalletToWalletData } from '@echo/firestore/mappers/map-wallet-to-wallet-data'
+import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/map-wallet-document-data-to-wallet'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { AuthUser } from '@echo/ui/types/model/auth-user'
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { getAvatarDecorationUrl } from '@helpers/auth/get-avatar-decoration-url'
 import { getDiscordAvatarUrl } from '@helpers/auth/get-discord-avatar-url'
@@ -59,7 +59,7 @@ export const authOptions: AuthOptions = {
         const sessionToken = await findSessionByUserId(id)
         const wallets = await getWalletsForUser(id)
         const authUser = pipe(
-          assoc('wallets', map(mapWalletToWalletData, wallets)),
+          assoc('wallets', map(mapWalletDocumentDataToWallet, wallets)),
           unless(always(isNil(sessionToken)), assoc('sessionToken', sessionToken?.sessionToken))
         )(user) as AuthUser
         // TODO get the chain id

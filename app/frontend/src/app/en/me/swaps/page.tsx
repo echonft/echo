@@ -1,13 +1,15 @@
 import { authOptions } from '@constants/auth-options'
 import { userSwapsApiUrl } from '@echo/api/routing/user-swaps-api-url'
-import type { GetOffersResponse } from '@echo/api/types/responses/get-offers-response'
+import type { OffersResponse } from '@echo/api/types/responses/offers-response'
 import { ProfileSwapsApiProvided } from '@echo/ui/components/profile/api-provided/profile-swaps-api-provided'
 import { links } from '@echo/ui/constants/links'
+import { OfferRoleReceiver, OfferRoleSender } from '@echo/ui/constants/offer-role'
+import { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { redirectIfNotLoggedIn } from '@helpers/auth/redirect-if-not-logged-in'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { getServerSession } from 'next-auth/next'
-import { isNil } from 'ramda'
+import { assoc, ifElse, isNil, map, pathEq } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 const ProfileSwapsPage: FunctionComponent = async () => {
@@ -19,7 +21,7 @@ const ProfileSwapsPage: FunctionComponent = async () => {
   const { data, error } = await fetcher(userSwapsApiUrl(session.user.username))
     .revalidate(3600)
     .query(queryParams)
-    .fetch<GetOffersResponse>()
+    .fetch<OffersResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {
@@ -28,7 +30,21 @@ const ProfileSwapsPage: FunctionComponent = async () => {
     throw Error()
   }
 
-  return <ProfileSwapsApiProvided responses={data.offers} user={session.user} />
+  return (
+    <ProfileSwapsApiProvided
+      offers={
+        map(
+          ifElse(
+            pathEq(session.user.id, ['sender', 'id']),
+            assoc('role', OfferRoleReceiver),
+            assoc('role', OfferRoleSender)
+          ),
+          data.offers
+        ) as OfferWithRole[]
+      }
+      user={session.user}
+    />
+  )
 }
 
 export default ProfileSwapsPage

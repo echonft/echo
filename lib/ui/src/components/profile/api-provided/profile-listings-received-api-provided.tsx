@@ -1,33 +1,26 @@
 'use client'
-import type { ListingResponse } from '@echo/api/types/responses/model/listing-response'
-import { HideIf } from '@echo/ui/components/base/utils/hide-if'
-import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import type { AuthUser } from '@echo/model/types/auth-user'
+import type { Listing } from '@echo/model/types/listing'
+import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
+import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { ListingRowsContainer } from '@echo/ui/components/listing/layout/container/listing-rows-container'
 import { ProfileNavigationLayout } from '@echo/ui/components/profile/layout/profile-navigation-layout'
 import { ProfileListingsReceivedEmpty } from '@echo/ui/components/profile/listing/empty/profile-listings-received-empty'
 import { NavigationListingsReceived } from '@echo/ui/constants/navigation-item'
-import { mapListingFromResponse } from '@echo/ui/mappers/from-api/map-listing-from-response'
-import { AuthUser } from '@echo/ui/types/model/auth-user'
-import { isEmpty, map } from 'ramda'
-import { type FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
-  responses: ListingResponse[]
+  listings: Listing[]
   user: AuthUser
 }
 
-export const ProfileListingsReceivedApiProvided: FunctionComponent<Props> = ({ responses, user }) => {
-  const mappedListings = useMemo(() => map(mapListingFromResponse, responses), [responses])
-  const dataIsEmpty = isEmpty(mappedListings)
-
+export const ProfileListingsReceivedApiProvided: FunctionComponent<Props> = ({ listings, user }) => {
   return (
     <ProfileNavigationLayout activeNavigationItem={NavigationListingsReceived} user={user}>
-      <HideIf condition={dataIsEmpty}>
-        <ListingRowsContainer listings={mappedListings} />
-      </HideIf>
-      <ShowIf condition={dataIsEmpty}>
+      <HideIfEmpty checks={listings} render={(listings) => <ListingRowsContainer listings={listings} />} />
+      <ShowIfEmpty checks={listings}>
         <ProfileListingsReceivedEmpty />
-      </ShowIf>
+      </ShowIfEmpty>
     </ProfileNavigationLayout>
   )
 }

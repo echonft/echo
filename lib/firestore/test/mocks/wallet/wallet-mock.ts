@@ -1,7 +1,7 @@
-import { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
+import { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { getAddress } from 'viem'
 
-export const walletMock: Record<string, FirestoreWallet> = {
+export const walletMock: Record<string, WalletDocumentData> = {
   i28NWtlxElPXCnO0c6BC: {
     id: 'i28NWtlxElPXCnO0c6BC',
     userId: 'oE6yUEQBPn7PZ89yMjKn',

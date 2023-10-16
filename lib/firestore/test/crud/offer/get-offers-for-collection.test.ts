@@ -1,7 +1,7 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOffersForCollection } from '@echo/firestore/crud/offer/get-offers-for-collection'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
+import type { Offer } from '@echo/model/types/offer'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -16,13 +16,13 @@ describe('CRUD - offer - getOffersForCollection', () => {
   let initialExpiresAt: number
   let initialExpiresAt2: number
 
-  async function setExpired(offer: FirestoreOffer) {
+  async function setExpired(offer: Offer) {
     const expiresAt = dayjs().subtract(1, 'day').set('ms', 0).unix()
     await uncheckedUpdateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', true))(offer)
   }
 
-  async function setNotExpired(offer: FirestoreOffer) {
+  async function setNotExpired(offer: Offer) {
     const expiresAt = dayjs().add(1, 'day').set('ms', 0).unix()
     await uncheckedUpdateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(offer)
@@ -35,10 +35,10 @@ describe('CRUD - offer - getOffersForCollection', () => {
     await tearDownRemoteFirestoreTests()
   })
   beforeEach(async () => {
-    const offer = await findOfferById(offerId)
-    initialExpiresAt = offer!.expiresAt
-    const offer2 = await findOfferById(offerId2)
-    initialExpiresAt2 = offer2!.expiresAt
+    const offer = (await findOfferById(offerId))!
+    initialExpiresAt = offer.expiresAt
+    const offer2 = (await findOfferById(offerId2))!
+    initialExpiresAt2 = offer2.expiresAt
   })
   afterEach(async () => {
     await uncheckedUpdateOffer(offerId, { expiresAt: initialExpiresAt })

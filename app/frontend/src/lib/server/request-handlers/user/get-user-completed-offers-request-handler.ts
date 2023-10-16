@@ -1,5 +1,5 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
-import type { GetOffersResponse } from '@echo/api/types/responses/get-offers-response'
+import type { OffersResponse } from '@echo/api/types/responses/offers-response'
 import { getUserOffers } from '@server/helpers/offer/get-user-offers'
 import { parseConstraintsQuery } from '@server/helpers/request/parse-constraints-query'
 import { parseOfferFiltersQuery } from '@server/helpers/request/parse-offer-filters-query'
@@ -15,5 +15,5 @@ export async function getUserCompletedOffersRequestHandler(req: ApiRequest<never
     assoc('includeExpired', true)
   )(filters)
   const offers = await getUserOffers(username, completedOffersFilters, constraints)
-  return NextResponse.json<GetOffersResponse>({ offers })
+  return NextResponse.json<OffersResponse>({ offers })
 }

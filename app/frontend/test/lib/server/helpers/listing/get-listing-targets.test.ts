@@ -1,12 +1,12 @@
 import type { ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
-import { findNftCollectionById } from '@echo/firestore/crud/nft-collection/find-nft-collection-by-id'
-import type { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
-import type { FirestoreNftCollection } from '@echo/firestore/types/model/nft-collection/firestore-nft-collection'
+import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
+import type { Collection } from '@echo/model/types/collection'
+import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getListingTargets } from '@server/helpers/listing/get-listing-targets'
 import { forEach } from 'ramda'
 
-jest.mock('@echo/firestore/crud/nft-collection/find-nft-collection-by-id')
+jest.mock('@echo/firestore/crud/collection/find-collection-by-id')
 
 describe('helpers - listing - getListingTargets', () => {
   const listingTargetRequest: ListingTargetRequest = {
@@ -18,11 +18,11 @@ describe('helpers - listing - getListingTargets', () => {
   const collection = {
     id: 'collection-id',
     name: 'collection-name'
-  } as FirestoreNftCollection
+  } as Collection
   const listingTarget = {
     amount: 1,
     collection
-  } as FirestoreListingTarget
+  } as ListingTarget
   const listingTargetRequests: NonEmptyArray<ListingTargetRequest> = [listingTargetRequest, listingTargetRequest]
 
   beforeEach(() => {
@@ -30,12 +30,12 @@ describe('helpers - listing - getListingTargets', () => {
   })
 
   it('throws if the collection does not exist for one or more items', async () => {
-    jest.mocked(findNftCollectionById).mockResolvedValue(undefined)
+    jest.mocked(findCollectionById).mockResolvedValue(undefined)
     await expect(getListingTargets(listingTargetRequests)).rejects.toBeDefined()
   })
 
   it('returns the associated listing targets', async () => {
-    jest.mocked(findNftCollectionById).mockResolvedValue(collection)
+    jest.mocked(findCollectionById).mockResolvedValue(collection)
     const targets = await getListingTargets(listingTargetRequests)
     expect(targets.length).toEqual(2)
     forEach((target) => {

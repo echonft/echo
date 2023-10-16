@@ -9,7 +9,7 @@ describe('builders - buildListingEmbed', () => {
   // const listing = {
   //   ...listingMock,
   //   targets: [listingMock.targets[0], listingMock.targets[0]]
-  // } as FirestoreListingComplete
+  // } as ListingComplete
   // const discordGuild = getListingItemsGuild(listing)
   // it('should build an embed with the correct title', () => {
   //   const result = buildListingEmbed(listing)

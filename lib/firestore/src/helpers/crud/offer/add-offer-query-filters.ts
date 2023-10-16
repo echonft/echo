@@ -1,12 +1,12 @@
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
+import type { Offer } from '@echo/model/types/offer'
 import { intersects } from '@echo/utils/fp/intersects'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { single } from '@echo/utils/fp/single'
 import type { Query } from 'firebase-admin/lib/firestore'
 import { head, isNil } from 'ramda'
 
-export function addOfferQueryFilters(query: Query<FirestoreOffer>, filters?: OfferQueryFilters) {
+export function addOfferQueryFilters(query: Query<Offer>, filters?: OfferQueryFilters) {
   if (isNil(filters)) {
     return query
   }

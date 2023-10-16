@@ -1,13 +1,13 @@
-import { FirestoreWallet } from '@echo/firestore/types/model/wallet/firestore-wallet'
+import { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { DocumentReference } from 'firebase-admin/lib/firestore'
 
-export const walletReferenceMock: Record<string, DocumentReference<FirestoreWallet>> = {
+export const walletReferenceMock: Record<string, DocumentReference<WalletDocumentData>> = {
   i28NWtlxElPXCnO0c6BC: {
     id: 'i28NWtlxElPXCnO0c6BC',
     path: 'wallets/i28NWtlxElPXCnO0c6BC'
-  } as unknown as DocumentReference<FirestoreWallet>,
+  } as unknown as DocumentReference<WalletDocumentData>,
   h6oTcucifUZtxI2ZbqrS: {
     id: 'h6oTcucifUZtxI2ZbqrS',
     path: 'wallets/h6oTcucifUZtxI2ZbqrS'
-  } as unknown as DocumentReference<FirestoreWallet>
+  } as unknown as DocumentReference<WalletDocumentData>
 }

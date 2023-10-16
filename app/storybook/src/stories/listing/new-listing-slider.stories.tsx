@@ -1,5 +1,4 @@
 import { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
-import { ListingResponse } from '@echo/api/types/responses/model/listing-response'
 import { NewListingSliderManager as Component } from '@echo/ui/components/listing/new/new-listing-slider-manager'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { getAllCollections } from '@mocks/model/collection'
@@ -38,7 +37,7 @@ const listing = getListingById('jUzMtPGKM62mMhEcmbN4')
 const createListingFetcher = (_parameters: CreateListingRequest, _token: string | undefined) =>
   delayPromise(
     Promise.resolve({
-      listing: listing as unknown as ListingResponse
+      listing
     })
   )
 const collectionProvider = {

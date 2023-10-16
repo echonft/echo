@@ -31,10 +31,10 @@ export const Default: Story = {
   args: {
     nft,
     listings: [
-      assoc('expiresAt', dayjs().add(1, 'hour'), listing),
-      assoc('expiresAt', dayjs().add(6, 'hour'), listing),
-      assoc('expiresAt', dayjs().add(1, 'day'), listing),
-      assoc('expiresAt', dayjs().add(40, 'hour'), listing)
+      assoc('expiresAt', dayjs().add(1, 'hour').unix(), listing),
+      assoc('expiresAt', dayjs().add(6, 'hour').unix(), listing),
+      assoc('expiresAt', dayjs().add(1, 'day').unix(), listing),
+      assoc('expiresAt', dayjs().add(40, 'hour').unix(), listing)
     ]
   }
 }

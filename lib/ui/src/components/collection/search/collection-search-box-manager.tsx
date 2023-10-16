@@ -1,5 +1,5 @@
+import type { Collection } from '@echo/model/types/collection'
 import { CollectionSearchBox } from '@echo/ui/components/collection/search/collection-search-box'
-import type { Collection } from '@echo/ui/types/model/collection'
 import { stringIncludes } from '@echo/utils/fp/string-includes'
 import { filter, isNil, pipe, prop, toLower } from 'ramda'
 import { FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'

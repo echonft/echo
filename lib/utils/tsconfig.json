@@ -3,12 +3,11 @@
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": ".",
-    "outDir": "dist",
     "paths": {
       "@echo/utils/*": ["src/*"],
       "@echo/test-utils/*": ["test/test-utils/*"]
     }
   },
   "include": ["src", "test"],
-  "exclude": ["dist", "node_modules"]
+  "exclude": ["node_modules"]
 }

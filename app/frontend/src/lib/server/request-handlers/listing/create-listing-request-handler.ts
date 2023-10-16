@@ -1,7 +1,7 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
-import type { GetListingResponse } from '@echo/api/types/responses/get-listing-response'
-import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
+import type { ListingResponse } from '@echo/api/types/responses/listing-response'
+import type { ListingItem } from '@echo/model/types/listing-item'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { createListing } from '@server/helpers/listing/create-listing'
 import { getListingItems } from '@server/helpers/listing/get-listing-items'
@@ -19,11 +19,11 @@ export async function createListingRequestHandler(req: ApiRequest<CreateListingR
   const listingItems = await getListingItems(items)
   const listingTargets = await getListingTargets([target])
   // make sure the creator is the owner of every item
-  forEach((item: FirestoreListingItem) => {
+  forEach((item: ListingItem) => {
     assertNftOwner(item.nft, creator.username)
   }, listingItems)
   const listing = await createListing(listingItems, listingTargets)
-  return NextResponse.json<GetListingResponse>({ listing })
+  return NextResponse.json<ListingResponse>({ listing })
 }
 
 function parseCreateListingRequest(request: CreateListingRequest) {

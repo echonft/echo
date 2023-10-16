@@ -1,7 +1,6 @@
-import type { Nft } from '@echo/ui/types/model/nft'
+import type { Nft } from '@echo/model/types/nft'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getCollectionById } from '@mocks/model/collection'
-import dayjs from 'dayjs'
 
 const nfts: Record<string, Nft> = {
   '8hHFadIrrooORfTOLkBg': {
@@ -38,7 +37,7 @@ const nfts: Record<string, Nft> = {
       'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
     tokenId: 1376,
     tokenType: 'ERC721',
-    updatedAt: dayjs.unix(1676984897)
+    updatedAt: 1676984897
   },
   iRZFKEujarikVjpiFAkE: {
     id: 'iRZFKEujarikVjpiFAkE',
@@ -98,7 +97,7 @@ const nfts: Record<string, Nft> = {
       'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
     tokenId: 2414,
     tokenType: 'ERC721',
-    updatedAt: dayjs.unix(1676984897)
+    updatedAt: 1676984897
   },
   '5SeF1NSN5uPUxtWSr516': {
     id: '5SeF1NSN5uPUxtWSr516',
@@ -158,7 +157,7 @@ const nfts: Record<string, Nft> = {
       'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/f7adbf923a17d9b1f9b33d7a23d2b621',
     tokenId: 3035,
     tokenType: 'ERC721',
-    updatedAt: dayjs.unix(1676984897)
+    updatedAt: 1676984897
   },
   QFjMRNChUAHNswkRADXh: {
     id: 'QFjMRNChUAHNswkRADXh',
@@ -234,7 +233,7 @@ const nfts: Record<string, Nft> = {
       'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
     tokenId: 17,
     tokenType: 'ERC721',
-    updatedAt: dayjs.unix(1676984897)
+    updatedAt: 1676984897
   },
   XiDa6k2P7gxXCKSxn2wq: {
     id: 'XiDa6k2P7gxXCKSxn2wq',
@@ -298,7 +297,7 @@ const nfts: Record<string, Nft> = {
       'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
     tokenId: 18,
     tokenType: 'ERC721',
-    updatedAt: dayjs.unix(1676984897)
+    updatedAt: 1676984897
   },
   kRE3UCfXWkJ33nwzj2X1: {
     id: 'kRE3UCfXWkJ33nwzj2X1',
@@ -366,7 +365,7 @@ const nfts: Record<string, Nft> = {
       'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
     tokenId: 1014,
     tokenType: 'ERC721',
-    updatedAt: dayjs.unix(1676984897)
+    updatedAt: 1676984897
   }
 }
 

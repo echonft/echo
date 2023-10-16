@@ -1,18 +1,18 @@
-import type { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import type { FirestoreOfferItem } from '@echo/firestore/types/model/offer/firestore-offer-item'
+import type { ListingTarget } from '@echo/model/types/listing-target'
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { filter, pathEq } from 'ramda'
 
 /**
  * Returns the fulfilling status of offer items regarding listing targets
  * This is assuming both sets already intersect
- * @param {FirestoreListingTarget[]} targets
- * @param {FirestoreOfferItem[]} offerItems
+ * @param {ListingTarget[]} targets
+ * @param {OfferItem[]} offerItems
  * @return {ListingOfferFulfillingStatus}
  */
 export function getListingTargetsFulfillingStatus(
-  targets: FirestoreListingTarget[],
-  offerItems: FirestoreOfferItem[]
+  targets: ListingTarget[],
+  offerItems: OfferItem[]
 ): ListingOfferFulfillingStatus {
   for (const target of targets) {
     const { amount, collection } = target

@@ -1,8 +1,8 @@
 import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
-import { FirestoreNft } from '@echo/firestore/types/model/nft/firestore-nft'
-import { WalletData } from '@echo/firestore/types/model/wallet/wallet-data'
-import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
+import { getCollectionMockById } from '@echo/firestore-mocks/collection/get-collection-mock-by-id'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import type { Nft } from '@echo/model/types/nft'
+import type { Wallet } from '@echo/model/types/wallet'
 import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nft-to-firestore'
 
 describe('helpers - alchemy - mapAlchemyNftToFirestore', () => {
@@ -22,13 +22,13 @@ describe('helpers - alchemy - mapAlchemyNftToFirestore', () => {
     tokenId: 1,
     tokenType: 'ERC721'
   }
-  const collection = getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
+  const collection = getCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
   const user = getUserMockById('6rECUMhevHfxABZ1VNOm')
-  const userWallet: WalletData = {
+  const userWallet: Wallet = {
     address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
     chainId: 1
   }
-  const mappedNft: Omit<FirestoreNft, 'id' | 'updatedAt'> = {
+  const mappedNft: Omit<Nft, 'id' | 'updatedAt'> = {
     attributes: [
       { value: 'archimedean', trait: 'Algorithm' },
       { value: 'main', trait: 'Ring' },

@@ -1,4 +1,4 @@
-import { CollectionName } from '@echo/firestore/constants/collection-name'
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { findWalletByAddress } from '@echo/firestore/crud/wallet/find-wallet-by-address'
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
@@ -36,7 +36,7 @@ describe('CRUD - wallet - removeWallet', () => {
     await removeWallet(wallet.userId, walletData)
     const foundWallet = await findWalletByAddress(walletData)
     expect(foundWallet).toBeUndefined()
-    const reference = firestoreApp().collection(CollectionName.WALLETS).doc(wallet.id)
+    const reference = firestoreApp().collection(CollectionReferenceName.WALLETS).doc(wallet.id)
     await reference.set(wallet)
   })
 })

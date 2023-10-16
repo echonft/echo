@@ -1,6 +1,6 @@
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import { getCollectionMockById } from '@echo/firestore-mocks/collection/get-collection-mock-by-id'
 import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
-import { getNftCollectionMockById } from '@echo/firestore-mocks/nft-collection/get-nft-collection-mock-by-id'
 import { getAddress } from 'viem'
 
 export const listingDocumentDataMock: Record<string, ListingDocumentData> = {
@@ -28,7 +28,7 @@ export const listingDocumentDataMock: Record<string, ListingDocumentData> = {
     state: 'OPEN',
     targets: [
       {
-        collection: getNftCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
+        collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
         amount: 3
       }
     ],

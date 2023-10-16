@@ -23,6 +23,7 @@
   "dependencies": {
     "@echo/discord": "workspace:*",
     "@echo/firestore": "workspace:*",
+    "@echo/model": "workspace:*",
     "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
     "dayjs": "1.11.9",

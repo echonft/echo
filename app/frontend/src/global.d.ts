@@ -1,5 +1,5 @@
+import type { AuthUser } from '@echo/model/types/auth-user'
 import type { MessagesType } from '@echo/ui/types/messages'
-import type { AuthUser } from '@echo/ui/types/model/auth-user'
 
 export declare global {
   namespace NodeJS {

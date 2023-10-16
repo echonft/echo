@@ -1,6 +1,6 @@
 import { getAppUrl } from '@echo/bot/routing/get-app-url'
-import { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
+import type { Offer } from '@echo/model/types/offer'
 
-export function offerLink(offer: FirestoreOffer): string {
+export function offerLink(offer: Offer): string {
   return encodeURI(`${getAppUrl()}/offers/${offer.id}`)
 }

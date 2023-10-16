@@ -5,8 +5,8 @@ import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id
 import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
 import { getListingOffersByListingId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-listing-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
-import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
 import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
+import type { ListingItem } from '@echo/model/types/listing-item'
 import { expectDateNumberIs } from '@echo/test-utils/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { errorMessage } from '@echo/utils/error/error-message'
@@ -52,7 +52,7 @@ describe('CRUD - listing - addListing', () => {
 
   it('add a listing', async () => {
     const { creator, items, targets } = getListingMockById('jUzMtPGKM62mMhEcmbN4')
-    const newItems = slice(0, 1, items) as NonEmptyArray<FirestoreListingItem>
+    const newItems = slice(0, 1, items) as NonEmptyArray<ListingItem>
     const createdListing = await addListing(newItems, targets)
     createdListingId = createdListing.id
     const newListing = (await findListingById(createdListingId))!

@@ -5,8 +5,8 @@ import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-usern
 import { getListingItemsGuild } from '@echo/firestore/helpers/listing/get-listing-items-guild'
 import { getListingTargetsGuilds } from '@echo/firestore/helpers/listing/get-listing-targets-guilds'
 import type { DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
-import { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
-import { FirestoreUser } from '@echo/firestore/types/model/user/firestore-user'
+import { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { Listing } from '@echo/model/types/listing'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { Client } from 'discord.js'
@@ -14,8 +14,8 @@ import { isNil } from 'ramda'
 
 async function postListingToGuild(
   client: Client,
-  listing: FirestoreListing,
-  listingCreator: FirestoreUser,
+  listing: Listing,
+  listingCreator: UserDocumentData,
   guildChannelId: string
 ) {
   const channel = await getDiscordChannel(client, guildChannelId)
@@ -31,7 +31,7 @@ async function postListingToGuild(
  * @param changeType
  * @param listing
  */
-export async function listingChangeHandler(client: Client, changeType: DocumentChangeType, listing: FirestoreListing) {
+export async function listingChangeHandler(client: Client, changeType: DocumentChangeType, listing: Listing) {
   if (changeType === 'added') {
     try {
       const creator = await findUserByUsername(listing.creator.username)

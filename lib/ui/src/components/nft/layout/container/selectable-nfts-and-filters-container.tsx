@@ -1,4 +1,5 @@
 'use client'
+import type { Nft } from '@echo/model/types/nft'
 import { traitFilterEquals } from '@echo/ui/comparators/trait-filter-equals'
 import { NftFiltersContainer } from '@echo/ui/components/nft/layout/container/nft-filters-container'
 import { SelectableNftsContainer } from '@echo/ui/components/nft/layout/container/selectable-nfts-container'
@@ -15,7 +16,6 @@ import { removeSelectionWhenDisabled } from '@echo/ui/helpers/selection/remove-s
 import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selection-in-list'
 import { CollectionFilter } from '@echo/ui/types/collection-filter'
 import { DisableableType } from '@echo/ui/types/disableable'
-import type { Nft } from '@echo/ui/types/model/nft'
 import type { NftFilterType } from '@echo/ui/types/nft-filter-type'
 import { SelectableType } from '@echo/ui/types/selectable'
 import { TraitFilter } from '@echo/ui/types/trait-filter'

@@ -1,13 +1,12 @@
-import type { Listing } from '@echo/ui/types/model/listing'
+import type { Listing } from '@echo/model/types/listing'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getCollectionById } from '@mocks/model/collection'
 import { getNftById } from '@mocks/model/nft'
-import dayjs from 'dayjs'
 
 const listings: Record<string, Listing> = {
   jUzMtPGKM62mMhEcmbN4: {
     id: 'jUzMtPGKM62mMhEcmbN4',
-    createdAt: dayjs.unix(1676984897),
+    createdAt: 1676984897,
     creator: {
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
@@ -20,7 +19,7 @@ const listings: Record<string, Listing> = {
       }
     },
     expired: false,
-    expiresAt: dayjs.unix(2324074781),
+    expiresAt: 2324074781,
     items: [
       { amount: 1, nft: getNftById('8hHFadIrrooORfTOLkBg') },
       { amount: 1, nft: getNftById('iRZFKEujarikVjpiFAkE') }
@@ -32,7 +31,7 @@ const listings: Record<string, Listing> = {
         amount: 3
       }
     ],
-    updatedAt: dayjs.unix(1676984897)
+    updatedAt: 1676984897
   }
 }
 

@@ -1,7 +1,7 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOffersForSender } from '@echo/firestore/crud/offer/get-offers-for-sender'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
+import type { Offer } from '@echo/model/types/offer'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -13,13 +13,13 @@ describe('CRUD - offer - getOffersForSender', () => {
   const id = 'LyCfl6Eg7JKuD7XJ6IPi'
   let initialExpiresAt: number
 
-  async function setExpired(offer: FirestoreOffer) {
+  async function setExpired(offer: Offer) {
     const expiresAt = dayjs().subtract(1, 'day').set('ms', 0).unix()
     await uncheckedUpdateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', true))(offer)
   }
 
-  async function setNotExpired(offer: FirestoreOffer) {
+  async function setNotExpired(offer: Offer) {
     const expiresAt = dayjs().add(1, 'day').set('ms', 0).unix()
     await uncheckedUpdateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(offer)
@@ -32,8 +32,8 @@ describe('CRUD - offer - getOffersForSender', () => {
     await tearDownRemoteFirestoreTests()
   })
   beforeEach(async () => {
-    const offer = await findOfferById(id)
-    initialExpiresAt = offer!.expiresAt
+    const offer = (await findOfferById(id))!
+    initialExpiresAt = offer.expiresAt
   })
   afterEach(async () => {
     await uncheckedUpdateOffer(id, { expiresAt: initialExpiresAt })
@@ -65,7 +65,7 @@ describe('CRUD - offer - getOffersForSender', () => {
     let offers = await getOffersForSender('crewnft_', { notStates: ['INVALID', 'CANCELLED'] })
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
-    offers = await getOffersForSender('crewnft_', { notStates: ['OPEN', 'FULFILLED'] })
+    offers = await getOffersForSender('crewnft_', { notStates: ['OPEN', 'ACCEPTED'] })
     expect(offers.length).toBe(0)
   })
 

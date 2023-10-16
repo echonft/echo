@@ -1,23 +1,23 @@
-import { getListingsCollection } from '@echo/firestore/helpers/collection/get-listings-collection'
+import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
 import { getListingOfferFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status'
 import { offerItemsIncludeListingTargets } from '@echo/firestore/helpers/offer/offer-items-include-listing-targets'
-import type { FirestoreListing } from '@echo/firestore/types/model/listing/firestore-listing'
-import type { FirestoreListingOffer } from '@echo/firestore/types/model/listing-offer/firestore-listing-offer'
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
+import type { ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
+import type { Listing } from '@echo/model/types/listing'
+import type { Offer } from '@echo/model/types/offer'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { QuerySnapshot } from 'firebase-admin/lib/firestore'
 import { concat, eqProps, filter, map, path, pipe, uniqWith } from 'ramda'
 
-async function receiverItemsListingItemsMatch(offer: FirestoreOffer) {
+async function receiverItemsListingItemsMatch(offer: Offer) {
   const { receiverItems, senderItems } = offer
   // get the listings for which items intersect with the offer receiver items
-  const querySnapshot = await getListingsCollection()
+  const querySnapshot = await getListingsCollectionReference()
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), receiverItems))
     .get()
 
   // for these listings, check if the targets match with the sender items
-  const listings = pipe<[QuerySnapshot<FirestoreListing>], FirestoreListing[], FirestoreListing[]>(
+  const listings = pipe<[QuerySnapshot<Listing>], Listing[], Listing[]>(
     getQuerySnapshotDocumentsData,
     filter(offerItemsIncludeListingTargets(senderItems))
   )(querySnapshot)
@@ -31,20 +31,20 @@ async function receiverItemsListingItemsMatch(offer: FirestoreOffer) {
         fulfillingStatus: getListingOfferFulfillingStatus(listing, senderItems, receiverItems)
       }),
       listings
-    ) as Omit<FirestoreListingOffer, 'id'>[]
+    ) as Omit<ListingOffer, 'id'>[]
   }
-  return [] as Omit<FirestoreListingOffer, 'id'>[]
+  return [] as Omit<ListingOffer, 'id'>[]
 }
 
-async function senderItemsListingItemsMatch(offer: FirestoreOffer) {
+async function senderItemsListingItemsMatch(offer: Offer) {
   const { receiverItems, senderItems } = offer
   // get the listings for which items intersect with the offer sender items
-  const querySnapshot = await getListingsCollection()
+  const querySnapshot = await getListingsCollectionReference()
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), senderItems))
     .get()
 
   // for these listings, check if the targets match with the receiver items
-  const listings = pipe<[QuerySnapshot<FirestoreListing>], FirestoreListing[], FirestoreListing[]>(
+  const listings = pipe<[QuerySnapshot<Listing>], Listing[], Listing[]>(
     getQuerySnapshotDocumentsData,
     filter(offerItemsIncludeListingTargets(receiverItems))
   )(querySnapshot)
@@ -58,18 +58,18 @@ async function senderItemsListingItemsMatch(offer: FirestoreOffer) {
         fulfillingStatus: getListingOfferFulfillingStatus(listing, receiverItems, senderItems)
       }),
       listings
-    ) as Omit<FirestoreListingOffer, 'id'>[]
+    ) as Omit<ListingOffer, 'id'>[]
   }
-  return [] as Omit<FirestoreListingOffer, 'id'>[]
+  return [] as Omit<ListingOffer, 'id'>[]
 }
 
-export async function getListingOffersForOffer(offer: FirestoreOffer) {
+export async function getListingOffersForOffer(offer: Offer) {
   const receiverItemsMatches = await receiverItemsListingItemsMatch(offer)
   const senderItemsMatches = await senderItemsListingItemsMatch(offer)
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   return pipe(concat, uniqWith(eqProps('listingId')))(receiverItemsMatches, senderItemsMatches) as Omit<
-    FirestoreListingOffer,
+    ListingOffer,
     'id'
   >[]
 }

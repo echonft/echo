@@ -1,10 +1,10 @@
+import { assertCollections } from '@test-utils/collection/assert-collections'
+import { assertCollectionDiscordGuilds } from '@test-utils/collection-discord-guild/assert-collection-discord-guilds'
+import { assertCollectionSwapsCounts } from '@test-utils/collection-swaps-count/assert-collection-swaps-counts'
 import { assertListings } from '@test-utils/listing/assert-listings'
 import { assertListingOffers } from '@test-utils/listing-offer/assert-listing-offers'
 import { assertListingPosts } from '@test-utils/listing-post/assert-listing-posts'
 import { assertNfts } from '@test-utils/nft/assert-nfts'
-import { assertNftCollections } from '@test-utils/nft-collection/assert-nft-collections'
-import { assertNftCollectionDiscordGuilds } from '@test-utils/nft-collection-discord-guild/assert-nft-collection-discord-guilds'
-import { assertNftCollectionSwapsCounts } from '@test-utils/nft-collection-swaps-count/assert-nft-collection-swaps-counts'
 import { assertOffers } from '@test-utils/offer/assert-offers'
 import { assertOfferPosts } from '@test-utils/offer-post/assert-offer-posts'
 import { assertSessions } from '@test-utils/session/assert-sessions'
@@ -16,9 +16,9 @@ export async function assertDb() {
   await assertListings()
   await assertListingOffers()
   await assertListingPosts()
-  await assertNftCollections()
-  await assertNftCollectionDiscordGuilds()
-  await assertNftCollectionSwapsCounts()
+  await assertCollections()
+  await assertCollectionDiscordGuilds()
+  await assertCollectionSwapsCounts()
   await assertNfts()
   await assertOffers()
   await assertOfferPosts()

@@ -1,7 +1,7 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import { OFFER_FILTER_AS } from '@echo/firestore/constants/offer-filter-as'
-import { OFFER_STATES } from '@echo/firestore/types/model/offer/firestore-offer-state'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
+import { OFFER_STATES } from '@echo/model/constants/offer-states'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { booleanQueryParamSchema } from '@server/validators/boolean-query-param-schema'
 import { assoc, both, has, isEmpty } from 'ramda'

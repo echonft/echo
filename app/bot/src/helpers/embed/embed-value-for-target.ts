@@ -1,5 +1,5 @@
-import type { FirestoreListingTarget } from '@echo/firestore/types/model/listing/firestore-listing-target'
+import type { ListingTarget } from '@echo/model/types/listing-target'
 
-export function embedValueForTarget(target: FirestoreListingTarget): string {
+export function embedValueForTarget(target: ListingTarget): string {
   return `Any NFT from ${target.collection.name}`
 }

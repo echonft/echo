@@ -1,6 +1,10 @@
 'use client'
 import { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
-import { GetListingResponse } from '@echo/api/types/responses/get-listing-response'
+import { ListingResponse } from '@echo/api/types/responses/listing-response'
+import type { AuthUser } from '@echo/model/types/auth-user'
+import type { Collection } from '@echo/model/types/collection'
+import type { ListingItem } from '@echo/model/types/listing-item'
+import type { ListingTarget } from '@echo/model/types/listing-target'
 import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
 import { NewListingConfirmationModal } from '@echo/ui/components/listing/new/new-listing-confirmation-modal'
@@ -8,10 +12,6 @@ import { NewListingSlider } from '@echo/ui/components/listing/new/new-listing-sl
 import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
 import { mapListingItemsToRequests } from '@echo/ui/mappers/to-api/map-listing-items-to-requests'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
-import { AuthUser } from '@echo/ui/types/model/auth-user'
-import type { Collection } from '@echo/ui/types/model/collection'
-import type { ListingItem } from '@echo/ui/types/model/listing-item'
-import type { ListingTarget } from '@echo/ui/types/model/listing-target'
 import { Transition } from '@headlessui/react'
 import { useTranslations } from 'next-intl'
 import { assoc, isNil, pathEq, pipe, reject } from 'ramda'
@@ -22,7 +22,7 @@ interface Props {
   collectionProvider: {
     get: () => Promise<Collection[]>
   }
-  createListingFetcher: (parameters: CreateListingRequest, token: string | undefined) => Promise<GetListingResponse>
+  createListingFetcher: (parameters: CreateListingRequest, token: string | undefined) => Promise<ListingResponse>
   user: AuthUser | undefined
   initialTarget?: ListingTarget
   initialItems?: ListingItem[]

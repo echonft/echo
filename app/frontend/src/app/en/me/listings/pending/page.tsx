@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
 import { userListingsApiUrl } from '@echo/api/routing/user-listings-api-url'
-import type { GetListingsResponse } from '@echo/api/types/responses/get-listings-response'
+import type { ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { ListingFilterAsTarget } from '@echo/firestore/constants/listing-filter-as'
 import { ProfileListingsReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-listings-received-api-provided'
 import { links } from '@echo/ui/constants/links'
@@ -26,7 +26,7 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
   const { data, error } = await fetcher(userListingsApiUrl(session.user.username))
     .revalidate(3600)
     .query(mergeLeft(queryParams, filterParams))
-    .fetch<GetListingsResponse>()
+    .fetch<ListingsResponse>()
 
   if (isNil(data)) {
     if (!isNil(error)) {
@@ -35,7 +35,7 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
     throw Error()
   }
 
-  return <ProfileListingsReceivedApiProvided responses={data.listings} user={session.user} />
+  return <ProfileListingsReceivedApiProvided listings={data.listings} user={session.user} />
 }
 
 export default ProfileListingsReceivedPage

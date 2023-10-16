@@ -1,4 +1,4 @@
-import type { NftAttribute } from '@echo/ui/types/model/nft-attribute'
+import type { NftAttribute } from '@echo/model/types/nft-attribute'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 

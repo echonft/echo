@@ -1,5 +1,5 @@
+import type { Nft } from '@echo/model/types/nft'
 import { getNftName } from '@echo/ui/helpers/nft/get-nft-name'
-import type { Nft } from '@echo/ui/types/model/nft'
 import { describe, expect, test } from '@jest/globals'
 
 describe('helpers - nft - getNftName', () => {

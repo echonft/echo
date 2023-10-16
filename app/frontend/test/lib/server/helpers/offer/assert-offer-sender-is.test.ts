@@ -1,14 +1,14 @@
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
+import type { Offer } from '@echo/model/types/offer'
 import { assertOfferSenderIs } from '@server/helpers/offer/assert-offer-sender-is'
 
 describe('helpers - offer - assertOfferSenderIs', () => {
   it('throws if offer sender does not have the passed username', () => {
-    expect(() => assertOfferSenderIs({ state: 'OPEN' } as FirestoreOffer, 'username')).toThrow()
-    expect(() => assertOfferSenderIs({ sender: {} } as FirestoreOffer, 'username')).toThrow()
-    expect(() => assertOfferSenderIs({ sender: { username: 'not-the-same' } } as FirestoreOffer, 'username')).toThrow()
+    expect(() => assertOfferSenderIs({ state: 'OPEN' } as Offer, 'username')).toThrow()
+    expect(() => assertOfferSenderIs({ sender: {} } as Offer, 'username')).toThrow()
+    expect(() => assertOfferSenderIs({ sender: { username: 'not-the-same' } } as Offer, 'username')).toThrow()
   })
 
   it('does not throw if offer sender has the passed username', () => {
-    expect(() => assertOfferSenderIs({ sender: { username: 'username' } } as FirestoreOffer, 'username')).not.toThrow()
+    expect(() => assertOfferSenderIs({ sender: { username: 'username' } } as Offer, 'username')).not.toThrow()
   })
 })

@@ -1,7 +1,7 @@
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { AlignmentCenter } from '@echo/ui/constants/alignment'
-import type { OfferItem } from '@echo/ui/types/model/offer-item'
 import { SwapDirection } from '@echo/ui/types/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

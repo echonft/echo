@@ -1,7 +1,7 @@
+import type { ListingItem } from '@echo/model/types/listing-item'
 import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { DirectionOut } from '@echo/ui/constants/swap-direction'
-import type { ListingItem } from '@echo/ui/types/model/listing-item'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map, prop } from 'ramda'

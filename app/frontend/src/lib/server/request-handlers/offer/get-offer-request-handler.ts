@@ -1,5 +1,5 @@
 import { ApiRequest } from '@echo/api/types/api-request'
-import { GetOfferResponse } from '@echo/api/types/responses/get-offer-response'
+import { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { assertOffer } from '@server/helpers/offer/assert-offer'
 import { assertOfferReceiverOrSenderIs } from '@server/helpers/offer/assert-offer-receiver-or-sender-is'
 import { getOffer } from '@server/helpers/offer/get-offer'
@@ -11,5 +11,5 @@ export async function getOfferRequestHandler(req: ApiRequest<never>, id: string)
   const offer = await getOffer(id)
   assertOffer(offer)
   assertOfferReceiverOrSenderIs(offer, user.username)
-  return NextResponse.json<GetOfferResponse>({ offer })
+  return NextResponse.json<OfferResponse>({ offer })
 }

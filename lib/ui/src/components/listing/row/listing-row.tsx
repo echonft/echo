@@ -1,8 +1,8 @@
+import type { Listing } from '@echo/model/types/listing'
 import { ListingRowItemsContainer } from '@echo/ui/components/listing/row/listing-row-items-container'
 import { ListingRowTargetsContainer } from '@echo/ui/components/listing/row/listing-row-targets-container'
 import { StateTextContainer } from '@echo/ui/components/shared/state-text-container'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
-import type { Listing } from '@echo/ui/types/model/listing'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -24,7 +24,9 @@ export const ListingRow: FunctionComponent<Props> = ({ listing }) => {
         <div className={clsx('mt-4')}>
           <StateTextContainer
             title={listing.expired ? t('expiredAt') : t('expiresAt')}
-            subtitle={listing.expired ? listing.expiresAt.fromNow(false) : listing.expiresAt.toNow(true)}
+            subtitle={
+              listing.expired ? dayjs.unix(listing.expiresAt).fromNow(false) : dayjs.unix(listing.expiresAt).toNow(true)
+            }
           />
         </div>
       </div>

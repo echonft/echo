@@ -1,7 +1,7 @@
-import type { FirestoreOffer } from '@echo/firestore/types/model/offer/firestore-offer'
-import type { FirestoreUserDetails } from '@echo/firestore/types/model/user/firestore-user-details'
+import type { Offer } from '@echo/model/types/offer'
+import type { User } from '@echo/model/types/user'
 import { head, path, pipe, prop } from 'ramda'
 
-export function getOfferSender(offer: FirestoreOffer) {
-  return pipe(prop('senderItems'), head, path(['nft', 'owner']))(offer) as FirestoreUserDetails
+export function getOfferSender(offer: Offer) {
+  return pipe(prop('senderItems'), head, path(['nft', 'owner']))(offer) as User
 }

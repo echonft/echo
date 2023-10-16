@@ -1,8 +1,8 @@
+import type { Nft } from '@echo/model/types/nft'
 import { disable } from '@echo/ui/helpers/disableable/disable'
 import { getSelection } from '@echo/ui/helpers/selection/get-selection'
 import type { CollectionFilter } from '@echo/ui/types/collection-filter'
 import { DisableableType } from '@echo/ui/types/disableable'
-import type { Nft } from '@echo/ui/types/model/nft'
 import { isIn } from '@echo/utils/fp/is-in'
 import { isEmpty, isNil, map, path, pipe, prop, unless } from 'ramda'
 

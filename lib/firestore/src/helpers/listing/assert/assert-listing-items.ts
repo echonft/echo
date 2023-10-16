@@ -1,4 +1,4 @@
-import type { FirestoreListingItem } from '@echo/firestore/types/model/listing/firestore-listing-item'
+import type { ListingItem } from '@echo/model/types/listing-item'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
@@ -8,8 +8,8 @@ import { complement, eqProps, equals, forEach, length, map, path, pipe, prop, un
  * Asserts the validity of offer items
  * @param items
  */
-export function assertListingItems(items: NonEmptyArray<FirestoreListingItem>) {
-  forEach((item: FirestoreListingItem) => {
+export function assertListingItems(items: NonEmptyArray<ListingItem>) {
+  forEach((item: ListingItem) => {
     if (propIsNil('nft', item) || pathIsNil(['nft', 'id'], item) || pathIsNil(['nft', 'tokenId'], item)) {
       throw Error('not every items have an nft with a token id')
     }

@@ -1,8 +1,8 @@
+import type { Collection } from '@echo/model/types/collection'
 import { RankedCollections as Component } from '@echo/ui/components/home/collection/ranked/ranked-collections'
-import type { CollectionTileDetails } from '@echo/ui/types/model/collection-tile-details'
 import { getAllCollections } from '@mocks/model/collection'
 import type { Meta, StoryObj } from '@storybook/react'
-import { assoc, concat, map, pick, pipe } from 'ramda'
+import { assoc, concat, map, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Home/Ranked Collections',
@@ -17,10 +17,7 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-const collections = map(
-  pipe(pick(['slug', 'name', 'profilePictureUrl']), assoc('swapsCount', 2)),
-  getAllCollections()
-) as CollectionTileDetails[]
+const collections = map(pipe(assoc('swapsCount', 2)), getAllCollections()) as Collection[]
 
 export const Default: Story = {
   args: {

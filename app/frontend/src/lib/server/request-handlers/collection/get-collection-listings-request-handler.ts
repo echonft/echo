@@ -1,5 +1,5 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
-import type { GetListingsResponse } from '@echo/api/types/responses/get-listings-response'
+import type { ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { assertCollection } from '@server/helpers/collection/assert-collection'
 import { getCollectionBySlug } from '@server/helpers/collection/get-collection-by-slug'
 import { getCollectionListings } from '@server/helpers/listing/get-collection-listings'
@@ -13,5 +13,5 @@ export async function getCollectionListingsRequestHandler(req: ApiRequest<never>
   const collection = await getCollectionBySlug(slug)
   assertCollection(collection)
   const listings = await getCollectionListings(collection.id, filters, constraints)
-  return NextResponse.json<GetListingsResponse>({ listings })
+  return NextResponse.json<ListingsResponse>({ listings })
 }
