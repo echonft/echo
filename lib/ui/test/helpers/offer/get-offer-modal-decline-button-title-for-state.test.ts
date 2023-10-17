@@ -18,8 +18,6 @@ describe('helpers - getOfferModalDeclineButtonTitleForState', () => {
   it('if state is anything else, throw', () => {
     expect(() => getOfferModalDeclineButtonTitleForState('CANCELLED', true)).toThrow()
     expect(() => getOfferModalDeclineButtonTitleForState('CANCELLED', true)).toThrow()
-    expect(() => getOfferModalDeclineButtonTitleForState('INVALID', true)).toThrow()
-    expect(() => getOfferModalDeclineButtonTitleForState('INVALID', false)).toThrow()
     expect(() => getOfferModalDeclineButtonTitleForState('REJECTED', true)).toThrow()
     expect(() => getOfferModalDeclineButtonTitleForState('REJECTED', false)).toThrow()
   })

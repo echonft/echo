@@ -24,7 +24,7 @@ export const listingMock: Record<string, Listing> = {
       { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
       { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
     ],
-    state: 'OPEN',
+    state: 'OFFERS_PENDING',
     targets: [
       {
         collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),

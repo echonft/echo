@@ -42,14 +42,6 @@ export const Cancelled: Story = {
     isCreator: true
   }
 }
-
-export const Invalid: Story = {
-  args: {
-    offer: { ...offer, state: 'INVALID' },
-    isCreator: true
-  }
-}
-
 export const Completed: Story = {
   args: {
     offer: { ...offer, state: 'COMPLETED' },

@@ -1,4 +1,5 @@
 import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
+import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
 import { getListingOffersForOffer } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-offer'
@@ -7,12 +8,14 @@ import { deleteOffer } from '@echo/firestore/crud/offer/delete-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
+import type { ListingState } from '@echo/model/types/listing-state'
 import type { OfferItem } from '@echo/model/types/offer-item'
 import { expectDateNumberIs } from '@echo/test-utils/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { errorMessage } from '@echo/utils/error/error-message'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
 import { assertListingOffers } from '@test-utils/listing-offer/assert-listing-offers'
 import { assertOffers } from '@test-utils/offer/assert-offers'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -21,11 +24,14 @@ import dayjs from 'dayjs'
 import { head, slice } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
+  const listingId = 'jUzMtPGKM62mMhEcmbN4'
+  let initialListingState: ListingState
   let createdOfferId: string
   let createdListingOfferId: string
 
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()
+    initialListingState = (await findListingById(listingId))!.state
   })
   afterAll(async () => {
     try {
@@ -37,6 +43,11 @@ describe('CRUD - offer - addOffer', () => {
       await deleteListingOffer(createdListingOfferId)
     } catch (e) {
       throw Error(`error deleting listing offer ${createdListingOfferId}: ${errorMessage(e)}`)
+    }
+    try {
+      await uncheckedUpdateListing(listingId, { state: initialListingState })
+    } catch (e) {
+      throw Error(`error updating listing ${listingId} to its original state: ${errorMessage(e)}`)
     }
     await assertOffers()
     await assertListingOffers()
@@ -70,7 +81,10 @@ describe('CRUD - offer - addOffer', () => {
     const createdListingOffer = head(foundListingOffers)!
     createdListingOfferId = createdListingOffer.id
     expect(createdListingOffer.offerId).toEqual(createdOfferId)
-    expect(createdListingOffer.listingId).toEqual('jUzMtPGKM62mMhEcmbN4')
+    expect(createdListingOffer.listingId).toEqual(listingId)
     expect(createdListingOffer.fulfillingStatus).toEqual(ListingOfferFulfillingStatus.PARTIALLY)
+    // check if the listing state was updated
+    const newListingState = (await findListingById(listingId))!.state
+    expect(newListingState).toEqual('OFFERS_PENDING')
   })
 })

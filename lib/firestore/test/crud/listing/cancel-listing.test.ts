@@ -52,11 +52,8 @@ describe('CRUD - listing - cancelListing', () => {
     await uncheckedUpdateListing(listingId, { state: 'FULFILLED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(cancelListing(listingId)).rejects.toBeDefined()
   })
-  it('throws if the listing is invalid', async () => {
-    await uncheckedUpdateListing(listingId, { state: 'INVALID', expiresAt: dayjs().add(1, 'day').unix() })
-    await expect(cancelListing(listingId)).rejects.toBeDefined()
-  })
-  it('cancel listing if its not expired', async () => {
+
+  it('cancel listing if its not expired and in the right state', async () => {
     await uncheckedUpdateListing(listingId, { state: 'OPEN', expiresAt: dayjs().add(1, 'day').unix() })
     await cancelListing(listingId)
     const updatedListing = (await findListingById(listingId))!

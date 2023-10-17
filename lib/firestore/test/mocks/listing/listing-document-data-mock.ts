@@ -25,7 +25,7 @@ export const listingDocumentDataMock: Record<string, ListingDocumentData> = {
     ],
     itemsNftIds: ['8hHFadIrrooORfTOLkBg', 'iRZFKEujarikVjpiFAkE'],
     itemsNftCollectionIds: ['1aomCtnoesD7WVll6Yi1'],
-    state: 'OPEN',
+    state: 'OFFERS_PENDING',
     targets: [
       {
         collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),

@@ -10,7 +10,6 @@ export const getOfferStateBackgroundColor = (state: OfferState, expired?: boolea
     case 'COMPLETED':
     case 'ACCEPTED':
       return 'bg-green-500'
-    case 'INVALID':
     case 'CANCELLED':
     case 'REJECTED':
       return 'bg-red-400'

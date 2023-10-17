@@ -1,1 +1,1 @@
-export const OFFER_STATES = ['OPEN', 'ACCEPTED', 'CANCELLED', 'REJECTED', 'INVALID', 'COMPLETED'] as const
+export const OFFER_STATES = ['OPEN', 'ACCEPTED', 'CANCELLED', 'REJECTED', 'COMPLETED'] as const

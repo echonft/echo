@@ -6,7 +6,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     state: {
-      options: ['OPEN', 'ACCEPTED', 'CANCELLED', 'REJECTED', 'INVALID'],
+      options: ['OPEN', 'ACCEPTED', 'CANCELLED', 'REJECTED'],
       control: { type: 'radio' }
     }
   }

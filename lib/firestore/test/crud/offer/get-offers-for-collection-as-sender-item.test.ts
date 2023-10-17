@@ -63,7 +63,7 @@ describe('CRUD - offer - getOffersForCollectionAsSenderItem', () => {
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    let listings = await getOffersForCollectionAsSenderItem(collectionId, { notStates: ['INVALID', 'CANCELLED'] })
+    let listings = await getOffersForCollectionAsSenderItem(collectionId, { notStates: ['REJECTED', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
     listings = await getOffersForCollectionAsSenderItem(collectionId, { notStates: ['OPEN', 'ACCEPTED'] })

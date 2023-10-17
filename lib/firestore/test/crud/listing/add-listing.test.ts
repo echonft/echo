@@ -58,7 +58,7 @@ describe('CRUD - listing - addListing', () => {
     const newListing = (await findListingById(createdListingId))!
     expect(newListing.creator).toStrictEqual(creator)
     expect(newListing.items).toStrictEqual(newItems)
-    expect(newListing.state).toBe('OPEN')
+    expect(newListing.state).toBe('OFFERS_PENDING')
     expect(newListing.targets).toStrictEqual(targets)
     expectDateNumberIsNow(newListing.updatedAt)
     expectDateNumberIs(newListing.expiresAt)(dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'))
@@ -66,7 +66,7 @@ describe('CRUD - listing - addListing', () => {
     const listingOffers = await getListingOffersForListing(newListing)
     const createdListingOffers = await getListingOffersByListingId(createdListingId)
     createdListingOfferIds = map(prop('id'), createdListingOffers)
-    expect(createdListingOffers.length).toEqual(2)
+    expect(createdListingOffers.length).toEqual(1)
     for (const createdListingOffer of createdListingOffers) {
       expect(omit(['id'], createdListingOffer)).toStrictEqual(
         find(propEq(createdListingOffer.offerId, 'offerId'), listingOffers)

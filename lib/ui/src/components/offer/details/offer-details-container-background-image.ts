@@ -9,7 +9,6 @@ export const offerDetailsContainerBackgroundImage = (state: OfferState) => {
       return 'bg-offer-green-gradient'
     case 'CANCELLED':
     case 'REJECTED':
-    case 'INVALID':
       return 'bg-offer-red-gradient'
   }
 }

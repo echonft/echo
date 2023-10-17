@@ -54,7 +54,7 @@ describe('CRUD - listing - getListingsForCollectionAsItem', () => {
 
   it('filter by state (included)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForCollectionAsItem(collectionId, { states: ['OPEN', 'CANCELLED'] })
+    let listings = await getListingsForCollectionAsItem(collectionId, { states: ['OFFERS_PENDING', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
     listings = await getListingsForCollectionAsItem(collectionId, { states: ['CANCELLED'] })
@@ -63,10 +63,12 @@ describe('CRUD - listing - getListingsForCollectionAsItem', () => {
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForCollectionAsItem(collectionId, { notStates: ['INVALID', 'CANCELLED'] })
+    let listings = await getListingsForCollectionAsItem(collectionId, {
+      notStates: ['PARTIALLY_FULFILLED', 'CANCELLED']
+    })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getListingsForCollectionAsItem(collectionId, { notStates: ['OPEN', 'FULFILLED'] })
+    listings = await getListingsForCollectionAsItem(collectionId, { notStates: ['OFFERS_PENDING', 'FULFILLED'] })
     expect(listings.length).toBe(0)
   })
 

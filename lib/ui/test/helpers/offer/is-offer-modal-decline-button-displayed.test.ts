@@ -12,7 +12,6 @@ describe('helpers - offer - isOfferModalDeclineButtonDisplayed', () => {
 
   it('if state is not ACCEPTED or OPEN, returns false', () => {
     expect(isOfferModalDeclineButtonDisplayed('CANCELLED')).toBeFalsy()
-    expect(isOfferModalDeclineButtonDisplayed('INVALID')).toBeFalsy()
     expect(isOfferModalDeclineButtonDisplayed('REJECTED')).toBeFalsy()
   })
 })

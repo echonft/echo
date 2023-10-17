@@ -56,10 +56,6 @@ describe('CRUD - offer - rejectOffer', () => {
     await uncheckedUpdateOffer(offerId, { state: 'REJECTED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(rejectOffer(offerId)).rejects.toBeDefined()
   })
-  it('throws if the offer is invalid', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'INVALID', expiresAt: dayjs().add(1, 'day').unix() })
-    await expect(rejectOffer(offerId)).rejects.toBeDefined()
-  })
   it('throws if the offer is completed', async () => {
     await uncheckedUpdateOffer(offerId, { state: 'COMPLETED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(rejectOffer(offerId)).rejects.toBeDefined()

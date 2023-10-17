@@ -1,3 +1,4 @@
+import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { addListingOffer } from '@echo/firestore/crud/listing-offer/add-listing-offer'
 import { deleteListingOffer } from '@echo/firestore/crud/listing-offer/delete-listing-offer'
 import { findListingOfferById } from '@echo/firestore/crud/listing-offer/find-listing-offer-by-id'
@@ -6,6 +7,7 @@ import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listin
 import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
 import { errorMessage } from '@echo/utils/error/error-message'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
 import { assertListingOffers } from '@test-utils/listing-offer/assert-listing-offers'
 import { assertOffers } from '@test-utils/offer/assert-offers'
 import { uncheckedAddOffer } from '@test-utils/offer/unchecked-add-offer'
@@ -52,6 +54,7 @@ describe('CRUD - listing-offer - addListingOffer', () => {
   })
   it('add a listing offer', async () => {
     const listingId = 'jUzMtPGKM62mMhEcmbN4'
+    const initialListingState = (await findListingById(listingId))!.state
     const { receiverItems, senderItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
     const createdOffer = await uncheckedAddOffer(receiverItems, senderItems)
     createdOfferId = createdOffer.id
@@ -61,7 +64,16 @@ describe('CRUD - listing-offer - addListingOffer', () => {
       ListingOfferFulfillingStatus.COMPLETELY
     )
     createdListingOfferId = createdListingOffer.id
+    // get the new listing state and reset the listing state to its original value
+    const newListingState = (await findListingById(listingId))!.state
+    await uncheckedUpdateListing(listingId, { state: initialListingState })
     const foundListingOffer = await findListingOfferById(createdListingOfferId)
     expect(foundListingOffer).toStrictEqual(createdListingOffer)
+    // check if the listing state was correctly updated
+    if (initialListingState === 'OPEN') {
+      expect(newListingState).toEqual('OFFERS_PENDING')
+    } else {
+      expect(newListingState).toEqual(initialListingState)
+    }
   })
 })

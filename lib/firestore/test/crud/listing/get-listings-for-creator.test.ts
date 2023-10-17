@@ -53,7 +53,7 @@ describe('CRUD - listing - getListingsForCreator', () => {
 
   it('filter by state (included)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForCreator('johnnycagewins', { states: ['OPEN', 'CANCELLED'] })
+    let listings = await getListingsForCreator('johnnycagewins', { states: ['OFFERS_PENDING', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
     listings = await getListingsForCreator('johnnycagewins', { states: ['CANCELLED'] })
@@ -62,10 +62,10 @@ describe('CRUD - listing - getListingsForCreator', () => {
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForCreator('johnnycagewins', { notStates: ['INVALID', 'CANCELLED'] })
+    let listings = await getListingsForCreator('johnnycagewins', { notStates: ['PARTIALLY_FULFILLED', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getListingsForCreator('johnnycagewins', { notStates: ['OPEN', 'FULFILLED'] })
+    listings = await getListingsForCreator('johnnycagewins', { notStates: ['OFFERS_PENDING', 'FULFILLED'] })
     expect(listings.length).toBe(0)
   })
 

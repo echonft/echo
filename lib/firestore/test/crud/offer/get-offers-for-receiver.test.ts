@@ -62,7 +62,7 @@ describe('CRUD - offer - getOffersForReceiver', () => {
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    let offers = await getOffersForReceiver('johnnycagewins', { notStates: ['INVALID', 'CANCELLED'] })
+    let offers = await getOffersForReceiver('johnnycagewins', { notStates: ['REJECTED', 'CANCELLED'] })
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
     offers = await getOffersForReceiver('johnnycagewins', { notStates: ['OPEN', 'ACCEPTED'] })
