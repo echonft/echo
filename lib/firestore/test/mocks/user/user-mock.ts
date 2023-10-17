@@ -3,6 +3,7 @@ import type { UserDocumentData } from '@echo/firestore/types/model/user/user-doc
 export const userMock: Record<string, UserDocumentData> = {
   '6rECUMhevHfxABZ1VNOm': {
     id: '6rECUMhevHfxABZ1VNOm',
+    createdAt: 1676984897,
     username: 'crewnft_',
     discord: {
       id: '884593489189433364',
@@ -14,6 +15,7 @@ export const userMock: Record<string, UserDocumentData> = {
   },
   oE6yUEQBPn7PZ89yMjKn: {
     id: 'oE6yUEQBPn7PZ89yMjKn',
+    createdAt: 1676984897,
     username: 'johnnycagewins',
     discord: {
       id: '462798252543049728',
