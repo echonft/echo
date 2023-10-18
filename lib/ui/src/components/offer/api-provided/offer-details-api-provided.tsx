@@ -1,4 +1,6 @@
 'use client'
+import { getOfferFetcher } from '@echo/api/services/fetcher/get-offer-fetcher'
+import { updateOfferFetcher } from '@echo/api/services/fetcher/update-offer-fetcher'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Offer } from '@echo/model/types/offer'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
@@ -16,7 +18,13 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user 
   return (
     <NextIntlClientProvider messages={messages} locale={'en'}>
       <PaddedContainer>
-        <OfferDetails offer={offer} isCreator={user.username === offer.sender?.username} token={user.sessionToken} />
+        <OfferDetails
+          offer={offer}
+          isCreator={user.username === offer.sender?.username}
+          token={user.sessionToken}
+          getOfferFetcher={getOfferFetcher}
+          updateOfferFetcher={updateOfferFetcher}
+        />
       </PaddedContainer>
     </NextIntlClientProvider>
   )

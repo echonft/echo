@@ -18,7 +18,7 @@ import { getListingDetailsContainerBackground } from '@echo/ui/helpers/listing/g
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map, prop } from 'ramda'
-import { type FunctionComponent, useMemo } from 'react'
+import { type FunctionComponent, useCallback, useMemo } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 interface Props {
@@ -47,14 +47,20 @@ export const ListingDetails: FunctionComponent<Props> = ({
   user
 }) => {
   const t = useTranslations('listing.details')
+  const getListing = useCallback(() => {
+    return getListingFetcher(listing.id)
+  }, [getListingFetcher, listing])
+  const cancelListing = useCallback(() => {
+    return cancelListingFetcher(listing.id, user?.sessionToken)
+  }, [cancelListingFetcher, listing, user])
   const {
     trigger: getListingTrigger,
     isMutating: getMutating,
     data
-  } = useSWRMutation<ListingResponse, Error, string>(`get-listing-${listing.id}`, () => getListingFetcher(listing.id))
+  } = useSWRMutation<ListingResponse, Error, string>(`get-listing-${listing.id}`, getListing)
   const { trigger: cancelListingTrigger, isMutating: cancelMutating } = useSWRMutation<EmptyResponse, Error, string>(
     `cancel-listing-${listing.id}`,
-    () => cancelListingFetcher(listing.id, user?.sessionToken),
+    cancelListing,
     {
       onSuccess: () => {
         void getListingTrigger()

@@ -242,7 +242,7 @@ export const messages = {
       OPEN: 'Pending',
       ACCEPTED: 'Accepted',
       CANCELLED: 'Cancelled',
-      COMPLETED: 'Completed',
+      COMPLETED: 'Swapped',
       REJECTED: 'Rejected'
     }
   },
