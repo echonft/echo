@@ -1,5 +1,5 @@
-import { deleteSession } from '@echo/firestore/crud/session/delete-session'
-import { getAllSessions } from '@echo/firestore/crud/session/get-all-sessions'
+import { deleteSession } from '@test-utils/session/delete-session'
+import { getAllSessions } from '@test-utils/session/get-all-sessions'
 
 export async function clearSessions() {
   const sessions = await getAllSessions()

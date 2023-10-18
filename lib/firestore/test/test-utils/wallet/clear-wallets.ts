@@ -1,5 +1,5 @@
 import { deleteWallet } from '@echo/firestore/crud/wallet/delete-wallet'
-import { getAllWallets } from '@echo/firestore/crud/wallet/get-all-wallets'
+import { getAllWallets } from '@test-utils/wallet/get-all-wallets'
 
 export async function clearWallets() {
   const wallets = await getAllWallets()

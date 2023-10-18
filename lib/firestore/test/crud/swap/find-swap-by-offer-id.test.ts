@@ -1,4 +1,4 @@
-import { findSwapByOfferId } from '@echo/firestore/crud/swaps/find-swap-by-offer-id'
+import { findSwapByOfferId } from '@echo/firestore/crud/swap/find-swap-by-offer-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'

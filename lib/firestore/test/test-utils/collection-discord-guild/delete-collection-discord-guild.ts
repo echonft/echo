@@ -1,4 +1,4 @@
-import { getCollectionDiscordGuildSnapshotById } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guild-snapshot-by-id'
+import { getCollectionDiscordGuildSnapshotById } from '@test-utils/collection-discord-guild/get-collection-discord-guild-snapshot-by-id'
 import { type WriteResult } from 'firebase-admin/lib/firestore'
 import { isNil } from 'ramda'
 
