@@ -1,5 +1,5 @@
 import { getListingPostSnapshotById } from '@echo/firestore/crud/listing-post/get-listing-post-snapshot-by-id'
-import type { WriteResult } from 'firebase-admin/lib/firestore'
+import { type WriteResult } from 'firebase-admin/lib/firestore'
 import { isNil } from 'ramda'
 
 export async function deleteListingPost(id: string): Promise<WriteResult> {

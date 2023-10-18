@@ -1,5 +1,5 @@
 import { OfferRowStatePill as Component } from '@echo/ui/components/offer/row/offer-row-state-pill'
-import { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Row/State',

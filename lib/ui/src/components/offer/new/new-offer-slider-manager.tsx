@@ -1,6 +1,6 @@
 'use client'
 import { createOfferFetcher } from '@echo/api/services/fetcher/create-offer-fetcher'
-import type { AuthUser } from '@echo/model/types/auth-user'
+import { type AuthUser } from '@echo/model/types/auth-user'
 import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
 import { NewOfferBottomSliderInnerContainer } from '@echo/ui/components/offer/new/new-offer-bottom-slider-inner-container'

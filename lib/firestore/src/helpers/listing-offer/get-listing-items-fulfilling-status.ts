@@ -1,6 +1,6 @@
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import type { ListingItem } from '@echo/model/types/listing-item'
-import type { OfferItem } from '@echo/model/types/offer-item'
+import { type ListingItem } from '@echo/model/types/listing-item'
+import { type OfferItem } from '@echo/model/types/offer-item'
 import { find, intersection, isNil, map, path, pathEq } from 'ramda'
 
 /**

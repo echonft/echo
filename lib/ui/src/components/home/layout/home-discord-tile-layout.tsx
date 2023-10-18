@@ -1,7 +1,7 @@
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { clsx } from 'clsx'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export const HomeDiscordTileLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
   return (

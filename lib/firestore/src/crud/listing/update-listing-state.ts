@@ -1,8 +1,8 @@
 import { getListingSnapshotById } from '@echo/firestore/crud/listing/get-listing-snapshot-by-id'
 import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
-import { assertListingIsNotExpired } from '@echo/firestore/helpers/listing/assert/assert-listing-is-not-expired'
-import { assertListingState } from '@echo/firestore/helpers/listing/assert/assert-listing-state'
-import type { ListingState } from '@echo/model/types/listing-state'
+import { assertListingIsNotExpired } from '@echo/model/helpers/listing/assert/assert-listing-is-not-expired'
+import { assertListingState } from '@echo/model/helpers/listing/assert/assert-listing-state'
+import { type ListingState } from '@echo/model/types/listing-state'
 import dayjs from 'dayjs'
 import { WriteResult } from 'firebase-admin/lib/firestore'
 

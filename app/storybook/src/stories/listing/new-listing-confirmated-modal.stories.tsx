@@ -1,6 +1,6 @@
+import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { NewListingConfirmedModal as Component } from '@echo/ui/components/listing/new/new-listing-confirmed-modal'
-import { getListingById } from '@mocks/model/listing'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import { head } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
@@ -21,7 +21,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-const { id, targets } = getListingById('jUzMtPGKM62mMhEcmbN4')
+const { id, targets } = getListingMockById('jUzMtPGKM62mMhEcmbN4')
 const target = head(targets)
 
 type Story = StoryObj<typeof Component>

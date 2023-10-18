@@ -1,5 +1,5 @@
 import { embedValueForTarget } from '@echo/bot/helpers/embed/embed-value-for-target'
-import type { ListingTarget } from '@echo/model/types/listing-target'
+import { type ListingTarget } from '@echo/model/types/listing-target'
 import { describe, expect, it } from '@jest/globals'
 
 describe('utils - embed - embedValueForTarget', () => {

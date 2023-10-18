@@ -1,10 +1,10 @@
 'use client'
-import type { Listing } from '@echo/model/types/listing'
+import { type Listing } from '@echo/model/types/listing'
 import { HandIconSvg } from '@echo/ui/components/base/svg/hand-icon-svg'
 import { NftDetailsListingsPanelList } from '@echo/ui/components/nft/details/nft-details-listings-panel-list'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   listings: Listing[]

@@ -1,7 +1,7 @@
 import { NftDetailsTokenDetailsPanelRowSkeleton } from '@echo/ui/components/nft/details/skeleton/nft-details-token-details-panel-row-skeleton'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const NftDetailsTokenDetailsPanelSkeleton: FunctionComponent = () => {
   const t = useTranslations()

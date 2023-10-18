@@ -4,8 +4,8 @@ import { addLimitToLastConstraint } from '@echo/firestore/helpers/query/add-limi
 import { addOffsetConstraint } from '@echo/firestore/helpers/query/add-offset-constraint'
 import { addOrderByConstraint } from '@echo/firestore/helpers/query/add-order-by-constraint'
 import { addSelectConstraint } from '@echo/firestore/helpers/query/add-select-constraint'
-import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import type { Query } from 'firebase-admin/lib/firestore'
+import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import { type Query } from 'firebase-admin/lib/firestore'
 import { isNil } from 'ramda'
 
 export function addConstraintsToQuery<T>(

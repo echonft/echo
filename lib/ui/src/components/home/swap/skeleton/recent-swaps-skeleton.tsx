@@ -2,7 +2,7 @@ import { HomeSectionLayout } from '@echo/ui/components/home/layout/home-section-
 import { RecentSwapsLayout } from '@echo/ui/components/home/swap/layout/recent-swaps-layout'
 import { SwapRowSkeleton } from '@echo/ui/components/swap/row/skeleton/swap-row-skeleton'
 import { getTranslator } from '@echo/ui/messages/get-translator'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const RecentSwapsSkeleton: FunctionComponent = () => {
   const t = getTranslator()

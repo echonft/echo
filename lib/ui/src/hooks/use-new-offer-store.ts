@@ -1,5 +1,5 @@
-import type { OfferItem } from '@echo/model/types/offer-item'
-import type { User } from '@echo/model/types/user'
+import { type OfferItem } from '@echo/model/types/offer-item'
+import { type User } from '@echo/model/types/user'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { propIsNotEmpty } from '@echo/utils/fp/prop-is-not-empty'
 import { assoc, either, head, is, pipe } from 'ramda'

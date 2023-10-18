@@ -1,6 +1,6 @@
 'use client'
-import type { AuthUser } from '@echo/model/types/auth-user'
-import type { Nft } from '@echo/model/types/nft'
+import { type AuthUser } from '@echo/model/types/auth-user'
+import { type Nft } from '@echo/model/types/nft'
 import { CollectionNavigationLayout } from '@echo/ui/components/collection/layout/collection-navigation-layout'
 import { SelectableNftsAndFiltersContainer } from '@echo/ui/components/nft/layout/container/selectable-nfts-and-filters-container'
 import { NavigationItems } from '@echo/ui/constants/navigation-item'

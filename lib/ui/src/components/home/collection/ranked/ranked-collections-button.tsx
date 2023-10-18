@@ -2,7 +2,7 @@ import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { links } from '@echo/ui/constants/links'
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const RankedCollectionsButton: FunctionComponent = () => {
   const t = getTranslator()

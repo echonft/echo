@@ -2,17 +2,17 @@
 import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'
 import { randomSnowflake } from '@echo/bot-test/discord/snowflake'
 import {
-  APIGuildTextChannel,
-  APITextChannel,
-  APIThreadChannel,
+  type APIGuildTextChannel,
+  type APITextChannel,
+  type APIThreadChannel,
   ChannelType,
   Client,
   ForumChannel,
   type Guild,
-  GuildBasedChannel,
-  GuildTextChannelType,
+  type GuildBasedChannel,
+  type GuildTextChannelType,
   NewsChannel,
-  PrivateThreadChannel,
+  type PrivateThreadChannel,
   TextChannel,
   ThreadChannel
 } from 'discord.js'

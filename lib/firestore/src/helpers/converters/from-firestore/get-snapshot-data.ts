@@ -1,4 +1,4 @@
-import type { DocumentData, QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
+import { type DocumentData, type QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 
 export function getSnapshotData<T extends DocumentData>(snapshot: QueryDocumentSnapshot<T>): T {
   if (!snapshot.exists) {

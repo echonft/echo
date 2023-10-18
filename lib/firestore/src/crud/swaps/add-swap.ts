@@ -2,8 +2,8 @@ import { increaseCollectionSwapsCount } from '@echo/firestore/crud/collection-sw
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { findSwapByOfferId } from '@echo/firestore/crud/swaps/find-swap-by-offer-id'
 import { getSwapsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swaps-collection-reference'
-import { getOfferCollectionIds } from '@echo/firestore/helpers/offer/get-offer-collection-ids'
-import type { Swap } from '@echo/firestore/types/model/swap/swap'
+import { type Swap } from '@echo/firestore/types/model/swap/swap'
+import { getOfferCollectionIds } from '@echo/model/helpers/offer/get-offer-collection-ids'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 

@@ -1,8 +1,8 @@
-import type { OfferState } from '@echo/model/types/offer-state'
+import { type OfferState } from '@echo/model/types/offer-state'
 import { getOfferStateBackgroundColor } from '@echo/ui/helpers/offer/get-offer-state-background-color'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   state: OfferState

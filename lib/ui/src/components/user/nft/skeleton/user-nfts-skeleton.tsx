@@ -3,7 +3,7 @@ import { UserNavigationLayoutSkeleton } from '@echo/ui/components/user/layout/sk
 import { NavigationItems } from '@echo/ui/constants/navigation-item'
 import { NftFilterTraits } from '@echo/ui/constants/nft-filter'
 import { getTranslator } from '@echo/ui/messages/get-translator'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const UserNftsSkeleton: FunctionComponent = () => {
   const t = getTranslator()

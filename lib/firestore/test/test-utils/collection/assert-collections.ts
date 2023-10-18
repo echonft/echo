@@ -1,7 +1,7 @@
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
-import { getAllCollectionMocks } from '@echo/firestore-mocks/collection/get-all-collection-mocks'
-import { getCollectionMockById } from '@echo/firestore-mocks/collection/get-collection-mock-by-id'
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
+import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
+import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { expect } from '@jest/globals'
 import { forEach } from 'ramda'
 

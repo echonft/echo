@@ -2,7 +2,7 @@
 import { isStorybook } from '@echo/ui/helpers/is-storybook'
 import { clsx } from 'clsx'
 import Link from 'next/link'
-import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
+import { type FunctionComponent, type MouseEventHandler, type PropsWithChildren } from 'react'
 
 interface Props {
   path: string

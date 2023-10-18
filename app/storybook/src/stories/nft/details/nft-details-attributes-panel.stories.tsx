@@ -1,6 +1,6 @@
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { NftDetailsAttributesPanel as Component } from '@echo/ui/components/nft/details/nft-details-attributes-panel'
-import { getNftById } from '@mocks/model/nft'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Nft/Details/Attributes Panel',
@@ -18,6 +18,6 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    attributes: getNftById('QFjMRNChUAHNswkRADXh').attributes
+    attributes: getNftMockById('QFjMRNChUAHNswkRADXh').attributes
   }
 }

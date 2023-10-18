@@ -1,6 +1,6 @@
 import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selection-in-list'
-import { Group } from '@echo/ui/types/group'
-import { Selectable } from '@echo/ui/types/selectable'
+import { type Group } from '@echo/ui/types/group'
+import { type Selectable } from '@echo/ui/types/selectable'
 import { isNil, map, modify, propEq, when } from 'ramda'
 
 function internalFn<T extends Selectable>(groupId: string, comparator: (obj: T) => boolean) {

@@ -1,5 +1,5 @@
-import { AlchemyContract } from '@echo/alchemy/types/model/alchemy-contract'
-import type { AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
+import { type AlchemyContract } from '@echo/alchemy/types/model/alchemy-contract'
+import { type AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
 import { assoc, modify, partialRight, pick, pipe } from 'ramda'
 import { getAddress } from 'viem'
 

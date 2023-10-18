@@ -1,6 +1,6 @@
 'use client'
-import type { AuthUser } from '@echo/model/types/auth-user'
-import type { Nft } from '@echo/model/types/nft'
+import { type AuthUser } from '@echo/model/types/auth-user'
+import { type Nft } from '@echo/model/types/nft'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { SelectableNftGroupsAndFiltersContainer } from '@echo/ui/components/nft/layout/container/selectable-nft-groups-and-filters-container'

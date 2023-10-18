@@ -3,7 +3,7 @@ import { UserProfilePictureSkeleton } from '@echo/ui/components/shared/skeleton/
 import { UserWalletSkeleton } from '@echo/ui/components/shared/skeleton/user-wallet-skeleton'
 import { SizeMD } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const UserDetailsContainerSkeleton: FunctionComponent = () => {
   return (

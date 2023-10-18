@@ -1,7 +1,7 @@
-import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
+import { type ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import { modifyBooleanPropToString } from '@echo/utils/fp/modify-boolean-prop-to-string'
 import { modifyPropName } from '@echo/utils/fp/modify-prop-name'
-import type { ListingFiltersQueryParams } from '@type/request/listing-filters-query-params'
+import { type ListingFiltersQueryParams } from '@type/request/listing-filters-query-params'
 import { pipe } from 'ramda'
 
 export function mapListingFiltersToQueryParams(filters: ListingQueryFilters): ListingFiltersQueryParams {

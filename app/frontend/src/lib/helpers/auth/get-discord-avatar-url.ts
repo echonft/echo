@@ -1,5 +1,5 @@
 import { getDiscordImageFormat } from '@helpers/auth/get-discord-image-format'
-import { DiscordProfile } from 'next-auth/providers/discord'
+import { type DiscordProfile } from 'next-auth/providers/discord'
 import { isNil } from 'ramda'
 
 export function getDiscordAvatarUrl(profile: DiscordProfile): string {

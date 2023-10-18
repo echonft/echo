@@ -1,11 +1,11 @@
 'use client'
 import { getOfferFetcher } from '@echo/api/services/fetcher/get-offer-fetcher'
 import { updateOfferFetcher } from '@echo/api/services/fetcher/update-offer-fetcher'
-import { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { UpdateOfferAction } from '@echo/api/types/update-offer-action'
-import type { Offer } from '@echo/model/types/offer'
+import { type OfferResponse } from '@echo/api/types/responses/offer-response'
+import { type UpdateOfferAction } from '@echo/api/types/update-offer-action'
+import { type Offer } from '@echo/model/types/offer'
+import { ItemsDetailsSeparator } from '@echo/ui/components/item/details/items-details-separator'
 import { OfferDetailsActionModal } from '@echo/ui/components/offer/details/offer-details-action-modal'
-import { OfferDetailsAssetsSeparator } from '@echo/ui/components/offer/details/offer-details-assets-separator'
 import { OfferDetailsButtonsContainer } from '@echo/ui/components/offer/details/offer-details-buttons-container'
 import { offerDetailsContainerBackgroundImage } from '@echo/ui/components/offer/details/offer-details-container-background-image'
 import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
@@ -73,7 +73,7 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, token
         <div className={clsx('flex', 'flex-col', 'gap-5')}>
           <OfferDetailsItemsContainer items={isCreator ? receiverItems : senderItems} direction={DirectionIn} />
           <div className={clsx('pb-4')}>
-            <OfferDetailsAssetsSeparator />
+            <ItemsDetailsSeparator />
           </div>
           <OfferDetailsItemsContainer items={isCreator ? senderItems : receiverItems} direction={DirectionOut} />
           <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>

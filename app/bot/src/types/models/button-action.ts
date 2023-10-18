@@ -1,4 +1,4 @@
-import type { Offer } from '@echo/model/types/offer'
+import { type Offer } from '@echo/model/types/offer'
 
 export enum ButtonAction {
   BUY = 'buy',

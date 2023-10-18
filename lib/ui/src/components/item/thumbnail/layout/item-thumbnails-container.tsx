@@ -1,7 +1,7 @@
-import type { OfferItem } from '@echo/model/types/offer-item'
+import { type OfferItem } from '@echo/model/types/offer-item'
 import { ItemThumbnail } from '@echo/ui/components/item/thumbnail/item-thumbnail'
 import { ItemThumbnailsContainerLayout } from '@echo/ui/components/item/thumbnail/layout/item-thumbnails-container-layout'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   items: OfferItem[]

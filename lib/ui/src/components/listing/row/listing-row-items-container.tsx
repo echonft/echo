@@ -1,4 +1,4 @@
-import type { ListingItem } from '@echo/model/types/listing-item'
+import { type ListingItem } from '@echo/model/types/listing-item'
 import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { DirectionOut } from '@echo/ui/constants/swap-direction'

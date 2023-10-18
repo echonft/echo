@@ -1,7 +1,7 @@
 'use client'
 import { FiltersPanel } from '@echo/ui/components/layout/filters-panel'
 import { CollectionFilterSelector } from '@echo/ui/components/nft/filters/by-collection/collection-filter-selector'
-import type { CollectionFilter } from '@echo/ui/types/collection-filter'
+import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { useTranslations } from 'next-intl'
 import { map } from 'ramda'
 import { type FunctionComponent } from 'react'

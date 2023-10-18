@@ -6,7 +6,7 @@ import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-c
 import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
-import { FunctionComponent, useState } from 'react'
+import { type FunctionComponent, useState } from 'react'
 import { useAccount, useNetwork } from 'wagmi'
 
 interface Props {

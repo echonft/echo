@@ -1,4 +1,4 @@
-import type { OfferItem } from '@echo/model/types/offer-item'
+import { type OfferItem } from '@echo/model/types/offer-item'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
 import { describe, expect, it } from '@jest/globals'
 import { assocPath } from 'ramda'

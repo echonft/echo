@@ -1,9 +1,9 @@
-import type { Listing } from '@echo/model/types/listing'
+import { type Listing } from '@echo/model/types/listing'
 import { NftDetailsListingRow } from '@echo/ui/components/nft/details/nft-details-listing-row'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isEmpty, map } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   listings: Listing[]

@@ -3,7 +3,7 @@ import { NftsAndFiltersContainerSkeleton } from '@echo/ui/components/nft/layout/
 import { NavigationItems } from '@echo/ui/constants/navigation-item'
 import { NftFilterTraits } from '@echo/ui/constants/nft-filter'
 import { getTranslator } from '@echo/ui/messages/get-translator'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const CollectionNftsSkeleton: FunctionComponent = () => {
   const t = getTranslator()

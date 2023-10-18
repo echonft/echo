@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import type { OfferState } from '@echo/model/types/offer-state'
+import { type OfferState } from '@echo/model/types/offer-state'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
 import { OfferDetailsAcceptButton } from '@echo/ui/components/offer/details/offer-details-accept-button'
 import { OfferDetailsDeclineButton } from '@echo/ui/components/offer/details/offer-details-decline-button'
@@ -9,7 +9,7 @@ import { isOfferModalAcceptButtonDisplayed } from '@echo/ui/helpers/offer/is-off
 import { isOfferModalDeclineButtonDisplayed } from '@echo/ui/helpers/offer/is-offer-modal-decline-button-displayed'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   state: OfferState

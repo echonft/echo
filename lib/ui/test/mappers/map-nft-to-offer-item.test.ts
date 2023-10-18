@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
+import { type Nft } from '@echo/model/types/nft'
 import { mapNftToOfferItem } from '@echo/ui/mappers/map-nft-to-offer-item'
 import { describe, expect, it } from '@jest/globals'
 import { getAddress } from 'viem'

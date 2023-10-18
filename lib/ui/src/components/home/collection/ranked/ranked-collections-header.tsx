@@ -1,6 +1,6 @@
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const RankedCollectionsHeader: FunctionComponent = () => {
   const t = getTranslator()

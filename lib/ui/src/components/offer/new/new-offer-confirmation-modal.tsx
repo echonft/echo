@@ -1,5 +1,5 @@
 'use client'
-import type { OfferItem } from '@echo/model/types/offer-item'
+import { type OfferItem } from '@echo/model/types/offer-item'
 import { EditIconSvg } from '@echo/ui/components/base/svg/edit-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { NewOfferConfirmationModalItemsContainer } from '@echo/ui/components/offer/new/new-offer-confirmation-modal-items-container'

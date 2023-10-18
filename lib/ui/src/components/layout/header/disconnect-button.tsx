@@ -1,14 +1,14 @@
-import type { AuthUser } from '@echo/model/types/auth-user'
+import { type AuthUser } from '@echo/model/types/auth-user'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { UserTag } from '@echo/ui/components/layout/header/user-tag'
 import { links } from '@echo/ui/constants/links'
-import { errorMessage } from '@echo/utils/error/error-message'
+import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { Menu, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   user: AuthUser

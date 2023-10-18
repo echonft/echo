@@ -1,4 +1,4 @@
-import { errorMessage } from '@echo/utils/error/error-message'
+import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import serviceAccount from '@test-utils/service-accout-key.json'
 import { cert, getApps, initializeApp, type ServiceAccount } from 'firebase-admin/app'

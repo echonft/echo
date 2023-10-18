@@ -1,9 +1,9 @@
-import { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
+import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
+import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
+import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { NewListingSliderManager as Component } from '@echo/ui/components/listing/new/new-listing-slider-manager'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import { getAllCollections } from '@mocks/model/collection'
-import { getListingById } from '@mocks/model/listing'
-import { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import { head } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
@@ -33,7 +33,7 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-const listing = getListingById('jUzMtPGKM62mMhEcmbN4')
+const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
 const createListingFetcher = (_parameters: CreateListingRequest, _token: string | undefined) =>
   delayPromise(
     Promise.resolve({
@@ -41,7 +41,7 @@ const createListingFetcher = (_parameters: CreateListingRequest, _token: string 
     })
   )
 const collectionProvider = {
-  get: () => delayPromise(Promise.resolve(getAllCollections()))
+  get: () => delayPromise(Promise.resolve(getAllCollectionMocks()))
 }
 const { targets, items } = listing
 const target = head(targets)

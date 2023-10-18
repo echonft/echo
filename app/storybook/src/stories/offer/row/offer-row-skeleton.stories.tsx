@@ -1,5 +1,5 @@
 import { OfferRowSkeleton as Component } from '@echo/ui/components/offer/row/skeleton/offer-row-skeleton'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Row',

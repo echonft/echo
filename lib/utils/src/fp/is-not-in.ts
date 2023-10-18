@@ -1,4 +1,4 @@
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { includes } from 'ramda'
 
 export const isNotIn =

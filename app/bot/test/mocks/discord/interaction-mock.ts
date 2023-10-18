@@ -4,29 +4,29 @@ import { mockGuildMember } from '@echo/bot-mocks/discord/user-mock'
 import { randomSnowflake } from '@echo/bot-test/discord/snowflake'
 import { messageToAPIData } from '@echo/bot-test/discord/to-api-data'
 import {
-  APIBaseInteraction,
-  APIChatInputApplicationCommandInteraction,
+  type APIBaseInteraction,
+  type APIChatInputApplicationCommandInteraction,
   ApplicationCommandType,
   ButtonInteraction,
-  Channel,
+  type Channel,
   ChatInputCommandInteraction,
   Client,
   ComponentType,
   GuildMember,
-  GuildTextBasedChannel,
-  Interaction,
+  type GuildTextBasedChannel,
+  type Interaction,
   InteractionResponse,
   InteractionType,
-  InteractionUpdateOptions,
+  type InteractionUpdateOptions,
   Message,
   MessagePayload,
   PermissionsBitField,
-  Snowflake,
+  type Snowflake,
   User
 } from 'discord.js'
-import type {
-  RawMessageButtonInteractionData,
-  RawMessageComponentInteractionData
+import {
+  type RawMessageButtonInteractionData,
+  type RawMessageComponentInteractionData
 } from 'discord.js/typings/rawDataTypes'
 import { isNil } from 'ramda'
 

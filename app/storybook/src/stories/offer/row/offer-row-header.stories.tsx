@@ -1,5 +1,5 @@
 import { OfferRowHeader as Component } from '@echo/ui/components/offer/row/offer-row-header'
-import { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Row/Header',

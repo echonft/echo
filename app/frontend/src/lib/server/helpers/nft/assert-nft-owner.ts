@@ -1,5 +1,5 @@
-import type { Nft } from '@echo/model/types/nft'
-import type { User } from '@echo/model/types/user'
+import { type Nft } from '@echo/model/types/nft'
+import { type User } from '@echo/model/types/user'
 import { ForbiddenError } from '@server/helpers/error/forbidden-error'
 import { isNil } from 'ramda'
 

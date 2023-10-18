@@ -1,6 +1,6 @@
 import { OFFER_STATES } from '@echo/model/constants/offer-states'
 import { OfferDetailsState as Component } from '@echo/ui/components/offer/details/offer-details-state'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 
 const metadata: Meta<typeof Component> = {

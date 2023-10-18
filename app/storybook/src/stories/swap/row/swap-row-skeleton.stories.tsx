@@ -1,5 +1,5 @@
 import { SwapRowSkeleton as Component } from '@echo/ui/components/swap/row/skeleton/swap-row-skeleton'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Swap/Row',

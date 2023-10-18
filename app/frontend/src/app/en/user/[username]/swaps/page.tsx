@@ -1,12 +1,12 @@
 import { authOptions } from '@constants/auth-options'
 import { userSwapsApiUrl } from '@echo/api/routing/user-swaps-api-url'
-import type { OffersResponse } from '@echo/api/types/responses/offers-response'
+import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { UserSwapsApiProvided } from '@echo/ui/components/user/api-provided/user-swaps-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { getServerSession } from 'next-auth/next'
 import { isNil } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   params: {

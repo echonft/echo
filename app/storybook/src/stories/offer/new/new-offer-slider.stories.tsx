@@ -1,8 +1,8 @@
+import { authUserMock } from '@echo/model-mocks/auth-user/auth-user-mock'
+import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { NewOfferSliderManager as Component } from '@echo/ui/components/offer/new/new-offer-slider-manager'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
-import { getAuthUser } from '@mocks/model/auth-user'
-import { getOfferById } from '@mocks/model/offer'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import { useEffect } from 'react'
 
 const metadata: Meta<typeof Component> = {
@@ -12,8 +12,8 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
-const user = getAuthUser()
+const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
+const user = authUserMock
 
 type Story = StoryObj<typeof Component>
 

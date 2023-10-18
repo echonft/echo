@@ -1,8 +1,12 @@
 import { assocExpiredProp } from '@echo/firestore/helpers/converters/from-firestore/assoc-expired-prop'
 import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
-import type { Listing } from '@echo/model/types/listing'
-import type { FirestoreDataConverter, PartialWithFieldValue, QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
+import { type ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import { type Listing } from '@echo/model/types/listing'
+import {
+  type FirestoreDataConverter,
+  type PartialWithFieldValue,
+  type QueryDocumentSnapshot
+} from 'firebase-admin/lib/firestore'
 import { assoc, dissoc, has, lens, map, over, path, pipe, prop, uniq, when } from 'ramda'
 
 export const listingDataConverter: FirestoreDataConverter<Listing> = {

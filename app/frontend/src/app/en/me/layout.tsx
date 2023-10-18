@@ -3,7 +3,7 @@ import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navi
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { ProfileDetailsApiProvided } from '@echo/ui/components/profile/api-provided/profile-details-api-provided'
 import { getServerSession } from 'next-auth/next'
-import type { FunctionComponent, PropsWithChildren } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 const ProfileLayout: FunctionComponent<PropsWithChildren> = async ({ children }) => {
   const session = await getServerSession(authOptions)

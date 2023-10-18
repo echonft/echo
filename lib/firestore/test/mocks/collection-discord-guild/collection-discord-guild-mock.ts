@@ -1,4 +1,4 @@
-import type { CollectionDiscordGuild } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
+import { type CollectionDiscordGuild } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
 
 export const collectionDiscordGuildMock: Record<string, CollectionDiscordGuild> = {
   FTtQ8IaJAffIaSk66Fy6: {

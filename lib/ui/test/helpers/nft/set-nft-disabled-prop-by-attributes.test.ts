@@ -1,6 +1,6 @@
-import type { Nft } from '@echo/model/types/nft'
+import { type Nft } from '@echo/model/types/nft'
 import { setNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-nft-disabled-prop-from-trait-filters'
-import { TraitFilter } from '@echo/ui/types/trait-filter'
+import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, map } from 'ramda'
 

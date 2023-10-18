@@ -1,4 +1,4 @@
-import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { anyPass, complement, concat, has, identity, ifElse, includes, isNil, modify, pipe, prop, unless } from 'ramda'
 

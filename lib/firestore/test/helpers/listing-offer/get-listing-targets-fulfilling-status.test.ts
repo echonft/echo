@@ -1,9 +1,9 @@
 import { getListingTargetsFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-targets-fulfilling-status'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import { getCollectionMockById } from '@echo/firestore-mocks/collection/get-collection-mock-by-id'
-import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
-import type { ListingTarget } from '@echo/model/types/listing-target'
-import type { OfferItem } from '@echo/model/types/offer-item'
+import { type ListingTarget } from '@echo/model/types/listing-target'
+import { type OfferItem } from '@echo/model/types/offer-item'
+import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - listing-offer - getListingTargetsFulfillingStatus', () => {

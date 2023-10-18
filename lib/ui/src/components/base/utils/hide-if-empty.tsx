@@ -1,8 +1,8 @@
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { NonEmptyObject } from '@echo/utils/types/non-empty-object'
-import { NonEmptyString } from '@echo/utils/types/non-empty-string'
+import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import { type NonEmptyObject } from '@echo/utils/types/non-empty-object'
+import { type NonEmptyString } from '@echo/utils/types/non-empty-string'
 import { is, isEmpty } from 'ramda'
-import type { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 
 interface ArrayProps<T> {
   checks: T[]

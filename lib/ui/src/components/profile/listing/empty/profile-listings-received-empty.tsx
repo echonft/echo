@@ -3,7 +3,7 @@ import { EmptyViewContent } from '@echo/ui/components/layout/navigation/empty-vi
 import { links } from '@echo/ui/constants/links'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const ProfileListingsReceivedEmpty: FunctionComponent = () => {
   const t = useTranslations('profile.empty.listingsReceived')

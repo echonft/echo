@@ -1,7 +1,7 @@
 import { getNonceFetcher } from '@echo/api/services/fetcher/get-nonce-fetcher'
-import { NonceResponse } from '@echo/api/types/responses/nonce-response'
+import { type NonceResponse } from '@echo/api/types/responses/nonce-response'
 import { isNil } from 'ramda'
-import { FunctionComponent, useCallback, useEffect } from 'react'
+import { type FunctionComponent, useCallback, useEffect } from 'react'
 import useSWR from 'swr'
 
 interface Props {

@@ -1,11 +1,11 @@
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
-import type { ListingItem } from '@echo/model/types/listing-item'
-import type { ListingTarget } from '@echo/model/types/listing-target'
-import type { Nft } from '@echo/model/types/nft'
-import type { OfferItem } from '@echo/model/types/offer-item'
-import type { User } from '@echo/model/types/user'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import { type ListingItem } from '@echo/model/types/listing-item'
+import { type ListingTarget } from '@echo/model/types/listing-target'
+import { type Nft } from '@echo/model/types/nft'
+import { type OfferItem } from '@echo/model/types/offer-item'
+import { type User } from '@echo/model/types/user'
+import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { intersection, isEmpty, map, modify, path, pick } from 'ramda'
 
 interface PartialListingItem {

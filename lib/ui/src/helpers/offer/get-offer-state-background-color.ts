@@ -1,4 +1,4 @@
-import type { OfferState } from '@echo/model/types/offer-state'
+import { type OfferState } from '@echo/model/types/offer-state'
 
 export const getOfferStateBackgroundColor = (state: OfferState, expired?: boolean) => {
   if (expired) {

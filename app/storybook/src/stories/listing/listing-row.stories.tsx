@@ -1,7 +1,7 @@
-import type { Listing } from '@echo/model/types/listing'
+import { type Listing } from '@echo/model/types/listing'
+import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { ListingRow as Component } from '@echo/ui/components/listing/row/listing-row'
-import { getListingById } from '@mocks/model/listing'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 
@@ -19,7 +19,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const listing = getListingById('jUzMtPGKM62mMhEcmbN4')
+const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
 const notExpiredListing = pipe(
   assoc('expiresAt', dayjs().add(2, 'd').unix()),
   assoc('expired', false)

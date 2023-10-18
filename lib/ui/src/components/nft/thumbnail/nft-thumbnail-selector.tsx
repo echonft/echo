@@ -1,6 +1,6 @@
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   selected?: boolean

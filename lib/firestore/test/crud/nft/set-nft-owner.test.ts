@@ -3,7 +3,7 @@ import { getNftSnapshotById } from '@echo/firestore/crud/nft/get-nft-snapshot-by
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
-import type { User } from '@echo/model/types/user'
+import { type User } from '@echo/model/types/user'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertNfts } from '@test-utils/nft/assert-nfts'

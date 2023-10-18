@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const OfferDetailsStateSkeleton: FunctionComponent = () => (
   <div className={clsx('flex', 'flex-row', 'items-center', 'gap-16', 'pr-4')}>

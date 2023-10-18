@@ -1,6 +1,6 @@
+import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { NewListingSliderTargetRow as Component } from '@echo/ui/components/listing/new/new-listing-slider-target-row'
-import { getCollectionById } from '@mocks/model/collection'
-import { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 const metadata: Meta<typeof Component> = {
@@ -24,7 +24,7 @@ const metadata: Meta<typeof Component> = {
 }
 
 export default metadata
-const collection = getCollectionById('Rc8pLQXxgyQGIRL0fr13')
+const collection = getCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
 
 type Story = StoryObj<typeof Component>
 

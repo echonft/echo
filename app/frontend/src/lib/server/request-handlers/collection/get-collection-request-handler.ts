@@ -1,5 +1,5 @@
-import type { ApiRequest } from '@echo/api/types/api-request'
-import type { CollectionResponse } from '@echo/api/types/responses/collection-response'
+import { type ApiRequest } from '@echo/api/types/api-request'
+import { type CollectionResponse } from '@echo/api/types/responses/collection-response'
 import { assertCollectionExists } from '@server/helpers/collection/assert-collection-exists'
 import { getCollectionBySlug } from '@server/helpers/collection/get-collection-by-slug'
 import { NextResponse } from 'next/server'

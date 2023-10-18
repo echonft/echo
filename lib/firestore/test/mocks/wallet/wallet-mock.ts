@@ -1,4 +1,4 @@
-import { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import { type WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { getAddress } from 'viem'
 
 export const walletMock: Record<string, WalletDocumentData> = {

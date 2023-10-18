@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
 import { collectionApiUrl } from '@echo/api/routing/collection-api-url'
-import type { CollectionResponse } from '@echo/api/types/responses/collection-response'
+import { type CollectionResponse } from '@echo/api/types/responses/collection-response'
 import { CollectionDetailsApiProvided } from '@echo/ui/components/collection/api-provided/collection-details-api-provided'
 import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
@@ -10,7 +10,7 @@ import { ApiError } from '@server/helpers/error/api-error'
 import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { isNil } from 'ramda'
-import type { FunctionComponent, PropsWithChildren } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
   params: {

@@ -1,12 +1,12 @@
 import { authOptions } from '@constants/auth-options'
 import { collectionNftsApiUrl } from '@echo/api/routing/collection-nfts-api-url'
-import type { NftsResponse } from '@echo/api/types/responses/nfts-response'
+import { type NftsResponse } from '@echo/api/types/responses/nfts-response'
 import { CollectionNftsApiProvided } from '@echo/ui/components/collection/api-provided/collection-nfts-api-provided'
 import { fetcher } from '@helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { getServerSession } from 'next-auth/next'
 import { isNil } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   params: {

@@ -1,6 +1,6 @@
 import { FiltersPanel as Component } from '@echo/ui/components/layout/filters-panel'
 import { CollectionFilterSelector } from '@echo/ui/components/nft/filters/by-collection/collection-filter-selector'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'User/Filters/Collection Filter Selector',

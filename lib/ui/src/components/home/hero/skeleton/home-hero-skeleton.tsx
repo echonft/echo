@@ -2,7 +2,7 @@ import { CollectionTileSkeleton } from '@echo/ui/components/collection/tile/skel
 import { HomeHeroLayout } from '@echo/ui/components/home/hero/home-hero-layout'
 import { SizeLG } from '@echo/ui/constants/size'
 import { getTranslator } from '@echo/ui/messages/get-translator'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const HomeHeroSkeleton: FunctionComponent = () => {
   const t = getTranslator()

@@ -8,7 +8,7 @@ import {
 } from '@echo/ui/components/collection/details/collection-profile-picture'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export interface CollectionProfileProps extends CollectionLinksProps, CollectionProfilePictureProps {
   supplyCount: number | undefined

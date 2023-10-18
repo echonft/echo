@@ -1,6 +1,6 @@
 import {
   CommandInteraction,
-  InteractionReplyOptions,
+  type InteractionReplyOptions,
   InteractionResponse,
   MessageComponentInteraction
 } from 'discord.js'

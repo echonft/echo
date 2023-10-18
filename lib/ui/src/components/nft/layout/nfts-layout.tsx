@@ -1,6 +1,6 @@
 import { AlignmentCenter, AlignmentLeft, AlignmentRight } from '@echo/ui/constants/alignment'
 import { clsx } from 'clsx'
-import type { FunctionComponent, PropsWithChildren } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
   alignment?: typeof AlignmentLeft | typeof AlignmentCenter | typeof AlignmentRight

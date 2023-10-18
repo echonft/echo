@@ -1,5 +1,5 @@
-import type { SessionDocumentData } from '@echo/firestore/types/model/session/session-document-data'
-import type { DocumentReference } from 'firebase-admin/lib/firestore'
+import { type SessionDocumentData } from '@echo/firestore/types/model/session/session-document-data'
+import { type DocumentReference } from 'firebase-admin/lib/firestore'
 
 export const sessionReferenceMock: Record<string, DocumentReference<SessionDocumentData>> = {
   KI5AJISonKCYslDm51Tn: {

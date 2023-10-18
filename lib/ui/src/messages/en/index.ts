@@ -136,6 +136,13 @@ export const messages = {
         copyLinkBtn: 'Copy link',
         linkCopied: 'Link copied!'
       }
+    },
+    state: {
+      OPEN: 'Awaiting offers',
+      OFFERS_PENDING: 'Offers pending',
+      PARTIALLY_FULFILLED: 'Partially fulfilled',
+      FULFILLED: 'Fulfilled',
+      CANCELLED: 'Cancelled'
     }
   },
   navigation: {
@@ -235,8 +242,7 @@ export const messages = {
       ACCEPTED: 'Accepted',
       CANCELLED: 'Cancelled',
       COMPLETED: 'Completed',
-      REJECTED: 'Rejected',
-      INVALID: 'Invalid'
+      REJECTED: 'Rejected'
     }
   },
   profile: {

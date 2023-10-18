@@ -1,4 +1,4 @@
-import type { AuthUser } from '@echo/model/types/auth-user'
+import { type AuthUser } from '@echo/model/types/auth-user'
 import { MessagesType } from '@echo/ui/types/messages'
 
 export declare global {

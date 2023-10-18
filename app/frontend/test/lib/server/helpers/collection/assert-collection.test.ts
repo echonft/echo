@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { assertCollection } from '@server/helpers/collection/assert-collection'
 
 describe('helpers - collection - assertCollection', () => {

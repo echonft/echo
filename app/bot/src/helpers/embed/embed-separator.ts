@@ -1,4 +1,4 @@
-import { APIEmbedField } from 'discord.js'
+import { type APIEmbedField } from 'discord.js'
 
 /**
  * Creates an empty APIEmbedField object to separate multiple embed fields.

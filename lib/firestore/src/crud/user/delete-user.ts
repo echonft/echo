@@ -1,5 +1,5 @@
 import { getUserSnapshotById } from '@echo/firestore/crud/user/get-user-snapshot-by-id'
-import type { WriteResult } from 'firebase-admin/lib/firestore'
+import { type WriteResult } from 'firebase-admin/lib/firestore'
 import { isNil } from 'ramda'
 
 export async function deleteUser(id: string): Promise<WriteResult> {

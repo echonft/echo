@@ -1,4 +1,4 @@
-import type { Session } from '@echo/firestore/types/model/session/session'
+import { type Session } from '@echo/firestore/types/model/session/session'
 
 export const sessionMock: Record<string, Session> = {
   KI5AJISonKCYslDm51Tn: {

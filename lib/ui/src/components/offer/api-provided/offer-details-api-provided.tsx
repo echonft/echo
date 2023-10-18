@@ -1,11 +1,11 @@
 'use client'
-import type { AuthUser } from '@echo/model/types/auth-user'
-import type { Offer } from '@echo/model/types/offer'
+import { type AuthUser } from '@echo/model/types/auth-user'
+import { type Offer } from '@echo/model/types/offer'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { messages } from '@echo/ui/messages/en'
 import { NextIntlClientProvider } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: Offer

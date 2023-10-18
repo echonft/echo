@@ -1,8 +1,8 @@
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { isSelected } from '@echo/ui/helpers/selection/is-selected'
-import type { TraitFilter } from '@echo/ui/types/trait-filter'
+import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   filter: TraitFilter

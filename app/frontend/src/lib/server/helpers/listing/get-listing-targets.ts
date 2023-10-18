@@ -1,7 +1,7 @@
-import type { ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
+import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
-import type { ListingTarget } from '@echo/model/types/listing-target'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import { type ListingTarget } from '@echo/model/types/listing-target'
+import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil, map } from 'ramda'
 

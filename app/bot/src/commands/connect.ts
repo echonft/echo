@@ -1,10 +1,10 @@
 import { NoGuildIdError } from '@echo/bot/errors/no-guild-id-error'
 import { loginLink } from '@echo/bot/routing/login-link'
 import { findCollectionByDiscordGuildDiscordId } from '@echo/firestore/crud/collection-discord-guild/find-collection-by-discord-guild-discord-id'
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { andThenOtherwise } from '@echo/utils/fp/and-then-otherwise'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import type { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
+import { CommandInteraction, SlashCommandSubcommandBuilder } from 'discord.js'
 import { andThen, ifElse, isNil, pipe, prop } from 'ramda'
 
 /**

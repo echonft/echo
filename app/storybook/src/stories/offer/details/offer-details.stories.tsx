@@ -1,8 +1,8 @@
+import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OfferDetails as Component } from '@echo/ui/components/offer/details/offer-details'
-import { getOfferById } from '@mocks/model/offer'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
-const offer = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
+const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Details/Container',

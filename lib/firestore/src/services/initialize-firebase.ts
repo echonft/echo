@@ -1,4 +1,4 @@
-import { errorMessage } from '@echo/utils/error/error-message'
+import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { cert, getApps, initializeApp } from 'firebase-admin/app'
 import { getFirestore, initializeFirestore as firebaseInitializeFirestore } from 'firebase-admin/firestore'

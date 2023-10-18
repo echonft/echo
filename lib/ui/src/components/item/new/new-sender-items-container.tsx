@@ -1,4 +1,4 @@
-import type { OfferItem } from '@echo/model/types/offer-item'
+import { type OfferItem } from '@echo/model/types/offer-item'
 import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
 import { ShowIfNilOrEmpty } from '@echo/ui/components/base/utils/show-if-nil-or-empty'
 import { NewSenderItemsEmptyContainer } from '@echo/ui/components/item/empty/new-sender-items-empty-container'
@@ -7,7 +7,7 @@ import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-h
 import { DirectionOut } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   items: OfferItem[]

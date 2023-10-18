@@ -3,7 +3,7 @@ import { links } from '@echo/ui/constants/links'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const NewSenderItemsEmptyContainer: FunctionComponent = () => {
   const t = useTranslations('items.new')

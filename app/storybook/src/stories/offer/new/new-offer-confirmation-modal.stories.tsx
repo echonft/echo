@@ -1,6 +1,6 @@
+import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { NewOfferConfirmationModal as Component } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
-import { getOfferById } from '@mocks/model/offer'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/New/Confirmation Modal',
@@ -24,7 +24,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-const { senderItems, receiverItems } = getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
+const { senderItems, receiverItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
 
 type Story = StoryObj<typeof Component>
 

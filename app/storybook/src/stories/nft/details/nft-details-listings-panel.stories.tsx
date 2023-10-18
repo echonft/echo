@@ -1,6 +1,6 @@
+import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { NftDetailsListingsPanel as Component } from '@echo/ui/components/nft/details/nft-details-listings-panel'
-import { getListingById } from '@mocks/model/listing'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { assoc } from 'ramda'
 
@@ -18,7 +18,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const listing = getListingById('jUzMtPGKM62mMhEcmbN4')
+const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
 export const Default: Story = {
   args: {
     listings: [
