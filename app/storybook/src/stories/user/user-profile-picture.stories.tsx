@@ -1,5 +1,5 @@
 import { UserProfilePicture as Component } from '@echo/ui/components/shared/user-profile-picture'
-import { SizeLG } from '@echo/ui/constants/size'
+import { SizeLG, SizeMD } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -7,7 +7,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     size: {
-      options: ['Medium', 'Large'],
+      options: [SizeMD, SizeLG],
       control: { type: 'radio' }
     }
   },

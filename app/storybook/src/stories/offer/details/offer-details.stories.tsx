@@ -9,6 +9,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     isCreator: {
+      defaultValue: true,
       control: 'boolean'
     }
   },

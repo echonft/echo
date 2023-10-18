@@ -18,7 +18,7 @@ interface Props {
   }
 }
 
-const OfferPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { id } }) => {
+const OfferDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { id } }) => {
   const session = await getServerSession(authOptions)
   redirectIfNotLoggedIn(session, links.profile.offer(id))
   const { data, error } = await fetcher(offerApiUrl(id)).bearerToken(session.user.sessionToken).fetch<OfferResponse>()
@@ -36,4 +36,4 @@ const OfferPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: 
   return <OfferDetailsApiProvided offer={data.offer} user={session.user} />
 }
 
-export default OfferPage
+export default OfferDetailsPage

@@ -1,15 +1,15 @@
 import { LISTING_STATES } from '@echo/model/constants/listing-states'
-import type { OfferState } from '@echo/model/types/offer-state'
-import { OfferDetailsState as Component } from '@echo/ui/components/offer/details/offer-details-state'
+import type { ListingState } from '@echo/model/types/listing-state'
+import { ListingDetailsState as Component } from '@echo/ui/components/listing/details/listing-details-state'
 import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 
-const DEFAULT_STATE: OfferState = 'OPEN'
+const DEFAULT_STATE: ListingState = 'OPEN'
 const DEFAULT_EXPIRED = false
 const EXPIRED_DATE = dayjs().subtract(2, 'd').unix()
 const NOT_EXPIRED_DATE = dayjs().add(2, 'd').unix()
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/Details/State',
+  title: 'Listing/Details/State',
   component: Component,
   argTypes: {
     state: {
@@ -33,7 +33,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Default: Story = {
+export const State: Story = {
   render: ({ state, expired }) => (
     <Component state={state} expired={expired} expiresAt={expired ? EXPIRED_DATE : NOT_EXPIRED_DATE} />
   ),
