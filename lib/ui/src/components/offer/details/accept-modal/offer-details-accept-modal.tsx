@@ -137,9 +137,8 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
             </>
           )}
         />
-
         <ShowIf condition={!ownsAllAssets}>
-          {/*  TODO Need to have the invalidate call */}
+          {/*  TODO Need to have a cancel call */}
           <button onClick={onInvalidate}>Reject button</button>
         </ShowIf>
       </div>

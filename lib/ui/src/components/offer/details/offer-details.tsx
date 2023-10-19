@@ -3,12 +3,12 @@ import { getOfferFetcher } from '@echo/api/services/fetcher/get-offer-fetcher'
 import { updateOfferFetcher } from '@echo/api/services/fetcher/update-offer-fetcher'
 import { GetOfferResponse } from '@echo/api/types/responses/get-offer-response'
 import { UpdateOfferAction } from '@echo/api/types/update-offer-action'
-import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { OfferDetailsAcceptModal } from '@echo/ui/components/offer/details/accept-modal/offer-details-accept-modal'
 import { OfferDetailsActionModal } from '@echo/ui/components/offer/details/action-modal/offer-details-action-modal'
-import { OfferDetailsApiButtonsContainer } from '@echo/ui/components/offer/details/offer-details-api-buttons-container'
+import { OfferDetailsExecuteModal } from '@echo/ui/components/offer/details/execute-modal/offer-details-execute-modal'
 import { OfferDetailsAssetsSeparator } from '@echo/ui/components/offer/details/offer-details-assets-separator'
+import { OfferDetailsButtonsContainer } from '@echo/ui/components/offer/details/offer-details-buttons-container'
 import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
@@ -25,11 +25,13 @@ interface Props {
   token: string
 }
 
+// TODO This needs cleaning
 export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, token }) => {
   const [updatedOffer, setUpdatedOffer] = useState(offer)
   const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
   const [modalShown, setModalShown] = useState(false)
   const [acceptModalShown, setAcceptModalShown] = useState<boolean>(false)
+  const [executeModalShown, setExecuteModalShown] = useState<boolean>(false)
   const [action, setAction] = useState<UpdateOfferAction>()
   const getOffer = useCallback(() => {
     return getOfferFetcher(offer.id, token)
@@ -53,14 +55,24 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
     }
   })
   const onAccept = () => {
-    // TODO Handle the execute case
-    setAcceptModalShown(true)
+    if (offer.state === 'OPEN') {
+      setAcceptModalShown(true)
+    } else {
+      setExecuteModalShown(true)
+    }
   }
 
   const onAcceptSuccess = () => {
     void getOfferTrigger()
     setAcceptModalShown(false)
     setAction('ACCEPT')
+    setModalShown(true)
+  }
+
+  const onExecuteSuccess = () => {
+    void getOfferTrigger()
+    setExecuteModalShown(false)
+    setAction('COMPLETE')
     setModalShown(true)
   }
   const onDecline = () => {
@@ -92,16 +104,13 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
           </div>
           <OfferDetailsItemsContainer items={isReceiver ? receiverItems : senderItems} isReceiver={false} />
           <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
-            <ShowIf condition={state === 'OPEN'}>
-              <OfferDetailsApiButtonsContainer
-                state={state}
-                nftsCount={isReceiver ? receiverItems.length : senderItems.length}
-                isReceiving={isReceiver}
-                isUpdating={isMutating}
-                onAccept={onAccept}
-                onDecline={onDecline}
-              />
-            </ShowIf>
+            <OfferDetailsButtonsContainer
+              state={state}
+              isReceiving={isReceiver}
+              isUpdating={isMutating}
+              onAccept={onAccept}
+              onDecline={onDecline}
+            />
           </div>
         </div>
       </div>
@@ -120,6 +129,13 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isReceiver, toke
           token={token}
           onClose={() => setAcceptModalShown(false)}
           onSuccess={onAcceptSuccess}
+        />
+        <OfferDetailsExecuteModal
+          offer={offer}
+          open={executeModalShown}
+          token={token}
+          onClose={() => setExecuteModalShown(false)}
+          onSuccess={onExecuteSuccess}
         />
       </Web3Provider>
     </>

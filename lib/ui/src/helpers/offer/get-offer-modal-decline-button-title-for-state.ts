@@ -1,4 +1,3 @@
-// TODO Update function with the new offer state with swap
 // TODO Use T instead of returning a string
 import type { OfferState } from '@echo/ui/types/model/offer-state'
 

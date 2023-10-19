@@ -5,7 +5,7 @@ export const isOfferModalAcceptButtonDisplayed = (state: OfferState, isReceiving
     case 'OPEN':
       return isReceiving
     case 'ACCEPTED':
-      return true
+      return !isReceiving
     default:
       return false
   }

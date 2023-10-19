@@ -1,1 +1,1 @@
-export type UpdateOfferAction = 'CANCEL' | 'REJECT' | 'ACCEPT'
+export type UpdateOfferAction = 'CANCEL' | 'REJECT' | 'ACCEPT' | 'COMPLETE'

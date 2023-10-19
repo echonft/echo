@@ -7,16 +7,7 @@ const metadata: Meta<typeof Component> = {
   argTypes: {
     state: {
       defaultValue: 'OPEN',
-      // TODO Add other states
-      options: ['OPEN', 'ACCEPTED'],
-      control: { type: 'radio' }
-    },
-    nftsCount: {
-      defaultValue: 1,
-      options: {
-        Single: 1,
-        Multiple: 2
-      },
+      options: ['OPEN', 'ACCEPTED', 'CANCELLED', 'REJECTED', 'INVALID', 'COMPLETED'],
       control: { type: 'radio' }
     }
   }
@@ -29,7 +20,6 @@ type Story = StoryObj<typeof Component>
 export const Default: Story = {
   args: {
     state: 'OPEN',
-    nftsCount: 1,
     isUpdating: false
   }
 }
