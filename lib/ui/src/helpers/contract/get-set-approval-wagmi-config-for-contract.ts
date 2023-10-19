@@ -12,6 +12,6 @@ export function getSetApprovalWagmiConfigForContract(contract: Contract): Contra
     // @ts-ignore
     address: contract.address,
     chainId: contract.chainId,
-    args: [echoAddress, false]
+    args: [echoAddress, true]
   }
 }

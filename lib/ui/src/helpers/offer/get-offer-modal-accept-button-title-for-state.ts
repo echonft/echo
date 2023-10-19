@@ -6,9 +6,8 @@ export const getOfferModalAcceptButtonTitleForState = (state: OfferState) => {
     case 'OPEN':
       return 'acceptBtn'
     case 'ACCEPTED':
-      return 'approveBtn'
+      return 'completeBtn'
     default:
       throw Error('unsupported state')
-    // TODO Add the other cases
   }
 }

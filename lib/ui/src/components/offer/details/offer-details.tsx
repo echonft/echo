@@ -24,6 +24,7 @@ interface Props {
   updateOfferFetcher: (offerId: string, action: UpdateOfferAction, token: string | undefined) => Promise<EmptyResponse>
 }
 
+// TODO This needs cleaning
 export const OfferDetails: FunctionComponent<Props> = ({
   offer,
   isCreator,
@@ -33,6 +34,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
 }) => {
   const [modalShown, setModalShown] = useState(false)
   const [acceptModalShown, setAcceptModalShown] = useState<boolean>(false)
+  const [executeModalShown, setExecuteModalShown] = useState<boolean>(false)
   const [action, setAction] = useState<UpdateOfferAction>()
   const getOffer = useCallback(() => {
     return getOfferFetcher(offer.id, token)
@@ -56,14 +58,24 @@ export const OfferDetails: FunctionComponent<Props> = ({
     }
   )
   const onAccept = () => {
-    // TODO Handle the execute case
-    setAcceptModalShown(true)
+    if (offer.state === 'OPEN') {
+      setAcceptModalShown(true)
+    } else {
+      setExecuteModalShown(true)
+    }
   }
 
   const onAcceptSuccess = () => {
     void getOfferTrigger()
     setAcceptModalShown(false)
     setAction('ACCEPT')
+    setModalShown(true)
+  }
+
+  const onExecuteSuccess = () => {
+    void getOfferTrigger()
+    setExecuteModalShown(false)
+    setAction('COMPLETE')
     setModalShown(true)
   }
   const onDecline = () => {
@@ -97,16 +109,14 @@ export const OfferDetails: FunctionComponent<Props> = ({
           </div>
           <OfferDetailsItemsContainer items={isCreator ? senderItems : receiverItems} direction={DirectionOut} />
           <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
-            <ShowIf condition={state === 'OPEN'}>
-              <OfferDetailsApiButtonsContainer
-                state={state}
+            <OfferDetailsButtonsContainer
+              state={state}
               nftsCount={isCreator ? senderItems.length : receiverItems.length}
               isReceiving={!isCreator}
               isUpdating={getMutating || updateMutating}
               onAccept={onAccept}
               onDecline={onDecline}
-              />
-            </ShowIf>
+            />
           </div>
         </div>
       </div>
@@ -125,6 +135,13 @@ export const OfferDetails: FunctionComponent<Props> = ({
           token={token}
           onClose={() => setAcceptModalShown(false)}
           onSuccess={onAcceptSuccess}
+        />
+        <OfferDetailsExecuteModal
+          offer={offer}
+          open={executeModalShown}
+          token={token}
+          onClose={() => setExecuteModalShown(false)}
+          onSuccess={onExecuteSuccess}
         />
       </Web3Provider>
     </>

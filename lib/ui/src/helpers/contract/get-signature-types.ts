@@ -10,5 +10,5 @@ export function getSignatureTypes() {
       { name: 'counterpartyCollections', type: 'address[]' },
       { name: 'counterpartyIds', type: 'uint256[]' }
     ]
-  }
+  } as const
 }

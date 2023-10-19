@@ -6,8 +6,8 @@ import { Offer } from '@echo/ui/types/model/offer'
 export function getSignatureConfigForOffer(offer: Offer, chainId: number) {
   return {
     domain: getSignatureDomain(chainId),
-    message: mapOfferToOfferSignature(offer),
+    types: getSignatureTypes(),
     primaryType: 'Trade',
-    types: getSignatureTypes()
+    message: mapOfferToOfferSignature(offer)
   }
 }
