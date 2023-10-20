@@ -1,5 +1,5 @@
-import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
+import { deleteCollection } from '@test-utils/collection/delete-collection'
 
 export async function clearCollections() {
   const collections = await getAllCollections()

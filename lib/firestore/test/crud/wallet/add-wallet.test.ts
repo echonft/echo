@@ -1,11 +1,11 @@
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { deleteWallet } from '@echo/firestore/crud/wallet/delete-wallet'
-import { findWalletById } from '@echo/firestore/crud/wallet/find-wallet-by-id'
 import { getAllWalletMocks } from '@echo/firestore-mocks/wallet/get-all-wallet-mocks'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { assertWallets } from '@test-utils/wallet/assert-wallets'
+import { findWalletById } from '@test-utils/wallet/find-wallet-by-id'
 import { head, pick } from 'ramda'
 
 describe('CRUD - wallet - addWallet', () => {

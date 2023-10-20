@@ -2,7 +2,7 @@ import { OfferDetailsSkeleton as Component } from '@echo/ui/components/offer/det
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/Details/Container',
+  title: 'Offer/Details',
   component: Component
 }
 

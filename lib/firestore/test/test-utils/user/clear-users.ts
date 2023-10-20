@@ -1,5 +1,5 @@
-import { deleteUser } from '@echo/firestore/crud/user/delete-user'
-import { getAllUsers } from '@echo/firestore/crud/user/get-all-users'
+import { deleteUser } from '@test-utils/user/delete-user'
+import { getAllUsers } from '@test-utils/user/get-all-users'
 
 export async function clearUsers() {
   const users = await getAllUsers()

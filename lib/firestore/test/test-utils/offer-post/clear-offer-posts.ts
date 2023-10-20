@@ -1,5 +1,5 @@
-import { deleteOfferPost } from '@echo/firestore/crud/offer-post/delete-offer-post'
-import { getAllOfferPosts } from '@echo/firestore/crud/offer-post/get-all-offer-posts'
+import { deleteOfferPost } from '@test-utils/offer-post/delete-offer-post'
+import { getAllOfferPosts } from '@test-utils/offer-post/get-all-offer-posts'
 
 export async function clearOfferPosts() {
   const documents = await getAllOfferPosts()

@@ -100,14 +100,15 @@ export const messages = {
       out: 'Offering'
     },
     details: {
-      expiresAt: 'Expires in',
-      expiredAt: 'Expired',
       assets: {
         title: {
           in: 'Interested in',
           out: 'Offering'
         }
-      }
+      },
+      cancelBtn: 'Cancel',
+      expiresAt: 'Expires in',
+      expiredAt: 'Expired'
     },
     new: {
       bottomSlider: {
@@ -241,7 +242,7 @@ export const messages = {
       OPEN: 'Pending',
       ACCEPTED: 'Accepted',
       CANCELLED: 'Cancelled',
-      COMPLETED: 'Completed',
+      COMPLETED: 'Swapped',
       REJECTED: 'Rejected'
     }
   },

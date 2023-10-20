@@ -1,6 +1,5 @@
 'use client'
-import { getOfferFetcher } from '@echo/api/services/fetcher/get-offer-fetcher'
-import { updateOfferFetcher } from '@echo/api/services/fetcher/update-offer-fetcher'
+import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
 import { type UpdateOfferAction } from '@echo/api/types/update-offer-action'
 import { type Offer } from '@echo/model/types/offer'
@@ -13,37 +12,47 @@ import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-detai
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
 import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
-import { type FunctionComponent, useCallback, useState } from 'react'
+import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 interface Props {
   offer: Offer
   isCreator: boolean
   token: string
+  getOfferFetcher: (offerId: string, token: string) => Promise<OfferResponse>
+  updateOfferFetcher: (offerId: string, action: UpdateOfferAction, token: string | undefined) => Promise<EmptyResponse>
 }
 
-export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, token }) => {
-  const [updatedOffer, setUpdatedOffer] = useState(offer)
-  const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
+export const OfferDetails: FunctionComponent<Props> = ({
+  offer,
+  isCreator,
+  token,
+  getOfferFetcher,
+  updateOfferFetcher
+}) => {
   const [modalShown, setModalShown] = useState(false)
   const [action, setAction] = useState<UpdateOfferAction>()
   const getOffer = useCallback(() => {
     return getOfferFetcher(offer.id, token)
-  }, [offer, token])
+  }, [getOfferFetcher, offer, token])
   const updateOffer = useCallback(() => {
     return updateOfferFetcher(offer.id, action!, token)
-  }, [offer, action, token])
-  const { trigger: getOfferTrigger } = useSWRMutation<OfferResponse, Error, string>(`get-offer-${offer.id}`, getOffer, {
-    onSuccess: (data) => {
-      setUpdatedOffer(data.offer)
+  }, [updateOfferFetcher, offer, action, token])
+  const {
+    trigger: getOfferTrigger,
+    isMutating: getMutating,
+    data
+  } = useSWRMutation<OfferResponse, Error, string>(`get-offer-${offer.id}`, getOffer)
+  const { trigger: updateOfferTrigger, isMutating: updateMutating } = useSWRMutation(
+    `update-offer-${offer.id}`,
+    updateOffer,
+    {
+      onSuccess: () => {
+        void getOfferTrigger()
+        setModalShown(true)
+      }
     }
-  })
-  const { trigger: updateOfferTrigger, isMutating } = useSWRMutation(`update-offer-${offer.id}`, updateOffer, {
-    onSuccess: () => {
-      void getOfferTrigger()
-      setModalShown(true)
-    }
-  })
+  )
   const onAccept = () => {
     setAction('ACCEPT')
     void updateOfferTrigger()
@@ -52,6 +61,8 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, token
     setAction(isCreator ? 'CANCEL' : 'REJECT')
     void updateOfferTrigger()
   }
+  const updatedOffer = useMemo(() => data?.offer ?? offer, [offer, data])
+  const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
 
   return (
     <>
@@ -81,7 +92,7 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, token
               state={state}
               nftsCount={isCreator ? senderItems.length : receiverItems.length}
               isReceiving={!isCreator}
-              isUpdating={isMutating}
+              isUpdating={getMutating || updateMutating}
               onAccept={onAccept}
               onDecline={onDecline}
             />

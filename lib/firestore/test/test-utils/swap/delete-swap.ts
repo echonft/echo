@@ -1,4 +1,4 @@
-import { getSwapSnapshotById } from '@echo/firestore/crud/swaps/get-swap-snapshot-by-id'
+import { getSwapSnapshotById } from '@echo/firestore/crud/swap/get-swap-snapshot-by-id'
 import { type WriteResult } from 'firebase-admin/lib/firestore'
 import { isNil } from 'ramda'
 

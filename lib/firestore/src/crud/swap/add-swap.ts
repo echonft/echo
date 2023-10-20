@@ -1,6 +1,6 @@
 import { increaseCollectionSwapsCount } from '@echo/firestore/crud/collection-swaps-count/increase-collection-swaps-count'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import { findSwapByOfferId } from '@echo/firestore/crud/swaps/find-swap-by-offer-id'
+import { findSwapByOfferId } from '@echo/firestore/crud/swap/find-swap-by-offer-id'
 import { getSwapsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swaps-collection-reference'
 import { type Swap } from '@echo/firestore/types/model/swap/swap'
 import { getOfferCollectionIds } from '@echo/model/helpers/offer/get-offer-collection-ids'

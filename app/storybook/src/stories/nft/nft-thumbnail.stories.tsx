@@ -7,6 +7,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     hideOwner: {
+      defaultValue: false,
       control: 'boolean'
     }
   },

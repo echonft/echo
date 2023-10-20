@@ -5,10 +5,15 @@ import { getAddress } from 'viem'
 
 export function mapAlchemyContractResponseToAlchemyContract(chainId: number) {
   return function (contractResponse: AlchemyContractResponse): AlchemyContract {
-    return pipe(
+    return pipe<
+      [AlchemyContractResponse],
+      Pick<AlchemyContractResponse, 'address' | 'tokenType' | 'name' | 'symbol'>,
+      Pick<AlchemyContractResponse, 'address' | 'tokenType' | 'name' | 'symbol'>,
+      AlchemyContract
+    >(
       pick(['address', 'tokenType', 'name', 'symbol']),
       modify('address', partialRight(getAddress, [chainId])),
       assoc('chainId', chainId)
-    )(contractResponse) as AlchemyContract
+    )(contractResponse)
   }
 }
