@@ -4,7 +4,7 @@ import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/ge
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { updateOfferState } from '@echo/firestore/crud/offer/update-offer-state'
-import { addSwap } from '@echo/firestore/crud/swaps/add-swap'
+import { addSwap } from '@echo/firestore/crud/swap/add-swap'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { getItemId } from '@echo/model/helpers/item/get-item-id'
 import { getListingItemsIds } from '@echo/model/helpers/listing/get-listing-items-ids'

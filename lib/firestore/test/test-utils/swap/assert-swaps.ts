@@ -1,7 +1,7 @@
-import { getAllSwaps } from '@echo/firestore/crud/swaps/get-all-swaps'
 import { getAllSwapMocks } from '@echo/firestore-mocks/swap/get-all-swap-mocks'
 import { getSwapMockById } from '@echo/firestore-mocks/swap/get-swap-mock-by-id'
 import { expect } from '@jest/globals'
+import { getAllSwaps } from '@test-utils/swap/get-all-swaps'
 
 export async function assertSwaps() {
   const mocks = getAllSwapMocks()

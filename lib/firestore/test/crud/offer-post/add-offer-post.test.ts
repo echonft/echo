@@ -1,9 +1,9 @@
 import { addOfferPost } from '@echo/firestore/crud/offer-post/add-offer-post'
-import { deleteOfferPost } from '@echo/firestore/crud/offer-post/delete-offer-post'
-import { findOfferPostById } from '@echo/firestore/crud/offer-post/find-offer-post-by-id'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertOfferPosts } from '@test-utils/offer-post/assert-offer-posts'
+import { deleteOfferPost } from '@test-utils/offer-post/delete-offer-post'
+import { findOfferPostById } from '@test-utils/offer-post/find-offer-post-by-id'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 

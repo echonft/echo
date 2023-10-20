@@ -1,4 +1,4 @@
-import { getCollectionSwapsCountSnapshotById } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-snapshot-by-id'
+import { getCollectionSwapsCountSnapshotById } from '@test-utils/collection-swaps-count/get-collection-swaps-count-snapshot-by-id'
 import { type WriteResult } from 'firebase-admin/lib/firestore'
 import { isNil } from 'ramda'
 
