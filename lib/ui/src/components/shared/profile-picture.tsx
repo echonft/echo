@@ -1,9 +1,9 @@
 import { Img } from '@echo/ui/components/base/img'
 import { SizeLG, SizeMD } from '@echo/ui/constants/size'
 import { getProfilePictureSize } from '@echo/ui/helpers/get-profile-picture-size'
-import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
+import { type ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   pictureUrl: string

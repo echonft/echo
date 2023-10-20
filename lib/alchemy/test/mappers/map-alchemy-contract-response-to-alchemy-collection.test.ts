@@ -1,6 +1,6 @@
 import { mapAlchemyContractResponseToAlchemyCollection } from '@echo/alchemy/mappers/map-alchemy-contract-response-to-alchemy-collection'
-import type { AlchemyCollection } from '@echo/alchemy/types/model/alchemy-collection'
-import type { AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
+import { type AlchemyCollection } from '@echo/alchemy/types/model/alchemy-collection'
+import { type AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapAlchemyContractResponseToAlchemyCollection', () => {

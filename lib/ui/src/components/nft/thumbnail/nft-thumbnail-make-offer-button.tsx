@@ -1,6 +1,6 @@
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent, MouseEventHandler } from 'react'
+import { type FunctionComponent, type MouseEventHandler } from 'react'
 
 interface Props {
   onClick?: MouseEventHandler

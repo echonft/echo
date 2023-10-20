@@ -4,9 +4,9 @@ import { CollectionFilterPanel } from '@echo/ui/components/nft/filters/by-collec
 import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import { FiltersPanelButton } from '@echo/ui/components/nft/layout/filters-panel-button'
 import { NftFiltersPanelLayout } from '@echo/ui/components/nft/layout/nft-filters-panel-layout'
-import { CollectionFilter } from '@echo/ui/types/collection-filter'
-import { TraitFilter } from '@echo/ui/types/trait-filter'
-import { FunctionComponent, MouseEventHandler } from 'react'
+import { type CollectionFilter } from '@echo/ui/types/collection-filter'
+import { type TraitFilter } from '@echo/ui/types/trait-filter'
+import { type FunctionComponent, type MouseEventHandler } from 'react'
 
 interface Props {
   nftSelectionCount: number

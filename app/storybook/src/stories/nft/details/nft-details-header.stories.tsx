@@ -1,6 +1,6 @@
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { NftDetailsHeader as Component } from '@echo/ui/components/nft/details/nft-details-header'
-import { getNftById } from '@mocks/model/nft'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Nft/Details/Header',
@@ -15,7 +15,7 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-const { collection, tokenId, owner, openSeaUrl, blurUrl } = getNftById('5SeF1NSN5uPUxtWSr516')
+const { collection, tokenId, owner, openSeaUrl, blurUrl } = getNftMockById('5SeF1NSN5uPUxtWSr516')
 export const Default: Story = {
   args: {
     collectionName: collection.name,

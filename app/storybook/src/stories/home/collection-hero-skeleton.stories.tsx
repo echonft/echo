@@ -1,5 +1,5 @@
 import { HomeHeroSkeleton as Component } from '@echo/ui/components/home/hero/skeleton/home-hero-skeleton'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Home/Hero',

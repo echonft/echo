@@ -5,7 +5,7 @@ import { HomeDiscordTileLayout } from '@echo/ui/components/home/layout/home-disc
 import { HomeSectionsLayout } from '@echo/ui/components/home/layout/home-sections-layout'
 import { RecentSwapsSkeleton } from '@echo/ui/components/home/swap/skeleton/recent-swaps-skeleton'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const HomeSkeleton: FunctionComponent = () => {
   return (

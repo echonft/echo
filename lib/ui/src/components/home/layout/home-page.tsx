@@ -1,8 +1,8 @@
-import type { AuthUser } from '@echo/model/types/auth-user'
-import { Home, HomeProps } from '@echo/ui/components/home/home'
+import { type AuthUser } from '@echo/model/types/auth-user'
+import { Home, type HomeProps } from '@echo/ui/components/home/home'
 import { Header } from '@echo/ui/components/layout/header/header'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props extends HomeProps {
   user: AuthUser | undefined

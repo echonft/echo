@@ -7,7 +7,7 @@ import { OfferRowSwapIcon } from '@echo/ui/components/offer/row/offer-row-swap-i
 import { OfferRowStatePillSkeleton } from '@echo/ui/components/offer/row/skeleton/offer-row-state-pill-skeleton'
 import { UserDiscordTagSkeleton } from '@echo/ui/components/shared/skeleton/user-discord-tag-skeleton'
 import { AlignmentRight } from '@echo/ui/constants/alignment'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const OfferRowSkeleton: FunctionComponent = () => (
   <OfferRowLayout>

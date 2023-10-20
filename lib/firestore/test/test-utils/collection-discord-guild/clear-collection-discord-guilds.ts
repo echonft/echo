@@ -1,5 +1,5 @@
-import { deleteCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/delete-collection-discord-guild'
-import { getAllCollectionDiscordGuilds } from '@echo/firestore/crud/collection-discord-guild/get-all-collection-discord-guilds'
+import { deleteCollectionDiscordGuild } from '@test-utils/collection-discord-guild/delete-collection-discord-guild'
+import { getAllCollectionDiscordGuilds } from '@test-utils/collection-discord-guild/get-all-collection-discord-guilds'
 
 export async function clearCollectionDiscordGuilds() {
   const collectionDiscordGuilds = await getAllCollectionDiscordGuilds()

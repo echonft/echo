@@ -1,9 +1,9 @@
-import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
-import type { Listing } from '@echo/model/types/listing'
+import { type ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
+import { type Listing } from '@echo/model/types/listing'
 import { intersects } from '@echo/utils/fp/intersects'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { single } from '@echo/utils/fp/single'
-import type { Query } from 'firebase-admin/lib/firestore'
+import { type Query } from 'firebase-admin/lib/firestore'
 import { head, isNil } from 'ramda'
 
 export function addListingQueryFilters(query: Query<Listing>, filters?: ListingQueryFilters) {

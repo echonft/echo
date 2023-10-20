@@ -1,4 +1,4 @@
-import type { RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
+import { type RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@server/helpers/error/api-error'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'

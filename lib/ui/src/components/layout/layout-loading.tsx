@@ -1,6 +1,6 @@
 import { HeaderSkeleton } from '@echo/ui/components/layout/header/skeleton/header-skeleton'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const LayoutLoading: FunctionComponent = () => {
   return (

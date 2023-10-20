@@ -1,5 +1,5 @@
-import type { ApiRequest } from '@echo/api/types/api-request'
-import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
+import { type ApiRequest } from '@echo/api/types/api-request'
+import { type NonceResponse } from '@echo/api/types/responses/nonce-response'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
 import { setUserNonce } from '@server/helpers/user/set-user-nonce'
 import { NextResponse } from 'next/server'

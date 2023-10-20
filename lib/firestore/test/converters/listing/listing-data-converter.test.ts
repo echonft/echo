@@ -1,7 +1,7 @@
 import { listingDataConverter } from '@echo/firestore/converters/listing/listing-data-converter'
-import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
 import { listingDocumentDataMock } from '@echo/firestore-mocks/listing/listing-document-data-mock'
 import { listingSnapshotMock } from '@echo/firestore-mocks/listing/listing-snapshot-mock'
+import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - listingDataConverter', () => {

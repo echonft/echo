@@ -1,9 +1,9 @@
 import { NavigationPillsLayout } from '@echo/ui/components/layout/navigation/navigation-pills-layout'
-import type { NavigationItem } from '@echo/ui/types/navigation-item'
-import type { NavigationItemId } from '@echo/ui/types/navigation-item-id'
+import { type NavigationItem } from '@echo/ui/types/navigation-item'
+import { type NavigationItemId } from '@echo/ui/types/navigation-item-id'
 import { clsx } from 'clsx'
 import { map } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   navigationItems: NavigationItem[]

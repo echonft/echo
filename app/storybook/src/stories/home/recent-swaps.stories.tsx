@@ -1,6 +1,6 @@
+import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { RecentSwaps as Component } from '@echo/ui/components/home/swap/recent-swaps'
-import { getAllOffers } from '@mocks/model/offer'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import { concat } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
@@ -16,7 +16,7 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-const offers = getAllOffers()
+const offers = getAllOfferMocks()
 
 export const Default: Story = {
   args: {

@@ -1,8 +1,8 @@
 import { SizeLG, SizeMD } from '@echo/ui/constants/size'
-import type { BannerPictureSize } from '@echo/ui/types/banner-picture-size'
+import { type BannerPictureSize } from '@echo/ui/types/banner-picture-size'
 import { clsx } from 'clsx'
 import { always, identity, ifElse, isNil } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export interface BannerProps {
   bannerUrl: string | undefined

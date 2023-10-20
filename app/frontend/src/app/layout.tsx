@@ -1,6 +1,6 @@
 import '@echo/ui-css/index.css'
-import type { Metadata } from 'next'
-import type { FunctionComponent, PropsWithChildren } from 'react'
+import { type Metadata } from 'next'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export const metadata: Metadata = {
   title: 'Echo',

@@ -4,7 +4,7 @@ import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { CollectionRoundedProfilePicture } from '@echo/ui/components/collection/search/collection-rounded-profile-picture'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   pictureUrl: string | undefined

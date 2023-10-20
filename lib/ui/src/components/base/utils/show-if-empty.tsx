@@ -1,6 +1,6 @@
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { isEmpty } from 'ramda'
-import type { PropsWithChildren } from 'react'
+import { type PropsWithChildren } from 'react'
 
 interface Props<T> {
   checks: T[] | string | object

@@ -1,6 +1,6 @@
 import '@echo/ui-css/index.css'
 import { messages } from '@echo/ui/messages/en'
-import type { Preview } from '@storybook/react'
+import { type Preview } from '@storybook/react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { NextIntlClientProvider } from 'next-intl'

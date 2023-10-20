@@ -1,8 +1,8 @@
 import { authOptions } from '@constants/auth-options'
 import { allCollectionsApiUrl } from '@echo/api/routing/all-collections-api-url'
 import { allSwapsApiUrl } from '@echo/api/routing/all-swaps-api-url'
-import { CollectionsResponse } from '@echo/api/types/responses/collections-response'
-import { OffersResponse } from '@echo/api/types/responses/offers-response'
+import { type CollectionsResponse } from '@echo/api/types/responses/collections-response'
+import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { HomePage } from '@echo/ui/components/home/layout/home-page'
 import { fetcher } from '@helpers/fetcher'
 import { mapCollectionFiltersToQueryParams } from '@helpers/request/map-collection-filters-to-query-params'
@@ -10,7 +10,7 @@ import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-con
 import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { isNil, mergeLeft } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 const Home: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)

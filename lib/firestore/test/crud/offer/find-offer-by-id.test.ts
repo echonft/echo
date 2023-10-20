@@ -1,5 +1,5 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import { offerMock } from '@echo/firestore-mocks/offer/offer-mock'
+import { offerMock } from '@echo/model-mocks/offer/offer-mock'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'

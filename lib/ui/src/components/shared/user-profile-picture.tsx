@@ -1,6 +1,6 @@
 import { ProfilePicture } from '@echo/ui/components/shared/profile-picture'
-import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
-import type { FunctionComponent } from 'react'
+import { type ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
+import { type FunctionComponent } from 'react'
 
 export interface UserProfilePictureProps {
   discordUsername: string

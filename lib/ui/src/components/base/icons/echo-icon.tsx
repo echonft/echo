@@ -3,10 +3,10 @@ import { IconContainerColor } from '@echo/ui/components/base/icons/icon-containe
 import { EchoIconSvg } from '@echo/ui/components/base/svg/echo-icon-svg'
 import { ColorBlack, ColorYellow } from '@echo/ui/constants/color'
 import { getIconSizeInPx } from '@echo/ui/helpers/get-icon-size-in-px'
-import type { EchoIconColor } from '@echo/ui/types/echo-icon-color'
-import type { IconSize } from '@echo/ui/types/icon-size'
+import { type EchoIconColor } from '@echo/ui/types/echo-icon-color'
+import { type IconSize } from '@echo/ui/types/icon-size'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   color: EchoIconColor

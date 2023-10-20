@@ -1,7 +1,7 @@
 import { offerDataConverter } from '@echo/firestore/converters/offer/offer-data-converter'
 import { offerDocumentDataMock } from '@echo/firestore-mocks/offer/offer-document-data-mock'
-import { offerMock } from '@echo/firestore-mocks/offer/offer-mock'
 import { offerSnapshotMock } from '@echo/firestore-mocks/offer/offer-snapshot-mock'
+import { offerMock } from '@echo/model-mocks/offer/offer-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('converters - offerDataConverter', () => {

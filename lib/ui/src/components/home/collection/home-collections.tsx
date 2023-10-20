@@ -1,10 +1,10 @@
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { HomeCollectionsLayout } from '@echo/ui/components/home/collection/layout/home-collections-layout'
 import { RankedCollections } from '@echo/ui/components/home/collection/ranked/ranked-collections'
 import { TopCollections } from '@echo/ui/components/home/collection/top/top-collections'
 import { min, slice } from 'ramda'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   collections: Collection[]

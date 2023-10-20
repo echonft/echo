@@ -5,7 +5,7 @@ import { ItemThumbnailSelector } from '@echo/ui/components/item/thumbnail/item-t
 import { NewListingSliderTargetRowQuantitySelector } from '@echo/ui/components/listing/new/new-listing-slider-target-row-quantity-selector'
 import { SizeMD } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   collectionName: string

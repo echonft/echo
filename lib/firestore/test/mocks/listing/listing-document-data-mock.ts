@@ -1,6 +1,6 @@
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
-import { getCollectionMockById } from '@echo/firestore-mocks/collection/get-collection-mock-by-id'
-import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
+import { type ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { getAddress } from 'viem'
 
 export const listingDocumentDataMock: Record<string, ListingDocumentData> = {

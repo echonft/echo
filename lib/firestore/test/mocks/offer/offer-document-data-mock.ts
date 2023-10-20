@@ -1,5 +1,5 @@
-import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
-import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
+import { type OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { getAddress } from 'viem'
 
 export const offerDocumentDataMock: Record<string, OfferDocumentData> = {

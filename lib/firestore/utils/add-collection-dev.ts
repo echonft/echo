@@ -2,7 +2,7 @@ import { addCollection } from '@echo/firestore/crud/collection/add-collection'
 import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { getAddress } from 'viem'
 
 const collectionToAdd: Omit<Collection, 'id'> = {

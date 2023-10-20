@@ -1,6 +1,6 @@
 'use client'
-import type { AuthUser } from '@echo/model/types/auth-user'
-import type { Listing } from '@echo/model/types/listing'
+import { type AuthUser } from '@echo/model/types/auth-user'
+import { type Listing } from '@echo/model/types/listing'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { CollectionNavigationLayout } from '@echo/ui/components/collection/layout/collection-navigation-layout'

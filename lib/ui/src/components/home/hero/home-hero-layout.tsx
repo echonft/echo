@@ -1,6 +1,6 @@
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { clsx } from 'clsx'
-import type { FunctionComponent, PropsWithChildren } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
   title: string

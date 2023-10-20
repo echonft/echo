@@ -1,5 +1,5 @@
 'use client'
-import { UpdateOfferAction } from '@echo/api/types/update-offer-action'
+import { type UpdateOfferAction } from '@echo/api/types/update-offer-action'
 import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { OfferDetailsOfferActionModalSubtitle } from '@echo/ui/components/offer/details/offer-details-offer-action-modal-subtitle'

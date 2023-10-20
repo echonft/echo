@@ -1,6 +1,6 @@
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { SelectableNftThumbnail as Component } from '@echo/ui/components/nft/thumbnail/selectable-nft-thumbnail'
-import { getNftById } from '@mocks/model/nft'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import { assoc } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
@@ -8,6 +8,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     hideOwner: {
+      defaultValue: false,
       control: 'boolean'
     },
     onToggleSelection: {
@@ -24,7 +25,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-const nft = getNftById('QFjMRNChUAHNswkRADXh')
+const nft = getNftMockById('QFjMRNChUAHNswkRADXh')
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {

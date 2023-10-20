@@ -1,4 +1,4 @@
-import type { TokenType } from '@echo/model/types/token-type'
+import { type TokenType } from '@echo/model/types/token-type'
 
 export interface Contract {
   address: string

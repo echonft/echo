@@ -3,7 +3,7 @@ import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-i
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   show?: boolean

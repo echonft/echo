@@ -1,7 +1,7 @@
+import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { CollectionProfile as Component } from '@echo/ui/components/collection/details/collection-profile'
 import { SizeLG } from '@echo/ui/constants/size'
-import { getCollectionById } from '@mocks/model/collection'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Collection/Profile',
@@ -12,7 +12,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 const { name, twitterUsername, totalSupply, profilePictureUrl, discordUrl, websiteUrl } =
-  getCollectionById('Rc8pLQXxgyQGIRL0fr13')
+  getCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
 
 export const Default: Story = {
   args: {

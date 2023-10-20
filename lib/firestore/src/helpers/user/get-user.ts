@@ -1,6 +1,6 @@
-import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
-import type { User } from '@echo/model/types/user'
-import type { Wallet } from '@echo/model/types/wallet'
+import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import { type User } from '@echo/model/types/user'
+import { type Wallet } from '@echo/model/types/wallet'
 import { assoc, modify, pick, pipe } from 'ramda'
 
 export function getUser(user: UserDocumentData, wallet: Wallet): User {

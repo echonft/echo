@@ -1,4 +1,4 @@
-import type { Contract } from '@echo/model/types/contract'
+import { type Contract } from '@echo/model/types/contract'
 
 export interface Collection {
   id: string

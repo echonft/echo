@@ -1,5 +1,5 @@
 import { TraitFilterPanelSkeleton as Component } from '@echo/ui/components/nft/filters/by-traits/skeleton/trait-filter-panel-skeleton'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Collection/Filters/Trait Filter Panel',

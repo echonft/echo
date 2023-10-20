@@ -1,7 +1,7 @@
-import type { AuthUser } from '@echo/model/types/auth-user'
+import { type AuthUser } from '@echo/model/types/auth-user'
 import { Header } from '@echo/ui/components/layout/header/header'
 import { clsx } from 'clsx'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export interface PageLayoutProps {
   user: AuthUser | undefined

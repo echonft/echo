@@ -1,4 +1,4 @@
-import type { ListingTarget } from '@echo/model/types/listing-target'
+import { type ListingTarget } from '@echo/model/types/listing-target'
 import { isNil, modify, pick } from 'ramda'
 
 export function mapListingTargetToRequest(target: ListingTarget | undefined) {

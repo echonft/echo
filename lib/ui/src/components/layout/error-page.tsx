@@ -2,7 +2,7 @@ import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { EchoIconSvg } from '@echo/ui/components/base/svg/echo-icon-svg'
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const ErrorPage: FunctionComponent = () => {
   const t = getTranslator()

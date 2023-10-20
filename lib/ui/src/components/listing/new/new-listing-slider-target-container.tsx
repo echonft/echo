@@ -1,4 +1,4 @@
-import type { ListingTarget } from '@echo/model/types/listing-target'
+import { type ListingTarget } from '@echo/model/types/listing-target'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import { NewListingSliderTargetRow } from '@echo/ui/components/listing/new/new-listing-slider-target-row'
@@ -6,7 +6,7 @@ import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-h
 import { DirectionIn } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   target: ListingTarget | undefined

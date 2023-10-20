@@ -1,4 +1,4 @@
-import type { Nft } from '@echo/model/types/nft'
+import { type Nft } from '@echo/model/types/nft'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
 import { describe, expect, test } from '@jest/globals'
 

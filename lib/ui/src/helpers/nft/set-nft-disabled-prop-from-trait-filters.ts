@@ -1,8 +1,8 @@
-import type { Nft } from '@echo/model/types/nft'
+import { type Nft } from '@echo/model/types/nft'
 import { disable } from '@echo/ui/helpers/disableable/disable'
 import { getSelection } from '@echo/ui/helpers/selection/get-selection'
-import { DisableableType } from '@echo/ui/types/disableable'
-import { TraitFilter } from '@echo/ui/types/trait-filter'
+import { type DisableableType } from '@echo/ui/types/disableable'
+import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { intersects } from '@echo/utils/fp/intersects'
 import { isEmpty, isNil, map, pick, pipe, prop, unless } from 'ramda'
 

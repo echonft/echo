@@ -7,8 +7,8 @@ import { OfferRowSwapIcon } from '@echo/ui/components/offer/row/offer-row-swap-i
 import { AlignmentRight } from '@echo/ui/constants/alignment'
 import { links } from '@echo/ui/constants/links'
 import { OfferRoleReceiver } from '@echo/ui/constants/offer-role'
-import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { FunctionComponent } from 'react'
+import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: OfferWithRole

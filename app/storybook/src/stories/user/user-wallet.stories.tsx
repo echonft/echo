@@ -1,5 +1,5 @@
 import { UserWallet as Component } from '@echo/ui/components/shared/user-wallet'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'User/Wallet ',

@@ -1,5 +1,5 @@
 import { mockClientUser } from '@echo/bot-mocks/discord/user-mock'
-import { Client, ClientOptions, Options } from 'discord.js'
+import { Client, type ClientOptions, Options } from 'discord.js'
 
 // Credit: https://github.com/AnswerOverflow/AnswerOverflow
 // References: https://dev.to/heymarkkop/how-to-implement-test-and-mock-discordjs-v13-slash-commands-with-typescript-22lc

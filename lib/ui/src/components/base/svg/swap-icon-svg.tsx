@@ -1,7 +1,7 @@
 import { Svg, type SvgProps } from '@echo/ui/components/base/svg/svg'
 import { DirectionLeft, DirectionUp } from '@echo/ui/constants/direction'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const swapIconDirections = [DirectionUp, DirectionLeft] as const
 export type SwapIconDirection = (typeof swapIconDirections)[number]

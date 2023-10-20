@@ -1,5 +1,5 @@
-import { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import type { DocumentReference } from 'firebase-admin/lib/firestore'
+import { type WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import { type DocumentReference } from 'firebase-admin/lib/firestore'
 
 export const walletReferenceMock: Record<string, DocumentReference<WalletDocumentData>> = {
   i28NWtlxElPXCnO0c6BC: {

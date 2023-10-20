@@ -1,6 +1,6 @@
-import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
+import { type AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { findNonceForUser } from '@echo/firestore/crud/nonce/find-nonce-for-user'
-import type { Nonce } from '@echo/firestore/types/model/nonce/nonce'
+import { type Nonce } from '@echo/firestore/types/model/nonce/nonce'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getSiweMessage } from '@server/helpers/auth/get-siwe-message'
 import { verifySiweMessage } from '@server/helpers/auth/verify-siwe-message'

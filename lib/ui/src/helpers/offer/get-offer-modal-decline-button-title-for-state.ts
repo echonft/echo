@@ -1,6 +1,6 @@
 // TODO Update function with the new offer state with swap
 // TODO Use T instead of returning a string
-import type { OfferState } from '@echo/model/types/offer-state'
+import { type OfferState } from '@echo/model/types/offer-state'
 
 export const getOfferModalDeclineButtonTitleForState = (state: OfferState, isReceiving: boolean) => {
   switch (state) {

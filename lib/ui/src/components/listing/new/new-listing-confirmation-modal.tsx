@@ -1,6 +1,6 @@
 'use client'
-import type { ListingItem } from '@echo/model/types/listing-item'
-import type { ListingTarget } from '@echo/model/types/listing-target'
+import { type ListingItem } from '@echo/model/types/listing-item'
+import { type ListingTarget } from '@echo/model/types/listing-target'
 import { EditIconSvg } from '@echo/ui/components/base/svg/edit-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { NewListingConfirmationModalItemsContainer } from '@echo/ui/components/listing/new/new-listing-confirmation-modal-items-container'

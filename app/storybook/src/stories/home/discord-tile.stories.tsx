@@ -1,5 +1,5 @@
 import { DiscordTile as Component } from '@echo/ui/components/home/discord/discord-tile'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Home/Discord Tile',

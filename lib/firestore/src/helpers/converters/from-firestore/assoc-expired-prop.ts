@@ -1,5 +1,5 @@
-import { dateNumberIsPast } from '@echo/firestore/helpers/converters/from-firestore/date-number-is-past'
 import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
+import { dateNumberIsPast } from '@echo/utils/helpers/date-number-is-past'
 import { assoc, ifElse, isNil, lens, over, pipe, prop, when } from 'ramda'
 
 /**

@@ -1,7 +1,7 @@
 'use client'
 import { FiltersPanel } from '@echo/ui/components/layout/filters-panel'
 import { TraitFilterPickerManager } from '@echo/ui/components/nft/filters/by-traits/trait-filter-picker-manager'
-import { TraitFilter } from '@echo/ui/types/trait-filter'
+import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { useTranslations } from 'next-intl'
 import { collectBy, head, prop } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'

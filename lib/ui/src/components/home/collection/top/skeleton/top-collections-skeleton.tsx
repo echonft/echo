@@ -3,7 +3,7 @@ import { TopCollectionsLayout } from '@echo/ui/components/home/collection/top/la
 import { HomeSectionLayout } from '@echo/ui/components/home/layout/home-section-layout'
 import { SizeMD } from '@echo/ui/constants/size'
 import { getTranslator } from '@echo/ui/messages/get-translator'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const TopCollectionsSkeleton: FunctionComponent = () => {
   const t = getTranslator()

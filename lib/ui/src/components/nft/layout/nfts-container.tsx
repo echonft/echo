@@ -1,9 +1,9 @@
-import type { Nft } from '@echo/model/types/nft'
+import { type Nft } from '@echo/model/types/nft'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
 import { NftThumbnail } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
 import { AlignmentCenter, AlignmentLeft, AlignmentRight } from '@echo/ui/constants/alignment'
 import { map } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   nfts: Nft[]

@@ -6,7 +6,7 @@ import { UserDetailsLayout } from '@echo/ui/components/user/layout/user-details-
 import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout'
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
 import { SizeLG } from '@echo/ui/constants/size'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const ProfileDetailsSkeleton: FunctionComponent = () => {
   return (

@@ -1,7 +1,7 @@
 import { mapAlchemyContractResponseToAlchemyContract } from '@echo/alchemy/mappers/map-alchemy-contract-response-to-alchemy-contract'
-import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
-import { AlchemyNftAttribute } from '@echo/alchemy/types/model/alchemy-nft-attribute'
-import type { AlchemyNftResponse } from '@echo/alchemy/types/response/alchemy-nft-response'
+import { type AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
+import { type AlchemyNftAttribute } from '@echo/alchemy/types/model/alchemy-nft-attribute'
+import { type AlchemyNftResponse } from '@echo/alchemy/types/response/alchemy-nft-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import {
   always,

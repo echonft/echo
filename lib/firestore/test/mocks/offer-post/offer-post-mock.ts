@@ -1,4 +1,4 @@
-import type { OfferPost } from '@echo/firestore/types/model/offer-post/offer-post'
+import { type OfferPost } from '@echo/firestore/types/model/offer-post/offer-post'
 
 export const offerPostMock: Record<string, OfferPost> = {
   hot4VWDzd6ZRsC3nsvnb: {

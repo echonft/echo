@@ -1,4 +1,4 @@
-import type { DiscordSecret } from '@echo/discord/types/discord-secret'
+import { type DiscordSecret } from '@echo/discord/types/discord-secret'
 import { isEmpty, isNil } from 'ramda'
 
 export function getDiscordSecret(): DiscordSecret {

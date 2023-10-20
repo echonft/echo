@@ -1,6 +1,6 @@
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const CollectionSearchNoResults: FunctionComponent = () => {
   const t = useTranslations('listing.new.bottomSlider')

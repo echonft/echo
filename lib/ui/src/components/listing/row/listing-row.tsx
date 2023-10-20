@@ -1,4 +1,4 @@
-import type { Listing } from '@echo/model/types/listing'
+import { type Listing } from '@echo/model/types/listing'
 import { ListingRowItemsContainer } from '@echo/ui/components/listing/row/listing-row-items-container'
 import { ListingRowTargetsContainer } from '@echo/ui/components/listing/row/listing-row-targets-container'
 import { StateTextContainer } from '@echo/ui/components/shared/state-text-container'
@@ -7,7 +7,7 @@ import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 dayjs.extend(relativeTime)
 

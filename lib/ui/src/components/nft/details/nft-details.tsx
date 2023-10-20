@@ -1,6 +1,6 @@
 'use client'
-import type { Listing } from '@echo/model/types/listing'
-import type { Nft } from '@echo/model/types/nft'
+import { type Listing } from '@echo/model/types/listing'
+import { type Nft } from '@echo/model/types/nft'
 import { Img } from '@echo/ui/components/base/img'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { NftDetailsAttributesPanel } from '@echo/ui/components/nft/details/nft-details-attributes-panel'
@@ -9,7 +9,7 @@ import { NftDetailsListingsPanel } from '@echo/ui/components/nft/details/nft-det
 import { NftDetailsTokenDetailsPanel } from '@echo/ui/components/nft/details/nft-details-token-details-panel'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   nft: Nft

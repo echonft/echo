@@ -5,7 +5,7 @@ import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { links } from '@echo/ui/constants/links'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Tooltip } from 'react-tooltip'
 

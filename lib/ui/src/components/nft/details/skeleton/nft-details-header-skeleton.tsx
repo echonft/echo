@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const NftDetailsHeaderSkeleton: FunctionComponent = () => {
   return (

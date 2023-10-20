@@ -1,6 +1,6 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { getListingPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-posts-collection-reference'
-import type { ListingPost } from '@echo/firestore/types/model/listing-post/listing-post'
+import { type ListingPost } from '@echo/firestore/types/model/listing-post/listing-post'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 

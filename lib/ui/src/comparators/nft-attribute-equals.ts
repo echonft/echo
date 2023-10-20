@@ -1,5 +1,5 @@
-import type { NftAttribute } from '@echo/model/types/nft-attribute'
-import { errorMessage } from '@echo/utils/error/error-message'
+import { type NftAttribute } from '@echo/model/types/nft-attribute'
+import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 
 export function nftAttributeEquals(attributeA: NftAttribute, attributeB: NftAttribute) {

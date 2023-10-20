@@ -2,7 +2,7 @@ import { NftThumbnailSkeleton } from '@echo/ui/components/nft/thumbnail/skeleton
 import { SwapDirectionHeaderSkeleton } from '@echo/ui/components/shared/skeleton/swap-direction-header-skeleton'
 import { UserDetailsContainerSkeleton } from '@echo/ui/components/shared/skeleton/user-details-container-skeleton'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const ListingRowSkeleton: FunctionComponent = () => {
   return (

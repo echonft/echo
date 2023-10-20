@@ -1,17 +1,17 @@
 import { authOptions } from '@constants/auth-options'
 import { nftApiUrl } from '@echo/api/routing/nft-api-url'
 import { nftListingsApiUrl } from '@echo/api/routing/nft-listings-api-url'
-import type { ListingsResponse } from '@echo/api/types/responses/listings-response'
-import type { NftResponse } from '@echo/api/types/responses/nft-response'
+import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
+import { type NftResponse } from '@echo/api/types/responses/nft-response'
 import { NftDetailsApiProvided } from '@echo/ui/components/nft/api-provided/nft-details-api-provided'
-import { errorMessage } from '@echo/utils/error/error-message'
+import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { fetcher } from '@helpers/fetcher'
 import { mapListingFiltersToQueryParams } from '@helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { getServerSession } from 'next-auth/next'
 import { isNil, mergeLeft } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   params: {

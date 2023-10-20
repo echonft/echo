@@ -1,6 +1,6 @@
 import { getAllOffers as firestoreGetAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
-import { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
-import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import { type OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
+import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export async function getAllOffers(filters?: OfferQueryFilters, constraints?: QueryConstraints) {

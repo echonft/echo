@@ -1,12 +1,12 @@
 import {
-  APIChannel,
-  APIChannelMention,
-  APIGuildForumTag,
-  APIMessage,
-  APIUser,
-  Channel,
+  type APIChannel,
+  type APIChannelMention,
+  type APIGuildForumTag,
+  type APIMessage,
+  type APIUser,
+  type Channel,
   ChannelType,
-  GuildForumTag,
+  type GuildForumTag,
   Message,
   User
 } from 'discord.js'

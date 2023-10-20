@@ -1,5 +1,5 @@
-import type { IncludeExpiredQueryFilter } from '@echo/firestore/types/query/include-expired-query-filter'
-import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import { type IncludeExpiredQueryFilter } from '@echo/firestore/types/query/include-expired-query-filter'
+import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { dissoc, isNil, map, pipe, prop, reject } from 'ramda'
 
 type ModelWithExpiredProp<T> = T & Record<'expired', boolean>

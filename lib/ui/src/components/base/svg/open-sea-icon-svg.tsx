@@ -1,5 +1,5 @@
 import { Svg, type SvgProps } from '@echo/ui/components/base/svg/svg'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const OpenSeaIconSvg: FunctionComponent<SvgProps> = (props) => {
   return (

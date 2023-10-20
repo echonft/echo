@@ -2,7 +2,7 @@ import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { DirectionLeft, DirectionRight } from '@echo/ui/constants/direction'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   quantity: number

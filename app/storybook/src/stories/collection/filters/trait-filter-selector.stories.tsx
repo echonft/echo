@@ -1,5 +1,5 @@
 import { TraitFilterSelector as Component } from '@echo/ui/components/nft/filters/by-traits/trait-filter-selector'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Collection/Filters/Trait Filter Selector',

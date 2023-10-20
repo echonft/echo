@@ -1,5 +1,5 @@
-import type { ApiRequest } from '@echo/api/types/api-request'
-import type { UserResponse } from '@echo/api/types/responses/user-response'
+import { type ApiRequest } from '@echo/api/types/api-request'
+import { type UserResponse } from '@echo/api/types/responses/user-response'
 import { assertUser } from '@server/helpers/user/assert-user'
 import { getUserByUsername } from '@server/helpers/user/get-user-by-username'
 import { getWalletsByUserId } from '@server/helpers/wallet/get-wallets-by-user-id'

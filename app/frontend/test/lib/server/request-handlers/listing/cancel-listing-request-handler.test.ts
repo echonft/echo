@@ -1,5 +1,5 @@
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
-import type { Listing } from '@echo/model/types/listing'
+import { type Listing } from '@echo/model/types/listing'
 import { ApiError } from '@server/helpers/error/api-error'
 import { cancelListing } from '@server/helpers/listing/cancel-listing'
 import { getListing } from '@server/helpers/listing/get-listing'

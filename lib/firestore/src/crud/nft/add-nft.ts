@@ -1,5 +1,5 @@
 import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nfts-collection-reference'
-import type { Nft } from '@echo/model/types/nft'
+import { type Nft } from '@echo/model/types/nft'
 import dayjs from 'dayjs'
 
 export async function addNft(nft: Omit<Nft, 'id' | 'updatedAt'>): Promise<Nft> {

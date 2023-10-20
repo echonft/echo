@@ -1,7 +1,15 @@
 import { mockGuild, mockRole } from '@echo/bot-mocks/discord/guild-mock'
 import { randomSnowflake } from '@echo/bot-test/discord/snowflake'
-import { Client, ClientUser, Guild, GuildMember, PermissionResolvable, PermissionsBitField, User } from 'discord.js'
-import type { RawGuildMemberData, RawUserData } from 'discord.js/typings/rawDataTypes'
+import {
+  Client,
+  ClientUser,
+  Guild,
+  GuildMember,
+  type PermissionResolvable,
+  PermissionsBitField,
+  User
+} from 'discord.js'
+import { type RawGuildMemberData, type RawUserData } from 'discord.js/typings/rawDataTypes'
 
 export function mockUser(client: Client, data: Partial<RawUserData> = {}) {
   const rawData: RawUserData = {

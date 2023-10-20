@@ -1,5 +1,5 @@
 import { InteractionError } from '@echo/bot/errors/interaction-error'
-import { InteractionReplyOptions } from 'discord.js'
+import { type InteractionReplyOptions } from 'discord.js'
 import { isEmpty, isNil } from 'ramda'
 
 export class InvalidChannelIdError extends InteractionError {

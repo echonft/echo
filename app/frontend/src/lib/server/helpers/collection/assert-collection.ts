@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil } from 'ramda'
 

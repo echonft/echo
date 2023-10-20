@@ -1,10 +1,10 @@
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { CollectionSearchCollectionOption } from '@echo/ui/components/collection/search/collection-search-collection-option'
 import { CollectionSearchNoResults } from '@echo/ui/components/collection/search/collection-search-no-results'
 import { NewListingSearchCollectionOptionSkeleton } from '@echo/ui/components/listing/new/skeleton/new-listing-search-collection-option-skeleton'
 import { Combobox } from '@headlessui/react'
 import { isEmpty, isNil, map } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   options: Collection[] | undefined

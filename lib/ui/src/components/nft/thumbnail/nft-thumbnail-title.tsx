@@ -3,7 +3,7 @@ import { ExternalLink } from '@echo/ui/components/base/link/external-link'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { SizeSM } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   openSeaUrl: string | undefined

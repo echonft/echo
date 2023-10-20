@@ -3,26 +3,26 @@ import { mockGuildMember, mockUser } from '@echo/bot-mocks/discord/user-mock'
 import { randomSnowflake } from '@echo/bot-test/discord/snowflake'
 import {
   ActionRow,
-  ActionRowData,
-  APIActionRowComponent,
-  APIEmbed,
-  APIMessageActionRowComponent,
+  type ActionRowData,
+  type APIActionRowComponent,
+  type APIEmbed,
+  type APIMessageActionRowComponent,
   Client,
   Embed,
   EmbedBuilder,
-  InteractionReplyOptions,
-  JSONEncodable,
+  type InteractionReplyOptions,
+  type JSONEncodable,
   Message,
-  MessageActionRowComponent,
-  MessageActionRowComponentBuilder,
-  MessageActionRowComponentData,
-  MessageEditOptions,
+  type MessageActionRowComponent,
+  type MessageActionRowComponentBuilder,
+  type MessageActionRowComponentData,
+  type MessageEditOptions,
   MessagePayload,
   MessageType,
-  TextBasedChannel,
+  type TextBasedChannel,
   User
 } from 'discord.js'
-import type { RawMessageData } from 'discord.js/typings/rawDataTypes'
+import { type RawMessageData } from 'discord.js/typings/rawDataTypes'
 
 export function mockEmbed(data: JSONEncodable<APIEmbed> | APIEmbed | EmbedBuilder): Embed {
   return Reflect.construct(Embed, [data instanceof EmbedBuilder ? data.data : data]) as Embed

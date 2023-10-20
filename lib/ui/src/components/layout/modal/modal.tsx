@@ -3,7 +3,7 @@ import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-
 import { ModalTitle } from '@echo/ui/components/layout/modal/modal-title'
 import { Dialog, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { Fragment, type FunctionComponent, PropsWithChildren, useCallback } from 'react'
+import { Fragment, type FunctionComponent, type PropsWithChildren, useCallback } from 'react'
 
 interface Props {
   open: boolean

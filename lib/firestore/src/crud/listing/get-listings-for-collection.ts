@@ -1,8 +1,8 @@
 import { getListingsForCollectionAsItem } from '@echo/firestore/crud/listing/get-listings-for-collection-as-item'
 import { getListingsForCollectionAsTarget } from '@echo/firestore/crud/listing/get-listings-for-collection-as-target'
-import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
-import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import type { Listing } from '@echo/model/types/listing'
+import { type ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
+import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import { type Listing } from '@echo/model/types/listing'
 import { concat, eqProps, pipe, uniqWith } from 'ramda'
 
 /**

@@ -1,7 +1,7 @@
 import { addWalletFetcher } from '@echo/api/services/fetcher/add-wallet-fetcher'
-import { Signature } from '@echo/utils/types/signature'
+import { type Signature } from '@echo/utils/types/signature'
 import { isNil } from 'ramda'
-import { FunctionComponent, useCallback, useEffect } from 'react'
+import { type FunctionComponent, useCallback, useEffect } from 'react'
 import useSWR from 'swr'
 
 interface Props {

@@ -1,4 +1,4 @@
-import type { ListingTarget } from '@echo/model/types/listing-target'
+import { type ListingTarget } from '@echo/model/types/listing-target'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
@@ -7,7 +7,7 @@ import { DirectionIn } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   targets: ListingTarget[]

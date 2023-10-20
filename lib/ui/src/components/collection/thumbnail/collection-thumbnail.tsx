@@ -1,11 +1,11 @@
 'use client'
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { CollectionThumbnailTitle } from '@echo/ui/components/collection/thumbnail/collection-thumbnail-title'
 import { NftThumbnailPicture } from '@echo/ui/components/nft/thumbnail/nft-thumbnail-picture'
 import { links } from '@echo/ui/constants/links'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   count: number

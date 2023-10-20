@@ -1,9 +1,9 @@
 import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
 import { getCollectionDiscordGuildsByCollectionId } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guilds-by-collection-id'
 import { getCollectionDiscordGuildsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-discord-guilds-collection-reference'
-import type {
-  CollectionDiscordGuild,
-  CollectionDiscordGuildData
+import {
+  type CollectionDiscordGuild,
+  type CollectionDiscordGuildData
 } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
 import { includes, isNil, map, pipe, prop } from 'ramda'
 

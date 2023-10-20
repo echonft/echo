@@ -1,7 +1,7 @@
-import { UpdateOfferAction } from '@echo/api/types/update-offer-action'
+import { type UpdateOfferAction } from '@echo/api/types/update-offer-action'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   action: UpdateOfferAction

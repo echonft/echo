@@ -1,7 +1,7 @@
-import { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import { type WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { walletMock } from '@echo/firestore-mocks/wallet/wallet-mock'
 import { walletReferenceMock } from '@echo/firestore-mocks/wallet/wallet-reference-mock'
-import type { QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
+import { type QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
 
 export const walletSnapshotMock: Record<string, QueryDocumentSnapshot<WalletDocumentData>> = {
   i28NWtlxElPXCnO0c6BC: {

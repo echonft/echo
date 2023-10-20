@@ -3,7 +3,7 @@ import { NftThumbnailSkeleton } from '@echo/ui/components/nft/thumbnail/skeleton
 import { SwapDirectionHeaderSkeleton } from '@echo/ui/components/shared/skeleton/swap-direction-header-skeleton'
 import { AlignmentCenter } from '@echo/ui/constants/alignment'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const OfferDetailsItemsContainerSkeleton: FunctionComponent = () => {
   return (

@@ -1,6 +1,6 @@
 import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import type { OfferState } from '@echo/model/types/offer-state'
+import { type OfferState } from '@echo/model/types/offer-state'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertOffers } from '@test-utils/offer/assert-offers'

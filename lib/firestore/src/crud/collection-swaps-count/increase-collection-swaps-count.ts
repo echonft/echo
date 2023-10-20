@@ -1,7 +1,7 @@
 import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
 import { getCollectionSwapsCountSnapshotByCollectionId } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-snapshot-by-collection-id'
 import { getCollectionSwapsCountCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-swaps-count-collection-reference'
-import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
+import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import { isNil, mergeLeft } from 'ramda'
 
 export async function increaseCollectionSwapsCount(collectionId: string): Promise<CollectionSwapsCount> {

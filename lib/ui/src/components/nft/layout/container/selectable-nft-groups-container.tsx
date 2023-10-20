@@ -1,11 +1,11 @@
-import type { Nft } from '@echo/model/types/nft'
+import { type Nft } from '@echo/model/types/nft'
 import { SelectableNftGroup } from '@echo/ui/components/nft/group/selectable-nft-group'
 import { NftGroupsLayout } from '@echo/ui/components/nft/layout/nft-groups-layout'
-import { DisableableType } from '@echo/ui/types/disableable'
-import { Group } from '@echo/ui/types/group'
-import { SelectableType } from '@echo/ui/types/selectable'
+import { type DisableableType } from '@echo/ui/types/disableable'
+import { type Group } from '@echo/ui/types/group'
+import { type SelectableType } from '@echo/ui/types/selectable'
 import { map } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   groups: Group<DisableableType<SelectableType<Nft>>>[]

@@ -1,5 +1,5 @@
-import type { Collection } from '@echo/model/types/collection'
-import type { Offer } from '@echo/model/types/offer'
+import { type Collection } from '@echo/model/types/collection'
+import { type Offer } from '@echo/model/types/offer'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { HomeCollections } from '@echo/ui/components/home/collection/home-collections'
 import { DiscordTile } from '@echo/ui/components/home/discord/discord-tile'
@@ -9,7 +9,7 @@ import { HomeSectionsLayout } from '@echo/ui/components/home/layout/home-section
 import { RecentSwaps } from '@echo/ui/components/home/swap/recent-swaps'
 import { clsx } from 'clsx'
 import { head, tail } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export interface HomeProps {
   collections: Collection[]
