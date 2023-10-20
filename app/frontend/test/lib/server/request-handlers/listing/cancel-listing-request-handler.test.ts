@@ -33,7 +33,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('throws if the listing state is not OPEN', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getListing).mockResolvedValueOnce({ id: listingId, state: 'CANCELLED' } as Listing)
+    jest.mocked(getListing).mockResolvedValueOnce({ id: listingId, expired: false, state: 'CANCELLED' } as Listing)
     const req = mockRequest<never>()
     try {
       await cancelListingRequestHandler(req, listingId)
@@ -45,9 +45,12 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('throws if the user is not the listing creator', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest
-      .mocked(getListing)
-      .mockResolvedValueOnce({ state: 'OPEN', creator: { username: 'another-user-name' } } as Listing)
+    jest.mocked(getListing).mockResolvedValueOnce({
+      id: listingId,
+      expired: false,
+      state: 'OPEN',
+      creator: { username: 'another-user-name' }
+    } as Listing)
     const req = mockRequest<never>()
     try {
       await cancelListingRequestHandler(req, listingId)
@@ -59,7 +62,12 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getListing).mockResolvedValueOnce({ state: 'OPEN', creator: { username: 'johnnycagewins' } } as Listing)
+    jest.mocked(getListing).mockResolvedValueOnce({
+      id: listingId,
+      expired: false,
+      state: 'OPEN',
+      creator: { username: 'johnnycagewins' }
+    } as Listing)
     jest.mocked(cancelListing).mockResolvedValueOnce()
     const req = mockRequest<never>()
     const res = await cancelListingRequestHandler(req, listingId)

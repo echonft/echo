@@ -1,10 +1,9 @@
+import type { HexString } from '@echo/utils/types/hex-string'
+
 export interface OfferSignature {
+  createdAt: number
   id: string
-  creator: string
-  counterparty: string
-  expiresAt: number
-  creatorCollections: string[]
-  creatorIds: number[]
-  counterpartyCollections: string[]
-  counterpartyIds: number[]
+  offerId: string
+  signature: HexString
+  userId: string
 }

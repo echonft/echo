@@ -1,8 +1,8 @@
+import type { Contract } from '@echo/model/types/contract'
 import { getContractAbiForTokenType } from '@echo/ui/helpers/contract/get-contract-abi-for-token-type'
 import { getContractApprovalForTokenType } from '@echo/ui/helpers/contract/get-contract-approval-for-token-type'
-import { Contract } from '@echo/ui/types/model/contract'
 import { echoAddress } from '@echo/utils/constants/echo-address'
-import { ContractFunctionConfig } from 'viem/types/contract'
+import type { ContractFunctionConfig } from 'viem/types/contract'
 
 export function getSetApprovalWagmiConfigForContract(contract: Contract): ContractFunctionConfig {
   return {

@@ -1,3 +1,4 @@
+import { assertListingIsNotExpired } from '@echo/model/helpers/listing/assert/assert-listing-is-not-expired'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingState } from '@echo/model/types/listing-state'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
@@ -39,7 +40,7 @@ export function assertListingState(
   if (propIsNil('state', listing)) {
     throw Error('listing does not have a state')
   }
-
+  assertListingIsNotExpired(listing)
   switch (toState) {
     case 'OPEN':
       throw Error('listing cannot go back to OPEN state')

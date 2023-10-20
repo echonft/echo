@@ -1,3 +1,4 @@
+import type { AcceptOfferRequest } from '@echo/api/types/requests/accept-offer-request'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { type Offer } from '@echo/model/types/offer'
 import { ApiError } from '@server/helpers/error/api-error'
@@ -34,6 +35,8 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
   })
 
   it('throws if signature is wrong', async () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     let req = mockRequest<AcceptOfferRequest>({ signature: '' })
     try {
       await acceptOfferRequestHandler(req, offerId)
@@ -41,7 +44,8 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
     } catch (e) {
       expect((e as ApiError).status).toBe(400)
     }
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     req = mockRequest<AcceptOfferRequest>({ signature: 'SIGNATURE' })
     try {
       await acceptOfferRequestHandler(req, offerId)
@@ -65,7 +69,7 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
 
   it('throws if the offer state is not OPEN', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce({ id: offerId, state: 'CANCELLED' } as FirestoreOffer)
+    jest.mocked(getOffer).mockResolvedValueOnce({ id: offerId, state: 'CANCELLED', expired: false } as Offer)
     const req = mockRequest<AcceptOfferRequest>({ signature })
     try {
       await acceptOfferRequestHandler(req, offerId)
@@ -77,7 +81,12 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
 
   it('throws if the user is not the offer receiver', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-      .mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'another-user-name' } } as FirestoreOffer)
+    jest.mocked(getOffer).mockResolvedValueOnce({
+      id: offerId,
+      state: 'OPEN',
+      receiver: { username: 'another-user-name' },
+      expired: false
+    } as Offer)
     const req = mockRequest<AcceptOfferRequest>({ signature })
     try {
       await acceptOfferRequestHandler(req, offerId)
@@ -89,7 +98,12 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'johnnycagewins' } } as Offer)
+    jest.mocked(getOffer).mockResolvedValueOnce({
+      id: offerId,
+      state: 'OPEN',
+      receiver: { username: 'johnnycagewins' },
+      expired: false
+    } as Offer)
     jest.mocked(acceptOffer).mockResolvedValueOnce()
     const req = mockRequest<AcceptOfferRequest>({ signature })
     const res = await acceptOfferRequestHandler(req, offerId)

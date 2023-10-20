@@ -1,5 +1,5 @@
-import { TokenType } from '@echo/ui/types/model/token-type'
-import { Abi } from 'viem'
+import type { TokenType } from '@echo/model/types/token-type'
+import type { Abi } from 'viem'
 import { erc721ABI } from 'wagmi'
 
 export function getContractAbiForTokenType(tokenType: TokenType): Abi {

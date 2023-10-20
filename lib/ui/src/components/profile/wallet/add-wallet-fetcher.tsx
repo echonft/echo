@@ -1,5 +1,5 @@
 import { addWalletFetcher } from '@echo/api/services/fetcher/add-wallet-fetcher'
-import { type Signature } from '@echo/utils/types/signature'
+import { type HexString } from '@echo/utils/types/hex-string'
 import { isNil } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect } from 'react'
 import useSWR from 'swr'
@@ -8,7 +8,7 @@ interface Props {
   address: string
   chainId: number
   message: string
-  signature: Signature
+  signature: HexString
   token: string | undefined
   onWalletAdded?: () => unknown
   onWalletError?: (error: Error) => unknown

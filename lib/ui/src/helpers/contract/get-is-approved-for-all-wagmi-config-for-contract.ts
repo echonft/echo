@@ -1,8 +1,8 @@
+import type { Contract } from '@echo/model/types/contract'
 import { getContractAbiForTokenType } from '@echo/ui/helpers/contract/get-contract-abi-for-token-type'
 import { getContractIsApprovedForTokenType } from '@echo/ui/helpers/contract/get-contract-is-approved-for-token-type'
-import { Contract } from '@echo/ui/types/model/contract'
 import { echoAddress } from '@echo/utils/constants/echo-address'
-import { ContractFunctionConfig } from 'viem/types/contract'
+import type { ContractFunctionConfig } from 'viem/types/contract'
 
 export function getIsApprovedForAllWagmiConfigForContract(
   contract: Contract,

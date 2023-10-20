@@ -1,5 +1,5 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
-import { AcceptOfferRequest } from '@echo/api/types/requests/accept-offer-request'
+import type { AcceptOfferRequest } from '@echo/api/types/requests/accept-offer-request'
 import { handleRequest } from '@server/request-handlers/handle-request'
 import { acceptOfferRequestHandler } from '@server/request-handlers/offer/accept-offer-request-handler'
 

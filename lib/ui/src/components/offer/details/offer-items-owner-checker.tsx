@@ -1,10 +1,10 @@
 'use client'
-import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/accept-modal/offer-details-accept-modal-row'
+import type { OfferItem } from '@echo/model/types/offer-item'
+import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/action/offer-details-accept-modal-row'
 import { getOwnerOfContractWagmiConfigForOfferItem } from '@echo/ui/helpers/contract/get-owner-of-contract-wagmi-config-for-offer-item'
-import { OfferItem } from '@echo/ui/types/model/offer-item'
-import { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { all, equals, F, ifElse, isNil, pipe, prop } from 'ramda'
-import { FunctionComponent, useEffect, useMemo } from 'react'
+import { type FunctionComponent, useEffect, useMemo } from 'react'
 import { getAddress } from 'viem'
 import { useContractReads } from 'wagmi'
 
@@ -14,6 +14,16 @@ interface Props {
   ownerAddress: string
   onResponse?: (ownsAllItems: boolean) => unknown
   onError?: (error: Error) => unknown
+}
+
+function getStatus(status: 'error' | 'idle' | 'loading' | 'success', ownsAllTokens: boolean) {
+  if (status === 'idle') {
+    return 'loading'
+  }
+  if (status === 'success' && !ownsAllTokens) {
+    return 'loading'
+  }
+  return status
 }
 
 export const OfferItemsOwnerChecker: FunctionComponent<Props> = ({
@@ -38,13 +48,13 @@ export const OfferItemsOwnerChecker: FunctionComponent<Props> = ({
     if (!isNil(data)) {
       onResponse?.(ownsAllTokens)
     }
-  }, [data])
+  }, [data, onResponse, ownsAllTokens])
 
   useEffect(() => {
     if (!isNil(error)) {
       onError?.(error)
     }
-  }, [error])
+  }, [error, onError])
 
-  return <OfferDetailsAcceptModalRow title={title} loading={status === 'loading'} success={ownsAllTokens} />
+  return <OfferDetailsAcceptModalRow title={title} status={getStatus(status, ownsAllTokens)} />
 }

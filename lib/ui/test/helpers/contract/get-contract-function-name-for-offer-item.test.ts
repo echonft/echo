@@ -1,6 +1,6 @@
+import type { Contract } from '@echo/model/types/contract'
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { getContractOwnerOfForTokenType } from '@echo/ui/helpers/contract/get-contract-owner-of-for-token-type'
-import { Contract } from '@echo/ui/types/model/contract'
-import { OfferItem } from '@echo/ui/types/model/offer-item'
 import { describe, expect, it } from '@jest/globals'
 import { getAddress } from 'viem'
 

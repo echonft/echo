@@ -11,5 +11,6 @@ export async function getOfferRequestHandler(req: ApiRequest<never>, id: string)
   const offer = await getOffer(id)
   assertOffer(offer)
   assertOfferReceiverOrSenderIs(offer, user.username)
+  // TODO check if the assets are still owned by the sender and the receiver
   return NextResponse.json<OfferResponse>({ offer })
 }

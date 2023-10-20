@@ -1,27 +1,22 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import { Offer } from '@echo/ui/types/model/offer'
-import { OfferItem } from '@echo/ui/types/model/offer-item'
-import { OfferSignature } from '@echo/ui/types/model/offer-signature'
-import { map, path, pipe } from 'ramda'
-import { getAddress } from 'viem'
+import { getItemTokenId } from '@echo/model/helpers/item/get-item-token-id'
+import { getItemsContracts } from '@echo/model/helpers/item/get-items-contracts'
+import type { Offer } from '@echo/model/types/offer'
+import type { OfferSignature } from '@echo/ui/types/offer-signature'
+import { applySpec, map, path, pipe, prop } from 'ramda'
+
+function numberToBigInt(num: number): bigint {
+  return BigInt(num)
+}
 
 export function mapOfferToOfferSignature(offer: Offer): OfferSignature {
-  return {
-    id: offer.id,
-    creator: getAddress(offer.sender.wallet.address),
-    counterparty: getAddress(offer.receiver.wallet.address),
-    expiresAt: offer.expiresAt.unix(),
-    // @ts-ignore
-    creatorCollections: map<OfferItem, string>(pipe(path(['nft', 'collection', 'contract', 'address']), getAddress))(
-      offer.senderItems
-    ),
-    // @ts-ignore
-    creatorIds: map<OfferItem, number>(path(['nft', 'tokenId']))(offer.senderItems),
-    counterpartyCollections: map<OfferItem, string>(
-      // @ts-ignore
-      pipe(path(['nft', 'collection', 'contract', 'address']), getAddress)
-    )(offer.receiverItems),
-    // @ts-ignore
-    counterpartyIds: map<OfferItem, number>(path(['nft', 'tokenId']))(offer.receiverItems)
-  }
+  return applySpec<OfferSignature>({
+    id: prop('id'),
+    creator: path(['sender', 'wallet', 'address']),
+    counterparty: path(['receiver', 'wallet', 'address']),
+    expiresAt: pipe(prop('expiresAt'), numberToBigInt),
+    creatorCollections: pipe(prop('senderItems'), getItemsContracts, map(prop('address'))),
+    creatorIds: pipe(prop('senderItems'), map(pipe(getItemTokenId, numberToBigInt))),
+    counterpartyCollections: pipe(prop('receiverItems'), getItemsContracts, map(prop('address'))),
+    counterpartyIds: pipe(prop('receiverItems'), map(pipe(getItemTokenId, numberToBigInt)))
+  })(offer)
 }

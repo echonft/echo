@@ -1,7 +1,7 @@
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { getContractAbiForTokenType } from '@echo/ui/helpers/contract/get-contract-abi-for-token-type'
 import { getContractOwnerOfForTokenType } from '@echo/ui/helpers/contract/get-contract-owner-of-for-token-type'
-import { OfferItem } from '@echo/ui/types/model/offer-item'
-import { ContractFunctionConfig } from 'viem/types/contract'
+import { type ContractFunctionConfig } from 'viem/types/contract'
 
 export function getOwnerOfContractWagmiConfigForOfferItem(offerItem: OfferItem): ContractFunctionConfig {
   return {

@@ -1,9 +1,9 @@
 'use client'
-import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/accept-modal/offer-details-accept-modal-row'
+import type { Contract } from '@echo/model/types/contract'
+import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/action/offer-details-accept-modal-row'
 import { getIsApprovedForAllWagmiConfigForContract } from '@echo/ui/helpers/contract/get-is-approved-for-all-wagmi-config-for-contract'
-import { Contract } from '@echo/ui/types/model/contract'
 import { isNil } from 'ramda'
-import { FunctionComponent, useEffect } from 'react'
+import { type FunctionComponent, useEffect } from 'react'
 import { useContractRead } from 'wagmi'
 
 interface Props {
@@ -12,6 +12,16 @@ interface Props {
   title: string
   onResponse?: (approvedAll: boolean) => unknown
   onError?: (error: Error) => unknown
+}
+
+function getStatus(status: 'error' | 'idle' | 'loading' | 'success', data: unknown) {
+  if (status === 'idle') {
+    return 'loading'
+  }
+  if (status === 'success' && isNil(data)) {
+    return 'error'
+  }
+  return status
 }
 
 export const OfferItemsApprovalChecker: FunctionComponent<Props> = ({
@@ -30,7 +40,7 @@ export const OfferItemsApprovalChecker: FunctionComponent<Props> = ({
     if (!isNil(error)) {
       onError?.(error)
     }
-  }, [error])
+  }, [error, onError])
 
   useEffect(() => {
     if (!isNil(data)) {
@@ -39,9 +49,7 @@ export const OfferItemsApprovalChecker: FunctionComponent<Props> = ({
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       onResponse?.(data)
     }
-  }, [data])
+  }, [data, onResponse])
 
-  return (
-    <OfferDetailsAcceptModalRow title={title} loading={status === 'loading'} success={!isNil(data) && Boolean(data)} />
-  )
+  return <OfferDetailsAcceptModalRow title={title} status={getStatus(status, data)} />
 }

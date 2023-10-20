@@ -33,7 +33,7 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
 
   it('throws if the offer state is not OPEN', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce({ id: offerId, state: 'CANCELLED' } as Offer)
+    jest.mocked(getOffer).mockResolvedValueOnce({ id: offerId, expired: false, state: 'CANCELLED' } as Offer)
     const req = mockRequest<never>()
     try {
       await rejectOfferRequestHandler(req, offerId)
@@ -45,7 +45,12 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
 
   it('throws if the user is not the offer receiver', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'another-user-name' } } as Offer)
+    jest.mocked(getOffer).mockResolvedValueOnce({
+      id: offerId,
+      expired: false,
+      state: 'OPEN',
+      receiver: { username: 'another-user-name' }
+    } as Offer)
     const req = mockRequest<never>()
     try {
       await rejectOfferRequestHandler(req, offerId)
@@ -57,7 +62,12 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce({ state: 'OPEN', receiver: { username: 'johnnycagewins' } } as Offer)
+    jest.mocked(getOffer).mockResolvedValueOnce({
+      id: offerId,
+      expired: false,
+      state: 'OPEN',
+      receiver: { username: 'johnnycagewins' }
+    } as Offer)
     jest.mocked(rejectOffer).mockResolvedValueOnce()
     const req = mockRequest<never>()
     const res = await rejectOfferRequestHandler(req, offerId)

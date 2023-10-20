@@ -1,4 +1,4 @@
-import { TokenType } from '@echo/ui/types/model/token-type'
+import type { TokenType } from '@echo/model/types/token-type'
 
 export function getContractApprovalForTokenType(tokenType: TokenType): string {
   switch (tokenType) {

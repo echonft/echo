@@ -14,7 +14,7 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
   let createdOfferSignatureId: string | undefined
   const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
   const userId = 'oE6yUEQBPn7PZ89yMjKn'
-  const signature = 'signature'
+  const signature = '0xsignature'
 
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()
@@ -51,7 +51,7 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
   })
   it('throws if the user is neither the sender nor the receiver', async () => {
     const user = await uncheckedAddUser({
-      username: 'neither-sender-nor-receiver',
+      username: 'not-receiver',
       discord: { avatarUrl: 'avatarUrl', username: 'discord-username', id: 'discord-id', bannerColor: 'color' }
     })
     createdUserId = user.id
@@ -60,15 +60,15 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
   it('adds the offer signature if it does not exist', async () => {
     const createdOfferSignature = await addOfferSignature({ offerId, userId, signature })
     createdOfferSignatureId = createdOfferSignature.id
-    const foundOfferSignature = (await findOfferSignature(offerId, userId))!
+    const foundOfferSignature = (await findOfferSignature(offerId))!
     expect(foundOfferSignature).toStrictEqual(createdOfferSignature)
     expectDateNumberIsNow(foundOfferSignature.createdAt)
   })
   it('updates the offer signature if it already exists', async () => {
     const { id } = await addOfferSignature({ offerId, userId, signature })
     createdOfferSignatureId = id
-    const createdOfferSignature = await addOfferSignature({ offerId, userId, signature: 'new-signature' })
-    const foundOfferSignature = (await findOfferSignature(offerId, userId))!
+    const createdOfferSignature = await addOfferSignature({ offerId, userId, signature: '0xnew-signature' })
+    const foundOfferSignature = (await findOfferSignature(offerId))!
     expect(createdOfferSignature.id).toBe(createdOfferSignatureId)
     expect(foundOfferSignature).toStrictEqual(createdOfferSignature)
   })

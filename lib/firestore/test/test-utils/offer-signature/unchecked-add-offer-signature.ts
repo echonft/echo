@@ -1,5 +1,5 @@
 import { getOfferSignaturesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-signatures-collection-reference'
-import type { OfferSignature } from '@echo/firestore/types/model/offer-signature/offer-signature'
+import type { OfferSignature } from '@echo/model/types/offer-signature'
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 

@@ -1,5 +1,5 @@
-import { ApiRequest } from '@echo/api/types/api-request'
-import { AcceptOfferRequest } from '@echo/api/types/requests/accept-offer-request'
+import { type ApiRequest } from '@echo/api/types/api-request'
+import { type AcceptOfferRequest } from '@echo/api/types/requests/accept-offer-request'
 import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { acceptOffer } from '@server/helpers/offer/accept-offer'
 import { assertOffer } from '@server/helpers/offer/assert/assert-offer'
@@ -18,7 +18,7 @@ export async function acceptOfferRequestHandler(req: ApiRequest<AcceptOfferReque
   assertOfferState(offer, 'ACCEPTED')
   const user = await getUserFromRequest(req)
   assertOfferReceiverIs(offer, user.username)
-  await acceptOffer(offerId, signature)
+  await acceptOffer(offerId, user.id, signature)
   return emptyResponse()
 }
 

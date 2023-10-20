@@ -1,3 +1,4 @@
+import { assertOfferIsNotExpired } from '@echo/model/helpers/offer/assert/assert-offer-is-not-expired'
 import { type Offer } from '@echo/model/types/offer'
 import { type OfferState } from '@echo/model/types/offer-state'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
@@ -39,6 +40,7 @@ export function assertOfferState(
   if (propIsNil('state', offer)) {
     throw Error('offer does not have a state')
   }
+  assertOfferIsNotExpired(offer)
 
   switch (toState) {
     case 'REJECTED':

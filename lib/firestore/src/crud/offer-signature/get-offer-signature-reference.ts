@@ -3,8 +3,8 @@ import { getOfferSignatureSnapshotById } from '@echo/firestore/crud/offer-signat
 import { getOfferSignaturesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-signatures-collection-reference'
 import { isNil } from 'ramda'
 
-export async function getOfferSignatureReference(offerId: string, userId: string) {
-  const existingOfferSignature = await findOfferSignature(offerId, userId)
+export async function getOfferSignatureReference(offerId: string) {
+  const existingOfferSignature = await findOfferSignature(offerId)
   if (!isNil(existingOfferSignature)) {
     const snapshot = await getOfferSignatureSnapshotById(existingOfferSignature.id)
     if (!isNil(snapshot)) {
