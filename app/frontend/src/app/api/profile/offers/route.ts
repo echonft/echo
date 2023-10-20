@@ -1,6 +1,6 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
-import { handleRequest } from '@server/request-handlers/handle-request'
-import { getCurrentUserOffersRequestHandler } from '@server/request-handlers/user/get-current-user-offers-request-handler'
+import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle-request'
+import { getCurrentUserOffersRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/get-current-user-offers-request-handler'
 
 /**
  * Available query params:

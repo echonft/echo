@@ -1,6 +1,6 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
-import { getCollectionListingsRequestHandler } from '@server/request-handlers/collection/get-collection-listings-request-handler'
-import { handleRequest } from '@server/request-handlers/handle-request'
+import { getCollectionListingsRequestHandler } from '@echo/frontend/lib/server/request-handlers/collection/get-collection-listings-request-handler'
+import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle-request'
 
 /**
  * Available query params:

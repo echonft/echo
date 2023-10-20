@@ -1,7 +1,7 @@
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMocksByUserId } from '@echo/firestore-mocks/wallet/get-wallet-mocks-by-user-id'
+import { mapFirestoreUserToUserProfile } from '@echo/frontend/lib/server/mappers/map-firestore-user-to-user-profile'
 import { type UserProfile } from '@echo/model/types/user-profile'
-import { mapFirestoreUserToUserProfile } from '@server/mappers/map-firestore-user-to-user-profile'
 import { getAddress } from 'viem'
 
 describe('mappers - mapFirestoreUserToUserProfile', () => {

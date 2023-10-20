@@ -1,4 +1,4 @@
-import { getNftBlurUrl } from '@server/helpers/nft/get-nft-blur-url'
+import { getNftBlurUrl } from '@echo/frontend/lib/server/helpers/nft/get-nft-blur-url'
 
 describe('helpers - nft - getNftBlurUrl', () => {
   it('returns the URL', () => {

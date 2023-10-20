@@ -1,5 +1,5 @@
+import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
 import { type Listing } from '@echo/model/types/listing'
-import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil } from 'ramda'
 
 export function assertListing(listing: Listing | undefined): asserts listing is NonNullable<Listing> {

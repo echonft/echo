@@ -1,5 +1,5 @@
 import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-offer-signature'
-import { ServerError } from '@server/helpers/error/server-error'
+import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
 
 export async function getOfferSignature(offerId: string) {
   try {

@@ -1,5 +1,5 @@
+import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
 import { type Collection } from '@echo/model/types/collection'
-import { ServerError } from '@server/helpers/error/server-error'
 import { both, find, pathEq } from 'ramda'
 
 export function getCollectionByContract(address: string, chainId: number, collections: Collection[]) {

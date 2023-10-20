@@ -1,4 +1,4 @@
-import { BadRequestError } from '@server/helpers/error/bad-request-error'
+import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
 import { SiweMessage } from 'siwe'
 
 export function getSiweMessage(message: string) {

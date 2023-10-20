@@ -1,5 +1,5 @@
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
-import { addWalletSchema } from '@server/validators/add-wallet-schema'
+import { addWalletSchema } from '@echo/frontend/lib/server/validators/add-wallet-schema'
 import { pick } from 'ramda'
 import { SiweMessage } from 'siwe'
 

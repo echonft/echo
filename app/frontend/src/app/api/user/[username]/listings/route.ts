@@ -1,6 +1,6 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
-import { handleRequest } from '@server/request-handlers/handle-request'
-import { getUserListingsRequestHandler } from '@server/request-handlers/user/get-user-listings-request-handler'
+import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle-request'
+import { getUserListingsRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/get-user-listings-request-handler'
 
 /**
  * Available query params:

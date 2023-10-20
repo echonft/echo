@@ -1,12 +1,12 @@
 import type { AcceptOfferRequest } from '@echo/api/types/requests/accept-offer-request'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
+import { acceptOffer } from '@echo/frontend/lib/server/helpers/offer/accept-offer'
+import { getOffer } from '@echo/frontend/lib/server/helpers/offer/get-offer'
+import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { acceptOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/accept-offer-request-handler'
+import { mockRequest } from '@echo/frontend-mocks/request-response'
 import { type Offer } from '@echo/model/types/offer'
-import { ApiError } from '@server/helpers/error/api-error'
-import { acceptOffer } from '@server/helpers/offer/accept-offer'
-import { getOffer } from '@server/helpers/offer/get-offer'
-import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
-import { acceptOfferRequestHandler } from '@server/request-handlers/offer/accept-offer-request-handler'
-import { mockRequest } from '@server-mocks/request-response'
 
 jest.mock('@server/helpers/request/get-user-from-request')
 jest.mock('@server/helpers/offer/get-offer')

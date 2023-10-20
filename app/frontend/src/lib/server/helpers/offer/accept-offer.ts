@@ -1,6 +1,6 @@
 import { acceptOffer as firestoreAcceptOffer } from '@echo/firestore/crud/offer/accept-offer'
+import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { ServerError } from '@server/helpers/error/server-error'
 
 export async function acceptOffer(offerId: string, userId: string, signature: HexString) {
   try {

@@ -7,11 +7,10 @@
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/model-mocks/*": ["../../lib/model/test/mocks/*"],
+      "@echo/storybook/*": ["./src/*"],
       "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/ui-css/*": ["../../lib/ui/dist/*"],
-      "@echo/utils/*": ["../../lib/utils/src/*"],
-      "@mocks/*": ["./src/mocks/*"],
-      "@stories/*": ["./src/stories/*"]
+      "@echo/utils/*": ["../../lib/utils/src/*"]
     }
   },
   "include": ["src", ".storybook/preview.tsx"],

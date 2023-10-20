@@ -1,5 +1,5 @@
+import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
 import { type Nft } from '@echo/model/types/nft'
-import { BadRequestError } from '@server/helpers/error/bad-request-error'
 import { isNil } from 'ramda'
 
 export function assertNft(nft: Nft | undefined): asserts nft is NonNullable<Nft> {

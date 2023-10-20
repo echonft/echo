@@ -1,9 +1,9 @@
 import { type AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import { mapAlchemyNftToFirestore } from '@echo/frontend/lib/server/helpers/alchemy/map-alchemy-nft-to-firestore'
 import { type Nft } from '@echo/model/types/nft'
 import { type Wallet } from '@echo/model/types/wallet'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
-import { mapAlchemyNftToFirestore } from '@server/helpers/alchemy/map-alchemy-nft-to-firestore'
 
 describe('helpers - alchemy - mapAlchemyNftToFirestore', () => {
   const alchemyNft: AlchemyNft = {

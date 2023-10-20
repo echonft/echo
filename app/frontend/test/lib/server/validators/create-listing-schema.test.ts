@@ -1,5 +1,5 @@
 import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
-import { createListingSchema } from '@server/validators/create-listing-schema'
+import { createListingSchema } from '@echo/frontend/lib/server/validators/create-listing-schema'
 import { assoc, dissoc } from 'ramda'
 
 describe('validators - createListingSchema', () => {

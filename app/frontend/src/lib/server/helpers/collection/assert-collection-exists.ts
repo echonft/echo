@@ -1,5 +1,5 @@
+import { NotFoundError } from '@echo/frontend/lib/server/helpers/error/not-found-error'
 import { type Collection } from '@echo/model/types/collection'
-import { NotFoundError } from '@server/helpers/error/not-found-error'
 import { isNil } from 'ramda'
 
 export function assertCollectionExists(

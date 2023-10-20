@@ -1,5 +1,5 @@
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
-import { ServerError } from '@server/helpers/error/server-error'
+import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
 
 export async function getUserById(userId: string) {
   try {

@@ -1,8 +1,8 @@
 import { type ErrorResponse } from '@echo/api/types/responses/error-response'
+import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
 import { isDev } from '@echo/utils/constants/is-dev'
 import { setUrlQuery } from '@echo/utils/helpers/set-url-query'
 import { type QueryType } from '@echo/utils/types/query-type'
-import { ErrorStatus } from '@server/constants/error-status'
 import { type HTTP_METHOD } from 'next/dist/server/web/http'
 import { assoc, assocPath, dissocPath, has, hasPath, is, pathEq, pipe } from 'ramda'
 

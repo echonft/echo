@@ -1,4 +1,4 @@
-import { authOptions } from '@constants/auth-options'
+import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { NotFoundPage } from '@echo/ui/components/layout/not-found-page'
 import { PageLayout } from '@echo/ui/components/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'

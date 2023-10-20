@@ -1,9 +1,9 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { type NftResponse } from '@echo/api/types/responses/nft-response'
-import { BadRequestError } from '@server/helpers/error/bad-request-error'
-import { assertNft } from '@server/helpers/nft/assert-nft'
-import { getNftByCollection } from '@server/helpers/nft/get-nft-by-collection'
-import { tokenIdSchema } from '@server/validators/token-id-schema'
+import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
+import { assertNft } from '@echo/frontend/lib/server/helpers/nft/assert-nft'
+import { getNftByCollection } from '@echo/frontend/lib/server/helpers/nft/get-nft-by-collection'
+import { tokenIdSchema } from '@echo/frontend/lib/server/validators/token-id-schema'
 import { NextResponse } from 'next/server'
 
 function parseTokenId(tokenId: number): number {

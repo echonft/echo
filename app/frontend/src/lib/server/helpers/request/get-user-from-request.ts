@@ -1,10 +1,10 @@
 import { ApiRequest } from '@echo/api/types/api-request'
 import { findSessionByToken } from '@echo/firestore/crud/session/find-session-by-token'
+import { ForbiddenError } from '@echo/frontend/lib/server/helpers/error/forbidden-error'
+import { UnauthorizedError } from '@echo/frontend/lib/server/helpers/error/unauthorized-error'
+import { getBearerTokenFromRequest } from '@echo/frontend/lib/server/helpers/request/get-bearer-token-from-request'
+import { getUserById } from '@echo/frontend/lib/server/helpers/user/get-user-by-id'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { ForbiddenError } from '@server/helpers/error/forbidden-error'
-import { UnauthorizedError } from '@server/helpers/error/unauthorized-error'
-import { getBearerTokenFromRequest } from '@server/helpers/request/get-bearer-token-from-request'
-import { getUserById } from '@server/helpers/user/get-user-by-id'
 import { isNil } from 'ramda'
 
 export async function getUserFromRequest<T>(req: ApiRequest<T>) {

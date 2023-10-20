@@ -1,8 +1,8 @@
+import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
+import { ForbiddenError } from '@echo/frontend/lib/server/helpers/error/forbidden-error'
 import { type Listing } from '@echo/model/types/listing'
 import { type User } from '@echo/model/types/user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { BadRequestError } from '@server/helpers/error/bad-request-error'
-import { ForbiddenError } from '@server/helpers/error/forbidden-error'
 import { isNil } from 'ramda'
 
 export function assertListingCreatorIs(

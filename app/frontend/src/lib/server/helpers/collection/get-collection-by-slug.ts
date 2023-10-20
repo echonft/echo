@@ -1,5 +1,5 @@
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
-import { ServerError } from '@server/helpers/error/server-error'
+import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
 
 export async function getCollectionBySlug(slug: string) {
   try {

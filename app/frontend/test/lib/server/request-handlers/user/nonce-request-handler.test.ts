@@ -1,9 +1,9 @@
 import { type NonceResponse } from '@echo/api/types/responses/nonce-response'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
-import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
-import { setUserNonce } from '@server/helpers/user/set-user-nonce'
-import { nonceRequestHandler } from '@server/request-handlers/user/nonce-request-handler'
-import { mockRequest } from '@server-mocks/request-response'
+import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { setUserNonce } from '@echo/frontend/lib/server/helpers/user/set-user-nonce'
+import { nonceRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/nonce-request-handler'
+import { mockRequest } from '@echo/frontend-mocks/request-response'
 
 jest.mock('@server/helpers/request/get-user-from-request')
 jest.mock('@server/helpers/user/set-user-nonce')
