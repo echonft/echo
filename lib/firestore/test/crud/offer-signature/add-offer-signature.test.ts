@@ -54,6 +54,7 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
       username: 'neither-sender-nor-receiver',
       discord: { avatarUrl: 'avatarUrl', username: 'discord-username', id: 'discord-id', bannerColor: 'color' }
     })
+    createdUserId = user.id
     await expect(addOfferSignature({ offerId, userId: user.id, signature })).rejects.toBeDefined()
   })
   it('adds the offer signature if it does not exist', async () => {
