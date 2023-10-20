@@ -1,7 +1,7 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOffersForCollectionAsReceiverItem } from '@echo/firestore/crud/offer/get-offers-for-collection-as-receiver-item'
-import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
-import type { Offer } from '@echo/model/types/offer'
+import { type Offer } from '@echo/model/types/offer'
+import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -63,7 +63,7 @@ describe('CRUD - offer - getOffersForCollectionAsReceiverItem', () => {
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    let listings = await getOffersForCollectionAsReceiverItem(collectionId, { notStates: ['INVALID', 'CANCELLED'] })
+    let listings = await getOffersForCollectionAsReceiverItem(collectionId, { notStates: ['REJECTED', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
     listings = await getOffersForCollectionAsReceiverItem(collectionId, { notStates: ['OPEN', 'ACCEPTED'] })

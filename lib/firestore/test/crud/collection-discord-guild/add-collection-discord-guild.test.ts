@@ -1,8 +1,8 @@
 import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
-import { deleteCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/delete-collection-discord-guild'
-import { findCollectionDiscordGuildById } from '@echo/firestore/crud/collection-discord-guild/find-collection-discord-guild-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertCollectionDiscordGuilds } from '@test-utils/collection-discord-guild/assert-collection-discord-guilds'
+import { deleteCollectionDiscordGuild } from '@test-utils/collection-discord-guild/delete-collection-discord-guild'
+import { findCollectionDiscordGuildById } from '@test-utils/collection-discord-guild/find-collection-discord-guild-by-id'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 

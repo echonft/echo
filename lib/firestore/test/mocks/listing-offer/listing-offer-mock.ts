@@ -1,4 +1,4 @@
-import type { ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
+import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 
 export const listingOfferMock: Record<string, ListingOffer> = {

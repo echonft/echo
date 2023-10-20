@@ -1,6 +1,6 @@
-import type { NftAttribute } from '@echo/model/types/nft-attribute'
+import { type NftAttribute } from '@echo/model/types/nft-attribute'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   attribute: NftAttribute

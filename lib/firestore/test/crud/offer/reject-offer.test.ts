@@ -1,6 +1,6 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { rejectOffer } from '@echo/firestore/crud/offer/reject-offer'
-import type { OfferState } from '@echo/model/types/offer-state'
+import { type OfferState } from '@echo/model/types/offer-state'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertOffers } from '@test-utils/offer/assert-offers'
@@ -54,10 +54,6 @@ describe('CRUD - offer - rejectOffer', () => {
   })
   it('throws if the offer is rejected', async () => {
     await uncheckedUpdateOffer(offerId, { state: 'REJECTED', expiresAt: dayjs().add(1, 'day').unix() })
-    await expect(rejectOffer(offerId)).rejects.toBeDefined()
-  })
-  it('throws if the offer is invalid', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'INVALID', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(rejectOffer(offerId)).rejects.toBeDefined()
   })
   it('throws if the offer is completed', async () => {

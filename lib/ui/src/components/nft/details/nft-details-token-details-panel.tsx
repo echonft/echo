@@ -1,9 +1,9 @@
-import type { NftTokenType } from '@echo/model/types/nft-token-type'
+import { type NftTokenType } from '@echo/model/types/nft-token-type'
 import { NftDetailsTokenDetailsPanelRow } from '@echo/ui/components/nft/details/nft-details-token-details-panel-row'
 import { getChainNameById } from '@echo/ui/helpers/get-chain-name-by-id'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   chainId: number

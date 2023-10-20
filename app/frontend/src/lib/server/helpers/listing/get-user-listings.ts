@@ -1,8 +1,8 @@
 import { ListingFilterAsTarget } from '@echo/firestore/constants/listing-filter-as'
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { getListingsForUserTarget } from '@echo/firestore/crud/listing/get-listings-for-user-target'
-import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
-import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import { type ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
+import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { ServerError } from '@server/helpers/error/server-error'
 import { isNil } from 'ramda'
 

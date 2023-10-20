@@ -1,4 +1,4 @@
-import { Selectable } from '@echo/ui/types/selectable'
+import { type Selectable } from '@echo/ui/types/selectable'
 
 export interface TraitFilter extends Selectable {
   trait: string

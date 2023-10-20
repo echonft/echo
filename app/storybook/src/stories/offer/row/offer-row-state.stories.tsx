@@ -1,12 +1,13 @@
+import { OFFER_STATES } from '@echo/model/constants/offer-states'
 import { OfferRowStatePill as Component } from '@echo/ui/components/offer/row/offer-row-state-pill'
-import { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Row/State',
   component: Component,
   argTypes: {
     state: {
-      options: ['OPEN', 'ACCEPTED', 'CANCELLED', 'REJECTED', 'INVALID'],
+      options: OFFER_STATES,
       control: { type: 'radio' }
     }
   }

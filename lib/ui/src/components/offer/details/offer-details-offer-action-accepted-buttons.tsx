@@ -1,7 +1,7 @@
 import { CopyIconSvg } from '@echo/ui/components/base/svg/copy-icon-svg'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 interface Props {

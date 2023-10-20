@@ -1,11 +1,11 @@
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { CollectionTile } from '@echo/ui/components/collection/tile/collection-tile'
 import { TopCollectionsLayout } from '@echo/ui/components/home/collection/top/layout/top-collections-layout'
 import { HomeSectionLayout } from '@echo/ui/components/home/layout/home-section-layout'
 import { SizeMD } from '@echo/ui/constants/size'
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import { map } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   collections: Collection[]

@@ -1,7 +1,7 @@
 import { SearchIconSvg } from '@echo/ui/components/base/svg/search-icon-svg'
 import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
-import type { ChangeEvent, FunctionComponent } from 'react'
+import { type ChangeEvent, type FunctionComponent } from 'react'
 
 interface Props {
   onSearchQueryChange?: (searchQuery: string) => unknown

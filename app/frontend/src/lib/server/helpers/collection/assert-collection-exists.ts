@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { NotFoundError } from '@server/helpers/error/not-found-error'
 import { isNil } from 'ramda'
 

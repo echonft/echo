@@ -8,7 +8,7 @@ import {
   NavigationSwaps
 } from '@echo/ui/constants/navigation-item'
 import { getTranslator } from '@echo/ui/messages/get-translator'
-import type { NavigationItem } from '@echo/ui/types/navigation-item'
+import { type NavigationItem } from '@echo/ui/types/navigation-item'
 
 export function getProfileNavigationItems(disableLinks?: boolean): NavigationItem[] {
   const t = getTranslator()

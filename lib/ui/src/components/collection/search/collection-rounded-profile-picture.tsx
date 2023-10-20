@@ -2,7 +2,7 @@ import { DefaultCollectionProfilePicture } from '@echo/ui/components/base/svg/de
 import { RoundedProfilePicture } from '@echo/ui/components/shared/rounded-profile-picture'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export interface CollectionProfilePictureProps {
   collectionName: string

@@ -1,5 +1,5 @@
-import type { AlchemyPagingResult } from '@echo/alchemy/types/paging/alchemy-paging-result'
-import type { AlchemyRequestWithPaging } from '@echo/alchemy/types/request/alchemy-request-with-paging'
+import { type AlchemyPagingResult } from '@echo/alchemy/types/paging/alchemy-paging-result'
+import { type AlchemyRequestWithPaging } from '@echo/alchemy/types/request/alchemy-request-with-paging'
 import { concat, isNil } from 'ramda'
 
 async function handlePagingRecursive<I extends AlchemyRequestWithPaging, O>(

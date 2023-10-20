@@ -1,5 +1,5 @@
-import { deleteSwap } from '@echo/firestore/crud/swaps/delete-swap'
-import { getAllSwaps } from '@echo/firestore/crud/swaps/get-all-swaps'
+import { deleteSwap } from '@test-utils/swap/delete-swap'
+import { getAllSwaps } from '@test-utils/swap/get-all-swaps'
 
 export async function clearSwaps() {
   const documents = await getAllSwaps()

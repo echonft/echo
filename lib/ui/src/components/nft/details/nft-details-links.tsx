@@ -4,7 +4,7 @@ import { ExternalLink } from '@echo/ui/components/base/link/external-link'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { SizeLG } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export interface NftDetailsLinksProps {
   openSeaUrl?: string

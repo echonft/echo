@@ -1,7 +1,7 @@
 import { getCollectionDiscordGuildsByCollectionId } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guilds-by-collection-id'
-import type { CollectionDiscordGuild } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
-import type { ListingItem } from '@echo/model/types/listing-item'
-import type { OfferItem } from '@echo/model/types/offer-item'
+import { type CollectionDiscordGuild } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
+import { type ListingItem } from '@echo/model/types/listing-item'
+import { type OfferItem } from '@echo/model/types/offer-item'
 import { andThen, head, path, pipe, prop } from 'ramda'
 
 export function getItemGuild(item: OfferItem | ListingItem): Promise<CollectionDiscordGuild> {

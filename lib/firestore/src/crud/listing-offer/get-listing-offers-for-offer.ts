@@ -1,24 +1,28 @@
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
 import { getListingOfferFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status'
-import { offerItemsIncludeListingTargets } from '@echo/firestore/helpers/offer/offer-items-include-listing-targets'
-import type { ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
-import type { Listing } from '@echo/model/types/listing'
-import type { Offer } from '@echo/model/types/offer'
+import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
+import { offerItemsIncludeListingTargets } from '@echo/model/helpers/offer/offer-items-include-listing-targets'
+import { type Listing } from '@echo/model/types/listing'
+import { type Offer } from '@echo/model/types/offer'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
-import { QuerySnapshot } from 'firebase-admin/lib/firestore'
-import { concat, eqProps, filter, map, path, pipe, uniqWith } from 'ramda'
+import { isNotIn } from '@echo/utils/fp/is-not-in'
+import dayjs from 'dayjs'
+import { type QuerySnapshot } from 'firebase-admin/lib/firestore'
+import { concat, eqProps, filter, map, path, pipe, prop, uniqWith } from 'ramda'
 
 async function receiverItemsListingItemsMatch(offer: Offer) {
   const { receiverItems, senderItems } = offer
   // get the listings for which items intersect with the offer receiver items
   const querySnapshot = await getListingsCollectionReference()
+    .where('expiresAt', '>', dayjs().unix())
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), receiverItems))
     .get()
 
-  // for these listings, check if the targets match with the sender items
-  const listings = pipe<[QuerySnapshot<Listing>], Listing[], Listing[]>(
+  // for these listings, check if the state is not 'FULFILLED' or 'CANCELLED' and if the targets match with the sender items
+  const listings = pipe<[QuerySnapshot<Listing>], Listing[], Listing[], Listing[]>(
     getQuerySnapshotDocumentsData,
+    filter(pipe(prop('state'), isNotIn(['FULFILLED', 'CANCELLED']))),
     filter(offerItemsIncludeListingTargets(senderItems))
   )(querySnapshot)
 
@@ -40,12 +44,14 @@ async function senderItemsListingItemsMatch(offer: Offer) {
   const { receiverItems, senderItems } = offer
   // get the listings for which items intersect with the offer sender items
   const querySnapshot = await getListingsCollectionReference()
+    .where('expiresAt', '>', dayjs().unix())
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), senderItems))
     .get()
 
-  // for these listings, check if the targets match with the receiver items
-  const listings = pipe<[QuerySnapshot<Listing>], Listing[], Listing[]>(
+  // for these listings, check if the state is not 'FULFILLED' or 'CANCELLED' and if the targets match with the receiver items
+  const listings = pipe<[QuerySnapshot<Listing>], Listing[], Listing[], Listing[]>(
     getQuerySnapshotDocumentsData,
+    filter(pipe(prop('state'), isNotIn(['FULFILLED', 'CANCELLED']))),
     filter(offerItemsIncludeListingTargets(receiverItems))
   )(querySnapshot)
 

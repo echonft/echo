@@ -1,4 +1,4 @@
-import { SlashCommandSubcommandsOnlyBuilder } from 'discord.js'
+import { type SlashCommandSubcommandsOnlyBuilder } from 'discord.js'
 
 export interface CommandInterface {
   data: SlashCommandSubcommandsOnlyBuilder

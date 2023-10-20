@@ -1,5 +1,5 @@
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
-import type { Wallet } from '@echo/model/types/wallet'
+import { type Wallet } from '@echo/model/types/wallet'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export async function addUserWallet(userId: string, wallet: Wallet) {

@@ -1,4 +1,4 @@
-import { AlchemyContract } from '@echo/alchemy/types/model/alchemy-contract'
+import { type AlchemyContract } from '@echo/alchemy/types/model/alchemy-contract'
 
 export interface AlchemyCollection {
   contract: AlchemyContract

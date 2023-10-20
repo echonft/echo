@@ -1,4 +1,4 @@
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { RankedCollectionsButtonContainer } from '@echo/ui/components/home/collection/ranked/layout/ranked-collections-button-container'
 import { RankedCollectionsContainerLayout } from '@echo/ui/components/home/collection/ranked/layout/ranked-collections-container-layout'
@@ -7,7 +7,7 @@ import { RankedCollectionsButton } from '@echo/ui/components/home/collection/ran
 import { links } from '@echo/ui/constants/links'
 import { clsx } from 'clsx'
 import { addIndex, map } from 'ramda'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   collections: Collection[]

@@ -1,5 +1,5 @@
-import type { OfferItem } from '@echo/model/types/offer-item'
-import type { User } from '@echo/model/types/user'
+import { type OfferItem } from '@echo/model/types/offer-item'
+import { type User } from '@echo/model/types/user'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { NewReceiverItemsContainer } from '@echo/ui/components/item/new/new-receiver-items-container'
 import { NewSenderItemsContainer } from '@echo/ui/components/item/new/new-sender-items-container'
@@ -8,7 +8,7 @@ import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   receiver: User | undefined

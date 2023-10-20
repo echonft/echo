@@ -1,5 +1,5 @@
-import { Disableable } from '@echo/ui/types/disableable'
-import { Selectable } from '@echo/ui/types/selectable'
+import { type Disableable } from '@echo/ui/types/disableable'
+import { type Selectable } from '@echo/ui/types/selectable'
 
 export interface Group<T extends Selectable & Disableable> {
   id: string

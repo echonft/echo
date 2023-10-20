@@ -1,7 +1,7 @@
 import { SizeLG, SizeMD, SizeSM } from '@echo/ui/constants/size'
-import type { IconSize } from '@echo/ui/types/icon-size'
+import { type IconSize } from '@echo/ui/types/icon-size'
 import { clsx } from 'clsx'
-import type { FunctionComponent, PropsWithChildren } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
   size: IconSize

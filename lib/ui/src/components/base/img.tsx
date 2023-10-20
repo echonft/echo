@@ -1,6 +1,6 @@
 import { isStorybook } from '@echo/ui/helpers/is-storybook'
 import Image, { type ImageProps } from 'next/image'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const Img: FunctionComponent<Omit<ImageProps, 'src'> & Record<'src', string>> = (props) => {
   const { src, ...restProps } = props

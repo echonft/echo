@@ -1,7 +1,7 @@
 import { RedFlagIcon } from '@echo/ui/components/base/icons/red-flag-icon'
 import { SizeSM } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   flagged?: boolean

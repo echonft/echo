@@ -1,4 +1,4 @@
-import type { OfferState } from '@echo/model/types/offer-state'
+import { type OfferState } from '@echo/model/types/offer-state'
 
 export const offerDetailsContainerBackgroundImage = (state: OfferState) => {
   switch (state) {
@@ -9,7 +9,6 @@ export const offerDetailsContainerBackgroundImage = (state: OfferState) => {
       return 'bg-offer-green-gradient'
     case 'CANCELLED':
     case 'REJECTED':
-    case 'INVALID':
       return 'bg-offer-red-gradient'
   }
 }

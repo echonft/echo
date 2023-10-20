@@ -1,7 +1,7 @@
-import type { Nft } from '@echo/model/types/nft'
-import { DisableableType } from '@echo/ui/types/disableable'
-import type { Group } from '@echo/ui/types/group'
-import { SelectableType } from '@echo/ui/types/selectable'
+import { type Nft } from '@echo/model/types/nft'
+import { type DisableableType } from '@echo/ui/types/disableable'
+import { type Group } from '@echo/ui/types/group'
+import { type SelectableType } from '@echo/ui/types/selectable'
 import { eqPaths } from '@echo/utils/fp/eq-paths'
 import { applySpec, groupWith, head, identity, map, path, pipe } from 'ramda'
 

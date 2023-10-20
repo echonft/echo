@@ -1,6 +1,6 @@
 import { authOptions } from '@constants/auth-options'
 import { userApiUrl } from '@echo/api/routing/user-api-url'
-import type { UserResponse } from '@echo/api/types/responses/user-response'
+import { type UserResponse } from '@echo/api/types/responses/user-response'
 import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { UserDetailsApiProvided } from '@echo/ui/components/user/api-provided/user-details-api-provided'
@@ -10,7 +10,7 @@ import { ApiError } from '@server/helpers/error/api-error'
 import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { isNil } from 'ramda'
-import type { FunctionComponent, PropsWithChildren } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
   params: {

@@ -1,17 +1,16 @@
-import type { OfferItem } from '@echo/model/types/offer-item'
+import { type Item } from '@echo/model/types/item'
 import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { AlignmentCenter } from '@echo/ui/constants/alignment'
-import { SwapDirection } from '@echo/ui/types/swap-direction'
+import { type SwapDirection } from '@echo/ui/types/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map, prop } from 'ramda'
-import type { FunctionComponent } from 'react'
-import { useMemo } from 'react'
+import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   direction: SwapDirection
-  items: OfferItem[]
+  items: Item[]
 }
 
 export const OfferDetailsItemsContainer: FunctionComponent<Props> = ({ direction, items }) => {

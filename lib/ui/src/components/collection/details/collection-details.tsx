@@ -6,7 +6,7 @@ import {
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { SizeLG } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props extends CollectionProfileProps, BannerProps {
   description: string

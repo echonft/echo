@@ -1,9 +1,9 @@
 import { Img } from '@echo/ui/components/base/img'
 import { SizeLG } from '@echo/ui/constants/size'
 import { getNftThumbnailSize } from '@echo/ui/helpers/nft/get-nft-thumbnail-size'
-import type { NftThumbnailSize } from '@echo/ui/types/nft-thumbnail-size'
+import { type NftThumbnailSize } from '@echo/ui/types/nft-thumbnail-size'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   pictureUrl: string

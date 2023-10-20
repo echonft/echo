@@ -1,11 +1,11 @@
-import type { OfferItem } from '@echo/model/types/offer-item'
+import { type OfferItem } from '@echo/model/types/offer-item'
 import { ItemThumbnailsContainer } from '@echo/ui/components/item/thumbnail/layout/item-thumbnails-container'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   isReceiver: boolean

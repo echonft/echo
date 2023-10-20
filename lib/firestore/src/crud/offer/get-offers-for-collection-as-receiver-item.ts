@@ -4,9 +4,9 @@ import { filterExpiredResults } from '@echo/firestore/helpers/crud/filter-expire
 import { getQueryDocumentsData } from '@echo/firestore/helpers/crud/get-query-documents-data'
 import { addOfferQueryFilters } from '@echo/firestore/helpers/crud/offer/add-offer-query-filters'
 import { addConstraintsToQuery } from '@echo/firestore/helpers/query/add-constraints-to-query'
-import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
-import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import type { Offer } from '@echo/model/types/offer'
+import { type OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
+import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import { type Offer } from '@echo/model/types/offer'
 
 export async function getOffersForCollectionAsReceiverItem(
   collectionId: string,

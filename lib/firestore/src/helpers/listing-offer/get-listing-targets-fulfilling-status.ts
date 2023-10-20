@@ -1,6 +1,6 @@
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import type { ListingTarget } from '@echo/model/types/listing-target'
-import type { OfferItem } from '@echo/model/types/offer-item'
+import { type ListingTarget } from '@echo/model/types/listing-target'
+import { type OfferItem } from '@echo/model/types/offer-item'
 import { filter, pathEq } from 'ramda'
 
 /**

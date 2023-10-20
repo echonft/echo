@@ -1,8 +1,8 @@
-import type { UserProfile } from '@echo/model/types/user-profile'
+import { type UserProfile } from '@echo/model/types/user-profile'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { SizeLG } from '@echo/ui/constants/size'
 import { head, isNil } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   user: UserProfile

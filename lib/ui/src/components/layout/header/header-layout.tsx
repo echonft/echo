@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { FunctionComponent, PropsWithChildren } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export interface HeaderLayoutProps {
   absolute?: boolean

@@ -1,4 +1,4 @@
-import { Selectable } from '@echo/ui/types/selectable'
+import { type Selectable } from '@echo/ui/types/selectable'
 
 export interface CollectionFilter extends Selectable {
   name: string

@@ -1,6 +1,6 @@
 import { SizeLG, SizeMD } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   size: typeof SizeMD | typeof SizeLG

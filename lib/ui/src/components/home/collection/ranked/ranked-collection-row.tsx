@@ -5,7 +5,7 @@ import { RankedCollectionRowRankPictureLayout } from '@echo/ui/components/home/c
 import { RankedCollectionRowLabel } from '@echo/ui/components/home/collection/ranked/ranked-collection-row-label'
 import { RankedCollectionRowRankLabel } from '@echo/ui/components/home/collection/ranked/ranked-collection-row-rank-label'
 import { clsx } from 'clsx'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   rank: number

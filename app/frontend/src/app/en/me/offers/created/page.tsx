@@ -1,18 +1,18 @@
 import { authOptions } from '@constants/auth-options'
 import { profileOffersApiUrl } from '@echo/api/routing/profile-offers-api-url'
-import type { OffersResponse } from '@echo/api/types/responses/offers-response'
+import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { OfferFilterAsSender } from '@echo/firestore/constants/offer-filter-as'
 import { ProfileOffersCreatedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-created-api-provided'
 import { links } from '@echo/ui/constants/links'
 import { OfferRoleSender } from '@echo/ui/constants/offer-role'
-import { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { redirectIfNotLoggedIn } from '@helpers/auth/redirect-if-not-logged-in'
 import { fetcher } from '@helpers/fetcher'
 import { mapOfferFiltersToQueryParams } from '@helpers/request/map-offer-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@helpers/request/map-query-constraints-to-query-params'
 import { getServerSession } from 'next-auth/next'
 import { assoc, isNil, map, mergeLeft } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 const ProfileOffersCreatedPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)

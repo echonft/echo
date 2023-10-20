@@ -4,9 +4,10 @@
     "baseUrl": ".",
     "paths": {
       "@echo/model/*": ["src/*"],
+      "@echo/model-mocks/*": ["test/mocks/*"],
       "@echo/utils/*": ["../utils/src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "test"],
   "exclude": ["node_modules"]
 }

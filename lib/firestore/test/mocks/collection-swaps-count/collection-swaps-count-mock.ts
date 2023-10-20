@@ -1,4 +1,4 @@
-import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
+import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 
 export const collectionSwapsCountMock: Record<string, CollectionSwapsCount> = {
   zkLBR3tGni1Z695gFQVU: {

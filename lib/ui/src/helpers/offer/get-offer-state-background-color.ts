@@ -1,4 +1,4 @@
-import type { OfferState } from '@echo/model/types/offer-state'
+import { type OfferState } from '@echo/model/types/offer-state'
 
 export const getOfferStateBackgroundColor = (state: OfferState, expired?: boolean) => {
   if (expired) {
@@ -10,7 +10,6 @@ export const getOfferStateBackgroundColor = (state: OfferState, expired?: boolea
     case 'COMPLETED':
     case 'ACCEPTED':
       return 'bg-green-500'
-    case 'INVALID':
     case 'CANCELLED':
     case 'REJECTED':
       return 'bg-red-400'

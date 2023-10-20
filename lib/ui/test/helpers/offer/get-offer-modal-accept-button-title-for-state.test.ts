@@ -12,7 +12,6 @@ describe('helpers - offer - getOfferModalAcceptButtonTitleForState', () => {
 
   it('if state is not ACCEPTED or OPEN, throw', () => {
     expect(() => getOfferModalAcceptButtonTitleForState('CANCELLED')).toThrow()
-    expect(() => getOfferModalAcceptButtonTitleForState('INVALID')).toThrow()
     expect(() => getOfferModalAcceptButtonTitleForState('REJECTED')).toThrow()
   })
 })

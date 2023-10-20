@@ -1,7 +1,7 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { getListingsForNft } from '@echo/firestore/crud/listing/get-listings-for-nft'
-import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
-import type { Listing } from '@echo/model/types/listing'
+import { type Listing } from '@echo/model/types/listing'
+import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -54,7 +54,7 @@ describe('CRUD - listing - getListingsForNft', () => {
 
   it('filter by state (included)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForNft(nftId, { states: ['OPEN', 'CANCELLED'] })
+    let listings = await getListingsForNft(nftId, { states: ['OFFERS_PENDING', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
     listings = await getListingsForNft(nftId, { states: ['CANCELLED'] })
@@ -63,10 +63,10 @@ describe('CRUD - listing - getListingsForNft', () => {
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForNft(nftId, { notStates: ['INVALID', 'CANCELLED'] })
+    let listings = await getListingsForNft(nftId, { notStates: ['PARTIALLY_FULFILLED', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getListingsForNft(nftId, { notStates: ['OPEN', 'FULFILLED'] })
+    listings = await getListingsForNft(nftId, { notStates: ['OFFERS_PENDING', 'FULFILLED'] })
     expect(listings.length).toBe(0)
   })
 

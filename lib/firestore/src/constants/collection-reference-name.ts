@@ -6,6 +6,7 @@ export enum CollectionReferenceName {
   NFTS = 'nfts',
   NONCES = 'nonces',
   OFFER_POSTS = 'offer-posts',
+  OFFER_SIGNATURES = 'offer-signatures',
   OFFERS = 'offers',
   LISTING_OFFERS = 'listing-offers',
   LISTING_POSTS = 'listing-posts',

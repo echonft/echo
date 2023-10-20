@@ -1,4 +1,4 @@
-import type { ListingPost } from '@echo/firestore/types/model/listing-post/listing-post'
+import { type ListingPost } from '@echo/firestore/types/model/listing-post/listing-post'
 
 export const listingPostMock: Record<string, ListingPost> = {
   jXadAgs0rtUXZWfG9t0z: {

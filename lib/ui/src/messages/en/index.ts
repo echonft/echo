@@ -100,14 +100,15 @@ export const messages = {
       out: 'Offering'
     },
     details: {
-      expiresAt: 'Expires in',
-      expiredAt: 'Expired',
       assets: {
         title: {
           in: 'Interested in',
           out: 'Offering'
         }
-      }
+      },
+      cancelBtn: 'Cancel',
+      expiresAt: 'Expires in',
+      expiredAt: 'Expired'
     },
     new: {
       bottomSlider: {
@@ -136,6 +137,13 @@ export const messages = {
         copyLinkBtn: 'Copy link',
         linkCopied: 'Link copied!'
       }
+    },
+    state: {
+      OPEN: 'Awaiting offers',
+      OFFERS_PENDING: 'Offers pending',
+      PARTIALLY_FULFILLED: 'Partially fulfilled',
+      FULFILLED: 'Fulfilled',
+      CANCELLED: 'Cancelled'
     }
   },
   navigation: {
@@ -234,9 +242,8 @@ export const messages = {
       OPEN: 'Pending',
       ACCEPTED: 'Accepted',
       CANCELLED: 'Cancelled',
-      COMPLETED: 'Completed',
-      REJECTED: 'Rejected',
-      INVALID: 'Invalid'
+      COMPLETED: 'Swapped',
+      REJECTED: 'Rejected'
     }
   },
   profile: {

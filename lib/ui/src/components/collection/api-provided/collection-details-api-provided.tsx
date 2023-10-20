@@ -1,7 +1,7 @@
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
 import { SizeLG } from '@echo/ui/constants/size'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   collection: Collection

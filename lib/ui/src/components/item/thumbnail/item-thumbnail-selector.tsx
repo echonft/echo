@@ -1,6 +1,6 @@
 import { XIconSvg } from '@echo/ui/components/base/svg/x-icon-svg'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   onRemove?: () => unknown

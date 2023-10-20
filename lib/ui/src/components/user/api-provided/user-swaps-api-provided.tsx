@@ -1,6 +1,6 @@
 'use client'
-import type { AuthUser } from '@echo/model/types/auth-user'
-import type { Offer } from '@echo/model/types/offer'
+import { type AuthUser } from '@echo/model/types/auth-user'
+import { type Offer } from '@echo/model/types/offer'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { SwapRowsContainer } from '@echo/ui/components/swap/layout/swap-rows-container'

@@ -1,10 +1,10 @@
-import type { User } from '@echo/model/types/user'
+import { type User } from '@echo/model/types/user'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
-import { NftDetailsLinks, NftDetailsLinksProps } from '@echo/ui/components/nft/details/nft-details-links'
+import { NftDetailsLinks, type NftDetailsLinksProps } from '@echo/ui/components/nft/details/nft-details-links'
 import { links } from '@echo/ui/constants/links'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props extends NftDetailsLinksProps {
   collectionName: string

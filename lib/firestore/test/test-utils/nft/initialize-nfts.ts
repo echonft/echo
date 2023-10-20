@@ -1,6 +1,6 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { getAllNftMocks } from '@echo/firestore-mocks/nft/get-all-nft-mocks'
+import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 
 export async function initializeNfts() {
   const nfts = getAllNftMocks()

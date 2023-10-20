@@ -1,5 +1,5 @@
-import type { ErrorResponse } from '@echo/api/types/responses/error-response'
-import { errorMessage } from '@echo/utils/error/error-message'
+import { type ErrorResponse } from '@echo/api/types/responses/error-response'
+import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { ErrorStatus } from '@server/constants/error-status'
 import { NextResponse } from 'next/server'

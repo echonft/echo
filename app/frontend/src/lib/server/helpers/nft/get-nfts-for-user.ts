@@ -1,5 +1,5 @@
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { ServerError } from '@server/helpers/error/server-error'
 
 export async function getNftsForUser(username: string, constraints?: QueryConstraints) {

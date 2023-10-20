@@ -3,7 +3,7 @@ import { CollectionSearchComboboxInputClearButton } from '@echo/ui/components/co
 import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { isEmpty, isNil } from 'ramda'
-import { FunctionComponent, useCallback } from 'react'
+import { type FunctionComponent, useCallback } from 'react'
 import { debounce } from 'throttle-debounce'
 
 interface Props {

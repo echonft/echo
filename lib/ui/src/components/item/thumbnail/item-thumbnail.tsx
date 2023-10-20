@@ -1,5 +1,5 @@
-import type { ListingItem } from '@echo/model/types/listing-item'
-import type { OfferItem } from '@echo/model/types/offer-item'
+import { type ListingItem } from '@echo/model/types/listing-item'
+import { type OfferItem } from '@echo/model/types/offer-item'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ItemThumbnailSelector } from '@echo/ui/components/item/thumbnail/item-thumbnail-selector'
 import { ItemThumbnailTitle } from '@echo/ui/components/item/thumbnail/item-thumbnail-title'
@@ -7,7 +7,7 @@ import { NftThumbnailPicture } from '@echo/ui/components/nft/thumbnail/nft-thumb
 import { SizeMD } from '@echo/ui/constants/size'
 import { getNftName } from '@echo/ui/helpers/nft/get-nft-name'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   item: OfferItem | ListingItem

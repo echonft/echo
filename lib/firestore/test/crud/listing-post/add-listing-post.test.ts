@@ -1,9 +1,9 @@
 import { addListingPost } from '@echo/firestore/crud/listing-post/add-listing-post'
-import { deleteListingPost } from '@echo/firestore/crud/listing-post/delete-listing-post'
-import { findListingPostById } from '@echo/firestore/crud/listing-post/find-listing-post-by-id'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertListingPosts } from '@test-utils/listing-post/assert-listing-posts'
+import { deleteListingPost } from '@test-utils/listing-post/delete-listing-post'
+import { findListingPostById } from '@test-utils/listing-post/find-listing-post-by-id'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 

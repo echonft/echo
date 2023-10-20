@@ -3,7 +3,7 @@ import { NftThumbnailSkeleton } from '@echo/ui/components/nft/thumbnail/skeleton
 import { OfferRowSwapIcon } from '@echo/ui/components/offer/row/offer-row-swap-icon'
 import { SwapRowLayout } from '@echo/ui/components/swap/row/layout/swap-row-layout'
 import { AlignmentRight } from '@echo/ui/constants/alignment'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const SwapRowSkeleton: FunctionComponent = () => {
   return (

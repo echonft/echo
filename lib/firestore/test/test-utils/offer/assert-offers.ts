@@ -1,7 +1,7 @@
 import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
-import { getAllOfferMocks } from '@echo/firestore-mocks/offer/get-all-offer-mocks'
-import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
-import type { Offer } from '@echo/model/types/offer'
+import { type Offer } from '@echo/model/types/offer'
+import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
+import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { expect } from '@jest/globals'
 import { forEach } from 'ramda'
 

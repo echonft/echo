@@ -1,5 +1,5 @@
 import { getWalletSnapshotById } from '@echo/firestore/crud/wallet/get-wallet-snapshot-by-id'
-import type { WriteResult } from 'firebase-admin/lib/firestore'
+import { type WriteResult } from 'firebase-admin/lib/firestore'
 import { isNil } from 'ramda'
 
 export async function deleteWallet(id: string): Promise<WriteResult> {

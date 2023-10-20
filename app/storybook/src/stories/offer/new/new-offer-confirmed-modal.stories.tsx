@@ -1,5 +1,5 @@
 import { NewOfferConfirmedModal as Component } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/New/Confirmed Modal',

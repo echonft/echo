@@ -1,7 +1,7 @@
 import { getCollectionSnapshotById } from '@echo/firestore/crud/collection/get-collection-snapshot-by-id'
 import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
-import type { Collection } from '@echo/model/types/collection'
-import type { WriteResult } from 'firebase-admin/lib/firestore'
+import { type Collection } from '@echo/model/types/collection'
+import { type WriteResult } from 'firebase-admin/lib/firestore'
 
 export async function uncheckedUpdateCollection(
   collectionId: string,

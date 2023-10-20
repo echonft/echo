@@ -1,6 +1,6 @@
 import { mapAlchemyNftResponseToAlchemyNft } from '@echo/alchemy/mappers/map-alchemy-nft-response-to-alchemy-nft'
-import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
-import { AlchemyNftResponse } from '@echo/alchemy/types/response/alchemy-nft-response'
+import { type AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
+import { type AlchemyNftResponse } from '@echo/alchemy/types/response/alchemy-nft-response'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapAlchemyNftResponseToAlchemyNft', () => {

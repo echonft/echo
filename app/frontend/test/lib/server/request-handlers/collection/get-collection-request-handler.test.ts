@@ -1,5 +1,5 @@
-import type { CollectionResponse } from '@echo/api/types/responses/collection-response'
-import { getCollectionMockById } from '@echo/firestore-mocks/collection/get-collection-mock-by-id'
+import { type CollectionResponse } from '@echo/api/types/responses/collection-response'
+import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { getCollectionBySlug } from '@server/helpers/collection/get-collection-by-slug'
 import { getCollectionRequestHandler } from '@server/request-handlers/collection/get-collection-request-handler'
 import { mockRequest } from '@server-mocks/request-response'

@@ -1,5 +1,5 @@
 'use client'
-import type { Nft } from '@echo/model/types/nft'
+import { type Nft } from '@echo/model/types/nft'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
 import { NftThumbnailPicture } from '@echo/ui/components/nft/thumbnail/nft-thumbnail-picture'
@@ -8,10 +8,10 @@ import { NftThumbnailTitle } from '@echo/ui/components/nft/thumbnail/nft-thumbna
 import { UserDiscordTagOffer } from '@echo/ui/components/shared/user-discord-tag-offer'
 import { links } from '@echo/ui/constants/links'
 import { getNftName } from '@echo/ui/helpers/nft/get-nft-name'
-import { DisableableType } from '@echo/ui/types/disableable'
-import { SelectableType } from '@echo/ui/types/selectable'
+import { type DisableableType } from '@echo/ui/types/disableable'
+import { type SelectableType } from '@echo/ui/types/selectable'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   nft: DisableableType<SelectableType<Nft>>

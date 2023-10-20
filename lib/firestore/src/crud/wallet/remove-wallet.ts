@@ -1,6 +1,6 @@
 import { deleteWallet } from '@echo/firestore/crud/wallet/delete-wallet'
 import { findWalletByAddress } from '@echo/firestore/crud/wallet/find-wallet-by-address'
-import type { Wallet } from '@echo/model/types/wallet'
+import { type Wallet } from '@echo/model/types/wallet'
 import { isNil } from 'ramda'
 
 export async function removeWallet(userId: string, wallet: Wallet) {

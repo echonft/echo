@@ -1,4 +1,4 @@
-import type { TraitFilter } from '@echo/ui/types/trait-filter'
+import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { allPass, isNil, propEq } from 'ramda'
 
 function internalFn(valueA: TraitFilter) {

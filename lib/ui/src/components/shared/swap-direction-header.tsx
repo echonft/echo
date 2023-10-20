@@ -1,9 +1,9 @@
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { DirectionLeft, DirectionRight } from '@echo/ui/constants/direction'
 import { DirectionOut } from '@echo/ui/constants/swap-direction'
-import type { SwapDirection } from '@echo/ui/types/swap-direction'
+import { type SwapDirection } from '@echo/ui/types/swap-direction'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   direction: SwapDirection

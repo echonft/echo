@@ -1,4 +1,4 @@
-import { DiscordProfile } from 'next-auth/providers/discord'
+import { type DiscordProfile } from 'next-auth/providers/discord'
 import { isNil } from 'ramda'
 
 export function getAvatarDecorationUrl(profile: DiscordProfile & { avatar_decoration?: string }): string | undefined {

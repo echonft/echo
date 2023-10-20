@@ -1,6 +1,6 @@
 import { getItemGuild } from '@echo/firestore/helpers/item/get-item-guild'
-import type { CollectionDiscordGuildData } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
-import type { Offer } from '@echo/model/types/offer'
+import { type CollectionDiscordGuildData } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
+import { type Offer } from '@echo/model/types/offer'
 import { head, pipe, prop } from 'ramda'
 
 export function getOfferReceiverItemsGuild(offer: Offer): Promise<CollectionDiscordGuildData> {

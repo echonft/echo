@@ -1,7 +1,7 @@
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 import { RankedCollectionsContainer } from '@echo/ui/components/home/collection/ranked/layout/ranked-collections-container'
 import { RankedCollectionsLayout } from '@echo/ui/components/home/collection/ranked/layout/ranked-collections-layout'
-import { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   collections: Collection[]

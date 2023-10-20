@@ -13,6 +13,7 @@
       "@echo/firestore/*": ["./src/*"],
       "@echo/firestore-mocks/*": ["./test/mocks/*"],
       "@echo/model/*": ["../model/src/*"],
+      "@echo/model-mocks/*": ["../model/test/mocks/*"],
       "@echo/utils/*": ["../utils/src/*"],
       "@echo/test-utils/*": ["../utils/test/test-utils/*"],
       "@test-utils/*": ["./test/test-utils/*"]

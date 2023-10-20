@@ -1,7 +1,7 @@
 import { mockGuildMember, mockUser } from '@echo/bot-mocks/discord/user-mock'
 import { randomSnowflake } from '@echo/bot-test/discord/snowflake'
-import { type APIGuild, Client, Guild, PermissionResolvable, PermissionsBitField, Role, User } from 'discord.js'
-import type { RawRoleData } from 'discord.js/typings/rawDataTypes'
+import { type APIGuild, Client, Guild, type PermissionResolvable, PermissionsBitField, Role, User } from 'discord.js'
+import { type RawRoleData } from 'discord.js/typings/rawDataTypes'
 import { omit } from 'ramda'
 
 export function mockGuild(client: Client, owner?: User, data: Partial<APIGuild> = {}) {

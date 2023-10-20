@@ -1,6 +1,6 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOfferPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-posts-collection-reference'
-import type { OfferPost } from '@echo/firestore/types/model/offer-post/offer-post'
+import { type OfferPost } from '@echo/firestore/types/model/offer-post/offer-post'
 import dayjs from 'dayjs'
 import { isNil } from 'ramda'
 

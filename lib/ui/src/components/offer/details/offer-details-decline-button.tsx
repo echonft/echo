@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import type { FunctionComponent, PropsWithChildren } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
   disabled?: boolean

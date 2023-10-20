@@ -2,7 +2,7 @@ import { HandIconSvg } from '@echo/ui/components/base/svg/hand-icon-svg'
 import { NftDetailsListingRowSkeleton } from '@echo/ui/components/nft/details/skeleton/nft-details-listing-row-skeleton'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 export const NftDetailsListingsPanelSkeleton: FunctionComponent = () => {
   const t = useTranslations('nft.details.listings')

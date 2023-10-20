@@ -1,5 +1,5 @@
-import type { NftsResponse } from '@echo/api/types/responses/nfts-response'
-import { getNftMockById } from '@echo/firestore-mocks/nft/get-nft-mock-by-id'
+import { type NftsResponse } from '@echo/api/types/responses/nfts-response'
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { getCollectionNfts } from '@server/helpers/nft/get-collection-nfts'
 import { getCollectionNftsRequestHandler } from '@server/request-handlers/collection/get-collection-nfts-request-handler'
 import { mockRequest } from '@server-mocks/request-response'

@@ -1,5 +1,5 @@
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
-import { getCollectionMockById } from '@echo/firestore-mocks/collection/get-collection-mock-by-id'
+import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'

@@ -1,4 +1,4 @@
-import { Disableable } from '@echo/ui/types/disableable'
+import { type Disableable } from '@echo/ui/types/disableable'
 import { assoc } from 'ramda'
 
 export function disable<T extends Disableable>(obj: T) {

@@ -1,8 +1,16 @@
 import { getAlchemyApiKey } from '@echo/ui/helpers/get-alchemy-api-key'
 import { getChainId } from '@echo/ui/helpers/get-chain-id'
 import { getWalletConnectProjectId } from '@echo/ui/helpers/get-wallet-connect-project-id'
-import { FallbackTransport } from 'viem'
-import { Config, configureChains, createConfig, mainnet, PublicClient, sepolia, WebSocketPublicClient } from 'wagmi'
+import { type FallbackTransport } from 'viem'
+import {
+  type Config,
+  configureChains,
+  createConfig,
+  mainnet,
+  type PublicClient,
+  sepolia,
+  type WebSocketPublicClient
+} from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'

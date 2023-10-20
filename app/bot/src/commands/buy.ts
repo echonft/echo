@@ -1,8 +1,8 @@
 import { BuyOwnListingError } from '@echo/bot/errors/buy-own-listing-error'
 import { getDiscordChannel } from '@echo/bot/helpers/get-discord-channel'
-import { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
-import type { Offer } from '@echo/model/types/offer'
-import { errorMessage } from '@echo/utils/error/error-message'
+import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import { type Offer } from '@echo/model/types/offer'
+import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { ButtonInteraction, ChannelType } from 'discord.js'
 

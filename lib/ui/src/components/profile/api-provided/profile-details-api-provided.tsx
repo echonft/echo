@@ -1,4 +1,4 @@
-import type { AuthUser } from '@echo/model/types/auth-user'
+import { type AuthUser } from '@echo/model/types/auth-user'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'

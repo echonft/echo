@@ -1,7 +1,7 @@
 'use client'
 import { TraitFilterPicker } from '@echo/ui/components/nft/filters/by-traits/trait-filter-picker'
 import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
-import type { TraitFilter } from '@echo/ui/types/trait-filter'
+import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { type FunctionComponent, useMemo, useState } from 'react'
 
 interface Props {

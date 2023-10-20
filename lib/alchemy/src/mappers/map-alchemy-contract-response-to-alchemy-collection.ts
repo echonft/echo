@@ -1,6 +1,6 @@
 import { mapAlchemyContractResponseToAlchemyContract } from '@echo/alchemy/mappers/map-alchemy-contract-response-to-alchemy-contract'
-import type { AlchemyCollection } from '@echo/alchemy/types/model/alchemy-collection'
-import type { AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
+import { type AlchemyCollection } from '@echo/alchemy/types/model/alchemy-collection'
+import { type AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { applySpec, path, pipe, prop } from 'ramda'
 

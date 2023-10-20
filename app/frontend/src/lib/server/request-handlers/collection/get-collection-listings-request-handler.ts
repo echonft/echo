@@ -1,5 +1,5 @@
-import type { ApiRequest } from '@echo/api/types/api-request'
-import type { ListingsResponse } from '@echo/api/types/responses/listings-response'
+import { type ApiRequest } from '@echo/api/types/api-request'
+import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { assertCollection } from '@server/helpers/collection/assert-collection'
 import { getCollectionBySlug } from '@server/helpers/collection/get-collection-by-slug'
 import { getCollectionListings } from '@server/helpers/listing/get-collection-listings'

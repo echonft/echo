@@ -1,7 +1,7 @@
 import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
-import { getAllListingMocks } from '@echo/firestore-mocks/listing/get-all-listing-mocks'
-import { getListingMockById } from '@echo/firestore-mocks/listing/get-listing-mock-by-id'
-import type { Listing } from '@echo/model/types/listing'
+import { type Listing } from '@echo/model/types/listing'
+import { getAllListingMocks } from '@echo/model-mocks/listing/get-all-listing-mocks'
+import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { expect } from '@jest/globals'
 import { forEach } from 'ramda'
 

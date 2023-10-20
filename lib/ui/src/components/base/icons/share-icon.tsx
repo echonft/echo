@@ -2,8 +2,8 @@ import { IconContainer } from '@echo/ui/components/base/icons/icon-container'
 import { IconContainerColor } from '@echo/ui/components/base/icons/icon-container-color'
 import { ShareIconSvg } from '@echo/ui/components/base/svg/share-icon-svg'
 import { getIconSizeInPx } from '@echo/ui/helpers/get-icon-size-in-px'
-import type { IconSize } from '@echo/ui/types/icon-size'
-import type { FunctionComponent } from 'react'
+import { type IconSize } from '@echo/ui/types/icon-size'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   size: IconSize

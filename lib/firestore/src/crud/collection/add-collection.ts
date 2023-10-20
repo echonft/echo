@@ -1,5 +1,5 @@
 import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
-import type { Collection } from '@echo/model/types/collection'
+import { type Collection } from '@echo/model/types/collection'
 
 export async function addCollection(collection: Omit<Collection, 'id'>) {
   const reference = getCollectionsCollectionReference().doc()

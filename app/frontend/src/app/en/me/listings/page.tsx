@@ -1,6 +1,6 @@
 import { links } from '@echo/ui/constants/links'
 import { redirect } from 'next/navigation'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 const ProfileListingsPage: FunctionComponent = () => {
   redirect(links.profile.listingsCreated)

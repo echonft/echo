@@ -1,10 +1,10 @@
-import type { Offer } from '@echo/model/types/offer'
+import { type Offer } from '@echo/model/types/offer'
 import { HomeSectionLayout } from '@echo/ui/components/home/layout/home-section-layout'
 import { RecentSwapsLayout } from '@echo/ui/components/home/swap/layout/recent-swaps-layout'
 import { SwapRow } from '@echo/ui/components/swap/row/swap-row'
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import { map } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   offers: Offer[]

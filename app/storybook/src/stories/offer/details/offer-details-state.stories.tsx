@@ -1,31 +1,30 @@
-import { OFFER_STATES } from '@echo/model/constants/offer-states'
+import { LISTING_STATES } from '@echo/model/constants/listing-states'
+import type { OfferState } from '@echo/model/types/offer-state'
 import { OfferDetailsState as Component } from '@echo/ui/components/offer/details/offer-details-state'
-import type { Meta, StoryObj } from '@storybook/react'
+import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 
+const DEFAULT_STATE: OfferState = 'OPEN'
+const DEFAULT_EXPIRED = false
+const EXPIRED_DATE = dayjs().subtract(2, 'd').unix()
+const NOT_EXPIRED_DATE = dayjs().add(2, 'd').unix()
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Details/State',
   component: Component,
   argTypes: {
     state: {
-      defaultValue: 'OPEN',
-      options: OFFER_STATES,
-      control: { type: 'radio' }
-    },
-    expiresAt: {
-      defaultValue: dayjs().add(1, 'd').unix(),
-      options: {
-        '1 year ago': dayjs().subtract(1, 'year').unix(),
-        '1 month ago': dayjs().subtract(1, 'month').unix(),
-        '1 week ago': dayjs().subtract(1, 'week').unix(),
-        'in 1 minute': dayjs().add(1, 'minute').unix(),
-        'in 1 hour': dayjs().add(1, 'hour').unix(),
-        'in 3 days': dayjs().add(3, 'days').unix()
-      },
+      defaultValue: DEFAULT_STATE,
+      options: LISTING_STATES,
       control: { type: 'radio' }
     },
     expired: {
+      defaultValue: DEFAULT_EXPIRED,
       control: 'boolean'
+    }
+  },
+  parameters: {
+    controls: {
+      exclude: 'expiresAt'
     }
   }
 }
@@ -33,11 +32,14 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 type Story = StoryObj<typeof Component>
-const expiresAt = dayjs().add(1, 'd').unix()
 
 export const Default: Story = {
+  render: ({ state, expired }) => (
+    <Component state={state} expired={expired} expiresAt={expired ? EXPIRED_DATE : NOT_EXPIRED_DATE} />
+  ),
   args: {
-    state: 'OPEN',
-    expiresAt
+    state: DEFAULT_STATE,
+    expired: DEFAULT_EXPIRED,
+    expiresAt: NOT_EXPIRED_DATE
   }
 }

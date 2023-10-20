@@ -1,7 +1,7 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOffersForReceiver } from '@echo/firestore/crud/offer/get-offers-for-receiver'
-import { getOfferMockById } from '@echo/firestore-mocks/offer/get-offer-mock-by-id'
-import type { Offer } from '@echo/model/types/offer'
+import { type Offer } from '@echo/model/types/offer'
+import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -62,7 +62,7 @@ describe('CRUD - offer - getOffersForReceiver', () => {
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getOfferMockById(id))
-    let offers = await getOffersForReceiver('johnnycagewins', { notStates: ['INVALID', 'CANCELLED'] })
+    let offers = await getOffersForReceiver('johnnycagewins', { notStates: ['REJECTED', 'CANCELLED'] })
     expect(offers.length).toBe(1)
     expect(offers[0]).toStrictEqual(mock)
     offers = await getOffersForReceiver('johnnycagewins', { notStates: ['OPEN', 'ACCEPTED'] })

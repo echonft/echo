@@ -1,4 +1,4 @@
-import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
+import { type NonceResponse } from '@echo/api/types/responses/nonce-response'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
 import { setUserNonce } from '@server/helpers/user/set-user-nonce'

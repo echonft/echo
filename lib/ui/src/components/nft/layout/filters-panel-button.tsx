@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import type { FunctionComponent, MouseEventHandler } from 'react'
+import { type FunctionComponent, type MouseEventHandler } from 'react'
 
 interface Props {
   label: string

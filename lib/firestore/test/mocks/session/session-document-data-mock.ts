@@ -1,4 +1,4 @@
-import type { SessionDocumentData } from '@echo/firestore/types/model/session/session-document-data'
+import { type SessionDocumentData } from '@echo/firestore/types/model/session/session-document-data'
 import { Timestamp } from 'firebase-admin/firestore'
 
 export const sessionDocumentDataMock: Record<string, SessionDocumentData> = {

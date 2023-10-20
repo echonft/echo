@@ -1,4 +1,4 @@
-import type { ApiRequest } from '@echo/api/types/api-request'
+import { type ApiRequest } from '@echo/api/types/api-request'
 import { handleRequest } from '@server/request-handlers/handle-request'
 import { cancelOfferRequestHandler } from '@server/request-handlers/offer/cancel-offer-request-handler'
 

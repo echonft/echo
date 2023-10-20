@@ -1,5 +1,5 @@
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
-import type { Offer } from '@echo/model/types/offer'
+import { type Offer } from '@echo/model/types/offer'
 import { ApiError } from '@server/helpers/error/api-error'
 import { acceptOffer } from '@server/helpers/offer/accept-offer'
 import { getOffer } from '@server/helpers/offer/get-offer'
