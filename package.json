@@ -73,7 +73,7 @@
     "npm-check-updates": "16.14.6",
     "prettier": "3.0.3",
     "tsc-files": "1.1.4",
-    "turbo": "1.10.15",
+    "turbo": "1.10.16",
     "vercel": "32.4.1"
   },
   "packageManager": "pnpm@8.9.2",

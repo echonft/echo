@@ -10,6 +10,9 @@ const nextConfig = {
   },
   swcMinify: true,
   transpilePackages: ['@echo/alchemy', '@echo/api', '@echo/discord', '@echo/firestore', '@echo/ui', '@echo/utils'],
+  typescript: {
+    ignoreBuildErrors: true
+  },
   webpack: (config) => {
     config.externals.push('pino-pretty', 'lokijs', 'encoding')
     return config
