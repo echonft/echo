@@ -1,4 +1,4 @@
-import { listingLink } from '@echo/bot/routing/listing-link'
+import { listingLink } from '@echo/bot/listing/listing-link'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 
 export function buildNewListingButtons(username: string) {

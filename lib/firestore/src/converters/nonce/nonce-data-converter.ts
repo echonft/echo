@@ -6,7 +6,7 @@ import {
   type FirestoreDataConverter,
   type PartialWithFieldValue,
   type QueryDocumentSnapshot
-} from 'firebase-admin/lib/firestore'
+} from 'firebase-admin/firestore'
 import { dissoc, pipe } from 'ramda'
 
 export const nonceDataConverter: FirestoreDataConverter<Nonce> = {

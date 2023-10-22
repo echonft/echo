@@ -1,5 +1,5 @@
 {
-  "extends": "../../lib/tsconfig/base.json",
+  "extends": "../../lib/tsconfig/tsconfig.base.json",
   "ts-node": {
     "require": ["tsconfig-paths/register"],
     "transpileOnly": true,

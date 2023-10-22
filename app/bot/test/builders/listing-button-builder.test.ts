@@ -1,5 +1,5 @@
 import { buildNewListingButtons } from '@echo/bot/builders/listing-button-builder'
-import { listingLink } from '@echo/bot/routing/listing-link'
+import { listingLink } from '@echo/bot/listing/listing-link'
 import { describe, expect, it } from '@jest/globals'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 

@@ -1,7 +1,7 @@
 import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { embedValueForNft } from '@echo/bot/helpers/embed/embed-value-for-nft'
 import { embedValueForTarget } from '@echo/bot/helpers/embed/embed-value-for-target'
-import { listingLink } from '@echo/bot/routing/listing-link'
+import { listingLink } from '@echo/bot/listing/listing-link'
 import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingItem } from '@echo/model/types/listing-item'

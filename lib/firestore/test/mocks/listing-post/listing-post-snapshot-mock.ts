@@ -1,7 +1,7 @@
 import { type ListingPost } from '@echo/firestore/types/model/listing-post/listing-post'
 import { listingPostMock } from '@echo/firestore-mocks/listing-post/listing-post-mock'
 import { listingPostReferenceMock } from '@echo/firestore-mocks/listing-post/listing-post-reference-mock'
-import { type QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
+import { type QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
 export const listingPostSnapshotMock: Record<string, QueryDocumentSnapshot<ListingPost>> = {
   jXadAgs0rtUXZWfG9t0z: {

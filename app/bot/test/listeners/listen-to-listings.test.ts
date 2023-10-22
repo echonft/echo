@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { listingChangeHandler } from '@echo/bot/handlers/listing-change-handler'
-import { listenToListings } from '@echo/bot/listeners/listen-to-listings'
+import { listenToListings } from '@echo/bot/listing/listen-to-listings'
+import { listingChangeHandler } from '@echo/bot/listing/listing-change-handler'
 import { mockAndSetupChannel } from '@echo/bot-mocks/discord/channel-mock'
 import { mockClient } from '@echo/bot-mocks/discord/client-mock'
 import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'

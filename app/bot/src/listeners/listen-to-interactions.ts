@@ -1,25 +1,15 @@
 import { InteractionError } from '@echo/bot/errors/interaction-error'
 import { executeForButton } from '@echo/bot/handlers/button-handler'
-import { executeForCommand } from '@echo/bot/handlers/input-command-handler'
+import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { BaseInteraction } from 'discord.js'
 
 export function listenToInteractions(interaction: BaseInteraction) {
-  if (interaction.isChatInputCommand()) {
-    try {
-      return executeForCommand(interaction)
-    } catch (error) {
-      logger.error(
-        `Error executing command ${interaction.options.getSubcommand()}: ${(error as InteractionError).message}`
-      )
-      return (error as InteractionError).reply(interaction)
-    }
-  }
   if (interaction.isButton()) {
     try {
       return executeForButton(interaction)
     } catch (error) {
-      logger.error(`Error executing button ${interaction.customId}: ${(error as InteractionError).message}`)
+      logger.error(`Error executing button ${interaction.customId}: ${errorMessage(error)}`)
       return (error as InteractionError).reply(interaction)
     }
   }

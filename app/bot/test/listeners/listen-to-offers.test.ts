@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { offerChangeHandler } from '@echo/bot/handlers/offer-change-handler'
-import { listenToOffers } from '@echo/bot/listeners/listen-to-offers'
+import { listenToOffers } from '@echo/bot/offer/listen-to-offers'
+import { offerChangeHandler } from '@echo/bot/offer/offer-change-handler'
 import { mockAndSetupChannel } from '@echo/bot-mocks/discord/channel-mock'
 import { mockClient } from '@echo/bot-mocks/discord/client-mock'
 import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'

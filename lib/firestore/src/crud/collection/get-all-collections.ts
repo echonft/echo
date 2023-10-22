@@ -4,7 +4,7 @@ import { getQueryDocumentsData } from '@echo/firestore/helpers/crud/get-query-do
 import { addConstraintsToQuery } from '@echo/firestore/helpers/query/add-constraints-to-query'
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { type Collection } from '@echo/model/types/collection'
-import { type Query } from 'firebase-admin/lib/firestore'
+import { type Query } from 'firebase-admin/firestore'
 
 export async function getAllCollections(constraints?: QueryConstraints) {
   let query = getCollectionsCollectionReference() as Query<Collection>

@@ -1,6 +1,6 @@
 import { listenToInteractions } from '@echo/bot/listeners/listen-to-interactions'
-import { listenToListings } from '@echo/bot/listeners/listen-to-listings'
-import { listenToOffers } from '@echo/bot/listeners/listen-to-offers'
+import { listenToListings } from '@echo/bot/listing/listen-to-listings'
+import { listenToOffers } from '@echo/bot/offer/listen-to-offers'
 import { getDiscordSecret } from '@echo/discord/admin/get-discord-secret'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { errorMessage } from '@echo/utils/helpers/error-message'

@@ -21,7 +21,6 @@
     ]
   },
   "scripts": {
-    "bot:deploy-commands": "turbo run @echo/bot#deploy-commands",
     "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot",
     "bot:start": "turbo run start --filter=@echo/bot",
     "clean": "turbo run clean",

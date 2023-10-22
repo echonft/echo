@@ -1,5 +1,5 @@
 import { getDiscordChannel } from '@echo/bot/helpers/get-discord-channel'
-import { offerLink } from '@echo/bot/routing/offer-link'
+import { offerLink } from '@echo/bot/offer/offer-link'
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { getOfferReceiverItemsGuild } from '@echo/firestore/helpers/offer/get-offer-receiver-items-guild'
 import { type DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
