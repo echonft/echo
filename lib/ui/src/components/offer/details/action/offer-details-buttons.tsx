@@ -34,7 +34,7 @@ interface Props {
 function showAcceptButton(offer: Offer, isCreator: boolean) {
   try {
     assertOfferState(offer, 'ACCEPTED')
-    return isCreator
+    return !isCreator
   } catch (e) {
     return false
   }
@@ -43,10 +43,7 @@ function showAcceptButton(offer: Offer, isCreator: boolean) {
 function showCancelButton(offer: Offer, isCreator: boolean) {
   try {
     assertOfferState(offer, 'CANCELLED')
-    if (offer.state === 'ACCEPTED') {
-      return !isCreator
-    }
-    return isCreator
+    return offer.state === 'ACCEPTED' || isCreator
   } catch (e) {
     return false
   }
@@ -54,8 +51,8 @@ function showCancelButton(offer: Offer, isCreator: boolean) {
 
 function showRejectButton(offer: Offer, isCreator: boolean) {
   try {
-    assertOfferState(offer, 'CANCELLED')
-    return isCreator
+    assertOfferState(offer, 'REJECTED')
+    return !isCreator
   } catch (e) {
     return false
   }
@@ -87,6 +84,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
     setButtonsDisabled(disabled ?? false)
   }, [disabled])
   const disable = () => setButtonsDisabled(true)
+  const enable = () => setButtonsDisabled(false)
   const success = () => {
     setButtonsDisabled(false)
     onSuccess?.()
@@ -106,7 +104,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
           onClick={disable}
           onSuccess={success}
           onError={error}
-          onCancel={disable}
+          onCancel={enable}
           disabled={buttonsDisabled}
         />
       </ShowIf>
@@ -118,7 +116,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
           onClick={disable}
           onSuccess={success}
           onError={error}
-          onCancel={disable}
+          onCancel={enable}
           disabled={buttonsDisabled}
         />
       </ShowIf>

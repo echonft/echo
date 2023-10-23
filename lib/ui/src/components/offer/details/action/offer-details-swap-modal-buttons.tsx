@@ -13,7 +13,7 @@ import { type FunctionComponent } from 'react'
 interface Props {
   approvalPending: boolean
   offer: Offer
-  chainId: number
+  chainId: number | undefined
   contract: Contract | undefined
   signature: HexString | undefined
   onSuccess?: EmptyFunction
@@ -31,7 +31,7 @@ export const OfferDetailsSwapModalButtons: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.swapModal')
 
-  if (approvalPending || isNil(signature)) {
+  if (approvalPending || isNil(signature) || isNil(chainId)) {
     return (
       <button className={clsx('btn-gradient', 'btn-size-alt', 'group', 'animate-pulse')} disabled={true}>
         <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('acceptBtn')}</span>

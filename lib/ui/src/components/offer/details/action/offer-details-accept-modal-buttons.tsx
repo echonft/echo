@@ -16,12 +16,12 @@ interface Props {
   contract: Contract | undefined
   offer: Offer
   token: string
-  chainId: number
   acceptOfferFetcher: (
     offerId: string,
     signature: HexString | undefined,
     token: string | undefined
   ) => Promise<EmptyResponse>
+  chainId: number | undefined
   onSuccess?: EmptyFunction
   onError?: ErrorFunction
 }
@@ -38,7 +38,7 @@ export const OfferDetailsAcceptModalButtons: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.acceptModal')
 
-  if (approvalPending) {
+  if (approvalPending || isNil(chainId)) {
     return (
       <button className={clsx('btn-gradient', 'btn-size-alt', 'group', 'animate-pulse')} disabled={true}>
         <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('acceptBtn')}</span>
