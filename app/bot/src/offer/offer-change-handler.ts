@@ -1,13 +1,13 @@
 import { getDiscordChannel } from '@echo/bot/helpers/get-discord-channel'
 import { offerLink } from '@echo/bot/offer/offer-link'
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
-import { getOfferReceiverItemsGuild } from '@echo/firestore/helpers/offer/get-offer-receiver-items-guild'
+import { getOfferReceiverItemsGuilds } from '@echo/firestore/helpers/offer/get-offer-receiver-items-guilds'
 import { type DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
 import { type Offer } from '@echo/model/types/offer'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { ChannelType, Client } from 'discord.js'
-import { isNil } from 'ramda'
+import { head, isNil } from 'ramda'
 
 /**
  * Handles offer changes -  only check for new offers
@@ -18,8 +18,7 @@ import { isNil } from 'ramda'
 export async function offerChangeHandler(client: Client, changeType: DocumentChangeType, offer: Offer) {
   if (changeType === 'added') {
     try {
-      // FIXME validate
-      const discordGuild = await getOfferReceiverItemsGuild(offer)
+      const discordGuilds = await getOfferReceiverItemsGuilds(offer)
       const sender = await findUserByUsername(offer.sender.username)
       if (isNil(sender)) {
         logger.error(`sender with username ${offer.sender.username} not found`)
@@ -30,12 +29,14 @@ export async function offerChangeHandler(client: Client, changeType: DocumentCha
         logger.error(`receiver with username ${offer.receiver.username} not found`)
         return
       }
-      const channel = await getDiscordChannel(client, discordGuild.channelId)
+      // FIXME find the best suitable guild instead
+      const { guild } = head(discordGuilds)!
+      const channel = await getDiscordChannel(client, guild.channelId)
       // FIXME check this from Discord
       const senderIsInGuild = true
       if (!senderIsInGuild) {
         logger.error(
-          `sender with username ${sender.username} of offer with id ${offer.id} is not in guild ${discordGuild.discordId}`
+          `sender with username ${sender.username} of offer with id ${offer.id} is not in guild ${guild.discordId}`
         )
         return
       }
@@ -43,7 +44,7 @@ export async function offerChangeHandler(client: Client, changeType: DocumentCha
       const receiverIsInGuild = true
       if (!receiverIsInGuild) {
         logger.error(
-          `receiver with username ${receiver.username} of offer with id ${offer.id} is not in guild ${discordGuild.discordId}`
+          `receiver with username ${receiver.username} of offer with id ${offer.id} is not in guild ${guild.discordId}`
         )
         return
       }

@@ -1,7 +1,7 @@
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { includes } from 'ramda'
 
-export const isNotIn =
-  <T>(list: T[] | NonEmptyArray<T>) =>
-  (value: T) =>
-    !includes(value, list)
+export function isNotIn<T>(list: T[]) {
+  return function (value: T) {
+    return !includes(value, list)
+  }
+}

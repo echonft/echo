@@ -1,12 +1,18 @@
+import { messages } from '@echo/bot/messages/en'
+
 export declare global {
   namespace NodeJS {
     interface ProcessEnv extends Dict<string> {
       APP_URL: string
     }
   }
-  declare namespace FirebaseFirestore {
-    interface FirestoreDataConverter<T> {
-      toFirestore(modelObject: PartialWithFieldValue<T>): DocumentData
+}
+declare module 'i18next' {
+  // Extend CustomTypeOptions
+  interface CustomTypeOptions {
+    // custom resources type
+    resources: {
+      translation: typeof messages
     }
   }
 }

@@ -1,35 +1,25 @@
 import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { embedValueForNft } from '@echo/bot/helpers/embed/embed-value-for-nft'
-import { embedValueForTarget } from '@echo/bot/helpers/embed/embed-value-for-target'
 import { listingLink } from '@echo/bot/listing/listing-link'
 import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { Collection } from '@echo/model/types/collection'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { type APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
+import i18next from 'i18next'
 import { flatten, map, prop } from 'ramda'
 
-export function buildListingEmbed(listing: Listing, listingCreator: UserDocumentData) {
-  return new EmbedBuilder()
-    .setTitle(title())
-    .setDescription(description(listingCreator.discord.id))
-    .setColor(color())
-    .setFields(fields(listing.items, listing.targets))
-    .setURL(listingLink(listingCreator.username))
-}
-
-// Can't mention user on a title
-function title(): string {
-  return `A new listing was created`
-}
-
-function description(creatorDiscordId: string): string {
-  return `Created by ${userMention(creatorDiscordId)}`
-}
-
-// TODO Maybe a color per collection via settings?
-function color(): number {
-  return 0x00ff66
+export function buildListingEmbed(listing: Listing, creator: UserDocumentData, collection: Collection) {
+  return (
+    new EmbedBuilder()
+      .setTitle(i18next.t('listing.embed.title'))
+      .setDescription(i18next.t('listing.embed.description', { user: userMention(creator.discord.id) }))
+      // TODO Maybe a color per collection via settings?
+      .setColor(0x00ff66)
+      .setFields(fields(listing.items, listing.targets))
+      .setURL(listingLink(collection.slug, listing.id))
+  )
 }
 
 function fields(items: ListingItem[], targets: ListingTarget[]): APIEmbedField[] {
@@ -39,7 +29,7 @@ function fields(items: ListingItem[], targets: ListingTarget[]): APIEmbedField[]
 function listingItemsFields(items: ListingItem[]): APIEmbedField[] {
   const nfts = map(prop('nft'), items)
   return nfts.map((nft, index) => ({
-    name: index === 0 ? listingItemsName() : '\u200b',
+    name: index === 0 ? i18next.t('listing.embed.items.name') : '\u200b',
     value: embedValueForNft(nft),
     inline: true
   }))
@@ -47,16 +37,8 @@ function listingItemsFields(items: ListingItem[]): APIEmbedField[] {
 
 function ListingTargets(targets: ListingTarget[]): APIEmbedField[] {
   return targets.map((target, index) => ({
-    name: index === 0 ? ListingTargetsName() : '\u200b',
-    value: embedValueForTarget(target),
+    name: index === 0 ? i18next.t('listing.embed.targets.name') : '\u200b',
+    value: i18next.t('listing.embed.targets.value', { count: target.amount, collectionName: target.collection.name }),
     inline: true
   }))
-}
-
-function listingItemsName(): string {
-  return 'Items for sale'
-}
-
-function ListingTargetsName(): string {
-  return 'Looking for'
 }
