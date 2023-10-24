@@ -1,6 +1,6 @@
 'use client'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
-import { getItemsContracts } from '@echo/model/helpers/item/get-items-contracts'
+import { getItemsUniqueContracts } from '@echo/model/helpers/item/get-items-unique-contracts'
 import type { Contract } from '@echo/model/types/contract'
 import type { Offer } from '@echo/model/types/offer'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
@@ -14,7 +14,7 @@ import type { ErrorFunction } from '@echo/utils/types/error-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { any, applySpec, assoc, find, identity, isNil, map, pipe, prop, propEq, unless, when } from 'ramda'
+import { any, applySpec, find, findIndex, identity, isNil, map, pipe, prop, propEq, unless, update } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 import { useNetwork } from 'wagmi'
 
@@ -45,7 +45,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
   // TODO Maybe we should add a line to check for the chain and if hes connected.
   // Because if wallet is locked it doesn't show as connected.
   const { chain } = useNetwork()
-  const contracts = getItemsContracts(offer.receiverItems)
+  const contracts = getItemsUniqueContracts(offer.receiverItems)
   const [approvalStatuses, setApprovalStatuses] = useState<ContractApprovalStatus[]>(
     map(applySpec<ContractApprovalStatus>({ contract: identity }), contracts)
   )
@@ -56,9 +56,17 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
     | Contract
     | undefined
   const updateApprovalStatus = (contract: Contract, approved: boolean) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    setApprovalStatuses(map(when(propEq(contract, 'contract'), assoc('approved', approved))))
+    // FIXME Either functional program this shit or fix the other call because it keeps on setting the state
+    // setApprovalStatuses(map(when(propEq(contract, 'contract'), assoc('approved', approved))))
+    setApprovalStatuses((prevState) => {
+      const index = findIndex(propEq(contract, 'contract'), prevState)
+      if (index === -1) {
+        return prevState.concat([{ contract, approved }])
+      } else if (prevState[index]!.approved !== approved) {
+        return update(index, { contract, approved }, prevState)
+      }
+      return prevState
+    })
   }
 
   return (
@@ -66,20 +74,6 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('subtitle')}</ModalSubtitle>
         <div className={clsx('flex', 'flex-col', 'gap-2')}>
-          {/*<OfferItemsOwnerChecker*/}
-          {/*  title={t('counterpartyAssets')}*/}
-          {/*  offerItems={offer.senderItems}*/}
-          {/*  ownerAddress={offer.sender.wallet.address}*/}
-          {/*  onError={() => updateOwnsAllAssets(false)}*/}
-          {/*  onResponse={updateOwnsAllAssets}*/}
-          {/*/>*/}
-          {/*<OfferItemsOwnerChecker*/}
-          {/*  title={t('ownerAssets')}*/}
-          {/*  offerItems={offer.receiverItems}*/}
-          {/*  ownerAddress={offer.receiver.wallet.address}*/}
-          {/*  onError={() => updateOwnsAllAssets(false)}*/}
-          {/*  onResponse={updateOwnsAllAssets}*/}
-          {/*/>*/}
           {map(
             (contract) => (
               <OfferItemsApprovalChecker
@@ -98,7 +92,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
           contract={contractToApprove}
           offer={offer}
           token={token}
-          chainId={chain!.id}
+          chainId={chain?.id}
           acceptOfferFetcher={acceptOfferFetcher}
           onSuccess={onSuccess}
           onError={onError}

@@ -1,6 +1,6 @@
 'use client'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
-import { getItemsContracts } from '@echo/model/helpers/item/get-items-contracts'
+import { getItemsUniqueContracts } from '@echo/model/helpers/item/get-items-unique-contracts'
 import type { Contract } from '@echo/model/types/contract'
 import type { Offer } from '@echo/model/types/offer'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
@@ -13,7 +13,7 @@ import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { ErrorFunction } from '@echo/utils/types/error-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { any, applySpec, assoc, find, identity, isNil, map, pipe, prop, propEq, unless, when } from 'ramda'
+import { any, applySpec, find, findIndex, identity, isNil, map, pipe, prop, propEq, unless, update } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 import useSWR from 'swr'
 import { useNetwork } from 'wagmi'
@@ -48,7 +48,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
   >(open ? { offerId: offer.id, token } : undefined, ({ offerId, token }) => getOfferSignatureFetcher(offerId, token), {
     onError
   })
-  const contracts = getItemsContracts(offer.senderItems)
+  const contracts = getItemsUniqueContracts(offer.senderItems)
   const [approvalStatuses, setApprovalStatuses] = useState<ContractApprovalStatus[]>(
     map(applySpec<ContractApprovalStatus>({ contract: identity }), contracts)
   )
@@ -59,9 +59,17 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
     | Contract
     | undefined
   const updateApprovalStatus = (contract: Contract, approved: boolean) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    setApprovalStatuses(map(when(propEq(contract, 'contract'), assoc('approved', approved))))
+    // FIXME Either functional program this shit or fix the other call because it keeps on setting the state
+    // setApprovalStatuses(map(when(propEq(contract, 'contract'), assoc('approved', approved))))
+    setApprovalStatuses((prevState) => {
+      const index = findIndex(propEq(contract, 'contract'), prevState)
+      if (index === -1) {
+        return prevState.concat([{ contract, approved }])
+      } else if (prevState[index]!.approved !== approved) {
+        return update(index, { contract, approved }, prevState)
+      }
+      return prevState
+    })
   }
 
   return (
@@ -69,20 +77,6 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('subtitle')}</ModalSubtitle>
         <div className={clsx('flex', 'flex-col', 'gap-2')}>
-          {/*<OfferItemsOwnerChecker*/}
-          {/*  title={t('counterpartyAssets')}*/}
-          {/*  offerItems={offer.receiverItems}*/}
-          {/*  ownerAddress={offer.receiver.wallet.address}*/}
-          {/*  onError={() => updateOwnsAllAssets(false)}*/}
-          {/*  onResponse={updateOwnsAllAssets}*/}
-          {/*/>*/}
-          {/*<OfferItemsOwnerChecker*/}
-          {/*  title={t('ownerAssets')}*/}
-          {/*  offerItems={offer.senderItems}*/}
-          {/*  ownerAddress={offer.sender.wallet.address}*/}
-          {/*  onError={() => updateOwnsAllAssets(false)}*/}
-          {/*  onResponse={updateOwnsAllAssets}*/}
-          {/*/>*/}
           {/*<OfferItemsMultipleApprovalChecker*/}
           {/*  contracts={uniqueReceiverContracts}*/}
           {/*  ownerAddress={offer.receiver.wallet.address}*/}

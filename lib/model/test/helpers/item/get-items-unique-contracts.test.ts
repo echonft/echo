@@ -1,10 +1,10 @@
-import { getItemsContracts } from '@echo/model/helpers/item/get-items-contracts'
+import { getItemsUniqueContracts } from '@echo/model/helpers/item/get-items-unique-contracts'
 import type { Contract } from '@echo/model/types/contract'
 import type { Item } from '@echo/model/types/item'
 import { describe, expect, it } from '@jest/globals'
 import { getAddress } from 'viem'
 
-describe('helpers - item - getItemsContracts', () => {
+describe('helpers - item - getItemsUniqueContracts', () => {
   it('returns the contract if there is only 1 contract', () => {
     const contract: Contract = {
       name: 'Test',
@@ -20,12 +20,12 @@ describe('helpers - item - getItemsContracts', () => {
         }
       }
     } as Item
-    const contracts = getItemsContracts([item])
+    const contracts = getItemsUniqueContracts([item])
     expect(contracts.length).toStrictEqual(1)
     expect(contracts[0]).toStrictEqual(contract)
   })
 
-  it('returns all contracts if all the contract are the same', () => {
+  it('returns 1 contract if all the contract are the same', () => {
     const contract: Contract = {
       name: 'Test',
       symbol: 'TEST',
@@ -40,14 +40,12 @@ describe('helpers - item - getItemsContracts', () => {
         }
       }
     } as Item
-    const contracts = getItemsContracts([item, item, item])
-    expect(contracts.length).toStrictEqual(3)
+    const contracts = getItemsUniqueContracts([item, item, item])
+    expect(contracts.length).toStrictEqual(1)
     expect(contracts[0]).toStrictEqual(contract)
-    expect(contracts[1]).toStrictEqual(contract)
-    expect(contracts[2]).toStrictEqual(contract)
   })
 
-  it('returns all contracts if there are 2 different contracts in the offer items', () => {
+  it('returns 2 contracts if there are 2 different contracts in the offer items', () => {
     const contract1: Contract = {
       name: 'Test',
       symbol: 'TEST',
@@ -76,11 +74,9 @@ describe('helpers - item - getItemsContracts', () => {
         }
       }
     } as Item
-    const contracts = getItemsContracts([item1, item2, item1, item2])
-    expect(contracts.length).toStrictEqual(4)
+    const contracts = getItemsUniqueContracts([item1, item2, item1, item2])
+    expect(contracts.length).toStrictEqual(2)
     expect(contracts[0]).toStrictEqual(contract1)
     expect(contracts[1]).toStrictEqual(contract2)
-    expect(contracts[2]).toStrictEqual(contract1)
-    expect(contracts[3]).toStrictEqual(contract2)
   })
 })

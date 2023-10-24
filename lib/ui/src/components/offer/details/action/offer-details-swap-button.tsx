@@ -36,14 +36,14 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
   return (
     <>
       <button
-        className={clsx('btn-cancel', 'btn-size-alt', 'group')}
+        className={clsx('btn-gradient', 'btn-size-alt', 'group')}
         onClick={() => {
           onClick?.()
           setModalShown(true)
         }}
         disabled={disabled}
       >
-        <span className={clsx('prose-label-lg', 'btn-label-cancel')}>{t('completeBtn')}</span>
+        <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('completeBtn')}</span>
       </button>
       <Web3Provider>
         <OfferDetailsSwapModal
