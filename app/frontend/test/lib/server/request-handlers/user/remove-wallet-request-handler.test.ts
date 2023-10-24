@@ -7,9 +7,9 @@ import { updateUserNfts } from '@echo/frontend/lib/server/helpers/user/update-us
 import { removeWalletRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/remove-wallet-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/request-response'
 
-jest.mock('@server/helpers/request/get-user-from-request')
-jest.mock('@server/helpers/user/remove-user-wallet')
-jest.mock('@server/helpers/user/update-user-nfts')
+jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/user/remove-user-wallet')
+jest.mock('@echo/frontend/lib/server/helpers/user/update-user-nfts')
 
 describe('request-handlers - user - removeWalletRequestHandler', () => {
   const validWallet = {

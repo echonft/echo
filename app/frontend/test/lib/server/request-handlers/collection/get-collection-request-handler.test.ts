@@ -4,7 +4,7 @@ import { getCollectionRequestHandler } from '@echo/frontend/lib/server/request-h
 import { mockRequest } from '@echo/frontend-mocks/request-response'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 
-jest.mock('@server/helpers/collection/get-collection-by-slug')
+jest.mock('@echo/frontend/lib/server/helpers/collection/get-collection-by-slug')
 
 describe('request-handlers - collection - getCollectionRequestHandler', () => {
   beforeEach(() => {

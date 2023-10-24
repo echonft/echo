@@ -12,12 +12,12 @@ import { addWalletRequestHandler } from '@echo/frontend/lib/server/request-handl
 import { mockRequest } from '@echo/frontend-mocks/request-response'
 import { SiweMessage } from 'siwe'
 
-jest.mock('@server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
 jest.mock('@echo/firestore/crud/nonce/find-nonce-for-user')
-jest.mock('@server/helpers/auth/verify-siwe-message')
-jest.mock('@server/helpers/user/add-user-wallet')
-jest.mock('@server/helpers/user/update-user-nfts')
-jest.mock('@server/helpers/auth/get-siwe-message')
+jest.mock('@echo/frontend/lib/server/helpers/auth/verify-siwe-message')
+jest.mock('@echo/frontend/lib/server/helpers/user/add-user-wallet')
+jest.mock('@echo/frontend/lib/server/helpers/user/update-user-nfts')
+jest.mock('@echo/frontend/lib/server/helpers/auth/get-siwe-message')
 
 describe('request-handlers - user - addWalletRequestHandler', () => {
   const validSiweMessage = new SiweMessage({

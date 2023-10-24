@@ -8,9 +8,9 @@ import { acceptOfferRequestHandler } from '@echo/frontend/lib/server/request-han
 import { mockRequest } from '@echo/frontend-mocks/request-response'
 import { type Offer } from '@echo/model/types/offer'
 
-jest.mock('@server/helpers/request/get-user-from-request')
-jest.mock('@server/helpers/offer/get-offer')
-jest.mock('@server/helpers/offer/accept-offer')
+jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/offer/get-offer')
+jest.mock('@echo/frontend/lib/server/helpers/offer/accept-offer')
 
 describe('request-handlers - offer - acceptOfferRequestHandler', () => {
   const offerId = 'offerId'

@@ -7,9 +7,9 @@ import { cancelListingRequestHandler } from '@echo/frontend/lib/server/request-h
 import { mockRequest } from '@echo/frontend-mocks/request-response'
 import { type Listing } from '@echo/model/types/listing'
 
-jest.mock('@server/helpers/request/get-user-from-request')
-jest.mock('@server/helpers/listing/get-listing')
-jest.mock('@server/helpers/listing/cancel-listing')
+jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/listing/get-listing')
+jest.mock('@echo/frontend/lib/server/helpers/listing/cancel-listing')
 
 describe('request-handlers - listing - cancelListingRequestHandler', () => {
   const listingId = 'listingId'

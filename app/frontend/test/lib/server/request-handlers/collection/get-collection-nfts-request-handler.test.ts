@@ -4,7 +4,7 @@ import { getCollectionNftsRequestHandler } from '@echo/frontend/lib/server/reque
 import { mockRequest } from '@echo/frontend-mocks/request-response'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 
-jest.mock('@server/helpers/nft/get-collection-nfts')
+jest.mock('@echo/frontend/lib/server/helpers/nft/get-collection-nfts')
 
 describe('request-handlers - collection - getCollectionNftsRequestHandler', () => {
   beforeEach(() => {

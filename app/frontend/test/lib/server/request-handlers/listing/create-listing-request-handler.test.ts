@@ -16,10 +16,10 @@ import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-b
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { head, map, modify, pick, pipe, prop } from 'ramda'
 
-jest.mock('@server/helpers/request/get-user-from-request')
-jest.mock('@server/helpers/listing/create-listing')
-jest.mock('@server/helpers/listing/get-listing-targets')
-jest.mock('@server/helpers/listing/get-listing-items')
+jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/listing/create-listing')
+jest.mock('@echo/frontend/lib/server/helpers/listing/get-listing-targets')
+jest.mock('@echo/frontend/lib/server/helpers/listing/get-listing-items')
 
 describe('request-handlers - listing - createListingRequestHandler', () => {
   const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')

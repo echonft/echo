@@ -11,9 +11,9 @@ import { type Nft } from '@echo/model/types/nft'
 import { type User } from '@echo/model/types/user'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 
-jest.mock('@server/helpers/request/get-user-from-request')
-jest.mock('@server/helpers/offer/create-offer')
-jest.mock('@server/helpers/offer/get-offer-items')
+jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/offer/create-offer')
+jest.mock('@echo/frontend/lib/server/helpers/offer/get-offer-items')
 
 describe('request-handlers - offer - createOfferRequestHandler', () => {
   const validRequest: CreateOfferRequest = {

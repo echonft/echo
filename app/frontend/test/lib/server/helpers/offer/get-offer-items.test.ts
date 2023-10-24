@@ -5,7 +5,7 @@ import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { forEach } from 'ramda'
 
-jest.mock('@server/helpers/nft/get-nft-by-id')
+jest.mock('@echo/frontend/lib/server/helpers/nft/get-nft-by-id')
 
 describe('helpers - offer - getOfferItems', () => {
   const item: OfferItemRequest = {
