@@ -20,12 +20,10 @@ function getStatus(status: 'error' | 'idle' | 'loading' | 'success', approved: b
     return 'loading'
   }
   if (status === 'success') {
-    if (!approved) {
-      return 'loading'
-    }
     if (isNil(data)) {
       return 'error'
     }
+    return approved ? 'success' : 'error'
   }
   return status
 }

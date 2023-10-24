@@ -32,6 +32,8 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
   onError
 }) => {
   const t = useTranslations('offer.details.acceptModal')
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const { data, status, error, signTypedData } = useSignTypedData(getSignatureConfigForOffer(offer, chainId))
   const { trigger, isMutating } = useSWRMutation<
     EmptyResponse,

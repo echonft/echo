@@ -4,9 +4,9 @@ export interface OfferSignature {
   id: string
   creator: HexString
   counterparty: HexString
-  expiresAt: bigint
+  expiresAt: number
   creatorCollections: HexString[]
-  creatorIds: bigint[]
+  creatorIds: number[]
   counterpartyCollections: HexString[]
-  counterpartyIds: bigint[]
+  counterpartyIds: number[]
 }

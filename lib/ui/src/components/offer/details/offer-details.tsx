@@ -76,7 +76,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
         <OfferDetailsItemsContainer items={isCreator ? senderItems : receiverItems} direction={DirectionOut} />
         <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
           <OfferDetailsButtons
-            offer={offer}
+            offer={updatedOffer}
             isCreator={isCreator}
             token={token}
             getOfferSignatureFetcher={getOfferSignatureFetcher}

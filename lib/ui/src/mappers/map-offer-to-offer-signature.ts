@@ -6,10 +6,6 @@ import type { OfferSignature } from '@echo/ui/types/offer-signature'
 import { applySpec, map, path, pipe, prop } from 'ramda'
 import { getAddress } from 'viem'
 
-function numberToBigInt(num: number): bigint {
-  return BigInt(num)
-}
-
 // FIXME Remove ts-ignore, path can be nil and getAddress doesn't accept that.
 // Maybe we should have an assert function before?
 export function mapOfferToOfferSignature(offer: Offer): OfferSignature {
@@ -19,10 +15,10 @@ export function mapOfferToOfferSignature(offer: Offer): OfferSignature {
     creator: pipe(path(['sender', 'wallet', 'address']), getAddress),
     // @ts-ignore
     counterparty: pipe(path(['receiver', 'wallet', 'address']), getAddress),
-    expiresAt: pipe(prop('expiresAt'), numberToBigInt),
+    expiresAt: prop('expiresAt'),
     creatorCollections: pipe(prop('senderItems'), getItemsContracts, map(pipe(prop('address'), getAddress))),
-    creatorIds: pipe(prop('senderItems'), map(pipe(getItemTokenId, numberToBigInt))),
+    creatorIds: pipe(prop('senderItems'), map(getItemTokenId)),
     counterpartyCollections: pipe(prop('receiverItems'), getItemsContracts, map(pipe(prop('address'), getAddress))),
-    counterpartyIds: pipe(prop('receiverItems'), map(pipe(getItemTokenId, numberToBigInt)))
+    counterpartyIds: pipe(prop('receiverItems'), map(getItemTokenId))
   })(offer)
 }

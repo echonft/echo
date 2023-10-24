@@ -56,9 +56,18 @@ export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({
           offer={offer}
           token={token}
           acceptOfferFetcher={acceptOfferFetcher}
-          onSuccess={onSuccess}
-          onError={onError}
-          onClose={onCancel}
+          onSuccess={() => {
+            setModalShown(false)
+            onSuccess?.()
+          }}
+          onError={(error) => {
+            setModalShown(false)
+            onError?.(error)
+          }}
+          onClose={() => {
+            setModalShown(false)
+            onCancel?.()
+          }}
         />
       </Web3Provider>
     </>

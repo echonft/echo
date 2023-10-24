@@ -14,12 +14,15 @@ interface Props {
   onError?: (error: Error) => unknown
 }
 
-function getStatus(status: 'error' | 'idle' | 'loading' | 'success', data: unknown) {
+function getStatus(status: 'error' | 'idle' | 'loading' | 'success', data: boolean | undefined) {
   if (status === 'idle') {
     return 'loading'
   }
-  if (status === 'success' && isNil(data)) {
-    return 'error'
+  if (status === 'success') {
+    if (isNil(data)) {
+      return 'error'
+    }
+    return data ? 'success' : 'error'
   }
   return status
 }
@@ -51,5 +54,5 @@ export const OfferItemsApprovalChecker: FunctionComponent<Props> = ({
     }
   }, [data, onResponse])
 
-  return <OfferDetailsAcceptModalRow title={title} status={getStatus(status, data)} />
+  return <OfferDetailsAcceptModalRow title={title} status={getStatus(status, Boolean(data))} />
 }
