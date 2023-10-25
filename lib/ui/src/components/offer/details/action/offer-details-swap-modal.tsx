@@ -13,9 +13,10 @@ import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { ErrorFunction } from '@echo/utils/types/error-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { any, applySpec, find, findIndex, identity, isNil, map, pipe, prop, propEq, unless, update } from 'ramda'
-import { type FunctionComponent, useState } from 'react'
+import { any, applySpec, assoc, find, identity, isNil, map, pipe, prop, propEq, unless, when } from 'ramda'
+import { type FunctionComponent, useCallback, useState } from 'react'
 import useSWR from 'swr'
+import { debounce } from 'throttle-debounce'
 import { useNetwork } from 'wagmi'
 
 interface Props {
@@ -58,19 +59,18 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
   const contractToApprove = pipe(find(propEq(false, 'approved')), unless(isNil, prop('contract')))(approvalStatuses) as
     | Contract
     | undefined
-  const updateApprovalStatus = (contract: Contract, approved: boolean) => {
-    // FIXME Either functional program this shit or fix the other call because it keeps on setting the state
-    // setApprovalStatuses(map(when(propEq(contract, 'contract'), assoc('approved', approved))))
-    setApprovalStatuses((prevState) => {
-      const index = findIndex(propEq(contract, 'contract'), prevState)
-      if (index === -1) {
-        return prevState.concat([{ contract, approved }])
-      } else if (prevState[index]!.approved !== approved) {
-        return update(index, { contract, approved }, prevState)
+  const updateApprovalStatus = useCallback(
+    (contract: Contract, approved: boolean) => {
+      const approvalStatus = find(propEq(contract, 'contract'), approvalStatuses)
+      if (!isNil(approvalStatus) && approvalStatus.approved !== approved) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        setApprovalStatuses(map(when(propEq(contract, 'contract'), assoc('approved', approved))))
       }
-      return prevState
-    })
-  }
+    },
+    [approvalStatuses]
+  )
+  const debouncedUpdateApprovalStatus = debounce(5000, updateApprovalStatus)
 
   return (
     <Modal open={open} onClose={onClose} title={t('title')}>
@@ -89,7 +89,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
                 contract={contract}
                 ownerAddress={offer.sender.wallet.address}
                 title={t('approval', { collectionName: contract.name })}
-                onResponse={(approved) => updateApprovalStatus(contract, approved)}
+                onResponse={(approved) => debouncedUpdateApprovalStatus(contract, approved)}
               />
             ),
             contracts
