@@ -14,7 +14,7 @@ const ProfileListingsCreatedPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
   redirectIfNotLoggedIn(session, links.profile.listingsCreated)
   const queryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'expiresAt' }]
+    orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
   const { data, error } = await fetcher(userListingsApiUrl(session.user.username))
     .revalidate(3600)

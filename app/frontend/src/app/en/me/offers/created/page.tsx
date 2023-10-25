@@ -23,7 +23,7 @@ const ProfileOffersCreatedPage: FunctionComponent = async () => {
     includeExpired: true
   })
   const queryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'createdAt' }]
+    orderBy: [{ field: 'createdAt', direction: 'desc' }]
   })
   const { data, error } = await fetcher(profileOffersApiUrl())
     .revalidate(3600)
