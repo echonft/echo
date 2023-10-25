@@ -77,6 +77,14 @@ export const Default: Story = {
       setUpdatedState('CANCELLED')
       return delayPromise(Promise.resolve({}), 800)
     }
+    const completeOfferFetcher = (
+      _offerId: string,
+      _transactionId: HexString | undefined,
+      _token: string | undefined
+    ) => {
+      setUpdatedState('COMPLETED')
+      return delayPromise(Promise.resolve({}), 800)
+    }
     const renderedOffer = pipe(
       assoc('state', state),
       assoc('expired', expired),
@@ -90,6 +98,7 @@ export const Default: Story = {
         getOfferFetcher={getOfferFetcher(updatedState)}
         getOfferSignatureFetcher={getOfferSignatureFetcher}
         acceptOfferFetcher={acceptOfferFetcher}
+        completeOfferFetcher={completeOfferFetcher}
         rejectOfferFetcher={rejectOfferFetcher}
         cancelOfferFetcher={cancelOfferFetcher}
       />
