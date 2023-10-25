@@ -1,11 +1,11 @@
 import { InvalidChannelIdError } from '@echo/bot/errors/invalid-channel-id-error'
-import { getDiscordChannel } from '@echo/bot/helpers/get-discord-channel'
+import { getChannel } from '@echo/bot/helpers/get-channel'
 import { jest } from '@jest/globals'
 import { Client, TextChannel } from 'discord.js'
 import { isNil } from 'ramda'
 
 export function mockGetDiscordChannel() {
-  jest.mocked(getDiscordChannel).mockImplementationOnce((client: Client, channelId: string) => {
+  jest.mocked(getChannel).mockImplementationOnce((client: Client, channelId: string) => {
     if (channelId === 'reject') {
       return Promise.reject(new Error())
     }

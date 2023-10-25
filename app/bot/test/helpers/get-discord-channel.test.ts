@@ -1,5 +1,5 @@
 import { InvalidChannelIdError } from '@echo/bot/errors/invalid-channel-id-error'
-import { getDiscordChannel } from '@echo/bot/helpers/get-discord-channel'
+import { getChannel } from '@echo/bot/helpers/get-channel'
 import { mockAndSetupChannel, mockTextChannel } from '@echo/bot-mocks/discord/channel-mock'
 import { mockClient } from '@echo/bot-mocks/discord/client-mock'
 import { afterEach, beforeEach, describe, expect, jest, test } from '@jest/globals'
@@ -16,11 +16,11 @@ describe('utils - getDiscordChannel', () => {
   describe('only cache', () => {
     test('If channel but wrong ID, error', async () => {
       mockAndSetupChannel(client, undefined, { id: '1' })
-      await expect(getDiscordChannel(client, '2')).rejects.toEqual(new InvalidChannelIdError('2'))
+      await expect(getChannel(client, '2')).rejects.toEqual(new InvalidChannelIdError('2'))
     })
     test('If channel with good id, success', async () => {
       const channel = mockAndSetupChannel(client, undefined, { id: '1' })
-      await expect(getDiscordChannel(client, '1')).resolves.toBe(channel)
+      await expect(getChannel(client, '1')).resolves.toBe(channel)
     })
   })
   describe('with fetch', () => {
@@ -30,14 +30,14 @@ describe('utils - getDiscordChannel', () => {
       jest.spyOn(client.channels, 'fetch').mockImplementation((id) => Promise.resolve(id === '2' ? channel : null))
     })
     test('If wrong channel, throws an error', async () => {
-      await expect(getDiscordChannel(client, '1')).rejects.toEqual(new InvalidChannelIdError('1'))
+      await expect(getChannel(client, '1')).rejects.toEqual(new InvalidChannelIdError('1'))
     })
     test('If channel but wrong ID, error', async () => {
       mockTextChannel(client, undefined, { id: '1' })
-      await expect(getDiscordChannel(client, '3')).rejects.toEqual(new InvalidChannelIdError('3'))
+      await expect(getChannel(client, '3')).rejects.toEqual(new InvalidChannelIdError('3'))
     })
     test('If channel with good id, success', async () => {
-      await expect(getDiscordChannel(client, '2')).resolves.toBe(channel)
+      await expect(getChannel(client, '2')).resolves.toBe(channel)
     })
   })
 })

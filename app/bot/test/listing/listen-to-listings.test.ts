@@ -12,7 +12,7 @@ import { beforeEach, describe, expect, it, jest } from '@jest/globals'
 import { Client } from 'discord.js'
 
 jest.mock('@echo/firestore/listeners/listen-to-listings')
-jest.mock('@echo/bot/helpers/get-discord-channel')
+jest.mock('@echo/bot/helpers/get-channel')
 jest.mock('@echo/bot/listing/listing-change-handler')
 
 describe('listing - listenToListings', () => {

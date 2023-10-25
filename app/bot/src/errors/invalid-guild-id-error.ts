@@ -3,14 +3,14 @@ import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { type InteractionReplyOptions } from 'discord.js'
 import i18next from 'i18next'
 
-export class InvalidChannelIdError extends InteractionError {
-  constructor(channelId: string | null) {
-    super(isNilOrEmpty(channelId) ? 'empty channel id' : `invalid channel id: ${channelId}`)
+export class InvalidGuildIdError extends InteractionError {
+  constructor(guildId: string | null) {
+    super(isNilOrEmpty(guildId) ? 'empty guild id' : `invalid guild id: ${guildId}`)
   }
 
   getInteractionReplyOptions(): InteractionReplyOptions {
     return {
-      content: i18next.t('error.invalidChannelId'),
+      content: i18next.t('error.invalidGuildId'),
       ephemeral: true
     }
   }

@@ -1,4 +1,4 @@
-import { listenToInteractions } from '@echo/bot/listeners/listen-to-interactions'
+import { listenToInteractions } from '@echo/bot/helpers/listen-to-interactions'
 import { listenToListings } from '@echo/bot/listing/listen-to-listings'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { listenToOffers } from '@echo/bot/offer/listen-to-offers'

@@ -1,4 +1,4 @@
-import { getAppUrl } from '@echo/bot/routing/get-app-url'
+import { getAppUrl } from '@echo/bot/helpers/get-app-url'
 import { describe, expect, jest, test } from '@jest/globals'
 
 describe('utils - getAppUrl', () => {

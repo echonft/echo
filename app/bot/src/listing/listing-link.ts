@@ -1,4 +1,4 @@
-import { getAppUrl } from '@echo/bot/routing/get-app-url'
+import { getAppUrl } from '@echo/bot/helpers/get-app-url'
 import { links } from '@echo/ui/constants/links'
 
 export function listingLink(collectionSlug: string, listingId: string) {

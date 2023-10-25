@@ -1,5 +1,6 @@
 import { InteractionError } from '@echo/bot/errors/interaction-error'
 import { type InteractionReplyOptions } from 'discord.js'
+import i18next from 'i18next'
 import { isEmpty, isNil } from 'ramda'
 
 export class InvalidButtonIdError extends InteractionError {
@@ -9,7 +10,7 @@ export class InvalidButtonIdError extends InteractionError {
 
   getInteractionReplyOptions(): InteractionReplyOptions {
     return {
-      content: 'Invalid button interaction.',
+      content: i18next.t('error.invalidButtonId'),
       ephemeral: true
     }
   }
