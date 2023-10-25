@@ -21,7 +21,7 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
   })
   const queryParams = mapQueryConstraintsToQueryParams({
     // creator.username is needed for the query to work - do not remove
-    orderBy: [{ field: 'creator.username' }, { field: 'expiresAt' }]
+    orderBy: [{ field: 'creator.username' }, { field: 'expiresAt', direction: 'desc' }]
   })
   const { data, error } = await fetcher(userListingsApiUrl(session.user.username))
     .revalidate(3600)

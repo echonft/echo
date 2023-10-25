@@ -70,7 +70,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
   const debouncedUpdateApprovalStatus = debounce(5000, updateApprovalStatus)
 
   return (
-    <Modal open={open} onClose={onClose} title={t('title')} closeDisabled={approvalPending}>
+    <Modal open={open} onClose={onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('subtitle')}</ModalSubtitle>
         <div className={clsx('flex', 'flex-col', 'gap-2')}>

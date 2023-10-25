@@ -16,7 +16,7 @@ const ProfileSwapsPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
   redirectIfNotLoggedIn(session, links.profile.swaps)
   const queryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'expiresAt' }]
+    orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
   const { data, error } = await fetcher(userSwapsApiUrl(session.user.username))
     .revalidate(3600)

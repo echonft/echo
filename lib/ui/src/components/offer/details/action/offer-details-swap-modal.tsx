@@ -1,4 +1,5 @@
 'use client'
+import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { getItemsUniqueContracts } from '@echo/model/helpers/item/get-items-unique-contracts'
 import type { Contract } from '@echo/model/types/contract'
@@ -11,6 +12,7 @@ import type { ContractApprovalStatus } from '@echo/ui/types/contract-approval-st
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { ErrorFunction } from '@echo/utils/types/error-function'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { any, applySpec, assoc, find, identity, isNil, map, pipe, prop, propEq, unless, when } from 'ramda'
@@ -24,6 +26,11 @@ interface Props {
   open: boolean
   token: string
   getOfferSignatureFetcher: (offerId: string, token: string | undefined) => Promise<OfferSignatureResponse>
+  completeOfferFetcher: (
+    offerId: string,
+    transactionId: HexString | undefined,
+    token: string | undefined
+  ) => Promise<EmptyResponse>
   onClose?: EmptyFunction
   onSuccess?: EmptyFunction
   onError?: ErrorFunction
@@ -34,6 +41,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
   open,
   token,
   getOfferSignatureFetcher,
+  completeOfferFetcher,
   onClose,
   onSuccess,
   onError
@@ -71,12 +79,12 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
     [approvalStatuses]
   )
   const debouncedUpdateApprovalStatus = debounce(5000, updateApprovalStatus)
-
   return (
-    <Modal open={open} onClose={onClose} title={t('title')}>
+    <Modal open={open} onClose={onClose} title={t('title')} closeDisabled={approvalPending}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('subtitle')}</ModalSubtitle>
         <div className={clsx('flex', 'flex-col', 'gap-2')}>
+          {/* TODO Should stay there because otherwise transaction would fail */}
           {/*<OfferItemsMultipleApprovalChecker*/}
           {/*  contracts={uniqueReceiverContracts}*/}
           {/*  ownerAddress={offer.receiver.wallet.address}*/}
@@ -97,8 +105,10 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
         </div>
         <OfferDetailsSwapModalButtons
           offer={offer}
+          token={token}
           signature={signatureResponse?.signature}
           contract={contractToApprove}
+          completeOfferFetcher={completeOfferFetcher}
           chainId={chain?.id}
           approvalPending={approvalPending}
           onSuccess={onSuccess}
