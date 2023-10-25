@@ -5,7 +5,7 @@ import { mapGetOwnersForNftResponse } from '@echo/alchemy/mappers/map-get-owners
 import { type AlchemyWallet } from '@echo/alchemy/types/model/alchemy-wallet'
 import { type GetOwnersForNftRequest } from '@echo/alchemy/types/request/get-owners-for-nft-request'
 import { type GetOwnersForNftResponse } from '@echo/alchemy/types/response/get-owners-for-nft-response'
-import { fetcher } from '@helpers/fetcher'
+import { fetcher } from '@echo/frontend/lib/helpers/fetcher'
 import { partialRight } from 'ramda'
 
 function fetchOwnersForNft(request: GetOwnersForNftRequest, chainId: number) {

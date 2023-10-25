@@ -3,7 +3,7 @@ import { dirname, join } from 'path'
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 
 const config: StorybookConfig = {
-  stories: ['../src/stories/**/*stories.tsx'],
+  stories: ['../src/**/*stories.tsx'],
   babel: async (options) => {
     options.presets.push('@babel/preset-typescript')
     return options

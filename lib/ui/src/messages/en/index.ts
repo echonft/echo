@@ -193,25 +193,28 @@ export const messages = {
       cancelBtn: 'Cancel',
       rejectBtn: 'Reject',
       approveBtn: 'Approve {count, plural, =0 {} =1 {NFT} other {NFTs}}',
-      completeBtn: 'Execute Swap',
-      actionModal: {
-        closeBtn: 'Close',
-        ACCEPT: {
-          title: 'Offer accepted',
-          subtitle: 'You have successfully accepted the offer',
-          confirmBtn: 'Confirm',
-          copyLinkBtn: 'Copy Link'
-        },
-        CANCEL: {
-          title: 'Offer cancelled',
-          subtitle: 'You have successfully cancelled the offer',
-          dismissBtn: 'Dismiss'
-        },
-        REJECT: {
-          title: 'Offer rejected',
-          subtitle: 'You have successfully rejected the offer',
-          dismissBtn: 'Dismiss'
-        }
+      completeBtn: 'Swap',
+      acceptModal: {
+        title: 'Accept offer',
+        subtitle:
+          'To accept the offer, you need to approve the Echo contract to transfer your tokens (paid transactions) and then sign a message for the counterparty to perform the swap (not a transaction).',
+        ownerAssets: 'You own all the assets',
+        counterpartyAssets: 'Counterparty owns all the assets',
+        approval: '{collectionName} is approved by Echo',
+        signature: 'Signature is set',
+        approveBtn: 'Approve {collectionName}',
+        acceptBtn: 'Sign and accept'
+      },
+      swapModal: {
+        title: 'Execute swap',
+        subtitle:
+          'To execute the swap, you need to approve the Echo contract to transfer your tokens (paid transaction) and then execute the trade (paid transaction).',
+        ownerAssets: 'You own all the assets',
+        counterpartyAssets: 'Counterparty owns all the assets',
+        counterpartyApproval: 'Counterparty has approved token transfer',
+        approval: '{collectionName} is approved by Echo',
+        approveBtn: 'Approve {collectionName}',
+        acceptBtn: 'Swap'
       }
     },
     expired: 'Expired',

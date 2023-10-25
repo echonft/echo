@@ -1,15 +1,15 @@
 import { type RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
-import { ApiError } from '@server/helpers/error/api-error'
-import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
-import { removeUserWallet } from '@server/helpers/user/remove-user-wallet'
-import { updateUserNfts } from '@server/helpers/user/update-user-nfts'
-import { removeWalletRequestHandler } from '@server/request-handlers/user/remove-wallet-request-handler'
-import { mockRequest } from '@server-mocks/request-response'
+import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
+import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { removeUserWallet } from '@echo/frontend/lib/server/helpers/user/remove-user-wallet'
+import { updateUserNfts } from '@echo/frontend/lib/server/helpers/user/update-user-nfts'
+import { removeWalletRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/remove-wallet-request-handler'
+import { mockRequest } from '@echo/frontend-mocks/request-response'
 
-jest.mock('@server/helpers/request/get-user-from-request')
-jest.mock('@server/helpers/user/remove-user-wallet')
-jest.mock('@server/helpers/user/update-user-nfts')
+jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/user/remove-user-wallet')
+jest.mock('@echo/frontend/lib/server/helpers/user/update-user-nfts')
 
 describe('request-handlers - user - removeWalletRequestHandler', () => {
   const validWallet = {

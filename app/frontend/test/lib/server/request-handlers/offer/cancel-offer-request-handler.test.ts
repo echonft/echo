@@ -1,15 +1,15 @@
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
+import { cancelOffer } from '@echo/frontend/lib/server/helpers/offer/cancel-offer'
+import { getOffer } from '@echo/frontend/lib/server/helpers/offer/get-offer'
+import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { cancelOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/cancel-offer-request-handler'
+import { mockRequest } from '@echo/frontend-mocks/request-response'
 import { type Offer } from '@echo/model/types/offer'
-import { ApiError } from '@server/helpers/error/api-error'
-import { cancelOffer } from '@server/helpers/offer/cancel-offer'
-import { getOffer } from '@server/helpers/offer/get-offer'
-import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
-import { cancelOfferRequestHandler } from '@server/request-handlers/offer/cancel-offer-request-handler'
-import { mockRequest } from '@server-mocks/request-response'
 
-jest.mock('@server/helpers/request/get-user-from-request')
-jest.mock('@server/helpers/offer/get-offer')
-jest.mock('@server/helpers/offer/cancel-offer')
+jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/offer/get-offer')
+jest.mock('@echo/frontend/lib/server/helpers/offer/cancel-offer')
 
 describe('request-handlers - offer - cancelOfferRequestHandler', () => {
   const offerId = 'offerId'
@@ -33,7 +33,7 @@ describe('request-handlers - offer - cancelOfferRequestHandler', () => {
 
   it('throws if the offer state is not OPEN or ACCEPTED', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce({ id: offerId, state: 'CANCELLED' } as Offer)
+    jest.mocked(getOffer).mockResolvedValueOnce({ id: offerId, expired: false, state: 'CANCELLED' } as Offer)
     const req = mockRequest<never>()
     try {
       await cancelOfferRequestHandler(req, offerId)
@@ -45,7 +45,12 @@ describe('request-handlers - offer - cancelOfferRequestHandler', () => {
 
   it('throws if the user is not the offer sender', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce({ state: 'OPEN', sender: { username: 'another-user-name' } } as Offer)
+    jest.mocked(getOffer).mockResolvedValueOnce({
+      id: offerId,
+      expired: false,
+      state: 'OPEN',
+      sender: { username: 'another-user-name' }
+    } as Offer)
     const req = mockRequest<never>()
     try {
       await cancelOfferRequestHandler(req, offerId)
@@ -57,7 +62,12 @@ describe('request-handlers - offer - cancelOfferRequestHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce({ state: 'ACCEPTED', sender: { username: 'johnnycagewins' } } as Offer)
+    jest.mocked(getOffer).mockResolvedValueOnce({
+      id: offerId,
+      expired: false,
+      state: 'ACCEPTED',
+      sender: { username: 'johnnycagewins' }
+    } as Offer)
     jest.mocked(cancelOffer).mockResolvedValueOnce()
     const req = mockRequest<never>()
     const res = await cancelOfferRequestHandler(req, offerId)

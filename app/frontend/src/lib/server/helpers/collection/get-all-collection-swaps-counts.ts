@@ -1,5 +1,5 @@
 import { getAllCollectionSwapsCounts as firestoreGetAllCollectionSwapsCounts } from '@echo/firestore/test/test-utils/collection-swaps-count/get-all-collection-swaps-counts'
-import { ServerError } from '@server/helpers/error/server-error'
+import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
 
 export async function getAllCollectionSwapsCounts() {
   try {

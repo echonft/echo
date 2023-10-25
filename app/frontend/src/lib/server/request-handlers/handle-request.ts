@@ -1,9 +1,9 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { type ApiResponse } from '@echo/api/types/api-response'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
+import { type RequestHandler } from '@echo/frontend/lib/server/types/request-handlers/request-handler'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { ApiError } from '@server/helpers/error/api-error'
-import { type RequestHandler } from '@server/types/request-handlers/request-handler'
 import { NextResponse } from 'next/server'
 
 export async function handleRequest<ResponseBody, RequestBody = never>(

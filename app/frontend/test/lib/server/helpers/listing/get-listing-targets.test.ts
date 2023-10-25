@@ -1,9 +1,9 @@
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
+import { getListingTargets } from '@echo/frontend/lib/server/helpers/listing/get-listing-targets'
 import { type Collection } from '@echo/model/types/collection'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { getListingTargets } from '@server/helpers/listing/get-listing-targets'
 import { forEach } from 'ramda'
 
 jest.mock('@echo/firestore/crud/collection/find-collection-by-id')

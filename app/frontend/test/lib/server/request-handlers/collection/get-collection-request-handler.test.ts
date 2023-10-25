@@ -1,10 +1,10 @@
 import { type CollectionResponse } from '@echo/api/types/responses/collection-response'
+import { getCollectionBySlug } from '@echo/frontend/lib/server/helpers/collection/get-collection-by-slug'
+import { getCollectionRequestHandler } from '@echo/frontend/lib/server/request-handlers/collection/get-collection-request-handler'
+import { mockRequest } from '@echo/frontend-mocks/request-response'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
-import { getCollectionBySlug } from '@server/helpers/collection/get-collection-by-slug'
-import { getCollectionRequestHandler } from '@server/request-handlers/collection/get-collection-request-handler'
-import { mockRequest } from '@server-mocks/request-response'
 
-jest.mock('@server/helpers/collection/get-collection-by-slug')
+jest.mock('@echo/frontend/lib/server/helpers/collection/get-collection-by-slug')
 
 describe('request-handlers - collection - getCollectionRequestHandler', () => {
   beforeEach(() => {

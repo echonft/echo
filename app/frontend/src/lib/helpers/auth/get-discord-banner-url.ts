@@ -1,4 +1,4 @@
-import { getDiscordImageFormat } from '@helpers/auth/get-discord-image-format'
+import { getDiscordImageFormat } from '@echo/frontend/lib/helpers/auth/get-discord-image-format'
 import { type DiscordProfile } from 'next-auth/providers/discord'
 import { isNil } from 'ramda'
 

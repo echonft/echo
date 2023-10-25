@@ -1,7 +1,7 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOfferSignatureReference } from '@echo/firestore/crud/offer-signature/get-offer-signature-reference'
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
-import type { OfferSignature } from '@echo/firestore/types/model/offer-signature/offer-signature'
+import type { OfferSignature } from '@echo/model/types/offer-signature'
 import dayjs from 'dayjs'
 import { assoc, isNil, pipe } from 'ramda'
 
@@ -15,12 +15,10 @@ export async function addOfferSignature(data: Omit<OfferSignature, 'id' | 'creat
   if (isNil(user)) {
     throw Error(`trying to add an offer signature for a user that does not exist`)
   }
-  if (user.username !== offer.receiver.username && user.username !== offer.sender.username) {
-    throw Error(
-      `trying to add signature for offer with id ${offerId} but the user is neither the sender nor the receiver`
-    )
+  if (user.username !== offer.receiver.username) {
+    throw Error(`trying to add signature for offer with id ${offerId} but the user is not receiver`)
   }
-  const reference = await getOfferSignatureReference(offerId, userId)
+  const reference = await getOfferSignatureReference(offerId)
   const id = reference.id
   const offerSignature = pipe(assoc('id', id), assoc('createdAt', dayjs().unix()))(data) as OfferSignature
   await reference.set(offerSignature)

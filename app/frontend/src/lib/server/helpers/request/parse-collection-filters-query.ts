@@ -1,7 +1,7 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
-import { BadRequestError } from '@server/helpers/error/bad-request-error'
-import { type CollectionQueryFilters } from '@server/types/request/collection-query-filters'
-import { booleanQueryParamSchema } from '@server/validators/boolean-query-param-schema'
+import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
+import { type CollectionQueryFilters } from '@echo/frontend/lib/server/types/request/collection-query-filters'
+import { booleanQueryParamSchema } from '@echo/frontend/lib/server/validators/boolean-query-param-schema'
 import { assoc, isEmpty } from 'ramda'
 
 export function parseCollectionFiltersQuery<T>(req: ApiRequest<T>) {

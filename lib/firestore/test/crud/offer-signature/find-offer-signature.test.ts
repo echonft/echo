@@ -10,7 +10,7 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
   let createdOfferSignatureId: string | undefined
   const offerId = 'offer-id'
   const userId = 'user-id'
-  const signature = 'signature'
+  const signature = '0xsignature'
 
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()
@@ -34,18 +34,14 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
   it('returns undefined if the offer signature is not found', async () => {
     const createdOfferSignature = await uncheckedAddOfferSignature({ offerId, userId, signature })
     createdOfferSignatureId = createdOfferSignature.id
-    const notFoundOfferSignature = await findOfferSignature(offerId, 'not-found')
-    const notFoundOfferSignature1 = await findOfferSignature('not-found', userId)
-    const notFoundOfferSignature2 = await findOfferSignature(userId, offerId)
+    const notFoundOfferSignature = await findOfferSignature('not-found')
     expect(notFoundOfferSignature).toBeUndefined()
-    expect(notFoundOfferSignature1).toBeUndefined()
-    expect(notFoundOfferSignature2).toBeUndefined()
   })
 
   it('returns the offer signature with the given offer id and user id', async () => {
     const createdOfferSignature = await uncheckedAddOfferSignature({ offerId, userId, signature })
     createdOfferSignatureId = createdOfferSignature.id
-    const foundOfferSignature = (await findOfferSignature(offerId, userId))!
+    const foundOfferSignature = (await findOfferSignature(offerId))!
     expect(foundOfferSignature).toStrictEqual(createdOfferSignature)
   })
 })

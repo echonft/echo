@@ -1,5 +1,5 @@
+import { assertCollection } from '@echo/frontend/lib/server/helpers/collection/assert-collection'
 import { type Collection } from '@echo/model/types/collection'
-import { assertCollection } from '@server/helpers/collection/assert-collection'
 
 describe('helpers - collection - assertCollection', () => {
   it('throws if collection is undefined', () => {

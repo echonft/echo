@@ -1,15 +1,15 @@
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
+import { cancelListing } from '@echo/frontend/lib/server/helpers/listing/cancel-listing'
+import { getListing } from '@echo/frontend/lib/server/helpers/listing/get-listing'
+import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { cancelListingRequestHandler } from '@echo/frontend/lib/server/request-handlers/listing/cancel-listing-request-handler'
+import { mockRequest } from '@echo/frontend-mocks/request-response'
 import { type Listing } from '@echo/model/types/listing'
-import { ApiError } from '@server/helpers/error/api-error'
-import { cancelListing } from '@server/helpers/listing/cancel-listing'
-import { getListing } from '@server/helpers/listing/get-listing'
-import { getUserFromRequest } from '@server/helpers/request/get-user-from-request'
-import { cancelListingRequestHandler } from '@server/request-handlers/listing/cancel-listing-request-handler'
-import { mockRequest } from '@server-mocks/request-response'
 
-jest.mock('@server/helpers/request/get-user-from-request')
-jest.mock('@server/helpers/listing/get-listing')
-jest.mock('@server/helpers/listing/cancel-listing')
+jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/listing/get-listing')
+jest.mock('@echo/frontend/lib/server/helpers/listing/cancel-listing')
 
 describe('request-handlers - listing - cancelListingRequestHandler', () => {
   const listingId = 'listingId'
@@ -33,7 +33,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('throws if the listing state is not OPEN', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getListing).mockResolvedValueOnce({ id: listingId, state: 'CANCELLED' } as Listing)
+    jest.mocked(getListing).mockResolvedValueOnce({ id: listingId, expired: false, state: 'CANCELLED' } as Listing)
     const req = mockRequest<never>()
     try {
       await cancelListingRequestHandler(req, listingId)
@@ -45,9 +45,12 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('throws if the user is not the listing creator', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest
-      .mocked(getListing)
-      .mockResolvedValueOnce({ state: 'OPEN', creator: { username: 'another-user-name' } } as Listing)
+    jest.mocked(getListing).mockResolvedValueOnce({
+      id: listingId,
+      expired: false,
+      state: 'OPEN',
+      creator: { username: 'another-user-name' }
+    } as Listing)
     const req = mockRequest<never>()
     try {
       await cancelListingRequestHandler(req, listingId)
@@ -59,7 +62,12 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getListing).mockResolvedValueOnce({ state: 'OPEN', creator: { username: 'johnnycagewins' } } as Listing)
+    jest.mocked(getListing).mockResolvedValueOnce({
+      id: listingId,
+      expired: false,
+      state: 'OPEN',
+      creator: { username: 'johnnycagewins' }
+    } as Listing)
     jest.mocked(cancelListing).mockResolvedValueOnce()
     const req = mockRequest<never>()
     const res = await cancelListingRequestHandler(req, listingId)

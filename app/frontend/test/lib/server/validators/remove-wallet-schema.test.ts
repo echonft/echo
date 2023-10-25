@@ -1,6 +1,6 @@
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/map-wallet-document-data-to-wallet'
 import { getWalletMocksByUserId } from '@echo/firestore-mocks/wallet/get-wallet-mocks-by-user-id'
-import { removeWalletSchema } from '@server/validators/remove-wallet-schema'
+import { removeWalletSchema } from '@echo/frontend/lib/server/validators/remove-wallet-schema'
 import { head, pipe } from 'ramda'
 
 describe('validators - removeWalletSchema', () => {

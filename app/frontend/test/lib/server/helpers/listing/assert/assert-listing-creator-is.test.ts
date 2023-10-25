@@ -1,5 +1,5 @@
+import { assertListingCreatorIs } from '@echo/frontend/lib/server/helpers/listing/assert/assert-listing-creator-is'
 import { type Listing } from '@echo/model/types/listing'
-import { assertListingCreatorIs } from '@server/helpers/listing/assert/assert-listing-creator-is'
 
 describe('helpers - listing - assert - assertListingCreatorIs', () => {
   it('throws if listing creator does not have the passed username', () => {

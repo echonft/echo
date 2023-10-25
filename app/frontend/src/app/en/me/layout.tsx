@@ -1,4 +1,4 @@
-import { authOptions } from '@constants/auth-options'
+import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { ProfileDetailsApiProvided } from '@echo/ui/components/profile/api-provided/profile-details-api-provided'

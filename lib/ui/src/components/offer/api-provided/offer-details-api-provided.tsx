@@ -1,6 +1,9 @@
 'use client'
+import { acceptOfferFetcher } from '@echo/api/services/fetcher/accept-offer-fetcher'
+import { cancelOfferFetcher } from '@echo/api/services/fetcher/cancel-offer-fetcher'
 import { getOfferFetcher } from '@echo/api/services/fetcher/get-offer-fetcher'
-import { updateOfferFetcher } from '@echo/api/services/fetcher/update-offer-fetcher'
+import { getOfferSignatureFetcher } from '@echo/api/services/fetcher/get-offer-signature-fetcher'
+import { rejectOfferFetcher } from '@echo/api/services/fetcher/reject-offer-fetcher'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Offer } from '@echo/model/types/offer'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
@@ -23,7 +26,10 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user 
           isCreator={user.username === offer.sender?.username}
           token={user.sessionToken}
           getOfferFetcher={getOfferFetcher}
-          updateOfferFetcher={updateOfferFetcher}
+          getOfferSignatureFetcher={getOfferSignatureFetcher}
+          acceptOfferFetcher={acceptOfferFetcher}
+          rejectOfferFetcher={rejectOfferFetcher}
+          cancelOfferFetcher={cancelOfferFetcher}
         />
       </PaddedContainer>
     </NextIntlClientProvider>

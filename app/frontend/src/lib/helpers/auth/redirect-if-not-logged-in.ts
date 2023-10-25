@@ -1,5 +1,5 @@
+import { baseUrl } from '@echo/frontend/lib/helpers/auth/base-url'
 import { type AuthUser } from '@echo/model/types/auth-user'
-import { baseUrl } from '@helpers/auth/base-url'
 import { redirect } from 'next/navigation'
 import { type Session } from 'next-auth'
 import { isNil } from 'ramda' // TODO add sessionToken and check expiration

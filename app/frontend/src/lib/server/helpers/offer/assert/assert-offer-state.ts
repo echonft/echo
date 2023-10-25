@@ -1,7 +1,7 @@
+import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
 import { assertOfferState as modelAssertOfferState } from '@echo/model/helpers/offer/assert/assert-offer-state'
 import { type Offer } from '@echo/model/types/offer'
 import { type OfferState } from '@echo/model/types/offer-state'
-import { BadRequestError } from '@server/helpers/error/bad-request-error'
 
 export function assertOfferState(
   offer: Offer,

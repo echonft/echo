@@ -11,7 +11,7 @@ export const links = {
     items: '/me/items',
     listingsCreated: '/me/listings/created',
     listingsReceived: '/me/listings/pending',
-    offer: (id: string) => `/offer/${id}`,
+    offer: (id: string) => `/me/offer/${id}`,
     offersCreated: '/me/offers/created',
     offersReceived: '/me/offers/pending',
     swaps: '/me/swaps'

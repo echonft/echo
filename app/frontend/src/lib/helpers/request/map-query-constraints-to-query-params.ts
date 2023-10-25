@@ -1,6 +1,6 @@
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import { type QueryConstraintsQueryParams } from '@echo/frontend/lib/types/request/query-constraints-query-params'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { type QueryConstraintsQueryParams } from '@type/request/query-constraints-query-params'
 import { always, anyPass, complement, flatten, has, ifElse, juxt, map, modify, pipe, prop, unless } from 'ramda'
 
 export function mapQueryConstraintsToQueryParams(constraints: QueryConstraints): QueryConstraintsQueryParams {

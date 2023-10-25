@@ -4,7 +4,7 @@ import { getListingsForCollectionAsItem } from '@echo/firestore/crud/listing/get
 import { getListingsForCollectionAsTarget } from '@echo/firestore/crud/listing/get-listings-for-collection-as-target'
 import { type ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { ServerError } from '@server/helpers/error/server-error'
+import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
 import { isNil } from 'ramda'
 
 export async function getCollectionListings(

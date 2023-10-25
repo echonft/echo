@@ -1,4 +1,4 @@
-import { ForbiddenError } from '@server/helpers/error/forbidden-error'
+import { ForbiddenError } from '@echo/frontend/lib/server/helpers/error/forbidden-error'
 import { type SiweMessage, type SiweResponse } from 'siwe'
 
 export async function verifySiweMessage(signature: string, siweMessage: SiweMessage): Promise<SiweResponse> {

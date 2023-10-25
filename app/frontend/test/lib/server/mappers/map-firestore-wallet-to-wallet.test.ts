@@ -1,6 +1,6 @@
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
+import { mapFirestoreWalletToWallet } from '@echo/frontend/lib/server/mappers/map-firestore-wallet-to-wallet'
 import { type Wallet } from '@echo/model/types/wallet'
-import { mapFirestoreWalletToWallet } from '@server/mappers/map-firestore-wallet-to-wallet'
 import { getAddress } from 'viem'
 
 describe('mappers - mapFirestoreWalletToWallet', () => {

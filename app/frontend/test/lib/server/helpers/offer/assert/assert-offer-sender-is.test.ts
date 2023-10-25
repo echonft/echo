@@ -1,5 +1,5 @@
+import { assertOfferSenderIs } from '@echo/frontend/lib/server/helpers/offer/assert/assert-offer-sender-is'
 import { type Offer } from '@echo/model/types/offer'
-import { assertOfferSenderIs } from '@server/helpers/offer/assert/assert-offer-sender-is'
 
 describe('helpers - offer - assert - assertOfferSenderIs', () => {
   it('throws if offer sender does not have the passed username', () => {

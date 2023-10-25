@@ -4,7 +4,7 @@ import { getOffersForSender } from '@echo/firestore/crud/offer/get-offers-for-se
 import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
 import { type OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { ServerError } from '@server/helpers/error/server-error'
+import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
 import { isNil } from 'ramda'
 
 export async function getUserOffers(username: string, filters?: OfferQueryFilters, constraints?: QueryConstraints) {

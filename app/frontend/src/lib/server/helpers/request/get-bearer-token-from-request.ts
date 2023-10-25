@@ -1,6 +1,6 @@
 import { ApiRequest } from '@echo/api/types/api-request'
+import { UnauthorizedError } from '@echo/frontend/lib/server/helpers/error/unauthorized-error'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { UnauthorizedError } from '@server/helpers/error/unauthorized-error'
 
 export function getBearerTokenFromRequest<T>(req: ApiRequest<T>) {
   const authorizationHeaderName = 'Authorization'

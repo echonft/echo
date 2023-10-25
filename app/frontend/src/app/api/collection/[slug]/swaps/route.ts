@@ -1,6 +1,6 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
-import { getCollectionCompletedOffersRequestHandler } from '@server/request-handlers/collection/get-collection-completed-offers-request-handler'
-import { handleRequest } from '@server/request-handlers/handle-request'
+import { getCollectionCompletedOffersRequestHandler } from '@echo/frontend/lib/server/request-handlers/collection/get-collection-completed-offers-request-handler'
+import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle-request'
 
 /**
  * Available query params:
