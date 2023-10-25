@@ -5,6 +5,7 @@ import { echoAddress } from '@echo/utils/constants/echo-address'
 import { type HexString } from '@echo/utils/types/hex-string'
 import { hexToSignature } from 'viem'
 
+// TODO Add value once we turn the fee switch on.
 export function getExecuteSwapWagmiConfig(chainId: number, signature: HexString, offer: Offer) {
   const { r, s, v } = hexToSignature(signature)
   return {

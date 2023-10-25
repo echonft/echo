@@ -1,3 +1,4 @@
+import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { Contract } from '@echo/model/types/contract'
 import type { Offer } from '@echo/model/types/offer'
 import { OfferDetailsApproveContractButton } from '@echo/ui/components/offer/details/action/offer-details-approve-contract-button'
@@ -13,9 +14,15 @@ import { type FunctionComponent } from 'react'
 interface Props {
   approvalPending: boolean
   offer: Offer
+  token: string
   chainId: number | undefined
   contract: Contract | undefined
   signature: HexString | undefined
+  completeOfferFetcher: (
+    offerId: string,
+    transactionId: HexString | undefined,
+    token: string | undefined
+  ) => Promise<EmptyResponse>
   onSuccess?: EmptyFunction
   onError?: ErrorFunction
 }
@@ -23,9 +30,11 @@ interface Props {
 export const OfferDetailsSwapModalButtons: FunctionComponent<Props> = ({
   approvalPending,
   offer,
+  token,
   chainId,
   contract,
   signature,
+  completeOfferFetcher,
   onSuccess,
   onError
 }) => {
@@ -44,6 +53,8 @@ export const OfferDetailsSwapModalButtons: FunctionComponent<Props> = ({
         offer={offer}
         chainId={chainId}
         signature={signature}
+        token={token}
+        completeOfferFetcher={completeOfferFetcher}
         onSuccess={onSuccess}
         onError={onError}
       />

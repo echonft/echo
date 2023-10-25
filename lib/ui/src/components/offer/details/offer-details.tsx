@@ -1,8 +1,8 @@
 'use client'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
-import { type OfferResponse } from '@echo/api/types/responses/offer-response'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
-import { type Offer } from '@echo/model/types/offer'
+import type { Offer } from '@echo/model/types/offer'
 import { ItemsDetailsSeparator } from '@echo/ui/components/item/details/items-details-separator'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
@@ -28,6 +28,11 @@ interface Props {
     token: string | undefined
   ) => Promise<EmptyResponse>
   rejectOfferFetcher: (offerId: string, token: string | undefined) => Promise<EmptyResponse>
+  completeOfferFetcher: (
+    offerId: string,
+    transactionId: HexString | undefined,
+    token: string | undefined
+  ) => Promise<EmptyResponse>
 }
 
 export const OfferDetails: FunctionComponent<Props> = ({
@@ -38,7 +43,8 @@ export const OfferDetails: FunctionComponent<Props> = ({
   getOfferSignatureFetcher,
   cancelOfferFetcher,
   acceptOfferFetcher,
-  rejectOfferFetcher
+  rejectOfferFetcher,
+  completeOfferFetcher
 }) => {
   const { trigger, isMutating, data } = useSWRMutation<
     OfferResponse,
@@ -83,6 +89,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
             cancelOfferFetcher={cancelOfferFetcher}
             acceptOfferFetcher={acceptOfferFetcher}
             rejectOfferFetcher={rejectOfferFetcher}
+            completeOfferFetcher={completeOfferFetcher}
             disabled={isMutating}
             onSuccess={onSuccess}
           />
