@@ -1,7 +1,7 @@
 import { type OrderByParameters } from '@echo/firestore/types/query/order-by-parameters'
 import { isIn } from '@echo/utils/fp/is-in'
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { type Query } from 'firebase-admin/lib/firestore'
+import { type Query } from 'firebase-admin/firestore'
 import { filter, head, isEmpty, propSatisfies, tail } from 'ramda'
 
 function addOrderByConstraintRecursive<T>(query: Query<T>, orderBy: OrderByParameters[]) {

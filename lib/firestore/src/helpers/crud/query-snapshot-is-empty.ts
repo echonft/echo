@@ -1,5 +1,5 @@
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { type QuerySnapshot } from 'firebase-admin/lib/firestore'
+import { type QuerySnapshot } from 'firebase-admin/firestore'
 
 export function querySnapshotIsEmpty<T>(
   querySnapshot: QuerySnapshot<T>

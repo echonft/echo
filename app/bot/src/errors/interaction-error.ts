@@ -1,3 +1,4 @@
+import { logger } from '@echo/utils/services/logger'
 import {
   CommandInteraction,
   type InteractionReplyOptions,
@@ -11,8 +12,7 @@ export class InteractionError extends Error {
   }
 
   reply(interaction: CommandInteraction | MessageComponentInteraction): Promise<InteractionResponse> {
-    // eslint-disable-next-line no-console
-    console.error(this.message)
+    logger.error(this.message)
     return interaction.reply(this.getInteractionReplyOptions())
   }
 }

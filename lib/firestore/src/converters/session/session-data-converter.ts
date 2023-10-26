@@ -10,7 +10,7 @@ import {
   type FirestoreDataConverter,
   type PartialWithFieldValue,
   type QueryDocumentSnapshot
-} from 'firebase-admin/lib/firestore'
+} from 'firebase-admin/firestore'
 import { assoc, dissoc, ifElse, isNil, lens, over, pipe, prop, when } from 'ramda'
 
 export const sessionDataConverter: FirestoreDataConverter<Session> = {

@@ -1,1 +1,3 @@
-export const promiseAll = <T = unknown>(promises: Promise<T>[]) => Promise.all(promises)
+export function promiseAll<T = unknown>(promises: Promise<T>[]) {
+  return Promise.all(promises)
+}

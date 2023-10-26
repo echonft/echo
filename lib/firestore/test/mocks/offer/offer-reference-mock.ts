@@ -1,5 +1,5 @@
 import { type OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
-import { type DocumentReference } from 'firebase-admin/lib/firestore'
+import { type DocumentReference } from 'firebase-admin/firestore'
 
 export const offerReferenceMock: Record<string, DocumentReference<OfferDocumentData>> = {
   LyCfl6Eg7JKuD7XJ6IPi: {

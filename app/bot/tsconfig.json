@@ -1,5 +1,5 @@
 {
-  "extends": "../../lib/tsconfig/base.json",
+  "extends": "../../lib/tsconfig/tsconfig.base.json",
   "ts-node": {
     "require": ["tsconfig-paths/register"],
     "transpileOnly": true,
@@ -13,7 +13,7 @@
     "paths": {
       "@echo/bot/*": ["./src/*"],
       "@echo/bot-mocks/*": ["./test/mocks/*"],
-      "@echo/bot-test/*": ["./test/utils/*"],
+      "@echo/bot-test/*": ["./test/test-utils/*"],
       "@echo/discord/*": ["../../lib/discord/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/model-mocks/*": ["../../lib/model/test/mocks/*"],

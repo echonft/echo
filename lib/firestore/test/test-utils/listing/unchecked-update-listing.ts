@@ -1,7 +1,7 @@
 import { getListingSnapshotById } from '@echo/firestore/crud/listing/get-listing-snapshot-by-id'
 import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
 import { type Listing } from '@echo/model/types/listing'
-import { type WriteResult } from 'firebase-admin/lib/firestore'
+import { type WriteResult } from 'firebase-admin/firestore'
 
 export async function uncheckedUpdateListing(
   listingId: string,

@@ -1,15 +1,16 @@
 import { InteractionError } from '@echo/bot/errors/interaction-error'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { type InteractionReplyOptions } from 'discord.js'
-import { isEmpty, isNil } from 'ramda'
+import i18next from 'i18next'
 
 export class InvalidChannelIdError extends InteractionError {
-  constructor(channelId?: string | null) {
-    super(isNil(channelId) || isEmpty(channelId) ? 'empty channel id' : `invalid channel id: ${channelId}`)
+  constructor(channelId: string | null) {
+    super(isNilOrEmpty(channelId) ? 'empty channel id' : `invalid channel id: ${channelId}`)
   }
 
   getInteractionReplyOptions(): InteractionReplyOptions {
     return {
-      content: 'Invalid channel id.',
+      content: i18next.t('error.invalidChannelId'),
       ephemeral: true
     }
   }

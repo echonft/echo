@@ -5,7 +5,6 @@
   "license": "MIT",
   "scripts": {
     "clean": "rm -rf dist",
-    "deploy-commands": "ts-node --project tsconfig.json src/scripts/deploy-commands.ts",
     "dev": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"ts-node --project tsconfig.json src/index.ts\"",
     "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",
     "lint:ci": "eslint --ext .ts src/ && eslint --ext .ts test/",
@@ -28,6 +27,7 @@
     "@echo/utils": "workspace:*",
     "dayjs": "1.11.10",
     "discord.js": "14.13.0",
+    "i18next": "23.6.0",
     "ramda": "0.29.1"
   },
   "devDependencies": {
