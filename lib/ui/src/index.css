@@ -12,6 +12,9 @@
     body {
         @apply w-screen min-h-screen font-medium bg-dark-500 text-white text-base overflow-x-hidden
     }
+    #headlessui-portal-root {
+        @apply fixed top-0 right-0
+    }
 }
 
 @layer components {
