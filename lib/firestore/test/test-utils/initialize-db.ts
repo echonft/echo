@@ -6,7 +6,7 @@ import { initializeListingOffers } from '@test-utils/listing-offer/initialize-li
 import { initializeListingPosts } from '@test-utils/listing-post/initialize-listing-posts'
 import { initializeNfts } from '@test-utils/nft/initialize-nfts'
 import { initializeOffers } from '@test-utils/offer/initialize-offers'
-import { initializeOfferPosts } from '@test-utils/offer-post/initialize-offer-posts'
+import { initializeOfferThreads } from '@test-utils/offer-thread/initialize-offer-threads'
 import { initializeSessions } from '@test-utils/session/initialize-sessions'
 import { initializeSwaps } from '@test-utils/swap/initialize-swaps'
 import { initializeUsers } from '@test-utils/user/initialize-users'
@@ -21,7 +21,7 @@ export async function initializeDb() {
   await initializeCollectionSwapsCounts()
   await initializeNfts()
   await initializeOffers()
-  await initializeOfferPosts()
+  await initializeOfferThreads()
   await initializeSessions()
   await initializeSwaps()
   await initializeUsers()

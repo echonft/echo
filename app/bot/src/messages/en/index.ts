@@ -28,8 +28,17 @@ export const messages = {
       label: 'View offer'
     },
     thread: {
-      name: 'offer-{{timestamp}}',
-      message: `{{sender}} made you an offer {{receiver}}. You can use this thread to discuss it, and hopefully come to an agreement. Happy swapping!`
+      close: '_This thread will automatically close soon._',
+      message:
+        '{{sender}} made you an offer {{receiver}}. You can use this thread to discuss it, and hopefully come' +
+        ' to an agreement. Happy swapping!',
+      name: 'offer-{{timestamp}}'
+    },
+    update: {
+      ACCEPTED: '<@here> {{receiver}} accepted the offer! You can now execute the swap.',
+      CANCELLED: '<@here> The offer was cancelled.',
+      REJECTED: '<@here> {{receiver}} rejected the offer.',
+      COMPLETED: '<@here> The swap is now completed. Congratulations to the both of you!'
     }
   }
 }

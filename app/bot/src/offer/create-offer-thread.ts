@@ -22,7 +22,7 @@ export async function createOfferThread(channel: TextChannel, offer: Offer, send
     })
     return thread.id
   } catch (e) {
-    logger.error(`Error creating offer thread for offer ${offer.id}: ${errorMessage(e)}`)
+    logger.error(`Error creating thread for offer ${offer.id}: ${errorMessage(e)}`)
     return undefined
   }
 }

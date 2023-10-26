@@ -29,7 +29,7 @@ export async function postListing(client: Client, listing: Listing, guild: Colle
         components: [buildListingLinkButton(collection.slug, listingId)],
         embeds: [buildListingEmbed(listing, creator, collection)]
       })
-      await addListingPost(listingId, discordId, channelId)
+      await addListingPost(listingId, { discordId, channelId })
     } catch (e) {
       logger.error(`Error posting listing ${listing.id}: ${errorMessage(e)}`)
     }
