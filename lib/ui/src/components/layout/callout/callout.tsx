@@ -16,6 +16,7 @@ export const Callout: FunctionComponent<Props> = ({ severity, variant = CalloutV
       className={clsx(
         'flex',
         'flex-row',
+        'items-center',
         'py-3',
         'px-3.5',
         'rounded-md',
