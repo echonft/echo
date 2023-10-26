@@ -4,14 +4,14 @@ import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { Portal, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { head, isNil } from 'ramda'
-import { type FunctionComponent, useEffect, useMemo, useRef, useState } from 'react'
+import { type FunctionComponent, useEffect, useRef, useState } from 'react'
 
 export const CalloutManager: FunctionComponent = () => {
   const { alerts, dismiss } = useAlertStore()
   const [show, setShow] = useState(false)
   const showTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
   const dismissTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
-  const alert = useMemo(() => head(alerts), [alerts])
+  const alert = head(alerts)
 
   useEffect(() => {
     if (!isNil(alert)) {
