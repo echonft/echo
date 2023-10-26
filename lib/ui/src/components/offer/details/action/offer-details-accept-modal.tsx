@@ -70,12 +70,14 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
   const debouncedUpdateApprovalStatus = debounce(5000, updateApprovalStatus)
 
   return (
+    // FIXME DEV-156
     <Modal open={open} onClose={onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('subtitle')}</ModalSubtitle>
         <div className={clsx('flex', 'flex-col', 'gap-2')}>
           {map(
             (contract) => (
+              // TODO Manage errors
               <OfferItemsApprovalChecker
                 key={contract.address}
                 contract={contract}
