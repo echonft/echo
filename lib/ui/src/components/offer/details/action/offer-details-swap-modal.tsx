@@ -51,6 +51,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
   // TODO Maybe we should add a line to check for the chain and if hes connected.
   // Because if wallet is locked it doesn't show as connected.
   const { chain } = useNetwork()
+  const [isCompleting, setIsCompleting] = useState<boolean>(false)
   const { data: signatureResponse } = useSWR<
     OfferSignatureResponse,
     Error,
@@ -89,7 +90,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
 
   return (
     // FIXME DEV-157
-    <Modal open={open} onClose={onClose} title={t('title')}>
+    <Modal open={open} onClose={onClose} title={t('title')} closeDisabled={isCompleting}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('subtitle')}</ModalSubtitle>
         <div className={clsx('flex', 'flex-col', 'gap-2')}>
@@ -118,8 +119,11 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
           offer={offer}
           token={token}
           signature={signatureResponse?.signature}
-          contract={senderContractToApprove}
-          completeOfferFetcher={completeOfferFetcher}
+          contract={contractToApprove}
+          completeOfferFetcher={(offerId, transactionId, token) => {
+            setIsCompleting(true)
+            return completeOfferFetcher(offerId, transactionId, token)
+          }}
           chainId={chain?.id}
           approvalPending={approvalPending}
           onSuccess={onSuccess}
