@@ -1,10 +1,9 @@
+import { guardedAddListingPost } from '@echo/bot/firestore/guarded-add-listing-post'
+import { guardedFindListingPost } from '@echo/bot/firestore/guarded-find-listing-post'
+import { guardedGetListingGuilds } from '@echo/bot/firestore/guarded-get-listing-guilds'
 import { postListing } from '@echo/bot/listing/post-listing'
-import { findListingPost } from '@echo/firestore/crud/listing-post/find-listing-post'
-import { getListingGuilds } from '@echo/firestore/helpers/listing/get-listing-guilds'
 import { type DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
 import { type Listing } from '@echo/model/types/listing'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
@@ -16,16 +15,13 @@ import { isNil } from 'ramda'
  */
 export async function listingChangeHandler(client: Client, changeType: DocumentChangeType, listing: Listing) {
   if (changeType === 'added') {
-    try {
-      const guilds = await getListingGuilds(listing)
-      for (const guild of guilds) {
-        const post = await findListingPost(listing.id, guild.guild.discordId)
-        if (isNil(post)) {
-          await postListing(client, listing, guild)
-        }
+    const guilds = await guardedGetListingGuilds(listing)
+    for (const guild of guilds) {
+      const post = await guardedFindListingPost(listing.id, guild.guild.discordId)
+      if (isNil(post)) {
+        await postListing(client, listing, guild)
+        await guardedAddListingPost(listing.id, { discordId: guild.guild.discordId, channelId: guild.guild.channelId })
       }
-    } catch (e) {
-      logger.error(`Error while listening to added listings: ${errorMessage(e)}`)
     }
   }
 }

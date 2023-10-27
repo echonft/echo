@@ -1,7 +1,7 @@
 import { getAppUrl } from '@echo/bot/helpers/get-app-url'
 import { describe, expect, jest, test } from '@jest/globals'
 
-describe('utils - getAppUrl', () => {
+describe('helpers - getAppUrl', () => {
   test('if APP_URL env is not defined, throw', () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

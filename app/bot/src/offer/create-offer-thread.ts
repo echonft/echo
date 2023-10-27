@@ -1,3 +1,4 @@
+import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import type { Offer } from '@echo/model/types/offer'
 import { errorMessage } from '@echo/utils/helpers/error-message'
@@ -16,7 +17,7 @@ export async function createOfferThread(channel: TextChannel, offer: Offer, send
     })
     await thread.members.add(senderId)
     await thread.members.add(receiverId)
-    await thread.send({
+    await sendToThread(thread, {
       components: [buildOfferLinkButton(offer.id)],
       content: i18next.t('offer.thread.message', { sender: userMention(senderId), receiver: userMention(receiverId) })
     })
