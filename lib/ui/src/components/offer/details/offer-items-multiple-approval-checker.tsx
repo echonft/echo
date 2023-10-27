@@ -2,13 +2,12 @@
 import type { Contract } from '@echo/model/types/contract'
 import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/action/offer-details-accept-modal-row'
 import { getIsApprovedForAllWagmiConfigForContract } from '@echo/ui/helpers/contract/get-is-approved-for-all-wagmi-config-for-contract'
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { all, equals, F, ifElse, isNil, pipe, prop } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo } from 'react'
 import { useContractReads } from 'wagmi'
 
 interface Props {
-  contracts: NonEmptyArray<Contract>
+  contracts: Contract[]
   ownerAddress: string
   title: string
   onResponse?: (approvedAll: boolean) => unknown

@@ -8,6 +8,7 @@ import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
 import { OfferDetailsSwapModalButtons } from '@echo/ui/components/offer/details/action/offer-details-swap-modal-buttons'
 import { OfferItemsApprovalChecker } from '@echo/ui/components/offer/details/offer-items-approval-checker'
+import { OfferItemsMultipleApprovalChecker } from '@echo/ui/components/offer/details/offer-items-multiple-approval-checker'
 import type { ContractApprovalStatus } from '@echo/ui/types/contract-approval-status'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
@@ -15,7 +16,7 @@ import type { ErrorFunction } from '@echo/utils/types/error-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { any, applySpec, assoc, find, identity, isNil, map, pipe, prop, propEq, unless, when } from 'ramda'
+import { any, applySpec, assoc, find, identity, isNil, map, or, pipe, prop, propEq, unless, when } from 'ramda'
 import { type FunctionComponent, useCallback, useState } from 'react'
 import useSWR from 'swr'
 import { debounce } from 'throttle-debounce'
@@ -57,57 +58,67 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
   >(open ? { offerId: offer.id, token } : undefined, ({ offerId, token }) => getOfferSignatureFetcher(offerId, token), {
     onError
   })
-  const contracts = getItemsUniqueContracts(offer.senderItems)
-  const [approvalStatuses, setApprovalStatuses] = useState<ContractApprovalStatus[]>(
-    map(applySpec<ContractApprovalStatus>({ contract: identity }), contracts)
+  const senderContracts = getItemsUniqueContracts(offer.senderItems)
+  const [senderApprovalStatuses, setSenderApprovalStatuses] = useState<ContractApprovalStatus[]>(
+    map(applySpec<ContractApprovalStatus>({ contract: identity }), senderContracts)
   )
-  const approvalPending = any(propIsNil('approved'))(approvalStatuses)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const contractToApprove = pipe(find(propEq(false, 'approved')), unless(isNil, prop('contract')))(approvalStatuses) as
-    | Contract
-    | undefined
-  const updateApprovalStatus = useCallback(
+  const receiverContracts = getItemsUniqueContracts(offer.receiverItems)
+  const [receiverApprovalStatus, setReceiverApprovalStatus] = useState<boolean>()
+  const approvalPending = or(isNil(receiverApprovalStatus), any(propIsNil('approved'), senderApprovalStatuses))
+
+  const senderContractToApprove = pipe(
+    find(propEq(false, 'approved')),
+    unless(isNil, prop('contract'))
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+  )(senderApprovalStatuses) as Contract | undefined
+
+  const updateSenderApprovalStatus = useCallback(
     (contract: Contract, approved: boolean) => {
-      const approvalStatus = find(propEq(contract, 'contract'), approvalStatuses)
+      const approvalStatus = find(propEq(contract, 'contract'), senderApprovalStatuses)
       if (!isNil(approvalStatus) && approvalStatus.approved !== approved) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        setApprovalStatuses(map(when(propEq(contract, 'contract'), assoc('approved', approved))))
+        setSenderApprovalStatuses(map(when(propEq(contract, 'contract'), assoc('approved', approved))))
       }
     },
-    [approvalStatuses]
+    [senderApprovalStatuses]
   )
-  const debouncedUpdateApprovalStatus = debounce(5000, updateApprovalStatus)
+  const debouncedUpdateSenderApprovalStatus = debounce(5000, updateSenderApprovalStatus)
+  const debouncedUpdateReceiverApprovalStatuses = debounce(5000, setReceiverApprovalStatus)
+
   return (
-    <Modal open={open} onClose={onClose} title={t('title')} closeDisabled={approvalPending}>
+    // FIXME DEV-157
+    <Modal open={open} onClose={onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('subtitle')}</ModalSubtitle>
         <div className={clsx('flex', 'flex-col', 'gap-2')}>
-          {/* TODO Should stay there because otherwise transaction would fail */}
-          {/*<OfferItemsMultipleApprovalChecker*/}
-          {/*  contracts={uniqueReceiverContracts}*/}
-          {/*  ownerAddress={offer.receiver.wallet.address}*/}
-          {/*  title={t('counterpartyApproval')}*/}
-          {/*/>*/}
+          {/*TODO Manage errors*/}
+          <OfferItemsMultipleApprovalChecker
+            contracts={receiverContracts}
+            ownerAddress={offer.receiver.wallet.address}
+            title={t('counterpartyApproval')}
+            onResponse={debouncedUpdateReceiverApprovalStatuses}
+          />
           {map(
             (contract) => (
+              // TODO Manage errors
               <OfferItemsApprovalChecker
                 key={contract.address}
                 contract={contract}
                 ownerAddress={offer.sender.wallet.address}
                 title={t('approval', { collectionName: contract.name })}
-                onResponse={(approved) => debouncedUpdateApprovalStatus(contract, approved)}
+                onResponse={(approved) => debouncedUpdateSenderApprovalStatus(contract, approved)}
               />
             ),
-            contracts
+            senderContracts
           )}
         </div>
         <OfferDetailsSwapModalButtons
           offer={offer}
           token={token}
           signature={signatureResponse?.signature}
-          contract={contractToApprove}
+          contract={senderContractToApprove}
           completeOfferFetcher={completeOfferFetcher}
           chainId={chain?.id}
           approvalPending={approvalPending}
