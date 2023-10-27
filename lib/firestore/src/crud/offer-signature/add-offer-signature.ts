@@ -2,7 +2,7 @@ import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOfferSignatureReference } from '@echo/firestore/crud/offer-signature/get-offer-signature-reference'
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
 import type { OfferSignature } from '@echo/model/types/offer-signature'
-import dayjs from 'dayjs'
+import { now } from '@echo/utils/helpers/now'
 import { assoc, isNil, pipe } from 'ramda'
 
 export async function addOfferSignature(data: Omit<OfferSignature, 'id' | 'createdAt'>) {
@@ -20,7 +20,7 @@ export async function addOfferSignature(data: Omit<OfferSignature, 'id' | 'creat
   }
   const reference = await getOfferSignatureReference(offerId)
   const id = reference.id
-  const offerSignature = pipe(assoc('id', id), assoc('createdAt', dayjs().unix()))(data) as OfferSignature
+  const offerSignature = pipe(assoc('id', id), assoc('createdAt', now()))(data) as OfferSignature
   await reference.set(offerSignature)
   return offerSignature
 }

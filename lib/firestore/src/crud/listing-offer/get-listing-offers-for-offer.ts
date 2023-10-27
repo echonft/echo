@@ -7,7 +7,7 @@ import { type Listing } from '@echo/model/types/listing'
 import { type Offer } from '@echo/model/types/offer'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { isNotIn } from '@echo/utils/fp/is-not-in'
-import dayjs from 'dayjs'
+import { now } from '@echo/utils/helpers/now'
 import { type QuerySnapshot } from 'firebase-admin/firestore'
 import { concat, eqProps, filter, map, path, pipe, prop, uniqWith } from 'ramda'
 
@@ -15,7 +15,7 @@ async function receiverItemsListingItemsMatch(offer: Offer) {
   const { receiverItems, senderItems } = offer
   // get the listings for which items intersect with the offer receiver items
   const querySnapshot = await getListingsCollectionReference()
-    .where('expiresAt', '>', dayjs().unix())
+    .where('expiresAt', '>', now())
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), receiverItems))
     .get()
 
@@ -44,7 +44,7 @@ async function senderItemsListingItemsMatch(offer: Offer) {
   const { receiverItems, senderItems } = offer
   // get the listings for which items intersect with the offer sender items
   const querySnapshot = await getListingsCollectionReference()
-    .where('expiresAt', '>', dayjs().unix())
+    .where('expiresAt', '>', now())
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), senderItems))
     .get()
 

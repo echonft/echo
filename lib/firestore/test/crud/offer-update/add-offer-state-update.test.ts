@@ -30,7 +30,7 @@ describe('CRUD - offer-update - addOfferStateUpdate', () => {
         await deleteOfferUpdate(offerUpdateId)
         offerUpdateId = undefined
       } catch (e) {
-        logger.error(`Error deleting offer update: ${errorMessage(e)}`)
+        logger.error(`Error deleting offer update with id ${offerUpdateId}: ${errorMessage(e)}`)
       }
     }
   })

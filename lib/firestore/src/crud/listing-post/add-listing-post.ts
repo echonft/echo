@@ -1,7 +1,7 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { getListingPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-posts-collection-reference'
 import type { ListingPost, ListingPostDiscordGuild } from '@echo/firestore/types/model/listing-post/listing-post'
-import dayjs from 'dayjs'
+import { now } from '@echo/utils/helpers/now'
 import { isNil } from 'ramda'
 
 export async function addListingPost(listingId: string, guild: ListingPostDiscordGuild) {
@@ -15,7 +15,7 @@ export async function addListingPost(listingId: string, guild: ListingPostDiscor
     id,
     listingId: listingId,
     guild,
-    postedAt: dayjs().unix()
+    postedAt: now()
   }
   await reference.set(newListingPost)
   return newListingPost

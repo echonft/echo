@@ -1,5 +1,5 @@
 import { getUserSnapshotByUsername } from '@echo/firestore/crud/user/get-user-snapshot-by-username'
-import dayjs from 'dayjs'
+import { now } from '@echo/utils/helpers/now'
 import { isNil } from 'ramda'
 
 /**
@@ -14,6 +14,6 @@ export async function setUserId(username: string): Promise<string> {
     throw Error(`user with username ${username} does not exist`)
   }
   const { id } = documentSnapshot
-  await documentSnapshot.ref.update({ id, createdAt: dayjs().unix() })
+  await documentSnapshot.ref.update({ id, createdAt: now() })
   return id
 }
