@@ -248,6 +248,52 @@ importers:
         specifier: 16.0.0
         version: 16.0.0
 
+  app/helper:
+    dependencies:
+      '@echo/firestore':
+        specifier: workspace:*
+        version: link:../../lib/firestore
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../../lib/model
+      '@echo/utils':
+        specifier: workspace:*
+        version: link:../../lib/utils
+      dayjs:
+        specifier: 1.11.10
+        version: 1.11.10
+      ramda:
+        specifier: 0.29.1
+        version: 0.29.1
+    devDependencies:
+      '@jest/globals':
+        specifier: 29.7.0
+        version: 29.7.0
+      '@jest/types':
+        specifier: 29.6.3
+        version: 29.6.3
+      '@types/ramda':
+        specifier: 0.29.7
+        version: 0.29.7
+      jest:
+        specifier: 29.7.0
+        version: 29.7.0(@types/node@20.8.7)(ts-node@10.9.1)
+      jest-junit:
+        specifier: 16.0.0
+        version: 16.0.0
+      nodemon:
+        specifier: 3.0.1
+        version: 3.0.1
+      ts-node:
+        specifier: 10.9.1
+        version: 10.9.1(@types/node@20.8.7)(typescript@5.2.2)
+      tsconfig-paths:
+        specifier: 4.2.0
+        version: 4.2.0
+      typescript:
+        specifier: 5.2.2
+        version: 5.2.2
+
   app/storybook:
     dependencies:
       '@echo/api':
