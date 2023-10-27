@@ -119,7 +119,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
           offer={offer}
           token={token}
           signature={signatureResponse?.signature}
-          contract={contractToApprove}
+          contract={senderContractToApprove}
           completeOfferFetcher={(offerId, transactionId, token) => {
             setIsCompleting(true)
             return completeOfferFetcher(offerId, transactionId, token)
