@@ -1,4 +1,5 @@
 import { findOfferThread } from '@echo/firestore/crud/offer-thread/find-offer-thread'
+import { findOfferThreadById } from '@echo/firestore/crud/offer-thread/find-offer-thread-by-id'
 import { getOfferThreadMockById } from '@echo/firestore-mocks/offer-thread/get-offer-thread-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -16,8 +17,8 @@ describe('CRUD - offer-thread - findOfferThread', () => {
     expect(document).toBeUndefined()
   })
   it('returns the document found', async () => {
-    const mock = getOfferThreadMockById('hot4VWDzd6ZRsC3nsvnb')
-    const document = await findOfferThread(mock.offerId)
-    expect(document).toStrictEqual(mock)
+    const offerThreadId = 'hot4VWDzd6ZRsC3nsvnb'
+    const document = await findOfferThreadById(offerThreadId)
+    expect(document).toStrictEqual(getOfferThreadMockById(offerThreadId))
   })
 })
