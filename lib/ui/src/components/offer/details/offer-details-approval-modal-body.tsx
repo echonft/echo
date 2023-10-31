@@ -54,7 +54,7 @@ export const OfferDetailsApprovalModalBody: FunctionComponent<Props> = ({ items,
       )}
       <HideIfNil
         checks={contractToApprove}
-        render={(contractToApprove) => <OfferDetailsApproveContractButton approval={contractToApprove} />}
+        render={(contractToApprove) => <OfferDetailsApproveContractButton contract={contractToApprove.contract} />}
       />
     </div>
   )

@@ -185,7 +185,7 @@ export const messages = {
     details: {
       approval: {
         title: '{collectionName} is approved by Echo',
-        approveBtn: 'Approve {collectionName}'
+        btn: 'Approve'
       },
       assets: {
         in: 'Getting in your wallet',
@@ -205,7 +205,7 @@ export const messages = {
         ownerAssets: 'You own all the assets',
         counterpartyAssets: 'Counterparty owns all the assets',
         signature: 'Signature is set',
-        acceptBtn: 'Sign and accept'
+        btn: 'Accept'
       },
       swapModal: {
         title: 'Execute swap',
@@ -214,9 +214,7 @@ export const messages = {
         ownerAssets: 'You own all the assets',
         counterpartyAssets: 'Counterparty owns all the assets',
         counterpartyApproval: 'Counterparty has approved token transfer',
-        approval: '{collectionName} is approved by Echo',
-        approveBtn: 'Approve {collectionName}',
-        acceptBtn: 'Swap'
+        btn: 'Swap'
       }
     },
     expired: 'Expired',

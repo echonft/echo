@@ -77,7 +77,7 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
       onClick={() => signTypedData()}
       disabled={loading}
     >
-      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('acceptBtn')}</span>
+      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn')}</span>
     </button>
   )
 }

@@ -1,5 +1,5 @@
 'use client'
-import type { ContractApproval } from '@echo/ui/types/contract-approval'
+import type { Contract } from '@echo/model/types/contract'
 import { getErc721SetApprovalWriteConfig } from '@echo/web3/src/helpers/get-erc721-set-approval-write-config'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -7,11 +7,10 @@ import type { FunctionComponent } from 'react'
 import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 
 interface Props {
-  approval: ContractApproval
+  contract: Contract
 }
 
-export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({ approval }) => {
-  const { contract, name } = approval
+export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({ contract }) => {
   const t = useTranslations('offer.details.approval')
   const writeConfig = getErc721SetApprovalWriteConfig(contract)
   const { config } = usePrepareContractWrite(writeConfig)
@@ -23,7 +22,7 @@ export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({ ap
       onClick={write}
       disabled={status !== 'idle'}
     >
-      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('approveBtn', { collectionName: name })}</span>
+      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn')}</span>
     </button>
   )
 }
