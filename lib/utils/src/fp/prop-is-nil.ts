@@ -9,9 +9,9 @@ function internalFn<V, P extends keyof V>(propKey: P) {
 }
 
 export function propIsNil<V, P extends keyof V>(propKey: P, obj: V): obj is V & { [P in keyof V]: undefined }
-export function propIsNil<P extends string | number | symbol>(
+export function propIsNil<V, P extends string | number | symbol>(
   propKey: P
-): <V>(obj: V) => obj is V & { [P in keyof V]: undefined }
+): (obj: V) => obj is V & { [P in keyof V]: undefined }
 export function propIsNil<V, P extends keyof V>(propKey: P, obj?: V): boolean | ((obj: V) => boolean) {
   if (isNil(obj)) {
     return internalFn<V, P>(propKey)

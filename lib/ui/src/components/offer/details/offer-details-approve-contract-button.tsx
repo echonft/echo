@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({ contract }) => {
-  const t = useTranslations('offer.details.acceptModal')
+  const t = useTranslations('offer.details.approval')
   const writeConfig = getErc721SetApprovalWriteConfig(contract)
   const { config } = usePrepareContractWrite(writeConfig)
   const { status, write } = useContractWrite(config)
@@ -22,9 +22,7 @@ export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({ co
       onClick={write}
       disabled={status !== 'idle'}
     >
-      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
-        {t('approveBtn', { collectionName: contract.name })}
-      </span>
+      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn')}</span>
     </button>
   )
 }

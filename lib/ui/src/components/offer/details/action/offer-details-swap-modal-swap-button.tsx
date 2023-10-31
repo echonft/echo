@@ -22,6 +22,7 @@ interface Props {
     transactionId: HexString | undefined,
     token: string | undefined
   ) => Promise<EmptyResponse>
+  onLoading?: EmptyFunction
   onSuccess?: EmptyFunction
   onError?: ErrorFunction
 }
@@ -33,6 +34,7 @@ export const OfferDetailsSwapModalSwapButton: FunctionComponent<Props> = ({
   signature,
   token,
   completeOfferFetcher,
+  onLoading,
   onSuccess,
   onError
 }) => {
@@ -66,6 +68,12 @@ export const OfferDetailsSwapModalSwapButton: FunctionComponent<Props> = ({
       onError?.(error)
     }
   }, [error, onError])
+
+  useEffect(() => {
+    if (loading) {
+      onLoading?.()
+    }
+  }, [loading, onLoading])
 
   return (
     <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={write} disabled={loading}>

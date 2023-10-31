@@ -183,6 +183,10 @@ export const messages = {
   },
   offer: {
     details: {
+      approval: {
+        title: '{collectionName} is approved by Echo',
+        btn: 'Approve'
+      },
       assets: {
         in: 'Getting in your wallet',
         out: 'Leaving your wallet'
@@ -200,10 +204,8 @@ export const messages = {
           'To accept the offer, you need to approve the Echo contract to transfer your tokens (paid transactions) and then sign a message for the counterparty to perform the swap (not a transaction).',
         ownerAssets: 'You own all the assets',
         counterpartyAssets: 'Counterparty owns all the assets',
-        approval: '{collectionName} is approved by Echo',
         signature: 'Signature is set',
-        approveBtn: 'Approve {collectionName}',
-        acceptBtn: 'Sign and accept'
+        btn: 'Accept'
       },
       swapModal: {
         title: 'Execute swap',
@@ -212,9 +214,7 @@ export const messages = {
         ownerAssets: 'You own all the assets',
         counterpartyAssets: 'Counterparty owns all the assets',
         counterpartyApproval: 'Counterparty has approved token transfer',
-        approval: '{collectionName} is approved by Echo',
-        approveBtn: 'Approve {collectionName}',
-        acceptBtn: 'Swap'
+        btn: 'Swap'
       }
     },
     expired: 'Expired',
