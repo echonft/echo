@@ -45,7 +45,7 @@ export async function offerChangeHandler(client: Client, changeType: DocumentCha
         await guardedAddOfferThread(offer.id, { discordId: channel.guildId, channelId: channel.id, threadId })
       }
     }
-  } else {
+  } else if (changeType === 'modified') {
     const update = await findOfferStateUpdate(offer.id, offer.state)
     if (isNil(update)) {
       await postOfferStateUpdate(client, offer)
