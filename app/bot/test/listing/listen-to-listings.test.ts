@@ -3,7 +3,7 @@ import { listingChangeHandler } from '@echo/bot/listing/listing-change-handler'
 import { mockAndSetupChannel } from '@echo/bot-mocks/discord/channel-mock'
 import { mockClient } from '@echo/bot-mocks/discord/client-mock'
 import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'
-import { mockGetDiscordChannel } from '@echo/bot-mocks/mock-get-discord-channel'
+import { getChannelMock } from '@echo/bot-mocks/get-channel-mock'
 import { listenToListings as FirestoreListenToListings } from '@echo/firestore/listeners/listen-to-listings'
 import type { DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
 import type { Listing } from '@echo/model/types/listing'
@@ -23,7 +23,7 @@ describe('listing - listenToListings', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     client = mockClient()
-    mockGetDiscordChannel()
+    getChannelMock()
   })
 
   it('if listings change, call handler', () => {

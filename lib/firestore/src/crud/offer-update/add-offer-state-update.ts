@@ -2,7 +2,7 @@ import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { findOfferStateUpdate } from '@echo/firestore/crud/offer-update/find-offer-state-update'
 import { getOfferUpdatesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-updates-collection-reference'
 import type { OfferStateUpdate } from '@echo/firestore/types/model/offer-update/offer-state-update'
-import dayjs from 'dayjs'
+import { now } from '@echo/utils/helpers/now'
 import { isNil } from 'ramda'
 
 export async function addOfferStateUpdate(offerId: string) {
@@ -21,7 +21,7 @@ export async function addOfferStateUpdate(offerId: string) {
     id,
     offerId,
     update: { kind: 'state', args: { state } },
-    postedAt: dayjs().unix()
+    postedAt: now()
   }
   await reference.set(newOfferStateUpdate)
   return newOfferStateUpdate

@@ -1,7 +1,7 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOfferThreadsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-threads-collection-reference'
 import type { OfferThread, OfferThreadDiscordGuild } from '@echo/firestore/types/model/offer-thread/offer-thread'
-import dayjs from 'dayjs'
+import { now } from '@echo/utils/helpers/now'
 import { isNil } from 'ramda'
 
 export async function addOfferThread(offerId: string, guild: OfferThreadDiscordGuild) {
@@ -15,7 +15,7 @@ export async function addOfferThread(offerId: string, guild: OfferThreadDiscordG
     id,
     offerId,
     guild,
-    postedAt: dayjs().unix()
+    postedAt: now()
   }
   await reference.set(newOfferThread)
   return newOfferThread

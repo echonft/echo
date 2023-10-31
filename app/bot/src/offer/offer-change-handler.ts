@@ -1,10 +1,15 @@
+import { guardedAddOfferStateUpdate } from '@echo/bot/firestore/guarded-add-offer-state-update'
+import { guardedAddOfferThread } from '@echo/bot/firestore/guarded-add-offer-thread'
+import { guardedAddOfferThreadCloseRequest } from '@echo/bot/firestore/guarded-add-offer-thread-close-request'
+import { guardedFindOfferThread } from '@echo/bot/firestore/guarded-find-offer-thread'
+import { guardedFindOfferThreadCloseRequest } from '@echo/bot/firestore/guarded-find-offer-thread-close-request'
+import { guardedFindUserByUsername } from '@echo/bot/firestore/guarded-find-user-by-username'
 import { createOfferThread } from '@echo/bot/offer/create-offer-thread'
 import { getOfferThreadChannel } from '@echo/bot/offer/get-offer-thread-channel'
 import { postOfferStateUpdate } from '@echo/bot/offer/post-offer-state-update'
-import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thread'
+import { postOfferThreadClose } from '@echo/bot/offer/post-offer-thread-close'
 import { findOfferThread } from '@echo/firestore/crud/offer-thread/find-offer-thread'
 import { findOfferStateUpdate } from '@echo/firestore/crud/offer-update/find-offer-state-update'
-import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { type DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
 import { type Offer } from '@echo/model/types/offer'
 import { logger } from '@echo/utils/services/logger'
@@ -19,16 +24,14 @@ import { isNil } from 'ramda'
  */
 export async function offerChangeHandler(client: Client, changeType: DocumentChangeType, offer: Offer) {
   if (changeType === 'added') {
-    const post = await findOfferThread(offer.id)
-    if (isNil(post)) {
-      const sender = await findUserByUsername(offer.sender.username)
+    const thread = await guardedFindOfferThread(offer.id)
+    if (isNil(thread)) {
+      const sender = await guardedFindUserByUsername(offer.sender.username)
       if (isNil(sender)) {
-        logger.error(`sender with username ${offer.sender.username} not found`)
         return
       }
-      const receiver = await findUserByUsername(offer.receiver.username)
+      const receiver = await guardedFindUserByUsername(offer.receiver.username)
       if (isNil(receiver)) {
-        logger.error(`receiver with username ${offer.receiver.username} not found`)
         return
       }
       const channel = await getOfferThreadChannel(client, offer, sender.discord.id, receiver.discord.id)
@@ -39,13 +42,25 @@ export async function offerChangeHandler(client: Client, changeType: DocumentCha
       }
       const threadId = await createOfferThread(channel, offer, sender.discord.id, receiver.discord.id)
       if (!isNil(threadId)) {
-        await addOfferThread(offer.id, { discordId: channel.guildId, channelId: channel.id, threadId })
+        await guardedAddOfferThread(offer.id, { discordId: channel.guildId, channelId: channel.id, threadId })
       }
     }
   } else {
-    const update = findOfferStateUpdate(offer.id, offer.state)
+    const update = await findOfferStateUpdate(offer.id, offer.state)
     if (isNil(update)) {
       await postOfferStateUpdate(client, offer)
+      await guardedAddOfferStateUpdate(offer.id)
+      const { state } = offer
+      if (state === 'REJECTED' || state === 'CANCELLED' || state === 'COMPLETED') {
+        const thread = await findOfferThread(offer.id)
+        if (!isNil(thread)) {
+          const threadCloseRequest = await guardedFindOfferThreadCloseRequest(thread.id)
+          if (isNil(threadCloseRequest)) {
+            await guardedAddOfferThreadCloseRequest(thread.id)
+            await postOfferThreadClose(client, thread)
+          }
+        }
+      }
     }
   }
 }

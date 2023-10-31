@@ -1,4 +1,4 @@
-import { InvalidGuildIdError } from '@echo/bot/errors/invalid-guild-id-error'
+import { logger } from '@echo/utils/services/logger'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
@@ -7,7 +7,8 @@ export async function getGuild(client: Client, guildId: string) {
   if (isNil(cachedGuild)) {
     const guild = await client.guilds.fetch(guildId)
     if (isNil(guild)) {
-      throw new InvalidGuildIdError(guild)
+      logger.error(`Guild with id ${guildId} not found`)
+      return undefined
     }
     return guild
   }

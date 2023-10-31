@@ -3,7 +3,7 @@ import { offerChangeHandler } from '@echo/bot/offer/offer-change-handler'
 import { mockAndSetupChannel } from '@echo/bot-mocks/discord/channel-mock'
 import { mockClient } from '@echo/bot-mocks/discord/client-mock'
 import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'
-import { mockGetDiscordChannel } from '@echo/bot-mocks/mock-get-discord-channel'
+import { getChannelMock } from '@echo/bot-mocks/get-channel-mock'
 import { listenToOffers as firebaseListenToOffers } from '@echo/firestore/listeners/listen-to-offers'
 import type { DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
 import type { Offer } from '@echo/model/types/offer'
@@ -23,7 +23,7 @@ describe('offer - listenToOffers', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     client = mockClient()
-    mockGetDiscordChannel()
+    getChannelMock()
   })
 
   it('if request for offer changes, call handler', () => {
