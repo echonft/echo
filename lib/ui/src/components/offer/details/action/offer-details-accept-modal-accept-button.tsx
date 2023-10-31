@@ -1,6 +1,7 @@
 'use client'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { Offer } from '@echo/model/types/offer'
+import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { getSignatureConfigForOffer } from '@echo/web3/src/helpers/get-signature-config-for-offer'
 import { clsx } from 'clsx'
@@ -19,7 +20,8 @@ interface Props {
     signature: HexString | undefined,
     token: string | undefined
   ) => Promise<EmptyResponse>
-  onSuccess?: () => unknown
+  onLoading?: EmptyFunction
+  onSuccess?: EmptyFunction
   onError?: (error: Error) => unknown
 }
 
@@ -28,6 +30,7 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
   chainId,
   token,
   acceptOfferFetcher,
+  onLoading,
   onSuccess,
   onError
 }) => {
@@ -61,6 +64,12 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
       onError?.(error)
     }
   }, [error, onError])
+
+  useEffect(() => {
+    if (loading) {
+      onLoading?.()
+    }
+  }, [loading, onLoading])
 
   return (
     <button
