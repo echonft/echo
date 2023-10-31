@@ -4,6 +4,7 @@ import type { ListingResponse } from '@echo/api/types/responses/listing-response
 import { assertListingState } from '@echo/model/helpers/listing/assert/assert-listing-state'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Listing } from '@echo/model/types/listing'
+import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
 import { ItemsDetailsSeparator } from '@echo/ui/components/item/details/items-details-separator'
@@ -108,13 +109,13 @@ export const ListingDetails: FunctionComponent<Props> = ({
         </div>
         <ShowIf condition={canCancel(updatedListing, user)}>
           <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
-            <button
-              className={clsx('btn-cancel', 'btn-size-alt', 'group')}
-              onClick={() => void cancelListingTrigger()}
+            <LongPressButton
+              id={listing.id}
+              label={t('cancelBtn.label')}
+              message={t('cancelBtn.message')}
               disabled={getMutating || cancelMutating}
-            >
-              <span className={clsx('prose-label-lg', 'btn-label-cancel')}>{t('cancelBtn')}</span>
-            </button>
+              onFinish={() => void cancelListingTrigger()}
+            />
           </div>
         </ShowIf>
       </div>

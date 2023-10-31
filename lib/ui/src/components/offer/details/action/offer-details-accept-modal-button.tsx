@@ -36,7 +36,7 @@ export const OfferDetailsAcceptModalButton: FunctionComponent<Props> = ({
   if (isNil(chainId)) {
     return (
       <button className={clsx('btn-gradient', 'btn-size-alt', 'group', 'animate-pulse')} disabled={true}>
-        <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('acceptBtn')}</span>
+        <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn')}</span>
       </button>
     )
   }
