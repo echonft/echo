@@ -1,14 +1,17 @@
 'use client'
 import type { Contract } from '@echo/model/types/contract'
 import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/action/offer-details-accept-modal-row'
-import { getIsApprovedForAllWagmiConfigForContract } from '@echo/ui/helpers/contract/get-is-approved-for-all-wagmi-config-for-contract'
+import type { HexString } from '@echo/utils/types/hex-string'
+import { getErc721IsApprovedForAllReadConfig } from '@echo/web3/src/helpers/get-erc721-is-approved-for-all-read-config'
+import type { Erc721Abi } from '@echo/web3/src/types/erc721-abi'
+import type { IsApprovedForAllFn } from '@echo/web3/src/types/erc721-function-name-types'
 import { isNil } from 'ramda'
 import { type FunctionComponent, useEffect } from 'react'
 import { useContractRead } from 'wagmi'
 
 interface Props {
   contract: Contract
-  ownerAddress: string
+  ownerAddress: HexString
   title: string
   onResponse?: (approvedAll: boolean) => unknown
   onError?: (error: Error) => unknown
@@ -34,10 +37,8 @@ export const OfferItemsApprovalChecker: FunctionComponent<Props> = ({
   onResponse,
   onError
 }) => {
-  const { data, error, status } = useContractRead({
-    ...getIsApprovedForAllWagmiConfigForContract(contract, ownerAddress),
-    watch: true
-  })
+  const config = getErc721IsApprovedForAllReadConfig(contract, ownerAddress, true)
+  const { data, error, status } = useContractRead<Erc721Abi, IsApprovedForAllFn>(config)
 
   useEffect(() => {
     if (!isNil(error)) {
@@ -47,10 +48,7 @@ export const OfferItemsApprovalChecker: FunctionComponent<Props> = ({
 
   useEffect(() => {
     if (!isNil(data)) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      onResponse?.(data)
+      onResponse?.(data as boolean)
     }
   }, [data, onResponse])
 

@@ -24,6 +24,7 @@
     "@echo/api": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
+    "@echo/web3": "workspace:*",
     "@headlessui/react": "1.7.17",
     "connectkit": "1.5.3",
     "dayjs": "1.11.10",
@@ -39,7 +40,6 @@
     "siwe": "2.1.4",
     "swr": "2.2.4",
     "throttle-debounce": "5.0.0",
-    "viem": "1.16.6",
     "wagmi": "1.4.4",
     "zustand": "4.4.3"
   },

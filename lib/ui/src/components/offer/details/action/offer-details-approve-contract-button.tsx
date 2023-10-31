@@ -1,6 +1,6 @@
 'use client'
 import type { Contract } from '@echo/model/types/contract'
-import { getSetApprovalWagmiConfigForContract } from '@echo/ui/helpers/contract/get-set-approval-wagmi-config-for-contract'
+import { getErc721SetApprovalWriteConfig } from '@echo/web3/src/helpers/get-erc721-set-approval-write-config'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
@@ -12,7 +12,8 @@ interface Props {
 
 export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({ contract }) => {
   const t = useTranslations('offer.details.acceptModal')
-  const { config } = usePrepareContractWrite(getSetApprovalWagmiConfigForContract(contract))
+  const writeConfig = getErc721SetApprovalWriteConfig(contract)
+  const { config } = usePrepareContractWrite(writeConfig)
   const { status, write } = useContractWrite(config)
 
   return (

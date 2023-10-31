@@ -1,7 +1,7 @@
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type MessagesType } from '@echo/ui/types/messages'
 
-export declare global {
+declare global {
   namespace NodeJS {
     interface ProcessEnv extends Dict<string> {
       VERCEL_URL: string

@@ -1,0 +1,37 @@
+{
+  "name": "@echo/web3",
+  "version": "1.0.0",
+  "private": true,
+  "sideEffects": false,
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",
+    "lint:ci": "eslint --ext .ts src/ && eslint --ext .ts test/",
+    "lint:clean-cache": "rm -f .eslintcache",
+    "modules:remove-all": "rm -rf node_modules",
+    "modules:update-all": "ncu -u",
+    "modules:upgrade": "pnpm upgrade",
+    "prettier": "prettier -u -c src/ && prettier -u -c test/",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "tsc": "tsc --noEmit",
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
+  },
+  "dependencies": {
+    "@echo/alchemy": "workspace:*",
+    "@echo/model": "workspace:*",
+    "@echo/utils": "workspace:*",
+    "ramda": "0.29.1",
+    "viem": "1.16.6",
+    "wagmi": "1.4.4"
+  },
+  "devDependencies": {
+    "@jest/globals": "29.7.0",
+    "@jest/types": "29.6.3",
+    "@types/node": "20.8.7",
+    "@types/ramda": "0.29.7",
+    "jest": "29.7.0",
+    "jest-junit": "16.0.0",
+    "typescript": "5.2.2"
+  }
+}

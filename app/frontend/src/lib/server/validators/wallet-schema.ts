@@ -1,8 +1,8 @@
 import { addressSchema } from '@echo/frontend/lib/server/validators/address-schema'
 import { chainIdSchema } from '@echo/frontend/lib/server/validators/chain-id-schema'
 import { type Wallet } from '@echo/model/types/wallet'
+import { formatAddress } from '@echo/utils/helpers/format-address'
 import { applySpec, converge, prop } from 'ramda'
-import { getAddress } from 'viem'
 import { z } from 'zod'
 
 export const walletSchema = z
@@ -13,6 +13,6 @@ export const walletSchema = z
   .transform(
     applySpec<Wallet>({
       chainId: prop('chainId'),
-      address: converge(getAddress, [prop('address'), prop('chainId')])
+      address: converge(formatAddress, [prop('address'), prop('chainId')])
     })
   )

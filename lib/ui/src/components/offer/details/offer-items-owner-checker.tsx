@@ -1,17 +1,17 @@
 'use client'
 import type { OfferItem } from '@echo/model/types/offer-item'
 import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/action/offer-details-accept-modal-row'
-import { getOwnerOfContractWagmiConfigForOfferItem } from '@echo/ui/helpers/contract/get-owner-of-contract-wagmi-config-for-offer-item'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { all, equals, F, ifElse, isNil, pipe, prop } from 'ramda'
+import { getErc721OwnerOfContractReadConfig } from '@echo/web3/src/helpers/get-erc721-owner-of-contract-read-config'
+import { all, equals, F, ifElse, isNil, pipe, prop, toLower } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo } from 'react'
-import { getAddress } from 'viem'
 import { useContractReads } from 'wagmi'
 
 interface Props {
   title: string
   offerItems: NonEmptyArray<OfferItem>
-  ownerAddress: string
+  ownerAddress: HexString
   onResponse?: (ownsAllItems: boolean) => unknown
   onError?: (error: Error) => unknown
 }
@@ -34,13 +34,11 @@ export const OfferItemsOwnerChecker: FunctionComponent<Props> = ({
   onError
 }) => {
   const { data, error, status } = useContractReads({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    contracts: offerItems.map(getOwnerOfContractWagmiConfigForOfferItem)
+    contracts: offerItems.map(getErc721OwnerOfContractReadConfig)
   })
 
   const ownsAllTokens = useMemo(
-    () => ifElse(isNil, F, all(pipe(prop('result'), getAddress, equals(getAddress(ownerAddress)))))(data),
+    () => ifElse(isNil, F, all(pipe(prop('result'), toLower, equals(toLower(ownerAddress as string)))))(data),
     [data, ownerAddress]
   )
 

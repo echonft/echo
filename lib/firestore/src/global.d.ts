@@ -1,4 +1,6 @@
-export declare global {
+import type { PartialWithFieldValue } from 'firebase-admin/firestore'
+
+declare global {
   namespace NodeJS {
     interface ProcessEnv extends Dict<string> {
       FIREBASE_PROJECT_ID: string

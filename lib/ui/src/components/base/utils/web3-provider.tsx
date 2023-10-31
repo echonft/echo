@@ -1,5 +1,5 @@
 'use client'
-import { wagmiConfig } from '@echo/ui/constants/wagmi-config'
+import { wagmiConfig } from '@echo/web3/src/constants/wagmi-config'
 import { ConnectKitProvider } from 'connectkit'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 import { WagmiConfig } from 'wagmi'

@@ -18,6 +18,7 @@ export async function handleRequest<ResponseBody, RequestBody = never>(
     return await requestHandler(req, ...args)
   } catch (error) {
     if (error instanceof ApiError) {
+      await error.beforeError()
       return error.getErrorResponse()
     } else {
       return NextResponse.json(

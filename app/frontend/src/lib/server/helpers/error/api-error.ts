@@ -6,7 +6,7 @@ import { NextResponse } from 'next/server'
 import { assoc, isNil, pick } from 'ramda'
 
 type ApiErrorLogLevel = 'error' | 'warn' | 'debug'
-export abstract class ApiError extends Error {
+export abstract class ApiError<T = ErrorResponse> extends Error {
   status: ErrorStatus
   protected caughtError: Error | undefined
   protected logLevel: ApiErrorLogLevel
@@ -38,12 +38,17 @@ export abstract class ApiError extends Error {
     }
   }
 
-  getErrorResponse(): NextResponse<ErrorResponse> {
+  async beforeError(): Promise<void> {
+    // this will be called before returning the error response
+    // add code to subclasses when needed
+  }
+
+  getErrorResponse(): NextResponse<T> {
     this.logError()
     return NextResponse.json(
       {
         error: errorMessage(this.message)
-      },
+      } as T,
       { status: this.status }
     )
   }

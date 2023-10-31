@@ -1,14 +1,15 @@
 'use client'
 import type { Contract } from '@echo/model/types/contract'
 import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/action/offer-details-accept-modal-row'
-import { getIsApprovedForAllWagmiConfigForContract } from '@echo/ui/helpers/contract/get-is-approved-for-all-wagmi-config-for-contract'
+import type { HexString } from '@echo/utils/types/hex-string'
+import { getErc721IsApprovedForAllReadConfig } from '@echo/web3/src/helpers/get-erc721-is-approved-for-all-read-config'
 import { all, equals, F, ifElse, isNil, pipe, prop } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo } from 'react'
 import { useContractReads } from 'wagmi'
 
 interface Props {
   contracts: Contract[]
-  ownerAddress: string
+  ownerAddress: HexString
   title: string
   onResponse?: (approvedAll: boolean) => unknown
   onError?: (error: Error) => unknown
@@ -35,9 +36,7 @@ export const OfferItemsMultipleApprovalChecker: FunctionComponent<Props> = ({
   onError
 }) => {
   const { data, error, status } = useContractReads({
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    contracts: contracts.map((contract) => getIsApprovedForAllWagmiConfigForContract(contract, ownerAddress))
+    contracts: contracts.map((contract) => getErc721IsApprovedForAllReadConfig(contract, ownerAddress))
   })
 
   const approvedAllContracts = useMemo(() => ifElse(isNil, F, all(pipe(prop('result'), equals(true))))(data), [data])
@@ -50,9 +49,6 @@ export const OfferItemsMultipleApprovalChecker: FunctionComponent<Props> = ({
 
   useEffect(() => {
     if (!isNil(data)) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       onResponse?.(approvedAllContracts)
     }
   }, [approvedAllContracts, data, onResponse])

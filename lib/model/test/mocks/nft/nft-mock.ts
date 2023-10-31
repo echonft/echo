@@ -1,6 +1,6 @@
 import { type Nft } from '@echo/model/types/nft'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
-import { getAddress } from 'viem'
+import { formatAddress } from '@echo/utils/helpers/format-address'
 
 export const nftMock: Record<string, Nft> = {
   '8hHFadIrrooORfTOLkBg': {
@@ -26,7 +26,7 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -86,7 +86,7 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -146,7 +146,7 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: getAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
+        address: formatAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
         chainId: 1
       }
     },
@@ -221,7 +221,7 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -284,7 +284,7 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
@@ -351,7 +351,7 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: getAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
+        address: formatAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
         chainId: 1
       }
     },

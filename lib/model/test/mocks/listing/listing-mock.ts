@@ -1,7 +1,7 @@
 import { type Listing } from '@echo/model/types/listing'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { getAddress } from 'viem'
+import { formatAddress } from '@echo/utils/helpers/format-address'
 
 export const listingMock: Record<string, Listing> = {
   jUzMtPGKM62mMhEcmbN4: {
@@ -14,7 +14,7 @@ export const listingMock: Record<string, Listing> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
         chainId: 1
       }
     },
