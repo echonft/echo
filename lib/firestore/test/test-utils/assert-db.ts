@@ -6,7 +6,7 @@ import { assertListingOffers } from '@test-utils/listing-offer/assert-listing-of
 import { assertListingPosts } from '@test-utils/listing-post/assert-listing-posts'
 import { assertNfts } from '@test-utils/nft/assert-nfts'
 import { assertOffers } from '@test-utils/offer/assert-offers'
-import { assertOfferPosts } from '@test-utils/offer-post/assert-offer-posts'
+import { assertOfferThreads } from '@test-utils/offer-thread/assert-offer-threads'
 import { assertSessions } from '@test-utils/session/assert-sessions'
 import { assertSwaps } from '@test-utils/swap/assert-swaps'
 import { assertUsers } from '@test-utils/user/assert-users'
@@ -21,7 +21,7 @@ export async function assertDb() {
   await assertCollectionSwapsCounts()
   await assertNfts()
   await assertOffers()
-  await assertOfferPosts()
+  await assertOfferThreads()
   await assertSessions()
   await assertSwaps()
   await assertUsers()

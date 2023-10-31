@@ -1,11 +1,11 @@
+import { guardedGetOfferGuilds } from '@echo/bot/firestore/guarded-get-offer-guilds'
 import { getChannel } from '@echo/bot/helpers/get-channel'
 import { isGuildMember } from '@echo/bot/helpers/is-guild-member'
-import { getOfferItemsGuilds } from '@echo/firestore/helpers/offer/get-offer-items-guilds'
 import type { Offer } from '@echo/model/types/offer'
 import { Client } from 'discord.js'
 
 export async function getOfferThreadChannel(client: Client, offer: Offer, senderId: string, receiverId: string) {
-  const discordGuilds = await getOfferItemsGuilds(offer)
+  const discordGuilds = await guardedGetOfferGuilds(offer)
   for (const discordGuild of discordGuilds) {
     const {
       guild: { discordId, channelId }

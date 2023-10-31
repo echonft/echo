@@ -1,13 +1,11 @@
+import { guardedFindCollectionById } from '@echo/bot/firestore/guarded-find-collection-by-id'
+import { guardedFindUserByUsername } from '@echo/bot/firestore/guarded-find-user-by-username'
 import { getChannel } from '@echo/bot/helpers/get-channel'
+import { sendToChannel } from '@echo/bot/helpers/send-to-channel'
 import { buildListingEmbed } from '@echo/bot/listing/build-listing-embed'
 import { buildListingLinkButton } from '@echo/bot/listing/build-listing-link-button'
-import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
-import { addListingPost } from '@echo/firestore/crud/listing-post/add-listing-post'
-import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import type { CollectionDiscordGuild } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
 import type { Listing } from '@echo/model/types/listing'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
@@ -18,20 +16,22 @@ export async function postListing(client: Client, listing: Listing, guild: Colle
   } = listing
   const {
     collectionId,
-    guild: { channelId, discordId }
+    guild: { channelId }
   } = guild
-  const creator = await findUserByUsername(username)
-  const collection = await findCollectionById(collectionId)
-  if (!isNil(creator) && !isNil(collection)) {
-    try {
-      const channel = await getChannel(client, channelId)
-      await channel.send({
-        components: [buildListingLinkButton(collection.slug, listingId)],
-        embeds: [buildListingEmbed(listing, creator, collection)]
-      })
-      await addListingPost(listingId, discordId, channelId)
-    } catch (e) {
-      logger.error(`Error posting listing ${listing.id}: ${errorMessage(e)}`)
-    }
+  const creator = await guardedFindUserByUsername(username)
+  if (isNil(creator)) {
+    return
   }
+  const collection = await guardedFindCollectionById(collectionId)
+  if (isNil(collection)) {
+    return
+  }
+  const channel = await getChannel(client, channelId)
+  if (isNil(channel)) {
+    return
+  }
+  await sendToChannel(channel, {
+    components: [buildListingLinkButton(collection.slug, listingId)],
+    embeds: [buildListingEmbed(listing, creator, collection)]
+  })
 }

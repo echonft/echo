@@ -1,10 +1,10 @@
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { getListingPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-posts-collection-reference'
-import { type ListingPost } from '@echo/firestore/types/model/listing-post/listing-post'
-import dayjs from 'dayjs'
+import type { ListingPost, ListingPostDiscordGuild } from '@echo/firestore/types/model/listing-post/listing-post'
+import { now } from '@echo/utils/helpers/now'
 import { isNil } from 'ramda'
 
-export async function addListingPost(listingId: string, guildDiscordId: string, guildChannelId: string) {
+export async function addListingPost(listingId: string, guild: ListingPostDiscordGuild) {
   const listing = await findListingById(listingId)
   if (isNil(listing)) {
     throw Error(`trying to add post for listing with id ${listingId} but this listing does not exist`)
@@ -14,8 +14,8 @@ export async function addListingPost(listingId: string, guildDiscordId: string, 
   const newListingPost: ListingPost = {
     id,
     listingId: listingId,
-    guild: { discordId: guildDiscordId, channelId: guildChannelId },
-    postedAt: dayjs().unix()
+    guild,
+    postedAt: now()
   }
   await reference.set(newListingPost)
   return newListingPost

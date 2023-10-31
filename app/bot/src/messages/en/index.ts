@@ -8,7 +8,7 @@ export const messages = {
   },
   listing: {
     button: {
-      label: 'View on Echo'
+      label: 'View listing'
     },
     embed: {
       title: 'A new listing was created',
@@ -24,9 +24,21 @@ export const messages = {
     }
   },
   offer: {
+    button: {
+      label: 'View offer'
+    },
     thread: {
-      title: 'offer-{{offerId}}',
-      reason: `Private thread to negotiate the offer. You can see the offer here: {{link}}`
+      close: '_This thread will automatically close soon._',
+      message:
+        '{{sender}} made you an offer {{receiver}}. You can use this thread to discuss it, and hopefully come' +
+        ' to an agreement. Happy swapping!',
+      name: 'offer-{{timestamp}}'
+    },
+    update: {
+      ACCEPTED: '<@here> {{receiver}} accepted the offer! You can now execute the swap.',
+      CANCELLED: '<@here> The offer was cancelled.',
+      REJECTED: '<@here> {{receiver}} rejected the offer.',
+      COMPLETED: '<@here> The swap is now completed. Congratulations to the both of you!'
     }
   }
 }

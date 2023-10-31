@@ -2,12 +2,12 @@ import { getOfferSnapshotById } from '@echo/firestore/crud/offer/get-offer-snaps
 import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
 import { assertOfferState } from '@echo/model/helpers/offer/assert/assert-offer-state'
 import { type OfferState } from '@echo/model/types/offer-state'
-import dayjs from 'dayjs'
+import { now } from '@echo/utils/helpers/now'
 
 export async function updateOfferState(offerId: string, state: OfferState) {
   const documentSnapshot = await getOfferSnapshotById(offerId)
   assertQueryDocumentSnapshot(documentSnapshot)
   const offer = documentSnapshot.data()
   assertOfferState(offer, state)
-  await documentSnapshot.ref.update({ state, updatedAt: dayjs().unix() })
+  await documentSnapshot.ref.update({ state, updatedAt: now() })
 }

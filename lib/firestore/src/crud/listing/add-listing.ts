@@ -7,6 +7,7 @@ import { assertListingTargets } from '@echo/model/helpers/listing/assert/assert-
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { type OfferItem } from '@echo/model/types/offer-item'
+import { now } from '@echo/utils/helpers/now'
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import dayjs from 'dayjs'
 import { head } from 'ramda'
@@ -20,17 +21,16 @@ export async function addListing(
   await assertListingIsNotADuplicate(items, targets)
   const reference = getListingsCollectionReference().doc()
   const id = reference.id
-  const now = dayjs().unix()
   const newListing: Listing = {
     id,
     creator: head(items).nft.owner,
-    createdAt: now,
+    createdAt: now(),
     expired: false,
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix(),
     items,
     state: 'OPEN',
     targets,
-    updatedAt: now
+    updatedAt: now()
   }
   await reference.set(newListing)
   // add listing offers (if any)

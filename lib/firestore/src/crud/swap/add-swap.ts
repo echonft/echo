@@ -4,7 +4,7 @@ import { findSwapByOfferId } from '@echo/firestore/crud/swap/find-swap-by-offer-
 import { getSwapsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swaps-collection-reference'
 import { type Swap } from '@echo/firestore/types/model/swap/swap'
 import { getOfferCollectionIds } from '@echo/model/helpers/offer/get-offer-collection-ids'
-import dayjs from 'dayjs'
+import { now } from '@echo/utils/helpers/now'
 import { isNil } from 'ramda'
 
 export async function addSwap(offerId: string, txId: string): Promise<Swap> {
@@ -18,7 +18,7 @@ export async function addSwap(offerId: string, txId: string): Promise<Swap> {
   }
   const reference = getSwapsCollectionReference().doc()
   const id = reference.id
-  const newSwap: Swap = { id, offerId, txId, date: dayjs().unix() }
+  const newSwap: Swap = { id, offerId, txId, date: now() }
   await reference.set(newSwap)
   // increase the swaps count for receiver and sender items
   const collectionIds = getOfferCollectionIds(offer)
