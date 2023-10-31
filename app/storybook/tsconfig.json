@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
@@ -10,7 +11,8 @@
       "@echo/storybook/*": ["./src/*"],
       "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/ui-css/*": ["../../lib/ui/dist/*"],
-      "@echo/utils/*": ["../../lib/utils/src/*"]
+      "@echo/utils/*": ["../../lib/utils/src/*"],
+      "@echo/web3/*": ["../../lib/web3/src/*"]
     }
   },
   "include": ["src", ".storybook/preview.tsx"],

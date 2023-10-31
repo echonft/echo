@@ -2,7 +2,7 @@ import { getOfferUpdatesCollectionReference } from '@echo/firestore/helpers/coll
 import { getQuerySnapshotDocumentData } from '@echo/firestore/helpers/crud/get-query-snapshot-document-data'
 import type { OfferStateUpdate } from '@echo/firestore/types/model/offer-update/offer-state-update'
 import type { OfferState } from '@echo/model/types/offer-state'
-import { QuerySnapshot } from 'firebase-admin/lib/firestore'
+import type { QuerySnapshot } from 'firebase-admin/firestore'
 
 export async function findOfferStateUpdate(offerId: string, state: OfferState) {
   const querySnapshot = await getOfferUpdatesCollectionReference()
