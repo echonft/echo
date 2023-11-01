@@ -22,7 +22,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@auth/firebase-adapter": "1.0.2",
+    "@auth/firebase-adapter": "1.0.3",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "dayjs": "1.11.10",
@@ -32,7 +32,7 @@
   "devDependencies": {
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@types/node": "20.8.7",
+    "@types/node": "20.8.10",
     "@types/ramda": "0.29.7",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
