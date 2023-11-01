@@ -1,8 +1,8 @@
 'use-client'
 import { type EmptyResponse } from '@echo/api/types/responses/empty-response'
+import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { ErrorFunction } from '@echo/utils/types/error-function'
-import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 import useSWRMutation from 'swr/mutation'
@@ -26,7 +26,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
   onSuccess,
   onError
 }) => {
-  const t = useTranslations('offer.details')
+  const t = useTranslations('offer.details.cancelBtn')
   const { trigger } = useSWRMutation<EmptyResponse, Error, string, { offerId: string; token: string }>(
     `cancel-offer-${offerId}`,
     (_key, { arg: { offerId, token } }) => cancelOfferFetcher(offerId, token),
@@ -36,15 +36,15 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
     }
   )
   return (
-    <button
-      className={clsx('btn-cancel', 'btn-size-alt', 'group')}
-      onClick={() => {
+    <LongPressButton
+      id={offerId}
+      label={t('label')}
+      message={t('message')}
+      disabled={disabled}
+      onFinish={() => {
         onClick?.()
         void trigger({ offerId, token })
       }}
-      disabled={disabled}
-    >
-      <span className={clsx('prose-label-lg', 'btn-label-cancel')}>{t('cancelBtn')}</span>
-    </button>
+    />
   )
 }

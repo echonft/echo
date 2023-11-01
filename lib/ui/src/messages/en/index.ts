@@ -106,7 +106,10 @@ export const messages = {
           out: 'Offering'
         }
       },
-      cancelBtn: 'Cancel',
+      cancelBtn: {
+        label: 'Cancel',
+        message: 'Hold to cancel'
+      },
       expiresAt: 'Expires in',
       expiredAt: 'Expired'
     },
@@ -117,7 +120,10 @@ export const messages = {
         addCollectionBtn: 'Collection',
         itemsCount: '{count} {count, plural, =0 {} =1 {item} other {items}}',
         finalizeBtn: 'Finalize',
-        dismissBtn: 'Dismiss',
+        dismissBtn: {
+          label: 'Dismiss',
+          message: 'Hold to dismiss'
+        },
         expirationTitle: 'Expires in',
         expirationValue: '7 days',
         emptySearch: 'No collections found',
@@ -194,8 +200,14 @@ export const messages = {
       expiresAt: 'Expires in',
       expiredAt: 'Expired',
       acceptBtn: 'Accept',
-      cancelBtn: 'Cancel',
-      rejectBtn: 'Reject',
+      cancelBtn: {
+        label: 'Cancel',
+        message: 'Hold to cancel'
+      },
+      rejectBtn: {
+        label: 'Reject',
+        message: 'Hold to reject'
+      },
       approveBtn: 'Approve {count, plural, =0 {} =1 {NFT} other {NFTs}}',
       completeBtn: 'Swap',
       acceptModal: {
@@ -224,7 +236,10 @@ export const messages = {
         finalize: 'Finalize offer',
         noNftsTitle: 'No NFTs selected yet',
         noNftsBtn: 'Select NFTs now',
-        dismissBtn: 'Dismiss'
+        dismissBtn: {
+          label: 'Dismiss',
+          message: 'Hold to dismiss'
+        }
       },
       confirmationModal: {
         title: 'Confirm Offer',

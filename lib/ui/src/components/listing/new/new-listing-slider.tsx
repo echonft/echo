@@ -2,6 +2,7 @@
 import { type Collection } from '@echo/model/types/collection'
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { type ListingTarget } from '@echo/model/types/listing-target'
+import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CollectionSearchBoxManager } from '@echo/ui/components/collection/search/collection-search-box-manager'
 import { NewSenderItemsContainer } from '@echo/ui/components/item/new/new-sender-items-container'
 import { NewListingSliderExpirationContainer } from '@echo/ui/components/listing/new/new-listing-slider-expiration-container'
@@ -59,9 +60,12 @@ export const NewListingSlider: FunctionComponent<Props> = ({
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalizeBtn')}</span>
         </button>
-        <button className={clsx('btn-cancel', 'btn-size-alt', 'group')} onClick={onDismissListing}>
-          <span className={clsx('prose-label-lg', 'btn-label-cancel')}>{t('dismissBtn')}</span>
-        </button>
+        <LongPressButton
+          id={'new-listing'}
+          label={t('dismissBtn.label')}
+          message={t('dismissBtn.message')}
+          onFinish={onDismissListing}
+        />
       </div>
     </div>
   )
