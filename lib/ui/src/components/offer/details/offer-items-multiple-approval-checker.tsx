@@ -2,7 +2,7 @@
 import type { Contract } from '@echo/model/types/contract'
 import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/action/offer-details-accept-modal-row'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { getErc721IsApprovedForAllReadConfig } from '@echo/web3/src/helpers/get-erc721-is-approved-for-all-read-config'
+import { getErc721IsApprovedForAllReadConfig } from '@echo/web3/helpers/get-erc721-is-approved-for-all-read-config'
 import { all, equals, F, ifElse, isNil, pipe, prop } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo } from 'react'
 import { useContractReads } from 'wagmi'

@@ -64,6 +64,7 @@ module.exports = {
               '@echo/model/src/*',
               '@echo/ui/src/*',
               '@echo/utils/src/*',
+              '@echo/web3/src/*',
               'lib/*',
               'src/*',
               './*',

@@ -1,6 +1,6 @@
 'use client'
 import type { Contract } from '@echo/model/types/contract'
-import { getErc721SetApprovalWriteConfig } from '@echo/web3/src/helpers/get-erc721-set-approval-write-config'
+import { getErc721SetApprovalWriteConfig } from '@echo/web3/helpers/get-erc721-set-approval-write-config'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
