@@ -31,6 +31,7 @@
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@headlessui/react": "1.7.17",
+    "@sentry/nextjs": "7.77.0",
     "dayjs": "1.11.10",
     "next": "13.5.6",
     "next-auth": "4.24.3",
