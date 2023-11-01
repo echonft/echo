@@ -34,7 +34,7 @@ export const TraitFilterSearchQuery: FunctionComponent<Props> = ({ onSearchQuery
           'focus-visible:text-dark-300',
           'focus-visible:placeholder:text-dark-300'
         )}
-        onChange={(event: ChangeEvent<HTMLInputElement> & { target: { value: string } }) => {
+        onChange={(event: ChangeEvent<HTMLInputElement> & Record<'target', Record<'value', string>>) => {
           onSearchQueryChange?.(event.target.value)
         }}
       />

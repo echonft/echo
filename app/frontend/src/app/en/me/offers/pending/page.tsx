@@ -3,15 +3,16 @@ import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { OfferFilterAsReceiver } from '@echo/firestore/constants/offer-filter-as'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
-import { fetcher } from '@echo/frontend/lib/helpers/fetcher'
 import { mapOfferFiltersToQueryParams } from '@echo/frontend/lib/helpers/request/map-offer-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
+import { assertFetchResult } from '@echo/frontend/lib/services/fetcher/assert-fetch-result'
+import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
 import { OfferRoleReceiver } from '@echo/model/constants/offer-role'
 import { ProfileOffersReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-received-api-provided'
 import { links } from '@echo/ui/constants/links'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { getServerSession } from 'next-auth/next'
-import { assoc, isNil, map, mergeLeft } from 'ramda'
+import { assoc, map, mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 const ProfileOffersReceivedPage: FunctionComponent = async () => {
@@ -24,22 +25,14 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
   const queryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
-  const { data, error } = await fetcher(profileOffersApiUrl())
-    .revalidate(3600)
+  const result = await fetcher(profileOffersApiUrl())
     .query(mergeLeft(filterParams, queryParams))
     .bearerToken(session.user.sessionToken)
     .fetch<OffersResponse>()
-
-  if (isNil(data)) {
-    if (!isNil(error)) {
-      throw Error(error.message)
-    }
-    throw Error()
-  }
-
+  assertFetchResult(result)
   return (
     <ProfileOffersReceivedApiProvided
-      offers={map(assoc('role', OfferRoleReceiver), data.offers) as OfferWithRole[]}
+      offers={map(assoc('role', OfferRoleReceiver), result.data.offers) as OfferWithRole[]}
       user={session.user}
     />
   )

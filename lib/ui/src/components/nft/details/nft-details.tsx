@@ -7,6 +7,7 @@ import { NftDetailsAttributesPanel } from '@echo/ui/components/nft/details/nft-d
 import { NftDetailsHeader } from '@echo/ui/components/nft/details/nft-details-header'
 import { NftDetailsListingsPanel } from '@echo/ui/components/nft/details/nft-details-listings-panel'
 import { NftDetailsTokenDetailsPanel } from '@echo/ui/components/nft/details/nft-details-token-details-panel'
+import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
@@ -14,7 +15,7 @@ import { type FunctionComponent } from 'react'
 interface Props {
   nft: Nft
   listings: Listing[]
-  onMakeOffer?: () => unknown
+  onMakeOffer?: EmptyFunction
 }
 
 export const NftDetails: FunctionComponent<Props> = ({ nft, listings, onMakeOffer }) => {

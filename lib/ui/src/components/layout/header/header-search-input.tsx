@@ -36,7 +36,7 @@ export const HeaderSearchInput: FunctionComponent<Props> = ({ onChange }) => {
           'focus-visible:text-dark-300',
           'focus-visible:placeholder:text-dark-300'
         )}
-        onChange={(event: ChangeEvent<HTMLInputElement> & { target: { value: string } }) => {
+        onChange={(event: ChangeEvent<HTMLInputElement> & Record<'target', Record<'value', string>>) => {
           onChange?.(event.target.value)
         }}
         placeholder={t('searchInput')}

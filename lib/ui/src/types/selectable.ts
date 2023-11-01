@@ -2,4 +2,4 @@ export interface Selectable {
   selected?: true
 }
 
-export type SelectableType<T> = T & Selectable
+export type SelectableType<T> = T & Partial<Record<'selected', true>>

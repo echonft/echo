@@ -8,7 +8,7 @@ import { isNil } from 'ramda'
 export function assertOfferReceiverOrSenderIs(
   offer: Offer,
   username: string
-): asserts offer is Offer & Record<'receiver', User> & Record<'sender', User> {
+): asserts offer is Omit<Offer, 'receiver' | 'sender'> & Record<'receiver', User> & Record<'sender', User> {
   if (isNil(offer.receiver) || isNilOrEmpty(offer.receiver.username)) {
     throw new BadRequestError(`offer with id ${offer.id} does not contain a receiver`)
   }

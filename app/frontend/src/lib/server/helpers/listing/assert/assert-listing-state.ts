@@ -6,7 +6,7 @@ import { type ListingState } from '@echo/model/types/listing-state'
 export function assertListingState(
   listing: Listing,
   toState: ListingState
-): asserts listing is Listing & Record<ListingState, 'state'> {
+): asserts listing is Omit<Listing, 'state'> & Record<'state', ListingState> {
   try {
     modelAssertListingState(listing, toState)
   } catch (err) {

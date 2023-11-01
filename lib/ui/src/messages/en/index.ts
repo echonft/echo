@@ -33,11 +33,24 @@ export const messages = {
         title: 'Attributes'
       }
     },
+    navigation: {
+      items: 'Items',
+      listings: 'Listings',
+      swaps: 'Swaps'
+    },
     thumbnail: {
       title: '{count} {collectionName}'
     },
     tile: {
       swapsCount: '{count, plural, =0 {No Swap} =1 {1 Swap} other {{count} Swaps}}'
+    }
+  },
+  error: {
+    listing: {
+      new: 'Error creating listing. Please try again'
+    },
+    offer: {
+      new: 'Error creating offer. Please try again'
     }
   },
   errorPage: {
@@ -152,11 +165,6 @@ export const messages = {
       CANCELLED: 'Cancelled'
     }
   },
-  navigation: {
-    items: 'Items',
-    listings: 'Listings',
-    swaps: 'Swaps'
-  },
   nft: {
     details: {
       attributes: {
@@ -233,9 +241,7 @@ export const messages = {
     new: {
       bottomSlider: {
         title: 'Offer overview',
-        finalize: 'Finalize offer',
-        noNftsTitle: 'No NFTs selected yet',
-        noNftsBtn: 'Select NFTs now',
+        finalize: 'Finalize',
         dismissBtn: {
           label: 'Dismiss',
           message: 'Hold to dismiss'
@@ -252,8 +258,7 @@ export const messages = {
         title: 'Offer successfully created',
         subtitle: 'Your offer was successfully created, you can now contact your counterparty',
         closeBtn: 'Close',
-        copyLinkBtn: 'Copy link',
-        linkCopied: 'Link copied!'
+        viewBtn: 'View'
       }
     },
     state: {
@@ -353,6 +358,11 @@ export const messages = {
       collection: {
         title: 'Collections'
       }
+    },
+    navigation: {
+      items: 'Items',
+      listings: 'Listings',
+      swaps: 'Swaps'
     }
   }
 }

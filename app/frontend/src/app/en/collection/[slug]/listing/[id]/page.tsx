@@ -3,12 +3,15 @@ import { listingApiUrl } from '@echo/api/routing/listing-api-url'
 import { type CollectionResponse } from '@echo/api/types/responses/collection-response'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
-import { fetcher } from '@echo/frontend/lib/helpers/fetcher'
+import { assertFetchResult } from '@echo/frontend/lib/services/fetcher/assert-fetch-result'
+import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
+import type { ListingTarget } from '@echo/model/types/listing-target'
 import { ListingDetailsApiProvided } from '@echo/ui/components/listing/api-provided/listing-details-api-provided'
 import { isIn } from '@echo/utils/fp/is-in'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
-import { isNil, map, path, pipe } from 'ramda'
+import { map, path, pipe } from 'ramda'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -20,22 +23,18 @@ interface Props {
 
 const ListingDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { slug, id } }) => {
   const session = await getServerSession(authOptions)
-  const { data: collection } = await fetcher(collectionApiUrl(slug)).fetch<CollectionResponse>()
-  const { data } = await fetcher(listingApiUrl(id)).fetch<ListingResponse>()
-
-  if (isNil(data)) {
-    throw Error()
+  const collectionResult = await fetcher(collectionApiUrl(slug)).fetch<CollectionResponse>()
+  const listingResult = await fetcher(listingApiUrl(id)).fetch<ListingResponse>()
+  assertFetchResult(collectionResult)
+  assertFetchResult(listingResult)
+  const listingSlugs = pipe<[ListingResponse], ListingTarget[], string[]>(
+    nonNullableReturn(path(['listing', 'targets'])),
+    map(nonNullableReturn(path(['collection', 'slug'])))
+  )(listingResult.data)
+  if (!isIn(listingSlugs, slug)) {
+    notFound()
   }
-  if (!isNil(collection)) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const listingSlugs = pipe(path(['listing', 'targets']), map(path(['collection', 'slug'])))(data) as string[]
-    if (!isIn(listingSlugs, slug)) {
-      notFound()
-    }
-  }
-
-  return <ListingDetailsApiProvided listing={data.listing} user={session?.user} />
+  return <ListingDetailsApiProvided listing={listingResult.data.listing} user={session?.user} />
 }
 
 export default ListingDetailsPage

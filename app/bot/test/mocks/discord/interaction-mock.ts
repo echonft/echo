@@ -81,7 +81,9 @@ function applyInteractionResponseHandlers(interaction: Interaction) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     interaction.update = async (
-      options: (InteractionUpdateOptions & { fetchReply: true }) | (string | MessagePayload | InteractionUpdateOptions)
+      options:
+        | (Omit<InteractionUpdateOptions, 'fetchReply'> & Record<'fetchReply', true>)
+        | (string | MessagePayload | InteractionUpdateOptions)
     ) => {
       interaction.deferred = false
       interaction.replied = true

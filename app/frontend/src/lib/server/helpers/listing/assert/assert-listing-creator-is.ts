@@ -8,7 +8,7 @@ import { isNil } from 'ramda'
 export function assertListingCreatorIs(
   listing: Listing,
   username: string
-): asserts listing is Listing & { creator: User } {
+): asserts listing is Omit<Listing, 'creator'> & Record<'creator', User> {
   if (isNil(listing.creator) || isNilOrEmpty(listing.creator.username)) {
     throw new BadRequestError(`listing with id ${listing.id} does not contain a creator`)
   }

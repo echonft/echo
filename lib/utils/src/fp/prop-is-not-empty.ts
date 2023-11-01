@@ -9,7 +9,7 @@ function internalFn<V, P extends keyof V>(propKey: P) {
 }
 
 export function propIsNotEmpty<V, P extends keyof V>(propKey: P, obj: V): boolean
-export function propIsNotEmpty<P extends string | number | symbol>(propKey: P): <V>(obj: V) => boolean
+export function propIsNotEmpty<P extends PropertyKey>(propKey: P): <V>(obj: V) => boolean
 export function propIsNotEmpty<V, P extends keyof V>(propKey: P, obj?: V): boolean | ((obj: V) => boolean) {
   if (isNil(obj)) {
     return internalFn<V, P>(propKey)

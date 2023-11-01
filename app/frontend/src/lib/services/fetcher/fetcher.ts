@@ -1,19 +1,15 @@
 import { type ErrorResponse } from '@echo/api/types/responses/error-response'
-import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
+import { FetchApiError } from '@echo/frontend/lib/services/fetcher/fetch-api-error'
 import { isDev } from '@echo/utils/constants/is-dev'
+import { errorMessage } from '@echo/utils/helpers/error-message'
 import { setUrlQuery } from '@echo/utils/helpers/set-url-query'
 import { type QueryType } from '@echo/utils/types/query-type'
 import { type HTTP_METHOD } from 'next/dist/server/web/http'
 import { assoc, assocPath, dissocPath, has, hasPath, is, pathEq, pipe } from 'ramda'
 
-interface FetchResult<T> {
+export interface FetchResult<T> {
   data: T | undefined
-  error:
-    | {
-        status: ErrorStatus
-        message?: string
-      }
-    | undefined
+  error: Error | undefined
 }
 
 class Fetcher {
@@ -67,14 +63,18 @@ class Fetcher {
     }
     const response = await fetch(this.url, this.init)
     if (response.ok) {
-      const data = (await response.json()) as T
-      return { data, error: undefined }
+      try {
+        const data = (await response.json()) as T
+        return { data, error: undefined }
+      } catch (e) {
+        return { data: undefined, error: e as Error }
+      }
     }
     try {
-      const errorData = (await response.json()) as ErrorResponse
-      return { data: undefined, error: { message: errorData.error, status: response.status } }
+      const errorResponse = (await response.json()) as ErrorResponse
+      return { data: undefined, error: new FetchApiError(errorResponse.error, response.status) }
     } catch (e) {
-      return { data: undefined, error: { status: response.status } }
+      return { data: undefined, error: new FetchApiError(errorMessage(e), response.status) }
     }
   }
 

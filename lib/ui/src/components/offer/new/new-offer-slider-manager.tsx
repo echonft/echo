@@ -1,28 +1,40 @@
 'use client'
-import { createOfferFetcher } from '@echo/api/services/fetcher/create-offer-fetcher'
+import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
+import type { Offer } from '@echo/model/types/offer'
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
+import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { NewOfferBottomSliderInnerContainer } from '@echo/ui/components/offer/new/new-offer-bottom-slider-inner-container'
 import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
 import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { mapOfferItemsToRequests } from '@echo/ui/mappers/to-api/map-offer-items-to-requests'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { Transition } from '@headlessui/react'
+import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
-import { pathEq, reject } from 'ramda'
+import { isNil, pathEq, reject } from 'ramda'
 import { type FunctionComponent, useCallback, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 interface Props {
+  createOfferFetcher: (parameters: CreateOfferRequest, token: string | undefined) => Promise<OfferResponse>
   user: AuthUser | undefined
 }
-export const NewOfferSliderManager: FunctionComponent<Props> = ({ user }) => {
+export const NewOfferSliderManager: FunctionComponent<Props> = ({ createOfferFetcher, user }) => {
   const t = useTranslations('offer.new.bottomSlider')
+  const tError = useTranslations('error.offer')
+  const { show } = useAlertStore()
   const { hasNewOfferPending, setReceiverItems, setSenderItems, receiver, receiverItems, senderItems, clearOffer } =
     useNewOfferStore()
   const [confirmOfferModalShown, setConfirmOfferModalShown] = useState(false)
-  const [confirmedModalShown, setConfirmedModalShown] = useState(false)
+  const [offer, setOffer] = useState<Offer>()
   const onRemoveSenderItems = useCallback(
     (nftId: string) => {
       setSenderItems(reject(pathEq(nftId, ['nft', 'id'])))
@@ -35,15 +47,35 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ user }) => {
     },
     [setReceiverItems]
   )
-  const createOffer = useCallback(
-    () =>
+  const { trigger, isMutating } = useSWRMutation<
+    OfferResponse,
+    Error,
+    string,
+    { receiverItems: OfferItem[]; senderItems: OfferItem[]; user: AuthUser | undefined }
+  >(
+    'create-offer',
+    (_key, { arg: { receiverItems, senderItems, user } }) =>
       createOfferFetcher(
         { senderItems: mapOfferItemsToRequests(senderItems), receiverItems: mapOfferItemsToRequests(receiverItems) },
         user?.sessionToken
       ),
-    [receiverItems, senderItems, user]
+    {
+      onSuccess: (data) => {
+        setConfirmOfferModalShown(false)
+        setOffer(data.offer)
+      },
+      onError: (error: Error) => {
+        setConfirmOfferModalShown(false)
+        captureException(error, {
+          contexts: offerContext({
+            receiverItems: receiverItems as NonEmptyArray<OfferItem>,
+            senderItems: senderItems as NonEmptyArray<OfferItem>
+          })
+        })
+        show({ severity: CalloutSeverity.ERROR, message: tError('new') })
+      }
+    }
   )
-  const { trigger, isMutating } = useSWRMutation('create-offer', createOffer)
 
   return (
     <>
@@ -76,23 +108,17 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ user }) => {
         confirming={isMutating}
         onClose={() => setConfirmOfferModalShown(false)}
         onConfirm={() => {
-          trigger()
-            .then(() => {
-              setConfirmOfferModalShown(false)
-              setConfirmedModalShown(true)
-            })
-            .catch((_err) => {
-              // TODO show the error
-            })
+          void trigger({ receiverItems, senderItems, user })
         }}
       />
       <NewOfferConfirmedModal
-        show={confirmedModalShown}
+        offer={offer}
+        show={!isNil(offer)}
         onClose={() => {
           clearOffer()
-          setConfirmedModalShown(false)
         }}
       />
+      <CalloutManager />
     </>
   )
 }

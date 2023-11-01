@@ -1,6 +1,6 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
-import { assertCollection } from '@echo/frontend/lib/server/helpers/collection/assert-collection'
+import { assertCollectionExists } from '@echo/frontend/lib/server/helpers/collection/assert-collection-exists'
 import { getCollectionBySlug } from '@echo/frontend/lib/server/helpers/collection/get-collection-by-slug'
 import { getCollectionListings } from '@echo/frontend/lib/server/helpers/listing/get-collection-listings'
 import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/parse-constraints-query'
@@ -11,7 +11,7 @@ export async function getCollectionListingsRequestHandler(req: ApiRequest<never>
   const constraints = parseConstraintsQuery(req)
   const filters = parseListingFiltersQuery(req)
   const collection = await getCollectionBySlug(slug)
-  assertCollection(collection)
+  assertCollectionExists(collection, slug)
   const listings = await getCollectionListings(collection.id, filters, constraints)
   return NextResponse.json<ListingsResponse>({ listings })
 }

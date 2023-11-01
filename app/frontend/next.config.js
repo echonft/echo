@@ -38,8 +38,8 @@ module.exports = withSentryConfig(
 
     // Suppresses source map uploading logs during build
     silent: true,
-    org: 'echo-ep',
-    project: 'javascript-nextjs'
+    org: 'echo-nft',
+    project: 'frontend'
   },
   {
     // For all available options, see:

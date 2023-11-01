@@ -36,7 +36,7 @@ function assertOfferIsNotOpen(offer: Offer) {
 export function assertOfferState(
   offer: Offer,
   toState: OfferState
-): asserts offer is Offer & Record<'state', OfferState> {
+): asserts offer is Omit<Offer, 'state'> & Record<'state', OfferState> {
   if (propIsNil('state', offer)) {
     throw Error('offer does not have a state')
   }

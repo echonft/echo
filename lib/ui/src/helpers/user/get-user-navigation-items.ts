@@ -9,17 +9,17 @@ export function getUserNavigationItems(username?: string): NavigationItem[] {
   return [
     {
       id: NavigationItems,
-      name: t('navigation.items'),
+      name: t('user.navigation.items'),
       path: isNil(username) ? '#' : links.user.items(username)
     },
     {
       id: NavigationListings,
-      name: t('navigation.listings'),
+      name: t('user.navigation.listings'),
       path: isNil(username) ? '#' : links.user.listings(username)
     },
     {
       id: NavigationSwaps,
-      name: t('navigation.swaps'),
+      name: t('user.navigation.swaps'),
       path: isNil(username) ? '#' : links.user.swaps(username)
     }
   ]

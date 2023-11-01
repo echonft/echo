@@ -4,6 +4,7 @@ import { initializeFirebase } from '@echo/firestore/services/initialize-firebase
 import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
 import { type RequestHandler } from '@echo/frontend/lib/server/types/request-handlers/request-handler'
 import { errorMessage } from '@echo/utils/helpers/error-message'
+import { captureException } from '@sentry/nextjs'
 import { NextResponse } from 'next/server'
 
 export async function handleRequest<ResponseBody, RequestBody = never>(
@@ -17,6 +18,7 @@ export async function handleRequest<ResponseBody, RequestBody = never>(
     // @ts-ignore
     return await requestHandler(req, ...args)
   } catch (error) {
+    captureException(error)
     if (error instanceof ApiError) {
       await error.beforeError()
       return error.getErrorResponse()

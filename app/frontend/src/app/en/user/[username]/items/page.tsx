@@ -1,11 +1,11 @@
 import { userNftsApiUrl } from '@echo/api/routing/user-nfts-api-url'
 import { type NftsResponse } from '@echo/api/types/responses/nfts-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
-import { fetcher } from '@echo/frontend/lib/helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
+import { assertFetchResult } from '@echo/frontend/lib/services/fetcher/assert-fetch-result'
+import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
 import { UserNftsApiProvided } from '@echo/ui/components/user/api-provided/user-nfts-api-provided'
 import { getServerSession } from 'next-auth/next'
-import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -19,19 +19,9 @@ const UserNftsPage: FunctionComponent<Props> = async ({ params: { username } }) 
   const queryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'tokenId' }]
   })
-  const { data, error } = await fetcher(userNftsApiUrl(username))
-    .revalidate(3600)
-    .query(queryParams)
-    .fetch<NftsResponse>()
-
-  if (isNil(data)) {
-    if (!isNil(error)) {
-      throw Error(error.message)
-    }
-    throw Error()
-  }
-
-  return <UserNftsApiProvided username={username} nfts={data.nfts} user={session?.user} />
+  const result = await fetcher(userNftsApiUrl(username)).query(queryParams).fetch<NftsResponse>()
+  assertFetchResult(result)
+  return <UserNftsApiProvided username={username} nfts={result.data.nfts} user={session?.user} />
 }
 
 export default UserNftsPage

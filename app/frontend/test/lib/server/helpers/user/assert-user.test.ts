@@ -1,11 +1,11 @@
 import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
-import { assertUser } from '@echo/frontend/lib/server/helpers/user/assert-user'
+import { assertUserExists } from '@echo/frontend/lib/server/helpers/user/assert-user-exists'
 
-describe('helpers - user - assertUser', () => {
+describe('helpers - user - assertUserExists', () => {
   it('throws if user is undefined', () => {
-    expect(() => assertUser(undefined)).toThrow()
+    expect(() => assertUserExists(undefined, 'username')).toThrow()
   })
   it('does not throw if user is defined', () => {
-    expect(() => assertUser({ id: 'userId' } as UserDocumentData)).not.toThrow()
+    expect(() => assertUserExists({ id: 'userId' } as UserDocumentData, 'username')).not.toThrow()
   })
 })

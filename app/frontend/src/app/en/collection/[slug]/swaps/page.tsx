@@ -1,11 +1,11 @@
 import { collectionSwapsApiUrl } from '@echo/api/routing/collection-swaps-api-url'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
-import { fetcher } from '@echo/frontend/lib/helpers/fetcher'
 import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
+import { assertFetchResult } from '@echo/frontend/lib/services/fetcher/assert-fetch-result'
+import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
 import { CollectionSwapsApiProvided } from '@echo/ui/components/collection/api-provided/collection-swaps-api-provided'
 import { getServerSession } from 'next-auth/next'
-import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -19,20 +19,9 @@ const CollectionSwapsPage: FunctionComponent<Props> = async ({ params: { slug } 
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt' }]
   })
-
-  const { data, error } = await fetcher(collectionSwapsApiUrl(slug))
-    .revalidate(3600)
-    .query(constraintsQueryParams)
-    .fetch<OffersResponse>()
-
-  if (isNil(data)) {
-    if (!isNil(error)) {
-      throw Error(error.message)
-    }
-    throw Error()
-  }
-
-  return <CollectionSwapsApiProvided collectionSlug={slug} offers={data.offers} user={session?.user} />
+  const result = await fetcher(collectionSwapsApiUrl(slug)).query(constraintsQueryParams).fetch<OffersResponse>()
+  assertFetchResult(result)
+  return <CollectionSwapsApiProvided collectionSlug={slug} offers={result.data.offers} user={session?.user} />
 }
 
 export default CollectionSwapsPage

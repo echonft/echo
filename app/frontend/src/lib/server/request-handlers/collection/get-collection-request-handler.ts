@@ -6,6 +6,6 @@ import { NextResponse } from 'next/server'
 
 export async function getCollectionRequestHandler(_req: ApiRequest<never>, slug: string) {
   const collection = await getCollectionBySlug(slug)
-  assertCollectionExists(slug, collection)
+  assertCollectionExists(collection, slug)
   return NextResponse.json<CollectionResponse>({ collection })
 }

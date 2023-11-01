@@ -5,13 +5,9 @@ import { modifyPropName } from '@echo/utils/fp/modify-prop-name'
 import { pipe } from 'ramda'
 
 export function mapListingFiltersToQueryParams(filters: ListingQueryFilters): ListingFiltersQueryParams {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   return pipe(
-    modifyPropName<'states', ListingQueryFilters>('states', 'state'),
-    modifyPropName<'notStates', ListingQueryFilters>('notStates', 'notState'),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    modifyPropName<'states', ListingQueryFilters, 'state'>('states', 'state'),
+    modifyPropName<'notStates', ListingQueryFilters, 'notState'>('notStates', 'notState'),
     modifyBooleanPropToString('includeExpired')
   )(filters)
 }
