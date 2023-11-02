@@ -36,7 +36,7 @@ function assertListingIsNotCancelled(listing: Listing) {
 export function assertListingState(
   listing: Listing,
   toState: ListingState
-): asserts listing is Listing & Record<'state', ListingState> {
+): asserts listing is Omit<Listing, 'state'> & Record<'state', ListingState> {
   if (propIsNil('state', listing)) {
     throw Error('listing does not have a state')
   }

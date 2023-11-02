@@ -25,6 +25,7 @@ export const NewItemsAddMoreDisclosureButton: FunctionComponent<Props> = ({ titl
         'border-white/30',
         'justify-center',
         'items-center',
+        'outline-none',
         'cursor-pointer'
       )}
     >

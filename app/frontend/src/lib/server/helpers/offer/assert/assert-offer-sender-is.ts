@@ -5,7 +5,10 @@ import { type User } from '@echo/model/types/user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { isNil } from 'ramda'
 
-export function assertOfferSenderIs(offer: Offer, username: string): asserts offer is Offer & { sender: User } {
+export function assertOfferSenderIs(
+  offer: Offer,
+  username: string
+): asserts offer is Omit<Offer, 'sender'> & Record<'sender', User> {
   if (isNil(offer.sender) || isNilOrEmpty(offer.sender.username)) {
     throw new BadRequestError(`offer with id ${offer.id} does not contain a sender`)
   }

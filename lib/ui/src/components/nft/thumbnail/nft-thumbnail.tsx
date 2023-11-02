@@ -19,7 +19,7 @@ export const NftThumbnail: FunctionComponent<Props> = ({ nft, hideOwner }) => {
   const { tokenId, thumbnailUrl, owner, collection, openSeaUrl } = nft
   const name = getNftName(nft)
   return (
-    <InternalLink className={'outline-none'} path={links.collection.nft(collection.slug, tokenId)}>
+    <InternalLink path={links.collection.nft(collection.slug, tokenId)}>
       <div className={clsx('rounded-2xl', 'w-52', 'h-max', 'overflow-clip')}>
         <div className={'relative'}>
           <NftThumbnailPicture alt={name} pictureUrl={thumbnailUrl} />

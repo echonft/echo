@@ -22,13 +22,13 @@
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "ramda": "0.29.1",
-    "viem": "1.16.6",
-    "wagmi": "1.4.4"
+    "viem": "1.18.2",
+    "wagmi": "1.4.5"
   },
   "devDependencies": {
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@types/node": "20.8.7",
+    "@types/node": "20.8.10",
     "@types/ramda": "0.29.7",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",

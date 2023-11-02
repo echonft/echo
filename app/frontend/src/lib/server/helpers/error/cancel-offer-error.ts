@@ -10,7 +10,7 @@ import { assoc, isNil } from 'ramda'
 export class CancelOfferError extends ApiError<OfferResponse | ErrorResponse> {
   private readonly offer: Offer
   constructor(offer: Offer) {
-    super(ErrorStatus.BAD_REQUEST, '', undefined, 'warn')
+    super(ErrorStatus.BAD_REQUEST, 'CancelOfferError', undefined, 'warn')
     this.offer = offer
   }
 

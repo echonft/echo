@@ -9,17 +9,17 @@ export function getCollectionNavigationItems(slug?: string): NavigationItem[] {
   return [
     {
       id: NavigationItems,
-      name: t('navigation.items'),
+      name: t('collection.navigation.items'),
       path: isNil(slug) ? '#' : links.collection.items(slug)
     },
     {
       id: NavigationListings,
-      name: t('navigation.listings'),
+      name: t('collection.navigation.listings'),
       path: isNil(slug) ? '#' : links.collection.listings(slug)
     },
     {
       id: NavigationSwaps,
-      name: t('navigation.swaps'),
+      name: t('collection.navigation.swaps'),
       path: isNil(slug) ? '#' : links.collection.swaps(slug)
     }
   ]

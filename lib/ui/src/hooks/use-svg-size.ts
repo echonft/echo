@@ -6,7 +6,11 @@ export function useSvgSize({
   viewBoxWidth,
   width,
   height
-}: SvgProps & { viewBoxWidth: number; viewBoxHeight: number }): { viewBox: string; width: number; height: number } {
+}: SvgProps & Record<'viewBoxWidth', number> & Record<'viewBoxHeight', number>): {
+  viewBox: string
+  width: number
+  height: number
+} {
   const viewBox = `0 0 ${viewBoxWidth} ${viewBoxHeight}`
   if (isNil(width)) {
     if (isNil(height)) {

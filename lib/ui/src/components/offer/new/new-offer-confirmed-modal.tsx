@@ -1,16 +1,21 @@
 'use client'
+import type { Offer } from '@echo/model/types/offer'
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
+import { links } from '@echo/ui/constants/links'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
+  offer: Offer | undefined
   show?: boolean
   onClose?: () => unknown
 }
 
-export const NewOfferConfirmedModal: FunctionComponent<Props> = ({ show, onClose }) => {
+export const NewOfferConfirmedModal: FunctionComponent<Props> = ({ offer, show, onClose }) => {
   const t = useTranslations('offer.new.confirmedModal')
 
   return (
@@ -21,18 +26,14 @@ export const NewOfferConfirmedModal: FunctionComponent<Props> = ({ show, onClose
           <ConfirmationIconSvg />
         </div>
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
-          <button className={clsx('btn-gradient', 'btn-size-alt', 'group', 'outline-none')} onClick={onClose}>
+          <InternalLink path={isNil(offer) ? '#' : links.profile.offer(offer.id)}>
+            <button className={clsx('btn-action', 'btn-size-alt', 'group')}>
+              <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('viewBtn')}</span>
+            </button>
+          </InternalLink>
+          <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onClose}>
             <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('closeBtn')}</span>
           </button>
-          {/*FIXME we need to update the link */}
-          {/*<CopyToClipboard text={} onCopy={onClose}>*/}
-          {/*  <button className={clsx('btn-action', 'group', 'w-40', 'py-1.5', 'h-10', 'gap-2.5')}>*/}
-          {/*    <span className={clsx('text-purple-900', 'group-hover:text-white')}>*/}
-          {/*      <CopyIconSvg />*/}
-          {/*    </span>*/}
-          {/*    <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('copyLinkBtn')}</span>*/}
-          {/*  </button>*/}
-          {/*</CopyToClipboard>*/}
         </div>
       </div>
     </Modal>

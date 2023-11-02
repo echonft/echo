@@ -9,14 +9,12 @@ interface AlertStore {
   dismiss: EmptyFunction
 }
 
-export const useAlertStore = create<AlertStore>()(
-  create<AlertStore>((set) => ({
-    alerts: [],
-    show: (alert) => {
-      set(modify('alerts', append(alert)))
-    },
-    dismiss: () => {
-      set(modify('alerts', drop(1)))
-    }
-  }))
-)
+export const useAlertStore = create<AlertStore>((set) => ({
+  alerts: [],
+  show: (alert) => {
+    set(modify('alerts', append(alert)))
+  },
+  dismiss: () => {
+    set(modify('alerts', drop(1)))
+  }
+}))

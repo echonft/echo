@@ -1,3 +1,4 @@
+import { createOfferFetcher } from '@echo/api/services/fetcher/create-offer-fetcher'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { NavigationLayout } from '@echo/ui/components/layout/navigation/navigation-layout'
 import { NewOfferSliderManager } from '@echo/ui/components/offer/new/new-offer-slider-manager'
@@ -20,7 +21,7 @@ export const ProfileNavigationLayout: FunctionComponent<PropsWithChildren<Props>
     <NextIntlClientProvider messages={messages} locale={'en'}>
       <NavigationLayout navigationItems={getProfileNavigationItems()} activeNavigationItem={activeNavigationItem}>
         {children}
-        <NewOfferSliderManager user={user} />
+        <NewOfferSliderManager createOfferFetcher={createOfferFetcher} user={user} />
       </NavigationLayout>
     </NextIntlClientProvider>
   )

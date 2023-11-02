@@ -5,13 +5,13 @@ import { mapGetOwnersForNftResponse } from '@echo/alchemy/mappers/map-get-owners
 import { type AlchemyWallet } from '@echo/alchemy/types/model/alchemy-wallet'
 import { type GetOwnersForNftRequest } from '@echo/alchemy/types/request/get-owners-for-nft-request'
 import { type GetOwnersForNftResponse } from '@echo/alchemy/types/response/get-owners-for-nft-response'
-import { fetcher } from '@echo/frontend/lib/helpers/fetcher'
+import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
 import { partialRight } from 'ramda'
 
 function fetchOwnersForNft(request: GetOwnersForNftRequest, chainId: number) {
   return fetcher(getAlchemyRoute(AlchemyRoutes.GET_OWNERS_FOR_NFT, chainId))
     .query(request)
-    .revalidate(3600)
+    .disableCache()
     .fetchResponse<GetOwnersForNftResponse>()
     .then(mapGetOwnersForNftResponse(chainId))
 }

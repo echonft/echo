@@ -14,6 +14,7 @@ import { mapTokenSetToFirestoreAccount } from '@echo/frontend/lib/helpers/auth/m
 import { setUserId } from '@echo/frontend/lib/server/helpers/user/set-user-id'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import { setUser } from '@sentry/nextjs'
 import { type AuthOptions } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
 import { always, assoc, complement, either, has, isNil, map, pipe, unless } from 'ramda'
@@ -27,14 +28,14 @@ export const authOptions: AuthOptions = {
       clientId: getDiscordConfig().clientId,
       clientSecret: getDiscordConfig().clientSecret,
       authorization: getDiscordAuthorizationUrl(),
-      profile: async (profile: DiscordProfile, tokens) => {
+      profile: async (profile: DiscordProfile & Partial<Record<'avatar_decoration', string | undefined>>, tokens) => {
         await updateAccount(profile.id, mapTokenSetToFirestoreAccount(tokens))
         return {
           id: profile.id,
           username: profile.username,
           discord: {
             avatarUrl: getDiscordAvatarUrl(profile),
-            avatarDecorationUrl: getAvatarDecorationUrl(profile as DiscordProfile & { avatar_decoration?: string }),
+            avatarDecorationUrl: getAvatarDecorationUrl(profile),
             bannerColor: profile.banner_color,
             bannerUrl: getDiscordBannerUrl(profile),
             id: profile.id,
@@ -65,10 +66,13 @@ export const authOptions: AuthOptions = {
         // TODO get the chain id
         // FIXME this cannot be here
         // await updateUserNfts(authUser, 1)
+        setUser({ id, username: user.username })
         return {
           ...session,
           user: authUser
         }
+      } else {
+        setUser(null)
       }
       return session
     }

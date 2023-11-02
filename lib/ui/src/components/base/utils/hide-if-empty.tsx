@@ -16,7 +16,7 @@ interface StringProps {
 
 interface ObjectProps {
   checks: object
-  render: <T extends Record<string | number | symbol, unknown>>(checks: NonEmptyObject<T>) => ReactNode
+  render: <T extends Record<PropertyKey, unknown>>(checks: NonEmptyObject<T>) => ReactNode
 }
 
 function HideIfEmptyArray<T>({ checks, render }: ArrayProps<T>) {
@@ -33,7 +33,7 @@ function HideIfEmptyString<T extends string>({ checks, render }: StringProps) {
   return render(checks as NonEmptyString<T>)
 }
 
-function HideIfEmptyObject<T extends Record<string | number | symbol, unknown>>({ checks, render }: ObjectProps) {
+function HideIfEmptyObject<T extends Record<PropertyKey, unknown>>({ checks, render }: ObjectProps) {
   if (isEmpty(checks)) {
     return null as ReactNode
   }
@@ -44,7 +44,7 @@ export function HideIfEmpty<T>(props: ArrayProps<T>): ReactNode
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function HideIfEmpty<T extends string>(props: StringProps): ReactNode
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function HideIfEmpty<T extends Record<string | number | symbol, unknown>>(props: ObjectProps): ReactNode
+export function HideIfEmpty<T extends Record<PropertyKey, unknown>>(props: ObjectProps): ReactNode
 export function HideIfEmpty<T = unknown>(props: ArrayProps<T> | StringProps | ObjectProps): ReactNode {
   const { checks, render } = props
   if (is(Array, checks)) {
@@ -61,8 +61,6 @@ export function HideIfEmpty<T = unknown>(props: ArrayProps<T> | StringProps | Ob
   }
   return HideIfEmptyObject({
     checks,
-    render: render as <T extends Record<string | number | symbol, unknown>>(
-      checks: NonNullable<NonEmptyObject<T>>
-    ) => ReactNode
+    render: render as <T extends Record<PropertyKey, unknown>>(checks: NonNullable<NonEmptyObject<T>>) => ReactNode
   })
 }

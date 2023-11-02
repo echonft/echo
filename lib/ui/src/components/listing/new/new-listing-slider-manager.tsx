@@ -1,21 +1,28 @@
 'use client'
 import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
+import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Collection } from '@echo/model/types/collection'
+import type { Listing } from '@echo/model/types/listing'
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
+import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { NewListingConfirmationModal } from '@echo/ui/components/listing/new/new-listing-confirmation-modal'
+import { NewListingConfirmedModal } from '@echo/ui/components/listing/new/new-listing-confirmed-modal'
 import { NewListingSlider } from '@echo/ui/components/listing/new/new-listing-slider'
-import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { mapListingItemsToRequests } from '@echo/ui/mappers/to-api/map-listing-items-to-requests'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { Transition } from '@headlessui/react'
+import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
 import { assoc, isNil, pathEq, pipe, reject } from 'ramda'
-import { type FunctionComponent, useCallback, useEffect, useState } from 'react'
+import { type FunctionComponent, useEffect, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 interface Props {
@@ -39,21 +46,43 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
   show,
   onDismiss
 }) => {
+  const { show: showAlert } = useAlertStore()
   const [collections, setCollections] = useState<Collection[]>()
   const [target, setTarget] = useState<ListingTarget | undefined>(initialTarget)
   const [items, setItems] = useState<ListingItem[]>(initialItems ?? [])
   const [confirmModalShown, setConfirmModalShown] = useState(false)
-  const [confirmedModalShown, setConfirmedModalShown] = useState(false)
+  const [listing, setListing] = useState<Listing>()
   const t = useTranslations('listing.new.bottomSlider')
-  const createListing = useCallback(
-    () =>
+  const tError = useTranslations('error.listing')
+  const { trigger, isMutating } = useSWRMutation<
+    ListingResponse,
+    Error,
+    string,
+    { items: ListingItem[]; target: ListingTarget | undefined; user: AuthUser | undefined }
+  >(
+    'create-listing',
+    (_key, { arg: { items, target, user } }) =>
       createListingFetcher(
         { items: mapListingItemsToRequests(items), target: mapListingTargetToRequest(target) },
         user?.sessionToken
       ),
-    [createListingFetcher, items, target, user]
+    {
+      onSuccess: (data) => {
+        setConfirmModalShown(false)
+        setListing(data.listing)
+      },
+      onError: (error) => {
+        setConfirmModalShown(false)
+        captureException(error, {
+          contexts: listingContext({
+            targets: (isNil(target) ? [] : [target]) as NonEmptyArray<ListingTarget>,
+            items: items as NonEmptyArray<ListingItem>
+          })
+        })
+        showAlert({ severity: CalloutSeverity.ERROR, message: tError('new') })
+      }
+    }
   )
-  const { trigger, isMutating } = useSWRMutation('create-listing', createListing)
 
   useEffect(() => {
     void collectionProvider.get().then(setCollections)
@@ -121,23 +150,18 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
         confirming={isMutating}
         onClose={() => setConfirmModalShown(false)}
         onConfirm={() => {
-          trigger()
-            .then(() => {
-              setConfirmModalShown(false)
-              setConfirmedModalShown(true)
-            })
-            .catch((_err) => {
-              // TODO show the error
-            })
+          void trigger({ items, target, user })
         }}
       />
-      <NewOfferConfirmedModal
-        show={confirmedModalShown}
+      <NewListingConfirmedModal
+        listing={listing}
+        show={!isNil(listing)}
         onClose={() => {
           clearListing()
-          setConfirmedModalShown(false)
+          onDismiss?.()
         }}
       />
+      <CalloutManager />
     </>
   )
 }

@@ -6,7 +6,7 @@ import { type OfferState } from '@echo/model/types/offer-state'
 export function assertOfferState(
   offer: Offer,
   toState: OfferState
-): asserts offer is Offer & Record<OfferState, 'state'> {
+): asserts offer is Omit<Offer, 'state'> & Record<'state', OfferState> {
   try {
     modelAssertOfferState(offer, toState)
   } catch (err) {

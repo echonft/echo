@@ -1,4 +1,5 @@
 'use client'
+import { createOfferFetcher } from '@echo/api/services/fetcher/create-offer-fetcher'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Listing } from '@echo/model/types/listing'
 import { type Nft } from '@echo/model/types/nft'
@@ -18,7 +19,7 @@ export const NftDetailsApiProvided: FunctionComponent<Props> = ({ nft, listings,
   return (
     <NextIntlClientProvider messages={messages} locale={'en'}>
       <NftDetails nft={nft} listings={listings} />
-      <NewOfferSliderManager user={user} />
+      <NewOfferSliderManager createOfferFetcher={createOfferFetcher} user={user} />
     </NextIntlClientProvider>
   )
 }

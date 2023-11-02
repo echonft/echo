@@ -17,11 +17,7 @@ export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({ co
   const { status, write } = useContractWrite(config)
 
   return (
-    <button
-      className={clsx('btn-gradient', 'btn-size-alt', 'group', 'outline-none')}
-      onClick={write}
-      disabled={status !== 'idle'}
-    >
+    <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={write} disabled={status !== 'idle'}>
       <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn')}</span>
     </button>
   )

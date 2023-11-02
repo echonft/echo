@@ -1,18 +1,18 @@
 import { complement, isNil, pipe, prop } from 'ramda'
 
-function internalFn<V, P extends keyof V>(propKey: P) {
-  return function (obj: V) {
+function internalFn<T, K extends keyof T>(propKey: K) {
+  return function (obj: T) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return pipe(prop(propKey), complement(isNil))(obj)
   }
 }
 
-export function propIsNotNil<V, P extends keyof V>(propKey: P, obj: V): boolean
-export function propIsNotNil<P extends string | number | symbol>(propKey: P): <V>(obj: V) => boolean
-export function propIsNotNil<V, P extends keyof V>(propKey: P, obj?: V): boolean | ((obj: V) => boolean) {
+export function propIsNotNil<T, K extends keyof T>(propKey: K, obj: T): boolean
+export function propIsNotNil<K extends PropertyKey>(propKey: K): <T>(obj: T) => boolean
+export function propIsNotNil<T, K extends keyof T>(propKey: K, obj?: T): boolean | ((obj: T) => boolean) {
   if (isNil(obj)) {
-    return internalFn<V, P>(propKey)
+    return internalFn<T, K>(propKey)
   }
-  return internalFn<V, P>(propKey)(obj)
+  return internalFn<T, K>(propKey)(obj)
 }

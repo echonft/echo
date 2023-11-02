@@ -3,9 +3,9 @@ import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { OfferFilterAsSender } from '@echo/firestore/constants/offer-filter-as'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
-import { fetcher } from '@echo/frontend/lib/helpers/fetcher'
 import { mapOfferFiltersToQueryParams } from '@echo/frontend/lib/helpers/request/map-offer-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
+import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
 import { OfferRoleSender } from '@echo/model/constants/offer-role'
 import { ProfileOffersCreatedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-created-api-provided'
 import { links } from '@echo/ui/constants/links'
@@ -26,7 +26,6 @@ const ProfileOffersCreatedPage: FunctionComponent = async () => {
     orderBy: [{ field: 'createdAt', direction: 'desc' }]
   })
   const { data, error } = await fetcher(profileOffersApiUrl())
-    .revalidate(3600)
     .query(mergeLeft(filterParams, queryParams))
     .bearerToken(session.user.sessionToken)
     .fetch<OffersResponse>()

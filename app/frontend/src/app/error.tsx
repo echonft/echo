@@ -1,13 +1,18 @@
 'use client'
 import { ErrorPage } from '@echo/ui/components/layout/error-page'
-import { type FunctionComponent } from 'react'
+import { captureException } from '@sentry/nextjs'
+import { type FunctionComponent, useEffect } from 'react'
 
 interface Props {
-  error: Error & { digest?: string }
+  error: Error & Partial<Record<'digest', string>>
   reset: VoidFunction
 }
 
-const Error: FunctionComponent<Props> = () => {
+const Error: FunctionComponent<Props> = ({ error }) => {
+  useEffect(() => {
+    captureException(error)
+  }, [error])
+
   return <ErrorPage />
 }
 
