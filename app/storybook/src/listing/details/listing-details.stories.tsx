@@ -20,16 +20,13 @@ const EXPIRED_DATE = dayjs().subtract(2, 'd').unix()
 const NOT_EXPIRED_DATE = dayjs().add(2, 'd').unix()
 const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
 const user = assoc('username', listing.creator.username, authUserMock)
-function getListingFetcher(_listingId: string) {
+function cancelListingFetcher(_listingId: string, _token: string | undefined) {
   return delayPromise(
     Promise.resolve({
       listing: assoc('state', 'CANCELLED', listing)
     }),
     800
   )
-}
-function cancelListingFetcher(_listingId: string, _token: string | undefined) {
-  return delayPromise(Promise.resolve({}), 800)
 }
 const metadata: Meta<ComponentType> = {
   title: 'Listing/Details',
@@ -65,7 +62,6 @@ export const Default: Story = {
       <Component
         listing={renderedListing}
         user={isCreator ? user : undefined}
-        getListingFetcher={getListingFetcher}
         cancelListingFetcher={cancelListingFetcher}
       />
     )

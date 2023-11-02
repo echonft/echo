@@ -4,6 +4,7 @@ import type { ContractApproval } from '@echo/ui/types/contract-approval'
 import { getErc721IsApprovedForAllReadConfig } from '@echo/web3/helpers/get-erc721-is-approved-for-all-read-config'
 import type { Erc721Abi } from '@echo/web3/types/erc721-abi'
 import type { IsApprovedForAllFn } from '@echo/web3/types/erc721-function-name-types'
+import { captureException } from '@sentry/nextjs'
 import { isNil } from 'ramda'
 import { type FunctionComponent, useEffect } from 'react'
 import { useContractRead } from 'wagmi'
@@ -11,8 +12,7 @@ import { useContractRead } from 'wagmi'
 interface Props {
   approval: ContractApproval
   title: string
-  onResponse?: (approved: boolean) => unknown
-  onError?: (error: Error) => unknown
+  onComplete?: (approved: boolean) => unknown
 }
 
 function getStatus(status: 'error' | 'idle' | 'loading' | 'success', data: boolean | undefined) {
@@ -28,22 +28,23 @@ function getStatus(status: 'error' | 'idle' | 'loading' | 'success', data: boole
   return status
 }
 
-export const OfferItemsApprovalChecker: FunctionComponent<Props> = ({ approval, title, onResponse, onError }) => {
+export const OfferItemsApprovalChecker: FunctionComponent<Props> = ({ approval, title, onComplete }) => {
   const { contract, wallet } = approval
   const config = getErc721IsApprovedForAllReadConfig(contract, wallet.address, true)
   const { data, error, status } = useContractRead<Erc721Abi, IsApprovedForAllFn>(config)
 
   useEffect(() => {
     if (!isNil(error)) {
-      onError?.(error)
+      captureException(error)
+      onComplete?.(false)
     }
-  }, [error, onError])
+  }, [error, onComplete])
 
   useEffect(() => {
     if (!isNil(data)) {
-      onResponse?.(data as boolean)
+      onComplete?.(data as boolean)
     }
-  }, [data, onResponse])
+  }, [data, onComplete])
 
   return <OfferDetailsAcceptModalRow title={title} status={getStatus(status, Boolean(data))} />
 }

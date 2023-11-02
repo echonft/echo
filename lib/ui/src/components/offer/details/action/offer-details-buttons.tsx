@@ -9,7 +9,6 @@ import { OfferDetailsCancelButton } from '@echo/ui/components/offer/details/acti
 import { OfferDetailsRejectButton } from '@echo/ui/components/offer/details/action/offer-details-reject-button'
 import { OfferDetailsSwapButton } from '@echo/ui/components/offer/details/action/offer-details-swap-button'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { ErrorFunction } from '@echo/utils/types/error-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { clsx } from 'clsx'
 import { type FunctionComponent, useEffect, useState } from 'react'
@@ -33,7 +32,7 @@ interface Props {
   ) => Promise<EmptyResponse>
   disabled?: boolean
   onSuccess?: EmptyFunction
-  onError?: ErrorFunction
+  onError?: EmptyFunction
 }
 
 function showAcceptButton(offer: Offer, isCreator: boolean) {
@@ -82,8 +81,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
   cancelOfferFetcher,
   completeOfferFetcher,
   disabled,
-  onSuccess,
-  onError
+  onSuccess
 }) => {
   const [buttonsDisabled, setButtonsDisabled] = useState(disabled ?? false)
   useEffect(() => {
@@ -95,9 +93,8 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
     setButtonsDisabled(false)
     onSuccess?.()
   }
-  const error = (error: Error) => {
+  const error = () => {
     setButtonsDisabled(false)
-    onError?.(error)
   }
 
   return (
@@ -129,7 +126,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
       </ShowIf>
       <ShowIf condition={showRejectButton(offer, isCreator)}>
         <OfferDetailsRejectButton
-          offerId={offer.id}
+          offer={offer}
           token={token}
           rejectOfferFetcher={rejectOfferFetcher}
           onClick={disable}
@@ -140,7 +137,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
       </ShowIf>
       <ShowIf condition={showCancelButton(offer, isCreator)}>
         <OfferDetailsCancelButton
-          offerId={offer.id}
+          offer={offer}
           token={token}
           cancelOfferFetcher={cancelOfferFetcher}
           onClick={disable}

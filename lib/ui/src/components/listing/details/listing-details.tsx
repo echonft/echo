@@ -1,7 +1,7 @@
 'use client'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { assertListingState } from '@echo/model/helpers/listing/assert/assert-listing-state'
+import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Listing } from '@echo/model/types/listing'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
@@ -14,18 +14,20 @@ import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
 import { AlignmentCenter } from '@echo/ui/constants/alignment'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 import { getListingDetailsContainerBackground } from '@echo/ui/helpers/listing/get-listing-details-container-background'
+import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { captureException } from '@sentry/nextjs'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map, prop } from 'ramda'
-import { type FunctionComponent, useCallback, useMemo } from 'react'
+import { type FunctionComponent, useMemo, useState } from 'react'
 import useSWRMutation from 'swr/mutation'
 
 interface Props {
   listing: Listing
-  getListingFetcher: (listingId: string) => Promise<ListingResponse>
-  cancelListingFetcher: (listingId: string, token: string | undefined) => Promise<EmptyResponse>
+  cancelListingFetcher: (listingId: string, token: string | undefined) => Promise<ListingResponse>
   user: AuthUser | undefined
 }
 
@@ -41,34 +43,27 @@ function canCancel(listing: Listing, user: AuthUser | undefined) {
   }
 }
 
-export const ListingDetails: FunctionComponent<Props> = ({
-  listing,
-  getListingFetcher,
-  cancelListingFetcher,
-  user
-}) => {
+export const ListingDetails: FunctionComponent<Props> = ({ listing, cancelListingFetcher, user }) => {
   const t = useTranslations('listing.details')
-  const getListing = useCallback(() => {
-    return getListingFetcher(listing.id)
-  }, [getListingFetcher, listing])
-  const cancelListing = useCallback(() => {
-    return cancelListingFetcher(listing.id, user?.sessionToken)
-  }, [cancelListingFetcher, listing, user])
-  const {
-    trigger: getListingTrigger,
-    isMutating: getMutating,
-    data
-  } = useSWRMutation<ListingResponse, Error, string>(`get-listing-${listing.id}`, getListing)
-  const { trigger: cancelListingTrigger, isMutating: cancelMutating } = useSWRMutation<EmptyResponse, Error, string>(
-    `cancel-listing-${listing.id}`,
-    cancelListing,
-    {
-      onSuccess: () => {
-        void getListingTrigger()
-      }
+  const tError = useTranslations('error.listing')
+  const { show } = useAlertStore()
+  const [updatedListing, setUpdatedListing] = useState(listing)
+  const { trigger, isMutating } = useSWRMutation<
+    ListingResponse,
+    Error,
+    string,
+    { listingId: string; token: string | undefined }
+  >(`cancel-listing-${listing.id}`, (_key, { arg: { listingId, token } }) => cancelListingFetcher(listingId, token), {
+    onSuccess: (response) => {
+      setUpdatedListing(response.listing)
+    },
+    onError: (err: Error) => {
+      captureException(err, {
+        contexts: listingContext(listing)
+      })
+      show({ severity: CalloutSeverity.ERROR, message: tError('cancel') })
     }
-  )
-  const updatedListing = useMemo(() => data?.listing ?? listing, [listing, data])
+  })
   const { state, creator, expired, expiresAt, items, targets } = updatedListing
   const nfts = useMemo(() => map(prop('nft'), items), [items])
 
@@ -110,11 +105,11 @@ export const ListingDetails: FunctionComponent<Props> = ({
         <ShowIf condition={canCancel(updatedListing, user)}>
           <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
             <LongPressButton
-              id={listing.id}
+              id={updatedListing.id}
               label={t('cancelBtn.label')}
               message={t('cancelBtn.message')}
-              disabled={getMutating || cancelMutating}
-              onFinish={() => void cancelListingTrigger()}
+              disabled={isMutating}
+              onFinish={() => void trigger({ listingId: updatedListing.id, token: user?.sessionToken })}
             />
           </div>
         </ShowIf>

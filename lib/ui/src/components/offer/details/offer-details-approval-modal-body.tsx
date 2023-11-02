@@ -47,7 +47,7 @@ export const OfferDetailsApprovalModalBody: FunctionComponent<Props> = ({ items,
             key={approval.contract.address}
             approval={approval}
             title={t('title', { collectionName: approval.name })}
-            onResponse={(approved) => debouncedUpdateApprovalStatus(approval, approved)}
+            onComplete={(approved) => debouncedUpdateApprovalStatus(approval, approved)}
           />
         ),
         approvals

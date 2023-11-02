@@ -47,10 +47,18 @@ export const messages = {
   },
   error: {
     listing: {
-      new: 'Error creating listing. Please try again'
+      cancel: 'An error occurred while trying to cancel the listing. Please try again',
+      new: 'An error occurred while trying to create the listing. Please try again'
     },
     offer: {
-      new: 'Error creating offer. Please try again'
+      accept: 'An error occurred while trying to accept the offer. Please try again',
+      cancel: 'An error occurred while trying to cancel the offer. Please try again',
+      new: 'An error occurred while trying to create the offer. Please try again',
+      reject: 'An error occurred while trying to reject the offer. Please try again',
+      swap: 'An error occurred while trying to swap the assets. Please try again'
+    },
+    profile: {
+      signing: 'An error occurred while trying to sign the message. Please try again'
     }
   },
   errorPage: {

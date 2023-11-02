@@ -7,7 +7,6 @@ import type { Offer } from '@echo/model/types/offer'
 import type { OfferItem } from '@echo/model/types/offer-item'
 import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
-import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { NewOfferBottomSliderInnerContainer } from '@echo/ui/components/offer/new/new-offer-bottom-slider-inner-container'
 import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
 import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
@@ -118,7 +117,6 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ createOfferFet
           clearOffer()
         }}
       />
-      <CalloutManager />
     </>
   )
 }

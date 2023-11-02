@@ -5,7 +5,6 @@ import type { Offer } from '@echo/model/types/offer'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { OfferDetailsSwapModal } from '@echo/ui/components/offer/details/action/offer-details-swap-modal'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { ErrorFunction } from '@echo/utils/types/error-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -24,7 +23,7 @@ interface Props {
   onClick?: EmptyFunction
   onSuccess?: EmptyFunction
   onCancel?: EmptyFunction
-  onError?: ErrorFunction
+  onError?: EmptyFunction
 }
 
 export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
@@ -64,9 +63,9 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
             setModalShown(false)
             onSuccess?.()
           }}
-          onError={(error) => {
+          onError={() => {
             setModalShown(false)
-            onError?.(error)
+            onError?.()
           }}
           onClose={() => {
             setModalShown(false)

@@ -2,7 +2,6 @@ import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { Offer } from '@echo/model/types/offer'
 import { OfferDetailsSwapModalSwapButton } from '@echo/ui/components/offer/details/action/offer-details-swap-modal-swap-button'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { ErrorFunction } from '@echo/utils/types/error-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -21,7 +20,7 @@ interface Props {
   ) => Promise<EmptyResponse>
   onLoading?: EmptyFunction
   onSuccess?: EmptyFunction
-  onError?: ErrorFunction
+  onError?: EmptyFunction
 }
 
 export const OfferDetailsSwapModalButton: FunctionComponent<Props> = ({

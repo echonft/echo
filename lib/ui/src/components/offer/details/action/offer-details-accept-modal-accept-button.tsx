@@ -1,13 +1,17 @@
 'use client'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
+import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { getSignatureConfigForOffer } from '@echo/web3/helpers/get-signature-config-for-offer'
+import { captureException } from '@sentry/nextjs'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
-import { type FunctionComponent, useEffect } from 'react'
+import { type FunctionComponent, useCallback, useEffect } from 'react'
 import useSWRMutation from 'swr/mutation'
 import { useSignTypedData } from 'wagmi'
 
@@ -22,7 +26,7 @@ interface Props {
   ) => Promise<EmptyResponse>
   onLoading?: EmptyFunction
   onSuccess?: EmptyFunction
-  onError?: (error: Error) => unknown
+  onError?: EmptyFunction
 }
 
 export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
@@ -35,6 +39,18 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
   onError
 }) => {
   const t = useTranslations('offer.details.acceptModal')
+  const tError = useTranslations('error.offer')
+  const { show } = useAlertStore()
+  const onErrorCallback = useCallback(
+    (err: Error) => {
+      captureException(err, {
+        contexts: offerContext(offer)
+      })
+      show({ severity: CalloutSeverity.ERROR, message: tError('accept') })
+      onError?.()
+    },
+    [offer, onError, show, tError]
+  )
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { data, status, error, signTypedData } = useSignTypedData(getSignatureConfigForOffer(offer, chainId))
@@ -48,7 +64,7 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
     (_key, { arg: { offerId, token, signature } }) => acceptOfferFetcher(offerId, signature, token),
     {
       onSuccess,
-      onError
+      onError: onErrorCallback
     }
   )
   const loading = status === 'loading' || isMutating
@@ -61,9 +77,9 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
 
   useEffect(() => {
     if (!isNil(error)) {
-      onError?.(error)
+      onErrorCallback(error)
     }
-  }, [error, onError])
+  }, [error, onErrorCallback])
 
   useEffect(() => {
     if (loading) {

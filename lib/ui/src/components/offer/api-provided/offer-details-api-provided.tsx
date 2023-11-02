@@ -7,6 +7,7 @@ import { getOfferSignatureFetcher } from '@echo/api/services/fetcher/get-offer-s
 import { rejectOfferFetcher } from '@echo/api/services/fetcher/reject-offer-fetcher'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Offer } from '@echo/model/types/offer'
+import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { messages } from '@echo/ui/messages/en'
@@ -34,6 +35,7 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user 
           completeOfferFetcher={completeOfferFetcher}
         />
       </PaddedContainer>
+      <CalloutManager />
     </NextIntlClientProvider>
   )
 }
