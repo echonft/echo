@@ -1,10 +1,10 @@
-import { type ErrorResponse } from '@echo/api/types/responses/error-response'
-import { FetchApiError } from '@echo/frontend/lib/services/fetcher/fetch-api-error'
+import { FetchApiError } from '@echo/api/types/fetch-api-error'
+import type { ErrorResponse } from '@echo/api/types/responses/error-response'
 import { isDev } from '@echo/utils/constants/is-dev'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { setUrlQuery } from '@echo/utils/helpers/set-url-query'
-import { type QueryType } from '@echo/utils/types/query-type'
-import { type HTTP_METHOD } from 'next/dist/server/web/http'
+import type { QueryType } from '@echo/utils/types/query-type'
+import type { HTTP_METHOD } from 'next/dist/server/web/http'
 import { assoc, assocPath, dissocPath, has, hasPath, is, pathEq, pipe } from 'ramda'
 
 export interface FetchResult<T> {

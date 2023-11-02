@@ -1,11 +1,11 @@
 import { type AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
 import { getUser } from '@echo/firestore/helpers/user/get-user'
 import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
-import { getNftBlurUrl } from '@echo/frontend/lib/server/helpers/nft/get-nft-blur-url'
-import { getOpenSeaUrl } from '@echo/frontend/lib/server/helpers/nft/get-open-sea-url'
 import { type Collection } from '@echo/model/types/collection'
 import { type Nft } from '@echo/model/types/nft'
 import { type Wallet } from '@echo/model/types/wallet'
+import { getNftBlurUrl } from '@echo/utils/helpers/nft/get-nft-blur-url'
+import { getOpenSeaUrl } from '@echo/utils/helpers/nft/get-open-sea-url'
 import { assoc, omit, pipe } from 'ramda'
 
 export function mapAlchemyNftToFirestore(
