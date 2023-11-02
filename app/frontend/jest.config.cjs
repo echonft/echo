@@ -21,7 +21,8 @@ module.exports = {
     '^@echo/model-mocks/(.*)$': '<rootDir>/../../lib/model/test/mocks/$1',
     '^@echo/test-utils/(.*)$': '<rootDir>/../../lib/utils/test/test-utils/$1',
     '^@echo/ui/(.*)$': '<rootDir>/../../lib/utils/ui/$1',
-    '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1'
+    '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1',
+    '^@echo/web3/(.*)$': '<rootDir>/../../lib/web3/src/$1'
   },
   reporters: [
     'default',

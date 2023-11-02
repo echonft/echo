@@ -1,5 +1,6 @@
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { type User } from '@echo/model/types/user'
+import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { NewReceiverItemsContainer } from '@echo/ui/components/item/new/new-receiver-items-container'
 import { NewSenderItemsContainer } from '@echo/ui/components/item/new/new-sender-items-container'
@@ -55,9 +56,12 @@ export const NewOfferBottomSliderInnerContainer: FunctionComponent<Props> = ({
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalize')}</span>
         </Disclosure.Button>
-        <button className={clsx('btn-cancel', 'btn-size-alt', 'group')} onClick={onDismissOffer}>
-          <span className={clsx('prose-label-lg', 'btn-label-cancel')}>{t('dismissBtn')}</span>
-        </button>
+        <LongPressButton
+          id={'new-offer'}
+          label={t('dismissBtn.label')}
+          message={t('dismissBtn.message')}
+          onFinish={onDismissOffer}
+        />
       </div>
     </div>
   )

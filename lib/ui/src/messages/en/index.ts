@@ -106,7 +106,10 @@ export const messages = {
           out: 'Offering'
         }
       },
-      cancelBtn: 'Cancel',
+      cancelBtn: {
+        label: 'Cancel',
+        message: 'Hold to cancel'
+      },
       expiresAt: 'Expires in',
       expiredAt: 'Expired'
     },
@@ -117,7 +120,10 @@ export const messages = {
         addCollectionBtn: 'Collection',
         itemsCount: '{count} {count, plural, =0 {} =1 {item} other {items}}',
         finalizeBtn: 'Finalize',
-        dismissBtn: 'Dismiss',
+        dismissBtn: {
+          label: 'Dismiss',
+          message: 'Hold to dismiss'
+        },
         expirationTitle: 'Expires in',
         expirationValue: '7 days',
         emptySearch: 'No collections found',
@@ -183,6 +189,10 @@ export const messages = {
   },
   offer: {
     details: {
+      approval: {
+        title: '{collectionName} is approved by Echo',
+        btn: 'Approve'
+      },
       assets: {
         in: 'Getting in your wallet',
         out: 'Leaving your wallet'
@@ -190,8 +200,14 @@ export const messages = {
       expiresAt: 'Expires in',
       expiredAt: 'Expired',
       acceptBtn: 'Accept',
-      cancelBtn: 'Cancel',
-      rejectBtn: 'Reject',
+      cancelBtn: {
+        label: 'Cancel',
+        message: 'Hold to cancel'
+      },
+      rejectBtn: {
+        label: 'Reject',
+        message: 'Hold to reject'
+      },
       approveBtn: 'Approve {count, plural, =0 {} =1 {NFT} other {NFTs}}',
       completeBtn: 'Swap',
       acceptModal: {
@@ -200,10 +216,8 @@ export const messages = {
           'To accept the offer, you need to approve the Echo contract to transfer your tokens (paid transactions) and then sign a message for the counterparty to perform the swap (not a transaction).',
         ownerAssets: 'You own all the assets',
         counterpartyAssets: 'Counterparty owns all the assets',
-        approval: '{collectionName} is approved by Echo',
         signature: 'Signature is set',
-        approveBtn: 'Approve {collectionName}',
-        acceptBtn: 'Sign and accept'
+        btn: 'Accept'
       },
       swapModal: {
         title: 'Execute swap',
@@ -212,9 +226,7 @@ export const messages = {
         ownerAssets: 'You own all the assets',
         counterpartyAssets: 'Counterparty owns all the assets',
         counterpartyApproval: 'Counterparty has approved token transfer',
-        approval: '{collectionName} is approved by Echo',
-        approveBtn: 'Approve {collectionName}',
-        acceptBtn: 'Swap'
+        btn: 'Swap'
       }
     },
     expired: 'Expired',
@@ -224,7 +236,10 @@ export const messages = {
         finalize: 'Finalize offer',
         noNftsTitle: 'No NFTs selected yet',
         noNftsBtn: 'Select NFTs now',
-        dismissBtn: 'Dismiss'
+        dismissBtn: {
+          label: 'Dismiss',
+          message: 'Hold to dismiss'
+        }
       },
       confirmationModal: {
         title: 'Confirm Offer',

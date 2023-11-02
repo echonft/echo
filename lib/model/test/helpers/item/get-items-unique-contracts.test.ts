@@ -1,8 +1,8 @@
 import { getItemsUniqueContracts } from '@echo/model/helpers/item/get-items-unique-contracts'
 import type { Contract } from '@echo/model/types/contract'
 import type { Item } from '@echo/model/types/item'
+import { formatAddress } from '@echo/utils/helpers/format-address'
 import { describe, expect, it } from '@jest/globals'
-import { getAddress } from 'viem'
 
 describe('helpers - item - getItemsUniqueContracts', () => {
   it('returns the contract if there is only 1 contract', () => {
@@ -10,7 +10,7 @@ describe('helpers - item - getItemsUniqueContracts', () => {
       name: 'Test',
       symbol: 'TEST',
       tokenType: 'ERC721',
-      address: getAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
+      address: formatAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
       chainId: 1
     }
     const item = {
@@ -30,7 +30,7 @@ describe('helpers - item - getItemsUniqueContracts', () => {
       name: 'Test',
       symbol: 'TEST',
       tokenType: 'ERC721',
-      address: getAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
+      address: formatAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
       chainId: 1
     }
     const item = {
@@ -50,14 +50,14 @@ describe('helpers - item - getItemsUniqueContracts', () => {
       name: 'Test',
       symbol: 'TEST',
       tokenType: 'ERC721',
-      address: getAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
+      address: formatAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
       chainId: 1
     }
     const contract2: Contract = {
       name: 'Test2',
       symbol: 'TEST2',
       tokenType: 'ERC721',
-      address: getAddress('0x213bE2f484Ab480db4f18b0Fe4C38e1C25877f09', 1),
+      address: formatAddress('0x213bE2f484Ab480db4f18b0Fe4C38e1C25877f09', 1),
       chainId: 1
     }
     const item1 = {

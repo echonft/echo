@@ -1,7 +1,7 @@
 import { type Nft } from '@echo/model/types/nft'
 import { mapNftToOfferItem } from '@echo/ui/mappers/map-nft-to-offer-item'
+import { formatAddress } from '@echo/utils/helpers/format-address'
 import { describe, expect, it } from '@jest/globals'
-import { getAddress } from 'viem'
 
 describe('mappers - mapNftToOfferItem', () => {
   it('maps correctly', () => {
@@ -18,7 +18,7 @@ describe('mappers - mapNftToOfferItem', () => {
           'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ?auto=format&dpr=1&w=3840',
         contract: {
           tokenType: 'ERC721',
-          address: getAddress('0x12c63bbD266dB84e117356e664f3604055166CEc', 1),
+          address: formatAddress('0x12c63bbD266dB84e117356e664f3604055166CEc', 1),
           chainId: 1,
           name: 'Mythics Genesis',
           symbol: 'MGEN'
@@ -45,7 +45,7 @@ describe('mappers - mapNftToOfferItem', () => {
         },
         username: 'johnnycagewins',
         wallet: {
-          address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+          address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
           chainId: 1
         }
       },

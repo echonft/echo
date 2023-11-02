@@ -1,3 +1,4 @@
+import { assertOfferItemsAreSameChain } from '@echo/model/helpers/offer/assert/assert-offer-items-are-same-chain'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
@@ -44,4 +45,5 @@ export function assertOfferItems(items: NonEmptyArray<OfferItem>) {
   if (pipe(map(path(['nft', 'owner'])), uniqWith(eqProps('wallet')), length, complement(equals(1)))(items)) {
     throw Error('not all offer items are owned by the same wallet')
   }
+  assertOfferItemsAreSameChain(items)
 }

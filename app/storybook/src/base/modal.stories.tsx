@@ -5,6 +5,12 @@ import { useState } from 'react'
 const metadata: Meta<typeof Component> = {
   title: 'Base/Modal',
   component: Component,
+  argTypes: {
+    onClose: {
+      control: false,
+      action: 'close'
+    }
+  },
   parameters: {
     controls: {
       exclude: ['open', 'onClose', 'closeDisabled']

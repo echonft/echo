@@ -39,6 +39,7 @@ export const NewListingConfirmedModal: FunctionComponent<Props> = ({ collectionS
             <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('closeBtn')}</span>
           </button>
           <Tooltip
+            className={clsx('tooltip')}
             anchorSelect={'#copy-link-btn'}
             content={t('linkCopied')}
             delayHide={2000}

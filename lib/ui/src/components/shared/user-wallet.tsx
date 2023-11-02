@@ -1,11 +1,12 @@
 'use client'
 import { shortenAddress } from '@echo/utils/helpers/shorten-address'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 interface Props {
-  address: string
+  address: HexString
 }
 
 export const UserWallet: FunctionComponent<Props> = ({ address }) => {

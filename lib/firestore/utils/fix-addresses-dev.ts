@@ -8,6 +8,7 @@ import { type Collection } from '@echo/model/types/collection'
 import { type Listing } from '@echo/model/types/listing'
 import { type Nft } from '@echo/model/types/nft'
 import { type Offer } from '@echo/model/types/offer'
+import { formatAddress } from '@echo/utils/helpers/format-address'
 import { uncheckedUpdateCollection } from '@test-utils/collection/unchecked-update-collection'
 import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
 import { getAllNfts } from '@test-utils/nft/get-all-nfts'
@@ -16,12 +17,11 @@ import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
 import { getAllWallets } from '@test-utils/wallet/get-all-wallets'
 import { uncheckedUpdateWallet } from '@test-utils/wallet/unchecked-update-wallet'
 import { assoc, converge, lens, map, modify, modifyPath, omit, over, pick, pipe, prop } from 'ramda'
-import { getAddress } from 'viem'
 
 const updateAddressLens = lens(pick(['chainId', 'address']), assoc('address'))
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-const updateAddress = over(updateAddressLens, converge(getAddress, [prop('address'), prop('chainId')]))
+const updateAddress = over(updateAddressLens, converge(formatAddress, [prop('address'), prop('chainId')]))
 
 void (async function () {
   initializeFirebase()

@@ -2,8 +2,8 @@ import { getUser } from '@echo/firestore/helpers/user/get-user'
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/map-wallet-document-data-to-wallet'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
+import { formatAddress } from '@echo/utils/helpers/format-address'
 import { describe, expect, it } from '@jest/globals'
-import { getAddress } from 'viem'
 
 describe('helpers - user - getUser', () => {
   it('returns the user', () => {
@@ -17,7 +17,7 @@ describe('helpers - user - getUser', () => {
       username: 'johnnycagewins',
       wallet: {
         chainId: 1,
-        address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1)
+        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1)
       }
     })
   })

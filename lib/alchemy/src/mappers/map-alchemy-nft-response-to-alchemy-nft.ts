@@ -17,7 +17,6 @@ import {
   pipe,
   prop
 } from 'ramda'
-import { getAddress } from 'viem'
 
 export function mapAlchemyNftResponseToAlchemyNft(chainId: number) {
   return function (nftResponse: AlchemyNftResponse): AlchemyNft {
@@ -25,9 +24,7 @@ export function mapAlchemyNftResponseToAlchemyNft(chainId: number) {
       modify('contract', mapAlchemyContractResponseToAlchemyContract(chainId)),
       applySpec<AlchemyNft>({
         balance: ifElse(pathEq('ERC1155', ['contract', 'tokenType']), pipe(prop('balance'), parseInt), always(1)),
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        contractAddress: pipe(path(['contract', 'address']), getAddress),
+        contractAddress: path(['contract', 'address']),
         chainId: path(['contract', 'chainId']),
         name: prop('name'),
         // Not all links are always provided so add either cached or original if pngUrl does not exist

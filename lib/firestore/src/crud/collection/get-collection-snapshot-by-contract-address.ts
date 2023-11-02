@@ -1,10 +1,10 @@
 import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
 import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/get-query-snapshot-document-snapshot'
-import { getAddress } from 'viem'
+import { formatAddress } from '@echo/utils/helpers/format-address'
 
 export async function getCollectionSnapshotByContractAddress(address: string, chainId: number) {
   const querySnapshot = await getCollectionsCollectionReference()
-    .where('contract.address', '==', getAddress(address, chainId))
+    .where('contract.address', '==', formatAddress(address, chainId))
     .where('contract.chainId', '==', chainId)
     .get()
 

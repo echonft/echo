@@ -1,8 +1,9 @@
 'use client'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { Offer } from '@echo/model/types/offer'
-import { getSignatureConfigForOffer } from '@echo/ui/helpers/contract/get-signature-config-for-offer'
+import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
+import { getSignatureConfigForOffer } from '@echo/web3/helpers/get-signature-config-for-offer'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -19,7 +20,8 @@ interface Props {
     signature: HexString | undefined,
     token: string | undefined
   ) => Promise<EmptyResponse>
-  onSuccess?: () => unknown
+  onLoading?: EmptyFunction
+  onSuccess?: EmptyFunction
   onError?: (error: Error) => unknown
 }
 
@@ -28,6 +30,7 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
   chainId,
   token,
   acceptOfferFetcher,
+  onLoading,
   onSuccess,
   onError
 }) => {
@@ -62,13 +65,19 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
     }
   }, [error, onError])
 
+  useEffect(() => {
+    if (loading) {
+      onLoading?.()
+    }
+  }, [loading, onLoading])
+
   return (
     <button
       className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
       onClick={() => signTypedData()}
       disabled={loading}
     >
-      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('acceptBtn')}</span>
+      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn')}</span>
     </button>
   )
 }

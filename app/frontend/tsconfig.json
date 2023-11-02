@@ -16,7 +16,8 @@
       "@echo/test-utils/*": ["../../lib/utils/test/test-utils/*"],
       "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/ui-css/*": ["../../lib/ui/dist/*"],
-      "@echo/utils/*": ["../../lib/utils/src/*"]
+      "@echo/utils/*": ["../../lib/utils/src/*"],
+      "@echo/web3/*": ["../../lib/web3/src/*"]
     },
     "plugins": [
       {

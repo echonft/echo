@@ -1,4 +1,4 @@
-export declare global {
+declare global {
   namespace NodeJS {
     interface ProcessEnv extends Dict<string> {
       DISCORD_CLIENT_TOKEN: string
