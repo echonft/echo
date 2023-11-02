@@ -20,6 +20,8 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
+    "@echo/api": "workspace:*",
+    "@echo/alchemy": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",

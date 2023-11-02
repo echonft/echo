@@ -1,5 +1,7 @@
-import { logger } from '@echo/utils/services/logger'
+import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { updateAllNfts } from '@echo/helper/services/nft/update-all-nfts'
 
-void (function () {
-  logger.info(`Hello world!`)
+void (async function () {
+  initializeFirebase()
+  await updateAllNfts()
 })()
