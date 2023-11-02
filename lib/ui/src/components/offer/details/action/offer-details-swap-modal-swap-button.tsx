@@ -77,7 +77,7 @@ export const OfferDetailsSwapModalSwapButton: FunctionComponent<Props> = ({
 
   return (
     <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={write} disabled={loading}>
-      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('acceptBtn')}</span>
+      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn')}</span>
     </button>
   )
 }
