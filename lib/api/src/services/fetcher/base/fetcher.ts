@@ -1,17 +1,12 @@
 import { FetchApiError } from '@echo/api/types/fetch-api-error'
 import type { ErrorResponse } from '@echo/api/types/responses/error-response'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { setUrlQuery } from '@echo/utils/helpers/set-url-query'
 import { type QueryType } from '@echo/utils/types/query-type'
 import { assoc, assocPath, is, pathEq } from 'ramda'
 
-enum HTTP_METHODS {
-  'GET' = 'GET',
-  'POST' = 'POST',
-  'PUT' = 'PUT',
-  'DELETE' = 'DELETE',
-  'PATCH' = 'PATCH'
-}
+type HTTP_METHODS = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 
 export interface FetchResult<T> {
   data: T | undefined
@@ -41,11 +36,17 @@ export class Fetcher {
     return this
   }
 
-  bearerToken(token: string) {
+  bearerToken(token?: string) {
+    if (isNilOrEmpty(token)) {
+      return this
+    }
     return this.authorization('Bearer', token)
   }
 
-  body<T extends object>(body: T) {
+  body<T extends object>(body?: T) {
+    if (isNilOrEmpty(body)) {
+      return this
+    }
     if (pathEq('GET', ['headers', 'method'], this.init)) {
       throw Error('GET requests cannot have a body')
     }
@@ -82,7 +83,10 @@ export class Fetcher {
     return this
   }
 
-  query<T extends QueryType>(query: T, addArrayBrackets = false) {
+  query<T extends QueryType>(query?: T, addArrayBrackets = false) {
+    if (isNilOrEmpty(query)) {
+      return this
+    }
     setUrlQuery(this.url, query, addArrayBrackets)
     return this
   }
