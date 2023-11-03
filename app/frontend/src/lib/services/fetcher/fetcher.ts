@@ -1,5 +1,5 @@
-import { Fetcher } from '@echo/api/services/fetcher/base/fetcher'
 import { isDev } from '@echo/utils/constants/is-dev'
+import { Fetcher } from '@echo/utils/services/fetcher'
 import { assoc, assocPath, dissocPath, has, hasPath, pipe } from 'ramda'
 
 export interface FetchResult<T> {

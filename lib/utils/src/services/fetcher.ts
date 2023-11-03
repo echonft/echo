@@ -1,8 +1,8 @@
-import { FetchApiError } from '@echo/api/types/fetch-api-error'
-import type { ErrorResponse } from '@echo/api/types/responses/error-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { setUrlQuery } from '@echo/utils/helpers/set-url-query'
+import type { ErrorResponse } from '@echo/utils/types/error-response'
+import { FetchApiError } from '@echo/utils/types/fetch-api-error'
 import { type QueryType } from '@echo/utils/types/query-type'
 import { assoc, assocPath, is, pathEq } from 'ramda'
 
