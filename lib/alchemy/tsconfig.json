@@ -4,8 +4,9 @@
     "baseUrl": ".",
     "paths": {
       "@echo/alchemy/*": ["src/*"],
-      "@test/*": ["test/*"],
-      "@echo/utils/*": ["../utils/src/*"]
+      "@echo/model/*": ["../model/src/*"],
+      "@echo/utils/*": ["../utils/src/*"],
+      "@test/*": ["test/*"]
     }
   },
   "include": ["src", "test"],

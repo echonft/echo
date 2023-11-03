@@ -1,4 +1,4 @@
-import { getNftBlurUrl } from '@echo/utils/helpers/nft/get-nft-blur-url'
+import { getNftBlurUrl } from '@echo/model/helpers/nft/get-nft-blur-url'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - nft - getNftBlurUrl', () => {

@@ -1,10 +1,11 @@
+import { mapAlchemyNftToNft } from '@echo/alchemy/mappers/map-alchemy-nft-to-nft'
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { findNftByCollectionContract } from '@echo/firestore/crud/nft/find-nft-by-collection-contract'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
+import { getUser } from '@echo/firestore/helpers/user/get-user'
 import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { getNftsForOwner } from '@echo/frontend/lib/server/helpers/alchemy/get-nfts-for-owner'
-import { mapAlchemyNftToFirestore } from '@echo/frontend/lib/server/helpers/alchemy/map-alchemy-nft-to-firestore'
 import { type Wallet } from '@echo/model/types/wallet'
 import { filter, find, isNil, map, path, pathEq } from 'ramda'
 
@@ -20,7 +21,7 @@ export async function updateUserNfts(user: UserDocumentData, wallet: Wallet) {
     if (isNil(nft)) {
       const collection = find(pathEq(contractAddress, ['contract', 'address']), collectionsForChain)
       if (!isNil(collection)) {
-        const nft = mapAlchemyNftToFirestore(alchemyNft, user, wallet, collection)
+        const nft = mapAlchemyNftToNft(alchemyNft, getUser(user, wallet), collection)
         await addNft(nft)
       }
     } else {

@@ -405,6 +405,9 @@ importers:
 
   lib/alchemy:
     dependencies:
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../model
       '@echo/utils':
         specifier: workspace:*
         version: link:../utils

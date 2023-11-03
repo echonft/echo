@@ -1,11 +1,11 @@
-import { type AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
-import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
-import { mapAlchemyNftToFirestore } from '@echo/frontend/lib/server/helpers/alchemy/map-alchemy-nft-to-firestore'
-import { type Nft } from '@echo/model/types/nft'
-import { type Wallet } from '@echo/model/types/wallet'
-import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
+import { mapAlchemyNftToNft } from '@echo/alchemy/mappers/map-alchemy-nft-to-nft'
+import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
+import { getCollectionMockById } from '@echo/model/test/mocks/collection/get-collection-mock-by-id'
+import type { Nft } from '@echo/model/types/nft'
+import type { User } from '@echo/model/types/user'
+import { describe, expect, it } from '@jest/globals'
 
-describe('helpers - alchemy - mapAlchemyNftToFirestore', () => {
+describe('mappers - mapAlchemyNftToNft', () => {
   const alchemyNft: AlchemyNft = {
     contractAddress: '0x12c63bbD266dB84e117356e664f3604055166CEc',
     chainId: 1,
@@ -23,10 +23,16 @@ describe('helpers - alchemy - mapAlchemyNftToFirestore', () => {
     tokenType: 'ERC721'
   }
   const collection = getCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
-  const user = getUserMockById('6rECUMhevHfxABZ1VNOm')
-  const userWallet: Wallet = {
-    address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
-    chainId: 1
+  const user: User = {
+    username: 'crewnft_',
+    discord: {
+      username: 'crewnft_',
+      avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png'
+    },
+    wallet: {
+      address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
+      chainId: 1
+    }
   }
   const mappedNft: Omit<Nft, 'id' | 'updatedAt'> = {
     attributes: [
@@ -58,7 +64,7 @@ describe('helpers - alchemy - mapAlchemyNftToFirestore', () => {
   }
 
   it('returns the mapped nft', () => {
-    const result = mapAlchemyNftToFirestore(alchemyNft, user, userWallet, collection)
+    const result = mapAlchemyNftToNft(alchemyNft, user, collection)
     expect(result).toStrictEqual(mappedNft)
   })
 })

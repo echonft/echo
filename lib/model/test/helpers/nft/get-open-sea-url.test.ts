@@ -1,4 +1,4 @@
-import { getOpenSeaUrl } from '@echo/utils/helpers/nft/get-open-sea-url'
+import { getOpenSeaUrl } from '@echo/model/helpers/nft/get-open-sea-url'
 import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - nft - getOpenSeaUrl', () => {
