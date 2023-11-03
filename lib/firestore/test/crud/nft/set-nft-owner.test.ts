@@ -1,6 +1,7 @@
 import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
 import { getNftSnapshotById } from '@echo/firestore/crud/nft/get-nft-snapshot-by-id'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
+import { getUser } from '@echo/firestore/helpers/user/get-user'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { type User } from '@echo/model/types/user'
@@ -36,7 +37,8 @@ describe('CRUD - nft - setNftOwner', () => {
   it('set the right owner data', async () => {
     const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
     const wallet = getWalletMockById('i28NWtlxElPXCnO0c6BC')
-    await setNftOwner(nftId, user, wallet)
+    const userDetails = getUser(user, wallet)
+    await setNftOwner(nftId, userDetails)
     const nft = (await findNftById(nftId))!
     const { owner } = nft
     expect(owner.wallet.address).toEqual(wallet.address)

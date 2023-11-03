@@ -1,19 +1,25 @@
+import { AlchemyRoutes } from '@echo/alchemy/constants/alchemy-routes'
+import { getAlchemyRoute } from '@echo/alchemy/helpers/get-alchemy-route'
 import { mapAlchemyNftToNft } from '@echo/alchemy/mappers/map-alchemy-nft-to-nft'
+import { getNftsForOwner } from '@echo/alchemy/services/get-nfts-for-owner'
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { findNftByCollectionContract } from '@echo/firestore/crud/nft/find-nft-by-collection-contract'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
-import { getUser } from '@echo/firestore/helpers/user/get-user'
-import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
-import { getNftsForOwner } from '@echo/frontend/lib/server/helpers/alchemy/get-nfts-for-owner'
-import { type Wallet } from '@echo/model/types/wallet'
+import type { User } from '@echo/model/types/user'
+import { fetcher } from '@echo/utils/services/fetcher'
 import { filter, find, isNil, map, path, pathEq } from 'ramda'
 
-export async function updateUserNfts(user: UserDocumentData, wallet: Wallet) {
+export async function updateUserNfts(user: User) {
   const collections = await getAllCollections()
-  const collectionsForChain = filter(pathEq(wallet.chainId, ['contract', 'chainId']), collections)
+  const collectionsForChain = filter(pathEq(user.wallet.chainId, ['contract', 'chainId']), collections)
   const collectionsAddresses = map(path<string>(['contract', 'address']), collectionsForChain) as string[]
-  const nfts = await getNftsForOwner(wallet.address, collectionsAddresses, wallet.chainId)
+  const nfts = await getNftsForOwner(
+    user.wallet.address,
+    collectionsAddresses,
+    user.wallet.chainId,
+    fetcher(getAlchemyRoute(AlchemyRoutes.GET_NFTS_FOR_OWNER, user.wallet.chainId))
+  )
   for (const alchemyNft of nfts) {
     const { contractAddress, chainId, tokenId } = alchemyNft
     // FIXME this is true only for ERC721
@@ -21,11 +27,11 @@ export async function updateUserNfts(user: UserDocumentData, wallet: Wallet) {
     if (isNil(nft)) {
       const collection = find(pathEq(contractAddress, ['contract', 'address']), collectionsForChain)
       if (!isNil(collection)) {
-        const nft = mapAlchemyNftToNft(alchemyNft, getUser(user, wallet), collection)
+        const nft = mapAlchemyNftToNft(alchemyNft, user, collection)
         await addNft(nft)
       }
     } else {
-      await setNftOwner(nft.id, user, wallet)
+      await setNftOwner(nft.id, user)
     }
   }
 }
