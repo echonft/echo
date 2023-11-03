@@ -2,8 +2,8 @@ import { type CreateOfferRequest } from '@echo/api/types/requests/create-offer-r
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
-import { createOffer } from '@echo/frontend/lib/server/helpers/offer/create-offer'
 import { getOfferItems } from '@echo/frontend/lib/server/helpers/offer/get-offer-items'
+import { guarded_addOffer } from '@echo/frontend/lib/server/helpers/offer/guarded_add-offer'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { createOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/create-offer-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/request-response'
@@ -12,7 +12,7 @@ import { type User } from '@echo/model/types/user'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 
 jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
-jest.mock('@echo/frontend/lib/server/helpers/offer/create-offer')
+jest.mock('@echo/frontend/lib/server/helpers/offer/guarded_add-offer')
 jest.mock('@echo/frontend/lib/server/helpers/offer/get-offer-items')
 
 describe('request-handlers - offer - createOfferRequestHandler', () => {
@@ -59,7 +59,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
         return Promise.resolve([{ amount: 1, nft: { owner: { username: 'another-user' } as User } as Nft }])
       }
     })
-    jest.mocked(createOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
+    jest.mocked(guarded_addOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
     const req = mockRequest<CreateOfferRequest>(validRequest)
     try {
       await createOfferRequestHandler(req)
@@ -81,7 +81,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
         ])
       }
     })
-    jest.mocked(createOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
+    jest.mocked(guarded_addOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
     const req = mockRequest<CreateOfferRequest>(validRequest)
     try {
       await createOfferRequestHandler(req)
@@ -103,7 +103,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
         return Promise.resolve([{ amount: 1, nft: { owner: { username: 'johnnycagewins' } as User } as Nft }])
       }
     })
-    jest.mocked(createOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
+    jest.mocked(guarded_addOffer).mockResolvedValue(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
     const req = mockRequest<CreateOfferRequest>(validRequest)
     try {
       await createOfferRequestHandler(req)
@@ -119,10 +119,10 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
     jest
       .mocked(getOfferItems)
       .mockResolvedValue([{ amount: 1, nft: { owner: { username: 'johnnycagewins' } as User } as Nft }])
-    jest.mocked(createOffer).mockResolvedValue(offer)
+    jest.mocked(guarded_addOffer).mockResolvedValue(offer)
     const req = mockRequest<CreateOfferRequest>(validRequest)
     const res = await createOfferRequestHandler(req)
-    expect(createOffer).toHaveBeenCalledTimes(1)
+    expect(guarded_addOffer).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as OfferResponse
     expect(responseData).toEqual({ offer })

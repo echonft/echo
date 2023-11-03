@@ -5,8 +5,8 @@ import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-req
 import { assertOffer } from '@echo/frontend/lib/server/helpers/offer/assert/assert-offer'
 import { assertOfferSenderIs } from '@echo/frontend/lib/server/helpers/offer/assert/assert-offer-sender-is'
 import { assertOfferState } from '@echo/frontend/lib/server/helpers/offer/assert/assert-offer-state'
-import { completeOffer } from '@echo/frontend/lib/server/helpers/offer/complete-offer'
-import { getOffer } from '@echo/frontend/lib/server/helpers/offer/get-offer'
+import { guarded_completeOffer } from '@echo/frontend/lib/server/helpers/offer/guarded_complete-offer'
+import { guarded_findOfferById } from '@echo/frontend/lib/server/helpers/offer/guarded_find-offer-by-id'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { completeOfferSchema } from '@echo/frontend/lib/server/validators/complete-offer-schema'
 import { NextResponse } from 'next/server'
@@ -14,12 +14,12 @@ import { NextResponse } from 'next/server'
 export async function completeOfferRequestHandler(req: ApiRequest<CompleteOfferRequest>, offerId: string) {
   const requestBody = await req.json()
   const { transactionId } = parseCompleteOfferRequest(requestBody)
-  const offer = await getOffer(offerId)
+  const offer = await guarded_findOfferById(offerId)
   assertOffer(offer)
   assertOfferState(offer, 'COMPLETED')
   const user = await getUserFromRequest(req)
   assertOfferSenderIs(offer, user.username)
-  const updatedOffer = await completeOffer(offerId, transactionId)
+  const updatedOffer = await guarded_completeOffer(offerId, transactionId)
   return NextResponse.json<OfferResponse>({ offer: updatedOffer })
 }
 

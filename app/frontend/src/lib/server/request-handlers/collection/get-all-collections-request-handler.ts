@@ -2,8 +2,8 @@ import { type ApiRequest } from '@echo/api/types/api-request'
 import { type CollectionsResponse } from '@echo/api/types/responses/collections-response'
 import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { getAllCollectionSwapsCounts } from '@echo/frontend/lib/server/helpers/collection/get-all-collection-swaps-counts'
-import { getAllCollections } from '@echo/frontend/lib/server/helpers/collection/get-all-collections'
+import { guarded_getAllCollectionSwapsCounts } from '@echo/frontend/lib/server/helpers/collection/guarded_get-all-collection-swaps-counts'
+import { guarded_getAllCollections } from '@echo/frontend/lib/server/helpers/collection/guarded_get-all-collections'
 import { parseCollectionFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-collection-filters-query'
 import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/parse-constraints-query'
 import { type Collection } from '@echo/model/types/collection'
@@ -62,10 +62,10 @@ export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
       // @ts-ignore
       pipe(prop('constraints'), dissoc('limit'), dissoc('offset'))
     ),
-    getAllCollections
+    guarded_getAllCollections
   )({ constraints, includeSwapsCount })
   if (includeSwapsCount) {
-    const swapCounts = await getAllCollectionSwapsCounts()
+    const swapCounts = await guarded_getAllCollectionSwapsCounts()
     const sliceStartIndex = ifElse(anyPass([isNil, complement(has('offset'))]), always(0), prop('offset'))(constraints)
     const sliceEndIndex = ifElse<
       [{ constraints: QueryConstraints | undefined; collections: Collection[]; sliceStartIndex: number }],

@@ -1,6 +1,6 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
-import { getAllOffers } from '@echo/frontend/lib/server/helpers/offer/get-all-offers'
+import { guarded_getAllOffers } from '@echo/frontend/lib/server/helpers/offer/guarded_get-all-offers'
 import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/parse-constraints-query'
 import { parseOfferFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-offer-filters-query'
 import { NextResponse } from 'next/server'
@@ -14,6 +14,6 @@ export async function getAllCompletedOffersRequestHandler(req: ApiRequest<never>
     dissoc('notStates'),
     assoc('includeExpired', true)
   )(filters)
-  const offers = await getAllOffers(completedOffersFilters, constraints)
+  const offers = await guarded_getAllOffers(completedOffersFilters, constraints)
   return NextResponse.json<OffersResponse>({ offers })
 }

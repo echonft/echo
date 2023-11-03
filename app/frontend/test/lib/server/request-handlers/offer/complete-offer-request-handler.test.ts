@@ -2,8 +2,8 @@ import type { CompleteOfferRequest } from '@echo/api/types/requests/complete-off
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
-import { completeOffer } from '@echo/frontend/lib/server/helpers/offer/complete-offer'
-import { getOffer } from '@echo/frontend/lib/server/helpers/offer/get-offer'
+import { guarded_completeOffer } from '@echo/frontend/lib/server/helpers/offer/guarded_complete-offer'
+import { guarded_findOfferById } from '@echo/frontend/lib/server/helpers/offer/guarded_find-offer-by-id'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { completeOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/complete-offer-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/request-response'
@@ -13,8 +13,8 @@ import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { assoc, modify } from 'ramda'
 
 jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
-jest.mock('@echo/frontend/lib/server/helpers/offer/get-offer')
-jest.mock('@echo/frontend/lib/server/helpers/offer/complete-offer')
+jest.mock('@echo/frontend/lib/server/helpers/offer/guarded_find-offer-by-id')
+jest.mock('@echo/frontend/lib/server/helpers/offer/guarded_complete-offer')
 
 describe('request-handlers - offer - completeOfferHandler', () => {
   const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
@@ -60,7 +60,7 @@ describe('request-handlers - offer - completeOfferHandler', () => {
 
   it('throws if the offer does not exist', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce(undefined)
+    jest.mocked(guarded_findOfferById).mockResolvedValueOnce(undefined)
     const req = mockRequest<CompleteOfferRequest>({ transactionId })
     try {
       await completeOfferRequestHandler(req, offerId)
@@ -72,7 +72,7 @@ describe('request-handlers - offer - completeOfferHandler', () => {
 
   it('throws if the offer state is not ACCEPTED', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce(assoc('state', 'CANCELLED', offer))
+    jest.mocked(guarded_findOfferById).mockResolvedValueOnce(assoc('state', 'CANCELLED', offer))
     const req = mockRequest<CompleteOfferRequest>({ transactionId })
     try {
       await completeOfferRequestHandler(req, offerId)
@@ -85,7 +85,7 @@ describe('request-handlers - offer - completeOfferHandler', () => {
   it('throws if the user is not the offer sender', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest
-      .mocked(getOffer)
+      .mocked(guarded_findOfferById)
       .mockResolvedValueOnce(modify<Offer, 'sender', User>('sender', assoc('username', 'another-user'), offer))
     const req = mockRequest<CompleteOfferRequest>({ transactionId })
     try {
@@ -98,12 +98,12 @@ describe('request-handlers - offer - completeOfferHandler', () => {
 
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOffer).mockResolvedValueOnce(assoc('state', 'ACCEPTED', offer))
+    jest.mocked(guarded_findOfferById).mockResolvedValueOnce(assoc('state', 'ACCEPTED', offer))
     const updatedOffer = assoc('state', 'COMPLETED', offer)
-    jest.mocked(completeOffer).mockResolvedValueOnce(updatedOffer)
+    jest.mocked(guarded_completeOffer).mockResolvedValueOnce(updatedOffer)
     const req = mockRequest<CompleteOfferRequest>({ transactionId })
     const res = await completeOfferRequestHandler(req, offerId)
-    expect(completeOffer).toHaveBeenCalledTimes(1)
+    expect(guarded_completeOffer).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as OfferResponse
     expect(responseData).toEqual({ offer: updatedOffer })

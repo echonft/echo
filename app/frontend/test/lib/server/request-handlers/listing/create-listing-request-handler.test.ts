@@ -4,9 +4,9 @@ import { type ListingTargetRequest } from '@echo/api/types/requests/listing-targ
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
-import { createListing } from '@echo/frontend/lib/server/helpers/listing/create-listing'
 import { getListingItems } from '@echo/frontend/lib/server/helpers/listing/get-listing-items'
 import { getListingTargets } from '@echo/frontend/lib/server/helpers/listing/get-listing-targets'
+import { guarded_addListing } from '@echo/frontend/lib/server/helpers/listing/guarded_add-listing'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { createListingRequestHandler } from '@echo/frontend/lib/server/request-handlers/listing/create-listing-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/request-response'
@@ -17,7 +17,7 @@ import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { head, map, modify, pick, pipe, prop } from 'ramda'
 
 jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
-jest.mock('@echo/frontend/lib/server/helpers/listing/create-listing')
+jest.mock('@echo/frontend/lib/server/helpers/listing/guarded_add-listing')
 jest.mock('@echo/frontend/lib/server/helpers/listing/get-listing-targets')
 jest.mock('@echo/frontend/lib/server/helpers/listing/get-listing-items')
 
@@ -53,7 +53,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
       .mocked(getListingItems)
       .mockResolvedValue([{ amount: 1, nft: { owner: { username: 'another-username' } as User } as Nft }])
     jest.mocked(getListingTargets).mockResolvedValue(listing.targets)
-    jest.mocked(createListing).mockResolvedValue(listing)
+    jest.mocked(guarded_addListing).mockResolvedValue(listing)
     const req = mockRequest<CreateListingRequest>(validRequest)
     try {
       await createListingRequestHandler(req)
@@ -67,10 +67,10 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest.mocked(getListingItems).mockResolvedValue(listing.items)
     jest.mocked(getListingTargets).mockResolvedValue(listing.targets)
-    jest.mocked(createListing).mockResolvedValue(listing)
+    jest.mocked(guarded_addListing).mockResolvedValue(listing)
     const req = mockRequest<CreateListingRequest>(validRequest)
     const res = await createListingRequestHandler(req)
-    expect(createListing).toHaveBeenCalledTimes(1)
+    expect(guarded_addListing).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as ListingResponse
     expect(responseData).toEqual({ listing })

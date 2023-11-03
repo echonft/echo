@@ -1,0 +1,10 @@
+import { findNftByCollection } from '@echo/firestore/crud/nft/find-nft-by-collection'
+import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
+
+export async function guarded_findNftByCollection(collectionSlug: string, tokenId: number) {
+  try {
+    return await findNftByCollection(collectionSlug, tokenId)
+  } catch (e) {
+    throw new ServerError(`error finding nft with tokenId ${tokenId} for collection with slug ${collectionSlug}`, e)
+  }
+}

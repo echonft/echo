@@ -3,7 +3,7 @@ import { findSessionByToken } from '@echo/firestore/crud/session/find-session-by
 import { ForbiddenError } from '@echo/frontend/lib/server/helpers/error/forbidden-error'
 import { UnauthorizedError } from '@echo/frontend/lib/server/helpers/error/unauthorized-error'
 import { getBearerTokenFromRequest } from '@echo/frontend/lib/server/helpers/request/get-bearer-token-from-request'
-import { getUserById } from '@echo/frontend/lib/server/helpers/user/get-user-by-id'
+import { guarded_findUserById } from '@echo/frontend/lib/server/helpers/user/guarded_find-user-by-id'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { isNil } from 'ramda'
 
@@ -16,7 +16,7 @@ export async function getUserFromRequest<T>(req: ApiRequest<T>) {
   if (isNil(session)) {
     throw new UnauthorizedError(`there is no session associated with session token ${sessionToken}`)
   }
-  const user = await getUserById(session.userId)
+  const user = await guarded_findUserById(session.userId)
   if (isNil(user)) {
     throw new ForbiddenError(`there is no user associated with session token ${sessionToken}`)
   }

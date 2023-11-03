@@ -3,7 +3,7 @@ import { getListingsForCollectionAsItem } from '@echo/firestore/crud/listing/get
 import { type Listing } from '@echo/model/types/listing'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
+import { unchecked_updateListing } from '@test-utils/listing/unchecked_update-listing'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -16,13 +16,13 @@ describe('CRUD - listing - getListingsForCollectionAsItem', () => {
 
   async function setExpired(listing: Listing) {
     const expiresAt = dayjs().subtract(1, 'day').set('ms', 0).unix()
-    await uncheckedUpdateListing(listing.id, { expiresAt })
+    await unchecked_updateListing(listing.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', true))(listing)
   }
 
   async function setNotExpired(listing: Listing) {
     const expiresAt = dayjs().add(1, 'day').set('ms', 0).unix()
-    await uncheckedUpdateListing(listing.id, { expiresAt })
+    await unchecked_updateListing(listing.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(listing)
   }
 
@@ -37,7 +37,7 @@ describe('CRUD - listing - getListingsForCollectionAsItem', () => {
     initialExpiresAt = listing!.expiresAt
   })
   afterEach(async () => {
-    await uncheckedUpdateListing(id, { expiresAt: initialExpiresAt })
+    await unchecked_updateListing(id, { expiresAt: initialExpiresAt })
   })
 
   it('returns an empty array if no listings are found', async () => {

@@ -5,7 +5,7 @@ import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertOfferThreads } from '@test-utils/offer-thread/assert-offer-threads'
-import { uncheckedAddOfferThreadCloseRequest } from '@test-utils/offer-thread-close-request/unchecked-add-offer-thread-close-request'
+import { unchecked_addOfferThreadCloseRequest } from '@test-utils/offer-thread-close-request/unchecked_add-offer-thread-close-request'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -41,16 +41,16 @@ describe('CRUD - offer-thread-close-request - getAllReadyOfferThreadCloseRequest
   })
   it('returns all requests in the db', async () => {
     const readyCloseAt = dayjs().subtract(1, 'h').unix()
-    const document1 = await uncheckedAddOfferThreadCloseRequest('1', readyCloseAt)
+    const document1 = await unchecked_addOfferThreadCloseRequest('1', readyCloseAt)
     documents = append(document1, documents)
-    const document2 = await uncheckedAddOfferThreadCloseRequest('2', readyCloseAt)
+    const document2 = await unchecked_addOfferThreadCloseRequest('2', readyCloseAt)
     documents = append(document2, documents)
-    const document3 = await uncheckedAddOfferThreadCloseRequest('3', readyCloseAt)
+    const document3 = await unchecked_addOfferThreadCloseRequest('3', readyCloseAt)
     documents = append(document3, documents)
     const notReadyCloseAt = dayjs().add(1, 'h').unix()
-    const document4 = await uncheckedAddOfferThreadCloseRequest('4', notReadyCloseAt)
+    const document4 = await unchecked_addOfferThreadCloseRequest('4', notReadyCloseAt)
     documents = append(document4, documents)
-    const document5 = await uncheckedAddOfferThreadCloseRequest('5', notReadyCloseAt)
+    const document5 = await unchecked_addOfferThreadCloseRequest('5', notReadyCloseAt)
     documents = append(document5, documents)
     const foundDocuments = await getAllReadyOfferThreadCloseRequests()
     expect(foundDocuments.length).toBe(3)

@@ -1,9 +1,9 @@
-import { guardedAddOfferStateUpdate } from '@echo/bot/firestore/guarded-add-offer-state-update'
-import { guardedAddOfferThread } from '@echo/bot/firestore/guarded-add-offer-thread'
-import { guardedAddOfferThreadCloseRequest } from '@echo/bot/firestore/guarded-add-offer-thread-close-request'
-import { guardedFindOfferThread } from '@echo/bot/firestore/guarded-find-offer-thread'
-import { guardedFindOfferThreadCloseRequest } from '@echo/bot/firestore/guarded-find-offer-thread-close-request'
-import { guardedFindUserByUsername } from '@echo/bot/firestore/guarded-find-user-by-username'
+import { guarded_addOfferStateUpdate } from '@echo/bot/firestore/guarded_add-offer-state-update'
+import { guarded_addOfferThread } from '@echo/bot/firestore/guarded_add-offer-thread'
+import { guarded_addOfferThreadCloseRequest } from '@echo/bot/firestore/guarded_add-offer-thread-close-request'
+import { guarded_findOfferThread } from '@echo/bot/firestore/guarded_find-offer-thread'
+import { guarded_findOfferThreadCloseRequest } from '@echo/bot/firestore/guarded_find-offer-thread-close-request'
+import { guarded_findUserByUsername } from '@echo/bot/firestore/guarded_find-user-by-username'
 import { createOfferThread } from '@echo/bot/offer/create-offer-thread'
 import { getOfferThreadChannel } from '@echo/bot/offer/get-offer-thread-channel'
 import { postOfferStateUpdate } from '@echo/bot/offer/post-offer-state-update'
@@ -24,13 +24,13 @@ import { isNil } from 'ramda'
  */
 export async function offerChangeHandler(client: Client, changeType: DocumentChangeType, offer: Offer) {
   if (changeType === 'added') {
-    const thread = await guardedFindOfferThread(offer.id)
+    const thread = await guarded_findOfferThread(offer.id)
     if (isNil(thread)) {
-      const sender = await guardedFindUserByUsername(offer.sender.username)
+      const sender = await guarded_findUserByUsername(offer.sender.username)
       if (isNil(sender)) {
         return
       }
-      const receiver = await guardedFindUserByUsername(offer.receiver.username)
+      const receiver = await guarded_findUserByUsername(offer.receiver.username)
       if (isNil(receiver)) {
         return
       }
@@ -42,21 +42,21 @@ export async function offerChangeHandler(client: Client, changeType: DocumentCha
       }
       const threadId = await createOfferThread(channel, offer, sender.discord.id, receiver.discord.id)
       if (!isNil(threadId)) {
-        await guardedAddOfferThread(offer.id, { discordId: channel.guildId, channelId: channel.id, threadId })
+        await guarded_addOfferThread(offer.id, { discordId: channel.guildId, channelId: channel.id, threadId })
       }
     }
   } else if (changeType === 'modified') {
     const update = await findOfferStateUpdate(offer.id, offer.state)
     if (isNil(update)) {
       await postOfferStateUpdate(client, offer)
-      await guardedAddOfferStateUpdate(offer.id)
+      await guarded_addOfferStateUpdate(offer.id)
       const { state } = offer
       if (state === 'REJECTED' || state === 'CANCELLED' || state === 'COMPLETED') {
         const thread = await findOfferThread(offer.id)
         if (!isNil(thread)) {
-          const threadCloseRequest = await guardedFindOfferThreadCloseRequest(thread.id)
+          const threadCloseRequest = await guarded_findOfferThreadCloseRequest(thread.id)
           if (isNil(threadCloseRequest)) {
-            await guardedAddOfferThreadCloseRequest(thread.id)
+            await guarded_addOfferThreadCloseRequest(thread.id)
             await postOfferThreadClose(client, thread)
           }
         }

@@ -11,7 +11,7 @@ import { getAvatarDecorationUrl } from '@echo/frontend/lib/helpers/auth/get-avat
 import { getDiscordAvatarUrl } from '@echo/frontend/lib/helpers/auth/get-discord-avatar-url'
 import { getDiscordBannerUrl } from '@echo/frontend/lib/helpers/auth/get-discord-banner-url'
 import { mapTokenSetToFirestoreAccount } from '@echo/frontend/lib/helpers/auth/map-token-set-to-firestore-account'
-import { setUserId } from '@echo/frontend/lib/server/helpers/user/set-user-id'
+import { guarded_setUserId } from '@echo/frontend/lib/server/helpers/user/guarded_set-user-id'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { setUser } from '@sentry/nextjs'
@@ -55,7 +55,7 @@ export const authOptions: AuthOptions = {
         const { id } = user
         const firestoreUser = await findUserById(id)
         if (either(complement(has('id')), propIsNil('id'))(firestoreUser)) {
-          await setUserId(user.username)
+          await guarded_setUserId(user.username)
         }
         const sessionToken = await findSessionByUserId(id)
         const wallets = await getWalletsForUser(id)

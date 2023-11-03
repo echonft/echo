@@ -7,7 +7,7 @@ import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-req
 import { ForbiddenError } from '@echo/frontend/lib/server/helpers/error/forbidden-error'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { emptyResponse } from '@echo/frontend/lib/server/helpers/response/empty-response'
-import { addUserWallet } from '@echo/frontend/lib/server/helpers/user/add-user-wallet'
+import { guarded_addWallet } from '@echo/frontend/lib/server/helpers/user/guarded_add-wallet'
 import { updateUserNfts } from '@echo/frontend/lib/server/helpers/user/update-user-nfts'
 import { addWalletSchema } from '@echo/frontend/lib/server/validators/add-wallet-schema'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -35,7 +35,7 @@ export async function addWalletRequestHandler(req: ApiRequest<AddWalletRequest>)
       `nonce from request does not match nonce for user with id ${user.id}: ${data.nonce} != ${nonce.nonce}`
     )
   }
-  await addUserWallet(user.id, wallet)
+  await guarded_addWallet(user.id, wallet)
   await updateUserNfts(user, wallet)
   return emptyResponse()
 }

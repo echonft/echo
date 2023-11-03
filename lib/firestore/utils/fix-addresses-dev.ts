@@ -9,13 +9,13 @@ import { type Listing } from '@echo/model/types/listing'
 import { type Nft } from '@echo/model/types/nft'
 import { type Offer } from '@echo/model/types/offer'
 import { formatAddress } from '@echo/utils/helpers/format-address'
-import { uncheckedUpdateCollection } from '@test-utils/collection/unchecked-update-collection'
-import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
+import { unchecked_updateCollection } from '@test-utils/collection/unchecked_update-collection'
+import { unchecked_updateListing } from '@test-utils/listing/unchecked_update-listing'
 import { getAllNfts } from '@test-utils/nft/get-all-nfts'
-import { uncheckedUpdateNft } from '@test-utils/nft/unchecked-update-nft'
-import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
+import { unchecked_updateNft } from '@test-utils/nft/unchecked_update-nft'
+import { unchecked_updateOffer } from '@test-utils/offer/unchecked_update-offer'
 import { getAllWallets } from '@test-utils/wallet/get-all-wallets'
-import { uncheckedUpdateWallet } from '@test-utils/wallet/unchecked-update-wallet'
+import { unchecked_updateWallet } from '@test-utils/wallet/unchecked_update-wallet'
 import { assoc, converge, lens, map, modify, modifyPath, omit, over, pick, pipe, prop } from 'ramda'
 
 const updateAddressLens = lens(pick(['chainId', 'address']), assoc('address'))
@@ -40,7 +40,7 @@ void (async function () {
       modify('targets', map(modifyPath(['collection', 'contract'], updateAddress))),
       omit(['id'])
     )(listing) as Listing
-    await uncheckedUpdateListing(listing.id, updateData)
+    await unchecked_updateListing(listing.id, updateData)
   }
   // fix collections addresses
   const collections = await getAllCollections()
@@ -51,7 +51,7 @@ void (async function () {
       modify('contract', updateAddress),
       omit(['id'])
     )(collection) as Collection
-    await uncheckedUpdateCollection(collection.id, updateData)
+    await unchecked_updateCollection(collection.id, updateData)
   }
   // fix nfts addresses
   const nfts = await getAllNfts()
@@ -65,7 +65,7 @@ void (async function () {
       modifyPath(['collection', 'contract'], updateAddress),
       omit(['id'])
     )(nft) as Nft
-    await uncheckedUpdateNft(nft.id, updateData)
+    await unchecked_updateNft(nft.id, updateData)
   }
   // fix offers addresses
   const offers = await getAllOffers()
@@ -79,13 +79,13 @@ void (async function () {
       modify('senderItems', map(modifyPath(['nft', 'owner', 'wallet'], updateAddress))),
       omit(['id'])
     )(offer) as Offer
-    await uncheckedUpdateOffer(offer.id, updateData)
+    await unchecked_updateOffer(offer.id, updateData)
   }
   // fix wallets addresses
   const wallets = await getAllWallets()
   for (const wallet of wallets) {
     const updateData = pipe(updateAddress, omit(['id']))(wallet) as WalletDocumentData
-    await uncheckedUpdateWallet(wallet.id, updateData)
+    await unchecked_updateWallet(wallet.id, updateData)
   }
   await terminateFirestore()
 })()

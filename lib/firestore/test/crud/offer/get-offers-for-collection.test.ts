@@ -3,7 +3,7 @@ import { getOffersForCollection } from '@echo/firestore/crud/offer/get-offers-fo
 import { type Offer } from '@echo/model/types/offer'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
+import { unchecked_updateOffer } from '@test-utils/offer/unchecked_update-offer'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -18,13 +18,13 @@ describe('CRUD - offer - getOffersForCollection', () => {
 
   async function setExpired(offer: Offer) {
     const expiresAt = dayjs().subtract(1, 'day').set('ms', 0).unix()
-    await uncheckedUpdateOffer(offer.id, { expiresAt })
+    await unchecked_updateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', true))(offer)
   }
 
   async function setNotExpired(offer: Offer) {
     const expiresAt = dayjs().add(1, 'day').set('ms', 0).unix()
-    await uncheckedUpdateOffer(offer.id, { expiresAt })
+    await unchecked_updateOffer(offer.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(offer)
   }
 
@@ -41,8 +41,8 @@ describe('CRUD - offer - getOffersForCollection', () => {
     initialExpiresAt2 = offer2.expiresAt
   })
   afterEach(async () => {
-    await uncheckedUpdateOffer(offerId, { expiresAt: initialExpiresAt })
-    await uncheckedUpdateOffer(offerId2, { expiresAt: initialExpiresAt2 })
+    await unchecked_updateOffer(offerId, { expiresAt: initialExpiresAt })
+    await unchecked_updateOffer(offerId2, { expiresAt: initialExpiresAt2 })
   })
 
   it('returns an empty array if no offers are found', async () => {
