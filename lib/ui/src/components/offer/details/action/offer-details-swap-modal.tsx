@@ -1,5 +1,5 @@
 'use client'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
@@ -27,9 +27,9 @@ interface Props {
     offerId: string,
     transactionId: HexString | undefined,
     token: string | undefined
-  ) => Promise<EmptyResponse>
+  ) => Promise<OfferResponse>
   onClose?: EmptyFunction
-  onSuccess?: EmptyFunction
+  onSuccess?: (offer: Offer) => unknown
   onError?: EmptyFunction
 }
 
@@ -83,9 +83,9 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
             onLoading={() => {
               setIsCompleting(true)
             }}
-            onSuccess={() => {
+            onSuccess={(offer: Offer) => {
               setIsCompleting(false)
-              onSuccess?.()
+              onSuccess?.(offer)
             }}
             onError={() => {
               setIsCompleting(false)

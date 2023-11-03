@@ -1,5 +1,4 @@
 'use client'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import type { Offer } from '@echo/model/types/offer'
@@ -12,50 +11,37 @@ import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 import { getOfferDetailsContainerBackgroundImage } from '@echo/ui/helpers/offer/get-offer-details-container-background-image'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { clsx } from 'clsx'
-import { type FunctionComponent, useCallback, useMemo } from 'react'
-import useSWRMutation from 'swr/mutation'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   offer: Offer
   isCreator: boolean
   token: string
-  getOfferFetcher: (offerId: string, token: string) => Promise<OfferResponse>
   getOfferSignatureFetcher: (offerId: string, token: string | undefined) => Promise<OfferSignatureResponse>
-  cancelOfferFetcher: (offerId: string, token: string | undefined) => Promise<EmptyResponse>
+  cancelOfferFetcher: (offerId: string, token: string | undefined) => Promise<OfferResponse>
   acceptOfferFetcher: (
     offerId: string,
     signature: HexString | undefined,
     token: string | undefined
-  ) => Promise<EmptyResponse>
-  rejectOfferFetcher: (offerId: string, token: string | undefined) => Promise<EmptyResponse>
+  ) => Promise<OfferResponse>
+  rejectOfferFetcher: (offerId: string, token: string | undefined) => Promise<OfferResponse>
   completeOfferFetcher: (
     offerId: string,
     transactionId: HexString | undefined,
     token: string | undefined
-  ) => Promise<EmptyResponse>
+  ) => Promise<OfferResponse>
 }
 
 export const OfferDetails: FunctionComponent<Props> = ({
   offer,
   isCreator,
   token,
-  getOfferFetcher,
-  getOfferSignatureFetcher,
   cancelOfferFetcher,
   acceptOfferFetcher,
   rejectOfferFetcher,
   completeOfferFetcher
 }) => {
-  const { trigger, isMutating, data } = useSWRMutation<
-    OfferResponse,
-    Error,
-    string,
-    { offerId: string; token: string }
-  >(`get-offer-${offer.id}`, (_key, { arg: { offerId, token } }) => getOfferFetcher(offerId, token))
-  const onSuccess = useCallback(() => {
-    void trigger({ offerId: offer.id, token })
-  }, [offer.id, token, trigger])
-  const updatedOffer = useMemo(() => data?.offer ?? offer, [offer, data])
+  const [updatedOffer, setUpdatedOffer] = useState(offer)
   const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
 
   return (
@@ -85,13 +71,11 @@ export const OfferDetails: FunctionComponent<Props> = ({
             offer={updatedOffer}
             isCreator={isCreator}
             token={token}
-            getOfferSignatureFetcher={getOfferSignatureFetcher}
             cancelOfferFetcher={cancelOfferFetcher}
             acceptOfferFetcher={acceptOfferFetcher}
             rejectOfferFetcher={rejectOfferFetcher}
             completeOfferFetcher={completeOfferFetcher}
-            disabled={isMutating}
-            onSuccess={onSuccess}
+            onSuccess={setUpdatedOffer}
           />
         </div>
       </div>

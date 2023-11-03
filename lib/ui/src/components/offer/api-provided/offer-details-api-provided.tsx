@@ -2,7 +2,6 @@
 import { acceptOfferFetcher } from '@echo/api/services/fetcher/accept-offer-fetcher'
 import { cancelOfferFetcher } from '@echo/api/services/fetcher/cancel-offer-fetcher'
 import { completeOfferFetcher } from '@echo/api/services/fetcher/complete-offer-fetcher'
-import { getOfferFetcher } from '@echo/api/services/fetcher/get-offer-fetcher'
 import { getOfferSignatureFetcher } from '@echo/api/services/fetcher/get-offer-signature-fetcher'
 import { rejectOfferFetcher } from '@echo/api/services/fetcher/reject-offer-fetcher'
 import { type AuthUser } from '@echo/model/types/auth-user'
@@ -27,7 +26,6 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user 
           offer={offer}
           isCreator={user.username === offer.sender?.username}
           token={user.sessionToken}
-          getOfferFetcher={getOfferFetcher}
           getOfferSignatureFetcher={getOfferSignatureFetcher}
           acceptOfferFetcher={acceptOfferFetcher}
           rejectOfferFetcher={rejectOfferFetcher}

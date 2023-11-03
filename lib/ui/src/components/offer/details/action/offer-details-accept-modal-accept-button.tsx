@@ -1,5 +1,5 @@
 'use client'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
@@ -23,9 +23,9 @@ interface Props {
     offerId: string,
     signature: HexString | undefined,
     token: string | undefined
-  ) => Promise<EmptyResponse>
+  ) => Promise<OfferResponse>
   onLoading?: EmptyFunction
-  onSuccess?: EmptyFunction
+  onSuccess?: (offer: Offer) => unknown
   onError?: EmptyFunction
 }
 
@@ -55,7 +55,7 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
   // @ts-ignore
   const { data, status, error, signTypedData } = useSignTypedData(getSignatureConfigForOffer(offer, chainId))
   const { trigger, isMutating } = useSWRMutation<
-    EmptyResponse,
+    OfferResponse,
     Error,
     string,
     { offerId: string; token: string; signature: HexString }
@@ -63,7 +63,9 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
     `accept-offer-${offer.id}`,
     (_key, { arg: { offerId, token, signature } }) => acceptOfferFetcher(offerId, signature, token),
     {
-      onSuccess,
+      onSuccess: (response) => {
+        onSuccess?.(response.offer)
+      },
       onError: onErrorCallback
     }
   )

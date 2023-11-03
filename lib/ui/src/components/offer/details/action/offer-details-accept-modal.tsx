@@ -1,5 +1,5 @@
 'use client'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Offer } from '@echo/model/types/offer'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
@@ -22,9 +22,9 @@ interface Props {
     offerId: string,
     signature: HexString | undefined,
     token: string | undefined
-  ) => Promise<EmptyResponse>
+  ) => Promise<OfferResponse>
   onClose?: EmptyFunction
-  onSuccess?: EmptyFunction
+  onSuccess?: (offer: Offer) => unknown
   onError?: EmptyFunction
 }
 
@@ -65,9 +65,9 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
             onLoading={() => {
               setIsAccepting(true)
             }}
-            onSuccess={() => {
+            onSuccess={(offer: Offer) => {
               setIsAccepting(false)
-              onSuccess?.()
+              onSuccess?.(offer)
             }}
             onError={() => {
               setIsAccepting(false)

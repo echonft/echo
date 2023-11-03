@@ -14,7 +14,7 @@ import { type OfferItem } from '@echo/model/types/offer-item'
 import { concat, filter, flatten, intersection, isNil, map, pipe, prop, propEq, reject, uniq } from 'ramda'
 
 export async function completeOffer(offerId: string, swapTransactionId: string) {
-  await updateOfferState(offerId, 'COMPLETED')
+  const offer = await updateOfferState(offerId, 'COMPLETED')
   // add swap
   await addSwap(offerId, swapTransactionId)
   // update the status of tied listings, if any
@@ -53,4 +53,5 @@ export async function completeOffer(offerId: string, swapTransactionId: string) 
       }
     }
   }
+  return offer
 }

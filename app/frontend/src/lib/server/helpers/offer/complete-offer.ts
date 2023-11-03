@@ -4,7 +4,7 @@ import type { HexString } from '@echo/utils/types/hex-string'
 
 export async function completeOffer(offerId: string, transactionId: HexString) {
   try {
-    await firestoreCompleteOffer(offerId, transactionId)
+    return await firestoreCompleteOffer(offerId, transactionId)
   } catch (e) {
     throw new ServerError(`error completing offer with id ${offerId}`, e)
   }

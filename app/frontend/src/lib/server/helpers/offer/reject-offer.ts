@@ -3,7 +3,7 @@ import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-erro
 
 export async function rejectOffer(offerId: string) {
   try {
-    await firestoreRejectOffer(offerId)
+    return await firestoreRejectOffer(offerId)
   } catch (e) {
     throw new ServerError(`error rejecting offer with id ${offerId}`, e)
   }
