@@ -1,5 +1,5 @@
 import { isIn } from '@echo/utils/fp/is-in'
-import { type Query } from 'firebase-admin/firestore'
+import { Query } from 'firebase-admin/firestore'
 import { concat, filter, includes, isEmpty, unless } from 'ramda'
 
 export function addSelectConstraint<T>(query: Query<T>, selectFields: string[], availableFields: string[]) {

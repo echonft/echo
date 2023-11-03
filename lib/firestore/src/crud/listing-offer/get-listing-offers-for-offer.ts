@@ -8,7 +8,7 @@ import { type Offer } from '@echo/model/types/offer'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { isNotIn } from '@echo/utils/fp/is-not-in'
 import { now } from '@echo/utils/helpers/now'
-import { type QuerySnapshot } from 'firebase-admin/firestore'
+import { QuerySnapshot } from 'firebase-admin/firestore'
 import { concat, eqProps, filter, map, path, pipe, prop, uniqWith } from 'ramda'
 
 async function receiverItemsListingItemsMatch(offer: Offer) {

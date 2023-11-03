@@ -3,7 +3,7 @@ import { type CreateOfferRequest } from '@echo/api/types/requests/create-offer-r
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
 import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
 import { assertNftOwner } from '@echo/frontend/lib/server/helpers/nft/assert/assert-nft-owner'
-import { getOfferItems } from '@echo/frontend/lib/server/helpers/offer/get-offer-items'
+import { getOfferItemsFromRequests } from '@echo/frontend/lib/server/helpers/offer/get-offer-items-from-requests'
 import { guarded_addOffer } from '@echo/frontend/lib/server/helpers/offer/guarded_add-offer'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { createOfferSchema } from '@echo/frontend/lib/server/validators/create-offer-schema'
@@ -15,8 +15,8 @@ export async function createOfferRequestHandler(req: ApiRequest<CreateOfferReque
   const requestBody = await req.json()
   const { receiverItems, senderItems } = parseCreateOfferRequest(requestBody)
   const sender = await getUserFromRequest(req)
-  const receiverOfferItems = await getOfferItems(receiverItems)
-  const senderOfferItems = await getOfferItems(senderItems)
+  const receiverOfferItems = await getOfferItemsFromRequests(receiverItems)
+  const senderOfferItems = await getOfferItemsFromRequests(senderItems)
   // make sure the sender is the owner of every item
   forEach((item: OfferItem) => {
     assertNftOwner(item.nft, sender.username)

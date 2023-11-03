@@ -3,7 +3,7 @@ import { type Offer } from '@echo/model/types/offer'
 import { intersects } from '@echo/utils/fp/intersects'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { single } from '@echo/utils/fp/single'
-import { type Query } from 'firebase-admin/firestore'
+import { Query } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 
 export function addOfferQueryFilters(query: Query<Offer>, filters?: OfferQueryFilters) {

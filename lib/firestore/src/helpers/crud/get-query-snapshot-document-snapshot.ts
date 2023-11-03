@@ -1,5 +1,5 @@
 import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query-snapshot-is-empty'
-import { type QueryDocumentSnapshot, type QuerySnapshot } from 'firebase-admin/firestore'
+import { QueryDocumentSnapshot, QuerySnapshot } from 'firebase-admin/firestore'
 import { head } from 'ramda'
 
 export function getQuerySnapshotDocumentSnapshot<T>(

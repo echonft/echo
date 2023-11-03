@@ -1,4 +1,4 @@
-import { type DocumentReference, type QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
 export function assertQueryDocumentSnapshot<T>(

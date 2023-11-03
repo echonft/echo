@@ -2,8 +2,8 @@ import { type ApiRequest } from '@echo/api/types/api-request'
 import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
-import { getListingItems } from '@echo/frontend/lib/server/helpers/listing/get-listing-items'
-import { getListingTargets } from '@echo/frontend/lib/server/helpers/listing/get-listing-targets'
+import { getListingItemsFromRequests } from '@echo/frontend/lib/server/helpers/listing/get-listing-items-from-requests'
+import { getListingTargetsFromRequests } from '@echo/frontend/lib/server/helpers/listing/get-listing-targets-from-requests'
 import { guarded_addListing } from '@echo/frontend/lib/server/helpers/listing/guarded_add-listing'
 import { assertNftOwner } from '@echo/frontend/lib/server/helpers/nft/assert/assert-nft-owner'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
@@ -16,8 +16,8 @@ export async function createListingRequestHandler(req: ApiRequest<CreateListingR
   const requestBody = await req.json()
   const { items, target } = parseCreateListingRequest(requestBody)
   const creator = await getUserFromRequest(req)
-  const listingItems = await getListingItems(items)
-  const listingTargets = await getListingTargets([target])
+  const listingItems = await getListingItemsFromRequests(items)
+  const listingTargets = await getListingTargetsFromRequests([target])
   // make sure the creator is the owner of every item
   forEach((item: ListingItem) => {
     assertNftOwner(item.nft, creator.username)

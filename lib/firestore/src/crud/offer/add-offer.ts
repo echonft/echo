@@ -6,14 +6,10 @@ import { assertOfferItems } from '@echo/model/helpers/offer/assert/assert-offer-
 import { type Offer } from '@echo/model/types/offer'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { now } from '@echo/utils/helpers/now'
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import dayjs from 'dayjs'
 import { head } from 'ramda'
 
-export async function addOffer(
-  senderItems: NonEmptyArray<OfferItem>,
-  receiverItems: NonEmptyArray<OfferItem>
-): Promise<Offer> {
+export async function addOffer(senderItems: OfferItem[], receiverItems: OfferItem[]): Promise<Offer> {
   const reference = getOffersCollectionReference().doc()
   assertOfferItems(receiverItems)
   assertOfferItems(senderItems)
@@ -24,9 +20,9 @@ export async function addOffer(
     createdAt: now(),
     expired: false,
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix(),
-    receiver: head<OfferItem, OfferItem>(receiverItems).nft.owner,
+    receiver: head(receiverItems).nft.owner,
     receiverItems,
-    sender: head<OfferItem, OfferItem>(senderItems).nft.owner,
+    sender: head(senderItems).nft.owner,
     senderItems,
     state: 'OPEN',
     updatedAt: now()

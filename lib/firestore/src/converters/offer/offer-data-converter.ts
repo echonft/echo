@@ -5,7 +5,7 @@ import { type Offer } from '@echo/model/types/offer'
 import {
   type FirestoreDataConverter,
   type PartialWithFieldValue,
-  type QueryDocumentSnapshot
+  QueryDocumentSnapshot
 } from 'firebase-admin/firestore'
 import { assoc, dissoc, has, lens, map, over, path, pipe, prop, uniq, when } from 'ramda'
 
@@ -20,7 +20,6 @@ export const offerDataConverter: FirestoreDataConverter<Offer> = {
       dissoc('senderItemsNftCollectionIds')
     )(snapshot)
   },
-
   toFirestore(modelObject: PartialWithFieldValue<Offer>) {
     return pipe(
       dissoc('expired'),

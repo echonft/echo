@@ -5,7 +5,6 @@ import { type ListingTarget } from '@echo/model/types/listing-target'
 import { type Nft } from '@echo/model/types/nft'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { type User } from '@echo/model/types/user'
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { intersection, isEmpty, map, modify, path, pick } from 'ramda'
 
 interface PartialListingItem {
@@ -20,10 +19,7 @@ function mapItems(items: ListingItem[]): PartialListingItem[] {
   )
 }
 
-export async function assertListingIsNotADuplicate(
-  items: NonEmptyArray<OfferItem>,
-  targets: NonEmptyArray<ListingTarget>
-) {
+export async function assertListingIsNotADuplicate(items: OfferItem[], targets: ListingTarget[]) {
   const targetIds = map(path(['collection', 'id']), targets) as string[]
   const itemIds = map(path(['nft', 'id']), items) as string[]
   const querySnapshot = await getListingsCollectionReference()
