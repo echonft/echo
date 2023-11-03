@@ -1,53 +1,13 @@
-import { FetchApiError } from '@echo/api/types/fetch-api-error'
-import type { ErrorResponse } from '@echo/api/types/responses/error-response'
+import { Fetcher } from '@echo/api/services/fetcher/base/fetcher'
 import { isDev } from '@echo/utils/constants/is-dev'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { setUrlQuery } from '@echo/utils/helpers/set-url-query'
-import type { QueryType } from '@echo/utils/types/query-type'
-import type { HTTP_METHOD } from 'next/dist/server/web/http'
-import { assoc, assocPath, dissocPath, has, hasPath, is, pathEq, pipe } from 'ramda'
+import { assoc, assocPath, dissocPath, has, hasPath, pipe } from 'ramda'
 
 export interface FetchResult<T> {
   data: T | undefined
   error: Error | undefined
 }
 
-class Fetcher {
-  private readonly url: URL
-  private init: RequestInit
-
-  constructor(url: URL | string) {
-    if (is(String, url)) {
-      this.url = new URL(url)
-    } else {
-      this.url = url
-    }
-    this.init = {
-      headers: {
-        'Content-Type': 'application/json',
-        method: 'GET'
-      }
-    }
-  }
-
-  authorization(scheme: string, token: string) {
-    this.init = assocPath<string, RequestInit>(['headers', 'Authorization'], `${scheme} ${token}`, this.init)
-    return this
-  }
-
-  bearerToken(token: string) {
-    return this.authorization('Bearer', token)
-  }
-
-  body<T extends object>(body: T) {
-    if (pathEq('GET', ['headers', 'method'], this.init)) {
-      throw Error('GET requests cannot have a body')
-    }
-    const bodyString = JSON.stringify(body)
-    this.init = assoc<'body', RequestInit>('body', bodyString, this.init)
-    return this
-  }
-
+class FrontendFetcher extends Fetcher {
   disableCache() {
     if (hasPath(['next', 'revalidate'], this.init)) {
       throw Error(`Trying to disable cache on a request with revalidate. Only one should be specified`)
@@ -61,21 +21,7 @@ class Fetcher {
     if (isDev) {
       this.forceDisableCache()
     }
-    const response = await fetch(this.url, this.init)
-    if (response.ok) {
-      try {
-        const data = (await response.json()) as T
-        return { data, error: undefined }
-      } catch (e) {
-        return { data: undefined, error: e as Error }
-      }
-    }
-    try {
-      const errorResponse = (await response.json()) as ErrorResponse
-      return { data: undefined, error: new FetchApiError(errorResponse.error, response.status) }
-    } catch (e) {
-      return { data: undefined, error: new FetchApiError(errorMessage(e), response.status) }
-    }
+    return super.fetch()
   }
 
   async fetchResponse<T>(): Promise<T> {
@@ -83,18 +29,7 @@ class Fetcher {
     if (isDev) {
       this.forceDisableCache()
     }
-    const response = await fetch(this.url, this.init)
-    return (await response.json()) as T
-  }
-
-  method(method: HTTP_METHOD) {
-    this.init = assocPath<string, RequestInit>(['headers', 'method'], method, this.init)
-    return this
-  }
-
-  query<T extends QueryType>(query: T, addArrayBrackets = false) {
-    setUrlQuery(this.url, query, addArrayBrackets)
-    return this
+    return super.fetchResponse()
   }
 
   revalidate(revalidate: number) {
@@ -123,5 +58,5 @@ class Fetcher {
 }
 
 export function fetcher(url: URL | string) {
-  return new Fetcher(url)
+  return new FrontendFetcher(url)
 }
