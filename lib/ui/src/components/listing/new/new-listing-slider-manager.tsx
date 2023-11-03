@@ -9,7 +9,6 @@ import { type ListingItem } from '@echo/model/types/listing-item'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
-import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { NewListingConfirmationModal } from '@echo/ui/components/listing/new/new-listing-confirmation-modal'
 import { NewListingConfirmedModal } from '@echo/ui/components/listing/new/new-listing-confirmed-modal'
 import { NewListingSlider } from '@echo/ui/components/listing/new/new-listing-slider'
@@ -161,7 +160,6 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
           onDismiss?.()
         }}
       />
-      <CalloutManager />
     </>
   )
 }

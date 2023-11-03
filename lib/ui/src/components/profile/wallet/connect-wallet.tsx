@@ -1,12 +1,14 @@
 'use client'
-import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
+import { getNonceFetcher } from '@echo/api/services/fetcher/get-nonce-fetcher'
+import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import { CreateSignature } from '@echo/ui/components/profile/wallet/create-signature'
-import { NonceFetcher } from '@echo/ui/components/profile/wallet/nonce-fetcher'
 import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
+import { captureException } from '@sentry/nextjs'
 import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
-import { type FunctionComponent, useState } from 'react'
+import { type FunctionComponent } from 'react'
+import useSWR from 'swr'
 import { useAccount, useNetwork } from 'wagmi'
 
 interface Props {
@@ -16,27 +18,28 @@ export const ConnectWallet: FunctionComponent<Props> = ({ token }) => {
   const t = useTranslations('profile.wallet.button')
   const { address } = useAccount()
   const { chain } = useNetwork()
-  const [nonce, setNonce] = useState<string>()
-  // TODO Manage error
-  const [, setNonceError] = useState<Error>()
+  const { data } = useSWR<NonceResponse, Error, { name: string; token: string }>(
+    { name: 'nonce', token },
+    ({ token }) => getNonceFetcher(token),
+    {
+      onError: (err) => {
+        captureException(err)
+      }
+    }
+  )
 
-  if (isNil(address) || isNil(nonce) || isNil(chain)) {
+  if (isNil(address) || isNil(data) || isNil(chain)) {
     return (
-      <>
-        <ShowIfNil checks={nonce}>
-          <NonceFetcher token={token} onNonceReceived={setNonce} onNonceError={setNonceError} />
-        </ShowIfNil>
-        <ConnectKitButton.Custom>
-          {({ isConnecting, show }) => (
-            <WalletConnectButton
-              loading={isNil(nonce)}
-              onClick={show}
-              label={isConnecting ? t('connecting.label') : t('connect.label')}
-            />
-          )}
-        </ConnectKitButton.Custom>
-      </>
+      <ConnectKitButton.Custom>
+        {({ isConnecting, show }) => (
+          <WalletConnectButton
+            loading={isNil(data)}
+            onClick={show}
+            label={isConnecting ? t('connecting.label') : t('connect.label')}
+          />
+        )}
+      </ConnectKitButton.Custom>
     )
   }
-  return <CreateSignature nonce={nonce} token={token} address={address} chainId={chain.id} />
+  return <CreateSignature nonce={data.nonce} token={token} address={address} chainId={chain.id} />
 }

@@ -1,14 +1,17 @@
 'use client'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
+import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
+import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { ErrorFunction } from '@echo/utils/types/error-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { getExecuteSwapWriteConfig } from '@echo/web3/helpers/get-execute-swap-write-config'
+import { captureException } from '@sentry/nextjs'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
-import { type FunctionComponent, useEffect } from 'react'
+import { type FunctionComponent, useCallback, useEffect } from 'react'
 import useSWRMutation from 'swr/mutation'
 import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 
@@ -24,10 +27,9 @@ interface Props {
   ) => Promise<EmptyResponse>
   onLoading?: EmptyFunction
   onSuccess?: EmptyFunction
-  onError?: ErrorFunction
+  onError?: EmptyFunction
 }
 
-// TODO see how we complete the offer in the backend
 export const OfferDetailsSwapModalSwapButton: FunctionComponent<Props> = ({
   offer,
   chainId,
@@ -39,6 +41,18 @@ export const OfferDetailsSwapModalSwapButton: FunctionComponent<Props> = ({
   onError
 }) => {
   const t = useTranslations('offer.details.swapModal')
+  const tError = useTranslations('error.offer')
+  const { show } = useAlertStore()
+  const onErrorCallback = useCallback(
+    (err: Error) => {
+      captureException(err, {
+        contexts: offerContext(offer)
+      })
+      show({ severity: CalloutSeverity.ERROR, message: tError('accept') })
+      onError?.()
+    },
+    [offer, onError, show, tError]
+  )
   const writeConfig = getExecuteSwapWriteConfig(chainId, signature, offer)
   const { config } = usePrepareContractWrite(writeConfig)
   const { status, write, data, error } = useContractWrite(config)
@@ -52,7 +66,7 @@ export const OfferDetailsSwapModalSwapButton: FunctionComponent<Props> = ({
     (_key, { arg: { offerId, token, transactionId } }) => completeOfferFetcher(offerId, transactionId, token),
     {
       onSuccess,
-      onError
+      onError: onErrorCallback
     }
   )
   const loading = status === 'loading' || isMutating
@@ -65,9 +79,9 @@ export const OfferDetailsSwapModalSwapButton: FunctionComponent<Props> = ({
 
   useEffect(() => {
     if (!isNil(error)) {
-      onError?.(error)
+      onErrorCallback(error)
     }
-  }, [error, onError])
+  }, [error, onErrorCallback])
 
   useEffect(() => {
     if (loading) {

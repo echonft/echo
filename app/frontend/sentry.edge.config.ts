@@ -7,15 +7,9 @@ import { ExtraErrorData } from '@sentry/integrations'
 import { init } from '@sentry/nextjs'
 
 init({
-  dsn: 'https://90f90a5ace372a2805407eeeb7d7fc15@o4506149604098048.ingest.sentry.io/4506149609472000',
-
-  // Adjust this value in production, or use tracesSampler for greater control
-  tracesSampleRate: 1,
-
-  // Setting this option to true will print useful information to the console while you're setting up Sentry.
   debug: false,
-
-  // Ignore CancelOfferError errors
-  ignoreErrors: ['CancelOfferError'],
-  integrations: [new ExtraErrorData()]
+  dsn: 'https://90f90a5ace372a2805407eeeb7d7fc15@o4506149604098048.ingest.sentry.io/4506149609472000',
+  integrations: [new ExtraErrorData()],
+  // Adjust this value in production, or use tracesSampler for greater control
+  tracesSampleRate: 1
 })

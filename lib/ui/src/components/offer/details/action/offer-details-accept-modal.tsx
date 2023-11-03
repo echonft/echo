@@ -8,7 +8,6 @@ import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
 import { OfferDetailsAcceptModalButton } from '@echo/ui/components/offer/details/action/offer-details-accept-modal-button'
 import { OfferDetailsApprovalModalBody } from '@echo/ui/components/offer/details/offer-details-approval-modal-body'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { ErrorFunction } from '@echo/utils/types/error-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -26,7 +25,7 @@ interface Props {
   ) => Promise<EmptyResponse>
   onClose?: EmptyFunction
   onSuccess?: EmptyFunction
-  onError?: ErrorFunction
+  onError?: EmptyFunction
 }
 
 export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
@@ -70,9 +69,9 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
               setIsAccepting(false)
               onSuccess?.()
             }}
-            onError={(error) => {
+            onError={() => {
               setIsAccepting(false)
-              onError?.(error)
+              onError?.()
             }}
           />
         </ShowIf>

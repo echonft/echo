@@ -1,5 +1,6 @@
 import { createOfferFetcher } from '@echo/api/services/fetcher/create-offer-fetcher'
 import { type AuthUser } from '@echo/model/types/auth-user'
+import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { NavigationLayout } from '@echo/ui/components/layout/navigation/navigation-layout'
 import { NewOfferSliderManager } from '@echo/ui/components/offer/new/new-offer-slider-manager'
 import { getUserNavigationItems } from '@echo/ui/helpers/user/get-user-navigation-items'
@@ -25,6 +26,7 @@ export const UserNavigationLayout: FunctionComponent<PropsWithChildren<Props>> =
         {children}
         <NewOfferSliderManager createOfferFetcher={createOfferFetcher} user={user} />
       </NavigationLayout>
+      <CalloutManager />
     </NextIntlClientProvider>
   )
 }

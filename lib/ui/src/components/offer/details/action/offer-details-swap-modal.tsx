@@ -1,6 +1,7 @@
 'use client'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
+import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
@@ -9,8 +10,8 @@ import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
 import { OfferDetailsSwapModalButton } from '@echo/ui/components/offer/details/action/offer-details-swap-modal-button'
 import { OfferDetailsApprovalModalBody } from '@echo/ui/components/offer/details/offer-details-approval-modal-body'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { ErrorFunction } from '@echo/utils/types/error-function'
 import type { HexString } from '@echo/utils/types/hex-string'
+import { captureException } from '@sentry/nextjs'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
@@ -29,7 +30,7 @@ interface Props {
   ) => Promise<EmptyResponse>
   onClose?: EmptyFunction
   onSuccess?: EmptyFunction
-  onError?: ErrorFunction
+  onError?: EmptyFunction
 }
 
 export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
@@ -52,7 +53,11 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
     Error,
     { offerId: string; token: string } | undefined
   >(open ? { offerId: offer.id, token } : undefined, ({ offerId, token }) => getOfferSignatureFetcher(offerId, token), {
-    onError
+    onError: (err) => {
+      captureException(err, {
+        contexts: offerContext(offer)
+      })
+    }
   })
   const [approved, setApproved] = useState(false)
 
@@ -82,9 +87,9 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
               setIsCompleting(false)
               onSuccess?.()
             }}
-            onError={(error) => {
+            onError={() => {
               setIsCompleting(false)
-              onError?.(error)
+              onError?.()
             }}
           />
         </ShowIf>

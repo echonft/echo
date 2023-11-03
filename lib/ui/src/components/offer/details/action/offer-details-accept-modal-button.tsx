@@ -20,7 +20,7 @@ interface Props {
   ) => Promise<EmptyResponse>
   onLoading?: EmptyFunction
   onSuccess?: EmptyFunction
-  onError?: (error: Error) => unknown
+  onError?: EmptyFunction
 }
 
 export const OfferDetailsAcceptModalButton: FunctionComponent<Props> = ({
