@@ -23,6 +23,9 @@ importers:
       '@next/eslint-plugin-next':
         specifier: 14.0.1
         version: 14.0.1
+      '@types/node':
+        specifier: 20.8.10
+        version: 20.8.10
       '@typescript-eslint/eslint-plugin':
         specifier: 6.9.1
         version: 6.9.1(@typescript-eslint/parser@6.9.1)(eslint@8.52.0)(typescript@5.2.2)
@@ -80,6 +83,9 @@ importers:
       turbo:
         specifier: 1.10.16
         version: 1.10.16
+      typescript:
+        specifier: 5.2.2
+        version: 5.2.2
       vercel:
         specifier: 32.5.0
         version: 32.5.0
@@ -138,9 +144,6 @@ importers:
       tsconfig-paths:
         specifier: 4.2.0
         version: 4.2.0
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
 
   app/frontend:
     dependencies:
@@ -217,9 +220,6 @@ importers:
       '@types/jest':
         specifier: 29.5.7
         version: 29.5.7
-      '@types/node':
-        specifier: 20.8.10
-        version: 20.8.10
       '@types/ramda':
         specifier: 0.29.7
         version: 0.29.7
@@ -238,9 +238,6 @@ importers:
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
 
   app/storybook:
     dependencies:
@@ -341,9 +338,6 @@ importers:
       tsconfig-paths-webpack-plugin:
         specifier: 4.1.0
         version: 4.1.0
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
 
   lib/alchemy:
     dependencies:
@@ -360,9 +354,6 @@ importers:
       '@jest/types':
         specifier: 29.6.3
         version: 29.6.3
-      '@types/node':
-        specifier: 20.8.10
-        version: 20.8.10
       '@types/ramda':
         specifier: 0.29.7
         version: 0.29.7
@@ -372,9 +363,6 @@ importers:
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
 
   lib/api:
     dependencies:
@@ -400,9 +388,6 @@ importers:
       '@jest/types':
         specifier: 29.6.3
         version: 29.6.3
-      '@types/node':
-        specifier: 20.8.10
-        version: 20.8.10
       '@types/ramda':
         specifier: 0.29.7
         version: 0.29.7
@@ -415,9 +400,6 @@ importers:
       next:
         specifier: 14.0.1
         version: 14.0.1(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0)
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
 
   lib/discord:
     dependencies:
@@ -434,9 +416,6 @@ importers:
       '@jest/types':
         specifier: 29.6.3
         version: 29.6.3
-      '@types/node':
-        specifier: 20.8.10
-        version: 20.8.10
       '@types/ramda':
         specifier: 0.29.7
         version: 0.29.7
@@ -446,9 +425,6 @@ importers:
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
 
   lib/firestore:
     dependencies:
@@ -477,9 +453,6 @@ importers:
       '@jest/types':
         specifier: 29.6.3
         version: 29.6.3
-      '@types/node':
-        specifier: 20.8.10
-        version: 20.8.10
       '@types/ramda':
         specifier: 0.29.7
         version: 0.29.7
@@ -495,9 +468,6 @@ importers:
       tsconfig-paths:
         specifier: 4.2.0
         version: 4.2.0
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
 
   lib/model:
     dependencies:
@@ -517,9 +487,6 @@ importers:
       '@jest/types':
         specifier: 29.6.3
         version: 29.6.3
-      '@types/node':
-        specifier: 20.8.10
-        version: 20.8.10
       '@types/ramda':
         specifier: 0.29.7
         version: 0.29.7
@@ -529,9 +496,6 @@ importers:
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
 
   lib/ui:
     dependencies:
@@ -617,9 +581,6 @@ importers:
       '@jest/types':
         specifier: 29.6.3
         version: 29.6.3
-      '@types/node':
-        specifier: 20.8.10
-        version: 20.8.10
       '@types/ramda':
         specifier: 0.29.7
         version: 0.29.7
@@ -656,9 +617,6 @@ importers:
       tsup:
         specifier: 7.2.0
         version: 7.2.0(postcss@8.4.31)(typescript@5.2.2)
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
 
   lib/utils:
     dependencies:
@@ -681,9 +639,6 @@ importers:
       '@jest/types':
         specifier: 29.6.3
         version: 29.6.3
-      '@types/node':
-        specifier: 20.8.10
-        version: 20.8.10
       '@types/ramda':
         specifier: 0.29.7
         version: 0.29.7
@@ -693,9 +648,6 @@ importers:
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
 
   lib/web3:
     dependencies:
@@ -724,9 +676,6 @@ importers:
       '@jest/types':
         specifier: 29.6.3
         version: 29.6.3
-      '@types/node':
-        specifier: 20.8.10
-        version: 20.8.10
       '@types/ramda':
         specifier: 0.29.7
         version: 0.29.7
@@ -736,9 +685,6 @@ importers:
       jest-junit:
         specifier: 16.0.0
         version: 16.0.0
-      typescript:
-        specifier: 5.2.2
-        version: 5.2.2
 
 packages:
 

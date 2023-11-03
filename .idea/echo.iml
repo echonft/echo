@@ -2,83 +2,31 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/temp" />
-      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/tmp" />
-      <excludeFolder url="file://$MODULE_DIR$/.idea/inspectionProfiles" />
-      <excludeFolder url="file://$MODULE_DIR$/.idea/jsLinters" />
-      <excludeFolder url="file://$MODULE_DIR$/.idea/scopes" />
-      <excludeFolder url="file://$MODULE_DIR$/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/.vercel" />
-      <excludeFolder url="file://$MODULE_DIR$/app/frontend/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/app/frontend/.vercel" />
-      <excludeFolder url="file://$MODULE_DIR$/app/bot/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/discord/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/firebase/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/utils/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/firestore/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy-react/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/swr/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/firebase-react/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api-auth/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/app/storybook/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/app/storybook/storybook-static" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/ui/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/coverage" />
-      <excludeFolder url="file://$MODULE_DIR$/app/frontend/coverage" />
-      <excludeFolder url="file://$MODULE_DIR$/app/bot/coverage" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/firestore/coverage" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/utils/coverage" />
-      <excludeFolder url="file://$MODULE_DIR$/.coverage" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/alchemy/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/app/frontend/.swc" />
-      <excludeFolder url="file://$MODULE_DIR$/node_modules" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/alchemy" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/api-public" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/discord" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/firestore" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/model" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/utils" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/firestore/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/firestore/coverage" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo/model/dist" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/ui-model/.turbo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/ui-model/coverage" />
-      <excludeFolder url="file://$MODULE_DIR$/app/frontend/node_modules/next-auth" />
-      <excludeFolder url="file://$MODULE_DIR$/app/frontend/node_modules/next" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@echo" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@jest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/@types" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/jest" />
-      <excludeFolder url="file://$MODULE_DIR$/lib/api/node_modules/jest-junit" />
-      <excludePattern pattern="tsconfig.tsbuildinfo" />
-      <excludePattern pattern=".eslintcache" />
-      <excludePattern pattern="pnpm-lock.yaml" />
-      <excludePattern pattern=".turbo" />
-      <excludePattern pattern=".next" />
-      <excludePattern pattern="coverage" />
+      <sourceFolder url="file://$MODULE_DIR$/app/bot/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/app/frontend/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/alchemy/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/api/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/firestore/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/model/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/ui/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/utils/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/web3/test" isTestSource="true" />
       <excludePattern pattern=".coverage" />
-      <excludePattern pattern=".vercel" />
+      <excludePattern pattern=".eslintcache" />
+      <excludePattern pattern=".idea" />
+      <excludePattern pattern=".next" />
       <excludePattern pattern=".swc" />
+      <excludePattern pattern=".turbo" />
+      <excludePattern pattern=".vercel" />
+      <excludePattern pattern="dist" />
+      <excludePattern pattern="node_modules" />
+      <excludePattern pattern="pnpm-lock.yaml" />
       <excludePattern pattern="storybook-static" />
+      <excludePattern pattern="tsconfig.tsbuildinfo" />
     </content>
-    <content url="file://$MODULE_DIR$/app/frontend/node_modules/next" />
-    <content url="file://$MODULE_DIR$/app/frontend/node_modules/next-auth" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/alchemy" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/api-public" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/discord" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/firestore" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/model" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/model/dist" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/@echo/utils" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/@jest" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/@types" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/jest" />
-    <content url="file://$MODULE_DIR$/lib/api/node_modules/jest-junit" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="@types/jest" level="application" />
+    <orderEntry type="library" name="node_modules" level="project" />
   </component>
 </module>

@@ -51,7 +51,6 @@
     "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
     "eslint-plugin-storybook": "0.6.15",
-    "tsconfig-paths-webpack-plugin": "4.1.0",
-    "typescript": "5.2.2"
+    "tsconfig-paths-webpack-plugin": "4.1.0"
   }
 }
