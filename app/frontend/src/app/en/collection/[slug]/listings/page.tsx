@@ -19,9 +19,9 @@ interface Props {
 const CollectionListingsPage: FunctionComponent<Props> = async ({ params: { slug } }) => {
   const session = await getServerSession(authOptions)
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'expiresAt' }]
+    orderBy: [{ field: 'expiresAt', direction: 'asc' }]
   })
-  const filtersQueryParam = mapListingFiltersToQueryParams({ states: ['OPEN'] })
+  const filtersQueryParam = mapListingFiltersToQueryParams({ state: ['OPEN'] })
   const result = await fetcher(collectionListingsApiUrl(slug))
     .query(mergeLeft(constraintsQueryParams, filtersQueryParam))
     .fetch<ListingsResponse>()

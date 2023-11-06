@@ -1,6 +1,6 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
-import { assertCollectionExists } from '@echo/frontend/lib/server/helpers/collection/assert-collection-exists'
+import { guarded_assertCollectionExists } from '@echo/frontend/lib/server/helpers/collection/assert/guarded_assert-collection-exists'
 import { guarded_findCollectionBySlug } from '@echo/frontend/lib/server/helpers/collection/guarded_find-collection-by-slug'
 import { guarded_getOffersForCollection } from '@echo/frontend/lib/server/helpers/offer/guarded_get-offers-for-collection'
 import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/parse-constraints-query'
@@ -12,7 +12,7 @@ export async function getCollectionCompletedOffersRequestHandler(req: ApiRequest
   const constraints = parseConstraintsQuery(req)
   const filters = parseOfferFiltersQuery(req)
   const collection = await guarded_findCollectionBySlug(slug)
-  assertCollectionExists(collection, slug)
+  guarded_assertCollectionExists(collection, slug)
   const completedOffersFilters = pipe(
     assoc('states', ['COMPLETED']),
     dissoc('notStates'),

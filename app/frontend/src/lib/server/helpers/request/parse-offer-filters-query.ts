@@ -1,50 +1,28 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { OFFER_FILTER_AS } from '@echo/firestore/constants/offer-filter-as'
 import { type OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
-import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
+import { guarded_assertStateFilters } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-state-filters'
+import { getStateQueryParamSchema } from '@echo/frontend/lib/server/helpers/request/get-state-query-param-schema'
+import { guarded_addParamFromRequest } from '@echo/frontend/lib/server/helpers/request/guarded_add-param-from-request'
 import { booleanQueryParamSchema } from '@echo/frontend/lib/server/validators/boolean-query-param-schema'
 import { OFFER_STATES } from '@echo/model/constants/offer-states'
-import { assoc, both, has, isEmpty } from 'ramda'
+import { propIsEmpty } from '@echo/utils/fp/prop-is-empty'
+import { always, modify, pipe, prop, when } from 'ramda'
 import { z } from 'zod'
 
-const stateQueryParamSchema = z.enum(OFFER_STATES).array().nonempty()
-
-const asQueryParamSchema = z.enum(OFFER_FILTER_AS)
-
-export function parseOfferFiltersQuery<T>(req: ApiRequest<T>) {
-  let filters = {} as OfferQueryFilters
-  const { searchParams } = new URL(req.url)
-  try {
-    if (searchParams.has('as')) {
-      const asFilter = asQueryParamSchema.parse(searchParams.get('as'))
-      filters = assoc('as', asFilter, filters)
-    }
-    if (searchParams.has('state')) {
-      const states = stateQueryParamSchema.parse(searchParams.getAll('state'))
-      filters = assoc('states', states, filters)
-    }
-    if (searchParams.has('notState')) {
-      const notStates = stateQueryParamSchema.parse(searchParams.getAll('notState'))
-      filters = assoc('notStates', notStates, filters)
-    }
-    if (searchParams.has('includeExpired')) {
-      const includeExpired = booleanQueryParamSchema.parse(searchParams.get('includeExpired'))
-      filters = assoc('includeExpired', includeExpired, filters)
-    }
-
-    if (isEmpty(filters)) {
-      return undefined
-    }
-
-    if (both(has('states'), has('notStates'))(filters)) {
-      throw Error('states and notStates filters are mutually exclusive')
-    }
-
-    return filters
-  } catch (e) {
-    throw new BadRequestError(
-      `error parsing offer filters query parameters: ${JSON.stringify(searchParams.toString())}`,
-      e
-    )
-  }
+export function parseOfferFiltersQuery<T>(request: ApiRequest<T>) {
+  const asQueryParamSchema = z.enum(OFFER_FILTER_AS)
+  const stateQueryParamSchema = getStateQueryParamSchema(OFFER_STATES)
+  return pipe(
+    guarded_addParamFromRequest('as', asQueryParamSchema),
+    guarded_addParamFromRequest('state', stateQueryParamSchema, true),
+    guarded_addParamFromRequest('notState', stateQueryParamSchema, true),
+    guarded_addParamFromRequest('includeExpired', booleanQueryParamSchema),
+    when(propIsEmpty('params'), modify('params', always(undefined))),
+    prop('params'),
+    guarded_assertStateFilters
+  )({
+    request,
+    params: {} as OfferQueryFilters
+  })
 }

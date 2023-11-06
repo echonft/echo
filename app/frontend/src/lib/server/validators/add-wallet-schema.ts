@@ -5,5 +5,5 @@ import { z } from 'zod'
 export const addWalletSchema = z.object({
   wallet: walletSchema,
   signature: signatureSchema,
-  message: z.string().nonempty()
+  message: z.string().min(1)
 })

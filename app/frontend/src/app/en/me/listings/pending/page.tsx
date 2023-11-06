@@ -18,11 +18,14 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
   redirectIfNotLoggedIn(session, links.profile.listingsReceived)
   const filterParams = mapListingFiltersToQueryParams({
     as: ListingFilterAsTarget,
-    states: ['OPEN']
+    state: ['OPEN']
   })
   const queryParams = mapQueryConstraintsToQueryParams({
     // creator.username is needed for the query to work - do not remove
-    orderBy: [{ field: 'creator.username' }, { field: 'expiresAt', direction: 'desc' }]
+    orderBy: [
+      { field: 'creator.username', direction: 'asc' },
+      { field: 'expiresAt', direction: 'desc' }
+    ]
   })
   const result = await fetcher(userListingsApiUrl(session.user.username))
     .query(mergeLeft(queryParams, filterParams))
