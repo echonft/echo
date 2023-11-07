@@ -25,6 +25,8 @@
     "@echo/model": "workspace:*",
     "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
+    "@sentry/node": "7.77.0",
+    "@sentry/profiling-node": "1.2.6",
     "dayjs": "1.11.10",
     "discord.js": "14.13.0",
     "i18next": "23.6.0",
