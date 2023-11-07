@@ -54,19 +54,19 @@ describe('CRUD - listing - getListingsForNft', () => {
 
   it('filter by state (included)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForNft(nftId, { states: ['OFFERS_PENDING', 'CANCELLED'] })
+    let listings = await getListingsForNft(nftId, { state: ['OFFERS_PENDING', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getListingsForNft(nftId, { states: ['CANCELLED'] })
+    listings = await getListingsForNft(nftId, { state: ['CANCELLED'] })
     expect(listings.length).toBe(0)
   })
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForNft(nftId, { notStates: ['PARTIALLY_FULFILLED', 'CANCELLED'] })
+    let listings = await getListingsForNft(nftId, { notState: ['PARTIALLY_FULFILLED', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getListingsForNft(nftId, { notStates: ['OFFERS_PENDING', 'FULFILLED'] })
+    listings = await getListingsForNft(nftId, { notState: ['OFFERS_PENDING', 'FULFILLED'] })
     expect(listings.length).toBe(0)
   })
 

@@ -1,11 +1,11 @@
 import { type NonceResponse } from '@echo/api/types/responses/nonce-response'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
-import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { guarded_getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/guarded_get-user-from-request'
 import { guarded_setNonceForUser } from '@echo/frontend/lib/server/helpers/user/guarded_set-nonce-for-user'
 import { nonceRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/nonce-request-handler'
-import { mockRequest } from '@echo/frontend-mocks/request-response'
+import { mockRequest } from '@echo/frontend-mocks/mock-request'
 
-jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/request/guarded_get-user-from-request')
 jest.mock('@echo/frontend/lib/server/helpers/user/guarded_set-nonce-for-user')
 
 describe('request-handlers - user - nonceRequestHandler', () => {
@@ -16,7 +16,7 @@ describe('request-handlers - user - nonceRequestHandler', () => {
   })
 
   it('if authenticated, returns success and updates DB', async () => {
-    jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
+    jest.mocked(guarded_getUserFromRequest).mockResolvedValueOnce(user)
     jest.mocked(guarded_setNonceForUser).mockResolvedValueOnce('testNonce')
     const req = mockRequest<never>()
     const res = await nonceRequestHandler(req)

@@ -1,24 +1,15 @@
-import { OfferFilterAsReceiver } from '@echo/firestore/constants/offer-filter-as'
 import { getOffersForCollection } from '@echo/firestore/crud/offer/get-offers-for-collection'
-import { getOffersForCollectionAsReceiverItem } from '@echo/firestore/crud/offer/get-offers-for-collection-as-receiver-item'
-import { getOffersForCollectionAsSenderItem } from '@echo/firestore/crud/offer/get-offers-for-collection-as-sender-item'
 import { type OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
-import { isNil } from 'ramda'
+import type { Offer } from '@echo/model/types/offer'
 
 export async function guarded_getOffersForCollection(
   collectionId: string,
   filters?: OfferQueryFilters,
-  constraints?: QueryConstraints
+  constraints?: QueryConstraints<Offer>
 ) {
   try {
-    if (!isNil(filters) && !isNil(filters.as)) {
-      if (filters.as === OfferFilterAsReceiver) {
-        return await getOffersForCollectionAsReceiverItem(collectionId, filters, constraints)
-      }
-      return await getOffersForCollectionAsSenderItem(collectionId, filters, constraints)
-    }
     return await getOffersForCollection(collectionId, filters, constraints)
   } catch (e) {
     throw new ServerError(

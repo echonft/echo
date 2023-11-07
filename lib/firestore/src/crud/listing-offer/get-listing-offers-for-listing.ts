@@ -1,5 +1,5 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
+import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
 import { getListingOfferFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { listingTargetsIncludeOfferReceiverItems } from '@echo/model/helpers/listing/listing-targets-include-offer-receiver-items'

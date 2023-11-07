@@ -6,7 +6,7 @@ import { guarded_findNftByCollection } from '@echo/frontend/lib/server/helpers/n
 import { tokenIdSchema } from '@echo/frontend/lib/server/validators/token-id-schema'
 import { NextResponse } from 'next/server'
 
-function parseTokenId(tokenId: number): number {
+function guarded_parseTokenId(tokenId: number): number {
   try {
     return tokenIdSchema.parse(tokenId)
   } catch (e) {
@@ -15,7 +15,7 @@ function parseTokenId(tokenId: number): number {
 }
 
 export async function getNftRequestHandler(_req: ApiRequest<never>, slug: string, tokenId: string) {
-  const validTokenId = parseTokenId(parseInt(tokenId))
+  const validTokenId = guarded_parseTokenId(parseInt(tokenId))
   const nft = await guarded_findNftByCollection(slug, validTokenId)
   guarded_assertNftExists(nft, slug, tokenId)
   return NextResponse.json<NftResponse>({ nft })

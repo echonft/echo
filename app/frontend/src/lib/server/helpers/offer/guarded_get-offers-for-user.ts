@@ -1,28 +1,16 @@
-import { OfferFilterAsReceiver } from '@echo/firestore/constants/offer-filter-as'
-import { getOffersForReceiver } from '@echo/firestore/crud/offer/get-offers-for-receiver'
-import { getOffersForSender } from '@echo/firestore/crud/offer/get-offers-for-sender'
 import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
 import { type OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
-import { isNil } from 'ramda'
+import type { Offer } from '@echo/model/types/offer'
 
 export async function guarded_getOffersForUser(
   username: string,
   filters?: OfferQueryFilters,
-  constraints?: QueryConstraints
+  constraints?: QueryConstraints<Offer>
 ) {
   try {
-    if (!isNil(filters) && !isNil(filters.as)) {
-      const { as } = filters
-      if (as === OfferFilterAsReceiver) {
-        return await getOffersForReceiver(username, filters, constraints)
-      } else {
-        return await getOffersForSender(username, filters, constraints)
-      }
-    } else {
-      return await getOffersForUser(username, filters, constraints)
-    }
+    return await getOffersForUser(username, filters, constraints)
   } catch (e) {
     throw new ServerError(
       `error getting offers for user with username ${username} with filters ${JSON.stringify(

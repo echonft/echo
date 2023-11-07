@@ -3,8 +3,8 @@ import { type QueryConstraintsQueryParams } from '@echo/frontend/lib/types/reque
 import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
 import { flatten, juxt, map, modify, pipe, prop, when } from 'ramda'
 
-export function mapQueryConstraintsToQueryParams(constraints: QueryConstraints): QueryConstraintsQueryParams {
-  return when<QueryConstraints, QueryConstraintsQueryParams>(
+export function mapQueryConstraintsToQueryParams<T>(constraints: QueryConstraints<T>): QueryConstraintsQueryParams {
+  return when<QueryConstraints<T>, QueryConstraintsQueryParams>(
     propIsNotNil('orderBy'),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

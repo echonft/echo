@@ -2,18 +2,18 @@ import { type CreateOfferRequest } from '@echo/api/types/requests/create-offer-r
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
-import { getOfferItemsFromRequests } from '@echo/frontend/lib/server/helpers/offer/get-offer-items-from-requests'
 import { guarded_addOffer } from '@echo/frontend/lib/server/helpers/offer/guarded_add-offer'
-import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { guarded_getOfferItemsFromRequests } from '@echo/frontend/lib/server/helpers/offer/guarded_get-offer-items-from-requests'
+import { guarded_getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/guarded_get-user-from-request'
 import { createOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/create-offer-request-handler'
-import { mockRequest } from '@echo/frontend-mocks/request-response'
+import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { type Nft } from '@echo/model/types/nft'
 import { type User } from '@echo/model/types/user'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 
-jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/request/guarded_get-user-from-request')
 jest.mock('@echo/frontend/lib/server/helpers/offer/guarded_add-offer')
-jest.mock('@echo/frontend/lib/server/helpers/offer/get-offer-items-from-requests')
+jest.mock('@echo/frontend/lib/server/helpers/offer/guarded_get-offer-items-from-requests')
 
 describe('request-handlers - offer - createOfferRequestHandler', () => {
   const validRequest: CreateOfferRequest = {
@@ -51,8 +51,8 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
   })
 
   it('throws if the sender is not the owner of every item (single)', async () => {
-    jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOfferItemsFromRequests).mockImplementation((offerItemRequests) => {
+    jest.mocked(guarded_getUserFromRequest).mockResolvedValueOnce(user)
+    jest.mocked(guarded_getOfferItemsFromRequests).mockImplementation((offerItemRequests) => {
       if (offerItemRequests[0]!.nft.id === 'receiver-item-nft-id') {
         return Promise.resolve([{ amount: 1, nft: { owner: { username: 'crewnft_' } as User } as Nft }])
       } else {
@@ -70,8 +70,8 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
   })
 
   it('throws if the sender is not the owner of every item (multiple)', async () => {
-    jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOfferItemsFromRequests).mockImplementation((offerItemRequests) => {
+    jest.mocked(guarded_getUserFromRequest).mockResolvedValueOnce(user)
+    jest.mocked(guarded_getOfferItemsFromRequests).mockImplementation((offerItemRequests) => {
       if (offerItemRequests[0]!.nft.id === 'receiver-item-nft-id') {
         return Promise.resolve([{ amount: 1, nft: { owner: { username: 'crewnft_' } as User } as Nft }])
       } else {
@@ -92,8 +92,8 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
   })
 
   it('throws if the receiver is not the owner of every item (multiple)', async () => {
-    jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(getOfferItemsFromRequests).mockImplementation((offerItemRequests) => {
+    jest.mocked(guarded_getUserFromRequest).mockResolvedValueOnce(user)
+    jest.mocked(guarded_getOfferItemsFromRequests).mockImplementation((offerItemRequests) => {
       if (offerItemRequests[0]!.nft.id === 'receiver-item-nft-id') {
         return Promise.resolve([
           { amount: 1, nft: { owner: { username: 'crewnft_' } as User } as Nft },
@@ -115,9 +115,9 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
 
   it('returns a 200 if the user is authenticated and both sender and receiver have a wallet', async () => {
     const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
+    jest.mocked(guarded_getUserFromRequest).mockResolvedValueOnce(user)
     jest
-      .mocked(getOfferItemsFromRequests)
+      .mocked(guarded_getOfferItemsFromRequests)
       .mockResolvedValue([{ amount: 1, nft: { owner: { username: 'johnnycagewins' } as User } as Nft }])
     jest.mocked(guarded_addOffer).mockResolvedValue(offer)
     const req = mockRequest<CreateOfferRequest>(validRequest)

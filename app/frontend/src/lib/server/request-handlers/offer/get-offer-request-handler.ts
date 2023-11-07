@@ -5,11 +5,11 @@ import { guarded_assertOfferItemsApproval } from '@echo/frontend/lib/server/help
 import { guarded_assertOfferItemsOwner } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-items-owner'
 import { guarded_assertOfferReceiverOrSenderIs } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-receiver-or-sender-is'
 import { guarded_findOfferById } from '@echo/frontend/lib/server/helpers/offer/guarded_find-offer-by-id'
-import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { guarded_getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/guarded_get-user-from-request'
 import { NextResponse } from 'next/server'
 
 export async function getOfferRequestHandler(req: ApiRequest<never>, id: string) {
-  const user = await getUserFromRequest(req)
+  const user = await guarded_getUserFromRequest(req)
   const offer = await guarded_findOfferById(id)
   guarded_assertOfferExists(offer, id)
   guarded_assertOfferReceiverOrSenderIs(offer, user.username)

@@ -1,7 +1,7 @@
 import { type NftsResponse } from '@echo/api/types/responses/nfts-response'
 import { guarded_getNftsForCollection } from '@echo/frontend/lib/server/helpers/nft/guarded_get-nfts-for-collection'
 import { getCollectionNftsRequestHandler } from '@echo/frontend/lib/server/request-handlers/collection/get-collection-nfts-request-handler'
-import { mockRequest } from '@echo/frontend-mocks/request-response'
+import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 
 jest.mock('@echo/frontend/lib/server/helpers/nft/guarded_get-nfts-for-collection')

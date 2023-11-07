@@ -4,15 +4,15 @@ import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
 import { guarded_completeOffer } from '@echo/frontend/lib/server/helpers/offer/guarded_complete-offer'
 import { guarded_findOfferById } from '@echo/frontend/lib/server/helpers/offer/guarded_find-offer-by-id'
-import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { guarded_getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/guarded_get-user-from-request'
 import { completeOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/complete-offer-request-handler'
-import { mockRequest } from '@echo/frontend-mocks/request-response'
+import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { type Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { assoc, modify } from 'ramda'
 
-jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
+jest.mock('@echo/frontend/lib/server/helpers/request/guarded_get-user-from-request')
 jest.mock('@echo/frontend/lib/server/helpers/offer/guarded_find-offer-by-id')
 jest.mock('@echo/frontend/lib/server/helpers/offer/guarded_complete-offer')
 
@@ -59,7 +59,7 @@ describe('request-handlers - offer - completeOfferHandler', () => {
   })
 
   it('throws if the offer does not exist', async () => {
-    jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
+    jest.mocked(guarded_getUserFromRequest).mockResolvedValueOnce(user)
     jest.mocked(guarded_findOfferById).mockResolvedValueOnce(undefined)
     const req = mockRequest<CompleteOfferRequest>({ transactionId })
     try {
@@ -71,7 +71,7 @@ describe('request-handlers - offer - completeOfferHandler', () => {
   })
 
   it('throws if the offer state is not ACCEPTED', async () => {
-    jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
+    jest.mocked(guarded_getUserFromRequest).mockResolvedValueOnce(user)
     jest.mocked(guarded_findOfferById).mockResolvedValueOnce(assoc('state', 'CANCELLED', offer))
     const req = mockRequest<CompleteOfferRequest>({ transactionId })
     try {
@@ -83,7 +83,7 @@ describe('request-handlers - offer - completeOfferHandler', () => {
   })
 
   it('throws if the user is not the offer sender', async () => {
-    jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
+    jest.mocked(guarded_getUserFromRequest).mockResolvedValueOnce(user)
     jest
       .mocked(guarded_findOfferById)
       .mockResolvedValueOnce(modify<Offer, 'sender', User>('sender', assoc('username', 'another-user'), offer))
@@ -97,7 +97,7 @@ describe('request-handlers - offer - completeOfferHandler', () => {
   })
 
   it('returns a 200', async () => {
-    jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
+    jest.mocked(guarded_getUserFromRequest).mockResolvedValueOnce(user)
     jest.mocked(guarded_findOfferById).mockResolvedValueOnce(assoc('state', 'ACCEPTED', offer))
     const updatedOffer = assoc('state', 'COMPLETED', offer)
     jest.mocked(guarded_completeOffer).mockResolvedValueOnce(updatedOffer)

@@ -3,14 +3,14 @@ import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { guarded_assertCollectionExists } from '@echo/frontend/lib/server/helpers/collection/assert/guarded_assert-collection-exists'
 import { guarded_findCollectionBySlug } from '@echo/frontend/lib/server/helpers/collection/guarded_find-collection-by-slug'
 import { guarded_getOffersForCollection } from '@echo/frontend/lib/server/helpers/offer/guarded_get-offers-for-collection'
-import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/parse-constraints-query'
-import { parseOfferFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-offer-filters-query'
+import { guarded_parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/guarded_parse-constraints-query'
+import { guarded_parseOfferFiltersQuery } from '@echo/frontend/lib/server/helpers/request/guarded_parse-offer-filters-query'
 import { NextResponse } from 'next/server'
 import { assoc, dissoc, pipe } from 'ramda'
 
 export async function getCollectionCompletedOffersRequestHandler(req: ApiRequest<never>, slug: string) {
-  const constraints = parseConstraintsQuery(req)
-  const filters = parseOfferFiltersQuery(req)
+  const constraints = guarded_parseConstraintsQuery(req)
+  const filters = guarded_parseOfferFiltersQuery(req)
   const collection = await guarded_findCollectionBySlug(slug)
   guarded_assertCollectionExists(collection, slug)
   const completedOffersFilters = pipe(

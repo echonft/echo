@@ -1,6 +1,6 @@
 import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
 import { getCollectionDiscordGuildsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-discord-guilds-collection-reference'
-import { getQuerySnapshotDocumentData } from '@echo/firestore/helpers/crud/get-query-snapshot-document-data'
+import { getQuerySnapshotDocumentData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-document-data'
 import { isNil } from 'ramda'
 
 export async function findCollectionByDiscordGuildDiscordId(guildDiscordId: string) {

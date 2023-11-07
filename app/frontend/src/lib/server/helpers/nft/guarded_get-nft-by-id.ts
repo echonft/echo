@@ -1,0 +1,10 @@
+import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
+import { ServerError } from '@echo/frontend/lib/server/helpers/error/server-error'
+
+export async function guarded_getNftById(id: string) {
+  try {
+    return await findNftById(id)
+  } catch (e) {
+    throw new ServerError(`error finding nft with id ${id}`, e)
+  }
+}

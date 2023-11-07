@@ -1,5 +1,7 @@
+import { OfferFilterAsReceiver, OfferFilterAsSender } from '@echo/firestore/constants/offer-filter-as'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOffersForCollection } from '@echo/firestore/crud/offer/get-offers-for-collection'
+import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
 import { type Offer } from '@echo/model/types/offer'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -61,21 +63,21 @@ describe('CRUD - offer - getOffersForCollection', () => {
 
   it('filter by state (included)', async () => {
     const mock = await setNotExpired(getOfferMockById(offerId))
-    let listings = await getOffersForCollection(collectionId, { states: ['OPEN', 'CANCELLED'] })
+    let listings = await getOffersForCollection(collectionId, { state: ['OPEN', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getOffersForCollection(collectionId, { states: ['CANCELLED'] })
+    listings = await getOffersForCollection(collectionId, { state: ['CANCELLED'] })
     expect(listings.length).toBe(0)
   })
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getOfferMockById(offerId))
     const mock2 = await setNotExpired(getOfferMockById(offerId2))
-    let listings = await getOffersForCollection(collectionId, { notStates: ['REJECTED', 'CANCELLED'] })
+    let listings = await getOffersForCollection(collectionId, { notState: ['REJECTED', 'CANCELLED'] })
     expect(listings.length).toBe(2)
     expect(listings[0]).toStrictEqual(mock2)
     expect(listings[1]).toStrictEqual(mock)
-    listings = await getOffersForCollection(collectionId, { notStates: ['OPEN', 'COMPLETED'] })
+    listings = await getOffersForCollection(collectionId, { notState: ['OPEN', 'COMPLETED'] })
     expect(listings.length).toBe(0)
   })
 
@@ -90,5 +92,117 @@ describe('CRUD - offer - getOffersForCollection', () => {
     expect(listings.length).toBe(0)
     listings = await getOffersForCollection(collectionId)
     expect(listings.length).toBe(0)
+  })
+
+  describe('CRUD - offer - getOffersForCollection - as receiver', () => {
+    const collectionId = '1aomCtnoesD7WVll6Yi1'
+    const id = 'LyCfl6Eg7JKuD7XJ6IPi'
+    const filters: OfferQueryFilters = { as: OfferFilterAsReceiver }
+    let initialExpiresAt: number
+
+    beforeEach(async () => {
+      const offer = (await findOfferById(id))!
+      initialExpiresAt = offer.expiresAt
+    })
+    afterEach(async () => {
+      await unchecked_updateOffer(id, { expiresAt: initialExpiresAt })
+    })
+
+    it('returns an empty array if no offers are found', async () => {
+      const listings = await getOffersForCollection('not-found', filters)
+      expect(listings).toEqual([])
+    })
+
+    it('returns the offers for the which the collection is included in the receiver items', async () => {
+      const mock = await setNotExpired(getOfferMockById(id))
+      const listings = await getOffersForCollection(collectionId, filters)
+      expect(listings.length).toBe(1)
+      expect(listings[0]).toStrictEqual(mock)
+    })
+
+    it('filter by state (included)', async () => {
+      const mock = await setNotExpired(getOfferMockById(id))
+      let listings = await getOffersForCollection(collectionId, assoc('state', ['OPEN', 'CANCELLED'], filters))
+      expect(listings.length).toBe(1)
+      expect(listings[0]).toStrictEqual(mock)
+      listings = await getOffersForCollection(collectionId, assoc('state', ['CANCELLED'], filters))
+      expect(listings.length).toBe(0)
+    })
+
+    it('filter by state (excluded)', async () => {
+      const mock = await setNotExpired(getOfferMockById(id))
+      let listings = await getOffersForCollection(collectionId, assoc('notState', ['REJECTED', 'CANCELLED'], filters))
+      expect(listings.length).toBe(1)
+      expect(listings[0]).toStrictEqual(mock)
+      listings = await getOffersForCollection(collectionId, assoc('notState', ['OPEN', 'ACCEPTED'], filters))
+      expect(listings.length).toBe(0)
+    })
+
+    it('includeExpired filter', async () => {
+      const mock = await setExpired(getOfferMockById(id))
+      let listings = await getOffersForCollection(collectionId, assoc('includeExpired', true, filters))
+      expect(listings.length).toBe(1)
+      expect(listings[0]).toStrictEqual(mock)
+      listings = await getOffersForCollection(collectionId, assoc('includeExpired', false, filters))
+      expect(listings.length).toBe(0)
+      listings = await getOffersForCollection(collectionId, filters)
+      expect(listings.length).toBe(0)
+    })
+  })
+
+  describe('CRUD - offer - getOffersForCollection - as sender', () => {
+    const collectionId = 'Rc8pLQXxgyQGIRL0fr13'
+    const id = 'LyCfl6Eg7JKuD7XJ6IPi'
+    const filters: OfferQueryFilters = { as: OfferFilterAsSender }
+    let initialExpiresAt: number
+
+    beforeEach(async () => {
+      const offer = (await findOfferById(id))!
+      initialExpiresAt = offer.expiresAt
+    })
+    afterEach(async () => {
+      await unchecked_updateOffer(id, { expiresAt: initialExpiresAt })
+    })
+
+    it('returns an empty array if no offers are found', async () => {
+      const listings = await getOffersForCollection('not-found', filters)
+      expect(listings).toEqual([])
+    })
+
+    it('returns the offers for the which the collection is included in the sender items', async () => {
+      const mock = await setNotExpired(getOfferMockById(id))
+      const listings = await getOffersForCollection(collectionId, filters)
+      expect(listings.length).toBe(1)
+      expect(listings[0]).toStrictEqual(mock)
+    })
+
+    it('filter by state (included)', async () => {
+      const mock = await setNotExpired(getOfferMockById(id))
+      let listings = await getOffersForCollection(collectionId, assoc('state', ['OPEN', 'CANCELLED'], filters))
+      expect(listings.length).toBe(1)
+      expect(listings[0]).toStrictEqual(mock)
+      listings = await getOffersForCollection(collectionId, assoc('state', ['CANCELLED'], filters))
+      expect(listings.length).toBe(0)
+    })
+
+    it('filter by state (excluded)', async () => {
+      const mock = await setNotExpired(getOfferMockById(id))
+      let listings = await getOffersForCollection(collectionId, assoc('notState', ['REJECTED', 'CANCELLED'], filters))
+      expect(listings.length).toBe(1)
+      expect(listings[0]).toStrictEqual(mock)
+      listings = await getOffersForCollection(collectionId, assoc('notState', ['OPEN', 'ACCEPTED'], filters))
+      expect(listings.length).toBe(0)
+    })
+
+    it('includeExpired filter', async () => {
+      const mock = await setExpired(getOfferMockById(id))
+      let listings = await getOffersForCollection(collectionId, assoc('includeExpired', true, filters))
+      expect(listings.length).toBe(1)
+      expect(listings[0]).toStrictEqual(mock)
+      listings = await getOffersForCollection(collectionId, assoc('includeExpired', false, filters))
+      expect(listings.length).toBe(0)
+      listings = await getOffersForCollection(collectionId, filters)
+      expect(listings.length).toBe(0)
+    })
   })
 })

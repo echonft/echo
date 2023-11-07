@@ -18,7 +18,7 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
   redirectIfNotLoggedIn(session, links.profile.listingsReceived)
   const filterParams = mapListingFiltersToQueryParams({
     as: ListingFilterAsTarget,
-    state: ['OPEN']
+    notState: ['FULFILLED', 'CANCELLED']
   })
   const queryParams = mapQueryConstraintsToQueryParams({
     // creator.username is needed for the query to work - do not remove

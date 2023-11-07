@@ -19,7 +19,6 @@ const ProfileOffersCreatedPage: FunctionComponent = async () => {
   redirectIfNotLoggedIn(session, links.profile.offersCreated)
   const filterParams = mapOfferFiltersToQueryParams({
     as: OfferFilterAsSender,
-    notState: ['COMPLETED'],
     includeExpired: true
   })
   const queryParams = mapQueryConstraintsToQueryParams({

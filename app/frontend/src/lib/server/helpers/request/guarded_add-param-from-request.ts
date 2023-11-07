@@ -1,6 +1,5 @@
 import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
 import type { RequestParams } from '@echo/frontend/lib/server/types/request/request-params'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import { assoc, modify } from 'ramda'
 import type { ParseParams } from 'zod'
 
@@ -20,7 +19,7 @@ export function guarded_addParamFromRequest<T extends Schema>(param: string, sch
       return requestParams
     } catch (e) {
       throw new BadRequestError(
-        `error parsing query parameters for query ${JSON.stringify(searchParams.toString())}: ${errorMessage(e)}`,
+        `error parsing query parameters for query ${JSON.stringify(searchParams.toString())}`,
         e
       )
     }

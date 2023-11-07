@@ -1,7 +1,7 @@
 import { type CollectionResponse } from '@echo/api/types/responses/collection-response'
 import { guarded_findCollectionBySlug } from '@echo/frontend/lib/server/helpers/collection/guarded_find-collection-by-slug'
 import { getCollectionRequestHandler } from '@echo/frontend/lib/server/request-handlers/collection/get-collection-request-handler'
-import { mockRequest } from '@echo/frontend-mocks/request-response'
+import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 
 jest.mock('@echo/frontend/lib/server/helpers/collection/guarded_find-collection-by-slug')
