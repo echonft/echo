@@ -1,5 +1,5 @@
 import { getCollectionSnapshotById } from '@echo/firestore/crud/collection/get-collection-snapshot-by-id'
-import { type WriteResult } from 'firebase-admin/firestore'
+import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
 export async function deleteCollection(id: string): Promise<WriteResult> {

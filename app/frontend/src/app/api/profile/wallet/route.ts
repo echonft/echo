@@ -6,11 +6,11 @@ import { addWalletRequestHandler } from '@echo/frontend/lib/server/request-handl
 import { removeWalletRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/remove-wallet-request-handler'
 
 async function PUT(request: ApiRequest<AddWalletRequest>) {
-  return await handleRequest(request, addWalletRequestHandler)
+  return await handleRequest(request, addWalletRequestHandler)(request)
 }
 
 async function DELETE(request: ApiRequest<RemoveWalletRequest>) {
-  return await handleRequest(request, removeWalletRequestHandler)
+  return await handleRequest(request, removeWalletRequestHandler)(request)
 }
 
 export { DELETE, PUT }

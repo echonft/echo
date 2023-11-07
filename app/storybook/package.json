@@ -22,6 +22,7 @@
     "@echo/model": "workspace:*",
     "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
+    "@sentry/nextjs": "7.77.0",
     "browserify-zlib": "0.2.0",
     "constants-browserify": "1.0.0",
     "crypto-browserify": "3.12.0",
@@ -51,7 +52,6 @@
     "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
     "eslint-plugin-storybook": "0.6.15",
-    "tsconfig-paths-webpack-plugin": "4.1.0",
-    "typescript": "5.2.2"
+    "tsconfig-paths-webpack-plugin": "4.1.0"
   }
 }

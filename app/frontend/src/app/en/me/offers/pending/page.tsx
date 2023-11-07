@@ -20,7 +20,7 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
   redirectIfNotLoggedIn(session, links.profile.offersReceived)
   const filterParams = mapOfferFiltersToQueryParams({
     as: OfferFilterAsReceiver,
-    states: ['OPEN', 'ACCEPTED']
+    state: ['OPEN', 'ACCEPTED']
   })
   const queryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]

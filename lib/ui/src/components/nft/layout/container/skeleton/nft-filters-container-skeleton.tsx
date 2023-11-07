@@ -5,12 +5,11 @@ import { FiltersPanelButton } from '@echo/ui/components/nft/layout/filters-panel
 import { NftFiltersPanelLayout } from '@echo/ui/components/nft/layout/nft-filters-panel-layout'
 import { NftFilterCollections, NftFilterTraits } from '@echo/ui/constants/nft-filter'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { includes } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  availableFilters: NonEmptyArray<NftFilterType>
+  availableFilters: NftFilterType[]
   btnLabel: string
 }
 

@@ -1,18 +1,11 @@
 import { type AuthUser } from '@echo/model/types/auth-user'
-import { type MessagesType } from '@echo/ui/types/messages'
 
 declare global {
   namespace NodeJS {
-    interface ProcessEnv extends Dict<string> {
-      VERCEL_URL: string
-    }
-  }
-  // get typings on translation keys
-  interface IntlMessages extends MessagesType {}
-
-  declare namespace FirebaseFirestore {
-    interface FirestoreDataConverter<T> {
-      toFirestore(modelObject: PartialWithFieldValue<T>): DocumentData
+    interface Process {
+      env: {
+        VERCEL_URL: string
+      }
     }
   }
 }

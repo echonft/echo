@@ -2,7 +2,7 @@ import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id
 import { updateListingState } from '@echo/firestore/crud/listing/update-listing-state'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getListingOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-offers-collection-reference'
-import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query-snapshot-is-empty'
+import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query/query-snapshot-is-empty'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { isNil } from 'ramda'

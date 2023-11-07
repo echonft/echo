@@ -9,7 +9,7 @@ import dayjs from 'dayjs'
 import {
   type FirestoreDataConverter,
   type PartialWithFieldValue,
-  type QueryDocumentSnapshot
+  QueryDocumentSnapshot
 } from 'firebase-admin/firestore'
 import { assoc, dissoc, ifElse, isNil, lens, over, pipe, prop, when } from 'ramda'
 

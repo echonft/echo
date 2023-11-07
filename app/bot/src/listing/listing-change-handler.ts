@@ -1,6 +1,6 @@
-import { guardedAddListingPost } from '@echo/bot/firestore/guarded-add-listing-post'
-import { guardedFindListingPost } from '@echo/bot/firestore/guarded-find-listing-post'
-import { guardedGetListingGuilds } from '@echo/bot/firestore/guarded-get-listing-guilds'
+import { guarded_addListingPost } from '@echo/bot/firestore/guarded_add-listing-post'
+import { guarded_findListingPost } from '@echo/bot/firestore/guarded_find-listing-post'
+import { guarded_getListingGuilds } from '@echo/bot/firestore/guarded_get-listing-guilds'
 import { postListing } from '@echo/bot/listing/post-listing'
 import { type DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
 import { type Listing } from '@echo/model/types/listing'
@@ -15,12 +15,12 @@ import { isNil } from 'ramda'
  */
 export async function listingChangeHandler(client: Client, changeType: DocumentChangeType, listing: Listing) {
   if (changeType === 'added') {
-    const guilds = await guardedGetListingGuilds(listing)
+    const guilds = await guarded_getListingGuilds(listing)
     for (const guild of guilds) {
-      const post = await guardedFindListingPost(listing.id, guild.guild.discordId)
+      const post = await guarded_findListingPost(listing.id, guild.guild.discordId)
       if (isNil(post)) {
         await postListing(client, listing, guild)
-        await guardedAddListingPost(listing.id, { discordId: guild.guild.discordId, channelId: guild.guild.channelId })
+        await guarded_addListingPost(listing.id, { discordId: guild.guild.discordId, channelId: guild.guild.channelId })
       }
     }
   }

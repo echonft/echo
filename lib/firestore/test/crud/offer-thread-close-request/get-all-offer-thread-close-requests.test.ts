@@ -5,7 +5,7 @@ import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertOfferThreads } from '@test-utils/offer-thread/assert-offer-threads'
-import { uncheckedAddOfferThreadCloseRequest } from '@test-utils/offer-thread-close-request/unchecked-add-offer-thread-close-request'
+import { unchecked_addOfferThreadCloseRequest } from '@test-utils/offer-thread-close-request/unchecked_add-offer-thread-close-request'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { append, find, isEmpty, propEq } from 'ramda'
@@ -39,11 +39,11 @@ describe('CRUD - offer-thread-close-request - getAllOfferThreadCloseRequests', (
     expect(documents).toStrictEqual([])
   })
   it('returns all requests in the db', async () => {
-    const document1 = await uncheckedAddOfferThreadCloseRequest('1')
+    const document1 = await unchecked_addOfferThreadCloseRequest('1')
     documents = append(document1, documents)
-    const document2 = await uncheckedAddOfferThreadCloseRequest('2')
+    const document2 = await unchecked_addOfferThreadCloseRequest('2')
     documents = append(document2, documents)
-    const document3 = await uncheckedAddOfferThreadCloseRequest('3')
+    const document3 = await unchecked_addOfferThreadCloseRequest('3')
     documents = append(document3, documents)
     const foundDocuments = await getAllOfferThreadCloseRequests()
     expect(foundDocuments.length).toBe(3)

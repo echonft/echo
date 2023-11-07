@@ -6,14 +6,12 @@ import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { type ListingState } from '@echo/model/types/listing-state'
-import { type OfferItem } from '@echo/model/types/offer-item'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { expectDateNumberIs } from '@echo/test-utils/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
+import { unchecked_updateListing } from '@test-utils/listing/unchecked_update-listing'
 import { assertListingOffers } from '@test-utils/listing-offer/assert-listing-offers'
 import { deleteListingOffer } from '@test-utils/listing-offer/delete-listing-offer'
 import { assertOffers } from '@test-utils/offer/assert-offers'
@@ -45,7 +43,7 @@ describe('CRUD - offer - addOffer', () => {
       throw Error(`error deleting listing offer ${createdListingOfferId}: ${errorMessage(e)}`)
     }
     try {
-      await uncheckedUpdateListing(listingId, { state: initialListingState })
+      await unchecked_updateListing(listingId, { state: initialListingState })
     } catch (e) {
       throw Error(`error updating listing ${listingId} to its original state: ${errorMessage(e)}`)
     }
@@ -61,7 +59,7 @@ describe('CRUD - offer - addOffer', () => {
 
   it('add an offer', async () => {
     const { receiver, receiverItems, sender, senderItems } = getOfferMockById('ASkFpKoHEHVH0gd69t1G')
-    const newSenderItems = slice(0, 1, senderItems) as NonEmptyArray<OfferItem>
+    const newSenderItems = slice(0, 1, senderItems)
     const createdOffer = await addOffer(newSenderItems, receiverItems)
     createdOfferId = createdOffer.id
     const newOffer = (await findOfferById(createdOfferId))!

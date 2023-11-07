@@ -10,5 +10,5 @@ import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle
  * @param request
  */
 export async function GET(request: ApiRequest<never>) {
-  return await handleRequest(request, getAllCollectionsRequestHandler)
+  return await handleRequest(request, getAllCollectionsRequestHandler)(request)
 }

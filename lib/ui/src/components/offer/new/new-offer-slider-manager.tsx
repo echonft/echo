@@ -14,7 +14,6 @@ import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { mapOfferItemsToRequests } from '@echo/ui/mappers/to-api/map-offer-items-to-requests'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { Transition } from '@headlessui/react'
 import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
@@ -67,8 +66,8 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ createOfferFet
         setConfirmOfferModalShown(false)
         captureException(error, {
           contexts: offerContext({
-            receiverItems: receiverItems as NonEmptyArray<OfferItem>,
-            senderItems: senderItems as NonEmptyArray<OfferItem>
+            receiverItems,
+            senderItems
           })
         })
         show({ severity: CalloutSeverity.ERROR, message: tError('new') })

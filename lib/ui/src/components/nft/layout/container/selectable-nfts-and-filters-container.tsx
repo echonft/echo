@@ -19,13 +19,12 @@ import { type DisableableType } from '@echo/ui/types/disableable'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
 import { type SelectableType } from '@echo/ui/types/selectable'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { includes, map, omit, pipe, propEq } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo, useState } from 'react'
 
 interface Props {
   nfts: Nft[]
-  availableFilters: NonEmptyArray<NftFilterType>
+  availableFilters: NftFilterType[]
   btnLabel: string
   onButtonClick?: (nfts: Nft[]) => unknown
 }

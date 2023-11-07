@@ -1,5 +1,5 @@
-import { guardedFindOfferThread } from '@echo/bot/firestore/guarded-find-offer-thread'
-import { guardedFindUserByUsername } from '@echo/bot/firestore/guarded-find-user-by-username'
+import { guarded_findOfferThread } from '@echo/bot/firestore/guarded_find-offer-thread'
+import { guarded_findUserByUsername } from '@echo/bot/firestore/guarded_find-user-by-username'
 import { getChannel } from '@echo/bot/helpers/get-channel'
 import { getThread } from '@echo/bot/helpers/get-thread'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
@@ -11,7 +11,7 @@ import i18next from 'i18next'
 import { isNil } from 'ramda'
 
 async function getOfferReceiverId(offer: Offer) {
-  const receiver = await guardedFindUserByUsername(offer.receiver.username)
+  const receiver = await guarded_findUserByUsername(offer.receiver.username)
   if (isNil(receiver)) {
     return undefined
   }
@@ -38,7 +38,7 @@ async function getMessage(offer: Offer) {
 }
 
 export async function postOfferStateUpdate(client: Client, offer: Offer) {
-  const offerThread = await guardedFindOfferThread(offer.id)
+  const offerThread = await guarded_findOfferThread(offer.id)
   if (isNil(offerThread)) {
     return
   }

@@ -11,7 +11,7 @@
       "cache": false
     },
     "lint": {
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", ".eslintrc.js", ".eslintrc.cjs"]
+      "inputs": ["**/*.tsx", "**/*.ts", ".eslintrc.*"]
     },
     "lint:ci": {
       "cache": false
@@ -29,20 +29,20 @@
       "cache": false
     },
     "prettier": {
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"]
+      "inputs": ["**/*.tsx", "**/*.ts"]
     },
     "start": {
       "dependsOn": ["build"],
-      "outputs": [".next/**", "dist/**"]
+      "outputs": [".next/**"]
     },
     "test": {
-      "inputs": ["jest.config.*", "src/**/*.ts", "test/**/*.ts", "**/*.test.*"]
+      "inputs": ["jest.config.*", "**/*.ts"]
     },
     "test:watch": {
       "cache": false
     },
     "tsc": {
-      "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts"]
+      "inputs": ["**/*.tsx", "**/*.ts", "tsconfig.json"]
     },
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]

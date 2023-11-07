@@ -3,5 +3,5 @@ import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle
 import { getOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/get-offer-request-handler'
 
 export async function GET(request: ApiRequest<never>, { params }: { params: { id: string } }) {
-  return await handleRequest(request, getOfferRequestHandler, params.id)
+  return await handleRequest(request, getOfferRequestHandler)(request, params.id)
 }

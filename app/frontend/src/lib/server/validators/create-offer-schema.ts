@@ -2,6 +2,6 @@ import { offerItemSchema } from '@echo/frontend/lib/server/validators/offer-item
 import { z } from 'zod'
 
 export const createOfferSchema = z.object({
-  receiverItems: offerItemSchema.array().nonempty(),
-  senderItems: offerItemSchema.array().nonempty()
+  receiverItems: offerItemSchema.array().min(1),
+  senderItems: offerItemSchema.array().min(1)
 })

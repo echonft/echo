@@ -5,7 +5,7 @@ import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertOfferThreads } from '@test-utils/offer-thread/assert-offer-threads'
-import { uncheckedAddOfferThreadCloseRequest } from '@test-utils/offer-thread-close-request/unchecked-add-offer-thread-close-request'
+import { unchecked_addOfferThreadCloseRequest } from '@test-utils/offer-thread-close-request/unchecked_add-offer-thread-close-request'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { isNil } from 'ramda'
@@ -38,7 +38,7 @@ describe('CRUD - offer-thread-close-request - findOfferThreadCloseRequest', () =
   })
   it('returns the document when found', async () => {
     const offerThreadId = 'offer-thread-id'
-    const { id } = await uncheckedAddOfferThreadCloseRequest(offerThreadId)
+    const { id } = await unchecked_addOfferThreadCloseRequest(offerThreadId)
     newDocumentId = id
     const newDocument = (await findOfferThreadCloseRequest(offerThreadId))!
     expect(newDocument.id).toStrictEqual(id)

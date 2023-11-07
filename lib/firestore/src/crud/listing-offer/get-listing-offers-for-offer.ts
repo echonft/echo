@@ -1,5 +1,5 @@
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
+import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
 import { getListingOfferFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { offerItemsIncludeListingTargets } from '@echo/model/helpers/offer/offer-items-include-listing-targets'
@@ -8,7 +8,7 @@ import { type Offer } from '@echo/model/types/offer'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { isNotIn } from '@echo/utils/fp/is-not-in'
 import { now } from '@echo/utils/helpers/now'
-import { type QuerySnapshot } from 'firebase-admin/firestore'
+import { QuerySnapshot } from 'firebase-admin/firestore'
 import { concat, eqProps, filter, map, path, pipe, prop, uniqWith } from 'ramda'
 
 async function receiverItemsListingItemsMatch(offer: Offer) {

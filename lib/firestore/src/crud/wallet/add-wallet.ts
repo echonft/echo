@@ -13,5 +13,5 @@ export async function addWallet(userId: string, wallet: Wallet) {
   const { id } = reference
   const newWallet = pipe(assoc('userId', userId), assoc('id', id))(wallet) as WalletDocumentData
   await reference.set(newWallet)
-  return id
+  return newWallet
 }

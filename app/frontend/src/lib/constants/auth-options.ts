@@ -4,6 +4,7 @@ import { getDiscordConfig } from '@echo/discord/config/get-discord-config'
 import { updateAccount } from '@echo/firestore/crud/account/update-account'
 import { findSessionByUserId } from '@echo/firestore/crud/session/find-session-by-user-id'
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
+import { setUserId } from '@echo/firestore/crud/user/set-user-id'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/map-wallet-document-data-to-wallet'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
@@ -11,13 +12,12 @@ import { getAvatarDecorationUrl } from '@echo/frontend/lib/helpers/auth/get-avat
 import { getDiscordAvatarUrl } from '@echo/frontend/lib/helpers/auth/get-discord-avatar-url'
 import { getDiscordBannerUrl } from '@echo/frontend/lib/helpers/auth/get-discord-banner-url'
 import { mapTokenSetToFirestoreAccount } from '@echo/frontend/lib/helpers/auth/map-token-set-to-firestore-account'
-import { setUserId } from '@echo/frontend/lib/server/helpers/user/set-user-id'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { setUser } from '@sentry/nextjs'
 import { type AuthOptions } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
-import { always, assoc, complement, either, has, isNil, map, pipe, unless } from 'ramda'
+import { always, assoc, complement, either, has, isNil, map, pick, pipe, unless } from 'ramda'
 
 export const authOptions: AuthOptions = {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -63,10 +63,7 @@ export const authOptions: AuthOptions = {
           assoc('wallets', map(mapWalletDocumentDataToWallet, wallets)),
           unless(always(isNil(sessionToken)), assoc('sessionToken', sessionToken?.sessionToken))
         )(user) as AuthUser
-        // TODO get the chain id
-        // FIXME this cannot be here
-        // await updateUserNfts(authUser, 1)
-        setUser({ id, username: user.username })
+        setUser(pick(['id', 'username'], user))
         return {
           ...session,
           user: authUser

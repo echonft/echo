@@ -16,7 +16,10 @@ const Home: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
   const collectionsConstraintsQueryParams = mapQueryConstraintsToQueryParams({
     select: ['id', 'slug', 'profilePictureUrl', 'name'],
-    orderBy: [{ field: 'swapsCount', direction: 'desc' }, { field: 'name' }],
+    orderBy: [
+      { field: 'swapsCount', direction: 'desc' },
+      { field: 'name', direction: 'asc' }
+    ],
     limit: 10
   })
   const collectionFiltersQueryParam = mapCollectionFiltersToQueryParams({ includeSwapsCount: true })
