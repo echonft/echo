@@ -35,6 +35,10 @@
       "dependsOn": ["build"],
       "outputs": [".next/**"]
     },
+    "sentry:sourcemaps": {
+      "dependsOn": ["build"],
+      "cache": false
+    },
     "test": {
       "inputs": ["jest.config.*", "**/*.ts"]
     },

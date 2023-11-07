@@ -1,18 +1,18 @@
-import { guarded_addOfferStateUpdate } from '@echo/bot/firestore/guarded_add-offer-state-update'
-import { guarded_addOfferThread } from '@echo/bot/firestore/guarded_add-offer-thread'
-import { guarded_addOfferThreadCloseRequest } from '@echo/bot/firestore/guarded_add-offer-thread-close-request'
-import { guarded_findOfferThread } from '@echo/bot/firestore/guarded_find-offer-thread'
-import { guarded_findOfferThreadCloseRequest } from '@echo/bot/firestore/guarded_find-offer-thread-close-request'
-import { guarded_findUserByUsername } from '@echo/bot/firestore/guarded_find-user-by-username'
+import { DEFAULT_THREAD_CLOSE_DELAY } from '@echo/bot/constants/default-thread-close-delay'
 import { createOfferThread } from '@echo/bot/offer/create-offer-thread'
 import { getOfferThreadChannel } from '@echo/bot/offer/get-offer-thread-channel'
 import { postOfferStateUpdate } from '@echo/bot/offer/post-offer-state-update'
 import { postOfferThreadClose } from '@echo/bot/offer/post-offer-thread-close'
+import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thread'
 import { findOfferThread } from '@echo/firestore/crud/offer-thread/find-offer-thread'
+import { addOfferThreadCloseRequest } from '@echo/firestore/crud/offer-thread-close-request/add-offer-thread-close-request'
+import { findOfferThreadCloseRequest } from '@echo/firestore/crud/offer-thread-close-request/find-offer-thread-close-request'
+import { addOfferStateUpdate } from '@echo/firestore/crud/offer-update/add-offer-state-update'
 import { findOfferStateUpdate } from '@echo/firestore/crud/offer-update/find-offer-state-update'
+import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { type DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
 import { type Offer } from '@echo/model/types/offer'
-import { logger } from '@echo/utils/services/logger'
+import dayjs from 'dayjs'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
@@ -24,39 +24,36 @@ import { isNil } from 'ramda'
  */
 export async function offerChangeHandler(client: Client, changeType: DocumentChangeType, offer: Offer) {
   if (changeType === 'added') {
-    const thread = await guarded_findOfferThread(offer.id)
+    const thread = await findOfferThread(offer.id)
     if (isNil(thread)) {
-      const sender = await guarded_findUserByUsername(offer.sender.username)
+      const sender = await findUserByUsername(offer.sender.username)
       if (isNil(sender)) {
-        return
+        throw Error(`offer sender with username ${offer.sender.username} not found`)
       }
-      const receiver = await guarded_findUserByUsername(offer.receiver.username)
+      const receiver = await findUserByUsername(offer.receiver.username)
       if (isNil(receiver)) {
-        return
+        throw Error(`offer receiver with username ${offer.receiver.username} not found`)
       }
       const channel = await getOfferThreadChannel(client, offer, sender.discord.id, receiver.discord.id)
       if (isNil(channel)) {
         // TODO proper fallback
-        logger.error(`No suitable channel found for offer ${offer.id}`)
-        return
+        throw Error(`No suitable channel found for offer ${offer.id}`)
       }
       const threadId = await createOfferThread(channel, offer, sender.discord.id, receiver.discord.id)
-      if (!isNil(threadId)) {
-        await guarded_addOfferThread(offer.id, { discordId: channel.guildId, channelId: channel.id, threadId })
-      }
+      await addOfferThread(offer.id, { discordId: channel.guildId, channelId: channel.id, threadId })
     }
   } else if (changeType === 'modified') {
     const update = await findOfferStateUpdate(offer.id, offer.state)
     if (isNil(update)) {
       await postOfferStateUpdate(client, offer)
-      await guarded_addOfferStateUpdate(offer.id)
+      await addOfferStateUpdate(offer.id)
       const { state } = offer
       if (state === 'REJECTED' || state === 'CANCELLED' || state === 'COMPLETED') {
         const thread = await findOfferThread(offer.id)
         if (!isNil(thread)) {
-          const threadCloseRequest = await guarded_findOfferThreadCloseRequest(thread.id)
+          const threadCloseRequest = await findOfferThreadCloseRequest(thread.id)
           if (isNil(threadCloseRequest)) {
-            await guarded_addOfferThreadCloseRequest(thread.id)
+            await addOfferThreadCloseRequest(thread.id, dayjs().add(DEFAULT_THREAD_CLOSE_DELAY, 'h').unix())
             await postOfferThreadClose(client, thread)
           }
         }

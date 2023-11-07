@@ -107,6 +107,9 @@ importers:
       '@echo/utils':
         specifier: workspace:*
         version: link:../../lib/utils
+      '@sentry/cli':
+        specifier: ^2.21.2
+        version: 2.21.2
       '@sentry/node':
         specifier: 7.77.0
         version: 7.77.0
@@ -4131,6 +4134,22 @@ packages:
     dependencies:
       https-proxy-agent: 5.0.1
       mkdirp: 0.5.6
+      node-fetch: 2.7.0
+      progress: 2.0.3
+      proxy-from-env: 1.1.0
+      which: 2.0.2
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    dev: false
+
+  /@sentry/cli@2.21.2:
+    resolution: {integrity: sha512-X1nye89zl+QV3FSuQDGItfM51tW9PQ7ce0TtV/12DgGgTVEgnVp5uvO3wX5XauHvulQzRPzwUL3ZK+yS5bAwCw==}
+    engines: {node: '>= 10'}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      https-proxy-agent: 5.0.1
       node-fetch: 2.7.0
       progress: 2.0.3
       proxy-from-env: 1.1.0
