@@ -11,5 +11,5 @@ import { getUserCompletedOffersRequestHandler } from '@echo/frontend/lib/server/
  * @return {Promise<NextResponse<ErrorResponse | GetOffersResponse>>}
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { username: string } }) {
-  return await handleRequest(request, getUserCompletedOffersRequestHandler, params.username)
+  return await handleRequest(request, getUserCompletedOffersRequestHandler)(request, params.username)
 }

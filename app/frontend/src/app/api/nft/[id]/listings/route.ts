@@ -10,5 +10,5 @@ import { getNftListingsRequestHandler } from '@echo/frontend/lib/server/request-
  * @param params
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { id: string } }) {
-  return await handleRequest(request, getNftListingsRequestHandler, params.id)
+  return await handleRequest(request, getNftListingsRequestHandler)(request, params.id)
 }

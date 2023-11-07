@@ -1,9 +1,8 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
+import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
 import { type Nft } from '@echo/model/types/nft'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { type User } from '@echo/model/types/user'
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { intersection, isEmpty, map, modify, path, pick } from 'ramda'
 
 interface PartialOfferItem {
@@ -18,10 +17,7 @@ function mapItems(items: OfferItem[]): PartialOfferItem[] {
   )
 }
 
-export async function assertOfferIsNotADuplicate(
-  senderItems: NonEmptyArray<OfferItem>,
-  receiverItems: NonEmptyArray<OfferItem>
-) {
+export async function assertOfferIsNotADuplicate(senderItems: OfferItem[], receiverItems: OfferItem[]) {
   const receiverItemsNftIds = map(path(['nft', 'id']), receiverItems) as string[]
   const senderItemsNftIds = map(path(['nft', 'id']), senderItems) as string[]
   const querySnapshot = await getOffersCollectionReference()

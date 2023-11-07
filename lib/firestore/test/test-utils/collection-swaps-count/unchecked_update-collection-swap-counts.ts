@@ -1,7 +1,7 @@
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
+import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
 import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import { getCollectionSwapsCountSnapshotById } from '@test-utils/collection-swaps-count/get-collection-swaps-count-snapshot-by-id'
-import { type WriteResult } from 'firebase-admin/firestore'
+import { WriteResult } from 'firebase-admin/firestore'
 
 export async function unchecked_updateCollectionSwapCounts(
   collectionSwapsCountId: string,

@@ -1,5 +1,5 @@
 import { getListingOfferSnapshotById } from '@test-utils/listing-offer/get-listing-offer-snapshot-by-id'
-import { type WriteResult } from 'firebase-admin/firestore'
+import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
 export async function deleteListingOffer(id: string): Promise<WriteResult> {

@@ -1,9 +1,11 @@
-import { getListingsForCollectionAsItem } from '@echo/firestore/crud/listing/get-listings-for-collection-as-item'
-import { getListingsForCollectionAsTarget } from '@echo/firestore/crud/listing/get-listings-for-collection-as-target'
+import { ListingFilterAsItem } from '@echo/firestore/constants/listing-filter-as'
+import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
+import { getListingsQueryResults } from '@echo/firestore/helpers/crud/listing/get-listings-query-results'
+import { mergeQueryResults } from '@echo/firestore/helpers/crud/query/merge-query-results'
 import { type ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { type Listing } from '@echo/model/types/listing'
-import { concat, eqProps, pipe, uniqWith } from 'ramda'
+import { isNil } from 'ramda'
 
 /**
  * Find listings for which a collection is in either the targets or the items
@@ -14,11 +16,16 @@ import { concat, eqProps, pipe, uniqWith } from 'ramda'
 export async function getListingsForCollection(
   collectionId: string,
   filters?: ListingQueryFilters,
-  constraints?: QueryConstraints
+  constraints?: QueryConstraints<Listing>
 ): Promise<Listing[]> {
-  const resultsAsItem = await getListingsForCollectionAsItem(collectionId, filters, constraints)
-  const resultsAsTarget = await getListingsForCollectionAsTarget(collectionId, filters, constraints)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  return pipe(concat, uniqWith(eqProps('id')))(resultsAsItem, resultsAsTarget) as Listing[]
+  const getResults = getListingsQueryResults(filters, constraints)
+  const asItemQuery = getListingsCollectionReference().where('itemsNftCollectionIds', 'array-contains', collectionId)
+  const asTargetQuery = getListingsCollectionReference().where('targetsIds', 'array-contains', collectionId)
+  if (isNil(filters) || isNil(filters.as)) {
+    return mergeQueryResults(asItemQuery, asTargetQuery, getResults)
+  }
+  if (filters.as === ListingFilterAsItem) {
+    return getResults(asItemQuery)
+  }
+  return getResults(asTargetQuery)
 }

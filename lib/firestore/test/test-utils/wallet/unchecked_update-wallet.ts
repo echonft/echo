@@ -1,7 +1,7 @@
 import { getWalletSnapshotById } from '@echo/firestore/crud/wallet/get-wallet-snapshot-by-id'
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
+import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
 import { type WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { type WriteResult } from 'firebase-admin/firestore'
+import { WriteResult } from 'firebase-admin/firestore'
 
 export async function unchecked_updateWallet(
   walletId: string,

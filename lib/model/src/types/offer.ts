@@ -1,7 +1,6 @@
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { type OfferState } from '@echo/model/types/offer-state'
 import { type User } from '@echo/model/types/user'
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 
 export interface Offer {
   id: string
@@ -9,9 +8,9 @@ export interface Offer {
   expired: boolean
   expiresAt: number
   receiver: User
-  receiverItems: NonEmptyArray<OfferItem>
+  receiverItems: OfferItem[]
   sender: User
-  senderItems: NonEmptyArray<OfferItem>
+  senderItems: OfferItem[]
   state: OfferState
   updatedAt: number
 }

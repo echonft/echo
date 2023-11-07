@@ -9,5 +9,5 @@ import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle
  * @param params
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { slug: string } }) {
-  return await handleRequest(request, getCollectionNftsRequestHandler, params.slug)
+  return await handleRequest(request, getCollectionNftsRequestHandler)(request, params.slug)
 }

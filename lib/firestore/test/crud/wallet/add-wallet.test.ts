@@ -22,7 +22,7 @@ describe('CRUD - wallet - addWallet', () => {
     await expect(addWallet('userId', pick(['address', 'chainId'], wallet))).rejects.toBeDefined()
   })
   it('add wallet', async () => {
-    const id = await addWallet('6rECUMhevHfxABZ1VNOm', {
+    const { id } = await addWallet('6rECUMhevHfxABZ1VNOm', {
       address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',
       chainId: 1
     })

@@ -4,5 +4,5 @@ import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle
 import { createListingRequestHandler } from '@echo/frontend/lib/server/request-handlers/listing/create-listing-request-handler'
 
 export async function PUT(request: ApiRequest<CreateListingRequest>) {
-  return await handleRequest(request, createListingRequestHandler)
+  return await handleRequest(request, createListingRequestHandler)(request)
 }

@@ -1,9 +1,8 @@
 import { type OrderByParameters } from '@echo/firestore/types/query/order-by-parameters'
 
-export interface QueryConstraints {
-  select?: string[]
+export interface QueryConstraints<T> {
+  select?: (keyof T)[]
   orderBy?: OrderByParameters[]
   limit?: number
-  limitToLast?: number
   offset?: number
 }

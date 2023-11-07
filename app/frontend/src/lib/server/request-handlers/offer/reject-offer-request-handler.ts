@@ -1,19 +1,23 @@
 import { ApiRequest } from '@echo/api/types/api-request'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { assertOffer } from '@echo/frontend/lib/server/helpers/offer/assert/assert-offer'
-import { assertOfferReceiverIs } from '@echo/frontend/lib/server/helpers/offer/assert/assert-offer-receiver-is'
-import { assertOfferState } from '@echo/frontend/lib/server/helpers/offer/assert/assert-offer-state'
-import { guarded_findOfferById } from '@echo/frontend/lib/server/helpers/offer/guarded_find-offer-by-id'
-import { guarded_rejectOffer } from '@echo/frontend/lib/server/helpers/offer/guarded_reject-offer'
+import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { rejectOffer } from '@echo/firestore/crud/offer/reject-offer'
+import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
+import { guardAsyncFn } from '@echo/frontend/lib/server/helpers/error/guard'
+import { guarded_assertOffer } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer'
+import { guarded_assertOfferReceiverIs } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-receiver-is'
+import { guarded_assertOfferState } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-state'
+import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { NextResponse } from 'next/server'
 
 export async function rejectOfferRequestHandler(req: ApiRequest<never>, offerId: string) {
-  const offer = await guarded_findOfferById(offerId)
-  assertOffer(offer)
-  assertOfferState(offer, 'REJECTED')
+  const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(offerId)
+  guarded_assertOffer(offer)
+  guarded_assertOfferState(offer, 'REJECTED')
   const user = await getUserFromRequest(req)
-  assertOfferReceiverIs(offer, user.username)
-  const updatedOffer = await guarded_rejectOffer(offerId)
+  guarded_assertAuthUser(user)
+  guarded_assertOfferReceiverIs(offer, user.username)
+  const updatedOffer = await guardAsyncFn(rejectOffer, ErrorStatus.SERVER_ERROR)(offerId)
   return NextResponse.json<OfferResponse>({ offer: updatedOffer })
 }

@@ -1,23 +1,29 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
-import { assertCollectionExists } from '@echo/frontend/lib/server/helpers/collection/assert-collection-exists'
-import { guarded_findCollectionBySlug } from '@echo/frontend/lib/server/helpers/collection/guarded_find-collection-by-slug'
-import { guarded_getOffersForCollection } from '@echo/frontend/lib/server/helpers/offer/guarded_get-offers-for-collection'
+import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
+import { getOffersForCollection } from '@echo/firestore/crud/offer/get-offers-for-collection'
+import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
+import { guarded_assertCollectionExists } from '@echo/frontend/lib/server/helpers/collection/assert/guarded_assert-collection-exists'
+import { guardAsyncFn, guardFn } from '@echo/frontend/lib/server/helpers/error/guard'
+import { parseOfferFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse_offer_filters_query'
 import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/parse-constraints-query'
-import { parseOfferFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-offer-filters-query'
 import { NextResponse } from 'next/server'
 import { assoc, dissoc, pipe } from 'ramda'
 
 export async function getCollectionCompletedOffersRequestHandler(req: ApiRequest<never>, slug: string) {
-  const constraints = parseConstraintsQuery(req)
-  const filters = parseOfferFiltersQuery(req)
-  const collection = await guarded_findCollectionBySlug(slug)
-  assertCollectionExists(collection, slug)
+  const constraints = guardFn(parseConstraintsQuery, ErrorStatus.BAD_REQUEST)(req)
+  const filters = guardFn(parseOfferFiltersQuery, ErrorStatus.BAD_REQUEST)(req)
+  const collection = await guardAsyncFn(findCollectionBySlug, ErrorStatus.SERVER_ERROR)(slug)
+  guarded_assertCollectionExists(collection, slug)
   const completedOffersFilters = pipe(
     assoc('states', ['COMPLETED']),
     dissoc('notStates'),
     assoc('includeExpired', true)
   )(filters)
-  const offers = await guarded_getOffersForCollection(collection.id, completedOffersFilters, constraints)
+  const offers = await guardAsyncFn(getOffersForCollection, ErrorStatus.SERVER_ERROR)(
+    collection.id,
+    completedOffersFilters,
+    constraints
+  )
   return NextResponse.json<OffersResponse>({ offers })
 }

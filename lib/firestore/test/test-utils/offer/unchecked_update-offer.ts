@@ -1,7 +1,7 @@
 import { getOfferSnapshotById } from '@echo/firestore/crud/offer/get-offer-snapshot-by-id'
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
+import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
 import { type Offer } from '@echo/model/types/offer'
-import { type WriteResult } from 'firebase-admin/firestore'
+import { WriteResult } from 'firebase-admin/firestore'
 
 export async function unchecked_updateOffer(
   offerId: string,
