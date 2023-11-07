@@ -108,7 +108,7 @@ importers:
         specifier: workspace:*
         version: link:../../lib/utils
       '@sentry/cli':
-        specifier: ^2.21.2
+        specifier: 2.21.2
         version: 2.21.2
       '@sentry/node':
         specifier: 7.77.0
