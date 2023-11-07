@@ -3,5 +3,5 @@ import { getCollectionRequestHandler } from '@echo/frontend/lib/server/request-h
 import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle-request'
 
 export async function GET(request: ApiRequest<never>, { params }: { params: { slug: string } }) {
-  return await handleRequest(request, getCollectionRequestHandler, params.slug)
+  return await handleRequest(request, getCollectionRequestHandler)(params.slug)
 }

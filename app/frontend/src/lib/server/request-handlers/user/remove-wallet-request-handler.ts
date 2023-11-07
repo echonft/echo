@@ -1,26 +1,26 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { type RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
-import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
-import { guarded_getResquestBody } from '@echo/frontend/lib/server/helpers/request/guarded_get-resquest-body'
-import { guarded_getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/guarded_get-user-from-request'
+import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
+import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
+import { guardAsyncFn, guardFn } from '@echo/frontend/lib/server/helpers/error/guard'
+import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
+import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { emptyResponse } from '@echo/frontend/lib/server/helpers/response/empty-response'
-import { guarded_removeWallet } from '@echo/frontend/lib/server/helpers/user/guarded_remove-wallet'
-import { guarded_updateUserNfts } from '@echo/frontend/lib/server/helpers/user/guarded_update-user-nfts'
+import { updateUserNfts } from '@echo/frontend/lib/server/helpers/user/update-user-nfts'
 import { removeWalletSchema } from '@echo/frontend/lib/server/validators/remove-wallet-schema'
 
-function guarded_parseRemoveWalletRequest(request: RemoveWalletRequest) {
-  try {
-    return removeWalletSchema.parse(request)
-  } catch (e) {
-    throw new BadRequestError(`error parsing remove wallet request ${JSON.stringify(request)}`, e)
-  }
-}
-
 export async function removeWalletRequestHandler(req: ApiRequest<RemoveWalletRequest>) {
-  const requestBody = await guarded_getResquestBody(req)
-  const { wallet } = guarded_parseRemoveWalletRequest(requestBody)
-  const user = await guarded_getUserFromRequest(req)
-  await guarded_removeWallet(user.id, wallet)
-  await guarded_updateUserNfts(user, wallet)
+  const requestBody = await guardAsyncFn(
+    (req: ApiRequest<RemoveWalletRequest>) => req.json(),
+    ErrorStatus.BAD_REQUEST
+  )(req)
+  const { wallet } = guardFn(
+    (requestBody) => removeWalletSchema.parse(requestBody),
+    ErrorStatus.BAD_REQUEST
+  )(requestBody)
+  const user = await getUserFromRequest(req)
+  guarded_assertAuthUser(user)
+  await guardAsyncFn(removeWallet, ErrorStatus.SERVER_ERROR)(user.id, wallet)
+  await guardAsyncFn(updateUserNfts, ErrorStatus.SERVER_ERROR)(user, wallet)
   return emptyResponse()
 }
