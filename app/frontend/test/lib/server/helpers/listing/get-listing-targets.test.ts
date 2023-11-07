@@ -1,6 +1,6 @@
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
-import { guarded_getListingTargetsFromRequests } from '@echo/frontend/lib/server/helpers/listing/guarded_get-listing-targets-from-requests'
+import { getListingTargetsFromRequests } from '@echo/frontend/lib/server/helpers/listing/get-listing-targets-from-requests'
 import { type Collection } from '@echo/model/types/collection'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { forEach } from 'ramda'
@@ -30,12 +30,12 @@ describe('helpers - listing - getListingTargets', () => {
 
   it('throws if the collection does not exist for one or more items', async () => {
     jest.mocked(findCollectionById).mockResolvedValue(undefined)
-    await expect(guarded_getListingTargetsFromRequests(listingTargetRequests)).rejects.toBeDefined()
+    await expect(getListingTargetsFromRequests(listingTargetRequests)).rejects.toBeDefined()
   })
 
   it('returns the associated listing targets', async () => {
     jest.mocked(findCollectionById).mockResolvedValue(collection)
-    const targets = await guarded_getListingTargetsFromRequests(listingTargetRequests)
+    const targets = await getListingTargetsFromRequests(listingTargetRequests)
     expect(targets.length).toEqual(2)
     forEach((target) => {
       expect(target).toStrictEqual(listingTarget)

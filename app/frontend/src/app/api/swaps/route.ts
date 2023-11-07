@@ -9,5 +9,5 @@ import { getAllCompletedOffersRequestHandler } from '@echo/frontend/lib/server/r
  * @param request
  */
 export async function GET(request: ApiRequest<never>) {
-  return await handleRequest(request, getAllCompletedOffersRequestHandler)
+  return await handleRequest(request, getAllCompletedOffersRequestHandler)(request)
 }

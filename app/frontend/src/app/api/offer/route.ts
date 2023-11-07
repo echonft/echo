@@ -4,5 +4,5 @@ import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle
 import { createOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/create-offer-request-handler'
 
 export async function PUT(request: ApiRequest<CreateOfferRequest>) {
-  return await handleRequest(request, createOfferRequestHandler)
+  return await handleRequest(request, createOfferRequestHandler)(request)
 }

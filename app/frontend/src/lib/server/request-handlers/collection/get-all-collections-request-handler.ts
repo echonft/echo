@@ -1,11 +1,13 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { type CollectionsResponse } from '@echo/api/types/responses/collections-response'
+import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
+import { getAllCollectionSwapsCounts } from '@echo/firestore/test/test-utils/collection-swaps-count/get-all-collection-swaps-counts'
 import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { guarded_getAllCollectionSwapsCounts } from '@echo/frontend/lib/server/helpers/collection/guarded_get-all-collection-swaps-counts'
-import { guarded_getAllCollections } from '@echo/frontend/lib/server/helpers/collection/guarded_get-all-collections'
-import { guarded_parseCollectionFiltersQuery } from '@echo/frontend/lib/server/helpers/request/guarded_parse-collection-filters-query'
-import { guarded_parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/guarded_parse-constraints-query'
+import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
+import { guardAsyncFn, guardFn } from '@echo/frontend/lib/server/helpers/error/guard'
+import { parseCollectionFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-collection-filters-query'
+import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/parse-constraints-query'
 import { type Collection } from '@echo/model/types/collection'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { NextResponse } from 'next/server'
@@ -44,8 +46,8 @@ function getSwapsCountForCollection(collectionId: string, swapsCounts: Collectio
 }
 
 export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
-  const constraints = guarded_parseConstraintsQuery<Collection>(req)
-  const filters = guarded_parseCollectionFiltersQuery(req)
+  const constraints = guardFn(parseConstraintsQuery<Collection>, ErrorStatus.BAD_REQUEST)(req)
+  const filters = guardFn(parseCollectionFiltersQuery, ErrorStatus.BAD_REQUEST)(req)
   const includeSwapsCount = isNil(filters) ? false : filters.includeSwapsCount
   // we need to remove limit and offset constraints if swaps counts are included - it will be done after manually on the list
   // TODO limitToLast, if needed - it's not for now
@@ -62,10 +64,10 @@ export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
       // @ts-ignore
       pipe(prop('constraints'), dissoc('limit'), dissoc('offset'))
     ),
-    guarded_getAllCollections
+    guardAsyncFn(getAllCollections, ErrorStatus.SERVER_ERROR)
   )({ constraints, includeSwapsCount })
   if (includeSwapsCount) {
-    const swapCounts = await guarded_getAllCollectionSwapsCounts()
+    const swapCounts = await guardAsyncFn(getAllCollectionSwapsCounts, ErrorStatus.SERVER_ERROR)()
     const sliceStartIndex = ifElse(anyPass([isNil, complement(has('offset'))]), always(0), prop('offset'))(constraints)
     const sliceEndIndex = ifElse<
       [{ constraints: QueryConstraints<Collection> | undefined; collections: Collection[]; sliceStartIndex: number }],

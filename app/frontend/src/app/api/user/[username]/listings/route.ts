@@ -17,5 +17,5 @@ export async function GET(
   request: ApiRequest<never>,
   { params }: { params: { username: string } }
 ): Promise<NextResponse<ErrorResponse | ListingsResponse>> {
-  return await handleRequest(request, getUserListingsRequestHandler, params.username)
+  return await handleRequest(request, getUserListingsRequestHandler)(request, params.username)
 }

@@ -10,5 +10,5 @@ import { getCurrentUserOffersRequestHandler } from '@echo/frontend/lib/server/re
  * @return {Promise<NextResponse<ErrorResponse | GetOffersResponse>>}
  */
 export async function GET(request: ApiRequest<never>) {
-  return await handleRequest(request, getCurrentUserOffersRequestHandler)
+  return await handleRequest(request, getCurrentUserOffersRequestHandler)(request)
 }
