@@ -1,5 +1,5 @@
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
+import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { type Nft } from '@echo/model/types/nft'

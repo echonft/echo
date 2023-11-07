@@ -1,14 +1,13 @@
-import { ForbiddenError } from '@echo/frontend/lib/server/helpers/error/forbidden-error'
-import { type SiweMessage, type SiweResponse } from 'siwe'
+import { type SiweMessage } from 'siwe'
 
-export async function verifySiweMessage(signature: string, siweMessage: SiweMessage): Promise<SiweResponse> {
-  try {
-    return await siweMessage.verify({
-      signature,
-      domain: siweMessage.domain,
-      nonce: siweMessage.nonce
-    })
-  } catch (e) {
-    throw new ForbiddenError(`cannot verify siwe message ${JSON.stringify(siweMessage)} with signature ${signature}`, e)
+export async function verifySiweMessage(signature: string, siweMessage: SiweMessage) {
+  const { data, success } = await siweMessage.verify({
+    signature,
+    domain: siweMessage.domain,
+    nonce: siweMessage.nonce
+  })
+  if (!success) {
+    throw new Error(`could not validate siwe message ${JSON.stringify(siweMessage)} with signature ${signature}`)
   }
+  return data
 }

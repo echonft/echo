@@ -4,6 +4,13 @@ import { type Meta, type StoryObj } from '@storybook/react'
 const metadata: Meta<typeof Component> = {
   title: 'Base/Long Press Button',
   component: Component,
+  decorators: [
+    (Story) => (
+      <div style={{ paddingTop: 128 }}>
+        <Story />
+      </div>
+    )
+  ],
   argTypes: {
     disabled: {
       defaultValue: false,
@@ -37,10 +44,5 @@ export const LongPressButton: Story = {
     message: 'Hold to cancel',
     threshold: 3000,
     disabled: false
-  },
-  render: (args) => (
-    <div style={{ paddingTop: 128 }}>
-      <Component {...args} />
-    </div>
-  )
+  }
 }

@@ -14,7 +14,7 @@ const ProfileNftsPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
   redirectIfNotLoggedIn(session, links.profile.items)
   const queryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'tokenId' }]
+    orderBy: [{ field: 'tokenId', direction: 'asc' }]
   })
   const result = await fetcher(userNftsApiUrl(session.user.username)).query(queryParams).fetch<NftsResponse>()
   assertFetchResult(result)

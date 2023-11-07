@@ -1,5 +1,5 @@
 import { getOfferThreadSnapshotById } from '@echo/firestore/crud/offer-thread/get-offer-thread-snapshot-by-id'
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
+import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
 import { WriteResult } from 'firebase-admin/firestore'
 
 export async function deleteOfferThread(id: string): Promise<WriteResult> {

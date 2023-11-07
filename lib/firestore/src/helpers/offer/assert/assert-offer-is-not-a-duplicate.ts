@@ -1,5 +1,5 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/get-query-snapshot-documents-data'
+import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
 import { type Nft } from '@echo/model/types/nft'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { type User } from '@echo/model/types/user'

@@ -1,5 +1,5 @@
 import { getListingSnapshotById } from '@echo/firestore/crud/listing/get-listing-snapshot-by-id'
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
+import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
 import { assertListingState } from '@echo/model/helpers/listing/assert/assert-listing-state'
 import type { Listing } from '@echo/model/types/listing'
 import { type ListingState } from '@echo/model/types/listing-state'

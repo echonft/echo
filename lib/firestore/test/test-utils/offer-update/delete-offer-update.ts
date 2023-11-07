@@ -1,4 +1,4 @@
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
+import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
 import { getOfferUpdateSnapshotById } from '@test-utils/offer-update/get-offer-update-snapshot-by-id'
 import { WriteResult } from 'firebase-admin/firestore'
 

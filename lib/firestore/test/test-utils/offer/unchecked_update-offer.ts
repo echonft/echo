@@ -1,5 +1,5 @@
 import { getOfferSnapshotById } from '@echo/firestore/crud/offer/get-offer-snapshot-by-id'
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert-query-document-snapshot'
+import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
 import { type Offer } from '@echo/model/types/offer'
 import { WriteResult } from 'firebase-admin/firestore'
 

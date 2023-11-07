@@ -17,7 +17,10 @@ interface Props {
 const CollectionNftsPage: FunctionComponent<Props> = async ({ params: { slug } }) => {
   const session = await getServerSession(authOptions)
   const queryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'owner.discord.username' }, { field: 'tokenId' }]
+    orderBy: [
+      { field: 'owner.discord.username', direction: 'asc' },
+      { field: 'tokenId', direction: 'asc' }
+    ]
   })
   const result = await fetcher(collectionNftsApiUrl(slug)).query(queryParams).fetch<NftsResponse>()
   assertFetchResult(result)

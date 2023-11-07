@@ -1,7 +1,7 @@
 import { type OrderByParameters } from '@echo/firestore/types/query/order-by-parameters'
-import { isIn } from '@echo/utils/fp/is-in'
-import { Query } from 'firebase-admin/firestore'
-import { filter, head, isEmpty, isNil, propSatisfies, tail } from 'ramda'
+import type { QueryWithConstraints } from '@echo/firestore/types/query/query-with-constraints'
+import type { Query } from 'firebase-admin/firestore'
+import { head, isEmpty, isNil, tail } from 'ramda'
 
 function addOrderByConstraintRecursive<T>(query: Query<T>, orderBy: OrderByParameters[]) {
   if (isEmpty(orderBy)) {
@@ -15,10 +15,13 @@ function addOrderByConstraintRecursive<T>(query: Query<T>, orderBy: OrderByParam
   return addOrderByConstraintRecursive(query.orderBy(field, direction), tail(orderBy))
 }
 
-export function addOrderByConstraint<T>(query: Query<T>, orderBy: OrderByParameters[], availableFields: string[]) {
-  const validParameters = filter(propSatisfies(isIn(availableFields), 'field'), orderBy)
-  if (isEmpty(validParameters)) {
-    return query
+export function addOrderByConstraint<T>(args: QueryWithConstraints<T>) {
+  if (isNil(args.constraints) || isNil(args.constraints.orderBy)) {
+    return args
   }
-  return addOrderByConstraintRecursive(query, validParameters)
+  const { query, constraints } = args
+  return {
+    query: addOrderByConstraintRecursive(query, args.constraints.orderBy),
+    constraints
+  }
 }

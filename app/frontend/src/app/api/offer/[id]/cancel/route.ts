@@ -3,5 +3,5 @@ import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle
 import { cancelOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/cancel-offer-request-handler'
 
 export async function POST(request: ApiRequest<never>, { params }: { params: { id: string } }) {
-  return await handleRequest(request, cancelOfferRequestHandler, params.id)
+  return await handleRequest(request, cancelOfferRequestHandler)(request, params.id)
 }
