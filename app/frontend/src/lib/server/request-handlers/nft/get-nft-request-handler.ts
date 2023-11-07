@@ -1,22 +1,17 @@
-import { type ApiRequest } from '@echo/api/types/api-request'
 import { type NftResponse } from '@echo/api/types/responses/nft-response'
-import { BadRequestError } from '@echo/frontend/lib/server/helpers/error/bad-request-error'
-import { assertNftExists } from '@echo/frontend/lib/server/helpers/nft/assert-nft-exists'
-import { getNftByCollection } from '@echo/frontend/lib/server/helpers/nft/get-nft-by-collection'
-import { tokenIdSchema } from '@echo/frontend/lib/server/validators/token-id-schema'
+import { findNftByCollection } from '@echo/firestore/crud/nft/find-nft-by-collection'
+import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
+import { guardAsyncFn, guardFn } from '@echo/frontend/lib/server/helpers/error/guard'
+import { guarded_assertNftExists } from '@echo/frontend/lib/server/helpers/nft/assert/guarded_assert-nft-exists'
+import { positiveIntegerStringSchema } from '@echo/frontend/lib/server/validators/positive-integer-string-schema'
 import { NextResponse } from 'next/server'
 
-function parseTokenId(tokenId: number): number {
-  try {
-    return tokenIdSchema.parse(tokenId)
-  } catch (e) {
-    throw new BadRequestError(`error parsing token id ${tokenId}`, e)
-  }
-}
-
-export async function getNftRequestHandler(_req: ApiRequest<never>, slug: string, tokenId: string) {
-  const validTokenId = parseTokenId(parseInt(tokenId))
-  const nft = await getNftByCollection(slug, validTokenId)
-  assertNftExists(nft, slug, tokenId)
+export async function getNftRequestHandler(slug: string, tokenId: string) {
+  const validTokenId = guardFn(
+    (tokenId) => positiveIntegerStringSchema.parse(tokenId),
+    ErrorStatus.BAD_REQUEST
+  )(tokenId)
+  const nft = await guardAsyncFn(findNftByCollection, ErrorStatus.SERVER_ERROR)(slug, validTokenId)
+  guarded_assertNftExists(nft, slug, tokenId)
   return NextResponse.json<NftResponse>({ nft })
 }

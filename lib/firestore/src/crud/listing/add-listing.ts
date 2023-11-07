@@ -8,14 +8,10 @@ import { type Listing } from '@echo/model/types/listing'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { now } from '@echo/utils/helpers/now'
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import dayjs from 'dayjs'
 import { head } from 'ramda'
 
-export async function addListing(
-  items: NonEmptyArray<OfferItem>,
-  targets: NonEmptyArray<ListingTarget>
-): Promise<Listing> {
+export async function addListing(items: OfferItem[], targets: ListingTarget[]): Promise<Listing> {
   assertListingTargets(targets)
   assertListingItems(items)
   await assertListingIsNotADuplicate(items, targets)

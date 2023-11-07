@@ -10,5 +10,5 @@ import { getUserNftsRequestHandler } from '@echo/frontend/lib/server/request-han
  * @return {Promise<NextResponse<ErrorResponse | GetNftsResponse>>}
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { username: string } }) {
-  return await handleRequest(request, getUserNftsRequestHandler, params.username)
+  return await handleRequest(request, getUserNftsRequestHandler)(request, params.username)
 }

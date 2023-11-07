@@ -24,13 +24,12 @@ import { type Group } from '@echo/ui/types/group'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
 import { type SelectableType } from '@echo/ui/types/selectable'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
-import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { find, includes, isNil, lt, map, modify, omit, pipe, prop, propEq, unless } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useMemo, useState } from 'react'
 
 interface Props {
   nfts: Nft[]
-  availableFilters: NonEmptyArray<NftFilterType>
+  availableFilters: NftFilterType[]
   btnLabel: string
   hideOwner?: boolean
   onButtonClick?: (nfts: Nft[]) => unknown

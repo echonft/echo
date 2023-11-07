@@ -6,7 +6,7 @@ import { deleteOfferSignature } from '@test-utils/offer-signature/delete-offer-s
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { deleteUser } from '@test-utils/user/delete-user'
-import { uncheckedAddUser } from '@test-utils/user/unchecked-add-user'
+import { unchecked_addUser } from '@test-utils/user/unchecked_add-user'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-signature - findOfferSignature', () => {
@@ -50,7 +50,7 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
     await expect(addOfferSignature({ offerId, userId: 'not-found', signature })).rejects.toBeDefined()
   })
   it('throws if the user is neither the sender nor the receiver', async () => {
-    const user = await uncheckedAddUser({
+    const user = await unchecked_addUser({
       username: 'not-receiver',
       discord: { avatarUrl: 'avatarUrl', username: 'discord-username', id: 'discord-id', bannerColor: 'color' }
     })

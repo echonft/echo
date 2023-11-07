@@ -4,5 +4,5 @@ import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle
 import { completeOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/complete-offer-request-handler'
 
 export async function POST(request: ApiRequest<CompleteOfferRequest>, { params }: { params: { id: string } }) {
-  return await handleRequest(request, completeOfferRequestHandler, params.id)
+  return await handleRequest(request, completeOfferRequestHandler)(request, params.id)
 }

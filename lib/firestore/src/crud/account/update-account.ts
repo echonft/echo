@@ -1,6 +1,6 @@
 import { findUserByDiscordId } from '@echo/firestore/crud/user/find-user-by-discord-id'
 import { getAccountsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-accounts-collection-reference'
-import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/get-query-snapshot-document-snapshot'
+import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-snapshot-document-snapshot'
 import { type Account } from '@echo/firestore/types/model/account/account'
 import { isNil } from 'ramda'
 

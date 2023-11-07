@@ -1,10 +1,10 @@
-import { complement, isNil, pipe, prop } from 'ramda'
+import { both, complement, has, isNil, pipe, prop } from 'ramda'
 
 function internalFn<T, K extends keyof T>(propKey: K) {
   return function (obj: T) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return pipe(prop(propKey), complement(isNil))(obj)
+    return both(has(propKey), pipe(prop(propKey), complement(isNil)))(obj)
   }
 }
 

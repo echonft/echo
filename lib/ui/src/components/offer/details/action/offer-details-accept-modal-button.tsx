@@ -1,5 +1,5 @@
 'use client'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Offer } from '@echo/model/types/offer'
 import { OfferDetailsAcceptModalAcceptButton } from '@echo/ui/components/offer/details/action/offer-details-accept-modal-accept-button'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
@@ -17,9 +17,9 @@ interface Props {
     offerId: string,
     signature: HexString | undefined,
     token: string | undefined
-  ) => Promise<EmptyResponse>
+  ) => Promise<OfferResponse>
   onLoading?: EmptyFunction
-  onSuccess?: EmptyFunction
+  onSuccess?: (offer: Offer) => unknown
   onError?: EmptyFunction
 }
 

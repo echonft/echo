@@ -1,21 +1,19 @@
-import { listingFields } from '@echo/firestore/constants/fields/listing/listing-fields'
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
-import { filterExpiredResults } from '@echo/firestore/helpers/crud/filter-expired-results'
-import { getQueryDocumentsData } from '@echo/firestore/helpers/crud/get-query-documents-data'
-import { addListingQueryFilters } from '@echo/firestore/helpers/crud/listing/add-listing-query-filters'
-import { addConstraintsToQuery } from '@echo/firestore/helpers/query/add-constraints-to-query'
+import { getListingsQueryResults } from '@echo/firestore/helpers/crud/listing/get-listings-query-results'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { type ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { type Listing } from '@echo/model/types/listing'
+import { pipe } from 'ramda'
 
-export async function getListingsForNft(
+export function getListingsForNft(
   nftId: string,
   filters?: ListingQueryFilters,
-  constraints?: QueryConstraints
+  constraints?: QueryConstraints<Listing>
 ): Promise<Listing[]> {
-  let query = getListingsCollectionReference().where('itemsNftIds', 'array-contains', nftId)
-  query = addListingQueryFilters(query, filters)
-  query = addConstraintsToQuery(query, constraints, listingFields, true)
-  const results = await getQueryDocumentsData(query)
-  return filterExpiredResults(results, constraints, filters)
+  return pipe(
+    getListingsCollectionReference,
+    queryWhere('itemsNftIds', 'array-contains', nftId),
+    getListingsQueryResults(filters, constraints)
+  )()
 }

@@ -3,7 +3,7 @@ import { getListingsForNft } from '@echo/firestore/crud/listing/get-listings-for
 import { type Listing } from '@echo/model/types/listing'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
+import { unchecked_updateListing } from '@test-utils/listing/unchecked_update-listing'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
@@ -16,13 +16,13 @@ describe('CRUD - listing - getListingsForNft', () => {
 
   async function setExpired(listing: Listing) {
     const expiresAt = dayjs().subtract(1, 'day').set('ms', 0).unix()
-    await uncheckedUpdateListing(listing.id, { expiresAt })
+    await unchecked_updateListing(listing.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', true))(listing)
   }
 
   async function setNotExpired(listing: Listing) {
     const expiresAt = dayjs().add(1, 'day').set('ms', 0).unix()
-    await uncheckedUpdateListing(listing.id, { expiresAt })
+    await unchecked_updateListing(listing.id, { expiresAt })
     return pipe(assoc('expiresAt', expiresAt), assoc('expired', false))(listing)
   }
 
@@ -37,7 +37,7 @@ describe('CRUD - listing - getListingsForNft', () => {
     initialExpiresAt = listing!.expiresAt
   })
   afterEach(async () => {
-    await uncheckedUpdateListing(id, { expiresAt: initialExpiresAt })
+    await unchecked_updateListing(id, { expiresAt: initialExpiresAt })
   })
 
   it('returns an empty array if no listings are found', async () => {
@@ -54,19 +54,19 @@ describe('CRUD - listing - getListingsForNft', () => {
 
   it('filter by state (included)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForNft(nftId, { states: ['OFFERS_PENDING', 'CANCELLED'] })
+    let listings = await getListingsForNft(nftId, { state: ['OFFERS_PENDING', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getListingsForNft(nftId, { states: ['CANCELLED'] })
+    listings = await getListingsForNft(nftId, { state: ['CANCELLED'] })
     expect(listings.length).toBe(0)
   })
 
   it('filter by state (excluded)', async () => {
     const mock = await setNotExpired(getListingMockById(id))
-    let listings = await getListingsForNft(nftId, { notStates: ['PARTIALLY_FULFILLED', 'CANCELLED'] })
+    let listings = await getListingsForNft(nftId, { notState: ['PARTIALLY_FULFILLED', 'CANCELLED'] })
     expect(listings.length).toBe(1)
     expect(listings[0]).toStrictEqual(mock)
-    listings = await getListingsForNft(nftId, { notStates: ['OFFERS_PENDING', 'FULFILLED'] })
+    listings = await getListingsForNft(nftId, { notState: ['OFFERS_PENDING', 'FULFILLED'] })
     expect(listings.length).toBe(0)
   })
 

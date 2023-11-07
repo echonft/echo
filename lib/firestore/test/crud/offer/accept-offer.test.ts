@@ -6,7 +6,7 @@ import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-no
 import type { HexString } from '@echo/utils/types/hex-string'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertOffers } from '@test-utils/offer/assert-offers'
-import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
+import { unchecked_updateOffer } from '@test-utils/offer/unchecked_update-offer'
 import { deleteOfferSignature } from '@test-utils/offer-signature/delete-offer-signature'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
@@ -39,7 +39,7 @@ describe('CRUD - offer - acceptOffer', () => {
     createdOfferSignatureId = undefined
   })
   afterEach(async () => {
-    await uncheckedUpdateOffer(offerId, {
+    await unchecked_updateOffer(offerId, {
       state: initialState,
       expiresAt: initialExpiresAt,
       updatedAt: initialUpdatedAt
@@ -57,27 +57,27 @@ describe('CRUD - offer - acceptOffer', () => {
     await expect(acceptOffer('not-found', userId, signature)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().subtract(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().subtract(1, 'day').unix() })
     await expect(acceptOffer(offerId, userId, signature)).rejects.toBeDefined()
   })
   it('throws if the offer is cancelled', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(acceptOffer(offerId, userId, signature)).rejects.toBeDefined()
   })
   it('throws if the offer is accepted', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'ACCEPTED', expiresAt: dayjs().add(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'ACCEPTED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(acceptOffer(offerId, userId, signature)).rejects.toBeDefined()
   })
   it('throws if the offer is rejected', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'REJECTED', expiresAt: dayjs().add(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'REJECTED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(acceptOffer(offerId, userId, signature)).rejects.toBeDefined()
   })
   it('throws if the offer is completed', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'COMPLETED', expiresAt: dayjs().add(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'COMPLETED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(acceptOffer(offerId, userId, signature)).rejects.toBeDefined()
   })
   it('accept offer', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().add(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().add(1, 'day').unix() })
     await acceptOffer(offerId, userId, signature)
     const updatedOffer = (await findOfferById(offerId))!
     const createdOfferSignature = (await findOfferSignature(offerId))!

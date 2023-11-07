@@ -1,5 +1,5 @@
 'use-client'
-import { type EmptyResponse } from '@echo/api/types/responses/empty-response'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Offer } from '@echo/model/types/offer'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { OfferDetailsAcceptModal } from '@echo/ui/components/offer/details/action/offer-details-accept-modal'
@@ -16,10 +16,10 @@ interface Props {
     offerId: string,
     signature: HexString | undefined,
     token: string | undefined
-  ) => Promise<EmptyResponse>
+  ) => Promise<OfferResponse>
   disabled?: boolean
   onClick?: EmptyFunction
-  onSuccess?: EmptyFunction
+  onSuccess?: (offer: Offer) => unknown
   onCancel?: EmptyFunction
   onError?: EmptyFunction
 }
@@ -55,9 +55,9 @@ export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({
           offer={offer}
           token={token}
           acceptOfferFetcher={acceptOfferFetcher}
-          onSuccess={() => {
+          onSuccess={(offer: Offer) => {
             setModalShown(false)
-            onSuccess?.()
+            onSuccess?.(offer)
           }}
           onError={() => {
             setModalShown(false)

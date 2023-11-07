@@ -1,5 +1,5 @@
 'use-client'
-import { type EmptyResponse } from '@echo/api/types/responses/empty-response'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
@@ -14,10 +14,10 @@ import useSWRMutation from 'swr/mutation'
 interface Props {
   offer: Offer
   token: string
-  cancelOfferFetcher: (offerId: string, token: string | undefined) => Promise<EmptyResponse>
+  cancelOfferFetcher: (offerId: string, token: string | undefined) => Promise<OfferResponse>
   disabled?: boolean
   onClick?: EmptyFunction
-  onSuccess?: EmptyFunction
+  onSuccess?: (offer: Offer) => unknown
   onError?: EmptyFunction
 }
 
@@ -33,11 +33,13 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
   const t = useTranslations('offer.details.cancelBtn')
   const tError = useTranslations('error.offer')
   const { show } = useAlertStore()
-  const { trigger } = useSWRMutation<EmptyResponse, Error, string, { offerId: string; token: string }>(
+  const { trigger } = useSWRMutation<OfferResponse, Error, string, { offerId: string; token: string }>(
     `cancel-offer-${offer.id}`,
     (_key, { arg: { offerId, token } }) => cancelOfferFetcher(offerId, token),
     {
-      onSuccess,
+      onSuccess: (response) => {
+        onSuccess?.(response.offer)
+      },
       onError: (err) => {
         captureException(err, {
           contexts: offerContext(offer)

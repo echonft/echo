@@ -1,5 +1,5 @@
 import { getCollectionSwapsCountSnapshotById } from '@test-utils/collection-swaps-count/get-collection-swaps-count-snapshot-by-id'
-import { type WriteResult } from 'firebase-admin/firestore'
+import { WriteResult } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
 export async function deleteCollectionSwapsCount(id: string): Promise<WriteResult> {

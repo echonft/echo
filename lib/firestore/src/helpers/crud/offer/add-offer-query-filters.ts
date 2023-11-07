@@ -3,7 +3,7 @@ import { type Offer } from '@echo/model/types/offer'
 import { intersects } from '@echo/utils/fp/intersects'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { single } from '@echo/utils/fp/single'
-import { type Query } from 'firebase-admin/firestore'
+import { Query } from 'firebase-admin/firestore'
 import { head, isNil } from 'ramda'
 
 export function addOfferQueryFilters(query: Query<Offer>, filters?: OfferQueryFilters) {
@@ -11,25 +11,25 @@ export function addOfferQueryFilters(query: Query<Offer>, filters?: OfferQueryFi
     return query
   }
   let filteredQuery = query
-  const { states, notStates } = filters
+  const { state, notState } = filters
 
-  if (!isNilOrEmpty(states) && !isNilOrEmpty(notStates)) {
-    if (intersects(states, notStates)) {
-      throw Error('states to filter in and states to filter out cannot overlap')
+  if (!isNilOrEmpty(state) && !isNilOrEmpty(notState)) {
+    if (intersects(state, notState)) {
+      throw Error('state to filter in and state to filter out cannot overlap')
     }
   }
-  if (!isNilOrEmpty(states)) {
-    if (single(states)) {
-      filteredQuery = filteredQuery.where('state', '==', head(states))
+  if (!isNilOrEmpty(state)) {
+    if (single(state)) {
+      filteredQuery = filteredQuery.where('state', '==', head(state))
     } else {
-      filteredQuery = filteredQuery.where('state', 'in', states)
+      filteredQuery = filteredQuery.where('state', 'in', state)
     }
   }
-  if (!isNilOrEmpty(notStates)) {
-    if (single(notStates)) {
-      filteredQuery = filteredQuery.where('state', '!=', head(notStates))
+  if (!isNilOrEmpty(notState)) {
+    if (single(notState)) {
+      filteredQuery = filteredQuery.where('state', '!=', head(notState))
     } else {
-      filteredQuery = filteredQuery.where('state', 'not-in', notStates)
+      filteredQuery = filteredQuery.where('state', 'not-in', notState)
     }
   }
   return filteredQuery

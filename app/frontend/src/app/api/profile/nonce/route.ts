@@ -3,5 +3,5 @@ import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle
 import { nonceRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/nonce-request-handler'
 
 export async function GET(request: ApiRequest<never>) {
-  return await handleRequest(request, nonceRequestHandler)
+  return await handleRequest(request, nonceRequestHandler)(request)
 }

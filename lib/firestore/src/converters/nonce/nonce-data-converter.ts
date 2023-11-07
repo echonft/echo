@@ -5,7 +5,7 @@ import { type NonceDocumentData } from '@echo/firestore/types/model/nonce/nonce-
 import {
   type FirestoreDataConverter,
   type PartialWithFieldValue,
-  type QueryDocumentSnapshot
+  QueryDocumentSnapshot
 } from 'firebase-admin/firestore'
 import { dissoc, pipe } from 'ramda'
 

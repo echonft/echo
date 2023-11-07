@@ -9,10 +9,10 @@ import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-no
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assertCollectionSwapsCounts } from '@test-utils/collection-swaps-count/assert-collection-swaps-counts'
 import { findCollectionSwapsCountById } from '@test-utils/collection-swaps-count/find-collection-swaps-count-by-id'
-import { uncheckedUpdateCollectionSwapCounts } from '@test-utils/collection-swaps-count/unchecked-update-collection-swap-counts'
-import { uncheckedUpdateListing } from '@test-utils/listing/unchecked-update-listing'
+import { unchecked_updateCollectionSwapCounts } from '@test-utils/collection-swaps-count/unchecked_update-collection-swap-counts'
+import { unchecked_updateListing } from '@test-utils/listing/unchecked_update-listing'
 import { assertOffers } from '@test-utils/offer/assert-offers'
-import { uncheckedUpdateOffer } from '@test-utils/offer/unchecked-update-offer'
+import { unchecked_updateOffer } from '@test-utils/offer/unchecked_update-offer'
 import { assertSwaps } from '@test-utils/swap/assert-swaps'
 import { deleteSwap } from '@test-utils/swap/delete-swap'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
@@ -44,7 +44,7 @@ describe('CRUD - offer - completeOffer', () => {
     initialUpdatedAt = offer.updatedAt
   })
   afterEach(async () => {
-    await uncheckedUpdateOffer(offerId, {
+    await unchecked_updateOffer(offerId, {
       state: initialState,
       expiresAt: initialExpiresAt,
       updatedAt: initialUpdatedAt
@@ -55,23 +55,23 @@ describe('CRUD - offer - completeOffer', () => {
     await expect(completeOffer('not-found', swapTransactionId)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().subtract(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().subtract(1, 'day').unix() })
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('throws if the offer is cancelled', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'CANCELLED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('throws if the offer is completed', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'COMPLETED', expiresAt: dayjs().add(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'COMPLETED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('throws if the offer is rejected', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'REJECTED', expiresAt: dayjs().add(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'REJECTED', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('throws if the offer is open', async () => {
-    await uncheckedUpdateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().add(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'OPEN', expiresAt: dayjs().add(1, 'day').unix() })
     await expect(completeOffer(offerId, swapTransactionId)).rejects.toBeDefined()
   })
   it('complete offer', async () => {
@@ -85,12 +85,12 @@ describe('CRUD - offer - completeOffer', () => {
         return (await findCollectionSwapsCountByCollectionId(collectionId))!
       }, collectionIds)
     )
-    await uncheckedUpdateOffer(offerId, { state: 'ACCEPTED', expiresAt: dayjs().add(1, 'day').unix() })
+    await unchecked_updateOffer(offerId, { state: 'ACCEPTED', expiresAt: dayjs().add(1, 'day').unix() })
     await completeOffer(offerId, swapTransactionId)
     const updatedOffer = (await findOfferById(offerId))!
     // reset the listing state
     const updatedListing = (await findListingById('jUzMtPGKM62mMhEcmbN4'))!
-    await uncheckedUpdateListing(listing.id, { updatedAt: initialListingUpdatedAt, state: initialListingState })
+    await unchecked_updateListing(listing.id, { updatedAt: initialListingUpdatedAt, state: initialListingState })
     // delete the created swap
     const swap = (await findSwapByOfferId(offerId))!
     await deleteSwap(swap.id)
@@ -106,7 +106,7 @@ describe('CRUD - offer - completeOffer', () => {
         // @ts-ignore
         prop('swapsCount')
       )(initialSwapsCounts)
-      await uncheckedUpdateCollectionSwapCounts(updatedSwapsCount.id, { swapsCount: initialSwapsCount })
+      await unchecked_updateCollectionSwapCounts(updatedSwapsCount.id, { swapsCount: initialSwapsCount })
     }
     // check updated offer
     expect(updatedOffer.state).toEqual('COMPLETED')

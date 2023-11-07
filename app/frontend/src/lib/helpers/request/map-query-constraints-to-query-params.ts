@@ -1,18 +1,18 @@
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { type QueryConstraintsQueryParams } from '@echo/frontend/lib/types/request/query-constraints-query-params'
-import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { always, anyPass, complement, flatten, has, ifElse, juxt, map, modify, pipe, prop, unless } from 'ramda'
+import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
+import { flatten, juxt, map, modify, pipe, prop, when } from 'ramda'
 
-export function mapQueryConstraintsToQueryParams(constraints: QueryConstraints): QueryConstraintsQueryParams {
-  return unless<QueryConstraints, QueryConstraintsQueryParams>(
-    anyPass([complement(has('orderBy')), propIsNil('orderBy')]),
+export function mapQueryConstraintsToQueryParams<T>(constraints: QueryConstraints<T>): QueryConstraintsQueryParams {
+  return when<QueryConstraints<T>, QueryConstraintsQueryParams>(
+    propIsNotNil('orderBy'),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     modify(
       'orderBy',
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      pipe(map(juxt([prop('field'), ifElse(has('direction'), prop('direction'), always('asc'))])), flatten)
+      pipe(map(juxt([prop('field'), prop('direction')])), flatten)
     )
   )(constraints) as QueryConstraintsQueryParams
 }

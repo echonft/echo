@@ -17,7 +17,7 @@ interface Props {
 const CollectionSwapsPage: FunctionComponent<Props> = async ({ params: { slug } }) => {
   const session = await getServerSession(authOptions)
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'expiresAt' }]
+    orderBy: [{ field: 'expiresAt', direction: 'asc' }]
   })
   const result = await fetcher(collectionSwapsApiUrl(slug)).query(constraintsQueryParams).fetch<OffersResponse>()
   assertFetchResult(result)

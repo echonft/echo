@@ -1,4 +1,4 @@
-import { type Timestamp } from 'firebase-admin/firestore'
+import { Timestamp } from 'firebase-admin/firestore'
 
 export interface SessionDocumentData {
   expires: Timestamp

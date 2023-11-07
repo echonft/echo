@@ -1,5 +1,5 @@
 'use-client'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import type { Offer } from '@echo/model/types/offer'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
@@ -18,10 +18,10 @@ interface Props {
     offerId: string,
     transactionId: HexString | undefined,
     token: string | undefined
-  ) => Promise<EmptyResponse>
+  ) => Promise<OfferResponse>
   disabled?: boolean
   onClick?: EmptyFunction
-  onSuccess?: EmptyFunction
+  onSuccess?: (offer: Offer) => unknown
   onCancel?: EmptyFunction
   onError?: EmptyFunction
 }
@@ -59,9 +59,9 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
           token={token}
           getOfferSignatureFetcher={getOfferSignatureFetcher}
           completeOfferFetcher={completeOfferFetcher}
-          onSuccess={() => {
+          onSuccess={(offer: Offer) => {
             setModalShown(false)
-            onSuccess?.()
+            onSuccess?.(offer)
           }}
           onError={() => {
             setModalShown(false)

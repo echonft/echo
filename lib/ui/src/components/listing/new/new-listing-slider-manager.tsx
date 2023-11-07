@@ -16,7 +16,6 @@ import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { mapListingItemsToRequests } from '@echo/ui/mappers/to-api/map-listing-items-to-requests'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { Transition } from '@headlessui/react'
 import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
@@ -74,8 +73,8 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
         setConfirmModalShown(false)
         captureException(error, {
           contexts: listingContext({
-            targets: (isNil(target) ? [] : [target]) as NonEmptyArray<ListingTarget>,
-            items: items as NonEmptyArray<ListingItem>
+            targets: isNil(target) ? [] : [target],
+            items
           })
         })
         showAlert({ severity: CalloutSeverity.ERROR, message: tError('new') })

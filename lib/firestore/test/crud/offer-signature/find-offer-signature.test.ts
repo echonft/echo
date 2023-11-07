@@ -1,7 +1,7 @@
 import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-offer-signature'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { deleteOfferSignature } from '@test-utils/offer-signature/delete-offer-signature'
-import { uncheckedAddOfferSignature } from '@test-utils/offer-signature/unchecked-add-offer-signature'
+import { unchecked_addOfferSignature } from '@test-utils/offer-signature/unchecked_add-offer-signature'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { isNil } from 'ramda'
@@ -32,14 +32,14 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
   })
 
   it('returns undefined if the offer signature is not found', async () => {
-    const createdOfferSignature = await uncheckedAddOfferSignature({ offerId, userId, signature })
+    const createdOfferSignature = await unchecked_addOfferSignature({ offerId, userId, signature })
     createdOfferSignatureId = createdOfferSignature.id
     const notFoundOfferSignature = await findOfferSignature('not-found')
     expect(notFoundOfferSignature).toBeUndefined()
   })
 
   it('returns the offer signature with the given offer id and user id', async () => {
-    const createdOfferSignature = await uncheckedAddOfferSignature({ offerId, userId, signature })
+    const createdOfferSignature = await unchecked_addOfferSignature({ offerId, userId, signature })
     createdOfferSignatureId = createdOfferSignature.id
     const foundOfferSignature = (await findOfferSignature(offerId))!
     expect(foundOfferSignature).toStrictEqual(createdOfferSignature)

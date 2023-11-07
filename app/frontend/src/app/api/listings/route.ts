@@ -9,5 +9,5 @@ import { getAllListingsRequestHandler } from '@echo/frontend/lib/server/request-
  * @param request
  */
 export async function GET(request: ApiRequest<never>) {
-  return await handleRequest(request, getAllListingsRequestHandler)
+  return await handleRequest(request, getAllListingsRequestHandler)(request)
 }

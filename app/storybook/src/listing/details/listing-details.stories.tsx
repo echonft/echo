@@ -8,7 +8,7 @@ import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { always, assoc, ifElse, pipe } from 'ramda'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent } from 'react'
 
 type ComponentType = FunctionComponent<
   Record<'state', ListingState> & Record<'expired', boolean> & Record<'isCreator', boolean>
@@ -28,6 +28,7 @@ function cancelListingFetcher(_listingId: string, _token: string | undefined) {
     800
   )
 }
+
 const metadata: Meta<ComponentType> = {
   title: 'Listing/Details',
   argTypes: {

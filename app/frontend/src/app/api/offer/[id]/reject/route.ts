@@ -3,5 +3,5 @@ import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle
 import { rejectOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/reject-offer-request-handler'
 
 export async function POST(request: ApiRequest<never>, { params }: { params: { id: string } }) {
-  return await handleRequest(request, rejectOfferRequestHandler, params.id)
+  return await handleRequest(request, rejectOfferRequestHandler)(request, params.id)
 }

@@ -9,7 +9,7 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 import { always, assoc, ifElse, pipe } from 'ramda'
-import { type FunctionComponent, useState } from 'react'
+import { type FunctionComponent } from 'react'
 
 type ComponentType = FunctionComponent<
   Record<'state', OfferState> & Record<'expired', boolean> & Record<'isCreator', boolean>
@@ -20,15 +20,17 @@ const DEFAULT_EXPIRED = false
 const EXPIRED_DATE = dayjs().subtract(2, 'd').unix()
 const NOT_EXPIRED_DATE = dayjs().add(2, 'd').unix()
 const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-function getOfferFetcher(state: OfferState) {
-  return function (_offerId: string, _token: string) {
-    return delayPromise(
-      Promise.resolve({
-        offer: assoc('state', state, offer)
-      }),
-      800
-    )
-  }
+function acceptOfferFetcher(_offerId: string, _signature: HexString | undefined, _token: string | undefined) {
+  return delayPromise(Promise.resolve({ offer: assoc('state', 'ACCEPTED', offer) }), 800)
+}
+function rejectOfferFetcher(_offerId: string, _token: string | undefined) {
+  return delayPromise(Promise.resolve({ offer: assoc('state', 'REJECTED', offer) }), 800)
+}
+function cancelOfferFetcher(_offerId: string, _token: string | undefined) {
+  return delayPromise(Promise.resolve({ offer: assoc('state', 'REJECTED', offer) }), 800)
+}
+function completeOfferFetcher(_offerId: string, _transactionId: HexString | undefined, _token: string | undefined) {
+  return delayPromise(Promise.resolve({ offer: assoc('state', 'CANCELLED', offer) }), 800)
 }
 function getOfferSignatureFetcher(_offerId: string, _token: string | undefined) {
   return delayPromise(
@@ -64,27 +66,6 @@ type Story = StoryObj<ComponentType>
 
 export const Default: Story = {
   render: ({ state, expired, isCreator }) => {
-    const [updatedState, setUpdatedState] = useState<OfferState>(state)
-    const acceptOfferFetcher = (_offerId: string, _signature: HexString | undefined, _token: string | undefined) => {
-      setUpdatedState('ACCEPTED')
-      return delayPromise(Promise.resolve({}), 800)
-    }
-    const rejectOfferFetcher = (_offerId: string, _token: string | undefined) => {
-      setUpdatedState('REJECTED')
-      return delayPromise(Promise.resolve({}), 800)
-    }
-    const cancelOfferFetcher = (_offerId: string, _token: string | undefined) => {
-      setUpdatedState('CANCELLED')
-      return delayPromise(Promise.resolve({}), 800)
-    }
-    const completeOfferFetcher = (
-      _offerId: string,
-      _transactionId: HexString | undefined,
-      _token: string | undefined
-    ) => {
-      setUpdatedState('COMPLETED')
-      return delayPromise(Promise.resolve({}), 800)
-    }
     const renderedOffer = pipe(
       assoc('state', state),
       assoc('expired', expired),
@@ -95,7 +76,6 @@ export const Default: Story = {
         offer={renderedOffer}
         isCreator={isCreator}
         token={'token'}
-        getOfferFetcher={getOfferFetcher(updatedState)}
         getOfferSignatureFetcher={getOfferSignatureFetcher}
         acceptOfferFetcher={acceptOfferFetcher}
         completeOfferFetcher={completeOfferFetcher}

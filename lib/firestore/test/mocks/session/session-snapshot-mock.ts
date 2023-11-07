@@ -1,7 +1,7 @@
 import { type SessionDocumentData } from '@echo/firestore/types/model/session/session-document-data'
 import { sessionDocumentDataMock } from '@echo/firestore-mocks/session/session-document-data-mock'
 import { sessionReferenceMock } from '@echo/firestore-mocks/session/session-reference-mock'
-import { type QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
 export const sessionSnapshotMock: Record<string, QueryDocumentSnapshot<SessionDocumentData>> = {
   KI5AJISonKCYslDm51Tn: {

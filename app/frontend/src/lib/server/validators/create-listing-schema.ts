@@ -3,6 +3,6 @@ import { listingTargetSchema } from '@echo/frontend/lib/server/validators/listin
 import { z } from 'zod'
 
 export const createListingSchema = z.object({
-  items: listingItemSchema.array().nonempty(),
+  items: listingItemSchema.array().min(1),
   target: listingTargetSchema
 })

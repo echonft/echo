@@ -1,6 +1,6 @@
 'use client'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
-import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
+import { getOfferSignatureFetcher } from '@echo/api/services/fetcher/get-offer-signature-fetcher'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { assertOfferState } from '@echo/model/helpers/offer/assert/assert-offer-state'
 import type { Offer } from '@echo/model/types/offer'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
@@ -11,27 +11,25 @@ import { OfferDetailsSwapButton } from '@echo/ui/components/offer/details/action
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { clsx } from 'clsx'
-import { type FunctionComponent, useEffect, useState } from 'react'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   offer: Offer
   isCreator: boolean
   token: string
-  getOfferSignatureFetcher: (offerId: string, token: string | undefined) => Promise<OfferSignatureResponse>
-  cancelOfferFetcher: (offerId: string, token: string | undefined) => Promise<EmptyResponse>
+  cancelOfferFetcher: (offerId: string, token: string | undefined) => Promise<OfferResponse>
   acceptOfferFetcher: (
     offerId: string,
     signature: HexString | undefined,
     token: string | undefined
-  ) => Promise<EmptyResponse>
-  rejectOfferFetcher: (offerId: string, token: string | undefined) => Promise<EmptyResponse>
+  ) => Promise<OfferResponse>
+  rejectOfferFetcher: (offerId: string, token: string | undefined) => Promise<OfferResponse>
   completeOfferFetcher: (
     offerId: string,
     transactionId: HexString | undefined,
     token: string | undefined
-  ) => Promise<EmptyResponse>
-  disabled?: boolean
-  onSuccess?: EmptyFunction
+  ) => Promise<OfferResponse>
+  onSuccess?: (offer: Offer) => unknown
   onError?: EmptyFunction
 }
 
@@ -75,23 +73,18 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
   offer,
   token,
   isCreator,
-  getOfferSignatureFetcher,
   acceptOfferFetcher,
   rejectOfferFetcher,
   cancelOfferFetcher,
   completeOfferFetcher,
-  disabled,
   onSuccess
 }) => {
-  const [buttonsDisabled, setButtonsDisabled] = useState(disabled ?? false)
-  useEffect(() => {
-    setButtonsDisabled(disabled ?? false)
-  }, [disabled])
+  const [buttonsDisabled, setButtonsDisabled] = useState(false)
   const disable = () => setButtonsDisabled(true)
   const enable = () => setButtonsDisabled(false)
-  const success = () => {
+  const success = (offer: Offer) => {
     setButtonsDisabled(false)
-    onSuccess?.()
+    onSuccess?.(offer)
   }
   const error = () => {
     setButtonsDisabled(false)

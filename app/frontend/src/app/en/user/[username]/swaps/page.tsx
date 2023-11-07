@@ -17,7 +17,7 @@ interface Props {
 const UserSwapsPage: FunctionComponent<Props> = async ({ params: { username } }) => {
   const session = await getServerSession(authOptions)
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'expiresAt' }]
+    orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
   const result = await fetcher(userSwapsApiUrl(username)).query(constraintsQueryParams).fetch<OffersResponse>()
   assertFetchResult(result)

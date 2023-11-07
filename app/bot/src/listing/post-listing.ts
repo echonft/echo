@@ -1,5 +1,5 @@
-import { guardedFindCollectionById } from '@echo/bot/firestore/guarded-find-collection-by-id'
-import { guardedFindUserByUsername } from '@echo/bot/firestore/guarded-find-user-by-username'
+import { guarded_findCollectionById } from '@echo/bot/firestore/guarded_find-collection-by-id'
+import { guarded_findUserByUsername } from '@echo/bot/firestore/guarded_find-user-by-username'
 import { getChannel } from '@echo/bot/helpers/get-channel'
 import { sendToChannel } from '@echo/bot/helpers/send-to-channel'
 import { buildListingEmbed } from '@echo/bot/listing/build-listing-embed'
@@ -18,11 +18,11 @@ export async function postListing(client: Client, listing: Listing, guild: Colle
     collectionId,
     guild: { channelId }
   } = guild
-  const creator = await guardedFindUserByUsername(username)
+  const creator = await guarded_findUserByUsername(username)
   if (isNil(creator)) {
     return
   }
-  const collection = await guardedFindCollectionById(collectionId)
+  const collection = await guarded_findCollectionById(collectionId)
   if (isNil(collection)) {
     return
   }

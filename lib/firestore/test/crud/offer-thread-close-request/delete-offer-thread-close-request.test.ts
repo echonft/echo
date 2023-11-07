@@ -2,7 +2,7 @@ import { deleteOfferThreadCloseRequest } from '@echo/firestore/crud/offer-thread
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { assertOfferThreads } from '@test-utils/offer-thread/assert-offer-threads'
 import { findOfferThreadCloseRequestById } from '@test-utils/offer-thread-close-request/find-offer-thread-close-request-by-id'
-import { uncheckedAddOfferThreadCloseRequest } from '@test-utils/offer-thread-close-request/unchecked-add-offer-thread-close-request'
+import { unchecked_addOfferThreadCloseRequest } from '@test-utils/offer-thread-close-request/unchecked_add-offer-thread-close-request'
 import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
@@ -15,7 +15,7 @@ describe('CRUD - offer-thread-close-request - deleteOfferThreadCloseRequest', ()
     await tearDownRemoteFirestoreTests()
   })
   it('existing document gets deleted', async () => {
-    const { id } = await uncheckedAddOfferThreadCloseRequest('offer-thread-id')
+    const { id } = await unchecked_addOfferThreadCloseRequest('offer-thread-id')
     const newDocument = (await findOfferThreadCloseRequestById(id))!
     expect(newDocument).toBeDefined()
     await deleteOfferThreadCloseRequest(id)

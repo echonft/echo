@@ -9,13 +9,13 @@
     "db:fix-addresses:dev": "ts-node --project tsconfig.json utils/fix-addresses-dev.ts",
     "db:reset:dev": "ts-node --project tsconfig.json utils/reset-db-dev.ts",
     "db:reset:test": "ts-node --project tsconfig.json utils/reset-db-test.ts",
-    "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",
-    "lint:ci": "eslint --ext .ts src/ && eslint --ext .ts test/",
+    "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/ && eslint --cache --fix --ext .ts utils/",
+    "lint:ci": "eslint --ext .ts src/ && eslint --ext .ts test/ && eslint --ext .ts utils/",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
-    "prettier": "prettier -u -c src/ && prettier -u -c test/",
+    "prettier": "prettier -u -c src/ && prettier -u -c test/ && prettier -u -c utils/",
     "test": "jest --runInBand",
     "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
@@ -32,12 +32,10 @@
   "devDependencies": {
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@types/node": "20.8.10",
     "@types/ramda": "0.29.7",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
     "ts-node": "10.9.1",
-    "tsconfig-paths": "4.2.0",
-    "typescript": "5.2.2"
+    "tsconfig-paths": "4.2.0"
   }
 }
