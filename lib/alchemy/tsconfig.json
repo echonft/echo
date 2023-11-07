@@ -5,8 +5,8 @@
     "paths": {
       "@echo/alchemy/*": ["src/*"],
       "@echo/model/*": ["../model/src/*"],
+      "@echo/model-mocks/*": ["../model/test/mocks/*"],
       "@echo/utils/*": ["../utils/src/*"],
-      "@test/*": ["test/*"]
     }
   },
   "include": ["src", "test"],

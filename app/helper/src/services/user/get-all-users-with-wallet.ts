@@ -5,14 +5,17 @@ import type { UserDocumentData } from '@echo/firestore/types/model/user/user-doc
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { andThen, flatten, map, pipe } from 'ramda'
 
-export async function getAllUsersWithWallet() {
-  return await getAllUsers().then(
-    pipe(
-      map((user: UserDocumentData) =>
-        getWalletsForUser(user.id).then((wallets) => map((wallet) => getUser(user, wallet), wallets))
-      ),
-      promiseAll,
-      andThen(flatten)
+export function getAllUsersWithWallet() {
+  return pipe(
+    getAllUsers,
+    andThen(
+      pipe(
+        map((user: UserDocumentData) =>
+          getWalletsForUser(user.id).then((wallets) => map((wallet) => getUser(user, wallet), wallets))
+        ),
+        promiseAll,
+        andThen(flatten)
+      )
     )
-  )
+  )()
 }

@@ -4,13 +4,14 @@ import { type Wallet } from '@echo/model/types/wallet'
 import { assoc, modify, pick, pipe } from 'ramda'
 
 export function getUser(user: UserDocumentData, wallet: Wallet): User {
-  return pipe(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+  return pipe<
+    [UserDocumentData],
+    Pick<UserDocumentData, 'username' | 'discord'>,
+    Pick<User, 'username' | 'discord'>,
+    User
+  >(
     pick(['username', 'discord']),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    modify('discord', pick(['avatarUrl', 'username'])),
+    modify<'discord', UserDocumentData['discord'], User['discord']>('discord', pick(['avatarUrl', 'username'])),
     assoc('wallet', wallet)
-  )(user) as User
+  )(user)
 }

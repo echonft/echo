@@ -1,5 +1,5 @@
-import { type ApiResponse } from '@echo/api/types/api-response'
+import type { NextResponse } from 'next/server'
 
 export type RequestHandler<TArgs extends unknown[], TResponseBody> = (
   ...args: TArgs
-) => Promise<ApiResponse<TResponseBody>>
+) => Promise<NextResponse<TResponseBody>>

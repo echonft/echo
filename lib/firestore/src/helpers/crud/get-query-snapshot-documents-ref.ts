@@ -1,4 +1,4 @@
-import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query-snapshot-is-empty'
+import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query/query-snapshot-is-empty'
 import { DocumentReference, QueryDocumentSnapshot, type QuerySnapshot } from 'firebase-admin/firestore'
 import { map, pipe, prop } from 'ramda'
 

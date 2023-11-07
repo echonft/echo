@@ -30,6 +30,6 @@ export async function addWalletRequestHandler(req: ApiRequest<AddWalletRequest>)
   const nonce = await guardAsyncFn(findNonceForUser, ErrorStatus.SERVER_ERROR)(user.id)
   guarded_assertNonce(nonce, verifiedMessage)
   await guardAsyncFn(addWallet, ErrorStatus.SERVER_ERROR)(user.id, wallet)
-  await guardAsyncFn(updateUserNfts, ErrorStatus.SERVER_ERROR)(user, wallet)
+  await guardAsyncFn(updateUserNfts, ErrorStatus.SERVER_ERROR)(getUser(user, wallet))
   return emptyResponse()
 }

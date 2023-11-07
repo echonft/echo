@@ -1,8 +1,8 @@
 import { mapAlchemyNftToNft } from '@echo/alchemy/mappers/map-alchemy-nft-to-nft'
 import type { AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
-import { getCollectionMockById } from '@echo/model/test/mocks/collection/get-collection-mock-by-id'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
+import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 
 describe('mappers - mapAlchemyNftToNft', () => {
