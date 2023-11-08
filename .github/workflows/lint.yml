@@ -3,7 +3,9 @@ name: 'Linting'
 on:
   pull_request:
     types:
-      - [opened, reopened, synchronize]
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
   lint:

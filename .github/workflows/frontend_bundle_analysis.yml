@@ -6,7 +6,9 @@ name: 'Frontend Bundle Analysis'
 on:
   pull_request:
     types:
-      - [opened, reopened, synchronize]
+      - opened
+      - reopened
+      - synchronize
     branches:
       - main
   workflow_dispatch:
