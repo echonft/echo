@@ -10,9 +10,6 @@ import type { User } from '@echo/model/types/user'
 import { fetcher } from '@echo/utils/services/fetcher'
 import { filter, find, isNil, map, path, pathEq } from 'ramda'
 
-// TODO Duplicated code, could be split better
-// This should be a function tied to a listener for on wallets that is triggered on delete/add
-// we could then remove it from the server.
 export async function updateUserNfts(user: User) {
   const collections = await getAllCollections()
   const collectionsForChain = filter(pathEq(user.wallet.chainId, ['contract', 'chainId']), collections)
