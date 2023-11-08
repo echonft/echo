@@ -1,5 +1,5 @@
+import type { Chain } from 'viem'
 import { mainnet, sepolia } from 'viem/chains'
-import type { Chain } from 'viem/types/chain'
 
 export function getChainById(chainId: number): Chain {
   switch (chainId) {

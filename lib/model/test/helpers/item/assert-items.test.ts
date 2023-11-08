@@ -7,7 +7,7 @@ import { assocPath, pipe } from 'ramda'
 describe('helpers - item - assert - assertItems', () => {
   it('throws if not all the items are from the same collection', () => {
     const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    const item = offer.senderItems[0]
+    const item = offer.senderItems[0]!
     const differentCollectionItem = pipe(
       assocPath(['nft', 'id'], 'different-id'),
       assocPath(['nft', 'tokenId'], 0),
@@ -18,21 +18,21 @@ describe('helpers - item - assert - assertItems', () => {
 
   it('throws if some items have the same token id', () => {
     const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    const item = offer.senderItems[0]
+    const item = offer.senderItems[0]!
     const differentItemIdSameTokenId = assocPath(['nft', 'id'], 'different-id', item)
     expect(() => assertItems([item, differentItemIdSameTokenId])).toThrow()
   })
 
   it('throws if some items have the same id', () => {
     const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    const item = offer.senderItems[0]
+    const item = offer.senderItems[0]!
     const differentItemTokenIdSameId = assocPath(['nft', 'tokenId'], 0, item)
     expect(() => assertItems([item, differentItemTokenIdSameId])).toThrow()
   })
 
   it('throws if all items do not have the same wallet', () => {
     const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    const item = offer.senderItems[0]
+    const item = offer.senderItems[0]!
     const differentWalletItem = pipe(
       assocPath(['nft', 'id'], 'different-id'),
       assocPath(['nft', 'tokenId'], 0),
@@ -43,7 +43,7 @@ describe('helpers - item - assert - assertItems', () => {
 
   it('does not throw if items are from the same collection, have the same wallet and all have different token ids and ids', () => {
     const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    const item = offer.senderItems[0]
+    const item = offer.senderItems[0]!
     const differentItem = pipe(
       assocPath(['nft', 'id'], 'different-id'),
       assocPath(['nft', 'tokenId'], 0)

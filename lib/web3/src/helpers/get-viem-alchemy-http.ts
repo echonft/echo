@@ -1,8 +1,8 @@
 import { getAlchemyApiKey } from '@echo/alchemy/helpers/get-alchemy-api-key'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { isEmpty } from 'ramda'
+import type { Chain } from 'viem'
 import { http } from 'viem'
-import type { Chain } from 'viem/types/chain'
 
 export function getViemAlchemyHttp(chain: Chain) {
   if (isNilOrEmpty(chain.rpcUrls.alchemy) || isEmpty(chain.rpcUrls.alchemy?.http)) {

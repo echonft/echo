@@ -23,7 +23,8 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "types": ["jest"]
   },
   "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "test", "sentry.*.config.ts"],
   "exclude": ["node_modules", ".next"]

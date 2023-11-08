@@ -21,7 +21,7 @@
     "dayjs": "1.11.10",
     "pino": "8.16.1",
     "ramda": "0.29.1",
-    "viem": "1.18.2"
+    "viem": "1.18.9"
   },
   "devDependencies": {
     "@jest/globals": "29.7.0",

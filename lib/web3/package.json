@@ -22,7 +22,7 @@
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "ramda": "0.29.1",
-    "viem": "1.18.2",
+    "viem": "1.18.9",
     "wagmi": "1.4.5"
   },
   "devDependencies": {
