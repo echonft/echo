@@ -1,13 +1,14 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
-name: 'Next.js Bundle Analysis'
+name: 'Frontend Bundle Analysis'
 
 on:
   pull_request:
-    branches:
-      - main
-  push:
+    types:
+      - opened
+      - reopened
+      - synchronize
     branches:
       - main
   workflow_dispatch:
