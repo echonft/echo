@@ -6,7 +6,7 @@ on:
       - opened
 
 jobs:
-  coverage:
+  tsc:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

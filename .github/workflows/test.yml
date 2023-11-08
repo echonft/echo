@@ -6,7 +6,7 @@ on:
       - opened
 
 jobs:
-  coverage:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
