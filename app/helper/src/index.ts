@@ -1,9 +1,12 @@
+import { listenToWallets } from '@echo/helper/listeners/listen-to-wallets'
 import { initializeServer } from '@echo/helper/services/initialize-server'
-import { listenToWallets } from '@echo/helper/tasks/listen-to-wallets'
-import { updateDb } from '@echo/helper/tasks/update-db'
+import { updateDbJob } from '@echo/helper/tasks/update-db-job'
+import { logger } from '@echo/utils/services/logger'
 
 void (function () {
+  logger.info('Initializing server...')
   initializeServer()
-  updateDb()
+  updateDbJob()
   listenToWallets()
+  logger.info('Server is ready and listening!')
 })()

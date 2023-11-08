@@ -9,16 +9,19 @@ import { initializeSentry } from '@echo/bot/services/initialize-sentry'
 import { getDiscordSecret } from '@echo/discord/admin/get-discord-secret'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { logger } from '@echo/utils/services/logger'
+import { CronJob } from 'cron'
 import { Client, Events, GatewayIntentBits } from 'discord.js'
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) //create new client
-const flushOfferThreadCloseRequestsInterval = setInterval(
-  (client: Client) => {
+
+CronJob.from({
+  cronTime: `* * */${DEFAULT_THREAD_CLOSE_DELAY} * * *`,
+  onTick: function () {
     void guardAsyncFn(flushOfferThreadCloseRequests, void 0)(client)
   },
-  (DEFAULT_THREAD_CLOSE_DELAY / 2) * 60 * 60 * 1000,
-  client
-)
+  start: true,
+  timeZone: 'America/New_York'
+})
 
 client.once(Events.ClientReady, async (client) => {
   initializeSentry()
@@ -26,7 +29,6 @@ client.once(Events.ClientReady, async (client) => {
   await initializeTranslations()
   listenToListings(client)
   listenToOffers(client)
-  flushOfferThreadCloseRequestsInterval.ref()
   logger.debug(`Ready! Logged in as ${client.user.tag}`)
 })
 
