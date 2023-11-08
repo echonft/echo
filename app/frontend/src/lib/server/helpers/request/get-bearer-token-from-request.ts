@@ -1,18 +1,17 @@
 import { ApiRequest } from '@echo/api/types/api-request'
-import { UnauthorizedError } from '@echo/frontend/lib/server/helpers/error/unauthorized-error'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 
 export function getBearerTokenFromRequest(req: ApiRequest<unknown>) {
   const authorizationHeaderName = 'Authorization'
   if (!req.headers.has(authorizationHeaderName)) {
-    throw new UnauthorizedError(`request for ${req.url} does not contain an authorization header`)
+    return undefined
   }
   const authorizationHeader = req.headers.get(authorizationHeaderName)
   if (isNilOrEmpty(authorizationHeader)) {
-    throw new UnauthorizedError(`request for ${req.url} does not contain an authorization header`)
+    return undefined
   }
   if (!authorizationHeader.startsWith('Bearer ')) {
-    throw new UnauthorizedError(`request for ${req.url} authorization header is not a Bearer token`)
+    return undefined
   }
   return authorizationHeader.split(' ')[1]
 }
