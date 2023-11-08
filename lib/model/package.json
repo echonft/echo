@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint --cache --fix --ext .ts src/",
-    "lint:ci": "eslint --ext .ts src/",
+    "lint:ci": "eslint --quiet --ext .ts src/",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
