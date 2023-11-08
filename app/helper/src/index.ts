@@ -1,7 +1,5 @@
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { updateAllNfts } from '@echo/helper/services/nft/update-all-nfts'
+import { updateDb } from '@echo/helper/tasks/update-db'
 
-void (async function () {
-  initializeFirebase()
-  await updateAllNfts()
+void (function () {
+  updateDb()
 })()
