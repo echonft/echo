@@ -19,7 +19,7 @@ jobs:
           run_install: true
 
       - name: Run tests
-        run: pnpm db:reset:test; pnpm test
+        run: pnpm test
 
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
