@@ -1,6 +1,6 @@
 import { getAllUsers } from '@echo/firestore/crud/user/get-all-users'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
-import { getUser } from '@echo/firestore/helpers/user/get-user'
+import { createUserFromFirestoreData } from '@echo/firestore/helpers/user/create-user-from-firestore-data'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { andThen, flatten, map, pipe } from 'ramda'
@@ -11,7 +11,9 @@ export function getAllUsersWithWallet() {
     andThen(
       pipe(
         map((user: UserDocumentData) =>
-          getWalletsForUser(user.id).then((wallets) => map((wallet) => getUser(user, wallet), wallets))
+          getWalletsForUser(user.id).then((wallets) =>
+            map((wallet) => createUserFromFirestoreData(user, wallet), wallets)
+          )
         ),
         promiseAll,
         andThen(flatten)

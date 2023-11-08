@@ -1,15 +1,14 @@
-import { getUser } from '@echo/firestore/helpers/user/get-user'
-import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/map-wallet-document-data-to-wallet'
+import { createUserFromFirestoreData } from '@echo/firestore/helpers/user/create-user-from-firestore-data'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { formatAddress } from '@echo/utils/helpers/format-address'
 import { describe, expect, it } from '@jest/globals'
 
-describe('helpers - user - getUser', () => {
+describe('helpers - user - createUserFromFirestoreData', () => {
   it('returns the user', () => {
     const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
-    const wallet = mapWalletDocumentDataToWallet(getWalletMockById('i28NWtlxElPXCnO0c6BC'))
-    expect(getUser(user, wallet)).toStrictEqual({
+    const wallet = getWalletMockById('i28NWtlxElPXCnO0c6BC')
+    expect(createUserFromFirestoreData(user, wallet)).toStrictEqual({
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
         username: 'johnnycagewins'
