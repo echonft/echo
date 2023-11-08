@@ -6,7 +6,7 @@ import { CronJob } from 'cron'
 export function updateDb() {
   // Run the DB update at midnight every day
   CronJob.from({
-    cronTime: '0 */1 * * * *',
+    cronTime: '00 00 00 * * *',
     onTick: function () {
       logger.info('Will update all NFTs...')
       initializeFirebase()
