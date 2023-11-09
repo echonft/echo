@@ -1,4 +1,4 @@
-import { OfferFilterAsReceiver } from '@echo/firestore/constants/offer-filter-as'
+import { OFFER_FILTER_AS_RECEIVER } from '@echo/firestore/constants/offer/offer-filter-as'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getOffersQueryResults } from '@echo/firestore/helpers/crud/offer/get-offers-query-results'
 import { mergeQueryResults } from '@echo/firestore/helpers/crud/query/merge-query-results'
@@ -26,7 +26,7 @@ export function getOffersForCollection(
   if (isNil(filters) || isNil(filters.as)) {
     return mergeQueryResults(asReceiverQuery, asSenderQuery, getResults)
   }
-  if (filters.as === OfferFilterAsReceiver) {
+  if (filters.as === OFFER_FILTER_AS_RECEIVER) {
     return getResults(asReceiverQuery)
   }
   return getResults(asSenderQuery)

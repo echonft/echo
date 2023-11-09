@@ -7,5 +7,5 @@ export interface OfferUpdate {
     kind: OfferUpdateKind
     args: object
   }
-  postedAt: number
+  createdAt: number
 }

@@ -1,12 +1,12 @@
-import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference-name'
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
 import { findWalletByAddress } from '@echo/firestore/crud/wallet/find-wallet-by-address'
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { assertWallets } from '@echo/firestore-test/wallet/assert-wallets'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
-import { assertWallets } from '@test-utils/wallet/assert-wallets'
 import { pick } from 'ramda'
 
 describe('CRUD - wallet - removeWallet', () => {

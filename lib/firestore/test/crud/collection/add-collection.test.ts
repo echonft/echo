@@ -1,12 +1,12 @@
 import { addCollection } from '@echo/firestore/crud/collection/add-collection'
 import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
+import { assertCollections } from '@echo/firestore-test/collection/assert-collections'
+import { deleteCollection } from '@echo/firestore-test/collection/delete-collection'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
-import { assertCollections } from '@test-utils/collection/assert-collections'
-import { deleteCollection } from '@test-utils/collection/delete-collection'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { omit } from 'ramda'
 
 describe('CRUD - collection - addCollection', () => {

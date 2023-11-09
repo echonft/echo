@@ -7,7 +7,7 @@
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
-      "@echo/model-mocks/*": ["../../lib/model/test/mocks/*"],
+      "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/storybook/*": ["./src/*"],
       "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/ui-css/*": ["../../lib/ui/dist/*"],

@@ -1,5 +1,5 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
-import { OfferFilterAsReceiver } from '@echo/firestore/constants/offer-filter-as'
+import { OFFER_FILTER_AS_RECEIVER } from '@echo/firestore/constants/offer/offer-filter-as'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
 import { parseOfferFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse_offer_filters_query'
 import { NextRequest } from 'next/server'
@@ -21,8 +21,8 @@ describe('helpers - request - parseOfferFiltersQuery - as filter', () => {
     expect(() => parseOfferFiltersQuery(getRequest('as=whatever'))).toThrow()
   })
   test('returns a filter with the correct as prop', () => {
-    expect(parseOfferFiltersQuery(getRequest(`as=${OfferFilterAsReceiver}`))).toStrictEqual<OfferQueryFilters>({
-      as: OfferFilterAsReceiver
+    expect(parseOfferFiltersQuery(getRequest(`as=${OFFER_FILTER_AS_RECEIVER}`))).toStrictEqual<OfferQueryFilters>({
+      as: OFFER_FILTER_AS_RECEIVER
     })
   })
 })
@@ -99,9 +99,9 @@ describe('helpers - request - parseOfferFiltersQuery - multiple filters', () => 
   })
   test('returns the correct filters', () => {
     expect(
-      parseOfferFiltersQuery(getRequest(`as=${OfferFilterAsReceiver}&state=OPEN&state=ACCEPTED&includeExpired=true`))
+      parseOfferFiltersQuery(getRequest(`as=${OFFER_FILTER_AS_RECEIVER}&state=OPEN&state=ACCEPTED&includeExpired=true`))
     ).toStrictEqual<OfferQueryFilters>({
-      as: OfferFilterAsReceiver,
+      as: OFFER_FILTER_AS_RECEIVER,
       state: ['OPEN', 'ACCEPTED'],
       includeExpired: true
     })

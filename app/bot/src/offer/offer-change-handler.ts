@@ -7,7 +7,6 @@ import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thre
 import { findOfferThread } from '@echo/firestore/crud/offer-thread/find-offer-thread'
 import { addOfferThreadCloseRequest } from '@echo/firestore/crud/offer-thread-close-request/add-offer-thread-close-request'
 import { findOfferThreadCloseRequest } from '@echo/firestore/crud/offer-thread-close-request/find-offer-thread-close-request'
-import { addOfferStateUpdate } from '@echo/firestore/crud/offer-update/add-offer-state-update'
 import { findOfferStateUpdate } from '@echo/firestore/crud/offer-update/find-offer-state-update'
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { type DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
@@ -46,7 +45,6 @@ export async function offerChangeHandler(client: Client, changeType: DocumentCha
     const update = await findOfferStateUpdate(offer.id, offer.state)
     if (isNil(update)) {
       await postOfferStateUpdate(client, offer)
-      await addOfferStateUpdate(offer.id)
       const { state } = offer
       if (state === 'REJECTED' || state === 'CANCELLED' || state === 'COMPLETED') {
         const thread = await findOfferThread(offer.id)

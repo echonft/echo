@@ -4,7 +4,7 @@
     "baseUrl": ".",
     "paths": {
       "@echo/model/*": ["src/*"],
-      "@echo/model-mocks/*": ["test/mocks/*"],
+      "@echo/model-mocks/*": ["test/@mocks/*"],
       "@echo/utils/*": ["../utils/src/*"]
     }
   },

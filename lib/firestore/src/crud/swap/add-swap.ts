@@ -5,9 +5,15 @@ import { getSwapsCollectionReference } from '@echo/firestore/helpers/collection-
 import { type Swap } from '@echo/firestore/types/model/swap/swap'
 import { getOfferCollectionIds } from '@echo/model/helpers/offer/get-offer-collection-ids'
 import { now } from '@echo/utils/helpers/now'
-import { isNil } from 'ramda'
+import { assoc, isNil, pipe } from 'ramda'
 
-export async function addSwap(offerId: string, txId: string): Promise<Swap> {
+export interface AddSwapArgs {
+  offerId: string
+  transactionId: string
+}
+
+export async function addSwap(args: AddSwapArgs): Promise<Swap> {
+  const { offerId } = args
   const offer = await findOfferById(offerId)
   if (isNil(offer)) {
     throw Error(`trying to add swap for offer with id ${offerId} but this offer does not exist`)
@@ -17,8 +23,10 @@ export async function addSwap(offerId: string, txId: string): Promise<Swap> {
     throw Error(`trying to add swap for offer with id ${offerId} but a swap already exists for this offer`)
   }
   const reference = getSwapsCollectionReference().doc()
-  const id = reference.id
-  const newSwap: Swap = { id, offerId, txId, date: now() }
+  const newSwap = pipe<[AddSwapArgs], Omit<Swap, 'createdAt'>, Swap>(
+    assoc('id', reference.id),
+    assoc('createdAt', now())
+  )(args)
   await reference.set(newSwap)
   // increase the swaps count for receiver and sender items
   const collectionIds = getOfferCollectionIds(offer)

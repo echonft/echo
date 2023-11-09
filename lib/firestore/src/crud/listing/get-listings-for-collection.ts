@@ -1,4 +1,4 @@
-import { ListingFilterAsItem } from '@echo/firestore/constants/listing-filter-as'
+import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getListingsQueryResults } from '@echo/firestore/helpers/crud/listing/get-listings-query-results'
 import { mergeQueryResults } from '@echo/firestore/helpers/crud/query/merge-query-results'
@@ -24,7 +24,7 @@ export async function getListingsForCollection(
   if (isNil(filters) || isNil(filters.as)) {
     return mergeQueryResults(asItemQuery, asTargetQuery, getResults)
   }
-  if (filters.as === ListingFilterAsItem) {
+  if (filters.as === LISTING_FILTER_AS_ITEM) {
     return getResults(asItemQuery)
   }
   return getResults(asTargetQuery)

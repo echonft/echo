@@ -1,5 +1,5 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
-import { LISTING_FILTER_AS } from '@echo/firestore/constants/listing-filter-as'
+import { LISTING_FILTER_AS } from '@echo/firestore/constants/listing/listing-filter-as'
 import { assertStateFilters } from '@echo/firestore/helpers/crud/assert/assert-state-filters'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import { addParamFromRequest } from '@echo/frontend/lib/server/helpers/request/add-param-from-request'

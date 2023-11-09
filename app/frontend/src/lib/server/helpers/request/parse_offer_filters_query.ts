@@ -1,5 +1,5 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
-import { OFFER_FILTER_AS } from '@echo/firestore/constants/offer-filter-as'
+import { OFFER_FILTER_AS } from '@echo/firestore/constants/offer/offer-filter-as'
 import { assertStateFilters } from '@echo/firestore/helpers/crud/assert/assert-state-filters'
 import { type OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
 import { addParamFromRequest } from '@echo/frontend/lib/server/helpers/request/add-param-from-request'

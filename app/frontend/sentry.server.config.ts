@@ -10,7 +10,7 @@ init({
   debug: false,
   dsn: 'https://90f90a5ace372a2805407eeeb7d7fc15@o4506149604098048.ingest.sentry.io/4506149609472000',
   enabled: isProd,
-  ignoreErrors: ['Dynamic server usage', 'CancelOfferError', 'NEXT_REDIRECT'],
+  ignoreErrors: ['Dynamic server usage', 'NEXT_REDIRECT'],
   integrations: [new ExtraErrorData()],
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1

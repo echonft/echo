@@ -1,0 +1,24 @@
+import serviceAccount from '@echo/firestore-test/service-accout-key.json'
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { logger } from '@echo/utils/services/logger'
+import { cert, getApps, initializeApp, type ServiceAccount } from 'firebase-admin/app'
+import { getFirestore, initializeFirestore } from 'firebase-admin/firestore'
+import { head, isEmpty } from 'ramda'
+
+export async function initializeTestFirebase() {
+  try {
+    const apps = getApps()
+    if (!isEmpty(apps)) {
+      return getFirestore(head(apps)!)
+    }
+    initializeFirestore(
+      initializeApp({
+        credential: cert(serviceAccount as ServiceAccount)
+      })
+    ).settings({ ignoreUndefinedProperties: true })
+    return Promise.resolve()
+  } catch (e) {
+    logger.error(`error initializing Firebase test app: ${errorMessage(e)}`)
+    return Promise.resolve()
+  }
+}
