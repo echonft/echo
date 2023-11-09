@@ -24,11 +24,6 @@ interface Props {
     token: string | undefined
   ) => Promise<OfferResponse>
   rejectOfferFetcher: (offerId: string, token: string | undefined) => Promise<OfferResponse>
-  completeOfferFetcher: (
-    offerId: string,
-    transactionId: HexString | undefined,
-    token: string | undefined
-  ) => Promise<OfferResponse>
   onSuccess?: (offer: Offer) => unknown
   onError?: EmptyFunction
 }
@@ -76,7 +71,6 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
   acceptOfferFetcher,
   rejectOfferFetcher,
   cancelOfferFetcher,
-  completeOfferFetcher,
   onSuccess
 }) => {
   const [buttonsDisabled, setButtonsDisabled] = useState(false)
@@ -109,7 +103,6 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
           offer={offer}
           token={token}
           getOfferSignatureFetcher={getOfferSignatureFetcher}
-          completeOfferFetcher={completeOfferFetcher}
           onClick={disable}
           onSuccess={success}
           onError={error}

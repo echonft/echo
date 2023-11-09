@@ -1,4 +1,3 @@
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Offer } from '@echo/model/types/offer'
 import { OfferDetailsSwapModalSwapButton } from '@echo/ui/components/offer/details/action/offer-details-swap-modal-swap-button'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
@@ -10,14 +9,8 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: Offer
-  token: string
   chainId: number | undefined
   signature: HexString | undefined
-  completeOfferFetcher: (
-    offerId: string,
-    transactionId: HexString | undefined,
-    token: string | undefined
-  ) => Promise<OfferResponse>
   onLoading?: EmptyFunction
   onSuccess?: (offer: Offer) => unknown
   onError?: EmptyFunction
@@ -25,10 +18,8 @@ interface Props {
 
 export const OfferDetailsSwapModalButton: FunctionComponent<Props> = ({
   offer,
-  token,
   chainId,
   signature,
-  completeOfferFetcher,
   onLoading,
   onSuccess,
   onError
@@ -47,8 +38,6 @@ export const OfferDetailsSwapModalButton: FunctionComponent<Props> = ({
       offer={offer}
       chainId={chainId}
       signature={signature}
-      token={token}
-      completeOfferFetcher={completeOfferFetcher}
       onLoading={onLoading}
       onSuccess={onSuccess}
       onError={onError}
