@@ -17,6 +17,7 @@
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier -u -c src/ && prettier -u -c test/ && prettier -u -c utils/",
     "test": "pnpm run db:reset:test && jest --runInBand",
+    "test:ci": "pnpm run db:reset:test && jest --runInBand --ci --no-cache",
     "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"

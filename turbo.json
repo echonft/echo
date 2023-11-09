@@ -42,6 +42,9 @@
     "test": {
       "inputs": ["jest.config.*", "**/*.ts"]
     },
+    "test:ci": {
+      "cache": false
+    },
     "test:watch": {
       "cache": false
     },

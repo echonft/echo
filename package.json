@@ -43,6 +43,7 @@
     "storybook:build": "turbo run build --filter=@echo/storybook",
     "storybook:dev": "turbo run dev --filter=@echo/storybook --filter=@echo/ui",
     "test": "turbo run test",
+    "test:ci": "turbo run test:ci",
     "test:watch": "turbo run test:watch",
     "tsc": "turbo run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache",

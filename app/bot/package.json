@@ -16,6 +16,7 @@
     "prettier": "prettier -u -c src/ && prettier -u -c test/",
     "start": "export NODE_ENV=production; ts-node --project tsconfig.json src/index.ts",
     "test": "jest",
+    "test:ci": "jest --ci --no-cache",
     "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
