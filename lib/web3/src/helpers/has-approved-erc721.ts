@@ -1,8 +1,8 @@
 import type { Nft } from '@echo/model/types/nft'
+import { erc721ABI } from '@echo/web3/constants/erc721-abi'
 import { IS_APPROVED_FOR_ALL } from '@echo/web3/constants/erc721-function-names'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { getViemClient } from '@echo/web3/helpers/get-viem-client'
-import { erc721ABI } from 'wagmi'
 
 export async function hasApprovedErc721(nft: Nft) {
   const {

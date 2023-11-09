@@ -1,7 +1,8 @@
 import type { OfferItem } from '@echo/model/types/offer-item'
+import { erc721ABI } from '@echo/web3/constants/erc721-abi'
 import { OWNER_OF } from '@echo/web3/constants/erc721-function-names'
 import type { OwnerOfFn } from '@echo/web3/types/erc721-function-name-types'
-import { erc721ABI, type UseContractReadConfig } from 'wagmi'
+import type { UseContractReadConfig } from 'wagmi'
 
 export function getErc721OwnerOfContractReadConfig(offerItem: OfferItem) {
   const {
