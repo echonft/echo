@@ -9,7 +9,7 @@ on:
 
 jobs:
   lint:
-    timeout-minutes: 10
+    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
