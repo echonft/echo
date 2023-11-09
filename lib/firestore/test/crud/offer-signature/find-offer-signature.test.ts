@@ -3,6 +3,8 @@ import { deleteOfferSignature } from '@echo/firestore-test/offer-signature/delet
 import { unchecked_addOfferSignature } from '@echo/firestore-test/offer-signature/unchecked_add-offer-signature'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { logger } from '@echo/utils/services/logger'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
@@ -26,7 +28,7 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
       try {
         await deleteOfferSignature(createdOfferSignatureId)
       } catch (e) {
-        // nothing to do
+        logger.error(`Error deleting offer signature with id ${createdOfferSignatureId}: ${errorMessage(e)}`)
       }
     }
   })

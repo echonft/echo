@@ -3,9 +3,9 @@ import {
   addOfferStateUpdate,
   type AddOfferStateUpdateArgs
 } from '@echo/firestore/crud/offer-update/add-offer-state-update'
+import { findOfferUpdateById } from '@echo/firestore/crud/offer-update/find-offer-update-by-id'
 import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
-import { findOfferUpdateById } from '@echo/firestore-test/offer-update/find-offer-update-by-id'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { errorMessage } from '@echo/utils/helpers/error-message'
@@ -46,7 +46,7 @@ describe('CRUD - offer-update - addOfferStateUpdate', () => {
     }
   })
   it('throws if trying to add a state update for an offer that does not exist', async () => {
-    await expect(pipe(assoc('offerId', 'not-found'), addOfferStateUpdate)).rejects.toBeDefined()
+    await expect(pipe(assoc('offerId', 'not-found'), addOfferStateUpdate)(args)).rejects.toBeDefined()
   })
   it('throws if trying to add a state update that already exists', async () => {
     const { id } = await addOfferStateUpdate(args)

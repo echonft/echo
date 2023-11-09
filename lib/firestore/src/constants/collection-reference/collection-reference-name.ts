@@ -8,6 +8,7 @@ export enum CollectionReferenceName {
   OFFER_SIGNATURES = 'offer-signatures',
   OFFER_THREADS = 'offer-threads',
   OFFER_THREADS_CLOSE_REQUEST = 'offer-threads-close-requests',
+  OFFER_UPDATE_POSTS = 'offer-update-posts',
   OFFER_UPDATES = 'offer-updates',
   OFFERS = 'offers',
   LISTING_OFFERS = 'listing-offers',

@@ -18,6 +18,8 @@ import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-rem
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { getOfferCollectionIds } from '@echo/model/helpers/offer/get-offer-collection-ids'
 import { type OfferState } from '@echo/model/types/offer-state'
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { logger } from '@echo/utils/services/logger'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -64,7 +66,7 @@ describe('CRUD - offer - completeOffer', () => {
       try {
         await deleteOfferUpdate(createdStateUpdateId)
       } catch (e) {
-        // nothing to do
+        logger.error(`Error deleting offer update with id ${createdStateUpdateId}: ${errorMessage(e)}`)
       }
     }
   })

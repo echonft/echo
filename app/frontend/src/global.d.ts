@@ -16,7 +16,7 @@ declare global {
         NEXT_PUBLIC_ALCHEMY_KEY: string
         NEXT_PUBLIC_CHAIN_ID: string
         NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: string
-        NODE_ENV: 'production' | 'development'
+        NODE_ENV: 'production' | 'development' | 'test'
         STORYBOOK: undefined | 'true'
         STORYBOOK_ALCHEMY_API_KEY: string
         VERCEL_URL: string

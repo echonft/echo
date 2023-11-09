@@ -7,6 +7,8 @@ import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offe
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { type OfferState } from '@echo/model/types/offer-state'
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { logger } from '@echo/utils/services/logger'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -52,7 +54,7 @@ describe('CRUD - offer - cancelOffer', () => {
       try {
         await deleteOfferUpdate(createdStateUpdateId)
       } catch (e) {
-        // nothing to do
+        logger.error(`Error deleting offer update with id ${createdStateUpdateId}: ${errorMessage(e)}`)
       }
     }
   })
