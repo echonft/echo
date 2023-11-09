@@ -15,6 +15,7 @@
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier -u -c src/",
     "tsc": "tsc --noEmit",
+    "tsc:ci": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {

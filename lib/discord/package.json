@@ -16,6 +16,7 @@
     "test:ci": "jest --ci --no-cache --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",
     "tsc": "tsc --noEmit",
+    "tsc:ci": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {

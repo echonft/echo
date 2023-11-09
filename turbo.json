@@ -51,6 +51,9 @@
     "tsc": {
       "inputs": ["**/*.tsx", "**/*.ts", "tsconfig.json"]
     },
+    "tsc:ci": {
+      "cache": false
+    },
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
     },
