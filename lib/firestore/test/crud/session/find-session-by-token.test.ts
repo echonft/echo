@@ -1,8 +1,8 @@
 import { findSessionByToken } from '@echo/firestore/crud/session/find-session-by-token'
 import { getSessionMockByUserId } from '@echo/firestore-mocks/session/get-session-mock-by-user-id'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - session - findSessionByToken', () => {
   beforeAll(async () => {

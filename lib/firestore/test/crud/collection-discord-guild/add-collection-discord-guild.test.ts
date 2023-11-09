@@ -1,10 +1,10 @@
 import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-discord-guild/add-collection-discord-guild'
+import { assertCollectionDiscordGuilds } from '@echo/firestore-test/collection-discord-guild/assert-collection-discord-guilds'
+import { deleteCollectionDiscordGuild } from '@echo/firestore-test/collection-discord-guild/delete-collection-discord-guild'
+import { findCollectionDiscordGuildById } from '@echo/firestore-test/collection-discord-guild/find-collection-discord-guild-by-id'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { assertCollectionDiscordGuilds } from '@test-utils/collection-discord-guild/assert-collection-discord-guilds'
-import { deleteCollectionDiscordGuild } from '@test-utils/collection-discord-guild/delete-collection-discord-guild'
-import { findCollectionDiscordGuildById } from '@test-utils/collection-discord-guild/find-collection-discord-guild-by-id'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - collection-discord-guild - addCollectionDiscordGuild', () => {
   beforeAll(async () => {
@@ -22,11 +22,11 @@ describe('CRUD - collection-discord-guild - addCollectionDiscordGuild', () => {
   })
   it('add a discord guild to an nft collection', async () => {
     const { id } = await addCollectionDiscordGuild('Rc8pLQXxgyQGIRL0fr13', 'new', 'new')
-    const newGuild = await findCollectionDiscordGuildById(id)
+    const newGuild = (await findCollectionDiscordGuildById(id))!
     await deleteCollectionDiscordGuild(id)
-    expect(newGuild!.id).toStrictEqual(id)
-    expect(newGuild!.collectionId).toStrictEqual('Rc8pLQXxgyQGIRL0fr13')
-    expect(newGuild!.guild).toStrictEqual({
+    expect(newGuild.id).toStrictEqual(id)
+    expect(newGuild.collectionId).toStrictEqual('Rc8pLQXxgyQGIRL0fr13')
+    expect(newGuild.guild).toStrictEqual({
       channelId: 'new',
       discordId: 'new'
     })

@@ -18,6 +18,9 @@ export async function rejectOfferRequestHandler(req: ApiRequest<never>, offerId:
   const user = await getUserFromRequest(req)
   guarded_assertAuthUser(user)
   guarded_assertOfferReceiverIs(offer, user.username)
-  const updatedOffer = await guardAsyncFn(rejectOffer, ErrorStatus.SERVER_ERROR)(offerId)
+  const updatedOffer = await guardAsyncFn(
+    rejectOffer,
+    ErrorStatus.SERVER_ERROR
+  )({ offerId, updateArgs: { trigger: { by: user.username } } })
   return NextResponse.json<OfferResponse>({ offer: updatedOffer })
 }

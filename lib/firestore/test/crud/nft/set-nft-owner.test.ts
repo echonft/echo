@@ -4,12 +4,12 @@ import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { createUserFromFirestoreData } from '@echo/firestore/helpers/user/create-user-from-firestore-data'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
+import { assertNfts } from '@echo/firestore-test/nft/assert-nfts'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { type User } from '@echo/model/types/user'
-import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
+import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { assertNfts } from '@test-utils/nft/assert-nfts'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - nft - setNftOwner', () => {
   let initialOwner: User

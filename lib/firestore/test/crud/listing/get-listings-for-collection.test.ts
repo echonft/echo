@@ -1,13 +1,13 @@
-import { ListingFilterAsItem, ListingFilterAsTarget } from '@echo/firestore/constants/listing-filter-as'
+import { LISTING_FILTER_AS_ITEM, LISTING_FILTER_AS_TARGET } from '@echo/firestore/constants/listing/listing-filter-as'
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { getListingsForCollection } from '@echo/firestore/crud/listing/get-listings-for-collection'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
+import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { type Listing } from '@echo/model/types/listing'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { unchecked_updateListing } from '@test-utils/listing/unchecked_update-listing'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 
@@ -86,7 +86,7 @@ describe('CRUD - listing - getListingsForCollection', () => {
   })
 
   describe('CRUD - listing - getListingsForCollection - as item', () => {
-    const filters: ListingQueryFilters = { as: ListingFilterAsItem }
+    const filters: ListingQueryFilters = { as: LISTING_FILTER_AS_ITEM }
     const collectionId = '1aomCtnoesD7WVll6Yi1'
     const id = 'jUzMtPGKM62mMhEcmbN4'
     let initialExpiresAt: number
@@ -150,7 +150,7 @@ describe('CRUD - listing - getListingsForCollection', () => {
   })
 
   describe('CRUD - listing - getListingsForCollection - as target', () => {
-    const filters: ListingQueryFilters = { as: ListingFilterAsTarget }
+    const filters: ListingQueryFilters = { as: LISTING_FILTER_AS_TARGET }
     const collectionId = 'Rc8pLQXxgyQGIRL0fr13'
     const id = 'jUzMtPGKM62mMhEcmbN4'
     let initialExpiresAt: number

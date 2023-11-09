@@ -1,9 +1,11 @@
 import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-offer-signature'
+import { deleteOfferSignature } from '@echo/firestore-test/offer-signature/delete-offer-signature'
+import { unchecked_addOfferSignature } from '@echo/firestore-test/offer-signature/unchecked_add-offer-signature'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { logger } from '@echo/utils/services/logger'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { deleteOfferSignature } from '@test-utils/offer-signature/delete-offer-signature'
-import { unchecked_addOfferSignature } from '@test-utils/offer-signature/unchecked_add-offer-signature'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-signature - findOfferSignature', () => {
@@ -26,7 +28,7 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
       try {
         await deleteOfferSignature(createdOfferSignatureId)
       } catch (e) {
-        // nothing to do
+        logger.error(`Error deleting offer signature with id ${createdOfferSignatureId}: ${errorMessage(e)}`)
       }
     }
   })

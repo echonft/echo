@@ -1,13 +1,13 @@
-import { OfferFilterAsReceiver, OfferFilterAsSender } from '@echo/firestore/constants/offer-filter-as'
+import { OFFER_FILTER_AS_RECEIVER, OFFER_FILTER_AS_SENDER } from '@echo/firestore/constants/offer/offer-filter-as'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOffersForCollection } from '@echo/firestore/crud/offer/get-offers-for-collection'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
+import { unchecked_updateOffer } from '@echo/firestore-test/offer/unchecked_update-offer'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { type Offer } from '@echo/model/types/offer'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { unchecked_updateOffer } from '@test-utils/offer/unchecked_update-offer'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 
@@ -97,7 +97,7 @@ describe('CRUD - offer - getOffersForCollection', () => {
   describe('CRUD - offer - getOffersForCollection - as receiver', () => {
     const collectionId = '1aomCtnoesD7WVll6Yi1'
     const id = 'LyCfl6Eg7JKuD7XJ6IPi'
-    const filters: OfferQueryFilters = { as: OfferFilterAsReceiver }
+    const filters: OfferQueryFilters = { as: OFFER_FILTER_AS_RECEIVER }
     let initialExpiresAt: number
 
     beforeEach(async () => {
@@ -153,7 +153,7 @@ describe('CRUD - offer - getOffersForCollection', () => {
   describe('CRUD - offer - getOffersForCollection - as sender', () => {
     const collectionId = 'Rc8pLQXxgyQGIRL0fr13'
     const id = 'LyCfl6Eg7JKuD7XJ6IPi'
-    const filters: OfferQueryFilters = { as: OfferFilterAsSender }
+    const filters: OfferQueryFilters = { as: OFFER_FILTER_AS_SENDER }
     let initialExpiresAt: number
 
     beforeEach(async () => {

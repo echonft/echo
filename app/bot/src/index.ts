@@ -4,6 +4,7 @@ import { listenToInteractions } from '@echo/bot/helpers/listen-to-interactions'
 import { listenToListings } from '@echo/bot/listing/listen-to-listings'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { flushOfferThreadCloseRequests } from '@echo/bot/offer/flush-offer-thread-close-requests'
+import { listenToOfferUpdates } from '@echo/bot/offer/listen-to-offer-updates'
 import { listenToOffers } from '@echo/bot/offer/listen-to-offers'
 import { initializeSentry } from '@echo/bot/services/initialize-sentry'
 import { getDiscordSecret } from '@echo/discord/admin/get-discord-secret'
@@ -29,6 +30,7 @@ client.once(Events.ClientReady, async (client) => {
   await initializeTranslations()
   listenToListings(client)
   listenToOffers(client)
+  listenToOfferUpdates(client)
   logger.debug(`Ready! Logged in as ${client.user.tag}`)
 })
 

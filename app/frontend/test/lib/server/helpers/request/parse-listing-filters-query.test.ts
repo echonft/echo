@@ -1,5 +1,5 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
-import { ListingFilterAsItem, ListingFilterAsTarget } from '@echo/firestore/constants/listing-filter-as'
+import { LISTING_FILTER_AS_ITEM, LISTING_FILTER_AS_TARGET } from '@echo/firestore/constants/listing/listing-filter-as'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import { parseListingFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-listing-filters-query'
 import { NextRequest } from 'next/server'
@@ -21,8 +21,8 @@ describe('helpers - request - parseListingFiltersQuery - as filter', () => {
     expect(() => parseListingFiltersQuery(getRequest('as=whatever'))).toThrow()
   })
   test('returns a filter with the correct as prop', () => {
-    expect(parseListingFiltersQuery(getRequest(`as=${ListingFilterAsItem}`))).toStrictEqual<ListingQueryFilters>({
-      as: ListingFilterAsItem
+    expect(parseListingFiltersQuery(getRequest(`as=${LISTING_FILTER_AS_ITEM}`))).toStrictEqual<ListingQueryFilters>({
+      as: LISTING_FILTER_AS_ITEM
     })
   })
 })
@@ -101,9 +101,11 @@ describe('helpers - request - parseListingFiltersQuery - multiple filters', () =
   })
   test('returns the correct filters', () => {
     expect(
-      parseListingFiltersQuery(getRequest(`as=${ListingFilterAsTarget}&state=OPEN&state=FULFILLED&includeExpired=true`))
+      parseListingFiltersQuery(
+        getRequest(`as=${LISTING_FILTER_AS_TARGET}&state=OPEN&state=FULFILLED&includeExpired=true`)
+      )
     ).toStrictEqual<ListingQueryFilters>({
-      as: ListingFilterAsTarget,
+      as: LISTING_FILTER_AS_TARGET,
       state: ['OPEN', 'FULFILLED'],
       includeExpired: true
     })

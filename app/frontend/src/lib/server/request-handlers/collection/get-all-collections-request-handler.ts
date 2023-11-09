@@ -1,7 +1,7 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { type CollectionsResponse } from '@echo/api/types/responses/collections-response'
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
-import { getAllCollectionSwapsCounts } from '@echo/firestore/test/test-utils/collection-swaps-count/get-all-collection-swaps-counts'
+import { getAllCollectionSwapsCounts } from '@echo/firestore/crud/collection-swaps-count/get-all-collection-swaps-counts'
 import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
 import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'

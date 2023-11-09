@@ -1,6 +1,6 @@
 import { userListingsApiUrl } from '@echo/api/routing/user-listings-api-url'
 import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
-import { ListingFilterAsTarget } from '@echo/firestore/constants/listing-filter-as'
+import { LISTING_FILTER_AS_TARGET } from '@echo/firestore/constants/listing/listing-filter-as'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
 import { mapListingFiltersToQueryParams } from '@echo/frontend/lib/helpers/request/map-listing-filters-to-query-params'
@@ -17,7 +17,7 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
   redirectIfNotLoggedIn(session, links.profile.listingsReceived)
   const filterParams = mapListingFiltersToQueryParams({
-    as: ListingFilterAsTarget,
+    as: LISTING_FILTER_AS_TARGET,
     notState: ['FULFILLED', 'CANCELLED']
   })
   const queryParams = mapQueryConstraintsToQueryParams({

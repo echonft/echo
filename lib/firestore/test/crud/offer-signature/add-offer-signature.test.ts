@@ -1,12 +1,14 @@
 import { addOfferSignature } from '@echo/firestore/crud/offer-signature/add-offer-signature'
 import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-offer-signature'
-import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
+import { deleteOfferSignature } from '@echo/firestore-test/offer-signature/delete-offer-signature'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { deleteUser } from '@echo/firestore-test/user/delete-user'
+import { unchecked_addUser } from '@echo/firestore-test/user/unchecked_add-user'
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { logger } from '@echo/utils/services/logger'
+import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { deleteOfferSignature } from '@test-utils/offer-signature/delete-offer-signature'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
-import { deleteUser } from '@test-utils/user/delete-user'
-import { unchecked_addUser } from '@test-utils/user/unchecked_add-user'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-signature - findOfferSignature', () => {
@@ -31,14 +33,14 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
       try {
         await deleteUser(createdUserId)
       } catch (e) {
-        // nothing to do
+        logger.error(`Error deleting user with id ${createdUserId}: ${errorMessage(e)}`)
       }
     }
     if (!isNil(createdOfferSignatureId)) {
       try {
         await deleteOfferSignature(createdOfferSignatureId)
       } catch (e) {
-        // nothing to do
+        logger.error(`Error deleting offer signature with id ${createdOfferSignatureId}: ${errorMessage(e)}`)
       }
     }
   })

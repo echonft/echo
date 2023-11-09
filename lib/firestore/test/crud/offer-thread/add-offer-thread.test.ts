@@ -1,12 +1,12 @@
 import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thread'
 import { findOfferThreadById } from '@echo/firestore/crud/offer-thread/find-offer-thread-by-id'
 import type { OfferThreadDiscordGuild } from '@echo/firestore/types/model/offer-thread/offer-thread'
-import { expectDateNumberIsNow } from '@echo/test-utils/expect-date-number-is-now'
+import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
+import { deleteOfferThread } from '@echo/firestore-test/offer-thread/delete-offer-thread'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { assertOfferThreads } from '@test-utils/offer-thread/assert-offer-threads'
-import { deleteOfferThread } from '@test-utils/offer-thread/delete-offer-thread'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - offer-thread - addOfferThread', () => {
   const guild: OfferThreadDiscordGuild = {

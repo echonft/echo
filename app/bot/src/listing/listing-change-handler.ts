@@ -8,7 +8,7 @@ import { Client } from 'discord.js'
 import { isNil } from 'ramda'
 
 /**
- * Handles listing changes - only check for new listings
+ * Handles listing changes
  * @param client
  * @param changeType
  * @param listing

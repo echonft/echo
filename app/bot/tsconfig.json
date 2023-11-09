@@ -12,13 +12,13 @@
     "baseUrl": ".",
     "paths": {
       "@echo/bot/*": ["./src/*"],
-      "@echo/bot-mocks/*": ["./test/mocks/*"],
-      "@echo/bot-test/*": ["./test/test-utils/*"],
+      "@echo/bot-mocks/*": ["./test/@mocks/*"],
+      "@echo/bot-test/*": ["./test/@utils/*"],
       "@echo/discord/*": ["../../lib/discord/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
-      "@echo/model-mocks/*": ["../../lib/model/test/mocks/*"],
+      "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
-      "@echo/firestore-mocks/*": ["../../lib/firestore/test/mocks/*"],
+      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
       "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"]
     },

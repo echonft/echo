@@ -1,20 +1,20 @@
-import { ListingFilterAsItem } from '@echo/firestore/constants/listing-filter-as'
+import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { getListingsForUser } from '@echo/firestore/crud/listing/get-listings-for-user'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
+import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { type Listing } from '@echo/model/types/listing'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { unchecked_updateListing } from '@test-utils/listing/unchecked_update-listing'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
 import { assoc, pipe } from 'ramda'
 
 describe('CRUD - listing - getListingsForUser - as creator', () => {
   const id = 'jUzMtPGKM62mMhEcmbN4'
   const username = 'johnnycagewins'
-  const filters: ListingQueryFilters = { as: ListingFilterAsItem }
+  const filters: ListingQueryFilters = { as: LISTING_FILTER_AS_ITEM }
   let initialExpiresAt: number
 
   async function setExpired(listing: Listing) {

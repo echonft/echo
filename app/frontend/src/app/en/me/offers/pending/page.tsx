@@ -1,6 +1,6 @@
 import { profileOffersApiUrl } from '@echo/api/routing/profile-offers-api-url'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
-import { OfferFilterAsReceiver } from '@echo/firestore/constants/offer-filter-as'
+import { OFFER_FILTER_AS_RECEIVER } from '@echo/firestore/constants/offer/offer-filter-as'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
 import { mapOfferFiltersToQueryParams } from '@echo/frontend/lib/helpers/request/map-offer-filters-to-query-params'
@@ -19,7 +19,7 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
   redirectIfNotLoggedIn(session, links.profile.offersReceived)
   const filterParams = mapOfferFiltersToQueryParams({
-    as: OfferFilterAsReceiver,
+    as: OFFER_FILTER_AS_RECEIVER,
     state: ['OPEN', 'ACCEPTED']
   })
   const queryParams = mapQueryConstraintsToQueryParams({
