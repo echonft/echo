@@ -30,21 +30,18 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    nft,
-    linkDisabled: true
+    nft
   }
 }
 
 export const Selected: Story = {
   args: {
-    nft: assoc('selected', true, nft),
-    linkDisabled: true
+    nft: assoc('selected', true, nft)
   }
 }
 
 export const Disabled: Story = {
   args: {
-    nft: assoc('disabled', true, nft),
-    linkDisabled: true
+    nft: assoc('disabled', true, nft)
   }
 }

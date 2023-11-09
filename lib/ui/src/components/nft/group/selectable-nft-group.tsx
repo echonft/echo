@@ -51,7 +51,6 @@ export const SelectableNftGroup: FunctionComponent<Props> = ({ group, hideOwner,
               <SelectableNftThumbnail
                 key={nft.id}
                 nft={nft}
-                linkDisabled={hasSelection}
                 hideOwner={hideOwner}
                 onToggleSelection={(nft: Nft) => {
                   onToggleSelection?.(nft, id)

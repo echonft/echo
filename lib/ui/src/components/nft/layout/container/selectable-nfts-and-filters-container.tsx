@@ -80,11 +80,7 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
         onTraitSelectionToggle={onTraitFilterToggleSelection}
         onCollectionSelectionToggle={onCollectionFilterToggleSelection}
       />
-      <SelectableNftsContainer
-        nfts={nftsWithProps}
-        selectionCount={nftSelectionCount}
-        onToggleSelection={onNftToggleSelection}
-      />
+      <SelectableNftsContainer nfts={nftsWithProps} onToggleSelection={onNftToggleSelection} />
     </NftsAndFiltersLayout>
   )
 }

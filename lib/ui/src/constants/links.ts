@@ -4,7 +4,6 @@ export const links = {
     items: (slug: string) => `/collection/${slug}/items`,
     listing: (slug: string, listingId: string) => `/collection/${slug}/listing/${listingId}`,
     listings: (slug: string) => `/collection/${slug}/listings`,
-    nft: (slug: string, tokenId: number) => `/collection/${slug}/item/${tokenId}`,
     swaps: (slug: string) => `/collection/${slug}/swaps`
   },
   profile: {
