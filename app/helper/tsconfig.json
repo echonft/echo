@@ -19,7 +19,7 @@
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
-"@echo/web3/*": ["../../lib/web3/src/*"]
+      "@echo/web3/*": ["../../lib/web3/src/*"]
     }
   },
   "include": ["src", "test"],
