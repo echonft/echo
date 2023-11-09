@@ -7,7 +7,7 @@ import { getUserNftsRequestHandler } from '@echo/frontend/lib/server/request-han
  *  - query constraints see {@link QueryConstraintsQueryParams}
  * @param {ApiRequest<never>} request
  * @param {{username: string}} params
- * @return {Promise<NextResponse<ErrorResponse | GetNftsResponse>>}
+ * @return {Promise<ApiResponse<GetNftsResponse>}
  */
 export async function GET(request: ApiRequest<never>, { params }: { params: { username: string } }) {
   return await handleRequest(request, getUserNftsRequestHandler)(request, params.username)

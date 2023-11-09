@@ -13,10 +13,9 @@ describe('helpers - getChannel', () => {
     client = mockClient()
   })
   describe('only cache', () => {
-    test('If channel but wrong ID, returns undefined', async () => {
+    test('If channel but wrong ID, throws', async () => {
       mockAndSetupChannel(client, undefined, { id: '1' })
-      const channel = await getChannel(client, '2')
-      expect(channel).toBeUndefined()
+      await expect(() => getChannel(client, '2')).rejects.toBeDefined()
     })
     test('If channel with good id, returns the channel', async () => {
       const channel = mockAndSetupChannel(client, undefined, { id: '1' })
@@ -30,8 +29,7 @@ describe('helpers - getChannel', () => {
       jest.spyOn(client.channels, 'fetch').mockImplementation((id) => Promise.resolve(id === '2' ? channel : null))
     })
     test('returns undefined if the channel id is wrong', async () => {
-      const channel = await getChannel(client, '1')
-      expect(channel).toBeUndefined()
+      await expect(() => getChannel(client, '1')).rejects.toBeDefined()
     })
     test('If channel with good id, success', async () => {
       await expect(getChannel(client, '2')).resolves.toBe(channel)

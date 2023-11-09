@@ -1,7 +1,8 @@
+import { guardAsyncFn } from '@echo/bot/errors/guard'
 import { listingChangeHandler } from '@echo/bot/listing/listing-change-handler'
 import { listenToListings as firebaseListenToListings } from '@echo/firestore/listeners/listen-to-listings'
 import { Client } from 'discord.js'
 
 export function listenToListings(client: Client) {
-  firebaseListenToListings((listing, changes) => listingChangeHandler(client, listing, changes))
+  firebaseListenToListings((listing, changes) => guardAsyncFn(listingChangeHandler, void 0)(client, listing, changes))
 }

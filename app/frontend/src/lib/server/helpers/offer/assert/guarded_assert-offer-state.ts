@@ -10,6 +10,6 @@ export function guarded_assertOfferState(
   try {
     modelAssertOfferState(offer, toState)
   } catch (err) {
-    throw new BadRequestError(`offer with id ${offer.id} state is wrong`, err)
+    throw new BadRequestError(`offer with id ${offer.id} state is wrong`)
   }
 }

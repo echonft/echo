@@ -1,9 +1,7 @@
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import { getViemAlchemyHttp } from '@echo/web3/helpers/get-viem-alchemy-http'
+import type { Chain, PublicClient, Transport } from 'viem'
 import { createPublicClient } from 'viem'
-import type { PublicClient } from 'viem/clients/createPublicClient'
-import type { Transport } from 'viem/clients/transports/createTransport'
-import type { Chain } from 'viem/types/chain'
 
 export function getViemClient(chainId: number): PublicClient<Transport, Chain> {
   const chain = getChainById(chainId)

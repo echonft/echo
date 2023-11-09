@@ -9,7 +9,7 @@ export function getChannelMock() {
     if (isNil(cachedChannel)) {
       const channel = await client.channels.fetch(channelId)
       if (isNil(channel)) {
-        return undefined
+        throw Error('channel not found')
       }
       return channel as TextChannel
     }

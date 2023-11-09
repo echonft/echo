@@ -30,5 +30,6 @@ module.exports = {
       }
     ]
   ],
-  setupFilesAfterEnv: ['<rootDir>/test/setup-env.ts']
+  setupFilesAfterEnv: ['<rootDir>/test/setup-env.ts'],
+  testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/']
 }

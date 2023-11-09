@@ -1,3 +1,4 @@
+import { offerStateIsFinal } from '@echo/model/helpers/offer/offer-state-is-final'
 import { type OfferState } from '@echo/model/types/offer-state'
 import { OfferRowHeaderLayout } from '@echo/ui/components/offer/row/layout/offer-row-header-layout'
 import { OfferRowStatePill } from '@echo/ui/components/offer/row/offer-row-state-pill'
@@ -13,7 +14,7 @@ interface Props {
 export const OfferRowHeader: FunctionComponent<Props> = ({ state, expired, discordUsername }) => {
   return (
     <OfferRowHeaderLayout>
-      <OfferRowStatePill expired={expired} state={state} />
+      <OfferRowStatePill expired={!offerStateIsFinal(state) && expired} state={state} />
       <UserDiscordTag discordUsername={discordUsername} />
     </OfferRowHeaderLayout>
   )

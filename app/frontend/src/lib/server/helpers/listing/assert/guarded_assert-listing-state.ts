@@ -10,6 +10,6 @@ export function guarded_assertListingState(
   try {
     modelAssertListingState(listing, toState)
   } catch (err) {
-    throw new BadRequestError(`listing with id ${listing.id} state is wrong`, err)
+    throw new BadRequestError(`listing with id ${listing.id} state is wrong`)
   }
 }

@@ -3,13 +3,11 @@ import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
-import { updateUserNfts } from '@echo/frontend/lib/server/helpers/user/update-user-nfts'
 import { removeWalletRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/remove-wallet-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 
 jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
 jest.mock('@echo/firestore/crud/wallet/remove-wallet')
-jest.mock('@echo/frontend/lib/server/helpers/user/update-user-nfts')
 
 describe('request-handlers - user - removeWalletRequestHandler', () => {
   const validWallet = {
@@ -38,11 +36,9 @@ describe('request-handlers - user - removeWalletRequestHandler', () => {
   it('returns a 200 if the request is valid', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest.mocked(removeWallet).mockResolvedValueOnce()
-    jest.mocked(updateUserNfts).mockResolvedValueOnce()
     const req = mockRequest<RemoveWalletRequest>(validRequest)
     const res = await removeWalletRequestHandler(req)
     expect(removeWallet).toHaveBeenCalledTimes(1)
-    expect(updateUserNfts).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)
   })
 })

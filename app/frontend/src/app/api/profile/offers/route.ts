@@ -7,7 +7,7 @@ import { getCurrentUserOffersRequestHandler } from '@echo/frontend/lib/server/re
  *  - query constraints see {@link QueryConstraintsQueryParams}
  *  - offers filters see {@link OfferQueryFilters}
  * @param {ApiRequest<never>} request
- * @return {Promise<NextResponse<ErrorResponse | GetOffersResponse>>}
+ * @return {Promise<ApiResponse<GetOffersResponse>}
  */
 export async function GET(request: ApiRequest<never>) {
   return await handleRequest(request, getCurrentUserOffersRequestHandler)(request)

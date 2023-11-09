@@ -30,6 +30,8 @@
     "db:reset:test": "turbo run db:reset:test --filter=@echo/firestore",
     "frontend:build": "turbo run build --filter=@echo/frontend",
     "frontend:clean": "turbo run clean --filter=@echo/frontend",
+    "helper:dev": "env-cmd -f .env turbo run dev --filter=@echo/helper",
+    "helper:start": "turbo run start --filter=@echo/helper",
     "lint": "turbo run lint",
     "lint:ci": "turbo run lint:ci",
     "lint:clean-cache": "rm -f .eslintcache && turbo run lint:clean-cache",

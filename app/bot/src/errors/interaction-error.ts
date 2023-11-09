@@ -1,4 +1,3 @@
-import { logger } from '@echo/utils/services/logger'
 import {
   CommandInteraction,
   type InteractionReplyOptions,
@@ -12,7 +11,6 @@ export class InteractionError extends Error {
   }
 
   reply(interaction: CommandInteraction | MessageComponentInteraction): Promise<InteractionResponse> {
-    logger.error(this.message)
     return interaction.reply(this.getInteractionReplyOptions())
   }
 }

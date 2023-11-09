@@ -1,48 +1,38 @@
 import { DEFAULT_THREAD_CLOSE_DELAY } from '@echo/bot/constants/default-thread-close-delay'
+import { guardAsyncFn } from '@echo/bot/errors/guard'
 import { listenToInteractions } from '@echo/bot/helpers/listen-to-interactions'
 import { listenToListings } from '@echo/bot/listing/listen-to-listings'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { flushOfferThreadCloseRequests } from '@echo/bot/offer/flush-offer-thread-close-requests'
 import { listenToOffers } from '@echo/bot/offer/listen-to-offers'
+import { initializeSentry } from '@echo/bot/services/initialize-sentry'
 import { getDiscordSecret } from '@echo/discord/admin/get-discord-secret'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
-import { BaseInteraction, Client, Events, GatewayIntentBits } from 'discord.js'
-import { isEmpty, isNil } from 'ramda'
+import { CronJob } from 'cron'
+import { Client, Events, GatewayIntentBits } from 'discord.js'
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) //create new client
-const flushOfferThreadCloseRequestsInterval = setInterval(
-  (client: Client) => {
-    void flushOfferThreadCloseRequests(client)
+
+CronJob.from({
+  cronTime: `* * */${DEFAULT_THREAD_CLOSE_DELAY} * * *`,
+  onTick: function () {
+    void guardAsyncFn(flushOfferThreadCloseRequests, void 0)(client)
   },
-  (DEFAULT_THREAD_CLOSE_DELAY / 2) * 60 * 60 * 1000,
-  client
-)
+  start: true,
+  timeZone: 'America/New_York'
+})
 
 client.once(Events.ClientReady, async (client) => {
+  initializeSentry()
   initializeFirebase()
   await initializeTranslations()
-  logger.info(`Ready! Logged in as ${client.user.tag}`)
   listenToListings(client)
-  logger.info(`Listening to Firebase listings`)
   listenToOffers(client)
-  logger.info(`Listening to Firebase offers`)
-  flushOfferThreadCloseRequestsInterval.ref()
+  logger.debug(`Ready! Logged in as ${client.user.tag}`)
 })
 
-client.on(Events.InteractionCreate, async (interaction: BaseInteraction) => {
-  try {
-    await listenToInteractions(interaction)
-  } catch (error) {
-    const { type, channelId, user } = interaction
-    logger.error(
-      `Error responding to interaction ${type}${
-        isNil(channelId) || isEmpty(channelId) ? '' : ` in channel ${channelId}`
-      } for user ${user.id}: ${errorMessage(error)}`
-    )
-  }
-})
+client.on(Events.InteractionCreate, listenToInteractions)
 
 //make sure this line is the last line
 void client.login(getDiscordSecret().clientToken) //login bot using token

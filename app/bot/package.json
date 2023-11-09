@@ -4,20 +4,22 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "clean": "rm -rf dist",
     "dev": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"ts-node --project tsconfig.json src/index.ts\"",
     "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",
-    "lint:ci": "eslint --ext .ts src/ && eslint --ext .ts test/",
+    "lint:ci": "eslint --quiet --ext .ts src/ && eslint --ext .ts test/",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier -u -c src/ && prettier -u -c test/",
-    "start": "ts-node --project tsconfig.json src/index.ts",
+    "start": "export NODE_ENV=production; ts-node --project tsconfig.json src/index.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
-    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org echo-nft --project bot ./dist && sentry-cli sourcemaps upload --org echo-nft --project bot ./dist"
   },
   "dependencies": {
     "@echo/discord": "workspace:*",
@@ -25,9 +27,13 @@
     "@echo/model": "workspace:*",
     "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
+    "@sentry/cli": "2.21.2",
+    "@sentry/node": "7.77.0",
+    "@sentry/profiling-node": "1.2.6",
     "dayjs": "1.11.10",
     "discord.js": "14.13.0",
     "i18next": "23.6.0",
+    "cron": "3.1.6",
     "ramda": "0.29.1"
   },
   "devDependencies": {

@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint --cache --fix --ext .ts src/ && eslint --cache --fix --ext .ts test/",
-    "lint:ci": "eslint --ext .ts src/ && eslint --ext .ts test/",
+    "lint:ci": "eslint --quiet --ext .ts src/ && eslint --ext .ts test/",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
@@ -22,7 +22,7 @@
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "ramda": "0.29.1",
-    "viem": "1.18.2",
+    "viem": "1.18.9",
     "wagmi": "1.4.5"
   },
   "devDependencies": {

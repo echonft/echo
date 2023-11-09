@@ -1,9 +1,9 @@
-import { guarded_findCollectionById } from '@echo/bot/firestore/guarded_find-collection-by-id'
-import { guarded_findUserByUsername } from '@echo/bot/firestore/guarded_find-user-by-username'
 import { getChannel } from '@echo/bot/helpers/get-channel'
 import { sendToChannel } from '@echo/bot/helpers/send-to-channel'
 import { buildListingEmbed } from '@echo/bot/listing/build-listing-embed'
 import { buildListingLinkButton } from '@echo/bot/listing/build-listing-link-button'
+import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
+import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import type { CollectionDiscordGuild } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
 import type { Listing } from '@echo/model/types/listing'
 import { Client } from 'discord.js'
@@ -18,18 +18,15 @@ export async function postListing(client: Client, listing: Listing, guild: Colle
     collectionId,
     guild: { channelId }
   } = guild
-  const creator = await guarded_findUserByUsername(username)
+  const creator = await findUserByUsername(username)
   if (isNil(creator)) {
-    return
+    throw Error(`listing creator with username ${username} not found`)
   }
-  const collection = await guarded_findCollectionById(collectionId)
+  const collection = await findCollectionById(collectionId)
   if (isNil(collection)) {
-    return
+    throw Error(`collection with id ${collectionId} not found`)
   }
   const channel = await getChannel(client, channelId)
-  if (isNil(channel)) {
-    return
-  }
   await sendToChannel(channel, {
     components: [buildListingLinkButton(collection.slug, listingId)],
     embeds: [buildListingEmbed(listing, creator, collection)]
