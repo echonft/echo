@@ -1,5 +1,4 @@
 'use client'
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
@@ -10,7 +9,6 @@ import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
 import { OfferDetailsSwapModalButton } from '@echo/ui/components/offer/details/action/offer-details-swap-modal-button'
 import { OfferDetailsApprovalModalBody } from '@echo/ui/components/offer/details/offer-details-approval-modal-body'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { HexString } from '@echo/utils/types/hex-string'
 import { captureException } from '@sentry/nextjs'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -23,11 +21,6 @@ interface Props {
   open: boolean
   token: string
   getOfferSignatureFetcher: (offerId: string, token: string | undefined) => Promise<OfferSignatureResponse>
-  completeOfferFetcher: (
-    offerId: string,
-    transactionId: HexString | undefined,
-    token: string | undefined
-  ) => Promise<OfferResponse>
   onClose?: EmptyFunction
   onSuccess?: (offer: Offer) => unknown
   onError?: EmptyFunction
@@ -38,7 +31,6 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
   open,
   token,
   getOfferSignatureFetcher,
-  completeOfferFetcher,
   onClose,
   onSuccess,
   onError
@@ -76,9 +68,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
         <ShowIf condition={approved}>
           <OfferDetailsSwapModalButton
             offer={offer}
-            token={token}
             signature={signatureResponse?.signature}
-            completeOfferFetcher={completeOfferFetcher}
             chainId={chain?.id}
             onLoading={() => {
               setIsCompleting(true)

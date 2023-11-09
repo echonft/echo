@@ -1,5 +1,4 @@
 'use client'
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
@@ -12,19 +11,12 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect } from 'react'
-import useSWRMutation from 'swr/mutation'
 import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 
 interface Props {
   offer: Offer
   chainId: number
   signature: HexString
-  token: string
-  completeOfferFetcher: (
-    offerId: string,
-    transactionId: HexString | undefined,
-    token: string | undefined
-  ) => Promise<OfferResponse>
   onLoading?: EmptyFunction
   onSuccess?: (offer: Offer) => unknown
   onError?: EmptyFunction
@@ -34,8 +26,6 @@ export const OfferDetailsSwapModalSwapButton: FunctionComponent<Props> = ({
   offer,
   chainId,
   signature,
-  token,
-  completeOfferFetcher,
   onLoading,
   onSuccess,
   onError
@@ -55,29 +45,15 @@ export const OfferDetailsSwapModalSwapButton: FunctionComponent<Props> = ({
   )
   const writeConfig = getExecuteSwapWriteConfig(chainId, signature, offer)
   const { config } = usePrepareContractWrite(writeConfig)
-  const { status, write, data, error } = useContractWrite(config)
-  const { trigger, isMutating } = useSWRMutation<
-    OfferResponse,
-    Error,
-    string,
-    { offerId: string; token: string; transactionId: HexString }
-  >(
-    `complete-offer-${offer.id}`,
-    (_key, { arg: { offerId, token, transactionId } }) => completeOfferFetcher(offerId, transactionId, token),
-    {
-      onSuccess: (response) => {
-        onSuccess?.(response.offer)
-      },
-      onError: onErrorCallback
-    }
-  )
-  const loading = status === 'loading' || isMutating
+  const { status, data, write, error } = useContractWrite(config)
+  const loading = status === 'loading'
 
+  // TODO Need to refresh offer (DEV-173)
   useEffect(() => {
     if (!isNil(data)) {
-      void trigger({ offerId: offer.id, transactionId: data.hash, token })
+      onSuccess?.(offer)
     }
-  }, [data, offer, token, trigger])
+  }, [data])
 
   useEffect(() => {
     if (!isNil(error)) {
