@@ -20,7 +20,7 @@ jobs:
           version: latest
           run_install: true
       - name: lint bot
-        run: pnpm exec turbo run lint:ci:ci --filter=@echo/bot
+        run: pnpm exec turbo run lint:ci --filter=@echo/bot
       - name: lint frontend
         run: pnpm exec turbo run lint:ci --filter=@echo/frontend
       - name: lint helper
