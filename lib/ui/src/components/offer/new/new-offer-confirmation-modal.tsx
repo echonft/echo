@@ -11,7 +11,7 @@ import { type FunctionComponent } from 'react'
 interface Props {
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
-  show?: boolean
+  open: boolean
   confirming?: boolean
   onConfirm?: () => unknown
   onClose?: () => unknown
@@ -20,7 +20,7 @@ interface Props {
 export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
   receiverItems,
   senderItems,
-  show,
+  open,
   confirming,
   onConfirm,
   onClose
@@ -32,7 +32,7 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
   }
 
   return (
-    <Modal open={Boolean(show)} closeDisabled={confirming} onClose={() => onClose?.()} title={t('title')}>
+    <Modal open={open} closeDisabled={confirming} onClose={() => onClose?.()} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
         <NewOfferConfirmationModalItemsContainer isReceiver={true} items={receiverItems} />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
