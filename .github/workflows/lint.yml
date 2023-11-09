@@ -19,5 +19,27 @@ jobs:
         with:
           version: latest
           run_install: true
-      - name: lint
-        run: pnpm run lint:ci
+      - name: lint bot
+        run: pnpm exec turbo run lint:ci --filter=@echo/bot
+      - name: lint frontend
+        run: pnpm exec turbo run lint:ci --filter=@echo/frontend
+      - name: lint helper
+        run: pnpm exec turbo run lint:ci --filter=@echo/helper
+      - name: lint storybook
+        run: pnpm exec turbo run lint:ci --filter=@echo/storybook
+      - name: lint alchemy
+        run: pnpm exec turbo run lint:ci --filter=@echo/alchemy
+      - name: lint api
+        run: pnpm exec turbo run lint:ci --filter=@echo/api
+      - name: lint discord
+        run: pnpm exec turbo run lint:ci --filter=@echo/discord
+      - name: lint firestore
+        run: pnpm exec turbo run lint:ci --filter=@echo/firestore
+      - name: lint model
+        run: pnpm exec turbo run lint:ci --filter=@echo/model
+      - name: lint ui
+        run: pnpm exec turbo run lint:ci --filter=@echo/ui
+      - name: lint utils
+        run: pnpm exec turbo run lint:ci --filter=@echo/utils
+      - name: lint web3
+        run: pnpm exec turbo run lint:ci --filter=@echo/web3
