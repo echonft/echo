@@ -22,7 +22,7 @@ describe('CRUD - collection-discord-guild - addCollectionDiscordGuild', () => {
   })
   it('add a discord guild to an nft collection', async () => {
     const { id } = await addCollectionDiscordGuild('Rc8pLQXxgyQGIRL0fr13', 'new', 'new')
-    const newGuild = await findCollectionDiscordGuildById(id)
+    const newGuild = (await findCollectionDiscordGuildById(id))!
     await deleteCollectionDiscordGuild(id)
     expect(newGuild.id).toStrictEqual(id)
     expect(newGuild.collectionId).toStrictEqual('Rc8pLQXxgyQGIRL0fr13')
