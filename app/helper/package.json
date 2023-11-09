@@ -6,8 +6,8 @@
   "scripts": {
     "clean": "rm -rf dist",
     "dev": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"ts-node --project tsconfig.json src/index.ts\"",
-    "lint": "eslint --cache --fix --ext .ts src/",
-    "lint:ci": "eslint --quiet --ext .ts src/",
+    "lint": "eslint --cache --fix -c .eslintrc.cjs --ext .ts .",
+    "lint:ci": "eslint --quiet -c .eslintrc.cjs --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
