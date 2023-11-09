@@ -1,9 +1,6 @@
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { isProd } from '@echo/utils/constants/is-prod'
 
+// TODO Should change this to allow multi-chain
 export function getChainId(): number {
-  const chainId = process.env.NEXT_PUBLIC_CHAIN_ID
-  if (isNilOrEmpty(chainId)) {
-    throw Error('.env should contain NEXT_PUBLIC_CHAIN_ID')
-  }
-  return parseInt(chainId)
+  return isProd ? 1 : 11155111
 }
