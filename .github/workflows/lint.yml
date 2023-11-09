@@ -20,4 +20,4 @@ jobs:
           version: latest
           run_install: true
       - name: lint
-        run: pnpm run lint:ci
+        run: pnpm exec turbo run lint --filter=@echo/bot
