@@ -1,10 +1,10 @@
 import { type Session } from '@echo/firestore/types/model/session/session'
 import { getAllSessionMocks } from '@echo/firestore-mocks/session/get-all-session-mocks'
 import { getSessionMockByUserId } from '@echo/firestore-mocks/session/get-session-mock-by-user-id'
+import { getAllSessions } from '@echo/firestore-test/session/get-all-sessions'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { getAllSessions } from '@test-utils/session/get-all-sessions'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { forEach } from 'ramda'
 
 describe('CRUD - session - getAllSessions', () => {

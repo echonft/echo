@@ -1,9 +1,9 @@
 import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-offer-signature'
+import { deleteOfferSignature } from '@echo/firestore-test/offer-signature/delete-offer-signature'
+import { unchecked_addOfferSignature } from '@echo/firestore-test/offer-signature/unchecked_add-offer-signature'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { deleteOfferSignature } from '@test-utils/offer-signature/delete-offer-signature'
-import { unchecked_addOfferSignature } from '@test-utils/offer-signature/unchecked_add-offer-signature'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-signature - findOfferSignature', () => {

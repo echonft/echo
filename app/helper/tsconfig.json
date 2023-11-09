@@ -17,7 +17,7 @@
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/model-mocks/*": ["../../lib/model/test/mocks/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
-      "@echo/firestore-mocks/*": ["../../lib/firestore/test/mocks/*"],
+      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"]
     }
   },

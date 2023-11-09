@@ -1,11 +1,11 @@
 import { getListingOffersForOffer } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { type Offer } from '@echo/model/types/offer'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { head } from 'ramda'
 
 describe('CRUD - listing-offer - getListingOffersForOffer', () => {

@@ -1,8 +1,8 @@
 import { getCollectionDiscordGuildsByCollectionId } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guilds-by-collection-id'
 import { getCollectionDiscordGuildMocksByCollectionId } from '@echo/firestore-mocks/collection-discord-guild/get-collection-discord-guild-mocks-by-collection-id'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 
 describe('CRUD - collection-discord-guild - getCollectionDiscordGuildsByCollectionId', () => {
   beforeAll(async () => {

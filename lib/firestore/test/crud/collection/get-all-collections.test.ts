@@ -1,10 +1,10 @@
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { type Collection } from '@echo/model/types/collection'
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import { forEach, pick } from 'ramda'
 
 describe('CRUD - collection - getAllCollections', () => {

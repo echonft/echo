@@ -28,6 +28,9 @@ export async function completeOfferRequestHandler(req: ApiRequest<CompleteOfferR
   const user = await getUserFromRequest(req)
   guarded_assertAuthUser(user)
   guarded_assertOfferSenderIs(offer, user.username)
-  const updatedOffer = await guardAsyncFn(completeOffer, ErrorStatus.SERVER_ERROR)(offerId, transactionId)
+  const updatedOffer = await guardAsyncFn(
+    completeOffer,
+    ErrorStatus.SERVER_ERROR
+  )({ offerId, transactionId, updateArgs: { trigger: { by: user.username } } })
   return NextResponse.json<OfferResponse>({ offer: updatedOffer })
 }

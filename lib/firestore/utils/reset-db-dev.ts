@@ -1,7 +1,7 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import { clearDb } from '@test-utils/clear-db'
-import { initializeDb } from '@test-utils/initialize-db'
+import { clearDb } from '@echo/firestore-test/clear-db'
+import { initializeDb } from '@echo/firestore-test/initialize-db'
 import promptSync from 'prompt-sync'
 
 void (async function () {

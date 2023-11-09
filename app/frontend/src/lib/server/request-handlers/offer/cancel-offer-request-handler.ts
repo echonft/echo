@@ -18,6 +18,9 @@ export async function cancelOfferRequestHandler(req: ApiRequest<never>, offerId:
   const user = await getUserFromRequest(req)
   guarded_assertAuthUser(user)
   guarded_assertOfferSenderIs(offer, user.username)
-  const updatedOffer = await guardAsyncFn(cancelOffer, ErrorStatus.SERVER_ERROR)(offerId)
+  const updatedOffer = await guardAsyncFn(
+    cancelOffer,
+    ErrorStatus.SERVER_ERROR
+  )({ offerId, updateArgs: { trigger: { by: user.username } } })
   return NextResponse.json<OfferResponse>({ offer: updatedOffer })
 }

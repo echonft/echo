@@ -1,6 +1,6 @@
 import { userListingsApiUrl } from '@echo/api/routing/user-listings-api-url'
 import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
-import { ListingFilterAsItem } from '@echo/firestore/constants/listing-filter-as'
+import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { mapListingFiltersToQueryParams } from '@echo/frontend/lib/helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
@@ -22,7 +22,7 @@ const UserListingsPage: FunctionComponent<Props> = async ({ params: { username }
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
-  const filtersQueryParam = mapListingFiltersToQueryParams({ as: ListingFilterAsItem, includeExpired: true })
+  const filtersQueryParam = mapListingFiltersToQueryParams({ as: LISTING_FILTER_AS_ITEM, includeExpired: true })
   const result = await fetcher(userListingsApiUrl(username))
     .query(mergeLeft(constraintsQueryParams, filtersQueryParam))
     .fetch<ListingsResponse>()

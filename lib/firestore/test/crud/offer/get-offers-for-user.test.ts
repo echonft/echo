@@ -1,14 +1,14 @@
-import { OfferFilterAsReceiver, OfferFilterAsSender } from '@echo/firestore/constants/offer-filter-as'
+import { OFFER_FILTER_AS_RECEIVER, OFFER_FILTER_AS_SENDER } from '@echo/firestore/constants/offer/offer-filter-as'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
+import { unchecked_updateOffer } from '@echo/firestore-test/offer/unchecked_update-offer'
+import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
+import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { type Offer } from '@echo/model/types/offer'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { unchecked_updateOffer } from '@test-utils/offer/unchecked_update-offer'
-import { tearDownRemoteFirestoreTests } from '@test-utils/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@test-utils/tear-up-remote-firestore-tests'
 import dayjs from 'dayjs'
 import { assoc, either, filter, find, forEach, pathEq, pipe, propEq } from 'ramda'
 
@@ -60,7 +60,7 @@ describe('CRUD - offer - getOffersForUser', () => {
     const id = 'LyCfl6Eg7JKuD7XJ6IPi'
     let initialExpiresAt: number
     const username = 'johnnycagewins'
-    const filters: OfferQueryFilters = { as: OfferFilterAsReceiver }
+    const filters: OfferQueryFilters = { as: OFFER_FILTER_AS_RECEIVER }
 
     beforeEach(async () => {
       const offer = (await findOfferById(id))!
@@ -116,7 +116,7 @@ describe('CRUD - offer - getOffersForUser', () => {
     const id = 'LyCfl6Eg7JKuD7XJ6IPi'
     let initialExpiresAt: number
     const username = 'crewnft_'
-    const filters: OfferQueryFilters = { as: OfferFilterAsSender }
+    const filters: OfferQueryFilters = { as: OFFER_FILTER_AS_SENDER }
 
     beforeEach(async () => {
       const offer = (await findOfferById(id))!
