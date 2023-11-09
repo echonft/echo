@@ -1,7 +1,7 @@
 import type { Nft } from '@echo/model/types/nft'
+import { erc721ABI } from '@echo/web3/constants/erc721-abi'
 import { getViemClient } from '@echo/web3/helpers/get-viem-client'
 import { getAddress } from 'viem'
-import { erc721ABI } from 'wagmi'
 
 export async function isOwnerOfErc721(nft: Nft) {
   const {
