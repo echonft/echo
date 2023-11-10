@@ -1,8 +1,7 @@
 {
-  "extends": "../../lib/tsconfig/tsconfig.react.json",
+  "extends": "../../lib/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "resolveJsonModule": true,
     "paths": {
       "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/api/*": ["../../lib/api/src/*"],

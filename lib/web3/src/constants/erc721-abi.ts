@@ -1,322 +1,322 @@
 export const erc721ABI = [
   {
-    type: 'event',
-    name: 'Approval',
+    type: 'event' as const,
+    name: 'Approval' as const,
     inputs: [
       {
         indexed: true,
-        name: 'owner',
-        type: 'address'
+        name: 'owner' as const,
+        type: 'address' as const
       },
       {
         indexed: true,
-        name: 'spender',
-        type: 'address'
+        name: 'spender' as const,
+        type: 'address' as const
       },
       {
         indexed: true,
-        name: 'tokenId',
-        type: 'uint256'
+        name: 'tokenId' as const,
+        type: 'uint256' as const
       }
     ]
   },
   {
-    type: 'event',
-    name: 'ApprovalForAll',
+    type: 'event' as const,
+    name: 'ApprovalForAll' as const,
     inputs: [
       {
         indexed: true,
-        name: 'owner',
-        type: 'address'
+        name: 'owner' as const,
+        type: 'address' as const
       },
       {
         indexed: true,
-        name: 'operator',
-        type: 'address'
+        name: 'operator' as const,
+        type: 'address' as const
       },
       {
         indexed: false,
-        name: 'approved',
-        type: 'bool'
+        name: 'approved' as const,
+        type: 'bool' as const
       }
     ]
   },
   {
-    type: 'event',
-    name: 'Transfer',
+    type: 'event' as const,
+    name: 'Transfer' as const,
     inputs: [
       {
         indexed: true,
-        name: 'from',
-        type: 'address'
+        name: 'from' as const,
+        type: 'address' as const
       },
       {
         indexed: true,
-        name: 'to',
-        type: 'address'
+        name: 'to' as const,
+        type: 'address' as const
       },
       {
         indexed: true,
-        name: 'tokenId',
-        type: 'uint256'
+        name: 'tokenId' as const,
+        type: 'uint256' as const
       }
     ]
   },
   {
-    type: 'function',
-    name: 'approve',
-    stateMutability: 'payable',
+    type: 'function' as const,
+    name: 'approve' as const,
+    stateMutability: 'payable' as const,
     inputs: [
       {
-        name: 'spender',
-        type: 'address'
+        name: 'spender' as const,
+        type: 'address' as const
       },
       {
-        name: 'tokenId',
-        type: 'uint256'
+        name: 'tokenId' as const,
+        type: 'uint256' as const
       }
     ],
     outputs: []
   },
   {
-    type: 'function',
-    name: 'balanceOf',
-    stateMutability: 'view',
+    type: 'function' as const,
+    name: 'balanceOf' as const,
+    stateMutability: 'view' as const,
     inputs: [
       {
-        name: 'account',
-        type: 'address'
+        name: 'account' as const,
+        type: 'address' as const
       }
     ],
     outputs: [
       {
-        name: '',
-        type: 'uint256'
+        name: '' as const,
+        type: 'uint256' as const
       }
     ]
   },
   {
-    type: 'function',
-    name: 'getApproved',
-    stateMutability: 'view',
+    type: 'function' as const,
+    name: 'getApproved' as const,
+    stateMutability: 'view' as const,
     inputs: [
       {
-        name: 'tokenId',
-        type: 'uint256'
+        name: 'tokenId' as const,
+        type: 'uint256' as const
       }
     ],
     outputs: [
       {
-        name: '',
-        type: 'address'
+        name: '' as const,
+        type: 'address' as const
       }
     ]
   },
   {
-    type: 'function',
-    name: 'isApprovedForAll',
-    stateMutability: 'view',
+    type: 'function' as const,
+    name: 'isApprovedForAll' as const,
+    stateMutability: 'view' as const,
     inputs: [
       {
-        name: 'owner',
-        type: 'address'
+        name: 'owner' as const,
+        type: 'address' as const
       },
       {
-        name: 'operator',
-        type: 'address'
+        name: 'operator' as const,
+        type: 'address' as const
       }
     ],
     outputs: [
       {
-        name: '',
-        type: 'bool'
+        name: '' as const,
+        type: 'bool' as const
       }
     ]
   },
   {
-    type: 'function',
-    name: 'name',
-    stateMutability: 'view',
+    type: 'function' as const,
+    name: 'name' as const,
+    stateMutability: 'view' as const,
     inputs: [],
     outputs: [
       {
-        name: '',
-        type: 'string'
+        name: '' as const,
+        type: 'string' as const
       }
     ]
   },
   {
-    type: 'function',
-    name: 'ownerOf',
-    stateMutability: 'view',
+    type: 'function' as const,
+    name: 'ownerOf' as const,
+    stateMutability: 'view' as const,
     inputs: [
       {
-        name: 'tokenId',
-        type: 'uint256'
+        name: 'tokenId' as const,
+        type: 'uint256' as const
       }
     ],
     outputs: [
       {
-        name: 'owner',
-        type: 'address'
+        name: 'owner' as const,
+        type: 'address' as const
       }
     ]
   },
   {
-    type: 'function',
-    name: 'safeTransferFrom',
-    stateMutability: 'payable',
+    type: 'function' as const,
+    name: 'safeTransferFrom' as const,
+    stateMutability: 'payable' as const,
     inputs: [
       {
-        name: 'from',
-        type: 'address'
+        name: 'from' as const,
+        type: 'address' as const
       },
       {
-        name: 'to',
-        type: 'address'
+        name: 'to' as const,
+        type: 'address' as const
       },
       {
-        name: 'tokenId',
-        type: 'uint256'
+        name: 'tokenId' as const,
+        type: 'uint256' as const
       }
     ],
     outputs: []
   },
   {
-    type: 'function',
-    name: 'safeTransferFrom',
-    stateMutability: 'nonpayable',
+    type: 'function' as const,
+    name: 'safeTransferFrom' as const,
+    stateMutability: 'nonpayable' as const,
     inputs: [
       {
-        name: 'from',
-        type: 'address'
+        name: 'from' as const,
+        type: 'address' as const
       },
       {
-        name: 'to',
-        type: 'address'
+        name: 'to' as const,
+        type: 'address' as const
       },
       {
-        name: 'id',
-        type: 'uint256'
+        name: 'id' as const,
+        type: 'uint256' as const
       },
       {
-        name: 'data',
-        type: 'bytes'
+        name: 'data' as const,
+        type: 'bytes' as const
       }
     ],
     outputs: []
   },
   {
-    type: 'function',
-    name: 'setApprovalForAll',
-    stateMutability: 'nonpayable',
+    type: 'function' as const,
+    name: 'setApprovalForAll' as const,
+    stateMutability: 'nonpayable' as const,
     inputs: [
       {
-        name: 'operator',
-        type: 'address'
+        name: 'operator' as const,
+        type: 'address' as const
       },
       {
-        name: 'approved',
-        type: 'bool'
+        name: 'approved' as const,
+        type: 'bool' as const
       }
     ],
     outputs: []
   },
   {
-    type: 'function',
-    name: 'symbol',
-    stateMutability: 'view',
+    type: 'function' as const,
+    name: 'symbol' as const,
+    stateMutability: 'view' as const,
     inputs: [],
     outputs: [
       {
-        name: '',
-        type: 'string'
+        name: '' as const,
+        type: 'string' as const
       }
     ]
   },
   {
-    type: 'function',
-    name: 'tokenByIndex',
-    stateMutability: 'view',
+    type: 'function' as const,
+    name: 'tokenByIndex' as const,
+    stateMutability: 'view' as const,
     inputs: [
       {
-        name: 'index',
-        type: 'uint256'
+        name: 'index' as const,
+        type: 'uint256' as const
       }
     ],
     outputs: [
       {
-        name: '',
-        type: 'uint256'
+        name: '' as const,
+        type: 'uint256' as const
       }
     ]
   },
   {
-    type: 'function',
-    name: 'tokenByIndex',
-    stateMutability: 'view',
+    type: 'function' as const,
+    name: 'tokenByIndex' as const,
+    stateMutability: 'view' as const,
     inputs: [
       {
-        name: 'owner',
-        type: 'address'
+        name: 'owner' as const,
+        type: 'address' as const
       },
       {
-        name: 'index',
-        type: 'uint256'
+        name: 'index' as const,
+        type: 'uint256' as const
       }
     ],
     outputs: [
       {
-        name: 'tokenId',
-        type: 'uint256'
+        name: 'tokenId' as const,
+        type: 'uint256' as const
       }
     ]
   },
   {
-    type: 'function',
-    name: 'tokenURI',
-    stateMutability: 'view',
+    type: 'function' as const,
+    name: 'tokenURI' as const,
+    stateMutability: 'view' as const,
     inputs: [
       {
-        name: 'tokenId',
-        type: 'uint256'
+        name: 'tokenId' as const,
+        type: 'uint256' as const
       }
     ],
     outputs: [
       {
-        name: '',
-        type: 'string'
+        name: '' as const,
+        type: 'string' as const
       }
     ]
   },
   {
-    type: 'function',
-    name: 'totalSupply',
-    stateMutability: 'view',
+    type: 'function' as const,
+    name: 'totalSupply' as const,
+    stateMutability: 'view' as const,
     inputs: [],
     outputs: [
       {
-        name: '',
-        type: 'uint256'
+        name: '' as const,
+        type: 'uint256' as const
       }
     ]
   },
   {
-    type: 'function',
-    name: 'transferFrom',
-    stateMutability: 'payable',
+    type: 'function' as const,
+    name: 'transferFrom' as const,
+    stateMutability: 'payable' as const,
     inputs: [
       {
-        name: 'sender',
-        type: 'address'
+        name: 'sender' as const,
+        type: 'address' as const
       },
       {
-        name: 'recipient',
-        type: 'address'
+        name: 'recipient' as const,
+        type: 'address' as const
       },
       {
-        name: 'tokeId',
-        type: 'uint256'
+        name: 'tokeId' as const,
+        type: 'uint256' as const
       }
     ],
     outputs: []

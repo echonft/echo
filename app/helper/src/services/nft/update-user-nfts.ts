@@ -5,12 +5,14 @@ import { addNft } from '@echo/firestore/crud/nft/add-nft'
 import { findNftByCollectionContract } from '@echo/firestore/crud/nft/find-nft-by-collection-contract'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import type { User } from '@echo/model/types/user'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import type { HexString } from '@echo/utils/types/hex-string'
 import { filter, find, isNil, map, path, pathEq } from 'ramda'
 
 export async function updateUserNfts(user: User) {
   const collections = await getAllCollections()
   const collectionsForChain = filter(pathEq(user.wallet.chainId, ['contract', 'chainId']), collections)
-  const collectionsAddresses = map(path<string>(['contract', 'address']), collectionsForChain) as string[]
+  const collectionsAddresses = map(nonNullableReturn(path<HexString>(['contract', 'address'])), collectionsForChain)
   const nfts = await getNftsForOwner(user.wallet.address, collectionsAddresses, user.wallet.chainId)
   for (const alchemyNft of nfts) {
     const { contractAddress, chainId, tokenId } = alchemyNft

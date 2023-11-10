@@ -1,6 +1,4 @@
-import { type QueryType } from '@echo/utils/types/query-type'
-
-export interface QueryConstraintsQueryParams extends QueryType {
+export interface QueryConstraintsQueryParams {
   select?: string | string[]
   orderBy?: string[]
   limit?: number

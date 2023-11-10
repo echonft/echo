@@ -8,6 +8,7 @@ import {
   applySpec,
   ifElse,
   invoker,
+  isNil,
   isNotNil,
   map,
   modify,
@@ -15,7 +16,8 @@ import {
   pathEq,
   pathSatisfies,
   pipe,
-  prop
+  prop,
+  unless
 } from 'ramda'
 
 export function mapAlchemyNftResponseToAlchemyNft(chainId: number) {
@@ -59,8 +61,8 @@ export function mapAlchemyNftResponseToAlchemyNft(chainId: number) {
                 always([]),
                 map(
                   applySpec<AlchemyNftAttribute>({
-                    value: pipe(prop('value'), invoker(0, 'toString')),
-                    trait: pipe(prop('trait_type'), invoker(0, 'toString'))
+                    value: pipe(prop('value'), unless(isNil, invoker(0, 'toString'))),
+                    trait: pipe(prop('trait_type'), unless(isNil, invoker(0, 'toString')))
                   })
                 )
               )

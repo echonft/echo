@@ -1,9 +1,9 @@
-import { userSwapsApiUrl } from '@echo/api/routing/user-swaps-api-url'
+import { apiUrl } from '@echo/api/routing/api-url'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
-import { assertFetchResult } from '@echo/frontend/lib/services/fetcher/assert-fetch-result'
-import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
+import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
+import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { UserSwapsApiProvided } from '@echo/ui/components/user/api-provided/user-swaps-api-provided'
 import { getServerSession } from 'next-auth/next'
 import { type FunctionComponent } from 'react'
@@ -16,12 +16,14 @@ interface Props {
 
 const UserSwapsPage: FunctionComponent<Props> = async ({ params: { username } }) => {
   const session = await getServerSession(authOptions)
-  const constraintsQueryParams = mapQueryConstraintsToQueryParams({
+  const params = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
-  const result = await fetcher(userSwapsApiUrl(username)).query(constraintsQueryParams).fetch<OffersResponse>()
-  assertFetchResult(result)
-  return <UserSwapsApiProvided username={username} offers={result.data.offers} user={session?.user} />
+  const response = await nextFetch.get<OffersResponse>(apiUrl.user.swaps(username), {
+    params
+  })
+  assertNextFetchResponse(response)
+  return <UserSwapsApiProvided username={username} offers={response.data.offers} user={session?.user} />
 }
 
 export default UserSwapsPage

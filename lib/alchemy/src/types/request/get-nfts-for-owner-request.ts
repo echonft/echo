@@ -1,7 +1,7 @@
 import { type AlchemyRequestWithPaging } from '@echo/alchemy/types/request/alchemy-request-with-paging'
-import { type QueryType } from '@echo/utils/types/query-type'
+import type { HexString } from '@echo/utils/types/hex-string'
 
-export interface GetNftsForOwnerRequest extends AlchemyRequestWithPaging, QueryType {
-  owner: string
-  contractAddresses: string[] // max 45
+export interface GetNftsForOwnerRequest extends AlchemyRequestWithPaging {
+  owner: HexString
+  contractAddresses: HexString[] // max 45
 }

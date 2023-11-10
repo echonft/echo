@@ -1,11 +1,11 @@
-import { userListingsApiUrl } from '@echo/api/routing/user-listings-api-url'
+import { apiUrl } from '@echo/api/routing/api-url'
 import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { mapListingFiltersToQueryParams } from '@echo/frontend/lib/helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
-import { assertFetchResult } from '@echo/frontend/lib/services/fetcher/assert-fetch-result'
-import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
+import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
+import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { UserListingsApiProvided } from '@echo/ui/components/user/api-provided/user-listings-api-provided'
 import { getServerSession } from 'next-auth/next'
 import { mergeLeft } from 'ramda'
@@ -23,11 +23,11 @@ const UserListingsPage: FunctionComponent<Props> = async ({ params: { username }
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
   const filtersQueryParam = mapListingFiltersToQueryParams({ as: LISTING_FILTER_AS_ITEM, includeExpired: true })
-  const result = await fetcher(userListingsApiUrl(username))
-    .query(mergeLeft(constraintsQueryParams, filtersQueryParam))
-    .fetch<ListingsResponse>()
-  assertFetchResult(result)
-  return <UserListingsApiProvided username={username} listings={result.data.listings} user={session?.user} />
+  const response = await nextFetch.get<ListingsResponse>(apiUrl.user.listings(username), {
+    params: mergeLeft(constraintsQueryParams, filtersQueryParam)
+  })
+  assertNextFetchResponse(response)
+  return <UserListingsApiProvided username={username} listings={response.data.listings} user={session?.user} />
 }
 
 export default UserListingsPage
