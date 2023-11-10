@@ -4,12 +4,10 @@ import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
-import useSWRMutation from 'swr/mutation'
 
 interface Props {
   offer: Offer
@@ -32,23 +30,18 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.rejectBtn')
   const tError = useTranslations('error.offer')
-  const { show } = useAlertStore()
-  const { trigger } = useSWRMutation<OfferResponse, Error, string, { offerId: string; token: string }>(
-    `reject-offer-${offer.id}`,
-    (_key, { arg: { offerId, token } }) => rejectOfferFetcher(offerId, token),
-    {
-      onSuccess: (response) => {
-        onSuccess?.(response.offer)
-      },
-      onError: (err) => {
-        captureException(err, {
-          contexts: offerContext(offer)
-        })
-        show({ severity: CalloutSeverity.ERROR, message: tError('reject') })
-        onError?.()
-      }
+  const { trigger } = useSWRTrigger<OfferResponse, { offerId: string; token: string }>({
+    key: `reject-offer-${offer.id}`,
+    fetcher: ({ offerId, token }) => rejectOfferFetcher(offerId, token),
+    onSuccess: (response) => {
+      onSuccess?.(response.offer)
+    },
+    onError: {
+      contexts: offerContext(offer),
+      alert: { severity: CalloutSeverity.ERROR, message: tError('reject') },
+      onError
     }
-  )
+  })
   return (
     <LongPressButton
       id={offer.id}

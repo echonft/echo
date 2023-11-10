@@ -13,16 +13,14 @@ import { NewListingConfirmationModal } from '@echo/ui/components/listing/new/new
 import { NewListingConfirmedModal } from '@echo/ui/components/listing/new/new-listing-confirmed-modal'
 import { NewListingSlider } from '@echo/ui/components/listing/new/new-listing-slider'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapListingItemsToRequests } from '@echo/ui/mappers/to-api/map-listing-items-to-requests'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { Transition } from '@headlessui/react'
-import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
 import { assoc, isNil, pathEq, pipe, reject } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
-import useSWRMutation from 'swr/mutation'
 
 interface Props {
   collectionProvider: {
@@ -45,7 +43,6 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
   open,
   onDismiss
 }) => {
-  const { show: showAlert } = useAlertStore()
   const [collections, setCollections] = useState<Collection[]>()
   const [target, setTarget] = useState<ListingTarget | undefined>(initialTarget)
   const [items, setItems] = useState<ListingItem[]>(initialItems ?? [])
@@ -53,36 +50,31 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
   const [listing, setListing] = useState<Listing>()
   const t = useTranslations('listing.new.bottomSlider')
   const tError = useTranslations('error.listing')
-  const { trigger, isMutating } = useSWRMutation<
+  const { trigger, isMutating } = useSWRTrigger<
     ListingResponse,
-    Error,
-    string,
     { items: ListingItem[]; target: ListingTarget | undefined; user: AuthUser | undefined }
-  >(
-    'create-listing',
-    (_key, { arg: { items, target, user } }) =>
+  >({
+    key: 'create-listing',
+    fetcher: ({ items, target, user }) =>
       createListingFetcher(
         { items: mapListingItemsToRequests(items), target: mapListingTargetToRequest(target) },
         user?.sessionToken
       ),
-    {
-      onSuccess: (data) => {
+    onSuccess: (response) => {
+      setConfirmModalShown(false)
+      setListing(response.listing)
+    },
+    onError: {
+      contexts: listingContext({
+        targets: isNil(target) ? [] : [target],
+        items
+      }),
+      alert: { severity: CalloutSeverity.ERROR, message: tError('new') },
+      onError: () => {
         setConfirmModalShown(false)
-        setListing(data.listing)
-      },
-      onError: (error) => {
-        setConfirmModalShown(false)
-        captureException(error, {
-          contexts: listingContext({
-            targets: isNil(target) ? [] : [target],
-            items
-          })
-        })
-        showAlert({ severity: CalloutSeverity.ERROR, message: tError('new') })
       }
     }
-  )
-
+  })
   useEffect(() => {
     void collectionProvider.get().then(setCollections)
   }, [collectionProvider])

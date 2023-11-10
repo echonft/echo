@@ -4,6 +4,7 @@ import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { getSignatureConfigForOffer } from '@echo/web3/helpers/get-signature-config-for-offer'
@@ -12,7 +13,6 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect } from 'react'
-import useSWRMutation from 'swr/mutation'
 import { useSignTypedData } from 'wagmi'
 
 interface Props {
@@ -54,21 +54,21 @@ export const OfferDetailsAcceptModalAcceptButton: FunctionComponent<Props> = ({
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { data, status, error, signTypedData } = useSignTypedData(getSignatureConfigForOffer(offer, chainId))
-  const { trigger, isMutating } = useSWRMutation<
+  const { trigger, isMutating } = useSWRTrigger<
     OfferResponse,
-    Error,
-    string,
     { offerId: string; token: string; signature: HexString }
-  >(
-    `accept-offer-${offer.id}`,
-    (_key, { arg: { offerId, token, signature } }) => acceptOfferFetcher(offerId, signature, token),
-    {
-      onSuccess: (response) => {
-        onSuccess?.(response.offer)
-      },
-      onError: onErrorCallback
+  >({
+    key: `accept-offer-${offer.id}`,
+    fetcher: ({ offerId, token, signature }) => acceptOfferFetcher(offerId, signature, token),
+    onSuccess: (response) => {
+      onSuccess?.(response.offer)
+    },
+    onError: {
+      contexts: offerContext(offer),
+      alert: { severity: CalloutSeverity.ERROR, message: tError('accept') },
+      onError
     }
-  )
+  })
   const loading = status === 'loading' || isMutating
 
   useEffect(() => {

@@ -17,13 +17,11 @@ import { AlignmentCenter } from '@echo/ui/constants/alignment'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 import { getListingDetailsContainerBackground } from '@echo/ui/helpers/listing/get-listing-details-container-background'
-import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
-import { captureException } from '@sentry/nextjs'
+import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map, prop } from 'ramda'
 import { type FunctionComponent, useMemo, useState } from 'react'
-import useSWRMutation from 'swr/mutation'
 
 interface Props {
   listing: Listing
@@ -46,24 +44,19 @@ function canCancel(listing: Listing, user: AuthUser | undefined) {
 export const ListingDetails: FunctionComponent<Props> = ({ listing, cancelListingFetcher, user }) => {
   const t = useTranslations('listing.details')
   const tError = useTranslations('error.listing')
-  const { show } = useAlertStore()
   const [updatedListing, setUpdatedListing] = useState(listing)
-  const { trigger, isMutating } = useSWRMutation<
-    ListingResponse,
-    Error,
-    string,
-    { listingId: string; token: string | undefined }
-  >(`cancel-listing-${listing.id}`, (_key, { arg: { listingId, token } }) => cancelListingFetcher(listingId, token), {
+  const { trigger, isMutating } = useSWRTrigger<ListingResponse, { listingId: string; token: string | undefined }>({
+    key: `cancel-listing-${listing.id}`,
+    fetcher: ({ listingId, token }) => cancelListingFetcher(listingId, token),
     onSuccess: (response) => {
       setUpdatedListing(response.listing)
     },
-    onError: (err: Error) => {
-      captureException(err, {
-        contexts: listingContext(listing)
-      })
-      show({ severity: CalloutSeverity.ERROR, message: tError('cancel') })
+    onError: {
+      contexts: listingContext(listing),
+      alert: { severity: CalloutSeverity.ERROR, message: tError('cancel') }
     }
   })
+
   const { state, creator, expired, expiresAt, items, targets } = updatedListing
   const nfts = useMemo(() => map(prop('nft'), items), [items])
 

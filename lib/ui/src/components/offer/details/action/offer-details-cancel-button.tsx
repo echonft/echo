@@ -4,12 +4,10 @@ import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
-import useSWRMutation from 'swr/mutation'
 
 interface Props {
   offer: Offer
@@ -32,23 +30,18 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.cancelBtn')
   const tError = useTranslations('error.offer')
-  const { show } = useAlertStore()
-  const { trigger } = useSWRMutation<OfferResponse, Error, string, { offerId: string; token: string }>(
-    `cancel-offer-${offer.id}`,
-    (_key, { arg: { offerId, token } }) => cancelOfferFetcher(offerId, token),
-    {
-      onSuccess: (response) => {
-        onSuccess?.(response.offer)
-      },
-      onError: (err) => {
-        captureException(err, {
-          contexts: offerContext(offer)
-        })
-        show({ severity: CalloutSeverity.ERROR, message: tError('cancel') })
-        onError?.()
-      }
+  const { trigger } = useSWRTrigger<OfferResponse, { offerId: string; token: string }>({
+    key: `cancel-offer-${offer.id}`,
+    fetcher: ({ offerId, token }) => cancelOfferFetcher(offerId, token),
+    onSuccess: (response) => {
+      onSuccess?.(response.offer)
+    },
+    onError: {
+      contexts: offerContext(offer),
+      alert: { severity: CalloutSeverity.ERROR, message: tError('cancel') },
+      onError
     }
-  )
+  })
 
   return (
     <LongPressButton

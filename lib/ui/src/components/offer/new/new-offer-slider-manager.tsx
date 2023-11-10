@@ -11,15 +11,13 @@ import { NewOfferBottomSliderInnerContainer } from '@echo/ui/components/offer/ne
 import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
 import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
+import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapOfferItemsToRequests } from '@echo/ui/mappers/to-api/map-offer-items-to-requests'
 import { Transition } from '@headlessui/react'
-import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
 import { isNil, pathEq, reject } from 'ramda'
 import { type FunctionComponent, useCallback, useState } from 'react'
-import useSWRMutation from 'swr/mutation'
 
 interface Props {
   createOfferFetcher: (parameters: CreateOfferRequest, token: string | undefined) => Promise<OfferResponse>
@@ -28,7 +26,6 @@ interface Props {
 export const NewOfferSliderManager: FunctionComponent<Props> = ({ createOfferFetcher, user }) => {
   const t = useTranslations('offer.new.bottomSlider')
   const tError = useTranslations('error.offer')
-  const { show } = useAlertStore()
   const { hasNewOfferPending, setReceiverItems, setSenderItems, receiver, receiverItems, senderItems, clearOffer } =
     useNewOfferStore()
   const [confirmOfferModalShown, setConfirmOfferModalShown] = useState(false)
@@ -45,36 +42,32 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ createOfferFet
     },
     [setReceiverItems]
   )
-  const { trigger, isMutating } = useSWRMutation<
+  const { trigger, isMutating } = useSWRTrigger<
     OfferResponse,
-    Error,
-    string,
     { receiverItems: OfferItem[]; senderItems: OfferItem[]; user: AuthUser | undefined }
-  >(
-    'create-offer',
-    (_key, { arg: { receiverItems, senderItems, user } }) =>
+  >({
+    key: 'create-offer',
+    fetcher: ({ receiverItems, senderItems, user }) =>
       createOfferFetcher(
         { senderItems: mapOfferItemsToRequests(senderItems), receiverItems: mapOfferItemsToRequests(receiverItems) },
         user?.sessionToken
       ),
-    {
-      onSuccess: (data) => {
+    onSuccess: (response) => {
+      setConfirmOfferModalShown(false)
+      clearOffer()
+      setOffer(response.offer)
+    },
+    onError: {
+      contexts: offerContext({
+        receiverItems,
+        senderItems
+      }),
+      alert: { severity: CalloutSeverity.ERROR, message: tError('new') },
+      onError: () => {
         setConfirmOfferModalShown(false)
-        clearOffer()
-        setOffer(data.offer)
-      },
-      onError: (error: Error) => {
-        setConfirmOfferModalShown(false)
-        captureException(error, {
-          contexts: offerContext({
-            receiverItems,
-            senderItems
-          })
-        })
-        show({ severity: CalloutSeverity.ERROR, message: tError('new') })
       }
     }
-  )
+  })
 
   return (
     <>

@@ -4,12 +4,12 @@ import type { Wallet } from '@echo/model/types/wallet'
 import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 import { SiweMessage } from 'siwe'
-import useSWRMutation from 'swr/mutation'
 import { useSignMessage } from 'wagmi'
 
 interface Props {
@@ -33,20 +33,13 @@ export const CreateSignature: FunctionComponent<Props> = ({ nonce, address, chai
     nonce
   })
   const { isLoading, signMessageAsync, variables } = useSignMessage()
-  const { trigger, isMutating } = useSWRMutation<
+  const { trigger, isMutating } = useSWRTrigger<
     EmptyResponse,
-    Error,
-    string,
     { wallet: Wallet; message: string; signature: HexString; token: string }
-  >(
-    `add-wallet-${address}-${chainId}`,
-    (_key, { arg: { wallet, message, signature, token } }) => addWalletFetcher({ wallet, message, signature }, token),
-    {
-      onError: (err: Error) => {
-        captureException(err)
-      }
-    }
-  )
+  >({
+    key: `add-wallet-${address}-${chainId}`,
+    fetcher: ({ wallet, message, signature, token }) => addWalletFetcher({ wallet, message, signature }, token)
+  })
   const loading = isLoading || isMutating
 
   return (

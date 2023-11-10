@@ -3,7 +3,7 @@ import { getNonceFetcher } from '@echo/api/services/fetcher/get-nonce-fetcher'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import { CreateSignature } from '@echo/ui/components/profile/wallet/create-signature'
 import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
-import { captureException } from '@sentry/nextjs'
+import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -22,9 +22,7 @@ export const ConnectWallet: FunctionComponent<Props> = ({ token }) => {
     { name: 'nonce', token },
     ({ token }) => getNonceFetcher(token),
     {
-      onError: (err) => {
-        captureException(err)
-      }
+      onError: errorCallback()
     }
   )
 
