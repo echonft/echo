@@ -1,3 +1,0 @@
-<component name="DependencyValidationManager">
-  <scope name="Project" pattern="file[echo]:*/&amp;&amp;!file[echo]:.idea//*&amp;&amp;!file[echo]:app/bot/dist//*&amp;&amp;!file[echo]:lib/alchemy/dist//*&amp;&amp;!file[echo]:lib/api/dist//*&amp;&amp;!file[echo]:lib/api-public/dist//*&amp;&amp;!file[echo]:lib/discord/dist//*&amp;&amp;!file[echo]:lib/firebase-admin/dist//*&amp;&amp;!file[echo]:lib/firebase-react/dist//*&amp;&amp;!file[echo]:lib/model/dist//*&amp;&amp;!file[echo]:lib/swr/dist//*&amp;&amp;!file[echo]:lib/ui/dist//*&amp;&amp;!file[echo]:lib/utils/dist//*&amp;&amp;!file[echo]:lib/firestore/dist//*" />
-</component>

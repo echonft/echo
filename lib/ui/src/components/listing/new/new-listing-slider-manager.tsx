@@ -16,6 +16,7 @@ import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { mapListingItemsToRequests } from '@echo/ui/mappers/to-api/map-listing-items-to-requests'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
+import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { Transition } from '@headlessui/react'
 import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
@@ -31,8 +32,8 @@ interface Props {
   user: AuthUser | undefined
   initialTarget?: ListingTarget
   initialItems?: ListingItem[]
-  show?: boolean
-  onDismiss?: () => unknown
+  open: boolean
+  onDismiss?: EmptyFunction
 }
 
 export const NewListingSliderManager: FunctionComponent<Props> = ({
@@ -41,7 +42,7 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
   user,
   initialTarget,
   initialItems,
-  show,
+  open,
   onDismiss
 }) => {
   const { show: showAlert } = useAlertStore()
@@ -119,7 +120,7 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
   return (
     <>
       <Transition
-        show={show}
+        show={open}
         enter="ease-out duration-300"
         enterFrom="opacity-0"
         enterTo="opacity-100"
@@ -144,7 +145,7 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
       <NewListingConfirmationModal
         target={target}
         items={items}
-        show={confirmModalShown}
+        open={confirmModalShown}
         confirming={isMutating}
         onClose={() => setConfirmModalShown(false)}
         onConfirm={() => {
@@ -153,7 +154,7 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
       />
       <NewListingConfirmedModal
         listing={listing}
-        show={!isNil(listing)}
+        open={!isNil(listing)}
         onClose={() => {
           clearListing()
           onDismiss?.()
