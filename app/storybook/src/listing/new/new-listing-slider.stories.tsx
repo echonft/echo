@@ -20,7 +20,7 @@ const metadata: Meta<typeof Component> = {
       exclude: [
         'createListingFetcher',
         'collectionProvider',
-        'show',
+        'open',
         'onDismiss',
         'initialTargets',
         'initialItems',
@@ -50,7 +50,7 @@ export const Empty: Story = {
   args: {
     createListingFetcher,
     collectionProvider,
-    show: true,
+    open: true,
     user: undefined
   }
 }
@@ -59,7 +59,7 @@ export const WithTarget: Story = {
   args: {
     createListingFetcher,
     collectionProvider,
-    show: true,
+    open: true,
     initialTarget: target,
     user: undefined
   }
@@ -69,7 +69,7 @@ export const WithItems: Story = {
   args: {
     createListingFetcher,
     collectionProvider,
-    show: true,
+    open: true,
     initialItems: items,
     user: undefined
   }
@@ -79,7 +79,7 @@ export const WithTargetAndItems: Story = {
   args: {
     createListingFetcher,
     collectionProvider,
-    show: true,
+    open: true,
     initialTarget: target,
     initialItems: items,
     user: undefined

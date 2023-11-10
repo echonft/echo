@@ -4,6 +4,7 @@ import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { links } from '@echo/ui/constants/links'
+import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -11,15 +12,15 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: Offer | undefined
-  show?: boolean
-  onClose?: () => unknown
+  open: boolean
+  onClose?: EmptyFunction
 }
 
-export const NewOfferConfirmedModal: FunctionComponent<Props> = ({ offer, show, onClose }) => {
+export const NewOfferConfirmedModal: FunctionComponent<Props> = ({ offer, open, onClose }) => {
   const t = useTranslations('offer.new.confirmedModal')
 
   return (
-    <Modal open={Boolean(show)} onClose={onClose} title={t('title')}>
+    <Modal open={open} onClose={onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
         <span className={clsx('text-white/50', 'text-center', 'prose-header-xs')}>{t('subtitle')}</span>
         <div className={clsx('flex', 'items-center', 'justify-center')}>

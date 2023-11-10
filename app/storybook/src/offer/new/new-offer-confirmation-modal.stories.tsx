@@ -17,7 +17,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['receiverItems', 'senderItems', 'show', 'confirming', 'onClose', 'onConfirm']
+      exclude: ['receiverItems', 'senderItems', 'open', 'confirming', 'onClose', 'onConfirm']
     }
   }
 }
@@ -32,7 +32,7 @@ export const Default: Story = {
   args: {
     senderItems,
     receiverItems,
-    show: true
+    open: true
   }
 }
 
@@ -40,7 +40,7 @@ export const MultipleAssets: Story = {
   args: {
     senderItems: senderItems.concat(receiverItems),
     receiverItems: receiverItems.concat(senderItems),
-    show: true
+    open: true
   }
 }
 
@@ -48,7 +48,7 @@ export const Confirming: Story = {
   args: {
     senderItems,
     receiverItems,
-    show: true,
+    open: true,
     confirming: true
   }
 }

@@ -7,8 +7,8 @@
     "build": "next build",
     "clean": "rm -rf .next",
     "dev": "next dev",
-    "lint": "eslint --cache --fix --ext .ts,.tsx src/ && eslint --cache --fix --ext .ts test/",
-    "lint:ci": "eslint --quiet --ext .ts,.tsx src/ && eslint --ext .ts,.tsx test/",
+    "lint": "eslint --cache --fix -c .eslintrc.js --ext .ts,.tsx .",
+    "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts,.tsx .",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
@@ -16,8 +16,10 @@
     "prettier": "prettier -u -c src/ && prettier -u -c test/",
     "start": "next start",
     "test": "jest",
+    "test:ci": "jest --ci --no-cache",
     "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
+    "tsc:ci": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {

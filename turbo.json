@@ -42,11 +42,17 @@
     "test": {
       "inputs": ["jest.config.*", "**/*.ts"]
     },
+    "test:ci": {
+      "cache": false
+    },
     "test:watch": {
       "cache": false
     },
     "tsc": {
       "inputs": ["**/*.tsx", "**/*.ts", "tsconfig.json"]
+    },
+    "tsc:ci": {
+      "cache": false
     },
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]

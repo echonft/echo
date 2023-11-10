@@ -20,7 +20,7 @@ jobs:
           version: latest
           run_install: true
       - name: Run tests
-        run: pnpm run test
+        run: pnpm run test:ci
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
         with:
