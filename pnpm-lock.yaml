@@ -162,9 +162,6 @@ importers:
       '@auth/firebase-adapter':
         specifier: 1.0.3
         version: 1.0.3(firebase-admin@11.11.0)
-      '@echo/alchemy':
-        specifier: workspace:*
-        version: link:../../lib/alchemy
       '@echo/api':
         specifier: workspace:*
         version: link:../../lib/api
@@ -262,9 +259,6 @@ importers:
       '@echo/alchemy':
         specifier: workspace:*
         version: link:../../lib/alchemy
-      '@echo/api':
-        specifier: workspace:*
-        version: link:../../lib/api
       '@echo/firestore':
         specifier: workspace:*
         version: link:../../lib/firestore

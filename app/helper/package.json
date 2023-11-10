@@ -23,7 +23,6 @@
   },
   "dependencies": {
     "@echo/alchemy": "workspace:*",
-    "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
