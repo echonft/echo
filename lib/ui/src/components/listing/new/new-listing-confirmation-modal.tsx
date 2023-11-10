@@ -13,7 +13,7 @@ import { type FunctionComponent } from 'react'
 interface Props {
   target: ListingTarget | undefined
   items: ListingItem[]
-  show?: boolean
+  open: boolean
   confirming?: boolean
   onConfirm?: () => unknown
   onClose?: () => unknown
@@ -22,7 +22,7 @@ interface Props {
 export const NewListingConfirmationModal: FunctionComponent<Props> = ({
   target,
   items,
-  show,
+  open,
   confirming,
   onConfirm,
   onClose
@@ -34,7 +34,7 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
   }
 
   return (
-    <Modal open={Boolean(show)} closeDisabled={confirming} onClose={() => onClose?.()} title={t('title')}>
+    <Modal open={open} closeDisabled={confirming} onClose={() => onClose?.()} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
         <NewListingConfirmationModalTargetContainer target={target} />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />

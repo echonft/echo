@@ -60,6 +60,7 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ createOfferFet
     {
       onSuccess: (data) => {
         setConfirmOfferModalShown(false)
+        clearOffer()
         setOffer(data.offer)
       },
       onError: (error: Error) => {
@@ -102,7 +103,7 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ createOfferFet
       <NewOfferConfirmationModal
         receiverItems={receiverItems}
         senderItems={senderItems}
-        show={confirmOfferModalShown}
+        open={confirmOfferModalShown}
         confirming={isMutating}
         onClose={() => setConfirmOfferModalShown(false)}
         onConfirm={() => {
@@ -111,9 +112,9 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ createOfferFet
       />
       <NewOfferConfirmedModal
         offer={offer}
-        show={!isNil(offer)}
+        open={!isNil(offer)}
         onClose={() => {
-          clearOffer()
+          setOffer(undefined)
         }}
       />
     </>

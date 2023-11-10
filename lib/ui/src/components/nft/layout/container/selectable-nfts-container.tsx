@@ -9,21 +9,15 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   nfts: DisableableType<SelectableType<Nft>>[]
-  selectionCount: number
   onToggleSelection?: (nft: DisableableType<SelectableType<Nft>>) => unknown
 }
 
-export const SelectableNftsContainer: FunctionComponent<Props> = ({ nfts, selectionCount, onToggleSelection }) => {
+export const SelectableNftsContainer: FunctionComponent<Props> = ({ nfts, onToggleSelection }) => {
   return (
     <NftsLayout>
       {map(
         (nft) => (
-          <SelectableNftThumbnail
-            key={nft.id}
-            nft={nft}
-            linkDisabled={selectionCount > 0}
-            onToggleSelection={onToggleSelection}
-          />
+          <SelectableNftThumbnail key={nft.id} nft={nft} onToggleSelection={onToggleSelection} />
         ),
         nfts
       )}

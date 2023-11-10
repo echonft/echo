@@ -7,14 +7,15 @@
     "build": "storybook build",
     "clean": "rm -rf .next",
     "dev": "storybook dev -p 6006",
-    "lint": "eslint --cache --fix --ext .ts,.tsx src/",
-    "lint:ci": "eslint --quiet --ext .ts,.tsx src/",
+    "lint": "eslint --cache --fix -c .eslintrc.js --ext .ts,.tsx .",
+    "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts,.tsx .",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier -u -c src/",
     "tsc": "tsc --noEmit",
+    "tsc:ci": "tsc --noEmit",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {

@@ -13,7 +13,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['offerId', 'show', 'onClose']
+      exclude: ['offerId', 'open', 'onClose']
     }
   }
 }
@@ -25,6 +25,6 @@ type Story = StoryObj<typeof Component>
 export const ConfirmedModal: Story = {
   args: {
     offer: getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'),
-    show: true
+    open: true
   }
 }

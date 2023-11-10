@@ -18,7 +18,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['target', 'items', 'show', 'confirming', 'onClose', 'onConfirm']
+      exclude: ['target', 'items', 'open', 'confirming', 'onClose', 'onConfirm']
     }
   }
 }
@@ -34,7 +34,7 @@ export const Default: Story = {
   args: {
     target,
     items,
-    show: true
+    open: true
   }
 }
 
@@ -42,7 +42,7 @@ export const Confirming: Story = {
   args: {
     target,
     items,
-    show: true,
+    open: true,
     confirming: true
   }
 }

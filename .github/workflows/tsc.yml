@@ -19,4 +19,4 @@ jobs:
           version: latest
           run_install: true
       - name: tsc
-        run: pnpm run tsc
+        run: pnpm run tsc:ci
