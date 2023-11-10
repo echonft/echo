@@ -1,135 +1,135 @@
 export const ECHO_ABI = [
   {
-    inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
-    stateMutability: 'nonpayable',
-    type: 'constructor'
+    inputs: [{ internalType: 'address' as const, name: 'owner' as const, type: 'address' as const }],
+    stateMutability: 'nonpayable' as const,
+    type: 'constructor' as const
   },
-  { inputs: [], name: 'InvalidAssets', type: 'error' },
-  { inputs: [], name: 'InvalidCreator', type: 'error' },
-  { inputs: [], name: 'InvalidPayment', type: 'error' },
-  { inputs: [], name: 'InvalidSignature', type: 'error' },
-  { inputs: [], name: 'LengthMismatch', type: 'error' },
-  { inputs: [], name: 'Paused', type: 'error' },
-  { inputs: [], name: 'TradeAlreadyExist', type: 'error' },
-  { inputs: [], name: 'TradeHasExpired', type: 'error' },
-  { inputs: [], name: 'WithdrawFailed', type: 'error' },
+  { inputs: [], name: 'InvalidAssets' as const, type: 'error' as const },
+  { inputs: [], name: 'InvalidCreator' as const, type: 'error' as const },
+  { inputs: [], name: 'InvalidPayment' as const, type: 'error' as const },
+  { inputs: [], name: 'InvalidSignature' as const, type: 'error' as const },
+  { inputs: [], name: 'LengthMismatch' as const, type: 'error' as const },
+  { inputs: [], name: 'Paused' as const, type: 'error' as const },
+  { inputs: [], name: 'TradeAlreadyExist' as const, type: 'error' as const },
+  { inputs: [], name: 'TradeHasExpired' as const, type: 'error' as const },
+  { inputs: [], name: 'WithdrawFailed' as const, type: 'error' as const },
   {
     anonymous: false,
     inputs: [
-      { indexed: true, internalType: 'address', name: 'user', type: 'address' },
-      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' }
+      { indexed: true, internalType: 'address' as const, name: 'user' as const, type: 'address' as const },
+      { indexed: true, internalType: 'address' as const, name: 'newOwner' as const, type: 'address' as const }
     ],
-    name: 'OwnershipTransferred',
-    type: 'event'
+    name: 'OwnershipTransferred' as const,
+    type: 'event' as const
   },
   {
     anonymous: false,
-    inputs: [{ indexed: false, internalType: 'string', name: 'id', type: 'string' }],
-    name: 'TradeExecuted',
-    type: 'event'
+    inputs: [{ indexed: false, internalType: 'string' as const, name: 'id' as const, type: 'string' as const }],
+    name: 'TradeExecuted' as const,
+    type: 'event' as const
   },
   {
     inputs: [],
-    name: 'domainSeparator',
-    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
-    stateMutability: 'view',
-    type: 'function'
+    name: 'domainSeparator' as const,
+    outputs: [{ internalType: 'bytes32' as const, name: '', type: 'bytes32' as const }],
+    stateMutability: 'view' as const,
+    type: 'function' as const
   },
   {
     inputs: [],
-    name: 'eip712Domain',
+    name: 'eip712Domain' as const,
     outputs: [
-      { internalType: 'bytes1', name: 'fields', type: 'bytes1' },
-      { internalType: 'string', name: 'name', type: 'string' },
-      { internalType: 'string', name: 'version', type: 'string' },
-      { internalType: 'uint256', name: 'chainId', type: 'uint256' },
-      { internalType: 'address', name: 'verifyingContract', type: 'address' },
-      { internalType: 'bytes32', name: 'salt', type: 'bytes32' },
-      { internalType: 'uint256[]', name: 'extensions', type: 'uint256[]' }
+      { internalType: 'bytes1' as const, name: 'fields' as const, type: 'bytes1' as const },
+      { internalType: 'string' as const, name: 'name' as const, type: 'string' as const },
+      { internalType: 'string' as const, name: 'version' as const, type: 'string' as const },
+      { internalType: 'uint256' as const, name: 'chainId' as const, type: 'uint256' as const },
+      { internalType: 'address' as const, name: 'verifyingContract' as const, type: 'address' as const },
+      { internalType: 'bytes32' as const, name: 'salt' as const, type: 'bytes32' as const },
+      { internalType: 'uint256[]', name: 'extensions' as const, type: 'uint256[]' }
     ],
-    stateMutability: 'view',
-    type: 'function'
+    stateMutability: 'view' as const,
+    type: 'function' as const
   },
   {
     inputs: [
-      { internalType: 'uint8', name: 'v', type: 'uint8' },
-      { internalType: 'bytes32', name: 'r', type: 'bytes32' },
-      { internalType: 'bytes32', name: 's', type: 'bytes32' },
+      { internalType: 'uint8' as const, name: 'v' as const, type: 'uint8' as const },
+      { internalType: 'bytes32' as const, name: 'r' as const, type: 'bytes32' as const },
+      { internalType: 'bytes32' as const, name: 's' as const, type: 'bytes32' as const },
       {
         components: [
-          { internalType: 'string', name: 'id', type: 'string' },
-          { internalType: 'address', name: 'creator', type: 'address' },
-          { internalType: 'address', name: 'counterparty', type: 'address' },
-          { internalType: 'uint256', name: 'expiresAt', type: 'uint256' },
-          { internalType: 'address[]', name: 'creatorCollections', type: 'address[]' },
-          { internalType: 'uint256[]', name: 'creatorIds', type: 'uint256[]' },
-          { internalType: 'address[]', name: 'counterpartyCollections', type: 'address[]' },
-          { internalType: 'uint256[]', name: 'counterpartyIds', type: 'uint256[]' }
+          { internalType: 'string' as const, name: 'id' as const, type: 'string' as const },
+          { internalType: 'address' as const, name: 'creator' as const, type: 'address' as const },
+          { internalType: 'address' as const, name: 'counterparty' as const, type: 'address' as const },
+          { internalType: 'uint256' as const, name: 'expiresAt' as const, type: 'uint256' as const },
+          { internalType: 'address[]', name: 'creatorCollections' as const, type: 'address[]' },
+          { internalType: 'uint256[]', name: 'creatorIds' as const, type: 'uint256[]' },
+          { internalType: 'address[]', name: 'counterpartyCollections' as const, type: 'address[]' },
+          { internalType: 'uint256[]', name: 'counterpartyIds' as const, type: 'uint256[]' }
         ],
         internalType: 'struct Trade',
-        name: 'trade',
-        type: 'tuple'
+        name: 'trade' as const,
+        type: 'tuple' as const
       }
     ],
-    name: 'executeTrade',
+    name: 'executeTrade' as const,
     outputs: [],
-    stateMutability: 'payable',
-    type: 'function'
+    stateMutability: 'payable' as const,
+    type: 'function' as const
   },
   {
-    inputs: [{ internalType: 'bytes32', name: 'structHash', type: 'bytes32' }],
-    name: 'hashTypedData',
-    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
-    stateMutability: 'view',
-    type: 'function'
+    inputs: [{ internalType: 'bytes32' as const, name: 'structHash' as const, type: 'bytes32' as const }],
+    name: 'hashTypedData' as const,
+    outputs: [{ internalType: 'bytes32' as const, name: '', type: 'bytes32' as const }],
+    stateMutability: 'view' as const,
+    type: 'function' as const
   },
   {
     inputs: [],
-    name: 'owner',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function'
+    name: 'owner' as const,
+    outputs: [{ internalType: 'address' as const, name: '', type: 'address' as const }],
+    stateMutability: 'view' as const,
+    type: 'function' as const
   },
   {
     inputs: [],
-    name: 'paused',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-    stateMutability: 'view',
-    type: 'function'
+    name: 'paused' as const,
+    outputs: [{ internalType: 'bool' as const, name: '', type: 'bool' as const }],
+    stateMutability: 'view' as const,
+    type: 'function' as const
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'fee', type: 'uint256' }],
-    name: 'setFees',
+    inputs: [{ internalType: 'uint256' as const, name: 'fee' as const, type: 'uint256' as const }],
+    name: 'setFees' as const,
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
+    stateMutability: 'nonpayable' as const,
+    type: 'function' as const
   },
   {
-    inputs: [{ internalType: 'bool', name: '_paused', type: 'bool' }],
-    name: 'setPaused',
+    inputs: [{ internalType: 'bool' as const, name: '_paused' as const, type: 'bool' as const }],
+    name: 'setPaused' as const,
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
+    stateMutability: 'nonpayable' as const,
+    type: 'function' as const
   },
   {
     inputs: [],
-    name: 'tradingFee',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function'
+    name: 'tradingFee' as const,
+    outputs: [{ internalType: 'uint256' as const, name: '', type: 'uint256' as const }],
+    stateMutability: 'view' as const,
+    type: 'function' as const
   },
   {
-    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
-    name: 'transferOwnership',
+    inputs: [{ internalType: 'address' as const, name: 'newOwner' as const, type: 'address' as const }],
+    name: 'transferOwnership' as const,
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
+    stateMutability: 'nonpayable' as const,
+    type: 'function' as const
   },
   {
-    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
-    name: 'withdraw',
+    inputs: [{ internalType: 'address' as const, name: 'account' as const, type: 'address' as const }],
+    name: 'withdraw' as const,
     outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
+    stateMutability: 'nonpayable' as const,
+    type: 'function' as const
   }
 ] as const

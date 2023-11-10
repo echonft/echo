@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && pnpm run sentry:sourcemaps",
     "clean": "rm -rf dist",
     "dev": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"ts-node --project tsconfig.json src/index.ts\"",
     "lint": "eslint --cache --fix -c .eslintrc.cjs --ext .ts .",
@@ -19,7 +19,7 @@
     "test:ci": "jest --ci --no-cache",
     "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
-    "tsc:ci": "tsc --noEmit",
+    "tsc:ci": "pnpm run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org echo-nft --project bot ./dist && sentry-cli sourcemaps upload --org echo-nft --project bot ./dist"
   },

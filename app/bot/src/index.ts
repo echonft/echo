@@ -1,5 +1,5 @@
 import { DEFAULT_THREAD_CLOSE_DELAY } from '@echo/bot/constants/default-thread-close-delay'
-import { guardAsyncFn } from '@echo/bot/errors/guard'
+import { guardAsyncFn } from '@echo/bot/errors/guard-async-fn'
 import { listenToInteractions } from '@echo/bot/helpers/listen-to-interactions'
 import { listenToListings } from '@echo/bot/listing/listen-to-listings'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'

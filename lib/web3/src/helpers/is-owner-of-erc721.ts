@@ -21,7 +21,6 @@ export async function isOwnerOfErc721(nft: Nft) {
     functionName: 'ownerOf',
     args: [BigInt(tokenId)]
   })) as unknown as string
-  // TODO verify it's really not an array
   if (getAddress(ownerAddress, chainId) !== getAddress(realOwner, chainId)) {
     throw Error(`${ownerAddress} is not the owner of nft ${id}`)
   }
