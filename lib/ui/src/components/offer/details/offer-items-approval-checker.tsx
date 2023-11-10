@@ -42,7 +42,6 @@ export const OfferItemsApprovalChecker: FunctionComponent<Props> = ({ approval, 
 
   useEffect(() => {
     if (!isNil(data)) {
-      // TODO verify
       onComplete?.(data as unknown as boolean)
     }
   }, [data, onComplete])

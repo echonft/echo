@@ -1,6 +1,6 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { guardAsyncFn } from '@echo/helper/errors/guard-async-fn'
 import { updateAllNfts } from '@echo/helper/services/nft/update-all-nfts'
-import { logger } from '@echo/utils/services/logger'
 import { CronJob } from 'cron'
 
 export function updateDbJob() {
@@ -8,11 +8,8 @@ export function updateDbJob() {
   CronJob.from({
     cronTime: '00 00 00 * * *',
     onTick: function () {
-      logger.info('Will update all NFTs...')
       initializeFirebase()
-      updateAllNfts()
-        .then(() => logger.info('Updated all NFTs!'))
-        .catch((e) => logger.error(`Error updating NFTs: ${e}`))
+      void guardAsyncFn(updateAllNfts, void 0)()
     },
     start: true,
     timeZone: 'America/New_York'

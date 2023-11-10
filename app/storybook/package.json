@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "storybook build",
-    "clean": "rm -rf .next",
+    "clean": "rm -rf .storybook",
     "dev": "storybook dev -p 6006",
     "lint": "eslint --cache --fix -c .eslintrc.js --ext .ts,.tsx .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts,.tsx .",
@@ -15,7 +15,7 @@
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier -u -c src/",
     "tsc": "tsc --noEmit",
-    "tsc:ci": "tsc --noEmit",
+    "tsc:ci": "pnpm run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {

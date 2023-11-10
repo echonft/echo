@@ -72,10 +72,18 @@
     "@echo/firestore#db:reset:test": {
       "cache": false
     },
+    "@echo/bot#start": {
+      "dependsOn": ["@echo/bot#build"],
+      "cache": false
+    },
     "@echo/frontend#build": {
       "dependsOn": ["@echo/ui#build"],
       "outputs": [".next/**", "!.next/cache/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "@echo/helper#start": {
+      "dependsOn": ["@echo/helper#build"],
+      "cache": false
     },
     "@echo/storybook#build": {
       "dependsOn": ["@echo/ui#build"],

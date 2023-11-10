@@ -20,7 +20,7 @@
     "test:ci": "pnpm run db:reset:test && jest --runInBand --ci --no-cache",
     "test:watch": "jest --watch",
     "tsc": "tsc --noEmit",
-    "tsc:ci": "tsc --noEmit",
+    "tsc:ci": "pnpm run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {

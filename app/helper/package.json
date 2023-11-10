@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "build": "tsc && pnpm run sentry:sourcemaps",
     "clean": "rm -rf dist",
     "dev": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"ts-node --project tsconfig.json src/index.ts\"",
     "lint": "eslint --cache --fix -c .eslintrc.cjs --ext .ts .",
@@ -13,13 +14,14 @@
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier -u -c src/",
-    "start": "ts-node --project tsconfig.json src/index.ts",
+    "start": "export NODE_ENV=production; ts-node --project tsconfig.json src/index.ts",
     "test": "jest --passWithNoTests",
     "test:ci": "jest --ci --no-cache --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",
     "tsc": "tsc --noEmit",
-    "tsc:ci": "tsc --noEmit",
-    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
+    "tsc:ci": "pnpm run tsc",
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org echo-nft --project helper ./dist && sentry-cli sourcemaps upload --org echo-nft --project helper ./dist"
   },
   "dependencies": {
     "@echo/alchemy": "workspace:*",
@@ -27,10 +29,12 @@
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
+    "@sentry/cli": "2.21.2",
+    "@sentry/node": "7.77.0",
+    "@sentry/profiling-node": "1.2.6",
     "cron": "3.1.6",
     "dayjs": "1.11.10",
-    "ramda": "0.29.1",
-    "viem": "1.18.9"
+    "ramda": "0.29.1"
   },
   "devDependencies": {
     "@jest/globals": "29.7.0",

@@ -1,4 +1,4 @@
-import { guardAsyncFn } from '@echo/bot/errors/guard'
+import { guardAsyncFn } from '@echo/bot/errors/guard-async-fn'
 import { offerUpdateChangeHandler } from '@echo/bot/offer/offer-update-change-handler'
 import { listenToOfferUpdates as firebaseListenToOfferUpdates } from '@echo/firestore/listeners/listen-to-offer-updates'
 import { Client } from 'discord.js'
