@@ -1,10 +1,16 @@
 import { assertToken } from '@echo/api/helpers/assert-token'
-import { profileWalletApiUrl } from '@echo/api/routing/profile-wallet-api-url'
-import { putData } from '@echo/api/services/fetcher/base/put-data'
+import { apiUrl } from '@echo/api/routing/api-url'
 import { type AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { type EmptyResponse } from '@echo/api/types/responses/empty-response'
+import axios from 'axios'
+import { prop } from 'ramda'
 
-export function addWalletFetcher(parameters: AddWalletRequest, token: string | undefined) {
+export function addWalletFetcher(data: AddWalletRequest, token: string | undefined) {
   assertToken(token)
-  return putData<AddWalletRequest, EmptyResponse>(profileWalletApiUrl(), parameters, token)
+  return axios
+    .put<EmptyResponse>(apiUrl.profile.wallet, {
+      data,
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(prop('data'))
 }

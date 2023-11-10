@@ -22,11 +22,14 @@
   "dependencies": {
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
+    "axios": "1.6.1",
+    "qs": "6.11.2",
     "ramda": "0.29.1"
   },
   "devDependencies": {
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
+    "@types/qs": "6.9.10",
     "@types/ramda": "0.29.7",
     "jest": "29.7.0",
     "jest-junit": "16.0.0"

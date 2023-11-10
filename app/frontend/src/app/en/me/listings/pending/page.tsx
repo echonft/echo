@@ -1,12 +1,12 @@
-import { userListingsApiUrl } from '@echo/api/routing/user-listings-api-url'
+import { apiUrl } from '@echo/api/routing/api-url'
 import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { LISTING_FILTER_AS_TARGET } from '@echo/firestore/constants/listing/listing-filter-as'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
 import { mapListingFiltersToQueryParams } from '@echo/frontend/lib/helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
-import { assertFetchResult } from '@echo/frontend/lib/services/fetcher/assert-fetch-result'
-import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
+import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
+import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { ProfileListingsReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-listings-received-api-provided'
 import { links } from '@echo/ui/constants/links'
 import { getServerSession } from 'next-auth/next'
@@ -27,11 +27,11 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
       { field: 'expiresAt', direction: 'desc' }
     ]
   })
-  const result = await fetcher(userListingsApiUrl(session.user.username))
-    .query(mergeLeft(queryParams, filterParams))
-    .fetch<ListingsResponse>()
-  assertFetchResult(result)
-  return <ProfileListingsReceivedApiProvided listings={result.data.listings} user={session.user} />
+  const response = await nextFetch.get<ListingsResponse>(apiUrl.user.listings(session.user.username), {
+    params: mergeLeft(queryParams, filterParams)
+  })
+  assertNextFetchResponse(response)
+  return <ProfileListingsReceivedApiProvided listings={response.data.listings} user={session.user} />
 }
 
 export default ProfileListingsReceivedPage

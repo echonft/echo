@@ -1,8 +1,0 @@
-import { createOfferApiUrl } from '@echo/api/routing/create-offer-api-url'
-import { describe, expect, test } from '@jest/globals'
-
-describe('routing - createOfferApiUrl', () => {
-  test('returns proper URL', () => {
-    expect(createOfferApiUrl()).toStrictEqual(new URL('https://echonft.xyz/api/offer'))
-  })
-})

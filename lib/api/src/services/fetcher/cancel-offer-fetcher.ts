@@ -1,9 +1,14 @@
 import { assertToken } from '@echo/api/helpers/assert-token'
-import { cancelOfferApiUrl } from '@echo/api/routing/cancel-offer-api-url'
-import { postData } from '@echo/api/services/fetcher/base/post-data'
+import { apiUrl } from '@echo/api/routing/api-url'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import axios from 'axios'
+import { prop } from 'ramda'
 
 export function cancelOfferFetcher(offerId: string, token: string | undefined) {
   assertToken(token)
-  return postData<never, OfferResponse>(cancelOfferApiUrl(offerId), undefined, token)
+  return axios
+    .post<OfferResponse>(apiUrl.offer.cancel(offerId), {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(prop('data'))
 }

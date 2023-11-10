@@ -1,12 +1,11 @@
-import { allCollectionsApiUrl } from '@echo/api/routing/all-collections-api-url'
-import { allSwapsApiUrl } from '@echo/api/routing/all-swaps-api-url'
+import { apiUrl } from '@echo/api/routing/api-url'
 import { type CollectionsResponse } from '@echo/api/types/responses/collections-response'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { mapCollectionFiltersToQueryParams } from '@echo/frontend/lib/helpers/request/map-collection-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
-import { assertFetchResult } from '@echo/frontend/lib/services/fetcher/assert-fetch-result'
-import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
+import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
+import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { HomePage } from '@echo/ui/components/home/layout/home-page'
 import { getServerSession } from 'next-auth/next'
 import { mergeLeft } from 'ramda'
@@ -23,18 +22,24 @@ const Home: FunctionComponent = async () => {
     limit: 10
   })
   const collectionFiltersQueryParam = mapCollectionFiltersToQueryParams({ includeSwapsCount: true })
-  const collectionsResult = await fetcher(allCollectionsApiUrl())
-    .query(mergeLeft(collectionsConstraintsQueryParams, collectionFiltersQueryParam))
-    .fetch<CollectionsResponse>()
   const swapsConstraintsQueryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'updatedAt', direction: 'desc' }],
     limit: 5
   })
-  const swapsResult = await fetcher(allSwapsApiUrl()).query(swapsConstraintsQueryParams).fetch<OffersResponse>()
-  assertFetchResult(collectionsResult)
-  assertFetchResult(swapsResult)
+  const collectionsResponse = await nextFetch.get<CollectionsResponse>(apiUrl.collection.all, {
+    params: mergeLeft(collectionsConstraintsQueryParams, collectionFiltersQueryParam)
+  })
+  const swapsResponse = await nextFetch.get<OffersResponse>(apiUrl.swap.all, {
+    params: swapsConstraintsQueryParams
+  })
+  assertNextFetchResponse(collectionsResponse)
+  assertNextFetchResponse(swapsResponse)
   return (
-    <HomePage user={session?.user} collections={collectionsResult.data.collections} offers={swapsResult.data.offers} />
+    <HomePage
+      user={session?.user}
+      collections={collectionsResponse.data.collections}
+      offers={swapsResponse.data.offers}
+    />
   )
 }
 

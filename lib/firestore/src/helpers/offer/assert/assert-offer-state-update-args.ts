@@ -24,10 +24,9 @@ export function assertOfferStateUpdateArgs(offer: Offer, args: OfferStateUpdateA
         )
       }
       break
-    // TODO change the check to OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM when the system does it
     case 'COMPLETED':
-      if (by !== sender.username) {
-        throw Error(`offer ${id} state update to COMPLETED not allowed: ${by} is not the sender`)
+      if (by !== OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM) {
+        throw Error(`offer ${id} state update to COMPLETED not allowed: ${by} is not the system`)
       }
       break
     case 'ACCEPTED':

@@ -3,7 +3,7 @@ import { formatAddress } from '@echo/utils/helpers/format-address'
 function getAddress(chainId: number) {
   switch (chainId) {
     case 11155111:
-      return '0x2837Ad78E15B9280f522C91C5f5D75a3A2f9f76e'
+      return '0x514EbbfcE272B8b2e54c5E82512867B1Faf87420'
     default:
       throw Error(`chain ${chainId} not supported`)
   }

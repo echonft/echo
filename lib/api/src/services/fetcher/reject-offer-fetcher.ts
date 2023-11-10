@@ -1,9 +1,14 @@
 import { assertToken } from '@echo/api/helpers/assert-token'
-import { rejectOfferApiUrl } from '@echo/api/routing/reject-offer-api-url'
-import { postData } from '@echo/api/services/fetcher/base/post-data'
+import { apiUrl } from '@echo/api/routing/api-url'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import axios from 'axios'
+import { prop } from 'ramda'
 
 export function rejectOfferFetcher(offerId: string, token: string | undefined) {
   assertToken(token)
-  return postData<never, OfferResponse>(rejectOfferApiUrl(offerId), undefined, token)
+  return axios
+    .post<OfferResponse>(apiUrl.offer.reject(offerId), {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(prop('data'))
 }

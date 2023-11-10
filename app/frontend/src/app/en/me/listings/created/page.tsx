@@ -1,12 +1,12 @@
-import { userListingsApiUrl } from '@echo/api/routing/user-listings-api-url'
+import { apiUrl } from '@echo/api/routing/api-url'
 import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
 import { mapListingFiltersToQueryParams } from '@echo/frontend/lib/helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
-import { assertFetchResult } from '@echo/frontend/lib/services/fetcher/assert-fetch-result'
-import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
+import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
+import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { ProfileListingsCreatedApiProvided } from '@echo/ui/components/profile/api-provided/profile-listings-created-api-provided'
 import { links } from '@echo/ui/constants/links'
 import { getServerSession } from 'next-auth/next'
@@ -20,11 +20,11 @@ const ProfileListingsCreatedPage: FunctionComponent = async () => {
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
   const filtersQueryParam = mapListingFiltersToQueryParams({ as: LISTING_FILTER_AS_ITEM, includeExpired: true })
-  const result = await fetcher(userListingsApiUrl(session.user.username))
-    .query(mergeLeft(constraintsQueryParams, filtersQueryParam))
-    .fetch<ListingsResponse>()
-  assertFetchResult(result)
-  return <ProfileListingsCreatedApiProvided listings={result.data.listings} user={session.user} />
+  const response = await nextFetch.get<ListingsResponse>(apiUrl.user.listings(session.user.username), {
+    params: mergeLeft(constraintsQueryParams, filtersQueryParam)
+  })
+  assertNextFetchResponse(response)
+  return <ProfileListingsCreatedApiProvided listings={response.data.listings} user={session.user} />
 }
 
 export default ProfileListingsCreatedPage

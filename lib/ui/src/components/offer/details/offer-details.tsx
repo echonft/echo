@@ -25,11 +25,6 @@ interface Props {
     token: string | undefined
   ) => Promise<OfferResponse>
   rejectOfferFetcher: (offerId: string, token: string | undefined) => Promise<OfferResponse>
-  completeOfferFetcher: (
-    offerId: string,
-    transactionId: HexString | undefined,
-    token: string | undefined
-  ) => Promise<OfferResponse>
 }
 
 export const OfferDetails: FunctionComponent<Props> = ({
@@ -38,8 +33,7 @@ export const OfferDetails: FunctionComponent<Props> = ({
   token,
   cancelOfferFetcher,
   acceptOfferFetcher,
-  rejectOfferFetcher,
-  completeOfferFetcher
+  rejectOfferFetcher
 }) => {
   const [updatedOffer, setUpdatedOffer] = useState(offer)
   const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
@@ -74,7 +68,6 @@ export const OfferDetails: FunctionComponent<Props> = ({
             cancelOfferFetcher={cancelOfferFetcher}
             acceptOfferFetcher={acceptOfferFetcher}
             rejectOfferFetcher={rejectOfferFetcher}
-            completeOfferFetcher={completeOfferFetcher}
             onSuccess={setUpdatedOffer}
           />
         </div>

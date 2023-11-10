@@ -1,9 +1,14 @@
 import { assertToken } from '@echo/api/helpers/assert-token'
-import { cancelListingApiUrl } from '@echo/api/routing/cancel-listing-api-url'
-import { putData } from '@echo/api/services/fetcher/base/put-data'
+import { apiUrl } from '@echo/api/routing/api-url'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
+import axios from 'axios'
+import { prop } from 'ramda'
 
 export function cancelListingFetcher(listingId: string, token: string | undefined) {
   assertToken(token)
-  return putData<never, ListingResponse>(cancelListingApiUrl(listingId), undefined, token)
+  return axios
+    .post<ListingResponse>(apiUrl.listing.cancel(listingId), {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(prop('data'))
 }
