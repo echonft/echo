@@ -1,8 +1,8 @@
-import { collectionApiUrl } from '@echo/api/routing/collection-api-url'
+import { apiUrl } from '@echo/api/routing/api-url'
 import { type CollectionResponse } from '@echo/api/types/responses/collection-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
-import { assertFetchResult } from '@echo/frontend/lib/services/fetcher/assert-fetch-result'
-import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
+import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
+import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { CollectionDetailsApiProvided } from '@echo/ui/components/collection/api-provided/collection-details-api-provided'
 import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
@@ -17,12 +17,12 @@ interface Props {
 
 const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { slug }, children }) => {
   const session = await getServerSession(authOptions)
-  const result = await fetcher(collectionApiUrl(slug)).fetch<CollectionResponse>()
-  assertFetchResult(result)
+  const response = await nextFetch.get<CollectionResponse>(apiUrl.collection.get(slug))
+  assertNextFetchResponse(response)
   return (
     <NavigationPageLayout user={session?.user}>
       <SectionLayout>
-        <CollectionDetailsApiProvided collection={result.data.collection} />
+        <CollectionDetailsApiProvided collection={response.data.collection} />
       </SectionLayout>
       <SectionLayout>{children}</SectionLayout>
     </NavigationPageLayout>

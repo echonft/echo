@@ -29,9 +29,6 @@ function rejectOfferFetcher(_offerId: string, _token: string | undefined) {
 function cancelOfferFetcher(_offerId: string, _token: string | undefined) {
   return delayPromise(Promise.resolve({ offer: assoc('state', 'REJECTED', offer) }), 800)
 }
-function completeOfferFetcher(_offerId: string, _transactionId: HexString | undefined, _token: string | undefined) {
-  return delayPromise(Promise.resolve({ offer: assoc('state', 'CANCELLED', offer) }), 800)
-}
 function getOfferSignatureFetcher(_offerId: string, _token: string | undefined) {
   return delayPromise(
     Promise.resolve({
@@ -78,7 +75,6 @@ export const Default: Story = {
         token={'token'}
         getOfferSignatureFetcher={getOfferSignatureFetcher}
         acceptOfferFetcher={acceptOfferFetcher}
-        completeOfferFetcher={completeOfferFetcher}
         rejectOfferFetcher={rejectOfferFetcher}
         cancelOfferFetcher={cancelOfferFetcher}
       />

@@ -53,7 +53,7 @@ export const OfferDetailsSwapModalSwapButton: FunctionComponent<Props> = ({
     if (!isNil(data)) {
       onSuccess?.(offer)
     }
-  }, [data])
+  }, [data, offer, onSuccess])
 
   useEffect(() => {
     if (!isNil(error)) {

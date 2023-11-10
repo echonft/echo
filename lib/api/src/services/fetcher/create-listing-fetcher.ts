@@ -1,10 +1,16 @@
 import { assertToken } from '@echo/api/helpers/assert-token'
-import { createListingApiUrl } from '@echo/api/routing/create-listing-api-url'
+import { apiUrl } from '@echo/api/routing/api-url'
 import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
-import { putData } from '@echo/utils/services/put-data'
+import axios from 'axios'
+import { prop } from 'ramda'
 
-export function createListingFetcher(parameters: CreateListingRequest, token: string | undefined) {
+export function createListingFetcher(data: CreateListingRequest, token: string | undefined) {
   assertToken(token)
-  return putData<CreateListingRequest, ListingResponse>(createListingApiUrl(), parameters, token)
+  return axios
+    .put<ListingResponse>(apiUrl.listing.create, {
+      data,
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(prop('data'))
 }

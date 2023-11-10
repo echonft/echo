@@ -15,12 +15,13 @@ export async function isOwnerOfErc721(nft: Nft) {
     }
   } = nft
   const client = getViemClient(chainId)
-  const realOwner = await client.readContract({
+  const realOwner = (await client.readContract({
     address,
     abi: erc721ABI,
     functionName: 'ownerOf',
     args: [BigInt(tokenId)]
-  })
+  })) as unknown as string
+  // TODO verify it's really not an array
   if (getAddress(ownerAddress, chainId) !== getAddress(realOwner, chainId)) {
     throw Error(`${ownerAddress} is not the owner of nft ${id}`)
   }

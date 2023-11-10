@@ -1,10 +1,10 @@
-import { userSwapsApiUrl } from '@echo/api/routing/user-swaps-api-url'
+import { apiUrl } from '@echo/api/routing/api-url'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
 import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
-import { assertFetchResult } from '@echo/frontend/lib/services/fetcher/assert-fetch-result'
-import { fetcher } from '@echo/frontend/lib/services/fetcher/fetcher'
+import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
+import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { OfferRoleReceiver, OfferRoleSender } from '@echo/model/constants/offer-role'
 import { ProfileSwapsApiProvided } from '@echo/ui/components/profile/api-provided/profile-swaps-api-provided'
 import { links } from '@echo/ui/constants/links'
@@ -16,11 +16,13 @@ import { type FunctionComponent } from 'react'
 const ProfileSwapsPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
   redirectIfNotLoggedIn(session, links.profile.swaps)
-  const queryParams = mapQueryConstraintsToQueryParams({
+  const params = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
-  const result = await fetcher(userSwapsApiUrl(session.user.username)).query(queryParams).fetch<OffersResponse>()
-  assertFetchResult(result)
+  const response = await nextFetch.get<OffersResponse>(apiUrl.user.swaps(session.user.username), {
+    params
+  })
+  assertNextFetchResponse(response)
   return (
     <ProfileSwapsApiProvided
       offers={
@@ -30,7 +32,7 @@ const ProfileSwapsPage: FunctionComponent = async () => {
             assoc('role', OfferRoleReceiver),
             assoc('role', OfferRoleSender)
           ),
-          result.data.offers
+          response.data.offers
         ) as OfferWithRole[]
       }
       user={session.user}

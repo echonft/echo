@@ -8,11 +8,9 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
-import { RecoilLoadable } from 'recoil'
 import { SiweMessage } from 'siwe'
 import useSWRMutation from 'swr/mutation'
 import { useSignMessage } from 'wagmi'
-import loading = RecoilLoadable.loading
 
 interface Props {
   nonce: string
@@ -49,6 +47,7 @@ export const CreateSignature: FunctionComponent<Props> = ({ nonce, address, chai
       }
     }
   )
+  const loading = isLoading || isMutating
 
   return (
     <WalletConnectButton
@@ -63,7 +62,7 @@ export const CreateSignature: FunctionComponent<Props> = ({ nonce, address, chai
             show({ severity: CalloutSeverity.ERROR, message: tErr('signing') })
           })
       }}
-      label={loading() ? t('signing.label') : t('add.label')}
+      label={loading ? t('signing.label') : t('add.label')}
     />
   )
 }

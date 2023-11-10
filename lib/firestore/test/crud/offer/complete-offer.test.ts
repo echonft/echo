@@ -1,3 +1,4 @@
+import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/offer/offer-state-update-trigger-by-system'
 import { findCollectionSwapsCountByCollectionId } from '@echo/firestore/crud/collection-swaps-count/find-collection-swaps-count-by-collection-id'
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
@@ -37,7 +38,7 @@ describe('CRUD - offer - completeOffer', () => {
     transactionId: 'swap-transaction-id',
     updateArgs: {
       trigger: {
-        by: 'crewnft_'
+        by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM
       }
     }
   }
@@ -100,7 +101,7 @@ describe('CRUD - offer - completeOffer', () => {
       pipe(
         assoc('updateArgs', {
           trigger: {
-            by: 'not-receiver-nor-sender-nor-system'
+            by: 'not-system'
           }
         }),
         cancelOffer

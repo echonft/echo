@@ -1,10 +1,16 @@
 import { assertToken } from '@echo/api/helpers/assert-token'
-import { createOfferApiUrl } from '@echo/api/routing/create-offer-api-url'
+import { apiUrl } from '@echo/api/routing/api-url'
 import { type CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
-import { putData } from '@echo/utils/services/put-data'
+import axios from 'axios'
+import { prop } from 'ramda'
 
-export function createOfferFetcher(parameters: CreateOfferRequest, token: string | undefined) {
+export function createOfferFetcher(data: CreateOfferRequest, token: string | undefined) {
   assertToken(token)
-  return putData<CreateOfferRequest, OfferResponse>(createOfferApiUrl(), parameters, token)
+  return axios
+    .put<OfferResponse>(apiUrl.offer.create, {
+      data,
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(prop('data'))
 }

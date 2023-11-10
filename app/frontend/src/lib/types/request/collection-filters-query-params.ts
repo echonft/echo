@@ -1,5 +1,3 @@
-import { type QueryType } from '@echo/utils/types/query-type'
-
-export interface CollectionFiltersQueryParams extends QueryType {
+export interface CollectionFiltersQueryParams {
   includeSwapsCount?: string
 }

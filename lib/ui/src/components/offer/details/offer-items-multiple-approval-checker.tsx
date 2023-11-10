@@ -3,7 +3,7 @@ import type { Contract } from '@echo/model/types/contract'
 import { OfferDetailsAcceptModalRow } from '@echo/ui/components/offer/details/action/offer-details-accept-modal-row'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { getErc721IsApprovedForAllReadConfig } from '@echo/web3/helpers/get-erc721-is-approved-for-all-read-config'
-import { all, equals, F, ifElse, isNil, pipe, prop } from 'ramda'
+import { all, equals, F, ifElse, isNil, map, partialRight, pipe, prop } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo } from 'react'
 import { useContractReads } from 'wagmi'
 
@@ -36,9 +36,8 @@ export const OfferItemsMultipleApprovalChecker: FunctionComponent<Props> = ({
   onError
 }) => {
   const { data, error, status } = useContractReads({
-    contracts: contracts.map((contract) => getErc721IsApprovedForAllReadConfig(contract, ownerAddress))
+    contracts: map(partialRight(getErc721IsApprovedForAllReadConfig, [ownerAddress]), contracts)
   })
-
   const approvedAllContracts = useMemo(() => ifElse(isNil, F, all(pipe(prop('result'), equals(true))))(data), [data])
 
   useEffect(() => {
