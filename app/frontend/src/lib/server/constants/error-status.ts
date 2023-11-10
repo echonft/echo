@@ -3,5 +3,5 @@ export enum ErrorStatus {
   UNAUTHORIZED = 401,
   FORBIDDEN = 403,
   NOT_FOUND = 404,
-  SERVER_ERROR = 405
+  SERVER_ERROR = 500
 }

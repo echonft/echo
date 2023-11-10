@@ -2,11 +2,10 @@ import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
 import type { NextFetchRequestConfig } from '@echo/frontend/lib/types/services/fetch/next-fetch-request-config'
 import type { NextFetchResponse } from '@echo/frontend/lib/types/services/fetch/next-fetch-response'
 import { isDev } from '@echo/utils/constants/is-dev'
-import { toPromise } from '@echo/utils/fp/to-promise'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { ErrorResponse } from '@echo/utils/types/error-response'
 import { stringify } from 'qs'
-import { andThen, assoc, assocPath, concat, converge, isNil, modify, partialRight, pipe, prop, tryCatch } from 'ramda'
+import { andThen, assoc, assocPath, concat, isNil, modify, partialRight, pipe } from 'ramda'
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 interface HandleConfigArgs<Query, Body> {
@@ -15,18 +14,6 @@ interface HandleConfigArgs<Query, Body> {
     Partial<Record<'cache', 'no-store' | 'force-cache'>> &
     Partial<Record<'next', Partial<Record<'tags', string[]>>>>
   url: string
-}
-
-function assertConfig<Query, Body>(config: NextFetchRequestConfig<Query, Body> | undefined, method: HttpMethod) {
-  if (isNil(config)) {
-    return
-  }
-  if (method === 'GET' && !isNil(config.data)) {
-    throw Error('GET requests cannot have a body')
-  }
-  if (!isNil(config.disableCache) && !isNil(config.revalidate)) {
-    throw Error('requests cannot have both disableCache and revalidate - only one should be specified')
-  }
 }
 
 function handleBearerToken<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleConfigArgs<Query, Body> {
@@ -91,8 +78,16 @@ function handleTags<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleCon
   return modify('init', assocPath(['next', 'tags'], tags), args)
 }
 
-function handleUncaughtError<T>(error: unknown): NextFetchResponse<T> {
-  return { data: undefined, error: { message: errorMessage(error), status: ErrorStatus.SERVER_ERROR } }
+async function tryFetch<Query, Body>(args: HandleConfigArgs<Query, Body>): Promise<Response> {
+  try {
+    return await fetch(args.url, args.init)
+  } catch (e) {
+    return Promise.resolve({
+      ok: false,
+      status: ErrorStatus.SERVER_ERROR,
+      json: () => Promise.resolve({ error: errorMessage(e) })
+    } as Response)
+  }
 }
 
 async function handleResponse<T>(response: Response): Promise<NextFetchResponse<T>> {
@@ -101,7 +96,7 @@ async function handleResponse<T>(response: Response): Promise<NextFetchResponse<
       const data = (await response.json()) as T
       return { data, error: undefined }
     } catch (e) {
-      return handleUncaughtError(e)
+      return { data: undefined, error: { message: errorMessage(e), status: ErrorStatus.SERVER_ERROR } }
     }
   }
   try {
@@ -114,7 +109,6 @@ async function handleResponse<T>(response: Response): Promise<NextFetchResponse<
 
 function handleConfig<Query, Body>(method: HttpMethod) {
   return function (args: Omit<HandleConfigArgs<Query, Body>, 'init'>): HandleConfigArgs<Query, Body> {
-    assertConfig(args.config, method)
     return pipe<
       [Omit<HandleConfigArgs<Query, Body>, 'init'>],
       HandleConfigArgs<Query, Body>,
@@ -126,9 +120,9 @@ function handleConfig<Query, Body>(method: HttpMethod) {
     >(
       assoc('init', {
         headers: {
-          'Content-Type': 'application/json',
-          method
-        }
+          'Content-Type': 'application/json'
+        },
+        method
       }),
       handleBearerToken,
       handleDisableCache,
@@ -143,14 +137,15 @@ export const nextFetch = {
     url: string,
     config?: NextFetchRequestConfig<Query, never>
   ): Promise<NextFetchResponse<TResponse>> => {
-    return tryCatch(
-      pipe<
-        [Omit<HandleConfigArgs<Query, never>, 'init'>],
-        HandleConfigArgs<Query, Body>,
-        Promise<Response>,
-        Promise<NextFetchResponse<TResponse>>
-      >(handleConfig('GET'), converge(fetch, [prop('url'), prop('init')]), andThen(handleResponse<TResponse>)),
-      pipe(handleUncaughtError<TResponse>, toPromise)
+    return pipe<
+      [Omit<HandleConfigArgs<Query, never>, 'init'>],
+      HandleConfigArgs<Query, never>,
+      Promise<Response>,
+      Promise<NextFetchResponse<TResponse>>
+    >(
+      handleConfig('GET'),
+      tryFetch,
+      andThen(handleResponse<TResponse>)
     )({ url, config })
   }
 }
