@@ -20,26 +20,50 @@ jobs:
           version: latest
           run_install: true
       - name: lint bot
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/bot
       - name: lint frontend
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/frontend
       - name: lint helper
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/helper
       - name: lint storybook
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/storybook
       - name: lint alchemy
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/alchemy
       - name: lint api
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/api
       - name: lint discord
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/discord
       - name: lint firestore
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/firestore
       - name: lint model
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/model
       - name: lint ui
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/ui
       - name: lint utils
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/utils
       - name: lint web3
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/web3
