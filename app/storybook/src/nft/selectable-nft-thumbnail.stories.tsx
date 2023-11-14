@@ -12,8 +12,9 @@ const metadata: Meta<typeof Component> = {
       control: 'boolean'
     },
     onToggleSelection: {
-      control: false,
-      action: 'selection toggled'
+      table: {
+        disable: true
+      }
     }
   },
   parameters: {

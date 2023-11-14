@@ -1,8 +1,8 @@
-import { addWalletFetcher } from '@echo/api/services/fetcher/add-wallet-fetcher'
+import { addWalletFetcher, type AddWalletFetcherArgs } from '@echo/api/services/fetcher/add-wallet-fetcher'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
-import type { Wallet } from '@echo/model/types/wallet'
 import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -33,12 +33,9 @@ export const CreateSignature: FunctionComponent<Props> = ({ nonce, address, chai
     nonce
   })
   const { isLoading, signMessageAsync, variables } = useSignMessage()
-  const { trigger, isMutating } = useSWRTrigger<
-    EmptyResponse,
-    { wallet: Wallet; message: string; signature: HexString; token: string }
-  >({
-    key: `add-wallet-${address}-${chainId}`,
-    fetcher: ({ wallet, message, signature, token }) => addWalletFetcher({ wallet, message, signature }, token)
+  const { trigger, isMutating } = useSWRTrigger<EmptyResponse, AddWalletFetcherArgs>({
+    key: SWRKeys.wallet.add({ address, chainId }),
+    fetcher: addWalletFetcher
   })
   const loading = isLoading || isMutating
 

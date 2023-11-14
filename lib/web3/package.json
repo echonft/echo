@@ -23,6 +23,7 @@
     "@echo/alchemy": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
+    "@wagmi/core": "1.4.6",
     "ramda": "0.29.1",
     "viem": "1.18.9",
     "wagmi": "1.4.5"

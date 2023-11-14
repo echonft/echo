@@ -3,7 +3,7 @@ import { offerIsFinalOrExpired } from '@echo/model/helpers/offer/offer-is-final-
 import type { Offer } from '@echo/model/types/offer'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { toPromise } from '@echo/utils/fp/to-promise'
-import { isOwnerOfErc721 } from '@echo/web3/helpers/is-owner-of-erc721'
+import { isOwnerOfErc721 } from '@echo/web3/helpers/viem/is-owner-of-erc721'
 import { F, ifElse, map, otherwise, pipe, prop, T } from 'ramda'
 
 export function assertOfferItemsOwner(offer: Offer) {

@@ -28,6 +28,11 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag'
   },
+  env: (config) => ({
+    ...config,
+    NEXT_PUBLIC_ALCHEMY_KEY: 'test',
+    NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: 'wallet-connect-project-id'
+  }),
   webpackFinal: async (config) => {
     return {
       ...config,
@@ -36,11 +41,15 @@ const config: StorybookConfig = {
         plugins: [new TsconfigPathsPlugin()],
         fallback: {
           ...config.resolve.fallback,
-          constants: require.resolve('constants-browserify'),
-          crypto: require.resolve('crypto-browserify'),
-          path: require.resolve('path-browserify'),
-          stream: require.resolve('stream-browserify'),
-          zlib: require.resolve('browserify-zlib')
+          constants: false,
+          crypto: false,
+          http: false,
+          https: false,
+          os: false,
+          path: false,
+          stream: false,
+          tls: false,
+          zlib: false
         }
       }
     }

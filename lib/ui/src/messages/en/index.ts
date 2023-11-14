@@ -205,10 +205,6 @@ export const messages = {
   },
   offer: {
     details: {
-      approval: {
-        title: '{collectionName} is approved by Echo',
-        btn: 'Approve'
-      },
       assets: {
         in: 'Getting in your wallet',
         out: 'Leaving your wallet'
@@ -227,22 +223,27 @@ export const messages = {
       approveBtn: 'Approve {count, plural, =0 {} =1 {NFT} other {NFTs}}',
       completeBtn: 'Swap',
       acceptModal: {
-        title: 'Accept offer',
-        subtitle:
-          'To accept the offer, you need to approve the Echo contract to transfer your tokens (paid transactions) and then sign a message for the counterparty to perform the swap (not a transaction).',
-        ownerAssets: 'You own all the assets',
-        counterpartyAssets: 'Counterparty owns all the assets',
-        signature: 'Signature is set',
-        btn: 'Accept'
+        title: 'Accept Offer',
+        approval: {
+          subtitle: 'To accept the offer, you first need to approve the Echo contract to transfer your NFTs'
+        },
+        sign: {
+          subtitle: 'Great! Now you just need to sign a message so the counterparty can perform the swap',
+          btn: 'Accept'
+        }
+      },
+      approveModal: {
+        btn: 'Approve'
       },
       swapModal: {
-        title: 'Execute swap',
-        subtitle:
-          'To execute the swap, you need to approve the Echo contract to transfer your tokens (paid transaction) and then execute the trade (paid transaction).',
-        ownerAssets: 'You own all the assets',
-        counterpartyAssets: 'Counterparty owns all the assets',
-        counterpartyApproval: 'Counterparty has approved token transfer',
-        btn: 'Swap'
+        title: 'Execute Swap',
+        approval: {
+          subtitle: 'To execute the swap, you first need to approve the Echo contract to transfer your NFTs'
+        },
+        execute: {
+          subtitle: 'Great! Now you just need to execute the trade',
+          btn: 'Swap'
+        }
       }
     },
     expired: 'Expired',

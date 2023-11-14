@@ -1,6 +1,11 @@
 'use client'
-import { getOfferSignatureFetcher } from '@echo/api/services/fetcher/get-offer-signature-fetcher'
+import type { AcceptOfferArgs } from '@echo/api/services/fetcher/accept-offer'
+import type { CancelOfferArgs } from '@echo/api/services/fetcher/cancel-offer'
+import type { GetOfferArgs } from '@echo/api/services/fetcher/get-offer'
+import type { GetOfferSignatureArgs } from '@echo/api/services/fetcher/get-offer-signature'
+import type { RejectOfferArgs } from '@echo/api/services/fetcher/reject-offer'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { assertOfferState } from '@echo/model/helpers/offer/assert/assert-offer-state'
 import type { Offer } from '@echo/model/types/offer'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
@@ -9,7 +14,12 @@ import { OfferDetailsCancelButton } from '@echo/ui/components/offer/details/acti
 import { OfferDetailsRejectButton } from '@echo/ui/components/offer/details/action/offer-details-reject-button'
 import { OfferDetailsSwapButton } from '@echo/ui/components/offer/details/action/offer-details-swap-button'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
+import type { ApproveErc721ContractArgs } from '@echo/web3/helpers/wagmi/fetcher/approve-erc721-contract'
+import type { ExecuteSwapArgs } from '@echo/web3/helpers/wagmi/fetcher/execute-swap'
+import type { GetErc721ContractApprovalArgs } from '@echo/web3/helpers/wagmi/fetcher/get-erc721-contract-approval'
+import type { SignOfferArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-offer'
 import { clsx } from 'clsx'
 import { type FunctionComponent, useState } from 'react'
 
@@ -17,13 +27,20 @@ interface Props {
   offer: Offer
   isCreator: boolean
   token: string
-  cancelOfferFetcher: (offerId: string, token: string | undefined) => Promise<OfferResponse>
-  acceptOfferFetcher: (
-    offerId: string,
-    signature: HexString | undefined,
-    token: string | undefined
-  ) => Promise<OfferResponse>
-  rejectOfferFetcher: (offerId: string, token: string | undefined) => Promise<OfferResponse>
+  fetcher: {
+    approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
+    getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
+    acceptOffer: Fetcher<OfferResponse, AcceptOfferArgs>
+    cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
+    executeSwap: Fetcher<HexString, ExecuteSwapArgs>
+    getOffer: Fetcher<OfferResponse, GetOfferArgs>
+    getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
+    rejectOffer: Fetcher<OfferResponse, RejectOfferArgs>
+    signOffer: Fetcher<HexString, SignOfferArgs>
+  }
+  provider: {
+    chain: () => number | undefined
+  }
   onSuccess?: (offer: Offer) => unknown
   onError?: EmptyFunction
 }
@@ -68,9 +85,8 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
   offer,
   token,
   isCreator,
-  acceptOfferFetcher,
-  rejectOfferFetcher,
-  cancelOfferFetcher,
+  fetcher,
+  provider,
   onSuccess
 }) => {
   const [buttonsDisabled, setButtonsDisabled] = useState(false)
@@ -90,10 +106,10 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
         <OfferDetailsAcceptButton
           offer={offer}
           token={token}
-          acceptOfferFetcher={acceptOfferFetcher}
+          fetcher={fetcher}
+          provider={provider}
           onClick={disable}
           onSuccess={success}
-          onError={error}
           onCancel={enable}
           disabled={buttonsDisabled}
         />
@@ -102,10 +118,10 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
         <OfferDetailsSwapButton
           offer={offer}
           token={token}
-          getOfferSignatureFetcher={getOfferSignatureFetcher}
+          fetcher={fetcher}
+          provider={provider}
           onClick={disable}
           onSuccess={success}
-          onError={error}
           onCancel={enable}
           disabled={buttonsDisabled}
         />
@@ -114,7 +130,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
         <OfferDetailsRejectButton
           offer={offer}
           token={token}
-          rejectOfferFetcher={rejectOfferFetcher}
+          fetcher={fetcher}
           onClick={disable}
           onSuccess={success}
           onError={error}
@@ -125,7 +141,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
         <OfferDetailsCancelButton
           offer={offer}
           token={token}
-          cancelOfferFetcher={cancelOfferFetcher}
+          fetcher={fetcher}
           onClick={disable}
           onSuccess={success}
           onError={error}

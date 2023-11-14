@@ -1,4 +1,4 @@
-import { LISTING_STATES } from '@echo/model/constants/listing-states'
+import { OFFER_STATES } from '@echo/model/constants/offer-states'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { OfferDetailsState as Component } from '@echo/ui/components/offer/details/offer-details-state'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -14,7 +14,7 @@ const metadata: Meta<typeof Component> = {
   argTypes: {
     state: {
       defaultValue: DEFAULT_STATE,
-      options: LISTING_STATES,
+      options: OFFER_STATES,
       control: { type: 'radio' }
     },
     expired: {

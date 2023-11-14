@@ -38,6 +38,7 @@
     "react": "18.2.0",
     "react-copy-to-clipboard": "5.1.0",
     "react-dom": "18.2.0",
+    "react-loader-spinner": "5.4.5",
     "react-tooltip": "5.21.6",
     "siwe": "2.1.4",
     "swr": "2.2.4",
@@ -48,7 +49,6 @@
   },
   "devDependencies": {
     "@babel/preset-react": "7.22.15",
-    "@headlessui/tailwindcss": "0.2.0",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
     "@types/ramda": "0.29.7",

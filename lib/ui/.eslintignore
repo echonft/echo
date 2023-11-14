@@ -4,4 +4,4 @@ tsup.config.ts
 babel.config.cjs
 jest.config.cjs
 postcss.config.cjs
-tailwind.config.cjs
+tailwind.config.ts

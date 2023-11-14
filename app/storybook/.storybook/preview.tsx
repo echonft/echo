@@ -27,14 +27,10 @@ const preview: Preview = {
       return Promise.resolve({ sentry: 'disabled' })
     }
   ],
+  argTypes: {},
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
-    controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/
-      }
-    }
+    actions: { argTypesRegex: '^on.*' },
+    exclude: /^on.*/
   }
 }
 

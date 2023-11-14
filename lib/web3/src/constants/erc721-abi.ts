@@ -296,7 +296,7 @@ export const erc721ABI = [
     inputs: [],
     outputs: [
       {
-        name: '' as const,
+        name: 'totalSupply' as const,
         type: 'uint256' as const
       }
     ]
@@ -321,4 +321,4 @@ export const erc721ABI = [
     ],
     outputs: []
   }
-]
+] as const

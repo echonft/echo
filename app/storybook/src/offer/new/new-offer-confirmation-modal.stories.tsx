@@ -7,17 +7,19 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     onClose: {
-      control: false,
-      action: 'close'
+      table: {
+        disable: true
+      }
     },
     onConfirm: {
-      control: false,
-      action: 'confirm'
+      table: {
+        disable: true
+      }
     }
   },
   parameters: {
     controls: {
-      exclude: ['receiverItems', 'senderItems', 'open', 'confirming', 'onClose', 'onConfirm']
+      exclude: ['receiverItems', 'senderItems', 'open', 'confirming']
     }
   }
 }

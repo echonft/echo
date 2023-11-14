@@ -6,13 +6,9 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     onToggleSelection: {
-      control: false,
-      action: 'selection updated'
-    }
-  },
-  parameters: {
-    controls: {
-      exclude: ['onToggleSelection']
+      table: {
+        disable: true
+      }
     }
   }
 }

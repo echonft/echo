@@ -1,16 +1,19 @@
 import { assertToken } from '@echo/api/helpers/assert-token'
+import { getAuthorizationHeader } from '@echo/api/helpers/get-authorization-header'
 import { apiUrl } from '@echo/api/routing/api-url'
 import { type AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { type EmptyResponse } from '@echo/api/types/responses/empty-response'
+import type { TokenArgs } from '@echo/api/types/token-args'
 import axios from 'axios'
-import { prop } from 'ramda'
+import { omit, prop } from 'ramda'
 
-export function addWalletFetcher(data: AddWalletRequest, token: string | undefined) {
-  assertToken(token)
+export interface AddWalletFetcherArgs extends AddWalletRequest, TokenArgs {}
+export function addWalletFetcher(args: AddWalletFetcherArgs) {
+  assertToken(args)
   return axios
     .put<EmptyResponse>(apiUrl.profile.wallet, {
-      data,
-      headers: { Authorization: `Bearer ${token}` }
+      data: omit(['token'], args),
+      headers: getAuthorizationHeader(args)
     })
     .then(prop('data'))
 }

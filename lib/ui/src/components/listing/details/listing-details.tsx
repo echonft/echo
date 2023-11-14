@@ -1,4 +1,5 @@
 'use client'
+import type { CancelListingArgs } from '@echo/api/services/fetcher/cancel-listing'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { assertListingState } from '@echo/model/helpers/listing/assert/assert-listing-state'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
@@ -17,15 +18,19 @@ import { AlignmentCenter } from '@echo/ui/constants/alignment'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
 import { getListingDetailsContainerBackground } from '@echo/ui/helpers/listing/get-listing-details-container-background'
+import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import type { Fetcher } from '@echo/utils/types/fetcher'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { map, prop } from 'ramda'
-import { type FunctionComponent, useMemo, useState } from 'react'
+import { type FunctionComponent, useEffect, useMemo, useState } from 'react'
 
 interface Props {
   listing: Listing
-  cancelListingFetcher: (listingId: string, token: string | undefined) => Promise<ListingResponse>
+  fetcher: {
+    cancelListing: Fetcher<ListingResponse, CancelListingArgs>
+  }
   user: AuthUser | undefined
 }
 
@@ -41,13 +46,13 @@ function canCancel(listing: Listing, user: AuthUser | undefined) {
   }
 }
 
-export const ListingDetails: FunctionComponent<Props> = ({ listing, cancelListingFetcher, user }) => {
+export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, user }) => {
   const t = useTranslations('listing.details')
   const tError = useTranslations('error.listing')
   const [updatedListing, setUpdatedListing] = useState(listing)
-  const { trigger, isMutating } = useSWRTrigger<ListingResponse, { listingId: string; token: string | undefined }>({
-    key: `cancel-listing-${listing.id}`,
-    fetcher: ({ listingId, token }) => cancelListingFetcher(listingId, token),
+  const { trigger, isMutating } = useSWRTrigger<ListingResponse, CancelListingArgs>({
+    key: SWRKeys.listing.cancel(listing),
+    fetcher: fetcher.cancelListing,
     onSuccess: (response) => {
       setUpdatedListing(response.listing)
     },
@@ -56,7 +61,9 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, cancelListin
       alert: { severity: CalloutSeverity.ERROR, message: tError('cancel') }
     }
   })
-
+  useEffect(() => {
+    setUpdatedListing(listing)
+  }, [listing])
   const { state, creator, expired, expiresAt, items, targets } = updatedListing
   const nfts = useMemo(() => map(prop('nft'), items), [items])
 

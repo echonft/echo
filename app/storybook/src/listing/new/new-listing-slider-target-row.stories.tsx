@@ -8,17 +8,19 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     onQuantityChange: {
-      control: false,
-      action: 'quantity changed'
+      table: {
+        disable: true
+      }
     },
     onRemove: {
-      control: false,
-      action: 'removed'
+      table: {
+        disable: true
+      }
     }
   },
   parameters: {
     controls: {
-      exclude: ['bannerUrl', 'pictureUrl', 'onQuantityChange', 'onRemove']
+      exclude: ['bannerUrl', 'pictureUrl']
     }
   }
 }

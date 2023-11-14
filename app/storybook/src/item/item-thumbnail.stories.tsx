@@ -7,13 +7,14 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     onRemove: {
-      control: false,
-      action: 'removed'
+      table: {
+        disable: true
+      }
     }
   },
   parameters: {
     controls: {
-      exclude: ['item', 'onRemove']
+      exclude: ['item']
     }
   }
 }
