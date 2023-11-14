@@ -1,3 +1,5 @@
+import { addWallet } from '@echo/api/services/fetcher/add-wallet'
+import { getNonce } from '@echo/api/services/fetcher/get-nonce'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
@@ -14,6 +16,9 @@ import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
 import { SizeLG } from '@echo/ui/constants/size'
 import { messages } from '@echo/ui/messages/en'
+import { signNonce } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
+import { account } from '@echo/web3/helpers/wagmi/provider/account'
+import { chain } from '@echo/web3/helpers/wagmi/provider/chain'
 import { NextIntlClientProvider } from 'next-intl'
 import { head, isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -42,7 +47,11 @@ export const ProfileDetailsApiProvided: FunctionComponent<Props> = ({ user }) =>
               <HideIfNil checks={wallet} render={(wallet) => <UserWallet address={wallet.address} />} />
               <ShowIfNil checks={wallet}>
                 <Web3Provider>
-                  <ConnectWallet token={user.sessionToken} />
+                  <ConnectWallet
+                    token={user.sessionToken}
+                    fetcher={{ addWallet, getNonce, signNonce }}
+                    provider={{ account, chain }}
+                  />
                 </Web3Provider>
               </ShowIfNil>
             </UserInfoLayout>

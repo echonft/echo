@@ -35,10 +35,16 @@ export const SWRKeys = {
     reject: pipe<[Offer], string, string>(offerKey, concat('reject-offer-')),
     sign: pipe<[Offer], string, string>(offerKey, concat('sign-offer-'))
   },
+  profile: {
+    nonce: {
+      get: 'get-nonce',
+      sign: 'sign-nonce'
+    },
+    wallet: {
+      add: pipe<[Wallet], string, string>(walletKey, concat('add-wallet-'))
+    }
+  },
   swap: {
     execute: pipe<[Offer], string, string>(offerKey, concat('execute-swap-'))
-  },
-  wallet: {
-    add: pipe<[Wallet], string, string>(walletKey, concat('add-wallet-'))
   }
 }

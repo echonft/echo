@@ -20,6 +20,7 @@ import type { ApproveErc721ContractArgs } from '@echo/web3/helpers/wagmi/fetcher
 import type { ExecuteSwapArgs } from '@echo/web3/helpers/wagmi/fetcher/execute-swap'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3/helpers/wagmi/fetcher/get-erc721-contract-approval'
 import type { SignOfferArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-offer'
+import type { ChainProvider } from '@echo/web3/helpers/wagmi/provider/chain'
 import { clsx } from 'clsx'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
@@ -39,7 +40,7 @@ interface Props {
     signOffer: Fetcher<HexString, SignOfferArgs>
   }
   provider: {
-    chain: () => number | undefined
+    chain: ChainProvider
   }
 }
 

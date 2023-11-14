@@ -6,7 +6,7 @@ import type { TokenArgs } from '@echo/api/types/token-args'
 import axios from 'axios'
 import { prop } from 'ramda'
 
-export function getNonceFetcher(args: TokenArgs) {
+export function getNonce(args: TokenArgs) {
   assertToken(args)
   return axios
     .get<NonceResponse>(apiUrl.profile.nonce, {

@@ -1,11 +1,13 @@
-import { addWalletFetcher, type AddWalletFetcherArgs } from '@echo/api/services/fetcher/add-wallet-fetcher'
+import { type AddWalletArgs } from '@echo/api/services/fetcher/add-wallet'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
 import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
+import type { SignNonceArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
@@ -17,9 +19,13 @@ interface Props {
   address: HexString
   chainId: number
   token: string
+  fetcher: {
+    addWallet: Fetcher<EmptyResponse, AddWalletArgs>
+    signNonce: Fetcher<HexString, SignNonceArgs>
+  }
 }
 
-export const CreateSignature: FunctionComponent<Props> = ({ nonce, address, chainId, token }) => {
+export const CreateSignature: FunctionComponent<Props> = ({ nonce, address, chainId, token, fetcher }) => {
   const t = useTranslations('profile.wallet.button')
   const tErr = useTranslations('error.profile')
   const { show } = useAlertStore()
@@ -33,9 +39,9 @@ export const CreateSignature: FunctionComponent<Props> = ({ nonce, address, chai
     nonce
   })
   const { isLoading, signMessageAsync, variables } = useSignMessage()
-  const { trigger, isMutating } = useSWRTrigger<EmptyResponse, AddWalletFetcherArgs>({
-    key: SWRKeys.wallet.add({ address, chainId }),
-    fetcher: addWalletFetcher
+  const { trigger, isMutating } = useSWRTrigger<EmptyResponse, AddWalletArgs>({
+    key: SWRKeys.profile.wallet.add({ address, chainId }),
+    fetcher: fetcher.addWallet
   })
   const loading = isLoading || isMutating
 

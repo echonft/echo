@@ -10,6 +10,7 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import type { ApproveErc721ContractArgs } from '@echo/web3/helpers/wagmi/fetcher/approve-erc721-contract'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3/helpers/wagmi/fetcher/get-erc721-contract-approval'
 import type { SignOfferArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-offer'
+import type { ChainProvider } from '@echo/web3/helpers/wagmi/provider/chain'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
 
@@ -24,7 +25,7 @@ interface Props {
     signOffer: Fetcher<HexString, SignOfferArgs>
   }
   provider: {
-    chain: () => number | undefined
+    chain: ChainProvider
   }
   onClose?: EmptyFunction
   onSuccess?: (offer: Offer) => unknown

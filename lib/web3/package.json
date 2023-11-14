@@ -25,6 +25,7 @@
     "@echo/utils": "workspace:*",
     "@wagmi/core": "1.4.6",
     "ramda": "0.29.1",
+    "siwe": "2.1.4",
     "viem": "1.18.9",
     "wagmi": "1.4.5"
   },

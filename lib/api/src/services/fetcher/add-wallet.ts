@@ -7,8 +7,8 @@ import type { TokenArgs } from '@echo/api/types/token-args'
 import axios from 'axios'
 import { omit, prop } from 'ramda'
 
-export interface AddWalletFetcherArgs extends AddWalletRequest, TokenArgs {}
-export function addWalletFetcher(args: AddWalletFetcherArgs) {
+export interface AddWalletArgs extends AddWalletRequest, TokenArgs {}
+export function addWallet(args: AddWalletArgs) {
   assertToken(args)
   return axios
     .put<EmptyResponse>(apiUrl.profile.wallet, {

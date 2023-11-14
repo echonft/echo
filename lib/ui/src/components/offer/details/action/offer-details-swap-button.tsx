@@ -12,6 +12,7 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import type { ApproveErc721ContractArgs } from '@echo/web3/helpers/wagmi/fetcher/approve-erc721-contract'
 import type { ExecuteSwapArgs } from '@echo/web3/helpers/wagmi/fetcher/execute-swap'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3/helpers/wagmi/fetcher/get-erc721-contract-approval'
+import type { ChainProvider } from '@echo/web3/helpers/wagmi/provider/chain'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
@@ -27,7 +28,7 @@ interface Props {
     getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
   }
   provider: {
-    chain: () => number | undefined
+    chain: ChainProvider
   }
   disabled?: boolean
   onClick?: EmptyFunction
