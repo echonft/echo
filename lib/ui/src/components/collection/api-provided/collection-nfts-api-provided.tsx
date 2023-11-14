@@ -6,7 +6,7 @@ import { SelectableNftsAndFiltersContainer } from '@echo/ui/components/nft/layou
 import { NavigationItems } from '@echo/ui/constants/navigation-item'
 import { NftFilterTraits } from '@echo/ui/constants/nft-filter'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
-import { mapNftToOfferItem } from '@echo/ui/mappers/map-nft-to-offer-item'
+import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item'
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { any, equals, head, map, path, pipe } from 'ramda'

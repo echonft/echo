@@ -11,7 +11,7 @@ describe('converters - collectionDataConverter', () => {
     const snapshot = {
       ref: {
         id: 'Rc8pLQXxgyQGIRL0fr13',
-        path: 'collections/Rc8pLQXxgyQGIRL0fr13'
+        path: 'nft-collections/Rc8pLQXxgyQGIRL0fr13'
       } as unknown as DocumentReference<Collection>,
       id: 'Rc8pLQXxgyQGIRL0fr13',
       exists: true,

@@ -15,13 +15,11 @@ import { type Collection } from '@echo/model/types/collection'
 import { type Listing } from '@echo/model/types/listing'
 import { type Nft } from '@echo/model/types/nft'
 import { type Offer } from '@echo/model/types/offer'
-import { formatAddress } from '@echo/utils/helpers/format-address'
-import { assoc, converge, lens, map, modify, modifyPath, omit, over, pick, pipe, prop } from 'ramda'
+import type { HexString } from '@echo/utils/types/hex-string'
+import { assoc, lens, map, modify, modifyPath, omit, over, partial, pipe, prop, toLower } from 'ramda'
 
-const updateAddressLens = lens(pick(['chainId', 'address']), assoc('address'))
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-const updateAddress = over(updateAddressLens, converge(formatAddress, [prop('address'), prop('chainId')]))
+const updateAddressLens = lens<object & Record<'address', HexString>, HexString>(prop('address'), assoc('address'))
+const updateAddress = over<object & Record<'address', HexString>, HexString>(updateAddressLens, toLower<HexString>)
 
 void (async function () {
   initializeFirebase()
@@ -29,63 +27,50 @@ void (async function () {
   const listings = await getAllListings()
   for (const listing of listings) {
     const updateData = pipe(
+      partial(modifyPath, [['creator', 'wallet'], updateAddress]),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      modifyPath(['creator', 'wallet'], updateAddress),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      modify('items', map(modifyPath(['nft', 'owner', 'wallet'], updateAddress))),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      modify('targets', map(modifyPath(['collection', 'contract'], updateAddress))),
+      modify('items', map(partial(modifyPath, [['nft', 'owner', 'wallet'], updateAddress]))),
+      modify('targets', map(partial(modifyPath, [['collection', 'contract'], updateAddress]))),
       omit(['id'])
-    )(listing) as Listing
-    await unchecked_updateListing(listing.id, updateData)
+    )(listing)
+    await unchecked_updateListing(listing.id, updateData as Omit<Listing, 'id'>)
   }
   // fix collections addresses
   const collections = await getAllCollections()
   for (const collection of collections) {
-    const updateData = pipe(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      modify('contract', updateAddress),
-      omit(['id'])
-    )(collection) as Collection
-    await unchecked_updateCollection(collection.id, updateData)
+    const updateData = pipe(modify('contract', updateAddress), omit(['id']))(collection)
+    await unchecked_updateCollection(collection.id, updateData as Omit<Collection, 'id'>)
   }
   // fix nfts addresses
   const nfts = await getAllNfts()
   for (const nft of nfts) {
     const updateData = pipe(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      modifyPath(['owner', 'wallet'], updateAddress),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      modifyPath(['collection', 'contract'], updateAddress),
+      partial(modifyPath, [['owner', 'wallet'], updateAddress]),
+      partial(modifyPath, [['collection', 'contract'], updateAddress]),
       omit(['id'])
-    )(nft) as Nft
-    await unchecked_updateNft(nft.id, updateData)
+    )(nft)
+    await unchecked_updateNft(nft.id, updateData as Omit<Nft, 'id'>)
   }
   // fix offers addresses
   const offers = await getAllOffers()
   for (const offer of offers) {
     const updateData = pipe(
+      partial(modifyPath, [['receiver', 'wallet'], updateAddress]),
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      modify('receiverItems', map(modifyPath(['nft', 'owner', 'wallet'], updateAddress))),
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      modify('senderItems', map(modifyPath(['nft', 'owner', 'wallet'], updateAddress))),
+      modify('receiverItems', map(partial(modifyPath, [['nft', 'owner', 'wallet'], updateAddress]))),
+      partial(modifyPath, [['sender', 'wallet'], updateAddress]),
+      modify('senderItems', map(partial(modifyPath, [['nft', 'owner', 'wallet'], updateAddress]))),
       omit(['id'])
-    )(offer) as Offer
-    await unchecked_updateOffer(offer.id, updateData)
+    )(offer)
+    await unchecked_updateOffer(offer.id, updateData as Omit<Offer, 'id'>)
   }
   // fix wallets addresses
   const wallets = await getAllWallets()
   for (const wallet of wallets) {
-    const updateData = pipe(updateAddress, omit(['id']))(wallet) as WalletDocumentData
-    await unchecked_updateWallet(wallet.id, updateData)
+    const updateData = pipe(updateAddress, omit(['id']))(wallet)
+    await unchecked_updateWallet(wallet.id, updateData as Omit<WalletDocumentData, 'id'>)
   }
   await terminateFirestore()
 })()

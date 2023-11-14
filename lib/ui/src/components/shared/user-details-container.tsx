@@ -23,7 +23,7 @@ export const UserDetailsContainer: FunctionComponent<Props> = ({ user }) => {
       <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SizeMD} />
       <div className={clsx('flex', 'flex-col', 'gap-2.5', 'py-3')}>
         <UserDiscordTag discordUsername={username} />
-        <UserWallet address={wallet.address} />
+        <UserWallet wallet={wallet} />
       </div>
     </div>
   )

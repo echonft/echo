@@ -8,13 +8,12 @@ import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-c
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import type { Fetcher } from '@echo/utils/types/fetcher'
-import type { HexString } from '@echo/utils/types/hex-string'
-import type { SignNonceArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
+import type { SignNonceArgs, SignNonceResult } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import type { AccountProvider } from '@echo/web3/helpers/wagmi/provider/account'
 import type { ChainProvider } from '@echo/web3/helpers/wagmi/provider/chain'
 import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
+import { isNil, toLower } from 'ramda'
 import { type FunctionComponent } from 'react'
 import useSWR from 'swr'
 
@@ -22,7 +21,7 @@ interface Props {
   fetcher: {
     addWallet: Fetcher<EmptyResponse, AddWalletArgs>
     getNonce: Fetcher<NonceResponse, TokenArgs>
-    signNonce: Fetcher<HexString, SignNonceArgs>
+    signNonce: Fetcher<SignNonceResult, SignNonceArgs>
   }
   provider: {
     account: AccountProvider
@@ -56,5 +55,12 @@ export const ConnectWallet: FunctionComponent<Props> = ({ fetcher, provider, tok
       </ConnectKitButton.Custom>
     )
   }
-  return <CreateSignature nonce={data.nonce} token={token} address={address} chainId={chainId} fetcher={fetcher} />
+  return (
+    <CreateSignature
+      nonce={data.nonce}
+      token={token}
+      wallet={{ address: toLower(address), chainId }}
+      fetcher={fetcher}
+    />
+  )
 }

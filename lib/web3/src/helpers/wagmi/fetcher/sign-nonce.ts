@@ -1,17 +1,22 @@
+import type { Wallet } from '@echo/model/types/wallet'
+import type { HexString } from '@echo/utils/types/hex-string'
+import { getNonceSiweMessageParams } from '@echo/web3/helpers/wagmi/fetcher/get-nonce-siwe-message-params'
 import { signMessage } from '@wagmi/core'
-import { assoc, pipe } from 'ramda'
 import { SiweMessage } from 'siwe'
 
 export interface SignNonceArgs {
   domain: string
-  address: string
   uri: string
-  chainId: number
   nonce: string
+  wallet: Wallet
 }
-export async function signNonce(args: SignNonceArgs) {
-  const siweMessage = new SiweMessage(
-    pipe(assoc('statement', 'Sign this message to add your wallet to Echo'), assoc('version', '1'))(args)
-  )
-  return await signMessage({ message: siweMessage.prepareMessage() })
+export interface SignNonceResult {
+  message: string
+  signature: HexString
+}
+export async function signNonce(args: SignNonceArgs): Promise<SignNonceResult> {
+  const siweMessage = new SiweMessage(getNonceSiweMessageParams(args))
+  const message = siweMessage.prepareMessage()
+  const signature = await signMessage({ message })
+  return { message, signature }
 }
