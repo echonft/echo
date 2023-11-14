@@ -7,7 +7,7 @@ import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-rem
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { assertWallets } from '@echo/firestore-test/wallet/assert-wallets'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { pick } from 'ramda'
+import { pick, toLower } from 'ramda'
 
 describe('CRUD - wallet - removeWallet', () => {
   beforeAll(async () => {
@@ -20,13 +20,19 @@ describe('CRUD - wallet - removeWallet', () => {
 
   it('throws if the wallet does not exists', async () => {
     await expect(
-      removeWallet('6rECUMhevHfxABZ1VNOm', { chainId: 1, address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8' })
+      removeWallet('6rECUMhevHfxABZ1VNOm', {
+        chainId: 1,
+        address: toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
+      })
     ).rejects.toBeDefined()
   })
 
   it('throws if the wallet is not associated with the userId', async () => {
     await expect(
-      removeWallet('6rECUMhevHfxABZ1VNOm', { chainId: 1, address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E' })
+      removeWallet('6rECUMhevHfxABZ1VNOm', {
+        chainId: 1,
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E')
+      })
     ).rejects.toBeDefined()
   })
 

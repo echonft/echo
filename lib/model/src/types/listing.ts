@@ -5,8 +5,8 @@ import { type User } from '@echo/model/types/user'
 
 export interface Listing {
   id: string
-  creator: User
   createdAt: number
+  creator: User
   expired: boolean
   expiresAt: number
   items: ListingItem[]

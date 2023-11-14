@@ -1,6 +1,6 @@
 import { type OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { formatAddress } from '@echo/utils/helpers/format-address'
+import { toLower } from 'ramda'
 
 export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
@@ -14,7 +14,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
         chainId: 1
       }
     },
@@ -28,7 +28,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: formatAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
+        address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
         chainId: 1
       }
     },
@@ -49,7 +49,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: formatAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
+        address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
         chainId: 1
       }
     },
@@ -63,7 +63,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
         chainId: 1
       }
     },

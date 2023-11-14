@@ -1,7 +1,7 @@
 import { type ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { formatAddress } from '@echo/utils/helpers/format-address'
+import { toLower } from 'ramda'
 
 export const listingDocumentDataMock: Record<string, ListingDocumentData> = {
   jUzMtPGKM62mMhEcmbN4: {
@@ -14,7 +14,7 @@ export const listingDocumentDataMock: Record<string, ListingDocumentData> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
         chainId: 1
       }
     },
