@@ -1,5 +1,5 @@
-import { type ListingTarget } from '@echo/model/types/listing-target'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
+import type { Target } from '@echo/ui/components/listing/new/new-listing-slider-manager'
 import { NewListingSliderTargetRow } from '@echo/ui/components/listing/new/new-listing-slider-target-row'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { DirectionIn } from '@echo/ui/constants/swap-direction'
@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  target: ListingTarget
+  target: Target
 }
 
 export const NewListingConfirmationModalTargetContainer: FunctionComponent<Props> = ({ target }) => {

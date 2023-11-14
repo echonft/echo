@@ -1,9 +1,9 @@
-import { type ListingTarget } from '@echo/model/types/listing-target'
+import type { Target } from '@echo/ui/components/listing/new/new-listing-slider-manager'
 import { isNil, modify, pick } from 'ramda'
 
-export function mapListingTargetToRequest(target: ListingTarget | undefined) {
+export function mapListingTargetToRequest(target: Target | undefined) {
   if (isNil(target)) {
     throw Error(`target is undefined`)
   }
-  return modify<ListingTarget, 'collection', Record<'id', string>>('collection', pick(['id']), target)
+  return modify<Target, 'collection', Record<'id', string>>('collection', pick(['id']), target)
 }

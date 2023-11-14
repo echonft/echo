@@ -1,5 +1,5 @@
+import { type QueryConstraintsQueryParams } from '@echo/api/types/requests/params/query-constraints-query-params'
 import { type QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { type QueryConstraintsQueryParams } from '@echo/frontend/lib/types/request/query-constraints-query-params'
 import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
 import { flatten, juxt, map, modify, pipe, prop, when } from 'ramda'
 

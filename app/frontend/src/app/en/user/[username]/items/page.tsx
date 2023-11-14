@@ -1,7 +1,7 @@
+import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
 import { apiUrl } from '@echo/api/routing/api-url'
 import { type NftsResponse } from '@echo/api/types/responses/nfts-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
-import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { UserNftsApiProvided } from '@echo/ui/components/user/api-provided/user-nfts-api-provided'

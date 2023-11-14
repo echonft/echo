@@ -1,3 +1,4 @@
+import type { CollectionProviderResult } from '@echo/api/services/providers/collections'
 import { type Collection } from '@echo/model/types/collection'
 import { CollectionSearchBoxOptions } from '@echo/ui/components/collection/search/collection-search-box-options'
 import { CollectionSearchComboboxInput } from '@echo/ui/components/collection/search/collection-search-combobox-input'
@@ -7,8 +8,8 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   placeholder: string
-  options: Collection[] | undefined
-  selectedOption: Collection | undefined
+  options: CollectionProviderResult[] | undefined
+  selectedOption: CollectionProviderResult | undefined
   searching: boolean
   name?: string
   onSearch?: (searchQuery: string) => unknown

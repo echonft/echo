@@ -1,9 +1,9 @@
 'use client'
 import type { CreateListingArgs } from '@echo/api/services/fetcher/create-listing'
+import type { CollectionProvider, CollectionProviderResult } from '@echo/api/services/providers/collections'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
-import { type Collection } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { type ListingTarget } from '@echo/model/types/listing-target'
@@ -24,15 +24,16 @@ import { useTranslations } from 'next-intl'
 import { assoc, isNil, pathEq, pipe, reject } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
+export type Target = Omit<ListingTarget, 'collection'> & Record<'collection', CollectionProviderResult>
 interface Props {
   fetcher: {
     createListing: Fetcher<ListingResponse, CreateListingArgs>
   }
   provider: {
-    collections: () => Promise<Collection[]>
+    collections: CollectionProvider
   }
   user: AuthUser | undefined
-  initialTarget?: ListingTarget
+  initialTarget?: Target
   initialItems?: ListingItem[]
   open: boolean
   onDismiss?: EmptyFunction
@@ -47,8 +48,8 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
   open,
   onDismiss
 }) => {
-  const [collections, setCollections] = useState<Collection[]>()
-  const [target, setTarget] = useState<ListingTarget | undefined>(initialTarget)
+  const [collections, setCollections] = useState<CollectionProviderResult[]>()
+  const [target, setTarget] = useState<Target | undefined>(initialTarget)
   const [items, setItems] = useState<ListingItem[]>(initialItems ?? [])
   const [confirmModalShown, setConfirmModalShown] = useState(false)
   const [listing, setListing] = useState<Listing>()
@@ -63,7 +64,7 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
     },
     onError: {
       contexts: listingContext({
-        targets: isNil(target) ? [] : [target],
+        targets: isNil(target) ? [] : ([target] as ListingTarget[]),
         items
       }),
       alert: { severity: CalloutSeverity.ERROR, message: tError('new') },
@@ -76,7 +77,7 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
     void provider.collections().then(setCollections)
   }, [provider])
 
-  function onCollectionSelectionChange(selection: Collection | undefined) {
+  function onCollectionSelectionChange(selection: CollectionProviderResult | undefined) {
     if (isNil(selection)) {
       setTarget(undefined)
     } else {
