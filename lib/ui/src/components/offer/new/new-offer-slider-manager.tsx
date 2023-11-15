@@ -9,7 +9,7 @@ import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bott
 import { NewOfferBottomSliderInnerContainer } from '@echo/ui/components/offer/new/new-offer-bottom-slider-inner-container'
 import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
 import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
@@ -58,7 +58,7 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ fetcher, user 
         receiverItems,
         senderItems
       }),
-      alert: { severity: CalloutSeverity.ERROR, message: tError('new') },
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
       onError: () => {
         setConfirmOfferModalShown(false)
       }

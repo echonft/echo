@@ -7,7 +7,8 @@ import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
-import { OfferRoleReceiver } from '@echo/model/constants/offer-role'
+import { OFFER_ROLE_RECEIVER } from '@echo/model/constants/offer-role'
+import { OFFER_STATE_ACCEPTED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { ProfileOffersReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-received-api-provided'
 import { links } from '@echo/ui/constants/links'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -20,7 +21,7 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
   redirectIfNotLoggedIn(session, links.profile.offersReceived)
   const filterParams = mapOfferFiltersToQueryParams({
     as: OFFER_FILTER_AS_RECEIVER,
-    state: ['OPEN', 'ACCEPTED']
+    state: [OFFER_STATE_OPEN, OFFER_STATE_ACCEPTED]
   })
   const queryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
@@ -32,7 +33,7 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
   assertNextFetchResponse(response)
   return (
     <ProfileOffersReceivedApiProvided
-      offers={map(assoc('role', OfferRoleReceiver), response.data.offers) as OfferWithRole[]}
+      offers={map(assoc('role', OFFER_ROLE_RECEIVER), response.data.offers) as OfferWithRole[]}
       user={session.user}
     />
   )

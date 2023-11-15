@@ -1,4 +1,4 @@
-import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import { type BannerPictureSize } from '@echo/ui/types/banner-picture-size'
 import { clsx } from 'clsx'
 import { always, identity, ifElse, isNil } from 'ramda'
@@ -9,7 +9,7 @@ export interface BannerProps {
   bannerSize?: BannerPictureSize
 }
 
-export const CollectionBanner: FunctionComponent<BannerProps> = ({ bannerUrl, bannerSize = SizeLG }) => {
+export const CollectionBanner: FunctionComponent<BannerProps> = ({ bannerUrl, bannerSize = SIZE_LG }) => {
   return (
     <div
       style={{
@@ -26,8 +26,8 @@ export const CollectionBanner: FunctionComponent<BannerProps> = ({ bannerUrl, ba
         'top-0',
         'inset-x-0',
         'bg-contain',
-        bannerSize === SizeLG && 'h-64',
-        bannerSize === SizeMD && 'h-40'
+        bannerSize === SIZE_LG && 'h-64',
+        bannerSize === SIZE_MD && 'h-40'
       )}
     />
   )

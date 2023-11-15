@@ -1,10 +1,10 @@
-import { OFFER_STATES } from '@echo/model/constants/offer-states'
+import { OFFER_STATE_OPEN, OFFER_STATES } from '@echo/model/constants/offer-states'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { OfferDetailsState as Component } from '@echo/ui/components/offer/details/offer-details-state'
 import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
 
-const DEFAULT_STATE: OfferState = 'OPEN'
+const DEFAULT_STATE: OfferState = OFFER_STATE_OPEN
 const DEFAULT_EXPIRED = false
 const EXPIRED_DATE = dayjs().subtract(2, 'd').unix()
 const NOT_EXPIRED_DATE = dayjs().add(2, 'd').unix()

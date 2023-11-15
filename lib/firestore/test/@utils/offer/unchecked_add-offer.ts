@@ -1,5 +1,6 @@
 import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
+import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { now } from '@echo/utils/helpers/now'
@@ -18,7 +19,7 @@ export async function unchecked_addOffer(senderItems: OfferItem[], receiverItems
     receiverItems,
     sender: head(senderItems)!.nft.owner,
     senderItems,
-    state: 'OPEN',
+    state: OFFER_STATE_OPEN,
     updatedAt: now()
   }
   await reference.set(newOffer)

@@ -5,7 +5,7 @@ import { UserWalletSkeleton } from '@echo/ui/components/shared/skeleton/user-wal
 import { UserDetailsLayout } from '@echo/ui/components/user/layout/user-details-layout'
 import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout'
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
-import { SizeLG } from '@echo/ui/constants/size'
+import { SIZE_LG } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
 
 export const ProfileDetailsSkeleton: FunctionComponent = () => {
@@ -13,7 +13,7 @@ export const ProfileDetailsSkeleton: FunctionComponent = () => {
     <UserDetailsLayout>
       <PaddedContainer>
         <UserPictureAndInfoLayout>
-          <UserProfilePictureSkeleton size={SizeLG} />
+          <UserProfilePictureSkeleton size={SIZE_LG} />
           <UserInfoLayout>
             <UserDiscordTagSkeleton />
             <UserWalletSkeleton />

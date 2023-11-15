@@ -3,8 +3,8 @@ import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Nft } from '@echo/model/types/nft'
 import { CollectionNavigationLayout } from '@echo/ui/components/collection/layout/collection-navigation-layout'
 import { SelectableNftsAndFiltersContainer } from '@echo/ui/components/nft/layout/container/selectable-nfts-and-filters-container'
-import { NavigationItems } from '@echo/ui/constants/navigation-item'
-import { NftFilterTraits } from '@echo/ui/constants/nft-filter'
+import { NAVIGATION_ITEMS } from '@echo/ui/constants/navigation-item'
+import { NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item'
 import { getTranslator } from '@echo/ui/messages/get-translator'
@@ -35,10 +35,10 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
   }
 
   return (
-    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationItems} user={user}>
+    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NAVIGATION_ITEMS} user={user}>
       <SelectableNftsAndFiltersContainer
         nfts={nfts}
-        availableFilters={[NftFilterTraits]}
+        availableFilters={[NFT_FILTER_TRAITS]}
         btnLabel={t(hasNewOfferPending() ? 'collection.button.edit' : 'collection.button.create')}
         onButtonClick={onMakeOffer}
       />

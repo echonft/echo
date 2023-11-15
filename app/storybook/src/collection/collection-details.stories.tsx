@@ -1,6 +1,6 @@
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { CollectionDetails as Component } from '@echo/ui/components/collection/details/collection-details'
-import { SizeLG } from '@echo/ui/constants/size'
+import { SIZE_LG } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -24,7 +24,7 @@ export const Default: Story = {
     websiteUrl,
     bannerUrl,
     description,
-    size: SizeLG
+    size: SIZE_LG
   }
 }
 
@@ -39,6 +39,6 @@ export const Verified: Story = {
     bannerUrl,
     description,
     verified: true,
-    size: SizeLG
+    size: SIZE_LG
   }
 }

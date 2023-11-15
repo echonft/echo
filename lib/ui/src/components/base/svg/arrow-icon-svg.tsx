@@ -1,9 +1,9 @@
 import { Svg, type SvgProps } from '@echo/ui/components/base/svg/svg'
-import { DirectionLeft, DirectionRight } from '@echo/ui/constants/direction'
+import { DIRECTION_LEFT, DIRECTION_RIGHT } from '@echo/ui/constants/direction'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
-export const arrowIconDirections = [DirectionRight, DirectionLeft] as const
+export const arrowIconDirections = [DIRECTION_RIGHT, DIRECTION_LEFT] as const
 export type ArrowIconDirection = (typeof arrowIconDirections)[number]
 
 interface Props extends SvgProps {
@@ -15,7 +15,7 @@ export const ArrowIconSvg: FunctionComponent<Props> = ({ direction, ...rest }) =
     <Svg
       viewBoxHeight={14}
       viewBoxWidth={9}
-      className={clsx(direction === DirectionLeft ? 'rotate-90' : '-rotate-90')}
+      className={clsx(direction === DIRECTION_LEFT ? 'rotate-90' : '-rotate-90')}
       {...rest}
     >
       <path

@@ -12,7 +12,7 @@ import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/of
 import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
-import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
+import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
 import { getOfferDetailsContainerBackgroundImage } from '@echo/ui/helpers/offer/get-offer-details-container-background-image'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -68,11 +68,11 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, token
         <OfferDetailsState state={state} expired={expired} expiresAt={expiresAt} />
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-5')}>
-        <OfferDetailsItemsContainer items={isCreator ? receiverItems : senderItems} direction={DirectionIn} />
+        <OfferDetailsItemsContainer items={isCreator ? receiverItems : senderItems} direction={SWAP_DIRECTION_IN} />
         <div className={clsx('pb-4')}>
           <ItemsDetailsSeparator />
         </div>
-        <OfferDetailsItemsContainer items={isCreator ? senderItems : receiverItems} direction={DirectionOut} />
+        <OfferDetailsItemsContainer items={isCreator ? senderItems : receiverItems} direction={SWAP_DIRECTION_OUT} />
         <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
           <OfferDetailsButtons
             offer={updatedOffer}

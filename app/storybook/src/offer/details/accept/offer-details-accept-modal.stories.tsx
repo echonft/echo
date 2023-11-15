@@ -1,5 +1,6 @@
 import type { AcceptOfferArgs } from '@echo/api/services/fetcher/accept-offer'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OfferDetailsAcceptModal as Component } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-modal'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
@@ -12,7 +13,7 @@ import { assoc } from 'ramda'
 
 const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
 function acceptOffer(_args: AcceptOfferArgs): Promise<OfferResponse> {
-  return delayPromise(Promise.resolve({ offer: assoc('state', 'ACCEPTED', offer) }), 1200)
+  return delayPromise(Promise.resolve({ offer: assoc('state', OFFER_STATE_ACCEPTED, offer) }), 1200)
 }
 function signOffer(_args: SignOfferArgs): Promise<HexString> {
   return delayPromise(Promise.resolve('0xwhatever'), 1200)

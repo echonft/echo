@@ -2,6 +2,7 @@ import { getListingsCollectionReference } from '@echo/firestore/helpers/collecti
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
 import { getListingOfferFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
+import { LISTING_STATE_CANCELLED, LISTING_STATE_FULFILLED } from '@echo/model/constants/listing-states'
 import { offerItemsIncludeListingTargets } from '@echo/model/helpers/offer/offer-items-include-listing-targets'
 import { type Listing } from '@echo/model/types/listing'
 import { type Offer } from '@echo/model/types/offer'
@@ -19,10 +20,10 @@ async function receiverItemsListingItemsMatch(offer: Offer) {
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), receiverItems))
     .get()
 
-  // for these listings, check if the state is not 'FULFILLED' or 'CANCELLED' and if the targets match with the sender items
+  // for these listings, check if the state is not LISTING_STATE_FULFILLED or LISTING_STATE_CANCELLED and if the targets match with the sender items
   const listings = pipe<[QuerySnapshot<Listing>], Listing[], Listing[], Listing[]>(
     getQuerySnapshotDocumentsData,
-    filter(pipe(prop('state'), isNotIn(['FULFILLED', 'CANCELLED']))),
+    filter(pipe(prop('state'), isNotIn([LISTING_STATE_FULFILLED, LISTING_STATE_CANCELLED]))),
     filter(offerItemsIncludeListingTargets(senderItems))
   )(querySnapshot)
 
@@ -48,10 +49,10 @@ async function senderItemsListingItemsMatch(offer: Offer) {
     .where('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), senderItems))
     .get()
 
-  // for these listings, check if the state is not 'FULFILLED' or 'CANCELLED' and if the targets match with the receiver items
+  // for these listings, check if the state is not LISTING_STATE_FULFILLED or LISTING_STATE_CANCELLED and if the targets match with the receiver items
   const listings = pipe<[QuerySnapshot<Listing>], Listing[], Listing[], Listing[]>(
     getQuerySnapshotDocumentsData,
-    filter(pipe(prop('state'), isNotIn(['FULFILLED', 'CANCELLED']))),
+    filter(pipe(prop('state'), isNotIn([LISTING_STATE_FULFILLED, LISTING_STATE_CANCELLED]))),
     filter(offerItemsIncludeListingTargets(receiverItems))
   )(querySnapshot)
 

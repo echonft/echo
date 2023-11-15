@@ -1,9 +1,9 @@
 'use client'
 import { type Nft } from '@echo/model/types/nft'
+import { NftGroupLayout } from '@echo/ui/components/nft/group/layout/nft-group-layout'
 import { NftGroupButton } from '@echo/ui/components/nft/group/nft-group-button'
-import { NftGroupLayout } from '@echo/ui/components/nft/layout/nft-group-layout'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
-import { SelectableNftThumbnail } from '@echo/ui/components/nft/thumbnail/selectable-nft-thumbnail'
+import { SelectableNftCard } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import { getGroupSelectionCount } from '@echo/ui/helpers/selection/get-group-selection-count'
 import { type DisableableType } from '@echo/ui/types/disableable'
 import { type Group } from '@echo/ui/types/group'
@@ -48,7 +48,7 @@ export const SelectableNftGroup: FunctionComponent<Props> = ({ group, hideOwner,
         <NftsLayout>
           {map(
             (nft) => (
-              <SelectableNftThumbnail
+              <SelectableNftCard
                 key={nft.id}
                 nft={nft}
                 hideOwner={hideOwner}

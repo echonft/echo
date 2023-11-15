@@ -3,7 +3,7 @@ import { CollectionBanner } from '@echo/ui/components/collection/details/collect
 import { CollectionProfilePicture } from '@echo/ui/components/collection/details/collection-profile-picture'
 import { ItemThumbnailSelector } from '@echo/ui/components/item/thumbnail/item-thumbnail-selector'
 import { NewListingSliderTargetRowQuantitySelector } from '@echo/ui/components/listing/new/new-listing-slider-target-row-quantity-selector'
-import { SizeMD } from '@echo/ui/constants/size'
+import { SIZE_MD } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
@@ -27,9 +27,9 @@ export const NewListingSliderTargetRow: FunctionComponent<Props> = ({
   return (
     <div className={clsx('relative', 'w-full', 'h-40', 'rounded-lg', 'overflow-clip')}>
       <HideIfNil checks={onRemove} render={(onRemove) => <ItemThumbnailSelector onRemove={onRemove} />} />
-      <CollectionBanner bannerUrl={bannerUrl} bannerSize={SizeMD} />
+      <CollectionBanner bannerUrl={bannerUrl} bannerSize={SIZE_MD} />
       <div className={clsx('absolute', 'left-2.5', 'bottom-3')}>
-        <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} size={SizeMD} />
+        <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} size={SIZE_MD} />
       </div>
       <div className={clsx('absolute', 'bottom-3', 'right-2')}>
         <NewListingSliderTargetRowQuantitySelector quantity={quantity} onQuantityChange={onQuantityChange} />

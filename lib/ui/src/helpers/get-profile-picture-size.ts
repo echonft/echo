@@ -1,11 +1,11 @@
-import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import { type ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
 
 export const getProfilePictureSize = (size: ProfilePictureSize) => {
   switch (size) {
-    case SizeLG:
+    case SIZE_LG:
       return 160
-    case SizeMD:
+    case SIZE_MD:
       return 120
   }
 }

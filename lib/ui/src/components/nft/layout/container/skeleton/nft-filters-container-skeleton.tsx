@@ -1,9 +1,9 @@
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { CollectionFilterPanelSkeleton } from '@echo/ui/components/nft/filters/by-collection/skeleton/collection-filter-panel-skeleton'
 import { TraitFilterPanelSkeleton } from '@echo/ui/components/nft/filters/by-traits/skeleton/trait-filter-panel-skeleton'
+import { NftFiltersPanelLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panel-layout'
 import { FiltersPanelButton } from '@echo/ui/components/nft/layout/filters-panel-button'
-import { NftFiltersPanelLayout } from '@echo/ui/components/nft/layout/nft-filters-panel-layout'
-import { NftFilterCollections, NftFilterTraits } from '@echo/ui/constants/nft-filter'
+import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
 import { includes } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -14,8 +14,8 @@ interface Props {
 }
 
 export const NftFiltersContainerSkeleton: FunctionComponent<Props> = ({ availableFilters, btnLabel }) => {
-  const includeTraitFilter = includes(NftFilterTraits, availableFilters)
-  const includeCollectionFilter = includes(NftFilterCollections, availableFilters)
+  const includeTraitFilter = includes(NFT_FILTER_TRAITS, availableFilters)
+  const includeCollectionFilter = includes(NFT_FILTER_COLLECTIONS, availableFilters)
 
   return (
     <NftFiltersPanelLayout>

@@ -15,6 +15,7 @@ import { guarded_assertOfferExists } from '@echo/frontend/lib/server/helpers/off
 import { guarded_assertOfferReceiverOrSenderIs } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-receiver-or-sender-is'
 import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
 import { NextResponse } from 'next/server'
 import { assoc } from 'ramda'
 
@@ -37,7 +38,7 @@ export async function getOfferRequestHandler(req: ApiRequest<never>, offerId: st
         }
       }
     })
-    return NextResponse.json<OfferResponse>({ offer: assoc('state', 'CANCELLED', offer) })
+    return NextResponse.json<OfferResponse>({ offer: assoc('state', OFFER_STATE_CANCELLED, offer) })
   }
   if (!(await assertOfferItemsApproval(offer))) {
     await guardAsyncFn(
@@ -52,7 +53,7 @@ export async function getOfferRequestHandler(req: ApiRequest<never>, offerId: st
         }
       }
     })
-    return NextResponse.json<OfferResponse>({ offer: assoc('state', 'CANCELLED', offer) })
+    return NextResponse.json<OfferResponse>({ offer: assoc('state', OFFER_STATE_CANCELLED, offer) })
   }
   return NextResponse.json<OfferResponse>({ offer })
 }

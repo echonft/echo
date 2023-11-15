@@ -17,6 +17,14 @@ import { assertSwaps } from '@echo/firestore-test/swap/assert-swaps'
 import { deleteSwap } from '@echo/firestore-test/swap/delete-swap'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
+import {
+  OFFER_STATE_ACCEPTED,
+  OFFER_STATE_CANCELLED,
+  OFFER_STATE_COMPLETED,
+  OFFER_STATE_OPEN,
+  OFFER_STATE_REJECTED
+} from '@echo/model/constants/offer-states'
 import { getOfferCollectionIds } from '@echo/model/helpers/offer/get-offer-collection-ids'
 import { type OfferState } from '@echo/model/types/offer-state'
 import { errorMessage } from '@echo/utils/helpers/error-message'
@@ -76,27 +84,27 @@ describe('CRUD - offer - completeOffer', () => {
     await expect(pipe(assoc('offerId', 'not-found'), completeOffer)(args)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'OPEN', expiresAt: pastDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_OPEN, expiresAt: pastDate })
     await expect(completeOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is cancelled', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'CANCELLED', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_CANCELLED, expiresAt: futureDate })
     await expect(completeOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is completed', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'COMPLETED', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_COMPLETED, expiresAt: futureDate })
     await expect(completeOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is rejected', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'REJECTED', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_REJECTED, expiresAt: futureDate })
     await expect(completeOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is open', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'OPEN', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_OPEN, expiresAt: futureDate })
     await expect(completeOffer(args)).rejects.toBeDefined()
   })
   it('throws if the state update by trigger is not valid', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'OPEN', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_OPEN, expiresAt: futureDate })
     await expect(
       pipe(
         assoc('updateArgs', {
@@ -119,7 +127,7 @@ describe('CRUD - offer - completeOffer', () => {
         return (await findCollectionSwapsCountByCollectionId(collectionId))!
       }, collectionIds)
     )
-    await unchecked_updateOffer(args.offerId, { state: 'ACCEPTED', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate })
     await completeOffer(args)
     const updatedOffer = (await findOfferById(args.offerId))!
     // reset the listing state
@@ -129,7 +137,7 @@ describe('CRUD - offer - completeOffer', () => {
     const swap = (await findSwapByOfferId(args.offerId))!
     await deleteSwap(swap.id)
     // get offer state update
-    const createdStateUpdate = (await findOfferStateUpdate(args.offerId, 'COMPLETED'))!
+    const createdStateUpdate = (await findOfferStateUpdate(args.offerId, OFFER_STATE_COMPLETED))!
     createdStateUpdateId = createdStateUpdate.id
     // reset the swaps count
     const foundSwapsCounts = await Promise.all(map(pipe(prop('id'), findCollectionSwapsCountById), initialSwapsCounts))
@@ -148,14 +156,14 @@ describe('CRUD - offer - completeOffer', () => {
     // check the offer state update
     expect(createdStateUpdate).toBeDefined()
     // check updated offer
-    expect(updatedOffer.state).toEqual('COMPLETED')
+    expect(updatedOffer.state).toEqual(OFFER_STATE_COMPLETED)
     expectDateNumberIsNow(updatedOffer.updatedAt)
     // check swap
     expect(swap.offerId).toStrictEqual(args.offerId)
     expect(swap.transactionId).toStrictEqual(args.transactionId)
     expectDateNumberIsNow(swap.createdAt)
     // check if the listing state was updated properly
-    expect(updatedListing.state).toBe('PARTIALLY_FULFILLED')
+    expect(updatedListing.state).toBe(LISTING_STATE_PARTIALLY_FULFILLED)
     // check the swaps counts
     for (const updatedSwapsCount of updatedSwapsCounts) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

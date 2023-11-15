@@ -2,7 +2,7 @@ import { type OfferItem } from '@echo/model/types/offer-item'
 import { ItemThumbnailsContainer } from '@echo/ui/components/item/thumbnail/layout/item-thumbnails-container'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
-import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
+import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
@@ -22,7 +22,7 @@ export const NewOfferConfirmationModalItemsContainer: FunctionComponent<Props> =
           {t(isReceiver ? 'assetsInSubtitle' : 'assetsOutSubtitle', { count: items.length })}
         </ModalSubtitle>
         <SwapDirectionHeader
-          direction={isReceiver ? DirectionIn : DirectionOut}
+          direction={isReceiver ? SWAP_DIRECTION_IN : SWAP_DIRECTION_OUT}
           title={tShared(isReceiver ? 'in' : 'out')}
         />
       </div>

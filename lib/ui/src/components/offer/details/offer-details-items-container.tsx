@@ -1,7 +1,7 @@
 import { type Item } from '@echo/model/types/item'
 import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
-import { AlignmentCenter } from '@echo/ui/constants/alignment'
+import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { type SwapDirection } from '@echo/ui/types/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -19,7 +19,7 @@ export const OfferDetailsItemsContainer: FunctionComponent<Props> = ({ direction
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <SwapDirectionHeader direction={direction} title={t(direction)} />
-      <NftsContainer nfts={nfts} alignment={AlignmentCenter} />
+      <NftsContainer nfts={nfts} alignment={ALIGNMENT_CENTER} />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { IconContainer } from '@echo/ui/components/base/icons/icon-container'
 import { IconContainerColor } from '@echo/ui/components/base/icons/icon-container-color'
 import { EchoIconSvg } from '@echo/ui/components/base/svg/echo-icon-svg'
-import { ColorBlack, ColorYellow } from '@echo/ui/constants/color'
+import { COLOR_BLACK, COLOR_YELLOW } from '@echo/ui/constants/color'
 import { getIconSizeInPx } from '@echo/ui/helpers/get-icon-size-in-px'
 import { type EchoIconColor } from '@echo/ui/types/echo-icon-color'
 import { type IconSize } from '@echo/ui/types/icon-size'
@@ -18,8 +18,8 @@ export const EchoIcon: FunctionComponent<Props> = ({ color, size }) => {
     <IconContainer size={size}>
       <IconContainerColor
         className={clsx(
-          color === ColorBlack && ['text-dark-900', 'bg-yellow-500'],
-          color === ColorYellow && 'text-yellow-700'
+          color === COLOR_BLACK && ['text-dark-900', 'bg-yellow-500'],
+          color === COLOR_YELLOW && 'text-yellow-700'
         )}
       >
         <EchoIconSvg width={sizeInPx} height={sizeInPx} />

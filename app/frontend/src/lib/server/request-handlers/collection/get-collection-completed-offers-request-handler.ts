@@ -7,6 +7,7 @@ import { guarded_assertCollectionExists } from '@echo/frontend/lib/server/helper
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/server/helpers/error/guard'
 import { parseOfferFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse_offer_filters_query'
 import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/parse-constraints-query'
+import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { NextResponse } from 'next/server'
 import { assoc, dissoc, pipe } from 'ramda'
 
@@ -16,7 +17,7 @@ export async function getCollectionCompletedOffersRequestHandler(req: ApiRequest
   const collection = await guardAsyncFn(findCollectionBySlug, ErrorStatus.SERVER_ERROR)(slug)
   guarded_assertCollectionExists(collection, slug)
   const completedOffersFilters = pipe(
-    assoc('states', ['COMPLETED']),
+    assoc('states', [OFFER_STATE_COMPLETED]),
     dissoc('notStates'),
     assoc('includeExpired', true)
   )(filters)

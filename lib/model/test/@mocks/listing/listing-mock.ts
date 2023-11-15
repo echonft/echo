@@ -1,3 +1,4 @@
+import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { type Listing } from '@echo/model/types/listing'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
@@ -24,7 +25,7 @@ export const listingMock: Record<string, Listing> = {
       { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
       { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
     ],
-    state: 'OFFERS_PENDING',
+    state: LISTING_STATE_OFFERS_PENDING,
     targets: [
       {
         collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),

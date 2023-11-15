@@ -2,7 +2,7 @@ import { type AddWalletArgs } from '@echo/api/services/fetcher/add-wallet'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { Wallet } from '@echo/model/types/wallet'
 import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { Fetcher } from '@echo/utils/types/fetcher'
@@ -34,7 +34,7 @@ export const CreateSignature: FunctionComponent<Props> = ({ nonce, wallet, token
       void addWalletTrigger({ wallet, message, signature, token })
     },
     onError: {
-      alert: { severity: CalloutSeverity.ERROR, message: tErr('signing') }
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tErr('signing') }
     }
   })
   const loading = signNonceMutating || addWalletMutating

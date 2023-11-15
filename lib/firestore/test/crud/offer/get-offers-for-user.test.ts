@@ -5,6 +5,12 @@ import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-
 import { unchecked_updateOffer } from '@echo/firestore-test/offer/unchecked_update-offer'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import {
+  OFFER_STATE_ACCEPTED,
+  OFFER_STATE_CANCELLED,
+  OFFER_STATE_OPEN,
+  OFFER_STATE_REJECTED
+} from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
@@ -84,19 +90,22 @@ describe('CRUD - offer - getOffersForUser', () => {
 
     it('filter by state (included)', async () => {
       const mock = await setNotExpired(getOfferMockById(id))
-      let offers = await getOffersForUser(username, assoc('state', ['OPEN', 'CANCELLED'], filters))
+      let offers = await getOffersForUser(username, assoc('state', [OFFER_STATE_OPEN, OFFER_STATE_CANCELLED], filters))
       expect(offers.length).toBe(1)
       expect(offers[0]).toStrictEqual(mock)
-      offers = await getOffersForUser(username, assoc('state', ['CANCELLED'], filters))
+      offers = await getOffersForUser(username, assoc('state', [OFFER_STATE_CANCELLED], filters))
       expect(offers.length).toBe(0)
     })
 
     it('filter by state (excluded)', async () => {
       const mock = await setNotExpired(getOfferMockById(id))
-      let offers = await getOffersForUser(username, assoc('notState', ['REJECTED', 'CANCELLED'], filters))
+      let offers = await getOffersForUser(
+        username,
+        assoc('notState', [OFFER_STATE_REJECTED, OFFER_STATE_CANCELLED], filters)
+      )
       expect(offers.length).toBe(1)
       expect(offers[0]).toStrictEqual(mock)
-      offers = await getOffersForUser(username, assoc('notState', ['OPEN', 'ACCEPTED'], filters))
+      offers = await getOffersForUser(username, assoc('notState', [OFFER_STATE_OPEN, OFFER_STATE_ACCEPTED], filters))
       expect(offers.length).toBe(0)
     })
 
@@ -140,19 +149,22 @@ describe('CRUD - offer - getOffersForUser', () => {
 
     it('filter by state (included)', async () => {
       const mock = await setNotExpired(getOfferMockById(id))
-      let offers = await getOffersForUser(username, assoc('state', ['OPEN', 'CANCELLED'], filters))
+      let offers = await getOffersForUser(username, assoc('state', [OFFER_STATE_OPEN, OFFER_STATE_CANCELLED], filters))
       expect(offers.length).toBe(1)
       expect(offers[0]).toStrictEqual(mock)
-      offers = await getOffersForUser(username, assoc('state', ['CANCELLED'], filters))
+      offers = await getOffersForUser(username, assoc('state', [OFFER_STATE_CANCELLED], filters))
       expect(offers.length).toBe(0)
     })
 
     it('filter by state (excluded)', async () => {
       const mock = await setNotExpired(getOfferMockById(id))
-      let offers = await getOffersForUser(username, assoc('notState', ['REJECTED', 'CANCELLED'], filters))
+      let offers = await getOffersForUser(
+        username,
+        assoc('notState', [OFFER_STATE_REJECTED, OFFER_STATE_CANCELLED], filters)
+      )
       expect(offers.length).toBe(1)
       expect(offers[0]).toStrictEqual(mock)
-      offers = await getOffersForUser(username, assoc('notState', ['OPEN', 'ACCEPTED'], filters))
+      offers = await getOffersForUser(username, assoc('notState', [OFFER_STATE_OPEN, OFFER_STATE_ACCEPTED], filters))
       expect(offers.length).toBe(0)
     })
 

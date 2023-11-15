@@ -6,6 +6,7 @@ import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { cancelListingRequestHandler } from '@echo/frontend/lib/server/request-handlers/listing/cancel-listing-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
+import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
 import { type Listing } from '@echo/model/types/listing'
 import type { User } from '@echo/model/types/user'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
@@ -38,7 +39,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('throws if the listing state is not OPEN', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(findListingById).mockResolvedValueOnce(assoc('state', 'CANCELLED', listing))
+    jest.mocked(findListingById).mockResolvedValueOnce(assoc('state', LISTING_STATE_CANCELLED, listing))
     const req = mockRequest<never>()
     try {
       await cancelListingRequestHandler(req, listingId)
@@ -65,7 +66,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest.mocked(findListingById).mockResolvedValueOnce(listing)
-    const updatedListing = assoc('state', 'CANCELLED', listing)
+    const updatedListing = assoc('state', LISTING_STATE_CANCELLED, listing)
     jest.mocked(cancelListing).mockResolvedValueOnce(updatedListing)
     const req = mockRequest<never>()
     const res = await cancelListingRequestHandler(req, listingId)

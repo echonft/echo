@@ -14,7 +14,7 @@ import { UserBanner } from '@echo/ui/components/user/details/user-banner'
 import { UserDetailsLayout } from '@echo/ui/components/user/layout/user-details-layout'
 import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout'
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
-import { SizeLG } from '@echo/ui/constants/size'
+import { SIZE_LG } from '@echo/ui/constants/size'
 import { messages } from '@echo/ui/messages/en'
 import { signNonce } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import { account } from '@echo/web3/helpers/wagmi/provider/account'
@@ -41,7 +41,7 @@ export const ProfileDetailsApiProvided: FunctionComponent<Props> = ({ user }) =>
         <UserBanner discordBannerUrl={bannerUrl} discordBannerColor={bannerColor} />
         <PaddedContainer>
           <UserPictureAndInfoLayout>
-            <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SizeLG} />
+            <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SIZE_LG} />
             <UserInfoLayout>
               <UserDiscordTag discordUsername={username} />
               <HideIfNil checks={wallet} render={(wallet) => <UserWallet wallet={wallet} />} />

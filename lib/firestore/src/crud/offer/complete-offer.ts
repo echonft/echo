@@ -8,6 +8,12 @@ import { addSwap, type AddSwapArgs } from '@echo/firestore/crud/swap/add-swap'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import type { OfferStateUpdateArgs } from '@echo/firestore/types/model/offer-update/offer-state-update-args'
 import type { Swap } from '@echo/firestore/types/model/swap/swap'
+import {
+  LISTING_STATE_CANCELLED,
+  LISTING_STATE_FULFILLED,
+  LISTING_STATE_PARTIALLY_FULFILLED
+} from '@echo/model/constants/listing-states'
+import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { getItemId } from '@echo/model/helpers/item/get-item-id'
 import { getListingItemsIds } from '@echo/model/helpers/listing/get-listing-items-ids'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
@@ -29,7 +35,7 @@ export async function completeOffer(args: CompleteOfferArgs) {
     Promise<Offer>
   >(
     omit(['swapTransactionId']),
-    assoc('state', 'COMPLETED'),
+    assoc('state', OFFER_STATE_COMPLETED),
     updateOfferState
   )(args)
   // add swap
@@ -39,9 +45,14 @@ export async function completeOffer(args: CompleteOfferArgs) {
   for (const offerListingOffer of offerListingOffers) {
     const { listingId, fulfillingStatus } = offerListingOffer
     const listing = await findListingById(listingId)
-    if (!isNil(listing) && !listing.expired && listing.state !== 'FULFILLED' && listing.state !== 'CANCELLED') {
+    if (
+      !isNil(listing) &&
+      !listing.expired &&
+      listing.state !== LISTING_STATE_FULFILLED &&
+      listing.state !== LISTING_STATE_CANCELLED
+    ) {
       if (fulfillingStatus === ListingOfferFulfillingStatus.COMPLETELY) {
-        await updateListingState(listingId, 'FULFILLED')
+        await updateListingState(listingId, LISTING_STATE_FULFILLED)
       } else {
         // in this case, we need to check all the completed offers linked to this listing, and check if this one partially of completely fulfills it
         const offer = (await findOfferById(args.offerId))!
@@ -56,16 +67,16 @@ export async function completeOffer(args: CompleteOfferArgs) {
           OfferItem[]
         >(
           reject(isNil),
-          filter(propEq('COMPLETED', 'state')),
+          filter(propEq(OFFER_STATE_COMPLETED, 'state')),
           map(getOfferItems),
           flatten
         )(listingOffers)
         const offerItemIds = pipe(concat, map(getItemId), uniq<string>)(offerItems, completedOffersItems)
         const listingItemIds = getListingItemsIds(listing)
         if (intersection(offerItemIds, listingItemIds).length === listingItemIds.length) {
-          await updateListingState(listingId, 'FULFILLED')
+          await updateListingState(listingId, LISTING_STATE_FULFILLED)
         } else {
-          await updateListingState(listingId, 'PARTIALLY_FULFILLED')
+          await updateListingState(listingId, LISTING_STATE_PARTIALLY_FULFILLED)
         }
       }
     }

@@ -1,21 +1,21 @@
-import { AlignmentCenter, AlignmentLeft, AlignmentRight } from '@echo/ui/constants/alignment'
+import { ALIGNMENT_CENTER, ALIGNMENT_LEFT, ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
 import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
-  alignment?: typeof AlignmentLeft | typeof AlignmentCenter | typeof AlignmentRight
+  alignment?: typeof ALIGNMENT_LEFT | typeof ALIGNMENT_CENTER | typeof ALIGNMENT_RIGHT
 }
-export const NftsLayout: FunctionComponent<PropsWithChildren<Props>> = ({ alignment = AlignmentLeft, children }) => {
+export const NftsLayout: FunctionComponent<PropsWithChildren<Props>> = ({ alignment = ALIGNMENT_LEFT, children }) => {
   return (
     <div
       className={clsx(
         'flex',
-        alignment === AlignmentRight ? 'flex-row-reverse' : 'flex-row',
+        alignment === ALIGNMENT_RIGHT ? 'flex-row-reverse' : 'flex-row',
         'grow',
         'flex-wrap',
         'gap-6',
         'h-max',
-        alignment === AlignmentCenter && 'justify-center'
+        alignment === ALIGNMENT_CENTER && 'justify-center'
       )}
     >
       {children}

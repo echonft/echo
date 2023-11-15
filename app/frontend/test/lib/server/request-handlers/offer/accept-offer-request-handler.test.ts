@@ -7,6 +7,7 @@ import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { acceptOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/accept-offer-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
+import { OFFER_STATE_ACCEPTED, OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
@@ -74,7 +75,7 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
 
   it('throws if the offer state is not OPEN', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
-    jest.mocked(findOfferById).mockResolvedValueOnce(assoc('state', 'CANCELLED', offer))
+    jest.mocked(findOfferById).mockResolvedValueOnce(assoc('state', OFFER_STATE_CANCELLED, offer))
     const req = mockRequest<AcceptOfferRequest>({ signature })
     try {
       await acceptOfferRequestHandler(req, offerId)
@@ -101,7 +102,7 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
   it('returns a 200', async () => {
     jest.mocked(getUserFromRequest).mockResolvedValueOnce(user)
     jest.mocked(findOfferById).mockResolvedValueOnce(offer)
-    const updatedOffer = assoc('state', 'ACCEPTED', offer)
+    const updatedOffer = assoc('state', OFFER_STATE_ACCEPTED, offer)
     jest.mocked(acceptOffer).mockResolvedValueOnce(updatedOffer)
     const req = mockRequest<AcceptOfferRequest>({ signature })
     const res = await acceptOfferRequestHandler(req, offerId)

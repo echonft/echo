@@ -5,6 +5,7 @@ import type { ListingsResponse } from '@echo/api/types/responses/listings-respon
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
+import { LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
 import { CollectionListingsApiProvided } from '@echo/ui/components/collection/api-provided/collection-listings-api-provided'
 import { getServerSession } from 'next-auth/next'
 import { mergeLeft } from 'ramda'
@@ -21,7 +22,7 @@ const CollectionListingsPage: FunctionComponent<Props> = async ({ params: { slug
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'asc' }]
   })
-  const filtersQueryParam = mapListingFiltersToQueryParams({ state: ['OPEN'] })
+  const filtersQueryParam = mapListingFiltersToQueryParams({ state: [LISTING_STATE_OPEN] })
   const response = await nextFetch.get<ListingsResponse>(apiUrl.collection.listings(slug), {
     params: mergeLeft(constraintsQueryParams, filtersQueryParam)
   })

@@ -12,7 +12,7 @@ import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bott
 import { NewListingConfirmationModal } from '@echo/ui/components/listing/new/new-listing-confirmation-modal'
 import { NewListingConfirmedModal } from '@echo/ui/components/listing/new/new-listing-confirmed-modal'
 import { NewListingSlider } from '@echo/ui/components/listing/new/new-listing-slider'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapListingItemsToRequests } from '@echo/ui/mappers/to-api/map-listing-items-to-requests'
@@ -67,7 +67,7 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
         targets: isNil(target) ? [] : ([target] as ListingTarget[]),
         items
       }),
-      alert: { severity: CalloutSeverity.ERROR, message: tError('new') },
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
       onError: () => {
         setConfirmModalShown(false)
       }

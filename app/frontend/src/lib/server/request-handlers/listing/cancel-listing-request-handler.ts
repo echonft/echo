@@ -9,12 +9,13 @@ import { guarded_assertListingCreatorIs } from '@echo/frontend/lib/server/helper
 import { guarded_assertListingState } from '@echo/frontend/lib/server/helpers/listing/assert/guarded_assert-listing-state'
 import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
 import { NextResponse } from 'next/server'
 
 export async function cancelListingRequestHandler(req: ApiRequest<never>, listingId: string) {
   const listing = await guardAsyncFn(findListingById, ErrorStatus.SERVER_ERROR)(listingId)
   guarded_assertListing(listing)
-  guarded_assertListingState(listing, 'CANCELLED')
+  guarded_assertListingState(listing, LISTING_STATE_CANCELLED)
   const user = await getUserFromRequest(req)
   guarded_assertAuthUser(user)
   guarded_assertListingCreatorIs(listing, user.username)

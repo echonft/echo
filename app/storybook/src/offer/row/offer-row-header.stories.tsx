@@ -1,4 +1,4 @@
-import { OFFER_STATES } from '@echo/model/constants/offer-states'
+import { OFFER_STATE_OPEN, OFFER_STATES } from '@echo/model/constants/offer-states'
 import { OfferRowHeader as Component } from '@echo/ui/components/offer/row/offer-row-header'
 import { type Meta, type StoryObj } from '@storybook/react'
 
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    state: 'OPEN',
+    state: OFFER_STATE_OPEN,
     discordUsername: 'johnnycagewins',
     expired: false
   }
@@ -27,7 +27,7 @@ export const Default: Story = {
 
 export const Expired: Story = {
   args: {
-    state: 'OPEN',
+    state: OFFER_STATE_OPEN,
     discordUsername: 'johnnycagewins',
     expired: true
   }

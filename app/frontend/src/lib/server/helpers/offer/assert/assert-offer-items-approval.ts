@@ -1,3 +1,4 @@
+import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferItem } from '@echo/model/types/offer-item'
@@ -8,7 +9,7 @@ import { eqBy, F, ifElse, map, otherwise, path, pipe, prop, propEq, T, uniqWith 
 
 export function assertOfferItemsApproval(offer: Offer) {
   return ifElse(
-    propEq('ACCEPTED', 'state'),
+    propEq(OFFER_STATE_ACCEPTED, 'state'),
     pipe(
       prop('receiverItems'),
       map<OfferItem, Nft>(prop('nft')),

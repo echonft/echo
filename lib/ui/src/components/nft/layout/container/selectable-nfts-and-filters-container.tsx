@@ -1,10 +1,10 @@
 'use client'
 import { type Nft } from '@echo/model/types/nft'
 import { traitFilterEquals } from '@echo/ui/comparators/trait-filter-equals'
-import { NftFiltersContainer } from '@echo/ui/components/nft/layout/container/nft-filters-container'
+import { NftFiltersContainer } from '@echo/ui/components/nft/filters/layout/nft-filters-container'
+import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { SelectableNftsContainer } from '@echo/ui/components/nft/layout/container/selectable-nfts-container'
-import { NftsAndFiltersLayout } from '@echo/ui/components/nft/layout/nfts-and-filters-layout'
-import { NftFilterCollections, NftFilterTraits } from '@echo/ui/constants/nft-filter'
+import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { enable } from '@echo/ui/helpers/disableable/enable'
 import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/get-collection-filters-for-nfts'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
@@ -37,10 +37,10 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
 }) => {
   const [nftsWithProps, setNftsWithProps] = useState(nfts as DisableableType<SelectableType<Nft>>[])
   const [collectionFilters, setCollectionFilters] = useState(
-    includes(NftFilterCollections, availableFilters) ? getCollectionFiltersForNfts(nfts) : []
+    includes(NFT_FILTER_COLLECTIONS, availableFilters) ? getCollectionFiltersForNfts(nfts) : []
   )
   const [traitFilters, setTraitFilters] = useState(
-    includes(NftFilterTraits, availableFilters) ? getTraitFiltersForNfts(nfts) : []
+    includes(NFT_FILTER_TRAITS, availableFilters) ? getTraitFiltersForNfts(nfts) : []
   )
   const onTraitFilterToggleSelection = (filter: TraitFilter) => {
     setTraitFilters(toggleSelectionInList<TraitFilter>(traitFilterEquals(filter)))

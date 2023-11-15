@@ -375,10 +375,14 @@ export const themeExtension = {
     ] as fontSizeConfig
   },
   spacing: {
-    0.25: '0.0625rem',
-    4.5: '1.125rem',
-    6.5: '1.625rem',
-    7.5: '1.875rem'
+    0.25: '0.0625rem', // 1px
+    0.75: '0.1875rem', // 3px
+    1.25: '0.3125rem', // 5px
+    2.75: '0.6875rem', // 11px
+    3.25: '0.8125rem', // 13px
+    4.5: '1.125rem', // 18px
+    6.5: '1.625rem', // 26px
+    7.5: '1.875rem' // 30px
   }
 }
 export const theme = mergeLeft(themeExtension, defaultTheme)
