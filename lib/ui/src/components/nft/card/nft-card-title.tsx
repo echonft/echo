@@ -13,8 +13,8 @@ interface Props {
 export const NftCardTitle: FunctionComponent<Props> = ({ nft, variant }) => {
   return (
     <NftCardTitleLayout variant={variant}>
-      <NftCardTitleCollectionName name={nft.collection.name} />
-      <NftCardTitleTokenId tokenId={nft.tokenId} totalSupply={nft.collection.totalSupply} />
+      <NftCardTitleCollectionName nft={nft} />
+      <NftCardTitleTokenId nft={nft} />
     </NftCardTitleLayout>
   )
 }

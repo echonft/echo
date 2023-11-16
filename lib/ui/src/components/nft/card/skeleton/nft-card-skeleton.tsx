@@ -1,3 +1,4 @@
+import type { Nft } from '@echo/model/types/nft'
 import { NftCardLayout } from '@echo/ui/components/nft/card/layout/nft-card-layout'
 import { NftCardPictureLayout } from '@echo/ui/components/nft/card/layout/nft-card-picture-layout'
 import { NftCardTitleLayout } from '@echo/ui/components/nft/card/layout/nft-card-title-layout'
@@ -10,12 +11,21 @@ interface Props {
   variant?: NftCardVariant
 }
 
-export const NftCardSkeleton: FunctionComponent<Props> = ({ variant }) => (
-  <NftCardLayout loading={true}>
-    <NftCardPictureLayout loading={true} />
-    <NftCardTitleLayout variant={variant} loading={true}>
-      <NftCardTitleCollectionName name={'X'} />
-      <NftCardTitleTokenId tokenId={1} totalSupply={10000} />
-    </NftCardTitleLayout>
-  </NftCardLayout>
-)
+export const NftCardSkeleton: FunctionComponent<Props> = ({ variant }) => {
+  const nft = {
+    collection: {
+      name: 'Placeholder',
+      totalSupply: 1000
+    },
+    tokenId: 1
+  } as Nft
+  return (
+    <NftCardLayout loading={true}>
+      <NftCardPictureLayout loading={true} />
+      <NftCardTitleLayout variant={variant} loading={true}>
+        <NftCardTitleCollectionName nft={nft} />
+        <NftCardTitleTokenId nft={nft} />
+      </NftCardTitleLayout>
+    </NftCardLayout>
+  )
+}

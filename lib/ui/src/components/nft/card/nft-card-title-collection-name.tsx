@@ -1,12 +1,12 @@
-import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-props'
+import type { Nft } from '@echo/model/types/nft'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
-interface Props extends WithClassNameProps {
-  name: string
+interface Props {
+  nft: Nft
 }
 
-export const NftCardTitleCollectionName: FunctionComponent<Props> = ({ className, name }) => {
+export const NftCardTitleCollectionName: FunctionComponent<Props> = ({ nft }) => {
   return (
     <p
       className={clsx(
@@ -16,11 +16,10 @@ export const NftCardTitleCollectionName: FunctionComponent<Props> = ({ className
         'leading-[0.9375rem]',
         'tracking-[0.0175rem]',
         'text-white',
-        'truncate',
-        className
+        'truncate'
       )}
     >
-      {name}
+      {nft.collection.name}
     </p>
   )
 }

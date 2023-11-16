@@ -11,7 +11,7 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   items: OfferItem[]
-  onRemove?: (itemNftId: string) => unknown
+  onRemove?: (item: OfferItem) => unknown
 }
 
 export const NewReceiverItemsContainer: FunctionComponent<Props> = ({ items, onRemove }) => {

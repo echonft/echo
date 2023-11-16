@@ -1,24 +1,23 @@
 'use client'
-import { type Nft } from '@echo/model/types/nft'
 import { NftGroupLayout } from '@echo/ui/components/nft/group/layout/nft-group-layout'
 import { NftGroupButton } from '@echo/ui/components/nft/group/nft-group-button'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
 import { SelectableNftCard } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import { getGroupSelectionCount } from '@echo/ui/helpers/selection/get-group-selection-count'
-import { type DisableableType } from '@echo/ui/types/disableable'
 import { type Group } from '@echo/ui/types/group'
-import { type SelectableType } from '@echo/ui/types/selectable'
+import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { Transition } from '@headlessui/react'
 import { map } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  group: Group<DisableableType<SelectableType<Nft>>>
+  group: Group<SelectableNft>
   hideOwner?: boolean
-  onToggleSelection?: (nft: DisableableType<SelectableType<Nft>>, groupId: string) => unknown
+  onToggleSelection?: (nft: SelectableNft, groupId: string) => unknown
+  onAction?: (nft: SelectableNft) => unknown
 }
 
-export const SelectableNftGroup: FunctionComponent<Props> = ({ group, hideOwner, onToggleSelection }) => {
+export const SelectableNftGroup: FunctionComponent<Props> = ({ group, hideOwner, onToggleSelection, onAction }) => {
   const { id, name, items } = group
   const hasSelection = getGroupSelectionCount(group) > 0
   const [collapsed, setCollapsed] = useState(true)
@@ -52,9 +51,10 @@ export const SelectableNftGroup: FunctionComponent<Props> = ({ group, hideOwner,
                 key={nft.id}
                 nft={nft}
                 hideOwner={hideOwner}
-                onToggleSelection={(nft: Nft) => {
+                onToggleSelection={(nft) => {
                   onToggleSelection?.(nft, id)
                 }}
+                onAction={onAction}
               />
             ),
             items

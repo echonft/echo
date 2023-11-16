@@ -12,6 +12,9 @@ export const messages = {
       size: '{size, number, ::K} NFTs'
     },
     empty: {
+      items: {
+        message: 'There is no NFT for this collection'
+      },
       listings: {
         message: 'There is currently no active listing for this collection',
         btn: {
@@ -174,26 +177,9 @@ export const messages = {
     }
   },
   nft: {
-    details: {
-      attributes: {
-        title: 'Attributes'
-      },
-      makeOfferBtn: 'Make an offer',
-      listings: {
-        title: 'Latest listings',
-        empty: 'No listings posted yet',
-        by: 'By',
-        expiresIn: 'Expires in {time}'
-      },
-      tokenDetails: {
-        title: 'Token Details',
-        tokenId: 'Token ID',
-        blockchain: 'Blockchain',
-        tokenType: 'Token Standard'
-      }
-    },
-    thumbnail: {
-      makeOfferBtn: 'Make an offer'
+    action: {
+      listing: 'Create Listing',
+      offer: 'Make Offer'
     }
   },
   notFoundPage: {

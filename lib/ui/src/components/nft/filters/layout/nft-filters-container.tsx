@@ -9,7 +9,7 @@ import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
 interface Props {
-  nftSelectionCount: number
+  selectionCount: number
   btnLabel: string
   collectionFilters: CollectionFilter[]
   traitFilters: TraitFilter[]
@@ -21,7 +21,7 @@ interface Props {
 export const NftFiltersContainer: FunctionComponent<Props> = ({
   collectionFilters,
   traitFilters,
-  nftSelectionCount,
+  selectionCount,
   btnLabel,
   onButtonClick,
   onTraitSelectionToggle,
@@ -29,7 +29,7 @@ export const NftFiltersContainer: FunctionComponent<Props> = ({
 }) => {
   return (
     <NftFiltersPanelLayout>
-      <FiltersPanelButton count={nftSelectionCount} label={btnLabel} onClick={onButtonClick} />
+      <FiltersPanelButton count={selectionCount} label={btnLabel} onClick={onButtonClick} />
       <HideIfEmpty
         checks={collectionFilters}
         render={(collectionFilters) => (

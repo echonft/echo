@@ -7,11 +7,13 @@ import { SelectableNftGroupsContainer } from '@echo/ui/components/nft/group/layo
 import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { disable } from '@echo/ui/helpers/disableable/disable'
 import { enable } from '@echo/ui/helpers/disableable/enable'
+import { disableAction } from '@echo/ui/helpers/nft/disable-action'
+import { enableAction } from '@echo/ui/helpers/nft/enable-action'
 import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/get-collection-filters-for-nfts'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
 import { groupNftsByCollection } from '@echo/ui/helpers/nft/group-nfts-by-collection'
-import { setNftDisabledPropFromCollectionFilter } from '@echo/ui/helpers/nft/set-nft-disabled-prop-from-collection-filter'
-import { setNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-nft-disabled-prop-from-trait-filters'
+import { setSelectableNftDisabledPropFromCollectionFilter } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-collection-filter'
+import { setSelectableNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-trait-filters'
 import { getGroupsSelection } from '@echo/ui/helpers/selection/get-groups-selection'
 import { getGroupsSelectionCount } from '@echo/ui/helpers/selection/get-groups-selection-count'
 import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
@@ -19,16 +21,15 @@ import { removeSelectionWhenDisabled } from '@echo/ui/helpers/selection/remove-s
 import { toggleSelectionInGroup } from '@echo/ui/helpers/selection/toggle-selection-in-group'
 import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selection-in-list'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
-import { type DisableableType } from '@echo/ui/types/disableable'
 import { type Group } from '@echo/ui/types/group'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
-import { type SelectableType } from '@echo/ui/types/selectable'
+import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { find, includes, isNil, lt, map, modify, omit, pipe, prop, propEq, unless } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useMemo, useState } from 'react'
 
 interface Props {
-  nfts: Nft[]
+  nfts: SelectableNft[]
   availableFilters: NftFilterType[]
   btnLabel: string
   hideOwner?: boolean
@@ -42,7 +43,7 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
   hideOwner,
   onButtonClick
 }) => {
-  const [groups, setGroups] = useState<Group<DisableableType<SelectableType<Nft>>>[]>(groupNftsByCollection(nfts))
+  const [groups, setGroups] = useState<Group<SelectableNft>[]>(groupNftsByCollection(nfts))
   const [collectionFilters, setCollectionFilters] = useState(
     includes(NFT_FILTER_COLLECTIONS, availableFilters) ? getCollectionFiltersForNfts(nfts) : []
   )
@@ -59,18 +60,8 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
   const onNftToggleSelection = useCallback(
     (nft: Nft, groupId: string) => {
       const updatedGroups = toggleSelectionInGroup(groupId, propEq(nft.id, 'id'), groups)
-      // if one group has a selection, disable all the items of the other groups
       const selectedGroup = find(pipe(prop('items'), getSelectionCount, lt(0)), updatedGroups)
-      if (!isNil(selectedGroup)) {
-        setGroups(
-          map(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            unless(propEq(selectedGroup.id, 'id'), modify('items', map(disable))),
-            updatedGroups
-          ) as Group<DisableableType<SelectableType<Nft>>>[]
-        )
-      } else {
+      if (isNil(selectedGroup)) {
         setGroups(
           map(
             modify(
@@ -78,10 +69,25 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
               map(
                 pipe(
                   enable,
-                  setNftDisabledPropFromTraitFilters(traitFilters),
-                  setNftDisabledPropFromCollectionFilter(collectionFilters),
-                  removeSelectionWhenDisabled
+                  setSelectableNftDisabledPropFromTraitFilters(traitFilters),
+                  setSelectableNftDisabledPropFromCollectionFilter(collectionFilters),
+                  removeSelectionWhenDisabled,
+                  enableAction
                 )
+              )
+            ),
+            updatedGroups
+          )
+        )
+      } else {
+        // if one group has a selection, disable all the items of the other groups
+        setGroups(
+          map<Group<SelectableNft>, Group<SelectableNft>>(
+            pipe(
+              modify('items', map(disableAction)),
+              unless<Group<SelectableNft>, Group<SelectableNft>>(
+                propEq(selectedGroup.id, 'id'),
+                modify('items', map(disable<SelectableNft>))
               )
             ),
             updatedGroups
@@ -91,7 +97,7 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
     },
     [groups, collectionFilters, traitFilters]
   )
-  const nftSelectionCount = useMemo(() => getGroupsSelectionCount(groups), [groups])
+  const selectionCount = useMemo(() => getGroupsSelectionCount(groups), [groups])
 
   // update NFTs disabled state according to filters selection
   useEffect(() => {
@@ -102,8 +108,8 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
           map(
             pipe(
               enable,
-              setNftDisabledPropFromTraitFilters(traitFilters),
-              setNftDisabledPropFromCollectionFilter(collectionFilters),
+              setSelectableNftDisabledPropFromTraitFilters(traitFilters),
+              setSelectableNftDisabledPropFromCollectionFilter(collectionFilters),
               removeSelectionWhenDisabled
             )
           )
@@ -115,7 +121,7 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
   return (
     <NftsAndFiltersLayout>
       <NftFiltersContainer
-        nftSelectionCount={nftSelectionCount}
+        selectionCount={selectionCount}
         btnLabel={btnLabel}
         collectionFilters={collectionFilters}
         traitFilters={traitFilters}

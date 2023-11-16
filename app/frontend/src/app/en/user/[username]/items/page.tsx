@@ -5,6 +5,8 @@ import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { UserNftsApiProvided } from '@echo/ui/components/user/api-provided/user-nfts-api-provided'
+import { links } from '@echo/ui/constants/links'
+import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { type FunctionComponent } from 'react'
 
@@ -16,6 +18,9 @@ interface Props {
 
 const UserNftsPage: FunctionComponent<Props> = async ({ params: { username } }) => {
   const session = await getServerSession(authOptions)
+  if (session?.user?.username === username) {
+    redirect(links.profile.items)
+  }
   const params = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'tokenId', direction: 'asc' }]
   })

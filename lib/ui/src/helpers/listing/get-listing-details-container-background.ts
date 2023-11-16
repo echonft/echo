@@ -13,10 +13,10 @@ export const getListingDetailsContainerBackground = (listing: Listing) => {
     case LISTING_STATE_OPEN:
     case LISTING_STATE_OFFERS_PENDING:
     case LISTING_STATE_PARTIALLY_FULFILLED:
-      return expired ? 'bg-offer-red-gradient' : 'bg-offer-yellow-gradient'
+      return expired ? 'bg-offerRed' : 'bg-offer-offerYellow'
     case LISTING_STATE_FULFILLED:
-      return 'bg-offer-green-gradient'
+      return 'bg-offerGreen'
     case LISTING_STATE_CANCELLED:
-      return 'bg-offer-red-gradient'
+      return 'bg-offerRed'
   }
 }

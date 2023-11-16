@@ -4,6 +4,7 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import type { Offer } from '@echo/model/types/offer'
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { BottomSlider } from '@echo/ui/components/layout/bottom-slider/bottom-slider'
 import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bottom-slider-title'
 import { NewOfferBottomSliderInnerContainer } from '@echo/ui/components/offer/new/new-offer-bottom-slider-inner-container'
@@ -34,14 +35,14 @@ export const NewOfferSliderManager: FunctionComponent<Props> = ({ fetcher, user 
   const [confirmOfferModalShown, setConfirmOfferModalShown] = useState(false)
   const [offer, setOffer] = useState<Offer>()
   const onRemoveSenderItems = useCallback(
-    (nftId: string) => {
-      setSenderItems(reject(pathEq(nftId, ['nft', 'id'])))
+    (item: OfferItem) => {
+      setSenderItems(reject(pathEq(item.nft.id, ['nft', 'id'])))
     },
     [setSenderItems]
   )
   const onRemoveReceiverItems = useCallback(
-    (nftId: string) => {
-      setReceiverItems(reject(pathEq(nftId, ['nft', 'id'])))
+    (item: OfferItem) => {
+      setReceiverItems(reject(pathEq(item.nft.id, ['nft', 'id'])))
     },
     [setReceiverItems]
   )

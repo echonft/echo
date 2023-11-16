@@ -15,8 +15,8 @@ interface Props {
   receiver: User | undefined
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
-  onRemoveSenderItem?: (itemNftId: string) => unknown
-  onRemoveReceiverItem?: (itemNftId: string) => unknown
+  onRemoveSenderItem?: (item: OfferItem) => unknown
+  onRemoveReceiverItem?: (item: OfferItem) => unknown
   onConfirmOffer?: () => unknown
   onDismissOffer?: () => unknown
 }

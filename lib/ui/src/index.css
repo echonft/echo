@@ -7,10 +7,10 @@
 
 @layer base {
   html {
-    @apply w-screen h-screen text-transparent;
+    @apply w-screen h-screen;
   }
   body {
-    @apply w-screen min-h-screen font-medium bg-dark-500 text-white text-base overflow-x-hidden;
+    @apply w-screen min-h-screen bg-dark-500 text-transparent font-normal text-[0rem] leading-[0rem] tracking-[0rem] overflow-x-hidden;
   }
   #headlessui-portal-root {
     @apply fixed top-0 right-0;
@@ -157,7 +157,7 @@
     @apply btn bg-yellow-500 enabled:hover:bg-white/[0.08] enabled:active:bg-white/[0.06];
   }
   .btn-gradient {
-    @apply btn border border-solid border-transparent bg-main-gradient bg-origin-border enabled:hover:bg-main-gradient/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700;
+    @apply btn border border-solid border-transparent bg-main bg-origin-border enabled:hover:bg-main/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700;
   }
   .btn-action {
     @apply btn bg-purple-400 gap-2.5;

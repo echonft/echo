@@ -40,13 +40,17 @@ describe('helpers - request - parseListingFiltersQuery - state filter', () => {
   test('throws if state is not valid', () => {
     expect(() => parseListingFiltersQuery(getRequest('state=whatever'))).toThrow()
     expect(() => parseListingFiltersQuery(getRequest('state=accepted'))).toThrow()
-    expect(() => parseListingFiltersQuery(getRequest('state=CANCELLED&state=notvalid'))).toThrow()
+    expect(() => parseListingFiltersQuery(getRequest(`state=${LISTING_STATE_CANCELLED}&state=notvalid`))).toThrow()
   })
   test('returns a filter with the correct state prop', () => {
-    expect(parseListingFiltersQuery(getRequest('state=CANCELLED'))).toStrictEqual<ListingQueryFilters>({
-      state: [LISTING_STATE_CANCELLED]
-    })
-    expect(parseListingFiltersQuery(getRequest('state=CANCELLED&state=FULFILLED'))).toStrictEqual<ListingQueryFilters>({
+    expect(parseListingFiltersQuery(getRequest(`state=${LISTING_STATE_CANCELLED}`))).toStrictEqual<ListingQueryFilters>(
+      {
+        state: [LISTING_STATE_CANCELLED]
+      }
+    )
+    expect(
+      parseListingFiltersQuery(getRequest(`state=${LISTING_STATE_CANCELLED}&state=${LISTING_STATE_FULFILLED}`))
+    ).toStrictEqual<ListingQueryFilters>({
       state: [LISTING_STATE_CANCELLED, LISTING_STATE_FULFILLED]
     })
   })
@@ -60,14 +64,16 @@ describe('helpers - request - parseListingFiltersQuery - notState filter', () =>
   test('throws if notState is not valid', () => {
     expect(() => parseListingFiltersQuery(getRequest('notState=whatever'))).toThrow()
     expect(() => parseListingFiltersQuery(getRequest('notState=accepted'))).toThrow()
-    expect(() => parseListingFiltersQuery(getRequest('notState=CANCELLED&state=notvalid'))).toThrow()
+    expect(() => parseListingFiltersQuery(getRequest(`notState=${LISTING_STATE_CANCELLED}&state=notvalid`))).toThrow()
   })
   test('returns a filter with the correct notState prop', () => {
-    expect(parseListingFiltersQuery(getRequest('notState=CANCELLED'))).toStrictEqual<ListingQueryFilters>({
+    expect(
+      parseListingFiltersQuery(getRequest(`notState=${LISTING_STATE_CANCELLED}`))
+    ).toStrictEqual<ListingQueryFilters>({
       notState: [LISTING_STATE_CANCELLED]
     })
     expect(
-      parseListingFiltersQuery(getRequest('notState=CANCELLED&notState=FULFILLED'))
+      parseListingFiltersQuery(getRequest(`notState=${LISTING_STATE_CANCELLED}&notState=${LISTING_STATE_FULFILLED}`))
     ).toStrictEqual<ListingQueryFilters>({
       notState: [LISTING_STATE_CANCELLED, LISTING_STATE_FULFILLED]
     })
@@ -100,14 +106,18 @@ describe('helpers - request - parseListingFiltersQuery - multiple filters', () =
   test('throws if there are both state and notState filters', () => {
     expect(() =>
       parseListingFiltersQuery(
-        getRequest('as=receiver&state=OPEN&state=ACCEPTED&notState=CANCELLED&includeExpired=true')
+        getRequest(
+          `as=receiver&state=${LISTING_STATE_OPEN}&state=${LISTING_STATE_FULFILLED}&notState=${LISTING_STATE_CANCELLED}&includeExpired=true`
+        )
       )
     ).toThrow()
   })
   test('returns the correct filters', () => {
     expect(
       parseListingFiltersQuery(
-        getRequest(`as=${LISTING_FILTER_AS_TARGET}&state=OPEN&state=FULFILLED&includeExpired=true`)
+        getRequest(
+          `as=${LISTING_FILTER_AS_TARGET}&state=${LISTING_STATE_OPEN}&state=${LISTING_STATE_FULFILLED}&includeExpired=true`
+        )
       )
     ).toStrictEqual<ListingQueryFilters>({
       as: LISTING_FILTER_AS_TARGET,

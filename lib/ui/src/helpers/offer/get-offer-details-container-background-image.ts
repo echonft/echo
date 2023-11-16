@@ -10,12 +10,12 @@ import { type OfferState } from '@echo/model/types/offer-state'
 export const getOfferDetailsContainerBackgroundImage = (state: OfferState) => {
   switch (state) {
     case OFFER_STATE_OPEN:
-      return 'bg-offer-yellow-gradient'
+      return 'bg-offerYellow'
     case OFFER_STATE_COMPLETED:
     case OFFER_STATE_ACCEPTED:
-      return 'bg-offer-green-gradient'
+      return 'bg-offerGreen'
     case OFFER_STATE_CANCELLED:
     case OFFER_STATE_REJECTED:
-      return 'bg-offer-red-gradient'
+      return 'bg-offerRed'
   }
 }

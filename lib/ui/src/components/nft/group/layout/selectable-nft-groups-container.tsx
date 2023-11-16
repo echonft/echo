@@ -1,19 +1,23 @@
-import { type Nft } from '@echo/model/types/nft'
 import { NftGroupsLayout } from '@echo/ui/components/nft/group/layout/nft-groups-layout'
 import { SelectableNftGroup } from '@echo/ui/components/nft/group/selectable-nft-group'
-import { type DisableableType } from '@echo/ui/types/disableable'
 import { type Group } from '@echo/ui/types/group'
-import { type SelectableType } from '@echo/ui/types/selectable'
+import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  groups: Group<DisableableType<SelectableType<Nft>>>[]
+  groups: Group<SelectableNft>[]
   hideOwner?: boolean
-  onToggleSelection?: (nft: DisableableType<SelectableType<Nft>>, groupId: string) => unknown
+  onToggleSelection?: (nft: SelectableNft, groupId: string) => unknown
+  onAction?: (nft: SelectableNft) => unknown
 }
 
-export const SelectableNftGroupsContainer: FunctionComponent<Props> = ({ groups, hideOwner, onToggleSelection }) => {
+export const SelectableNftGroupsContainer: FunctionComponent<Props> = ({
+  groups,
+  hideOwner,
+  onToggleSelection,
+  onAction
+}) => {
   return (
     <NftGroupsLayout>
       {map(
@@ -23,6 +27,7 @@ export const SelectableNftGroupsContainer: FunctionComponent<Props> = ({ groups,
             group={group}
             hideOwner={hideOwner}
             onToggleSelection={onToggleSelection}
+            onAction={onAction}
           />
         ),
         groups

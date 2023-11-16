@@ -1,40 +1,21 @@
-import { type ListingItem } from '@echo/model/types/listing-item'
-import { type OfferItem } from '@echo/model/types/offer-item'
-import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
-import { ItemThumbnailPicture } from '@echo/ui/components/item/thumbnail/item-thumbnail-picture'
-import { ItemThumbnailSelector } from '@echo/ui/components/item/thumbnail/item-thumbnail-selector'
-import { ItemThumbnailTitle } from '@echo/ui/components/item/thumbnail/item-thumbnail-title'
-import { ItemThumbnailLayout } from '@echo/ui/components/item/thumbnail/layout/item-thumbnail-layout'
-import { getNftName } from '@echo/ui/helpers/nft/get-nft-name'
-import { clsx } from 'clsx'
+import type { Item } from '@echo/model/types/item'
+import { NftThumbnail } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  item: OfferItem | ListingItem
-  onRemove?: (itemNftId: string) => unknown
+  item: Item
+  removable?: boolean
+  onRemove?: (item: Item) => unknown
 }
 
-export const ItemThumbnail: FunctionComponent<Props> = ({ item, onRemove }) => {
-  const { tokenId, thumbnailUrl, collection } = item.nft
-  const name = getNftName(item.nft)
+export const ItemThumbnail: FunctionComponent<Props> = ({ item, removable, onRemove }) => {
   return (
-    <ItemThumbnailLayout>
-      <div className={clsx('h-max', 'w-max', 'relative')}>
-        <ItemThumbnailPicture alt={name} pictureUrl={thumbnailUrl} />
-        <HideIfNil
-          checks={onRemove}
-          render={(onRemove) => (
-            <ItemThumbnailSelector
-              onRemove={() => {
-                onRemove?.(item.nft.id)
-              }}
-            />
-          )}
-        />
-      </div>
-      <div className={clsx('flex', 'flex-col', 'bg-white/[0.08]', 'w-full', 'px-1.5', 'pt-1', 'pb-2')}>
-        <ItemThumbnailTitle tokenId={tokenId} collectionName={collection.name} />
-      </div>
-    </ItemThumbnailLayout>
+    <NftThumbnail
+      nft={item.nft}
+      removable={removable}
+      onRemove={() => {
+        onRemove?.(item)
+      }}
+    />
   )
 }

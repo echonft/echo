@@ -93,8 +93,8 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
     setTarget(undefined)
   }
 
-  function onRemoveItem(itemNftId: string) {
-    pipe(reject(pathEq(itemNftId, ['nft', 'id'])), setItems)(items)
+  function onRemoveItem(item: ListingItem) {
+    pipe(reject(pathEq(item.nft.id, ['nft', 'id'])), setItems)(items)
   }
 
   function clearListing() {

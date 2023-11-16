@@ -1,13 +1,13 @@
-import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-props'
+import type { Nft } from '@echo/model/types/nft'
+import { getTokenIdString } from '@echo/ui/helpers/nft/get-token-id-string'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
-interface Props extends WithClassNameProps {
-  tokenId: number
-  totalSupply: number
+interface Props {
+  nft: Nft
 }
 
-export const NftCardTitleTokenId: FunctionComponent<Props> = ({ tokenId, totalSupply, className }) => {
+export const NftCardTitleTokenId: FunctionComponent<Props> = ({ nft }) => {
   return (
     <p
       className={clsx(
@@ -17,11 +17,10 @@ export const NftCardTitleTokenId: FunctionComponent<Props> = ({ tokenId, totalSu
         'leading-[0.9375rem]',
         'tracking-[0.0175rem]',
         'text-white/70',
-        'truncate',
-        className
+        'truncate'
       )}
     >
-      {`#${tokenId.toString().padStart(Math.ceil(Math.log10(totalSupply)), '0')}`}
+      {getTokenIdString(nft.tokenId, nft.collection.totalSupply)}
     </p>
   )
 }
