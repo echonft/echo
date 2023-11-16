@@ -5,10 +5,17 @@ import { type FunctionComponent } from 'react'
 
 interface Props extends WithChildrenProps, WithLoadingProps {}
 
-export const NftCardPictureLayout: FunctionComponent<Props> = ({ loading, children }) => {
+export const NftStackPictureLayout: FunctionComponent<Props> = ({ loading, children }) => {
   return (
     <div
-      className={clsx('rounded-2xl', 'select-none', 'w-[12.5rem]', 'h-[12.5rem]', 'relative', loading && 'invisible')}
+      className={clsx(
+        'rounded-2xl',
+        'select-none',
+        'w-[12.625rem]',
+        'h-[12.625rem]',
+        'relative',
+        loading && 'invisible'
+      )}
     >
       {children}
     </div>

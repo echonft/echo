@@ -8,18 +8,19 @@ interface Props extends WithChildrenProps, WithLoadingProps, WithClassNameProps 
   disabled?: boolean
 }
 
-export const NftCardLayout: FunctionComponent<Props> = ({ disabled, loading, className, children }) => {
+export const NftStackLayout: FunctionComponent<Props> = ({ disabled, loading, className, children }) => {
   return (
     <div
       className={clsx(
         'rounded-2xl',
-        'w-[12.625rem]',
-        'h-max',
+        'w-[13.5rem]',
+        'h-[17.5rem]',
         'overflow-clip',
+        'bg-stack',
+        'bg-[length:216px_289px]',
+        'bg-origin-border',
+        'border-transparent',
         'border',
-        'border-solid',
-        'border-white/10',
-        'bg-dark-500',
         loading && 'animate-pulse',
         disabled && 'opacity-40',
         className

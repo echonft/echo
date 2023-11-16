@@ -8,7 +8,7 @@ interface Props {
 export const SelectableNftCardSelectorNotSelected: FunctionComponent<Props> = ({ onToggleSelection }) => {
   return (
     <button
-      className={clsx('h-max', 'w-max')}
+      className={clsx('h-6', 'w-6')}
       onClick={() => {
         onToggleSelection?.(true)
       }}

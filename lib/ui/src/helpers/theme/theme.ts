@@ -19,7 +19,8 @@ export const themeExtension = {
     nftButtonHover: 'linear-gradient(94deg, rgba(211, 190, 190, 0.12) -7.35%, rgba(217, 217, 217, 0.00) 104.39%)',
     offerYellow: 'linear-gradient(225deg, rgba(239, 244, 39, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
     offerGreen: 'linear-gradient(225deg, rgba(75, 191, 75, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
-    offerRed: 'linear-gradient(225deg, rgba(255, 64, 64, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)'
+    offerRed: 'linear-gradient(225deg, rgba(255, 64, 64, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
+    stack: "url('https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/stack-bg.svg?alt=media')"
   },
   borderColor: {
     DEFAULT: 'transparent'

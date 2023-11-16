@@ -11,7 +11,7 @@ interface Props {
 export const NftCardOpenSeaIcon: FunctionComponent<Props> = ({ nft }) => {
   return (
     <ExternalLink href={nft.openSeaUrl}>
-      <div className={clsx('rounded-lg', 'w-max', 'h-max', 'p-1.5', 'text-yellow-700', 'bg-dark-500')}>
+      <div className={clsx('rounded-lg', 'w-max', 'h-max', 'p-1', 'text-yellow-700', 'bg-dark-500')}>
         <OpenSeaIconSvg width={16} height={16} />
       </div>
     </ExternalLink>
