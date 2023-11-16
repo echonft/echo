@@ -26,7 +26,7 @@ export const SelectableNftCardButton: FunctionComponent<Props> = ({ nft, onClick
           'pt-2.5',
           'pb-2.75',
           'text-left',
-          'bg-nftButtonHover',
+          'hover:bg-nftButtonHover',
           'transition-opacity ease-in-out',
           'opacity-0',
           'group-hover:opacity-100'
