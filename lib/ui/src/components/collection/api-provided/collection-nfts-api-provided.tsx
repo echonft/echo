@@ -16,7 +16,7 @@ import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
-import { any, assoc, equals, head, map, path, pipe } from 'ramda'
+import { assoc, map, pipe } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
@@ -27,7 +27,7 @@ interface Props {
 
 export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collectionSlug, nfts, user }) => {
   const t = getTranslator()
-  const { setReceiverItems, setSenderItems, hasNewOfferPending } = useNewOfferStore()
+  const { setReceiverItems, hasNewOfferPending } = useNewOfferStore()
   const selectableNfts = useMemo(() => {
     if (hasNewOfferPending()) {
       return map<Nft, SelectableNft>(
@@ -48,15 +48,9 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
     )
   }, [nfts, user, hasNewOfferPending])
 
-  const onMakeOffer = (nfts: Nft[]) => {
+  const onMakeOffer = (nfts: SelectableNft[]) => {
     if (isNonEmptyArray(nfts)) {
-      const ownerWallet = pipe(head, path(['owner', 'wallet']))(nfts)
-      // TODO We allow selection from multiple users right now, this should change
-      if (any(equals(ownerWallet), user?.wallets ?? [])) {
-        setSenderItems(map(mapNftToOfferItem, nfts))
-      } else {
-        setReceiverItems(map(mapNftToOfferItem, nfts))
-      }
+      setReceiverItems(map(mapNftToOfferItem, nfts))
     }
   }
 

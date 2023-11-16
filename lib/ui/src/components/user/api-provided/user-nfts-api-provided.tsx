@@ -10,8 +10,10 @@ import { NAVIGATION_ITEMS } from '@echo/ui/constants/navigation-item'
 import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
 import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
+import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item'
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { assoc, dissoc, map, pipe } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
@@ -23,7 +25,7 @@ interface Props {
 
 export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts, user }) => {
   const t = getTranslator()
-  const { hasNewOfferPending } = useNewOfferStore()
+  const { hasNewOfferPending, setReceiverItems } = useNewOfferStore()
   const selectableNfts = useMemo(() => {
     if (hasNewOfferPending()) {
       return map<Nft, SelectableNft>(assoc('actionDisabled', true), nfts)
@@ -34,6 +36,12 @@ export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts, 
     )
   }, [nfts, hasNewOfferPending])
 
+  const onMakeOffer = (nfts: SelectableNft[]) => {
+    if (isNonEmptyArray(nfts)) {
+      setReceiverItems(map(mapNftToOfferItem, nfts))
+    }
+  }
+
   return (
     <UserNavigationLayout username={username} activeNavigationItem={NAVIGATION_ITEMS} user={user}>
       <HideIfEmpty
@@ -43,6 +51,7 @@ export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts, 
             nfts={selectableNfts}
             availableFilters={[NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS]}
             btnLabel={t('user.button.label')}
+            onButtonClick={onMakeOffer}
           />
         )}
       />

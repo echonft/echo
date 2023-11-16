@@ -25,7 +25,7 @@ import { type Group } from '@echo/ui/types/group'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
-import { find, includes, isNil, lt, map, modify, omit, pipe, prop, propEq, unless } from 'ramda'
+import { find, includes, isNil, lt, map, modify, pipe, prop, propEq, unless } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useMemo, useState } from 'react'
 
 interface Props {
@@ -33,7 +33,7 @@ interface Props {
   availableFilters: NftFilterType[]
   btnLabel: string
   hideOwner?: boolean
-  onButtonClick?: (nfts: Nft[]) => unknown
+  onButtonClick?: (nfts: SelectableNft[]) => unknown
 }
 
 export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = ({
@@ -126,12 +126,19 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
         collectionFilters={collectionFilters}
         traitFilters={traitFilters}
         onButtonClick={() => {
-          onButtonClick?.(pipe(getGroupsSelection, omit(['selected', 'disabled']))(groups))
+          onButtonClick?.(getGroupsSelection(groups))
         }}
         onTraitSelectionToggle={onTraitFilterToggleSelection}
         onCollectionSelectionToggle={onCollectionFilterToggleSelection}
       />
-      <SelectableNftGroupsContainer groups={groups} hideOwner={hideOwner} onToggleSelection={onNftToggleSelection} />
+      <SelectableNftGroupsContainer
+        groups={groups}
+        hideOwner={hideOwner}
+        onToggleSelection={onNftToggleSelection}
+        onAction={(nft) => {
+          onButtonClick?.([nft])
+        }}
+      />
     </NftsAndFiltersLayout>
   )
 }

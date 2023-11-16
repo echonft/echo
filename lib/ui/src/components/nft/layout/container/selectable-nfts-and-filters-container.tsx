@@ -21,7 +21,7 @@ import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
-import { includes, map, omit, pipe, propEq } from 'ramda'
+import { includes, map, pipe, propEq } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo, useState } from 'react'
 
 interface Props {
@@ -29,7 +29,7 @@ interface Props {
   availableFilters: NftFilterType[]
   btnLabel: string
   user: AuthUser | undefined
-  onButtonClick?: (nfts: Nft[]) => unknown
+  onButtonClick?: (nfts: SelectableNft[]) => unknown
 }
 
 export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
@@ -87,12 +87,18 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
         collectionFilters={collectionFilters}
         traitFilters={traitFilters}
         onButtonClick={() => {
-          onButtonClick?.(pipe(getSelection, map(omit(['selected', 'disabled'])))(selectableNfts))
+          onButtonClick?.(getSelection(selectableNfts))
         }}
         onTraitSelectionToggle={onTraitFilterToggleSelection}
         onCollectionSelectionToggle={onCollectionFilterToggleSelection}
       />
-      <SelectableNftsContainer nfts={selectableNfts} onToggleSelection={onNftToggleSelection} />
+      <SelectableNftsContainer
+        nfts={selectableNfts}
+        onToggleSelection={onNftToggleSelection}
+        onAction={(nft) => {
+          onButtonClick?.([nft])
+        }}
+      />
     </NftsAndFiltersLayout>
   )
 }

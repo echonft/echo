@@ -8,14 +8,15 @@ import { type FunctionComponent } from 'react'
 interface Props {
   nfts: SelectableNft[]
   onToggleSelection?: (nft: SelectableNft) => unknown
+  onAction?: (nft: SelectableNft) => unknown
 }
 
-export const SelectableNftsContainer: FunctionComponent<Props> = ({ nfts, onToggleSelection }) => {
+export const SelectableNftsContainer: FunctionComponent<Props> = ({ nfts, onToggleSelection, onAction }) => {
   return (
     <NftsLayout>
       {map(
         (nft) => (
-          <SelectableNftCard key={nft.id} nft={nft} onToggleSelection={onToggleSelection} />
+          <SelectableNftCard key={nft.id} nft={nft} onToggleSelection={onToggleSelection} onAction={onAction} />
         ),
         nfts
       )}
