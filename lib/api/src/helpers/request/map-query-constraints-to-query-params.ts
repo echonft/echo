@@ -8,11 +8,6 @@ export function mapQueryConstraintsToQueryParams<T>(constraints: QueryConstraint
     propIsNotNil('orderBy'),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    modify(
-      'orderBy',
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      pipe(map(juxt([prop('field'), prop('direction')])), flatten)
-    )
+    modify('orderBy', pipe(map(juxt([prop('field'), prop('direction')])), flatten))
   )(constraints) as QueryConstraintsQueryParams
 }
