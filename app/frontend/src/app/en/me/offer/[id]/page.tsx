@@ -1,4 +1,4 @@
-import { apiUrl } from '@echo/api/routing/api-url'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
@@ -18,7 +18,7 @@ interface Props {
 const OfferDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { id } }) => {
   const session = await getServerSession(authOptions)
   redirectIfNotLoggedIn(session, links.profile.offer(id))
-  const response = await nextFetch.get<OfferResponse>(apiUrl.offer.get(id), {
+  const response = await nextFetch.get<OfferResponse>(apiUrlProvider.offer.get.get({ offerId: id }), {
     bearerToken: session.user.sessionToken
   })
   assertNextFetchResponse(response)

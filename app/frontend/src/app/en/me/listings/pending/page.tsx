@@ -1,6 +1,6 @@
 import { mapListingFiltersToQueryParams } from '@echo/api/helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrl } from '@echo/api/routing/api-url'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { LISTING_FILTER_AS_TARGET } from '@echo/firestore/constants/listing/listing-filter-as'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
@@ -28,9 +28,12 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
       { field: 'expiresAt', direction: 'desc' }
     ]
   })
-  const response = await nextFetch.get<ListingsResponse>(apiUrl.user.listings(session.user.username), {
-    params: mergeLeft(queryParams, filterParams)
-  })
+  const response = await nextFetch.get<ListingsResponse>(
+    apiUrlProvider.user.listings.get({ username: session.user.username }),
+    {
+      params: mergeLeft(queryParams, filterParams)
+    }
+  )
   assertNextFetchResponse(response)
   return <ProfileListingsReceivedApiProvided listings={response.data.listings} user={session.user} />
 }

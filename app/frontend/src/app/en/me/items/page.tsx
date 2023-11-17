@@ -1,5 +1,5 @@
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrl } from '@echo/api/routing/api-url'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type NftsResponse } from '@echo/api/types/responses/nfts-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
@@ -16,9 +16,12 @@ const ProfileNftsPage: FunctionComponent = async () => {
   const queryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'tokenId', direction: 'asc' }]
   })
-  const response = await nextFetch.get<NftsResponse>(apiUrl.user.nfts(session.user.username), {
-    params: queryParams
-  })
+  const response = await nextFetch.get<NftsResponse>(
+    apiUrlProvider.user.nfts.get({ username: session.user.username }),
+    {
+      params: queryParams
+    }
+  )
   assertNextFetchResponse(response)
   return <ProfileNftsApiProvided nfts={response.data.nfts} user={session.user} />
 }

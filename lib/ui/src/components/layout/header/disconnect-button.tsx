@@ -16,6 +16,7 @@ interface Props {
 
 export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('layout.header.button')
+  // const pathname = usePathname()
   const [loading, setLoading] = useState(false)
   return (
     <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>

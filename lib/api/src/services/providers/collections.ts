@@ -1,5 +1,5 @@
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrl } from '@echo/api/routing/api-url'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import type { Collection } from '@echo/model/types/collection'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import axios from 'axios'
@@ -16,7 +16,7 @@ export function collections(): Promise<CollectionProviderResult[]> {
     orderBy: [{ field: 'name', direction: 'asc' }]
   })
   return axios
-    .get<{ collections: CollectionProviderResult[] }>(apiUrl.collection.all, {
+    .get<{ collections: CollectionProviderResult[] }>(apiUrlProvider.collection.all.get(), {
       params: constraints
     })
     .then(nonNullableReturn(path(['data', 'collections'])))

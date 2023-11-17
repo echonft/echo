@@ -1,5 +1,5 @@
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrl } from '@echo/api/routing/api-url'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
@@ -19,9 +19,12 @@ const ProfileSwapsPage: FunctionComponent = async () => {
   const params = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
-  const response = await nextFetch.get<OffersResponse>(apiUrl.user.swaps(session.user.username), {
-    params
-  })
+  const response = await nextFetch.get<OffersResponse>(
+    apiUrlProvider.user.swaps.get({ username: session.user.username }),
+    {
+      params
+    }
+  )
   assertNextFetchResponse(response)
   return (
     <ProfileSwapsApiProvided

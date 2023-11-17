@@ -1,5 +1,5 @@
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrl } from '@echo/api/routing/api-url'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
@@ -24,7 +24,7 @@ const UserSwapsPage: FunctionComponent<Props> = async ({ params: { username } })
   const params = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
-  const response = await nextFetch.get<OffersResponse>(apiUrl.user.swaps(username), {
+  const response = await nextFetch.get<OffersResponse>(apiUrlProvider.user.swaps.get({ username }), {
     params
   })
   assertNextFetchResponse(response)

@@ -1,6 +1,6 @@
 import { mapOfferFiltersToQueryParams } from '@echo/api/helpers/request/map-offer-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrl } from '@echo/api/routing/api-url'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { OFFER_FILTER_AS_RECEIVER } from '@echo/firestore/constants/offer/offer-filter-as'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
@@ -26,7 +26,7 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
   const queryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
-  const response = await nextFetch.get<OffersResponse>(apiUrl.profile.offers, {
+  const response = await nextFetch.get<OffersResponse>(apiUrlProvider.profile.offers.get(), {
     bearerToken: session.user.sessionToken,
     params: mergeLeft(filterParams, queryParams)
   })
