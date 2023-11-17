@@ -1,8 +1,8 @@
 'use client'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { UserTag } from '@echo/ui/components/layout/header/user-tag'
-import { links } from '@echo/ui/constants/links'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { Menu, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
@@ -36,7 +36,7 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
         >
           <Menu.Item>
             {({ close }) => (
-              <InternalLink path={links.profile.items} onClick={close}>
+              <InternalLink path={linkProvider.profile.items.get()} onClick={close}>
                 <button
                   disabled={loading}
                   className={clsx(

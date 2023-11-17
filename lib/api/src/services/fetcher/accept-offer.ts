@@ -16,7 +16,7 @@ export function acceptOffer(args: AcceptOfferArgs) {
   assertToken(args)
   assertSignature(args.signature)
   return axios
-    .post<OfferResponse>(apiUrlProvider.offer.accept.get(pick(['offerId'], args)), {
+    .post<OfferResponse>(apiUrlProvider.offer.accept.getUrl(pick(['offerId'], args)), {
       data: pick(['signature'], args),
       headers: getAuthorizationHeader(args)
     })

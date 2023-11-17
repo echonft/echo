@@ -9,7 +9,7 @@ import { prop } from 'ramda'
 export function getNonce(args: TokenArgs) {
   assertToken(args)
   return axios
-    .get<NonceResponse>(apiUrlProvider.profile.nonce.get(), {
+    .get<NonceResponse>(apiUrlProvider.profile.nonce.getUrl(), {
       headers: getAuthorizationHeader(args)
     })
     .then(prop('data'))

@@ -17,7 +17,7 @@ interface Props {
 
 const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params, children }) => {
   const session = await getServerSession(authOptions)
-  const response = await nextFetch.get<CollectionResponse>(apiUrlProvider.collection.get.get(params))
+  const response = await nextFetch.get<CollectionResponse>(apiUrlProvider.collection.get.getUrl(params))
   assertNextFetchResponse(response)
   return (
     <NavigationPageLayout user={session?.user}>

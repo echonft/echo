@@ -26,10 +26,10 @@ const Home: FunctionComponent = async () => {
     orderBy: [{ field: 'updatedAt', direction: 'desc' }],
     limit: 5
   })
-  const collectionsResponse = await nextFetch.get<CollectionsResponse>(apiUrlProvider.collection.all.get(), {
+  const collectionsResponse = await nextFetch.get<CollectionsResponse>(apiUrlProvider.collection.all.getUrl(), {
     params: mergeLeft(collectionsConstraintsQueryParams, collectionFiltersQueryParam)
   })
-  const swapsResponse = await nextFetch.get<OffersResponse>(apiUrlProvider.swap.all.get(), {
+  const swapsResponse = await nextFetch.get<OffersResponse>(apiUrlProvider.swap.all.getUrl(), {
     params: swapsConstraintsQueryParams
   })
   assertNextFetchResponse(collectionsResponse)

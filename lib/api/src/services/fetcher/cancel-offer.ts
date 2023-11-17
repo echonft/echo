@@ -12,7 +12,7 @@ export interface CancelOfferArgs extends TokenArgs {
 export function cancelOffer(args: CancelOfferArgs) {
   assertToken(args)
   return axios
-    .post<OfferResponse>(apiUrlProvider.offer.cancel.get(pick(['offerId'], args)), {
+    .post<OfferResponse>(apiUrlProvider.offer.cancel.getUrl(pick(['offerId'], args)), {
       headers: getAuthorizationHeader(args)
     })
     .then(prop('data'))

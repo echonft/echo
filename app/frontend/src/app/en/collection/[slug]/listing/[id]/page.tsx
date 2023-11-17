@@ -22,8 +22,8 @@ interface Props {
 
 const ListingDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { slug, id } }) => {
   const session = await getServerSession(authOptions)
-  const collectionResponse = await nextFetch.get<CollectionResponse>(apiUrlProvider.collection.get.get({ slug }))
-  const listingResponse = await nextFetch.get<ListingResponse>(apiUrlProvider.listing.get.get({ listingId: id }))
+  const collectionResponse = await nextFetch.get<CollectionResponse>(apiUrlProvider.collection.get.getUrl({ slug }))
+  const listingResponse = await nextFetch.get<ListingResponse>(apiUrlProvider.listing.get.getUrl({ listingId: id }))
   assertNextFetchResponse(collectionResponse)
   assertNextFetchResponse(listingResponse)
   const listingSlugs = pipe<[ListingResponse], ListingTarget[], string[]>(

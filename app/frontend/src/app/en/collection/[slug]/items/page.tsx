@@ -22,7 +22,7 @@ const CollectionNftsPage: FunctionComponent<Props> = async ({ params }) => {
       { field: 'tokenId', direction: 'asc' }
     ]
   })
-  const response = await nextFetch.get<NftsResponse>(apiUrlProvider.collection.nfts.get(params), {
+  const response = await nextFetch.get<NftsResponse>(apiUrlProvider.collection.nfts.getUrl(params), {
     params: query
   })
   assertNextFetchResponse(response)

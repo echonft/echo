@@ -27,5 +27,6 @@ module.exports = {
         outputDirectory: '<rootDir>/../../.coverage/app/helper'
       }
     ]
-  ]
+  ],
+  testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/']
 }

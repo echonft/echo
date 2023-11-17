@@ -23,7 +23,7 @@ const CollectionListingsPage: FunctionComponent<Props> = async ({ params }) => {
     orderBy: [{ field: 'expiresAt', direction: 'asc' }]
   })
   const filtersQueryParam = mapListingFiltersToQueryParams({ state: [LISTING_STATE_OPEN] })
-  const response = await nextFetch.get<ListingsResponse>(apiUrlProvider.collection.listings.get(params), {
+  const response = await nextFetch.get<ListingsResponse>(apiUrlProvider.collection.listings.getUrl(params), {
     params: mergeLeft(constraintsQueryParams, filtersQueryParam)
   })
   assertNextFetchResponse(response)

@@ -1,6 +1,5 @@
-import { getAppUrl } from '@echo/bot/helpers/get-app-url'
-import { links } from '@echo/ui/constants/links'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 
 export function offerLink(offerId: string): string {
-  return encodeURI(`${getAppUrl()}${links.profile.offer(offerId)}`)
+  return linkProvider.profile.offer.getUrl({ offerId })
 }

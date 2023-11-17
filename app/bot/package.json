@@ -25,10 +25,10 @@
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org echo-nft --project bot ./dist && sentry-cli sourcemaps upload --org echo-nft --project bot ./dist"
   },
   "dependencies": {
+    "@echo/api": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
-    "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
     "@sentry/cli": "2.21.2",
     "@sentry/node": "7.77.0",

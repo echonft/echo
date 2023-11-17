@@ -1,6 +1,7 @@
 import { mapListingFiltersToQueryParams } from '@echo/api/helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { LISTING_FILTER_AS_TARGET } from '@echo/firestore/constants/listing/listing-filter-as'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
@@ -9,14 +10,13 @@ import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/asser
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { LISTING_STATE_CANCELLED, LISTING_STATE_FULFILLED } from '@echo/model/constants/listing-states'
 import { ProfileListingsReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-listings-received-api-provided'
-import { links } from '@echo/ui/constants/links'
 import { getServerSession } from 'next-auth/next'
 import { mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 const ProfileListingsReceivedPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
-  redirectIfNotLoggedIn(session, links.profile.listingsReceived)
+  redirectIfNotLoggedIn(session, linkProvider.profile.listingsReceived.get())
   const filterParams = mapListingFiltersToQueryParams({
     as: LISTING_FILTER_AS_TARGET,
     notState: [LISTING_STATE_FULFILLED, LISTING_STATE_CANCELLED]
@@ -29,7 +29,7 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
     ]
   })
   const response = await nextFetch.get<ListingsResponse>(
-    apiUrlProvider.user.listings.get({ username: session.user.username }),
+    apiUrlProvider.user.listings.getUrl({ username: session.user.username }),
     {
       params: mergeLeft(queryParams, filterParams)
     }

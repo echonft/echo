@@ -13,7 +13,7 @@ export interface CancelListingArgs extends TokenArgs {
 export function cancelListing(args: CancelListingArgs) {
   assertToken(args)
   return axios
-    .post<ListingResponse>(apiUrlProvider.listing.cancel.get(pick(['listingId'], args)), {
+    .post<ListingResponse>(apiUrlProvider.listing.cancel.getUrl(pick(['listingId'], args)), {
       headers: getAuthorizationHeader(args)
     })
     .then(prop('data'))

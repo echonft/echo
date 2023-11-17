@@ -92,6 +92,9 @@ importers:
 
   app/bot:
     dependencies:
+      '@echo/api':
+        specifier: workspace:*
+        version: link:../../lib/api
       '@echo/discord':
         specifier: workspace:*
         version: link:../../lib/discord
@@ -101,9 +104,6 @@ importers:
       '@echo/model':
         specifier: workspace:*
         version: link:../../lib/model
-      '@echo/ui':
-        specifier: workspace:*
-        version: link:../../lib/ui
       '@echo/utils':
         specifier: workspace:*
         version: link:../../lib/utils

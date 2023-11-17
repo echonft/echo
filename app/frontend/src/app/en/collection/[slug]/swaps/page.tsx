@@ -19,7 +19,7 @@ const CollectionSwapsPage: FunctionComponent<Props> = async ({ params }) => {
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'asc' }]
   })
-  const response = await nextFetch.get<OffersResponse>(apiUrlProvider.collection.swaps.get(params), {
+  const response = await nextFetch.get<OffersResponse>(apiUrlProvider.collection.swaps.getUrl(params), {
     params: constraintsQueryParams
   })
   assertNextFetchResponse(response)

@@ -12,7 +12,7 @@ export interface GetOfferSignatureArgs extends TokenArgs {
 export function getOfferSignature(args: GetOfferSignatureArgs) {
   assertToken(args)
   return axios
-    .get<OfferSignatureResponse>(apiUrlProvider.offer.signature.get(pick(['offerId'], args)), {
+    .get<OfferSignatureResponse>(apiUrlProvider.offer.signature.getUrl(pick(['offerId'], args)), {
       headers: getAuthorizationHeader(args)
     })
     .then(prop('data'))

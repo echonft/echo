@@ -16,7 +16,7 @@ export function collections(): Promise<CollectionProviderResult[]> {
     orderBy: [{ field: 'name', direction: 'asc' }]
   })
   return axios
-    .get<{ collections: CollectionProviderResult[] }>(apiUrlProvider.collection.all.get(), {
+    .get<{ collections: CollectionProviderResult[] }>(apiUrlProvider.collection.all.getUrl(), {
       params: constraints
     })
     .then(nonNullableReturn(path(['data', 'collections'])))
