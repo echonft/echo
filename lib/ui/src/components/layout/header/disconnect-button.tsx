@@ -1,14 +1,14 @@
+'use client'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { UserTag } from '@echo/ui/components/layout/header/user-tag'
 import { links } from '@echo/ui/constants/links'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { Menu, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
-import { type FunctionComponent } from 'react'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   user: AuthUser
@@ -16,6 +16,7 @@ interface Props {
 
 export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('layout.header.button')
+  const [loading, setLoading] = useState(false)
   return (
     <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>
       <Menu.Button>
@@ -36,6 +37,7 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
             {({ close }) => (
               <InternalLink path={links.profile.items} onClick={close}>
                 <button
+                  disabled={loading}
                   className={clsx(
                     'prose-label-sm',
                     'text-white',
@@ -57,12 +59,15 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
           <Menu.Item>
             {({ close }) => (
               <button
+                disabled={loading}
                 onClick={() => {
+                  setLoading(true)
                   signOut()
-                    .then(close)
-                    .catch((e) => {
-                      logger.error(`sign out error: ${errorMessage(e)}`)
+                    .catch(errorCallback({ tags: { action: 'signOut' } }))
+                    .finally(() => {
+                      setLoading(false)
                       close()
+                      // TODO check if we need to redirect
                     })
                 }}
                 className={clsx(
@@ -75,10 +80,11 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
                   'w-full',
                   'h-max',
                   'rounded-md',
-                  'text-left'
+                  'text-left',
+                  loading && 'animate-pulse'
                 )}
               >
-                {t('disconnect.label')}
+                {loading ? t('disconnecting.label') : t('disconnect.label')}
               </button>
             )}
           </Menu.Item>

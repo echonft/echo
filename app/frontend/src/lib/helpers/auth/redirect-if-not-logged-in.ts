@@ -1,4 +1,4 @@
-import { baseUrl } from '@echo/frontend/lib/helpers/auth/base-url'
+import { BASE_URL } from '@echo/frontend/lib/constants/base-url'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { redirect } from 'next/navigation'
 import { type Session } from 'next-auth'
@@ -11,6 +11,6 @@ export function redirectIfNotLoggedIn(
   path: string
 ): asserts session is Omit<Session, 'user'> & Record<'user', AuthUser> {
   if (isNil(session) || isNil(session.user)) {
-    redirect(`/auth/signin?callbackUrl=${encodeURIComponent(`${baseUrl()}${path}`)}`)
+    redirect(`/auth/signin?callbackUrl=${encodeURIComponent(`${BASE_URL}${path}`)}`)
   }
 }
