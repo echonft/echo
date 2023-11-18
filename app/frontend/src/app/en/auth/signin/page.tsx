@@ -1,5 +1,4 @@
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
-import { BASE_URL } from '@echo/frontend/lib/constants/base-url'
 import { Login } from '@echo/ui/components/auth/login'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { redirect } from 'next/navigation'
@@ -16,7 +15,7 @@ interface Props {
 const SigninPage: FunctionComponent<Props> = async ({ searchParams }) => {
   const session = await getServerSession(authOptions)
   if (!isNil(session) && !isNil(session.user)) {
-    if (!isNilOrEmpty(searchParams.callbackUrl) && searchParams.callbackUrl.startsWith(BASE_URL)) {
+    if (!isNilOrEmpty(searchParams.callbackUrl)) {
       redirect(searchParams.callbackUrl)
     } else {
       redirect('/')

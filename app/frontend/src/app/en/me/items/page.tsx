@@ -12,7 +12,7 @@ import { type FunctionComponent } from 'react'
 
 const ProfileNftsPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
-  redirectIfNotLoggedIn(session, linkProvider.profile.items.get())
+  redirectIfNotLoggedIn(session, linkProvider.profile.items.getUrl())
   const queryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'tokenId', direction: 'asc' }]
   })

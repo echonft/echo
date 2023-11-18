@@ -16,7 +16,7 @@ import { type FunctionComponent } from 'react'
 
 const ProfileListingsReceivedPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
-  redirectIfNotLoggedIn(session, linkProvider.profile.listingsReceived.get())
+  redirectIfNotLoggedIn(session, linkProvider.profile.listingsReceived.getUrl())
   const filterParams = mapListingFiltersToQueryParams({
     as: LISTING_FILTER_AS_TARGET,
     notState: [LISTING_STATE_FULFILLED, LISTING_STATE_CANCELLED]

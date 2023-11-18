@@ -15,7 +15,7 @@ import { type FunctionComponent } from 'react'
 
 const ProfileListingsCreatedPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
-  redirectIfNotLoggedIn(session, linkProvider.profile.listingsCreated.get())
+  redirectIfNotLoggedIn(session, linkProvider.profile.listingsCreated.getUrl())
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })

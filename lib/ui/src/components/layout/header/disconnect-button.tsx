@@ -1,4 +1,5 @@
 'use client'
+import { isPathSecure } from '@echo/api/services/routing/is-path-secure'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
@@ -6,6 +7,7 @@ import { UserTag } from '@echo/ui/components/layout/header/user-tag'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { Menu, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
+import { usePathname, useRouter } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
@@ -16,7 +18,8 @@ interface Props {
 
 export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('layout.header.button')
-  // const pathname = usePathname()
+  const pathname = usePathname()
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   return (
     <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>
@@ -63,12 +66,14 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
                 disabled={loading}
                 onClick={() => {
                   setLoading(true)
-                  signOut()
+                  signOut({ redirect: false })
                     .catch(errorCallback({ tags: { action: 'signOut' } }))
                     .finally(() => {
                       setLoading(false)
                       close()
-                      // TODO check if we need to redirect
+                      if (isPathSecure(pathname)) {
+                        router.replace('/')
+                      }
                     })
                 }}
                 className={clsx(

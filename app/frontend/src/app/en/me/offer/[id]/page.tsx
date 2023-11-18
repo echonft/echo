@@ -17,7 +17,7 @@ interface Props {
 
 const OfferDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { id } }) => {
   const session = await getServerSession(authOptions)
-  redirectIfNotLoggedIn(session, linkProvider.profile.offer.get({ offerId: id }))
+  redirectIfNotLoggedIn(session, linkProvider.profile.offer.getUrl({ offerId: id }))
   const response = await nextFetch.get<OfferResponse>(apiUrlProvider.offer.get.getUrl({ offerId: id }), {
     bearerToken: session.user.sessionToken
   })

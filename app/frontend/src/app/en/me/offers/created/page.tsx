@@ -17,7 +17,7 @@ import { type FunctionComponent } from 'react'
 
 const ProfileOffersCreatedPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
-  redirectIfNotLoggedIn(session, linkProvider.profile.offersCreated.get())
+  redirectIfNotLoggedIn(session, linkProvider.profile.offersCreated.getUrl())
   const filterParams = mapOfferFiltersToQueryParams({
     as: OFFER_FILTER_AS_SENDER,
     includeExpired: true

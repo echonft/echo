@@ -15,7 +15,7 @@ import { type FunctionComponent } from 'react'
 
 const ProfileSwapsPage: FunctionComponent = async () => {
   const session = await getServerSession(authOptions)
-  redirectIfNotLoggedIn(session, linkProvider.profile.swaps.get())
+  redirectIfNotLoggedIn(session, linkProvider.profile.swaps.getUrl())
   const params = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })

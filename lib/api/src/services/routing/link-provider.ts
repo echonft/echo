@@ -13,6 +13,9 @@ interface UserPathArgs {
   username: string
 }
 export const linkProvider = {
+  auth: {
+    signIn: new Path({ path: '/auth/signin' })
+  },
   collection: {
     all: new Path({ path: '/collections' }),
     items: new Path<CollectionPathArgs>({ path: '/collection/:slug/items' }),
