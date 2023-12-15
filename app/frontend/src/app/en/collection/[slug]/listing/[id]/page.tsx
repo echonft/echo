@@ -1,4 +1,4 @@
-import { apiUrl } from '@echo/api/routing/api-url'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type CollectionResponse } from '@echo/api/types/responses/collection-response'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
@@ -22,8 +22,8 @@ interface Props {
 
 const ListingDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { slug, id } }) => {
   const session = await getServerSession(authOptions)
-  const collectionResponse = await nextFetch.get<CollectionResponse>(apiUrl.collection.get(slug))
-  const listingResponse = await nextFetch.get<ListingResponse>(apiUrl.listing.get(id))
+  const collectionResponse = await nextFetch.get<CollectionResponse>(apiUrlProvider.collection.get.getUrl({ slug }))
+  const listingResponse = await nextFetch.get<ListingResponse>(apiUrlProvider.listing.get.getUrl({ listingId: id }))
   assertNextFetchResponse(collectionResponse)
   assertNextFetchResponse(listingResponse)
   const listingSlugs = pipe<[ListingResponse], ListingTarget[], string[]>(

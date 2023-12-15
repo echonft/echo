@@ -1,4 +1,4 @@
-import { links } from '@echo/ui/constants/links'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { redirect } from 'next/navigation'
 import { type FunctionComponent } from 'react'
 
@@ -8,8 +8,8 @@ interface Props {
   }
 }
 
-const UserPage: FunctionComponent<Props> = ({ params: { username } }) => {
-  redirect(links.user.items(username))
+const UserPage: FunctionComponent<Props> = ({ params }) => {
+  redirect(linkProvider.user.items.get(params))
 }
 
 export default UserPage
