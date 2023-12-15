@@ -1,9 +1,9 @@
-import { apiUrl } from '@echo/api/routing/api-url'
+import { mapCollectionFiltersToQueryParams } from '@echo/api/helpers/request/map-collection-filters-to-query-params'
+import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type CollectionsResponse } from '@echo/api/types/responses/collections-response'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
-import { mapCollectionFiltersToQueryParams } from '@echo/frontend/lib/helpers/request/map-collection-filters-to-query-params'
-import { mapQueryConstraintsToQueryParams } from '@echo/frontend/lib/helpers/request/map-query-constraints-to-query-params'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { HomePage } from '@echo/ui/components/home/layout/home-page'
@@ -26,10 +26,10 @@ const Home: FunctionComponent = async () => {
     orderBy: [{ field: 'updatedAt', direction: 'desc' }],
     limit: 5
   })
-  const collectionsResponse = await nextFetch.get<CollectionsResponse>(apiUrl.collection.all, {
+  const collectionsResponse = await nextFetch.get<CollectionsResponse>(apiUrlProvider.collection.all.getUrl(), {
     params: mergeLeft(collectionsConstraintsQueryParams, collectionFiltersQueryParam)
   })
-  const swapsResponse = await nextFetch.get<OffersResponse>(apiUrl.swap.all, {
+  const swapsResponse = await nextFetch.get<OffersResponse>(apiUrlProvider.swap.all.getUrl(), {
     params: swapsConstraintsQueryParams
   })
   assertNextFetchResponse(collectionsResponse)

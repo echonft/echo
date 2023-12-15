@@ -3,14 +3,14 @@ import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-disco
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { type Collection } from '@echo/model/types/collection'
-import { formatAddress } from '@echo/utils/helpers/format-address'
+import { toLower } from 'ramda'
 
 const collectionToAdd: Omit<Collection, 'id'> = {
   bannerUrl:
     'https://i.seadn.io/gae/i5dYZRkVCUK97bfprQ3WXyrT9BnLSZtVKGJlKQ919uaUB0sxbngVCioaiyu9r6snqfi2aaTyIvv6DHm4m2R3y7hMajbsv14pSZK8mhs?auto=format&dpr=1&w=2048',
   blurUrl: 'https://blur.io/collection/boredapeyachtclub',
   contract: {
-    address: formatAddress('0x65426F3C04e85936b0F875510d045b413134186A', 11155111),
+    address: toLower('0x65426F3C04e85936b0F875510d045b413134186A'),
     chainId: 11155111,
     name: 'BoredApeYachtClub',
     symbol: 'BAYC',

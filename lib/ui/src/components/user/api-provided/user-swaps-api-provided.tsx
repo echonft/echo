@@ -6,7 +6,7 @@ import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { SwapRowsContainer } from '@echo/ui/components/swap/layout/swap-rows-container'
 import { UserNavigationLayout } from '@echo/ui/components/user/layout/user-navigation-layout'
 import { UserSwapsEmpty } from '@echo/ui/components/user/swap/empty/user-swaps-empty'
-import { NavigationSwaps } from '@echo/ui/constants/navigation-item'
+import { NAVIGATION_SWAPS } from '@echo/ui/constants/navigation-item'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
 
 export const UserSwapsApiProvided: FunctionComponent<Props> = ({ username, offers, user }) => {
   return (
-    <UserNavigationLayout username={username} activeNavigationItem={NavigationSwaps} user={user}>
+    <UserNavigationLayout username={username} activeNavigationItem={NAVIGATION_SWAPS} user={user}>
       <HideIfEmpty checks={offers} render={(offers) => <SwapRowsContainer offers={offers} />} />
       <ShowIfEmpty checks={offers}>
         <UserSwapsEmpty username={username} />

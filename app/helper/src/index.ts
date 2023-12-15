@@ -3,7 +3,7 @@ import { tradeExecutedHandler } from '@echo/helper/handlers/trade-executed-handl
 import { listenToWallets } from '@echo/helper/listeners/listen-to-wallets'
 import { initializeServer } from '@echo/helper/services/initialize-server'
 import { updateDbJob } from '@echo/helper/tasks/update-db-job'
-import { listenToEchoTrades } from '@echo/web3/helpers/listen-to-echo-trades'
+import { listenToEchoTrades } from '@echo/web3/helpers/viem/listen-to-echo-trades'
 
 void (function () {
   initializeServer()

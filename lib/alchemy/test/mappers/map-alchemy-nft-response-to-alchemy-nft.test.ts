@@ -1,8 +1,8 @@
 import { mapAlchemyNftResponseToAlchemyNft } from '@echo/alchemy/mappers/map-alchemy-nft-response-to-alchemy-nft'
 import { type AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
 import { type AlchemyNftResponse } from '@echo/alchemy/types/response/alchemy-nft-response'
-import { formatAddress } from '@echo/utils/helpers/format-address'
 import { describe, expect, it } from '@jest/globals'
+import { toLower } from 'ramda'
 
 describe('mappers - mapAlchemyNftResponseToAlchemyNft', () => {
   it('returns mapped nft collection', () => {
@@ -18,7 +18,7 @@ describe('mappers - mapAlchemyNftResponseToAlchemyNft', () => {
         { value: '#complement', trait: 'Background' }
       ],
       balance: 1,
-      contractAddress: formatAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1),
+      contractAddress: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
       chainId: 1,
       name: 'Spiral Frequencies #1376',
       pictureUrl:

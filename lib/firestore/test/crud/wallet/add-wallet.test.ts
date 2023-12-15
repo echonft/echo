@@ -6,7 +6,7 @@ import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-
 import { assertWallets } from '@echo/firestore-test/wallet/assert-wallets'
 import { findWalletById } from '@echo/firestore-test/wallet/find-wallet-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { head, pick } from 'ramda'
+import { head, pick, toLower } from 'ramda'
 
 describe('CRUD - wallet - addWallet', () => {
   beforeAll(async () => {
@@ -22,15 +22,16 @@ describe('CRUD - wallet - addWallet', () => {
     await expect(addWallet('userId', pick(['address', 'chainId'], wallet))).rejects.toBeDefined()
   })
   it('add wallet', async () => {
+    const address = toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
     const { id } = await addWallet('6rECUMhevHfxABZ1VNOm', {
-      address: '0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8',
+      address,
       chainId: 1
     })
     const wallet = await findWalletById(id)
     expect(wallet?.id).toEqual(id)
     expect(wallet?.userId).toEqual('6rECUMhevHfxABZ1VNOm')
     expect(wallet?.chainId).toEqual(1)
-    expect(wallet?.address).toEqual('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
+    expect(wallet?.address).toEqual(address)
     await deleteWallet(id)
   })
 })

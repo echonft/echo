@@ -1,6 +1,6 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
+import type { CollectionQueryFilters } from '@echo/firestore/types/query/collection-query-filters'
 import { parseCollectionFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-collection-filters-query'
-import type { CollectionQueryFilters } from '@echo/frontend/lib/server/types/request/collection-query-filters'
 import { NextRequest } from 'next/server'
 
 describe('helpers - request - parseCollectionFiltersQuery - empty', () => {

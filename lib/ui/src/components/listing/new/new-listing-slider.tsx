@@ -1,11 +1,11 @@
 'use client'
-import { type Collection } from '@echo/model/types/collection'
+import type { CollectionProviderResult } from '@echo/api/services/providers/collections'
 import { type ListingItem } from '@echo/model/types/listing-item'
-import { type ListingTarget } from '@echo/model/types/listing-target'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CollectionSearchBoxManager } from '@echo/ui/components/collection/search/collection-search-box-manager'
 import { NewSenderItemsContainer } from '@echo/ui/components/item/new/new-sender-items-container'
 import { NewListingSliderExpirationContainer } from '@echo/ui/components/listing/new/new-listing-slider-expiration-container'
+import type { Target } from '@echo/ui/components/listing/new/new-listing-slider-manager'
 import { NewListingSliderTargetContainer } from '@echo/ui/components/listing/new/new-listing-slider-target-container'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { clsx } from 'clsx'
@@ -15,12 +15,12 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   items: ListingItem[]
-  target: ListingTarget | undefined
-  collections: Collection[] | undefined
-  onCollectionSelectionChange?: (selection: Collection | undefined) => unknown
+  target: Target | undefined
+  collections: CollectionProviderResult[] | undefined
+  onCollectionSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
   onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
   onRemoveTarget?: (targetCollectionId: string) => unknown
-  onRemoveItem?: (itemNftId: string) => unknown
+  onRemoveItem?: (item: ListingItem) => unknown
   onFinalize?: () => unknown
   onDismissListing?: () => unknown
 }
@@ -37,7 +37,7 @@ export const NewListingSlider: FunctionComponent<Props> = ({
   onDismissListing
 }) => {
   const t = useTranslations('listing.new.bottomSlider')
-  function onSelectionChange(selection: Collection | undefined) {
+  function onSelectionChange(selection: CollectionProviderResult | undefined) {
     onCollectionSelectionChange?.(selection)
   }
 

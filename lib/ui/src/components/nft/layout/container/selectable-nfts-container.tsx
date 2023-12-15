@@ -1,23 +1,22 @@
 'use client'
-import { type Nft } from '@echo/model/types/nft'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
-import { SelectableNftThumbnail } from '@echo/ui/components/nft/thumbnail/selectable-nft-thumbnail'
-import { type DisableableType } from '@echo/ui/types/disableable'
-import { type SelectableType } from '@echo/ui/types/selectable'
+import { SelectableNftCard } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
+import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  nfts: DisableableType<SelectableType<Nft>>[]
-  onToggleSelection?: (nft: DisableableType<SelectableType<Nft>>) => unknown
+  nfts: SelectableNft[]
+  onToggleSelection?: (nft: SelectableNft) => unknown
+  onAction?: (nft: SelectableNft) => unknown
 }
 
-export const SelectableNftsContainer: FunctionComponent<Props> = ({ nfts, onToggleSelection }) => {
+export const SelectableNftsContainer: FunctionComponent<Props> = ({ nfts, onToggleSelection, onAction }) => {
   return (
     <NftsLayout>
       {map(
         (nft) => (
-          <SelectableNftThumbnail key={nft.id} nft={nft} onToggleSelection={onToggleSelection} />
+          <SelectableNftCard key={nft.id} nft={nft} onToggleSelection={onToggleSelection} onAction={onAction} />
         ),
         nfts
       )}

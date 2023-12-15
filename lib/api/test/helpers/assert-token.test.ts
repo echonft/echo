@@ -3,14 +3,10 @@ import { describe, expect, test } from '@jest/globals'
 
 describe('helpers - assertToken', () => {
   test('throws if token is nil', () => {
-    expect(() => assertToken(undefined)).toThrow()
-  })
-
-  test('throws if token is empty', () => {
-    expect(() => assertToken('')).toThrow()
+    expect(() => assertToken({ token: undefined })).toThrow()
   })
 
   test('does not throw if token is valid', () => {
-    expect(() => assertToken('TEST')).not.toThrow()
+    expect(() => assertToken({ token: 'TEST' })).not.toThrow()
   })
 })

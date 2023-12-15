@@ -6,7 +6,7 @@ import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { ListingRowsContainer } from '@echo/ui/components/listing/layout/container/listing-rows-container'
 import { ProfileNavigationLayout } from '@echo/ui/components/profile/layout/profile-navigation-layout'
 import { ProfileListingsCreatedEmpty } from '@echo/ui/components/profile/listing/empty/profile-listings-created-empty'
-import { NavigationListingsCreated } from '@echo/ui/constants/navigation-item'
+import { NAVIGATION_LISTINGS_CREATED } from '@echo/ui/constants/navigation-item'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 
 export const ProfileListingsCreatedApiProvided: FunctionComponent<Props> = ({ listings, user }) => {
   return (
-    <ProfileNavigationLayout activeNavigationItem={NavigationListingsCreated} user={user}>
+    <ProfileNavigationLayout activeNavigationItem={NAVIGATION_LISTINGS_CREATED} user={user}>
       <HideIfEmpty checks={listings} render={(listings) => <ListingRowsContainer listings={listings} />} />
       <ShowIfEmpty checks={listings}>
         <ProfileListingsCreatedEmpty />

@@ -1,10 +1,10 @@
 'use client'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { getListingTargetsCollectionSlugs } from '@echo/model/helpers/listing/get-listing-targets-collection-slugs'
 import type { Listing } from '@echo/model/types/listing'
 import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
 import { CopyIconSvg } from '@echo/ui/components/base/svg/copy-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
-import { links } from '@echo/ui/constants/links'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { head, isNil, pipe } from 'ramda'
@@ -33,10 +33,10 @@ export const NewListingConfirmedModal: FunctionComponent<Props> = ({ listing, op
             text={
               isNil(listing)
                 ? ''
-                : links.collection.listing(
-                    pipe<[Listing], string[], string>(getListingTargetsCollectionSlugs, head)(listing),
-                    listing.id
-                  )
+                : linkProvider.collection.listing.get({
+                    slug: pipe<[Listing], string[], string>(getListingTargetsCollectionSlugs, head)(listing),
+                    listingId: listing.id
+                  })
             }
           >
             <button id={'copy-link-btn'} className={clsx('btn-action', 'btn-size-alt', 'group')}>

@@ -1,7 +1,6 @@
 import { type AlchemyContract } from '@echo/alchemy/types/model/alchemy-contract'
 import { type AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
-import { formatAddress } from '@echo/utils/helpers/format-address'
-import { assoc, modify, partialRight, pick, pipe } from 'ramda'
+import { assoc, modify, pick, pipe, toLower } from 'ramda'
 
 export function mapAlchemyContractResponseToAlchemyContract(chainId: number) {
   return function (contractResponse: AlchemyContractResponse): AlchemyContract {
@@ -12,7 +11,7 @@ export function mapAlchemyContractResponseToAlchemyContract(chainId: number) {
       AlchemyContract
     >(
       pick(['address', 'tokenType', 'name', 'symbol']),
-      modify('address', partialRight(formatAddress, [chainId])),
+      modify('address', toLower),
       assoc('chainId', chainId)
     )(contractResponse)
   }

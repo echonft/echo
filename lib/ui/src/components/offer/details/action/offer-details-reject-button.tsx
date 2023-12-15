@@ -1,20 +1,23 @@
 'use-client'
+import type { RejectOfferArgs } from '@echo/api/services/fetcher/reject-offer'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { captureException } from '@sentry/nextjs'
+import type { Fetcher } from '@echo/utils/types/fetcher'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
-import useSWRMutation from 'swr/mutation'
 
 interface Props {
   offer: Offer
   token: string
-  rejectOfferFetcher: (offerId: string, token: string | undefined) => Promise<OfferResponse>
+  fetcher: {
+    rejectOffer: Fetcher<OfferResponse, RejectOfferArgs>
+  }
   disabled?: boolean
   onClick?: EmptyFunction
   onSuccess?: (offer: Offer) => unknown
@@ -24,7 +27,7 @@ interface Props {
 export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
   offer,
   token,
-  rejectOfferFetcher,
+  fetcher,
   disabled,
   onClick,
   onSuccess,
@@ -32,23 +35,18 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.rejectBtn')
   const tError = useTranslations('error.offer')
-  const { show } = useAlertStore()
-  const { trigger } = useSWRMutation<OfferResponse, Error, string, { offerId: string; token: string }>(
-    `reject-offer-${offer.id}`,
-    (_key, { arg: { offerId, token } }) => rejectOfferFetcher(offerId, token),
-    {
-      onSuccess: (response) => {
-        onSuccess?.(response.offer)
-      },
-      onError: (err) => {
-        captureException(err, {
-          contexts: offerContext(offer)
-        })
-        show({ severity: CalloutSeverity.ERROR, message: tError('reject') })
-        onError?.()
-      }
+  const { trigger } = useSWRTrigger<OfferResponse, RejectOfferArgs>({
+    key: SWRKeys.offer.reject(offer),
+    fetcher: fetcher.rejectOffer,
+    onSuccess: (response) => {
+      onSuccess?.(response.offer)
+    },
+    onError: {
+      contexts: offerContext(offer),
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('reject') },
+      onError
     }
-  )
+  })
   return (
     <LongPressButton
       id={offer.id}

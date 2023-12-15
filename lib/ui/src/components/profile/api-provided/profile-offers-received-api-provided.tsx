@@ -5,7 +5,7 @@ import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { OfferRowsContainer } from '@echo/ui/components/offer/layout/offer-rows-container'
 import { ProfileNavigationLayout } from '@echo/ui/components/profile/layout/profile-navigation-layout'
 import { ProfileOffersReceivedEmpty } from '@echo/ui/components/profile/offer/empty/profile-offers-received-empty'
-import { NavigationOffersReceived } from '@echo/ui/constants/navigation-item'
+import { NAVIGATION_OFFERS_RECEIVED } from '@echo/ui/constants/navigation-item'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type FunctionComponent } from 'react'
 
@@ -16,7 +16,7 @@ interface Props {
 
 export const ProfileOffersReceivedApiProvided: FunctionComponent<Props> = ({ offers, user }) => {
   return (
-    <ProfileNavigationLayout activeNavigationItem={NavigationOffersReceived} user={user}>
+    <ProfileNavigationLayout activeNavigationItem={NAVIGATION_OFFERS_RECEIVED} user={user}>
       <HideIfEmpty checks={offers} render={(offers) => <OfferRowsContainer offers={offers} />} />
       <ShowIfEmpty checks={offers}>
         <ProfileOffersReceivedEmpty />

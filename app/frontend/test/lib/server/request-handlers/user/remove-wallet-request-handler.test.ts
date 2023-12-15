@@ -5,6 +5,7 @@ import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { removeWalletRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/remove-wallet-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
+import { toLower } from 'ramda'
 
 jest.mock('@echo/frontend/lib/server/helpers/request/get-user-from-request')
 jest.mock('@echo/firestore/crud/wallet/remove-wallet')
@@ -12,7 +13,7 @@ jest.mock('@echo/firestore/crud/wallet/remove-wallet')
 describe('request-handlers - user - removeWalletRequestHandler', () => {
   const validWallet = {
     chainId: 1,
-    address: '0x12c63bbD266dB84e117356e664f3604055166CEc'
+    address: toLower('0x12c63bbD266dB84e117356e664f3604055166CEc')
   }
   const validRequest: RemoveWalletRequest = {
     wallet: validWallet

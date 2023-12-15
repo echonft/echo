@@ -1,6 +1,7 @@
 import { updateOfferState } from '@echo/firestore/crud/offer/update-offer-state'
 import { addOfferSignature } from '@echo/firestore/crud/offer-signature/add-offer-signature'
 import type { OfferStateUpdateArgs } from '@echo/firestore/types/model/offer-update/offer-state-update-args'
+import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferSignature } from '@echo/model/types/offer-signature'
 import type { OfferState } from '@echo/model/types/offer-state'
@@ -21,7 +22,7 @@ export async function acceptOffer(args: AcceptOfferArgs) {
     Promise<Offer>
   >(
     omit(['userId', 'signature']),
-    assoc('state', 'ACCEPTED'),
+    assoc('state', OFFER_STATE_ACCEPTED),
     updateOfferState
   )(args)
   await pipe<[AcceptOfferArgs], Omit<AcceptOfferArgs, 'updateArgs'>, Promise<OfferSignature>>(

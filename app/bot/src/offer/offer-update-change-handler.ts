@@ -10,6 +10,7 @@ import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-o
 import { findOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/find-offer-update-post'
 import { type DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
 import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer-update'
+import { OFFER_STATE_CANCELLED, OFFER_STATE_COMPLETED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import dayjs from 'dayjs'
 import { Client } from 'discord.js'
 import { isNil } from 'ramda'
@@ -31,7 +32,7 @@ export async function offerUpdateChangeHandler(client: Client, changeType: Docum
       await postOfferStateUpdate(client, offer)
       await addOfferUpdatePost(update.id)
       const { state } = offer
-      if (state === 'REJECTED' || state === 'CANCELLED' || state === 'COMPLETED') {
+      if (state === OFFER_STATE_REJECTED || state === OFFER_STATE_CANCELLED || state === OFFER_STATE_COMPLETED) {
         const thread = await findOfferThread(offer.id)
         if (!isNil(thread)) {
           const threadCloseRequest = await findOfferThreadCloseRequest(thread.id)

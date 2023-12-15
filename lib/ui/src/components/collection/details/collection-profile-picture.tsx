@@ -1,6 +1,6 @@
 import { DefaultCollectionProfilePicture } from '@echo/ui/components/base/svg/default-collection-profile-picture'
 import { ProfilePicture } from '@echo/ui/components/shared/profile-picture'
-import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import { getProfilePictureSize } from '@echo/ui/helpers/get-profile-picture-size'
 import { type ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
 import { clsx } from 'clsx'
@@ -26,8 +26,8 @@ export const CollectionProfilePicture: FunctionComponent<CollectionProfilePictur
           'border-solid',
           'border-3',
           'border-yellow-500',
-          size === SizeLG && ['h-40', 'w-40'],
-          size === SizeMD && ['h-[7.5rem]', 'w-[7.5rem]']
+          size === SIZE_LG && ['h-40', 'w-40'],
+          size === SIZE_MD && ['h-[7.5rem]', 'w-[7.5rem]']
         )}
         width={getProfilePictureSize(size)}
         height={getProfilePictureSize(size)}

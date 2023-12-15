@@ -2,6 +2,7 @@ import { getOffersCollectionReference } from '@echo/firestore/helpers/collection
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
 import { getListingOfferFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
+import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { listingTargetsIncludeOfferReceiverItems } from '@echo/model/helpers/listing/listing-targets-include-offer-receiver-items'
 import { listingTargetsIncludeOfferSenderItems } from '@echo/model/helpers/listing/listing-targets-include-offer-sender-items'
 import { type Listing } from '@echo/model/types/listing'
@@ -15,7 +16,7 @@ async function receiverItemsMatch(listing: Listing) {
   const { items } = listing
   // get the offers for which the receiver items intersect with the listing items
   const querySnapshot = await getOffersCollectionReference()
-    .where('state', '==', 'OPEN')
+    .where('state', '==', OFFER_STATE_OPEN)
     .where('expiresAt', '>', now())
     .where('receiverItemsNftIds', 'array-contains-any', map(path(['nft', 'id']), items))
     .get()
@@ -44,7 +45,7 @@ async function senderItemsMatch(listing: Listing) {
   const { items } = listing
   // get the offers for which the sender items intersect with the listing items
   const querySnapshot = await getOffersCollectionReference()
-    .where('state', '==', 'OPEN')
+    .where('state', '==', OFFER_STATE_OPEN)
     .where('expiresAt', '>', now())
     .where('senderItemsNftIds', 'array-contains-any', map(path(['nft', 'id']), items))
     .get()

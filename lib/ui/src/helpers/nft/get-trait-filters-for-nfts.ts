@@ -6,9 +6,7 @@ import { applySpec, collectBy, eqProps, flatten, groupWith, head, length, map, p
 
 export function getTraitFiltersForNfts(nfts: Nft[]): TraitFilter[] {
   return pipe(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    map<Nft, NftAttribute>(prop('attributes')),
+    map<Nft, NftAttribute[]>(prop('attributes')),
     flatten,
     sort(nftAttributeEquals),
     collectBy(prop('trait')),

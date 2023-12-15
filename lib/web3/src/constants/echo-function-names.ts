@@ -1,1 +1,4 @@
-export const EXECUTE_TRADE = 'executeTrade' as const
+export const echoFunctionNames = {
+  executeTrade: 'executeTrade' as const,
+  ownerOf: 'ownerOf' as const
+}

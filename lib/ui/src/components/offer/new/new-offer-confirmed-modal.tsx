@@ -1,9 +1,9 @@
 'use client'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import type { Offer } from '@echo/model/types/offer'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
-import { links } from '@echo/ui/constants/links'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -27,7 +27,7 @@ export const NewOfferConfirmedModal: FunctionComponent<Props> = ({ offer, open, 
           <ConfirmationIconSvg />
         </div>
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
-          <InternalLink path={isNil(offer) ? '#' : links.profile.offer(offer.id)}>
+          <InternalLink path={isNil(offer) ? '#' : linkProvider.profile.offer.get({ offerId: offer.id })}>
             <button className={clsx('btn-action', 'btn-size-alt', 'group')}>
               <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('viewBtn')}</span>
             </button>

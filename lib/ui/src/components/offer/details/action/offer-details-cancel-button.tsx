@@ -1,20 +1,23 @@
 'use-client'
+import type { CancelOfferArgs } from '@echo/api/services/fetcher/cancel-offer'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { captureException } from '@sentry/nextjs'
+import type { Fetcher } from '@echo/utils/types/fetcher'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
-import useSWRMutation from 'swr/mutation'
 
 interface Props {
   offer: Offer
   token: string
-  cancelOfferFetcher: (offerId: string, token: string | undefined) => Promise<OfferResponse>
+  fetcher: {
+    cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
+  }
   disabled?: boolean
   onClick?: EmptyFunction
   onSuccess?: (offer: Offer) => unknown
@@ -24,7 +27,7 @@ interface Props {
 export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
   offer,
   token,
-  cancelOfferFetcher,
+  fetcher,
   disabled,
   onClick,
   onSuccess,
@@ -32,23 +35,18 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.cancelBtn')
   const tError = useTranslations('error.offer')
-  const { show } = useAlertStore()
-  const { trigger } = useSWRMutation<OfferResponse, Error, string, { offerId: string; token: string }>(
-    `cancel-offer-${offer.id}`,
-    (_key, { arg: { offerId, token } }) => cancelOfferFetcher(offerId, token),
-    {
-      onSuccess: (response) => {
-        onSuccess?.(response.offer)
-      },
-      onError: (err) => {
-        captureException(err, {
-          contexts: offerContext(offer)
-        })
-        show({ severity: CalloutSeverity.ERROR, message: tError('cancel') })
-        onError?.()
-      }
+  const { trigger } = useSWRTrigger<OfferResponse, CancelOfferArgs>({
+    key: SWRKeys.offer.cancel(offer),
+    fetcher: fetcher.cancelOffer,
+    onSuccess: (response) => {
+      onSuccess?.(response.offer)
+    },
+    onError: {
+      contexts: offerContext(offer),
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') },
+      onError
     }
-  )
+  })
 
   return (
     <LongPressButton

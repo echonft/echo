@@ -1,4 +1,4 @@
-import { type Collection } from '@echo/model/types/collection'
+import type { CollectionProviderResult } from '@echo/api/services/providers/collections'
 import { CollectionSearchCollectionOption } from '@echo/ui/components/collection/search/collection-search-collection-option'
 import { CollectionSearchNoResults } from '@echo/ui/components/collection/search/collection-search-no-results'
 import { NewListingSearchCollectionOptionSkeleton } from '@echo/ui/components/listing/new/skeleton/new-listing-search-collection-option-skeleton'
@@ -7,8 +7,8 @@ import { isEmpty, isNil, map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  options: Collection[] | undefined
-  selectedOption: Collection | undefined
+  options: CollectionProviderResult[] | undefined
+  selectedOption: CollectionProviderResult | undefined
   searching: boolean
 }
 

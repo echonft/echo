@@ -1,5 +1,7 @@
+import type { HexString } from '@echo/utils/types/hex-string'
+
 export interface AlchemyContract {
-  address: string
+  address: Lowercase<HexString>
   chainId: number
   name: string | undefined
   symbol: string | undefined

@@ -7,13 +7,14 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     onClose: {
-      control: false,
-      action: 'close'
+      table: {
+        disable: true
+      }
     }
   },
   parameters: {
     controls: {
-      exclude: ['listing', 'open', 'onClose']
+      exclude: ['listing', 'open']
     }
   }
 }

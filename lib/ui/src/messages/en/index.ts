@@ -12,6 +12,9 @@ export const messages = {
       size: '{size, number, ::K} NFTs'
     },
     empty: {
+      items: {
+        message: 'There is no NFT for this collection'
+      },
       listings: {
         message: 'There is currently no active listing for this collection',
         btn: {
@@ -100,13 +103,16 @@ export const messages = {
     header: {
       button: {
         connect: {
-          label: 'Connect'
+          label: 'Login'
         },
         connecting: {
-          label: 'Connecting...'
+          label: 'Logging in...'
         },
         disconnect: {
-          label: 'Disconnect'
+          label: 'Logout'
+        },
+        disconnecting: {
+          label: 'Logging out...'
         },
         profile: {
           label: 'Profile'
@@ -174,26 +180,9 @@ export const messages = {
     }
   },
   nft: {
-    details: {
-      attributes: {
-        title: 'Attributes'
-      },
-      makeOfferBtn: 'Make an offer',
-      listings: {
-        title: 'Latest listings',
-        empty: 'No listings posted yet',
-        by: 'By',
-        expiresIn: 'Expires in {time}'
-      },
-      tokenDetails: {
-        title: 'Token Details',
-        tokenId: 'Token ID',
-        blockchain: 'Blockchain',
-        tokenType: 'Token Standard'
-      }
-    },
-    thumbnail: {
-      makeOfferBtn: 'Make an offer'
+    action: {
+      listing: 'Create Listing',
+      offer: 'Make Offer'
     }
   },
   notFoundPage: {
@@ -205,10 +194,6 @@ export const messages = {
   },
   offer: {
     details: {
-      approval: {
-        title: '{collectionName} is approved by Echo',
-        btn: 'Approve'
-      },
       assets: {
         in: 'Getting in your wallet',
         out: 'Leaving your wallet'
@@ -227,22 +212,27 @@ export const messages = {
       approveBtn: 'Approve {count, plural, =0 {} =1 {NFT} other {NFTs}}',
       completeBtn: 'Swap',
       acceptModal: {
-        title: 'Accept offer',
-        subtitle:
-          'To accept the offer, you need to approve the Echo contract to transfer your tokens (paid transactions) and then sign a message for the counterparty to perform the swap (not a transaction).',
-        ownerAssets: 'You own all the assets',
-        counterpartyAssets: 'Counterparty owns all the assets',
-        signature: 'Signature is set',
-        btn: 'Accept'
+        title: 'Accept Offer',
+        approval: {
+          subtitle: 'To accept the offer, you first need to approve the Echo contract to transfer your NFTs'
+        },
+        sign: {
+          subtitle: 'Great! Now you just need to sign a message so the counterparty can perform the swap',
+          btn: 'Accept'
+        }
+      },
+      approveModal: {
+        btn: 'Approve'
       },
       swapModal: {
-        title: 'Execute swap',
-        subtitle:
-          'To execute the swap, you need to approve the Echo contract to transfer your tokens (paid transaction) and then execute the trade (paid transaction).',
-        ownerAssets: 'You own all the assets',
-        counterpartyAssets: 'Counterparty owns all the assets',
-        counterpartyApproval: 'Counterparty has approved token transfer',
-        btn: 'Swap'
+        title: 'Execute Swap',
+        approval: {
+          subtitle: 'To execute the swap, you first need to approve the Echo contract to transfer your NFTs'
+        },
+        execute: {
+          subtitle: 'Great! Now you just need to execute the trade',
+          btn: 'Swap'
+        }
       }
     },
     expired: 'Expired',

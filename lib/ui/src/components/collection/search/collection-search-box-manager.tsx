@@ -1,4 +1,4 @@
-import { type Collection } from '@echo/model/types/collection'
+import type { CollectionProviderResult } from '@echo/api/services/providers/collections'
 import { CollectionSearchBox } from '@echo/ui/components/collection/search/collection-search-box'
 import { stringIncludes } from '@echo/utils/fp/string-includes'
 import { filter, isNil, pipe, prop, toLower } from 'ramda'
@@ -6,10 +6,10 @@ import { type FunctionComponent, useCallback, useEffect, useRef, useState } from
 
 interface Props {
   placeholder: string
-  options: Collection[] | undefined
-  selectedOption: Collection | undefined
+  options: CollectionProviderResult[] | undefined
+  selectedOption: CollectionProviderResult | undefined
   name?: string
-  onSelectionChange?: (selection: Collection | undefined) => unknown
+  onSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
 }
 
 export const CollectionSearchBoxManager: FunctionComponent<Props> = ({
@@ -20,7 +20,7 @@ export const CollectionSearchBoxManager: FunctionComponent<Props> = ({
   selectedOption
 }) => {
   const [searching, setSearching] = useState(false)
-  const [filteredOptions, setFilteredOptions] = useState<Collection[]>()
+  const [filteredOptions, setFilteredOptions] = useState<CollectionProviderResult[]>()
   const filterOptions = useCallback(
     (searchQuery: string) => {
       setSearching(true)

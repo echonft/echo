@@ -5,9 +5,10 @@ import { isNil, map, modify, propEq, when } from 'ramda'
 
 function internalFn<T extends Selectable>(groupId: string, comparator: (obj: T) => boolean) {
   return function (groups: Group<T>[]) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return map(when(propEq(groupId, 'id'), modify('items', toggleSelectionInList(comparator))), groups) as Group<T>[]
+    return map<Group<T>, Group<T>>(
+      when<Group<T>, Group<T>>(propEq(groupId, 'id'), modify('items', toggleSelectionInList<T>(comparator))),
+      groups
+    )
   }
 }
 

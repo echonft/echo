@@ -1,9 +1,9 @@
 'use client'
-import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
+import type { CreateListingArgs } from '@echo/api/services/fetcher/create-listing'
+import type { CollectionProvider, CollectionProviderResult } from '@echo/api/services/providers/collections'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
-import { type Collection } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { type ListingTarget } from '@echo/model/types/listing-target'
@@ -12,82 +12,72 @@ import { BottomSliderTitle } from '@echo/ui/components/layout/bottom-slider/bott
 import { NewListingConfirmationModal } from '@echo/ui/components/listing/new/new-listing-confirmation-modal'
 import { NewListingConfirmedModal } from '@echo/ui/components/listing/new/new-listing-confirmed-modal'
 import { NewListingSlider } from '@echo/ui/components/listing/new/new-listing-slider'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapListingItemsToRequests } from '@echo/ui/mappers/to-api/map-listing-items-to-requests'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import type { Fetcher } from '@echo/utils/types/fetcher'
 import { Transition } from '@headlessui/react'
-import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
 import { assoc, isNil, pathEq, pipe, reject } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
-import useSWRMutation from 'swr/mutation'
 
+export type Target = Omit<ListingTarget, 'collection'> & Record<'collection', CollectionProviderResult>
 interface Props {
-  collectionProvider: {
-    get: () => Promise<Collection[]>
+  fetcher: {
+    createListing: Fetcher<ListingResponse, CreateListingArgs>
   }
-  createListingFetcher: (parameters: CreateListingRequest, token: string | undefined) => Promise<ListingResponse>
+  provider: {
+    collections: CollectionProvider
+  }
   user: AuthUser | undefined
-  initialTarget?: ListingTarget
+  initialTarget?: Target
   initialItems?: ListingItem[]
   open: boolean
   onDismiss?: EmptyFunction
 }
 
 export const NewListingSliderManager: FunctionComponent<Props> = ({
-  collectionProvider,
-  createListingFetcher,
+  fetcher,
+  provider,
   user,
   initialTarget,
   initialItems,
   open,
   onDismiss
 }) => {
-  const { show: showAlert } = useAlertStore()
-  const [collections, setCollections] = useState<Collection[]>()
-  const [target, setTarget] = useState<ListingTarget | undefined>(initialTarget)
+  const [collections, setCollections] = useState<CollectionProviderResult[]>()
+  const [target, setTarget] = useState<Target | undefined>(initialTarget)
   const [items, setItems] = useState<ListingItem[]>(initialItems ?? [])
   const [confirmModalShown, setConfirmModalShown] = useState(false)
   const [listing, setListing] = useState<Listing>()
   const t = useTranslations('listing.new.bottomSlider')
   const tError = useTranslations('error.listing')
-  const { trigger, isMutating } = useSWRMutation<
-    ListingResponse,
-    Error,
-    string,
-    { items: ListingItem[]; target: ListingTarget | undefined; user: AuthUser | undefined }
-  >(
-    'create-listing',
-    (_key, { arg: { items, target, user } }) =>
-      createListingFetcher(
-        { items: mapListingItemsToRequests(items), target: mapListingTargetToRequest(target) },
-        user?.sessionToken
-      ),
-    {
-      onSuccess: (data) => {
+  const { trigger, isMutating } = useSWRTrigger<ListingResponse, CreateListingArgs>({
+    key: SWRKeys.listing.create,
+    fetcher: fetcher.createListing,
+    onSuccess: (response) => {
+      setConfirmModalShown(false)
+      setListing(response.listing)
+    },
+    onError: {
+      contexts: listingContext({
+        targets: isNil(target) ? [] : ([target] as ListingTarget[]),
+        items
+      }),
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
+      onError: () => {
         setConfirmModalShown(false)
-        setListing(data.listing)
-      },
-      onError: (error) => {
-        setConfirmModalShown(false)
-        captureException(error, {
-          contexts: listingContext({
-            targets: isNil(target) ? [] : [target],
-            items
-          })
-        })
-        showAlert({ severity: CalloutSeverity.ERROR, message: tError('new') })
       }
     }
-  )
-
+  })
   useEffect(() => {
-    void collectionProvider.get().then(setCollections)
-  }, [collectionProvider])
+    void provider.collections().then(setCollections)
+  }, [provider])
 
-  function onCollectionSelectionChange(selection: Collection | undefined) {
+  function onCollectionSelectionChange(selection: CollectionProviderResult | undefined) {
     if (isNil(selection)) {
       setTarget(undefined)
     } else {
@@ -103,8 +93,8 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
     setTarget(undefined)
   }
 
-  function onRemoveItem(itemNftId: string) {
-    pipe(reject(pathEq(itemNftId, ['nft', 'id'])), setItems)(items)
+  function onRemoveItem(item: ListingItem) {
+    pipe(reject(pathEq(item.nft.id, ['nft', 'id'])), setItems)(items)
   }
 
   function clearListing() {
@@ -149,7 +139,11 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
         confirming={isMutating}
         onClose={() => setConfirmModalShown(false)}
         onConfirm={() => {
-          void trigger({ items, target, user })
+          void trigger({
+            items: mapListingItemsToRequests(items),
+            target: mapListingTargetToRequest(target),
+            token: user?.sessionToken
+          })
         }}
       />
       <NewListingConfirmedModal

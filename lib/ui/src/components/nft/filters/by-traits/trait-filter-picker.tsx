@@ -1,7 +1,7 @@
 'use client'
 import { TraitFilterButton } from '@echo/ui/components/nft/filters/by-traits/trait-filter-button'
 import { TraitFilterSelector } from '@echo/ui/components/nft/filters/by-traits/trait-filter-selector'
-import { type CollapsibleProps } from '@echo/ui/types/collapsible-props'
+import { type CollapsibleProps } from '@echo/ui/types/props/collapsible-props'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { Transition } from '@headlessui/react'
 import { clsx } from 'clsx'

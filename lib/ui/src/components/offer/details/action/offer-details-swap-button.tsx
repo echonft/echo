@@ -1,9 +1,18 @@
 'use-client'
+import type { GetOfferArgs } from '@echo/api/services/fetcher/get-offer'
+import type { GetOfferSignatureArgs } from '@echo/api/services/fetcher/get-offer-signature'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import type { Offer } from '@echo/model/types/offer'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
-import { OfferDetailsSwapModal } from '@echo/ui/components/offer/details/action/offer-details-swap-modal'
+import { OfferDetailsSwapModal } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import type { Fetcher } from '@echo/utils/types/fetcher'
+import type { HexString } from '@echo/utils/types/hex-string'
+import type { ApproveErc721ContractArgs } from '@echo/web3/helpers/wagmi/fetcher/approve-erc721-contract'
+import type { ExecuteSwapArgs } from '@echo/web3/helpers/wagmi/fetcher/execute-swap'
+import type { GetErc721ContractApprovalArgs } from '@echo/web3/helpers/wagmi/fetcher/get-erc721-contract-approval'
+import type { ChainProvider } from '@echo/web3/helpers/wagmi/provider/chain'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
@@ -11,23 +20,31 @@ import { type FunctionComponent, useState } from 'react'
 interface Props {
   offer: Offer
   token: string
-  getOfferSignatureFetcher: (offerId: string, token: string | undefined) => Promise<OfferSignatureResponse>
+  fetcher: {
+    getOffer: Fetcher<OfferResponse, GetOfferArgs>
+    getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
+    executeSwap: Fetcher<HexString, ExecuteSwapArgs>
+    approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
+    getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
+  }
+  provider: {
+    chain: ChainProvider
+  }
   disabled?: boolean
   onClick?: EmptyFunction
   onSuccess?: (offer: Offer) => unknown
   onCancel?: EmptyFunction
-  onError?: EmptyFunction
 }
 
 export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
   offer,
   token,
-  getOfferSignatureFetcher,
+  fetcher,
+  provider,
   disabled,
   onClick,
   onSuccess,
-  onCancel,
-  onError
+  onCancel
 }) => {
   const t = useTranslations('offer.details')
   const [modalShown, setModalShown] = useState(false)
@@ -49,14 +66,11 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
           open={modalShown}
           offer={offer}
           token={token}
-          getOfferSignatureFetcher={getOfferSignatureFetcher}
+          fetcher={fetcher}
+          provider={provider}
           onSuccess={(offer: Offer) => {
             setModalShown(false)
             onSuccess?.(offer)
-          }}
-          onError={() => {
-            setModalShown(false)
-            onError?.()
           }}
           onClose={() => {
             setModalShown(false)

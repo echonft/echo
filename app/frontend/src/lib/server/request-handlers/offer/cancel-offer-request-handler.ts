@@ -9,12 +9,13 @@ import { guarded_assertOfferSenderIs } from '@echo/frontend/lib/server/helpers/o
 import { guarded_assertOfferState } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-state'
 import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
 import { NextResponse } from 'next/server'
 
 export async function cancelOfferRequestHandler(req: ApiRequest<never>, offerId: string) {
   const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(offerId)
   guarded_assertOffer(offer)
-  guarded_assertOfferState(offer, 'CANCELLED')
+  guarded_assertOfferState(offer, OFFER_STATE_CANCELLED)
   const user = await getUserFromRequest(req)
   guarded_assertAuthUser(user)
   guarded_assertOfferSenderIs(offer, user.username)

@@ -1,5 +1,5 @@
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
-import { links } from '@echo/ui/constants/links'
 import { Disclosure } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -11,7 +11,7 @@ export const NewSenderItemsEmptyContainer: FunctionComponent = () => {
   return (
     <div className={clsx('flex', 'flex-col', 'gap-2', 'justify-center', 'items-center', 'grow')}>
       <span className={clsx('text-white/10', 'prose-display-sm')}>{t('noItemsTitle')}</span>
-      <InternalLink path={links.profile.items}>
+      <InternalLink path={linkProvider.profile.items.get()}>
         <Disclosure.Button className={clsx('outline-none')} as={'button'}>
           <span className={clsx('text-white', 'prose-header-sm-semi', 'underline')}>{t('noItemsBtn')}</span>
         </Disclosure.Button>

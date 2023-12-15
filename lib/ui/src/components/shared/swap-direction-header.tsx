@@ -1,6 +1,6 @@
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
-import { DirectionLeft, DirectionRight } from '@echo/ui/constants/direction'
-import { DirectionOut } from '@echo/ui/constants/swap-direction'
+import { DIRECTION_LEFT, DIRECTION_RIGHT } from '@echo/ui/constants/direction'
+import { SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
 import { type SwapDirection } from '@echo/ui/types/swap-direction'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
@@ -25,7 +25,7 @@ export const SwapDirectionHeader: FunctionComponent<Props> = ({ direction, title
           'text-dark-500'
         )}
       >
-        <SideCaretSvg direction={direction === DirectionOut ? DirectionLeft : DirectionRight} />
+        <SideCaretSvg direction={direction === SWAP_DIRECTION_OUT ? DIRECTION_LEFT : DIRECTION_RIGHT} />
       </span>
       <span className={clsx('prose-label-lg', 'text-white')}>{title}</span>
     </div>

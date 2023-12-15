@@ -1,14 +1,20 @@
 'use client'
-import { acceptOfferFetcher } from '@echo/api/services/fetcher/accept-offer-fetcher'
-import { cancelOfferFetcher } from '@echo/api/services/fetcher/cancel-offer-fetcher'
-import { getOfferSignatureFetcher } from '@echo/api/services/fetcher/get-offer-signature-fetcher'
-import { rejectOfferFetcher } from '@echo/api/services/fetcher/reject-offer-fetcher'
+import { acceptOffer } from '@echo/api/services/fetcher/accept-offer'
+import { cancelOffer } from '@echo/api/services/fetcher/cancel-offer'
+import { getOffer } from '@echo/api/services/fetcher/get-offer'
+import { getOfferSignature } from '@echo/api/services/fetcher/get-offer-signature'
+import { rejectOffer } from '@echo/api/services/fetcher/reject-offer'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Offer } from '@echo/model/types/offer'
 import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { messages } from '@echo/ui/messages/en'
+import { approveErc721Contract } from '@echo/web3/helpers/wagmi/fetcher/approve-erc721-contract'
+import { executeSwap } from '@echo/web3/helpers/wagmi/fetcher/execute-swap'
+import { getErc721ContractApproval } from '@echo/web3/helpers/wagmi/fetcher/get-erc721-contract-approval'
+import { signOffer } from '@echo/web3/helpers/wagmi/fetcher/sign-offer'
+import { chain } from '@echo/web3/helpers/wagmi/provider/chain'
 import { NextIntlClientProvider } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
@@ -25,10 +31,20 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user 
           offer={offer}
           isCreator={user.username === offer.sender?.username}
           token={user.sessionToken}
-          getOfferSignatureFetcher={getOfferSignatureFetcher}
-          acceptOfferFetcher={acceptOfferFetcher}
-          rejectOfferFetcher={rejectOfferFetcher}
-          cancelOfferFetcher={cancelOfferFetcher}
+          fetcher={{
+            approveErc721Contract,
+            getErc721ContractApproval,
+            acceptOffer,
+            cancelOffer,
+            executeSwap,
+            getOffer,
+            getOfferSignature,
+            rejectOffer,
+            signOffer
+          }}
+          provider={{
+            chain
+          }}
         />
       </PaddedContainer>
       <CalloutManager />

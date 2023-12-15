@@ -1,46 +1,51 @@
 'use client'
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { type Nft } from '@echo/model/types/nft'
 import { traitFilterEquals } from '@echo/ui/comparators/trait-filter-equals'
-import { NftFiltersContainer } from '@echo/ui/components/nft/layout/container/nft-filters-container'
+import { NftFiltersContainer } from '@echo/ui/components/nft/filters/layout/nft-filters-container'
+import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { SelectableNftsContainer } from '@echo/ui/components/nft/layout/container/selectable-nfts-container'
-import { NftsAndFiltersLayout } from '@echo/ui/components/nft/layout/nfts-and-filters-layout'
-import { NftFilterCollections, NftFilterTraits } from '@echo/ui/constants/nft-filter'
+import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { enable } from '@echo/ui/helpers/disableable/enable'
+import { disableAction } from '@echo/ui/helpers/nft/disable-action'
 import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/get-collection-filters-for-nfts'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
-import { setNftDisabledPropFromCollectionFilter } from '@echo/ui/helpers/nft/set-nft-disabled-prop-from-collection-filter'
-import { setNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-nft-disabled-prop-from-trait-filters'
+import { setSelectableNftActionDisabledPropFromAuthUser } from '@echo/ui/helpers/nft/set-selectable-nft-action-disabled-prop-from-auth-user'
+import { setSelectableNftDisabledPropFromCollectionFilter } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-collection-filter'
+import { setSelectableNftDisabledPropFromOwner } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-owner'
+import { setSelectableNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-trait-filters'
 import { getSelection } from '@echo/ui/helpers/selection/get-selection'
 import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
 import { removeSelectionWhenDisabled } from '@echo/ui/helpers/selection/remove-selection-when-disabled'
 import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selection-in-list'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
-import { type DisableableType } from '@echo/ui/types/disableable'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
-import { type SelectableType } from '@echo/ui/types/selectable'
+import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
-import { includes, map, omit, pipe, propEq } from 'ramda'
+import { includes, map, pipe, propEq } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo, useState } from 'react'
 
 interface Props {
-  nfts: Nft[]
+  nfts: SelectableNft[]
   availableFilters: NftFilterType[]
   btnLabel: string
-  onButtonClick?: (nfts: Nft[]) => unknown
+  user: AuthUser | undefined
+  onButtonClick?: (nfts: SelectableNft[]) => unknown
 }
 
 export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
   nfts,
   availableFilters,
   btnLabel,
+  user,
   onButtonClick
 }) => {
-  const [nftsWithProps, setNftsWithProps] = useState(nfts as DisableableType<SelectableType<Nft>>[])
+  const [selectableNfts, setSelectableNfts] = useState(nfts)
   const [collectionFilters, setCollectionFilters] = useState(
-    includes(NftFilterCollections, availableFilters) ? getCollectionFiltersForNfts(nfts) : []
+    includes(NFT_FILTER_COLLECTIONS, availableFilters) ? getCollectionFiltersForNfts(nfts) : []
   )
   const [traitFilters, setTraitFilters] = useState(
-    includes(NftFilterTraits, availableFilters) ? getTraitFiltersForNfts(nfts) : []
+    includes(NFT_FILTER_TRAITS, availableFilters) ? getTraitFiltersForNfts(nfts) : []
   )
   const onTraitFilterToggleSelection = (filter: TraitFilter) => {
     setTraitFilters(toggleSelectionInList<TraitFilter>(traitFilterEquals(filter)))
@@ -49,18 +54,26 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
     setCollectionFilters(toggleSelectionInList<CollectionFilter>(propEq(filter.id, 'id')))
   }
   const onNftToggleSelection = (nft: Nft) => {
-    setNftsWithProps(toggleSelectionInList<SelectableType<Nft>>(propEq(nft.id, 'id')))
+    const updatedNfts = toggleSelectionInList<SelectableNft>(propEq(nft.id, 'id'))(selectableNfts)
+    const updatedSelectionCount = getSelectionCount(updatedNfts)
+    if (updatedSelectionCount === 0) {
+      setSelectableNfts(map(pipe(enable, setSelectableNftActionDisabledPropFromAuthUser(user)), updatedNfts))
+    } else if (updatedSelectionCount === 1) {
+      setSelectableNfts(map(pipe(setSelectableNftDisabledPropFromOwner(nft.owner), disableAction), updatedNfts))
+    } else {
+      setSelectableNfts(updatedNfts)
+    }
   }
-  const nftSelectionCount = useMemo(() => getSelectionCount(nftsWithProps), [nftsWithProps])
+  const selectionCount = useMemo(() => getSelectionCount(selectableNfts), [selectableNfts])
 
   // update NFTs disabled state according to filters selection
   useEffect(() => {
-    setNftsWithProps(
+    setSelectableNfts(
       map(
         pipe(
           enable,
-          setNftDisabledPropFromTraitFilters(traitFilters),
-          setNftDisabledPropFromCollectionFilter(collectionFilters),
+          setSelectableNftDisabledPropFromTraitFilters(traitFilters),
+          setSelectableNftDisabledPropFromCollectionFilter(collectionFilters),
           removeSelectionWhenDisabled
         )
       )
@@ -70,17 +83,23 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
   return (
     <NftsAndFiltersLayout>
       <NftFiltersContainer
-        nftSelectionCount={nftSelectionCount}
+        selectionCount={selectionCount}
         btnLabel={btnLabel}
         collectionFilters={collectionFilters}
         traitFilters={traitFilters}
         onButtonClick={() => {
-          onButtonClick?.(pipe(getSelection, map(omit(['selected', 'disabled'])))(nftsWithProps))
+          onButtonClick?.(getSelection(selectableNfts))
         }}
         onTraitSelectionToggle={onTraitFilterToggleSelection}
         onCollectionSelectionToggle={onCollectionFilterToggleSelection}
       />
-      <SelectableNftsContainer nfts={nftsWithProps} onToggleSelection={onNftToggleSelection} />
+      <SelectableNftsContainer
+        nfts={selectableNfts}
+        onToggleSelection={onNftToggleSelection}
+        onAction={(nft) => {
+          onButtonClick?.([nft])
+        }}
+      />
     </NftsAndFiltersLayout>
   )
 }

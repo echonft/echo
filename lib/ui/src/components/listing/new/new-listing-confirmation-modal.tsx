@@ -1,17 +1,17 @@
 'use client'
 import { type ListingItem } from '@echo/model/types/listing-item'
-import { type ListingTarget } from '@echo/model/types/listing-target'
 import { EditIconSvg } from '@echo/ui/components/base/svg/edit-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { NewListingConfirmationModalItemsContainer } from '@echo/ui/components/listing/new/new-listing-confirmation-modal-items-container'
 import { NewListingConfirmationModalTargetContainer } from '@echo/ui/components/listing/new/new-listing-confirmation-modal-target-container'
+import type { Target } from '@echo/ui/components/listing/new/new-listing-slider-manager'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isEmpty, isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  target: ListingTarget | undefined
+  target: Target | undefined
   items: ListingItem[]
   open: boolean
   confirming?: boolean

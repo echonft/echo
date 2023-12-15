@@ -1,14 +1,15 @@
+import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferItem } from '@echo/model/types/offer-item'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { toPromise } from '@echo/utils/fp/to-promise'
-import { hasApprovedErc721 } from '@echo/web3/helpers/has-approved-erc721'
+import { hasApprovedErc721 } from '@echo/web3/helpers/viem/has-approved-erc721'
 import { eqBy, F, ifElse, map, otherwise, path, pipe, prop, propEq, T, uniqWith } from 'ramda'
 
 export function assertOfferItemsApproval(offer: Offer) {
   return ifElse(
-    propEq('ACCEPTED', 'state'),
+    propEq(OFFER_STATE_ACCEPTED, 'state'),
     pipe(
       prop('receiverItems'),
       map<OfferItem, Nft>(prop('nft')),

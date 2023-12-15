@@ -12,7 +12,10 @@ import { filter, find, isNil, map, path, pathEq } from 'ramda'
 export async function updateUserNfts(user: User) {
   const collections = await getAllCollections()
   const collectionsForChain = filter(pathEq(user.wallet.chainId, ['contract', 'chainId']), collections)
-  const collectionsAddresses = map(nonNullableReturn(path<HexString>(['contract', 'address'])), collectionsForChain)
+  const collectionsAddresses = map(
+    nonNullableReturn(path<Lowercase<HexString>>(['contract', 'address'])),
+    collectionsForChain
+  )
   const nfts = await getNftsForOwner(user.wallet.address, collectionsAddresses, user.wallet.chainId)
   for (const alchemyNft of nfts) {
     const { contractAddress, chainId, tokenId } = alchemyNft

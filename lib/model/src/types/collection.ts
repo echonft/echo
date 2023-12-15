@@ -13,7 +13,7 @@ export interface Collection {
   profilePictureUrl: string
   slug: string
   swapsCount?: number
-  totalSupply?: number
+  totalSupply: number
   twitterUsername?: string
   verified: boolean
   websiteUrl?: string

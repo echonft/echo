@@ -8,12 +8,12 @@ describe('converters - sessionDataConverter', () => {
   const session = getSessionMockById('KI5AJISonKCYslDm51Tn')
 
   it('from Firestore conversion', () => {
-    const sessionSnapshot = sessionSnapshotMock.KI5AJISonKCYslDm51Tn!
-    expect(sessionDataConverter.fromFirestore(sessionSnapshot)).toStrictEqual(session)
+    const snapshot = sessionSnapshotMock.KI5AJISonKCYslDm51Tn!
+    expect(sessionDataConverter.fromFirestore(snapshot)).toStrictEqual(session)
   })
 
   it('to Firestore conversion', () => {
-    const sessionDocumentData = getSessionDocumentDataMockById('KI5AJISonKCYslDm51Tn')
-    expect(sessionDataConverter.toFirestore(session)).toStrictEqual(sessionDocumentData)
+    const documentData = getSessionDocumentDataMockById('KI5AJISonKCYslDm51Tn')
+    expect(sessionDataConverter.toFirestore(session)).toStrictEqual(documentData)
   })
 })

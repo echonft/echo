@@ -1,3 +1,3 @@
-import { ColorBlack, ColorYellow } from '@echo/ui/constants/color'
+import { COLOR_BLACK, COLOR_YELLOW } from '@echo/ui/constants/color'
 
-export const echoIconColors = [ColorBlack, ColorYellow] as const
+export const ECHO_ICON_COLORS = [COLOR_BLACK, COLOR_YELLOW] as const

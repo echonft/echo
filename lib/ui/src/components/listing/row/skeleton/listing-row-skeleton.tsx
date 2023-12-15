@@ -1,4 +1,4 @@
-import { NftThumbnailSkeleton } from '@echo/ui/components/nft/thumbnail/skeleton/nft-thumbnail-skeleton'
+import { NftCardSkeleton } from '@echo/ui/components/nft/card/skeleton/nft-card-skeleton'
 import { SwapDirectionHeaderSkeleton } from '@echo/ui/components/shared/skeleton/swap-direction-header-skeleton'
 import { UserDetailsContainerSkeleton } from '@echo/ui/components/shared/skeleton/user-details-container-skeleton'
 import { clsx } from 'clsx'
@@ -15,8 +15,8 @@ export const ListingRowSkeleton: FunctionComponent = () => {
           <div className={clsx('flex', 'flex-col', 'gap-5')}>
             <SwapDirectionHeaderSkeleton />
             <div className={clsx('flex', 'flex-row', 'grow', 'gap-5', 'flex-wrap')}>
-              <NftThumbnailSkeleton />
-              <NftThumbnailSkeleton />
+              <NftCardSkeleton />
+              <NftCardSkeleton />
             </div>
           </div>
         </div>
@@ -37,8 +37,8 @@ export const ListingRowSkeleton: FunctionComponent = () => {
           <div className={clsx('flex', 'flex-col', 'gap-5')}>
             <SwapDirectionHeaderSkeleton />
             <div className={clsx('flex', 'grow', 'gap-5', 'flex-wrap')}>
-              <NftThumbnailSkeleton />
-              <NftThumbnailSkeleton />
+              <NftCardSkeleton />
+              <NftCardSkeleton />
             </div>
           </div>
         </div>

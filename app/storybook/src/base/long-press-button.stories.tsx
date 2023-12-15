@@ -22,13 +22,14 @@ const metadata: Meta<typeof Component> = {
       control: { type: 'select' }
     },
     onFinish: {
-      control: false,
-      action: 'finished'
+      table: {
+        disable: true
+      }
     }
   },
   parameters: {
     controls: {
-      exclude: ['id', 'onFinish']
+      exclude: ['id']
     }
   }
 }

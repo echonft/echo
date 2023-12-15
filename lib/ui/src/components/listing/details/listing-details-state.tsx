@@ -1,3 +1,4 @@
+import { LISTING_STATE_CANCELLED, LISTING_STATE_FULFILLED } from '@echo/model/constants/listing-states'
 import { type ListingState } from '@echo/model/types/listing-state'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { StateTextContainer } from '@echo/ui/components/shared/state-text-container'
@@ -18,7 +19,7 @@ interface Props {
 export const ListingDetailsState: FunctionComponent<Props> = ({ state, expired, expiresAt }) => {
   const tState = useTranslations('listing.state')
   const tDetails = useTranslations('listing.details')
-  const expirationShown = state !== 'FULFILLED' && state !== 'CANCELLED'
+  const expirationShown = state !== LISTING_STATE_FULFILLED && state !== LISTING_STATE_CANCELLED
   const stateShown = !expirationShown || !expired
   const delimiterShown = expirationShown && stateShown
 

@@ -10,6 +10,7 @@ module.exports = {
   coverageDirectory: '<rootDir>/../../.coverage/app/bot',
   coverageReporters: ['json-summary', 'text'],
   moduleNameMapper: {
+    '^@echo/api/(.*)$': '<rootDir>/../../lib/api/src/$1',
     '^@echo/bot/(.*)$': '<rootDir>/src/$1',
     '^@echo/bot-mocks/(.*)$': '<rootDir>/test/@mocks/$1',
     '^@echo/bot-test/(.*)$': '<rootDir>/test/@utils/$1',
@@ -30,6 +31,5 @@ module.exports = {
       }
     ]
   ],
-  setupFilesAfterEnv: ['<rootDir>/test/setup-env.ts'],
   testPathIgnorePatterns: ['<rootDir>/dist/', '<rootDir>/node_modules/']
 }

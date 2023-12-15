@@ -9,6 +9,7 @@ import { assertListingOffers } from '@echo/firestore-test/listing-offer/assert-l
 import { deleteListingOffer } from '@echo/firestore-test/listing-offer/delete-listing-offer'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { expectDateNumberIs } from '@echo/utils-test/expect-date-number-is'
@@ -56,7 +57,7 @@ describe('CRUD - listing - addListing', () => {
     const newListing = (await findListingById(createdListingId))!
     expect(newListing.creator).toStrictEqual(creator)
     expect(newListing.items).toStrictEqual(newItems)
-    expect(newListing.state).toBe('OFFERS_PENDING')
+    expect(newListing.state).toBe(LISTING_STATE_OFFERS_PENDING)
     expect(newListing.targets).toStrictEqual(targets)
     expectDateNumberIsNow(newListing.updatedAt)
     expectDateNumberIs(newListing.expiresAt)(dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'))

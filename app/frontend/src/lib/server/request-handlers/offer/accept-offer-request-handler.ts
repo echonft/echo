@@ -11,6 +11,7 @@ import { guarded_assertOfferState } from '@echo/frontend/lib/server/helpers/offe
 import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
 import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { acceptOfferSchema } from '@echo/frontend/lib/server/validators/accept-offer-schema'
+import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import { NextResponse } from 'next/server'
 
 export async function acceptOfferRequestHandler(req: ApiRequest<AcceptOfferRequest>, offerId: string) {
@@ -24,7 +25,7 @@ export async function acceptOfferRequestHandler(req: ApiRequest<AcceptOfferReque
   )(requestBody)
   const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(offerId)
   guarded_assertOffer(offer)
-  guarded_assertOfferState(offer, 'ACCEPTED')
+  guarded_assertOfferState(offer, OFFER_STATE_ACCEPTED)
   const user = await getUserFromRequest(req)
   guarded_assertAuthUser(user)
   guarded_assertOfferReceiverIs(offer, user.username)
