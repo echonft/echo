@@ -1,5 +1,5 @@
 import { UserProfilePictureSkeleton as Component } from '@echo/ui/components/shared/skeleton/user-profile-picture-skeleton'
-import { SizeLG } from '@echo/ui/constants/size'
+import { SIZE_LG } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -13,6 +13,6 @@ type Story = StoryObj<typeof Component>
 
 export const Skeleton: Story = {
   args: {
-    size: SizeLG
+    size: SIZE_LG
   }
 }

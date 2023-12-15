@@ -6,187 +6,187 @@
 @tailwind utilities;
 
 @layer base {
-    html {
-        @apply w-screen h-screen text-transparent
-    }
-    body {
-        @apply w-screen min-h-screen font-medium bg-dark-500 text-white text-base overflow-x-hidden
-    }
-    #headlessui-portal-root {
-        @apply fixed top-0 right-0
-    }
+  html {
+    @apply w-screen h-screen;
+  }
+  body {
+    @apply w-screen min-h-screen bg-dark-500 text-transparent font-normal text-[0rem] leading-[0rem] tracking-[0rem] overflow-x-hidden;
+  }
+  #headlessui-portal-root {
+    @apply fixed top-0 right-0;
+  }
 }
 
 @layer components {
-    .options {
-        @apply absolute z-30 mt-1 flex w-full flex-col gap-2 overflow-y-auto rounded-lg bg-slate-900 p-2.5;
-    }
-    .option {
-        @apply cursor-pointer rounded-lg bg-white/[0.05] py-2 px-3.5 text-sm font-bold text-white hover:bg-white/[0.24] focus:ring-1 focus:ring-white/[0.32];
-    }
-    .tooltip {
-        @apply !bg-dark-500 !text-white !rounded-lg border border-solid border-white !text-label-xs font-inter z-40
-    }
+  .options {
+    @apply absolute z-30 mt-1 flex w-full flex-col gap-2 overflow-y-auto rounded-lg bg-slate-900 p-2.5;
+  }
+  .option {
+    @apply cursor-pointer rounded-lg bg-white/[0.05] py-2 px-3.5 text-sm font-bold text-white hover:bg-white/[0.24] focus:ring-1 focus:ring-white/[0.32];
+  }
+  .tooltip {
+    @apply !bg-dark-500 !text-white !rounded-lg border border-solid border-white !text-label-xs font-inter z-40;
+  }
 }
 
 @layer utilities {
-    .fill-opaque {
-        fill-opacity: 1;
-    }
-    .prose-display-lg-bold {
-        @apply text-display-lg-bold font-inter
-    }
-    .prose-display-lg-light {
-        @apply text-display-lg-light font-inter
-    }
-    .prose-display-md {
-        @apply text-display-md font-inter
-    }
-    .prose-display-md-bold {
-        @apply text-display-md-bold font-inter
-    }
-    .prose-display-md-light {
-        @apply text-display-md-light font-inter
-    }
-    .prose-display-sm {
-        @apply text-display-sm font-inter
-    }
-    .prose-display-sm-bold {
-        @apply text-display-sm-bold font-inter
-    }
-    .prose-display-sm-light {
-        @apply text-display-sm-light font-inter
-    }
-    .prose-header-lg-semi {
-        @apply text-header-lg-semi font-inter
-    }
-    .prose-header-lg {
-        @apply text-header-lg font-inter
-    }
-    .prose-header-md-semi {
-        @apply text-header-md-semi font-inter
-    }
-    .prose-header-md {
-        @apply text-header-md font-inter
-    }
-    .prose-header-sm-semi {
-        @apply text-header-sm-semi font-inter
-    }
-    .prose-header-sm {
-        @apply text-header-sm font-inter
-    }
-    .prose-header-xs-semi {
-        @apply text-header-xs-semi font-inter
-    }
-    .prose-header-xs {
-        @apply text-header-xs font-inter
-    }
-    .prose-paragraph-xl {
-        @apply text-paragraph-xl font-inter
-    }
-    .prose-paragraph-xl-light {
-        @apply text-paragraph-xl-light font-inter
-    }
-    .prose-paragraph-lg {
-        @apply text-paragraph-lg font-inter
-    }
-    .prose-paragraph-lg-light {
-        @apply text-paragraph-lg-light font-inter
-    }
-    .prose-paragraph-md {
-        @apply text-paragraph-md font-inter
-    }
-    .prose-paragraph-md-light {
-        @apply text-paragraph-md-light font-inter
-    }
-    .prose-paragraph-sm {
-        @apply text-paragraph-sm font-inter
-    }
-    .prose-paragraph-sm-light {
-        @apply text-paragraph-sm-light font-inter
-    }
-    .prose-paragraph-xs {
-        @apply text-paragraph-xs font-inter
-    }
-    .prose-paragraph-xs-light {
-        @apply text-paragraph-xs-light font-inter
-    }
-    .prose-label-lg {
-        @apply text-label-lg font-inter
-    }
-    .prose-label-lg-semi {
-        @apply text-label-lg-semi font-inter
-    }
-    .prose-label-md {
-        @apply text-label-md font-inter
-    }
-    .prose-label-md-semi {
-        @apply text-label-md-semi font-inter
-    }
-    .prose-label-sm {
-        @apply text-label-sm font-inter
-    }
-    .prose-label-sm-semi {
-        @apply text-label-sm-semi font-inter
-    }
-    .prose-label-sm-light {
-        @apply text-label-sm-light font-inter
-    }
-    .prose-label-xs {
-        @apply text-label-xs font-inter
-    }
-    .prose-label-xs-semi {
-        @apply text-label-xs-semi font-inter
-    }
-    .prose-label-caps-lg {
-        @apply text-caps-lg font-inter uppercase
-    }
-    .prose-label-caps-md {
-        @apply text-caps-md font-inter uppercase
-    }
-    .prose-label-caps-sm {
-        @apply text-caps-sm font-inter uppercase
-    }
-    .btn {
-        @apply flex flex-row justify-center items-center disabled:opacity-40 rounded-lg select-none outline-none
-    }
-    .btn-primary {
-        @apply btn bg-white/[0.08] enabled:hover:bg-yellow-500 enabled:active:bg-yellow-700
-    }
-    .btn-primary-reverse {
-        @apply btn bg-yellow-500 enabled:hover:bg-white/[0.08] enabled:active:bg-white/[0.06]
-    }
-    .btn-gradient {
-        @apply btn border border-solid border-transparent bg-main-gradient bg-origin-border enabled:hover:bg-main-gradient/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700
-    }
-    .btn-action {
-        @apply btn bg-purple-400 gap-2.5
-    }
-    .btn-cancel {
-        @apply btn bg-red-400 enabled:hover:bg-red-600
-    }
-    .btn-label {
-        @apply h-max w-max truncate
-    }
-    .btn-label-primary {
-    @apply btn-label text-white group-active:text-black group-enabled:group-hover:text-black
-    }
-    .btn-label-primary-reverse {
-        @apply btn-label text-black group-active:text-white group-enabled:group-hover:text-white
-    }
-    .btn-label-gradient {
-        @apply btn-label text-dark-500 group-enabled:group-hover:text-yellow-100
-    }
-    .btn-label-action {
-        @apply btn-label text-purple-900 group-hover:text-white
-    }
-    .btn-label-cancel {
-        @apply btn-label text-dark-500
-    }
-    .btn-size {
-        @apply w-max h-max px-5 py-2.5
-    }
-    .btn-size-alt {
-        @apply w-40 h-10 px-5 py-1.5
-    }
+  .fill-opaque {
+    fill-opacity: 1;
+  }
+  .prose-display-lg-bold {
+    @apply text-display-lg-bold font-inter;
+  }
+  .prose-display-lg-light {
+    @apply text-display-lg-light font-inter;
+  }
+  .prose-display-md {
+    @apply text-display-md font-inter;
+  }
+  .prose-display-md-bold {
+    @apply text-display-md-bold font-inter;
+  }
+  .prose-display-md-light {
+    @apply text-display-md-light font-inter;
+  }
+  .prose-display-sm {
+    @apply text-display-sm font-inter;
+  }
+  .prose-display-sm-bold {
+    @apply text-display-sm-bold font-inter;
+  }
+  .prose-display-sm-light {
+    @apply text-display-sm-light font-inter;
+  }
+  .prose-header-lg-semi {
+    @apply text-header-lg-semi font-inter;
+  }
+  .prose-header-lg {
+    @apply text-header-lg font-inter;
+  }
+  .prose-header-md-semi {
+    @apply text-header-md-semi font-inter;
+  }
+  .prose-header-md {
+    @apply text-header-md font-inter;
+  }
+  .prose-header-sm-semi {
+    @apply text-header-sm-semi font-inter;
+  }
+  .prose-header-sm {
+    @apply text-header-sm font-inter;
+  }
+  .prose-header-xs-semi {
+    @apply text-header-xs-semi font-inter;
+  }
+  .prose-header-xs {
+    @apply text-header-xs font-inter;
+  }
+  .prose-paragraph-xl {
+    @apply text-paragraph-xl font-inter;
+  }
+  .prose-paragraph-xl-light {
+    @apply text-paragraph-xl-light font-inter;
+  }
+  .prose-paragraph-lg {
+    @apply text-paragraph-lg font-inter;
+  }
+  .prose-paragraph-lg-light {
+    @apply text-paragraph-lg-light font-inter;
+  }
+  .prose-paragraph-md {
+    @apply text-paragraph-md font-inter;
+  }
+  .prose-paragraph-md-light {
+    @apply text-paragraph-md-light font-inter;
+  }
+  .prose-paragraph-sm {
+    @apply text-paragraph-sm font-inter;
+  }
+  .prose-paragraph-sm-light {
+    @apply text-paragraph-sm-light font-inter;
+  }
+  .prose-paragraph-xs {
+    @apply text-paragraph-xs font-inter;
+  }
+  .prose-paragraph-xs-light {
+    @apply text-paragraph-xs-light font-inter;
+  }
+  .prose-label-lg {
+    @apply text-label-lg font-inter;
+  }
+  .prose-label-lg-semi {
+    @apply text-label-lg-semi font-inter;
+  }
+  .prose-label-md {
+    @apply text-label-md font-inter;
+  }
+  .prose-label-md-semi {
+    @apply text-label-md-semi font-inter;
+  }
+  .prose-label-sm {
+    @apply text-label-sm font-inter;
+  }
+  .prose-label-sm-semi {
+    @apply text-label-sm-semi font-inter;
+  }
+  .prose-label-sm-light {
+    @apply text-label-sm-light font-inter;
+  }
+  .prose-label-xs {
+    @apply text-label-xs font-inter;
+  }
+  .prose-label-xs-semi {
+    @apply text-label-xs-semi font-inter;
+  }
+  .prose-label-caps-lg {
+    @apply text-caps-lg font-inter uppercase;
+  }
+  .prose-label-caps-md {
+    @apply text-caps-md font-inter uppercase;
+  }
+  .prose-label-caps-sm {
+    @apply text-caps-sm font-inter uppercase;
+  }
+  .btn {
+    @apply flex flex-row justify-center items-center disabled:opacity-40 rounded-lg select-none outline-none;
+  }
+  .btn-primary {
+    @apply btn bg-white/[0.08] enabled:hover:bg-yellow-500 enabled:active:bg-yellow-700;
+  }
+  .btn-primary-reverse {
+    @apply btn bg-yellow-500 enabled:hover:bg-white/[0.08] enabled:active:bg-white/[0.06];
+  }
+  .btn-gradient {
+    @apply btn border border-solid border-transparent bg-main bg-origin-border enabled:hover:bg-main/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700;
+  }
+  .btn-action {
+    @apply btn bg-purple-400 gap-2.5;
+  }
+  .btn-cancel {
+    @apply btn bg-red-400 enabled:hover:bg-red-600;
+  }
+  .btn-label {
+    @apply h-max w-max truncate;
+  }
+  .btn-label-primary {
+    @apply btn-label text-white group-active:text-black group-enabled:group-hover:text-black;
+  }
+  .btn-label-primary-reverse {
+    @apply btn-label text-black group-active:text-white group-enabled:group-hover:text-white;
+  }
+  .btn-label-gradient {
+    @apply btn-label text-dark-500 group-enabled:group-hover:text-yellow-100;
+  }
+  .btn-label-action {
+    @apply btn-label text-purple-900 group-hover:text-white;
+  }
+  .btn-label-cancel {
+    @apply btn-label text-dark-500;
+  }
+  .btn-size {
+    @apply w-max h-max px-5 py-2.5;
+  }
+  .btn-size-alt {
+    @apply w-40 h-10 px-5 py-1.5;
+  }
 }

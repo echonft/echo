@@ -7,7 +7,7 @@ import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
@@ -48,7 +48,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
   const tError = useTranslations('error.offer')
   const onError = {
     contexts: offerContext(offer),
-    alert: { severity: CalloutSeverity.ERROR, message: tError('swap') },
+    alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('swap') },
     onError: onClose
   }
   const { trigger: getOfferTrigger, isMutating: getOfferMutating } = useSWRTrigger<OfferResponse, GetOfferArgs>({

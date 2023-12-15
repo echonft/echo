@@ -225,6 +225,7 @@ export const nftMock: Record<string, Nft> = {
         chainId: 1
       }
     },
+    blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/17',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/17',
     pictureUrl:
       'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
@@ -288,6 +289,7 @@ export const nftMock: Record<string, Nft> = {
         chainId: 1
       }
     },
+    blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/18',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/18',
     pictureUrl:
       'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
@@ -355,6 +357,7 @@ export const nftMock: Record<string, Nft> = {
         chainId: 1
       }
     },
+    blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/1014',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/1014',
     pictureUrl:
       'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',

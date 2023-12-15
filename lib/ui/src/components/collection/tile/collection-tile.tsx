@@ -1,7 +1,7 @@
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { Img } from '@echo/ui/components/base/img'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
-import { links } from '@echo/ui/constants/links'
-import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
@@ -11,7 +11,7 @@ interface Props {
   pictureUrl: string
   name: string
   swapsCount: number | undefined
-  size: typeof SizeMD | typeof SizeLG
+  size: typeof SIZE_MD | typeof SIZE_LG
 }
 
 export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, name, swapsCount, size }) => {
@@ -19,19 +19,19 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
   return (
     <InternalLink
       className={clsx(
-        size === SizeLG && ['w-[27rem]', 'h-[27rem]'],
-        size === SizeMD && ['w-[21rem]', 'h-[21rem]'],
+        size === SIZE_LG && ['w-[27rem]', 'h-[27rem]'],
+        size === SIZE_MD && ['w-[21rem]', 'h-[21rem]'],
         'relative',
         'rounded-2xl',
         'z-20'
       )}
-      path={links.collection.items(slug)}
+      path={linkProvider.collection.items.get({ slug })}
     >
       <Img
         className={clsx('rounded-2xl')}
         src={pictureUrl}
-        height={size === SizeLG ? 432 : 336}
-        width={size === SizeLG ? 432 : 336}
+        height={size === SIZE_LG ? 432 : 336}
+        width={size === SIZE_LG ? 432 : 336}
         alt={name}
       />
       <div

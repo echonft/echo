@@ -54,7 +54,7 @@ function handleParams<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleC
   const {
     config: { params }
   } = args
-  const query = stringify(params, { addQueryPrefix: true, arrayFormat: 'brackets', skipNulls: true })
+  const query = stringify(params, { addQueryPrefix: true, arrayFormat: 'repeat', skipNulls: true })
   return modify('url', partialRight<string, string, string>(concat, [query]), args)
 }
 

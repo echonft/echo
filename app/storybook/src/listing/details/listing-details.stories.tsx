@@ -1,5 +1,5 @@
 import type { CancelListingArgs } from '@echo/api/services/fetcher/cancel-listing'
-import { LISTING_STATES } from '@echo/model/constants/listing-states'
+import { LISTING_STATE_CANCELLED, LISTING_STATE_OPEN, LISTING_STATES } from '@echo/model/constants/listing-states'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingState } from '@echo/model/types/listing-state'
 import { authUserMock } from '@echo/model-mocks/auth-user/auth-user-mock'
@@ -14,7 +14,7 @@ import { type FunctionComponent } from 'react'
 type ComponentType = FunctionComponent<
   Record<'state', ListingState> & Record<'expired', boolean> & Record<'isCreator', boolean>
 >
-const DEFAULT_STATE: ListingState = 'OPEN'
+const DEFAULT_STATE: ListingState = LISTING_STATE_OPEN
 const DEFAULT_IS_CREATOR = false
 const DEFAULT_EXPIRED = false
 const EXPIRED_DATE = dayjs().subtract(2, 'd').unix()
@@ -24,7 +24,7 @@ const user = assoc('username', listing.creator.username, authUserMock)
 function cancelListing(_args: CancelListingArgs) {
   return delayPromise(
     Promise.resolve({
-      listing: assoc('state', 'CANCELLED', listing)
+      listing: assoc('state', LISTING_STATE_CANCELLED, listing)
     }),
     800
   )

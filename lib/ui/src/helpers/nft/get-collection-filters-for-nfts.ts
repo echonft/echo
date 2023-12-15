@@ -4,7 +4,7 @@ import { collectionEquals } from '@echo/ui/comparators/collection-equals'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { applySpec, eqProps, groupWith, head, length, map, pipe, prop, sort } from 'ramda'
 
-export function getCollectionFiltersForNfts(nfts: Nft[]): CollectionFilter[] {
+export function getCollectionFiltersForNfts(nfts: Nft[]) {
   return pipe(
     sort(collectionEquals),
     map(prop('collection')),

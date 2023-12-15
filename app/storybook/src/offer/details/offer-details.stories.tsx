@@ -5,7 +5,14 @@ import type { GetOfferSignatureArgs } from '@echo/api/services/fetcher/get-offer
 import type { RejectOfferArgs } from '@echo/api/services/fetcher/reject-offer'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
-import { OFFER_STATES } from '@echo/model/constants/offer-states'
+import {
+  OFFER_STATE_ACCEPTED,
+  OFFER_STATE_CANCELLED,
+  OFFER_STATE_COMPLETED,
+  OFFER_STATE_OPEN,
+  OFFER_STATE_REJECTED,
+  OFFER_STATES
+} from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
@@ -24,14 +31,14 @@ import { type FunctionComponent } from 'react'
 type ComponentType = FunctionComponent<
   Record<'state', OfferState> & Record<'expired', boolean> & Record<'isCreator', boolean>
 >
-const DEFAULT_STATE: OfferState = 'OPEN'
+const DEFAULT_STATE: OfferState = OFFER_STATE_OPEN
 const DEFAULT_IS_CREATOR = true
 const DEFAULT_EXPIRED = false
 const EXPIRED_DATE = dayjs().subtract(2, 'd').unix()
 const NOT_EXPIRED_DATE = dayjs().add(2, 'd').unix()
 const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
 function acceptOffer(_args: AcceptOfferArgs): Promise<OfferResponse> {
-  return delayPromise(Promise.resolve({ offer: assoc('state', 'ACCEPTED', offer) }), 1200)
+  return delayPromise(Promise.resolve({ offer: assoc('state', OFFER_STATE_ACCEPTED, offer) }), 1200)
 }
 function signOffer(_args: SignOfferArgs): Promise<HexString> {
   return delayPromise(Promise.resolve('0xwhatever'), 1200)
@@ -43,13 +50,13 @@ function approveErc721Contract(_args: ApproveErc721ContractArgs): Promise<HexStr
   return delayPromise(Promise.resolve('0xwhatever'), 1200)
 }
 function rejectOffer(_args: RejectOfferArgs) {
-  return delayPromise(Promise.resolve({ offer: assoc('state', 'REJECTED', offer) }), 800)
+  return delayPromise(Promise.resolve({ offer: assoc('state', OFFER_STATE_REJECTED, offer) }), 800)
 }
 function cancelOffer(_args: CancelOfferArgs) {
-  return delayPromise(Promise.resolve({ offer: assoc('state', 'REJECTED', offer) }), 800)
+  return delayPromise(Promise.resolve({ offer: assoc('state', OFFER_STATE_CANCELLED, offer) }), 800)
 }
 function getOffer(_args: GetOfferArgs): Promise<OfferResponse> {
-  return delayPromise(Promise.resolve({ offer: assoc('state', 'COMPLETED', offer) }), 1200)
+  return delayPromise(Promise.resolve({ offer: assoc('state', OFFER_STATE_COMPLETED, offer) }), 1200)
 }
 function getOfferSignature(_args: GetOfferSignatureArgs): Promise<OfferSignatureResponse> {
   return delayPromise(Promise.resolve({ signature: '0xwhatever' }), 1200)

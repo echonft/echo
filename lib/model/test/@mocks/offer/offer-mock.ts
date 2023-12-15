@@ -1,3 +1,4 @@
+import { OFFER_STATE_COMPLETED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { toLower } from 'ramda'
@@ -32,7 +33,7 @@ export const offerMock: Record<string, Offer> = {
       }
     },
     senderItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }],
-    state: 'OPEN',
+    state: OFFER_STATE_OPEN,
     updatedAt: 1676984897
   },
   ASkFpKoHEHVH0gd69t1G: {
@@ -67,7 +68,7 @@ export const offerMock: Record<string, Offer> = {
       { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
       { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
     ],
-    state: 'COMPLETED',
+    state: OFFER_STATE_COMPLETED,
     updatedAt: 1676984897
   }
 }

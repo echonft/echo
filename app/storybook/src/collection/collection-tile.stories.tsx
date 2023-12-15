@@ -1,6 +1,6 @@
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { CollectionTile as Component } from '@echo/ui/components/collection/tile/collection-tile'
-import { SizeLG, SizeMD } from '@echo/ui/constants/size'
+import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -8,7 +8,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     size: {
-      options: [SizeMD, SizeLG],
+      options: [SIZE_MD, SIZE_LG],
       control: { type: 'radio' }
     }
   },
@@ -29,7 +29,7 @@ export const Tile: Story = {
     slug,
     name,
     pictureUrl: profilePictureUrl,
-    size: SizeLG,
+    size: SIZE_LG,
     swapsCount: 2
   }
 }

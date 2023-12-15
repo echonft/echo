@@ -1,4 +1,5 @@
 import { type ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { toLower } from 'ramda'
@@ -25,7 +26,7 @@ export const listingDocumentDataMock: Record<string, ListingDocumentData> = {
     ],
     itemsNftIds: ['8hHFadIrrooORfTOLkBg', 'iRZFKEujarikVjpiFAkE'],
     itemsNftCollectionIds: ['1aomCtnoesD7WVll6Yi1'],
-    state: 'OFFERS_PENDING',
+    state: LISTING_STATE_OFFERS_PENDING,
     targets: [
       {
         collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),

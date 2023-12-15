@@ -1,4 +1,4 @@
-import { links } from '@echo/ui/constants/links'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { redirect } from 'next/navigation'
 import { type FunctionComponent } from 'react'
 
@@ -8,8 +8,8 @@ interface Props {
   }
 }
 
-const CollectionPage: FunctionComponent<Props> = ({ params: { slug } }) => {
-  redirect(links.collection.items(slug))
+const CollectionPage: FunctionComponent<Props> = ({ params }) => {
+  redirect(linkProvider.collection.items.get(params))
 }
 
 export default CollectionPage

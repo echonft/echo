@@ -1,9 +1,9 @@
 import { Svg, type SvgProps } from '@echo/ui/components/base/svg/svg'
-import { DirectionLeft, DirectionRight } from '@echo/ui/constants/direction'
+import { DIRECTION_LEFT, DIRECTION_RIGHT } from '@echo/ui/constants/direction'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
-export const caretIconDirections = [DirectionRight, DirectionLeft] as const
+export const caretIconDirections = [DIRECTION_RIGHT, DIRECTION_LEFT] as const
 export type CaretIconDirection = (typeof caretIconDirections)[number]
 
 interface Props extends SvgProps {
@@ -11,7 +11,7 @@ interface Props extends SvgProps {
 }
 
 export const SideCaretSvg: FunctionComponent<Props> = ({ direction, ...rest }) => (
-  <Svg viewBoxWidth={9} viewBoxHeight={14} className={clsx(direction === DirectionLeft ? 'rotate-180' : '')} {...rest}>
+  <Svg viewBoxWidth={9} viewBoxHeight={14} className={clsx(direction === DIRECTION_LEFT ? 'rotate-180' : '')} {...rest}>
     <path
       fillRule="evenodd"
       clipRule="evenodd"

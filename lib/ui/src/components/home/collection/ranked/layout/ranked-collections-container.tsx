@@ -1,10 +1,10 @@
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type Collection } from '@echo/model/types/collection'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { RankedCollectionsButtonContainer } from '@echo/ui/components/home/collection/ranked/layout/ranked-collections-button-container'
 import { RankedCollectionsContainerLayout } from '@echo/ui/components/home/collection/ranked/layout/ranked-collections-container-layout'
 import { RankedCollectionRow } from '@echo/ui/components/home/collection/ranked/ranked-collection-row'
 import { RankedCollectionsButton } from '@echo/ui/components/home/collection/ranked/ranked-collections-button'
-import { links } from '@echo/ui/constants/links'
 import { clsx } from 'clsx'
 import { addIndex, map } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -19,7 +19,11 @@ export const RankedCollectionsContainer: FunctionComponent<Props> = ({ collectio
   return (
     <RankedCollectionsContainerLayout>
       {mapIndexed(({ name, slug, profilePictureUrl, swapsCount }, idx) => (
-        <InternalLink key={slug} className={clsx('group', 'rounded')} path={links.collection.items(slug)}>
+        <InternalLink
+          key={slug}
+          className={clsx('group', 'rounded')}
+          path={linkProvider.collection.items.get({ slug })}
+        >
           <RankedCollectionRow
             rank={idx + firstRank}
             name={name}

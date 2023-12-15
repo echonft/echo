@@ -1,5 +1,5 @@
 import { DownCaretSvg } from '@echo/ui/components/base/svg/down-caret-svg'
-import { type CollapsibleProps } from '@echo/ui/types/collapsible-props'
+import { type CollapsibleProps } from '@echo/ui/types/props/collapsible-props'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 

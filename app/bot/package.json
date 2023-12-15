@@ -13,7 +13,8 @@
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
-    "prettier": "prettier -u -c src/ && prettier -u -c test/",
+    "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
+    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c  .",
     "start": "export NODE_ENV=production; ts-node --project tsconfig.json src/index.ts",
     "test": "jest",
     "test:ci": "jest --ci --no-cache",
@@ -24,10 +25,10 @@
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org echo-nft --project bot ./dist && sentry-cli sourcemaps upload --org echo-nft --project bot ./dist"
   },
   "dependencies": {
+    "@echo/api": "workspace:*",
     "@echo/discord": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
-    "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
     "@sentry/cli": "2.21.2",
     "@sentry/node": "7.77.0",

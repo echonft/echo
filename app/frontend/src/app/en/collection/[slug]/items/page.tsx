@@ -1,5 +1,5 @@
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrl } from '@echo/api/routing/api-url'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type NftsResponse } from '@echo/api/types/responses/nfts-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
@@ -14,19 +14,19 @@ interface Props {
   }
 }
 
-const CollectionNftsPage: FunctionComponent<Props> = async ({ params: { slug } }) => {
+const CollectionNftsPage: FunctionComponent<Props> = async ({ params }) => {
   const session = await getServerSession(authOptions)
-  const params = mapQueryConstraintsToQueryParams({
+  const query = mapQueryConstraintsToQueryParams({
     orderBy: [
       { field: 'owner.discord.username', direction: 'asc' },
       { field: 'tokenId', direction: 'asc' }
     ]
   })
-  const response = await nextFetch.get<NftsResponse>(apiUrl.collection.nfts(slug), {
-    params
+  const response = await nextFetch.get<NftsResponse>(apiUrlProvider.collection.nfts.getUrl(params), {
+    params: query
   })
   assertNextFetchResponse(response)
-  return <CollectionNftsApiProvided collectionSlug={slug} nfts={response.data.nfts} user={session?.user} />
+  return <CollectionNftsApiProvided collectionSlug={params.slug} nfts={response.data.nfts} user={session?.user} />
 }
 
 export default CollectionNftsPage

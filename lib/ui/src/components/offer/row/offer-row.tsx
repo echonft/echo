@@ -1,12 +1,12 @@
-import { OfferRoleReceiver } from '@echo/model/constants/offer-role'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { OFFER_ROLE_RECEIVER } from '@echo/model/constants/offer-role'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { OfferItemsContainer } from '@echo/ui/components/offer/layout/offer-items-container'
 import { OfferRowSwapContainerLayout } from '@echo/ui/components/offer/layout/offer-row-swap-container-layout'
 import { OfferRowLayout } from '@echo/ui/components/offer/row/layout/offer-row-layout'
 import { OfferRowHeader } from '@echo/ui/components/offer/row/offer-row-header'
 import { OfferRowSwapIcon } from '@echo/ui/components/offer/row/offer-row-swap-icon'
-import { AlignmentRight } from '@echo/ui/constants/alignment'
-import { links } from '@echo/ui/constants/links'
+import { ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type FunctionComponent } from 'react'
 
@@ -16,9 +16,9 @@ interface Props {
 
 export const OfferRow: FunctionComponent<Props> = ({ offer }) => {
   const { state, receiver, receiverItems, sender, senderItems, role, expired } = offer
-  const isReceiver = role === OfferRoleReceiver
+  const isReceiver = role === OFFER_ROLE_RECEIVER
   return (
-    <InternalLink path={links.profile.offer(offer.id)}>
+    <InternalLink path={linkProvider.profile.offer.get({ offerId: offer.id })}>
       <OfferRowLayout>
         <OfferRowHeader
           expired={expired}
@@ -28,7 +28,7 @@ export const OfferRow: FunctionComponent<Props> = ({ offer }) => {
         <OfferRowSwapContainerLayout>
           <OfferItemsContainer items={isReceiver ? receiverItems : senderItems} />
           <OfferRowSwapIcon />
-          <OfferItemsContainer items={isReceiver ? senderItems : receiverItems} alignment={AlignmentRight} />
+          <OfferItemsContainer items={isReceiver ? senderItems : receiverItems} alignment={ALIGNMENT_RIGHT} />
         </OfferRowSwapContainerLayout>
       </OfferRowLayout>
     </InternalLink>

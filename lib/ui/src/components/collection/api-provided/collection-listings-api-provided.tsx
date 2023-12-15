@@ -6,7 +6,7 @@ import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { CollectionNavigationLayout } from '@echo/ui/components/collection/layout/collection-navigation-layout'
 import { CollectionListingsEmpty } from '@echo/ui/components/collection/swap/empty/collection-listings-empty'
 import { ListingRowsContainer } from '@echo/ui/components/listing/layout/container/listing-rows-container'
-import { NavigationListings } from '@echo/ui/constants/navigation-item'
+import { NAVIGATION_LISTINGS } from '@echo/ui/constants/navigation-item'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -17,7 +17,7 @@ interface Props {
 
 export const CollectionListingsApiProvided: FunctionComponent<Props> = ({ collectionSlug, listings, user }) => {
   return (
-    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NavigationListings} user={user}>
+    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NAVIGATION_LISTINGS} user={user}>
       <HideIfEmpty checks={listings} render={(listings) => <ListingRowsContainer listings={listings} />} />
       <ShowIfEmpty checks={listings}>
         <CollectionListingsEmpty />

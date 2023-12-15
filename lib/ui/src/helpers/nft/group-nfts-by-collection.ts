@@ -1,15 +1,14 @@
-import { type Nft } from '@echo/model/types/nft'
-import { type DisableableType } from '@echo/ui/types/disableable'
-import { type Group } from '@echo/ui/types/group'
-import { type SelectableType } from '@echo/ui/types/selectable'
-import { eqPaths } from '@echo/utils/fp/eq-paths'
-import { applySpec, groupWith, head, identity, map, path, pipe } from 'ramda'
+import type { Group } from '@echo/ui/types/group'
+import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { applySpec, groupBy, head, identity, map, path, pipe, values } from 'ramda'
 
-export function groupNftsByCollection(nfts: Nft[]): Group<DisableableType<SelectableType<Nft>>>[] {
+export function groupNftsByCollection(nfts: SelectableNft[]) {
   return pipe(
-    groupWith(eqPaths(['collection', 'id'])),
+    groupBy(nonNullableReturn(path<string>(['collection', 'id']))),
+    values,
     map(
-      applySpec<Group<DisableableType<SelectableType<Nft>>>>({
+      applySpec<Group<SelectableNft>>({
         id: pipe(head, path(['collection', 'id'])),
         name: pipe(head, path(['collection', 'name'])),
         items: identity
