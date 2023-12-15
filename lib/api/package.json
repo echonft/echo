@@ -11,7 +11,8 @@
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
     "modules:upgrade": "pnpm upgrade",
-    "prettier": "prettier -u -c src/ && prettier -u -c test/",
+    "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
+    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c  .",
     "test": "jest",
     "test:ci": "jest --ci --no-cache",
     "test:watch": "jest --watch",
@@ -24,6 +25,7 @@
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "axios": "1.6.1",
+    "path-to-regexp": "6.2.1",
     "qs": "6.11.2",
     "ramda": "0.29.1",
     "request": "2.88.2"

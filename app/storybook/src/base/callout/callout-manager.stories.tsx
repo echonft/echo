@@ -1,13 +1,13 @@
 import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { CalloutVariant } from '@echo/ui/constants/callout-variant'
+import { CALLOUT_SEVERITIES, CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { CALLOUT_VARIANT_SOLID, CALLOUT_VARIANTS } from '@echo/ui/constants/callout-variant'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import type { Alert } from '@echo/ui/types/alert'
 import { type Meta, type StoryObj } from '@storybook/react'
 import type { FunctionComponent } from 'react'
 
-const DEFAULT_SEVERITY = CalloutSeverity.ERROR
-const DEFAULT_VARIANT = CalloutVariant.SOLID
+const DEFAULT_SEVERITY = CALLOUT_SEVERITY_ERROR
+const DEFAULT_VARIANT = CALLOUT_VARIANT_SOLID
 const DEFAULT_MESSAGE = 'This is an alert!'
 type ComponentType = FunctionComponent<Alert>
 const metadata: Meta<ComponentType> = {
@@ -15,12 +15,12 @@ const metadata: Meta<ComponentType> = {
   argTypes: {
     severity: {
       defaultValue: DEFAULT_SEVERITY,
-      options: Object.values(CalloutSeverity),
+      options: CALLOUT_SEVERITIES,
       control: { type: 'radio' }
     },
     variant: {
       defaultValue: DEFAULT_VARIANT,
-      options: Object.values(CalloutVariant),
+      options: CALLOUT_VARIANTS,
       control: { type: 'radio' }
     },
     message: {

@@ -1,9 +1,9 @@
 import { ProfileListingsSkeleton } from '@echo/ui/components/profile/listing/skeleton/profile-listings-skeleton'
-import { NavigationListingsCreated } from '@echo/ui/constants/navigation-item'
+import { NAVIGATION_LISTINGS_CREATED } from '@echo/ui/constants/navigation-item'
 import { type FunctionComponent } from 'react'
 
 const ProfileListingsCreatedLoading: FunctionComponent = () => {
-  return <ProfileListingsSkeleton activeNavigationItem={NavigationListingsCreated} />
+  return <ProfileListingsSkeleton activeNavigationItem={NAVIGATION_LISTINGS_CREATED} />
 }
 
 export default ProfileListingsCreatedLoading

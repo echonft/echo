@@ -1,5 +1,5 @@
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrl } from '@echo/api/routing/api-url'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
@@ -14,16 +14,16 @@ interface Props {
   }
 }
 
-const CollectionSwapsPage: FunctionComponent<Props> = async ({ params: { slug } }) => {
+const CollectionSwapsPage: FunctionComponent<Props> = async ({ params }) => {
   const session = await getServerSession(authOptions)
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'asc' }]
   })
-  const response = await nextFetch.get<OffersResponse>(apiUrl.collection.swaps(slug), {
+  const response = await nextFetch.get<OffersResponse>(apiUrlProvider.collection.swaps.getUrl(params), {
     params: constraintsQueryParams
   })
   assertNextFetchResponse(response)
-  return <CollectionSwapsApiProvided collectionSlug={slug} offers={response.data.offers} user={session?.user} />
+  return <CollectionSwapsApiProvided collectionSlug={params.slug} offers={response.data.offers} user={session?.user} />
 }
 
 export default CollectionSwapsPage

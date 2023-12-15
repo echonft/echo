@@ -1,6 +1,7 @@
 import { type OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
+import { OFFER_STATE_COMPLETED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { formatAddress } from '@echo/utils/helpers/format-address'
+import { toLower } from 'ramda'
 
 export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
@@ -14,7 +15,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
         chainId: 1
       }
     },
@@ -28,14 +29,14 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: formatAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
+        address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
         chainId: 1
       }
     },
     senderItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }],
     senderItemsNftIds: ['kRE3UCfXWkJ33nwzj2X1'],
     senderItemsNftCollectionIds: ['Rc8pLQXxgyQGIRL0fr13'],
-    state: 'OPEN',
+    state: OFFER_STATE_OPEN,
     updatedAt: 1676984897
   },
   ASkFpKoHEHVH0gd69t1G: {
@@ -49,7 +50,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: formatAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
+        address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
         chainId: 1
       }
     },
@@ -63,7 +64,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
         chainId: 1
       }
     },
@@ -73,7 +74,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
     ],
     senderItemsNftIds: ['8hHFadIrrooORfTOLkBg', 'iRZFKEujarikVjpiFAkE'],
     senderItemsNftCollectionIds: ['1aomCtnoesD7WVll6Yi1'],
-    state: 'COMPLETED',
+    state: OFFER_STATE_COMPLETED,
     updatedAt: 1676984897
   }
 }

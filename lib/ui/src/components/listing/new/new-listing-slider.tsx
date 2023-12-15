@@ -20,7 +20,7 @@ interface Props {
   onCollectionSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
   onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
   onRemoveTarget?: (targetCollectionId: string) => unknown
-  onRemoveItem?: (itemNftId: string) => unknown
+  onRemoveItem?: (item: ListingItem) => unknown
   onFinalize?: () => unknown
   onDismissListing?: () => unknown
 }

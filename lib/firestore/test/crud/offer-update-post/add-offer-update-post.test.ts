@@ -10,6 +10,7 @@ import { deleteOfferUpdatePost } from '@echo/firestore-test/offer-update-post/de
 import { unchecked_addOfferUpdatePost } from '@echo/firestore-test/offer-update-post/unchecked_add-offer-update-post'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
@@ -20,7 +21,7 @@ describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
   const addOfferStateUpdateArgs: AddOfferStateUpdateArgs = {
     offerId: 'LyCfl6Eg7JKuD7XJ6IPi',
     args: {
-      state: 'REJECTED',
+      state: OFFER_STATE_REJECTED,
       trigger: {
         by: 'johnnycagewins'
       }

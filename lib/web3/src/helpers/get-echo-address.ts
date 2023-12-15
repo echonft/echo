@@ -1,4 +1,4 @@
-import { formatAddress } from '@echo/utils/helpers/format-address'
+import { formatAddress } from '@echo/web3/helpers/format-address'
 
 function getAddress(chainId: number) {
   switch (chainId) {
@@ -10,5 +10,5 @@ function getAddress(chainId: number) {
 }
 
 export function getEchoAddress(chainId: number) {
-  return formatAddress(getAddress(chainId), chainId)
+  return formatAddress({ address: getAddress(chainId), chainId })
 }

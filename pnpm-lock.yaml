@@ -92,6 +92,9 @@ importers:
 
   app/bot:
     dependencies:
+      '@echo/api':
+        specifier: workspace:*
+        version: link:../../lib/api
       '@echo/discord':
         specifier: workspace:*
         version: link:../../lib/discord
@@ -101,9 +104,6 @@ importers:
       '@echo/model':
         specifier: workspace:*
         version: link:../../lib/model
-      '@echo/ui':
-        specifier: workspace:*
-        version: link:../../lib/ui
       '@echo/utils':
         specifier: workspace:*
         version: link:../../lib/utils
@@ -463,6 +463,9 @@ importers:
       axios:
         specifier: 1.6.1
         version: 1.6.1
+      path-to-regexp:
+        specifier: 6.2.1
+        version: 6.2.1
       qs:
         specifier: 6.11.2
         version: 6.11.2
@@ -726,9 +729,6 @@ importers:
       ramda:
         specifier: 0.29.1
         version: 0.29.1
-      viem:
-        specifier: 1.18.9
-        version: 1.18.9(typescript@5.2.2)
     devDependencies:
       '@jest/globals':
         specifier: 29.7.0
@@ -14579,7 +14579,6 @@ packages:
 
   /path-to-regexp@6.2.1:
     resolution: {integrity: sha512-JLyh7xT1kizaEvcaXOQwOc2/Yhw6KZOvPf1S8401UyLk86CU79LN3vl7ztXGm/pZ+YjoyAJ4rxmHwbkBXJX+yw==}
-    dev: true
 
   /path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}

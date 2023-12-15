@@ -1,8 +1,7 @@
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
-import { formatAddress } from '@echo/utils/helpers/format-address'
 import { describe, expect, it } from '@jest/globals'
-import { assocPath } from 'ramda'
+import { assocPath, toLower } from 'ramda'
 
 describe('mappers - to-api - mapItemsToRequests', () => {
   it('maps correctly', () => {
@@ -28,7 +27,7 @@ describe('mappers - to-api - mapItemsToRequests', () => {
           blurUrl: 'https://echo.xyz',
           contract: {
             tokenType: 'ERC721',
-            address: formatAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1),
+            address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
             chainId: 1
           },
           description: 'A Genetic Chain Project.',
@@ -51,7 +50,7 @@ describe('mappers - to-api - mapItemsToRequests', () => {
           },
           username: 'johnnycagewins',
           wallet: {
-            address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+            address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
             chainId: 1
           }
         },

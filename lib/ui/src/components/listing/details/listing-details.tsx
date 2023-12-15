@@ -1,6 +1,7 @@
 'use client'
 import type { CancelListingArgs } from '@echo/api/services/fetcher/cancel-listing'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
+import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
 import { assertListingState } from '@echo/model/helpers/listing/assert/assert-listing-state'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
@@ -14,9 +15,9 @@ import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
-import { AlignmentCenter } from '@echo/ui/constants/alignment'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
-import { DirectionIn, DirectionOut } from '@echo/ui/constants/swap-direction'
+import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
+import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
 import { getListingDetailsContainerBackground } from '@echo/ui/helpers/listing/get-listing-details-container-background'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
@@ -39,7 +40,7 @@ function canCancel(listing: Listing, user: AuthUser | undefined) {
     return false
   }
   try {
-    assertListingState(listing, 'CANCELLED')
+    assertListingState(listing, LISTING_STATE_CANCELLED)
     return true
   } catch (e) {
     return false
@@ -58,7 +59,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
     },
     onError: {
       contexts: listingContext(listing),
-      alert: { severity: CalloutSeverity.ERROR, message: tError('cancel') }
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') }
     }
   })
   useEffect(() => {
@@ -85,15 +86,15 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-5')}>
         <div className={clsx('flex', 'flex-col', 'gap-6')}>
-          <SwapDirectionHeader direction={DirectionOut} title={t('assets.title.out')} />
-          <NftsContainer nfts={nfts} alignment={AlignmentCenter} />
+          <SwapDirectionHeader direction={SWAP_DIRECTION_OUT} title={t('assets.title.out')} />
+          <NftsContainer nfts={nfts} alignment={ALIGNMENT_CENTER} />
         </div>
         <div className={clsx('pb-4')}>
           <ItemsDetailsSeparator />
         </div>
         <div className={clsx('flex', 'flex-col', 'gap-6')}>
-          <SwapDirectionHeader direction={DirectionIn} title={t('assets.title.in')} />
-          <NftsLayout alignment={AlignmentCenter}>
+          <SwapDirectionHeader direction={SWAP_DIRECTION_IN} title={t('assets.title.in')} />
+          <NftsLayout alignment={ALIGNMENT_CENTER}>
             {map(
               ({ amount, collection }) => (
                 <CollectionThumbnail key={collection.id} collection={collection} count={amount} />

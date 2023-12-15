@@ -4,21 +4,21 @@ import { ShowIfNilOrEmpty } from '@echo/ui/components/base/utils/show-if-nil-or-
 import { NewSenderItemsEmptyContainer } from '@echo/ui/components/item/empty/new-sender-items-empty-container'
 import { ItemThumbnailsContainer } from '@echo/ui/components/item/thumbnail/layout/item-thumbnails-container'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
-import { DirectionOut } from '@echo/ui/constants/swap-direction'
+import { SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   items: OfferItem[]
-  onRemove?: (itemNftId: string) => unknown
+  onRemove?: (item: OfferItem) => unknown
 }
 
 export const NewSenderItemsContainer: FunctionComponent<Props> = ({ items, onRemove }) => {
   const t = useTranslations('assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-11')}>
-      <SwapDirectionHeader direction={DirectionOut} title={t('out')} />
+      <SwapDirectionHeader direction={SWAP_DIRECTION_OUT} title={t('out')} />
       <HideIfNilOrEmpty
         checks={items}
         render={(items) => <ItemThumbnailsContainer items={items} onRemove={onRemove} />}

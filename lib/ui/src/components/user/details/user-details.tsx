@@ -30,7 +30,7 @@ export const UserDetails: FunctionComponent<Props> = ({
           <UserProfilePicture discordUsername={discordUsername} discordAvatarUrl={discordAvatarUrl} size={size} />
           <UserInfoLayout>
             <UserDiscordTag discordUsername={discordUsername} />
-            <HideIfNil checks={wallet} render={(wallet) => <UserWallet address={wallet.address} />} />
+            <HideIfNil checks={wallet} render={(wallet) => <UserWallet wallet={wallet} />} />
           </UserInfoLayout>
         </UserPictureAndInfoLayout>
       </PaddedContainer>

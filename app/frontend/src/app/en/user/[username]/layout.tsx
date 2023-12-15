@@ -1,4 +1,4 @@
-import { apiUrl } from '@echo/api/routing/api-url'
+import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type UserResponse } from '@echo/api/types/responses/user-response'
 import { authOptions } from '@echo/frontend/lib/constants/auth-options'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
@@ -15,9 +15,9 @@ interface Props {
   }
 }
 
-const UserLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { username }, children }) => {
+const UserLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params, children }) => {
   const session = await getServerSession(authOptions)
-  const response = await nextFetch.get<UserResponse>(apiUrl.user.get(username))
+  const response = await nextFetch.get<UserResponse>(apiUrlProvider.user.get.getUrl(params))
   assertNextFetchResponse(response)
   return (
     <NavigationPageLayout user={session?.user}>

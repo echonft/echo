@@ -1,4 +1,5 @@
 import { type AuthUser } from '@echo/model/types/auth-user'
+import { toLower } from 'ramda'
 
 export const authUserMock: AuthUser = {
   id: '6rECUMhevHfxABZ1VNOm',
@@ -11,5 +12,5 @@ export const authUserMock: AuthUser = {
   },
   updatedAt: 1676984897,
   sessionToken: 'token',
-  wallets: [{ address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', chainId: 1 }]
+  wallets: [{ address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'), chainId: 1 }]
 }

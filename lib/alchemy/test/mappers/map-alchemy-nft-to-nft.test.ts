@@ -4,10 +4,11 @@ import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
+import { toLower } from 'ramda'
 
 describe('mappers - mapAlchemyNftToNft', () => {
   const alchemyNft: AlchemyNft = {
-    contractAddress: '0x12c63bbD266dB84e117356e664f3604055166CEc',
+    contractAddress: toLower('0x12c63bbD266dB84e117356e664f3604055166CEc'),
     chainId: 1,
     attributes: [
       { value: 'archimedean', trait: 'Algorithm' },
@@ -30,7 +31,7 @@ describe('mappers - mapAlchemyNftToNft', () => {
       avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png'
     },
     wallet: {
-      address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
+      address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
       chainId: 1
     }
   }
@@ -47,8 +48,8 @@ describe('mappers - mapAlchemyNftToNft', () => {
     thumbnailUrl: 'https://echo.xyz',
     tokenId: 1,
     tokenType: 'ERC721',
-    blurUrl: 'https://blur.io/asset/0x12c63bbD266dB84e117356e664f3604055166CEc/1',
-    openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbD266dB84e117356e664f3604055166CEc/1',
+    blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/1',
+    openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/1',
     collection,
     owner: {
       discord: {
@@ -57,7 +58,7 @@ describe('mappers - mapAlchemyNftToNft', () => {
       },
       username: 'crewnft_',
       wallet: {
-        address: '0xf672715f2bA85794659a7150e8C21F8d157bFe1D',
+        address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
         chainId: 1
       }
     }

@@ -65,7 +65,7 @@ describe('services - fetch - nextFetch.get', () => {
     // @ts-ignore
     jest.spyOn(global, 'fetch').mockImplementation((input: string, init: RequestInit) => {
       expect(init).toStrictEqual(baseInit)
-      expect(input).toEqual(`${url}?a=a&b=b&c%5B%5D=1&c%5B%5D=2`)
+      expect(input).toEqual(`${url}?a=a&b=b&c=1&c=2`)
       return Promise.resolve({
         url: input,
         ok: true,

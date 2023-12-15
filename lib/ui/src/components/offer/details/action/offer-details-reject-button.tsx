@@ -4,7 +4,7 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
-import { CalloutSeverity } from '@echo/ui/constants/callout-severity'
+import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
@@ -43,7 +43,7 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
     },
     onError: {
       contexts: offerContext(offer),
-      alert: { severity: CalloutSeverity.ERROR, message: tError('reject') },
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('reject') },
       onError
     }
   })

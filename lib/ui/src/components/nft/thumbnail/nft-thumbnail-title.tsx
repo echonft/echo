@@ -1,29 +1,18 @@
-import { clsx } from 'clsx'
+import type { Nft } from '@echo/model/types/nft'
+import { NftThumbnailTitleLayout } from '@echo/ui/components/nft/thumbnail/layout/nft-thumbnail-title-layout'
+import { NftThumbnailTitleCollectionName } from '@echo/ui/components/nft/thumbnail/nft-thumbnail-title-collection-name'
+import { NftThumbnailTitleTokenId } from '@echo/ui/components/nft/thumbnail/nft-thumbnail-title-token-id'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  collectionName: string
-  tokenId: number
+  nft: Nft
 }
 
-export const NftThumbnailTitle: FunctionComponent<Props> = ({ collectionName, tokenId }) => {
+export const NftThumbnailTitle: FunctionComponent<Props> = ({ nft }) => {
   return (
-    <div
-      className={clsx(
-        'flex',
-        'flex-row',
-        'w-full',
-        'min-w-0',
-        'justify-between',
-        'items-center',
-        'h-max',
-        'bg-white/[0.08]',
-        'p-2',
-        'gap-1'
-      )}
-    >
-      <span className={clsx('prose-label-md', 'text-white/[0.65]', 'truncate')}>{collectionName}</span>
-      <span className={clsx('prose-label-md-semi', 'text-white')}>{`#${tokenId}`}</span>
-    </div>
+    <NftThumbnailTitleLayout>
+      <NftThumbnailTitleCollectionName nft={nft} />
+      <NftThumbnailTitleTokenId nft={nft} />
+    </NftThumbnailTitleLayout>
   )
 }

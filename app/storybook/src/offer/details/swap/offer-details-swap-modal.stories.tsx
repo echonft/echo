@@ -2,6 +2,7 @@ import type { GetOfferArgs } from '@echo/api/services/fetcher/get-offer'
 import type { GetOfferSignatureArgs } from '@echo/api/services/fetcher/get-offer-signature'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
+import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OfferDetailsSwapModal as Component } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
@@ -14,7 +15,7 @@ import { assoc } from 'ramda'
 
 const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
 function getOffer(_args: GetOfferArgs): Promise<OfferResponse> {
-  return delayPromise(Promise.resolve({ offer: assoc('state', 'COMPLETED', offer) }), 1200)
+  return delayPromise(Promise.resolve({ offer: assoc('state', OFFER_STATE_COMPLETED, offer) }), 1200)
 }
 function getOfferSignature(_args: GetOfferSignatureArgs): Promise<OfferSignatureResponse> {
   return delayPromise(Promise.resolve({ signature: '0xwhatever' }), 1200)

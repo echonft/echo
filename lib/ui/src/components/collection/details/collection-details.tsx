@@ -4,7 +4,7 @@ import {
   type CollectionProfileProps
 } from '@echo/ui/components/collection/details/collection-profile'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
-import { SizeLG } from '@echo/ui/constants/size'
+import { SIZE_LG } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
@@ -37,7 +37,7 @@ export const CollectionDetails: FunctionComponent<Props> = ({
               websiteUrl={websiteUrl}
               twitterUsername={twitterUsername}
               verified={verified}
-              size={SizeLG}
+              size={SIZE_LG}
             />
           </div>
           <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full')}>

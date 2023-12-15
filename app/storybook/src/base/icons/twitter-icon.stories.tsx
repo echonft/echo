@@ -1,6 +1,6 @@
 import { TwitterIcon as Component } from '@echo/ui/components/base/icons/twitter-icon'
-import { iconSizes } from '@echo/ui/constants/icon-size'
-import { SizeMD } from '@echo/ui/constants/size'
+import { ICON_SIZES } from '@echo/ui/constants/icon-size'
+import { SIZE_MD } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -8,7 +8,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   argTypes: {
     size: {
-      options: iconSizes,
+      options: ICON_SIZES,
       control: { type: 'radio' }
     }
   }
@@ -20,6 +20,6 @@ type Story = StoryObj<typeof Component>
 
 export const TwitterIcon: Story = {
   args: {
-    size: SizeMD
+    size: SIZE_MD
   }
 }

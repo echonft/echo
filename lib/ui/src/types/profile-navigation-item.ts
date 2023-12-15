@@ -1,16 +1,16 @@
 import {
-  NavigationItems,
-  NavigationListingsCreated,
-  NavigationListingsReceived,
-  NavigationOffersCreated,
-  NavigationOffersReceived,
-  NavigationSwaps
+  NAVIGATION_ITEMS,
+  NAVIGATION_LISTINGS_CREATED,
+  NAVIGATION_LISTINGS_RECEIVED,
+  NAVIGATION_OFFERS_CREATED,
+  NAVIGATION_OFFERS_RECEIVED,
+  NAVIGATION_SWAPS
 } from '@echo/ui/constants/navigation-item'
 
 export type ProfileNavigationItem =
-  | typeof NavigationItems
-  | typeof NavigationListingsCreated
-  | typeof NavigationListingsReceived
-  | typeof NavigationOffersCreated
-  | typeof NavigationOffersReceived
-  | typeof NavigationSwaps
+  | typeof NAVIGATION_ITEMS
+  | typeof NAVIGATION_LISTINGS_CREATED
+  | typeof NAVIGATION_LISTINGS_RECEIVED
+  | typeof NAVIGATION_OFFERS_CREATED
+  | typeof NAVIGATION_OFFERS_RECEIVED
+  | typeof NAVIGATION_SWAPS

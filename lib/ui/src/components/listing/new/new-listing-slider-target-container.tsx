@@ -3,7 +3,7 @@ import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import type { Target } from '@echo/ui/components/listing/new/new-listing-slider-manager'
 import { NewListingSliderTargetRow } from '@echo/ui/components/listing/new/new-listing-slider-target-row'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
-import { DirectionIn } from '@echo/ui/constants/swap-direction'
+import { SWAP_DIRECTION_IN } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
@@ -19,7 +19,7 @@ export const NewListingSliderTargetContainer: FunctionComponent<Props> = ({ targ
   const tShared = useTranslations('assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-11')}>
-      <SwapDirectionHeader direction={DirectionIn} title={tShared('in')} />
+      <SwapDirectionHeader direction={SWAP_DIRECTION_IN} title={tShared('in')} />
       <div className={clsx('w-full')}>
         <HideIfNil
           checks={target}

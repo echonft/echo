@@ -8,6 +8,13 @@ import { deleteOfferSignature } from '@echo/firestore-test/offer-signature/delet
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import {
+  OFFER_STATE_ACCEPTED,
+  OFFER_STATE_CANCELLED,
+  OFFER_STATE_COMPLETED,
+  OFFER_STATE_OPEN,
+  OFFER_STATE_REJECTED
+} from '@echo/model/constants/offer-states'
 import { type OfferState } from '@echo/model/types/offer-state'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
@@ -76,27 +83,27 @@ describe('CRUD - offer - acceptOffer', () => {
     await expect(pipe(assoc('offerId', 'not-found'), acceptOffer)(args)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'OPEN', expiresAt: pastDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_OPEN, expiresAt: pastDate })
     await expect(acceptOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is cancelled', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'CANCELLED', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_CANCELLED, expiresAt: futureDate })
     await expect(acceptOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is accepted', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'ACCEPTED', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate })
     await expect(acceptOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is rejected', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'REJECTED', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_REJECTED, expiresAt: futureDate })
     await expect(acceptOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is completed', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'COMPLETED', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_COMPLETED, expiresAt: futureDate })
     await expect(acceptOffer(args)).rejects.toBeDefined()
   })
   it('throws if the state update by trigger is not the receiver', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'OPEN', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_OPEN, expiresAt: futureDate })
     await expect(
       pipe(
         assoc('updateArgs', {
@@ -109,14 +116,14 @@ describe('CRUD - offer - acceptOffer', () => {
     ).rejects.toBeDefined()
   })
   it('accept offer', async () => {
-    await unchecked_updateOffer(args.offerId, { state: 'OPEN', expiresAt: futureDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_OPEN, expiresAt: futureDate })
     await acceptOffer(args)
     const updatedOffer = (await findOfferById(args.offerId))!
     const createdOfferSignature = (await findOfferSignature(args.offerId))!
     createdOfferSignatureId = createdOfferSignature.id
-    const createdStateUpdate = (await findOfferStateUpdate(args.offerId, 'ACCEPTED'))!
+    const createdStateUpdate = (await findOfferStateUpdate(args.offerId, OFFER_STATE_ACCEPTED))!
     createdStateUpdateId = createdStateUpdate.id
-    expect(updatedOffer.state).toEqual('ACCEPTED')
+    expect(updatedOffer.state).toEqual(OFFER_STATE_ACCEPTED)
     expectDateNumberIsNow(updatedOffer.updatedAt)
     expect(createdOfferSignature).toBeDefined()
     expect(createdStateUpdate).toBeDefined()

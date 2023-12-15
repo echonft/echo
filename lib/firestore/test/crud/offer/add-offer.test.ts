@@ -12,6 +12,8 @@ import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
 import { deleteOffer } from '@echo/firestore-test/offer/delete-offer'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
+import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { type ListingState } from '@echo/model/types/listing-state'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
@@ -68,7 +70,7 @@ describe('CRUD - offer - addOffer', () => {
     expect(newOffer.receiverItems).toStrictEqual(receiverItems)
     expect(newOffer.sender).toStrictEqual(sender)
     expect(newOffer.senderItems).toStrictEqual(newSenderItems)
-    expect(newOffer.state).toBe('OPEN')
+    expect(newOffer.state).toBe(OFFER_STATE_OPEN)
     expectDateNumberIsNow(newOffer.updatedAt)
     expectDateNumberIs(newOffer.expiresAt)(dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'))
     // check if offer has been added to tied listings
@@ -83,6 +85,6 @@ describe('CRUD - offer - addOffer', () => {
     expect(createdListingOffer.fulfillingStatus).toEqual(ListingOfferFulfillingStatus.PARTIALLY)
     // check if the listing state was updated
     const newListingState = (await findListingById(listingId))!.state
-    expect(newListingState).toEqual('OFFERS_PENDING')
+    expect(newListingState).toEqual(LISTING_STATE_OFFERS_PENDING)
   })
 })

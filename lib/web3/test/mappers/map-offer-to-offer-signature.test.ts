@@ -1,8 +1,9 @@
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferItem } from '@echo/model/types/offer-item'
+import { formatAddress } from '@echo/web3/helpers/format-address'
 import { mapOfferToOfferSignature } from '@echo/web3/mappers/map-offer-to-offer-signature'
 import { describe, expect, it } from '@jest/globals'
-import { getAddress } from 'viem'
+import { toLower } from 'ramda'
 
 describe('mappers - mapOfferToOfferSignature', () => {
   it('maps correctly single items', () => {
@@ -10,7 +11,8 @@ describe('mappers - mapOfferToOfferSignature', () => {
       nft: {
         collection: {
           contract: {
-            address: getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1)
+            address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
+            chainId: 1
           }
         },
         tokenId: 1376
@@ -21,7 +23,8 @@ describe('mappers - mapOfferToOfferSignature', () => {
       nft: {
         collection: {
           contract: {
-            address: getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1)
+            address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
+            chainId: 1
           }
         },
         tokenId: 1
@@ -32,13 +35,15 @@ describe('mappers - mapOfferToOfferSignature', () => {
       expiresAt: 2324074781,
       receiver: {
         wallet: {
-          address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1)
+          address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
+          chainId: 1
         }
       },
       receiverItems: [offerItem1],
       sender: {
         wallet: {
-          address: getAddress('0x213bE2f484Ab480db4f18b0Fe4C38e1C25877f09', 1)
+          address: toLower('0x213bE2f484Ab480db4f18b0Fe4C38e1C25877f09'),
+          chainId: 1
         }
       },
       senderItems: [offerItem2]
@@ -47,12 +52,24 @@ describe('mappers - mapOfferToOfferSignature', () => {
     const expected = {
       id: 'offer-id',
       expiresAt: 2324074781,
-      creator: getAddress('0x213bE2f484Ab480db4f18b0Fe4C38e1C25877f09'),
-      counterparty: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
+      creator: formatAddress({
+        address: toLower('0x213bE2f484Ab480db4f18b0Fe4C38e1C25877f09')
+      }),
+      counterparty: formatAddress({
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E')
+      }),
       creatorIds: [1],
-      creatorCollections: [getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7')],
+      creatorCollections: [
+        formatAddress({
+          address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7')
+        })
+      ],
       counterpartyIds: [1376],
-      counterpartyCollections: [getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7')]
+      counterpartyCollections: [
+        formatAddress({
+          address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7')
+        })
+      ]
     }
     expect(mapOfferToOfferSignature(offer)).toStrictEqual(expected)
   })
@@ -62,7 +79,8 @@ describe('mappers - mapOfferToOfferSignature', () => {
       nft: {
         collection: {
           contract: {
-            address: getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1)
+            address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
+            chainId: 1
           }
         },
         tokenId: 1376
@@ -73,7 +91,8 @@ describe('mappers - mapOfferToOfferSignature', () => {
       nft: {
         collection: {
           contract: {
-            address: getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7', 1)
+            address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
+            chainId: 1
           }
         },
         tokenId: 1
@@ -84,7 +103,8 @@ describe('mappers - mapOfferToOfferSignature', () => {
       nft: {
         collection: {
           contract: {
-            address: getAddress('0x213Be2F484ab480dB4F18b0Fe4C38e1c25877f09', 1)
+            address: toLower('0x213Be2F484ab480dB4F18b0Fe4C38e1c25877f09'),
+            chainId: 1
           }
         },
         tokenId: 1
@@ -95,7 +115,8 @@ describe('mappers - mapOfferToOfferSignature', () => {
       nft: {
         collection: {
           contract: {
-            address: getAddress('0x213Be2F484ab480dB4F18b0Fe4C38e1c25877f09', 1)
+            address: toLower('0x213Be2F484ab480dB4F18b0Fe4C38e1c25877f09'),
+            chainId: 1
           }
         },
         tokenId: 2
@@ -107,13 +128,15 @@ describe('mappers - mapOfferToOfferSignature', () => {
       expiresAt: 2324074781,
       receiver: {
         wallet: {
-          address: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1)
+          address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
+          chainId: 1
         }
       },
       receiverItems: [offerItem1, offerItem3],
       sender: {
         wallet: {
-          address: getAddress('0x213bE2f484Ab480db4f18b0Fe4C38e1C25877f09', 1)
+          address: toLower('0x213bE2f484Ab480db4f18b0Fe4C38e1C25877f09'),
+          chainId: 1
         }
       },
       senderItems: [offerItem4, offerItem2]
@@ -122,17 +145,17 @@ describe('mappers - mapOfferToOfferSignature', () => {
     const expected = {
       id: 'offer-id',
       expiresAt: 2324074781,
-      creator: getAddress('0x213bE2f484Ab480db4f18b0Fe4C38e1C25877f09'),
-      counterparty: getAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
+      creator: formatAddress({ address: '0x213bE2f484Ab480db4f18b0Fe4C38e1C25877f09' }),
+      counterparty: formatAddress({ address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E' }),
       creatorIds: [2, 1],
       creatorCollections: [
-        getAddress('0x213Be2F484ab480dB4F18b0Fe4C38e1c25877f09'),
-        getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7')
+        formatAddress({ address: '0x213Be2F484ab480dB4F18b0Fe4C38e1c25877f09' }),
+        formatAddress({ address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7' })
       ],
       counterpartyIds: [1376, 1],
       counterpartyCollections: [
-        getAddress('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-        getAddress('0x213Be2F484ab480dB4F18b0Fe4C38e1c25877f09')
+        formatAddress({ address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7' }),
+        formatAddress({ address: '0x213Be2F484ab480dB4F18b0Fe4C38e1c25877f09' })
       ]
     }
     expect(mapOfferToOfferSignature(offer)).toStrictEqual(expected)

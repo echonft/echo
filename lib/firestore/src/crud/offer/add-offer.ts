@@ -2,6 +2,7 @@ import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expir
 import { addListingOffersFromOffer } from '@echo/firestore/crud/listing-offer/add-listing-offers-from-offer'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-a-duplicate'
+import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { assertOfferItems } from '@echo/model/helpers/offer/assert/assert-offer-items'
 import { type Offer } from '@echo/model/types/offer'
 import { type OfferItem } from '@echo/model/types/offer-item'
@@ -24,7 +25,7 @@ export async function addOffer(senderItems: OfferItem[], receiverItems: OfferIte
     receiverItems,
     sender: head(senderItems).nft.owner,
     senderItems,
-    state: 'OPEN',
+    state: OFFER_STATE_OPEN,
     updatedAt: now()
   }
   await reference.set(newOffer)

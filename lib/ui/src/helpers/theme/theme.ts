@@ -13,12 +13,14 @@ export const themeExtension = {
   backgroundImage: {
     banner: 'linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, #121212 100%)',
     collectionTitle: 'linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 101.27%)',
-    'home-gradient': 'linear-gradient(162deg, rgba(239, 244, 39, 0.20) -11.34%, #121212 42.54%)',
-    'main-gradient': 'linear-gradient(95.27deg, #EFF427 7.68%, #8F27F5 100%)',
-    'main-gradient/40': 'linear-gradient(95.27deg, rgba(239, 244, 39, 0.4) 7.68%, rgba(143, 39, 245, 0.4) 100%)',
-    'offer-yellow-gradient': 'linear-gradient(225deg, rgba(239, 244, 39, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
-    'offer-green-gradient': 'linear-gradient(225deg, rgba(75, 191, 75, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
-    'offer-red-gradient': 'linear-gradient(225deg, rgba(255, 64, 64, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)'
+    home: 'linear-gradient(162deg, rgba(239, 244, 39, 0.20) -11.34%, #121212 42.54%)',
+    main: 'linear-gradient(95.27deg, #EFF427 7.68%, #8F27F5 100%)',
+    'main/40': 'linear-gradient(95.27deg, rgba(239, 244, 39, 0.4) 7.68%, rgba(143, 39, 245, 0.4) 100%)',
+    nftButtonHover: 'linear-gradient(94deg, rgba(211, 190, 190, 0.12) -7.35%, rgba(217, 217, 217, 0.00) 104.39%)',
+    offerYellow: 'linear-gradient(225deg, rgba(239, 244, 39, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
+    offerGreen: 'linear-gradient(225deg, rgba(75, 191, 75, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
+    offerRed: 'linear-gradient(225deg, rgba(255, 64, 64, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
+    stack: "url('https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/stack-bg.svg?alt=media')"
   },
   borderColor: {
     DEFAULT: 'transparent'
@@ -375,10 +377,16 @@ export const themeExtension = {
     ] as fontSizeConfig
   },
   spacing: {
-    0.25: '0.0625rem',
-    4.5: '1.125rem',
-    6.5: '1.625rem',
-    7.5: '1.875rem'
+    0.25: '0.0625rem', // 1px
+    0.75: '0.1875rem', // 3px
+    1.25: '0.3125rem', // 5px
+    2.25: '0.5625rem', // 9px
+    2.75: '0.6875rem', // 11px
+    3.25: '0.8125rem', // 13px
+    3.75: '0.9375rem', //15px
+    4.5: '1.125rem', // 18px
+    6.5: '1.625rem', // 26px
+    7.5: '1.875rem' // 30px
   }
 }
 export const theme = mergeLeft(themeExtension, defaultTheme)

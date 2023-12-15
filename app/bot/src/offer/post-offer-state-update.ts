@@ -4,6 +4,13 @@ import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { findOfferThread } from '@echo/firestore/crud/offer-thread/find-offer-thread'
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
+import {
+  OFFER_STATE_ACCEPTED,
+  OFFER_STATE_CANCELLED,
+  OFFER_STATE_COMPLETED,
+  OFFER_STATE_OPEN,
+  OFFER_STATE_REJECTED
+} from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import { Client, userMention } from 'discord.js'
 import i18next from 'i18next'
@@ -19,14 +26,14 @@ async function getOfferReceiverId(offer: Offer) {
 
 async function getMessage(offer: Offer) {
   switch (offer.state) {
-    case 'OPEN':
+    case OFFER_STATE_OPEN:
       throw Error('There is no offer update for state OPEN')
-    case 'COMPLETED':
+    case OFFER_STATE_COMPLETED:
       return i18next.t('offer.update.COMPLETED')
-    case 'CANCELLED':
+    case OFFER_STATE_CANCELLED:
       return i18next.t('offer.update.CANCELLED')
-    case 'ACCEPTED':
-    case 'REJECTED':
+    case OFFER_STATE_ACCEPTED:
+    case OFFER_STATE_REJECTED:
       const receiverId = await getOfferReceiverId(offer)
       return i18next.t(`offer.update.${offer.state}`, { receiver: userMention(receiverId) })
   }

@@ -1,6 +1,6 @@
 import { type Nft } from '@echo/model/types/nft'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
-import { formatAddress } from '@echo/utils/helpers/format-address'
+import { toLower } from 'ramda'
 
 export const nftMock: Record<string, Nft> = {
   '8hHFadIrrooORfTOLkBg': {
@@ -26,7 +26,7 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
         chainId: 1
       }
     },
@@ -86,7 +86,7 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
         chainId: 1
       }
     },
@@ -146,7 +146,7 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: formatAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
+        address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
         chainId: 1
       }
     },
@@ -221,10 +221,11 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
         chainId: 1
       }
     },
+    blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/17',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/17',
     pictureUrl:
       'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
@@ -284,10 +285,11 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'johnnycagewins',
       wallet: {
-        address: formatAddress('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E', 1),
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
         chainId: 1
       }
     },
+    blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/18',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/18',
     pictureUrl:
       'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
@@ -351,10 +353,11 @@ export const nftMock: Record<string, Nft> = {
       },
       username: 'crewnft_',
       wallet: {
-        address: formatAddress('0xf672715f2bA85794659a7150e8C21F8d157bFe1D', 1),
+        address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
         chainId: 1
       }
     },
+    blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/1014',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/1014',
     pictureUrl:
       'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',

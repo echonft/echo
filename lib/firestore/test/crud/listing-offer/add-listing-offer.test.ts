@@ -10,6 +10,7 @@ import { deleteOffer } from '@echo/firestore-test/offer/delete-offer'
 import { unchecked_addOffer } from '@echo/firestore-test/offer/unchecked_add-offer'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { LISTING_STATE_OFFERS_PENDING, LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
@@ -70,8 +71,8 @@ describe('CRUD - listing-offer - addListingOffer', () => {
     const foundListingOffer = await findListingOfferById(createdListingOfferId)
     expect(foundListingOffer).toStrictEqual(createdListingOffer)
     // check if the listing state was correctly updated
-    if (initialListingState === 'OPEN') {
-      expect(newListingState).toEqual('OFFERS_PENDING')
+    if (initialListingState === LISTING_STATE_OPEN) {
+      expect(newListingState).toEqual(LISTING_STATE_OFFERS_PENDING)
     } else {
       expect(newListingState).toEqual(initialListingState)
     }

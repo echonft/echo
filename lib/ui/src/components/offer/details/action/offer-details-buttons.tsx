@@ -6,6 +6,12 @@ import type { GetOfferSignatureArgs } from '@echo/api/services/fetcher/get-offer
 import type { RejectOfferArgs } from '@echo/api/services/fetcher/reject-offer'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
+import {
+  OFFER_STATE_ACCEPTED,
+  OFFER_STATE_CANCELLED,
+  OFFER_STATE_COMPLETED,
+  OFFER_STATE_REJECTED
+} from '@echo/model/constants/offer-states'
 import { assertOfferState } from '@echo/model/helpers/offer/assert/assert-offer-state'
 import type { Offer } from '@echo/model/types/offer'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
@@ -48,7 +54,7 @@ interface Props {
 
 function showAcceptButton(offer: Offer, isCreator: boolean) {
   try {
-    assertOfferState(offer, 'ACCEPTED')
+    assertOfferState(offer, OFFER_STATE_ACCEPTED)
     return !isCreator
   } catch (e) {
     return false
@@ -57,8 +63,8 @@ function showAcceptButton(offer: Offer, isCreator: boolean) {
 
 function showCancelButton(offer: Offer, isCreator: boolean) {
   try {
-    assertOfferState(offer, 'CANCELLED')
-    return offer.state === 'ACCEPTED' || isCreator
+    assertOfferState(offer, OFFER_STATE_CANCELLED)
+    return offer.state === OFFER_STATE_ACCEPTED || isCreator
   } catch (e) {
     return false
   }
@@ -66,7 +72,7 @@ function showCancelButton(offer: Offer, isCreator: boolean) {
 
 function showRejectButton(offer: Offer, isCreator: boolean) {
   try {
-    assertOfferState(offer, 'REJECTED')
+    assertOfferState(offer, OFFER_STATE_REJECTED)
     return !isCreator
   } catch (e) {
     return false
@@ -75,7 +81,7 @@ function showRejectButton(offer: Offer, isCreator: boolean) {
 
 function showSwapButton(offer: Offer, isCreator: boolean) {
   try {
-    assertOfferState(offer, 'COMPLETED')
+    assertOfferState(offer, OFFER_STATE_COMPLETED)
     return isCreator
   } catch (e) {
     return false

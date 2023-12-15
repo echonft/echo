@@ -5,18 +5,18 @@ import { type FunctionComponent, useState } from 'react'
 
 export const ConnectButton: FunctionComponent = () => {
   const t = useTranslations('layout.header.button')
-  const [connecting, setConnecting] = useState(false)
+  const [loading, setLoading] = useState(false)
   return (
     <button
-      disabled={connecting}
+      disabled={loading}
       onClick={() => {
-        setConnecting(true)
+        setLoading(true)
         void signIn('discord')
       }}
-      className={clsx('btn-gradient', 'group', 'btn-size-alt', connecting && 'animate-pulse')}
+      className={clsx('btn-gradient', 'group', 'btn-size-alt', loading && 'animate-pulse')}
     >
       <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>
-        {connecting ? t('connecting.label') : t('connect.label')}
+        {loading ? t('connecting.label') : t('connect.label')}
       </span>
     </button>
   )

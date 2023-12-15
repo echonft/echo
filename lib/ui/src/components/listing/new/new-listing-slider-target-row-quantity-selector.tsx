@@ -1,6 +1,6 @@
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
-import { DirectionLeft, DirectionRight } from '@echo/ui/constants/direction'
+import { DIRECTION_LEFT, DIRECTION_RIGHT } from '@echo/ui/constants/direction'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
@@ -28,7 +28,7 @@ export const NewListingSliderTargetRowQuantitySelector: FunctionComponent<Props>
             )}
             onClick={() => onQuantityChange(quantity - 1)}
           >
-            <SideCaretSvg direction={DirectionLeft} />
+            <SideCaretSvg direction={DIRECTION_LEFT} />
           </button>
         )}
       />
@@ -56,7 +56,7 @@ export const NewListingSliderTargetRowQuantitySelector: FunctionComponent<Props>
             className={clsx('text-dark-900', 'bg-yellow-500', 'py-1', 'pr-1.5', 'pl-[0.44rem]', 'rounded-md')}
             onClick={() => onQuantityChange(quantity + 1)}
           >
-            <SideCaretSvg direction={DirectionRight} />
+            <SideCaretSvg direction={DIRECTION_RIGHT} />
           </button>
         )}
       />
