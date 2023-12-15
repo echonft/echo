@@ -1,6 +1,5 @@
-import { getAppUrl } from '@echo/bot/helpers/get-app-url'
-import { links } from '@echo/ui/constants/links'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 
 export function listingLink(collectionSlug: string, listingId: string) {
-  return `${getAppUrl()}${links.collection.listing(collectionSlug, listingId)}`
+  return linkProvider.collection.listing.getUrl({ slug: collectionSlug, listingId })
 }

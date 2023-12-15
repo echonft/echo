@@ -20,7 +20,7 @@ init({
   replaysOnErrorSampleRate: 1.0,
   // This sets the sample rate to be 10%. You may want this to be 100% while
   // in development and sample at a lower rate in production
-  replaysSessionSampleRate: isProd ? 0.1 : 1,
+  replaysSessionSampleRate: 0.1,
   // Adjust this value in production, or use tracesSampler for greater control
   tracesSampleRate: 1
 })

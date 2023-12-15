@@ -103,13 +103,16 @@ export const messages = {
     header: {
       button: {
         connect: {
-          label: 'Connect'
+          label: 'Login'
         },
         connecting: {
-          label: 'Connecting...'
+          label: 'Logging in...'
         },
         disconnect: {
-          label: 'Disconnect'
+          label: 'Logout'
+        },
+        disconnecting: {
+          label: 'Logging out...'
         },
         profile: {
           label: 'Profile'

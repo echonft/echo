@@ -1,9 +1,9 @@
-import { links } from '@echo/ui/constants/links'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { redirect } from 'next/navigation'
 import { type FunctionComponent } from 'react'
 
 const ProfileOffersPage: FunctionComponent = () => {
-  redirect(links.profile.offersCreated)
+  redirect(linkProvider.profile.offersCreated.get())
 }
 
 export default ProfileOffersPage
