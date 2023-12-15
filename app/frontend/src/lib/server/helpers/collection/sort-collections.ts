@@ -27,6 +27,7 @@ interface SortCollectionsArgs {
   constraints: QueryConstraints<Collection>
   collections: Collection[]
 }
+
 export function sortCollections(args: SortCollectionsArgs) {
   const constraint = path(['constraints', 'orderBy'], args)
   if (isNil(constraint)) {
@@ -82,6 +83,5 @@ export function sortCollections(args: SortCollectionsArgs) {
     ),
     sortWith<Collection>
   )(constraint)
-  // const tempSort = sortWith([ascend(prop('name'))])
   return modify('collections', sortCollections, args) as SortCollectionsArgs
 }
