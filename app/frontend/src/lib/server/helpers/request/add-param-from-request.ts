@@ -1,4 +1,5 @@
 import type { RequestParams } from '@echo/frontend/lib/server/types/request/request-params'
+import { parse } from 'qs'
 import { assoc, modify } from 'ramda'
 import type { ParseParams } from 'zod'
 
@@ -10,6 +11,7 @@ export function addParamFromRequest<T extends Schema>(param: string, schema: T, 
   return function <U extends object>(requestParams: RequestParams<U>) {
     const { request } = requestParams
     const { searchParams } = new URL(request.url)
+    parse(request.url)
     if (searchParams.has(param)) {
       const searchParam = schema.parse(isArray ? searchParams.getAll(param) : searchParams.get(param))
       return modify<'params', U, U>('params', assoc(param, searchParam))(requestParams) as RequestParams<U>
