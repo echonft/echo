@@ -12,6 +12,7 @@ import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/get-collection
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
 import { setSelectableNftActionDisabledPropFromAuthUser } from '@echo/ui/helpers/nft/set-selectable-nft-action-disabled-prop-from-auth-user'
 import { setSelectableNftDisabledPropFromCollectionFilter } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-collection-filter'
+import { setSelectableNftDisabledPropFromOwner } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-owner'
 import { setSelectableNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-trait-filters'
 import { getSelection } from '@echo/ui/helpers/selection/get-selection'
 import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
@@ -56,9 +57,9 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
     const updatedNfts = toggleSelectionInList<SelectableNft>(propEq(nft.id, 'id'))(selectableNfts)
     const updatedSelectionCount = getSelectionCount(updatedNfts)
     if (updatedSelectionCount === 0) {
-      setSelectableNfts(map(setSelectableNftActionDisabledPropFromAuthUser(user), updatedNfts))
+      setSelectableNfts(map(pipe(enable, setSelectableNftActionDisabledPropFromAuthUser(user)), updatedNfts))
     } else if (updatedSelectionCount === 1) {
-      setSelectableNfts(map(disableAction, updatedNfts))
+      setSelectableNfts(map(pipe(setSelectableNftDisabledPropFromOwner(nft.owner), disableAction), updatedNfts))
     } else {
       setSelectableNfts(updatedNfts)
     }

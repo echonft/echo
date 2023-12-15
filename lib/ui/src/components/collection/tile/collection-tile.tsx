@@ -1,6 +1,6 @@
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { Img } from '@echo/ui/components/base/img'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
-import { links } from '@echo/ui/constants/links'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import { clsx } from 'clsx'
@@ -25,7 +25,7 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
         'rounded-2xl',
         'z-20'
       )}
-      path={links.collection.items(slug)}
+      path={linkProvider.collection.items.get({ slug })}
     >
       <Img
         className={clsx('rounded-2xl')}

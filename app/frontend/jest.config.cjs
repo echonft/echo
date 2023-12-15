@@ -33,6 +33,7 @@ module.exports = {
       }
     ]
   ],
+  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
   transform: {
     '^.+\\.(t|j)sx?$': '@swc/jest'
   }
