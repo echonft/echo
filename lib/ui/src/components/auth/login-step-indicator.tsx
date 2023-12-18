@@ -9,6 +9,10 @@ interface Props {
 }
 
 export const LoginStepIndicator: FunctionComponent<Props> = ({ totalSteps, currentStep }) => {
+  if (currentStep < 0 || currentStep >= totalSteps) {
+    // TODO Add error logging
+    return null
+  }
   return (
     <div className={clsx('flex', 'flex-row', 'gap-x-4')}>
       {map(

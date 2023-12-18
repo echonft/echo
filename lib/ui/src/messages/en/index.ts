@@ -3,6 +3,33 @@ export const messages = {
     in: 'Going in',
     out: 'Going out'
   },
+  auth: {
+    step0: {
+      title: 'Link your Discord',
+      subtitle: 'Start by linking your Discord profile to Echo!',
+      loginBtn: {
+        label: 'Link Discord'
+      },
+      loggedInBtn: {
+        label: 'Logged in!'
+      }
+    },
+    step1: {
+      title: 'Hey there {username}!',
+      subtitle:
+        'If you have come this far it is because you want to be part of the future of NFT swapping, get ready to live the Echo experience and transform the Web3 space with us!\n\nBut before continuing you must first join our discord to live the full experience.',
+      btn: {
+        label: 'Join Echo Discord'
+      }
+    },
+    step2: {
+      title: 'Connect your wallet',
+      subtitle: 'Connect your wallet to start swapping'
+    },
+    continueBtn: {
+      label: 'Continue'
+    }
+  },
   collection: {
     button: {
       create: 'Make an offer',
