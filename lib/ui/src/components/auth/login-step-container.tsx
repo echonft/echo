@@ -11,9 +11,11 @@ interface Props {
 
 export const LoginStepContainer: FunctionComponent<Props> = ({ currentStep, totalSteps, stepContainer }) => {
   return (
-    <div className={clsx('flex', 'flex-col', 'pt-40', 'gap-12', 'items-center')}>
-      <LoginStepIndicator currentStep={currentStep} totalSteps={totalSteps} />
-      <HideIfNil checks={stepContainer} render={(render) => render()} />
+    <div className={clsx('flex', 'justify-center')}>
+      <div className={clsx('flex', 'flex-col', 'pt-40', 'gap-12', 'items-center', 'w-1/2')}>
+        <LoginStepIndicator currentStep={currentStep} totalSteps={totalSteps} />
+        <HideIfNil checks={stepContainer} render={(render) => render()} />
+      </div>
     </div>
   )
 }

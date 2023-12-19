@@ -11,7 +11,7 @@ export const messages = {
         label: 'Link Discord'
       },
       loggedInBtn: {
-        label: 'Logged in!'
+        label: 'Discord Linked!'
       }
     },
     step1: {

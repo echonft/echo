@@ -11,7 +11,7 @@ export const LoginDiscordConnect: FunctionComponent<Props> = ({ loggedIn }) => {
   const t = useTranslations('auth.step0')
   return (
     <LoginButton onClick={() => void signIn('discord')} disabled={loggedIn}>
-      {t('loginBtn.label')}
+      {loggedIn ? t('loggedInBtn.label') : t('loginBtn.label')}
     </LoginButton>
   )
 }
