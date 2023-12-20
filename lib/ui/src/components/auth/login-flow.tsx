@@ -4,7 +4,7 @@ import { LoginStepContainer } from '@echo/ui/components/auth/login-step-containe
 import { LoginStepSelector } from '@echo/ui/components/auth/login-step-selector'
 import { messages } from '@echo/ui/messages/en'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
@@ -15,6 +15,8 @@ interface Props {
 }
 export const LoginFlow: FunctionComponent<Props> = ({ callbackUrl, user }) => {
   const [currentStep, setCurrentStep] = useState(0)
+  const router = useRouter()
+
   return (
     <NextIntlClientProvider messages={messages} locale={'en'}>
       <LoginStepContainer
@@ -24,13 +26,12 @@ export const LoginFlow: FunctionComponent<Props> = ({ callbackUrl, user }) => {
           <LoginStepSelector
             currentStep={currentStep}
             onContinue={() => {
-              // FIXME Redirect is not working
               if (currentStep === 2) {
                 if (!isNil(user)) {
                   if (!isNilOrEmpty(callbackUrl)) {
-                    redirect(callbackUrl)
+                    router.replace(callbackUrl)
                   } else {
-                    redirect('/')
+                    router.replace('/')
                   }
                 }
                 // TODO Handle error here

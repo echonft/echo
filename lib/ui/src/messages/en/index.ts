@@ -9,9 +9,6 @@ export const messages = {
       subtitle: 'Start by linking your Discord profile to Echo!',
       loginBtn: {
         label: 'Link Discord'
-      },
-      loggedInBtn: {
-        label: 'Discord Linked!'
       }
     },
     step1: {

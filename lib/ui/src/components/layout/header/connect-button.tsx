@@ -20,7 +20,7 @@ export const ConnectButton: FunctionComponent = () => {
     return (
       <InternalLink
         path={
-          pathname === linkProvider.auth.signIn.get()
+          pathname === linkProvider.auth.signIn.get() || pathname === '/'
             ? '/auth/signin'
             : concat('/auth/signin?', stringify({ callbackUrl: pathname }))
         }

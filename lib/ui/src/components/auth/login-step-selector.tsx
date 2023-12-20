@@ -13,7 +13,7 @@ interface Props {
 
 export const LoginStepSelector: FunctionComponent<Props> = ({ currentStep, onContinue, user }) => {
   if (currentStep === 0) {
-    return <LoginDiscordStep onContinue={onContinue} loggedIn={!isNil(user)} />
+    return <LoginDiscordStep onContinue={onContinue} user={user} />
   }
   // If there is no session after step 0, then there is an error
   if (isNil(user)) {

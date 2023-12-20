@@ -1,17 +1,20 @@
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginButton } from '@echo/ui/components/auth/login-button'
+import { UserTag } from '@echo/ui/components/layout/header/user-tag'
+import { SIZE_LG } from '@echo/ui/constants/size'
 import { signIn } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
+import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  loggedIn: boolean
+  user: AuthUser | undefined
 }
 
-export const LoginDiscordConnect: FunctionComponent<Props> = ({ loggedIn }) => {
+export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('auth.step0')
-  return (
-    <LoginButton onClick={() => void signIn('discord')} disabled={loggedIn}>
-      {loggedIn ? t('loggedInBtn.label') : t('loginBtn.label')}
-    </LoginButton>
-  )
+  if (isNil(user)) {
+    return <LoginButton onClick={() => void signIn('discord')}>{t('loginBtn.label')}</LoginButton>
+  }
+  return <UserTag user={user} size={SIZE_LG} />
 }

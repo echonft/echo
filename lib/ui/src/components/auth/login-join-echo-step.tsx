@@ -21,7 +21,7 @@ export const LoginJoinEchoStep: FunctionComponent<Props> = ({ username, onContin
       <div className={clsx('flex', 'flex-col', 'gap-2.5', 'items-center')}>
         <LoginFlowSubtitle>{t('subtitle')}</LoginFlowSubtitle>
         <ExternalLink href={DISCORD_INVITE_LINK}>
-          <LoginButton disabled={false}>{t('btn.label')}</LoginButton>
+          <LoginButton>{t('btn.label')}</LoginButton>
         </ExternalLink>
       </div>
       <div className={clsx('flex', 'justify-end', 'w-full')}>
