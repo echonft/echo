@@ -1,5 +1,5 @@
 import type { HexString } from '@echo/utils/types/hex-string'
-import { useAccount } from 'wagmi'
+import { getAccount } from '@wagmi/core'
 
 export interface AccountResult {
   address: HexString | undefined
@@ -10,5 +10,5 @@ export interface AccountResult {
 }
 export type AccountProvider = () => AccountResult
 export function account(): AccountResult {
-  return useAccount()
+  return getAccount()
 }
