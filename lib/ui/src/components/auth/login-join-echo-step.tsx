@@ -1,3 +1,4 @@
+'use client'
 import { LoginButton } from '@echo/ui/components/auth/login-button'
 import { LoginFlowContinueButton } from '@echo/ui/components/auth/login-flow-continue-button'
 import { LoginFlowSubtitle } from '@echo/ui/components/auth/login-flow-subtitle'

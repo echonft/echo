@@ -1,3 +1,4 @@
+'use client'
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { DIRECTION_RIGHT } from '@echo/ui/constants/direction'
 import clsx from 'clsx'

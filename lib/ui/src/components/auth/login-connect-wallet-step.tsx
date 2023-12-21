@@ -1,3 +1,4 @@
+'use client'
 import { addWallet } from '@echo/api/services/fetcher/add-wallet'
 import { getNonce } from '@echo/api/services/fetcher/get-nonce'
 import type { AuthUser } from '@echo/model/types/auth-user'

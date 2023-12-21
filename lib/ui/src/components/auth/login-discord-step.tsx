@@ -1,3 +1,4 @@
+'use client'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginDiscordConnect } from '@echo/ui/components/auth/login-discord-connect'
 import { LoginFlowContinueButton } from '@echo/ui/components/auth/login-flow-continue-button'

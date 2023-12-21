@@ -14,6 +14,7 @@ export const ConnectButton: FunctionComponent = () => {
   const pathname = usePathname()
   const { hasLoggedInOnce } = useSettingsStore()
   // If user has never logged in, take them to the login flow
+  // TODO move this in a higher-level component that simply renders the right component based on hasLoggedInOnce
   if (!hasLoggedInOnce) {
     return (
       <InternalLink

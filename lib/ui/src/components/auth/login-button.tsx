@@ -1,8 +1,8 @@
 import clsx from 'clsx'
-import type { FunctionComponent, PropsWithChildren } from 'react'
+import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
 
 interface Props {
-  onClick?: VoidFunction
+  onClick?: MouseEventHandler
 }
 
 export const LoginButton: FunctionComponent<PropsWithChildren<Props>> = ({ onClick, children }) => {
