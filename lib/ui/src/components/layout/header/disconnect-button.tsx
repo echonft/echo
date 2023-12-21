@@ -3,7 +3,7 @@ import { isPathSecure } from '@echo/api/services/routing/is-path-secure'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
-import { UserTag } from '@echo/ui/components/layout/header/user-tag'
+import { UserTagPictureButton } from '@echo/ui/components/user/tag/user-tag-picture-button'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { Menu, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
@@ -24,7 +24,7 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
   return (
     <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>
       <Menu.Button>
-        <UserTag user={user} />
+        <UserTagPictureButton user={user} />
       </Menu.Button>
       <Transition
         enter="transition duration-100 ease-out"

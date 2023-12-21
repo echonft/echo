@@ -1,5 +1,5 @@
 import { type AuthUser } from '@echo/model/types/auth-user'
-import { UserTagPicture } from '@echo/ui/components/layout/header/user-tag-picture'
+import { UserTagPicture } from '@echo/ui/components/user/tag/user-tag-picture'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import type { UserTagSize } from '@echo/ui/types/user-tag-size'
 import { clsx } from 'clsx'
