@@ -3,7 +3,8 @@ import { isPathSecure } from '@echo/api/services/routing/is-path-secure'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
-import { UserTagPictureButton } from '@echo/ui/components/user/tag/user-tag-picture-button'
+import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
+import { UserDiscordWalletContainer } from '@echo/ui/components/layout/header/user-discord-wallet-container'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { Menu, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
@@ -24,7 +25,9 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
   return (
     <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>
       <Menu.Button>
-        <UserTagPictureButton user={user} />
+        <Web3Provider>
+          <UserDiscordWalletContainer user={user} />
+        </Web3Provider>
       </Menu.Button>
       <Transition
         enter="transition duration-100 ease-out"
