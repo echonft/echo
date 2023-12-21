@@ -1,5 +1,4 @@
 import { FirestoreAdapter, initFirestore } from '@auth/firebase-adapter'
-import { getDiscordConfig } from '@echo/discord/config/get-discord-config'
 import { updateAccount } from '@echo/firestore/crud/account/update-account'
 import { findSessionByUserId } from '@echo/firestore/crud/session/find-session-by-user-id'
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
@@ -10,23 +9,22 @@ import { getCredential } from '@echo/firestore/services/get-credential'
 import { getAvatarDecorationUrl } from '@echo/frontend/lib/helpers/auth/get-avatar-decoration-url'
 import { getDiscordAvatarUrl } from '@echo/frontend/lib/helpers/auth/get-discord-avatar-url'
 import { getDiscordBannerUrl } from '@echo/frontend/lib/helpers/auth/get-discord-banner-url'
+import { getDiscordClientId } from '@echo/frontend/lib/helpers/auth/get-discord-client-id'
+import { getDiscordClientSecret } from '@echo/frontend/lib/helpers/auth/get-discord-client-secret'
 import { mapTokenSetToFirestoreAccount } from '@echo/frontend/lib/helpers/auth/map-token-set-to-firestore-account'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { logger } from '@echo/utils/services/logger'
 import { setUser } from '@sentry/nextjs'
 import type { AuthOptions } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
 import { always, assoc, complement, either, has, isNil, map, pick, pipe, unless } from 'ramda'
 
 export function getAuthOptions(): AuthOptions {
-  logger.info(`getAuthOptions`)
   const credential = getCredential()
   const firestore = initFirestore(credential)
-  logger.info(`firestore ${JSON.stringify(firestore)}`)
   const adapter = FirestoreAdapter(firestore)
-  logger.info(`adapter ${JSON.stringify(adapter)}`)
-  const discordConfig = getDiscordConfig()
+  const clientId = getDiscordClientId()
+  const clientSecret = getDiscordClientSecret()
 
   return {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -34,7 +32,9 @@ export function getAuthOptions(): AuthOptions {
     adapter,
     providers: [
       Discord({
-        ...discordConfig,
+        clientId,
+        clientSecret,
+        authorization: 'https://discord.com/api/oauth2/authorize?scope=identify',
         profile: async (profile: DiscordProfile & Partial<Record<'avatar_decoration', string | undefined>>, tokens) => {
           await updateAccount(profile.id, mapTokenSetToFirestoreAccount(tokens))
           return {

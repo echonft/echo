@@ -60,7 +60,6 @@ module.exports = {
             group: [
               '@echo/alchemy/src/*',
               '@echo/api/src/*',
-              '@echo/discord/src/*',
               '@echo/firestore/src/*',
               '@echo/firestore/test/mocks/*',
               '@echo/model/src/*',

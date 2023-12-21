@@ -95,9 +95,6 @@ importers:
       '@echo/api':
         specifier: workspace:*
         version: link:../../lib/api
-      '@echo/discord':
-        specifier: workspace:*
-        version: link:../../lib/discord
       '@echo/firestore':
         specifier: workspace:*
         version: link:../../lib/firestore
@@ -165,9 +162,6 @@ importers:
       '@echo/api':
         specifier: workspace:*
         version: link:../../lib/api
-      '@echo/discord':
-        specifier: workspace:*
-        version: link:../../lib/discord
       '@echo/firestore':
         specifier: workspace:*
         version: link:../../lib/firestore
@@ -497,31 +491,6 @@ importers:
       next:
         specifier: 14.0.2
         version: 14.0.2(@babel/core@7.23.2)(react-dom@18.2.0)(react@18.2.0)
-
-  lib/discord:
-    dependencies:
-      '@echo/utils':
-        specifier: workspace:*
-        version: link:../utils
-      ramda:
-        specifier: 0.29.1
-        version: 0.29.1
-    devDependencies:
-      '@jest/globals':
-        specifier: 29.7.0
-        version: 29.7.0
-      '@jest/types':
-        specifier: 29.6.3
-        version: 29.6.3
-      '@types/ramda':
-        specifier: 0.29.7
-        version: 0.29.7
-      jest:
-        specifier: 29.7.0
-        version: 29.7.0(@types/node@20.8.10)(ts-node@10.9.1)
-      jest-junit:
-        specifier: 16.0.0
-        version: 16.0.0
 
   lib/firestore:
     dependencies:
@@ -3475,6 +3444,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -14129,6 +14099,10 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
     dev: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
+    dev: false
 
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}

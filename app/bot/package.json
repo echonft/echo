@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@echo/api": "workspace:*",
-    "@echo/discord": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
