@@ -126,12 +126,6 @@ export const messages = {
   layout: {
     header: {
       button: {
-        connect: {
-          label: 'Login'
-        },
-        connecting: {
-          label: 'Logging in...'
-        },
         disconnect: {
           label: 'Logout'
         },
