@@ -4,19 +4,18 @@ import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { LISTING_FILTER_AS_TARGET } from '@echo/firestore/constants/listing/listing-filter-as'
-import { authOptions } from '@echo/frontend/lib/constants/auth-options'
+import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { LISTING_STATE_CANCELLED, LISTING_STATE_FULFILLED } from '@echo/model/constants/listing-states'
 import { ProfileListingsReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-listings-received-api-provided'
-import { getServerSession } from 'next-auth/next'
 import { mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 const ProfileListingsReceivedPage: FunctionComponent = async () => {
-  const session = await getServerSession(authOptions)
-  redirectIfNotLoggedIn(session, linkProvider.profile.listingsReceived.getUrl())
+  const user = await getAuthUser()
+  redirectIfNotLoggedIn(user, linkProvider.profile.listingsReceived.getUrl())
   const filterParams = mapListingFiltersToQueryParams({
     as: LISTING_FILTER_AS_TARGET,
     notState: [LISTING_STATE_FULFILLED, LISTING_STATE_CANCELLED]
@@ -29,13 +28,13 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
     ]
   })
   const response = await nextFetch.get<ListingsResponse>(
-    apiUrlProvider.user.listings.getUrl({ username: session.user.username }),
+    apiUrlProvider.user.listings.getUrl({ username: user.username }),
     {
       params: mergeLeft(queryParams, filterParams)
     }
   )
   assertNextFetchResponse(response)
-  return <ProfileListingsReceivedApiProvided listings={response.data.listings} user={session.user} />
+  return <ProfileListingsReceivedApiProvided listings={response.data.listings} user={user} />
 }
 
 export default ProfileListingsReceivedPage

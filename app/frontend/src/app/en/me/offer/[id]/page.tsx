@@ -1,12 +1,11 @@
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
-import { authOptions } from '@echo/frontend/lib/constants/auth-options'
+import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { OfferDetailsApiProvided } from '@echo/ui/components/offer/api-provided/offer-details-api-provided'
-import { getServerSession } from 'next-auth/next'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -16,13 +15,13 @@ interface Props {
 }
 
 const OfferDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { id } }) => {
-  const session = await getServerSession(authOptions)
-  redirectIfNotLoggedIn(session, linkProvider.profile.offer.getUrl({ offerId: id }))
+  const user = await getAuthUser()
+  redirectIfNotLoggedIn(user, linkProvider.profile.offer.getUrl({ offerId: id }))
   const response = await nextFetch.get<OfferResponse>(apiUrlProvider.offer.get.getUrl({ offerId: id }), {
-    bearerToken: session.user.sessionToken
+    bearerToken: user.sessionToken
   })
   assertNextFetchResponse(response)
-  return <OfferDetailsApiProvided offer={response.data.offer} user={session.user} />
+  return <OfferDetailsApiProvided offer={response.data.offer} user={user} />
 }
 
 export default OfferDetailsPage

@@ -12,7 +12,6 @@ module.exports = {
   moduleNameMapper: {
     '^@echo/alchemy/(.*)$': '<rootDir>/../../lib/alchemy/src/$1',
     '^@echo/api/(.*)$': '<rootDir>/../../lib/api/src/$1',
-    '^@echo/discord/(.*)$': '<rootDir>/../../lib/discord/src/$1',
     '^@echo/firestore/(.*)$': '<rootDir>/../../lib/firestore/src/$1',
     '^@echo/firestore-mocks/(.*)$': '<rootDir>/../../lib/firestore/test/@mocks/$1',
     '^@echo/frontend/(.*)$': '<rootDir>/src/$1',

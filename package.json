@@ -23,6 +23,8 @@
   "scripts": {
     "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot",
     "bot:start": "turbo run start --filter=@echo/bot",
+    "check": "turbo run tsc; turbo run lint; turbo run test",
+    "check:quick": "turbo run tsc; turbo run lint; turbo run test --filter=!@echo/firestore",
     "clean": "turbo run clean",
     "db:add-collection:dev": "env-cmd -f .env turbo run db:add-collection:dev --filter=@echo/firestore",
     "db:fix-addresses:dev": "env-cmd -f .env turbo run db:fix-addresses:dev --filter=@echo/firestore",
@@ -77,9 +79,9 @@
     "npm-check-updates": "16.14.6",
     "prettier": "3.0.3",
     "tsc-files": "1.1.4",
-    "turbo": "1.10.16",
+    "turbo": "1.11.2",
     "typescript": "5.2.2",
-    "vercel": "32.5.0"
+    "vercel": "33.0.0"
   },
   "packageManager": "pnpm@8.12.1",
   "nextBundleAnalysis": {

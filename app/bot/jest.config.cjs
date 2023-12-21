@@ -14,7 +14,6 @@ module.exports = {
     '^@echo/bot/(.*)$': '<rootDir>/src/$1',
     '^@echo/bot-mocks/(.*)$': '<rootDir>/test/@mocks/$1',
     '^@echo/bot-test/(.*)$': '<rootDir>/test/@utils/$1',
-    '^@echo/discord/(.*)$': '<rootDir>/../../lib/discord/src/$1',
     '^@echo/model/(.*)$': '<rootDir>/../../lib/model/src/$1',
     '^@echo/model-mocks/(.*)$': '<rootDir>/../../lib/model/test/@mocks/$1',
     '^@echo/firestore/(.*)$': '<rootDir>/../../lib/firestore/src/$1',

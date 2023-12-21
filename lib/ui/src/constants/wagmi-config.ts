@@ -45,6 +45,10 @@ export const wagmiConfig: Config<
   WebSocketPublicClient<FallbackTransport>
 > = createConfig({
   autoConnect: true,
+  // TODO Add sentry
+  // logger: {
+  //   warn:
+  // },
   connectors,
   publicClient,
   webSocketPublicClient

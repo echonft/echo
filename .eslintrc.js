@@ -33,6 +33,7 @@ module.exports = {
         destructuredArrayIgnorePattern: '^_'
       }
     ],
+    'import/no-named-as-default': 'off',
     'import/no-named-as-default-member': 'off',
     'import/no-unresolved': 'off',
     'no-console': 'error',
@@ -59,7 +60,6 @@ module.exports = {
             group: [
               '@echo/alchemy/src/*',
               '@echo/api/src/*',
-              '@echo/discord/src/*',
               '@echo/firestore/src/*',
               '@echo/firestore/test/mocks/*',
               '@echo/model/src/*',

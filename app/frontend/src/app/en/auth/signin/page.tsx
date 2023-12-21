@@ -1,9 +1,7 @@
-import { authOptions } from '@echo/frontend/lib/constants/auth-options'
-import { Login } from '@echo/ui/components/auth/login'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { redirect } from 'next/navigation'
-import { getServerSession } from 'next-auth/next'
-import { isNil } from 'ramda'
+import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { LoginFlow } from '@echo/ui/components/auth/login-flow'
+import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
+import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -13,15 +11,14 @@ interface Props {
 }
 
 const SigninPage: FunctionComponent<Props> = async ({ searchParams }) => {
-  const session = await getServerSession(authOptions)
-  if (!isNil(session) && !isNil(session.user)) {
-    if (!isNilOrEmpty(searchParams.callbackUrl)) {
-      redirect(searchParams.callbackUrl)
-    } else {
-      redirect('/')
-    }
-  }
-  return <Login />
+  const user = await getAuthUser()
+  return (
+    <NavigationPageLayout user={user}>
+      <SectionLayout>
+        <LoginFlow callbackUrl={searchParams.callbackUrl} user={user} />
+      </SectionLayout>
+    </NavigationPageLayout>
+  )
 }
 
 export default SigninPage

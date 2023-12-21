@@ -55,6 +55,9 @@ export const themeExtension = {
       800: '#094809',
       900: '#003D00'
     },
+    neutral: {
+      100: '#F3F3F3'
+    },
     purple: {
       100: '#EBECFF',
       200: '#9FA5F1',

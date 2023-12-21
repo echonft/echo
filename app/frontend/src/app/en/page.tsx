@@ -3,16 +3,15 @@ import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type CollectionsResponse } from '@echo/api/types/responses/collections-response'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
-import { authOptions } from '@echo/frontend/lib/constants/auth-options'
+import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { HomePage } from '@echo/ui/components/home/layout/home-page'
-import { getServerSession } from 'next-auth/next'
 import { mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 const Home: FunctionComponent = async () => {
-  const session = await getServerSession(authOptions)
+  const user = await getAuthUser()
   const collectionsConstraintsQueryParams = mapQueryConstraintsToQueryParams({
     select: ['id', 'slug', 'profilePictureUrl', 'name'],
     orderBy: [
@@ -34,13 +33,7 @@ const Home: FunctionComponent = async () => {
   })
   assertNextFetchResponse(collectionsResponse)
   assertNextFetchResponse(swapsResponse)
-  return (
-    <HomePage
-      user={session?.user}
-      collections={collectionsResponse.data.collections}
-      offers={swapsResponse.data.offers}
-    />
-  )
+  return <HomePage user={user} collections={collectionsResponse.data.collections} offers={swapsResponse.data.offers} />
 }
 
 export default Home
