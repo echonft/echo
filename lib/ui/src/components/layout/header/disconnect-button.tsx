@@ -7,7 +7,7 @@ import { UserTagPictureButton } from '@echo/ui/components/user/tag/user-tag-pict
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { Menu, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
@@ -19,7 +19,7 @@ interface Props {
 export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('layout.header.button')
   const pathname = usePathname()
-  const router = useRouter()
+  const callbackUrl = isPathSecure(pathname) ? '/' : pathname
   const [loading, setLoading] = useState(false)
   return (
     <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>
@@ -66,14 +66,11 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
                 disabled={loading}
                 onClick={() => {
                   setLoading(true)
-                  signOut({ redirect: false })
+                  signOut({ callbackUrl })
                     .catch(errorCallback({ tags: { action: 'signOut' } }))
                     .finally(() => {
                       setLoading(false)
                       close()
-                      if (isPathSecure(pathname)) {
-                        router.replace('/')
-                      }
                     })
                 }}
                 className={clsx(
