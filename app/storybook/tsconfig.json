@@ -15,6 +15,6 @@
       "@echo/web3/*": ["../../lib/web3/src/*"]
     }
   },
-  "include": ["src", ".storybook/preview.tsx"],
+  "include": ["src", ".storybook/preview.tsx", "../../env.d.ts"],
   "exclude": ["node_modules", "storybook-static"]
 }
