@@ -5,13 +5,17 @@ import { useSettingsStore } from '@echo/ui/hooks/use-settings-store'
 import { useStore } from '@echo/ui/hooks/use-store'
 import { usePathname } from 'next/navigation'
 import { signIn } from 'next-auth/react'
-import { concat } from 'ramda'
+import { concat, isNil } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 export const ConnectButtonWrapper: FunctionComponent = () => {
   const [loading, setLoading] = useState(false)
   const pathname = usePathname()
   const hasLoggedInOnce = useStore(useSettingsStore, (state) => state.hasLoggedInOnce)
+  // We need to wait to have the value
+  if (isNil(hasLoggedInOnce)) {
+    return <ConnectButton loading={true} />
+  }
   // If user has never logged in, take them to the login flow
   if (!hasLoggedInOnce) {
     return (
