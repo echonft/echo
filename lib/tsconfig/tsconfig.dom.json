@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "DOM",
-  "extends": "./base/tsconfig.base.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "moduleResolution": "bundler",
     "lib": ["dom", "dom.iterable", "esnext"],

@@ -1,12 +1,11 @@
-declare global {
-  namespace NodeJS {
-    interface ProcessEnv {
+declare namespace NodeJS {
+  interface Process {
+    env: {
       ALCHEMY_API_KEY: string
       APP_URL: string
       DISCORD_CLIENT_TOKEN: string
       DISCORD_CLIENT_ID: string
       DISCORD_CLIENT_SECRET: string
-      DISCORD_REDIRECT_URI: string
       FIREBASE_PROJECT_ID: string
       FIREBASE_CLIENT_EMAIL: string
       FIREBASE_PRIVATE_KEY: string
