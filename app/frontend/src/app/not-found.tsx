@@ -1,15 +1,13 @@
-import { authOptions } from '@echo/frontend/lib/constants/auth-options'
+import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
 import { NotFoundPage } from '@echo/ui/components/layout/not-found-page'
 import { PageLayout } from '@echo/ui/components/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
-import { getServerSession } from 'next-auth/next'
 import { type FunctionComponent } from 'react'
 
 const NotFound: FunctionComponent = async () => {
-  const session = await getServerSession(authOptions)
-
+  const user = await getAuthUser()
   return (
-    <PageLayout user={session?.user}>
+    <PageLayout user={user}>
       <SectionLayout>
         <NotFoundPage />
       </SectionLayout>

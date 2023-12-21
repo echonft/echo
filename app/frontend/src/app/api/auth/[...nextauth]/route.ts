@@ -1,7 +1,16 @@
-import { authOptions } from '@echo/frontend/lib/constants/auth-options'
+import type { ApiRequest } from '@echo/api/types/api-request'
+import { getAuthOptions } from '@echo/frontend/lib/helpers/auth/get-auth-options'
+import type { NextResponse } from 'next/server'
 import NextAuth from 'next-auth'
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const handler = NextAuth(authOptions)
+async function GET(request: ApiRequest<never>, context: { params: { nextauth: string[] } }) {
+  const authOptions = getAuthOptions()
+  return (await NextAuth(request, context, authOptions)) as Promise<NextResponse>
+}
 
-export { handler as GET, handler as POST }
+async function POST(request: ApiRequest<never>, context: { params: { nextauth: string[] } }) {
+  const authOptions = getAuthOptions()
+  return (await NextAuth(request, context, authOptions)) as Promise<NextResponse>
+}
+
+export { GET, POST }

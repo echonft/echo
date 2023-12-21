@@ -42,6 +42,13 @@ export const ProfileDetailsApiProvided: FunctionComponent<Props> = ({ user }) =>
         <PaddedContainer>
           <UserPictureAndInfoLayout>
             <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SIZE_LG} />
+            <Web3Provider>
+              <ConnectWallet
+                fetcher={{ addWallet: addWallet, getNonce: getNonce, signNonce: signNonce }}
+                provider={{ account: account, chain: chain }}
+                token={user.sessionToken}
+              />
+            </Web3Provider>
             <UserInfoLayout>
               <UserDiscordTag discordUsername={username} />
               <HideIfNil checks={wallet} render={(wallet) => <UserWallet wallet={wallet} />} />

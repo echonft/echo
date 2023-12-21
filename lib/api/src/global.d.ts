@@ -7,7 +7,6 @@ declare global {
         DISCORD_CLIENT_TOKEN: string
         DISCORD_CLIENT_ID: string
         DISCORD_CLIENT_SECRET: string
-        DISCORD_REDIRECT_URI: string
         FIREBASE_PROJECT_ID: string
         FIREBASE_CLIENT_EMAIL: string
         FIREBASE_PRIVATE_KEY: string

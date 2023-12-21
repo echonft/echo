@@ -19,13 +19,13 @@
       <excludePattern pattern=".turbo" />
       <excludePattern pattern=".vercel" />
       <excludePattern pattern="dist" />
-      <excludePattern pattern="node_modules" />
       <excludePattern pattern="pnpm-lock.yaml" />
       <excludePattern pattern="storybook-static" />
       <excludePattern pattern="tsconfig.tsbuildinfo" />
+      <excludePattern pattern="Object.d.ts" />
+      <excludePattern pattern="ts-toolbelt*" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="node_modules" level="project" />
   </component>
 </module>

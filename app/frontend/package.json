@@ -37,7 +37,7 @@
     "@sentry/nextjs": "7.77.0",
     "dayjs": "1.11.10",
     "next": "14.0.2",
-    "next-auth": "4.24.4",
+    "next-auth": "4.24.5",
     "next-intl": "3.0.0-beta.14",
     "qs": "6.11.2",
     "ramda": "0.29.1",

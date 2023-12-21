@@ -1,8 +1,7 @@
-import { authOptions } from '@echo/frontend/lib/constants/auth-options'
+import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
 import { LoginFlow } from '@echo/ui/components/auth/login-flow'
 import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
-import { getServerSession } from 'next-auth/next'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -12,11 +11,11 @@ interface Props {
 }
 
 const SigninPage: FunctionComponent<Props> = async ({ searchParams }) => {
-  const session = await getServerSession(authOptions)
+  const user = await getAuthUser()
   return (
-    <NavigationPageLayout user={session?.user}>
+    <NavigationPageLayout user={user}>
       <SectionLayout>
-        <LoginFlow callbackUrl={searchParams.callbackUrl} user={session?.user} />
+        <LoginFlow callbackUrl={searchParams.callbackUrl} user={user} />
       </SectionLayout>
     </NavigationPageLayout>
   )
