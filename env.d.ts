@@ -3,6 +3,7 @@ declare namespace NodeJS {
     env: {
       ALCHEMY_API_KEY: string
       APP_URL: string
+      CI: undefined | 'true'
       DISCORD_CLIENT_TOKEN: string
       DISCORD_CLIENT_ID: string
       DISCORD_CLIENT_SECRET: string
