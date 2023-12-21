@@ -1,10 +1,10 @@
 import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import type { FunctionComponent, MouseEventHandler } from 'react'
 
 interface Props {
   loading?: boolean
-  onClick?: VoidFunction
+  onClick?: MouseEventHandler
 }
 
 export const ConnectButton: FunctionComponent<Props> = ({ loading = false, onClick }) => {
