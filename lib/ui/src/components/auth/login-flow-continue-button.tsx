@@ -16,7 +16,7 @@ export const LoginFlowContinueButton: FunctionComponent<Props> = ({ disabled = f
     <button className={clsx('group', 'btn', 'gap-8')} onClick={onClick} disabled={disabled}>
       <span
         className={clsx(
-          'text-paragraph-sm',
+          'prose-paragraph-sm',
           '!text-[0.9375rem]',
           'text-neutral-100',
           'group-enabled:group-hover:text-white'
