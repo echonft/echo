@@ -21,6 +21,7 @@ export const NftStackLayout: FunctionComponent<Props> = ({ disabled, loading, cl
         'bg-origin-border',
         'border-transparent',
         'border',
+        'group',
         loading && 'animate-pulse',
         disabled && 'opacity-40',
         className

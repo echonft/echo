@@ -17,7 +17,16 @@ export const NftCardPicture: FunctionComponent<Props> = ({ nft, hideOwner, hideL
   return (
     <NftCardPictureLayout>
       <Img
-        className={clsx('select-none', 'rounded-2xl')}
+        className={clsx(
+          'select-none',
+          'rounded-2xl',
+          'transition-transform',
+          'group-hover:scale-125',
+          'w-full',
+          'h-full',
+          'object-center',
+          'object-contain'
+        )}
         src={nft.pictureUrl}
         alt={nft.tokenId.toString()}
         width={200}

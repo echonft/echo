@@ -14,6 +14,7 @@ export const NftStackPictureLayout: FunctionComponent<Props> = ({ loading, child
         'w-[12.625rem]',
         'h-[12.625rem]',
         'relative',
+        'overflow-hidden',
         loading && 'invisible'
       )}
     >

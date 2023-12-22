@@ -22,7 +22,7 @@ export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({
   onAction
 }) => {
   return (
-    <NftCardLayout className={clsx('group', nft.selected && 'border-yellow-500')} disabled={nft.disabled}>
+    <NftCardLayout className={clsx(nft.selected && 'border-yellow-500')} disabled={nft.disabled}>
       <SelectableNftCardPicture nft={nft} hideOwner={hideOwner} onToggleSelection={onToggleSelection} />
       <SelectableNftCardTitle nft={nft} />
       <SelectableNftCardButtonLayout>

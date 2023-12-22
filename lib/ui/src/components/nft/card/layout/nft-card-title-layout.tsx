@@ -19,6 +19,7 @@ export const NftCardTitleLayout: FunctionComponent<Props> = ({ variant, loading,
         'h-max',
         'rounded-b-2xl',
         'px-2.75',
+        'bg-dark-500',
         isNil(variant) && ['pt-5', 'pb-6'],
         variant === NFT_CARD_VARIANT_REDUCED && ['pt-1.25', 'pb-3.25'],
         loading && 'invisible'
