@@ -1,9 +1,9 @@
 import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
-import { ListingCard as Component } from '@echo/ui/components/listing/card/listing-card'
+import { ListingStack as Component } from '@echo/ui/components/listing/stack/listing-stack'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Listing/Card',
+  title: 'Listing/Stack',
   component: Component,
   argTypes: {
     onClick: {
@@ -23,7 +23,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Card: Story = {
+export const Stack: Story = {
   args: {
     listing: getListingMock()
   }

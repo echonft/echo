@@ -8,18 +8,19 @@ interface Props extends WithChildrenProps, WithLoadingProps, WithClassNameProps 
   onClick?: MouseEventHandler
 }
 
-export const ListingCardLayout: FunctionComponent<Props> = ({ onClick, loading, className, children }) => {
+export const ListingStackLayout: FunctionComponent<Props> = ({ loading, className, onClick, children }) => {
   return (
     <div
       className={clsx(
         'rounded-2xl',
-        'w-[12.625rem]',
-        'h-max',
+        'w-[13.5rem]',
+        'h-[17.5rem]',
         'overflow-clip',
+        'bg-stack',
+        'bg-[length:216px_289px]',
+        'bg-origin-border',
+        'border-transparent',
         'border',
-        'border-solid',
-        'border-white/10',
-        'bg-dark-500',
         'group',
         loading ? 'animate-pulse' : 'cursor-pointer',
         className
