@@ -27,8 +27,7 @@
     "axios": "1.6.1",
     "path-to-regexp": "6.2.1",
     "qs": "6.11.2",
-    "ramda": "0.29.1",
-    "request": "2.88.2"
+    "ramda": "0.29.1"
   },
   "devDependencies": {
     "@jest/globals": "29.7.0",

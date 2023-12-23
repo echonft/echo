@@ -20,6 +20,7 @@ export const NftCardLayout: FunctionComponent<Props> = ({ disabled, loading, cla
         'border-solid',
         'border-white/10',
         'bg-dark-500',
+        'group',
         loading && 'animate-pulse',
         disabled && 'opacity-40',
         className

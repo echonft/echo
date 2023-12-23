@@ -8,7 +8,15 @@ interface Props extends WithChildrenProps, WithLoadingProps {}
 export const NftCardPictureLayout: FunctionComponent<Props> = ({ loading, children }) => {
   return (
     <div
-      className={clsx('rounded-2xl', 'select-none', 'w-[12.5rem]', 'h-[12.5rem]', 'relative', loading && 'invisible')}
+      className={clsx(
+        'rounded-2xl',
+        'select-none',
+        'w-[12.5rem]',
+        'h-[12.5rem]',
+        'relative',
+        'overflow-hidden',
+        loading && 'invisible'
+      )}
     >
       {children}
     </div>

@@ -2,13 +2,13 @@ import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props
 import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-props'
 import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import type { FunctionComponent, MouseEventHandler } from 'react'
 
 interface Props extends WithChildrenProps, WithLoadingProps, WithClassNameProps {
-  disabled?: boolean
+  onClick?: MouseEventHandler
 }
 
-export const NftStackLayout: FunctionComponent<Props> = ({ disabled, loading, className, children }) => {
+export const ListingStackLayout: FunctionComponent<Props> = ({ loading, className, onClick, children }) => {
   return (
     <div
       className={clsx(
@@ -22,10 +22,10 @@ export const NftStackLayout: FunctionComponent<Props> = ({ disabled, loading, cl
         'border-transparent',
         'border',
         'group',
-        loading && 'animate-pulse',
-        disabled && 'opacity-40',
+        loading ? 'animate-pulse' : 'cursor-pointer',
         className
       )}
+      onClick={onClick}
     >
       {children}
     </div>

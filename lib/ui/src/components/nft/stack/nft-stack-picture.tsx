@@ -14,7 +14,16 @@ export const NftStackPicture: FunctionComponent<Props> = ({ stack }) => {
   return (
     <NftStackPictureLayout>
       <Img
-        className={clsx('select-none', 'rounded-2xl')}
+        className={clsx(
+          'select-none',
+          'rounded-2xl',
+          'transition-transform',
+          'group-hover:scale-125',
+          'w-full',
+          'h-full',
+          'object-center',
+          'object-contain'
+        )}
         src={stack.pictureUrl}
         alt={stack.tokenId.toString()}
         width={202}
