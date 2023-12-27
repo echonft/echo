@@ -48,7 +48,7 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
         )}
       />
       <ShowIfEmpty checks={selectableNfts}>
-        <ProfileNftsEmpty />
+        <ProfileNftsEmpty user={user} />
       </ShowIfEmpty>
     </ProfileNavigationLayout>
   )
