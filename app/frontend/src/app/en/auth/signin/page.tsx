@@ -1,6 +1,6 @@
 import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { AuthPage } from '@echo/ui/components/auth/auth-page'
 import { LoginFlow } from '@echo/ui/components/auth/login-flow'
-import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { type FunctionComponent } from 'react'
 
@@ -13,11 +13,11 @@ interface Props {
 const SigninPage: FunctionComponent<Props> = async ({ searchParams }) => {
   const user = await getAuthUser()
   return (
-    <NavigationPageLayout user={user}>
+    <AuthPage>
       <SectionLayout>
         <LoginFlow callbackUrl={searchParams.callbackUrl} user={user} />
       </SectionLayout>
-    </NavigationPageLayout>
+    </AuthPage>
   )
 }
 
