@@ -345,6 +345,9 @@ export const messages = {
         },
         add: {
           label: 'Add Wallet'
+        },
+        copied: {
+          label: 'Copied!'
         }
       }
     }

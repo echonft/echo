@@ -13,7 +13,16 @@ export const WalletConnectButton: FunctionComponent<Props> = ({ loading, onClick
     <button
       onClick={onClick}
       disabled={loading}
-      className={clsx('btn-primary', 'group', 'gap-2.5', 'h-[1.875rem]', 'px-2.5', 'rounded-lg', 'items-center')}
+      className={clsx(
+        'btn-primary',
+        'group',
+        'gap-2.5',
+        'h-[1.875rem]',
+        'px-2.5',
+        'rounded-lg',
+        'items-center',
+        'min-w-36'
+      )}
     >
       <span className={clsx('btn-label-primary')}>
         <WalletIconSvg />
