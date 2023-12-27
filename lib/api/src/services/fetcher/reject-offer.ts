@@ -13,7 +13,7 @@ export interface RejectOfferArgs extends TokenArgs {
 export function rejectOffer(args: RejectOfferArgs) {
   assertToken(args)
   return axios
-    .post<OfferResponse>(apiUrlProvider.offer.reject.getUrl(pick(['offerId'], args)), {
+    .post<OfferResponse>(apiUrlProvider.offer.reject.getUrl(pick(['offerId'], args)), undefined, {
       headers: getAuthorizationHeader(args)
     })
     .then(prop('data'))

@@ -11,8 +11,7 @@ export interface CreateListingArgs extends CreateListingRequest, TokenArgs {}
 export function createListing(args: CreateListingArgs) {
   assertToken(args)
   return axios
-    .put<ListingResponse>(apiUrlProvider.listing.create.getUrl(), {
-      data: omit(['token'], args),
+    .put<ListingResponse>(apiUrlProvider.listing.create.getUrl(), omit(['token'], args), {
       headers: getAuthorizationHeader(args)
     })
     .then(prop('data'))
