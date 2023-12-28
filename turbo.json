@@ -85,6 +85,10 @@
       "dependsOn": ["@echo/helper#build"],
       "cache": false
     },
+    "@echo/helper#update-db": {
+      "dependsOn": ["@echo/helper#build"],
+      "cache": false
+    },
     "@echo/storybook#build": {
       "dependsOn": ["@echo/ui#build"],
       "outputs": ["storybook-static/**", "dist/**"],
