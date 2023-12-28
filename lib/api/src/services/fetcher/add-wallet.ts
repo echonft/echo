@@ -11,8 +11,7 @@ export interface AddWalletArgs extends AddWalletRequest, TokenArgs {}
 export function addWallet(args: AddWalletArgs) {
   assertToken(args)
   return axios
-    .put<EmptyResponse>(apiUrlProvider.profile.wallet.getUrl(), {
-      data: omit(['token'], args),
+    .put<EmptyResponse>(apiUrlProvider.profile.wallet.getUrl(), omit(['token'], args), {
       headers: getAuthorizationHeader(args)
     })
     .then(prop('data'))

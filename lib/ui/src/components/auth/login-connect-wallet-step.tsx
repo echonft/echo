@@ -40,6 +40,7 @@ export const LoginConnectWalletStep: FunctionComponent<Props> = ({ user, onConti
             setLoggedInOnce()
             onContinue?.()
           }}
+          label={t('continueBtn.label')}
         />
       </div>
     </div>

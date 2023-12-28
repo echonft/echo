@@ -18,7 +18,7 @@ import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
 import { isNil, toLower } from 'ramda'
 import { type FunctionComponent } from 'react'
-import useSWR from 'swr'
+import useSWRImmutable from 'swr/immutable'
 
 interface Props {
   fetcher: {
@@ -39,8 +39,7 @@ export const ConnectWallet: FunctionComponent<Props> = ({ fetcher, provider, use
   const chainId = provider.chain()
   const userHasCurrentWallet =
     !isNil(address) && !isNil(chainId) && userHasWallet(user, { address: toLower(address), chainId })
-
-  const { data } = useSWR<NonceResponse, Error, TokenArgs & Record<'name', string>>(
+  const { data } = useSWRImmutable<NonceResponse, Error, TokenArgs & Record<'name', string>>(
     { name: SWRKeys.profile.nonce.get, token: user.sessionToken },
     fetcher.getNonce,
     {
