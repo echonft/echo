@@ -81,9 +81,9 @@
     "tsc-files": "1.1.4",
     "turbo": "1.11.2",
     "typescript": "5.2.2",
-    "vercel": "33.0.0"
+    "vercel": "33.0.1"
   },
-  "packageManager": "pnpm@8.12.1",
+  "packageManager": "pnpm@8.13.1",
   "nextBundleAnalysis": {
     "budget": 358400,
     "budgetPercentIncreaseRed": 20,

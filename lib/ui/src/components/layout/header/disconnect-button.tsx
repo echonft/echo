@@ -29,8 +29,9 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
   const callbackUrl = isPathSecure(pathname) ? '/' : pathname
   const [loading, setLoading] = useState(false)
   return (
-    <div className={clsx('flex', 'flex-row', 'justify-center', 'gap-4')}>
+    <div className={clsx('flex', 'flex-row', 'justify-center', 'gap-4', 'h-max', 'w-max')}>
       <Web3Provider>
+        {/*TODO add fetcher and provider to header props and get them from there */}
         <ConnectWallet fetcher={{ addWallet, getNonce, signNonce }} provider={{ account, chain }} user={user} />
       </Web3Provider>
       <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>

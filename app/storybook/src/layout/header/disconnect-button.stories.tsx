@@ -4,7 +4,19 @@ import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Layout/Header/Disconnect Button',
-  component: Component
+  component: Component,
+  argTypes: {
+    user: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  parameters: {
+    controls: {
+      exclude: ['user']
+    }
+  }
 }
 
 export default metadata
@@ -14,10 +26,5 @@ type Story = StoryObj<typeof Component>
 export const DisconnectButton: Story = {
   args: {
     user: authUserMock
-  },
-  render: ({ user }) => (
-    <div className={'flex w-full justify-end'}>
-      <Component user={user} />
-    </div>
-  )
+  }
 }

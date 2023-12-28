@@ -5,7 +5,25 @@ import { useState } from 'react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Auth/Login Flow',
-  component: Component
+  component: Component,
+  argTypes: {
+    currentStep: { control: { type: 'number', min: 0, max: 2, step: 1 } },
+    totalSteps: {
+      table: {
+        disable: true
+      }
+    },
+    user: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  parameters: {
+    controls: {
+      exclude: ['totalSteps', 'user']
+    }
+  }
 }
 
 export default metadata
@@ -28,6 +46,11 @@ export const WithUser: Story = {
 }
 
 export const Managed: Story = {
+  args: {
+    totalSteps: 3,
+    currentStep: 0,
+    user: authUserMock
+  },
   render: () => {
     const [currentStep, setCurrentStep] = useState(0)
     return (
