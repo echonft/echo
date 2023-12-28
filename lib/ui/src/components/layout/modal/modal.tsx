@@ -1,6 +1,9 @@
 'use client'
+import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { ModalTitle } from '@echo/ui/components/layout/modal/modal-title'
+import { DIRECTION_LEFT } from '@echo/ui/constants/direction'
 import { Dialog, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { Fragment, type FunctionComponent, type PropsWithChildren, useCallback } from 'react'
@@ -8,8 +11,11 @@ import { Fragment, type FunctionComponent, type PropsWithChildren, useCallback }
 interface Props {
   open: boolean
   title?: string
-  onClose?: () => unknown
+  onClose?: VoidFunction
   closeDisabled?: boolean
+  backDisabled?: boolean
+  backButtonLabel?: string
+  onBack?: VoidFunction
 }
 
 export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
@@ -17,6 +23,9 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
   title,
   onClose,
   closeDisabled = false,
+  backDisabled = true,
+  backButtonLabel,
+  onBack,
   children
 }) => {
   const close = useCallback(() => {
@@ -54,21 +63,37 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
                 className={clsx(
                   'flex',
                   'flex-col',
-                  'gap-6',
                   'w-full',
                   'max-w-md',
                   'transform',
                   'overflow-hidden',
                   'rounded-2xl',
                   'bg-dark-500',
-                  'pt-4',
-                  'pb-8',
-                  'px-6',
+                  'py-[1.88rem]',
+                  'px-5',
                   'align-middle',
                   'shadow-modal',
                   'transition-all'
                 )}
               >
+                <ShowIf condition={!backDisabled}>
+                  <button
+                    className={clsx('btn', 'group', 'gap-4', '!justify-start', 'pb-[3.12rem]')}
+                    onClick={() => onBack?.()}
+                  >
+                    <span className={clsx('btn-label-secondary')}>
+                      <SideCaretSvg direction={DIRECTION_LEFT} width={12} height={20} />
+                    </span>
+                    <HideIfNilOrEmpty
+                      checks={backButtonLabel}
+                      render={(label) => (
+                        <span className={clsx('btn-label-secondary', 'prose-paragraph-sm', '!text-[0.9375rem]')}>
+                          {label}
+                        </span>
+                      )}
+                    />
+                  </button>
+                </ShowIf>
                 <HideIfNilOrEmpty
                   checks={title}
                   render={(title) => (

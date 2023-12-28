@@ -2,7 +2,7 @@ import { createOffer } from '@echo/api/services/fetcher/create-offer'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { NavigationLayout } from '@echo/ui/components/layout/navigation/navigation-layout'
-import { NewOfferSliderManager } from '@echo/ui/components/offer/new/new-offer-slider-manager'
+import { NewOfferManager } from '@echo/ui/components/offer/new/new-offer-manager'
 import { getCollectionNavigationItems } from '@echo/ui/helpers/collection/get-collection-navigation-items'
 import { messages } from '@echo/ui/messages/en'
 import { type NavigationItemId } from '@echo/ui/types/navigation-item-id'
@@ -27,7 +27,7 @@ export const CollectionNavigationLayout: FunctionComponent<PropsWithChildren<Pro
         activeNavigationItem={activeNavigationItem}
       >
         {children}
-        <NewOfferSliderManager fetcher={{ createOffer }} user={user} />
+        <NewOfferManager fetcher={{ createOffer }} user={user} />
         <CalloutManager />
       </NavigationLayout>
     </NextIntlClientProvider>

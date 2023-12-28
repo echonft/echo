@@ -27,7 +27,7 @@ interface Props {
   }
   user: AuthUser | undefined
 }
-export const NewOfferSliderManager: FunctionComponent<Props> = ({ fetcher, user }) => {
+export const NewOfferManager: FunctionComponent<Props> = ({ fetcher, user }) => {
   const t = useTranslations('offer.new.bottomSlider')
   const tError = useTranslations('error.offer')
   const { hasNewOfferPending, setReceiverItems, setSenderItems, receiver, receiverItems, senderItems, clearOffer } =
