@@ -29,11 +29,7 @@ export const LoginConnectWalletStep: FunctionComponent<Props> = ({ user, onConti
       <div className={clsx('flex', 'flex-col', 'gap-12', 'items-center')}>
         <LoginFlowSubtitle>{t('subtitle')}</LoginFlowSubtitle>
         <Web3Provider>
-          <ConnectWallet
-            token={user.sessionToken}
-            fetcher={{ addWallet, getNonce, signNonce }}
-            provider={{ account, chain }}
-          />
+          <ConnectWallet user={user} fetcher={{ addWallet, getNonce, signNonce }} provider={{ account, chain }} />
         </Web3Provider>
       </div>
       <div className={clsx('flex', 'justify-end', 'w-full')}>
@@ -44,6 +40,7 @@ export const LoginConnectWalletStep: FunctionComponent<Props> = ({ user, onConti
             setLoggedInOnce()
             onContinue?.()
           }}
+          label={t('continueBtn.label')}
         />
       </div>
     </div>

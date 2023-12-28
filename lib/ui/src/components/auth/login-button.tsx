@@ -11,7 +11,7 @@ export const LoginButton: FunctionComponent<PropsWithChildren<Props>> = ({ onCli
       className={clsx('btn', 'group', '!rounded-md', 'bg-neutral-700', 'pt-3', 'pb-2.5', 'px-4')}
       onClick={onClick}
     >
-      <span className={clsx('text-label-lg', 'text-white')}>{children}</span>
+      <span className={clsx('prose-label-lg', 'text-white')}>{children}</span>
     </button>
   )
 }

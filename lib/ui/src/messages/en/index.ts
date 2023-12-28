@@ -9,6 +9,9 @@ export const messages = {
       subtitle: 'Start by linking your Discord profile to Echo!',
       loginBtn: {
         label: 'Link Discord'
+      },
+      continueBtn: {
+        label: 'Continue'
       }
     },
     step1: {
@@ -17,14 +20,17 @@ export const messages = {
         'If you have come this far it is because you want to be part of the future of NFT swapping, get ready to live the Echo experience and transform the Web3 space with us!\n\nBut before continuing you must first join our discord to live the full experience.',
       btn: {
         label: 'Join Echo Discord'
+      },
+      continueBtn: {
+        label: 'Continue'
       }
     },
     step2: {
       title: 'Connect your wallet',
-      subtitle: 'Connect your wallet to start swapping'
-    },
-    continueBtn: {
-      label: 'Continue'
+      subtitle: 'Connect your wallet to start swapping',
+      continueBtn: {
+        label: 'Skip'
+      }
     }
   },
   collection: {
@@ -126,12 +132,6 @@ export const messages = {
   layout: {
     header: {
       button: {
-        connect: {
-          label: 'Login'
-        },
-        connecting: {
-          label: 'Logging in...'
-        },
         disconnect: {
           label: 'Logout'
         },
@@ -297,7 +297,7 @@ export const messages = {
     },
     empty: {
       items: {
-        message: 'You do not own any NFT'
+        message: 'You do not own any NFT available on Echo'
       },
       listingsReceived: {
         message: 'There is currently no pending listing for you',
@@ -351,6 +351,9 @@ export const messages = {
         },
         add: {
           label: 'Add Wallet'
+        },
+        copied: {
+          label: 'Copied!'
         }
       }
     }

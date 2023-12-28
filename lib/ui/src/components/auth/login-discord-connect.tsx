@@ -1,7 +1,7 @@
 'use client'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginButton } from '@echo/ui/components/auth/login-button'
-import { UserTag } from '@echo/ui/components/layout/header/user-tag'
+import { UserTag } from '@echo/ui/components/user/tag/user-tag'
 import { SIZE_LG } from '@echo/ui/constants/size'
 import { signIn } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
@@ -15,7 +15,7 @@ interface Props {
 export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('auth.step0')
   if (isNil(user)) {
-    // TODO add a login state
+    // TODO add a loading state. Not straight forward as the signin will redirect to discord
     return <LoginButton onClick={() => void signIn('discord')}>{t('loginBtn.label')}</LoginButton>
   }
   return <UserTag user={user} size={SIZE_LG} />

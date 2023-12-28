@@ -1,3 +1,4 @@
+import { WalletIconSvg } from '@echo/ui/components/base/svg/wallet-icon-svg'
 import { clsx } from 'clsx'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
@@ -12,9 +13,21 @@ export const WalletConnectButton: FunctionComponent<Props> = ({ loading, onClick
     <button
       onClick={onClick}
       disabled={loading}
-      className={clsx('btn-gradient', 'group', 'w-[9.875rem]', 'h-max', 'py-1.5', 'px-5', loading && 'animate-pulse')}
+      className={clsx(
+        'btn-primary',
+        'group',
+        'gap-2.5',
+        'h-[1.875rem]',
+        'px-2.5',
+        'rounded-lg',
+        'items-center',
+        'min-w-36'
+      )}
     >
-      <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>{label}</span>
+      <span className={clsx('btn-label-primary')}>
+        <WalletIconSvg />
+      </span>
+      <span className={clsx('btn-label-primary', 'prose-label-xs', '!tracking-[0.015rem]')}>{label}</span>
     </button>
   )
 }

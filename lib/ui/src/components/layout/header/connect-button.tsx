@@ -1,46 +1,21 @@
-import { linkProvider } from '@echo/api/services/routing/link-provider'
-import { InternalLink } from '@echo/ui/components/base/link/internal-link'
-import { useSettingsStore } from '@echo/ui/hooks/use-settings-store'
+import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
 import { clsx } from 'clsx'
-import { usePathname } from 'next/navigation'
-import { signIn } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
-import { concat } from 'ramda'
-import { type FunctionComponent, useState } from 'react'
+import type { FunctionComponent, MouseEventHandler } from 'react'
 
-export const ConnectButton: FunctionComponent = () => {
-  const t = useTranslations('layout.header.button')
-  const [loading, setLoading] = useState(false)
-  const pathname = usePathname()
-  const { hasLoggedInOnce } = useSettingsStore()
-  // If user has never logged in, take them to the login flow
-  // TODO move this in a higher-level component that simply renders the right component based on hasLoggedInOnce
-  if (!hasLoggedInOnce) {
-    return (
-      <InternalLink
-        path={
-          pathname === linkProvider.auth.signIn.get() || pathname === '/'
-            ? '/auth/signin'
-            : concat('/auth/signin?', new URLSearchParams({ callbackUrl: pathname }).toString())
-        }
-      >
-        <button className={clsx('btn-gradient', 'group', 'btn-size-alt')}>
-          <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>{t('connect.label')}</span>
-        </button>
-      </InternalLink>
-    )
-  }
+interface Props {
+  loading?: boolean
+  onClick?: MouseEventHandler
+}
+
+export const ConnectButton: FunctionComponent<Props> = ({ loading = false, onClick }) => {
   return (
     <button
       disabled={loading}
-      onClick={() => {
-        setLoading(true)
-        void signIn('discord')
-      }}
-      className={clsx('btn-gradient', 'group', 'btn-size-alt', loading && 'animate-pulse')}
+      onClick={onClick}
+      className={clsx('btn-primary', 'group', 'w-[1.875rem]', 'h-[1.875rem]', loading && 'animate-pulse')}
     >
-      <span className={clsx('prose-label-sm-semi', 'btn-label-gradient')}>
-        {loading ? t('connecting.label') : t('connect.label')}
+      <span className={clsx('btn-label-primary')}>
+        <DiscordIconSvg />
       </span>
     </button>
   )

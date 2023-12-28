@@ -4,7 +4,19 @@ import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Layout/Header/Header',
-  component: Component
+  component: Component,
+  argTypes: {
+    user: {
+      table: {
+        disable: true
+      }
+    }
+  },
+  parameters: {
+    controls: {
+      exclude: ['user']
+    }
+  }
 }
 
 export default metadata

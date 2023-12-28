@@ -1,7 +1,6 @@
 'use client'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginStepContainer } from '@echo/ui/components/auth/login-step-container'
-import { LoginStepSelector } from '@echo/ui/components/auth/login-step-selector'
 import { messages } from '@echo/ui/messages/en'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { useRouter } from 'next/navigation'
@@ -22,26 +21,21 @@ export const LoginFlow: FunctionComponent<Props> = ({ callbackUrl, user }) => {
       <LoginStepContainer
         currentStep={currentStep}
         totalSteps={3}
-        stepContainer={() => (
-          <LoginStepSelector
-            currentStep={currentStep}
-            onContinue={() => {
-              if (currentStep === 2) {
-                if (!isNil(user)) {
-                  if (!isNilOrEmpty(callbackUrl)) {
-                    router.replace(callbackUrl)
-                  } else {
-                    router.replace('/')
-                  }
-                }
-                // TODO Handle error here
+        onContinue={() => {
+          if (currentStep === 2) {
+            if (!isNil(user)) {
+              if (!isNilOrEmpty(callbackUrl)) {
+                router.replace(callbackUrl)
               } else {
-                setCurrentStep((prevState) => prevState + 1)
+                router.replace('/')
               }
-            }}
-            user={user}
-          />
-        )}
+            }
+            // TODO Handle error here
+          } else {
+            setCurrentStep((prevState) => prevState + 1)
+          }
+        }}
+        user={user}
       />
     </NextIntlClientProvider>
   )

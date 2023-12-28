@@ -15,9 +15,24 @@ interface Props {
 }
 
 export const SelectableNftCardPicture: FunctionComponent<Props> = ({ nft, hideOwner, onToggleSelection }) => {
+  const { disabled, selected } = nft
   return (
     <NftCardPictureLayout>
-      <Img className={clsx('select-none')} src={nft.pictureUrl} alt={nft.tokenId.toString()} width={200} height={200} />
+      <Img
+        className={clsx(
+          'select-none',
+          'transition-transform',
+          'w-full',
+          'h-full',
+          'object-center',
+          'object-contain',
+          !disabled && !selected && 'group-hover:scale-125'
+        )}
+        src={nft.pictureUrl}
+        alt={nft.tokenId.toString()}
+        width={200}
+        height={200}
+      />
       <SelectableNftCardSelector nft={nft} onToggleSelection={onToggleSelection} />
       <div className={clsx('absolute', 'top-2', 'left-2', 'h-max', 'w-max')}>
         <NftCardOpenSeaIcon nft={nft} />

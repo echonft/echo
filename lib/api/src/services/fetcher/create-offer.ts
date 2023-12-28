@@ -12,8 +12,7 @@ export interface CreateOfferArgs extends CreateOfferRequest, TokenArgs {}
 export function createOffer(args: CreateOfferArgs) {
   assertToken(args)
   return axios
-    .put<OfferResponse>(apiUrlProvider.offer.create.getUrl(), {
-      data: omit(['token'], args),
+    .put<OfferResponse>(apiUrlProvider.offer.create.getUrl(), omit(['token'], args), {
       headers: getAuthorizationHeader(args)
     })
     .then(prop('data'))

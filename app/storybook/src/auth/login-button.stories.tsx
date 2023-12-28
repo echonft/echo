@@ -10,6 +10,11 @@ const metadata: Meta<typeof Component> = {
         disable: true
       }
     }
+  },
+  parameters: {
+    controls: {
+      exclude: ['children']
+    }
   }
 }
 

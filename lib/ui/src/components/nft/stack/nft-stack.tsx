@@ -1,4 +1,3 @@
-'use client'
 import { NftStackLayout } from '@echo/ui/components/nft/stack/layout/nft-stack-layout'
 import { NftStackPicture } from '@echo/ui/components/nft/stack/nft-stack-picture'
 import { NftStackTitle } from '@echo/ui/components/nft/stack/nft-stack-title'

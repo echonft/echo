@@ -4,7 +4,7 @@ import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { EchoLogoSvg } from '@echo/ui/components/base/svg/echo-logo-svg'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
-import { ConnectButton } from '@echo/ui/components/layout/header/connect-button'
+import { ConnectButtonWrapper } from '@echo/ui/components/layout/header/connect-button-wrapper'
 import { DisconnectButton } from '@echo/ui/components/layout/header/disconnect-button'
 import { HeaderLayout, type HeaderLayoutProps } from '@echo/ui/components/layout/header/header-layout'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
@@ -28,7 +28,7 @@ export const Header: FunctionComponent<Props> = ({ user, absolute }) => {
             </InternalLink>
             <HideIfNil checks={user} render={(user) => <DisconnectButton user={user} />} />
             <ShowIfNil checks={user}>
-              <ConnectButton />
+              <ConnectButtonWrapper />
             </ShowIfNil>
           </div>
         </PaddedContainer>
