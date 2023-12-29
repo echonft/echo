@@ -63,10 +63,11 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
                 className={clsx(
                   'flex',
                   'flex-col',
-                  'w-full',
-                  'max-w-md',
+                  'min-h-[42rem]',
                   'transform',
                   'overflow-hidden',
+                  'border-2',
+                  'border-white/10',
                   'rounded-2xl',
                   'bg-dark-500',
                   'py-[1.88rem]',

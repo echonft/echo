@@ -270,7 +270,7 @@ export const messages = {
         }
       },
       confirmationModal: {
-        backBbtn: 'Back to Selection',
+        backBtn: 'Back to Selection',
         title: 'Offer Creation',
         continueBtn: 'Continue',
         clearBtn: 'Reset'

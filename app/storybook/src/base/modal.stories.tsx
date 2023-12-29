@@ -35,7 +35,7 @@ export const Modal: Story = {
           </button>
         </div>
         <Component title={'This a modal title'} open={isOpen} onClose={() => setIsOpen(false)}>
-          <span className={'text-white'}>This is a modal description</span>
+          <span className={'text-white text-center prose-header-xs-semi'}>This is a modal description</span>
         </Component>
       </div>
     )
@@ -53,7 +53,7 @@ export const CloseDisabled: Story = {
           </button>
         </div>
         <Component title={'This a modal title'} open={isOpen} onClose={() => setIsOpen(false)} closeDisabled={true}>
-          <span className={'text-white'}>This is a modal description</span>
+          <span className={'text-white text-center prose-header-xs-semi'}>This is a modal description</span>
         </Component>
       </div>
     )
@@ -77,7 +77,7 @@ export const BackEnabled: Story = {
           backDisabled={false}
           backButtonLabel={'Back'}
         >
-          <span className={'text-white'}>This is a modal description</span>
+          <span className={'text-white text-center prose-header-xs-semi'}>This is a modal description</span>
         </Component>
       </div>
     )

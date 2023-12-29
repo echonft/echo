@@ -1,7 +1,7 @@
 import { type User } from '@echo/model/types/user'
 import { UserDiscordTag } from '@echo/ui/components/shared/user-discord-tag'
 import { UserProfilePicture } from '@echo/ui/components/shared/user-profile-picture'
-import { UserWallet } from '@echo/ui/components/shared/user-wallet'
+import { UserWalletButton } from '@echo/ui/components/shared/user-wallet-button'
 import { SIZE_MD } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
@@ -23,7 +23,7 @@ export const UserDetailsContainer: FunctionComponent<Props> = ({ user }) => {
       <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SIZE_MD} />
       <div className={clsx('flex', 'flex-col', 'gap-2.5', 'py-3')}>
         <UserDiscordTag discordUsername={username} />
-        <UserWallet wallet={wallet} />
+        <UserWalletButton wallet={wallet} />
       </div>
     </div>
   )

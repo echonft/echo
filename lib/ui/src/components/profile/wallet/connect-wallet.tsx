@@ -7,7 +7,7 @@ import { userHasWallet } from '@echo/model/helpers/user/user-has-wallet'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { CreateSignature } from '@echo/ui/components/profile/wallet/create-signature'
 import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
-import { UserWallet } from '@echo/ui/components/shared/user-wallet'
+import { UserWalletButton } from '@echo/ui/components/shared/user-wallet-button'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import type { Fetcher } from '@echo/utils/types/fetcher'
@@ -70,5 +70,5 @@ export const ConnectWallet: FunctionComponent<Props> = ({ fetcher, provider, use
       />
     )
   }
-  return <UserWallet wallet={{ address: toLower(address), chainId: chainId }} />
+  return <UserWalletButton wallet={{ address: toLower(address), chainId: chainId }} />
 }
