@@ -6,16 +6,20 @@ import { assoc, either, head, is, pipe } from 'ramda'
 import { create } from 'zustand'
 
 interface NewOfferState {
+  modalOpen: boolean
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
   receiver: () => User | undefined
   setReceiverItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
   setSenderItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
-  clearOffer: () => void
+  clearOffer: VoidFunction
+  openModal: VoidFunction
+  closeModal: VoidFunction
   hasNewOfferPending: () => boolean
 }
 
 export const useNewOfferStore = create<NewOfferState>((set, get) => ({
+  modalOpen: false,
   receiverItems: [],
   senderItems: [],
   receiver: () => {
@@ -45,6 +49,8 @@ export const useNewOfferStore = create<NewOfferState>((set, get) => ({
       setState(args)
     }
   },
-  clearOffer: () => set(pipe(assoc('receiverItems', []), assoc('senderItems', []))),
+  clearOffer: () => set(pipe(assoc('modalOpen', false), assoc('receiverItems', []), assoc('senderItems', []))),
+  openModal: () => set(assoc('modalOpen', true)),
+  closeModal: () => set(assoc('modalOpen', false)),
   hasNewOfferPending: () => pipe(get, either(propIsNotEmpty('receiverItems'), propIsNotEmpty('senderItems')))()
 }))

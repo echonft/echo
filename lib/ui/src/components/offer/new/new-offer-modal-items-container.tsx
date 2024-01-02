@@ -14,11 +14,11 @@ interface Props {
 
 export const NewOfferModalItemsContainer: FunctionComponent<Props> = ({ receiverItems, senderItems }) => {
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-4.5', 'items-center')}>
+    <div className={clsx('flex', 'flex-col', 'gap-4.5', 'items-center', 'min-w-[40rem]')}>
       <ItemsLayout>
         {map(
           (item) => (
-            <RemovableItemCard item={item} />
+            <RemovableItemCard item={item} key={item.nft.id} />
           ),
           receiverItems
         )}
@@ -30,7 +30,7 @@ export const NewOfferModalItemsContainer: FunctionComponent<Props> = ({ receiver
           <ItemsLayout>
             {map(
               (item) => (
-                <RemovableItemCard item={item} />
+                <RemovableItemCard item={item} key={item.nft.id} />
               ),
               items
             )}

@@ -27,7 +27,8 @@ export const CollectionDetails: FunctionComponent<Props> = ({
     <>
       <CollectionBanner bannerUrl={bannerUrl} />
       <PaddedContainer>
-        <div className={clsx('z-10', 'relative')}>
+        {/*FIXME Removed the z-index here because it doesnt work */}
+        <div className={clsx('relative')}>
           <div className={clsx('w-full', 'pt-40', 'pb-8')}>
             <CollectionProfile
               collectionName={collectionName}

@@ -10,6 +10,7 @@ import { enable } from '@echo/ui/helpers/disableable/enable'
 import { disableAction } from '@echo/ui/helpers/nft/disable-action'
 import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/get-collection-filters-for-nfts'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
+import { removeItemsFromNftSelection } from '@echo/ui/helpers/nft/remove-items-from-nft-selection'
 import { setSelectableNftActionDisabledPropFromAuthUser } from '@echo/ui/helpers/nft/set-selectable-nft-action-disabled-prop-from-auth-user'
 import { setSelectableNftDisabledPropFromCollectionFilter } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-collection-filter'
 import { setSelectableNftDisabledPropFromOwner } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-owner'
@@ -18,6 +19,7 @@ import { getSelection } from '@echo/ui/helpers/selection/get-selection'
 import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
 import { removeSelectionWhenDisabled } from '@echo/ui/helpers/selection/remove-selection-when-disabled'
 import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selection-in-list'
+import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
@@ -41,6 +43,12 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
   onButtonClick
 }) => {
   const [selectableNfts, setSelectableNfts] = useState(nfts)
+  const { receiverItems } = useNewOfferStore()
+  // Reset state when offer changes
+  useEffect(() => {
+    setSelectableNfts((prevState) => removeItemsFromNftSelection(prevState, receiverItems))
+  }, [receiverItems])
+
   const [collectionFilters, setCollectionFilters] = useState(
     includes(NFT_FILTER_COLLECTIONS, availableFilters) ? getCollectionFiltersForNfts(nfts) : []
   )
