@@ -25,7 +25,7 @@ interface Props {
 
 export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts, user }) => {
   const t = getTranslator()
-  const { hasNewOfferPending, setReceiverItems } = useNewOfferStore()
+  const { hasNewOfferPending, setReceiverItems, openModal } = useNewOfferStore()
   const selectableNfts = useMemo(() => {
     if (hasNewOfferPending()) {
       return map<Nft, SelectableNft>(assoc('actionDisabled', true), nfts)
@@ -39,6 +39,7 @@ export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts, 
   const onMakeOffer = (nfts: SelectableNft[]) => {
     if (isNonEmptyArray(nfts)) {
       setReceiverItems(map(mapNftToOfferItem, nfts))
+      openModal()
     }
   }
 

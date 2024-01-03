@@ -14,10 +14,12 @@ import { setSelectableNftActionDisabledPropFromAuthUser } from '@echo/ui/helpers
 import { setSelectableNftDisabledPropFromCollectionFilter } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-collection-filter'
 import { setSelectableNftDisabledPropFromOwner } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-owner'
 import { setSelectableNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-trait-filters'
+import { unselectNftsFromItems } from '@echo/ui/helpers/nft/unselect-nfts-from-items'
 import { getSelection } from '@echo/ui/helpers/selection/get-selection'
 import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
 import { removeSelectionWhenDisabled } from '@echo/ui/helpers/selection/remove-selection-when-disabled'
 import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selection-in-list'
+import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
@@ -41,6 +43,12 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
   onButtonClick
 }) => {
   const [selectableNfts, setSelectableNfts] = useState(nfts)
+  const { receiverItems } = useNewOfferStore()
+  // Reset state when offer changes
+  useEffect(() => {
+    setSelectableNfts((prevState) => unselectNftsFromItems(prevState, receiverItems))
+  }, [receiverItems])
+
   const [collectionFilters, setCollectionFilters] = useState(
     includes(NFT_FILTER_COLLECTIONS, availableFilters) ? getCollectionFiltersForNfts(nfts) : []
   )

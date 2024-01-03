@@ -27,7 +27,7 @@ interface Props {
 
 export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collectionSlug, nfts, user }) => {
   const t = getTranslator()
-  const { setReceiverItems, hasNewOfferPending } = useNewOfferStore()
+  const { hasNewOfferPending, openModal, setReceiverItems } = useNewOfferStore()
   const selectableNfts = useMemo(() => {
     if (hasNewOfferPending()) {
       return map<Nft, SelectableNft>(
@@ -51,6 +51,7 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
   const onMakeOffer = (nfts: SelectableNft[]) => {
     if (isNonEmptyArray(nfts)) {
       setReceiverItems(map(mapNftToOfferItem, nfts))
+      openModal()
     }
   }
 
@@ -62,7 +63,7 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
           <SelectableNftsAndFiltersContainer
             nfts={selectableNfts}
             availableFilters={[NFT_FILTER_TRAITS]}
-            btnLabel={t(hasNewOfferPending() ? 'collection.button.edit' : 'collection.button.create')}
+            btnLabel={t('collection.button.create')}
             user={user}
             onButtonClick={onMakeOffer}
           />

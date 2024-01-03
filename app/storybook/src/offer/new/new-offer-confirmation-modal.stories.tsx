@@ -11,7 +11,12 @@ const metadata: Meta<typeof Component> = {
         disable: true
       }
     },
-    onConfirm: {
+    onContinue: {
+      table: {
+        disable: true
+      }
+    },
+    onClear: {
       table: {
         disable: true
       }
@@ -19,38 +24,22 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['receiverItems', 'senderItems', 'open', 'confirming']
+      exclude: ['receiverItems', 'receiver', 'senderItems', 'open']
     }
   }
 }
 
 export default metadata
 
-const { senderItems, receiverItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
+const { receiverItems, receiver, senderItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
 
 type Story = StoryObj<typeof Component>
 
 export const Default: Story = {
   args: {
-    senderItems,
+    receiver,
     receiverItems,
-    open: true
-  }
-}
-
-export const MultipleAssets: Story = {
-  args: {
-    senderItems: senderItems.concat(receiverItems),
-    receiverItems: receiverItems.concat(senderItems),
-    open: true
-  }
-}
-
-export const Confirming: Story = {
-  args: {
     senderItems,
-    receiverItems,
-    open: true,
-    confirming: true
+    open: true
   }
 }

@@ -270,11 +270,10 @@ export const messages = {
         }
       },
       confirmationModal: {
-        title: 'Confirm Offer',
-        assetsInSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',
-        assetsOutSubtitle: "Counterparty's {count, plural, =0 {} =1 {asset} other {assets}}",
-        confirmBtn: 'Confirm',
-        editBtn: 'Edit'
+        backBtn: 'Back to Selection',
+        title: 'Offer Creation',
+        continueBtn: 'Continue',
+        clearBtn: 'Reset'
       },
       confirmedModal: {
         title: 'Offer successfully created',

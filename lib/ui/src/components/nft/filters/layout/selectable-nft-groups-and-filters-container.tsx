@@ -14,12 +14,14 @@ import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-f
 import { groupNftsByCollection } from '@echo/ui/helpers/nft/group-nfts-by-collection'
 import { setSelectableNftDisabledPropFromCollectionFilter } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-collection-filter'
 import { setSelectableNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-trait-filters'
+import { unselectNftGroupsFromItems } from '@echo/ui/helpers/nft/unselect-nfts-group-from-items'
 import { getGroupsSelection } from '@echo/ui/helpers/selection/get-groups-selection'
 import { getGroupsSelectionCount } from '@echo/ui/helpers/selection/get-groups-selection-count'
 import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
 import { removeSelectionWhenDisabled } from '@echo/ui/helpers/selection/remove-selection-when-disabled'
 import { toggleSelectionInGroup } from '@echo/ui/helpers/selection/toggle-selection-in-group'
 import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selection-in-list'
+import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { type Group } from '@echo/ui/types/group'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
@@ -44,6 +46,12 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
   onButtonClick
 }) => {
   const [groups, setGroups] = useState<Group<SelectableNft>[]>(groupNftsByCollection(nfts))
+  const { receiverItems } = useNewOfferStore()
+  // Reset state when offer changes
+  useEffect(() => {
+    setGroups((prevState) => unselectNftGroupsFromItems(prevState, receiverItems))
+  }, [receiverItems])
+
   const [collectionFilters, setCollectionFilters] = useState(
     includes(NFT_FILTER_COLLECTIONS, availableFilters) ? getCollectionFiltersForNfts(nfts) : []
   )

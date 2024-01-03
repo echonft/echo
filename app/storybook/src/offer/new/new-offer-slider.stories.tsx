@@ -1,7 +1,7 @@
 import type { CreateOfferArgs } from '@echo/api/services/fetcher/create-offer'
 import { authUserMock } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { NewOfferSliderManager as Component } from '@echo/ui/components/offer/new/new-offer-slider-manager'
+import { NewOfferManager as Component } from '@echo/ui/components/offer/new/new-offer-manager'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { type Meta, type StoryObj } from '@storybook/react'
