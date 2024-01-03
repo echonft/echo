@@ -1,19 +1,13 @@
 'use client'
 import type { CreateOfferArgs } from '@echo/api/services/fetcher/create-offer'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
-import type { Offer } from '@echo/model/types/offer'
 import type { OfferItem } from '@echo/model/types/offer-item'
 import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
-import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
-import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
-import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { Fetcher } from '@echo/utils/types/fetcher'
-import { useTranslations } from 'next-intl'
 import { pathEq, reject } from 'ramda'
-import { type FunctionComponent, useCallback, useState } from 'react'
+import { type FunctionComponent, useCallback } from 'react'
 
 interface Props {
   fetcher: {
@@ -21,11 +15,12 @@ interface Props {
   }
   user: AuthUser | undefined
 }
-export const NewOfferManager: FunctionComponent<Props> = ({ fetcher, user }) => {
-  const tError = useTranslations('error.offer')
+// TODO Add the creation of offer
+export const NewOfferManager: FunctionComponent<Props> = () => {
+  // const tError = useTranslations('error.offer')
   const { setReceiverItems, setSenderItems, receiver, receiverItems, senderItems, clearOffer, modalOpen, closeModal } =
     useNewOfferStore()
-  const [offer, setOffer] = useState<Offer>()
+  // const [offer, setOffer] = useState<Offer>()
   const onRemoveSenderItems = useCallback(
     (item: OfferItem) => {
       setSenderItems(reject(pathEq(item.nft.id, ['nft', 'id'])))
@@ -38,31 +33,33 @@ export const NewOfferManager: FunctionComponent<Props> = ({ fetcher, user }) => 
     },
     [setReceiverItems]
   )
-  const { trigger, isMutating } = useSWRTrigger<OfferResponse, CreateOfferArgs>({
-    key: SWRKeys.offer.create,
-    fetcher: fetcher.createOffer,
-    onSuccess: (response) => {
-      // setConfirmOfferModalShown(false)
-      clearOffer()
-      setOffer(response.offer)
-    },
-    onError: {
-      contexts: offerContext({
-        receiverItems,
-        senderItems
-      }),
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
-      onError: () => {
-        // setConfirmOfferModalShown(false)
-      }
-    }
-  })
+  // const { trigger, isMutating } = useSWRTrigger<OfferResponse, CreateOfferArgs>({
+  //   key: SWRKeys.offer.create,
+  //   fetcher: fetcher.createOffer,
+  //   onSuccess: (response) => {
+  //     // setConfirmOfferModalShown(false)
+  //     clearOffer()
+  //     setOffer(response.offer)
+  //   },
+  //   onError: {
+  //     contexts: offerContext({
+  //       receiverItems,
+  //       senderItems
+  //     }),
+  //     alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
+  //     onError: () => {
+  //       // setConfirmOfferModalShown(false)
+  //     }
+  //   }
+  // })
   return (
     //   TODO Add logic to complete offer
     <NewOfferConfirmationModal
       receiver={receiver()}
       receiverItems={receiverItems}
+      onRemoveReceiverItem={onRemoveReceiverItems}
       senderItems={senderItems}
+      onRemoveSenderItem={onRemoveSenderItems}
       open={modalOpen}
       onClear={clearOffer}
       onClose={closeModal}
