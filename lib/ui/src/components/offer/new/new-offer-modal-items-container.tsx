@@ -9,16 +9,23 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   receiverItems: OfferItem[]
+  onRemoveReceiverItem?: (item: OfferItem) => unknown
   senderItems?: OfferItem[]
+  onRemoveSenderItem?: (item: OfferItem) => unknown
 }
 
-export const NewOfferModalItemsContainer: FunctionComponent<Props> = ({ receiverItems, senderItems }) => {
+export const NewOfferModalItemsContainer: FunctionComponent<Props> = ({
+  receiverItems,
+  onRemoveReceiverItem,
+  senderItems,
+  onRemoveSenderItem
+}) => {
   return (
     <div className={clsx('flex', 'flex-col', 'gap-4.5', 'items-center', 'min-w-[40rem]')}>
       <ItemsLayout>
         {map(
           (item) => (
-            <RemovableItemCard item={item} key={item.nft.id} />
+            <RemovableItemCard item={item} key={item.nft.id} onRemove={onRemoveReceiverItem} />
           ),
           receiverItems
         )}
@@ -30,7 +37,7 @@ export const NewOfferModalItemsContainer: FunctionComponent<Props> = ({ receiver
           <ItemsLayout>
             {map(
               (item) => (
-                <RemovableItemCard item={item} key={item.nft.id} />
+                <RemovableItemCard item={item} key={item.nft.id} onRemove={onRemoveSenderItem} />
               ),
               items
             )}

@@ -12,7 +12,9 @@ import { type FunctionComponent } from 'react'
 interface Props {
   receiver: User | undefined
   receiverItems: OfferItem[]
+  onRemoveReceiverItem?: (item: OfferItem) => unknown
   senderItems?: OfferItem[]
+  onRemoveSenderItem?: (item: OfferItem) => unknown
   open: boolean
   onClear?: VoidFunction
   onContinue?: VoidFunction
@@ -22,7 +24,9 @@ interface Props {
 export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
   receiver,
   receiverItems,
+  onRemoveReceiverItem,
   senderItems,
+  onRemoveSenderItem,
   open,
   onClear,
   onContinue,
@@ -41,7 +45,12 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
     >
       <div className={clsx('flex', 'flex-col', 'gap-12', 'min-w-96')}>
         <HideIfNil checks={receiver} render={(user) => <UserDetailsRoundedContainer user={user} />} />
-        <NewOfferModalItemsContainer receiverItems={receiverItems} senderItems={senderItems} />
+        <NewOfferModalItemsContainer
+          receiverItems={receiverItems}
+          onRemoveReceiverItem={onRemoveReceiverItem}
+          senderItems={senderItems}
+          onRemoveSenderItem={onRemoveSenderItem}
+        />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
           <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onContinue}>
             <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
