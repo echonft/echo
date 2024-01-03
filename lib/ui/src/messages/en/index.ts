@@ -280,6 +280,12 @@ export const messages = {
         subtitle: 'Your offer was successfully created, you can now contact your counterparty',
         closeBtn: 'Close',
         viewBtn: 'View'
+      },
+      banner: {
+        title: 'Select your NFTs to finalize your offer',
+        btn: {
+          label: 'Review offer'
+        }
       }
     },
     state: {
