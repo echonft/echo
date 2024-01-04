@@ -2,17 +2,14 @@ import { CollectionNavigationLayoutSkeleton } from '@echo/ui/components/collecti
 import { NftsAndFiltersContainerSkeleton } from '@echo/ui/components/nft/layout/container/skeleton/nfts-and-filters-container-skeleton'
 import { NAVIGATION_ITEMS } from '@echo/ui/constants/navigation-item'
 import { NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
-import { getTranslator } from '@echo/ui/messages/get-translator'
+import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 export const CollectionNftsSkeleton: FunctionComponent = () => {
-  const t = getTranslator()
+  const t = useTranslations('collection')
   return (
     <CollectionNavigationLayoutSkeleton activeNavigationItem={NAVIGATION_ITEMS}>
-      <NftsAndFiltersContainerSkeleton
-        availableFilters={[NFT_FILTER_TRAITS]}
-        btnLabel={t('collection.button.create')}
-      />
+      <NftsAndFiltersContainerSkeleton availableFilters={[NFT_FILTER_TRAITS]} btnLabel={t('button.create')} />
     </CollectionNavigationLayoutSkeleton>
   )
 }

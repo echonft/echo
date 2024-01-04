@@ -7,6 +7,7 @@ import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/asser
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { UserSwapsApiProvided } from '@echo/ui/components/user/api-provided/user-swaps-api-provided'
 import { redirect } from 'next/navigation'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const UserSwapsPage: FunctionComponent<Props> = async ({ params: { username } }) => {
+  unstable_setRequestLocale('en')
   const user = await getAuthUser()
   if (user?.username === username) {
     redirect(linkProvider.profile.swaps.get())

@@ -7,6 +7,7 @@ import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/asser
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
 import { CollectionListingsApiProvided } from '@echo/ui/components/collection/api-provided/collection-listings-api-provided'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -17,6 +18,7 @@ interface Props {
 }
 
 const CollectionListingsPage: FunctionComponent<Props> = async ({ params }) => {
+  unstable_setRequestLocale('en')
   const user = await getAuthUser()
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'asc' }]

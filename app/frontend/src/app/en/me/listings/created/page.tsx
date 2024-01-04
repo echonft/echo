@@ -9,10 +9,12 @@ import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { ProfileListingsCreatedApiProvided } from '@echo/ui/components/profile/api-provided/profile-listings-created-api-provided'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 const ProfileListingsCreatedPage: FunctionComponent = async () => {
+  unstable_setRequestLocale('en')
   const user = await getAuthUser()
   redirectIfNotLoggedIn(user, linkProvider.profile.listingsCreated.getUrl())
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({

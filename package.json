@@ -40,7 +40,6 @@
     "lint:clean-cache": "rm -f .eslintcache && turbo run lint:clean-cache",
     "modules:remove-all": "turbo run modules:remove-all; rm -rf node_modules; rm -rf pnpm-lock.yaml",
     "modules:update-all": "ncu -u && turbo run modules:update-all",
-    "modules:upgrade": "turbo run modules:upgrade --continue --",
     "prepare": "husky install",
     "prettier": "turbo run prettier",
     "storybook:build": "turbo run build --filter=@echo/storybook",

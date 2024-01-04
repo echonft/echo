@@ -9,6 +9,7 @@ import { ListingDetailsApiProvided } from '@echo/ui/components/listing/api-provi
 import { isIn } from '@echo/utils/fp/is-in'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { notFound } from 'next/navigation'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { map, path, pipe } from 'ramda'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
@@ -20,6 +21,7 @@ interface Props {
 }
 
 const ListingDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { slug, id } }) => {
+  unstable_setRequestLocale('en')
   const user = await getAuthUser()
   const collectionResponse = await nextFetch.get<CollectionResponse>(apiUrlProvider.collection.get.getUrl({ slug }))
   const listingResponse = await nextFetch.get<ListingResponse>(apiUrlProvider.listing.get.getUrl({ listingId: id }))

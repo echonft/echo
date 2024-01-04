@@ -5,6 +5,7 @@ import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { CollectionNftsApiProvided } from '@echo/ui/components/collection/api-provided/collection-nfts-api-provided'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const CollectionNftsPage: FunctionComponent<Props> = async ({ params }) => {
+  unstable_setRequestLocale('en')
   const user = await getAuthUser()
   const query = mapQueryConstraintsToQueryParams({
     orderBy: [

@@ -11,10 +11,12 @@ import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
 import { ProfileOffersCreatedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-created-api-provided'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { assoc, map, mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 const ProfileOffersCreatedPage: FunctionComponent = async () => {
+  unstable_setRequestLocale('en')
   const user = await getAuthUser()
   redirectIfNotLoggedIn(user, linkProvider.profile.offersCreated.getUrl())
   const filterParams = mapOfferFiltersToQueryParams({

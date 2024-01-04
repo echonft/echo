@@ -10,7 +10,6 @@
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove-all": "rm -rf node_modules",
     "modules:update-all": "ncu -u",
-    "modules:upgrade": "pnpm upgrade",
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
     "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c  .",
     "test": "jest",

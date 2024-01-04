@@ -7,10 +7,12 @@ import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { HomePage } from '@echo/ui/components/home/layout/home-page'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 const Home: FunctionComponent = async () => {
+  unstable_setRequestLocale('en')
   const user = await getAuthUser()
   const collectionsConstraintsQueryParams = mapQueryConstraintsToQueryParams({
     select: ['id', 'slug', 'profilePictureUrl', 'name'],

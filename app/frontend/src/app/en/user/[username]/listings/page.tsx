@@ -9,6 +9,7 @@ import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/asser
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { UserListingsApiProvided } from '@echo/ui/components/user/api-provided/user-listings-api-provided'
 import { redirect } from 'next/navigation'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const UserListingsPage: FunctionComponent<Props> = async ({ params: { username } }) => {
+  unstable_setRequestLocale('en')
   const user = await getAuthUser()
   if (user?.username === username) {
     redirect(linkProvider.profile.listingsCreated.get())

@@ -3,7 +3,7 @@ import { CollectionTile } from '@echo/ui/components/collection/tile/collection-t
 import { TopCollectionsLayout } from '@echo/ui/components/home/collection/top/layout/top-collections-layout'
 import { HomeSectionLayout } from '@echo/ui/components/home/layout/home-section-layout'
 import { SIZE_MD } from '@echo/ui/constants/size'
-import { getTranslator } from '@echo/ui/messages/get-translator'
+import { useTranslations } from 'next-intl'
 import { map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -12,9 +12,9 @@ interface Props {
 }
 
 export const TopCollections: FunctionComponent<Props> = ({ collections }) => {
-  const t = getTranslator()
+  const t = useTranslations('home.topCollections')
   return (
-    <HomeSectionLayout title={t('home.topCollections.title')}>
+    <HomeSectionLayout title={t('title')}>
       <TopCollectionsLayout>
         {map(
           ({ slug, name, profilePictureUrl, swapsCount }) => (

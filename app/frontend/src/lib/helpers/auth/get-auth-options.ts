@@ -1,11 +1,11 @@
-import { FirestoreAdapter, initFirestore } from '@auth/firebase-adapter'
+import { FirestoreAdapter } from '@auth/firebase-adapter'
 import { updateAccount } from '@echo/firestore/crud/account/update-account'
 import { findSessionByUserId } from '@echo/firestore/crud/session/find-session-by-user-id'
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
 import { setUserId } from '@echo/firestore/crud/user/set-user-id'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/map-wallet-document-data-to-wallet'
-import { getCredential } from '@echo/firestore/services/get-credential'
+import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { getAvatarDecorationUrl } from '@echo/frontend/lib/helpers/auth/get-avatar-decoration-url'
 import { getDiscordAvatarUrl } from '@echo/frontend/lib/helpers/auth/get-discord-avatar-url'
 import { getDiscordBannerUrl } from '@echo/frontend/lib/helpers/auth/get-discord-banner-url'
@@ -20,8 +20,7 @@ import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
 import { always, assoc, complement, either, has, isNil, map, pick, pipe, unless } from 'ramda'
 
 export function getAuthOptions(): AuthOptions {
-  const credential = getCredential()
-  const firestore = initFirestore(credential)
+  const firestore = initializeFirebase()
   const adapter = FirestoreAdapter(firestore)
   const clientId = getDiscordClientId()
   const clientSecret = getDiscordClientSecret()

@@ -2,16 +2,16 @@ import { NftGroupsAndFiltersContainerSkeleton } from '@echo/ui/components/nft/la
 import { ProfileNavigationLayoutSkeleton } from '@echo/ui/components/profile/layout/skeleton/profile-navigation-layout-skeleton'
 import { NAVIGATION_ITEMS } from '@echo/ui/constants/navigation-item'
 import { NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
-import { getTranslator } from '@echo/ui/messages/get-translator'
+import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 export const ProfileNftsSkeleton: FunctionComponent = () => {
-  const t = getTranslator()
+  const t = useTranslations('profile')
   return (
     <ProfileNavigationLayoutSkeleton activeNavigationItem={NAVIGATION_ITEMS}>
-      <NftGroupsAndFiltersContainerSkeleton
+      <NftGroupsAndFiltersContainerSkeleton availableFilters={[NFT_FILTER_TRAITS]} btnLabel={t('offerButton.label')} />
         availableFilters={[NFT_FILTER_TRAITS]}
-        btnLabel={t('profile.listingButton.label')}
+        btnLabel={t('listingButton.label')}
       />
     </ProfileNavigationLayoutSkeleton>
   )

@@ -12,15 +12,20 @@ const nextConfig = {
   transpilePackages: ['@echo/alchemy', '@echo/api', '@echo/firestore', '@echo/ui', '@echo/utils', '@echo/web3'],
   webpack: (config) => {
     config.externals.push('pino-pretty', 'lokijs', 'encoding')
-    return config
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        fallback: {
+          ...config.resolve.fallback,
+          request: false
+        }
+      }
+    }
   }
 }
 
-const withNextIntl = require('next-intl/plugin')(
-  // This is the default (also the `src` folder is supported out of the box)
-  './src/i18n.ts'
-)
-
+const withNextIntl = require('next-intl/plugin')()
 module.exports = withNextIntl(nextConfig)
 
 // Injected content via Sentry wizard below

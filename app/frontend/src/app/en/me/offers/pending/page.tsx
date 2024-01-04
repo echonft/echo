@@ -12,10 +12,12 @@ import { OFFER_ROLE_RECEIVER } from '@echo/model/constants/offer-role'
 import { OFFER_STATE_ACCEPTED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { ProfileOffersReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-received-api-provided'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { assoc, map, mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 const ProfileOffersReceivedPage: FunctionComponent = async () => {
+  unstable_setRequestLocale('en')
   const user = await getAuthUser()
   redirectIfNotLoggedIn(user, linkProvider.profile.offersReceived.getUrl())
   const filterParams = mapOfferFiltersToQueryParams({

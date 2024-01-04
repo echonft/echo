@@ -9,10 +9,12 @@ import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { OFFER_ROLE_RECEIVER, OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
 import { ProfileSwapsApiProvided } from '@echo/ui/components/profile/api-provided/profile-swaps-api-provided'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { assoc, ifElse, map, pathEq } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 const ProfileSwapsPage: FunctionComponent = async () => {
+  unstable_setRequestLocale('en')
   const user = await getAuthUser()
   redirectIfNotLoggedIn(user, linkProvider.profile.swaps.getUrl())
   const params = mapQueryConstraintsToQueryParams({

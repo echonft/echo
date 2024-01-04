@@ -6,6 +6,7 @@ import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { CollectionDetailsApiProvided } from '@echo/ui/components/collection/api-provided/collection-details-api-provided'
 import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params, children }) => {
+  unstable_setRequestLocale('en')
   const user = await getAuthUser()
   const response = await nextFetch.get<CollectionResponse>(apiUrlProvider.collection.get.getUrl(params))
   assertNextFetchResponse(response)

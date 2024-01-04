@@ -1,11 +1,11 @@
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { EchoIconSvg } from '@echo/ui/components/base/svg/echo-icon-svg'
-import { getTranslator } from '@echo/ui/messages/get-translator'
 import { clsx } from 'clsx'
+import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 export const NotFoundPage: FunctionComponent = () => {
-  const t = getTranslator()
+  const t = useTranslations('notFoundPage')
   return (
     <div className={clsx('w-max', 'h-full', 'flex', 'flex-col', 'mx-auto', 'items-center')}>
       <div
@@ -42,9 +42,9 @@ export const NotFoundPage: FunctionComponent = () => {
             'mb-12'
           )}
         >
-          {t('notFoundPage.title')}
+          {t('title')}
           <br />
-          {t('notFoundPage.subtitle')}
+          {t('subtitle')}
         </p>
         <InternalLink path={'/'}>
           <button className={clsx('btn-primary-reverse', 'btn-size')}>
@@ -59,7 +59,7 @@ export const NotFoundPage: FunctionComponent = () => {
                 'whitespace-pre-line'
               )}
             >
-              {t('notFoundPage.button.label')}
+              {t('button.label')}
             </span>
           </button>
         </InternalLink>

@@ -11,9 +11,9 @@ import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
 import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item'
-import { getTranslator } from '@echo/ui/messages/get-translator'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
+import { useTranslations } from 'next-intl'
 import { assoc, dissoc, map, pipe } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
@@ -24,7 +24,7 @@ interface Props {
 }
 
 export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts, user }) => {
-  const t = getTranslator()
+  const t = useTranslations('user')
   const { hasNewOfferPending, setReceiverItems, openModal } = useNewOfferStore()
   const selectableNfts = useMemo(() => {
     if (hasNewOfferPending()) {
@@ -51,7 +51,7 @@ export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts, 
           <SelectableNftGroupsAndFiltersContainer
             nfts={selectableNfts}
             availableFilters={[NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS]}
-            btnLabel={t('user.button.label')}
+            btnLabel={t('button.label')}
             onButtonClick={onMakeOffer}
           />
         )}

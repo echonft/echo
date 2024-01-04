@@ -2,8 +2,8 @@ import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { Img } from '@echo/ui/components/base/img'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
-import { getTranslator } from '@echo/ui/messages/get-translator'
 import { clsx } from 'clsx'
+import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, name, swapsCount, size }) => {
-  const t = getTranslator()
+  const t = useTranslations('collection')
   return (
     <InternalLink
       className={clsx(
@@ -51,7 +51,7 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
         <div className={clsx('flex', 'flex-col', 'gap-2')}>
           <p className={clsx('prose-header-xs-semi', 'text-white')}>{name}</p>
           <p className={clsx('prose-paragraph-xs-light', 'text-white')}>
-            {t('collection.tile.swapsCount', { count: swapsCount ?? 0 })}
+            {t('tile.swapsCount', { count: swapsCount ?? 0 })}
           </p>
         </div>
       </div>

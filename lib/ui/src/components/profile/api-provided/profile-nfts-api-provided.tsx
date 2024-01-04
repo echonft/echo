@@ -14,8 +14,7 @@ import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { mapNftToListingItem } from '@echo/ui/mappers/to-api/map-nft-to-listing-item'
 import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item'
-import { messages } from '@echo/ui/messages/en'
-import { getTranslator } from '@echo/ui/messages/get-translator'
+import { useTranslations } from 'next-intl'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { NextIntlClientProvider } from 'next-intl'
 import { useRouteChangeEvents } from 'nextjs-router-events'
@@ -29,7 +28,7 @@ interface Props {
 }
 
 export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user }) => {
-  const t = getTranslator()
+  const t = useTranslations('profile')
   const { hasNewOfferPending, clearOffer, setSenderItems, openModal: openNewOfferModal } = useNewOfferStore()
   const { openModal: openNewListingModal, setItems } = useNewListingStore()
   const [showDiscardModal, setShowDiscardModal] = useState(false)
