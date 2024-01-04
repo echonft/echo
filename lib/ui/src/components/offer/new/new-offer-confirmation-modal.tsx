@@ -15,9 +15,7 @@ import { type FunctionComponent } from 'react'
 interface Props {
   receiver: User
   receiverItems: OfferItem[]
-  onRemoveReceiverItem?: (item: OfferItem) => unknown
   senderItems?: OfferItem[]
-  onRemoveSenderItem?: (item: OfferItem) => unknown
   open: boolean
   onClear?: VoidFunction
   onContinue?: VoidFunction
@@ -28,9 +26,7 @@ interface Props {
 export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
   receiver,
   receiverItems,
-  onRemoveReceiverItem,
   senderItems,
-  onRemoveSenderItem,
   open,
   onClear,
   onContinue,
@@ -50,12 +46,7 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
     >
       <div className={clsx('flex', 'flex-col', 'gap-12', 'min-w-96')}>
         <UserDetailsRoundedContainer user={receiver} />
-        <NewOfferModalItemsContainer
-          receiverItems={receiverItems}
-          onRemoveReceiverItem={onRemoveReceiverItem}
-          senderItems={senderItems}
-          onRemoveSenderItem={onRemoveSenderItem}
-        />
+        <NewOfferModalItemsContainer receiverItems={receiverItems} senderItems={senderItems} />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
           <ShowIfNilOrEmpty checks={senderItems}>
             <InternalLink path={linkProvider.profile.items.get()}>

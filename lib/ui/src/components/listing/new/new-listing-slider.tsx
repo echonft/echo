@@ -3,7 +3,6 @@ import type { CollectionProviderResult } from '@echo/api/services/providers/coll
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CollectionSearchBoxManager } from '@echo/ui/components/collection/search/collection-search-box-manager'
-import { NewSenderItemsContainer } from '@echo/ui/components/item/new/new-sender-items-container'
 import { NewListingSliderExpirationContainer } from '@echo/ui/components/listing/new/new-listing-slider-expiration-container'
 import type { Target } from '@echo/ui/components/listing/new/new-listing-slider-manager'
 import { NewListingSliderTargetContainer } from '@echo/ui/components/listing/new/new-listing-slider-target-container'
@@ -32,7 +31,8 @@ export const NewListingSlider: FunctionComponent<Props> = ({
   onCollectionSelectionChange,
   onTargetAmountChange,
   onRemoveTarget,
-  onRemoveItem,
+  // FIXME Update with new layout
+  // onRemoveItem,
   onFinalize,
   onDismissListing
 }) => {
@@ -50,7 +50,8 @@ export const NewListingSlider: FunctionComponent<Props> = ({
         onSelectionChange={onSelectionChange}
       />
       <NewListingSliderTargetContainer target={target} onRemove={onRemoveTarget} onEdit={onTargetAmountChange} />
-      <NewSenderItemsContainer items={items} onRemove={onRemoveItem} />
+      {/*FIXME Need to use the proper layout. We can use NftsLayout and NftThumbnail probably */}
+      {/*<NewSenderItemsContainer items={items} onRemove={onRemoveItem} />*/}
       <NewListingSliderExpirationContainer />
       <div className={clsx('flex', 'items-center', 'justify-center', 'py-6', 'gap-5')}>
         <button

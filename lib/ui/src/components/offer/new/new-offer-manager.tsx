@@ -2,12 +2,11 @@
 import type { CreateOfferArgs } from '@echo/api/services/fetcher/create-offer'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { type AuthUser } from '@echo/model/types/auth-user'
-import type { OfferItem } from '@echo/model/types/offer-item'
 import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import type { Fetcher } from '@echo/utils/types/fetcher'
-import { isNil, pathEq, reject } from 'ramda'
-import { type FunctionComponent, useCallback, useEffect, useRef } from 'react'
+import { isNil } from 'ramda'
+import { type FunctionComponent, useEffect, useRef } from 'react'
 
 interface Props {
   fetcher: {
@@ -18,16 +17,7 @@ interface Props {
 // TODO Add the creation of offer
 export const NewOfferManager: FunctionComponent<Props> = () => {
   // const tError = useTranslations('error.offer')
-  const {
-    setReceiverItems,
-    setSenderItems,
-    getReceiver,
-    receiverItems,
-    senderItems,
-    clearOffer,
-    modalOpen,
-    closeModal
-  } = useNewOfferStore()
+  const { getReceiver, receiverItems, senderItems, clearOffer, modalOpen, closeModal } = useNewOfferStore()
   const clearOfferTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
 
   useEffect(() => {
@@ -39,18 +29,7 @@ export const NewOfferManager: FunctionComponent<Props> = () => {
   }, [])
 
   // const [offer, setOffer] = useState<Offer>()
-  const onRemoveSenderItems = useCallback(
-    (item: OfferItem) => {
-      setSenderItems(reject(pathEq(item.nft.id, ['nft', 'id'])))
-    },
-    [setSenderItems]
-  )
-  const onRemoveReceiverItems = useCallback(
-    (item: OfferItem) => {
-      setReceiverItems(reject(pathEq(item.nft.id, ['nft', 'id'])))
-    },
-    [setReceiverItems]
-  )
+
   // const { trigger, isMutating } = useSWRTrigger<OfferResponse, CreateOfferArgs>({
   //   key: SWRKeys.offer.create,
   //   fetcher: fetcher.createOffer,
@@ -81,9 +60,7 @@ export const NewOfferManager: FunctionComponent<Props> = () => {
     <NewOfferConfirmationModal
       receiver={receiver}
       receiverItems={receiverItems}
-      onRemoveReceiverItem={onRemoveReceiverItems}
       senderItems={senderItems}
-      onRemoveSenderItem={onRemoveSenderItems}
       open={modalOpen}
       onClear={() => {
         closeModal()

@@ -43,3 +43,12 @@ export const Default: Story = {
     open: true
   }
 }
+
+export const MultipleItems: Story = {
+  args: {
+    receiver,
+    receiverItems: [receiverItems[0]!, receiverItems[0]!],
+    senderItems: [senderItems[0]!, senderItems[0]!, senderItems[0]!, senderItems[0]!],
+    open: true
+  }
+}

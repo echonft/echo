@@ -1,47 +1,41 @@
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
-import { ItemsLayout } from '@echo/ui/components/item/layout/items-layout'
-import { RemovableItemCard } from '@echo/ui/components/item/removable-card/removable-item-card'
+import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
+import { NftThumbnail } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
 import { ItemsSeparator } from '@echo/ui/components/shared/items-separator'
+import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { clsx } from 'clsx'
 import { map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   receiverItems: OfferItem[]
-  onRemoveReceiverItem?: (item: OfferItem) => unknown
   senderItems?: OfferItem[]
-  onRemoveSenderItem?: (item: OfferItem) => unknown
 }
 
-export const NewOfferModalItemsContainer: FunctionComponent<Props> = ({
-  receiverItems,
-  onRemoveReceiverItem,
-  senderItems,
-  onRemoveSenderItem
-}) => {
+export const NewOfferModalItemsContainer: FunctionComponent<Props> = ({ receiverItems, senderItems }) => {
   return (
     <div className={clsx('flex', 'flex-col', 'gap-4.5', 'items-center', 'min-w-[40rem]')}>
-      <ItemsLayout>
+      <NftsLayout alignment={ALIGNMENT_CENTER}>
         {map(
           (item) => (
-            <RemovableItemCard item={item} key={item.nft.id} onRemove={onRemoveReceiverItem} />
+            <NftThumbnail nft={item.nft} key={item.nft.id} />
           ),
           receiverItems
         )}
-      </ItemsLayout>
+      </NftsLayout>
       <HideIfNilOrEmpty checks={senderItems} render={() => <ItemsSeparator />} />
       <HideIfNilOrEmpty
         checks={senderItems}
         render={(items) => (
-          <ItemsLayout>
+          <NftsLayout alignment={ALIGNMENT_CENTER}>
             {map(
               (item) => (
-                <RemovableItemCard item={item} key={item.nft.id} onRemove={onRemoveSenderItem} />
+                <NftThumbnail nft={item.nft} key={item.nft.id} />
               ),
               items
             )}
-          </ItemsLayout>
+          </NftsLayout>
         )}
       />
     </div>
