@@ -1,4 +1,4 @@
-import { LayoutLoading as Component } from '@echo/ui/components/layout/layout-loading'
+import { PageLayoutSkeleton as Component } from '@echo/ui/components/layout/skeleton/page-layout-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

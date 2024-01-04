@@ -8,8 +8,6 @@ import { UserBanner, type UserBannerProps } from '@echo/ui/components/user/detai
 import { UserDetailsLayout } from '@echo/ui/components/user/layout/user-details-layout'
 import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout'
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
-import { messages } from '@echo/ui/messages/en'
-import { NextIntlClientProvider } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 interface Props extends UserProfilePictureProps, UserBannerProps {
@@ -25,19 +23,17 @@ export const UserDetails: FunctionComponent<Props> = ({
   size
 }) => {
   return (
-    <NextIntlClientProvider messages={messages} locale={'en'}>
-      <UserDetailsLayout>
-        <UserBanner discordBannerColor={discordBannerColor} discordBannerUrl={discordBannerUrl} />
-        <PaddedContainer>
-          <UserPictureAndInfoLayout>
-            <UserProfilePicture discordUsername={discordUsername} discordAvatarUrl={discordAvatarUrl} size={size} />
-            <UserInfoLayout>
-              <UserDiscordTag discordUsername={discordUsername} />
-              <HideIfNil checks={wallet} render={(wallet) => <UserWalletButton wallet={wallet} />} />
-            </UserInfoLayout>
-          </UserPictureAndInfoLayout>
-        </PaddedContainer>
-      </UserDetailsLayout>
-    </NextIntlClientProvider>
+    <UserDetailsLayout>
+      <UserBanner discordBannerColor={discordBannerColor} discordBannerUrl={discordBannerUrl} />
+      <PaddedContainer>
+        <UserPictureAndInfoLayout>
+          <UserProfilePicture discordUsername={discordUsername} discordAvatarUrl={discordAvatarUrl} size={size} />
+          <UserInfoLayout>
+            <UserDiscordTag discordUsername={discordUsername} />
+            <HideIfNil checks={wallet} render={(wallet) => <UserWalletButton wallet={wallet} />} />
+          </UserInfoLayout>
+        </UserPictureAndInfoLayout>
+      </PaddedContainer>
+    </UserDetailsLayout>
   )
 }

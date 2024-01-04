@@ -2,7 +2,7 @@ import { HeaderSkeleton } from '@echo/ui/components/layout/header/skeleton/heade
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
-export const LayoutLoading: FunctionComponent = () => {
+export const PageLayoutSkeleton: FunctionComponent = () => {
   return (
     <div className={clsx('h-screen', 'w-full')}>
       <HeaderSkeleton />

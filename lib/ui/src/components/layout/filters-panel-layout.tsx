@@ -6,7 +6,7 @@ interface Props {
   className?: string
 }
 
-export const FiltersPanel: FunctionComponent<PropsWithChildren<Props>> = ({ title, className, children }) => {
+export const FiltersPanelLayout: FunctionComponent<PropsWithChildren<Props>> = ({ title, className, children }) => {
   return (
     <div
       className={clsx('flex', 'flex-col', 'p-2', 'rounded-2xl', 'bg-white/[0.09]', 'w-52', 'h-max', 'gap-2', className)}

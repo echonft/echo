@@ -5,8 +5,6 @@ import type { Listing } from '@echo/model/types/listing'
 import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { ListingDetails } from '@echo/ui/components/listing/details/listing-details'
-import { messages } from '@echo/ui/messages/en'
-import { NextIntlClientProvider } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -16,11 +14,9 @@ interface Props {
 
 export const ListingDetailsApiProvided: FunctionComponent<Props> = ({ listing, user }) => {
   return (
-    <NextIntlClientProvider messages={messages} locale={'en'}>
-      <PaddedContainer>
-        <ListingDetails listing={listing} user={user} fetcher={{ cancelListing }} />
-        <CalloutManager />
-      </PaddedContainer>
-    </NextIntlClientProvider>
+    <PaddedContainer>
+      <ListingDetails listing={listing} user={user} fetcher={{ cancelListing }} />
+      <CalloutManager />
+    </PaddedContainer>
   )
 }

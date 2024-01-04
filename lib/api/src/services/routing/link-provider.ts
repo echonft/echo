@@ -16,6 +16,9 @@ export const linkProvider = {
   auth: {
     signIn: new Path({ path: '/auth/signin' })
   },
+  base: {
+    home: new Path({ path: '/' })
+  },
   collection: {
     all: new Path({ path: '/collections' }),
     items: new Path<CollectionPathArgs>({ path: '/collection/:slug/items' }),

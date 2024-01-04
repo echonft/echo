@@ -1,17 +1,27 @@
-import { type AuthUser } from '@echo/model/types/auth-user'
-import { Header } from '@echo/ui/components/layout/header/header'
+import { Header, type HeaderProps } from '@echo/ui/components/layout/header/header'
+import { MainSectionLayout } from '@echo/ui/components/layout/main-section-layout'
 import { clsx } from 'clsx'
+import { isNil } from 'ramda'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
-export interface PageLayoutProps {
-  user: AuthUser | undefined
+interface Props {
+  headerProps: HeaderProps
+  bg?: 'default' | 'transparent'
 }
 
-export const PageLayout: FunctionComponent<PropsWithChildren<PageLayoutProps>> = ({ user, children }) => {
+export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({ headerProps, bg = 'default', children }) => {
   return (
-    <div className={clsx('w-full', 'h-full', 'bg-dark-500', 'overflow-y-auto')}>
-      <Header user={user} />
-      <main className={clsx('w-full', 'pb-14')}>{children}</main>
+    <div
+      className={clsx(
+        'w-full',
+        'h-full',
+        'overflow-y-auto',
+        bg === 'default' && 'bg-dark-500',
+        !isNil(headerProps?.absolute) && 'relative'
+      )}
+    >
+      <Header {...headerProps} />
+      <MainSectionLayout>{children}</MainSectionLayout>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 'use client'
-import { ErrorPage } from '@echo/ui/components/layout/error-page'
+import { ErrorPage } from '@echo/ui/components/page/error-page'
 import { captureException } from '@sentry/nextjs'
 import { type FunctionComponent, useEffect } from 'react'
 

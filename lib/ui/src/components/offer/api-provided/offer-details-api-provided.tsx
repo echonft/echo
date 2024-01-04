@@ -9,13 +9,11 @@ import { type Offer } from '@echo/model/types/offer'
 import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
-import { messages } from '@echo/ui/messages/en'
 import { approveErc721Contract } from '@echo/web3/helpers/wagmi/fetcher/approve-erc721-contract'
 import { executeSwap } from '@echo/web3/helpers/wagmi/fetcher/execute-swap'
 import { getErc721ContractApproval } from '@echo/web3/helpers/wagmi/fetcher/get-erc721-contract-approval'
 import { signOffer } from '@echo/web3/helpers/wagmi/fetcher/sign-offer'
 import { chain } from '@echo/web3/helpers/wagmi/provider/chain'
-import { NextIntlClientProvider } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -25,29 +23,27 @@ interface Props {
 
 export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user }) => {
   return (
-    <NextIntlClientProvider messages={messages} locale={'en'}>
-      <PaddedContainer>
-        <OfferDetails
-          offer={offer}
-          isCreator={user.username === offer.sender?.username}
-          token={user.sessionToken}
-          fetcher={{
-            approveErc721Contract,
-            getErc721ContractApproval,
-            acceptOffer,
-            cancelOffer,
-            executeSwap,
-            getOffer,
-            getOfferSignature,
-            rejectOffer,
-            signOffer
-          }}
-          provider={{
-            chain
-          }}
-        />
-      </PaddedContainer>
+    <PaddedContainer>
+      <OfferDetails
+        offer={offer}
+        isCreator={user.username === offer.sender?.username}
+        token={user.sessionToken}
+        fetcher={{
+          approveErc721Contract,
+          getErc721ContractApproval,
+          acceptOffer,
+          cancelOffer,
+          executeSwap,
+          getOffer,
+          getOfferSignature,
+          rejectOffer,
+          signOffer
+        }}
+        provider={{
+          chain
+        }}
+      />
       <CalloutManager />
-    </NextIntlClientProvider>
+    </PaddedContainer>
   )
 }

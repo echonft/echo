@@ -7,9 +7,7 @@ import { NavigationLayout } from '@echo/ui/components/layout/navigation/navigati
 import { NewListingManager } from '@echo/ui/components/listing/new/new-listing-manager'
 import { NewOfferManager } from '@echo/ui/components/offer/new/new-offer-manager'
 import { getProfileNavigationItems } from '@echo/ui/helpers/profile/get-profile-navigation-items'
-import { messages } from '@echo/ui/messages/en'
 import { type NavigationItemId } from '@echo/ui/types/navigation-item-id'
-import { NextIntlClientProvider } from 'next-intl'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -22,13 +20,11 @@ export const ProfileNavigationLayout: FunctionComponent<PropsWithChildren<Props>
   children
 }) => {
   return (
-    <NextIntlClientProvider messages={messages} locale={'en'}>
-      <NavigationLayout navigationItems={getProfileNavigationItems()} activeNavigationItem={activeNavigationItem}>
-        {children}
-        <NewOfferManager fetcher={{ createOffer }} user={user} />
+    <NavigationLayout navigationItems={getProfileNavigationItems()} activeNavigationItem={activeNavigationItem}>
+      {children}
+      <NewOfferManager fetcher={{ createOffer }} user={user} />
         <NewListingManager fetcher={{ createListing }} provider={{ collections }} user={user} />
-        <CalloutManager />
-      </NavigationLayout>
-    </NextIntlClientProvider>
+      <CalloutManager />
+    </NavigationLayout>
   )
 }

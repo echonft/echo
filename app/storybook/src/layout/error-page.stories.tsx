@@ -1,4 +1,4 @@
-import { ErrorPage as Component } from '@echo/ui/components/layout/error-page'
+import { ErrorPage as Component } from '@echo/ui/components/page/error-page'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
