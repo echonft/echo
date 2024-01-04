@@ -1,15 +1,16 @@
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { type User } from '@echo/model/types/user'
-import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { propIsNotEmpty } from '@echo/utils/fp/prop-is-not-empty'
-import { assoc, either, head, is, pipe } from 'ramda'
+import { always, assoc, either, head, ifElse, is, path, pipe } from 'ramda'
 import { create } from 'zustand'
 
 interface NewOfferState {
   modalOpen: boolean
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
-  receiver: () => User | undefined
+  getReceiver: () => User | undefined
   setReceiverItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
   setSenderItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
   clearOffer: VoidFunction
@@ -22,13 +23,12 @@ export const useNewOfferStore = create<NewOfferState>((set, get) => ({
   modalOpen: false,
   receiverItems: [],
   senderItems: [],
-  receiver: () => {
-    const receiverItems = get().receiverItems
-    if (isNonEmptyArray(receiverItems)) {
-      return head(receiverItems).nft.owner
-    }
-    return undefined
-  },
+  getReceiver: () =>
+    ifElse(
+      isNilOrEmpty,
+      always(undefined),
+      pipe<[OfferItem[]], OfferItem, User>(head, nonNullableReturn(path(['nft', 'owner'])))
+    )(get().receiverItems),
   setReceiverItems: (args) => {
     function setState(items: OfferItem[]) {
       set(assoc('receiverItems', items))
@@ -49,7 +49,9 @@ export const useNewOfferStore = create<NewOfferState>((set, get) => ({
       setState(args)
     }
   },
-  clearOffer: () => set(pipe(assoc('modalOpen', false), assoc('receiverItems', []), assoc('senderItems', []))),
+  clearOffer: () => {
+    set(pipe(assoc('receiverItems', []), assoc('senderItems', [])))
+  },
   openModal: () => set(assoc('modalOpen', true)),
   closeModal: () => set(assoc('modalOpen', false)),
   hasNewOfferPending: () => pipe(get, either(propIsNotEmpty('receiverItems'), propIsNotEmpty('senderItems')))()

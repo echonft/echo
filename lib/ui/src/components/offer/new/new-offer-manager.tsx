@@ -6,8 +6,8 @@ import type { OfferItem } from '@echo/model/types/offer-item'
 import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import type { Fetcher } from '@echo/utils/types/fetcher'
-import { pathEq, reject } from 'ramda'
-import { type FunctionComponent, useCallback } from 'react'
+import { isNil, pathEq, reject } from 'ramda'
+import { type FunctionComponent, useCallback, useEffect, useRef } from 'react'
 
 interface Props {
   fetcher: {
@@ -18,8 +18,26 @@ interface Props {
 // TODO Add the creation of offer
 export const NewOfferManager: FunctionComponent<Props> = () => {
   // const tError = useTranslations('error.offer')
-  const { setReceiverItems, setSenderItems, receiver, receiverItems, senderItems, clearOffer, modalOpen, closeModal } =
-    useNewOfferStore()
+  const {
+    setReceiverItems,
+    setSenderItems,
+    getReceiver,
+    receiverItems,
+    senderItems,
+    clearOffer,
+    modalOpen,
+    closeModal
+  } = useNewOfferStore()
+  const clearOfferTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
+
+  useEffect(() => {
+    return (): void => {
+      if (!isNil(clearOfferTimeoutRef.current)) {
+        clearTimeout(clearOfferTimeoutRef.current)
+      }
+    }
+  }, [])
+
   // const [offer, setOffer] = useState<Offer>()
   const onRemoveSenderItems = useCallback(
     (item: OfferItem) => {
@@ -52,16 +70,25 @@ export const NewOfferManager: FunctionComponent<Props> = () => {
   //     }
   //   }
   // })
+
+  const receiver = getReceiver()
+
+  if (isNil(receiver)) {
+    return null
+  }
   return (
     //   TODO Add logic to complete offer
     <NewOfferConfirmationModal
-      receiver={receiver()}
+      receiver={receiver}
       receiverItems={receiverItems}
       onRemoveReceiverItem={onRemoveReceiverItems}
       senderItems={senderItems}
       onRemoveSenderItem={onRemoveSenderItems}
       open={modalOpen}
-      onClear={clearOffer}
+      onClear={() => {
+        closeModal()
+        clearOfferTimeoutRef.current = setTimeout(clearOffer, 210)
+      }}
       onClose={closeModal}
       onContinue={closeModal}
     />
