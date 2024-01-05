@@ -10,4 +10,4 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Default: Story = {}
+export const Banner: Story = {}
