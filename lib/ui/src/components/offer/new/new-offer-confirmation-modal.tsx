@@ -3,6 +3,7 @@ import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import type { User } from '@echo/model/types/user'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
 import { ShowIfNilOrEmpty } from '@echo/ui/components/base/utils/show-if-nil-or-empty'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
@@ -63,9 +64,14 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
               </button>
             )}
           />
-          <button className={clsx('btn-action', 'btn-size-alt', 'group')} onClick={onClear}>
-            <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('clearBtn')}</span>
-          </button>
+          <LongPressButton
+            id={'new-offer-confirmation-btn'}
+            label={t('clearBtn')}
+            message={t('clearBtnMessage')}
+            onFinish={() => {
+              onClear?.()
+            }}
+          />
         </div>
       </div>
     </Modal>

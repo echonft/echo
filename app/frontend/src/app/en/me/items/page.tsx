@@ -7,6 +7,7 @@ import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { ProfileNftsApiProvided } from '@echo/ui/components/profile/api-provided/profile-nfts-api-provided'
+import { RouteChangesProvider } from 'nextjs-router-events'
 import { type FunctionComponent } from 'react'
 
 const ProfileNftsPage: FunctionComponent = async () => {
@@ -19,7 +20,11 @@ const ProfileNftsPage: FunctionComponent = async () => {
     params: queryParams
   })
   assertNextFetchResponse(response)
-  return <ProfileNftsApiProvided nfts={response.data.nfts} user={user} />
+  return (
+    <RouteChangesProvider>
+      <ProfileNftsApiProvided nfts={response.data.nfts} user={user} />
+    </RouteChangesProvider>
+  )
 }
 
 export default ProfileNftsPage

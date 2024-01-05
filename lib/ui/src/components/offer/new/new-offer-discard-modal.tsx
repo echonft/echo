@@ -1,3 +1,4 @@
+'use client'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { clsx } from 'clsx'
