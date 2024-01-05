@@ -41,11 +41,11 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
   // Prevent navigation (refresh, back, forward) if offer is pending. Doesn't work flawlessly but will do the trick for now.
   useBeforeunload(hasNewOfferPending() ? (event) => event.preventDefault() : undefined)
 
-  const discardOffer = useCallback(() => {
+  const discardOffer = () => {
+    allowRouteChange()
     clearOffer()
     setShowDiscardModal(false)
-    allowRouteChange()
-  }, [])
+  }
 
   const selectableNfts = useMemo(() => {
     if (hasNewOfferPending()) {
