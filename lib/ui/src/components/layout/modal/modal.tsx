@@ -15,6 +15,7 @@ interface Props {
   closeDisabled?: boolean
   backDisabled?: boolean
   backButtonLabel?: string
+  minHeight?: boolean
   onBack?: VoidFunction
 }
 
@@ -25,6 +26,7 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
   closeDisabled = false,
   backDisabled = true,
   backButtonLabel,
+  minHeight = true,
   onBack,
   children
 }) => {
@@ -63,7 +65,7 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
                 className={clsx(
                   'flex',
                   'flex-col',
-                  'min-h-[42rem]',
+                  minHeight && 'min-h-[42rem]',
                   'transform',
                   'overflow-hidden',
                   'border-2',
