@@ -4,7 +4,7 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
-export const NotFoundPage: FunctionComponent = () => {
+export const Error404: FunctionComponent = () => {
   const t = useTranslations('notFoundPage')
   return (
     <div className={clsx('w-max', 'h-full', 'flex', 'flex-col', 'mx-auto', 'items-center')}>

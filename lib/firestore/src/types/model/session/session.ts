@@ -1,6 +1,5 @@
 export interface Session {
-  expired: boolean
-  expires: number
+  expires: Date
   sessionToken: string
   userId: string
 }

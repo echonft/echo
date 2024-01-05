@@ -37,7 +37,7 @@ const HomePage: FunctionComponent = async () => {
   assertNextFetchResponse(collectionsResponse)
   assertNextFetchResponse(swapsResponse)
   return (
-    <PageLayout headerProps={{ user, absolute: true }} bg={'transparent'}>
+    <PageLayout user={user} headerVariants={{ transparent: true }}>
       <Home collections={collectionsResponse.data.collections} offers={swapsResponse.data.offers} />
     </PageLayout>
   )

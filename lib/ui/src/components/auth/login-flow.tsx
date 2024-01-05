@@ -7,10 +7,10 @@ import { isNil } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
+  user: AuthUser | undefined
   callbackUrl?: string
-  user?: AuthUser
 }
-export const LoginFlow: FunctionComponent<Props> = ({ callbackUrl, user }) => {
+export const LoginFlow: FunctionComponent<Props> = ({ user, callbackUrl }) => {
   const [currentStep, setCurrentStep] = useState(0)
   const router = useRouter()
 

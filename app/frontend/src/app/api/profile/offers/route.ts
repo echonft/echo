@@ -1,14 +1,14 @@
-import { type ApiRequest } from '@echo/api/types/api-request'
+import { auth } from '@echo/frontend/lib/helpers/auth/auth'
 import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle-request'
 import { getCurrentUserOffersRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/get-current-user-offers-request-handler'
+import type { NextAuthRequest } from 'next-auth/lib'
 
 /**
  * Available query params:
  *  - query constraints see {@link QueryConstraintsQueryParams}
  *  - offers filters see {@link OfferQueryFilters}
- * @param {ApiRequest<never>} request
- * @return {Promise<ApiResponse<GetOffersResponse>}
+ * @type {AppRouteHandlerFn}
  */
-export async function GET(request: ApiRequest<never>) {
-  return await handleRequest(request, getCurrentUserOffersRequestHandler)(request)
-}
+export const GET = auth(function GET(request: NextAuthRequest) {
+  return handleRequest(request, getCurrentUserOffersRequestHandler)(request)
+})

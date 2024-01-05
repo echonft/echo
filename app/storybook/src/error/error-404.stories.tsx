@@ -1,8 +1,8 @@
-import { NotFoundPage as Component } from '@echo/ui/components/page/not-found-page'
+import { Error404 as Component } from '@echo/ui/components/error/error-404'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Pages/Not Found',
+  title: 'Error',
   component: Component
 }
 

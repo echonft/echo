@@ -26,6 +26,16 @@ function handleBearerToken<Query, Body>(args: HandleConfigArgs<Query, Body>): Ha
   return modify('init', assocPath(['headers', 'Authorization'], `Bearer ${bearerToken}`), args)
 }
 
+function handleCookies<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleConfigArgs<Query, Body> {
+  if (isNil(args.config) || isNil(args.config.cookies)) {
+    return args
+  }
+  const {
+    config: { cookies }
+  } = args
+  return modify('init', assocPath(['headers', 'cookie'], cookies), args)
+}
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -116,14 +126,17 @@ function handleConfig<Query, Body>(method: HttpMethod) {
       HandleConfigArgs<Query, Body>,
       HandleConfigArgs<Query, Body>,
       HandleConfigArgs<Query, Body>,
+      HandleConfigArgs<Query, Body>,
       HandleConfigArgs<Query, Body>
     >(
       assoc('init', {
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
         method
       }),
+      handleCookies,
       handleBearerToken,
       handleDisableCache,
       handleParams,

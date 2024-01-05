@@ -8,7 +8,7 @@ interface Props {
 }
 export const NavigationPageLayout: FunctionComponent<PropsWithChildren<Props>> = ({ user, children }) => {
   return (
-    <PageLayout headerProps={{ user }}>
+    <PageLayout user={user}>
       <div className={clsx('flex', 'flex-col', 'w-full', 'gap-12')}>{children}</div>
     </PageLayout>
   )

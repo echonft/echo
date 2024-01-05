@@ -1,4 +1,3 @@
-import type { ApiRequest } from '@echo/api/types/api-request'
 import type { ApiResponse } from '@echo/api/types/api-response'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
@@ -8,10 +7,11 @@ import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { ErrorResponse } from '@echo/utils/types/error-response'
 import { captureException, setUser } from '@sentry/nextjs'
 import { NextResponse } from 'next/server'
+import type { NextAuthRequest } from 'next-auth/lib'
 import { isNil, pick } from 'ramda'
 
 export function handleRequest<TArgs extends unknown[], TResponseBody>(
-  request: ApiRequest<unknown>,
+  request: NextAuthRequest,
   requestHandler: RequestHandler<TArgs, TResponseBody>
 ) {
   return async function (...args: TArgs): Promise<ApiResponse<TResponseBody>> {

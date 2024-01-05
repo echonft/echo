@@ -1,26 +1,23 @@
-import { Header, type HeaderProps } from '@echo/ui/components/layout/header/header'
+import type { AuthUser } from '@echo/model/types/auth-user'
+import { HeaderSelector } from '@echo/ui/components/layout/header/header-selector'
 import { MainSectionLayout } from '@echo/ui/components/layout/main-section-layout'
 import { clsx } from 'clsx'
-import { isNil } from 'ramda'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
-  headerProps: HeaderProps
-  bg?: 'default' | 'transparent'
+  user?: AuthUser
+  headerVariants?: {
+    transparent?: boolean
+    logoOnly?: boolean
+  }
 }
 
-export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({ headerProps, bg = 'default', children }) => {
+export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({ user, headerVariants, children }) => {
+  const transparent = Boolean(headerVariants?.transparent)
+  const logoOnly = Boolean(headerVariants?.logoOnly)
   return (
-    <div
-      className={clsx(
-        'w-full',
-        'h-full',
-        'overflow-y-auto',
-        bg === 'default' && 'bg-dark-500',
-        !isNil(headerProps?.absolute) && 'relative'
-      )}
-    >
-      <Header {...headerProps} />
+    <div className={clsx('w-full', 'h-full', 'overflow-y-auto', transparent ? 'relative' : 'bg-dark-500')}>
+      <HeaderSelector user={user} transparent={transparent} logoOnly={Boolean(logoOnly)} />
       <MainSectionLayout>{children}</MainSectionLayout>
     </div>
   )

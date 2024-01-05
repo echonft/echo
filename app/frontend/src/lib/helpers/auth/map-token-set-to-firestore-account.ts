@@ -1,5 +1,5 @@
+import { type TokenSet } from '@auth/core/types'
 import { type Account } from '@echo/firestore/types/model/account/account'
-import { type TokenSet } from 'next-auth'
 
 export function mapTokenSetToFirestoreAccount(tokens: TokenSet): Partial<Account> {
   return {

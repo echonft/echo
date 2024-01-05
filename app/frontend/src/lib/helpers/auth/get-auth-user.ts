@@ -1,8 +1,6 @@
-import { getAuthOptions } from '@echo/frontend/lib/helpers/auth/get-auth-options'
-import { getServerSession } from 'next-auth/next'
+import { auth } from '@echo/frontend/lib/helpers/auth/auth'
 
 export async function getAuthUser() {
-  const authOptions = getAuthOptions()
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   return session?.user
 }

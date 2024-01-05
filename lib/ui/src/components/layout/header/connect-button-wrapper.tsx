@@ -1,3 +1,4 @@
+'use client'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { ConnectButton } from '@echo/ui/components/layout/header/connect-button'
