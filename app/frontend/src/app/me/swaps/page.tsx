@@ -3,6 +3,7 @@ import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
@@ -21,6 +22,7 @@ const ProfileSwapsPage: FunctionComponent = async () => {
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]
   })
   const response = await nextFetch.get<OffersResponse>(apiUrlProvider.user.swaps.getUrl({ username: user.username }), {
+    cookie: getCookieHeader(),
     params
   })
   assertNextFetchResponse(response)
@@ -29,7 +31,7 @@ const ProfileSwapsPage: FunctionComponent = async () => {
       offers={
         map(
           ifElse(
-            pathEq(user.id, ['sender', 'id']),
+            pathEq(user.username, ['sender', 'username']),
             assoc('role', OFFER_ROLE_RECEIVER),
             assoc('role', OFFER_ROLE_SENDER)
           ),

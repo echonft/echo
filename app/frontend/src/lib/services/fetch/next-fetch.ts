@@ -16,38 +16,14 @@ interface HandleConfigArgs<Query, Body> {
   url: string
 }
 
-function handleBearerToken<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleConfigArgs<Query, Body> {
-  if (isNil(args.config) || isNil(args.config.bearerToken)) {
-    return args
-  }
-  const {
-    config: { bearerToken }
-  } = args
-  return modify('init', assocPath(['headers', 'Authorization'], `Bearer ${bearerToken}`), args)
-}
-
 function handleCookies<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleConfigArgs<Query, Body> {
-  if (isNil(args.config) || isNil(args.config.cookies)) {
+  if (isNil(args.config) || isNil(args.config.cookie)) {
     return args
   }
   const {
-    config: { cookies }
+    config: { cookie }
   } = args
-  return modify('init', assocPath(['headers', 'cookie'], cookies), args)
-}
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function handleData<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleConfigArgs<Query, Body> {
-  if (isNil(args.config) || isNil(args.config.data)) {
-    return args
-  }
-  const {
-    config: { data }
-  } = args
-  const body = JSON.stringify(data)
-  return modify('init', assoc('body', body), args)
+  return modify('init', assocPath(['headers', 'cookie'], cookie), args)
 }
 
 function handleDisableCache<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleConfigArgs<Query, Body> {
@@ -126,7 +102,6 @@ function handleConfig<Query, Body>(method: HttpMethod) {
       HandleConfigArgs<Query, Body>,
       HandleConfigArgs<Query, Body>,
       HandleConfigArgs<Query, Body>,
-      HandleConfigArgs<Query, Body>,
       HandleConfigArgs<Query, Body>
     >(
       assoc('init', {
@@ -137,7 +112,6 @@ function handleConfig<Query, Body>(method: HttpMethod) {
         method
       }),
       handleCookies,
-      handleBearerToken,
       handleDisableCache,
       handleParams,
       handleRevalidate,

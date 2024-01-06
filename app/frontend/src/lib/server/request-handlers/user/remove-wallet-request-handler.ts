@@ -1,14 +1,15 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { type RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet-request'
+import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/server/helpers/error/guard'
-import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
-import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { emptyResponse } from '@echo/frontend/lib/server/helpers/response/empty-response'
+import { guarded_assertUserExists } from '@echo/frontend/lib/server/helpers/user/assert/guarded_assert-user-exists'
 import { removeWalletSchema } from '@echo/frontend/lib/server/validators/remove-wallet-schema'
+import type { AuthUser } from '@echo/model/types/auth-user'
 
-export async function removeWalletRequestHandler(req: ApiRequest<RemoveWalletRequest>) {
+export async function removeWalletRequestHandler(user: AuthUser, req: ApiRequest<RemoveWalletRequest>) {
   const requestBody = await guardAsyncFn(
     (req: ApiRequest<RemoveWalletRequest>) => req.json(),
     ErrorStatus.BAD_REQUEST
@@ -17,8 +18,8 @@ export async function removeWalletRequestHandler(req: ApiRequest<RemoveWalletReq
     (requestBody) => removeWalletSchema.parse(requestBody),
     ErrorStatus.BAD_REQUEST
   )(requestBody)
-  const user = await getUserFromRequest(req)
-  guarded_assertAuthUser(user)
-  await guardAsyncFn(removeWallet, ErrorStatus.SERVER_ERROR)(user.id, wallet)
+  const foundUser = await guardAsyncFn(findUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
+  guarded_assertUserExists(foundUser, user.username)
+  await guardAsyncFn(removeWallet, ErrorStatus.SERVER_ERROR)(foundUser.id, wallet)
   return emptyResponse()
 }

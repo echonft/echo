@@ -7,21 +7,19 @@ import { guardAsyncFn } from '@echo/frontend/lib/server/helpers/error/guard'
 import { guarded_assertOffer } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer'
 import { guarded_assertOfferSenderIs } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-sender-is'
 import { guarded_assertOfferState } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-state'
-import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
-import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { NextResponse } from 'next/server'
 
-export async function cancelOfferRequestHandler(req: ApiRequest<never>, offerId: string) {
-  const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(offerId)
+export async function cancelOfferRequestHandler(user: AuthUser, _req: ApiRequest<never>, params: { id: string }) {
+  const { id } = params
+  const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(id)
   guarded_assertOffer(offer)
   guarded_assertOfferState(offer, OFFER_STATE_CANCELLED)
-  const user = await getUserFromRequest(req)
-  guarded_assertAuthUser(user)
   guarded_assertOfferSenderIs(offer, user.username)
   const updatedOffer = await guardAsyncFn(
     cancelOffer,
     ErrorStatus.SERVER_ERROR
-  )({ offerId, updateArgs: { trigger: { by: user.username } } })
+  )({ offerId: id, updateArgs: { trigger: { by: user.username } } })
   return NextResponse.json<OfferResponse>({ offer: updatedOffer })
 }

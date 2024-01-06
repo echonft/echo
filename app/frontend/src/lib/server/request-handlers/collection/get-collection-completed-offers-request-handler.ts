@@ -11,7 +11,8 @@ import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { NextResponse } from 'next/server'
 import { assoc, dissoc, pipe } from 'ramda'
 
-export async function getCollectionCompletedOffersRequestHandler(req: ApiRequest<never>, slug: string) {
+export async function getCollectionCompletedOffersRequestHandler(req: ApiRequest<never>, params: { slug: string }) {
+  const { slug } = params
   const constraints = guardFn(parseConstraintsQuery, ErrorStatus.BAD_REQUEST)(req)
   const filters = guardFn(parseOfferFiltersQuery, ErrorStatus.BAD_REQUEST)(req)
   const collection = await guardAsyncFn(findCollectionBySlug, ErrorStatus.SERVER_ERROR)(slug)

@@ -3,7 +3,6 @@ import type { AddWalletArgs } from '@echo/api/services/fetcher/add-wallet'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { TokenArgs } from '@echo/api/types/token-args'
-import { userHasWallet } from '@echo/model/helpers/user/user-has-wallet'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { CreateSignature } from '@echo/ui/components/profile/wallet/create-signature'
 import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
@@ -31,6 +30,7 @@ interface Props {
     chain: ChainProvider
   }
   user: AuthUser
+  // wallets?: Wallet[]
 }
 
 export const ConnectWallet: FunctionComponent<Props> = ({ fetcher, provider, user }) => {

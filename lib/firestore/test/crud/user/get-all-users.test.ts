@@ -1,6 +1,6 @@
-import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import type { User } from '@echo/firestore/types/model/user/user'
 import { getAllUserMocks } from '@echo/firestore-mocks/user/get-all-user-mocks'
-import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-username'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { getAllUsers } from '@echo/firestore-test/user/get-all-users'
@@ -19,7 +19,7 @@ describe('CRUD - user - getAllUsers', () => {
     const userMocks = getAllUserMocks()
     const users = await getAllUsers()
     expect(users.length).toEqual(userMocks.length)
-    forEach((user: UserDocumentData) => {
+    forEach((user: User) => {
       expect(getUserMockById(user.id)).toStrictEqual(user)
     }, users)
   })

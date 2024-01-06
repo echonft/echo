@@ -13,7 +13,6 @@ import { type FunctionComponent } from 'react'
 interface Props {
   nonce: string
   wallet: Wallet
-  token: string
   fetcher: {
     addWallet: Fetcher<EmptyResponse, AddWalletArgs>
     signNonce: Fetcher<SignNonceResult, SignNonceArgs>

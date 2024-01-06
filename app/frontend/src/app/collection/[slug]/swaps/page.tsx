@@ -2,6 +2,7 @@ import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { CollectionSwapsApiProvided } from '@echo/ui/components/collection/api-provided/collection-swaps-api-provided'
@@ -21,6 +22,7 @@ const CollectionSwapsPage: FunctionComponent<Props> = async ({ params }) => {
     orderBy: [{ field: 'expiresAt', direction: 'asc' }]
   })
   const response = await nextFetch.get<OffersResponse>(apiUrlProvider.collection.swaps.getUrl(params), {
+    cookie: getCookieHeader(),
     params: constraintsQueryParams
   })
   assertNextFetchResponse(response)

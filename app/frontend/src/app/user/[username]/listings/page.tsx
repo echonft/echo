@@ -5,6 +5,7 @@ import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
 import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { UserListingsApiProvided } from '@echo/ui/components/user/api-provided/user-listings-api-provided'
@@ -30,6 +31,7 @@ const UserListingsPage: FunctionComponent<Props> = async ({ params: { username }
   })
   const filtersQueryParam = mapListingFiltersToQueryParams({ as: LISTING_FILTER_AS_ITEM, includeExpired: true })
   const response = await nextFetch.get<ListingsResponse>(apiUrlProvider.user.listings.getUrl({ username }), {
+    cookie: getCookieHeader(),
     params: mergeLeft(constraintsQueryParams, filtersQueryParam)
   })
   assertNextFetchResponse(response)

@@ -13,17 +13,15 @@ import { assertOfferItemsOwner } from '@echo/frontend/lib/server/helpers/offer/a
 import { assertOfferItemsApproval } from '@echo/frontend/lib/server/helpers/offer/assert/assert-offer-items-approval'
 import { guarded_assertOfferExists } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-exists'
 import { guarded_assertOfferReceiverOrSenderIs } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-receiver-or-sender-is'
-import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
-import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { NextResponse } from 'next/server'
 import { assoc } from 'ramda'
 
-export async function getOfferRequestHandler(req: ApiRequest<never>, offerId: string) {
-  const user = await getUserFromRequest(req)
-  guarded_assertAuthUser(user)
-  const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(offerId)
-  guarded_assertOfferExists(offer, offerId)
+export async function getOfferRequestHandler(user: AuthUser, _req: ApiRequest<never>, params: { id: string }) {
+  const { id } = params
+  const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(id)
+  guarded_assertOfferExists(offer, id)
   guarded_assertOfferReceiverOrSenderIs(offer, user.username)
   if (!(await assertOfferItemsOwner(offer))) {
     await guardAsyncFn(

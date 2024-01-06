@@ -1,5 +1,4 @@
 export interface AuthUser {
-  // id: string
   username: string
   discord: {
     avatarUrl: string
@@ -9,7 +8,4 @@ export interface AuthUser {
     id: string
     username: string
   }
-  // sessionToken: string
-  // updatedAt: number
-  // wallets: Wallet[]
 }

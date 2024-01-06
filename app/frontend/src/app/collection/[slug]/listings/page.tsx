@@ -3,6 +3,7 @@ import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import type { ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
@@ -25,6 +26,7 @@ const CollectionListingsPage: FunctionComponent<Props> = async ({ params }) => {
   })
   const filtersQueryParam = mapListingFiltersToQueryParams({ state: [LISTING_STATE_OPEN] })
   const response = await nextFetch.get<ListingsResponse>(apiUrlProvider.collection.listings.getUrl(params), {
+    cookie: getCookieHeader(),
     params: mergeLeft(constraintsQueryParams, filtersQueryParam)
   })
   assertNextFetchResponse(response)

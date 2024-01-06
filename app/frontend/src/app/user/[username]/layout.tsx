@@ -1,6 +1,7 @@
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { type UserResponse } from '@echo/api/types/responses/user-response'
 import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
@@ -18,7 +19,9 @@ interface Props {
 const UserLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params, children }) => {
   unstable_setRequestLocale('en')
   const user = await getAuthUser()
-  const response = await nextFetch.get<UserResponse>(apiUrlProvider.user.get.getUrl(params))
+  const response = await nextFetch.get<UserResponse>(apiUrlProvider.user.get.getUrl(params), {
+    cookie: getCookieHeader()
+  })
   assertNextFetchResponse(response)
   return (
     <NavigationPageLayout user={user}>

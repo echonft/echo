@@ -9,7 +9,8 @@ import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request
 import { parseListingFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-listing-filters-query'
 import { NextResponse } from 'next/server'
 
-export async function getCollectionListingsRequestHandler(req: ApiRequest<never>, slug: string) {
+export async function getCollectionListingsRequestHandler(req: ApiRequest<never>, params: { slug: string }) {
+  const { slug } = params
   const constraints = guardFn(parseConstraintsQuery, ErrorStatus.BAD_REQUEST)(req)
   const filters = guardFn(parseListingFiltersQuery, ErrorStatus.BAD_REQUEST)(req)
   const collection = await guardAsyncFn(findCollectionBySlug, ErrorStatus.SERVER_ERROR)(slug)

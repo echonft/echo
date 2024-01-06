@@ -6,7 +6,8 @@ import { guardAsyncFn, guardFn } from '@echo/frontend/lib/server/helpers/error/g
 import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/parse-constraints-query'
 import { NextResponse } from 'next/server'
 
-export async function getUserNftsRequestHandler(req: ApiRequest<never>, username: string) {
+export async function getUserNftsRequestHandler(req: ApiRequest<never>, params: { username: string }) {
+  const { username } = params
   const constraints = guardFn(parseConstraintsQuery, ErrorStatus.BAD_REQUEST)(req)
   const nfts = await guardAsyncFn(getNftsForOwner, ErrorStatus.SERVER_ERROR)(username, constraints)
   return NextResponse.json<NftsResponse>({ nfts })

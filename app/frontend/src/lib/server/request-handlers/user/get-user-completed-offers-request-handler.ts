@@ -9,7 +9,8 @@ import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { NextResponse } from 'next/server'
 import { assoc, dissoc, pipe } from 'ramda'
 
-export async function getUserCompletedOffersRequestHandler(req: ApiRequest<never>, username: string) {
+export async function getUserCompletedOffersRequestHandler(req: ApiRequest<never>, params: { username: string }) {
+  const { username } = params
   const constraints = guardFn(parseConstraintsQuery, ErrorStatus.BAD_REQUEST)(req)
   const filters = guardFn(parseOfferFiltersQuery, ErrorStatus.BAD_REQUEST)(req)
   const completedOffersFilters = pipe(

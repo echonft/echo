@@ -7,7 +7,8 @@ import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request
 import { parseListingFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-listing-filters-query'
 import { NextResponse } from 'next/server'
 
-export async function getUserListingsRequestHandler(req: ApiRequest<never>, username: string) {
+export async function getUserListingsRequestHandler(req: ApiRequest<never>, params: { username: string }) {
+  const { username } = params
   const constraints = guardFn(parseConstraintsQuery, ErrorStatus.BAD_REQUEST)(req)
   const filters = guardFn(parseListingFiltersQuery, ErrorStatus.BAD_REQUEST)(req)
   const listings = await guardAsyncFn(getListingsForUser, ErrorStatus.SERVER_ERROR)(username, filters, constraints)

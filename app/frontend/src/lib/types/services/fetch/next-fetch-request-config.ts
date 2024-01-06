@@ -1,6 +1,6 @@
 export interface NextFetchRequestConfig<Query, Body> {
   bearerToken?: string
-  cookies?: string
+  cookie?: string
   data?: Body
   disableCache?: boolean
   params?: Query

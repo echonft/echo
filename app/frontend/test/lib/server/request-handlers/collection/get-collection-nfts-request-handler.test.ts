@@ -15,7 +15,7 @@ describe('request-handlers - collection - getCollectionNftsRequestHandler', () =
     const nfts = [getNftMockById('8hHFadIrrooORfTOLkBg')]
     jest.mocked(getNftsForCollection).mockResolvedValueOnce(nfts)
     const req = mockRequest<never>()
-    const res = await getCollectionNftsRequestHandler(req, 'slug')
+    const res = await getCollectionNftsRequestHandler(req, { slug: 'slug' })
     expect(res.status).toBe(200)
     const responseData = (await res.json()) as NftsResponse
     expect(responseData).toEqual({ nfts })

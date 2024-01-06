@@ -1,7 +1,4 @@
-import { type ApiRequest } from '@echo/api/types/api-request'
-import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle-request'
+import { authAppRouteHandler } from '@echo/frontend/lib/server/request-handlers/auth-app-route-handler'
 import { nonceRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/nonce-request-handler'
 
-export async function GET(request: ApiRequest<never>) {
-  return await handleRequest(request, nonceRequestHandler)(request)
-}
+export const GET = authAppRouteHandler(nonceRequestHandler)

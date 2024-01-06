@@ -1,16 +1,26 @@
 import { type AuthUser } from '@echo/model/types/auth-user'
-import { toLower } from 'ramda'
 
-export const authUserMock: AuthUser = {
-  id: '6rECUMhevHfxABZ1VNOm',
-  username: 'crewnft_',
-  discord: {
-    id: '884593489189433364',
+export const authUserMock: Record<string, AuthUser> = {
+  crewnft_: {
     username: 'crewnft_',
-    avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png',
-    bannerColor: '#ffffff'
+    discord: {
+      id: '884593489189433364',
+      username: 'crewnft_',
+      avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png',
+      bannerColor: '#ffffff'
+    }
   },
-  updatedAt: 1676984897,
-  sessionToken: 'token',
-  wallets: [{ address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'), chainId: 1 }]
+  johnnycagewins: {
+    username: 'johnnycagewins',
+    discord: {
+      id: '462798252543049728',
+      username: 'johnnycagewins',
+      avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+      bannerColor: '#d11bd9'
+    }
+  }
+}
+
+export function getAuthUserMockByUsername(username: string) {
+  return authUserMock[username]!
 }
