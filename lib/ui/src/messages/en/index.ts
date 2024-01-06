@@ -297,8 +297,11 @@ export const messages = {
     }
   },
   profile: {
-    button: {
+    listingButton: {
       label: 'Create listing'
+    },
+    offerButton: {
+      label: 'Finalize offer'
     },
     empty: {
       items: {
