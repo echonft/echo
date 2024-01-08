@@ -67,7 +67,6 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
     // TODO Else listing
   }
 
-  // TODO set the right label for the create offer button and hook the action
   return (
     <>
       <ProfileNavigationLayout activeNavigationItem={NAVIGATION_ITEMS} user={user}>
