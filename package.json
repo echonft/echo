@@ -80,7 +80,7 @@
     "npm-check-updates": "16.14.6",
     "prettier": "3.0.3",
     "tsc-files": "1.1.4",
-    "turbo": "1.11.2",
+    "turbo": "1.11.3",
     "typescript": "5.2.2",
     "vercel": "33.0.1"
   },
