@@ -22,6 +22,7 @@ interface Props {
   onContinue?: VoidFunction
   onComplete?: VoidFunction
   onClose?: VoidFunction
+  confirming: boolean
 }
 
 export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
@@ -32,18 +33,19 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
   onClear,
   onContinue,
   onComplete,
-  onClose
+  onClose,
+  confirming
 }) => {
   const t = useTranslations('offer.new.confirmationModal')
 
   return (
     <Modal
       open={open}
-      onBack={() => onClose?.()}
+      onBack={() => !confirming && onClose?.()}
       title={t('title')}
-      onClose={() => onClose?.()}
+      onClose={() => !confirming && onClose?.()}
       backButtonLabel={t('backBtn')}
-      backDisabled={false}
+      backDisabled={confirming}
     >
       <div className={clsx('flex', 'flex-col', 'gap-12', 'min-w-96')}>
         <UserDetailsRoundedContainer user={receiver} />
@@ -51,7 +53,11 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
           <ShowIfNilOrEmpty checks={senderItems}>
             <InternalLink path={linkProvider.profile.items.get()}>
-              <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onContinue}>
+              <button
+                className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+                onClick={onContinue}
+                disabled={confirming}
+              >
                 <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
               </button>
             </InternalLink>
@@ -59,7 +65,11 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
           <HideIfNilOrEmpty
             checks={senderItems}
             render={() => (
-              <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onComplete}>
+              <button
+                className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+                onClick={onComplete}
+                disabled={confirming}
+              >
                 <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
               </button>
             )}
@@ -68,6 +78,7 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
             id={'new-offer-confirmation-btn'}
             label={t('clearBtn')}
             message={t('clearBtnMessage')}
+            disabled={confirming}
             onFinish={() => {
               onClear?.()
             }}
