@@ -1,4 +1,4 @@
-name: Deploy bot on Fly
+name: Deploy Helper on Fly
 on:
   push:
     branches:
@@ -9,8 +9,8 @@ jobs:
     name: Deploy bot
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
-      - run: flyctl deploy --remote-only
+      - run: flyctl deploy --remote-only -c fly/applications/helper/fly.toml
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

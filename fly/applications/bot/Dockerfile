@@ -1,7 +1,7 @@
 # syntax = docker/dockerfile:1
 ARG NODE_VERSION=18.15.0
 FROM node:${NODE_VERSION}-slim as base
-ARG PNPM_VERSION=8.5.0
+ARG PNPM_VERSION=8.13.1
 RUN npm --global install pnpm@${PNPM_VERSION}
 LABEL fly_launch_runtime="Echo Bot"
 ENV CI=1
@@ -15,7 +15,7 @@ ENV NODE_ENV=development
 FROM base AS build
 
 # Copy application code
-COPY --link . .
+COPY --link ../../../../../.. .
 RUN pnpm install
 
 # Final stage for app image
