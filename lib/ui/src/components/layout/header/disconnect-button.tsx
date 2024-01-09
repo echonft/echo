@@ -35,7 +35,7 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
         <ConnectWallet fetcher={{ addWallet, getNonce, signNonce }} provider={{ account, chain }} user={user} />
       </Web3Provider>
       <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>
-        <Menu.Button>
+        <Menu.Button className={clsx('group')}>
           <UserTagPictureButton user={user} />
         </Menu.Button>
         <Transition
