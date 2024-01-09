@@ -12,7 +12,11 @@ interface Props {
 
 export const LoginFlowContinueButton: FunctionComponent<Props> = ({ label, disabled = false, onClick }) => {
   return (
-    <button className={clsx('group', 'btn', 'gap-8')} onClick={onClick} disabled={disabled}>
+    <button
+      className={clsx('group', 'btn', 'gap-8', 'pr-2', 'pl-8', 'py-2.5', 'enabled:hover:bg-white/[0.08]')}
+      onClick={onClick}
+      disabled={disabled}
+    >
       <span className={clsx('btn-label-secondary', 'prose-paragraph-sm', '!text-[0.9375rem]')}>{label}</span>
       <span className={clsx('btn-label-secondary')}>
         <SideCaretSvg direction={DIRECTION_RIGHT} />
