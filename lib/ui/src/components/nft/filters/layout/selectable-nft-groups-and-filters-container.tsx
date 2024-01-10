@@ -46,13 +46,11 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
   onButtonClick
 }) => {
   const [groups, setGroups] = useState<Group<SelectableNft>[]>(groupNftsByCollection(nfts))
-
   const { senderItems } = useNewOfferStore()
   // Reset state when offer changes
   useEffect(() => {
     setGroups((prevState) => unselectNftGroupsFromItems(prevState, senderItems))
   }, [senderItems])
-
   const [collectionFilters, setCollectionFilters] = useState(
     includes(NFT_FILTER_COLLECTIONS, availableFilters) ? getCollectionFiltersForNfts(nfts) : []
   )
