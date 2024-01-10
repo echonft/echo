@@ -11,7 +11,7 @@ export const ProfileNftsSkeleton: FunctionComponent = () => {
     <ProfileNavigationLayoutSkeleton activeNavigationItem={NAVIGATION_ITEMS}>
       <NftGroupsAndFiltersContainerSkeleton
         availableFilters={[NFT_FILTER_TRAITS]}
-        btnLabel={t('profile.button.label')}
+        btnLabel={t('profile.offerButton.label')}
       />
     </ProfileNavigationLayoutSkeleton>
   )

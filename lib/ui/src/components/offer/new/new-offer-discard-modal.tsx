@@ -15,7 +15,7 @@ export const NewOfferDiscardModal: FunctionComponent<Props> = ({ open, onClose, 
   const t = useTranslations('offer.new.discardModal')
 
   return (
-    <Modal open={open} onClose={onClose} title={t('title')} minHeight={false}>
+    <Modal open={open} onClose={onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-12', 'items-center')}>
         <span className={'text-white text-center prose-header-xs-semi'}>{t('subtitle')}</span>
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
@@ -26,9 +26,7 @@ export const NewOfferDiscardModal: FunctionComponent<Props> = ({ open, onClose, 
             id={'new-offer-discard-btn'}
             label={t('discardBtn')}
             message={t('discardBtnMessage')}
-            onFinish={() => {
-              onDiscard?.()
-            }}
+            onFinish={onDiscard}
           />
         </div>
       </div>

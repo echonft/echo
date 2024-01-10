@@ -1,4 +1,4 @@
-import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
+import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
 import { NewListingConfirmationModal as Component } from '@echo/ui/components/listing/new/new-listing-confirmation-modal'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { head } from 'ramda'
@@ -20,14 +20,14 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['target', 'items', 'open', 'confirming']
+      exclude: ['target', 'items', 'open']
     }
   }
 }
 
 export default metadata
 
-const { targets, items } = getListingMockById('jUzMtPGKM62mMhEcmbN4')
+const { targets, items } = getListingMock()
 const target = head(targets)
 
 type Story = StoryObj<typeof Component>
@@ -45,6 +45,7 @@ export const Confirming: Story = {
     target,
     items,
     open: true,
-    confirming: true
+    onClose: undefined,
+    onConfirm: undefined
   }
 }

@@ -1,4 +1,4 @@
-'use-client'
+'use client'
 import type { AcceptOfferArgs } from '@echo/api/services/fetcher/accept-offer'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { Offer } from '@echo/model/types/offer'

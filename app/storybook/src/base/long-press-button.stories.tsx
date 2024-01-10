@@ -14,7 +14,13 @@ const metadata: Meta<typeof Component> = {
   argTypes: {
     disabled: {
       defaultValue: false,
-      control: 'boolean'
+      control: 'boolean',
+      if: { arg: 'loading', truthy: false }
+    },
+    loading: {
+      defaultValue: false,
+      control: 'boolean',
+      if: { arg: 'disabled', truthy: false }
     },
     threshold: {
       defaultValue: 3000,
@@ -44,6 +50,7 @@ export const LongPressButton: Story = {
     label: 'Cancel',
     message: 'Hold to cancel',
     threshold: 3000,
-    disabled: false
+    disabled: false,
+    loading: false
   }
 }
