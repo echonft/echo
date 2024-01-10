@@ -31,6 +31,8 @@ export function mockEmbed(data: JSONEncodable<APIEmbed> | APIEmbed | EmbedBuilde
 export function mockActionRow(
   data:
     | JSONEncodable<APIActionRowComponent<APIMessageActionRowComponent>>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     | ActionRowData<MessageActionRowComponentData | MessageActionRowComponentBuilder>
     | APIActionRowComponent<APIMessageActionRowComponent>
 ): ActionRow<MessageActionRowComponent> {

@@ -11,6 +11,7 @@ import { NAVIGATION_ITEMS } from '@echo/ui/constants/navigation-item'
 import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
+import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item'
 import { messages } from '@echo/ui/messages/en'
 import { getTranslator } from '@echo/ui/messages/get-translator'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
@@ -27,7 +28,7 @@ interface Props {
 
 export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user }) => {
   const t = getTranslator()
-  const { hasNewOfferPending, clearOffer } = useNewOfferStore()
+  const { hasNewOfferPending, clearOffer, setSenderItems, openModal } = useNewOfferStore()
   const [showDiscardModal, setShowDiscardModal] = useState(false)
   // Prevent user from navigating away from the page
   const onBeforeRouteChange = useCallback(() => {
@@ -37,6 +38,7 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
     }
     return true
   }, [])
+
   const { allowRouteChange } = useRouteChangeEvents({ onBeforeRouteChange })
   // Prevent navigation (refresh, back, forward) if offer is pending. Doesn't work flawlessly but will do the trick for now.
   useBeforeunload(hasNewOfferPending() ? (event) => event.preventDefault() : undefined)
@@ -57,7 +59,14 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
     )
   }, [nfts, hasNewOfferPending])
 
-  // TODO set the right label for the create offer button and hook the action
+  const onButtonClick = (nfts: SelectableNft[]) => {
+    if (hasNewOfferPending()) {
+      setSenderItems(map(mapNftToOfferItem, nfts))
+      openModal()
+    }
+    // TODO Else listing
+  }
+
   return (
     <>
       <ProfileNavigationLayout activeNavigationItem={NAVIGATION_ITEMS} user={user}>
@@ -67,8 +76,9 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
             <SelectableNftGroupsAndFiltersContainer
               nfts={selectableNfts}
               availableFilters={[NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS]}
-              btnLabel={t('profile.button.label')}
+              btnLabel={t(hasNewOfferPending() ? 'profile.offerButton.label' : 'profile.listingButton.label')}
               hideOwner={true}
+              onButtonClick={onButtonClick}
             />
           )}
         />

@@ -11,6 +11,7 @@ import { NewOfferModalItemsContainer } from '@echo/ui/components/offer/new/new-o
 import { UserDetailsRoundedContainer } from '@echo/ui/components/shared/user-details-rounded-container'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -37,21 +38,18 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
   const t = useTranslations('offer.new.confirmationModal')
 
   return (
-    <Modal
-      open={open}
-      onBack={() => onClose?.()}
-      title={t('title')}
-      onClose={() => onClose?.()}
-      backButtonLabel={t('backBtn')}
-      backDisabled={false}
-    >
+    <Modal open={open} onBack={onClose} title={t('title')} onClose={onClose} backButtonLabel={t('backBtn')}>
       <div className={clsx('flex', 'flex-col', 'gap-12', 'min-w-96')}>
         <UserDetailsRoundedContainer user={receiver} />
         <NewOfferModalItemsContainer receiverItems={receiverItems} senderItems={senderItems} />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
           <ShowIfNilOrEmpty checks={senderItems}>
             <InternalLink path={linkProvider.profile.items.get()}>
-              <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onContinue}>
+              <button
+                className={clsx('btn-gradient', 'btn-size-alt', 'group', isNil(onContinue) && 'animate-pulse')}
+                onClick={onContinue}
+                disabled={isNil(onContinue)}
+              >
                 <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
               </button>
             </InternalLink>
@@ -59,7 +57,11 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
           <HideIfNilOrEmpty
             checks={senderItems}
             render={() => (
-              <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onComplete}>
+              <button
+                className={clsx('btn-gradient', 'btn-size-alt', 'group', isNil(onComplete) && 'animate-pulse')}
+                onClick={onComplete}
+                disabled={isNil(onComplete)}
+              >
                 <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
               </button>
             )}
@@ -68,9 +70,8 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
             id={'new-offer-confirmation-btn'}
             label={t('clearBtn')}
             message={t('clearBtnMessage')}
-            onFinish={() => {
-              onClear?.()
-            }}
+            loading={isNil(onClear)}
+            onFinish={onClear}
           />
         </div>
       </div>

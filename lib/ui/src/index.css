@@ -182,7 +182,7 @@
     @apply btn-label text-dark-500 group-enabled:group-hover:text-yellow-100;
   }
   .btn-label-action {
-    @apply btn-label text-purple-900 group-hover:text-white;
+    @apply btn-label text-purple-900 group-enabled:group-hover:text-white;
   }
   .btn-label-cancel {
     @apply btn-label text-dark-500;

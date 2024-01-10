@@ -2,6 +2,7 @@ import { userHasWallet } from '@echo/model/helpers/user/user-has-wallet'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Wallet } from '@echo/model/types/wallet'
 import { authUserMock } from '@echo/model-mocks/auth-user/auth-user-mock'
+import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 
 describe('helpers - user - userHasWallet', () => {
@@ -11,7 +12,6 @@ describe('helpers - user - userHasWallet', () => {
       chainId: 1,
       address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E')
     }
-
     expect(userHasWallet(user, wallet)).toBeTruthy()
   })
 
@@ -21,7 +21,6 @@ describe('helpers - user - userHasWallet', () => {
       chainId: 1,
       address: toLower('0xtest-address')
     }
-
     expect(userHasWallet(user, wallet)).toBeFalsy()
   })
 
@@ -34,7 +33,6 @@ describe('helpers - user - userHasWallet', () => {
       chainId: 1,
       address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E')
     }
-
     expect(userHasWallet(user, wallet)).toBeFalsy()
   })
 })

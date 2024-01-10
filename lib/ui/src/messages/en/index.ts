@@ -265,8 +265,8 @@ export const messages = {
         backBtn: 'Back to Selection',
         title: 'Offer Creation',
         continueBtn: 'Continue',
-        clearBtn: 'Reset',
-        clearBtnMessage: 'Hold to reset'
+        clearBtn: 'Clear',
+        clearBtnMessage: 'Hold to clear'
       },
       confirmedModal: {
         title: 'Offer successfully created',
@@ -297,8 +297,11 @@ export const messages = {
     }
   },
   profile: {
-    button: {
+    listingButton: {
       label: 'Create listing'
+    },
+    offerButton: {
+      label: 'Finalize offer'
     },
     empty: {
       items: {
