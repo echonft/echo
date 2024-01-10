@@ -1,5 +1,4 @@
 import { type ListingItem } from '@echo/model/types/listing-item'
-import { ItemThumbnailsContainer } from '@echo/ui/components/item/thumbnail/layout/item-thumbnails-container'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
@@ -20,7 +19,8 @@ export const NewListingConfirmationModalItemsContainer: FunctionComponent<Props>
         <ModalSubtitle>{t('itemsSubtitle', { count: items.length })}</ModalSubtitle>
         <SwapDirectionHeader direction={SWAP_DIRECTION_OUT} title={tShared('out')} />
       </div>
-      <ItemThumbnailsContainer items={items} centered={true} />
+      {/*FIXME Need to use the proper layout. We can use NftsLayout and NftThumbnail probably */}
+      {/*<ItemThumbnailsContainer items={items} centered={true} />*/}
     </div>
   )
 }

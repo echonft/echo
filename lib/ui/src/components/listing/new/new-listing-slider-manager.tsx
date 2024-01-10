@@ -136,15 +136,18 @@ export const NewListingSliderManager: FunctionComponent<Props> = ({
         target={target}
         items={items}
         open={confirmModalShown}
-        confirming={isMutating}
-        onClose={() => setConfirmModalShown(false)}
-        onConfirm={() => {
-          void trigger({
-            items: mapListingItemsToRequests(items),
-            target: mapListingTargetToRequest(target),
-            token: user?.sessionToken
-          })
-        }}
+        onClose={isMutating ? undefined : () => setConfirmModalShown(false)}
+        onConfirm={
+          isMutating
+            ? undefined
+            : () => {
+                void trigger({
+                  items: mapListingItemsToRequests(items),
+                  target: mapListingTargetToRequest(target),
+                  token: user?.sessionToken
+                })
+              }
+        }
       />
       <NewListingConfirmedModal
         listing={listing}

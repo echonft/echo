@@ -261,25 +261,31 @@ export const messages = {
     },
     expired: 'Expired',
     new: {
-      bottomSlider: {
-        title: 'Offer overview',
-        finalize: 'Finalize',
-        dismissBtn: {
-          label: 'Dismiss',
-          message: 'Hold to dismiss'
-        }
-      },
       confirmationModal: {
         backBtn: 'Back to Selection',
         title: 'Offer Creation',
         continueBtn: 'Continue',
-        clearBtn: 'Reset'
+        clearBtn: 'Clear',
+        clearBtnMessage: 'Hold to clear'
       },
       confirmedModal: {
         title: 'Offer successfully created',
         subtitle: 'Your offer was successfully created, you can now contact your counterparty',
         closeBtn: 'Close',
         viewBtn: 'View'
+      },
+      discardModal: {
+        title: 'Discard Offer',
+        subtitle: 'If you leave this page, your offer will be discarded',
+        cancelBtn: 'Cancel',
+        discardBtn: 'Discard',
+        discardBtnMessage: 'Hold to discard'
+      },
+      banner: {
+        title: 'Select your NFTs to finalize your offer',
+        btn: {
+          label: 'Review offer'
+        }
       }
     },
     state: {
@@ -291,8 +297,11 @@ export const messages = {
     }
   },
   profile: {
-    button: {
+    listingButton: {
       label: 'Create listing'
+    },
+    offerButton: {
+      label: 'Finalize offer'
     },
     empty: {
       items: {

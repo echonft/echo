@@ -81,7 +81,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
   const loading = getOfferMutating || executeSwapMutating || getOfferSignatureMutating
 
   return (
-    <Modal open={open} onClose={onClose} title={t('title')} closeDisabled={loading}>
+    <Modal open={open} onClose={loading ? undefined : onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('execute.subtitle')}</ModalSubtitle>
         <button

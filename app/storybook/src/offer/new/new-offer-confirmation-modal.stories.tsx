@@ -16,6 +16,11 @@ const metadata: Meta<typeof Component> = {
         disable: true
       }
     },
+    onComplete: {
+      table: {
+        disable: true
+      }
+    },
     onClear: {
       table: {
         disable: true
@@ -35,11 +40,33 @@ const { receiverItems, receiver, senderItems } = getOfferMockById('LyCfl6Eg7JKuD
 
 type Story = StoryObj<typeof Component>
 
-export const Default: Story = {
+export const ItemsNotSelected: Story = {
   args: {
     receiver,
     receiverItems,
-    senderItems,
+    senderItems: undefined,
     open: true
+  }
+}
+
+export const ItemsSelected: Story = {
+  args: {
+    receiver,
+    receiverItems: [receiverItems[0]!, receiverItems[0]!],
+    senderItems: [senderItems[0]!, senderItems[0]!, senderItems[0]!, senderItems[0]!],
+    open: true
+  }
+}
+
+export const Confirming: Story = {
+  args: {
+    receiver,
+    receiverItems: [receiverItems[0]!, receiverItems[0]!],
+    senderItems: [senderItems[0]!, senderItems[0]!, senderItems[0]!, senderItems[0]!],
+    open: true,
+    onClear: undefined,
+    onContinue: undefined,
+    onComplete: undefined,
+    onClose: undefined
   }
 }
