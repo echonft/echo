@@ -17,9 +17,9 @@ export const messages = {
     step1: {
       title: 'Hey there {username}!',
       subtitle:
-        'If you have come this far it is because you want to be part of the future of NFT swapping, get ready to live the Echo experience and transform the Web3 space with us!\n\nBut before continuing you must first join our discord to live the full experience.',
+        'If you have come this far it is because you want to be part of the future of NFT swapping, get ready to live the Echo experience and transform the Web3 space with us!',
       btn: {
-        label: 'Join Echo Discord'
+        label: 'Join our Discord Now!'
       },
       continueBtn: {
         label: 'Continue'
