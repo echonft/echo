@@ -10,11 +10,16 @@ const metadata: Meta<typeof Component> = {
       table: {
         disable: true
       }
+    },
+    onBack: {
+      table: {
+        disable: true
+      }
     }
   },
   parameters: {
     controls: {
-      exclude: ['open', 'closeDisabled']
+      exclude: ['open']
     }
   }
 }
@@ -24,7 +29,7 @@ export default metadata
 type Story = StoryObj<typeof Component>
 
 export const Modal: Story = {
-  render: () => {
+  render: ({ onClose }) => {
     // TODO We could add a modal manager to avoid this code here
     const [isOpen, setIsOpen] = useState(false)
     return (
@@ -34,7 +39,14 @@ export const Modal: Story = {
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>
         </div>
-        <Component title={'This a modal title'} open={isOpen} onClose={() => setIsOpen(false)}>
+        <Component
+          title={'This a modal title'}
+          open={isOpen}
+          onClose={() => {
+            onClose?.()
+            setIsOpen(false)
+          }}
+        >
           <span className={'text-white text-center prose-header-xs-semi'}>This is a modal description</span>
         </Component>
       </div>
@@ -52,7 +64,7 @@ export const CloseDisabled: Story = {
             <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
           </button>
         </div>
-        <Component title={'This a modal title'} open={isOpen} onClose={() => setIsOpen(false)} closeDisabled={true}>
+        <Component title={'This a modal title'} open={isOpen}>
           <span className={'text-white text-center prose-header-xs-semi'}>This is a modal description</span>
         </Component>
       </div>
@@ -61,7 +73,7 @@ export const CloseDisabled: Story = {
 }
 
 export const BackEnabled: Story = {
-  render: () => {
+  render: ({ onBack, onClose }) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
       <div className={'bg-white'} style={{ height: '100vh' }}>
@@ -73,9 +85,11 @@ export const BackEnabled: Story = {
         <Component
           title={'This a modal title'}
           open={isOpen}
-          onClose={() => setIsOpen(false)}
-          backDisabled={false}
-          backButtonLabel={'Back'}
+          onClose={() => {
+            onClose?.()
+            setIsOpen(false)
+          }}
+          onBack={onBack}
         >
           <span className={'text-white text-center prose-header-xs-semi'}>This is a modal description</span>
         </Component>

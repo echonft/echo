@@ -11,6 +11,7 @@ import { NewOfferModalItemsContainer } from '@echo/ui/components/offer/new/new-o
 import { UserDetailsRoundedContainer } from '@echo/ui/components/shared/user-details-rounded-container'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -22,7 +23,6 @@ interface Props {
   onContinue?: VoidFunction
   onComplete?: VoidFunction
   onClose?: VoidFunction
-  confirming: boolean
 }
 
 export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
@@ -33,20 +33,12 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
   onClear,
   onContinue,
   onComplete,
-  onClose,
-  confirming
+  onClose
 }) => {
   const t = useTranslations('offer.new.confirmationModal')
 
   return (
-    <Modal
-      open={open}
-      onBack={() => !confirming && onClose?.()}
-      title={t('title')}
-      onClose={() => !confirming && onClose?.()}
-      backButtonLabel={t('backBtn')}
-      backDisabled={confirming}
-    >
+    <Modal open={open} onBack={onClose} title={t('title')} onClose={onClose} backButtonLabel={t('backBtn')}>
       <div className={clsx('flex', 'flex-col', 'gap-12', 'min-w-96')}>
         <UserDetailsRoundedContainer user={receiver} />
         <NewOfferModalItemsContainer receiverItems={receiverItems} senderItems={senderItems} />
@@ -54,9 +46,9 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
           <ShowIfNilOrEmpty checks={senderItems}>
             <InternalLink path={linkProvider.profile.items.get()}>
               <button
-                className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+                className={clsx('btn-gradient', 'btn-size-alt', 'group', isNil(onContinue) && 'animate-pulse')}
                 onClick={onContinue}
-                disabled={confirming}
+                disabled={isNil(onContinue)}
               >
                 <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
               </button>
@@ -66,9 +58,9 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
             checks={senderItems}
             render={() => (
               <button
-                className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+                className={clsx('btn-gradient', 'btn-size-alt', 'group', isNil(onComplete) && 'animate-pulse')}
                 onClick={onComplete}
-                disabled={confirming}
+                disabled={isNil(onComplete)}
               >
                 <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
               </button>
@@ -78,10 +70,8 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
             id={'new-offer-confirmation-btn'}
             label={t('clearBtn')}
             message={t('clearBtnMessage')}
-            disabled={confirming}
-            onFinish={() => {
-              onClear?.()
-            }}
+            loading={isNil(onClear)}
+            onFinish={onClear}
           />
         </div>
       </div>

@@ -70,20 +70,27 @@ export const NewOfferManager: FunctionComponent<Props> = ({ fetcher, user }) => 
       receiverItems={receiverItems}
       senderItems={senderItems}
       open={modalOpen}
-      onClear={() => {
-        closeModal()
-        clearOfferTimeoutRef.current = setTimeout(clearOffer, 210)
-      }}
-      onClose={closeModal}
-      onContinue={closeModal}
-      onComplete={() => {
-        void trigger({
-          senderItems: mapOfferItemsToRequests(senderItems),
-          receiverItems: mapOfferItemsToRequests(receiverItems),
-          token: user?.sessionToken
-        })
-      }}
-      confirming={isMutating}
+      onClear={
+        isMutating
+          ? undefined
+          : () => {
+              closeModal()
+              clearOfferTimeoutRef.current = setTimeout(clearOffer, 210)
+            }
+      }
+      onClose={isMutating ? undefined : closeModal}
+      onContinue={isMutating ? undefined : closeModal}
+      onComplete={
+        isMutating
+          ? undefined
+          : () => {
+              void trigger({
+                senderItems: mapOfferItemsToRequests(senderItems),
+                receiverItems: mapOfferItemsToRequests(receiverItems),
+                token: user?.sessionToken
+              })
+            }
+      }
     />
   )
 }

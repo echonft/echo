@@ -12,6 +12,7 @@ interface Props {
   message: string
   threshold?: number
   disabled?: boolean
+  loading?: boolean
   onFinish?: EmptyFunction
 }
 
@@ -21,6 +22,7 @@ export const LongPressButton: FunctionComponent<Props> = ({
   message,
   threshold = 2000,
   disabled,
+  loading,
   onFinish
 }) => {
   const buttonId = `long-press-btn-${id}`
@@ -63,8 +65,8 @@ export const LongPressButton: FunctionComponent<Props> = ({
     <div className={clsx('w-max', 'h-max', 'relative')}>
       <button
         id={buttonId}
-        className={clsx('btn', 'btn-size-alt', 'group')}
-        disabled={disabled}
+        className={clsx('btn', 'btn-size-alt', 'group', loading && 'animate-pulse')}
+        disabled={loading ?? disabled}
         style={{
           background: `linear-gradient(to right, #BF0000 ${progressPercentage}%, #FF4040 ${progressPercentage}% 100%`
         }}

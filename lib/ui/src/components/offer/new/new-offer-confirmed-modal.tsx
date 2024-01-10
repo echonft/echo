@@ -20,7 +20,7 @@ export const NewOfferConfirmedModal: FunctionComponent<Props> = ({ offer, open, 
   const t = useTranslations('offer.new.confirmedModal')
 
   return (
-    <Modal open={open} onClose={onClose} title={t('title')} minHeight={false}>
+    <Modal open={open} onClose={onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
         <span className={clsx('text-white/50', 'text-center', 'prose-header-xs')}>{t('subtitle')}</span>
         <div className={clsx('flex', 'items-center', 'justify-center')}>

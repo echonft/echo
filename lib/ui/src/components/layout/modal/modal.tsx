@@ -1,44 +1,32 @@
 'use client'
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
+import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
-import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { ModalTitle } from '@echo/ui/components/layout/modal/modal-title'
 import { DIRECTION_LEFT } from '@echo/ui/constants/direction'
 import { Dialog, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { Fragment, type FunctionComponent, type PropsWithChildren, useCallback } from 'react'
+import { Fragment, type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
   open: boolean
   title?: string
-  onClose?: VoidFunction
-  closeDisabled?: boolean
-  backDisabled?: boolean
   backButtonLabel?: string
-  minHeight?: boolean
   onBack?: VoidFunction
+  onClose?: VoidFunction
 }
 
 export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
   open,
   title,
   onClose,
-  closeDisabled = false,
-  backDisabled = true,
   backButtonLabel,
-  minHeight = true,
   onBack,
   children
 }) => {
-  const close = useCallback(() => {
-    if (!closeDisabled) {
-      onClose?.()
-    }
-  }, [onClose, closeDisabled])
-
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as={'div'} className={clsx('relative', 'z-40')} onClose={close}>
+      <Dialog as={'div'} className={clsx('relative', 'z-40')} onClose={() => onClose?.()}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -65,7 +53,9 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
                 className={clsx(
                   'flex',
                   'flex-col',
-                  minHeight && 'min-h-[42rem]',
+                  'w-full',
+                  'max-w-md',
+                  'h-max',
                   'transform',
                   'overflow-hidden',
                   'border-2',
@@ -79,24 +69,27 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
                   'transition-all'
                 )}
               >
-                <ShowIf condition={!backDisabled}>
-                  <button
-                    className={clsx('btn', 'group', 'gap-4', '!justify-start', 'pb-[3.12rem]')}
-                    onClick={() => onBack?.()}
-                  >
-                    <span className={clsx('btn-label-secondary')}>
-                      <SideCaretSvg direction={DIRECTION_LEFT} width={12} height={20} />
-                    </span>
-                    <HideIfNilOrEmpty
-                      checks={backButtonLabel}
-                      render={(label) => (
-                        <span className={clsx('btn-label-secondary', 'prose-paragraph-sm', '!text-[0.9375rem]')}>
-                          {label}
-                        </span>
-                      )}
-                    />
-                  </button>
-                </ShowIf>
+                <HideIfNil
+                  checks={onBack}
+                  render={(onBack) => (
+                    <button
+                      className={clsx('btn', 'group', 'gap-4', '!justify-start', 'pb-[3.12rem]')}
+                      onClick={onBack}
+                    >
+                      <span className={clsx('btn-label-secondary')}>
+                        <SideCaretSvg direction={DIRECTION_LEFT} width={12} height={20} />
+                      </span>
+                      <HideIfNilOrEmpty
+                        checks={backButtonLabel}
+                        render={(label) => (
+                          <span className={clsx('btn-label-secondary', 'prose-paragraph-sm', '!text-[0.9375rem]')}>
+                            {label}
+                          </span>
+                        )}
+                      />
+                    </button>
+                  )}
+                />
                 <HideIfNilOrEmpty
                   checks={title}
                   render={(title) => (

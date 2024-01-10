@@ -1,4 +1,4 @@
-'use-client'
+'use client'
 import type { CancelOfferArgs } from '@echo/api/services/fetcher/cancel-offer'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
