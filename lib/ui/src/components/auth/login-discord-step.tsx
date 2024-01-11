@@ -19,7 +19,7 @@ export const LoginDiscordStep: FunctionComponent<Props> = ({ user, onContinue })
   return (
     <div className={clsx('flex', 'flex-col', 'gap-12', 'items-center')}>
       <LoginFlowTitle>{t('title')}</LoginFlowTitle>
-      <div className={clsx('flex', 'flex-col', 'gap-2.5', 'items-center')}>
+      <div className={clsx('flex', 'flex-col', 'gap-2.5', 'items-center', 'px-2')}>
         <LoginFlowSubtitle>{t('subtitle')}</LoginFlowSubtitle>
         <LoginDiscordConnect user={user} />
       </div>

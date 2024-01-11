@@ -12,7 +12,14 @@ export const ConnectButton: FunctionComponent<Props> = ({ loading = false, onCli
     <button
       disabled={loading}
       onClick={onClick}
-      className={clsx('btn-primary', 'group', 'w-[1.875rem]', 'h-[1.875rem]', loading && 'animate-pulse')}
+      className={clsx(
+        'btn-primary',
+        'group',
+        'w-[1.875rem]',
+        'h-[1.875rem]',
+        '!enabled:hover:bg-yellow-500',
+        loading && 'animate-pulse'
+      )}
     >
       <span className={clsx('btn-label-primary')}>
         <DiscordIconSvg />
