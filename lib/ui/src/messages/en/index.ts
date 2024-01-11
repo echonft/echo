@@ -185,6 +185,7 @@ export const messages = {
         title: 'Confirm Listing',
         targetSubtitle: 'Target collection',
         itemsSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',
+        searchPlaceholder: 'Search by collection name',
         confirmBtn: 'Confirm',
         clearBtn: 'Clear',
         clearBtnMessage: 'Hold to clear'

@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 // TODO Add expiration
-export const NewListingSliderExpirationContainer: FunctionComponent = () => {
+export const NewListingModalExpirationContainer: FunctionComponent = () => {
   const t = useTranslations('listing.new.bottomSlider')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-4')}>

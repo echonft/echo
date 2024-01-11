@@ -1,7 +1,7 @@
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import type { Target } from '@echo/ui/components/listing/new/new-listing-manager'
-import { NewListingSliderTargetRow } from '@echo/ui/components/listing/new/new-listing-slider-target-row'
+import { NewListingModalTargetRow } from '@echo/ui/components/listing/new/new-listing-modal-target-row'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { SWAP_DIRECTION_IN } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
@@ -14,7 +14,7 @@ interface Props {
   onRemove?: (targetCollectionId: string) => unknown
 }
 
-export const NewListingSliderTargetContainer: FunctionComponent<Props> = ({ target, onEdit, onRemove }) => {
+export const NewListingModalTargetContainer: FunctionComponent<Props> = ({ target, onEdit, onRemove }) => {
   const t = useTranslations('listing.new.bottomSlider')
   const tShared = useTranslations('assets')
   return (
@@ -24,7 +24,7 @@ export const NewListingSliderTargetContainer: FunctionComponent<Props> = ({ targ
         <HideIfNil
           checks={target}
           render={(target) => (
-            <NewListingSliderTargetRow
+            <NewListingModalTargetRow
               collectionName={target.collection.name}
               quantity={target.amount}
               onQuantityChange={(newQuantity) => onEdit?.(target.collection.id, newQuantity)}

@@ -6,7 +6,7 @@ import { CollectionSearchBoxManager } from '@echo/ui/components/collection/searc
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { NewListingConfirmationModalItemsContainer } from '@echo/ui/components/listing/new/new-listing-confirmation-modal-items-container'
 import type { Target } from '@echo/ui/components/listing/new/new-listing-manager'
-import { NewListingSliderTargetContainer } from '@echo/ui/components/listing/new/new-listing-slider-target-container'
+import { NewListingModalTargetContainer } from '@echo/ui/components/listing/new/new-listing-modal-target-container'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isEmpty, isNil } from 'ramda'
@@ -47,12 +47,12 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
     <Modal open={open} onClose={onClose} title={t('title')} backButtonLabel={t('backBtn')}>
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
         <CollectionSearchBoxManager
-          placeholder={'TODO'}
+          placeholder={t('searchPlaceholder')}
           selectedOption={target?.collection}
           options={collections}
           onSelectionChange={onCollectionSelectionChange}
         />
-        <NewListingSliderTargetContainer target={target} onRemove={onRemoveTarget} onEdit={onTargetAmountChange} />
+        <NewListingModalTargetContainer target={target} onRemove={onRemoveTarget} onEdit={onTargetAmountChange} />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
         <NewListingConfirmationModalItemsContainer items={items} />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>

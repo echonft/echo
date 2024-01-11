@@ -1,5 +1,5 @@
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
-import { NewListingSliderTargetRow as Component } from '@echo/ui/components/listing/new/new-listing-slider-target-row'
+import { NewListingModalTargetRow as Component } from '@echo/ui/components/listing/new/new-listing-modal-target-row'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

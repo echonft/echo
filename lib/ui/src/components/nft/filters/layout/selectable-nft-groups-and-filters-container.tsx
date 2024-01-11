@@ -21,6 +21,7 @@ import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-coun
 import { removeSelectionWhenDisabled } from '@echo/ui/helpers/selection/remove-selection-when-disabled'
 import { toggleSelectionInGroup } from '@echo/ui/helpers/selection/toggle-selection-in-group'
 import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selection-in-list'
+import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { type Group } from '@echo/ui/types/group'
@@ -47,10 +48,16 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
 }) => {
   const [groups, setGroups] = useState<Group<SelectableNft>[]>(groupNftsByCollection(nfts))
   const { senderItems } = useNewOfferStore()
+  const { items } = useNewListingStore()
   // Reset state when offer changes
   useEffect(() => {
     setGroups((prevState) => unselectNftGroupsFromItems(prevState, senderItems))
   }, [senderItems])
+  // Reset state when listing changes
+  useEffect(() => {
+    setGroups((prevState) => unselectNftGroupsFromItems(prevState, items))
+  }, [items])
+
   const [collectionFilters, setCollectionFilters] = useState(
     includes(NFT_FILTER_COLLECTIONS, availableFilters) ? getCollectionFiltersForNfts(nfts) : []
   )
