@@ -22,14 +22,17 @@ export const messages = {
         label: 'Join our Discord Now!'
       },
       continueBtn: {
-        label: 'Continue'
+        label: 'Skip'
       }
     },
     step2: {
       title: 'Connect your wallet',
       subtitle: 'Connect your wallet to start swapping',
       continueBtn: {
-        label: 'Skip'
+        label: {
+          connected: 'Continue',
+          disconnected: 'Skip'
+        }
       }
     }
   },

@@ -2,15 +2,15 @@
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { DIRECTION_RIGHT } from '@echo/ui/constants/direction'
 import clsx from 'clsx'
-import type { FunctionComponent } from 'react'
+import type { FunctionComponent, MouseEventHandler } from 'react'
 
 interface Props {
   label: string
   disabled?: boolean
-  onClick?: VoidFunction
+  onClick?: MouseEventHandler
 }
 
-export const LoginFlowContinueButton: FunctionComponent<Props> = ({ label, disabled = false, onClick }) => {
+export const LoginContinueButton: FunctionComponent<Props> = ({ label, disabled, onClick }) => {
   return (
     <button
       className={clsx('group', 'btn', 'gap-8', 'pr-2', 'pl-8', 'py-2.5', 'enabled:hover:bg-white/[0.08]')}

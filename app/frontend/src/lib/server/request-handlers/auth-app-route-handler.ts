@@ -2,7 +2,6 @@ import type { ApiRequest } from '@echo/api/types/api-request'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { auth } from '@echo/frontend/lib/helpers/auth/auth'
 import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
-import { getApiUser } from '@echo/frontend/lib/server/helpers/auth/get-api-user'
 import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
 import type { AuthRequestHandler } from '@echo/frontend/lib/server/types/request-handlers/auth-request-handler'
 import { errorMessage } from '@echo/utils/helpers/error-message'
@@ -20,7 +19,8 @@ export function authAppRouteHandler<
   return auth(async function (request: NextAuthRequest, context?: { params: Params }) {
     try {
       initializeFirebase()
-      const user = await getApiUser()
+      const session = await auth()
+      const user = session?.user
       if (isNil(user)) {
         return NextResponse.json<ErrorResponse>(
           {
@@ -30,7 +30,7 @@ export function authAppRouteHandler<
         )
       }
       setUser(pick(['username'], user))
-      return await requestHandler(user, dissoc('auth', request) as ApiRequest<RequestBody>, context?.params)
+      return await requestHandler(user, dissoc('auth', request) as ApiRequest<RequestBody>, context?.params as Params)
     } catch (error) {
       if (error instanceof ApiError) {
         await error.beforeError()

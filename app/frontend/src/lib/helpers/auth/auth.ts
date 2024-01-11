@@ -5,11 +5,6 @@ export const {
   handlers: { GET, POST },
   auth
 } = NextAuth({
-  // adapter: FirestoreAdapter({ firestore: initializeFirebase() }),
-  // debug: true,
   session: { strategy: 'jwt' },
-  // cookies: {
-  //   sessionToken: {}
-  // },
   ...authConfig
 })

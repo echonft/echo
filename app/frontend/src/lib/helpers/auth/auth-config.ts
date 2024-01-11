@@ -14,7 +14,6 @@ export const authConfig: NextAuthConfig = {
     Discord({
       authorization: 'https://discord.com/api/oauth2/authorize?scope=identify',
       profile: (profile: DiscordProfile, _tokens) => {
-        // await updateAccount(profile.id, mapTokenSetToFirestoreAccount(tokens))
         return {
           id: profile.id,
           username: profile.username,
@@ -50,60 +49,8 @@ export const authConfig: NextAuthConfig = {
       }
       return token
     }
+  },
+  pages: {
+    signIn: '/login'
   }
-  // callbacks: {
-  //   session: async ({ session, user }) => {
-  //     logger.info('session callback')
-  //     if (isNil(user)) {
-  //       setUser(null)
-  //       return session
-  //     } else {
-  //       const { username } = user as unknown as AuthUser
-  //       initializeFirebase()
-  //       const firestoreUser = await findUserByUsername(username)
-  //       if (isNil(firestoreUser)) {
-  //         setUser(null)
-  //         return session
-  //       }
-  //       const { id } = firestoreUser
-  //       const sessionToken = await findSessionByUserId(id)
-  //       const wallets = await getWalletsForUser(id)
-  //       const authUser = pipe(
-  //         assoc('wallets', map(mapWalletDocumentDataToWallet, wallets)),
-  //         unless(always(isNil(sessionToken)), assoc('sessionToken', sessionToken?.sessionToken))
-  //       )(user) as AuthUser
-  //       setUser({
-  //         id,
-  //         username
-  //       })
-  //       return assoc('user', authUser, session)
-  //     }
-  //   }
-  // },
-  // events: {
-  //   signIn: (args) => {
-  //     console.info('signIn EVENT')
-  //     console.info(JSON.stringify(args))
-  //   },
-  //   signOut: (args) => {
-  //     console.info('signOut EVENT')
-  //     console.info(JSON.stringify(args))
-  //   },
-  //   createUser: (args) => {
-  //     console.info('createUser EVENT')
-  //     console.info(JSON.stringify(args))
-  //   },
-  //   updateUser: (args) => {
-  //     console.info('updateUser EVENT')
-  //     console.info(JSON.stringify(args))
-  //   },
-  //   linkAccount: (args) => {
-  //     console.info('linkAccount EVENT')
-  //     console.info(JSON.stringify(args))
-  //   },
-  //   session: (args) => {
-  //     console.info('session EVENT')
-  //     console.info(JSON.stringify(args))
-  //   }
-  // }
 }

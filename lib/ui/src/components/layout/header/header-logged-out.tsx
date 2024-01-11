@@ -1,7 +1,7 @@
 'use client'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { EchoLogoSvg } from '@echo/ui/components/base/svg/echo-logo-svg'
-import { ConnectButtonWrapper } from '@echo/ui/components/layout/header/connect-button-wrapper'
+import { ConnectButton } from '@echo/ui/components/layout/header/connect-button'
 import { HeaderLayout, type HeaderLayoutProps } from '@echo/ui/components/layout/header/header-layout'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { clsx } from 'clsx'
@@ -15,7 +15,7 @@ export const HeaderLoggedOut: FunctionComponent<HeaderLayoutProps> = ({ absolute
           <InternalLink path={'/'}>
             <EchoLogoSvg width={144} />
           </InternalLink>
-          <ConnectButtonWrapper />
+          <ConnectButton />
         </div>
       </PaddedContainer>
     </HeaderLayout>

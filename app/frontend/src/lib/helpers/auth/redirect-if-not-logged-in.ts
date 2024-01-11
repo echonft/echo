@@ -4,8 +4,7 @@ import { redirect } from 'next/navigation'
 import { stringify } from 'qs'
 import { concat, isNil } from 'ramda'
 
-// TODO add sessionToken and check expiration
-// We need to validate that it is automatically refreshed first though (although it should be)
+// TODO remove this and use the middleware instead
 export function redirectIfNotLoggedIn(user: AuthUser | undefined, callbackUrl: string): asserts user is AuthUser {
   if (isNil(user)) {
     const path = linkProvider.auth.signIn.get()

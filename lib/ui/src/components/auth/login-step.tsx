@@ -2,20 +2,19 @@
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
+import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Wallet } from '@echo/model/types/wallet'
-import { CreateSignature } from '@echo/ui/components/profile/wallet/create-signature'
-import { UserWalletButton } from '@echo/ui/components/shared/user-wallet-button'
-import { errorCallback } from '@echo/ui/helpers/error-callback'
-import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { LoginConnectWalletStep } from '@echo/ui/components/auth/login-connect-wallet-step'
+import { LoginDiscordStep } from '@echo/ui/components/auth/login-discord-step'
+import { LoginJoinEchoStep } from '@echo/ui/components/auth/login-join-echo-step'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { SignNonceArgs, SignNonceResult } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import type { AccountProvider } from '@echo/web3/helpers/wagmi/provider/account'
 import type { ChainProvider } from '@echo/web3/helpers/wagmi/provider/chain'
-import { ConnectKitButton } from 'connectkit'
-import { includes, isNil, toLower } from 'ramda'
+import type { SignInResponse } from 'next-auth/react'
+import { isNil } from 'ramda'
 import React, { type FunctionComponent } from 'react'
-import useSWRImmutable from 'swr/immutable'
 import type { Chain } from 'wagmi'
 
 interface Props {
@@ -27,8 +26,9 @@ interface Props {
   provider: {
     account: AccountProvider
     chain: ChainProvider
+    signIn: () => Promise<SignInResponse | undefined>
   }
-  renderConnect: (renderProps: {
+  renderConnectWallet: (renderProps: {
     show?: () => void
     hide?: () => void
     chain?: Chain & {
@@ -41,25 +41,39 @@ interface Props {
     truncatedAddress?: string
     ensName?: string
   }) => React.ReactNode
+  step: 1 | 2 | 3
+  user: AuthUser | undefined
   wallets: Wallet[]
+  onNext?: VoidFunction
+  onFinish?: VoidFunction
 }
 
-export const ConnectWallet: FunctionComponent<Props> = ({ fetcher, provider, renderConnect, wallets }) => {
-  const { address } = provider.account()
-  const chainId = provider.chain()
-  const { data } = useSWRImmutable<NonceResponse, Error, Record<'name', string>>(
-    { name: SWRKeys.profile.nonce.get },
-    () => fetcher.getNonce(),
-    {
-      onError: errorCallback()
-    }
-  )
-
-  if (isNil(address) || isNil(data) || isNil(chainId)) {
-    return <ConnectKitButton.Custom>{renderConnect}</ConnectKitButton.Custom>
+export const LoginStep: FunctionComponent<Props> = ({
+  fetcher,
+  provider,
+  renderConnectWallet,
+  step,
+  user,
+  wallets,
+  onNext,
+  onFinish
+}) => {
+  if (step === 1) {
+    return <LoginDiscordStep provider={provider} user={user} onContinue={onNext} />
   }
-  if (includes({ address, chainId }, wallets)) {
-    return <UserWalletButton wallet={{ address: toLower(address), chainId: chainId }} />
+  if (step === 2) {
+    return (
+      <LoginConnectWalletStep
+        fetcher={fetcher}
+        provider={provider}
+        renderConnect={renderConnectWallet}
+        wallets={wallets}
+        onContinue={onNext}
+      />
+    )
   }
-  return <CreateSignature nonce={data.nonce} wallet={{ address: toLower(address), chainId }} fetcher={fetcher} />
+  if (isNil(user)) {
+    throw Error
+  }
+  return <LoginJoinEchoStep username={user.username} onSkip={onFinish} />
 }
