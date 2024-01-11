@@ -56,7 +56,7 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
   }
 
   return (
-    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NAVIGATION_ITEMS} user={user}>
+    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NAVIGATION_ITEMS}>
       <HideIfEmpty
         checks={selectableNfts}
         render={(selectableNfts) => (

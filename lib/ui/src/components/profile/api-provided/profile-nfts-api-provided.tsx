@@ -14,9 +14,8 @@ import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { mapNftToListingItem } from '@echo/ui/mappers/to-api/map-nft-to-listing-item'
 import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item'
-import { useTranslations } from 'next-intl'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { NextIntlClientProvider } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { useRouteChangeEvents } from 'nextjs-router-events'
 import { assoc, dissoc, map, pipe } from 'ramda'
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
@@ -39,7 +38,7 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
       return false
     }
     return true
-  }, [])
+  }, [hasNewOfferPending])
 
   const { allowRouteChange } = useRouteChangeEvents({ onBeforeRouteChange })
   // Prevent navigation (refresh, back, forward) if offer is pending. Doesn't work flawlessly but will do the trick for now.
@@ -80,7 +79,7 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
             <SelectableNftGroupsAndFiltersContainer
               nfts={selectableNfts}
               availableFilters={[NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS]}
-              btnLabel={t(hasNewOfferPending() ? 'profile.offerButton.label' : 'profile.listingButton.label')}
+              btnLabel={t(hasNewOfferPending() ? 'offerButton.label' : 'listingButton.label')}
               hideOwner={true}
               onButtonClick={onButtonClick}
             />
@@ -90,13 +89,11 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
           <ProfileNftsEmpty user={user} />
         </ShowIfEmpty>
       </ProfileNavigationLayout>
-      <NextIntlClientProvider messages={messages} locale={'en'}>
-        <NewOfferDiscardModal
-          open={showDiscardModal}
-          onClose={() => setShowDiscardModal(false)}
-          onDiscard={discardOffer}
-        />
-      </NextIntlClientProvider>
+      <NewOfferDiscardModal
+        open={showDiscardModal}
+        onClose={() => setShowDiscardModal(false)}
+        onDiscard={discardOffer}
+      />
     </>
   )
 }

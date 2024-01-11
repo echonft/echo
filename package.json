@@ -23,8 +23,8 @@
   "scripts": {
     "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot",
     "bot:start": "turbo run start --filter=@echo/bot",
-    "check": "turbo run tsc; turbo run lint; turbo run test",
-    "check:quick": "turbo run tsc; turbo run lint; turbo run test --filter=!@echo/firestore",
+    "check": "turbo run tsc && turbo run lint && turbo run test",
+    "check:quick": "turbo run tsc && turbo run lint && turbo run test --filter=!@echo/firestore",
     "clean": "turbo run clean",
     "db:add-collection:dev": "env-cmd -f .env turbo run db:add-collection:dev --filter=@echo/firestore",
     "db:fix-addresses:dev": "env-cmd -f .env turbo run db:fix-addresses:dev --filter=@echo/firestore",
@@ -84,7 +84,11 @@
   },
   "pnpm": {
     "overrides": {
-      "@auth/core": "0.19.0"
+      "@auth/core": "0.19.0",
+      "@sentry/integrations": "7.92.0",
+      "@sentry/nextjs": "7.92.0",
+      "@sentry/node": "7.92.0",
+      "@sentry/profiling-node": "1.3.3"
     }
   },
   "packageManager": "pnpm@8.14.0",

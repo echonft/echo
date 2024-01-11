@@ -33,7 +33,6 @@ import { type FunctionComponent, useState } from 'react'
 interface Props {
   offer: Offer
   isCreator: boolean
-  token: string
   fetcher: {
     approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
     getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
@@ -88,14 +87,7 @@ function showSwapButton(offer: Offer, isCreator: boolean) {
   }
 }
 
-export const OfferDetailsButtons: FunctionComponent<Props> = ({
-  offer,
-  token,
-  isCreator,
-  fetcher,
-  provider,
-  onSuccess
-}) => {
+export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, isCreator, fetcher, provider, onSuccess }) => {
   const [buttonsDisabled, setButtonsDisabled] = useState(false)
   const disable = () => setButtonsDisabled(true)
   const enable = () => setButtonsDisabled(false)
@@ -112,7 +104,6 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
       <ShowIf condition={showAcceptButton(offer, isCreator)}>
         <OfferDetailsAcceptButton
           offer={offer}
-          token={token}
           fetcher={fetcher}
           provider={provider}
           onClick={disable}
@@ -124,7 +115,6 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
       <ShowIf condition={showSwapButton(offer, isCreator)}>
         <OfferDetailsSwapButton
           offer={offer}
-          token={token}
           fetcher={fetcher}
           provider={provider}
           onClick={disable}
@@ -136,7 +126,6 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
       <ShowIf condition={showRejectButton(offer, isCreator)}>
         <OfferDetailsRejectButton
           offer={offer}
-          token={token}
           fetcher={fetcher}
           onClick={disable}
           onSuccess={success}
@@ -147,7 +136,6 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({
       <ShowIf condition={showCancelButton(offer, isCreator)}>
         <OfferDetailsCancelButton
           offer={offer}
-          token={token}
           fetcher={fetcher}
           onClick={disable}
           onSuccess={success}

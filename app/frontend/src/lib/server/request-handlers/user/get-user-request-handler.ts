@@ -12,6 +12,6 @@ export async function getUserRequestHandler(_request: ApiRequest<never>, params:
   const { username } = params
   const user = await guardAsyncFn(findUserByUsername, ErrorStatus.SERVER_ERROR)(username)
   guarded_assertUserExists(user, username)
-  const wallets = await guardAsyncFn(getWalletsForUser, ErrorStatus.SERVER_ERROR)(user.id)
+  const wallets = await guardAsyncFn(getWalletsForUser, ErrorStatus.SERVER_ERROR)(username)
   return NextResponse.json<UserResponse>({ user: mapFirestoreUserToUserProfile(user, wallets) })
 }

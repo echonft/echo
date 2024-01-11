@@ -31,7 +31,7 @@ const UserNftsPage: FunctionComponent<Props> = async ({ params: { username } }) 
     params
   })
   assertNextFetchResponse(response)
-  return <UserNftsApiProvided username={username} nfts={response.data.nfts} user={user} />
+  return <UserNftsApiProvided username={username} nfts={response.data.nfts} />
 }
 
 export default UserNftsPage

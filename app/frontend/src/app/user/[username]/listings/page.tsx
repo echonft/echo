@@ -35,7 +35,7 @@ const UserListingsPage: FunctionComponent<Props> = async ({ params: { username }
     params: mergeLeft(constraintsQueryParams, filtersQueryParam)
   })
   assertNextFetchResponse(response)
-  return <UserListingsApiProvided username={username} listings={response.data.listings} user={user} />
+  return <UserListingsApiProvided username={username} listings={response.data.listings} />
 }
 
 export default UserListingsPage

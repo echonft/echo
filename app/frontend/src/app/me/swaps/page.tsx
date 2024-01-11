@@ -38,7 +38,6 @@ const ProfileSwapsPage: FunctionComponent = async () => {
           response.data.offers
         ) as OfferWithRole[]
       }
-      user={user}
     />
   )
 }

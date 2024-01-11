@@ -31,7 +31,7 @@ const UserSwapsPage: FunctionComponent<Props> = async ({ params: { username } })
     params
   })
   assertNextFetchResponse(response)
-  return <UserSwapsApiProvided username={username} offers={response.data.offers} user={user} />
+  return <UserSwapsApiProvided username={username} offers={response.data.offers} />
 }
 
 export default UserSwapsPage

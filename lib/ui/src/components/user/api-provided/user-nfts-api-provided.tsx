@@ -1,5 +1,4 @@
 'use client'
-import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Nft } from '@echo/model/types/nft'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
@@ -20,10 +19,9 @@ import { type FunctionComponent, useMemo } from 'react'
 interface Props {
   username: string
   nfts: Nft[]
-  user: AuthUser | undefined
 }
 
-export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts, user }) => {
+export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts }) => {
   const t = useTranslations('user')
   const { hasNewOfferPending, setReceiverItems, openModal } = useNewOfferStore()
   const selectableNfts = useMemo(() => {
@@ -44,7 +42,7 @@ export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts, 
   }
 
   return (
-    <UserNavigationLayout username={username} activeNavigationItem={NAVIGATION_ITEMS} user={user}>
+    <UserNavigationLayout username={username} activeNavigationItem={NAVIGATION_ITEMS}>
       <HideIfEmpty
         checks={selectableNfts}
         render={(selectableNfts) => (

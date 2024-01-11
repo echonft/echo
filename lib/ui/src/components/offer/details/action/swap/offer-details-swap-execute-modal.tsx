@@ -28,7 +28,6 @@ interface Props {
     getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
     executeSwap: Fetcher<HexString, ExecuteSwapArgs>
   }
-  token: string
   open: boolean
   onSuccess?: (offer: Offer) => unknown
   onClose?: EmptyFunction
@@ -39,7 +38,6 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
   chainId,
   signature,
   fetcher,
-  token,
   open,
   onSuccess,
   onClose
@@ -63,7 +61,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
     key: SWRKeys.swap.execute(offer),
     fetcher: fetcher.executeSwap,
     onSuccess: (_response) => {
-      void getOfferTrigger({ offerId: offer.id, token })
+      void getOfferTrigger({ offerId: offer.id })
     },
     onError
   })
@@ -88,7 +86,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
           className={clsx('btn-gradient', 'btn-size-alt', 'group')}
           onClick={() => {
             if (isNil(signature)) {
-              void getOfferSignatureTrigger({ offerId: offer.id, token })
+              void getOfferSignatureTrigger({ offerId: offer.id })
             } else {
               void executeSwapTrigger({ chainId, signature, offer })
             }

@@ -30,7 +30,7 @@ const ProfileListingsCreatedPage: FunctionComponent = async () => {
     }
   )
   assertNextFetchResponse(response)
-  return <ProfileListingsCreatedApiProvided listings={response.data.listings} user={user} />
+  return <ProfileListingsCreatedApiProvided listings={response.data.listings} />
 }
 
 export default ProfileListingsCreatedPage

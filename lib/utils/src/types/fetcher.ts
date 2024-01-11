@@ -1,1 +1,1 @@
-export type Fetcher<TResponse, TArgs> = (args: TArgs) => Promise<TResponse>
+export type Fetcher<TResponse, TArgs> = (...args: TArgs[]) => Promise<TResponse>

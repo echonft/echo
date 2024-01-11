@@ -12,17 +12,15 @@ import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
   activeNavigationItem: NavigationItemId
-  user: AuthUser
 }
 export const ProfileNavigationLayout: FunctionComponent<PropsWithChildren<Props>> = ({
   activeNavigationItem,
-  user,
   children
 }) => {
   return (
     <NavigationLayout navigationItems={getProfileNavigationItems()} activeNavigationItem={activeNavigationItem}>
       {children}
-      <NewOfferManager fetcher={{ createOffer }} user={user} />
+      <NewOfferManager fetcher={{ createOffer }} />
         <NewListingManager fetcher={{ createListing }} provider={{ collections }} user={user} />
       <CalloutManager />
     </NavigationLayout>

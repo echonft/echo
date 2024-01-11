@@ -27,7 +27,6 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user 
       <OfferDetails
         offer={offer}
         isCreator={user.username === offer.sender?.username}
-        token={user.sessionToken}
         fetcher={{
           approveErc721Contract,
           getErc721ContractApproval,

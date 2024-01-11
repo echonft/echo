@@ -1,5 +1,4 @@
 'use client'
-import { type AuthUser } from '@echo/model/types/auth-user'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { OfferRowsContainer } from '@echo/ui/components/offer/layout/offer-rows-container'
@@ -11,12 +10,11 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   offers: OfferWithRole[]
-  user: AuthUser
 }
 
-export const ProfileOffersCreatedApiProvided: FunctionComponent<Props> = ({ offers, user }) => {
+export const ProfileOffersCreatedApiProvided: FunctionComponent<Props> = ({ offers }) => {
   return (
-    <ProfileNavigationLayout activeNavigationItem={NAVIGATION_OFFERS_CREATED} user={user}>
+    <ProfileNavigationLayout activeNavigationItem={NAVIGATION_OFFERS_CREATED}>
       <HideIfEmpty checks={offers} render={(offers) => <OfferRowsContainer offers={offers} />} />
       <ShowIfEmpty checks={offers}>
         <ProfileOffersCreatedEmpty />

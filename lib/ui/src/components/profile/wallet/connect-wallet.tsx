@@ -1,9 +1,8 @@
 'use client'
-import type { AddWalletArgs } from '@echo/api/services/fetcher/add-wallet'
+import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
-import type { TokenArgs } from '@echo/api/types/token-args'
-import type { AuthUser } from '@echo/model/types/auth-user'
+import type { Wallet } from '@echo/model/types/wallet'
 import { CreateSignature } from '@echo/ui/components/profile/wallet/create-signature'
 import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
 import { UserWalletButton } from '@echo/ui/components/shared/user-wallet-button'
@@ -15,33 +14,30 @@ import type { AccountProvider } from '@echo/web3/helpers/wagmi/provider/account'
 import type { ChainProvider } from '@echo/web3/helpers/wagmi/provider/chain'
 import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
-import { isNil, toLower } from 'ramda'
+import { includes, isNil, toLower } from 'ramda'
 import { type FunctionComponent } from 'react'
 import useSWRImmutable from 'swr/immutable'
 
 interface Props {
   fetcher: {
-    addWallet: Fetcher<EmptyResponse, AddWalletArgs>
-    getNonce: Fetcher<NonceResponse, TokenArgs>
+    addWallet: Fetcher<EmptyResponse, AddWalletRequest>
+    getNonce: Fetcher<NonceResponse, never>
     signNonce: Fetcher<SignNonceResult, SignNonceArgs>
   }
   provider: {
     account: AccountProvider
     chain: ChainProvider
   }
-  user: AuthUser
-  // wallets?: Wallet[]
+  wallets: Wallet[]
 }
 
-export const ConnectWallet: FunctionComponent<Props> = ({ fetcher, provider, user }) => {
+export const ConnectWallet: FunctionComponent<Props> = ({ fetcher, provider, wallets }) => {
   const t = useTranslations('profile.wallet.button')
   const { address } = provider.account()
   const chainId = provider.chain()
-  const userHasCurrentWallet =
-    !isNil(address) && !isNil(chainId) && userHasWallet(user, { address: toLower(address), chainId })
-  const { data } = useSWRImmutable<NonceResponse, Error, TokenArgs & Record<'name', string>>(
-    { name: SWRKeys.profile.nonce.get, token: user.sessionToken },
-    fetcher.getNonce,
+  const { data } = useSWRImmutable<NonceResponse, Error, Record<'name', string>>(
+    { name: SWRKeys.profile.nonce.get },
+    () => fetcher.getNonce(),
     {
       onError: errorCallback()
     }
@@ -60,15 +56,8 @@ export const ConnectWallet: FunctionComponent<Props> = ({ fetcher, provider, use
       </ConnectKitButton.Custom>
     )
   }
-  if (!userHasCurrentWallet) {
-    return (
-      <CreateSignature
-        nonce={data.nonce}
-        token={user.sessionToken}
-        wallet={{ address: toLower(address), chainId }}
-        fetcher={fetcher}
-      />
-    )
+  if (includes({ address, chainId }, wallets)) {
+    return <UserWalletButton wallet={{ address: toLower(address), chainId: chainId }} />
   }
-  return <UserWalletButton wallet={{ address: toLower(address), chainId: chainId }} />
+  return <CreateSignature nonce={data.nonce} wallet={{ address: toLower(address), chainId }} fetcher={fetcher} />
 }

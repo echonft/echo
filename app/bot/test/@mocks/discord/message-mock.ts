@@ -3,7 +3,10 @@ import { mockGuildMember, mockUser } from '@echo/bot-mocks/discord/user-mock'
 import { randomSnowflake } from '@echo/bot-test/discord/snowflake'
 import {
   ActionRow,
+  type ActionRowData,
+  type APIActionRowComponent,
   type APIEmbed,
+  type APIMessageActionRowComponent,
   Client,
   Embed,
   EmbedBuilder,
@@ -11,6 +14,8 @@ import {
   type JSONEncodable,
   Message,
   type MessageActionRowComponent,
+  type MessageActionRowComponentBuilder,
+  type MessageActionRowComponentData,
   type MessageEditOptions,
   MessagePayload,
   MessageType,
@@ -23,7 +28,7 @@ export function mockEmbed(data: JSONEncodable<APIEmbed> | APIEmbed | EmbedBuilde
   return Reflect.construct(Embed, [data instanceof EmbedBuilder ? data.data : data]) as Embed
 }
 
-export function mockActionRow(data: unknown) {
+export function mockActionRow(
   data:
     | JSONEncodable<APIActionRowComponent<APIMessageActionRowComponent>>
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

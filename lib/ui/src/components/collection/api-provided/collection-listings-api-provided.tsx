@@ -1,5 +1,4 @@
 'use client'
-import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Listing } from '@echo/model/types/listing'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
@@ -12,12 +11,11 @@ import { type FunctionComponent } from 'react'
 interface Props {
   collectionSlug: string
   listings: Listing[]
-  user: AuthUser | undefined
 }
 
-export const CollectionListingsApiProvided: FunctionComponent<Props> = ({ collectionSlug, listings, user }) => {
+export const CollectionListingsApiProvided: FunctionComponent<Props> = ({ collectionSlug, listings }) => {
   return (
-    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NAVIGATION_LISTINGS} user={user}>
+    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NAVIGATION_LISTINGS}>
       <HideIfEmpty checks={listings} render={(listings) => <ListingRowsContainer listings={listings} />} />
       <ShowIfEmpty checks={listings}>
         <CollectionListingsEmpty />

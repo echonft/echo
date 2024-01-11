@@ -36,7 +36,6 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
   return (
     <ProfileOffersReceivedApiProvided
       offers={map(assoc('role', OFFER_ROLE_RECEIVER), response.data.offers) as OfferWithRole[]}
-      user={user}
     />
   )
 }

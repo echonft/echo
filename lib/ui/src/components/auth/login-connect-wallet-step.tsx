@@ -1,7 +1,7 @@
 'use client'
 import { addWallet } from '@echo/api/services/fetcher/add-wallet'
 import { getNonce } from '@echo/api/services/fetcher/get-nonce'
-import type { AuthUser } from '@echo/model/types/auth-user'
+import type { Wallet } from '@echo/model/types/wallet'
 import { LoginFlowContinueButton } from '@echo/ui/components/auth/login-flow-continue-button'
 import { LoginFlowSubtitle } from '@echo/ui/components/auth/login-flow-subtitle'
 import { LoginFlowTitle } from '@echo/ui/components/auth/login-flow-title'
@@ -16,11 +16,11 @@ import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  user: AuthUser
+  wallets: Wallet[]
   onContinue?: VoidFunction
 }
 
-export const LoginConnectWalletStep: FunctionComponent<Props> = ({ user, onContinue }) => {
+export const LoginConnectWalletStep: FunctionComponent<Props> = ({ wallets, onContinue }) => {
   const t = useTranslations('auth.step2')
   const { setLoggedInOnce } = useSettingsStore()
   return (
@@ -29,7 +29,7 @@ export const LoginConnectWalletStep: FunctionComponent<Props> = ({ user, onConti
       <div className={clsx('flex', 'flex-col', 'gap-12', 'items-center')}>
         <LoginFlowSubtitle>{t('subtitle')}</LoginFlowSubtitle>
         <Web3Provider>
-          <ConnectWallet user={user} fetcher={{ addWallet, getNonce, signNonce }} provider={{ account, chain }} />
+          <ConnectWallet wallets={wallets} fetcher={{ addWallet, getNonce, signNonce }} provider={{ account, chain }} />
         </Web3Provider>
       </div>
       <div className={clsx('flex', 'justify-end', 'w-full')}>

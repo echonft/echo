@@ -17,7 +17,6 @@ import { type FunctionComponent, useState } from 'react'
 interface Props {
   offer: Offer
   open: boolean
-  token: string
   fetcher: {
     approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
     getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
@@ -34,7 +33,6 @@ interface Props {
 export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
   offer,
   open,
-  token,
   fetcher,
   provider,
   onClose,
@@ -51,7 +49,6 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({
       <OfferDetailsAcceptSignModal
         offer={offer}
         chainId={chainId}
-        token={token}
         fetcher={fetcher}
         open={open}
         onSuccess={onSuccess}

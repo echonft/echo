@@ -1,5 +1,4 @@
 'use client'
-import { type AuthUser } from '@echo/model/types/auth-user'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { ProfileNavigationLayout } from '@echo/ui/components/profile/layout/profile-navigation-layout'
@@ -11,12 +10,11 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   offers: OfferWithRole[]
-  user: AuthUser
 }
 
-export const ProfileSwapsApiProvided: FunctionComponent<Props> = ({ offers, user }) => {
+export const ProfileSwapsApiProvided: FunctionComponent<Props> = ({ offers }) => {
   return (
-    <ProfileNavigationLayout activeNavigationItem={NAVIGATION_SWAPS} user={user}>
+    <ProfileNavigationLayout activeNavigationItem={NAVIGATION_SWAPS}>
       <HideIfEmpty checks={offers} render={(offers) => <SwapRowsContainer offers={offers} />} />
       <ShowIfEmpty checks={offers}>
         <ProfileSwapsEmpty />

@@ -2,7 +2,6 @@ import { mapListingFiltersToQueryParams } from '@echo/api/helpers/request/map-li
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import type { ListingsResponse } from '@echo/api/types/responses/listings-response'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
 import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
@@ -20,7 +19,6 @@ interface Props {
 
 const CollectionListingsPage: FunctionComponent<Props> = async ({ params }) => {
   unstable_setRequestLocale('en')
-  const user = await getAuthUser()
   const constraintsQueryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'asc' }]
   })
@@ -30,7 +28,7 @@ const CollectionListingsPage: FunctionComponent<Props> = async ({ params }) => {
     params: mergeLeft(constraintsQueryParams, filtersQueryParam)
   })
   assertNextFetchResponse(response)
-  return <CollectionListingsApiProvided collectionSlug={params.slug} listings={response.data.listings} user={user} />
+  return <CollectionListingsApiProvided collectionSlug={params.slug} listings={response.data.listings} />
 }
 
 export default CollectionListingsPage
