@@ -1,7 +1,7 @@
 import type { CreateListingArgs } from '@echo/api/services/fetcher/create-listing'
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { NewListingSliderManager as Component } from '@echo/ui/components/listing/new/new-listing-slider-manager'
+import { NewListingManager as Component } from '@echo/ui/components/listing/new/new-listing-manager'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { head } from 'ramda'

@@ -181,6 +181,7 @@ export const messages = {
         emptyTargets: 'To add a collection, type its name\nin the input above'
       },
       confirmationModal: {
+        backBtn: 'Back to Selection',
         title: 'Confirm Listing',
         targetSubtitle: 'Target collection',
         itemsSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',

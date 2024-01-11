@@ -1,9 +1,13 @@
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
+import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
+import { NftThumbnail } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
+import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -19,8 +23,14 @@ export const NewListingConfirmationModalItemsContainer: FunctionComponent<Props>
         <ModalSubtitle>{t('itemsSubtitle', { count: items.length })}</ModalSubtitle>
         <SwapDirectionHeader direction={SWAP_DIRECTION_OUT} title={tShared('out')} />
       </div>
-      {/*FIXME Need to use the proper layout. We can use NftsLayout and NftThumbnail probably */}
-      {/*<ItemThumbnailsContainer items={items} centered={true} />*/}
+      <NftsLayout alignment={ALIGNMENT_CENTER}>
+        {map(
+          (item) => (
+            <NftThumbnail nft={item.nft} key={item.nft.id} />
+          ),
+          items
+        )}
+      </NftsLayout>
     </div>
   )
 }

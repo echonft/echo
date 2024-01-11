@@ -1,5 +1,5 @@
 import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
-import type { Target } from '@echo/ui/components/listing/new/new-listing-slider-manager'
+import type { Target } from '@echo/ui/components/listing/new/new-listing-manager'
 import { NewListingSliderTargetRow } from '@echo/ui/components/listing/new/new-listing-slider-target-row'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { SWAP_DIRECTION_IN } from '@echo/ui/constants/swap-direction'
