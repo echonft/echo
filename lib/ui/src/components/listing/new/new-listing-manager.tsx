@@ -17,7 +17,7 @@ import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-t
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import { useTranslations } from 'next-intl'
 import { assoc, isNil } from 'ramda'
-import { type FunctionComponent, useEffect, useState } from 'react'
+import { type FunctionComponent, useEffect, useRef, useState } from 'react'
 
 export type Target = Omit<ListingTarget, 'collection'> & Record<'collection', CollectionProviderResult>
 interface Props {
@@ -34,7 +34,15 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider,
   const { items, target, setTarget, modalOpen, clearListing, closeModal } = useNewListingStore()
   const [collections, setCollections] = useState<CollectionProviderResult[]>()
   const [listing, setListing] = useState<Listing>()
-  const t = useTranslations('listing.new.bottomSlider')
+  const clearListingTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
+
+  useEffect(() => {
+    return (): void => {
+      if (!isNil(clearListingTimeoutRef.current)) {
+        clearTimeout(clearListingTimeoutRef.current)
+      }
+    }
+  }, [])
   const tError = useTranslations('error.listing')
   const { trigger, isMutating } = useSWRTrigger<ListingResponse, CreateListingArgs>({
     key: SWRKeys.listing.create,
@@ -74,10 +82,6 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider,
     setTarget(undefined)
   }
 
-  function onDismissListing() {
-    clearListing()
-  }
-
   return (
     <>
       <NewListingConfirmationModal
@@ -89,6 +93,14 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider,
         onTargetAmountChange={onTargetAmountChange}
         onRemoveTarget={onRemoveTarget}
         onClose={isMutating ? undefined : closeModal}
+        onClear={
+          isMutating
+            ? undefined
+            : () => {
+                closeModal()
+                clearListingTimeoutRef.current = setTimeout(clearListing, 210)
+              }
+        }
         onConfirm={
           isMutating
             ? undefined
