@@ -3,7 +3,14 @@ import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Error/Server Error',
-  component: Component
+  component: Component,
+  argTypes: {
+    onReset: {
+      table: {
+        disable: true
+      }
+    }
+  }
 }
 
 export default metadata

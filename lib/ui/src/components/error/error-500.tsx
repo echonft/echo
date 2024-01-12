@@ -4,7 +4,10 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
-export const Error500: FunctionComponent = () => {
+interface Props {
+  onReset?: VoidFunction
+}
+export const Error500: FunctionComponent<Props> = ({ onReset }) => {
   const t = useTranslations('errorPage')
   return (
     <div className={clsx('w-max', 'h-full', 'flex', 'flex-col', 'mx-auto', 'items-center')}>
@@ -44,8 +47,8 @@ export const Error500: FunctionComponent = () => {
         >
           {t('title')}
         </p>
-        <InternalLink path={'/'}>
-          <button className={clsx('btn-primary-reverse', 'btn-size', 'group')}>
+        <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'h-max', 'w-max')}>
+          <button className={clsx('btn-primary-reverse', 'btn-size', 'group')} onClick={onReset}>
             <span
               className={clsx(
                 'btn-label-primary-reverse',
@@ -57,10 +60,27 @@ export const Error500: FunctionComponent = () => {
                 'whitespace-pre-line'
               )}
             >
-              {t('button.label')}
+              {t('resetBtn')}
             </span>
           </button>
-        </InternalLink>
+          <InternalLink path={'/'}>
+            <button className={clsx('btn-primary-reverse', 'btn-size', 'group')}>
+              <span
+                className={clsx(
+                  'btn-label-primary-reverse',
+                  'text-[1.5rem]',
+                  'leading-[155%]',
+                  'tracking-[0.015rem]',
+                  'font-bold',
+                  'font-inter',
+                  'whitespace-pre-line'
+                )}
+              >
+                {t('homeBtn')}
+              </span>
+            </button>
+          </InternalLink>
+        </div>
       </div>
     </div>
   )

@@ -59,7 +59,7 @@ export const Error404: FunctionComponent = () => {
                 'whitespace-pre-line'
               )}
             >
-              {t('button.label')}
+              {t('homeBtn')}
             </span>
           </button>
         </InternalLink>

@@ -100,9 +100,8 @@ export const messages = {
   },
   errorPage: {
     title: 'Something went wrong',
-    button: {
-      label: 'Go home'
-    }
+    homeBtn: 'Take me home',
+    resetBtn: 'Try again'
   },
   home: {
     title: 'OTC trade your NFTs\nin the safest way',
@@ -219,9 +218,7 @@ export const messages = {
   notFoundPage: {
     title: 'Sorry, there’s',
     subtitle: 'nothing here',
-    button: {
-      label: 'Go home'
-    }
+    homeBtn: ''
   },
   offer: {
     details: {
