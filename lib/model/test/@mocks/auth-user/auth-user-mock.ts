@@ -1,6 +1,7 @@
 import { type AuthUser } from '@echo/model/types/auth-user'
+import { toLower } from 'ramda'
 
-export const authUserMock: Record<string, AuthUser> = {
+const authUserMock: Record<string, AuthUser> = {
   crewnft_: {
     username: 'crewnft_',
     discord: {
@@ -17,7 +18,8 @@ export const authUserMock: Record<string, AuthUser> = {
       username: 'johnnycagewins',
       avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
       bannerColor: '#d11bd9'
-    }
+    },
+    wallets: [{ chainId: 11155111, address: toLower('0x1e3918Dd44F427F056be6c8E132cf1b5f42dE59e') }]
   }
 }
 

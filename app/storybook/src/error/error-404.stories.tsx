@@ -2,7 +2,7 @@ import { Error404 as Component } from '@echo/ui/components/error/error-404'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Error',
+  title: 'Error/Not Found',
   component: Component
 }
 

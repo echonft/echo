@@ -3,7 +3,6 @@ import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-reque
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { AuthUser } from '@echo/model/types/auth-user'
-import type { Wallet } from '@echo/model/types/wallet'
 import { LoginConnectWalletStep } from '@echo/ui/components/auth/login-connect-wallet-step'
 import { LoginDiscordStep } from '@echo/ui/components/auth/login-discord-step'
 import { LoginJoinEchoStep } from '@echo/ui/components/auth/login-join-echo-step'
@@ -43,7 +42,6 @@ interface Props {
   }) => React.ReactNode
   step: 1 | 2 | 3
   user: AuthUser | undefined
-  wallets: Wallet[]
   onNext?: VoidFunction
   onFinish?: VoidFunction
 }
@@ -54,7 +52,6 @@ export const LoginStep: FunctionComponent<Props> = ({
   renderConnectWallet,
   step,
   user,
-  wallets,
   onNext,
   onFinish
 }) => {
@@ -62,12 +59,15 @@ export const LoginStep: FunctionComponent<Props> = ({
     return <LoginDiscordStep provider={provider} user={user} onContinue={onNext} />
   }
   if (step === 2) {
+    if (isNil(user)) {
+      throw Error
+    }
     return (
       <LoginConnectWalletStep
         fetcher={fetcher}
         provider={provider}
         renderConnect={renderConnectWallet}
-        wallets={wallets}
+        user={user}
         onContinue={onNext}
       />
     )

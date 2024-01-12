@@ -2,15 +2,15 @@ import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-reque
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { Login as Component } from '@echo/ui/components/auth/login'
-import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
+import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import type { HexString } from '@echo/utils/types/hex-string'
 import type { SignNonceArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
-const address: Lowercase<HexString> = '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e'
-const chainId = 11155111
+const user = getAuthUserMockByUsername('johnnycagewins')
+const wallet = user.wallets![0]!
+const { address, chainId } = wallet
 function accountProvider(state: 'connected' | 'connecting' | 'disconnected') {
   switch (state) {
     case 'connected':
@@ -98,10 +98,9 @@ export const Login: Story = {
         fetcher={{ addWallet, getNonce, signNonce }}
         provider={{ signIn, chain: () => chainProvider(connectState), account: () => accountProvider(connectState) }}
         renderConnectWallet={() => (
-          <WalletConnectButton loading={connectState === 'connecting'} onClick={onConnect} label={'Connect Wallet'} />
+          <ConnectWalletButton isConnecting={connectState === 'connecting'} onClick={onConnect} />
         )}
         user={user}
-        wallets={[{ address, chainId }]}
         onFinish={onFinish}
       />
     )

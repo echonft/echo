@@ -1,14 +1,15 @@
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
+import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { LoginConnectWalletStep as Component } from '@echo/ui/components/auth/login-connect-wallet-step'
-import { WalletConnectButton } from '@echo/ui/components/profile/wallet/wallet-connect-button'
+import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import type { HexString } from '@echo/utils/types/hex-string'
 import type { SignNonceArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
-const address: Lowercase<HexString> = '0x1e3918dd44f427f056be6c8e132cf1b5f42de59e'
-const chainId = 11155111
+const user = getAuthUserMockByUsername('johnnycagewins')
+const wallet = user.wallets![0]!
+const { address, chainId } = wallet
 function accountProvider(state: 'connected' | 'connecting' | 'disconnected') {
   switch (state) {
     case 'connected':
@@ -89,10 +90,8 @@ export const NotConnected: Story = {
       <Component
         fetcher={{ addWallet, getNonce, signNonce }}
         provider={{ account: () => accountProvider(connectState), chain: () => chainProvider(connectState) }}
-        renderConnect={() => (
-          <WalletConnectButton loading={connectState === 'connecting'} onClick={onConnect} label={'Connect Wallet'} />
-        )}
-        wallets={[{ address, chainId }]}
+        renderConnect={() => <ConnectWalletButton isConnecting={connectState === 'connecting'} onClick={onConnect} />}
+        user={user}
         onContinue={onContinue}
       />
     )
@@ -104,6 +103,6 @@ export const Connected: Story = {
     fetcher: { addWallet, getNonce, signNonce },
     provider: { account: () => accountProvider('connected'), chain: () => chainProvider('connected') },
     renderConnect: () => null,
-    wallets: [{ address, chainId }]
+    user
   }
 }

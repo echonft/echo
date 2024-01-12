@@ -72,7 +72,7 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
 
   return (
     <>
-      <ProfileNavigationLayout activeNavigationItem={NAVIGATION_ITEMS} user={user}>
+      <ProfileNavigationLayout activeNavigationItem={NAVIGATION_ITEMS}>
         <HideIfEmpty
           checks={selectableNfts}
           render={(selectableNfts) => (

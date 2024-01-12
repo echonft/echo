@@ -3,7 +3,6 @@ import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-reque
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { AuthUser } from '@echo/model/types/auth-user'
-import type { Wallet } from '@echo/model/types/wallet'
 import { LoginStep } from '@echo/ui/components/auth/login-step'
 import { LoginStepIndicator } from '@echo/ui/components/auth/login-step-indicator'
 import type { Fetcher } from '@echo/utils/types/fetcher'
@@ -42,18 +41,10 @@ interface Props {
     ensName?: string
   }) => React.ReactNode
   user: AuthUser | undefined
-  wallets: Wallet[]
   onFinish?: VoidFunction
 }
 
-export const Login: FunctionComponent<Props> = ({
-  fetcher,
-  provider,
-  renderConnectWallet,
-  user,
-  wallets,
-  onFinish
-}) => {
+export const Login: FunctionComponent<Props> = ({ fetcher, provider, renderConnectWallet, user, onFinish }) => {
   const [indicatorStep, setIndicatorStep] = useState<1 | 2 | 3>(1)
   const [step, setStep] = useState<1 | 2 | 3>(1)
   const [show, setShow] = useState(true)
@@ -62,6 +53,7 @@ export const Login: FunctionComponent<Props> = ({
   useEffect(() => {
     return (): void => {
       if (!isNil(showTimeoutRef.current)) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         clearTimeout(showTimeoutRef.current)
       }
     }
@@ -77,7 +69,6 @@ export const Login: FunctionComponent<Props> = ({
           renderConnectWallet={renderConnectWallet}
           step={step}
           user={user}
-          wallets={wallets}
           onNext={() => {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore

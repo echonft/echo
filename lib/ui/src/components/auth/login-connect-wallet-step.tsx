@@ -2,10 +2,10 @@
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
-import type { Wallet } from '@echo/model/types/wallet'
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
-import { ConnectWallet } from '@echo/ui/components/profile/wallet/connect-wallet'
+import { WalletButton } from '@echo/ui/components/wallet/wallet-button'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { type SignNonceArgs, type SignNonceResult } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
@@ -38,7 +38,7 @@ interface Props {
     truncatedAddress?: string
     ensName?: string
   }) => React.ReactNode
-  wallets: Wallet[]
+  user: AuthUser
   onContinue?: VoidFunction
 }
 
@@ -46,21 +46,21 @@ export const LoginConnectWalletStep: FunctionComponent<Props> = ({
   fetcher,
   provider,
   renderConnect,
-  wallets,
+  user,
   onContinue
 }) => {
   const t = useTranslations('auth.step2')
-  const { isConnected, isConnecting, isReconnecting } = provider.account()
+  const { isConnected, isConnecting } = provider.account()
   return (
     <LoginStepLayout
       title={t('title')}
       subtitle={t('subtitle')}
       btnLabel={t(isConnected ? 'continueBtn.label.connected' : 'continueBtn.label.disconnected')}
-      btnDisabled={isConnecting || isReconnecting}
+      btnDisabled={isConnecting}
       onBtnClick={onContinue}
     >
       <Web3Provider>
-        <ConnectWallet fetcher={fetcher} provider={provider} renderConnect={renderConnect} wallets={wallets} />
+        <WalletButton fetcher={fetcher} provider={provider} renderConnect={renderConnect} user={user} />
       </Web3Provider>
     </LoginStepLayout>
   )

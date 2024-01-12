@@ -1,6 +1,6 @@
 import type { User } from '@echo/firestore/types/model/user/user'
 import { getAllUserMocks } from '@echo/firestore-mocks/user/get-all-user-mocks'
-import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-username'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { getAllUsers } from '@echo/firestore-test/user/get-all-users'

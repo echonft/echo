@@ -1,5 +1,4 @@
 import { type AuthUser } from '@echo/model/types/auth-user'
-import type { Wallet } from '@echo/model/types/wallet'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { ProfileDetailsSkeleton } from '@echo/ui/components/profile/details/skeleton/profile-details-skeleton'
 import { UserDiscordTag } from '@echo/ui/components/shared/user-discord-tag'
@@ -14,7 +13,6 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   user: AuthUser | undefined
-  wallets: Wallet[] | undefined
 }
 
 export const ProfileDetailsApiProvided: FunctionComponent<Props> = ({ user }) => {

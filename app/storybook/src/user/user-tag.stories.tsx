@@ -1,4 +1,4 @@
-import { authUserMock } from '@echo/model-mocks/auth-user/auth-user-mock'
+import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { UserTag as Component } from '@echo/ui/components/user/tag/user-tag'
 import { type Meta, type StoryObj } from '@storybook/react'
 
@@ -13,6 +13,6 @@ type Story = StoryObj<typeof Component>
 
 export const UserTag: Story = {
   args: {
-    user: authUserMock
+    user: getAuthUserMockByUsername('crewnft_')
   }
 }

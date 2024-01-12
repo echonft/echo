@@ -30,9 +30,6 @@ export const authConfig: NextAuthConfig = {
     })
   ],
   callbacks: {
-    authorized: () => {
-      return true
-    },
     session: (params) => {
       const { session } = params
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

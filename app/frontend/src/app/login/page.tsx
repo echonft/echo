@@ -14,13 +14,11 @@ interface Props {
 const LoginPage: FunctionComponent<Props> = async ({ searchParams }) => {
   unstable_setRequestLocale('en')
   const user = await getAuthUser()
-  // if (isNil(searchParams.callbackUrl) && !isNil(user)) {
-  //   redirect(linkProvider.base.home.getUrl())
-  // }
+
   return (
     <PageLayout headerVariants={{ logoOnly: true }}>
       <SectionLayout>
-        <LoginLayout callbackUrl={searchParams.callbackUrl} user={user} wallets={[]} />
+        <LoginLayout callbackUrl={searchParams.callbackUrl} user={user} />
       </SectionLayout>
     </PageLayout>
   )

@@ -1,6 +1,6 @@
 import type { User } from '@echo/firestore/types/model/user/user'
 import { getAllUserMocks } from '@echo/firestore-mocks/user/get-all-user-mocks'
-import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-username'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getAllUsers } from '@echo/firestore-test/user/get-all-users'
 import { expect } from '@jest/globals'
 import { forEach } from 'ramda'

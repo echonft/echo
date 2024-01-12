@@ -1,9 +1,9 @@
-import { UserWalletButton as Component } from '@echo/ui/components/shared/user-wallet-button'
+import { WalletConnectedButton as Component } from '@echo/ui/components/wallet/wallet-connected-button'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { toLower } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'User/Wallet',
+  title: 'Wallet/Connected Button',
   component: Component,
   parameters: {
     controls: {
@@ -16,8 +16,8 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Button: Story = {
+export const ConnectedButton: Story = {
   args: {
-    wallet: { address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'), chainId: 1 }
+    wallet: { chainId: 1, address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E') }
   }
 }

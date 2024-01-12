@@ -1,3 +1,5 @@
+import type { Wallet } from '@echo/model/types/wallet'
+
 export interface AuthUser {
   username: string
   discord: {
@@ -8,4 +10,5 @@ export interface AuthUser {
     id: string
     username: string
   }
+  wallets?: Wallet[]
 }

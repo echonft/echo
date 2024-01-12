@@ -1,7 +1,6 @@
 import type { Contract } from '@echo/model/types/contract'
 import type { Listing } from '@echo/model/types/listing'
 import type { Offer } from '@echo/model/types/offer'
-import type { Wallet } from '@echo/model/types/wallet'
 import { concat, pipe } from 'ramda'
 
 function contractKey(contract: Contract) {
@@ -12,9 +11,6 @@ function offerKey(offer: Offer) {
 }
 function listingKey(listing: Listing) {
   return listing.id
-}
-function walletKey(wallet: Wallet) {
-  return `${wallet.address}-${wallet.chainId}`
 }
 
 export const SWRKeys = {
@@ -41,7 +37,7 @@ export const SWRKeys = {
       sign: 'sign-nonce'
     },
     wallet: {
-      add: pipe<[Wallet], string, string>(walletKey, concat('add-wallet-'))
+      add: 'add-wallet'
     }
   },
   swap: {

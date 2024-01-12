@@ -35,7 +35,7 @@ function onError(args: OnErrorArgs) {
 }
 
 export function errorCallback(args?: ErrorCallback) {
-  return (err: Error) => {
+  return function (err: Error) {
     onError(assoc('error', err, args ?? {}))
   }
 }

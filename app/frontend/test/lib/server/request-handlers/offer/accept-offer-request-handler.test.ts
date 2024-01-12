@@ -2,6 +2,8 @@ import type { AcceptOfferRequest } from '@echo/api/types/requests/accept-offer-r
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
 import { acceptOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/accept-offer-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
@@ -12,6 +14,7 @@ import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { assoc, modify } from 'ramda'
 
+jest.mock('@echo/firestore/crud/user/find-user-by-username')
 jest.mock('@echo/firestore/crud/offer/find-offer-by-id')
 jest.mock('@echo/firestore/crud/offer/accept-offer')
 
@@ -95,6 +98,7 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
   })
 
   it('returns a 200', async () => {
+    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserMockById('oE6yUEQBPn7PZ89yMjKn'))
     jest.mocked(findOfferById).mockResolvedValueOnce(offer)
     const updatedOffer = assoc('state', OFFER_STATE_ACCEPTED, offer)
     jest.mocked(acceptOffer).mockResolvedValueOnce(updatedOffer)

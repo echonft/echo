@@ -94,6 +94,7 @@ export const messages = {
       swap: 'An error occurred while trying to swap the assets. Please try again'
     },
     profile: {
+      addWallet: 'An error occurred while trying to add the wallet to your account. Please try again',
       signing: 'An error occurred while trying to sign the message. Please try again'
     }
   },
@@ -355,16 +356,10 @@ export const messages = {
     wallet: {
       button: {
         connect: {
-          label: 'Connect Wallet'
+          label: 'Connect'
         },
         connecting: {
           label: 'Connecting'
-        },
-        signing: {
-          label: 'Signing'
-        },
-        add: {
-          label: 'Add Wallet'
         },
         copied: {
           label: 'Copied!'

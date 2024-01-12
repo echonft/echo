@@ -8,8 +8,8 @@ import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { ProfileNftsApiProvided } from '@echo/ui/components/profile/api-provided/profile-nfts-api-provided'
-import { RouteChangesProvider } from 'nextjs-router-events'
 import { unstable_setRequestLocale } from 'next-intl/server'
+import { RouteChangesProvider } from 'nextjs-router-events'
 import { type FunctionComponent } from 'react'
 
 const ProfileNftsPage: FunctionComponent = async () => {

@@ -2,7 +2,7 @@ import { collectionDataConverter } from '@echo/firestore/converters/collection/c
 import type { Collection } from '@echo/model/types/collection'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
-import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
+import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
 describe('converters - collectionDataConverter', () => {
   const document = getCollectionMockById('Rc8pLQXxgyQGIRL0fr13')

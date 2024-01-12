@@ -1,33 +1,36 @@
+'use client'
 import { WalletIconSvg } from '@echo/ui/components/base/svg/wallet-icon-svg'
 import { clsx } from 'clsx'
+import { useTranslations } from 'next-intl'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
 interface Props {
-  loading: boolean
+  isConnecting?: boolean
   onClick?: MouseEventHandler
-  label?: string
 }
 
-export const WalletConnectButton: FunctionComponent<Props> = ({ loading, onClick, label }) => {
+export const ConnectWalletButton: FunctionComponent<Props> = ({ isConnecting, onClick }) => {
+  const t = useTranslations('profile.wallet.button')
   return (
     <button
       onClick={onClick}
-      disabled={loading}
+      disabled={isConnecting}
       className={clsx(
         'btn-primary',
         'group',
         'gap-2.5',
         'h-[1.875rem]',
+        'w-max',
         'px-2.5',
-        'rounded-lg',
-        'items-center',
-        'min-w-36'
+        isConnecting && 'animate-pulse'
       )}
     >
       <span className={clsx('btn-label-primary')}>
         <WalletIconSvg />
       </span>
-      <span className={clsx('btn-label-primary', 'prose-label-xs', '!tracking-[0.015rem]')}>{label}</span>
+      <span className={clsx('btn-label-primary', 'prose-label-xs', '!tracking-[0.015rem]')}>
+        {isConnecting ? t('connecting.label') : t('connect.label')}
+      </span>
     </button>
   )
 }

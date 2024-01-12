@@ -2,7 +2,7 @@ import { walletDataConverter } from '@echo/firestore/converters/wallet/wallet-da
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import type { Wallet } from '@echo/model/types/wallet'
 import { describe, expect, it } from '@jest/globals'
-import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
+import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
 describe('converters - walletDataConverter', () => {
   const document = getWalletMockById('i28NWtlxElPXCnO0c6BC')

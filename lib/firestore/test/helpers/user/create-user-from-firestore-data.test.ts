@@ -1,5 +1,5 @@
 import { createUserFromFirestoreData } from '@echo/firestore/helpers/user/create-user-from-firestore-data'
-import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-username'
+import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
