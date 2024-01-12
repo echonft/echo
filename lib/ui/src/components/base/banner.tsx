@@ -18,7 +18,7 @@ export const Banner: FunctionComponent<Props> = ({ open, title, subtitle, onSubt
           'flex',
           'flex-row',
           'items-center',
-          'justify-between',
+          isNil(subtitle) ? 'justify-center' : 'justify-between',
           'px-20',
           'py-4',
           'w-full',

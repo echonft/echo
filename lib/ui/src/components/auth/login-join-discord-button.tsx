@@ -17,19 +17,11 @@ export const LoginJoinDiscordButton: FunctionComponent<PropsWithChildren<Props>>
           'w-full',
           'text-left',
           'group',
-          'enabled:hover:bg-[#0e0e0e]/90'
+          'enabled:hover:bg-[#1f1e1e]'
         )}
         onClick={onClick}
       >
-        <span
-          className={clsx(
-            'prose-header-md-semi',
-            'bg-joinDiscordLabel',
-            'italic',
-            'bg-clip-text',
-            'group-enabled:group-hover:bg-white'
-          )}
-        >
+        <span className={clsx('prose-header-md-semi', 'bg-joinDiscordLabel', 'italic', 'bg-clip-text')}>
           {children}
         </span>
       </button>

@@ -10,7 +10,9 @@ import { ProfileNftsEmpty } from '@echo/ui/components/profile/nft/empty/profile-
 import { NAVIGATION_ITEMS } from '@echo/ui/constants/navigation-item'
 import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
+import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
+import { mapNftToListingItem } from '@echo/ui/mappers/to-api/map-nft-to-listing-item'
 import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item'
 import { messages } from '@echo/ui/messages/en'
 import { getTranslator } from '@echo/ui/messages/get-translator'
@@ -28,7 +30,8 @@ interface Props {
 
 export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user }) => {
   const t = getTranslator()
-  const { hasNewOfferPending, clearOffer, setSenderItems, openModal } = useNewOfferStore()
+  const { hasNewOfferPending, clearOffer, setSenderItems, openModal: openNewOfferModal } = useNewOfferStore()
+  const { openModal: openNewListingModal, setItems } = useNewListingStore()
   const [showDiscardModal, setShowDiscardModal] = useState(false)
   // Prevent user from navigating away from the page
   const onBeforeRouteChange = useCallback(() => {
@@ -62,9 +65,11 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
   const onButtonClick = (nfts: SelectableNft[]) => {
     if (hasNewOfferPending()) {
       setSenderItems(map(mapNftToOfferItem, nfts))
-      openModal()
+      openNewOfferModal()
+    } else {
+      setItems(map(mapNftToListingItem, nfts))
+      openNewListingModal()
     }
-    // TODO Else listing
   }
 
   return (

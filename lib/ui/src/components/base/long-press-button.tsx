@@ -40,11 +40,13 @@ export const LongPressButton: FunctionComponent<Props> = ({
     setProgress(0)
   }, [setProgress])
   const onStart = useCallback(() => {
-    intervalRef.current = setInterval(() => {
-      setProgress(pipe(add(increment), min(threshold)))
-    }, increment)
-    setProgress(0)
-  }, [threshold])
+    if (!(loading ?? disabled)) {
+      intervalRef.current = setInterval(() => {
+        setProgress(pipe(add(increment), min(threshold)))
+      }, increment)
+      setProgress(0)
+    }
+  }, [threshold, loading, disabled])
   const onComplete = useCallback(() => {
     clearLongPressInterval()
     setProgress(0)
@@ -80,6 +82,7 @@ export const LongPressButton: FunctionComponent<Props> = ({
         delayHide={400}
         content={message}
         noArrow={true}
+        hidden={loading ?? disabled}
       />
     </div>
   )

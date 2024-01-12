@@ -1,4 +1,4 @@
-import type { Target } from '@echo/ui/components/listing/new/new-listing-slider-manager'
+import type { Target } from '@echo/ui/components/listing/new/new-listing-manager'
 import { isNil, modify, pick } from 'ramda'
 
 export function mapListingTargetToRequest(target: Target | undefined) {

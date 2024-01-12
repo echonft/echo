@@ -9,7 +9,7 @@ interface Props {
   onQuantityChange?: (newQuantity: number) => unknown
 }
 
-export const NewListingSliderTargetRowQuantitySelector: FunctionComponent<Props> = ({ quantity, onQuantityChange }) => {
+export const NewListingModalTargetRowQuantitySelector: FunctionComponent<Props> = ({ quantity, onQuantityChange }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-1.5', 'items-center')}>
       <HideIfNil
