@@ -2,7 +2,7 @@ import type { CancelListingArgs } from '@echo/api/services/fetcher/cancel-listin
 import { LISTING_STATE_CANCELLED, LISTING_STATE_OPEN, LISTING_STATES } from '@echo/model/constants/listing-states'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingState } from '@echo/model/types/listing-state'
-import { authUserMock } from '@echo/model-mocks/auth-user/auth-user-mock'
+import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { ListingDetails as Component } from '@echo/ui/components/listing/details/listing-details'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
@@ -20,7 +20,7 @@ const DEFAULT_EXPIRED = false
 const EXPIRED_DATE = dayjs().subtract(2, 'd').unix()
 const NOT_EXPIRED_DATE = dayjs().add(2, 'd').unix()
 const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
-const user = assoc('username', listing.creator.username, authUserMock)
+const user = getAuthUserMockByUsername(listing.creator.username)
 function cancelListing(_args: CancelListingArgs) {
   return delayPromise(
     Promise.resolve({

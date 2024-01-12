@@ -7,14 +7,12 @@ import { guardAsyncFn } from '@echo/frontend/lib/server/helpers/error/guard'
 import { guarded_assertOffer } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer'
 import { guarded_assertOfferSenderIs } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-sender-is'
 import { guarded_assertOfferSignature } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-signature'
-import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
-import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { NextResponse } from 'next/server'
 
-export async function getOfferSignatureRequestHandler(req: ApiRequest<never>, offerId: string) {
-  const user = await getUserFromRequest(req)
-  guarded_assertAuthUser(user)
-  const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(offerId)
+export async function getOfferSignatureRequestHandler(user: AuthUser, _req: ApiRequest<never>, params: { id: string }) {
+  const { id } = params
+  const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(id)
   guarded_assertOffer(offer)
   guarded_assertOfferSenderIs(offer, user.username)
   const offerSignature = await guardAsyncFn(findOfferSignature, ErrorStatus.SERVER_ERROR)(offer.id)

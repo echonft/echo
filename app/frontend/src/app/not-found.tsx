@@ -1,16 +1,13 @@
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
-import { NotFoundPage } from '@echo/ui/components/layout/not-found-page'
+import { Error404 } from '@echo/ui/components/error/error-404'
 import { PageLayout } from '@echo/ui/components/layout/page-layout'
-import { SectionLayout } from '@echo/ui/components/layout/section-layout'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { type FunctionComponent } from 'react'
 
-const NotFound: FunctionComponent = async () => {
-  const user = await getAuthUser()
+const NotFound: FunctionComponent = () => {
+  unstable_setRequestLocale('en')
   return (
-    <PageLayout user={user}>
-      <SectionLayout>
-        <NotFoundPage />
-      </SectionLayout>
+    <PageLayout headerVariants={{ logoOnly: true }}>
+      <Error404 />
     </PageLayout>
   )
 }

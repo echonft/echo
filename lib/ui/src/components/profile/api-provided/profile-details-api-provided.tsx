@@ -8,8 +8,6 @@ import { UserDetailsLayout } from '@echo/ui/components/user/layout/user-details-
 import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout'
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
 import { SIZE_LG } from '@echo/ui/constants/size'
-import { messages } from '@echo/ui/messages/en'
-import { NextIntlClientProvider } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -25,18 +23,16 @@ export const ProfileDetailsApiProvided: FunctionComponent<Props> = ({ user }) =>
   const { discord } = user
   const { avatarUrl, bannerUrl, bannerColor, username } = discord
   return (
-    <NextIntlClientProvider messages={messages} locale={'en'}>
-      <UserDetailsLayout>
-        <UserBanner discordBannerUrl={bannerUrl} discordBannerColor={bannerColor} />
-        <PaddedContainer>
-          <UserPictureAndInfoLayout>
-            <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SIZE_LG} />
-            <UserInfoLayout>
-              <UserDiscordTag discordUsername={username} />
-            </UserInfoLayout>
-          </UserPictureAndInfoLayout>
-        </PaddedContainer>
-      </UserDetailsLayout>
-    </NextIntlClientProvider>
+    <UserDetailsLayout>
+      <UserBanner discordBannerUrl={bannerUrl} discordBannerColor={bannerColor} />
+      <PaddedContainer>
+        <UserPictureAndInfoLayout>
+          <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SIZE_LG} />
+          <UserInfoLayout>
+            <UserDiscordTag discordUsername={username} />
+          </UserInfoLayout>
+        </UserPictureAndInfoLayout>
+      </PaddedContainer>
+    </UserDetailsLayout>
   )
 }

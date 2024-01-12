@@ -7,11 +7,12 @@ import {
   NAVIGATION_OFFERS_RECEIVED,
   NAVIGATION_SWAPS
 } from '@echo/ui/constants/navigation-item'
-import { getTranslator } from '@echo/ui/messages/get-translator'
+import { messages } from '@echo/ui/messages/en'
 import { type NavigationItem } from '@echo/ui/types/navigation-item'
+import { createTranslator } from 'next-intl'
 
 export function getProfileNavigationItems(disableLinks?: boolean): NavigationItem[] {
-  const t = getTranslator()
+  const t = createTranslator({ locale: 'en', messages })
   return [
     {
       id: NAVIGATION_ITEMS,

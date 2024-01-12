@@ -7,18 +7,16 @@ import { guardAsyncFn } from '@echo/frontend/lib/server/helpers/error/guard'
 import { guarded_assertListing } from '@echo/frontend/lib/server/helpers/listing/assert/guarded_assert-listing'
 import { guarded_assertListingCreatorIs } from '@echo/frontend/lib/server/helpers/listing/assert/guarded_assert-listing-creator-is'
 import { guarded_assertListingState } from '@echo/frontend/lib/server/helpers/listing/assert/guarded_assert-listing-state'
-import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
-import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { NextResponse } from 'next/server'
 
-export async function cancelListingRequestHandler(req: ApiRequest<never>, listingId: string) {
-  const listing = await guardAsyncFn(findListingById, ErrorStatus.SERVER_ERROR)(listingId)
+export async function cancelListingRequestHandler(user: AuthUser, _req: ApiRequest<never>, params: { id: string }) {
+  const { id } = params
+  const listing = await guardAsyncFn(findListingById, ErrorStatus.SERVER_ERROR)(id)
   guarded_assertListing(listing)
   guarded_assertListingState(listing, LISTING_STATE_CANCELLED)
-  const user = await getUserFromRequest(req)
-  guarded_assertAuthUser(user)
   guarded_assertListingCreatorIs(listing, user.username)
-  const updatedListing = await guardAsyncFn(cancelListing, ErrorStatus.SERVER_ERROR)(listingId)
+  const updatedListing = await guardAsyncFn(cancelListing, ErrorStatus.SERVER_ERROR)(id)
   return NextResponse.json<ListingResponse>({ listing: updatedListing })
 }

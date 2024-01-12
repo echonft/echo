@@ -27,7 +27,6 @@ import { type FunctionComponent, useEffect, useState } from 'react'
 interface Props {
   offer: Offer
   isCreator: boolean
-  token: string
   fetcher: {
     approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
     getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
@@ -44,7 +43,7 @@ interface Props {
   }
 }
 
-export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, token, fetcher, provider }) => {
+export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, fetcher, provider }) => {
   const [updatedOffer, setUpdatedOffer] = useState(offer)
   useEffect(() => {
     setUpdatedOffer(offer)
@@ -77,7 +76,6 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, token
           <OfferDetailsButtons
             offer={updatedOffer}
             isCreator={isCreator}
-            token={token}
             fetcher={fetcher}
             provider={provider}
             onSuccess={setUpdatedOffer}

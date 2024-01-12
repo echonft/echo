@@ -23,6 +23,7 @@ module.exports = {
       }
     ],
     '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-unused-expressions': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
       {
@@ -74,6 +75,10 @@ module.exports = {
               '../*'
             ],
             message: 'Use path mapping instead'
+          },
+          {
+            group: ['firebase-admin/lib/*'],
+            message: 'Nothing is exported from firebase-admin/lib/. Please use firebase-admin/[package] instead'
           }
         ]
       }

@@ -110,7 +110,6 @@ export const Default: Story = {
       <Component
         offer={renderedOffer}
         isCreator={isCreator}
-        token={'token'}
         fetcher={{
           approveErc721Contract,
           getErc721ContractApproval,

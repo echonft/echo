@@ -7,12 +7,11 @@ import { guardAsyncFn, guardFn } from '@echo/frontend/lib/server/helpers/error/g
 import { guarded_assertItemsOwner } from '@echo/frontend/lib/server/helpers/item/assert/guarded_assert-items-owner'
 import { getListingItemsFromRequests } from '@echo/frontend/lib/server/helpers/listing/get-listing-items-from-requests'
 import { getListingTargetsFromRequests } from '@echo/frontend/lib/server/helpers/listing/get-listing-targets-from-requests'
-import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
-import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { createListingSchema } from '@echo/frontend/lib/server/validators/create-listing-schema'
+import type { AuthUser } from '@echo/model/types/auth-user'
 import { NextResponse } from 'next/server'
 
-export async function createListingRequestHandler(req: ApiRequest<CreateListingRequest>) {
+export async function createListingRequestHandler(user: AuthUser, req: ApiRequest<CreateListingRequest>) {
   const requestBody = await guardAsyncFn(
     (req: ApiRequest<CreateListingRequest>) => req.json(),
     ErrorStatus.BAD_REQUEST
@@ -21,8 +20,6 @@ export async function createListingRequestHandler(req: ApiRequest<CreateListingR
     (requestBody) => createListingSchema.parse(requestBody),
     ErrorStatus.BAD_REQUEST
   )(requestBody)
-  const user = await getUserFromRequest(req)
-  guarded_assertAuthUser(user)
   const listingItems = await guardAsyncFn(getListingItemsFromRequests, ErrorStatus.SERVER_ERROR)(items)
   const listingTargets = await guardAsyncFn(getListingTargetsFromRequests, ErrorStatus.SERVER_ERROR)([target])
   // make sure the creator is the owner of every item

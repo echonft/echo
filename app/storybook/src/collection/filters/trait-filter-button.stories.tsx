@@ -1,5 +1,5 @@
 import { CollapsibleManager } from '@echo/ui/components/base/manager/collapsible-manager'
-import { FiltersPanel as Component } from '@echo/ui/components/layout/filters-panel'
+import { FiltersPanelLayout as Component } from '@echo/ui/components/layout/filters-panel-layout'
 import { TraitFilterButtonSkeleton } from '@echo/ui/components/nft/filters/by-traits/skeleton/trait-filter-button-skeleton'
 import { TraitFilterButton } from '@echo/ui/components/nft/filters/by-traits/trait-filter-button'
 import { type Meta, type StoryObj } from '@storybook/react'

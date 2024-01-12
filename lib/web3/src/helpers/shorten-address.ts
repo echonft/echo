@@ -8,6 +8,6 @@ import { pipe } from 'ramda'
  * @param {{address: HexString, chainId: number}} args
  * @return {((args: {address: string, chainId: number}) => string
  */
-export function shortenAddress(args: { address: HexString; chainId: number }) {
+export function shortenAddress(args: { address: HexString; chainId: number }): string {
   return pipe(formatAddress, (address) => `${address.substring(0, 6)}...${address.substring(address.length - 4)}`)(args)
 }

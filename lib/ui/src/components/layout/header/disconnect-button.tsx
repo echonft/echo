@@ -1,38 +1,42 @@
 'use client'
-import { addWallet } from '@echo/api/services/fetcher/add-wallet'
-import { getNonce } from '@echo/api/services/fetcher/get-nonce'
 import { isPathSecure } from '@echo/api/services/routing/is-path-secure'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
-import { ConnectWallet } from '@echo/ui/components/profile/wallet/connect-wallet'
 import { UserTagPictureButton } from '@echo/ui/components/user/tag/user-tag-picture-button'
+import { WalletButton, type WalletButtonProps } from '@echo/ui/components/wallet/wallet-button'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
-import { signNonce } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
-import { account } from '@echo/web3/helpers/wagmi/provider/account'
-import { chain } from '@echo/web3/helpers/wagmi/provider/chain'
 import { Menu, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { usePathname } from 'next/navigation'
-import { signOut } from 'next-auth/react'
+import { type SignOutParams } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
 
-interface Props {
+export type DisconnectButtonProps = WalletButtonProps & {
+  provider: {
+    signOut: (options: SignOutParams<true> | undefined) => Promise<undefined>
+  }
   user: AuthUser
+  onSignOut?: VoidFunction
 }
 
-export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
+export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({
+  fetcher,
+  provider,
+  renderConnect,
+  user,
+  onSignOut
+}) => {
   const t = useTranslations('layout.header.button')
+  const [loading, setLoading] = useState(false)
   const pathname = usePathname()
   const callbackUrl = isPathSecure(pathname) ? '/' : pathname
-  const [loading, setLoading] = useState(false)
   return (
     <div className={clsx('flex', 'flex-row', 'justify-center', 'gap-4', 'h-max', 'w-max')}>
       <Web3Provider>
-        {/*TODO add fetcher and provider to header props and get them from there */}
-        <ConnectWallet fetcher={{ addWallet, getNonce, signNonce }} provider={{ account, chain }} user={user} />
+        <WalletButton fetcher={fetcher} provider={provider} renderConnect={renderConnect} user={user} />
       </Web3Provider>
       <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>
         <Menu.Button className={clsx('group')}>
@@ -60,7 +64,7 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
                       'px-2.5',
                       'py-1.5',
                       'bg-transparent',
-                      'hover:bg-white/[0.08]',
+                      'enabled:hover:bg-white/[0.08]',
                       'w-full',
                       'h-max',
                       'rounded-md',
@@ -76,9 +80,14 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
               {({ close }) => (
                 <button
                   disabled={loading}
-                  onClick={() => {
+                  onClick={(event) => {
+                    event.preventDefault()
                     setLoading(true)
-                    signOut({ callbackUrl })
+                    provider
+                      .signOut({ callbackUrl })
+                      .then(() => {
+                        onSignOut?.()
+                      })
                       .catch(errorCallback({ tags: { action: 'signOut' } }))
                       .finally(() => {
                         setLoading(false)
@@ -91,7 +100,7 @@ export const DisconnectButton: FunctionComponent<Props> = ({ user }) => {
                     'px-2.5',
                     'py-1.5',
                     'bg-transparent',
-                    'hover:bg-white/[0.08]',
+                    'enabled:hover:bg-white/[0.08]',
                     'w-full',
                     'h-max',
                     'rounded-md',

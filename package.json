@@ -23,8 +23,8 @@
   "scripts": {
     "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot",
     "bot:start": "turbo run start --filter=@echo/bot",
-    "check": "turbo run tsc; turbo run lint; turbo run test",
-    "check:quick": "turbo run tsc; turbo run lint; turbo run test --filter=!@echo/firestore",
+    "check": "turbo run tsc && turbo run lint && turbo run test",
+    "check:quick": "turbo run tsc && turbo run lint && turbo run test --filter=!@echo/firestore",
     "clean": "turbo run clean",
     "db:add-collection:dev": "env-cmd -f .env turbo run db:add-collection:dev --filter=@echo/firestore",
     "db:fix-addresses:dev": "env-cmd -f .env turbo run db:fix-addresses:dev --filter=@echo/firestore",
@@ -40,7 +40,6 @@
     "lint:clean-cache": "rm -f .eslintcache && turbo run lint:clean-cache",
     "modules:remove-all": "turbo run modules:remove-all; rm -rf node_modules; rm -rf pnpm-lock.yaml",
     "modules:update-all": "ncu -u && turbo run modules:update-all",
-    "modules:upgrade": "turbo run modules:upgrade --continue --",
     "prepare": "husky install",
     "prettier": "turbo run prettier",
     "storybook:build": "turbo run build --filter=@echo/storybook",
@@ -79,12 +78,16 @@
     "lint-staged": "15.0.2",
     "npm-check-updates": "16.14.6",
     "prettier": "3.0.3",
-    "tsc-files": "1.1.4",
     "turbo": "1.11.3",
     "typescript": "5.2.2",
     "vercel": "33.0.1"
   },
-  "packageManager": "pnpm@8.14.0",
+  "pnpm": {
+    "overrides": {
+      "@auth/core": "0.19.0"
+    }
+  },
+  "packageManager": "pnpm@8.14.1",
   "nextBundleAnalysis": {
     "budget": 358400,
     "budgetPercentIncreaseRed": 20,

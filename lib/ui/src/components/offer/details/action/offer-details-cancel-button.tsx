@@ -14,7 +14,6 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: Offer
-  token: string
   fetcher: {
     cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
   }
@@ -26,7 +25,6 @@ interface Props {
 
 export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
   offer,
-  token,
   fetcher,
   disabled,
   onClick,
@@ -56,7 +54,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
       disabled={disabled}
       onFinish={() => {
         onClick?.()
-        void trigger({ offerId: offer.id, token })
+        void trigger({ offerId: offer.id })
       }}
     />
   )

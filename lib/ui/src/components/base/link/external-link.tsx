@@ -1,12 +1,13 @@
-import { type FunctionComponent, type PropsWithChildren } from 'react'
+import { type FunctionComponent, type MouseEventHandler, type PropsWithChildren } from 'react'
 
 interface Props {
   href: string
+  onClick?: MouseEventHandler
 }
 
-export const ExternalLink: FunctionComponent<PropsWithChildren<Props>> = ({ href, children }) => {
+export const ExternalLink: FunctionComponent<PropsWithChildren<Props>> = ({ href, onClick, children }) => {
   return (
-    <a href={href} target={'_blank'} rel={'noopener noreferrer nofollow'}>
+    <a href={href} target={'_blank'} rel={'noopener noreferrer nofollow'} onClick={onClick}>
       {children}
     </a>
   )

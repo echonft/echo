@@ -7,7 +7,6 @@ import { clearListingPosts } from '@echo/firestore-test/listing-post/clear-listi
 import { clearNfts } from '@echo/firestore-test/nft/clear-nfts'
 import { clearOffers } from '@echo/firestore-test/offer/clear-offers'
 import { clearOfferThreads } from '@echo/firestore-test/offer-thread/clear-offer-threads'
-import { clearSessions } from '@echo/firestore-test/session/clear-sessions'
 import { clearSwaps } from '@echo/firestore-test/swap/clear-swaps'
 import { clearUsers } from '@echo/firestore-test/user/clear-users'
 import { clearWallets } from '@echo/firestore-test/wallet/clear-wallets'
@@ -22,7 +21,6 @@ export async function clearDb() {
   await clearNfts()
   await clearOffers()
   await clearOfferThreads()
-  await clearSessions()
   await clearSwaps()
   await clearUsers()
   await clearWallets()

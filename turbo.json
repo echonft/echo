@@ -8,7 +8,8 @@
       "cache": false
     },
     "dev": {
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "lint": {
       "inputs": ["**/*.tsx", "**/*.ts", ".eslintrc.*"]
@@ -23,9 +24,6 @@
       "cache": false
     },
     "modules:update-all": {
-      "cache": false
-    },
-    "modules:upgrade": {
       "cache": false
     },
     "prettier": {
@@ -57,9 +55,6 @@
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
     },
-    "@echo/bot#deploy-commands": {
-      "cache": false
-    },
     "@echo/firestore#db:add-collection:dev": {
       "cache": false
     },
@@ -74,7 +69,8 @@
     },
     "@echo/bot#start": {
       "dependsOn": ["@echo/bot#build"],
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "@echo/frontend#build": {
       "dependsOn": ["@echo/ui#build"],
@@ -83,7 +79,8 @@
     },
     "@echo/helper#start": {
       "dependsOn": ["@echo/helper#build"],
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "@echo/helper#update-db": {
       "dependsOn": ["@echo/helper#build"],
@@ -96,7 +93,8 @@
     },
     "@echo/storybook#dev": {
       "dependsOn": ["@echo/ui#build"],
-      "cache": false
+      "cache": false,
+      "persistent": true
     },
     "@echo/ui#build": {
       "outputs": ["dist/index.css"],
@@ -104,7 +102,8 @@
     },
     "//#vercel:dev": {
       "dependsOn": ["@echo/ui#build"],
-      "cache": false
+      "cache": false,
+      "persistent": true
     }
   }
 }

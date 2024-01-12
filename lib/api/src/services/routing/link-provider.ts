@@ -14,7 +14,10 @@ interface UserPathArgs {
 }
 export const linkProvider = {
   auth: {
-    signIn: new Path({ path: '/auth/signin' })
+    signIn: new Path({ path: '/login' })
+  },
+  base: {
+    home: new Path({ path: '/' })
   },
   collection: {
     all: new Path({ path: '/collections' }),

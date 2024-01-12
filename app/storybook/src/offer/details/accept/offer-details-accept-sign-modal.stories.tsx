@@ -46,7 +46,6 @@ export const Sign: Story = {
   args: {
     offer,
     chainId: 1,
-    token: 'token',
     open: true,
     fetcher: {
       acceptOffer,

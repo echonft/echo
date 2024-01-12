@@ -57,7 +57,6 @@ export const Accept: Story = {
   args: {
     offer,
     open: true,
-    token: 'token',
     fetcher: {
       acceptOffer,
       signOffer,

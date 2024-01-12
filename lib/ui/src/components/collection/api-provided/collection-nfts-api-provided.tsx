@@ -13,9 +13,9 @@ import { setSelectableNftActionDisabledPropFromAuthUser } from '@echo/ui/helpers
 import { setSelectableNftSelectionDisabledPropFromAuthUser } from '@echo/ui/helpers/nft/set-selectable-nft-selection-disabled-prop-from-auth-user'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item'
-import { getTranslator } from '@echo/ui/messages/get-translator'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
+import { useTranslations } from 'next-intl'
 import { assoc, map, pipe } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
@@ -26,7 +26,7 @@ interface Props {
 }
 
 export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collectionSlug, nfts, user }) => {
-  const t = getTranslator()
+  const t = useTranslations('collection')
   const { hasNewOfferPending, openModal, setReceiverItems } = useNewOfferStore()
   const selectableNfts = useMemo(() => {
     if (hasNewOfferPending()) {
@@ -56,14 +56,14 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
   }
 
   return (
-    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NAVIGATION_ITEMS} user={user}>
+    <CollectionNavigationLayout slug={collectionSlug} activeNavigationItem={NAVIGATION_ITEMS}>
       <HideIfEmpty
         checks={selectableNfts}
         render={(selectableNfts) => (
           <SelectableNftsAndFiltersContainer
             nfts={selectableNfts}
             availableFilters={[NFT_FILTER_TRAITS]}
-            btnLabel={t('collection.button.create')}
+            btnLabel={t('button.create')}
             user={user}
             onButtonClick={onMakeOffer}
           />

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { type StorybookConfig } from '@storybook/react-webpack5'
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 
@@ -30,7 +29,7 @@ const config: StorybookConfig = {
         ...config.resolve,
         plugins: [new TsconfigPathsPlugin()],
         fallback: {
-          ...config.resolve.fallback,
+          ...config.resolve!.fallback,
           constants: false,
           crypto: false,
           http: false,

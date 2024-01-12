@@ -1,18 +1,19 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
 import { type AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { findNonceForUser } from '@echo/firestore/crud/nonce/find-nonce-for-user'
+import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
 import { getSiweMessage } from '@echo/frontend/lib/server/helpers/auth/get-siwe-message'
 import { verifySiweMessage } from '@echo/frontend/lib/server/helpers/auth/verify-siwe-message'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/server/helpers/error/guard'
-import { guarded_assertAuthUser } from '@echo/frontend/lib/server/helpers/request/assert/guarded_assert-auth-user'
-import { getUserFromRequest } from '@echo/frontend/lib/server/helpers/request/get-user-from-request'
 import { emptyResponse } from '@echo/frontend/lib/server/helpers/response/empty-response'
 import { guarded_assertNonce } from '@echo/frontend/lib/server/helpers/user/assert/guarded_assert-nonce'
+import { guarded_assertUserExists } from '@echo/frontend/lib/server/helpers/user/assert/guarded_assert-user-exists'
 import { addWalletSchema } from '@echo/frontend/lib/server/validators/add-wallet-schema'
+import type { AuthUser } from '@echo/model/types/auth-user'
 
-export async function addWalletRequestHandler(req: ApiRequest<AddWalletRequest>) {
+export async function addWalletRequestHandler(user: AuthUser, req: ApiRequest<AddWalletRequest>) {
   const requestBody = await guardAsyncFn(
     (req: ApiRequest<AddWalletRequest>) => req.json(),
     ErrorStatus.BAD_REQUEST
@@ -23,10 +24,10 @@ export async function addWalletRequestHandler(req: ApiRequest<AddWalletRequest>)
   )(requestBody)
   const siweMessage = guardFn(getSiweMessage, ErrorStatus.BAD_REQUEST)(message)
   const verifiedMessage = await guardAsyncFn(verifySiweMessage, ErrorStatus.BAD_REQUEST)(signature, siweMessage)
-  const user = await getUserFromRequest(req)
-  guarded_assertAuthUser(user)
-  const nonce = await guardAsyncFn(findNonceForUser, ErrorStatus.SERVER_ERROR)(user.id)
+  const foundUser = await guardAsyncFn(findUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
+  guarded_assertUserExists(foundUser, user.username)
+  const nonce = await guardAsyncFn(findNonceForUser, ErrorStatus.SERVER_ERROR)(foundUser.id)
   guarded_assertNonce(nonce, verifiedMessage)
-  await guardAsyncFn(addWallet, ErrorStatus.SERVER_ERROR)(user.id, wallet)
+  await guardAsyncFn(addWallet, ErrorStatus.SERVER_ERROR)(foundUser.id, wallet)
   return emptyResponse()
 }

@@ -1,9 +1,8 @@
 'use client'
-import type { CreateListingArgs } from '@echo/api/services/fetcher/create-listing'
 import type { CollectionProvider, CollectionProviderResult } from '@echo/api/services/providers/collections'
+import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
-import { type AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { NewListingConfirmationModal } from '@echo/ui/components/listing/new/new-listing-confirmation-modal'
@@ -22,15 +21,14 @@ import { type FunctionComponent, useEffect, useRef, useState } from 'react'
 export type Target = Omit<ListingTarget, 'collection'> & Record<'collection', CollectionProviderResult>
 interface Props {
   fetcher: {
-    createListing: Fetcher<ListingResponse, CreateListingArgs>
+    createListing: Fetcher<ListingResponse, CreateListingRequest>
   }
   provider: {
     collections: CollectionProvider
   }
-  user: AuthUser | undefined
 }
 
-export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider, user }) => {
+export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider }) => {
   const { items, target, setTarget, modalOpen, clearListing, closeModal } = useNewListingStore()
   const [collections, setCollections] = useState<CollectionProviderResult[]>()
   const [listing, setListing] = useState<Listing>()
@@ -44,7 +42,7 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider,
     }
   }, [])
   const tError = useTranslations('error.listing')
-  const { trigger, isMutating } = useSWRTrigger<ListingResponse, CreateListingArgs>({
+  const { trigger, isMutating } = useSWRTrigger<ListingResponse, CreateListingRequest>({
     key: SWRKeys.listing.create,
     fetcher: fetcher.createListing,
     onSuccess: (response) => {
@@ -107,8 +105,7 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider,
             : () => {
                 void trigger({
                   items: mapListingItemsToRequests(items),
-                  target: mapListingTargetToRequest(target),
-                  token: user?.sessionToken
+                  target: mapListingTargetToRequest(target)
                 })
               }
         }

@@ -19,7 +19,6 @@ import { type FunctionComponent } from 'react'
 interface Props {
   offer: Offer
   chainId: number
-  token: string
   fetcher: {
     acceptOffer: Fetcher<OfferResponse, AcceptOfferArgs>
     signOffer: Fetcher<HexString, SignOfferArgs>
@@ -32,7 +31,6 @@ interface Props {
 export const OfferDetailsAcceptSignModal: FunctionComponent<Props> = ({
   offer,
   chainId,
-  token,
   fetcher,
   open,
   onSuccess,
@@ -49,7 +47,7 @@ export const OfferDetailsAcceptSignModal: FunctionComponent<Props> = ({
     key: SWRKeys.offer.sign(offer),
     fetcher: fetcher.signOffer,
     onSuccess: (response) => {
-      void acceptOfferTrigger({ offerId: offer.id, signature: response, token })
+      void acceptOfferTrigger({ offerId: offer.id, signature: response })
     },
     onError
   })

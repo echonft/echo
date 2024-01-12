@@ -1,4 +1,4 @@
-import { FiltersPanel as Component } from '@echo/ui/components/layout/filters-panel'
+import { FiltersPanelLayout as Component } from '@echo/ui/components/layout/filters-panel-layout'
 import { CollectionFilterSelector } from '@echo/ui/components/nft/filters/by-collection/collection-filter-selector'
 import { type Meta, type StoryObj } from '@storybook/react'
 

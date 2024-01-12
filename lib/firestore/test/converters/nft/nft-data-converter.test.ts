@@ -2,7 +2,7 @@ import { nftDataConverter } from '@echo/firestore/converters/nft/nft-data-conver
 import type { Nft } from '@echo/model/types/nft'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
-import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/lib/firestore'
+import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
 describe('converters - nftDataConverter', () => {
   const document = getNftMockById('8hHFadIrrooORfTOLkBg')

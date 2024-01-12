@@ -1,8 +1,7 @@
 'use client'
-import type { CreateOfferArgs } from '@echo/api/services/fetcher/create-offer'
+import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
-import { type AuthUser } from '@echo/model/types/auth-user'
 import type { Offer } from '@echo/model/types/offer'
 import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
 import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
@@ -18,12 +17,11 @@ import { type FunctionComponent, useEffect, useRef, useState } from 'react'
 
 interface Props {
   fetcher: {
-    createOffer: Fetcher<OfferResponse, CreateOfferArgs>
+    createOffer: Fetcher<OfferResponse, CreateOfferRequest>
   }
-  user: AuthUser | undefined
 }
 
-export const NewOfferManager: FunctionComponent<Props> = ({ fetcher, user }) => {
+export const NewOfferManager: FunctionComponent<Props> = ({ fetcher }) => {
   const tError = useTranslations('error.offer')
   const { getReceiver, receiverItems, senderItems, clearOffer, modalOpen, closeModal } = useNewOfferStore()
   const clearOfferTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
@@ -38,7 +36,7 @@ export const NewOfferManager: FunctionComponent<Props> = ({ fetcher, user }) => 
 
   const [offer, setOffer] = useState<Offer>()
 
-  const { trigger, isMutating } = useSWRTrigger<OfferResponse, CreateOfferArgs>({
+  const { trigger, isMutating } = useSWRTrigger<OfferResponse, CreateOfferRequest>({
     key: SWRKeys.offer.create,
     fetcher: fetcher.createOffer,
     onSuccess: (response) => {
@@ -86,8 +84,7 @@ export const NewOfferManager: FunctionComponent<Props> = ({ fetcher, user }) => 
           : () => {
               void trigger({
                 senderItems: mapOfferItemsToRequests(senderItems),
-                receiverItems: mapOfferItemsToRequests(receiverItems),
-                token: user?.sessionToken
+                receiverItems: mapOfferItemsToRequests(receiverItems)
               })
             }
       }

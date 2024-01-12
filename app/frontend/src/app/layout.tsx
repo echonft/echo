@@ -1,5 +1,8 @@
 import '@echo/ui-css/index.css'
+import { messages } from '@echo/ui/messages/en'
 import { type Metadata, type Viewport } from 'next'
+import { NextIntlClientProvider } from 'next-intl'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export const metadata: Metadata = {
@@ -19,9 +22,15 @@ export const viewport: Viewport = {
 }
 
 const Layout: FunctionComponent<PropsWithChildren> = ({ children }) => {
+  const locale = 'en'
+  unstable_setRequestLocale(locale)
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang={locale}>
+      <body>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
     </html>
   )
 }

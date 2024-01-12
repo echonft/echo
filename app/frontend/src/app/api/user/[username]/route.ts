@@ -1,7 +1,4 @@
-import { type ApiRequest } from '@echo/api/types/api-request'
-import { handleRequest } from '@echo/frontend/lib/server/request-handlers/handle-request'
+import { appRouteHandler } from '@echo/frontend/lib/server/request-handlers/app-route-handler'
 import { getUserRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/get-user-request-handler'
 
-export async function GET(request: ApiRequest<never>, { params }: { params: { username: string } }) {
-  return await handleRequest(request, getUserRequestHandler)(params.username)
-}
+export const GET = appRouteHandler(getUserRequestHandler)

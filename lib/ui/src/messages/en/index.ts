@@ -22,14 +22,17 @@ export const messages = {
         label: 'Join our Discord Now!'
       },
       continueBtn: {
-        label: 'Continue'
+        label: 'Skip'
       }
     },
     step2: {
       title: 'Connect your wallet',
       subtitle: 'Connect your wallet to start swapping',
       continueBtn: {
-        label: 'Skip'
+        label: {
+          connected: 'Continue',
+          disconnected: 'Skip'
+        }
       }
     }
   },
@@ -91,14 +94,14 @@ export const messages = {
       swap: 'An error occurred while trying to swap the assets. Please try again'
     },
     profile: {
+      addWallet: 'An error occurred while trying to add the wallet to your account. Please try again',
       signing: 'An error occurred while trying to sign the message. Please try again'
     }
   },
   errorPage: {
     title: 'Something went wrong',
-    button: {
-      label: 'Go home'
-    }
+    homeBtn: 'Take me home',
+    resetBtn: 'Try again'
   },
   home: {
     title: 'OTC trade your NFTs\nin the safest way',
@@ -215,9 +218,7 @@ export const messages = {
   notFoundPage: {
     title: 'Sorry, there’s',
     subtitle: 'nothing here',
-    button: {
-      label: 'Go home'
-    }
+    homeBtn: ''
   },
   offer: {
     details: {
@@ -352,16 +353,7 @@ export const messages = {
     wallet: {
       button: {
         connect: {
-          label: 'Connect Wallet'
-        },
-        connecting: {
-          label: 'Connecting'
-        },
-        signing: {
-          label: 'Signing'
-        },
-        add: {
-          label: 'Add Wallet'
+          label: 'Connect'
         },
         copied: {
           label: 'Copied!'

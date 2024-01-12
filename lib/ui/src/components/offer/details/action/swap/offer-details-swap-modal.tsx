@@ -23,7 +23,6 @@ import useSWR from 'swr'
 interface Props {
   offer: Offer
   open: boolean
-  token: string
   fetcher: {
     getOffer: Fetcher<OfferResponse, GetOfferArgs>
     getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
@@ -41,7 +40,6 @@ interface Props {
 export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
   offer,
   open,
-  token,
   fetcher,
   provider,
   onClose,
@@ -56,17 +54,13 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
     OfferSignatureResponse,
     Error,
     (GetOfferSignatureArgs & Record<'name', string>) | undefined
-  >(
-    open ? { name: SWRKeys.offer.getSignature(offer), offerId: offer.id, token } : undefined,
-    fetcher.getOfferSignature,
-    {
-      onError: (err) => {
-        captureException(err, {
-          contexts: offerContext(offer)
-        })
-      }
+  >(open ? { name: SWRKeys.offer.getSignature(offer), offerId: offer.id } : undefined, fetcher.getOfferSignature, {
+    onError: (err) => {
+      captureException(err, {
+        contexts: offerContext(offer)
+      })
     }
-  )
+  })
 
   if (approved) {
     return (
@@ -75,7 +69,6 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({
         chainId={chainId!}
         signature={signatureResponse?.signature}
         fetcher={fetcher}
-        token={token}
         open={open}
         onSuccess={onSuccess}
         onClose={onClose}

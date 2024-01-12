@@ -3,36 +3,31 @@ import clsx from 'clsx'
 import { map, range } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-interface Props {
-  currentStep: number
-  totalSteps: number
+export interface LoginStepIndicatorProps {
+  step: 1 | 2 | 3
 }
 
-export const LoginStepIndicator: FunctionComponent<Props> = ({ totalSteps, currentStep }) => {
-  if (currentStep < 0 || currentStep >= totalSteps) {
-    // TODO Add error logging
-    return null
-  }
+export const LoginStepIndicator: FunctionComponent<LoginStepIndicatorProps> = ({ step }) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-x-4')}>
       {map(
-        (step) => (
-          <div key={step} className={clsx('h-[0.4375rem]', 'w-[5.5625rem]', 'rounded-sm', 'bg-white/5')}>
+        (index) => (
+          <div key={index} className={clsx('h-[0.4375rem]', 'w-[5.5625rem]', 'rounded-sm', 'bg-white/5')}>
             {
               <Transition
                 className={clsx('transition-all', 'duration-500', 'ease-in-out', 'overflow-hidden')}
-                show={currentStep >= step}
+                show={step >= index}
                 enterFrom="transform scale-95 opacity-0 max-w-0"
                 enterTo="transform scale-100 opacity-100 max-w-full"
                 leaveFrom="transform scale-100 opacity-100 max-w-full"
                 leaveTo="transform scale-95 opacity-0 max-w-0"
               >
-                <div key={step} className={clsx('h-[0.4375rem]', 'w-[5.5625rem]', 'rounded-sm', 'bg-yellow-500')} />
+                <div key={index} className={clsx('h-[0.4375rem]', 'w-[5.5625rem]', 'rounded-sm', 'bg-yellow-500')} />
               </Transition>
             }
           </div>
         ),
-        range(0, totalSteps)
+        range(1, 4)
       )}
     </div>
   )

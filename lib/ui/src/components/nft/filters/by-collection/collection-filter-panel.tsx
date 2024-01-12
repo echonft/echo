@@ -1,5 +1,5 @@
 'use client'
-import { FiltersPanel } from '@echo/ui/components/layout/filters-panel'
+import { FiltersPanelLayout } from '@echo/ui/components/layout/filters-panel-layout'
 import { CollectionFilterSelector } from '@echo/ui/components/nft/filters/by-collection/collection-filter-selector'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { useTranslations } from 'next-intl'
@@ -15,13 +15,13 @@ export const CollectionFilterPanel: FunctionComponent<Props> = ({ filters, onTog
   const t = useTranslations('user.filters.collection')
 
   return (
-    <FiltersPanel title={t('title')}>
+    <FiltersPanelLayout title={t('title')}>
       {map(
         (filter) => (
           <CollectionFilterSelector key={filter.id} filter={filter} onToggleSelection={onToggleSelection} />
         ),
         filters
       )}
-    </FiltersPanel>
+    </FiltersPanelLayout>
   )
 }

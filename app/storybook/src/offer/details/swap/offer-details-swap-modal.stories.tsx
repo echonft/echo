@@ -62,7 +62,6 @@ export const Swap: Story = {
   args: {
     offer,
     open: true,
-    token: 'token',
     fetcher: {
       getOffer,
       getOfferSignature,

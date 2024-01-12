@@ -1,5 +1,6 @@
 'use client'
-import { ErrorPage } from '@echo/ui/components/layout/error-page'
+import { Error500 } from '@echo/ui/components/error/error-500'
+import { PageLayout } from '@echo/ui/components/layout/page-layout'
 import { captureException } from '@sentry/nextjs'
 import { type FunctionComponent, useEffect } from 'react'
 
@@ -8,12 +9,16 @@ interface Props {
   reset: VoidFunction
 }
 
-const Error: FunctionComponent<Props> = ({ error }) => {
+const Error: FunctionComponent<Props> = ({ error, reset }) => {
   useEffect(() => {
     captureException(error)
   }, [error])
 
-  return <ErrorPage />
+  return (
+    <PageLayout headerVariants={{ logoOnly: true }}>
+      <Error500 onReset={reset} />
+    </PageLayout>
+  )
 }
 
 export default Error

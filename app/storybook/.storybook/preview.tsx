@@ -13,7 +13,7 @@ const preview: Preview = {
     (Story) => {
       return (
         <NextIntlClientProvider messages={messages} locale={'en'}>
-          {Story()}
+          <Story />
         </NextIntlClientProvider>
       )
     }

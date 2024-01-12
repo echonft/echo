@@ -19,7 +19,6 @@ import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   offer: Offer
-  token: string
   fetcher: {
     getOffer: Fetcher<OfferResponse, GetOfferArgs>
     getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
@@ -38,7 +37,6 @@ interface Props {
 
 export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
   offer,
-  token,
   fetcher,
   provider,
   disabled,
@@ -65,7 +63,6 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
         <OfferDetailsSwapModal
           open={modalShown}
           offer={offer}
-          token={token}
           fetcher={fetcher}
           provider={provider}
           onSuccess={(offer: Offer) => {

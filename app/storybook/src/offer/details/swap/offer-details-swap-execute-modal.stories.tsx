@@ -51,7 +51,6 @@ export const WithSignature: Story = {
   args: {
     offer,
     chainId: 1,
-    token: 'token',
     open: true,
     signature: '0xwhatever',
     fetcher: {
@@ -66,7 +65,6 @@ export const WithoutSignature: Story = {
   args: {
     offer,
     chainId: 1,
-    token: 'token',
     open: true,
     signature: undefined,
     fetcher: {

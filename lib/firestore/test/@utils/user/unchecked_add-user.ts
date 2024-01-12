@@ -1,13 +1,10 @@
+import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
 import { getUsersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-users-collection-reference'
+import type { User } from '@echo/firestore/types/model/user/user'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
-import { now } from '@echo/utils/helpers/now'
 
-export async function unchecked_addUser(
-  data: Omit<UserDocumentData, 'id' | 'createdAt' | 'updatedAt'>
-): Promise<UserDocumentData> {
+export async function unchecked_addUser(data: UserDocumentData): Promise<User> {
   const reference = getUsersCollectionReference().doc()
-  const id = reference.id
-  const user: UserDocumentData = { id, createdAt: now(), updatedAt: now(), ...data }
-  await reference.set(user)
-  return user
+  await reference.set(data, { merge: true })
+  return (await findUserById(reference.id))!
 }

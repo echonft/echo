@@ -1,11 +1,12 @@
 import clsx from 'clsx'
-import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
+import { type FunctionComponent, type MouseEventHandler, type PropsWithChildren, useState } from 'react'
 
 interface Props {
   onClick?: MouseEventHandler
 }
 
 export const LoginButton: FunctionComponent<PropsWithChildren<Props>> = ({ onClick, children }) => {
+  const [loading, setLoading] = useState(false)
   return (
     <button
       className={clsx(
@@ -17,9 +18,14 @@ export const LoginButton: FunctionComponent<PropsWithChildren<Props>> = ({ onCli
         'pb-2.5',
         'px-4',
         'w-full',
-        'enabled:hover:bg-neutral-800'
+        'enabled:hover:bg-neutral-800',
+        loading && 'animate-pulse'
       )}
-      onClick={onClick}
+      disabled={loading}
+      onClick={(event) => {
+        setLoading(true)
+        onClick?.(event)
+      }}
     >
       <span className={clsx('prose-label-lg', 'text-white')}>{children}</span>
     </button>

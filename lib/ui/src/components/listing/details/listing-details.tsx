@@ -110,7 +110,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
               label={t('cancelBtn.label')}
               message={t('cancelBtn.message')}
               loading={isMutating}
-              onFinish={() => void trigger({ listingId: updatedListing.id, token: user?.sessionToken })}
+              onFinish={() => void trigger({ listingId: updatedListing.id })}
             />
           </div>
         </ShowIf>

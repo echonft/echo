@@ -1,4 +1,4 @@
-import { Query } from 'firebase-admin/lib/firestore'
+import { Query } from 'firebase-admin/firestore'
 import { concat, eqProps, pipe, uniqWith } from 'ramda'
 
 export async function mergeQueryResults<T extends Record<'id', string>>(
