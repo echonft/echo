@@ -3,22 +3,20 @@ import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-reque
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { AuthUser } from '@echo/model/types/auth-user'
-import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
-import { WalletConnectedTag } from '@echo/ui/components/wallet/wallet-connected-tag'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { renderWalletButton } from '@echo/ui/helpers/wallet/render-wallet-button'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import type { WalletButtonRenderFn } from '@echo/ui/types/wallet-button-render-fn'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { Fetcher } from '@echo/utils/types/fetcher'
-import type { HexString } from '@echo/utils/types/hex-string'
 import type { SignNonceArgs, SignNonceResult } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import type { AccountProvider } from '@echo/web3/helpers/wagmi/provider/account'
 import type { ChainProvider } from '@echo/web3/helpers/wagmi/provider/chain'
 import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
 import { includes, isNil, toLower } from 'ramda'
-import React, { type FunctionComponent, useEffect, useState } from 'react'
-import type { Chain } from 'wagmi'
+import { type FunctionComponent, useEffect, useState } from 'react'
 
 export interface WalletButtonProps {
   fetcher: {
@@ -30,19 +28,7 @@ export interface WalletButtonProps {
     account: AccountProvider
     chain: ChainProvider
   }
-  renderConnect: (renderProps: {
-    show?: () => void
-    hide?: () => void
-    chain?: Chain & {
-      unsupported?: boolean
-    }
-    unsupported: boolean
-    isConnected: boolean
-    isConnecting: boolean
-    address?: HexString
-    truncatedAddress?: string
-    ensName?: string
-  }) => React.ReactNode
+  renderConnect: WalletButtonRenderFn
   user: AuthUser
 }
 
@@ -106,23 +92,16 @@ export const WalletButton: FunctionComponent<WalletButtonProps> = ({ fetcher, pr
     }
   }, [address, chainId, isConnected, user, signNonceTrigger, walletLinked, nonce, getNonceTrigger])
 
-  if (isConnected) {
-    if (walletLinked) {
-      return <WalletConnectedTag address={address!} chainId={chainId!} />
-    }
-    if (!isNil(getNonceError)) {
-      return <ConnectKitButton.Custom>{renderConnect}</ConnectKitButton.Custom>
-    }
-    if (isNil(nonce)) {
-      return <ConnectWalletButton isConnecting={true} />
-    }
-    if (!isNil(addWalletError) || !isNil(signNonceError)) {
-      return <ConnectKitButton.Custom>{renderConnect}</ConnectKitButton.Custom>
-    }
-    return <ConnectWalletButton isConnecting={true} />
-  }
-  if (isConnecting) {
-    return <ConnectWalletButton isConnecting={true} />
-  }
-  return <ConnectKitButton.Custom>{renderConnect}</ConnectKitButton.Custom>
+  return (
+    <ConnectKitButton.Custom>
+      {renderWalletButton({
+        errors: { addWalletError, getNonceError, signNonceError },
+        isConnected,
+        isConnecting,
+        nonce,
+        renderConnect,
+        walletLinked
+      })}
+    </ConnectKitButton.Custom>
+  )
 }

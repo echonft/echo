@@ -355,9 +355,6 @@ export const messages = {
         connect: {
           label: 'Connect'
         },
-        connecting: {
-          label: 'Connecting'
-        },
         copied: {
           label: 'Copied!'
         }

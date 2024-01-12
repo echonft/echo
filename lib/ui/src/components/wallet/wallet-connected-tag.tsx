@@ -8,9 +8,11 @@ import { type FunctionComponent } from 'react'
 interface Props {
   address: HexString
   chainId: number
+  truncatedAddress?: string
 }
 
 export const WalletConnectedTag: FunctionComponent<Props> = (props) => {
+  const { truncatedAddress } = props
   return (
     <div
       className={clsx(
@@ -29,7 +31,7 @@ export const WalletConnectedTag: FunctionComponent<Props> = (props) => {
         <WalletIconSvg />
       </span>
       <span className={clsx('h-max', 'w-max', 'text-white', 'prose-label-xs', '!tracking-[0.015rem]', 'select-none')}>
-        {shortenAddress(props)}
+        {truncatedAddress ?? shortenAddress(props)}
       </span>
     </div>
   )

@@ -6,15 +6,14 @@ import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginConnectWalletStep } from '@echo/ui/components/auth/login-connect-wallet-step'
 import { LoginDiscordStep } from '@echo/ui/components/auth/login-discord-step'
 import { LoginJoinEchoStep } from '@echo/ui/components/auth/login-join-echo-step'
+import type { WalletButtonRenderFn } from '@echo/ui/types/wallet-button-render-fn'
 import type { Fetcher } from '@echo/utils/types/fetcher'
-import type { HexString } from '@echo/utils/types/hex-string'
 import type { SignNonceArgs, SignNonceResult } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import type { AccountProvider } from '@echo/web3/helpers/wagmi/provider/account'
 import type { ChainProvider } from '@echo/web3/helpers/wagmi/provider/chain'
 import type { SignInResponse } from 'next-auth/react'
 import { isNil } from 'ramda'
-import React, { type FunctionComponent } from 'react'
-import type { Chain } from 'wagmi'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   fetcher: {
@@ -27,19 +26,7 @@ interface Props {
     chain: ChainProvider
     signIn: () => Promise<SignInResponse | undefined>
   }
-  renderConnectWallet: (renderProps: {
-    show?: () => void
-    hide?: () => void
-    chain?: Chain & {
-      unsupported?: boolean
-    }
-    unsupported: boolean
-    isConnected: boolean
-    isConnecting: boolean
-    address?: HexString
-    truncatedAddress?: string
-    ensName?: string
-  }) => React.ReactNode
+  renderConnectWallet: WalletButtonRenderFn
   step: 1 | 2 | 3
   user: AuthUser | undefined
   onNext?: VoidFunction

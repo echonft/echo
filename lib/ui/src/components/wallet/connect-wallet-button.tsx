@@ -28,9 +28,7 @@ export const ConnectWalletButton: FunctionComponent<Props> = ({ isConnecting, on
       <span className={clsx('btn-label-primary')}>
         <WalletIconSvg />
       </span>
-      <span className={clsx('btn-label-primary', 'prose-label-xs', '!tracking-[0.015rem]')}>
-        {isConnecting ? t('connecting.label') : t('connect.label')}
-      </span>
+      <span className={clsx('btn-label-primary', 'prose-label-xs', '!tracking-[0.015rem]')}>{t('connect.label')}</span>
     </button>
   )
 }
