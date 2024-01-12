@@ -3,8 +3,9 @@ import { isPathSecure } from '@echo/api/services/routing/is-path-secure'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { UserTagPictureButton } from '@echo/ui/components/user/tag/user-tag-picture-button'
-import { type WalletButtonProps } from '@echo/ui/components/wallet/wallet-button'
+import { WalletButton, type WalletButtonProps } from '@echo/ui/components/wallet/wallet-button'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { Menu, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
@@ -21,16 +22,22 @@ export type DisconnectButtonProps = WalletButtonProps & {
   onSignOut?: VoidFunction
 }
 
-export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({ provider, user, onSignOut }) => {
+export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({
+  fetcher,
+  provider,
+  renderConnect,
+  user,
+  onSignOut
+}) => {
   const t = useTranslations('layout.header.button')
   const [loading, setLoading] = useState(false)
   const pathname = usePathname()
   const callbackUrl = isPathSecure(pathname) ? '/' : pathname
   return (
     <div className={clsx('flex', 'flex-row', 'justify-center', 'gap-4', 'h-max', 'w-max')}>
-      {/*<Web3Provider>*/}
-      {/*  <WalletButton fetcher={fetcher} provider={provider} renderConnect={renderConnect} user={user} />*/}
-      {/*</Web3Provider>*/}
+      <Web3Provider>
+        <WalletButton fetcher={fetcher} provider={provider} renderConnect={renderConnect} user={user} />
+      </Web3Provider>
       <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>
         <Menu.Button className={clsx('group')}>
           <UserTagPictureButton user={user} />

@@ -9,7 +9,7 @@ export const ProfileNftsSkeleton: FunctionComponent = () => {
   const t = useTranslations('profile')
   return (
     <ProfileNavigationLayoutSkeleton activeNavigationItem={NAVIGATION_ITEMS}>
-      <NftGroupsAndFiltersContainerSkeleton availableFilters={[NFT_FILTER_TRAITS]} btnLabel={t('offerButton.label')} />
+      <NftGroupsAndFiltersContainerSkeleton
         availableFilters={[NFT_FILTER_TRAITS]}
         btnLabel={t('listingButton.label')}
       />

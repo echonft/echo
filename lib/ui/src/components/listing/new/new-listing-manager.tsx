@@ -26,10 +26,9 @@ interface Props {
   provider: {
     collections: CollectionProvider
   }
-  user: AuthUser | undefined
 }
 
-export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider, user }) => {
+export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider }) => {
   const { items, target, setTarget, modalOpen, clearListing, closeModal } = useNewListingStore()
   const [collections, setCollections] = useState<CollectionProviderResult[]>()
   const [listing, setListing] = useState<Listing>()
