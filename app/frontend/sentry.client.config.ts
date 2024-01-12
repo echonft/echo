@@ -16,8 +16,6 @@ init({
       maskAllText: true,
       blockAllMedia: true
     }),
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     new ExtraErrorData()
   ],
   replaysOnErrorSampleRate: 1.0,

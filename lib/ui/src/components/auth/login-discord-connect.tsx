@@ -3,8 +3,7 @@ import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginButton } from '@echo/ui/components/auth/login-button'
 import { UserTag } from '@echo/ui/components/user/tag/user-tag'
 import { SIZE_LG } from '@echo/ui/constants/size'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { type SignInResponse } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -23,14 +22,7 @@ export const LoginDiscordConnect: FunctionComponent<Props> = ({ provider, user }
     return (
       <LoginButton
         onClick={() => {
-          provider
-            .signIn()
-            .then((response) => {
-              logger.debug(`signIn done: ${JSON.stringify(response)}`)
-            })
-            .catch((e) => {
-              logger.error(`signIn error: ${errorMessage(e)}`)
-            })
+          provider.signIn().catch(errorCallback({ tags: { action: 'signIn' } }))
         }}
       >
         {t('loginBtn.label')}
