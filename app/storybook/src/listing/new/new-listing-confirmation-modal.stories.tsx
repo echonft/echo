@@ -8,6 +8,26 @@ const metadata: Meta<typeof Component> = {
   title: 'Listing/New/Confirmation Modal',
   component: Component,
   argTypes: {
+    onClear: {
+      table: {
+        disable: true
+      }
+    },
+    onCollectionSelectionChange: {
+      table: {
+        disable: true
+      }
+    },
+    onTargetAmountChange: {
+      table: {
+        disable: true
+      }
+    },
+    onRemoveTarget: {
+      table: {
+        disable: true
+      }
+    },
     onClose: {
       table: {
         disable: true
@@ -18,6 +38,9 @@ const metadata: Meta<typeof Component> = {
         disable: true
       }
     }
+  },
+  args: {
+    open: true
   },
   parameters: {
     controls: {
@@ -38,11 +61,7 @@ export const Default: Story = {
   args: {
     target,
     items,
-    open: true,
-    collections,
-    onConfirm: () => {
-      return
-    }
+    collections
   }
 }
 
@@ -51,7 +70,6 @@ export const Confirming: Story = {
     target,
     items,
     collections,
-    open: true,
     onClose: undefined,
     onConfirm: undefined,
     onClear: undefined
