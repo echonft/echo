@@ -61,7 +61,9 @@ jobs:
           FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
           FIREBASE_CLIENT_EMAIL: ${{ vars.FIREBASE_CLIENT_EMAIL }}
           FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-          NEXT_PUBLIC_ALCHEMY_KEY: ${{ secrets.NEXT_PUBLIC_ALCHEMY_KEY }}
+          NEXT_PUBLIC_ALCHEMY_KEY: ${{ vars.NEXT_PUBLIC_ALCHEMY_KEY }}
+          NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: ${{ vars.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID }}
+          NEXT_PUBLIC_CHAIN_ID: ${{ vars.NEXT_PUBLIC_CHAIN_ID }}
 
       # Here's the first place where next-bundle-analysis' own script is used
       # This step pulls the raw bundle stats for the current bundle
