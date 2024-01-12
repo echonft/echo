@@ -8,8 +8,9 @@
     "lint": "eslint --cache --fix -c .eslintrc.cjs --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.cjs --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
-    "modules:remove-all": "rm -rf node_modules",
-    "modules:update-all": "ncu -u",
+    "modules:remove": "rm -rf node_modules",
+    "modules:update": "ncu -u",
+    "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
     "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c  .",
     "test": "jest",
@@ -23,7 +24,7 @@
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "axios": "1.6.1",
+    "axios": "1.6.5",
     "path-to-regexp": "6.2.1",
     "qs": "6.11.2",
     "ramda": "0.29.1"
@@ -31,8 +32,8 @@
   "devDependencies": {
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@types/qs": "6.9.10",
-    "@types/ramda": "0.29.7",
+    "@types/qs": "6.9.11",
+    "@types/ramda": "0.29.9",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
     "next": "14.0.4"

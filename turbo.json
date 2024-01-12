@@ -20,10 +20,13 @@
     "lint:clean-cache": {
       "inputs": [".eslintcache"]
     },
-    "modules:remove-all": {
+    "modules:remove": {
       "cache": false
     },
-    "modules:update-all": {
+    "modules:update": {
+      "cache": false
+    },
+    "modules:update-minor": {
       "cache": false
     },
     "prettier": {

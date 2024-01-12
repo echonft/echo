@@ -8,8 +8,9 @@
     "lint": "eslint --cache --fix -c .eslintrc.cjs --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.cjs --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
-    "modules:remove-all": "rm -rf node_modules",
-    "modules:update-all": "ncu -u",
+    "modules:remove": "rm -rf node_modules",
+    "modules:update": "ncu -u",
+    "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
     "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c  .",
     "test": "jest",
@@ -21,13 +22,13 @@
   },
   "dependencies": {
     "dayjs": "1.11.10",
-    "pino": "8.16.1",
+    "pino": "8.17.2",
     "ramda": "0.29.1"
   },
   "devDependencies": {
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@types/ramda": "0.29.7",
+    "@types/ramda": "0.29.9",
     "jest": "29.7.0",
     "jest-junit": "16.0.0"
   }
