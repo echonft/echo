@@ -13,6 +13,9 @@ interface UserPathArgs {
   username: string
 }
 export const apiUrlProvider = {
+  admin: {
+    updateUser: new ApiPath({ path: '/admin/user/update', secure: true })
+  },
   collection: {
     all: new ApiPath({ path: '/collections' }),
     get: new ApiPath<CollectionPathArgs>({ path: '/collection/:slug' }),

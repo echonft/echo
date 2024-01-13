@@ -1,5 +1,3 @@
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
 import type { NonPromise } from '@echo/utils/types/non-promise'
 import { captureException, type SeverityLevel } from '@sentry/node'
 
@@ -12,7 +10,6 @@ export function guardFn<TArgs extends unknown[], TResult, TFallbackResult = neve
     try {
       return fn(...args)
     } catch (e) {
-      logger.debug(`${errorMessage(e)}`)
       captureException(e, { level: severity })
       return fallback
     }

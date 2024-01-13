@@ -1,6 +1,7 @@
 declare namespace NodeJS {
   interface Process {
     env: {
+      ADMIN_TOKEN: string
       ALCHEMY_API_KEY: string
       APP_URL: string
       CI: undefined | 'true'

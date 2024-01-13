@@ -85,7 +85,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@auth/core": "0.19.0"
+      "@auth/core": "0.20.0"
     }
   },
   "packageManager": "pnpm@8.14.1",

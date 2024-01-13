@@ -16,6 +16,16 @@ interface HandleConfigArgs<Query, Body> {
   url: string
 }
 
+function handleBearerToken<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleConfigArgs<Query, Body> {
+  if (isNil(args.config) || isNil(args.config.bearerToken)) {
+    return args
+  }
+  const {
+    config: { bearerToken }
+  } = args
+  return modify('init', assocPath(['headers', 'Authorization'], `Bearer ${bearerToken}`), args)
+}
+
 function handleCookies<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleConfigArgs<Query, Body> {
   if (isNil(args.config) || isNil(args.config.cookie)) {
     return args
@@ -24,6 +34,17 @@ function handleCookies<Query, Body>(args: HandleConfigArgs<Query, Body>): Handle
     config: { cookie }
   } = args
   return modify('init', assocPath(['headers', 'cookie'], cookie), args)
+}
+
+function handleData<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleConfigArgs<Query, Body> {
+  if (isNil(args.config) || isNil(args.config.data)) {
+    return args
+  }
+  const {
+    config: { data }
+  } = args
+  const body = JSON.stringify(data)
+  return modify('init', assoc('body', body), args)
 }
 
 function handleDisableCache<Query, Body>(args: HandleConfigArgs<Query, Body>): HandleConfigArgs<Query, Body> {
@@ -102,6 +123,8 @@ function handleConfig<Query, Body>(method: HttpMethod) {
       HandleConfigArgs<Query, Body>,
       HandleConfigArgs<Query, Body>,
       HandleConfigArgs<Query, Body>,
+      HandleConfigArgs<Query, Body>,
+      HandleConfigArgs<Query, Body>,
       HandleConfigArgs<Query, Body>
     >(
       assoc('init', {
@@ -111,7 +134,9 @@ function handleConfig<Query, Body>(method: HttpMethod) {
         },
         method
       }),
+      handleBearerToken,
       handleCookies,
+      handleData,
       handleDisableCache,
       handleParams,
       handleRevalidate,
@@ -131,6 +156,21 @@ export const nextFetch = {
       Promise<NextFetchResponse<TResponse>>
     >(
       handleConfig('GET'),
+      tryFetch,
+      andThen(handleResponse<TResponse>)
+    )({ url, config })
+  },
+  post: <TResponse, TBody, Query = undefined>(
+    url: string,
+    config?: NextFetchRequestConfig<Query, TBody>
+  ): Promise<NextFetchResponse<TResponse>> => {
+    return pipe<
+      [Omit<HandleConfigArgs<Query, TBody>, 'init'>],
+      HandleConfigArgs<Query, TBody>,
+      Promise<Response>,
+      Promise<NextFetchResponse<TResponse>>
+    >(
+      handleConfig('POST'),
       tryFetch,
       andThen(handleResponse<TResponse>)
     )({ url, config })

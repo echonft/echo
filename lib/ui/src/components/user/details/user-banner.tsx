@@ -1,10 +1,11 @@
+import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 export interface UserBannerProps {
   discordBannerUrl: string | undefined
-  discordBannerColor: string
+  discordBannerColor?: string
 }
 
 export const UserBanner: FunctionComponent<UserBannerProps> = ({ discordBannerUrl, discordBannerColor }) => {
@@ -14,7 +15,7 @@ export const UserBanner: FunctionComponent<UserBannerProps> = ({ discordBannerUr
       style={
         defaultBanner
           ? {
-              backgroundColor: discordBannerColor
+              backgroundColor: discordBannerColor ?? themeExtension.colors.dark['500']
             }
           : {
               backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, #121212 100%), url('${discordBannerUrl}')`

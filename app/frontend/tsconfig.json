@@ -24,6 +24,6 @@
     ],
     "types": ["jest"]
   },
-  "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "test", "sentry.*.config.ts"],
+  "include": ["src", "next-env.d.ts", ".next/types/**/*.ts", "test", "sentry.*.config.ts", "../../env.d.ts"],
   "exclude": ["node_modules", ".next"]
 }
