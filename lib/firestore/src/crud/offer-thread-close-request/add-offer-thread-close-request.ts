@@ -13,9 +13,7 @@ export async function addOfferThreadCloseRequest(offerThreadId: string, closeAt:
   }
   const offerThreadCloseRequest = await findOfferThreadCloseRequest(offerThreadId)
   if (!isNil(offerThreadCloseRequest)) {
-    throw Error(
-      `trying to add a offer thread close request offer thread with id ${offerThreadId} but this request already exists`
-    )
+    return offerThreadCloseRequest
   }
   const reference = getOfferThreadsCloseRequestsCollectionReference().doc()
   const id = reference.id
