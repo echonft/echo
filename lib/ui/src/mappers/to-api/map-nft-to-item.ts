@@ -1,12 +1,12 @@
+import type { Item } from '@echo/model/types/item'
 import { type Nft } from '@echo/model/types/nft'
-import { type OfferItem } from '@echo/model/types/offer-item'
 
 /**
- * Map an NFT to an OfferItem
+ * Map an NFT to an Item
  * TODO For now, we simply assign an amount of 1 since we only support ERC721
  * @param nft The NFT for the offer
- * @return OfferItem
+ * @return Item
  */
-export function mapNftToOfferItem(nft: Nft): OfferItem {
+export function mapNftToItem(nft: Nft): Item {
   return { nft, amount: 1 }
 }

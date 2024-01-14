@@ -1,9 +1,9 @@
 import { type Nft } from '@echo/model/types/nft'
-import { mapNftToListingItem } from '@echo/ui/mappers/to-api/map-nft-to-listing-item'
+import { mapNftToItem } from '@echo/ui/mappers/to-api/map-nft-to-item'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 
-describe('mappers - to-api - mapNftToListingItem', () => {
+describe('mappers - to-api - mapNftToItem', () => {
   it('maps correctly', () => {
     const nft: Nft = {
       attributes: [
@@ -55,6 +55,6 @@ describe('mappers - to-api - mapNftToListingItem', () => {
       tokenType: 'ERC721',
       updatedAt: 1676984897
     }
-    expect(mapNftToListingItem(nft)).toEqual({ nft, amount: 1 })
+    expect(mapNftToItem(nft)).toEqual({ nft, amount: 1 })
   })
 })

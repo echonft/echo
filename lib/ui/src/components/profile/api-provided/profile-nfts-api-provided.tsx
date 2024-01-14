@@ -12,8 +12,7 @@ import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
-import { mapNftToListingItem } from '@echo/ui/mappers/to-api/map-nft-to-listing-item'
-import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item'
+import { mapNftToItem } from '@echo/ui/mappers/to-api/map-nft-to-item'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { useTranslations } from 'next-intl'
 import { useRouteChangeEvents } from 'nextjs-router-events'
@@ -62,10 +61,10 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
 
   const onButtonClick = (nfts: SelectableNft[]) => {
     if (hasNewOfferPending()) {
-      setSenderItems(map(mapNftToOfferItem, nfts))
+      setSenderItems(map(mapNftToItem, nfts))
       openNewOfferModal()
     } else {
-      setItems(map(mapNftToListingItem, nfts))
+      setItems(map(mapNftToItem, nfts))
       openNewListingModal()
     }
   }
