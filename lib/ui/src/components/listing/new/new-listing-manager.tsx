@@ -46,8 +46,9 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider 
     key: SWRKeys.listing.create,
     fetcher: fetcher.createListing,
     onSuccess: (response) => {
-      // setConfirmModalShown(false)
+      closeModal()
       setListing(response.listing)
+      clearListing()
     },
     onError: {
       contexts: listingContext({
@@ -56,7 +57,7 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider 
       }),
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
       onError: () => {
-        // setConfirmModalShown(false)
+        closeModal()
       }
     }
   })
@@ -90,32 +91,24 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider 
         onCollectionSelectionChange={onCollectionSelectionChange}
         onTargetAmountChange={onTargetAmountChange}
         onRemoveTarget={onRemoveTarget}
-        onClose={isMutating ? undefined : closeModal}
-        onClear={
-          isMutating
-            ? undefined
-            : () => {
-                closeModal()
-                clearListingTimeoutRef.current = setTimeout(clearListing, 210)
-              }
-        }
-        onConfirm={
-          isMutating
-            ? undefined
-            : () => {
-                void trigger({
-                  items: mapListingItemsToRequests(items),
-                  target: mapListingTargetToRequest(target)
-                })
-              }
-        }
+        isMutating={isMutating}
+        onClose={closeModal}
+        onClear={() => {
+          closeModal()
+          clearListingTimeoutRef.current = setTimeout(clearListing, 210)
+        }}
+        onConfirm={() => {
+          void trigger({
+            items: mapListingItemsToRequests(items),
+            target: mapListingTargetToRequest(target)
+          })
+        }}
       />
       <NewListingConfirmedModal
         listing={listing}
         open={!isNil(listing)}
         onClose={() => {
-          clearListing()
-          // onDismiss?.()
+          setListing(undefined)
         }}
       />
     </>

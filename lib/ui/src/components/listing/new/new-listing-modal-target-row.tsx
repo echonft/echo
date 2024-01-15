@@ -10,6 +10,7 @@ interface Props {
   quantity: number
   bannerUrl: string | undefined
   pictureUrl: string | undefined
+  isMutating?: boolean
   onQuantityChange?: (newQuantity: number) => unknown
   onRemove?: () => unknown
 }
@@ -19,6 +20,7 @@ export const NewListingModalTargetRow: FunctionComponent<Props> = ({
   quantity,
   bannerUrl,
   pictureUrl,
+  isMutating,
   onQuantityChange
 }) => {
   return (
@@ -29,7 +31,11 @@ export const NewListingModalTargetRow: FunctionComponent<Props> = ({
         <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} size={SIZE_MD} />
       </div>
       <div className={clsx('absolute', 'bottom-3', 'right-2')}>
-        <NewListingModalTargetRowQuantitySelector quantity={quantity} onQuantityChange={onQuantityChange} />
+        <NewListingModalTargetRowQuantitySelector
+          quantity={quantity}
+          onQuantityChange={onQuantityChange}
+          isMutating={isMutating}
+        />
       </div>
     </div>
   )

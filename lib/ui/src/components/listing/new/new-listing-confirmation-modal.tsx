@@ -17,6 +17,7 @@ interface Props {
   items: ListingItem[]
   open: boolean
   collections: CollectionProviderResult[] | undefined
+  isMutating?: boolean
   onCollectionSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
   onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
   onRemoveTarget?: (targetCollectionId: string) => unknown
@@ -30,6 +31,7 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
   items,
   open,
   collections,
+  isMutating,
   onCollectionSelectionChange,
   onTargetAmountChange,
   onRemoveTarget,
@@ -44,22 +46,23 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
   }
 
   return (
-    <Modal open={open} onClose={onClose} title={t('title')} backButtonLabel={t('backBtn')}>
+    <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')} backButtonLabel={t('backBtn')}>
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
         <CollectionSearchBoxManager
           placeholder={t('searchPlaceholder')}
           selectedOption={target?.collection}
           options={collections}
           onSelectionChange={onCollectionSelectionChange}
+          isMutating={isMutating}
         />
         <NewListingModalTargetContainer target={target} onRemove={onRemoveTarget} onEdit={onTargetAmountChange} />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
         <NewListingConfirmationModalItemsContainer items={items} />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
           <button
-            className={clsx('btn-gradient', 'btn-size-alt', 'group', isNil(onConfirm) && 'animate-pulse')}
+            className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
             onClick={onConfirm}
-            disabled={isNil(onConfirm)}
+            disabled={isMutating}
           >
             <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>
           </button>
@@ -67,7 +70,7 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
             id={'new-listing-confirmation-btn'}
             label={t('clearBtn')}
             message={t('clearBtnMessage')}
-            loading={isNil(onClear)}
+            loading={isMutating}
             onFinish={onClear}
           />
         </div>

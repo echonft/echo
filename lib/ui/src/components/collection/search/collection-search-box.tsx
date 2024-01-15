@@ -12,6 +12,7 @@ interface Props {
   selectedOption: CollectionProviderResult | undefined
   searching: boolean
   name?: string
+  isMutating?: boolean
   onSearch?: (searchQuery: string) => unknown
   onSearchClear?: () => unknown
   onSelectionChange?: (selection: Collection | undefined) => unknown
@@ -23,12 +24,13 @@ export const CollectionSearchBox: FunctionComponent<Props> = ({
   options,
   selectedOption,
   searching,
+  isMutating,
   onSearch,
   onSearchClear,
   onSelectionChange
 }) => {
   return (
-    <Combobox defaultValue={selectedOption} onChange={onSelectionChange} name={name}>
+    <Combobox defaultValue={selectedOption} onChange={onSelectionChange} name={name} disabled={isMutating}>
       <CollectionSearchComboboxInput
         searching={searching}
         placeholder={placeholder}
