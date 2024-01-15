@@ -1,4 +1,3 @@
-import { guarded_assertOfferIsOpen } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-is-open'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -6,7 +5,9 @@ import {
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
+import { guarded_assertOfferIsOpen } from '@echo/model/helpers/offer/assert/guarded_assert-offer-is-open'
 import { type Offer } from '@echo/model/types/offer'
+import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 
 describe('helpers - offer - assert - guarded_assertOfferIsOpen', () => {
@@ -48,6 +49,16 @@ describe('helpers - offer - assert - guarded_assertOfferIsOpen', () => {
       guarded_assertOfferIsOpen({
         id: 'test',
         expired: true,
+        expiresAt: dayjs().subtract(1, 'd').unix(),
+        state: OFFER_STATE_OPEN
+      } as Offer)
+    ).toBeFalsy()
+  })
+
+  it('returns false if offer is expired', () => {
+    expect(
+      guarded_assertOfferIsOpen({
+        id: 'test',
         expiresAt: dayjs().subtract(1, 'd').unix(),
         state: OFFER_STATE_OPEN
       } as Offer)

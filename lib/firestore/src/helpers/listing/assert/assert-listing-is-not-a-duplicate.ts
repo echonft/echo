@@ -1,11 +1,12 @@
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
+import { guarded_assertListingIsOpen } from '@echo/model/helpers/listing/assert/guarded_assert-listing-is-open'
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { type Nft } from '@echo/model/types/nft'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { type User } from '@echo/model/types/user'
-import { intersection, isEmpty, map, modify, path, pick } from 'ramda'
+import { filter, intersection, isEmpty, map, modify, path, pick } from 'ramda'
 
 interface PartialListingItem {
   amount: number
@@ -26,7 +27,8 @@ export async function assertListingIsNotADuplicate(items: OfferItem[], targets: 
     .where('targetsIds', '==', targetIds)
     .where('itemsNftIds', '==', itemIds)
     .get()
-  const documents = getQuerySnapshotDocumentsData(querySnapshot)
+  // Get only the open listings
+  const documents = filter(guarded_assertListingIsOpen, getQuerySnapshotDocumentsData(querySnapshot))
   if (!isEmpty(documents)) {
     // compare the items (e.g. the owner could be different)
     // only the owner and id are relevant in the item's nft
