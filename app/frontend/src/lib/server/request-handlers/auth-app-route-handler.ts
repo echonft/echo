@@ -1,4 +1,3 @@
-import type { ApiRequest } from '@echo/api/types/api-request'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { auth } from '@echo/frontend/lib/helpers/auth/auth'
 import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
@@ -9,7 +8,7 @@ import type { ErrorResponse } from '@echo/utils/types/error-response'
 import { captureException, setUser } from '@sentry/nextjs'
 import { NextResponse } from 'next/server'
 import type { NextAuthRequest } from 'next-auth/lib'
-import { dissoc, isNil, pick } from 'ramda'
+import { isNil, pick } from 'ramda'
 
 export function authAppRouteHandler<
   RequestBody,
@@ -30,7 +29,7 @@ export function authAppRouteHandler<
         )
       }
       setUser(pick(['username'], user))
-      return await requestHandler(user, dissoc('auth', request) as ApiRequest<RequestBody>, context?.params as Params)
+      return await requestHandler(user, request, context?.params as Params)
     } catch (error) {
       if (error instanceof ApiError) {
         await error.beforeError()
