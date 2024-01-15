@@ -12,7 +12,7 @@ interface Props {
 
 export const NewListingModalTargetRowQuantitySelector: FunctionComponent<Props> = ({
   quantity,
-  isMutating,
+  isMutating = false,
   onQuantityChange
 }) => {
   return (
@@ -21,7 +21,7 @@ export const NewListingModalTargetRowQuantitySelector: FunctionComponent<Props> 
         checks={onQuantityChange}
         render={(onQuantityChange) => (
           <button
-            disabled={isMutating ?? quantity <= 1}
+            disabled={isMutating || quantity <= 1}
             className={clsx(
               'text-dark-900',
               'bg-yellow-500',
@@ -59,7 +59,15 @@ export const NewListingModalTargetRowQuantitySelector: FunctionComponent<Props> 
         render={(onQuantityChange) => (
           <button
             disabled={isMutating}
-            className={clsx('text-dark-900', 'bg-yellow-500', 'py-1', 'pr-1.5', 'pl-[0.44rem]', 'rounded-md')}
+            className={clsx(
+              'text-dark-900',
+              'bg-yellow-500',
+              'py-1',
+              'pr-1.5',
+              'pl-[0.44rem]',
+              'rounded-md',
+              'disabled:bg-yellow-500/[0.3]'
+            )}
             onClick={() => onQuantityChange(quantity + 1)}
           >
             <SideCaretSvg direction={DIRECTION_RIGHT} />

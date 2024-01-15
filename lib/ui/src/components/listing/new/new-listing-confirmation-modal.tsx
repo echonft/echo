@@ -55,7 +55,12 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
           onSelectionChange={onCollectionSelectionChange}
           isMutating={isMutating}
         />
-        <NewListingModalTargetContainer target={target} onRemove={onRemoveTarget} onEdit={onTargetAmountChange} />
+        <NewListingModalTargetContainer
+          target={target}
+          onRemove={onRemoveTarget}
+          onEdit={onTargetAmountChange}
+          isMutating={isMutating}
+        />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
         <NewListingConfirmationModalItemsContainer items={items} />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
