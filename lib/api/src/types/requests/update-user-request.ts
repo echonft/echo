@@ -1,13 +1,10 @@
-import { type Wallet } from '@echo/model/types/wallet'
-
-export interface UserProfile {
+export interface UpdateUserRequest {
   discord: {
     avatarUrl: string
     avatarDecorationUrl?: string
     bannerColor?: string
     bannerUrl?: string
+    id: string
     username: string
   }
-  username: string
-  wallets: Wallet[]
 }

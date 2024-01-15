@@ -69,6 +69,7 @@ function setupMockedInteractionAPIData<Type extends InteractionType>({
     data: {},
     guild_locale: 'en-US',
     message: message ? messageToAPIData(message) : undefined,
+    entitlements: [],
     type,
     ...override
   }
