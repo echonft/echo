@@ -1,4 +1,4 @@
-import { NewOfferBanner as Component } from '@echo/ui/components/offer/new/new-offer-banner'
+import { NewOfferBannerManager as Component } from '@echo/ui/components/offer/new/new-offer-banner-manager'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
