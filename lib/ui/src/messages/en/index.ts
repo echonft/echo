@@ -190,8 +190,7 @@ export const messages = {
         title: 'Listing successfully created',
         subtitle: 'Your listing was successfully created',
         closeBtn: 'Close',
-        copyLinkBtn: 'Copy link',
-        linkCopied: 'Link copied!'
+        viewBtn: 'View'
       },
       discardModal: {
         title: 'Discard Listing',

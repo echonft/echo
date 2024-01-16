@@ -1,16 +1,12 @@
 'use client'
-import { linkProvider } from '@echo/api/services/routing/link-provider'
-import { getListingTargetsCollectionSlugs } from '@echo/model/helpers/listing/get-listing-targets-collection-slugs'
 import type { Listing } from '@echo/model/types/listing'
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
-import { CopyIconSvg } from '@echo/ui/components/base/svg/copy-icon-svg'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { head, isNil, pipe } from 'ramda'
+import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { Tooltip } from 'react-tooltip'
 
 interface Props {
   listing: Listing | undefined
@@ -29,34 +25,15 @@ export const NewListingConfirmedModal: FunctionComponent<Props> = ({ listing, op
           <ConfirmationIconSvg />
         </div>
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
-          <CopyToClipboard
-            text={
-              isNil(listing)
-                ? ''
-                : linkProvider.collection.listing.get({
-                    slug: pipe<[Listing], string[], string>(getListingTargetsCollectionSlugs, head)(listing),
-                    listingId: listing.id
-                  })
-            }
-          >
-            <button id={'copy-link-btn'} className={clsx('btn-action', 'btn-size-alt', 'group')}>
-              <span className={clsx('btn-label-action')}>
-                <CopyIconSvg />
-              </span>
-              <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('copyLinkBtn')}</span>
+          {/*FIXME Should link to listing details, but the view doesn't exist yet. See DEV-201 */}
+          <InternalLink path={isNil(listing) ? '#' : '#'}>
+            <button className={clsx('btn-action', 'btn-size-alt', 'group')}>
+              <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('viewBtn')}</span>
             </button>
-          </CopyToClipboard>
+          </InternalLink>
           <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onClose}>
             <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('closeBtn')}</span>
           </button>
-          <Tooltip
-            className={clsx('tooltip')}
-            anchorSelect={'#copy-link-btn'}
-            content={t('linkCopied')}
-            delayHide={2000}
-            openOnClick={true}
-            noArrow={true}
-          />
         </div>
       </div>
     </Modal>
