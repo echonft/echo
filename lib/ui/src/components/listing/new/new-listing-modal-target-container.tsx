@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const NewListingModalTargetContainer: FunctionComponent<Props> = ({ target, isMutating, onEdit }) => {
-  const t = useTranslations('listing.new.bottomSlider')
+  const t = useTranslations('listing.new.confirmationModal')
   const tShared = useTranslations('assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-11')}>

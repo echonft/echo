@@ -19,7 +19,7 @@ export const CollectionSearchCollectionOption: FunctionComponent<Props> = ({
   collectionName,
   collectionSupply
 }) => {
-  const t = useTranslations('listing.new.bottomSlider')
+  const t = useTranslations('listing.new.confirmationModal')
 
   return (
     <div

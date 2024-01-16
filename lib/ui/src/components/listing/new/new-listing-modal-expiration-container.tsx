@@ -4,7 +4,7 @@ import { type FunctionComponent } from 'react'
 
 // TODO Add expiration
 export const NewListingModalExpirationContainer: FunctionComponent = () => {
-  const t = useTranslations('listing.new.bottomSlider')
+  const t = useTranslations('listing.new.confirmationModal')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-4')}>
       <div className={clsx('flex', 'flex-col', 'gap-2')}>
