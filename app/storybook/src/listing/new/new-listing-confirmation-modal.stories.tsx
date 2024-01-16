@@ -65,8 +65,14 @@ export const Confirming: Story = {
     target,
     items,
     collections,
-    onClose: undefined,
-    onConfirm: undefined,
-    onClear: undefined
+    isMutating: true
+  }
+}
+
+export const NoItems: Story = {
+  args: {
+    target,
+    items: [],
+    collections
   }
 }
