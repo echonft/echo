@@ -8,6 +8,7 @@ interface Props {
   placeholder: string
   options: CollectionProviderResult[] | undefined
   selectedOption: CollectionProviderResult | undefined
+  isMutating?: boolean
   name?: string
   onSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
 }
@@ -17,7 +18,8 @@ export const CollectionSearchBoxManager: FunctionComponent<Props> = ({
   name,
   options,
   onSelectionChange,
-  selectedOption
+  selectedOption,
+  isMutating
 }) => {
   const [searching, setSearching] = useState(false)
   const [filteredOptions, setFilteredOptions] = useState<CollectionProviderResult[]>()
@@ -65,6 +67,7 @@ export const CollectionSearchBoxManager: FunctionComponent<Props> = ({
       onSearch={filterOptions}
       onSearchClear={resetOptions}
       onSelectionChange={onSelectionChange}
+      isMutating={isMutating}
     />
   )
 }

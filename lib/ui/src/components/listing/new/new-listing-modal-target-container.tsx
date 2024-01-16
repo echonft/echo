@@ -10,11 +10,11 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   target: Target | undefined
+  isMutating?: boolean
   onEdit?: (targetCollectionId: string, amount: number) => unknown
-  onRemove?: (targetCollectionId: string) => unknown
 }
 
-export const NewListingModalTargetContainer: FunctionComponent<Props> = ({ target, onEdit, onRemove }) => {
+export const NewListingModalTargetContainer: FunctionComponent<Props> = ({ target, isMutating, onEdit }) => {
   const t = useTranslations('listing.new.bottomSlider')
   const tShared = useTranslations('assets')
   return (
@@ -30,8 +30,8 @@ export const NewListingModalTargetContainer: FunctionComponent<Props> = ({ targe
               onQuantityChange={(newQuantity) => onEdit?.(target.collection.id, newQuantity)}
               pictureUrl={target.collection.profilePictureUrl}
               bannerUrl={target.collection.bannerUrl}
-              onRemove={() => onRemove?.(target.collection.id)}
               key={target.collection.id}
+              isMutating={isMutating}
             />
           )}
         />

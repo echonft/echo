@@ -2,7 +2,9 @@
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
+import { userHasWallet } from '@echo/model/helpers/user/user-has-wallet'
 import type { AuthUser } from '@echo/model/types/auth-user'
+import type { Wallet } from '@echo/model/types/wallet'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { renderWalletButton } from '@echo/ui/helpers/wallet/render-wallet-button'
@@ -15,7 +17,7 @@ import type { AccountProvider } from '@echo/web3/helpers/wagmi/provider/account'
 import type { ChainProvider } from '@echo/web3/helpers/wagmi/provider/chain'
 import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
-import { includes, isNil, toLower } from 'ramda'
+import { isNil, toLower } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 export interface WalletButtonProps {
@@ -71,7 +73,8 @@ export const WalletButton: FunctionComponent<WalletButtonProps> = ({ fetcher, pr
 
   useEffect(() => {
     if (isConnected && !walletLinked) {
-      if (!isNil(user.wallets) && includes({ address, chainId }, user.wallets)) {
+      // TODO We need to have a check for chainId. We can assume address is good if connected tho
+      if (userHasWallet({ user, wallet: { address, chainId } as Wallet })) {
         setWalletLinked(true)
       } else if (isNilOrEmpty(nonce)) {
         void getNonceTrigger()

@@ -12,7 +12,7 @@ import { NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { setSelectableNftActionDisabledPropFromAuthUser } from '@echo/ui/helpers/nft/set-selectable-nft-action-disabled-prop-from-auth-user'
 import { setSelectableNftSelectionDisabledPropFromAuthUser } from '@echo/ui/helpers/nft/set-selectable-nft-selection-disabled-prop-from-auth-user'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
-import { mapNftToOfferItem } from '@echo/ui/mappers/to-api/map-nft-to-offer-item'
+import { mapNftToItem } from '@echo/ui/mappers/to-api/map-nft-to-item'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { useTranslations } from 'next-intl'
@@ -50,7 +50,7 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
 
   const onMakeOffer = (nfts: SelectableNft[]) => {
     if (isNonEmptyArray(nfts)) {
-      setReceiverItems(map(mapNftToOfferItem, nfts))
+      setReceiverItems(map(mapNftToItem, nfts))
       openModal()
     }
   }

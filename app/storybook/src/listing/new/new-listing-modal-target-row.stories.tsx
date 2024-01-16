@@ -11,16 +11,11 @@ const metadata: Meta<typeof Component> = {
       table: {
         disable: true
       }
-    },
-    onRemove: {
-      table: {
-        disable: true
-      }
     }
   },
   parameters: {
     controls: {
-      exclude: ['bannerUrl', 'pictureUrl']
+      exclude: ['bannerUrl', 'pictureUrl', 'isMutating']
     }
   }
 }
@@ -35,14 +30,20 @@ export const Editable: Story = {
     collectionName: collection.name,
     bannerUrl: collection.bannerUrl,
     pictureUrl: collection.profilePictureUrl,
-    quantity: 1,
-    onRemove: () => {
-      return
-    }
+    quantity: 1
   },
   render: (args) => {
     const [quantity, setQuantity] = useState<number>(args.quantity)
-    return <Component {...args} quantity={quantity} onQuantityChange={setQuantity} />
+    return (
+      <Component
+        {...args}
+        quantity={quantity}
+        onQuantityChange={(quantity: number) => {
+          args.onQuantityChange?.(quantity)
+          setQuantity(quantity)
+        }}
+      />
+    )
   }
 }
 
@@ -51,6 +52,7 @@ export const ReadOnly: Story = {
     collectionName: collection.name,
     bannerUrl: collection.bannerUrl,
     pictureUrl: collection.profilePictureUrl,
-    quantity: 1
+    quantity: 1,
+    onQuantityChange: undefined
   }
 }

@@ -6,17 +6,22 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   quantity: number
+  isMutating?: boolean
   onQuantityChange?: (newQuantity: number) => unknown
 }
 
-export const NewListingModalTargetRowQuantitySelector: FunctionComponent<Props> = ({ quantity, onQuantityChange }) => {
+export const NewListingModalTargetRowQuantitySelector: FunctionComponent<Props> = ({
+  quantity,
+  isMutating = false,
+  onQuantityChange
+}) => {
   return (
     <div className={clsx('flex', 'flex-row', 'gap-1.5', 'items-center')}>
       <HideIfNil
         checks={onQuantityChange}
         render={(onQuantityChange) => (
           <button
-            disabled={quantity <= 1}
+            disabled={isMutating || quantity <= 1}
             className={clsx(
               'text-dark-900',
               'bg-yellow-500',
@@ -53,7 +58,16 @@ export const NewListingModalTargetRowQuantitySelector: FunctionComponent<Props> 
         checks={onQuantityChange}
         render={(onQuantityChange) => (
           <button
-            className={clsx('text-dark-900', 'bg-yellow-500', 'py-1', 'pr-1.5', 'pl-[0.44rem]', 'rounded-md')}
+            disabled={isMutating}
+            className={clsx(
+              'text-dark-900',
+              'bg-yellow-500',
+              'py-1',
+              'pr-1.5',
+              'pl-[0.44rem]',
+              'rounded-md',
+              'disabled:bg-yellow-500/[0.3]'
+            )}
             onClick={() => onQuantityChange(quantity + 1)}
           >
             <SideCaretSvg direction={DIRECTION_RIGHT} />

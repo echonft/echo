@@ -10,8 +10,8 @@ interface Props {
   quantity: number
   bannerUrl: string | undefined
   pictureUrl: string | undefined
+  isMutating?: boolean
   onQuantityChange?: (newQuantity: number) => unknown
-  onRemove?: () => unknown
 }
 
 export const NewListingModalTargetRow: FunctionComponent<Props> = ({
@@ -19,17 +19,21 @@ export const NewListingModalTargetRow: FunctionComponent<Props> = ({
   quantity,
   bannerUrl,
   pictureUrl,
+  isMutating,
   onQuantityChange
 }) => {
   return (
     <div className={clsx('relative', 'w-full', 'h-40', 'rounded-lg', 'overflow-clip')}>
-      {/*<HideIfNil checks={onRemove} render={(onRemove) => <ItemThumbnailSelector onRemove={onRemove} />} />*/}
       <CollectionBanner bannerUrl={bannerUrl} bannerSize={SIZE_MD} />
       <div className={clsx('absolute', 'left-2.5', 'bottom-3')}>
         <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} size={SIZE_MD} />
       </div>
       <div className={clsx('absolute', 'bottom-3', 'right-2')}>
-        <NewListingModalTargetRowQuantitySelector quantity={quantity} onQuantityChange={onQuantityChange} />
+        <NewListingModalTargetRowQuantitySelector
+          quantity={quantity}
+          onQuantityChange={onQuantityChange}
+          isMutating={isMutating}
+        />
       </div>
     </div>
   )
