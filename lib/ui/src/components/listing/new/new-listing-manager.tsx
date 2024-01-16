@@ -88,6 +88,7 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider 
         onTargetAmountChange={onTargetAmountChange}
         isMutating={isMutating}
         onClose={closeModal}
+        onContinue={closeModal}
         onClear={() => {
           closeModal()
           clearListingTimeoutRef.current = setTimeout(clearListing, 210)

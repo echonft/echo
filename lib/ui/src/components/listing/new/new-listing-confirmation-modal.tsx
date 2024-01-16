@@ -1,7 +1,11 @@
 'use client'
 import type { CollectionProviderResult } from '@echo/api/services/providers/collections'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type ListingItem } from '@echo/model/types/listing-item'
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
+import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
+import { ShowIfNilOrEmpty } from '@echo/ui/components/base/utils/show-if-nil-or-empty'
 import { CollectionSearchBoxManager } from '@echo/ui/components/collection/search/collection-search-box-manager'
 import { Modal } from '@echo/ui/components/layout/modal/modal'
 import { NewListingConfirmationModalItemsContainer } from '@echo/ui/components/listing/new/new-listing-confirmation-modal-items-container'
@@ -21,8 +25,9 @@ interface Props {
   onCollectionSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
   onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
   onClear?: VoidFunction
-  onConfirm?: () => unknown
-  onClose?: () => unknown
+  onContinue?: VoidFunction
+  onConfirm?: VoidFunction
+  onClose?: VoidFunction
 }
 
 export const NewListingConfirmationModal: FunctionComponent<Props> = ({
@@ -34,6 +39,7 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
   onCollectionSelectionChange,
   onTargetAmountChange,
   onClear,
+  onContinue,
   onConfirm,
   onClose
 }) => {
@@ -44,7 +50,13 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
   }
 
   return (
-    <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')} backButtonLabel={t('backBtn')}>
+    <Modal
+      open={open}
+      onClose={isMutating ? undefined : onClose}
+      onBack={onClose}
+      title={t('title')}
+      backButtonLabel={t('backBtn')}
+    >
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
         <CollectionSearchBoxManager
           placeholder={t('searchPlaceholder')}
@@ -57,17 +69,29 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
         <NewListingConfirmationModalItemsContainer items={items} />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
-          <button
-            className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
-            onClick={onConfirm}
-            disabled={isMutating}
-          >
-            <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>
-          </button>
+          <ShowIfNilOrEmpty checks={items}>
+            <InternalLink path={linkProvider.profile.items.get()}>
+              <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onContinue}>
+                <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
+              </button>
+            </InternalLink>
+          </ShowIfNilOrEmpty>
+          <HideIfNilOrEmpty
+            checks={items}
+            render={() => (
+              <button
+                className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
+                onClick={onConfirm}
+                disabled={isMutating}
+              >
+                <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>
+              </button>
+            )}
+          />
           <LongPressButton
             id={'new-listing-confirmation-btn'}
-            label={t('clearBtn')}
-            message={t('clearBtnMessage')}
+            label={t('clearBtn.label')}
+            message={t('clearBtn.message')}
             loading={isMutating}
             onFinish={onClear}
           />
