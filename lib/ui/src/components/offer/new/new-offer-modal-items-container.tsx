@@ -15,7 +15,7 @@ interface Props {
 
 export const NewOfferModalItemsContainer: FunctionComponent<Props> = ({ receiverItems, senderItems }) => {
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-4.5', 'items-center', 'min-w-[40rem]')}>
+    <div className={clsx('flex', 'flex-col', 'gap-4.5', 'items-center')}>
       <NftsLayout alignment={ALIGNMENT_CENTER}>
         {map(
           (item) => (

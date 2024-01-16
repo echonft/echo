@@ -39,7 +39,7 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
 
   return (
     <Modal open={open} onBack={onClose} title={t('title')} onClose={onClose} backButtonLabel={t('backBtn')}>
-      <div className={clsx('flex', 'flex-col', 'gap-12', 'min-w-96')}>
+      <div className={clsx('flex', 'flex-col', 'gap-12')}>
         <UserDetailsRoundedContainer user={receiver} />
         <NewOfferModalItemsContainer receiverItems={receiverItems} senderItems={senderItems} />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
