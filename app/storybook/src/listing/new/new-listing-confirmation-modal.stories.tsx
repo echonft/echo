@@ -23,11 +23,6 @@ const metadata: Meta<typeof Component> = {
         disable: true
       }
     },
-    onRemoveTarget: {
-      table: {
-        disable: true
-      }
-    },
     onClose: {
       table: {
         disable: true

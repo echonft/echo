@@ -20,7 +20,6 @@ interface Props {
   isMutating?: boolean
   onCollectionSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
   onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
-  onRemoveTarget?: (targetCollectionId: string) => unknown
   onClear?: VoidFunction
   onConfirm?: () => unknown
   onClose?: () => unknown
@@ -34,7 +33,6 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
   isMutating,
   onCollectionSelectionChange,
   onTargetAmountChange,
-  onRemoveTarget,
   onClear,
   onConfirm,
   onClose
@@ -55,12 +53,7 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
           onSelectionChange={onCollectionSelectionChange}
           isMutating={isMutating}
         />
-        <NewListingModalTargetContainer
-          target={target}
-          onRemove={onRemoveTarget}
-          onEdit={onTargetAmountChange}
-          isMutating={isMutating}
-        />
+        <NewListingModalTargetContainer target={target} onEdit={onTargetAmountChange} isMutating={isMutating} />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
         <NewListingConfirmationModalItemsContainer items={items} />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>

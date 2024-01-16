@@ -77,10 +77,6 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider 
     setTarget(assoc('amount', amount))
   }
 
-  function onRemoveTarget(_targetCollectionId: string) {
-    setTarget(undefined)
-  }
-
   return (
     <>
       <NewListingConfirmationModal
@@ -90,7 +86,6 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider 
         collections={collections}
         onCollectionSelectionChange={onCollectionSelectionChange}
         onTargetAmountChange={onTargetAmountChange}
-        onRemoveTarget={onRemoveTarget}
         isMutating={isMutating}
         onClose={closeModal}
         onClear={() => {

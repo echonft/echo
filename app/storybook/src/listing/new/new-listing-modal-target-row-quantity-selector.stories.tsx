@@ -3,7 +3,7 @@ import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Listing/New/Target Row Quantity Selector',
+  title: 'Listing/New/Target Row/Quantity Selector',
   component: Component
 }
 

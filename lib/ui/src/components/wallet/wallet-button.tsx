@@ -74,7 +74,7 @@ export const WalletButton: FunctionComponent<WalletButtonProps> = ({ fetcher, pr
   useEffect(() => {
     if (isConnected && !walletLinked) {
       // TODO We need to have a check for chainId. We can assume address is good if connected tho
-      if (userHasWallet(user, { address, chainId } as Wallet)) {
+      if (userHasWallet({ user, wallet: { address, chainId } as Wallet })) {
         setWalletLinked(true)
       } else if (isNilOrEmpty(nonce)) {
         void getNonceTrigger()

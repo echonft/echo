@@ -1,8 +1,10 @@
+import { unlessPropIsNil } from '@echo/utils/fp/unless-prop-is-nil'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { getAccount } from '@wagmi/core'
+import { getAccount, type GetAccountResult } from '@wagmi/core'
+import { modify, pipe, toLower } from 'ramda'
 
 export interface AccountResult {
-  address: HexString | undefined
+  address: Lowercase<HexString> | undefined
   isConnected: boolean
   isConnecting: boolean
   isDisconnected: boolean
@@ -10,5 +12,8 @@ export interface AccountResult {
 }
 export type AccountProvider = () => AccountResult
 export function account(): AccountResult {
-  return getAccount()
+  return pipe(
+    getAccount,
+    unlessPropIsNil<'address', GetAccountResult, AccountResult>('address', modify('address', toLower<HexString>))
+  )()
 }

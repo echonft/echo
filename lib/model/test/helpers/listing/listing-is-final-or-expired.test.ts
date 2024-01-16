@@ -6,48 +6,48 @@ import {
   LISTING_STATE_PARTIALLY_FULFILLED
 } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
-import { guarded_assertListingIsOpen } from '@echo/model/helpers/listing/assert/guarded_assert-listing-is-open'
+import { listingIsFinalOrExpired } from '@echo/model/helpers/listing/listing-is-final-or-expired'
 import type { Listing } from '@echo/model/types/listing'
 import { describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
 
-describe('helpers - listing - assert - guarded_assertListingIsOpen', () => {
-  it('returns false if listing is fulfilled', () => {
+describe('helpers - listing - listingIsFinalOrExpired', () => {
+  it('returns true if listing is fulfilled', () => {
     expect(
-      guarded_assertListingIsOpen({
+      listingIsFinalOrExpired({
         id: 'test',
         expired: false,
         expiresAt: dayjs().add(1, 'd').unix(),
         state: LISTING_STATE_FULFILLED
       } as Listing)
-    ).toBeFalsy()
+    ).toBeTruthy()
   })
 
-  it('returns false if listing is cancelled', () => {
+  it('returns true if listing is cancelled', () => {
     expect(
-      guarded_assertListingIsOpen({
+      listingIsFinalOrExpired({
         id: 'test',
         expired: false,
         expiresAt: dayjs().add(1, 'd').unix(),
         state: LISTING_STATE_CANCELLED
       } as Listing)
-    ).toBeFalsy()
+    ).toBeTruthy()
   })
 
-  it('returns false if listing is expired', () => {
+  it('returns true if listing is expired', () => {
     expect(
-      guarded_assertListingIsOpen({
+      listingIsFinalOrExpired({
         id: 'test',
         expired: true,
         expiresAt: dayjs().subtract(1, 'd').unix(),
         state: OFFER_STATE_OPEN
       } as Listing)
-    ).toBeFalsy()
+    ).toBeTruthy()
   })
 
   it('returns false if listing is expired', () => {
     expect(
-      guarded_assertListingIsOpen({
+      listingIsFinalOrExpired({
         id: 'test',
         expiresAt: dayjs().subtract(1, 'd').unix(),
         state: OFFER_STATE_OPEN
@@ -55,36 +55,36 @@ describe('helpers - listing - assert - guarded_assertListingIsOpen', () => {
     ).toBeFalsy()
   })
 
-  it('returns true if listing is open and not expired', () => {
+  it('returns false if listing is open and not expired', () => {
     expect(
-      guarded_assertListingIsOpen({
+      listingIsFinalOrExpired({
         id: 'test',
         expired: false,
         expiresAt: dayjs().add(1, 'd').unix(),
         state: LISTING_STATE_OPEN
       } as Listing)
-    ).toBeTruthy()
+    ).toBeFalsy()
   })
 
-  it('returns true if listing is partially fulfilled', () => {
+  it('returns false if listing is partially fulfilled', () => {
     expect(
-      guarded_assertListingIsOpen({
+      listingIsFinalOrExpired({
         id: 'test',
         expired: false,
         expiresAt: dayjs().add(1, 'd').unix(),
         state: LISTING_STATE_PARTIALLY_FULFILLED
       } as Listing)
-    ).toBeTruthy()
+    ).toBeFalsy()
   })
 
-  it('returns true if listing is offers pending', () => {
+  it('returns false if listing is offers pending', () => {
     expect(
-      guarded_assertListingIsOpen({
+      listingIsFinalOrExpired({
         id: 'test',
         expired: false,
         expiresAt: dayjs().add(1, 'd').unix(),
         state: LISTING_STATE_OFFERS_PENDING
       } as Listing)
-    ).toBeTruthy()
+    ).toBeFalsy()
   })
 })

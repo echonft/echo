@@ -12,7 +12,7 @@ describe('helpers - user - userHasWallet', () => {
       address: '0x1e3918Dd44F427F056be6c8E132cf1b5f42dE59e',
       chainId: 1
     } as unknown as Wallet
-    expect(userHasWallet(user, wallet)).toBe(false)
+    expect(userHasWallet({ user, wallet })).toBeFalsy()
   })
 
   it("should return true when the user has one or more wallets and the given wallet is present in the user's wallets list", () => {
@@ -32,7 +32,7 @@ describe('helpers - user - userHasWallet', () => {
       address: '0x1e3918Dd44F427F056be6c8E132cf1b5f42dE59e',
       chainId: 1
     } as unknown as Wallet
-    expect(userHasWallet(user, wallet)).toBe(true)
+    expect(userHasWallet({ user, wallet })).toBeTruthy()
   })
 
   it("should return false when the user has one or more wallets and the given wallet is not present in the user's wallets list", () => {
@@ -52,7 +52,7 @@ describe('helpers - user - userHasWallet', () => {
       address: '0xDifferentAddress',
       chainId: 1
     } as unknown as Wallet
-    expect(userHasWallet(user, wallet)).toBe(false)
+    expect(userHasWallet({ user, wallet })).toBeFalsy()
   })
 
   it("should return false when the user has one or more wallets and the given wallet is not present in the user's wallets list (different chain)", () => {
@@ -72,6 +72,6 @@ describe('helpers - user - userHasWallet', () => {
       address: '0x1e3918Dd44F427F056be6c8E132cf1b5f42dE59e',
       chainId: 2
     } as unknown as Wallet
-    expect(userHasWallet(user, wallet)).toBe(false)
+    expect(userHasWallet({ user, wallet })).toBeFalsy()
   })
 })
