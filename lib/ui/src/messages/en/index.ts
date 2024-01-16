@@ -314,7 +314,7 @@ export const messages = {
       label: 'Finalize offer'
     },
     finalizeListingButton: {
-      label: 'Finalize Listing'
+      label: 'Finalize listing'
     },
     empty: {
       items: {

@@ -1,3 +1,4 @@
+'use client'
 import { Banner } from '@echo/ui/components/base/banner'
 import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { useTranslations } from 'next-intl'
