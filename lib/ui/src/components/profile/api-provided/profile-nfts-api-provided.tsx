@@ -3,6 +3,7 @@ import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Nft } from '@echo/model/types/nft'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
+import { NewListingDiscardModal } from '@echo/ui/components/listing/new/new-listing-discard-modal'
 import { SelectableNftGroupsAndFiltersContainer } from '@echo/ui/components/nft/filters/layout/selectable-nft-groups-and-filters-container'
 import { NewOfferDiscardModal } from '@echo/ui/components/offer/new/new-offer-discard-modal'
 import { ProfileNavigationLayout } from '@echo/ui/components/profile/layout/profile-navigation-layout'
@@ -28,25 +29,37 @@ interface Props {
 export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user }) => {
   const t = useTranslations('profile')
   const { hasNewOfferPending, clearOffer, setSenderItems, openModal: openNewOfferModal } = useNewOfferStore()
-  const { openModal: openNewListingModal, setItems } = useNewListingStore()
-  const [showDiscardModal, setShowDiscardModal] = useState(false)
+  const { hasNewListingPending, openModal: openNewListingModal, setItems, clearListing } = useNewListingStore()
+  const [showDiscardOfferModal, setShowDiscardOfferModal] = useState(false)
+  const [showDiscardListingModal, setShowDiscardListingModal] = useState(false)
+
   // Prevent user from navigating away from the page
   const onBeforeRouteChange = useCallback(() => {
     if (hasNewOfferPending()) {
-      setShowDiscardModal(true)
+      setShowDiscardOfferModal(true)
+      return false
+    }
+    if (hasNewListingPending()) {
+      setShowDiscardListingModal(true)
       return false
     }
     return true
   }, [hasNewOfferPending])
 
   const { allowRouteChange } = useRouteChangeEvents({ onBeforeRouteChange })
-  // Prevent navigation (refresh, back, forward) if offer is pending. Doesn't work flawlessly but will do the trick for now.
-  useBeforeunload(hasNewOfferPending() ? (event) => event.preventDefault() : undefined)
+  // Prevent navigation (refresh, back, forward) if offer or listing is pending. Doesn't work flawlessly but will do the trick for now.
+  useBeforeunload(hasNewOfferPending() || hasNewListingPending() ? (event) => event.preventDefault() : undefined)
 
   const discardOffer = () => {
     allowRouteChange()
     clearOffer()
-    setShowDiscardModal(false)
+    setShowDiscardOfferModal(false)
+  }
+
+  const discardListing = () => {
+    allowRouteChange()
+    clearListing()
+    setShowDiscardListingModal(false)
   }
 
   const selectableNfts = useMemo(() => {
@@ -78,7 +91,13 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
             <SelectableNftGroupsAndFiltersContainer
               nfts={selectableNfts}
               availableFilters={[NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS]}
-              btnLabel={t(hasNewOfferPending() ? 'offerButton.label' : 'listingButton.label')}
+              btnLabel={t(
+                hasNewOfferPending()
+                  ? 'offerButton.label'
+                  : hasNewListingPending()
+                    ? 'finalizeListingButton.label'
+                    : 'listingButton.label'
+              )}
               hideOwner={true}
               onButtonClick={onButtonClick}
             />
@@ -89,9 +108,14 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
         </ShowIfEmpty>
       </ProfileNavigationLayout>
       <NewOfferDiscardModal
-        open={showDiscardModal}
-        onClose={() => setShowDiscardModal(false)}
+        open={showDiscardOfferModal}
+        onClose={() => setShowDiscardOfferModal(false)}
         onDiscard={discardOffer}
+      />
+      <NewListingDiscardModal
+        open={showDiscardListingModal}
+        onClose={() => setShowDiscardListingModal(false)}
+        onDiscard={discardListing}
       />
     </>
   )

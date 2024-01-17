@@ -31,16 +31,20 @@ interface Props {
   nfts: SelectableNft[]
   availableFilters: NftFilterType[]
   btnLabel: string
+  emptyBtnLabel: string
   user: AuthUser | undefined
   onButtonClick?: (nfts: SelectableNft[]) => unknown
+  onEmptyButtonClick?: VoidFunction
 }
 
 export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
   nfts,
   availableFilters,
   btnLabel,
+  emptyBtnLabel,
   user,
-  onButtonClick
+  onButtonClick,
+  onEmptyButtonClick
 }) => {
   const [selectableNfts, setSelectableNfts] = useState(nfts)
   const { receiverItems } = useNewOfferStore()
@@ -91,13 +95,13 @@ export const SelectableNftsAndFiltersContainer: FunctionComponent<Props> = ({
   return (
     <NftsAndFiltersLayout>
       <NftFiltersContainer
-        selectionCount={selectionCount}
-        btnLabel={btnLabel}
+        selectionCount={selectionCount === 0 ? undefined : selectionCount}
+        btnLabel={selectionCount === 0 ? emptyBtnLabel : btnLabel}
         collectionFilters={collectionFilters}
         traitFilters={traitFilters}
-        onButtonClick={() => {
-          onButtonClick?.(getSelection(selectableNfts))
-        }}
+        onButtonClick={() =>
+          selectionCount === 0 ? onEmptyButtonClick?.() : onButtonClick?.(getSelection(selectableNfts))
+        }
         onTraitSelectionToggle={onTraitFilterToggleSelection}
         onCollectionSelectionToggle={onCollectionFilterToggleSelection}
       />

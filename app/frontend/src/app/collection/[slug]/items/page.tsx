@@ -1,5 +1,6 @@
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
+import type { CollectionResponse } from '@echo/api/types/responses/collection-response'
 import { type NftsResponse } from '@echo/api/types/responses/nfts-response'
 import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
 import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
@@ -29,7 +30,14 @@ const CollectionNftsPage: FunctionComponent<Props> = async ({ params }) => {
     params: query
   })
   assertNextFetchResponse(response)
-  return <CollectionNftsApiProvided collectionSlug={params.slug} nfts={response.data.nfts} user={user} />
+
+  const collectionResponse = await nextFetch.get<CollectionResponse>(apiUrlProvider.collection.get.getUrl(params), {
+    cookie: getCookieHeader()
+  })
+  assertNextFetchResponse(collectionResponse)
+  return (
+    <CollectionNftsApiProvided collection={collectionResponse.data.collection} nfts={response.data.nfts} user={user} />
+  )
 }
 
 export default CollectionNftsPage

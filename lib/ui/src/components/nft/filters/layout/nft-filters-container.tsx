@@ -9,7 +9,7 @@ import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
 interface Props {
-  selectionCount: number
+  selectionCount?: number
   btnLabel: string
   collectionFilters: CollectionFilter[]
   traitFilters: TraitFilter[]

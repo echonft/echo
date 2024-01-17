@@ -38,8 +38,8 @@ export const messages = {
   },
   collection: {
     button: {
-      create: 'Make an offer',
-      edit: 'Edit offer'
+      createOffer: 'Make an offer',
+      createListing: 'Create listing'
     },
     details: {
       size: '{size, number, ::K} NFTs'
@@ -168,37 +168,42 @@ export const messages = {
       expiredAt: 'Expired'
     },
     new: {
-      bottomSlider: {
-        title: 'Listing overview',
-        searchPlaceholder: 'Search by collection name',
-        addCollectionBtn: 'Collection',
-        itemsCount: '{count} {count, plural, =0 {} =1 {item} other {items}}',
-        finalizeBtn: 'Finalize',
-        dismissBtn: {
-          label: 'Dismiss',
-          message: 'Hold to dismiss'
-        },
-        expirationTitle: 'Expires in',
-        expirationValue: '7 days',
-        emptySearch: 'No collections found',
-        emptyTargets: 'To add a collection, type its name\nin the input above'
-      },
       confirmationModal: {
         backBtn: 'Back to Selection',
         title: 'Confirm Listing',
         targetSubtitle: 'Target collection',
+        itemsCount: '{count} {count, plural, =0 {} =1 {item} other {items}}',
         itemsSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',
         searchPlaceholder: 'Search by collection name',
+        emptySearch: 'No collections found',
+        emptyTargets: 'To add a collection, type its name\nin the input above',
+        expirationTitle: 'Expires in',
+        expirationValue: '7 days',
         confirmBtn: 'Confirm',
-        clearBtn: 'Clear',
-        clearBtnMessage: 'Hold to clear'
+        continueBtn: 'Continue',
+        clearBtn: {
+          label: 'Clear',
+          message: 'Hold to clear'
+        }
       },
       confirmedModal: {
         title: 'Listing successfully created',
         subtitle: 'Your listing was successfully created',
         closeBtn: 'Close',
-        copyLinkBtn: 'Copy link',
-        linkCopied: 'Link copied!'
+        viewBtn: 'View'
+      },
+      discardModal: {
+        title: 'Discard Listing',
+        subtitle: 'If you leave this page, your listing will be discarded',
+        cancelBtn: 'Cancel',
+        discardBtn: 'Discard',
+        discardBtnMessage: 'Hold to discard'
+      },
+      banner: {
+        title: 'Select your NFTs to finalize your listing',
+        btn: {
+          label: 'Review listing'
+        }
       }
     },
     state: {
@@ -306,6 +311,9 @@ export const messages = {
     },
     offerButton: {
       label: 'Finalize offer'
+    },
+    finalizeListingButton: {
+      label: 'Finalize listing'
     },
     empty: {
       items: {
