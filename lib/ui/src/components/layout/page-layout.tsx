@@ -2,6 +2,7 @@
 import { addWallet } from '@echo/api/services/fetcher/add-wallet'
 import { getNonce } from '@echo/api/services/fetcher/get-nonce'
 import type { AuthUser } from '@echo/model/types/auth-user'
+import { BannerManager } from '@echo/ui/components/layout/banner/banner-manager'
 import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { HeaderSelector } from '@echo/ui/components/layout/header/header-selector'
 import { MainSectionLayout } from '@echo/ui/components/layout/main-section-layout'
@@ -37,6 +38,7 @@ export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({ user, 
       <MainSectionLayout>
         {children}
         <CalloutManager />
+        <BannerManager />
       </MainSectionLayout>
     </div>
   )

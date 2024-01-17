@@ -3,48 +3,65 @@ import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
-import { PageLayoutSkeleton as Component } from '@echo/ui/components/layout/skeleton/page-layout-skeleton'
 import { UserDetailsApiProvided } from '@echo/ui/components/user/api-provided/user-details-api-provided'
 import { UserNftsApiProvided } from '@echo/ui/components/user/api-provided/user-nfts-api-provided'
 import { CALLOUT_SEVERITY_INFO } from '@echo/ui/constants/callout-severity'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { useBannerStore } from '@echo/ui/hooks/use-banner-store'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { useEffect } from 'react'
+import { type FunctionComponent, useEffect } from 'react'
 
-const metadata: Meta<typeof Component> = {
+type ComponentType = FunctionComponent<Record<'callout', boolean> & Record<'banner', boolean>>
+const DEFAULT_CALLOUT = false
+const DEFAULT_BANNER = false
+const metadata: Meta<ComponentType> = {
   title: 'Base/Layout/Page Layout',
-  component: Component
+  argTypes: {
+    callout: {
+      options: DEFAULT_CALLOUT,
+      control: { type: 'boolean' }
+    },
+    banner: {
+      options: DEFAULT_BANNER,
+      control: { type: 'boolean' }
+    }
+  }
 }
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
+type Story = StoryObj<ComponentType>
 
 const user = getAuthUserMockByUsername('johnnycagewins')
 export const Default: Story = {
-  render: () => (
-    <NavigationPageLayout user={user}>
-      <SectionLayout>
-        <UserDetailsApiProvided user={user as UserProfile} />
-      </SectionLayout>
-      <SectionLayout>
-        <UserNftsApiProvided nfts={getAllNftMocks()} username={user.username} />
-      </SectionLayout>
-    </NavigationPageLayout>
-  )
-}
-
-export const WithCallout: Story = {
-  render: () => {
+  args: {
+    banner: DEFAULT_BANNER,
+    callout: DEFAULT_CALLOUT
+  },
+  render: ({ callout, banner }) => {
     const { show, dismiss } = useAlertStore()
+    const { show: showBanner, dismiss: dismissBanner } = useBannerStore()
     useEffect(() => {
-      show({ severity: CALLOUT_SEVERITY_INFO, message: 'This is a callout', permanent: true })
-    }, [show])
+      if (callout) {
+        show({ severity: CALLOUT_SEVERITY_INFO, message: 'This is a callout', permanent: true })
+      } else {
+        dismiss()
+      }
+    }, [show, dismiss, callout])
+    useEffect(() => {
+      if (banner) {
+        showBanner({ title: 'This is a banner' })
+      } else {
+        dismissBanner()
+      }
+    }, [showBanner, dismissBanner, banner])
     useEffect(() => {
       return (): void => {
         dismiss()
+        dismissBanner()
       }
-    }, [dismiss])
+    }, [dismiss, dismissBanner])
+
     return (
       <NavigationPageLayout user={user}>
         <SectionLayout>
