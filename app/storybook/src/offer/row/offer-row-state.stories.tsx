@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { OFFER_STATE_OPEN, OFFER_STATES } from '@echo/model/constants/offer-states'
-import { OfferRowStatePill as Component } from '@echo/ui/components/offer/row/offer-row-state-pill'
+import { OfferRowStatePill as Component } from '@echo/ui/components/offer/card/offer-row-state-pill'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

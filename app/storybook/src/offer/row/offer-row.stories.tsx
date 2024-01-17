@@ -2,7 +2,7 @@
 
 import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { OfferRow as Component } from '@echo/ui/components/offer/row/offer-row'
+import { OfferCard as Component } from '@echo/ui/components/offer/card/offer-card'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { assoc, pipe } from 'ramda'

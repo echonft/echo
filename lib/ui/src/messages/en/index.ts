@@ -218,6 +218,21 @@ export const messages = {
     action: {
       listing: 'Create Listing',
       offer: 'Make Offer'
+    },
+    card: {
+      item: {
+        state: {
+          OPEN: 'Pending',
+          ACCEPTED: 'Accepted',
+          CANCELLED: 'Cancelled',
+          COMPLETED: 'Swapped',
+          REJECTED: 'Rejected',
+          EXPIRED: 'Expired',
+          OFFERS_PENDING: 'Pending offers',
+          PARTIALLY_FULFILLED: 'Partially fulfilled',
+          FULFILLED: 'Filed'
+        }
+      }
     }
   },
   notFoundPage: {

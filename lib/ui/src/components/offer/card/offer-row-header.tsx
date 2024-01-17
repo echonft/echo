@@ -1,8 +1,8 @@
 import { offerStateIsFinal } from '@echo/model/helpers/offer/offer-state-is-final'
 import { type OfferState } from '@echo/model/types/offer-state'
 import { OfferRowHeaderLayout } from '@echo/ui/components/offer/row/layout/offer-row-header-layout'
-import { OfferRowStatePill } from '@echo/ui/components/offer/row/offer-row-state-pill'
 import { UserDiscordTag } from '@echo/ui/components/user/base/user-discord-tag'
+import { OfferRowStatePill } from '@echo/ui/components/offer/card/offer-row-state-pill'
 import { type FunctionComponent } from 'react'
 
 interface Props {
