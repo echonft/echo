@@ -13,8 +13,8 @@ export const UserDetailsApiProvided: FunctionComponent<Props> = ({ user }) => {
   return (
     <UserDetails
       discordUsername={discord.username}
-      discordBannerColor={discord.bannerColor}
-      discordBannerUrl={discord.bannerUrl}
+      bannerColor={discord.bannerColor}
+      bannerUrl={discord.bannerUrl}
       discordAvatarUrl={discord.avatarUrl}
       wallet={isNil(wallets) ? undefined : head(wallets)}
       size={SIZE_LG}

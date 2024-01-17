@@ -1,0 +1,46 @@
+import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
+import { getCollectionMock } from '@echo/model-mocks/collection/get-collection-mock'
+import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
+import { SectionLayout } from '@echo/ui/components/layout/section-layout'
+import { NewListingBannerManager } from '@echo/ui/components/listing/new/new-listing-banner-manager'
+import { NewOfferBannerManager } from '@echo/ui/components/offer/new/new-offer-banner-manager'
+import { ProfileDetailsApiProvided } from '@echo/ui/components/profile/api-provided/profile-details-api-provided'
+import { ProfileNftsApiProvided } from '@echo/ui/components/profile/api-provided/profile-nfts-api-provided'
+import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
+import { type Meta, type StoryObj } from '@storybook/react'
+import { RouteChangesProvider } from 'nextjs-router-events'
+import { type FunctionComponent, useEffect } from 'react'
+
+const metadata: Meta<FunctionComponent> = {
+  title: 'Listing/New/Selecting Items'
+}
+
+export default metadata
+
+type Story = StoryObj<FunctionComponent>
+
+export const SelectingItems: Story = {
+  render: () => {
+    const user = getAuthUserMockByUsername('johnnycagewins')
+    const { setTarget, clearListing } = useNewListingStore()
+    useEffect(() => {
+      setTarget({ amount: 2, collection: getCollectionMock() })
+      return clearListing
+    }, [setTarget])
+    return (
+      <NavigationPageLayout user={user}>
+        <NewOfferBannerManager />
+        <NewListingBannerManager />
+        <SectionLayout>
+          <ProfileDetailsApiProvided user={user} />
+        </SectionLayout>
+        <SectionLayout>
+          <RouteChangesProvider>
+            <ProfileNftsApiProvided nfts={getAllNftMocks()} user={user} />
+          </RouteChangesProvider>
+        </SectionLayout>
+      </NavigationPageLayout>
+    )
+  }
+}

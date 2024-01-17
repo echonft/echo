@@ -11,7 +11,7 @@ export const BannerManager: FunctionComponent = () => {
   }
 
   return (
-    <div className={clsx('absolute', 'z-30', 'top-0', 'inset-x-0')}>
+    <div className={clsx('absolute', 'top-0', 'inset-x-0')}>
       <Banner {...banner} />
     </div>
   )

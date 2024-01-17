@@ -27,8 +27,8 @@ type Story = StoryObj<typeof Component>
 export const Details: Story = {
   args: {
     discordUsername: 'johnnycagewins',
-    discordBannerColor: '#d11bd9',
-    discordBannerUrl: undefined,
+    bannerColor: '#d11bd9',
+    bannerUrl: undefined,
     discordAvatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png',
     wallet: { address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'), chainId: 1 },
     size: SIZE_LG

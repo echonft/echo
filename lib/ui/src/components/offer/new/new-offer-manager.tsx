@@ -23,19 +23,9 @@ interface Props {
 
 export const NewOfferManager: FunctionComponent<Props> = ({ fetcher }) => {
   const tError = useTranslations('error.offer')
-  const { getReceiver, receiverItems, senderItems, clearOffer, modalOpen, closeModal } = useNewOfferStore()
+  const { receiver, receiverItems, senderItems, clearOffer, modalOpen, closeModal } = useNewOfferStore()
   const clearOfferTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
-
-  useEffect(() => {
-    return (): void => {
-      if (!isNil(clearOfferTimeoutRef.current)) {
-        clearTimeout(clearOfferTimeoutRef.current)
-      }
-    }
-  }, [])
-
   const [offer, setOffer] = useState<Offer>()
-
   const { trigger, isMutating } = useSWRTrigger<OfferResponse, CreateOfferRequest>({
     key: SWRKeys.offer.create,
     fetcher: fetcher.createOffer,
@@ -57,7 +47,13 @@ export const NewOfferManager: FunctionComponent<Props> = ({ fetcher }) => {
     }
   })
 
-  const receiver = getReceiver()
+  useEffect(() => {
+    return (): void => {
+      if (!isNil(clearOfferTimeoutRef.current)) {
+        clearTimeout(clearOfferTimeoutRef.current)
+      }
+    }
+  }, [])
 
   if (isNil(receiver)) {
     return <NewOfferConfirmedModal offer={offer} open={!isNil(offer)} onClose={() => setOffer(undefined)} />

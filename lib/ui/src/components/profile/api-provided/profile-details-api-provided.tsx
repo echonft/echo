@@ -3,7 +3,6 @@ import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { ProfileDetailsSkeleton } from '@echo/ui/components/profile/details/skeleton/profile-details-skeleton'
 import { UserDiscordTag } from '@echo/ui/components/shared/user-discord-tag'
 import { UserProfilePicture } from '@echo/ui/components/shared/user-profile-picture'
-import { UserBanner } from '@echo/ui/components/user/details/user-banner'
 import { UserDetailsLayout } from '@echo/ui/components/user/layout/user-details-layout'
 import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout'
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
@@ -23,8 +22,7 @@ export const ProfileDetailsApiProvided: FunctionComponent<Props> = ({ user }) =>
   const { discord } = user
   const { avatarUrl, bannerUrl, bannerColor, username } = discord
   return (
-    <UserDetailsLayout>
-      <UserBanner discordBannerUrl={bannerUrl} discordBannerColor={bannerColor} />
+    <UserDetailsLayout bannerUrl={bannerUrl} bannerColor={bannerColor}>
       <PaddedContainer>
         <UserPictureAndInfoLayout>
           <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SIZE_LG} />

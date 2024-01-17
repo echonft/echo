@@ -25,7 +25,7 @@ export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts }
   const t = useTranslations('user')
   const { hasNewOfferPending, setReceiverItems, openModal } = useNewOfferStore()
   const selectableNfts = useMemo(() => {
-    if (hasNewOfferPending()) {
+    if (hasNewOfferPending) {
       return map<Nft, SelectableNft>(assoc('actionDisabled', true), nfts)
     }
     return map<Nft, SelectableNft>(

@@ -32,13 +32,13 @@ export default metadata
 
 type Story = StoryObj<ComponentType>
 
-const user = getAuthUserMockByUsername('johnnycagewins')
 export const Default: Story = {
   args: {
     banner: DEFAULT_BANNER,
     callout: DEFAULT_CALLOUT
   },
   render: ({ callout, banner }) => {
+    const user = getAuthUserMockByUsername('johnnycagewins')
     const { show, dismiss } = useAlertStore()
     const { show: showBanner, dismiss: dismissBanner } = useBannerStore()
     useEffect(() => {

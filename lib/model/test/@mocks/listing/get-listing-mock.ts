@@ -1,5 +1,5 @@
-import { getAllListingMocks } from '@echo/model-mocks/listing/get-all-listing-mocks'
+import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 
 export function getListingMock() {
-  return getAllListingMocks()[0]
+  return getListingMockById('jUzMtPGKM62mMhEcmbN4')
 }

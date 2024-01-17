@@ -347,6 +347,9 @@ importers:
       next-intl:
         specifier: 3.4.2
         version: 3.4.2(next@14.0.4)(react@18.2.0)
+      nextjs-router-events:
+        specifier: 0.0.3
+        version: 0.0.3(@babel/core@7.23.7)
       prop-types:
         specifier: 15.8.1
         version: 15.8.1
