@@ -37,7 +37,7 @@ function signOut(_options: SignOutParams<true> | undefined) {
 }
 
 const metadata: Meta<typeof Component> = {
-  title: 'Layout/Header/Disconnect Button',
+  title: 'Base/Layout/Header/Disconnect Button',
   component: Component,
   argTypes: {
     onSignOut: {

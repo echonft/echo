@@ -8,6 +8,7 @@ import type { FunctionComponent } from 'react'
 
 const DEFAULT_SEVERITY = CALLOUT_SEVERITY_ERROR
 const DEFAULT_VARIANT = CALLOUT_VARIANT_SOLID
+const DEFAULT_PERMANENT = false
 const DEFAULT_MESSAGE = 'This is an alert!'
 type ComponentType = FunctionComponent<Alert>
 const metadata: Meta<ComponentType> = {
@@ -22,6 +23,10 @@ const metadata: Meta<ComponentType> = {
       defaultValue: DEFAULT_VARIANT,
       options: CALLOUT_VARIANTS,
       control: { type: 'radio' }
+    },
+    permanent: {
+      defaultValue: DEFAULT_PERMANENT,
+      control: { type: 'boolean' }
     },
     message: {
       defaultValue: DEFAULT_MESSAGE
@@ -48,6 +53,7 @@ export const Managed: Story = {
   args: {
     severity: DEFAULT_SEVERITY,
     variant: DEFAULT_VARIANT,
-    message: DEFAULT_MESSAGE
+    message: DEFAULT_MESSAGE,
+    permanent: DEFAULT_PERMANENT
   }
 }

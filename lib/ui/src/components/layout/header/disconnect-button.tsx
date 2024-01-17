@@ -38,7 +38,7 @@ export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({
       <Web3Provider>
         <WalletButton fetcher={fetcher} provider={provider} renderConnect={renderConnect} user={user} />
       </Web3Provider>
-      <Menu as="div" className={clsx('relative', 'inline-block', 'z-40')}>
+      <Menu as="div" className={clsx('relative', 'inline-block')}>
         <Menu.Button className={clsx('group')}>
           <UserTagPictureButton user={user} />
         </Menu.Button>
@@ -51,7 +51,17 @@ export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({
           leaveTo="transform scale-95 opacity-0"
         >
           <Menu.Items
-            className={clsx('absolute', 'right-0', 'mt-2', 'py-2', 'rounded-lg', 'bg-white/[0.08]', 'w-36', 'h-max')}
+            className={clsx(
+              'absolute',
+              'right-0',
+              'mt-2',
+              'py-2',
+              'rounded-lg',
+              'bg-dark-500',
+              'w-36',
+              'h-max',
+              'z-30'
+            )}
           >
             <Menu.Item>
               {({ close }) => (

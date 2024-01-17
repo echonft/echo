@@ -56,7 +56,7 @@ function signNonce(_args: SignNonceArgs) {
 }
 
 const metadata: Meta<typeof Component> = {
-  title: 'Auth/Login',
+  title: 'Base/Auth/Login',
   component: Component,
   argTypes: {
     onFinish: {

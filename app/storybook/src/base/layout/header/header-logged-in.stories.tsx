@@ -36,7 +36,7 @@ function signOut(_options: SignOutParams<true> | undefined) {
 }
 
 const metadata: Meta<typeof Component> = {
-  title: 'Layout/Header',
+  title: 'Base/Layout/Header',
   component: Component,
   argTypes: {
     onSignOut: {

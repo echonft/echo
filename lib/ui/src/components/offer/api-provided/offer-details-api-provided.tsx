@@ -6,7 +6,6 @@ import { getOfferSignature } from '@echo/api/services/fetcher/get-offer-signatur
 import { rejectOffer } from '@echo/api/services/fetcher/reject-offer'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Offer } from '@echo/model/types/offer'
-import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { approveErc721Contract } from '@echo/web3/helpers/wagmi/fetcher/approve-erc721-contract'
@@ -42,7 +41,6 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user 
           chain
         }}
       />
-      <CalloutManager />
     </PaddedContainer>
   )
 }

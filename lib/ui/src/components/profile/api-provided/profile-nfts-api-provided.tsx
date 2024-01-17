@@ -44,7 +44,7 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
       return false
     }
     return true
-  }, [hasNewOfferPending])
+  }, [hasNewListingPending, hasNewOfferPending])
 
   const { allowRouteChange } = useRouteChangeEvents({ onBeforeRouteChange })
   // Prevent navigation (refresh, back, forward) if offer or listing is pending. Doesn't work flawlessly but will do the trick for now.

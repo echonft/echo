@@ -15,6 +15,11 @@ const metadata: Meta<typeof Component> = {
       options: CALLOUT_VARIANTS,
       control: { type: 'radio' }
     }
+  },
+  parameters: {
+    controls: {
+      exclude: ['permanent']
+    }
   }
 }
 

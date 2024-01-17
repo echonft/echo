@@ -2,6 +2,7 @@
 import { addWallet } from '@echo/api/services/fetcher/add-wallet'
 import { getNonce } from '@echo/api/services/fetcher/get-nonce'
 import type { AuthUser } from '@echo/model/types/auth-user'
+import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { HeaderSelector } from '@echo/ui/components/layout/header/header-selector'
 import { MainSectionLayout } from '@echo/ui/components/layout/main-section-layout'
 import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
@@ -33,7 +34,10 @@ export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({ user, 
         renderConnect={({ isConnecting, show }) => <ConnectWalletButton isConnecting={isConnecting} onClick={show} />}
         user={user}
       />
-      <MainSectionLayout>{children}</MainSectionLayout>
+      <MainSectionLayout>
+        {children}
+        <CalloutManager />
+      </MainSectionLayout>
     </div>
   )
 }

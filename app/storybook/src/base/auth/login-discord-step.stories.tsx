@@ -5,7 +5,7 @@ import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Auth/Login/Discord Step',
+  title: 'Base/Auth/Login/Discord Step',
   component: Component,
   argTypes: {
     onContinue: {

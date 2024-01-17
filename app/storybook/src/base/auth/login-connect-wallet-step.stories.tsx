@@ -55,7 +55,7 @@ function signNonce(_args: SignNonceArgs) {
 }
 
 const metadata: Meta<typeof Component> = {
-  title: 'Auth/Login/Connect Wallet Step',
+  title: 'Base/Auth/Login/Connect Wallet Step',
   component: Component,
   argTypes: {
     onContinue: {

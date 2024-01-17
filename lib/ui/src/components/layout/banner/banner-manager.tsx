@@ -6,7 +6,7 @@ import { clsx } from 'clsx'
 import { head, isNil } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 
-export const CalloutManager: FunctionComponent = () => {
+export const BannerManager: FunctionComponent = () => {
   const { alerts, dismiss } = useAlertStore()
   const [show, setShow] = useState(false)
   const showTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
@@ -49,7 +49,7 @@ export const CalloutManager: FunctionComponent = () => {
       leaveFrom="transform opacity-100"
       leaveTo="transform opacity-0"
     >
-      <div className={clsx('absolute', 'z-40', 'top-4', 'right-4')}>
+      <div className={clsx('absolute', 'z-30', 'top-0', 'inset-x-0')}>
         <HideIfNil
           checks={alert}
           render={(alert) => (

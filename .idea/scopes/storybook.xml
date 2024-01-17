@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="storybook" pattern="file[echo]:app/storybook//*" />
+</component>

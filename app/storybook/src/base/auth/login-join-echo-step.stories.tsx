@@ -2,7 +2,7 @@ import { LoginJoinEchoStep as Component } from '@echo/ui/components/auth/login-j
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Auth/Login/Join Echo Step',
+  title: 'Base/Auth/Login/Join Echo Step',
   component: Component,
   argTypes: {
     onSkip: {
