@@ -45,7 +45,7 @@ export const CollectionSearchBox: FunctionComponent<Props> = ({
         leave={'transition ease-in duration-100'}
         leaveFrom={'opacity-100'}
         leaveTo={'opacity-0'}
-        className={clsx('absolute', 'top-24', 'z-20', 'inset-x-0', 'py-6')}
+        className={clsx('absolute', 'top-24', 'inset-x-0', 'py-6')}
       >
         <Combobox.Options
           className={clsx('flex', 'flex-col', 'w-full', 'py-2', 'px-9', 'rounded-lg', 'bg-dark-400', 'gap-2.5')}

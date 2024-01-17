@@ -20,10 +20,7 @@ export const Error404: FunctionComponent = () => {
           'text-white'
         )}
       >
-        <EchoIconSvg
-          className={clsx('absolute', 'top-[200px]', 'left-[230px]', 'z-20', 'text-yellow-500')}
-          height={400}
-        />
+        <EchoIconSvg className={clsx('absolute', 'top-[200px]', 'left-[230px]', 'text-yellow-500')} height={400} />
         <span className={clsx('h-max', 'mr-[130px]')}>4</span>
         <span className={clsx('h-max', 'ml-[130px]')}>4</span>
       </div>

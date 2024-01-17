@@ -62,7 +62,7 @@ export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({
               'border-dark-100',
               'w-36',
               'h-max',
-              'z-30'
+              'z-10'
             )}
           >
             <Menu.Item>

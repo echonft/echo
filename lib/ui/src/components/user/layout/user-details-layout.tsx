@@ -20,7 +20,7 @@ export const UserDetailsLayout: FunctionComponent<PropsWithChildren<UserDetailsL
       }
     }
     return {
-      backgroundImage: `url('${bannerUrl}')`
+      backgroundImage: `${themeExtension.backgroundImage.banner}, url('${bannerUrl}')`
     }
   }
   return (
