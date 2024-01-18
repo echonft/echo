@@ -1,15 +1,15 @@
 // noinspection JSUnusedGlobalSymbols
 
-import type { AcceptOfferArgs } from '@echo/api/services/fetcher/accept-offer'
+import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OfferDetailsAcceptModal as Component } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-modal'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { HexString } from '@echo/utils/types/hex-string'
-import type { ApproveErc721ContractArgs } from '@echo/web3/helpers/wagmi/fetcher/approve-erc721-contract'
-import type { GetErc721ContractApprovalArgs } from '@echo/web3/helpers/wagmi/fetcher/get-erc721-contract-approval'
-import type { SignOfferArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-offer'
+import type { ApproveErc721ContractArgs } from '@echo/web3/types/approve-erc-721-contract-args'
+import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721-contract-approval-args'
+import type { SignOfferArgs } from '@echo/web3/types/sign-offer-args'
 import type { Meta, StoryObj } from '@storybook/react'
 import { assoc } from 'ramda'
 

@@ -1,5 +1,5 @@
 'use client'
-import { cancelListing } from '@echo/api/services/fetcher/cancel-listing'
+import { cancelListing } from '@echo/api/services/fetchers/cancel-listing'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'

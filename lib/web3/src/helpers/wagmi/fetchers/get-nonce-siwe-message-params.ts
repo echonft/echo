@@ -1,5 +1,5 @@
 import { formatAddress } from '@echo/web3/helpers/format-address'
-import type { SignNonceArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
+import type { SignNonceArgs } from '@echo/web3/types/sign-nonce-args'
 import { assoc, dissoc, lens, over, pipe, prop } from 'ramda'
 import type { SiweMessage } from 'siwe'
 

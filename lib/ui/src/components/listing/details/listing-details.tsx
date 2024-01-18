@@ -1,5 +1,5 @@
 'use client'
-import type { CancelListingArgs } from '@echo/api/services/fetcher/cancel-listing'
+import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
 import { assertListingState } from '@echo/model/helpers/listing/assert/assert-listing-state'

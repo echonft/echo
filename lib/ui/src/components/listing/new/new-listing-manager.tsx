@@ -1,5 +1,7 @@
 'use client'
-import type { CollectionProvider, CollectionProviderResult } from '@echo/api/services/providers/collections'
+
+import type { CollectionProvider } from '@echo/api/types/providers/collection-provider'
+import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
@@ -18,7 +20,6 @@ import { useTranslations } from 'next-intl'
 import { assoc, isNil } from 'ramda'
 import { type FunctionComponent, useEffect, useRef, useState } from 'react'
 
-export type Target = Omit<ListingTarget, 'collection'> & Record<'collection', CollectionProviderResult>
 interface Props {
   fetcher: {
     createListing: Fetcher<ListingResponse, CreateListingRequest>

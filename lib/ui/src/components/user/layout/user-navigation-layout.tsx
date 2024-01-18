@@ -1,4 +1,4 @@
-import { createOffer } from '@echo/api/services/fetcher/create-offer'
+import { createOffer } from '@echo/api/services/fetchers/create-offer'
 import { NavigationLayout } from '@echo/ui/components/layout/navigation/navigation-layout'
 import { NewOfferManager } from '@echo/ui/components/offer/new/new-offer-manager'
 import { getUserNavigationItems } from '@echo/ui/helpers/user/get-user-navigation-items'

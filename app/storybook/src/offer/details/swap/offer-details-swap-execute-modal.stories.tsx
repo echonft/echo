@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import type { GetOfferArgs } from '@echo/api/services/fetcher/get-offer'
-import type { GetOfferSignatureArgs } from '@echo/api/services/fetcher/get-offer-signature'
+import type { GetOfferArgs } from '@echo/api/types/fetchers/get-offer-args'
+import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
@@ -9,7 +9,7 @@ import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OfferDetailsSwapExecuteModal as Component } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-execute-modal'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { HexString } from '@echo/utils/types/hex-string'
-import type { ExecuteSwapArgs } from '@echo/web3/helpers/wagmi/fetcher/execute-swap'
+import type { ExecuteSwapArgs } from '@echo/web3/types/execute-swap-args'
 import type { Meta, StoryObj } from '@storybook/react'
 import { assoc } from 'ramda'
 

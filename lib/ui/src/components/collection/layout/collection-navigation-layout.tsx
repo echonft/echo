@@ -1,5 +1,5 @@
-import { createListing } from '@echo/api/services/fetcher/create-listing'
-import { createOffer } from '@echo/api/services/fetcher/create-offer'
+import { createListing } from '@echo/api/services/fetchers/create-listing'
+import { createOffer } from '@echo/api/services/fetchers/create-offer'
 import { collections } from '@echo/api/services/providers/collections'
 import { NavigationLayout } from '@echo/ui/components/layout/navigation/navigation-layout'
 import { NewListingManager } from '@echo/ui/components/listing/new/new-listing-manager'

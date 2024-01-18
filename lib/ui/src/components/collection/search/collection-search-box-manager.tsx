@@ -1,4 +1,4 @@
-import type { CollectionProviderResult } from '@echo/api/services/providers/collections'
+import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import { CollectionSearchBox } from '@echo/ui/components/collection/search/collection-search-box'
 import { stringIncludes } from '@echo/utils/fp/string-includes'
 import { filter, isNil, pipe, prop, toLower } from 'ramda'

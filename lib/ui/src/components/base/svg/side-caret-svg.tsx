@@ -1,13 +1,11 @@
 import { Svg, type SvgProps } from '@echo/ui/components/base/svg/svg'
-import { DIRECTION_LEFT, DIRECTION_RIGHT } from '@echo/ui/constants/direction'
+import { DIRECTION_LEFT } from '@echo/ui/constants/direction'
+import type { Direction } from '@echo/ui/types/direction'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
-export const caretIconDirections = [DIRECTION_RIGHT, DIRECTION_LEFT] as const
-export type CaretIconDirection = (typeof caretIconDirections)[number]
-
 interface Props extends SvgProps {
-  direction: CaretIconDirection
+  direction: Direction
 }
 
 export const SideCaretSvg: FunctionComponent<Props> = ({ direction, ...rest }) => (

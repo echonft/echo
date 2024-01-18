@@ -1,4 +1,4 @@
-import type { CollectionProviderResult } from '@echo/api/services/providers/collections'
+import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import { type Collection } from '@echo/model/types/collection'
 import { CollectionSearchBoxOptions } from '@echo/ui/components/collection/search/collection-search-box-options'
 import { CollectionSearchComboboxInput } from '@echo/ui/components/collection/search/collection-search-combobox-input'
