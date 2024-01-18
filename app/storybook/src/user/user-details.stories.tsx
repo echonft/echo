@@ -27,13 +27,6 @@ const metadata: Meta<ComponentType> = {
       options: BANNERS,
       control: { type: 'radio' }
     }
-  },
-  parameters: {
-    colorPicker: {
-      primaryPalette: 'Colorful palette',
-      applyColorTo: ['bannerColor'],
-      theme: 'dark'
-    }
   }
 }
 
