@@ -23,7 +23,8 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
   redirectIfNotLoggedIn(user, linkProvider.profile.offersReceived.getUrl())
   const filterParams = mapOfferFiltersToQueryParams({
     as: OFFER_FILTER_AS_RECEIVER,
-    state: [OFFER_STATE_OPEN, OFFER_STATE_ACCEPTED]
+    state: [OFFER_STATE_OPEN, OFFER_STATE_ACCEPTED],
+    includeExpired: false
   })
   const queryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'expiresAt', direction: 'desc' }]

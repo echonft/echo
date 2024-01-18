@@ -10,6 +10,7 @@ import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
+import { OFFER_STATE_ACCEPTED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { ProfileOffersCreatedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-created-api-provided'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { unstable_setRequestLocale } from 'next-intl/server'
@@ -22,7 +23,8 @@ const ProfileOffersCreatedPage: FunctionComponent = async () => {
   redirectIfNotLoggedIn(user, linkProvider.profile.offersCreated.getUrl())
   const filterParams = mapOfferFiltersToQueryParams({
     as: OFFER_FILTER_AS_SENDER,
-    includeExpired: true
+    includeExpired: true,
+    notState: [OFFER_STATE_OPEN, OFFER_STATE_ACCEPTED]
   })
   const queryParams = mapQueryConstraintsToQueryParams({
     orderBy: [{ field: 'createdAt', direction: 'desc' }]

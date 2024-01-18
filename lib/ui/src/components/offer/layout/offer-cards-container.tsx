@@ -14,8 +14,8 @@ export const OfferCardsContainer: FunctionComponent<Props> = ({ offers }) => {
     <OfferCardsLayout>
       {map(
         (offer) => (
-          <div className={clsx('flex', 'items-center', 'justify-center', 'w-[13.5rem]')}>
-            <OfferCard key={offer.id} offer={offer} />
+          <div className={clsx('flex', 'items-center', 'justify-center', 'w-[13.5rem]')} key={offer.id}>
+            <OfferCard offer={offer} />
           </div>
         ),
         offers
