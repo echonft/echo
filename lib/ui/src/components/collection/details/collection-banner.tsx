@@ -1,7 +1,8 @@
+import { DEFAULT_BANNER_URL } from '@echo/ui/constants/default-banner-url'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
+import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { type BannerPictureSize } from '@echo/ui/types/banner-picture-size'
 import { clsx } from 'clsx'
-import { always, identity, ifElse, isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 export interface BannerProps {
@@ -13,13 +14,7 @@ export const CollectionBanner: FunctionComponent<BannerProps> = ({ bannerUrl, ba
   return (
     <div
       style={{
-        backgroundImage: `linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, #121212 100%), url('${ifElse(
-          isNil,
-          always(
-            'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/default-collection-banner.svg?alt=media'
-          ),
-          identity
-        )(bannerUrl)}')`
+        backgroundImage: `${themeExtension.backgroundImage.banner}, url('${bannerUrl ?? DEFAULT_BANNER_URL}')`
       }}
       className={clsx(
         'absolute',

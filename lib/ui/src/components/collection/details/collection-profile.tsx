@@ -22,13 +22,12 @@ export const CollectionProfile: FunctionComponent<CollectionProfileProps> = ({
   twitterUsername,
   discordUrl,
   websiteUrl,
-  size,
   verified
 }) => {
   const t = useTranslations('collection')
   return (
-    <div className={clsx('flex', 'flex-row', 'w-full', 'gap-8')}>
-      <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} size={size} />
+    <div className={clsx('flex', 'flex-row', 'w-full', 'gap-8', 'pt-40', 'pb-8')}>
+      <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} />
       <div className={clsx('flex', 'flex-col', 'grow', 'gap-4')}>
         <div className={clsx('flex', 'flex-row', 'items-center', 'gap-2.5')}>
           <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase', 'truncate')}>{collectionName}</h1>

@@ -21,7 +21,7 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
       <div
         className={clsx(
           'rounded-2xl',
-          'bg-cover',
+          'bg-contain',
           'px-7',
           'py-4.5',
           'flex',
