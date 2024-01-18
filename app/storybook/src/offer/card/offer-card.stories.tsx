@@ -8,7 +8,7 @@ import { type Meta, type StoryObj } from '@storybook/react'
 import { assoc, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/Row',
+  title: 'Offer/Card',
   component: Component,
   parameters: {
     controls: {
