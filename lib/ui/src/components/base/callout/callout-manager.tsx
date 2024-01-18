@@ -1,5 +1,5 @@
+import { Callout } from '@echo/ui/components/base/callout/callout'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
-import { Callout } from '@echo/ui/components/layout/callout/callout'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { Transition } from '@headlessui/react'
 import { clsx } from 'clsx'

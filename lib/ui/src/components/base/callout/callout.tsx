@@ -1,4 +1,4 @@
-import { CalloutIcon } from '@echo/ui/components/layout/callout/callout-icon'
+import { CalloutIcon } from '@echo/ui/components/base/callout/callout-icon'
 import {
   CALLOUT_SEVERITY_ERROR,
   CALLOUT_SEVERITY_INFO,

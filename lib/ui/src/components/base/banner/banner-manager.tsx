@@ -1,4 +1,4 @@
-import { Banner } from '@echo/ui/components/base/banner'
+import { Banner } from '@echo/ui/components/base/banner/banner'
 import { useBannerStore } from '@echo/ui/hooks/use-banner-store'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'

@@ -1,8 +1,8 @@
 import type { AuthUser } from '@echo/model/types/auth-user'
-import type { DisconnectButtonProps } from '@echo/ui/components/layout/header/disconnect-button'
-import { HeaderLoggedIn } from '@echo/ui/components/layout/header/header-logged-in'
-import { HeaderLoggedOut } from '@echo/ui/components/layout/header/header-logged-out'
-import { HeaderLogoOnly } from '@echo/ui/components/layout/header/header-logo-only'
+import type { DisconnectButtonProps } from '@echo/ui/components/base/header/disconnect-button'
+import { HeaderLoggedIn } from '@echo/ui/components/base/header/header-logged-in'
+import { HeaderLoggedOut } from '@echo/ui/components/base/header/header-logged-out'
+import { HeaderLogoOnly } from '@echo/ui/components/base/header/header-logo-only'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 

@@ -2,8 +2,8 @@
 
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
+import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
-import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
 import { WalletButton as Component } from '@echo/ui/components/wallet/wallet-button'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'

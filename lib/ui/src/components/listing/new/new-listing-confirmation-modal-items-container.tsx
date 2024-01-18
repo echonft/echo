@@ -1,5 +1,5 @@
 import { type ListingItem } from '@echo/model/types/listing-item'
-import { ModalSubtitle } from '@echo/ui/components/layout/modal/modal-subtitle'
+import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
 import { NftThumbnail } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
 import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'

@@ -1,6 +1,6 @@
+import { HeaderLayout } from '@echo/ui/components/base/header/header-layout'
 import { InternalLink } from '@echo/ui/components/base/link/internal-link'
 import { EchoLogoSvg } from '@echo/ui/components/base/svg/echo-logo-svg'
-import { HeaderLayout } from '@echo/ui/components/layout/header/header-layout'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'

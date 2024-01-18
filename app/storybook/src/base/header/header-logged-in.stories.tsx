@@ -2,7 +2,7 @@
 
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
-import { HeaderLoggedIn as Component } from '@echo/ui/components/layout/header/header-logged-in'
+import { HeaderLoggedIn as Component } from '@echo/ui/components/base/header/header-logged-in'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { SignNonceArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import { type Meta, type StoryObj } from '@storybook/react'

@@ -1,6 +1,6 @@
 'use client'
-import { FiltersPanelLayout } from '@echo/ui/components/layout/filters-panel-layout'
 import { CollectionFilterSelector } from '@echo/ui/components/nft/filters/by-collection/collection-filter-selector'
+import { NftFiltersPanelLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panel-layout'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { useTranslations } from 'next-intl'
 import { map } from 'ramda'
@@ -15,13 +15,13 @@ export const CollectionFilterPanel: FunctionComponent<Props> = ({ filters, onTog
   const t = useTranslations('user.filters.collection')
 
   return (
-    <FiltersPanelLayout title={t('title')}>
+    <NftFiltersPanelLayout title={t('title')}>
       {map(
         (filter) => (
           <CollectionFilterSelector key={filter.id} filter={filter} onToggleSelection={onToggleSelection} />
         ),
         filters
       )}
-    </FiltersPanelLayout>
+    </NftFiltersPanelLayout>
   )
 }

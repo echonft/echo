@@ -3,7 +3,7 @@
 import '@echo/ui-css/index.css'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
-import { DisconnectButton as Component } from '@echo/ui/components/layout/header/disconnect-button'
+import { DisconnectButton as Component } from '@echo/ui/components/base/header/disconnect-button'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { SignNonceArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import { type Meta, type StoryObj } from '@storybook/react'

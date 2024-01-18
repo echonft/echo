@@ -1,4 +1,4 @@
-import { HeaderSkeleton } from '@echo/ui/components/layout/header/skeleton/header-skeleton'
+import { HeaderSkeleton } from '@echo/ui/components/base/header/skeleton/header-skeleton'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 

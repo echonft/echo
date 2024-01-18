@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { Banner as Component } from '@echo/ui/components/base/banner'
+import { Banner as Component } from '@echo/ui/components/base/banner/banner'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

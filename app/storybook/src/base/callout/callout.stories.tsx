@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { Callout as Component } from '@echo/ui/components/layout/callout/callout'
+import { Callout as Component } from '@echo/ui/components/base/callout/callout'
 import { CALLOUT_SEVERITIES, CALLOUT_SEVERITY_INFO } from '@echo/ui/constants/callout-severity'
 import { CALLOUT_VARIANT_SOLID, CALLOUT_VARIANTS } from '@echo/ui/constants/callout-variant'
 import { type Meta, type StoryObj } from '@storybook/react'
