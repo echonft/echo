@@ -5,9 +5,9 @@ import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import { userHasWallet } from '@echo/model/helpers/user/user-has-wallet'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Wallet } from '@echo/model/types/wallet'
+import { ConnectKitButtonRenderer } from '@echo/ui/components/wallet/connect-kit-button-renderer'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
-import { renderWalletButton } from '@echo/ui/helpers/wallet/render-wallet-button'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import type { WalletButtonRenderFn } from '@echo/ui/types/wallet-button-render-fn'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -15,7 +15,6 @@ import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { SignNonceArgs, SignNonceResult } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import type { AccountProvider } from '@echo/web3/helpers/wagmi/provider/account'
 import type { ChainProvider } from '@echo/web3/helpers/wagmi/provider/chain'
-import { ConnectKitButton } from 'connectkit'
 import { useTranslations } from 'next-intl'
 import { isNil, toLower } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
@@ -96,15 +95,14 @@ export const WalletButton: FunctionComponent<WalletButtonProps> = ({ fetcher, pr
   }, [address, chainId, isConnected, user, signNonceTrigger, walletLinked, nonce, getNonceTrigger])
 
   return (
-    <ConnectKitButton.Custom>
-      {renderWalletButton({
-        errors: { addWalletError, getNonceError, signNonceError },
-        isConnected,
-        isConnecting,
-        nonce,
-        renderConnect,
-        walletLinked
-      })}
-    </ConnectKitButton.Custom>
+    <ConnectKitButtonRenderer
+      renderConnect={renderConnect}
+      isConnected={isConnected}
+      isConnecting={isConnecting}
+      provider={provider}
+      nonce={nonce}
+      walletLinked={walletLinked}
+      errors={{ addWalletError, getNonceError, signNonceError }}
+    />
   )
 }
