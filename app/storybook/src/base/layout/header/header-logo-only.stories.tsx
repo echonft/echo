@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { HeaderLogoOnly as Component } from '@echo/ui/components/layout/header/header-logo-only'
 import { type Meta, type StoryObj } from '@storybook/react'
 

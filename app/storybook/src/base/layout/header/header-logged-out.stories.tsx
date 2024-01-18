@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { HeaderLoggedOut as Component } from '@echo/ui/components/layout/header/header-logged-out'
 import { type Meta, type StoryObj } from '@storybook/react'
 

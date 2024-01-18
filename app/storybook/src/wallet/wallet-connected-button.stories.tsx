@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { WalletConnectedButton as Component } from '@echo/ui/components/wallet/wallet-connected-button'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { toLower } from 'ramda'

@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { Modal as Component } from '@echo/ui/components/layout/modal/modal'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'

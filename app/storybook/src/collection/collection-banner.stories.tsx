@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { CollectionBanner as Component } from '@echo/ui/components/collection/details/collection-banner'
 import { type Meta, type StoryObj } from '@storybook/react'

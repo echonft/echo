@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
+// noinspection JSUnusedGlobalSymbols
 export const metadata: Metadata = {
   title: 'Echo',
   description: 'Echo',
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
     charset: 'utf-8'
   }
 }
+// noinspection JSUnusedGlobalSymbols
 export const viewport: Viewport = {
   colorScheme: 'dark',
   initialScale: 1,

@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { CollectionTileSkeleton as Component } from '@echo/ui/components/collection/tile/skeleton/collection-tile-skeleton'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'

@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import type { CancelListingArgs } from '@echo/api/services/fetcher/cancel-listing'
 import { LISTING_STATE_CANCELLED, LISTING_STATE_OPEN, LISTING_STATES } from '@echo/model/constants/listing-states'
 import type { Listing } from '@echo/model/types/listing'

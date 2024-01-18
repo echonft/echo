@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { Logo as Component } from '@echo/ui/components/base/logo/logo'
 import { type Meta, type StoryObj } from '@storybook/react'
 

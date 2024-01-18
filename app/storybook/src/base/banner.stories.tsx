@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { Banner as Component } from '@echo/ui/components/base/banner'
 import { type Meta, type StoryObj } from '@storybook/react'
 

@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { LoginStepIndicator as Component } from '@echo/ui/components/auth/login-step-indicator'
 import { type Meta, type StoryObj } from '@storybook/react'
 

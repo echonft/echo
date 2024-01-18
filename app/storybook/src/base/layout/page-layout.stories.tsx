@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import type { UserProfile } from '@echo/model/types/user-profile'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'

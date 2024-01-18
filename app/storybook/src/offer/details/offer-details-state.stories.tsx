@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { OFFER_STATE_OPEN, OFFER_STATES } from '@echo/model/constants/offer-states'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { OfferDetailsState as Component } from '@echo/ui/components/offer/details/offer-details-state'

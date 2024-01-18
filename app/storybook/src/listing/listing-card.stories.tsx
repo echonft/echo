@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
 import { ListingCard as Component } from '@echo/ui/components/listing/card/listing-card'
 import { type Meta, type StoryObj } from '@storybook/react'

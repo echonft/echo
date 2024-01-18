@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { DefaultJWT } from '@auth/core/jwt'
 import { DefaultSession } from '@auth/core/types'
 import type { User as FirestoreUser } from '@echo/firestore/types/model/user/user'

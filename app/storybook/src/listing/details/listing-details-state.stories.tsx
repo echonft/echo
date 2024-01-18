@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { LISTING_STATE_OPEN, LISTING_STATES } from '@echo/model/constants/listing-states'
 import type { ListingState } from '@echo/model/types/listing-state'
 import { ListingDetailsState as Component } from '@echo/ui/components/listing/details/listing-details-state'

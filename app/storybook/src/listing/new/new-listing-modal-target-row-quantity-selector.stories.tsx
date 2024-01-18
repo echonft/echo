@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { NewListingModalTargetRowQuantitySelector as Component } from '@echo/ui/components/listing/new/new-listing-modal-target-row-quantity-selector'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'

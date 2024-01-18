@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { UserDiscordTagSkeleton as Component } from '@echo/ui/components/shared/skeleton/user-discord-tag-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 

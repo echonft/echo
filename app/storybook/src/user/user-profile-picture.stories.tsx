@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { UserProfilePicture as Component } from '@echo/ui/components/shared/user-profile-picture'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
