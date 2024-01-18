@@ -1,7 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { UserProfilePictureSkeleton as Component } from '@echo/ui/components/shared/skeleton/user-profile-picture-skeleton'
-import { SIZE_LG } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -13,8 +12,4 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Skeleton: Story = {
-  args: {
-    size: SIZE_LG
-  }
-}
+export const Skeleton: Story = {}

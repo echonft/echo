@@ -1,6 +1,5 @@
 import { type Collection } from '@echo/model/types/collection'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
-import { SIZE_LG } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -30,7 +29,6 @@ export const CollectionDetailsApiProvided: FunctionComponent<Props> = ({ collect
       discordUrl={discordUrl}
       websiteUrl={websiteUrl}
       verified={verified}
-      size={SIZE_LG}
     />
   )
 }
