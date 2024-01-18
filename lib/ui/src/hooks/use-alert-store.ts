@@ -1,12 +1,11 @@
 import type { Alert } from '@echo/ui/types/alert'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { append, drop, modify } from 'ramda'
 import { create } from 'zustand'
 
 interface AlertStore {
   alerts: Alert[]
   show: (alert: Alert) => unknown
-  dismiss: EmptyFunction
+  dismiss: VoidFunction
 }
 
 export const useAlertStore = create<AlertStore>((set) => ({

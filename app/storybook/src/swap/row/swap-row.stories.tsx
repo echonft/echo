@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { SwapRow as Component } from '@echo/ui/components/swap/row/swap-row'
 import { type Meta, type StoryObj } from '@storybook/react'

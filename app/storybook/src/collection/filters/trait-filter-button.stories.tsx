@@ -1,7 +1,9 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { CollapsibleManager } from '@echo/ui/components/base/manager/collapsible-manager'
-import { FiltersPanelLayout as Component } from '@echo/ui/components/layout/filters-panel-layout'
 import { TraitFilterButtonSkeleton } from '@echo/ui/components/nft/filters/by-traits/skeleton/trait-filter-button-skeleton'
 import { TraitFilterButton } from '@echo/ui/components/nft/filters/by-traits/trait-filter-button'
+import { NftFiltersPanelLayout as Component } from '@echo/ui/components/nft/filters/layout/nft-filters-panel-layout'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

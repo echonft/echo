@@ -1,5 +1,4 @@
 import { createOffer } from '@echo/api/services/fetcher/create-offer'
-import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { NavigationLayout } from '@echo/ui/components/layout/navigation/navigation-layout'
 import { NewOfferManager } from '@echo/ui/components/offer/new/new-offer-manager'
 import { getUserNavigationItems } from '@echo/ui/helpers/user/get-user-navigation-items'
@@ -19,7 +18,6 @@ export const UserNavigationLayout: FunctionComponent<PropsWithChildren<Props>> =
     <NavigationLayout navigationItems={getUserNavigationItems(username)} activeNavigationItem={activeNavigationItem}>
       {children}
       <NewOfferManager fetcher={{ createOffer }} />
-      <CalloutManager />
     </NavigationLayout>
   )
 }

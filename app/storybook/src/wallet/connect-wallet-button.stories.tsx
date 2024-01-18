@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { ConnectWalletButton as Component } from '@echo/ui/components/wallet/connect-wallet-button'
 import { type Meta, type StoryObj } from '@storybook/react'
 

@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { CollectionSearchCollectionOption as Component } from '@echo/ui/components/collection/search/collection-search-collection-option'
 import { type Meta, type StoryObj } from '@storybook/react'

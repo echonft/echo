@@ -1,9 +1,10 @@
 import { ALIGNMENT_CENTER, ALIGNMENT_LEFT, ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
+import type { Alignment } from '@echo/ui/types/alignment'
 import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
-  alignment?: typeof ALIGNMENT_LEFT | typeof ALIGNMENT_CENTER | typeof ALIGNMENT_RIGHT
+  alignment?: Alignment
 }
 export const NftsLayout: FunctionComponent<PropsWithChildren<Props>> = ({ alignment = ALIGNMENT_LEFT, children }) => {
   return (

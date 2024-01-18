@@ -1,7 +1,6 @@
 import { createListing } from '@echo/api/services/fetcher/create-listing'
 import { createOffer } from '@echo/api/services/fetcher/create-offer'
 import { collections } from '@echo/api/services/providers/collections'
-import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { NavigationLayout } from '@echo/ui/components/layout/navigation/navigation-layout'
 import { NewListingManager } from '@echo/ui/components/listing/new/new-listing-manager'
 import { NewOfferManager } from '@echo/ui/components/offer/new/new-offer-manager'
@@ -23,7 +22,6 @@ export const CollectionNavigationLayout: FunctionComponent<PropsWithChildren<Pro
       {children}
       <NewOfferManager fetcher={{ createOffer }} />
       <NewListingManager fetcher={{ createListing }} provider={{ collections }} />
-      <CalloutManager />
     </NavigationLayout>
   )
 }

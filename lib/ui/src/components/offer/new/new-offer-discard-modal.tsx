@@ -1,6 +1,6 @@
 'use client'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
-import { Modal } from '@echo/ui/components/layout/modal/modal'
+import { Modal } from '@echo/ui/components/base/modal/modal'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'

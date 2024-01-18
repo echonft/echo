@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { SwapRowSkeleton as Component } from '@echo/ui/components/swap/row/skeleton/swap-row-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 

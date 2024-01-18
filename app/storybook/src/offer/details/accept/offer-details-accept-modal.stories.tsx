@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import type { AcceptOfferArgs } from '@echo/api/services/fetcher/accept-offer'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'

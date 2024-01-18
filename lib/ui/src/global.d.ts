@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { MessagesType } from '@echo/ui/types/messages'
 
 declare global {

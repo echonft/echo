@@ -3,12 +3,6 @@ import { Client, type ClientOptions, Options } from 'discord.js'
 
 // Credit: https://github.com/AnswerOverflow/AnswerOverflow
 // References: https://dev.to/heymarkkop/how-to-implement-test-and-mock-discordjs-v13-slash-commands-with-typescript-22lc
-export async function setupBot(override: Partial<ClientOptions> = {}) {
-  const client = mockClient(override)
-  await client.login()
-  return client
-}
-
 export function mockClient(
   override: Partial<ClientOptions> = {
     // Cache everything is used to simulate API responses, removes the limit

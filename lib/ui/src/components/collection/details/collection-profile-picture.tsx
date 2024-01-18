@@ -1,8 +1,5 @@
 import { DefaultCollectionProfilePicture } from '@echo/ui/components/base/svg/default-collection-profile-picture'
 import { ProfilePicture } from '@echo/ui/components/shared/profile-picture'
-import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
-import { getProfilePictureSize } from '@echo/ui/helpers/get-profile-picture-size'
-import { type ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -10,29 +7,20 @@ import { type FunctionComponent } from 'react'
 export interface CollectionProfilePictureProps {
   collectionName: string
   pictureUrl: string | undefined
-  size: ProfilePictureSize
 }
 
 export const CollectionProfilePicture: FunctionComponent<CollectionProfilePictureProps> = ({
   collectionName,
-  pictureUrl,
-  size
+  pictureUrl
 }) => {
   if (isNil(pictureUrl)) {
     return (
       <DefaultCollectionProfilePicture
-        className={clsx(
-          'rounded-2xl',
-          'border-solid',
-          'border-3',
-          'border-yellow-500',
-          size === SIZE_LG && ['h-40', 'w-40'],
-          size === SIZE_MD && ['h-[7.5rem]', 'w-[7.5rem]']
-        )}
-        width={getProfilePictureSize(size)}
-        height={getProfilePictureSize(size)}
+        className={clsx('rounded-2xl', 'border-solid', 'border-3', 'border-yellow-500', 'h-40', 'w-40')}
+        width={160}
+        height={160}
       />
     )
   }
-  return <ProfilePicture pictureUrl={pictureUrl} alt={collectionName} size={size} />
+  return <ProfilePicture pictureUrl={pictureUrl} alt={collectionName} />
 }

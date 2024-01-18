@@ -1,5 +1,5 @@
-import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
+import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 
 export function getOfferMock() {
-  return getAllOfferMocks()[0]
+  return getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
 }

@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { OfferDetailsContractApprovalRow as Component } from '@echo/ui/components/offer/details/offer-details-contract-approval-row'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3/helpers/wagmi/fetcher/get-erc721-contract-approval'

@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { NewListingModalTargetRow as Component } from '@echo/ui/components/listing/new/new-listing-modal-target-row'
 import { type Meta, type StoryObj } from '@storybook/react'

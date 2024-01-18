@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
 import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
 import { NewListingConfirmationModal as Component } from '@echo/ui/components/listing/new/new-listing-confirmation-modal'

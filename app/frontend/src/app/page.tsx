@@ -9,6 +9,7 @@ import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/asser
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { Home } from '@echo/ui/components/home/home'
 import { PageLayout } from '@echo/ui/components/layout/page-layout'
+import { PAGE_LAYOUT_BG_HOME } from '@echo/ui/constants/page-layout-background'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -40,7 +41,7 @@ const HomePage: FunctionComponent = async () => {
   assertNextFetchResponse(collectionsResponse)
   assertNextFetchResponse(swapsResponse)
   return (
-    <PageLayout user={user} headerVariants={{ transparent: true }}>
+    <PageLayout user={user} background={PAGE_LAYOUT_BG_HOME}>
       <Home collections={collectionsResponse.data.collections} offers={swapsResponse.data.offers} />
     </PageLayout>
   )

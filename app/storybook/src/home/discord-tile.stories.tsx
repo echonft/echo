@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { DiscordTile as Component } from '@echo/ui/components/home/discord/discord-tile'
 import { type Meta, type StoryObj } from '@storybook/react'
 

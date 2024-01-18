@@ -1,12 +1,12 @@
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
-import { ALIGNMENT_CENTER, ALIGNMENT_LEFT, ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
+import type { Alignment } from '@echo/ui/types/alignment'
 import { map, prop } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
 
 interface Props {
   items: OfferItem[]
-  alignment?: typeof ALIGNMENT_LEFT | typeof ALIGNMENT_CENTER | typeof ALIGNMENT_RIGHT
+  alignment?: Alignment
 }
 
 export const OfferItemsContainer: FunctionComponent<Props> = ({ alignment, items }) => {

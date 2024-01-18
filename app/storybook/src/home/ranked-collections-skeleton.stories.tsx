@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { RankedCollectionsSkeleton as Component } from '@echo/ui/components/home/collection/ranked/skeleton/ranked-collections-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 

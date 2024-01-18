@@ -1,4 +1,6 @@
-import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
+// noinspection JSUnusedGlobalSymbols
+
+import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { CALLOUT_SEVERITIES, CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { CALLOUT_VARIANT_SOLID, CALLOUT_VARIANTS } from '@echo/ui/constants/callout-variant'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
@@ -8,6 +10,7 @@ import type { FunctionComponent } from 'react'
 
 const DEFAULT_SEVERITY = CALLOUT_SEVERITY_ERROR
 const DEFAULT_VARIANT = CALLOUT_VARIANT_SOLID
+const DEFAULT_PERMANENT = false
 const DEFAULT_MESSAGE = 'This is an alert!'
 type ComponentType = FunctionComponent<Alert>
 const metadata: Meta<ComponentType> = {
@@ -22,6 +25,10 @@ const metadata: Meta<ComponentType> = {
       defaultValue: DEFAULT_VARIANT,
       options: CALLOUT_VARIANTS,
       control: { type: 'radio' }
+    },
+    permanent: {
+      defaultValue: DEFAULT_PERMANENT,
+      control: { type: 'boolean' }
     },
     message: {
       defaultValue: DEFAULT_MESSAGE
@@ -48,6 +55,7 @@ export const Managed: Story = {
   args: {
     severity: DEFAULT_SEVERITY,
     variant: DEFAULT_VARIANT,
-    message: DEFAULT_MESSAGE
+    message: DEFAULT_MESSAGE,
+    permanent: DEFAULT_PERMANENT
   }
 }

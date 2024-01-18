@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import type { AcceptOfferArgs } from '@echo/api/services/fetcher/accept-offer'
 import type { CancelOfferArgs } from '@echo/api/services/fetcher/cancel-offer'
 import type { GetOfferArgs } from '@echo/api/services/fetcher/get-offer'

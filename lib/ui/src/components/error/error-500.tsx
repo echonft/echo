@@ -23,10 +23,7 @@ export const Error500: FunctionComponent<Props> = ({ onReset }) => {
           'text-white'
         )}
       >
-        <EchoIconSvg
-          className={clsx('absolute', 'top-[200px]', 'left-[230px]', 'z-20', 'text-yellow-500')}
-          height={400}
-        />
+        <EchoIconSvg className={clsx('absolute', 'top-[200px]', 'left-[230px]', 'text-yellow-500')} height={400} />
         <span className={clsx('h-max', 'mr-[130px]')}>5</span>
         <span className={clsx('h-max', 'ml-[130px]')}>0</span>
       </div>

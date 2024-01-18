@@ -35,20 +35,20 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
 
   // Prevent user from navigating away from the page
   const onBeforeRouteChange = useCallback(() => {
-    if (hasNewOfferPending()) {
+    if (hasNewOfferPending) {
       setShowDiscardOfferModal(true)
       return false
     }
-    if (hasNewListingPending()) {
+    if (hasNewListingPending) {
       setShowDiscardListingModal(true)
       return false
     }
     return true
-  }, [hasNewOfferPending])
+  }, [hasNewListingPending, hasNewOfferPending])
 
   const { allowRouteChange } = useRouteChangeEvents({ onBeforeRouteChange })
   // Prevent navigation (refresh, back, forward) if offer or listing is pending. Doesn't work flawlessly but will do the trick for now.
-  useBeforeunload(hasNewOfferPending() || hasNewListingPending() ? (event) => event.preventDefault() : undefined)
+  useBeforeunload(hasNewOfferPending || hasNewListingPending ? (event) => event.preventDefault() : undefined)
 
   const discardOffer = () => {
     allowRouteChange()
@@ -63,7 +63,7 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
   }
 
   const selectableNfts = useMemo(() => {
-    if (hasNewOfferPending()) {
+    if (hasNewOfferPending) {
       return map<Nft, SelectableNft>(assoc('actionDisabled', true), nfts)
     }
     return map<Nft, SelectableNft>(
@@ -73,7 +73,7 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
   }, [nfts, hasNewOfferPending])
 
   const onButtonClick = (nfts: SelectableNft[]) => {
-    if (hasNewOfferPending()) {
+    if (hasNewOfferPending) {
       setSenderItems(map(mapNftToItem, nfts))
       openNewOfferModal()
     } else {
@@ -92,9 +92,9 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
               nfts={selectableNfts}
               availableFilters={[NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS]}
               btnLabel={t(
-                hasNewOfferPending()
+                hasNewOfferPending
                   ? 'offerButton.label'
-                  : hasNewListingPending()
+                  : hasNewListingPending
                     ? 'finalizeListingButton.label'
                     : 'listingButton.label'
               )}

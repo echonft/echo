@@ -1,5 +1,7 @@
-import { FiltersPanelLayout as Component } from '@echo/ui/components/layout/filters-panel-layout'
+// noinspection JSUnusedGlobalSymbols
+
 import { CollectionFilterSelector } from '@echo/ui/components/nft/filters/by-collection/collection-filter-selector'
+import { NftFiltersPanelLayout as Component } from '@echo/ui/components/nft/filters/layout/nft-filters-panel-layout'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

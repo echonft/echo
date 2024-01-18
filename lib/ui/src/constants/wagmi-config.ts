@@ -32,9 +32,10 @@ const connectors = [
       projectId: getWalletConnectProjectId(),
       metadata: {
         name: 'Echo',
+        // TODO
         description: 'TODO',
-        url: 'https://www.echonft.xyz/',
-        icons: ['https://www.echonft.xyz/favicon.ico']
+        url: process.env.VERCEL_URL,
+        icons: [`${process.env.VERCEL_URL}/favicon.ico`]
       }
     }
   })
@@ -45,10 +46,6 @@ export const wagmiConfig: Config<
   WebSocketPublicClient<FallbackTransport>
 > = createConfig({
   autoConnect: true,
-  // TODO Add sentry
-  // logger: {
-  //   warn:
-  // },
   connectors,
   publicClient,
   webSocketPublicClient
