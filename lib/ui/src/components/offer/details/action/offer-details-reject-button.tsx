@@ -1,5 +1,6 @@
 'use client'
-import type { RejectOfferArgs } from '@echo/api/services/fetcher/reject-offer'
+
+import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'

@@ -1,10 +1,6 @@
 import { BASE_URL } from '@echo/api/constants/base-url'
+import type { PathArgs } from '@echo/api/types/routing/path-args'
 import { compile, pathToRegexp } from 'path-to-regexp'
-
-export interface PathArgs {
-  path: string
-  secure?: boolean
-}
 
 export class Path<T extends object = never> {
   secure: boolean

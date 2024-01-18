@@ -1,5 +1,5 @@
 import type { ListingItem } from '@echo/model/types/listing-item'
-import type { Target } from '@echo/ui/components/listing/new/new-listing-manager'
+import type { Target } from '@echo/ui/types/target'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { assoc, is, isNotNil, pipe } from 'ramda'
 import { create } from 'zustand'

@@ -1,13 +1,8 @@
-import type { Offer } from '@echo/model/types/offer'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { mapOfferToOfferSignature } from '@echo/web3/mappers/map-offer-to-offer-signature'
+import type { SignOfferArgs } from '@echo/web3/types/sign-offer-args'
 import { signTypedData } from '@wagmi/core'
 import { pipe } from 'ramda'
-
-export interface SignOfferArgs {
-  chainId: number
-  offer: Offer
-}
 
 function getSignatureConfigForOffer(args: SignOfferArgs) {
   const { chainId } = args

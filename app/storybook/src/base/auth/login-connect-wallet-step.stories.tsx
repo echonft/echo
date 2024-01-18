@@ -5,7 +5,7 @@ import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user
 import { LoginConnectWalletStep as Component } from '@echo/ui/components/auth/login-connect-wallet-step'
 import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import type { SignNonceArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
+import type { SignNonceArgs } from '@echo/web3/types/sign-nonce-args'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'
 

@@ -1,4 +1,4 @@
-import type { CollectionProviderResult } from '@echo/api/services/providers/collections'
+import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import { CollectionSearchCollectionOption } from '@echo/ui/components/collection/search/collection-search-collection-option'
 import { CollectionSearchNoResults } from '@echo/ui/components/collection/search/collection-search-no-results'
 import { NewListingSearchCollectionOptionSkeleton } from '@echo/ui/components/listing/new/skeleton/new-listing-search-collection-option-skeleton'

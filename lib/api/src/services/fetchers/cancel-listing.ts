@@ -1,11 +1,8 @@
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
+import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import axios from 'axios'
 import { pick, prop } from 'ramda'
-
-export interface CancelListingArgs {
-  listingId: string
-}
 
 export function cancelListing(args: CancelListingArgs) {
   return axios
