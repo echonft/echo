@@ -86,6 +86,14 @@ function showSwapButton(offer: Offer, isCreator: boolean) {
     return false
   }
 }
+function shouldShowButtons(offer: Offer, isCreator: boolean) {
+  return (
+    showAcceptButton(offer, isCreator) ||
+    showCancelButton(offer, isCreator) ||
+    showRejectButton(offer, isCreator) ||
+    showSwapButton(offer, isCreator)
+  )
+}
 
 export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, isCreator, fetcher, provider, onSuccess }) => {
   const [buttonsDisabled, setButtonsDisabled] = useState(false)
@@ -99,8 +107,13 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, isCreator
     setButtonsDisabled(false)
   }
 
+  // Don't show anything if no buttons should be shown
+  if (!shouldShowButtons(offer, isCreator)) {
+    return null
+  }
+
   return (
-    <div className={clsx('flex', 'flex-row', 'gap-8')}>
+    <div className={clsx('flex', 'flex-row', 'gap-8', 'justify-center', 'items-center', 'pb-5')}>
       <ShowIf condition={showAcceptButton(offer, isCreator)}>
         <OfferDetailsAcceptButton
           offer={offer}

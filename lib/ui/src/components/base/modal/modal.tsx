@@ -1,9 +1,8 @@
 'use client'
+import { BackButton } from '@echo/ui/components/base/back-button'
 import { ModalTitle } from '@echo/ui/components/base/modal/modal-title'
-import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
-import { DIRECTION_LEFT } from '@echo/ui/constants/direction'
 import { Dialog, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { Fragment, type FunctionComponent, type PropsWithChildren } from 'react'
@@ -80,24 +79,7 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
                 'z-30'
               )}
             >
-              <HideIfNil
-                checks={onBack}
-                render={(onBack) => (
-                  <button className={clsx('btn', 'group', 'gap-4', '!justify-start', 'pb-[3.12rem]')} onClick={onBack}>
-                    <span className={clsx('btn-label-secondary')}>
-                      <SideCaretSvg direction={DIRECTION_LEFT} width={12} height={20} />
-                    </span>
-                    <HideIfNilOrEmpty
-                      checks={backButtonLabel}
-                      render={(label) => (
-                        <span className={clsx('btn-label-secondary', 'prose-paragraph-sm', '!text-[0.9375rem]')}>
-                          {label}
-                        </span>
-                      )}
-                    />
-                  </button>
-                )}
-              />
+              <HideIfNil checks={onBack} render={(onBack) => <BackButton onBack={onBack} title={backButtonLabel} />} />
               <HideIfNilOrEmpty
                 checks={title}
                 render={(title) => (

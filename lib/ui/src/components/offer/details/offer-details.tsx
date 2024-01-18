@@ -7,13 +7,11 @@ import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import type { Offer } from '@echo/model/types/offer'
-import { ItemsDetailsSeparator } from '@echo/ui/components/item/details/items-details-separator'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
+import { ItemsSeparator } from '@echo/ui/components/shared/items-separator'
 import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
-import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
-import { getOfferDetailsContainerBackgroundImage } from '@echo/ui/helpers/offer/get-offer-details-container-background-image'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { ApproveErc721ContractArgs } from '@echo/web3/types/approve-erc-721-contract-args'
@@ -51,36 +49,24 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, fetch
   const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
 
   return (
-    <div
-      className={clsx(
-        'flex',
-        'flex-col',
-        'gap-16',
-        'p-4',
-        'rounded-lg',
-        getOfferDetailsContainerBackgroundImage(state),
-        'bg-white/[0.05]'
-      )}
-    >
+    <div className={clsx('flex', 'flex-col', 'gap-24')}>
       <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
         <UserDetailsContainer user={isCreator ? receiver : sender} />
         <OfferDetailsState state={state} expired={expired} expiresAt={expiresAt} />
       </div>
-      <div className={clsx('flex', 'flex-col', 'gap-5')}>
-        <OfferDetailsItemsContainer items={isCreator ? receiverItems : senderItems} direction={SWAP_DIRECTION_IN} />
+      <div className={clsx('flex', 'flex-col', 'gap-20')}>
+        <OfferDetailsItemsContainer items={isCreator ? receiverItems : senderItems} />
         <div className={clsx('pb-4')}>
-          <ItemsDetailsSeparator />
+          <ItemsSeparator />
         </div>
-        <OfferDetailsItemsContainer items={isCreator ? senderItems : receiverItems} direction={SWAP_DIRECTION_OUT} />
-        <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
-          <OfferDetailsButtons
-            offer={updatedOffer}
-            isCreator={isCreator}
-            fetcher={fetcher}
-            provider={provider}
-            onSuccess={setUpdatedOffer}
-          />
-        </div>
+        <OfferDetailsItemsContainer items={isCreator ? senderItems : receiverItems} />
+        <OfferDetailsButtons
+          offer={updatedOffer}
+          isCreator={isCreator}
+          fetcher={fetcher}
+          provider={provider}
+          onSuccess={setUpdatedOffer}
+        />
       </div>
     </div>
   )

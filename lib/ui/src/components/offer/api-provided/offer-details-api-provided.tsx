@@ -6,13 +6,13 @@ import { getOfferSignature } from '@echo/api/services/fetchers/get-offer-signatu
 import { rejectOffer } from '@echo/api/services/fetchers/reject-offer'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Offer } from '@echo/model/types/offer'
-import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { approveErc721Contract } from '@echo/web3/helpers/wagmi/fetchers/approve-erc721-contract'
 import { executeSwap } from '@echo/web3/helpers/wagmi/fetchers/execute-swap'
 import { getErc721ContractApproval } from '@echo/web3/helpers/wagmi/fetchers/get-erc721-contract-approval'
 import { signOffer } from '@echo/web3/helpers/wagmi/fetchers/sign-offer'
 import { chain } from '@echo/web3/helpers/wagmi/providers/chain'
+import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -22,7 +22,7 @@ interface Props {
 
 export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user }) => {
   return (
-    <PaddedContainer>
+    <div className={clsx('py-4')}>
       <OfferDetails
         offer={offer}
         isCreator={user.username === offer.sender?.username}
@@ -41,6 +41,6 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user 
           chain
         }}
       />
-    </PaddedContainer>
+    </div>
   )
 }
