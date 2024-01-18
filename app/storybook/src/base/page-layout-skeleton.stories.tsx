@@ -1,10 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { UserProfilePictureSkeleton as Component } from '@echo/ui/components/shared/skeleton/user-profile-picture-skeleton'
+import { PageLayoutSkeleton as Component } from '@echo/ui/components/layout/skeleton/page-layout-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'User/Profile Picture',
+  title: 'Base/Page Layout',
   component: Component
 }
 

@@ -7,6 +7,8 @@ import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manag
 import { HeaderSelector } from '@echo/ui/components/layout/header/header-selector'
 import { MainSectionLayout } from '@echo/ui/components/layout/main-section-layout'
 import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
+import { PAGE_LAYOUT_BG_DEFAULT } from '@echo/ui/constants/page-layout-background'
+import type { PageLayoutBackground } from '@echo/ui/types/page-layout-background'
 import { signNonce } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import { account } from '@echo/web3/helpers/wagmi/provider/account'
 import { chain } from '@echo/web3/helpers/wagmi/provider/chain'
@@ -15,21 +17,32 @@ import { signOut } from 'next-auth/react'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
-  user?: AuthUser
+  background?: PageLayoutBackground
   headerVariants?: {
-    transparent?: boolean
     logoOnly?: boolean
   }
+  user?: AuthUser
 }
 
-export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({ user, headerVariants, children }) => {
-  const transparent = Boolean(headerVariants?.transparent)
-  const logoOnly = Boolean(headerVariants?.logoOnly)
+export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
+  background = PAGE_LAYOUT_BG_DEFAULT,
+  headerVariants,
+  user,
+  children
+}) => {
   return (
-    <div className={clsx('w-full', 'h-full', 'overflow-y-auto', transparent ? 'relative' : 'bg-dark-500')}>
+    <div
+      className={clsx(
+        'w-full',
+        'h-full',
+        'overflow-y-auto',
+        background === PAGE_LAYOUT_BG_DEFAULT
+          ? 'bg-dark-500'
+          : ['bg-home', 'bg-[length:100%_41.4375rem]', 'bg-no-repeat']
+      )}
+    >
       <HeaderSelector
-        transparent={transparent}
-        logoOnly={Boolean(logoOnly)}
+        logoOnly={Boolean(headerVariants?.logoOnly)}
         fetcher={{ addWallet, getNonce, signNonce }}
         provider={{ account, chain, signOut }}
         renderConnect={({ isConnecting, show }) => <ConnectWalletButton isConnecting={isConnecting} onClick={show} />}

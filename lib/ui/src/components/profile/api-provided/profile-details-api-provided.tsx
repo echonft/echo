@@ -6,7 +6,6 @@ import { UserProfilePicture } from '@echo/ui/components/shared/user-profile-pict
 import { UserDetailsLayout } from '@echo/ui/components/user/layout/user-details-layout'
 import { UserInfoLayout } from '@echo/ui/components/user/layout/user-info-layout'
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
-import { SIZE_LG } from '@echo/ui/constants/size'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -25,7 +24,7 @@ export const ProfileDetailsApiProvided: FunctionComponent<Props> = ({ user }) =>
     <UserDetailsLayout bannerUrl={bannerUrl} bannerColor={bannerColor}>
       <PaddedContainer>
         <UserPictureAndInfoLayout>
-          <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SIZE_LG} />
+          <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} />
           <UserInfoLayout>
             <UserDiscordTag discordUsername={username} />
           </UserInfoLayout>

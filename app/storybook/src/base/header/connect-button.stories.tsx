@@ -1,10 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { UserProfilePictureSkeleton as Component } from '@echo/ui/components/shared/skeleton/user-profile-picture-skeleton'
+import { ConnectButton as Component } from '@echo/ui/components/layout/header/connect-button'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'User/Profile Picture',
+  title: 'Base/Header/Connect Button',
   component: Component
 }
 
@@ -12,4 +12,4 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Skeleton: Story = {}
+export const ConnectButton: Story = {}

@@ -18,14 +18,13 @@ export const UserDetails: FunctionComponent<Props> = ({
   bannerColor,
   bannerUrl,
   discordAvatarUrl,
-  wallet,
-  size
+  wallet
 }) => {
   return (
     <UserDetailsLayout bannerUrl={bannerUrl} bannerColor={bannerColor}>
       <PaddedContainer>
         <UserPictureAndInfoLayout>
-          <UserProfilePicture discordUsername={discordUsername} discordAvatarUrl={discordAvatarUrl} size={size} />
+          <UserProfilePicture discordUsername={discordUsername} discordAvatarUrl={discordAvatarUrl} />
           <UserInfoLayout>
             <UserDiscordTag discordUsername={discordUsername} />
             <HideIfNil checks={wallet} render={(wallet) => <WalletConnectedButton wallet={wallet} />} />
