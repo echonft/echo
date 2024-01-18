@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { CalloutManager } from '@echo/ui/components/layout/callout/callout-manager'
 import { CALLOUT_SEVERITIES, CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { CALLOUT_VARIANT_SOLID, CALLOUT_VARIANTS } from '@echo/ui/constants/callout-variant'

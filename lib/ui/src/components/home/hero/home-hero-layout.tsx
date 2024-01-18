@@ -9,7 +9,7 @@ interface Props {
 
 export const HomeHeroLayout: FunctionComponent<PropsWithChildren<Props>> = ({ title, subtitle, children }) => {
   return (
-    <div className={clsx('w-full', 'h-max', 'pt-[3.4375rem]', 'pb-24', 'bg-home')}>
+    <div className={clsx('w-full', 'h-max', 'pb-24')}>
       <PaddedContainer>
         <div
           className={clsx('flex', 'flex-row', 'items-center', 'justify-between', 'gap-28', 'w-full', 'h-max', 'pt-20')}

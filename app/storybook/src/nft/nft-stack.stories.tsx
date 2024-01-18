@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { NftStack as Component } from '@echo/ui/components/nft/stack/nft-stack'
 import { type Meta, type StoryObj } from '@storybook/react'

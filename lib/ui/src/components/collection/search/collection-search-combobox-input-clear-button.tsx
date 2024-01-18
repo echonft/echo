@@ -14,7 +14,6 @@ export const CollectionSearchComboboxInputClearButton: FunctionComponent<Props> 
         'flex',
         'justify-center',
         'items-center',
-        'z-10',
         'w-4',
         'h-4',
         'rounded-full',

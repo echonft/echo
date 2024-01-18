@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { NewOfferManager as Component } from '@echo/ui/components/offer/new/new-offer-manager'

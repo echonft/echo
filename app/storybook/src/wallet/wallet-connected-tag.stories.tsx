@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { WalletConnectedTag as Component } from '@echo/ui/components/wallet/wallet-connected-tag'
 import { type Meta, type StoryObj } from '@storybook/react'
 

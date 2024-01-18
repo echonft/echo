@@ -39,7 +39,7 @@ export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({
         <WalletButton fetcher={fetcher} provider={provider} renderConnect={renderConnect} user={user} />
       </Web3Provider>
       <Menu as="div" className={clsx('relative', 'inline-block')}>
-        <Menu.Button className={clsx('group')}>
+        <Menu.Button className={clsx('group', 'outline-none')}>
           <UserTagPictureButton user={user} />
         </Menu.Button>
         <Transition
@@ -58,9 +58,11 @@ export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({
               'py-2',
               'rounded-lg',
               'bg-dark-500',
+              'border',
+              'border-dark-100',
               'w-36',
               'h-max',
-              'z-30'
+              'z-10'
             )}
           >
             <Menu.Item>

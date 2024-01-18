@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'

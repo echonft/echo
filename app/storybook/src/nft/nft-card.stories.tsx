@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getNftMock } from '@echo/model-mocks/nft/get-nft-mock'
 import { NftCard as Component, type NftCardProps } from '@echo/ui/components/nft/card/nft-card'
 import { NFT_CARD_VARIANT_REDUCED } from '@echo/ui/constants/nft-card-variants'

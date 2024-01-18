@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { type Listing } from '@echo/model/types/listing'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { ListingRow as Component } from '@echo/ui/components/listing/row/listing-row'

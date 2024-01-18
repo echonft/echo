@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { NavigationPills as Component } from '@echo/ui/components/layout/navigation/navigation-pills'
 import { type Meta, type StoryObj } from '@storybook/react'
 

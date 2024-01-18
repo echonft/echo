@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { OfferRowStatePillSkeleton as Component } from '@echo/ui/components/offer/row/skeleton/offer-row-state-pill-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 

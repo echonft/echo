@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getOfferMock } from '@echo/model-mocks/offer/get-offer-mock'
 import { OfferDetailsContractApprovalModal as Component } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'

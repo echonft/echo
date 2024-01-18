@@ -5,10 +5,10 @@ import { HomeCollections } from '@echo/ui/components/home/collection/home-collec
 import { DiscordTile } from '@echo/ui/components/home/discord/discord-tile'
 import { HomeHero } from '@echo/ui/components/home/hero/home-hero'
 import { HomeDiscordTileLayout } from '@echo/ui/components/home/layout/home-discord-tile-layout'
+import { HomeLayout } from '@echo/ui/components/home/layout/home-layout'
 import { HomeSectionsLayout } from '@echo/ui/components/home/layout/home-sections-layout'
 import { RecentSwaps } from '@echo/ui/components/home/swap/recent-swaps'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { clsx } from 'clsx'
 import { head, tail } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -19,7 +19,7 @@ export interface HomeProps {
 
 export const Home: FunctionComponent<HomeProps> = ({ collections, offers }) => {
   return (
-    <div className={clsx('min-h-full')}>
+    <HomeLayout>
       <HomeHero collection={head<Collection, Collection>(collections as NonEmptyArray<Collection>)} />
       <HomeSectionsLayout>
         <HomeCollections collections={tail(collections)} />
@@ -28,6 +28,6 @@ export const Home: FunctionComponent<HomeProps> = ({ collections, offers }) => {
           <DiscordTile />
         </HomeDiscordTileLayout>
       </HomeSectionsLayout>
-    </div>
+    </HomeLayout>
   )
 }

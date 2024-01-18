@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { CollectionTile as Component } from '@echo/ui/components/collection/tile/collection-tile'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'

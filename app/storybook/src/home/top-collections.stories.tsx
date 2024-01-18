@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { type Collection } from '@echo/model/types/collection'
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
 import { TopCollections as Component } from '@echo/ui/components/home/collection/top/top-collections'

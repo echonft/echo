@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { NewOfferConfirmationModal as Component } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
 import { type Meta, type StoryObj } from '@storybook/react'

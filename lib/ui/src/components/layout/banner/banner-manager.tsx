@@ -1,68 +1,18 @@
-import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
-import { Callout } from '@echo/ui/components/layout/callout/callout'
-import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
-import { Transition } from '@headlessui/react'
+import { Banner } from '@echo/ui/components/base/banner'
+import { useBannerStore } from '@echo/ui/hooks/use-banner-store'
 import { clsx } from 'clsx'
-import { head, isNil } from 'ramda'
-import { type FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
+import { isNil } from 'ramda'
+import { type FunctionComponent } from 'react'
 
 export const BannerManager: FunctionComponent = () => {
-  const { alerts, dismiss } = useAlertStore()
-  const [show, setShow] = useState(false)
-  const showTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
-  const dismissTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
-  const alert = head(alerts)
-  const delayedDismiss = useCallback(() => {
-    setShow(false)
-    showTimeoutRef.current = setTimeout(() => {
-      dismiss()
-    }, 600)
-  }, [setShow, dismiss])
-
-  useEffect(() => {
-    if (!isNil(alert)) {
-      setShow(true)
-      if (!alert.permanent) {
-        dismissTimeoutRef.current = setTimeout(delayedDismiss, 3000)
-      }
-    }
-  }, [delayedDismiss, alert])
-
-  useEffect(() => {
-    return (): void => {
-      if (!isNil(dismissTimeoutRef.current)) {
-        clearTimeout(dismissTimeoutRef.current)
-      }
-      if (!isNil(showTimeoutRef.current)) {
-        clearTimeout(showTimeoutRef.current)
-      }
-    }
-  }, [])
+  const { banner } = useBannerStore()
+  if (isNil(banner)) {
+    return null
+  }
 
   return (
-    <Transition
-      show={show}
-      enter="transition duration-500 ease-out"
-      enterFrom="transform opacity-0"
-      enterTo="transform opacity-100"
-      leave="transition duration-500 ease-out"
-      leaveFrom="transform opacity-100"
-      leaveTo="transform opacity-0"
-    >
-      <div className={clsx('absolute', 'z-30', 'top-0', 'inset-x-0')}>
-        <HideIfNil
-          checks={alert}
-          render={(alert) => (
-            <Callout
-              severity={alert.severity}
-              variant={alert.variant}
-              onClick={alert.permanent ? delayedDismiss : undefined}
-            >
-              {alert.message}
-            </Callout>
-          )}
-        />
-      </div>
-    </Transition>
+    <div className={clsx('absolute', 'top-0', 'inset-x-0')}>
+      <Banner {...banner} />
+    </div>
   )
 }

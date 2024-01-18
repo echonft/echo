@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { LoginDiscordStep as Component } from '@echo/ui/components/auth/login-discord-step'

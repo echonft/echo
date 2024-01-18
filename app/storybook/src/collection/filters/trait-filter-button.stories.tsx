@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { CollapsibleManager } from '@echo/ui/components/base/manager/collapsible-manager'
 import { FiltersPanelLayout as Component } from '@echo/ui/components/layout/filters-panel-layout'
 import { TraitFilterButtonSkeleton } from '@echo/ui/components/nft/filters/by-traits/skeleton/trait-filter-button-skeleton'

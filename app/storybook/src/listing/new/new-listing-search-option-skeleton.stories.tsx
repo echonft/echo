@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { NewListingSearchCollectionOptionSkeleton as Component } from '@echo/ui/components/listing/new/skeleton/new-listing-search-collection-option-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 

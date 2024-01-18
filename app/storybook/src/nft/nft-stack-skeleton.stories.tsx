@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { NftStackSkeleton as Component } from '@echo/ui/components/nft/stack/skeleton/nft-stack-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 

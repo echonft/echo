@@ -26,7 +26,7 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
 }) => {
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as={'div'} className={clsx('relative', 'z-30')} onClose={() => onClose?.()}>
+      <Dialog as={'div'} className={clsx('relative')} onClose={() => onClose?.()}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -36,72 +36,79 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className={clsx('fixed', 'inset-0', 'bg-dark-500/80')} />
+          <div className={clsx('fixed', 'inset-0', 'bg-dark-500/80', 'z-20')} />
         </Transition.Child>
-        <div className={clsx('fixed', 'inset-0', 'overflow-y-auto')}>
-          <div className={clsx('flex', 'min-h-full', 'items-center', 'justify-center')}>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-8- scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
+        <div
+          className={clsx(
+            'fixed',
+            'inset-0',
+            'overflow-hidden',
+            'flex',
+            'items-center',
+            'justify-center',
+            'bg-transparent',
+            'z-30'
+          )}
+        >
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-8- scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <Dialog.Panel
+              className={clsx(
+                'flex',
+                'flex-col',
+                'w-full',
+                'max-w-md',
+                'h-max',
+                'transform',
+                'overflow-hidden',
+                'border-2',
+                'border-white/10',
+                'rounded-2xl',
+                'bg-dark-500',
+                'py-[1.88rem]',
+                'px-5',
+                'align-middle',
+                'shadow-modal',
+                'transition-all',
+                'z-30'
+              )}
             >
-              <Dialog.Panel
-                className={clsx(
-                  'flex',
-                  'flex-col',
-                  'w-full',
-                  'max-w-md',
-                  'h-max',
-                  'transform',
-                  'overflow-hidden',
-                  'border-2',
-                  'border-white/10',
-                  'rounded-2xl',
-                  'bg-dark-500',
-                  'py-[1.88rem]',
-                  'px-5',
-                  'align-middle',
-                  'shadow-modal',
-                  'transition-all'
+              <HideIfNil
+                checks={onBack}
+                render={(onBack) => (
+                  <button className={clsx('btn', 'group', 'gap-4', '!justify-start', 'pb-[3.12rem]')} onClick={onBack}>
+                    <span className={clsx('btn-label-secondary')}>
+                      <SideCaretSvg direction={DIRECTION_LEFT} width={12} height={20} />
+                    </span>
+                    <HideIfNilOrEmpty
+                      checks={backButtonLabel}
+                      render={(label) => (
+                        <span className={clsx('btn-label-secondary', 'prose-paragraph-sm', '!text-[0.9375rem]')}>
+                          {label}
+                        </span>
+                      )}
+                    />
+                  </button>
                 )}
-              >
-                <HideIfNil
-                  checks={onBack}
-                  render={(onBack) => (
-                    <button
-                      className={clsx('btn', 'group', 'gap-4', '!justify-start', 'pb-[3.12rem]')}
-                      onClick={onBack}
-                    >
-                      <span className={clsx('btn-label-secondary')}>
-                        <SideCaretSvg direction={DIRECTION_LEFT} width={12} height={20} />
-                      </span>
-                      <HideIfNilOrEmpty
-                        checks={backButtonLabel}
-                        render={(label) => (
-                          <span className={clsx('btn-label-secondary', 'prose-paragraph-sm', '!text-[0.9375rem]')}>
-                            {label}
-                          </span>
-                        )}
-                      />
-                    </button>
-                  )}
-                />
-                <HideIfNilOrEmpty
-                  checks={title}
-                  render={(title) => (
-                    <Dialog.Title as={Fragment}>
-                      <ModalTitle>{title}</ModalTitle>
-                    </Dialog.Title>
-                  )}
-                />
-                <Dialog.Description as={Fragment}>{children}</Dialog.Description>
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
+              />
+              <HideIfNilOrEmpty
+                checks={title}
+                render={(title) => (
+                  <Dialog.Title as={Fragment}>
+                    <ModalTitle>{title}</ModalTitle>
+                  </Dialog.Title>
+                )}
+              />
+              <Dialog.Description as={Fragment}>{children}</Dialog.Description>
+            </Dialog.Panel>
+          </Transition.Child>
         </div>
       </Dialog>
     </Transition>

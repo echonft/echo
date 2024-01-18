@@ -32,7 +32,7 @@ export const CollectionNftsApiProvided: FunctionComponent<Props> = ({ collection
   const { hasNewOfferPending, openModal: openNewOfferModal, setReceiverItems } = useNewOfferStore()
   const { openModal: openNewListingModal, setTarget } = useNewListingStore()
   const selectableNfts = useMemo(() => {
-    if (hasNewOfferPending()) {
+    if (hasNewOfferPending) {
       return map<Nft, SelectableNft>(
         pipe<[Nft], SelectableNft, SelectableNft>(
           assoc('actionDisabled', true),

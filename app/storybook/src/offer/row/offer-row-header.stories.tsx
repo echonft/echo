@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { OFFER_STATE_OPEN, OFFER_STATES } from '@echo/model/constants/offer-states'
 import { OfferRowHeader as Component } from '@echo/ui/components/offer/row/offer-row-header'
 import { type Meta, type StoryObj } from '@storybook/react'

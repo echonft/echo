@@ -1,8 +1,7 @@
 import type { ListingItem } from '@echo/model/types/listing-item'
 import type { Target } from '@echo/ui/components/listing/new/new-listing-manager'
-import { propIsNotEmpty } from '@echo/utils/fp/prop-is-not-empty'
-import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
-import { assoc, either, is, pipe } from 'ramda'
+import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
+import { assoc, is, isNotNil, pipe } from 'ramda'
 import { create } from 'zustand'
 
 interface NewListingState {
@@ -14,7 +13,7 @@ interface NewListingState {
   clearListing: VoidFunction
   openModal: VoidFunction
   closeModal: VoidFunction
-  hasNewListingPending: () => boolean
+  hasNewListingPending: boolean
 }
 
 export const useNewListingStore = create<NewListingState>((set, get) => ({
@@ -23,7 +22,8 @@ export const useNewListingStore = create<NewListingState>((set, get) => ({
   items: [],
   setTarget: (args) => {
     function setState(target: Target | undefined) {
-      set(assoc('target', target))
+      const hasNewListingPending = isNotNil(target) || isNonEmptyArray(get().items)
+      set(pipe(assoc('target', target), assoc('hasNewListingPending', hasNewListingPending)))
     }
     if (is(Function, args)) {
       setState(args(get().target))
@@ -33,7 +33,8 @@ export const useNewListingStore = create<NewListingState>((set, get) => ({
   },
   setItems: (args) => {
     function setState(items: ListingItem[]) {
-      set(assoc('items', items))
+      const hasNewListingPending = isNonEmptyArray(items) || isNotNil(get().target)
+      set(pipe(assoc('items', items), assoc('hasNewListingPending', hasNewListingPending)))
     }
     if (is(Function, args)) {
       setState(args(get().items))
@@ -42,9 +43,9 @@ export const useNewListingStore = create<NewListingState>((set, get) => ({
     }
   },
   clearListing: () => {
-    set(pipe(assoc('items', []), assoc('target', undefined)))
+    set(pipe(assoc('items', []), assoc('target', undefined), assoc('hasNewListingPending', false)))
   },
   openModal: () => set(assoc('modalOpen', true)),
   closeModal: () => set(assoc('modalOpen', false)),
-  hasNewListingPending: () => pipe(get, either(propIsNotEmpty('items'), propIsNotNil('target')))()
+  hasNewListingPending: false
 }))

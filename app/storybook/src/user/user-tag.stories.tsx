@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { UserTag as Component } from '@echo/ui/components/user/tag/user-tag'
 import { type Meta, type StoryObj } from '@storybook/react'

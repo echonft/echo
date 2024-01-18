@@ -1,6 +1,5 @@
 import { type UserProfile } from '@echo/model/types/user-profile'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
-import { SIZE_LG } from '@echo/ui/constants/size'
 import { head, isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -13,11 +12,10 @@ export const UserDetailsApiProvided: FunctionComponent<Props> = ({ user }) => {
   return (
     <UserDetails
       discordUsername={discord.username}
-      discordBannerColor={discord.bannerColor}
-      discordBannerUrl={discord.bannerUrl}
+      bannerColor={discord.bannerColor}
+      bannerUrl={discord.bannerUrl}
       discordAvatarUrl={discord.avatarUrl}
       wallet={isNil(wallets) ? undefined : head(wallets)}
-      size={SIZE_LG}
     />
   )
 }

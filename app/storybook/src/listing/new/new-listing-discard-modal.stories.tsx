@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { NewListingDiscardModal as Component } from '@echo/ui/components/listing/new/new-listing-discard-modal'
 import { type Meta, type StoryObj } from '@storybook/react'
 
