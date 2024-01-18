@@ -14,6 +14,7 @@ interface Props {
 }
 
 export const OfferCard: FunctionComponent<Props> = ({ offer }) => {
+  // FIXME This doesnt work right now because the offer can be expired yet final
   const { state, receiverItems, senderItems, role, expired } = offer
   const isReceiver: boolean = role === OFFER_ROLE_RECEIVER
   const counterpartyItems = isReceiver ? senderItems : receiverItems
