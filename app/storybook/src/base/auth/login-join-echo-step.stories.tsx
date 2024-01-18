@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { LoginJoinEchoStep as Component } from '@echo/ui/components/auth/login-join-echo-step'
 import { type Meta, type StoryObj } from '@storybook/react'
 

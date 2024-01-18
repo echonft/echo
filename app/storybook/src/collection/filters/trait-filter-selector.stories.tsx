@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { TraitFilterSelector as Component } from '@echo/ui/components/nft/filters/by-traits/trait-filter-selector'
 import { type Meta, type StoryObj } from '@storybook/react'
 

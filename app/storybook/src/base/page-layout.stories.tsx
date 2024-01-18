@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import type { UserProfile } from '@echo/model/types/user-profile'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
@@ -15,7 +17,7 @@ type ComponentType = FunctionComponent<Record<'callout', boolean> & Record<'bann
 const DEFAULT_CALLOUT = false
 const DEFAULT_BANNER = false
 const metadata: Meta<ComponentType> = {
-  title: 'Base/Layout/Page Layout',
+  title: 'Base/Page Layout',
   argTypes: {
     callout: {
       options: DEFAULT_CALLOUT,

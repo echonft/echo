@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getNftMock } from '@echo/model-mocks/nft/get-nft-mock'
 import type { SelectableNftCardProps } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import { SelectableNftCard } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'

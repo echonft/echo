@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { OpenSeaIcon as Component } from '@echo/ui/components/base/icons/open-sea-icon'
 import { ICON_SIZES } from '@echo/ui/constants/icon-size'
 import { SIZE_MD } from '@echo/ui/constants/size'

@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import '@echo/ui-css/index.css'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
@@ -37,7 +39,7 @@ function signOut(_options: SignOutParams<true> | undefined) {
 }
 
 const metadata: Meta<typeof Component> = {
-  title: 'Base/Layout/Header/Disconnect Button',
+  title: 'Base/Header/Disconnect Button',
   component: Component,
   argTypes: {
     onSignOut: {

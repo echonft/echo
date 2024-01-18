@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { NewListingConfirmedModal as Component } from '@echo/ui/components/listing/new/new-listing-confirmed-modal'
 import { type Meta, type StoryObj } from '@storybook/react'

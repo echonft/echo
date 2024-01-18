@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { RecentSwaps as Component } from '@echo/ui/components/home/swap/recent-swaps'
 import { type Meta, type StoryObj } from '@storybook/react'

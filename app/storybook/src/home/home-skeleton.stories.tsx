@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { HomeSkeleton as Component } from '@echo/ui/components/home/skeleton/home-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 

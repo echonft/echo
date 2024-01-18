@@ -1,8 +1,10 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { ConnectButton as Component } from '@echo/ui/components/layout/header/connect-button'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Base/Layout/Header/Connect Button',
+  title: 'Base/Header/Connect Button',
   component: Component
 }
 

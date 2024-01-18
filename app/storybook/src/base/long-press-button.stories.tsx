@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { LongPressButton as Component } from '@echo/ui/components/base/long-press-button'
 import { type Meta, type StoryObj } from '@storybook/react'
 

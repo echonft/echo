@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OfferRow as Component } from '@echo/ui/components/offer/row/offer-row'

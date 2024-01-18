@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { messages } from '@echo/bot/messages/en'
 
 declare module 'i18next' {

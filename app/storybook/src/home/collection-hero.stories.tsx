@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { type Collection } from '@echo/model/types/collection'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { HomeHero as Component } from '@echo/ui/components/home/hero/home-hero'

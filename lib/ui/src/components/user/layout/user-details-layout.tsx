@@ -1,3 +1,4 @@
+import { DEFAULT_BANNER_URL } from '@echo/ui/constants/default-banner-url'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { clsx } from 'clsx'
@@ -14,8 +15,13 @@ export const UserDetailsLayout: FunctionComponent<PropsWithChildren<UserDetailsL
 }) => {
   function getStyle() {
     if (isNilOrEmpty(bannerUrl)) {
+      if (isNilOrEmpty(bannerColor)) {
+        return {
+          backgroundImage: `${themeExtension.backgroundImage.banner}, url('${DEFAULT_BANNER_URL}')`
+        }
+      }
       return {
-        backgroundColor: bannerColor ?? themeExtension.colors.dark['500'],
+        backgroundColor: bannerColor,
         backgroundImage: themeExtension.backgroundImage.banner
       }
     }
@@ -24,7 +30,7 @@ export const UserDetailsLayout: FunctionComponent<PropsWithChildren<UserDetailsL
     }
   }
   return (
-    <div className={clsx('flex', 'flex-col', 'self-stretch', 'w-full', 'bg-cover')} style={getStyle()}>
+    <div className={clsx('w-full', 'bg-contain')} style={getStyle()}>
       {children}
     </div>
   )

@@ -1,8 +1,10 @@
-import { PageLayoutSkeleton as Component } from '@echo/ui/components/layout/skeleton/page-layout-skeleton'
+// noinspection JSUnusedGlobalSymbols
+
+import { HeaderLogoOnly as Component } from '@echo/ui/components/layout/header/header-logo-only'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Base/Layout/Page Layout',
+  title: 'Base/Header',
   component: Component
 }
 
@@ -10,4 +12,4 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Skeleton: Story = {}
+export const LogoOnly: Story = {}

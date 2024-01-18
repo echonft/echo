@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { CollectionFilterPanelSkeleton as Component } from '@echo/ui/components/nft/filters/by-collection/skeleton/collection-filter-panel-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 

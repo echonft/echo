@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { EchoIcon as Component } from '@echo/ui/components/base/icons/echo-icon'
 import { COLOR_YELLOW } from '@echo/ui/constants/color'
 import { ECHO_ICON_COLORS } from '@echo/ui/constants/echo-icon-color'
