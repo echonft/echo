@@ -17,7 +17,7 @@ type ComponentType = FunctionComponent<Record<'callout', boolean> & Record<'bann
 const DEFAULT_CALLOUT = false
 const DEFAULT_BANNER = false
 const metadata: Meta<ComponentType> = {
-  title: 'Base/Layout/Page Layout',
+  title: 'Base/Page Layout',
   argTypes: {
     callout: {
       options: DEFAULT_CALLOUT,

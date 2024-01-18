@@ -7,17 +7,16 @@ import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props extends Omit<DisconnectButtonProps, 'user'> {
-  transparent: boolean
   logoOnly: boolean
   user?: AuthUser
 }
 
-export const HeaderSelector: FunctionComponent<Props> = ({ logoOnly, transparent, user, ...rest }) => {
+export const HeaderSelector: FunctionComponent<Props> = ({ logoOnly, user, ...rest }) => {
   if (logoOnly) {
-    return <HeaderLogoOnly absolute={transparent} />
+    return <HeaderLogoOnly />
   }
   if (isNil(user)) {
-    return <HeaderLoggedOut absolute={transparent} />
+    return <HeaderLoggedOut />
   }
-  return <HeaderLoggedIn user={user} absolute={transparent} {...rest} />
+  return <HeaderLoggedIn user={user} {...rest} />
 }
