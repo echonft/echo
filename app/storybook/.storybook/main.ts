@@ -1,11 +1,32 @@
-import { type StorybookConfig } from '@storybook/react-webpack5'
+import { type StorybookConfig } from '@storybook/nextjs'
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*stories.tsx'],
-  addons: [{ name: '@storybook/addon-essentials', options: { docs: false } }],
+  addons: [
+    { name: '@storybook/addon-essentials', options: { docs: false } },
+    {
+      name: '@storybook/addon-styling-webpack',
+
+      options: {
+        rules: [
+          {
+            test: /\.css$/,
+            sideEffects: true,
+            use: [
+              require.resolve('style-loader'),
+              {
+                loader: require.resolve('css-loader'),
+                options: {}
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
   framework: {
-    name: '@storybook/react-webpack5',
+    name: '@storybook/nextjs',
     options: { builder: { useSWC: true } }
   },
   env: (config) => ({
