@@ -1,9 +1,8 @@
 // noinspection JSUnusedGlobalSymbols
 
-import '@echo/ui-css/index.css'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
-import { DisconnectButton as Component } from '@echo/ui/components/layout/header/disconnect-button'
+import { HeaderLoggedIn as Component } from '@echo/ui/components/layout/header/header-logged-in'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { SignNonceArgs } from '@echo/web3/helpers/wagmi/fetcher/sign-nonce'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -39,7 +38,7 @@ function signOut(_options: SignOutParams<true> | undefined) {
 }
 
 const metadata: Meta<typeof Component> = {
-  title: 'Base/Layout/Header/Disconnect Button',
+  title: 'Base/Header',
   component: Component,
   argTypes: {
     onSignOut: {
@@ -59,7 +58,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const DisconnectButton: Story = {
+export const LoggedIn: Story = {
   args: {
     fetcher: {
       addWallet,
