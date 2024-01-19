@@ -10,6 +10,5 @@ interface Props {
 
 export const OfferCardStatus: FunctionComponent<Props> = ({ offer }) => {
   const t = useTranslations('offer.card.state')
-  // TODO remove when we merge the expired state PR
-  return <CardStatus label={offer.expired ? t('EXPIRED') : t(offer.state)} color={getOfferCardStatusColor(offer)} />
+  return <CardStatus label={t(offer.state)} color={getOfferCardStatusColor(offer)} />
 }

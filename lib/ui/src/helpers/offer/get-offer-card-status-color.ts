@@ -2,6 +2,7 @@ import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
   OFFER_STATE_COMPLETED,
+  OFFER_STATE_EXPIRED,
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
@@ -10,10 +11,6 @@ import { COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from '@echo/ui/constants/color'
 import type { CardStatusColor } from '@echo/ui/types/card-status-color'
 
 export const getOfferCardStatusColor = (offer: Offer): CardStatusColor => {
-  // TODO remove when we merge the expired state PR
-  if (offer.expired) {
-    return COLOR_RED
-  }
   switch (offer.state) {
     case OFFER_STATE_OPEN:
       return COLOR_YELLOW
@@ -22,6 +19,7 @@ export const getOfferCardStatusColor = (offer: Offer): CardStatusColor => {
       return COLOR_GREEN
     case OFFER_STATE_CANCELLED:
     case OFFER_STATE_REJECTED:
+    case OFFER_STATE_EXPIRED:
       return COLOR_RED
   }
 }
