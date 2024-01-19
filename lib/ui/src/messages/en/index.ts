@@ -227,9 +227,8 @@ export const messages = {
   },
   offer: {
     details: {
-      assets: {
-        in: 'Getting in your wallet',
-        out: 'Leaving your wallet'
+      backBtn: {
+        label: 'Back to your profile'
       },
       expiresAt: 'Expires in',
       expiredAt: 'Expired',

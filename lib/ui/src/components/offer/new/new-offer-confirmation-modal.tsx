@@ -8,7 +8,7 @@ import { Modal } from '@echo/ui/components/base/modal/modal'
 import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
 import { ShowIfNilOrEmpty } from '@echo/ui/components/base/utils/show-if-nil-or-empty'
 import { NewOfferModalItemsContainer } from '@echo/ui/components/offer/new/new-offer-modal-items-container'
-import { UserDetailsRoundedContainer } from '@echo/ui/components/shared/user-details-rounded-container'
+import { ListingOfferUserDetailsRounded } from '@echo/ui/components/user/listing-offer/listing-offer-user-details-rounded'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -40,7 +40,7 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
   return (
     <Modal open={open} onBack={onClose} title={t('title')} onClose={onClose} backButtonLabel={t('backBtn')}>
       <div className={clsx('flex', 'flex-col', 'gap-12')}>
-        <UserDetailsRoundedContainer user={receiver} />
+        <ListingOfferUserDetailsRounded user={receiver} />
         <NewOfferModalItemsContainer receiverItems={receiverItems} senderItems={senderItems} />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
           <ShowIfNilOrEmpty checks={senderItems}>

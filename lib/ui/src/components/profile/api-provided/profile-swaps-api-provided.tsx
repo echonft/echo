@@ -1,7 +1,7 @@
 'use client'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
-import { ProfileNavigationLayout } from '@echo/ui/components/profile/layout/profile-navigation-layout'
+import { ProfileNavigationLayout } from '@echo/ui/components/profile/navigation/profile-navigation-layout'
 import { ProfileSwapsEmpty } from '@echo/ui/components/profile/swap/empty/profile-swaps-empty'
 import { SwapRowsContainer } from '@echo/ui/components/swap/layout/swap-rows-container'
 import { NAVIGATION_SWAPS } from '@echo/ui/constants/navigation-item'

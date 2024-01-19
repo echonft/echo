@@ -5,7 +5,7 @@ import { OfferRowHeaderLayout } from '@echo/ui/components/offer/row/layout/offer
 import { OfferRowLayout } from '@echo/ui/components/offer/row/layout/offer-row-layout'
 import { OfferRowSwapIcon } from '@echo/ui/components/offer/row/offer-row-swap-icon'
 import { OfferRowStatePillSkeleton } from '@echo/ui/components/offer/row/skeleton/offer-row-state-pill-skeleton'
-import { UserDiscordTagSkeleton } from '@echo/ui/components/shared/skeleton/user-discord-tag-skeleton'
+import { UserDiscordTagSkeleton } from '@echo/ui/components/user/base/skeleton/user-discord-tag-skeleton'
 import { ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
 import { type FunctionComponent } from 'react'
 

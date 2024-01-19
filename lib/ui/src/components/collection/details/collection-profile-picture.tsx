@@ -1,26 +1,25 @@
-import { DefaultCollectionProfilePicture } from '@echo/ui/components/base/svg/default-collection-profile-picture'
-import { ProfilePicture } from '@echo/ui/components/shared/profile-picture'
-import { clsx } from 'clsx'
-import { isNil } from 'ramda'
+import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
+import { DEFAULT_COLLECTION_PROFILE_PICTURE_URL } from '@echo/ui/constants/default-collection-profile-picture-url'
+import { SIZE_MD } from '@echo/ui/constants/size'
+import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
 import { type FunctionComponent } from 'react'
 
 export interface CollectionProfilePictureProps {
   collectionName: string
   pictureUrl: string | undefined
+  size?: ProfilePictureSize
 }
 
 export const CollectionProfilePicture: FunctionComponent<CollectionProfilePictureProps> = ({
   collectionName,
-  pictureUrl
+  pictureUrl,
+  size = SIZE_MD
 }) => {
-  if (isNil(pictureUrl)) {
-    return (
-      <DefaultCollectionProfilePicture
-        className={clsx('rounded-2xl', 'border-solid', 'border-3', 'border-yellow-500', 'h-40', 'w-40')}
-        width={160}
-        height={160}
-      />
-    )
-  }
-  return <ProfilePicture pictureUrl={pictureUrl} alt={collectionName} />
+  return (
+    <ProfilePicture
+      pictureUrl={pictureUrl ?? DEFAULT_COLLECTION_PROFILE_PICTURE_URL}
+      alt={collectionName}
+      size={size}
+    />
+  )
 }

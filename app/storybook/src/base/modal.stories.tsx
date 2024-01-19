@@ -75,7 +75,7 @@ export const CloseDisabled: Story = {
 }
 
 export const BackEnabled: Story = {
-  render: ({ onBack, onClose }) => {
+  render: ({ onClose, onBack }) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
       <div className={'h-screen'}>
@@ -91,7 +91,43 @@ export const BackEnabled: Story = {
             onClose?.()
             setIsOpen(false)
           }}
-          onBack={onBack}
+          onBack={() => {
+            onBack?.()
+            setIsOpen(false)
+          }}
+        >
+          <span className={'text-white text-center prose-header-xs-semi'}>This is a modal description</span>
+        </Component>
+      </div>
+    )
+  }
+}
+
+export const BackEnabledWithTitle: Story = {
+  args: {
+    backButtonLabel: 'Back'
+  },
+  render: ({ backButtonLabel, onBack, onClose }) => {
+    const [isOpen, setIsOpen] = useState(false)
+    return (
+      <div className={'h-screen'}>
+        <div className={'flex flex-row justify-center items-center h-full'}>
+          <button onClick={() => setIsOpen(true)} className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}>
+            <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
+          </button>
+        </div>
+        <Component
+          title={'This a modal title'}
+          open={isOpen}
+          onClose={() => {
+            onClose?.()
+            setIsOpen(false)
+          }}
+          onBack={() => {
+            onBack?.()
+            setIsOpen(false)
+          }}
+          backButtonLabel={backButtonLabel}
         >
           <span className={'text-white text-center prose-header-xs-semi'}>This is a modal description</span>
         </Component>

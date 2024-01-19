@@ -1,7 +1,7 @@
 import { type ListingTarget } from '@echo/model/types/listing-target'
+import { SwapDirectionHeader } from '@echo/ui/components/base/swap-direction-header'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
-import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { ALIGNMENT_RIGHT } from '@echo/ui/constants/alignments'
 import { SWAP_DIRECTION_IN } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'

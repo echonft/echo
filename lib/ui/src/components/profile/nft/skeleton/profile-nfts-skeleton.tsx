@@ -1,5 +1,5 @@
-import { NftGroupsAndFiltersContainerSkeleton } from '@echo/ui/components/nft/layout/container/skeleton/nft-group-and-filters-container-skeleton'
-import { ProfileNavigationLayoutSkeleton } from '@echo/ui/components/profile/layout/skeleton/profile-navigation-layout-skeleton'
+import { NftGroupsAndFiltersContainerSkeleton } from '@echo/ui/components/nft/filters/layout/skeleton/selectable-nft-groups-and-filters-container-skeleton'
+import { ProfileNavigationLayoutSkeleton } from '@echo/ui/components/profile/navigation/skeleton/profile-navigation-layout-skeleton'
 import { NAVIGATION_ITEMS } from '@echo/ui/constants/navigation-item'
 import { NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { useTranslations } from 'next-intl'

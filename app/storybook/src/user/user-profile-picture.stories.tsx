@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { UserProfilePicture as Component } from '@echo/ui/components/shared/user-profile-picture'
+import { UserProfilePicture as Component } from '@echo/ui/components/user/base/user-profile-picture'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -17,7 +17,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const ProfilePicture: Story = {
+export const Default: Story = {
   args: {
     discordUsername: 'johnnycagewins',
     discordAvatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png'
