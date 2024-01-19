@@ -4,7 +4,6 @@ import { assertStateFilters } from '@echo/firestore/helpers/crud/assert/assert-s
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
 import { addParamFromRequest } from '@echo/frontend/lib/server/helpers/request/add-param-from-request'
 import { getStateQueryParamSchema } from '@echo/frontend/lib/server/helpers/request/get-state-query-param-schema'
-import { booleanQueryParamSchema } from '@echo/frontend/lib/server/validators/boolean-query-param-schema'
 import { LISTING_STATES } from '@echo/model/constants/listing-states'
 import { propIsEmpty } from '@echo/utils/fp/prop-is-empty'
 import { always, modify, pipe, prop, when } from 'ramda'
@@ -17,7 +16,6 @@ export function parseListingFiltersQuery(request: ApiRequest<unknown>) {
     addParamFromRequest('as', asQueryParamSchema),
     addParamFromRequest('state', stateQueryParamSchema, true),
     addParamFromRequest('notState', stateQueryParamSchema, true),
-    addParamFromRequest('includeExpired', booleanQueryParamSchema),
     when(propIsEmpty('params'), modify('params', always(undefined))),
     prop('params'),
     assertStateFilters(LISTING_STATES)

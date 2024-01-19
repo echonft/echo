@@ -1,4 +1,3 @@
-import { mapListingFiltersToQueryParams } from '@echo/api/helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
@@ -9,7 +8,11 @@ import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-head
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
-import { LISTING_STATE_CANCELLED, LISTING_STATE_FULFILLED } from '@echo/model/constants/listing-states'
+import {
+  LISTING_STATE_CANCELLED,
+  LISTING_STATE_EXPIRED,
+  LISTING_STATE_FULFILLED
+} from '@echo/model/constants/listing-states'
 import { ProfileListingsReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-listings-received-api-provided'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { mergeLeft } from 'ramda'
@@ -19,22 +22,23 @@ const ProfileListingsReceivedPage: FunctionComponent = async () => {
   unstable_setRequestLocale('en')
   const user = await getAuthUser()
   redirectIfNotLoggedIn(user, linkProvider.profile.listingsReceived.getUrl())
-  const filterParams = mapListingFiltersToQueryParams({
-    as: LISTING_FILTER_AS_TARGET,
-    notState: [LISTING_STATE_FULFILLED, LISTING_STATE_CANCELLED]
-  })
-  const queryParams = mapQueryConstraintsToQueryParams({
-    // creator.username is needed for the query to work - do not remove
-    orderBy: [
-      { field: 'creator.username', direction: 'asc' },
-      { field: 'expiresAt', direction: 'desc' }
-    ]
-  })
   const response = await nextFetch.get<ListingsResponse>(
     apiUrlProvider.user.listings.getUrl({ username: user.username }),
     {
       cookie: getCookieHeader(),
-      params: mergeLeft(queryParams, filterParams)
+      params: mergeLeft(
+        mapQueryConstraintsToQueryParams({
+          // creator.username is needed for the query to work - do not remove
+          orderBy: [
+            { field: 'creator.username', direction: 'asc' },
+            { field: 'expiresAt', direction: 'desc' }
+          ]
+        }),
+        {
+          as: LISTING_FILTER_AS_TARGET,
+          notState: [LISTING_STATE_FULFILLED, LISTING_STATE_CANCELLED, LISTING_STATE_EXPIRED]
+        }
+      )
     }
   )
   assertNextFetchResponse(response)

@@ -1,4 +1,3 @@
-import { mapListingFiltersToQueryParams } from '@echo/api/helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
@@ -18,15 +17,16 @@ const ProfileListingsCreatedPage: FunctionComponent = async () => {
   unstable_setRequestLocale('en')
   const user = await getAuthUser()
   redirectIfNotLoggedIn(user, linkProvider.profile.listingsCreated.getUrl())
-  const constraintsQueryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'expiresAt', direction: 'desc' }]
-  })
-  const filtersQueryParam = mapListingFiltersToQueryParams({ as: LISTING_FILTER_AS_ITEM, includeExpired: true })
   const response = await nextFetch.get<ListingsResponse>(
     apiUrlProvider.user.listings.getUrl({ username: user.username }),
     {
       cookie: getCookieHeader(),
-      params: mergeLeft(constraintsQueryParams, filtersQueryParam)
+      params: mergeLeft(
+        mapQueryConstraintsToQueryParams({
+          orderBy: [{ field: 'expiresAt', direction: 'desc' }]
+        }),
+        { as: LISTING_FILTER_AS_ITEM }
+      )
     }
   )
   assertNextFetchResponse(response)

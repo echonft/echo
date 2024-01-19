@@ -4,7 +4,7 @@ import { type Collection } from '@echo/model/types/collection'
 export async function addCollection(collection: Omit<Collection, 'id'>) {
   const reference = getCollectionsCollectionReference().doc()
   const id = reference.id
-  const newCollection = { ...collection, id } as Collection
+  const newCollection = { ...collection, id }
   await reference.set(newCollection)
-  return newCollection
+  return newCollection as Collection
 }

@@ -1,4 +1,3 @@
-import { mapListingFiltersToQueryParams } from '@echo/api/helpers/request/map-listing-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import type { ListingsResponse } from '@echo/api/types/responses/listings-response'
@@ -19,13 +18,14 @@ interface Props {
 
 const CollectionListingsPage: FunctionComponent<Props> = async ({ params }) => {
   unstable_setRequestLocale('en')
-  const constraintsQueryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'expiresAt', direction: 'asc' }]
-  })
-  const filtersQueryParam = mapListingFiltersToQueryParams({ state: [LISTING_STATE_OPEN] })
   const response = await nextFetch.get<ListingsResponse>(apiUrlProvider.collection.listings.getUrl(params), {
     cookie: getCookieHeader(),
-    params: mergeLeft(constraintsQueryParams, filtersQueryParam)
+    params: mergeLeft(
+      mapQueryConstraintsToQueryParams({
+        orderBy: [{ field: 'expiresAt', direction: 'asc' }]
+      }),
+      { state: [LISTING_STATE_OPEN] }
+    )
   })
   assertNextFetchResponse(response)
   return <CollectionListingsApiProvided collectionSlug={params.slug} listings={response.data.listings} />

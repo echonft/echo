@@ -1,4 +1,3 @@
-import { mapOfferFiltersToQueryParams } from '@echo/api/helpers/request/map-offer-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
@@ -21,17 +20,17 @@ const ProfileOffersReceivedPage: FunctionComponent = async () => {
   unstable_setRequestLocale('en')
   const user = await getAuthUser()
   redirectIfNotLoggedIn(user, linkProvider.profile.offersReceived.getUrl())
-  const filterParams = mapOfferFiltersToQueryParams({
-    as: OFFER_FILTER_AS_RECEIVER,
-    state: [OFFER_STATE_OPEN, OFFER_STATE_ACCEPTED],
-    includeExpired: false
-  })
-  const queryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'expiresAt', direction: 'desc' }]
-  })
   const response = await nextFetch.get<OffersResponse>(apiUrlProvider.profile.offers.getUrl(), {
     cookie: getCookieHeader(),
-    params: mergeLeft(filterParams, queryParams)
+    params: mergeLeft(
+      {
+        as: OFFER_FILTER_AS_RECEIVER,
+        state: [OFFER_STATE_OPEN, OFFER_STATE_ACCEPTED]
+      },
+      mapQueryConstraintsToQueryParams({
+        orderBy: [{ field: 'expiresAt', direction: 'desc' }]
+      })
+    )
   })
   assertNextFetchResponse(response)
   return (

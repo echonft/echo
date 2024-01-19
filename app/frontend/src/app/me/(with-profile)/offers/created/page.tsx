@@ -1,4 +1,3 @@
-import { mapOfferFiltersToQueryParams } from '@echo/api/helpers/request/map-offer-filters-to-query-params'
 import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
@@ -20,16 +19,16 @@ const ProfileOffersCreatedPage: FunctionComponent = async () => {
   unstable_setRequestLocale('en')
   const user = await getAuthUser()
   redirectIfNotLoggedIn(user, linkProvider.profile.offersCreated.getUrl())
-  const filterParams = mapOfferFiltersToQueryParams({
-    as: OFFER_FILTER_AS_SENDER,
-    includeExpired: true
-  })
-  const queryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'createdAt', direction: 'desc' }]
-  })
   const response = await nextFetch.get<OffersResponse>(apiUrlProvider.profile.offers.getUrl(), {
     cookie: getCookieHeader(),
-    params: mergeLeft(filterParams, queryParams)
+    params: mergeLeft(
+      {
+        as: OFFER_FILTER_AS_SENDER
+      },
+      mapQueryConstraintsToQueryParams({
+        orderBy: [{ field: 'createdAt', direction: 'desc' }]
+      })
+    )
   })
   assertNextFetchResponse(response)
   return (

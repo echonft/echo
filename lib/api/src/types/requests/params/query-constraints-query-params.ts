@@ -1,7 +1,6 @@
 export interface QueryConstraintsQueryParams {
-  select?: string | string[]
+  select?: string[]
   orderBy?: string[]
   limit?: number
-  limitToLast?: number
   offset?: number
 }

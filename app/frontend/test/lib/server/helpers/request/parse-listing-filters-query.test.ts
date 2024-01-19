@@ -80,24 +80,6 @@ describe('helpers - request - parseListingFiltersQuery - notState filter', () =>
   })
 })
 
-describe('helpers - request - parseListingFiltersQuery - includeExpired filter', () => {
-  function getRequest(params: string) {
-    const url = new URL(`https://echo.xyz/?${params}`)
-    return new NextRequest(url) as ApiRequest<never>
-  }
-  test('throws if includeExpired is not valid', () => {
-    expect(() => parseListingFiltersQuery(getRequest('includeExpired=whatever'))).toThrow()
-  })
-  test('returns a filter with the correct includeExpired prop', () => {
-    expect(parseListingFiltersQuery(getRequest('includeExpired=true'))).toStrictEqual<ListingQueryFilters>({
-      includeExpired: true
-    })
-    expect(parseListingFiltersQuery(getRequest('includeExpired=false'))).toStrictEqual<ListingQueryFilters>({
-      includeExpired: false
-    })
-  })
-})
-
 describe('helpers - request - parseListingFiltersQuery - multiple filters', () => {
   function getRequest(params: string) {
     const url = new URL(`https://echo.xyz/?${params}`)
@@ -107,7 +89,7 @@ describe('helpers - request - parseListingFiltersQuery - multiple filters', () =
     expect(() =>
       parseListingFiltersQuery(
         getRequest(
-          `as=receiver&state=${LISTING_STATE_OPEN}&state=${LISTING_STATE_FULFILLED}&notState=${LISTING_STATE_CANCELLED}&includeExpired=true`
+          `as=receiver&state=${LISTING_STATE_OPEN}&state=${LISTING_STATE_FULFILLED}&notState=${LISTING_STATE_CANCELLED}`
         )
       )
     ).toThrow()
@@ -115,14 +97,11 @@ describe('helpers - request - parseListingFiltersQuery - multiple filters', () =
   test('returns the correct filters', () => {
     expect(
       parseListingFiltersQuery(
-        getRequest(
-          `as=${LISTING_FILTER_AS_TARGET}&state=${LISTING_STATE_OPEN}&state=${LISTING_STATE_FULFILLED}&includeExpired=true`
-        )
+        getRequest(`as=${LISTING_FILTER_AS_TARGET}&state=${LISTING_STATE_OPEN}&state=${LISTING_STATE_FULFILLED}`)
       )
     ).toStrictEqual<ListingQueryFilters>({
       as: LISTING_FILTER_AS_TARGET,
-      state: [LISTING_STATE_OPEN, LISTING_STATE_FULFILLED],
-      includeExpired: true
+      state: [LISTING_STATE_OPEN, LISTING_STATE_FULFILLED]
     })
   })
 })
