@@ -4,7 +4,7 @@ import { rejectOffer } from '@echo/firestore/crud/offer/reject-offer'
 import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
 import { rejectOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/reject-offer-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
-import { OFFER_STATE_CANCELLED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
+import { OFFER_STATE_ACCEPTED, OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
@@ -34,8 +34,19 @@ describe('request-handlers - offer - rejectOfferRequestHandler', () => {
     }
   })
 
+  it('throws if the offer state is read only', async () => {
+    jest.mocked(findOfferById).mockResolvedValueOnce(assoc('readOnly', true, offer))
+    const req = mockRequest<never>()
+    try {
+      await rejectOfferRequestHandler(user, req, { id: offerId })
+      expect(true).toBeFalsy()
+    } catch (e) {
+      expect((e as ApiError).status).toBe(400)
+    }
+  })
+
   it('throws if the offer state is not OPEN', async () => {
-    jest.mocked(findOfferById).mockResolvedValueOnce(assoc('state', OFFER_STATE_CANCELLED, offer))
+    jest.mocked(findOfferById).mockResolvedValueOnce(assoc('state', OFFER_STATE_ACCEPTED, offer))
     const req = mockRequest<never>()
     try {
       await rejectOfferRequestHandler(user, req, { id: offerId })

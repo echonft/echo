@@ -1,7 +1,12 @@
 // noinspection JSUnusedGlobalSymbols
 
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
-import { LISTING_STATE_CANCELLED, LISTING_STATE_OPEN, LISTING_STATES } from '@echo/model/constants/listing-states'
+import {
+  LISTING_STATE_CANCELLED,
+  LISTING_STATE_EXPIRED,
+  LISTING_STATE_OPEN,
+  LISTING_STATES
+} from '@echo/model/constants/listing-states'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingState } from '@echo/model/types/listing-state'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
@@ -10,15 +15,12 @@ import { ListingDetails as Component } from '@echo/ui/components/listing/details
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
-import { always, assoc, ifElse, pipe } from 'ramda'
+import { assoc, equals, ifElse, pipe, prop } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-type ComponentType = FunctionComponent<
-  Record<'state', ListingState> & Record<'expired', boolean> & Record<'isCreator', boolean>
->
+type ComponentType = FunctionComponent<Record<'state', ListingState> & Record<'isCreator', boolean>>
 const DEFAULT_STATE: ListingState = LISTING_STATE_OPEN
 const DEFAULT_IS_CREATOR = false
-const DEFAULT_EXPIRED = false
 const EXPIRED_DATE = dayjs().subtract(2, 'd').unix()
 const NOT_EXPIRED_DATE = dayjs().add(2, 'd').unix()
 const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
@@ -40,10 +42,6 @@ const metadata: Meta<ComponentType> = {
       options: LISTING_STATES,
       control: { type: 'radio' }
     },
-    expired: {
-      defaultValue: DEFAULT_EXPIRED,
-      control: 'boolean'
-    },
     isCreator: {
       defaultValue: DEFAULT_IS_CREATOR,
       control: 'boolean'
@@ -56,17 +54,19 @@ export default metadata
 type Story = StoryObj<ComponentType>
 
 export const Default: Story = {
-  render: ({ state, expired, isCreator }) => {
+  render: ({ state, isCreator }) => {
     const renderedListing = pipe(
       assoc('state', state),
-      assoc('expired', expired),
-      ifElse(always(expired), assoc('expiresAt', EXPIRED_DATE), assoc('expiresAt', NOT_EXPIRED_DATE))
+      ifElse(
+        pipe(prop('state'), equals(LISTING_STATE_EXPIRED)),
+        assoc('expiresAt', EXPIRED_DATE),
+        assoc('expiresAt', NOT_EXPIRED_DATE)
+      )
     )(listing) as Listing
     return <Component listing={renderedListing} user={isCreator ? user : undefined} fetcher={{ cancelListing }} />
   },
   args: {
     state: DEFAULT_STATE,
-    expired: DEFAULT_EXPIRED,
     isCreator: DEFAULT_IS_CREATOR
   }
 }

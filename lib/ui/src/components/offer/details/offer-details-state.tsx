@@ -1,4 +1,4 @@
-import { offerStateIsFinal } from '@echo/model/helpers/offer/offer-state-is-final'
+import { OFFER_STATE_ACCEPTED, OFFER_STATE_EXPIRED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { type OfferState } from '@echo/model/types/offer-state'
 import { StateTextContainer } from '@echo/ui/components/base/state-text-container'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
@@ -12,14 +12,14 @@ dayjs.extend(relativeTime)
 
 interface Props {
   state: OfferState
-  expired: boolean
   expiresAt: number
 }
 
-export const OfferDetailsState: FunctionComponent<Props> = ({ state, expired, expiresAt }) => {
+export const OfferDetailsState: FunctionComponent<Props> = ({ state, expiresAt }) => {
   const tState = useTranslations('offer.state')
   const tDetails = useTranslations('offer.details')
-  const expirationShown = !offerStateIsFinal(state)
+  const expired = state === OFFER_STATE_EXPIRED
+  const expirationShown = state === OFFER_STATE_OPEN || state === OFFER_STATE_ACCEPTED
   const stateShown = !expirationShown || !expired
   const delimiterShown = expirationShown && stateShown
 

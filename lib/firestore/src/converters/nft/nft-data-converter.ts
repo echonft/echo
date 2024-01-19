@@ -1,4 +1,4 @@
-import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
+import { getSnapshotData } from '@echo/firestore/helpers/converters/get-snapshot-data'
 import { lowerCollectionAddress } from '@echo/firestore/helpers/converters/nft/lower-collection-address'
 import { lowerOwnerWalletAddress } from '@echo/firestore/helpers/converters/nft/lower-owner-wallet-address'
 import { lowerCollectionAddressIfExists } from '@echo/firestore/helpers/converters/nft/to-firestore/lower-collection-address-if-exists'

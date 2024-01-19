@@ -1,4 +1,4 @@
-import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
+import { getSnapshotData } from '@echo/firestore/helpers/converters/get-snapshot-data'
 import { setExpiredProp } from '@echo/firestore/helpers/converters/nonce/from-firestore/set-expired-prop'
 import { type Nonce } from '@echo/firestore/types/model/nonce/nonce'
 import { type NonceDocumentData } from '@echo/firestore/types/model/nonce/nonce-document-data'

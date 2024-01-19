@@ -1,12 +1,17 @@
 import { listingDataConverter } from '@echo/firestore/converters/listing/listing-data-converter'
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import { listingDocumentDataMock } from '@echo/firestore-mocks/listing/listing-document-data-mock'
 import { listingSnapshotMock } from '@echo/firestore-mocks/listing/listing-snapshot-mock'
-import { LISTING_STATE_EXPIRED, LISTING_STATE_FULFILLED } from '@echo/model/constants/listing-states'
+import {
+  LISTING_STATE_CANCELLED,
+  LISTING_STATE_EXPIRED,
+  LISTING_STATE_FULFILLED,
+  LISTING_STATE_OFFERS_PENDING,
+  LISTING_STATE_OPEN,
+  LISTING_STATE_PARTIALLY_FULFILLED
+} from '@echo/model/constants/listing-states'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { pastDate } from '@echo/utils/helpers/past-date'
 import { describe, expect, it } from '@jest/globals'
-import { QueryDocumentSnapshot } from 'firebase-admin/firestore'
 import { assoc, pipe } from 'ramda'
 
 describe('converters - listingDataConverter', () => {
@@ -20,11 +25,7 @@ describe('converters - listingDataConverter', () => {
 
   it('from Firestore conversion - expired', () => {
     const expiredAt = pastDate()
-    const expiredSnapshot = {
-      id: snapshot.id,
-      exists: true,
-      data: () => assoc('expiresAt', expiredAt, documentData)
-    } as QueryDocumentSnapshot<ListingDocumentData>
+    const expiredSnapshot = assoc('data', () => assoc('expiresAt', expiredAt, documentData), snapshot)
     const expiredDocument = pipe(
       assoc('expiresAt', expiredAt),
       assoc('state', LISTING_STATE_EXPIRED),
@@ -34,13 +35,36 @@ describe('converters - listingDataConverter', () => {
   })
 
   it('from Firestore conversion - read only', () => {
-    const expiredSnapshot = {
-      id: snapshot.id,
-      exists: true,
-      data: () => assoc('state', LISTING_STATE_FULFILLED, documentData)
-    } as QueryDocumentSnapshot<ListingDocumentData>
-    const expiredDocument = pipe(assoc('state', LISTING_STATE_FULFILLED), assoc('readOnly', true))(document)
-    expect(listingDataConverter.fromFirestore(expiredSnapshot)).toStrictEqual(expiredDocument)
+    expect(
+      listingDataConverter.fromFirestore(
+        assoc('data', () => assoc('state', LISTING_STATE_OPEN, documentData), snapshot)
+      )
+    ).toStrictEqual(pipe(assoc('state', LISTING_STATE_OPEN), assoc('readOnly', false))(document))
+    expect(
+      listingDataConverter.fromFirestore(
+        assoc('data', () => assoc('state', LISTING_STATE_OFFERS_PENDING, documentData), snapshot)
+      )
+    ).toStrictEqual(pipe(assoc('state', LISTING_STATE_OFFERS_PENDING), assoc('readOnly', false))(document))
+    expect(
+      listingDataConverter.fromFirestore(
+        assoc('data', () => assoc('state', LISTING_STATE_PARTIALLY_FULFILLED, documentData), snapshot)
+      )
+    ).toStrictEqual(pipe(assoc('state', LISTING_STATE_PARTIALLY_FULFILLED), assoc('readOnly', false))(document))
+    expect(
+      listingDataConverter.fromFirestore(
+        assoc('data', () => assoc('state', LISTING_STATE_FULFILLED, documentData), snapshot)
+      )
+    ).toStrictEqual(pipe(assoc('state', LISTING_STATE_FULFILLED), assoc('readOnly', true))(document))
+    expect(
+      listingDataConverter.fromFirestore(
+        assoc('data', () => assoc('state', LISTING_STATE_CANCELLED, documentData), snapshot)
+      )
+    ).toStrictEqual(pipe(assoc('state', LISTING_STATE_CANCELLED), assoc('readOnly', true))(document))
+    expect(
+      listingDataConverter.fromFirestore(
+        assoc('data', () => assoc('state', LISTING_STATE_EXPIRED, documentData), snapshot)
+      )
+    ).toStrictEqual(pipe(assoc('state', LISTING_STATE_EXPIRED), assoc('readOnly', true))(document))
   })
 
   it('to Firestore conversion', () => {

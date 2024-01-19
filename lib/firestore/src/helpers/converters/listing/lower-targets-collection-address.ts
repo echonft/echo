@@ -6,11 +6,13 @@ import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { map, modify } from 'ramda'
 
+const key = 'targets' as const
+type Key = typeof key
 export function lowerTargetsCollectionAddress<
-  T extends ListingDocumentData | (Partial<WithFieldValue<Listing>> & Record<'targets', ListingTarget[]>)
+  T extends ListingDocumentData | (Partial<WithFieldValue<Listing>> & Record<Key, ListingTarget[]>)
 >(listing: T): T {
-  return modify<'targets', ListingTarget[], ListingTarget[]>(
-    'targets',
+  return modify<Key, ListingTarget[], ListingTarget[]>(
+    key,
     map<ListingTarget, ListingTarget>(modify<'collection', Collection, Collection>('collection', lowerContractAddress))
   )(listing) as T
 }

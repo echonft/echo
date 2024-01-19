@@ -34,7 +34,8 @@ describe('request-handlers - offer - cancelOfferRequestHandler', () => {
     }
   })
 
-  it('throws if the offer state is not OPEN or ACCEPTED', async () => {
+  it('throws if the offer state is read only', async () => {
+    jest.mocked(findOfferById).mockResolvedValueOnce(assoc('readOnly', true, offer))
     const req = mockRequest<never>()
     try {
       await cancelOfferRequestHandler(user, req, { id: offerId })

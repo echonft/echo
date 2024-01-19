@@ -1,4 +1,4 @@
-import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
+import { getSnapshotData } from '@echo/firestore/helpers/converters/get-snapshot-data'
 import { setReadOnly } from '@echo/firestore/helpers/converters/listing/from-firestore/set-read-only'
 import { lowerCreatorWalletAddress } from '@echo/firestore/helpers/converters/listing/lower-creator-wallet-address'
 import { lowerItemsAddresses } from '@echo/firestore/helpers/converters/listing/lower-items-addresses'

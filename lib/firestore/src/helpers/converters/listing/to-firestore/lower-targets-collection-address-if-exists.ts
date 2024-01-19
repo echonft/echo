@@ -4,10 +4,9 @@ import type { ListingTarget } from '@echo/model/types/listing-target'
 import { whenHas } from '@echo/utils/fp/when-has'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 
+const key = 'targets' as const
+type Key = typeof key
 type PartialListing = Partial<WithFieldValue<Listing>>
 export function lowerTargetsCollectionAddressIfExists(listing: PartialListing): PartialListing {
-  return whenHas<'targets', PartialListing, ListingTarget[], PartialListing>(
-    'targets',
-    lowerTargetsCollectionAddress
-  )(listing)
+  return whenHas<Key, PartialListing, ListingTarget[], PartialListing>(key, lowerTargetsCollectionAddress)(listing)
 }

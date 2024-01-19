@@ -50,13 +50,13 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, fetch
   useEffect(() => {
     setUpdatedOffer(offer)
   }, [offer])
-  const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
+  const { state, sender, receiver, expiresAt, senderItems, receiverItems } = updatedOffer
 
   return (
     <OfferDetailsLayout>
       <OfferDetailsInfoLayout>
         <ListingOfferUserDetails user={isCreator ? receiver : sender} />
-        <OfferDetailsState state={state} expired={expired} expiresAt={expiresAt} />
+        <OfferDetailsState state={state} expiresAt={expiresAt} />
       </OfferDetailsInfoLayout>
       <OfferDetailsItemsButtonsLayout>
         <NftsContainer nfts={map(prop('nft'), isCreator ? receiverItems : senderItems)} alignment={ALIGNMENT_CENTER} />

@@ -5,8 +5,8 @@ import { type User } from '@echo/model/types/user'
 export interface Offer {
   id: string
   createdAt: number
-  expired: boolean
   expiresAt: number
+  readOnly: boolean
   receiver: User
   receiverItems: OfferItem[]
   sender: User

@@ -34,8 +34,8 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
     }
   })
 
-  it('throws if the listing state is not OPEN', async () => {
-    jest.mocked(findListingById).mockResolvedValueOnce(assoc('state', LISTING_STATE_CANCELLED, listing))
+  it('throws if the listing state is read only', async () => {
+    jest.mocked(findListingById).mockResolvedValueOnce(assoc('readOnly', true, listing))
     const req = mockRequest<never>()
     try {
       await cancelListingRequestHandler(user, req, { id: listingId })

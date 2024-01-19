@@ -1,5 +1,4 @@
 import {
-  LISTING_STATE_CANCELLED,
   LISTING_STATE_FULFILLED,
   LISTING_STATE_OFFERS_PENDING,
   LISTING_STATE_OPEN,
@@ -50,8 +49,6 @@ export function assertListingState(
       break
     case LISTING_STATE_FULFILLED:
       assertListingIsNotOpen(listing)
-      break
-    case LISTING_STATE_CANCELLED:
       break
   }
 }

@@ -11,6 +11,7 @@ import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
   OFFER_STATE_COMPLETED,
+  OFFER_STATE_EXPIRED,
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED,
   OFFER_STATES
@@ -27,15 +28,12 @@ import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721
 import type { SignOfferArgs } from '@echo/web3/types/sign-offer-args'
 import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
-import { assoc, ifElse, pipe, prop } from 'ramda'
+import { assoc, equals, ifElse, pipe, prop } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-type ComponentType = FunctionComponent<
-  Record<'state', OfferState> & Record<'expired', boolean> & Record<'isCreator', boolean>
->
+type ComponentType = FunctionComponent<Record<'state', OfferState> & Record<'isCreator', boolean>>
 const DEFAULT_STATE: OfferState = OFFER_STATE_OPEN
 const DEFAULT_IS_CREATOR = true
-const DEFAULT_EXPIRED = false
 const EXPIRED_DATE = dayjs().subtract(2, 'd').unix()
 const NOT_EXPIRED_DATE = dayjs().add(2, 'd').unix()
 const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
@@ -77,10 +75,6 @@ const metadata: Meta<ComponentType> = {
       options: OFFER_STATES,
       control: { type: 'radio' }
     },
-    expired: {
-      defaultValue: DEFAULT_EXPIRED,
-      control: 'boolean'
-    },
     isCreator: {
       defaultValue: DEFAULT_IS_CREATOR,
       control: 'boolean'
@@ -98,12 +92,11 @@ export default metadata
 type Story = StoryObj<ComponentType>
 
 export const Default: Story = {
-  render: ({ state, expired, isCreator }) => {
-    const renderedOffer = pipe<[Offer], Offer, Offer, Offer>(
+  render: ({ state, isCreator }) => {
+    const renderedOffer = pipe<[Offer], Offer, Offer>(
       assoc('state', state),
-      assoc('expired', expired),
       ifElse<[Offer], Offer, Offer>(
-        prop('expired'),
+        pipe(prop('state'), equals(OFFER_STATE_EXPIRED)),
         assoc('expiresAt', EXPIRED_DATE),
         assoc('expiresAt', NOT_EXPIRED_DATE)
       )
@@ -131,7 +124,6 @@ export const Default: Story = {
   },
   args: {
     state: DEFAULT_STATE,
-    expired: DEFAULT_EXPIRED,
     isCreator: DEFAULT_IS_CREATOR
   }
 }

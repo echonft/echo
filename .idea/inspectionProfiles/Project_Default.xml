@@ -15,5 +15,8 @@
       <option name="processLiterals" value="true" />
       <option name="processComments" value="true" />
     </inspection_tool>
+    <inspection_tool class="TypeScriptValidateJSTypes" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <scope name="firestore" level="INFORMATION" enabled="true" editorAttributes="INFORMATION_ATTRIBUTES" />
+    </inspection_tool>
   </profile>
 </component>

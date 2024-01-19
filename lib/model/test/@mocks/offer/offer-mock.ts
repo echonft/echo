@@ -7,8 +7,8 @@ export const offerMock: Record<string, Offer> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     id: 'LyCfl6Eg7JKuD7XJ6IPi',
     createdAt: 1676984897,
-    expired: false,
     expiresAt: 2324074781,
+    readOnly: false,
     receiver: {
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
@@ -40,7 +40,6 @@ export const offerMock: Record<string, Offer> = {
     id: 'ASkFpKoHEHVH0gd69t1G',
     createdAt: 1676984897,
     expiresAt: 2324074781,
-    expired: false,
     receiver: {
       discord: {
         username: 'crewnft_',
@@ -52,6 +51,7 @@ export const offerMock: Record<string, Offer> = {
         chainId: 1
       }
     },
+    readOnly: true,
     receiverItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }],
     sender: {
       discord: {

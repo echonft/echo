@@ -1,4 +1,4 @@
-import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
+import { getSnapshotData } from '@echo/firestore/helpers/converters/get-snapshot-data'
 import { lowerAddress } from '@echo/firestore/helpers/converters/wallet/lower-address'
 import { lowerAddressIfExists } from '@echo/firestore/helpers/converters/wallet/to-firestore/lower-address-if-exists'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'

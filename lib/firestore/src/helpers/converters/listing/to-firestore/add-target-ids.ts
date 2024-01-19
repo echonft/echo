@@ -5,11 +5,13 @@ import { whenHas } from '@echo/utils/fp/when-has'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { always, assoc, converge, identity, map, path, pipe, prop, uniq } from 'ramda'
 
+const key = 'targets' as const
+type Key = typeof key
 type PartialListing = Partial<WithFieldValue<Listing>>
-type PartialListingWithTargets = PartialListing & Record<'targets', ListingTarget[]>
+type PartialListingWithTargets = PartialListing & Record<Key, ListingTarget[]>
 export function addTargetIds(modelObject: PartialListing): PartialListing {
-  return whenHas<'targets', PartialListing, ListingTarget[], PartialListing>(
-    'targets',
+  return whenHas<Key, PartialListing, ListingTarget[], PartialListing>(
+    key,
     converge<
       PartialListing,
       [
@@ -19,7 +21,7 @@ export function addTargetIds(modelObject: PartialListing): PartialListing {
       ]
     >(assoc, [
       always('targetsIds'),
-      pipe(prop('targets'), map<ListingTarget, string>(nonNullableReturn(path(['collection', 'id']))), uniq),
+      pipe(prop(key), map<ListingTarget, string>(nonNullableReturn(path(['collection', 'id']))), uniq),
       identity
     ])
   )(modelObject)

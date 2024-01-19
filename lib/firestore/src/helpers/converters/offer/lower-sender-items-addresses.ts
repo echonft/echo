@@ -1,19 +1,19 @@
 import { lowerCollectionAddress } from '@echo/firestore/helpers/converters/nft/lower-collection-address'
 import { lowerOwnerWalletAddress } from '@echo/firestore/helpers/converters/nft/lower-owner-wallet-address'
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
-import type { Listing } from '@echo/model/types/listing'
-import type { ListingItem } from '@echo/model/types/listing-item'
+import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import type { Nft } from '@echo/model/types/nft'
+import type { Offer } from '@echo/model/types/offer'
+import type { OfferItem } from '@echo/model/types/offer-item'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { map, modify, pipe } from 'ramda'
 
-const key = 'items' as const
+const key = 'senderItems' as const
 type Key = typeof key
-export function lowerItemsAddresses<
-  T extends ListingDocumentData | (Partial<WithFieldValue<Listing>> & Record<Key, ListingItem[]>)
->(listing: T): T {
-  return modify<Key, ListingItem[], ListingItem[]>(
+export function lowerSenderItemsAddresses<
+  T extends OfferDocumentData | (Partial<WithFieldValue<Offer>> & Record<Key, OfferItem[]>)
+>(offer: T): T {
+  return modify<Key, OfferItem[], OfferItem[]>(
     key,
     map(modify<'nft', Nft, Nft>('nft', pipe(lowerCollectionAddress, lowerOwnerWalletAddress)))
-  )(listing) as T
+  )(offer) as T
 }
