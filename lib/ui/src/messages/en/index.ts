@@ -160,7 +160,7 @@ export const messages = {
         EXPIRED: 'Expired',
         OFFERS_PENDING: 'Offers pending',
         PARTIALLY_FULFILLED: 'Partially fulfilled',
-        FULFILLED: 'Filed'
+        FULFILLED: 'Fulfilled'
       }
     },
     details: {

@@ -7,9 +7,5 @@ const metadata: Meta<typeof Component> = {
   title: 'Listing/Card',
   component: Component
 }
-
 export default metadata
-
-type Story = StoryObj<typeof Component>
-
-export const Skeleton: Story = {}
+export const Skeleton: StoryObj<typeof Component> = {}

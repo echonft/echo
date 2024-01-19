@@ -11,9 +11,10 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   listing: Listing
+  scaleDisabled?: boolean
 }
 
-export const ListingCard: FunctionComponent<Props> = ({ listing }) => {
+export const ListingCard: FunctionComponent<Props> = ({ listing, scaleDisabled }) => {
   const slug = pipe<[Listing], NonEmptyArray<Collection>, Collection, string>(
     nonEmptyReturn(getListingTargetsCollections),
     head,
@@ -21,7 +22,7 @@ export const ListingCard: FunctionComponent<Props> = ({ listing }) => {
   )(listing)
   return (
     <InternalLink path={linkProvider.collection.listing.get({ slug, listingId: listing.id })}>
-      <ListingCardSwitch listing={listing} />
+      <ListingCardSwitch listing={listing} scaleDisabled={scaleDisabled} />
     </InternalLink>
   )
 }

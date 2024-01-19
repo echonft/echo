@@ -12,20 +12,26 @@ export const CardStatus: FunctionComponent<Props> = ({ label, color }) => {
   return (
     <div
       className={clsx(
-        'flex',
-        'flex-row',
-        'items-center',
-        'max-w-min',
+        'h-max',
+        'w-max',
         'rounded-lg',
         'py-0.25',
         'px-1.25',
-        'z-10',
         color === COLOR_GREEN && 'bg-green-300',
         color === COLOR_RED && 'bg-red-400',
         color === COLOR_YELLOW && 'bg-yellow-500'
       )}
     >
-      <span className={clsx('font-inter', 'text-[0.625rem]', 'font-medium', 'leading-[220%]', 'text-dark-500')}>
+      <span
+        className={clsx(
+          'font-inter',
+          'text-[0.625rem]',
+          'font-medium',
+          'leading-[220%]',
+          'text-dark-500',
+          'select-none'
+        )}
+      >
         {label}
       </span>
     </div>

@@ -14,16 +14,15 @@ import type { FunctionComponent } from 'react'
 
 interface Props {
   listing: Listing
-  hideOwner?: boolean
   scaleDisabled?: boolean
 }
-export const ListingCardSwitch: FunctionComponent<Props> = ({ listing, hideOwner, scaleDisabled }) => {
+export const ListingCardSwitch: FunctionComponent<Props> = ({ listing, scaleDisabled }) => {
   const { items } = listing
   if (items.length > 1) {
     const stack = getNftStackFromItems(items)!
     return (
       <StackLayout>
-        <ListingStackPicture stack={stack} listing={listing} hideOwner={hideOwner} scaleDisabled={scaleDisabled} />
+        <ListingStackPicture stack={stack} listing={listing} scaleDisabled={scaleDisabled} />
         <StackFooter
           title={stack.collection.name}
           subtitle={getTokenIdString(stack.tokenId, stack.collection.totalSupply)}
@@ -34,7 +33,7 @@ export const ListingCardSwitch: FunctionComponent<Props> = ({ listing, hideOwner
   const item = head(items as NonEmptyArray<OfferItem>)
   return (
     <CardLayout>
-      <ListingCardPicture listing={listing} hideOwner={hideOwner} scaleDisabled={scaleDisabled} />
+      <ListingCardPicture listing={listing} scaleDisabled={scaleDisabled} />
       <CardFooter
         title={item.nft.collection.name}
         subtitle={getTokenIdString(item.nft.tokenId, item.nft.collection.totalSupply)}

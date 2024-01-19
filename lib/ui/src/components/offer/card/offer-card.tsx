@@ -6,12 +6,13 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: OfferWithRole
+  scaleDisabled?: boolean
 }
 
-export const OfferCard: FunctionComponent<Props> = ({ offer }) => {
+export const OfferCard: FunctionComponent<Props> = ({ offer, scaleDisabled }) => {
   return (
     <InternalLink path={linkProvider.profile.offer.get({ offerId: offer.id })}>
-      <OfferCardSwitch offer={offer} />
+      <OfferCardSwitch offer={offer} scaleDisabled={scaleDisabled} />
     </InternalLink>
   )
 }
