@@ -1,7 +1,7 @@
 import { offerStateIsFinal } from '@echo/model/helpers/offer/offer-state-is-final'
 import { type OfferState } from '@echo/model/types/offer-state'
+import { StateTextContainer } from '@echo/ui/components/base/state-text-container'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
-import { StateTextContainer } from '@echo/ui/components/shared/state-text-container'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'

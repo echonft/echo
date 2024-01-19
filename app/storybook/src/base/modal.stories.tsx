@@ -75,7 +75,7 @@ export const CloseDisabled: Story = {
 }
 
 export const BackEnabled: Story = {
-  render: () => {
+  render: ({ onClose, onBack }) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
       <div className={'h-screen'}>
@@ -88,9 +88,11 @@ export const BackEnabled: Story = {
           title={'This a modal title'}
           open={isOpen}
           onClose={() => {
+            onClose?.()
             setIsOpen(false)
           }}
           onBack={() => {
+            onBack?.()
             setIsOpen(false)
           }}
         >
@@ -102,7 +104,10 @@ export const BackEnabled: Story = {
 }
 
 export const BackEnabledWithTitle: Story = {
-  render: ({ backButtonLabel = 'Back' }) => {
+  args: {
+    backButtonLabel: 'Back'
+  },
+  render: ({ backButtonLabel, onBack, onClose }) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
       <div className={'h-screen'}>
@@ -115,9 +120,11 @@ export const BackEnabledWithTitle: Story = {
           title={'This a modal title'}
           open={isOpen}
           onClose={() => {
+            onClose?.()
             setIsOpen(false)
           }}
           onBack={() => {
+            onBack?.()
             setIsOpen(false)
           }}
           backButtonLabel={backButtonLabel}

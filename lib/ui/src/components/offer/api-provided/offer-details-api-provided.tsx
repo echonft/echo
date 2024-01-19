@@ -12,7 +12,6 @@ import { executeSwap } from '@echo/web3/helpers/wagmi/fetchers/execute-swap'
 import { getErc721ContractApproval } from '@echo/web3/helpers/wagmi/fetchers/get-erc721-contract-approval'
 import { signOffer } from '@echo/web3/helpers/wagmi/fetchers/sign-offer'
 import { chain } from '@echo/web3/helpers/wagmi/providers/chain'
-import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -22,25 +21,23 @@ interface Props {
 
 export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user }) => {
   return (
-    <div className={clsx('py-4')}>
-      <OfferDetails
-        offer={offer}
-        isCreator={user.username === offer.sender?.username}
-        fetcher={{
-          approveErc721Contract,
-          getErc721ContractApproval,
-          acceptOffer,
-          cancelOffer,
-          executeSwap,
-          getOffer,
-          getOfferSignature,
-          rejectOffer,
-          signOffer
-        }}
-        provider={{
-          chain
-        }}
-      />
-    </div>
+    <OfferDetails
+      offer={offer}
+      isCreator={user.username === offer.sender?.username}
+      fetcher={{
+        approveErc721Contract,
+        getErc721ContractApproval,
+        acceptOffer,
+        cancelOffer,
+        executeSwap,
+        getOffer,
+        getOfferSignature,
+        rejectOffer,
+        signOffer
+      }}
+      provider={{
+        chain
+      }}
+    />
   )
 }

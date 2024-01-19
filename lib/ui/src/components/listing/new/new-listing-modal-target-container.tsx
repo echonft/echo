@@ -1,7 +1,7 @@
+import { SwapDirectionHeader } from '@echo/ui/components/base/swap-direction-header'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
 import { NewListingModalTargetRow } from '@echo/ui/components/listing/new/new-listing-modal-target-row'
-import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { SWAP_DIRECTION_IN } from '@echo/ui/constants/swap-direction'
 import type { Target } from '@echo/ui/types/target'
 import { clsx } from 'clsx'

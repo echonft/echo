@@ -7,11 +7,15 @@ import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import type { Offer } from '@echo/model/types/offer'
+import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
-import { OfferDetailsItemsContainer } from '@echo/ui/components/offer/details/offer-details-items-container'
+import { OfferDetailsInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-info-layout'
+import { OfferDetailsItemsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-items-buttons-layout'
+import { OfferDetailsLayout } from '@echo/ui/components/offer/details/layout/offer-details-layout'
+import { OfferDetailsItemsSeparator } from '@echo/ui/components/offer/details/offer-details-items-separator'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
-import { ItemsSeparator } from '@echo/ui/components/shared/items-separator'
-import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
+import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
+import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { ApproveErc721ContractArgs } from '@echo/web3/types/approve-erc-721-contract-args'
@@ -19,7 +23,7 @@ import type { ChainProvider } from '@echo/web3/types/chain-provider'
 import type { ExecuteSwapArgs } from '@echo/web3/types/execute-swap-args'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721-contract-approval-args'
 import type { SignOfferArgs } from '@echo/web3/types/sign-offer-args'
-import { clsx } from 'clsx'
+import { map, prop } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
@@ -49,17 +53,15 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, fetch
   const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
 
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-24')}>
-      <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
-        <UserDetailsContainer user={isCreator ? receiver : sender} />
+    <OfferDetailsLayout>
+      <OfferDetailsInfoLayout>
+        <ListingOfferUserDetails user={isCreator ? receiver : sender} />
         <OfferDetailsState state={state} expired={expired} expiresAt={expiresAt} />
-      </div>
-      <div className={clsx('flex', 'flex-col', 'gap-20')}>
-        <OfferDetailsItemsContainer items={isCreator ? receiverItems : senderItems} />
-        <div className={clsx('pb-4')}>
-          <ItemsSeparator />
-        </div>
-        <OfferDetailsItemsContainer items={isCreator ? senderItems : receiverItems} />
+      </OfferDetailsInfoLayout>
+      <OfferDetailsItemsButtonsLayout>
+        <NftsContainer nfts={map(prop('nft'), isCreator ? receiverItems : senderItems)} alignment={ALIGNMENT_CENTER} />
+        <OfferDetailsItemsSeparator />
+        <NftsContainer nfts={map(prop('nft'), isCreator ? senderItems : receiverItems)} alignment={ALIGNMENT_CENTER} />
         <OfferDetailsButtons
           offer={updatedOffer}
           isCreator={isCreator}
@@ -67,7 +69,7 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, fetch
           provider={provider}
           onSuccess={setUpdatedOffer}
         />
-      </div>
-    </div>
+      </OfferDetailsItemsButtonsLayout>
+    </OfferDetailsLayout>
   )
 }

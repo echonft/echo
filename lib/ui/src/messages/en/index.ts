@@ -228,7 +228,7 @@ export const messages = {
   offer: {
     details: {
       backBtn: {
-        label: 'Back to your profile page'
+        label: 'Back to your profile'
       },
       expiresAt: 'Expires in',
       expiredAt: 'Expired',

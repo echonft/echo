@@ -1,6 +1,6 @@
 import { type ListingItem } from '@echo/model/types/listing-item'
+import { SwapDirectionHeader } from '@echo/ui/components/base/swap-direction-header'
 import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
-import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
 import { SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

@@ -5,8 +5,8 @@ import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-head
 import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { CollectionDetailsApiProvided } from '@echo/ui/components/collection/api-provided/collection-details-api-provided'
-import { NavigationPageLayout } from '@echo/ui/components/layout/navigation/navigation-page-layout'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
+import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 

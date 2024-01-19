@@ -27,7 +27,7 @@ export const BackButtonLayout: FunctionComponent<PropsWithChildren<Props>> = ({ 
           <BackButton onBack={onBack} title={title} />
         </ShowIfNil>
       </div>
-      {children}
+      <div className={clsx('py-4')}>{children}</div>
     </div>
   )
 }

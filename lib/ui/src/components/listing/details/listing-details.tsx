@@ -7,14 +7,14 @@ import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Listing } from '@echo/model/types/listing'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
+import { SwapDirectionHeader } from '@echo/ui/components/base/swap-direction-header'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
 import { ItemsDetailsSeparator } from '@echo/ui/components/item/details/items-details-separator'
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
 import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
 import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
-import { SwapDirectionHeader } from '@echo/ui/components/shared/swap-direction-header'
-import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
+import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
@@ -81,7 +81,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
       )}
     >
       <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
-        <UserDetailsContainer user={creator} />
+        <ListingOfferUserDetails user={creator} />
         <ListingDetailsState state={state} expired={expired} expiresAt={expiresAt} />
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-5')}>

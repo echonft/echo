@@ -1,6 +1,6 @@
+import { SwapDirectionHeaderSkeleton } from '@echo/ui/components/base/swap-direction-header-skeleton'
 import { NftCardSkeleton } from '@echo/ui/components/nft/card/skeleton/nft-card-skeleton'
-import { SwapDirectionHeaderSkeleton } from '@echo/ui/components/shared/skeleton/swap-direction-header-skeleton'
-import { UserDetailsContainerSkeleton } from '@echo/ui/components/shared/skeleton/user-details-container-skeleton'
+import { ListingOfferUserDetailsSkeleton } from '@echo/ui/components/user/listing-offer/skeleton/listing-offer-user-details-skeleton'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
@@ -8,7 +8,7 @@ export const ListingRowSkeleton: FunctionComponent = () => {
   return (
     <div className={clsx('flex', 'flex-col', 'self-stretch', 'p-4', 'rounded-2xl', 'bg-white/[0.05]', 'gap-12')}>
       <div className={clsx('flex', 'flex-row', 'grow', 'justify-between', 'gap-12')}>
-        <UserDetailsContainerSkeleton />
+        <ListingOfferUserDetailsSkeleton />
       </div>
       <div className={clsx('flex', 'flex-row', 'grow')}>
         <div className={clsx('flex', 'flex-row-reverse', 'grow', 'basis-0')}>

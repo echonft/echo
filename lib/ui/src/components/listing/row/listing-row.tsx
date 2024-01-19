@@ -1,8 +1,8 @@
 import { type Listing } from '@echo/model/types/listing'
+import { StateTextContainer } from '@echo/ui/components/base/state-text-container'
 import { ListingRowItemsContainer } from '@echo/ui/components/listing/row/listing-row-items-container'
 import { ListingRowTargetsContainer } from '@echo/ui/components/listing/row/listing-row-targets-container'
-import { StateTextContainer } from '@echo/ui/components/shared/state-text-container'
-import { UserDetailsContainer } from '@echo/ui/components/shared/user-details-container'
+import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -20,7 +20,7 @@ export const ListingRow: FunctionComponent<Props> = ({ listing }) => {
   return (
     <div className={clsx('flex', 'flex-col', 'self-stretch', 'p-4', 'rounded-2xl', 'bg-white/[0.05]', 'gap-12')}>
       <div className={clsx('flex', 'flex-row', 'grow', 'justify-between', 'gap-12')}>
-        <UserDetailsContainer user={listing.creator} />
+        <ListingOfferUserDetails user={listing.creator} />
         <div className={clsx('mt-4')}>
           <StateTextContainer
             title={listing.expired ? t('expiredAt') : t('expiresAt')}

@@ -12,4 +12,4 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const Fetching: Story = {}
+export const Skeleton: Story = {}
