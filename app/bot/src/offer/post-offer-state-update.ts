@@ -8,6 +8,7 @@ import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
   OFFER_STATE_COMPLETED,
+  OFFER_STATE_EXPIRED,
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
@@ -29,9 +30,9 @@ async function getMessage(offer: Offer) {
     case OFFER_STATE_OPEN:
       throw Error('There is no offer update for state OPEN')
     case OFFER_STATE_COMPLETED:
-      return i18next.t('offer.update.COMPLETED')
     case OFFER_STATE_CANCELLED:
-      return i18next.t('offer.update.CANCELLED')
+    case OFFER_STATE_EXPIRED:
+      return i18next.t(`offer.update.${offer.state}`)
     case OFFER_STATE_ACCEPTED:
     case OFFER_STATE_REJECTED:
       const receiverId = await getOfferReceiverId(offer)
