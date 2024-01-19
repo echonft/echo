@@ -1,50 +1,28 @@
-import type { ListingState } from '@echo/model/types/listing-state'
-import type { Nft } from '@echo/model/types/nft'
-import type { OfferState } from '@echo/model/types/offer-state'
-import { Img } from '@echo/ui/components/base/img'
+import { CardDiscordTag } from '@echo/ui/components/base/card/card-discord-tag'
+import { StackPictureLayout } from '@echo/ui/components/base/stack/layout/stack-picture-layout'
+import { StackImage } from '@echo/ui/components/base/stack/stack-image'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
-import { NftCardDiscordTag } from '@echo/ui/components/nft/card/nft-card-discord-tag'
-import { NftItemCardStatus } from '@echo/ui/components/nft/card/nft-item-card-status'
-import { NftStackPictureLayout } from '@echo/ui/components/nft/stack/layout/nft-stack-picture-layout'
 import type { NftStack } from '@echo/ui/types/nft-stack'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   stack: NftStack
-  status: OfferState | ListingState
   hideOwner?: boolean
-  expired?: boolean
+  scaleDisabled?: boolean
 }
 
-export const NftStackPicture: FunctionComponent<Props> = ({ stack, hideOwner, status, expired }) => {
+export const NftStackPicture: FunctionComponent<Props> = ({ stack, hideOwner, scaleDisabled }) => {
   return (
-    <NftStackPictureLayout>
-      <Img
-        className={clsx(
-          'select-none',
-          'rounded-2xl',
-          'transition-transform',
-          'group-hover:scale-125',
-          'w-full',
-          'h-full',
-          'object-center',
-          'object-contain'
-        )}
-        src={stack.pictureUrl}
-        alt={stack.tokenId.toString()}
-        width={202}
-        height={202}
-      />
+    <StackPictureLayout>
+      <StackImage src={stack.pictureUrl} alt={stack.tokenId.toString()} scaleDisabled={scaleDisabled} />
       <div className={clsx('absolute', 'bottom-2', 'left-2', 'h-max', 'w-max')}>
-        <div className={clsx('flex', 'flex-row', 'items-center', 'justify-center', 'gap-1.25')}>
+        <div className={clsx('flex', 'flex-row', 'items-center', 'justify-center')}>
           <HideIf condition={Boolean(hideOwner)}>
-            <NftCardDiscordTag nft={{ owner: stack.owner } as Nft} />
+            <CardDiscordTag username={stack.owner.discord.username} />
           </HideIf>
-          <NftItemCardStatus status={status} expired={expired} />
         </div>
       </div>
-      <div className={clsx('absolute', 'bottom-2', 'left-2', 'h-max', 'w-max')}></div>
-    </NftStackPictureLayout>
+    </StackPictureLayout>
   )
 }

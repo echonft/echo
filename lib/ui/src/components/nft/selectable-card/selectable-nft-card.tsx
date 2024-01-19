@@ -1,9 +1,9 @@
 'use client'
-import { NftCardLayout } from '@echo/ui/components/nft/card/layout/nft-card-layout'
+import { CardLayout } from '@echo/ui/components/base/card/layout/card-layout'
 import { SelectableNftCardButtonLayout } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-card-button-layout'
 import { SelectableNftCardButton } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-button'
+import { SelectableNftCardFooter } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-footer'
 import { SelectableNftCardPicture } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-picture'
-import { SelectableNftCardTitle } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-title'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
@@ -22,9 +22,9 @@ export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({
   onAction
 }) => {
   return (
-    <NftCardLayout className={clsx(nft.selected && 'border-yellow-500')} disabled={nft.disabled}>
+    <CardLayout className={clsx(nft.selected && 'border-yellow-500')} disabled={nft.disabled}>
       <SelectableNftCardPicture nft={nft} hideOwner={hideOwner} onToggleSelection={onToggleSelection} />
-      <SelectableNftCardTitle nft={nft} />
+      <SelectableNftCardFooter nft={nft} />
       <SelectableNftCardButtonLayout>
         <SelectableNftCardButton
           nft={nft}
@@ -33,6 +33,6 @@ export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({
           }}
         />
       </SelectableNftCardButtonLayout>
-    </NftCardLayout>
+    </CardLayout>
   )
 }

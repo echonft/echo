@@ -2,7 +2,7 @@
 
 import { getNftMock } from '@echo/model-mocks/nft/get-nft-mock'
 import { NftCard as Component, type NftCardProps } from '@echo/ui/components/nft/card/nft-card'
-import { NFT_CARD_VARIANT_REDUCED } from '@echo/ui/constants/nft-card-variants'
+import { CARD_VARIANT_REDUCED } from '@echo/ui/constants/card-variants'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'
 
@@ -46,7 +46,7 @@ export const Card: Story = {
     return (
       <Component
         nft={getNftMock()}
-        variant={reduced ? NFT_CARD_VARIANT_REDUCED : undefined}
+        variant={reduced ? CARD_VARIANT_REDUCED : undefined}
         hideOwner={hideOwner}
         hideLink={hideLink}
       />

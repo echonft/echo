@@ -1,6 +1,6 @@
-import { NftStackLayout } from '@echo/ui/components/nft/stack/layout/nft-stack-layout'
+import { StackSkeleton } from '@echo/ui/components/base/stack/skeleton/stack-skeleton'
 import { type FunctionComponent } from 'react'
 
 export const NftStackSkeleton: FunctionComponent = () => {
-  return <NftStackLayout loading={true} />
+  return <StackSkeleton />
 }

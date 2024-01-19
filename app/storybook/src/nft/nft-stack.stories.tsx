@@ -2,8 +2,9 @@
 
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { NftStack as Component } from '@echo/ui/components/nft/stack/nft-stack'
+import { getNftStackFromArray } from '@echo/ui/helpers/stack/get-nft-stack-from-array'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { head } from 'ramda'
+import { pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'NFT/Stack',
@@ -19,16 +20,8 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-const nfts = getAllNftMocks()
-const { owner, collection, pictureUrl, tokenId } = head(nfts)
 export const Stack: Story = {
   args: {
-    stack: {
-      owner,
-      collection,
-      pictureUrl,
-      tokenId,
-      nfts
-    }
+    stack: pipe(getAllNftMocks, getNftStackFromArray)()
   }
 }

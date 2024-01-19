@@ -1,9 +1,9 @@
 import type { Nft } from '@echo/model/types/nft'
-import { Img } from '@echo/ui/components/base/img'
+import { CardDiscordTag } from '@echo/ui/components/base/card/card-discord-tag'
+import { CardImage } from '@echo/ui/components/base/card/card-image'
+import { CardOpenSeaIcon } from '@echo/ui/components/base/card/card-open-sea-icon'
+import { CardPictureLayout } from '@echo/ui/components/base/card/layout/card-picture-layout'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
-import { NftCardPictureLayout } from '@echo/ui/components/nft/card/layout/nft-card-picture-layout'
-import { NftCardDiscordTag } from '@echo/ui/components/nft/card/nft-card-discord-tag'
-import { NftCardOpenSeaIcon } from '@echo/ui/components/nft/card/nft-card-open-sea-icon'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
@@ -11,37 +11,23 @@ interface Props {
   nft: Nft
   hideOwner?: boolean
   hideLink?: boolean
+  scaleDisabled?: boolean
 }
 
-export const NftCardPicture: FunctionComponent<Props> = ({ nft, hideOwner, hideLink }) => {
+export const NftCardPicture: FunctionComponent<Props> = ({ nft, hideOwner, hideLink, scaleDisabled }) => {
   return (
-    <NftCardPictureLayout>
-      <Img
-        className={clsx(
-          'select-none',
-          'rounded-2xl',
-          'transition-transform',
-          'group-hover:scale-125',
-          'w-full',
-          'h-full',
-          'object-center',
-          'object-contain'
-        )}
-        src={nft.pictureUrl}
-        alt={nft.tokenId.toString()}
-        width={200}
-        height={200}
-      />
+    <CardPictureLayout>
+      <CardImage src={nft.pictureUrl} alt={nft.tokenId.toString()} scaleDisabled={scaleDisabled} />
       <HideIf condition={Boolean(hideLink)}>
         <div className={clsx('absolute', 'top-2', 'left-2', 'h-max', 'w-max')}>
-          <NftCardOpenSeaIcon nft={nft} />
+          <CardOpenSeaIcon openSeaUrl={nft.openSeaUrl} />
         </div>
       </HideIf>
       <HideIf condition={Boolean(hideOwner)}>
         <div className={clsx('absolute', 'bottom-2', 'left-2', 'h-max', 'w-max')}>
-          <NftCardDiscordTag nft={nft} />
+          <CardDiscordTag username={nft.owner.discord.username} />
         </div>
       </HideIf>
-    </NftCardPictureLayout>
+    </CardPictureLayout>
   )
 }

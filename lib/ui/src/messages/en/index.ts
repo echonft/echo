@@ -153,6 +153,16 @@ export const messages = {
       in: 'Looking for',
       out: 'Offering'
     },
+    card: {
+      state: {
+        OPEN: 'Awaiting offers',
+        CANCELLED: 'Cancelled',
+        EXPIRED: 'Expired',
+        OFFERS_PENDING: 'Offers pending',
+        PARTIALLY_FULFILLED: 'Partially fulfilled',
+        FULFILLED: 'Filed'
+      }
+    },
     details: {
       assets: {
         title: {
@@ -218,21 +228,6 @@ export const messages = {
     action: {
       listing: 'Create Listing',
       offer: 'Make Offer'
-    },
-    card: {
-      item: {
-        state: {
-          OPEN: 'Pending',
-          ACCEPTED: 'Accepted',
-          CANCELLED: 'Cancelled',
-          COMPLETED: 'Swapped',
-          REJECTED: 'Rejected',
-          EXPIRED: 'Expired',
-          OFFERS_PENDING: 'Pending offers',
-          PARTIALLY_FULFILLED: 'Partially fulfilled',
-          FULFILLED: 'Filed'
-        }
-      }
     }
   },
   notFoundPage: {
@@ -241,6 +236,16 @@ export const messages = {
     homeBtn: ''
   },
   offer: {
+    card: {
+      state: {
+        OPEN: 'Pending',
+        ACCEPTED: 'Accepted',
+        CANCELLED: 'Cancelled',
+        COMPLETED: 'Swapped',
+        REJECTED: 'Rejected',
+        EXPIRED: 'Expired'
+      }
+    },
     details: {
       backBtn: {
         label: 'Back to your profile'

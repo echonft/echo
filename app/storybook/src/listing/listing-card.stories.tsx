@@ -8,11 +8,11 @@ const metadata: Meta<typeof Component> = {
   title: 'Listing/Card',
   component: Component,
   argTypes: {
-    onClick: {
-      table: {
-        disable: true
-      }
-    }
+    // onClick: {
+    //   table: {
+    //     disable: true
+    //   }
+    // }
   },
   parameters: {
     controls: {
