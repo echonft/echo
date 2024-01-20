@@ -1,4 +1,5 @@
 import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
+import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getListingsQueryResults } from '@echo/firestore/helpers/crud/listing/get-listings-query-results'
 import { mergeQueryResults } from '@echo/firestore/helpers/crud/query/merge-query-results'
@@ -9,18 +10,22 @@ import { isNil } from 'ramda'
 
 /**
  * Find listings for which a collection is in either the targets or the items
- * @param collectionId
+ * @param collectionSlug
  * @param filters
  * @param constraints
  */
 export async function getListingsForCollection(
-  collectionId: string,
+  collectionSlug: string,
   filters?: ListingQueryFilters,
   constraints?: QueryConstraints<Listing>
 ): Promise<Listing[]> {
+  const collection = await findCollectionBySlug(collectionSlug)
+  if (isNil(collection)) {
+    return []
+  }
   const getResults = getListingsQueryResults(filters, constraints)
-  const asItemQuery = getListingsCollectionReference().where('itemsNftCollectionIds', 'array-contains', collectionId)
-  const asTargetQuery = getListingsCollectionReference().where('targetsIds', 'array-contains', collectionId)
+  const asItemQuery = getListingsCollectionReference().where('itemsNftCollectionIds', 'array-contains', collection.id)
+  const asTargetQuery = getListingsCollectionReference().where('targetsIds', 'array-contains', collection.id)
   if (isNil(filters) || isNil(filters.as)) {
     return mergeQueryResults(asItemQuery, asTargetQuery, getResults)
   }

@@ -6,7 +6,7 @@ import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/server/helpers/error/guard'
 import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/parse-constraints-query'
 import { parseOfferFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-offer-filters-query'
-import { OFFER_STATE_COMPLETED, OFFER_STATE_EXPIRED } from '@echo/model/constants/offer-states'
+import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { NextResponse } from 'next/server'
 import { assoc, dissoc, pipe } from 'ramda'
 
@@ -14,7 +14,7 @@ export async function getAllCompletedOffersRequestHandler(req: ApiRequest<never>
   const constraints = guardFn(parseConstraintsQuery, ErrorStatus.BAD_REQUEST)(req)
   const filters = guardFn(parseOfferFiltersQuery, ErrorStatus.BAD_REQUEST)(req)
   const completedOffersFilters = pipe<[OfferQueryFilters], OfferQueryFilters, OfferQueryFilters>(
-    assoc('states', [OFFER_STATE_COMPLETED, OFFER_STATE_EXPIRED]),
+    assoc('states', [OFFER_STATE_COMPLETED]),
     dissoc('notStates')
   )(filters ?? {})
   const offers = await guardAsyncFn(getAllOffers, ErrorStatus.SERVER_ERROR)(completedOffersFilters, constraints)

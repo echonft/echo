@@ -9,10 +9,10 @@ import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
 import { guardAsyncFn } from '@echo/frontend/lib/server/helpers/error/guard'
-import { assertOfferItemsApproval } from '@echo/frontend/lib/server/helpers/offer/assert/assert-offer-items-approval'
-import { assertOfferItemsOwner } from '@echo/frontend/lib/server/helpers/offer/assert/assert-offer-items-owner'
 import { guarded_assertOfferExists } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-exists'
 import { guarded_assertOfferReceiverOrSenderIs } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-receiver-or-sender-is'
+import { isOfferItemsApprovalValid } from '@echo/frontend/lib/server/helpers/offer/is-offer-items-approval-valid'
+import { isOfferItemsOwnershipValid } from '@echo/frontend/lib/server/helpers/offer/is-offer-items-ownership-valid'
 import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { NextResponse } from 'next/server'
@@ -23,7 +23,7 @@ export async function getOfferRequestHandler(user: AuthUser, _req: ApiRequest<ne
   const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(id)
   guarded_assertOfferExists(offer, id)
   guarded_assertOfferReceiverOrSenderIs(offer, user.username)
-  if (!(await assertOfferItemsOwner(offer))) {
+  if (!(await isOfferItemsOwnershipValid(offer))) {
     await guardAsyncFn(
       cancelOffer,
       ErrorStatus.SERVER_ERROR
@@ -38,7 +38,7 @@ export async function getOfferRequestHandler(user: AuthUser, _req: ApiRequest<ne
     })
     return NextResponse.json<OfferResponse>({ offer: assoc('state', OFFER_STATE_CANCELLED, offer) })
   }
-  if (!(await assertOfferItemsApproval(offer))) {
+  if (!(await isOfferItemsApprovalValid(offer))) {
     await guardAsyncFn(
       cancelOffer,
       ErrorStatus.SERVER_ERROR

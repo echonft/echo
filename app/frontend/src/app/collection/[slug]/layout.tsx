@@ -1,13 +1,11 @@
-import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
-import { type CollectionResponse } from '@echo/api/types/responses/collection-response'
+import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
 import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
-import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
-import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
-import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { CollectionDetailsApiProvided } from '@echo/ui/components/collection/api-provided/collection-details-api-provided'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
+import { notFound } from 'next/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
+import { isNil } from 'ramda'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -16,17 +14,17 @@ interface Props {
   }
 }
 
-const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params, children }) => {
+const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { slug }, children }) => {
   unstable_setRequestLocale('en')
   const user = await getAuthUser()
-  const response = await nextFetch.get<CollectionResponse>(apiUrlProvider.collection.get.getUrl(params), {
-    cookie: getCookieHeader()
-  })
-  assertNextFetchResponse(response)
+  const collection = await findCollectionBySlug(slug)
+  if (isNil(collection)) {
+    notFound()
+  }
   return (
     <NavigationPageLayout user={user}>
       <SectionLayout>
-        <CollectionDetailsApiProvided collection={response.data.collection} />
+        <CollectionDetailsApiProvided collection={collection} />
       </SectionLayout>
       <SectionLayout>{children}</SectionLayout>
     </NavigationPageLayout>

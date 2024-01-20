@@ -1,9 +1,5 @@
-import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
-import { type OffersResponse } from '@echo/api/types/responses/offers-response'
-import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
-import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
-import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
+import { getOffersForCollection } from '@echo/firestore/crud/offer/get-offers-for-collection'
+import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { CollectionSwapsApiProvided } from '@echo/ui/components/collection/api-provided/collection-swaps-api-provided'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { type FunctionComponent } from 'react'
@@ -14,17 +10,16 @@ interface Props {
   }
 }
 
-const CollectionSwapsPage: FunctionComponent<Props> = async ({ params }) => {
+const CollectionSwapsPage: FunctionComponent<Props> = async ({ params: { slug } }) => {
   unstable_setRequestLocale('en')
-  const constraintsQueryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'expiresAt', direction: 'asc' }]
-  })
-  const response = await nextFetch.get<OffersResponse>(apiUrlProvider.collection.swaps.getUrl(params), {
-    cookie: getCookieHeader(),
-    params: constraintsQueryParams
-  })
-  assertNextFetchResponse(response)
-  return <CollectionSwapsApiProvided collectionSlug={params.slug} offers={response.data.offers} />
+  const offers = await getOffersForCollection(
+    slug,
+    { state: [OFFER_STATE_COMPLETED] },
+    {
+      orderBy: [{ field: 'expiresAt', direction: 'asc' }]
+    }
+  )
+  return <CollectionSwapsApiProvided collectionSlug={slug} offers={offers} />
 }
 
 export default CollectionSwapsPage

@@ -1,13 +1,7 @@
-import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
-import type { ListingsResponse } from '@echo/api/types/responses/listings-response'
-import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
-import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
-import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
-import { LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
+import { getListingsForCollection } from '@echo/firestore/crud/listing/get-listings-for-collection'
+import { READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import { CollectionListingsApiProvided } from '@echo/ui/components/collection/api-provided/collection-listings-api-provided'
 import { unstable_setRequestLocale } from 'next-intl/server'
-import { mergeLeft } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -16,19 +10,16 @@ interface Props {
   }
 }
 
-const CollectionListingsPage: FunctionComponent<Props> = async ({ params }) => {
+const CollectionListingsPage: FunctionComponent<Props> = async ({ params: { slug } }) => {
   unstable_setRequestLocale('en')
-  const response = await nextFetch.get<ListingsResponse>(apiUrlProvider.collection.listings.getUrl(params), {
-    cookie: getCookieHeader(),
-    params: mergeLeft(
-      mapQueryConstraintsToQueryParams({
-        orderBy: [{ field: 'expiresAt', direction: 'asc' }]
-      }),
-      { state: [LISTING_STATE_OPEN] }
-    )
-  })
-  assertNextFetchResponse(response)
-  return <CollectionListingsApiProvided collectionSlug={params.slug} listings={response.data.listings} />
+  const listings = await getListingsForCollection(
+    slug,
+    { notState: READ_ONLY_LISTING_STATES },
+    {
+      orderBy: [{ field: 'expiresAt', direction: 'asc' }]
+    }
+  )
+  return <CollectionListingsApiProvided collectionSlug={slug} listings={listings} />
 }
 
 export default CollectionListingsPage

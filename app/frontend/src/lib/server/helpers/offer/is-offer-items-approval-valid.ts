@@ -7,7 +7,7 @@ import { toPromise } from '@echo/utils/fp/to-promise'
 import { hasApprovedErc721 } from '@echo/web3/helpers/viem/has-approved-erc721'
 import { eqBy, F, ifElse, map, otherwise, path, pipe, prop, propEq, T, uniqWith } from 'ramda'
 
-export function assertOfferItemsApproval(offer: Offer) {
+export function isOfferItemsApprovalValid(offer: Offer) {
   return ifElse(
     propEq(OFFER_STATE_ACCEPTED, 'state'),
     pipe(

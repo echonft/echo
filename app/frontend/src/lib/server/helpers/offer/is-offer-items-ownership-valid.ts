@@ -5,7 +5,7 @@ import { toPromise } from '@echo/utils/fp/to-promise'
 import { isOwnerOfErc721 } from '@echo/web3/helpers/viem/is-owner-of-erc721'
 import { F, ifElse, map, otherwise, pipe, prop, T } from 'ramda'
 
-export function assertOfferItemsOwner(offer: Offer) {
+export function isOfferItemsOwnershipValid(offer: Offer) {
   return ifElse(
     prop('readOnly'),
     pipe(T, toPromise),

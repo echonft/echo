@@ -1,13 +1,13 @@
-import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
-import { type UserResponse } from '@echo/api/types/responses/user-response'
+import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
+import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
-import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
-import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
-import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
+import { mapFirestoreUserToUserProfile } from '@echo/frontend/lib/server/mappers/map-firestore-user-to-user-profile'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
 import { UserDetailsApiProvided } from '@echo/ui/components/user/api-provided/user-details-api-provided'
+import { notFound } from 'next/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
+import { isNil } from 'ramda'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -16,17 +16,18 @@ interface Props {
   }
 }
 
-const UserLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params, children }) => {
+const UserLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { username }, children }) => {
   unstable_setRequestLocale('en')
-  const user = await getAuthUser()
-  const response = await nextFetch.get<UserResponse>(apiUrlProvider.user.get.getUrl(params), {
-    cookie: getCookieHeader()
-  })
-  assertNextFetchResponse(response)
+  const authUser = await getAuthUser()
+  const user = await findUserByUsername(username)
+  if (isNil(user)) {
+    notFound()
+  }
+  const wallets = await getWalletsForUser(user.username)
   return (
-    <NavigationPageLayout user={user}>
+    <NavigationPageLayout user={authUser}>
       <SectionLayout>
-        <UserDetailsApiProvided user={response.data.user} />
+        <UserDetailsApiProvided user={mapFirestoreUserToUserProfile(user, wallets)} />
       </SectionLayout>
       <SectionLayout>{children}</SectionLayout>
     </NavigationPageLayout>
