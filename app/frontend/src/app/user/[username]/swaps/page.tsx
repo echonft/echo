@@ -1,6 +1,7 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
+import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { UserSwapsApiProvided } from '@echo/ui/components/user/api-provided/user-swaps-api-provided'
 import { redirect } from 'next/navigation'
@@ -29,4 +30,4 @@ const UserSwapsPage: FunctionComponent<Props> = async ({ params: { username } })
   return <UserSwapsApiProvided username={username} offers={offers} />
 }
 
-export default UserSwapsPage
+export default withFirebase(UserSwapsPage)

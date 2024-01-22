@@ -1,9 +1,9 @@
 import { type CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
-import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
-import { getOfferItemsFromRequests } from '@echo/frontend/lib/server/helpers/offer/get-offer-items-from-requests'
-import { createOfferRequestHandler } from '@echo/frontend/lib/server/request-handlers/offer/create-offer-request-handler'
+import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
+import { getOfferItemsFromRequests } from '@echo/frontend/lib/helpers/offer/get-offer-items-from-requests'
+import { createOfferRequestHandler } from '@echo/frontend/lib/request-handlers/offer/create-offer-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { type Nft } from '@echo/model/types/nft'
 import { type User } from '@echo/model/types/user'
@@ -11,7 +11,7 @@ import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 
 jest.mock('@echo/firestore/crud/offer/add-offer')
-jest.mock('@echo/frontend/lib/server/helpers/offer/get-offer-items-from-requests')
+jest.mock('@echo/frontend/lib/helpers/offer/get-offer-items-from-requests')
 
 describe('request-handlers - offer - createOfferRequestHandler', () => {
   const validRequest: CreateOfferRequest = {

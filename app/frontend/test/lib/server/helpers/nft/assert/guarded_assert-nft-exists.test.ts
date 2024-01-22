@@ -1,4 +1,4 @@
-import { guarded_assertNftExists } from '@echo/frontend/lib/server/helpers/nft/assert/guarded_assert-nft-exists'
+import { guarded_assertNftExists } from '@echo/frontend/lib/helpers/nft/assert/guarded_assert-nft-exists'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 
 describe('helpers - nft - assert - guarded_assertNftExists', () => {

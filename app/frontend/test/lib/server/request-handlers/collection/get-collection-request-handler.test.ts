@@ -1,6 +1,6 @@
 import { type CollectionResponse } from '@echo/api/types/responses/collection-response'
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
-import { getCollectionRequestHandler } from '@echo/frontend/lib/server/request-handlers/collection/get-collection-request-handler'
+import { getCollectionRequestHandler } from '@echo/frontend/lib/request-handlers/collection/get-collection-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 

@@ -1,4 +1,5 @@
 import { getOffersForCollection } from '@echo/firestore/crud/offer/get-offers-for-collection'
+import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { CollectionSwapsApiProvided } from '@echo/ui/components/collection/api-provided/collection-swaps-api-provided'
 import { unstable_setRequestLocale } from 'next-intl/server'
@@ -22,4 +23,4 @@ const CollectionSwapsPage: FunctionComponent<Props> = async ({ params: { slug } 
   return <CollectionSwapsApiProvided collectionSlug={slug} offers={offers} />
 }
 
-export default CollectionSwapsPage
+export default withFirebase(CollectionSwapsPage)

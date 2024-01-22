@@ -1,6 +1,6 @@
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
-import { getListingTargetsFromRequests } from '@echo/frontend/lib/server/helpers/listing/get-listing-targets-from-requests'
+import { getListingTargetsFromRequests } from '@echo/frontend/lib/helpers/listing/get-listing-targets-from-requests'
 import { type Collection } from '@echo/model/types/collection'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { forEach } from 'ramda'

@@ -1,5 +1,5 @@
-import { appRouteHandler } from '@echo/frontend/lib/server/request-handlers/app-route-handler'
-import { getUserCompletedOffersRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/get-user-completed-offers-request-handler'
+import { appRouteHandler } from '@echo/frontend/lib/request-handlers/app-route-handler'
+import { getUserCompletedOffersRequestHandler } from '@echo/frontend/lib/request-handlers/user/get-user-completed-offers-request-handler'
 
 /**
  * Available query params:

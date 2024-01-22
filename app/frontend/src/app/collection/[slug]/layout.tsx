@@ -1,5 +1,6 @@
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
+import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
 import { CollectionDetailsApiProvided } from '@echo/ui/components/collection/api-provided/collection-details-api-provided'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
@@ -31,4 +32,4 @@ const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ p
   )
 }
 
-export default CollectionLayout
+export default withFirebase(CollectionLayout)

@@ -1,7 +1,8 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
 import { getListingsForUser } from '@echo/firestore/crud/listing/get-listings-for-user'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
+import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
 import { UserListingsApiProvided } from '@echo/ui/components/user/api-provided/user-listings-api-provided'
 import { redirect } from 'next/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
@@ -29,4 +30,4 @@ const UserListingsPage: FunctionComponent<Props> = async ({ params: { username }
   return <UserListingsApiProvided username={username} listings={listings} />
 }
 
-export default UserListingsPage
+export default withFirebase(UserListingsPage)

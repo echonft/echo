@@ -2,8 +2,9 @@ import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
-import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
+import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
+import { redirectIfNotLoggedIn } from '@echo/frontend/lib/auth/redirect-if-not-logged-in'
+import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
 import { OFFER_ROLE_RECEIVER, OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
@@ -42,4 +43,4 @@ const ProfileSwapsPage: FunctionComponent = async () => {
   return <ProfileSwapsApiProvided offers={offers} />
 }
 
-export default ProfileSwapsPage
+export default withFirebase(ProfileSwapsPage)

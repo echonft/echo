@@ -1,5 +1,5 @@
-import { authAppRouteHandler } from '@echo/frontend/lib/server/request-handlers/auth-app-route-handler'
-import { getCurrentUserOffersRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/get-current-user-offers-request-handler'
+import { authAppRouteHandler } from '@echo/frontend/lib/request-handlers/auth-app-route-handler'
+import { getCurrentUserOffersRequestHandler } from '@echo/frontend/lib/request-handlers/user/get-current-user-offers-request-handler'
 
 /**
  * Available query params:

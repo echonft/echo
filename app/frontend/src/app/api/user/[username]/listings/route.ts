@@ -1,5 +1,5 @@
-import { appRouteHandler } from '@echo/frontend/lib/server/request-handlers/app-route-handler'
-import { getUserListingsRequestHandler } from '@echo/frontend/lib/server/request-handlers/user/get-user-listings-request-handler'
+import { appRouteHandler } from '@echo/frontend/lib/request-handlers/app-route-handler'
+import { getUserListingsRequestHandler } from '@echo/frontend/lib/request-handlers/user/get-user-listings-request-handler'
 
 /**
  * Available query params:

@@ -1,4 +1,4 @@
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { NewListingBannerManager } from '@echo/ui/components/listing/new/new-listing-banner-manager'
 import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'

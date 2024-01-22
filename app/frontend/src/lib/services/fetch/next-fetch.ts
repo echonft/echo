@@ -1,4 +1,4 @@
-import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
+import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import type { NextFetchRequestConfig } from '@echo/frontend/lib/types/services/fetch/next-fetch-request-config'
 import type { NextFetchResponse } from '@echo/frontend/lib/types/services/fetch/next-fetch-response'
 import { isDev } from '@echo/utils/constants/is-dev'

@@ -1,6 +1,7 @@
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
+import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import { ListingDetailsApiProvided } from '@echo/ui/components/listing/api-provided/listing-details-api-provided'
@@ -39,4 +40,4 @@ const ListingDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({
   return <ListingDetailsApiProvided listing={listing} user={user} />
 }
 
-export default ListingDetailsPage
+export default withFirebase(ListingDetailsPage)

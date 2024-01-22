@@ -1,7 +1,8 @@
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
-import { mapFirestoreUserToUserProfile } from '@echo/frontend/lib/server/mappers/map-firestore-user-to-user-profile'
+import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
+import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
+import { mapFirestoreUserToUserProfile } from '@echo/frontend/lib/mappers/map-firestore-user-to-user-profile'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
 import { UserDetailsApiProvided } from '@echo/ui/components/user/api-provided/user-details-api-provided'
@@ -34,4 +35,4 @@ const UserLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params:
   )
 }
 
-export default UserLayout
+export default withFirebase(UserLayout)

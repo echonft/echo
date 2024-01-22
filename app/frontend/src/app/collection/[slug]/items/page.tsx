@@ -1,6 +1,7 @@
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
+import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
+import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
 import { CollectionNftsApiProvided } from '@echo/ui/components/collection/api-provided/collection-nfts-api-provided'
 import { notFound } from 'next/navigation'
 import { unstable_setRequestLocale } from 'next-intl/server'
@@ -29,4 +30,4 @@ const CollectionNftsPage: FunctionComponent<Props> = async ({ params: { slug } }
   return <CollectionNftsApiProvided collection={collection} nfts={nfts} user={user} />
 }
 
-export default CollectionNftsPage
+export default withFirebase(CollectionNftsPage)

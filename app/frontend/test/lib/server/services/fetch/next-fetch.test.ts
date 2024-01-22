@@ -1,4 +1,4 @@
-import { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
+import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
 import { assoc, pipe } from 'ramda'
 

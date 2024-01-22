@@ -1,5 +1,5 @@
-import { appRouteHandler } from '@echo/frontend/lib/server/request-handlers/app-route-handler'
-import { getAllCollectionsRequestHandler } from '@echo/frontend/lib/server/request-handlers/collection/get-all-collections-request-handler'
+import { appRouteHandler } from '@echo/frontend/lib/request-handlers/app-route-handler'
+import { getAllCollectionsRequestHandler } from '@echo/frontend/lib/request-handlers/collection/get-all-collections-request-handler'
 
 /**
  * Available query params:

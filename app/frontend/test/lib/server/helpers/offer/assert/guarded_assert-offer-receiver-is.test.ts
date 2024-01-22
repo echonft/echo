@@ -1,4 +1,4 @@
-import { guarded_assertOfferReceiverIs } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer-receiver-is'
+import { guarded_assertOfferReceiverIs } from '@echo/frontend/lib/helpers/offer/assert/guarded_assert-offer-receiver-is'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
 

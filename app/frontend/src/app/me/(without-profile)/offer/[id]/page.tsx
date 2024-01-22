@@ -1,8 +1,9 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
-import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
-import { validateOffer } from '@echo/frontend/lib/server/helpers/offer/validate-offer'
+import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
+import { redirectIfNotLoggedIn } from '@echo/frontend/lib/auth/redirect-if-not-logged-in'
+import { validateOffer } from '@echo/frontend/lib/helpers/offer/validate-offer'
+import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
 import { isOfferReceiver } from '@echo/model/helpers/offer/is-offer-receiver'
 import { isOfferSender } from '@echo/model/helpers/offer/is-offer-sender'
 import { BackButtonLayout } from '@echo/ui/components/layout/back-button-layout'
@@ -44,4 +45,4 @@ const OfferDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({ p
   )
 }
 
-export default OfferDetailsPage
+export default withFirebase(OfferDetailsPage)

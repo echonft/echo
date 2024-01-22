@@ -1,4 +1,4 @@
-import type { ErrorStatus } from '@echo/frontend/lib/server/constants/error-status'
+import type { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 
 export interface NextFetchError {
   status: ErrorStatus

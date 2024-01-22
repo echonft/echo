@@ -1,7 +1,7 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import { OFFER_FILTER_AS_RECEIVER } from '@echo/firestore/constants/offer/offer-filter-as'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
-import { parseOfferFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-offer-filters-query'
+import { parseOfferFiltersQuery } from '@echo/frontend/lib/helpers/request/parse-offer-filters-query'
 import { OFFER_STATE_ACCEPTED, OFFER_STATE_CANCELLED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { NextRequest } from 'next/server'
 
