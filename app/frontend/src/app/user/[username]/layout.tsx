@@ -1,25 +1,20 @@
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
-import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
-import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import { mapFirestoreUserToUserProfile } from '@echo/frontend/lib/mappers/map-firestore-user-to-user-profile'
+import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
+import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
 import { UserDetailsApiProvided } from '@echo/ui/components/user/api-provided/user-details-api-provided'
 import { notFound } from 'next/navigation'
-import { unstable_setRequestLocale } from 'next-intl/server'
 import { isNil } from 'ramda'
-import { type FunctionComponent, type PropsWithChildren } from 'react'
 
-interface Props {
-  params: {
-    username: string
-  }
-}
-
-const UserLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { username }, children }) => {
-  unstable_setRequestLocale('en')
-  const authUser = await getAuthUser()
+export default async function ({
+  params: { username },
+  children
+}: NextLayoutParams<NextParams<Record<'username', string>>>) {
+  const authUser = await initializeServerComponent({ getAuthUser: true })
   const user = await findUserByUsername(username)
   if (isNil(user)) {
     notFound()
@@ -34,5 +29,3 @@ const UserLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params:
     </NavigationPageLayout>
   )
 }
-
-export default withFirebase(UserLayout)

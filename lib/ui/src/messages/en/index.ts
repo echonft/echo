@@ -233,7 +233,7 @@ export const messages = {
   notFoundPage: {
     title: 'Sorry, there’s',
     subtitle: 'nothing here',
-    homeBtn: ''
+    homeBtn: 'Take me home'
   },
   offer: {
     card: {

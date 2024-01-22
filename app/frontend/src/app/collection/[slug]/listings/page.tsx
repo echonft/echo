@@ -1,18 +1,11 @@
 import { getListingsForCollection } from '@echo/firestore/crud/listing/get-listings-for-collection'
-import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import { CollectionListingsApiProvided } from '@echo/ui/components/collection/api-provided/collection-listings-api-provided'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { type FunctionComponent } from 'react'
 
-interface Props {
-  params: {
-    slug: string
-  }
-}
-
-const CollectionListingsPage: FunctionComponent<Props> = async ({ params: { slug } }) => {
-  unstable_setRequestLocale('en')
+export default async function ({ params: { slug } }: NextParams<Record<'slug', string>>) {
+  await initializeServerComponent({ initializeFirebase: true })
   const listings = await getListingsForCollection(
     slug,
     { notState: READ_ONLY_LISTING_STATES },
@@ -22,5 +15,3 @@ const CollectionListingsPage: FunctionComponent<Props> = async ({ params: { slug
   )
   return <CollectionListingsApiProvided collectionSlug={slug} listings={listings} />
 }
-
-export default withFirebase(CollectionListingsPage)

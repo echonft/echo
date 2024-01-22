@@ -1,5 +1,4 @@
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
-import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { auth } from '@echo/frontend/lib/auth/auth'
 import { mapFirestoreWalletToWallet } from '@echo/frontend/lib/mappers/map-firestore-wallet-to-wallet'
@@ -14,7 +13,6 @@ export async function getAuthUser() {
   }
   const { user } = session
   if (isNil(user.wallets)) {
-    initializeFirebase()
     const wallets = await pipe<[AuthUser], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
       prop('username'),
       getWalletsForUser,

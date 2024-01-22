@@ -1,22 +1,13 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
 import { getListingsForUser } from '@echo/firestore/crud/listing/get-listings-for-user'
-import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
-import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { UserListingsApiProvided } from '@echo/ui/components/user/api-provided/user-listings-api-provided'
 import { redirect } from 'next/navigation'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { type FunctionComponent } from 'react'
 
-interface Props {
-  params: {
-    username: string
-  }
-}
-
-const UserListingsPage: FunctionComponent<Props> = async ({ params: { username } }) => {
-  unstable_setRequestLocale('en')
-  const user = await getAuthUser()
+export default async function ({ params: { username } }: NextParams<Record<'username', string>>) {
+  const user = await initializeServerComponent({ getAuthUser: true })
   if (user?.username === username) {
     redirect(linkProvider.profile.listingsCreated.get())
   }
@@ -29,5 +20,3 @@ const UserListingsPage: FunctionComponent<Props> = async ({ params: { username }
   )
   return <UserListingsApiProvided username={username} listings={listings} />
 }
-
-export default withFirebase(UserListingsPage)

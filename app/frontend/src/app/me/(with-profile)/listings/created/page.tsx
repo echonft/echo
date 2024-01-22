@@ -1,16 +1,12 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
 import { getListingsForUser } from '@echo/firestore/crud/listing/get-listings-for-user'
-import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/auth/redirect-if-not-logged-in'
-import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import { ProfileListingsCreatedApiProvided } from '@echo/ui/components/profile/api-provided/profile-listings-created-api-provided'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { type FunctionComponent } from 'react'
 
-const ProfileListingsCreatedPage: FunctionComponent = async () => {
-  unstable_setRequestLocale('en')
-  const user = await getAuthUser()
+export default async function () {
+  const user = await initializeServerComponent({ getAuthUser: true })
   redirectIfNotLoggedIn(user, linkProvider.profile.listingsCreated.getUrl())
   const listings = await getListingsForUser(
     user.username,
@@ -21,5 +17,3 @@ const ProfileListingsCreatedPage: FunctionComponent = async () => {
   )
   return <ProfileListingsCreatedApiProvided listings={listings} />
 }
-
-export default withFirebase(ProfileListingsCreatedPage)

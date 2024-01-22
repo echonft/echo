@@ -1,9 +1,9 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/auth/redirect-if-not-logged-in'
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import { validateOffer } from '@echo/frontend/lib/helpers/offer/validate-offer'
-import { withFirebase } from '@echo/frontend/lib/hoc/with-firebase'
+import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { isOfferReceiver } from '@echo/model/helpers/offer/is-offer-receiver'
 import { isOfferSender } from '@echo/model/helpers/offer/is-offer-sender'
 import { BackButtonLayout } from '@echo/ui/components/layout/back-button-layout'
@@ -12,19 +12,11 @@ import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
 import { OfferDetailsApiProvided } from '@echo/ui/components/offer/api-provided/offer-details-api-provided'
 import { notFound } from 'next/navigation'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import { isNil } from 'ramda'
-import { type FunctionComponent, type PropsWithChildren } from 'react'
 
-interface Props {
-  params: {
-    id: string
-  }
-}
-
-const OfferDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({ params: { id } }) => {
-  unstable_setRequestLocale('en')
-  const user = await getAuthUser()
+export default async function ({ params: { id } }: NextParams<Record<'id', string>>) {
+  const user = await initializeServerComponent({ getAuthUser: true })
   const t = await getTranslations({ namespace: 'offer.details' })
   redirectIfNotLoggedIn(user, linkProvider.profile.offer.getUrl({ offerId: id }))
   const offer = await findOfferById(id)
@@ -44,5 +36,3 @@ const OfferDetailsPage: FunctionComponent<PropsWithChildren<Props>> = async ({ p
     </NavigationPageLayout>
   )
 }
-
-export default withFirebase(OfferDetailsPage)
