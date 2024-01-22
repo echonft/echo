@@ -8,7 +8,7 @@ import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-
 import { getSiweMessage } from '@echo/frontend/lib/helpers/auth/get-siwe-message'
 import { verifySiweMessage } from '@echo/frontend/lib/helpers/auth/verify-siwe-message'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
-import { addWalletRequestHandler } from '@echo/frontend/lib/request-handlers/user/add-wallet-request-handler'
+import { addWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/add-wallet-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { formatAddress } from '@echo/web3/helpers/format-address'

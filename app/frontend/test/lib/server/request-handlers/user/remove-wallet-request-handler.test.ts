@@ -3,7 +3,7 @@ import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-usern
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
-import { removeWalletRequestHandler } from '@echo/frontend/lib/request-handlers/user/remove-wallet-request-handler'
+import { removeWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/remove-wallet-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { toLower } from 'ramda'

@@ -10,7 +10,7 @@ import { type Collection } from '@echo/model/types/collection'
 import { NextResponse } from 'next/server'
 import { isNil } from 'ramda'
 
-export async function getAllCollectionsRequestHandler(req: ApiRequest<never>) {
+export async function getCollectionsRequestHandler(req: ApiRequest<never>) {
   const constraints = guardFn(parseConstraintsQuery<Collection>, ErrorStatus.BAD_REQUEST)(req)
   const filters = guardFn(parseCollectionFiltersQuery, ErrorStatus.BAD_REQUEST)(req)
   const includeSwapsCount = isNil(filters) ? false : filters.includeSwapsCount
