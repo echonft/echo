@@ -22,7 +22,6 @@ export const apiUrlProvider = {
     accept: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/accept', secure: true }),
     cancel: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/cancel', secure: true }),
     create: new ApiPath({ path: '/offer', secure: true }),
-    get: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId', secure: true }),
     reject: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/reject', secure: true }),
     signature: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/signature', secure: true })
   },

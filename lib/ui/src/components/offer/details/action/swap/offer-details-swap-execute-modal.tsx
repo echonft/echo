@@ -1,8 +1,7 @@
 'use client'
-import type { GetOfferArgs } from '@echo/api/types/fetchers/get-offer-args'
 import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
+import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
 import { Modal } from '@echo/ui/components/base/modal/modal'
@@ -16,7 +15,7 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import type { ExecuteSwapArgs } from '@echo/web3/types/execute-swap-args'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
+import { assoc, isNil, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -24,7 +23,6 @@ interface Props {
   chainId: number
   signature: HexString | undefined
   fetcher: {
-    getOffer: Fetcher<OfferResponse, GetOfferArgs>
     getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
     executeSwap: Fetcher<HexString, ExecuteSwapArgs>
   }
@@ -49,22 +47,15 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
     alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('swap') },
     onError: onClose
   }
-  const { trigger: getOfferTrigger, isMutating: getOfferMutating } = useSWRTrigger<OfferResponse, GetOfferArgs>({
-    key: SWRKeys.offer.get(offer),
-    fetcher: fetcher.getOffer,
-    onSuccess: (response) => {
-      onSuccess?.(response.offer)
-    },
-    onError
-  })
   const { trigger: executeSwapTrigger, isMutating: executeSwapMutating } = useSWRTrigger<HexString, ExecuteSwapArgs>({
     key: SWRKeys.swap.execute(offer),
     fetcher: fetcher.executeSwap,
     onSuccess: (_response) => {
-      void getOfferTrigger({ offerId: offer.id })
+      onSuccess?.(pipe<[Offer], Offer, Offer>(assoc('state', OFFER_STATE_COMPLETED), assoc('readOnly', true))(offer))
     },
     onError
   })
+
   const { trigger: getOfferSignatureTrigger, isMutating: getOfferSignatureMutating } = useSWRTrigger<
     OfferSignatureResponse,
     GetOfferSignatureArgs
@@ -76,7 +67,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
     },
     onError
   })
-  const loading = getOfferMutating || executeSwapMutating || getOfferSignatureMutating
+  const loading = executeSwapMutating || getOfferSignatureMutating
 
   return (
     <Modal open={open} onClose={loading ? undefined : onClose} title={t('title')}>

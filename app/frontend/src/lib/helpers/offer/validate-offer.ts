@@ -20,7 +20,7 @@ import type { Offer } from '@echo/model/types/offer'
  * @param {Offer} offer
  * @returns {Promise<Offer>}
  */
-export async function validateOffer(offer: Offer) {
+export async function validateOffer(offer: Offer): Promise<Offer> {
   if (!(await isOfferItemsApprovalValid(offer))) {
     return cancelOffer({
       offerId: offer.id,
