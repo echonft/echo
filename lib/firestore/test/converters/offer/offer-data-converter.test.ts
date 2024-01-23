@@ -25,10 +25,29 @@ describe('converters - offerDataConverter', () => {
 
   it('from Firestore conversion - expired', () => {
     const expiredAt = pastDate()
-    const expiredSnapshot = assoc('data', () => assoc('expiresAt', expiredAt, documentData), snapshot)
+    const expiredSnapshot = assoc(
+      'data',
+      () => pipe(assoc('state', OFFER_STATE_OPEN), assoc('expiresAt', expiredAt))(documentData),
+      snapshot
+    )
     const expiredDocument = pipe(
       assoc('expiresAt', expiredAt),
       assoc('state', OFFER_STATE_EXPIRED),
+      assoc('readOnly', true)
+    )(document)
+    expect(offerDataConverter.fromFirestore(expiredSnapshot)).toStrictEqual(expiredDocument)
+  })
+
+  it('from Firestore conversion - expired but in final state', () => {
+    const expiredAt = pastDate()
+    const expiredSnapshot = assoc(
+      'data',
+      () => pipe(assoc('state', OFFER_STATE_COMPLETED), assoc('expiresAt', expiredAt))(documentData),
+      snapshot
+    )
+    const expiredDocument = pipe(
+      assoc('expiresAt', expiredAt),
+      assoc('state', OFFER_STATE_COMPLETED),
       assoc('readOnly', true)
     )(document)
     expect(offerDataConverter.fromFirestore(expiredSnapshot)).toStrictEqual(expiredDocument)
