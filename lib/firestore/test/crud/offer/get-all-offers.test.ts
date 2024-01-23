@@ -1,4 +1,4 @@
-import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
+import { getAllOffers } from '@echo/firestore-test/offer/get-all-offers'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { type Offer } from '@echo/model/types/offer'
