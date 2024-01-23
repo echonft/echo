@@ -1,24 +1,15 @@
-import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
-import { modifyWhenHas } from '@echo/firestore/helpers/converters/to-firestore/modify-when-has'
+import { lowerContractAddress } from '@echo/firestore/helpers/converters/collection/lower-contract-address'
+import { lowerContractAddressIfExists } from '@echo/firestore/helpers/converters/collection/to-firestore/lower-contract-address-if-exists'
+import { getSnapshotData } from '@echo/firestore/helpers/converters/get-snapshot-data'
 import type { Collection } from '@echo/model/types/collection'
-import type { Contract } from '@echo/model/types/contract'
-import {
-  type FirestoreDataConverter,
-  type PartialWithFieldValue,
-  QueryDocumentSnapshot
-} from 'firebase-admin/firestore'
-import { modifyPath, partial, pipe, toLower } from 'ramda'
-
-type PartialCollection = Collection | (PartialWithFieldValue<Collection> & Record<'contract', Contract>)
-function modifyContract<T extends PartialCollection>(collection: T) {
-  return partial(modifyPath, [['contract', 'address'], toLower])(collection) as T
-}
+import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
+import { pipe } from 'ramda'
 
 export const collectionDataConverter: FirestoreDataConverter<Collection> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<Collection>) {
-    return pipe(getSnapshotData<Collection>, modifyContract)(snapshot)
+    return pipe(getSnapshotData<Collection>, lowerContractAddress)(snapshot)
   },
-  toFirestore(modelObject: PartialWithFieldValue<Collection>) {
-    return modifyWhenHas<Collection, 'contract', Contract>(modifyContract)(modelObject)
+  toFirestore(modelObject: WithFieldValue<Collection>): WithFieldValue<Collection> {
+    return lowerContractAddressIfExists(modelObject)
   }
 }

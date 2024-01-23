@@ -1,7 +1,6 @@
 'use client'
 import { acceptOffer } from '@echo/api/services/fetchers/accept-offer'
 import { cancelOffer } from '@echo/api/services/fetchers/cancel-offer'
-import { getOffer } from '@echo/api/services/fetchers/get-offer'
 import { getOfferSignature } from '@echo/api/services/fetchers/get-offer-signature'
 import { rejectOffer } from '@echo/api/services/fetchers/reject-offer'
 import { type AuthUser } from '@echo/model/types/auth-user'
@@ -30,7 +29,6 @@ export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user 
         acceptOffer,
         cancelOffer,
         executeSwap,
-        getOffer,
         getOfferSignature,
         rejectOffer,
         signOffer

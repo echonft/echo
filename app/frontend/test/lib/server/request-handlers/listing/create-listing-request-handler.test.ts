@@ -4,10 +4,10 @@ import type { ListingItemRequest } from '@echo/api/types/requests/listing-item-r
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
-import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
-import { getListingItemsFromRequests } from '@echo/frontend/lib/server/helpers/listing/get-listing-items-from-requests'
-import { getListingTargetsFromRequests } from '@echo/frontend/lib/server/helpers/listing/get-listing-targets-from-requests'
-import { createListingRequestHandler } from '@echo/frontend/lib/server/request-handlers/listing/create-listing-request-handler'
+import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
+import { getListingItemsFromRequests } from '@echo/frontend/lib/helpers/listing/get-listing-items-from-requests'
+import { getListingTargetsFromRequests } from '@echo/frontend/lib/helpers/listing/get-listing-targets-from-requests'
+import { createListingRequestHandler } from '@echo/frontend/lib/request-handlers/listing/create-listing-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import type { Collection } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
@@ -20,8 +20,8 @@ import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-b
 import { head, map, modify, pick, pipe, prop } from 'ramda'
 
 jest.mock('@echo/firestore/crud/listing/add-listing')
-jest.mock('@echo/frontend/lib/server/helpers/listing/get-listing-targets-from-requests')
-jest.mock('@echo/frontend/lib/server/helpers/listing/get-listing-items-from-requests')
+jest.mock('@echo/frontend/lib/helpers/listing/get-listing-targets-from-requests')
+jest.mock('@echo/frontend/lib/helpers/listing/get-listing-items-from-requests')
 
 describe('request-handlers - listing - createListingRequestHandler', () => {
   const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')

@@ -1,24 +1,18 @@
-import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
-import { modifyWhenHas } from '@echo/firestore/helpers/converters/to-firestore/modify-when-has'
+import { getSnapshotData } from '@echo/firestore/helpers/converters/get-snapshot-data'
+import { lowerAddress } from '@echo/firestore/helpers/converters/wallet/lower-address'
+import { lowerAddressIfExists } from '@echo/firestore/helpers/converters/wallet/to-firestore/lower-address-if-exists'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import type { HexString } from '@echo/utils/types/hex-string'
-import {
-  type FirestoreDataConverter,
-  type PartialWithFieldValue,
-  QueryDocumentSnapshot
-} from 'firebase-admin/firestore'
-import { modify, pipe, toLower } from 'ramda'
-
-type PartialWallet = WalletDocumentData | (PartialWithFieldValue<WalletDocumentData> & Record<'address', HexString>)
-function modifyAddress<T extends PartialWallet>(wallet: T) {
-  return modify('address', toLower<HexString>, wallet)
-}
+import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
+import { pipe } from 'ramda'
 
 export const walletDataConverter: FirestoreDataConverter<WalletDocumentData> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<WalletDocumentData>) {
-    return pipe(getSnapshotData<WalletDocumentData>, modifyAddress)(snapshot)
+    return pipe<[QueryDocumentSnapshot<WalletDocumentData>], WalletDocumentData, WalletDocumentData>(
+      getSnapshotData<WalletDocumentData>,
+      lowerAddress
+    )(snapshot)
   },
-  toFirestore(modelObject: PartialWithFieldValue<WalletDocumentData>) {
-    return modifyWhenHas<WalletDocumentData, 'address', HexString, Lowercase<HexString>>(modifyAddress)(modelObject)
+  toFirestore(modelObject: WithFieldValue<WalletDocumentData>) {
+    return lowerAddressIfExists(modelObject)
   }
 }

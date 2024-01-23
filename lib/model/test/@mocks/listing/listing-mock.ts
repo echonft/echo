@@ -19,12 +19,12 @@ export const listingMock: Record<string, Listing> = {
         chainId: 1
       }
     },
-    expired: false,
     expiresAt: 2324074781,
     items: [
       { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
       { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
     ],
+    readOnly: false,
     state: LISTING_STATE_OFFERS_PENDING,
     targets: [
       {

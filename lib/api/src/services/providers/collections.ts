@@ -1,4 +1,3 @@
-import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
@@ -6,13 +5,7 @@ import axios from 'axios'
 import { path } from 'ramda'
 
 export function collections(): Promise<CollectionProviderResult[]> {
-  const constraints = mapQueryConstraintsToQueryParams({
-    select: ['id', 'slug', 'profilePictureUrl', 'name', 'bannerUrl'],
-    orderBy: [{ field: 'name', direction: 'asc' }]
-  })
   return axios
-    .get<{ collections: CollectionProviderResult[] }>(apiUrlProvider.collection.all.getUrl(), {
-      params: constraints
-    })
+    .get<{ collections: CollectionProviderResult[] }>(apiUrlProvider.collection.all.getUrl())
     .then(nonNullableReturn(path(['data', 'collections'])))
 }

@@ -23,8 +23,8 @@
   "scripts": {
     "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot",
     "bot:start": "turbo run start --filter=@echo/bot",
-    "check": "turbo run tsc && turbo run lint && turbo run test",
-    "check:quick": "turbo run tsc && turbo run lint && turbo run test --filter=!@echo/firestore",
+    "check": "turbo run tsc --force && turbo run lint --force && turbo run test --force",
+    "check:quick": "turbo run tsc --force && turbo run lint --force && turbo run test --filter=!@echo/firestore --force",
     "clean": "turbo run clean",
     "db:add-collection:dev": "env-cmd -f .env turbo run db:add-collection:dev --filter=@echo/firestore",
     "db:fix-addresses:dev": "env-cmd -f .env turbo run db:fix-addresses:dev --filter=@echo/firestore",

@@ -19,8 +19,8 @@ export async function addOffer(senderItems: OfferItem[], receiverItems: OfferIte
   const newOffer: Offer = {
     id,
     createdAt: now(),
-    expired: false,
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix(),
+    readOnly: false,
     receiver: head(receiverItems).nft.owner,
     receiverItems,
     sender: head(senderItems).nft.owner,

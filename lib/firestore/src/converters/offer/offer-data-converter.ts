@@ -1,106 +1,48 @@
-import { assocExpiredProp } from '@echo/firestore/helpers/converters/from-firestore/assoc-expired-prop'
-import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
+import { getSnapshotData } from '@echo/firestore/helpers/converters/get-snapshot-data'
+import { setReadOnly } from '@echo/firestore/helpers/converters/offer/from-firestore/set-read-only'
+import { lowerReceiverItemsAddresses } from '@echo/firestore/helpers/converters/offer/lower-receiver-items-addresses'
+import { lowerReceiverWalletAddress } from '@echo/firestore/helpers/converters/offer/lower-receiver-wallet-address'
+import { lowerSenderItemsAddresses } from '@echo/firestore/helpers/converters/offer/lower-sender-items-addresses'
+import { lowerSenderWalletAddress } from '@echo/firestore/helpers/converters/offer/lower-sender-wallet-address'
+import { addReceiverItemsNftCollectionIds } from '@echo/firestore/helpers/converters/offer/to-firestore/add-receiver-items-nft-collection-ids'
+import { addReceiverItemsNftIds } from '@echo/firestore/helpers/converters/offer/to-firestore/add-receiver-items-nft-ids'
+import { addSenderItemsNftCollectionIds } from '@echo/firestore/helpers/converters/offer/to-firestore/add-sender-items-nft-collection-ids'
+import { addSenderItemsNftIds } from '@echo/firestore/helpers/converters/offer/to-firestore/add-sender-items-nft-ids'
+import { lowerReceiverItemsAddressesIfExists } from '@echo/firestore/helpers/converters/offer/to-firestore/lower-receiver-items-addresses-if-exists'
+import { lowerReceiverWalletAddressIfExists } from '@echo/firestore/helpers/converters/offer/to-firestore/lower-receiver-wallet-address-if-exists'
+import { lowerSenderItemsAddressesIfExists } from '@echo/firestore/helpers/converters/offer/to-firestore/lower-sender-items-addresses-if-exists'
+import { lowerSenderWalletAddressIfExists } from '@echo/firestore/helpers/converters/offer/to-firestore/lower-sender-wallet-address-if-exists'
 import { type OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import { type Offer } from '@echo/model/types/offer'
-import type { OfferItem } from '@echo/model/types/offer-item'
-import {
-  type FirestoreDataConverter,
-  type PartialWithFieldValue,
-  QueryDocumentSnapshot
-} from 'firebase-admin/firestore'
-import {
-  assoc,
-  dissoc,
-  has,
-  lens,
-  map,
-  modify,
-  modifyPath,
-  over,
-  partial,
-  path,
-  pipe,
-  prop,
-  toLower,
-  uniq,
-  when
-} from 'ramda'
-
-function modifyItems(items: OfferItem[]): OfferItem[] {
-  return map<OfferItem, OfferItem>(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    pipe(
-      partial(modifyPath, [['nft', 'owner', 'wallet', 'address'], toLower]),
-      partial(modifyPath, [['nft', 'collection', 'contract', 'address'], toLower])
-    )
-  )(items)
-}
-function modifyReceiverItems(offer: Offer): Offer {
-  return modify<'receiverItems', OfferItem[], OfferItem[]>('receiverItems', modifyItems)(offer) as Offer
-}
-function modifySenderItems(offer: Offer): Offer {
-  return modify<'senderItems', OfferItem[], OfferItem[]>('senderItems', modifyItems)(offer) as Offer
-}
-function modifyReceiver(offer: Offer): Offer {
-  return partial(modifyPath, [['receiver', 'wallet', 'address'], toLower])(offer) as Offer
-}
-function modifySender(offer: Offer): Offer {
-  return partial(modifyPath, [['sender', 'wallet', 'address'], toLower])(offer) as Offer
-}
+import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
+import { dissoc, pipe } from 'ramda'
 
 export const offerDataConverter: FirestoreDataConverter<Offer> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData>) {
     return pipe(
       getSnapshotData<OfferDocumentData>,
-      assocExpiredProp,
       dissoc('receiverItemsNftIds'),
       dissoc('receiverItemsNftCollectionIds'),
       dissoc('senderItemsNftIds'),
       dissoc('senderItemsNftCollectionIds'),
-      modifyReceiverItems,
-      modifySenderItems,
-      modifyReceiver,
-      modifySender
+      lowerReceiverWalletAddress,
+      lowerReceiverItemsAddresses,
+      lowerSenderWalletAddress,
+      lowerSenderItemsAddresses,
+      setReadOnly
     )(snapshot)
   },
-  toFirestore(modelObject: PartialWithFieldValue<Offer>) {
+  toFirestore(modelObject: WithFieldValue<Offer>) {
     return pipe(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      dissoc('expired'),
-      when(
-        has('receiverItems'),
-        pipe(
-          modifyReceiverItems,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          over(lens(prop('receiverItems'), assoc('receiverItemsNftIds')), pipe(map(path(['nft', 'id'])), uniq)),
-          over(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            lens(prop('receiverItems'), assoc('receiverItemsNftCollectionIds')),
-            pipe(map(path(['nft', 'collection', 'id'])), uniq)
-          )
-        )
-      ),
-      when(has('receiver'), modifyReceiver),
-      when(
-        has('senderItems'),
-        pipe(
-          modifySenderItems,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          over(lens(prop('senderItems'), assoc('senderItemsNftIds')), pipe(map(path(['nft', 'id'])), uniq)),
-          over(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            lens(prop('senderItems'), assoc('senderItemsNftCollectionIds')),
-            pipe(map(path(['nft', 'collection', 'id'])), uniq)
-          )
-        )
-      ),
-      when(has('sender'), modifySender)
-    )(modelObject) as Partial<OfferDocumentData>
+      addReceiverItemsNftIds,
+      addReceiverItemsNftCollectionIds,
+      addSenderItemsNftIds,
+      addSenderItemsNftCollectionIds,
+      lowerReceiverItemsAddressesIfExists,
+      lowerReceiverWalletAddressIfExists,
+      lowerSenderItemsAddressesIfExists,
+      lowerSenderWalletAddressIfExists,
+      dissoc('readOnly')
+    )(modelObject as Partial<WithFieldValue<Offer>>) as WithFieldValue<OfferDocumentData>
   }
 }

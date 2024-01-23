@@ -1,11 +1,9 @@
 import {
-  LISTING_STATE_CANCELLED,
   LISTING_STATE_FULFILLED,
   LISTING_STATE_OFFERS_PENDING,
   LISTING_STATE_OPEN,
   LISTING_STATE_PARTIALLY_FULFILLED
 } from '@echo/model/constants/listing-states'
-import { assertListingIsNotExpired } from '@echo/model/helpers/listing/assert/assert-listing-is-not-expired'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingState } from '@echo/model/types/listing-state'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
@@ -28,18 +26,6 @@ function assertListingIsNotPartiallyFulfilled(listing: Listing) {
   }
 }
 
-function assertListingIsNotFulfilled(listing: Listing) {
-  if (listing.state === LISTING_STATE_FULFILLED) {
-    throw Error('listing state cannot be FULFILLED')
-  }
-}
-
-function assertListingIsNotCancelled(listing: Listing) {
-  if (listing.state === LISTING_STATE_CANCELLED) {
-    throw Error('listing has already been cancelled')
-  }
-}
-
 export function assertListingState(
   listing: Listing,
   toState: ListingState
@@ -47,30 +33,22 @@ export function assertListingState(
   if (propIsNil('state', listing)) {
     throw Error('listing does not have a state')
   }
-  assertListingIsNotExpired(listing)
+  if (listing.readOnly) {
+    throw Error('listing is read only')
+  }
   switch (toState) {
     case LISTING_STATE_OPEN:
       throw Error('listing cannot go back to OPEN state')
     case LISTING_STATE_OFFERS_PENDING:
       assertListingIsNotPendingOffers(listing)
       assertListingIsNotPartiallyFulfilled(listing)
-      assertListingIsNotFulfilled(listing)
-      assertListingIsNotCancelled(listing)
       break
     case LISTING_STATE_PARTIALLY_FULFILLED:
       assertListingIsNotOpen(listing)
       assertListingIsNotPartiallyFulfilled(listing)
-      assertListingIsNotFulfilled(listing)
-      assertListingIsNotCancelled(listing)
       break
     case LISTING_STATE_FULFILLED:
       assertListingIsNotOpen(listing)
-      assertListingIsNotFulfilled(listing)
-      assertListingIsNotCancelled(listing)
-      break
-    case LISTING_STATE_CANCELLED:
-      assertListingIsNotFulfilled(listing)
-      assertListingIsNotCancelled(listing)
       break
   }
 }

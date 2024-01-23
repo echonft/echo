@@ -1,6 +1,6 @@
 import { type OfferItemRequest } from '@echo/api/types/requests/offer-item-request'
 import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
-import { getOfferItemsFromRequests } from '@echo/frontend/lib/server/helpers/offer/get-offer-items-from-requests'
+import { getOfferItemsFromRequests } from '@echo/frontend/lib/helpers/offer/get-offer-items-from-requests'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { forEach } from 'ramda'
 

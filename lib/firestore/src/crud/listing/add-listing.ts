@@ -22,9 +22,9 @@ export async function addListing(items: OfferItem[], targets: ListingTarget[]): 
     id,
     creator: head(items).nft.owner,
     createdAt: now(),
-    expired: false,
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix(),
     items,
+    readOnly: false,
     state: LISTING_STATE_OPEN,
     targets,
     updatedAt: now()

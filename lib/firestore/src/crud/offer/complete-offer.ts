@@ -8,11 +8,7 @@ import { addSwap, type AddSwapArgs } from '@echo/firestore/crud/swap/add-swap'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import type { OfferStateUpdateArgs } from '@echo/firestore/types/model/offer-update/offer-state-update-args'
 import type { Swap } from '@echo/firestore/types/model/swap/swap'
-import {
-  LISTING_STATE_CANCELLED,
-  LISTING_STATE_FULFILLED,
-  LISTING_STATE_PARTIALLY_FULFILLED
-} from '@echo/model/constants/listing-states'
+import { LISTING_STATE_FULFILLED, LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { getItemId } from '@echo/model/helpers/item/get-item-id'
 import { getListingItemsIds } from '@echo/model/helpers/listing/get-listing-items-ids'
@@ -45,12 +41,7 @@ export async function completeOffer(args: CompleteOfferArgs) {
   for (const offerListingOffer of offerListingOffers) {
     const { listingId, fulfillingStatus } = offerListingOffer
     const listing = await findListingById(listingId)
-    if (
-      !isNil(listing) &&
-      !listing.expired &&
-      listing.state !== LISTING_STATE_FULFILLED &&
-      listing.state !== LISTING_STATE_CANCELLED
-    ) {
+    if (!isNil(listing) && !listing.readOnly) {
       if (fulfillingStatus === ListingOfferFulfillingStatus.COMPLETELY) {
         await updateListingState(listingId, LISTING_STATE_FULFILLED)
       } else {

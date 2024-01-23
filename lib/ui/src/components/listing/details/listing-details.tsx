@@ -65,7 +65,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
   useEffect(() => {
     setUpdatedListing(listing)
   }, [listing])
-  const { state, creator, expired, expiresAt, items, targets } = updatedListing
+  const { state, creator, expiresAt, items, targets } = updatedListing
   const nfts = useMemo(() => map(prop('nft'), items), [items])
 
   return (
@@ -82,7 +82,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
     >
       <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
         <ListingOfferUserDetails user={creator} />
-        <ListingDetailsState state={state} expired={expired} expiresAt={expiresAt} />
+        <ListingDetailsState state={state} expiresAt={expiresAt} />
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-5')}>
         <div className={clsx('flex', 'flex-col', 'gap-6')}>

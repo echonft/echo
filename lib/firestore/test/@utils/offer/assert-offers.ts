@@ -1,4 +1,4 @@
-import { getAllOffers } from '@echo/firestore/crud/offer/get-all-offers'
+import { getAllOffers } from '@echo/firestore-test/offer/get-all-offers'
 import { type Offer } from '@echo/model/types/offer'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'

@@ -1,4 +1,4 @@
-import { walletSchema } from '@echo/frontend/lib/server/validators/wallet-schema'
+import { walletSchema } from '@echo/frontend/lib/validators/wallet-schema'
 import { toLower } from 'ramda'
 
 describe('validators - walletSchema', () => {
