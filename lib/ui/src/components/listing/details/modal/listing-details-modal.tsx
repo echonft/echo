@@ -2,9 +2,10 @@
 import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
 import { Modal } from '@echo/ui/components/base/modal/modal'
+import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { ListingDetailsModalButtonsContainer } from '@echo/ui/components/listing/details/modal/listing-details-modal-buttons-container'
 import { ListingDetailsModalDetailsContainer } from '@echo/ui/components/listing/details/modal/listing-details-modal-details-container'
-import { UserDetailsRoundedContainer } from '@echo/ui/components/shared/user-details-rounded-container'
+import { ListingOfferUserDetailsRounded } from '@echo/ui/components/user/listing-offer/listing-offer-user-details-rounded'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -40,7 +41,9 @@ export const ListingDetailsModal: FunctionComponent<Props> = ({
   return (
     <Modal open={open} title={t('title')} backButtonLabel={t('backBtn')} onBack={onClose} onClose={onClose}>
       <div className={clsx('flex', 'flex-col', 'gap-12')}>
-        {!isCreator && <UserDetailsRoundedContainer user={listing.creator} />}
+        <ShowIf condition={!isCreator}>
+          <ListingOfferUserDetailsRounded user={listing.creator} />
+        </ShowIf>
         <ListingDetailsModalDetailsContainer items={listing.items} targets={listing.targets} />
         <ListingDetailsModalButtonsContainer
           listing={listing}
