@@ -14,7 +14,7 @@ async function render({ params: { slug } }: NextParams<Record<'slug', string>>) 
       orderBy: [{ field: 'expiresAt', direction: 'asc' }]
     }
   )
-  return <CollectionListingsApiProvided collectionSlug={slug} listings={listings} />
+  return <CollectionListingsApiProvided collectionSlug={slug} listings={listings} user={user} />
 }
 
 export default pipe(withLocale, withFirebase)(render)

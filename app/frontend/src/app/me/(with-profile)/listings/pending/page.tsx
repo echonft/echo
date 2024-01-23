@@ -23,7 +23,7 @@ async function render({ user }: NextAuthUserParams) {
       ]
     }
   )
-  return <ProfileListingsReceivedApiProvided listings={listings} />
+  return <ProfileListingsReceivedApiProvided listings={listings} user={user} />
 }
 
 export default pipe(withLocale<NextAuthUserParams, Promise<ReactElement>>, withUser)(render)
