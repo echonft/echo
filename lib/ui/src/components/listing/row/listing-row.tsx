@@ -1,3 +1,4 @@
+import { LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
 import { type Listing } from '@echo/model/types/listing'
 import { StateTextContainer } from '@echo/ui/components/base/state-text-container'
 import { ListingRowItemsContainer } from '@echo/ui/components/listing/row/listing-row-items-container'
@@ -17,15 +18,16 @@ interface Props {
 
 export const ListingRow: FunctionComponent<Props> = ({ listing }) => {
   const t = useTranslations('listing.details')
+  const expired = listing.state === LISTING_STATE_EXPIRED
   return (
     <div className={clsx('flex', 'flex-col', 'self-stretch', 'p-4', 'rounded-2xl', 'bg-white/[0.05]', 'gap-12')}>
       <div className={clsx('flex', 'flex-row', 'grow', 'justify-between', 'gap-12')}>
         <ListingOfferUserDetails user={listing.creator} />
         <div className={clsx('mt-4')}>
           <StateTextContainer
-            title={listing.expired ? t('expiredAt') : t('expiresAt')}
+            title={expired ? t('expiredAt') : t('expiresAt')}
             subtitle={
-              listing.expired ? dayjs.unix(listing.expiresAt).fromNow(false) : dayjs.unix(listing.expiresAt).toNow(true)
+              expired ? dayjs.unix(listing.expiresAt).fromNow(false) : dayjs.unix(listing.expiresAt).toNow(true)
             }
           />
         </div>

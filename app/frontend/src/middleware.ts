@@ -1,4 +1,4 @@
-import { authConfig } from '@echo/frontend/lib/helpers/auth/auth-config'
+import { authConfig } from '@echo/frontend/lib/auth/auth-config'
 import NextAuth from 'next-auth'
 
 export const { auth: middleware } = NextAuth(authConfig)

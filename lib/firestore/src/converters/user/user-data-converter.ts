@@ -1,4 +1,4 @@
-import { getSnapshotData } from '@echo/firestore/helpers/converters/from-firestore/get-snapshot-data'
+import { getSnapshotData } from '@echo/firestore/helpers/converters/get-snapshot-data'
 import type { User } from '@echo/firestore/types/model/user/user'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'

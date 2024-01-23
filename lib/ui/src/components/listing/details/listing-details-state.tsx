@@ -1,4 +1,8 @@
-import { LISTING_STATE_CANCELLED, LISTING_STATE_FULFILLED } from '@echo/model/constants/listing-states'
+import {
+  LISTING_STATE_CANCELLED,
+  LISTING_STATE_EXPIRED,
+  LISTING_STATE_FULFILLED
+} from '@echo/model/constants/listing-states'
 import { type ListingState } from '@echo/model/types/listing-state'
 import { StateTextContainer } from '@echo/ui/components/base/state-text-container'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
@@ -12,13 +16,13 @@ dayjs.extend(relativeTime)
 
 interface Props {
   state: ListingState
-  expired: boolean
   expiresAt: number
 }
 
-export const ListingDetailsState: FunctionComponent<Props> = ({ state, expired, expiresAt }) => {
+export const ListingDetailsState: FunctionComponent<Props> = ({ state, expiresAt }) => {
   const tState = useTranslations('listing.state')
   const tDetails = useTranslations('listing.details')
+  const expired = state === LISTING_STATE_EXPIRED
   const expirationShown = state !== LISTING_STATE_FULFILLED && state !== LISTING_STATE_CANCELLED
   const stateShown = !expirationShown || !expired
   const delimiterShown = expirationShown && stateShown
@@ -35,6 +39,9 @@ export const ListingDetailsState: FunctionComponent<Props> = ({ state, expired, 
         <div className={clsx('h-[5.3125rem]', 'w-0.5', 'bg-white')} />
       </ShowIf>
       <ShowIf condition={stateShown}>
+        {/*FIXME this will change anyway*/}
+        {/*eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
+        {/*@ts-ignore*/}
         <StateTextContainer subtitle={tState(state)} />
       </ShowIf>
     </div>

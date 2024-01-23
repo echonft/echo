@@ -13,8 +13,8 @@ export async function unchecked_addOffer(senderItems: OfferItem[], receiverItems
   const newOffer: Offer = {
     id,
     createdAt: now(),
-    expired: false,
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix(),
+    readOnly: false,
     receiver: head(receiverItems)!.nft.owner,
     receiverItems,
     sender: head(senderItems)!.nft.owner,

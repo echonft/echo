@@ -1,4 +1,4 @@
-import { guarded_assertListingCreatorIs } from '@echo/frontend/lib/server/helpers/listing/assert/guarded_assert-listing-creator-is'
+import { guarded_assertListingCreatorIs } from '@echo/frontend/lib/helpers/listing/assert/guarded_assert-listing-creator-is'
 import { LISTING_STATE_OPEN } from '@echo/model/constants/listing-states'
 import { type Listing } from '@echo/model/types/listing'
 

@@ -1,10 +1,7 @@
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import { CollectionSwapsSkeleton } from '@echo/ui/components/collection/swap/skeleton/collection-swaps-skeleton'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { type FunctionComponent } from 'react'
 
-const CollectionSwapsLoading: FunctionComponent = () => {
-  unstable_setRequestLocale('en')
+export default async function () {
+  await initializeServerComponent()
   return <CollectionSwapsSkeleton />
 }
-
-export default CollectionSwapsLoading

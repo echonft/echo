@@ -10,30 +10,14 @@ import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 import { assoc } from 'ramda'
 
-describe('helpers - offer - assert - assertOfferStateState  - to state ACCEPTED', () => {
+describe('helpers - offer - assert - assertOfferState - to state ACCEPTED', () => {
   const offerMock = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-  it('throw if the offer is expired', () => {
-    const expiredOffer = assoc('expired', true, offerMock)
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_CANCELLED, expiredOffer), OFFER_STATE_ACCEPTED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_REJECTED, expiredOffer), OFFER_STATE_ACCEPTED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_ACCEPTED, expiredOffer), OFFER_STATE_ACCEPTED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_COMPLETED, expiredOffer), OFFER_STATE_ACCEPTED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_OPEN, expiredOffer), OFFER_STATE_ACCEPTED)).toThrow()
-  })
-  it('throw if the offer is cancelled', () => {
-    const offer = assoc('state', OFFER_STATE_CANCELLED, offerMock)
+  it('throw if the offer is read only', () => {
+    const offer = assoc('readOnly', true, offerMock)
     expect(() => assertOfferState(offer, OFFER_STATE_ACCEPTED)).toThrow()
   })
   it('throw if the offer is accepted', () => {
     const offer = assoc('state', OFFER_STATE_ACCEPTED, offerMock)
-    expect(() => assertOfferState(offer, OFFER_STATE_ACCEPTED)).toThrow()
-  })
-  it('throw if the offer is rejected', () => {
-    const offer = assoc('state', OFFER_STATE_REJECTED, offerMock)
-    expect(() => assertOfferState(offer, OFFER_STATE_ACCEPTED)).toThrow()
-  })
-  it('throw if the offer is completed', () => {
-    const offer = assoc('state', OFFER_STATE_COMPLETED, offerMock)
     expect(() => assertOfferState(offer, OFFER_STATE_ACCEPTED)).toThrow()
   })
   it('does not throw if the offer is open', () => {
@@ -42,30 +26,14 @@ describe('helpers - offer - assert - assertOfferStateState  - to state ACCEPTED'
   })
 })
 
-describe('helpers - offer - assertOfferStateState - to state REJECTED', () => {
+describe('helpers - offer - assertOfferState - to state REJECTED', () => {
   const offerMock = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-  it('throw if the offer is expired', () => {
-    const expiredOffer = assoc('expired', true, offerMock)
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_CANCELLED, expiredOffer), OFFER_STATE_REJECTED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_REJECTED, expiredOffer), OFFER_STATE_REJECTED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_ACCEPTED, expiredOffer), OFFER_STATE_REJECTED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_COMPLETED, expiredOffer), OFFER_STATE_REJECTED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_OPEN, expiredOffer), OFFER_STATE_REJECTED)).toThrow()
-  })
-  it('throw if the offer is cancelled', () => {
-    const offer = assoc('state', OFFER_STATE_CANCELLED, offerMock)
+  it('throw if the offer is read only', () => {
+    const offer = assoc('readOnly', true, offerMock)
     expect(() => assertOfferState(offer, OFFER_STATE_REJECTED)).toThrow()
   })
   it('throw if the offer is accepted', () => {
     const offer = assoc('state', OFFER_STATE_ACCEPTED, offerMock)
-    expect(() => assertOfferState(offer, OFFER_STATE_REJECTED)).toThrow()
-  })
-  it('throw if the offer is rejected', () => {
-    const offer = assoc('state', OFFER_STATE_REJECTED, offerMock)
-    expect(() => assertOfferState(offer, OFFER_STATE_REJECTED)).toThrow()
-  })
-  it('throw if the offer is completed', () => {
-    const offer = assoc('state', OFFER_STATE_COMPLETED, offerMock)
     expect(() => assertOfferState(offer, OFFER_STATE_REJECTED)).toThrow()
   })
   it('does not throw if the offer is open', () => {
@@ -74,31 +42,15 @@ describe('helpers - offer - assertOfferStateState - to state REJECTED', () => {
   })
 })
 
-describe('helpers - offer - assertOfferStateState - to state CANCELLED', () => {
+describe('helpers - offer - assertOfferState - to state CANCELLED', () => {
   const offerMock = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-  it('throw if the offer is expired', () => {
-    const expiredOffer = assoc('expired', true, offerMock)
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_CANCELLED, expiredOffer), OFFER_STATE_CANCELLED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_REJECTED, expiredOffer), OFFER_STATE_CANCELLED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_ACCEPTED, expiredOffer), OFFER_STATE_CANCELLED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_COMPLETED, expiredOffer), OFFER_STATE_CANCELLED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_OPEN, expiredOffer), OFFER_STATE_CANCELLED)).toThrow()
-  })
-  it('throw if the offer is cancelled', () => {
-    const offer = assoc('state', OFFER_STATE_CANCELLED, offerMock)
+  it('throw if the offer is read only', () => {
+    const offer = assoc('readOnly', true, offerMock)
     expect(() => assertOfferState(offer, OFFER_STATE_CANCELLED)).toThrow()
   })
   it('does not throw if the offer is accepted', () => {
     const offer = assoc('state', OFFER_STATE_ACCEPTED, offerMock)
     expect(() => assertOfferState(offer, OFFER_STATE_CANCELLED)).not.toThrow()
-  })
-  it('throw if the offer is rejected', () => {
-    const offer = assoc('state', OFFER_STATE_REJECTED, offerMock)
-    expect(() => assertOfferState(offer, OFFER_STATE_CANCELLED)).toThrow()
-  })
-  it('throw if the offer is completed', () => {
-    const offer = assoc('state', OFFER_STATE_COMPLETED, offerMock)
-    expect(() => assertOfferState(offer, OFFER_STATE_CANCELLED)).toThrow()
   })
   it('does not throw if the offer is open', () => {
     const offer = assoc('state', OFFER_STATE_OPEN, offerMock)
@@ -106,31 +58,15 @@ describe('helpers - offer - assertOfferStateState - to state CANCELLED', () => {
   })
 })
 
-describe('helpers - offer - assertOfferStateState - to state COMPLETED', () => {
+describe('helpers - offer - assertOfferState - to state COMPLETED', () => {
   const offerMock = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-  it('throw if the offer is expired', () => {
-    const expiredOffer = assoc('expired', true, offerMock)
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_CANCELLED, expiredOffer), OFFER_STATE_COMPLETED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_REJECTED, expiredOffer), OFFER_STATE_COMPLETED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_ACCEPTED, expiredOffer), OFFER_STATE_COMPLETED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_COMPLETED, expiredOffer), OFFER_STATE_COMPLETED)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_OPEN, expiredOffer), OFFER_STATE_COMPLETED)).toThrow()
-  })
-  it('throw if the offer is cancelled', () => {
-    const offer = assoc('state', OFFER_STATE_CANCELLED, offerMock)
+  it('throw if the offer is read only', () => {
+    const offer = assoc('readOnly', true, offerMock)
     expect(() => assertOfferState(offer, OFFER_STATE_COMPLETED)).toThrow()
   })
   it('does not throw if the offer is accepted', () => {
     const offer = assoc('state', OFFER_STATE_ACCEPTED, offerMock)
     expect(() => assertOfferState(offer, OFFER_STATE_COMPLETED)).not.toThrow()
-  })
-  it('throw if the offer is rejected', () => {
-    const offer = assoc('state', OFFER_STATE_REJECTED, offerMock)
-    expect(() => assertOfferState(offer, OFFER_STATE_COMPLETED)).toThrow()
-  })
-  it('throw if the offer is completed', () => {
-    const offer = assoc('state', OFFER_STATE_COMPLETED, offerMock)
-    expect(() => assertOfferState(offer, OFFER_STATE_COMPLETED)).toThrow()
   })
   it('throw if the offer is open', () => {
     const offer = assoc('state', OFFER_STATE_OPEN, offerMock)
@@ -138,30 +74,14 @@ describe('helpers - offer - assertOfferStateState - to state COMPLETED', () => {
   })
 })
 
-describe('helpers - offer - assertOfferStateState - to state OPEN', () => {
+describe('helpers - offer - assertOfferState - to state OPEN', () => {
   const offerMock = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-  it('throw if the offer is expired', () => {
-    const expiredOffer = assoc('expired', true, offerMock)
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_CANCELLED, expiredOffer), OFFER_STATE_OPEN)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_REJECTED, expiredOffer), OFFER_STATE_OPEN)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_ACCEPTED, expiredOffer), OFFER_STATE_OPEN)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_COMPLETED, expiredOffer), OFFER_STATE_OPEN)).toThrow()
-    expect(() => assertOfferState(assoc('state', OFFER_STATE_OPEN, expiredOffer), OFFER_STATE_OPEN)).toThrow()
-  })
-  it('throw if the offer is cancelled', () => {
-    const offer = assoc('state', OFFER_STATE_CANCELLED, offerMock)
+  it('throw if the offer is read only', () => {
+    const offer = assoc('readOnly', true, offerMock)
     expect(() => assertOfferState(offer, OFFER_STATE_OPEN)).toThrow()
   })
   it('throw if the offer is accepted', () => {
     const offer = assoc('state', OFFER_STATE_ACCEPTED, offerMock)
-    expect(() => assertOfferState(offer, OFFER_STATE_OPEN)).toThrow()
-  })
-  it('throw if the offer is rejected', () => {
-    const offer = assoc('state', OFFER_STATE_REJECTED, offerMock)
-    expect(() => assertOfferState(offer, OFFER_STATE_OPEN)).toThrow()
-  })
-  it('throw if the offer is completed', () => {
-    const offer = assoc('state', OFFER_STATE_COMPLETED, offerMock)
     expect(() => assertOfferState(offer, OFFER_STATE_OPEN)).toThrow()
   })
   it('throw if the offer is open', () => {

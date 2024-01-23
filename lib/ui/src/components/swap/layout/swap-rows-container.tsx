@@ -1,5 +1,5 @@
 import { type Offer } from '@echo/model/types/offer'
-import { OfferRowsLayout } from '@echo/ui/components/offer/layout/offer-rows-layout'
+import { OfferCardsLayout } from '@echo/ui/components/offer/layout/offer-cards-layout'
 import { SwapRow } from '@echo/ui/components/swap/row/swap-row'
 import { map } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -10,13 +10,13 @@ interface Props {
 
 export const SwapRowsContainer: FunctionComponent<Props> = ({ offers }) => {
   return (
-    <OfferRowsLayout>
+    <OfferCardsLayout>
       {map(
         (offer) => (
           <SwapRow key={offer.id} offer={offer} />
         ),
         offers
       )}
-    </OfferRowsLayout>
+    </OfferCardsLayout>
   )
 }

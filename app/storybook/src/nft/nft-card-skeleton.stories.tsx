@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { NftCardSkeleton as Component } from '@echo/ui/components/nft/card/skeleton/nft-card-skeleton'
-import { NFT_CARD_VARIANT_REDUCED } from '@echo/ui/constants/nft-card-variants'
+import { CARD_VARIANT_REDUCED } from '@echo/ui/constants/card-variants'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'
 
@@ -24,7 +24,7 @@ type Story = StoryObj<ComponentType>
 
 export const Skeleton: Story = {
   render: ({ reduced }) => {
-    return <Component variant={reduced ? NFT_CARD_VARIANT_REDUCED : undefined} />
+    return <Component variant={reduced ? CARD_VARIANT_REDUCED : undefined} />
   },
   args: {
     reduced: DEFAULT_REDUCED

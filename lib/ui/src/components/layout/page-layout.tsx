@@ -4,7 +4,7 @@ import { getNonce } from '@echo/api/services/fetchers/get-nonce'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { BannerManager } from '@echo/ui/components/base/banner/banner-manager'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
-import { HeaderSelector } from '@echo/ui/components/base/header/header-selector'
+import { HeaderSwitch } from '@echo/ui/components/base/header/header-switch'
 import { MainSectionLayout } from '@echo/ui/components/layout/main-section-layout'
 import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
 import { PAGE_LAYOUT_BG_DEFAULT } from '@echo/ui/constants/page-layout-background'
@@ -41,7 +41,7 @@ export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
           : ['bg-home', 'bg-[length:100%_41.4375rem]', 'bg-no-repeat']
       )}
     >
-      <HeaderSelector
+      <HeaderSwitch
         logoOnly={Boolean(headerVariants?.logoOnly)}
         fetcher={{ addWallet, getNonce, signNonce }}
         provider={{ account, chain, signOut }}

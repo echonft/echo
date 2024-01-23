@@ -1,7 +1,7 @@
-import { Img } from '@echo/ui/components/base/img'
 import { SIZE_MD, SIZE_SM } from '@echo/ui/constants/size'
 import { type ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
 import { clsx } from 'clsx'
+import Image from 'next/image'
 import { type FunctionComponent } from 'react'
 
 export interface RoundedProfilePictureProps {
@@ -16,7 +16,7 @@ export const RoundedProfilePicture: FunctionComponent<RoundedProfilePictureProps
   size = SIZE_SM
 }) => {
   return (
-    <Img
+    <Image
       className={clsx('rounded-full')}
       src={pictureUrl}
       alt={alt}

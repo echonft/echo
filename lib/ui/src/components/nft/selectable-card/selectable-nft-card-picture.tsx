@@ -1,8 +1,8 @@
-import { Img } from '@echo/ui/components/base/img'
+import { CardDiscordTag } from '@echo/ui/components/base/card/card-discord-tag'
+import { CardImage } from '@echo/ui/components/base/card/card-image'
+import { CardOpenSeaIcon } from '@echo/ui/components/base/card/card-open-sea-icon'
+import { CardPictureLayout } from '@echo/ui/components/base/card/layout/card-picture-layout'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
-import { NftCardPictureLayout } from '@echo/ui/components/nft/card/layout/nft-card-picture-layout'
-import { NftCardDiscordTag } from '@echo/ui/components/nft/card/nft-card-discord-tag'
-import { NftCardOpenSeaIcon } from '@echo/ui/components/nft/card/nft-card-open-sea-icon'
 import { SelectableNftCardSelector } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-selector'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { clsx } from 'clsx'
@@ -17,31 +17,21 @@ interface Props {
 export const SelectableNftCardPicture: FunctionComponent<Props> = ({ nft, hideOwner, onToggleSelection }) => {
   const { disabled, selected } = nft
   return (
-    <NftCardPictureLayout>
-      <Img
-        className={clsx(
-          'select-none',
-          'transition-transform',
-          'w-full',
-          'h-full',
-          'object-center',
-          'object-contain',
-          !disabled && !selected && 'group-hover:scale-125'
-        )}
+    <CardPictureLayout>
+      <CardImage
         src={nft.pictureUrl}
         alt={nft.tokenId.toString()}
-        width={200}
-        height={200}
+        scaleDisabled={Boolean(disabled) || Boolean(selected)}
       />
       <SelectableNftCardSelector nft={nft} onToggleSelection={onToggleSelection} />
       <div className={clsx('absolute', 'top-2', 'left-2', 'h-max', 'w-max')}>
-        <NftCardOpenSeaIcon nft={nft} />
+        <CardOpenSeaIcon openSeaUrl={nft.openSeaUrl} />
       </div>
       <HideIf condition={Boolean(hideOwner)}>
         <div className={clsx('absolute', 'bottom-2', 'left-2', 'h-max', 'w-max')}>
-          <NftCardDiscordTag nft={nft} />
+          <CardDiscordTag username={nft.owner.discord.username} />
         </div>
       </HideIf>
-    </NftCardPictureLayout>
+    </CardPictureLayout>
   )
 }

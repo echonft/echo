@@ -153,6 +153,16 @@ export const messages = {
       in: 'Looking for',
       out: 'Offering'
     },
+    card: {
+      state: {
+        OPEN: 'Awaiting offers',
+        CANCELLED: 'Cancelled',
+        EXPIRED: 'Expired',
+        OFFERS_PENDING: 'Offers pending',
+        PARTIALLY_FULFILLED: 'Partially fulfilled',
+        FULFILLED: 'Fulfilled'
+      }
+    },
     details: {
       assets: {
         title: {
@@ -223,9 +233,19 @@ export const messages = {
   notFoundPage: {
     title: 'Sorry, there’s',
     subtitle: 'nothing here',
-    homeBtn: ''
+    homeBtn: 'Take me home'
   },
   offer: {
+    card: {
+      state: {
+        OPEN: 'Pending',
+        ACCEPTED: 'Accepted',
+        CANCELLED: 'Cancelled',
+        COMPLETED: 'Swapped',
+        REJECTED: 'Rejected',
+        EXPIRED: 'Expired'
+      }
+    },
     details: {
       backBtn: {
         label: 'Back to your profile'

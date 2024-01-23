@@ -1,4 +1,4 @@
-import { guarded_assertListing } from '@echo/frontend/lib/server/helpers/listing/assert/guarded_assert-listing'
+import { guarded_assertListing } from '@echo/frontend/lib/helpers/listing/assert/guarded_assert-listing'
 import { type Listing } from '@echo/model/types/listing'
 
 describe('helpers - listing - assert - guarded_assertListing', () => {

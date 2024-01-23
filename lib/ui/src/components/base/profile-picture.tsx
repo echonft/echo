@@ -1,7 +1,7 @@
-import { Img } from '@echo/ui/components/base/img'
 import { SIZE_MD, SIZE_SM } from '@echo/ui/constants/size'
 import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
 import { clsx } from 'clsx'
+import Image from 'next/image'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 export const ProfilePicture: FunctionComponent<Props> = ({ pictureUrl, alt, size = SIZE_MD }) => {
   return (
-    <Img
+    <Image
       className={clsx(
         'rounded-2xl',
         'border-solid',

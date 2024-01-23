@@ -2,7 +2,7 @@
 
 import { getNftMock } from '@echo/model-mocks/nft/get-nft-mock'
 import { NftCard as Component, type NftCardProps } from '@echo/ui/components/nft/card/nft-card'
-import { NFT_CARD_VARIANT_REDUCED } from '@echo/ui/constants/nft-card-variants'
+import { CARD_VARIANT_REDUCED } from '@echo/ui/constants/card-variants'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'
 
@@ -13,6 +13,7 @@ type ComponentType = FunctionComponent<Args>
 const DEFAULT_REDUCED = false
 const DEFAULT_HIDE_OWNER = false
 const DEFAULT_HIDE_LINK = false
+const DEFAULT_SCALE_DISABLED = false
 
 const metadata: Meta<ComponentType> = {
   title: 'NFT/Card',
@@ -28,6 +29,10 @@ const metadata: Meta<ComponentType> = {
     hideLink: {
       defaultValue: DEFAULT_HIDE_LINK,
       control: 'boolean'
+    },
+    scaleDisabled: {
+      defaultValue: DEFAULT_SCALE_DISABLED,
+      control: 'boolean'
     }
   }
 }
@@ -36,19 +41,21 @@ export default metadata
 
 type Story = StoryObj<ComponentType>
 
-export const Card: Story = {
+export const Default: Story = {
   args: {
     reduced: DEFAULT_REDUCED,
     hideOwner: DEFAULT_HIDE_OWNER,
-    hideLink: DEFAULT_HIDE_LINK
+    hideLink: DEFAULT_HIDE_LINK,
+    scaleDisabled: DEFAULT_SCALE_DISABLED
   },
-  render: ({ reduced, hideOwner, hideLink }) => {
+  render: ({ reduced, hideOwner, hideLink, scaleDisabled }) => {
     return (
       <Component
         nft={getNftMock()}
-        variant={reduced ? NFT_CARD_VARIANT_REDUCED : undefined}
+        variant={reduced ? CARD_VARIANT_REDUCED : undefined}
         hideOwner={hideOwner}
         hideLink={hideLink}
+        scaleDisabled={scaleDisabled}
       />
     )
   }

@@ -37,6 +37,7 @@ export const messages = {
     update: {
       ACCEPTED: '<@here> {{receiver}} accepted the offer! You can now execute the swap.',
       CANCELLED: '<@here> The offer was cancelled.',
+      EXPIRED: '<@here> The offer expired.',
       REJECTED: '<@here> {{receiver}} rejected the offer.',
       COMPLETED: '<@here> The swap is now completed. Congratulations to the both of you!'
     }

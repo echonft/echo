@@ -1,4 +1,4 @@
-import { chainIdSchema } from '@echo/frontend/lib/server/validators/chain-id-schema'
+import { chainIdSchema } from '@echo/frontend/lib/validators/chain-id-schema'
 import { supportedChains } from '@echo/utils/constants/supported-chains'
 import { forEach, includes } from 'ramda'
 

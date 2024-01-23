@@ -1,43 +1,33 @@
-import { mapOfferFiltersToQueryParams } from '@echo/api/helpers/request/map-offer-filters-to-query-params'
-import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
-import { type OffersResponse } from '@echo/api/types/responses/offers-response'
 import { OFFER_FILTER_AS_RECEIVER } from '@echo/firestore/constants/offer/offer-filter-as'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
-import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
-import { redirectIfNotLoggedIn } from '@echo/frontend/lib/helpers/auth/redirect-if-not-logged-in'
-import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
-import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
+import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
+import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
+import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import { redirectIfNotLoggedIn } from '@echo/frontend/lib/auth/redirect-if-not-logged-in'
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import { OFFER_ROLE_RECEIVER } from '@echo/model/constants/offer-role'
-import { OFFER_STATE_ACCEPTED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
+import { READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
+import type { Offer } from '@echo/model/types/offer'
 import { ProfileOffersReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-received-api-provided'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { assoc, map, mergeLeft } from 'ramda'
-import { type FunctionComponent } from 'react'
+import { andThen, assoc, map, pipe } from 'ramda'
 
-const ProfileOffersReceivedPage: FunctionComponent = async () => {
-  unstable_setRequestLocale('en')
-  const user = await getAuthUser()
+export default async function () {
+  const user = await initializeServerComponent({ getAuthUser: true })
   redirectIfNotLoggedIn(user, linkProvider.profile.offersReceived.getUrl())
-  const filterParams = mapOfferFiltersToQueryParams({
-    as: OFFER_FILTER_AS_RECEIVER,
-    state: [OFFER_STATE_OPEN, OFFER_STATE_ACCEPTED]
-  })
-  const queryParams = mapQueryConstraintsToQueryParams({
-    orderBy: [{ field: 'expiresAt', direction: 'desc' }]
-  })
-  const response = await nextFetch.get<OffersResponse>(apiUrlProvider.profile.offers.getUrl(), {
-    cookie: getCookieHeader(),
-    params: mergeLeft(filterParams, queryParams)
-  })
-  assertNextFetchResponse(response)
-  return (
-    <ProfileOffersReceivedApiProvided
-      offers={map(assoc('role', OFFER_ROLE_RECEIVER), response.data.offers) as OfferWithRole[]}
-    />
+  const offers = await pipe<
+    [string, OfferQueryFilters, QueryConstraints<Offer>],
+    Promise<Offer[]>,
+    Promise<OfferWithRole[]>
+  >(getOffersForUser, andThen(map<Offer, OfferWithRole>(assoc('role', OFFER_ROLE_RECEIVER))))(
+    user.username,
+    {
+      as: OFFER_FILTER_AS_RECEIVER,
+      notState: READ_ONLY_OFFER_STATES
+    },
+    {
+      orderBy: [{ field: 'expiresAt', direction: 'desc' }]
+    }
   )
+  return <ProfileOffersReceivedApiProvided offers={offers} />
 }
-
-export default ProfileOffersReceivedPage

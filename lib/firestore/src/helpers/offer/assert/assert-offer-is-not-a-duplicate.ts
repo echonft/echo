@@ -1,11 +1,10 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
-import { offerIsFinalOrExpired } from '@echo/model/helpers/offer/offer-is-final-or-expired'
 import { type Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { type User } from '@echo/model/types/user'
-import { intersection, isEmpty, map, modify, path, pick, pipe, reject } from 'ramda'
+import { intersection, isEmpty, map, modify, path, pick, pipe, prop, reject } from 'ramda'
 
 interface PartialOfferItem {
   amount: number
@@ -26,7 +25,7 @@ export async function assertOfferIsNotADuplicate(senderItems: OfferItem[], recei
     .where('receiverItemsNftIds', '==', receiverItemsNftIds)
     .where('senderItemsNftIds', '==', senderItemsNftIds)
     .get()
-  const documents = pipe(getQuerySnapshotDocumentsData<Offer>, reject(offerIsFinalOrExpired))(querySnapshot)
+  const documents = pipe(getQuerySnapshotDocumentsData<Offer>, reject<Offer>(prop('readOnly')))(querySnapshot)
   if (!isEmpty(documents)) {
     // compare the items (e.g. the owner could be different)
     // only the owner and id are relevant in the items nft

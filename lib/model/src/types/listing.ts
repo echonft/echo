@@ -7,9 +7,9 @@ export interface Listing {
   id: string
   createdAt: number
   creator: User
-  expired: boolean
   expiresAt: number
   items: ListingItem[]
+  readOnly: boolean
   state: ListingState
   targets: ListingTarget[]
   updatedAt: number

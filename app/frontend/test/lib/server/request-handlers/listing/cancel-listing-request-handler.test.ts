@@ -1,8 +1,8 @@
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
-import { ApiError } from '@echo/frontend/lib/server/helpers/error/api-error'
-import { cancelListingRequestHandler } from '@echo/frontend/lib/server/request-handlers/listing/cancel-listing-request-handler'
+import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
+import { cancelListingRequestHandler } from '@echo/frontend/lib/request-handlers/listing/cancel-listing-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
 import { type Listing } from '@echo/model/types/listing'
@@ -34,8 +34,8 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
     }
   })
 
-  it('throws if the listing state is not OPEN', async () => {
-    jest.mocked(findListingById).mockResolvedValueOnce(assoc('state', LISTING_STATE_CANCELLED, listing))
+  it('throws if the listing state is read only', async () => {
+    jest.mocked(findListingById).mockResolvedValueOnce(assoc('readOnly', true, listing))
     const req = mockRequest<never>()
     try {
       await cancelListingRequestHandler(user, req, { id: listingId })

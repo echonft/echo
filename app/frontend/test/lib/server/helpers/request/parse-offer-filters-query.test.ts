@@ -1,7 +1,7 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import { OFFER_FILTER_AS_RECEIVER } from '@echo/firestore/constants/offer/offer-filter-as'
 import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
-import { parseOfferFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse_offer_filters_query'
+import { parseOfferFiltersQuery } from '@echo/frontend/lib/helpers/request/parse-offer-filters-query'
 import { OFFER_STATE_ACCEPTED, OFFER_STATE_CANCELLED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { NextRequest } from 'next/server'
 
@@ -72,24 +72,6 @@ describe('helpers - request - parseOfferFiltersQuery - notState filter', () => {
   })
 })
 
-describe('helpers - request - parseOfferFiltersQuery - includeExpired filter', () => {
-  function getRequest(params: string) {
-    const url = new URL(`https://echo.xyz/?${params}`)
-    return new NextRequest(url) as ApiRequest<never>
-  }
-  test('throws if includeExpired is not valid', () => {
-    expect(() => parseOfferFiltersQuery(getRequest('includeExpired=whatever'))).toThrow()
-  })
-  test('returns a filter with the correct includeExpired prop', () => {
-    expect(parseOfferFiltersQuery(getRequest('includeExpired=true'))).toStrictEqual<OfferQueryFilters>({
-      includeExpired: true
-    })
-    expect(parseOfferFiltersQuery(getRequest('includeExpired=false'))).toStrictEqual<OfferQueryFilters>({
-      includeExpired: false
-    })
-  })
-})
-
 describe('helpers - request - parseOfferFiltersQuery - multiple filters', () => {
   function getRequest(params: string) {
     const url = new URL(`https://echo.xyz/?${params}`)
@@ -99,7 +81,7 @@ describe('helpers - request - parseOfferFiltersQuery - multiple filters', () => 
     expect(() =>
       parseOfferFiltersQuery(
         getRequest(
-          `as=receiver&state=${OFFER_STATE_OPEN}&state=${OFFER_STATE_ACCEPTED}&notState=${OFFER_STATE_CANCELLED}&includeExpired=true`
+          `as=receiver&state=${OFFER_STATE_OPEN}&state=${OFFER_STATE_ACCEPTED}&notState=${OFFER_STATE_CANCELLED}`
         )
       )
     ).toThrow()
@@ -107,14 +89,11 @@ describe('helpers - request - parseOfferFiltersQuery - multiple filters', () => 
   test('returns the correct filters', () => {
     expect(
       parseOfferFiltersQuery(
-        getRequest(
-          `as=${OFFER_FILTER_AS_RECEIVER}&state=${OFFER_STATE_OPEN}&state=${OFFER_STATE_ACCEPTED}&includeExpired=true`
-        )
+        getRequest(`as=${OFFER_FILTER_AS_RECEIVER}&state=${OFFER_STATE_OPEN}&state=${OFFER_STATE_ACCEPTED}`)
       )
     ).toStrictEqual<OfferQueryFilters>({
       as: OFFER_FILTER_AS_RECEIVER,
-      state: [OFFER_STATE_OPEN, OFFER_STATE_ACCEPTED],
-      includeExpired: true
+      state: [OFFER_STATE_OPEN, OFFER_STATE_ACCEPTED]
     })
   })
 })

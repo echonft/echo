@@ -1,10 +1,7 @@
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import { ProfileSwapsSkeleton } from '@echo/ui/components/profile/swap/skeleton/profile-swaps-skeleton'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { type FunctionComponent } from 'react'
 
-const ProfileSwapsLoading: FunctionComponent = () => {
-  unstable_setRequestLocale('en')
+export default async function () {
+  await initializeServerComponent()
   return <ProfileSwapsSkeleton />
 }
-
-export default ProfileSwapsLoading

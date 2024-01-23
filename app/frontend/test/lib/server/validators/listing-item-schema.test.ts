@@ -1,5 +1,5 @@
 import { type ListingItemRequest } from '@echo/api/types/requests/listing-item-request'
-import { listingItemSchema } from '@echo/frontend/lib/server/validators/listing-item-schema'
+import { listingItemSchema } from '@echo/frontend/lib/validators/listing-item-schema'
 import { assoc, dissoc, dissocPath } from 'ramda'
 
 describe('validators - listingItemSchema', () => {

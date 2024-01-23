@@ -1,7 +1,6 @@
 'use client'
 import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
 import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
-import type { GetOfferArgs } from '@echo/api/types/fetchers/get-offer-args'
 import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
 import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
@@ -35,7 +34,6 @@ interface Props {
     acceptOffer: Fetcher<OfferResponse, AcceptOfferArgs>
     cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
     executeSwap: Fetcher<HexString, ExecuteSwapArgs>
-    getOffer: Fetcher<OfferResponse, GetOfferArgs>
     getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
     rejectOffer: Fetcher<OfferResponse, RejectOfferArgs>
     signOffer: Fetcher<HexString, SignOfferArgs>
@@ -50,13 +48,13 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, fetch
   useEffect(() => {
     setUpdatedOffer(offer)
   }, [offer])
-  const { state, sender, receiver, expired, expiresAt, senderItems, receiverItems } = updatedOffer
+  const { state, sender, receiver, expiresAt, senderItems, receiverItems } = updatedOffer
 
   return (
     <OfferDetailsLayout>
       <OfferDetailsInfoLayout>
         <ListingOfferUserDetails user={isCreator ? receiver : sender} />
-        <OfferDetailsState state={state} expired={expired} expiresAt={expiresAt} />
+        <OfferDetailsState state={state} expiresAt={expiresAt} />
       </OfferDetailsInfoLayout>
       <OfferDetailsItemsButtonsLayout>
         <NftsContainer nfts={map(prop('nft'), isCreator ? receiverItems : senderItems)} alignment={ALIGNMENT_CENTER} />

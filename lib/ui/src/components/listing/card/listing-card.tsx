@@ -1,26 +1,28 @@
+import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { getListingTargetsCollections } from '@echo/model/helpers/listing/get-listing-targets-collections'
+import type { Collection } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
-import { ListingCardLayout } from '@echo/ui/components/listing/card/layout/listing-card-layout'
-import { NftCardPicture } from '@echo/ui/components/nft/card/nft-card-picture'
-import { NftCardTitle } from '@echo/ui/components/nft/card/nft-card-title'
-import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
-import { head } from 'ramda'
-import type { FunctionComponent, MouseEventHandler } from 'react'
+import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { ListingCardSwitch } from '@echo/ui/components/listing/card/listing-card-switch'
+import { nonEmptyReturn } from '@echo/utils/fp/non-empty-return'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import { head, pipe, prop } from 'ramda'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   listing: Listing
-  onClick?: MouseEventHandler
+  scaleDisabled?: boolean
 }
 
-export const ListingCard: FunctionComponent<Props> = ({ listing, onClick }) => {
-  const { items } = listing
-  if (isNonEmptyArray(items)) {
-    const { nft } = head(items)
-    return (
-      <ListingCardLayout onClick={onClick}>
-        <NftCardPicture nft={nft} hideLink={true} />
-        <NftCardTitle nft={nft} />
-      </ListingCardLayout>
-    )
-  }
-  return null
+export const ListingCard: FunctionComponent<Props> = ({ listing, scaleDisabled }) => {
+  const slug = pipe<[Listing], NonEmptyArray<Collection>, Collection, string>(
+    nonEmptyReturn(getListingTargetsCollections),
+    head,
+    prop('slug')
+  )(listing)
+  return (
+    <InternalLink path={linkProvider.collection.listing.get({ slug, listingId: listing.id })}>
+      <ListingCardSwitch listing={listing} scaleDisabled={scaleDisabled} />
+    </InternalLink>
+  )
 }

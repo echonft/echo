@@ -1,4 +1,4 @@
-import { idRequestSchema } from '@echo/frontend/lib/server/validators/id-request-schema'
+import { idRequestSchema } from '@echo/frontend/lib/validators/id-request-schema'
 
 describe('validators - idRequestSchema', () => {
   it('wrong id fails validation', () => {

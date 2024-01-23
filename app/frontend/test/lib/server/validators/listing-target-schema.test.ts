@@ -1,5 +1,5 @@
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
-import { listingTargetSchema } from '@echo/frontend/lib/server/validators/listing-target-schema'
+import { listingTargetSchema } from '@echo/frontend/lib/validators/listing-target-schema'
 import { assoc, dissoc, dissocPath } from 'ramda'
 
 describe('validators - listingTargetSchema', () => {
