@@ -1,17 +1,14 @@
-import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { LISTING_FILTER_AS_TARGET } from '@echo/firestore/constants/listing/listing-filter-as'
 import { getListingsForUser } from '@echo/firestore/crud/listing/get-listings-for-user'
-import { redirectIfNotLoggedIn } from '@echo/frontend/lib/auth/redirect-if-not-logged-in'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
-import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
+import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
 import { READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import { ProfileListingsReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-listings-received-api-provided'
 import { pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
-async function render({ user }: NextUserParams) {
-  redirectIfNotLoggedIn(user, linkProvider.profile.listingsReceived.getUrl())
+async function render({ user }: NextAuthUserParams) {
   const listings = await getListingsForUser(
     user.username,
     {
@@ -29,4 +26,4 @@ async function render({ user }: NextUserParams) {
   return <ProfileListingsReceivedApiProvided listings={listings} />
 }
 
-export default pipe(withLocale<NextUserParams, Promise<ReactElement>>, withUser)(render)
+export default pipe(withLocale<NextAuthUserParams, Promise<ReactElement>>, withUser)(render)
