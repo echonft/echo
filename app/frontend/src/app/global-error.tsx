@@ -1,17 +1,13 @@
 'use client'
+import type { NextErrorParams } from '@echo/frontend/lib/types/next-error-params'
 import { Error500 } from '@echo/ui/components/error/error-500'
 import { PageLayout } from '@echo/ui/components/layout/page-layout'
 import { messages } from '@echo/ui/messages/en'
 import { captureException } from '@sentry/nextjs'
 import { NextIntlClientProvider } from 'next-intl'
-import { type FunctionComponent, useEffect } from 'react'
+import { useEffect } from 'react'
 
-interface Props {
-  error: Error & Partial<Record<'digest', string>>
-  reset: VoidFunction
-}
-
-const Error: FunctionComponent<Props> = ({ error, reset }) => {
+export default function ({ error, reset }: NextErrorParams) {
   const locale = 'en'
   useEffect(() => {
     captureException(error)
@@ -29,5 +25,3 @@ const Error: FunctionComponent<Props> = ({ error, reset }) => {
     </html>
   )
 }
-
-export default Error

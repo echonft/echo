@@ -1,7 +1,6 @@
 'use client'
 import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
 import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
-import type { GetOfferArgs } from '@echo/api/types/fetchers/get-offer-args'
 import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
 import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
@@ -35,7 +34,6 @@ interface Props {
     acceptOffer: Fetcher<OfferResponse, AcceptOfferArgs>
     cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
     executeSwap: Fetcher<HexString, ExecuteSwapArgs>
-    getOffer: Fetcher<OfferResponse, GetOfferArgs>
     getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
     rejectOffer: Fetcher<OfferResponse, RejectOfferArgs>
     signOffer: Fetcher<HexString, SignOfferArgs>

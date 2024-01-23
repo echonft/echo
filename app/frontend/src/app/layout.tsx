@@ -1,9 +1,9 @@
 import '@echo/ui-css/index.css'
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import { messages } from '@echo/ui/messages/en'
 import { type Metadata, type Viewport } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 // noinspection JSUnusedGlobalSymbols
 export const metadata: Metadata = {
@@ -23,9 +23,9 @@ export const viewport: Viewport = {
   width: 'device-width'
 }
 
-const Layout: FunctionComponent<PropsWithChildren> = ({ children }) => {
+export default async function ({ children }: NextLayoutParams) {
+  await initializeServerComponent()
   const locale = 'en'
-  unstable_setRequestLocale(locale)
   return (
     <html lang={locale}>
       <body>
@@ -36,5 +36,3 @@ const Layout: FunctionComponent<PropsWithChildren> = ({ children }) => {
     </html>
   )
 }
-
-export default Layout

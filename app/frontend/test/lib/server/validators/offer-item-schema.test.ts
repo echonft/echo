@@ -1,5 +1,5 @@
 import { type OfferItemRequest } from '@echo/api/types/requests/offer-item-request'
-import { offerItemSchema } from '@echo/frontend/lib/server/validators/offer-item-schema'
+import { offerItemSchema } from '@echo/frontend/lib/validators/offer-item-schema'
 import { assoc, dissoc, dissocPath } from 'ramda'
 
 describe('validators - offerItemSchema', () => {

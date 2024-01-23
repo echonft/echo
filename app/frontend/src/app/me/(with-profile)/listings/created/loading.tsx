@@ -1,11 +1,8 @@
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import { ProfileListingsSkeleton } from '@echo/ui/components/profile/listing/skeleton/profile-listings-skeleton'
 import { NAVIGATION_LISTINGS_CREATED } from '@echo/ui/constants/navigation-item'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { type FunctionComponent } from 'react'
 
-const ProfileListingsCreatedLoading: FunctionComponent = () => {
-  unstable_setRequestLocale('en')
+export default async function () {
+  await initializeServerComponent()
   return <ProfileListingsSkeleton activeNavigationItem={NAVIGATION_LISTINGS_CREATED} />
 }
-
-export default ProfileListingsCreatedLoading

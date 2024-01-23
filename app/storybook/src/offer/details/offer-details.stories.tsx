@@ -2,7 +2,6 @@
 
 import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
 import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
-import type { GetOfferArgs } from '@echo/api/types/fetchers/get-offer-args'
 import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
 import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
@@ -10,7 +9,6 @@ import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-sig
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
-  OFFER_STATE_COMPLETED,
   OFFER_STATE_EXPIRED,
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED,
@@ -54,9 +52,6 @@ function rejectOffer(_args: RejectOfferArgs) {
 }
 function cancelOffer(_args: CancelOfferArgs) {
   return delayPromise(Promise.resolve({ offer: assoc('state', OFFER_STATE_CANCELLED, offer) }), 800)
-}
-function getOffer(_args: GetOfferArgs): Promise<OfferResponse> {
-  return delayPromise(Promise.resolve({ offer: assoc('state', OFFER_STATE_COMPLETED, offer) }), 1200)
 }
 function getOfferSignature(_args: GetOfferSignatureArgs): Promise<OfferSignatureResponse> {
   return delayPromise(Promise.resolve({ signature: '0xwhatever' }), 1200)
@@ -111,7 +106,6 @@ export const Default: Story = {
           acceptOffer,
           cancelOffer,
           executeSwap,
-          getOffer,
           getOfferSignature,
           rejectOffer,
           signOffer

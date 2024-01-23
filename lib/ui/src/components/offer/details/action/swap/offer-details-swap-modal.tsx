@@ -1,7 +1,5 @@
 'use client'
-import type { GetOfferArgs } from '@echo/api/types/fetchers/get-offer-args'
 import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
@@ -24,7 +22,6 @@ interface Props {
   offer: Offer
   open: boolean
   fetcher: {
-    getOffer: Fetcher<OfferResponse, GetOfferArgs>
     getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
     executeSwap: Fetcher<HexString, ExecuteSwapArgs>
     approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>

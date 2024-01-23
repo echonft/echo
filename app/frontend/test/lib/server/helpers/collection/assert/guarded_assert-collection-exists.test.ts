@@ -1,4 +1,4 @@
-import { guarded_assertCollectionExists } from '@echo/frontend/lib/server/helpers/collection/assert/guarded_assert-collection-exists'
+import { guarded_assertCollectionExists } from '@echo/frontend/lib/helpers/collection/assert/guarded_assert-collection-exists'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 
 describe('helpers - collection - guarded_assertCollectionExists', () => {

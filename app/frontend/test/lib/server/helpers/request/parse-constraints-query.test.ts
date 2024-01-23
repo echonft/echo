@@ -1,6 +1,6 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
-import { parseConstraintsQuery } from '@echo/frontend/lib/server/helpers/request/parse-constraints-query'
+import { parseConstraintsQuery } from '@echo/frontend/lib/helpers/request/parse-constraints-query'
 import type { Offer } from '@echo/model/types/offer'
 import { NextRequest } from 'next/server'
 

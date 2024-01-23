@@ -9,8 +9,17 @@ const nextConfig = {
     ]
   },
   swcMinify: true,
-  transpilePackages: ['@echo/alchemy', '@echo/api', '@echo/firestore', '@echo/ui', '@echo/utils', '@echo/web3'],
+  transpilePackages: [
+    '@echo/alchemy',
+    '@echo/api',
+    '@echo/firestore',
+    '@echo/model',
+    '@echo/ui',
+    '@echo/utils',
+    '@echo/web3'
+  ],
   webpack: (config) => {
+    // noinspection JSUnresolvedReference
     config.externals.push('pino-pretty', 'lokijs', 'encoding')
     return {
       ...config,

@@ -1,41 +1,22 @@
-import { mapQueryConstraintsToQueryParams } from '@echo/api/helpers/request/map-query-constraints-to-query-params'
-import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
-import { type ListingsResponse } from '@echo/api/types/responses/listings-response'
 import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
-import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
-import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
-import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
+import { getListingsForUser } from '@echo/firestore/crud/listing/get-listings-for-user'
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { UserListingsApiProvided } from '@echo/ui/components/user/api-provided/user-listings-api-provided'
 import { redirect } from 'next/navigation'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { mergeLeft } from 'ramda'
-import { type FunctionComponent } from 'react'
 
-interface Props {
-  params: {
-    username: string
-  }
-}
-
-const UserListingsPage: FunctionComponent<Props> = async ({ params: { username } }) => {
-  unstable_setRequestLocale('en')
-  const user = await getAuthUser()
+export default async function ({ params: { username } }: NextParams<Record<'username', string>>) {
+  const user = await initializeServerComponent({ getAuthUser: true })
   if (user?.username === username) {
     redirect(linkProvider.profile.listingsCreated.get())
   }
-  const response = await nextFetch.get<ListingsResponse>(apiUrlProvider.user.listings.getUrl({ username }), {
-    cookie: getCookieHeader(),
-    params: mergeLeft(
-      mapQueryConstraintsToQueryParams({
-        orderBy: [{ field: 'expiresAt', direction: 'desc' }]
-      }),
-      { as: LISTING_FILTER_AS_ITEM }
-    )
-  })
-  assertNextFetchResponse(response)
-  return <UserListingsApiProvided username={username} listings={response.data.listings} />
+  const listings = await getListingsForUser(
+    username,
+    { as: LISTING_FILTER_AS_ITEM },
+    {
+      orderBy: [{ field: 'expiresAt', direction: 'desc' }]
+    }
+  )
+  return <UserListingsApiProvided username={username} listings={listings} />
 }
-
-export default UserListingsPage

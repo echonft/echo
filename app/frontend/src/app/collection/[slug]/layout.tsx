@@ -1,36 +1,25 @@
-import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
-import { type CollectionResponse } from '@echo/api/types/responses/collection-response'
-import { getAuthUser } from '@echo/frontend/lib/helpers/auth/get-auth-user'
-import { getCookieHeader } from '@echo/frontend/lib/helpers/auth/get-cookie-header'
-import { assertNextFetchResponse } from '@echo/frontend/lib/services/fetch/assert-next-fetch-response'
-import { nextFetch } from '@echo/frontend/lib/services/fetch/next-fetch'
+import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
+import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
+import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { CollectionDetailsApiProvided } from '@echo/ui/components/collection/api-provided/collection-details-api-provided'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { type FunctionComponent, type PropsWithChildren } from 'react'
+import { notFound } from 'next/navigation'
+import { isNil } from 'ramda'
 
-interface Props {
-  params: {
-    slug: string
+export default async function ({ params: { slug }, children }: NextLayoutParams<NextParams<Record<'slug', string>>>) {
+  const user = await initializeServerComponent({ getAuthUser: true })
+  const collection = await findCollectionBySlug(slug)
+  if (isNil(collection)) {
+    notFound()
   }
-}
-
-const CollectionLayout: FunctionComponent<PropsWithChildren<Props>> = async ({ params, children }) => {
-  unstable_setRequestLocale('en')
-  const user = await getAuthUser()
-  const response = await nextFetch.get<CollectionResponse>(apiUrlProvider.collection.get.getUrl(params), {
-    cookie: getCookieHeader()
-  })
-  assertNextFetchResponse(response)
   return (
     <NavigationPageLayout user={user}>
       <SectionLayout>
-        <CollectionDetailsApiProvided collection={response.data.collection} />
+        <CollectionDetailsApiProvided collection={collection} />
       </SectionLayout>
       <SectionLayout>{children}</SectionLayout>
     </NavigationPageLayout>
   )
 }
-
-export default CollectionLayout

@@ -1,4 +1,4 @@
-import { guarded_assertOffer } from '@echo/frontend/lib/server/helpers/offer/assert/guarded_assert-offer'
+import { guarded_assertOffer } from '@echo/frontend/lib/helpers/offer/assert/guarded_assert-offer'
 import { type Offer } from '@echo/model/types/offer'
 
 describe('helpers - offer - assert - guarded_assertOffer', () => {

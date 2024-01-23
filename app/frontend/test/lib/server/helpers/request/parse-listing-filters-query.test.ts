@@ -1,7 +1,7 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import { LISTING_FILTER_AS_ITEM, LISTING_FILTER_AS_TARGET } from '@echo/firestore/constants/listing/listing-filter-as'
 import type { ListingQueryFilters } from '@echo/firestore/types/query/listing-query-filters'
-import { parseListingFiltersQuery } from '@echo/frontend/lib/server/helpers/request/parse-listing-filters-query'
+import { parseListingFiltersQuery } from '@echo/frontend/lib/helpers/request/parse-listing-filters-query'
 import {
   LISTING_STATE_CANCELLED,
   LISTING_STATE_FULFILLED,
