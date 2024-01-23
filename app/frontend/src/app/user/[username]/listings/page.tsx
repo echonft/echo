@@ -22,7 +22,7 @@ async function render({ params: { username }, user }: Params) {
       orderBy: [{ field: 'expiresAt', direction: 'desc' }]
     }
   )
-  return <UserListingsApiProvided username={username} listings={listings} />
+  return <UserListingsApiProvided user={user} username={username} listings={listings} />
 }
 
 export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)
