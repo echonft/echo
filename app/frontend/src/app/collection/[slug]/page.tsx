@@ -1,9 +1,12 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { redirect } from 'next/navigation'
 
-export default async function ({ params }: NextParams<Record<'slug', string>>) {
+async function render({ params }: NextParams<Record<'slug', string>>) {
   await initializeServerComponent()
   redirect(linkProvider.collection.items.get(params))
 }
+
+export default withLocale(render)

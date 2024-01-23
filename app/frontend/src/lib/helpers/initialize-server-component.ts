@@ -1,6 +1,5 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { getAuthUser } from '@echo/frontend/lib/auth/get-auth-user'
-import { unstable_setRequestLocale } from 'next-intl/server'
 import { isNil } from 'ramda'
 
 interface Config {
@@ -8,7 +7,7 @@ interface Config {
   getAuthUser?: true
 }
 export async function initializeServerComponent(config?: Config) {
-  unstable_setRequestLocale('en')
+  // unstable_setRequestLocale('en')
   if (isNil(config)) {
     return undefined
   }

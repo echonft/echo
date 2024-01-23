@@ -1,6 +1,7 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { redirectIfNotLoggedIn } from '@echo/frontend/lib/auth/redirect-if-not-logged-in'
+import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import { validateOffer } from '@echo/frontend/lib/helpers/offer/validate-offer'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
@@ -15,7 +16,7 @@ import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { isNil } from 'ramda'
 
-export default async function ({ params: { id } }: NextParams<Record<'id', string>>) {
+async function render({ params: { id } }: NextParams<Record<'id', string>>) {
   const user = await initializeServerComponent({ getAuthUser: true })
   const t = await getTranslations({ namespace: 'offer.details' })
   redirectIfNotLoggedIn(user, linkProvider.profile.offer.getUrl({ offerId: id }))
@@ -36,3 +37,5 @@ export default async function ({ params: { id } }: NextParams<Record<'id', strin
     </NavigationPageLayout>
   )
 }
+
+export default withLocale(render)

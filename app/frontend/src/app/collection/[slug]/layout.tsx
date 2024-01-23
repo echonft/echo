@@ -1,4 +1,5 @@
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
+import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
@@ -8,7 +9,7 @@ import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-
 import { notFound } from 'next/navigation'
 import { isNil } from 'ramda'
 
-export default async function ({ params: { slug }, children }: NextLayoutParams<NextParams<Record<'slug', string>>>) {
+async function render({ params: { slug }, children }: NextLayoutParams<NextParams<Record<'slug', string>>>) {
   const user = await initializeServerComponent({ getAuthUser: true })
   const collection = await findCollectionBySlug(slug)
   if (isNil(collection)) {
@@ -23,3 +24,5 @@ export default async function ({ params: { slug }, children }: NextLayoutParams<
     </NavigationPageLayout>
   )
 }
+
+export default withLocale(render)

@@ -1,5 +1,6 @@
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
+import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { Listing } from '@echo/model/types/listing'
@@ -10,7 +11,7 @@ import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { notFound } from 'next/navigation'
 import { isNil, map, path, pipe, prop } from 'ramda'
 
-export default async function ({ params: { slug, id } }: NextParams<Record<'id', string> & Record<'slug', string>>) {
+async function render({ params: { slug, id } }: NextParams<Record<'id', string> & Record<'slug', string>>) {
   const user = await initializeServerComponent({ getAuthUser: true })
   const collection = await findCollectionBySlug(slug)
   if (isNil(collection)) {
@@ -29,3 +30,5 @@ export default async function ({ params: { slug, id } }: NextParams<Record<'id',
   }
   return <ListingDetailsApiProvided listing={listing} user={user} />
 }
+
+export default withLocale(render)
