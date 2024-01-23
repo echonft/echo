@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { ProfilePicture as Component } from '@echo/ui/components/shared/profile-picture'
+import { ProfilePicture as Component } from '@echo/ui/components/base/profile-picture'
 import { SIZE_LG } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 
