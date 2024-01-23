@@ -170,7 +170,13 @@ export const messages = {
       },
       modal: {
         backBtn: 'Back to Listings',
-        title: 'Listing Details'
+        title: 'Listing Details',
+        cancelBtn: {
+          label: 'Cancel Listing',
+          message: 'Hold to cancel'
+        },
+        viewOffersBtn: 'View Offers',
+        fillBtn: 'Fill Listing'
       },
       assets: {
         title: {
