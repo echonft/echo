@@ -1,14 +1,17 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
+import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { UserSwapsApiProvided } from '@echo/ui/components/user/api-provided/user-swaps-api-provided'
 import { redirect } from 'next/navigation'
+import { pipe } from 'ramda'
+import type { ReactElement } from 'react'
 
-async function render({ params: { username } }: NextParams<Record<'username', string>>) {
-  const user = await initializeServerComponent({ getAuthUser: true })
+type Params = NextUserParams<NextParams<Record<'username', string>>>
+async function render({ params: { username }, user }: Params) {
   if (user?.username === username) {
     redirect(linkProvider.profile.swaps.get())
   }
@@ -22,4 +25,4 @@ async function render({ params: { username } }: NextParams<Record<'username', st
   return <UserSwapsApiProvided username={username} offers={offers} />
 }
 
-export default withLocale(render)
+export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)

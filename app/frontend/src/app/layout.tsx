@@ -1,6 +1,5 @@
 import '@echo/ui-css/index.css'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import { messages } from '@echo/ui/messages/en'
 import { type Metadata, type Viewport } from 'next'
@@ -24,8 +23,7 @@ export const viewport: Viewport = {
   width: 'device-width'
 }
 
-async function render({ children }: NextLayoutParams) {
-  await initializeServerComponent()
+function render({ children }: NextLayoutParams) {
   const locale = 'en'
   return (
     <html lang={locale}>

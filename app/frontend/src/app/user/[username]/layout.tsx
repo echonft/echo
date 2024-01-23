@@ -1,18 +1,20 @@
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { mapFirestoreUserToUserProfile } from '@echo/frontend/lib/mappers/map-firestore-user-to-user-profile'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
+import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
 import { UserDetailsApiProvided } from '@echo/ui/components/user/api-provided/user-details-api-provided'
 import { notFound } from 'next/navigation'
-import { isNil } from 'ramda'
+import { isNil, pipe } from 'ramda'
+import type { ReactElement } from 'react'
 
-async function render({ params: { username }, children }: NextLayoutParams<NextParams<Record<'username', string>>>) {
-  const authUser = await initializeServerComponent({ getAuthUser: true })
+type Params = NextUserParams<NextLayoutParams<NextParams<Record<'username', string>>>>
+async function render({ params: { username }, user: authUser, children }: Params) {
   const user = await findUserByUsername(username)
   if (isNil(user)) {
     notFound()
@@ -28,4 +30,4 @@ async function render({ params: { username }, children }: NextLayoutParams<NextP
   )
 }
 
-export default withLocale(render)
+export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)

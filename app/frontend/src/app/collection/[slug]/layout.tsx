@@ -1,16 +1,18 @@
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
+import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { CollectionDetailsApiProvided } from '@echo/ui/components/collection/api-provided/collection-details-api-provided'
 import { SectionLayout } from '@echo/ui/components/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
 import { notFound } from 'next/navigation'
-import { isNil } from 'ramda'
+import { isNil, pipe } from 'ramda'
+import type { ReactElement } from 'react'
 
-async function render({ params: { slug }, children }: NextLayoutParams<NextParams<Record<'slug', string>>>) {
-  const user = await initializeServerComponent({ getAuthUser: true })
+type Params = NextUserParams<NextLayoutParams<NextParams<Record<'slug', string>>>>
+async function render({ params: { slug }, user, children }: Params) {
   const collection = await findCollectionBySlug(slug)
   if (isNil(collection)) {
     notFound()
@@ -25,4 +27,4 @@ async function render({ params: { slug }, children }: NextLayoutParams<NextParam
   )
 }
 
-export default withLocale(render)
+export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)
