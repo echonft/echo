@@ -23,5 +23,5 @@ export default async function () {
       ]
     }
   )
-  return <ProfileListingsReceivedApiProvided listings={listings} />
+  return <ProfileListingsReceivedApiProvided listings={listings} user={user} />
 }

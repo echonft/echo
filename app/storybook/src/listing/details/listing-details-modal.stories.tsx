@@ -27,6 +27,19 @@ type Story = StoryObj<typeof Component>
 export const Creator: Story = {
   args: {
     open: true,
+    hasOffers: true,
+    listing,
+    user: creator,
+    onClose: () => {},
+    onFill: () => {},
+    onViewOffers: () => {},
+    onCancel: () => {}
+  }
+}
+
+export const CreatorNoOffers: Story = {
+  args: {
+    open: true,
     listing,
     user: creator,
     onClose: () => {},
@@ -45,5 +58,13 @@ export const Receiver: Story = {
     onFill: () => {},
     onViewOffers: () => {},
     onCancel: () => {}
+  }
+}
+
+export const Mutating: Story = {
+  args: {
+    open: true,
+    listing,
+    user
   }
 }

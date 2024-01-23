@@ -5,7 +5,7 @@ import { READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import { CollectionListingsApiProvided } from '@echo/ui/components/collection/api-provided/collection-listings-api-provided'
 
 export default async function ({ params: { slug } }: NextParams<Record<'slug', string>>) {
-  await initializeServerComponent({ initializeFirebase: true })
+  const user = await initializeServerComponent({ initializeFirebase: true, getAuthUser: true })
   const listings = await getListingsForCollection(
     slug,
     { notState: READ_ONLY_LISTING_STATES },
@@ -13,5 +13,5 @@ export default async function ({ params: { slug } }: NextParams<Record<'slug', s
       orderBy: [{ field: 'expiresAt', direction: 'asc' }]
     }
   )
-  return <CollectionListingsApiProvided collectionSlug={slug} listings={listings} />
+  return <CollectionListingsApiProvided collectionSlug={slug} listings={listings} user={user} />
 }

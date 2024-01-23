@@ -10,6 +10,7 @@ import type { FunctionComponent } from 'react'
 interface Props {
   listing: Listing
   isCreator: boolean
+  hasOffers?: boolean
   onCancel?: (listing: Listing) => void
   onFill?: VoidFunction
   onViewOffers?: VoidFunction
@@ -18,16 +19,21 @@ interface Props {
 export const ListingDetailsModalButtonsContainer: FunctionComponent<Props> = ({
   listing,
   isCreator,
+  hasOffers,
   onCancel,
   onFill,
   onViewOffers
 }) => {
   const t = useTranslations('listing.details.modal')
 
-  // TODO If expired or final, return null
+  // We don't show any buttons if the listing is final
+  if (listing.readOnly) {
+    return null
+  }
+
   return (
     <div className={clsx('flex', 'flex-row', 'gap-4.5', 'items-center', 'justify-center')}>
-      <ShowIf condition={isCreator}>
+      <ShowIf condition={isCreator && Boolean(hasOffers)}>
         {/* TODO Should lead to offers, not sure where to go for now*/}
         <InternalLink path={'/'}>
           <button

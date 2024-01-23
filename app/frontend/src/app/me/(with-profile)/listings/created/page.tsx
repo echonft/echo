@@ -15,5 +15,5 @@ export default async function () {
       orderBy: [{ field: 'expiresAt', direction: 'desc' }]
     }
   )
-  return <ProfileListingsCreatedApiProvided listings={listings} />
+  return <ProfileListingsCreatedApiProvided listings={listings} user={user} />
 }
