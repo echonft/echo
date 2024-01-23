@@ -10,11 +10,9 @@ import { NextResponse } from 'next/server'
 import type { NextAuthRequest } from 'next-auth/lib'
 import { isNil, pick } from 'ramda'
 
-export function authAppRouteHandler<
-  RequestBody,
-  ResponseBody,
-  Params extends Record<string, unknown> | undefined = undefined
->(requestHandler: AuthRequestHandler<RequestBody, ResponseBody, Params>) {
+export function authAppRouteHandler<RequestBody, ResponseBody, Params extends Record<string, unknown> = never>(
+  requestHandler: AuthRequestHandler<RequestBody, ResponseBody, Params>
+) {
   return auth(async function (request: NextAuthRequest, context?: { params: Params }) {
     try {
       initializeFirebase()
@@ -29,7 +27,10 @@ export function authAppRouteHandler<
         )
       }
       setUser(pick(['username'], user))
-      return await requestHandler(user, request, context?.params as Params)
+      if (isNil(context)) {
+        return await requestHandler(user, request)
+      }
+      return await requestHandler(user, request, context.params)
     } catch (error) {
       if (error instanceof ApiError) {
         await error.beforeError()
