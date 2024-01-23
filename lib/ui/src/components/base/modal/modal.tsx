@@ -79,7 +79,7 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
                 'z-30'
               )}
             >
-              <HideIfNil checks={onBack} render={(onBack) => <BackButton onBack={onBack} title={backButtonLabel} />} />
+              <HideIfNil checks={backButtonLabel} render={(label) => <BackButton onBack={onBack} title={label} />} />
               <HideIfNilOrEmpty
                 checks={title}
                 render={(title) => (

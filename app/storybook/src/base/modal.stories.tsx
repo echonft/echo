@@ -74,6 +74,24 @@ export const CloseDisabled: Story = {
   }
 }
 
+export const CloseAndBackDisabled: Story = {
+  render: () => {
+    const [isOpen, setIsOpen] = useState(false)
+    return (
+      <div className={'h-screen'}>
+        <div className={'flex flex-row justify-center items-center h-full'}>
+          <button onClick={() => setIsOpen(true)} className={'btn-gradient group w-[9.875rem] py-1.5 btn-size'}>
+            <span className={'prose-label-sm-semi btn-label-gradient'}>Open Modal</span>
+          </button>
+        </div>
+        <Component title={'This a modal title'} open={isOpen} backButtonLabel={'Back'}>
+          <span className={'text-white text-center prose-header-xs-semi'}>This is a modal description</span>
+        </Component>
+      </div>
+    )
+  }
+}
+
 export const BackEnabled: Story = {
   render: ({ onClose, onBack }) => {
     const [isOpen, setIsOpen] = useState(false)
