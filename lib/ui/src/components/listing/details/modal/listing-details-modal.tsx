@@ -2,17 +2,13 @@
 import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
 import { Modal } from '@echo/ui/components/base/modal/modal'
-import { ListingDetailsModalButtonsContainer } from '@echo/ui/components/listing/details/modal/listing-details-modal-buttons-container'
-import { ListingDetailsModalCreator } from '@echo/ui/components/listing/details/modal/listing-details-modal-creator'
-import { ListingDetailsModalDetailsContainer } from '@echo/ui/components/listing/details/modal/listing-details-modal-details-container'
-import { clsx } from 'clsx'
+import { ListingDetailsModalBody } from '@echo/ui/components/listing/details/modal/listing-details-modal-body'
 import { useTranslations } from 'next-intl'
-import { isNil, omit } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 export interface ListingDetailsModalProps {
   open: boolean
-  listing: Listing
+  listing: Listing | undefined
   hasOffers?: boolean
   user: AuthUser | undefined
   actions?: {
@@ -31,8 +27,6 @@ export const ListingDetailsModal: FunctionComponent<ListingDetailsModalProps> = 
   actions
 }) => {
   const t = useTranslations('listing.details.modal')
-  // TODO use ListingWithRole instead
-  const isCreator = !isNil(user) && user.username === listing.creator.username
   return (
     <Modal
       open={open}
@@ -43,18 +37,7 @@ export const ListingDetailsModal: FunctionComponent<ListingDetailsModalProps> = 
       }}
       onClose={actions?.onClose}
     >
-      <div className={clsx('flex', 'flex-col', 'gap-12')}>
-        <ListingDetailsModalCreator show={!isCreator} listing={listing} />
-        <ListingDetailsModalDetailsContainer items={listing.items} targets={listing.targets} />
-        <div className={clsx('flex', 'flex-row', 'gap-4.5', 'items-center', 'justify-center')}>
-          <ListingDetailsModalButtonsContainer
-            listing={listing}
-            hasOffers={hasOffers}
-            isCreator={isCreator}
-            actions={isNil(actions) ? undefined : omit(['onClose'], actions)}
-          />
-        </div>
-      </div>
+      <ListingDetailsModalBody listing={listing} user={user} hasOffers={hasOffers} actions={actions} />
     </Modal>
   )
 }

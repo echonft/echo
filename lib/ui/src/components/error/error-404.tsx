@@ -17,14 +17,15 @@ export const Error404: FunctionComponent = () => {
           'tracking-[0.3125rem]',
           'font-semibold',
           'font-inter',
-          'text-white'
+          'text-white',
+          'select-none'
         )}
       >
         <EchoIconSvg className={clsx('absolute', 'top-[200px]', 'left-[230px]', 'text-yellow-500')} height={400} />
         <span className={clsx('h-max', 'mr-[130px]')}>4</span>
         <span className={clsx('h-max', 'ml-[130px]')}>4</span>
       </div>
-      <div className={clsx('flex', 'flex-col', 'items-center', '-translate-y-20')}>
+      <div className={clsx('flex', 'flex-col', 'items-center', '-translate-y-20', 'select-none')}>
         <p
           className={clsx(
             'w-max',
