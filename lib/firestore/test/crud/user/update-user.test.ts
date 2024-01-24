@@ -1,6 +1,6 @@
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
 import { updateUser } from '@echo/firestore/crud/user/update-user'
-import type { User } from '@echo/firestore/types/model/user/user'
+import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { assertUsers } from '@echo/firestore-test/user/assert-users'
@@ -13,7 +13,7 @@ import { assoc, isNotNil } from 'ramda'
 
 describe('CRUD - user - updateUser', () => {
   let newUserId: string | undefined
-  let updatedUser: User | undefined
+  let updatedUser: UserDocumentData | undefined
 
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()

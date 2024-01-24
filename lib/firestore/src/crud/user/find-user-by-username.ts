@@ -1,6 +1,9 @@
-import { getUserSnapshotByUsername } from '@echo/firestore/crud/user/get-user-snapshot-by-username'
+import { getUsersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-users-collection-reference'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import { pipe } from 'ramda'
 
-export async function findUserByUsername(username: string) {
-  const documentSnapshot = await getUserSnapshotByUsername(username)
-  return documentSnapshot?.data()
+export function findUserByUsername(username: string): Promise<UserDocumentData | undefined> {
+  return pipe(getUsersCollectionReference, queryWhere('username', '==', username), getQueryUniqueData)()
 }

@@ -3,13 +3,12 @@ import { getListingsCollectionReference } from '@echo/firestore/helpers/collecti
 import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-queries-documents'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { LISTING_STATES, READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
+import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import { type Listing } from '@echo/model/types/listing'
-import type { ListingState } from '@echo/model/types/listing-state'
 import type { Nft } from '@echo/model/types/nft'
-import { isIn } from '@echo/utils/fp/is-in'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { isEmpty, juxt, map, partial, path, pipe, reject, splitEvery, uniq } from 'ramda'
+import type { CollectionReference, Query } from 'firebase-admin/firestore'
+import { andThen, isEmpty, juxt, map, partial, path, pipe, prop, reject, splitEvery, uniq } from 'ramda'
 
 export async function getPendingListingsForUser(username: string): Promise<Listing[]> {
   const nfts = await getNftsForOwner(username)
@@ -21,13 +20,22 @@ export async function getPendingListingsForUser(username: string): Promise<Listi
     uniq,
     splitEvery(30)
   )(nfts)
-  return pipe(
+  return pipe<
+    [],
+    CollectionReference<Listing, ListingDocumentData>,
+    Query<Listing>,
+    Query<Listing>,
+    Query<Listing>,
+    Query<Listing>[],
+    Promise<Listing[]>,
+    Promise<Listing[]>
+  >(
     getListingsCollectionReference,
-    queryWhere<Listing>('creator.username', '!=', username),
-    queryWhere<Listing>('state', 'in', reject(isIn<ListingState>(READ_ONLY_LISTING_STATES), LISTING_STATES)),
-    queryOrderBy<Listing>('creator.username'),
-    queryOrderBy<Listing>('expiresAt', 'desc'),
+    queryWhere('creator.username', '!=', username),
+    queryOrderBy('creator.username'),
+    queryOrderBy('expiresAt', 'desc'),
     juxt(map(partial(queryWhere<Listing>, ['targetsIds', 'array-contains-any']), collectionIds)),
-    getQueriesDocuments
+    getQueriesDocuments<Listing>,
+    andThen(reject<Listing>(prop('readOnly')))
   )()
 }

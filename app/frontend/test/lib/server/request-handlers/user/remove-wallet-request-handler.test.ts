@@ -2,7 +2,7 @@ import { type RemoveWalletRequest } from '@echo/api/types/requests/remove-wallet
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
-import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { removeWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/remove-wallet-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
@@ -38,7 +38,7 @@ describe('request-handlers - user - removeWalletRequestHandler', () => {
   })
 
   it('returns a 200 if the request is valid', async () => {
-    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserMockById('oE6yUEQBPn7PZ89yMjKn'))
+    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
     jest.mocked(removeWallet).mockResolvedValueOnce()
     jest.mocked(getWalletsForUser).mockResolvedValueOnce([])
     const req = mockRequest<RemoveWalletRequest>(validRequest)

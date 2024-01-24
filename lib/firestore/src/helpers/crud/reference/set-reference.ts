@@ -1,14 +1,17 @@
 import { getNewReference } from '@echo/firestore/helpers/crud/reference/get-new-reference'
 import type { CollectionReference, DocumentReference } from 'firebase-admin/firestore'
-import { pipe } from 'ramda'
+import { assoc, pipe } from 'ramda'
 
-export function setReference<T>(data: T): (collectionReference: CollectionReference<T>) => Promise<T> {
+export function setReference<T extends Record<'id', string>>(
+  data: Omit<T, 'id'>
+): (collectionReference: CollectionReference<T>) => Promise<T> {
   return function (collectionReference: CollectionReference<T>): Promise<T> {
     return pipe<[CollectionReference<T>], DocumentReference<T>, Promise<T>>(
       getNewReference,
       async (ref: DocumentReference<T>) => {
-        await ref.set(data)
-        return data
+        const obj = assoc('id', ref.id, data) as T
+        await ref.set(obj)
+        return obj
       }
     )(collectionReference)
   }

@@ -8,6 +8,6 @@ export interface CancelOfferArgs {
   offerId: string
   updateArgs: Omit<OfferStateUpdateArgs, 'state'>
 }
-export async function cancelOffer(args: CancelOfferArgs) {
-  return await pipe(assoc<OfferState, 'state'>('state', OFFER_STATE_CANCELLED), updateOfferState)(args)
+export function cancelOffer(args: CancelOfferArgs) {
+  return pipe(assoc<OfferState, 'state'>('state', OFFER_STATE_CANCELLED), updateOfferState)(args)
 }

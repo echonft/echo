@@ -4,7 +4,7 @@ import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-usern
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { type Nonce } from '@echo/firestore/types/model/nonce/nonce'
-import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { getSiweMessage } from '@echo/frontend/lib/helpers/auth/get-siwe-message'
 import { verifySiweMessage } from '@echo/frontend/lib/helpers/auth/verify-siwe-message'
@@ -74,7 +74,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
   })
 
   it('throws if the nonce is not the same as the user nonce', async () => {
-    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserMockById('oE6yUEQBPn7PZ89yMjKn'))
+    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
     jest.mocked(findNonceForUser).mockResolvedValueOnce({ nonce: 'another-nonce', expired: false } as Nonce)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
@@ -88,7 +88,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
   })
 
   it('throws if the nonce is expired', async () => {
-    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserMockById('oE6yUEQBPn7PZ89yMjKn'))
+    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
     jest.mocked(findNonceForUser).mockResolvedValueOnce({ nonce: 'nonce', expired: true } as Nonce)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
@@ -102,7 +102,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
   })
 
   it('returns a 200 if the wallet is not already in the db and the nonce is valid', async () => {
-    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserMockById('oE6yUEQBPn7PZ89yMjKn'))
+    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
     jest.mocked(findNonceForUser).mockResolvedValueOnce({ nonce: 'nonce', expired: false } as Nonce)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)

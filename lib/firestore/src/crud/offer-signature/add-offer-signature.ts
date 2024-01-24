@@ -1,11 +1,14 @@
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import { getOfferSignatureReference } from '@echo/firestore/crud/offer-signature/get-offer-signature-reference'
+import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-offer-signature'
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
+import { getOfferSignaturesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-signatures-collection-reference'
+import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
+import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { OfferSignature } from '@echo/model/types/offer-signature'
 import { now } from '@echo/utils/helpers/now'
-import { assoc, isNil, pipe } from 'ramda'
+import { always, assoc, isNil, pick, pipe } from 'ramda'
 
-export async function addOfferSignature(data: Omit<OfferSignature, 'id' | 'createdAt'>) {
+export async function addOfferSignature(data: Omit<OfferSignature, 'id' | 'createdAt'>): Promise<OfferSignature> {
   const { offerId, userId } = data
   const offer = await findOfferById(offerId)
   if (isNil(offer)) {
@@ -18,9 +21,17 @@ export async function addOfferSignature(data: Omit<OfferSignature, 'id' | 'creat
   if (user.username !== offer.receiver.username) {
     throw Error(`trying to add signature for offer with id ${offerId} but the user is not receiver`)
   }
-  const reference = await getOfferSignatureReference(offerId)
-  const id = reference.id
-  const offerSignature = pipe(assoc('id', id), assoc('createdAt', now()))(data) as OfferSignature
-  await reference.set(offerSignature)
-  return offerSignature
+  const existingOfferSignature = await findOfferSignature(offerId)
+  if (isNil(existingOfferSignature)) {
+    return pipe(getOfferSignaturesCollectionReference, setReference(assoc('createdAt', now(), data)))()
+  }
+  const updatedOfferSignature = pipe<[OfferSignature], OfferSignature, OfferSignature>(
+    assoc('createdAt', now()),
+    assoc('signature', data.signature)
+  )(existingOfferSignature)
+  return pipe(
+    getOfferSignaturesCollectionReference,
+    updateReference(existingOfferSignature.id, pick(['createdAt', 'signature'], updatedOfferSignature)),
+    always(updatedOfferSignature)
+  )()
 }

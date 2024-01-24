@@ -3,7 +3,7 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
-import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { acceptOfferRequestHandler } from '@echo/frontend/lib/request-handlers/offer/accept-offer-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
@@ -109,7 +109,7 @@ describe('request-handlers - offer - acceptOfferRequestHandler', () => {
   })
 
   it('returns a 200', async () => {
-    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserMockById('oE6yUEQBPn7PZ89yMjKn'))
+    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
     jest.mocked(findOfferById).mockResolvedValueOnce(offer)
     const updatedOffer = assoc('state', OFFER_STATE_ACCEPTED, offer)
     jest.mocked(acceptOffer).mockResolvedValueOnce(updatedOffer)

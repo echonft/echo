@@ -1,7 +1,9 @@
 import { getSwapsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swaps-collection-reference'
-import { getQuerySnapshotUniqueData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-unique-data'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import type { Swap } from '@echo/firestore/types/model/swap/swap'
+import { pipe } from 'ramda'
 
-export async function findSwapByOfferId(offerId: string) {
-  const querySnapshot = await getSwapsCollectionReference().where('offerId', '==', offerId).get()
-  return getQuerySnapshotUniqueData(querySnapshot)
+export function findSwapByOfferId(offerId: string): Promise<Swap | undefined> {
+  return pipe(getSwapsCollectionReference, queryWhere('offerId', '==', offerId), getQueryUniqueData)()
 }

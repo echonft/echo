@@ -8,6 +8,6 @@ export interface RejectOfferArgs {
   offerId: string
   updateArgs: Omit<OfferStateUpdateArgs, 'state'>
 }
-export async function rejectOffer(args: RejectOfferArgs) {
-  return await pipe(assoc<OfferState, 'state'>('state', OFFER_STATE_REJECTED), updateOfferState)(args)
+export function rejectOffer(args: RejectOfferArgs) {
+  return pipe(assoc<OfferState, 'state'>('state', OFFER_STATE_REJECTED), updateOfferState)(args)
 }

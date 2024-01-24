@@ -1,9 +1,10 @@
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferItem } from '@echo/model/types/offer-item'
+import { stringComparator } from '@echo/utils/comparators/string-comparator'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { whenHas } from '@echo/utils/fp/when-has'
 import type { WithFieldValue } from 'firebase-admin/firestore'
-import { always, assoc, converge, identity, map, path, pipe, prop, uniq } from 'ramda'
+import { always, assoc, converge, identity, map, path, pipe, prop, sort, uniq } from 'ramda'
 
 const key = 'receiverItems' as const
 type Key = typeof key
@@ -21,7 +22,7 @@ export function addReceiverItemsNftIds(modelObject: PartialOffer): PartialOffer 
       ]
     >(assoc, [
       always('receiverItemsNftIds'),
-      pipe(prop(key), map<OfferItem, string>(nonNullableReturn(path(['nft', 'id']))), uniq),
+      pipe(prop(key), map<OfferItem, string>(nonNullableReturn(path(['nft', 'id']))), uniq, sort(stringComparator)),
       identity
     ])
   )(modelObject)

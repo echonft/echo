@@ -2,7 +2,7 @@ import { findCollectionById } from '@echo/firestore/crud/collection/find-collect
 import { getCollectionSwapsCountCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-swaps-count-collection-reference'
 import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { setReferenceWithId } from '@echo/firestore/helpers/crud/reference/set-reference-with-id'
+import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import { always, inc, isNil, modify, pick, pipe } from 'ramda'
@@ -20,7 +20,7 @@ export async function increaseCollectionSwapsCount(collectionId: string): Promis
     getQueryUniqueData
   )()
   if (isNil(existingSwapsCount)) {
-    return pipe(getCollectionSwapsCountCollectionReference, setReferenceWithId({ collectionId, swapsCount: 1 }))()
+    return pipe(getCollectionSwapsCountCollectionReference, setReference({ collectionId, swapsCount: 1 }))()
   }
   const updatedSwapsCount = modify('swapsCount', inc, existingSwapsCount)
   return pipe(

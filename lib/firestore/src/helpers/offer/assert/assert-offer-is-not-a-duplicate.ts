@@ -1,10 +1,16 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getQuerySnapshotData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-data'
+import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import { OFFER_STATES, READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
 import { type Nft } from '@echo/model/types/nft'
-import type { Offer } from '@echo/model/types/offer'
 import { type OfferItem } from '@echo/model/types/offer-item'
+import type { OfferState } from '@echo/model/types/offer-state'
 import { type User } from '@echo/model/types/user'
-import { intersection, isEmpty, map, modify, path, pick, pipe, prop, reject } from 'ramda'
+import { stringComparator } from '@echo/utils/comparators/string-comparator'
+import { isIn } from '@echo/utils/fp/is-in'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { now } from '@echo/utils/helpers/now'
+import { intersection, isEmpty, map, modify, path, pick, pipe, reject, sort } from 'ramda'
 
 interface PartialOfferItem {
   amount: number
@@ -19,13 +25,22 @@ function mapItems(items: OfferItem[]): PartialOfferItem[] {
 }
 
 export async function assertOfferIsNotADuplicate(senderItems: OfferItem[], receiverItems: OfferItem[]) {
-  const receiverItemsNftIds = map(path(['nft', 'id']), receiverItems) as string[]
-  const senderItemsNftIds = map(path(['nft', 'id']), senderItems) as string[]
-  const querySnapshot = await getOffersCollectionReference()
-    .where('receiverItemsNftIds', '==', receiverItemsNftIds)
-    .where('senderItemsNftIds', '==', senderItemsNftIds)
-    .get()
-  const documents = pipe(getQuerySnapshotData<Offer>, reject<Offer>(prop('readOnly')))(querySnapshot)
+  const receiverItemsNftIds = pipe(
+    map<OfferItem, string>(nonNullableReturn(path(['nft', 'id']))),
+    sort(stringComparator)
+  )(receiverItems)
+  const senderItemsNftIds = pipe(
+    map<OfferItem, string>(nonNullableReturn(path(['nft', 'id']))),
+    sort(stringComparator)
+  )(senderItems)
+  const documents = await pipe(
+    getOffersCollectionReference,
+    queryWhere('state', 'in', reject(isIn<OfferState>(READ_ONLY_OFFER_STATES), OFFER_STATES)),
+    queryWhere('expiresAt', '>', now()),
+    queryWhere('receiverItemsNftIds', '==', receiverItemsNftIds),
+    queryWhere('senderItemsNftIds', '==', senderItemsNftIds),
+    getQueryData
+  )()
   if (!isEmpty(documents)) {
     // compare the items (e.g. the owner could be different)
     // only the owner and id are relevant in the items nft

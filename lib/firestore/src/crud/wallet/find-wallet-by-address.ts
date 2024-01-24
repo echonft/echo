@@ -5,7 +5,7 @@ import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wall
 import { type Wallet } from '@echo/model/types/wallet'
 import { pipe, toLower } from 'ramda'
 
-export function findWalletByAddress(wallet: Wallet) {
+export function findWalletByAddress(wallet: Wallet): Promise<WalletDocumentData | undefined> {
   return pipe(
     getWalletsCollectionReference,
     queryWhere<WalletDocumentData>('address', '==', toLower(wallet.address)),

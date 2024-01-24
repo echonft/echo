@@ -1,6 +1,6 @@
-import type { User } from '@echo/firestore/types/model/user/user'
+import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 
-export const userMock: Record<string, User> = {
+export const userDocumentDataMock: Record<string, UserDocumentData> = {
   '6rECUMhevHfxABZ1VNOm': {
     id: '6rECUMhevHfxABZ1VNOm',
     createdAt: 1705018267962,

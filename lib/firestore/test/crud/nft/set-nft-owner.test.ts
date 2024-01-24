@@ -1,19 +1,20 @@
 import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
-import { getNftSnapshotById } from '@echo/firestore/crud/nft/get-nft-snapshot-by-id'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { createUserFromFirestoreData } from '@echo/firestore/helpers/user/create-user-from-firestore-data'
-import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
+import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { assertNfts } from '@echo/firestore-test/nft/assert-nfts'
+import { unchecked_updateNft } from '@echo/firestore-test/nft/unchecked_update-nft'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
-import { type User } from '@echo/model/types/user'
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { logger } from '@echo/utils/services/logger'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
+import { omit } from 'ramda'
 
 describe('CRUD - nft - setNftOwner', () => {
-  let initialOwner: User
-  let initialUpdatedAt: number
   const nftId = '8hHFadIrrooORfTOLkBg'
 
   beforeAll(async () => {
@@ -23,19 +24,16 @@ describe('CRUD - nft - setNftOwner', () => {
     await assertNfts()
     await tearDownRemoteFirestoreTests()
   })
-
-  beforeEach(async () => {
-    const nft = (await findNftById(nftId))!
-    initialOwner = nft.owner
-    initialUpdatedAt = nft.updatedAt
-  })
   afterEach(async () => {
-    const snapshot = (await getNftSnapshotById(nftId))!
-    await snapshot.ref.update({ owner: initialOwner, updatedAt: initialUpdatedAt })
+    try {
+      await unchecked_updateNft(nftId, omit(['id'], getNftMockById(nftId)))
+    } catch (e) {
+      logger.error(`Error reverting nft with id ${nftId}: ${errorMessage(e)}`)
+    }
   })
 
   it('set the right owner data', async () => {
-    const user = getUserMockById('oE6yUEQBPn7PZ89yMjKn')
+    const user = getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn')
     const wallet = getWalletMockById('i28NWtlxElPXCnO0c6BC')
     const userDetails = createUserFromFirestoreData(user, wallet)
     await setNftOwner(nftId, userDetails)
