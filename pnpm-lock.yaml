@@ -332,9 +332,6 @@ importers:
       '@sentry/nextjs':
         specifier: 7.93.0
         version: 7.93.0(next@14.0.4)(react@18.2.0)(webpack@5.90.0)
-      '@storybook/addon-styling-webpack':
-        specifier: ^0.0.6
-        version: 0.0.6(webpack@5.90.0)
       '@storybook/nextjs':
         specifier: 7.6.7
         version: 7.6.7(@swc/core@1.3.102)(esbuild@0.18.20)(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)(webpack@5.90.0)
@@ -376,11 +373,14 @@ importers:
         version: 4.4.7(@types/react@18.2.47)(react@18.2.0)
     devDependencies:
       '@storybook/addon-actions':
-        specifier: ^7.6.10
+        specifier: 7.6.10
         version: 7.6.10
       '@storybook/addon-essentials':
         specifier: 7.6.8
         version: 7.6.8(@types/react-dom@18.2.18)(@types/react@18.2.47)(react-dom@18.2.0)(react@18.2.0)
+      '@storybook/addon-styling-webpack':
+        specifier: 0.0.6
+        version: 0.0.6(webpack@5.90.0)
       '@storybook/react':
         specifier: 7.6.8
         version: 7.6.8(react-dom@18.2.0)(react@18.2.0)(typescript@5.3.3)
@@ -2623,7 +2623,7 @@ packages:
     dependencies:
       fast-deep-equal: 3.1.3
       functional-red-black-tree: 1.0.1
-      google-gax: 4.2.0
+      google-gax: 4.2.1
       protobufjs: 7.2.6
     transitivePeerDependencies:
       - encoding
@@ -5042,7 +5042,7 @@ packages:
     dependencies:
       '@storybook/node-logger': 7.6.10
       webpack: 5.90.0(@swc/core@1.3.102)(esbuild@0.18.20)
-    dev: false
+    dev: true
 
   /@storybook/addon-toolbars@7.6.8:
     resolution: {integrity: sha512-Akr9Pfw+AzQBRPVdo8yjcdS4IiOyEIBPVn/OAcbLi6a2zLYBdn99yKi21P0o03TJjNy32A254iAQQ7zyjIwEtA==}
@@ -5715,7 +5715,7 @@ packages:
 
   /@storybook/node-logger@7.6.10:
     resolution: {integrity: sha512-ZBuqrv4bjJzKXyfRGFkVIi+z6ekn6rOPoQao4KmsfLNQAUUsEdR8Baw/zMnnU417zw5dSEaZdpuwx75SCQAeOA==}
-    dev: false
+    dev: true
 
   /@storybook/node-logger@7.6.7:
     resolution: {integrity: sha512-XLih8MxylkpZG9+8tgp8sPGc2tldlWF+DpuAkUv6J3Mc81mPyc3cQKQWZ7Hb+m1LpRGqKV4wyOQj1rC+leVMoQ==}
@@ -8638,7 +8638,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001579
-      electron-to-chromium: 1.4.643
+      electron-to-chromium: 1.4.644
       node-releases: 2.0.14
       update-browserslist-db: 1.0.13(browserslist@4.22.2)
 
@@ -10058,8 +10058,8 @@ packages:
       jake: 10.8.7
     dev: false
 
-  /electron-to-chromium@1.4.643:
-    resolution: {integrity: sha512-QHscvvS7gt155PtoRC0dR2ilhL8E9LHhfTQEq1uD5AL0524rBLAwpAREFH06f87/e45B9XkR6Ki5dbhbCsVEIg==}
+  /electron-to-chromium@1.4.644:
+    resolution: {integrity: sha512-zOnPndwz3u1sVFSyBcRWcn0529Kz+jr+tDxN9iP69I3CpC5wlvYmjLrK2O7TEsg2oDDoUqooeXqbiHLvXvl6Lg==}
 
   /elliptic@6.5.4:
     resolution: {integrity: sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==}
@@ -11836,8 +11836,8 @@ packages:
     dev: false
     optional: true
 
-  /google-gax@4.2.0:
-    resolution: {integrity: sha512-ysBZvCcstvG1vYr5/Nd7IOPH3p4g2sJNmxrxOkFI4pJjWJexH98fpJym1N4LsI2pIVCopVvEcXrDmg5QIaFmfA==}
+  /google-gax@4.2.1:
+    resolution: {integrity: sha512-Yal4oh2GMHBsFX8zunxwaRuD2bP7rrA7Oz/ooXK8uOMGnP71jNVRl6fUv8chYLkPTqEzBSij9TZw49B86SDVTg==}
     engines: {node: '>=14'}
     requiresBuild: true
     dependencies:
