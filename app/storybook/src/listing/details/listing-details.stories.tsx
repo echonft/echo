@@ -11,6 +11,7 @@ import type { Listing } from '@echo/model/types/listing'
 import type { ListingState } from '@echo/model/types/listing-state'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { ListingDetails as Component } from '@echo/ui/components/listing/details/listing-details'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -25,6 +26,7 @@ const EXPIRED_DATE = dayjs().subtract(2, 'd').unix()
 const NOT_EXPIRED_DATE = dayjs().add(2, 'd').unix()
 const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
 const user = getAuthUserMockByUsername(listing.creator.username)
+const userNfts = [getNftMockById('XiDa6k2P7gxXCKSxn2wq')]
 function cancelListing(_args: CancelListingArgs) {
   return delayPromise(
     Promise.resolve({
@@ -67,6 +69,17 @@ export const Default: Story = {
         assoc('expiresAt', NOT_EXPIRED_DATE)
       )
     )(listing) as Listing
-    return <Component listing={renderedListing} user={isCreator ? user : undefined} fetcher={{ cancelListing }} />
+    return (
+      <Component
+        listing={renderedListing}
+        user={isCreator ? user : undefined}
+        fetcher={{ cancelListing }}
+        userTargetNfts={userNfts}
+      />
+    )
+  },
+  args: {
+    state: DEFAULT_STATE,
+    isCreator: DEFAULT_IS_CREATOR
   }
 }

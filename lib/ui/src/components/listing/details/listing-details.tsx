@@ -1,30 +1,34 @@
 'use client'
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
-import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
-import { assertListingStateTransition } from '@echo/model/helpers/listing/assert/assert-listing-state-transition'
+import { LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Listing } from '@echo/model/types/listing'
-import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
-import { LongPressButton } from '@echo/ui/components/base/long-press-button'
-import { SwapDirectionHeader } from '@echo/ui/components/base/swap-direction-header'
-import { ShowIf } from '@echo/ui/components/base/utils/show-if'
-import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
-import { ItemsDetailsSeparator } from '@echo/ui/components/item/details/items-details-separator'
+import type { Nft } from '@echo/model/types/nft'
+import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
-import { NftCardsContainer } from '@echo/ui/components/nft/card/layout/nft-cards-container'
+import { ListingDetailsTargetCollectionTitle } from '@echo/ui/components/listing/details/listing-details-target-collection-title'
+import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
+import { ListingDetailsUserNftsLayout } from '@echo/ui/components/listing/layout/listing-details-user-nfts-layout'
+import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
+import { SelectableNftsContainer } from '@echo/ui/components/nft/layout/selectable-nfts-container'
 import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
-import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
-import { getListingDetailsContainerBackground } from '@echo/ui/helpers/listing/get-listing-details-container-background'
+import { enable } from '@echo/ui/helpers/disableable/enable'
+import { disableAction } from '@echo/ui/helpers/nft/disable-action'
+import { setSelectableNftActionDisabledPropFromAuthUser } from '@echo/ui/helpers/nft/set-selectable-nft-action-disabled-prop-from-auth-user'
+import { setSelectableNftDisabledPropFromOwner } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-owner'
+import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
+import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selection-in-list'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { map, prop } from 'ramda'
+import { assoc, head, map, pipe, prop, propEq } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo, useState } from 'react'
 
 interface Props {
@@ -33,23 +37,15 @@ interface Props {
     cancelListing: Fetcher<ListingResponse, CancelListingArgs>
   }
   user: AuthUser | undefined
+  userTargetNfts: Nft[]
 }
 
-function canCancel(listing: Listing, user: AuthUser | undefined) {
-  if (listing.creator.username !== user?.username) {
-    return false
-  }
-  try {
-    assertListingStateTransition(listing, LISTING_STATE_CANCELLED)
-    return true
-  } catch (e) {
-    return false
-  }
-}
-
-export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, user }) => {
+export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, user, userTargetNfts }) => {
   const t = useTranslations('listing.details')
   const tError = useTranslations('error.listing')
+  const [selectableNfts, setSelectableNfts] = useState(
+    map<Nft, SelectableNft>(assoc('actionDisabled', true), userTargetNfts)
+  )
   const [updatedListing, setUpdatedListing] = useState(listing)
   const { trigger, isMutating } = useSWRTrigger<ListingResponse, CancelListingArgs>({
     key: SWRKeys.listing.cancel(listing),
@@ -62,58 +58,51 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') }
     }
   })
+
+  const onNftToggleSelection = (nft: Nft) => {
+    const updatedNfts = toggleSelectionInList<SelectableNft>(propEq(nft.id, 'id'))(selectableNfts)
+    const updatedSelectionCount = getSelectionCount(updatedNfts)
+    if (updatedSelectionCount === 0) {
+      setSelectableNfts(map(pipe(enable, setSelectableNftActionDisabledPropFromAuthUser(user)), updatedNfts))
+    } else if (updatedSelectionCount === 1) {
+      setSelectableNfts(map(pipe(setSelectableNftDisabledPropFromOwner(nft.owner), disableAction), updatedNfts))
+    } else {
+      setSelectableNfts(updatedNfts)
+    }
+  }
   useEffect(() => {
     setUpdatedListing(listing)
   }, [listing])
-  const { state, creator, expiresAt, items, targets } = updatedListing
+  const { state, readOnly, creator, expiresAt, items, targets } = updatedListing
   const nfts = useMemo(() => map(prop('nft'), items), [items])
+  const target = head(targets)!
 
   return (
-    <div
-      className={clsx(
-        'flex',
-        'flex-col',
-        'gap-16',
-        'p-4',
-        'rounded-lg',
-        getListingDetailsContainerBackground(updatedListing),
-        'bg-white/[0.05]'
-      )}
-    >
-      <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
+    <div className={clsx('flex', 'flex-col', 'gap-20', 'p-4')}>
+      <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'pb-5')}>
         <ListingOfferUserDetails user={creator} />
-        <ListingDetailsState state={state} expiresAt={expiresAt} />
+        <ListingDetailsState expired={state === LISTING_STATE_EXPIRED} readOnly={readOnly} expiresAt={expiresAt} />
       </div>
-      <div className={clsx('flex', 'flex-col', 'gap-5')}>
-        <div className={clsx('flex', 'flex-col', 'gap-6')}>
-          <SwapDirectionHeader direction={SWAP_DIRECTION_OUT} title={t('assets.title.out')} />
-          <NftCardsContainer nfts={nfts} alignment={ALIGNMENT_CENTER} />
+      <div className={clsx('flex', 'flex-col', 'gap-6')}>
+        <div className={clsx('pb-16')}>
+          <NftsContainer nfts={nfts} alignment={ALIGNMENT_CENTER} />
         </div>
-        <div className={clsx('pb-4')}>
-          <ItemsDetailsSeparator />
-        </div>
-        <div className={clsx('flex', 'flex-col', 'gap-6')}>
-          <SwapDirectionHeader direction={SWAP_DIRECTION_IN} title={t('assets.title.in')} />
-          <CardsLayout alignment={ALIGNMENT_CENTER}>
-            {map(
-              ({ amount, collection }) => (
-                <CollectionThumbnail key={collection.id} collection={collection} count={amount} />
-              ),
-              targets
-            )}
-          </CardsLayout>
-        </div>
-        <ShowIf condition={canCancel(updatedListing, user)}>
-          <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>
-            <LongPressButton
-              id={updatedListing.id}
-              label={t('cancelBtn.label')}
-              message={t('cancelBtn.message')}
-              loading={isMutating}
-              onFinish={() => void trigger({ listingId: updatedListing.id })}
-            />
+        <ItemsSeparator />
+        <div className={clsx('flex', 'flex-col', 'gap-14')}>
+          <div className={clsx('flex', 'justify-end')}>
+            {/*  FIXME Force unwrap */}
+            <ListingDetailsTargetContainer target={target} />
           </div>
-        </ShowIf>
+          <ListingDetailsUserNftsLayout>
+            <ListingDetailsTargetCollectionTitle title={target.collection.name} />
+            <SelectableNftsContainer
+              nfts={selectableNfts}
+              onToggleSelection={onNftToggleSelection}
+              hideLink={true}
+              hideOwner={true}
+            />
+          </ListingDetailsUserNftsLayout>
+        </div>
       </div>
     </div>
   )

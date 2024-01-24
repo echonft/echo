@@ -17,9 +17,10 @@ export const SelectableNftCardFooter: FunctionComponent<Props> = ({ nft }) => {
     <SelectableNftCardFooterLayout>
       <div
         className={clsx(
-          'translate-y-3.75',
-          'transition-transform ease-in-out',
-          !disabled && !actionDisabled && !isNil(action) && 'group-hover:translate-y-0'
+          !disabled &&
+            !actionDisabled &&
+            !isNil(action) && ['translate-y-3.75', 'group-hover:translate-y-0', 'transition-transform ease-in-out'],
+          isNil(action) && ['pt-3.75', 'pb-5']
         )}
       >
         <CardTitle label={nft.collection.name} />

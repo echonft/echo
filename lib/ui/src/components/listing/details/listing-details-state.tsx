@@ -1,11 +1,4 @@
-import {
-  LISTING_STATE_CANCELLED,
-  LISTING_STATE_EXPIRED,
-  LISTING_STATE_FULFILLED
-} from '@echo/model/constants/listing-states'
-import { type ListingState } from '@echo/model/types/listing-state'
 import { StateTextContainer } from '@echo/ui/components/base/state-text-container'
-import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -15,35 +8,23 @@ import { type FunctionComponent } from 'react'
 dayjs.extend(relativeTime)
 
 interface Props {
-  state: ListingState
+  expired: boolean
+  readOnly: boolean
   expiresAt: number
 }
 
-export const ListingDetailsState: FunctionComponent<Props> = ({ state, expiresAt }) => {
-  const tState = useTranslations('listing.state')
-  const tDetails = useTranslations('listing.details')
-  const expired = state === LISTING_STATE_EXPIRED
-  const expirationShown = state !== LISTING_STATE_FULFILLED && state !== LISTING_STATE_CANCELLED
-  const stateShown = !expirationShown || !expired
-  const delimiterShown = expirationShown && stateShown
+export const ListingDetailsState: FunctionComponent<Props> = ({ expired, readOnly, expiresAt }) => {
+  const t = useTranslations('listing.details')
 
-  return (
-    <div className={clsx('flex', 'flex-row', 'gap-16', 'pr-4')}>
-      <ShowIf condition={expirationShown}>
+  if (expired || !readOnly) {
+    return (
+      <div className={clsx('pb-9', 'px-5', 'pt-4.5')}>
         <StateTextContainer
           subtitle={expired ? dayjs.unix(expiresAt).fromNow(false) : dayjs.unix(expiresAt).toNow(true)}
-          title={expired ? tDetails('expiredAt') : tDetails('expiresAt')}
+          title={expired ? t('expiredAt') : t('expiresAt')}
         />
-      </ShowIf>
-      <ShowIf condition={delimiterShown}>
-        <div className={clsx('h-[5.3125rem]', 'w-0.5', 'bg-white')} />
-      </ShowIf>
-      <ShowIf condition={stateShown}>
-        {/*FIXME this will change anyway*/}
-        {/*eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
-        {/*@ts-ignore*/}
-        <StateTextContainer subtitle={tState(state)} />
-      </ShowIf>
-    </div>
-  )
+      </div>
+    )
+  }
+  return null
 }

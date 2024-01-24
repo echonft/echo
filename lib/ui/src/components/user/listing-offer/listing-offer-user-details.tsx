@@ -4,7 +4,7 @@ import { UserProfilePicture } from '@echo/ui/components/user/base/user-profile-p
 import { ListingOfferUserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/listing-offer/layout/listing-offer-user-details-discord-tag-and-wallet-layout'
 import { ListingOfferUserDetailsLayout } from '@echo/ui/components/user/listing-offer/layout/listing-offer-user-details-layout'
 import { WalletConnectedButton } from '@echo/ui/components/wallet/wallet-connected-button'
-import { SIZE_SM } from '@echo/ui/constants/size'
+import { SIZE_MD } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -21,7 +21,7 @@ export const ListingOfferUserDetails: FunctionComponent<Props> = ({ user }) => {
   const { username, avatarUrl } = discord
   return (
     <ListingOfferUserDetailsLayout>
-      <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SIZE_SM} />
+      <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SIZE_MD} />
       <ListingOfferUserDetailsDiscordTagAndWalletLayout>
         <UserDiscordTag discordUsername={username} />
         <WalletConnectedButton wallet={wallet} />
