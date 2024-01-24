@@ -17,14 +17,10 @@ export const ProfilePicture: FunctionComponent<Props> = ({ pictureUrl, alt, size
   return (
     <Image
       className={clsx(
-        (size === SIZE_LG || size === SIZE_MD) && 'rounded-2xl',
-        size === SIZE_SM && 'rounded-lg',
-        border && 'border-solid',
-        border && 'border-3',
-        border && 'border-yellow-500',
-        size === SIZE_LG && ['h-40', 'w-40'],
-        size === SIZE_MD && ['h-28', 'w-28'],
-        size === SIZE_SM && ['h-[6.1875rem]', 'w-[5.875rem]']
+        size === SIZE_LG && ['h-40', 'w-40', 'rounded-2xl'],
+        size === SIZE_MD && ['h-28', 'w-28', 'rounded-2xl'],
+        size === SIZE_SM && ['h-[6.1875rem]', 'w-[5.875rem]', 'rounded-lg'],
+        border && ['border-solid', 'border-3', 'border-yellow-500']
       )}
       src={pictureUrl}
       alt={alt}

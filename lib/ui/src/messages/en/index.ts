@@ -172,7 +172,7 @@ export const messages = {
         backBtn: 'Back to Listings',
         title: 'Listing Details',
         cancelBtn: {
-          label: 'Cancel Listing',
+          label: 'Cancel',
           message: 'Hold to cancel'
         },
         viewOffersBtn: 'View Offers',

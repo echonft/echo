@@ -44,18 +44,19 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
   onClose
 }) => {
   const t = useTranslations('listing.new.confirmationModal')
-
   if (isNil(target) && isEmpty(items)) {
     return null
   }
-
+  const closeCallback = isMutating ? undefined : onClose
   return (
     <Modal
       open={open}
-      onClose={isMutating ? undefined : onClose}
-      onBack={onClose}
+      onClose={closeCallback}
       title={t('title')}
-      backButtonLabel={t('backBtn')}
+      backButton={{
+        label: t('backBtn'),
+        onBack: closeCallback
+      }}
     >
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
         <CollectionSearchBoxManager

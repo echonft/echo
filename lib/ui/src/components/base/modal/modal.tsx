@@ -1,28 +1,17 @@
 'use client'
-import { BackButton } from '@echo/ui/components/base/back-button'
-import { ModalTitle } from '@echo/ui/components/base/modal/modal-title'
-import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
-import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
+import { ModalBackButton, type ModalBackButtonProps } from '@echo/ui/components/base/modal/modal-back-button'
+import { ModalTitle, type ModalTitleProps } from '@echo/ui/components/base/modal/modal-title'
 import { Dialog, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { Fragment, type FunctionComponent, type PropsWithChildren } from 'react'
 
-interface Props {
+interface Props extends ModalTitleProps {
   open: boolean
-  title?: string
-  backButtonLabel?: string
-  onBack?: VoidFunction
   onClose?: VoidFunction
+  backButton?: Omit<ModalBackButtonProps, 'show'>
 }
 
-export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
-  open,
-  title,
-  onClose,
-  backButtonLabel,
-  onBack,
-  children
-}) => {
+export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({ open, title, onClose, backButton, children }) => {
   return (
     <Transition appear show={open} as={Fragment}>
       <Dialog as={'div'} className={clsx('relative')} onClose={() => onClose?.()}>
@@ -79,15 +68,8 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
                 'z-30'
               )}
             >
-              <HideIfNil checks={backButtonLabel} render={(label) => <BackButton onBack={onBack} title={label} />} />
-              <HideIfNilOrEmpty
-                checks={title}
-                render={(title) => (
-                  <Dialog.Title as={Fragment}>
-                    <ModalTitle>{title}</ModalTitle>
-                  </Dialog.Title>
-                )}
-              />
+              <ModalBackButton {...backButton} />
+              <ModalTitle title={title} />
               <Dialog.Description as={Fragment}>{children}</Dialog.Description>
             </Dialog.Panel>
           </Transition.Child>

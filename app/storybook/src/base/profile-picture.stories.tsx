@@ -1,21 +1,27 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { ProfilePicture as Component } from '@echo/ui/components/base/profile-picture'
+import { PROFILE_PICTURE_SIZES } from '@echo/ui/constants/profile-picture-size'
 import { SIZE_LG } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Base/Shared/Profile Picture',
+  title: 'Base/Profile Picture',
   component: Component,
+  argTypes: {
+    border: {
+      defaultValue: true,
+      control: { type: 'boolean' }
+    },
+    size: {
+      defaultValue: SIZE_LG,
+      options: PROFILE_PICTURE_SIZES,
+      control: { type: 'radio' }
+    }
+  },
   parameters: {
     controls: {
       exclude: ['pictureUrl', 'alt']
-    }
-  },
-  argTypes: {
-    size: {
-      options: ['Small', 'Medium', 'Large'],
-      control: { type: 'radio' }
     }
   }
 }

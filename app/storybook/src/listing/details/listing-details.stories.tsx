@@ -36,6 +36,10 @@ function cancelListing(_args: CancelListingArgs) {
 
 const metadata: Meta<ComponentType> = {
   title: 'Listing/Details',
+  args: {
+    state: DEFAULT_STATE,
+    isCreator: DEFAULT_IS_CREATOR
+  },
   argTypes: {
     state: {
       defaultValue: DEFAULT_STATE,
@@ -64,9 +68,5 @@ export const Default: Story = {
       )
     )(listing) as Listing
     return <Component listing={renderedListing} user={isCreator ? user : undefined} fetcher={{ cancelListing }} />
-  },
-  args: {
-    state: DEFAULT_STATE,
-    isCreator: DEFAULT_IS_CREATOR
   }
 }

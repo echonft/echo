@@ -38,7 +38,15 @@ export const NewOfferConfirmationModal: FunctionComponent<Props> = ({
   const t = useTranslations('offer.new.confirmationModal')
 
   return (
-    <Modal open={open} onBack={onClose} title={t('title')} onClose={onClose} backButtonLabel={t('backBtn')}>
+    <Modal
+      open={open}
+      title={t('title')}
+      onClose={onClose}
+      backButton={{
+        label: t('backBtn'),
+        onBack: onClose
+      }}
+    >
       <div className={clsx('flex', 'flex-col', 'gap-12')}>
         <ListingOfferUserDetailsRounded user={receiver} />
         <NewOfferModalItemsContainer receiverItems={receiverItems} senderItems={senderItems} />

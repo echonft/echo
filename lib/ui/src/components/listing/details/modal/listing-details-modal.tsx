@@ -2,66 +2,59 @@
 import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
 import { Modal } from '@echo/ui/components/base/modal/modal'
-import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
-import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { ListingDetailsModalButtonsContainer } from '@echo/ui/components/listing/details/modal/listing-details-modal-buttons-container'
+import { ListingDetailsModalCreator } from '@echo/ui/components/listing/details/modal/listing-details-modal-creator'
 import { ListingDetailsModalDetailsContainer } from '@echo/ui/components/listing/details/modal/listing-details-modal-details-container'
-import { ListingOfferUserDetailsRounded } from '@echo/ui/components/user/listing-offer/listing-offer-user-details-rounded'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
+import { isNil, omit } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-interface Props {
+export interface ListingDetailsModalProps {
   open: boolean
-  listing: Listing | undefined
+  listing: Listing
   hasOffers?: boolean
   user: AuthUser | undefined
-  onClose?: VoidFunction
-  onCancel?: (listing: Listing) => unknown
-  onFill?: VoidFunction
-  onViewOffers?: VoidFunction
+  actions?: {
+    onCancel?: (listing: Listing) => unknown
+    onClose?: VoidFunction
+    onFill?: VoidFunction
+    onViewOffers?: VoidFunction
+  }
 }
 
-export const ListingDetailsModal: FunctionComponent<Props> = ({
+export const ListingDetailsModal: FunctionComponent<ListingDetailsModalProps> = ({
   open,
   listing,
   hasOffers,
   user,
-  onClose,
-  onCancel,
-  onFill,
-  onViewOffers
+  actions
 }) => {
   const t = useTranslations('listing.details.modal')
-
-  if (isNil(user)) {
-    return null
-  }
-
-  const isCreator = listing?.creator.username === user.username
-
+  // TODO use ListingWithRole instead
+  const isCreator = !isNil(user) && user.username === listing.creator.username
   return (
-    <Modal open={open} title={t('title')} backButtonLabel={t('backBtn')} onBack={onClose} onClose={onClose}>
-      <HideIfNil
-        checks={listing}
-        render={(listing) => (
-          <div className={clsx('flex', 'flex-col', 'gap-12')}>
-            <ShowIf condition={!isCreator}>
-              <ListingOfferUserDetailsRounded user={listing.creator} />
-            </ShowIf>
-            <ListingDetailsModalDetailsContainer items={listing.items} targets={listing.targets} />
-            <ListingDetailsModalButtonsContainer
-              listing={listing}
-              hasOffers={hasOffers}
-              isCreator={isCreator}
-              onCancel={onCancel}
-              onFill={onFill}
-              onViewOffers={onViewOffers}
-            />
-          </div>
-        )}
-      />
+    <Modal
+      open={open}
+      title={t('title')}
+      backButton={{
+        label: t('backBtn'),
+        onBack: actions?.onClose
+      }}
+      onClose={actions?.onClose}
+    >
+      <div className={clsx('flex', 'flex-col', 'gap-12')}>
+        <ListingDetailsModalCreator show={!isCreator} listing={listing} />
+        <ListingDetailsModalDetailsContainer items={listing.items} targets={listing.targets} />
+        <div className={clsx('flex', 'flex-row', 'gap-4.5', 'items-center', 'justify-center')}>
+          <ListingDetailsModalButtonsContainer
+            listing={listing}
+            hasOffers={hasOffers}
+            isCreator={isCreator}
+            actions={isNil(actions) ? undefined : omit(['onClose'], actions)}
+          />
+        </div>
+      </div>
     </Modal>
   )
 }
