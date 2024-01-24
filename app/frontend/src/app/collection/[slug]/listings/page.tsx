@@ -2,6 +2,7 @@ import { getPendingListingsForCollection } from '@echo/firestore/crud/listing/ge
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
+import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { CollectionListingsApiProvided } from '@echo/ui/components/collection/api-provided/collection-listings-api-provided'
 import { pipe } from 'ramda'
 import type { ReactElement } from 'react'

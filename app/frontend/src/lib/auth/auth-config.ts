@@ -79,9 +79,7 @@ export const authConfig: NextAuthConfig = {
             bannerUrl: getDiscordBannerUrl(profile),
             id: profile.id,
             username: profile.username
-          },
-          createdAt: 0,
-          updatedAt: 0
+          }
         }
       }
     })
