@@ -41,7 +41,7 @@ export const authConfig: NextAuthConfig = {
       if (either(propIsNil('token'), pathIsNil(['token', 'user']))(params)) {
         return session
       }
-      const user = path(['token', 'user'], params) as AuthUser
+      const user: AuthUser = path(['token', 'user'], params)!
       return assoc('user', user, session)
     }
   },

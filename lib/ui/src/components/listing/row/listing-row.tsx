@@ -14,13 +14,26 @@ dayjs.extend(relativeTime)
 
 interface Props {
   listing: Listing
+  onViewDetailsClick?: (listing: Listing) => void
 }
 
-export const ListingRow: FunctionComponent<Props> = ({ listing }) => {
+export const ListingRow: FunctionComponent<Props> = ({ listing, onViewDetailsClick }) => {
   const t = useTranslations('listing.details')
   const expired = listing.state === LISTING_STATE_EXPIRED
   return (
-    <div className={clsx('flex', 'flex-col', 'self-stretch', 'p-4', 'rounded-2xl', 'bg-white/[0.05]', 'gap-12')}>
+    <div
+      className={clsx(
+        'flex',
+        'flex-col',
+        'self-stretch',
+        'p-4',
+        'rounded-2xl',
+        'bg-white/[0.05]',
+        'gap-12',
+        'cursor-pointer'
+      )}
+      onClick={() => onViewDetailsClick?.(listing)}
+    >
       <div className={clsx('flex', 'flex-row', 'grow', 'justify-between', 'gap-12')}>
         <ListingOfferUserDetails user={listing.creator} />
         <div className={clsx('mt-4')}>

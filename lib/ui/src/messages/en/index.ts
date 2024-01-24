@@ -164,6 +164,20 @@ export const messages = {
       }
     },
     details: {
+      target: {
+        quantity: 'x{count}',
+        collectionSize: '{count} {count, plural, =0 {} =1 {NFT} other {NFTs}}'
+      },
+      modal: {
+        backBtn: 'Back to Listings',
+        title: 'Listing Details',
+        cancelBtn: {
+          label: 'Cancel',
+          message: 'Hold to cancel'
+        },
+        viewOffersBtn: 'View Offers',
+        fillBtn: 'Fill Listing'
+      },
       assets: {
         title: {
           in: 'Interested in',

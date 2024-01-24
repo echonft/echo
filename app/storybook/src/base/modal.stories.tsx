@@ -1,27 +1,36 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { Modal as Component } from '@echo/ui/components/base/modal/modal'
+import { action } from '@storybook/addon-actions'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Base/Modal',
   component: Component,
+  args: {
+    backButton: {
+      label: 'Back',
+      onBack: action('onBack')
+    }
+  },
   argTypes: {
     onClose: {
       table: {
         disable: true
       }
     },
-    onBack: {
-      table: {
-        disable: true
+    backButton: {
+      onBack: {
+        table: {
+          disable: true
+        }
       }
     }
   },
   parameters: {
     controls: {
-      exclude: ['open']
+      exclude: ['open', 'backButton', 'title', 'children']
     }
   }
 }
@@ -74,8 +83,8 @@ export const CloseDisabled: Story = {
   }
 }
 
-export const BackEnabled: Story = {
-  render: ({ onClose, onBack }) => {
+export const CloseAndBackDisabled: Story = {
+  render: () => {
     const [isOpen, setIsOpen] = useState(false)
     return (
       <div className={'h-screen'}>
@@ -87,13 +96,9 @@ export const BackEnabled: Story = {
         <Component
           title={'This a modal title'}
           open={isOpen}
-          onClose={() => {
-            onClose?.()
-            setIsOpen(false)
-          }}
-          onBack={() => {
-            onBack?.()
-            setIsOpen(false)
+          backButton={{
+            label: 'Back',
+            onBack: undefined
           }}
         >
           <span className={'text-white text-center prose-header-xs-semi'}>This is a modal description</span>
@@ -102,12 +107,8 @@ export const BackEnabled: Story = {
     )
   }
 }
-
-export const BackEnabledWithTitle: Story = {
-  args: {
-    backButtonLabel: 'Back'
-  },
-  render: ({ backButtonLabel, onBack, onClose }) => {
+export const BackEnabled: Story = {
+  render: ({ backButton, onClose }) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
       <div className={'h-screen'}>
@@ -123,11 +124,13 @@ export const BackEnabledWithTitle: Story = {
             onClose?.()
             setIsOpen(false)
           }}
-          onBack={() => {
-            onBack?.()
-            setIsOpen(false)
+          backButton={{
+            label: backButton?.label,
+            onBack: () => {
+              backButton?.onBack?.()
+              setIsOpen(false)
+            }
           }}
-          backButtonLabel={backButtonLabel}
         >
           <span className={'text-white text-center prose-header-xs-semi'}>This is a modal description</span>
         </Component>

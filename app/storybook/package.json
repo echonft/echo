@@ -26,7 +26,6 @@
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@sentry/nextjs": "7.93.0",
-    "@storybook/addon-styling-webpack": "^0.0.6",
     "@storybook/nextjs": "7.6.7",
     "dayjs": "1.11.10",
     "net": "1.0.2",
@@ -42,7 +41,9 @@
     "zustand": "4.4.7"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "7.6.10",
     "@storybook/addon-essentials": "7.6.8",
+    "@storybook/addon-styling-webpack": "0.0.6",
     "@storybook/react": "7.6.8",
     "@storybook/react-webpack5": "7.6.8",
     "@types/ramda": "0.29.9",

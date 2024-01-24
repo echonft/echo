@@ -15,7 +15,7 @@ async function render({ user }: NextAuthUserParams) {
       orderBy: [{ field: 'expiresAt', direction: 'desc' }]
     }
   )
-  return <ProfileListingsCreatedApiProvided listings={listings} />
+  return <ProfileListingsCreatedApiProvided listings={listings} user={user} />
 }
 
 export default pipe(withLocale<NextAuthUserParams, Promise<ReactElement>>, withUser)(render)

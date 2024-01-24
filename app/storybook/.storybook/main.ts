@@ -7,7 +7,6 @@ const config: StorybookConfig = {
     { name: '@storybook/addon-essentials', options: { docs: false } },
     {
       name: '@storybook/addon-styling-webpack',
-
       options: {
         rules: [
           {
@@ -23,7 +22,8 @@ const config: StorybookConfig = {
           }
         ]
       }
-    }
+    },
+    { name: '@storybook/addon-essentials' }
   ],
   framework: {
     name: '@storybook/nextjs',
