@@ -1,4 +1,4 @@
-import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
+import { getAllListings } from '@echo/firestore-test/listing/get-all-listings'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { type Listing } from '@echo/model/types/listing'

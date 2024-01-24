@@ -1,7 +1,12 @@
 import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nfts-collection-reference'
-import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-snapshot-document-snapshot'
+import type { Nft } from '@echo/model/types/nft'
+import { firestore } from 'firebase-admin'
+import DocumentSnapshot = firestore.DocumentSnapshot
 
-export async function getNftSnapshotById(id: string) {
-  const querySnapshot = await getNftsCollectionReference().where('id', '==', id).get()
-  return getQuerySnapshotDocumentSnapshot(querySnapshot)
+export async function getNftSnapshotById(id: string): Promise<undefined | DocumentSnapshot<Nft, Nft>> {
+  const documentSnapshot = await getNftsCollectionReference().doc(id).get()
+  if (!documentSnapshot.exists) {
+    return undefined
+  }
+  return documentSnapshot
 }

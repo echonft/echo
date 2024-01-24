@@ -58,7 +58,7 @@ export async function completeOffer(args: CompleteOfferArgs) {
           OfferItem[]
         >(
           reject(isNil),
-          filter(propEq(OFFER_STATE_COMPLETED, 'state')),
+          filter(propEq<OfferState, 'state'>(OFFER_STATE_COMPLETED, 'state')),
           map(getOfferItems),
           flatten
         )(listingOffers)

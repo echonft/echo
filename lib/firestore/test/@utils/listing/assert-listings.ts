@@ -1,4 +1,4 @@
-import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
+import { getAllListings } from '@echo/firestore-test/listing/get-all-listings'
 import { type Listing } from '@echo/model/types/listing'
 import { getAllListingMocks } from '@echo/model-mocks/listing/get-all-listing-mocks'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'

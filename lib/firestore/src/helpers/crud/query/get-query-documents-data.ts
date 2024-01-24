@@ -1,7 +1,8 @@
+import { getQuerySnapshot } from '@echo/firestore/helpers/crud/query/get-query-snapshot'
 import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
 import { Query } from 'firebase-admin/firestore'
+import { andThen, pipe } from 'ramda'
 
-export async function getQueryDocumentsData<T>(query: Query<T>): Promise<T[]> {
-  const querySnapshot = await query.get()
-  return getQuerySnapshotDocumentsData<T>(querySnapshot)
+export function getQueryDocumentsData<T>(query: Query<T>): Promise<T[]> {
+  return pipe(getQuerySnapshot, andThen(getQuerySnapshotDocumentsData))(query)
 }

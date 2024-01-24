@@ -2,6 +2,7 @@ import { type AddWalletRequest } from '@echo/api/types/requests/add-wallet-reque
 import { findNonceForUser } from '@echo/firestore/crud/nonce/find-nonce-for-user'
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
+import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { type Nonce } from '@echo/firestore/types/model/nonce/nonce'
 import { getUserMockById } from '@echo/firestore-mocks/user/get-user-mock-by-id'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
@@ -20,6 +21,7 @@ jest.mock('@echo/firestore/crud/nonce/find-nonce-for-user')
 jest.mock('@echo/frontend/lib/helpers/auth/verify-siwe-message')
 jest.mock('@echo/firestore/crud/wallet/add-wallet')
 jest.mock('@echo/frontend/lib/helpers/auth/get-siwe-message')
+jest.mock('@echo/firestore/crud/wallet/get-wallets-for-user')
 
 describe('request-handlers - user - addWalletRequestHandler', () => {
   const address = toLower('0x12c63bbD266dB84e117356e664f3604055166CEc')
@@ -105,6 +107,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
     jest.mocked(addWallet).mockResolvedValueOnce(getWalletMockById('i28NWtlxElPXCnO0c6BC'))
+    jest.mocked(getWalletsForUser).mockResolvedValueOnce([])
     const req = mockRequest<AddWalletRequest>(validRequest)
     const res = await addWalletRequestHandler(user, req)
     expect(addWallet).toHaveBeenCalledTimes(1)

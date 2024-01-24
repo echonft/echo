@@ -1,9 +1,9 @@
-export const OFFER_STATE_OPEN = 'OPEN'
-export const OFFER_STATE_ACCEPTED = 'ACCEPTED'
-export const OFFER_STATE_CANCELLED = 'CANCELLED'
-export const OFFER_STATE_REJECTED = 'REJECTED'
-export const OFFER_STATE_COMPLETED = 'COMPLETED'
-export const OFFER_STATE_EXPIRED = 'EXPIRED'
+export const OFFER_STATE_OPEN = 'OPEN' as const
+export const OFFER_STATE_ACCEPTED = 'ACCEPTED' as const
+export const OFFER_STATE_CANCELLED = 'CANCELLED' as const
+export const OFFER_STATE_REJECTED = 'REJECTED' as const
+export const OFFER_STATE_COMPLETED = 'COMPLETED' as const
+export const OFFER_STATE_EXPIRED = 'EXPIRED' as const
 export const OFFER_STATES = [
   OFFER_STATE_OPEN,
   OFFER_STATE_ACCEPTED,

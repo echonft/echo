@@ -1,3 +1,3 @@
-export function promiseAll<T = unknown>(promises: Promise<T>[]) {
+export function promiseAll<T>(promises: Promise<T>[]) {
   return Promise.all(promises)
 }

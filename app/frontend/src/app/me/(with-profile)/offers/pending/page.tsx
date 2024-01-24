@@ -1,33 +1,19 @@
-import { OFFER_FILTER_AS_RECEIVER } from '@echo/firestore/constants/offer/offer-filter-as'
-import { getOffersForUser } from '@echo/firestore/crud/offer/get-offers-for-user'
-import type { OfferQueryFilters } from '@echo/firestore/types/query/offer-query-filters'
-import type { QueryConstraints } from '@echo/firestore/types/query/query-constraints'
+import { getPendingOffersForReceiver } from '@echo/firestore/crud/offer/get-pending-offers-for-receiver'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
-import { OFFER_ROLE_RECEIVER } from '@echo/model/constants/offer-role'
-import { READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
-import type { Offer } from '@echo/model/types/offer'
 import { ProfileOffersReceivedApiProvided } from '@echo/ui/components/profile/api-provided/profile-offers-received-api-provided'
-import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
-import { andThen, assoc, map, pipe } from 'ramda'
+import { setOfferRoleReceiver } from '@echo/ui/helpers/offer/set-offer-role-receiver'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { andThen, map, path, pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
-async function render({ user }: NextAuthUserParams) {
-  const offers = await pipe<
-    [string, OfferQueryFilters, QueryConstraints<Offer>],
-    Promise<Offer[]>,
-    Promise<OfferWithRole[]>
-  >(getOffersForUser, andThen(map<Offer, OfferWithRole>(assoc('role', OFFER_ROLE_RECEIVER))))(
-    user.username,
-    {
-      as: OFFER_FILTER_AS_RECEIVER,
-      notState: READ_ONLY_OFFER_STATES
-    },
-    {
-      orderBy: [{ field: 'expiresAt', direction: 'desc' }]
-    }
-  )
+async function render(params: NextAuthUserParams) {
+  const offers = await pipe(
+    nonNullableReturn(path(['user', 'username'])),
+    getPendingOffersForReceiver,
+    andThen(map(setOfferRoleReceiver))
+  )(params)
   return <ProfileOffersReceivedApiProvided offers={offers} />
 }
 

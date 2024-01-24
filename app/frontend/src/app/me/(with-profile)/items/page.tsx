@@ -4,13 +4,11 @@ import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
 import { ProfileNftsApiProvided } from '@echo/ui/components/profile/api-provided/profile-nfts-api-provided'
 import { RouteChangesProvider } from 'nextjs-router-events'
-import { pipe } from 'ramda'
+import { pipe, prop } from 'ramda'
 import type { ReactElement } from 'react'
 
 async function render({ user }: NextAuthUserParams) {
-  const nfts = await getNftsForOwner(user.username, {
-    orderBy: [{ field: 'tokenId', direction: 'asc' }]
-  })
+  const nfts = await pipe(prop('username'), getNftsForOwner)(user)
   return (
     <RouteChangesProvider>
       <ProfileNftsApiProvided nfts={nfts} user={user} />
