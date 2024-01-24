@@ -1,4 +1,4 @@
-import { deleteNft } from '@echo/firestore-test/nft/delete-nft'
+import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getAllNfts } from '@echo/firestore-test/nft/get-all-nfts'
 
 export async function clearNfts() {
