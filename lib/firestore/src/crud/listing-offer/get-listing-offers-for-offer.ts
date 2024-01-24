@@ -1,5 +1,5 @@
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
+import { getQuerySnapshotData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-data'
 import { getListingOfferFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { LISTING_STATE_CANCELLED, LISTING_STATE_FULFILLED } from '@echo/model/constants/listing-states'
@@ -22,7 +22,7 @@ async function receiverItemsListingItemsMatch(offer: Offer) {
 
   // for these listings, check if the state is not LISTING_STATE_FULFILLED or LISTING_STATE_CANCELLED and if the targets match with the sender items
   const listings = pipe<[QuerySnapshot<Listing>], Listing[], Listing[], Listing[]>(
-    getQuerySnapshotDocumentsData,
+    getQuerySnapshotData,
     filter(pipe(prop('state'), isNotIn([LISTING_STATE_FULFILLED, LISTING_STATE_CANCELLED]))),
     filter(offerItemsIncludeListingTargets(senderItems))
   )(querySnapshot)
@@ -51,7 +51,7 @@ async function senderItemsListingItemsMatch(offer: Offer) {
 
   // for these listings, check if the state is not LISTING_STATE_FULFILLED or LISTING_STATE_CANCELLED and if the targets match with the receiver items
   const listings = pipe<[QuerySnapshot<Listing>], Listing[], Listing[], Listing[]>(
-    getQuerySnapshotDocumentsData,
+    getQuerySnapshotData,
     filter(pipe(prop('state'), isNotIn([LISTING_STATE_FULFILLED, LISTING_STATE_CANCELLED]))),
     filter(offerItemsIncludeListingTargets(receiverItems))
   )(querySnapshot)

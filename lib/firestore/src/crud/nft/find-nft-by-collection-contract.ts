@@ -1,5 +1,5 @@
 import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nfts-collection-reference'
-import { getQueryDocumentData } from '@echo/firestore/helpers/crud/query/get-query-document-data'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { Nft } from '@echo/model/types/nft'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -15,6 +15,6 @@ export function findNftByCollectionContract(
     queryWhere<Nft>('tokenId', '==', tokenId),
     queryWhere<Nft>('collection.contract.address', '==', toLower(collectionContractAddress)),
     queryWhere<Nft>('collection.contract.chainId', '==', collectionContractChainId),
-    getQueryDocumentData
+    getQueryUniqueData
   )()
 }

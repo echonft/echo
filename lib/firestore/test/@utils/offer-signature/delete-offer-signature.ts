@@ -1,9 +1,8 @@
-import { getOfferSignatureSnapshotById } from '@echo/firestore/crud/offer-signature/get-offer-signature-snapshot-by-id'
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
+import { getOfferSignaturesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-signatures-collection-reference'
+import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { WriteResult } from 'firebase-admin/firestore'
+import { pipe } from 'ramda'
 
-export async function deleteOfferSignature(id: string): Promise<WriteResult> {
-  const documentSnapshot = await getOfferSignatureSnapshotById(id)
-  assertQueryDocumentSnapshot(documentSnapshot)
-  return documentSnapshot.ref.delete()
+export function deleteOfferSignature(id: string): Promise<WriteResult> {
+  return pipe(getOfferSignaturesCollectionReference, deleteReference(id))()
 }

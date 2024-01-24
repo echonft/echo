@@ -1,6 +1,6 @@
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
-import { getQueriesDocumentsData } from '@echo/firestore/helpers/crud/query/get-queries-documents-data'
+import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-queries-documents'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { LISTING_STATES, READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
@@ -28,6 +28,6 @@ export async function getPendingListingsForUser(username: string): Promise<Listi
     queryOrderBy<Listing>('creator.username'),
     queryOrderBy<Listing>('expiresAt', 'desc'),
     juxt(map(partial(queryWhere<Listing>, ['targetsIds', 'array-contains-any']), collectionIds)),
-    getQueriesDocumentsData
+    getQueriesDocuments
   )()
 }

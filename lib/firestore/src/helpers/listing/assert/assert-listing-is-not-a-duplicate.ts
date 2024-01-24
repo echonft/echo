@@ -1,5 +1,5 @@
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
+import { getQuerySnapshotData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-data'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import type { Listing } from '@echo/model/types/listing'
 import { type ListingItem } from '@echo/model/types/listing-item'
@@ -31,7 +31,7 @@ export async function assertListingIsNotADuplicate(items: OfferItem[], targets: 
     .get()
   // Get only the open listings
   const documents = pipe<[QuerySnapshot<Listing, ListingDocumentData>], Listing[], Listing[]>(
-    getQuerySnapshotDocumentsData<Listing>,
+    getQuerySnapshotData<Listing>,
     reject<Listing>(prop('readOnly'))
   )(querySnapshot)
   // compare the items (e.g. the owner could be different)

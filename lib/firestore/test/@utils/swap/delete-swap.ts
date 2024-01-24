@@ -1,11 +1,8 @@
-import { getSwapSnapshotById } from '@echo/firestore/crud/swap/get-swap-snapshot-by-id'
+import { getSwapsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-swaps-collection-reference'
+import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { WriteResult } from 'firebase-admin/firestore'
-import { isNil } from 'ramda'
+import { pipe } from 'ramda'
 
-export async function deleteSwap(id: string): Promise<WriteResult> {
-  const documentSnapshot = await getSwapSnapshotById(id)
-  if (isNil(documentSnapshot)) {
-    throw Error(`swap with id ${id} does not exist`)
-  }
-  return documentSnapshot.ref.delete()
+export function deleteSwap(id: string): Promise<WriteResult> {
+  return pipe(getSwapsCollectionReference, deleteReference(id))()
 }

@@ -15,7 +15,7 @@ import { ListingDetails as Component } from '@echo/ui/components/listing/details
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
-import { assoc, equals, ifElse, pipe, prop } from 'ramda'
+import { assoc, ifElse, pipe, propEq } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 type ComponentType = FunctionComponent<Record<'state', ListingState> & Record<'isCreator', boolean>>
@@ -62,7 +62,7 @@ export const Default: Story = {
     const renderedListing = pipe(
       assoc('state', state),
       ifElse(
-        pipe(prop('state'), equals(LISTING_STATE_EXPIRED)),
+        propEq(LISTING_STATE_EXPIRED, 'state'),
         assoc('expiresAt', EXPIRED_DATE),
         assoc('expiresAt', NOT_EXPIRED_DATE)
       )

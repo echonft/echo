@@ -1,5 +1,5 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
+import { getQuerySnapshotData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-data'
 import { getListingOfferFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
@@ -23,7 +23,7 @@ async function receiverItemsMatch(listing: Listing) {
 
   // for these offers, check if the sender items match with listing targets
   const offers = pipe<[QuerySnapshot<Offer>], Offer[], Offer[]>(
-    getQuerySnapshotDocumentsData,
+    getQuerySnapshotData,
     filter(listingTargetsIncludeOfferSenderItems(listing))
   )(querySnapshot)
 
@@ -52,7 +52,7 @@ async function senderItemsMatch(listing: Listing) {
 
   // for these offers, check if the receiver items match with listing targets
   const offers = pipe<[QuerySnapshot<Offer>], Offer[], Offer[]>(
-    getQuerySnapshotDocumentsData,
+    getQuerySnapshotData,
     filter(listingTargetsIncludeOfferReceiverItems(listing))
   )(querySnapshot)
 

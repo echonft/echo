@@ -1,7 +1,13 @@
 import { getOfferThreadsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-threads-collection-reference'
-import { getQuerySnapshotDocumentData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-document-data'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
+import { pipe } from 'ramda'
 
-export async function findOfferThread(offerId: string) {
-  const querySnapshot = await getOfferThreadsCollectionReference().where('offerId', '==', offerId).get()
-  return getQuerySnapshotDocumentData(querySnapshot)
+export function findOfferThread(offerId: string): Promise<OfferThread | undefined> {
+  return pipe(
+    getOfferThreadsCollectionReference,
+    queryWhere<OfferThread>('offerId', '==', offerId),
+    getQueryUniqueData
+  )()
 }

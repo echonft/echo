@@ -1,11 +1,8 @@
-import { getCollectionSnapshotById } from '@echo/firestore/crud/collection/get-collection-snapshot-by-id'
+import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
+import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { WriteResult } from 'firebase-admin/firestore'
-import { isNil } from 'ramda'
+import { pipe } from 'ramda'
 
-export async function deleteCollection(id: string): Promise<WriteResult> {
-  const documentSnapshot = await getCollectionSnapshotById(id)
-  if (isNil(documentSnapshot)) {
-    throw Error('invalid collection id')
-  }
-  return documentSnapshot.ref.delete()
+export function deleteCollection(id: string): Promise<WriteResult> {
+  return pipe(getCollectionsCollectionReference, deleteReference(id))()
 }

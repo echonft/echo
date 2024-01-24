@@ -1,8 +1,11 @@
 import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
-import { getCollectionSwapsCountSnapshotByCollectionId } from '@echo/firestore/crud/collection-swaps-count/get-collection-swaps-count-snapshot-by-collection-id'
 import { getCollectionSwapsCountCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-swaps-count-collection-reference'
-import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
-import { isNil, mergeLeft } from 'ramda'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import { setReferenceWithId } from '@echo/firestore/helpers/crud/reference/set-reference-with-id'
+import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
+import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
+import { always, inc, isNil, modify, pick, pipe } from 'ramda'
 
 export async function increaseCollectionSwapsCount(collectionId: string): Promise<CollectionSwapsCount> {
   const collection = await findCollectionById(collectionId)
@@ -11,16 +14,18 @@ export async function increaseCollectionSwapsCount(collectionId: string): Promis
       `trying to increase swaps count for nft collection with id ${collectionId} but this collection does not exist`
     )
   }
-  const snapshot = await getCollectionSwapsCountSnapshotByCollectionId(collectionId)
-  if (isNil(snapshot) || isNil(snapshot.data()) || !snapshot.exists) {
-    const reference = getCollectionSwapsCountCollectionReference().doc()
-    const id = reference.id
-    const newSwapsCount: CollectionSwapsCount = { id, collectionId, swapsCount: 1 }
-    await reference.set(newSwapsCount)
-    return newSwapsCount
+  const existingSwapsCount = await pipe(
+    getCollectionSwapsCountCollectionReference,
+    queryWhere('collectionId', '==', collectionId),
+    getQueryUniqueData
+  )()
+  if (isNil(existingSwapsCount)) {
+    return pipe(getCollectionSwapsCountCollectionReference, setReferenceWithId({ collectionId, swapsCount: 1 }))()
   }
-  const existingSwapsCount = snapshot.data()
-  const increasedCount = { swapsCount: existingSwapsCount.swapsCount + 1 }
-  await snapshot.ref.update(increasedCount)
-  return mergeLeft(increasedCount, existingSwapsCount)
+  const updatedSwapsCount = modify('swapsCount', inc, existingSwapsCount)
+  return pipe(
+    getCollectionSwapsCountCollectionReference,
+    updateReference(existingSwapsCount.id, pick(['swapsCount'], updatedSwapsCount)),
+    always(updatedSwapsCount)
+  )()
 }

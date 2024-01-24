@@ -6,7 +6,7 @@ import {
 } from '@echo/model/constants/listing-states'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingState } from '@echo/model/types/listing-state'
-import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import { isNil } from 'ramda'
 
 function assertListingIsNotOpen(listing: Listing) {
   if (listing.state === LISTING_STATE_OPEN) {
@@ -26,12 +26,12 @@ function assertListingIsNotPartiallyFulfilled(listing: Listing) {
   }
 }
 
-export function assertListingState(
-  listing: Listing,
+export function assertListingStateTransition(
+  listing: Listing | undefined,
   toState: ListingState
 ): asserts listing is Omit<Listing, 'state'> & Record<'state', ListingState> {
-  if (propIsNil('state', listing)) {
-    throw Error('listing does not have a state')
+  if (isNil(listing)) {
+    throw Error('listing is not defined')
   }
   if (listing.readOnly) {
     throw Error('listing is read only')

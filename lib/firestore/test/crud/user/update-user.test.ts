@@ -5,7 +5,7 @@ import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-rem
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { assertUsers } from '@echo/firestore-test/user/assert-users'
 import { deleteUser } from '@echo/firestore-test/user/delete-user'
-import { unchecked_addUser } from '@echo/firestore-test/user/unchecked_update-user'
+import { unchecked_updateUser } from '@echo/firestore-test/user/unchecked_update-user'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -29,7 +29,7 @@ describe('CRUD - user - updateUser', () => {
   afterEach(async () => {
     if (isNotNil(updatedUser)) {
       try {
-        await unchecked_addUser(updatedUser)
+        await unchecked_updateUser(updatedUser)
       } catch (e) {
         logger.error(`Error reverting user with id ${updatedUser.id}: ${errorMessage(e)}`)
       }

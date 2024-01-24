@@ -1,5 +1,5 @@
-import { findCollectionSwapsCountByCollectionId } from '@echo/firestore/crud/collection-swaps-count/find-collection-swaps-count-by-collection-id'
 import { getCollectionSwapsCountMockByCollectionId } from '@echo/firestore-mocks/collection-swaps-count/get-collection-swaps-count-mock-by-collection-id'
+import { findCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/find-collection-swaps-count-by-collection-id'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'

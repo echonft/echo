@@ -1,11 +1,8 @@
-import { getNftSnapshotById } from '@echo/firestore/crud/nft/get-nft-snapshot-by-id'
+import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nfts-collection-reference'
+import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { WriteResult } from 'firebase-admin/firestore'
-import { isNil } from 'ramda'
+import { pipe } from 'ramda'
 
-export async function deleteNft(id: string): Promise<WriteResult> {
-  const documentSnapshot = await getNftSnapshotById(id)
-  if (isNil(documentSnapshot)) {
-    throw Error('invalid nft id')
-  }
-  return documentSnapshot.ref.delete()
+export function deleteNft(id: string): Promise<WriteResult> {
+  return pipe(getNftsCollectionReference, deleteReference(id))()
 }

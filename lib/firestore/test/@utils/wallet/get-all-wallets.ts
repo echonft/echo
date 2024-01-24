@@ -1,7 +1,9 @@
 import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
+import { getQuerySnapshot } from '@echo/firestore/helpers/crud/query/get-query-snapshot'
+import { getQuerySnapshotData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-data'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
+import { andThen, pipe } from 'ramda'
 
-export async function getAllWallets() {
-  const querySnapshot = await getWalletsCollectionReference().get()
-  return getQuerySnapshotDocumentsData(querySnapshot)
+export function getAllWallets(): Promise<WalletDocumentData[]> {
+  return pipe(getWalletsCollectionReference, getQuerySnapshot, andThen(getQuerySnapshotData))()
 }

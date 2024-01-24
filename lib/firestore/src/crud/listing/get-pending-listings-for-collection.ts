@@ -1,6 +1,6 @@
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
-import { getQueriesDocumentsData } from '@echo/firestore/helpers/crud/query/get-queries-documents-data'
+import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-queries-documents'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
@@ -22,6 +22,6 @@ export async function getPendingListingsForCollection(slug: string): Promise<Lis
       queryWhere<Listing>('itemsNftCollectionIds', 'array-contains', id),
       queryWhere<Listing>('targetsIds', 'array-contains', id)
     ]),
-    getQueriesDocumentsData
+    getQueriesDocuments
   )()
 }

@@ -1,6 +1,6 @@
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getQueriesDocumentsData } from '@echo/firestore/helpers/crud/query/get-queries-documents-data'
+import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-queries-documents'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
@@ -21,6 +21,6 @@ export async function getCompletedOffersForCollection(slug: string): Promise<Off
       queryWhere<Offer>('receiverItemsNftCollectionIds', 'array-contains', id),
       queryWhere<Offer>('senderItemsNftCollectionIds', 'array-contains', id)
     ]),
-    getQueriesDocumentsData
+    getQueriesDocuments
   )()
 }

@@ -1,11 +1,8 @@
-import { getUserSnapshotById } from '@echo/firestore/crud/user/get-user-snapshot-by-id'
+import { getUsersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-users-collection-reference'
+import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { WriteResult } from 'firebase-admin/firestore'
-import { isNil } from 'ramda'
+import { pipe } from 'ramda'
 
-export async function deleteUser(id: string): Promise<WriteResult> {
-  const documentSnapshot = await getUserSnapshotById(id)
-  if (isNil(documentSnapshot)) {
-    throw Error(`user with id ${id} does not exist`)
-  }
-  return documentSnapshot.ref.delete()
+export function deleteUser(id: string): Promise<WriteResult> {
+  return pipe(getUsersCollectionReference, deleteReference(id))()
 }

@@ -5,7 +5,7 @@ import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 
-describe('crud - wallet', () => {
+describe('CRUD - wallet - findWalletByAddress', () => {
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()
   })
