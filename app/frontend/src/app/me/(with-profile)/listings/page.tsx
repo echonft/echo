@@ -1,8 +1,9 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
-import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { redirect } from 'next/navigation'
 
-export default async function () {
-  await initializeServerComponent()
+function render() {
   redirect(linkProvider.profile.listingsCreated.get())
 }
+
+export default withLocale(render)

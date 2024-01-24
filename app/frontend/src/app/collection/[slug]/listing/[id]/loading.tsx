@@ -1,12 +1,13 @@
-import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { ListingDetailsSkeleton } from '@echo/ui/components/listing/details/skeleton/listing-details-skeleton'
 
-export default async function () {
-  await initializeServerComponent()
+function render() {
   return (
     <PaddedContainer>
       <ListingDetailsSkeleton />
     </PaddedContainer>
   )
 }
+
+export default withLocale(render)

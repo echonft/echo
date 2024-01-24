@@ -1,7 +1,8 @@
-import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { PageLayoutSkeleton } from '@echo/ui/components/layout/skeleton/page-layout-skeleton'
 
-export default async function () {
-  await initializeServerComponent()
+function render() {
   return <PageLayoutSkeleton />
 }
+
+export default withLocale(render)

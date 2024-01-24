@@ -1,11 +1,12 @@
 import { getListingsForCollection } from '@echo/firestore/crud/listing/get-listings-for-collection'
-import { initializeServerComponent } from '@echo/frontend/lib/helpers/initialize-server-component'
+import { withFirebase } from '@echo/frontend/lib/decorators/with-firebase'
+import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import { CollectionListingsApiProvided } from '@echo/ui/components/collection/api-provided/collection-listings-api-provided'
+import { pipe } from 'ramda'
 
-export default async function ({ params: { slug } }: NextParams<Record<'slug', string>>) {
-  await initializeServerComponent({ initializeFirebase: true })
+async function render({ params: { slug } }: NextParams<Record<'slug', string>>) {
   const listings = await getListingsForCollection(
     slug,
     { notState: READ_ONLY_LISTING_STATES },
@@ -15,3 +16,5 @@ export default async function ({ params: { slug } }: NextParams<Record<'slug', s
   )
   return <CollectionListingsApiProvided collectionSlug={slug} listings={listings} />
 }
+
+export default pipe(withLocale, withFirebase)(render)
