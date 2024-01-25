@@ -1,8 +1,8 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
+import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import type { Offer } from '@echo/model/types/offer'
-import { andThen, invoker, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
-export function getAllOffers() {
-  return pipe(getOffersCollectionReference, invoker(0, 'get'), andThen(getQuerySnapshotDocumentsData<Offer>))()
+export function getAllOffers(): Promise<Offer[]> {
+  return pipe(getOffersCollectionReference, getQueryData)()
 }

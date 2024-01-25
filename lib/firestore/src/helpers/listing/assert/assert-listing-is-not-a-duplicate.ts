@@ -1,14 +1,18 @@
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
-import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
-import type { Listing } from '@echo/model/types/listing'
+import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import { LISTING_STATES, READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import { type ListingItem } from '@echo/model/types/listing-item'
+import type { ListingState } from '@echo/model/types/listing-state'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { type Nft } from '@echo/model/types/nft'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { type User } from '@echo/model/types/user'
-import type { QuerySnapshot } from 'firebase-admin/firestore'
-import { intersection, map, modify, path, pick, pipe, prop, reject } from 'ramda'
+import { stringComparator } from '@echo/utils/comparators/string-comparator'
+import { isIn } from '@echo/utils/fp/is-in'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { now } from '@echo/utils/helpers/now'
+import { intersection, map, modify, path, pick, pipe, reject, sort } from 'ramda'
 
 interface PartialListingItem {
   amount: number
@@ -23,17 +27,19 @@ function mapItems(items: ListingItem[]): PartialListingItem[] {
 }
 
 export async function assertListingIsNotADuplicate(items: OfferItem[], targets: ListingTarget[]) {
-  const targetIds = map(path(['collection', 'id']), targets) as string[]
-  const itemIds = map(path(['nft', 'id']), items) as string[]
-  const querySnapshot = await getListingsCollectionReference()
-    .where('targetsIds', '==', targetIds)
-    .where('itemsNftIds', '==', itemIds)
-    .get()
-  // Get only the open listings
-  const documents = pipe<[QuerySnapshot<Listing, ListingDocumentData>], Listing[], Listing[]>(
-    getQuerySnapshotDocumentsData<Listing>,
-    reject<Listing>(prop('readOnly'))
-  )(querySnapshot)
+  const targetIds = pipe(
+    map<ListingTarget, string>(nonNullableReturn(path(['collection', 'id']))),
+    sort(stringComparator)
+  )(targets)
+  const itemIds = pipe(map<OfferItem, string>(nonNullableReturn(path(['nft', 'id']))), sort(stringComparator))(items)
+  const documents = await pipe(
+    getListingsCollectionReference,
+    queryWhere('state', 'in', reject(isIn<ListingState>(READ_ONLY_LISTING_STATES), LISTING_STATES)),
+    queryWhere('expiresAt', '>', now()),
+    queryWhere('targetsIds', '==', targetIds),
+    queryWhere('itemsNftIds', '==', itemIds),
+    getQueryData
+  )()
   // compare the items (e.g. the owner could be different)
   // only the owner and id are relevant in the item's nft
   const partialItems = mapItems(items)

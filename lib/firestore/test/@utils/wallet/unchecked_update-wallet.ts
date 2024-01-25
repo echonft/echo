@@ -1,13 +1,11 @@
-import { getWalletSnapshotById } from '@echo/firestore/crud/wallet/get-wallet-snapshot-by-id'
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
+import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
+import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import { type WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { WriteResult } from 'firebase-admin/firestore'
+import { pipe } from 'ramda'
 
 export async function unchecked_updateWallet(
-  walletId: string,
-  updateData: Partial<Omit<WalletDocumentData, 'id'>>
-): Promise<WriteResult> {
-  const documentSnapshot = await getWalletSnapshotById(walletId)
-  assertQueryDocumentSnapshot(documentSnapshot)
-  return await documentSnapshot.ref.update(updateData)
+  id: string,
+  data: Partial<Omit<WalletDocumentData, 'id'>>
+): Promise<WalletDocumentData> {
+  return pipe(getWalletsCollectionReference, updateReference<WalletDocumentData>(id, data))()
 }

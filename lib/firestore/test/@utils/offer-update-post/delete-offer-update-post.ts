@@ -1,11 +1,8 @@
 import { getOfferUpdatePostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-update-posts-collection-reference'
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
-import { getQuerySnapshotDocumentSnapshot } from '@echo/firestore/helpers/crud/query/get-query-snapshot-document-snapshot'
+import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { WriteResult } from 'firebase-admin/firestore'
+import { pipe } from 'ramda'
 
-export async function deleteOfferUpdatePost(id: string): Promise<WriteResult> {
-  const querySnapshot = await getOfferUpdatePostsCollectionReference().where('id', '==', id).get()
-  const documentSnapshot = getQuerySnapshotDocumentSnapshot(querySnapshot)
-  assertQueryDocumentSnapshot(documentSnapshot)
-  return documentSnapshot.ref.delete()
+export function deleteOfferUpdatePost(id: string): Promise<WriteResult> {
+  return pipe(getOfferUpdatePostsCollectionReference, deleteReference(id))()
 }

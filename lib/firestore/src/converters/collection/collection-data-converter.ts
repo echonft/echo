@@ -6,7 +6,7 @@ import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue
 import { pipe } from 'ramda'
 
 export const collectionDataConverter: FirestoreDataConverter<Collection> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<Collection>) {
+  fromFirestore(snapshot: QueryDocumentSnapshot<Collection>): Collection {
     return pipe(getSnapshotData<Collection>, lowerContractAddress)(snapshot)
   },
   toFirestore(modelObject: WithFieldValue<Collection>): WithFieldValue<Collection> {

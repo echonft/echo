@@ -3,8 +3,9 @@ import { listingDataConverter } from '@echo/firestore/converters/listing/listing
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import type { Listing } from '@echo/model/types/listing'
+import type { CollectionReference } from 'firebase-admin/firestore'
 
-export function getListingsCollectionReference() {
+export function getListingsCollectionReference(): CollectionReference<Listing, ListingDocumentData> {
   return firestoreApp()
     .collection(CollectionReferenceName.LISTINGS)
     .withConverter<Listing, ListingDocumentData>(listingDataConverter)

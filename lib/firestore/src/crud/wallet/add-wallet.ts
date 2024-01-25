@@ -1,21 +1,14 @@
 import { findWalletByAddress } from '@echo/firestore/crud/wallet/find-wallet-by-address'
 import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
+import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { type WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { type Wallet } from '@echo/model/types/wallet'
-import { assoc, isNil, modify, pipe, toLower } from 'ramda'
+import { assoc, isNil, pipe } from 'ramda'
 
-export async function addWallet(userId: string, wallet: Wallet) {
+export async function addWallet(userId: string, wallet: Wallet): Promise<WalletDocumentData> {
   const existingWallet = await findWalletByAddress(wallet)
   if (!isNil(existingWallet)) {
     throw Error('wallet already exists in the database')
   }
-  const reference = getWalletsCollectionReference().doc()
-  const { id } = reference
-  const newWallet = pipe(
-    modify('address', toLower),
-    assoc('userId', userId),
-    assoc('id', id)
-  )(wallet) as WalletDocumentData
-  await reference.set(newWallet)
-  return newWallet
+  return pipe(getWalletsCollectionReference, setReference<WalletDocumentData>(assoc('userId', userId, wallet)))()
 }

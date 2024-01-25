@@ -16,8 +16,8 @@
   "homepage": "https://github.com/echonft/echo#readme",
   "lint-staged": {
     "*.(ts|tsx)": [
-      "eslint --fix",
-      "prettier -u --no-error-on-unmatched-pattern --write --cache"
+      "eslint --quiet --fix",
+      "prettier -u --no-error-on-unmatched-pattern --write"
     ]
   },
   "scripts": {

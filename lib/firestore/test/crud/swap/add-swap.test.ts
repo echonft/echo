@@ -1,7 +1,8 @@
-import { findCollectionSwapsCountByCollectionId } from '@echo/firestore/crud/collection-swaps-count/find-collection-swaps-count-by-collection-id'
 import { addSwap, type AddSwapArgs } from '@echo/firestore/crud/swap/add-swap'
 import { assertCollectionSwapsCounts } from '@echo/firestore-test/collection-swaps-count/assert-collection-swaps-counts'
-import { getCollectionSwapsCountSnapshotById } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-snapshot-by-id'
+import { findCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/find-collection-swaps-count-by-collection-id'
+import { findCollectionSwapsCountById } from '@echo/firestore-test/collection-swaps-count/find-collection-swaps-count-by-id'
+import { unchecked_updateCollectionSwapCounts } from '@echo/firestore-test/collection-swaps-count/unchecked_update-collection-swap-counts'
 import { assertSwaps } from '@echo/firestore-test/swap/assert-swaps'
 import { deleteSwap } from '@echo/firestore-test/swap/delete-swap'
 import { findSwapById } from '@echo/firestore-test/swap/find-swap-by-id'
@@ -49,10 +50,9 @@ describe('CRUD - swap - addSwap', () => {
     expectDateNumberIsNow(newSwap.createdAt)
     // reset the swaps count
     for (const swapsCount of initialSwapsCounts) {
-      const snapshot = (await getCollectionSwapsCountSnapshotById(swapsCount.id))!
-      const updatedSwapsCount = snapshot.data()
+      const updatedSwapsCount = (await findCollectionSwapsCountById(swapsCount.id))!
       expect(updatedSwapsCount.swapsCount).toBe(swapsCount.swapsCount + 1)
-      await snapshot?.ref.update({ swapsCount: swapsCount.swapsCount })
+      await unchecked_updateCollectionSwapCounts(swapsCount.id, { swapsCount: swapsCount.swapsCount })
     }
   })
 })

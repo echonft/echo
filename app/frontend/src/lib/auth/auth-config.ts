@@ -1,4 +1,3 @@
-import type { JWT } from '@auth/core/jwt'
 import type { Account, Profile, User } from '@auth/core/types'
 import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
 import { isPathSecure } from '@echo/api/services/routing/is-path-secure'
@@ -32,7 +31,7 @@ export const authConfig: NextAuthConfig = {
     },
     jwt: function ({ token, user }) {
       if (!isNil(user)) {
-        return Promise.resolve(assoc('user', dissoc('id', user), token) as JWT)
+        return Promise.resolve(assoc('user', dissoc('id', user), token))
       }
       return token
     },
@@ -80,9 +79,7 @@ export const authConfig: NextAuthConfig = {
             bannerUrl: getDiscordBannerUrl(profile),
             id: profile.id,
             username: profile.username
-          },
-          createdAt: 0,
-          updatedAt: 0
+          }
         }
       }
     })

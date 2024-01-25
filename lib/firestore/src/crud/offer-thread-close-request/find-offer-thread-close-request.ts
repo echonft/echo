@@ -1,9 +1,13 @@
 import { getOfferThreadsCloseRequestsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-threads-close-requests-collection-reference'
-import { getQuerySnapshotDocumentData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-document-data'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import type { OfferThreadCloseRequest } from '@echo/firestore/types/model/offer-thread-close-request/offer-thread-close-request'
+import { pipe } from 'ramda'
 
-export async function findOfferThreadCloseRequest(offerThreadId: string) {
-  const querySnapshot = await getOfferThreadsCloseRequestsCollectionReference()
-    .where('offerThreadId', '==', offerThreadId)
-    .get()
-  return getQuerySnapshotDocumentData(querySnapshot)
+export function findOfferThreadCloseRequest(offerThreadId: string): Promise<OfferThreadCloseRequest | undefined> {
+  return pipe(
+    getOfferThreadsCloseRequestsCollectionReference,
+    queryWhere<OfferThreadCloseRequest>('offerThreadId', '==', offerThreadId),
+    getQueryUniqueData
+  )()
 }

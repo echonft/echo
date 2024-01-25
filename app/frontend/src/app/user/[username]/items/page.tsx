@@ -14,9 +14,7 @@ async function render({ params: { username }, user }: Params) {
   if (user?.username === username) {
     redirect(linkProvider.profile.items.get())
   }
-  const nfts = await getNftsForOwner(username, {
-    orderBy: [{ field: 'tokenId', direction: 'asc' }]
-  })
+  const nfts = await getNftsForOwner(username)
   return <UserNftsApiProvided username={username} nfts={nfts} />
 }
 

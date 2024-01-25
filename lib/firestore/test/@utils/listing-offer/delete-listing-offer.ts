@@ -1,11 +1,8 @@
-import { getListingOfferSnapshotById } from '@echo/firestore-test/listing-offer/get-listing-offer-snapshot-by-id'
+import { getListingOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-offers-collection-reference'
+import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { WriteResult } from 'firebase-admin/firestore'
-import { isNil } from 'ramda'
+import { pipe } from 'ramda'
 
-export async function deleteListingOffer(id: string): Promise<WriteResult> {
-  const documentSnapshot = await getListingOfferSnapshotById(id)
-  if (isNil(documentSnapshot)) {
-    throw Error(`listing offer with id ${id} does not exist`)
-  }
-  return documentSnapshot.ref.delete()
+export function deleteListingOffer(id: string): Promise<WriteResult> {
+  return pipe(getListingOffersCollectionReference, deleteReference(id))()
 }

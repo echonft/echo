@@ -9,20 +9,28 @@ import { type FunctionComponent } from 'react'
 
 export interface NftCardProps {
   nft: Nft
-  variant?: CardVariant
-  hideOwner?: boolean
-  hideLink?: boolean
-  scaleDisabled?: boolean
+  options?: {
+    owner?: {
+      hide?: boolean
+      asLink?: boolean
+    }
+    style?: {
+      hideOpenSeaLink?: boolean
+      scaleDisabled?: boolean
+      variant?: CardVariant
+    }
+  }
 }
 
-export const NftCard: FunctionComponent<NftCardProps> = ({ nft, variant, hideOwner, hideLink, scaleDisabled }) => {
+export const NftCard: FunctionComponent<NftCardProps> = (props) => {
+  const { nft, options } = props
   return (
     <CardLayout>
-      <NftCardPicture nft={nft} hideOwner={hideOwner} hideLink={hideLink} scaleDisabled={scaleDisabled} />
+      <NftCardPicture {...props} />
       <CardFooter
         title={nft.collection.name}
         subtitle={getTokenIdString(nft.tokenId, nft.collection.totalSupply)}
-        variant={variant}
+        variant={options?.style?.variant}
       />
     </CardLayout>
   )

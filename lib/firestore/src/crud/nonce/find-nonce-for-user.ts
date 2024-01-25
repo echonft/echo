@@ -1,7 +1,9 @@
 import { getNoncesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-nonces-collection-reference'
-import { getQuerySnapshotDocumentData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-document-data'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import type { Nonce } from '@echo/firestore/types/model/nonce/nonce'
+import { pipe } from 'ramda'
 
-export async function findNonceForUser(userId: string) {
-  const querySnapshot = await getNoncesCollectionReference().where('userId', '==', userId).get()
-  return getQuerySnapshotDocumentData(querySnapshot)
+export function findNonceForUser(userId: string): Promise<Nonce | undefined> {
+  return pipe(getNoncesCollectionReference, queryWhere<Nonce>('userId', '==', userId), getQueryUniqueData)()
 }

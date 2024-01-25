@@ -1,1 +1,1 @@
-export const BUTTON_ACTIONS = ['reject'] as const
+export const BUTTON_ACTIONS = ['reject' as const] as const

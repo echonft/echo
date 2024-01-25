@@ -2,7 +2,7 @@
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { LISTING_STATE_CANCELLED } from '@echo/model/constants/listing-states'
-import { assertListingState } from '@echo/model/helpers/listing/assert/assert-listing-state'
+import { assertListingStateTransition } from '@echo/model/helpers/listing/assert/assert-listing-state-transition'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Listing } from '@echo/model/types/listing'
@@ -40,7 +40,7 @@ function canCancel(listing: Listing, user: AuthUser | undefined) {
     return false
   }
   try {
-    assertListingState(listing, LISTING_STATE_CANCELLED)
+    assertListingStateTransition(listing, LISTING_STATE_CANCELLED)
     return true
   } catch (e) {
     return false

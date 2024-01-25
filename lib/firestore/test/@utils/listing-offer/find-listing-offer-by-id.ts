@@ -1,7 +1,9 @@
+import { getListingOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-offers-collection-reference'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
-import { getListingOfferSnapshotById } from '@echo/firestore-test/listing-offer/get-listing-offer-snapshot-by-id'
+import { pipe } from 'ramda'
 
-export async function findListingOfferById(id: string): Promise<ListingOffer | undefined> {
-  const querySnapshot = await getListingOfferSnapshotById(id)
-  return querySnapshot?.data()
+export function findListingOfferById(id: string): Promise<ListingOffer | undefined> {
+  return pipe(getListingOffersCollectionReference, queryWhere('id', '==', id), getQueryUniqueData)()
 }

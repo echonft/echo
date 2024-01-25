@@ -3,8 +3,9 @@ import { offerDataConverter } from '@echo/firestore/converters/offer/offer-data-
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import type { Offer } from '@echo/model/types/offer'
+import type { CollectionReference } from 'firebase-admin/firestore'
 
-export function getOffersCollectionReference() {
+export function getOffersCollectionReference(): CollectionReference<Offer, OfferDocumentData> {
   return firestoreApp()
     .collection(CollectionReferenceName.OFFERS)
     .withConverter<Offer, OfferDocumentData>(offerDataConverter)

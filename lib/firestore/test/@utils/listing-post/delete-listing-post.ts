@@ -1,11 +1,8 @@
-import { getListingPostSnapshotById } from '@echo/firestore-test/listing-post/get-listing-post-snapshot-by-id'
+import { getListingPostsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listing-posts-collection-reference'
+import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { WriteResult } from 'firebase-admin/firestore'
-import { isNil } from 'ramda'
+import { pipe } from 'ramda'
 
-export async function deleteListingPost(id: string): Promise<WriteResult> {
-  const documentSnapshot = await getListingPostSnapshotById(id)
-  if (isNil(documentSnapshot)) {
-    throw Error(`listing post with id ${id} does not exist`)
-  }
-  return documentSnapshot.ref.delete()
+export function deleteListingPost(id: string): Promise<WriteResult> {
+  return pipe(getListingPostsCollectionReference, deleteReference(id))()
 }

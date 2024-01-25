@@ -1,6 +1,9 @@
-import { getCollectionSnapshotBySlug } from '@echo/firestore/crud/collection/get-collection-snapshot-by-slug'
+import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import type { Collection } from '@echo/model/types/collection'
+import { pipe } from 'ramda'
 
-export async function findCollectionBySlug(slug: string) {
-  const documentSnapshot = await getCollectionSnapshotBySlug(slug)
-  return documentSnapshot?.data()
+export function findCollectionBySlug(slug: string): Promise<Collection | undefined> {
+  return pipe(getCollectionsCollectionReference, queryWhere<Collection>('slug', '==', slug), getQueryUniqueData)()
 }

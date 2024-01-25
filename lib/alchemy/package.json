@@ -5,7 +5,7 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --cache --fix -c .eslintrc.cjs --ext .ts .",
+    "lint": "eslint --fix -c .eslintrc.cjs --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.cjs --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove": "rm -rf node_modules",

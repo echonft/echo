@@ -1,5 +1,5 @@
 import { BadRequestError } from '@echo/frontend/lib/helpers/error/bad-request-error'
-import { assertListingState as modelAssertListingState } from '@echo/model/helpers/listing/assert/assert-listing-state'
+import { assertListingStateTransition as modelAssertListingState } from '@echo/model/helpers/listing/assert/assert-listing-state-transition'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingState } from '@echo/model/types/listing-state'
 

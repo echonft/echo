@@ -1,11 +1,8 @@
-import { getCollectionSwapsCountSnapshotById } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-snapshot-by-id'
+import { getCollectionSwapsCountCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-swaps-count-collection-reference'
+import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { WriteResult } from 'firebase-admin/firestore'
-import { isNil } from 'ramda'
+import { pipe } from 'ramda'
 
-export async function deleteCollectionSwapsCount(id: string): Promise<WriteResult> {
-  const documentSnapshot = await getCollectionSwapsCountSnapshotById(id)
-  if (isNil(documentSnapshot)) {
-    throw Error(`nft collection swaps count with id ${id} does not exist`)
-  }
-  return documentSnapshot.ref.delete()
+export function deleteCollectionSwapsCount(id: string): Promise<WriteResult> {
+  return pipe(getCollectionSwapsCountCollectionReference, deleteReference(id))()
 }

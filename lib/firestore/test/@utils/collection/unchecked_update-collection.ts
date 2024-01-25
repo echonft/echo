@@ -1,13 +1,11 @@
-import { getCollectionSnapshotById } from '@echo/firestore/crud/collection/get-collection-snapshot-by-id'
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
+import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
+import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import { type Collection } from '@echo/model/types/collection'
-import { WriteResult } from 'firebase-admin/firestore'
+import { pipe } from 'ramda'
 
 export async function unchecked_updateCollection(
-  collectionId: string,
-  updateData: Partial<Omit<Collection, 'id'>>
-): Promise<WriteResult> {
-  const documentSnapshot = await getCollectionSnapshotById(collectionId)
-  assertQueryDocumentSnapshot(documentSnapshot)
-  return await documentSnapshot.ref.update(updateData)
+  id: string,
+  data: Partial<Omit<Collection, 'id'>>
+): Promise<Collection> {
+  return pipe(getCollectionsCollectionReference, updateReference<Collection>(id, data))()
 }

@@ -1,13 +1,11 @@
-import { assertQueryDocumentSnapshot } from '@echo/firestore/helpers/crud/assert/assert-query-document-snapshot'
+import { getCollectionSwapsCountCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-swaps-count-collection-reference'
+import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
-import { getCollectionSwapsCountSnapshotById } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-snapshot-by-id'
-import { WriteResult } from 'firebase-admin/firestore'
+import { pipe } from 'ramda'
 
-export async function unchecked_updateCollectionSwapCounts(
-  collectionSwapsCountId: string,
-  updateData: Partial<Omit<CollectionSwapsCount, 'id'>>
-): Promise<WriteResult> {
-  const documentSnapshot = await getCollectionSwapsCountSnapshotById(collectionSwapsCountId)
-  assertQueryDocumentSnapshot(documentSnapshot)
-  return await documentSnapshot.ref.update(updateData)
+export function unchecked_updateCollectionSwapCounts(
+  id: string,
+  data: Partial<Omit<CollectionSwapsCount, 'id'>>
+): Promise<CollectionSwapsCount> {
+  return pipe(getCollectionSwapsCountCollectionReference, updateReference<CollectionSwapsCount>(id, data))()
 }

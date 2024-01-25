@@ -1,5 +1,5 @@
-import { getAllListings } from '@echo/firestore/crud/listing/get-all-listings'
 import { deleteListing } from '@echo/firestore-test/listing/delete-listing'
+import { getAllListings } from '@echo/firestore-test/listing/get-all-listings'
 
 export async function clearListings() {
   const listings = await getAllListings()

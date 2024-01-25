@@ -1,13 +1,15 @@
 import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
-import { getQuerySnapshotDocumentData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-document-data'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { type Wallet } from '@echo/model/types/wallet'
-import { toLower } from 'ramda'
+import { pipe, toLower } from 'ramda'
 
-export async function findWalletByAddress(wallet: Wallet) {
-  const querySnapshot = await getWalletsCollectionReference()
-    .where('address', '==', toLower(wallet.address))
-    .where('chainId', '==', wallet.chainId)
-    .get()
-
-  return getQuerySnapshotDocumentData(querySnapshot)
+export function findWalletByAddress(wallet: Wallet): Promise<WalletDocumentData | undefined> {
+  return pipe(
+    getWalletsCollectionReference,
+    queryWhere<WalletDocumentData>('address', '==', toLower(wallet.address)),
+    queryWhere<WalletDocumentData>('chainId', '==', wallet.chainId),
+    getQueryUniqueData
+  )()
 }

@@ -12,7 +12,7 @@
       "persistent": true
     },
     "lint": {
-      "inputs": ["**/*.tsx", "**/*.ts", ".eslintrc.*"]
+      "cache": false
     },
     "lint:ci": {
       "cache": false
@@ -30,7 +30,7 @@
       "cache": false
     },
     "prettier": {
-      "inputs": ["**/*.tsx", "**/*.ts"]
+      "cache": false
     },
     "start": {
       "dependsOn": ["build"],
@@ -50,7 +50,7 @@
       "cache": false
     },
     "tsc": {
-      "inputs": ["**/*.tsx", "**/*.ts", "tsconfig.json"]
+      "cache": false
     },
     "tsc:ci": {
       "cache": false

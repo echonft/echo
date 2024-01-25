@@ -1,11 +1,8 @@
-import { getWalletSnapshotById } from '@echo/firestore/crud/wallet/get-wallet-snapshot-by-id'
+import { getWalletsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-wallets-collection-reference'
+import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { WriteResult } from 'firebase-admin/firestore'
-import { isNil } from 'ramda'
+import { pipe } from 'ramda'
 
-export async function deleteWallet(id: string): Promise<WriteResult> {
-  const documentSnapshot = await getWalletSnapshotById(id)
-  if (isNil(documentSnapshot)) {
-    throw Error(`wallet with id ${id} does not exist`)
-  }
-  return documentSnapshot.ref.delete()
+export function deleteWallet(id: string): Promise<WriteResult> {
+  return pipe(getWalletsCollectionReference, deleteReference(id))()
 }

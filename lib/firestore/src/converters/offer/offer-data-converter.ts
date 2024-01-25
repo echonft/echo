@@ -18,7 +18,7 @@ import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue
 import { dissoc, pipe } from 'ramda'
 
 export const offerDataConverter: FirestoreDataConverter<Offer> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData>) {
+  fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData>): Offer {
     return pipe(
       getSnapshotData<OfferDocumentData>,
       dissoc('receiverItemsNftIds'),
@@ -32,7 +32,7 @@ export const offerDataConverter: FirestoreDataConverter<Offer> = {
       setReadOnly
     )(snapshot)
   },
-  toFirestore(modelObject: WithFieldValue<Offer>) {
+  toFirestore(modelObject: WithFieldValue<Offer>): WithFieldValue<OfferDocumentData> {
     return pipe(
       addReceiverItemsNftIds,
       addReceiverItemsNftCollectionIds,
@@ -43,6 +43,6 @@ export const offerDataConverter: FirestoreDataConverter<Offer> = {
       lowerSenderItemsAddressesIfExists,
       lowerSenderWalletAddressIfExists,
       dissoc('readOnly')
-    )(modelObject as Partial<WithFieldValue<Offer>>) as WithFieldValue<OfferDocumentData>
+    )(modelObject) as WithFieldValue<OfferDocumentData>
   }
 }

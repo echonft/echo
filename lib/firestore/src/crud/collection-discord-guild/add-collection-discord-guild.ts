@@ -1,6 +1,7 @@
 import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
 import { getCollectionDiscordGuildsByCollectionId } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guilds-by-collection-id'
 import { getCollectionDiscordGuildsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-discord-guilds-collection-reference'
+import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import {
   type CollectionDiscordGuild,
   type CollectionDiscordGuildData
@@ -28,9 +29,5 @@ export async function addCollectionDiscordGuild(
       `trying to add discord guild with discordId ${guildDiscordId} and channelId ${guildChannelId} for nft collection with id ${collectionId} but this collection does not exist`
     )
   }
-  const reference = getCollectionDiscordGuildsCollectionReference().doc()
-  const id = reference.id
-  const newCollectionDiscordGuild: CollectionDiscordGuild = { id, collectionId, guild }
-  await reference.set(newCollectionDiscordGuild)
-  return newCollectionDiscordGuild
+  return pipe(getCollectionDiscordGuildsCollectionReference, setReference({ collectionId, guild }))()
 }

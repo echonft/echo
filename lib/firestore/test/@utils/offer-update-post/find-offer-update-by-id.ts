@@ -1,7 +1,10 @@
-import { getOfferUpdateSnapshotById } from '@echo/firestore/crud/offer-update/get-offer-update-snapshot-by-id'
+import { getOfferUpdatesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-updates-collection-reference'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer-update'
+import { pipe } from 'ramda'
 
 // noinspection JSUnusedGlobalSymbols
-export async function findOfferUpdateById(id: string) {
-  const documentSnapshot = await getOfferUpdateSnapshotById(id)
-  return documentSnapshot?.data()
+export function findOfferUpdateById(id: string): Promise<OfferUpdate | undefined> {
+  return pipe(getOfferUpdatesCollectionReference, queryWhere('id', '==', id), getQueryUniqueData)()
 }

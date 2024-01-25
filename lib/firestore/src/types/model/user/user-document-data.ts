@@ -1,4 +1,6 @@
 export interface UserDocumentData {
+  id: string
+  createdAt: number
   discord: {
     avatarUrl: string
     avatarDecorationUrl?: string
@@ -7,5 +9,6 @@ export interface UserDocumentData {
     id: string
     username: string
   }
+  updatedAt: number
   username: string
 }

@@ -7,7 +7,7 @@
     "build": "next build",
     "clean": "rm -rf .next",
     "dev": "next dev",
-    "lint": "eslint --cache --fix -c .eslintrc.js --ext .ts,.tsx .",
+    "lint": "eslint --fix -c .eslintrc.js --ext .ts,.tsx .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts,.tsx .",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove": "rm -rf node_modules",

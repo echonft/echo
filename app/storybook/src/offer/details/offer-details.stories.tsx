@@ -26,7 +26,7 @@ import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721
 import type { SignOfferArgs } from '@echo/web3/types/sign-offer-args'
 import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
-import { assoc, equals, ifElse, pipe, prop } from 'ramda'
+import { assoc, ifElse, pipe, propEq } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 type ComponentType = FunctionComponent<Record<'state', OfferState> & Record<'isCreator', boolean>>
@@ -88,14 +88,14 @@ type Story = StoryObj<ComponentType>
 
 export const Default: Story = {
   render: ({ state, isCreator }) => {
-    const renderedOffer = pipe<[Offer], Offer, Offer>(
+    const renderedOffer = pipe(
       assoc('state', state),
-      ifElse<[Offer], Offer, Offer>(
-        pipe(prop('state'), equals(OFFER_STATE_EXPIRED)),
+      ifElse(
+        propEq(OFFER_STATE_EXPIRED, 'state'),
         assoc('expiresAt', EXPIRED_DATE),
         assoc('expiresAt', NOT_EXPIRED_DATE)
       )
-    )(offer)
+    )(offer) as Offer
     return (
       <Component
         offer={renderedOffer}

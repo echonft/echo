@@ -28,7 +28,6 @@ jobs:
             app/bot, ./.coverage/app/bot/coverage-summary.json
             app/frontend, ./.coverage/app/frontend/coverage-summary.json
             lib/alchemy, ./.coverage/lib/alchemy/coverage-summary.json
-            lib/api, ./.coverage/lib/api/coverage-summary.json
             lib/firestore, ./.coverage/lib/firestore/coverage-summary.json
             lib/model, ./.coverage/lib/model/coverage-summary.json
             lib/ui, ./.coverage/lib/ui/coverage-summary.json                  
@@ -38,7 +37,6 @@ jobs:
             app/bot, ./.coverage/app/bot/junit.xml
             app/frontend, ./.coverage/app/frontend/junit.xml
             lib/alchemy, ./.coverage/lib/alchemy/junit.xml
-            lib/api, ./.coverage/lib/api/junit.xml
             lib/firestore, ./.coverage/lib/firestore/junit.xml
             lib/model, ./.coverage/lib/model/junit.xml
             lib/ui, ./.coverage/lib/ui/junit.xml                  

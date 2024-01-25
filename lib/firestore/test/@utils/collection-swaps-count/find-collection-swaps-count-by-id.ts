@@ -1,7 +1,9 @@
+import { getCollectionSwapsCountCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-swaps-count-collection-reference'
+import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
+import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
-import { getCollectionSwapsCountSnapshotById } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-snapshot-by-id'
+import { pipe } from 'ramda'
 
-export async function findCollectionSwapsCountById(id: string): Promise<CollectionSwapsCount | undefined> {
-  const querySnapshot = await getCollectionSwapsCountSnapshotById(id)
-  return querySnapshot?.data()
+export function findCollectionSwapsCountById(id: string): Promise<CollectionSwapsCount | undefined> {
+  return pipe(getCollectionSwapsCountCollectionReference, queryWhere('id', '==', id), getQueryUniqueData)()
 }

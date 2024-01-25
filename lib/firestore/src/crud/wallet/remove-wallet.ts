@@ -3,7 +3,7 @@ import { findWalletByAddress } from '@echo/firestore/crud/wallet/find-wallet-by-
 import { type Wallet } from '@echo/model/types/wallet'
 import { isNil } from 'ramda'
 
-export async function removeWallet(userId: string, wallet: Wallet) {
+export async function removeWallet(userId: string, wallet: Wallet): Promise<void> {
   const existingWallet = await findWalletByAddress(wallet)
   if (isNil(existingWallet) || existingWallet.userId !== userId) {
     throw Error(`wallet not associated with userId ${userId}`)

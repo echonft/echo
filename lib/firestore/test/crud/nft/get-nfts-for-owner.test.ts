@@ -1,8 +1,8 @@
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { includes, map, prop } from 'ramda'
 
 describe('CRUD - nft - getNftsForOwner', () => {
   beforeAll(async () => {
@@ -18,12 +18,15 @@ describe('CRUD - nft - getNftsForOwner', () => {
   })
 
   it('returns the nfts of the user', async () => {
-    const nfts = await getNftsForOwner('johnnycagewins')
+    let nfts = await getNftsForOwner('johnnycagewins')
     expect(nfts.length).toEqual(4)
-    const nftIds = map(prop('id'), nfts)
-    expect(includes('8hHFadIrrooORfTOLkBg', nftIds)).toBeTruthy()
-    expect(includes('QFjMRNChUAHNswkRADXh', nftIds)).toBeTruthy()
-    expect(includes('iRZFKEujarikVjpiFAkE', nftIds)).toBeTruthy()
-    expect(includes('XiDa6k2P7gxXCKSxn2wq', nftIds)).toBeTruthy()
+    for (const nft of nfts) {
+      expect(nft).toStrictEqual(getNftMockById(nft.id))
+    }
+    nfts = await getNftsForOwner('crewnft_')
+    expect(nfts.length).toEqual(2)
+    for (const nft of nfts) {
+      expect(nft).toStrictEqual(getNftMockById(nft.id))
+    }
   })
 })

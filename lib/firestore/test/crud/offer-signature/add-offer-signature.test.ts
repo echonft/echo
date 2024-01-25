@@ -1,6 +1,5 @@
 import { addOfferSignature } from '@echo/firestore/crud/offer-signature/add-offer-signature'
 import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-offer-signature'
-import type { User } from '@echo/firestore/types/model/user/user'
 import { deleteOfferSignature } from '@echo/firestore-test/offer-signature/delete-offer-signature'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
@@ -56,7 +55,7 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
     const user = await unchecked_addUser({
       username: 'not-receiver',
       discord: { avatarUrl: 'avatarUrl', username: 'discord-username', id: 'discord-id', bannerColor: 'color' }
-    } as User)
+    })
     createdUserId = user.id
     await expect(addOfferSignature({ offerId, userId: user.id, signature })).rejects.toBeDefined()
   })

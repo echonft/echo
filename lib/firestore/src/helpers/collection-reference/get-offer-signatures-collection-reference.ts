@@ -3,6 +3,6 @@ import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { OfferSignature } from '@echo/model/types/offer-signature'
 import { CollectionReference } from 'firebase-admin/firestore'
 
-export function getOfferSignaturesCollectionReference() {
+export function getOfferSignaturesCollectionReference(): CollectionReference<OfferSignature> {
   return firestoreApp().collection(CollectionReferenceName.OFFER_SIGNATURES) as CollectionReference<OfferSignature>
 }

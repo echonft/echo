@@ -2,16 +2,17 @@ import { OFFER_UPDATE_KIND_STATE } from '@echo/firestore/constants/offer/offer-u
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { findOfferStateUpdate } from '@echo/firestore/crud/offer-update/find-offer-state-update'
 import { getOfferUpdatesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-updates-collection-reference'
+import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import type { OfferStateUpdate } from '@echo/firestore/types/model/offer-update/offer-state-update'
 import type { OfferStateUpdateArgs } from '@echo/firestore/types/model/offer-update/offer-state-update-args'
 import { now } from '@echo/utils/helpers/now'
-import { isNil } from 'ramda'
+import { isNil, pipe } from 'ramda'
 
 export interface AddOfferStateUpdateArgs {
   offerId: string
   args: OfferStateUpdateArgs
 }
-export async function addOfferStateUpdate(args: AddOfferStateUpdateArgs) {
+export async function addOfferStateUpdate(args: AddOfferStateUpdateArgs): Promise<OfferStateUpdate> {
   const { offerId } = args
   const offer = await findOfferById(offerId)
   if (isNil(offer)) {
@@ -24,13 +25,12 @@ export async function addOfferStateUpdate(args: AddOfferStateUpdateArgs) {
   if (!isNil(offerStateUpdate)) {
     throw Error(`trying to add a state update to ${state} for offer with id ${offerId} but this update already exists`)
   }
-  const reference = getOfferUpdatesCollectionReference().doc()
-  const newOfferStateUpdate: OfferStateUpdate = {
-    id: reference.id,
-    offerId,
-    update: { kind: OFFER_UPDATE_KIND_STATE, args: args.args },
-    createdAt: now()
-  }
-  await reference.set(newOfferStateUpdate)
-  return newOfferStateUpdate
+  return pipe(
+    getOfferUpdatesCollectionReference<OfferStateUpdate>,
+    setReference<OfferStateUpdate>({
+      offerId,
+      update: { kind: OFFER_UPDATE_KIND_STATE, args: args.args },
+      createdAt: now()
+    })
+  )()
 }

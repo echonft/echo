@@ -15,12 +15,7 @@ async function render({ params: { slug }, user }: Params) {
   if (isNil(collection)) {
     notFound()
   }
-  const nfts = await getNftsForCollection(slug, {
-    orderBy: [
-      { field: 'owner.discord.username', direction: 'asc' },
-      { field: 'tokenId', direction: 'asc' }
-    ]
-  })
+  const nfts = await getNftsForCollection(slug)
   return <CollectionNftsApiProvided collection={collection} nfts={nfts} user={user} />
 }
 

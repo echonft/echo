@@ -1,6 +1,5 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
-import { LISTING_FILTER_AS_ITEM } from '@echo/firestore/constants/listing/listing-filter-as'
-import { getListingsForUser } from '@echo/firestore/crud/listing/get-listings-for-user'
+import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
@@ -15,13 +14,7 @@ async function render({ params: { username }, user }: Params) {
   if (user?.username === username) {
     redirect(linkProvider.profile.listingsCreated.get())
   }
-  const listings = await getListingsForUser(
-    username,
-    { as: LISTING_FILTER_AS_ITEM },
-    {
-      orderBy: [{ field: 'expiresAt', direction: 'desc' }]
-    }
-  )
+  const listings = await getListingsForCreator(username)
   return <UserListingsApiProvided user={user} username={username} listings={listings} />
 }
 

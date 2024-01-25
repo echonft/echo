@@ -15,7 +15,7 @@ import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue
 import { dissoc, pipe } from 'ramda'
 
 export const listingDataConverter: FirestoreDataConverter<Listing, ListingDocumentData> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<ListingDocumentData>) {
+  fromFirestore(snapshot: QueryDocumentSnapshot<ListingDocumentData>): Listing {
     return pipe(
       getSnapshotData<ListingDocumentData>,
       dissoc('itemsNftIds'),
@@ -27,7 +27,7 @@ export const listingDataConverter: FirestoreDataConverter<Listing, ListingDocume
       setReadOnly
     )(snapshot)
   },
-  toFirestore(modelObject: WithFieldValue<Listing>) {
+  toFirestore(modelObject: WithFieldValue<Listing>): WithFieldValue<ListingDocumentData> {
     return pipe(
       addItemsNftIds,
       addItemsNftCollectionIds,
@@ -36,6 +36,6 @@ export const listingDataConverter: FirestoreDataConverter<Listing, ListingDocume
       lowerItemsAddressesIfExists,
       lowerTargetsCollectionAddressIfExists,
       dissoc('readOnly')
-    )(modelObject as Partial<WithFieldValue<Listing>>) as WithFieldValue<ListingDocumentData>
+    )(modelObject) as WithFieldValue<ListingDocumentData>
   }
 }

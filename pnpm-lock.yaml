@@ -470,24 +470,12 @@ importers:
         specifier: 0.29.1
         version: 0.29.1
     devDependencies:
-      '@jest/globals':
-        specifier: 29.7.0
-        version: 29.7.0
-      '@jest/types':
-        specifier: 29.6.3
-        version: 29.6.3
       '@types/qs':
         specifier: 6.9.11
         version: 6.9.11
       '@types/ramda':
         specifier: 0.29.9
         version: 0.29.9
-      jest:
-        specifier: 29.7.0
-        version: 29.7.0(@types/node@20.11.0)(ts-node@10.9.2)
-      jest-junit:
-        specifier: 16.0.0
-        version: 16.0.0
       next:
         specifier: 14.0.4
         version: 14.0.4(@babel/core@7.23.7)(react-dom@18.2.0)(react@18.2.0)
@@ -10971,6 +10959,7 @@ packages:
   /event-target-shim@5.0.1:
     resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dev: false
 
   /eventemitter3@4.0.7:

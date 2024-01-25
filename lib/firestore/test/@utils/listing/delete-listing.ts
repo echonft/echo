@@ -1,11 +1,8 @@
-import { getListingSnapshotById } from '@echo/firestore/crud/listing/get-listing-snapshot-by-id'
+import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
+import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
 import { WriteResult } from 'firebase-admin/firestore'
-import { isNil } from 'ramda'
+import { pipe } from 'ramda'
 
-export async function deleteListing(id: string): Promise<WriteResult> {
-  const documentSnapshot = await getListingSnapshotById(id)
-  if (isNil(documentSnapshot)) {
-    throw Error('invalid listing id')
-  }
-  return documentSnapshot.ref.delete()
+export function deleteListing(id: string): Promise<WriteResult> {
+  return pipe(getListingsCollectionReference, deleteReference(id))()
 }

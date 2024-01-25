@@ -1,16 +1,14 @@
 import { getOfferThreadsCloseRequestsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-threads-close-requests-collection-reference'
-import type { OfferThreadCloseRequest } from '@echo/firestore/types/model/offer-thread-close-request/offer-thread-close-request'
+import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { now } from '@echo/utils/helpers/now'
-import { isNil } from 'ramda'
+import { isNil, pipe } from 'ramda'
 
-export async function unchecked_addOfferThreadCloseRequest(offerThreadId: string, closeAt?: number) {
-  const reference = getOfferThreadsCloseRequestsCollectionReference().doc()
-  const id = reference.id
-  const newOfferThreadCloseRequest: OfferThreadCloseRequest = {
-    id,
-    offerThreadId,
-    closeAt: isNil(closeAt) ? now() : closeAt
-  }
-  await reference.set(newOfferThreadCloseRequest)
-  return newOfferThreadCloseRequest
+export function unchecked_addOfferThreadCloseRequest(offerThreadId: string, closeAt?: number) {
+  return pipe(
+    getOfferThreadsCloseRequestsCollectionReference,
+    setReference({
+      offerThreadId,
+      closeAt: isNil(closeAt) ? now() : closeAt
+    })
+  )()
 }

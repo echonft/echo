@@ -1,3 +1,0 @@
-export const LISTING_FILTER_AS_ITEM = 'item'
-export const LISTING_FILTER_AS_TARGET = 'target'
-export const LISTING_FILTER_AS = [LISTING_FILTER_AS_ITEM, LISTING_FILTER_AS_TARGET] as const

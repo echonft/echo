@@ -50,7 +50,7 @@ export const ListingRowsContainer: FunctionComponent<Props> = ({ listings, hasOf
       </ListingRowsLayout>
       <ListingDetailsModal
         open={detailsModalOpen && !isNil(selectedListing)}
-        listing={selectedListing!}
+        listing={selectedListing}
         user={user}
         hasOffers={hasOffers}
         actions={{ onClose: closeModal }}

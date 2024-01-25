@@ -1,12 +1,8 @@
 import { getCollectionsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collections-collection-reference'
-import { getQuerySnapshotDocumentsData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-documents-data'
+import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import type { Collection } from '@echo/model/types/collection'
-import { andThen, invoker, pipe } from 'ramda'
+import { pipe } from 'ramda'
 
-export function getAllCollections() {
-  return pipe(
-    getCollectionsCollectionReference,
-    invoker(0, 'get'),
-    andThen(getQuerySnapshotDocumentsData<Collection>)
-  )()
+export function getAllCollections(): Promise<Collection[]> {
+  return pipe(getCollectionsCollectionReference, getQueryData)()
 }
