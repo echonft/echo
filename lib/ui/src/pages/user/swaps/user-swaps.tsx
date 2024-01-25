@@ -1,16 +1,17 @@
 import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
-import { CollectionSwapsEmpty } from '@echo/ui/pages/collection/swaps/collection-swaps-empty'
+import { UserSwapsEmpty } from '@echo/ui/pages/user/swaps/user-swaps-empty'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { isEmpty } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
+  username: string
   offers: OfferWithRole[]
 }
 
-export const CollectionSwaps: FunctionComponent<Props> = ({ offers }) => {
+export const UserSwaps: FunctionComponent<Props> = ({ username, offers }) => {
   if (isEmpty(offers)) {
-    return <CollectionSwapsEmpty />
+    return <UserSwapsEmpty username={username} />
   }
   return <OfferCardsContainer offers={offers} options={{ asLink: true }} />
 }

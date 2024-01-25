@@ -5,7 +5,7 @@ import { getCollectionsWithSwapsCount } from '@echo/frontend/lib/helpers/collect
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { PAGE_LAYOUT_BG_HOME } from '@echo/ui/constants/page-layout-background'
-import { Home } from '@echo/ui/pages/home/home'
+import { HomePage } from '@echo/ui/pages/home/home-page'
 import { pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
@@ -14,7 +14,7 @@ async function render({ user }: NextUserParams) {
   const offers = await getCompletedOffers(5)
   return (
     <PageLayout user={user} background={PAGE_LAYOUT_BG_HOME}>
-      <Home collections={collections} offers={offers} />
+      <HomePage collections={collections} offers={offers} />
     </PageLayout>
   )
 }

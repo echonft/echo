@@ -3,7 +3,7 @@ import { SwapRow } from '@echo/ui/components/swap/row/swap-row'
 import { HomeSectionLayout } from '@echo/ui/pages/home/layout/home-section-layout'
 import { RecentSwapsLayout } from '@echo/ui/pages/home/swap/layout/recent-swaps-layout'
 import { useTranslations } from 'next-intl'
-import { map } from 'ramda'
+import { isEmpty, map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -12,6 +12,10 @@ interface Props {
 
 export const RecentSwaps: FunctionComponent<Props> = ({ offers }) => {
   const t = useTranslations('home.recentSwaps')
+
+  if (isEmpty(offers)) {
+    return null
+  }
   return (
     <HomeSectionLayout title={t('title')}>
       <RecentSwapsLayout>

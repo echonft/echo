@@ -7,7 +7,7 @@ import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { NewListingBannerManager } from '@echo/ui/components/listing/new/new-listing-banner-manager'
 import { NewOfferBannerManager } from '@echo/ui/components/offer/new/new-offer-banner-manager'
-import { ProfileDetailsApiProvided } from '@echo/ui/components/profile/api-provided/profile-details-api-provided'
+import { ProfileDetails } from '@echo/ui/components/profile/api-provided/profile-details'
 import { ProfileNftsApiProvided } from '@echo/ui/components/profile/api-provided/profile-nfts-api-provided'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -38,7 +38,7 @@ export const SelectingOwnItems: Story = {
         <NewOfferBannerManager />
         <NewListingBannerManager />
         <SectionLayout>
-          <ProfileDetailsApiProvided user={user} />
+          <ProfileDetails user={user} />
         </SectionLayout>
         <SectionLayout>
           <RouteChangesProvider>

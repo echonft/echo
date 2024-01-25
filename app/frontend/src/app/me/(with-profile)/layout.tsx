@@ -6,7 +6,7 @@ import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { NewListingBannerManager } from '@echo/ui/components/listing/new/new-listing-banner-manager'
 import { NewOfferBannerManager } from '@echo/ui/components/offer/new/new-offer-banner-manager'
-import { ProfileDetailsApiProvided } from '@echo/ui/components/profile/api-provided/profile-details-api-provided'
+import { ProfileDetails } from '@echo/ui/components/profile/api-provided/profile-details'
 import { pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
@@ -16,7 +16,7 @@ function render({ user, children }: NextUserParams<NextLayoutParams>) {
       <NewOfferBannerManager />
       <NewListingBannerManager />
       <SectionLayout>
-        <ProfileDetailsApiProvided user={user} />
+        <ProfileDetails user={user} />
       </SectionLayout>
       <SectionLayout>{children}</SectionLayout>
     </NavigationPageLayout>

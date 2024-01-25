@@ -1,4 +1,3 @@
-'use client'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EmptyViewContent } from '@echo/ui/components/base/navigation/empty-view-content'
 import { clsx } from 'clsx'

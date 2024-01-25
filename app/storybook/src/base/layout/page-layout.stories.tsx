@@ -5,11 +5,11 @@ import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
-import { UserDetailsApiProvided } from '@echo/ui/components/user/api-provided/user-details-api-provided'
-import { UserNftsApiProvided } from '@echo/ui/components/user/api-provided/user-nfts-api-provided'
+import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { CALLOUT_SEVERITY_INFO } from '@echo/ui/constants/callout-severity'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { useBannerStore } from '@echo/ui/hooks/use-banner-store'
+import { UserNfts } from '@echo/ui/pages/user/nfts/user-nfts'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent, useEffect } from 'react'
 
@@ -67,10 +67,10 @@ export const Default: Story = {
     return (
       <NavigationPageLayout user={user}>
         <SectionLayout>
-          <UserDetailsApiProvided user={user as UserProfile} />
+          <UserDetails user={user as UserProfile} />
         </SectionLayout>
         <SectionLayout>
-          <UserNftsApiProvided nfts={getAllNftMocks()} username={user.username} />
+          <UserNfts nfts={getAllNftMocks()} />
         </SectionLayout>
       </NavigationPageLayout>
     )

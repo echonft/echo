@@ -4,7 +4,9 @@ import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
-import { UserNftsApiProvided } from '@echo/ui/components/user/api-provided/user-nfts-api-provided'
+import { NAVIGATION_NFTS } from '@echo/ui/constants/navigation-item'
+import { UserNavigationLayout } from '@echo/ui/pages/user/navigation/user-navigation-layout'
+import { UserNfts } from '@echo/ui/pages/user/nfts/user-nfts'
 import { redirect } from 'next/navigation'
 import { pipe } from 'ramda'
 import type { ReactElement } from 'react'
@@ -15,7 +17,11 @@ async function render({ params: { username }, user }: Params) {
     redirect(linkProvider.profile.items.get())
   }
   const nfts = await getNftsForOwner(username)
-  return <UserNftsApiProvided username={username} nfts={nfts} />
+  return (
+    <UserNavigationLayout username={username} activeNavigationItem={NAVIGATION_NFTS}>
+      <UserNfts nfts={nfts} />
+    </UserNavigationLayout>
+  )
 }
 
 export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)
