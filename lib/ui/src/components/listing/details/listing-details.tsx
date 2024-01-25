@@ -21,6 +21,7 @@ import { ListingDetailsTargetCollectionTitle } from '@echo/ui/components/listing
 import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
 import { ListingDetailsUserNftsLayout } from '@echo/ui/components/listing/layout/listing-details-user-nfts-layout'
 import { SelectableNftsContainer } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards-container'
+import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
 import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
 import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
@@ -35,6 +36,7 @@ import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import { clsx } from 'clsx'
@@ -50,10 +52,16 @@ interface Props {
   }
   user: AuthUser
   userTargetNfts: Nft[] | undefined
-  offers: Offer[] | undefined
+  offers: OfferWithRole[] | undefined
 }
 
-export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, user, userTargetNfts = [] }) => {
+export const ListingDetails: FunctionComponent<Props> = ({
+  listing,
+  fetcher,
+  user,
+  userTargetNfts = [],
+  offers = []
+}) => {
   const tError = useTranslations('error.listing')
   const [selectableNfts, setSelectableNfts] = useState(
     map<Nft, SelectableNft>(assoc('actionDisabled', true), userTargetNfts)
@@ -154,7 +162,10 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
           <div className={clsx('flex', isCreator && 'justify-center', !isCreator && 'justify-end')}>
             <ListingDetailsTargetContainer target={target} />
           </div>
-          <HideIf condition={isCreator}>
+          <HideIf condition={!isCreator}>
+            <OfferCardsContainer offers={offers} options={{ asLink: true }} />
+          </HideIf>
+          <HideIf condition={isCreator || listing.readOnly}>
             <ListingDetailsUserNftsLayout>
               <ListingDetailsTargetCollectionTitle title={target.collection.name} />
               <SelectableNftsContainer

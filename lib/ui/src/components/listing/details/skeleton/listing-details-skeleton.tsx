@@ -7,6 +7,7 @@ import { ListingOfferUserDetailsRoundedUserWalletSkeleton } from '@echo/ui/compo
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
+// FIXME This needs to be updated to new view
 export const ListingDetailsSkeleton: FunctionComponent = () => (
   <div className={clsx('flex', 'flex-col', 'gap-16', 'p-4', 'rounded-lg', 'bg-white/[0.05]')}>
     <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center')}>
