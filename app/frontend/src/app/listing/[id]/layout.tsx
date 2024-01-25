@@ -7,7 +7,6 @@ import { BackButtonLayout } from '@echo/ui/components/base/layout/back-button-la
 import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
-import { ListingBannerManager } from '@echo/ui/components/listing/details/listing-banner-manager'
 import { getTranslations } from 'next-intl/server'
 import { pipe } from 'ramda'
 import type { ReactElement } from 'react'
@@ -17,7 +16,6 @@ async function render({ user, children }: NextUserParams<NextLayoutParams>) {
 
   return (
     <NavigationPageLayout user={user}>
-      <ListingBannerManager />
       <SectionLayout>
         <DetailsPaddedContainer>
           <BackButtonLayout title={t('backBtn.label')} path={linkProvider.profile.default.get()}>

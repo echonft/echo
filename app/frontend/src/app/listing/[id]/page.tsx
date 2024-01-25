@@ -19,7 +19,7 @@ async function render({ params: { id }, user }: Params) {
   if (isNil(listing)) {
     notFound()
   }
-  // TODO Add userTargetNfts to listing
+  // TODO Add userTargetNfts and listing's offers
   return <ListingDetailsPage listing={listing} user={user} userTargetNfts={[]} offers={[]} />
 }
 
