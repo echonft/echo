@@ -12,12 +12,12 @@ import { type FunctionComponent } from 'react'
 
 dayjs.extend(relativeTime)
 
-interface Props {
+export interface ListingRowProps {
   listing: Listing
   onViewDetailsClick?: (listing: Listing) => void
 }
 
-export const ListingRow: FunctionComponent<Props> = ({ listing, onViewDetailsClick }) => {
+export const ListingRow: FunctionComponent<ListingRowProps> = ({ listing, onViewDetailsClick }) => {
   const t = useTranslations('listing.details')
   const expired = listing.state === LISTING_STATE_EXPIRED
   return (

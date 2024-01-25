@@ -22,9 +22,11 @@ export const linkProvider = {
   collection: {
     all: new Path({ path: '/collections' }),
     items: new Path<CollectionPathArgs>({ path: '/collection/:slug/items' }),
-    listing: new Path<CollectionPathArgs & ListingPathArgs>({ path: '/collection/:slug/listing/:listingId' }),
     listings: new Path<CollectionPathArgs>({ path: '/collection/:slug/listings' }),
     swaps: new Path<CollectionPathArgs>({ path: '/collection/:slug/swaps' })
+  },
+  listing: {
+    details: new Path<ListingPathArgs>({ path: '/listing/:listingId' })
   },
   profile: {
     default: new Path({ path: '/me', secure: true }),
