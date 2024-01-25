@@ -13,7 +13,7 @@ import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
-import { always, assoc, ifElse, pipe, when } from 'ramda'
+import { always, assoc, ifElse, mergeLeft, pipe, when } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 type ComponentType = FunctionComponent<
@@ -35,14 +35,14 @@ const creator = getAuthUserMockByUsername(listing.creator.username)
 const target = getAuthUserMockByUsername('crewnft_')
 const targetNfts = [
   getNftMockById('XiDa6k2P7gxXCKSxn2wq'),
-  getNftMockById('XiDa6k2P7gxXCKSxn2wq'),
-  getNftMockById('XiDa6k2P7gxXCKSxn2wq')
+  assoc('id', '1')(getNftMockById('XiDa6k2P7gxXCKSxn2wq')),
+  assoc('id', '2')(getNftMockById('XiDa6k2P7gxXCKSxn2wq'))
 ]
 const ownerOffers = [getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'), getOfferMockById('ASkFpKoHEHVH0gd69t1G')]
 function cancelListing(_args: CancelListingArgs) {
   return delayPromise(
     Promise.resolve({
-      listing: assoc('state', LISTING_STATE_CANCELLED, listing)
+      listing: mergeLeft({ state: LISTING_STATE_CANCELLED, readOnly: true }, listing)
     }),
     800
   )
@@ -99,7 +99,7 @@ export const Default: Story = {
     const renderedListing = pipe(
       ifElse(
         always(expired),
-        pipe(assoc('expiresAt', EXPIRED_DATE), assoc('state', LISTING_STATE_EXPIRED)),
+        mergeLeft({ expiresAt: EXPIRED_DATE, state: LISTING_STATE_EXPIRED, readOnly: true }),
         assoc('expiresAt', NOT_EXPIRED_DATE)
       ),
       when(always(readOnly), assoc('readOnly', true)),

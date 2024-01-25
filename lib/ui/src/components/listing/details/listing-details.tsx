@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client'
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
+import type { OfferItemRequest } from '@echo/api/types/requests/offer-item-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
+import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
+import type { Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
@@ -17,6 +21,7 @@ import { ListingDetailsTargetCollectionTitle } from '@echo/ui/components/listing
 import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
 import { ListingDetailsUserNftsLayout } from '@echo/ui/components/listing/layout/listing-details-user-nfts-layout'
 import { SelectableNftsContainer } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards-container'
+import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
 import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { enable } from '@echo/ui/helpers/disableable/enable'
@@ -28,12 +33,13 @@ import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-coun
 import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selection-in-list'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { assoc, head, map, mergeRight, pipe, propEq } from 'ramda'
+import { assoc, filter, head, isNil, isNotNil, map, mergeLeft, pipe, prop, propEq } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
@@ -53,15 +59,30 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
     map<Nft, SelectableNft>(assoc('actionDisabled', true), userTargetNfts)
   )
   const [updatedListing, setUpdatedListing] = useState(listing)
-  const { trigger, isMutating } = useSWRTrigger<ListingResponse, CancelListingArgs>({
+  const [createdOffer, setCreatedOffer] = useState<Offer>()
+  const { trigger: triggerCancel, isMutating: cancelIsMutating } = useSWRTrigger<ListingResponse, CancelListingArgs>({
     key: SWRKeys.listing.cancel(listing),
     fetcher: fetcher.cancelListing,
     onSuccess: (response) => {
-      setUpdatedListing((prevState) => mergeRight({ ...prevState }, response.listing))
+      setUpdatedListing(mergeLeft({ ...response.listing }))
     },
     onError: {
       contexts: listingContext(listing),
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') }
+    }
+  })
+
+  const { trigger: triggerFill, isMutating: fillIsMutating } = useSWRTrigger<OfferResponse, CreateOfferRequest>({
+    key: SWRKeys.offer.create,
+    fetcher: fetcher.createOffer,
+    onSuccess: (response) => {
+      // @ts-ignore
+      setCreatedOffer(mergeLeft({ ...response.offer }))
+    },
+    onError: {
+      // TODO Not sure how to get the context here
+      contexts: offerContext({}),
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('fill') }
     }
   })
 
@@ -79,12 +100,33 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
   useEffect(() => {
     setUpdatedListing(listing)
   }, [listing])
+
   const { state, readOnly, creator, expiresAt, items, targets } = updatedListing
   // TODO Validate this behaviour, we only allow 1 target per listing atm right?
   const target = head(targets)!
   // TODO Validate this behaviour, should we allow user to select more than amount or only amount?
-  const hasSelectedEnoughNfts = selectableNfts.length >= target.amount
+  const hasSelectedEnoughNfts = filter<SelectableNft>(prop('selected'))(selectableNfts).length >= target.amount
   const isCreator = isListingRoleCreator(listing)
+  const isMutating = cancelIsMutating || fillIsMutating
+
+  function onFill(listing: Listing) {
+    const senderItems: OfferItemRequest[] = selectableNfts
+      .map((nft) => (nft.selected ? { amount: 1, nft } : undefined))
+      .filter(isNotNil)
+    // FIXME
+    // pipe<[SelectableNft[]], (OfferItemRequest | undefined)[], OfferItemRequest[]>(
+    //   map(
+    //     // @ts-ignore
+    //       ifElse(prop('selected'), mergeLeft({ amount: 1, nft: undefined }), undefined)
+    //   ),
+    //   filter(isNotNil)
+    // )(selectableNfts)
+    const receiverItems: OfferItemRequest[] = mapItemsToRequests(listing.items)
+    void triggerFill({
+      senderItems,
+      receiverItems
+    })
+  }
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-20', 'p-4')}>
@@ -127,10 +169,15 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
       </div>
       {/* TODO Adjust props with all calls */}
       <ListingDetailsButtonsContainer
-        listing={listing}
+        listing={updatedListing}
         isMutating={isMutating}
         hasSelectedEnoughNfts={hasSelectedEnoughNfts}
-        actions={{ onCancel: (listing) => void trigger({ listingId: listing.id }) }}
+        actions={{ onCancel: (listing) => void triggerCancel({ listingId: listing.id }), onFill: onFill }}
+      />
+      <NewOfferConfirmedModal
+        offer={createdOffer}
+        open={!isNil(createdOffer)}
+        onClose={() => setCreatedOffer(undefined)}
       />
     </div>
   )

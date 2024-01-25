@@ -14,7 +14,7 @@ interface Props {
   hasSelectedEnoughNfts?: boolean
   actions?: {
     onCancel?: (listing: Listing) => void
-    onFill?: VoidFunction
+    onFill?: (listing: Listing) => void
     onViewOffers?: VoidFunction
   }
 }
@@ -33,7 +33,7 @@ export const ListingDetailsButtonsContainer: FunctionComponent<Props> = ({
   const isCreator = isListingRoleCreator(listing)
 
   return (
-    <>
+    <div className={clsx('flex', 'flex-row', 'justify-center', 'pb-5')}>
       <ShowIf condition={isCreator && !listing.readOnly}>
         <LongPressButton
           id={'listing-details-modal-cancel-button'}
@@ -44,15 +44,14 @@ export const ListingDetailsButtonsContainer: FunctionComponent<Props> = ({
         />
       </ShowIf>
       <ShowIf condition={!isCreator}>
-        <div className={clsx('flex', 'flex-row', 'justify-center', 'pb-5')}>
-          <button
-            className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
-            disabled={isMutating || !hasSelectedEnoughNfts}
-          >
-            <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('fillBtn.label')}</span>
-          </button>
-        </div>
+        <button
+          className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
+          disabled={isMutating || !hasSelectedEnoughNfts}
+          onClick={() => actions?.onFill?.(listing)}
+        >
+          <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('fillBtn.label')}</span>
+        </button>
       </ShowIf>
-    </>
+    </div>
   )
 }

@@ -84,7 +84,8 @@ export const messages = {
   error: {
     listing: {
       cancel: 'An error occurred while trying to cancel the listing. Please try again',
-      new: 'An error occurred while trying to create the listing. Please try again'
+      new: 'An error occurred while trying to create the listing. Please try again',
+      fill: 'An error occurred while trying to fill the listing. Please try again'
     },
     offer: {
       accept: 'An error occurred while trying to accept the offer. Please try again',
