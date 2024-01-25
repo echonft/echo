@@ -23,7 +23,7 @@ export interface CompleteOfferArgs {
   transactionId: string
   updateArgs: Omit<OfferStateUpdateArgs, 'state'>
 }
-export async function completeOffer(args: CompleteOfferArgs) {
+export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
   const offer = await pipe<
     [CompleteOfferArgs],
     Omit<CompleteOfferArgs, 'transactionId'>,

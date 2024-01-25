@@ -6,10 +6,10 @@ import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue
 import { dissoc, pipe } from 'ramda'
 
 export const nonceDataConverter: FirestoreDataConverter<Nonce> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<NonceDocumentData>) {
+  fromFirestore(snapshot: QueryDocumentSnapshot<NonceDocumentData>): Nonce {
     return pipe(getSnapshotData<NonceDocumentData>, setExpiredProp)(snapshot)
   },
-  toFirestore(modelObject: WithFieldValue<Nonce>) {
-    return dissoc('expired')(modelObject)
+  toFirestore(modelObject: WithFieldValue<Nonce>): WithFieldValue<Nonce> {
+    return dissoc('expired', modelObject) as WithFieldValue<Nonce>
   }
 }

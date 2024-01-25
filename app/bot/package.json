@@ -7,7 +7,7 @@
     "build": "tsc && pnpm run sentry:sourcemaps",
     "clean": "rm -rf dist",
     "dev": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"ts-node --project tsconfig.json src/index.ts\"",
-    "lint": "eslint --cache --fix -c .eslintrc.cjs --ext .ts .",
+    "lint": "eslint --fix -c .eslintrc.cjs --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.cjs --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove": "rm -rf node_modules",

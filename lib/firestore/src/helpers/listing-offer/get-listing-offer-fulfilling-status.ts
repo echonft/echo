@@ -8,7 +8,7 @@ export function getListingOfferFulfillingStatus(
   listing: Listing,
   targetsFulfillingOfferItems: OfferItem[],
   itemsFulfillingOfferItems: OfferItem[]
-) {
+): ListingOfferFulfillingStatus {
   const { items, targets } = listing
   const targetsFulfillingStatus = getListingTargetsFulfillingStatus(targets, targetsFulfillingOfferItems)
   const itemsFulfillingStatus = getListingItemsFulfillingStatus(items, itemsFulfillingOfferItems)

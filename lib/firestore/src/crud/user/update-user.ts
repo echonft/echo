@@ -4,7 +4,7 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { now } from '@echo/utils/helpers/now'
-import { always, isNil, mergeDeepLeft, pipe } from 'ramda'
+import { isNil, pipe } from 'ramda'
 
 export async function updateUser(data: Pick<UserDocumentData, 'discord'>): Promise<UserDocumentData> {
   const existingUser = await findUserByDiscordId(data.discord.id)
@@ -14,9 +14,5 @@ export async function updateUser(data: Pick<UserDocumentData, 'discord'>): Promi
       setReference({ ...data, username: data.discord.username, createdAt: now(), updatedAt: now() })
     )()
   }
-  return pipe(
-    getUsersCollectionReference,
-    updateReference(existingUser.id, data),
-    always(mergeDeepLeft(data, existingUser))
-  )()
+  return pipe(getUsersCollectionReference, updateReference<UserDocumentData>(existingUser.id, data))()
 }

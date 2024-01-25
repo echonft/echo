@@ -8,14 +8,14 @@ import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue
 import { pipe } from 'ramda'
 
 export const nftDataConverter: FirestoreDataConverter<Nft> = {
-  fromFirestore(snapshot: QueryDocumentSnapshot<Nft>) {
+  fromFirestore(snapshot: QueryDocumentSnapshot<Nft>): Nft {
     return pipe<[QueryDocumentSnapshot<Nft, Nft>], Nft, Nft, Nft>(
       getSnapshotData<Nft, Nft>,
       lowerCollectionAddress,
       lowerOwnerWalletAddress
     )(snapshot)
   },
-  toFirestore(modelObject: WithFieldValue<Nft>) {
+  toFirestore(modelObject: WithFieldValue<Nft>): WithFieldValue<Nft> {
     return pipe(lowerCollectionAddressIfExists, lowerOwnerWalletAddressIfExists)(modelObject)
   }
 }

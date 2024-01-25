@@ -7,7 +7,7 @@ import { isIn } from '@echo/utils/fp/is-in'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { map, pipe, prop, reject } from 'ramda'
 
-export async function addListingOffersFromOffer(offer: Offer) {
+export async function addListingOffersFromOffer(offer: Offer): Promise<ListingOffer[]> {
   const listingOffers = await getListingOffersForOffer(offer)
   if (isNonEmptyArray(listingOffers)) {
     const existingListingOffers = await getListingOffersByOfferId(offer.id)
@@ -19,5 +19,5 @@ export async function addListingOffersFromOffer(offer: Offer) {
       }, newListingOffers)
     )
   }
-  return [] as ListingOffer[]
+  return []
 }

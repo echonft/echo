@@ -17,7 +17,7 @@ export async function addListing(items: OfferItem[], targets: ListingTarget[]): 
   assertListingTargets(targets)
   assertListingItems(items)
   await assertListingIsNotADuplicate(items, targets)
-  const newListing: Listing = await pipe(
+  const newListing = await pipe(
     getListingsCollectionReference,
     setReference({
       creator: head(items).nft.owner,

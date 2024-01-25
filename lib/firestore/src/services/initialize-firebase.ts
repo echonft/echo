@@ -1,9 +1,13 @@
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { cert, getApps, initializeApp } from 'firebase-admin/app'
-import { getFirestore, initializeFirestore as firebaseInitializeFirestore } from 'firebase-admin/firestore'
+import {
+  type Firestore,
+  getFirestore,
+  initializeFirestore as firebaseInitializeFirestore
+} from 'firebase-admin/firestore'
 import { head, isEmpty, isNil } from 'ramda'
 
-export function initializeFirebase() {
+export function initializeFirebase(): Firestore {
   const apps = getApps()
   if (isNonEmptyArray(apps)) {
     return getFirestore(head(apps))

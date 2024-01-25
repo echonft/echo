@@ -5,7 +5,7 @@ import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
-import { always, inc, isNil, modify, pick, pipe } from 'ramda'
+import { inc, isNil, pipe } from 'ramda'
 
 export async function increaseCollectionSwapsCount(collectionId: string): Promise<CollectionSwapsCount> {
   const collection = await findCollectionById(collectionId)
@@ -22,10 +22,8 @@ export async function increaseCollectionSwapsCount(collectionId: string): Promis
   if (isNil(existingSwapsCount)) {
     return pipe(getCollectionSwapsCountCollectionReference, setReference({ collectionId, swapsCount: 1 }))()
   }
-  const updatedSwapsCount = modify('swapsCount', inc, existingSwapsCount)
   return pipe(
     getCollectionSwapsCountCollectionReference,
-    updateReference(existingSwapsCount.id, pick(['swapsCount'], updatedSwapsCount)),
-    always(updatedSwapsCount)
+    updateReference<CollectionSwapsCount>(existingSwapsCount.id, { swapsCount: inc(existingSwapsCount.swapsCount) })
   )()
 }

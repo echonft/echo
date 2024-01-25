@@ -14,7 +14,7 @@ export interface AcceptOfferArgs {
   signature: HexString
   updateArgs: Omit<OfferStateUpdateArgs, 'state'>
 }
-export async function acceptOffer(args: AcceptOfferArgs) {
+export async function acceptOffer(args: AcceptOfferArgs): Promise<Offer> {
   const offer = await pipe<
     [AcceptOfferArgs],
     Omit<AcceptOfferArgs, 'userId' | 'signature'>,

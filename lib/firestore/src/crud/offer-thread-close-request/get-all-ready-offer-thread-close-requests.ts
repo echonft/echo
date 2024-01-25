@@ -5,7 +5,7 @@ import type { OfferThreadCloseRequest } from '@echo/firestore/types/model/offer-
 import { now } from '@echo/utils/helpers/now'
 import { pipe } from 'ramda'
 
-export async function getAllReadyOfferThreadCloseRequests(): Promise<OfferThreadCloseRequest[]> {
+export function getAllReadyOfferThreadCloseRequests(): Promise<OfferThreadCloseRequest[]> {
   return pipe(
     getOfferThreadsCloseRequestsCollectionReference,
     queryWhere<OfferThreadCloseRequest>('closeAt', '<', now()),
