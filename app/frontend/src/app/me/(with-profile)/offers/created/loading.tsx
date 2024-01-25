@@ -1,9 +1,14 @@
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { ProfileOffersSkeleton } from '@echo/ui/components/profile/offer/skeleton/profile-offers-skeleton'
 import { NAVIGATION_OFFERS_CREATED } from '@echo/ui/constants/navigation-item'
+import { ProfileNavigationLayoutSkeleton } from '@echo/ui/pages/profile/navigation/profile-navigation-layout-skeleton'
+import { ProfileOffersSkeleton } from '@echo/ui/pages/profile/offers/profile-offers-skeleton'
 
 function render() {
-  return <ProfileOffersSkeleton activeNavigationItem={NAVIGATION_OFFERS_CREATED} />
+  return (
+    <ProfileNavigationLayoutSkeleton activeNavigationItem={NAVIGATION_OFFERS_CREATED}>
+      <ProfileOffersSkeleton />
+    </ProfileNavigationLayoutSkeleton>
+  )
 }
 
 export default withLocale(render)

@@ -7,9 +7,9 @@ import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { NewListingBannerManager } from '@echo/ui/components/listing/new/new-listing-banner-manager'
 import { NewOfferBannerManager } from '@echo/ui/components/offer/new/new-offer-banner-manager'
-import { ProfileDetails } from '@echo/ui/components/profile/api-provided/profile-details'
-import { ProfileNftsApiProvided } from '@echo/ui/components/profile/api-provided/profile-nfts-api-provided'
 import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
+import { ProfileNfts } from '@echo/ui/pages/profile/nfts/profile-nfts'
+import { ProfileDetails } from '@echo/ui/pages/profile/profile-details'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { RouteChangesProvider } from 'nextjs-router-events'
 import { type FunctionComponent, useEffect } from 'react'
@@ -39,7 +39,7 @@ export const SelectingItems: Story = {
         </SectionLayout>
         <SectionLayout>
           <RouteChangesProvider>
-            <ProfileNftsApiProvided nfts={getAllNftMocks()} user={user} />
+            <ProfileNfts nfts={getAllNftMocks()} user={user} />
           </RouteChangesProvider>
         </SectionLayout>
       </NavigationPageLayout>

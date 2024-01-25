@@ -6,7 +6,7 @@ import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { NewListingBannerManager } from '@echo/ui/components/listing/new/new-listing-banner-manager'
 import { NewOfferBannerManager } from '@echo/ui/components/offer/new/new-offer-banner-manager'
-import { ProfileDetails } from '@echo/ui/components/profile/api-provided/profile-details'
+import { ProfileDetails } from '@echo/ui/pages/profile/profile-details'
 import { pipe } from 'ramda'
 import type { ReactElement } from 'react'
 

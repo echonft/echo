@@ -11,7 +11,7 @@ import { BackButtonLayout } from '@echo/ui/components/base/layout/back-button-la
 import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
-import { OfferDetailsApiProvided } from '@echo/ui/components/offer/api-provided/offer-details-api-provided'
+import { ProfileOfferDetails } from '@echo/ui/pages/profile/offer/profile-offer-details'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { isNil, pipe } from 'ramda'
@@ -31,7 +31,7 @@ async function render({ params: { id }, user }: Params) {
       <SectionLayout>
         <DetailsPaddedContainer>
           <BackButtonLayout title={t('backBtn.label')} path={linkProvider.profile.default.get()}>
-            <OfferDetailsApiProvided offer={updatedOffer} user={user} />
+            <ProfileOfferDetails offer={updatedOffer} user={user} />
           </BackButtonLayout>
         </DetailsPaddedContainer>
       </SectionLayout>

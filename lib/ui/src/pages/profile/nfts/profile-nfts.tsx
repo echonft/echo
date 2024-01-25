@@ -1,23 +1,19 @@
 'use client'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Nft } from '@echo/model/types/nft'
-import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
-import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { NewListingDiscardModal } from '@echo/ui/components/listing/new/new-listing-discard-modal'
 import { SelectableNftGroupsAndFiltersContainer } from '@echo/ui/components/nft/filters/layout/selectable-nft-groups-and-filters-container'
 import { NewOfferDiscardModal } from '@echo/ui/components/offer/new/new-offer-discard-modal'
-import { ProfileNavigationLayout } from '@echo/ui/components/profile/navigation/profile-navigation-layout'
-import { ProfileNftsEmpty } from '@echo/ui/components/profile/nft/empty/profile-nfts-empty'
-import { NAVIGATION_NFTS } from '@echo/ui/constants/navigation-item'
 import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { mapNftToItem } from '@echo/ui/mappers/to-api/map-nft-to-item'
+import { ProfileNftsEmpty } from '@echo/ui/pages/profile/nfts/profile-nfts-empty'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { useTranslations } from 'next-intl'
 import { useRouteChangeEvents } from 'nextjs-router-events'
-import { assoc, dissoc, map, pipe } from 'ramda'
+import { assoc, dissoc, isEmpty, map, pipe } from 'ramda'
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 import { useBeforeunload } from 'react-beforeunload'
 
@@ -26,7 +22,7 @@ interface Props {
   user: AuthUser
 }
 
-export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user }) => {
+export const ProfileNfts: FunctionComponent<Props> = ({ nfts, user }) => {
   const t = useTranslations('profile')
   const { hasNewOfferPending, clearOffer, setSenderItems, openModal: openNewOfferModal } = useNewOfferStore()
   const { hasNewListingPending, openModal: openNewListingModal, setItems, clearListing } = useNewListingStore()
@@ -82,31 +78,24 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
     }
   }
 
+  if (isEmpty(nfts)) {
+    return <ProfileNftsEmpty user={user} />
+  }
   return (
     <>
-      <ProfileNavigationLayout activeNavigationItem={NAVIGATION_NFTS}>
-        <HideIfEmpty
-          checks={selectableNfts}
-          render={(selectableNfts) => (
-            <SelectableNftGroupsAndFiltersContainer
-              nfts={selectableNfts}
-              availableFilters={[NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS]}
-              btnLabel={t(
-                hasNewOfferPending
-                  ? 'offerButton.label'
-                  : hasNewListingPending
-                    ? 'finalizeListingButton.label'
-                    : 'listingButton.label'
-              )}
-              hideOwner={true}
-              onButtonClick={onButtonClick}
-            />
-          )}
-        />
-        <ShowIfEmpty checks={selectableNfts}>
-          <ProfileNftsEmpty user={user} />
-        </ShowIfEmpty>
-      </ProfileNavigationLayout>
+      <SelectableNftGroupsAndFiltersContainer
+        nfts={selectableNfts}
+        availableFilters={[NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS]}
+        btnLabel={t(
+          hasNewOfferPending
+            ? 'offerButton.label'
+            : hasNewListingPending
+              ? 'finalizeListingButton.label'
+              : 'listingButton.label'
+        )}
+        hideOwner={true}
+        onButtonClick={onButtonClick}
+      />
       <NewOfferDiscardModal
         open={showDiscardOfferModal}
         onClose={() => setShowDiscardOfferModal(false)}

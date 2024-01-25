@@ -18,7 +18,7 @@ interface Props {
   user: AuthUser
 }
 
-export const OfferDetailsApiProvided: FunctionComponent<Props> = ({ offer, user }) => {
+export const ProfileOfferDetails: FunctionComponent<Props> = ({ offer, user }) => {
   return (
     <OfferDetails
       offer={offer}
