@@ -10,6 +10,7 @@ import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
+import { ListingDetailsButtonsContainer } from '@echo/ui/components/listing/details/listing-details-buttons-container'
 import { ListingDetailsItemsContainer } from '@echo/ui/components/listing/details/listing-details-items-container'
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
 import { ListingDetailsTargetCollectionTitle } from '@echo/ui/components/listing/details/listing-details-target-collection-title'
@@ -47,13 +48,12 @@ interface Props {
 }
 
 export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, user, userTargetNfts = [] }) => {
-  const t = useTranslations('listing.details')
   const tError = useTranslations('error.listing')
   const [selectableNfts, setSelectableNfts] = useState(
     map<Nft, SelectableNft>(assoc('actionDisabled', true), userTargetNfts)
   )
   const [updatedListing, setUpdatedListing] = useState(listing)
-  const { isMutating } = useSWRTrigger<ListingResponse, CancelListingArgs>({
+  const { trigger, isMutating } = useSWRTrigger<ListingResponse, CancelListingArgs>({
     key: SWRKeys.listing.cancel(listing),
     fetcher: fetcher.cancelListing,
     onSuccess: (response) => {
@@ -125,17 +125,13 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
           </HideIf>
         </div>
       </div>
-      {/* TODO Should have a button manager for the proper buttons here */}
-      <HideIf condition={isCreator}>
-        <div className={clsx('flex', 'flex-row', 'justify-center', 'pb-5')}>
-          <button
-            className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
-            disabled={isMutating || !hasSelectedEnoughNfts}
-          >
-            <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('fillBtn.label')}</span>
-          </button>
-        </div>
-      </HideIf>
+      {/* TODO Adjust props with all calls */}
+      <ListingDetailsButtonsContainer
+        listing={listing}
+        isMutating={isMutating}
+        hasSelectedEnoughNfts={hasSelectedEnoughNfts}
+        actions={{ onCancel: (listing) => void trigger({ listingId: listing.id }) }}
+      />
     </div>
   )
 }
