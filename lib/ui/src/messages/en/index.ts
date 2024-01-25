@@ -188,8 +188,17 @@ export const messages = {
         label: 'Cancel',
         message: 'Hold to cancel'
       },
+      fillBtn: {
+        label: 'Fill Listing'
+      },
       expiresAt: 'Expires in',
-      expiredAt: 'Expired'
+      expiredAt: 'Expired',
+      backBtn: {
+        label: 'Back to your profile'
+      },
+      banner: {
+        title: 'Select your NFTs to fill the Lisiting'
+      }
     },
     new: {
       confirmationModal: {

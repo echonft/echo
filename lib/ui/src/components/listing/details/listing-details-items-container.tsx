@@ -9,7 +9,7 @@ interface Props {
   items: ListingItem[]
 }
 
-export const ListingDetailsModalItemsContainer: FunctionComponent<Props> = ({ items }) => (
+export const ListingDetailsItemsContainer: FunctionComponent<Props> = ({ items }) => (
   <CardsLayout alignment={ALIGNMENT_CENTER}>
     {map(
       (item) => (

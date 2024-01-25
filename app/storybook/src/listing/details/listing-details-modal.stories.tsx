@@ -71,30 +71,17 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 type Story = StoryObj<ComponentType>
 
-type Story = StoryObj<typeof Component>
-
-export const Creator: Story = {
-  args: {
-    open: true,
-    hasOffers: true,
-    listing,
-    user: creator,
-    onClose: () => {},
-    onFill: () => {},
-    onViewOffers: () => {},
-    onCancel: () => {}
-  }
-}
-
-export const CreatorNoOffers: Story = {
-  args: {
-    open: true,
-    listing,
-    user: creator,
-    onClose: () => {},
-    onFill: () => {},
-    onViewOffers: () => {},
-    onCancel: () => {}
+export const Default: Story = {
+  render: ({ isCreator, hasOffers }) => {
+    return (
+      <ListingDetailsModal
+        open={true}
+        listing={getListingMockById('jUzMtPGKM62mMhEcmbN4')}
+        user={getAuthUserMockByUsername(isCreator ? 'johnnycagewins' : 'crewnft_')}
+        hasOffers={hasOffers}
+        actions={{ onCancel: () => {}, onClose: () => {}, onFill: () => {}, onViewOffers: () => {} }}
+      />
+    )
   }
 }
 
@@ -109,13 +96,5 @@ export const Mutating: Story = {
         actions={undefined}
       />
     )
-  }
-}
-
-export const Mutating: Story = {
-  args: {
-    open: true,
-    listing,
-    user
   }
 }

@@ -1,10 +1,10 @@
+import { CardDiscordTag } from '@echo/ui/components/base/card/card-discord-tag'
 import { CardImage } from '@echo/ui/components/base/card/card-image'
 import { CardOpenSeaIcon } from '@echo/ui/components/base/card/card-open-sea-icon'
 import { CardPictureLayout } from '@echo/ui/components/base/card/layout/card-picture-layout'
-import { SelectableNftCardDiscordTag } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-discord-tag'
+import { HideIf } from '@echo/ui/components/base/utils/hide-if'
 import { SelectableNftCardSelector } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-selector'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { neither } from '@echo/utils/helpers/neither'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 

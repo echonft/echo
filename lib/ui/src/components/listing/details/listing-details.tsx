@@ -7,14 +7,13 @@ import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
+import { ListingDetailsItemsContainer } from '@echo/ui/components/listing/details/listing-details-items-container'
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
 import { ListingDetailsTargetCollectionTitle } from '@echo/ui/components/listing/details/listing-details-target-collection-title'
 import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
 import { ListingDetailsUserNftsLayout } from '@echo/ui/components/listing/layout/listing-details-user-nfts-layout'
-import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
-import { SelectableNftsContainer } from '@echo/ui/components/nft/layout/selectable-nfts-container'
+import { SelectableNftsContainer } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards-container'
 import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
-import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { enable } from '@echo/ui/helpers/disableable/enable'
 import { disableAction } from '@echo/ui/helpers/nft/disable-action'
@@ -28,15 +27,15 @@ import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { assoc, head, map, pipe, prop, propEq } from 'ramda'
-import { type FunctionComponent, useEffect, useMemo, useState } from 'react'
+import { assoc, head, map, pipe, propEq } from 'ramda'
+import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
   listing: Listing
   fetcher: {
     cancelListing: Fetcher<ListingResponse, CancelListingArgs>
   }
-  user: AuthUser | undefined
+  user: AuthUser
   userTargetNfts: Nft[]
 }
 
@@ -74,8 +73,9 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
     setUpdatedListing(listing)
   }, [listing])
   const { state, readOnly, creator, expiresAt, items, targets } = updatedListing
-  const nfts = useMemo(() => map(prop('nft'), items), [items])
   const target = head(targets)!
+  // TODO Validate this behaviour, should we allow user to select more than amount or only amount?
+  const hasSelectedEnoughNfts = selectableNfts.length >= target.amount
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-20', 'p-4')}>
@@ -85,12 +85,11 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
       </div>
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
         <div className={clsx('pb-16')}>
-          <NftsContainer nfts={nfts} alignment={ALIGNMENT_CENTER} />
+          <ListingDetailsItemsContainer items={items} />
         </div>
         <ItemsSeparator />
         <div className={clsx('flex', 'flex-col', 'gap-14')}>
           <div className={clsx('flex', 'justify-end')}>
-            {/*  FIXME Force unwrap */}
             <ListingDetailsTargetContainer target={target} />
           </div>
           <ListingDetailsUserNftsLayout>
@@ -103,6 +102,14 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
             />
           </ListingDetailsUserNftsLayout>
         </div>
+      </div>
+      <div className={clsx('flex', 'flex-row', 'justify-center', 'pb-5')}>
+        <button
+          className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
+          disabled={isMutating || !hasSelectedEnoughNfts}
+        >
+          <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('fillBtn.label')}</span>
+        </button>
       </div>
     </div>
   )

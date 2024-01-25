@@ -1,18 +1,15 @@
+'use client'
 import { Banner } from '@echo/ui/components/base/banner/banner'
 import { BannerAbsoluteTopLayout } from '@echo/ui/components/base/banner/banner-absolute-top-layout'
-import { useBannerStore } from '@echo/ui/hooks/use-banner-store'
-import { isNil } from 'ramda'
+import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
-export const BannerManager: FunctionComponent = () => {
-  const { banner } = useBannerStore()
-  if (isNil(banner)) {
-    return null
-  }
+export const ListingBannerManager: FunctionComponent = () => {
+  const t = useTranslations('listing.details.banner')
 
   return (
     <BannerAbsoluteTopLayout>
-      <Banner {...banner} />
+      <Banner title={t('title')} />
     </BannerAbsoluteTopLayout>
   )
 }

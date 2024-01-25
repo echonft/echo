@@ -11,5 +11,5 @@ export const ModalBackButton: FunctionComponent<ModalBackButtonProps> = ({ label
   if (isNil(label)) {
     return null
   }
-  return <BackButton onBack={onBack} title={label} />
+  return <BackButton onBack={onBack} title={label} disabled={isNil(onBack)} />
 }
