@@ -1,6 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { NavigationPills as Component } from '@echo/ui/components/navigation/navigation-pills'
+import { NavigationPills as Component } from '@echo/ui/components/base/navigation/navigation-pills'
+import { NAVIGATION_LISTINGS, NAVIGATION_NFTS, NAVIGATION_SWAPS } from '@echo/ui/constants/navigation-item'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -22,20 +23,20 @@ export const NavigationPills: Story = {
     items: [
       {
         name: 'Items',
-        id: 'items',
+        id: NAVIGATION_NFTS,
         path: '#'
       },
       {
         name: 'Listings',
-        id: 'listings',
+        id: NAVIGATION_LISTINGS,
         path: '#'
       },
       {
         name: 'Swaps',
-        id: 'swaps',
+        id: NAVIGATION_SWAPS,
         path: '#'
       }
     ],
-    activeItem: 'items'
+    activeItem: NAVIGATION_NFTS
   }
 }

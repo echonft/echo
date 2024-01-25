@@ -1,36 +1,28 @@
-import { type Wallet } from '@echo/model/types/wallet'
-import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
-import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
+import type { UserProfile } from '@echo/model/types/user-profile'
+import { PaddedContainer } from '@echo/ui/components/base/layout/padded-container'
 import { UserDiscordTag } from '@echo/ui/components/user/base/user-discord-tag'
-import { UserProfilePicture, type UserProfilePictureProps } from '@echo/ui/components/user/base/user-profile-picture'
-import {
-  UserDetailsLayout,
-  type UserDetailsLayoutProps
-} from '@echo/ui/components/user/details/layout/user-details-layout'
+import { UserProfilePicture } from '@echo/ui/components/user/base/user-profile-picture'
+import { UserDetailsLayout } from '@echo/ui/components/user/details/layout/user-details-layout'
 import { UserInfoLayout } from '@echo/ui/components/user/details/layout/user-info-layout'
+import { UserDetailsWallets } from '@echo/ui/components/user/details/user-details-wallets'
 import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
-import { WalletConnectedButton } from '@echo/ui/components/wallet/wallet-connected-button'
 import { type FunctionComponent } from 'react'
 
-interface Props extends UserProfilePictureProps, UserDetailsLayoutProps {
-  wallet: Wallet | undefined
+interface Props {
+  user: UserProfile
 }
 
-export const UserDetails: FunctionComponent<Props> = ({
-  discordUsername,
-  bannerColor,
-  bannerUrl,
-  discordAvatarUrl,
-  wallet
-}) => {
+export const UserDetails: FunctionComponent<Props> = ({ user }) => {
+  const { discord, wallets } = user
+  const { bannerUrl, bannerColor, username, avatarUrl } = discord
   return (
     <UserDetailsLayout bannerUrl={bannerUrl} bannerColor={bannerColor}>
       <PaddedContainer>
         <UserPictureAndInfoLayout>
-          <UserProfilePicture discordUsername={discordUsername} discordAvatarUrl={discordAvatarUrl} />
+          <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} />
           <UserInfoLayout>
-            <UserDiscordTag discordUsername={discordUsername} />
-            <HideIfNil checks={wallet} render={(wallet) => <WalletConnectedButton wallet={wallet} />} />
+            <UserDiscordTag discordUsername={username} />
+            <UserDetailsWallets wallets={wallets} />
           </UserInfoLayout>
         </UserPictureAndInfoLayout>
       </PaddedContainer>

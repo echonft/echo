@@ -20,6 +20,7 @@ export const CardLayout: FunctionComponent<Props> = ({ disabled, loading, classN
         'border-white/10',
         'bg-dark-500',
         'group',
+        'transition ease-in-out',
         loading && 'animate-pulse',
         disabled && 'opacity-40',
         className

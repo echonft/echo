@@ -1,9 +1,14 @@
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { ProfileListingsSkeleton } from '@echo/ui/components/profile/listing/skeleton/profile-listings-skeleton'
 import { NAVIGATION_LISTINGS_CREATED } from '@echo/ui/constants/navigation-item'
+import { ProfileListingsSkeleton } from '@echo/ui/pages/profile/listings/profile-listings-skeleton'
+import { ProfileNavigationLayoutSkeleton } from '@echo/ui/pages/profile/navigation/profile-navigation-layout-skeleton'
 
 function render() {
-  return <ProfileListingsSkeleton activeNavigationItem={NAVIGATION_LISTINGS_CREATED} />
+  return (
+    <ProfileNavigationLayoutSkeleton activeNavigationItem={NAVIGATION_LISTINGS_CREATED}>
+      <ProfileListingsSkeleton />
+    </ProfileNavigationLayoutSkeleton>
+  )
 }
 
 export default withLocale(render)

@@ -6,9 +6,9 @@ import { mapFirestoreUserToUserProfile } from '@echo/frontend/lib/mappers/map-fi
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
-import { SectionLayout } from '@echo/ui/components/layout/section-layout'
-import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
-import { UserDetailsApiProvided } from '@echo/ui/components/user/api-provided/user-details-api-provided'
+import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
+import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
+import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { notFound } from 'next/navigation'
 import { isNil, pipe } from 'ramda'
 import type { ReactElement } from 'react'
@@ -23,7 +23,7 @@ async function render({ params: { username }, user: authUser, children }: Params
   return (
     <NavigationPageLayout user={authUser}>
       <SectionLayout>
-        <UserDetailsApiProvided user={mapFirestoreUserToUserProfile(user, wallets)} />
+        <UserDetails user={mapFirestoreUserToUserProfile(user, wallets)} />
       </SectionLayout>
       <SectionLayout>{children}</SectionLayout>
     </NavigationPageLayout>

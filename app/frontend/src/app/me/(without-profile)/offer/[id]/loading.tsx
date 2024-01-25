@@ -1,8 +1,8 @@
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { BackButtonLayout } from '@echo/ui/components/layout/back-button-layout'
-import { DetailsPaddedContainer } from '@echo/ui/components/layout/details-padded-container'
-import { SectionLayout } from '@echo/ui/components/layout/section-layout'
-import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
+import { BackButtonLayout } from '@echo/ui/components/base/layout/back-button-layout'
+import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
+import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { OfferDetailsSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-skeleton'
 
 function render() {

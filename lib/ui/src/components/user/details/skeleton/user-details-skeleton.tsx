@@ -1,4 +1,4 @@
-import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
+import { PaddedContainer } from '@echo/ui/components/base/layout/padded-container'
 import { UserDiscordTagSkeleton } from '@echo/ui/components/user/base/skeleton/user-discord-tag-skeleton'
 import { UserProfilePictureSkeleton } from '@echo/ui/components/user/base/skeleton/user-profile-picture-skeleton'
 import { UserDetailsLayout } from '@echo/ui/components/user/details/layout/user-details-layout'

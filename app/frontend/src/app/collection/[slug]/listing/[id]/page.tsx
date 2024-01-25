@@ -6,7 +6,7 @@ import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingTarget } from '@echo/model/types/listing-target'
-import { ListingDetailsApiProvided } from '@echo/ui/components/listing/api-provided/listing-details-api-provided'
+import { CollectionListing } from '@echo/ui/pages/collection/listing/collection-listing'
 import { isIn } from '@echo/utils/fp/is-in'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { notFound } from 'next/navigation'
@@ -31,7 +31,7 @@ async function render({ params: { slug, id }, user }: Params) {
   if (!isIn(listingSlugs, slug)) {
     notFound()
   }
-  return <ListingDetailsApiProvided listing={listing} user={user} />
+  return <CollectionListing listing={listing} user={user} />
 }
 
 export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)

@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { NavigationPill as Component } from '@echo/ui/components/navigation/navigation-pill'
+import { NavigationPill as Component } from '@echo/ui/components/base/navigation/navigation-pill'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

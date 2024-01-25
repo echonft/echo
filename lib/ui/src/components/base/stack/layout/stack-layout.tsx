@@ -22,6 +22,7 @@ export const StackLayout: FunctionComponent<Props> = ({ disabled, loading, class
         'border-transparent',
         'border',
         'group',
+        'transition ease-in-out',
         loading && 'animate-pulse',
         disabled && 'opacity-40',
         className

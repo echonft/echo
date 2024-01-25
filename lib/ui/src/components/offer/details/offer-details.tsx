@@ -6,7 +6,7 @@ import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import type { Offer } from '@echo/model/types/offer'
-import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
+import { NftCardsContainer } from '@echo/ui/components/nft/card/layout/nft-cards-container'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-info-layout'
 import { OfferDetailsItemsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-items-buttons-layout'
@@ -57,9 +57,15 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, fetch
         <OfferDetailsState state={state} expiresAt={expiresAt} />
       </OfferDetailsInfoLayout>
       <OfferDetailsItemsButtonsLayout>
-        <NftsContainer nfts={map(prop('nft'), isCreator ? receiverItems : senderItems)} alignment={ALIGNMENT_CENTER} />
+        <NftCardsContainer
+          nfts={map(prop('nft'), isCreator ? receiverItems : senderItems)}
+          alignment={ALIGNMENT_CENTER}
+        />
         <OfferDetailsItemsSeparator />
-        <NftsContainer nfts={map(prop('nft'), isCreator ? senderItems : receiverItems)} alignment={ALIGNMENT_CENTER} />
+        <NftCardsContainer
+          nfts={map(prop('nft'), isCreator ? senderItems : receiverItems)}
+          alignment={ALIGNMENT_CENTER}
+        />
         <OfferDetailsButtons
           offer={updatedOffer}
           isCreator={isCreator}

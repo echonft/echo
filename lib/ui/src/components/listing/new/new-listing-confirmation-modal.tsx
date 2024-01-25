@@ -2,7 +2,7 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import { type ListingItem } from '@echo/model/types/listing-item'
-import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'

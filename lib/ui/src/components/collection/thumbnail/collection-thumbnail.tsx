@@ -1,7 +1,7 @@
 'use client'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type Collection } from '@echo/model/types/collection'
-import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { CollectionThumbnailPicture } from '@echo/ui/components/collection/thumbnail/collection-thumbnail-picture'
 import { CollectionThumbnailTitle } from '@echo/ui/components/collection/thumbnail/collection-thumbnail-title'
 import { CollectionThumbnailLayout } from '@echo/ui/components/collection/thumbnail/layout/collection-thumbnail-layout'

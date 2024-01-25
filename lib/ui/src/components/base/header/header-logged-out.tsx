@@ -1,9 +1,9 @@
 'use client'
 import { ConnectButton } from '@echo/ui/components/base/header/connect-button'
 import { HeaderLayout } from '@echo/ui/components/base/header/header-layout'
-import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { InternalLink } from '@echo/ui/components/base/internal-link'
+import { PaddedContainer } from '@echo/ui/components/base/layout/padded-container'
 import { EchoLogoSvg } from '@echo/ui/components/base/svg/echo-logo-svg'
-import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 

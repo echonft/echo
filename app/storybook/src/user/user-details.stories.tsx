@@ -1,8 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
+import type { UserProfile } from '@echo/model/types/user-profile'
+import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { toLower } from 'ramda'
+import { assocPath, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 const BANNER_COLOR = 'Color' as const
@@ -39,18 +41,16 @@ export const Details: Story = {
     banner: DEFAULT_DEFAULT_BANNER
   },
   render: ({ bannerColor, banner }) => {
-    return (
-      <UserDetails
-        wallet={{ address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'), chainId: 1 }}
-        discordUsername={'johnnycagewins'}
-        discordAvatarUrl={'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png'}
-        bannerUrl={
-          banner === BANNER_IMAGE
-            ? 'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-banner.png?alt=media'
-            : undefined
-        }
-        bannerColor={banner === BANNER_COLOR ? bannerColor : undefined}
-      />
-    )
+    const user = pipe(
+      getAuthUserMockByUsername,
+      assocPath(
+        ['discord', 'bannerUrl'],
+        banner === BANNER_IMAGE
+          ? 'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-banner.png?alt=media'
+          : undefined
+      ),
+      assocPath(['discord', 'bannerColor'], banner === BANNER_COLOR ? bannerColor : undefined)
+    )('johnnycagewins')
+    return <UserDetails user={user as UserProfile} />
   }
 }

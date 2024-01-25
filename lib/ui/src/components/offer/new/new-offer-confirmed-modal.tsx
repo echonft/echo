@@ -1,7 +1,7 @@
 'use client'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import type { Offer } from '@echo/model/types/offer'
-import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'

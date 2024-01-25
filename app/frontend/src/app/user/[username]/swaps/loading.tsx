@@ -1,8 +1,14 @@
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { UserSwapsSkeleton } from '@echo/ui/components/user/swap/skeleton/user-swaps-skeleton'
+import { OfferCardsContainerSkeleton } from '@echo/ui/components/offer/card/layout/skeleton/offer-cards-container-skeleton'
+import { NAVIGATION_SWAPS } from '@echo/ui/constants/navigation-item'
+import { UserNavigationLayoutSkeleton } from '@echo/ui/pages/user/navigation/user-navigation-layout-skeleton'
 
 function render() {
-  return <UserSwapsSkeleton />
+  return (
+    <UserNavigationLayoutSkeleton activeNavigationItem={NAVIGATION_SWAPS}>
+      <OfferCardsContainerSkeleton />
+    </UserNavigationLayoutSkeleton>
+  )
 }
 
 export default withLocale(render)

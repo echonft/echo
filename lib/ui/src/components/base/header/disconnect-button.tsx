@@ -2,7 +2,7 @@
 import { isPathSecure } from '@echo/api/services/routing/is-path-secure'
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type AuthUser } from '@echo/model/types/auth-user'
-import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { UserTagPictureButton } from '@echo/ui/components/user/tag/user-tag-picture-button'
 import { WalletButton, type WalletButtonProps } from '@echo/ui/components/wallet/wallet-button'
