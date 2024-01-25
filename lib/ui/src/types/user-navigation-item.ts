@@ -1,3 +1,3 @@
-import { NAVIGATION_ITEMS, NAVIGATION_LISTINGS } from '@echo/ui/constants/navigation-item'
+import { NAVIGATION_LISTINGS, NAVIGATION_NFTS } from '@echo/ui/constants/navigation-item'
 
-export type UserNavigationItem = typeof NAVIGATION_ITEMS | typeof NAVIGATION_LISTINGS
+export type UserNavigationItem = typeof NAVIGATION_NFTS | typeof NAVIGATION_LISTINGS

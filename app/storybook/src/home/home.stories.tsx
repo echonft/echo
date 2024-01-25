@@ -3,7 +3,7 @@
 import { type Collection } from '@echo/model/types/collection'
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
-import { Home as Component } from '@echo/ui/components/home/home'
+import { Home as Component } from '@echo/ui/pages/home/home'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { assoc, concat, map, pipe } from 'ramda'
 

@@ -1,7 +1,7 @@
 'use client'
 import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
 import { LoginJoinDiscordButton } from '@echo/ui/components/auth/login-join-discord-button'
-import { ExternalLink } from '@echo/ui/components/base/link/external-link'
+import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { DISCORD_INVITE_LINK } from '@echo/utils/constants/discord-invite-link'
 import clsx from 'clsx'
 import { useTranslations } from 'next-intl'

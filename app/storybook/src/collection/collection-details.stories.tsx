@@ -1,8 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
+import type { Collection } from '@echo/model/types/collection'
+import { getCollectionMock } from '@echo/model-mocks/collection/get-collection-mock'
 import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
 import { type Meta, type StoryObj } from '@storybook/react'
+import { always, assoc, dissoc, pipe, when } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 type ComponentType = FunctionComponent<
@@ -40,20 +42,14 @@ export const Details: Story = {
     verified: DEFAULT_VERIFIED
   },
   render: ({ defaultBanner, defaultPicture, verified }) => {
-    const { name, profilePictureUrl, totalSupply, discordUrl, twitterUsername, websiteUrl, bannerUrl, description } =
-      getCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
-    return (
-      <CollectionDetails
-        description={description}
-        supplyCount={totalSupply}
-        collectionName={name}
-        pictureUrl={defaultPicture ? undefined : profilePictureUrl}
-        discordUrl={discordUrl}
-        twitterUsername={twitterUsername}
-        websiteUrl={websiteUrl}
-        bannerUrl={defaultBanner ? undefined : bannerUrl}
-        verified={verified}
-      />
-    )
+    const collection = pipe<[], Collection, Collection, Collection, Collection>(
+      getCollectionMock,
+      when<Collection, Collection>(always(defaultBanner), dissoc('bannerUrl')),
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      when<Collection, Collection>(always(defaultPicture), dissoc('profilePictureUrl')),
+      assoc('verified', verified)
+    )() as Collection
+    return <CollectionDetails collection={collection} />
   }
 }

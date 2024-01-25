@@ -1,8 +1,8 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import {
-  NAVIGATION_ITEMS,
   NAVIGATION_LISTINGS_CREATED,
   NAVIGATION_LISTINGS_RECEIVED,
+  NAVIGATION_NFTS,
   NAVIGATION_OFFERS_CREATED,
   NAVIGATION_OFFERS_RECEIVED,
   NAVIGATION_SWAPS
@@ -15,7 +15,7 @@ export function getProfileNavigationItems(disableLinks?: boolean): NavigationIte
   const t = createTranslator({ locale: 'en', messages })
   return [
     {
-      id: NAVIGATION_ITEMS,
+      id: NAVIGATION_NFTS,
       name: t('profile.navigation.items'),
       path: disableLinks ? '#' : linkProvider.profile.items.get()
     },

@@ -2,7 +2,7 @@
 
 import { type Collection } from '@echo/model/types/collection'
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
-import { RankedCollections as Component } from '@echo/ui/components/home/collection/ranked/ranked-collections'
+import { RankedCollections as Component } from '@echo/ui/pages/home/collection/ranked/ranked-collections'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { assoc, concat, map, pipe } from 'ramda'
 

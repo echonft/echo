@@ -7,14 +7,14 @@ import { ProfileSwapsApiProvided } from '@echo/ui/components/profile/api-provide
 import { setOfferRoleForUser } from '@echo/ui/helpers/offer/set-offer-role-for-user'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { andThen, map, partialRight, path, pipe } from 'ramda'
+import { andThen, map, path, pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
 async function render(params: NextAuthUserParams) {
   const offers = await pipe(
     nonNullableReturn(path(['user', 'username'])),
     getCompletedOffersForUser,
-    andThen(map<Offer, OfferWithRole>(partialRight(setOfferRoleForUser, [params.user])))
+    andThen(map<Offer, OfferWithRole>(setOfferRoleForUser(params.user)))
   )(params)
   return <ProfileSwapsApiProvided offers={offers} />
 }

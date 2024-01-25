@@ -1,7 +1,7 @@
 'use client'
+import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { NftGroupLayout } from '@echo/ui/components/nft/group/layout/nft-group-layout'
 import { NftGroupButton } from '@echo/ui/components/nft/group/nft-group-button'
-import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
 import { SelectableNftCard } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import { getGroupSelectionCount } from '@echo/ui/helpers/selection/get-group-selection-count'
 import { type Group } from '@echo/ui/types/group'
@@ -44,7 +44,7 @@ export const SelectableNftGroup: FunctionComponent<Props> = ({ group, hideOwner,
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <NftsLayout>
+        <CardsLayout>
           {map(
             (nft) => (
               <SelectableNftCard
@@ -59,7 +59,7 @@ export const SelectableNftGroup: FunctionComponent<Props> = ({ group, hideOwner,
             ),
             items
           )}
-        </NftsLayout>
+        </CardsLayout>
       </Transition>
     </NftGroupLayout>
   )

@@ -5,7 +5,7 @@ import { ShowIfEmpty } from '@echo/ui/components/base/utils/show-if-empty'
 import { SelectableNftGroupsAndFiltersContainer } from '@echo/ui/components/nft/filters/layout/selectable-nft-groups-and-filters-container'
 import { UserNavigationLayout } from '@echo/ui/components/user/layout/user-navigation-layout'
 import { UserNftsEmpty } from '@echo/ui/components/user/nft/empty/user-nfts-empty'
-import { NAVIGATION_ITEMS } from '@echo/ui/constants/navigation-item'
+import { NAVIGATION_NFTS } from '@echo/ui/constants/navigation-item'
 import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
 import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
@@ -42,7 +42,7 @@ export const UserNftsApiProvided: FunctionComponent<Props> = ({ username, nfts }
   }
 
   return (
-    <UserNavigationLayout username={username} activeNavigationItem={NAVIGATION_ITEMS}>
+    <UserNavigationLayout username={username} activeNavigationItem={NAVIGATION_NFTS}>
       <HideIfEmpty
         checks={selectableNfts}
         render={(selectableNfts) => (

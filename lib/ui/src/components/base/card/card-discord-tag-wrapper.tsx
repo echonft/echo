@@ -1,6 +1,6 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 import type { CardDiscordTagProps } from '@echo/ui/components/base/card/card-discord-tag'
-import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export const CardDiscordTagWrapper: FunctionComponent<PropsWithChildren<CardDiscordTagProps>> = ({

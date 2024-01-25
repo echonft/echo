@@ -1,5 +1,5 @@
 import { type Offer } from '@echo/model/types/offer'
-import { OfferCardsLayout } from '@echo/ui/components/offer/layout/offer-cards-layout'
+import { OfferCardsLayout } from '@echo/ui/components/offer/card/layout/offer-cards-layout'
 import { SwapRow } from '@echo/ui/components/swap/row/swap-row'
 import { map } from 'ramda'
 import { type FunctionComponent } from 'react'

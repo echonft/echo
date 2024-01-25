@@ -60,6 +60,6 @@ export const Default: StoryObj<ComponentType> = {
         )(getOfferMockById('ASkFpKoHEHVH0gd69t1G')),
       [state, stack]
     )
-    return <OfferCard offer={offer} scaleDisabled={scaleDisabled} />
+    return <OfferCard offer={offer} options={{ scaleDisabled }} />
   }
 }

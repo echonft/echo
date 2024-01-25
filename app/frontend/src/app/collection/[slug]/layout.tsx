@@ -4,9 +4,9 @@ import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
-import { CollectionDetailsApiProvided } from '@echo/ui/components/collection/api-provided/collection-details-api-provided'
-import { SectionLayout } from '@echo/ui/components/layout/section-layout'
-import { NavigationPageLayout } from '@echo/ui/components/navigation/navigation-page-layout'
+import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
+import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
+import { CollectionDetails } from '@echo/ui/components/collection/details/collection-details'
 import { notFound } from 'next/navigation'
 import { isNil, pipe } from 'ramda'
 import type { ReactElement } from 'react'
@@ -20,7 +20,7 @@ async function render({ params: { slug }, user, children }: Params) {
   return (
     <NavigationPageLayout user={user}>
       <SectionLayout>
-        <CollectionDetailsApiProvided collection={collection} />
+        <CollectionDetails collection={collection} />
       </SectionLayout>
       <SectionLayout>{children}</SectionLayout>
     </NavigationPageLayout>

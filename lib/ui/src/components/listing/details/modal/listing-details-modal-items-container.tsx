@@ -1,5 +1,5 @@
 import type { ListingItem } from '@echo/model/types/listing-item'
-import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
+import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { NftThumbnail } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { map } from 'ramda'
@@ -10,12 +10,12 @@ interface Props {
 }
 
 export const ListingDetailsModalItemsContainer: FunctionComponent<Props> = ({ items }) => (
-  <NftsLayout alignment={ALIGNMENT_CENTER}>
+  <CardsLayout alignment={ALIGNMENT_CENTER}>
     {map(
       (item) => (
         <NftThumbnail nft={item.nft} key={item.nft.id} />
       ),
       items
     )}
-  </NftsLayout>
+  </CardsLayout>
 )

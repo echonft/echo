@@ -1,5 +1,5 @@
 import type { Listing } from '@echo/model/types/listing'
-import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'

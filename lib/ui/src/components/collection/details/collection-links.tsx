@@ -1,7 +1,7 @@
+import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { DiscordIcon } from '@echo/ui/components/base/icons/discord-icon'
 import { TwitterIcon } from '@echo/ui/components/base/icons/twitter-icon'
 import { WebsiteIcon } from '@echo/ui/components/base/icons/website-icon'
-import { ExternalLink } from '@echo/ui/components/base/link/external-link'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { SIZE_MD } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'

@@ -1,7 +1,7 @@
 import { type ListingItem } from '@echo/model/types/listing-item'
+import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { SwapDirectionHeader } from '@echo/ui/components/base/swap-direction-header'
-import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
 import { NftThumbnail } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
@@ -23,14 +23,14 @@ export const NewListingConfirmationModalItemsContainer: FunctionComponent<Props>
         <ModalSubtitle>{t('itemsSubtitle', { count: items.length })}</ModalSubtitle>
         <SwapDirectionHeader direction={SWAP_DIRECTION_OUT} title={tShared('out')} />
       </div>
-      <NftsLayout alignment={ALIGNMENT_CENTER}>
+      <CardsLayout alignment={ALIGNMENT_CENTER}>
         {map(
           (item) => (
             <NftThumbnail nft={item.nft} key={item.nft.id} />
           ),
           items
         )}
-      </NftsLayout>
+      </CardsLayout>
     </div>
   )
 }

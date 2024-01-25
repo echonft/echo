@@ -6,14 +6,14 @@ import { assertListingStateTransition } from '@echo/model/helpers/listing/assert
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Listing } from '@echo/model/types/listing'
+import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { SwapDirectionHeader } from '@echo/ui/components/base/swap-direction-header'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
 import { ItemsDetailsSeparator } from '@echo/ui/components/item/details/items-details-separator'
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
-import { NftsContainer } from '@echo/ui/components/nft/layout/nfts-container'
-import { NftsLayout } from '@echo/ui/components/nft/layout/nfts-layout'
+import { NftCardsContainer } from '@echo/ui/components/nft/card/layout/nft-cards-container'
 import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
@@ -87,21 +87,21 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
       <div className={clsx('flex', 'flex-col', 'gap-5')}>
         <div className={clsx('flex', 'flex-col', 'gap-6')}>
           <SwapDirectionHeader direction={SWAP_DIRECTION_OUT} title={t('assets.title.out')} />
-          <NftsContainer nfts={nfts} alignment={ALIGNMENT_CENTER} />
+          <NftCardsContainer nfts={nfts} alignment={ALIGNMENT_CENTER} />
         </div>
         <div className={clsx('pb-4')}>
           <ItemsDetailsSeparator />
         </div>
         <div className={clsx('flex', 'flex-col', 'gap-6')}>
           <SwapDirectionHeader direction={SWAP_DIRECTION_IN} title={t('assets.title.in')} />
-          <NftsLayout alignment={ALIGNMENT_CENTER}>
+          <CardsLayout alignment={ALIGNMENT_CENTER}>
             {map(
               ({ amount, collection }) => (
                 <CollectionThumbnail key={collection.id} collection={collection} count={amount} />
               ),
               targets
             )}
-          </NftsLayout>
+          </CardsLayout>
         </div>
         <ShowIf condition={canCancel(updatedListing, user)}>
           <div className={clsx('flex', 'justify-center', 'items-center', 'pt-10', 'pb-5')}>

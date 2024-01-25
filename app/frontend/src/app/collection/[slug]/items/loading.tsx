@@ -1,8 +1,14 @@
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
-import { CollectionNftsSkeleton } from '@echo/ui/components/collection/nft/skeleton/collection-nfts-skeleton'
+import { NAVIGATION_NFTS } from '@echo/ui/constants/navigation-item'
+import { CollectionNavigationLayoutSkeleton } from '@echo/ui/pages/collection/navigation/collection-navigation-layout-skeleton'
+import { CollectionNftsSkeleton } from '@echo/ui/pages/collection/nfts/collection-nfts-skeleton'
 
 function render() {
-  return <CollectionNftsSkeleton />
+  return (
+    <CollectionNavigationLayoutSkeleton activeNavigationItem={NAVIGATION_NFTS}>
+      <CollectionNftsSkeleton />
+    </CollectionNavigationLayoutSkeleton>
+  )
 }
 
 export default withLocale(render)

@@ -1,6 +1,6 @@
 'use client'
 import type { Listing } from '@echo/model/types/listing'
-import { InternalLink } from '@echo/ui/components/base/link/internal-link'
+import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
 import { clsx } from 'clsx'

@@ -1,4 +1,4 @@
-import { ExternalLink } from '@echo/ui/components/base/link/external-link'
+import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { OpenSeaIconSvg } from '@echo/ui/components/base/svg/open-sea-icon-svg'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'

@@ -1,6 +1,6 @@
 import { type Wallet } from '@echo/model/types/wallet'
+import { PaddedContainer } from '@echo/ui/components/base/layout/padded-container'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
-import { PaddedContainer } from '@echo/ui/components/layout/padded-container'
 import { UserDiscordTag } from '@echo/ui/components/user/base/user-discord-tag'
 import { UserProfilePicture, type UserProfilePictureProps } from '@echo/ui/components/user/base/user-profile-picture'
 import {

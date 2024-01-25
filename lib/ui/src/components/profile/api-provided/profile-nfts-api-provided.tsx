@@ -8,7 +8,7 @@ import { SelectableNftGroupsAndFiltersContainer } from '@echo/ui/components/nft/
 import { NewOfferDiscardModal } from '@echo/ui/components/offer/new/new-offer-discard-modal'
 import { ProfileNavigationLayout } from '@echo/ui/components/profile/navigation/profile-navigation-layout'
 import { ProfileNftsEmpty } from '@echo/ui/components/profile/nft/empty/profile-nfts-empty'
-import { NAVIGATION_ITEMS } from '@echo/ui/constants/navigation-item'
+import { NAVIGATION_NFTS } from '@echo/ui/constants/navigation-item'
 import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
@@ -84,7 +84,7 @@ export const ProfileNftsApiProvided: FunctionComponent<Props> = ({ nfts, user })
 
   return (
     <>
-      <ProfileNavigationLayout activeNavigationItem={NAVIGATION_ITEMS}>
+      <ProfileNavigationLayout activeNavigationItem={NAVIGATION_NFTS}>
         <HideIfEmpty
           checks={selectableNfts}
           render={(selectableNfts) => (

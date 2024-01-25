@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { HomeCollectionsSkeleton as Component } from '@echo/ui/components/home/collection/skeleton/home-collections-skeleton'
+import { HomeCollectionsSkeleton as Component } from '@echo/ui/pages/home/collection/skeleton/home-collections-skeleton'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

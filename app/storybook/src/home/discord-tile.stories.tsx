@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { DiscordTile as Component } from '@echo/ui/components/home/discord/discord-tile'
+import { DiscordTile as Component } from '@echo/ui/pages/home/discord/discord-tile'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
