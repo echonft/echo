@@ -1,10 +1,10 @@
-import { CardDiscordTag } from '@echo/ui/components/base/card/card-discord-tag'
 import { CardImage } from '@echo/ui/components/base/card/card-image'
 import { CardOpenSeaIcon } from '@echo/ui/components/base/card/card-open-sea-icon'
 import { CardPictureLayout } from '@echo/ui/components/base/card/layout/card-picture-layout'
-import { HideIf } from '@echo/ui/components/base/utils/hide-if'
+import { SelectableNftCardDiscordTag } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-discord-tag'
 import { SelectableNftCardSelector } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-selector'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import { neither } from '@echo/utils/helpers/neither'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
@@ -27,11 +27,7 @@ export const SelectableNftCardPicture: FunctionComponent<Props> = ({ nft, hideOw
       <div className={clsx('absolute', 'top-2', 'left-2', 'h-max', 'w-max')}>
         <CardOpenSeaIcon openSeaUrl={nft.openSeaUrl} />
       </div>
-      <HideIf condition={Boolean(hideOwner)}>
-        <div className={clsx('absolute', 'bottom-2', 'left-2', 'h-max', 'w-max')}>
-          <CardDiscordTag username={nft.owner.discord.username} />
-        </div>
-      </HideIf>
+      <SelectableNftCardDiscordTag nft={nft} hideOwner={hideOwner} asLink={neither(disabled, selected)} />
     </CardPictureLayout>
   )
 }

@@ -1,37 +1,46 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { getNftMock } from '@echo/model-mocks/nft/get-nft-mock'
-import { NftCard as Component, type NftCardProps } from '@echo/ui/components/nft/card/nft-card'
+import { NftCard as Component } from '@echo/ui/components/nft/card/nft-card'
 import { CARD_VARIANT_REDUCED } from '@echo/ui/constants/card-variants'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'
 
-interface Args extends Omit<NftCardProps, 'variant'> {
+interface Args {
+  hideOwner: boolean
+  hideOpenSeaLink: boolean
+  scaleDisabled: boolean
   reduced: boolean
 }
 type ComponentType = FunctionComponent<Args>
-const DEFAULT_REDUCED = false
-const DEFAULT_HIDE_OWNER = false
-const DEFAULT_HIDE_LINK = false
-const DEFAULT_SCALE_DISABLED = false
 
 const metadata: Meta<ComponentType> = {
   title: 'NFT/Card',
+  args: {
+    hideOwner: false,
+    hideOpenSeaLink: false,
+    scaleDisabled: false,
+    reduced: false
+  },
   argTypes: {
     reduced: {
-      defaultValue: DEFAULT_REDUCED,
+      defaultValue: false,
+      description: '"reduced" style variant',
       control: 'boolean'
     },
     hideOwner: {
-      defaultValue: DEFAULT_HIDE_OWNER,
+      defaultValue: false,
+      description: 'Hide the owner Discord tag',
       control: 'boolean'
     },
-    hideLink: {
-      defaultValue: DEFAULT_HIDE_LINK,
+    hideOpenSeaLink: {
+      defaultValue: false,
+      description: 'Hide the NFT OpenSea link icon',
       control: 'boolean'
     },
     scaleDisabled: {
-      defaultValue: DEFAULT_SCALE_DISABLED,
+      description: 'Disable scaling of the image on hover',
+      defaultValue: false,
       control: 'boolean'
     }
   }
@@ -42,20 +51,20 @@ export default metadata
 type Story = StoryObj<ComponentType>
 
 export const Default: Story = {
-  args: {
-    reduced: DEFAULT_REDUCED,
-    hideOwner: DEFAULT_HIDE_OWNER,
-    hideLink: DEFAULT_HIDE_LINK,
-    scaleDisabled: DEFAULT_SCALE_DISABLED
-  },
-  render: ({ reduced, hideOwner, hideLink, scaleDisabled }) => {
+  render: ({ reduced, hideOwner, hideOpenSeaLink, scaleDisabled }) => {
     return (
       <Component
         nft={getNftMock()}
-        variant={reduced ? CARD_VARIANT_REDUCED : undefined}
-        hideOwner={hideOwner}
-        hideLink={hideLink}
-        scaleDisabled={scaleDisabled}
+        options={{
+          owner: {
+            hide: hideOwner
+          },
+          style: {
+            hideOpenSeaLink,
+            scaleDisabled,
+            variant: reduced ? CARD_VARIANT_REDUCED : undefined
+          }
+        }}
       />
     )
   }
