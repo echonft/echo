@@ -5,12 +5,12 @@ import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 export const NftCardDiscordTag: FunctionComponent<NftCardProps> = ({ nft, options }) => {
-  if (isNil(options) || isNil(options.style) || !options.style.hideOpenSeaLink) {
+  if (isNil(options) || isNil(options.owner) || !options.owner.hide) {
     return null
   }
   return (
     <div className={clsx('absolute', 'bottom-2', 'left-2', 'h-max', 'w-max')}>
-      <CardDiscordTag username={nft.owner.discord.username} asLink={options?.owner?.asLink} />
+      <CardDiscordTag username={nft.owner.discord.username} asLink={options.owner.asLink} />
     </div>
   )
 }
