@@ -5,7 +5,7 @@ import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 export const NftCardOpenSeaIcon: FunctionComponent<NftCardProps> = ({ nft, options }) => {
-  if (isNil(options) || isNil(options.owner) || !options.owner.hide) {
+  if (isNil(options) || isNil(options.style) || !options.style.hideOpenSeaLink) {
     return null
   }
   return (
