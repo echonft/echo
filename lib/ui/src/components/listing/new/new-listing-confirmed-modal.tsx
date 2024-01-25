@@ -1,4 +1,5 @@
 'use client'
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import type { Listing } from '@echo/model/types/listing'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { Modal } from '@echo/ui/components/base/modal/modal'
@@ -25,8 +26,7 @@ export const NewListingConfirmedModal: FunctionComponent<Props> = ({ listing, op
           <ConfirmationIconSvg />
         </div>
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
-          {/*FIXME Should link to listing details, but the view doesn't exist yet. See DEV-201 */}
-          <InternalLink path={isNil(listing) ? '#' : '#'}>
+          <InternalLink path={isNil(listing) ? '#' : linkProvider.listing.details.getUrl({ listingId: listing.id })}>
             <button className={clsx('btn-action', 'btn-size-alt', 'group')}>
               <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('viewBtn')}</span>
             </button>
