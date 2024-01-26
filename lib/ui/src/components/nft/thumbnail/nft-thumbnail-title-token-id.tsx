@@ -1,13 +1,11 @@
-import type { Nft } from '@echo/model/types/nft'
-import { getTokenIdString } from '@echo/ui/helpers/nft/get-token-id-string'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  nft: Nft
+  label: string
 }
 
-export const NftThumbnailTitleTokenId: FunctionComponent<Props> = ({ nft }) => {
+export const NftThumbnailTitleTokenId: FunctionComponent<Props> = ({ label }) => {
   return (
     <p
       className={clsx(
@@ -20,7 +18,7 @@ export const NftThumbnailTitleTokenId: FunctionComponent<Props> = ({ nft }) => {
         'truncate'
       )}
     >
-      {getTokenIdString(nft.tokenId, nft.collection.totalSupply)}
+      {label}
     </p>
   )
 }

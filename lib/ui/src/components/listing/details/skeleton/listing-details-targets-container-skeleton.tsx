@@ -1,17 +1,28 @@
-import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
-import { SwapDirectionHeaderSkeleton } from '@echo/ui/components/base/swap-direction-header-skeleton'
-import { NftCardSkeleton } from '@echo/ui/components/nft/card/skeleton/nft-card-skeleton'
-import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
+import { ProfilePictureSkeleton } from '@echo/ui/components/base/profile-picture-skeleton'
+import { SIZE_SM } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 export const ListingDetailsTargetsContainerSkeleton: FunctionComponent = () => {
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-6')}>
-      <SwapDirectionHeaderSkeleton />
-      <CardsLayout alignment={ALIGNMENT_CENTER}>
-        <NftCardSkeleton />
-      </CardsLayout>
+    <div className={clsx('flex', 'flex-row', 'items-center', 'gap-4.5')}>
+      <div
+        className={clsx(
+          'flex',
+          'flex-row',
+          'pt-3.5',
+          'pb-3.75',
+          'px-3.25',
+          'gap-3.5',
+          'items-center',
+          'w-96',
+          'rounded-lg',
+          'border',
+          'border-white/10'
+        )}
+      >
+        <ProfilePictureSkeleton size={SIZE_SM} border={false} />
+      </div>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { linkProvider } from '@echo/api/services/routing/link-provider'
 
-export function listingLink(collectionSlug: string, listingId: string) {
-  return linkProvider.collection.listing.getUrl({ slug: collectionSlug, listingId })
+export function listingLink(listingId: string) {
+  return linkProvider.listing.details.getUrl({ listingId })
 }

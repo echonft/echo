@@ -2,7 +2,6 @@ import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { embedValueForNft } from '@echo/bot/helpers/embed/embed-value-for-nft'
 import { listingLink } from '@echo/bot/listing/listing-link'
 import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
-import type { Collection } from '@echo/model/types/collection'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { type ListingTarget } from '@echo/model/types/listing-target'
@@ -10,7 +9,7 @@ import { type APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { addIndex, flatten, map } from 'ramda'
 
-export function buildListingEmbed(listing: Listing, creator: UserDocumentData, collection: Collection) {
+export function buildListingEmbed(listing: Listing, creator: UserDocumentData) {
   return (
     new EmbedBuilder()
       .setTitle(i18next.t('listing.embed.title'))
@@ -18,7 +17,7 @@ export function buildListingEmbed(listing: Listing, creator: UserDocumentData, c
       // TODO Maybe a color per collection via settings?
       .setColor(0x00ff66)
       .setFields(fields(listing.items, listing.targets))
-      .setURL(listingLink(collection.slug, listing.id))
+      .setURL(listingLink(listing.id))
   )
 }
 

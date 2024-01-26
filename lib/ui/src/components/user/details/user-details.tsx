@@ -4,8 +4,8 @@ import { UserDiscordTag } from '@echo/ui/components/user/base/user-discord-tag'
 import { UserProfilePicture } from '@echo/ui/components/user/base/user-profile-picture'
 import { UserDetailsLayout } from '@echo/ui/components/user/details/layout/user-details-layout'
 import { UserInfoLayout } from '@echo/ui/components/user/details/layout/user-info-layout'
+import { UserPictureAndInfoLayout } from '@echo/ui/components/user/details/layout/user-picture-and-info-layout'
 import { UserDetailsWallets } from '@echo/ui/components/user/details/user-details-wallets'
-import { UserPictureAndInfoLayout } from '@echo/ui/components/user/layout/user-picture-and-info-layout'
 import { type FunctionComponent } from 'react'
 
 interface Props {

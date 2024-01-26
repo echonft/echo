@@ -1,16 +1,14 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { OFFER_STATES, READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
+import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
 import { type Nft } from '@echo/model/types/nft'
 import { type OfferItem } from '@echo/model/types/offer-item'
-import type { OfferState } from '@echo/model/types/offer-state'
 import { type User } from '@echo/model/types/user'
 import { stringComparator } from '@echo/utils/comparators/string-comparator'
-import { isIn } from '@echo/utils/fp/is-in'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { now } from '@echo/utils/helpers/now'
-import { intersection, isEmpty, map, modify, path, pick, pipe, reject, sort } from 'ramda'
+import { intersection, isEmpty, map, modify, path, pick, pipe, sort } from 'ramda'
 
 interface PartialOfferItem {
   amount: number
@@ -35,7 +33,7 @@ export async function assertOfferIsNotADuplicate(senderItems: OfferItem[], recei
   )(senderItems)
   const documents = await pipe(
     getOffersCollectionReference,
-    queryWhere('state', 'in', reject(isIn<OfferState>(READ_ONLY_OFFER_STATES), OFFER_STATES)),
+    queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),
     queryWhere('expiresAt', '>', now()),
     queryWhere('receiverItemsNftIds', '==', receiverItemsNftIds),
     queryWhere('senderItemsNftIds', '==', senderItemsNftIds),

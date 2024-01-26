@@ -84,7 +84,8 @@ export const messages = {
   error: {
     listing: {
       cancel: 'An error occurred while trying to cancel the listing. Please try again',
-      new: 'An error occurred while trying to create the listing. Please try again'
+      new: 'An error occurred while trying to create the listing. Please try again',
+      fill: 'An error occurred while trying to fill the listing. Please try again'
     },
     offer: {
       accept: 'An error occurred while trying to accept the offer. Please try again',
@@ -188,8 +189,17 @@ export const messages = {
         label: 'Cancel',
         message: 'Hold to cancel'
       },
+      fillBtn: {
+        label: 'Fill Listing'
+      },
       expiresAt: 'Expires in',
-      expiredAt: 'Expired'
+      expiredAt: 'Expired',
+      backBtn: {
+        label: 'Back to your profile'
+      },
+      banner: {
+        title: 'Select your NFTs to fill the Lisiting'
+      }
     },
     new: {
       confirmationModal: {

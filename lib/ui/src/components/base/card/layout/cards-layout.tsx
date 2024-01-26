@@ -14,7 +14,7 @@ export const CardsLayout: FunctionComponent<PropsWithChildren<Props>> = ({ align
         alignment === ALIGNMENT_RIGHT ? 'flex-row-reverse' : 'flex-row',
         'grow',
         'flex-wrap',
-        'gap-6',
+        'gap-5',
         'h-max',
         alignment === ALIGNMENT_CENTER && 'justify-center'
       )}

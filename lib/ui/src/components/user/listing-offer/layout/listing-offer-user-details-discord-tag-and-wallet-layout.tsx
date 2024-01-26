@@ -3,6 +3,4 @@ import type { FunctionComponent, PropsWithChildren } from 'react'
 
 export const ListingOfferUserDetailsDiscordTagAndWalletLayout: FunctionComponent<PropsWithChildren> = ({
   children
-}) => {
-  return <div className={clsx('flex', 'flex-col', 'gap-2.5', 'py-3')}>{children}</div>
-}
+}) => <div className={clsx('flex', 'flex-col', 'gap-2.5', 'items-start')}>{children}</div>

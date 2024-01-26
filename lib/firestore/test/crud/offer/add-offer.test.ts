@@ -15,13 +15,14 @@ import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { type ListingState } from '@echo/model/types/listing-state'
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { expectDateNumberIs } from '@echo/utils-test/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
-import { head, slice } from 'ramda'
+import { head, toLower } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
   const listingId = 'jUzMtPGKM62mMhEcmbN4'
@@ -60,16 +61,39 @@ describe('CRUD - offer - addOffer', () => {
   })
 
   it('add an offer', async () => {
-    const { receiver, receiverItems, sender, senderItems } = getOfferMockById('ASkFpKoHEHVH0gd69t1G')
-    const newSenderItems = slice(0, 1, senderItems)
-    const createdOffer = await addOffer(newSenderItems, receiverItems)
+    const senderItems = [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }]
+    const receiverItems = [
+      { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
+      { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
+    ]
+    const createdOffer = await addOffer(senderItems, receiverItems)
     createdOfferId = createdOffer.id
     const newOffer = (await findOfferById(createdOfferId))!
-    expectDateNumberIsNow(newOffer.createdAt)
-    expect(newOffer.receiver).toStrictEqual(receiver)
+    expect(newOffer.receiver).toStrictEqual({
+      discord: {
+        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
+        username: 'johnnycagewins'
+      },
+      username: 'johnnycagewins',
+      wallet: {
+        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
+        chainId: 1
+      }
+    })
     expect(newOffer.receiverItems).toStrictEqual(receiverItems)
-    expect(newOffer.sender).toStrictEqual(sender)
-    expect(newOffer.senderItems).toStrictEqual(newSenderItems)
+    expectDateNumberIsNow(newOffer.createdAt)
+    expect(newOffer.sender).toStrictEqual({
+      discord: {
+        username: 'crewnft_',
+        avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png'
+      },
+      username: 'crewnft_',
+      wallet: {
+        address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
+        chainId: 1
+      }
+    })
+    expect(newOffer.senderItems).toStrictEqual(senderItems)
     expect(newOffer.state).toBe(OFFER_STATE_OPEN)
     expectDateNumberIsNow(newOffer.updatedAt)
     expectDateNumberIs(newOffer.expiresAt)(dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'))

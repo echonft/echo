@@ -12,7 +12,6 @@ export const UserDiscordTag: FunctionComponent<Props> = ({ discordUsername }) =>
       className={clsx(
         'flex',
         'flex-row',
-        'h-[2.625rem]',
         'w-max',
         'px-5',
         'py-2.5',

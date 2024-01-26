@@ -1,6 +1,6 @@
 import { Banner } from '@echo/ui/components/base/banner/banner'
+import { BannerAbsoluteTopLayout } from '@echo/ui/components/base/banner/banner-absolute-top-layout'
 import { useBannerStore } from '@echo/ui/hooks/use-banner-store'
-import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -11,8 +11,8 @@ export const BannerManager: FunctionComponent = () => {
   }
 
   return (
-    <div className={clsx('absolute', 'top-0', 'inset-x-0')}>
+    <BannerAbsoluteTopLayout>
       <Banner {...banner} />
-    </div>
+    </BannerAbsoluteTopLayout>
   )
 }
