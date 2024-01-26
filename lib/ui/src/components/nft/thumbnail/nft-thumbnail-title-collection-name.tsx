@@ -1,12 +1,11 @@
-import type { Nft } from '@echo/model/types/nft'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  nft: Nft
+  label: string
 }
 
-export const NftThumbnailTitleCollectionName: FunctionComponent<Props> = ({ nft }) => {
+export const NftThumbnailTitleCollectionName: FunctionComponent<Props> = ({ label }) => {
   return (
     <p
       className={clsx(
@@ -19,7 +18,7 @@ export const NftThumbnailTitleCollectionName: FunctionComponent<Props> = ({ nft 
         'truncate'
       )}
     >
-      {nft.collection.name}
+      {label}
     </p>
   )
 }
