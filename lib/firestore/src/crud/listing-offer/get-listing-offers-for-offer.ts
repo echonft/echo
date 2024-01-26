@@ -1,115 +1,51 @@
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
-import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
+import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-queries-documents'
+import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { getListingOfferFulfillingStatus } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status'
+import { getListingOfferFulfillingStatusForListing } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status-for-listing'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
+import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { LISTING_STATES, READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
-import { offerItemsIncludeListingTargets } from '@echo/model/helpers/offer/offer-items-include-listing-targets'
 import type { ListingState } from '@echo/model/types/listing-state'
 import { type Offer } from '@echo/model/types/offer'
+import type { OfferItem } from '@echo/model/types/offer-item'
 import { isIn } from '@echo/utils/fp/is-in'
-import { promiseAll } from '@echo/utils/fp/promise-all'
-import { unlessEmpty } from '@echo/utils/fp/unless-empty'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { now } from '@echo/utils/helpers/now'
-import {
-  always,
-  andThen,
-  applySpec,
-  converge,
-  eqProps,
-  filter,
-  flatten,
-  identity,
-  juxt,
-  map,
-  path,
-  pipe,
-  prop,
-  reject,
-  uniqWith
-} from 'ramda'
-
-/**
- * Get the listings for which the items intersect with receiver items
- * for these listings, check if the targets match with the sender items
- * if any listings are found, set the fulfill status
- * @param {Offer} offer
- * @returns {Promise<Omit<ListingOffer, "id">[]>}
- */
-function receiverItemsListingItemsMatch(offer: Offer): Promise<Omit<ListingOffer, 'id'>[]> {
-  const { senderItems, receiverItems } = offer
-  return pipe(
-    getListingsCollectionReference,
-    queryWhere('expiresAt', '>', now()),
-    queryWhere('state', 'in', reject(isIn<ListingState>(READ_ONLY_LISTING_STATES), LISTING_STATES)),
-    queryWhere('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), receiverItems)),
-    getQueryData,
-    andThen(
-      pipe(
-        filter(offerItemsIncludeListingTargets(senderItems)),
-        unlessEmpty(
-          map(
-            applySpec<Omit<ListingOffer, 'id'>>({
-              listingId: prop('id'),
-              offerId: always(offer.id),
-              fulfillingStatus: converge(getListingOfferFulfillingStatus, [
-                identity,
-                always(senderItems),
-                always(receiverItems)
-              ])
-            })
-          )
-        )
-      )
-    )
-  )()
-}
-
-/**
- * Get the listings for which the items intersect with sender items
- * for these listings, check if the targets match with the receiver items
- * if any listings are found, set the fulfill status
- * @param {Offer} offer
- * @returns {Promise<Omit<ListingOffer, "id">[]>}
- */
-function senderItemsListingItemsMatch(offer: Offer): Promise<Omit<ListingOffer, 'id'>[]> {
-  const { senderItems, receiverItems } = offer
-  return pipe(
-    getListingsCollectionReference,
-    queryWhere('expiresAt', '>', now()),
-    queryWhere('state', 'in', reject(isIn<ListingState>(READ_ONLY_LISTING_STATES), LISTING_STATES)),
-    queryWhere('itemsNftIds', 'array-contains-any', map(path(['nft', 'id']), senderItems)),
-    getQueryData,
-    andThen(
-      pipe(
-        filter(offerItemsIncludeListingTargets(receiverItems)),
-        unlessEmpty(
-          map(
-            applySpec<Omit<ListingOffer, 'id'>>({
-              listingId: prop('id'),
-              offerId: always(offer.id),
-              fulfillingStatus: converge(getListingOfferFulfillingStatus, [
-                identity,
-                always(receiverItems),
-                always(senderItems)
-              ])
-            })
-          )
-        )
-      )
-    )
-  )()
-}
+import { always, andThen, applySpec, juxt, map, path, pipe, prop, propEq, reject } from 'ramda'
 
 export async function getListingOffersForOffer(offer: Offer): Promise<Omit<ListingOffer, 'id'>[]> {
-  return pipe<
-    [Offer],
-    Promise<Omit<ListingOffer, 'id'>[]>[],
-    Promise<Omit<ListingOffer, 'id'>[][]>,
-    Promise<Omit<ListingOffer, 'id'>[]>
-  >(
-    juxt([receiverItemsListingItemsMatch, senderItemsListingItemsMatch]),
-    promiseAll,
-    andThen(pipe(flatten, uniqWith(eqProps('offerId'))))
+  // get pending listings for which targets intersect the offer sender items and items intersect the offer receiver items
+  // then filter out the ones for which the offer does not fill the listing
+  const senderItemsCollections = pipe<[Offer], OfferItem[], string[]>(
+    prop('senderItems'),
+    map(nonNullableReturn(path(['nft', 'collection', 'id'])))
   )(offer)
+  const receiverItems = pipe<[Offer], OfferItem[], string[]>(
+    prop('receiverItems'),
+    map(nonNullableReturn(path(['nft', 'id'])))
+  )(offer)
+  return pipe(
+    getListingsCollectionReference,
+    queryWhere('expiresAt', '>', now()),
+    queryOrderBy('expiresAt', 'desc'),
+    queryWhere('state', 'in', reject(isIn<ListingState>(READ_ONLY_LISTING_STATES), LISTING_STATES)),
+    juxt([
+      queryWhere('targetsIds', 'array-contains-any', senderItemsCollections),
+      queryWhere('itemsNftIds', 'array-contains-any', receiverItems)
+    ]),
+    getQueriesDocuments,
+    andThen(
+      pipe(
+        map(
+          applySpec<ListingOffer>({
+            listingId: prop('id'),
+            offerId: always(offer.id),
+            fulfillingStatus: getListingOfferFulfillingStatusForListing(offer)
+          })
+        ),
+        reject(propEq(ListingOfferFulfillingStatus.NONE, 'fulfillingStatus'))
+      )
+    )
+  )()
 }

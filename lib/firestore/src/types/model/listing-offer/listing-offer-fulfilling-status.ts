@@ -1,4 +1,5 @@
 export enum ListingOfferFulfillingStatus {
-  PARTIALLY = 'partially',
-  COMPLETELY = 'completely'
+  NONE,
+  PARTIALLY,
+  COMPLETELY
 }
