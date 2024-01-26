@@ -1,4 +1,4 @@
-import { ListingCardsLayout } from '@echo/ui/components/listing/card/layout/listing-cards-layout'
+import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { NftCardSkeleton } from '@echo/ui/components/nft/card/skeleton/nft-card-skeleton'
 import { type FunctionComponent } from 'react'
 
@@ -6,10 +6,10 @@ import { type FunctionComponent } from 'react'
 // and a loading user tag and state tag. Will do for now.
 export const ListingCardsContainerSkeleton: FunctionComponent = () => {
   return (
-    <ListingCardsLayout>
+    <CardsLayout>
       <NftCardSkeleton />
       <NftCardSkeleton />
       <NftCardSkeleton />
-    </ListingCardsLayout>
+    </CardsLayout>
   )
 }

@@ -1,4 +1,4 @@
-import { ListingCardsLayout } from '@echo/ui/components/listing/card/layout/listing-cards-layout'
+import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { ListingCard, type ListingCardProps } from '@echo/ui/components/listing/card/listing-card'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { map } from 'ramda'
@@ -10,13 +10,13 @@ interface Props extends Pick<ListingCardProps, 'options'> {
 
 export const ListingCardsContainer: FunctionComponent<Props> = ({ listings, options }) => {
   return (
-    <ListingCardsLayout>
+    <CardsLayout>
       {map(
         (listing) => (
           <ListingCard key={listing.id} listing={listing} options={options} />
         ),
         listings
       )}
-    </ListingCardsLayout>
+    </CardsLayout>
   )
 }

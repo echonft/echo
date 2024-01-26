@@ -68,7 +68,7 @@ describe('converters - listingDataConverter', () => {
       listingDataConverter.fromFirestore(
         assoc('data', () => assoc('state', LISTING_STATE_PARTIALLY_FULFILLED, documentData), snapshot)
       )
-    ).toStrictEqual(pipe(assoc('state', LISTING_STATE_PARTIALLY_FULFILLED), assoc('readOnly', false))(document))
+    ).toStrictEqual(pipe(assoc('state', LISTING_STATE_PARTIALLY_FULFILLED), assoc('readOnly', true))(document))
     expect(
       listingDataConverter.fromFirestore(
         assoc('data', () => assoc('state', LISTING_STATE_FULFILLED, documentData), snapshot)
