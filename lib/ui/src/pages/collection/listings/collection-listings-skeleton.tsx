@@ -1,6 +1,6 @@
-import { ListingRowsContainerSkeleton } from '@echo/ui/components/listing/layout/container/skeleton/listing-rows-container-skeleton'
+import { ListingCardsContainerSkeleton } from '@echo/ui/components/listing/card/layout/skeleton/listing-cards-container-skeleton'
 import { type FunctionComponent } from 'react'
 
 export const CollectionListingsSkeleton: FunctionComponent = () => {
-  return <ListingRowsContainerSkeleton />
+  return <ListingCardsContainerSkeleton />
 }
