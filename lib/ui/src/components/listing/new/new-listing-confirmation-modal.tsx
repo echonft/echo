@@ -60,11 +60,9 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
     >
       <div className={clsx('flex', 'flex-col', 'gap-6')}>
         <CollectionSearchBoxManager
-          placeholder={t('searchPlaceholder')}
-          selectedOption={target?.collection}
           options={collections}
           onSelectionChange={onCollectionSelectionChange}
-          isMutating={isMutating}
+          disabled={isMutating}
         />
         <NewListingModalTargetContainer target={target} onEdit={onTargetAmountChange} isMutating={isMutating} />
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />

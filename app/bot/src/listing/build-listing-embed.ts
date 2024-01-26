@@ -1,6 +1,6 @@
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { embedValueForNft } from '@echo/bot/helpers/embed/embed-value-for-nft'
-import { listingLink } from '@echo/bot/listing/listing-link'
 import { type UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingItem } from '@echo/model/types/listing-item'
@@ -17,7 +17,7 @@ export function buildListingEmbed(listing: Listing, creator: UserDocumentData) {
       // TODO Maybe a color per collection via settings?
       .setColor(0x00ff66)
       .setFields(fields(listing.items, listing.targets))
-      .setURL(listingLink(listing.id))
+      .setURL(linkProvider.listing.details.getUrl({ listingId: listing.id }))
   )
 }
 

@@ -3,11 +3,11 @@ import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 export const CollectionSearchNoResults: FunctionComponent = () => {
-  const t = useTranslations('listing.new.confirmationModal')
+  const t = useTranslations('collection.search')
 
   return (
-    <div className={clsx('rounded-lg', 'p-2', 'flex', 'flex-row', 'h-[4.75rem]', 'items-center', 'justify-center')}>
-      <span className={clsx('prose-header-sm-semi', 'text-white')}>{t('emptySearch')}</span>
+    <div className={clsx('rounded-lg', 'p-2', 'flex', 'flex-row', 'h-24', 'w-96', 'items-center', 'justify-center')}>
+      <span className={clsx('prose-header-sm-semi', 'text-white')}>{t('emptyResults')}</span>
     </div>
   )
 }

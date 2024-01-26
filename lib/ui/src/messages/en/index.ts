@@ -42,7 +42,7 @@ export const messages = {
       createListing: 'Create listing'
     },
     details: {
-      size: '{size, number, ::K} NFTs'
+      supply: '{supply, number, ::K} NFTs'
     },
     empty: {
       items: {
@@ -74,8 +74,12 @@ export const messages = {
       listings: 'Listings',
       swaps: 'Swaps'
     },
+    search: {
+      emptyResults: 'No collections found',
+      label: 'Search by collection name'
+    },
     thumbnail: {
-      title: '{count} {collectionName}'
+      supply: '{supply, number, ::K} NFTs'
     },
     tile: {
       swapsCount: '{count, plural, =0 {No Swap} =1 {1 Swap} other {{count} Swaps}}'
@@ -208,8 +212,6 @@ export const messages = {
         targetSubtitle: 'Target collection',
         itemsCount: '{count} {count, plural, =0 {} =1 {item} other {items}}',
         itemsSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',
-        searchPlaceholder: 'Search by collection name',
-        emptySearch: 'No collections found',
         emptyTargets: 'To add a collection, type its name\nin the input above',
         expirationTitle: 'Expires in',
         expirationValue: '7 days',
