@@ -3,13 +3,17 @@
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import { LISTING_STATE_CANCELLED, LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
+import type { Listing } from '@echo/model/types/listing'
+import type { Offer } from '@echo/model/types/offer'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
+import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { ListingDetails as Component } from '@echo/ui/components/listing/details/listing-details'
 import { setListingRoleForUser } from '@echo/ui/helpers/listing/set-listing-role-for-user'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { type Meta, type StoryObj } from '@storybook/react'
 import dayjs from 'dayjs'
@@ -38,7 +42,7 @@ const targetNfts = [
   assoc('id', '1')(getNftMockById('XiDa6k2P7gxXCKSxn2wq')),
   assoc('id', '2')(getNftMockById('XiDa6k2P7gxXCKSxn2wq'))
 ]
-const ownerOffers = [getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'), getOfferMockById('ASkFpKoHEHVH0gd69t1G')]
+const ownerOffers = pipe<[], Offer[], OfferWithRole[]>(getAllOfferMocks, assoc('role', undefined))()
 function cancelListing(_args: CancelListingArgs) {
   return delayPromise(
     Promise.resolve({
@@ -96,15 +100,15 @@ type Story = StoryObj<ComponentType>
 
 export const Default: Story = {
   render: ({ readOnly, expired, isCreator, ownerHasOffers, targetHasNfts }) => {
-    const renderedListing = pipe(
-      ifElse(
+    const renderedListing = pipe<[Listing], Listing, Listing, ListingWithRole>(
+      ifElse<[Listing], Listing, Listing>(
         always(expired),
         mergeLeft({ expiresAt: EXPIRED_DATE, state: LISTING_STATE_EXPIRED, readOnly: true }),
         assoc('expiresAt', NOT_EXPIRED_DATE)
       ),
-      when(always(readOnly), assoc('readOnly', true)),
+      when<Listing, Listing>(always(readOnly), assoc('readOnly', true)),
       ifElse(always(isCreator), setListingRoleForUser(creator), setListingRoleForUser(target))
-    )(listing) as ListingWithRole
+    )(listing)
     return (
       <Component
         listing={renderedListing}

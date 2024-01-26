@@ -13,7 +13,7 @@ interface Props {
   onAction?: (nft: SelectableNft) => unknown
 }
 
-export const SelectableNftsContainer: FunctionComponent<Props> = ({
+export const SelectableNftCardsContainer: FunctionComponent<Props> = ({
   nfts,
   hideLink,
   hideOwner,
