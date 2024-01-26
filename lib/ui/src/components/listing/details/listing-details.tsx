@@ -20,7 +20,7 @@ import { ListingDetailsState } from '@echo/ui/components/listing/details/listing
 import { ListingDetailsTargetCollectionTitle } from '@echo/ui/components/listing/details/listing-details-target-collection-title'
 import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
 import { ListingDetailsUserNftsLayout } from '@echo/ui/components/listing/layout/listing-details-user-nfts-layout'
-import { SelectableNftsContainer } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards-container'
+import { SelectableNftCardsContainer } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards-container'
 import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
 import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
 import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
@@ -113,7 +113,8 @@ export const ListingDetails: FunctionComponent<Props> = ({
   // TODO Validate this behaviour, we only allow 1 target per listing atm right?
   const target = head(targets)!
   // TODO Validate this behaviour, should we allow user to select more than amount or only amount?
-  const hasSelectedEnoughNfts = filter<SelectableNft>(prop('selected'))(selectableNfts).length >= target.amount
+  const hasSelectedEnoughNfts =
+    filter<SelectableNft>(pipe(prop('selected'), Boolean))(selectableNfts).length >= target.amount
   const isCreator = isListingRoleCreator(listing)
   const isMutating = cancelIsMutating || fillIsMutating
 
@@ -168,7 +169,7 @@ export const ListingDetails: FunctionComponent<Props> = ({
           <HideIf condition={isCreator || listing.readOnly}>
             <ListingDetailsUserNftsLayout>
               <ListingDetailsTargetCollectionTitle title={target.collection.name} />
-              <SelectableNftsContainer
+              <SelectableNftCardsContainer
                 nfts={selectableNfts}
                 onToggleSelection={onNftToggleSelection}
                 hideLink={true}
