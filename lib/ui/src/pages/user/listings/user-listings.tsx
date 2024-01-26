@@ -1,19 +1,17 @@
-import type { AuthUser } from '@echo/model/types/auth-user'
-import { type Listing } from '@echo/model/types/listing'
-import { ListingRowsContainer } from '@echo/ui/components/listing/layout/container/listing-rows-container'
+import { ListingCardsContainer } from '@echo/ui/components/listing/card/layout/listing-cards-container'
 import { UserListingsEmpty } from '@echo/ui/pages/user/listings/user-listings-empty'
+import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { isEmpty } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   username: string
-  listings: Listing[]
-  user: AuthUser | undefined
+  listings: ListingWithRole[]
 }
 
-export const UserListings: FunctionComponent<Props> = ({ username, listings, user }) => {
+export const UserListings: FunctionComponent<Props> = ({ username, listings }) => {
   if (isEmpty(listings)) {
     return <UserListingsEmpty username={username} />
   }
-  return <ListingRowsContainer listings={listings} user={user} />
+  return <ListingCardsContainer listings={listings} />
 }
