@@ -55,6 +55,6 @@ export const Default: StoryObj<ComponentType> = {
         )(),
       [state, stack]
     )
-    return <ListingCard listing={listing} scaleDisabled={scaleDisabled} />
+    return <ListingCard listing={listing} options={{ scaleDisabled }} />
   }
 }

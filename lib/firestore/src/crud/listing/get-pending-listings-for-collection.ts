@@ -3,12 +3,10 @@ import { getListingsCollectionReference } from '@echo/firestore/helpers/collecti
 import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-queries-documents'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { LISTING_STATES, READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
+import { NOT_READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import { type Listing } from '@echo/model/types/listing'
-import type { ListingState } from '@echo/model/types/listing-state'
-import { isIn } from '@echo/utils/fp/is-in'
 import { now } from '@echo/utils/helpers/now'
-import { isNil, juxt, pipe, reject } from 'ramda'
+import { isNil, juxt, pipe } from 'ramda'
 
 export async function getPendingListingsForCollection(slug: string): Promise<Listing[]> {
   const collection = await findCollectionBySlug(slug)
@@ -18,7 +16,7 @@ export async function getPendingListingsForCollection(slug: string): Promise<Lis
   const { id } = collection
   return pipe(
     getListingsCollectionReference,
-    queryWhere('state', 'in', reject(isIn<ListingState>(READ_ONLY_LISTING_STATES), LISTING_STATES)),
+    queryWhere('state', 'in', NOT_READ_ONLY_LISTING_STATES),
     queryWhere('expiresAt', '>', now()),
     queryOrderBy('expiresAt', 'desc'),
     juxt([queryWhere('itemsNftCollectionIds', 'array-contains', id), queryWhere('targetsIds', 'array-contains', id)]),

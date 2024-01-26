@@ -1,4 +1,4 @@
-import { OfferCardsLayout } from '@echo/ui/components/offer/card/layout/offer-cards-layout'
+import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
 import { OfferCard, type OfferCardProps } from '@echo/ui/components/offer/card/offer-card'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { map } from 'ramda'
@@ -10,13 +10,13 @@ interface Props extends Pick<OfferCardProps, 'options'> {
 
 export const OfferCardsContainer: FunctionComponent<Props> = ({ offers, options }) => {
   return (
-    <OfferCardsLayout>
+    <CardsLayout>
       {map(
         (offer) => (
           <OfferCard key={offer.id} offer={offer} options={options} />
         ),
         offers
       )}
-    </OfferCardsLayout>
+    </CardsLayout>
   )
 }
