@@ -1,4 +1,5 @@
 import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
+import { addListingOffersFromOffer } from '@echo/firestore/crud/listing-offer/add-listing-offers-from-offer'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-a-duplicate'
@@ -28,5 +29,7 @@ export async function addOffer(senderItems: OfferItem[], receiverItems: OfferIte
       updatedAt: now()
     })
   )()
+  // add listing offers (if any)
+  await addListingOffersFromOffer(newOffer)
   return newOffer
 }

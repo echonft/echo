@@ -1,12 +1,13 @@
-import { getListingOffersForListing } from '@echo/firestore/crud/listing/get-listing-offers-for-listing'
+import { getPendingOffersForListing } from '@echo/firestore/crud/offer/get-pending-offers-for-listing'
 import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { ListingOfferFill } from '@echo/model/constants/listing-offer-fill'
 import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { assoc, pipe } from 'ramda'
 
-describe('CRUD - listing - getListingOffersForListing', () => {
+describe('CRUD - listing - getPendingListingsForCollection', () => {
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()
   })
@@ -14,14 +15,15 @@ describe('CRUD - listing - getListingOffersForListing', () => {
     await tearDownRemoteFirestoreTests()
   })
 
-  it('returns the listing offers for a given listing', async () => {
+  it('returns the offers that partially or completely fulfill a given listing', async () => {
     const listing = getListingMock()
-    const listingOffers = await getListingOffersForListing(listing)
-    expect(listingOffers.length).toBe(1)
-    expect(listingOffers[0]).toStrictEqual({
-      offer: getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'),
-      listing,
-      fill: ListingOfferFill.PARTIAL
-    })
+    const offers = await getPendingOffersForListing(listing)
+    expect(offers.length).toBe(1)
+    const expected = pipe(
+      getOfferMockById,
+      assoc('listing', listing),
+      assoc('fill', ListingOfferFill.PARTIAL)
+    )('LyCfl6Eg7JKuD7XJ6IPi')
+    expect(offers[0]).toStrictEqual(expected)
   })
 })
