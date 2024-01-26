@@ -7,7 +7,6 @@ import type { ListingResponse } from '@echo/api/types/responses/listing-response
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
-import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
@@ -35,13 +34,14 @@ import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selecti
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
+import { mapNftToItem } from '@echo/ui/mappers/to-api/map-nft-to-item'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { assoc, filter, head, isNil, isNotNil, map, mergeLeft, pipe, prop, propEq } from 'ramda'
+import { assoc, filter, head, isNil, length, lte, map, mergeLeft, pipe, prop, propEq } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
@@ -84,15 +84,18 @@ export const ListingDetails: FunctionComponent<Props> = ({
     key: SWRKeys.offer.create,
     fetcher: fetcher.createOffer,
     onSuccess: (response) => {
-      // @ts-ignore
-      setCreatedOffer(mergeLeft({ ...response.offer }))
+      setCreatedOffer(response.offer)
+      resetNftSelection()
     },
     onError: {
-      // TODO Not sure how to get the context here
-      contexts: offerContext({}),
+      contexts: listingContext(listing),
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('fill') }
     }
   })
+
+  useEffect(() => {
+    setUpdatedListing(listing)
+  }, [listing])
 
   const onNftToggleSelection = (nft: Nft) => {
     const updatedNfts = toggleSelectionInList<SelectableNft>(propEq(nft.id, 'id'))(selectableNfts)
@@ -105,31 +108,29 @@ export const ListingDetails: FunctionComponent<Props> = ({
       setSelectableNfts(updatedNfts)
     }
   }
-  useEffect(() => {
-    setUpdatedListing(listing)
-  }, [listing])
 
+  // Unselect all selected NFTs. Used after offer is created
+  const resetNftSelection = () => {
+    setSelectableNfts(toggleSelectionInList<SelectableNft>(pipe(prop('selected'), Boolean))(selectableNfts))
+  }
   const { state, readOnly, creator, expiresAt, items, targets } = updatedListing
-  // TODO Validate this behaviour, we only allow 1 target per listing atm right?
+  // We only allow 1 target per listing atm
   const target = head(targets)!
-  // TODO Validate this behaviour, should we allow user to select more than amount or only amount?
-  const hasSelectedEnoughNfts =
-    filter<SelectableNft>(pipe(prop('selected'), Boolean))(selectableNfts).length >= target.amount
+  // We allow user to select more NFTs than the target amount if wanted
+  const hasSelectedEnoughNfts = pipe<[SelectableNft[]], SelectableNft[], number, boolean>(
+    filter(pipe(prop('selected'), Boolean)),
+    length,
+    lte(target.amount)
+  )(selectableNfts)
   const isCreator = isListingRoleCreator(listing)
   const isMutating = cancelIsMutating || fillIsMutating
 
   function onFill(listing: Listing) {
-    const senderItems: OfferItemRequest[] = selectableNfts
-      .map((nft) => (nft.selected ? { amount: 1, nft } : undefined))
-      .filter(isNotNil)
-    // FIXME
-    // pipe<[SelectableNft[]], (OfferItemRequest | undefined)[], OfferItemRequest[]>(
-    //   map(
-    //     // @ts-ignore
-    //       ifElse(prop('selected'), mergeLeft({ amount: 1, nft: undefined }), undefined)
-    //   ),
-    //   filter(isNotNil)
-    // )(selectableNfts)
+    const senderItems: OfferItemRequest[] = pipe(
+      filter(pipe(prop('selected'), Boolean)),
+      map(mapNftToItem),
+      mapItemsToRequests
+    )(selectableNfts)
     const receiverItems: OfferItemRequest[] = mapItemsToRequests(listing.items)
     void triggerFill({
       senderItems,
@@ -179,7 +180,6 @@ export const ListingDetails: FunctionComponent<Props> = ({
           </HideIf>
         </div>
       </div>
-      {/* TODO Adjust props with all calls */}
       <ListingDetailsButtonsContainer
         listing={updatedListing}
         isMutating={isMutating}
