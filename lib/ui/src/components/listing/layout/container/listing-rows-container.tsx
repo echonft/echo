@@ -12,6 +12,7 @@ interface Props {
   user: AuthUser | undefined
 }
 
+// TODO Delete
 export const ListingRowsContainer: FunctionComponent<Props> = ({ listings }) => {
   return (
     <>
