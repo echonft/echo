@@ -1,5 +1,4 @@
 import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
-import { addListingOffersFromListing } from '@echo/firestore/crud/listing-offer/add-listing-offers-from-listing'
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { assertListingIsNotADuplicate } from '@echo/firestore/helpers/listing/assert/assert-listing-is-not-a-duplicate'
@@ -17,7 +16,7 @@ export async function addListing(items: OfferItem[], targets: ListingTarget[]): 
   assertListingTargets(targets)
   assertListingItems(items)
   await assertListingIsNotADuplicate(items, targets)
-  const newListing = await pipe(
+  return pipe(
     getListingsCollectionReference,
     setReference({
       creator: head(items).nft.owner,
@@ -30,7 +29,4 @@ export async function addListing(items: OfferItem[], targets: ListingTarget[]): 
       updatedAt: now()
     })
   )()
-  // add listing offers (if any)
-  await addListingOffersFromListing(newListing)
-  return newListing
 }
