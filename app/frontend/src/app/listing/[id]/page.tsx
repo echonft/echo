@@ -31,7 +31,6 @@ async function render({ params: { id }, user }: Params) {
   const offers = !isCreator
     ? undefined
     : await pipe(getPendingOffersForListing, andThen(map(setOfferRoleForUser(user))))(listing)
-
   return <ListingDetailsPage listing={listing} user={user} userTargetNfts={userTargetNfts} offers={offers} />
 }
 

@@ -1,11 +1,10 @@
 import { CardOpenSeaIcon } from '@echo/ui/components/base/card/card-open-sea-icon'
 import type { NftCardProps } from '@echo/ui/components/nft/card/nft-card'
 import { clsx } from 'clsx'
-import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 export const NftCardOpenSeaIcon: FunctionComponent<NftCardProps> = ({ nft, options }) => {
-  if (isNil(options) || isNil(options.style) || !options.style.hideOpenSeaLink) {
+  if (options?.style?.hideOpenSeaLink) {
     return null
   }
   return (
