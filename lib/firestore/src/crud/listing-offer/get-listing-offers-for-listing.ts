@@ -5,12 +5,10 @@ import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { getListingOfferFulfillingStatusForOffer } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status-for-offer'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import { OFFER_STATES, READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
+import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
 import { getListingItemsIds } from '@echo/model/helpers/listing/get-listing-items-ids'
 import { getListingTargetsCollectionIds } from '@echo/model/helpers/listing/get-listing-targets-collection-ids'
 import { type Listing } from '@echo/model/types/listing'
-import type { OfferState } from '@echo/model/types/offer-state'
-import { isIn } from '@echo/utils/fp/is-in'
 import { now } from '@echo/utils/helpers/now'
 import { always, andThen, applySpec, juxt, map, pipe, prop, propEq, reject } from 'ramda'
 
@@ -23,7 +21,7 @@ export function getListingOffersForListing(listing: Listing): Promise<Omit<Listi
     getOffersCollectionReference,
     queryWhere('expiresAt', '>', now()),
     queryOrderBy('expiresAt', 'desc'),
-    queryWhere('state', 'in', reject(isIn<OfferState>(READ_ONLY_OFFER_STATES), OFFER_STATES)),
+    queryWhere('state', 'in', NOT_READ_ONLY_OFFER_STATES),
     juxt([
       queryWhere('senderItemsNftCollectionIds', 'array-contains-any', listingTargets),
       queryWhere('receiverItemsNftIds', 'array-contains-any', listingItems)

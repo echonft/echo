@@ -1,18 +1,16 @@
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { LISTING_STATES, READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
+import { NOT_READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
 import { type ListingItem } from '@echo/model/types/listing-item'
-import type { ListingState } from '@echo/model/types/listing-state'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { type Nft } from '@echo/model/types/nft'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { type User } from '@echo/model/types/user'
 import { stringComparator } from '@echo/utils/comparators/string-comparator'
-import { isIn } from '@echo/utils/fp/is-in'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { now } from '@echo/utils/helpers/now'
-import { intersection, map, modify, path, pick, pipe, reject, sort } from 'ramda'
+import { intersection, map, modify, path, pick, pipe, sort } from 'ramda'
 
 interface PartialListingItem {
   amount: number
@@ -34,7 +32,7 @@ export async function assertListingIsNotADuplicate(items: OfferItem[], targets: 
   const itemIds = pipe(map<OfferItem, string>(nonNullableReturn(path(['nft', 'id']))), sort(stringComparator))(items)
   const documents = await pipe(
     getListingsCollectionReference,
-    queryWhere('state', 'in', reject(isIn<ListingState>(READ_ONLY_LISTING_STATES), LISTING_STATES)),
+    queryWhere('state', 'in', NOT_READ_ONLY_LISTING_STATES),
     queryWhere('expiresAt', '>', now()),
     queryWhere('targetsIds', '==', targetIds),
     queryWhere('itemsNftIds', '==', itemIds),
