@@ -11,7 +11,6 @@ import { type FunctionComponent } from 'react'
 interface Props {
   options: CollectionProviderResult[] | undefined
   searching: boolean
-  name?: string
   disabled?: boolean
   onSearch?: (searchQuery: string) => unknown
   onSearchClear?: EmptyFunction
@@ -19,7 +18,6 @@ interface Props {
 }
 
 export const CollectionSearchBox: FunctionComponent<Props> = ({
-  name,
   options,
   searching,
   disabled,
@@ -35,7 +33,7 @@ export const CollectionSearchBox: FunctionComponent<Props> = ({
         {t('label')}
       </span>
       <div className={clsx('h-max', 'w-full', 'relative')}>
-        <Combobox onChange={onSelectionChange} name={name} disabled={disabled}>
+        <Combobox onChange={onSelectionChange} disabled={disabled}>
           <CollectionSearchComboboxInput
             searching={searching}
             onSearch={onSearch}

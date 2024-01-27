@@ -7,17 +7,11 @@ import { type FunctionComponent, useCallback, useEffect, useRef, useState } from
 
 interface Props {
   options: CollectionProviderResult[] | undefined
-  name?: string
   disabled?: boolean
   onSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
 }
 
-export const CollectionSearchBoxManager: FunctionComponent<Props> = ({
-  name,
-  options,
-  onSelectionChange,
-  disabled
-}) => {
+export const CollectionSearchBoxManager: FunctionComponent<Props> = ({ options, onSelectionChange, disabled }) => {
   const [searching, setSearching] = useState(false)
   const [filteredOptions, setFilteredOptions] = useState<CollectionProviderResult[]>()
   const filterOptions = useCallback(
@@ -56,7 +50,6 @@ export const CollectionSearchBoxManager: FunctionComponent<Props> = ({
 
   return (
     <CollectionSearchBox
-      name={name}
       options={filteredOptions}
       searching={searching}
       onSearch={filterOptions}
