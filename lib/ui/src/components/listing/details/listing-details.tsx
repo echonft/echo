@@ -50,18 +50,12 @@ interface Props {
     cancelListing: Fetcher<ListingResponse, CancelListingArgs>
     createOffer: Fetcher<OfferResponse, CreateOfferRequest>
   }
-  user: AuthUser
-  userTargetNfts: Nft[] | undefined
-  offers: OfferWithRole[] | undefined
+  user: AuthUser | undefined
+  userTargetNfts: Nft[]
+  offers: Offer[]
 }
 
-export const ListingDetails: FunctionComponent<Props> = ({
-  listing,
-  fetcher,
-  user,
-  userTargetNfts = [],
-  offers = []
-}) => {
+export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, user, userTargetNfts, offers }) => {
   const tError = useTranslations('error.listing')
   const [selectableNfts, setSelectableNfts] = useState(
     map<Nft, SelectableNft>(assoc('actionDisabled', true), userTargetNfts)
@@ -165,7 +159,10 @@ export const ListingDetails: FunctionComponent<Props> = ({
             <ListingDetailsTargetContainer target={target} />
           </div>
           <HideIf condition={!isCreator}>
-            <OfferCardsContainer offers={offers} options={{ asLink: true }} />
+            <OfferCardsContainer
+              offers={map<Offer, OfferWithRole>(assoc('role', undefined), offers)}
+              options={{ asLink: true }}
+            />
           </HideIf>
           <HideIf condition={isCreator || listing.readOnly}>
             <ListingDetailsUserNftsLayout>
