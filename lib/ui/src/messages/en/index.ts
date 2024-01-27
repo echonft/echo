@@ -208,11 +208,8 @@ export const messages = {
     new: {
       confirmationModal: {
         backBtn: 'Back to Selection',
-        title: 'Confirm Listing',
         targetSubtitle: 'Target collection',
-        itemsCount: '{count} {count, plural, =0 {} =1 {item} other {items}}',
-        itemsSubtitle: 'Your {count, plural, =0 {} =1 {asset} other {assets}}',
-        emptyTargets: 'To add a collection, type its name\nin the input above',
+        emptyTargets: 'To add a collection, type its name in the input above',
         expirationTitle: 'Expires in',
         expirationValue: '7 days',
         confirmBtn: 'Confirm',

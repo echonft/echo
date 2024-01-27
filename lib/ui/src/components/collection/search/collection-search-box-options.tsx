@@ -2,7 +2,7 @@ import type { CollectionProviderResult } from '@echo/api/types/providers/collect
 import type { Collection } from '@echo/model/types/collection'
 import { CollectionSearchNoResults } from '@echo/ui/components/collection/search/collection-search-no-results'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
-import { NewListingSearchCollectionOptionSkeleton } from '@echo/ui/components/listing/new/skeleton/new-listing-search-collection-option-skeleton'
+import { CollectionThumbnailSkeleton } from '@echo/ui/components/collection/thumbnail/skeleton/collection-thumbnail-skeleton'
 import { Combobox } from '@headlessui/react'
 import { isEmpty, isNil, map } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -17,8 +17,8 @@ export const CollectionSearchBoxOptions: FunctionComponent<Props> = ({ options, 
     if (searching) {
       return (
         <>
-          <NewListingSearchCollectionOptionSkeleton />
-          <NewListingSearchCollectionOptionSkeleton />
+          <CollectionThumbnailSkeleton />
+          <CollectionThumbnailSkeleton />
         </>
       )
     }

@@ -1,11 +1,11 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { NewListingConfirmedModal as Component } from '@echo/ui/components/listing/new/new-listing-confirmed-modal'
+import { CreateListingConfirmedModal as Component } from '@echo/ui/components/listing/create/confirmed/create-listing-confirmed-modal'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Listing/New/Confirmed Modal',
+  title: 'Listing/Creation/Confirmed',
   component: Component,
   argTypes: {
     onClose: {
@@ -25,7 +25,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const ConfirmedModal: Story = {
+export const Confirmed: Story = {
   args: {
     listing: getListingMockById('jUzMtPGKM62mMhEcmbN4'),
     open: true

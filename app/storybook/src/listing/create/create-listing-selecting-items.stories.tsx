@@ -5,8 +5,7 @@ import { getCollectionMock } from '@echo/model-mocks/collection/get-collection-m
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
-import { NewListingBannerManager } from '@echo/ui/components/listing/new/new-listing-banner-manager'
-import { NewOfferBannerManager } from '@echo/ui/components/offer/new/new-offer-banner-manager'
+import { CreateListingBannerManager } from '@echo/ui/components/listing/create/create-listing-banner-manager'
 import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { ProfileNfts } from '@echo/ui/pages/profile/nfts/profile-nfts'
 import { ProfileDetails } from '@echo/ui/pages/profile/profile-details'
@@ -15,7 +14,7 @@ import { RouteChangesProvider } from 'nextjs-router-events'
 import { type FunctionComponent, useEffect } from 'react'
 
 const metadata: Meta<FunctionComponent> = {
-  title: 'Listing/New/Selecting Items'
+  title: 'Listing/Creation/Selecting Items'
 }
 
 export default metadata
@@ -32,8 +31,7 @@ export const SelectingItems: Story = {
     }, [setTarget])
     return (
       <NavigationPageLayout user={user}>
-        <NewOfferBannerManager />
-        <NewListingBannerManager />
+        <CreateListingBannerManager />
         <SectionLayout>
           <ProfileDetails user={user} />
         </SectionLayout>

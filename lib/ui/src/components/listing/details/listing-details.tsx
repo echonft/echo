@@ -2,7 +2,7 @@
 'use client'
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
-import type { OfferItemRequest } from '@echo/api/types/requests/offer-item-request'
+import type { ItemRequest } from '@echo/api/types/requests/item-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
@@ -126,12 +126,12 @@ export const ListingDetails: FunctionComponent<Props> = ({
   const isMutating = cancelIsMutating || fillIsMutating
 
   function onFill(listing: Listing) {
-    const senderItems: OfferItemRequest[] = pipe(
+    const senderItems: ItemRequest[] = pipe(
       filter(pipe(prop('selected'), Boolean)),
       map(mapNftToItem),
       mapItemsToRequests
     )(selectableNfts)
-    const receiverItems: OfferItemRequest[] = mapItemsToRequests(listing.items)
+    const receiverItems: ItemRequest[] = mapItemsToRequests(listing.items)
     void triggerFill({
       senderItems,
       receiverItems

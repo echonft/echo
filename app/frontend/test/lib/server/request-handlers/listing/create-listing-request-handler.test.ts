@@ -1,6 +1,6 @@
 import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import type { IdRequest } from '@echo/api/types/requests/id-request'
-import type { ListingItemRequest } from '@echo/api/types/requests/listing-item-request'
+import type { ItemRequest } from '@echo/api/types/requests/item-request'
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
@@ -26,14 +26,14 @@ jest.mock('@echo/frontend/lib/helpers/listing/get-listing-items-from-requests')
 describe('request-handlers - listing - createListingRequestHandler', () => {
   const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
   const validRequest: CreateListingRequest = {
-    items: pipe<[Listing], ListingItem[], ListingItemRequest[]>(
+    items: pipe<[Listing], ListingItem[], ItemRequest[]>(
       prop('items'),
       map(modify<'nft', Nft, IdRequest>('nft', pick(['id'])))
     )(listing),
     target: pipe<[Listing], ListingTarget[], ListingTarget, ListingTargetRequest>(
       prop('targets'),
       head,
-      modify<'collection', Collection, IdRequest>('collection', pick(['id']))
+      modify<'collection', Collection, { slug: string }>('collection', pick(['slug']))
     )(listing)
   }
   const user = getAuthUserMockByUsername('johnnycagewins')

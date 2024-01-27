@@ -1,15 +1,13 @@
 'use client'
-import { linkProvider } from '@echo/api/services/routing/link-provider'
 import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import { type ListingItem } from '@echo/model/types/listing-item'
-import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { Modal } from '@echo/ui/components/base/modal/modal'
-import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
-import { ShowIfNilOrEmpty } from '@echo/ui/components/base/utils/show-if-nil-or-empty'
 import { CollectionSearchBoxManager } from '@echo/ui/components/collection/search/collection-search-box-manager'
-import { NewListingConfirmationModalItemsContainer } from '@echo/ui/components/listing/new/new-listing-confirmation-modal-items-container'
-import { NewListingModalTargetContainer } from '@echo/ui/components/listing/new/new-listing-modal-target-container'
+import { CreateListingModalButton } from '@echo/ui/components/listing/create/create-listing-modal-button'
+import { CreateListingModalItems } from '@echo/ui/components/listing/create/create-listing-modal-items'
+import { CreateListingModalTarget } from '@echo/ui/components/listing/create/create-listing-modal-target'
+import { CreateListingModalTargetLayout } from '@echo/ui/components/listing/create/layout/create-listing-modal-target-layout'
 import type { Target } from '@echo/ui/types/target'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -23,14 +21,14 @@ interface Props {
   collections: CollectionProviderResult[] | undefined
   isMutating?: boolean
   onCollectionSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
-  onTargetAmountChange?: (targetCollectionId: string, amount: number) => unknown
+  onTargetAmountChange?: (targetCollectionSlug: string, amount: number) => unknown
   onClear?: VoidFunction
   onContinue?: VoidFunction
   onConfirm?: VoidFunction
   onClose?: VoidFunction
 }
 
-export const NewListingConfirmationModal: FunctionComponent<Props> = ({
+export const CreateListingModal: FunctionComponent<Props> = ({
   target,
   items,
   open,
@@ -52,7 +50,6 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
     <Modal
       open={open}
       onClose={closeCallback}
-      title={t('title')}
       backButton={{
         label: t('backBtn'),
         onBack: closeCallback
@@ -64,28 +61,18 @@ export const NewListingConfirmationModal: FunctionComponent<Props> = ({
           onSelectionChange={onCollectionSelectionChange}
           disabled={isMutating}
         />
-        <NewListingModalTargetContainer target={target} onEdit={onTargetAmountChange} isMutating={isMutating} />
+        <CreateListingModalTargetLayout>
+          <CreateListingModalTarget target={target} onEdit={onTargetAmountChange} isMutating={isMutating} />
+        </CreateListingModalTargetLayout>
         <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
-        <NewListingConfirmationModalItemsContainer items={items} />
+        <CreateListingModalItems items={items} />
         <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
-          <ShowIfNilOrEmpty checks={items}>
-            <InternalLink path={linkProvider.profile.items.get()}>
-              <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onContinue}>
-                <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
-              </button>
-            </InternalLink>
-          </ShowIfNilOrEmpty>
-          <HideIfNilOrEmpty
-            checks={items}
-            render={() => (
-              <button
-                className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
-                onClick={onConfirm}
-                disabled={isMutating}
-              >
-                <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>
-              </button>
-            )}
+          <CreateListingModalButton
+            target={target}
+            items={items}
+            onConfirm={onConfirm}
+            isMutating={isMutating}
+            onContinue={onContinue}
           />
           <LongPressButton
             id={'new-listing-confirmation-btn'}

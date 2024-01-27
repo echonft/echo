@@ -11,7 +11,7 @@ interface Props {
   onDiscard?: VoidFunction
 }
 
-export const NewListingDiscardModal: FunctionComponent<Props> = ({ open, onClose, onDiscard }) => {
+export const CreateListingDiscardModal: FunctionComponent<Props> = ({ open, onClose, onDiscard }) => {
   const t = useTranslations('listing.new.discardModal')
 
   return (

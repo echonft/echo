@@ -14,7 +14,7 @@ interface Props {
   onClose?: EmptyFunction
 }
 
-export const NewListingConfirmedModalBody: FunctionComponent<Props> = ({ listing, onClose }) => {
+export const CreateListingConfirmedModalBody: FunctionComponent<Props> = ({ listing, onClose }) => {
   const t = useTranslations('listing.new.confirmedModal')
 
   if (isNil(listing)) {

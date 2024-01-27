@@ -7,13 +7,13 @@ import { type ListingResponse } from '@echo/api/types/responses/listing-response
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import type { Listing } from '@echo/model/types/listing'
 import { type ListingTarget } from '@echo/model/types/listing-target'
-import { NewListingConfirmationModal } from '@echo/ui/components/listing/new/new-listing-confirmation-modal'
-import { NewListingConfirmedModal } from '@echo/ui/components/listing/new/new-listing-confirmed-modal'
+import { CreateListingConfirmedModal } from '@echo/ui/components/listing/create/confirmed/create-listing-confirmed-modal'
+import { CreateListingModal } from '@echo/ui/components/listing/create/create-listing-modal'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
-import { mapListingItemsToRequests } from '@echo/ui/mappers/to-api/map-listing-items-to-requests'
+import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import { useTranslations } from 'next-intl'
@@ -29,7 +29,7 @@ interface Props {
   }
 }
 
-export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider }) => {
+export const CreateListingManager: FunctionComponent<Props> = ({ fetcher, provider }) => {
   const { items, target, setTarget, modalOpen, clearListing, closeModal } = useNewListingStore()
   const [collections, setCollections] = useState<CollectionProviderResult[]>()
   const [listing, setListing] = useState<Listing>()
@@ -80,7 +80,7 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider 
 
   return (
     <>
-      <NewListingConfirmationModal
+      <CreateListingModal
         target={target}
         items={items}
         open={modalOpen}
@@ -96,12 +96,12 @@ export const NewListingManager: FunctionComponent<Props> = ({ fetcher, provider 
         }}
         onConfirm={() => {
           void trigger({
-            items: mapListingItemsToRequests(items),
+            items: mapItemsToRequests(items),
             target: mapListingTargetToRequest(target)
           })
         }}
       />
-      <NewListingConfirmedModal
+      <CreateListingConfirmedModal
         listing={listing}
         open={!isNil(listing)}
         onClose={() => {

@@ -37,7 +37,7 @@ describe('mappers - to-api - mapListingTargetToRequest', () => {
     expect(mapListingTargetToRequest(target)).toStrictEqual({
       amount: 2,
       collection: {
-        id: 'Rc8pLQXxgyQGIRL0fr13'
+        slug: 'pxmythics-genesis'
       }
     })
   })

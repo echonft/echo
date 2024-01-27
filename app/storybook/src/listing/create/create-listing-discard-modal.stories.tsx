@@ -1,10 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { NewListingDiscardModal as Component } from '@echo/ui/components/listing/new/new-listing-discard-modal'
+import { CreateListingDiscardModal as Component } from '@echo/ui/components/listing/create/discard/create-listing-discard-modal'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Listing/New/Discard Modal',
+  title: 'Listing/Creation/Discard',
   component: Component,
   argTypes: {
     onClose: {
@@ -29,7 +29,7 @@ export default metadata
 
 type Story = StoryObj<typeof Component>
 
-export const DiscardModal: Story = {
+export const Discard: Story = {
   args: {
     open: true
   }

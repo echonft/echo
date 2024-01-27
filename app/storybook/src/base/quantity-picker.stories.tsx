@@ -6,7 +6,14 @@ import { type Meta, type StoryObj } from '@storybook/react'
 const metadata: Meta<typeof Component> = {
   title: 'Base/Quantity Picker',
   component: Component,
+  args: {
+    disabled: false
+  },
   argTypes: {
+    disabled: {
+      defaultValue: false,
+      control: 'boolean'
+    },
     onQtyChange: {
       table: {
         disable: true

@@ -35,6 +35,8 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({ open, title
             'items-center',
             'justify-center',
             'bg-transparent',
+            'px-6',
+            'lg:px-12',
             'z-30'
           )}
         >
@@ -51,8 +53,7 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({ open, title
               className={clsx(
                 'flex',
                 'flex-col',
-                'w-full',
-                'max-w-md',
+                'w-max',
                 'h-max',
                 'transform',
                 'overflow-hidden',

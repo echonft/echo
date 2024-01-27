@@ -1,7 +1,7 @@
 'use client'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Nft } from '@echo/model/types/nft'
-import { NewListingDiscardModal } from '@echo/ui/components/listing/new/new-listing-discard-modal'
+import { CreateListingDiscardModal } from '@echo/ui/components/listing/create/discard/create-listing-discard-modal'
 import { SelectableNftGroupsAndFiltersContainer } from '@echo/ui/components/nft/filters/layout/selectable-nft-groups-and-filters-container'
 import { NewOfferDiscardModal } from '@echo/ui/components/offer/new/new-offer-discard-modal'
 import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
@@ -101,7 +101,7 @@ export const ProfileNfts: FunctionComponent<Props> = ({ nfts, user }) => {
         onClose={() => setShowDiscardOfferModal(false)}
         onDiscard={discardOffer}
       />
-      <NewListingDiscardModal
+      <CreateListingDiscardModal
         open={showDiscardListingModal}
         onClose={() => setShowDiscardListingModal(false)}
         onDiscard={discardListing}

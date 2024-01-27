@@ -9,15 +9,16 @@ interface Props {
   initialQty?: number
   min?: number
   max?: number
+  disabled?: boolean
   onQtyChange?: (qty: number) => unknown
 }
 
-export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, max, onQtyChange }) => {
+export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, max, disabled, onQtyChange }) => {
   const [qty, setQty] = useState(initialQty ?? min)
   const incDisabled = !isNil(max) && qty === max
   const decDisabled = qty === min
   return (
-    <div className={clsx('flex', 'flex-row', 'h-16', 'w-max')}>
+    <div className={clsx('flex', 'flex-row', 'h-16', 'w-max', disabled && 'opacity-40')}>
       <div
         className={clsx(
           'flex',
@@ -52,7 +53,7 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
             'border',
             'border-yellow-500',
             'text-yellow-500',
-            incDisabled && 'opacity-40'
+            !disabled && incDisabled && 'opacity-40'
           )}
           onClick={() => {
             pipe(
@@ -63,7 +64,7 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
               setQty
             )(qty)
           }}
-          disabled={incDisabled}
+          disabled={Boolean(disabled) || incDisabled}
         >
           <PlusIconSvg />
         </button>
@@ -83,7 +84,7 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
             'border-r-yellow-500',
             'border-l-transparent',
             'text-yellow-500',
-            decDisabled && 'opacity-40'
+            !disabled && decDisabled && 'opacity-40'
           )}
           onClick={() => {
             pipe(
@@ -94,7 +95,7 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
               setQty
             )(qty)
           }}
-          disabled={decDisabled}
+          disabled={Boolean(disabled) || decDisabled}
         >
           <MinusIconSvg />
         </button>

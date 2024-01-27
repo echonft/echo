@@ -1,6 +1,6 @@
 import { type IdRequest } from '@echo/api/types/requests/id-request'
 
-export interface ListingItemRequest {
+export interface ItemRequest {
   amount: number
   nft: IdRequest
 }
