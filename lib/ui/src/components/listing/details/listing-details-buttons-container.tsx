@@ -3,6 +3,7 @@ import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { ListingDetailsButtonsLayout } from '@echo/ui/components/listing/details/layout/listing-details-buttons-layout'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'
+import { isListingRoleTarget } from '@echo/ui/helpers/listing/is-listing-role-target'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -32,10 +33,11 @@ export const ListingDetailsButtonsContainer: FunctionComponent<Props> = ({
     return null
   }
   const isCreator = isListingRoleCreator(listing)
+  const isTarget = isListingRoleTarget(listing)
 
   return (
     <ListingDetailsButtonsLayout>
-      <ShowIf condition={isCreator && !listing.readOnly}>
+      <ShowIf condition={isCreator}>
         <LongPressButton
           id={'listing-details-modal-cancel-button'}
           label={t('cancelBtn.label')}
@@ -44,7 +46,7 @@ export const ListingDetailsButtonsContainer: FunctionComponent<Props> = ({
           onFinish={() => actions?.onCancel?.(listing)}
         />
       </ShowIf>
-      <ShowIf condition={!isCreator}>
+      <ShowIf condition={isTarget}>
         <button
           className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
           disabled={isMutating || !hasSelectedEnoughNfts}

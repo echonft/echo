@@ -189,6 +189,10 @@ export const messages = {
           out: 'Offering'
         }
       },
+      offers: {
+        title: 'Current offers',
+        empty: 'There are currently no offers on the listing'
+      },
       cancelBtn: {
         label: 'Cancel',
         message: 'Hold to cancel'
