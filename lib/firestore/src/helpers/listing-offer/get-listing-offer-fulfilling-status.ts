@@ -12,7 +12,7 @@ import { apply, juxt, pipe } from 'ramda'
  *   b) the number or items >= the listing target amount
  * 2) receiver items are parts of/equal the listing items
  */
-export function getListingOffer(listing: Listing, offer: Offer): ListingOfferFulfillingStatus {
+export function getListingOfferFulfillingStatus(listing: Listing, offer: Offer): ListingOfferFulfillingStatus {
   return pipe(
     juxt([getListingItemsFulfillingStatusForOffer(listing), getListingTargetstFillForOffer(listing)]),
     apply(Math.min)

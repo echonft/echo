@@ -1,8 +1,8 @@
+import { setOfferRoleReceiver } from '@echo/frontend/lib/helpers/offer/set-offer-role-receiver'
+import { setOfferRoleSender } from '@echo/frontend/lib/helpers/offer/set-offer-role-sender'
+import { setOfferRoleUndefined } from '@echo/frontend/lib/helpers/offer/set-offer-role-undefined'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Offer } from '@echo/model/types/offer'
-import { setOfferRoleReceiver } from '@echo/ui/helpers/offer/set-offer-role-receiver'
-import { setOfferRoleSender } from '@echo/ui/helpers/offer/set-offer-role-sender'
-import { setOfferRoleUndefined } from '@echo/ui/helpers/offer/set-offer-role-undefined'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { isNil } from 'ramda'
 
