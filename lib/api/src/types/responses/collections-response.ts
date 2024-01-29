@@ -1,5 +1,5 @@
-import { type Collection } from '@echo/model/types/collection'
+import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 
 export interface CollectionsResponse {
-  collections: Collection[]
+  collections: CollectionProviderResult[]
 }

@@ -15,7 +15,7 @@ describe('validators - createListingSchema', () => {
     target: {
       amount: 1,
       collection: {
-        id: 'collection-id'
+        slug: 'collection-slug'
       }
     }
   }
@@ -69,7 +69,7 @@ describe('validators - createListingSchema', () => {
           'target',
           {
             collection: {
-              id: 'collection-id'
+              slug: 'collection-slug'
             }
           },
           validRequest
@@ -83,7 +83,7 @@ describe('validators - createListingSchema', () => {
           {
             amount: 0,
             collection: {
-              id: 'collection-id'
+              slug: 'collection-slug'
             }
           },
           validRequest

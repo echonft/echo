@@ -1,3 +1,4 @@
+'use client'
 import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import { CollectionSearchBox } from '@echo/ui/components/collection/search/collection-search-box'
 import { stringIncludes } from '@echo/utils/fp/string-includes'
@@ -5,22 +6,12 @@ import { filter, isNil, pipe, prop, toLower } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 
 interface Props {
-  placeholder: string
   options: CollectionProviderResult[] | undefined
-  selectedOption: CollectionProviderResult | undefined
-  isMutating?: boolean
-  name?: string
+  disabled?: boolean
   onSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
 }
 
-export const CollectionSearchBoxManager: FunctionComponent<Props> = ({
-  placeholder,
-  name,
-  options,
-  onSelectionChange,
-  selectedOption,
-  isMutating
-}) => {
+export const CollectionSearchBoxManager: FunctionComponent<Props> = ({ options, onSelectionChange, disabled }) => {
   const [searching, setSearching] = useState(false)
   const [filteredOptions, setFilteredOptions] = useState<CollectionProviderResult[]>()
   const filterOptions = useCallback(
@@ -59,15 +50,12 @@ export const CollectionSearchBoxManager: FunctionComponent<Props> = ({
 
   return (
     <CollectionSearchBox
-      placeholder={placeholder}
-      name={name}
       options={filteredOptions}
-      selectedOption={selectedOption}
       searching={searching}
       onSearch={filterOptions}
       onSearchClear={resetOptions}
       onSelectionChange={onSelectionChange}
-      isMutating={isMutating}
+      disabled={disabled}
     />
   )
 }

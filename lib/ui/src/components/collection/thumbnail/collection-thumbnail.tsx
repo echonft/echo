@@ -1,31 +1,28 @@
-'use client'
-import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { type Collection } from '@echo/model/types/collection'
-import { InternalLink } from '@echo/ui/components/base/internal-link'
-import { CollectionThumbnailPicture } from '@echo/ui/components/collection/thumbnail/collection-thumbnail-picture'
-import { CollectionThumbnailTitle } from '@echo/ui/components/collection/thumbnail/collection-thumbnail-title'
+import { CollectionProfilePicture } from '@echo/ui/components/collection/details/collection-profile-picture'
 import { CollectionThumbnailLayout } from '@echo/ui/components/collection/thumbnail/layout/collection-thumbnail-layout'
+import { SIZE_SM } from '@echo/ui/constants/size'
 import { clsx } from 'clsx'
-import { type FunctionComponent } from 'react'
+import { useTranslations } from 'next-intl'
+import { type FunctionComponent, type MouseEventHandler } from 'react'
 
 interface Props {
-  count: number
   collection: Collection
-  linkDisabled?: boolean
+  onClick?: MouseEventHandler
 }
 
-export const CollectionThumbnail: FunctionComponent<Props> = ({ count, collection, linkDisabled }) => {
-  const { name, slug, profilePictureUrl } = collection
+export const CollectionThumbnail: FunctionComponent<Props> = ({ collection, onClick }) => {
+  const t = useTranslations('collection.thumbnail')
+  const { name, profilePictureUrl, totalSupply } = collection
   return (
-    <InternalLink path={linkProvider.collection.items.get({ slug })} disabled={linkDisabled}>
-      <CollectionThumbnailLayout>
-        <div className={'relative'}>
-          <CollectionThumbnailPicture alt={name} pictureUrl={profilePictureUrl} />
-        </div>
-        <div className={clsx('flex', 'flex-row', 'justify-center', 'grow', 'bg-white/[0.08]', 'p-2')}>
-          <CollectionThumbnailTitle count={count} collectionName={collection.name} />
-        </div>
-      </CollectionThumbnailLayout>
-    </InternalLink>
+    <CollectionThumbnailLayout onClick={onClick}>
+      <CollectionProfilePicture collectionName={name} pictureUrl={profilePictureUrl} size={SIZE_SM} border={false} />
+      <div className={clsx('flex', 'flex-col', 'justify-center')}>
+        <span className={clsx('prose-header-sm', 'text-white')}>{name}</span>
+        <span className={clsx('prose-label-xs', '!text-[0.8125rem]', 'text-white/70', '!leading-6')}>
+          {t('supply', { supply: totalSupply })}
+        </span>
+      </div>
+    </CollectionThumbnailLayout>
   )
 }

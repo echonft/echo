@@ -24,7 +24,7 @@ export const CollectionProfile: FunctionComponent<CollectionProfileProps> = ({
   websiteUrl,
   verified
 }) => {
-  const t = useTranslations('collection')
+  const t = useTranslations('collection.details')
   return (
     <div className={clsx('flex', 'flex-row', 'w-full', 'gap-8', 'pt-40', 'pb-8')}>
       <CollectionProfilePicture collectionName={collectionName} pictureUrl={pictureUrl} />
@@ -39,7 +39,7 @@ export const CollectionProfile: FunctionComponent<CollectionProfileProps> = ({
           <HideIfNil
             checks={supplyCount}
             render={(supplyCount) => (
-              <h2 className={clsx('text-white', 'prose-header-md')}>{t('details.size', { size: supplyCount })}</h2>
+              <h2 className={clsx('text-white', 'prose-header-md')}>{t('supply', { supply: supplyCount })}</h2>
             )}
           />
           <CollectionLinks twitterUsername={twitterUsername} discordUrl={discordUrl} websiteUrl={websiteUrl} />

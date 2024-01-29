@@ -2,7 +2,7 @@
 'use client'
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
-import type { OfferItemRequest } from '@echo/api/types/requests/offer-item-request'
+import type { ItemRequest } from '@echo/api/types/requests/item-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
@@ -50,18 +50,12 @@ interface Props {
     cancelListing: Fetcher<ListingResponse, CancelListingArgs>
     createOffer: Fetcher<OfferResponse, CreateOfferRequest>
   }
-  user: AuthUser
-  userTargetNfts: Nft[] | undefined
-  offers: OfferWithRole[] | undefined
+  user: AuthUser | undefined
+  userTargetNfts: Nft[]
+  offers: Offer[]
 }
 
-export const ListingDetails: FunctionComponent<Props> = ({
-  listing,
-  fetcher,
-  user,
-  userTargetNfts = [],
-  offers = []
-}) => {
+export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, user, userTargetNfts, offers }) => {
   const tError = useTranslations('error.listing')
   const [selectableNfts, setSelectableNfts] = useState(
     map<Nft, SelectableNft>(assoc('actionDisabled', true), userTargetNfts)
@@ -126,12 +120,12 @@ export const ListingDetails: FunctionComponent<Props> = ({
   const isMutating = cancelIsMutating || fillIsMutating
 
   function onFill(listing: Listing) {
-    const senderItems: OfferItemRequest[] = pipe(
+    const senderItems: ItemRequest[] = pipe(
       filter(pipe(prop('selected'), Boolean)),
       map(mapNftToItem),
       mapItemsToRequests
     )(selectableNfts)
-    const receiverItems: OfferItemRequest[] = mapItemsToRequests(listing.items)
+    const receiverItems: ItemRequest[] = mapItemsToRequests(listing.items)
     void triggerFill({
       senderItems,
       receiverItems
@@ -165,7 +159,10 @@ export const ListingDetails: FunctionComponent<Props> = ({
             <ListingDetailsTargetContainer target={target} />
           </div>
           <HideIf condition={!isCreator}>
-            <OfferCardsContainer offers={offers} options={{ asLink: true }} />
+            <OfferCardsContainer
+              offers={map<Offer, OfferWithRole>(assoc('role', undefined), offers)}
+              options={{ asLink: true }}
+            />
           </HideIf>
           <HideIf condition={isCreator || listing.readOnly}>
             <ListingDetailsUserNftsLayout>

@@ -1,5 +1,5 @@
+import { linkProvider } from '@echo/api/services/routing/link-provider'
 import { buildListingLinkButton } from '@echo/bot/listing/build-listing-link-button'
-import { listingLink } from '@echo/bot/listing/listing-link'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { beforeAll, describe, expect, it } from '@jest/globals'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
@@ -13,7 +13,7 @@ describe('builders - buildNewListingButtons', () => {
   it('should build a new listing button with a link to the listing', () => {
     const listingId = 'listing-id'
     const result = buildListingLinkButton(listingId)
-    const expectedLink = listingLink(listingId)
+    const expectedLink = linkProvider.listing.details.getUrl({ listingId })
     expect(result).toBeInstanceOf(ActionRowBuilder)
     const components = result.components
     expect(components).toHaveLength(1)

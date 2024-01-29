@@ -6,7 +6,7 @@ describe('validators - listingTargetSchema', () => {
   const validRequest: ListingTargetRequest = {
     amount: 1,
     collection: {
-      id: 'collection-id'
+      slug: 'collection-slug'
     }
   }
   it('throws if amount is not valid', () => {
@@ -17,7 +17,7 @@ describe('validators - listingTargetSchema', () => {
   })
   it('throws if nft is not valid', () => {
     expect(() => listingTargetSchema.parse(dissoc('collection', validRequest))).toThrow()
-    expect(() => listingTargetSchema.parse(dissocPath(['collection', 'id'], validRequest))).toThrow()
+    expect(() => listingTargetSchema.parse(dissocPath(['collection', 'slug'], validRequest))).toThrow()
     expect(() => listingTargetSchema.parse(assoc('collection', {}, validRequest))).toThrow()
   })
   it('valid', () => {

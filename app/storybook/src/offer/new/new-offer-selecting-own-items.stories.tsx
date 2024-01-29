@@ -5,7 +5,7 @@ import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
-import { NewListingBannerManager } from '@echo/ui/components/listing/new/new-listing-banner-manager'
+import { CreateListingBannerManager } from '@echo/ui/components/listing/create/create-listing-banner-manager'
 import { NewOfferBannerManager } from '@echo/ui/components/offer/new/new-offer-banner-manager'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { ProfileNfts } from '@echo/ui/pages/profile/nfts/profile-nfts'
@@ -36,7 +36,7 @@ export const SelectingOwnItems: Story = {
     return (
       <NavigationPageLayout user={user}>
         <NewOfferBannerManager />
-        <NewListingBannerManager />
+        <CreateListingBannerManager />
         <SectionLayout>
           <ProfileDetails user={user} />
         </SectionLayout>

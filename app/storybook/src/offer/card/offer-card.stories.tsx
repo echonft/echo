@@ -1,12 +1,12 @@
 // noinspection JSUnusedGlobalSymbols
 
+import { OFFER_ROLE_RECEIVER } from '@echo/model/constants/offer-role'
 import { OFFER_STATE_OPEN, OFFER_STATES } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferItem } from '@echo/model/types/offer-item'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OfferCard } from '@echo/ui/components/offer/card/offer-card'
-import { setOfferRoleReceiver } from '@echo/ui/helpers/offer/set-offer-role-receiver'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { always, assoc, drop, modify, pipe, unless } from 'ramda'
@@ -51,7 +51,7 @@ export const Default: StoryObj<ComponentType> = {
     const offer: OfferWithRole = useMemo(
       () =>
         pipe<[Offer], OfferWithRole, OfferWithRole, OfferWithRole>(
-          setOfferRoleReceiver,
+          assoc('role', OFFER_ROLE_RECEIVER),
           assoc('state', state),
           unless<OfferWithRole, OfferWithRole>(
             always(stack),

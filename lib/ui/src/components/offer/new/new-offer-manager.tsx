@@ -9,7 +9,7 @@ import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
-import { mapOfferItemsToRequests } from '@echo/ui/mappers/to-api/map-offer-items-to-requests'
+import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -79,8 +79,8 @@ export const NewOfferManager: FunctionComponent<Props> = ({ fetcher }) => {
           ? undefined
           : () => {
               void trigger({
-                senderItems: mapOfferItemsToRequests(senderItems),
-                receiverItems: mapOfferItemsToRequests(receiverItems)
+                senderItems: mapItemsToRequests(senderItems),
+                receiverItems: mapItemsToRequests(receiverItems)
               })
             }
       }
