@@ -22,7 +22,7 @@ export const ListingDetailsSkeleton: FunctionComponent = () => (
       </ListingDetailsItemsContainerLayout>
       <ItemsSeparator disabled={true} />
       <div className={clsx('flex', 'flex-col', 'gap-14')}>
-        <ListingDetailsTargetsContainerLayout role={undefined}>
+        <ListingDetailsTargetsContainerLayout>
           <ListingDetailsTargetsContainerSkeleton />
         </ListingDetailsTargetsContainerLayout>
         <ListingDetailsButtonsLayout>

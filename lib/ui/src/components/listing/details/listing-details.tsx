@@ -13,13 +13,12 @@ import type { Offer } from '@echo/model/types/offer'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { EmptyViewContent } from '@echo/ui/components/base/navigation/empty-view-content'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
-import { ListingDetailsItemsContainerLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-container-layout'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { ListingDetailsItemsContainerLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-container-layout'
 import { ListingDetailsItemsLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-layout'
 import { ListingDetailsLayout } from '@echo/ui/components/listing/details/layout/listing-details-layout'
 import { ListingDetailsTargetsContainerLayout } from '@echo/ui/components/listing/details/layout/listing-details-targets-container-layout'
 import { ListingDetailsUserNftsOrOffersLayout } from '@echo/ui/components/listing/details/layout/listing-details-user-nfts-or-offers-layout'
-import { ListingDetailsUserNftsLayout } from '@echo/ui/components/listing/details/layout/listing-details-user-nfts-layout'
 import { ListingDetailsUserStateLayout } from '@echo/ui/components/listing/details/layout/listing-details-user-state-layout'
 import { ListingDetailsButtonsContainer } from '@echo/ui/components/listing/details/listing-details-buttons-container'
 import { ListingDetailsItemsContainer } from '@echo/ui/components/listing/details/listing-details-items-container'
@@ -156,7 +155,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
         </ListingDetailsItemsContainerLayout>
         <ItemsSeparator />
         <div className={clsx('flex', 'flex-col', 'gap-14')}>
-          <ListingDetailsTargetsContainerLayout role={listing.role}>
+          <ListingDetailsTargetsContainerLayout>
             <ListingDetailsTargetContainer target={target} />
           </ListingDetailsTargetsContainerLayout>
           <ShowIf condition={isCreator || !isTarget || listing.readOnly}>
