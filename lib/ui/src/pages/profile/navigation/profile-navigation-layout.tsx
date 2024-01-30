@@ -37,22 +37,22 @@ export const ProfileNavigationLayout: FunctionComponent<PropsWithChildren<Props>
         {
           id: NAVIGATION_OFFERS,
           name: t('offers'),
-          path: linkProvider.profile.offersCreated.get()
+          path: linkProvider.profile.offers.get()
         },
         {
           id: NAVIGATION_PENDING_OFFERS,
           name: t('pendingOffers'),
-          path: linkProvider.profile.offersReceived.get()
+          path: linkProvider.profile.pendingOffers.get()
         },
         {
           id: NAVIGATION_LISTINGS,
           name: t('listings'),
-          path: linkProvider.profile.listingsCreated.get()
+          path: linkProvider.profile.listings.get()
         },
         {
           id: NAVIGATION_EXPLORE,
           name: t('explore'),
-          path: linkProvider.profile.listingsReceived.get(),
+          path: linkProvider.profile.explore.get(),
           render: (props) => <ExploreNavigationPill {...props} />
         }
       ]}

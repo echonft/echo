@@ -43,7 +43,7 @@ export const LoginConnectWalletStep: FunctionComponent<Props> = ({
     <LoginStepLayout
       title={t('title')}
       subtitle={t('subtitle')}
-      btnLabel={t(isConnected ? 'continueBtn.label.connected' : 'continueBtn.label.disconnected')}
+      btnLabel={t(`continueBtn.${isConnected ? 'connected' : 'disconnected'}`)}
       btnDisabled={isConnecting}
       onBtnClick={onContinue}
     >

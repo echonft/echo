@@ -22,7 +22,7 @@ export interface CreateListingModalProps {
 }
 
 export const CreateListingModal: FunctionComponent<CreateListingModalProps> = ({ open, loading, onClose, ...rest }) => {
-  const t = useTranslations('listing.new.confirmationModal')
+  const t = useTranslations('listing.create')
   const closeCallback = loading ? undefined : onClose
   return (
     <Modal

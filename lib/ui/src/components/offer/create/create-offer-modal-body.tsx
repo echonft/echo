@@ -21,7 +21,7 @@ export const CreateOfferModalBody: FunctionComponent<Omit<NewOfferConfirmationMo
   onContinue,
   onComplete
 }) => {
-  const t = useTranslations('offer.new.confirmationModal')
+  const t = useTranslations('offer.create')
   if (isNil(receiverItems) && isNil(senderItems)) {
     return null
   }

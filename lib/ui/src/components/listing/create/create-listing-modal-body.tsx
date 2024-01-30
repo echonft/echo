@@ -22,7 +22,7 @@ export const CreateListingModalBody: FunctionComponent<Omit<CreateListingModalPr
   onContinue,
   onConfirm
 }) => {
-  const t = useTranslations('listing.new.confirmationModal')
+  const t = useTranslations('listing.create')
   if (isNil(target) && isEmpty(items)) {
     return null
   }

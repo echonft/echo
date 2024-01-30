@@ -15,7 +15,7 @@ import type { ReactElement } from 'react'
 type Params = NextUserParams<NextParams<Record<'username', string>>>
 async function render({ params: { username }, user }: Params) {
   if (user?.username === username) {
-    redirect(linkProvider.profile.listingsCreated.get())
+    redirect(linkProvider.profile.listings.get())
   }
   const listings = await pipe(getListingsForCreator, andThen(setListingRole(user)))(username)
   return (

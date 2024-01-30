@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const CreateOfferDiscardModal: FunctionComponent<Props> = ({ open, onClose, onDiscard }) => {
-  const t = useTranslations('offer.new.discardModal')
+  const t = useTranslations('offer.create.discardModal')
 
   return (
     <Modal open={open} onClose={onClose} title={t('title')}>

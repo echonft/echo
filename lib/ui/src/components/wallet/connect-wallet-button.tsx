@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const ConnectWalletButton: FunctionComponent<Props> = ({ isConnecting, onClick }) => {
-  const t = useTranslations('profile.wallet.button')
+  const t = useTranslations('wallet.button')
   return (
     <button
       onClick={onClick}
@@ -28,7 +28,7 @@ export const ConnectWalletButton: FunctionComponent<Props> = ({ isConnecting, on
       <span className={clsx('btn-label-primary')}>
         <WalletIconSvg />
       </span>
-      <span className={clsx('btn-label-primary', 'prose-label-xs', '!tracking-[0.015rem]')}>{t('connect.label')}</span>
+      <span className={clsx('btn-label-primary', 'prose-label-xs', '!tracking-[0.015rem]')}>{t('label')}</span>
     </button>
   )
 }

@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const CreateListingConfirmedModal: FunctionComponent<Props> = ({ listing, open, onClose }) => {
-  const t = useTranslations('listing.new.confirmedModal')
+  const t = useTranslations('listing.create.confirmedModal')
 
   return (
     <Modal open={open} onClose={onClose} title={t('title')}>

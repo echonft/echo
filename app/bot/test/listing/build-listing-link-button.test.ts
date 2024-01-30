@@ -20,7 +20,7 @@ describe('builders - buildNewListingButtons', () => {
 
     const expected = {
       emoji: undefined,
-      label: i18next.t('listing.button.label'),
+      label: i18next.t('listing.button'),
       style: ButtonStyle.Link,
       type: 2,
       url: expectedLink

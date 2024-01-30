@@ -17,7 +17,7 @@ export const CreateOfferConfirmedModal: FunctionComponent<CreateOfferConfirmedMo
   open,
   onClose
 }) => {
-  const t = useTranslations('offer.new.confirmedModal')
+  const t = useTranslations('offer.create.confirmedModal')
 
   return (
     <Modal open={open} onClose={onClose} title={t('title')}>

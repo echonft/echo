@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
-  const t = useTranslations('profile.wallet.button')
+  const t = useTranslations('wallet.button')
   const buttonId = `wallet-${wallet.address}`
 
   return (
@@ -33,7 +33,7 @@ export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
         className={clsx('tooltip')}
         anchorSelect={`#${buttonId}`}
         delayHide={800}
-        content={t('copied.label')}
+        content={t('copied')}
         openOnClick={true}
         noArrow={true}
       />

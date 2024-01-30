@@ -83,7 +83,7 @@ export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({
                       'text-left'
                     )}
                   >
-                    {t('profile.label')}
+                    {t('profile')}
                   </button>
                 </InternalLink>
               )}
@@ -120,7 +120,7 @@ export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({
                     loading && 'animate-pulse'
                   )}
                 >
-                  {loading ? t('disconnecting.label') : t('disconnect.label')}
+                  {t(loading ? 'disconnecting' : 'disconnect')}
                 </button>
               )}
             </Menu.Item>

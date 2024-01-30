@@ -5,13 +5,13 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
-export const ProfileOffersCreatedEmpty: FunctionComponent = () => {
-  const t = useTranslations('profile.empty.offersCreated')
+export const ProfileExploreEmpty: FunctionComponent = () => {
+  const t = useTranslations('profile.empty.explore')
   return (
     <EmptyViewContent message={t('message')}>
       <InternalLink path={linkProvider.profile.items.get()}>
         <button className={clsx('btn-primary', 'btn-size', 'group')}>
-          <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('btn.label')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('btn')}</span>
         </button>
       </InternalLink>
     </EmptyViewContent>

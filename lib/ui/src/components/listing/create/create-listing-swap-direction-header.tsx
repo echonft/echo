@@ -11,7 +11,7 @@ interface Props {
   disabled?: boolean
 }
 
-export const SwapDirectionHeader: FunctionComponent<Props> = ({ direction, title, disabled }) => {
+export const CreateListingSwapDirectionHeader: FunctionComponent<Props> = ({ direction, title, disabled }) => {
   return (
     <div className={clsx('flex', 'gap-2', 'items-center', disabled && 'opacity-40')}>
       <span

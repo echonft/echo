@@ -1,3 +1,4 @@
+import { linkProvider } from '@echo/api/routing/link-provider'
 import { getCompletedOffersForUser } from '@echo/firestore/crud/offer/get-completed-offers-for-user'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
@@ -9,14 +10,14 @@ import { NAVIGATION_SWAPS } from '@echo/ui/constants/navigation-item'
 import { UserNavigationLayout } from '@echo/ui/pages/user/navigation/user-navigation-layout'
 import { UserSwaps } from '@echo/ui/pages/user/swaps/user-swaps'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { andThen, map, pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<NextParams<Record<'username', string>>>
 async function render({ params: { username }, user }: Params) {
   if (user?.username === username) {
-    notFound()
+    redirect(linkProvider.profile.offers.get())
   }
   const offers = await pipe(
     getCompletedOffersForUser,

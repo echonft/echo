@@ -25,7 +25,7 @@ export const LoginDiscordConnect: FunctionComponent<Props> = ({ provider, user }
           provider.signIn().catch(errorCallback({ tags: { action: 'signIn' } }))
         }}
       >
-        {t('loginBtn.label')}
+        {t('loginBtn')}
       </LoginButton>
     )
   }

@@ -7,9 +7,7 @@ export const messages = {
     invalidGuildId: 'Invalid guild id'
   },
   listing: {
-    button: {
-      label: 'View listing'
-    },
+    button: 'View listing',
     embed: {
       title: 'A new listing was created',
       description: 'Created by {{user}}',
@@ -24,9 +22,7 @@ export const messages = {
     }
   },
   offer: {
-    button: {
-      label: 'View offer'
-    },
+    button: 'View offer',
     thread: {
       close: '_This thread will automatically close soon._',
       message:
