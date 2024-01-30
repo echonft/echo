@@ -28,13 +28,15 @@ export const linkProvider = {
   listing: {
     details: new Path<ListingPathArgs>({ path: '/listing/:listingId' })
   },
+  offer: {
+    details: new Path<OfferPathArgs>({ path: '/offer/:offerId' })
+  },
   profile: {
     default: new Path({ path: '/me', secure: true }),
     items: new Path({ path: '/me/items', secure: true }),
     listings: new Path({ path: '/me/listings', secure: true }),
     listingsCreated: new Path({ path: '/me/listings/created', secure: true }),
     listingsReceived: new Path({ path: '/me/listings/pending', secure: true }),
-    offer: new Path<OfferPathArgs>({ path: '/me/offer/:offerId', secure: true }),
     offers: new Path({ path: '/me/offers', secure: true }),
     offersCreated: new Path({ path: '/me/offers/created', secure: true }),
     offersReceived: new Path({ path: '/me/offers/pending', secure: true }),

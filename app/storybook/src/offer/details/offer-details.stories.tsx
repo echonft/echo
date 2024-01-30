@@ -27,7 +27,7 @@ import { type Meta, type StoryObj } from '@storybook/react'
 import { assoc, includes, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-type Role = 'Sender' | 'Receiver'
+type Role = 'Sender' | 'Receiver' | 'None'
 type ComponentType = FunctionComponent<{
   state: OfferState
   role: Role
@@ -46,14 +46,15 @@ const metadata: Meta<ComponentType> = {
     },
     role: {
       defaultValue: 'Sender',
-      control: { type: 'radio', options: ['Sender', 'Receiver'] }
+      options: ['Sender', 'Receiver', 'None'],
+      control: { type: 'radio' }
     }
   }
 }
 
 export default metadata
 
-export const Default: StoryObj<ComponentType> = {
+export const Details: StoryObj<ComponentType> = {
   render: ({ state, role }) => {
     function setExpirationAndReadOnly(offer: Offer): Offer {
       if (offer.state === OFFER_STATE_EXPIRED) {
@@ -64,14 +65,15 @@ export const Default: StoryObj<ComponentType> = {
       }
       return pipe<[Offer], Offer, Offer>(assoc('expiresAt', notExpiredDate()), assoc('readOnly', false))(offer)
     }
-
     function setRole(offer: Offer): OfferWithRole {
       if (role === 'Sender') {
         return assoc('role', OFFER_ROLE_SENDER, offer)
       }
-      return assoc('role', OFFER_ROLE_RECEIVER, offer)
+      if (role === 'Receiver') {
+        return assoc('role', OFFER_ROLE_RECEIVER, offer)
+      }
+      return assoc('role', undefined, offer)
     }
-
     const renderedOffer = pipe<[string], Offer, Offer, Offer, OfferWithRole>(
       getOfferMockById,
       assoc('state', state),

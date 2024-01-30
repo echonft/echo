@@ -48,13 +48,13 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, fetcher, provide
   useEffect(() => {
     setUpdatedOffer(offer)
   }, [offer])
-  const { state, sender, receiver, expiresAt, senderItems, receiverItems } = updatedOffer
+  const { sender, receiver, senderItems, receiverItems } = updatedOffer
 
   return (
     <OfferDetailsLayout>
       <OfferDetailsInfoLayout>
         <ListingOfferUserDetails user={isOfferRoleSender(offer) ? receiver : sender} />
-        <OfferDetailsState state={state} expiresAt={expiresAt} />
+        <OfferDetailsState offer={offer} />
       </OfferDetailsInfoLayout>
       <OfferDetailsItemsButtonsLayout>
         <NftCardsContainer

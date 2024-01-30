@@ -13,7 +13,7 @@ import type { FunctionComponent } from 'react'
 
 type ComponentType = FunctionComponent<{ signature: boolean; onClose?: VoidFunction; onSuccess?: VoidFunction }>
 const metadata: Meta<ComponentType> = {
-  title: 'Offer/Details/Swap/Execute',
+  title: 'Offer/Details/Modal/Swap/Execute',
   args: {
     signature: false
   },

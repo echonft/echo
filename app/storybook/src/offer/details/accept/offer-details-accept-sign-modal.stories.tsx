@@ -11,7 +11,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { assoc, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/Details/Accept/Sign',
+  title: 'Offer/Details/Modal/Accept/Sign',
   component: Component,
   argTypes: {
     onClose: {

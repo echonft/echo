@@ -14,7 +14,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { assoc, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/Details/Accept',
+  title: 'Offer/Details/Modal/Accept',
   component: Component,
   argTypes: {
     onClose: {
@@ -37,7 +37,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const Modal: StoryObj<typeof Component> = {
+export const Accept: StoryObj<typeof Component> = {
   args: {
     offer: pipe<[string], Offer, OfferWithRole>(
       getOfferMockById,

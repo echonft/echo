@@ -65,7 +65,7 @@ const metadata: Meta<ComponentType> = {
 
 export default metadata
 
-export const Default: StoryObj<ComponentType> = {
+export const Details: StoryObj<ComponentType> = {
   render: ({ state, role, withOffers, targetHasNfts }) => {
     function setExpirationAndReadOnly(listing: Listing): Listing {
       if (listing.state === LISTING_STATE_EXPIRED) {

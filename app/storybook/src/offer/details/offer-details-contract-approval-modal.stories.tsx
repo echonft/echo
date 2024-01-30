@@ -8,7 +8,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { useTranslations } from 'next-intl'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/Details/Contract Approval/Modal',
+  title: 'Offer/Details/Modal/Contract Approval/Modal',
   component: Component,
   argTypes: {
     onClose: {
@@ -31,7 +31,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const Modal: StoryObj<typeof Component> = {
+export const ContractApproval: StoryObj<typeof Component> = {
   render: ({ onSuccess, onClose }) => {
     const t = useTranslations('offer.details.swapModal')
     return (

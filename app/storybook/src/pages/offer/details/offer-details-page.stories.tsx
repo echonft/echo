@@ -14,34 +14,24 @@ import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { OfferDetailsSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-skeleton'
+import { getOfferPageLayoutBackground } from '@echo/ui/helpers/offer/get-offer-page-layout-background'
 import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
-import { ProfileOfferDetails as Component } from '@echo/ui/pages/profile/offer/profile-offer-details'
+import { OfferDetailsPage as Component } from '@echo/ui/pages/offer/offer-details-page'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { assoc, includes, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-type Role = 'Sender' | 'Receiver'
+type Role = 'Sender' | 'Receiver' | 'None'
 type ComponentType = FunctionComponent<{
   state: OfferState
   role: Role
 }>
 const metadata: Meta<ComponentType> = {
-  title: 'Pages/Profile/Offer/Details',
-  decorators: [
-    (Story) => (
-      <NavigationPageLayout user={undefined}>
-        <SectionLayout>
-          <DetailsPaddedContainer>
-            <Story />
-          </DetailsPaddedContainer>
-        </SectionLayout>
-      </NavigationPageLayout>
-    )
-  ]
+  title: 'Pages/Offer/Details'
 }
 
 export default metadata
@@ -59,7 +49,8 @@ export const Page: StoryObj<ComponentType> = {
     },
     role: {
       defaultValue: 'Sender',
-      control: { type: 'radio', options: ['Sender', 'Receiver'] }
+      options: ['Sender', 'Receiver', 'None'],
+      control: { type: 'radio' }
     }
   },
   render: ({ role, state }) => {
@@ -78,27 +69,33 @@ export const Page: StoryObj<ComponentType> = {
       }
       return assoc('role', OFFER_ROLE_RECEIVER, offer)
     }
-
     const renderedOffer = pipe<[string], Offer, Offer, Offer, OfferWithRole>(
       getOfferMockById,
       assoc('state', state),
       setExpirationAndReadOnly,
       setRole
     )('LyCfl6Eg7JKuD7XJ6IPi')
+    const user = getAuthUserMockByUsername(isOfferRoleSender(renderedOffer) ? 'crewnft_' : 'johnnycagewins')
     return (
-      <Component
-        offer={renderedOffer}
-        user={getAuthUserMockByUsername(isOfferRoleSender(renderedOffer) ? 'crewnft_' : 'johnnycagewins')}
-      />
+      <PageLayout user={user} background={getOfferPageLayoutBackground(renderedOffer)}>
+        <SectionLayout>
+          <DetailsPaddedContainer>
+            <Component offer={renderedOffer} user={user} />
+          </DetailsPaddedContainer>
+        </SectionLayout>
+      </PageLayout>
     )
   }
 }
 
 export const Loading: StoryObj<ComponentType> = {
-  parameters: {
-    controls: {
-      exclude: ['state', 'isCreator']
-    }
-  },
-  render: () => <OfferDetailsSkeleton />
+  render: () => (
+    <PageLayout>
+      <SectionLayout>
+        <DetailsPaddedContainer>
+          <OfferDetailsSkeleton />
+        </DetailsPaddedContainer>
+      </SectionLayout>
+    </PageLayout>
+  )
 }
