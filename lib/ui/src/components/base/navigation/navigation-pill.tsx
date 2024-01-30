@@ -2,13 +2,13 @@ import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
-interface Props {
+export interface NavigationPillProps {
   name: string
   path: string
   selected?: boolean
 }
 
-export const NavigationPill: FunctionComponent<Props> = ({ name, path, selected }) => {
+export const NavigationPill: FunctionComponent<NavigationPillProps> = ({ name, path, selected }) => {
   return (
     <InternalLink
       className={clsx(

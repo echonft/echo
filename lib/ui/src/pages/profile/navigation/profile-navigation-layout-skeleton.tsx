@@ -1,11 +1,11 @@
+import { ExploreNavigationPillSkeleton } from '@echo/ui/components/base/navigation/explore-navigation-pill-skeleton'
 import { NavigationLayoutSkeleton } from '@echo/ui/components/base/navigation/skeleton/navigation-layout-skeleton'
 import {
   NAVIGATION_LISTINGS_CREATED,
   NAVIGATION_LISTINGS_RECEIVED,
   NAVIGATION_NFTS,
   NAVIGATION_OFFERS_CREATED,
-  NAVIGATION_OFFERS_RECEIVED,
-  NAVIGATION_SWAPS
+  NAVIGATION_OFFERS_RECEIVED
 } from '@echo/ui/constants/navigation-item'
 import { type NavigationItemId } from '@echo/ui/types/navigation-item-id'
 import { useTranslations } from 'next-intl'
@@ -40,11 +40,8 @@ export const ProfileNavigationLayoutSkeleton: FunctionComponent<PropsWithChildre
         },
         {
           id: NAVIGATION_LISTINGS_RECEIVED,
-          name: t('listingsReceived')
-        },
-        {
-          id: NAVIGATION_SWAPS,
-          name: t('swaps')
+          name: t('listingsReceived'),
+          render: (props) => <ExploreNavigationPillSkeleton {...props} />
         }
       ]}
       activeNavigationItem={activeNavigationItem}

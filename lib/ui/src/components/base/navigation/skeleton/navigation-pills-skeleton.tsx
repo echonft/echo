@@ -2,8 +2,8 @@ import { NavigationPillsLayout } from '@echo/ui/components/base/navigation/navig
 import { type NavigationItemId } from '@echo/ui/types/navigation-item-id'
 import type { NavigationSkeletonItem } from '@echo/ui/types/navigation-skeleton-item'
 import { clsx } from 'clsx'
-import { map } from 'ramda'
-import { type FunctionComponent } from 'react'
+import { isNil, map } from 'ramda'
+import { Fragment, type FunctionComponent } from 'react'
 
 interface Props {
   navigationItems: NavigationSkeletonItem[]
@@ -14,23 +14,26 @@ export const NavigationPillsSkeleton: FunctionComponent<Props> = ({ navigationIt
   return (
     <NavigationPillsLayout>
       {map(
-        ({ id, name }) => (
-          <span
-            key={id}
-            className={clsx(
-              'w-max',
-              'h-max',
-              'prose-label-md',
-              'text-white',
-              'py-3',
-              'px-6',
-              'rounded-lg',
-              id === activeNavigationItem ? 'bg-white/[0.05]' : 'bg-transparent'
-            )}
-          >
-            {name}
-          </span>
-        ),
+        ({ id, name, render }) =>
+          !isNil(render) ? (
+            <Fragment key={id}>{render({ name, selected: id === activeNavigationItem })}</Fragment>
+          ) : (
+            <span
+              key={id}
+              className={clsx(
+                'w-max',
+                'h-max',
+                'prose-label-md',
+                'text-white',
+                'py-3',
+                'px-6',
+                'rounded-lg',
+                id === activeNavigationItem ? 'bg-white/[0.05]' : 'bg-transparent'
+              )}
+            >
+              {name}
+            </span>
+          ),
         navigationItems
       )}
     </NavigationPillsLayout>

@@ -36,11 +36,10 @@ export const linkProvider = {
     items: new Path({ path: '/me/items', secure: true }),
     listings: new Path({ path: '/me/listings', secure: true }),
     listingsCreated: new Path({ path: '/me/listings/created', secure: true }),
-    listingsReceived: new Path({ path: '/me/listings/pending', secure: true }),
+    listingsReceived: new Path({ path: '/me/listings/explore', secure: true }),
     offers: new Path({ path: '/me/offers', secure: true }),
     offersCreated: new Path({ path: '/me/offers/created', secure: true }),
-    offersReceived: new Path({ path: '/me/offers/pending', secure: true }),
-    swaps: new Path({ path: '/me/swaps', secure: true })
+    offersReceived: new Path({ path: '/me/offers/pending', secure: true })
   },
   user: {
     default: new Path<UserPathArgs>({ path: '/user/:username' }),

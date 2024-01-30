@@ -3,8 +3,8 @@ import { NavigationPill } from '@echo/ui/components/base/navigation/navigation-p
 import { NavigationPillsLayout } from '@echo/ui/components/base/navigation/navigation-pills-layout'
 import { type NavigationItem } from '@echo/ui/types/navigation-item'
 import { type NavigationItemId } from '@echo/ui/types/navigation-item-id'
-import { map } from 'ramda'
-import { type FunctionComponent } from 'react'
+import { isNil, map } from 'ramda'
+import { Fragment, type FunctionComponent } from 'react'
 
 interface Props {
   items: NavigationItem[]
@@ -15,9 +15,12 @@ export const NavigationPills: FunctionComponent<Props> = ({ items, activeItem })
   return (
     <NavigationPillsLayout>
       {map(
-        ({ id, name, path }) => (
-          <NavigationPill key={id} name={name} path={path} selected={id === activeItem} />
-        ),
+        ({ id, name, path, render }) =>
+          !isNil(render) ? (
+            <Fragment key={id}>{render({ name, path, selected: id === activeItem })}</Fragment>
+          ) : (
+            <NavigationPill key={id} name={name} path={path} selected={id === activeItem} />
+          ),
         items
       )}
     </NavigationPillsLayout>
