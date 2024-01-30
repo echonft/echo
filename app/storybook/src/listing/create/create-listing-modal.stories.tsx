@@ -11,7 +11,7 @@ import { type Meta, type StoryObj } from '@storybook/react'
 import { head, pipe, prop } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Listing/Creation/Creating',
+  title: 'Listing/Creation/Modal',
   component: Component,
   args: {
     open: true,
@@ -57,7 +57,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['collections', 'isMutating', 'items', 'open', 'target']
+      exclude: ['collections', 'loading', 'items', 'open', 'target']
     }
   }
 }
@@ -66,9 +66,9 @@ export default metadata
 
 export const Default: StoryObj<typeof Component> = {}
 
-export const Confirming: StoryObj<typeof Component> = {
+export const Loading: StoryObj<typeof Component> = {
   args: {
-    isMutating: true
+    loading: true
   }
 }
 

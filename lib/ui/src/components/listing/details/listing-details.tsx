@@ -21,7 +21,7 @@ import { ListingDetailsTargetCollectionTitle } from '@echo/ui/components/listing
 import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
 import { SelectableNftCardsContainer } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards-container'
 import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
-import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
+import { CreateOfferConfirmedModal } from '@echo/ui/components/offer/create/confirmed/create-offer-confirmed-modal'
 import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { enable } from '@echo/ui/helpers/disableable/enable'
@@ -183,7 +183,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
         hasSelectedEnoughNfts={hasSelectedEnoughNfts}
         actions={{ onCancel: (listing) => void triggerCancel({ listingId: listing.id }), onFill: onFill }}
       />
-      <NewOfferConfirmedModal
+      <CreateOfferConfirmedModal
         offer={createdOffer}
         open={!isNil(createdOffer)}
         onClose={() => setCreatedOffer(undefined)}

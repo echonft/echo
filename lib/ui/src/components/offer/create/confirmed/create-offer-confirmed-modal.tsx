@@ -16,7 +16,7 @@ interface Props {
   onClose?: EmptyFunction
 }
 
-export const NewOfferConfirmedModal: FunctionComponent<Props> = ({ offer, open, onClose }) => {
+export const CreateOfferConfirmedModal: FunctionComponent<Props> = ({ offer, open, onClose }) => {
   const t = useTranslations('offer.new.confirmedModal')
 
   return (

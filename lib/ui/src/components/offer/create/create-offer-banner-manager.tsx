@@ -4,7 +4,7 @@ import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useEffect } from 'react'
 
-export const NewOfferBannerManager: FunctionComponent = () => {
+export const CreateOfferBannerManager: FunctionComponent = () => {
   const t = useTranslations('offer.new.banner')
   const { openModal, hasNewOfferPending } = useNewOfferStore()
   const { show, dismiss } = useBannerStore()

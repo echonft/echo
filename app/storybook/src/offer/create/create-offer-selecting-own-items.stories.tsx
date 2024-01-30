@@ -6,7 +6,7 @@ import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { CreateListingBannerManager } from '@echo/ui/components/listing/create/create-listing-banner-manager'
-import { NewOfferBannerManager } from '@echo/ui/components/offer/new/new-offer-banner-manager'
+import { CreateOfferBannerManager } from '@echo/ui/components/offer/create/create-offer-banner-manager'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { ProfileNfts } from '@echo/ui/pages/profile/nfts/profile-nfts'
 import { ProfileDetails } from '@echo/ui/pages/profile/profile-details'
@@ -15,7 +15,7 @@ import { RouteChangesProvider } from 'nextjs-router-events'
 import { type FunctionComponent, useEffect } from 'react'
 
 const metadata: Meta<FunctionComponent> = {
-  title: 'Offer/New/Selecting Own Items'
+  title: 'Offer/Creation/Selecting Own Items'
 }
 
 export default metadata
@@ -33,7 +33,7 @@ export const SelectingOwnItems: StoryObj<FunctionComponent> = {
     }, [setReceiverItems])
     return (
       <NavigationPageLayout user={user}>
-        <NewOfferBannerManager />
+        <CreateOfferBannerManager />
         <CreateListingBannerManager />
         <SectionLayout>
           <ProfileDetails user={user} />

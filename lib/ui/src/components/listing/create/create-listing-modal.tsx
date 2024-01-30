@@ -12,7 +12,7 @@ export interface CreateListingModalProps {
   items: ListingItem[]
   open: boolean
   collections: CollectionProviderResult[] | undefined
-  isMutating?: boolean
+  loading?: boolean
   onCollectionSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
   onTargetAmountChange?: (targetCollectionSlug: string, amount: number) => unknown
   onClear?: VoidFunction
@@ -21,14 +21,9 @@ export interface CreateListingModalProps {
   onClose?: VoidFunction
 }
 
-export const CreateListingModal: FunctionComponent<CreateListingModalProps> = ({
-  open,
-  isMutating,
-  onClose,
-  ...rest
-}) => {
+export const CreateListingModal: FunctionComponent<CreateListingModalProps> = ({ open, loading, onClose, ...rest }) => {
   const t = useTranslations('listing.new.confirmationModal')
-  const closeCallback = isMutating ? undefined : onClose
+  const closeCallback = loading ? undefined : onClose
   return (
     <Modal
       open={open}
@@ -38,7 +33,7 @@ export const CreateListingModal: FunctionComponent<CreateListingModalProps> = ({
         onBack: closeCallback
       }}
     >
-      <CreateListingModalBody isMutating={isMutating} {...rest} />
+      <CreateListingModalBody loading={loading} {...rest} />
     </Modal>
   )
 }

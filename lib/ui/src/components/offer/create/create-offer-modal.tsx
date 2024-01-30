@@ -2,37 +2,40 @@
 import { type OfferItem } from '@echo/model/types/offer-item'
 import type { User } from '@echo/model/types/user'
 import { Modal } from '@echo/ui/components/base/modal/modal'
-import { NewOfferConfirmationModalBody } from '@echo/ui/components/offer/new/new-offer-confirmation-modal-body'
+import { CreateOfferModalBody } from '@echo/ui/components/offer/create/create-offer-modal-body'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 export interface NewOfferConfirmationModalProps {
+  open: boolean
   receiver: User
   receiverItems: OfferItem[]
   senderItems?: OfferItem[]
-  open: boolean
+  loading?: boolean
   onClear?: VoidFunction
   onContinue?: VoidFunction
   onComplete?: VoidFunction
   onClose?: VoidFunction
 }
 
-export const NewOfferConfirmationModal: FunctionComponent<NewOfferConfirmationModalProps> = ({
+export const CreateOfferModal: FunctionComponent<NewOfferConfirmationModalProps> = ({
   open,
+  loading,
   onClose,
   ...rest
 }) => {
   const t = useTranslations('offer.new.confirmationModal')
+  const closeCallback = loading ? undefined : onClose
   return (
     <Modal
       open={open}
-      onClose={onClose}
+      onClose={closeCallback}
       backButton={{
         label: t('backBtn'),
-        onBack: onClose
+        onBack: closeCallback
       }}
     >
-      <NewOfferConfirmationModalBody {...rest} />
+      <CreateOfferModalBody loading={loading} {...rest} />
     </Modal>
   )
 }

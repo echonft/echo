@@ -11,27 +11,28 @@ import { type FunctionComponent } from 'react'
 interface Props {
   receiverItems: OfferItem[]
   senderItems?: OfferItem[]
+  disabled?: boolean
 }
 
-export const NewOfferModalItemsContainer: FunctionComponent<Props> = ({ receiverItems, senderItems }) => {
+export const CreateOfferModalItemsContainer: FunctionComponent<Props> = ({ receiverItems, senderItems, disabled }) => {
   return (
     <div className={clsx('flex', 'flex-col', 'gap-4.5', 'items-center')}>
       <CardsLayout alignment={ALIGNMENT_CENTER}>
         {map(
           (item) => (
-            <NftThumbnail nft={item.nft} key={item.nft.id} />
+            <NftThumbnail nft={item.nft} key={item.nft.id} disabled={disabled} />
           ),
           receiverItems
         )}
       </CardsLayout>
-      <HideIfNilOrEmpty checks={senderItems} render={() => <ItemsSeparator />} />
+      <HideIfNilOrEmpty checks={senderItems} render={() => <ItemsSeparator disabled={disabled} />} />
       <HideIfNilOrEmpty
         checks={senderItems}
         render={(items) => (
           <CardsLayout alignment={ALIGNMENT_CENTER}>
             {map(
               (item) => (
-                <NftThumbnail nft={item.nft} key={item.nft.id} />
+                <NftThumbnail nft={item.nft} key={item.nft.id} disabled={disabled} />
               ),
               items
             )}

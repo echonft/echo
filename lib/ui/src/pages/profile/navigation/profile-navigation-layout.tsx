@@ -5,7 +5,7 @@ import { collections } from '@echo/api/providers/collections'
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { NavigationLayout } from '@echo/ui/components/base/navigation/navigation-layout'
 import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
-import { NewOfferManager } from '@echo/ui/components/offer/new/new-offer-manager'
+import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import {
   NAVIGATION_LISTINGS_CREATED,
   NAVIGATION_LISTINGS_RECEIVED,
@@ -63,7 +63,7 @@ export const ProfileNavigationLayout: FunctionComponent<PropsWithChildren<Props>
       activeNavigationItem={activeNavigationItem}
     >
       {children}
-      <NewOfferManager fetcher={{ createOffer }} />
+      <CreateOfferManager fetcher={{ createOffer }} />
       <CreateListingManager fetcher={{ createListing }} provider={{ collections }} />
     </NavigationLayout>
   )

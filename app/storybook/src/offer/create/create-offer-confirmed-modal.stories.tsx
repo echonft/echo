@@ -1,11 +1,11 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { NewOfferConfirmedModal as Component } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
+import { CreateOfferConfirmedModal as Component } from '@echo/ui/components/offer/create/confirmed/create-offer-confirmed-modal'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/New/Confirmed Modal',
+  title: 'Offer/Creation/Confirmed',
   component: Component,
   argTypes: {
     onClose: {
@@ -23,7 +23,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const ConfirmedModal: StoryObj<typeof Component> = {
+export const Confirmed: StoryObj<typeof Component> = {
   args: {
     offer: getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'),
     open: true

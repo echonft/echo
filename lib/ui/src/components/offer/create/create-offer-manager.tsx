@@ -3,8 +3,8 @@ import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-r
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Offer } from '@echo/model/types/offer'
-import { NewOfferConfirmationModal } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
-import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
+import { CreateOfferConfirmedModal } from '@echo/ui/components/offer/create/confirmed/create-offer-confirmed-modal'
+import { CreateOfferModal } from '@echo/ui/components/offer/create/create-offer-modal'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
@@ -21,7 +21,7 @@ interface Props {
   }
 }
 
-export const NewOfferManager: FunctionComponent<Props> = ({ fetcher }) => {
+export const CreateOfferManager: FunctionComponent<Props> = ({ fetcher }) => {
   const tError = useTranslations('error.offer')
   const { receiver, receiverItems, senderItems, clearOffer, modalOpen, closeModal } = useNewOfferStore()
   const clearOfferTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
@@ -56,34 +56,27 @@ export const NewOfferManager: FunctionComponent<Props> = ({ fetcher }) => {
   }, [])
 
   if (isNil(receiver)) {
-    return <NewOfferConfirmedModal offer={offer} open={!isNil(offer)} onClose={() => setOffer(undefined)} />
+    return <CreateOfferConfirmedModal offer={offer} open={!isNil(offer)} onClose={() => setOffer(undefined)} />
   }
   return (
-    <NewOfferConfirmationModal
+    <CreateOfferModal
       receiver={receiver}
       receiverItems={receiverItems}
       senderItems={senderItems}
       open={modalOpen}
-      onClear={
-        isMutating
-          ? undefined
-          : () => {
-              closeModal()
-              clearOfferTimeoutRef.current = setTimeout(clearOffer, 210)
-            }
-      }
-      onClose={isMutating ? undefined : closeModal}
-      onContinue={isMutating ? undefined : closeModal}
-      onComplete={
-        isMutating
-          ? undefined
-          : () => {
-              void trigger({
-                senderItems: mapItemsToRequests(senderItems),
-                receiverItems: mapItemsToRequests(receiverItems)
-              })
-            }
-      }
+      loading={isMutating}
+      onClear={() => {
+        closeModal()
+        clearOfferTimeoutRef.current = setTimeout(clearOffer, 210)
+      }}
+      onClose={closeModal}
+      onContinue={closeModal}
+      onComplete={() => {
+        void trigger({
+          senderItems: mapItemsToRequests(senderItems),
+          receiverItems: mapItemsToRequests(receiverItems)
+        })
+      }}
     />
   )
 }

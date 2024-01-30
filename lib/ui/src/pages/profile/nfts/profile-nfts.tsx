@@ -3,7 +3,7 @@ import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Nft } from '@echo/model/types/nft'
 import { CreateListingDiscardModal } from '@echo/ui/components/listing/create/discard/create-listing-discard-modal'
 import { SelectableNftGroupsAndFiltersContainer } from '@echo/ui/components/nft/filters/layout/selectable-nft-groups-and-filters-container'
-import { NewOfferDiscardModal } from '@echo/ui/components/offer/new/new-offer-discard-modal'
+import { CreateOfferDiscardModal } from '@echo/ui/components/offer/create/discard/create-offer-discard-modal'
 import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
@@ -96,7 +96,7 @@ export const ProfileNfts: FunctionComponent<Props> = ({ nfts, user }) => {
         hideOwner={true}
         onButtonClick={onButtonClick}
       />
-      <NewOfferDiscardModal
+      <CreateOfferDiscardModal
         open={showDiscardOfferModal}
         onClose={() => setShowDiscardOfferModal(false)}
         onDiscard={discardOffer}

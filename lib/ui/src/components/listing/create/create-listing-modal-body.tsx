@@ -15,7 +15,7 @@ export const CreateListingModalBody: FunctionComponent<Omit<CreateListingModalPr
   target,
   items,
   collections,
-  isMutating,
+  loading,
   onCollectionSelectionChange,
   onTargetAmountChange,
   onClear,
@@ -31,26 +31,26 @@ export const CreateListingModalBody: FunctionComponent<Omit<CreateListingModalPr
       <CollectionSearchBoxManager
         options={collections}
         onSelectionChange={onCollectionSelectionChange}
-        disabled={isMutating}
+        disabled={loading}
       />
-      <CreateListingModalTargetLayout disabled={isMutating}>
-        <CreateListingModalTarget target={target} onEdit={onTargetAmountChange} isMutating={isMutating} />
+      <CreateListingModalTargetLayout disabled={loading}>
+        <CreateListingModalTarget target={target} onEdit={onTargetAmountChange} isMutating={loading} />
       </CreateListingModalTargetLayout>
       <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
-      <CreateListingModalItems items={items} disabled={isMutating} />
+      <CreateListingModalItems items={items} disabled={loading} />
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
         <CreateListingModalButton
           target={target}
           items={items}
           onConfirm={onConfirm}
-          isMutating={isMutating}
+          isMutating={loading}
           onContinue={onContinue}
         />
         <LongPressButton
           id={'new-listing-confirmation-btn'}
           label={t('clearBtn.label')}
           message={t('clearBtn.message')}
-          loading={isMutating}
+          loading={loading}
           onFinish={onClear}
         />
       </div>

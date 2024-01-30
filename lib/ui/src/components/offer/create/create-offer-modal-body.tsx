@@ -4,32 +4,38 @@ import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
 import { ShowIfNilOrEmpty } from '@echo/ui/components/base/utils/show-if-nil-or-empty'
-import type { NewOfferConfirmationModalProps } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
-import { NewOfferModalItemsContainer } from '@echo/ui/components/offer/new/new-offer-modal-items-container'
-import { ListingOfferUserDetailsRounded } from '@echo/ui/components/user/listing-offer/listing-offer-user-details-rounded'
+import type { NewOfferConfirmationModalProps } from '@echo/ui/components/offer/create/create-offer-modal'
+import { CreateOfferModalItemsContainer } from '@echo/ui/components/offer/create/create-offer-modal-items-container'
+import { CreateOfferReceiver } from '@echo/ui/components/offer/create/create-offer-receiver'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-export const NewOfferConfirmationModalBody: FunctionComponent<
-  Omit<NewOfferConfirmationModalProps, 'open' | 'onClose'>
-> = ({ receiver, receiverItems, senderItems, onClear, onContinue, onComplete }) => {
+export const CreateOfferModalBody: FunctionComponent<Omit<NewOfferConfirmationModalProps, 'open' | 'onClose'>> = ({
+  receiver,
+  receiverItems,
+  senderItems,
+  loading,
+  onClear,
+  onContinue,
+  onComplete
+}) => {
   const t = useTranslations('offer.new.confirmationModal')
-  if (isNil(receiver) || isNil(receiverItems) || isNil(senderItems)) {
+  if (isNil(receiverItems) && isNil(senderItems)) {
     return null
   }
   return (
     <div className={clsx('flex', 'flex-col', 'gap-12')}>
-      <ListingOfferUserDetailsRounded user={receiver} />
-      <NewOfferModalItemsContainer receiverItems={receiverItems} senderItems={senderItems} />
+      <CreateOfferReceiver user={receiver} disabled={loading} />
+      <CreateOfferModalItemsContainer receiverItems={receiverItems} senderItems={senderItems} disabled={loading} />
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
         <ShowIfNilOrEmpty checks={senderItems}>
           <InternalLink path={linkProvider.profile.items.get()}>
             <button
-              className={clsx('btn-gradient', 'btn-size-alt', 'group', isNil(onContinue) && 'animate-pulse')}
+              className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
               onClick={onContinue}
-              disabled={isNil(onContinue)}
+              disabled={loading}
             >
               <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
             </button>
@@ -39,9 +45,9 @@ export const NewOfferConfirmationModalBody: FunctionComponent<
           checks={senderItems}
           render={() => (
             <button
-              className={clsx('btn-gradient', 'btn-size-alt', 'group', isNil(onComplete) && 'animate-pulse')}
+              className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
               onClick={onComplete}
-              disabled={isNil(onComplete)}
+              disabled={loading}
             >
               <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
             </button>
@@ -51,7 +57,7 @@ export const NewOfferConfirmationModalBody: FunctionComponent<
           id={'new-offer-confirmation-btn'}
           label={t('clearBtn')}
           message={t('clearBtnMessage')}
-          loading={isNil(onClear)}
+          loading={loading}
           onFinish={onClear}
         />
       </div>

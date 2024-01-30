@@ -1,12 +1,12 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { NewOfferConfirmationModal as Component } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
+import { CreateOfferModal as Component } from '@echo/ui/components/offer/create/create-offer-modal'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { pipe, prop } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/New/Confirmation Modal',
+  title: 'Offer/Creation/Modal',
   component: Component,
   args: {
     receiver: pipe(getOfferMockById, prop('receiver'))('LyCfl6Eg7JKuD7XJ6IPi'),
@@ -36,7 +36,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['receiverItems', 'receiver', 'senderItems', 'open']
+      exclude: ['receiverItems', 'receiver', 'senderItems', 'open', 'loading']
     }
   }
 }
@@ -57,13 +57,10 @@ export const ItemsSelected: StoryObj<typeof Component> = {
   }
 }
 
-export const Confirming: StoryObj<typeof Component> = {
+export const Loading: StoryObj<typeof Component> = {
   args: {
     receiverItems: pipe(getOfferMockById, prop('receiverItems'))('LyCfl6Eg7JKuD7XJ6IPi'),
     senderItems: pipe(getOfferMockById, prop('senderItems'))('LyCfl6Eg7JKuD7XJ6IPi'),
-    onClear: undefined,
-    onContinue: undefined,
-    onComplete: undefined,
-    onClose: undefined
+    loading: true
   }
 }
