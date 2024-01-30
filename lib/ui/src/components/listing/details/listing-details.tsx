@@ -4,7 +4,6 @@ import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-r
 import type { ItemRequest } from '@echo/api/types/requests/item-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
@@ -115,7 +114,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
   const resetNftSelection = () => {
     setSelectableNfts(toggleSelectionInList<SelectableNft>(pipe(prop('selected'), Boolean))(selectableNfts))
   }
-  const { state, readOnly, creator, expiresAt, items, targets } = updatedListing
+  const { creator, items, targets } = updatedListing
   // We only allow 1 target per listing atm
   const target = head(targets)!
   // We allow user to select more NFTs than the target amount if wanted
@@ -147,7 +146,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
         <HideIf condition={isCreator}>
           <ListingOfferUserDetails user={creator} />
         </HideIf>
-        <ListingDetailsState expired={state === LISTING_STATE_EXPIRED} readOnly={readOnly} expiresAt={expiresAt} />
+        <ListingDetailsState listing={listing} />
       </ListingDetailsUserStateLayout>
       <ListingDetailsItemsLayout>
         <ListingDetailsItemsContainerLayout>

@@ -9,6 +9,10 @@ import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { getListingTargetsCollectionIds } from '@echo/model/helpers/listing/get-listing-targets-collection-ids'
 import type { Nft } from '@echo/model/types/nft'
+import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
+import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
+import { getListingPageLayoutBackground } from '@echo/ui/helpers/listing/get-listing-page-layout-background'
 import { ListingDetailsPage } from '@echo/ui/pages/listing/listing-details-page'
 import { isIn } from '@echo/utils/fp/is-in'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
@@ -17,7 +21,6 @@ import { andThen, filter, isNil, map, path, pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<NextParams<Record<'id', string>>>
-
 async function render({ params: { id }, user }: Params) {
   const listing = await pipe(findListingById)(id)
   if (isNil(listing)) {
@@ -31,7 +34,15 @@ async function render({ params: { id }, user }: Params) {
     nfts
   )
   const offers = await pipe(getPendingOffersForListing, andThen(map(setOfferRoleForUser(user))))(listing)
-  return <ListingDetailsPage listing={listingWithRole} user={user} userTargetNfts={userTargetNfts} offers={offers} />
+  return (
+    <PageLayout user={user} background={getListingPageLayoutBackground(listing)}>
+      <SectionLayout>
+        <DetailsPaddedContainer>
+          <ListingDetailsPage listing={listingWithRole} user={user} userTargetNfts={userTargetNfts} offers={offers} />
+        </DetailsPaddedContainer>
+      </SectionLayout>
+    </PageLayout>
+  )
 }
 
 export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)

@@ -18,9 +18,10 @@ import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { ListingDetailsSkeleton } from '@echo/ui/components/listing/details/skeleton/listing-details-skeleton'
+import { getListingPageLayoutBackground } from '@echo/ui/helpers/listing/get-listing-page-layout-background'
 import { ListingDetailsPage as Component } from '@echo/ui/pages/listing/listing-details-page'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -37,18 +38,7 @@ type ComponentType = FunctionComponent<{
 }>
 
 const metadata: Meta<ComponentType> = {
-  title: 'Pages/Listing/Details',
-  decorators: [
-    (Story) => (
-      <NavigationPageLayout user={undefined}>
-        <SectionLayout>
-          <DetailsPaddedContainer>
-            <Story />
-          </DetailsPaddedContainer>
-        </SectionLayout>
-      </NavigationPageLayout>
-    )
-  ]
+  title: 'Pages/Listing/Details'
 }
 
 export default metadata
@@ -121,13 +111,16 @@ export const Page: StoryObj<ComponentType> = {
       setExpirationAndReadOnly,
       setRole(role)
     )()
+    const user =
+      role === 'Creator' ? getAuthUserMockByUsername('johnnycagewins') : getAuthUserMockByUsername('crewnft_')
     return (
-      <Component
-        listing={renderedListing}
-        user={role === 'Creator' ? getAuthUserMockByUsername('johnnycagewins') : getAuthUserMockByUsername('crewnft_')}
-        userTargetNfts={getTargetNfts()}
-        offers={getOffers()}
-      />
+      <PageLayout user={user} background={getListingPageLayoutBackground(renderedListing)}>
+        <SectionLayout>
+          <DetailsPaddedContainer>
+            <Component listing={renderedListing} user={user} userTargetNfts={getTargetNfts()} offers={getOffers()} />
+          </DetailsPaddedContainer>
+        </SectionLayout>
+      </PageLayout>
     )
   }
 }
@@ -138,5 +131,13 @@ export const Loading: StoryObj<ComponentType> = {
       exclude: ['readOnly', 'expired', 'role', 'targetHasNfts', 'withOffers']
     }
   },
-  render: () => <ListingDetailsSkeleton />
+  render: () => (
+    <PageLayout>
+      <SectionLayout>
+        <DetailsPaddedContainer>
+          <ListingDetailsSkeleton />
+        </DetailsPaddedContainer>
+      </SectionLayout>
+    </PageLayout>
+  )
 }
