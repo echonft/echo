@@ -10,5 +10,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-export const DiscordTile: Story = {}
+export const DiscordTile: StoryObj<typeof Component> = {}

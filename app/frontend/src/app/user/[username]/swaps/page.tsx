@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { linkProvider } from '@echo/api/routing/link-provider'
 import { getCompletedOffersForUser } from '@echo/firestore/crud/offer/get-completed-offers-for-user'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'

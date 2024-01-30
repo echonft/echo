@@ -1,7 +1,7 @@
 'use client'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
+import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginStepLayout } from '@echo/ui/components/auth/layout/login-step-layout'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
@@ -17,7 +17,7 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   fetcher: {
-    addWallet: Fetcher<EmptyResponse, AddWalletRequest>
+    addWallet: Fetcher<WalletsResponse, AddWalletRequest>
     getNonce: Fetcher<NonceResponse, never>
     signNonce: Fetcher<SignNonceResult, SignNonceArgs>
   }

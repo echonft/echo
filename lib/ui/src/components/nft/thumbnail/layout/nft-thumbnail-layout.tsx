@@ -3,9 +3,11 @@ import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
-interface Props extends WithChildrenProps, WithLoadingProps {}
+interface Props extends WithChildrenProps, WithLoadingProps {
+  disabled?: boolean
+}
 
-export const NftThumbnailLayout: FunctionComponent<Props> = ({ loading, children }) => {
+export const NftThumbnailLayout: FunctionComponent<Props> = ({ disabled, loading, children }) => {
   return (
     <div
       className={clsx(
@@ -17,6 +19,7 @@ export const NftThumbnailLayout: FunctionComponent<Props> = ({ loading, children
         'border-solid',
         'border-white/10',
         'bg-dark-500',
+        disabled && 'opacity-40',
         loading && 'animate-pulse'
       )}
     >

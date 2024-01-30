@@ -25,9 +25,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const NotConnected: Story = {
+export const NotConnected: StoryObj<typeof Component> = {
   args: {
     user: undefined
   },
@@ -43,7 +41,7 @@ export const NotConnected: Story = {
   }
 }
 
-export const Connected: Story = {
+export const Connected: StoryObj<typeof Component> = {
   args: {
     provider: {
       signIn: () => Promise.resolve(undefined)

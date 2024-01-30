@@ -1,6 +1,6 @@
 'use client'
-import { createOffer } from '@echo/api/services/fetchers/create-offer'
-import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { createOffer } from '@echo/api/fetchers/create-offer'
+import { linkProvider } from '@echo/api/routing/link-provider'
 import { NavigationLayout } from '@echo/ui/components/base/navigation/navigation-layout'
 import { NewOfferManager } from '@echo/ui/components/offer/new/new-offer-manager'
 import { NAVIGATION_LISTINGS, NAVIGATION_NFTS, NAVIGATION_SWAPS } from '@echo/ui/constants/navigation-item'

@@ -7,49 +7,42 @@ import { type Meta, type StoryObj } from '@storybook/react'
 import { assocPath, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
-const BANNER_COLOR = 'Color' as const
-const BANNER_DEFAULT = 'Default' as const
-const BANNER_IMAGE = 'Image' as const
-const BANNERS = [BANNER_COLOR, BANNER_DEFAULT, BANNER_IMAGE] as const
-type BannerType = (typeof BANNERS)[number]
+type BannerType = 'Color' | 'Default' | 'Image'
 type ComponentType = FunctionComponent<Record<'banner', BannerType> & Record<'bannerColor', string | undefined>>
-const DEFAULT_DEFAULT_BANNER = BANNER_IMAGE
-const DEFAULT_BANNER_COLOR = '#d11bd9'
 
 const metadata: Meta<ComponentType> = {
   title: 'User/Details ',
+  args: {
+    bannerColor: '#d11bd9',
+    banner: 'Image'
+  },
   argTypes: {
     bannerColor: {
-      defaultValue: DEFAULT_BANNER_COLOR,
+      defaultValue: '#d11bd9',
       control: 'color',
-      if: { arg: 'banner', eq: BANNER_COLOR }
+      if: { arg: 'banner', eq: 'Color' }
     },
     banner: {
-      defaultValue: DEFAULT_DEFAULT_BANNER,
-      options: BANNERS,
+      defaultValue: 'Image',
+      options: ['Color', 'Default', 'Image'],
       control: { type: 'radio' }
     }
   }
 }
 
 export default metadata
-type Story = StoryObj<ComponentType>
 
-export const Details: Story = {
-  args: {
-    bannerColor: DEFAULT_BANNER_COLOR,
-    banner: DEFAULT_DEFAULT_BANNER
-  },
+export const Details: StoryObj<ComponentType> = {
   render: ({ bannerColor, banner }) => {
     const user = pipe(
       getAuthUserMockByUsername,
       assocPath(
         ['discord', 'bannerUrl'],
-        banner === BANNER_IMAGE
+        banner === 'Image'
           ? 'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-banner.png?alt=media'
           : undefined
       ),
-      assocPath(['discord', 'bannerColor'], banner === BANNER_COLOR ? bannerColor : undefined)
+      assocPath(['discord', 'bannerColor'], banner === 'Color' ? bannerColor : undefined)
     )('johnnycagewins')
     return <UserDetails user={user as UserProfile} />
   }

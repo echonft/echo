@@ -22,9 +22,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const JoinEchoStep: Story = {
+export const JoinEchoStep: StoryObj<typeof Component> = {
   args: {
     username: 'johnnycagewins'
   }

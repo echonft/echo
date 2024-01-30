@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { linkProvider } from '@echo/api/routing/link-provider'
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 import i18next from 'i18next'
 

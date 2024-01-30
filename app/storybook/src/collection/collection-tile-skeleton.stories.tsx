@@ -7,6 +7,9 @@ import { type Meta, type StoryObj } from '@storybook/react'
 const metadata: Meta<typeof Component> = {
   title: 'Collection/Tile',
   component: Component,
+  args: {
+    size: SIZE_LG
+  },
   argTypes: {
     size: {
       options: [SIZE_MD, SIZE_LG],
@@ -17,10 +20,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Skeleton: Story = {
-  args: {
-    size: SIZE_LG
-  }
-}
+export const Skeleton: StoryObj<typeof Component> = {}

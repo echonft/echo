@@ -8,13 +8,18 @@ const metadata: Meta<typeof Component> = {
   title: 'Collection/Thumbnail',
   component: Component,
   args: {
-    collection: getCollectionMock()
+    collection: getCollectionMock(),
+    disabled: false
   },
   argTypes: {
     onClick: {
       table: {
         disable: true
       }
+    },
+    disabled: {
+      defaultValue: false,
+      control: 'boolean'
     }
   },
   parameters: {

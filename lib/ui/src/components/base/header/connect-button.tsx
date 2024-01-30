@@ -1,5 +1,5 @@
 'use client'
-import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { linkProvider } from '@echo/api/routing/link-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
 import { clsx } from 'clsx'

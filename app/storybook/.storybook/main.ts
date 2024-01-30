@@ -23,7 +23,7 @@ const config: StorybookConfig = {
         ]
       }
     },
-    { name: '@storybook/addon-essentials' }
+    { name: '@storybook/addon-actions' }
   ],
   framework: {
     name: '@storybook/nextjs',
@@ -32,7 +32,8 @@ const config: StorybookConfig = {
   env: (config) => ({
     ...config,
     NEXT_PUBLIC_ALCHEMY_KEY: 'test',
-    NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: 'wallet-connect-project-id'
+    NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: 'wallet-connect-project-id',
+    VERCEL_URL: 'http://localhost:6006/'
   }),
   swc: () => ({
     jsc: {

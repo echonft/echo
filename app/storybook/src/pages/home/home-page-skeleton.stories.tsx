@@ -19,6 +19,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Loading: Story = {}
+export const Loading: StoryObj<typeof Component> = {}

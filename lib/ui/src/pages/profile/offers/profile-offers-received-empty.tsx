@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { linkProvider } from '@echo/api/routing/link-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EmptyViewContent } from '@echo/ui/components/base/navigation/empty-view-content'
 import { clsx } from 'clsx'

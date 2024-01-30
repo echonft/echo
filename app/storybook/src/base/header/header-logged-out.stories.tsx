@@ -10,6 +10,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const LoggedOut: Story = {}
+export const LoggedOut: StoryObj<typeof Component> = {}

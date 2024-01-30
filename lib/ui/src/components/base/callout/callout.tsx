@@ -12,14 +12,19 @@ import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
-interface Props {
+export interface CalloutProps {
   severity: CalloutSeverity
   variant?: CalloutVariant
   onClick?: MouseEventHandler
   children: string
 }
 
-export const Callout: FunctionComponent<Props> = ({ severity, variant = CALLOUT_VARIANT_SOLID, onClick, children }) => {
+export const Callout: FunctionComponent<CalloutProps> = ({
+  severity,
+  variant = CALLOUT_VARIANT_SOLID,
+  onClick,
+  children
+}) => {
   return (
     <div
       className={clsx(

@@ -1,9 +1,11 @@
 // noinspection JSUnusedGlobalSymbols
 
+import type { Offer } from '@echo/model/types/offer'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { RecentSwaps as Component } from '@echo/ui/pages/home/swap/recent-swaps'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { concat } from 'ramda'
+import { assoc, concat, map, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Pages/Home/Components/Recent Swaps',
@@ -17,13 +19,13 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-const offers = getAllOfferMocks()
-
-export const Default: Story = {
+export const Default: StoryObj<typeof Component> = {
   args: {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    offers: concat(offers, offers)
+    offers: pipe<[], Offer[], Offer[], Offer[], OfferWithRole[]>(
+      getAllOfferMocks,
+      concat(getAllOfferMocks()),
+      concat(getAllOfferMocks()),
+      map<Offer, OfferWithRole>(assoc('role', undefined))
+    )()
   }
 }

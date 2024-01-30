@@ -3,10 +3,15 @@
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { NewOfferConfirmationModal as Component } from '@echo/ui/components/offer/new/new-offer-confirmation-modal'
 import { type Meta, type StoryObj } from '@storybook/react'
+import { pipe, prop } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/New/Confirmation Modal',
   component: Component,
+  args: {
+    receiver: pipe(getOfferMockById, prop('receiver'))('LyCfl6Eg7JKuD7XJ6IPi'),
+    open: true
+  },
   argTypes: {
     onClose: {
       table: {
@@ -38,34 +43,24 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-const { receiverItems, receiver, senderItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-
-type Story = StoryObj<typeof Component>
-
-export const ItemsNotSelected: Story = {
+export const ItemsNotSelected: StoryObj<typeof Component> = {
   args: {
-    receiver,
-    receiverItems,
-    senderItems: undefined,
-    open: true
+    receiverItems: pipe(getOfferMockById, prop('receiverItems'))('LyCfl6Eg7JKuD7XJ6IPi'),
+    senderItems: undefined
   }
 }
 
-export const ItemsSelected: Story = {
+export const ItemsSelected: StoryObj<typeof Component> = {
   args: {
-    receiver,
-    receiverItems: [receiverItems[0]!, receiverItems[0]!],
-    senderItems: [senderItems[0]!, senderItems[0]!, senderItems[0]!, senderItems[0]!],
-    open: true
+    receiverItems: pipe(getOfferMockById, prop('receiverItems'))('LyCfl6Eg7JKuD7XJ6IPi'),
+    senderItems: pipe(getOfferMockById, prop('senderItems'))('LyCfl6Eg7JKuD7XJ6IPi')
   }
 }
 
-export const Confirming: Story = {
+export const Confirming: StoryObj<typeof Component> = {
   args: {
-    receiver,
-    receiverItems: [receiverItems[0]!, receiverItems[0]!],
-    senderItems: [senderItems[0]!, senderItems[0]!, senderItems[0]!, senderItems[0]!],
-    open: true,
+    receiverItems: pipe(getOfferMockById, prop('receiverItems'))('LyCfl6Eg7JKuD7XJ6IPi'),
+    senderItems: pipe(getOfferMockById, prop('senderItems'))('LyCfl6Eg7JKuD7XJ6IPi'),
     onClear: undefined,
     onContinue: undefined,
     onComplete: undefined,

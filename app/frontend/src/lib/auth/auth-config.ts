@@ -1,6 +1,6 @@
 import type { Account, Profile, User } from '@auth/core/types'
-import { apiUrlProvider } from '@echo/api/services/routing/api-url-provider'
-import { isPathSecure } from '@echo/api/services/routing/is-path-secure'
+import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
+import { isPathSecure } from '@echo/api/routing/is-path-secure'
 import { getAvatarDecorationUrl } from '@echo/frontend/lib/auth/get-avatar-decoration-url'
 import { getDiscordAvatarUrl } from '@echo/frontend/lib/auth/get-discord-avatar-url'
 import { getDiscordBannerUrl } from '@echo/frontend/lib/auth/get-discord-banner-url'

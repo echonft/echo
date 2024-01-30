@@ -1,71 +1,58 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
+import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-contract-approval '
 import { OfferDetailsContractApprovalRow as Component } from '@echo/ui/components/offer/details/offer-details-contract-approval-row'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721-contract-approval-args'
 import type { Meta, StoryObj } from '@storybook/react'
+import type { FunctionComponent } from 'react'
 
-const nft = getNftMockById('8hHFadIrrooORfTOLkBg')
-const collectionName = 'Sun Flyers'
-const contract = nft.collection.contract
-const owner = nft.owner.wallet.address
-function fetch(_args: GetErc721ContractApprovalArgs): Promise<boolean> {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  return new Promise(() => {})
-}
-const metadata: Meta<typeof Component> = {
-  title: 'Offer/Details/Modal/Contract Approval/Row',
-  component: Component,
-  argTypes: {
-    onSuccess: {
-      table: {
-        disable: true
-      }
-    }
+type ComonentType = FunctionComponent<{ state: 'Approved' | 'Loading' | 'Not Approved' }>
+const metadata: Meta<ComonentType> = {
+  title: 'Offer/Details/Contract Approval/Row',
+  args: {
+    state: 'Approved'
   },
-  parameters: {
-    controls: {
-      exclude: ['approved', 'contract', 'owner', 'fetcher']
+  argTypes: {
+    state: {
+      defaultValue: 'Approved',
+      options: ['Approved', 'Loading', 'Not Approved'],
+      control: { type: 'radio' }
     }
   }
 }
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Loading: Story = {
-  args: {
-    collectionName,
-    contract,
-    owner,
-    fetcher: {
-      getErc721ContractApproval: fetch
-    },
-    approved: undefined
-  }
-}
-
-export const Approved: Story = {
-  args: {
-    collectionName,
-    contract,
-    owner,
-    fetcher: {
-      getErc721ContractApproval: fetch
-    },
-    approved: true
-  }
-}
-
-export const NotApproved: Story = {
-  args: {
-    collectionName,
-    contract,
-    owner,
-    fetcher: {
-      getErc721ContractApproval: fetch
-    },
-    approved: false
+export const Row: StoryObj<ComonentType> = {
+  render: ({ state }) => {
+    const nft = getNftMockById('8hHFadIrrooORfTOLkBg')
+    function getApproved() {
+      switch (state) {
+        case 'Approved':
+          return true
+        case 'Loading':
+          return undefined
+        case 'Not Approved':
+          return false
+      }
+    }
+    return (
+      <Component
+        collectionName={nft.collection.name}
+        contract={nft.collection.contract}
+        owner={nft.owner.wallet.address}
+        fetcher={{
+          getErc721ContractApproval:
+            state === 'Loading'
+              ? function (_args: GetErc721ContractApprovalArgs): Promise<boolean> {
+                  // eslint-disable-next-line @typescript-eslint/no-empty-function
+                  return new Promise(() => {})
+                }
+              : getErc721ContractApproval(true)
+        }}
+        approved={getApproved()}
+      />
+    )
   }
 }

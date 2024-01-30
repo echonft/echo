@@ -1,6 +1,6 @@
 'use client'
-import { addWallet } from '@echo/api/services/fetchers/add-wallet'
-import { getNonce } from '@echo/api/services/fetchers/get-nonce'
+import { addWallet } from '@echo/api/fetchers/add-wallet'
+import { getNonce } from '@echo/api/fetchers/get-nonce'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { EmptyViewContent } from '@echo/ui/components/base/navigation/empty-view-content'
 import { ShowIfNilOrEmpty } from '@echo/ui/components/base/utils/show-if-nil-or-empty'

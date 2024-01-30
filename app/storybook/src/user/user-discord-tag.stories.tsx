@@ -10,9 +10,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Default: Story = {
+export const Default: StoryObj<typeof Component> = {
   args: {
     discordUsername: 'johnnycagewins'
   }

@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { linkProvider } from '@echo/api/routing/link-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { OfferCardSwitch } from '@echo/ui/components/offer/card/offer-card-switch'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'

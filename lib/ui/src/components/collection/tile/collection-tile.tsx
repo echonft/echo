@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { linkProvider } from '@echo/api/routing/link-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'

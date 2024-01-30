@@ -6,24 +6,21 @@ import { getNftStackFromArray } from '@echo/ui/helpers/stack/get-nft-stack-from-
 import { type Meta, type StoryObj } from '@storybook/react'
 import { pipe } from 'ramda'
 
-const DEFAULT_HIDE_OWNER = false
-const DEFAULT_SCALE_DISABLED = false
-
 const metadata: Meta<typeof Component> = {
   title: 'NFT/Stack',
   component: Component,
   args: {
-    hideOwner: DEFAULT_HIDE_OWNER,
-    scaleDisabled: DEFAULT_SCALE_DISABLED,
+    hideOwner: false,
+    scaleDisabled: false,
     stack: pipe(getAllNftMocks, getNftStackFromArray)()
   },
   argTypes: {
     hideOwner: {
-      defaultValue: DEFAULT_HIDE_OWNER,
+      defaultValue: false,
       control: 'boolean'
     },
     scaleDisabled: {
-      defaultValue: DEFAULT_SCALE_DISABLED,
+      defaultValue: false,
       control: 'boolean'
     }
   },
@@ -36,6 +33,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Default: Story = {}
+export const Default: StoryObj<typeof Component> = {}

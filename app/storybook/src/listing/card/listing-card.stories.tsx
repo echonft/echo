@@ -16,31 +16,27 @@ type ComponentType = FunctionComponent<{
   scaleDisabled: boolean
 }>
 
-const DEFAULT_STATE = LISTING_STATE_OPEN
-const DEFAULT_STACK = false
-const DEFAULT_SCALE_DISABLED = false
-
 const metadata: Meta<ComponentType> = {
   title: 'Listing/Card',
+  args: {
+    state: LISTING_STATE_OPEN,
+    stack: false,
+    scaleDisabled: false
+  },
   argTypes: {
     state: {
-      defaultValue: DEFAULT_STATE,
+      defaultValue: LISTING_STATE_OPEN,
       options: LISTING_STATES,
       control: { type: 'radio' }
     },
     stack: {
-      defaultValue: DEFAULT_STACK,
+      defaultValue: false,
       control: 'boolean'
     },
     scaleDisabled: {
-      defaultValue: DEFAULT_SCALE_DISABLED,
+      defaultValue: false,
       control: 'boolean'
     }
-  },
-  args: {
-    state: DEFAULT_STATE,
-    stack: DEFAULT_STACK,
-    scaleDisabled: DEFAULT_SCALE_DISABLED
   }
 }
 export default metadata

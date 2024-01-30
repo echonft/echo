@@ -27,7 +27,7 @@ export const CreateListingModalTarget: FunctionComponent<Props> = ({ target, isM
   }
   return (
     <div className={clsx('flex', 'w-full', 'h-40', 'justify-center', 'items-center', 'gap-6')}>
-      <CollectionThumbnail collection={target.collection as Collection} />
+      <CollectionThumbnail collection={target.collection as Collection} disabled={isMutating} />
       <QuantityPicker
         initialQty={target.amount}
         onQtyChange={(newQuantity) => {

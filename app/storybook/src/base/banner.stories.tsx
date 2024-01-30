@@ -17,9 +17,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Default: Story = {
+export const Default: StoryObj<typeof Component> = {
   args: {
     title: 'Title',
     subtitle: 'Subtitle',
@@ -27,13 +25,18 @@ export const Default: Story = {
   }
 }
 
-export const NoSubtitle: Story = {
+export const NoSubtitle: StoryObj<typeof Component> = {
   args: {
     title: 'Title with no subtitle'
+  },
+  parameters: {
+    controls: {
+      exclude: ['subtitle']
+    }
   }
 }
 
-export const SubtitleAction: Story = {
+export const SubtitleAction: StoryObj<typeof Component> = {
   args: {
     title: 'Title',
     subtitle: 'Close banner'

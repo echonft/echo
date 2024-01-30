@@ -4,11 +4,14 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
-export const CreateListingModalTargetLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
+interface Props {
+  disabled?: boolean
+}
+export const CreateListingModalTargetLayout: FunctionComponent<PropsWithChildren<Props>> = ({ disabled, children }) => {
   const t = useTranslations('listing.assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-11')}>
-      <SwapDirectionHeader direction={SWAP_DIRECTION_IN} title={t('in')} />
+      <SwapDirectionHeader direction={SWAP_DIRECTION_IN} title={t('in')} disabled={disabled} />
       <div className={clsx('w-full')}>{children}</div>
     </div>
   )
