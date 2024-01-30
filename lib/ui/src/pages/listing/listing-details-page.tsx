@@ -20,13 +20,14 @@ interface Props {
 
 export const ListingDetailsPage: FunctionComponent<Props> = ({ listing, user, userTargetNfts, offers }) => {
   const t = useTranslations('listing.details.banner')
-  const { show } = useBannerStore()
+  const { show, dismiss } = useBannerStore()
 
   useEffect(() => {
     if (isListingRoleTarget(listing) && !listing.readOnly) {
       show({ title: t('title') })
     }
-  }, [listing, show, t])
+    return () => dismiss()
+  }, [listing, show, t, dismiss])
 
   return (
     <ListingDetails
