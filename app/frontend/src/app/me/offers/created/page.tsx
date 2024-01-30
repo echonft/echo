@@ -3,7 +3,7 @@ import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { setOfferRoleSender } from '@echo/frontend/lib/helpers/offer/set-offer-role-sender'
 import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
-import { NAVIGATION_OFFERS_CREATED } from '@echo/ui/constants/navigation-item'
+import { NAVIGATION_OFFERS } from '@echo/ui/constants/navigation-item'
 import { ProfileNavigationLayout } from '@echo/ui/pages/profile/navigation/profile-navigation-layout'
 import { ProfileOffersCreated } from '@echo/ui/pages/profile/offers/profile-offers-created'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
@@ -17,7 +17,7 @@ async function render(params: NextAuthUserParams) {
     andThen(map(setOfferRoleSender))
   )(params)
   return (
-    <ProfileNavigationLayout activeNavigationItem={NAVIGATION_OFFERS_CREATED}>
+    <ProfileNavigationLayout activeNavigationItem={NAVIGATION_OFFERS}>
       <ProfileOffersCreated offers={offers} />
     </ProfileNavigationLayout>
   )

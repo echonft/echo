@@ -6,27 +6,13 @@ import { type FunctionComponent } from 'react'
 
 export const ExploreNavigationPill: FunctionComponent<NavigationPillProps> = ({ name, path, selected }) => {
   return (
-    <InternalLink
-      className={clsx(
-        'w-max',
-        'h-max',
-        'flex',
-        'flex-row',
-        'gap-2.5',
-        'items-center',
-        'py-3',
-        'px-6',
-        'rounded-lg',
-        selected ? 'bg-white/[0.05]' : 'bg-transparent',
-        !selected && 'hover:bg-white/[0.05]'
-      )}
-      path={path}
-      disabled={selected}
-    >
-      <span className={clsx('prose-label-md', 'text-yellow-500', 'select-none')}>{name}</span>
-      <span className={clsx('text-yellow-500')}>
-        <ExploreIconSvg />
-      </span>
+    <InternalLink path={path} disabled={selected}>
+      <button className={clsx('pill', 'flex', 'flex-row', 'gap-2.5', 'items-center')} disabled={selected}>
+        <span className={clsx('prose-label-md', 'text-yellow-500', 'select-none')}>{name}</span>
+        <span className={clsx('text-yellow-500', 'select-none')}>
+          <ExploreIconSvg />
+        </span>
+      </button>
     </InternalLink>
   )
 }

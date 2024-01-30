@@ -24,7 +24,7 @@ const metadata: Meta<ComponentType> = {
 
 export default metadata
 
-export const NavigationPills: StoryObj<ComponentType> = {
+export const Default: StoryObj<ComponentType> = {
   render: ({ selection }) => {
     function getActiveItem() {
       switch (selection) {

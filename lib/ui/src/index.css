@@ -27,6 +27,9 @@
   .tooltip {
     @apply !bg-dark-500 !text-white !rounded-lg border border-solid border-white !text-label-xs font-inter z-50;
   }
+  .pill {
+    @apply w-max h-max py-3 px-6 rounded-lg enabled:bg-transparent enabled:cursor-pointer enabled:hover:bg-white/[0.05] disabled:bg-white/[0.05] disabled:cursor-default
+  }
 }
 
 @layer utilities {

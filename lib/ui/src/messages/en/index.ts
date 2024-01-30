@@ -377,11 +377,11 @@ export const messages = {
       }
     },
     navigation: {
+      explore: 'Explore',
       items: 'Owned',
-      listingsCreated: 'Listings',
-      listingsReceived: 'Explore',
-      offersCreated: 'Offers',
-      offersReceived: 'Pending Offers'
+      listings: 'Listings',
+      offers: 'Offers',
+      pendingOffers: 'Pending Offers'
     },
     wallet: {
       button: {

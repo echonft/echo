@@ -8,11 +8,11 @@ import { NavigationLayout } from '@echo/ui/components/base/navigation/navigation
 import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import {
-  NAVIGATION_LISTINGS_CREATED,
-  NAVIGATION_LISTINGS_RECEIVED,
+  NAVIGATION_EXPLORE,
+  NAVIGATION_LISTINGS,
   NAVIGATION_NFTS,
-  NAVIGATION_OFFERS_CREATED,
-  NAVIGATION_OFFERS_RECEIVED
+  NAVIGATION_OFFERS,
+  NAVIGATION_PENDING_OFFERS
 } from '@echo/ui/constants/navigation-item'
 import { type NavigationItemId } from '@echo/ui/types/navigation-item-id'
 import { useTranslations } from 'next-intl'
@@ -35,23 +35,23 @@ export const ProfileNavigationLayout: FunctionComponent<PropsWithChildren<Props>
           path: linkProvider.profile.items.get()
         },
         {
-          id: NAVIGATION_OFFERS_CREATED,
-          name: t('offersCreated'),
+          id: NAVIGATION_OFFERS,
+          name: t('offers'),
           path: linkProvider.profile.offersCreated.get()
         },
         {
-          id: NAVIGATION_OFFERS_RECEIVED,
-          name: t('offersReceived'),
+          id: NAVIGATION_PENDING_OFFERS,
+          name: t('pendingOffers'),
           path: linkProvider.profile.offersReceived.get()
         },
         {
-          id: NAVIGATION_LISTINGS_CREATED,
-          name: t('listingsCreated'),
+          id: NAVIGATION_LISTINGS,
+          name: t('listings'),
           path: linkProvider.profile.listingsCreated.get()
         },
         {
-          id: NAVIGATION_LISTINGS_RECEIVED,
-          name: t('listingsReceived'),
+          id: NAVIGATION_EXPLORE,
+          name: t('explore'),
           path: linkProvider.profile.listingsReceived.get(),
           render: (props) => <ExploreNavigationPill {...props} />
         }
