@@ -21,7 +21,7 @@ export const LoginDiscordStep: FunctionComponent<Props> = ({ provider, user, onC
     <LoginStepLayout
       title={t('title')}
       subtitle={t('subtitle')}
-      btnLabel={t('continueBtn.label')}
+      btnLabel={t('continueBtn')}
       btnDisabled={isNil(user)}
       onBtnClick={onContinue}
     >

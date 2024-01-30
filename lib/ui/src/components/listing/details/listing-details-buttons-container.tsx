@@ -52,7 +52,7 @@ export const ListingDetailsButtonsContainer: FunctionComponent<Props> = ({
           disabled={isMutating || !hasSelectedEnoughNfts}
           onClick={() => actions?.onFill?.(listing)}
         >
-          <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('fillBtn.label')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('fillBtn')}</span>
         </button>
       </ListingDetailsButtonsLayout>
     )

@@ -1,6 +1,6 @@
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { CardsLayout } from '@echo/ui/components/base/card/layout/cards-layout'
-import { SwapDirectionHeader } from '@echo/ui/components/base/swap-direction-header'
+import { CreateListingSwapDirectionHeader } from '@echo/ui/components/listing/create/create-listing-swap-direction-header'
 import { NftThumbnail } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
@@ -15,11 +15,11 @@ interface Props {
 }
 
 export const CreateListingModalItems: FunctionComponent<Props> = ({ items, disabled }) => {
-  const t = useTranslations('listing.assets')
+  const t = useTranslations('listing.create.assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center')}>
-        <SwapDirectionHeader direction={SWAP_DIRECTION_OUT} title={t('out')} disabled={disabled} />
+        <CreateListingSwapDirectionHeader direction={SWAP_DIRECTION_OUT} title={t('out')} disabled={disabled} />
       </div>
       <CardsLayout alignment={ALIGNMENT_CENTER}>
         {map(

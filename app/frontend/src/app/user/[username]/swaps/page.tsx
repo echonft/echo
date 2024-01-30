@@ -17,7 +17,7 @@ import type { ReactElement } from 'react'
 type Params = NextUserParams<NextParams<Record<'username', string>>>
 async function render({ params: { username }, user }: Params) {
   if (user?.username === username) {
-    redirect(linkProvider.profile.swaps.get())
+    redirect(linkProvider.profile.offers.get())
   }
   const offers = await pipe(
     getCompletedOffersForUser,

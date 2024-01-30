@@ -3,9 +3,9 @@ import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { setOfferRoleReceiver } from '@echo/frontend/lib/helpers/offer/set-offer-role-receiver'
 import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
-import { NAVIGATION_OFFERS_RECEIVED } from '@echo/ui/constants/navigation-item'
+import { NAVIGATION_PENDING_OFFERS } from '@echo/ui/constants/navigation-item'
 import { ProfileNavigationLayout } from '@echo/ui/pages/profile/navigation/profile-navigation-layout'
-import { ProfileOffersReceived } from '@echo/ui/pages/profile/offers/profile-offers-received'
+import { ProfilePendingOffers } from '@echo/ui/pages/profile/offers/pending/profile-pending-offers'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { andThen, map, path, pipe } from 'ramda'
 import type { ReactElement } from 'react'
@@ -17,8 +17,8 @@ async function render(params: NextAuthUserParams) {
     andThen(map(setOfferRoleReceiver))
   )(params)
   return (
-    <ProfileNavigationLayout activeNavigationItem={NAVIGATION_OFFERS_RECEIVED}>
-      <ProfileOffersReceived offers={offers} />
+    <ProfileNavigationLayout activeNavigationItem={NAVIGATION_PENDING_OFFERS}>
+      <ProfilePendingOffers offers={offers} />
     </ProfileNavigationLayout>
   )
 }

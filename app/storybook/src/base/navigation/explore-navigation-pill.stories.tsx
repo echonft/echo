@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { NavigationPill as Component } from '@echo/ui/components/base/navigation/navigation-pill'
+import { ExploreNavigationPill as Component } from '@echo/ui/components/base/navigation/explore-navigation-pill'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -14,16 +14,16 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['path']
+      exclude: ['name', 'path']
     }
   }
 }
 
 export default metadata
 
-export const Default: StoryObj<typeof Component> = {
+export const Explore: StoryObj<typeof Component> = {
   args: {
-    name: 'Items',
+    name: 'Explore',
     path: '#',
     selected: false
   }

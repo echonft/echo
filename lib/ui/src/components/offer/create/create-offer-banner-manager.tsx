@@ -5,12 +5,12 @@ import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useEffect } from 'react'
 
 export const CreateOfferBannerManager: FunctionComponent = () => {
-  const t = useTranslations('offer.new.banner')
+  const t = useTranslations('offer.create.banner')
   const { openModal, hasNewOfferPending } = useNewOfferStore()
   const { show, dismiss } = useBannerStore()
   useEffect(() => {
     if (hasNewOfferPending) {
-      show({ title: t('title'), subtitle: t('btn.label'), onClick: openModal })
+      show({ title: t('title'), subtitle: t('btn'), onClick: openModal })
     } else {
       dismiss()
     }

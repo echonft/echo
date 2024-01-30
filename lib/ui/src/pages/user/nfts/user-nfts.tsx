@@ -43,7 +43,7 @@ export const UserNfts: FunctionComponent<Props> = ({ nfts }) => {
     <SelectableNftGroupsAndFiltersContainer
       nfts={selectableNfts}
       availableFilters={[NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS]}
-      btnLabel={t('button.label')}
+      btnLabel={t('button')}
       onButtonClick={onMakeOffer}
     />
   )

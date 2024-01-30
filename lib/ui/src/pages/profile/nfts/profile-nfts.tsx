@@ -87,11 +87,7 @@ export const ProfileNfts: FunctionComponent<Props> = ({ nfts, user }) => {
         nfts={selectableNfts}
         availableFilters={[NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS]}
         btnLabel={t(
-          hasNewOfferPending
-            ? 'offerButton.label'
-            : hasNewListingPending
-              ? 'finalizeListingButton.label'
-              : 'listingButton.label'
+          hasNewOfferPending ? 'offerButton' : hasNewListingPending ? 'listingButton.finalize' : 'listingButton.create'
         )}
         hideOwner={true}
         onButtonClick={onButtonClick}

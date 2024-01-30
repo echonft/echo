@@ -12,7 +12,7 @@ export const CreateOfferConfirmedModalBody: FunctionComponent<Omit<CreateOfferCo
   offer,
   onClose
 }) => {
-  const t = useTranslations('offer.new.confirmedModal')
+  const t = useTranslations('offer.create.confirmedModal')
   if (isNil(offer)) {
     return null
   }

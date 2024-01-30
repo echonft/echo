@@ -1,12 +1,11 @@
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { SelectableNftsAndFiltersContainerSkeleton } from '@echo/ui/components/nft/filters/layout/skeleton/selectable-nfts-and-filters-container-skeleton'
-import { NAVIGATION_NFTS } from '@echo/ui/constants/navigation-item'
 import { NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { CollectionNavigationLayoutSkeleton } from '@echo/ui/pages/collection/navigation/collection-navigation-layout-skeleton'
 
 function render() {
   return (
-    <CollectionNavigationLayoutSkeleton activeNavigationItem={NAVIGATION_NFTS}>
+    <CollectionNavigationLayoutSkeleton>
       <SelectableNftsAndFiltersContainerSkeleton availableFilters={[NFT_FILTER_TRAITS]} />
     </CollectionNavigationLayoutSkeleton>
   )

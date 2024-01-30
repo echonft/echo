@@ -24,7 +24,7 @@ export const CreateOfferModal: FunctionComponent<NewOfferConfirmationModalProps>
   onClose,
   ...rest
 }) => {
-  const t = useTranslations('offer.new.confirmationModal')
+  const t = useTranslations('offer.create')
   const closeCallback = loading ? undefined : onClose
   return (
     <Modal

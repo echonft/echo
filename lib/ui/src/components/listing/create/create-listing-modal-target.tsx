@@ -14,13 +14,13 @@ interface Props {
 }
 
 export const CreateListingModalTarget: FunctionComponent<Props> = ({ target, isMutating, onEdit }) => {
-  const t = useTranslations('listing.new.confirmationModal')
+  const t = useTranslations('listing.create')
 
   if (isNil(target)) {
     return (
       <div className={clsx('flex', 'w-full', 'h-40', 'px-2', 'justify-center', 'items-center')}>
         <span className={clsx('text-white/10', 'prose-display-sm', 'whitespace-pre-line', 'text-center')}>
-          {t('emptyTargets')}
+          {t('empty.targets')}
         </span>
       </div>
     )

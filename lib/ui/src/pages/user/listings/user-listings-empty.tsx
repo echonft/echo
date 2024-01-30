@@ -16,7 +16,7 @@ export const UserListingsEmpty: FunctionComponent<Props> = ({ username }) => {
     <EmptyViewContent message={t('message')}>
       <InternalLink path={linkProvider.user.items.get({ username })}>
         <button className={clsx('btn-primary', 'btn-size', 'group')}>
-          <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('btn.label')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('btn')}</span>
         </button>
       </InternalLink>
     </EmptyViewContent>

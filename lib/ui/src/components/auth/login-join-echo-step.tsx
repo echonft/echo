@@ -19,12 +19,12 @@ export const LoginJoinEchoStep: FunctionComponent<Props> = ({ username, onSkip }
     <LoginStepLayout
       title={t('title', { username })}
       subtitle={t('subtitle')}
-      btnLabel={t('continueBtn.label')}
+      btnLabel={t('continueBtn')}
       onBtnClick={onSkip}
     >
       <div className={clsx('w-full')}>
         <ExternalLink href={DISCORD_INVITE_LINK} onClick={onSkip}>
-          <LoginJoinDiscordButton>{t('btn.label')}</LoginJoinDiscordButton>
+          <LoginJoinDiscordButton>{t('joinBtn')}</LoginJoinDiscordButton>
         </ExternalLink>
       </div>
     </LoginStepLayout>
