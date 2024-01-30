@@ -1,7 +1,7 @@
 import { type Collection } from '@echo/model/types/collection'
 import { HideIfEmpty } from '@echo/ui/components/base/utils/hide-if-empty'
 import { HomeCollectionsLayout } from '@echo/ui/pages/home/collection/layout/home-collections-layout'
-import { RankedCollections } from '@echo/ui/pages/home/collection/ranked/ranked-collections'
+import { HomepageRankedCollections } from '@echo/ui/pages/home/collection/ranked/homepage-ranked-collections'
 import { TopCollections } from '@echo/ui/pages/home/collection/top/top-collections'
 import { min, slice } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -30,7 +30,7 @@ export const HomeCollections: FunctionComponent<Props> = ({
       <TopCollections collections={topCollections} />
       <HideIfEmpty
         checks={rankedCollections}
-        render={(collections) => <RankedCollections collections={collections} firstRank={firstRank} />}
+        render={(collections) => <HomepageRankedCollections collections={collections} firstRank={firstRank} />}
       />
     </HomeCollectionsLayout>
   )

@@ -1,10 +1,8 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { type Collection } from '@echo/model/types/collection'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
-import { RankedCollectionsButtonContainer } from '@echo/ui/pages/home/collection/ranked/layout/ranked-collections-button-container'
-import { RankedCollectionsContainerLayout } from '@echo/ui/pages/home/collection/ranked/layout/ranked-collections-container-layout'
-import { RankedCollectionRow } from '@echo/ui/pages/home/collection/ranked/ranked-collection-row'
-import { RankedCollectionsButton } from '@echo/ui/pages/home/collection/ranked/ranked-collections-button'
+import { RankedCollectionsContainerLayout } from '@echo/ui/pages/collection/list/layout/ranked-collections-container-layout'
+import { RankedCollectionRow } from '@echo/ui/pages/collection/list/ranked-collection-row'
 import { clsx } from 'clsx'
 import { addIndex, map } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -32,9 +30,6 @@ export const RankedCollectionsContainer: FunctionComponent<Props> = ({ collectio
           />
         </InternalLink>
       ))(collections)}
-      <RankedCollectionsButtonContainer>
-        <RankedCollectionsButton />
-      </RankedCollectionsButtonContainer>
     </RankedCollectionsContainerLayout>
   )
 }

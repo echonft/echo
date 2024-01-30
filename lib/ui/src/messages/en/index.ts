@@ -51,6 +51,10 @@ export const messages = {
         title: 'Attributes'
       }
     },
+    list: {
+      title: 'Collections Stats',
+      empty: 'No swaps has been done yet'
+    },
     navigation: {
       items: 'Items',
       listings: 'Listings',
