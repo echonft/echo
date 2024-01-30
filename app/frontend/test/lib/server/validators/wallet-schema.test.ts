@@ -1,4 +1,5 @@
 import { walletSchema } from '@echo/frontend/lib/validators/wallet-schema'
+import { getChain } from '@echo/web3/helpers/get-chain'
 import { toLower } from 'ramda'
 
 describe('validators - walletSchema', () => {
@@ -15,11 +16,12 @@ describe('validators - walletSchema', () => {
     ).toThrow()
   })
   it('valid wallet pass', () => {
+    const chainId = getChain().id
     expect(
-      walletSchema.parse({ address: toLower('0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84'), chainId: 1 })
+      walletSchema.parse({ address: toLower('0xaF1c962f799954E2a43fFdEA5Acaa942d53E1F84'), chainId })
     ).toStrictEqual({
       address: toLower('0xaf1C962f799954E2a43ffDEa5aCAa942d53e1F84'),
-      chainId: 1
+      chainId
     })
   })
 })

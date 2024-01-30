@@ -1,20 +1,19 @@
 import { chainIdSchema } from '@echo/frontend/lib/validators/chain-id-schema'
-import { supportedChains } from '@echo/utils/constants/supported-chains'
-import { forEach, includes } from 'ramda'
+import { getChain } from '@echo/web3/helpers/get-chain'
+import { equals } from 'ramda'
 
 describe('validators - chainIdSchema', () => {
   it('wrong chainId fails validation', () => {
     expect(() => chainIdSchema.parse('')).toThrow()
     expect(() => chainIdSchema.parse(undefined)).toThrow()
   })
-  it('valid chain id but not included in supported chain ids throw', () => {
+  it('valid chain id but not the current chain id throws', () => {
     const invalidChainId = 999999999
-    expect(includes(invalidChainId, supportedChains)).toBeFalsy()
+    expect(equals(getChain().id, invalidChainId)).toBeFalsy()
     expect(() => chainIdSchema.parse(invalidChainId)).toThrow()
   })
-  it('any chain id in the supported chains pass', () => {
-    forEach((chainId: number) => {
-      expect(chainIdSchema.parse(chainId)).toStrictEqual(chainId)
-    }, supportedChains)
+  it('current chain id passes', () => {
+    const chainId = getChain().id
+    expect(chainIdSchema.parse(chainId)).toStrictEqual(chainId)
   })
 })

@@ -12,6 +12,7 @@ import {
   isNotNil,
   map,
   modify,
+  partialRight,
   path,
   pathEq,
   pathSatisfies,
@@ -25,7 +26,11 @@ export function mapAlchemyNftResponseToAlchemyNft(chainId: number) {
     return pipe(
       modify('contract', mapAlchemyContractResponseToAlchemyContract(chainId)),
       applySpec<AlchemyNft>({
-        balance: ifElse(pathEq('ERC1155', ['contract', 'tokenType']), pipe(prop('balance'), parseInt), always(1)),
+        balance: ifElse(
+          pathEq('ERC1155', ['contract', 'tokenType']),
+          pipe(prop('balance'), partialRight(parseInt, [10])),
+          always(1)
+        ),
         contractAddress: path(['contract', 'address']),
         chainId: path(['contract', 'chainId']),
         name: prop('name'),
@@ -45,7 +50,7 @@ export function mapAlchemyNftResponseToAlchemyNft(chainId: number) {
           path(['image', 'thumbnailUrl']),
           path(['image', 'originalUrl'])
         ),
-        tokenId: pipe(prop('tokenId'), parseInt),
+        tokenId: pipe(prop('tokenId'), partialRight(parseInt, [10])),
         tokenType: path(['contract', 'tokenType']),
         attributes: pipe(
           path(['raw', 'metadata']),

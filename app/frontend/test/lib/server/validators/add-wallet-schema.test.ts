@@ -1,10 +1,18 @@
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { addWalletSchema } from '@echo/frontend/lib/validators/add-wallet-schema'
-import { pick } from 'ramda'
+import type { Wallet } from '@echo/model/types/wallet'
+import { getChain } from '@echo/web3/helpers/get-chain'
+import { assoc, pick, pipe } from 'ramda'
 import { SiweMessage } from 'siwe'
 
 describe('validators - addWalletSchema', () => {
-  const wallet = pick(['address', 'chainId'], getWalletMockById('i28NWtlxElPXCnO0c6BC'))
+  const chainId = getChain().id
+  const wallet = pipe<[string], WalletDocumentData, Wallet, Wallet>(
+    getWalletMockById,
+    pick(['address', 'chainId']),
+    assoc('chainId', chainId)
+  )('i28NWtlxElPXCnO0c6BC')
   const signature = '0x0000'
   const message: string = new SiweMessage({
     domain: 'domain',
@@ -12,7 +20,7 @@ describe('validators - addWalletSchema', () => {
     statement: 'test',
     uri: 'https://bleh.com',
     version: '1',
-    chainId: 1,
+    chainId,
     nonce: 'nonce1234567'
   }).prepareMessage()
 

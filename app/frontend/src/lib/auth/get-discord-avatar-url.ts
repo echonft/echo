@@ -4,7 +4,7 @@ import { isNil } from 'ramda'
 
 export function getDiscordAvatarUrl(profile: DiscordProfile): string {
   if (isNil(profile.avatar)) {
-    const defaultAvatarNumber = parseInt(profile.discriminator) % 5
+    const defaultAvatarNumber = parseInt(profile.discriminator, 10) % 5
     return `https://cdn.discordapp.com/embed/avatars/${defaultAvatarNumber}.png`
   }
   const format = getDiscordImageFormat(profile.avatar)

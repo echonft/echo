@@ -4,9 +4,9 @@ import { mainnet, sepolia } from 'viem/chains'
 export function getChainById(chainId: number): Chain {
   switch (chainId) {
     case 1:
-      return mainnet as Chain
+      return mainnet
     case 11155111:
-      return sepolia as Chain
+      return sepolia
     default:
       throw Error(`chain id ${chainId} is not supported`)
   }

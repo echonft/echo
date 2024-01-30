@@ -2,8 +2,10 @@ import type { Nft } from '@echo/model/types/nft'
 import { erc721ABI } from '@echo/web3/constants/erc721-abi'
 import { erc721FunctionNames } from '@echo/web3/constants/erc721-function-names'
 import { formatAddress } from '@echo/web3/helpers/format-address'
+import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { getViemClient } from '@echo/web3/helpers/viem/get-viem-client'
+import { pipe } from 'ramda'
 
 export async function hasApprovedErc721(nft: Nft) {
   const {
@@ -14,7 +16,7 @@ export async function hasApprovedErc721(nft: Nft) {
     }
   } = nft
   const { chainId } = contract
-  const client = getViemClient(chainId)
+  const client = pipe(getChainById, getViemClient)(chainId)
   const approved = await client.readContract({
     abi: erc721ABI,
     functionName: erc721FunctionNames.isApprovedForAll,
