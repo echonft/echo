@@ -13,7 +13,10 @@ import { UserNfts } from '@echo/ui/pages/user/nfts/user-nfts'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent, useEffect } from 'react'
 
-type ComponentType = FunctionComponent<Record<'callout', boolean> & Record<'banner', boolean>>
+type ComponentType = FunctionComponent<{
+  callout: boolean
+  banner: boolean
+}>
 const metadata: Meta<ComponentType> = {
   title: 'Base/Layout/Page',
   args: {

@@ -2,7 +2,7 @@
 
 import { getOfferMock } from '@echo/model-mocks/offer/get-offer-mock'
 import { approveErc721Contract } from '@echo/storybook/mocks/approve-erc-721-contract'
-import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-contract-approval '
+import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-contract-approval'
 import { OfferDetailsContractApprovalModal as Component } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
 import type { Meta, StoryObj } from '@storybook/react'
 import { useTranslations } from 'next-intl'

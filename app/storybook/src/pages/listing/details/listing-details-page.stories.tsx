@@ -15,14 +15,17 @@ import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user
 import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
-import { cancelListing } from '@echo/storybook/mocks/cancel-listing'
-import { createOffer } from '@echo/storybook/mocks/create-offer'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
-import { ListingDetails as Component } from '@echo/ui/components/listing/details/listing-details'
+import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
+import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
+import { ListingDetailsSkeleton } from '@echo/ui/components/listing/details/skeleton/listing-details-skeleton'
+import { ListingDetailsPage as Component } from '@echo/ui/pages/listing/listing-details-page'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { always, assoc, filter, ifElse, includes, pathEq, pipe } from 'ramda'
+import { always, assoc, filter, ifElse, includes, map, pathEq, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 type Role = 'Creator' | 'Target' | 'None'
@@ -34,7 +37,23 @@ type ComponentType = FunctionComponent<{
 }>
 
 const metadata: Meta<ComponentType> = {
-  title: 'Listing/Details',
+  title: 'Pages/Listing/Details',
+  decorators: [
+    (Story) => (
+      <NavigationPageLayout user={undefined}>
+        <SectionLayout>
+          <DetailsPaddedContainer>
+            <Story />
+          </DetailsPaddedContainer>
+        </SectionLayout>
+      </NavigationPageLayout>
+    )
+  ]
+}
+
+export default metadata
+
+export const Page: StoryObj<ComponentType> = {
   args: {
     state: LISTING_STATE_OPEN,
     role: 'None',
@@ -60,12 +79,7 @@ const metadata: Meta<ComponentType> = {
       defaultValue: false,
       control: 'boolean'
     }
-  }
-}
-
-export default metadata
-
-export const Default: StoryObj<ComponentType> = {
+  },
   render: ({ state, role, withOffers, targetHasNfts }) => {
     function setExpirationAndReadOnly(listing: Listing): Listing {
       if (listing.state === LISTING_STATE_EXPIRED) {
@@ -83,8 +97,12 @@ export const Default: StoryObj<ComponentType> = {
         always([])
       )()
     }
-    function getOffers(): Offer[] {
-      return ifElse(always(withOffers), getAllOfferMocks, always([]))()
+    function getOffers(): OfferWithRole[] {
+      return ifElse(
+        always(withOffers),
+        pipe(getAllOfferMocks, map<Offer, OfferWithRole>(assoc('role', undefined))),
+        always([])
+      )()
     }
     function setRole(role: Role) {
       return function (listing: Listing): ListingWithRole {
@@ -107,10 +125,18 @@ export const Default: StoryObj<ComponentType> = {
       <Component
         listing={renderedListing}
         user={role === 'Creator' ? getAuthUserMockByUsername('johnnycagewins') : getAuthUserMockByUsername('crewnft_')}
-        fetcher={{ cancelListing, createOffer: createOffer('LyCfl6Eg7JKuD7XJ6IPi') }}
         userTargetNfts={getTargetNfts()}
         offers={getOffers()}
       />
     )
   }
+}
+
+export const Loading: StoryObj<ComponentType> = {
+  parameters: {
+    controls: {
+      exclude: ['readOnly', 'expired', 'role', 'targetHasNfts', 'withOffers']
+    }
+  },
+  render: () => <ListingDetailsSkeleton />
 }

@@ -12,13 +12,15 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert/assert-offer-state-transition'
-import type { Offer } from '@echo/model/types/offer'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { OfferDetailsAcceptButton } from '@echo/ui/components/offer/details/action/offer-details-accept-button'
 import { OfferDetailsCancelButton } from '@echo/ui/components/offer/details/action/offer-details-cancel-button'
 import { OfferDetailsRejectButton } from '@echo/ui/components/offer/details/action/offer-details-reject-button'
 import { OfferDetailsSwapButton } from '@echo/ui/components/offer/details/action/offer-details-swap-button'
 import { OfferDetailsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-buttons-layout'
+import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiver'
+import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -27,11 +29,11 @@ import type { ChainProvider } from '@echo/web3/types/chain-provider'
 import type { ExecuteSwapArgs } from '@echo/web3/types/execute-swap-args'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721-contract-approval-args'
 import type { SignOfferArgs } from '@echo/web3/types/sign-offer-args'
+import { anyPass, either, propEq } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  offer: Offer
-  isCreator: boolean
+  offer: OfferWithRole
   fetcher: {
     approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
     getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
@@ -45,59 +47,54 @@ interface Props {
   provider: {
     chain: ChainProvider
   }
-  onSuccess?: (offer: Offer) => unknown
+  onSuccess?: (offer: OfferWithRole) => unknown
   onError?: EmptyFunction
 }
 
-function showAcceptButton(offer: Offer, isCreator: boolean) {
+function showAcceptButton(offer: OfferWithRole) {
   try {
     assertOfferStateTransition(offer, OFFER_STATE_ACCEPTED)
-    return !isCreator
+    return isOfferRoleReceiver(offer)
   } catch (e) {
     return false
   }
 }
 
-function showCancelButton(offer: Offer, isCreator: boolean) {
+function showCancelButton(offer: OfferWithRole) {
   try {
     assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)
-    return offer.state === OFFER_STATE_ACCEPTED || isCreator
+    return either(propEq(OFFER_STATE_ACCEPTED, 'state') as (offer: OfferWithRole) => boolean, isOfferRoleSender)(offer)
   } catch (e) {
     return false
   }
 }
 
-function showRejectButton(offer: Offer, isCreator: boolean) {
+function showRejectButton(offer: OfferWithRole) {
   try {
     assertOfferStateTransition(offer, OFFER_STATE_REJECTED)
-    return !isCreator
+    return isOfferRoleReceiver(offer)
   } catch (e) {
     return false
   }
 }
 
-function showSwapButton(offer: Offer, isCreator: boolean) {
+function showSwapButton(offer: OfferWithRole) {
   try {
     assertOfferStateTransition(offer, OFFER_STATE_COMPLETED)
-    return isCreator
+    return isOfferRoleSender(offer)
   } catch (e) {
     return false
   }
 }
-function shouldShowButtons(offer: Offer, isCreator: boolean) {
-  return (
-    showAcceptButton(offer, isCreator) ||
-    showCancelButton(offer, isCreator) ||
-    showRejectButton(offer, isCreator) ||
-    showSwapButton(offer, isCreator)
-  )
+function shouldShowButtons(offer: OfferWithRole) {
+  return anyPass([showAcceptButton, showCancelButton, showRejectButton, showSwapButton])(offer)
 }
 
-export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, isCreator, fetcher, provider, onSuccess }) => {
+export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, fetcher, provider, onSuccess }) => {
   const [buttonsDisabled, setButtonsDisabled] = useState(false)
   const disable = () => setButtonsDisabled(true)
   const enable = () => setButtonsDisabled(false)
-  const success = (offer: Offer) => {
+  const success = (offer: OfferWithRole) => {
     setButtonsDisabled(false)
     onSuccess?.(offer)
   }
@@ -106,13 +103,13 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, isCreator
   }
 
   // Don't show anything if no buttons should be shown
-  if (!shouldShowButtons(offer, isCreator)) {
+  if (!shouldShowButtons(offer)) {
     return null
   }
 
   return (
     <OfferDetailsButtonsLayout>
-      <ShowIf condition={showAcceptButton(offer, isCreator)}>
+      <ShowIf condition={showAcceptButton(offer)}>
         <OfferDetailsAcceptButton
           offer={offer}
           fetcher={fetcher}
@@ -123,7 +120,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, isCreator
           disabled={buttonsDisabled}
         />
       </ShowIf>
-      <ShowIf condition={showSwapButton(offer, isCreator)}>
+      <ShowIf condition={showSwapButton(offer)}>
         <OfferDetailsSwapButton
           offer={offer}
           fetcher={fetcher}
@@ -134,7 +131,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, isCreator
           disabled={buttonsDisabled}
         />
       </ShowIf>
-      <ShowIf condition={showRejectButton(offer, isCreator)}>
+      <ShowIf condition={showRejectButton(offer)}>
         <OfferDetailsRejectButton
           offer={offer}
           fetcher={fetcher}
@@ -144,7 +141,7 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, isCreator
           disabled={buttonsDisabled}
         />
       </ShowIf>
-      <ShowIf condition={showCancelButton(offer, isCreator)}>
+      <ShowIf condition={showCancelButton(offer)}>
         <OfferDetailsCancelButton
           offer={offer}
           fetcher={fetcher}

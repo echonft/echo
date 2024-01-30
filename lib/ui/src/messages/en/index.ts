@@ -174,7 +174,6 @@ export const messages = {
         collectionSize: '{count} {count, plural, =0 {} =1 {NFT} other {NFTs}}'
       },
       modal: {
-        backBtn: 'Back to Listings',
         title: 'Listing Details',
         cancelBtn: {
           label: 'Cancel',

@@ -5,7 +5,7 @@ import { CARD_VARIANT_REDUCED } from '@echo/ui/constants/card-variants'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent } from 'react'
 
-type ComponentType = FunctionComponent<Record<'reduced', boolean>>
+type ComponentType = FunctionComponent<{ reduced: boolean }>
 
 const metadata: Meta<ComponentType> = {
   title: 'NFT/Card',

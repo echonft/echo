@@ -12,10 +12,11 @@ export const ProfilePictureSkeleton: FunctionComponent<Props> = ({ size = SIZE_L
   return (
     <div
       className={clsx(
-        border && ['border-solid', 'border-3', 'border-yellow-500'],
+        'select-none',
         size === SIZE_LG && ['h-40', 'w-40', 'rounded-2xl'],
         size === SIZE_MD && ['h-28', 'w-28', 'rounded-2xl'],
         size === SIZE_SM && ['h-[6.1875rem]', 'w-[5.875rem]', 'rounded-lg'],
+        border && ['border-solid', 'border-3', 'border-yellow-500'],
         'bg-white/[0.08]',
         'animate-pulse'
       )}

@@ -7,9 +7,11 @@ import { type Meta, type StoryObj } from '@storybook/react'
 import { always, assoc, dissoc, pipe, when } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-type ComponentType = FunctionComponent<
-  Record<'defaultBanner', boolean> & Record<'defaultPicture', boolean> & Record<'verified', boolean>
->
+type ComponentType = FunctionComponent<{
+  defaultBanner: boolean
+  defaultPicture: boolean
+  verified: boolean
+}>
 
 const metadata: Meta<ComponentType> = {
   title: 'Collection/Details',

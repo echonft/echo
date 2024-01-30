@@ -2,24 +2,25 @@
 import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
-import type { Offer } from '@echo/model/types/offer'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import { useTranslations } from 'next-intl'
+import { assoc } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  offer: Offer
+  offer: OfferWithRole
   fetcher: {
     cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
   }
   disabled?: boolean
   onClick?: EmptyFunction
-  onSuccess?: (offer: Offer) => unknown
+  onSuccess?: (offer: OfferWithRole) => unknown
   onError?: EmptyFunction
 }
 
@@ -37,7 +38,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
     key: SWRKeys.offer.cancel(offer),
     fetcher: fetcher.cancelOffer,
     onSuccess: (response) => {
-      onSuccess?.(response.offer)
+      onSuccess?.(assoc('role', offer.role, response.offer))
     },
     onError: {
       contexts: offerContext(offer),

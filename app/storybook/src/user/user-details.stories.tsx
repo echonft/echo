@@ -8,7 +8,7 @@ import { assocPath, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 type BannerType = 'Color' | 'Default' | 'Image'
-type ComponentType = FunctionComponent<Record<'banner', BannerType> & Record<'bannerColor', string | undefined>>
+type ComponentType = FunctionComponent<{ banner: BannerType; bannerColor: string | undefined }>
 
 const metadata: Meta<ComponentType> = {
   title: 'User/Details ',

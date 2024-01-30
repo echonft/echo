@@ -9,19 +9,16 @@ import {
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferState } from '@echo/model/types/offer-state'
+import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { acceptOffer } from '@echo/storybook/mocks/accept-offer'
-import { approveErc721Contract } from '@echo/storybook/mocks/approve-erc-721-contract'
-import { cancelOffer } from '@echo/storybook/mocks/cancel-offer'
-import { chain } from '@echo/storybook/mocks/chain'
-import { executeSwap } from '@echo/storybook/mocks/execute-swap'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
-import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-contract-approval'
-import { getOfferSignature } from '@echo/storybook/mocks/get-offer-signature'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
-import { rejectOffer } from '@echo/storybook/mocks/reject-offer'
-import { signOffer } from '@echo/storybook/mocks/sign-offer'
-import { OfferDetails as Component } from '@echo/ui/components/offer/details/offer-details'
+import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
+import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
+import { OfferDetailsSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-skeleton'
+import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
+import { ProfileOfferDetails as Component } from '@echo/ui/pages/profile/offer/profile-offer-details'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { assoc, includes, pipe } from 'ramda'
@@ -33,7 +30,23 @@ type ComponentType = FunctionComponent<{
   role: Role
 }>
 const metadata: Meta<ComponentType> = {
-  title: 'Offer/Details',
+  title: 'Pages/Profile/Offer/Details',
+  decorators: [
+    (Story) => (
+      <NavigationPageLayout user={undefined}>
+        <SectionLayout>
+          <DetailsPaddedContainer>
+            <Story />
+          </DetailsPaddedContainer>
+        </SectionLayout>
+      </NavigationPageLayout>
+    )
+  ]
+}
+
+export default metadata
+
+export const Page: StoryObj<ComponentType> = {
   args: {
     state: OFFER_STATE_OPEN,
     role: 'Sender'
@@ -48,13 +61,8 @@ const metadata: Meta<ComponentType> = {
       defaultValue: 'Sender',
       control: { type: 'radio', options: ['Sender', 'Receiver'] }
     }
-  }
-}
-
-export default metadata
-
-export const Default: StoryObj<ComponentType> = {
-  render: ({ state, role }) => {
+  },
+  render: ({ role, state }) => {
     function setExpirationAndReadOnly(offer: Offer): Offer {
       if (offer.state === OFFER_STATE_EXPIRED) {
         return pipe<[Offer], Offer, Offer>(assoc('expiresAt', expiredDate()), assoc('readOnly', true))(offer)
@@ -64,7 +72,6 @@ export const Default: StoryObj<ComponentType> = {
       }
       return pipe<[Offer], Offer, Offer>(assoc('expiresAt', notExpiredDate()), assoc('readOnly', false))(offer)
     }
-
     function setRole(offer: Offer): OfferWithRole {
       if (role === 'Sender') {
         return assoc('role', OFFER_ROLE_SENDER, offer)
@@ -81,20 +88,17 @@ export const Default: StoryObj<ComponentType> = {
     return (
       <Component
         offer={renderedOffer}
-        fetcher={{
-          approveErc721Contract,
-          getErc721ContractApproval: getErc721ContractApproval(false),
-          acceptOffer: acceptOffer('LyCfl6Eg7JKuD7XJ6IPi'),
-          cancelOffer: cancelOffer('LyCfl6Eg7JKuD7XJ6IPi'),
-          executeSwap,
-          getOfferSignature,
-          rejectOffer: rejectOffer('LyCfl6Eg7JKuD7XJ6IPi'),
-          signOffer
-        }}
-        provider={{
-          chain: chain('connected')
-        }}
+        user={getAuthUserMockByUsername(isOfferRoleSender(renderedOffer) ? 'crewnft_' : 'johnnycagewins')}
       />
     )
   }
+}
+
+export const Loading: StoryObj<ComponentType> = {
+  parameters: {
+    controls: {
+      exclude: ['state', 'isCreator']
+    }
+  },
+  render: () => <OfferDetailsSkeleton />
 }
