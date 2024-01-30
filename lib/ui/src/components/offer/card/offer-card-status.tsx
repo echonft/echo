@@ -9,6 +9,6 @@ interface Props {
 }
 
 export const OfferCardStatus: FunctionComponent<Props> = ({ offer }) => {
-  const t = useTranslations('offer.card.state')
+  const t = useTranslations('offer.state')
   return <CardStatus label={t(offer.state)} color={getOfferCardStatusColor(offer)} />
 }

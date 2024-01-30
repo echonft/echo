@@ -9,6 +9,6 @@ interface Props {
 }
 
 export const ListingCardStatus: FunctionComponent<Props> = ({ listing }) => {
-  const t = useTranslations('listing.card.state')
+  const t = useTranslations('listing.state')
   return <CardStatus label={t(listing.state)} color={getListingStatusColor(listing)} />
 }

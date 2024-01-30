@@ -9,7 +9,7 @@ import type { FunctionComponent } from 'react'
 
 type ComonentType = FunctionComponent<{ state: 'Approved' | 'Loading' | 'Not Approved' }>
 const metadata: Meta<ComonentType> = {
-  title: 'Offer/Details/Contract Approval/Row',
+  title: 'Offer/Details/Modal/Contract Approval/Row',
   args: {
     state: 'Approved'
   },

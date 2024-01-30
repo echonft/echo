@@ -126,11 +126,6 @@ export const Page: StoryObj<ComponentType> = {
 }
 
 export const Loading: StoryObj<ComponentType> = {
-  parameters: {
-    controls: {
-      exclude: ['readOnly', 'expired', 'role', 'targetHasNfts', 'withOffers']
-    }
-  },
   render: () => (
     <PageLayout>
       <SectionLayout>

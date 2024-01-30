@@ -17,10 +17,10 @@ export const StateTextContainer: FunctionComponent<Props> = ({ title, subtitle }
         'tracking-[0.0175rem]',
         'font-inter',
         'text-center',
-        !title && 'invisible'
+        !title && 'hidden'
       )}
     >
-      {title ?? 'HIDDEN'}
+      {title}
     </h2>
     <h1 className={clsx('text-white', 'text-center', 'prose-header-lg-semi')}>{subtitle}</h1>
   </div>

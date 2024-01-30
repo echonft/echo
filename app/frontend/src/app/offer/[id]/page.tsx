@@ -5,9 +5,14 @@ import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-
 import { validateOffer } from '@echo/frontend/lib/helpers/offer/validate-offer'
 import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
+import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
+import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
+import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
+import { getOfferPageLayoutBackground } from '@echo/ui/helpers/offer/get-offer-page-layout-background'
 import { isOfferRoleUndefined } from '@echo/ui/helpers/offer/is-offer-role-undefined'
-import { ProfileOfferDetails } from '@echo/ui/pages/profile/offer/profile-offer-details'
+import { OfferDetailsPage } from '@echo/ui/pages/offer/offer-details-page'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { notFound } from 'next/navigation'
@@ -22,10 +27,18 @@ async function render({ params: { id }, user }: Params) {
     andThen(unlessNil(pipe(validateOffer, andThen(setOfferRoleForUser(user)))))
   )(id)
 
-  if (isNil(offer) || isOfferRoleUndefined(offer)) {
+  if (isNil(offer) || (offer.state !== OFFER_STATE_COMPLETED && isOfferRoleUndefined(offer))) {
     notFound()
   }
-  return <ProfileOfferDetails offer={offer} user={user} />
+  return (
+    <PageLayout user={user} background={getOfferPageLayoutBackground(offer)}>
+      <SectionLayout>
+        <DetailsPaddedContainer>
+          <OfferDetailsPage offer={offer} user={user} />
+        </DetailsPaddedContainer>
+      </SectionLayout>
+    </PageLayout>
+  )
 }
 
 export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)

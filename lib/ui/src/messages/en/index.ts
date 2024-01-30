@@ -158,16 +158,6 @@ export const messages = {
       in: 'Looking for',
       out: 'Offering'
     },
-    card: {
-      state: {
-        OPEN: 'Awaiting offers',
-        CANCELLED: 'Cancelled',
-        EXPIRED: 'Expired',
-        OFFERS_PENDING: 'Offers pending',
-        PARTIALLY_FULFILLED: 'Partially fulfilled',
-        FULFILLED: 'Fulfilled'
-      }
-    },
     details: {
       target: {
         quantity: 'x{count}',
@@ -244,10 +234,11 @@ export const messages = {
     },
     state: {
       OPEN: 'Awaiting offers',
+      CANCELLED: 'Cancelled',
+      EXPIRED: 'Expired',
       OFFERS_PENDING: 'Offers pending',
       PARTIALLY_FULFILLED: 'Partially fulfilled',
-      FULFILLED: 'Fulfilled',
-      CANCELLED: 'Cancelled'
+      FULFILLED: 'Fulfilled'
     }
   },
   nft: {
@@ -262,16 +253,6 @@ export const messages = {
     homeBtn: 'Take me home'
   },
   offer: {
-    card: {
-      state: {
-        OPEN: 'Pending',
-        ACCEPTED: 'Accepted',
-        CANCELLED: 'Cancelled',
-        COMPLETED: 'Swapped',
-        REJECTED: 'Rejected',
-        EXPIRED: 'Expired'
-      }
-    },
     details: {
       backBtn: {
         label: 'Back to your profile'
@@ -313,7 +294,6 @@ export const messages = {
         }
       }
     },
-    expired: 'Expired',
     new: {
       confirmationModal: {
         backBtn: 'Back to Selection',
@@ -347,7 +327,8 @@ export const messages = {
       ACCEPTED: 'Accepted',
       CANCELLED: 'Cancelled',
       COMPLETED: 'Swapped',
-      REJECTED: 'Rejected'
+      REJECTED: 'Rejected',
+      EXPIRED: 'Expired'
     }
   },
   profile: {

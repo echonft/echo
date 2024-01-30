@@ -15,12 +15,13 @@ interface Props {
 export const ListingDetailsState: FunctionComponent<Props> = ({ listing }) => {
   const t = useTranslations('listing.details')
   const expired = listing.state === LISTING_STATE_EXPIRED
+  const expiration = dayjs.unix(listing.expiresAt)
 
   if (expired || !listing.readOnly) {
     return (
       <StateTextContainer
-        subtitle={expired ? dayjs.unix(listing.expiresAt).fromNow(false) : dayjs.unix(listing.expiresAt).toNow(true)}
-        title={expired ? t('expiredAt') : t('expiresAt')}
+        subtitle={expired ? expiration.fromNow(false) : expiration.toNow(true)}
+        title={t(expired ? 'expiredAt' : 'expiresAt')}
       />
     )
   }

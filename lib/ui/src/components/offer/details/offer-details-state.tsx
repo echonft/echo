@@ -1,5 +1,5 @@
-import { OFFER_STATE_ACCEPTED, OFFER_STATE_EXPIRED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
-import { type OfferState } from '@echo/model/types/offer-state'
+import { OFFER_STATE_EXPIRED } from '@echo/model/constants/offer-states'
+import type { Offer } from '@echo/model/types/offer'
 import { StateTextContainer } from '@echo/ui/components/base/state-text-container'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { clsx } from 'clsx'
@@ -11,34 +11,28 @@ import { type FunctionComponent } from 'react'
 dayjs.extend(relativeTime)
 
 interface Props {
-  state: OfferState
-  expiresAt: number
+  offer: Offer
 }
 
-export const OfferDetailsState: FunctionComponent<Props> = ({ state, expiresAt }) => {
+export const OfferDetailsState: FunctionComponent<Props> = ({ offer }) => {
   const tState = useTranslations('offer.state')
   const tDetails = useTranslations('offer.details')
-  const expired = state === OFFER_STATE_EXPIRED
-  const expirationShown = state === OFFER_STATE_OPEN || state === OFFER_STATE_ACCEPTED
-  const stateShown = !expirationShown || !expired
-  const delimiterShown = expirationShown && stateShown
+  const expired = offer.state === OFFER_STATE_EXPIRED
+  const expiration = dayjs.unix(offer.expiresAt)
 
   return (
-    <div className={clsx('flex', 'flex-row', 'gap-16', 'pr-4')}>
-      <ShowIf condition={expirationShown}>
+    <div className={clsx('flex', 'flex-row', 'gap-16', 'items-center', 'h-max', 'w-max')}>
+      <ShowIf condition={expired || !offer.readOnly}>
         <StateTextContainer
-          title={expired ? tDetails('expiredAt') : tDetails('expiresAt')}
-          subtitle={expired ? dayjs.unix(expiresAt).fromNow(false) : dayjs.unix(expiresAt).toNow(true)}
+          title={tDetails(expired ? 'expiredAt' : 'expiresAt')}
+          subtitle={expired ? expiration.fromNow(false) : expiration.toNow(true)}
         />
       </ShowIf>
-      <ShowIf condition={delimiterShown}>
+      <ShowIf condition={!offer.readOnly}>
         <div className={clsx('h-[5.3125rem]', 'w-0.5', 'bg-white')} />
       </ShowIf>
-      <ShowIf condition={stateShown}>
-        {/*FIXME this will change anyway*/}
-        {/*eslint-disable-next-line @typescript-eslint/ban-ts-comment*/}
-        {/*@ts-ignore*/}
-        <StateTextContainer subtitle={tState(state)} />
+      <ShowIf condition={!expired}>
+        <StateTextContainer subtitle={tState(offer.state)} />
       </ShowIf>
     </div>
   )
