@@ -1,8 +1,14 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { LISTING_ROLE_CREATOR, LISTING_ROLE_TARGET } from '@echo/model/constants/listing-role'
-import { LISTING_STATE_EXPIRED } from '@echo/model/constants/listing-states'
+import {
+  LISTING_STATE_EXPIRED,
+  LISTING_STATE_OPEN,
+  LISTING_STATES,
+  READ_ONLY_LISTING_STATES
+} from '@echo/model/constants/listing-states'
 import type { Listing } from '@echo/model/types/listing'
+import type { ListingState } from '@echo/model/types/listing-state'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
@@ -19,17 +25,16 @@ import { ListingDetailsPage as Component } from '@echo/ui/pages/listing/listing-
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { always, assoc, filter, ifElse, map, pathEq, pipe, when } from 'ramda'
+import { always, assoc, filter, ifElse, includes, map, pathEq, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 type Role = 'Creator' | 'Target' | 'None'
-type ComponentType = FunctionComponent<
-  Record<'readOnly', boolean> &
-    Record<'expired', boolean> &
-    Record<'role', Role> &
-    Record<'targetHasNfts', boolean> &
-    Record<'withOffers', boolean>
->
+type ComponentType = FunctionComponent<{
+  state: ListingState
+  role: Role
+  targetHasNfts: boolean
+  withOffers: boolean
+}>
 
 const metadata: Meta<ComponentType> = {
   title: 'Pages/Listing/Details',
@@ -48,27 +53,23 @@ const metadata: Meta<ComponentType> = {
 
 export default metadata
 
-export const Default: StoryObj<ComponentType> = {
+export const Page: StoryObj<ComponentType> = {
   args: {
-    readOnly: false,
-    expired: false,
+    state: LISTING_STATE_OPEN,
     role: 'None',
     targetHasNfts: true,
     withOffers: false
   },
   argTypes: {
-    readOnly: {
-      defaultValue: false,
-      control: 'boolean'
-    },
-    expired: {
-      defaultValue: false,
-      control: 'boolean'
-    },
     role: {
       defaultValue: 'None',
       options: ['Creator', 'Target', 'None'],
       control: { type: 'radio' }
+    },
+    state: {
+      defaultValue: LISTING_STATE_OPEN,
+      options: LISTING_STATES,
+      control: { type: 'select' }
     },
     targetHasNfts: {
       defaultValue: true,
@@ -79,7 +80,16 @@ export const Default: StoryObj<ComponentType> = {
       control: 'boolean'
     }
   },
-  render: ({ readOnly, expired, role, withOffers, targetHasNfts }) => {
+  render: ({ state, role, withOffers, targetHasNfts }) => {
+    function setExpirationAndReadOnly(listing: Listing): Listing {
+      if (listing.state === LISTING_STATE_EXPIRED) {
+        return pipe<[Listing], Listing, Listing>(assoc('expiresAt', expiredDate()), assoc('readOnly', true))(listing)
+      }
+      if (includes(listing.state, READ_ONLY_LISTING_STATES)) {
+        return pipe<[Listing], Listing, Listing>(assoc('expiresAt', notExpiredDate()), assoc('readOnly', true))(listing)
+      }
+      return pipe<[Listing], Listing, Listing>(assoc('expiresAt', notExpiredDate()), assoc('readOnly', false))(listing)
+    }
     function getTargetNfts(): Nft[] {
       return ifElse(
         always(targetHasNfts),
@@ -107,16 +117,8 @@ export const Default: StoryObj<ComponentType> = {
     }
     const renderedListing = pipe<[], Listing, Listing, Listing, ListingWithRole>(
       getListingMock,
-      ifElse<[Listing], Listing, Listing>(
-        always(expired),
-        pipe<[Listing], Listing, Listing, Listing>(
-          assoc('expiresAt', expiredDate()),
-          assoc('state', LISTING_STATE_EXPIRED),
-          assoc('readOnly', true)
-        ),
-        assoc('expiresAt', notExpiredDate())
-      ),
-      when<Listing, Listing>(always(readOnly), assoc('readOnly', true)),
+      assoc('state', state),
+      setExpirationAndReadOnly,
       setRole(role)
     )()
     return (

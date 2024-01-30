@@ -2,29 +2,30 @@
 import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
-import type { Offer } from '@echo/model/types/offer'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { SignOfferArgs } from '@echo/web3/types/sign-offer-args'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { assoc } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  offer: Offer
+  offer: OfferWithRole
   chainId: number
   fetcher: {
     acceptOffer: Fetcher<OfferResponse, AcceptOfferArgs>
     signOffer: Fetcher<HexString, SignOfferArgs>
   }
   open: boolean
-  onSuccess?: (offer: Offer) => unknown
+  onSuccess?: (offer: OfferWithRole) => unknown
   onClose?: EmptyFunction
 }
 
@@ -58,7 +59,7 @@ export const OfferDetailsAcceptSignModal: FunctionComponent<Props> = ({
     key: SWRKeys.offer.accept(offer),
     fetcher: fetcher.acceptOffer,
     onSuccess: (response) => {
-      onSuccess?.(response.offer)
+      onSuccess?.(assoc('role', offer.role, response.offer))
     },
     onError
   })

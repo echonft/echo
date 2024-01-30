@@ -3,12 +3,12 @@ import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-s
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
-import type { Offer } from '@echo/model/types/offer'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -19,7 +19,7 @@ import { assoc, isNil, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  offer: Offer
+  offer: OfferWithRole
   chainId: number
   signature: HexString | undefined
   fetcher: {
@@ -27,7 +27,7 @@ interface Props {
     executeSwap: Fetcher<HexString, ExecuteSwapArgs>
   }
   open: boolean
-  onSuccess?: (offer: Offer) => unknown
+  onSuccess?: (offer: OfferWithRole) => unknown
   onClose?: EmptyFunction
 }
 
@@ -51,7 +51,12 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
     key: SWRKeys.swap.execute(offer),
     fetcher: fetcher.executeSwap,
     onSuccess: (_response) => {
-      onSuccess?.(pipe<[Offer], Offer, Offer>(assoc('state', OFFER_STATE_COMPLETED), assoc('readOnly', true))(offer))
+      onSuccess?.(
+        pipe<[OfferWithRole], OfferWithRole, OfferWithRole>(
+          assoc('state', OFFER_STATE_COMPLETED),
+          assoc('readOnly', true)
+        )(offer)
+      )
     },
     onError
   })

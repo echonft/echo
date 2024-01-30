@@ -5,7 +5,6 @@ import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-s
 import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
-import type { Offer } from '@echo/model/types/offer'
 import { NftCardsContainer } from '@echo/ui/components/nft/card/layout/nft-cards-container'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-info-layout'
@@ -15,6 +14,8 @@ import { OfferDetailsItemsSeparator } from '@echo/ui/components/offer/details/of
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
 import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
+import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { ApproveErc721ContractArgs } from '@echo/web3/types/approve-erc-721-contract-args'
@@ -26,8 +27,7 @@ import { map, prop } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
-  offer: Offer
-  isCreator: boolean
+  offer: OfferWithRole
   fetcher: {
     approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
     getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
@@ -43,7 +43,7 @@ interface Props {
   }
 }
 
-export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, fetcher, provider }) => {
+export const OfferDetails: FunctionComponent<Props> = ({ offer, fetcher, provider }) => {
   const [updatedOffer, setUpdatedOffer] = useState(offer)
   useEffect(() => {
     setUpdatedOffer(offer)
@@ -53,26 +53,20 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, isCreator, fetch
   return (
     <OfferDetailsLayout>
       <OfferDetailsInfoLayout>
-        <ListingOfferUserDetails user={isCreator ? receiver : sender} />
+        <ListingOfferUserDetails user={isOfferRoleSender(offer) ? receiver : sender} />
         <OfferDetailsState state={state} expiresAt={expiresAt} />
       </OfferDetailsInfoLayout>
       <OfferDetailsItemsButtonsLayout>
         <NftCardsContainer
-          nfts={map(prop('nft'), isCreator ? receiverItems : senderItems)}
+          nfts={map(prop('nft'), isOfferRoleSender(offer) ? receiverItems : senderItems)}
           alignment={ALIGNMENT_CENTER}
         />
         <OfferDetailsItemsSeparator />
         <NftCardsContainer
-          nfts={map(prop('nft'), isCreator ? senderItems : receiverItems)}
+          nfts={map(prop('nft'), isOfferRoleSender(offer) ? senderItems : receiverItems)}
           alignment={ALIGNMENT_CENTER}
         />
-        <OfferDetailsButtons
-          offer={updatedOffer}
-          isCreator={isCreator}
-          fetcher={fetcher}
-          provider={provider}
-          onSuccess={setUpdatedOffer}
-        />
+        <OfferDetailsButtons offer={updatedOffer} fetcher={fetcher} provider={provider} onSuccess={setUpdatedOffer} />
       </OfferDetailsItemsButtonsLayout>
     </OfferDetailsLayout>
   )

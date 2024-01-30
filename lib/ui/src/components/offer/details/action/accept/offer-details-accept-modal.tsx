@@ -1,9 +1,9 @@
 'use client'
 import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import type { Offer } from '@echo/model/types/offer'
 import { OfferDetailsAcceptSignModal } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-sign-modal'
 import { OfferDetailsContractApprovalModal } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -15,7 +15,7 @@ import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  offer: Offer
+  offer: OfferWithRole
   open: boolean
   fetcher: {
     approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
@@ -27,7 +27,7 @@ interface Props {
     chain: ChainProvider
   }
   onClose?: EmptyFunction
-  onSuccess?: (offer: Offer) => unknown
+  onSuccess?: (offer: OfferWithRole) => unknown
 }
 
 export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({

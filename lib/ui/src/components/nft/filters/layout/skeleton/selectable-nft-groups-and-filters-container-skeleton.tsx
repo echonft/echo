@@ -6,13 +6,12 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   availableFilters: NftFilterType[]
-  btnLabel: string
 }
 
-export const NftGroupsAndFiltersContainerSkeleton: FunctionComponent<Props> = ({ availableFilters, btnLabel }) => {
+export const NftGroupsAndFiltersContainerSkeleton: FunctionComponent<Props> = ({ availableFilters }) => {
   return (
     <NftsAndFiltersLayout>
-      <NftFiltersContainerSkeleton availableFilters={availableFilters} btnLabel={btnLabel} />
+      <NftFiltersContainerSkeleton availableFilters={availableFilters} />
       <NftGroupsContainerSkeleton />
     </NftsAndFiltersLayout>
   )

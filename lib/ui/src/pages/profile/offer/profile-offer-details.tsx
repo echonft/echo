@@ -4,8 +4,8 @@ import { cancelOffer } from '@echo/api/fetchers/cancel-offer'
 import { getOfferSignature } from '@echo/api/fetchers/get-offer-signature'
 import { rejectOffer } from '@echo/api/fetchers/reject-offer'
 import { type AuthUser } from '@echo/model/types/auth-user'
-import { type Offer } from '@echo/model/types/offer'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { approveErc721Contract } from '@echo/web3/helpers/wagmi/fetchers/approve-erc721-contract'
 import { executeSwap } from '@echo/web3/helpers/wagmi/fetchers/execute-swap'
 import { getErc721ContractApproval } from '@echo/web3/helpers/wagmi/fetchers/get-erc721-contract-approval'
@@ -14,15 +14,14 @@ import { chain } from '@echo/web3/helpers/wagmi/providers/chain'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  offer: Offer
+  offer: OfferWithRole
   user: AuthUser
 }
 
-export const ProfileOfferDetails: FunctionComponent<Props> = ({ offer, user }) => {
+export const ProfileOfferDetails: FunctionComponent<Props> = ({ offer }) => {
   return (
     <OfferDetails
       offer={offer}
-      isCreator={user.username === offer.sender?.username}
       fetcher={{
         approveErc721Contract,
         getErc721ContractApproval,

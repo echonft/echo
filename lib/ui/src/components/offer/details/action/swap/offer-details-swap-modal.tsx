@@ -2,10 +2,10 @@
 import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
-import type { Offer } from '@echo/model/types/offer'
 import { OfferDetailsSwapExecuteModal } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-execute-modal'
 import { OfferDetailsContractApprovalModal } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -19,7 +19,7 @@ import { type FunctionComponent, useState } from 'react'
 import useSWR from 'swr'
 
 interface Props {
-  offer: Offer
+  offer: OfferWithRole
   open: boolean
   fetcher: {
     getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
@@ -31,7 +31,7 @@ interface Props {
     chain: ChainProvider
   }
   onClose?: EmptyFunction
-  onSuccess?: (offer: Offer) => unknown
+  onSuccess?: (offer: OfferWithRole) => unknown
 }
 
 export const OfferDetailsSwapModal: FunctionComponent<Props> = ({

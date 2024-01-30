@@ -1,9 +1,9 @@
 'use client'
 import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import type { Offer } from '@echo/model/types/offer'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { OfferDetailsAcceptModal } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-modal'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -16,7 +16,7 @@ import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  offer: Offer
+  offer: OfferWithRole
   fetcher: {
     approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
     getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
@@ -28,7 +28,7 @@ interface Props {
   }
   disabled?: boolean
   onClick?: EmptyFunction
-  onSuccess?: (offer: Offer) => unknown
+  onSuccess?: (offer: OfferWithRole) => unknown
   onCancel?: EmptyFunction
 }
 
@@ -62,7 +62,7 @@ export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({
           offer={offer}
           fetcher={fetcher}
           provider={provider}
-          onSuccess={(offer: Offer) => {
+          onSuccess={(offer: OfferWithRole) => {
             setModalShown(false)
             onSuccess?.(offer)
           }}
