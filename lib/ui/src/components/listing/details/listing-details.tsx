@@ -13,7 +13,12 @@ import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
+import { ListingDetailsItemsContainerLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-container-layout'
+import { ListingDetailsItemsLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-layout'
+import { ListingDetailsLayout } from '@echo/ui/components/listing/details/layout/listing-details-layout'
+import { ListingDetailsTargetsContainerLayout } from '@echo/ui/components/listing/details/layout/listing-details-targets-container-layout'
 import { ListingDetailsUserNftsLayout } from '@echo/ui/components/listing/details/layout/listing-details-user-nfts-layout'
+import { ListingDetailsUserStateLayout } from '@echo/ui/components/listing/details/layout/listing-details-user-state-layout'
 import { ListingDetailsButtonsContainer } from '@echo/ui/components/listing/details/listing-details-buttons-container'
 import { ListingDetailsItemsContainer } from '@echo/ui/components/listing/details/listing-details-items-container'
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
@@ -133,31 +138,22 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
   }
 
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-20', 'p-4')}>
-      <div
-        className={clsx(
-          'flex',
-          'flex-row',
-          !isCreator && 'justify-between',
-          isCreator && 'justify-end',
-          'items-center',
-          'pb-5'
-        )}
-      >
+    <ListingDetailsLayout>
+      <ListingDetailsUserStateLayout role={listing.role}>
         <HideIf condition={isCreator}>
           <ListingOfferUserDetails user={creator} />
         </HideIf>
         <ListingDetailsState expired={state === LISTING_STATE_EXPIRED} readOnly={readOnly} expiresAt={expiresAt} />
-      </div>
-      <div className={clsx('flex', 'flex-col', 'gap-6')}>
-        <div className={clsx('pb-16')}>
+      </ListingDetailsUserStateLayout>
+      <ListingDetailsItemsLayout>
+        <ListingDetailsItemsContainerLayout>
           <ListingDetailsItemsContainer items={items} />
-        </div>
+        </ListingDetailsItemsContainerLayout>
         <ItemsSeparator />
         <div className={clsx('flex', 'flex-col', 'gap-14')}>
-          <div className={clsx('flex', isCreator && 'justify-center', !isCreator && 'justify-end')}>
+          <ListingDetailsTargetsContainerLayout role={listing.role}>
             <ListingDetailsTargetContainer target={target} />
-          </div>
+          </ListingDetailsTargetsContainerLayout>
           <HideIf condition={!isCreator}>
             <OfferCardsContainer
               offers={map<Offer, OfferWithRole>(assoc('role', undefined), offers)}
@@ -176,7 +172,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
             </ListingDetailsUserNftsLayout>
           </HideIf>
         </div>
-      </div>
+      </ListingDetailsItemsLayout>
       <ListingDetailsButtonsContainer
         listing={updatedListing}
         isMutating={isMutating}
@@ -188,6 +184,6 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
         open={!isNil(createdOffer)}
         onClose={() => setCreatedOffer(undefined)}
       />
-    </div>
+    </ListingDetailsLayout>
   )
 }
