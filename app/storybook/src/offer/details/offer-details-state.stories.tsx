@@ -17,7 +17,7 @@ const metadata: Meta<typeof Component> = {
     state: {
       defaultValue: OFFER_STATE_OPEN,
       options: OFFER_STATES,
-      control: { type: 'radio' }
+      control: { type: 'select' }
     }
   },
   parameters: {
