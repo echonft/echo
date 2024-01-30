@@ -2,7 +2,9 @@ import type { Nft } from '@echo/model/types/nft'
 import { echoFunctionNames } from '@echo/web3/constants/echo-function-names'
 import { erc721ABI } from '@echo/web3/constants/erc721-abi'
 import { formatAddress } from '@echo/web3/helpers/format-address'
+import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import { getViemClient } from '@echo/web3/helpers/viem/get-viem-client'
+import { pipe } from 'ramda'
 import { getAddress } from 'viem'
 
 export async function isOwnerOfErc721(nft: Nft) {
@@ -15,7 +17,7 @@ export async function isOwnerOfErc721(nft: Nft) {
     }
   } = nft
   const { chainId } = contract
-  const client = getViemClient(chainId)
+  const client = pipe(getChainById, getViemClient)(chainId)
   const realOwner = (await client.readContract({
     address: formatAddress(contract),
     abi: erc721ABI,

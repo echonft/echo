@@ -13,6 +13,7 @@ import { addWalletRequestHandler } from '@echo/frontend/lib/request-handlers/pro
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { formatAddress } from '@echo/web3/helpers/format-address'
+import { getChain } from '@echo/web3/helpers/get-chain'
 import { toLower } from 'ramda'
 import { SiweMessage } from 'siwe'
 
@@ -25,6 +26,7 @@ jest.mock('@echo/firestore/crud/wallet/get-wallets-for-user')
 
 describe('request-handlers - user - addWalletRequestHandler', () => {
   const address = toLower('0x12c63bbD266dB84e117356e664f3604055166CEc')
+  const chainId = getChain().id
   const formattedAddress = formatAddress({ address })
   const validSiweMessage = new SiweMessage({
     domain: 'echo.xyz',
@@ -32,12 +34,12 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     statement: 'Sign in to add this wallet to your account',
     uri: 'https://echo.xyz',
     version: '1',
-    chainId: 1,
+    chainId,
     nonce: 'noncenoncenoncenoncenonce'
   }).prepareMessage()
   const validSignature = '0x000'
   const validWallet = {
-    chainId: 1,
+    chainId,
     address
   }
   const validRequest: AddWalletRequest = {

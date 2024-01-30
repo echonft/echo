@@ -1,6 +1,6 @@
 import { formatAddress } from '@echo/web3/helpers/format-address'
 
-function getAddress(chainId: number) {
+function echoAddressByChainId(chainId: number) {
   switch (chainId) {
     case 11155111:
       return '0x514EbbfcE272B8b2e54c5E82512867B1Faf87420'
@@ -10,5 +10,5 @@ function getAddress(chainId: number) {
 }
 
 export function getEchoAddress(chainId: number) {
-  return formatAddress({ address: getAddress(chainId), chainId })
+  return formatAddress({ address: echoAddressByChainId(chainId), chainId })
 }
