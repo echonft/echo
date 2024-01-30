@@ -7,14 +7,13 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   nft: Nft
-  removable?: boolean
-  onRemove?: (nft: Nft) => unknown
+  disabled?: boolean
 }
 
-export const NftThumbnail: FunctionComponent<Props> = ({ nft, removable, onRemove }) => {
+export const NftThumbnail: FunctionComponent<Props> = ({ nft, disabled }) => {
   return (
-    <NftThumbnailLayout>
-      <NftThumbnailPicture nft={nft} removable={removable} onRemove={onRemove} />
+    <NftThumbnailLayout disabled={disabled}>
+      <NftThumbnailPicture nft={nft} />
       <NftThumbnailTitle nft={nft} />
     </NftThumbnailLayout>
   )

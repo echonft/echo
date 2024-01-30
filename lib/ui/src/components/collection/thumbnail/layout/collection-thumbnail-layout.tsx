@@ -4,10 +4,12 @@ import { isNil } from 'ramda'
 import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
 
 interface Props extends WithLoadingProps {
+  disabled?: boolean
   onClick?: MouseEventHandler
 }
 export const CollectionThumbnailLayout: FunctionComponent<PropsWithChildren<Props>> = ({
   loading,
+  disabled,
   onClick,
   children
 }) => {
@@ -26,8 +28,9 @@ export const CollectionThumbnailLayout: FunctionComponent<PropsWithChildren<Prop
         'border',
         'border-white/10',
         'bg-dark-500',
-        !isNil(onClick) && ['hover:bg-white/[0.08]', 'cursor-pointer'],
-        loading ? ['h-[8.125rem]', 'animate-pulse'] : 'h-max'
+        !disabled && !isNil(onClick) && ['hover:bg-white/[0.08]', 'cursor-pointer'],
+        loading ? ['h-[8.125rem]', 'animate-pulse'] : 'h-max',
+        disabled && 'opacity-40'
       )}
       onClick={onClick}
     >

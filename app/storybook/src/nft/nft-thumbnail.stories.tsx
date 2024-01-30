@@ -4,19 +4,17 @@ import { getNftMock } from '@echo/model-mocks/nft/get-nft-mock'
 import { NftThumbnail as Component } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
 import { type Meta, type StoryObj } from '@storybook/react'
 
-const DEFAULT_REMOVABLE = false
 const metadata: Meta<typeof Component> = {
   title: 'NFT/Thumbnail',
   component: Component,
+  args: {
+    nft: getNftMock(),
+    disabled: false
+  },
   argTypes: {
-    removable: {
-      defaultValue: DEFAULT_REMOVABLE,
+    disabled: {
+      defaultValue: false,
       control: 'boolean'
-    },
-    onRemove: {
-      table: {
-        disable: true
-      }
     }
   },
   parameters: {
@@ -28,12 +26,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-const nft = getNftMock()
-export const Thumbnail: Story = {
-  args: {
-    nft,
-    removable: DEFAULT_REMOVABLE
-  }
-}
+export const Thumbnail: StoryObj<typeof Component> = {}

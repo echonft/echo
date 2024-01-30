@@ -1,13 +1,15 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { type Collection } from '@echo/model/types/collection'
+import type { Offer } from '@echo/model/types/offer'
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { PAGE_LAYOUT_BG_HOME } from '@echo/ui/constants/page-layout-background'
 import { HomePage as Component } from '@echo/ui/pages/home/home-page'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { assoc, concat, map, pipe } from 'ramda'
+import { addIndex, assoc, concat, map, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Pages/Home',
@@ -28,20 +30,20 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-const collectionDetails = map(pipe(assoc('swapsCount', 2)), getAllCollectionMocks()) as Collection[]
-const collections = pipe(
-  concat(collectionDetails),
-  concat(collectionDetails),
-  concat(collectionDetails),
-  concat(collectionDetails)
-)(collectionDetails)
-const offerMocks = getAllOfferMocks()
-const offers = pipe(concat(offerMocks), concat(offerMocks))(offerMocks)
-
-export const Page: Story = {
+export const Page: StoryObj<typeof Component> = {
   args: {
-    collections,
-    offers
+    collections: pipe<[], Collection[], Collection[], Collection[], Collection[], Collection[]>(
+      getAllCollectionMocks,
+      concat(getAllCollectionMocks()),
+      concat(getAllCollectionMocks()),
+      concat(getAllCollectionMocks()),
+      addIndex(map)((collection, index) => assoc('swapsCount', index, collection))
+    )(),
+    offers: pipe<[], Offer[], Offer[], Offer[], OfferWithRole[]>(
+      getAllOfferMocks,
+      concat(getAllOfferMocks()),
+      concat(getAllOfferMocks()),
+      map<Offer, OfferWithRole>(assoc('role', undefined))
+    )()
   }
 }

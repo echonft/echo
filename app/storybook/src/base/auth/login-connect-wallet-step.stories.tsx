@@ -1,63 +1,22 @@
 // noinspection JSUnusedGlobalSymbols
 
-import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
+import { account } from '@echo/storybook/mocks/account'
+import { addWallet } from '@echo/storybook/mocks/add-wallet'
+import { chain } from '@echo/storybook/mocks/chain'
+import { getNonce } from '@echo/storybook/mocks/get-nonce'
+import { signNonce } from '@echo/storybook/mocks/sign-nonce'
 import { LoginConnectWalletStep as Component } from '@echo/ui/components/auth/login-connect-wallet-step'
 import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
-import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import type { SignNonceArgs } from '@echo/web3/types/sign-nonce-args'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { useState } from 'react'
 
-const user = getAuthUserMockByUsername('johnnycagewins')
-const wallet = user.wallets![0]!
-const { address, chainId } = wallet
-function accountProvider(state: 'connected' | 'connecting' | 'disconnected') {
-  switch (state) {
-    case 'connected':
-      return {
-        address,
-        isConnected: true,
-        isConnecting: false,
-        isDisconnected: false,
-        isReconnecting: false
-      }
-    case 'connecting':
-      return {
-        address: undefined,
-        isConnected: false,
-        isConnecting: true,
-        isDisconnected: false,
-        isReconnecting: false
-      }
-    case 'disconnected':
-      return {
-        address: undefined,
-        isConnected: false,
-        isConnecting: false,
-        isDisconnected: true,
-        isReconnecting: false
-      }
-  }
-}
-function chainProvider(state: 'connected' | 'connecting' | 'disconnected') {
-  if (state === 'connected') {
-    return chainId
-  }
-  return undefined
-}
-function addWallet(_args: AddWalletRequest) {
-  return delayPromise(Promise.resolve({}), 1200)
-}
-function getNonce() {
-  return delayPromise(Promise.resolve({ nonce: 'nonce' }), 1200)
-}
-function signNonce(_args: SignNonceArgs) {
-  return delayPromise(Promise.resolve({ message: 'message', signature: address }), 1200)
-}
-
 const metadata: Meta<typeof Component> = {
   title: 'Base/Auth/Login/Connect Wallet Step',
+  args: {
+    fetcher: { addWallet, getNonce, signNonce },
+    user: getAuthUserMockByUsername('johnnycagewins')
+  },
   component: Component,
   argTypes: {
     onContinue: {
@@ -68,17 +27,14 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['fetcher', 'provider', 'renderConnect', 'wallets']
+      exclude: ['fetcher', 'provider', 'renderConnect', 'user']
     }
   }
 }
-
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const NotConnected: Story = {
-  render: ({ onContinue }) => {
+export const NotConnected: StoryObj<typeof Component> = {
+  render: ({ fetcher, user, onContinue }) => {
     const [connectState, setConnectState] = useState<'connected' | 'connecting' | 'disconnected'>('disconnected')
 
     const onConnect = () => {
@@ -90,8 +46,8 @@ export const NotConnected: Story = {
 
     return (
       <Component
-        fetcher={{ addWallet, getNonce, signNonce }}
-        provider={{ account: () => accountProvider(connectState), chain: () => chainProvider(connectState) }}
+        fetcher={fetcher}
+        provider={{ account: account(connectState), chain: chain(connectState) }}
         renderConnect={() => <ConnectWalletButton isConnecting={connectState === 'connecting'} onClick={onConnect} />}
         user={user}
         onContinue={onContinue}
@@ -100,11 +56,9 @@ export const NotConnected: Story = {
   }
 }
 
-export const Connected: Story = {
+export const Connected: StoryObj<typeof Component> = {
   args: {
-    fetcher: { addWallet, getNonce, signNonce },
-    provider: { account: () => accountProvider('connected'), chain: () => chainProvider('connected') },
-    renderConnect: () => null,
-    user
+    provider: { account: account('connected'), chain: chain('connected') },
+    renderConnect: () => null
   }
 }

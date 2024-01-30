@@ -5,15 +5,18 @@ import { UserTag as Component } from '@echo/ui/components/user/tag/user-tag'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'User/Discord Tag',
-  component: Component
+  title: 'User/Tag',
+  component: Component,
+  parameters: {
+    controls: {
+      exclude: ['user']
+    }
+  }
 }
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const UserTag: Story = {
+export const Tag: StoryObj<typeof Component> = {
   args: {
     user: getAuthUserMockByUsername('crewnft_')
   }

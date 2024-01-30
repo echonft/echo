@@ -5,7 +5,7 @@ import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { CreateListingBannerManager } from '@echo/ui/components/listing/create/create-listing-banner-manager'
-import { NewOfferBannerManager } from '@echo/ui/components/offer/new/new-offer-banner-manager'
+import { CreateOfferBannerManager } from '@echo/ui/components/offer/create/create-offer-banner-manager'
 import { ProfileDetails } from '@echo/ui/pages/profile/profile-details'
 import { pipe } from 'ramda'
 import type { ReactElement } from 'react'
@@ -13,7 +13,7 @@ import type { ReactElement } from 'react'
 function render({ user, children }: NextUserParams<NextLayoutParams>) {
   return (
     <NavigationPageLayout user={user}>
-      <NewOfferBannerManager />
+      <CreateOfferBannerManager />
       <CreateListingBannerManager />
       <SectionLayout>
         <ProfileDetails user={user} />

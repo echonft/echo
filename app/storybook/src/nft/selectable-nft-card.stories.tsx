@@ -1,5 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
+import type { Nft } from '@echo/model/types/nft'
 import { getNftMock } from '@echo/model-mocks/nft/get-nft-mock'
 import type { SelectableNftCardProps } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import { SelectableNftCard } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
@@ -10,10 +11,6 @@ import { assoc, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 import { useMemo } from 'react'
 
-const DEFAULT_SELECTION_DISABLED = false
-const DEFAULT_SELECTED = false
-const DEFAULT_DISABLED = false
-const DEFAULT_HIDE_OWNER = false
 interface Args extends Omit<SelectableNftCardProps, 'nft'> {
   selectionDisabled: boolean
   selected: boolean
@@ -22,21 +19,27 @@ interface Args extends Omit<SelectableNftCardProps, 'nft'> {
 type ComponentType = FunctionComponent<Args>
 const metadata: Meta<ComponentType> = {
   title: 'NFT/Selectable Card',
+  args: {
+    selectionDisabled: false,
+    hideOwner: false,
+    selected: false,
+    disabled: false
+  },
   argTypes: {
     disabled: {
-      defaultValue: DEFAULT_DISABLED,
+      defaultValue: false,
       control: 'boolean'
     },
     selectionDisabled: {
-      defaultValue: DEFAULT_SELECTION_DISABLED,
+      defaultValue: false,
       control: 'boolean',
       if: { arg: 'disabled', truthy: false }
     },
     hideOwner: {
-      defaultValue: DEFAULT_HIDE_OWNER,
+      defaultValue: false,
       control: 'boolean'
     },
-    selected: { control: 'boolean', defaultValue: DEFAULT_SELECTED, if: { arg: 'selectionDisabled', truthy: false } },
+    selected: { control: 'boolean', defaultValue: false, if: { arg: 'selectionDisabled', truthy: false } },
     onAction: {
       table: {
         disable: true
@@ -52,20 +55,10 @@ const metadata: Meta<ComponentType> = {
 
 export default metadata
 
-type Story = StoryObj<ComponentType>
-
-export const Default: Story = {
-  args: {
-    selectionDisabled: DEFAULT_SELECTION_DISABLED,
-    hideOwner: DEFAULT_HIDE_OWNER,
-    selected: DEFAULT_SELECTED,
-    disabled: DEFAULT_DISABLED
-  },
+export const Default: StoryObj<ComponentType> = {
   render: ({ selectionDisabled, selected, disabled, hideOwner, onToggleSelection, onAction }) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const nft: SelectableNft = useMemo(
-      pipe(
+    const nft = useMemo(
+      pipe<[], Nft, SelectableNft, SelectableNft, SelectableNft, SelectableNft, SelectableNft>(
         getNftMock,
         assoc('action', NFT_ACTION_OFFER),
         assoc('actionDisabled', selected),

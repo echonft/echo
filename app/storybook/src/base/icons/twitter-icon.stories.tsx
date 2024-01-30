@@ -8,6 +8,9 @@ import { type Meta, type StoryObj } from '@storybook/react'
 const metadata: Meta<typeof Component> = {
   title: 'Base/Icons/Twitter Icon',
   component: Component,
+  args: {
+    size: SIZE_MD
+  },
   argTypes: {
     size: {
       options: ICON_SIZES,
@@ -18,10 +21,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const TwitterIcon: Story = {
-  args: {
-    size: SIZE_MD
-  }
-}
+export const TwitterIcon: StoryObj<typeof Component> = {}

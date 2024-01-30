@@ -23,9 +23,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Confirmed: Story = {
+export const Confirmed: StoryObj<typeof Component> = {
   args: {
     listing: getListingMockById('jUzMtPGKM62mMhEcmbN4'),
     open: true

@@ -8,11 +8,12 @@ import { type FunctionComponent } from 'react'
 interface Props {
   direction: SwapDirection
   title: string
+  disabled?: boolean
 }
 
-export const SwapDirectionHeader: FunctionComponent<Props> = ({ direction, title }) => {
+export const SwapDirectionHeader: FunctionComponent<Props> = ({ direction, title, disabled }) => {
   return (
-    <div className={clsx('flex', 'gap-2', 'items-center')}>
+    <div className={clsx('flex', 'gap-2', 'items-center', disabled && 'opacity-40')}>
       <span
         className={clsx(
           'w-6',

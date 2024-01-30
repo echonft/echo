@@ -1,7 +1,7 @@
 'use client'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
+import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginStep } from '@echo/ui/components/auth/login-step'
 import { LoginStepIndicator } from '@echo/ui/components/auth/login-step-indicator'
@@ -18,7 +18,7 @@ import { type FunctionComponent, useEffect, useRef, useState } from 'react'
 
 interface Props {
   fetcher: {
-    addWallet: Fetcher<EmptyResponse, AddWalletRequest>
+    addWallet: Fetcher<WalletsResponse, AddWalletRequest>
     getNonce: Fetcher<NonceResponse, never>
     signNonce: Fetcher<SignNonceResult, SignNonceArgs>
   }

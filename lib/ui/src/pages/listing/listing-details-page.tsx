@@ -1,6 +1,6 @@
 'use client'
-import { cancelListing } from '@echo/api/services/fetchers/cancel-listing'
-import { createOffer } from '@echo/api/services/fetchers/create-offer'
+import { cancelListing } from '@echo/api/fetchers/cancel-listing'
+import { createOffer } from '@echo/api/fetchers/create-offer'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Nft } from '@echo/model/types/nft'
 import { ListingDetails } from '@echo/ui/components/listing/details/listing-details'

@@ -14,17 +14,19 @@ import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent, useEffect } from 'react'
 
 type ComponentType = FunctionComponent<Record<'callout', boolean> & Record<'banner', boolean>>
-const DEFAULT_CALLOUT = false
-const DEFAULT_BANNER = false
 const metadata: Meta<ComponentType> = {
   title: 'Base/Layout/Page',
+  args: {
+    banner: false,
+    callout: false
+  },
   argTypes: {
     callout: {
-      options: DEFAULT_CALLOUT,
+      options: false,
       control: { type: 'boolean' }
     },
     banner: {
-      options: DEFAULT_BANNER,
+      options: false,
       control: { type: 'boolean' }
     }
   }
@@ -32,13 +34,7 @@ const metadata: Meta<ComponentType> = {
 
 export default metadata
 
-type Story = StoryObj<ComponentType>
-
-export const Default: Story = {
-  args: {
-    banner: DEFAULT_BANNER,
-    callout: DEFAULT_CALLOUT
-  },
+export const Default: StoryObj<ComponentType> = {
   render: ({ callout, banner }) => {
     const user = getAuthUserMockByUsername('johnnycagewins')
     const { show, dismiss } = useAlertStore()

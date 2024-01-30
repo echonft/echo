@@ -87,7 +87,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ fetcher, provid
         collections={collections}
         onCollectionSelectionChange={onCollectionSelectionChange}
         onTargetAmountChange={onTargetAmountChange}
-        isMutating={isMutating}
+        loading={isMutating}
         onClose={closeModal}
         onContinue={closeModal}
         onClear={() => {

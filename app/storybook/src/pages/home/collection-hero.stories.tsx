@@ -18,11 +18,11 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-const collection = pipe(getCollectionMockById, assoc('swapsCount', 2))('Rc8pLQXxgyQGIRL0fr13') as Collection
-
-export const Default: Story = {
+export const Default: StoryObj<typeof Component> = {
   args: {
-    collection
+    collection: pipe<[string], Collection, Collection>(
+      getCollectionMockById,
+      assoc('swapsCount', 2)
+    )('Rc8pLQXxgyQGIRL0fr13')
   }
 }

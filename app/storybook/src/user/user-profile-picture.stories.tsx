@@ -15,9 +15,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Default: Story = {
+export const Default: StoryObj<typeof Component> = {
   args: {
     discordUsername: 'johnnycagewins',
     discordAvatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png'

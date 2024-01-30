@@ -1,5 +1,5 @@
 'use client'
-import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { linkProvider } from '@echo/api/routing/link-provider'
 import { type ListingItem } from '@echo/model/types/listing-item'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import type { Target } from '@echo/ui/types/target'

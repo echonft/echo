@@ -22,9 +22,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Default: Story = {
+export const Default: StoryObj<typeof Component> = {
   args: {
     filters: [
       { trait: 'Trait', value: 'Trait Value', count: 1754 },

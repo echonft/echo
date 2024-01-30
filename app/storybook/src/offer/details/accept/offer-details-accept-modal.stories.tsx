@@ -1,36 +1,17 @@
 // noinspection JSUnusedGlobalSymbols
 
-import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { acceptOffer } from '@echo/storybook/mocks/accept-offer'
+import { approveErc721Contract } from '@echo/storybook/mocks/approve-erc-721-contract'
+import { chain } from '@echo/storybook/mocks/chain'
+import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-contract-approval '
+import { signOffer } from '@echo/storybook/mocks/sign-offer'
 import { OfferDetailsAcceptModal as Component } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-modal'
-import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import type { HexString } from '@echo/utils/types/hex-string'
-import type { ApproveErc721ContractArgs } from '@echo/web3/types/approve-erc-721-contract-args'
-import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721-contract-approval-args'
-import type { SignOfferArgs } from '@echo/web3/types/sign-offer-args'
 import type { Meta, StoryObj } from '@storybook/react'
-import { assoc } from 'ramda'
 
-const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-function acceptOffer(_args: AcceptOfferArgs): Promise<OfferResponse> {
-  return delayPromise(Promise.resolve({ offer: assoc('state', OFFER_STATE_ACCEPTED, offer) }), 1200)
-}
-function signOffer(_args: SignOfferArgs): Promise<HexString> {
-  return delayPromise(Promise.resolve('0xwhatever'), 1200)
-}
-function getErc721ContractApproval(_args: GetErc721ContractApprovalArgs): Promise<boolean> {
-  return delayPromise(Promise.resolve(false), 1200)
-}
-function approveErc721Contract(_args: ApproveErc721ContractArgs): Promise<HexString> {
-  return delayPromise(Promise.resolve('0xwhatever'), 1200)
-}
-function chain() {
-  return 1
-}
 const metadata: Meta<typeof Component> = {
-  title: 'Offer/Details/Modal/Accept',
+  title: 'Offer/Details/Accept',
+  component: Component,
   argTypes: {
     onClose: {
       table: {
@@ -43,7 +24,6 @@ const metadata: Meta<typeof Component> = {
       }
     }
   },
-  component: Component,
   parameters: {
     controls: {
       exclude: ['offer', 'open', 'token', 'fetcher', 'provider']
@@ -53,20 +33,18 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Accept: Story = {
+export const Modal: StoryObj<typeof Component> = {
   args: {
-    offer,
+    offer: getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'),
     open: true,
     fetcher: {
-      acceptOffer,
+      acceptOffer: acceptOffer('LyCfl6Eg7JKuD7XJ6IPi'),
       signOffer,
       approveErc721Contract,
-      getErc721ContractApproval
+      getErc721ContractApproval: getErc721ContractApproval(false)
     },
     provider: {
-      chain
+      chain: chain('connected')
     }
   }
 }

@@ -11,19 +11,20 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   items: ListingItem[]
+  disabled?: boolean
 }
 
-export const CreateListingModalItems: FunctionComponent<Props> = ({ items }) => {
+export const CreateListingModalItems: FunctionComponent<Props> = ({ items, disabled }) => {
   const t = useTranslations('listing.assets')
   return (
     <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center')}>
-        <SwapDirectionHeader direction={SWAP_DIRECTION_OUT} title={t('out')} />
+        <SwapDirectionHeader direction={SWAP_DIRECTION_OUT} title={t('out')} disabled={disabled} />
       </div>
       <CardsLayout alignment={ALIGNMENT_CENTER}>
         {map(
           (item) => (
-            <NftThumbnail nft={item.nft} key={item.nft.id} />
+            <NftThumbnail nft={item.nft} key={item.nft.id} disabled={disabled} />
           ),
           items
         )}

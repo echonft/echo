@@ -3,40 +3,60 @@
 import { NavigationPills as Component } from '@echo/ui/components/base/navigation/navigation-pills'
 import { NAVIGATION_LISTINGS, NAVIGATION_NFTS, NAVIGATION_SWAPS } from '@echo/ui/constants/navigation-item'
 import { type Meta, type StoryObj } from '@storybook/react'
+import type { FunctionComponent } from 'react'
 
-const metadata: Meta<typeof Component> = {
+type ComponentType = FunctionComponent<{
+  selection: 'Items' | 'Listings' | 'Swaps'
+}>
+const metadata: Meta<ComponentType> = {
   title: 'Base/Navigation Pills',
-  component: Component,
-  parameters: {
-    controls: {
-      exclude: ['items', 'selectedItemId']
+  args: {
+    selection: 'Items'
+  },
+  argTypes: {
+    selection: {
+      defaultValue: 'Items',
+      options: ['Items', 'Listings', 'Swaps'],
+      control: { type: 'radio' }
     }
   }
 }
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const NavigationPills: Story = {
-  args: {
-    items: [
-      {
-        name: 'Items',
-        id: NAVIGATION_NFTS,
-        path: '#'
-      },
-      {
-        name: 'Listings',
-        id: NAVIGATION_LISTINGS,
-        path: '#'
-      },
-      {
-        name: 'Swaps',
-        id: NAVIGATION_SWAPS,
-        path: '#'
+export const NavigationPills: StoryObj<ComponentType> = {
+  render: ({ selection }) => {
+    function getActiveItem() {
+      switch (selection) {
+        case 'Items':
+          return NAVIGATION_NFTS
+        case 'Listings':
+          return NAVIGATION_LISTINGS
+        case 'Swaps':
+          return NAVIGATION_SWAPS
       }
-    ],
-    activeItem: NAVIGATION_NFTS
+    }
+    return (
+      <Component
+        items={[
+          {
+            name: 'Items',
+            id: NAVIGATION_NFTS,
+            path: '#'
+          },
+          {
+            name: 'Listings',
+            id: NAVIGATION_LISTINGS,
+            path: '#'
+          },
+          {
+            name: 'Swaps',
+            id: NAVIGATION_SWAPS,
+            path: '#'
+          }
+        ]}
+        activeItem={getActiveItem()}
+      />
+    )
   }
 }

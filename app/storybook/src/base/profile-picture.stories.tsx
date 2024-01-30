@@ -28,9 +28,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const ProfilePicture: Story = {
+export const ProfilePicture: StoryObj<typeof Component> = {
   args: {
     size: SIZE_LG,
     border: true,

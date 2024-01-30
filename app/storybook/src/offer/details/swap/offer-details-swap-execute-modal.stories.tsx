@@ -1,24 +1,18 @@
 // noinspection JSUnusedGlobalSymbols
 
-import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
-import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { executeSwap } from '@echo/storybook/mocks/execute-swap'
+import { getOfferSignature } from '@echo/storybook/mocks/get-offer-signature'
 import { OfferDetailsSwapExecuteModal as Component } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-execute-modal'
-import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import type { HexString } from '@echo/utils/types/hex-string'
-import type { ExecuteSwapArgs } from '@echo/web3/types/execute-swap-args'
 import type { Meta, StoryObj } from '@storybook/react'
+import type { FunctionComponent } from 'react'
 
-const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-function getOfferSignature(_args: GetOfferSignatureArgs): Promise<OfferSignatureResponse> {
-  return delayPromise(Promise.resolve({ signature: '0xwhatever' }), 1200)
-}
-function executeSwap(_args: ExecuteSwapArgs): Promise<HexString> {
-  return delayPromise(Promise.resolve('0xwhatever'), 1200)
-}
-const metadata: Meta<typeof Component> = {
-  title: 'Offer/Details/Modal/Swap/Execute',
-  component: Component,
+type ComponentType = FunctionComponent<{ signature: boolean; onClose?: VoidFunction; onSuccess?: VoidFunction }>
+const metadata: Meta<ComponentType> = {
+  title: 'Offer/Details/Swap/Execute',
+  args: {
+    signature: false
+  },
   argTypes: {
     onClose: {
       table: {
@@ -29,41 +23,29 @@ const metadata: Meta<typeof Component> = {
       table: {
         disable: true
       }
-    }
-  },
-  parameters: {
-    controls: {
-      exclude: ['offer', 'open', 'chainId', 'token', 'signature', 'fetcher']
+    },
+    signature: {
+      defaultValue: false,
+      control: 'boolean'
     }
   }
 }
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const WithSignature: Story = {
-  args: {
-    offer,
-    chainId: 1,
-    open: true,
-    signature: '0xwhatever',
-    fetcher: {
-      getOfferSignature,
-      executeSwap
-    }
-  }
-}
-
-export const WithoutSignature: Story = {
-  args: {
-    offer,
-    chainId: 1,
-    open: true,
-    signature: undefined,
-    fetcher: {
-      getOfferSignature,
-      executeSwap
-    }
-  }
+export const Execute: StoryObj<ComponentType> = {
+  render: ({ signature, onClose, onSuccess }) => (
+    <Component
+      offer={getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')}
+      chainId={1}
+      signature={signature ? '0xwhatever' : undefined}
+      fetcher={{
+        getOfferSignature,
+        executeSwap
+      }}
+      open={true}
+      onClose={onClose}
+      onSuccess={onSuccess}
+    />
+  )
 }

@@ -6,28 +6,25 @@ import { type Meta, type StoryObj } from '@storybook/react'
 const metadata: Meta<typeof Component> = {
   title: 'Base/Navigation Pill',
   component: Component,
+  argTypes: {
+    selected: {
+      defaultValue: false,
+      control: { type: 'boolean' }
+    }
+  },
   parameters: {
     controls: {
-      exclude: ['selected', 'path']
+      exclude: ['path']
     }
   }
 }
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Default: Story = {
-  args: {
-    name: 'Items',
-    path: '#'
-  }
-}
-
-export const Selected: Story = {
+export const NavigationPill: StoryObj<typeof Component> = {
   args: {
     name: 'Items',
     path: '#',
-    selected: true
+    selected: false
   }
 }

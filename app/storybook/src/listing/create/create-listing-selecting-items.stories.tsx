@@ -19,9 +19,7 @@ const metadata: Meta<FunctionComponent> = {
 
 export default metadata
 
-type Story = StoryObj<FunctionComponent>
-
-export const SelectingItems: Story = {
+export const SelectingItems: StoryObj<FunctionComponent> = {
   render: () => {
     const user = getAuthUserMockByUsername('johnnycagewins')
     const { setTarget, clearListing } = useNewListingStore()

@@ -15,9 +15,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const ConnectedTag: Story = {
+export const ConnectedTag: StoryObj<typeof Component> = {
   args: {
     chainId: 1,
     address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'

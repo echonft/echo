@@ -1,13 +1,12 @@
-import { type Offer } from '@echo/model/types/offer'
-import { SwapRow } from '@echo/ui/components/swap/row/swap-row'
+import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
 import { HomeSectionLayout } from '@echo/ui/pages/home/layout/home-section-layout'
-import { RecentSwapsLayout } from '@echo/ui/pages/home/swap/layout/recent-swaps-layout'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { useTranslations } from 'next-intl'
-import { isEmpty, map } from 'ramda'
+import { isEmpty } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  offers: Offer[]
+  offers: OfferWithRole[]
 }
 
 export const RecentSwaps: FunctionComponent<Props> = ({ offers }) => {
@@ -18,14 +17,7 @@ export const RecentSwaps: FunctionComponent<Props> = ({ offers }) => {
   }
   return (
     <HomeSectionLayout title={t('title')}>
-      <RecentSwapsLayout>
-        {map(
-          (offer) => (
-            <SwapRow key={offer.id} offer={offer} />
-          ),
-          offers
-        )}
-      </RecentSwapsLayout>
+      <OfferCardsContainer offers={offers} options={{ asLink: true }} />
     </HomeSectionLayout>
   )
 }

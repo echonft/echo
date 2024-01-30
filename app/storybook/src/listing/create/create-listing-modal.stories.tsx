@@ -1,14 +1,28 @@
 // noinspection JSUnusedGlobalSymbols
 
+import type { Listing } from '@echo/model/types/listing'
+import type { ListingItem } from '@echo/model/types/listing-item'
+import type { ListingTarget } from '@echo/model/types/listing-target'
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
 import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
 import { CreateListingModal as Component } from '@echo/ui/components/listing/create/create-listing-modal'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { head } from 'ramda'
+import { head, pipe, prop } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Listing/Creation/Creating',
+  title: 'Listing/Creation/Modal',
   component: Component,
+  args: {
+    open: true,
+    target: pipe<[], Listing, ListingTarget[], ListingTarget>(
+      getListingMock,
+      nonNullableReturn(prop('targets')),
+      head
+    )(),
+    items: pipe<[], Listing, ListingItem[]>(getListingMock, nonNullableReturn(prop('items')))(),
+    collections: getAllCollectionMocks()
+  },
   argTypes: {
     onClear: {
       table: {
@@ -25,6 +39,11 @@ const metadata: Meta<typeof Component> = {
         disable: true
       }
     },
+    onContinue: {
+      table: {
+        disable: true
+      }
+    },
     onClose: {
       table: {
         disable: true
@@ -36,45 +55,25 @@ const metadata: Meta<typeof Component> = {
       }
     }
   },
-  args: {
-    open: true
-  },
   parameters: {
     controls: {
-      exclude: ['target', 'items', 'open']
+      exclude: ['collections', 'loading', 'items', 'open', 'target']
     }
   }
 }
 
 export default metadata
 
-const { targets, items } = getListingMock()
-const target = head(targets)
-const collections = getAllCollectionMocks()
+export const Default: StoryObj<typeof Component> = {}
 
-type Story = StoryObj<typeof Component>
-
-export const Default: Story = {
+export const Loading: StoryObj<typeof Component> = {
   args: {
-    target,
-    items,
-    collections
+    loading: true
   }
 }
 
-export const Confirming: Story = {
+export const NoItems: StoryObj<typeof Component> = {
   args: {
-    target,
-    items,
-    collections,
-    isMutating: true
-  }
-}
-
-export const NoItems: Story = {
-  args: {
-    target,
-    items: [],
-    collections
+    items: []
   }
 }

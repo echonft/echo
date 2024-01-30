@@ -10,6 +10,10 @@ import { type Meta, type StoryObj } from '@storybook/react'
 const metadata: Meta<typeof Component> = {
   title: 'Base/Icons/Echo Icon',
   component: Component,
+  args: {
+    size: SIZE_SM,
+    color: COLOR_YELLOW
+  },
   argTypes: {
     size: {
       options: ICON_SIZES,
@@ -24,11 +28,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const EchoIcon: Story = {
-  args: {
-    size: SIZE_SM,
-    color: COLOR_YELLOW
-  }
-}
+export const EchoIcon: StoryObj<typeof Component> = {}

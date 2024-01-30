@@ -1,6 +1,6 @@
 'use client'
-import { addWallet } from '@echo/api/services/fetchers/add-wallet'
-import { getNonce } from '@echo/api/services/fetchers/get-nonce'
+import { addWallet } from '@echo/api/fetchers/add-wallet'
+import { getNonce } from '@echo/api/fetchers/get-nonce'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { BannerManager } from '@echo/ui/components/base/banner/banner-manager'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'

@@ -1,6 +1,7 @@
 import type { Listing } from '@echo/model/types/listing'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
+import { ListingDetailsButtonsLayout } from '@echo/ui/components/listing/details/layout/listing-details-buttons-layout'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { clsx } from 'clsx'
@@ -33,7 +34,7 @@ export const ListingDetailsButtonsContainer: FunctionComponent<Props> = ({
   const isCreator = isListingRoleCreator(listing)
 
   return (
-    <div className={clsx('flex', 'flex-row', 'justify-center', 'pb-5')}>
+    <ListingDetailsButtonsLayout>
       <ShowIf condition={isCreator && !listing.readOnly}>
         <LongPressButton
           id={'listing-details-modal-cancel-button'}
@@ -52,6 +53,6 @@ export const ListingDetailsButtonsContainer: FunctionComponent<Props> = ({
           <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('fillBtn.label')}</span>
         </button>
       </ShowIf>
-    </div>
+    </ListingDetailsButtonsLayout>
   )
 }

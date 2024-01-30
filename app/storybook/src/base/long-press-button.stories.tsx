@@ -44,9 +44,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const LongPressButton: Story = {
+export const LongPressButton: StoryObj<typeof Component> = {
   args: {
     id: 'whatever',
     label: 'Cancel',

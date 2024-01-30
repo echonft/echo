@@ -1,7 +1,7 @@
 'use client'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
-import type { EmptyResponse } from '@echo/api/types/responses/empty-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
+import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import { userHasWallet } from '@echo/model/helpers/user/user-has-wallet'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Wallet } from '@echo/model/types/wallet'
@@ -22,7 +22,7 @@ import { type FunctionComponent, useEffect, useState } from 'react'
 
 export interface WalletButtonProps {
   fetcher: {
-    addWallet: Fetcher<EmptyResponse, AddWalletRequest>
+    addWallet: Fetcher<WalletsResponse, AddWalletRequest>
     getNonce: Fetcher<NonceResponse, never>
     signNonce: Fetcher<SignNonceResult, SignNonceArgs>
   }
@@ -50,10 +50,10 @@ export const WalletButton: FunctionComponent<WalletButtonProps> = ({ fetcher, pr
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('addWallet') }
     }
   })
-  const { trigger: addWalletTrigger, error: addWalletError } = useSWRTrigger<EmptyResponse, AddWalletRequest>({
+  const { trigger: addWalletTrigger, error: addWalletError } = useSWRTrigger<WalletsResponse, AddWalletRequest>({
     key: SWRKeys.profile.wallet.add,
     fetcher: fetcher.addWallet,
-    onSuccess: () => {
+    onSuccess: (_response) => {
       setWalletLinked(true)
     },
     onError: {

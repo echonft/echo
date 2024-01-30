@@ -20,7 +20,7 @@ export const InternalLink: FunctionComponent<PropsWithChildren<Props>> = ({
 }) => {
   return (
     <Link
-      className={clsx('outline-none', disabled && 'cursor-default', className)}
+      className={clsx('block', 'outline-none', disabled && 'cursor-default', className)}
       href={path}
       onClick={(event) => {
         if (isStorybook() || disabled) {

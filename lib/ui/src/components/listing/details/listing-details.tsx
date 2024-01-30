@@ -13,7 +13,12 @@ import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { HideIf } from '@echo/ui/components/base/utils/hide-if'
+import { ListingDetailsItemsContainerLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-container-layout'
+import { ListingDetailsItemsLayout } from '@echo/ui/components/listing/details/layout/listing-details-items-layout'
+import { ListingDetailsLayout } from '@echo/ui/components/listing/details/layout/listing-details-layout'
+import { ListingDetailsTargetsContainerLayout } from '@echo/ui/components/listing/details/layout/listing-details-targets-container-layout'
 import { ListingDetailsUserNftsLayout } from '@echo/ui/components/listing/details/layout/listing-details-user-nfts-layout'
+import { ListingDetailsUserStateLayout } from '@echo/ui/components/listing/details/layout/listing-details-user-state-layout'
 import { ListingDetailsButtonsContainer } from '@echo/ui/components/listing/details/listing-details-buttons-container'
 import { ListingDetailsItemsContainer } from '@echo/ui/components/listing/details/listing-details-items-container'
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
@@ -21,7 +26,7 @@ import { ListingDetailsTargetCollectionTitle } from '@echo/ui/components/listing
 import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
 import { SelectableNftCardsContainer } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards-container'
 import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
-import { NewOfferConfirmedModal } from '@echo/ui/components/offer/new/new-offer-confirmed-modal'
+import { CreateOfferConfirmedModal } from '@echo/ui/components/offer/create/confirmed/create-offer-confirmed-modal'
 import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { enable } from '@echo/ui/helpers/disableable/enable'
@@ -133,31 +138,22 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
   }
 
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-20', 'p-4')}>
-      <div
-        className={clsx(
-          'flex',
-          'flex-row',
-          !isCreator && 'justify-between',
-          isCreator && 'justify-end',
-          'items-center',
-          'pb-5'
-        )}
-      >
+    <ListingDetailsLayout>
+      <ListingDetailsUserStateLayout role={listing.role}>
         <HideIf condition={isCreator}>
           <ListingOfferUserDetails user={creator} />
         </HideIf>
         <ListingDetailsState expired={state === LISTING_STATE_EXPIRED} readOnly={readOnly} expiresAt={expiresAt} />
-      </div>
-      <div className={clsx('flex', 'flex-col', 'gap-6')}>
-        <div className={clsx('pb-16')}>
+      </ListingDetailsUserStateLayout>
+      <ListingDetailsItemsLayout>
+        <ListingDetailsItemsContainerLayout>
           <ListingDetailsItemsContainer items={items} />
-        </div>
+        </ListingDetailsItemsContainerLayout>
         <ItemsSeparator />
         <div className={clsx('flex', 'flex-col', 'gap-14')}>
-          <div className={clsx('flex', isCreator && 'justify-center', !isCreator && 'justify-end')}>
+          <ListingDetailsTargetsContainerLayout role={listing.role}>
             <ListingDetailsTargetContainer target={target} />
-          </div>
+          </ListingDetailsTargetsContainerLayout>
           <HideIf condition={!isCreator}>
             <OfferCardsContainer
               offers={map<Offer, OfferWithRole>(assoc('role', undefined), offers)}
@@ -176,18 +172,18 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
             </ListingDetailsUserNftsLayout>
           </HideIf>
         </div>
-      </div>
+      </ListingDetailsItemsLayout>
       <ListingDetailsButtonsContainer
         listing={updatedListing}
         isMutating={isMutating}
         hasSelectedEnoughNfts={hasSelectedEnoughNfts}
         actions={{ onCancel: (listing) => void triggerCancel({ listingId: listing.id }), onFill: onFill }}
       />
-      <NewOfferConfirmedModal
+      <CreateOfferConfirmedModal
         offer={createdOffer}
         open={!isNil(createdOffer)}
         onClose={() => setCreatedOffer(undefined)}
       />
-    </div>
+    </ListingDetailsLayout>
   )
 }

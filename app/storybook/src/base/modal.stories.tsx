@@ -37,9 +37,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Modal: Story = {
+export const Modal: StoryObj<typeof Component> = {
   render: ({ onClose }) => {
     // TODO We could add a modal manager to avoid this code here
     const [isOpen, setIsOpen] = useState(false)
@@ -65,8 +63,8 @@ export const Modal: Story = {
   }
 }
 
-export const CloseDisabled: Story = {
-  render: () => {
+export const CloseDisabled: StoryObj<typeof Component> = {
+  render: (_props) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
       <div className={'h-screen'}>
@@ -83,8 +81,8 @@ export const CloseDisabled: Story = {
   }
 }
 
-export const CloseAndBackDisabled: Story = {
-  render: () => {
+export const CloseAndBackDisabled: StoryObj<typeof Component> = {
+  render: (_props) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
       <div className={'h-screen'}>
@@ -107,7 +105,7 @@ export const CloseAndBackDisabled: Story = {
     )
   }
 }
-export const BackEnabled: Story = {
+export const BackEnabled: StoryObj<typeof Component> = {
   render: ({ backButton, onClose }) => {
     const [isOpen, setIsOpen] = useState(false)
     return (

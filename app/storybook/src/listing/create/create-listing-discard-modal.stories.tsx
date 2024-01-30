@@ -27,9 +27,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-type Story = StoryObj<typeof Component>
-
-export const Discard: Story = {
+export const Discard: StoryObj<typeof Component> = {
   args: {
     open: true
   }

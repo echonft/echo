@@ -48,9 +48,7 @@ const metadata: Meta<ComponentType> = {
 
 export default metadata
 
-type Story = StoryObj<ComponentType>
-
-export const Default: Story = {
+export const Default: StoryObj<ComponentType> = {
   render: ({ reduced, hideOwner, hideOpenSeaLink, scaleDisabled }) => {
     return (
       <Component

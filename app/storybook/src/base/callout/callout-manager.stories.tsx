@@ -8,39 +8,39 @@ import type { Alert } from '@echo/ui/types/alert'
 import { type Meta, type StoryObj } from '@storybook/react'
 import type { FunctionComponent } from 'react'
 
-const DEFAULT_SEVERITY = CALLOUT_SEVERITY_ERROR
-const DEFAULT_VARIANT = CALLOUT_VARIANT_SOLID
-const DEFAULT_PERMANENT = false
-const DEFAULT_MESSAGE = 'This is an alert!'
 type ComponentType = FunctionComponent<Alert>
 const metadata: Meta<ComponentType> = {
   title: 'Base/Callout/Managed',
+  args: {
+    severity: CALLOUT_SEVERITY_ERROR,
+    variant: CALLOUT_VARIANT_SOLID,
+    message: 'This is an alert!',
+    permanent: false
+  },
   argTypes: {
     severity: {
-      defaultValue: DEFAULT_SEVERITY,
+      defaultValue: CALLOUT_SEVERITY_ERROR,
       options: CALLOUT_SEVERITIES,
       control: { type: 'radio' }
     },
     variant: {
-      defaultValue: DEFAULT_VARIANT,
+      defaultValue: CALLOUT_VARIANT_SOLID,
       options: CALLOUT_VARIANTS,
       control: { type: 'radio' }
     },
     permanent: {
-      defaultValue: DEFAULT_PERMANENT,
+      defaultValue: false,
       control: { type: 'boolean' }
     },
     message: {
-      defaultValue: DEFAULT_MESSAGE
+      defaultValue: 'This is an alert!'
     }
   }
 }
 
 export default metadata
 
-type Story = StoryObj<ComponentType>
-
-export const Managed: Story = {
+export const Managed: StoryObj<ComponentType> = {
   render: (alert) => {
     const { show } = useAlertStore()
     return (
@@ -51,11 +51,5 @@ export const Managed: Story = {
         <CalloutManager />
       </>
     )
-  },
-  args: {
-    severity: DEFAULT_SEVERITY,
-    variant: DEFAULT_VARIANT,
-    message: DEFAULT_MESSAGE,
-    permanent: DEFAULT_PERMANENT
   }
 }

@@ -1,4 +1,4 @@
-import { linkProvider } from '@echo/api/services/routing/link-provider'
+import { linkProvider } from '@echo/api/routing/link-provider'
 import { buildListingLinkButton } from '@echo/bot/listing/build-listing-link-button'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { beforeAll, describe, expect, it } from '@jest/globals'
