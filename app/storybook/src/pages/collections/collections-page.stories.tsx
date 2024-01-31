@@ -2,14 +2,27 @@
 
 import { type Collection } from '@echo/model/types/collection'
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
-import { RankedCollections as Component } from '@echo/ui/pages/home/collection/ranked/ranked-collections'
+import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
+import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
+import { PAGE_LAYOUT_BG_COLLECTIONS } from '@echo/ui/constants/page-layout-background'
+import { CollectionsPage as Component } from '@echo/ui/pages/collections/collections-page'
+import { CollectionsPageSkeleton } from '@echo/ui/pages/collections/skeleton/collections-page-skeleton'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { addIndex, assoc, concat, map, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Pages/Home/Components/Ranked Collections',
+  title: 'Pages/Collections',
   component: Component,
+  decorators: [
+    (Story) => (
+      <PageLayout background={PAGE_LAYOUT_BG_COLLECTIONS}>
+        <SectionLayout>
+          <Story />
+        </SectionLayout>
+      </PageLayout>
+    )
+  ],
   parameters: {
     controls: {
       exclude: ['collections']
@@ -19,7 +32,7 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const RankedCollections: StoryObj<typeof Component> = {
+export const Page: StoryObj<typeof Component> = {
   args: {
     collections: pipe<[], Collection[], Collection[], Collection[], Collection[], CollectionWithRank[]>(
       getAllCollectionMocks,
@@ -29,4 +42,9 @@ export const RankedCollections: StoryObj<typeof Component> = {
       addIndex(map)((collection, index) => pipe(assoc('swapsCount', 50 - index), assoc('rank', index + 1))(collection))
     )()
   }
+}
+
+export const Loading: StoryObj<typeof Component> = {
+  args: {},
+  render: () => <CollectionsPageSkeleton />
 }

@@ -18,24 +18,15 @@
 }
 
 @layer components {
-  .options {
-    @apply absolute z-30 mt-1 flex w-full flex-col gap-2 overflow-y-auto rounded-lg bg-slate-900 p-2.5;
-  }
-  .option {
-    @apply cursor-pointer rounded-lg bg-white/[0.05] py-2 px-3.5 text-sm font-bold text-white hover:bg-white/[0.24] focus:ring-1 focus:ring-white/[0.32];
-  }
   .tooltip {
     @apply !bg-dark-500 !text-white !rounded-lg border border-solid border-white !text-label-xs font-inter z-50;
   }
   .pill {
-    @apply w-max h-max py-3 px-6 rounded-lg enabled:bg-transparent enabled:cursor-pointer enabled:hover:bg-white/[0.05] disabled:bg-white/[0.05] disabled:cursor-default
+    @apply w-max h-max py-3 px-6 rounded-lg enabled:bg-transparent enabled:cursor-pointer enabled:hover:bg-white/[0.08] disabled:bg-white/[0.08] disabled:cursor-default
   }
 }
 
 @layer utilities {
-  .fill-opaque {
-    fill-opacity: 1;
-  }
   .prose-display-lg-bold {
     @apply text-display-lg-bold font-inter;
   }

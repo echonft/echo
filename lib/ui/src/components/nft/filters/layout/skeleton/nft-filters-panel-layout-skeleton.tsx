@@ -13,7 +13,7 @@ export const NftFiltersPanelLayoutSkeleton: FunctionComponent<PropsWithChildren<
         'flex-col',
         'p-2',
         'rounded-2xl',
-        'bg-white/[0.09]',
+        'bg-white/[0.08]',
         'w-52',
         'h-[15rem]',
         'gap-2',

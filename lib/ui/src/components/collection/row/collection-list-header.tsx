@@ -2,8 +2,8 @@ import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
-export const RankedCollectionsHeader: FunctionComponent = () => {
-  const t = useTranslations('home.rankedCollections')
+export const CollectionListHeader: FunctionComponent = () => {
+  const t = useTranslations('collection.list.header')
   return (
     <div className={clsx('flex', 'flex-row', 'px-5', 'pb-7.5', 'grow', 'justify-between')}>
       <div className={clsx('flex', 'flex-row', 'gap-9', 'w-max')}>

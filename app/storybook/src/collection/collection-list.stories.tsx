@@ -2,12 +2,13 @@
 
 import { type Collection } from '@echo/model/types/collection'
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
-import { TopCollections as Component } from '@echo/ui/pages/home/collection/top/top-collections'
+import { CollectionList as Component } from '@echo/ui/components/collection/row/collection-list'
+import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { addIndex, assoc, concat, map, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Pages/Home/Components/Top Collections',
+  title: 'Collection/List',
   component: Component,
   parameters: {
     controls: {
@@ -18,14 +19,14 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const TopCollections: StoryObj<typeof Component> = {
+export const List: StoryObj<typeof Component> = {
   args: {
-    collections: pipe<[], Collection[], Collection[], Collection[], Collection[], Collection[]>(
+    collections: pipe<[], Collection[], Collection[], Collection[], Collection[], CollectionWithRank[]>(
       getAllCollectionMocks,
       concat(getAllCollectionMocks()),
       concat(getAllCollectionMocks()),
       concat(getAllCollectionMocks()),
-      addIndex(map)((collection, index) => assoc('swapsCount', index, collection))
+      addIndex(map)((collection, index) => pipe(assoc('swapsCount', 50 - index), assoc('rank', index + 1))(collection))
     )()
   }
 }
