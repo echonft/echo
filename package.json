@@ -47,9 +47,9 @@
     "tsc:ci": "turbo run tsc:ci",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache",
     "turbo:update": "pnpm dlx @turbo/codemod update",
-    "vercel": "turbo run //#vercel:dev dev --filter=@echo/ui",
-    "vercel:dev": "dotenvx run --env-file=.env.dev -- vercel dev",
-    "vercel:testnet": "dotenvx run --env-file=.env.testnet -- vercel dev"
+    "vercel": "dotenvx run --env-file=.env.dev -- turbo run //#vercel:dev dev --filter=@echo/ui",
+    "vercel:dev": "vercel dev",
+    "vercel:testnet": "dotenvx run --env-file=.env.testnet -- turbo run //#vercel:dev dev --filter=@echo/ui"
   },
   "devDependencies": {
     "@babel/core": "7.23.7",

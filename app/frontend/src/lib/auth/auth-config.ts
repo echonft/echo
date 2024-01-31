@@ -55,10 +55,10 @@ export const authConfig: NextAuthConfig = {
       await fetch(apiUrlProvider.admin.updateUser.getUrl(), {
         headers: {
           Authorization: `Bearer ${process.env.ADMIN_TOKEN}`,
-          body: request,
           'Content-Type': 'application/json'
         },
-        method: 'POST'
+        method: 'POST',
+        body: request
       })
     }
   },
