@@ -103,7 +103,7 @@ export const messages = {
   home: {
     discord: {
       btn: 'Join our discord',
-      title: 'Join our community and start\\nswapping now'
+      title: 'Join our community and start\nswapping now'
     },
     rankedCollections: {
       btn: 'Explore all'
@@ -112,7 +112,7 @@ export const messages = {
       title: 'Recent swaps'
     },
     subtitle: 'Revolutionizing NFT Swapping and Communication!',
-    title: 'OTC trade your NFTs\\nin the safest way',
+    title: 'OTC trade your NFTs\nin the safest way',
     topCollections: {
       title: 'Top collections'
     }
