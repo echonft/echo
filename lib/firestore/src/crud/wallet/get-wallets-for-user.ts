@@ -8,7 +8,7 @@ import { isNil, pipe } from 'ramda'
 export async function getWalletsForUser(username: string): Promise<WalletDocumentData[]> {
   const user = await findUserByUsername(username)
   if (isNil(user)) {
-    throw Error(`user with username ${username} not found`)
+    return []
   }
   return pipe(getWalletsCollectionReference, queryWhere<WalletDocumentData>('userId', '==', user.id), getQueryData)()
 }

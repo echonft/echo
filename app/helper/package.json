@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "tsc && pnpm run sentry:sourcemaps",
+    "build": "tsc",
     "clean": "rm -rf dist",
     "dev": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"ts-node --project tsconfig.json src/index.ts\"",
     "lint": "eslint --fix -c .eslintrc.cjs --ext .ts .",
@@ -15,6 +15,7 @@
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
     "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c  .",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org echo-nft --project helper dist/ && sentry-cli sourcemaps upload --org echo-nft --project helper dist/",
     "start": "export NODE_ENV=production; ts-node --project tsconfig.json src/index.ts",
     "test": "jest --passWithNoTests",
     "test:ci": "jest --ci --no-cache --passWithNoTests",
@@ -22,7 +23,6 @@
     "tsc": "tsc --noEmit",
     "tsc:ci": "pnpm run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org echo-nft --project helper ./dist && sentry-cli sourcemaps upload --org echo-nft --project helper ./dist",
     "update-db": "export NODE_ENV=production; ts-node --project tsconfig.json src/update-db-script.ts"
   },
   "dependencies": {
