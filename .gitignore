@@ -12,7 +12,8 @@ coverage
 
 # local env files
 .env
-.env*.local
+.env.dev
+.env.testnet
 
 # typescript
 *.tsbuildinfo

@@ -21,16 +21,16 @@
     ]
   },
   "scripts": {
-    "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot",
+    "bot:dev": "dotenvx run --env-file=.env.dev -- turbo run dev --filter=@echo/bot",
     "check": "turbo run tsc --force && turbo run lint --force && turbo run test --force",
     "check:quick": "turbo run tsc --force && turbo run lint --force && turbo run test --filter=!@echo/firestore --force",
     "clean": "turbo run clean",
-    "db:add-collection:dev": "env-cmd -f .env turbo run db:add-collection:dev --filter=@echo/firestore",
-    "db:fix-addresses:dev": "env-cmd -f .env turbo run db:fix-addresses:dev --filter=@echo/firestore",
-    "db:reset:dev": "env-cmd -f .env turbo run db:reset:dev --filter=@echo/firestore",
+    "db:add-collection:dev": "dotenvx run --env-file=.env.dev -- turbo run db:add-collection:dev --filter=@echo/firestore",
+    "db:fix-addresses:dev": "dotenvx run --env-file=.env.dev -- turbo run db:fix-addresses:dev --filter=@echo/firestore",
+    "db:reset:dev": "dotenvx run --env-file=.env.dev -- turbo run db:reset:dev --filter=@echo/firestore",
     "db:reset:test": "turbo run db:reset:test --filter=@echo/firestore",
-    "helper:dev": "env-cmd -f .env turbo run dev --filter=@echo/helper",
-    "helper:update-db": "env-cmd -f .env turbo run update-db --filter=@echo/helper",
+    "helper:dev": "dotenvx run --env-file=.env.dev -- turbo run dev --filter=@echo/helper",
+    "helper:update-db": "dotenvx run --env-file=.env.dev -- turbo run update-db --filter=@echo/helper",
     "lint": "turbo run lint",
     "lint:ci": "turbo run lint:ci",
     "lint:clean-cache": "rm -f .eslintcache && turbo run lint:clean-cache",
@@ -48,20 +48,21 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache",
     "turbo:update": "pnpm dlx @turbo/codemod update",
     "vercel": "turbo run //#vercel:dev dev --filter=@echo/ui",
-    "vercel:dev": "vercel dev"
+    "vercel:dev": "dotenvx run --env-file=.env.dev -- vercel dev",
+    "vercel:testnet": "dotenvx run --env-file=.env.testnet -- vercel dev"
   },
   "devDependencies": {
     "@babel/core": "7.23.7",
     "@babel/preset-env": "7.23.8",
     "@babel/preset-react": "7.23.3",
     "@babel/preset-typescript": "7.23.3",
+    "@dotenvx/dotenvx": "0.14.1",
     "@next/eslint-plugin-next": "14.0.4",
     "@sentry/cli": "2.27.0",
     "@types/node": "20.11.0",
     "@typescript-eslint/eslint-plugin": "6.18.1",
     "@typescript-eslint/parser": "6.18.1",
     "babel-jest": "29.7.0",
-    "env-cmd": "10.1.0",
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
     "eslint-config-prettier": "9.1.0",
@@ -77,7 +78,7 @@
     "prettier": "3.2.1",
     "turbo": "1.11.3",
     "typescript": "5.3.3",
-    "vercel": "33.1.0"
+    "vercel": "33.4.1"
   },
   "pnpm": {
     "overrides": {
