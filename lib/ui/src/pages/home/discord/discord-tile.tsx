@@ -14,7 +14,7 @@ export const DiscordTile: FunctionComponent = () => {
         'flex',
         'flex-row',
         'rounded-2xl',
-        'bg-white/[0.05]',
+        'bg-white/[0.08]',
         'py-14',
         'px-7',
         'justify-between',

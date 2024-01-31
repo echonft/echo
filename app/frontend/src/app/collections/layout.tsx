@@ -4,14 +4,14 @@ import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-para
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { PAGE_LAYOUT_BG_HOME } from '@echo/ui/constants/page-layout-background'
+import { PAGE_LAYOUT_BG_COLLECTIONS } from '@echo/ui/constants/page-layout-background'
 import { pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<NextLayoutParams>
 function render({ user, children }: Params) {
   return (
-    <PageLayout user={user} background={PAGE_LAYOUT_BG_HOME}>
+    <PageLayout user={user} background={PAGE_LAYOUT_BG_COLLECTIONS}>
       <SectionLayout>{children}</SectionLayout>
     </PageLayout>
   )

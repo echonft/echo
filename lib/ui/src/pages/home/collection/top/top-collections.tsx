@@ -4,7 +4,7 @@ import { SIZE_MD } from '@echo/ui/constants/size'
 import { TopCollectionsLayout } from '@echo/ui/pages/home/collection/top/layout/top-collections-layout'
 import { HomeSectionLayout } from '@echo/ui/pages/home/layout/home-section-layout'
 import { useTranslations } from 'next-intl'
-import { map } from 'ramda'
+import { isEmpty, map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -13,6 +13,9 @@ interface Props {
 
 export const TopCollections: FunctionComponent<Props> = ({ collections }) => {
   const t = useTranslations('home.topCollections')
+  if (isEmpty(collections)) {
+    return null
+  }
   return (
     <HomeSectionLayout title={t('title')}>
       <TopCollectionsLayout>

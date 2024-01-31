@@ -6,5 +6,5 @@ interface Props {
 }
 
 export const CollectionsPageTitle: FunctionComponent<Props> = ({ title }) => (
-  <span className={clsx('prose-header-lg', 'text-white')}>{title}</span>
+  <h2 className={clsx('prose-header-lg', 'text-white', 'w-full', 'h-max')}>{title}</h2>
 )

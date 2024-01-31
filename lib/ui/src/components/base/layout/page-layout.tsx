@@ -8,6 +8,7 @@ import { HeaderSwitch } from '@echo/ui/components/base/header/header-switch'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
 import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
 import {
+  PAGE_LAYOUT_BG_COLLECTIONS,
   PAGE_LAYOUT_BG_DEFAULT,
   PAGE_LAYOUT_BG_GREEN_GRADIENT,
   PAGE_LAYOUT_BG_HOME,
@@ -44,6 +45,7 @@ export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
         'overflow-y-auto',
         background === PAGE_LAYOUT_BG_DEFAULT && 'bg-dark-500',
         background === PAGE_LAYOUT_BG_HOME && ['bg-home', 'bg-[length:100%_41.4375rem]', 'bg-no-repeat'],
+        background === PAGE_LAYOUT_BG_COLLECTIONS && ['bg-home', 'bg-no-repeat'],
         background === PAGE_LAYOUT_BG_GREEN_GRADIENT && ['bg-gradientGreen', 'bg-no-repeat'],
         background === PAGE_LAYOUT_BG_YELLOW_GRADIENT && ['bg-gradientYellow', 'bg-no-repeat'],
         background === PAGE_LAYOUT_BG_RED_GRADIENT && ['bg-gradientRed', 'bg-no-repeat']

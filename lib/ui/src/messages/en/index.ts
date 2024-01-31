@@ -52,8 +52,14 @@ export const messages = {
       }
     },
     list: {
-      title: 'Collections Stats',
-      empty: 'No swaps has been done yet'
+      header: {
+        collection: 'Collection',
+        rank: 'Rank',
+        swapsCount: '# Swaps'
+      }
+    },
+    page: {
+      title: 'Collections Stats'
     },
     navigation: {
       items: 'Items',
@@ -100,10 +106,7 @@ export const messages = {
       title: 'Join our community and start\\nswapping now'
     },
     rankedCollections: {
-      btn: 'Explore all',
-      collection: 'Collection',
-      rank: 'Rank',
-      swapsCount: '# Swaps'
+      btn: 'Explore all'
     },
     recentSwaps: {
       title: 'Recent swaps'

@@ -4,7 +4,7 @@ import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { andThen, ascend, descend, map, pipe, prop, sortWith } from 'ramda'
 
-export function getCollectionsWithSwapsCount(limit: number) {
+export function getCollectionsWithSwapsCount(limit?: number) {
   return pipe(
     getCollectionSwapsCounts,
     andThen(

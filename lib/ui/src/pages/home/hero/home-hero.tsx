@@ -3,14 +3,18 @@ import { CollectionTile } from '@echo/ui/components/collection/tile/collection-t
 import { SIZE_LG } from '@echo/ui/constants/size'
 import { HomeHeroLayout } from '@echo/ui/pages/home/hero/home-hero-layout'
 import { useTranslations } from 'next-intl'
+import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  collection: Collection
+  collection: Collection | undefined
 }
 
 export const HomeHero: FunctionComponent<Props> = ({ collection }) => {
   const t = useTranslations('home')
+  if (isNil(collection)) {
+    return null
+  }
 
   const { slug, profilePictureUrl, name, swapsCount } = collection
   return (
