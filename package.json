@@ -22,7 +22,6 @@
   },
   "scripts": {
     "bot:dev": "env-cmd -f .env turbo run dev --filter=@echo/bot",
-    "bot:start": "turbo run start --filter=@echo/bot",
     "check": "turbo run tsc --force && turbo run lint --force && turbo run test --force",
     "check:quick": "turbo run tsc --force && turbo run lint --force && turbo run test --filter=!@echo/firestore --force",
     "clean": "turbo run clean",
@@ -30,10 +29,7 @@
     "db:fix-addresses:dev": "env-cmd -f .env turbo run db:fix-addresses:dev --filter=@echo/firestore",
     "db:reset:dev": "env-cmd -f .env turbo run db:reset:dev --filter=@echo/firestore",
     "db:reset:test": "turbo run db:reset:test --filter=@echo/firestore",
-    "frontend:build": "turbo run build --filter=@echo/frontend",
-    "frontend:clean": "turbo run clean --filter=@echo/frontend",
     "helper:dev": "env-cmd -f .env turbo run dev --filter=@echo/helper",
-    "helper:start": "turbo run start --filter=@echo/helper",
     "helper:update-db": "env-cmd -f .env turbo run update-db --filter=@echo/helper",
     "lint": "turbo run lint",
     "lint:ci": "turbo run lint:ci",
@@ -43,7 +39,6 @@
     "modules:update-minor": "ncu -u --deep --target=minor",
     "prepare": "husky install",
     "prettier": "turbo run prettier",
-    "storybook:build": "turbo run build --filter=@echo/storybook",
     "storybook:dev": "turbo run dev --filter=@echo/storybook --filter=@echo/ui",
     "test": "turbo run test",
     "test:ci": "turbo run test:ci",
@@ -61,6 +56,7 @@
     "@babel/preset-react": "7.23.3",
     "@babel/preset-typescript": "7.23.3",
     "@next/eslint-plugin-next": "14.0.4",
+    "@sentry/cli": "2.27.0",
     "@types/node": "20.11.0",
     "@typescript-eslint/eslint-plugin": "6.18.1",
     "@typescript-eslint/parser": "6.18.1",
@@ -88,7 +84,7 @@
       "@auth/core": "0.20.0"
     }
   },
-  "packageManager": "pnpm@8.15.0",
+  "packageManager": "pnpm@8.15.1",
   "nextBundleAnalysis": {
     "budget": 358400,
     "budgetPercentIncreaseRed": 20,
