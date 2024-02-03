@@ -1,20 +1,23 @@
 'use client'
+import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { ConnectWalletButtonLayout } from '@echo/ui/components/wallet/connect-wallet-button-layout'
 import { WalletConnectedTag } from '@echo/ui/components/wallet/wallet-connected-tag'
 import { isStorybook } from '@echo/ui/helpers/is-storybook'
+import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useConnectWallet } from '@echo/ui/hooks/use-connect-wallet'
+import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { WalletButtonRenderFn } from '@echo/ui/types/wallet-button-render-fn'
 import type { WalletButtonRenderProps } from '@echo/ui/types/wallet-button-render-props'
-import type { WalletLinkedStatus } from '@echo/ui/types/wallet-linked-status'
-import type { AccountStatus } from '@echo/web3/types/account-status'
+import type { AccountResult } from '@echo/web3/types/account-result'
 import { ConnectKitButton } from 'connectkit'
 import { isNil } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
+import useSWR from 'swr'
 
 interface RenderWalletButtonArgs {
-  accountStatus: AccountStatus
-  walletLinkedStatus: WalletLinkedStatus
+  account: AccountResult
+  walletLinked: boolean
   renderConnect: WalletButtonRenderFn
 }
 
@@ -34,11 +37,11 @@ function renderWalletConnecting(_args: WalletButtonRenderProps) {
 }
 
 export function renderWalletButton(args: RenderWalletButtonArgs): WalletButtonRenderFn {
-  const { accountStatus, renderConnect, walletLinkedStatus } = args
-  if (walletLinkedStatus === 'success') {
+  const { account, renderConnect, walletLinked } = args
+  if (walletLinked && !isNil(account.address) && !isNil(account.chain)) {
     return renderWalletConnected
   }
-  if (walletLinkedStatus === 'error' || accountStatus === 'disconnected') {
+  if (account.status === 'disconnected') {
     return renderConnect
   }
   return renderWalletConnecting
@@ -47,20 +50,33 @@ export function renderWalletButton(args: RenderWalletButtonArgs): WalletButtonRe
 const WalletButton: FunctionComponent<{
   renderConnect: WalletButtonRenderFn
 }> = ({ renderConnect }) => {
-  const { account, walletLinkedStatus } = useConnectWallet()
+  const { getWallets } = useDependencies()
+  const { data, error } = useSWR<WalletsResponse, Error, string>(
+    SWRKeys.profile.wallet.get,
+    (_key: string) => {
+      return getWallets()
+    },
+    {
+      shouldRetryOnError: true,
+      errorRetryCount: 3,
+      errorRetryInterval: 500,
+      revalidateOnMount: true
+    }
+  )
+  const { account, walletLinked } = useConnectWallet(!isNil(error) ? [] : data?.wallets)
   if (isStorybook()) {
     return (
       <>
         {renderWalletButton({
-          accountStatus: account.status,
+          account,
           renderConnect,
-          walletLinkedStatus
+          walletLinked
         })({
           chain: account.chain,
           address: account.address,
           unsupported: false,
           isConnected: account.status === 'connected',
-          isConnecting: account.status === 'connecting' || (account.status === 'connected' && isNil(walletLinkedStatus))
+          isConnecting: account.status === 'connecting' || (account.status === 'connected' && !walletLinked)
         })}
       </>
     )
@@ -68,8 +84,8 @@ const WalletButton: FunctionComponent<{
   return (
     <ConnectKitButton.Custom>
       {renderWalletButton({
-        accountStatus: account.status,
-        walletLinkedStatus,
+        account,
+        walletLinked,
         renderConnect
       })}
     </ConnectKitButton.Custom>

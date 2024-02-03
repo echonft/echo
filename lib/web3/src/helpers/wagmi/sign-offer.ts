@@ -1,5 +1,5 @@
+import { wagmiConfig } from '@echo/web3/constants/wagmi-config'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
-import { wagmiConfig } from '@echo/web3/helpers/wagmi/wagmi-config'
 import { mapOfferToOfferSignature } from '@echo/web3/mappers/map-offer-to-offer-signature'
 import type { SignOfferArgs } from '@echo/web3/types/sign-offer-args'
 import { partial, pipe } from 'ramda'

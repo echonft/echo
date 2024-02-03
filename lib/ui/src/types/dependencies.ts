@@ -31,6 +31,7 @@ export interface Dependencies {
   cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
   createListing: Fetcher<ListingResponse, CreateListingRequest>
   createOffer: Fetcher<OfferResponse, CreateOfferRequest>
+  disconnectWallet: () => Promise<void>
   executeSwap: Fetcher<HexString, ExecuteSwapArgs>
   getAccount: AccountProvider
   getCollections: CollectionProvider

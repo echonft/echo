@@ -1,4 +1,4 @@
-import { wagmiConfig } from '@echo/web3/helpers/wagmi/wagmi-config'
+import { wagmiConfig } from '@echo/web3/constants/wagmi-config'
 import { mapGetAccountReturnToAccountResult } from '@echo/web3/mappers/map-get-account-return-to-account-result'
 import type { AccountProviderResult } from '@echo/web3/types/account-provider-result'
 import type { AccountResult } from '@echo/web3/types/account-result'

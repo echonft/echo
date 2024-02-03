@@ -6,6 +6,7 @@ import { cancelListing } from '@echo/storybook/mocks/cancel-listing'
 import { cancelOffer } from '@echo/storybook/mocks/cancel-offer'
 import { createListing } from '@echo/storybook/mocks/create-listing'
 import { createOffer } from '@echo/storybook/mocks/create-offer'
+import { disconnectWallet } from '@echo/storybook/mocks/disconnect-wallet'
 import { executeSwap } from '@echo/storybook/mocks/execute-swap'
 import { getAccount } from '@echo/storybook/mocks/get-account'
 import { getCollections } from '@echo/storybook/mocks/get-collections'
@@ -43,6 +44,7 @@ const preview: Preview = {
               cancelOffer,
               createListing,
               createOffer,
+              disconnectWallet,
               executeSwap,
               getAccount,
               getCollections,

@@ -1,5 +1,5 @@
+import { wagmiConfig } from '@echo/web3/constants/wagmi-config'
 import { getChain } from '@echo/web3/helpers/get-chain'
-import { wagmiConfig } from '@echo/web3/helpers/wagmi/wagmi-config'
 import { switchChain as wagmiSwitchChain } from 'wagmi/actions'
 
 export async function switchChain() {

@@ -1,5 +1,5 @@
-import { getNonceSiweMessageParams } from '@echo/web3/helpers/wagmi/fetchers/get-nonce-siwe-message-params'
-import { wagmiConfig } from '@echo/web3/helpers/wagmi/wagmi-config'
+import { wagmiConfig } from '@echo/web3/constants/wagmi-config'
+import { getNonceSiweMessageParams } from '@echo/web3/helpers/wagmi/get-nonce-siwe-message-params'
 import type { SignNonceArgs } from '@echo/web3/types/sign-nonce-args'
 import type { SignNonceResult } from '@echo/web3/types/sign-nonce-result'
 import { SiweMessage } from 'siwe'

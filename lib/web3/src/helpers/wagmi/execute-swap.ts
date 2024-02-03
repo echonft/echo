@@ -1,7 +1,7 @@
 import { ECHO_ABI } from '@echo/web3/constants/echo-abi'
 import { echoFunctionNames } from '@echo/web3/constants/echo-function-names'
+import { wagmiConfig } from '@echo/web3/constants/wagmi-config'
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
-import { wagmiConfig } from '@echo/web3/helpers/wagmi/wagmi-config'
 import { mapOfferToOfferSignature } from '@echo/web3/mappers/map-offer-to-offer-signature'
 import type { ExecuteSwapArgs } from '@echo/web3/types/execute-swap-args'
 import { hexToSignature } from 'viem'

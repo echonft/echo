@@ -52,7 +52,7 @@ export const authConfig: NextAuthConfig = {
         pick(['discord']),
         JSON.stringify
       )(event)
-      // TODO replace with Cloud Function
+      // TODO replace with API call to Firestore
       await fetch(apiUrlProvider.admin.updateUser.getUrl(), {
         headers: {
           Authorization: `Bearer ${process.env.ADMIN_TOKEN}`,

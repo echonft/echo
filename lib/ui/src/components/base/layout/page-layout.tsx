@@ -26,13 +26,14 @@ import {
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import type { PageLayoutBackground } from '@echo/ui/types/page-layout-background'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { approveErc721Contract } from '@echo/web3/helpers/wagmi/fetchers/approve-erc721-contract'
-import { executeSwap } from '@echo/web3/helpers/wagmi/fetchers/execute-swap'
-import { getErc721ContractApproval } from '@echo/web3/helpers/wagmi/fetchers/get-erc721-contract-approval'
-import { signNonce } from '@echo/web3/helpers/wagmi/fetchers/sign-nonce'
-import { signOffer } from '@echo/web3/helpers/wagmi/fetchers/sign-offer'
-import { switchChain } from '@echo/web3/helpers/wagmi/fetchers/switch-chain'
-import { getAccount } from '@echo/web3/helpers/wagmi/providers/get-account'
+import { approveErc721Contract } from '@echo/web3/helpers/wagmi/approve-erc721-contract'
+import { disconnectWallet } from '@echo/web3/helpers/wagmi/disconnect-wallet'
+import { executeSwap } from '@echo/web3/helpers/wagmi/execute-swap'
+import { getAccount } from '@echo/web3/helpers/wagmi/get-account'
+import { getErc721ContractApproval } from '@echo/web3/helpers/wagmi/get-erc721-contract-approval'
+import { signNonce } from '@echo/web3/helpers/wagmi/sign-nonce'
+import { signOffer } from '@echo/web3/helpers/wagmi/sign-offer'
+import { switchChain } from '@echo/web3/helpers/wagmi/switch-chain'
 import { clsx } from 'clsx'
 import { signIn, signOut } from 'next-auth/react'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
@@ -61,6 +62,7 @@ export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
         cancelOffer,
         createListing,
         createOffer,
+        disconnectWallet,
         executeSwap,
         getAccount,
         getCollections,
@@ -69,7 +71,9 @@ export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
         getOfferSignature,
         getWallets,
         rejectOffer,
-        signIn,
+        signIn: function () {
+          return signIn('discord')
+        },
         signNonce,
         signOffer,
         signOut,

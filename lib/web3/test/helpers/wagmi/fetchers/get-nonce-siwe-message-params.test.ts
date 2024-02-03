@@ -1,5 +1,5 @@
 import { formatAddress } from '@echo/web3/helpers/format-address'
-import { getNonceSiweMessageParams } from '@echo/web3/helpers/wagmi/fetchers/get-nonce-siwe-message-params'
+import { getNonceSiweMessageParams } from '@echo/web3/helpers/wagmi/get-nonce-siwe-message-params'
 import type { SignNonceArgs } from '@echo/web3/types/sign-nonce-args'
 import { describe, expect, test } from '@jest/globals'
 import { dissoc, toLower } from 'ramda'
