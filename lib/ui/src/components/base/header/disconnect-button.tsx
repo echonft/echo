@@ -1,43 +1,27 @@
 'use client'
 import { isPathSecure } from '@echo/api/routing/is-path-secure'
 import { linkProvider } from '@echo/api/routing/link-provider'
-import { type AuthUser } from '@echo/model/types/auth-user'
+import type { HeaderLoggedInProps } from '@echo/ui/components/base/header/header-logged-in'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
-import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { UserTagPictureButton } from '@echo/ui/components/user/tag/user-tag-picture-button'
-import { WalletButton, type WalletButtonProps } from '@echo/ui/components/wallet/wallet-button'
+import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
+import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { Menu, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { usePathname } from 'next/navigation'
-import { type SignOutParams } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
 
-export type DisconnectButtonProps = WalletButtonProps & {
-  provider: {
-    signOut: (options: SignOutParams<true> | undefined) => Promise<undefined>
-  }
-  user: AuthUser
-  onSignOut?: VoidFunction
-}
-
-export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({
-  fetcher,
-  provider,
-  renderConnect,
-  user,
-  onSignOut
-}) => {
+export const DisconnectButton: FunctionComponent<HeaderLoggedInProps> = ({ user, onSignOut, onWalletButtonClick }) => {
   const t = useTranslations('layout.header.button')
+  const { signOut } = useDependencies()
   const [loading, setLoading] = useState(false)
   const pathname = usePathname()
   const callbackUrl = isPathSecure(pathname) ? '/' : pathname
   return (
     <div className={clsx('flex', 'flex-row', 'justify-center', 'gap-4', 'h-max', 'w-max')}>
-      <Web3Provider>
-        <WalletButton fetcher={fetcher} provider={provider} renderConnect={renderConnect} user={user} />
-      </Web3Provider>
+      <ConnectWalletButton onClick={onWalletButtonClick} />
       <Menu as="div" className={clsx('relative', 'inline-block')}>
         <Menu.Button className={clsx('group', 'outline-none')}>
           <UserTagPictureButton user={user} />
@@ -95,8 +79,7 @@ export const DisconnectButton: FunctionComponent<DisconnectButtonProps> = ({
                   onClick={(event) => {
                     event.preventDefault()
                     setLoading(true)
-                    provider
-                      .signOut({ callbackUrl })
+                    signOut({ callbackUrl })
                       .then(() => {
                         onSignOut?.()
                       })

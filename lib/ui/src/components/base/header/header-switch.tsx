@@ -1,14 +1,14 @@
 import type { AuthUser } from '@echo/model/types/auth-user'
-import type { DisconnectButtonProps } from '@echo/ui/components/base/header/disconnect-button'
-import { HeaderLoggedIn } from '@echo/ui/components/base/header/header-logged-in'
+import { HeaderLoggedIn, type HeaderLoggedInProps } from '@echo/ui/components/base/header/header-logged-in'
 import { HeaderLoggedOut } from '@echo/ui/components/base/header/header-logged-out'
 import { HeaderLogoOnly } from '@echo/ui/components/base/header/header-logo-only'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-interface Props extends Omit<DisconnectButtonProps, 'user'> {
+interface Props extends Omit<HeaderLoggedInProps, 'user'> {
   logoOnly: boolean
-  user?: AuthUser
+  user?: Nullable<AuthUser>
 }
 
 export const HeaderSwitch: FunctionComponent<Props> = ({ logoOnly, user, ...rest }) => {

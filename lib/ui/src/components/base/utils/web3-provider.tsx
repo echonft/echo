@@ -1,13 +1,17 @@
 'use client'
-import { wagmiConfig } from '@echo/ui/constants/wagmi-config'
+import { wagmiConfig } from '@echo/web3/helpers/wagmi/wagmi-config'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ConnectKitProvider } from 'connectkit'
-import { type FunctionComponent, type PropsWithChildren } from 'react'
-import { WagmiConfig } from 'wagmi'
+import { type FunctionComponent, type PropsWithChildren, useMemo } from 'react'
+import { WagmiProvider } from 'wagmi'
 
 export const Web3Provider: FunctionComponent<PropsWithChildren> = ({ children }) => {
+  const queryClient = useMemo(() => new QueryClient(), [])
   return (
-    <WagmiConfig config={wagmiConfig}>
-      <ConnectKitProvider>{children}</ConnectKitProvider>
-    </WagmiConfig>
+    <WagmiProvider config={wagmiConfig} reconnectOnMount={true}>
+      <QueryClientProvider client={queryClient}>
+        <ConnectKitProvider>{children}</ConnectKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   )
 }

@@ -1,8 +1,9 @@
 import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
+import { wagmiConfig } from '@echo/web3/helpers/wagmi/wagmi-config'
 import { mapOfferToOfferSignature } from '@echo/web3/mappers/map-offer-to-offer-signature'
 import type { SignOfferArgs } from '@echo/web3/types/sign-offer-args'
-import { signTypedData } from '@wagmi/core'
-import { pipe } from 'ramda'
+import { partial, pipe } from 'ramda'
+import { signTypedData } from 'wagmi/actions'
 
 function getSignatureConfigForOffer(args: SignOfferArgs) {
   const { chainId } = args
@@ -31,5 +32,5 @@ function getSignatureConfigForOffer(args: SignOfferArgs) {
 }
 
 export async function signOffer(args: SignOfferArgs) {
-  return await pipe(getSignatureConfigForOffer, signTypedData)(args)
+  return await pipe(getSignatureConfigForOffer, partial(signTypedData, [wagmiConfig]))(args)
 }

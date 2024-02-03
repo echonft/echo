@@ -15,8 +15,6 @@ import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user
 import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
-import { cancelListing } from '@echo/storybook/mocks/cancel-listing'
-import { createOffer } from '@echo/storybook/mocks/create-offer'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { ListingDetails as Component } from '@echo/ui/components/listing/details/listing-details'
@@ -107,7 +105,6 @@ export const Details: StoryObj<ComponentType> = {
       <Component
         listing={renderedListing}
         user={role === 'Creator' ? getAuthUserMockByUsername('johnnycagewins') : getAuthUserMockByUsername('crewnft_')}
-        fetcher={{ cancelListing, createOffer: createOffer('LyCfl6Eg7JKuD7XJ6IPi') }}
         userTargetNfts={getTargetNfts()}
         offers={getOffers()}
       />

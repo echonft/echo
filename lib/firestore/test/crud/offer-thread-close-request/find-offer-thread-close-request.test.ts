@@ -6,12 +6,13 @@ import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-rem
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-thread-close-request - findOfferThreadCloseRequest', () => {
-  let newDocumentId: string | undefined
+  let newDocumentId: Nullable<string>
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()
   })

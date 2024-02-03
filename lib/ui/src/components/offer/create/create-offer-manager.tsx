@@ -10,25 +10,20 @@ import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
-import type { Fetcher } from '@echo/utils/types/fetcher'
+import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent, useEffect, useRef, useState } from 'react'
 
-interface Props {
-  fetcher: {
-    createOffer: Fetcher<OfferResponse, CreateOfferRequest>
-  }
-}
-
-export const CreateOfferManager: FunctionComponent<Props> = ({ fetcher }) => {
+export const CreateOfferManager: FunctionComponent = () => {
   const tError = useTranslations('error.offer')
+  const { createOffer } = useDependencies()
   const { receiver, receiverItems, senderItems, clearOffer, modalOpen, closeModal } = useNewOfferStore()
   const clearOfferTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
   const [offer, setOffer] = useState<Offer>()
   const { trigger, isMutating } = useSWRTrigger<OfferResponse, CreateOfferRequest>({
     key: SWRKeys.offer.create,
-    fetcher: fetcher.createOffer,
+    fetcher: createOffer,
     onSuccess: (response) => {
       clearOffer()
       closeModal()

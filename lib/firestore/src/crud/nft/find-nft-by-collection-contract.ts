@@ -3,13 +3,14 @@ import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { Nft } from '@echo/model/types/nft'
 import type { HexString } from '@echo/utils/types/hex-string'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { pipe, toLower } from 'ramda'
 
 export function findNftByCollectionContract(
   collectionContractAddress: Lowercase<HexString>,
   collectionContractChainId: number,
   tokenId: number
-): Promise<Nft | undefined> {
+): Promise<Nullable<Nft>> {
   return pipe(
     getNftsCollectionReference,
     queryWhere<Nft>('tokenId', '==', tokenId),

@@ -2,12 +2,13 @@ import { type Collection } from '@echo/model/types/collection'
 import { CollectionTile } from '@echo/ui/components/collection/tile/collection-tile'
 import { SIZE_LG } from '@echo/ui/constants/size'
 import { HomeHeroLayout } from '@echo/ui/pages/home/hero/home-hero-layout'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  collection: Collection | undefined
+  collection: Nullable<Collection>
 }
 
 export const HomeHero: FunctionComponent<Props> = ({ collection }) => {

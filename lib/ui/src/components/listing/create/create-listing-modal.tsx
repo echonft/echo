@@ -4,16 +4,17 @@ import { type ListingItem } from '@echo/model/types/listing-item'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { CreateListingModalBody } from '@echo/ui/components/listing/create/create-listing-modal-body'
 import type { Target } from '@echo/ui/types/target'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 export interface CreateListingModalProps {
-  target: Target | undefined
+  target: Nullable<Target>
   items: ListingItem[]
   open: boolean
   collections: CollectionProviderResult[] | undefined
   loading?: boolean
-  onCollectionSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
+  onCollectionSelectionChange?: (selection: Nullable<CollectionProviderResult>) => unknown
   onTargetAmountChange?: (targetCollectionSlug: string, amount: number) => unknown
   onClear?: VoidFunction
   onContinue?: VoidFunction

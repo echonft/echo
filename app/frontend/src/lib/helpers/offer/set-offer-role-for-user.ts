@@ -4,9 +4,10 @@ import { setOfferRoleUndefined } from '@echo/frontend/lib/helpers/offer/set-offe
 import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 
-export function setOfferRoleForUser(user: AuthUser | undefined) {
+export function setOfferRoleForUser(user: Nullable<AuthUser>) {
   return function (offer: Offer): OfferWithRole {
     if (isNil(user)) {
       return setOfferRoleUndefined(offer)

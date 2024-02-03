@@ -1,16 +1,10 @@
 // noinspection JSUnusedGlobalSymbols
 
-import type { AuthUser } from '@echo/model/types/auth-user'
-import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
-import { account } from '@echo/storybook/mocks/account'
-import { addWallet } from '@echo/storybook/mocks/add-wallet'
-import { chain } from '@echo/storybook/mocks/chain'
-import { getNonce } from '@echo/storybook/mocks/get-nonce'
-import { signNonce } from '@echo/storybook/mocks/sign-nonce'
+import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
+import { authUserStore } from '@echo/storybook/mocks/stores/auth-user-store'
 import { Login as Component } from '@echo/ui/components/auth/login'
-import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import { useEffect } from 'react'
 
 const metadata: Meta<typeof Component> = {
   title: 'Base/Auth/Login',
@@ -20,11 +14,16 @@ const metadata: Meta<typeof Component> = {
       table: {
         disable: true
       }
+    },
+    onWalletButtonClick: {
+      table: {
+        disable: true
+      }
     }
   },
   parameters: {
     controls: {
-      exclude: ['fetcher', 'provider', 'renderConnectWallet', 'user', 'wallets']
+      exclude: ['user']
     }
   }
 }
@@ -32,29 +31,23 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 export const Login: StoryObj<typeof Component> = {
-  render: ({ onFinish }) => {
-    const [user, setUser] = useState<AuthUser>()
-    const [connectState, setConnectState] = useState<'connected' | 'connecting' | 'disconnected'>('disconnected')
+  render: ({ onFinish, onWalletButtonClick }) => {
+    const { user, signOut } = authUserStore()
+    const { connect, disconnect } = accountStatusStore()
 
-    const onConnect = () => {
-      setConnectState('connecting')
-      setTimeout(() => {
-        setConnectState('connected')
-      }, 1200)
-    }
-    const signIn = () => {
-      setTimeout(() => {
-        setUser(getAuthUserMockByUsername('crewnft_'))
-      }, 1200)
-      return Promise.resolve(undefined)
-    }
+    useEffect(() => {
+      return () => {
+        signOut()
+        disconnect()
+      }
+    }, [])
+
     return (
       <Component
-        fetcher={{ addWallet, getNonce, signNonce }}
-        provider={{ signIn, chain: chain(connectState), account: account(connectState) }}
-        renderConnectWallet={() => (
-          <ConnectWalletButton isConnecting={connectState === 'connecting'} onClick={onConnect} />
-        )}
+        onWalletButtonClick={(event) => {
+          onWalletButtonClick?.(event)
+          connect()
+        }}
         user={user}
         onFinish={onFinish}
       />

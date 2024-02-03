@@ -2,9 +2,10 @@ import { getOfferUpdatePostsCollectionReference } from '@echo/firestore/helpers/
 import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { OfferUpdatePost } from '@echo/firestore/types/model/offer-update-post/offer-update-post'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { pipe } from 'ramda'
 
-export function findOfferUpdatePost(offerUpdateId: string): Promise<OfferUpdatePost | undefined> {
+export function findOfferUpdatePost(offerUpdateId: string): Promise<Nullable<OfferUpdatePost>> {
   return pipe(
     getOfferUpdatePostsCollectionReference,
     queryWhere<OfferUpdatePost>('offerUpdateId', '==', offerUpdateId),

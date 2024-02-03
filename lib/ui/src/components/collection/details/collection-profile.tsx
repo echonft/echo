@@ -6,12 +6,13 @@ import {
   CollectionProfilePicture,
   type CollectionProfilePictureProps
 } from '@echo/ui/components/collection/details/collection-profile-picture'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 export interface CollectionProfileProps extends CollectionLinksProps, CollectionProfilePictureProps {
-  supplyCount: number | undefined
+  supplyCount: Nullable<number>
   verified?: boolean
 }
 

@@ -4,13 +4,14 @@ import type { Listing } from '@echo/model/types/listing'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { ConfirmationIconSvg } from '@echo/ui/components/base/svg/confirmation-icon-svg'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  listing: Listing | undefined
+  listing: Nullable<Listing>
   onClose?: EmptyFunction
 }
 

@@ -1,6 +1,5 @@
 'use client'
 
-import type { CollectionProvider } from '@echo/api/types/providers/collection-provider'
 import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
@@ -15,21 +14,14 @@ import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
-import type { Fetcher } from '@echo/utils/types/fetcher'
+import { useDependencies } from '@echo/ui/providers/dependencies-provider'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { useTranslations } from 'next-intl'
 import { assoc, isNil } from 'ramda'
 import { type FunctionComponent, useEffect, useRef, useState } from 'react'
 
-interface Props {
-  fetcher: {
-    createListing: Fetcher<ListingResponse, CreateListingRequest>
-  }
-  provider: {
-    collections: CollectionProvider
-  }
-}
-
-export const CreateListingManager: FunctionComponent<Props> = ({ fetcher, provider }) => {
+export const CreateListingManager: FunctionComponent = () => {
+  const { createListing, getCollections } = useDependencies()
   const { items, target, setTarget, modalOpen, clearListing, closeModal } = useNewListingStore()
   const [collections, setCollections] = useState<CollectionProviderResult[]>()
   const [listing, setListing] = useState<Listing>()
@@ -45,7 +37,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ fetcher, provid
   const tError = useTranslations('error.listing')
   const { trigger, isMutating } = useSWRTrigger<ListingResponse, CreateListingRequest>({
     key: SWRKeys.listing.create,
-    fetcher: fetcher.createListing,
+    fetcher: createListing,
     onSuccess: (response) => {
       closeModal()
       setListing(response.listing)
@@ -63,10 +55,10 @@ export const CreateListingManager: FunctionComponent<Props> = ({ fetcher, provid
     }
   })
   useEffect(() => {
-    void provider.collections().then(setCollections)
-  }, [provider])
+    void getCollections().then(setCollections)
+  }, [getCollections])
 
-  function onCollectionSelectionChange(selection: CollectionProviderResult | undefined) {
+  function onCollectionSelectionChange(selection: Nullable<CollectionProviderResult>) {
     if (isNil(selection)) {
       setTarget(undefined)
     } else {

@@ -1,5 +1,4 @@
 'use client'
-import { createOffer } from '@echo/api/fetchers/create-offer'
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { NavigationLayout } from '@echo/ui/components/base/navigation/navigation-layout'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
@@ -40,7 +39,7 @@ export const UserNavigationLayout: FunctionComponent<PropsWithChildren<Props>> =
       activeNavigationItem={activeNavigationItem}
     >
       {children}
-      <CreateOfferManager fetcher={{ createOffer }} />
+      <CreateOfferManager />
     </NavigationLayout>
   )
 }

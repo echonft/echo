@@ -3,6 +3,7 @@
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getCollectionMock } from '@echo/model-mocks/collection/get-collection-mock'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { getUserProfileMockByUsername } from '@echo/model-mocks/user/user-profile-mock'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { CreateListingBannerManager } from '@echo/ui/components/listing/create/create-listing-banner-manager'
@@ -22,6 +23,7 @@ export default metadata
 export const SelectingItems: StoryObj<FunctionComponent> = {
   render: () => {
     const user = getAuthUserMockByUsername('johnnycagewins')
+    const profile = getUserProfileMockByUsername('johnnycagewins')
     const { setTarget, clearListing } = useNewListingStore()
     useEffect(() => {
       setTarget({ amount: 2, collection: getCollectionMock() })
@@ -31,11 +33,11 @@ export const SelectingItems: StoryObj<FunctionComponent> = {
       <NavigationPageLayout user={user}>
         <CreateListingBannerManager />
         <SectionLayout>
-          <ProfileDetails user={user} />
+          <ProfileDetails profile={profile} />
         </SectionLayout>
         <SectionLayout>
           <RouteChangesProvider>
-            <ProfileNfts nfts={getAllNftMocks()} user={user} />
+            <ProfileNfts nfts={getAllNftMocks()} />
           </RouteChangesProvider>
         </SectionLayout>
       </NavigationPageLayout>

@@ -4,25 +4,24 @@ import { LoginButton } from '@echo/ui/components/auth/login-button'
 import { UserTag } from '@echo/ui/components/user/tag/user-tag'
 import { SIZE_LG } from '@echo/ui/constants/size'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
-import { type SignInResponse } from 'next-auth/react'
+import { useDependencies } from '@echo/ui/providers/dependencies-provider'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  provider: {
-    signIn: () => Promise<SignInResponse | undefined>
-  }
-  user: AuthUser | undefined
+  user: Nullable<AuthUser>
 }
 
-export const LoginDiscordConnect: FunctionComponent<Props> = ({ provider, user }) => {
+export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
   const t = useTranslations('auth.step0')
+  const { signIn } = useDependencies()
   if (isNil(user)) {
     return (
       <LoginButton
         onClick={() => {
-          provider.signIn().catch(errorCallback({ tags: { action: 'signIn' } }))
+          signIn().catch(errorCallback({ tags: { action: 'signIn' } }))
         }}
       >
         {t('loginBtn')}

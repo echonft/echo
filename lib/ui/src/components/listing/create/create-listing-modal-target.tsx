@@ -2,13 +2,14 @@ import type { Collection } from '@echo/model/types/collection'
 import { QuantityPicker } from '@echo/ui/components/base/quantity-picker'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
 import type { Target } from '@echo/ui/types/target'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  target: Target | undefined
+  target: Nullable<Target>
   isMutating?: boolean
   onEdit?: (targetCollectionSlug: string, amount: number) => unknown
 }

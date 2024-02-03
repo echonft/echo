@@ -1,46 +1,21 @@
 'use client'
-import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
-import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { OfferDetailsSwapModal } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { Fetcher } from '@echo/utils/types/fetcher'
-import type { HexString } from '@echo/utils/types/hex-string'
-import type { ApproveErc721ContractArgs } from '@echo/web3/types/approve-erc-721-contract-args'
-import type { ChainProvider } from '@echo/web3/types/chain-provider'
-import type { ExecuteSwapArgs } from '@echo/web3/types/execute-swap-args'
-import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721-contract-approval-args'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   offer: OfferWithRole
-  fetcher: {
-    getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
-    executeSwap: Fetcher<HexString, ExecuteSwapArgs>
-    approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
-    getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
-  }
-  provider: {
-    chain: ChainProvider
-  }
   disabled?: boolean
   onClick?: EmptyFunction
   onSuccess?: (offer: OfferWithRole) => unknown
   onCancel?: EmptyFunction
 }
 
-export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
-  offer,
-  fetcher,
-  provider,
-  disabled,
-  onClick,
-  onSuccess,
-  onCancel
-}) => {
+export const OfferDetailsSwapButton: FunctionComponent<Props> = ({ offer, disabled, onClick, onSuccess, onCancel }) => {
   const t = useTranslations('offer.details')
   const [modalShown, setModalShown] = useState(false)
 
@@ -60,8 +35,6 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
         <OfferDetailsSwapModal
           open={modalShown}
           offer={offer}
-          fetcher={fetcher}
-          provider={provider}
           onSuccess={(offer: OfferWithRole) => {
             setModalShown(false)
             onSuccess?.(offer)

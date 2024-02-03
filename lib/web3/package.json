@@ -24,10 +24,10 @@
     "@echo/alchemy": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@wagmi/core": "1.4.13",
     "ramda": "0.29.1",
     "siwe": "2.1.4",
-    "viem": "1.21.4"
+    "viem": "2.7.1",
+    "wagmi": "2.5.5"
   },
   "devDependencies": {
     "@jest/globals": "29.7.0",

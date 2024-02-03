@@ -11,6 +11,7 @@ import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-
 import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil, pipe } from 'ramda'
@@ -25,7 +26,7 @@ describe('CRUD - offer-update - addOfferStateUpdate', () => {
       }
     }
   }
-  let offerUpdateId: string | undefined
+  let offerUpdateId: Nullable<string>
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()
   })

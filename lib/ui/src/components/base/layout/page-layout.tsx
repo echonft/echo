@@ -1,12 +1,20 @@
 'use client'
+import { acceptOffer } from '@echo/api/fetchers/accept-offer'
 import { addWallet } from '@echo/api/fetchers/add-wallet'
+import { cancelListing } from '@echo/api/fetchers/cancel-listing'
+import { cancelOffer } from '@echo/api/fetchers/cancel-offer'
+import { createListing } from '@echo/api/fetchers/create-listing'
+import { createOffer } from '@echo/api/fetchers/create-offer'
 import { getNonce } from '@echo/api/fetchers/get-nonce'
+import { getOfferSignature } from '@echo/api/fetchers/get-offer-signature'
+import { getWallets } from '@echo/api/fetchers/get-wallets'
+import { rejectOffer } from '@echo/api/fetchers/reject-offer'
+import { getCollections } from '@echo/api/providers/get-collections'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { BannerManager } from '@echo/ui/components/base/banner/banner-manager'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { HeaderSwitch } from '@echo/ui/components/base/header/header-switch'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
-import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
 import {
   PAGE_LAYOUT_BG_COLLECTIONS,
   PAGE_LAYOUT_BG_DEFAULT,
@@ -15,12 +23,18 @@ import {
   PAGE_LAYOUT_BG_RED_GRADIENT,
   PAGE_LAYOUT_BG_YELLOW_GRADIENT
 } from '@echo/ui/constants/page-layout-background'
+import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import type { PageLayoutBackground } from '@echo/ui/types/page-layout-background'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { approveErc721Contract } from '@echo/web3/helpers/wagmi/fetchers/approve-erc721-contract'
+import { executeSwap } from '@echo/web3/helpers/wagmi/fetchers/execute-swap'
+import { getErc721ContractApproval } from '@echo/web3/helpers/wagmi/fetchers/get-erc721-contract-approval'
 import { signNonce } from '@echo/web3/helpers/wagmi/fetchers/sign-nonce'
-import { account } from '@echo/web3/helpers/wagmi/providers/account'
-import { chain } from '@echo/web3/helpers/wagmi/providers/chain'
+import { signOffer } from '@echo/web3/helpers/wagmi/fetchers/sign-offer'
+import { switchChain } from '@echo/web3/helpers/wagmi/fetchers/switch-chain'
+import { getAccount } from '@echo/web3/helpers/wagmi/providers/get-account'
 import { clsx } from 'clsx'
-import { signOut } from 'next-auth/react'
+import { signIn, signOut } from 'next-auth/react'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -28,7 +42,7 @@ interface Props {
   headerVariants?: {
     logoOnly?: boolean
   }
-  user?: AuthUser
+  user?: Nullable<AuthUser>
 }
 
 export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
@@ -38,31 +52,50 @@ export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
   children
 }) => {
   return (
-    <div
-      className={clsx(
-        'w-full',
-        'h-full',
-        'overflow-y-auto',
-        background === PAGE_LAYOUT_BG_DEFAULT && 'bg-dark-500',
-        background === PAGE_LAYOUT_BG_HOME && ['bg-home', 'bg-[length:100%_41.4375rem]', 'bg-no-repeat'],
-        background === PAGE_LAYOUT_BG_COLLECTIONS && ['bg-home', 'bg-no-repeat'],
-        background === PAGE_LAYOUT_BG_GREEN_GRADIENT && ['bg-gradientGreen', 'bg-no-repeat'],
-        background === PAGE_LAYOUT_BG_YELLOW_GRADIENT && ['bg-gradientYellow', 'bg-no-repeat'],
-        background === PAGE_LAYOUT_BG_RED_GRADIENT && ['bg-gradientRed', 'bg-no-repeat']
-      )}
+    <DependenciesProvider
+      dependencies={{
+        acceptOffer,
+        addWallet,
+        approveErc721Contract,
+        cancelListing,
+        cancelOffer,
+        createListing,
+        createOffer,
+        executeSwap,
+        getAccount,
+        getCollections,
+        getErc721ContractApproval,
+        getNonce,
+        getOfferSignature,
+        getWallets,
+        rejectOffer,
+        signIn,
+        signNonce,
+        signOffer,
+        signOut,
+        switchChain
+      }}
     >
-      <HeaderSwitch
-        logoOnly={Boolean(headerVariants?.logoOnly)}
-        fetcher={{ addWallet, getNonce, signNonce }}
-        provider={{ account, chain, signOut }}
-        renderConnect={({ isConnecting, show }) => <ConnectWalletButton isConnecting={isConnecting} onClick={show} />}
-        user={user}
-      />
-      <MainSectionLayout>
-        {children}
-        <CalloutManager />
-        <BannerManager />
-      </MainSectionLayout>
-    </div>
+      <div
+        className={clsx(
+          'w-full',
+          'h-full',
+          'overflow-y-auto',
+          background === PAGE_LAYOUT_BG_DEFAULT && 'bg-dark-500',
+          background === PAGE_LAYOUT_BG_HOME && ['bg-home', 'bg-[length:100%_41.4375rem]', 'bg-no-repeat'],
+          background === PAGE_LAYOUT_BG_COLLECTIONS && ['bg-home', 'bg-no-repeat'],
+          background === PAGE_LAYOUT_BG_GREEN_GRADIENT && ['bg-gradientGreen', 'bg-no-repeat'],
+          background === PAGE_LAYOUT_BG_YELLOW_GRADIENT && ['bg-gradientYellow', 'bg-no-repeat'],
+          background === PAGE_LAYOUT_BG_RED_GRADIENT && ['bg-gradientRed', 'bg-no-repeat']
+        )}
+      >
+        <HeaderSwitch logoOnly={Boolean(headerVariants?.logoOnly)} user={user} />
+        <MainSectionLayout>
+          {children}
+          <CalloutManager />
+          <BannerManager />
+        </MainSectionLayout>
+      </div>
+    </DependenciesProvider>
   )
 }

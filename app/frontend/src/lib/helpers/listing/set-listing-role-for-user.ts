@@ -8,9 +8,10 @@ import type { Nft } from '@echo/model/types/nft'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import { intersects } from '@echo/utils/fp/intersects'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil, map, path, pipe, uniq } from 'ramda'
 
-export function setListingRoleForUser(user: AuthUser | undefined, nfts: Nft[]) {
+export function setListingRoleForUser(user: Nullable<AuthUser>, nfts: Nft[]) {
   return function (listing: Listing): ListingWithRole {
     if (isNil(user)) {
       return setListingRoleUndefined(listing)

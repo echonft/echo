@@ -13,6 +13,7 @@ import { mapNftToItem } from '@echo/ui/mappers/to-api/map-nft-to-item'
 import { CollectionNftsEmpty } from '@echo/ui/pages/collection/nfts/collection-nfts-empty'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { useTranslations } from 'next-intl'
 import { assoc, isEmpty, map, pipe } from 'ramda'
 import { type FunctionComponent, useMemo } from 'react'
@@ -20,7 +21,7 @@ import { type FunctionComponent, useMemo } from 'react'
 interface Props {
   collection: Collection
   nfts: Nft[]
-  user: AuthUser | undefined
+  user: Nullable<AuthUser>
 }
 
 export const CollectionNfts: FunctionComponent<Props> = ({ collection, nfts, user }) => {

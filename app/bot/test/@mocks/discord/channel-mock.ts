@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { mockGuild } from '@echo/bot-mocks/discord/guild-mock'
 import { randomSnowflake } from '@echo/bot-test/discord/snowflake'
+import type { Nullable } from '@echo/utils/types/nullable'
 import {
   type APIGuildTextChannel,
   type APITextChannel,
@@ -34,7 +35,7 @@ export function getGuildTextChannelMockDataBase<Type extends GuildTextChannelTyp
 
 function setupMockedChannel<T extends GuildBasedChannel>(
   client: Client,
-  guild: Guild | undefined,
+  guild: Nullable<Guild>,
   createMockData: (guild: Guild) => T
 ): T {
   if (!guild) {

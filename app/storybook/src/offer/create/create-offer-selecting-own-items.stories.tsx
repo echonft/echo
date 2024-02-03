@@ -3,6 +3,7 @@
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
+import { getUserProfileMockByUsername } from '@echo/model-mocks/user/user-profile-mock'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { CreateListingBannerManager } from '@echo/ui/components/listing/create/create-listing-banner-manager'
@@ -23,6 +24,7 @@ export default metadata
 export const SelectingOwnItems: StoryObj<FunctionComponent> = {
   render: () => {
     const user = getAuthUserMockByUsername('crewnft_')
+    const profile = getUserProfileMockByUsername('crewnft_')
     const { setReceiverItems, clearOffer } = useNewOfferStore()
     useEffect(() => {
       setReceiverItems([
@@ -36,11 +38,11 @@ export const SelectingOwnItems: StoryObj<FunctionComponent> = {
         <CreateOfferBannerManager />
         <CreateListingBannerManager />
         <SectionLayout>
-          <ProfileDetails user={user} />
+          <ProfileDetails profile={profile} />
         </SectionLayout>
         <SectionLayout>
           <RouteChangesProvider>
-            <ProfileNfts nfts={getAllNftMocks()} user={user} />
+            <ProfileNfts nfts={getAllNftMocks()} />
           </RouteChangesProvider>
         </SectionLayout>
       </NavigationPageLayout>

@@ -3,5 +3,5 @@ import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-sig
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 
 export function getOfferSignature(_args: GetOfferSignatureArgs): Promise<OfferSignatureResponse> {
-  return delayPromise(Promise.resolve({ signature: '0xwhatever' }), 1200)
+  return delayPromise(Promise.resolve({ signature: '0xwhatever' }), 800)
 }

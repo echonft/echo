@@ -24,6 +24,7 @@ import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { includes, map, pipe, propEq } from 'ramda'
 import { type FunctionComponent, useEffect, useMemo, useState } from 'react'
 
@@ -32,7 +33,7 @@ interface Props {
   availableFilters: NftFilterType[]
   btnLabel: string
   emptyBtnLabel: string
-  user: AuthUser | undefined
+  user: Nullable<AuthUser>
   onButtonClick?: (nfts: SelectableNft[]) => unknown
   onEmptyButtonClick?: VoidFunction
 }

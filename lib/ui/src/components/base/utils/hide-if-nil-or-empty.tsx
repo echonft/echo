@@ -2,6 +2,7 @@ import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { type NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { type NonEmptyObject } from '@echo/utils/types/non-empty-object'
 import { type NonEmptyString } from '@echo/utils/types/non-empty-string'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { is } from 'ramda'
 import { type ReactNode } from 'react'
 
@@ -11,12 +12,12 @@ interface ArrayProps<T> {
 }
 
 interface StringProps {
-  checks: string | undefined
+  checks: Nullable<string>
   render: <T extends string>(checks: NonNullable<NonEmptyString<T>>) => ReactNode
 }
 
 interface ObjectProps {
-  checks: object | undefined
+  checks: Nullable<object>
   render: <T extends Record<PropertyKey, unknown>>(checks: NonNullable<NonEmptyObject<T>>) => ReactNode
 }
 

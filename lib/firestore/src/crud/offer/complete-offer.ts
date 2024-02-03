@@ -16,6 +16,7 @@ import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import { type Offer } from '@echo/model/types/offer'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import type { OfferState } from '@echo/model/types/offer-state'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { assoc, concat, filter, flatten, intersection, isNil, map, omit, pipe, prop, propEq, reject, uniq } from 'ramda'
 
 export interface CompleteOfferArgs {
@@ -51,7 +52,7 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
         const listingListingOffers = await getListingOffersForListing(listing)
         const listingOffers = await Promise.all(map(pipe(prop('offerId'), findOfferById), listingListingOffers))
         const completedOffersItems: OfferItem[] = pipe<
-          [(Offer | undefined)[]],
+          [Nullable<Offer>[]],
           Offer[],
           Offer[],
           OfferItem[][],

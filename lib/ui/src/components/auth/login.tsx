@@ -1,38 +1,19 @@
 'use client'
-import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
-import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
-import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginStep } from '@echo/ui/components/auth/login-step'
-import { LoginStepIndicator } from '@echo/ui/components/auth/login-step-indicator'
-import type { WalletButtonRenderFn } from '@echo/ui/types/wallet-button-render-fn'
-import type { Fetcher } from '@echo/utils/types/fetcher'
-import type { AccountProvider } from '@echo/web3/types/account-provider'
-import type { ChainProvider } from '@echo/web3/types/chain-provider'
-import type { SignNonceArgs } from '@echo/web3/types/sign-nonce-args'
-import type { SignNonceResult } from '@echo/web3/types/sign-nonce-result'
+import { LoginStepIndicator, type LoginStepIndicatorProps } from '@echo/ui/components/auth/login-step-indicator'
+import type { Nullable } from '@echo/utils/types/nullable'
 import clsx from 'clsx'
-import type { SignInResponse } from 'next-auth/react'
 import { inc, isNil } from 'ramda'
-import { type FunctionComponent, useEffect, useRef, useState } from 'react'
+import { type FunctionComponent, type MouseEventHandler, useEffect, useRef, useState } from 'react'
 
 interface Props {
-  fetcher: {
-    addWallet: Fetcher<WalletsResponse, AddWalletRequest>
-    getNonce: Fetcher<NonceResponse, never>
-    signNonce: Fetcher<SignNonceResult, SignNonceArgs>
-  }
-  provider: {
-    account: AccountProvider
-    chain: ChainProvider
-    signIn: () => Promise<SignInResponse | undefined>
-  }
-  renderConnectWallet: WalletButtonRenderFn
-  user: AuthUser | undefined
+  user: Nullable<AuthUser>
   onFinish?: VoidFunction
+  onWalletButtonClick?: MouseEventHandler
 }
 
-export const Login: FunctionComponent<Props> = ({ fetcher, provider, renderConnectWallet, user, onFinish }) => {
+export const Login: FunctionComponent<Props> = ({ user, onFinish, onWalletButtonClick }) => {
   const [indicatorStep, setIndicatorStep] = useState<1 | 2 | 3>(1)
   const [step, setStep] = useState<1 | 2 | 3>(1)
   const [show, setShow] = useState(true)
@@ -52,24 +33,18 @@ export const Login: FunctionComponent<Props> = ({ fetcher, provider, renderConne
       <LoginStepIndicator step={indicatorStep} />
       <div className={clsx('transition-opacity', 'duration-300', 'ease-in-out', show ? 'opacity-100' : 'opacity-0')}>
         <LoginStep
-          fetcher={fetcher}
-          provider={provider}
-          renderConnectWallet={renderConnectWallet}
           step={step}
           user={user}
           onNext={() => {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            setIndicatorStep(inc)
+            setIndicatorStep(inc as (args: number) => LoginStepIndicatorProps['step'])
             setShow(false)
             setTimeout(() => {
               setShow(true)
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              setStep(inc)
+              setStep(inc as (args: number) => LoginStepIndicatorProps['step'])
             }, 300)
           }}
           onFinish={onFinish}
+          onWalletButtonClick={onWalletButtonClick}
         />
       </div>
     </div>

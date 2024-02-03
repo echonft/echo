@@ -29,6 +29,7 @@ import { getOfferCollectionIds } from '@echo/model/helpers/offer/get-offer-colle
 import { type OfferState } from '@echo/model/types/offer-state'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -38,7 +39,7 @@ describe('CRUD - offer - completeOffer', () => {
   let initialState: OfferState
   let initialExpiresAt: number
   let initialUpdatedAt: number
-  let createdStateUpdateId: string | undefined
+  let createdStateUpdateId: Nullable<string>
   const pastDate = dayjs().subtract(1, 'day').unix()
   const futureDate = dayjs().add(1, 'day').unix()
   const args: CompleteOfferArgs = {

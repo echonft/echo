@@ -2,13 +2,14 @@
 import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import { CollectionSearchBox } from '@echo/ui/components/collection/search/collection-search-box'
 import { stringIncludes } from '@echo/utils/fp/string-includes'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { filter, isNil, pipe, prop, toLower } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 
 interface Props {
   options: CollectionProviderResult[] | undefined
   disabled?: boolean
-  onSelectionChange?: (selection: CollectionProviderResult | undefined) => unknown
+  onSelectionChange?: (selection: Nullable<CollectionProviderResult>) => unknown
 }
 
 export const CollectionSearchBoxManager: FunctionComponent<Props> = ({ options, onSelectionChange, disabled }) => {

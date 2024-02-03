@@ -2,9 +2,10 @@ import { getOfferThreadsCloseRequestsCollectionReference } from '@echo/firestore
 import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { OfferThreadCloseRequest } from '@echo/firestore/types/model/offer-thread-close-request/offer-thread-close-request'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { pipe } from 'ramda'
 
-export function findOfferThreadCloseRequest(offerThreadId: string): Promise<OfferThreadCloseRequest | undefined> {
+export function findOfferThreadCloseRequest(offerThreadId: string): Promise<Nullable<OfferThreadCloseRequest>> {
   return pipe(
     getOfferThreadsCloseRequestsCollectionReference,
     queryWhere<OfferThreadCloseRequest>('offerThreadId', '==', offerThreadId),

@@ -1,12 +1,13 @@
 import { DEFAULT_BANNER_URL } from '@echo/ui/constants/default-banner-url'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export interface UserDetailsLayoutProps {
-  bannerUrl?: string
-  bannerColor?: string
+  bannerUrl?: Nullable<string>
+  bannerColor?: Nullable<string>
 }
 export const UserDetailsLayout: FunctionComponent<PropsWithChildren<UserDetailsLayoutProps>> = ({
   bannerUrl,

@@ -10,17 +10,8 @@ import {
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { acceptOffer } from '@echo/storybook/mocks/accept-offer'
-import { approveErc721Contract } from '@echo/storybook/mocks/approve-erc-721-contract'
-import { cancelOffer } from '@echo/storybook/mocks/cancel-offer'
-import { chain } from '@echo/storybook/mocks/chain'
-import { executeSwap } from '@echo/storybook/mocks/execute-swap'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
-import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-contract-approval'
-import { getOfferSignature } from '@echo/storybook/mocks/get-offer-signature'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
-import { rejectOffer } from '@echo/storybook/mocks/reject-offer'
-import { signOffer } from '@echo/storybook/mocks/sign-offer'
 import { OfferDetails as Component } from '@echo/ui/components/offer/details/offer-details'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -80,23 +71,6 @@ export const Details: StoryObj<ComponentType> = {
       setExpirationAndReadOnly,
       setRole
     )('LyCfl6Eg7JKuD7XJ6IPi')
-    return (
-      <Component
-        offer={renderedOffer}
-        fetcher={{
-          approveErc721Contract,
-          getErc721ContractApproval: getErc721ContractApproval(false),
-          acceptOffer: acceptOffer('LyCfl6Eg7JKuD7XJ6IPi'),
-          cancelOffer: cancelOffer('LyCfl6Eg7JKuD7XJ6IPi'),
-          executeSwap,
-          getOfferSignature,
-          rejectOffer: rejectOffer('LyCfl6Eg7JKuD7XJ6IPi'),
-          signOffer
-        }}
-        provider={{
-          chain: chain('connected')
-        }}
-      />
-    )
+    return <Component offer={renderedOffer} />
   }
 }

@@ -7,13 +7,14 @@ import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { now } from '@echo/utils/helpers/now'
 import { logger } from '@echo/utils/services/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-thread-close-request - addOfferThreadCloseRequest', () => {
   const offerThreadId = 'hot4VWDzd6ZRsC3nsvnb'
-  let newDocumentId: string | undefined
+  let newDocumentId: Nullable<string>
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()
   })

@@ -1,23 +1,21 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-contract-approval'
+import { contractApprovalStore } from '@echo/storybook/mocks/stores/contract-approval-store'
 import { OfferDetailsContractApprovalRow as Component } from '@echo/ui/components/offer/details/offer-details-contract-approval-row'
-import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721-contract-approval-args'
 import type { Meta, StoryObj } from '@storybook/react'
-import type { FunctionComponent } from 'react'
+import { type FunctionComponent, useEffect } from 'react'
 
-type ComonentType = FunctionComponent<{ state: 'Approved' | 'Loading' | 'Not Approved' }>
+type ComonentType = FunctionComponent<{ approved: boolean }>
 const metadata: Meta<ComonentType> = {
   title: 'Offer/Details/Modal/Contract Approval/Row',
   args: {
-    state: 'Approved'
+    approved: false
   },
   argTypes: {
-    state: {
-      defaultValue: 'Approved',
-      options: ['Approved', 'Loading', 'Not Approved'],
-      control: { type: 'radio' }
+    approved: {
+      defaultValue: false,
+      control: { type: 'boolean' }
     }
   }
 }
@@ -25,33 +23,19 @@ const metadata: Meta<ComonentType> = {
 export default metadata
 
 export const Row: StoryObj<ComonentType> = {
-  render: ({ state }) => {
+  render: ({ approved }) => {
     const nft = getNftMockById('8hHFadIrrooORfTOLkBg')
-    function getApproved() {
-      switch (state) {
-        case 'Approved':
-          return true
-        case 'Loading':
-          return undefined
-        case 'Not Approved':
-          return false
-      }
-    }
+    const { approved: contractApproved, setApproved } = contractApprovalStore()
+    useEffect(() => {
+      setApproved(approved)
+    }, [approved])
+
     return (
       <Component
         collectionName={nft.collection.name}
         contract={nft.collection.contract}
         owner={nft.owner.wallet.address}
-        fetcher={{
-          getErc721ContractApproval:
-            state === 'Loading'
-              ? function (_args: GetErc721ContractApprovalArgs): Promise<boolean> {
-                  // eslint-disable-next-line @typescript-eslint/no-empty-function
-                  return new Promise(() => {})
-                }
-              : getErc721ContractApproval(true)
-        }}
-        approved={getApproved()}
+        approved={contractApproved}
       />
     )
   }

@@ -14,7 +14,7 @@ async function render({ user }: NextAuthUserParams) {
   return (
     <RouteChangesProvider>
       <ProfileNavigationLayout activeNavigationItem={NAVIGATION_NFTS}>
-        <ProfileNfts nfts={nfts} user={user} />
+        <ProfileNfts nfts={nfts} />
       </ProfileNavigationLayout>
     </RouteChangesProvider>
   )

@@ -4,13 +4,14 @@ import { TwitterIcon } from '@echo/ui/components/base/icons/twitter-icon'
 import { WebsiteIcon } from '@echo/ui/components/base/icons/website-icon'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { SIZE_MD } from '@echo/ui/constants/size'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 export interface CollectionLinksProps {
-  websiteUrl?: string | undefined
-  discordUrl?: string | undefined
-  twitterUsername?: string | undefined
+  websiteUrl?: Nullable<string>
+  discordUrl?: Nullable<string>
+  twitterUsername?: Nullable<string>
 }
 
 export const CollectionLinks: FunctionComponent<CollectionLinksProps> = ({

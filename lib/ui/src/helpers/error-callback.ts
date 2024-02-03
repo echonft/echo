@@ -1,10 +1,10 @@
 import type { Alert } from '@echo/ui/types/alert'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { captureException } from '@sentry/nextjs'
-import { always, assoc, isEmpty, isNil, pick, pipe, when } from 'ramda'
+import { captureException, getCurrentScope, withScope } from '@sentry/nextjs'
+import { assoc, isNil, mapObjIndexed } from 'ramda'
 
 interface CaptureContext {
-  contexts?: Record<string, Record<string, unknown> | undefined>
+  contexts?: Record<string, Record<string, unknown> | null>
   tags?: Record<string, number | string | boolean | bigint | symbol | null | undefined>
 }
 export interface ErrorCallback extends CaptureContext {
@@ -15,19 +15,22 @@ export interface ErrorCallback extends CaptureContext {
 interface OnErrorArgs extends ErrorCallback {
   error: Error
 }
-
-function getCaptureContext(args: OnErrorArgs) {
-  return pipe<[OnErrorArgs], CaptureContext, CaptureContext | undefined>(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    pick(['contexts', 'tags']),
-    when(isEmpty, always(undefined))
-  )(args) as CaptureContext | undefined
-}
-
 function onError(args: OnErrorArgs) {
   const { alert, show, onError, error } = args
-  captureException(error, getCaptureContext(args))
+  const user = getCurrentScope().getUser()
+  withScope((scope) => {
+    scope.setUser(isNil(user) ? null : user)
+    const { tags, contexts } = args
+    if (!isNil(tags)) {
+      scope.setTags(tags)
+    }
+    if (!isNil(contexts)) {
+      mapObjIndexed((context, name) => {
+        scope.setContext(name, context)
+      }, contexts)
+    }
+    captureException(error)
+  })
   if (!isNil(show) && !isNil(alert)) {
     show(alert)
   }

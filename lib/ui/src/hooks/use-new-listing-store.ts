@@ -1,14 +1,15 @@
 import type { ListingItem } from '@echo/model/types/listing-item'
 import type { Target } from '@echo/ui/types/target'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { assoc, is, isNotNil, pipe } from 'ramda'
 import { create } from 'zustand'
 
 interface NewListingState {
   modalOpen: boolean
-  target: Target | undefined
+  target: Nullable<Target>
   items: ListingItem[]
-  setTarget: (args: ((target: Target | undefined) => Target) | Target | undefined) => unknown
+  setTarget: (args: ((target: Nullable<Target>) => Target) | Nullable<Target>) => unknown
   setItems: (args: ((items: ListingItem[]) => ListingItem[]) | ListingItem[]) => unknown
   clearListing: VoidFunction
   openModal: VoidFunction
@@ -21,7 +22,7 @@ export const useNewListingStore = create<NewListingState>((set, get) => ({
   target: undefined,
   items: [],
   setTarget: (args) => {
-    function setState(target: Target | undefined) {
+    function setState(target: Nullable<Target>) {
       const hasNewListingPending = isNotNil(target) || isNonEmptyArray(get().items)
       set(pipe(assoc('target', target), assoc('hasNewListingPending', hasNewListingPending)))
     }

@@ -37,7 +37,8 @@ export const SWRKeys = {
       sign: 'sign-nonce'
     },
     wallet: {
-      add: 'add-wallet'
+      add: 'add-wallet',
+      get: 'get-wallets'
     }
   },
   swap: {

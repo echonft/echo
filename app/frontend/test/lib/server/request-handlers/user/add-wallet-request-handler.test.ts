@@ -27,10 +27,9 @@ jest.mock('@echo/firestore/crud/wallet/get-wallets-for-user')
 describe('request-handlers - user - addWalletRequestHandler', () => {
   const address = toLower('0x12c63bbD266dB84e117356e664f3604055166CEc')
   const chainId = getChain().id
-  const formattedAddress = formatAddress({ address })
   const validSiweMessage = new SiweMessage({
     domain: 'echo.xyz',
-    address: formattedAddress,
+    address: formatAddress({ address }),
     statement: 'Sign in to add this wallet to your account',
     uri: 'https://echo.xyz',
     version: '1',
@@ -103,7 +102,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     }
   })
 
-  it('returns a 200 if the wallet is not already in the db and the nonce is valid', async () => {
+  it('returns a 200 if the nonce is valid', async () => {
     jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
     jest.mocked(findNonceForUser).mockResolvedValueOnce({ nonce: 'nonce', expired: false } as Nonce)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)

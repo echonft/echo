@@ -6,6 +6,7 @@ import {
 } from '@echo/model/constants/offer-states'
 import { type Offer } from '@echo/model/types/offer'
 import { type OfferState } from '@echo/model/types/offer-state'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 
 function assertOfferIsNotAccepted(offer: Offer) {
@@ -21,7 +22,7 @@ function assertOfferIsNotOpen(offer: Offer) {
 }
 
 export function assertOfferStateTransition(
-  offer: Offer | undefined,
+  offer: Nullable<Offer>,
   toState: OfferState
 ): asserts offer is Omit<Offer, 'state'> & Record<'state', OfferState> {
   if (isNil(offer)) {
