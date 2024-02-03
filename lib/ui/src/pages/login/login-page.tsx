@@ -2,10 +2,10 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { Login } from '@echo/ui/components/auth/login'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
-import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -20,7 +20,7 @@ export const LoginPage: FunctionComponent<Props> = ({ callbackUrl, user }) => {
       <Login
         user={user}
         onFinish={() => {
-          if (isNil(callbackUrl)) {
+          if (isNilOrEmpty(callbackUrl)) {
             router.replace(linkProvider.base.home.getUrl())
           } else {
             router.replace(callbackUrl)
