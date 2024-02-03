@@ -1,1 +1,1 @@
-export const isCi: boolean = process.env.CI === 'true'
+export const isCi: boolean = process.env.CI === 1

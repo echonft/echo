@@ -6,7 +6,7 @@ declare namespace NodeJS {
       ADMIN_TOKEN: string
       ALCHEMY_API_KEY: string
       APP_URL: string
-      CI: undefined | 'true'
+      CI: number
       DISCORD_CLIENT_TOKEN: string
       DISCORD_CLIENT_ID: string
       DISCORD_CLIENT_SECRET: string

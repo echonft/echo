@@ -4,7 +4,7 @@ FROM node:${NODE_VERSION}-slim as base
 ARG PNPM_VERSION=8.5.0
 RUN npm --global install pnpm@${PNPM_VERSION}
 LABEL fly_launch_runtime="Echo Bot"
-ENV CI=true
+ENV CI=1
 
 # NodeJS app lives here
 WORKDIR /app
