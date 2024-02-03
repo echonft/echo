@@ -21,7 +21,7 @@ export const LoginPage: FunctionComponent<Props> = ({ callbackUrl, user }) => {
         user={user}
         onFinish={() => {
           if (isNilOrEmpty(callbackUrl)) {
-            router.replace(linkProvider.base.home.getUrl())
+            router.replace(linkProvider.base.home.get())
           } else {
             router.replace(callbackUrl)
           }
