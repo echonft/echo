@@ -9,6 +9,8 @@ import { useConnectWallet } from '@echo/ui/hooks/use-connect-wallet'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { WalletButtonRenderFn } from '@echo/ui/types/wallet-button-render-fn'
 import type { WalletButtonRenderProps } from '@echo/ui/types/wallet-button-render-props'
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { logger } from '@echo/utils/services/logger'
 import type { AccountResult } from '@echo/web3/types/account-result'
 import { ConnectKitButton } from 'connectkit'
 import { isNil } from 'ramda'
@@ -50,8 +52,8 @@ export function renderWalletButton(args: RenderWalletButtonArgs): WalletButtonRe
 const WalletButton: FunctionComponent<{
   renderConnect: WalletButtonRenderFn
 }> = ({ renderConnect }) => {
-  const { getWallets } = useDependencies()
-  const { data, error } = useSWR<WalletsResponse, Error, string>(
+  const { disconnectWallet, getWallets } = useDependencies()
+  const { data } = useSWR<WalletsResponse, Error, string>(
     SWRKeys.profile.wallet.get,
     (_key: string) => {
       return getWallets()
@@ -60,10 +62,14 @@ const WalletButton: FunctionComponent<{
       shouldRetryOnError: true,
       errorRetryCount: 3,
       errorRetryInterval: 500,
-      revalidateOnMount: true
+      revalidateOnMount: true,
+      onError: (error) => {
+        logger.error(`fetching wallets error ${errorMessage(error)}`)
+        void disconnectWallet()
+      }
     }
   )
-  const { account, walletLinked } = useConnectWallet(!isNil(error) ? [] : data?.wallets)
+  const { account, walletLinked } = useConnectWallet(data?.wallets)
   if (isStorybook()) {
     return (
       <>

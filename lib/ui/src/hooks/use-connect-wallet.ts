@@ -8,6 +8,7 @@ import { useAccount } from '@echo/ui/hooks/use-account'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import { logger } from '@echo/utils/services/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { AccountResult } from '@echo/web3/types/account-result'
 import type { SignNonceArgs } from '@echo/web3/types/sign-nonce-args'
@@ -85,13 +86,14 @@ export function useConnectWallet(wallets: Nullable<Wallet[]>) {
 
   // when connected, check if wallet is linked and if not, add it
   useEffect(() => {
-    if (!walletLinked) {
-      if (!isNil(wallets) && !isNil(account.address) && account.status === 'connected') {
-        if (isNil(account.chain)) {
-          void switchChain()
-        } else if (includes(wallet, wallets)) {
+    if (!isNil(account.address) && account.status === 'connected') {
+      if (isNil(account.chain)) {
+        void switchChain()
+      } else if (!isNil(wallets) && !walletLinked) {
+        if (includes(wallet, wallets)) {
           setWalletLinked(true)
         } else {
+          logger.error(`calling getNonce wtf`)
           void getNonceTrigger()
         }
       }
