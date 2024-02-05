@@ -39,7 +39,7 @@ const config: StorybookConfig = {
     ...config,
     NEXT_PUBLIC_ALCHEMY_KEY: 'test',
     NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: 'wallet-connect-project-id',
-    NEXT_PUBLIC_URL: 'http://localhost:6006/'
+    NEXT_PUBLIC_VERCEL_URL: 'localhost:6006'
   }),
   swc: () => ({
     jsc: {

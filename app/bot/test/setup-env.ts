@@ -5,7 +5,7 @@ let replacedEnv: jest.Replaced<typeof process.env> | undefined = undefined
 beforeEach(() => {
   replacedEnv = jest.replaceProperty(process, 'env', {
     ...process.env,
-    NEXT_PUBLIC_URL: 'http://localhost:3000'
+    NEXT_PUBLIC_VERCEL_URL: 'localhost:3000'
   })
 })
 
