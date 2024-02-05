@@ -18,6 +18,7 @@ export const ProfilePicture: FunctionComponent<Props> = ({ pictureUrl, alt, size
     <Image
       className={clsx(
         'select-none',
+        'bg-dark-500',
         size === SIZE_LG && ['h-40', 'w-40', 'rounded-2xl'],
         size === SIZE_MD && ['h-28', 'w-28', 'rounded-2xl'],
         size === SIZE_SM && ['h-[6.1875rem]', 'w-[5.875rem]', 'rounded-lg'],

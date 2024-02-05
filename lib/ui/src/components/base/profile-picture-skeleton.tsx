@@ -17,7 +17,7 @@ export const ProfilePictureSkeleton: FunctionComponent<Props> = ({ size = SIZE_L
         size === SIZE_MD && ['h-28', 'w-28', 'rounded-2xl'],
         size === SIZE_SM && ['h-[6.1875rem]', 'w-[5.875rem]', 'rounded-lg'],
         border && ['border-solid', 'border-3', 'border-yellow-500'],
-        'bg-white/[0.08]',
+        'bg-dark-500',
         'animate-pulse'
       )}
     />
