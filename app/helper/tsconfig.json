@@ -31,6 +31,6 @@
     // This improves issue grouping in Sentry.
     "sourceRoot": "/"
   },
-  "include": ["src", "test"],
+  "include": ["src", "test", "../../env.d.ts"],
   "exclude": ["dist", "node_modules"]
 }

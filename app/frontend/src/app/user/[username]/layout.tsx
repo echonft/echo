@@ -1,8 +1,7 @@
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
-import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
-import { mapFirestoreUserToUserProfile } from '@echo/frontend/lib/mappers/map-firestore-user-to-user-profile'
+import { getUserProfile } from '@echo/frontend/lib/helpers/user/get-user-profile'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
@@ -19,11 +18,11 @@ async function render({ params: { username }, user: authUser, children }: Params
   if (isNil(user)) {
     notFound()
   }
-  const wallets = await getWalletsForUser(user.username)
+  const profile = await getUserProfile(user)
   return (
     <NavigationPageLayout user={authUser}>
       <SectionLayout>
-        <UserDetails user={mapFirestoreUserToUserProfile(user, wallets)} />
+        <UserDetails profile={profile} />
       </SectionLayout>
       <SectionLayout>{children}</SectionLayout>
     </NavigationPageLayout>

@@ -4,7 +4,7 @@ import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 
 describe('mappers - mapWalletDocumentDataToWallet', () => {
-  it('correctly maps', () => {
+  it('maps correctly', () => {
     const wallet = getWalletMockById('i28NWtlxElPXCnO0c6BC')
     expect(mapWalletDocumentDataToWallet(wallet)).toStrictEqual({
       chainId: 1,

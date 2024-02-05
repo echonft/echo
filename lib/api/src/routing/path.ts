@@ -1,4 +1,3 @@
-import { BASE_URL } from '@echo/api/constants/base-url'
 import type { PathArgs } from '@echo/api/types/routing/path-args'
 import { compile, pathToRegexp } from 'path-to-regexp'
 
@@ -16,7 +15,7 @@ export class Path<T extends object = never> {
   }
 
   getUrl(...args: T[]) {
-    return `${BASE_URL}${this.get(...args)}`
+    return `${process.env.NEXT_PUBLIC_URL}${this.get(...args)}`
   }
 
   test(string: string) {

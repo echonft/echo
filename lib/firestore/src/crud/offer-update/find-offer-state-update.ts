@@ -3,9 +3,10 @@ import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer-update'
 import type { OfferState } from '@echo/model/types/offer-state'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { pipe } from 'ramda'
 
-export function findOfferStateUpdate(offerId: string, state: OfferState): Promise<OfferUpdate | undefined> {
+export function findOfferStateUpdate(offerId: string, state: OfferState): Promise<Nullable<OfferUpdate>> {
   return pipe(
     getOfferUpdatesCollectionReference,
     queryWhere<OfferUpdate>('offerId', '==', offerId),

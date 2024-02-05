@@ -3,6 +3,7 @@ import { type Collection } from '@echo/model/types/collection'
 import { CollectionSearchBoxOptions } from '@echo/ui/components/collection/search/collection-search-box-options'
 import { CollectionSearchComboboxInput } from '@echo/ui/components/collection/search/collection-search-combobox-input'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { Combobox, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -14,7 +15,7 @@ interface Props {
   disabled?: boolean
   onSearch?: (searchQuery: string) => unknown
   onSearchClear?: EmptyFunction
-  onSelectionChange?: (selection: Collection | undefined) => unknown
+  onSelectionChange?: (selection: Nullable<Collection>) => unknown
 }
 
 export const CollectionSearchBox: FunctionComponent<Props> = ({

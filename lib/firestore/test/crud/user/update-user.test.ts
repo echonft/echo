@@ -8,12 +8,13 @@ import { deleteUser } from '@echo/firestore-test/user/delete-user'
 import { unchecked_updateUser } from '@echo/firestore-test/user/unchecked_update-user'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNotNil } from 'ramda'
 
 describe('CRUD - user - updateUser', () => {
-  let newUserId: string | undefined
-  let updatedUser: UserDocumentData | undefined
+  let newUserId: Nullable<string>
+  let updatedUser: Nullable<UserDocumentData>
 
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()

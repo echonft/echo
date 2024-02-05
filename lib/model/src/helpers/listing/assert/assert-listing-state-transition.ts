@@ -6,6 +6,7 @@ import {
 } from '@echo/model/constants/listing-states'
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingState } from '@echo/model/types/listing-state'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 
 function assertListingIsNotOpen(listing: Listing) {
@@ -27,7 +28,7 @@ function assertListingIsNotPartiallyFulfilled(listing: Listing) {
 }
 
 export function assertListingStateTransition(
-  listing: Listing | undefined,
+  listing: Nullable<Listing>,
   toState: ListingState
 ): asserts listing is Omit<Listing, 'state'> & Record<'state', ListingState> {
   if (isNil(listing)) {

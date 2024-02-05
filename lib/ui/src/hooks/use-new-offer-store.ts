@@ -3,6 +3,7 @@ import { type User } from '@echo/model/types/user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { always, assoc, head, ifElse, is, path, pipe } from 'ramda'
 import { create } from 'zustand'
 
@@ -10,7 +11,7 @@ interface NewOfferState {
   modalOpen: boolean
   receiverItems: OfferItem[]
   senderItems: OfferItem[]
-  receiver: User | undefined
+  receiver: Nullable<User>
   setReceiverItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
   setSenderItems: (args: ((items: OfferItem[]) => OfferItem[]) | OfferItem[]) => unknown
   clearOffer: VoidFunction

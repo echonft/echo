@@ -3,5 +3,5 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import type { ApproveErc721ContractArgs } from '@echo/web3/types/approve-erc-721-contract-args'
 
 export function approveErc721Contract(_args: ApproveErc721ContractArgs): Promise<HexString> {
-  return delayPromise(Promise.resolve('0xwhatever'), 1200)
+  return delayPromise(Promise.resolve('0xwhatever'), 800)
 }

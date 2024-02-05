@@ -15,6 +15,7 @@ import {
 } from '@echo/model/constants/offer-states'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
@@ -28,7 +29,7 @@ describe('CRUD - offer-update - findOfferStateUpdate', () => {
       }
     }
   }
-  let offerUpdateId: string | undefined
+  let offerUpdateId: Nullable<string>
   beforeAll(async () => {
     await tearUpRemoteFirestoreTests()
   })

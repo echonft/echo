@@ -1,14 +1,13 @@
-import type { Wallet } from '@echo/model/types/wallet'
+import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface AuthUser {
   username: string
   discord: {
     avatarUrl: string
-    avatarDecorationUrl?: string
-    bannerColor?: string
-    bannerUrl?: string
+    avatarDecorationUrl?: Nullable<string>
+    bannerColor?: Nullable<string>
+    bannerUrl?: Nullable<string>
     id: string
     username: string
   }
-  wallets?: Wallet[]
 }

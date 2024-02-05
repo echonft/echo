@@ -7,18 +7,15 @@ import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { Fetcher } from '@echo/utils/types/fetcher'
 import { useTranslations } from 'next-intl'
 import { assoc } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: OfferWithRole
-  fetcher: {
-    rejectOffer: Fetcher<OfferResponse, RejectOfferArgs>
-  }
   disabled?: boolean
   onClick?: EmptyFunction
   onSuccess?: (offer: OfferWithRole) => unknown
@@ -27,7 +24,6 @@ interface Props {
 
 export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
   offer,
-  fetcher,
   disabled,
   onClick,
   onSuccess,
@@ -35,9 +31,10 @@ export const OfferDetailsRejectButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.rejectBtn')
   const tError = useTranslations('error.offer')
+  const { rejectOffer } = useDependencies()
   const { trigger } = useSWRTrigger<OfferResponse, RejectOfferArgs>({
     key: SWRKeys.offer.reject(offer),
-    fetcher: fetcher.rejectOffer,
+    fetcher: rejectOffer,
     onSuccess: (response) => {
       onSuccess?.(assoc('role', offer.role, response.offer))
     },

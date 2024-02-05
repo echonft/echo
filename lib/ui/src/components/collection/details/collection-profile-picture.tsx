@@ -2,11 +2,12 @@ import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
 import { DEFAULT_COLLECTION_PROFILE_PICTURE_URL } from '@echo/ui/constants/default-collection-profile-picture-url'
 import { SIZE_LG } from '@echo/ui/constants/size'
 import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { type FunctionComponent } from 'react'
 
 export interface CollectionProfilePictureProps {
   collectionName: string
-  pictureUrl: string | undefined
+  pictureUrl: Nullable<string>
   size?: ProfilePictureSize
   border?: boolean
 }

@@ -1,10 +1,12 @@
-import { getViemAlchemyHttp } from '@echo/web3/helpers/viem/get-viem-alchemy-http'
-import type { Chain, PublicClient, Transport } from 'viem'
-import { createPublicClient } from 'viem'
+import { getAlchemyTransportUrl } from '@echo/alchemy/helpers/get-alchemy-transport-url'
+import { type Chain, createPublicClient, type PublicClient, webSocket, type WebSocketTransport } from 'viem'
 
-export function getViemClient(chain: Chain): PublicClient<Transport, Chain> {
+export function getViemClient(chain: Chain): PublicClient<WebSocketTransport, typeof chain> {
   return createPublicClient({
+    batch: {
+      multicall: true
+    },
     chain,
-    transport: getViemAlchemyHttp(chain)
-  }) as PublicClient<Transport, Chain>
+    transport: webSocket(getAlchemyTransportUrl(chain.id))
+  })
 }

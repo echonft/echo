@@ -1,8 +1,9 @@
 import { getDiscordImageFormat } from '@echo/frontend/lib/auth/get-discord-image-format'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { type DiscordProfile } from 'next-auth/providers/discord'
 import { isNil } from 'ramda'
 
-export function getDiscordBannerUrl(profile: DiscordProfile): string | undefined {
+export function getDiscordBannerUrl(profile: DiscordProfile): Nullable<string> {
   if (isNil(profile.banner)) {
     return undefined
   }

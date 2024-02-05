@@ -3,11 +3,12 @@ import type { Offer } from '@echo/model/types/offer'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { CreateOfferConfirmedModalBody } from '@echo/ui/components/offer/create/confirmed/create-offer-confirmed-modal-body'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 export interface CreateOfferConfirmedModalProps {
-  offer: Offer | undefined
+  offer: Nullable<Offer>
   open: boolean
   onClose?: EmptyFunction
 }

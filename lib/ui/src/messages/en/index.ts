@@ -16,6 +16,8 @@ export const messages = {
     step2: {
       continueBtn: {
         connected: 'Continue',
+        connecting: 'Skip',
+        reconnecting: 'Skip',
         disconnected: 'Skip'
       },
       subtitle: 'Connect your wallet to start swapping',

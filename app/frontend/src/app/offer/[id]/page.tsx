@@ -15,6 +15,7 @@ import { isOfferRoleUndefined } from '@echo/ui/helpers/offer/is-offer-role-undef
 import { OfferDetailsPage } from '@echo/ui/pages/offer/offer-details-page'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { notFound } from 'next/navigation'
 import { andThen, isNil, pipe } from 'ramda'
 import type { ReactElement } from 'react'
@@ -22,7 +23,7 @@ import type { ReactElement } from 'react'
 type Params = NextAuthUserParams<NextParams<Record<'id', string>>>
 
 async function render({ params: { id }, user }: Params) {
-  const offer = await pipe<[string], Promise<Offer | undefined>, Promise<OfferWithRole | undefined>>(
+  const offer = await pipe<[string], Promise<Nullable<Offer>>, Promise<Nullable<OfferWithRole>>>(
     findOfferById,
     andThen(unlessNil(pipe(validateOffer, andThen(setOfferRoleForUser(user)))))
   )(id)

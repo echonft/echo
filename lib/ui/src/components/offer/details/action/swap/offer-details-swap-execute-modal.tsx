@@ -8,10 +8,11 @@ import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
+import type { Nullable } from '@echo/utils/types/nullable'
 import type { ExecuteSwapArgs } from '@echo/web3/types/execute-swap-args'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
@@ -21,11 +22,7 @@ import { type FunctionComponent } from 'react'
 interface Props {
   offer: OfferWithRole
   chainId: number
-  signature: HexString | undefined
-  fetcher: {
-    getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
-    executeSwap: Fetcher<HexString, ExecuteSwapArgs>
-  }
+  signature: Nullable<HexString>
   open: boolean
   onSuccess?: (offer: OfferWithRole) => unknown
   onClose?: EmptyFunction
@@ -35,13 +32,13 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
   offer,
   chainId,
   signature,
-  fetcher,
   open,
   onSuccess,
   onClose
 }) => {
   const t = useTranslations('offer.details.swapModal')
   const tError = useTranslations('error.offer')
+  const { executeSwap, getOfferSignature } = useDependencies()
   const onError = {
     contexts: offerContext(offer),
     alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('swap') },
@@ -49,7 +46,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
   }
   const { trigger: executeSwapTrigger, isMutating: executeSwapMutating } = useSWRTrigger<HexString, ExecuteSwapArgs>({
     key: SWRKeys.swap.execute(offer),
-    fetcher: fetcher.executeSwap,
+    fetcher: executeSwap,
     onSuccess: (_response) => {
       onSuccess?.(
         pipe<[OfferWithRole], OfferWithRole, OfferWithRole>(
@@ -66,7 +63,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
     GetOfferSignatureArgs
   >({
     key: SWRKeys.offer.getSignature(offer),
-    fetcher: fetcher.getOfferSignature,
+    fetcher: getOfferSignature,
     onSuccess: (response) => {
       void executeSwapTrigger({ chainId, signature: response.signature, offer })
     },

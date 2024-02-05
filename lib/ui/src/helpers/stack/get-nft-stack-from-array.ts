@@ -1,12 +1,13 @@
 import type { Nft } from '@echo/model/types/nft'
 import type { NftStack } from '@echo/ui/types/nft-stack'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { always, applySpec, converge, head, identity, ifElse, isEmpty, mergeDeepLeft, pick, pipe, prop } from 'ramda'
 
 interface FunctionsArgs {
   nfts: NonEmptyArray<Nft>
 }
-export function getNftStackFromArray(nfts: Nft[]): NftStack | undefined {
+export function getNftStackFromArray(nfts: Nft[]): Nullable<NftStack> {
   return ifElse(
     isEmpty,
     always(undefined),

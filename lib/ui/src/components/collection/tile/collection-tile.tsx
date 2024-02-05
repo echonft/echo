@@ -2,6 +2,7 @@ import { linkProvider } from '@echo/api/routing/link-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
@@ -10,7 +11,7 @@ interface Props {
   slug: string
   pictureUrl: string
   name: string
-  swapsCount: number | undefined
+  swapsCount: Nullable<number>
   size: typeof SIZE_MD | typeof SIZE_LG
 }
 

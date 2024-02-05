@@ -5,11 +5,12 @@ import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-rem
 import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-signature - findOfferSignature', () => {
-  let createdOfferSignatureId: string | undefined
+  let createdOfferSignatureId: Nullable<string>
   const offerId = 'offer-id'
   const userId = 'user-id'
   const signature = '0xsignature'

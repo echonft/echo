@@ -7,13 +7,14 @@ import { deleteUser } from '@echo/firestore-test/user/delete-user'
 import { unchecked_addUser } from '@echo/firestore-test/user/unchecked_add-user'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-signature - findOfferSignature', () => {
-  let createdUserId: string | undefined
-  let createdOfferSignatureId: string | undefined
+  let createdUserId: Nullable<string>
+  let createdOfferSignatureId: Nullable<string>
   const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
   const userId = 'oE6yUEQBPn7PZ89yMjKn'
   const signature = '0xsignature'

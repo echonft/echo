@@ -18,6 +18,7 @@ import {
 import { type OfferState } from '@echo/model/types/offer-state'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -27,8 +28,8 @@ describe('CRUD - offer - acceptOffer', () => {
   let initialState: OfferState
   let initialExpiresAt: number
   let initialUpdatedAt: number
-  let createdOfferSignatureId: string | undefined
-  let createdStateUpdateId: string | undefined
+  let createdOfferSignatureId: Nullable<string>
+  let createdStateUpdateId: Nullable<string>
   const pastDate = dayjs().subtract(1, 'day').unix()
   const futureDate = dayjs().add(1, 'day').unix()
   const args: AcceptOfferArgs = {

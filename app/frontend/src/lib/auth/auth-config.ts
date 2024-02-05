@@ -8,13 +8,14 @@ import type { AuthUser } from '@echo/model/types/auth-user'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { type NextAuthConfig } from 'next-auth'
 import Discord, { type DiscordProfile } from 'next-auth/providers/discord'
 import { assoc, both, complement, dissoc, either, isNil, path, pick, pipe, prop } from 'ramda'
 
 interface SigninEvent {
   user: User
-  account: Account | null
+  account: Nullable<Account>
   profile?: Profile
   isNewUser?: boolean
 }
@@ -51,7 +52,7 @@ export const authConfig: NextAuthConfig = {
         pick(['discord']),
         JSON.stringify
       )(event)
-      // TODO replace with Cloud Function
+      // TODO replace with API call to Firestore
       await fetch(apiUrlProvider.admin.updateUser.getUrl(), {
         headers: {
           Authorization: `Bearer ${process.env.ADMIN_TOKEN}`,

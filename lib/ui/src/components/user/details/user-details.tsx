@@ -9,11 +9,11 @@ import { UserDetailsWallets } from '@echo/ui/components/user/details/user-detail
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  user: UserProfile
+  profile: UserProfile
 }
 
-export const UserDetails: FunctionComponent<Props> = ({ user }) => {
-  const { discord, wallets } = user
+export const UserDetails: FunctionComponent<Props> = ({ profile }) => {
+  const { discord, wallets } = profile
   const { bannerUrl, bannerColor, username, avatarUrl } = discord
   return (
     <UserDetailsLayout bannerUrl={bannerUrl} bannerColor={bannerColor}>

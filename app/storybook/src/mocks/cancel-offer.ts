@@ -6,17 +6,15 @@ import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { assoc, pipe } from 'ramda'
 
-export function cancelOffer(offerId: string) {
-  return function (_args: CancelOfferArgs): Promise<OfferResponse> {
-    return delayPromise(
-      Promise.resolve({
-        offer: pipe<[string], Offer, Offer, Offer>(
-          getOfferMockById,
-          assoc('state', OFFER_STATE_CANCELLED),
-          assoc('readOnly', true)
-        )(offerId)
-      }),
-      1200
-    )
-  }
+export function cancelOffer(_args: CancelOfferArgs): Promise<OfferResponse> {
+  return delayPromise(
+    Promise.resolve({
+      offer: pipe<[string], Offer, Offer, Offer>(
+        getOfferMockById,
+        assoc('state', OFFER_STATE_CANCELLED),
+        assoc('readOnly', true)
+      )('LyCfl6Eg7JKuD7XJ6IPi')
+    }),
+    800
+  )
 }

@@ -1,9 +1,10 @@
 import type { Banner } from '@echo/ui/types/banner'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { assoc } from 'ramda'
 import { create } from 'zustand'
 
 interface BannerStore {
-  banner: Banner | undefined
+  banner: Nullable<Banner>
   show: (banner: Banner) => unknown
   dismiss: VoidFunction
 }

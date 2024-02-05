@@ -1,7 +1,4 @@
 'use client'
-import { createListing } from '@echo/api/fetchers/create-listing'
-import { createOffer } from '@echo/api/fetchers/create-offer'
-import { collections } from '@echo/api/providers/collections'
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { NavigationLayout } from '@echo/ui/components/base/navigation/navigation-layout'
 import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
@@ -43,8 +40,8 @@ export const CollectionNavigationLayout: FunctionComponent<PropsWithChildren<Pro
       activeNavigationItem={activeNavigationItem}
     >
       {children}
-      <CreateOfferManager fetcher={{ createOffer }} />
-      <CreateListingManager fetcher={{ createListing }} provider={{ collections }} />
+      <CreateOfferManager />
+      <CreateListingManager />
     </NavigationLayout>
   )
 }

@@ -1,10 +1,4 @@
 'use client'
-import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
-import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
-import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
-import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args'
-import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { NftCardsContainer } from '@echo/ui/components/nft/card/layout/nft-cards-container'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-info-layout'
@@ -16,34 +10,14 @@ import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { Fetcher } from '@echo/utils/types/fetcher'
-import type { HexString } from '@echo/utils/types/hex-string'
-import type { ApproveErc721ContractArgs } from '@echo/web3/types/approve-erc-721-contract-args'
-import type { ChainProvider } from '@echo/web3/types/chain-provider'
-import type { ExecuteSwapArgs } from '@echo/web3/types/execute-swap-args'
-import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721-contract-approval-args'
-import type { SignOfferArgs } from '@echo/web3/types/sign-offer-args'
 import { map, prop } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
   offer: OfferWithRole
-  fetcher: {
-    approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
-    getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
-    acceptOffer: Fetcher<OfferResponse, AcceptOfferArgs>
-    cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
-    executeSwap: Fetcher<HexString, ExecuteSwapArgs>
-    getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
-    rejectOffer: Fetcher<OfferResponse, RejectOfferArgs>
-    signOffer: Fetcher<HexString, SignOfferArgs>
-  }
-  provider: {
-    chain: ChainProvider
-  }
 }
 
-export const OfferDetails: FunctionComponent<Props> = ({ offer, fetcher, provider }) => {
+export const OfferDetails: FunctionComponent<Props> = ({ offer }) => {
   const [updatedOffer, setUpdatedOffer] = useState(offer)
   useEffect(() => {
     setUpdatedOffer(offer)
@@ -66,7 +40,7 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer, fetcher, provide
           nfts={map(prop('nft'), isOfferRoleSender(offer) ? senderItems : receiverItems)}
           alignment={ALIGNMENT_CENTER}
         />
-        <OfferDetailsButtons offer={updatedOffer} fetcher={fetcher} provider={provider} onSuccess={setUpdatedOffer} />
+        <OfferDetailsButtons offer={updatedOffer} onSuccess={setUpdatedOffer} />
       </OfferDetailsItemsButtonsLayout>
     </OfferDetailsLayout>
   )

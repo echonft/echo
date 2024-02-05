@@ -1,20 +1,18 @@
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
-import type { AuthUser } from '@echo/model/types/auth-user'
-import type { Wallet } from '@echo/model/types/wallet'
-import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { getWalletMock } from '@echo/model-mocks/wallet/get-wallet-mock'
+import { errorStore } from '@echo/storybook/mocks/stores/error-store'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import { pipe, prop } from 'ramda'
 
 export function addWallet(_args: AddWalletRequest): Promise<WalletsResponse> {
+  const error = errorStore.getState().addWalletError
+  if (error) {
+    return delayPromise(Promise.reject(), 800)
+  }
   return delayPromise(
     Promise.resolve({
-      wallets: pipe<[string], AuthUser, Wallet[]>(
-        getAuthUserMockByUsername,
-        nonNullableReturn(prop('wallets'))
-      )('johnnycagewins')
+      wallets: [getWalletMock()]
     }),
-    1200
+    800
   )
 }

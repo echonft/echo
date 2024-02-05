@@ -2,8 +2,9 @@ import { getListingsCollectionReference } from '@echo/firestore/helpers/collecti
 import { getQueryUniqueData } from '@echo/firestore/helpers/crud/query/get-query-unique-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { Listing } from '@echo/model/types/listing'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { pipe } from 'ramda'
 
-export function findListingById(id: string): Promise<Listing | undefined> {
+export function findListingById(id: string): Promise<Nullable<Listing>> {
   return pipe(getListingsCollectionReference, queryWhere('id', '==', id), getQueryUniqueData)()
 }

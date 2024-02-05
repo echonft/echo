@@ -1,8 +1,8 @@
 // noinspection JSUnusedGlobalSymbols
 
-import type { UserProfile } from '@echo/model/types/user-profile'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { getUserProfileMockByUsername } from '@echo/model-mocks/user/user-profile-mock'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
@@ -40,6 +40,7 @@ export default metadata
 export const Default: StoryObj<ComponentType> = {
   render: ({ callout, banner }) => {
     const user = getAuthUserMockByUsername('johnnycagewins')
+    const profile = getUserProfileMockByUsername('johnnycagewins')
     const { show, dismiss } = useAlertStore()
     const { show: showBanner, dismiss: dismissBanner } = useBannerStore()
     useEffect(() => {
@@ -66,7 +67,7 @@ export const Default: StoryObj<ComponentType> = {
     return (
       <NavigationPageLayout user={user}>
         <SectionLayout>
-          <UserDetails user={user as UserProfile} />
+          <UserDetails profile={profile} />
         </SectionLayout>
         <SectionLayout>
           <UserNfts nfts={getAllNftMocks()} />

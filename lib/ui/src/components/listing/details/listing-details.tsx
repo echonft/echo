@@ -41,10 +41,11 @@ import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
 import { mapNftToItem } from '@echo/ui/mappers/to-api/map-nft-to-item'
+import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import type { Fetcher } from '@echo/utils/types/fetcher'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { assoc, filter, head, isEmpty, isNil, length, lte, map, mergeLeft, pipe, prop, propEq } from 'ramda'
@@ -52,18 +53,15 @@ import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
   listing: ListingWithRole
-  fetcher: {
-    cancelListing: Fetcher<ListingResponse, CancelListingArgs>
-    createOffer: Fetcher<OfferResponse, CreateOfferRequest>
-  }
-  user: AuthUser | undefined
+  user: Nullable<AuthUser>
   userTargetNfts: Nft[]
   offers: Offer[]
 }
 
-export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, user, userTargetNfts, offers }) => {
+export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTargetNfts, offers }) => {
   const t = useTranslations('listing.details')
   const tError = useTranslations('error.listing')
+  const { cancelListing, createOffer } = useDependencies()
   const [selectableNfts, setSelectableNfts] = useState(
     map<Nft, SelectableNft>(assoc('actionDisabled', true), userTargetNfts)
   )
@@ -71,7 +69,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
   const [createdOffer, setCreatedOffer] = useState<Offer>()
   const { trigger: triggerCancel, isMutating: cancelIsMutating } = useSWRTrigger<ListingResponse, CancelListingArgs>({
     key: SWRKeys.listing.cancel(listing),
-    fetcher: fetcher.cancelListing,
+    fetcher: cancelListing,
     onSuccess: (response) => {
       setUpdatedListing(mergeLeft({ ...response.listing }))
     },
@@ -83,7 +81,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, fetcher, use
 
   const { trigger: triggerFill, isMutating: fillIsMutating } = useSWRTrigger<OfferResponse, CreateOfferRequest>({
     key: SWRKeys.offer.create,
-    fetcher: fetcher.createOffer,
+    fetcher: createOffer,
     onSuccess: (response) => {
       setCreatedOffer(response.offer)
       resetNftSelection()

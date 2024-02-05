@@ -8,7 +8,7 @@ import { assoc, isNil, pipe } from 'ramda'
 export async function addWallet(userId: string, wallet: Wallet): Promise<WalletDocumentData> {
   const existingWallet = await findWalletByAddress(wallet)
   if (!isNil(existingWallet)) {
-    throw Error('wallet already exists in the database')
+    return existingWallet
   }
   return pipe(getWalletsCollectionReference, setReference<WalletDocumentData>(assoc('userId', userId, wallet)))()
 }

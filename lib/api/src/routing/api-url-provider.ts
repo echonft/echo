@@ -27,6 +27,7 @@ export const apiUrlProvider = {
   },
   profile: {
     nonce: new ApiPath({ path: '/profile/nonce', secure: true }),
-    wallet: new ApiPath({ path: '/profile/wallet', secure: true })
+    wallet: new ApiPath({ path: '/profile/wallet', secure: true }),
+    wallets: new ApiPath({ path: '/profile/wallets', secure: true })
   }
 }

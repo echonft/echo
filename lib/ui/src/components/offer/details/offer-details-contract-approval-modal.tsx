@@ -11,10 +11,7 @@ import { mapOfferItemsToContractApprovals } from '@echo/ui/mappers/map-offer-ite
 import type { ContractApproval } from '@echo/ui/types/contract-approval'
 import { propIsNotNil } from '@echo/utils/fp/prop-is-not-nil'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { Fetcher } from '@echo/utils/types/fetcher'
-import type { HexString } from '@echo/utils/types/hex-string'
-import type { ApproveErc721ContractArgs } from '@echo/web3/types/approve-erc-721-contract-args'
-import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721-contract-approval-args'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { all, assoc, find, isNil, map, pipe, propEq, reject, when } from 'ramda'
@@ -25,10 +22,6 @@ interface Props {
   open: boolean
   title: string
   subtitle: string
-  fetcher: {
-    approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
-    getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
-  }
   onSuccess?: EmptyFunction
   onClose?: EmptyFunction
 }
@@ -38,7 +31,6 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
   open,
   title,
   subtitle,
-  fetcher,
   onSuccess,
   onClose
 }) => {
@@ -50,7 +42,7 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
     approvals
   )
   const updateApprovalStatus = useCallback(
-    (contract: Contract, approved: boolean | undefined) => {
+    (contract: Contract, approved: Nullable<boolean>) => {
       const foundApproval = find(propEq(contract, 'contract'), approvals)
       if (!isNil(foundApproval)) {
         if (pipe(reject(propEq(contract, 'contract')), all(propIsNotNil('approved')))(approvals)) {
@@ -78,7 +70,6 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
                 key={approval.contract.address}
                 contract={approval.contract}
                 collectionName={approval.name}
-                fetcher={fetcher}
                 owner={approval.wallet.address}
                 approved={approval.approved}
                 onSuccess={updateApprovalStatus}
@@ -92,7 +83,6 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
           render={(contractToApprove) => (
             <OfferDetailsApproveContractButton
               contract={contractToApprove.contract}
-              fetcher={fetcher}
               onApproved={(contract, approved) => {
                 setIsLoading(false)
                 updateApprovalStatus(contract, approved)

@@ -1,10 +1,11 @@
 import { LISTING_ROLE_CREATOR } from '@echo/model/constants/listing-role'
 import type { ListingRole } from '@echo/model/types/listing-role'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
-  role: ListingRole | undefined
+  role: Nullable<ListingRole>
 }
 export const ListingDetailsUserStateLayout: FunctionComponent<PropsWithChildren<Props>> = ({ role, children }) => {
   return (

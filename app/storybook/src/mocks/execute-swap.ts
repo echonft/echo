@@ -3,5 +3,5 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import type { ExecuteSwapArgs } from '@echo/web3/types/execute-swap-args'
 
 export function executeSwap(_args: ExecuteSwapArgs): Promise<HexString> {
-  return delayPromise(Promise.resolve('0xwhatever'), 1200)
+  return delayPromise(Promise.resolve('0xwhatever'), 800)
 }

@@ -1,3 +1,5 @@
+import type { Nullable } from '@echo/utils/types/nullable'
+
 export interface AlchemyContractResponse {
   address: string
   name: string
@@ -16,9 +18,9 @@ interface OpenSeaMetadata {
   collectionName: string
   safelistRequestStatus: string
   imageUrl: string
-  description: string | undefined
-  externalUrl: string | undefined
-  twitterUsername: string | undefined
-  discordUrl: string | undefined
+  description: Nullable<string>
+  externalUrl: Nullable<string>
+  twitterUsername: Nullable<string>
+  discordUrl: Nullable<string>
   lastIngestedAt: string
 }

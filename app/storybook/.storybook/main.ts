@@ -1,4 +1,5 @@
 import { type StorybookConfig } from '@storybook/nextjs'
+import { dirname, join } from 'path'
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 
 const config: StorybookConfig = {
@@ -26,14 +27,19 @@ const config: StorybookConfig = {
     { name: '@storybook/addon-actions' }
   ],
   framework: {
-    name: '@storybook/nextjs',
-    options: { builder: { useSWC: true } }
+    name: getAbsolutePath('@storybook/nextjs'),
+    options: {
+      builder: {
+        useSWC: true
+      }
+    }
   },
+
   env: (config) => ({
     ...config,
     NEXT_PUBLIC_ALCHEMY_KEY: 'test',
     NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: 'wallet-connect-project-id',
-    VERCEL_URL: 'http://localhost:6006/'
+    NEXT_PUBLIC_URL: 'http://localhost:6006/'
   }),
   swc: () => ({
     jsc: {
@@ -67,3 +73,7 @@ const config: StorybookConfig = {
   }
 }
 export default config
+
+function getAbsolutePath(value: string): any {
+  return dirname(require.resolve(join(value, 'package.json')))
+}

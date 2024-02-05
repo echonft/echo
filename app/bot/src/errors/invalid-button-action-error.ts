@@ -1,10 +1,11 @@
 import { InteractionError } from '@echo/bot/errors/interaction-error'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { type InteractionReplyOptions } from 'discord.js'
 import i18next from 'i18next'
 import { isEmpty, isNil } from 'ramda'
 
 export class InvalidButtonActionError extends InteractionError {
-  constructor(action?: string | null) {
+  constructor(action?: Nullable<string>) {
     super(isNil(action) || isEmpty(action) ? 'empty button action' : `invalid button action: ${action}`)
   }
 

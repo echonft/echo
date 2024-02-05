@@ -1,4 +1,5 @@
 import { type AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
+import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface AlchemyNftResponse {
   contract: AlchemyContractResponse
@@ -25,7 +26,7 @@ interface Image {
 interface Raw {
   tokenUri: string
   metadata: Metadata
-  error: string | undefined
+  error: Nullable<string>
 }
 
 interface Metadata {

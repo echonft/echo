@@ -1,5 +1,4 @@
 'use client'
-import { type AuthUser } from '@echo/model/types/auth-user'
 import { type Nft } from '@echo/model/types/nft'
 import { CreateListingDiscardModal } from '@echo/ui/components/listing/create/discard/create-listing-discard-modal'
 import { SelectableNftGroupsAndFiltersContainer } from '@echo/ui/components/nft/filters/layout/selectable-nft-groups-and-filters-container'
@@ -19,10 +18,9 @@ import { useBeforeunload } from 'react-beforeunload'
 
 interface Props {
   nfts: Nft[]
-  user: AuthUser
 }
 
-export const ProfileNfts: FunctionComponent<Props> = ({ nfts, user }) => {
+export const ProfileNfts: FunctionComponent<Props> = ({ nfts }) => {
   const t = useTranslations('profile')
   const { hasNewOfferPending, clearOffer, setSenderItems, openModal: openNewOfferModal } = useNewOfferStore()
   const { hasNewListingPending, openModal: openNewListingModal, setItems, clearListing } = useNewListingStore()
@@ -79,7 +77,7 @@ export const ProfileNfts: FunctionComponent<Props> = ({ nfts, user }) => {
   }
 
   if (isEmpty(nfts)) {
-    return <ProfileNftsEmpty user={user} />
+    return <ProfileNftsEmpty />
   }
   return (
     <>

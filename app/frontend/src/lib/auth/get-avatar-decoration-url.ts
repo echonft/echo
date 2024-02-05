@@ -1,7 +1,8 @@
+import type { Nullable } from '@echo/utils/types/nullable'
 import { type DiscordProfile } from 'next-auth/providers/discord'
 import { isNil } from 'ramda'
 
-export function getAvatarDecorationUrl(profile: DiscordProfile): string | undefined {
+export function getAvatarDecorationUrl(profile: DiscordProfile): Nullable<string> {
   if (isNil(profile.avatar_decoration)) {
     return undefined
   }
