@@ -32,7 +32,7 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
           size === SIZE_MD && ['w-[21rem]', 'h-[21rem]']
         )}
         style={{
-          backgroundImage: `${themeExtension.backgroundImage.collectionTitle}, url('${pictureUrl}')`
+          backgroundImage: `${themeExtension.backgroundImage.collectionTitle}, url('${pictureUrl}'), linear-gradient(0deg, ${themeExtension.colors.dark['500']}, ${themeExtension.colors.dark['500']})`
         }}
       >
         <div className={clsx('flex', 'flex-col', 'gap-2')}>
