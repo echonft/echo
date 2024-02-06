@@ -6,14 +6,19 @@ import { clsx } from 'clsx'
 import Image from 'next/image'
 import { type FunctionComponent } from 'react'
 
-interface Props {
+export interface ProfilePictureProps {
   pictureUrl: string
   alt: string
   size?: ProfilePictureSize
   border?: boolean
 }
 
-export const ProfilePicture: FunctionComponent<Props> = ({ pictureUrl, alt, size = SIZE_LG, border = true }) => {
+export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
+  pictureUrl,
+  alt,
+  size = SIZE_LG,
+  border = true
+}) => {
   return (
     <Image
       className={clsx(

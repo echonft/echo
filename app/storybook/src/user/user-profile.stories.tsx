@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { getUserProfileMockByUsername } from '@echo/model-mocks/user/user-profile-mock'
-import { UserDetails } from '@echo/ui/components/user/details/user-details'
+import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { assocPath, pipe } from 'ramda'
@@ -11,7 +11,7 @@ type BannerType = 'Color' | 'Default' | 'Image'
 type ComponentType = FunctionComponent<{ banner: BannerType; bannerColor: Nullable<string> }>
 
 const metadata: Meta<ComponentType> = {
-  title: 'User/Details ',
+  title: 'User/Profile ',
   args: {
     bannerColor: '#d11bd9',
     banner: 'Image'
@@ -32,7 +32,7 @@ const metadata: Meta<ComponentType> = {
 
 export default metadata
 
-export const Details: StoryObj<ComponentType> = {
+export const Profile: StoryObj<ComponentType> = {
   render: ({ bannerColor, banner }) => {
     const profile = pipe(
       getUserProfileMockByUsername,
@@ -44,6 +44,6 @@ export const Details: StoryObj<ComponentType> = {
       ),
       assocPath(['discord', 'bannerColor'], banner === 'Color' ? bannerColor : undefined)
     )('johnnycagewins')
-    return <UserDetails profile={profile} />
+    return <UserProfile profile={profile} />
   }
 }

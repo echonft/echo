@@ -7,7 +7,7 @@ import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
-import { UserDetails } from '@echo/ui/components/user/details/user-details'
+import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
 import { notFound } from 'next/navigation'
 import { isNil, pipe } from 'ramda'
 import type { ReactElement } from 'react'
@@ -22,7 +22,7 @@ async function render({ params: { username }, user: authUser, children }: Params
   return (
     <NavigationPageLayout user={authUser}>
       <SectionLayout>
-        <UserDetails profile={profile} />
+        <UserProfile profile={profile} />
       </SectionLayout>
       <SectionLayout>{children}</SectionLayout>
     </NavigationPageLayout>

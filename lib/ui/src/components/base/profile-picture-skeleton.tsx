@@ -12,6 +12,7 @@ export const ProfilePictureSkeleton: FunctionComponent<Props> = ({ size = SIZE_L
   return (
     <div
       className={clsx(
+        'flex-none',
         'select-none',
         size === SIZE_LG && ['h-40', 'w-40', 'rounded-2xl'],
         size === SIZE_MD && ['h-28', 'w-28', 'rounded-2xl'],

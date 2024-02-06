@@ -3,17 +3,14 @@ import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
-import { type FunctionComponent, type PropsWithChildren } from 'react'
+import type { FunctionComponent } from 'react'
 
-export interface UserDetailsLayoutProps {
+export interface ProfileBannerProps {
   bannerUrl?: Nullable<string>
   bannerColor?: Nullable<string>
 }
-export const UserDetailsLayout: FunctionComponent<PropsWithChildren<UserDetailsLayoutProps>> = ({
-  bannerUrl,
-  bannerColor,
-  children
-}) => {
+
+export const ProfileBanner: FunctionComponent<ProfileBannerProps> = ({ bannerUrl, bannerColor }) => {
   function getStyle() {
     if (isNilOrEmpty(bannerUrl)) {
       if (isNilOrEmpty(bannerColor)) {
@@ -31,8 +28,16 @@ export const UserDetailsLayout: FunctionComponent<PropsWithChildren<UserDetailsL
     }
   }
   return (
-    <div className={clsx('w-full', 'bg-contain')} style={getStyle()}>
-      {children}
-    </div>
+    <div
+      className={clsx(
+        'w-full',
+        'h-[15.625rem]',
+        'bg-no-repeat',
+        'flex-none',
+        'select-none',
+        isNilOrEmpty(bannerUrl) ? 'bg-contain' : 'bg-cover'
+      )}
+      style={getStyle()}
+    />
   )
 }

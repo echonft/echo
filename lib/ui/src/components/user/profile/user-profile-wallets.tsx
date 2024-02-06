@@ -8,7 +8,7 @@ interface Props {
   wallets: Wallet[]
 }
 
-export const UserDetailsWallets: FunctionComponent<Props> = ({ wallets }) => {
+export const UserProfileWallets: FunctionComponent<Props> = ({ wallets }) => {
   if (isNonEmptyArray(wallets)) {
     return <WalletConnectedButton wallet={head(wallets)} />
   }
