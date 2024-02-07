@@ -1,24 +1,24 @@
 import { type Attribute, type NftResponse } from '@echo/alchemy/types/response/nft-response'
-import { getBlurUrl } from '@echo/model/helpers/nft/get-blur-url'
-import { getOpenSeaUrl } from '@echo/model/helpers/nft/get-open-sea-url'
+import { getBlurUrlForNft } from '@echo/model/helpers/nft/get-blur-url-for-nft'
+import { getOpenSeaUrlForNft } from '@echo/model/helpers/nft/get-open-sea-url-for-nft'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { NftAttribute } from '@echo/model/types/nft-attribute'
 import type { User } from '@echo/model/types/user'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { pathIsNil } from '@echo/utils/fp/path-is-nil'
+import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import {
   always,
   applySpec,
-  converge,
   ifElse,
   invoker,
   isNil,
-  isNotNil,
   map,
+  partial,
   partialRight,
   path,
   pathEq,
-  pathSatisfies,
   pipe,
   prop,
   unless
@@ -42,32 +42,36 @@ function internalFn(collection: Collection, owner: User): (nftResponse: NftRespo
           pipe(prop('balance'), partialRight(parseInt, [10])),
           always(1)
         ),
-        blurUrl: converge<string, [(response: NftResponse) => string, (response: NftResponse) => number]>(getBlurUrl, [
-          nonNullableReturn(path(['contract', 'address'])),
-          pipe(prop('tokenId'), partialRight(parseInt, [10]))
-        ]),
+        blurUrl: pipe(prop('tokenId'), partialRight(parseInt, [10]), partial(getBlurUrlForNft, [collection.contract])),
         collection: always(collection),
         name: prop('name'),
-        openSeaUrl: converge<string, [(response: NftResponse) => string, (response: NftResponse) => number]>(
-          getOpenSeaUrl,
-          [nonNullableReturn(path(['contract', 'address'])), pipe(prop('tokenId'), partialRight(parseInt, [10]))]
+        openSeaUrl: pipe(
+          prop('tokenId'),
+          partialRight(parseInt, [10]),
+          partial(getOpenSeaUrlForNft, [collection.contract])
         ),
         owner: always(owner),
         // Not all links are always provided so add either cached or original if pngUrl does not exist
-        pictureUrl: ifElse(
-          pathSatisfies(isNotNil, ['image', 'pngUrl']),
-          path(['image', 'pngUrl']),
+        pictureUrl: pipe(
           ifElse(
-            pathSatisfies(isNotNil, ['image', 'cachedUrl']),
-            path(['image', 'cachedUrl']),
-            path(['image', 'originalUrl'])
-          )
+            pathIsNil(['image', 'pngUrl']),
+            ifElse(
+              pathIsNil(['image', 'cachedUrl']),
+              nonNullableReturn(path(['image', 'originalUrl'])),
+              nonNullableReturn(path(['image', 'cachedUrl']))
+            ),
+            nonNullableReturn(path(['image', 'pngUrl']))
+          ),
+          removeQueryFromUrl
         ),
         // Not all links are always provided so add original if thumbnailUrl does not exist
-        thumbnailUrl: ifElse(
-          pathSatisfies(isNotNil, ['image', 'thumbnailUrl']),
-          path(['image', 'thumbnailUrl']),
-          path(['image', 'originalUrl'])
+        thumbnailUrl: pipe(
+          ifElse(
+            pathIsNil(['image', 'thumbnailUrl']),
+            nonNullableReturn(path(['image', 'originalUrl'])),
+            nonNullableReturn(path(['image', 'thumbnailUrl']))
+          ),
+          removeQueryFromUrl
         ),
         tokenId: pipe(prop('tokenId'), partialRight(parseInt, [10])),
         tokenType: path(['contract', 'tokenType'])

@@ -8,8 +8,9 @@ import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-u
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { filter, isNil, pathEq, pick, pipe } from 'ramda'
+import { converge, filter, isNil, path, pathEq, prop } from 'ramda'
 
 export async function updateUserNfts(discordId: string) {
   const foundUser = await findUserByDiscordId(discordId)
@@ -24,14 +25,10 @@ export async function updateUserNfts(discordId: string) {
     const nfts = await getNftsForOwner(collectionsForChain, owner)
     for (const nft of nfts) {
       // FIXME this is true only for ERC721
-      const existingNft = await pipe<
-        [Omit<Nft, 'id' | 'updatedAt'>],
-        Pick<Omit<Nft, 'id' | 'updatedAt'>, 'collection' | 'tokenId'>,
-        Promise<Nullable<Nft>>
-      >(
-        pick(['collection', 'tokenId']),
-        findNftByCollection
-      )(nft)
+      const existingNft = await converge<
+        Promise<Nullable<Nft>>,
+        [(nft: Omit<Nft, 'id' | 'updatedAt'>) => string, (nft: Omit<Nft, 'id' | 'updatedAt'>) => number]
+      >(findNftByCollection, [nonNullableReturn(path(['collection', 'id'])), prop('tokenId')])(nft)
       if (isNil(existingNft)) {
         await addNft(nft)
       } else {

@@ -1,20 +1,21 @@
 import { type Contract } from '@echo/model/types/contract'
+import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface Collection {
   id: string
-  bannerUrl?: string
-  blurUrl?: string
+  bannerUrl?: Nullable<string>
+  blurUrl?: Nullable<Lowercase<string>>
   contract: Contract
   description: string
-  discordUrl?: string
+  discordUrl?: Nullable<string>
   floorPrice?: number
   name: string
-  openSeaUrl?: string
+  openSeaUrl?: Nullable<Lowercase<string>>
   profilePictureUrl: string
-  slug: string
+  slug: Lowercase<string>
   swapsCount?: number
   totalSupply: number
   twitterUsername?: string
   verified: boolean
-  websiteUrl?: string
+  websiteUrl?: Nullable<string>
 }

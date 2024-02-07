@@ -4,7 +4,7 @@ import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 import { omit } from 'ramda'
 
-describe('mappers - mapAlchemyNftResponseToAlchemyNft', () => {
+describe('mappers - mapNftResponse', () => {
   it('returns mapped nft collection', () => {
     const response: NftResponse = {
       contract: {
@@ -18,15 +18,18 @@ describe('mappers - mapAlchemyNftResponseToAlchemyNft', () => {
         openSeaMetadata: {
           floorPrice: 0.037,
           collectionName: 'Spiral Frequencies',
+          collectionSlug: 'spiral-frequencies',
           safelistRequestStatus: 'verified',
           imageUrl:
-            'https://i.seadn.io/gae/dPCp-lwVmhNgEqZCIsTVos7mDu7qY5A_LARb8PMULBrIfTIlRSlX58fphv8AQm8axjszuT-LOwbBlIbXRwZuA6Ua9Btp3aJWpMCMWu8?w=500&auto=format',
+            'https://i.seadn.io/gae/dPCp-lwVmhNgEqZCIsTVos7mDu7qY5A_LARb8PMULBrIfTIlRSlX58fphv8AQm8axjszuT-LOwbBlIbXRwZuA6Ua9Btp3aJWpMCMWu8',
           description:
             'A **[Genetic Chain](https://geneticchain.io)** Project.\r\n\r\nProject #1: [Spiral Frequencies](https://geneticchain.io/project/1) by papaver\r\n\r\nSpirals twisting their beauty through hypnotic frequencies.\r\n\r\nThis is an on-chain dynamic NFT project. Token owners can customize certain art traits. Go to the [Spiral Frequencies DApp](https://geneticchain.io/project/1/dapp) and login using your MetaMask wallet.',
           externalUrl: 'https://geneticchain.io/project/1',
           twitterUsername: 'GeneticChain',
           discordUrl: 'https://discord.gg/genetic-chain',
-          lastIngestedAt: '2023-03-22T19:05:31.000Z'
+          lastIngestedAt: '2023-03-22T19:05:31.000Z',
+          bannerImageUrl:
+            'https://i.seadn.io/gae/ujBmfCu4_m30X3zkmyEA6wYPFubX0qkQJ5CEm5D9Eo2M1jHkDx1K4hUQQitd912A6-M8nyvOsuCuIv8RZokw83runTcR_kTs45xF'
         },
         isSpam: undefined,
         spamClassifications: []

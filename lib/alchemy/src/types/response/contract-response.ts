@@ -16,11 +16,13 @@ export interface ContractResponse {
 interface OpenSeaMetadata {
   floorPrice: number
   collectionName: string
+  collectionSlug: string
   safelistRequestStatus: string
   imageUrl: string
   description: Nullable<string>
   externalUrl: Nullable<string>
   twitterUsername: Nullable<string>
   discordUrl: Nullable<string>
+  bannerImageUrl: Nullable<string>
   lastIngestedAt: string
 }
