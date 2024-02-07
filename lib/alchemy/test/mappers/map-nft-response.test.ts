@@ -1,34 +1,12 @@
-import { mapAlchemyNftResponseToAlchemyNft } from '@echo/alchemy/mappers/map-alchemy-nft-response-to-alchemy-nft'
-import { type AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
-import { type AlchemyNftResponse } from '@echo/alchemy/types/response/alchemy-nft-response'
+import { mapNftResponse } from '@echo/alchemy/mappers/map-nft-response'
+import { type NftResponse } from '@echo/alchemy/types/response/nft-response'
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
-import { toLower } from 'ramda'
+import { omit } from 'ramda'
 
 describe('mappers - mapAlchemyNftResponseToAlchemyNft', () => {
   it('returns mapped nft collection', () => {
-    const expected: AlchemyNft = {
-      attributes: [
-        { value: 'archimedean', trait: 'Algorithm' },
-        { value: 'main', trait: 'Ring' },
-        { value: 'movie', trait: 'Animation' },
-        { value: '5', trait: 'Speed' },
-        { value: 'cumulus', trait: 'Density' },
-        { value: '0001', trait: 'Colors' },
-        { value: 'random1', trait: 'Palette' },
-        { value: '#complement', trait: 'Background' }
-      ],
-      balance: 1,
-      contractAddress: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-      chainId: 1,
-      name: 'Spiral Frequencies #1376',
-      pictureUrl:
-        'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
-      thumbnailUrl:
-        'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
-      tokenId: 1376,
-      tokenType: 'ERC721'
-    }
-    const response: AlchemyNftResponse = {
+    const response: NftResponse = {
       contract: {
         address: '0x320e2fa93A4010ba47edcdE762802374bac8d3F7',
         name: 'Spiral Frequencies',
@@ -113,6 +91,7 @@ describe('mappers - mapAlchemyNftResponseToAlchemyNft', () => {
       tokenUri: 'https://geneticchain.io/api/project/1/token/1376/meta',
       timeLastUpdated: '2022-12-23T06:24:54.339Z'
     }
-    expect(mapAlchemyNftResponseToAlchemyNft(1)(response)).toStrictEqual(expected)
+    const nft = getNftMockById('8hHFadIrrooORfTOLkBg')
+    expect(mapNftResponse(nft.collection, nft.owner)(response)).toStrictEqual(omit(['id', 'updatedAt'], nft))
   })
 })

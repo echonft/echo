@@ -1,10 +1,10 @@
 import { mapAlchemyContractResponseToAlchemyContract } from '@echo/alchemy/mappers/map-alchemy-contract-response-to-alchemy-contract'
 import { type AlchemyCollection } from '@echo/alchemy/types/model/alchemy-collection'
-import { type AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
+import { type ContractResponse } from '@echo/alchemy/types/response/contract-response'
 import { applySpec, isNil, partialRight, path, pipe, prop, unless } from 'ramda'
 
 export function mapAlchemyContractResponseToAlchemyCollection(chainId: number) {
-  return function (contractResponse: AlchemyContractResponse): AlchemyCollection {
+  return function (contractResponse: ContractResponse): AlchemyCollection {
     return applySpec<AlchemyCollection>({
       contract: mapAlchemyContractResponseToAlchemyContract(chainId),
       description: path(['openSeaMetadata', 'description']),

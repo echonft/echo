@@ -1,6 +1,6 @@
 import type { Nullable } from '@echo/utils/types/nullable'
 
-export interface AlchemyContractResponse {
+export interface ContractResponse {
   address: string
   name: string
   symbol: string

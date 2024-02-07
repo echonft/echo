@@ -1,8 +1,8 @@
-import { type AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
+import { type ContractResponse } from '@echo/alchemy/types/response/contract-response'
 import type { Nullable } from '@echo/utils/types/nullable'
 
-export interface AlchemyNftResponse {
-  contract: AlchemyContractResponse
+export interface NftResponse {
+  contract: ContractResponse
   tokenId: string
   tokenType: string
   name: string

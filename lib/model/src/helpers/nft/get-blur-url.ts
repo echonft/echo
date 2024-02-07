@@ -3,6 +3,6 @@
  * @param contractAddress
  * @param tokenId
  */
-export function getNftBlurUrl(contractAddress: string, tokenId: number) {
+export function getBlurUrl(contractAddress: string, tokenId: number) {
   return `https://blur.io/asset/${contractAddress}/${tokenId}`
 }

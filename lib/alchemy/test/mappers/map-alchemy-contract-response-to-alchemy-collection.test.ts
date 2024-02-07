@@ -1,6 +1,6 @@
 import { mapAlchemyContractResponseToAlchemyCollection } from '@echo/alchemy/mappers/map-alchemy-contract-response-to-alchemy-collection'
 import { type AlchemyCollection } from '@echo/alchemy/types/model/alchemy-collection'
-import { type AlchemyContractResponse } from '@echo/alchemy/types/response/alchemy-contract-response'
+import { type ContractResponse } from '@echo/alchemy/types/response/contract-response'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 
@@ -24,7 +24,7 @@ describe('mappers - mapAlchemyContractResponseToAlchemyCollection', () => {
       twitterUsername: 'GeneticChain',
       websiteUrl: 'https://geneticchain.io/project/1'
     }
-    const response: AlchemyContractResponse = {
+    const response: ContractResponse = {
       address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
       name: 'Spiral Frequencies',
       symbol: 'GCP1',
