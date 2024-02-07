@@ -1,21 +1,19 @@
+import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
+import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import { clearDb } from '@echo/firestore-test/clear-db'
-import { initializeDb } from '@echo/firestore-test/initialize-db'
-import promptSync from 'prompt-sync'
+import { promiseAll } from '@echo/utils/fp/promise-all'
+import { map, pipe, values } from 'ramda'
 
 void (async function () {
-  const prompt = promptSync({ sigint: true })
-  const answer = prompt('ARE YOU SURE YOU WANT TO DO THIS? [Y/n]')
-  if (answer === 'Y') {
-    // eslint-disable-next-line no-console
-    console.log("you're the boss...")
-    initializeFirebase()
-    await clearDb()
-    await initializeDb()
-    await terminateFirestore()
-  } else {
-    // eslint-disable-next-line no-console
-    console.log('phew')
-  }
+  initializeFirebase()
+  await pipe(
+    values,
+    map((collectionPath: string) => {
+      const reference = firestoreApp().collection(collectionPath)
+      return firestoreApp().recursiveDelete(reference)
+    }),
+    promiseAll
+  )(CollectionReferenceName)
+  await terminateFirestore()
 })()
