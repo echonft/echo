@@ -6,7 +6,7 @@ import type { ContractResponse } from '@echo/alchemy/types/response/contract-res
 import axios, { type AxiosResponse } from 'axios'
 import { pipe, prop } from 'ramda'
 
-export function getContractMetadata(chainId: number, address: string) {
+export function getContractMetadata(chainId: number, address: string, verified?: boolean) {
   return axios
     .get<ContractResponse, AxiosResponse<ContractResponse>, GetContractMetadataRequest>(
       getAlchemyRoute(AlchemyRoutes.GET_CONTRACT_METADATA, chainId),
@@ -14,5 +14,5 @@ export function getContractMetadata(chainId: number, address: string) {
         params: { contractAddress: address }
       }
     )
-    .then(pipe(prop('data'), mapContractResponse(chainId)))
+    .then(pipe(prop('data'), mapContractResponse(chainId, verified)))
 }
