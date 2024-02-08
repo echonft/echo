@@ -6,7 +6,7 @@ import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { find, isNil, map, pathEq, pipe, prop, reject } from 'ramda'
+import { find, isNil, map, pathEq, pipe, prop, reject, toLower } from 'ramda'
 
 export function mapGetNftsForOwnerResponse(collections: Collection[], owner: User) {
   return function (response: GetNftsForOwnerResponse): AlchemyPagingResult<Omit<Nft, 'id' | 'updatedAt'>> {
@@ -18,7 +18,8 @@ export function mapGetNftsForOwnerResponse(collections: Collection[], owner: Use
     >(
       prop('ownedNfts'),
       map<NftResponse, Nullable<Omit<Nft, 'id' | 'updatedAt'>>>((response) => {
-        const collection = find(pathEq(response.contract.address, ['contract', 'address']), collections)
+        const collection = find(pathEq(toLower(response.contract.address), ['contract', 'address']), collections)
+
         if (isNil(collection)) {
           return undefined
         }

@@ -31,7 +31,7 @@ function fetchNftsForOwner(args: Args) {
         )(collections)
       ),
       {
-        params: { owner: owner.wallet.address, contractAddresses: map(path(['contract', 'address'])) },
+        params: { owner: owner.wallet.address, contractAddresses: map(path(['contract', 'address']), collections) },
         paramsSerializer: partialRight(stringify, [{ arrayFormat: 'brackets' }])
       }
     )
