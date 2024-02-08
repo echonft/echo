@@ -19,6 +19,6 @@
       "@echo/utils-test/*": ["../utils/test/@utils/*"]
     }
   },
-  "include": ["src", "test", "utils", "../../env.d.ts"],
+  "include": ["src", "test", "../../env.d.ts"],
   "exclude": ["node_modules"]
 }

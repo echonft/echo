@@ -16,6 +16,7 @@ module.exports = {
     '^@echo/model-mocks/(.*)$': '<rootDir>/../../lib/model/test/@mocks/$1',
     '^@echo/firestore/(.*)$': '<rootDir>/../../lib/firestore/src/$1',
     '^@echo/firestore-mocks/(.*)$': '<rootDir>/../../lib/firestore/test/@mocks/$1',
+    '^@echo/firestore-test/(.*)$': '<rootDir>/../../lib/firestore/utils/@mocks/$1',
     '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1',
     '^@echo/web3/(.*)$': '<rootDir>/../../lib/web3/src/$1'
   },

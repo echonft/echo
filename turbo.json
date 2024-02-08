@@ -58,18 +58,6 @@
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
     },
-    "@echo/firestore#db:add-collection:dev": {
-      "cache": false
-    },
-    "@echo/firestore#db:fix-addresses:dev": {
-      "cache": false
-    },
-    "@echo/firestore#db:reset:dev": {
-      "cache": false
-    },
-    "@echo/firestore#db:reset:test": {
-      "cache": false
-    },
     "@echo/bot#start": {
       "dependsOn": ["@echo/bot#build"],
       "cache": false,
@@ -79,6 +67,12 @@
       "dependsOn": ["@echo/ui#build"],
       "outputs": [".next/**", "!.next/cache/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "@echo/helper#db:reset:dev": {
+      "cache": false
+    },
+    "@echo/helper#db:reset:test": {
+      "cache": false
     },
     "@echo/helper#start": {
       "dependsOn": ["@echo/helper#build"],

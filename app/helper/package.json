@@ -4,6 +4,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "db:reset:dev": "ts-node --project tsconfig.json src/scripts/reset-db-dev.ts",
+    "db:reset:test": "ts-node --project tsconfig.json src/scripts/reset-db-test.ts",
     "add-collection": "dotenvx run --env-file=../../.env.dev -- ts-node --project tsconfig.json src/scripts/add-collection-script.ts",
     "build": "tsc",
     "clean": "rm -rf dist",
