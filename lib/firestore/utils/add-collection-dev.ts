@@ -23,7 +23,7 @@ const collectionToAdd: Omit<Collection, 'id'> = {
   openSeaUrl: 'https://opensea.io/collection/boredapeyachtclub',
   profilePictureUrl:
     'https://i.seadn.io/gae/Ju9CkWtV-1Okvf45wo8UctR-M9He2PjILP0oOvxE89AyiPPGtrR3gysu1Zgy0hjd2xKIgjJJtWIc0ybj4Vd7wv8t3pxDGHoJBzDB?auto=format&dpr=1&w=384',
-  slug: 'BAYC',
+  slug: 'bayc',
   totalSupply: 9998,
   twitterUsername: 'BoredApeYC',
   verified: true,

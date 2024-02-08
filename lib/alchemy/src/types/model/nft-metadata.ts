@@ -1,10 +1,12 @@
-import { type AlchemyNftAttribute } from '@echo/alchemy/types/model/alchemy-nft-attribute'
 import type { HexString } from '@echo/utils/types/hex-string'
 
-export interface AlchemyNft {
+export interface NftMetadata {
   contractAddress: Lowercase<HexString>
   chainId: number
-  attributes: AlchemyNftAttribute[]
+  attributes: {
+    trait: string
+    value: string
+  }[]
   balance: number
   name: string
   pictureUrl: string

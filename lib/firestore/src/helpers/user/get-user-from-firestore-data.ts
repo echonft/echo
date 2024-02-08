@@ -4,7 +4,7 @@ import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wall
 import type { User } from '@echo/model/types/user'
 import { assoc, modify, pick, pipe } from 'ramda'
 
-export function createUserFromFirestoreData(user: UserDocumentData, wallet: WalletDocumentData): User {
+export function getUserFromFirestoreData(user: UserDocumentData, wallet: WalletDocumentData): User {
   return pipe<
     [UserDocumentData],
     Pick<UserDocumentData, 'username' | 'discord'>,

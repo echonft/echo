@@ -1,6 +1,6 @@
 import type { Nullable } from '@echo/utils/types/nullable'
 
-export interface AlchemyContractResponse {
+export interface ContractResponse {
   address: string
   name: string
   symbol: string
@@ -16,11 +16,13 @@ export interface AlchemyContractResponse {
 interface OpenSeaMetadata {
   floorPrice: number
   collectionName: string
+  collectionSlug: string
   safelistRequestStatus: string
   imageUrl: string
   description: Nullable<string>
   externalUrl: Nullable<string>
   twitterUsername: Nullable<string>
   discordUrl: Nullable<string>
+  bannerImageUrl: Nullable<string>
   lastIngestedAt: string
 }

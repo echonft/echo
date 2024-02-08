@@ -1,14 +1,32 @@
-import { mapAlchemyNftResponseToAlchemyNft } from '@echo/alchemy/mappers/map-alchemy-nft-response-to-alchemy-nft'
-import { type AlchemyNft } from '@echo/alchemy/types/model/alchemy-nft'
+import { mapNftResponse } from '@echo/alchemy/mappers/map-nft-response'
 import { type AlchemyPagingResult } from '@echo/alchemy/types/paging/alchemy-paging-result'
 import { type GetNftsForOwnerResponse } from '@echo/alchemy/types/response/get-nfts-for-owner-response'
-import { applySpec, map, pipe, prop } from 'ramda'
+import type { NftResponse } from '@echo/alchemy/types/response/nft-response'
+import type { Collection } from '@echo/model/types/collection'
+import type { Nft } from '@echo/model/types/nft'
+import type { User } from '@echo/model/types/user'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { find, isNil, map, pathEq, pipe, prop, reject, toLower } from 'ramda'
 
-export function mapGetNftsForOwnerResponse(chainId: number) {
-  return function (response: GetNftsForOwnerResponse): AlchemyPagingResult<AlchemyNft> {
-    return applySpec<AlchemyPagingResult<AlchemyNft>>({
-      data: pipe(prop('ownedNfts'), map(mapAlchemyNftResponseToAlchemyNft(chainId))),
-      pageKey: prop('pageKey')
-    })(response)
+export function mapGetNftsForOwnerResponse(collections: Collection[], owner: User) {
+  return function (response: GetNftsForOwnerResponse): AlchemyPagingResult<Omit<Nft, 'id' | 'updatedAt'>> {
+    const data = pipe<
+      [GetNftsForOwnerResponse],
+      NftResponse[],
+      Nullable<Omit<Nft, 'id' | 'updatedAt'>>[],
+      Omit<Nft, 'id' | 'updatedAt'>[]
+    >(
+      prop('ownedNfts'),
+      map<NftResponse, Nullable<Omit<Nft, 'id' | 'updatedAt'>>>((response) => {
+        const collection = find(pathEq(toLower(response.contract.address), ['contract', 'address']), collections)
+
+        if (isNil(collection)) {
+          return undefined
+        }
+        return mapNftResponse(collection, owner, response)
+      }),
+      reject(isNil)
+    )(response)
+    return { data, pageKey: response.pageKey }
   }
 }

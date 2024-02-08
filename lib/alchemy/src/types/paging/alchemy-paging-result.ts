@@ -1,5 +1,5 @@
-import { type AlchemyResponseWithPaging } from '@echo/alchemy/types/response/alchemy-response-with-paging'
+import { type ResponseWithPaging } from '@echo/alchemy/types/response/response-with-paging'
 
-export interface AlchemyPagingResult<T> extends AlchemyResponseWithPaging {
+export interface AlchemyPagingResult<T> extends ResponseWithPaging {
   data: T[]
 }
