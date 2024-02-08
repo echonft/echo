@@ -18,8 +18,8 @@ interface Props {
 export const HomePage: FunctionComponent<Props> = ({ collections, offers }) => {
   return (
     <HomeLayout>
-      <HomeHero collection={head(collections)} />
       <HomeSectionsLayout>
+        <HomeHero collection={head(collections)} />
         <HomeCollections collections={tail(collections)} />
         <RecentSwaps offers={offers} />
         <HomeDiscordTileLayout>

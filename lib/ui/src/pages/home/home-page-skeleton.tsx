@@ -10,8 +10,8 @@ import { type FunctionComponent } from 'react'
 export const HomePageSkeleton: FunctionComponent = () => {
   return (
     <HomeLayout>
-      <HomeHeroSkeleton />
       <HomeSectionsLayout>
+        <HomeHeroSkeleton />
         <HomeCollectionsSkeleton />
         <RecentSwapsSkeleton />
         <HomeDiscordTileLayout>

@@ -1,8 +1,8 @@
 import { type User } from '@echo/model/types/user'
-import { UserDiscordTag } from '@echo/ui/components/user/base/user-discord-tag'
-import { UserProfilePicture } from '@echo/ui/components/user/base/user-profile-picture'
+import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
 import { ListingOfferUserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/listing-offer/layout/listing-offer-user-details-discord-tag-and-wallet-layout'
 import { ListingOfferUserDetailsLayout } from '@echo/ui/components/user/listing-offer/layout/listing-offer-user-details-layout'
+import { UserDiscordTag } from '@echo/ui/components/user/profile/user-discord-tag'
 import { WalletConnectedButton } from '@echo/ui/components/wallet/wallet-connected-button'
 import { SIZE_MD } from '@echo/ui/constants/size'
 import { type FunctionComponent } from 'react'
@@ -21,7 +21,7 @@ export const ListingOfferUserDetails: FunctionComponent<Props> = ({ user }) => {
   const { username, avatarUrl } = discord
   return (
     <ListingOfferUserDetailsLayout>
-      <UserProfilePicture discordUsername={username} discordAvatarUrl={avatarUrl} size={SIZE_MD} />
+      <ProfilePicture alt={username} pictureUrl={avatarUrl} size={SIZE_MD} />
       <ListingOfferUserDetailsDiscordTagAndWalletLayout>
         <UserDiscordTag discordUsername={username} />
         <WalletConnectedButton wallet={wallet} />

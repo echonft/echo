@@ -5,7 +5,7 @@ import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { getUserProfileMockByUsername } from '@echo/model-mocks/user/user-profile-mock'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
-import { UserDetails } from '@echo/ui/components/user/details/user-details'
+import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
 import { CALLOUT_SEVERITY_INFO } from '@echo/ui/constants/callout-severity'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { useBannerStore } from '@echo/ui/hooks/use-banner-store'
@@ -67,7 +67,7 @@ export const Default: StoryObj<ComponentType> = {
     return (
       <NavigationPageLayout user={user}>
         <SectionLayout>
-          <UserDetails profile={profile} />
+          <UserProfile profile={profile} />
         </SectionLayout>
         <SectionLayout>
           <UserNfts nfts={getAllNftMocks()} />
