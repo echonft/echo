@@ -24,7 +24,7 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({ open, title
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className={clsx('fixed', 'inset-0', 'bg-dark-500/80', 'z-20')} />
+          <div className={clsx('fixed', 'inset-0', 'bg-black/40', 'backdrop-blur', 'z-20')} />
         </Transition.Child>
         <div
           className={clsx(

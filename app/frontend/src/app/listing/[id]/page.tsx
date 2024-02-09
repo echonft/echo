@@ -9,15 +9,18 @@ import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { getListingTargetsCollectionIds } from '@echo/model/helpers/listing/get-listing-targets-collection-ids'
 import type { Nft } from '@echo/model/types/nft'
+import type { Offer } from '@echo/model/types/offer'
 import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { getListingPageLayoutBackground } from '@echo/ui/helpers/listing/get-listing-page-layout-background'
 import { ListingDetailsPage } from '@echo/ui/pages/listing/listing-details-page'
+import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { isIn } from '@echo/utils/fp/is-in'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { notFound } from 'next/navigation'
-import { andThen, filter, isNil, map, path, pipe } from 'ramda'
+import { andThen, filter, isNil, map, path, pipe, reject } from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<NextParams<Record<'id', string>>>
@@ -33,7 +36,12 @@ async function render({ params: { id }, user }: Params) {
     pipe<[Nft], string, boolean>(nonNullableReturn(path(['collection', 'id'])), isIn(listingTargets)),
     nfts
   )
-  const offers = await pipe(getPendingOffersForListing, andThen(map(setOfferRoleForUser(user))))(listing)
+  const offers = await pipe(
+    getPendingOffersForListing,
+    andThen(
+      pipe<[Offer[]], OfferWithRole[], OfferWithRole[]>(map(setOfferRoleForUser(user)), reject(propIsNil('role')))
+    )
+  )(listing)
   return (
     <PageLayout user={user} background={getListingPageLayoutBackground(listing)}>
       <SectionLayout>

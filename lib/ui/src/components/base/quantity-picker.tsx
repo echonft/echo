@@ -27,12 +27,13 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
           'items-center',
           'h-full',
           'w-28',
+          'bg-dark-750',
           'rounded-tl-lg',
           'rounded-bl-lg',
           'border-t',
           'border-b',
           'border-l',
-          'border-yellow-500'
+          'border-yellow-500/30'
         )}
       >
         <span className={clsx('font-inter', 'text-white', 'text-[1.5rem]', 'font-medium', '-translate-x-[0.4375rem]')}>
@@ -48,43 +49,13 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
             'items-center',
             'h-full',
             'w-16',
+            'bg-dark-500',
             'rounded-tl-lg',
             'rounded-bl-lg',
             'border',
-            'border-yellow-500',
+            'border-yellow-500/30',
             'text-yellow-500',
-            !disabled && incDisabled && 'opacity-40'
-          )}
-          onClick={() => {
-            pipe(
-              inc,
-              tap((qty) => {
-                onQtyChange?.(qty)
-              }),
-              setQty
-            )(qty)
-          }}
-          disabled={Boolean(disabled) || incDisabled}
-        >
-          <PlusIconSvg />
-        </button>
-        <button
-          className={clsx(
-            'flex',
-            'flex-row',
-            'justify-center',
-            'items-center',
-            'h-full',
-            'w-16',
-            'rounded-tr-lg',
-            'rounded-br-lg',
-            'border',
-            'border-t-yellow-500',
-            'border-b-yellow-500',
-            'border-r-yellow-500',
-            'border-l-transparent',
-            'text-yellow-500',
-            !disabled && decDisabled && 'opacity-40'
+            !disabled && decDisabled ? 'text-yellow-500/40' : 'text-yellow-500'
           )}
           onClick={() => {
             pipe(
@@ -98,6 +69,37 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
           disabled={Boolean(disabled) || decDisabled}
         >
           <MinusIconSvg />
+        </button>
+        <button
+          className={clsx(
+            'flex',
+            'flex-row',
+            'justify-center',
+            'items-center',
+            'h-full',
+            'w-16',
+            'bg-dark-500',
+            'rounded-tr-lg',
+            'rounded-br-lg',
+            'border',
+            'border-t-yellow-500/30',
+            'border-b-yellow-500/30',
+            'border-r-yellow-500/30',
+            'border-l-transparent',
+            !disabled && incDisabled ? 'text-yellow-500/40' : 'text-yellow-500'
+          )}
+          onClick={() => {
+            pipe(
+              inc,
+              tap((qty) => {
+                onQtyChange?.(qty)
+              }),
+              setQty
+            )(qty)
+          }}
+          disabled={Boolean(disabled) || incDisabled}
+        >
+          <PlusIconSvg />
         </button>
       </div>
     </div>
