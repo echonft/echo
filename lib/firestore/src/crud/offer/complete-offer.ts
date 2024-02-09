@@ -3,6 +3,7 @@ import { updateListingState } from '@echo/firestore/crud/listing/update-listing-
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { switchOfferItemsOwners } from '@echo/firestore/crud/offer/switch-offer-items-owners'
 import { updateOfferState } from '@echo/firestore/crud/offer/update-offer-state'
 import { addSwap, type AddSwapArgs } from '@echo/firestore/crud/swap/add-swap'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
@@ -35,6 +36,8 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
     assoc('state', OFFER_STATE_COMPLETED),
     updateOfferState
   )(args)
+  // switch ownership of the offer items
+  await switchOfferItemsOwners(offer)
   // add swap
   await pipe<[CompleteOfferArgs], AddSwapArgs, Promise<Swap>>(omit(['updateArgs']), addSwap)(args)
   // update the status of tied listings, if any
@@ -47,7 +50,6 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
         await updateListingState(listingId, LISTING_STATE_FULFILLED)
       } else {
         // in this case, we need to check all the completed offers linked to this listing, and check if this one partially of completely fulfills it
-        const offer = (await findOfferById(args.offerId))!
         const offerItems = getOfferItems(offer)
         const listingListingOffers = await getListingOffersForListing(listing)
         const listingOffers = await Promise.all(map(pipe(prop('offerId'), findOfferById), listingListingOffers))

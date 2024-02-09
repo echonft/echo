@@ -12,7 +12,7 @@ RUN apt-get update -qq && \
 	apt-get install -y build-essential pkg-config python-is-python3
 COPY --link . /app
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm exec turbo run build --filter=@echo/helper
+RUN pnpm exec turbo run sentry:sourcemaps --filter=@echo/helper
 RUN pnpm prune --prod
 
 # Final stage for app image
