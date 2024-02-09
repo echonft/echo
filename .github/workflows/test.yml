@@ -19,27 +19,27 @@ jobs:
         with:
           version: latest
           run_install: true
-      - name: @echo/bot tests
+      - name: bot tests
         run: pnpm exec turbo run test:ci --filter=@echo/bot
-      - name: @echo/frontend tests
+      - name: frontend tests
         run: pnpm exec turbo run test:ci --filter=@echo/frontend
-      - name: @echo/helper tests
+      - name: helper tests
         run: pnpm exec turbo run test:ci --filter=@echo/helper
-      - name: @echo/alchemy tests
+      - name: alchemy tests
         run: pnpm exec turbo run test:ci --filter=@echo/alchemy
-      - name: @echo/firestore tests
+      - name: firestore tests
         env:
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID_TEST }}
           FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL_TEST }}
           FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY_TEST }}
         run: pnpm exec turbo run test:ci --filter=@echo/firestore
-      - name: @echo/model tests
+      - name: model tests
         run: pnpm exec turbo run test:ci --filter=@echo/model
-      - name: @echo/ui tests
+      - name: ui tests
         run: pnpm exec turbo run test:ci --filter=@echo/ui
-      - name: @echo/utils tests
+      - name: utils tests
         run: pnpm exec turbo run test:ci --filter=@echo/utils
-      - name: @echo/web3 tests
+      - name: web3 tests
         run: pnpm exec turbo run test:ci --filter=@echo/web3
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
