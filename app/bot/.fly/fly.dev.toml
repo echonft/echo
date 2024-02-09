@@ -3,13 +3,8 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'echo-bot-tmp'
+app = 'echo-bot-dev'
 primary_region = 'yul'
-
-[build]
-
-[env]
-  PORT = '8080'
 
 [[vm]]
   cpu_kind = 'shared'
