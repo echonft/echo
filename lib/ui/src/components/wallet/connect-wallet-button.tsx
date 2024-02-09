@@ -1,6 +1,5 @@
 'use client'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
-import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { ConnectWalletButtonLayout } from '@echo/ui/components/wallet/connect-wallet-button-layout'
 import { WalletConnectedTag } from '@echo/ui/components/wallet/wallet-connected-tag'
 import { isStorybook } from '@echo/ui/helpers/is-storybook'
@@ -9,8 +8,6 @@ import { useConnectWallet } from '@echo/ui/hooks/use-connect-wallet'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { WalletButtonRenderFn } from '@echo/ui/types/wallet-button-render-fn'
 import type { WalletButtonRenderProps } from '@echo/ui/types/wallet-button-render-props'
-import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
 import type { AccountResult } from '@echo/web3/types/account-result'
 import { ConnectKitButton } from 'connectkit'
 import { isNil } from 'ramda'
@@ -63,8 +60,7 @@ const WalletButton: FunctionComponent<{
       errorRetryCount: 3,
       errorRetryInterval: 500,
       revalidateOnMount: true,
-      onError: (error) => {
-        logger.error(`fetching wallets error ${errorMessage(error)}`)
+      onError: (_error) => {
         void disconnectWallet()
       }
     }
@@ -99,17 +95,15 @@ const WalletButton: FunctionComponent<{
 }
 
 export const ConnectWalletButton: FunctionComponent<{ onClick?: MouseEventHandler }> = ({ onClick }) => (
-  <Web3Provider>
-    <WalletButton
-      renderConnect={({ isConnecting, show }) => (
-        <ConnectWalletButtonLayout
-          isConnecting={isConnecting}
-          onClick={(event) => {
-            show?.()
-            onClick?.(event)
-          }}
-        />
-      )}
-    />
-  </Web3Provider>
+  <WalletButton
+    renderConnect={({ isConnecting, show }) => (
+      <ConnectWalletButtonLayout
+        isConnecting={isConnecting}
+        onClick={(event) => {
+          show?.()
+          onClick?.(event)
+        }}
+      />
+    )}
+  />
 )
