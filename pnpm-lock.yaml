@@ -155,6 +155,49 @@ importers:
         specifier: 5.3.3
         version: 5.3.3
 
+  app/commands:
+    dependencies:
+      ramda:
+        specifier: 0.29.1
+        version: 0.29.1
+      yargs:
+        specifier: 17.7.2
+        version: 17.7.2
+    devDependencies:
+      '@dotenvx/dotenvx':
+        specifier: 0.14.1
+        version: 0.14.1
+      '@echo/alchemy':
+        specifier: workspace:*
+        version: link:../../lib/alchemy
+      '@echo/firestore':
+        specifier: workspace:*
+        version: link:../../lib/firestore
+      '@echo/model':
+        specifier: workspace:*
+        version: link:../../lib/model
+      '@echo/utils':
+        specifier: workspace:*
+        version: link:../../lib/utils
+      '@types/node':
+        specifier: 20.11.0
+        version: 20.11.0
+      '@types/ramda':
+        specifier: 0.29.9
+        version: 0.29.9
+      '@types/yargs':
+        specifier: 17.0.32
+        version: 17.0.32
+      ts-node:
+        specifier: 10.9.2
+        version: 10.9.2(@types/node@20.11.0)(typescript@5.3.3)
+      tsconfig-paths:
+        specifier: 4.2.0
+        version: 4.2.0
+      typescript:
+        specifier: 5.3.3
+        version: 5.3.3
+
   app/frontend:
     dependencies:
       '@auth/core':
@@ -285,6 +328,9 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.23.3
         version: 7.23.3(@babel/core@7.23.7)
+      '@dotenvx/dotenvx':
+        specifier: 0.14.1
+        version: 0.14.1
       '@echo/alchemy':
         specifier: workspace:*
         version: link:../../lib/alchemy
@@ -312,9 +358,6 @@ importers:
       '@types/ramda':
         specifier: 0.29.9
         version: 0.29.9
-      '@types/yargs':
-        specifier: 17.0.32
-        version: 17.0.32
       jest:
         specifier: 29.7.0
         version: 29.7.0(@types/node@20.11.0)(ts-node@10.9.2)
@@ -330,12 +373,12 @@ importers:
       tsconfig-paths:
         specifier: 4.2.0
         version: 4.2.0
+      tsup:
+        specifier: 8.0.1
+        version: 8.0.1(ts-node@10.9.2)(typescript@5.3.3)
       typescript:
         specifier: 5.3.3
         version: 5.3.3
-      yargs:
-        specifier: 17.7.2
-        version: 17.7.2
 
   app/storybook:
     dependencies:
@@ -14920,7 +14963,7 @@ packages:
       '@babel/register': 7.23.7(@babel/core@7.23.7)
       babel-core: 7.0.0-bridge.0(@babel/core@7.23.7)
       chalk: 4.1.2
-      flow-parser: 0.206.0
+      flow-parser: 0.228.0
       graceful-fs: 4.2.11
       micromatch: 4.0.5
       neo-async: 2.6.2
