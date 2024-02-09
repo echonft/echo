@@ -14,4 +14,4 @@ jobs:
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - run: flyctl deploy --remote-only --now --config app/bot/.fly/fly.dev.toml --dockerfile app/bot/.fly/Dockerfile
         env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          FLY_API_TOKEN: ${{ secrets.FLY_DEPLOY_TOKEN_BOT_DEV }}

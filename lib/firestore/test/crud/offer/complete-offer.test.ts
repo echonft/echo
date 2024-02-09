@@ -15,8 +15,6 @@ import { unchecked_updateOffer } from '@echo/firestore-test/offer/unchecked_upda
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
 import { assertSwaps } from '@echo/firestore-test/swap/assert-swaps'
 import { deleteSwap } from '@echo/firestore-test/swap/delete-swap'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
 import {
   OFFER_STATE_ACCEPTED,
@@ -52,13 +50,14 @@ describe('CRUD - offer - completeOffer', () => {
     }
   }
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertOffers()
+    await assertSwaps()
+    await assertCollectionSwapsCounts()
   })
   afterAll(async () => {
     await assertOffers()
     await assertSwaps()
     await assertCollectionSwapsCounts()
-    await tearDownRemoteFirestoreTests()
   })
   beforeEach(async () => {
     const offer = (await findOfferById(args.offerId))!

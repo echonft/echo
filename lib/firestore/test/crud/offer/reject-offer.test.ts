@@ -5,8 +5,6 @@ import { findOfferStateUpdate } from '@echo/firestore/crud/offer-update/find-off
 import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
 import { unchecked_updateOffer } from '@echo/firestore-test/offer/unchecked_update-offer'
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -40,11 +38,10 @@ describe('CRUD - offer - rejectOffer', () => {
   }
 
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertOffers()
   })
   afterAll(async () => {
     await assertOffers()
-    await tearDownRemoteFirestoreTests()
   })
   beforeEach(async () => {
     const offer = (await findOfferById(args.offerId))!

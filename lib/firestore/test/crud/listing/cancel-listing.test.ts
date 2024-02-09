@@ -2,8 +2,6 @@ import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { assertListings } from '@echo/firestore-test/listing/assert-listings'
 import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import {
   LISTING_STATE_CANCELLED,
   LISTING_STATE_FULFILLED,
@@ -21,13 +19,11 @@ describe('CRUD - listing - cancelListing', () => {
   const listingId = 'jUzMtPGKM62mMhEcmbN4'
 
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertListings()
   })
   afterAll(async () => {
     await assertListings()
-    await tearDownRemoteFirestoreTests()
   })
-
   beforeEach(async () => {
     const listing = (await findListingById(listingId))!
     initialState = listing.state
@@ -66,7 +62,6 @@ describe('CRUD - listing - cancelListing', () => {
     })
     await expect(cancelListing(listingId)).rejects.toBeDefined()
   })
-
   it('cancel listing if its not expired and in the right state', async () => {
     await unchecked_updateListing(listingId, { state: LISTING_STATE_OPEN, expiresAt: dayjs().add(1, 'day').unix() })
     await cancelListing(listingId)

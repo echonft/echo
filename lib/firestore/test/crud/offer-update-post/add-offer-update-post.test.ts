@@ -4,18 +4,15 @@ import {
 } from '@echo/firestore/crud/offer-update/add-offer-state-update'
 import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
 import { findOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/find-offer-update-post'
-import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
 import { deleteOfferUpdatePost } from '@echo/firestore-test/offer-update-post/delete-offer-update-post'
 import { unchecked_addOfferUpdatePost } from '@echo/firestore-test/offer-update-post/unchecked_add-offer-update-post'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
@@ -30,13 +27,7 @@ describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
   }
   let offerUpdateId: Nullable<string>
   let offerUpdatePostId: Nullable<string>
-  beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
-  })
-  afterAll(async () => {
-    await assertOfferThreads()
-    await tearDownRemoteFirestoreTests()
-  })
+
   beforeEach(() => {
     offerUpdateId = undefined
     offerUpdatePostId = undefined

@@ -3,21 +3,10 @@ import { findWalletByAddress } from '@echo/firestore/crud/wallet/find-wallet-by-
 import { removeWallet } from '@echo/firestore/crud/wallet/remove-wallet'
 import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
-import { assertWallets } from '@echo/firestore-test/wallet/assert-wallets'
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 import { pick, toLower } from 'ramda'
 
 describe('CRUD - wallet - removeWallet', () => {
-  beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
-  })
-  afterAll(async () => {
-    await assertWallets()
-    await tearDownRemoteFirestoreTests()
-  })
-
   it('throws if the wallet does not exists', async () => {
     await expect(
       removeWallet('6rECUMhevHfxABZ1VNOm', {
@@ -26,7 +15,6 @@ describe('CRUD - wallet - removeWallet', () => {
       })
     ).rejects.toBeDefined()
   })
-
   it('throws if the wallet is not associated with the userId', async () => {
     await expect(
       removeWallet('6rECUMhevHfxABZ1VNOm', {
@@ -35,7 +23,6 @@ describe('CRUD - wallet - removeWallet', () => {
       })
     ).rejects.toBeDefined()
   })
-
   it('remove wallet', async () => {
     const wallet = getWalletMockById('i28NWtlxElPXCnO0c6BC')
     const walletData = pick(['address', 'chainId'], wallet)

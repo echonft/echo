@@ -4,16 +4,13 @@ import {
   type AddOfferStateUpdateArgs
 } from '@echo/firestore/crud/offer-update/add-offer-state-update'
 import { findOfferUpdateById } from '@echo/firestore/crud/offer-update/find-offer-update-by-id'
-import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - offer-update - addOfferStateUpdate', () => {
@@ -27,13 +24,7 @@ describe('CRUD - offer-update - addOfferStateUpdate', () => {
     }
   }
   let offerUpdateId: Nullable<string>
-  beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
-  })
-  afterAll(async () => {
-    await assertOfferThreads()
-    await tearDownRemoteFirestoreTests()
-  })
+
   beforeEach(() => {
     offerUpdateId = undefined
   })

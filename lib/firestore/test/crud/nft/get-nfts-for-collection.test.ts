@@ -1,23 +1,13 @@
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 import { equals, filter, find, forEach, path, pipe, propEq } from 'ramda'
 
 describe('CRUD - nft - getNftsForCollection', () => {
-  beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
-  })
-  afterAll(async () => {
-    await tearDownRemoteFirestoreTests()
-  })
-
   it('returns an empty array the collection is not found', async () => {
     const result = await getNftsForCollection('not-found')
     expect(result).toEqual([])
   })
-
   it('returns the nfts of the collection - with collection prop undefined', async () => {
     const collectionId = '1aomCtnoesD7WVll6Yi1'
     const nfts = await getNftsForCollection('spiral-frequencies')

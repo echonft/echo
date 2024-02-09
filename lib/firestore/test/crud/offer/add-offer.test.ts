@@ -10,8 +10,6 @@ import { assertListingOffers } from '@echo/firestore-test/listing-offer/assert-l
 import { deleteListingOffer } from '@echo/firestore-test/listing-offer/delete-listing-offer'
 import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
 import { deleteOffer } from '@echo/firestore-test/offer/delete-offer'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { type ListingState } from '@echo/model/types/listing-state'
@@ -31,7 +29,8 @@ describe('CRUD - offer - addOffer', () => {
   let createdListingOfferId: string
 
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertOffers()
+    await assertListingOffers()
     initialListingState = (await findListingById(listingId))!.state
   })
   afterAll(async () => {
@@ -52,7 +51,6 @@ describe('CRUD - offer - addOffer', () => {
     }
     await assertOffers()
     await assertListingOffers()
-    await tearDownRemoteFirestoreTests()
   })
 
   it('throws if the offer is a duplicate', async () => {
