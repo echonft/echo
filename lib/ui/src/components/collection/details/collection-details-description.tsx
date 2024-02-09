@@ -1,13 +1,27 @@
+'use client'
 import type { Collection } from '@echo/model/types/collection'
+import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { PaddedContainer } from '@echo/ui/components/base/layout/padded-container'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import Markdown from 'marked-react'
+import type { FunctionComponent, ReactNode } from 'react'
 
+const renderer = {
+  link(href: string, text: ReactNode) {
+    return (
+      <ExternalLink href={href} style={{ inline: true }}>
+        <div className={clsx('inline', 'text-yellow-500')}>{text}</div>
+      </ExternalLink>
+    )
+  }
+}
 export const CollectionDetailsDescription: FunctionComponent<Pick<Collection, 'description'>> = ({ description }) => {
   return (
     <PaddedContainer>
       <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-8')}>
-        <p className={clsx('prose-header-xs', 'text-white/60', 'w-[37rem]')}>{description}</p>
+        <div className={clsx('prose-header-xs', 'text-white/60', 'w-[37rem]')}>
+          <Markdown renderer={renderer} value={description} />
+        </div>
       </div>
     </PaddedContainer>
   )
