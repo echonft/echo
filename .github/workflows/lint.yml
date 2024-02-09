@@ -53,7 +53,7 @@ jobs:
         run: pnpm exec turbo run lint:ci --filter=@echo/model
       - name: ui lint
         env:
-          NODE_OPTIONS: "--max_old_space_sizea=4096"
+          NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/ui
       - name: utils lint
         env:
