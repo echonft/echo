@@ -97,7 +97,7 @@
       "outputs": ["dist/index.css"],
       "inputs": ["tailwind.config.cjs", "src/index.css", "src/**/*.tsx", "src/**/*.ts"]
     },
-    "//#vercel:dev": {
+    "//#vercel:cmd": {
       "dependsOn": ["@echo/ui#build"],
       "cache": false,
       "persistent": true

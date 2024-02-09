@@ -2,7 +2,3 @@
 .swc
 .turbo
 .vercel
-src/i18n.ts
-next-env.d.ts
-jest.config.cjs
-next.config.js

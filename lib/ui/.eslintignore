@@ -1,5 +1,2 @@
 .turbo
 dist
-babel.config.cjs
-jest.config.cjs
-postcss.config.cjs

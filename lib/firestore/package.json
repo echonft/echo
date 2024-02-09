@@ -5,8 +5,8 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --fix -c .eslintrc.cjs --ext .ts .",
-    "lint:ci": "eslint --quiet -c .eslintrc.cjs --ext .ts .",
+    "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
+    "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
@@ -40,5 +40,5 @@
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
     "typescript": "5.3.3"
-}
+  }
 }
