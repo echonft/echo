@@ -1,5 +1,5 @@
+import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import type { Config } from 'tailwindcss'
-import { themeExtension } from './src/helpers/theme/theme'
 
 const config: Config = {
   content: ['./src/**/*.{ts,tsx}'],

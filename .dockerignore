@@ -1,8 +1,5 @@
-fly.toml
-Dockerfile
+app/bot/.fly/fly.dev.toml
+app/bot/.fly/Dockerfile
 .dockerignore
 node_modules
 .git
-.vercel
-app/frontend
-app/storybook

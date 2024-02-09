@@ -42,16 +42,22 @@
     "zustand": "4.5.0"
   },
   "devDependencies": {
+    "@babel/core": "7.23.7",
+    "@babel/preset-env": "7.23.8",
+    "@babel/preset-react": "7.23.3",
+    "@babel/preset-typescript": "7.23.3",
     "@storybook/addon-actions": "7.6.12",
     "@storybook/addon-essentials": "7.6.12",
     "@storybook/addon-styling-webpack": "0.0.6",
     "@storybook/react": "7.6.12",
+    "@types/node": "20.11.0",
     "@types/ramda": "0.29.9",
     "@types/react": "18.2.47",
     "@types/react-dom": "18.2.18",
     "css-loader": "6.9.0",
     "eslint-plugin-storybook": "0.6.15",
     "style-loader": "3.3.4",
-    "tsconfig-paths-webpack-plugin": "4.1.0"
+    "tsconfig-paths-webpack-plugin": "4.1.0",
+    "typescript": "5.3.3"
   }
 }
