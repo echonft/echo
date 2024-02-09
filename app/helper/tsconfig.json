@@ -15,9 +15,10 @@
       "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/helper/*": ["./src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
-      "@echo/model-mocks/*": ["../../lib/model/test/mocks/*"],
+      "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
+      "@echo/firestore-test/*": ["../../lib/firestore/test/@utils/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"]
     },

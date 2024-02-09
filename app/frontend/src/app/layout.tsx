@@ -26,8 +26,8 @@ export const viewport: Viewport = {
 function render({ children }: NextLayoutParams) {
   const locale = 'en'
   return (
-    <html lang={locale}>
-      <body>
+    <html lang={locale} suppressHydrationWarning={true}>
+      <body suppressHydrationWarning={true}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>

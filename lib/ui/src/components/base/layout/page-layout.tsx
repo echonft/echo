@@ -15,6 +15,7 @@ import { BannerManager } from '@echo/ui/components/base/banner/banner-manager'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { HeaderSwitch } from '@echo/ui/components/base/header/header-switch'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
+import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import {
   PAGE_LAYOUT_BG_COLLECTIONS,
   PAGE_LAYOUT_BG_DEFAULT,
@@ -80,26 +81,28 @@ export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
         switchChain
       }}
     >
-      <div
-        className={clsx(
-          'w-full',
-          'h-full',
-          'overflow-y-auto',
-          background === PAGE_LAYOUT_BG_DEFAULT && 'bg-dark-500',
-          background === PAGE_LAYOUT_BG_HOME && ['bg-home', 'bg-[length:100%_41.4375rem]', 'bg-no-repeat'],
-          background === PAGE_LAYOUT_BG_COLLECTIONS && ['bg-home', 'bg-no-repeat'],
-          background === PAGE_LAYOUT_BG_GREEN_GRADIENT && ['bg-gradientGreen', 'bg-no-repeat'],
-          background === PAGE_LAYOUT_BG_YELLOW_GRADIENT && ['bg-gradientYellow', 'bg-no-repeat'],
-          background === PAGE_LAYOUT_BG_RED_GRADIENT && ['bg-gradientRed', 'bg-no-repeat']
-        )}
-      >
-        <HeaderSwitch logoOnly={Boolean(headerVariants?.logoOnly)} user={user} />
-        <MainSectionLayout>
-          {children}
-          <CalloutManager />
-          <BannerManager />
-        </MainSectionLayout>
-      </div>
+      <Web3Provider>
+        <div
+          className={clsx(
+            'w-full',
+            'h-full',
+            'overflow-y-auto',
+            background === PAGE_LAYOUT_BG_DEFAULT && 'bg-dark-500',
+            background === PAGE_LAYOUT_BG_HOME && ['bg-home', 'bg-[length:100%_41.4375rem]', 'bg-no-repeat'],
+            background === PAGE_LAYOUT_BG_COLLECTIONS && ['bg-home', 'bg-no-repeat'],
+            background === PAGE_LAYOUT_BG_GREEN_GRADIENT && ['bg-gradientGreen', 'bg-no-repeat'],
+            background === PAGE_LAYOUT_BG_YELLOW_GRADIENT && ['bg-gradientYellow', 'bg-no-repeat'],
+            background === PAGE_LAYOUT_BG_RED_GRADIENT && ['bg-gradientRed', 'bg-no-repeat']
+          )}
+        >
+          <HeaderSwitch logoOnly={Boolean(headerVariants?.logoOnly)} user={user} />
+          <MainSectionLayout>
+            {children}
+            <CalloutManager />
+            <BannerManager />
+          </MainSectionLayout>
+        </div>
+      </Web3Provider>
     </DependenciesProvider>
   )
 }

@@ -8,7 +8,6 @@ import { useAccount } from '@echo/ui/hooks/use-account'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { logger } from '@echo/utils/services/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { AccountResult } from '@echo/web3/types/account-result'
 import type { SignNonceArgs } from '@echo/web3/types/sign-nonce-args'
@@ -16,6 +15,7 @@ import type { SignNonceResult } from '@echo/web3/types/sign-nonce-result'
 import { useTranslations } from 'next-intl'
 import { either, includes, isNil, pick } from 'ramda'
 import { useEffect, useMemo, useState } from 'react'
+import { mutate } from 'swr'
 
 export function useConnectWallet(wallets: Nullable<Wallet[]>) {
   const t = useTranslations('error.profile')
@@ -35,7 +35,7 @@ export function useConnectWallet(wallets: Nullable<Wallet[]>) {
     fetcher: getNonce,
     onSuccess: (response) => {
       void signNonceTrigger({
-        domain: window.location.host,
+        domain: window.location.hostname,
         uri: window.location.origin,
         nonce: response.nonce,
         wallet: wallet!
@@ -54,8 +54,10 @@ export function useConnectWallet(wallets: Nullable<Wallet[]>) {
   const { trigger: addWalletTrigger } = useSWRTrigger<WalletsResponse, AddWalletRequest>({
     key: SWRKeys.profile.wallet.add,
     fetcher: addWallet,
-    onSuccess: (_reponse) => {
-      setWalletLinked(true)
+    onSuccess: (response) => {
+      void mutate(SWRKeys.profile.wallet.get, response.wallets).finally(() => {
+        setWalletLinked(true)
+      })
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('addWallet') },
@@ -93,7 +95,6 @@ export function useConnectWallet(wallets: Nullable<Wallet[]>) {
         if (includes(wallet, wallets)) {
           setWalletLinked(true)
         } else {
-          logger.error(`calling getNonce wtf`)
           void getNonceTrigger()
         }
       }

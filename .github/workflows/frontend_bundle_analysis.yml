@@ -71,17 +71,15 @@ jobs:
         run: cd app/frontend && pnpm --package=nextjs-bundle-analysis dlx report
 
       - name: Upload bundle
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: bundle
           path: app/frontend/.next/analyze/__bundle_analysis.json
 
       - name: Download base branch bundle stats
-        uses: dawidd6/action-download-artifact@v2
+        uses: actions/download-artifact@v4
         if: success() && github.event.number
         with:
-          workflow: nextjs_bundle_analysis.yml
-          branch: ${{ github.event.pull_request.base.ref }}
           path: app/frontend/.next/analyze/base
 
       # And here's the second place - this runs after we have both the current and

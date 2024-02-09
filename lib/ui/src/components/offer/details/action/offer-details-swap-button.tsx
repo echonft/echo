@@ -1,5 +1,4 @@
 'use client'
-import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { OfferDetailsSwapModal } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
@@ -31,20 +30,18 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({ offer, disabl
       >
         <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('completeBtn')}</span>
       </button>
-      <Web3Provider>
-        <OfferDetailsSwapModal
-          open={modalShown}
-          offer={offer}
-          onSuccess={(offer: OfferWithRole) => {
-            setModalShown(false)
-            onSuccess?.(offer)
-          }}
-          onClose={() => {
-            setModalShown(false)
-            onCancel?.()
-          }}
-        />
-      </Web3Provider>
+      <OfferDetailsSwapModal
+        open={modalShown}
+        offer={offer}
+        onSuccess={(offer: OfferWithRole) => {
+          setModalShown(false)
+          onSuccess?.(offer)
+        }}
+        onClose={() => {
+          setModalShown(false)
+          onCancel?.()
+        }}
+      />
     </>
   )
 }

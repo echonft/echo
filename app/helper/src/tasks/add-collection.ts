@@ -1,6 +1,7 @@
 import { getContractMetadata } from '@echo/alchemy/services/get-contract-metadata'
 import { addCollection as firestoreAddCollection } from '@echo/firestore/crud/collection/add-collection'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { addCollectionDefaultDiscordGuild } from '@echo/helper/tasks/add-collection-default-discord-guild'
 import type { Collection } from '@echo/model/types/collection'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { always, andThen, assocPath, converge, either, identity, ifElse, pipe, prop, T } from 'ramda'
@@ -13,7 +14,7 @@ export interface AddCollectionArgs {
 }
 export async function addCollection(args: AddCollectionArgs) {
   initializeFirebase()
-  await pipe<[AddCollectionArgs], Promise<Omit<Collection, 'id'>>, Promise<Collection>>(
+  const collection = await pipe<[AddCollectionArgs], Promise<Omit<Collection, 'id'>>, Promise<Collection>>(
     converge<
       Promise<Omit<Collection, 'id'>>,
       [(args: AddCollectionArgs) => number, (args: AddCollectionArgs) => string, (args: AddCollectionArgs) => true]
@@ -35,4 +36,5 @@ export async function addCollection(args: AddCollectionArgs) {
       )
     )
   )(args)
+  await addCollectionDefaultDiscordGuild(collection.id)
 }
