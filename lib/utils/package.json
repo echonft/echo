@@ -12,7 +12,7 @@
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
-    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c  .",
+    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
     "test": "jest",
     "test:ci": "jest --ci --no-cache",
     "test:watch": "jest --watch",

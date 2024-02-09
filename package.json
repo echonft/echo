@@ -48,8 +48,8 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache",
     "turbo:update": "pnpm dlx @turbo/codemod update",
     "vercel:cmd": "vercel dev",
-    "vercel": "dotenvx run --env-file=./app/frontend/.env.dev -- turbo run //#vercel:dev dev --filter=@echo/ui",
-    "vercel:testnet": "dotenvx run --env-file=./app/frontend/.env.testnet -- turbo run //#vercel:dev dev --filter=@echo/ui"
+    "vercel": "dotenvx run --env-file=./app/frontend/.env.dev -- turbo run //#vercel:cmd dev --filter=@echo/ui",
+    "vercel:testnet": "dotenvx run --env-file=./app/frontend/.env.testnet -- turbo run //#vercel:cmd dev --filter=@echo/ui"
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "0.14.1",

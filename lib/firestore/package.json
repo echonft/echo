@@ -12,7 +12,7 @@
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
-    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c  .",
+    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
     "test": "jest --runInBand",
     "test:ci": "jest --runInBand --ci --no-cache",
     "test:watch": "jest --watch",
@@ -21,8 +21,6 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@echo/model": "workspace:*",
-    "@echo/utils": "workspace:*",
     "dayjs": "1.11.10",
     "firebase-admin": "12.0.0",
     "ramda": "0.29.1"
@@ -31,6 +29,8 @@
     "@babel/core": "7.23.7",
     "@babel/preset-env": "7.23.8",
     "@babel/preset-typescript": "7.23.3",
+    "@echo/model": "workspace:*",
+    "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
     "@types/node": "20.11.0",
