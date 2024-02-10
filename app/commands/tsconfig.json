@@ -11,10 +11,8 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@echo/api/*": ["../../lib/api/src/*"],
-      "@echo/bot/*": ["./src/*"],
-      "@echo/bot-mocks/*": ["./test/@mocks/*"],
-      "@echo/bot-test/*": ["./test/@utils/*"],
+      "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
+      "@echo/commands/*": ["./src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
@@ -29,6 +27,6 @@
     // This improves issue grouping in Sentry.
     "sourceRoot": "/"
   },
-  "include": ["src", "test", "tsup.config.ts", "../../env.d.ts"],
+  "include": ["src", "test", "../../env.d.ts"],
   "exclude": ["dist", "node_modules"]
 }

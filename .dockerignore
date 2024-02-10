@@ -1,5 +1,32 @@
-app/bot/.fly/fly.dev.toml
-app/bot/.fly/Dockerfile
 .dockerignore
 node_modules
 .git
+Dockerfile*
+.fly
+
+# other apps
+frontend
+commands
+storybook
+
+# coverage
+.coverage
+.pnpm-debug.log*
+.env*
+*.tsbuildinfo
+.eslint*
+.vercel
+.next
+.turbo
+.github
+.husky
+dist
+.DS_Store
+.gitignore
+env.d.ts
+LICENSE
+prettier.config.js
+README.md
+test
+jest*
+babel*

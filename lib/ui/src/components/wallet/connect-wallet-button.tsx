@@ -2,12 +2,12 @@
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import { ConnectWalletButtonLayout } from '@echo/ui/components/wallet/connect-wallet-button-layout'
 import { WalletConnectedTag } from '@echo/ui/components/wallet/wallet-connected-tag'
-import { isStorybook } from '@echo/ui/helpers/is-storybook'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useConnectWallet } from '@echo/ui/hooks/use-connect-wallet'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { WalletButtonRenderFn } from '@echo/ui/types/wallet-button-render-fn'
 import type { WalletButtonRenderProps } from '@echo/ui/types/wallet-button-render-props'
+import { isStorybook } from '@echo/utils/constants/is-storybook'
 import type { AccountResult } from '@echo/web3/types/account-result'
 import { ConnectKitButton } from 'connectkit'
 import { isNil } from 'ramda'
@@ -66,7 +66,7 @@ const WalletButton: FunctionComponent<{
     }
   )
   const { account, walletLinked } = useConnectWallet(data?.wallets)
-  if (isStorybook()) {
+  if (isStorybook) {
     return (
       <>
         {renderWalletButton({
