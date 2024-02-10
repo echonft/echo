@@ -7,6 +7,7 @@
     "build": "tsup",
     "clean": "rm -rf dist",
     "dev": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/index.ts\"",
+    "dev:testnet": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/index.ts\"",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
