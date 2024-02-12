@@ -1,15 +1,7 @@
 import { findSwapByOfferId } from '@echo/firestore/crud/swap/find-swap-by-offer-id'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - swap - findSwapByOfferId', () => {
-  beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
-  })
-  afterAll(async () => {
-    await tearDownRemoteFirestoreTests()
-  })
   it('returns undefined if the document does not exist', async () => {
     const document = await findSwapByOfferId('not-found')
     expect(document).toBeUndefined()

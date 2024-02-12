@@ -1,8 +1,7 @@
 import { addOfferSignature } from '@echo/firestore/crud/offer-signature/add-offer-signature'
 import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-offer-signature'
 import { deleteOfferSignature } from '@echo/firestore-test/offer-signature/delete-offer-signature'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
+import { assertUsers } from '@echo/firestore-test/user/assert-users'
 import { deleteUser } from '@echo/firestore-test/user/delete-user'
 import { unchecked_addUser } from '@echo/firestore-test/user/unchecked_add-user'
 import { errorMessage } from '@echo/utils/helpers/error-message'
@@ -20,10 +19,10 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
   const signature = '0xsignature'
 
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertUsers()
   })
   afterAll(async () => {
-    await tearDownRemoteFirestoreTests()
+    await assertUsers()
   })
   beforeEach(() => {
     createdUserId = undefined

@@ -3,8 +3,6 @@ import { findOfferThreadById } from '@echo/firestore/crud/offer-thread/find-offe
 import type { OfferThreadDiscordGuild } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
 import { deleteOfferThread } from '@echo/firestore-test/offer-thread/delete-offer-thread'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 
@@ -15,11 +13,10 @@ describe('CRUD - offer-thread - addOfferThread', () => {
     discordId: 'discordId'
   }
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertOfferThreads()
   })
   afterAll(async () => {
     await assertOfferThreads()
-    await tearDownRemoteFirestoreTests()
   })
   it('throws if trying to add a thread for an offer that does not exist', async () => {
     await expect(addOfferThread('not-found', guild)).rejects.toBeDefined()

@@ -14,15 +14,15 @@ export function initializeFirebase(): Firestore {
   }
   const projectId = process.env.FIREBASE_PROJECT_ID
   if (isNil(projectId) || isEmpty(projectId)) {
-    throw new Error('.env should contain FIREBASE_PROJECT_ID')
+    throw new Error('FIREBASE_PROJECT_ID env var is not defined')
   }
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL
   if (isNil(clientEmail) || isEmpty(clientEmail)) {
-    throw new Error('.env should contain FIREBASE_CLIENT_EMAIL')
+    throw new Error('FIREBASE_CLIENT_EMAIL env var is not defined')
   }
   const privateKey = process.env.FIREBASE_PRIVATE_KEY
   if (isNil(privateKey) || isEmpty(privateKey)) {
-    throw new Error('.env should contain FIREBASE_PRIVATE_KEY')
+    throw new Error('FIREBASE_PRIVATE_KEY env var is not defined')
   }
   const firestore = firebaseInitializeFirestore(
     initializeApp({

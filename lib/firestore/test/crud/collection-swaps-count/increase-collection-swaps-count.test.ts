@@ -4,8 +4,6 @@ import { assertCollections } from '@echo/firestore-test/collection/assert-collec
 import { assertCollectionSwapsCounts } from '@echo/firestore-test/collection-swaps-count/assert-collection-swaps-counts'
 import { findCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/find-collection-swaps-count-by-collection-id'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore-test/collection-swaps-count/unchecked_update-collection-swap-counts'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
@@ -13,12 +11,13 @@ import { find, pick, propEq } from 'ramda'
 
 describe('CRUD - collection-swaps-count - increaseCollectionSwapsCount', () => {
   const collectionId = 'Rc8pLQXxgyQGIRL0fr13'
-
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertCollections()
+    await assertCollectionSwapsCounts()
   })
   afterAll(async () => {
-    await tearDownRemoteFirestoreTests()
+    await assertCollections()
+    await assertCollectionSwapsCounts()
   })
   afterEach(async () => {
     // reset the count
@@ -28,8 +27,6 @@ describe('CRUD - collection-swaps-count - increaseCollectionSwapsCount', () => {
     } catch (e) {
       logger.error(`Error reverting collection swaps count with id ${swapsCount.id}: ${errorMessage(e)}`)
     }
-    await assertCollections()
-    await assertCollectionSwapsCounts()
   })
   it('throws if trying to increase swaps count for a collection that does not exist', async () => {
     await expect(increaseCollectionSwapsCount('not-found')).rejects.toBeDefined()

@@ -10,13 +10,13 @@ import { findCollectionSwapsCountByCollectionId } from '@echo/firestore-test/col
 import { findCollectionSwapsCountById } from '@echo/firestore-test/collection-swaps-count/find-collection-swaps-count-by-id'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore-test/collection-swaps-count/unchecked_update-collection-swap-counts'
 import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
+import { assertNfts } from '@echo/firestore-test/nft/assert-nfts'
+import { unchecked_updateNft } from '@echo/firestore-test/nft/unchecked_update-nft'
 import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
 import { unchecked_updateOffer } from '@echo/firestore-test/offer/unchecked_update-offer'
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
 import { assertSwaps } from '@echo/firestore-test/swap/assert-swaps'
 import { deleteSwap } from '@echo/firestore-test/swap/delete-swap'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
 import {
   OFFER_STATE_ACCEPTED,
@@ -27,15 +27,17 @@ import {
 } from '@echo/model/constants/offer-states'
 import { getOfferCollectionIds } from '@echo/model/helpers/offer/get-offer-collection-ids'
 import { type OfferState } from '@echo/model/types/offer-state'
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
-import { assoc, find, isNil, map, pipe, prop, propEq, reject } from 'ramda'
+import { assoc, concat, find, isNil, map, path, pipe, prop, propEq, reject } from 'ramda'
 
 describe('CRUD - offer - completeOffer', () => {
+  let nftIds: string[] = []
   let initialState: OfferState
   let initialExpiresAt: number
   let initialUpdatedAt: number
@@ -52,13 +54,16 @@ describe('CRUD - offer - completeOffer', () => {
     }
   }
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
-  })
-  afterAll(async () => {
+    await assertNfts()
     await assertOffers()
     await assertSwaps()
     await assertCollectionSwapsCounts()
-    await tearDownRemoteFirestoreTests()
+  })
+  afterAll(async () => {
+    await assertNfts()
+    await assertOffers()
+    await assertSwaps()
+    await assertCollectionSwapsCounts()
   })
   beforeEach(async () => {
     const offer = (await findOfferById(args.offerId))!
@@ -78,6 +83,10 @@ describe('CRUD - offer - completeOffer', () => {
       } catch (e) {
         logger.error(`Error deleting offer update with id ${createdStateUpdateId}: ${errorMessage(e)}`)
       }
+    }
+    // reset the NFTs with their original data
+    for (const nftId of nftIds) {
+      await unchecked_updateNft(nftId, getNftMockById(nftId))
     }
   })
 
@@ -119,6 +128,10 @@ describe('CRUD - offer - completeOffer', () => {
   })
   it('complete offer', async () => {
     const offer = (await findOfferById(args.offerId))!
+    nftIds = concat(
+      map(path(['nft', 'id']), offer.receiverItems),
+      map(path(['nft', 'id']), offer.senderItems)
+    ) as string[]
     const listing = (await findListingById('jUzMtPGKM62mMhEcmbN4'))!
     const initialListingUpdatedAt = listing.updatedAt
     const initialListingState = listing.state

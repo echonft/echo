@@ -1,19 +1,10 @@
 import { getNftsForOwnerAndCollection } from '@echo/firestore/crud/nft/get-nfts-for-owner-and-collection'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import type { Nft } from '@echo/model/types/nft'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { describe, expect, it } from '@jest/globals'
 import { andThen, pipe } from 'ramda'
 
 describe('CRUD - nft - getNftsForOwnerAndCollection', () => {
-  beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
-  })
-  afterAll(async () => {
-    await tearDownRemoteFirestoreTests()
-  })
-
   function expectNftsLength(nfts: Nft[], length: number) {
     expect(nfts.length).toEqual(length)
   }
@@ -28,17 +19,14 @@ describe('CRUD - nft - getNftsForOwnerAndCollection', () => {
       expectNftsEqualMock(nfts)
     }
   }
-
   it('returns an empty array the user is not found', async () => {
     const result = await getNftsForOwnerAndCollection('not-found', 'pxmythics-genesis')
     expect(result).toEqual([])
   })
-
   it('returns an empty array the collection is not found', async () => {
     const result = await getNftsForOwnerAndCollection('johnnycagewins', 'not-found')
     expect(result).toEqual([])
   })
-
   it('returns the nfts of the user and the collection', async () => {
     await pipe(getNftsForOwnerAndCollection, andThen(expectNfts(2)))('johnnycagewins', 'pxmythics-genesis')
     await pipe(getNftsForOwnerAndCollection, andThen(expectNfts(1)))('crewnft_', 'pxmythics-genesis')

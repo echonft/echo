@@ -5,8 +5,6 @@ import { deleteCollection } from '@echo/firestore-test/collection/delete-collect
 import { assertCollectionSwapsCounts } from '@echo/firestore-test/collection-swaps-count/assert-collection-swaps-counts'
 import { deleteCollectionSwapsCount } from '@echo/firestore-test/collection-swaps-count/delete-collection-swaps-count'
 import { findCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/find-collection-swaps-count-by-collection-id'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
@@ -16,14 +14,13 @@ describe('CRUD - collection - addCollection', () => {
   let collectionId: string
   let addedSwapsCountId: string
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertCollections()
+    await assertCollectionSwapsCounts()
   })
   afterAll(async () => {
     await assertCollections()
     await assertCollectionSwapsCounts()
-    await tearDownRemoteFirestoreTests()
   })
-
   afterEach(async () => {
     try {
       await deleteCollection(collectionId)

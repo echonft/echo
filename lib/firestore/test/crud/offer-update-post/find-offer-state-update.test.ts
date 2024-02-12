@@ -1,24 +1,15 @@
 import { findOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/find-offer-update-post'
-import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
 import { deleteOfferUpdatePost } from '@echo/firestore-test/offer-update-post/delete-offer-update-post'
 import { unchecked_addOfferUpdatePost } from '@echo/firestore-test/offer-update-post/unchecked_add-offer-update-post'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-update - findOfferStateUpdate', () => {
   let offerUpdatePostId: Nullable<string>
-  beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
-  })
-  afterAll(async () => {
-    await assertOfferThreads()
-    await tearDownRemoteFirestoreTests()
-  })
+
   beforeEach(() => {
     offerUpdatePostId = undefined
   })

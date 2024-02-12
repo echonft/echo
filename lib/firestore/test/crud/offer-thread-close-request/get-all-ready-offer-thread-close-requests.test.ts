@@ -3,8 +3,6 @@ import { getAllReadyOfferThreadCloseRequests } from '@echo/firestore/crud/offer-
 import type { OfferThreadCloseRequest } from '@echo/firestore/types/model/offer-thread-close-request/offer-thread-close-request'
 import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
 import { unchecked_addOfferThreadCloseRequest } from '@echo/firestore-test/offer-thread-close-request/unchecked_add-offer-thread-close-request'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -14,11 +12,10 @@ import { append, find, isEmpty, propEq } from 'ramda'
 describe('CRUD - offer-thread-close-request - getAllReadyOfferThreadCloseRequests', () => {
   let documents: OfferThreadCloseRequest[]
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertOfferThreads()
   })
   afterAll(async () => {
     await assertOfferThreads()
-    await tearDownRemoteFirestoreTests()
   })
   beforeEach(() => {
     documents = []

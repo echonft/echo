@@ -6,8 +6,6 @@ import { unchecked_updateCollectionSwapCounts } from '@echo/firestore-test/colle
 import { assertSwaps } from '@echo/firestore-test/swap/assert-swaps'
 import { deleteSwap } from '@echo/firestore-test/swap/delete-swap'
 import { findSwapById } from '@echo/firestore-test/swap/find-swap-by-id'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { getOfferCollectionIds } from '@echo/model/helpers/offer/get-offer-collection-ids'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
@@ -20,12 +18,12 @@ describe('CRUD - swap - addSwap', () => {
     transactionId: '0xnew'
   }
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertSwaps()
+    await assertCollectionSwapsCounts()
   })
   afterAll(async () => {
     await assertSwaps()
     await assertCollectionSwapsCounts()
-    await tearDownRemoteFirestoreTests()
   })
   it('throws if trying to add a swap for an offer that does not exist', async () => {
     await expect(pipe(assoc('offerId', 'not-found'), addSwap)(args)).rejects.toBeDefined()

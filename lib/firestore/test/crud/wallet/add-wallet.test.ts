@@ -1,8 +1,6 @@
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { deleteWallet } from '@echo/firestore/crud/wallet/delete-wallet'
 import { getAllWalletMocks } from '@echo/firestore-mocks/wallet/get-all-wallet-mocks'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { assertWallets } from '@echo/firestore-test/wallet/assert-wallets'
 import { findWalletById } from '@echo/firestore-test/wallet/find-wallet-by-id'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
@@ -10,13 +8,11 @@ import { head, pick, toLower } from 'ramda'
 
 describe('CRUD - wallet - addWallet', () => {
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertWallets()
   })
   afterAll(async () => {
     await assertWallets()
-    await tearDownRemoteFirestoreTests()
   })
-
   it('returns the wallet if it already exists', async () => {
     const wallet = head(getAllWalletMocks())
     const addedWallet = await addWallet('userId', pick(['address', 'chainId'], wallet))

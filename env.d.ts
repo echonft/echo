@@ -19,7 +19,6 @@ declare namespace NodeJS {
       NEXT_PUBLIC_CHAIN_ID: string
       NEXT_PUBLIC_VERCEL_ENV: string | undefined
       NEXT_PUBLIC_VERCEL_URL: string
-      NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: string
       NODE_ENV: 'production' | 'development' | 'test'
       STORYBOOK: undefined | 'true'
     }

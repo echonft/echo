@@ -7,8 +7,6 @@ import { assertListings } from '@echo/firestore-test/listing/assert-listings'
 import { deleteListing } from '@echo/firestore-test/listing/delete-listing'
 import { assertListingOffers } from '@echo/firestore-test/listing-offer/assert-listing-offers'
 import { deleteListingOffer } from '@echo/firestore-test/listing-offer/delete-listing-offer'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
@@ -21,9 +19,9 @@ import { find, map, omit, prop, propEq, slice } from 'ramda'
 describe('CRUD - listing - addListing', () => {
   let createdListingId: string
   let createdListingOfferIds: string[]
-
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertListings()
+    await assertListingOffers()
   })
   afterAll(async () => {
     try {
@@ -41,14 +39,11 @@ describe('CRUD - listing - addListing', () => {
     }
     await assertListings()
     await assertListingOffers()
-    await tearDownRemoteFirestoreTests()
   })
-
   it('throws if the listing is a duplicate', async () => {
     const { items, targets } = getListingMockById('jUzMtPGKM62mMhEcmbN4')
     await expect(addListing(items, targets)).rejects.toBeDefined()
   })
-
   it('add a listing', async () => {
     const { creator, items, targets } = getListingMockById('jUzMtPGKM62mMhEcmbN4')
     const newItems = slice(0, 1, items)
