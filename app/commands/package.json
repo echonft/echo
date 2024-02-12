@@ -6,6 +6,8 @@
   "scripts": {
     "command:add-collection:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/add-collection-command.ts",
     "command:add-collection:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/add-collection-command.ts",
+    "command:add-collections:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/add-collections-command.ts",
+    "command:add-collections:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/add-collections-command.ts",
     "command:add-collection-guild:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/add-collection-guild-command.ts",
     "command:add-collection-guild:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/add-collection-guild-command.ts",
     "command:clear-db:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/clear-db-command.ts",
