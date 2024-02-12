@@ -1,12 +1,10 @@
 import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-offer-signature'
 import { deleteOfferSignature } from '@echo/firestore-test/offer-signature/delete-offer-signature'
 import { unchecked_addOfferSignature } from '@echo/firestore-test/offer-signature/unchecked_add-offer-signature'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
 
 describe('CRUD - offer-signature - findOfferSignature', () => {
@@ -15,12 +13,6 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
   const userId = 'user-id'
   const signature = '0xsignature'
 
-  beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
-  })
-  afterAll(async () => {
-    await tearDownRemoteFirestoreTests()
-  })
   beforeEach(() => {
     createdOfferSignatureId = undefined
   })

@@ -5,8 +5,6 @@ import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user
 import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
 import { assertNfts } from '@echo/firestore-test/nft/assert-nfts'
 import { unchecked_updateNft } from '@echo/firestore-test/nft/unchecked_update-nft'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
@@ -16,13 +14,11 @@ import { omit } from 'ramda'
 
 describe('CRUD - nft - setNftOwner', () => {
   const nftId = '8hHFadIrrooORfTOLkBg'
-
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertNfts()
   })
   afterAll(async () => {
     await assertNfts()
-    await tearDownRemoteFirestoreTests()
   })
   afterEach(async () => {
     try {

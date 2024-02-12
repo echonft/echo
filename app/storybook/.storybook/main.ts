@@ -23,8 +23,7 @@ const config: StorybookConfig = {
           }
         ]
       }
-    },
-    { name: '@storybook/addon-actions' }
+    }
   ],
   framework: {
     name: getAbsolutePath('@storybook/nextjs'),
@@ -37,8 +36,6 @@ const config: StorybookConfig = {
 
   env: (config) => ({
     ...config,
-    NEXT_PUBLIC_ALCHEMY_KEY: 'test',
-    NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: 'wallet-connect-project-id',
     NEXT_PUBLIC_VERCEL_URL: 'localhost:6006'
   }),
   swc: () => ({
@@ -55,19 +52,7 @@ const config: StorybookConfig = {
       ...config,
       resolve: {
         ...config.resolve,
-        plugins: [new TsconfigPathsPlugin()],
-        fallback: {
-          ...config.resolve!.fallback,
-          constants: false,
-          crypto: false,
-          http: false,
-          https: false,
-          os: false,
-          path: false,
-          stream: false,
-          tls: false,
-          zlib: false
-        }
+        plugins: [new TsconfigPathsPlugin()]
       }
     }
   }

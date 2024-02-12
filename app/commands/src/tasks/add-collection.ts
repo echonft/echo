@@ -1,7 +1,7 @@
 import { getContractMetadata } from '@echo/alchemy/services/get-contract-metadata'
+import { addCollectionDefaultDiscordGuild } from '@echo/commands/tasks/add-collection-default-discord-guild'
 import { addCollection as firestoreAddCollection } from '@echo/firestore/crud/collection/add-collection'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { addCollectionDefaultDiscordGuild } from '@echo/helper/tasks/add-collection-default-discord-guild'
 import type { Collection } from '@echo/model/types/collection'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { always, andThen, assocPath, converge, either, identity, ifElse, pipe, prop, T } from 'ramda'

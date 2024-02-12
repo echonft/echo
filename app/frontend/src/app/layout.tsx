@@ -2,6 +2,7 @@ import '@echo/ui-css/index.css'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import { messages } from '@echo/ui/messages/en'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { type Metadata, type Viewport } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 
@@ -31,6 +32,7 @@ function render({ children }: NextLayoutParams) {
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
+        <SpeedInsights />
       </body>
     </html>
   )

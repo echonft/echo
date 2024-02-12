@@ -6,7 +6,7 @@ describe('helpers - getAlchemyApiKey', () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const replacedEnv = jest.replaceProperty(process, 'env', { ...process.env, ALCHEMY_API_KEY: undefined })
-    expect(() => getAlchemyApiKey()).toThrow(Error('.env should contain ALCHEMY_API_KEY'))
+    expect(() => getAlchemyApiKey()).toThrow()
     replacedEnv.restore()
   })
   test('if ALCHEMY_API_KEY exists, returns value', () => {

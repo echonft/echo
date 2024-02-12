@@ -13,6 +13,7 @@ coverage
 # local env files
 .env
 .env.dev
+.env.test
 .env.testnet
 
 # typescript

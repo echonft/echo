@@ -8,14 +8,14 @@
     "build": "tsup",
     "clean": "rm -rf dist",
     "dev": "tsup --watch src/",
-    "lint": "eslint --fix -c .eslintrc.cjs --ext .ts,.tsx .",
-    "lint:ci": "eslint --quiet -c .eslintrc.cjs --ext .ts,.tsx .",
+    "lint": "eslint --fix -c .eslintrc.js --ext .ts,.tsx .",
+    "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts,.tsx .",
     "lint:clean-cache": "rm -f .eslintcache",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
-    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c  .",
+    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
     "test": "jest",
     "test:ci": "jest --ci --no-cache",
     "test:watch": "jest --watch",
@@ -24,10 +24,6 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@echo/api": "workspace:*",
-    "@echo/model": "workspace:*",
-    "@echo/utils": "workspace:*",
-    "@echo/web3": "workspace:*",
     "@headlessui/react": "1.7.18",
     "@sentry/nextjs": "7.93.0",
     "@tanstack/react-query": "5.18.0",
@@ -53,9 +49,17 @@
     "zustand": "4.5.0"
   },
   "devDependencies": {
+    "@babel/core": "7.23.7",
+    "@babel/preset-env": "7.23.8",
     "@babel/preset-react": "7.23.3",
+    "@babel/preset-typescript": "7.23.3",
+    "@echo/api": "workspace:*",
+    "@echo/model": "workspace:*",
+    "@echo/utils": "workspace:*",
+    "@echo/web3": "workspace:*",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
+    "@types/node": "20.11.0",
     "@types/ramda": "0.29.9",
     "@types/react": "18.2.47",
     "@types/react-beforeunload": "2.1.5",
@@ -68,6 +72,7 @@
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
     "tailwindcss": "3.4.1",
-    "tsup": "7.2.0"
+    "tsup": "8.0.1",
+    "typescript": "5.3.3"
   }
 }

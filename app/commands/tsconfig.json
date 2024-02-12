@@ -1,0 +1,32 @@
+{
+  "extends": "../../lib/tsconfig/tsconfig.node.json",
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "transpileOnly": true,
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
+      "@echo/commands/*": ["./src/*"],
+      "@echo/model/*": ["../../lib/model/src/*"],
+      "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
+      "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
+      "@echo/utils/*": ["../../lib/utils/src/*"]
+    },
+    "noEmit": false,
+    "sourceMap": true,
+    "inlineSources": true,
+    // Set `sourceRoot` to  "/" to strip the build path prefix
+    // from generated source code references.
+    // This improves issue grouping in Sentry.
+    "sourceRoot": "/"
+  },
+  "include": ["src", "test", "../../env.d.ts"],
+  "exclude": ["dist", "node_modules"]
+}

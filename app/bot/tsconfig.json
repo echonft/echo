@@ -19,7 +19,6 @@
       "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
-      "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"]
     },
     "noEmit": false,
@@ -30,6 +29,6 @@
     // This improves issue grouping in Sentry.
     "sourceRoot": "/"
   },
-  "include": ["src", "test", "../../env.d.ts"],
+  "include": ["src", "test", "tsup.config.ts", "../../env.d.ts"],
   "exclude": ["dist", "node_modules"]
 }

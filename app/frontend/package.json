@@ -6,6 +6,7 @@
   "scripts": {
     "build": "next build",
     "clean": "rm -rf .next",
+    "deploy:dev": "flyctl deploy --config .fly/fly.dev.toml --dockerfile .fly/Dockerfile",
     "dev": "next dev",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts,.tsx .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts,.tsx .",
@@ -14,7 +15,7 @@
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
-    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c  .",
+    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org echo-nft --project frontend .next/ && sentry-cli sourcemaps upload --org echo-nft --project frontend .next/",
     "start": "next start",
     "test": "jest",
@@ -26,15 +27,10 @@
   },
   "dependencies": {
     "@auth/core": "0.20.0",
-    "@echo/api": "workspace:*",
-    "@echo/firestore": "workspace:*",
-    "@echo/model": "workspace:*",
-    "@echo/ui": "workspace:*",
-    "@echo/utils": "workspace:*",
-    "@echo/web3": "workspace:*",
     "@headlessui/react": "1.7.18",
     "@sentry/integrations": "7.93.0",
     "@sentry/nextjs": "7.93.0",
+    "@vercel/speed-insights": "1.0.9",
     "dayjs": "1.11.10",
     "next": "14.0.4",
     "next-auth": "5.0.0-beta.4",
@@ -48,14 +44,23 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "0.14.1",
+    "@echo/api": "workspace:*",
+    "@echo/firestore": "workspace:*",
+    "@echo/model": "workspace:*",
+    "@echo/ui": "workspace:*",
+    "@echo/utils": "workspace:*",
+    "@echo/web3": "workspace:*",
     "@swc/core": "1.3.102",
     "@swc/jest": "0.2.29",
     "@types/jest": "29.5.11",
+    "@types/node": "20.11.0",
     "@types/qs": "6.9.11",
     "@types/ramda": "0.29.9",
     "@types/react": "18.2.47",
     "@types/react-dom": "18.2.18",
     "jest": "29.7.0",
-    "jest-junit": "16.0.0"
+    "jest-junit": "16.0.0",
+    "typescript": "5.3.3"
   }
 }

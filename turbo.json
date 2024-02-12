@@ -11,6 +11,10 @@
       "cache": false,
       "persistent": true
     },
+    "dev:testnet": {
+      "cache": false,
+      "persistent": true
+    },
     "lint": {
       "cache": false
     },
@@ -34,7 +38,7 @@
     },
     "start": {
       "dependsOn": ["build"],
-      "outputs": [".next/**"]
+      "persistent": true
     },
     "sentry:sourcemaps": {
       "dependsOn": ["build"],
@@ -58,30 +62,10 @@
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
     },
-    "@echo/bot#start": {
-      "dependsOn": ["@echo/bot#build"],
-      "cache": false,
-      "persistent": true
-    },
     "@echo/frontend#build": {
       "dependsOn": ["@echo/ui#build"],
       "outputs": [".next/**", "!.next/cache/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
-    },
-    "@echo/helper#db:reset:dev": {
-      "cache": false
-    },
-    "@echo/helper#db:reset:test": {
-      "cache": false
-    },
-    "@echo/helper#start": {
-      "dependsOn": ["@echo/helper#build"],
-      "cache": false,
-      "persistent": true
-    },
-    "@echo/helper#update-db": {
-      "dependsOn": ["@echo/helper#build"],
-      "cache": false
     },
     "@echo/storybook#build": {
       "dependsOn": ["@echo/ui#build"],
@@ -97,7 +81,7 @@
       "outputs": ["dist/index.css"],
       "inputs": ["tailwind.config.cjs", "src/index.css", "src/**/*.tsx", "src/**/*.ts"]
     },
-    "//#vercel:dev": {
+    "//#vercel:cmd": {
       "dependsOn": ["@echo/ui#build"],
       "cache": false,
       "persistent": true

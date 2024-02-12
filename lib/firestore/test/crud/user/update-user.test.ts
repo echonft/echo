@@ -1,8 +1,6 @@
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
 import { updateUser } from '@echo/firestore/crud/user/update-user'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { assertUsers } from '@echo/firestore-test/user/assert-users'
 import { deleteUser } from '@echo/firestore-test/user/delete-user'
 import { unchecked_updateUser } from '@echo/firestore-test/user/unchecked_update-user'
@@ -17,11 +15,10 @@ describe('CRUD - user - updateUser', () => {
   let updatedUser: Nullable<UserDocumentData>
 
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertUsers()
   })
   afterAll(async () => {
     await assertUsers()
-    await tearDownRemoteFirestoreTests()
   })
   beforeEach(() => {
     newUserId = undefined

@@ -2,17 +2,14 @@ import { addCollectionDiscordGuild } from '@echo/firestore/crud/collection-disco
 import { assertCollectionDiscordGuilds } from '@echo/firestore-test/collection-discord-guild/assert-collection-discord-guilds'
 import { deleteCollectionDiscordGuild } from '@echo/firestore-test/collection-discord-guild/delete-collection-discord-guild'
 import { findCollectionDiscordGuildById } from '@echo/firestore-test/collection-discord-guild/find-collection-discord-guild-by-id'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
 
 describe('CRUD - collection-discord-guild - addCollectionDiscordGuild', () => {
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertCollectionDiscordGuilds()
   })
   afterAll(async () => {
     await assertCollectionDiscordGuilds()
-    await tearDownRemoteFirestoreTests()
   })
   it('throws if trying to add a guild for a collection that does not exist', async () => {
     await expect(addCollectionDiscordGuild('not-found', 'new', 'new')).rejects.toBeDefined()

@@ -20,17 +20,8 @@ const nextConfig = {
   ],
   webpack: (config) => {
     // noinspection JSUnresolvedReference
-    config.externals.push('pino-pretty', 'lokijs', 'encoding')
-    return {
-      ...config,
-      resolve: {
-        ...config.resolve,
-        fallback: {
-          ...config.resolve.fallback,
-          request: false
-        }
-      }
-    }
+    config.externals.push('pino-pretty', 'lokijs', 'encoding', 'request')
+    return config
   }
 }
 

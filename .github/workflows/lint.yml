@@ -19,47 +19,47 @@ jobs:
         with:
           version: latest
           run_install: true
-      - name: lint bot
+      - name: bot lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/bot
-      - name: lint frontend
+      - name: frontend lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/frontend
-      - name: lint helper
+      - name: helper lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/helper
-      - name: lint storybook
+      - name: storybook lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/storybook
-      - name: lint alchemy
+      - name: alchemy lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/alchemy
-      - name: lint api
+      - name: api lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/api
-      - name: lint firestore
+      - name: firestore lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/firestore
-      - name: lint model
+      - name: model lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/model
-      - name: lint ui
+      - name: ui lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/ui
-      - name: lint utils
+      - name: utils lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/utils
-      - name: lint web3
+      - name: web3 lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/web3

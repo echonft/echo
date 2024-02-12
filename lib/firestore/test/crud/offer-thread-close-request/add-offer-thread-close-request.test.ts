@@ -2,8 +2,6 @@ import { addOfferThreadCloseRequest } from '@echo/firestore/crud/offer-thread-cl
 import { deleteOfferThreadCloseRequest } from '@echo/firestore/crud/offer-thread-close-request/delete-offer-thread-close-request'
 import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
 import { findOfferThreadCloseRequestById } from '@echo/firestore-test/offer-thread-close-request/find-offer-thread-close-request-by-id'
-import { tearDownRemoteFirestoreTests } from '@echo/firestore-test/tear-down-remote-firestore-tests'
-import { tearUpRemoteFirestoreTests } from '@echo/firestore-test/tear-up-remote-firestore-tests'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { now } from '@echo/utils/helpers/now'
 import { logger } from '@echo/utils/services/logger'
@@ -16,11 +14,10 @@ describe('CRUD - offer-thread-close-request - addOfferThreadCloseRequest', () =>
   const offerThreadId = 'hot4VWDzd6ZRsC3nsvnb'
   let newDocumentId: Nullable<string>
   beforeAll(async () => {
-    await tearUpRemoteFirestoreTests()
+    await assertOfferThreads()
   })
   afterAll(async () => {
     await assertOfferThreads()
-    await tearDownRemoteFirestoreTests()
   })
   beforeEach(() => {
     newDocumentId = undefined
