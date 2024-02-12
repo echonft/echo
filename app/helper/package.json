@@ -4,7 +4,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "tsup",
+    "build": "dotenvx run --env-file=.env.dev -- tsup",
+    "build:ci": "tsup",
     "clean": "rm -rf dist",
     "dev": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/index.ts\"",
     "dev:testnet": "nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/index.ts\"",

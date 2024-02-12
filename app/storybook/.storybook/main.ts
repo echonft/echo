@@ -33,10 +33,9 @@ const config: StorybookConfig = {
       }
     }
   },
-
   env: (config) => ({
     ...config,
-    NEXT_PUBLIC_VERCEL_URL: 'localhost:6006'
+    NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL
   }),
   swc: () => ({
     jsc: {

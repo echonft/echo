@@ -4,6 +4,9 @@
     "build": {
       "inputs": ["src/**/*.ts", "src/**/*.tsx"]
     },
+    "build:ci": {
+      "inputs": ["src/**/*.ts", "src/**/*.tsx"]
+    },
     "clean": {
       "cache": false
     },
@@ -41,7 +44,7 @@
       "persistent": true
     },
     "sentry:sourcemaps": {
-      "dependsOn": ["build"],
+      "dependsOn": ["build:ci"],
       "cache": false
     },
     "test": {
