@@ -67,6 +67,18 @@
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
     },
+    "@echo/firestore-functions#deploy": {
+      "cache": false
+    },
+    "@echo/firestore-functions#serve": {
+      "cache": false,
+      "dependsOn": ["build"]
+    },
+    "@echo/firestore-functions#start": {
+      "dependsOn": ["build"],
+      "outputs": ["dist/**"],
+      "inputs": ["src/**/*.ts"]
+    },
     "@echo/frontend#build": {
       "dependsOn": ["@echo/ui#build"],
       "outputs": [".next/**", "!.next/cache/**"],

@@ -1,0 +1,14 @@
+{
+  "functions": [
+    {
+      "source": "lib/firestore-functions",
+      "codebase": "default",
+      "runtime": "nodejs20",
+      "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log"],
+      "predeploy": [
+        "pnpm exec turbo run lint --filter \"@echo/firestore-functions\"",
+        "pnpm exec turbo run build --filter \"@echo/firestore-functions\""
+      ]
+    }
+  ]
+}
