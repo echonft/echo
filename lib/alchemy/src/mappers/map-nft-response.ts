@@ -7,7 +7,6 @@ import type { NftAttribute } from '@echo/model/types/nft-attribute'
 import type { User } from '@echo/model/types/user'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
-import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import {
   always,
   applySpec,
@@ -52,26 +51,20 @@ function internalFn(collection: Collection, owner: User): (nftResponse: NftRespo
         ),
         owner: always(owner),
         // Not all links are always provided so add either cached or original if pngUrl does not exist
-        pictureUrl: pipe(
+        pictureUrl: ifElse(
+          pathIsNil(['image', 'pngUrl']),
           ifElse(
-            pathIsNil(['image', 'pngUrl']),
-            ifElse(
-              pathIsNil(['image', 'cachedUrl']),
-              nonNullableReturn(path(['image', 'originalUrl'])),
-              nonNullableReturn(path(['image', 'cachedUrl']))
-            ),
-            nonNullableReturn(path(['image', 'pngUrl']))
+            pathIsNil(['image', 'cachedUrl']),
+            nonNullableReturn(path(['image', 'originalUrl'])),
+            nonNullableReturn(path(['image', 'cachedUrl']))
           ),
-          removeQueryFromUrl
+          nonNullableReturn(path(['image', 'pngUrl']))
         ),
         // Not all links are always provided so add original if thumbnailUrl does not exist
-        thumbnailUrl: pipe(
-          ifElse(
-            pathIsNil(['image', 'thumbnailUrl']),
-            nonNullableReturn(path(['image', 'originalUrl'])),
-            nonNullableReturn(path(['image', 'thumbnailUrl']))
-          ),
-          removeQueryFromUrl
+        thumbnailUrl: ifElse(
+          pathIsNil(['image', 'thumbnailUrl']),
+          nonNullableReturn(path(['image', 'originalUrl'])),
+          nonNullableReturn(path(['image', 'thumbnailUrl']))
         ),
         tokenId: pipe(prop('tokenId'), partialRight(parseInt, [10])),
         tokenType: path(['contract', 'tokenType'])

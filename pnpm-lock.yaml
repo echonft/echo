@@ -428,6 +428,9 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.23.3
         version: 7.23.3(@babel/core@7.23.7)
+      '@dotenvx/dotenvx':
+        specifier: 0.14.1
+        version: 0.14.1
       '@echo/api':
         specifier: workspace:*
         version: link:../../lib/api
@@ -14994,7 +14997,7 @@ packages:
       '@babel/register': 7.23.7(@babel/core@7.23.7)
       babel-core: 7.0.0-bridge.0(@babel/core@7.23.7)
       chalk: 4.1.2
-      flow-parser: 0.206.0
+      flow-parser: 0.228.0
       graceful-fs: 4.2.11
       micromatch: 4.0.5
       neo-async: 2.6.2

@@ -2,7 +2,12 @@
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
     "build": {
-      "inputs": ["src/**/*.ts", "src/**/*.tsx"]
+      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
+      "outputs": ["dist/**"]
+    },
+    "build:ci": {
+      "inputs": ["src/**/*.ts", "src/**/*.tsx"],
+      "outputs": ["dist/**"]
     },
     "clean": {
       "cache": false
@@ -41,7 +46,7 @@
       "persistent": true
     },
     "sentry:sourcemaps": {
-      "dependsOn": ["build"],
+      "dependsOn": ["build:ci"],
       "cache": false
     },
     "test": {
@@ -63,6 +68,11 @@
       "inputs": ["tsconfig.tsbuildinfo"]
     },
     "@echo/frontend#build": {
+      "dependsOn": ["@echo/ui#build"],
+      "outputs": [".next/**", "!.next/cache/**"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
+    "@echo/frontend#build:ci": {
       "dependsOn": ["@echo/ui#build"],
       "outputs": [".next/**", "!.next/cache/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]

@@ -1,0 +1,26 @@
+{
+  "chainId": 1,
+  "override": {
+    "chainId": 11155111
+  },
+  "collections": [
+    {
+      "address": "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d",
+      "override": {
+        "address": "0x65426f3c04e85936b0f875510d045b413134186a"
+      }
+    },
+    {
+      "address": "0x60e4d786628fea6478f785a6d7e704777c86a7c6",
+      "override": {
+        "address": "0xd91303f46c3f4883d9d74c703c15948e5e04e110"
+      }
+    },
+    {
+      "address": "0x57a204aa1042f6e66dd7730813f4024114d74f37",
+      "override": {
+        "address": "0x43be93945e168a205d708f1a41a124fa302e1f76"
+      }
+    }
+  ]
+}
