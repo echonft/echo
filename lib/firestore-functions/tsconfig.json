@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig/tsconfig.node.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
+      "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/firestore-functions/*": ["./src/*"],
+      "@echo/model/*": ["../../lib/model/src/*"],
+      "@echo/utils/*": ["../../lib/utils/src/*"]
+    },
+    "outDir": "dist"
+  },
+  "include": ["src", "test", "tsup.config.ts"],
+  "exclude": ["node_modules"]
+}
