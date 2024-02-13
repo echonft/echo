@@ -5,12 +5,15 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "build": "tsup",
+    "deploy": "firebase deploy --only functions",
+    "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
+    "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
+    "logs": "firebase functions:log",
     "serve": "firebase emulators:start --only functions",
     "start": "firebase functions:shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "tsc": "tsc --noEmit",
+    "tsc:ci": "pnpm run tsc"
   },
   "main": "dist/index.js",
   "dependencies": {

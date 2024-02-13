@@ -16,8 +16,9 @@ import { Client, Events, GatewayIntentBits } from 'discord.js'
 const client = new Client({ intents: [GatewayIntentBits.Guilds] }) //create new client
 
 CronJob.from({
-  cronTime: `* * */${DEFAULT_THREAD_CLOSE_DELAY} * * *`,
+  cronTime: `* * */${DEFAULT_THREAD_CLOSE_DELAY} * *`,
   onTick: function () {
+    logger.info(`starting flushOfferThreadCloseRequests`)
     void guardAsyncFn(flushOfferThreadCloseRequests, void 0)(client)
   },
   start: true,

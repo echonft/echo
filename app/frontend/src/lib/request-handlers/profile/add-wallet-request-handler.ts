@@ -13,7 +13,6 @@ import { verifySiweMessage } from '@echo/frontend/lib/helpers/auth/verify-siwe-m
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { guarded_assertNonce } from '@echo/frontend/lib/helpers/user/assert/guarded_assert-nonce'
 import { guarded_assertUserExists } from '@echo/frontend/lib/helpers/user/assert/guarded_assert-user-exists'
-import { updateUserNfts } from '@echo/frontend/lib/helpers/user/update-user-nfts'
 import { addWalletSchema } from '@echo/frontend/lib/validators/add-wallet-schema'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Wallet } from '@echo/model/types/wallet'
@@ -44,6 +43,5 @@ export async function addWalletRequestHandler(user: AuthUser, req: ApiRequest<Ad
     ),
     ErrorStatus.SERVER_ERROR
   )(user)
-  await guardAsyncFn(updateUserNfts, ErrorStatus.SERVER_ERROR)(foundUser.discord.id)
   return NextResponse.json<WalletsResponse>({ wallets })
 }

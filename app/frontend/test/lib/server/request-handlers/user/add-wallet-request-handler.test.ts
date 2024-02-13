@@ -9,7 +9,6 @@ import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-
 import { getSiweMessage } from '@echo/frontend/lib/helpers/auth/get-siwe-message'
 import { verifySiweMessage } from '@echo/frontend/lib/helpers/auth/verify-siwe-message'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
-import { updateUserNfts } from '@echo/frontend/lib/helpers/user/update-user-nfts'
 import { addWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/add-wallet-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
@@ -24,7 +23,6 @@ jest.mock('@echo/frontend/lib/helpers/auth/verify-siwe-message')
 jest.mock('@echo/firestore/crud/wallet/add-wallet')
 jest.mock('@echo/frontend/lib/helpers/auth/get-siwe-message')
 jest.mock('@echo/firestore/crud/wallet/get-wallets-for-user')
-jest.mock('@echo/frontend/lib/helpers/user/update-user-nfts')
 
 describe('request-handlers - user - addWalletRequestHandler', () => {
   const address = toLower('0x12c63bbD266dB84e117356e664f3604055166CEc')
@@ -111,7 +109,6 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
     jest.mocked(addWallet).mockResolvedValueOnce(getWalletMockById('i28NWtlxElPXCnO0c6BC'))
     jest.mocked(getWalletsForUser).mockResolvedValueOnce([])
-    jest.mocked(updateUserNfts).mockResolvedValueOnce()
     const req = mockRequest<AddWalletRequest>(validRequest)
     const res = await addWalletRequestHandler(user, req)
     expect(addWallet).toHaveBeenCalledTimes(1)
