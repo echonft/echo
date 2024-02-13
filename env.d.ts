@@ -15,6 +15,7 @@ declare namespace NodeJS {
       FIREBASE_PROJECT_ID: string
       FIREBASE_CLIENT_EMAIL: string
       FIREBASE_PRIVATE_KEY: string
+      GOOGLE_STORAGE_BUCKET: string
       NEXT_PUBLIC_ALCHEMY_KEY: string
       NEXT_PUBLIC_CHAIN_ID: string
       NEXT_PUBLIC_VERCEL_ENV: string | undefined

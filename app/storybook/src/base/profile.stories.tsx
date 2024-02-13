@@ -53,7 +53,7 @@ export const Profile: StoryObj<ComponentType> = {
   render: ({ bannerColor, banner, pictureSize, pictureBorder }) => {
     const bannerUrl =
       banner === 'Image'
-        ? 'https://firebasestorage.googleapis.com/v0/b/echo-83309.appspot.com/o/sunflyers-banner.png?alt=media'
+        ? 'https://i.seadn.io/gae/eASCOXqiarHXrJSwwN34-mX65lSSvSclmrG8qYk5cYdYgX-euMi5AVQa_8b3rvbVc9NYIeF1q2xTjU74ZkLQvRjGV4LZWGCiEp8J?auto=format&dpr=1&w=2048'
         : undefined
     const color = banner === 'Color' ? bannerColor : undefined
     return (

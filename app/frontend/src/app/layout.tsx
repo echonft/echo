@@ -1,6 +1,8 @@
 import '@echo/ui-css/index.css'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
+import { DEFAULT_BANNER_URL } from '@echo/ui/constants/default-banner-url'
+import { STACK_BG_URL } from '@echo/ui/constants/stack-bg-url'
 import { messages } from '@echo/ui/messages/en'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { type Metadata, type Viewport } from 'next'
@@ -29,6 +31,8 @@ function render({ children }: NextLayoutParams) {
   return (
     <html lang={locale} suppressHydrationWarning={true}>
       <body suppressHydrationWarning={true}>
+        <link rel="preload" as="image" href={DEFAULT_BANNER_URL} />
+        <link rel="preload" as="image" href={STACK_BG_URL} />
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
