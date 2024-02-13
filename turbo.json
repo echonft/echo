@@ -71,8 +71,8 @@
       "cache": false
     },
     "@echo/firestore-functions#serve": {
-      "cache": false,
-      "dependsOn": ["build"]
+      "dependsOn": ["build"],
+      "cache": false
     },
     "@echo/firestore-functions#start": {
       "dependsOn": ["build"],

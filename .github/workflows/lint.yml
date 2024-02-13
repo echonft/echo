@@ -55,6 +55,10 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/model
+      - name: sentry lint
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
+        run: pnpm exec turbo run lint:ci --filter=@echo/sentry
       - name: ui lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"

@@ -54,7 +54,6 @@
   "devDependencies": {
     "@dotenvx/dotenvx": "0.14.1",
     "@next/eslint-plugin-next": "14.0.4",
-    "@sentry/cli": "2.27.0",
     "@typescript-eslint/eslint-plugin": "6.18.1",
     "@typescript-eslint/parser": "6.18.1",
     "eslint": "8.56.0",
@@ -80,7 +79,7 @@
       "viem": "2.7.1"
     }
   },
-  "packageManager": "pnpm@8.15.1",
+  "packageManager": "pnpm@8.15.2",
   "nextBundleAnalysis": {
     "budget": 358400,
     "budgetPercentIncreaseRed": 20,

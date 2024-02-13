@@ -1,0 +1,46 @@
+name: 'Prettier'
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+          run_install: true
+      - name: bot prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/bot
+      - name: frontend prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/frontend
+      - name: helper prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/helper
+      - name: storybook prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/storybook
+      - name: alchemy prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/alchemy
+      - name: api prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/api
+      - name: firestore prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/firestore
+      - name: firestore-functions prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/firestore-functions
+      - name: model prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/model
+      - name: sentry prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/sentry
+      - name: ui prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/ui
+      - name: utils prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/utils
+      - name: web3 prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/web3

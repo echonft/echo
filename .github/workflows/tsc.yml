@@ -36,6 +36,8 @@ jobs:
         run: pnpm exec turbo run tsc:ci --filter=@echo/firestore-functions
       - name: model tsc
         run: pnpm exec turbo run tsc:ci --filter=@echo/model
+      - name: sentry tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/sentry
       - name: ui tsc
         run: pnpm exec turbo run tsc:ci --filter=@echo/ui
       - name: utils tsc
