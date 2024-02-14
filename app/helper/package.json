@@ -27,18 +27,18 @@
     "ramda": "0.29.1"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.14.1",
+    "@dotenvx/dotenvx": "0.15.4",
     "@echo/firestore": "workspace:*",
     "@echo/sentry": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@sentry/cli": "2.28.6",
-    "@types/node": "20.11.0",
+    "@types/node": "20.11.17",
     "@types/ramda": "0.29.10",
-    "nodemon": "3.0.2",
+    "nodemon": "3.0.3",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
-    "tsup": "8.0.1",
+    "tsup": "8.0.2",
     "typescript": "5.3.3"
   }
 }

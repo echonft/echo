@@ -23,19 +23,19 @@
   "dependencies": {
     "ramda": "0.29.1",
     "siwe": "2.1.4",
-    "viem": "2.7.1",
-    "wagmi": "2.5.5"
+    "viem": "2.7.9",
+    "wagmi": "2.5.7"
   },
   "devDependencies": {
-    "@babel/core": "7.23.7",
-    "@babel/preset-env": "7.23.8",
+    "@babel/core": "7.23.9",
+    "@babel/preset-env": "7.23.9",
     "@babel/preset-typescript": "7.23.3",
     "@echo/alchemy": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@types/node": "20.11.0",
+    "@types/node": "20.11.17",
     "@types/ramda": "0.29.10",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
