@@ -6,9 +6,9 @@ import {
   CALLOUT_SEVERITY_WARNING
 } from '@echo/ui/constants/callout-severity'
 import { CALLOUT_VARIANT_OUTLINE, CALLOUT_VARIANT_SOLID } from '@echo/ui/constants/callout-variant'
+import { classes } from '@echo/ui/helpers/classes'
 import type { CalloutSeverity } from '@echo/ui/types/callout-severity'
 import type { CalloutVariant } from '@echo/ui/types/callout-variant'
-import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
@@ -27,7 +27,7 @@ export const Callout: FunctionComponent<CalloutProps> = ({
 }) => {
   return (
     <div
-      className={clsx(
+      className={classes(
         'flex',
         'flex-row',
         'items-center',
@@ -55,7 +55,7 @@ export const Callout: FunctionComponent<CalloutProps> = ({
       onClick={onClick}
     >
       <CalloutIcon severity={severity} variant={variant} />
-      <p className={clsx('prose-label-sm', variant === CALLOUT_VARIANT_SOLID ? 'text-dark-500' : 'text-purple-100')}>
+      <p className={classes('prose-label-sm', variant === CALLOUT_VARIANT_SOLID ? 'text-dark-500' : 'text-purple-100')}>
         {children}
       </p>
     </div>

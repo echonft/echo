@@ -1,4 +1,4 @@
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
 }
 
 export const ListingDetailsTargetCollectionOrOfferTitle: FunctionComponent<Props> = ({ title }) => (
-  <div className={clsx('w-max', 'p-2.5', 'rounded-lg', 'bg-white/[0.08]')}>
-    <span className={clsx('prose-label-md', 'text-white')}>{title}</span>
+  <div className={classes('w-max', 'p-2.5', 'rounded-lg', 'bg-white/[0.08]')}>
+    <span className={classes('prose-label-md', 'text-white')}>{title}</span>
   </div>
 )

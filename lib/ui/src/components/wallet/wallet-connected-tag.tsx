@@ -1,8 +1,8 @@
 'use client'
 import { WalletIconSvg } from '@echo/ui/components/base/svg/wallet-icon-svg'
+import { classes } from '@echo/ui/helpers/classes'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { shortenAddress } from '@echo/web3/helpers/shorten-address'
-import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -15,7 +15,7 @@ export const WalletConnectedTag: FunctionComponent<Props> = (props) => {
   const { truncatedAddress } = props
   return (
     <div
-      className={clsx(
+      className={classes(
         'flex',
         'flex-row',
         'items-center',
@@ -27,10 +27,14 @@ export const WalletConnectedTag: FunctionComponent<Props> = (props) => {
         'px-2.5'
       )}
     >
-      <span className={clsx('h-max', 'w-max', 'text-white', 'prose-label-xs', '!tracking-[0.015rem]', 'select-none')}>
+      <span
+        className={classes('h-max', 'w-max', 'text-white', 'prose-label-xs', '!tracking-[0.015rem]', 'select-none')}
+      >
         <WalletIconSvg />
       </span>
-      <span className={clsx('h-max', 'w-max', 'text-white', 'prose-label-xs', '!tracking-[0.015rem]', 'select-none')}>
+      <span
+        className={classes('h-max', 'w-max', 'text-white', 'prose-label-xs', '!tracking-[0.015rem]', 'select-none')}
+      >
         {truncatedAddress ?? shortenAddress(props)}
       </span>
     </div>

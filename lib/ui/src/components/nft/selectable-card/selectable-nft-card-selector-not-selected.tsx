@@ -1,4 +1,4 @@
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 export const SelectableNftCardSelectorNotSelected: FunctionComponent<Props> = ({ onToggleSelection }) => {
   return (
     <button
-      className={clsx('h-6', 'w-6')}
+      className={classes('h-6', 'w-6')}
       onClick={() => {
         onToggleSelection?.(true)
       }}

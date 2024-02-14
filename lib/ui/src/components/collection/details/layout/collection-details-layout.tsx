@@ -1,7 +1,7 @@
 import { DEFAULT_BANNER_URL } from '@echo/ui/constants/default-banner-url'
+import { classes } from '@echo/ui/helpers/classes'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export interface CollectionDetailsLayoutProps {
@@ -13,7 +13,7 @@ export const CollectionDetailsLayout: FunctionComponent<PropsWithChildren<Collec
 }) => {
   return (
     <div
-      className={clsx('w-full', 'bg-contain')}
+      className={classes('w-full', 'bg-contain')}
       style={{
         backgroundImage: `${themeExtension.backgroundImage.banner}, url('${bannerUrl ?? DEFAULT_BANNER_URL}')`
       }}

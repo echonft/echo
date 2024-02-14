@@ -5,8 +5,8 @@ import { SelectableNftCardButtonLayout } from '@echo/ui/components/nft/selectabl
 import { SelectableNftCardButton } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-button'
 import { SelectableNftCardFooter } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-footer'
 import { SelectableNftCardPicture } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-picture'
+import { classes } from '@echo/ui/helpers/classes'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 export interface SelectableNftCardProps {
@@ -25,7 +25,7 @@ export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({
   onAction
 }) => {
   return (
-    <CardLayout className={clsx(nft.selected && 'border-yellow-500')} disabled={nft.disabled}>
+    <CardLayout className={classes(nft.selected && 'border-yellow-500')} disabled={nft.disabled}>
       <SelectableNftCardPicture
         nft={nft}
         hideOwner={hideOwner}

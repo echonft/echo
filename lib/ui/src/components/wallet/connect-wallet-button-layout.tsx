@@ -1,6 +1,6 @@
 'use client'
 import { WalletIconSvg } from '@echo/ui/components/base/svg/wallet-icon-svg'
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
@@ -15,7 +15,7 @@ export const ConnectWalletButtonLayout: FunctionComponent<Props> = ({ isConnecti
     <button
       onClick={onClick}
       disabled={isConnecting}
-      className={clsx(
+      className={classes(
         'btn-primary',
         'group',
         'gap-2.5',
@@ -25,10 +25,10 @@ export const ConnectWalletButtonLayout: FunctionComponent<Props> = ({ isConnecti
         isConnecting && 'animate-pulse'
       )}
     >
-      <span className={clsx('btn-label-primary')}>
+      <span className={classes('btn-label-primary')}>
         <WalletIconSvg />
       </span>
-      <span className={clsx('btn-label-primary', 'prose-label-xs', '!tracking-[0.015rem]')}>{t('label')}</span>
+      <span className={classes('btn-label-primary', 'prose-label-xs', '!tracking-[0.015rem]')}>{t('label')}</span>
     </button>
   )
 }

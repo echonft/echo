@@ -1,8 +1,8 @@
 import { Callout } from '@echo/ui/components/base/callout/callout'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
+import { classes } from '@echo/ui/helpers/classes'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
 import { Transition } from '@headlessui/react'
-import { clsx } from 'clsx'
 import { head, isNil } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 
@@ -49,7 +49,7 @@ export const CalloutManager: FunctionComponent = () => {
       leaveFrom="transform opacity-100"
       leaveTo="transform opacity-0"
     >
-      <div className={clsx('absolute', 'z-40', 'top-4', 'right-4')}>
+      <div className={classes('absolute', 'z-40', 'top-4', 'right-4')}>
         <HideIfNil
           checks={alert}
           render={(alert) => (

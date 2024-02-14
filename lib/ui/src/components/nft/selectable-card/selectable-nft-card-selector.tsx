@@ -1,7 +1,7 @@
 import { SelectableNftCardSelectorNotSelected } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-selector-not-selected'
 import { SelectableNftCardSelectorSelected } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-selector-selected'
+import { classes } from '@echo/ui/helpers/classes'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -14,7 +14,7 @@ export const SelectableNftCardSelector: FunctionComponent<Props> = ({ nft, onTog
   if (!disabled && !selectionDisabled) {
     if (selected) {
       return (
-        <div className={clsx('absolute', 'top-2', 'right-2', 'h-max', 'w-max')}>
+        <div className={classes('absolute', 'top-2', 'right-2', 'h-max', 'w-max')}>
           <SelectableNftCardSelectorSelected
             onToggleSelection={(selected) => {
               onToggleSelection?.(nft, selected)
@@ -25,7 +25,7 @@ export const SelectableNftCardSelector: FunctionComponent<Props> = ({ nft, onTog
     }
     return (
       <div
-        className={clsx(
+        className={classes(
           'absolute',
           'top-2',
           'right-2',

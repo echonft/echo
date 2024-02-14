@@ -1,6 +1,6 @@
 import { COLOR_GREEN, COLOR_RED, COLOR_YELLOW } from '@echo/ui/constants/color'
+import { classes } from '@echo/ui/helpers/classes'
 import type { CardStatusColor } from '@echo/ui/types/card-status-color'
-import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 export const CardStatus: FunctionComponent<Props> = ({ label, color }) => {
   return (
     <div
-      className={clsx(
+      className={classes(
         'h-max',
         'w-max',
         'rounded-lg',
@@ -23,7 +23,7 @@ export const CardStatus: FunctionComponent<Props> = ({ label, color }) => {
       )}
     >
       <span
-        className={clsx(
+        className={classes(
           'font-inter',
           'text-[0.625rem]',
           'font-medium',

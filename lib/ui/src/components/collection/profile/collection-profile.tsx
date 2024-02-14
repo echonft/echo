@@ -7,7 +7,7 @@ import { CollectionProfileDetailsLayout } from '@echo/ui/components/collection/p
 import { CollectionProfileSupplyAndLinksLayout } from '@echo/ui/components/collection/profile/layout/collection-profile-supply-and-links-layout'
 import { CollectionProfileTitleLayout } from '@echo/ui/components/collection/profile/layout/collection-profile-title-layout'
 import { DEFAULT_COLLECTION_PROFILE_PICTURE_URL } from '@echo/ui/constants/default-collection-profile-picture-url'
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import { type FunctionComponent } from 'react'
 
 export interface CollectionProfileProps
@@ -31,7 +31,7 @@ export const CollectionProfile: FunctionComponent<CollectionProfileProps> = ({
     >
       <CollectionProfileDetailsLayout>
         <CollectionProfileTitleLayout>
-          <h1 className={clsx('text-white', 'prose-display-lg-bold', 'uppercase', 'truncate')}>{name}</h1>
+          <h1 className={classes('text-white', 'prose-display-lg-bold', 'uppercase', 'truncate')}>{name}</h1>
           <CollectionProfileVerifiedIcon verified={verified} />
         </CollectionProfileTitleLayout>
         <CollectionProfileSupplyAndLinksLayout>

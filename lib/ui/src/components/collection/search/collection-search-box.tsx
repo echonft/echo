@@ -2,10 +2,10 @@ import type { CollectionProviderResult } from '@echo/api/types/providers/collect
 import { type Collection } from '@echo/model/types/collection'
 import { CollectionSearchBoxOptions } from '@echo/ui/components/collection/search/collection-search-box-options'
 import { CollectionSearchComboboxInput } from '@echo/ui/components/collection/search/collection-search-combobox-input'
+import { classes } from '@echo/ui/helpers/classes'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { Combobox, Transition } from '@headlessui/react'
-import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
@@ -29,11 +29,13 @@ export const CollectionSearchBox: FunctionComponent<Props> = ({
   const t = useTranslations('collection.search')
 
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-2', 'h-max', 'w-full')}>
-      <span className={clsx('prose-label-md', 'text-white', 'select-none', 'w-max', 'h-max', disabled && 'opacity-40')}>
+    <div className={classes('flex', 'flex-col', 'gap-2', 'h-max', 'w-full')}>
+      <span
+        className={classes('prose-label-md', 'text-white', 'select-none', 'w-max', 'h-max', disabled && 'opacity-40')}
+      >
         {t('label')}
       </span>
-      <div className={clsx('h-max', 'w-full', 'relative')}>
+      <div className={classes('h-max', 'w-full', 'relative')}>
         <Combobox onChange={onSelectionChange} disabled={disabled}>
           <CollectionSearchComboboxInput
             searching={searching}
@@ -50,10 +52,10 @@ export const CollectionSearchBox: FunctionComponent<Props> = ({
             leave={'transition ease-in duration-100'}
             leaveFrom={'opacity-100'}
             leaveTo={'opacity-0'}
-            className={clsx('absolute', 'left-0', 'py-2')}
+            className={classes('absolute', 'left-0', 'py-2')}
           >
             <Combobox.Options
-              className={clsx('flex', 'flex-col', 'w-max', 'py-2', 'px-2', 'rounded-lg', 'bg-dark-400', 'gap-2')}
+              className={classes('flex', 'flex-col', 'w-max', 'py-2', 'px-2', 'rounded-lg', 'bg-dark-400', 'gap-2')}
             >
               <CollectionSearchBoxOptions options={options} searching={searching} />
             </Combobox.Options>

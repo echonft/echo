@@ -2,7 +2,7 @@
 import type { Collection } from '@echo/model/types/collection'
 import { ExternalLink } from '@echo/ui/components/base/external-link'
 import { PaddedContainer } from '@echo/ui/components/base/layout/padded-container'
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import Markdown from 'marked-react'
 import type { FunctionComponent, ReactNode } from 'react'
 
@@ -10,7 +10,7 @@ const renderer = {
   link(href: string, text: ReactNode) {
     return (
       <ExternalLink href={href} style={{ inline: true }}>
-        <div className={clsx('inline', 'text-yellow-500')}>{text}</div>
+        <div className={classes('inline', 'text-yellow-500')}>{text}</div>
       </ExternalLink>
     )
   }
@@ -18,8 +18,8 @@ const renderer = {
 export const CollectionDetailsDescription: FunctionComponent<Pick<Collection, 'description'>> = ({ description }) => {
   return (
     <PaddedContainer>
-      <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-8')}>
-        <div className={clsx('prose-header-xs', 'text-white/60', 'w-[37rem]')}>
+      <div className={classes('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-8')}>
+        <div className={classes('prose-header-xs', 'text-white/60', 'w-[37rem]')}>
           <Markdown renderer={renderer} value={description} />
         </div>
       </div>

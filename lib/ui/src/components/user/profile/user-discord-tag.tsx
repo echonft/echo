@@ -1,5 +1,5 @@
 import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 export const UserDiscordTag: FunctionComponent<Props> = ({ discordUsername }) => {
   return (
     <div
-      className={clsx(
+      className={classes(
         'flex',
         'flex-row',
         'w-max',

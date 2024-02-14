@@ -29,6 +29,7 @@ import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer
 import { CreateOfferConfirmedModal } from '@echo/ui/components/offer/create/confirmed/create-offer-confirmed-modal'
 import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { classes } from '@echo/ui/helpers/classes'
 import { enable } from '@echo/ui/helpers/disableable/enable'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'
 import { isListingRoleTarget } from '@echo/ui/helpers/listing/is-listing-role-target'
@@ -46,7 +47,6 @@ import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { assoc, filter, head, isEmpty, isNil, length, lte, map, mergeLeft, pipe, prop, propEq } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
@@ -151,7 +151,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
           <ListingDetailsItemsContainer items={items} />
         </ListingDetailsItemsContainerLayout>
         <ItemsSeparator />
-        <div className={clsx('flex', 'flex-col', 'gap-14')}>
+        <div className={classes('flex', 'flex-col', 'gap-14')}>
           <ListingDetailsTargetsContainerLayout>
             <ListingDetailsTargetContainer target={target} />
           </ListingDetailsTargetsContainerLayout>

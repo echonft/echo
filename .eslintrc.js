@@ -53,7 +53,15 @@ module.exports = {
         paths: [
           {
             name: 'clsx/clsx',
-            message: 'Not gonna work. Use clsx instead'
+            message: 'Not gonna work. Use classes instead'
+          },
+          {
+            name: 'clsx',
+            message: 'Use classes instead'
+          },
+          {
+            name: 'twMerge',
+            message: 'Use classes instead'
           }
         ],
         patterns: [

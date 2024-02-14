@@ -2,7 +2,7 @@ import { BackButton } from '@echo/ui/components/base/back-button'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { ShowIfNil } from '@echo/ui/components/base/utils/show-if-nil'
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
@@ -13,8 +13,8 @@ interface Props {
 
 export const BackButtonLayout: FunctionComponent<PropsWithChildren<Props>> = ({ title, onBack, path, children }) => {
   return (
-    <div className={clsx('flex', 'flex-col')}>
-      <div className={clsx('px-6', 'py-3')}>
+    <div className={classes('flex', 'flex-col')}>
+      <div className={classes('px-6', 'py-3')}>
         <HideIfNil
           checks={path}
           render={(path) => (
@@ -27,7 +27,7 @@ export const BackButtonLayout: FunctionComponent<PropsWithChildren<Props>> = ({ 
           <BackButton onBack={onBack} title={title} />
         </ShowIfNil>
       </div>
-      <div className={clsx('py-4')}>{children}</div>
+      <div className={classes('py-4')}>{children}</div>
     </div>
   )
 }
