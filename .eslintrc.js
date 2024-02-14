@@ -87,6 +87,10 @@ module.exports = {
           {
             group: ['firebase-admin/lib/*'],
             message: 'Nothing is exported from firebase-admin/lib/. Please use firebase-admin/[package] instead'
+          },
+          {
+            group: ['firebase-functions/lib/*'],
+            message: 'Nothing is exported from firebase-functions/lib/. Please use firebase-functions/[package] instead'
           }
         ]
       }
