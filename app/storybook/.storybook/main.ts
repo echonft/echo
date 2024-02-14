@@ -36,7 +36,7 @@ const config: StorybookConfig = {
   env: (config) => ({
     ...config,
     GOOGLE_STORAGE_BUCKET: 'echo-dev-public',
-    NEXT_PUBLIC_VERCEL_URL: process.env.NEXT_PUBLIC_VERCEL_URL
+    NEXT_PUBLIC_VERCEL_URL: process.env.VERCEL_URL
   }),
   swc: () => ({
     jsc: {
