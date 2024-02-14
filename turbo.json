@@ -41,6 +41,9 @@
     "prettier": {
       "cache": false
     },
+    "prettier:ci": {
+      "cache": false
+    },
     "start": {
       "dependsOn": ["build"],
       "persistent": true
