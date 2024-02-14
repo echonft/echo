@@ -1,5 +1,8 @@
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { createError } from '@echo/frontend/lib/helpers/error/create-error'
+import { isDev } from '@echo/utils/constants/is-dev'
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { logger } from '@echo/utils/services/logger'
 import { captureException } from '@sentry/nextjs'
 
 type SeverityLevel = 'fatal' | 'error' | 'warning' | 'log' | 'info' | 'debug'
@@ -28,6 +31,9 @@ export function guardFn<TArgs extends unknown[], TResult>(
     try {
       return fn(...args)
     } catch (e) {
+      if (isDev) {
+        logger.error(errorMessage(e))
+      }
       captureException(e, { level: severity ?? getSeverity(status) })
       throw createError(status, message)
     }
@@ -44,6 +50,9 @@ export function guardAsyncFn<TArgs extends unknown[], TResult>(
     try {
       return await fn(...args)
     } catch (e) {
+      if (isDev) {
+        logger.error(errorMessage(e))
+      }
       captureException(e, { level: severity ?? getSeverity(status) })
       throw createError(status, message)
     }

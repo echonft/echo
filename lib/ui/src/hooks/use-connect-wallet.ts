@@ -46,9 +46,6 @@ export function useConnectWallet(wallets: Nullable<Wallet[]>) {
       onError: () => {
         void disconnectWallet()
       }
-    },
-    options: {
-      logging: true
     }
   })
   const { trigger: addWalletTrigger } = useSWRTrigger<WalletsResponse, AddWalletRequest>({
@@ -64,9 +61,6 @@ export function useConnectWallet(wallets: Nullable<Wallet[]>) {
       onError: () => {
         void disconnectWallet()
       }
-    },
-    options: {
-      logging: true
     }
   })
   const { trigger: signNonceTrigger } = useSWRTrigger<SignNonceResult, SignNonceArgs>({
@@ -80,9 +74,6 @@ export function useConnectWallet(wallets: Nullable<Wallet[]>) {
       onError: () => {
         void disconnectWallet()
       }
-    },
-    options: {
-      logging: true
     }
   })
 

@@ -29,14 +29,7 @@ export const ProfileBanner: FunctionComponent<ProfileBannerProps> = ({ bannerUrl
   }
   return (
     <div
-      className={clsx(
-        'w-full',
-        'h-[15.625rem]',
-        'bg-no-repeat',
-        'flex-none',
-        'select-none',
-        isNilOrEmpty(bannerUrl) ? 'bg-contain' : 'bg-cover'
-      )}
+      className={clsx('w-full', 'h-[15.625rem]', 'bg-no-repeat', 'flex-none', 'select-none', 'bg-cover')}
       style={getStyle()}
     />
   )

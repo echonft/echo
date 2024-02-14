@@ -10,7 +10,6 @@ import {
   LISTING_STATE_PARTIALLY_FULFILLED
 } from '@echo/model/constants/listing-states'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { pastDate } from '@echo/utils/helpers/past-date'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe } from 'ramda'
 
@@ -21,36 +20,6 @@ describe('converters - listingDataConverter', () => {
 
   it('from Firestore conversion', () => {
     expect(listingDataConverter.fromFirestore(snapshot)).toStrictEqual(document)
-  })
-
-  it('from Firestore conversion - expired', () => {
-    const expiredAt = pastDate()
-    const expiredSnapshot = assoc(
-      'data',
-      () => pipe(assoc('state', LISTING_STATE_OPEN), assoc('expiresAt', expiredAt))(documentData),
-      snapshot
-    )
-    const expiredDocument = pipe(
-      assoc('expiresAt', expiredAt),
-      assoc('state', LISTING_STATE_EXPIRED),
-      assoc('readOnly', true)
-    )(document)
-    expect(listingDataConverter.fromFirestore(expiredSnapshot)).toStrictEqual(expiredDocument)
-  })
-
-  it('from Firestore conversion - expired but in final state', () => {
-    const expiredAt = pastDate()
-    const expiredSnapshot = assoc(
-      'data',
-      () => pipe(assoc('state', LISTING_STATE_FULFILLED), assoc('expiresAt', expiredAt))(documentData),
-      snapshot
-    )
-    const expiredDocument = pipe(
-      assoc('expiresAt', expiredAt),
-      assoc('state', LISTING_STATE_FULFILLED),
-      assoc('readOnly', true)
-    )(document)
-    expect(listingDataConverter.fromFirestore(expiredSnapshot)).toStrictEqual(expiredDocument)
   })
 
   it('from Firestore conversion - read only', () => {

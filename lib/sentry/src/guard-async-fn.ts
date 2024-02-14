@@ -1,3 +1,5 @@
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { logger } from '@echo/utils/services/logger'
 import { captureException } from '@sentry/node'
 import { is, isNil } from 'ramda'
 
@@ -9,6 +11,7 @@ export function guardAsyncFn<TArgs extends unknown[], TResult, TFallbackResult =
     try {
       return await fn(...args)
     } catch (e) {
+      logger.error(errorMessage(e))
       captureException(e)
       if (isNil(fallback)) {
         return Promise.resolve()

@@ -1,4 +1,3 @@
-// TODO This is a duplicate, should be centralized
 import { getNftsForOwner } from '@echo/alchemy/services/get-nfts-for-owner'
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
