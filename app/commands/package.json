@@ -11,6 +11,7 @@
     "command:add-collection-guild:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/add-collection-guild-command.ts",
     "command:add-collection-guild:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/add-collection-guild-command.ts",
     "command:clear-db:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/clear-db-command.ts",
+    "command:clear-db:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/clear-db-command.ts",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",

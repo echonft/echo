@@ -101,6 +101,11 @@
       "outputs": ["storybook-static/**", "dist/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
+    "@echo/storybook#build:ci": {
+      "dependsOn": ["@echo/ui#build"],
+      "outputs": ["storybook-static/**", "dist/**"],
+      "inputs": ["src/**/*.tsx", "src/**/*.ts"]
+    },
     "@echo/storybook#dev": {
       "dependsOn": ["@echo/ui#build"],
       "cache": false,
