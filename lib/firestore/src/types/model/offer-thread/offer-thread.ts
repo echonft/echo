@@ -9,4 +9,5 @@ export interface OfferThread {
   offerId: string
   guild: OfferThreadDiscordGuild
   postedAt: number
+  state: 'ACTIVE' | 'ARCHIVED'
 }
