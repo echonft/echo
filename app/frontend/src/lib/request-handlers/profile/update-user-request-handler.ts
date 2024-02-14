@@ -3,7 +3,6 @@ import type { UpdateUserRequest } from '@echo/api/types/requests/update-user-req
 import { updateUser } from '@echo/firestore/crud/user/update-user'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
-import { updateUserNfts } from '@echo/frontend/lib/helpers/user/update-user-nfts'
 import { updateUserSchema } from '@echo/frontend/lib/validators/update-user-schema'
 import { NextResponse } from 'next/server'
 
@@ -14,6 +13,5 @@ export async function updateUserRequestHandler(req: ApiRequest<UpdateUserRequest
   )(req)
   const parsedBody = guardFn((requestBody) => updateUserSchema.parse(requestBody), ErrorStatus.BAD_REQUEST)(requestBody)
   await guardAsyncFn(updateUser, ErrorStatus.SERVER_ERROR)(parsedBody)
-  await guardAsyncFn(updateUserNfts, ErrorStatus.SERVER_ERROR)(parsedBody.discord.id)
   return NextResponse.json({})
 }

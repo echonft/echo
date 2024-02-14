@@ -29,7 +29,7 @@
     "@echo/utils": "workspace:*",
     "@types/node": "20.11.0",
     "@types/qs": "6.9.11",
-    "@types/ramda": "0.29.9",
+    "@types/ramda": "0.29.10",
     "next": "14.0.4",
     "typescript": "5.3.3"
   }

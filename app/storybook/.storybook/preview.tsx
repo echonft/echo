@@ -69,7 +69,6 @@ const preview: Preview = {
   loaders: [
     () => {
       init({
-        debug: false,
         enabled: false
       })
       return Promise.resolve({ sentry: 'disabled' })

@@ -15,6 +15,7 @@ coverage
 .env.dev
 .env.test
 .env.testnet
+.env.echo*
 
 # typescript
 *.tsbuildinfo
@@ -38,3 +39,6 @@ storybook-static
 
 # misc
 .DS_Store
+
+# Firebase
+firebase-debug.log*

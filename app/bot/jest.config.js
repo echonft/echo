@@ -18,7 +18,7 @@ module.exports = {
     '^@echo/model-mocks/(.*)$': '<rootDir>/../../lib/model/test/@mocks/$1',
     '^@echo/firestore/(.*)$': '<rootDir>/../../lib/firestore/src/$1',
     '^@echo/firestore-mocks/(.*)$': '<rootDir>/../../lib/firestore/test/@mocks/$1',
-    '^@echo/ui/(.*)$': '<rootDir>/../../lib/ui/src/$1',
+    '^@echo/sentry/(.*)$': '<rootDir>/../../lib/sentry/src/$1',
     '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1'
   },
   reporters: [

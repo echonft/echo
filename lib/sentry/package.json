@@ -1,0 +1,31 @@
+{
+  "name": "@echo/sentry",
+  "version": "1.0.0",
+  "private": true,
+  "sideEffects": false,
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
+    "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
+    "lint:clean-cache": "rm -f .eslintcache",
+    "modules:remove": "rm -rf node_modules",
+    "modules:update": "ncu -u",
+    "modules:update-minor": "ncu -u --target=minor",
+    "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
+    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
+    "tsc": "tsc --noEmit",
+    "tsc:ci": "pnpm run tsc",
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
+  },
+  "dependencies": {
+    "@sentry/node": "7.101.0",
+    "@sentry/profiling-node": "7.101.0",
+    "ramda": "0.29.1"
+  },
+  "devDependencies": {
+    "@echo/utils": "workspace:*",
+    "@types/node": "20.11.0",
+    "@types/ramda": "0.29.10",
+    "typescript": "5.3.3"
+  }
+}

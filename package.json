@@ -28,6 +28,7 @@
     "check": "turbo run tsc --force && turbo run lint --force && turbo run test --force",
     "check:quick": "turbo run tsc --force && turbo run lint --force && turbo run test --filter=!@echo/firestore --force",
     "clean": "turbo run clean",
+    "firestore-functions:deploy:dev": "turbo run deploy:dev --filter=@echo/firestore-functions",
     "helper:dev": "turbo run dev --filter=@echo/helper",
     "helper:dev:testnet": "turbo run dev:testnet --filter=@echo/helper",
     "helper:deploy:dev": "flyctl deploy --config app/helper/.fly/fly.dev.toml --dockerfile Dockerfile.helper",
@@ -54,7 +55,6 @@
   "devDependencies": {
     "@dotenvx/dotenvx": "0.14.1",
     "@next/eslint-plugin-next": "14.0.4",
-    "@sentry/cli": "2.27.0",
     "@typescript-eslint/eslint-plugin": "6.18.1",
     "@typescript-eslint/parser": "6.18.1",
     "eslint": "8.56.0",
@@ -80,7 +80,7 @@
       "viem": "2.7.1"
     }
   },
-  "packageManager": "pnpm@8.15.1",
+  "packageManager": "pnpm@8.15.2",
   "nextBundleAnalysis": {
     "budget": 358400,
     "budgetPercentIncreaseRed": 20,

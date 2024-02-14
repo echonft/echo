@@ -18,5 +18,29 @@ jobs:
         with:
           version: latest
           run_install: true
-      - name: tsc
-        run: pnpm run tsc:ci
+      - name: bot tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/bot
+      - name: frontend tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/frontend
+      - name: helper tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/helper
+      - name: storybook tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/storybook
+      - name: alchemy tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/alchemy
+      - name: api tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/api
+      - name: firestore tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/firestore
+      - name: firestore-functions tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/firestore-functions
+      - name: model tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/model
+      - name: sentry tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/sentry
+      - name: ui tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/ui
+      - name: utils tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/utils
+      - name: web3 tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/web3

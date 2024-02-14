@@ -15,7 +15,8 @@ export async function addOfferThread(offerId: string, guild: OfferThreadDiscordG
     setReference({
       offerId,
       guild,
-      postedAt: now()
+      postedAt: now(),
+      state: 'ACTIVE'
     })
   )()
 }

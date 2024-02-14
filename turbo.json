@@ -41,6 +41,9 @@
     "prettier": {
       "cache": false
     },
+    "prettier:ci": {
+      "cache": false
+    },
     "start": {
       "dependsOn": ["build"],
       "persistent": true
@@ -67,17 +70,21 @@
     "tsc:clean-cache": {
       "inputs": ["tsconfig.tsbuildinfo"]
     },
-    "@echo/firestore-functions#deploy": {
+    "@echo/firestore-functions#deploy:dev": {
+      "dependsOn": ["use:dev"],
       "cache": false
     },
-    "@echo/firestore-functions#serve": {
-      "cache": false,
-      "dependsOn": ["build"]
+    "@echo/firestore-functions#serve:dev": {
+      "dependsOn": ["use:dev", "build"],
+      "cache": false
     },
-    "@echo/firestore-functions#start": {
-      "dependsOn": ["build"],
+    "@echo/firestore-functions#start:dev": {
+      "dependsOn": ["use:dev", "build"],
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
+    },
+    "@echo/firestore-functions#use:dev": {
+      "cache": false
     },
     "@echo/frontend#build": {
       "dependsOn": ["@echo/ui#build"],

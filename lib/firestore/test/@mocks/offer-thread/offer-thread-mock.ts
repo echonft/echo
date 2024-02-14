@@ -9,6 +9,7 @@ export const offerThreadMock: Record<string, OfferThread> = {
       channelId: '10',
       threadId: '1'
     },
-    postedAt: 1676984897
+    postedAt: 1676984897,
+    state: 'ACTIVE'
   }
 }
