@@ -18,6 +18,7 @@ declare namespace NodeJS {
       GOOGLE_STORAGE_BUCKET: string
       NEXT_PUBLIC_ALCHEMY_KEY: string
       NEXT_PUBLIC_CHAIN_ID: string
+      NEXT_PUBLIC_PRODUCTION_URL: string
       NEXT_PUBLIC_VERCEL_ENV: string | undefined
       NEXT_PUBLIC_VERCEL_URL: string
       NODE_ENV: 'production' | 'development' | 'test'
