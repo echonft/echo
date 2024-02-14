@@ -1,7 +1,9 @@
 import { getNftsForOwner } from '@echo/alchemy/services/get-nfts-for-owner'
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
+import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { findNftByCollection } from '@echo/firestore/crud/nft/find-nft-by-collection'
+import { getOutdatedNftsForOwner } from '@echo/firestore/crud/nft/get-outdated-nfts-for-owner'
 import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
 import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
@@ -9,11 +11,13 @@ import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { now } from '@echo/utils/helpers/now'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { converge, filter, isNil, path, pathEq, prop } from 'ramda'
 
 export async function updateUserNfts(userId: string) {
   const user = await findUserById(userId)
+  const beforeUpdate = now()
   if (!isNil(user)) {
     const wallets = await getWalletsForUser(user.username)
     const collections = await getAllCollections()
@@ -33,6 +37,12 @@ export async function updateUserNfts(userId: string) {
           await setNftOwner(existingNft.id, owner)
         }
       }
+    }
+    // remove the NFTs for which the owner is still the current user and that were not updated after beforeUpdate
+    // it means they are not owned by the user anymore
+    const orphanNfts = await getOutdatedNftsForOwner(beforeUpdate, user.username)
+    for (const nft of orphanNfts) {
+      await deleteNft(nft.id)
     }
   }
 }
