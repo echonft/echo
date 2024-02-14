@@ -9,6 +9,7 @@ import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
   OFFER_STATE_COMPLETED,
+  OFFER_STATE_EXPIRED,
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
@@ -68,7 +69,7 @@ describe('CRUD - offer - rejectOffer', () => {
     await expect(pipe(assoc('offerId', 'not-found'), rejectOffer)(args)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
-    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_OPEN, expiresAt: pastDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_EXPIRED, expiresAt: pastDate })
     await expect(rejectOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is cancelled', async () => {
