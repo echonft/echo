@@ -10,22 +10,20 @@ import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
   OFFER_STATE_COMPLETED,
+  OFFER_STATE_EXPIRED,
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
-import { type OfferState } from '@echo/model/types/offer-state'
+import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { logger } from '@echo/utils/services/logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
-import { assoc, isNil, pipe } from 'ramda'
+import { assoc, isNil, omit, pipe } from 'ramda'
 
 describe('CRUD - offer - acceptOffer', () => {
-  let initialState: OfferState
-  let initialExpiresAt: number
-  let initialUpdatedAt: number
   let createdOfferSignatureId: Nullable<string>
   let createdStateUpdateId: Nullable<string>
   const pastDate = dayjs().subtract(1, 'day').unix()
@@ -48,19 +46,11 @@ describe('CRUD - offer - acceptOffer', () => {
   afterAll(async () => {
     await assertOffers()
   })
-  beforeEach(async () => {
-    const offer = (await findOfferById(args.offerId))!
-    initialState = offer.state
-    initialExpiresAt = offer.expiresAt
-    initialUpdatedAt = offer.updatedAt
+  beforeEach(() => {
     createdOfferSignatureId = undefined
   })
   afterEach(async () => {
-    await unchecked_updateOffer(args.offerId, {
-      state: initialState,
-      expiresAt: initialExpiresAt,
-      updatedAt: initialUpdatedAt
-    })
+    await unchecked_updateOffer(args.offerId, omit(['id'], getOfferMockById(args.offerId)))
     if (!isNil(createdOfferSignatureId)) {
       try {
         await deleteOfferSignature(createdOfferSignatureId)
@@ -81,7 +71,7 @@ describe('CRUD - offer - acceptOffer', () => {
     await expect(pipe(assoc('offerId', 'not-found'), acceptOffer)(args)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
-    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_OPEN, expiresAt: pastDate })
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_EXPIRED, expiresAt: pastDate })
     await expect(acceptOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is cancelled', async () => {

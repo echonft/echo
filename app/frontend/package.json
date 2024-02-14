@@ -33,7 +33,7 @@
     "@sentry/nextjs": "7.101.0",
     "@vercel/speed-insights": "1.0.9",
     "dayjs": "1.11.10",
-    "next": "14.0.4",
+    "next": "14.1.0",
     "next-auth": "5.0.0-beta.4",
     "next-intl": "3.4.2",
     "nextjs-router-events": "0.0.3",

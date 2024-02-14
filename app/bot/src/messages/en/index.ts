@@ -10,13 +10,13 @@ export const messages = {
     button: 'View listing',
     embed: {
       title: 'A new listing was created',
-      description: 'Created by {{user}}',
+      description: 'Created by {{- user}}',
       items: {
         name: 'Offering'
       },
       targets: {
-        name: 'Looking',
-        value_one: 'Any NFT from {{collectionName}}',
+        name: 'Looking for',
+        value_one: '1 NFT from {{collectionName}}',
         value_other: '{{count}} NFTs from {{collectionName}}'
       }
     }

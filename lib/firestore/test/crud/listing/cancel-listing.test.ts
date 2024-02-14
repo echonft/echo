@@ -4,6 +4,7 @@ import { assertListings } from '@echo/firestore-test/listing/assert-listings'
 import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
 import {
   LISTING_STATE_CANCELLED,
+  LISTING_STATE_EXPIRED,
   LISTING_STATE_FULFILLED,
   LISTING_STATE_OPEN
 } from '@echo/model/constants/listing-states'
@@ -43,7 +44,7 @@ describe('CRUD - listing - cancelListing', () => {
   })
   it('throws if the listing is expired', async () => {
     await unchecked_updateListing(listingId, {
-      state: LISTING_STATE_OPEN,
+      state: LISTING_STATE_EXPIRED,
       expiresAt: dayjs().subtract(1, 'day').unix()
     })
     await expect(cancelListing(listingId)).rejects.toBeDefined()
