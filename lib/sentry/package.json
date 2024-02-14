@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@echo/utils": "workspace:*",
-    "@types/node": "20.11.0",
+    "@types/node": "20.11.17",
     "@types/ramda": "0.29.10",
     "typescript": "5.3.3"
   }

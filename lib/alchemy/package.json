@@ -21,19 +21,19 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "axios": "1.6.5",
+    "axios": "1.6.7",
     "qs": "6.11.2",
     "ramda": "0.29.1"
   },
   "devDependencies": {
-    "@babel/core": "7.23.7",
-    "@babel/preset-env": "7.23.8",
+    "@babel/core": "7.23.9",
+    "@babel/preset-env": "7.23.9",
     "@babel/preset-typescript": "7.23.3",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@types/node": "20.11.0",
+    "@types/node": "20.11.17",
     "@types/qs": "6.9.11",
     "@types/ramda": "0.29.10",
     "jest": "29.7.0",

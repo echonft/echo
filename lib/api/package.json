@@ -18,7 +18,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "axios": "1.6.5",
+    "axios": "1.6.7",
     "path-to-regexp": "6.2.1",
     "qs": "6.11.2",
     "ramda": "0.29.1"
@@ -27,7 +27,7 @@
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@types/node": "20.11.0",
+    "@types/node": "20.11.17",
     "@types/qs": "6.9.11",
     "@types/ramda": "0.29.10",
     "next": "14.1.0",

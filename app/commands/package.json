@@ -28,12 +28,12 @@
     "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.14.1",
+    "@dotenvx/dotenvx": "0.15.4",
     "@echo/alchemy": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@types/node": "20.11.0",
+    "@types/node": "20.11.17",
     "@types/ramda": "0.29.10",
     "@types/yargs": "17.0.32",
     "ts-node": "10.9.2",
