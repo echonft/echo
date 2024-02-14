@@ -42,7 +42,7 @@ export const CreateListingModalButton: FunctionComponent<Props> = ({
     <button
       className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
       onClick={onConfirm}
-      disabled={isMutating}
+      disabled={isMutating ?? (isNil(target) || isEmpty(items))}
     >
       <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('confirmBtn')}</span>
     </button>
