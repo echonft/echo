@@ -5,10 +5,10 @@ import type { HeaderLoggedInProps } from '@echo/ui/components/base/header/header
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { UserTagPictureButton } from '@echo/ui/components/user/tag/user-tag-picture-button'
 import { ConnectWalletButton } from '@echo/ui/components/wallet/connect-wallet-button'
+import { classes } from '@echo/ui/helpers/classes'
 import { errorCallback } from '@echo/ui/helpers/error-callback'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { Menu, Transition } from '@headlessui/react'
-import { clsx } from 'clsx'
 import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
@@ -20,10 +20,10 @@ export const DisconnectButton: FunctionComponent<HeaderLoggedInProps> = ({ user,
   const pathname = usePathname()
   const callbackUrl = isPathSecure(pathname) ? '/' : pathname
   return (
-    <div className={clsx('flex', 'flex-row', 'justify-center', 'gap-4', 'h-max', 'w-max')}>
+    <div className={classes('flex', 'flex-row', 'justify-center', 'gap-4', 'h-max', 'w-max')}>
       <ConnectWalletButton onClick={onWalletButtonClick} />
-      <Menu as="div" className={clsx('relative', 'inline-block')}>
-        <Menu.Button className={clsx('group', 'outline-none')}>
+      <Menu as="div" className={classes('relative', 'inline-block')}>
+        <Menu.Button className={classes('group', 'outline-none')}>
           <UserTagPictureButton user={user} />
         </Menu.Button>
         <Transition
@@ -35,7 +35,7 @@ export const DisconnectButton: FunctionComponent<HeaderLoggedInProps> = ({ user,
           leaveTo="transform scale-95 opacity-0"
         >
           <Menu.Items
-            className={clsx(
+            className={classes(
               'absolute',
               'right-0',
               'mt-2',
@@ -54,7 +54,7 @@ export const DisconnectButton: FunctionComponent<HeaderLoggedInProps> = ({ user,
                 <InternalLink path={linkProvider.profile.items.get()} onClick={close}>
                   <button
                     disabled={loading}
-                    className={clsx(
+                    className={classes(
                       'prose-label-sm',
                       'text-white',
                       'px-2.5',
@@ -89,7 +89,7 @@ export const DisconnectButton: FunctionComponent<HeaderLoggedInProps> = ({ user,
                         close()
                       })
                   }}
-                  className={clsx(
+                  className={classes(
                     'prose-label-sm',
                     'text-white',
                     'px-2.5',

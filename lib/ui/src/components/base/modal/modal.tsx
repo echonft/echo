@@ -1,8 +1,8 @@
 'use client'
 import { ModalBackButton, type ModalBackButtonProps } from '@echo/ui/components/base/modal/modal-back-button'
 import { ModalTitle, type ModalTitleProps } from '@echo/ui/components/base/modal/modal-title'
+import { classes } from '@echo/ui/helpers/classes'
 import { Dialog, Transition } from '@headlessui/react'
-import { clsx } from 'clsx'
 import { Fragment, type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props extends ModalTitleProps {
@@ -14,7 +14,7 @@ interface Props extends ModalTitleProps {
 export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({ open, title, onClose, backButton, children }) => {
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as={'div'} className={clsx('relative')} onClose={() => onClose?.()}>
+      <Dialog as={'div'} className={classes('relative')} onClose={() => onClose?.()}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -24,10 +24,10 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({ open, title
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className={clsx('fixed', 'inset-0', 'bg-black/40', 'backdrop-blur', 'z-20')} />
+          <div className={classes('fixed', 'inset-0', 'bg-black/40', 'backdrop-blur', 'z-20')} />
         </Transition.Child>
         <div
-          className={clsx(
+          className={classes(
             'fixed',
             'inset-0',
             'overflow-hidden',
@@ -50,7 +50,7 @@ export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({ open, title
             leaveTo="opacity-0 scale-95"
           >
             <Dialog.Panel
-              className={clsx(
+              className={classes(
                 'flex',
                 'flex-col',
                 'w-max',

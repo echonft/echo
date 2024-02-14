@@ -1,7 +1,7 @@
+import { classes } from '@echo/ui/helpers/classes'
 import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-props'
 import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
-import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props extends WithChildrenProps, WithLoadingProps, WithClassNameProps {
@@ -11,7 +11,7 @@ interface Props extends WithChildrenProps, WithLoadingProps, WithClassNameProps 
 export const StackLayout: FunctionComponent<Props> = ({ disabled, loading, className, children }) => {
   return (
     <div
-      className={clsx(
+      className={classes(
         'rounded-2xl',
         'w-[13.5rem]',
         'h-[17.5rem]',

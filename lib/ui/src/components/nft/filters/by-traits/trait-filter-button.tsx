@@ -1,6 +1,6 @@
 import { DownCaretSvg } from '@echo/ui/components/base/svg/down-caret-svg'
+import { classes } from '@echo/ui/helpers/classes'
 import { type CollapsibleProps } from '@echo/ui/types/props/collapsible-props'
-import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
@@ -18,7 +18,7 @@ export const TraitFilterButton: FunctionComponent<Props> = ({
   const t = useTranslations('collection.filters.traits.button')
   return (
     <button
-      className={clsx(
+      className={classes(
         'flex',
         'flex-row',
         'justify-between',
@@ -36,10 +36,10 @@ export const TraitFilterButton: FunctionComponent<Props> = ({
         onToggleCollapsed?.(!collapsed)
       }}
     >
-      <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>
+      <span className={classes('prose-label-sm-semi', 'text-white', 'truncate')}>
         {t('title', { trait, count: selectionCount })}
       </span>
-      <span className={clsx('text-white/50', 'transition-transform', collapsed && 'rotate-180')}>
+      <span className={classes('text-white/50', 'transition-transform', collapsed && 'rotate-180')}>
         <DownCaretSvg />
       </span>
     </button>

@@ -1,6 +1,6 @@
 'use client'
+import { classes } from '@echo/ui/helpers/classes'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import type { FunctionComponent, MouseEventHandler } from 'react'
@@ -19,7 +19,7 @@ export const SelectableNftCardButton: FunctionComponent<Props> = ({ nft, onClick
   if (!disabled && !actionDisabled) {
     return (
       <button
-        className={clsx(
+        className={classes(
           'w-full',
           'h-max',
           'px-2.75',
@@ -34,7 +34,7 @@ export const SelectableNftCardButton: FunctionComponent<Props> = ({ nft, onClick
         onClick={onClick}
       >
         <span
-          className={clsx(
+          className={classes(
             'font-inter',
             'text-[0.875rem]',
             'font-medium',
@@ -49,9 +49,9 @@ export const SelectableNftCardButton: FunctionComponent<Props> = ({ nft, onClick
     )
   }
   return (
-    <div className={clsx('w-full', 'h-max', 'px-2.75', 'pt-2.5', 'pb-2.75', 'invisible')}>
+    <div className={classes('w-full', 'h-max', 'px-2.75', 'pt-2.5', 'pb-2.75', 'invisible')}>
       <span
-        className={clsx(
+        className={classes(
           'font-inter',
           'text-[0.875rem]',
           'font-medium',

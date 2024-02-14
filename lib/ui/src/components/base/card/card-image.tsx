@@ -1,4 +1,4 @@
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import Image from 'next/image'
 import type { FunctionComponent } from 'react'
 
@@ -11,7 +11,7 @@ interface Props {
 export const CardImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled }) => {
   return (
     <Image
-      className={clsx(
+      className={classes(
         'select-none',
         'rounded-2xl',
         'transition-transform',

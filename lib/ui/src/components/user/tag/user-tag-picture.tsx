@@ -1,5 +1,5 @@
 import { type AuthUser } from '@echo/model/types/auth-user'
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import Image from 'next/image'
 import { type FunctionComponent } from 'react'
 
@@ -11,7 +11,7 @@ export const UserTagPicture: FunctionComponent<Props> = ({ user }) => {
   const { username, discord } = user
   return (
     <Image
-      className={clsx('w-4.5', 'h-4.5', 'rounded')}
+      className={classes('w-4.5', 'h-4.5', 'rounded')}
       src={discord.avatarUrl}
       alt={username}
       width={18}

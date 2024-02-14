@@ -1,5 +1,5 @@
 import { PaddedContainer } from '@echo/ui/components/base/layout/padded-container'
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -10,10 +10,10 @@ interface Props {
 export const HomeHeroLayout: FunctionComponent<PropsWithChildren<Props>> = ({ title, subtitle, children }) => {
   return (
     <PaddedContainer>
-      <div className={clsx('flex', 'flex-row', 'items-center', 'justify-between', 'gap-28', 'w-full', 'h-max')}>
-        <div className={clsx('flex', 'flex-col', 'w-max', 'h-max', 'gap-10')}>
+      <div className={classes('flex', 'flex-row', 'items-center', 'justify-between', 'gap-28', 'w-full', 'h-max')}>
+        <div className={classes('flex', 'flex-col', 'w-max', 'h-max', 'gap-10')}>
           <h1
-            className={clsx(
+            className={classes(
               'text-[3rem]',
               'leading-[122%]',
               'tracking-[-0.045rem]',
@@ -26,7 +26,7 @@ export const HomeHeroLayout: FunctionComponent<PropsWithChildren<Props>> = ({ ti
           >
             {title}
           </h1>
-          <h2 className={clsx('prose-header-md', 'text-white/70')}>{subtitle}</h2>
+          <h2 className={classes('prose-header-md', 'text-white/70')}>{subtitle}</h2>
         </div>
         {children}
       </div>

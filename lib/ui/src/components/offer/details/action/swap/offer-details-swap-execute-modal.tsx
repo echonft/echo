@@ -6,6 +6,7 @@ import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import { classes } from '@echo/ui/helpers/classes'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
@@ -14,7 +15,6 @@ import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { ExecuteSwapArgs } from '@echo/web3/types/execute-swap-args'
-import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { assoc, isNil, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -73,10 +73,10 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
 
   return (
     <Modal open={open} onClose={loading ? undefined : onClose} title={t('title')}>
-      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
+      <div className={classes('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('execute.subtitle')}</ModalSubtitle>
         <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+          className={classes('btn-gradient', 'btn-size-alt', 'group')}
           onClick={() => {
             if (isNil(signature)) {
               void getOfferSignatureTrigger({ offerId: offer.id })
@@ -86,7 +86,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
           }}
           disabled={loading}
         >
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('execute.btn')}</span>
+          <span className={classes('prose-label-lg', 'btn-label-gradient')}>{t('execute.btn')}</span>
         </button>
       </div>
     </Modal>

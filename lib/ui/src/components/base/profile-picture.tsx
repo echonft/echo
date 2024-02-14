@@ -1,8 +1,8 @@
 import { SIZE_LG, SIZE_MD, SIZE_SM } from '@echo/ui/constants/size'
+import { classes } from '@echo/ui/helpers/classes'
 import { getProfilePictureHeightInPx } from '@echo/ui/helpers/get-profile-picture-height-in-px'
 import { getProfilePictureWidthInPx } from '@echo/ui/helpers/get-profile-picture-width-in-px'
 import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
-import { clsx } from 'clsx'
 import Image from 'next/image'
 import { type FunctionComponent } from 'react'
 
@@ -21,7 +21,7 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
 }) => {
   return (
     <Image
-      className={clsx(
+      className={classes(
         'select-none',
         'bg-dark-500',
         'object-contain',

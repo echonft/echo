@@ -1,6 +1,6 @@
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
 export const ListingOfferUserDetailsDiscordTagAndWalletLayout: FunctionComponent<PropsWithChildren> = ({
   children
-}) => <div className={clsx('flex', 'flex-col', 'gap-2.5', 'items-start')}>{children}</div>
+}) => <div className={classes('flex', 'flex-col', 'gap-2.5', 'items-start')}>{children}</div>

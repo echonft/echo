@@ -1,6 +1,6 @@
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EchoIconSvg } from '@echo/ui/components/base/svg/echo-icon-svg'
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
@@ -10,9 +10,9 @@ interface Props {
 export const Error500: FunctionComponent<Props> = ({ onReset }) => {
   const t = useTranslations('errorPage')
   return (
-    <div className={clsx('w-max', 'h-full', 'flex', 'flex-col', 'mx-auto', 'items-center')}>
+    <div className={classes('w-max', 'h-full', 'flex', 'flex-col', 'mx-auto', 'items-center')}>
       <div
-        className={clsx(
+        className={classes(
           'relative',
           'w-max',
           'text-[31.25rem]',
@@ -24,13 +24,13 @@ export const Error500: FunctionComponent<Props> = ({ onReset }) => {
           'select-none'
         )}
       >
-        <EchoIconSvg className={clsx('absolute', 'top-[200px]', 'left-[230px]', 'text-yellow-500')} height={400} />
-        <span className={clsx('h-max', 'mr-[130px]')}>5</span>
-        <span className={clsx('h-max', 'ml-[130px]')}>0</span>
+        <EchoIconSvg className={classes('absolute', 'top-[200px]', 'left-[230px]', 'text-yellow-500')} height={400} />
+        <span className={classes('h-max', 'mr-[130px]')}>5</span>
+        <span className={classes('h-max', 'ml-[130px]')}>0</span>
       </div>
-      <div className={clsx('flex', 'flex-col', 'items-center', '-translate-y-20', 'select-none')}>
+      <div className={classes('flex', 'flex-col', 'items-center', '-translate-y-20', 'select-none')}>
         <p
-          className={clsx(
+          className={classes(
             'w-max',
             'text-[4.375rem]',
             'leading-[129%]',
@@ -45,10 +45,10 @@ export const Error500: FunctionComponent<Props> = ({ onReset }) => {
         >
           {t('title')}
         </p>
-        <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'h-max', 'w-max')}>
-          <button className={clsx('btn-primary-reverse', 'btn-size', 'group')} onClick={onReset}>
+        <div className={classes('flex', 'flex-col', 'gap-6', 'items-center', 'h-max', 'w-max')}>
+          <button className={classes('btn-primary-reverse', 'btn-size', 'group')} onClick={onReset}>
             <span
-              className={clsx(
+              className={classes(
                 'btn-label-primary-reverse',
                 'text-[1.5rem]',
                 'leading-[155%]',
@@ -62,9 +62,9 @@ export const Error500: FunctionComponent<Props> = ({ onReset }) => {
             </span>
           </button>
           <InternalLink path={'/'}>
-            <button className={clsx('btn-primary-reverse', 'btn-size', 'group')}>
+            <button className={classes('btn-primary-reverse', 'btn-size', 'group')}>
               <span
-                className={clsx(
+                className={classes(
                   'btn-label-primary-reverse',
                   'text-[1.5rem]',
                   'leading-[155%]',

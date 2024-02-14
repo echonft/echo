@@ -1,12 +1,12 @@
 'use client'
 import type { Contract } from '@echo/model/types/contract'
+import { classes } from '@echo/ui/helpers/classes'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { ApproveErc721ContractArgs } from '@echo/web3/types/approve-erc-721-contract-args'
-import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
@@ -36,14 +36,14 @@ export const OfferDetailsApproveContractButton: FunctionComponent<Props> = ({
 
   return (
     <button
-      className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+      className={classes('btn-gradient', 'btn-size-alt', 'group')}
       onClick={() => {
         onLoading?.()
         void trigger({ contract })
       }}
       disabled={isMutating}
     >
-      <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn')}</span>
+      <span className={classes('prose-label-lg', 'btn-label-gradient')}>{t('btn')}</span>
     </button>
   )
 }

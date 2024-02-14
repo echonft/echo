@@ -1,7 +1,7 @@
 'use client'
 import { MinusIconSvg } from '@echo/ui/components/base/svg/minus-icon-svg'
 import { PlusIconSvg } from '@echo/ui/components/base/svg/plus-icon-svg'
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import { dec, inc, isNil, pipe, tap } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
@@ -18,9 +18,9 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
   const incDisabled = !isNil(max) && qty === max
   const decDisabled = qty === min
   return (
-    <div className={clsx('flex', 'flex-row', 'h-16', 'w-max', disabled && 'opacity-40')}>
+    <div className={classes('flex', 'flex-row', 'h-16', 'w-max', disabled && 'opacity-40')}>
       <div
-        className={clsx(
+        className={classes(
           'flex',
           'flex-row',
           'justify-center',
@@ -36,13 +36,15 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
           'border-yellow-500/30'
         )}
       >
-        <span className={clsx('font-inter', 'text-white', 'text-[1.5rem]', 'font-medium', '-translate-x-[0.4375rem]')}>
+        <span
+          className={classes('font-inter', 'text-white', 'text-[1.5rem]', 'font-medium', '-translate-x-[0.4375rem]')}
+        >
           {qty}
         </span>
       </div>
-      <div className={clsx('flex', 'flex-row', 'h-full', 'w-max', '-translate-x-[0.875rem]')}>
+      <div className={classes('flex', 'flex-row', 'h-full', 'w-max', '-translate-x-[0.875rem]')}>
         <button
-          className={clsx(
+          className={classes(
             'flex',
             'flex-row',
             'justify-center',
@@ -71,7 +73,7 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
           <MinusIconSvg />
         </button>
         <button
-          className={clsx(
+          className={classes(
             'flex',
             'flex-row',
             'justify-center',

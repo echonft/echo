@@ -1,5 +1,5 @@
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 export const CollectionTileSkeleton: FunctionComponent<Props> = ({ size }) => {
   return (
     <div
-      className={clsx(
+      className={classes(
         'rounded-2xl',
         'bg-white/[0.08]',
         'animate-pulse',

@@ -1,6 +1,6 @@
 import { CardDiscordTag } from '@echo/ui/components/base/card/card-discord-tag'
+import { classes } from '@echo/ui/helpers/classes'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -14,7 +14,7 @@ export const SelectableNftCardDiscordTag: FunctionComponent<Props> = ({ nft, hid
     return null
   }
   return (
-    <div className={clsx('absolute', 'bottom-2', 'left-2', 'h-max', 'w-max')}>
+    <div className={classes('absolute', 'bottom-2', 'left-2', 'h-max', 'w-max')}>
       <CardDiscordTag username={nft.owner.discord.username} asLink={asLink} />
     </div>
   )

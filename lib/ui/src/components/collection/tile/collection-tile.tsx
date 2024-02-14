@@ -1,9 +1,9 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
+import { classes } from '@echo/ui/helpers/classes'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
@@ -18,9 +18,9 @@ interface Props {
 export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, name, swapsCount, size }) => {
   const t = useTranslations('collection')
   return (
-    <InternalLink className={clsx('relative')} path={linkProvider.collection.items.get({ slug })}>
+    <InternalLink className={classes('relative')} path={linkProvider.collection.items.get({ slug })}>
       <div
-        className={clsx(
+        className={classes(
           'rounded-2xl',
           'bg-contain',
           'px-7',
@@ -35,9 +35,9 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
           backgroundImage: `${themeExtension.backgroundImage.collectionTitle}, url('${pictureUrl}'), linear-gradient(0deg, ${themeExtension.colors.dark['500']}, ${themeExtension.colors.dark['500']})`
         }}
       >
-        <div className={clsx('flex', 'flex-col', 'gap-2')}>
-          <p className={clsx('prose-header-xs-semi', 'text-white')}>{name}</p>
-          <p className={clsx('prose-paragraph-xs-light', 'text-white')}>
+        <div className={classes('flex', 'flex-col', 'gap-2')}>
+          <p className={classes('prose-header-xs-semi', 'text-white')}>{name}</p>
+          <p className={classes('prose-paragraph-xs-light', 'text-white')}>
             {t('tile.swapsCount', { count: swapsCount ?? 0 })}
           </p>
         </div>

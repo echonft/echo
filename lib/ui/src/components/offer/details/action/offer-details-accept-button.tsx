@@ -1,8 +1,8 @@
 'use client'
 import { OfferDetailsAcceptModal } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-modal'
+import { classes } from '@echo/ui/helpers/classes'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
 
@@ -27,14 +27,14 @@ export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({
   return (
     <>
       <button
-        className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+        className={classes('btn-gradient', 'btn-size-alt', 'group')}
         onClick={() => {
           onClick?.()
           setModalShown(true)
         }}
         disabled={disabled}
       >
-        <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('acceptBtn')}</span>
+        <span className={classes('prose-label-lg', 'btn-label-gradient')}>{t('acceptBtn')}</span>
       </button>
       <OfferDetailsAcceptModal
         open={modalShown}

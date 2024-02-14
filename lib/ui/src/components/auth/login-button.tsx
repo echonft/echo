@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import { type FunctionComponent, type MouseEventHandler, type PropsWithChildren, useState } from 'react'
 
 interface Props {
@@ -9,7 +9,7 @@ export const LoginButton: FunctionComponent<PropsWithChildren<Props>> = ({ onCli
   const [loading, setLoading] = useState(false)
   return (
     <button
-      className={clsx(
+      className={classes(
         'btn',
         'group',
         '!rounded-md',
@@ -27,7 +27,7 @@ export const LoginButton: FunctionComponent<PropsWithChildren<Props>> = ({ onCli
         onClick?.(event)
       }}
     >
-      <span className={clsx('prose-label-lg', 'text-white')}>{children}</span>
+      <span className={classes('prose-label-lg', 'text-white')}>{children}</span>
     </button>
   )
 }

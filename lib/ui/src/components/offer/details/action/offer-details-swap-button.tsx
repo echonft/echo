@@ -1,8 +1,8 @@
 'use client'
 import { OfferDetailsSwapModal } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal'
+import { classes } from '@echo/ui/helpers/classes'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent, useState } from 'react'
 
@@ -21,14 +21,14 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({ offer, disabl
   return (
     <>
       <button
-        className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+        className={classes('btn-gradient', 'btn-size-alt', 'group')}
         onClick={() => {
           onClick?.()
           setModalShown(true)
         }}
         disabled={disabled}
       >
-        <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('completeBtn')}</span>
+        <span className={classes('prose-label-lg', 'btn-label-gradient')}>{t('completeBtn')}</span>
       </button>
       <OfferDetailsSwapModal
         open={modalShown}

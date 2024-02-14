@@ -1,8 +1,8 @@
 import { CARD_VARIANT_REDUCED } from '@echo/ui/constants/card-variants'
+import { classes } from '@echo/ui/helpers/classes'
 import type { CardVariant } from '@echo/ui/types/card-variant'
 import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
-import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -13,7 +13,7 @@ interface Props extends WithChildrenProps, WithLoadingProps {
 export const CardFooterLayout: FunctionComponent<Props> = ({ variant, loading, children }) => {
   return (
     <div
-      className={clsx(
+      className={classes(
         'w-full',
         'min-w-0',
         'h-max',

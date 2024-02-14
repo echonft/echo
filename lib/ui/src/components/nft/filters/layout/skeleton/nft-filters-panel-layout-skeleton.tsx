@@ -1,4 +1,4 @@
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 export const NftFiltersPanelLayoutSkeleton: FunctionComponent<PropsWithChildren<Props>> = ({ title, children }) => {
   return (
     <div
-      className={clsx(
+      className={classes(
         'flex',
         'flex-col',
         'p-2',
@@ -20,7 +20,7 @@ export const NftFiltersPanelLayoutSkeleton: FunctionComponent<PropsWithChildren<
         'animate-pulse'
       )}
     >
-      <h2 className={clsx('prose-label-sm-semi', 'text-white/50', 'py-1', 'opacity-40')}>{title}</h2>
+      <h2 className={classes('prose-label-sm-semi', 'text-white/50', 'py-1', 'opacity-40')}>{title}</h2>
       {children}
     </div>
   )

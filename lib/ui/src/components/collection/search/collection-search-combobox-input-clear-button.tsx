@@ -1,5 +1,5 @@
 import { XIconSvg } from '@echo/ui/components/base/svg/x-icon-svg'
-import { clsx } from 'clsx'
+import { classes } from '@echo/ui/helpers/classes'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
 interface Props {
@@ -9,9 +9,9 @@ interface Props {
 
 export const CollectionSearchComboboxInputClearButton: FunctionComponent<Props> = ({ className, onClick }) => {
   return (
-    <button className={clsx('flex', 'justify-center', 'items-center', 'w-8', 'h-8', className)} onClick={onClick}>
+    <button className={classes('flex', 'justify-center', 'items-center', 'w-8', 'h-8', className)} onClick={onClick}>
       <span
-        className={clsx(
+        className={classes(
           'flex',
           'justify-center',
           'items-center',

@@ -1,11 +1,11 @@
+import { classes } from '@echo/ui/helpers/classes'
 import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
-import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export const CollectionRowLayout: FunctionComponent<PropsWithChildren<WithLoadingProps>> = ({ loading, children }) => {
   return (
     <div
-      className={clsx(
+      className={classes(
         'flex',
         'flex-row',
         'grow',

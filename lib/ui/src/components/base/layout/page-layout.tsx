@@ -24,6 +24,7 @@ import {
   PAGE_LAYOUT_BG_RED_GRADIENT,
   PAGE_LAYOUT_BG_YELLOW_GRADIENT
 } from '@echo/ui/constants/page-layout-background'
+import { classes } from '@echo/ui/helpers/classes'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import type { PageLayoutBackground } from '@echo/ui/types/page-layout-background'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -35,7 +36,6 @@ import { getErc721ContractApproval } from '@echo/web3/helpers/wagmi/get-erc721-c
 import { signNonce } from '@echo/web3/helpers/wagmi/sign-nonce'
 import { signOffer } from '@echo/web3/helpers/wagmi/sign-offer'
 import { switchChain } from '@echo/web3/helpers/wagmi/switch-chain'
-import { clsx } from 'clsx'
 import { signIn, signOut } from 'next-auth/react'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
@@ -83,7 +83,7 @@ export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
     >
       <Web3Provider>
         <div
-          className={clsx(
+          className={classes(
             'w-full',
             'h-full',
             'overflow-y-auto',
