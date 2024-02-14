@@ -6,7 +6,6 @@ import { ProfilingIntegration } from '@sentry/profiling-node'
 export function initializeSentry(dsn: string) {
   init({
     dsn,
-    debug: !isCi && !isProd,
     enabled: !isCi && isProd,
     integrations: [new ProfilingIntegration()],
     profilesSampleRate: 1.0,

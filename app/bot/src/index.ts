@@ -1,4 +1,5 @@
 import { getDiscordClientToken } from '@echo/bot/helpers/get-discord-client-token'
+import { sendToChannel } from '@echo/bot/helpers/send-to-channel'
 import { listenToListings } from '@echo/bot/listing/listen-to-listings'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { listenToOfferUpdates } from '@echo/bot/offer/listen-to-offer-updates'
@@ -18,6 +19,8 @@ client.once(Events.ClientReady, async (client) => {
   listenToOffers(client)
   listenToOfferUpdates(client)
   logger.debug(`Ready! Logged in as ${client.user.tag}`)
+  const echoGuildChannelId = process.env.ECHO_DISCORD_GUILD_CHANNEL_ID
+  await sendToChannel(client, echoGuildChannelId, 'Echo bot up and running')
 })
 
 //make sure this line is the last line

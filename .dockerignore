@@ -27,6 +27,5 @@ README.md
 jest*
 babel*
 .pnpm-debug.log*
-.env*
 .eslint*
 firebase-debug.log*

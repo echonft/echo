@@ -5,5 +5,7 @@ export { onOfferCreated } from '@echo/firestore-functions/functions/on-offer-cre
 export { onWalletWritten } from '@echo/firestore-functions/functions/on-wallet-written'
 export { updateUserNftsDaily } from '@echo/firestore-functions/functions/update-user-nfts-daily'
 import { initializeApp } from 'firebase-admin/app'
+import { initializeFirestore } from 'firebase-admin/firestore'
 
-initializeApp()
+const firestore = initializeFirestore(initializeApp())
+firestore.settings({ ignoreUndefinedProperties: true })

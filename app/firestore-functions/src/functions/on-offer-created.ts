@@ -1,7 +1,9 @@
 import { getFunctionUrl } from '@echo/firestore-functions/helper/get-function-url'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
 import type { Offer } from '@echo/model/types/offer'
+import { errorMessage } from '@echo/utils/helpers/error-message'
 import { getFunctions } from 'firebase-admin/functions'
+import { error } from 'firebase-functions/logger'
 import { onDocumentCreated } from 'firebase-functions/v2/firestore'
 import { isNil } from 'ramda'
 
@@ -11,12 +13,18 @@ export const onOfferCreated = onDocumentCreated(setMaxInstances({ document: 'off
   if (!isNil(offer)) {
     const queue = getFunctions().taskQueue(functionName)
     const uri = await getFunctionUrl(functionName)
-    await queue.enqueue(
-      { offerId: offer.id },
-      {
-        scheduleTime: new Date(offer.expiresAt * 1000),
-        uri
+    if (!isNil(uri)) {
+      try {
+        await queue.enqueue(
+          { offerId: offer.id },
+          {
+            scheduleTime: new Date(offer.expiresAt * 1000),
+            uri
+          }
+        )
+      } catch (e) {
+        error(`error queuing offerExpire task: ${errorMessage(e)}`)
       }
-    )
+    }
   }
 })

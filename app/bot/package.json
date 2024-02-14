@@ -17,7 +17,7 @@
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
     "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org echo-nft --project bot dist/ && sentry-cli sourcemaps upload --org echo-nft --project bot dist/",
+    "sentry:sourcemaps": "dotenvx run --env-file=.env.dev -- sentry-cli sourcemaps inject --org=echo-nft --project=bot dist/ && dotenvx run --env-file=.env.dev -- sentry-cli sourcemaps upload --log-level=debug --org=echo-nft --project=bot dist/",
     "start": "node dist/index.js",
     "test": "jest",
     "test:ci": "jest --ci --no-cache",
