@@ -23,6 +23,7 @@ declare namespace NodeJS {
       NEXT_PUBLIC_VERCEL_URL: string
       NODE_ENV: 'production' | 'development' | 'test'
       STORYBOOK: undefined | 'true'
+      VERCEL_URL: string
     }
   }
 }
