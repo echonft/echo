@@ -27,5 +27,6 @@
     "strictNullChecks": true,
     "target": "es6",
     "verbatimModuleSyntax": true
-  }
+  },
+  "exclude": [".eslintrc.js"]
 }

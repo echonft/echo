@@ -6,26 +6,30 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup",
-    "deploy": "firebase deploy --only functions",
+    "deploy:dev": "firebase deploy",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
-    "logs": "firebase functions:log",
+    "logs:dev": "firebase functions:log",
     "modules:remove": "rm -rf node_modules",
     "modules:update": "ncu -u",
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
     "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
-    "serve": "firebase emulators:start --only functions",
-    "start": "firebase functions:shell",
+    "serve:dev": "firebase emulators:start",
+    "start:dev": "firebase functions:shell",
     "tsc": "tsc --noEmit",
-    "tsc:ci": "pnpm run tsc"
+    "tsc:ci": "pnpm run tsc",
+    "use:dev": "firebase use echo-dev-fallback"
   },
   "main": "dist/index.js",
   "dependencies": {
+    "@supercharge/promise-pool": "3.1.1",
     "firebase-admin": "12.0.0",
     "firebase-functions": "4.7.0",
-    "ramda": "0.29.1"
+    "google-auth-library": "9.6.3",
+    "ramda": "0.29.1",
+    "zod": "3.22.4"
   },
   "devDependencies": {
     "@types/ramda": "0.29.10",

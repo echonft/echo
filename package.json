@@ -28,6 +28,7 @@
     "check": "turbo run tsc --force && turbo run lint --force && turbo run test --force",
     "check:quick": "turbo run tsc --force && turbo run lint --force && turbo run test --filter=!@echo/firestore --force",
     "clean": "turbo run clean",
+    "firestore-functions:deploy:dev": "turbo run deploy:dev --filter=@echo/firestore-functions",
     "helper:dev": "turbo run dev --filter=@echo/helper",
     "helper:dev:testnet": "turbo run dev:testnet --filter=@echo/helper",
     "helper:deploy:dev": "flyctl deploy --config app/helper/.fly/fly.dev.toml --dockerfile Dockerfile.helper",

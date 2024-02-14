@@ -38,3 +38,6 @@ storybook-static
 
 # misc
 .DS_Store
+
+# Firebase
+firebase-debug.log*
