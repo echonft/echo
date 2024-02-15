@@ -34,7 +34,7 @@
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@types/node": "20.11.17",
+    "@types/node": "20.11.19",
     "@types/ramda": "0.29.10",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",

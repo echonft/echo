@@ -1,6 +1,5 @@
 'use client'
 import { CardLayout } from '@echo/ui/components/base/card/layout/card-layout'
-import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { SelectableNftCardButtonLayout } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-card-button-layout'
 import { SelectableNftCardButton } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-button'
 import { SelectableNftCardFooter } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-footer'
@@ -33,19 +32,14 @@ export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({
         onToggleSelection={onToggleSelection}
       />
       <SelectableNftCardFooter nft={nft} />
-      <HideIfNil
-        checks={onAction}
-        render={(onAction) => (
-          <SelectableNftCardButtonLayout>
-            <SelectableNftCardButton
-              nft={nft}
-              onClick={() => {
-                onAction(nft)
-              }}
-            />
-          </SelectableNftCardButtonLayout>
-        )}
-      />
+      <SelectableNftCardButtonLayout>
+        <SelectableNftCardButton
+          nft={nft}
+          onClick={() => {
+            onAction?.(nft)
+          }}
+        />
+      </SelectableNftCardButtonLayout>
     </CardLayout>
   )
 }

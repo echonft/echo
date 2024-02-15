@@ -34,7 +34,7 @@
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@types/node": "20.11.17",
+    "@types/node": "20.11.19",
     "@types/ramda": "0.29.10",
     "@types/yargs": "17.0.32",
     "ts-node": "10.9.2",
