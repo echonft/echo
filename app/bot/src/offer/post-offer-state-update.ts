@@ -32,11 +32,14 @@ async function getMessage(offer: Offer) {
     case OFFER_STATE_COMPLETED:
     case OFFER_STATE_CANCELLED:
     case OFFER_STATE_EXPIRED:
-      return i18next.t(`offer.update.${offer.state}`)
+      return i18next.t(`offer.update.${offer.state}`, { interpolation: { escapeValue: false } })
     case OFFER_STATE_ACCEPTED:
     case OFFER_STATE_REJECTED:
       const receiverId = await getOfferReceiverId(offer)
-      return i18next.t(`offer.update.${offer.state}`, { receiver: userMention(receiverId) })
+      return i18next.t(`offer.update.${offer.state}`, {
+        receiver: userMention(receiverId),
+        interpolation: { escapeValue: false }
+      })
   }
 }
 
@@ -47,9 +50,11 @@ export async function postOfferStateUpdate(client: Client, offer: Offer) {
   }
   const channel = await getChannel(client, offerThread.guild.channelId)
   const thread = await getThread(channel, offerThread.guild.threadId)
-  const content = await getMessage(offer)
-  await sendToThread(thread, {
-    components: [buildOfferLinkButton(offer.id)],
-    content
-  })
+  if (!isNil(thread)) {
+    const content = await getMessage(offer)
+    await sendToThread(thread, {
+      components: [buildOfferLinkButton(offer.id)],
+      content
+    })
+  }
 }
