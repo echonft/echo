@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsup",
     "deploy:dev": "firebase deploy",
+    "deploy:testnet": "firebase deploy",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
@@ -20,7 +21,8 @@
     "start:dev": "firebase functions:shell",
     "tsc": "tsc --noEmit",
     "tsc:ci": "pnpm run tsc",
-    "use:dev": "firebase use echo-dev-fallback"
+    "use:dev": "firebase use echo-dev-fallback",
+    "use:testnet": "firebase use echo-testnet"
   },
   "main": "dist/index.js",
   "dependencies": {

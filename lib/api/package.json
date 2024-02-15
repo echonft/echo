@@ -27,7 +27,7 @@
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@types/node": "20.11.17",
+    "@types/node": "20.11.19",
     "@types/qs": "6.9.11",
     "@types/ramda": "0.29.10",
     "next": "14.1.0",

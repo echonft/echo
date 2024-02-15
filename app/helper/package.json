@@ -33,7 +33,7 @@
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@sentry/cli": "2.28.6",
-    "@types/node": "20.11.17",
+    "@types/node": "20.11.19",
     "@types/ramda": "0.29.10",
     "nodemon": "3.0.3",
     "ts-node": "10.9.2",

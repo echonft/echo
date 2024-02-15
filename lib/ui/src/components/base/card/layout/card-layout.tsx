@@ -4,10 +4,10 @@ import type { WithClassNameProps } from '@echo/ui/types/props/with-class-name-pr
 import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
 import type { FunctionComponent } from 'react'
 
-interface Props extends WithChildrenProps, WithLoadingProps, WithClassNameProps {
+export interface CardLayoutProps extends WithChildrenProps, WithLoadingProps, WithClassNameProps {
   disabled?: boolean
 }
-export const CardLayout: FunctionComponent<Props> = ({ disabled, loading, className, children }) => {
+export const CardLayout: FunctionComponent<CardLayoutProps> = ({ disabled, loading, className, children }) => {
   return (
     <div
       className={classes(

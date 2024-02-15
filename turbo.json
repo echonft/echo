@@ -74,8 +74,16 @@
       "dependsOn": ["use:dev"],
       "cache": false
     },
+    "@echo/firestore-functions#deploy:testnet": {
+      "dependsOn": ["use:testnet"],
+      "cache": false
+    },
     "@echo/firestore-functions#serve:dev": {
       "dependsOn": ["use:dev", "build"],
+      "cache": false
+    },
+    "@echo/firestore-functions#serve:testnet": {
+      "dependsOn": ["use:testnet", "build"],
       "cache": false
     },
     "@echo/firestore-functions#start:dev": {
@@ -83,7 +91,15 @@
       "outputs": ["dist/**"],
       "inputs": ["src/**/*.ts"]
     },
+    "@echo/firestore-functions#start:testnet": {
+      "dependsOn": ["use:testnet", "build"],
+      "outputs": ["dist/**"],
+      "inputs": ["src/**/*.ts"]
+    },
     "@echo/firestore-functions#use:dev": {
+      "cache": false
+    },
+    "@echo/firestore-functions#use:testnet": {
       "cache": false
     },
     "@echo/frontend#build": {

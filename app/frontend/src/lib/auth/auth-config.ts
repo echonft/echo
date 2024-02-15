@@ -21,6 +21,7 @@ interface SigninEvent {
 }
 
 export const authConfig: NextAuthConfig = {
+  // basePath: '/api/auth',
   callbacks: {
     authorized: function (params) {
       return complement(

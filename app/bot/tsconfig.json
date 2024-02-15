@@ -11,6 +11,7 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
+      "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/bot/*": ["./src/*"],
       "@echo/bot-mocks/*": ["./test/@mocks/*"],
@@ -20,7 +21,8 @@
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
       "@echo/sentry/*": ["../../lib/sentry/src/*"],
-      "@echo/utils/*": ["../../lib/utils/src/*"]
+      "@echo/utils/*": ["../../lib/utils/src/*"],
+      "@echo/web3/*": ["../../lib/web3/src/*"]
     },
     "noEmit": false,
     "sourceMap": true,

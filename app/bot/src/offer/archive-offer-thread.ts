@@ -6,13 +6,16 @@ import { archiveOfferThread as firestoreArchiveOfferThread } from '@echo/firesto
 import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import { Client } from 'discord.js'
 import i18next from 'i18next'
+import { isNil } from 'ramda'
 
 export async function archiveOfferThread(client: Client, offerThread: OfferThread) {
   const channel = await getChannel(client, offerThread.guild.channelId)
   const thread = await getThread(channel, offerThread.guild.threadId)
-  await sendToThread(thread, {
-    content: i18next.t('offer.thread.close')
-  })
-  await archiveThread(thread)
+  if (!isNil(thread)) {
+    await sendToThread(thread, {
+      content: i18next.t('offer.thread.close')
+    })
+    await archiveThread(thread)
+  }
   await firestoreArchiveOfferThread(offerThread.id)
 }

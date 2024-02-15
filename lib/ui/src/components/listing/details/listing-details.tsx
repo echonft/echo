@@ -27,7 +27,7 @@ import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/detai
 import { SelectableNftCardsContainer } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards-container'
 import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
 import { CreateOfferConfirmedModal } from '@echo/ui/components/offer/create/confirmed/create-offer-confirmed-modal'
-import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
+import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { classes } from '@echo/ui/helpers/classes'
 import { enable } from '@echo/ui/helpers/disableable/enable'
@@ -142,7 +142,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
     <ListingDetailsLayout>
       <ListingDetailsUserStateLayout role={listing.role}>
         <HideIf condition={isCreator}>
-          <ListingOfferUserDetails user={creator} />
+          <UserDetails user={creator} />
         </HideIf>
         <ListingDetailsState listing={listing} />
       </ListingDetailsUserStateLayout>
