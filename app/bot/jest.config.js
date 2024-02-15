@@ -10,6 +10,7 @@ module.exports = {
   coverageDirectory: '<rootDir>/../../.coverage/app/bot',
   coverageReporters: ['json-summary', 'text'],
   moduleNameMapper: {
+    '^@echo/alchemy/(.*)$': '<rootDir>/../../lib/alchemy/src/$1',
     '^@echo/api/(.*)$': '<rootDir>/../../lib/api/src/$1',
     '^@echo/bot/(.*)$': '<rootDir>/src/$1',
     '^@echo/bot-mocks/(.*)$': '<rootDir>/test/@mocks/$1',
@@ -19,7 +20,8 @@ module.exports = {
     '^@echo/firestore/(.*)$': '<rootDir>/../../lib/firestore/src/$1',
     '^@echo/firestore-mocks/(.*)$': '<rootDir>/../../lib/firestore/test/@mocks/$1',
     '^@echo/sentry/(.*)$': '<rootDir>/../../lib/sentry/src/$1',
-    '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1'
+    '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1',
+    '^@echo/web3/(.*)$': '<rootDir>/../../lib/web3/src/$1'
   },
   reporters: [
     'default',

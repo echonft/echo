@@ -7,5 +7,6 @@ export default defineConfig((options: Options) => ({
   platform: 'node',
   skipNodeModulesBundle: false,
   sourcemap: true,
+  target: 'esnext',
   ...options
 }))
