@@ -10,10 +10,9 @@ interface Props {
   nft: SelectableNft
   hideOwner?: boolean
   hideLink?: boolean
-  onToggleSelection?: (nft: SelectableNft, selected: boolean) => unknown
 }
 
-export const SelectableNftCardPicture: FunctionComponent<Props> = ({ nft, hideOwner, hideLink, onToggleSelection }) => {
+export const SelectableNftCardPicture: FunctionComponent<Props> = ({ nft, hideOwner, hideLink }) => {
   const { disabled, selected } = nft
   return (
     <CardPictureLayout>
@@ -22,7 +21,7 @@ export const SelectableNftCardPicture: FunctionComponent<Props> = ({ nft, hideOw
         alt={nft.tokenId.toString()}
         scaleDisabled={Boolean(disabled) || Boolean(selected)}
       />
-      <SelectableNftCardSelector nft={nft} onToggleSelection={onToggleSelection} />
+      <SelectableNftCardSelector nft={nft} />
       <SelectableNftCardPictureOpenSeaIcon hideLink={hideLink} nft={nft} />
       <SelectableNftCardPictureDiscordTag hideOwner={hideOwner} nft={nft} />
     </CardPictureLayout>
