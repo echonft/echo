@@ -60,8 +60,8 @@ export const Managed: StoryObj<ComponentType> = {
         nft={nft}
         hideOwner={hideOwner}
         onAction={onAction}
-        onToggleSelection={(_nft, selected) => {
-          setSelected(selected)
+        onToggleSelection={(nft) => {
+          setSelected(!nft.selected)
         }}
       />
     )

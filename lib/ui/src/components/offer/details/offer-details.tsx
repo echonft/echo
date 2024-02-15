@@ -6,7 +6,7 @@ import { OfferDetailsItemsButtonsLayout } from '@echo/ui/components/offer/detail
 import { OfferDetailsLayout } from '@echo/ui/components/offer/details/layout/offer-details-layout'
 import { OfferDetailsItemsSeparator } from '@echo/ui/components/offer/details/offer-details-items-separator'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
-import { ListingOfferUserDetails } from '@echo/ui/components/user/listing-offer/listing-offer-user-details'
+import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -27,7 +27,7 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer }) => {
   return (
     <OfferDetailsLayout>
       <OfferDetailsInfoLayout>
-        <ListingOfferUserDetails user={isOfferRoleSender(offer) ? receiver : sender} />
+        <UserDetails user={isOfferRoleSender(offer) ? receiver : sender} />
         <OfferDetailsState offer={offer} />
       </OfferDetailsInfoLayout>
       <OfferDetailsItemsButtonsLayout>

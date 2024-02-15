@@ -9,7 +9,16 @@ export const CardDiscordTagWrapper: FunctionComponent<PropsWithChildren<CardDisc
   children
 }) => {
   if (asLink) {
-    return <InternalLink path={linkProvider.user.items.get({ username })}>{children}</InternalLink>
+    return (
+      <InternalLink
+        path={linkProvider.user.items.get({ username })}
+        onClick={(event) => {
+          event.stopPropagation()
+        }}
+      >
+        {children}
+      </InternalLink>
+    )
   }
   return <>{children}</>
 }

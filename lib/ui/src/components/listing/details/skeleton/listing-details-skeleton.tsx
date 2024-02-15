@@ -6,13 +6,13 @@ import { ListingDetailsTargetsContainerLayout } from '@echo/ui/components/listin
 import { ListingDetailsUserStateLayout } from '@echo/ui/components/listing/details/layout/listing-details-user-state-layout'
 import { ListingDetailsItemsContainerSkeleton } from '@echo/ui/components/listing/details/skeleton/listing-details-items-container-skeleton'
 import { ListingDetailsTargetsContainerSkeleton } from '@echo/ui/components/listing/details/skeleton/listing-details-targets-container-skeleton'
-import { ListingOfferUserDetailsSkeleton } from '@echo/ui/components/user/listing-offer/skeleton/listing-offer-user-details-skeleton'
+import { UserDetailsSkeleton } from '@echo/ui/components/user/details/skeleton/user-details-skeleton'
 import { type FunctionComponent } from 'react'
 
 export const ListingDetailsSkeleton: FunctionComponent = () => (
   <ListingDetailsLayout>
     <ListingDetailsUserStateLayout role={undefined}>
-      <ListingOfferUserDetailsSkeleton />
+      <UserDetailsSkeleton />
     </ListingDetailsUserStateLayout>
     <ListingDetailsItemsLayout>
       <ListingDetailsItemsContainerLayout>
