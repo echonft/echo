@@ -5,7 +5,7 @@ import { type NonceDocumentData } from '@echo/firestore/types/model/nonce/nonce-
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
 import { dissoc, pipe } from 'ramda'
 
-export const nonceDataConverter: FirestoreDataConverter<Nonce> = {
+export const nonceDataConverter: FirestoreDataConverter<Nonce, NonceDocumentData> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<NonceDocumentData>): Nonce {
     return pipe(getSnapshotData<NonceDocumentData>, setExpiredProp)(snapshot)
   },

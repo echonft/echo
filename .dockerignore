@@ -20,12 +20,10 @@ storybook
 .dockerignore
 .DS_Store
 .gitignore
-env.d.ts
 LICENSE
 prettier.config.js
 README.md
 jest*
 babel*
 .pnpm-debug.log*
-.eslint*
 firebase-debug.log*

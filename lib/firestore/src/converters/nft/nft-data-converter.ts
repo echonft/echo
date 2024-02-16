@@ -7,10 +7,10 @@ import type { Nft } from '@echo/model/types/nft'
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export const nftDataConverter: FirestoreDataConverter<Nft> = {
+export const nftDataConverter: FirestoreDataConverter<Nft, Nft> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<Nft>): Nft {
-    return pipe<[QueryDocumentSnapshot<Nft, Nft>], Nft, Nft, Nft>(
-      getSnapshotData<Nft, Nft>,
+    return pipe<[QueryDocumentSnapshot<Nft>], Nft, Nft, Nft>(
+      getSnapshotData<Nft>,
       lowerCollectionAddress,
       lowerOwnerWalletAddress
     )(snapshot)

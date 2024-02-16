@@ -1,5 +1,4 @@
-import { getChannel } from '@echo/bot/helpers/get-channel'
-import { getThread } from '@echo/bot/helpers/get-thread'
+import { getThreadOnEchoChannel } from '@echo/bot/helpers/get-thread-on-echo-channel'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import { findOfferThread } from '@echo/firestore/crud/offer-thread/find-offer-thread'
@@ -13,7 +12,8 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
-import { Client, userMention } from 'discord.js'
+import { logger } from '@echo/utils/services/logger'
+import { userMention } from 'discord.js'
 import i18next from 'i18next'
 import { isNil } from 'ramda'
 
@@ -22,7 +22,7 @@ async function getOfferReceiverId(offer: Offer) {
   if (isNil(receiver)) {
     throw Error(`offer receiver with username ${offer.receiver.username} not found for offer ${offer.id}`)
   }
-  return receiver.id
+  return receiver.discord.id
 }
 
 async function getMessage(offer: Offer) {
@@ -32,29 +32,29 @@ async function getMessage(offer: Offer) {
     case OFFER_STATE_COMPLETED:
     case OFFER_STATE_CANCELLED:
     case OFFER_STATE_EXPIRED:
-      return i18next.t(`offer.update.${offer.state}`, { interpolation: { escapeValue: false } })
+      return i18next.t(`offer.update.${offer.state}`)
     case OFFER_STATE_ACCEPTED:
     case OFFER_STATE_REJECTED:
       const receiverId = await getOfferReceiverId(offer)
       return i18next.t(`offer.update.${offer.state}`, {
-        receiver: userMention(receiverId),
-        interpolation: { escapeValue: false }
+        receiver: userMention(receiverId)
       })
   }
 }
 
-export async function postOfferStateUpdate(client: Client, offer: Offer) {
+export async function postOfferStateUpdate(offer: Offer) {
   const offerThread = await findOfferThread(offer.id)
   if (isNil(offerThread)) {
     throw Error(`offer thread not found for offer ${offer.id}`)
   }
-  const channel = await getChannel(client, offerThread.guild.channelId)
-  const thread = await getThread(channel, offerThread.guild.threadId)
-  if (!isNil(thread)) {
-    const content = await getMessage(offer)
-    await sendToThread(thread, {
-      components: [buildOfferLinkButton(offer.id)],
-      content
-    })
+  const thread = await getThreadOnEchoChannel(offerThread.guild.threadId)
+  if (isNil(thread)) {
+    logger.error(`tried to post update to thread ${offerThread.guild.threadId} but this thread does not exist`)
+    return
   }
+  const content = await getMessage(offer)
+  await sendToThread(thread, {
+    components: [buildOfferLinkButton(offer.id)],
+    content
+  })
 }
