@@ -1,5 +1,7 @@
 import type { Nft } from '@echo/model/types/nft'
 import { NftThumbnailPictureLayout } from '@echo/ui/components/nft/thumbnail/layout/nft-thumbnail-picture-layout'
+import { PICTURE_SIZE_NFT_THUMBNAIL } from '@echo/ui/constants/picture-size'
+import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
 import { classes } from '@echo/ui/helpers/classes'
 import Image from 'next/image'
 import { type FunctionComponent } from 'react'
@@ -13,7 +15,7 @@ export const NftThumbnailPicture: FunctionComponent<Props> = ({ nft }) => {
     <NftThumbnailPictureLayout>
       <Image
         className={classes('select-none')}
-        src={nft.pictureUrl}
+        src={addPictureSizeToUrl(nft.pictureUrl, PICTURE_SIZE_NFT_THUMBNAIL)}
         alt={nft.tokenId.toString()}
         width={128}
         height={128}

@@ -4,6 +4,7 @@ import { getOpenSeaUrlForCollection } from '@echo/model/helpers/collection/get-o
 import type { Collection } from '@echo/model/types/collection'
 import type { Contract } from '@echo/model/types/contract'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { Nullable } from '@echo/utils/types/nullable'
 import {
   always,
@@ -38,7 +39,7 @@ function mapContract(chainId: number) {
 export function mapContractResponse(chainId: number, verified?: boolean) {
   return function (contractResponse: ContractResponse): Omit<Collection, 'id'> {
     return applySpec<Omit<Collection, 'id'>>({
-      bannerUrl: nonNullableReturn(path(['openSeaMetadata', 'bannerImageUrl'])),
+      bannerUrl: pipe(nonNullableReturn(path(['openSeaMetadata', 'bannerImageUrl'])), removeQueryFromUrl),
       blurUrl: pipe<[ContractResponse], string, Nullable<string>>(
         nonNullableReturn(path(['openSeaMetadata', 'collectionSlug'])),
         partial(getBlurUrlForCollection, [chainId])
@@ -53,7 +54,7 @@ export function mapContractResponse(chainId: number, verified?: boolean) {
         partial(getOpenSeaUrlForCollection, [chainId])
       ),
       slug: pipe(nonNullableReturn(path(['openSeaMetadata', 'collectionSlug'])), toLower),
-      profilePictureUrl: nonNullableReturn(path(['openSeaMetadata', 'imageUrl'])),
+      profilePictureUrl: pipe(nonNullableReturn(path(['openSeaMetadata', 'imageUrl'])), removeQueryFromUrl),
       totalSupply: pipe(prop('totalSupply'), unless(isNil, partialRight(parseInt, [10]))),
       twitterUsername: path(['openSeaMetadata', 'twitterUsername']),
       verified: always(Boolean(verified)),

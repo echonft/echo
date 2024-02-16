@@ -1,4 +1,10 @@
+import {
+  PICTURE_SIZE_PROFILE_LG,
+  PICTURE_SIZE_PROFILE_MD,
+  PICTURE_SIZE_PROFILE_SM
+} from '@echo/ui/constants/picture-size'
 import { SIZE_LG, SIZE_MD, SIZE_SM } from '@echo/ui/constants/size'
+import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
 import { classes } from '@echo/ui/helpers/classes'
 import { getProfilePictureHeightInPx } from '@echo/ui/helpers/get-profile-picture-height-in-px'
 import { getProfilePictureWidthInPx } from '@echo/ui/helpers/get-profile-picture-width-in-px'
@@ -13,6 +19,16 @@ export interface ProfilePictureProps {
   border?: boolean
 }
 
+function getPictureSize(size: ProfilePictureSize) {
+  switch (size) {
+    case SIZE_LG:
+      return PICTURE_SIZE_PROFILE_LG
+    case SIZE_MD:
+      return PICTURE_SIZE_PROFILE_MD
+    case SIZE_SM:
+      return PICTURE_SIZE_PROFILE_SM
+  }
+}
 export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
   pictureUrl,
   alt,
@@ -30,7 +46,7 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
         size === SIZE_SM && ['h-[6.1875rem]', 'w-[5.875rem]', 'rounded-lg'],
         border && ['border-solid', 'border-3', 'border-yellow-500']
       )}
-      src={pictureUrl}
+      src={addPictureSizeToUrl(pictureUrl, getPictureSize(size))}
       alt={alt}
       width={getProfilePictureWidthInPx(size)}
       height={getProfilePictureHeightInPx(size)}

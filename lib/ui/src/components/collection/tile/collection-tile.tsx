@@ -1,6 +1,8 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
+import { PICTURE_SIZE_COLLECTION_TILE } from '@echo/ui/constants/picture-size'
 import { SIZE_LG, SIZE_MD } from '@echo/ui/constants/size'
+import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
 import { classes } from '@echo/ui/helpers/classes'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -17,6 +19,7 @@ interface Props {
 
 export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, name, swapsCount, size }) => {
   const t = useTranslations('collection')
+  const url = addPictureSizeToUrl(pictureUrl, PICTURE_SIZE_COLLECTION_TILE)
   return (
     <InternalLink className={classes('relative')} path={linkProvider.collection.items.get({ slug })}>
       <div
@@ -32,7 +35,7 @@ export const CollectionTile: FunctionComponent<Props> = ({ slug, pictureUrl, nam
           size === SIZE_MD && ['w-[21rem]', 'h-[21rem]']
         )}
         style={{
-          backgroundImage: `${themeExtension.backgroundImage.collectionTitle}, url('${pictureUrl}'), linear-gradient(0deg, ${themeExtension.colors.dark['500']}, ${themeExtension.colors.dark['500']})`
+          backgroundImage: `${themeExtension.backgroundImage.collectionTitle}, url('${url}'), linear-gradient(0deg, ${themeExtension.colors.dark['500']}, ${themeExtension.colors.dark['500']})`
         }}
       >
         <div className={classes('flex', 'flex-col', 'gap-2')}>

@@ -1,4 +1,5 @@
 import { addCollectionDefaultDiscordGuild } from '@echo/commands/tasks/add-collection-default-discord-guild'
+import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -12,6 +13,7 @@ import { hideBin } from 'yargs/helpers'
  */
 void (async function () {
   const argv = yargs(hideBin(process.argv)).string('collectionId').parse() as unknown as { collectionId: string }
+  initializeFirebase()
   await addCollectionDefaultDiscordGuild(argv.collectionId)
   await terminateFirestore()
 })()

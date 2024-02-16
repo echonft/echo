@@ -56,7 +56,6 @@ describe('mappers - to-api - mapItemsToRequests', () => {
         },
         openSeaUrl: 'https://echo.xyz',
         pictureUrl: 'https://echo.xyz',
-        thumbnailUrl: 'https://echo.xyz',
         tokenId: 1376,
         tokenType: 'ERC721',
         updatedAt: 1676984897

@@ -1,4 +1,5 @@
 import { addCollection } from '@echo/commands/tasks/add-collection'
+import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { errorMessage } from '@echo/utils/helpers/error-message'
@@ -31,6 +32,7 @@ void (function () {
   if (isNilOrEmpty(argv.path)) {
     logger.error(`path is not specified`)
   }
+  initializeFirebase()
   fs.readFile(argv.path, 'utf-8')
     .then(async (text) => {
       try {
@@ -50,9 +52,10 @@ void (function () {
             logger.error(`Error adding collection ${JSON.stringify(collection)}: ${errorMessage(err)}`)
           }
         }
-        await terminateFirestore()
       } catch (err) {
         logger.error(`Wrong JSON data: ${errorMessage(err)}`)
+      } finally {
+        await terminateFirestore()
       }
     })
     .catch((err) => {

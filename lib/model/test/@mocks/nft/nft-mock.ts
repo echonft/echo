@@ -31,10 +31,7 @@ export const nftMock: Record<string, Nft> = {
       }
     },
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
-    pictureUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
-    thumbnailUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
+    pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
     tokenId: 1376,
     tokenType: 'ERC721',
     updatedAt: 1676984897
@@ -91,10 +88,7 @@ export const nftMock: Record<string, Nft> = {
       }
     },
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/2414',
-    pictureUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
-    thumbnailUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
+    pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
     tokenId: 2414,
     tokenType: 'ERC721',
     updatedAt: 1676984897
@@ -151,10 +145,7 @@ export const nftMock: Record<string, Nft> = {
       }
     },
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/3035',
-    pictureUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/f7adbf923a17d9b1f9b33d7a23d2b621',
-    thumbnailUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/f7adbf923a17d9b1f9b33d7a23d2b621',
+    pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/f7adbf923a17d9b1f9b33d7a23d2b621',
     tokenId: 3035,
     tokenType: 'ERC721',
     updatedAt: 1676984897
@@ -227,10 +218,7 @@ export const nftMock: Record<string, Nft> = {
     },
     blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/17',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/17',
-    pictureUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
-    thumbnailUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
+    pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
     tokenId: 17,
     tokenType: 'ERC721',
     updatedAt: 1676984897
@@ -291,10 +279,7 @@ export const nftMock: Record<string, Nft> = {
     },
     blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/18',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/18',
-    pictureUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
-    thumbnailUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
+    pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
     tokenId: 18,
     tokenType: 'ERC721',
     updatedAt: 1676984897
@@ -359,10 +344,7 @@ export const nftMock: Record<string, Nft> = {
     },
     blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/1014',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/1014',
-    pictureUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/convert-png/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
-    thumbnailUrl:
-      'https://res.cloudinary.com/alchemyapi/image/upload/thumbnailv2/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
+    pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
     tokenId: 1014,
     tokenType: 'ERC721',
     updatedAt: 1676984897
