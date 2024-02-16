@@ -27,10 +27,6 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/frontend
-      - name: helper lint
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
-        run: pnpm exec turbo run lint:ci --filter=@echo/helper
       - name: storybook lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"

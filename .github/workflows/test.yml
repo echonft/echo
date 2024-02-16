@@ -23,8 +23,6 @@ jobs:
         run: pnpm exec turbo run test:ci --filter=@echo/bot
       - name: frontend tests
         run: pnpm exec turbo run test:ci --filter=@echo/frontend
-      - name: helper tests
-        run: pnpm exec turbo run test:ci --filter=@echo/helper
       - name: alchemy tests
         run: pnpm exec turbo run test:ci --filter=@echo/alchemy
       - name: firestore tests
@@ -47,7 +45,6 @@ jobs:
           multiple-files: |
             app/bot, ./.coverage/app/bot/coverage-summary.json
             app/frontend, ./.coverage/app/frontend/coverage-summary.json
-            app/helper, ./.coverage/app/helper/coverage-summary.json
             lib/alchemy, ./.coverage/lib/alchemy/coverage-summary.json
             lib/firestore, ./.coverage/lib/firestore/coverage-summary.json
             lib/model, ./.coverage/lib/model/coverage-summary.json
@@ -57,7 +54,6 @@ jobs:
           multiple-junitxml-files: |
             app/bot, ./.coverage/app/bot/junit.xml
             app/frontend, ./.coverage/app/frontend/junit.xml
-            app/helper, ./.coverage/app/helper/junit.xml
             lib/alchemy, ./.coverage/lib/alchemy/junit.xml
             lib/firestore, ./.coverage/lib/firestore/junit.xml
             lib/model, ./.coverage/lib/model/junit.xml
