@@ -1,4 +1,5 @@
 import { addCollection, type AddCollectionArgs } from '@echo/commands/tasks/add-collection'
+import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -20,6 +21,7 @@ void (async function () {
     .string('address')
     .string('overrideAddress')
     .parse() as unknown as AddCollectionArgs
+  initializeFirebase()
   await addCollection(argv)
   await terminateFirestore()
 })()
