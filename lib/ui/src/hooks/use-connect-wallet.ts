@@ -8,12 +8,13 @@ import { useAccount } from '@echo/ui/hooks/use-account'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { AccountResult } from '@echo/web3/types/account-result'
 import type { SignNonceArgs } from '@echo/web3/types/sign-nonce-args'
 import type { SignNonceResult } from '@echo/web3/types/sign-nonce-result'
 import { useTranslations } from 'next-intl'
-import { either, includes, isNil, pick } from 'ramda'
+import { either, includes, isNil, modify, pick, pipe, toLower } from 'ramda'
 import { useEffect, useMemo, useState } from 'react'
 import { mutate } from 'swr'
 
@@ -22,10 +23,17 @@ export function useConnectWallet(wallets: Nullable<Wallet[]>) {
   const { addWallet, disconnectWallet, getNonce, signNonce, switchChain } = useDependencies()
   const account = useAccount()
   const wallet: Nullable<Wallet> = useMemo(() => {
-    if (either(propIsNil('address'), propIsNil('chain'))(account)) {
+    if (either(propIsNil('address'), propIsNil('chainId'))(account)) {
       return undefined
     }
-    return pick<AccountResult & Wallet, ['address', 'chainId']>(['address', 'chainId'], account)
+    return pipe<
+      [AccountResult & Record<'address', HexString> & Record<'chainId', number>],
+      Wallet & Record<'address', HexString>,
+      Wallet
+    >(
+      pick(['address', 'chainId']),
+      modify('address', toLower<HexString>)
+    )(account)
   }, [account])
   const [walletLinked, setWalletLinked] = useState(false)
 

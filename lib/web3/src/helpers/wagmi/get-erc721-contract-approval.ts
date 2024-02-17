@@ -1,10 +1,10 @@
-import { erc721ABI } from '@echo/web3/constants/erc721-abi'
-import { erc721FunctionNames } from '@echo/web3/constants/erc721-function-names'
 import { formatAddress } from '@echo/web3/helpers/format-address'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
+import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { getPublicViemClient } from '@echo/web3/helpers/viem/get-public-viem-client'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721-contract-approval-args'
 import { pipe } from 'ramda'
+import { erc721Abi } from 'viem'
 import { readContract } from 'viem/actions'
 
 export async function getErc721ContractApproval(args: GetErc721ContractApprovalArgs) {
@@ -13,9 +13,9 @@ export async function getErc721ContractApproval(args: GetErc721ContractApprovalA
   const { chainId } = contract
   const client = pipe(getChainById, getPublicViemClient)(chainId)
   return await readContract(client, {
-    abi: erc721ABI,
-    functionName: erc721FunctionNames.isApprovedForAll,
+    abi: erc721Abi,
+    functionName: 'isApprovedForAll',
     address,
-    args: [owner, address]
+    args: [owner, getEchoAddress()]
   })
 }

@@ -1,7 +1,6 @@
 'use client'
 import { OfferDetailsAcceptSignModal } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-sign-modal'
 import { OfferDetailsContractApprovalModal } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
-import { useAccount } from '@echo/ui/hooks/use-account'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { useTranslations } from 'next-intl'
@@ -16,19 +15,10 @@ interface Props {
 
 export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open, onClose, onSuccess }) => {
   const t = useTranslations('offer.details.acceptModal')
-  const { chainId } = useAccount()
   const [approved, setApproved] = useState(false)
 
   if (approved) {
-    return (
-      <OfferDetailsAcceptSignModal
-        offer={offer}
-        chainId={chainId!}
-        open={open}
-        onSuccess={onSuccess}
-        onClose={onClose}
-      />
-    )
+    return <OfferDetailsAcceptSignModal offer={offer} open={open} onSuccess={onSuccess} onClose={onClose} />
   }
 
   return (

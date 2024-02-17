@@ -7,6 +7,7 @@ import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { classes } from '@echo/ui/helpers/classes'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { useAccount } from '@echo/ui/hooks/use-account'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -19,15 +20,15 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: OfferWithRole
-  chainId: number
   open: boolean
   onSuccess?: (offer: OfferWithRole) => unknown
   onClose?: EmptyFunction
 }
 
-export const OfferDetailsAcceptSignModal: FunctionComponent<Props> = ({ offer, chainId, open, onSuccess, onClose }) => {
+export const OfferDetailsAcceptSignModal: FunctionComponent<Props> = ({ offer, open, onSuccess, onClose }) => {
   const t = useTranslations('offer.details.acceptModal')
   const tError = useTranslations('error.offer')
+  const { chainId } = useAccount()
   const { acceptOffer, signOffer } = useDependencies()
   const onError = {
     contexts: offerContext(offer),
@@ -62,7 +63,7 @@ export const OfferDetailsAcceptSignModal: FunctionComponent<Props> = ({ offer, c
         <button
           className={classes('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
           onClick={() => {
-            void signOfferTrigger({ chainId, offer })
+            void signOfferTrigger({ chainId: chainId!, offer })
           }}
           disabled={loading}
         >

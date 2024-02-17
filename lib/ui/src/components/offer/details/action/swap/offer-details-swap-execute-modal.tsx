@@ -8,6 +8,7 @@ import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { classes } from '@echo/ui/helpers/classes'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { useAccount } from '@echo/ui/hooks/use-account'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -21,7 +22,6 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: OfferWithRole
-  chainId: number
   signature: Nullable<HexString>
   open: boolean
   onSuccess?: (offer: OfferWithRole) => unknown
@@ -30,7 +30,6 @@ interface Props {
 
 export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
   offer,
-  chainId,
   signature,
   open,
   onSuccess,
@@ -38,6 +37,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.swapModal')
   const tError = useTranslations('error.offer')
+  const { chainId } = useAccount()
   const { executeSwap, getOfferSignature } = useDependencies()
   const onError = {
     contexts: offerContext(offer),
@@ -57,7 +57,6 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
     },
     onError
   })
-
   const { trigger: getOfferSignatureTrigger, isMutating: getOfferSignatureMutating } = useSWRTrigger<
     OfferSignatureResponse,
     GetOfferSignatureArgs
@@ -65,7 +64,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
     key: SWRKeys.offer.getSignature(offer),
     fetcher: getOfferSignature,
     onSuccess: (response) => {
-      void executeSwapTrigger({ chainId, signature: response.signature, offer })
+      void executeSwapTrigger({ chainId: chainId!, signature: response.signature, offer })
     },
     onError
   })
@@ -81,7 +80,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
             if (isNil(signature)) {
               void getOfferSignatureTrigger({ offerId: offer.id })
             } else {
-              void executeSwapTrigger({ chainId, signature, offer })
+              void executeSwapTrigger({ chainId: chainId!, signature, offer })
             }
           }}
           disabled={loading}

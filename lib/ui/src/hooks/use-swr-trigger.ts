@@ -25,6 +25,7 @@ export function useSWRTrigger<TResponse, TArgs>(args: UseSWRTriggerArgs<TRespons
       return fetcher(arg)
     },
     {
+      throwOnError: false,
       onSuccess: (response) => {
         if (isDev) {
           logger.debug(`successfully fetched from ${key}`)

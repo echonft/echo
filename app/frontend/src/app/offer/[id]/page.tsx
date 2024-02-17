@@ -10,9 +10,9 @@ import type { Offer } from '@echo/model/types/offer'
 import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
+import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { getOfferPageLayoutBackground } from '@echo/ui/helpers/offer/get-offer-page-layout-background'
 import { isOfferRoleUndefined } from '@echo/ui/helpers/offer/is-offer-role-undefined'
-import { OfferDetailsPage } from '@echo/ui/pages/offer/offer-details-page'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -35,7 +35,7 @@ async function render({ params: { id }, user }: Params) {
     <PageLayout user={user} background={getOfferPageLayoutBackground(offer)}>
       <SectionLayout>
         <DetailsPaddedContainer>
-          <OfferDetailsPage offer={offer} user={user} />
+          <OfferDetails offer={offer} />
         </DetailsPaddedContainer>
       </SectionLayout>
     </PageLayout>

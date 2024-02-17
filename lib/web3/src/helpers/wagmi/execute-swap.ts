@@ -13,7 +13,7 @@ export async function executeSwap(args: ExecuteSwapArgs) {
   const { request } = await simulateContract(wagmiConfig, {
     abi: ECHO_ABI,
     functionName: echoFunctionNames.executeTrade,
-    address: getEchoAddress(chainId),
+    address: getEchoAddress(),
     chainId,
     args: [v as unknown as number, r, s, mapOfferToOfferSignature(offer) as never]
   })
