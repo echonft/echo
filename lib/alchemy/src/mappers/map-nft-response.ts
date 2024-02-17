@@ -7,6 +7,7 @@ import type { NftAttribute } from '@echo/model/types/nft-attribute'
 import type { User } from '@echo/model/types/user'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { pathIsNil } from '@echo/utils/fp/path-is-nil'
+import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import {
   always,
   applySpec,
@@ -51,20 +52,17 @@ function internalFn(collection: Collection, owner: User): (nftResponse: NftRespo
         ),
         owner: always(owner),
         // Not all links are always provided so add either cached or original if pngUrl does not exist
-        pictureUrl: ifElse(
-          pathIsNil(['image', 'pngUrl']),
+        pictureUrl: pipe(
           ifElse(
             pathIsNil(['image', 'cachedUrl']),
-            nonNullableReturn(path(['image', 'originalUrl'])),
+            ifElse(
+              pathIsNil(['image', 'pngUrl']),
+              nonNullableReturn(path(['image', 'originalUrl'])),
+              nonNullableReturn(path(['image', 'pngUrl']))
+            ),
             nonNullableReturn(path(['image', 'cachedUrl']))
           ),
-          nonNullableReturn(path(['image', 'pngUrl']))
-        ),
-        // Not all links are always provided so add original if thumbnailUrl does not exist
-        thumbnailUrl: ifElse(
-          pathIsNil(['image', 'thumbnailUrl']),
-          nonNullableReturn(path(['image', 'originalUrl'])),
-          nonNullableReturn(path(['image', 'thumbnailUrl']))
+          removeQueryFromUrl
         ),
         tokenId: pipe(prop('tokenId'), partialRight(parseInt, [10])),
         tokenType: path(['contract', 'tokenType'])

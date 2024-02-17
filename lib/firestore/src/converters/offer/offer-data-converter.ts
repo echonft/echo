@@ -17,7 +17,7 @@ import { type Offer } from '@echo/model/types/offer'
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
 import { dissoc, pipe } from 'ramda'
 
-export const offerDataConverter: FirestoreDataConverter<Offer> = {
+export const offerDataConverter: FirestoreDataConverter<Offer, OfferDocumentData> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<OfferDocumentData>): Offer {
     return pipe(
       getSnapshotData<OfferDocumentData>,

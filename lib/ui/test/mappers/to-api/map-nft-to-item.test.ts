@@ -50,7 +50,6 @@ describe('mappers - to-api - mapNftToItem', () => {
         }
       },
       pictureUrl: 'https://echo.xyz/',
-      thumbnailUrl: 'https://echo.xyz/',
       tokenId: 1,
       tokenType: 'ERC721',
       updatedAt: 1676984897

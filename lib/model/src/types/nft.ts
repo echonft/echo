@@ -14,7 +14,6 @@ export interface Nft {
   openSeaUrl?: Nullable<Lowercase<string>>
   owner: User
   pictureUrl: string
-  thumbnailUrl: string
   tokenId: number
   tokenType: NftTokenType
   updatedAt: number

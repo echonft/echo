@@ -5,7 +5,7 @@ import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wall
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export const walletDataConverter: FirestoreDataConverter<WalletDocumentData> = {
+export const walletDataConverter: FirestoreDataConverter<WalletDocumentData, WalletDocumentData> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<WalletDocumentData>): WalletDocumentData {
     return pipe<[QueryDocumentSnapshot<WalletDocumentData>], WalletDocumentData, WalletDocumentData>(
       getSnapshotData<WalletDocumentData>,

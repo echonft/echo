@@ -3,6 +3,9 @@ import { firestoreApp } from '@echo/firestore/services/firestore-app'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { CollectionReference } from 'firebase-admin/firestore'
 
-export function getUsersCollectionReference(): CollectionReference<UserDocumentData> {
-  return firestoreApp().collection(CollectionReferenceName.USERS) as CollectionReference<UserDocumentData>
+export function getUsersCollectionReference(): CollectionReference<UserDocumentData, UserDocumentData> {
+  return firestoreApp().collection(CollectionReferenceName.USERS) as CollectionReference<
+    UserDocumentData,
+    UserDocumentData
+  >
 }

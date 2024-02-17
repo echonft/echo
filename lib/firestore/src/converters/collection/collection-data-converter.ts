@@ -5,7 +5,7 @@ import type { Collection } from '@echo/model/types/collection'
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
 import { pipe } from 'ramda'
 
-export const collectionDataConverter: FirestoreDataConverter<Collection> = {
+export const collectionDataConverter: FirestoreDataConverter<Collection, Collection> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<Collection>): Collection {
     return pipe(getSnapshotData<Collection>, lowerContractAddress)(snapshot)
   },

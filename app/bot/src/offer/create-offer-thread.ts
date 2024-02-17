@@ -1,12 +1,13 @@
+import { getEchoChannel } from '@echo/bot/get-echo-channel'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
 import type { Offer } from '@echo/model/types/offer'
 import { now } from '@echo/utils/helpers/now'
-import type { TextChannel } from 'discord.js'
 import { ChannelType, ThreadAutoArchiveDuration, userMention } from 'discord.js'
 import i18next from 'i18next'
 
-export async function createOfferThread(channel: TextChannel, offer: Offer, senderId: string, receiverId: string) {
+export async function createOfferThread(offer: Offer, senderId: string, receiverId: string) {
+  const channel = await getEchoChannel()
   const thread = await channel.threads.create({
     name: i18next.t('offer.thread.name', { timestamp: now() }),
     autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,

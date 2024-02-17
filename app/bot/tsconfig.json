@@ -14,8 +14,6 @@
       "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/bot/*": ["./src/*"],
-      "@echo/bot-mocks/*": ["./test/@mocks/*"],
-      "@echo/bot-test/*": ["./test/@utils/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
