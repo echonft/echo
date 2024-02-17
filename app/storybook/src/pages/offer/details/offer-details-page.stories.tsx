@@ -16,10 +16,10 @@ import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
+import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { OfferDetailsSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-skeleton'
 import { getOfferPageLayoutBackground } from '@echo/ui/helpers/offer/get-offer-page-layout-background'
 import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
-import { OfferDetailsPage as Component } from '@echo/ui/pages/offer/offer-details-page'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { assoc, includes, pipe } from 'ramda'
@@ -80,7 +80,7 @@ export const Page: StoryObj<ComponentType> = {
       <PageLayout user={user} background={getOfferPageLayoutBackground(renderedOffer)}>
         <SectionLayout>
           <DetailsPaddedContainer>
-            <Component offer={renderedOffer} user={user} />
+            <OfferDetails offer={renderedOffer} />
           </DetailsPaddedContainer>
         </SectionLayout>
       </PageLayout>

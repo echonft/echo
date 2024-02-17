@@ -12,7 +12,7 @@ function getSignatureConfigForOffer(args: SignOfferArgs) {
       name: 'Echo',
       version: '1',
       chainId,
-      verifyingContract: getEchoAddress(chainId)
+      verifyingContract: getEchoAddress()
     },
     types: {
       Trade: [

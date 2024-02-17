@@ -7,6 +7,7 @@ import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { isOfferItemsApprovalValid } from '@echo/frontend/lib/helpers/offer/is-offer-items-approval-valid'
 import { isOfferItemsOwnershipValid } from '@echo/frontend/lib/helpers/offer/is-offer-items-ownership-valid'
 import type { Offer } from '@echo/model/types/offer'
+import { logger } from '@echo/utils/services/logger'
 
 /**
  * This function checks for the validity of an offer
@@ -22,6 +23,7 @@ import type { Offer } from '@echo/model/types/offer'
  */
 export async function validateOffer(offer: Offer): Promise<Offer> {
   if (!(await isOfferItemsApprovalValid(offer))) {
+    logger.warn(`items approval for offer ${offer.id} not valid`)
     return cancelOffer({
       offerId: offer.id,
       updateArgs: {
@@ -33,6 +35,7 @@ export async function validateOffer(offer: Offer): Promise<Offer> {
     })
   }
   if (!(await isOfferItemsOwnershipValid(offer))) {
+    logger.warn(`items ownership for offer ${offer.id} not valid`)
     return cancelOffer({
       offerId: offer.id,
       updateArgs: {

@@ -6,7 +6,7 @@ import type { OfferState } from '@echo/model/types/offer-state'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { toPromise } from '@echo/utils/fp/to-promise'
 import { hasApprovedErc721 } from '@echo/web3/helpers/viem/has-approved-erc721'
-import { eqBy, F, ifElse, map, otherwise, path, pipe, prop, propEq, T, uniqWith } from 'ramda'
+import { all, andThen, eqBy, identity, ifElse, map, path, pipe, prop, propEq, T, uniqWith } from 'ramda'
 
 export function isOfferItemsApprovalValid(offer: Offer): Promise<boolean> {
   return ifElse<[Offer], Promise<boolean>, Promise<boolean>>(
@@ -17,7 +17,7 @@ export function isOfferItemsApprovalValid(offer: Offer): Promise<boolean> {
       uniqWith(eqBy(path(['collection', 'contract']))),
       map(hasApprovedErc721),
       promiseAll,
-      otherwise(F)
+      andThen(all(identity))
     ),
     pipe(T, toPromise)
   )(offer)

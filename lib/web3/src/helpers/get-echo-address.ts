@@ -1,3 +1,4 @@
+import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import { formatAddress } from '@echo/web3/helpers/format-address'
 
 function echoAddressByChainId(chainId: number) {
@@ -9,6 +10,7 @@ function echoAddressByChainId(chainId: number) {
   }
 }
 
-export function getEchoAddress(chainId: number) {
+export function getEchoAddress() {
+  const chainId = getChainId()
   return formatAddress({ address: echoAddressByChainId(chainId), chainId })
 }

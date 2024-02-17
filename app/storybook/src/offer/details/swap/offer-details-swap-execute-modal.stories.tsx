@@ -42,7 +42,6 @@ export const Execute: StoryObj<ComponentType> = {
         getOfferMockById,
         assoc('role', OFFER_ROLE_SENDER)
       )('LyCfl6Eg7JKuD7XJ6IPi')}
-      chainId={1}
       signature={signature ? '0xwhatever' : undefined}
       open={true}
       onClose={onClose}

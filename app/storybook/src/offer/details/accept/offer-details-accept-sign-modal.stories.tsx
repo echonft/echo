@@ -25,7 +25,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['offer', 'open', 'chainId', 'token']
+      exclude: ['offer', 'open']
     }
   }
 }
@@ -38,7 +38,6 @@ export const Sign: StoryObj<typeof Component> = {
       getOfferMockById,
       assoc('role', OFFER_ROLE_RECEIVER)
     )('LyCfl6Eg7JKuD7XJ6IPi'),
-    chainId: 1,
     open: true
   }
 }

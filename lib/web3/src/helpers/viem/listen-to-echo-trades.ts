@@ -10,9 +10,9 @@ export function listenToEchoTrades(handler: (offerId: string, transactionId: str
   const chain = getChain()
   const client = getViemClient(chain)
   const abi: EchoAbi = ECHO_ABI
-  const eventName = 'TradeExecuted' as const
+  const eventName = 'TradeExecuted'
   client.watchContractEvent({
-    address: getEchoAddress(chain.id),
+    address: getEchoAddress(),
     abi,
     eventName,
     onLogs: forEach((log: Log) => {
