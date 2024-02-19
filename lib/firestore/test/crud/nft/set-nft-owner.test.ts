@@ -7,7 +7,7 @@ import { assertNfts } from '@echo/firestore-test/nft/assert-nfts'
 import { unchecked_updateNft } from '@echo/firestore-test/nft/unchecked_update-nft'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
 import { omit } from 'ramda'
@@ -24,7 +24,7 @@ describe('CRUD - nft - setNftOwner', () => {
     try {
       await unchecked_updateNft(nftId, omit(['id'], getNftMockById(nftId)))
     } catch (e) {
-      logger.error(`Error reverting nft with id ${nftId}: ${errorMessage(e)}`)
+      pinoLogger.error(`Error reverting nft with id ${nftId}: ${errorMessage(e)}`)
     }
   })
 

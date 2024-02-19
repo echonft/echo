@@ -1,6 +1,6 @@
 import { ECHO_ABI } from '@echo/web3/constants/echo-abi'
+import { echoAddress } from '@echo/web3/constants/echo-address'
 import { getChain } from '@echo/web3/helpers/get-chain'
-import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { getViemClient } from '@echo/web3/helpers/viem/get-viem-client'
 import type { EchoAbi } from '@echo/web3/types/echo-abi'
 import { forEach, isNotNil } from 'ramda'
@@ -12,7 +12,7 @@ export function listenToEchoTrades(handler: (offerId: string, transactionId: str
   const abi: EchoAbi = ECHO_ABI
   const eventName = 'TradeExecuted'
   client.watchContractEvent({
-    address: getEchoAddress(),
+    address: echoAddress,
     abi,
     eventName,
     onLogs: forEach((log: Log) => {

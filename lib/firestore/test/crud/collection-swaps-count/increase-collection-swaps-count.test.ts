@@ -5,7 +5,7 @@ import { assertCollectionSwapsCounts } from '@echo/firestore-test/collection-swa
 import { findCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/find-collection-swaps-count-by-collection-id'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore-test/collection-swaps-count/unchecked_update-collection-swap-counts'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
 import { find, pick, propEq } from 'ramda'
 
@@ -25,7 +25,7 @@ describe('CRUD - collection-swaps-count - increaseCollectionSwapsCount', () => {
     try {
       await unchecked_updateCollectionSwapCounts(swapsCount.id, pick(['swapsCount'], swapsCount))
     } catch (e) {
-      logger.error(`Error reverting collection swaps count with id ${swapsCount.id}: ${errorMessage(e)}`)
+      pinoLogger.error(`Error reverting collection swaps count with id ${swapsCount.id}: ${errorMessage(e)}`)
     }
   })
   it('throws if trying to increase swaps count for a collection that does not exist', async () => {

@@ -2,7 +2,7 @@ import { findOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/find
 import { deleteOfferUpdatePost } from '@echo/firestore-test/offer-update-post/delete-offer-update-post'
 import { unchecked_addOfferUpdatePost } from '@echo/firestore-test/offer-update-post/unchecked_add-offer-update-post'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
@@ -19,7 +19,7 @@ describe('CRUD - offer-update - findOfferStateUpdate', () => {
         await deleteOfferUpdatePost(offerUpdatePostId)
         offerUpdatePostId = undefined
       } catch (e) {
-        logger.error(`Error deleting offer update post with id ${offerUpdatePostId}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error deleting offer update post with id ${offerUpdatePostId}: ${errorMessage(e)}`)
       }
     }
   })

@@ -1,4 +1,4 @@
-import type { Query } from 'firebase-admin/firestore'
+import { Query } from 'firebase-admin/firestore'
 import { isNil } from 'ramda'
 
 export function queryLimit<T>(limit?: number) {

@@ -9,20 +9,22 @@ import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-detai
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
+import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import { map, prop } from 'ramda'
-import { type FunctionComponent, useEffect, useState } from 'react'
+import { dissoc, map, prop } from 'ramda'
+import { type FunctionComponent } from 'react'
+import { mutate } from 'swr'
 
 interface Props {
   offer: OfferWithRole
 }
 
 export const OfferDetails: FunctionComponent<Props> = ({ offer }) => {
-  const [updatedOffer, setUpdatedOffer] = useState(offer)
-  useEffect(() => {
-    setUpdatedOffer(offer)
-  }, [offer])
-  const { sender, receiver, senderItems, receiverItems } = updatedOffer
+  // const [updatedOffer, setUpdatedOffer] = useState(offer)
+  // useEffect(() => {
+  //   setUpdatedOffer(offer)
+  // }, [offer])
+  const { sender, receiver, senderItems, receiverItems } = offer
 
   return (
     <OfferDetailsLayout>
@@ -40,7 +42,13 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer }) => {
           nfts={map(prop('nft'), isOfferRoleSender(offer) ? senderItems : receiverItems)}
           alignment={ALIGNMENT_CENTER}
         />
-        <OfferDetailsButtons offer={updatedOffer} onSuccess={setUpdatedOffer} />
+        <OfferDetailsButtons
+          offer={offer}
+          onSuccess={(offer) => {
+            const updatedOffer = dissoc('role', offer)
+            void mutate(SWRKeys.offer.get(offer), updatedOffer, { optimisticData: updatedOffer })
+          }}
+        />
       </OfferDetailsItemsButtonsLayout>
     </OfferDetailsLayout>
   )

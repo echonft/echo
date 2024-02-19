@@ -1,6 +1,6 @@
+import { echoAddress } from '@echo/web3/constants/echo-address'
 import { formatAddress } from '@echo/web3/helpers/format-address'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
-import { getEchoAddress } from '@echo/web3/helpers/get-echo-address'
 import { getPublicViemClient } from '@echo/web3/helpers/viem/get-public-viem-client'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3/types/get-erc-721-contract-approval-args'
 import { pipe } from 'ramda'
@@ -16,6 +16,6 @@ export async function getErc721ContractApproval(args: GetErc721ContractApprovalA
     abi: erc721Abi,
     functionName: 'isApprovedForAll',
     address,
-    args: [owner, getEchoAddress()]
+    args: [owner, echoAddress]
   })
 }

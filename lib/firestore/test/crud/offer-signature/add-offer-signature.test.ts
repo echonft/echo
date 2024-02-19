@@ -5,7 +5,7 @@ import { assertUsers } from '@echo/firestore-test/user/assert-users'
 import { deleteUser } from '@echo/firestore-test/user/delete-user'
 import { unchecked_addUser } from '@echo/firestore-test/user/unchecked_add-user'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -33,14 +33,14 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
       try {
         await deleteUser(createdUserId)
       } catch (e) {
-        logger.error(`Error deleting user with id ${createdUserId}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error deleting user with id ${createdUserId}: ${errorMessage(e)}`)
       }
     }
     if (!isNil(createdOfferSignatureId)) {
       try {
         await deleteOfferSignature(createdOfferSignatureId)
       } catch (e) {
-        logger.error(`Error deleting offer signature with id ${createdOfferSignatureId}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error deleting offer signature with id ${createdOfferSignatureId}: ${errorMessage(e)}`)
       }
     }
   })

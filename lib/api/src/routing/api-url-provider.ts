@@ -23,7 +23,8 @@ export const apiUrlProvider = {
     cancel: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/cancel', secure: true }),
     create: new ApiPath({ path: '/offer', secure: true }),
     reject: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/reject', secure: true }),
-    signature: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/signature', secure: true })
+    signature: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/signature', secure: true }),
+    validate: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/validate', secure: true })
   },
   profile: {
     nonce: new ApiPath({ path: '/profile/nonce', secure: true }),

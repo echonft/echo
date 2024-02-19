@@ -5,7 +5,7 @@ export default defineConfig((options: Options) => ({
   clean: true,
   entry: ['src/index.ts'],
   platform: 'node',
-  target: 'es6',
+  target: 'esnext',
   format: 'cjs',
   skipNodeModulesBundle: false,
   sourcemap: true,

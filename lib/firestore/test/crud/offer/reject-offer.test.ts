@@ -15,7 +15,7 @@ import {
 } from '@echo/model/constants/offer-states'
 import { type OfferState } from '@echo/model/types/offer-state'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -60,7 +60,7 @@ describe('CRUD - offer - rejectOffer', () => {
       try {
         await deleteOfferUpdate(createdStateUpdateId)
       } catch (e) {
-        logger.error(`Error deleting offer update with id ${createdStateUpdateId}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error deleting offer update with id ${createdStateUpdateId}: ${errorMessage(e)}`)
       }
     }
   })

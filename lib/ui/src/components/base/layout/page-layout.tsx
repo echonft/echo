@@ -9,6 +9,7 @@ import { getNonce } from '@echo/api/fetchers/get-nonce'
 import { getOfferSignature } from '@echo/api/fetchers/get-offer-signature'
 import { getWallets } from '@echo/api/fetchers/get-wallets'
 import { rejectOffer } from '@echo/api/fetchers/reject-offer'
+import { validateOffer } from '@echo/api/fetchers/validate-offer'
 import { getCollections } from '@echo/api/providers/get-collections'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { BannerManager } from '@echo/ui/components/base/banner/banner-manager'
@@ -78,7 +79,8 @@ export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
         signNonce,
         signOffer,
         signOut,
-        switchChain
+        switchChain,
+        validateOffer
       }}
     >
       <Web3Provider>

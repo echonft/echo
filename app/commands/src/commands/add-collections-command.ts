@@ -3,7 +3,7 @@ import { initializeFirebase } from '@echo/firestore/services/initialize-firebase
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { HexString } from '@echo/utils/types/hex-string'
 import * as fs from 'fs/promises'
 import yargs from 'yargs'
@@ -30,7 +30,7 @@ interface AddCollectionsFile {
 void (function () {
   const argv = yargs(hideBin(process.argv)).string('path').parse() as unknown as { path: string }
   if (isNilOrEmpty(argv.path)) {
-    logger.error(`path is not specified`)
+    pinoLogger.error(`path is not specified`)
   }
   initializeFirebase()
   fs.readFile(argv.path, 'utf-8')
@@ -49,16 +49,18 @@ void (function () {
               overrideAddress: collection.override?.address
             })
           } catch (err) {
-            logger.error(`Error adding collection ${JSON.stringify(collection)}: ${errorMessage(err)}`)
+            pinoLogger.error(`Error adding collection ${JSON.stringify(collection)}: ${errorMessage(err)}`)
           }
         }
       } catch (err) {
-        logger.error(`Wrong JSON data: ${errorMessage(err)}`)
+        pinoLogger.error(`Wrong JSON data: ${errorMessage(err)}`)
       } finally {
         await terminateFirestore()
+        process.exit()
       }
     })
     .catch((err) => {
-      logger.error(`Error reading collections file from ${argv.path}: ${errorMessage(err)}`)
+      pinoLogger.error(`Error reading collections file from ${argv.path}: ${errorMessage(err)}`)
+      process.exit()
     })
 })()

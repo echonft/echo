@@ -20,6 +20,7 @@ import { signNonce } from '@echo/storybook/mocks/sign-nonce'
 import { signOffer } from '@echo/storybook/mocks/sign-offer'
 import { signOut } from '@echo/storybook/mocks/sign-out'
 import { switchChain } from '@echo/storybook/mocks/switch-chain'
+import { validateOffer } from '@echo/storybook/mocks/validate-offer'
 import { messages } from '@echo/ui/messages/en'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import { init } from '@sentry/nextjs'
@@ -57,7 +58,8 @@ const preview: Preview = {
               signNonce,
               signOffer,
               signOut,
-              switchChain
+              switchChain,
+              validateOffer
             }}
           >
             <Story />
