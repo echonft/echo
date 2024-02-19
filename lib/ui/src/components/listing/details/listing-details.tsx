@@ -68,13 +68,13 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
   const [updatedListing, setUpdatedListing] = useState(listing)
   const [createdOffer, setCreatedOffer] = useState<Offer>()
   const { trigger: triggerCancel, isMutating: cancelIsMutating } = useSWRTrigger<ListingResponse, CancelListingArgs>({
-    key: SWRKeys.listing.cancel(listing),
+    key: SWRKeys.listing.cancel(updatedListing),
     fetcher: cancelListing,
     onSuccess: (response) => {
       setUpdatedListing(mergeLeft({ ...response.listing }))
     },
     onError: {
-      contexts: listingContext(listing),
+      contexts: listingContext(updatedListing),
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') }
     }
   })
@@ -87,11 +87,10 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
       resetNftSelection()
     },
     onError: {
-      contexts: listingContext(listing),
+      contexts: listingContext(updatedListing),
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('fill') }
     }
   })
-
   useEffect(() => {
     setUpdatedListing(listing)
   }, [listing])
@@ -121,8 +120,8 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
     length,
     lte(target.amount)
   )(selectableNfts)
-  const isCreator = isListingRoleCreator(listing)
-  const isTarget = isListingRoleTarget(listing)
+  const isCreator = isListingRoleCreator(updatedListing)
+  const isTarget = isListingRoleTarget(updatedListing)
   const isMutating = cancelIsMutating || fillIsMutating
 
   function onFill(listing: Listing) {
@@ -140,11 +139,11 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
 
   return (
     <ListingDetailsLayout>
-      <ListingDetailsUserStateLayout role={listing.role}>
+      <ListingDetailsUserStateLayout role={updatedListing.role}>
         <HideIf condition={isCreator}>
           <UserDetails user={creator} />
         </HideIf>
-        <ListingDetailsState listing={listing} />
+        <ListingDetailsState listing={updatedListing} />
       </ListingDetailsUserStateLayout>
       <ListingDetailsItemsLayout>
         <ListingDetailsItemsContainerLayout>
@@ -155,7 +154,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
           <ListingDetailsTargetsContainerLayout>
             <ListingDetailsTargetContainer target={target} />
           </ListingDetailsTargetsContainerLayout>
-          <ShowIf condition={isCreator || !isTarget || listing.readOnly}>
+          <ShowIf condition={isCreator || !isTarget || updatedListing.readOnly}>
             <ListingDetailsUserNftsOrOffersLayout>
               <ListingDetailsTargetCollectionOrOfferTitle title={t('offers.title')} />
               <ShowIf condition={isEmpty(offers)}>
@@ -169,7 +168,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
               </ShowIf>
             </ListingDetailsUserNftsOrOffersLayout>
           </ShowIf>
-          <HideIf condition={!isTarget || listing.readOnly}>
+          <HideIf condition={!isTarget || updatedListing.readOnly}>
             <ListingDetailsUserNftsOrOffersLayout>
               <ListingDetailsTargetCollectionOrOfferTitle title={target.collection.name} />
               <SelectableNftCardsContainer

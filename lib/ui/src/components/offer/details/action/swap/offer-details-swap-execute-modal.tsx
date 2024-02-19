@@ -1,5 +1,7 @@
 'use client'
 import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
+import type { ValidateOfferArgs } from '@echo/api/types/fetchers/validate-offer-args'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
@@ -38,11 +40,14 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
   const t = useTranslations('offer.details.swapModal')
   const tError = useTranslations('error.offer')
   const { chainId } = useAccount()
-  const { executeSwap, getOfferSignature } = useDependencies()
+  const { executeSwap, getOfferSignature, validateOffer } = useDependencies()
   const onError = {
     contexts: offerContext(offer),
     alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('swap') },
-    onError: onClose
+    onError: () => {
+      void validateOfferTrigger({ offerId: offer.id })
+      onClose?.()
+    }
   }
   const { trigger: executeSwapTrigger, isMutating: executeSwapMutating } = useSWRTrigger<HexString, ExecuteSwapArgs>({
     key: SWRKeys.swap.execute(offer),
@@ -67,6 +72,10 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
       void executeSwapTrigger({ chainId: chainId!, signature: response.signature, offer })
     },
     onError
+  })
+  const { trigger: validateOfferTrigger } = useSWRTrigger<OfferResponse, ValidateOfferArgs>({
+    key: SWRKeys.offer.validate(offer),
+    fetcher: validateOffer
   })
   const loading = executeSwapMutating || getOfferSignatureMutating
 
