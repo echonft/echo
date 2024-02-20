@@ -1,5 +1,5 @@
 import { getOfferUpdatesCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-updates-collection-reference'
-import { type DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
+import { type DocumentChangeType } from '@echo/firestore/types/document-change-type'
 import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer-update'
 import type { DocumentChange } from 'firebase-admin/firestore'
 

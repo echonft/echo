@@ -7,7 +7,7 @@ import { findOfferUpdateById } from '@echo/firestore/crud/offer-update/find-offe
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
 import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
@@ -34,7 +34,7 @@ describe('CRUD - offer-update - addOfferStateUpdate', () => {
         await deleteOfferUpdate(offerUpdateId)
         offerUpdateId = undefined
       } catch (e) {
-        logger.error(`Error deleting offer update with id ${offerUpdateId}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error deleting offer update with id ${offerUpdateId}: ${errorMessage(e)}`)
       }
     }
   })

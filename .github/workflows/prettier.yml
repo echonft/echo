@@ -36,6 +36,8 @@ jobs:
         run: pnpm exec turbo run prettier:ci --filter=@echo/model
       - name: sentry prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/sentry
+      - name: tasks prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/tasks
       - name: ui prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/ui
       - name: utils prettier

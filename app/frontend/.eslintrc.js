@@ -1,6 +1,8 @@
 module.exports = {
-  extends: ['../../lib/eslint/.eslintrc.next.js'],
-  rules: {
-    'react/display-name': 'off'
+  extends: ['next', '../../.eslintrc.js'],
+  settings: {
+    react: {
+      version: 'detect'
+    }
   }
 }

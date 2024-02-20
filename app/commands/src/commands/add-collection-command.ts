@@ -24,4 +24,5 @@ void (async function () {
   initializeFirebase()
   await addCollection(argv)
   await terminateFirestore()
+  process.exit()
 })()

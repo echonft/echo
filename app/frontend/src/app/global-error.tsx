@@ -7,6 +7,7 @@ import { captureException } from '@sentry/nextjs'
 import { NextIntlClientProvider } from 'next-intl'
 import { useEffect } from 'react'
 
+// eslint-disable-next-line react/display-name,import/no-anonymous-default-export
 export default function ({ error, reset }: NextErrorParams) {
   const locale = 'en'
   useEffect(() => {

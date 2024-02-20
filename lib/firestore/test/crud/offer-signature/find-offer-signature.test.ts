@@ -2,7 +2,7 @@ import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-of
 import { deleteOfferSignature } from '@echo/firestore-test/offer-signature/delete-offer-signature'
 import { unchecked_addOfferSignature } from '@echo/firestore-test/offer-signature/unchecked_add-offer-signature'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
@@ -21,7 +21,7 @@ describe('CRUD - offer-signature - findOfferSignature', () => {
       try {
         await deleteOfferSignature(createdOfferSignatureId)
       } catch (e) {
-        logger.error(`Error deleting offer signature with id ${createdOfferSignatureId}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error deleting offer signature with id ${createdOfferSignatureId}: ${errorMessage(e)}`)
       }
     }
   })

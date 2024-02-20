@@ -5,7 +5,7 @@ import { assertUsers } from '@echo/firestore-test/user/assert-users'
 import { deleteUser } from '@echo/firestore-test/user/delete-user'
 import { unchecked_updateUser } from '@echo/firestore-test/user/unchecked_update-user'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { assoc, isNotNil } from 'ramda'
@@ -29,14 +29,14 @@ describe('CRUD - user - updateUser', () => {
       try {
         await unchecked_updateUser(updatedUser)
       } catch (e) {
-        logger.error(`Error reverting user with id ${updatedUser.id}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error reverting user with id ${updatedUser.id}: ${errorMessage(e)}`)
       }
     }
     if (isNotNil(newUserId)) {
       try {
         await deleteUser(newUserId)
       } catch (e) {
-        logger.error(`Error deleting user with id ${newUserId}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error deleting user with id ${newUserId}: ${errorMessage(e)}`)
       }
     }
   })

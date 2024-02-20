@@ -30,7 +30,7 @@ import { getOfferCollectionIds } from '@echo/model/helpers/offer/get-offer-colle
 import { type OfferState } from '@echo/model/types/offer-state'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -82,7 +82,7 @@ describe('CRUD - offer - completeOffer', () => {
       try {
         await deleteOfferUpdate(createdStateUpdateId)
       } catch (e) {
-        logger.error(`Error deleting offer update with id ${createdStateUpdateId}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error deleting offer update with id ${createdStateUpdateId}: ${errorMessage(e)}`)
       }
     }
     // reset the NFTs with their original data

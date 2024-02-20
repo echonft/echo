@@ -29,7 +29,8 @@ export const SWRKeys = {
     get: pipe<[Offer], string, string>(offerKey, concat('get-offer-')),
     getSignature: pipe<[Offer], string, string>(offerKey, concat('get-offer-signature-')),
     reject: pipe<[Offer], string, string>(offerKey, concat('reject-offer-')),
-    sign: pipe<[Offer], string, string>(offerKey, concat('sign-offer-'))
+    sign: pipe<[Offer], string, string>(offerKey, concat('sign-offer-')),
+    validate: pipe<[Offer], string, string>(offerKey, concat('validate-offer-'))
   },
   profile: {
     nonce: {

@@ -3,6 +3,7 @@ import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-
 import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
 import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
 import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args'
+import type { ValidateOfferArgs } from '@echo/api/types/fetchers/validate-offer-args'
 import type { CollectionProvider } from '@echo/api/types/providers/collection-provider'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
@@ -45,4 +46,5 @@ export interface Dependencies {
   signOffer: Fetcher<HexString, SignOfferArgs>
   signOut: (options: SignOutParams<true> | undefined) => Promise<undefined>
   switchChain: () => Promise<void>
+  validateOffer: Fetcher<OfferResponse, ValidateOfferArgs>
 }

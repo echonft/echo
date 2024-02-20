@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig/tsconfig.node.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
+      "@echo/model/*": ["../../lib/model/src/*"],
+      "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/tasks/*": ["./src/*"],
+      "@echo/utils/*": ["../../lib/utils/src/*"],
+      "@echo/web3/*": ["../../lib/web3/src/*"]
+    }
+  },
+  "include": ["src", "test", "../../env.d.ts"],
+  "exclude": ["node_modules"]
+}

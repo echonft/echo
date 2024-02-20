@@ -5,7 +5,7 @@ import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { findOfferThread } from '@echo/firestore/crud/offer-thread/find-offer-thread'
 import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
 import { findOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/find-offer-update-post'
-import { type DocumentChangeType } from '@echo/firestore/types/abstract/document-change-type'
+import { type DocumentChangeType } from '@echo/firestore/types/document-change-type'
 import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer-update'
 import { isNil } from 'ramda'
 

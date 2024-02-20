@@ -1,8 +1,6 @@
-import { Callout } from '@echo/ui/components/base/callout/callout'
-import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
+import { CalloutManagerContent } from '@echo/ui/components/base/callout/callout-manager-content'
 import { classes } from '@echo/ui/helpers/classes'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
-import { Transition } from '@headlessui/react'
 import { head, isNil } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 
@@ -18,7 +16,6 @@ export const CalloutManager: FunctionComponent = () => {
       dismiss()
     }, 600)
   }, [setShow, dismiss])
-
   useEffect(() => {
     if (!isNil(alert)) {
       setShow(true)
@@ -27,7 +24,6 @@ export const CalloutManager: FunctionComponent = () => {
       }
     }
   }, [delayedDismiss, alert])
-
   useEffect(() => {
     return (): void => {
       if (!isNil(dismissTimeoutRef.current)) {
@@ -40,29 +36,16 @@ export const CalloutManager: FunctionComponent = () => {
   }, [])
 
   return (
-    <Transition
-      show={show}
-      enter="transition duration-500 ease-out"
-      enterFrom="transform opacity-0"
-      enterTo="transform opacity-100"
-      leave="transition duration-500 ease-out"
-      leaveFrom="transform opacity-100"
-      leaveTo="transform opacity-0"
-    >
-      <div className={classes('absolute', 'z-40', 'top-4', 'right-4')}>
-        <HideIfNil
-          checks={alert}
-          render={(alert) => (
-            <Callout
-              severity={alert.severity}
-              variant={alert.variant}
-              onClick={alert.permanent ? delayedDismiss : undefined}
-            >
-              {alert.message}
-            </Callout>
-          )}
-        />
-      </div>
-    </Transition>
+    <div className={classes('absolute', 'z-40', 'top-4', 'right-4', 'w-max', 'h-max')}>
+      <CalloutManagerContent
+        alert={alert}
+        show={show}
+        onClick={(_event) => {
+          if (alert?.permanent) {
+            delayedDismiss()
+          }
+        }}
+      />
+    </div>
   )
 }

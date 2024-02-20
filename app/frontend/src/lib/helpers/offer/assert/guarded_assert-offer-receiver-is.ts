@@ -1,18 +1,8 @@
-import { BadRequestError } from '@echo/frontend/lib/helpers/error/bad-request-error'
 import { ForbiddenError } from '@echo/frontend/lib/helpers/error/forbidden-error'
 import { type Offer } from '@echo/model/types/offer'
-import { type User } from '@echo/model/types/user'
-import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import { isNil } from 'ramda'
 
-export function guarded_assertOfferReceiverIs(
-  offer: Offer,
-  username: string
-): asserts offer is Omit<Offer, 'receiver'> & Record<'receiver', User> {
-  if (isNil(offer.receiver) || isNilOrEmpty(offer.receiver.username)) {
-    throw new BadRequestError(`offer with id ${offer.id} does not contain a receiver`)
-  }
+export function guarded_assertOfferReceiverIs(offer: Offer, username: string) {
   if (offer.receiver.username !== username) {
-    throw new ForbiddenError(`current user with username ${username} is not the receiver of offer with id ${offer.id}`)
+    throw new ForbiddenError(`current user with username ${username} is not the receiver of offer ${offer.id}`)
   }
 }

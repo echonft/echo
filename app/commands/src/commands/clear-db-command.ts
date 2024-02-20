@@ -6,4 +6,5 @@ void (async function () {
   initializeFirebase()
   await clearDb()
   await terminateFirestore()
+  process.exit()
 })()

@@ -40,12 +40,12 @@ function fetchNftsForOwner(args: Args) {
 
 // TODO We will need to split the calls when we have more than 45 contract addresses as Alchemy
 // does not allow more than 45 addresses at a same time.
-export function getNftsForOwner(collections: Collection[], owner: User) {
+export function getNftsForOwner(collections: Collection[], owner: User): Promise<Omit<Nft, 'id' | 'updatedAt'>[]> {
   if (isNonEmptyArray(collections)) {
     return handleAlchemyPaging<Args, Omit<Nft, 'id' | 'updatedAt'>>(fetchNftsForOwner, {
       collections,
       owner
     })
   }
-  return []
+  return Promise.resolve([] as Omit<Nft, 'id' | 'updatedAt'>[])
 }

@@ -16,4 +16,5 @@ void (async function () {
   initializeFirebase()
   await addCollectionDefaultDiscordGuild(argv.collectionId)
   await terminateFirestore()
+  process.exit()
 })()

@@ -16,7 +16,7 @@ import {
 } from '@echo/model/constants/offer-states'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
@@ -55,14 +55,14 @@ describe('CRUD - offer - acceptOffer', () => {
       try {
         await deleteOfferSignature(createdOfferSignatureId)
       } catch (e) {
-        logger.error(`Error deleting offer signature with id ${createdOfferSignatureId}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error deleting offer signature with id ${createdOfferSignatureId}: ${errorMessage(e)}`)
       }
     }
     if (!isNil(createdStateUpdateId)) {
       try {
         await deleteOfferUpdate(createdStateUpdateId)
       } catch (e) {
-        logger.error(`Error deleting offer update with id ${createdStateUpdateId}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error deleting offer update with id ${createdStateUpdateId}: ${errorMessage(e)}`)
       }
     }
   })

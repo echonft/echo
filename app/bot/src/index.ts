@@ -14,7 +14,7 @@ import { listenToOffers } from '@echo/firestore/listeners/listen-to-offers'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { guardAsyncFn } from '@echo/sentry/guard-async-fn'
 import { initializeSentry } from '@echo/sentry/initialize-sentry'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { listenToEchoTrades } from '@echo/web3/helpers/viem/listen-to-echo-trades'
 import { Events } from 'discord.js'
 import { isNil } from 'ramda'
@@ -28,10 +28,10 @@ client.once(Events.ClientReady, async (_client) => {
   listenToOfferUpdates((changeType, update) => guardAsyncFn(offerUpdateChangeHandler)(changeType, update))
   listenToEchoTrades(
     guardAsyncFn(async function (offerId: string, transactionId: string) {
-      logger.info(`trade executed: offer ${offerId} transaction ${transactionId}`)
+      pinoLogger.info(`trade executed: offer ${offerId} transaction ${transactionId}`)
       const offer = await findOfferById(offerId)
       if (isNil(offer)) {
-        logger.error(`received trade executed for offer ${offerId} but the offer does not exist`)
+        pinoLogger.error(`received trade executed for offer ${offerId} but the offer does not exist`)
         return
       }
       await completeOffer({
@@ -39,7 +39,7 @@ client.once(Events.ClientReady, async (_client) => {
         transactionId,
         updateArgs: { trigger: { by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } }
       })
-      logger.info(`succesfully completed offer ${offerId} transaction ${transactionId}`)
+      pinoLogger.info(`succesfully completed offer ${offerId} transaction ${transactionId}`)
     })
   )
   await guardAsyncFn(sendToEchoChannel)('Echo bot up and running')

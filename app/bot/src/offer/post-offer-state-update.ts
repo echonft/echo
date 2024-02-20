@@ -12,7 +12,7 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { userMention } from 'discord.js'
 import i18next from 'i18next'
 import { isNil } from 'ramda'
@@ -49,7 +49,7 @@ export async function postOfferStateUpdate(offer: Offer) {
   }
   const thread = await getThreadOnEchoChannel(offerThread.guild.threadId)
   if (isNil(thread)) {
-    logger.error(`tried to post update to thread ${offerThread.guild.threadId} but this thread does not exist`)
+    pinoLogger.error(`tried to post update to thread ${offerThread.guild.threadId} but this thread does not exist`)
     return
   }
   const content = await getMessage(offer)

@@ -11,7 +11,7 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterEach, beforeEach, describe, expect, it } from '@jest/globals'
 import { isNil } from 'ramda'
@@ -37,7 +37,7 @@ describe('CRUD - offer-update - findOfferStateUpdate', () => {
         await deleteOfferUpdate(offerUpdateId)
         offerUpdateId = undefined
       } catch (e) {
-        logger.error(`Error deleting offer update with id ${offerUpdateId}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error deleting offer update with id ${offerUpdateId}: ${errorMessage(e)}`)
       }
     }
   })

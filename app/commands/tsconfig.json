@@ -14,10 +14,10 @@
       "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/commands/*": ["./src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
-      "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
-      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
-      "@echo/utils/*": ["../../lib/utils/src/*"]
+      "@echo/tasks/*": ["../../lib/tasks/src/*"],
+      "@echo/utils/*": ["../../lib/utils/src/*"],
+      "@echo/web3/*": ["../../lib/web3/src/*"]
     },
     "noEmit": false,
     "sourceMap": true,
@@ -27,6 +27,6 @@
     // This improves issue grouping in Sentry.
     "sourceRoot": "/"
   },
-  "include": ["src", "test", "../../env.d.ts"],
+  "include": ["src", "../../env.d.ts"],
   "exclude": ["dist", "node_modules"]
 }

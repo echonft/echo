@@ -5,7 +5,7 @@ import type { NftResponse } from '@echo/alchemy/types/response/nft-response'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import { logger } from '@echo/utils/services/logger'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { find, isNil, map, pathEq, pipe, prop, reject, toLower } from 'ramda'
 
@@ -26,7 +26,7 @@ export function mapGetNftsForOwnerResponse(collections: Collection[], owner: Use
         try {
           return mapNftResponse(collection, owner, response)
         } catch (err) {
-          logger.error(`error mapping NFT response from Alchemy ${JSON.stringify(response)}`)
+          pinoLogger.error(`error mapping NFT response from Alchemy ${JSON.stringify(response)}`)
           return undefined
         }
       }),
