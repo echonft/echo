@@ -1,3 +1,5 @@
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { ECHO_ABI } from '@echo/web3/constants/echo-abi'
 import { echoAddress } from '@echo/web3/constants/echo-address'
 import type { EchoAbi } from '@echo/web3/types/echo-abi'
@@ -17,13 +19,16 @@ export function listenToEchoTrades(
     onLogs: forEach((log: Log) => {
       if (isNotNil(log.transactionHash)) {
         const decodedLog = decodeEventLog({
-          abi,
+          abi: ECHO_ABI,
           eventName,
           data: log.data,
           topics: log.topics
         })
         void handler(decodedLog.args.id, log.transactionHash)
       }
-    })
+    }),
+    onError: (error) => {
+      pinoLogger.error(`error watching echo trades: ${errorMessage(error)}`)
+    }
   })
 }

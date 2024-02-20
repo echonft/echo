@@ -3,7 +3,10 @@ import { FirestoreFunctionsLogger } from '@echo/firestore-functions/services/fir
 import { validateOffers } from '@echo/tasks/offer/validate-offers'
 import { onSchedule } from 'firebase-functions/v2/scheduler'
 
-export const validateOffersScheduled = onSchedule(setMaxInstances({ schedule: 'every 1 hours' }), async () => {
-  const logger = new FirestoreFunctionsLogger()
-  await validateOffers(logger)
-})
+export const validateOffersScheduled = onSchedule(
+  setMaxInstances({ schedule: 'every 1 hours', timeoutSeconds: 540 }),
+  async () => {
+    const logger = new FirestoreFunctionsLogger()
+    await validateOffers(logger)
+  }
+)

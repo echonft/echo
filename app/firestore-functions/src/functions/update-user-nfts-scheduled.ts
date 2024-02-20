@@ -3,7 +3,10 @@ import { FirestoreFunctionsLogger } from '@echo/firestore-functions/services/fir
 import { updateUsersNfts } from '@echo/tasks/nft/update-users-nfts'
 import { onSchedule } from 'firebase-functions/v2/scheduler'
 
-export const updateUserNftsScheduled = onSchedule(setMaxInstances({ schedule: 'every 1 hours' }), async () => {
-  const logger = new FirestoreFunctionsLogger()
-  await updateUsersNfts(logger)
-})
+export const updateUserNftsScheduled = onSchedule(
+  setMaxInstances({ schedule: 'every 1 hours', timeoutSeconds: 540 }),
+  async () => {
+    const logger = new FirestoreFunctionsLogger()
+    await updateUsersNfts(logger)
+  }
+)
