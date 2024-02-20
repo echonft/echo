@@ -4,7 +4,9 @@ import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-sig
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import { OfferDetailsSwapExecuteModal } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-execute-modal'
 import { OfferDetailsContractApprovalModal } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
+import { ConnectWalletModal } from '@echo/ui/components/wallet/connect-wallet-modal'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { useAccount } from '@echo/ui/hooks/use-account'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
@@ -24,6 +26,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ offer, open, o
   const t = useTranslations('offer.details.swapModal')
   const { getOfferSignature } = useDependencies()
   const [approved, setApproved] = useState(false)
+  const { status } = useAccount()
   const { data: signatureResponse } = useSWR<
     OfferSignatureResponse,
     Error,
@@ -35,6 +38,10 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ offer, open, o
       })
     }
   })
+
+  if (status !== 'connected') {
+    return <ConnectWalletModal open={open} onClose={onClose} />
+  }
 
   if (approved) {
     return (
