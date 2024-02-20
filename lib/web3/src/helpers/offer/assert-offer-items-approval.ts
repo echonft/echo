@@ -3,10 +3,9 @@ import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferItem } from '@echo/model/types/offer-item'
 import { nftIsApproved } from '@echo/web3/helpers/nft/nft-is-approved'
-import type { OfferValidResult } from '@echo/web3/types/offer-valid-result'
 import { eqBy, map, path, pipe, prop, uniqWith } from 'ramda'
 
-export async function assertOfferItemsApproval(offer: Offer): Promise<OfferValidResult> {
+export async function assertOfferItemsApproval(offer: Offer): Promise<boolean> {
   if (offer.state === OFFER_STATE_ACCEPTED) {
     const nfts = pipe<[Offer], OfferItem[], Nft[], Nft[]>(
       prop('receiverItems'),
@@ -16,13 +15,10 @@ export async function assertOfferItemsApproval(offer: Offer): Promise<OfferValid
     for (const nft of nfts) {
       const approved = await nftIsApproved(nft)
       if (!approved) {
-        return {
-          offer,
-          error: `contract ${nft.collection.contract.address} was not approved for collection ${nft.collection.slug}`
-        }
+        return false
       }
     }
-    return { offer }
+    return true
   }
-  return { offer }
+  return true
 }

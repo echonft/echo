@@ -2,7 +2,7 @@ import { AlchemyRoutes } from '@echo/alchemy/constants/alchemy-routes'
 import { getAlchemyRoute } from '@echo/alchemy/helpers/get-alchemy-route'
 import { handleAlchemyPaging } from '@echo/alchemy/helpers/handle-alchemy-paging'
 import { mapGetNftsForOwnerResponse } from '@echo/alchemy/mappers/map-get-nfts-for-owner-response'
-import type { AlchemyRequestWithPaging } from '@echo/alchemy/types/request/alchemy-request-with-paging'
+import type { ArgsWithPaging } from '@echo/alchemy/types/request/args-with-paging'
 import type { GetNftsForOwnerRequest } from '@echo/alchemy/types/request/get-nfts-for-owner-request'
 import type { GetNftsForOwnerResponse } from '@echo/alchemy/types/response/get-nfts-for-owner-response'
 import type { Collection } from '@echo/model/types/collection'
@@ -15,12 +15,13 @@ import axios, { type AxiosResponse } from 'axios'
 import { stringify } from 'qs'
 import { head, map, partialRight, path, pipe, prop } from 'ramda'
 
-interface Args extends AlchemyRequestWithPaging {
+interface Args {
   collections: NonEmptyArray<Collection>
   owner: User
 }
-function fetchNftsForOwner(args: Args) {
-  const { collections, owner } = args
+
+function fetchNftsForOwner(args: ArgsWithPaging<Args>) {
+  const { collections, owner, pageKey } = args
   return axios
     .get<GetNftsForOwnerResponse, AxiosResponse<GetNftsForOwnerResponse>, GetNftsForOwnerRequest>(
       getAlchemyRoute(
@@ -31,7 +32,11 @@ function fetchNftsForOwner(args: Args) {
         )(collections)
       ),
       {
-        params: { owner: owner.wallet.address, contractAddresses: map(path(['contract', 'address']), collections) },
+        params: {
+          owner: owner.wallet.address,
+          contractAddresses: map(path(['contract', 'address']), collections),
+          pageKey
+        },
         paramsSerializer: partialRight(stringify, [{ arrayFormat: 'brackets' }])
       }
     )
@@ -42,7 +47,7 @@ function fetchNftsForOwner(args: Args) {
 // does not allow more than 45 addresses at a same time.
 export function getNftsForOwner(collections: Collection[], owner: User): Promise<Omit<Nft, 'id' | 'updatedAt'>[]> {
   if (isNonEmptyArray(collections)) {
-    return handleAlchemyPaging<Args, Omit<Nft, 'id' | 'updatedAt'>>(fetchNftsForOwner, {
+    return handleAlchemyPaging<Args, Omit<Nft, 'id' | 'updatedAt'>>(fetchNftsForOwner)({
       collections,
       owner
     })
