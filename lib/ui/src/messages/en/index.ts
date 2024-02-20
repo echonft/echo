@@ -336,6 +336,10 @@ export const messages = {
     button: {
       copied: 'Copied!',
       label: 'Connect'
+    },
+    modal: {
+      title: 'Oops! Wallet not connected',
+      subtitle: 'Looks like your wallet is not connected. Connect and sign with the button below'
     }
   }
 }
