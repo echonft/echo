@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import '@echo/ui-css/index.css'
 import { acceptOffer } from '@echo/storybook/mocks/accept-offer'
 import { addWallet } from '@echo/storybook/mocks/add-wallet'

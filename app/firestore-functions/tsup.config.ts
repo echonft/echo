@@ -1,5 +1,6 @@
 import { defineConfig, type Options } from 'tsup'
 
+// noinspection JSUnusedGlobalSymbols
 export default defineConfig((options: Options) => ({
   bundle: true,
   clean: true,

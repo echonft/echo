@@ -28,5 +28,5 @@
     "target": "es6",
     "verbatimModuleSyntax": true
   },
-  "exclude": [".eslintrc.js"]
+  "exclude": [".eslintrc.js", "prettier.config.js"]
 }
