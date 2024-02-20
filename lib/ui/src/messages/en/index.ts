@@ -338,8 +338,8 @@ export const messages = {
       label: 'Connect'
     },
     modal: {
-      title: 'Oops! Wallet is not connected',
-      subtitle: 'Looks like your wallet is not connected, connect and sign with the button below'
+      title: 'Oops! Wallet not connected',
+      subtitle: 'Looks like your wallet is not connected. Connect and sign with the button below'
     }
   }
 }
