@@ -75,7 +75,10 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
   })
   const { trigger: validateOfferTrigger } = useSWRTrigger<OfferResponse, ValidateOfferArgs>({
     key: SWRKeys.offer.validate(offer),
-    fetcher: validateOffer
+    fetcher: validateOffer,
+    onSuccess: (response) => {
+      onSuccess?.(assoc('role', offer.role, response.offer))
+    }
   })
   const loading = executeSwapMutating || getOfferSignatureMutating
 

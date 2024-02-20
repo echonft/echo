@@ -15,10 +15,12 @@ import { initializeFirebase } from '@echo/firestore/services/initialize-firebase
 import { guardAsyncFn } from '@echo/sentry/guard-async-fn'
 import { initializeSentry } from '@echo/sentry/initialize-sentry'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
+import { getDefaultViemClient } from '@echo/web3/helpers/viem/get-default-viem-client'
 import { listenToEchoTrades } from '@echo/web3/helpers/viem/listen-to-echo-trades'
 import { Events } from 'discord.js'
 import { isNil } from 'ramda'
 
+const viemClient = getDefaultViemClient()
 client.once(Events.ClientReady, async (_client) => {
   initializeSentry('https://3b3f89c8f90990e4b35f5e194d109300@o4506149604098048.ingest.sentry.io/4506185901932544')
   initializeFirebase()
@@ -27,6 +29,7 @@ client.once(Events.ClientReady, async (_client) => {
   listenToOffers((changeType, offer) => guardAsyncFn(offerChangeHandler)(changeType, offer))
   listenToOfferUpdates((changeType, update) => guardAsyncFn(offerUpdateChangeHandler)(changeType, update))
   listenToEchoTrades(
+    viemClient,
     guardAsyncFn(async function (offerId: string, transactionId: string) {
       pinoLogger.info(`trade executed: offer ${offerId} transaction ${transactionId}`)
       const offer = await findOfferById(offerId)
