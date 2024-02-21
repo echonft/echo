@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@echo/model/*": ["../model/src/*"],
+      "@echo/utils/*": ["../utils/src/*"],
+      "@echo/web3/*": ["../web3/src/*"],
+      "@echo/web3-dom/*": ["src/*"]
+    }
+  },
+  "include": ["src", "test"],
+  "exclude": ["node_modules"]
+}

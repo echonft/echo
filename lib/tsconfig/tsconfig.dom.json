@@ -1,11 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "DOM",
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "moduleResolution": "bundler",
     "lib": ["dom", "dom.iterable", "esnext"],
-    "jsx": "preserve",
-    "resolvePackageJsonExports": false
+    "jsx": "preserve"
   }
 }

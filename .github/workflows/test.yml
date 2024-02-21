@@ -39,6 +39,8 @@ jobs:
         run: pnpm exec turbo run test:ci --filter=@echo/utils
       - name: web3 tests
         run: pnpm exec turbo run test:ci --filter=@echo/web3
+      - name: web3-dom tests
+        run: pnpm exec turbo run test:ci --filter=@echo/web3-dom
       - name: Jest Coverage Comment
         uses: MishaKav/jest-coverage-comment@main
         with:
@@ -51,6 +53,7 @@ jobs:
             lib/ui, ./.coverage/lib/ui/coverage-summary.json                  
             lib/utils, ./.coverage/lib/utils/coverage-summary.json
             lib/web3, ./.coverage/lib/web3/coverage-summary.json
+            lib/web3-dom, ./.coverage/lib/web3-dom/coverage-summary.json
           multiple-junitxml-files: |
             app/bot, ./.coverage/app/bot/junit.xml
             app/frontend, ./.coverage/app/frontend/junit.xml
@@ -60,3 +63,4 @@ jobs:
             lib/ui, ./.coverage/lib/ui/junit.xml                  
             lib/utils, ./.coverage/lib/utils/junit.xml
             lib/web3, ./.coverage/lib/web3/junit.xml
+            lib/web3-dom, ./.coverage/lib/web3-dom/junit.xml

@@ -1,4 +1,4 @@
-import type { AccountStatus } from '@echo/web3/types/account-status'
+import type { AccountStatus } from '@echo/web3-dom/types/account-status'
 import { assoc } from 'ramda'
 import { create } from 'zustand'
 

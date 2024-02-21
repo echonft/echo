@@ -5,12 +5,12 @@ import {
 } from '@echo/firestore/constants/offer/offer-state-update-trigger-reasons'
 import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import type { Offer } from '@echo/model/types/offer'
-import type { LoggerInterface } from '@echo/tasks/types/logger-interface'
 import { errorMessage } from '@echo/utils/helpers/error-message'
+import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import { assertOfferValid } from '@echo/web3/helpers/offer/assert-offer-valid'
 
 export async function validateOffer(offer: Offer, logger?: LoggerInterface): Promise<Offer> {
-  const result = await assertOfferValid(offer)
+  const result = await assertOfferValid(offer, logger)
   if (result.valid) {
     return offer
   }

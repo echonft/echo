@@ -1,7 +1,7 @@
 import { getPendingOffersPaginated } from '@echo/firestore/crud/offer/get-pending-offers-paginated'
 import { PROMISE_POOL_CONCURRENCY } from '@echo/tasks/constants/promise-pool-concurrency'
 import { validateOffer } from '@echo/tasks/offer/validate-offer'
-import type { LoggerInterface } from '@echo/tasks/types/logger-interface'
+import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import { PromisePool } from '@supercharge/promise-pool'
 import dayjs from 'dayjs'
 import { inc } from 'ramda'

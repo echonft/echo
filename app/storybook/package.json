@@ -43,6 +43,7 @@
     "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
+    "@echo/web3-dom": "workspace:*",
     "@storybook/addon-actions": "7.6.16",
     "@storybook/addon-essentials": "7.6.16",
     "@storybook/addon-styling-webpack": "0.0.6",
