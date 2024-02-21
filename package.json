@@ -40,6 +40,7 @@
     "modules:update-minor": "ncu -u --deep --target=minor",
     "prepare": "husky install",
     "prettier": "turbo run prettier",
+    "prettier:ci": "turbo run prettier:ci",
     "storybook:dev": "turbo run dev --filter=@echo/storybook --filter=@echo/ui",
     "test": "turbo run test",
     "test:ci": "turbo run test:ci",
