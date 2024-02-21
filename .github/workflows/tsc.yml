@@ -44,3 +44,5 @@ jobs:
         run: pnpm exec turbo run tsc:ci --filter=@echo/utils
       - name: web3 tsc
         run: pnpm exec turbo run tsc:ci --filter=@echo/web3
+      - name: web3-dom tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/web3-dom

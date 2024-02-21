@@ -1,7 +1,7 @@
 'use client'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { isDev } from '@echo/utils/constants/is-dev'
-import { wagmiConfig } from '@echo/web3/constants/wagmi-config'
+import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ConnectKitProvider } from 'connectkit'
 import { type FunctionComponent, type PropsWithChildren, useMemo } from 'react'

@@ -1,9 +1,10 @@
 {
-  "extends": "../tsconfig/tsconfig.node.json",
+  "extends": "../tsconfig/tsconfig.base.json",
   "ts-node": {
     "require": ["tsconfig-paths/register"],
     "transpileOnly": true,
     "compilerOptions": {
+      "moduleResolution": "node",
       "module": "commonjs"
     }
   },

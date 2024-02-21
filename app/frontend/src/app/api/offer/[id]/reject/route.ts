@@ -1,4 +1,4 @@
-import { authAppRouteHandler } from '@echo/frontend/lib/request-handlers/auth-app-route-handler'
+import { authRouteHandler } from '@echo/frontend/lib/request-handlers/auth-route-handler'
 import { rejectOfferRequestHandler } from '@echo/frontend/lib/request-handlers/offer/reject-offer-request-handler'
 
-export const POST = authAppRouteHandler(rejectOfferRequestHandler)
+export const POST = authRouteHandler(rejectOfferRequestHandler)

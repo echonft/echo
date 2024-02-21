@@ -1,6 +1,6 @@
 import { removeOrphanNfts } from '@echo/tasks/nft/remove-orphan-nfts'
 import { updateUsersNfts } from '@echo/tasks/nft/update-users-nfts'
-import type { LoggerInterface } from '@echo/tasks/types/logger-interface'
+import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import dayjs from 'dayjs'
 
 export async function updateNfts(logger?: LoggerInterface) {

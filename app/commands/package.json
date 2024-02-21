@@ -10,6 +10,8 @@
     "command:add-collections:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/add-collections-command.ts",
     "command:add-collection-guild:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/add-collection-guild-command.ts",
     "command:add-collection-guild:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/add-collection-guild-command.ts",
+    "command:check-nft-approval:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/check-nft-approval-command.ts",
+    "command:check-nft-approval:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/check-nft-approval-command.ts",
     "command:clear-db:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/clear-db-command.ts",
     "command:clear-db:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/clear-db-command.ts",
     "command:update-nfts:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/update-nfts-command.ts",

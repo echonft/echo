@@ -12,7 +12,8 @@
       "@echo/ui/*": ["../../lib/ui/src/*"],
       "@echo/ui-css/*": ["../../lib/ui/dist/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
-      "@echo/web3/*": ["../../lib/web3/src/*"]
+      "@echo/web3/*": ["../../lib/web3/src/*"],
+      "@echo/web3-dom/*": ["../../lib/web3-dom/src/*"]
     }
   },
   "include": ["src", ".storybook/main.ts", ".storybook/preview.tsx", "../../env.d.ts"],

@@ -1,6 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Default",
   "compilerOptions": {
     "allowJs": true,
     "allowUnreachableCode": false,
@@ -12,7 +11,6 @@
     "incremental": false,
     "inlineSources": false,
     "isolatedModules": true,
-    "module": "esnext",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
@@ -21,11 +19,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "resolveJsonModule": true,
+    "resolvePackageJsonExports": false,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "strictNullChecks": true,
-    "target": "es6",
+    "target": "esnext",
     "verbatimModuleSyntax": true
   },
   "exclude": [".eslintrc.js", "prettier.config.js"]

@@ -44,3 +44,5 @@ jobs:
         run: pnpm exec turbo run prettier:ci --filter=@echo/utils
       - name: web3 prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/web3
+      - name: web3-dom prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/web3-dom

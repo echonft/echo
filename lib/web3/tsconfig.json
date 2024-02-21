@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig/tsconfig.node.json",
+  "extends": "../tsconfig/tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -9,6 +9,6 @@
       "@echo/web3/*": ["src/*"]
     }
   },
-  "include": ["src", "test", "../../env.d.ts"],
+  "include": ["src", "test"],
   "exclude": ["node_modules"]
 }

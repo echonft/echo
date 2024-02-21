@@ -1,7 +1,7 @@
 import { getUsersPaginated } from '@echo/firestore/crud/user/get-users-paginated'
 import { PROMISE_POOL_CONCURRENCY } from '@echo/tasks/constants/promise-pool-concurrency'
 import { updateUserNfts } from '@echo/tasks/nft/update-user-nfts'
-import type { LoggerInterface } from '@echo/tasks/types/logger-interface'
+import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import { PromisePool } from '@supercharge/promise-pool'
 import { inc } from 'ramda'
 

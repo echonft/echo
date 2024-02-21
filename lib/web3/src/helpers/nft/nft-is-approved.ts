@@ -1,12 +1,13 @@
 import type { Nft } from '@echo/model/types/nft'
+import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import { echoAddress } from '@echo/web3/constants/echo-address'
 import { formatAddress } from '@echo/web3/helpers/format-address'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
-import { getViemClient } from '@echo/web3/helpers/viem/get-viem-client'
+import { getViemClient } from '@echo/web3/helpers/get-viem-client'
 import { pipe } from 'ramda'
 import { erc721Abi } from 'viem'
 
-export async function nftIsApproved(nft: Nft): Promise<boolean> {
+export async function nftIsApproved(nft: Nft, logger?: LoggerInterface): Promise<boolean> {
   const {
     collection: { contract },
     owner: { wallet }
@@ -16,10 +17,16 @@ export async function nftIsApproved(nft: Nft): Promise<boolean> {
     return false
   }
   const client = pipe(getChainById, getViemClient)(chainId)
-  return client.readContract({
+  const approved = await client.readContract({
     abi: erc721Abi,
     functionName: 'isApprovedForAll',
     address: formatAddress(contract),
     args: [formatAddress(wallet), echoAddress]
   })
+  if (!approved) {
+    logger?.warn(
+      `${wallet.address} has not approved echo contract for collection ${nft.collection.slug} (${nft.collection.contract.address})`
+    )
+  }
+  return approved
 }

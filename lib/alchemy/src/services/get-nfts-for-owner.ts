@@ -1,5 +1,5 @@
-import { AlchemyRoutes } from '@echo/alchemy/constants/alchemy-routes'
-import { getAlchemyRoute } from '@echo/alchemy/helpers/get-alchemy-route'
+import { NftApiRoutes } from '@echo/alchemy/constants/nft-api-routes'
+import { getNftApiRoute } from '@echo/alchemy/helpers/get-nft-api-route'
 import { handleAlchemyPaging } from '@echo/alchemy/helpers/handle-alchemy-paging'
 import { mapGetNftsForOwnerResponse } from '@echo/alchemy/mappers/map-get-nfts-for-owner-response'
 import type { ArgsWithPaging } from '@echo/alchemy/types/request/args-with-paging'
@@ -24,8 +24,8 @@ function fetchNftsForOwner(args: ArgsWithPaging<Args>) {
   const { collections, owner, pageKey } = args
   return axios
     .get<GetNftsForOwnerResponse, AxiosResponse<GetNftsForOwnerResponse>, GetNftsForOwnerRequest>(
-      getAlchemyRoute(
-        AlchemyRoutes.GET_NFTS_FOR_OWNER,
+      getNftApiRoute(
+        NftApiRoutes.GET_NFTS_FOR_OWNER,
         pipe<[NonEmptyArray<Collection>], Collection, number>(
           head,
           nonNullableReturn(path(['contract', 'chainId']))

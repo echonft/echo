@@ -5,6 +5,7 @@ declare namespace NodeJS {
     env: {
       ADMIN_TOKEN: string
       ALCHEMY_API_KEY: string
+      ALCHEMY_AUTH_TOKEN: string
       APP_URL: string
       CI: string
       DISCORD_CLIENT_TOKEN: string
@@ -16,7 +17,6 @@ declare namespace NodeJS {
       FIREBASE_CLIENT_EMAIL: string
       FIREBASE_PRIVATE_KEY: string
       GOOGLE_STORAGE_BUCKET: string
-      NEXT_PUBLIC_ALCHEMY_KEY: string
       NEXT_PUBLIC_CHAIN_ID: string
       NEXT_PUBLIC_PRODUCTION_URL: string
       NEXT_PUBLIC_VERCEL_ENV: string | undefined
