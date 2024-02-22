@@ -17,7 +17,7 @@ async function render({ params: { slug }, user }: Params) {
   if (isNil(collection)) {
     notFound()
   }
-  const nfts = await getNftsForCollection(slug)
+  const nfts = await getNftsForCollection(slug, { excludeDiscordUsername: user?.discord.username })
   return (
     <CollectionNavigationLayout slug={slug} activeNavigationItem={NAVIGATION_NFTS}>
       <CollectionNfts collection={collection} nfts={nfts} user={user} />

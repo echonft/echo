@@ -10,8 +10,12 @@ interface Props extends Omit<CardLayoutProps, 'className'> {
 
 export const SelectableNftCardLayout: FunctionComponent<Props> = ({ nft, onClick, ...rest }) => {
   const { selected, disabled, selectionDisabled } = nft
+  const isSelectable = !disabled && !selectionDisabled
   return (
-    <div className={classes('w-max', 'h-max', !disabled && !selectionDisabled && 'cursor-pointer')} onClick={onClick}>
+    <div
+      className={classes('w-max', 'h-max', isSelectable && 'cursor-pointer')}
+      onClick={isSelectable ? onClick : undefined}
+    >
       <CardLayout className={classes(selected && 'border-yellow-500')} disabled={disabled} {...rest} />
     </div>
   )
