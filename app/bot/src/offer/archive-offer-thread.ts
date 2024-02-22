@@ -1,3 +1,4 @@
+import { ARCHIVE_THREAD_DELAY } from '@echo/bot/constants/archive-thread-delay'
 import { deleteThread } from '@echo/bot/helpers/delete-thread'
 import { getThreadOnEchoChannel } from '@echo/bot/helpers/get-thread-on-echo-channel'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
@@ -13,7 +14,7 @@ export async function archiveOfferThread(offerThread: OfferThread) {
     await sendToThread(thread, {
       content: i18next.t('offer.thread.close')
     })
-    await delayPromise(deleteThread(thread), 60000)
+    await delayPromise(deleteThread, ARCHIVE_THREAD_DELAY)(thread)
     await firestoreArchiveOfferThread(offerThread.id)
   }
 }

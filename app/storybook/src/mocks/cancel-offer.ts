@@ -3,18 +3,22 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { toPromise } from '@echo/utils/fp/to-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
-import { assoc, pipe } from 'ramda'
+import { applySpec, assoc, pipe } from 'ramda'
 
 export function cancelOffer(_args: CancelOfferArgs): Promise<OfferResponse> {
   return delayPromise(
-    Promise.resolve({
-      offer: pipe<[string], Offer, Offer, Offer>(
-        getOfferMockById,
-        assoc('state', OFFER_STATE_CANCELLED),
-        assoc('readOnly', true)
-      )('LyCfl6Eg7JKuD7XJ6IPi')
-    }),
+    pipe<[string], OfferResponse, Promise<OfferResponse>>(
+      applySpec<OfferResponse>({
+        offer: pipe<[string], Offer, Offer, Offer>(
+          getOfferMockById,
+          assoc('state', OFFER_STATE_CANCELLED),
+          assoc('readOnly', true)
+        )
+      }),
+      toPromise
+    ),
     800
-  )
+  )('LyCfl6Eg7JKuD7XJ6IPi')
 }

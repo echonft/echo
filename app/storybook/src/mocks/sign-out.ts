@@ -1,4 +1,5 @@
 import { authUserStore } from '@echo/storybook/mocks/stores/auth-user-store'
+import { toPromise } from '@echo/utils/fp/to-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { SignOutParams } from 'next-auth/react'
 
@@ -6,5 +7,5 @@ export function signOut(_options: SignOutParams<true> | undefined): Promise<unde
   setTimeout(() => {
     authUserStore.getState().signOut()
   }, 780)
-  return delayPromise(Promise.resolve(undefined), 800)
+  return delayPromise(toPromise, 800)(undefined)
 }
