@@ -322,7 +322,7 @@ export const themeExtension = {
     'label-sm-semi': [
       '0.875rem',
       {
-        lineHeight: '22px',
+        lineHeight: '1.375rem',
         fontWeight: 600,
         letterSpacing: '0.02em'
       }
@@ -330,7 +330,7 @@ export const themeExtension = {
     'label-sm': [
       '0.875rem',
       {
-        lineHeight: '22px',
+        lineHeight: '1.375rem',
         fontWeight: 500,
         letterSpacing: '0.02em'
       }
@@ -338,7 +338,7 @@ export const themeExtension = {
     'label-sm-light': [
       '0.875rem',
       {
-        lineHeight: '22px',
+        lineHeight: '1.375rem',
         fontWeight: 400,
         letterSpacing: '0.02em'
       }
