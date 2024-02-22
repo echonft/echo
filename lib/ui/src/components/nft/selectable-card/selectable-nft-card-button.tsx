@@ -33,35 +33,13 @@ export const SelectableNftCardButton: FunctionComponent<Props> = ({ nft, onClick
         )}
         onClick={onClick}
       >
-        <span
-          className={classes(
-            'font-inter',
-            'text-[0.875rem]',
-            'font-medium',
-            'leading-[0.9375rem]',
-            'tracking-[0.0175rem]',
-            'text-yellow-500'
-          )}
-        >
-          {t(action)}
-        </span>
+        <span className={classes('prose-label-sm', 'text-yellow-500')}>{t(action)}</span>
       </button>
     )
   }
   return (
     <div className={classes('w-full', 'h-max', 'px-2.75', 'pt-2.5', 'pb-2.75', 'invisible')}>
-      <span
-        className={classes(
-          'font-inter',
-          'text-[0.875rem]',
-          'font-medium',
-          'leading-[0.9375rem]',
-          'tracking-[0.0175rem]',
-          'invisible'
-        )}
-      >
-        {'Placeholder'}
-      </span>
+      <span className={classes('prose-label-sm', 'invisible')}>{'Placeholder'}</span>
     </div>
   )
 }
