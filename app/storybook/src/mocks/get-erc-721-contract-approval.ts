@@ -1,8 +1,9 @@
 import { contractApprovalStore } from '@echo/storybook/mocks/stores/contract-approval-store'
+import { toPromise } from '@echo/utils/fp/to-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/types/get-erc-721-contract-approval-args'
+import { pipe, prop } from 'ramda'
 
 export function getErc721ContractApproval(_args: GetErc721ContractApprovalArgs): Promise<boolean> {
-  const approved = contractApprovalStore.getState().approved
-  return delayPromise(Promise.resolve(approved), 800)
+  return delayPromise(pipe(prop('approved'), toPromise), 800)(contractApprovalStore.getState())
 }

@@ -1,3 +1,17 @@
-export function delayPromise<T>(promise: Promise<T>, delayMs = 2000): Promise<T> {
-  return new Promise((resolve) => setTimeout(() => resolve(promise), delayMs))
+function delay(milliseconds: number): Promise<void> {
+  return new Promise<void>((resolve, _reject) => {
+    setTimeout(() => {
+      resolve()
+    }, milliseconds)
+  })
+}
+
+export function delayPromise<TArgs extends unknown[], TResult>(
+  fn: (...args: TArgs) => Promise<TResult>,
+  milliseconds = 2000
+): (...args: TArgs) => Promise<TResult> {
+  return async function (...args: TArgs): Promise<TResult> {
+    await delay(milliseconds)
+    return await fn(...args)
+  }
 }
