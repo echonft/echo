@@ -1,75 +1,46 @@
 'use client'
-import { type AuthUser } from '@echo/model/types/auth-user'
-import type { Collection } from '@echo/model/types/collection'
 import { type Nft } from '@echo/model/types/nft'
-import { SelectableNftsAndFiltersContainer } from '@echo/ui/components/nft/filters/layout/selectable-nfts-and-filters-container'
-import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
-import { NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
-import { setSelectableNftActionDisabledPropFromAuthUser } from '@echo/ui/helpers/nft/set-selectable-nft-action-disabled-prop-from-auth-user'
-import { setSelectableNftSelectionDisabledPropFromAuthUser } from '@echo/ui/helpers/nft/set-selectable-nft-selection-disabled-prop-from-auth-user'
-import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
-import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
-import { mapNftToItem } from '@echo/ui/mappers/to-api/map-nft-to-item'
+import { CollectionCreateListingButton } from '@echo/ui/components/collection/nfts/collection-create-offer-button'
+import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
+import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
+import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
+import { SelectableNftGroups } from '@echo/ui/components/nft/group/selectable-nft-groups'
 import { CollectionNftsEmpty } from '@echo/ui/pages/collection/nfts/collection-nfts-empty'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
-import type { Nullable } from '@echo/utils/types/nullable'
-import { useTranslations } from 'next-intl'
-import { assoc, isEmpty, map, pipe } from 'ramda'
-import { type FunctionComponent, useMemo } from 'react'
+import { isEmpty } from 'ramda'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  collection: Collection
   nfts: Nft[]
-  user: Nullable<AuthUser>
 }
 
-export const CollectionNfts: FunctionComponent<Props> = ({ collection, nfts, user }) => {
-  const t = useTranslations('collection')
-  const { hasNewOfferPending, openModal: openNewOfferModal, setReceiverItems } = useNewOfferStore()
-  const { openModal: openNewListingModal, setTarget } = useNewListingStore()
-  const selectableNfts = useMemo(() => {
-    if (hasNewOfferPending) {
-      return map<Nft, SelectableNft>(
-        pipe<[Nft], SelectableNft, SelectableNft>(
-          assoc('actionDisabled', true),
-          setSelectableNftSelectionDisabledPropFromAuthUser(user)
-        ),
-        nfts
-      )
-    }
-    return map<Nft, SelectableNft>(
-      pipe<[Nft], SelectableNft, SelectableNft, SelectableNft>(
-        assoc('action', NFT_ACTION_OFFER),
-        setSelectableNftSelectionDisabledPropFromAuthUser(user),
-        setSelectableNftActionDisabledPropFromAuthUser(user)
-      ),
-      nfts
-    )
-  }, [nfts, user, hasNewOfferPending])
-  const onMakeOffer = (nfts: SelectableNft[]) => {
-    if (isNonEmptyArray(nfts)) {
-      setReceiverItems(map(mapNftToItem, nfts))
-      openNewOfferModal()
-    }
-  }
-  const onMakeListing = () => {
-    setTarget({ collection, amount: 1 })
-    openNewListingModal()
+export const CollectionNfts: FunctionComponent<Props> = ({ nfts }) => {
+  const [filteredNfts, setFilteredNfts] = useState(nfts)
+  const [selection, setSelection] = useState<SelectableNft[]>([])
+
+  const onCreateOffer = (_nft?: SelectableNft) => {
+    // if (isNonEmptyArray(nfts)) {
+    //   setReceiverItems(map(mapNftToItem, nfts))
+    //   openNewOfferModal()
+    // }
   }
 
   if (isEmpty(nfts)) {
     return <CollectionNftsEmpty />
   }
+
   return (
-    <SelectableNftsAndFiltersContainer
-      nfts={selectableNfts}
-      availableFilters={[NFT_FILTER_TRAITS]}
-      emptyBtnLabel={t('button.createListing')}
-      btnLabel={t('button.createOffer')}
-      user={user}
-      onButtonClick={onMakeOffer}
-      onEmptyButtonClick={onMakeListing}
-    />
+    <NftsAndFiltersLayout>
+      <NftFiltersPanelsLayout>
+        <CollectionCreateListingButton
+          count={selection.length}
+          onClick={() => {
+            onCreateOffer()
+          }}
+        />
+        <TraitFilterPanel nfts={nfts} onNftsFiltered={setFilteredNfts} />
+      </NftFiltersPanelsLayout>
+      <SelectableNftGroups nfts={filteredNfts} onAction={onCreateOffer} onSelectionUpdate={setSelection} />
+    </NftsAndFiltersLayout>
   )
 }

@@ -1,4 +1,4 @@
-import { isSelected } from '@echo/ui/helpers/selection/is-selected'
+import { isSelected } from '@echo/ui/helpers/selectable/is-selected'
 import { type Selectable } from '@echo/ui/types/selectable'
 import { count } from 'ramda'
 

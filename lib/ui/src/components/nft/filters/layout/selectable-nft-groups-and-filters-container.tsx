@@ -11,21 +11,20 @@ import { disableAction } from '@echo/ui/helpers/nft/disable-action'
 import { enableAction } from '@echo/ui/helpers/nft/enable-action'
 import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/get-collection-filters-for-nfts'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
-import { groupNftsByCollection } from '@echo/ui/helpers/nft/group-nfts-by-collection'
+import { getGroupsSelection } from '@echo/ui/helpers/nft/group/get-groups-selection'
+import { getGroupsSelectionCount } from '@echo/ui/helpers/nft/group/get-groups-selection-count'
+import { groupNftsByCollection } from '@echo/ui/helpers/nft/group/group-nfts-by-collection'
+import { toggleSelectionInGroup } from '@echo/ui/helpers/nft/group/toggle-selection-for-nft-in-group'
+import { unselectNftGroupsFromItems } from '@echo/ui/helpers/nft/group/unselect-nfts-group-from-items'
 import { setSelectableNftDisabledPropFromCollectionFilter } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-collection-filter'
-import { setSelectableNftDisabledPropFromTraitFilters } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-trait-filters'
-import { unselectNftGroupsFromItems } from '@echo/ui/helpers/nft/unselect-nfts-group-from-items'
-import { getGroupsSelection } from '@echo/ui/helpers/selection/get-groups-selection'
-import { getGroupsSelectionCount } from '@echo/ui/helpers/selection/get-groups-selection-count'
-import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
-import { removeSelectionWhenDisabled } from '@echo/ui/helpers/selection/remove-selection-when-disabled'
-import { toggleSelectionInGroup } from '@echo/ui/helpers/selection/toggle-selection-in-group'
-import { toggleSelectionInList } from '@echo/ui/helpers/selection/toggle-selection-in-list'
+import { getSelectionCount } from '@echo/ui/helpers/selectable/get-selection-count'
+import { removeSelectionWhenDisabled } from '@echo/ui/helpers/selectable/remove-selection-when-disabled'
+import { toggleSelectionInList } from '@echo/ui/helpers/selectable/toggle-selection-in-list'
 import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
-import { type Group } from '@echo/ui/types/group'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
+import { type NftGroup } from '@echo/ui/types/nft-group'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { find, includes, isNil, lt, map, modify, pipe, prop, propEq, unless } from 'ramda'
@@ -46,7 +45,7 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
   hideOwner,
   onButtonClick
 }) => {
-  const [groups, setGroups] = useState<Group<SelectableNft>[]>(groupNftsByCollection(nfts))
+  const [groups, setGroups] = useState<NftGroup<SelectableNft>[]>(groupNftsByCollection(nfts))
   const { senderItems } = useNewOfferStore()
   const { items } = useNewListingStore()
   // Reset state when offer changes
@@ -96,10 +95,10 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
       } else {
         // if one group has a selection, disable all the items of the other groups
         setGroups(
-          map<Group<SelectableNft>, Group<SelectableNft>>(
+          map<NftGroup<SelectableNft>, NftGroup<SelectableNft>>(
             pipe(
               modify('items', map(disableAction)),
-              unless<Group<SelectableNft>, Group<SelectableNft>>(
+              unless<NftGroup<SelectableNft>, NftGroup<SelectableNft>>(
                 propEq(selectedGroup.id, 'id'),
                 modify('items', map(disable<SelectableNft>))
               )

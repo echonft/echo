@@ -1,6 +1,6 @@
 import type { OfferItem } from '@echo/model/types/offer-item'
-import { unselectNftGroupsFromItems } from '@echo/ui/helpers/nft/unselect-nfts-group-from-items'
-import type { Group } from '@echo/ui/types/group'
+import { unselectNftGroupsFromItems } from '@echo/ui/helpers/nft/group/unselect-nfts-group-from-items'
+import type { NftGroup } from '@echo/ui/types/nft-group'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { describe, expect, it } from '@jest/globals'
 
@@ -21,7 +21,7 @@ describe('helpers - nft - unselectNftGroupsFromItems', () => {
     selected: true
   } as unknown as SelectableNft
   it('should deselect (partly) nfts that are not in the items', () => {
-    const nftGroups: Group<SelectableNft>[] = [
+    const nftGroups: NftGroup<SelectableNft>[] = [
       {
         id: 'group1',
         name: 'Group 1',
@@ -47,7 +47,7 @@ describe('helpers - nft - unselectNftGroupsFromItems', () => {
   })
 
   it('should deselect all nfts if no offer items are provided', () => {
-    const nftGroups: Group<SelectableNft>[] = [
+    const nftGroups: NftGroup<SelectableNft>[] = [
       {
         id: 'group1',
         name: 'Group 1',
@@ -70,7 +70,7 @@ describe('helpers - nft - unselectNftGroupsFromItems', () => {
   })
 
   it('should not modify the original nfts array if all items are selected', () => {
-    const nftGroups: Group<SelectableNft>[] = [
+    const nftGroups: NftGroup<SelectableNft>[] = [
       {
         id: 'group1',
         name: 'Group 1',

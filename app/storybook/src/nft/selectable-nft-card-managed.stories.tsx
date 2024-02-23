@@ -13,8 +13,9 @@ import { assoc, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 import { useMemo, useState } from 'react'
 
-interface Args extends Omit<SelectableNftCardProps, 'nft' | 'onToggleSelection'> {
+interface Args extends Pick<SelectableNftCardProps, 'onToggleSelection' | 'onAction'> {
   disabled: boolean
+  hideOwner: boolean
 }
 type ComponentType = FunctionComponent<Args>
 const metadata: Meta<ComponentType> = {
@@ -58,7 +59,7 @@ export const Managed: StoryObj<ComponentType> = {
     return (
       <SelectableNftCard
         nft={nft}
-        hideOwner={hideOwner}
+        options={{ owner: { hide: hideOwner } }}
         onAction={onAction}
         onToggleSelection={(nft) => {
           setSelected(!nft.selected)

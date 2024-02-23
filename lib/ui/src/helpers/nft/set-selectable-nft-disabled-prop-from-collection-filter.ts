@@ -1,5 +1,5 @@
 import { disable } from '@echo/ui/helpers/disableable/disable'
-import { getSelection } from '@echo/ui/helpers/selection/get-selection'
+import { getSelectionInList } from '@echo/ui/helpers/selectable/get-selection-in-list'
 import type { CollectionFilter } from '@echo/ui/types/collection-filter'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isIn } from '@echo/utils/fp/is-in'
@@ -8,7 +8,7 @@ import { isEmpty, isNil, map, path, pipe, prop, unless } from 'ramda'
 
 function internalFn(collectionFilters: CollectionFilter[]) {
   return function (nft: SelectableNft) {
-    const selectedFilters = getSelection(collectionFilters)
+    const selectedFilters = getSelectionInList(collectionFilters)
     if (isEmpty(selectedFilters)) {
       return nft
     }

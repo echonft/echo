@@ -1,6 +1,6 @@
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { classes } from '@echo/ui/helpers/classes'
-import { isSelected } from '@echo/ui/helpers/selection/is-selected'
+import { isSelected } from '@echo/ui/helpers/selectable/is-selected'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { type FunctionComponent } from 'react'
 

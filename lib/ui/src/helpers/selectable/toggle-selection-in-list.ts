@@ -1,9 +1,9 @@
-import { toggleSelection } from '@echo/ui/helpers/selection/toggle-selection'
+import { toggleSelection } from '@echo/ui/helpers/selectable/toggle-selection'
 import { type Selectable } from '@echo/ui/types/selectable'
 import { isNil, map, when } from 'ramda'
 
 function internalFn<T extends Selectable>(comparator: (obj: T) => boolean) {
-  return function (list: T[]) {
+  return function (list: T[]): T[] {
     return map(when(comparator, toggleSelection), list)
   }
 }

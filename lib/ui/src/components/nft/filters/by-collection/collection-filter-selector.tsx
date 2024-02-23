@@ -1,6 +1,6 @@
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { classes } from '@echo/ui/helpers/classes'
-import { isSelected } from '@echo/ui/helpers/selection/is-selected'
+import { isSelected } from '@echo/ui/helpers/selectable/is-selected'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { type FunctionComponent } from 'react'
 

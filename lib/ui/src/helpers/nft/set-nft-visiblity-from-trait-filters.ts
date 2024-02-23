@@ -1,30 +1,30 @@
 import type { NftAttribute } from '@echo/model/types/nft-attribute'
-import { disable } from '@echo/ui/helpers/disableable/disable'
-import { getSelection } from '@echo/ui/helpers/selection/get-selection'
+import { getSelectionInList } from '@echo/ui/helpers/selectable/get-selection-in-list'
+import { hide } from '@echo/ui/helpers/visibility/hide'
+import { show } from '@echo/ui/helpers/visibility/show'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import type { TraitFilter } from '@echo/ui/types/trait-filter'
 import { intersects } from '@echo/utils/fp/intersects'
-import { isEmpty, isNil, map, pick, pipe, prop, unless } from 'ramda'
+import { ifElse, isEmpty, isNil, map, pick, pipe, prop } from 'ramda'
 
 function internalFn(filters: TraitFilter[]) {
   return function (nft: SelectableNft) {
-    const selectedFilters = getSelection(filters)
+    const selectedFilters = getSelectionInList(filters)
     if (isEmpty(selectedFilters)) {
       return nft
     }
     const attributes = map(pick(['trait', 'value']), selectedFilters)
-    return unless(
+    return ifElse(
       pipe<[SelectableNft], NftAttribute[], boolean>(prop('attributes'), intersects(attributes)),
-      disable
+      show,
+      hide
     )(nft)
   }
 }
 
-export function setSelectableNftDisabledPropFromTraitFilters(filters: TraitFilter[], nft: SelectableNft): SelectableNft
-export function setSelectableNftDisabledPropFromTraitFilters(
-  filters: TraitFilter[]
-): (nft: SelectableNft) => SelectableNft
-export function setSelectableNftDisabledPropFromTraitFilters(
+export function setNftVisiblityFromTraitFilters(filters: TraitFilter[], nft: SelectableNft): SelectableNft
+export function setNftVisiblityFromTraitFilters(filters: TraitFilter[]): (nft: SelectableNft) => SelectableNft
+export function setNftVisiblityFromTraitFilters(
   filters: TraitFilter[],
   nft?: SelectableNft
 ): ((nft: SelectableNft) => SelectableNft) | SelectableNft {

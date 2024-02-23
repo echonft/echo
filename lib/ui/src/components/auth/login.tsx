@@ -31,7 +31,7 @@ export const Login: FunctionComponent<Props> = ({ user, onFinish, onWalletButton
   return (
     <div className={classes('flex', 'flex-col', 'pt-40', 'gap-12', 'items-center', 'w-1/2')}>
       <LoginStepIndicator step={indicatorStep} />
-      <div className={classes('transition-opacity', 'duration-300', 'ease-in-out', show ? 'opacity-100' : 'opacity-0')}>
+      <div className={classes('transition-opacity', 'ease-in-out', show ? 'opacity-100' : 'opacity-0')}>
         <LoginStep
           step={step}
           user={user}

@@ -1,7 +1,7 @@
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { CollectionFilterPanelSkeleton } from '@echo/ui/components/nft/filters/by-collection/skeleton/collection-filter-panel-skeleton'
 import { TraitFilterPanelSkeleton } from '@echo/ui/components/nft/filters/by-traits/skeleton/trait-filter-panel-skeleton'
-import { NftFiltersPanelContainerLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panel-container-layout'
+import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
 import { NftsFiltersContainerButtonSkeleton } from '@echo/ui/components/nft/filters/layout/skeleton/nfts-filters-container-button-skeleton'
 import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
 import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
@@ -17,7 +17,7 @@ export const NftFiltersContainerSkeleton: FunctionComponent<Props> = ({ availabl
   const includeCollectionFilter = includes(NFT_FILTER_COLLECTIONS, availableFilters)
 
   return (
-    <NftFiltersPanelContainerLayout>
+    <NftFiltersPanelsLayout>
       <NftsFiltersContainerButtonSkeleton />
       <ShowIf condition={includeCollectionFilter}>
         <CollectionFilterPanelSkeleton />
@@ -25,6 +25,6 @@ export const NftFiltersContainerSkeleton: FunctionComponent<Props> = ({ availabl
       <ShowIf condition={includeTraitFilter}>
         <TraitFilterPanelSkeleton />
       </ShowIf>
-    </NftFiltersPanelContainerLayout>
+    </NftFiltersPanelsLayout>
   )
 }

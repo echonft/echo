@@ -1,6 +1,6 @@
 import { isDisabled } from '@echo/ui/helpers/disableable/is-disabled'
-import { isSelected } from '@echo/ui/helpers/selection/is-selected'
-import { toggleSelection } from '@echo/ui/helpers/selection/toggle-selection'
+import { isSelected } from '@echo/ui/helpers/selectable/is-selected'
+import { toggleSelection } from '@echo/ui/helpers/selectable/toggle-selection'
 import type { Disableable } from '@echo/ui/types/disableable'
 import type { Selectable } from '@echo/ui/types/selectable'
 

@@ -2,8 +2,10 @@
 
 import type { Nft } from '@echo/model/types/nft'
 import { getNftMock } from '@echo/model-mocks/nft/get-nft-mock'
-import type { SelectableNftCardProps } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
-import { SelectableNftCard } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
+import {
+  SelectableNftCard,
+  type SelectableNftCardProps
+} from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -11,10 +13,11 @@ import { assoc, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 import { useMemo } from 'react'
 
-interface Args extends Omit<SelectableNftCardProps, 'nft'> {
+interface Args extends Pick<SelectableNftCardProps, 'onToggleSelection' | 'onAction'> {
   selectionDisabled: boolean
   selected: boolean
   disabled: boolean
+  hideOwner: boolean
 }
 type ComponentType = FunctionComponent<Args>
 const metadata: Meta<ComponentType> = {
@@ -69,7 +72,12 @@ export const Default: StoryObj<ComponentType> = {
       [selectionDisabled, selected, disabled]
     )
     return (
-      <SelectableNftCard nft={nft} hideOwner={hideOwner} onToggleSelection={onToggleSelection} onAction={onAction} />
+      <SelectableNftCard
+        nft={nft}
+        options={{ owner: { hide: hideOwner } }}
+        onToggleSelection={onToggleSelection}
+        onAction={onAction}
+      />
     )
   }
 }

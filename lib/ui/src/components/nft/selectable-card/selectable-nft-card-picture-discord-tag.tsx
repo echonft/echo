@@ -1,15 +1,13 @@
 import { CardDiscordTag } from '@echo/ui/components/base/card/card-discord-tag'
+import type { SelectableNftCardProps } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import { classes } from '@echo/ui/helpers/classes'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { type FunctionComponent } from 'react'
 
-interface Props {
-  nft: SelectableNft
-  hideOwner?: boolean
-}
-
-export const SelectableNftCardPictureDiscordTag: FunctionComponent<Props> = ({ nft, hideOwner }) => {
-  if (hideOwner) {
+export const SelectableNftCardPictureDiscordTag: FunctionComponent<Pick<SelectableNftCardProps, 'nft' | 'options'>> = ({
+  nft,
+  options
+}) => {
+  if (options?.owner?.hide) {
     return null
   }
   return (

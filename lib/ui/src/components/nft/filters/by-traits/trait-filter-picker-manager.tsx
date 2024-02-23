@@ -1,6 +1,6 @@
 'use client'
 import { TraitFilterPicker } from '@echo/ui/components/nft/filters/by-traits/trait-filter-picker'
-import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
+import { getSelectionCount } from '@echo/ui/helpers/selectable/get-selection-count'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { type FunctionComponent, useMemo, useState } from 'react'
 
@@ -12,8 +12,6 @@ interface Props {
 
 export const TraitFilterPickerManager: FunctionComponent<Props> = ({ trait, filters, onToggleSelection }) => {
   const [collapsed, setCollapsed] = useState(false)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const selectionCount = useMemo(() => getSelectionCount(filters), [filters])
   return (
     <TraitFilterPicker
