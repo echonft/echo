@@ -21,13 +21,13 @@ describe('helpers - nft - unselectNftGroupsFromItems', () => {
     selected: true
   } as unknown as SelectableNft
   it('should deselect (partly) nfts that are not in the items', () => {
-    const nftGroups: NftGroup<SelectableNft>[] = [
+    const nftGroups: NftGroup[] = [
       {
         id: 'group1',
-        name: 'Group 1',
-        items: [nft1, nft2]
+        label: 'Group 1',
+        nfts: [nft1, nft2]
       },
-      { id: 'group1', name: 'Group 2', items: [nft3] }
+      { id: 'group1', label: 'Group 2', nfts: [nft3] }
     ]
     const offerItems: OfferItem[] = [
       {
@@ -41,26 +41,26 @@ describe('helpers - nft - unselectNftGroupsFromItems', () => {
     ]
     const newNftGroups = unselectNftGroupsFromItems(nftGroups, offerItems)
     expect(newNftGroups.length).toEqual(nftGroups.length)
-    expect(newNftGroups[0]!.items[0]!.selected).toBeTruthy()
-    expect(newNftGroups[0]!.items[1]!.selected).toBeTruthy()
-    expect(newNftGroups[1]!.items[0]!.selected).toBeUndefined()
+    expect(newNftGroups[0]!.nfts[0]!.selected).toBeTruthy()
+    expect(newNftGroups[0]!.nfts[1]!.selected).toBeTruthy()
+    expect(newNftGroups[1]!.nfts[0]!.selected).toBeUndefined()
   })
 
   it('should deselect all nfts if no offer items are provided', () => {
-    const nftGroups: NftGroup<SelectableNft>[] = [
+    const nftGroups: NftGroup[] = [
       {
         id: 'group1',
-        name: 'Group 1',
-        items: [nft1, nft2]
+        label: 'Group 1',
+        nfts: [nft1, nft2]
       },
-      { id: 'group1', name: 'Group 2', items: [nft3] }
+      { id: 'group1', label: 'Group 2', nfts: [nft3] }
     ]
     const offerItems: OfferItem[] = []
     const newNftGroups = unselectNftGroupsFromItems(nftGroups, offerItems)
     expect(newNftGroups.length).toEqual(nftGroups.length)
-    expect(newNftGroups[0]!.items[0]!.selected).toBeUndefined()
-    expect(newNftGroups[0]!.items[1]!.selected).toBeUndefined()
-    expect(newNftGroups[1]!.items[0]!.selected).toBeUndefined()
+    expect(newNftGroups[0]!.nfts[0]!.selected).toBeUndefined()
+    expect(newNftGroups[0]!.nfts[1]!.selected).toBeUndefined()
+    expect(newNftGroups[1]!.nfts[0]!.selected).toBeUndefined()
   })
 
   it('should return an empty array if no nfts are provided', () => {
@@ -70,13 +70,13 @@ describe('helpers - nft - unselectNftGroupsFromItems', () => {
   })
 
   it('should not modify the original nfts array if all items are selected', () => {
-    const nftGroups: NftGroup<SelectableNft>[] = [
+    const nftGroups: NftGroup[] = [
       {
         id: 'group1',
-        name: 'Group 1',
-        items: [nft1, nft2]
+        label: 'Group 1',
+        nfts: [nft1, nft2]
       },
-      { id: 'group1', name: 'Group 2', items: [nft3] }
+      { id: 'group1', label: 'Group 2', nfts: [nft3] }
     ]
     const offerItems: OfferItem[] = [
       { amount: 1, nft: nft1 },

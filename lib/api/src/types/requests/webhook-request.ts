@@ -1,6 +1,7 @@
-export interface WebhookRequest<T> {
+import type { WithId } from '@echo/model/types/with-id'
+
+export interface WebhookRequest<T> extends WithId {
   webhookId: string
-  id: string
   createdAt: string
   type: string
   event: {

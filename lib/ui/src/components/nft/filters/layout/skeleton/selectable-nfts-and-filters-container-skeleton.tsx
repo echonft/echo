@@ -1,17 +1,12 @@
 import { NftCardsContainerSkeleton } from '@echo/ui/components/nft/card/layout/skeleton/nft-cards-container-skeleton'
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
-import { NftFiltersContainerSkeleton } from '@echo/ui/components/nft/filters/layout/skeleton/nft-filters-container-skeleton'
-import { type NftFilterType } from '@echo/ui/types/nft-filter-type'
+import NftFiltersPanelSkeletonStories from 'app/storybook/src/nft/filters/nft-filters-panel-skeleton.stories'
 import { type FunctionComponent } from 'react'
 
-interface Props {
-  availableFilters: NftFilterType[]
-}
-
-export const SelectableNftsAndFiltersContainerSkeleton: FunctionComponent<Props> = ({ availableFilters }) => {
+export const SelectableNftsAndFiltersContainerSkeleton: FunctionComponent = () => {
   return (
     <NftsAndFiltersLayout>
-      <NftFiltersContainerSkeleton availableFilters={availableFilters} />
+      <NftFiltersPanelSkeletonStories />
       <NftCardsContainerSkeleton />
     </NftsAndFiltersLayout>
   )

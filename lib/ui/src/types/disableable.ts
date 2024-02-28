@@ -1,3 +1,3 @@
-export interface Disableable {
+export type Disableable<T> = T & {
   disabled?: boolean
 }

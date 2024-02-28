@@ -1,3 +1,4 @@
+'use client'
 import { classes } from '@echo/ui/helpers/classes'
 import { LayoutGroup, motion } from 'framer-motion'
 import { type FunctionComponent, type PropsWithChildren } from 'react'

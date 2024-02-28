@@ -1,10 +1,11 @@
+'use client'
 import { DownCaretSvg } from '@echo/ui/components/base/svg/down-caret-svg'
 import { classes } from '@echo/ui/helpers/classes'
-import { type CollapsibleProps } from '@echo/ui/types/props/collapsible-props'
+import { type WithCollapsibleProps } from '@echo/ui/types/props/with-collapsible-props'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { type FunctionComponent } from 'react'
 
-interface Props extends CollapsibleProps {
+interface Props extends WithCollapsibleProps {
   name?: string
 }
 

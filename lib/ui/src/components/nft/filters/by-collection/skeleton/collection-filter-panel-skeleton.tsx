@@ -1,8 +1,13 @@
-import { NftFiltersPanelLayoutSkeleton } from '@echo/ui/components/nft/filters/layout/skeleton/nft-filters-panel-layout-skeleton'
-import { useTranslations } from 'next-intl'
+import { TraitFilterButtonSkeleton } from '@echo/ui/components/nft/filters/by-traits/skeleton/trait-filter-button-skeleton'
+import { NftFiltersPanelLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panel-layout'
 import { type FunctionComponent } from 'react'
 
 export const CollectionFilterPanelSkeleton: FunctionComponent = () => {
-  const t = useTranslations('user.filters.collection')
-  return <NftFiltersPanelLayoutSkeleton title={t('title')} />
+  return (
+    <NftFiltersPanelLayout title={''}>
+      <TraitFilterButtonSkeleton />
+      <TraitFilterButtonSkeleton />
+      <TraitFilterButtonSkeleton />
+    </NftFiltersPanelLayout>
+  )
 }

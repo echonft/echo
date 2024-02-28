@@ -10,6 +10,7 @@ import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { getListingTargetsCollectionIds } from '@echo/model/helpers/listing/get-listing-targets-collection-ids'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
+import type { WithId } from '@echo/model/types/with-id'
 import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
@@ -23,7 +24,7 @@ import { notFound } from 'next/navigation'
 import { andThen, filter, isNil, map, path, pipe, reject } from 'ramda'
 import type { ReactElement } from 'react'
 
-type Params = NextUserParams<NextParams<Record<'id', string>>>
+type Params = NextUserParams<NextParams<WithId>>
 async function render({ params: { id }, user }: Params) {
   const listing = await pipe(findListingById)(id)
   if (isNil(listing)) {

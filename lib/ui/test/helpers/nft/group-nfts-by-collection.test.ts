@@ -9,7 +9,7 @@ describe('helpers - nft - groupNftsByCollection', () => {
     expect(groups.length).toBe(2)
     for (const group of groups) {
       const collection = getCollectionMockById(group.id)
-      for (const item of group.items) {
+      for (const item of group.nfts) {
         expect(item.collection).toStrictEqual(collection)
       }
     }

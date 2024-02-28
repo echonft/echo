@@ -35,22 +35,22 @@ export const SelectableNftGroups: FunctionComponent<Props> = ({
   const onNftToggleSelection = (nft: Nft) => {
     setGroups((currentGroups) => {
       const updatedGroups = map<NftGroup, NftGroup>(
-        modify('items', toggleSelectionInList<SelectableNft>(propEq(nft.id, 'id')))
+        modify('nfts', toggleSelectionInList<SelectableNft>(propEq(nft.id, 'id')))
       )(currentGroups)
       const updatedGroup = find(
-        pipe<[NftGroup], SelectableNft[], string[], boolean>(prop('items'), map(prop('id')), includes(nft.id))
+        pipe<[NftGroup], SelectableNft[], string[], boolean>(prop('nfts'), map(prop('id')), includes(nft.id))
       )(updatedGroups)!
-      const selection = pipe(prop('items'), getSelectionInList<SelectableNft>)(updatedGroup)
+      const selection = pipe(prop('nfts'), getSelectionInList<SelectableNft>)(updatedGroup)
       if (isEmpty(selection)) {
         return pipe(
-          map<NftGroup, NftGroup>(modify('items', map<SelectableNft, SelectableNft>(pipe(enableAction, enable))))
+          map<NftGroup, NftGroup>(modify('nfts', map<SelectableNft, SelectableNft>(pipe(enableAction, enable))))
         )(updatedGroups)
       } else {
         // if one group has a selection, disable all the items of the other groups
         return map<NftGroup, NftGroup>(
           pipe(
-            modify('items', map(disableAction)),
-            unless<NftGroup, NftGroup>(propEq(updatedGroup.id, 'id'), modify('items', map(disable<SelectableNft>)))
+            modify('nfts', map(disableAction)),
+            unless<NftGroup, NftGroup>(propEq(updatedGroup.id, 'id'), modify('nfts', map(disable<SelectableNft>)))
           ),
           updatedGroups
         )
@@ -65,7 +65,7 @@ export const SelectableNftGroups: FunctionComponent<Props> = ({
 
   // update groups disabled state based on selection + toggle a selection update when groups change
   useEffect(() => {
-    const selection = pipe(map(pipe(prop('items'), getSelectionInList<SelectableNft>)), flatten)(groups)
+    const selection = pipe(map(pipe(prop('nfts'), getSelectionInList<SelectableNft>)), flatten)(groups)
     onSelectionUpdate?.(selection)
   }, [groups, onSelectionUpdate])
 

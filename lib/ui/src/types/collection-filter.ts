@@ -1,7 +1,6 @@
-import { type Selectable } from '@echo/ui/types/selectable'
+import type { Collection } from '@echo/model/types/collection'
+import type { NftFilter } from '@echo/ui/types/nft-filter'
 
-export interface CollectionFilter extends Selectable {
-  name: string
-  id: string
-  count: number
+export interface CollectionFilter extends NftFilter {
+  collection: Collection
 }

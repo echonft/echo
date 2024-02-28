@@ -22,7 +22,7 @@ export const SelectableNftGroupNotCollapsible: FunctionComponent<Props> = ({
   return (
     <AnimatePresence initial={false}>
       {pipe<[NftGroup], SelectableNft[], ReactNode[]>(
-        prop('items'),
+        prop('nfts'),
         map((nft) => (
           <motion.div
             key={nft.id}

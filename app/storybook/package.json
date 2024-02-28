@@ -37,7 +37,7 @@
     "@babel/preset-env": "7.23.9",
     "@babel/preset-react": "7.23.3",
     "@babel/preset-typescript": "7.23.3",
-    "@dotenvx/dotenvx": "0.15.4",
+    "@dotenvx/dotenvx": "0.21.0",
     "@echo/api": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/ui": "workspace:*",

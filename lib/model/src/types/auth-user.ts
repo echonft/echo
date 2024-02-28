@@ -1,13 +1,6 @@
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { DiscordProfile } from '@echo/model/types/discord-profile'
+import type { WithUsername } from '@echo/model/types/with-username'
 
-export interface AuthUser {
-  username: string
-  discord: {
-    avatarUrl: string
-    avatarDecorationUrl?: Nullable<string>
-    bannerColor?: Nullable<string>
-    bannerUrl?: Nullable<string>
-    id: string
-    username: string
-  }
+export interface AuthUser extends WithUsername {
+  discord: DiscordProfile
 }

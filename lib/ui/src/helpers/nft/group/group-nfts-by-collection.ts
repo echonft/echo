@@ -10,8 +10,8 @@ export function groupNftsByCollection(nfts: SelectableNft[]) {
     map(
       applySpec<NftGroup>({
         id: pipe(head, path(['collection', 'id'])),
-        name: pipe(head, path(['collection', 'name'])),
-        items: identity
+        label: pipe(head, path(['collection', 'name'])),
+        nfts: identity
       })
     )
   )(nfts)

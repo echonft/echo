@@ -1,20 +1,22 @@
 import { type Collection } from '@echo/model/types/collection'
 import { type Nft } from '@echo/model/types/nft'
-import { collectionEquals } from '@echo/ui/comparators/collection-equals'
+import { compareCollections } from '@echo/ui/comparators/compare-collections'
 import { type CollectionFilter } from '@echo/ui/types/collection-filter'
-import { applySpec, eqProps, groupWith, head, length, map, pipe, prop, sort } from 'ramda'
+import { collectBy, head, length, map, pipe, prop, sort } from 'ramda'
 
-export function getCollectionFiltersForNfts(nfts: Nft[]) {
+export function getCollectionFiltersForNfts(nfts: Nft[]): CollectionFilter[] {
   return pipe(
-    sort(collectionEquals),
-    map(prop('collection')),
-    groupWith(eqProps('id')),
-    map(
-      applySpec<CollectionFilter>({
-        id: pipe(head<Collection, Collection>, prop('id')),
-        name: pipe(head<Collection, Collection>, prop('name')),
-        count: length
-      })
-    )
+    map<Nft, Collection>(prop('collection')),
+    sort(compareCollections),
+    collectBy(prop('slug')),
+    map((collections: Collection[]): CollectionFilter => {
+      const collection = head(collections)!
+      return {
+        id: collection.slug,
+        label: collection.name,
+        collection,
+        count: length(collections)
+      }
+    })
   )(nfts)
 }

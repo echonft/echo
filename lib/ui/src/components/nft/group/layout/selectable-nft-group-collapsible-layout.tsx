@@ -1,3 +1,4 @@
+'use client'
 import { classes } from '@echo/ui/helpers/classes'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 

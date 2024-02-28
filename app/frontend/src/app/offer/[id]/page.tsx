@@ -6,6 +6,7 @@ import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
+import type { WithId } from '@echo/model/types/with-id'
 import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
@@ -18,7 +19,7 @@ import { notFound } from 'next/navigation'
 import { andThen, isNil, pipe, unless } from 'ramda'
 import type { ReactElement } from 'react'
 
-type Params = NextAuthUserParams<NextParams<Record<'id', string>>>
+type Params = NextAuthUserParams<NextParams<WithId>>
 
 async function render({ params: { id }, user }: Params) {
   const offer = await pipe<[string], Promise<Nullable<Offer>>, Promise<Nullable<OfferWithRole>>>(

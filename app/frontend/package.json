@@ -46,7 +46,7 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.15.4",
+    "@dotenvx/dotenvx": "0.21.0",
     "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",

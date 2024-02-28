@@ -37,12 +37,12 @@
     "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.15.4",
+    "@dotenvx/dotenvx": "0.21.0",
     "@echo/alchemy": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
-    "@echo/utils": "workspace:*",
     "@echo/tasks": "workspace:*",
+    "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@types/node": "20.11.19",
     "@types/ramda": "0.29.10",

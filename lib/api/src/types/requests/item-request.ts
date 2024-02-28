@@ -1,6 +1,6 @@
-import { type IdRequest } from '@echo/api/types/requests/id-request'
+import type { WithId } from '@echo/model/types/with-id'
 
 export interface ItemRequest {
   amount: number
-  nft: IdRequest
+  nft: WithId
 }

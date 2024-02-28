@@ -1,6 +1,6 @@
 'use client'
 import { type Nft } from '@echo/model/types/nft'
-import { traitFilterEquals } from '@echo/ui/comparators/trait-filter-equals'
+import { withIdEquals } from '@echo/ui/comparators/with-id-equals'
 import { NftFiltersContainer } from '@echo/ui/components/nft/filters/layout/nft-filters-container'
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { SelectableNftGroupsContainer } from '@echo/ui/components/nft/group/layout/selectable-nft-groups-container'
@@ -64,7 +64,7 @@ export const SelectableNftGroupsAndFiltersContainer: FunctionComponent<Props> = 
     includes(NFT_FILTER_TRAITS, availableFilters) ? getTraitFiltersForNfts(nfts) : []
   )
   const onTraitFilterToggleSelection = (filter: TraitFilter) => {
-    setTraitFilters(toggleSelectionInList<TraitFilter>(traitFilterEquals(filter)))
+    setTraitFilters(toggleSelectionInList<TraitFilter>(withIdEquals(filter)))
   }
   const onCollectionFilterToggleSelection = (filter: CollectionFilter) => {
     setCollectionFilters(toggleSelectionInList<CollectionFilter>(propEq(filter.id, 'id')))

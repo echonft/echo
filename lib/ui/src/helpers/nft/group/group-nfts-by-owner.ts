@@ -11,7 +11,7 @@ export function groupNftsByOwner(nfts: Nft[]): NftGroup[] {
     map(
       applySpec<NftGroup>({
         id: pipe(head, path(['owner', 'discord', 'username'])),
-        items: map(pipe(assoc('action', NFT_ACTION_OFFER)))
+        nfts: map(pipe(assoc('action', NFT_ACTION_OFFER)))
       })
     )
   )(nfts)

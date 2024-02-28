@@ -1,10 +1,5 @@
+import type { DiscordProfile } from '@echo/model/types/discord-profile'
+
 export interface UpdateUserRequest {
-  discord: {
-    avatarUrl: string
-    avatarDecorationUrl?: string
-    bannerColor?: string
-    bannerUrl?: string
-    id: string
-    username: string
-  }
+  discord: DiscordProfile
 }

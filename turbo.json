@@ -112,6 +112,11 @@
       "outputs": [".next/**", "!.next/cache/**"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
     },
+    "@echo/frontend#dev": {
+      "dependsOn": ["@echo/ui#build"],
+      "cache": false,
+      "persistent": true
+    },
     "@echo/storybook#build": {
       "dependsOn": ["@echo/ui#build"],
       "outputs": ["storybook-static/**", "dist/**"],

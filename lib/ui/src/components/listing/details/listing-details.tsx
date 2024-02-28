@@ -24,7 +24,7 @@ import { ListingDetailsItemsContainer } from '@echo/ui/components/listing/detail
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
 import { ListingDetailsTargetCollectionOrOfferTitle } from '@echo/ui/components/listing/details/listing-details-target-collection-or-offer-title'
 import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
-import { SelectableNftCardsContainer } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards-container'
+import { SelectableNftCards } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards'
 import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
 import { CreateOfferConfirmedModal } from '@echo/ui/components/offer/create/confirmed/create-offer-confirmed-modal'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
@@ -171,7 +171,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
           <HideIf condition={!isTarget || updatedListing.readOnly}>
             <ListingDetailsUserNftsOrOffersLayout>
               <ListingDetailsTargetCollectionOrOfferTitle title={target.collection.name} />
-              <SelectableNftCardsContainer
+              <SelectableNftCards
                 nfts={selectableNfts}
                 onToggleSelection={onNftToggleSelection}
                 hideLink={true}

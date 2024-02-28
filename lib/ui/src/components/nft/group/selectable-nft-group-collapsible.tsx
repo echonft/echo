@@ -28,14 +28,14 @@ export const SelectableNftGroupCollapsible: FunctionComponent<Props> = ({
   onToggleSelection,
   onAction
 }) => {
-  const { name, items } = group
-  const hasSelection = pipe(prop('items'), getSelectionInList<SelectableNft>, complement(isEmpty))(group)
+  const { label, nfts } = group
+  const hasSelection = pipe(prop('nfts'), getSelectionInList<SelectableNft>, complement(isEmpty))(group)
   const [collapsed, setCollapsed] = useState(style?.collapsed ?? true)
 
   return (
     <SelectableNftGroupCollapsibleLayout>
       <NftGroupButton
-        name={name}
+        name={label}
         collapsed={collapsed ?? false}
         onToggleCollapsed={(collapsed) => {
           // can't collapse if at least one NFT is selected
@@ -76,7 +76,7 @@ export const SelectableNftGroupCollapsible: FunctionComponent<Props> = ({
                   />
                 </motion.div>
               ),
-              items
+              nfts
             )}
           </AnimatePresence>
         </CardsLayout>

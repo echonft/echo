@@ -8,6 +8,6 @@ export function unselectNftGroupsFromItems(nftsGroup: NftGroup[], items: Item[])
     return nftsGroup
   }
   return map((group: NftGroup) => {
-    return { ...group, items: unselectNftsFromItems(group.items, items) }
+    return { ...group, nfts: unselectNftsFromItems(group.nfts, items) }
   }, nftsGroup)
 }

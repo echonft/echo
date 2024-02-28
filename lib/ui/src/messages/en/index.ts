@@ -25,10 +25,6 @@ export const messages = {
     }
   },
   collection: {
-    button: {
-      createListing: 'Create listing',
-      createOffer: 'Make an offer'
-    },
     details: {
       supply: '{supply, number, ::K} NFTs'
     },
@@ -48,7 +44,7 @@ export const messages = {
     filters: {
       traits: {
         button: {
-          title: '{trait}{count, plural, =0 {} other { (# selected)}}'
+          title: '{trait}'
         },
         title: 'Attributes'
       }

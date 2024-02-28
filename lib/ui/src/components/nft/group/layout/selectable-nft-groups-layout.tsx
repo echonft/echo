@@ -1,3 +1,4 @@
+'use client'
 import { SelectableNftGroupsCollapsibleLayout } from '@echo/ui/components/nft/group/layout/selectable-nft-groups-collapsible-layout'
 import { SelectableNftGroupsNotCollapsibleLayout } from '@echo/ui/components/nft/group/layout/selectable-nft-groups-not-collapsible-layout'
 import { AnimatePresence } from 'framer-motion'

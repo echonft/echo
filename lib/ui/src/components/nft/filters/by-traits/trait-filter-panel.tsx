@@ -1,62 +1,53 @@
 'use client'
 import type { Nft } from '@echo/model/types/nft'
-import type { NftAttribute } from '@echo/model/types/nft-attribute'
-import { traitFilterEquals } from '@echo/ui/comparators/trait-filter-equals'
+import { withIdEquals } from '@echo/ui/comparators/with-id-equals'
 import { TraitFilterPickerManager } from '@echo/ui/components/nft/filters/by-traits/trait-filter-picker-manager'
 import { NftFiltersPanelLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panel-layout'
+import { filterNftsByTraits } from '@echo/ui/helpers/nft/filter-nfts-by-traits'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
 import { getSelectionInList } from '@echo/ui/helpers/selectable/get-selection-in-list'
 import { toggleSelectionInList } from '@echo/ui/helpers/selectable/toggle-selection-in-list'
+import type { Selectable } from '@echo/ui/types/selectable'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
-import { intersects } from '@echo/utils/fp/intersects'
+import type { TraitFilterGroup } from '@echo/ui/types/trait-filter-group'
 import { useTranslations } from 'next-intl'
-import { collectBy, filter, flatten, head, isEmpty, isNil, map, pick, pipe, prop, reject } from 'ramda'
-import { type FunctionComponent, useEffect, useState } from 'react'
+import { flatten, isEmpty, map, modify, partialRight, pipe, prop } from 'ramda'
+import { useEffect, useState } from 'react'
 
-interface Props {
-  nfts: Nft[]
-  onNftsFiltered: (nfts: Nft[]) => unknown
+export interface TraitFilterPanelProps<T extends Nft> {
+  nfts: T[]
+  onNftsFiltered: (nfts: T[]) => unknown
 }
 
-export const TraitFilterPanel: FunctionComponent<Props> = ({ nfts, onNftsFiltered }) => {
+export const TraitFilterPanel = <T extends Nft>({ nfts, onNftsFiltered }: TraitFilterPanelProps<T>) => {
   const t = useTranslations('collection.filters.traits')
-  const [groupedFilters, setGroupedFilters] = useState<TraitFilter[][]>([[]])
-  const onToggleSelection = (traitFilter: TraitFilter) => {
-    const updatedGroupFilters = map(toggleSelectionInList<TraitFilter>(traitFilterEquals(traitFilter)), groupedFilters)
-    setGroupedFilters(updatedGroupFilters)
-    const selectedFilters = pipe(map(getSelectionInList<TraitFilter>), flatten)(updatedGroupFilters)
-    if (isEmpty(selectedFilters)) {
-      onNftsFiltered?.(nfts)
-    } else {
-      const filterAttributes = map(pick(['trait', 'value']), selectedFilters)
-      onNftsFiltered?.(
-        filter(pipe<[Nft], NftAttribute[], boolean>(prop('attributes'), intersects(filterAttributes)), nfts)
-      )
-    }
+  const [filters, setFilters] = useState<TraitFilterGroup[]>([])
+  const onToggleSelection = (selection: Selectable<TraitFilter>) => {
+    const updatedGroupedFilters = map<TraitFilterGroup, TraitFilterGroup>(
+      modify('filters', toggleSelectionInList(withIdEquals(selection)))
+    )(filters)
+    setFilters(updatedGroupedFilters)
+    const filteredNfts = pipe<[TraitFilterGroup[]], Selectable<TraitFilter>[][], Selectable<TraitFilter>[], T[]>(
+      map(pipe(prop('filters'), getSelectionInList)),
+      flatten,
+      partialRight(filterNftsByTraits, [nfts])
+    )(updatedGroupedFilters)
+    onNftsFiltered?.(filteredNfts)
   }
 
   // set the initial grouped filters reset trait filters when the underlying NFTs change
   useEffect(() => {
-    pipe(getTraitFiltersForNfts, collectBy(prop('trait')), reject(isEmpty), setGroupedFilters)(nfts)
+    pipe(getTraitFiltersForNfts, setFilters)(nfts)
   }, [nfts])
 
-  if (isEmpty(groupedFilters)) {
+  if (isEmpty(filters)) {
     return null
   }
   return (
     <NftFiltersPanelLayout title={t('title')}>
-      {groupedFilters.map((filters) => {
-        const trait = head(filters)
-        if (isNil(trait)) {
-          return null
-        }
+      {filters.map(({ id, label, filters }) => {
         return (
-          <TraitFilterPickerManager
-            key={trait.trait}
-            trait={trait.trait}
-            filters={filters}
-            onToggleSelection={onToggleSelection}
-          />
+          <TraitFilterPickerManager key={id} label={label} filters={filters} onToggleSelection={onToggleSelection} />
         )
       })}
     </NftFiltersPanelLayout>

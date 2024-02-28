@@ -1,5 +1,4 @@
 import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
-import type { IdRequest } from '@echo/api/types/requests/id-request'
 import type { ItemRequest } from '@echo/api/types/requests/item-request'
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
@@ -15,6 +14,7 @@ import type { ListingItem } from '@echo/model/types/listing-item'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import { type Nft } from '@echo/model/types/nft'
 import { type User } from '@echo/model/types/user'
+import type { WithId } from '@echo/model/types/with-id'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { head, map, modify, pick, pipe, prop } from 'ramda'
@@ -28,7 +28,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
   const validRequest: CreateListingRequest = {
     items: pipe<[Listing], ListingItem[], ItemRequest[]>(
       prop('items'),
-      map(modify<'nft', Nft, IdRequest>('nft', pick(['id'])))
+      map(modify<'nft', Nft, WithId>('nft', pick(['id'])))
     )(listing),
     target: pipe<[Listing], ListingTarget[], ListingTarget, ListingTargetRequest>(
       prop('targets'),
