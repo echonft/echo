@@ -7,17 +7,18 @@ import { disable } from '@echo/ui/helpers/disableable/disable'
 import { enable } from '@echo/ui/helpers/disableable/enable'
 import { disableAction } from '@echo/ui/helpers/nft/disable-action'
 import { enableAction } from '@echo/ui/helpers/nft/enable-action'
-import { groupNftsByOwner } from '@echo/ui/helpers/nft/group/group-nfts-by-owner'
+import { enableSelection } from '@echo/ui/helpers/selectable/enable-selection'
 import { getSelectionInList } from '@echo/ui/helpers/selectable/get-selection-in-list'
 import { toggleSelectionInList } from '@echo/ui/helpers/selectable/toggle-selection-in-list'
+import { unselect } from '@echo/ui/helpers/selectable/unselect'
 import type { NftGroup } from '@echo/ui/types/nft-group'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { motion } from 'framer-motion'
 import { find, flatten, includes, isEmpty, map, modify, pipe, prop, propEq, unless } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props extends Pick<SelectableNftCardProps, 'options' | 'onAction'> {
   nfts: Nft[]
+  groupBy: (nfts: Nft[]) => NftGroup[]
   style?: {
     collapsible?: boolean
   }
@@ -26,6 +27,7 @@ interface Props extends Pick<SelectableNftCardProps, 'options' | 'onAction'> {
 
 export const SelectableNftGroups: FunctionComponent<Props> = ({
   nfts,
+  groupBy,
   options,
   style,
   onAction,
@@ -60,8 +62,12 @@ export const SelectableNftGroups: FunctionComponent<Props> = ({
 
   // set the initial groups + update the groups when the underlying NFTs change
   useEffect(() => {
-    setGroups(groupNftsByOwner(nfts))
-  }, [nfts])
+    pipe(
+      map<SelectableNft, SelectableNft>(pipe(enable, unselect, enableAction, enableSelection)),
+      groupBy,
+      setGroups
+    )(nfts)
+  }, [nfts, groupBy])
 
   // update groups disabled state based on selection + toggle a selection update when groups change
   useEffect(() => {
@@ -70,29 +76,9 @@ export const SelectableNftGroups: FunctionComponent<Props> = ({
   }, [groups, onSelectionUpdate])
 
   return (
-    <SelectableNftGroupsLayout style={style}>
-      {map((group) => {
-        if (style?.collapsible) {
-          return (
-            <motion.div
-              key={group.id}
-              layout={'position'}
-              transition={{ ease: 'easeOut', duration: 0.2 }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <SelectableNftGroup
-                group={group}
-                options={options}
-                style={style}
-                onToggleSelection={onNftToggleSelection}
-                onAction={onAction}
-              />
-            </motion.div>
-          )
-        }
-        return (
+    <SelectableNftGroupsLayout>
+      {map(
+        (group) => (
           <SelectableNftGroup
             key={group.id}
             group={group}
@@ -101,8 +87,9 @@ export const SelectableNftGroups: FunctionComponent<Props> = ({
             onToggleSelection={onNftToggleSelection}
             onAction={onAction}
           />
-        )
-      }, groups)}
+        ),
+        groups
+      )}
     </SelectableNftGroupsLayout>
   )
 }

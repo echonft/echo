@@ -5,6 +5,8 @@ import type { Listing } from '@echo/model/types/listing'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { andThen, flatten, juxt, pipe, uniq } from 'ramda'
 
+// FIXME might be needed if we support collection guilds
+// noinspection JSUnusedGlobalSymbols
 export function getListingGuilds(listing: Listing): Promise<CollectionDiscordGuild[]> {
   return pipe(juxt([getListingItemsGuilds, getListingTargetsGuilds]), promiseAll, andThen(pipe(flatten, uniq)))(listing)
 }

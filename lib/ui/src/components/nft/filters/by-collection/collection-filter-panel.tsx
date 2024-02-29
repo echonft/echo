@@ -11,7 +11,7 @@ import { unselect } from '@echo/ui/helpers/selectable/unselect'
 import type { CollectionFilter } from '@echo/ui/types/collection-filter'
 import type { Selectable } from '@echo/ui/types/selectable'
 import { useTranslations } from 'next-intl'
-import { map, partialRight, pipe } from 'ramda'
+import { map, partialRight, pipe, unless } from 'ramda'
 import { useState } from 'react'
 
 interface Props<T extends Nft> {
@@ -24,7 +24,7 @@ export const CollectionFilterPanel = <T extends Nft>({ nfts, onNftsFiltered }: P
   const [filters, setFilters] = useState<Selectable<CollectionFilter>[]>(getCollectionFiltersForNfts(nfts))
   const onToggleSelection = (selection: Selectable<CollectionFilter>) => {
     const updatedFilters = pipe(
-      map(unselect<CollectionFilter>),
+      map(unless(withIdEquals(selection), unselect<CollectionFilter>)),
       toggleSelectionInList(withIdEquals(selection))
     )(filters)
     setFilters(updatedFilters)

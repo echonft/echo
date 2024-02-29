@@ -3,14 +3,13 @@ import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ConnectKitProvider } from 'connectkit'
-import { type FunctionComponent, type PropsWithChildren, useMemo } from 'react'
+import { type FunctionComponent, type PropsWithChildren } from 'react'
 import { WagmiProvider } from 'wagmi'
 
 export const Web3Provider: FunctionComponent<PropsWithChildren> = ({ children }) => {
-  const queryClient = useMemo(() => new QueryClient(), [])
   return (
     <WagmiProvider config={wagmiConfig} reconnectOnMount={true}>
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={new QueryClient()}>
         <ConnectKitProvider
           customTheme={{
             '--ck-body-background': themeExtension.colors.dark['500'],

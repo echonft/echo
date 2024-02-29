@@ -189,8 +189,8 @@ export const messages = {
   },
   nft: {
     action: {
-      listing: 'Create Listing',
-      offer: 'Make Offer'
+      listing: 'Create listing',
+      offer: 'Create offer'
     }
   },
   notFoundPage: {

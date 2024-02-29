@@ -1,5 +1,5 @@
 'use client'
-import { NftCardsContainer } from '@echo/ui/components/nft/card/layout/nft-cards-container'
+import { NftCards } from '@echo/ui/components/nft/card/layout/nft-cards'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-info-layout'
 import { OfferDetailsItemsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-items-buttons-layout'
@@ -31,12 +31,12 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer }) => {
         <OfferDetailsState offer={updatedOffer} />
       </OfferDetailsInfoLayout>
       <OfferDetailsItemsButtonsLayout>
-        <NftCardsContainer
+        <NftCards
           nfts={map(prop('nft'), isOfferRoleSender(updatedOffer) ? receiverItems : senderItems)}
           alignment={ALIGNMENT_CENTER}
         />
         <OfferDetailsItemsSeparator />
-        <NftCardsContainer
+        <NftCards
           nfts={map(prop('nft'), isOfferRoleSender(updatedOffer) ? senderItems : receiverItems)}
           alignment={ALIGNMENT_CENTER}
         />

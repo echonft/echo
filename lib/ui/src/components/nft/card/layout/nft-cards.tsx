@@ -10,7 +10,7 @@ interface Props {
   alignment?: Alignment
   cardOptions?: NftCardProps['options']
 }
-export const NftCardsContainer: FunctionComponent<Props> = ({ nfts, alignment, cardOptions }) => {
+export const NftCards: FunctionComponent<Props> = ({ nfts, alignment, cardOptions }) => {
   return (
     <CardsLayout alignment={alignment}>
       {map(

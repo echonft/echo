@@ -4,6 +4,8 @@ import { CollectionFilterPanel } from '@echo/ui/components/nft/filters/by-collec
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { SelectableNftGroups } from '@echo/ui/components/nft/group/selectable-nft-groups'
+import { groupNftsByCollection } from '@echo/ui/helpers/nft/group/group-nfts-by-collection'
+import { groupNftsByOwner } from '@echo/ui/helpers/nft/group/group-nfts-by-owner'
 import { UserNftsCreateOfferButton } from '@echo/ui/pages/user/nfts/user-nfts-create-offer-button'
 import { UserNftsEmpty } from '@echo/ui/pages/user/nfts/user-nfts-empty'
 import { UserNftsTraitFilterPanel } from '@echo/ui/pages/user/nfts/user-nfts-trait-filter-panel'
@@ -20,7 +22,7 @@ export const UserNfts = <T extends Nft>({ nfts, isAuthUser }: Props<T>) => {
   const [collectionFilteredNfts, setCollectionFilteredNfts] = useState(nfts)
   const [filteredNfts, setFilteredNfts] = useState(nfts)
   const [selection, setSelection] = useState<SelectableNft[]>([])
-
+  const collectionFilterSelected = collectionFilteredNfts.length !== nfts.length
   const onCreateOffer = (_nft?: SelectableNft) => {
     // if (isNonEmptyArray(nfts)) {
     //   setReceiverItems(map(mapNftToItem, nfts))
@@ -47,15 +49,16 @@ export const UserNfts = <T extends Nft>({ nfts, isAuthUser }: Props<T>) => {
           onNftsFiltered={pipe(tap(setCollectionFilteredNfts), tap(setFilteredNfts))}
         />
         <UserNftsTraitFilterPanel
-          show={collectionFilteredNfts.length !== nfts.length}
+          show={collectionFilterSelected}
           nfts={collectionFilteredNfts}
           onNftsFiltered={setFilteredNfts}
         />
       </NftFiltersPanelsLayout>
       <SelectableNftGroups
-        options={{ owner: { hide: true } }}
-        style={{ collapsible: true }}
         nfts={filteredNfts}
+        groupBy={collectionFilterSelected ? groupNftsByOwner : groupNftsByCollection}
+        options={{ owner: { hide: true } }}
+        style={{ collapsible: !collectionFilterSelected }}
         onAction={onCreateOffer}
         onSelectionUpdate={setSelection}
       />

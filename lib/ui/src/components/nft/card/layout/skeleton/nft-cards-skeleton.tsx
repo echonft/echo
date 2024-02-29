@@ -8,7 +8,7 @@ interface Props {
   alignment?: Alignment
   quantity?: number
 }
-export const NftCardsContainerSkeleton: FunctionComponent<Props> = ({ alignment, quantity = 3 }) => {
+export const NftCardsSkeleton: FunctionComponent<Props> = ({ alignment, quantity = 3 }) => {
   return (
     <CardsLayout alignment={alignment}>
       {map(

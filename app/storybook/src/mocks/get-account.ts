@@ -17,20 +17,23 @@ export function getAccount(onChange?: (account: AccountResult) => void): Account
   }
   const status = accountStatusStore.getState().status
   const account = getResultFromStatus(status)
-  if (!isNil(onChange)) {
-    const unsubscribe = accountStatusStore.subscribe((state) => {
-      onChange(getResultFromStatus(state.status))
-    })
-    onChange(account)
+  if (isNil(onChange)) {
     return {
       account,
       unsubscribe: () => {
-        accountStatusStore.getState().disconnect()
-        unsubscribe()
+        // nothing to do
       }
     }
   }
+  const unsubscribe = accountStatusStore.subscribe((state) => {
+    onChange(getResultFromStatus(state.status))
+  })
+  onChange(account)
   return {
-    account
+    account,
+    unsubscribe: () => {
+      accountStatusStore.getState().disconnect()
+      unsubscribe()
+    }
   }
 }

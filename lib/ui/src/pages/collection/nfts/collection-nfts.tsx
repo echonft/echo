@@ -5,6 +5,7 @@ import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/n
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { SelectableNftGroups } from '@echo/ui/components/nft/group/selectable-nft-groups'
 import { CreateOfferButton } from '@echo/ui/components/nft/selection/create-offer-button'
+import { groupNftsByOwner } from '@echo/ui/helpers/nft/group/group-nfts-by-owner'
 import { CollectionNftsEmpty } from '@echo/ui/pages/collection/nfts/collection-nfts-empty'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isEmpty } from 'ramda'
@@ -40,7 +41,12 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts }) => {
         />
         <TraitFilterPanel nfts={nfts} onNftsFiltered={setFilteredNfts} />
       </NftFiltersPanelsLayout>
-      <SelectableNftGroups nfts={filteredNfts} onAction={onCreateOffer} onSelectionUpdate={setSelection} />
+      <SelectableNftGroups
+        nfts={filteredNfts}
+        groupBy={groupNftsByOwner}
+        onAction={onCreateOffer}
+        onSelectionUpdate={setSelection}
+      />
     </NftsAndFiltersLayout>
   )
 }

@@ -5,7 +5,7 @@ import { NftFilterPanelSkeleton } from '@echo/ui/components/nft/filters/skeleton
 import { NftSelectionButtonSkeleton } from '@echo/ui/components/nft/selection/skeleton/nft-selection-button-skeleton'
 import { type FunctionComponent } from 'react'
 
-export const UserNftsSkeleton: FunctionComponent = () => {
+export const ProfileNftsSkeleton: FunctionComponent = () => {
   return (
     <NftsAndFiltersLayout>
       <NftFiltersPanelsLayout>

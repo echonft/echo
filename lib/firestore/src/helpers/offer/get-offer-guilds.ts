@@ -5,6 +5,8 @@ import type { OfferItem } from '@echo/model/types/offer-item'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { andThen, concat, converge, flatten, map, pipe, prop, uniq } from 'ramda'
 
+// FIXME might be needed if we support collection guilds
+// noinspection JSUnusedGlobalSymbols
 export function getOfferGuilds(offer: Offer): Promise<CollectionDiscordGuild[]> {
   return pipe<
     [Offer],

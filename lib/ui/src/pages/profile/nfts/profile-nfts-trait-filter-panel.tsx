@@ -11,7 +11,7 @@ interface Props<T extends Nft> extends TraitFilterPanelProps<T> {
   show: boolean
 }
 
-export const UserNftsTraitFilterPanel = <T extends Nft>({ show, nfts, onNftsFiltered }: Props<T>) => {
+export const ProfileNftsTraitFilterPanel = <T extends Nft>({ show, nfts, onNftsFiltered }: Props<T>) => {
   // we need to keep a reference to previous NFTs so that the filters don't get updated
   // during the exit animation
   const nftsRef = useRef(nfts)

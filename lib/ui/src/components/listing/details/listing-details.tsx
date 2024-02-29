@@ -24,7 +24,6 @@ import { ListingDetailsItemsContainer } from '@echo/ui/components/listing/detail
 import { ListingDetailsState } from '@echo/ui/components/listing/details/listing-details-state'
 import { ListingDetailsTargetCollectionOrOfferTitle } from '@echo/ui/components/listing/details/listing-details-target-collection-or-offer-title'
 import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
-import { SelectableNftCards } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-cards'
 import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
 import { CreateOfferConfirmedModal } from '@echo/ui/components/offer/create/confirmed/create-offer-confirmed-modal'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
@@ -95,6 +94,9 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
     setUpdatedListing(listing)
   }, [listing])
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onNftToggleSelection = (nft: Nft) => {
     const updatedNfts = toggleSelectionInList<SelectableNft>(propEq(nft.id, 'id'))(selectableNfts)
     const updatedSelectionCount = getSelectionCount(updatedNfts)
@@ -168,17 +170,23 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
               </ShowIf>
             </ListingDetailsUserNftsOrOffersLayout>
           </ShowIf>
-          <HideIf condition={!isTarget || updatedListing.readOnly}>
-            <ListingDetailsUserNftsOrOffersLayout>
-              <ListingDetailsTargetCollectionOrOfferTitle title={target.collection.name} />
-              <SelectableNftCards
-                nfts={selectableNfts}
-                onToggleSelection={onNftToggleSelection}
-                hideLink={true}
-                hideOwner={true}
-              />
-            </ListingDetailsUserNftsOrOffersLayout>
-          </HideIf>
+          {/*FIXME why are these selectable cards?!*/}
+          {/*<HideIf condition={!isTarget || updatedListing.readOnly}>*/}
+          {/*  <ListingDetailsUserNftsOrOffersLayout>*/}
+          {/*    <ListingDetailsTargetCollectionOrOfferTitle title={target.collection.name} />*/}
+          {/*    <SelectableNftCards*/}
+          {/*      nfts={selectableNfts}*/}
+          {/*      onToggleSelection={onNftToggleSelection}*/}
+          {/*      options={{*/}
+          {/*        owner: {*/}
+          {/*          hide: true*/}
+          {/*        }*/}
+          {/*      }}*/}
+          {/*      hideLink={true}*/}
+          {/*      hideOwner={true}*/}
+          {/*    />*/}
+          {/*  </ListingDetailsUserNftsOrOffersLayout>*/}
+          {/*</HideIf>*/}
         </div>
       </ListingDetailsItemsLayout>
       <ListingDetailsButtonsContainer

@@ -1,3 +1,3 @@
 export interface WithUsername {
-  username: Lowercase<string>
+  username: string
 }

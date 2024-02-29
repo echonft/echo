@@ -1,6 +1,6 @@
 'use client'
 import { SelectableNftGroupCollapsible } from '@echo/ui/components/nft/group/selectable-nft-group-collapsible'
-import { SelectableNftGroupNotCollapsible } from '@echo/ui/components/nft/group/selectable-nft-group-not-collapsible'
+import { SelectableNfts } from '@echo/ui/components/nft/group/selectable-nfts'
 import { type SelectableNftCardProps } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import { type NftGroup } from '@echo/ui/types/nft-group'
 import { type FunctionComponent } from 'react'
@@ -12,9 +12,9 @@ interface Props extends Omit<SelectableNftCardProps, 'nft'> {
   }
 }
 
-export const SelectableNftGroup: FunctionComponent<Props> = ({ style, ...rest }) => {
+export const SelectableNftGroup: FunctionComponent<Props> = ({ group, style, ...cardProps }) => {
   if (style?.collapsible) {
-    return <SelectableNftGroupCollapsible {...rest} />
+    return <SelectableNftGroupCollapsible group={group} {...cardProps} />
   }
-  return <SelectableNftGroupNotCollapsible {...rest} />
+  return <SelectableNfts nfts={group.nfts} {...cardProps} />
 }
