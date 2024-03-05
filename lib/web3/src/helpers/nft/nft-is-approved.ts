@@ -1,6 +1,6 @@
 import type { Nft } from '@echo/model/types/nft'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
-import { echoAddress } from '@echo/web3/constants/echo-address'
+import { ECHO_ADDRESS } from '@echo/web3/constants/echo-address'
 import { formatAddress } from '@echo/web3/helpers/format-address'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import { getViemClient } from '@echo/web3/helpers/get-viem-client'
@@ -21,7 +21,7 @@ export async function nftIsApproved(nft: Nft, logger?: LoggerInterface): Promise
     abi: erc721Abi,
     functionName: 'isApprovedForAll',
     address: formatAddress(contract),
-    args: [formatAddress(wallet), echoAddress]
+    args: [formatAddress(wallet), ECHO_ADDRESS]
   })
   if (!approved) {
     logger?.warn(

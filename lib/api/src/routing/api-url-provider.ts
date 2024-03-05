@@ -30,5 +30,9 @@ export const apiUrlProvider = {
     nonce: new ApiPath({ path: '/profile/nonce', secure: true }),
     wallet: new ApiPath({ path: '/profile/wallet', secure: true }),
     wallets: new ApiPath({ path: '/profile/wallets', secure: true })
+  },
+  webhooks: {
+    nftTransfer: new ApiPath({ path: '/webhook/nft/transfer' }),
+    swap: new ApiPath({ path: '/webhook/swap' })
   }
 }

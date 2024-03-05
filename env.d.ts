@@ -6,13 +6,15 @@ declare namespace NodeJS {
       ADMIN_TOKEN: string
       ALCHEMY_API_KEY: string
       ALCHEMY_AUTH_TOKEN: string
-      APP_URL: string
+      ALCHEMY_WEBHOOK_SWAPS: string
+      ALCHEMY_WEBHOOK_NFT_TRANSFERS: string
       CI: string
       DISCORD_CLIENT_TOKEN: string
       DISCORD_CLIENT_ID: string
       DISCORD_CLIENT_SECRET: string
       ECHO_DISCORD_GUILD_ID: string
       ECHO_DISCORD_GUILD_CHANNEL_ID: string
+      ENV: 'dev' | 'testnet' | 'test'
       FIREBASE_PROJECT_ID: string
       FIREBASE_CLIENT_EMAIL: string
       FIREBASE_PRIVATE_KEY: string

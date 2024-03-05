@@ -9,22 +9,30 @@ import { hideBin } from 'yargs/helpers'
 
 /**
  * Arguments:
- *  --id (NFT id)
+ *  -i  string  NFT id
  *
  *  Checks if the approval was given for an NFT
  */
 void (async function () {
-  const argv = yargs(hideBin(process.argv)).string('id').parse() as unknown as { id: string }
+  const { i } = await yargs(hideBin(process.argv))
+    .options({
+      i: {
+        alias: 'id',
+        describe: 'NFT id',
+        type: 'string'
+      }
+    })
+    .demandOption('i', 'NFT id is required')
+    .parse()
   initializeFirebase()
-  const { id } = argv
-  const nft = await findNftById(id)
+  const nft = await findNftById(i)
   if (isNil(nft)) {
-    pinoLogger.error(`NFT ${id} not found in the database`)
+    pinoLogger.error(`NFT ${i} not found in the database`)
     return
   }
   const approved = await nftIsApproved(nft, pinoLogger)
   if (approved) {
-    pinoLogger.info(`NFT ${id} is approved`)
+    pinoLogger.info(`NFT ${i} is approved`)
   }
   await terminateFirestore()
   process.exit()

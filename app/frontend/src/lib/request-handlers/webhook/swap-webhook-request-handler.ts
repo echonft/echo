@@ -21,7 +21,7 @@ import { z } from 'zod'
 
 const swapEventSchema = z
   .object({
-    webhookId: z.string(),
+    webhookId: z.literal(process.env.ALCHEMY_WEBHOOK_SWAPS),
     id: z.string(),
     createdAt: z.string().datetime(),
     type: z.string(),

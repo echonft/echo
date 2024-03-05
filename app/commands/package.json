@@ -10,12 +10,15 @@
     "command:add-collections:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/add-collections-command.ts",
     "command:add-collection-guild:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/add-collection-guild-command.ts",
     "command:add-collection-guild:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/add-collection-guild-command.ts",
-    "command:list-collection-contracts:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/add-collection-guild-command.ts",
+    "command:list-collection-contracts:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/list-collections-contract-command.ts",
     "command:list-collection-contracts:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/list-collections-contract-command.ts",
     "command:check-nft-approval:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/list-collections-contract-command.ts",
     "command:check-nft-approval:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/check-nft-approval-command.ts",
+    "command:create-swaps-webhook:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/create-swaps-webhook-command.ts",
+    "command:create-nft-transfers-webhook:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/create-nft-transfers-webhook-command.ts",
     "command:clear-db:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/clear-db-command.ts",
     "command:clear-db:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/clear-db-command.ts",
+    "command:delete-alchemy-webhook:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/delete-alchemy-webhook-command.ts",
     "command:update-nfts:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/update-nfts-command.ts",
     "command:update-nfts:testnet": "dotenvx run --env-file=.env.testnet -- ts-node --project tsconfig.json src/commands/update-nfts-command.ts",
     "command:validate-offers:dev": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/validate-offers-command.ts",
@@ -32,23 +35,25 @@
     "tsc:ci": "pnpm run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
-  "dependencies": {
-    "ramda": "0.29.1",
-    "yargs": "17.7.2"
-  },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.21.0",
+    "@dotenvx/dotenvx": "0.23.0",
     "@echo/alchemy": "workspace:*",
+    "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/tasks": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@types/node": "20.11.19",
+    "@types/qs": "6.9.12",
     "@types/ramda": "0.29.10",
     "@types/yargs": "17.0.32",
+    "axios": "1.6.7",
+    "qs": "6.11.2",
+    "ramda": "0.29.1",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "yargs": "17.7.2"
   }
 }
