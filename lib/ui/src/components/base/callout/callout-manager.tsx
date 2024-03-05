@@ -1,6 +1,6 @@
 import { CalloutManagerContent } from '@echo/ui/components/base/callout/callout-manager-content'
-import { classes } from '@echo/ui/helpers/classes'
 import { useAlertStore } from '@echo/ui/hooks/use-alert-store'
+import { clsx } from 'clsx'
 import { head, isNil } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 
@@ -36,7 +36,7 @@ export const CalloutManager: FunctionComponent = () => {
   }, [])
 
   return (
-    <div className={classes('absolute', 'z-40', 'top-4', 'right-4', 'w-max', 'h-max')}>
+    <div className={clsx('absolute', 'z-40', 'top-4', 'right-4', 'w-max', 'h-max')}>
       <CalloutManagerContent
         alert={alert}
         show={show}

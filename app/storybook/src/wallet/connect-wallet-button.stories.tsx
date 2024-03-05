@@ -1,7 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
-import { authUserStore } from '@echo/storybook/mocks/stores/auth-user-store'
 import { errorStore } from '@echo/storybook/mocks/stores/error-store'
 import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager'
 import { ConnectWalletButton as Component } from '@echo/ui/components/wallet/connect-wallet-button'
@@ -33,49 +32,10 @@ const metadata: Meta<typeof Component> = {
 export default metadata
 
 export const Default: StoryObj<typeof Component> = {
-  decorators: [
-    (Story) => {
-      const { clearWallets } = authUserStore()
-      useEffect(() => {
-        clearWallets()
-      }, [])
-      return <Story />
-    }
-  ],
   render: ({ onClick }) => {
     const { connect, disconnect } = accountStatusStore()
     useEffect(() => {
       return disconnect
-    }, [])
-    return (
-      <Component
-        onClick={(event) => {
-          onClick?.(event)
-          connect()
-        }}
-      />
-    )
-  }
-}
-
-export const WalletAlreadyLinked: StoryObj<typeof Component> = {
-  decorators: [
-    (Story) => {
-      const { addWallets } = authUserStore()
-      useEffect(() => {
-        addWallets()
-      }, [])
-      return <Story />
-    }
-  ],
-  render: ({ onClick }) => {
-    const { connect, disconnect } = accountStatusStore()
-    const { clearWallets } = authUserStore()
-    useEffect(() => {
-      return () => {
-        disconnect()
-        clearWallets()
-      }
     }, [])
     return (
       <Component

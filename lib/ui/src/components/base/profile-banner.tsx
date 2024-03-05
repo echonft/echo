@@ -1,10 +1,10 @@
 import { DEFAULT_BANNER_URL } from '@echo/ui/constants/default-banner-url'
 import { PICTURE_SIZE_BANNER } from '@echo/ui/constants/picture-size'
 import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
-import { classes } from '@echo/ui/helpers/classes'
 import { themeExtension } from '@echo/ui/helpers/theme/theme'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
+import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 export interface ProfileBannerProps {
@@ -32,7 +32,7 @@ export const ProfileBanner: FunctionComponent<ProfileBannerProps> = ({ bannerUrl
   }
   return (
     <div
-      className={classes('w-full', 'h-[15.625rem]', 'bg-no-repeat', 'flex-none', 'select-none', 'bg-cover')}
+      className={clsx('w-full', 'h-[15.625rem]', 'bg-no-repeat', 'flex-none', 'select-none', 'bg-cover')}
       style={getStyle()}
     />
   )

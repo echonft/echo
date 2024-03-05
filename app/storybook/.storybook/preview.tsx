@@ -23,6 +23,7 @@ import { signOffer } from '@echo/storybook/mocks/sign-offer'
 import { signOut } from '@echo/storybook/mocks/sign-out'
 import { switchChain } from '@echo/storybook/mocks/switch-chain'
 import { validateOffer } from '@echo/storybook/mocks/validate-offer'
+import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { messages } from '@echo/ui/messages/en'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import { init } from '@sentry/nextjs'
@@ -38,34 +39,36 @@ const preview: Preview = {
     (Story) => {
       return (
         <NextIntlClientProvider messages={messages} locale={'en'}>
-          <DependenciesProvider
-            dependencies={{
-              acceptOffer,
-              addWallet,
-              approveErc721Contract,
-              cancelListing,
-              cancelOffer,
-              createListing,
-              createOffer,
-              disconnectWallet,
-              executeSwap,
-              getAccount,
-              getCollections,
-              getErc721ContractApproval,
-              getNonce,
-              getOfferSignature,
-              getWallets,
-              rejectOffer,
-              signIn,
-              signNonce,
-              signOffer,
-              signOut,
-              switchChain,
-              validateOffer
-            }}
-          >
-            <Story />
-          </DependenciesProvider>
+          <Web3Provider>
+            <DependenciesProvider
+              dependencies={{
+                acceptOffer,
+                addWallet,
+                approveErc721Contract,
+                cancelListing,
+                cancelOffer,
+                createListing,
+                createOffer,
+                disconnectWallet,
+                executeSwap,
+                getAccount,
+                getCollections,
+                getErc721ContractApproval,
+                getNonce,
+                getOfferSignature,
+                getWallets,
+                rejectOffer,
+                signIn,
+                signNonce,
+                signOffer,
+                signOut,
+                switchChain,
+                validateOffer
+              }}
+            >
+              <Story />
+            </DependenciesProvider>
+          </Web3Provider>
         </NextIntlClientProvider>
       )
     }

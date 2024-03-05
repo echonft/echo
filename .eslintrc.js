@@ -53,15 +53,7 @@ module.exports = {
         paths: [
           {
             name: 'clsx/clsx',
-            message: 'Not gonna work. Use classes instead'
-          },
-          {
-            name: 'clsx',
-            message: 'Use classes instead'
-          },
-          {
-            name: 'twMerge',
-            message: 'Use classes instead'
+            message: 'Not gonna work. Import directly from clsx instead'
           }
         ],
         patterns: [
@@ -73,10 +65,13 @@ module.exports = {
               '@echo/firestore/test/mocks/*',
               '@echo/model/src/*',
               '@echo/model/test/mocks/*',
+              '@echo/sentry/src/*',
+              '@echo/tasks/src/*',
               '@echo/ui/src/*',
               '@echo/utils/src/*',
               '@echo/utils/test/test-utils/*',
               '@echo/web3/src/*',
+              '@echo/web3-dom/src/*',
               'lib/*',
               'src/*',
               './*',

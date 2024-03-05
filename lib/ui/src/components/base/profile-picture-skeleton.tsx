@@ -1,6 +1,6 @@
 import { SIZE_LG, SIZE_MD, SIZE_SM } from '@echo/ui/constants/size'
-import { classes } from '@echo/ui/helpers/classes'
 import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
+import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 export const ProfilePictureSkeleton: FunctionComponent<Props> = ({ size = SIZE_LG, border = true }) => {
   return (
     <div
-      className={classes(
+      className={clsx(
         'flex-none',
         'select-none',
         size === SIZE_LG && ['h-40', 'w-40', 'rounded-2xl'],

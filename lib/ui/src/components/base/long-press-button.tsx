@@ -1,6 +1,6 @@
 'use client'
-import { classes } from '@echo/ui/helpers/classes'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import { clsx } from 'clsx'
 import { add, isNil, min, pipe } from 'ramda'
 import { type FunctionComponent, useCallback, useEffect, useRef, useState } from 'react'
 import { Tooltip } from 'react-tooltip'
@@ -64,20 +64,20 @@ export const LongPressButton: FunctionComponent<Props> = ({
   }, [])
 
   return (
-    <div className={classes('w-max', 'h-max', 'relative')}>
+    <div className={clsx('w-max', 'h-max', 'relative')}>
       <button
         id={buttonId}
-        className={classes('btn', 'btn-size-alt', 'group', loading && 'animate-pulse')}
+        className={clsx('btn', 'btn-size-alt', 'group', loading && 'animate-pulse')}
         disabled={loading ?? disabled}
         style={{
           background: `linear-gradient(to right, #BF0000 ${progressPercentage}%, #FF4040 ${progressPercentage}% 100%`
         }}
         {...bind()}
       >
-        <span className={classes('prose-label-lg', 'btn-label-cancel')}>{label}</span>
+        <span className={clsx('prose-label-lg', 'btn-label-cancel')}>{label}</span>
       </button>
       <Tooltip
-        className={classes('tooltip')}
+        className={clsx('tooltip')}
         anchorSelect={`#${buttonId}`}
         delayHide={400}
         content={message}

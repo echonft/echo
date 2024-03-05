@@ -2,11 +2,11 @@
 import { NftGroupButton } from '@echo/ui/components/nft/group/nft-group-button'
 import { SelectableNfts } from '@echo/ui/components/nft/group/selectable-nfts'
 import { type SelectableNftCardProps } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
-import { classes } from '@echo/ui/helpers/classes'
 import { getSelectionInList } from '@echo/ui/helpers/selectable/get-selection-in-list'
 import { type NftGroup } from '@echo/ui/types/nft-group'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { Transition } from '@headlessui/react'
+import { clsx } from 'clsx'
 import { motion } from 'framer-motion'
 import { complement, isEmpty, pipe, prop } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
@@ -24,7 +24,7 @@ export const SelectableNftGroupCollapsible: FunctionComponent<Props> = ({ group,
   const [collapsed, setCollapsed] = useState(style?.collapsed ?? true)
   return (
     <motion.div
-      className={classes('flex', 'flex-col', 'gap-4', 'h-max')}
+      className={clsx('flex', 'flex-col', 'gap-4', 'h-max')}
       layout={'position'}
       transition={{ ease: 'easeOut', duration: 0.1 }}
       initial={'hidden'}

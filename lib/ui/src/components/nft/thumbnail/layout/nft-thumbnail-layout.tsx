@@ -1,6 +1,6 @@
-import { classes } from '@echo/ui/helpers/classes'
 import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
+import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
 interface Props extends WithChildrenProps, WithLoadingProps {
@@ -10,7 +10,7 @@ interface Props extends WithChildrenProps, WithLoadingProps {
 export const NftThumbnailLayout: FunctionComponent<Props> = ({ disabled, loading, children }) => {
   return (
     <div
-      className={classes(
+      className={clsx(
         'rounded-lg',
         'w-32',
         'h-max',

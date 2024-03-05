@@ -1,5 +1,5 @@
-import { classes } from '@echo/ui/helpers/classes'
 import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
+import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props extends WithLoadingProps {
@@ -9,7 +9,7 @@ interface Props extends WithLoadingProps {
 export const NftFiltersPanelLayout: FunctionComponent<PropsWithChildren<Props>> = ({ title, loading, children }) => {
   return (
     <div
-      className={classes(
+      className={clsx(
         'flex',
         'flex-col',
         'p-2',
@@ -20,7 +20,7 @@ export const NftFiltersPanelLayout: FunctionComponent<PropsWithChildren<Props>> 
         loading ? ['h-[30rem]', 'animate-pulse'] : 'h-max'
       )}
     >
-      <h2 className={classes('prose-label-sm-semi', 'text-white/50', 'py-1', loading && 'invisible')}>{title}</h2>
+      <h2 className={clsx('prose-label-sm-semi', 'text-white/50', 'py-1', loading && 'invisible')}>{title}</h2>
       {children}
     </div>
   )

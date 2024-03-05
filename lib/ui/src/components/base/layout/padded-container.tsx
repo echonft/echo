@@ -1,4 +1,4 @@
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -6,5 +6,5 @@ interface Props {
 }
 
 export const PaddedContainer: FunctionComponent<PropsWithChildren<Props>> = ({ className, children }) => {
-  return <div className={classes('w-full', 'px-6', 'lg:px-12', className)}>{children}</div>
+  return <div className={clsx('w-full', 'px-6', 'lg:px-12', className)}>{children}</div>
 }

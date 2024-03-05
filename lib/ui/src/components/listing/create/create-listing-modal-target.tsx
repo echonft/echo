@@ -1,9 +1,9 @@
 import type { Collection } from '@echo/model/types/collection'
 import { QuantityPicker } from '@echo/ui/components/base/quantity-picker'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
-import { classes } from '@echo/ui/helpers/classes'
 import type { Target } from '@echo/ui/types/target'
 import type { Nullable } from '@echo/utils/types/nullable'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -19,15 +19,15 @@ export const CreateListingModalTarget: FunctionComponent<Props> = ({ target, isM
 
   if (isNil(target)) {
     return (
-      <div className={classes('flex', 'w-full', 'h-40', 'px-2', 'justify-center', 'items-center')}>
-        <span className={classes('text-white/10', 'prose-display-sm', 'whitespace-pre-line', 'text-center')}>
+      <div className={clsx('flex', 'w-full', 'h-40', 'px-2', 'justify-center', 'items-center')}>
+        <span className={clsx('text-white/10', 'prose-display-sm', 'whitespace-pre-line', 'text-center')}>
           {t('empty.targets')}
         </span>
       </div>
     )
   }
   return (
-    <div className={classes('flex', 'w-full', 'h-40', 'justify-center', 'items-center', 'gap-6')}>
+    <div className={clsx('flex', 'w-full', 'h-40', 'justify-center', 'items-center', 'gap-6')}>
       <CollectionThumbnail collection={target.collection as Collection} disabled={isMutating} />
       <QuantityPicker
         initialQty={target.amount}
