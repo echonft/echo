@@ -1,6 +1,6 @@
 import { PICTURE_SIZE_CARD } from '@echo/ui/constants/picture-size'
 import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import Image from 'next/image'
 import type { FunctionComponent } from 'react'
 
@@ -13,7 +13,7 @@ interface Props {
 export const CardImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled }) => {
   return (
     <Image
-      className={classes(
+      className={clsx(
         'select-none',
         'rounded-2xl',
         'transition-transform',

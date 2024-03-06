@@ -101,7 +101,7 @@ export function useConnectWallet(account: AccountResult) {
 
   // when connected, check if wallet is linked and if not, add it
   useEffect(() => {
-    if (!isNil(account.address) && account.status === 'connected') {
+    if (!isNil(wallet) && account.status === 'connected') {
       if (isNil(account.chain) || (!isNil(account.chainId) && account.chainId !== chainId)) {
         void switchChain()
       } else if (!isNil(walletsResponse) && !connected) {

@@ -1,4 +1,4 @@
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -6,5 +6,5 @@ interface Props {
 }
 
 export const CardTitle: FunctionComponent<Props> = ({ label }) => {
-  return <p className={classes('prose-label-sm', 'text-white', 'truncate')}>{label}</p>
+  return <p className={clsx('prose-label-sm', 'text-white', 'truncate')}>{label}</p>
 }

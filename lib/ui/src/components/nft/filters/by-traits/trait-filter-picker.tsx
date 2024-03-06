@@ -1,11 +1,11 @@
 'use client'
 import { TraitFilterButton } from '@echo/ui/components/nft/filters/by-traits/trait-filter-button'
 import { NftFilter } from '@echo/ui/components/nft/filters/nft-filter'
-import { classes } from '@echo/ui/helpers/classes'
 import { type WithCollapsibleProps } from '@echo/ui/types/props/with-collapsible-props'
 import type { Selectable } from '@echo/ui/types/selectable'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { Transition } from '@headlessui/react'
+import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props extends WithCollapsibleProps {
@@ -22,7 +22,7 @@ export const TraitFilterPicker: FunctionComponent<Props> = ({
   onToggleSelection
 }) => {
   return (
-    <div className={classes('flex', 'flex-col', 'gap-2', 'w-full', 'h-max')}>
+    <div className={clsx('flex', 'flex-col', 'gap-2', 'w-full', 'h-max')}>
       <TraitFilterButton trait={label} collapsed={collapsed ?? false} onToggleCollapsed={onToggleCollapsed} />
       <Transition
         show={collapsed ?? false}
@@ -33,7 +33,7 @@ export const TraitFilterPicker: FunctionComponent<Props> = ({
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <div className={classes('flex', 'flex-col', 'gap-2', 'w-full', 'h-max')}>
+        <div className={clsx('flex', 'flex-col', 'gap-2', 'w-full', 'h-max')}>
           {filters.map((filter) => (
             <NftFilter key={filter.id} filter={filter} onToggleSelection={onToggleSelection} />
           ))}

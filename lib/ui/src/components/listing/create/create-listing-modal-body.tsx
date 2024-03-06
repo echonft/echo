@@ -6,7 +6,7 @@ import { CreateListingModalButton } from '@echo/ui/components/listing/create/cre
 import { CreateListingModalItems } from '@echo/ui/components/listing/create/create-listing-modal-items'
 import { CreateListingModalTarget } from '@echo/ui/components/listing/create/create-listing-modal-target'
 import { CreateListingModalTargetLayout } from '@echo/ui/components/listing/create/layout/create-listing-modal-target-layout'
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isEmpty, isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -27,7 +27,7 @@ export const CreateListingModalBody: FunctionComponent<Omit<CreateListingModalPr
     return null
   }
   return (
-    <div className={classes('flex', 'flex-col', 'gap-6')}>
+    <div className={clsx('flex', 'flex-col', 'gap-6')}>
       <CollectionSearchBoxManager
         options={collections}
         onSelectionChange={onCollectionSelectionChange}
@@ -36,9 +36,9 @@ export const CreateListingModalBody: FunctionComponent<Omit<CreateListingModalPr
       <CreateListingModalTargetLayout disabled={loading}>
         <CreateListingModalTarget target={target} onEdit={onTargetAmountChange} isMutating={loading} />
       </CreateListingModalTargetLayout>
-      <div className={classes('w-full', 'h-0.5', 'bg-white/[0.08]')} />
+      <div className={clsx('w-full', 'h-0.5', 'bg-white/[0.08]')} />
       <CreateListingModalItems items={items} disabled={loading} />
-      <div className={classes('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
+      <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
         <CreateListingModalButton
           target={target}
           items={items}

@@ -1,4 +1,4 @@
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
 
 interface Props {
@@ -7,9 +7,9 @@ interface Props {
 
 export const LoginJoinDiscordButton: FunctionComponent<PropsWithChildren<Props>> = ({ onClick, children }) => {
   return (
-    <div className={classes('w-full', 'bg-gradient-to-r', 'from-[#FFE70B]', 'to-[#0e0e0e]', 'rounded-lg', 'p-[1px]')}>
+    <div className={clsx('w-full', 'bg-gradient-to-r', 'from-[#FFE70B]', 'to-[#0e0e0e]', 'rounded-lg', 'p-[1px]')}>
       <button
-        className={classes(
+        className={clsx(
           'bg-[#0e0e0e]',
           'rounded-lg',
           'py-5',
@@ -21,7 +21,7 @@ export const LoginJoinDiscordButton: FunctionComponent<PropsWithChildren<Props>>
         )}
         onClick={onClick}
       >
-        <span className={classes('prose-header-md-semi', 'bg-joinDiscordLabel', 'italic', 'bg-clip-text')}>
+        <span className={clsx('prose-header-md-semi', 'bg-joinDiscordLabel', 'italic', 'bg-clip-text')}>
           {children}
         </span>
       </button>

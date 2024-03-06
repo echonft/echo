@@ -1,7 +1,7 @@
 import { NftFilterSelector } from '@echo/ui/components/nft/filters/nft-filter-selector'
-import { classes } from '@echo/ui/helpers/classes'
 import type { NftFilter as NftFilterModel } from '@echo/ui/types/nft-filter'
 import type { Selectable } from '@echo/ui/types/selectable'
+import { clsx } from 'clsx'
 
 interface Props<T extends NftFilterModel> {
   filter: Selectable<T>
@@ -11,7 +11,7 @@ interface Props<T extends NftFilterModel> {
 export const NftFilter = <T extends NftFilterModel>({ filter, onToggleSelection }: Props<T>) => {
   return (
     <button
-      className={classes(
+      className={clsx(
         'flex',
         'flex-row',
         'justify-between',
@@ -27,11 +27,11 @@ export const NftFilter = <T extends NftFilterModel>({ filter, onToggleSelection 
         onToggleSelection?.(filter)
       }}
     >
-      <div className={classes('flex', 'flex-row', 'gap-2.5', 'items-center', 'min-w-0')}>
+      <div className={clsx('flex', 'flex-row', 'gap-2.5', 'items-center', 'min-w-0')}>
         <NftFilterSelector filter={filter} />
-        <span className={classes('prose-label-sm-semi', 'text-white', 'truncate')}>{filter.label}</span>
+        <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>{filter.label}</span>
       </div>
-      <span className={classes('prose-label-sm-light', 'text-white')}>{filter.count}</span>
+      <span className={clsx('prose-label-sm-light', 'text-white')}>{filter.count}</span>
     </button>
   )
 }

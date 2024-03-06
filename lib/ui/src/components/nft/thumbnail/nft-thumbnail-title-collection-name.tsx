@@ -1,4 +1,4 @@
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 export const NftThumbnailTitleCollectionName: FunctionComponent<Props> = ({ label }) => {
   return (
     <p
-      className={classes(
+      className={clsx(
         'font-inter',
         'text-[0.75rem]',
         'font-medium',

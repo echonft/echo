@@ -1,6 +1,6 @@
 import { Callout } from '@echo/ui/components/base/callout/callout'
-import { classes } from '@echo/ui/helpers/classes'
 import type { Alert } from '@echo/ui/types/alert'
+import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
@@ -15,7 +15,7 @@ export const CalloutManagerContent: FunctionComponent<Props> = ({ alert, show, o
     return null
   }
   return (
-    <div className={classes('h-max', 'w-max', 'transition-opacity ease-in-out', show ? 'opacity-100' : 'opacity-0')}>
+    <div className={clsx('h-max', 'w-max', 'transition-opacity ease-in-out', show ? 'opacity-100' : 'opacity-0')}>
       <Callout severity={alert.severity} variant={alert.variant} onClick={onClick}>
         {alert.message}
       </Callout>

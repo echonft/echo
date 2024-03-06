@@ -1,5 +1,5 @@
-import { classes } from '@echo/ui/helpers/classes'
 import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
+import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
 
@@ -15,7 +15,7 @@ export const CollectionThumbnailLayout: FunctionComponent<PropsWithChildren<Prop
 }) => {
   return (
     <div
-      className={classes(
+      className={clsx(
         'flex',
         'flex-row',
         'pt-3.5',

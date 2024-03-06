@@ -1,10 +1,10 @@
 import type { Listing } from '@echo/model/types/listing'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { ListingDetailsButtonsLayout } from '@echo/ui/components/listing/details/layout/listing-details-buttons-layout'
-import { classes } from '@echo/ui/helpers/classes'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'
 import { isListingRoleTarget } from '@echo/ui/helpers/listing/is-listing-role-target'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
@@ -48,11 +48,11 @@ export const ListingDetailsButtonsContainer: FunctionComponent<Props> = ({
     return (
       <ListingDetailsButtonsLayout>
         <button
-          className={classes('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
+          className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
           disabled={isMutating || !hasSelectedEnoughNfts}
           onClick={() => actions?.onFill?.(listing)}
         >
-          <span className={classes('prose-label-lg', 'btn-label-action')}>{t('fillBtn')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('fillBtn')}</span>
         </button>
       </ListingDetailsButtonsLayout>
     )

@@ -4,7 +4,7 @@ import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { HideIfNilOrEmpty } from '@echo/ui/components/base/utils/hide-if-nil-or-empty'
 import { NftThumbnail } from '@echo/ui/components/nft/thumbnail/nft-thumbnail'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
@@ -16,7 +16,7 @@ interface Props {
 
 export const CreateOfferModalItemsContainer: FunctionComponent<Props> = ({ receiverItems, senderItems, disabled }) => {
   return (
-    <div className={classes('flex', 'flex-col', 'gap-4.5', 'items-center')}>
+    <div className={clsx('flex', 'flex-col', 'gap-4.5', 'items-center')}>
       <CardsLayout alignment={ALIGNMENT_CENTER}>
         {map(
           (item) => (

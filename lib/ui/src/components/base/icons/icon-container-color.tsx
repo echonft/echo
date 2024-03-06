@@ -1,4 +1,4 @@
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 export const IconContainerColor: FunctionComponent<PropsWithChildren<Props>> = ({ children, className }) => {
   return (
     <div
-      className={classes(
+      className={clsx(
         'w-full',
         'h-full',
         'flex',
