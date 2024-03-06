@@ -1,5 +1,5 @@
 import { ECHO_ABI } from '@echo/web3/constants/echo-abi'
-import { echoAddress } from '@echo/web3/constants/echo-address'
+import { ECHO_ADDRESS } from '@echo/web3/constants/echo-address'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { mapOfferToOfferSignature } from '@echo/web3-dom/mappers/map-offer-to-offer-signature'
 import type { ExecuteSwapArgs } from '@echo/web3-dom/types/execute-swap-args'
@@ -12,7 +12,7 @@ export async function executeSwap(args: ExecuteSwapArgs) {
   const { request } = await simulateContract(wagmiConfig, {
     abi: ECHO_ABI,
     functionName: 'executeTrade',
-    address: echoAddress,
+    address: ECHO_ADDRESS,
     chainId,
     args: [v as unknown as number, r, s, mapOfferToOfferSignature(offer) as never]
   })

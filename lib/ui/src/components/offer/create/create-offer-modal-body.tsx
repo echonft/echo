@@ -7,7 +7,7 @@ import { ShowIfNilOrEmpty } from '@echo/ui/components/base/utils/show-if-nil-or-
 import type { NewOfferConfirmationModalProps } from '@echo/ui/components/offer/create/create-offer-modal'
 import { CreateOfferModalItemsContainer } from '@echo/ui/components/offer/create/create-offer-modal-items-container'
 import { CreateOfferReceiver } from '@echo/ui/components/offer/create/create-offer-receiver'
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
@@ -26,18 +26,18 @@ export const CreateOfferModalBody: FunctionComponent<Omit<NewOfferConfirmationMo
     return null
   }
   return (
-    <div className={classes('flex', 'flex-col', 'gap-12')}>
+    <div className={clsx('flex', 'flex-col', 'gap-12')}>
       <CreateOfferReceiver user={receiver} disabled={loading} />
       <CreateOfferModalItemsContainer receiverItems={receiverItems} senderItems={senderItems} disabled={loading} />
-      <div className={classes('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
+      <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
         <ShowIfNilOrEmpty checks={senderItems}>
           <InternalLink path={linkProvider.profile.items.get()}>
             <button
-              className={classes('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
+              className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
               onClick={onContinue}
               disabled={loading}
             >
-              <span className={classes('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
+              <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
             </button>
           </InternalLink>
         </ShowIfNilOrEmpty>
@@ -45,11 +45,11 @@ export const CreateOfferModalBody: FunctionComponent<Omit<NewOfferConfirmationMo
           checks={senderItems}
           render={() => (
             <button
-              className={classes('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
+              className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
               onClick={onComplete}
               disabled={loading}
             >
-              <span className={classes('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
+              <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('continueBtn')}</span>
             </button>
           )}
         />

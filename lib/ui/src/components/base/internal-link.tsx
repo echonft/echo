@@ -1,6 +1,6 @@
 'use client'
-import { classes } from '@echo/ui/helpers/classes'
 import { isStorybook } from '@echo/utils/constants/is-storybook'
+import { clsx } from 'clsx'
 import Link from 'next/link'
 import { type FunctionComponent, type MouseEventHandler, type PropsWithChildren } from 'react'
 
@@ -20,7 +20,7 @@ export const InternalLink: FunctionComponent<PropsWithChildren<Props>> = ({
 }) => {
   return (
     <Link
-      className={classes('block', 'outline-none', disabled && 'cursor-default', className)}
+      className={clsx('block', 'outline-none', disabled && 'cursor-default', className)}
       href={path}
       onClick={(event) => {
         if (isStorybook || disabled) {

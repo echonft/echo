@@ -1,6 +1,6 @@
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EmptyViewContent } from '@echo/ui/components/base/navigation/empty-view-content'
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
@@ -10,8 +10,8 @@ export const CollectionSwapsEmpty: FunctionComponent = () => {
     <EmptyViewContent message={t('message')}>
       {/*TODO link*/}
       <InternalLink path={'#'}>
-        <button className={classes('btn-primary', 'btn-size', 'group')}>
-          <span className={classes('prose-label-lg', 'btn-label-primary')}>{t('btn')}</span>
+        <button className={clsx('btn-primary', 'btn-size', 'group')}>
+          <span className={clsx('prose-label-lg', 'btn-label-primary')}>{t('btn')}</span>
         </button>
       </InternalLink>
     </EmptyViewContent>

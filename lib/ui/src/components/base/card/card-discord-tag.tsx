@@ -1,6 +1,6 @@
 import { CardDiscordTagWrapper } from '@echo/ui/components/base/card/card-discord-tag-wrapper'
 import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 export interface CardDiscordTagProps {
@@ -12,7 +12,7 @@ export const CardDiscordTag: FunctionComponent<CardDiscordTagProps> = ({ usernam
   return (
     <CardDiscordTagWrapper username={username} asLink={asLink}>
       <div
-        className={classes(
+        className={clsx(
           'flex',
           'flex-row',
           'items-center',
@@ -25,7 +25,7 @@ export const CardDiscordTag: FunctionComponent<CardDiscordTagProps> = ({ usernam
         )}
       >
         <DiscordIconSvg width={12} />
-        <span className={classes('font-inter', 'text-[0.625rem]', 'font-medium', 'leading-[220%]')}>{username}</span>
+        <span className={clsx('font-inter', 'text-[0.625rem]', 'font-medium', 'leading-[220%]')}>{username}</span>
       </div>
     </CardDiscordTagWrapper>
   )

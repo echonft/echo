@@ -1,7 +1,7 @@
 'use client'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { Modal } from '@echo/ui/components/base/modal/modal'
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
@@ -16,11 +16,11 @@ export const CreateListingDiscardModal: FunctionComponent<Props> = ({ open, onCl
 
   return (
     <Modal open={open} onClose={onClose} title={t('title')}>
-      <div className={classes('flex', 'flex-col', 'gap-12', 'items-center')}>
+      <div className={clsx('flex', 'flex-col', 'gap-12', 'items-center')}>
         <span className={'text-white text-center prose-header-xs-semi'}>{t('subtitle')}</span>
-        <div className={classes('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
-          <button className={classes('btn-gradient', 'btn-size-alt', 'group')} onClick={onClose}>
-            <span className={classes('prose-label-lg', 'btn-label-gradient')}>{t('cancelBtn')}</span>
+        <div className={clsx('flex', 'flex-row', 'gap-4', 'items-center', 'justify-center')}>
+          <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} onClick={onClose}>
+            <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('cancelBtn')}</span>
           </button>
           <LongPressButton
             id={'new-offer-discard-btn'}

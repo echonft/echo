@@ -1,6 +1,6 @@
 import { CardOpenSeaIcon } from '@echo/ui/components/base/card/card-open-sea-icon'
-import { classes } from '@echo/ui/helpers/classes'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 export const SelectableNftCardPictureOpenSeaIcon: FunctionComponent<Props> = ({ nft }) => {
   return (
-    <div className={classes('absolute', 'top-2', 'left-2', 'h-max', 'w-max')}>
+    <div className={clsx('absolute', 'top-2', 'left-2', 'h-max', 'w-max')}>
       <CardOpenSeaIcon openSeaUrl={nft.openSeaUrl} />
     </div>
   )

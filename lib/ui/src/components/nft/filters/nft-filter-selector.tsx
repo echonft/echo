@@ -1,7 +1,7 @@
-import { classes } from '@echo/ui/helpers/classes'
 import { isSelected } from '@echo/ui/helpers/selectable/is-selected'
 import type { NftFilter } from '@echo/ui/types/nft-filter'
 import type { Selectable } from '@echo/ui/types/selectable'
+import { clsx } from 'clsx'
 
 interface Props<T extends NftFilter> {
   filter: Selectable<T>
@@ -9,7 +9,7 @@ interface Props<T extends NftFilter> {
 
 const SelectedIcon = <T extends NftFilter>({ filter }: Props<T>) => {
   if (isSelected(filter)) {
-    return <span className={classes('w-4', 'h-4', 'bg-yellow-500', 'rounded')} />
+    return <span className={clsx('w-4', 'h-4', 'bg-yellow-500', 'rounded')} />
   }
   return null
 }
@@ -17,7 +17,7 @@ const SelectedIcon = <T extends NftFilter>({ filter }: Props<T>) => {
 export const NftFilterSelector = <T extends NftFilter>({ filter }: Props<T>) => {
   return (
     <div
-      className={classes(
+      className={clsx(
         'flex',
         'justify-center',
         'items-center',

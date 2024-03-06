@@ -1,4 +1,4 @@
-import { echoAddress } from '@echo/web3/constants/echo-address'
+import { ECHO_ADDRESS } from '@echo/web3/constants/echo-address'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import { mapOfferToOfferSignature } from '@echo/web3-dom/mappers/map-offer-to-offer-signature'
 import type { SignOfferArgs } from '@echo/web3-dom/types/sign-offer-args'
@@ -12,7 +12,7 @@ function getSignatureConfigForOffer(args: SignOfferArgs) {
       name: 'Echo',
       version: '1',
       chainId,
-      verifyingContract: echoAddress
+      verifyingContract: ECHO_ADDRESS
     },
     types: {
       Trade: [

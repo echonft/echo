@@ -4,8 +4,8 @@ import { TwitterIcon } from '@echo/ui/components/base/icons/twitter-icon'
 import { WebsiteIcon } from '@echo/ui/components/base/icons/website-icon'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
 import { SIZE_MD } from '@echo/ui/constants/size'
-import { classes } from '@echo/ui/helpers/classes'
 import type { Nullable } from '@echo/utils/types/nullable'
+import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 export interface CollectionLinksProps {
@@ -20,7 +20,7 @@ export const CollectionLinks: FunctionComponent<CollectionLinksProps> = ({
   discordUrl
 }) => {
   return (
-    <div className={classes('flex', 'flex-row', 'gap-2')}>
+    <div className={clsx('flex', 'flex-row', 'gap-2')}>
       <HideIfNil
         checks={websiteUrl}
         render={(websiteUrl) => (
