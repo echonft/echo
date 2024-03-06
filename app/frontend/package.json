@@ -37,7 +37,6 @@
     "next": "14.1.0",
     "next-auth": "5.0.0-beta.11",
     "next-intl": "3.7.0",
-    "nextjs-router-events": "0.0.3",
     "qs": "6.11.2",
     "ramda": "0.29.1",
     "react": "18.2.0",

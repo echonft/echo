@@ -7,7 +7,6 @@ import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { ProfileNavigationLayout } from '@echo/ui/pages/profile/navigation/profile-navigation-layout'
 import { ProfileNfts } from '@echo/ui/pages/profile/nfts/profile-nfts'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { RouteChangesProvider } from 'nextjs-router-events'
 import { andThen, assoc, map, pipe, prop } from 'ramda'
 import type { ReactElement } from 'react'
 
@@ -18,11 +17,9 @@ async function render({ user }: NextAuthUserParams) {
     andThen(map<SelectableNft, SelectableNft>(assoc('action', NFT_ACTION_LISTING)))
   )(user)
   return (
-    <RouteChangesProvider>
-      <ProfileNavigationLayout activeNavigationItem={NAVIGATION_NFTS}>
-        <ProfileNfts nfts={nfts} />
-      </ProfileNavigationLayout>
-    </RouteChangesProvider>
+    <ProfileNavigationLayout activeNavigationItem={NAVIGATION_NFTS}>
+      <ProfileNfts nfts={nfts} />
+    </ProfileNavigationLayout>
   )
 }
 

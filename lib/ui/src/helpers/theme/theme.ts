@@ -13,8 +13,6 @@ type fontSizeConfig = [
 ]
 export const themeExtension = {
   backgroundImage: {
-    banner: 'linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, #121212 100%)',
-    collectionTitle: 'linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 101.27%)',
     home: 'linear-gradient(162deg, rgba(239, 244, 39, 0.20) -11.34%, #121212 42.54%)',
     main: 'linear-gradient(95.27deg, #EFF427 7.68%, #8F27F5 100%)',
     'main/40': 'linear-gradient(95.27deg, rgba(239, 244, 39, 0.4) 7.68%, rgba(143, 39, 245, 0.4) 100%)',

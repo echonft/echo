@@ -12,7 +12,6 @@ import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { ProfileNfts } from '@echo/ui/pages/profile/nfts/profile-nfts'
 import { type Meta, type StoryObj } from '@storybook/react'
-import { RouteChangesProvider } from 'nextjs-router-events'
 import { type FunctionComponent, useEffect } from 'react'
 
 const metadata: Meta<FunctionComponent> = {
@@ -41,9 +40,7 @@ export const SelectingOwnItems: StoryObj<FunctionComponent> = {
           <UserProfile profile={profile} />
         </SectionLayout>
         <SectionLayout>
-          <RouteChangesProvider>
-            <ProfileNfts nfts={getAllNftMocks()} />
-          </RouteChangesProvider>
+          <ProfileNfts nfts={getAllNftMocks()} />
         </SectionLayout>
       </NavigationPageLayout>
     )
