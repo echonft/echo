@@ -5,9 +5,11 @@ import { listingChangeHandler } from '@echo/bot/listing/listing-change-handler'
 import { initializeTranslations } from '@echo/bot/messages/initialize-translations'
 import { offerChangeHandler } from '@echo/bot/offer/offer-change-handler'
 import { offerUpdateChangeHandler } from '@echo/bot/offer/offer-update-change-handler'
+import { swapChangeHandler } from '@echo/bot/swap/swap-change-handler'
 import { listenToListings } from '@echo/firestore/listeners/listen-to-listings'
 import { listenToOfferUpdates } from '@echo/firestore/listeners/listen-to-offer-updates'
 import { listenToOffers } from '@echo/firestore/listeners/listen-to-offers'
+import { listenToSwaps } from '@echo/firestore/listeners/listen-to-swaps'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { guardAsyncFn } from '@echo/sentry/guard-async-fn'
 import { initializeSentry } from '@echo/sentry/initialize-sentry'
@@ -20,6 +22,7 @@ client.once(Events.ClientReady, async (_client) => {
   listenToListings((changeType, listing) => guardAsyncFn(listingChangeHandler)(changeType, listing))
   listenToOffers((changeType, offer) => guardAsyncFn(offerChangeHandler)(changeType, offer))
   listenToOfferUpdates((changeType, update) => guardAsyncFn(offerUpdateChangeHandler)(changeType, update))
+  listenToSwaps((changeType, update) => guardAsyncFn(swapChangeHandler)(changeType, update))
   await guardAsyncFn(sendToEchoChannel)('Echo bot up and running')
 })
 
