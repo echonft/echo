@@ -1,14 +1,17 @@
 'use client'
+import { SelectableNftsLayout } from '@echo/ui/components/nft/group/layout/selectable-nfts-layout'
 import { NftGroupButton } from '@echo/ui/components/nft/group/nft-group-button'
-import { SelectableNfts } from '@echo/ui/components/nft/group/selectable-nfts'
-import { type SelectableNftCardProps } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
+import {
+  SelectableNftCard,
+  type SelectableNftCardProps
+} from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import { getSelectionInList } from '@echo/ui/helpers/selectable/get-selection-in-list'
 import { type NftGroup } from '@echo/ui/types/nft-group'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { motion } from 'framer-motion'
-import { complement, isEmpty, pipe, prop } from 'ramda'
+import { AnimatePresence, motion } from 'framer-motion'
+import { complement, isEmpty, map, pipe, prop } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props extends Omit<SelectableNftCardProps, 'nft'> {
@@ -55,7 +58,25 @@ export const SelectableNftGroupCollapsible: FunctionComponent<Props> = ({ group,
         leaveFrom="transform scale-100 opacity-100"
         leaveTo="transform scale-95 opacity-0"
       >
-        <SelectableNfts nfts={nfts} {...cardProps} />
+        <SelectableNftsLayout>
+          <AnimatePresence initial={false}>
+            {map(
+              (nft) => (
+                <motion.div
+                  key={nft.id}
+                  layout={'position'}
+                  transition={{ ease: 'easeOut', duration: 0.2 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <SelectableNftCard nft={nft} {...cardProps} />
+                </motion.div>
+              ),
+              nfts
+            )}
+          </AnimatePresence>
+        </SelectableNftsLayout>
       </Transition>
     </motion.div>
   )

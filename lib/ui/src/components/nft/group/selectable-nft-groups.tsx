@@ -1,95 +1,89 @@
 'use client'
 import type { Nft } from '@echo/model/types/nft'
+import { withIdEquals } from '@echo/ui/comparators/with-id-equals'
 import { SelectableNftGroupsLayout } from '@echo/ui/components/nft/group/layout/selectable-nft-groups-layout'
 import { SelectableNftGroup } from '@echo/ui/components/nft/group/selectable-nft-group'
 import { type SelectableNftCardProps } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
-import { disable } from '@echo/ui/helpers/disableable/disable'
-import { enable } from '@echo/ui/helpers/disableable/enable'
+import { SelectableNftThumbnailContainer } from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnail-container'
 import { disableAction } from '@echo/ui/helpers/nft/disable-action'
 import { enableAction } from '@echo/ui/helpers/nft/enable-action'
-import { enableSelection } from '@echo/ui/helpers/selectable/enable-selection'
-import { getSelectionInList } from '@echo/ui/helpers/selectable/get-selection-in-list'
-import { toggleSelectionInList } from '@echo/ui/helpers/selectable/toggle-selection-in-list'
-import { unselect } from '@echo/ui/helpers/selectable/unselect'
 import type { NftGroup } from '@echo/ui/types/nft-group'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { find, flatten, includes, isEmpty, map, modify, pipe, prop, propEq, unless } from 'ramda'
+import { includesWith } from '@echo/utils/fp/includes-with'
+import { isInWith } from '@echo/utils/fp/is-in-with'
+import { clsx } from 'clsx'
+import { append, filter, flatten, isEmpty, map, modify, pipe, prop, reject } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
-interface Props extends Pick<SelectableNftCardProps, 'options' | 'onAction'> {
+export interface SelectableNftGroupsProps extends Pick<SelectableNftCardProps, 'options' | 'onAction'> {
   nfts: Nft[]
   groupBy: (nfts: Nft[]) => NftGroup[]
+  initialSelection?: Nft[]
   style?: {
     collapsible?: boolean
   }
   onSelectionUpdate?: (selection: SelectableNft[]) => unknown
 }
 
-export const SelectableNftGroups: FunctionComponent<Props> = ({
+export const SelectableNftGroups: FunctionComponent<SelectableNftGroupsProps> = ({
   nfts,
   groupBy,
+  initialSelection,
   options,
   style,
   onAction,
   onSelectionUpdate
 }) => {
+  const [selection, setSelection] = useState<SelectableNft[]>(initialSelection ?? [])
   const [groups, setGroups] = useState<NftGroup[]>([])
-  const onNftToggleSelection = (nft: Nft) => {
-    setGroups((currentGroups) => {
-      const updatedGroups = map<NftGroup, NftGroup>(
-        modify('nfts', toggleSelectionInList<SelectableNft>(propEq(nft.id, 'id')))
-      )(currentGroups)
-      const updatedGroup = find(
-        pipe<[NftGroup], SelectableNft[], string[], boolean>(prop('nfts'), map(prop('id')), includes(nft.id))
-      )(updatedGroups)!
-      const selection = pipe(prop('nfts'), getSelectionInList<SelectableNft>)(updatedGroup)
-      if (isEmpty(selection)) {
-        return pipe(
-          map<NftGroup, NftGroup>(modify('nfts', map<SelectableNft, SelectableNft>(pipe(enableAction, enable))))
-        )(updatedGroups)
-      } else {
-        // if one group has a selection, disable all the items of the other groups
-        return map<NftGroup, NftGroup>(
-          pipe(
-            modify('nfts', map(disableAction)),
-            unless<NftGroup, NftGroup>(propEq(updatedGroup.id, 'id'), modify('nfts', map(disable<SelectableNft>)))
-          ),
-          updatedGroups
+  const onSelect = (nft: Nft) => {
+    setSelection(append(nft))
+    setGroups(
+      pipe(
+        filter(pipe(prop('nfts'), includesWith(nft, withIdEquals))),
+        map(
+          modify<'nfts', SelectableNft[], SelectableNft[]>('nfts', pipe(reject(withIdEquals(nft)), map(disableAction)))
         )
-      }
-    })
+      )
+    )
+  }
+  const onUnselect = (nft: Nft) => {
+    setSelection(reject(withIdEquals(nft)))
+    setGroups(pipe(map(prop('nfts')), flatten, append(nft), groupBy))
   }
 
   // set the initial groups + update the groups when the underlying NFTs change
   useEffect(() => {
-    pipe(
-      map<SelectableNft, SelectableNft>(pipe(enable, unselect, enableAction, enableSelection)),
-      groupBy,
-      setGroups
-    )(nfts)
+    pipe(groupBy, setGroups)(nfts)
+    setSelection(filter(isInWith(nfts, withIdEquals)))
   }, [nfts, groupBy])
 
-  // update groups disabled state based on selection + toggle a selection update when groups change
+  // trigger a selection update when it changes + enable action if selection is empty
   useEffect(() => {
-    const selection = pipe(map(pipe(prop('nfts'), getSelectionInList<SelectableNft>)), flatten)(groups)
+    if (isEmpty(selection)) {
+      setGroups(map(modify('nfts', map(enableAction))))
+    }
     onSelectionUpdate?.(selection)
-  }, [groups, onSelectionUpdate])
+  }, [onSelectionUpdate, selection])
 
   return (
-    <SelectableNftGroupsLayout>
-      {map(
-        (group) => (
-          <SelectableNftGroup
-            key={group.id}
-            group={group}
-            options={options}
-            style={style}
-            onToggleSelection={onNftToggleSelection}
-            onAction={onAction}
-          />
-        ),
-        groups
-      )}
-    </SelectableNftGroupsLayout>
+    <div className={clsx('flex', 'flex-col', 'w-full', 'grow', 'gap-8')}>
+      <SelectableNftThumbnailContainer nfts={selection} onRemove={onUnselect} />
+      <SelectableNftGroupsLayout>
+        {map(
+          (group) => (
+            <SelectableNftGroup
+              key={group.id}
+              group={group}
+              options={options}
+              style={style}
+              onSelect={onSelect}
+              onAction={onAction}
+            />
+          ),
+          groups
+        )}
+      </SelectableNftGroupsLayout>
+    </div>
   )
 }

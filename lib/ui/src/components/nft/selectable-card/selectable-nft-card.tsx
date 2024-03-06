@@ -14,21 +14,15 @@ export interface SelectableNftCardProps {
       hide?: boolean
     }
   }
-  onToggleSelection?: (nft: SelectableNft) => unknown
+  onSelect?: (nft: SelectableNft) => unknown
   onAction?: (nft: SelectableNft) => unknown
 }
 
-export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({
-  nft,
-  options,
-  onToggleSelection,
-  onAction
-}) => {
+export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({ nft, options, onSelect, onAction }) => {
   return (
     <SelectableNftCardLayout
-      nft={nft}
       onClick={() => {
-        onToggleSelection?.(nft)
+        onSelect?.(nft)
       }}
     >
       <SelectableNftCardPicture nft={nft} options={options} />
