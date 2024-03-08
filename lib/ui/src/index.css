@@ -132,6 +132,9 @@
   .prose-label-xs-semi {
     @apply text-label-xs-semi font-inter;
   }
+  .prose-label-xs-light {
+    @apply text-label-xs-light font-inter;
+  }
   .prose-label-caps-lg {
     @apply text-caps-lg font-inter uppercase;
   }

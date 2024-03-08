@@ -50,6 +50,7 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
       alt={alt}
       width={getProfilePictureWidthInPx(size)}
       height={getProfilePictureHeightInPx(size)}
+      quality={100}
     />
   )
 }

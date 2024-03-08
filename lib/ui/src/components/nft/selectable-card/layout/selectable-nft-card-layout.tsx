@@ -9,8 +9,8 @@ interface Props extends CardLayoutProps {
 
 export const SelectableNftCardLayout: FunctionComponent<Props> = ({ onClick, ...rest }) => {
   return (
-    <button className={clsx('w-max', 'h-max', 'transition-all', 'ease-in-out')} onClick={onClick}>
+    <div className={clsx('w-max', 'h-max', 'transition-all', 'ease-in-out', 'cursor-pointer')} onClick={onClick}>
       <CardLayout {...rest} />
-    </button>
+    </div>
   )
 }

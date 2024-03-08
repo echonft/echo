@@ -1,10 +1,8 @@
 'use client'
 import type { Nft } from '@echo/model/types/nft'
-import { PICTURE_SIZE_NFT_THUMBNAIL } from '@echo/ui/constants/picture-size'
-import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
+import { SelectableNftThumbnailImage } from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnail-image'
 import { clsx } from 'clsx'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -33,28 +31,11 @@ export const SelectableNftThumbnail: FunctionComponent<Props> = ({ nft, onRemove
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <Image
-        className={clsx(
-          'h-32',
-          'w-32',
-          'rounded-2xl',
-          'transition-transform',
-          'w-full',
-          'h-full',
-          'object-center',
-          'object-contain',
-          'group-hover:scale-125'
-        )}
-        src={addPictureSizeToUrl(nft.pictureUrl, PICTURE_SIZE_NFT_THUMBNAIL)}
-        alt={nft.tokenId.toString()}
-        width={PICTURE_SIZE_NFT_THUMBNAIL}
-        height={PICTURE_SIZE_NFT_THUMBNAIL}
-        onLoad={() => {
+      <SelectableNftThumbnailImage
+        nft={nft}
+        onLoadComplete={() => {
           setImgLoaded(true)
         }}
-      />
-      <div
-        className={clsx('absolute', 'inset-0', imgLoaded ? 'bg-nftCardGradient' : ['bg-dark-500', 'animate-pulse'])}
       />
       <button
         className={clsx(
