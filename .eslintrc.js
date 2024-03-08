@@ -54,6 +54,10 @@ module.exports = {
           {
             name: 'clsx/clsx',
             message: 'Not gonna work. Import directly from clsx instead'
+          },
+          {
+            name: 'process',
+            message: 'Do not import from process'
           }
         ],
         patterns: [

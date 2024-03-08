@@ -32,6 +32,7 @@ export const CardImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled })
         width={200}
         height={200}
         quality={100}
+        crossOrigin={'anonymous'}
         alt={alt}
         src={addPictureSizeToUrl(src, PICTURE_SIZE_CARD)}
         onLoad={() => {
