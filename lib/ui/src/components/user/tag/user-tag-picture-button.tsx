@@ -19,6 +19,7 @@ export const UserTagPictureButton: FunctionComponent<Props> = ({ user }) => {
         alt={username}
         width={28}
         height={28}
+        quality={100}
       />
     </div>
   )

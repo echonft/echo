@@ -21,7 +21,8 @@ export const NftFilter = <T extends NftFilterModel>({ filter, onToggleSelection 
         'py-[0.3125rem]',
         'px-[0.40625rem]',
         'rounded-lg',
-        'hover:bg-white/[0.08]'
+        'hover:bg-white/[0.08]',
+        'outline-none'
       )}
       onClick={() => {
         onToggleSelection?.(filter)

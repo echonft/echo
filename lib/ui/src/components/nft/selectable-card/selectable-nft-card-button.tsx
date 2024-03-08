@@ -11,12 +11,12 @@ interface Props {
 }
 
 export const SelectableNftCardButton: FunctionComponent<Props> = ({ nft, onClick }) => {
-  const { actionDisabled, disabled, action } = nft
+  const { actionDisabled, action } = nft
   const t = useTranslations('nft.action')
   if (isNil(action)) {
     return null
   }
-  if (!disabled && !actionDisabled) {
+  if (!actionDisabled) {
     return (
       <button
         className={clsx(

@@ -13,7 +13,7 @@ import { assoc, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 import { useMemo } from 'react'
 
-interface Args extends Pick<SelectableNftCardProps, 'onToggleSelection' | 'onAction'> {
+interface Args extends Pick<SelectableNftCardProps, 'onSelect' | 'onAction'> {
   selectionDisabled: boolean
   selected: boolean
   disabled: boolean
@@ -48,7 +48,7 @@ const metadata: Meta<ComponentType> = {
         disable: true
       }
     },
-    onToggleSelection: {
+    onSelect: {
       table: {
         disable: true
       }
@@ -58,8 +58,8 @@ const metadata: Meta<ComponentType> = {
 
 export default metadata
 
-export const Default: StoryObj<ComponentType> = {
-  render: ({ selectionDisabled, selected, disabled, hideOwner, onToggleSelection, onAction }) => {
+export const SelectableCard: StoryObj<ComponentType> = {
+  render: ({ selectionDisabled, selected, disabled, hideOwner, onSelect, onAction }) => {
     const nft = useMemo(
       pipe<[], Nft, SelectableNft, SelectableNft, SelectableNft, SelectableNft, SelectableNft>(
         getNftMock,
@@ -72,12 +72,7 @@ export const Default: StoryObj<ComponentType> = {
       [selectionDisabled, selected, disabled]
     )
     return (
-      <SelectableNftCard
-        nft={nft}
-        options={{ owner: { hide: hideOwner } }}
-        onToggleSelection={onToggleSelection}
-        onAction={onAction}
-      />
+      <SelectableNftCard nft={nft} options={{ owner: { hide: hideOwner } }} onSelect={onSelect} onAction={onAction} />
     )
   }
 }

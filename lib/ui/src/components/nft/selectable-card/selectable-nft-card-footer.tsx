@@ -12,15 +12,13 @@ interface Props {
 }
 
 export const SelectableNftCardFooter: FunctionComponent<Props> = ({ nft }) => {
-  const { disabled, action, actionDisabled } = nft
+  const { action, actionDisabled } = nft
   return (
     <SelectableNftCardFooterLayout>
       <div
         className={clsx(
           'translate-y-3.75',
-          !disabled &&
-            !actionDisabled &&
-            !isNil(action) && ['group-hover:translate-y-0', 'transition-transform ease-in-out'],
+          !actionDisabled && !isNil(action) && ['group-hover:translate-y-0', 'transition-transform ease-in-out'],
           isNil(action) && ['pt-3.75', 'pb-5']
         )}
       >

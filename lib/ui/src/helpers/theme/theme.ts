@@ -359,6 +359,14 @@ export const themeExtension = {
         letterSpacing: '0.02em'
       }
     ] as fontSizeConfig,
+    'label-xs-light': [
+      '0.75rem',
+      {
+        lineHeight: '108%',
+        fontWeight: 400,
+        letterSpacing: '0.02em'
+      }
+    ] as fontSizeConfig,
     'caps-lg': [
       '1rem',
       {

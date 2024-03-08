@@ -16,6 +16,7 @@ export const UserTagPicture: FunctionComponent<Props> = ({ user }) => {
       alt={username}
       width={18}
       height={18}
+      quality={100}
     />
   )
 }
