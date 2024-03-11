@@ -8,6 +8,7 @@ import { guarded_assertOffer } from '@echo/frontend/lib/helpers/offer/assert/gua
 import { guarded_assertOfferSenderIs } from '@echo/frontend/lib/helpers/offer/assert/guarded_assert-offer-sender-is'
 import { guarded_assertOfferSignature } from '@echo/frontend/lib/helpers/offer/assert/guarded_assert-offer-signature'
 import type { AuthUser } from '@echo/model/types/auth-user'
+import { signOffer } from '@echo/web3/helpers/sign-offer'
 import { NextResponse } from 'next/server'
 
 export async function getOfferSignatureRequestHandler(user: AuthUser, _req: ApiRequest<never>, params: { id: string }) {
@@ -17,5 +18,10 @@ export async function getOfferSignatureRequestHandler(user: AuthUser, _req: ApiR
   guarded_assertOfferSenderIs(offer, user.username)
   const offerSignature = await guardAsyncFn(findOfferSignature, ErrorStatus.SERVER_ERROR)(offer.id)
   guarded_assertOfferSignature(offerSignature)
-  return NextResponse.json<OfferSignatureResponse>({ signature: offerSignature.signature })
+  // FIXME We should get the chain id some other way
+  const signerSignature = await guardAsyncFn(
+    signOffer,
+    ErrorStatus.SERVER_ERROR
+  )({ offer, chainId: offer.sender.wallet.chainId })
+  return NextResponse.json<OfferSignatureResponse>({ signature: offerSignature.signature, signerSignature })
 }

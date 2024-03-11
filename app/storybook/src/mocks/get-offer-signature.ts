@@ -5,5 +5,8 @@ import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { applySpec, identity, pipe } from 'ramda'
 
 export function getOfferSignature(_args: GetOfferSignatureArgs): Promise<OfferSignatureResponse> {
-  return delayPromise(pipe(applySpec<OfferSignatureResponse>({ signature: identity }), toPromise), 800)('0xwhatever')
+  return delayPromise(
+    pipe(applySpec<OfferSignatureResponse>({ signature: identity, signerSignature: identity }), toPromise),
+    800
+  )('0xwhatever')
 }
