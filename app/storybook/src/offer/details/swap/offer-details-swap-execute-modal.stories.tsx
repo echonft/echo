@@ -44,6 +44,7 @@ export const Execute: StoryObj<ComponentType> = {
         assoc<OfferRole, 'role'>('role', OFFER_ROLE_SENDER)
       )('LyCfl6Eg7JKuD7XJ6IPi')}
       signature={signature ? '0xwhatever' : undefined}
+      signerSignature={signature ? '0xwhatever' : undefined}
       open={true}
       onClose={onClose}
       onSuccess={onSuccess}
