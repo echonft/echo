@@ -20,6 +20,7 @@ declare namespace NodeJS {
       FIREBASE_PRIVATE_KEY: string
       GOOGLE_STORAGE_BUCKET: string
       NEXT_PUBLIC_CHAIN_ID: string
+      NEXT_PUBLIC_PINATA_GATEWAY_KEY: string
       NEXT_PUBLIC_PRODUCTION_URL: string
       NEXT_PUBLIC_VERCEL_ENV: string | undefined
       NEXT_PUBLIC_VERCEL_URL: string

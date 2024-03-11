@@ -29,6 +29,7 @@ export const CollectionRow: FunctionComponent<Props> = ({
               src={profilePictureUrl ?? DEFAULT_COLLECTION_PROFILE_PICTURE_URL}
               alt={name}
               quality={100}
+              crossOrigin={'anonymous'}
               width={100}
               height={100}
             />

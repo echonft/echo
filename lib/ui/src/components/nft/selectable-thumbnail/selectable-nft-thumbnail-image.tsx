@@ -48,6 +48,7 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
         width={PICTURE_SIZE_NFT_THUMBNAIL}
         height={PICTURE_SIZE_NFT_THUMBNAIL}
         quality={100}
+        crossOrigin={'anonymous'}
         onLoad={() => {
           setLoaded(true)
           onLoadComplete?.()

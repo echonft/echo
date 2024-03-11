@@ -20,6 +20,7 @@ export const NftThumbnailPicture: FunctionComponent<Props> = ({ nft }) => {
         width={128}
         height={128}
         quality={100}
+        crossOrigin={'anonymous'}
       />
     </NftThumbnailPictureLayout>
   )

@@ -1,7 +1,8 @@
 import type { PictureSize } from '@echo/ui/types/picture-size'
+import { isDev } from '@echo/utils/constants/is-dev'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { isNil } from 'ramda'
+import { isNil, last, pipe, prop, split } from 'ramda'
 
 export function addPictureSizeToUrl<T extends string | Nullable<string>>(url: T, size: PictureSize): T {
   if (isNil(url)) {
@@ -21,6 +22,14 @@ export function addPictureSizeToUrl<T extends string | Nullable<string>>(url: T,
   }
   if (hostname.includes('nft-cdn.alchemy.com')) {
     return `https://res.cloudinary.com/alchemyapi/image/upload/w_${size}/scaled${urlObject.pathname}` as T
+  }
+  if (hostname.includes('ipfs.io')) {
+    const id = pipe<[URL], string, string[], string>(prop('href'), split('/'), last)(urlObject)
+    const url = `https://beige-quick-seahorse-333.mypinata.cloud/ipfs/${id}?img-width=${size}`
+    if (isDev) {
+      return `${url}&pinataGatewayToken=${process.env.NEXT_PUBLIC_PINATA_GATEWAY_KEY}` as T
+    }
+    return url as T
   }
   return url
 }
