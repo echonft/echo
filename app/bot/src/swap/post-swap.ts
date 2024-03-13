@@ -1,21 +1,23 @@
 import { sendToEchoChannel } from '@echo/bot/helpers/send-to-echo-channel'
-import { buildListingEmbed } from '@echo/bot/listing/build-listing-embed'
-import { buildListingLinkButton } from '@echo/bot/listing/build-listing-link-button'
+import { buildSwapEmbed } from '@echo/bot/swap/build-swap-embed'
+import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
-import type { Listing } from '@echo/model/types/listing'
+import type { Swap } from '@echo/firestore/types/model/swap/swap'
 import { isNil } from 'ramda'
 
-export async function postListing(listing: Listing) {
-  const {
-    id: listingId,
-    creator: { username }
-  } = listing
-  const creator = await findUserByUsername(username)
-  if (isNil(creator)) {
-    throw Error(`listing creator with username ${username} not found`)
+export async function postSwap(swap: Swap) {
+  const { offerId, id } = swap
+  const offer = await findOfferById(offerId)
+  if (isNil(offer)) {
+    throw Error(`Offer ${offerId} not found not found for swap ${id}`)
   }
+  const { sender } = offer
+  const creator = await findUserByUsername(sender.username)
+  if (isNil(creator)) {
+    throw Error(`Offer creator with username ${sender.username} not found`)
+  }
+
   await sendToEchoChannel({
-    components: [buildListingLinkButton(listingId)],
-    embeds: [buildListingEmbed(listing, creator)]
+    embeds: [buildSwapEmbed(offer, creator)]
   })
 }

@@ -15,6 +15,7 @@ import { isNil } from 'ramda'
 export async function listingChangeHandler(changeType: DocumentChangeType, listing: Listing) {
   pinoLogger.info(`listing ${listing.id} was written: ${changeType}`)
   if (changeType === 'added') {
+    // TODO Should probably consider that it can be posted to other servers but works for now
     const post = await findListingPost(listing.id, echoGuild.discordId)
     if (isNil(post)) {
       await postListing(listing)

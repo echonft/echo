@@ -13,6 +13,7 @@ export enum CollectionReferenceName {
   LISTING_POSTS = 'listing-posts',
   LISTINGS = 'listings',
   SWAPS = 'swaps',
+  SWAP_POSTS = 'swap-posts',
   USERS = 'users',
   WALLETS = 'wallets'
 }
