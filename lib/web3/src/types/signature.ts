@@ -1,5 +1,5 @@
 import type { HexString } from '@echo/utils/types/hex-string'
 
-export interface OfferSignatureResponse {
+export interface Signature {
   signature: HexString
 }
