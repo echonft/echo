@@ -17,7 +17,7 @@ describe('CRUD - swap-post - addSwapPost', () => {
   it('throws if trying to add a post for a listing that does not exist', async () => {
     await expect(addSwapPost('not-found', guild)).rejects.toBeDefined()
   })
-  it('add a listing post', async () => {
+  it('add a swap post', async () => {
     const swapId = '2ipuV3drjQlzEgkUkW7q'
     const { id } = await addSwapPost(swapId, guild)
     const newDocument = (await findSwapPostById(id))!

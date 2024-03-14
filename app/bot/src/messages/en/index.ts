@@ -41,7 +41,7 @@ export const messages = {
   swap: {
     embed: {
       title: 'A new swap was made',
-      description: 'Created by {{- user}}',
+      description: 'Between {{- creator}} and {{- counterparty}}',
       creatorItems: {
         name: 'Swapped'
       },

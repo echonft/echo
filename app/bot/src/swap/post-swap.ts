@@ -11,13 +11,17 @@ export async function postSwap(swap: Swap) {
   if (isNil(offer)) {
     throw Error(`Offer ${offerId} not found not found for swap ${id}`)
   }
-  const { sender } = offer
+  const { sender, receiver } = offer
   const creator = await findUserByUsername(sender.username)
   if (isNil(creator)) {
     throw Error(`Offer creator with username ${sender.username} not found`)
   }
+  const counterparty = await findUserByUsername(receiver.username)
+  if (isNil(counterparty)) {
+    throw Error(`Offer counterparty with username ${receiver.username} not found`)
+  }
 
   await sendToEchoChannel({
-    embeds: [buildSwapEmbed(offer, creator)]
+    embeds: [buildSwapEmbed(offer, creator, counterparty)]
   })
 }
