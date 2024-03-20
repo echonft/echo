@@ -24,6 +24,54 @@
   .pill {
     @apply w-max h-max py-3 px-6 rounded-lg enabled:bg-transparent enabled:cursor-pointer enabled:hover:bg-white/[0.08] disabled:bg-white/[0.08] disabled:cursor-default
   }
+  .btn {
+    @apply flex flex-row justify-center items-center disabled:opacity-40 rounded-lg select-none outline-none h-max w-max transition-colors;
+  }
+  .btn-primary {
+    @apply btn bg-white/[0.08] enabled:hover:bg-yellow-500 enabled:active:bg-yellow-700;
+  }
+  .btn-primary-reverse {
+    @apply btn bg-yellow-500 enabled:hover:bg-white/[0.08] enabled:active:bg-white/[0.06];
+  }
+  .btn-gradient {
+    @apply btn border border-solid border-transparent bg-main bg-origin-border enabled:hover:bg-main/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700;
+  }
+  .btn-action {
+    @apply btn bg-purple-400 gap-2.5;
+  }
+  .btn-auth {
+    @apply flex flex-row items-center rounded-lg bg-dark-500 border border-solid border-white/[0.08] gap-2.5 h-max w-max py-2.75 px-5 text-white prose-display-sm-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors
+  }
+  .btn-auth-alt {
+    @apply flex flex-row items-center rounded-lg bg-white/[0.08] gap-2.5 h-12 w-max py-2.75 px-5 text-white prose-display-sm-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors
+  }
+  .btn-cancel {
+    @apply btn bg-red-400 enabled:hover:bg-red-600;
+  }
+  .btn-label {
+    @apply h-max w-max truncate;
+  }
+  .btn-label-primary {
+    @apply btn-label text-white group-active:text-black group-enabled:group-hover:text-black;
+  }
+  .btn-label-primary-reverse {
+    @apply btn-label text-black group-active:text-white group-enabled:group-hover:text-white;
+  }
+  .btn-label-secondary {
+    @apply btn-label text-neutral-100 group-enabled:group-hover:text-white group-active:text-white;
+  }
+  .btn-label-gradient {
+    @apply btn-label text-dark-500 group-enabled:group-hover:text-yellow-100;
+  }
+  .btn-label-action {
+    @apply btn-label text-purple-900 group-enabled:group-hover:text-white;
+  }
+  .btn-label-cancel {
+    @apply btn-label text-dark-500;
+  }
+  .btn-label-auth {
+    @apply h-max w-max select-none
+  }
 }
 
 @layer utilities {
@@ -143,45 +191,6 @@
   }
   .prose-label-caps-sm {
     @apply text-caps-sm font-inter uppercase;
-  }
-  .btn {
-    @apply flex flex-row justify-center items-center disabled:opacity-40 rounded-lg select-none outline-none;
-  }
-  .btn-primary {
-    @apply btn bg-white/[0.08] enabled:hover:bg-yellow-500 enabled:active:bg-yellow-700;
-  }
-  .btn-primary-reverse {
-    @apply btn bg-yellow-500 enabled:hover:bg-white/[0.08] enabled:active:bg-white/[0.06];
-  }
-  .btn-gradient {
-    @apply btn border border-solid border-transparent bg-main bg-origin-border enabled:hover:bg-main/40 enabled:hover:border-yellow-500 enabled:active:bg-yellow-700;
-  }
-  .btn-action {
-    @apply btn bg-purple-400 gap-2.5;
-  }
-  .btn-cancel {
-    @apply btn bg-red-400 enabled:hover:bg-red-600;
-  }
-  .btn-label {
-    @apply h-max w-max truncate;
-  }
-  .btn-label-primary {
-    @apply btn-label text-white group-active:text-black group-enabled:group-hover:text-black;
-  }
-  .btn-label-primary-reverse {
-    @apply btn-label text-black group-active:text-white group-enabled:group-hover:text-white;
-  }
-  .btn-label-secondary {
-    @apply btn-label text-neutral-100 group-enabled:group-hover:text-white group-active:text-white;
-  }
-  .btn-label-gradient {
-    @apply btn-label text-dark-500 group-enabled:group-hover:text-yellow-100;
-  }
-  .btn-label-action {
-    @apply btn-label text-purple-900 group-enabled:group-hover:text-white;
-  }
-  .btn-label-cancel {
-    @apply btn-label text-dark-500;
   }
   .btn-size {
     @apply w-max h-max px-5 py-2.5;

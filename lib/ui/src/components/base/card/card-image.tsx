@@ -1,6 +1,6 @@
 'use client'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
-import { PICTURE_SIZE_CARD } from '@echo/ui/constants/picture-size'
+import { PICTURE_SIZE_LG } from '@echo/ui/constants/picture-size'
 import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
 import { clsx } from 'clsx'
 import Image from 'next/image'
@@ -34,7 +34,7 @@ export const CardImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled })
         quality={100}
         crossOrigin={'anonymous'}
         alt={alt}
-        src={addPictureSizeToUrl(src, PICTURE_SIZE_CARD)}
+        src={addPictureSizeToUrl(src, PICTURE_SIZE_LG)}
         onLoad={() => {
           setLoaded(true)
         }}

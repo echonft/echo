@@ -14,25 +14,9 @@ interface Props {
 export const WalletConnectedTag: FunctionComponent<Props> = (props) => {
   const { truncatedAddress } = props
   return (
-    <div
-      className={clsx(
-        'flex',
-        'flex-row',
-        'items-center',
-        'rounded-lg',
-        'bg-white/[0.08]',
-        'gap-2.5',
-        'h-[1.875rem]',
-        'w-max',
-        'px-2.5'
-      )}
-    >
-      <span className={clsx('h-max', 'w-max', 'text-white', 'prose-label-xs', '!tracking-[0.015rem]', 'select-none')}>
-        <WalletIconSvg />
-      </span>
-      <span className={clsx('h-max', 'w-max', 'text-white', 'prose-label-xs', '!tracking-[0.015rem]', 'select-none')}>
-        {truncatedAddress ?? shortenAddress(props)}
-      </span>
+    <div className={clsx('btn-auth', '!enabled:hover:bg-white/[0.08]')}>
+      <WalletIconSvg width={24} />
+      <span className={clsx('btn-label-auth')}>{truncatedAddress ?? shortenAddress(props)}</span>
     </div>
   )
 }

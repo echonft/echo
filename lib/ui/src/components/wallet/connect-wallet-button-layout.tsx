@@ -12,23 +12,9 @@ interface Props {
 export const ConnectWalletButtonLayout: FunctionComponent<Props> = ({ isConnecting, onClick }) => {
   const t = useTranslations('wallet.button')
   return (
-    <button
-      onClick={onClick}
-      disabled={isConnecting}
-      className={clsx(
-        'btn-primary',
-        'group',
-        'gap-2.5',
-        'h-[1.875rem]',
-        'w-max',
-        'px-2.5',
-        isConnecting && 'animate-pulse'
-      )}
-    >
-      <span className={clsx('btn-label-primary')}>
-        <WalletIconSvg />
-      </span>
-      <span className={clsx('btn-label-primary', 'prose-label-xs', '!tracking-[0.015rem]')}>{t('label')}</span>
+    <button onClick={onClick} disabled={isConnecting} className={clsx('btn-auth', isConnecting && 'animate-pulse')}>
+      <WalletIconSvg width={24} />
+      <span className={clsx('btn-label-auth')}>{t('label')}</span>
     </button>
   )
 }

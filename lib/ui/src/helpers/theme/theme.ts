@@ -61,7 +61,8 @@ export const themeExtension = {
       900: '#003D00'
     },
     neutral: {
-      100: '#F3F3F3'
+      100: '#F3F3F3',
+      200: '#FBFBFD'
     },
     purple: {
       100: '#EBECFF',
