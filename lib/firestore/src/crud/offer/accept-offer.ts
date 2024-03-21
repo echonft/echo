@@ -22,7 +22,7 @@ export async function acceptOffer(args: AcceptOfferArgs): Promise<Offer> {
     Promise<Offer>
   >(
     omit(['userId', 'signature']),
-    assoc('state', OFFER_STATE_ACCEPTED),
+    assoc<OfferState, 'state'>('state', OFFER_STATE_ACCEPTED),
     updateOfferState
   )(args)
   await pipe<[AcceptOfferArgs], Omit<AcceptOfferArgs, 'updateArgs'>, Promise<OfferSignature>>(

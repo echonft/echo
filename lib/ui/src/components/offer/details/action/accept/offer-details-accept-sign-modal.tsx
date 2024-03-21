@@ -5,6 +5,7 @@ import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import type { ErrorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useAccount } from '@echo/ui/hooks/use-account'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
@@ -30,7 +31,7 @@ export const OfferDetailsAcceptSignModal: FunctionComponent<Props> = ({ offer, o
   const tError = useTranslations('error.offer')
   const { chainId } = useAccount()
   const { acceptOffer, signOffer } = useDependencies()
-  const onError = {
+  const onError: Omit<ErrorCallback, 'show'> = {
     contexts: offerContext(offer),
     alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('accept') },
     onError: onClose
