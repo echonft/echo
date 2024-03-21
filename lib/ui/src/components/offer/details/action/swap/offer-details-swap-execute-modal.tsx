@@ -26,6 +26,7 @@ import { type FunctionComponent } from 'react'
 interface Props {
   offer: OfferWithRole
   signature: Nullable<HexString>
+  offerSignature: Nullable<HexString>
   open: boolean
   onSuccess?: (offer: OfferWithRole) => unknown
   onClose?: EmptyFunction
@@ -34,6 +35,7 @@ interface Props {
 export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
   offer,
   signature,
+  offerSignature,
   open,
   onSuccess,
   onClose
@@ -73,6 +75,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
       void executeSwapTrigger({
         chainId: chainId!,
         signature: response.signature,
+        offerSignature: response.offerSignature,
         offer
       })
     },
@@ -94,10 +97,10 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
         <button
           className={clsx('btn-gradient', 'btn-size-alt', 'group')}
           onClick={() => {
-            if (isNil(signature)) {
+            if (isNil(signature) || isNil(offerSignature)) {
               void getOfferSignatureTrigger({ offerId: offer.id })
             } else {
-              void executeSwapTrigger({ chainId: chainId!, signature, offer })
+              void executeSwapTrigger({ chainId: chainId!, signature, offerSignature, offer })
             }
           }}
           disabled={loading}

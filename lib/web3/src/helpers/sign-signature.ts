@@ -1,10 +1,10 @@
 import { echoAddress } from '@echo/web3/constants/echo-address'
-import { mapSignatureToSignature } from '@echo/web3/mappers/map-signature-to-signature'
 import type { SignSignatureArgs } from '@echo/web3/types/sign-signature-args'
+import { recoverTypedDataAddress } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 
 function getSignatureConfigForOffer(args: SignSignatureArgs) {
-  const { chainId } = args
+  const { chainId, signature } = args
   return {
     domain: {
       name: 'Echo',
@@ -16,11 +16,21 @@ function getSignatureConfigForOffer(args: SignSignatureArgs) {
       Signature: [{ name: 'signature', type: 'bytes' }]
     } as const,
     primaryType: 'Signature' as const,
-    message: mapSignatureToSignature(args.signature)
+    message: { signature }
   }
 }
 
 export async function signSignature(args: SignSignatureArgs) {
+  const config = getSignatureConfigForOffer(args)
   const account = privateKeyToAccount(process.env.SIGNER_PRIVATE_KEY)
-  return await account.signTypedData(getSignatureConfigForOffer(args))
+  const signedData = await account.signTypedData(config)
+  const address = await recoverTypedDataAddress({
+    domain: config.domain,
+    types: config.types,
+    primaryType: config.primaryType,
+    message: config.message,
+    signature: signedData
+  })
+  console.log(`recovered address is ${address}`)
+  return signedData
 }

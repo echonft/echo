@@ -48,6 +48,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ offer, open, o
       <OfferDetailsSwapExecuteModal
         offer={offer}
         signature={signatureResponse?.signature}
+        offerSignature={signatureResponse?.offerSignature}
         open={open}
         onSuccess={onSuccess}
         onClose={onClose}
