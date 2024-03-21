@@ -8,6 +8,7 @@ import { initializeNfts } from '@echo/firestore-test/nft/initialize-nfts'
 import { initializeOffers } from '@echo/firestore-test/offer/initialize-offers'
 import { initializeOfferThreads } from '@echo/firestore-test/offer-thread/initialize-offer-threads'
 import { initializeSwaps } from '@echo/firestore-test/swap/initialize-swaps'
+import { initializeSwapPosts } from '@echo/firestore-test/swap-post/initialize-swap-posts'
 import { initializeUsers } from '@echo/firestore-test/user/initialize-users'
 import { initializeWallets } from '@echo/firestore-test/wallet/initialize-wallets'
 
@@ -22,6 +23,7 @@ export async function initializeDb() {
   await initializeOffers()
   await initializeOfferThreads()
   await initializeSwaps()
+  await initializeSwapPosts()
   await initializeUsers()
   await initializeWallets()
 }

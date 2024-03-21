@@ -37,5 +37,17 @@ export const messages = {
       REJECTED: '@here {{- receiver}} rejected the offer.',
       COMPLETED: '@here The swap is now completed. Congratulations to the both of you!'
     }
+  },
+  swap: {
+    embed: {
+      title: 'A new swap was made',
+      description: 'Between {{- creator}} and {{- counterparty}}',
+      creatorItems: {
+        name: 'Swapped'
+      },
+      counterpartyItems: {
+        name: 'For'
+      }
+    }
   }
 }
