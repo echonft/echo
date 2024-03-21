@@ -4,7 +4,7 @@ import type { ListingItem } from '@echo/model/types/listing-item'
 import { whenHas } from '@echo/utils/fp/when-has'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 
-const key = 'items' as const
+const key = 'items'
 type Key = typeof key
 type PartialListing = Partial<WithFieldValue<Listing>>
 export function lowerItemsAddressesIfExists(listing: PartialListing): PartialListing {

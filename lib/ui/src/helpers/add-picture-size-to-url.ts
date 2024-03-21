@@ -4,12 +4,12 @@ import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil, last, pipe, prop, split } from 'ramda'
 
-export function addPictureSizeToUrl<T extends string | Nullable<string>>(url: T, size: PictureSize): T {
+export function addPictureSizeToUrl<T extends Nullable<string>>(url: T, size: PictureSize): T {
   if (isNil(url)) {
     return url
   }
   // for backward compatibility
-  const urlObject = new URL(removeQueryFromUrl(url))
+  const urlObject = new URL(removeQueryFromUrl(url!))
   const hostname = urlObject.hostname
   if (hostname.includes('discordapp.com')) {
     return `${urlObject.href}?size=${size}` as T

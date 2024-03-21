@@ -7,6 +7,6 @@ import { omit } from 'ramda'
 export function expectUserDocumentDataToEqualMock(user: Nullable<UserDocumentData>) {
   expect(user).toBeDefined()
   expect(omit(['createdAt', 'updatedAt'], getUserDocumentDataMockById(user!.id))).toStrictEqual(
-    omit(['createdAt', 'updatedAt'], user)
+    omit<UserDocumentData, 'createdAt' | 'updatedAt'>(['createdAt', 'updatedAt'], user!)
   )
 }

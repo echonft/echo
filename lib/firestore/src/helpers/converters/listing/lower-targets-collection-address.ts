@@ -6,7 +6,7 @@ import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { map, modify } from 'ramda'
 
-const key = 'targets' as const
+const key = 'targets'
 type Key = typeof key
 export function lowerTargetsCollectionAddress<
   T extends ListingDocumentData | (Partial<WithFieldValue<Listing>> & Record<Key, ListingTarget[]>)

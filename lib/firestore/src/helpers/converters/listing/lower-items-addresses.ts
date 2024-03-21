@@ -7,7 +7,7 @@ import type { Nft } from '@echo/model/types/nft'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { map, modify, pipe } from 'ramda'
 
-const key = 'items' as const
+const key = 'items'
 type Key = typeof key
 export function lowerItemsAddresses<
   T extends ListingDocumentData | (Partial<WithFieldValue<Listing>> & Record<Key, ListingItem[]>)

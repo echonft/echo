@@ -1,7 +1,7 @@
-export const CALLOUT_SEVERITY_INFO = 'Info' as const
-export const CALLOUT_SEVERITY_WARNING = 'Warning' as const
-export const CALLOUT_SEVERITY_ERROR = 'Error' as const
-export const CALLOUT_SEVERITY_SUCCESS = 'Success' as const
+export const CALLOUT_SEVERITY_INFO = 'Info'
+export const CALLOUT_SEVERITY_WARNING = 'Warning'
+export const CALLOUT_SEVERITY_ERROR = 'Error'
+export const CALLOUT_SEVERITY_SUCCESS = 'Success'
 export const CALLOUT_SEVERITIES = [
   CALLOUT_SEVERITY_INFO,
   CALLOUT_SEVERITY_WARNING,

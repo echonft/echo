@@ -5,7 +5,7 @@ import type { User } from '@echo/model/types/user'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { modifyPath } from 'ramda'
 
-const key = 'sender' as const
+const key = 'sender'
 type Key = typeof key
 export function lowerSenderWalletAddress<
   T extends OfferDocumentData | Partial<WithFieldValue<Offer> & Record<Key, User>>

@@ -28,8 +28,8 @@
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
-    "@types/node": "20.11.19",
-    "@types/ramda": "0.29.10",
-    "typescript": "5.3.3"
+    "@types/node": "20.11.30",
+    "@types/ramda": "0.29.11",
+    "typescript": "5.4.3"
   }
 }

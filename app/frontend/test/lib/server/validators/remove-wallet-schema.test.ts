@@ -1,11 +1,14 @@
 import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/map-wallet-document-data-to-wallet'
+import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { getWalletMocksByUserId } from '@echo/firestore-mocks/wallet/get-wallet-mocks-by-user-id'
 import { removeWalletSchema } from '@echo/frontend/lib/validators/remove-wallet-schema'
+import type { Wallet } from '@echo/model/types/wallet'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getChain } from '@echo/web3/helpers/get-chain'
 import { assoc, head, pipe } from 'ramda'
 
 describe('validators - removeWalletSchema', () => {
-  const wallet = pipe(
+  const wallet = pipe<[string], NonEmptyArray<WalletDocumentData>, WalletDocumentData, WalletDocumentData, Wallet>(
     getWalletMocksByUserId,
     head,
     assoc('chainId', getChain().id),

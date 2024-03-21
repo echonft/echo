@@ -32,7 +32,7 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
     Omit<CompleteOfferArgs, 'transactionId'> & Record<'state', OfferState>,
     Promise<Offer>
   >(
-    omit(['swapTransactionId']),
+    omit(['transactionId']),
     assoc('state', OFFER_STATE_COMPLETED),
     updateOfferState
   )(args)

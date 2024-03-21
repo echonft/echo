@@ -5,6 +5,7 @@ import type { Collection } from '@echo/model/types/collection'
 import type { Contract } from '@echo/model/types/contract'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
+import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import {
   always,
@@ -27,11 +28,11 @@ function mapContract(chainId: number) {
     return pipe<
       [ContractResponse],
       Pick<ContractResponse, 'address' | 'tokenType' | 'name' | 'symbol'>,
-      Pick<ContractResponse, 'address' | 'tokenType' | 'name' | 'symbol'>,
+      Omit<Contract, 'chainId'>,
       Contract
     >(
       pick(['address', 'tokenType', 'name', 'symbol']),
-      modify('address', toLower),
+      modify<'address', HexString, Lowercase<HexString>>('address', toLower<HexString>),
       assoc('chainId', chainId)
     )(contractResponse)
   }

@@ -7,7 +7,7 @@ import type { OfferItem } from '@echo/model/types/offer-item'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { map, modify, pipe } from 'ramda'
 
-const key = 'senderItems' as const
+const key = 'senderItems'
 type Key = typeof key
 export function lowerSenderItemsAddresses<
   T extends OfferDocumentData | (Partial<WithFieldValue<Offer>> & Record<Key, OfferItem[]>)
