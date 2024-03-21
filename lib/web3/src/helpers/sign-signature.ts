@@ -1,4 +1,5 @@
-import { echoAddress } from '@echo/web3/constants/echo-address'
+import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { ECHO_ADDRESS } from '@echo/web3/constants/echo-address'
 import type { SignSignatureArgs } from '@echo/web3/types/sign-signature-args'
 import { recoverTypedDataAddress } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
@@ -10,7 +11,7 @@ function getSignatureConfigForOffer(args: SignSignatureArgs) {
       name: 'Echo',
       version: '1',
       chainId,
-      verifyingContract: echoAddress
+      verifyingContract: ECHO_ADDRESS
     },
     types: {
       Signature: [{ name: 'signature', type: 'bytes' }]
@@ -22,15 +23,17 @@ function getSignatureConfigForOffer(args: SignSignatureArgs) {
 
 export async function signSignature(args: SignSignatureArgs) {
   const config = getSignatureConfigForOffer(args)
-  const account = privateKeyToAccount(process.env.SIGNER_PRIVATE_KEY)
+  const privateKey = process.env.SIGNER_PRIVATE_KEY
+  if (isNilOrEmpty(privateKey)) {
+    throw new Error('SIGNER_PRIVATE_KEY env var is not defined')
+  }
+  const account = privateKeyToAccount(privateKey)
   const signedData = await account.signTypedData(config)
-  const address = await recoverTypedDataAddress({
+  return await recoverTypedDataAddress({
     domain: config.domain,
     types: config.types,
     primaryType: config.primaryType,
     message: config.message,
     signature: signedData
   })
-  console.log(`recovered address is ${address}`)
-  return signedData
 }
