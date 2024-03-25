@@ -1,6 +1,7 @@
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { ECHO_ADDRESS } from '@echo/web3/constants/echo-address'
 import type { SignSignatureArgs } from '@echo/web3/types/sign-signature-args'
+import { hexToSignature } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 
 export async function signSignature(args: SignSignatureArgs) {
@@ -9,6 +10,7 @@ export async function signSignature(args: SignSignatureArgs) {
     throw new Error('SIGNER_PRIVATE_KEY env var is not defined')
   }
   const { chainId, signature } = args
+  const { r, s, v } = hexToSignature(signature)
   const account = privateKeyToAccount(privateKey)
   return await account.signTypedData({
     domain: {
@@ -18,9 +20,13 @@ export async function signSignature(args: SignSignatureArgs) {
       verifyingContract: ECHO_ADDRESS
     },
     types: {
-      Signature: [{ name: 'signature', type: 'bytes' }]
+      Signature: [
+        { name: 'v', type: 'uint8' },
+        { name: 'r', type: 'bytes32' },
+        { name: 's', type: 'bytes32' }
+      ]
     } as const,
     primaryType: 'Signature' as const,
-    message: { signature }
+    message: { v: v as unknown as number, r, s }
   })
 }

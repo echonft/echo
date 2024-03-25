@@ -40,7 +40,11 @@ export const ECHO_ABI = [
         name: 'signatureData',
         type: 'tuple',
         internalType: 'struct Signature',
-        components: [{ name: 'signature', type: 'bytes', internalType: 'bytes' }]
+        components: [
+          { name: 'v', type: 'uint8', internalType: 'uint8' },
+          { name: 'r', type: 'bytes32', internalType: 'bytes32' },
+          { name: 's', type: 'bytes32', internalType: 'bytes32' }
+        ]
       },
       {
         name: 'trade',
@@ -63,34 +67,10 @@ export const ECHO_ABI = [
   },
   {
     type: 'function',
-    name: 'executeTrade',
-    inputs: [
-      { name: 'v', type: 'uint8', internalType: 'uint8' },
-      { name: 'r', type: 'bytes32', internalType: 'bytes32' },
-      { name: 's', type: 'bytes32', internalType: 'bytes32' },
-      {
-        name: 'signatureData',
-        type: 'tuple',
-        internalType: 'struct Signature',
-        components: [{ name: 'signature', type: 'bytes', internalType: 'bytes' }]
-      }
-    ],
-    outputs: [],
-    stateMutability: 'payable'
-  },
-  {
-    type: 'function',
     name: 'hashTypedData',
     inputs: [{ name: 'structHash', type: 'bytes32', internalType: 'bytes32' }],
     outputs: [{ name: '', type: 'bytes32', internalType: 'bytes32' }],
     stateMutability: 'view'
-  },
-  {
-    type: 'function',
-    name: 'mockTradeExecution',
-    inputs: [{ name: 'tradeId', type: 'string', internalType: 'string' }],
-    outputs: [],
-    stateMutability: 'nonpayable'
   },
   {
     type: 'function',
