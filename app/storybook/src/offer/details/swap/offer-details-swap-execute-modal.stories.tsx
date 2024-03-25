@@ -10,12 +10,9 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { assoc, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-type ComponentType = FunctionComponent<{ signature: boolean; onClose?: VoidFunction; onSuccess?: VoidFunction }>
+type ComponentType = FunctionComponent<{ onClose?: VoidFunction; onSuccess?: VoidFunction }>
 const metadata: Meta<ComponentType> = {
   title: 'Offer/Details/Modal/Swap/Execute',
-  args: {
-    signature: false
-  },
   argTypes: {
     onClose: {
       table: {
@@ -26,10 +23,6 @@ const metadata: Meta<ComponentType> = {
       table: {
         disable: true
       }
-    },
-    signature: {
-      defaultValue: false,
-      control: 'boolean'
     }
   }
 }
@@ -37,13 +30,14 @@ const metadata: Meta<ComponentType> = {
 export default metadata
 
 export const Execute: StoryObj<ComponentType> = {
-  render: ({ signature, onClose, onSuccess }) => (
+  render: ({ onClose, onSuccess }) => (
     <Component
       offer={pipe<[string], Offer, OfferWithRole>(
         getOfferMockById,
         assoc<OfferRole, 'role'>('role', OFFER_ROLE_SENDER)
       )('LyCfl6Eg7JKuD7XJ6IPi')}
-      signature={signature ? '0xwhatever' : undefined}
+      offerSignature={'0xwhatever'}
+      signature={'0xwhatever'}
       open={true}
       onClose={onClose}
       onSuccess={onSuccess}

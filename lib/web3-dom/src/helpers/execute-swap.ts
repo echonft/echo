@@ -7,12 +7,7 @@ import { simulateContract, writeContract } from 'wagmi/actions'
 
 export async function executeSwap(args: ExecuteSwapArgs) {
   const { chainId, signature, offerSignature } = args
-  // console.log(`signature ${signature}`)
-  // console.log(`offerSignature ${offerSignature}`)
   const { r, s, v } = hexToSignature(signature)
-  // console.log(`v ${v}`)
-  // console.log(`r ${r}`)
-  // console.log(`s ${s}`)
   const { request } = await simulateContract(wagmiConfig, {
     abi: ECHO_ABI,
     functionName: 'executeTrade',
