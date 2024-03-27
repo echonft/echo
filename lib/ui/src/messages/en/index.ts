@@ -118,10 +118,7 @@ export const messages = {
   layout: {
     header: {
       button: {
-        login: 'Login',
-        disconnect: 'Logout',
-        disconnecting: 'Logging out...',
-        profile: 'Profile'
+        login: 'Login'
       }
     }
   },

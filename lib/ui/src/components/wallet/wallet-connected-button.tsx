@@ -20,22 +20,21 @@ export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
   return (
     <div className={clsx('w-max', 'h-max', 'relative')}>
       <CopyToClipboard text={formatAddress(wallet)}>
-        <button id={buttonId} className={clsx('btn-primary', 'group', 'gap-2.5', 'h-[1.875rem]', 'w-max', 'px-2.5')}>
-          <span className={clsx('btn-label-primary')}>
-            <WalletIconSvg />
-          </span>
-          <span className={clsx('btn-label-primary', 'prose-label-xs', '!tracking-[0.015rem]')}>
-            {shortenAddress(wallet)}
-          </span>
+        <button id={buttonId} className={clsx('btn-auth-alt', 'bg-white/[0.08]', 'border-none')}>
+          <WalletIconSvg width={24} />
+          <span className={clsx('btn-label-auth')}>{shortenAddress(wallet)}</span>
         </button>
       </CopyToClipboard>
       <Tooltip
         className={clsx('tooltip')}
         anchorSelect={`#${buttonId}`}
-        delayHide={800}
+        delayHide={500}
+        opacity={1}
         content={t('copied')}
         openOnClick={true}
         noArrow={true}
+        place={'bottom'}
+        closeEvents={{ mouseleave: true, blur: true, click: true, dblclick: true, mouseup: true }}
       />
     </div>
   )

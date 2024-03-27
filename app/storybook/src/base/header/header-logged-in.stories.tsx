@@ -8,11 +8,6 @@ const metadata: Meta<typeof Component> = {
   title: 'Base/Header',
   component: Component,
   argTypes: {
-    onSignOut: {
-      table: {
-        disable: true
-      }
-    },
     onWalletButtonClick: {
       table: {
         disable: true

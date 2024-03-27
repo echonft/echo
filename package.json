@@ -68,7 +68,8 @@
     "lint-staged": "15.2.2",
     "npm-check-updates": "16.14.15",
     "prettier": "3.2.5",
-    "turbo": "1.12.5"
+    "turbo": "1.12.5",
+    "typescript": "5.3.3"
   },
   "pnpm": {
     "overrides": {

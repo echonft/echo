@@ -1,7 +1,7 @@
 'use client'
 import type { Nft } from '@echo/model/types/nft'
 import { ImagePlaceholder } from '@echo/ui/components/base/image-placeholder'
-import { PICTURE_SIZE_NFT_THUMBNAIL } from '@echo/ui/constants/picture-size'
+import { PICTURE_SIZE_MD } from '@echo/ui/constants/picture-size'
 import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
 import { getTokenIdString } from '@echo/ui/helpers/nft/get-token-id-string'
 import { clsx } from 'clsx'
@@ -43,10 +43,10 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
           'object-contain',
           'group-hover:scale-125'
         )}
-        src={addPictureSizeToUrl(nft.pictureUrl, PICTURE_SIZE_NFT_THUMBNAIL)}
+        src={addPictureSizeToUrl(nft.pictureUrl, PICTURE_SIZE_MD)}
         alt={nft.tokenId.toString()}
-        width={PICTURE_SIZE_NFT_THUMBNAIL}
-        height={PICTURE_SIZE_NFT_THUMBNAIL}
+        width={PICTURE_SIZE_MD}
+        height={PICTURE_SIZE_MD}
         quality={100}
         crossOrigin={'anonymous'}
         onLoad={() => {

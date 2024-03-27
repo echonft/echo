@@ -15,18 +15,19 @@ export const UserDiscordTag: FunctionComponent<Props> = ({ username, discordUser
         className={clsx(
           'flex',
           'flex-row',
-          'w-max',
-          'px-5',
-          'py-2.5',
           'rounded-lg',
           'items-center',
           'bg-purple-500',
           'gap-2.5',
+          'h-12',
+          'w-max',
+          'py-2.75',
+          'px-5',
           'text-white',
-          'prose-paragraph-sm'
+          'prose-display-sm-bold'
         )}
       >
-        <DiscordIconSvg width={22} />
+        <DiscordIconSvg width={24} />
         <span>{discordUsername}</span>
       </div>
     </UserDiscordTagWrapper>

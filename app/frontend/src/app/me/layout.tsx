@@ -7,7 +7,7 @@ import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { CreateListingBannerManager } from '@echo/ui/components/listing/create/create-listing-banner-manager'
 import { CreateOfferBannerManager } from '@echo/ui/components/offer/create/create-offer-banner-manager'
-import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
+import { AuthUserProfile } from '@echo/ui/components/user/profile/auth-user-profile'
 import { pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
@@ -18,7 +18,7 @@ async function render({ user, children }: NextAuthUserParams<NextLayoutParams>) 
       <CreateOfferBannerManager />
       <CreateListingBannerManager />
       <SectionLayout>
-        <UserProfile profile={profile} />
+        <AuthUserProfile profile={profile} />
       </SectionLayout>
       <SectionLayout>{children}</SectionLayout>
     </NavigationPageLayout>

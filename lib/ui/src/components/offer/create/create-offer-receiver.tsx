@@ -1,6 +1,6 @@
 import { type User } from '@echo/model/types/user'
-import { DiscordUsernameTag } from '@echo/ui/components/user/tag/discord-username-tag'
-import { PICTURE_SIZE_PROFILE_ROUNDED } from '@echo/ui/constants/picture-size'
+import { DiscordUsernameTag } from '@echo/ui/components/user/discord-username-tag'
+import { PICTURE_SIZE_MD } from '@echo/ui/constants/picture-size'
 import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
 import { shortenAddress } from '@echo/web3/helpers/shorten-address'
 import { clsx } from 'clsx'
@@ -32,7 +32,7 @@ export const CreateOfferReceiver: FunctionComponent<Props> = ({ user, disabled }
     >
       <Image
         className={clsx('rounded-full')}
-        src={addPictureSizeToUrl(avatarUrl, PICTURE_SIZE_PROFILE_ROUNDED)}
+        src={addPictureSizeToUrl(avatarUrl, PICTURE_SIZE_MD)}
         alt={user.username}
         width={73}
         height={73}
