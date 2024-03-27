@@ -36,7 +36,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.24.0",
+    "@dotenvx/dotenvx": "0.26.0",
     "@echo/alchemy": "workspace:*",
     "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",
@@ -44,16 +44,16 @@
     "@echo/tasks": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
-    "@types/node": "20.11.19",
-    "@types/qs": "6.9.12",
-    "@types/ramda": "0.29.10",
+    "@types/node": "20.11.30",
+    "@types/qs": "6.9.14",
+    "@types/ramda": "0.29.11",
     "@types/yargs": "17.0.32",
-    "axios": "1.6.7",
-    "qs": "6.11.2",
+    "axios": "1.6.8",
+    "qs": "6.12.0",
     "ramda": "0.29.1",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
-    "typescript": "5.3.3",
+    "typescript": "5.4.3",
     "yargs": "17.7.2"
   }
 }

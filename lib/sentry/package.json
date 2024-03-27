@@ -18,14 +18,14 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@sentry/node": "7.101.1",
-    "@sentry/profiling-node": "7.101.1",
+    "@sentry/node": "7.107.0",
+    "@sentry/profiling-node": "7.107.0",
     "ramda": "0.29.1"
   },
   "devDependencies": {
     "@echo/utils": "workspace:*",
-    "@types/node": "20.11.19",
-    "@types/ramda": "0.29.10",
-    "typescript": "5.3.3"
+    "@types/node": "20.11.30",
+    "@types/ramda": "0.29.11",
+    "typescript": "5.4.3"
   }
 }

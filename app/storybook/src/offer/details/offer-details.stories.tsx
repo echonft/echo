@@ -8,6 +8,7 @@ import {
   READ_ONLY_OFFER_STATES
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
+import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
@@ -58,10 +59,10 @@ export const Details: StoryObj<ComponentType> = {
     }
     function setRole(offer: Offer): OfferWithRole {
       if (role === 'Sender') {
-        return assoc('role', OFFER_ROLE_SENDER, offer)
+        return assoc<OfferRole, Offer, 'role'>('role', OFFER_ROLE_SENDER, offer)
       }
       if (role === 'Receiver') {
-        return assoc('role', OFFER_ROLE_RECEIVER, offer)
+        return assoc<OfferRole, Offer, 'role'>('role', OFFER_ROLE_RECEIVER, offer)
       }
       return assoc('role', undefined, offer)
     }

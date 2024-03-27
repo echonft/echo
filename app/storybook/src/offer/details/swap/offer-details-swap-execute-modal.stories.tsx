@@ -2,6 +2,7 @@
 
 import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
 import type { Offer } from '@echo/model/types/offer'
+import type { OfferRole } from '@echo/model/types/offer-role'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OfferDetailsSwapExecuteModal as Component } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-execute-modal'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -40,7 +41,7 @@ export const Execute: StoryObj<ComponentType> = {
     <Component
       offer={pipe<[string], Offer, OfferWithRole>(
         getOfferMockById,
-        assoc('role', OFFER_ROLE_SENDER)
+        assoc<OfferRole, 'role'>('role', OFFER_ROLE_SENDER)
       )('LyCfl6Eg7JKuD7XJ6IPi')}
       signature={signature ? '0xwhatever' : undefined}
       open={true}

@@ -8,6 +8,7 @@ import {
   READ_ONLY_LISTING_STATES
 } from '@echo/model/constants/listing-states'
 import type { Listing } from '@echo/model/types/listing'
+import type { ListingRole } from '@echo/model/types/listing-role'
 import type { ListingState } from '@echo/model/types/listing-state'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
@@ -87,10 +88,10 @@ export const Details: StoryObj<ComponentType> = {
     function setRole(role: Role) {
       return function (listing: Listing): ListingWithRole {
         if (role === 'Creator') {
-          return assoc('role', LISTING_ROLE_CREATOR, listing)
+          return assoc<ListingRole, Listing, 'role'>('role', LISTING_ROLE_CREATOR, listing)
         }
         if (role === 'Target') {
-          return assoc('role', LISTING_ROLE_TARGET, listing)
+          return assoc<ListingRole, Listing, 'role'>('role', LISTING_ROLE_TARGET, listing)
         }
         return assoc('role', undefined, listing)
       }

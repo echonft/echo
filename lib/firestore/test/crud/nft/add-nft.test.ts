@@ -26,7 +26,7 @@ describe('CRUD - nft - addNft', () => {
     const originalNft = omit(['id', 'updatedAt'], getNftMockById('8hHFadIrrooORfTOLkBg'))
     const addedNft = await addNft(originalNft)
     nftId = addedNft.id
-    const nft = await findNftById(nftId)
+    const nft = (await findNftById(nftId))!
     expect(omit(['id', 'updatedAt'], nft)).toStrictEqual(originalNft)
   })
 })

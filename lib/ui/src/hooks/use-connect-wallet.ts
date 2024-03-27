@@ -28,7 +28,7 @@ export function useConnectWallet(account: AccountResult) {
     }
     return pipe<
       [AccountResult & Record<'address', HexString> & Record<'chainId', number>],
-      Wallet & Record<'address', HexString>,
+      Record<'chainId', number> & Record<'address', HexString>,
       Wallet
     >(
       pick(['address', 'chainId']),

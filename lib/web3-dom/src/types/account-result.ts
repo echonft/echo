@@ -3,6 +3,6 @@ import type { AccountStatus } from '@echo/web3-dom/types/account-status'
 import type { GetAccountReturnType } from 'wagmi/actions'
 
 export interface AccountResult extends Pick<GetAccountReturnType, 'chain' | 'chainId'> {
-  address: Lowercase<HexString> | undefined
+  address: HexString | undefined
   status: AccountStatus
 }

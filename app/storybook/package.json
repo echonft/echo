@@ -21,22 +21,22 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@sentry/nextjs": "7.101.1",
+    "@sentry/nextjs": "7.107.0",
     "@storybook/nextjs": "8.0.4",
     "dayjs": "1.11.10",
-    "next-intl": "3.7.0",
+    "next-intl": "3.9.5",
     "ramda": "0.29.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "storybook": "8.0.4",
-    "zustand": "4.5.0"
+    "zustand": "4.5.2"
   },
   "devDependencies": {
-    "@babel/core": "7.23.9",
-    "@babel/preset-env": "7.23.9",
-    "@babel/preset-react": "7.23.3",
-    "@babel/preset-typescript": "7.23.3",
-    "@dotenvx/dotenvx": "0.24.0",
+    "@babel/core": "7.24.3",
+    "@babel/preset-env": "7.24.3",
+    "@babel/preset-react": "7.24.1",
+    "@babel/preset-typescript": "7.24.1",
+    "@dotenvx/dotenvx": "0.26.0",
     "@echo/api": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/ui": "workspace:*",
@@ -47,15 +47,15 @@
     "@storybook/addon-essentials": "8.0.4",
     "@storybook/addon-styling-webpack": "1.0.0",
     "@storybook/react": "8.0.4",
-    "@types/node": "20.11.19",
-    "@types/ramda": "0.29.10",
-    "@types/react": "18.2.55",
-    "@types/react-dom": "18.2.19",
+    "@types/node": "20.11.30",
+    "@types/ramda": "0.29.11",
+    "@types/react": "18.2.67",
+    "@types/react-dom": "18.2.22",
     "css-loader": "6.10.0",
     "eslint-plugin-storybook": "0.8.0",
-    "next-auth": "5.0.0-beta.11",
+    "next-auth": "5.0.0-beta.15",
     "style-loader": "3.3.4",
     "tsconfig-paths-webpack-plugin": "4.1.0",
-    "typescript": "5.3.3"
+    "typescript": "5.4.3"
   }
 }

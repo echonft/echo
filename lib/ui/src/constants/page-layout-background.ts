@@ -1,9 +1,9 @@
-export const PAGE_LAYOUT_BG_DEFAULT = 'default' as const
-export const PAGE_LAYOUT_BG_HOME = 'home' as const
-export const PAGE_LAYOUT_BG_COLLECTIONS = 'collections' as const
-export const PAGE_LAYOUT_BG_GREEN_GRADIENT = 'green-gradient' as const
-export const PAGE_LAYOUT_BG_YELLOW_GRADIENT = 'yellow-gradient' as const
-export const PAGE_LAYOUT_BG_RED_GRADIENT = 'red-gradient' as const
+export const PAGE_LAYOUT_BG_DEFAULT = 'default'
+export const PAGE_LAYOUT_BG_HOME = 'home'
+export const PAGE_LAYOUT_BG_COLLECTIONS = 'collections'
+export const PAGE_LAYOUT_BG_GREEN_GRADIENT = 'green-gradient'
+export const PAGE_LAYOUT_BG_YELLOW_GRADIENT = 'yellow-gradient'
+export const PAGE_LAYOUT_BG_RED_GRADIENT = 'red-gradient'
 
 export const PAGE_LAYOUT_BACKGROUNDS = [
   PAGE_LAYOUT_BG_DEFAULT,

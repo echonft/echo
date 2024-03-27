@@ -18,19 +18,19 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "axios": "1.6.7",
+    "axios": "1.6.8",
     "path-to-regexp": "6.2.1",
-    "qs": "6.11.2",
+    "qs": "6.12.0",
     "ramda": "0.29.1"
   },
   "devDependencies": {
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@types/node": "20.11.19",
-    "@types/qs": "6.9.12",
-    "@types/ramda": "0.29.10",
-    "next": "14.1.0",
-    "typescript": "5.3.3"
+    "@types/node": "20.11.30",
+    "@types/qs": "6.9.14",
+    "@types/ramda": "0.29.11",
+    "next": "14.1.4",
+    "typescript": "5.4.3"
   }
 }

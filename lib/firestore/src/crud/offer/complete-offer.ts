@@ -32,8 +32,8 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
     Omit<CompleteOfferArgs, 'transactionId'> & Record<'state', OfferState>,
     Promise<Offer>
   >(
-    omit(['swapTransactionId']),
-    assoc('state', OFFER_STATE_COMPLETED),
+    omit(['transactionId']),
+    assoc<OfferState, 'state'>('state', OFFER_STATE_COMPLETED),
     updateOfferState
   )(args)
   // switch ownership of the offer items
