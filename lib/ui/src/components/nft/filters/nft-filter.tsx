@@ -5,7 +5,7 @@ import { clsx } from 'clsx'
 
 interface Props<T extends NftFilterModel> {
   filter: Selectable<T>
-  onToggleSelection?: (filter: Selectable<T>) => unknown
+  onToggleSelection?: (filter: Selectable<T>) => void
 }
 
 export const NftFilter = <T extends NftFilterModel>({ filter, onToggleSelection }: Props<T>) => {

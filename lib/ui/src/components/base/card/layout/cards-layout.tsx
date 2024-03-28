@@ -12,11 +12,12 @@ export const CardsLayout: FunctionComponent<PropsWithChildren<Props>> = ({ align
     <div
       className={clsx(
         'flex',
-        alignment === ALIGNMENT_RIGHT ? 'flex-row-reverse' : 'flex-row',
         'grow',
         'flex-wrap',
         'gap-5',
         'h-max',
+        'w-full',
+        alignment === ALIGNMENT_RIGHT ? 'flex-row-reverse' : 'flex-row',
         alignment === ALIGNMENT_CENTER && 'justify-center'
       )}
     >

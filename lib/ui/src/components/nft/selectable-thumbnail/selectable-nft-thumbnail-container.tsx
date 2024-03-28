@@ -5,12 +5,19 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { isEmpty, map } from 'ramda'
 import type { FunctionComponent } from 'react'
 
-interface Props {
+export interface SelectableNftThumbnailContainerProps {
   nfts: Nft[]
+  style?: {
+    minWitdh?: boolean
+  }
   onRemove?: (nft: Nft) => unknown
 }
 
-export const SelectableNftThumbnailContainer: FunctionComponent<Props> = ({ nfts, onRemove }) => {
+export const SelectableNftThumbnailContainer: FunctionComponent<SelectableNftThumbnailContainerProps> = ({
+  nfts,
+  style,
+  onRemove
+}) => {
   if (isEmpty(nfts)) {
     return null
   }
@@ -27,7 +34,8 @@ export const SelectableNftThumbnailContainer: FunctionComponent<Props> = ({ nfts
         'rounded-3xl',
         'border-2',
         'border-dark-400',
-        'p-4'
+        'p-4',
+        style?.minWitdh && 'min-w-[28rem]'
       )}
     >
       <AnimatePresence initial={false}>

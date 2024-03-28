@@ -6,7 +6,6 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert/assert-offer-state-transition'
-import { ShowIf } from '@echo/ui/components/base/utils/show-if'
 import { OfferDetailsAcceptButton } from '@echo/ui/components/offer/details/action/offer-details-accept-button'
 import { OfferDetailsCancelButton } from '@echo/ui/components/offer/details/action/offer-details-cancel-button'
 import { OfferDetailsRejectButton } from '@echo/ui/components/offer/details/action/offer-details-reject-button'
@@ -77,48 +76,43 @@ export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, onSuccess
   }
 
   // Don't show anything if no buttons should be shown
-  if (!shouldShowButtons(offer)) {
-    return null
-  }
-
-  return (
-    <OfferDetailsButtonsLayout>
-      <ShowIf condition={showAcceptButton(offer)}>
+  if (shouldShowButtons(offer)) {
+    return (
+      <OfferDetailsButtonsLayout>
         <OfferDetailsAcceptButton
           offer={offer}
+          show={showAcceptButton(offer)}
           onClick={disable}
           onSuccess={success}
           onCancel={enable}
           disabled={buttonsDisabled}
         />
-      </ShowIf>
-      <ShowIf condition={showSwapButton(offer)}>
         <OfferDetailsSwapButton
           offer={offer}
+          show={showSwapButton(offer)}
           onClick={disable}
           onSuccess={success}
           onCancel={enable}
           disabled={buttonsDisabled}
         />
-      </ShowIf>
-      <ShowIf condition={showRejectButton(offer)}>
         <OfferDetailsRejectButton
           offer={offer}
+          show={showRejectButton(offer)}
           onClick={disable}
           onSuccess={success}
           onError={error}
           disabled={buttonsDisabled}
         />
-      </ShowIf>
-      <ShowIf condition={showCancelButton(offer)}>
         <OfferDetailsCancelButton
           offer={offer}
+          show={showCancelButton(offer)}
           onClick={disable}
           onSuccess={success}
           onError={error}
           disabled={buttonsDisabled}
         />
-      </ShowIf>
-    </OfferDetailsButtonsLayout>
-  )
+      </OfferDetailsButtonsLayout>
+    )
+  }
+  return null
 }

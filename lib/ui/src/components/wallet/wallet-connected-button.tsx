@@ -28,7 +28,7 @@ export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
       <Tooltip
         className={clsx('tooltip')}
         anchorSelect={`#${buttonId}`}
-        delayHide={500}
+        delayHide={200}
         opacity={1}
         content={t('copied')}
         openOnClick={true}

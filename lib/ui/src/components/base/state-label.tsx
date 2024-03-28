@@ -6,7 +6,7 @@ interface Props {
   subtitle: string
 }
 
-export const StateTextContainer: FunctionComponent<Props> = ({ title, subtitle }) => (
+export const StateLabel: FunctionComponent<Props> = ({ title, subtitle }) => (
   <div className={clsx('flex', 'flex-col', 'gap-1')}>
     <h2
       className={clsx(

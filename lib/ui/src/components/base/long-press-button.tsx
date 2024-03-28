@@ -79,10 +79,12 @@ export const LongPressButton: FunctionComponent<Props> = ({
       <Tooltip
         className={clsx('tooltip')}
         anchorSelect={`#${buttonId}`}
-        delayHide={400}
+        delayHide={200}
         content={message}
         noArrow={true}
         hidden={loading ?? disabled}
+        opacity={1}
+        closeEvents={{ mouseleave: true, blur: true, click: true, dblclick: true, mouseup: true }}
       />
     </div>
   )

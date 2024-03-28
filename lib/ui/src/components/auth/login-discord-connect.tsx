@@ -61,7 +61,7 @@ export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
         alt={username}
         width={18}
         height={18}
-        quality={100}
+        unoptimized={true}
       />
       <span className={clsx('prose-label-sm-semi', 'text-yellow-400')}>{username}</span>
     </div>

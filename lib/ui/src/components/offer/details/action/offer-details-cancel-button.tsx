@@ -15,6 +15,7 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: OfferWithRole
+  show?: boolean
   disabled?: boolean
   onClick?: EmptyFunction
   onSuccess?: (offer: OfferWithRole) => unknown
@@ -23,6 +24,7 @@ interface Props {
 
 export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
   offer,
+  show,
   disabled,
   onClick,
   onSuccess,
@@ -44,16 +46,19 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
     }
   })
 
-  return (
-    <LongPressButton
-      id={offer.id}
-      label={t('label')}
-      message={t('message')}
-      disabled={disabled}
-      onFinish={() => {
-        onClick?.()
-        void trigger({ offerId: offer.id })
-      }}
-    />
-  )
+  if (show) {
+    return (
+      <LongPressButton
+        id={offer.id}
+        label={t('label')}
+        message={t('message')}
+        disabled={disabled}
+        onFinish={() => {
+          onClick?.()
+          void trigger({ offerId: offer.id })
+        }}
+      />
+    )
+  }
+  return null
 }

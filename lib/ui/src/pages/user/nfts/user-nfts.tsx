@@ -5,7 +5,6 @@ import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/n
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { SelectableNftGroups } from '@echo/ui/components/nft/group/selectable-nft-groups'
 import { groupNftsByCollection } from '@echo/ui/helpers/nft/group/group-nfts-by-collection'
-import { groupNftsByOwner } from '@echo/ui/helpers/nft/group/group-nfts-by-owner'
 import { UserNftsCreateOfferButton } from '@echo/ui/pages/user/nfts/user-nfts-create-offer-button'
 import { UserNftsEmpty } from '@echo/ui/pages/user/nfts/user-nfts-empty'
 import { UserNftsTraitFilterPanel } from '@echo/ui/pages/user/nfts/user-nfts-trait-filter-panel'
@@ -56,7 +55,7 @@ export const UserNfts = <T extends Nft>({ nfts, isAuthUser }: Props<T>) => {
       </NftFiltersPanelsLayout>
       <SelectableNftGroups
         nfts={filteredNfts}
-        groupBy={collectionFilterSelected ? groupNftsByOwner : groupNftsByCollection}
+        groupBy={groupNftsByCollection}
         options={{ owner: { hide: true } }}
         style={{ collapsible: !collectionFilterSelected }}
         onAction={onCreateOffer}

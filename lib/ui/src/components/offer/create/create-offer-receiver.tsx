@@ -36,7 +36,7 @@ export const CreateOfferReceiver: FunctionComponent<Props> = ({ user, disabled }
         alt={user.username}
         width={73}
         height={73}
-        quality={100}
+        unoptimized={true}
       />
       <div className={clsx('flex', 'flex-col', 'gap-1.5', 'pr-4', 'items-center')}>
         <DiscordUsernameTag username={username} />
