@@ -1,25 +1,119 @@
 'use client'
 import { type Nft } from '@echo/model/types/nft'
+import { withIdEquals } from '@echo/ui/comparators/with-id-equals'
 import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { SelectableNftGroups } from '@echo/ui/components/nft/group/selectable-nft-groups'
-import { CreateOfferButton } from '@echo/ui/components/nft/selection/create-offer-button'
+import { NFT_ACTION_LISTING, NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
+import { filterNftsByTraits } from '@echo/ui/helpers/nft/filter-nfts-by-traits'
+import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
 import { groupNftsByOwner } from '@echo/ui/helpers/nft/group/group-nfts-by-owner'
+import { toggleSelectionInList } from '@echo/ui/helpers/selectable/toggle-selection-in-list'
+import { CollectionNftsButton } from '@echo/ui/pages/collection/nfts/collection-nfts-button'
 import { CollectionNftsEmpty } from '@echo/ui/pages/collection/nfts/collection-nfts-empty'
+import type { Selectable } from '@echo/ui/types/selectable'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { isEmpty } from 'ramda'
-import { type FunctionComponent, useState } from 'react'
+import type { TraitFilter } from '@echo/ui/types/trait-filter'
+import type { TraitFilterGroup } from '@echo/ui/types/trait-filter-group'
+import { isInWith } from '@echo/utils/fp/is-in-with'
+import {
+  always,
+  append,
+  applySpec,
+  assoc,
+  identity,
+  isEmpty,
+  isNil,
+  map,
+  modify,
+  partialRight,
+  pipe,
+  prop,
+  reject
+} from 'ramda'
+import { type FunctionComponent, useReducer } from 'react'
 
 interface Props {
   nfts: Nft[]
 }
 
+interface State {
+  filters: TraitFilterGroup[]
+  nfts: SelectableNft[]
+  selection: SelectableNft[]
+}
+interface StateAction {
+  type: 'toggle_filter_selection' | 'select' | 'unselect'
+  nft?: SelectableNft
+  filter?: Selectable<TraitFilter>
+}
+
 export const CollectionNfts: FunctionComponent<Props> = ({ nfts }) => {
-  const [filteredNfts, setFilteredNfts] = useState(nfts)
-  const [selection, setSelection] = useState<SelectableNft[]>([])
+  function rejectSelection(selection: SelectableNft[]): (nfts: SelectableNft[]) => SelectableNft[] {
+    return reject<SelectableNft>(isInWith(selection, withIdEquals))
+  }
+  function filterByTraits(state: State): State {
+    const filteredNfts = pipe(
+      prop('filters'),
+      partialRight(filterNftsByTraits, [rejectSelection(state.selection)(nfts)])
+    )(state)
+    return assoc('nfts', filteredNfts, state)
+  }
+
+  function reducer(state: State, action: StateAction): State {
+    switch (action.type) {
+      case 'toggle_filter_selection':
+        if (isNil(action.filter)) {
+          throw Error(`action should contain filter`)
+        }
+        return pipe<[State], State, State>(
+          modify(
+            'filters',
+            map<TraitFilterGroup, TraitFilterGroup>(
+              modify('filters', toggleSelectionInList(withIdEquals(action.filter)))
+            )
+          ),
+          filterByTraits
+        )(state)
+      case 'select':
+        if (isNil(action.nft)) {
+          throw Error(`action should contain nft`)
+        }
+        return pipe<[State], State, State>(
+          modify('selection', append(action.nft)),
+          modify<'nfts', SelectableNft[], SelectableNft[]>('nfts', reject(withIdEquals(action.nft)))
+        )(state)
+      case 'unselect':
+        if (isNil(action.nft)) {
+          throw Error(`action should contain nft`)
+        }
+        return pipe<[State], State, State, State>(
+          modify('nfts', append(action.nft)),
+          filterByTraits,
+          modify<'selection', SelectableNft[], SelectableNft[]>('selection', reject(withIdEquals(action.nft)))
+        )(state)
+    }
+  }
+
+  const [state, dispatch] = useReducer(reducer, {
+    filters: getTraitFiltersForNfts(nfts),
+    nfts,
+    selection: []
+  })
+
+  const count = state.selection.length
+  const action = count > 0 ? NFT_ACTION_OFFER : NFT_ACTION_LISTING
+  const onCreateListing = () => {
+    // TODO
+    // if (isNonEmptyArray(nfts)) {
+    //   setReceiverItems(map(mapNftToItem, nfts))
+    //   openNewOfferModal()
+    // }
+  }
 
   const onCreateOffer = (_nft?: SelectableNft) => {
+    // TODO
     // if (isNonEmptyArray(nfts)) {
     //   setReceiverItems(map(mapNftToItem, nfts))
     //   openNewOfferModal()
@@ -33,19 +127,48 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts }) => {
   return (
     <NftsAndFiltersLayout>
       <NftFiltersPanelsLayout>
-        <CreateOfferButton
-          count={selection.length}
+        <CollectionNftsButton
+          action={action}
+          count={count}
           onClick={() => {
-            onCreateOffer()
+            if (action === NFT_ACTION_OFFER) {
+              onCreateOffer()
+            } else {
+              onCreateListing()
+            }
           }}
         />
-        <TraitFilterPanel nfts={nfts} onNftsFiltered={setFilteredNfts} />
+        <TraitFilterPanel
+          filters={state.filters}
+          onToggleSelection={pipe(
+            applySpec<StateAction>({
+              type: always<StateAction['type']>('toggle_filter_selection'),
+              filter: identity
+            }),
+            dispatch
+          )}
+        />
       </NftFiltersPanelsLayout>
+
       <SelectableNftGroups
-        nfts={filteredNfts}
+        nfts={state.nfts}
         groupBy={groupNftsByOwner}
+        selection={state.selection}
         onAction={onCreateOffer}
-        onSelectionUpdate={setSelection}
+        onSelect={pipe(
+          applySpec<StateAction>({
+            type: always('select'),
+            nft: identity
+          }),
+          dispatch
+        )}
+        onUnselect={pipe(
+          applySpec<StateAction>({
+            type: always('unselect'),
+            nft: identity
+          }),
+          dispatch
+        )}
       />
     </NftsAndFiltersLayout>
   )

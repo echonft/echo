@@ -1,19 +1,13 @@
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
-import { ProfileNfts as Component } from '@echo/ui/pages/profile/nfts/profile-nfts'
+import { CollectionNfts as Component } from '@echo/ui/pages/collection/nfts/collection-nfts'
 import type { Meta, StoryObj } from '@storybook/react'
+import { filter, pathEq, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Profile/Nfts',
+  title: 'Page/Collection/Nfts',
   component: Component,
   args: {
-    nfts: getAllNftMocks()
-  },
-  argTypes: {
-    onCreateListing: {
-      table: {
-        disable: true
-      }
-    }
+    nfts: pipe(getAllNftMocks, filter(pathEq('1aomCtnoesD7WVll6Yi1', ['collection', 'id'])))()
   },
   parameters: {
     controls: {
