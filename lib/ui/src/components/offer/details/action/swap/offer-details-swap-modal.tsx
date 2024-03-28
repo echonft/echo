@@ -12,6 +12,7 @@ import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { captureException } from '@sentry/nextjs'
 import { useTranslations } from 'next-intl'
+import { isNil } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 import useSWR from 'swr'
 
@@ -32,6 +33,10 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ offer, open, o
     Error,
     (GetOfferSignatureArgs & Record<'name', string>) | undefined
   >(open ? { name: SWRKeys.offer.getSignature(offer), offerId: offer.id } : undefined, getOfferSignature, {
+    revalidateOnMount: true,
+    revalidateIfStale: true,
+    revalidateOnFocus: true,
+    keepPreviousData: false,
     onError: (err) => {
       captureException(err, {
         contexts: offerContext(offer)
@@ -43,11 +48,12 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ offer, open, o
     return <ConnectWalletModal open={open} onClose={onClose} />
   }
 
-  if (approved) {
+  if (approved && !isNil(signatureResponse)) {
     return (
       <OfferDetailsSwapExecuteModal
         offer={offer}
-        signature={signatureResponse?.signature}
+        signature={signatureResponse.signature}
+        offerSignature={signatureResponse.offerSignature}
         open={open}
         onSuccess={onSuccess}
         onClose={onClose}
