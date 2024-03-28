@@ -1,32 +1,22 @@
 'use client'
 import { type Nft } from '@echo/model/types/nft'
-import { SelectableNftGroups } from '@echo/ui/components/nft/group/selectable-nft-groups'
-import { groupNftsByCollection } from '@echo/ui/helpers/nft/group/group-nfts-by-collection'
+import { CreateOfferSenderNftsSelected } from '@echo/ui/components/offer/create/create-offer-sender-nfts-selected'
+import { CreateOfferSenderNftsSelection } from '@echo/ui/components/offer/create/create-offer-sender-nfts-selection'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { clsx } from 'clsx'
-import { isEmpty } from 'ramda'
 
 interface Props<T extends Nft> {
   nfts: T[]
   selection: SelectableNft[]
+  readOnly: boolean
   onSelect?: (nft: SelectableNft) => unknown
   onUnselect?: (nft: SelectableNft) => unknown
 }
 
-export const CreateOfferSenderNfts = <T extends Nft>({ nfts, selection, onSelect, onUnselect }: Props<T>) => {
-  const collapsible = isEmpty(selection)
-
+export const CreateOfferSenderNfts = <T extends Nft>({ nfts, selection, readOnly, onSelect, onUnselect }: Props<T>) => {
+  if (readOnly) {
+    return <CreateOfferSenderNftsSelected nfts={selection} />
+  }
   return (
-    <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
-      <SelectableNftGroups
-        nfts={nfts}
-        groupBy={groupNftsByCollection}
-        selection={selection}
-        options={{ owner: { hide: true } }}
-        style={{ collapsible, selectionContainer: { minWitdh: true } }}
-        onSelect={onSelect}
-        onUnselect={onUnselect}
-      />
-    </div>
+    <CreateOfferSenderNftsSelection nfts={nfts} selection={selection} onSelect={onSelect} onUnselect={onUnselect} />
   )
 }

@@ -5,9 +5,9 @@ import type { OfferItem } from '@echo/model/types/offer-item'
 import type { UserProfile } from '@echo/model/types/user-profile'
 import { withCollectionEquals } from '@echo/ui/comparators/with-collection-equals'
 import { withIdEquals } from '@echo/ui/comparators/with-id-equals'
-import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
 import { NftCards } from '@echo/ui/components/nft/card/layout/nft-cards'
+import { CreateOfferButtons } from '@echo/ui/components/offer/create/create-offer-buttons'
 import { CreateOfferSenderNfts } from '@echo/ui/components/offer/create/create-offer-sender-nfts'
 import { OfferDetailsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-buttons-layout'
 import { OfferDetailsInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-info-layout'
@@ -25,7 +25,6 @@ import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isInWith } from '@echo/utils/fp/is-in-with'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
-import { useTranslations } from 'next-intl'
 import { always, append, filter, isEmpty, map, pipe, prop, reject, unless } from 'ramda'
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 
@@ -45,8 +44,8 @@ export const CreateOffer: FunctionComponent<Props> = ({
   onCancel,
   onComplete
 }) => {
-  const t = useTranslations('offer.create')
   const [senderSelection, setSenderSelection] = useState<SelectableNft[]>([])
+  const [reviewing, setReviewing] = useState(false)
   const { username, discord, wallets } = receiver
   const selectSenderNft = useCallback(
     (nft: SelectableNft) => {
@@ -100,23 +99,28 @@ export const CreateOffer: FunctionComponent<Props> = ({
         <CreateOfferSenderNfts
           nfts={nfts}
           selection={senderSelection}
+          readOnly={reviewing}
           onSelect={selectSenderNft}
           onUnselect={unselectSenderNft}
         />
         <OfferDetailsButtonsLayout>
-          <button
-            className={clsx('btn-gradient', 'btn-size-alt', 'group')}
-            onClick={() => {
-              onComplete?.()
+          <CreateOfferButtons
+            readOnly={reviewing}
+            disabled={!reviewing && isEmpty(senderSelection)}
+            onComplete={() => {
+              if (reviewing) {
+                onComplete?.()
+              } else {
+                setReviewing(true)
+              }
             }}
-          >
-            <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('reviewBtn')}</span>
-          </button>
-          <LongPressButton
-            id={'new-offer-cancel-btn'}
-            label={t('cancelBtn')}
-            message={t('cancelBtnMessage')}
-            onFinish={onCancel}
+            onCancel={() => {
+              if (reviewing) {
+                setReviewing(false)
+              } else {
+                onCancel?.()
+              }
+            }}
           />
         </OfferDetailsButtonsLayout>
       </OfferDetailsItemsButtonsLayout>

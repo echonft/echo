@@ -206,6 +206,7 @@ export const messages = {
       cancelBtnMessage: 'Hold to cancel',
       clearBtn: 'Clear',
       clearBtnMessage: 'Hold to clear',
+      createBtn: 'Create',
       confirmedModal: {
         closeBtn: 'Close',
         subtitle: 'Your offer was successfully created, you can now contact your counterparty',
@@ -220,6 +221,7 @@ export const messages = {
         subtitle: 'If you leave this page, your offer will be discarded',
         title: 'Discard Offer'
       },
+      editBtn: 'Edit',
       reviewBtn: 'Review'
     },
     details: {
