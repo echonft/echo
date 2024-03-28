@@ -34,4 +34,4 @@ function render({ searchParams: { receiverItems }, user }: Params) {
   )
 }
 
-export default pipe(withLocale<Params, Promise<ReactElement>>, withUser)(render)
+export default pipe(withLocale<Params, ReactElement>, withUser)(render)
