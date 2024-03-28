@@ -2,6 +2,7 @@
 
 import { OFFER_ROLE_RECEIVER } from '@echo/model/constants/offer-role'
 import type { Offer } from '@echo/model/types/offer'
+import type { OfferRole } from '@echo/model/types/offer-role'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OfferDetailsAcceptModal as Component } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-modal'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -36,7 +37,7 @@ export const Accept: StoryObj<typeof Component> = {
   args: {
     offer: pipe<[string], Offer, OfferWithRole>(
       getOfferMockById,
-      assoc('role', OFFER_ROLE_RECEIVER)
+      assoc<OfferRole, 'role'>('role', OFFER_ROLE_RECEIVER)
     )('LyCfl6Eg7JKuD7XJ6IPi'),
     open: true
   }

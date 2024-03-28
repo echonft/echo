@@ -48,9 +48,9 @@ describe('CRUD - collection - addCollection', () => {
     )(originalCollection)
     const addedCollection = await addCollection(collectionToAdd)
     collectionId = addedCollection.id
-    const collection = await findCollectionById(collectionId)
-    const swapsCount = await findCollectionSwapsCountByCollectionId(collectionId)
-    addedSwapsCountId = swapsCount!.id
+    const collection = (await findCollectionById(collectionId))!
+    const swapsCount = (await findCollectionSwapsCountByCollectionId(collectionId))!
+    addedSwapsCountId = swapsCount.id
     expect(omit(['id'], collection)).toStrictEqual(collectionToAdd)
     expect(omit(['id'], swapsCount)).toStrictEqual({
       collectionId,

@@ -8,6 +8,7 @@ import {
   READ_ONLY_OFFER_STATES
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
+import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
@@ -65,9 +66,9 @@ export const Page: StoryObj<ComponentType> = {
     }
     function setRole(offer: Offer): OfferWithRole {
       if (role === 'Sender') {
-        return assoc('role', OFFER_ROLE_SENDER, offer)
+        return assoc<OfferRole, Offer, 'role'>('role', OFFER_ROLE_SENDER, offer)
       }
-      return assoc('role', OFFER_ROLE_RECEIVER, offer)
+      return assoc<OfferRole, Offer, 'role'>('role', OFFER_ROLE_RECEIVER, offer)
     }
     const renderedOffer = pipe<[string], Offer, Offer, Offer, OfferWithRole>(
       getOfferMockById,

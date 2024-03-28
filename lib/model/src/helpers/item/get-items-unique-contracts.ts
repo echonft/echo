@@ -4,8 +4,8 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil, map, path, pipe, reject, uniq } from 'ramda'
 
 export function getItemsUniqueContracts(offerItems: Item[]): Contract[] {
-  return pipe(
-    map<Item, Nullable<Contract>>(path(['nft', 'collection', 'contract'])),
+  return pipe<[Item[]], Nullable<Contract>[], Contract[], Contract[]>(
+    map(path(['nft', 'collection', 'contract'])),
     reject(isNil),
     uniq<Contract>
   )(offerItems)

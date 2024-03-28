@@ -6,7 +6,7 @@ import { whenHas } from '@echo/utils/fp/when-has'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { always, assoc, converge, identity, map, path, pipe, prop, sort, uniq } from 'ramda'
 
-const key = 'items' as const
+const key = 'items'
 type Key = typeof key
 type PartialListing = Partial<WithFieldValue<Listing>>
 type PartialListingWithItems = PartialListing & Record<Key, ListingItem[]>

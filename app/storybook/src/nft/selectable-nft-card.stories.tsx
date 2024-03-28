@@ -7,6 +7,7 @@ import {
   type SelectableNftCardProps
 } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
+import type { NftAction } from '@echo/ui/types/nft-action'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { assoc, pipe } from 'ramda'
@@ -63,7 +64,7 @@ export const SelectableCard: StoryObj<ComponentType> = {
     const nft = useMemo(
       pipe<[], Nft, SelectableNft, SelectableNft, SelectableNft, SelectableNft, SelectableNft>(
         getNftMock,
-        assoc('action', NFT_ACTION_OFFER),
+        assoc<NftAction, 'action'>('action', NFT_ACTION_OFFER),
         assoc('actionDisabled', selected),
         assoc('selectionDisabled', selectionDisabled),
         assoc('selected', selected),

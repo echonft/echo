@@ -22,21 +22,21 @@
   },
   "dependencies": {
     "ramda": "0.29.1",
-    "viem": "2.7.11"
+    "viem": "2.8.16"
   },
   "devDependencies": {
-    "@babel/core": "7.23.9",
-    "@babel/preset-env": "7.23.9",
-    "@babel/preset-typescript": "7.23.3",
+    "@babel/core": "7.24.3",
+    "@babel/preset-env": "7.24.3",
+    "@babel/preset-typescript": "7.24.1",
     "@echo/alchemy": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@types/node": "20.11.19",
-    "@types/ramda": "0.29.10",
+    "@types/node": "20.11.30",
+    "@types/ramda": "0.29.11",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
-    "typescript": "5.3.3"
+    "typescript": "5.4.3"
   }
 }

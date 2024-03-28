@@ -28,9 +28,7 @@ const config: StorybookConfig = {
   framework: {
     name: getAbsolutePath('@storybook/nextjs'),
     options: {
-      builder: {
-        useSWC: true
-      },
+      builder: {},
       image: {
         unoptimized: true
       },
