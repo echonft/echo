@@ -41,7 +41,6 @@
     "@echo/model": "workspace:*",
     "@echo/sentry": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@echo/web3": "workspace:*",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
     "@sentry/cli": "2.30.2",

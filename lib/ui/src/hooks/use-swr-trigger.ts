@@ -6,7 +6,7 @@ import type { Fetcher } from '@echo/utils/types/fetcher'
 import { assoc } from 'ramda'
 import useSWRMutation from 'swr/mutation'
 
-export interface UseSWRTriggerArgs<TResponse, TArgs> {
+interface UseSWRTriggerArgs<TResponse, TArgs> {
   key: string
   fetcher: Fetcher<TResponse, TArgs>
   options?: {
