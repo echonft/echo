@@ -9,6 +9,7 @@ import { NFT_ACTION_LISTING, NFT_ACTION_OFFER } from '@echo/ui/constants/nft-act
 import { filterNftsByTraits } from '@echo/ui/helpers/nft/filter-nfts-by-traits'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
 import { groupNftsByOwner } from '@echo/ui/helpers/nft/group/group-nfts-by-owner'
+import { getNewOfferPathWithParams } from '@echo/ui/helpers/offer/get-new-offer-path-with-params'
 import { toggleSelectionInList } from '@echo/ui/helpers/selectable/toggle-selection-in-list'
 import { CollectionNftsButton } from '@echo/ui/pages/collection/nfts/collection-nfts-button'
 import { CollectionNftsEmpty } from '@echo/ui/pages/collection/nfts/collection-nfts-empty'
@@ -17,6 +18,7 @@ import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import type { TraitFilter } from '@echo/ui/types/trait-filter'
 import type { TraitFilterGroup } from '@echo/ui/types/trait-filter-group'
 import { isInWith } from '@echo/utils/fp/is-in-with'
+import { useRouter } from 'next/navigation'
 import {
   always,
   append,
@@ -50,6 +52,8 @@ interface StateAction {
 }
 
 export const CollectionNfts: FunctionComponent<Props> = ({ nfts }) => {
+  const router = useRouter()
+
   function rejectSelection(selection: SelectableNft[]): (nfts: SelectableNft[]) => SelectableNft[] {
     return reject<SelectableNft>(isInWith(selection, withIdEquals))
   }
@@ -112,12 +116,12 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts }) => {
     // }
   }
 
-  const onCreateOffer = (_nft?: SelectableNft) => {
-    // TODO
-    // if (isNonEmptyArray(nfts)) {
-    //   setReceiverItems(map(mapNftToItem, nfts))
-    //   openNewOfferModal()
-    // }
+  const onCreateOffer = (nft?: SelectableNft) => {
+    if (isNil(nft)) {
+      router.push(getNewOfferPathWithParams(state.selection))
+    } else {
+      router.push(getNewOfferPathWithParams(nft))
+    }
   }
 
   if (isEmpty(nfts)) {

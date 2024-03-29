@@ -751,6 +751,9 @@ importers:
       next-intl:
         specifier: 3.9.5
         version: 3.9.5(next@14.1.4)(react@18.2.0)
+      qs:
+        specifier: 6.12.0
+        version: 6.12.0
       ramda:
         specifier: 0.29.1
         version: 0.29.1
@@ -824,6 +827,9 @@ importers:
       '@types/node':
         specifier: 20.11.30
         version: 20.11.30
+      '@types/qs':
+        specifier: 6.9.14
+        version: 6.9.14
       '@types/ramda':
         specifier: 0.29.11
         version: 0.29.11
@@ -14696,7 +14702,7 @@ packages:
       '@babel/register': 7.23.7(@babel/core@7.24.3)
       babel-core: 7.0.0-bridge.0(@babel/core@7.24.3)
       chalk: 4.1.2
-      flow-parser: 0.206.0
+      flow-parser: 0.231.0
       graceful-fs: 4.2.11
       micromatch: 4.0.5
       neo-async: 2.6.2

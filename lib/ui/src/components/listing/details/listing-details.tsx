@@ -25,7 +25,6 @@ import { ListingDetailsState } from '@echo/ui/components/listing/details/listing
 import { ListingDetailsTargetCollectionOrOfferTitle } from '@echo/ui/components/listing/details/listing-details-target-collection-or-offer-title'
 import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/details/listing-details-target-container'
 import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
-import { CreateOfferConfirmedModal } from '@echo/ui/components/offer/create/confirmed/create-offer-confirmed-modal'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { enable } from '@echo/ui/helpers/disableable/enable'
@@ -47,7 +46,7 @@ import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { assoc, filter, head, isEmpty, isNil, length, lte, map, mergeLeft, pipe, prop, propEq } from 'ramda'
+import { assoc, filter, head, isEmpty, length, lte, map, mergeLeft, pipe, prop, propEq } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
@@ -65,7 +64,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
     map<Nft, SelectableNft>(assoc('actionDisabled', true), userTargetNfts)
   )
   const [updatedListing, setUpdatedListing] = useState(listing)
-  const [createdOffer, setCreatedOffer] = useState<Offer>()
+  const [, setCreatedOffer] = useState<Offer>()
   const { trigger: triggerCancel, isMutating: cancelIsMutating } = useSWRTrigger<ListingResponse, CancelListingArgs>({
     key: SWRKeys.listing.cancel(updatedListing),
     fetcher: cancelListing,
@@ -194,11 +193,6 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
         isMutating={isMutating}
         hasSelectedEnoughNfts={hasSelectedEnoughNfts}
         actions={{ onCancel: (listing) => void triggerCancel({ listingId: listing.id }), onFill: onFill }}
-      />
-      <CreateOfferConfirmedModal
-        offer={createdOffer}
-        open={!isNil(createdOffer)}
-        onClose={() => setCreatedOffer(undefined)}
       />
     </ListingDetailsLayout>
   )

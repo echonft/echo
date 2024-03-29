@@ -12,6 +12,7 @@ interface OfferPathArgs {
 interface UserPathArgs {
   username: string
 }
+
 export const linkProvider = {
   auth: {
     signIn: new Path({ path: '/login' })
@@ -29,7 +30,8 @@ export const linkProvider = {
     details: new Path<ListingPathArgs>({ path: '/listing/:listingId' })
   },
   offer: {
-    details: new Path<OfferPathArgs>({ path: '/offer/:offerId' })
+    details: new Path<OfferPathArgs>({ path: '/offer/:offerId' }),
+    new: new Path({ path: '/offer/new', secure: true })
   },
   profile: {
     default: new Path({ path: '/me', secure: true }),

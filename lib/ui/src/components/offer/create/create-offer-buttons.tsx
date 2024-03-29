@@ -18,6 +18,7 @@ export const CreateOfferButtons: FunctionComponent<Props> = ({ readOnly, disable
       <>
         <button
           className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+          disabled={disabled}
           onClick={() => {
             onComplete?.()
           }}
@@ -26,6 +27,7 @@ export const CreateOfferButtons: FunctionComponent<Props> = ({ readOnly, disable
         </button>
         <button
           className={clsx('btn-action', 'btn-size-alt', 'group')}
+          disabled={disabled}
           onClick={() => {
             onCancel?.()
           }}
