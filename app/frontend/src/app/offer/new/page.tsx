@@ -10,7 +10,7 @@ import type { User } from '@echo/model/types/user'
 import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
-import { CreateOffer } from '@echo/ui/components/offer/create/create-offer'
+import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import { mapNftToItem } from '@echo/ui/mappers/to-api/map-nft-to-item'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -55,7 +55,7 @@ async function render({ searchParams: { receiverItems }, user }: Params) {
     <PageLayout user={user}>
       <SectionLayout>
         <DetailsPaddedContainer>
-          <CreateOffer receiverItems={receiverOfferItems} receiver={receiver} senderNfts={senderNfts} />
+          <CreateOfferManager receiverItems={receiverOfferItems} receiver={receiver} senderNfts={senderNfts} />
         </DetailsPaddedContainer>
       </SectionLayout>
     </PageLayout>

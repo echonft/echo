@@ -5,20 +5,21 @@ import type { FunctionComponent } from 'react'
 
 interface Props {
   readOnly: boolean
+  loading?: boolean
   disabled?: boolean
   onCancel?: VoidFunction
   onComplete?: VoidFunction
 }
 
-export const CreateOfferButtons: FunctionComponent<Props> = ({ readOnly, disabled, onCancel, onComplete }) => {
+export const CreateOfferButtons: FunctionComponent<Props> = ({ readOnly, loading, disabled, onCancel, onComplete }) => {
   const t = useTranslations('offer.create')
 
   if (readOnly) {
     return (
       <>
         <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group')}
-          disabled={disabled}
+          className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
+          disabled={disabled ?? loading}
           onClick={() => {
             onComplete?.()
           }}
@@ -26,8 +27,8 @@ export const CreateOfferButtons: FunctionComponent<Props> = ({ readOnly, disable
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('createBtn')}</span>
         </button>
         <button
-          className={clsx('btn-action', 'btn-size-alt', 'group')}
-          disabled={disabled}
+          className={clsx('btn-action', 'btn-size-alt', 'group', loading && 'animate-pulse')}
+          disabled={disabled ?? loading}
           onClick={() => {
             onCancel?.()
           }}

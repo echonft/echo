@@ -34,7 +34,7 @@ export const Create: StoryObj<typeof Component> = {
   render: ({ onCancel, onComplete }) => {
     const receiver = pipe(
       getUserProfileMockByUsername,
-      assoc('wallets', [{ chainId: SEPOLIA_CHAIN_ID, address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D') }])
+      assoc('wallet', { chainId: SEPOLIA_CHAIN_ID, address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D') })
     )('crewnft_')
     // const sender = getAuthUserMockByUsername('johnnycagewins')
     const nfts = getAllNftMocks()
