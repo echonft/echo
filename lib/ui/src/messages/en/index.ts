@@ -305,6 +305,12 @@ export const messages = {
     },
     offerButton: 'Finalize offer'
   },
+  search: {
+    category: {
+      collection: '{count, plural, =1 {Collection} other {Collections}}',
+      user: '{count, plural, =1 {User} other {Users}}'
+    }
+  },
   user: {
     button: 'Make an offer',
     empty: {

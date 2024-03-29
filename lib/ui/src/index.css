@@ -40,10 +40,10 @@
     @apply btn bg-purple-400 gap-2.5;
   }
   .btn-auth {
-    @apply flex flex-row items-center rounded-lg bg-dark-500 border border-solid border-white/[0.08] gap-2.5 h-max w-max py-2.75 px-5 text-white prose-display-sm-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors
+    @apply flex flex-row items-center rounded-lg bg-dark-500 border border-solid border-white/[0.08] gap-2.5 h-max w-max py-2.75 px-5 text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors
   }
   .btn-auth-alt {
-    @apply flex flex-row items-center rounded-lg bg-white/[0.08] gap-2.5 h-12 w-max py-2.75 px-5 text-white prose-display-sm-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors
+    @apply flex flex-row items-center rounded-lg bg-white/[0.08] gap-2.5 h-12 w-max py-2.75 px-5 text-white prose-other-bold select-none outline-none disabled:opacity-40 enabled:hover:bg-white/[0.12] transition-colors
   }
   .btn-cancel {
     @apply btn bg-red-400 enabled:hover:bg-red-600;
@@ -191,6 +191,12 @@
   }
   .prose-label-caps-sm {
     @apply text-caps-sm font-inter uppercase;
+  }
+  .prose-other-medium {
+    @apply text-other-medium font-inter;
+  }
+  .prose-other-bold {
+    @apply text-other-bold font-inter;
   }
   .btn-size {
     @apply w-max h-max px-5 py-2.5;

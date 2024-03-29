@@ -38,6 +38,7 @@
     "@babel/preset-typescript": "7.24.1",
     "@dotenvx/dotenvx": "0.26.0",
     "@echo/api": "workspace:*",
+    "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/ui": "workspace:*",
     "@echo/utils": "workspace:*",
