@@ -30,7 +30,8 @@ export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({ n
       <SelectableNftCardButtonLayout>
         <SelectableNftCardButton
           nft={nft}
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation()
             onAction?.(nft)
           }}
         />
