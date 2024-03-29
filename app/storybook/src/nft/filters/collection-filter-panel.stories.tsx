@@ -2,13 +2,14 @@
 
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { CollectionFilterPanel as Component } from '@echo/ui/components/nft/filters/by-collection/collection-filter-panel'
+import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/get-collection-filters-for-nfts'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
   title: 'NFT/Filters/Panel/By Collection',
   component: Component,
   argTypes: {
-    onNftsFiltered: {
+    onToggleSelection: {
       table: {
         disable: true
       }
@@ -16,7 +17,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['nfts']
+      exclude: ['filters']
     }
   }
 }
@@ -25,6 +26,6 @@ export default metadata
 
 export const ByCollection: StoryObj<typeof Component> = {
   args: {
-    nfts: getAllNftMocks()
+    filters: getCollectionFiltersForNfts(getAllNftMocks())
   }
 }

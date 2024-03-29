@@ -1,25 +1,24 @@
 'use client'
-import type { Nft } from '@echo/model/types/nft'
 import {
   TraitFilterPanel,
   type TraitFilterPanelProps
 } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import { Transition } from '@headlessui/react'
-import { useEffect, useRef } from 'react'
+import { type FunctionComponent, useEffect, useRef } from 'react'
 
-interface Props<T extends Nft> extends TraitFilterPanelProps<T> {
+interface Props extends TraitFilterPanelProps {
   show: boolean
 }
 
-export const UserNftsTraitFilterPanel = <T extends Nft>({ show, nfts, onNftsFiltered }: Props<T>) => {
-  // we need to keep a reference to previous NFTs so that the filters don't get updated
-  // during the exit animation
-  const nftsRef = useRef(nfts)
+export const TraitFilterPanelVisibilityManager: FunctionComponent<Props> = ({ show, filters, onToggleSelection }) => {
+  // we need to keep a reference to previous filters so that they don't get updated during the exit animation
+  const filtersRef = useRef(filters)
   useEffect(() => {
     if (show) {
-      nftsRef.current = nfts
+      filtersRef.current = filters
     }
-  }, [show, nfts])
+  }, [show, filters])
+
   return (
     <Transition
       show={show}
@@ -30,7 +29,7 @@ export const UserNftsTraitFilterPanel = <T extends Nft>({ show, nfts, onNftsFilt
       leaveFrom="transform opacity-100"
       leaveTo="transform opacity-0"
     >
-      <TraitFilterPanel nfts={show ? nfts : nftsRef.current} onNftsFiltered={onNftsFiltered} />
+      <TraitFilterPanel filters={show ? filters : filtersRef.current} onToggleSelection={onToggleSelection} />
     </Transition>
   )
 }

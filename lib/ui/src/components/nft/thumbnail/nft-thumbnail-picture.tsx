@@ -19,7 +19,7 @@ export const NftThumbnailPicture: FunctionComponent<Props> = ({ nft }) => {
         alt={nft.tokenId.toString()}
         width={PICTURE_SIZE_MD}
         height={PICTURE_SIZE_MD}
-        quality={100}
+        unoptimized={true}
         crossOrigin={'anonymous'}
       />
     </NftThumbnailPictureLayout>

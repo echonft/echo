@@ -11,7 +11,7 @@ import { disableSelection } from '@echo/ui/helpers/selectable/disable-selection'
 import { UserNavigationLayout } from '@echo/ui/pages/user/navigation/user-navigation-layout'
 import { UserNfts } from '@echo/ui/pages/user/nfts/user-nfts'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { always, andThen, assoc, map, pipe, when } from 'ramda'
+import { always, andThen, assoc, ifElse, map, pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<NextParams<WithUsername>>
@@ -20,15 +20,16 @@ async function render({ params: { username }, user }: Params) {
   const nfts: SelectableNft[] = await pipe(
     getNftsForOwner as (username: string) => Promise<SelectableNft[]>,
     andThen(
-      pipe(
-        map<SelectableNft, SelectableNft>(assoc('action', NFT_ACTION_OFFER)),
-        when<SelectableNft[], SelectableNft[]>(always(isAuthUser), map(pipe(disableSelection, disableAction)))
+      ifElse(
+        always(isAuthUser),
+        map(pipe(disableSelection, disableAction)),
+        map<SelectableNft, SelectableNft>(assoc('action', NFT_ACTION_OFFER))
       )
     )
   )(username)
   return (
     <UserNavigationLayout username={username} activeNavigationItem={NAVIGATION_NFTS}>
-      <UserNfts nfts={nfts} isAuthUser={isAuthUser} />
+      <UserNfts nfts={nfts} />
     </UserNavigationLayout>
   )
 }

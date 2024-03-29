@@ -23,7 +23,7 @@ export const StackImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled }
       )}
       width={202}
       height={202}
-      quality={100}
+      unoptimized={true}
       crossOrigin={'anonymous'}
       alt={alt}
       src={src}

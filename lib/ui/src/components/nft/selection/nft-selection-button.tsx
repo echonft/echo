@@ -1,13 +1,23 @@
+import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
+import type { NftAction } from '@echo/ui/types/nft-action'
 import { clsx } from 'clsx'
+import { useTranslations } from 'next-intl'
+import { isNil } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
 export interface NftSelectionButtonProps {
-  label: string
   count: number
+  action?: NftAction
   onClick?: MouseEventHandler
 }
 
-export const NftSelectionButton: FunctionComponent<NftSelectionButtonProps> = ({ label, count, onClick }) => {
+export const NftSelectionButton: FunctionComponent<NftSelectionButtonProps> = ({ action, count, onClick }) => {
+  const t = useTranslations('nft.action')
+  if (isNil(action)) {
+    return null
+  }
+
+  const label = action === NFT_ACTION_OFFER ? t('offer') : t('listing')
   return (
     <button
       disabled={count === 0}

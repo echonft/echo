@@ -7,10 +7,10 @@ import { getUserProfileMockByUsername } from '@echo/model-mocks/user/user-profil
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { CreateListingBannerManager } from '@echo/ui/components/listing/create/create-listing-banner-manager'
+import { SelectableNftsWithFilters } from '@echo/ui/components/nft/selection/selectable-nfts-with-filters'
 import { CreateOfferBannerManager } from '@echo/ui/components/offer/create/create-offer-banner-manager'
 import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
 import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
-import { ProfileNfts } from '@echo/ui/pages/profile/nfts/profile-nfts'
 import { type Meta, type StoryObj } from '@storybook/react'
 import { type FunctionComponent, useEffect } from 'react'
 
@@ -40,7 +40,7 @@ export const SelectingOwnItems: StoryObj<FunctionComponent> = {
           <UserProfile profile={profile} />
         </SectionLayout>
         <SectionLayout>
-          <ProfileNfts nfts={getAllNftMocks()} />
+          <SelectableNftsWithFilters nfts={getAllNftMocks()} />
         </SectionLayout>
       </NavigationPageLayout>
     )

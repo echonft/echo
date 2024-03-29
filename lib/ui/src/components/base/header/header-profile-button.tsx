@@ -33,7 +33,6 @@ export const HeaderProfileButton: FunctionComponent<HeaderLoggedInProps> = ({ us
           alt={username}
           width={48}
           height={48}
-          quality={100}
           priority={true}
           unoptimized={true}
         />

@@ -8,7 +8,7 @@ import { type FunctionComponent, useMemo, useState } from 'react'
 interface Props {
   label: string
   filters: Selectable<TraitFilter>[]
-  onToggleSelection?: (filter: Selectable<TraitFilter>) => unknown
+  onToggleSelection?: (filter: Selectable<TraitFilter>) => void
 }
 
 export const TraitFilterPickerManager: FunctionComponent<Props> = ({ label, filters, onToggleSelection }) => {

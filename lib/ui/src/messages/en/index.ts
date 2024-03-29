@@ -202,8 +202,11 @@ export const messages = {
         btn: 'Review offer',
         title: 'Select your NFTs to finalize your offer'
       },
+      cancelBtn: 'Cancel',
+      cancelBtnMessage: 'Hold to cancel',
       clearBtn: 'Clear',
       clearBtnMessage: 'Hold to clear',
+      createBtn: 'Create',
       confirmedModal: {
         closeBtn: 'Close',
         subtitle: 'Your offer was successfully created, you can now contact your counterparty',
@@ -217,7 +220,9 @@ export const messages = {
         discardBtnMessage: 'Hold to discard',
         subtitle: 'If you leave this page, your offer will be discarded',
         title: 'Discard Offer'
-      }
+      },
+      editBtn: 'Edit',
+      reviewBtn: 'Review'
     },
     details: {
       acceptBtn: 'Accept',
