@@ -10,7 +10,6 @@ import { getOfferSignature } from '@echo/api/fetchers/get-offer-signature'
 import { getWallets } from '@echo/api/fetchers/get-wallets'
 import { rejectOffer } from '@echo/api/fetchers/reject-offer'
 import { validateOffer } from '@echo/api/fetchers/validate-offer'
-import { getCollections } from '@echo/api/providers/get-collections'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import { isStorybook } from '@echo/utils/constants/is-storybook'
 import { approveErc721Contract } from '@echo/web3-dom/helpers/approve-erc721-contract'
@@ -41,7 +40,6 @@ export const PageLayoutWrapper: FunctionComponent<PropsWithChildren> = ({ childr
         disconnectWallet,
         executeSwap,
         getAccount,
-        getCollections,
         getErc721ContractApproval,
         getNonce,
         getOfferSignature,

@@ -4,7 +4,6 @@ import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args
 import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
 import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args'
 import type { ValidateOfferArgs } from '@echo/api/types/fetchers/validate-offer-args'
-import type { CollectionProvider } from '@echo/api/types/providers/collection-provider'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
@@ -35,7 +34,6 @@ export interface Dependencies {
   disconnectWallet: () => Promise<void>
   executeSwap: Fetcher<HexString, ExecuteSwapArgs>
   getAccount: AccountProvider
-  getCollections: CollectionProvider
   getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
   getNonce: Fetcher<NonceResponse, never>
   getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>

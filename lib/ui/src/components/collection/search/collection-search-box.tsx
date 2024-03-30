@@ -1,4 +1,3 @@
-import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import { type Collection } from '@echo/model/types/collection'
 import { CollectionSearchBoxOptions } from '@echo/ui/components/collection/search/collection-search-box-options'
 import { CollectionSearchComboboxInput } from '@echo/ui/components/collection/search/collection-search-combobox-input'
@@ -7,40 +6,38 @@ import type { Nullable } from '@echo/utils/types/nullable'
 import { Combobox, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
+import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  options: CollectionProviderResult[] | undefined
+  options: Collection[] | undefined
   searching: boolean
-  disabled?: boolean
-  onSearch?: (searchQuery: string) => unknown
+  onSearch?: (searchQuery: string) => void
   onSearchClear?: EmptyFunction
-  onSelectionChange?: (selection: Nullable<Collection>) => unknown
+  onSelection?: (selection: Collection) => void
 }
 
 export const CollectionSearchBox: FunctionComponent<Props> = ({
   options,
   searching,
-  disabled,
   onSearch,
   onSearchClear,
-  onSelectionChange
+  onSelection
 }) => {
   const t = useTranslations('collection.search')
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-2', 'h-max', 'w-full')}>
-      <span className={clsx('prose-label-md', 'text-white', 'select-none', 'w-max', 'h-max', disabled && 'opacity-40')}>
-        {t('label')}
-      </span>
+      <span className={clsx('prose-label-md', 'text-white', 'select-none', 'w-max', 'h-max')}>{t('label')}</span>
       <div className={clsx('h-max', 'w-full', 'relative')}>
-        <Combobox onChange={onSelectionChange} disabled={disabled}>
-          <CollectionSearchComboboxInput
-            searching={searching}
-            onSearch={onSearch}
-            onClear={onSearchClear}
-            disabled={disabled}
-          />
+        <Combobox
+          onChange={(selection: Nullable<Collection>) => {
+            if (!isNil(selection)) {
+              onSelection?.(selection)
+            }
+          }}
+        >
+          <CollectionSearchComboboxInput searching={searching} onSearch={onSearch} onClear={onSearchClear} />
           <Transition
             show={searching}
             as={'div'}

@@ -12,7 +12,7 @@ export const OfferDetailsSkeleton: FunctionComponent = () => (
     <UserDetailsSkeleton />
     <OfferDetailsItemsButtonsLayout>
       <NftCardsSkeleton alignment={ALIGNMENT_CENTER} quantity={3} />
-      <OfferDetailsItemsSeparator disabled={true} />
+      <OfferDetailsItemsSeparator />
       <NftCardsSkeleton alignment={ALIGNMENT_CENTER} quantity={3} />
       <OfferDetailsButtonsSkeleton />
     </OfferDetailsItemsButtonsLayout>

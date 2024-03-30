@@ -10,8 +10,8 @@ interface Props {
   direction: SwapDirection
 }
 
-export const CreateListingSwapDirectionHeader: FunctionComponent<Props> = ({ direction }) => {
-  const t = useTranslations('listing.create.assets')
+export const CreateOfferSwapDirectionHeader: FunctionComponent<Props> = ({ direction }) => {
+  const t = useTranslations('offer.create.assets')
   return (
     <div className={clsx('flex', 'gap-2', 'items-center')}>
       <span
