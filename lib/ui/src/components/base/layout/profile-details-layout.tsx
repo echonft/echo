@@ -1,6 +1,6 @@
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
 export const ProfileDetailsLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
-  return <div className={classes('flex', 'flex-row', 'w-full', 'gap-8')}>{children}</div>
+  return <div className={clsx('flex', 'flex-row', 'w-full', 'gap-8')}>{children}</div>
 }

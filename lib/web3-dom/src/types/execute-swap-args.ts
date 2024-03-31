@@ -5,5 +5,6 @@ import type { HexString } from '@echo/utils/types/hex-string'
 export interface ExecuteSwapArgs {
   chainId: number
   signature: HexString
+  offerSignature: HexString
   offer: Offer
 }

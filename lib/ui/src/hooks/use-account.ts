@@ -13,9 +13,7 @@ export function useAccount(): AccountResult {
   // subscribe to account changes
   useEffect(() => {
     const { unsubscribe } = getAccount(setAccount)
-    return () => {
-      unsubscribe?.()
-    }
-  }, [getAccount, setAccount])
+    return unsubscribe
+  }, [getAccount])
   return account
 }

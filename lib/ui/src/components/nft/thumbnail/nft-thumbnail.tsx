@@ -7,12 +7,11 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   nft: Nft
-  disabled?: boolean
 }
 
-export const NftThumbnail: FunctionComponent<Props> = ({ nft, disabled }) => {
+export const NftThumbnail: FunctionComponent<Props> = ({ nft }) => {
   return (
-    <NftThumbnailLayout disabled={disabled}>
+    <NftThumbnailLayout>
       <NftThumbnailPicture nft={nft} />
       <NftThumbnailTitle nft={nft} />
     </NftThumbnailLayout>

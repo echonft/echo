@@ -1,5 +1,5 @@
 import { type StorybookConfig } from '@storybook/nextjs'
-import { dirname, join } from 'path'
+import path, { dirname, join } from 'path'
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin'
 
 const config: StorybookConfig = {
@@ -28,9 +28,11 @@ const config: StorybookConfig = {
   framework: {
     name: getAbsolutePath('@storybook/nextjs'),
     options: {
-      builder: {
-        useSWC: true
-      }
+      builder: {},
+      image: {
+        unoptimized: true
+      },
+      nextConfigPath: path.resolve(__dirname, '../../frontend/next.config.js')
     }
   },
   env: (config) => ({

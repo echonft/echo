@@ -22,8 +22,8 @@ export async function offerUpdateChangeHandler(changeType: DocumentChangeType, u
       if (isNil(offer)) {
         throw Error(`offer ${update.offerId} for offer update ${update.id} not found`)
       }
-      await addOfferUpdatePost(update.id)
       await postOfferStateUpdate(offer)
+      await addOfferUpdatePost(update.id)
       if (offer.readOnly) {
         const offerThread = await findOfferThread(offer.id)
         if (isNil(offerThread)) {

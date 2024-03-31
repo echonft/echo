@@ -4,7 +4,7 @@ import type { User } from '@echo/model/types/user'
 import { whenHas } from '@echo/utils/fp/when-has'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 
-const key = 'creator' as const
+const key = 'creator'
 type Key = typeof key
 type PartialListing = Partial<WithFieldValue<Listing>>
 export function lowerCreatorWalletAddressIfExists(listing: PartialListing): PartialListing {

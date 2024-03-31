@@ -5,6 +5,7 @@ import { getUserProfile } from '@echo/frontend/lib/helpers/user/get-user-profile
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
+import type { WithUsername } from '@echo/model/types/with-username'
 import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { NavigationPageLayout } from '@echo/ui/components/base/navigation/navigation-page-layout'
 import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
@@ -12,7 +13,7 @@ import { notFound } from 'next/navigation'
 import { isNil, pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
-type Params = NextUserParams<NextLayoutParams<NextParams<Record<'username', string>>>>
+type Params = NextUserParams<NextLayoutParams<NextParams<WithUsername>>>
 async function render({ params: { username }, user: authUser, children }: Params) {
   const user = await findUserByUsername(username)
   if (isNil(user)) {

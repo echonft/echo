@@ -1,7 +1,6 @@
-import { type Selectable } from '@echo/ui/types/selectable'
+import type { NftAttribute } from '@echo/model/types/nft-attribute'
+import type { NftFilter } from '@echo/ui/types/nft-filter'
 
-export interface TraitFilter extends Selectable {
-  trait: string
-  value: string
-  count: number
+export interface TraitFilter extends NftFilter {
+  attribute: NftAttribute
 }

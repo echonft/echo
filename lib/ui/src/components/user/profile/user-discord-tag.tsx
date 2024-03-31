@@ -1,6 +1,6 @@
 import { DiscordIconSvg } from '@echo/ui/components/base/svg/discord-icon-svg'
 import { UserDiscordTagWrapper } from '@echo/ui/components/user/profile/user-discord-tag-wrapper'
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -12,21 +12,22 @@ export const UserDiscordTag: FunctionComponent<Props> = ({ username, discordUser
   return (
     <UserDiscordTagWrapper username={username}>
       <div
-        className={classes(
+        className={clsx(
           'flex',
           'flex-row',
-          'w-max',
-          'px-5',
-          'py-2.5',
           'rounded-lg',
           'items-center',
           'bg-purple-500',
           'gap-2.5',
+          'h-12',
+          'w-max',
+          'py-2.75',
+          'px-5',
           'text-white',
-          'prose-paragraph-sm'
+          'prose-other-bold'
         )}
       >
-        <DiscordIconSvg width={22} />
+        <DiscordIconSvg width={24} />
         <span>{discordUsername}</span>
       </div>
     </UserDiscordTagWrapper>

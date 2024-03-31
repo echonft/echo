@@ -1,4 +1,4 @@
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { type FunctionComponent, type MouseEventHandler, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 export const ExternalLink: FunctionComponent<PropsWithChildren<Props>> = ({ href, style, onClick, children }) => {
   return (
     <a
-      className={classes(style?.inline ? 'inline' : 'block')}
+      className={clsx(style?.inline ? 'inline' : 'block')}
       href={href}
       target={'_blank'}
       rel={'noopener noreferrer nofollow'}

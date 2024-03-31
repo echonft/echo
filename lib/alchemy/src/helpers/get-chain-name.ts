@@ -1,10 +1,12 @@
+import { GOERLI_CHAIN_ID, MAINNET_CHAIN_ID, SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chain-ids'
+
 export function getChainName(chainId: number) {
   switch (chainId) {
-    case 1:
+    case MAINNET_CHAIN_ID:
       return 'eth-mainnet'
-    case 11155111:
+    case SEPOLIA_CHAIN_ID:
       return 'eth-sepolia'
-    case 5:
+    case GOERLI_CHAIN_ID:
       return 'eth-goerli'
     case 137:
       return 'polygon-mainnet'

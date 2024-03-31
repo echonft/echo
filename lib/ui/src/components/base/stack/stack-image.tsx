@@ -1,4 +1,4 @@
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import Image from 'next/image'
 import type { FunctionComponent } from 'react'
 
@@ -11,7 +11,7 @@ interface Props {
 export const StackImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled }) => {
   return (
     <Image
-      className={classes(
+      className={clsx(
         'select-none',
         'rounded-2xl',
         'transition-transform',
@@ -23,6 +23,8 @@ export const StackImage: FunctionComponent<Props> = ({ alt, src, scaleDisabled }
       )}
       width={202}
       height={202}
+      unoptimized={true}
+      crossOrigin={'anonymous'}
       alt={alt}
       src={src}
     />

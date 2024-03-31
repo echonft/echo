@@ -1,14 +1,10 @@
-import {
-  PICTURE_SIZE_PROFILE_LG,
-  PICTURE_SIZE_PROFILE_MD,
-  PICTURE_SIZE_PROFILE_SM
-} from '@echo/ui/constants/picture-size'
+import { PICTURE_SIZE_LG, PICTURE_SIZE_MD } from '@echo/ui/constants/picture-size'
 import { SIZE_LG, SIZE_MD, SIZE_SM } from '@echo/ui/constants/size'
 import { addPictureSizeToUrl } from '@echo/ui/helpers/add-picture-size-to-url'
-import { classes } from '@echo/ui/helpers/classes'
 import { getProfilePictureHeightInPx } from '@echo/ui/helpers/get-profile-picture-height-in-px'
 import { getProfilePictureWidthInPx } from '@echo/ui/helpers/get-profile-picture-width-in-px'
 import type { ProfilePictureSize } from '@echo/ui/types/profile-picture-size'
+import { clsx } from 'clsx'
 import Image from 'next/image'
 import { type FunctionComponent } from 'react'
 
@@ -22,11 +18,10 @@ export interface ProfilePictureProps {
 function getPictureSize(size: ProfilePictureSize) {
   switch (size) {
     case SIZE_LG:
-      return PICTURE_SIZE_PROFILE_LG
+      return PICTURE_SIZE_LG
     case SIZE_MD:
-      return PICTURE_SIZE_PROFILE_MD
     case SIZE_SM:
-      return PICTURE_SIZE_PROFILE_SM
+      return PICTURE_SIZE_MD
   }
 }
 export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
@@ -37,7 +32,7 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
 }) => {
   return (
     <Image
-      className={classes(
+      className={clsx(
         'select-none',
         'bg-dark-500',
         'object-contain',
@@ -50,6 +45,7 @@ export const ProfilePicture: FunctionComponent<ProfilePictureProps> = ({
       alt={alt}
       width={getProfilePictureWidthInPx(size)}
       height={getProfilePictureHeightInPx(size)}
+      unoptimized={true}
     />
   )
 }

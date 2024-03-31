@@ -8,7 +8,12 @@ import { getAccount as WagmiGetAccount, type GetAccountReturnType, watchAccount 
 export function getAccount(onChange?: (account: AccountResult) => void): AccountProviderResult {
   const account = pipe(WagmiGetAccount, mapGetAccountReturnToAccountResult)(wagmiConfig)
   if (isNil(onChange)) {
-    return { account }
+    return {
+      account,
+      unsubscribe: () => {
+        // nothing to do
+      }
+    }
   }
   const unsubscribe = watchAccount(wagmiConfig, {
     onChange: (account: GetAccountReturnType, _prevAccount: GetAccountReturnType) => {

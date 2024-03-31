@@ -1,50 +1,22 @@
 'use client'
 import { type Nft } from '@echo/model/types/nft'
-import { SelectableNftGroupsAndFiltersContainer } from '@echo/ui/components/nft/filters/layout/selectable-nft-groups-and-filters-container'
-import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
-import { NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS } from '@echo/ui/constants/nft-filter'
-import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
-import { mapNftToItem } from '@echo/ui/mappers/to-api/map-nft-to-item'
+import { SelectableNftsWithFilters } from '@echo/ui/components/nft/selection/selectable-nfts-with-filters'
+import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { UserNftsEmpty } from '@echo/ui/pages/user/nfts/user-nfts-empty'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
-import { useTranslations } from 'next-intl'
-import { assoc, dissoc, isEmpty, map, pipe } from 'ramda'
-import { type FunctionComponent, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
+import { bind, isEmpty, pipe } from 'ramda'
 
-interface Props {
-  nfts: Nft[]
+interface Props<T extends Nft> {
+  nfts: T[]
 }
 
-export const UserNfts: FunctionComponent<Props> = ({ nfts }) => {
-  const t = useTranslations('user')
-  const { hasNewOfferPending, setReceiverItems, openModal } = useNewOfferStore()
-  const selectableNfts = useMemo(() => {
-    if (hasNewOfferPending) {
-      return map<Nft, SelectableNft>(assoc('actionDisabled', true), nfts)
-    }
-    return map<Nft, SelectableNft>(
-      pipe<[Nft], SelectableNft, SelectableNft>(assoc('action', NFT_ACTION_OFFER), dissoc('actionDisabled')),
-      nfts
-    )
-  }, [nfts, hasNewOfferPending])
-
-  const onMakeOffer = (nfts: SelectableNft[]) => {
-    if (isNonEmptyArray(nfts)) {
-      setReceiverItems(map(mapNftToItem, nfts))
-      openModal()
-    }
-  }
+export const UserNfts = <T extends Nft>({ nfts }: Props<T>) => {
+  const router = useRouter()
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const routerPush = bind(router.push, router)
 
   if (isEmpty(nfts)) {
     return <UserNftsEmpty />
   }
-  return (
-    <SelectableNftGroupsAndFiltersContainer
-      nfts={selectableNfts}
-      availableFilters={[NFT_FILTER_COLLECTIONS, NFT_FILTER_TRAITS]}
-      btnLabel={t('button')}
-      onButtonClick={onMakeOffer}
-    />
-  )
+  return <SelectableNftsWithFilters nfts={nfts} onSelectionAction={pipe(getNewOfferPath, routerPush)} />
 }

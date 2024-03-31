@@ -4,7 +4,7 @@ import { whenHas } from '@echo/utils/fp/when-has'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 
-const key = 'address' as const
+const key = 'address'
 type Key = typeof key
 export function lowerAddressIfExists(wallet: WithFieldValue<WalletDocumentData>) {
   return whenHas<Key, WithFieldValue<WalletDocumentData>, Lowercase<HexString>, WithFieldValue<WalletDocumentData>>(

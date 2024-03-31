@@ -13,6 +13,7 @@ export async function createOfferThread(offer: Offer, senderId: string, receiver
     autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
     type: ChannelType.PrivateThread
   })
+  // FIXME try/catch this and send the appropriate message if one user is missing
   await thread.members.add(senderId)
   await thread.members.add(receiverId)
   await sendToThread(thread, {

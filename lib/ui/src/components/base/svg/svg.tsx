@@ -1,4 +1,5 @@
 import { useSvgSize } from '@echo/ui/hooks/use-svg-size'
+import { clsx } from 'clsx'
 import { omit } from 'ramda'
 import { type FunctionComponent, type SVGProps } from 'react'
 
@@ -25,7 +26,7 @@ export const Svg: FunctionComponent<Props> = ({ children, className, ...props })
       height={height}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className}
+      className={clsx('select-none', className)}
     >
       {children}
     </svg>

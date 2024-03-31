@@ -6,8 +6,8 @@ import { CollectionRowLayout } from '@echo/ui/components/collection/row/layout/c
 import { CollectionRowNameRankPictureLayout } from '@echo/ui/components/collection/row/layout/collection-row-name-rank-picture-layout'
 import { CollectionRowRankPictureLayout } from '@echo/ui/components/collection/row/layout/collection-row-rank-picture-layout'
 import { DEFAULT_COLLECTION_PROFILE_PICTURE_URL } from '@echo/ui/constants/default-collection-profile-picture-url'
-import { classes } from '@echo/ui/helpers/classes'
 import type { CollectionWithRank } from '@echo/ui/types/collection-with-rank'
+import { clsx } from 'clsx'
 import Image from 'next/image'
 import { type FunctionComponent } from 'react'
 
@@ -25,9 +25,11 @@ export const CollectionRow: FunctionComponent<Props> = ({
           <CollectionRowRankPictureLayout>
             <CollectionRowRank>{rank}</CollectionRowRank>
             <Image
-              className={classes('w-[6.25rem]', 'h-[6.25rem]', 'rounded')}
+              className={clsx('w-[6.25rem]', 'h-[6.25rem]', 'rounded')}
               src={profilePictureUrl ?? DEFAULT_COLLECTION_PROFILE_PICTURE_URL}
               alt={name}
+              unoptimized={true}
+              crossOrigin={'anonymous'}
               width={100}
               height={100}
             />

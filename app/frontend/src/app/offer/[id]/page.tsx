@@ -6,9 +6,9 @@ import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
-import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import type { WithId } from '@echo/model/types/with-id'
+import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { getOfferPageLayoutBackground } from '@echo/ui/helpers/offer/get-offer-page-layout-background'
 import { isOfferRoleUndefined } from '@echo/ui/helpers/offer/is-offer-role-undefined'
@@ -18,7 +18,7 @@ import { notFound } from 'next/navigation'
 import { andThen, isNil, pipe, unless } from 'ramda'
 import type { ReactElement } from 'react'
 
-type Params = NextAuthUserParams<NextParams<Record<'id', string>>>
+type Params = NextAuthUserParams<NextParams<WithId>>
 
 async function render({ params: { id }, user }: Params) {
   const offer = await pipe<[string], Promise<Nullable<Offer>>, Promise<Nullable<OfferWithRole>>>(
@@ -30,11 +30,9 @@ async function render({ params: { id }, user }: Params) {
   }
   return (
     <PageLayout user={user} background={getOfferPageLayoutBackground(offer)}>
-      <SectionLayout>
-        <DetailsPaddedContainer>
-          <OfferDetails offer={offer} />
-        </DetailsPaddedContainer>
-      </SectionLayout>
+      <PaddedSectionLayout>
+        <OfferDetails offer={offer} />
+      </PaddedSectionLayout>
     </PageLayout>
   )
 }

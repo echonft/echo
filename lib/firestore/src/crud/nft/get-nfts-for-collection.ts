@@ -5,7 +5,7 @@ import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { Nft } from '@echo/model/types/nft'
 import { always, isNil, pipe, unless } from 'ramda'
 
-interface GetNftsForCollectionOptions {
+export interface GetNftsForCollectionOptions {
   excludeDiscordUsername?: string
 }
 export function getNftsForCollection(slug: string, options?: GetNftsForCollectionOptions): Promise<Nft[]> {

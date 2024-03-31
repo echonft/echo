@@ -1,11 +1,13 @@
+import type { TokenType } from '@echo/model/types/token-type'
+import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 
 export interface ContractResponse {
-  address: string
+  address: HexString
   name: string
   symbol: string
   totalSupply: string
-  tokenType: string
+  tokenType: Extract<TokenType, 'ERC721' | 'ERC1155'>
   contractDeployer: string
   deployedBlockNumber: number
   openSeaMetadata: OpenSeaMetadata

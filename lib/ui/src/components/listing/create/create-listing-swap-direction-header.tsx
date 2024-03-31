@@ -1,21 +1,21 @@
 import { SideCaretSvg } from '@echo/ui/components/base/svg/side-caret-svg'
 import { DIRECTION_LEFT, DIRECTION_RIGHT } from '@echo/ui/constants/direction'
 import { SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
-import { classes } from '@echo/ui/helpers/classes'
 import { type SwapDirection } from '@echo/ui/types/swap-direction'
+import { clsx } from 'clsx'
+import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   direction: SwapDirection
-  title: string
-  disabled?: boolean
 }
 
-export const CreateListingSwapDirectionHeader: FunctionComponent<Props> = ({ direction, title, disabled }) => {
+export const CreateListingSwapDirectionHeader: FunctionComponent<Props> = ({ direction }) => {
+  const t = useTranslations('listing.create.assets')
   return (
-    <div className={classes('flex', 'gap-2', 'items-center', disabled && 'opacity-40')}>
+    <div className={clsx('flex', 'gap-2', 'items-center')}>
       <span
-        className={classes(
+        className={clsx(
           'w-6',
           'h-6',
           'bg-yellow-500',
@@ -28,7 +28,7 @@ export const CreateListingSwapDirectionHeader: FunctionComponent<Props> = ({ dir
       >
         <SideCaretSvg direction={direction === SWAP_DIRECTION_OUT ? DIRECTION_LEFT : DIRECTION_RIGHT} />
       </span>
-      <span className={classes('prose-label-lg', 'text-white')}>{title}</span>
+      <span className={clsx('prose-label-lg', 'text-white')}>{t(direction)}</span>
     </div>
   )
 }

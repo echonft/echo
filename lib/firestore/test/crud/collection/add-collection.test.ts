@@ -7,6 +7,7 @@ import { deleteCollectionSwapsCount } from '@echo/firestore-test/collection-swap
 import { findCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/find-collection-swaps-count-by-collection-id'
 import type { Collection } from '@echo/model/types/collection'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
+import { SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chain-ids'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
 import { assoc, assocPath, isNil, omit, pipe } from 'ramda'
@@ -43,13 +44,13 @@ describe('CRUD - collection - addCollection', () => {
     const originalCollection = omit(['id'], getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'))
     const collectionToAdd = pipe<[Omit<Collection, 'id'>], Omit<Collection, 'id'>, Omit<Collection, 'id'>>(
       assoc('slug', 'slug'),
-      assocPath(['contract', 'chainId'], 11155111)
+      assocPath(['contract', 'chainId'], SEPOLIA_CHAIN_ID)
     )(originalCollection)
     const addedCollection = await addCollection(collectionToAdd)
     collectionId = addedCollection.id
-    const collection = await findCollectionById(collectionId)
-    const swapsCount = await findCollectionSwapsCountByCollectionId(collectionId)
-    addedSwapsCountId = swapsCount!.id
+    const collection = (await findCollectionById(collectionId))!
+    const swapsCount = (await findCollectionSwapsCountByCollectionId(collectionId))!
+    addedSwapsCountId = swapsCount.id
     expect(omit(['id'], collection)).toStrictEqual(collectionToAdd)
     expect(omit(['id'], swapsCount)).toStrictEqual({
       collectionId,

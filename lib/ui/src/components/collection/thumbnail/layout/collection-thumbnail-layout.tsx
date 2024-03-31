@@ -1,21 +1,14 @@
-import { classes } from '@echo/ui/helpers/classes'
 import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
-import { isNil } from 'ramda'
-import type { FunctionComponent, MouseEventHandler, PropsWithChildren } from 'react'
+import { clsx } from 'clsx'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
-interface Props extends WithLoadingProps {
-  disabled?: boolean
-  onClick?: MouseEventHandler
-}
-export const CollectionThumbnailLayout: FunctionComponent<PropsWithChildren<Props>> = ({
+export const CollectionThumbnailLayout: FunctionComponent<PropsWithChildren<WithLoadingProps>> = ({
   loading,
-  disabled,
-  onClick,
   children
 }) => {
   return (
     <div
-      className={classes(
+      className={clsx(
         'flex',
         'flex-row',
         'pt-3.5',
@@ -28,11 +21,9 @@ export const CollectionThumbnailLayout: FunctionComponent<PropsWithChildren<Prop
         'border',
         'border-white/10',
         'bg-dark-500',
-        !disabled && !isNil(onClick) && ['hover:bg-white/[0.08]', 'cursor-pointer'],
-        loading ? ['h-[8.125rem]', 'animate-pulse'] : 'h-max',
-        disabled && 'opacity-40'
+        'relative',
+        loading ? ['h-[8.125rem]', 'animate-pulse'] : 'h-max'
       )}
-      onClick={onClick}
     >
       {children}
     </div>

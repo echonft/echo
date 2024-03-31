@@ -1,4 +1,4 @@
-import { echoAddress } from '@echo/web3/constants/echo-address'
+import { ECHO_ADDRESS } from '@echo/web3/constants/echo-address'
 import { formatAddress } from '@echo/web3/helpers/format-address'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import { getWalletClient } from '@echo/web3-dom/helpers/get-wallet-client'
@@ -16,6 +16,6 @@ export async function getErc721ContractApproval(args: GetErc721ContractApprovalA
     abi: erc721Abi,
     functionName: 'isApprovedForAll',
     address,
-    args: [owner, echoAddress]
+    args: [owner, ECHO_ADDRESS]
   })
 }

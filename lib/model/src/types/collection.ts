@@ -1,7 +1,9 @@
 import { type Contract } from '@echo/model/types/contract'
+import type { WithId } from '@echo/model/types/with-id'
+import type { WithSlug } from '@echo/model/types/with-slug'
 import type { Nullable } from '@echo/utils/types/nullable'
 
-export interface Collection {
+export interface Collection extends WithId, WithSlug {
   id: string
   bannerUrl?: Nullable<string>
   blurUrl?: Nullable<Lowercase<string>>

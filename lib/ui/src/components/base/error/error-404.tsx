@@ -1,15 +1,15 @@
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EchoIconSvg } from '@echo/ui/components/base/svg/echo-icon-svg'
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 export const Error404: FunctionComponent = () => {
   const t = useTranslations('notFoundPage')
   return (
-    <div className={classes('w-max', 'h-full', 'flex', 'flex-col', 'mx-auto', 'items-center')}>
+    <div className={clsx('w-max', 'h-full', 'flex', 'flex-col', 'mx-auto', 'items-center')}>
       <div
-        className={classes(
+        className={clsx(
           'relative',
           'w-max',
           'text-[31.25rem]',
@@ -21,13 +21,13 @@ export const Error404: FunctionComponent = () => {
           'select-none'
         )}
       >
-        <EchoIconSvg className={classes('absolute', 'top-[200px]', 'left-[230px]', 'text-yellow-500')} height={400} />
-        <span className={classes('h-max', 'mr-[130px]')}>4</span>
-        <span className={classes('h-max', 'ml-[130px]')}>4</span>
+        <EchoIconSvg className={clsx('absolute', 'top-[200px]', 'left-[230px]', 'text-yellow-500')} height={400} />
+        <span className={clsx('h-max', 'mr-[130px]')}>4</span>
+        <span className={clsx('h-max', 'ml-[130px]')}>4</span>
       </div>
-      <div className={classes('flex', 'flex-col', 'items-center', '-translate-y-20', 'select-none')}>
+      <div className={clsx('flex', 'flex-col', 'items-center', '-translate-y-20', 'select-none')}>
         <p
-          className={classes(
+          className={clsx(
             'w-max',
             'text-[4.375rem]',
             'leading-[129%]',
@@ -45,9 +45,9 @@ export const Error404: FunctionComponent = () => {
           {t('subtitle')}
         </p>
         <InternalLink path={'/'}>
-          <button className={classes('btn-primary-reverse', 'btn-size')}>
+          <button className={clsx('btn-primary-reverse', 'btn-size')}>
             <span
-              className={classes(
+              className={clsx(
                 'btn-label-primary-reverse',
                 'text-[1.5rem]',
                 'leading-[155%]',

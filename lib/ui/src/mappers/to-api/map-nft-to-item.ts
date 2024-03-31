@@ -7,6 +7,6 @@ import { type Nft } from '@echo/model/types/nft'
  * @param nft The NFT for the offer
  * @return Item
  */
-export function mapNftToItem(nft: Nft): Item {
-  return { nft, amount: 1 }
+export function mapNftToItem<T extends Item>(nft: Nft): T {
+  return { nft, amount: 1 } as T
 }

@@ -9,32 +9,29 @@ import { type FunctionComponent } from 'react'
 
 export interface SelectableNftCardProps {
   nft: SelectableNft
-  hideOwner?: boolean
-  hideLink?: boolean
-  onToggleSelection?: (nft: SelectableNft) => unknown
+  options?: {
+    owner?: {
+      hide?: boolean
+    }
+  }
+  onSelect?: (nft: SelectableNft) => unknown
   onAction?: (nft: SelectableNft) => unknown
 }
 
-export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({
-  nft,
-  hideOwner,
-  hideLink,
-  onToggleSelection,
-  onAction
-}) => {
+export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({ nft, options, onSelect, onAction }) => {
   return (
     <SelectableNftCardLayout
-      nft={nft}
       onClick={() => {
-        onToggleSelection?.(nft)
+        onSelect?.(nft)
       }}
     >
-      <SelectableNftCardPicture nft={nft} hideOwner={hideOwner} hideLink={hideLink} />
+      <SelectableNftCardPicture nft={nft} options={options} />
       <SelectableNftCardFooter nft={nft} />
       <SelectableNftCardButtonLayout>
         <SelectableNftCardButton
           nft={nft}
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation()
             onAction?.(nft)
           }}
         />

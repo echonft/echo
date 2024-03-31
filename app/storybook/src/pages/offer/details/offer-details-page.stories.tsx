@@ -8,14 +8,14 @@ import {
   READ_ONLY_OFFER_STATES
 } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
+import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
-import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { OfferDetailsSkeleton } from '@echo/ui/components/offer/details/skeleton/offer-details-skeleton'
 import { getOfferPageLayoutBackground } from '@echo/ui/helpers/offer/get-offer-page-layout-background'
@@ -65,9 +65,9 @@ export const Page: StoryObj<ComponentType> = {
     }
     function setRole(offer: Offer): OfferWithRole {
       if (role === 'Sender') {
-        return assoc('role', OFFER_ROLE_SENDER, offer)
+        return assoc<OfferRole, Offer, 'role'>('role', OFFER_ROLE_SENDER, offer)
       }
-      return assoc('role', OFFER_ROLE_RECEIVER, offer)
+      return assoc<OfferRole, Offer, 'role'>('role', OFFER_ROLE_RECEIVER, offer)
     }
     const renderedOffer = pipe<[string], Offer, Offer, Offer, OfferWithRole>(
       getOfferMockById,
@@ -78,11 +78,9 @@ export const Page: StoryObj<ComponentType> = {
     const user = getAuthUserMockByUsername(isOfferRoleSender(renderedOffer) ? 'crewnft_' : 'johnnycagewins')
     return (
       <PageLayout user={user} background={getOfferPageLayoutBackground(renderedOffer)}>
-        <SectionLayout>
-          <DetailsPaddedContainer>
-            <OfferDetails offer={renderedOffer} />
-          </DetailsPaddedContainer>
-        </SectionLayout>
+        <PaddedSectionLayout>
+          <OfferDetails offer={renderedOffer} />
+        </PaddedSectionLayout>
       </PageLayout>
     )
   }
@@ -91,11 +89,9 @@ export const Page: StoryObj<ComponentType> = {
 export const Loading: StoryObj<ComponentType> = {
   render: () => (
     <PageLayout>
-      <SectionLayout>
-        <DetailsPaddedContainer>
-          <OfferDetailsSkeleton />
-        </DetailsPaddedContainer>
-      </SectionLayout>
+      <PaddedSectionLayout>
+        <OfferDetailsSkeleton />
+      </PaddedSectionLayout>
     </PageLayout>
   )
 }

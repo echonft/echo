@@ -4,10 +4,10 @@ import type { WalletsResponse } from '@echo/api/types/responses/wallets-response
 import type { Wallet } from '@echo/model/types/wallet'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
-import { useAccount } from '@echo/ui/hooks/use-account'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
+import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { AccountResult } from '@echo/web3-dom/types/account-result'
@@ -16,27 +16,41 @@ import type { SignNonceResult } from '@echo/web3-dom/types/sign-nonce-result'
 import { useTranslations } from 'next-intl'
 import { either, includes, isNil, modify, pick, pipe, toLower } from 'ramda'
 import { useEffect, useMemo, useState } from 'react'
-import { mutate } from 'swr'
+import useSWR, { mutate } from 'swr'
 
-export function useConnectWallet(wallets: Nullable<Wallet[]>) {
+export function useConnectWallet(account: AccountResult) {
   const t = useTranslations('error.profile')
-  const { addWallet, disconnectWallet, getNonce, signNonce, switchChain } = useDependencies()
-  const account = useAccount()
+  const chainId = getChainId()
+  const { addWallet, disconnectWallet, getNonce, getWallets, signNonce, switchChain } = useDependencies()
   const wallet: Nullable<Wallet> = useMemo(() => {
     if (either(propIsNil('address'), propIsNil('chainId'))(account)) {
       return undefined
     }
     return pipe<
       [AccountResult & Record<'address', HexString> & Record<'chainId', number>],
-      Wallet & Record<'address', HexString>,
+      Record<'chainId', number> & Record<'address', HexString>,
       Wallet
     >(
       pick(['address', 'chainId']),
       modify('address', toLower<HexString>)
     )(account)
   }, [account])
-  const [walletLinked, setWalletLinked] = useState(false)
-
+  const [connected, setConnected] = useState(false)
+  const { data: walletsResponse } = useSWR<WalletsResponse, Error, string>(
+    SWRKeys.profile.wallet.get,
+    (_key: string) => {
+      return getWallets()
+    },
+    {
+      shouldRetryOnError: true,
+      errorRetryCount: 3,
+      errorRetryInterval: 500,
+      revalidateOnMount: true,
+      onError: (_error) => {
+        void disconnectWallet()
+      }
+    }
+  )
   // triggers
   const { trigger: getNonceTrigger } = useSWRTrigger<NonceResponse, never>({
     key: SWRKeys.profile.nonce.get,
@@ -61,7 +75,7 @@ export function useConnectWallet(wallets: Nullable<Wallet[]>) {
     fetcher: addWallet,
     onSuccess: (response) => {
       void mutate(SWRKeys.profile.wallet.get, response.wallets).finally(() => {
-        setWalletLinked(true)
+        setConnected(true)
       })
     },
     onError: {
@@ -87,18 +101,18 @@ export function useConnectWallet(wallets: Nullable<Wallet[]>) {
 
   // when connected, check if wallet is linked and if not, add it
   useEffect(() => {
-    if (!isNil(account.address) && account.status === 'connected') {
-      if (isNil(account.chain)) {
+    if (!isNil(wallet) && account.status === 'connected') {
+      if (isNil(account.chain) || (!isNil(account.chainId) && account.chainId !== chainId)) {
         void switchChain()
-      } else if (!isNil(wallets) && !walletLinked) {
-        if (includes(wallet, wallets)) {
-          setWalletLinked(true)
+      } else if (!isNil(walletsResponse) && !connected) {
+        if (includes(wallet, walletsResponse.wallets)) {
+          setConnected(true)
         } else {
           void getNonceTrigger()
         }
       }
     }
-  }, [account, getNonceTrigger, switchChain, wallet, walletLinked, wallets])
+  }, [account, chainId, getNonceTrigger, switchChain, wallet, connected, walletsResponse])
 
-  return { account, walletLinked }
+  return connected
 }

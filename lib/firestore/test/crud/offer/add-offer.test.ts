@@ -1,4 +1,3 @@
-import { DEFAULT_EXPIRATION_TIME } from '@echo/firestore/constants/default-expiration-time'
 import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
 import { getListingOffersForOffer } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-offer'
@@ -10,6 +9,7 @@ import { assertListingOffers } from '@echo/firestore-test/listing-offer/assert-l
 import { deleteListingOffer } from '@echo/firestore-test/listing-offer/delete-listing-offer'
 import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
 import { deleteOffer } from '@echo/firestore-test/offer/delete-offer'
+import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { type ListingState } from '@echo/model/types/listing-state'

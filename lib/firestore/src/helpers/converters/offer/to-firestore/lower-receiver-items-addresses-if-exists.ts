@@ -4,7 +4,7 @@ import type { OfferItem } from '@echo/model/types/offer-item'
 import { whenHas } from '@echo/utils/fp/when-has'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 
-const key = 'receiverItems' as const
+const key = 'receiverItems'
 type Key = typeof key
 type PartialOffer = Partial<WithFieldValue<Offer>>
 export function lowerReceiverItemsAddressesIfExists(offer: PartialOffer): PartialOffer {

@@ -1,14 +1,12 @@
 'use client'
-import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
 import type { ValidateOfferArgs } from '@echo/api/types/fetchers/validate-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
-import { classes } from '@echo/ui/helpers/classes'
+import type { ErrorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useAccount } from '@echo/ui/hooks/use-account'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
@@ -16,15 +14,16 @@ import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { HexString } from '@echo/utils/types/hex-string'
-import type { Nullable } from '@echo/utils/types/nullable'
 import type { ExecuteSwapArgs } from '@echo/web3-dom/types/execute-swap-args'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { assoc, isNil, pipe } from 'ramda'
+import { assoc, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: OfferWithRole
-  signature: Nullable<HexString>
+  signature: HexString
+  offerSignature: HexString
   open: boolean
   onSuccess?: (offer: OfferWithRole) => unknown
   onClose?: EmptyFunction
@@ -33,6 +32,7 @@ interface Props {
 export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
   offer,
   signature,
+  offerSignature,
   open,
   onSuccess,
   onClose
@@ -40,8 +40,8 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
   const t = useTranslations('offer.details.swapModal')
   const tError = useTranslations('error.offer')
   const { chainId } = useAccount()
-  const { executeSwap, getOfferSignature, validateOffer } = useDependencies()
-  const onError = {
+  const { executeSwap, validateOffer } = useDependencies()
+  const onError: Omit<ErrorCallback, 'show'> = {
     contexts: offerContext(offer),
     alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('swap') },
     onError: () => {
@@ -62,17 +62,6 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
     },
     onError
   })
-  const { trigger: getOfferSignatureTrigger, isMutating: getOfferSignatureMutating } = useSWRTrigger<
-    OfferSignatureResponse,
-    GetOfferSignatureArgs
-  >({
-    key: SWRKeys.offer.getSignature(offer),
-    fetcher: getOfferSignature,
-    onSuccess: (response) => {
-      void executeSwapTrigger({ chainId: chainId!, signature: response.signature, offer })
-    },
-    onError
-  })
   const { trigger: validateOfferTrigger } = useSWRTrigger<OfferResponse, ValidateOfferArgs>({
     key: SWRKeys.offer.validate(offer),
     fetcher: validateOffer,
@@ -80,24 +69,19 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({
       onSuccess?.(assoc('role', offer.role, response.offer))
     }
   })
-  const loading = executeSwapMutating || getOfferSignatureMutating
 
   return (
-    <Modal open={open} onClose={loading ? undefined : onClose} title={t('title')}>
-      <div className={classes('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
+    <Modal open={open} onClose={executeSwapMutating ? undefined : onClose} title={t('title')}>
+      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('execute.subtitle')}</ModalSubtitle>
         <button
-          className={classes('btn-gradient', 'btn-size-alt', 'group')}
+          className={clsx('btn-gradient', 'btn-size-alt', 'group')}
           onClick={() => {
-            if (isNil(signature)) {
-              void getOfferSignatureTrigger({ offerId: offer.id })
-            } else {
-              void executeSwapTrigger({ chainId: chainId!, signature, offer })
-            }
+            void executeSwapTrigger({ chainId: chainId!, signature, offerSignature, offer })
           }}
-          disabled={loading}
+          disabled={executeSwapMutating}
         >
-          <span className={classes('prose-label-lg', 'btn-label-gradient')}>{t('execute.btn')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('execute.btn')}</span>
         </button>
       </div>
     </Modal>

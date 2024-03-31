@@ -2,8 +2,8 @@
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { LoginStep } from '@echo/ui/components/auth/login-step'
 import { LoginStepIndicator, type LoginStepIndicatorProps } from '@echo/ui/components/auth/login-step-indicator'
-import { classes } from '@echo/ui/helpers/classes'
 import type { Nullable } from '@echo/utils/types/nullable'
+import { clsx } from 'clsx'
 import { inc, isNil } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler, useEffect, useRef, useState } from 'react'
 
@@ -29,9 +29,9 @@ export const Login: FunctionComponent<Props> = ({ user, onFinish, onWalletButton
   }, [])
 
   return (
-    <div className={classes('flex', 'flex-col', 'pt-40', 'gap-12', 'items-center', 'w-1/2')}>
+    <div className={clsx('flex', 'flex-col', 'pt-40', 'gap-12', 'items-center', 'w-1/2')}>
       <LoginStepIndicator step={indicatorStep} />
-      <div className={classes('transition-opacity', 'duration-300', 'ease-in-out', show ? 'opacity-100' : 'opacity-0')}>
+      <div className={clsx('transition-opacity', 'ease-in-out', show ? 'opacity-100' : 'opacity-0')}>
         <LoginStep
           step={step}
           user={user}

@@ -1,11 +1,11 @@
 import { DownCaretSvg } from '@echo/ui/components/base/svg/down-caret-svg'
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
 export const TraitFilterButtonSkeleton: FunctionComponent = () => {
   return (
     <button
-      className={classes(
+      className={clsx(
         'flex',
         'flex-row',
         'justify-end',
@@ -19,7 +19,7 @@ export const TraitFilterButtonSkeleton: FunctionComponent = () => {
         'animate-pulse'
       )}
     >
-      <span className={classes('text-white/50')}>
+      <span className={clsx('text-white/50')}>
         <DownCaretSvg />
       </span>
     </button>

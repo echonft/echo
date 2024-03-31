@@ -1,76 +1,57 @@
 'use client'
+import { linkProvider } from '@echo/api/routing/link-provider'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import { offerContext } from '@echo/model/sentry/contexts/offer-context'
-import type { Offer } from '@echo/model/types/offer'
-import { CreateOfferConfirmedModal } from '@echo/ui/components/offer/create/confirmed/create-offer-confirmed-modal'
-import { CreateOfferModal } from '@echo/ui/components/offer/create/create-offer-modal'
+import type { Nft } from '@echo/model/types/nft'
+import type { User } from '@echo/model/types/user'
+import { CreateOffer } from '@echo/ui/components/offer/create/create-offer'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
-import { useNewOfferStore } from '@echo/ui/hooks/use-new-offer-store'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
+import { mapNftsToItems } from '@echo/ui/mappers/to-api/map-nfts-to-items'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
+import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { isNil } from 'ramda'
-import { type FunctionComponent, useEffect, useRef, useState } from 'react'
+import { pipe } from 'ramda'
+import type { FunctionComponent } from 'react'
 
-export const CreateOfferManager: FunctionComponent = () => {
-  const tError = useTranslations('error.offer')
+interface Props {
+  receiver: User
+  receiverItems: Nft[]
+  senderNfts: SelectableNft[]
+}
+
+export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receiverItems, senderNfts }) => {
+  const t = useTranslations('error.offer')
+  const router = useRouter()
   const { createOffer } = useDependencies()
-  const { receiver, receiverItems, senderItems, clearOffer, modalOpen, closeModal } = useNewOfferStore()
-  const clearOfferTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
-  const [offer, setOffer] = useState<Offer>()
   const { trigger, isMutating } = useSWRTrigger<OfferResponse, CreateOfferRequest>({
     key: SWRKeys.offer.create,
     fetcher: createOffer,
     onSuccess: (response) => {
-      clearOffer()
-      closeModal()
-      setOffer(response.offer)
+      router.replace(linkProvider.offer.details.get({ offerId: response.offer.id }))
     },
     onError: {
-      contexts: offerContext({
-        receiverItems,
-        senderItems
-      }),
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
-      onError: () => {
-        clearOffer()
-        closeModal()
-      }
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') }
     }
   })
 
-  useEffect(() => {
-    return (): void => {
-      if (!isNil(clearOfferTimeoutRef.current)) {
-        clearTimeout(clearOfferTimeoutRef.current)
-      }
-    }
-  }, [])
-
-  if (isNil(receiver)) {
-    return <CreateOfferConfirmedModal offer={offer} open={!isNil(offer)} onClose={() => setOffer(undefined)} />
-  }
   return (
-    <CreateOfferModal
+    <CreateOffer
       receiver={receiver}
       receiverItems={receiverItems}
-      senderItems={senderItems}
-      open={modalOpen}
+      senderNfts={senderNfts}
       loading={isMutating}
-      onClear={() => {
-        closeModal()
-        clearOfferTimeoutRef.current = setTimeout(clearOffer, 210)
-      }}
-      onClose={closeModal}
-      onContinue={closeModal}
-      onComplete={() => {
+      onComplete={(senderSelection) => {
         void trigger({
-          senderItems: mapItemsToRequests(senderItems),
-          receiverItems: mapItemsToRequests(receiverItems)
+          senderItems: pipe(mapNftsToItems, mapItemsToRequests)(senderSelection),
+          receiverItems: pipe(mapNftsToItems, mapItemsToRequests)(receiverItems)
         })
+      }}
+      onCancel={() => {
+        router.back()
       }}
     />
   )

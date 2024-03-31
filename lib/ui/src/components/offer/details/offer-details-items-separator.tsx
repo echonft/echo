@@ -1,14 +1,11 @@
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
-import { classes } from '@echo/ui/helpers/classes'
+import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
-interface Props {
-  disabled?: boolean
-}
-export const OfferDetailsItemsSeparator: FunctionComponent<Props> = ({ disabled }) => {
+export const OfferDetailsItemsSeparator: FunctionComponent = () => {
   return (
-    <div className={classes('pb-4')}>
-      <ItemsSeparator disabled={disabled} />
+    <div className={clsx('pb-4')}>
+      <ItemsSeparator />
     </div>
   )
 }

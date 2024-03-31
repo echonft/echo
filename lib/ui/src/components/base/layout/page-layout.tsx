@@ -14,9 +14,9 @@ import {
   PAGE_LAYOUT_BG_RED_GRADIENT,
   PAGE_LAYOUT_BG_YELLOW_GRADIENT
 } from '@echo/ui/constants/page-layout-background'
-import { classes } from '@echo/ui/helpers/classes'
 import type { PageLayoutBackground } from '@echo/ui/types/page-layout-background'
 import type { Nullable } from '@echo/utils/types/nullable'
+import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -37,10 +37,9 @@ export const PageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
     <PageLayoutWrapper>
       <Web3Provider>
         <div
-          className={classes(
+          className={clsx(
             'w-full',
             'h-full',
-            'overflow-y-auto',
             background === PAGE_LAYOUT_BG_DEFAULT && 'bg-dark-500',
             background === PAGE_LAYOUT_BG_HOME && ['bg-home', 'bg-[length:100%_41.4375rem]', 'bg-no-repeat'],
             background === PAGE_LAYOUT_BG_COLLECTIONS && ['bg-home', 'bg-no-repeat'],

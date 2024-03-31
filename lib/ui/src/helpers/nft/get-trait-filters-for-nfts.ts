@@ -1,27 +1,37 @@
 import { type Nft } from '@echo/model/types/nft'
 import { type NftAttribute } from '@echo/model/types/nft-attribute'
-import { nftAttributeEquals } from '@echo/ui/comparators/nft-attribute-equals'
-import { type TraitFilter } from '@echo/ui/types/trait-filter'
-import { applySpec, collectBy, eqProps, flatten, groupWith, head, length, map, pipe, prop, sort } from 'ramda'
+import { compareNftAttributes } from '@echo/ui/comparators/compare-nft-attributes'
+import type { TraitFilter } from '@echo/ui/types/trait-filter'
+import type { TraitFilterGroup } from '@echo/ui/types/trait-filter-group'
+import { collectBy, flatten, head, length, map, pipe, prop, sort } from 'ramda'
 
-export function getTraitFiltersForNfts(nfts: Nft[]): TraitFilter[] {
+export function getTraitFiltersForNfts<T extends Nft>(nfts: T[]): TraitFilterGroup[] {
   return pipe(
-    map<Nft, NftAttribute[]>(prop('attributes')),
+    map<T, NftAttribute[]>(prop('attributes')),
     flatten,
-    sort(nftAttributeEquals),
+    sort(compareNftAttributes),
     collectBy(prop('trait')),
     map(
       pipe(
-        groupWith(eqProps('value')),
-        map(
-          applySpec<TraitFilter>({
-            trait: pipe(head<NftAttribute, NftAttribute>, prop('trait')),
-            value: pipe(head<NftAttribute, NftAttribute>, prop('value')),
-            count: length
-          })
-        )
+        collectBy(prop('value')),
+        map<NftAttribute[], TraitFilter>((attributes: NftAttribute[]): TraitFilter => {
+          const attribute = head(attributes)!
+          return {
+            attribute,
+            id: `${attribute.trait}-${attribute.value}`,
+            label: attribute.value,
+            count: length(attributes)
+          }
+        })
       )
     ),
-    flatten
+    map<TraitFilter[], TraitFilterGroup>((filters: TraitFilter[]): TraitFilterGroup => {
+      const filter = head(filters)!
+      return {
+        id: filter.attribute.trait,
+        label: filter.attribute.trait,
+        filters
+      }
+    })
   )(nfts)
 }

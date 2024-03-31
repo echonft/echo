@@ -1,12 +1,23 @@
-import { classes } from '@echo/ui/helpers/classes'
+import { PaddedContainer } from '@echo/ui/components/base/layout/padded-container'
+import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export const HeaderLayout: FunctionComponent<PropsWithChildren> = ({ children }) => {
   return (
     <header
-      className={classes('bg-transparent', 'border-b-2', 'border-solid', 'border-white/[0.08]', 'w-full', 'h-max')}
+      className={clsx(
+        'bg-transparent',
+        'border-b-2',
+        'border-solid',
+        'border-white/[0.08]',
+        'w-full',
+        'h-max',
+        'py-4.5'
+      )}
     >
-      {children}
+      <PaddedContainer>
+        <div className={clsx('flex', 'flex-row', 'justify-between', 'items-center', 'gap-6')}>{children}</div>
+      </PaddedContainer>
     </header>
   )
 }

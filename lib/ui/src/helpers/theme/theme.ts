@@ -42,6 +42,7 @@ export const themeExtension = {
       200: '#363434',
       300: '#312E2E',
       400: '#2C2929',
+      450: '#252525',
       500: '#121212',
       600: '#0F0F0F',
       700: '#0D0D0D',
@@ -61,7 +62,8 @@ export const themeExtension = {
       900: '#003D00'
     },
     neutral: {
-      100: '#F3F3F3'
+      100: '#F3F3F3',
+      200: '#FBFBFD'
     },
     purple: {
       100: '#EBECFF',
@@ -148,9 +150,9 @@ export const themeExtension = {
       }
     ] as fontSizeConfig,
     'display-sm-bold': [
-      '0.9375rem',
+      '2rem',
       {
-        lineHeight: '155%',
+        lineHeight: '119%',
         fontWeight: 700
       }
     ] as fontSizeConfig,
@@ -359,6 +361,14 @@ export const themeExtension = {
         letterSpacing: '0.02em'
       }
     ] as fontSizeConfig,
+    'label-xs-light': [
+      '0.75rem',
+      {
+        lineHeight: '108%',
+        fontWeight: 400,
+        letterSpacing: '0.02em'
+      }
+    ] as fontSizeConfig,
     'caps-lg': [
       '1rem',
       {
@@ -381,6 +391,20 @@ export const themeExtension = {
         lineHeight: '117%',
         fontWeight: 600,
         letterSpacing: '0.06em'
+      }
+    ] as fontSizeConfig,
+    'other-medium': [
+      '0.9375rem',
+      {
+        lineHeight: '155%',
+        fontWeight: 500
+      }
+    ] as fontSizeConfig,
+    'other-bold': [
+      '0.9375rem',
+      {
+        lineHeight: '155%',
+        fontWeight: 700
       }
     ] as fontSizeConfig
   },

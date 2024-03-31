@@ -1,7 +1,7 @@
 import { LISTING_ROLE_CREATOR } from '@echo/model/constants/listing-role'
 import type { ListingRole } from '@echo/model/types/listing-role'
-import { classes } from '@echo/ui/helpers/classes'
 import type { Nullable } from '@echo/utils/types/nullable'
+import { clsx } from 'clsx'
 import type { FunctionComponent, PropsWithChildren } from 'react'
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 export const ListingDetailsUserStateLayout: FunctionComponent<PropsWithChildren<Props>> = ({ role, children }) => {
   return (
     <div
-      className={classes(
+      className={clsx(
         'flex',
         'flex-row',
         role === LISTING_ROLE_CREATOR ? 'justify-end' : 'justify-between',

@@ -10,9 +10,9 @@ import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import { getListingTargetsCollectionIds } from '@echo/model/helpers/listing/get-listing-targets-collection-ids'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
-import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import type { WithId } from '@echo/model/types/with-id'
+import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { getListingPageLayoutBackground } from '@echo/ui/helpers/listing/get-listing-page-layout-background'
 import { ListingDetailsPage } from '@echo/ui/pages/listing/listing-details-page'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -23,7 +23,7 @@ import { notFound } from 'next/navigation'
 import { andThen, filter, isNil, map, path, pipe, reject } from 'ramda'
 import type { ReactElement } from 'react'
 
-type Params = NextUserParams<NextParams<Record<'id', string>>>
+type Params = NextUserParams<NextParams<WithId>>
 async function render({ params: { id }, user }: Params) {
   const listing = await pipe(findListingById)(id)
   if (isNil(listing)) {
@@ -44,11 +44,9 @@ async function render({ params: { id }, user }: Params) {
   )(listing)
   return (
     <PageLayout user={user} background={getListingPageLayoutBackground(listing)}>
-      <SectionLayout>
-        <DetailsPaddedContainer>
-          <ListingDetailsPage listing={listingWithRole} user={user} userTargetNfts={userTargetNfts} offers={offers} />
-        </DetailsPaddedContainer>
-      </SectionLayout>
+      <PaddedSectionLayout>
+        <ListingDetailsPage listing={listingWithRole} user={user} userTargetNfts={userTargetNfts} offers={offers} />
+      </PaddedSectionLayout>
     </PageLayout>
   )
 }

@@ -20,6 +20,10 @@ export async function updateOfferState(args: {
   assertOfferStateTransition(offer, state)
   const completeUpdateArgs: OfferStateUpdateArgs = assoc('state', state, updateArgs)
   assertOfferStateUpdateArgs(offer, completeUpdateArgs)
+  const updatedOffer = await pipe(
+    getOffersCollectionReference,
+    updateReference<Offer>(offerId, { state, updatedAt: now() })
+  )()
   await addOfferStateUpdate({ offerId, args: completeUpdateArgs })
-  return pipe(getOffersCollectionReference, updateReference<Offer>(offerId, { state, updatedAt: now() }))()
+  return updatedOffer
 }

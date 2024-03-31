@@ -1,26 +1,24 @@
 'use client'
 import { TraitFilterPicker } from '@echo/ui/components/nft/filters/by-traits/trait-filter-picker'
-import { getSelectionCount } from '@echo/ui/helpers/selection/get-selection-count'
+import { getSelectionCount } from '@echo/ui/helpers/selectable/get-selection-count'
+import type { Selectable } from '@echo/ui/types/selectable'
 import { type TraitFilter } from '@echo/ui/types/trait-filter'
 import { type FunctionComponent, useMemo, useState } from 'react'
 
 interface Props {
-  trait: string
-  filters: TraitFilter[]
-  onToggleSelection?: (filter: TraitFilter) => unknown
+  label: string
+  filters: Selectable<TraitFilter>[]
+  onToggleSelection?: (filter: Selectable<TraitFilter>) => void
 }
 
-export const TraitFilterPickerManager: FunctionComponent<Props> = ({ trait, filters, onToggleSelection }) => {
+export const TraitFilterPickerManager: FunctionComponent<Props> = ({ label, filters, onToggleSelection }) => {
   const [collapsed, setCollapsed] = useState(false)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const selectionCount = useMemo(() => getSelectionCount(filters), [filters])
   return (
     <TraitFilterPicker
-      trait={trait}
+      label={label}
       filters={filters}
       collapsed={collapsed}
-      selectionCount={selectionCount}
       onToggleCollapsed={(collapsed) => {
         // can't collapse if at least one filter is selected
         if (!collapsed && selectionCount > 0) {

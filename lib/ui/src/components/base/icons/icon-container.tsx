@@ -1,6 +1,6 @@
 import { SIZE_LG, SIZE_MD, SIZE_SM } from '@echo/ui/constants/size'
-import { classes } from '@echo/ui/helpers/classes'
 import { type IconSize } from '@echo/ui/types/icon-size'
+import { clsx } from 'clsx'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 export const IconContainer: FunctionComponent<PropsWithChildren<Props>> = ({ size, className, children }) => {
   return (
     <div
-      className={classes(
+      className={clsx(
         'rounded-lg',
         '[&>div]:rounded-lg',
         size === SIZE_SM && ['w-6', 'h-6'],

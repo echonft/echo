@@ -13,10 +13,6 @@ module.exports = {
               '@echo/web3/helpers/wagmi/providers/*'
             ],
             message: 'Use mocks instead'
-          },
-          {
-            group: ['@echo/firestore/*'],
-            message: 'Storybook should not import from this package'
           }
         ]
       }

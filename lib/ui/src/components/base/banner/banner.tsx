@@ -1,6 +1,6 @@
 import { ShowIf } from '@echo/ui/components/base/utils/show-if'
-import { classes } from '@echo/ui/helpers/classes'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
+import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import type { FunctionComponent, MouseEventHandler } from 'react'
 
@@ -12,7 +12,7 @@ interface Props {
 export const Banner: FunctionComponent<Props> = ({ title, subtitle, onClick }) => {
   return (
     <div
-      className={classes(
+      className={clsx(
         'flex',
         'flex-row',
         'items-center',
@@ -23,11 +23,11 @@ export const Banner: FunctionComponent<Props> = ({ title, subtitle, onClick }) =
         'bg-green-300'
       )}
     >
-      <span className={classes('prose-label-md', 'text-dark-500')}>{title}</span>
+      <span className={clsx('prose-label-md', 'text-dark-500')}>{title}</span>
       <ShowIf condition={!isNilOrEmpty(subtitle)}>
-        <button className={classes('group', isNil(onClick) && 'cursor-default')} onClick={onClick}>
+        <button className={clsx('group', isNil(onClick) && 'cursor-default')} onClick={onClick}>
           <span
-            className={classes(
+            className={clsx(
               'prose-label-md',
               'text-dark-500',
               !isNil(onClick) && [

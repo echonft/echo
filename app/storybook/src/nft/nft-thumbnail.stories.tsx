@@ -8,14 +8,7 @@ const metadata: Meta<typeof Component> = {
   title: 'NFT/Thumbnail',
   component: Component,
   args: {
-    nft: getNftMock(),
-    disabled: false
-  },
-  argTypes: {
-    disabled: {
-      defaultValue: false,
-      control: 'boolean'
-    }
+    nft: getNftMock()
   },
   parameters: {
     controls: {

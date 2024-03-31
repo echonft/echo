@@ -2,8 +2,6 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { ExploreNavigationPill } from '@echo/ui/components/base/navigation/explore-navigation-pill'
 import { NavigationLayout } from '@echo/ui/components/base/navigation/navigation-layout'
-import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
-import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import {
   NAVIGATION_EXPLORE,
   NAVIGATION_LISTINGS,
@@ -56,8 +54,6 @@ export const ProfileNavigationLayout: FunctionComponent<PropsWithChildren<Props>
       activeNavigationItem={activeNavigationItem}
     >
       {children}
-      <CreateOfferManager />
-      <CreateListingManager />
     </NavigationLayout>
   )
 }

@@ -4,7 +4,7 @@ import { SIZE_SM } from '@echo/ui/constants/size'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { type FunctionComponent } from 'react'
 
-export interface CollectionProfilePictureProps {
+interface CollectionProfilePictureProps {
   collectionName: string
   pictureUrl: Nullable<string>
 }
