@@ -151,7 +151,6 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
           )}
         />
       </NftFiltersPanelsLayout>
-
       <SelectableNftGroups
         nfts={state.nfts}
         groupBy={groupNftsByOwner}

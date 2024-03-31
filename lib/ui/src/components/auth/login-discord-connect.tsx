@@ -47,10 +47,9 @@ export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
         'gap-2.5',
         'rounded-lg',
         'items-center',
-        'py-3',
         'px-4',
         'bg-white/[0.08]',
-        'h-max',
+        'h-12',
         'w-max',
         'outline-none'
       )}
