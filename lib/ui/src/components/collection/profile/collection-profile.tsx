@@ -10,7 +10,7 @@ import { DEFAULT_COLLECTION_PROFILE_PICTURE_URL } from '@echo/ui/constants/defau
 import { clsx } from 'clsx'
 import { type FunctionComponent } from 'react'
 
-export interface CollectionProfileProps
+interface CollectionProfileProps
   extends CollectionLinksProps,
     Pick<Collection, 'name' | 'bannerUrl' | 'totalSupply' | 'verified' | 'profilePictureUrl'> {}
 

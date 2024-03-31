@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
 
-export interface NftSelectionButtonProps {
+interface NftSelectionButtonProps {
   count: number
   action?: NftAction
   onClick?: MouseEventHandler

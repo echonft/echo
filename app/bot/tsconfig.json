@@ -20,8 +20,7 @@
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
       "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
       "@echo/sentry/*": ["../../lib/sentry/src/*"],
-      "@echo/utils/*": ["../../lib/utils/src/*"],
-      "@echo/web3/*": ["../../lib/web3/src/*"]
+      "@echo/utils/*": ["../../lib/utils/src/*"]
     },
     "noEmit": false,
     "sourceMap": true,
