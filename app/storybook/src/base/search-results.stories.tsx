@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { mapCollectionToSearchResult } from '@echo/firestore/mappers/map-collection-to-search-result'
 import { mapUserToSearchResult } from '@echo/firestore/mappers/map-user-to-search-result'
 import { getAllUserDocumentDataMocks } from '@echo/firestore-mocks/user/get-all-user-document-data-mocks'

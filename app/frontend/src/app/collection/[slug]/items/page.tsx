@@ -30,7 +30,7 @@ async function render({ params: { slug }, user }: Params) {
 
   return (
     <CollectionNavigationLayout slug={slug} activeNavigationItem={NAVIGATION_NFTS}>
-      <CollectionNfts nfts={nfts} />
+      <CollectionNfts nfts={nfts} slug={slug} />
     </CollectionNavigationLayout>
   )
 }

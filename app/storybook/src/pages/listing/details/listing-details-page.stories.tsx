@@ -18,9 +18,8 @@ import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
-import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { ListingDetailsSkeleton } from '@echo/ui/components/listing/details/skeleton/listing-details-skeleton'
 import { getListingPageLayoutBackground } from '@echo/ui/helpers/listing/get-listing-page-layout-background'
 import { ListingDetailsPage as Component } from '@echo/ui/pages/listing/listing-details-page'
@@ -116,11 +115,9 @@ export const Page: StoryObj<ComponentType> = {
       role === 'Creator' ? getAuthUserMockByUsername('johnnycagewins') : getAuthUserMockByUsername('crewnft_')
     return (
       <PageLayout user={user} background={getListingPageLayoutBackground(renderedListing)}>
-        <SectionLayout>
-          <DetailsPaddedContainer>
-            <Component listing={renderedListing} user={user} userTargetNfts={getTargetNfts()} offers={getOffers()} />
-          </DetailsPaddedContainer>
-        </SectionLayout>
+        <PaddedSectionLayout>
+          <Component listing={renderedListing} user={user} userTargetNfts={getTargetNfts()} offers={getOffers()} />
+        </PaddedSectionLayout>
       </PageLayout>
     )
   }
@@ -129,11 +126,9 @@ export const Page: StoryObj<ComponentType> = {
 export const Loading: StoryObj<ComponentType> = {
   render: () => (
     <PageLayout>
-      <SectionLayout>
-        <DetailsPaddedContainer>
-          <ListingDetailsSkeleton />
-        </DetailsPaddedContainer>
-      </SectionLayout>
+      <PaddedSectionLayout>
+        <ListingDetailsSkeleton />
+      </PaddedSectionLayout>
     </PageLayout>
   )
 }

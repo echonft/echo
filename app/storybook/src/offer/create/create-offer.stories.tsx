@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { getUserProfileMockByUsername } from '@echo/model-mocks/user/user-profile-mock'
 import { CreateOffer as Component } from '@echo/ui/components/offer/create/create-offer'

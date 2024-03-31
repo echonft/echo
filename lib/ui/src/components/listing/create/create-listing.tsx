@@ -26,8 +26,8 @@ import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 interface Props {
   collections: Collection[]
   creatorNfts: SelectableNft[]
-  items?: Nft[]
-  target?: Collection
+  items: Nullable<Nft[]>
+  target: Nullable<Collection>
   loading?: boolean
   onCancel?: VoidFunction
   onComplete?: (items: ListingItem[], target: ListingTarget) => void
