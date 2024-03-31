@@ -8,15 +8,10 @@ const metadata: Meta<typeof Component> = {
   title: 'Collection/Search',
   component: Component,
   args: {
-    disabled: false,
     options: getAllCollectionMocks()
   },
   argTypes: {
-    disabled: {
-      defaultValue: false,
-      control: 'boolean'
-    },
-    onSelectionChange: {
+    onSelection: {
       table: {
         disable: true
       }

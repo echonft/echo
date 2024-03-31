@@ -88,10 +88,6 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({ nfts, onSe
       >(assocPath, [always(['filters', 'byTraits']), pipe(prop('nfts'), getTraitFiltersForNfts), identity])
     )(state)
   }
-  // function setTraitFilters(state: State): State {
-  //   const traitFilters = getTraitFiltersForNfts(state.nfts)
-  //   return assocPath(['filters', 'byTraits'], traitFilters, state)
-  // }
   function filterByTraits(state: State): State {
     const selectedCollectionFilters = getSelectionInList(state.filters.byCollection)
     const filteredByCollectionNfts = filterNftsByCollections<SelectableNft>(selectedCollectionFilters)(

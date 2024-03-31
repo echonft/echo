@@ -8,19 +8,7 @@ const metadata: Meta<typeof Component> = {
   title: 'Collection/Thumbnail',
   component: Component,
   args: {
-    collection: getCollectionMock(),
-    disabled: false
-  },
-  argTypes: {
-    onClick: {
-      table: {
-        disable: true
-      }
-    },
-    disabled: {
-      defaultValue: false,
-      control: 'boolean'
-    }
+    collection: getCollectionMock()
   },
   parameters: {
     controls: {
@@ -31,10 +19,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const Default: StoryObj<typeof Component> = {
-  args: {
-    onClick: undefined
-  }
-}
-
-export const Selectable: StoryObj<typeof Component> = {}
+export const Thumbnail: StoryObj<typeof Component> = {}

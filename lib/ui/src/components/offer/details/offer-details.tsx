@@ -1,15 +1,16 @@
 'use client'
+import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { NftCards } from '@echo/ui/components/nft/card/layout/nft-cards'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-info-layout'
 import { OfferDetailsItemsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-items-buttons-layout'
 import { OfferDetailsLayout } from '@echo/ui/components/offer/details/layout/offer-details-layout'
-import { OfferDetailsItemsSeparator } from '@echo/ui/components/offer/details/offer-details-items-separator'
 import { OfferDetailsState } from '@echo/ui/components/offer/details/offer-details-state'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { clsx } from 'clsx'
 import { map, prop } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
@@ -35,7 +36,9 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer }) => {
           nfts={map(prop('nft'), isOfferRoleSender(updatedOffer) ? receiverItems : senderItems)}
           alignment={ALIGNMENT_CENTER}
         />
-        <OfferDetailsItemsSeparator />
+        <div className={clsx('pb-4')}>
+          <ItemsSeparator />
+        </div>
         <NftCards
           nfts={map(prop('nft'), isOfferRoleSender(updatedOffer) ? senderItems : receiverItems)}
           alignment={ALIGNMENT_CENTER}

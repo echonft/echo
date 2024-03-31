@@ -14,7 +14,7 @@ interface Props {
   state: OfferState
 }
 
-export const OfferDetailsStateExpiration: FunctionComponent<Props> = ({ expiresAt, readOnly, state }) => {
+export const StateExpiration: FunctionComponent<Props> = ({ expiresAt, readOnly, state }) => {
   const t = useTranslations('offer.details')
   const expired = state === OFFER_STATE_EXPIRED
   const expiration = dayjs.unix(expiresAt)

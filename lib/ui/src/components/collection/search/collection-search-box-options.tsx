@@ -1,14 +1,14 @@
-import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
 import type { Collection } from '@echo/model/types/collection'
 import { CollectionSearchNoResults } from '@echo/ui/components/collection/search/collection-search-no-results'
 import { CollectionThumbnail } from '@echo/ui/components/collection/thumbnail/collection-thumbnail'
 import { CollectionThumbnailSkeleton } from '@echo/ui/components/collection/thumbnail/skeleton/collection-thumbnail-skeleton'
 import { Combobox } from '@headlessui/react'
+import { clsx } from 'clsx'
 import { isEmpty, isNil, map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  options: CollectionProviderResult[] | undefined
+  options: Collection[] | undefined
   searching: boolean
 }
 
@@ -32,13 +32,12 @@ export const CollectionSearchBoxOptions: FunctionComponent<Props> = ({ options, 
     <>
       {map(
         (collection) => (
-          <Combobox.Option value={collection} key={collection.slug}>
-            <CollectionThumbnail
-              collection={collection as Collection}
-              onClick={() => {
-                // just to enable hover + cursor pointer
-              }}
-            />
+          <Combobox.Option
+            className={clsx('hover:bg-white/[0.08]', 'cursor-pointer')}
+            value={collection}
+            key={collection.slug}
+          >
+            <CollectionThumbnail collection={collection} />
           </Combobox.Option>
         ),
         options

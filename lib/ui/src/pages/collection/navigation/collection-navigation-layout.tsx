@@ -1,7 +1,6 @@
 'use client'
 import { linkProvider } from '@echo/api/routing/link-provider'
 import { NavigationLayout } from '@echo/ui/components/base/navigation/navigation-layout'
-import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
 import { NAVIGATION_LISTINGS, NAVIGATION_NFTS, NAVIGATION_SWAPS } from '@echo/ui/constants/navigation-item'
 import { type NavigationItemId } from '@echo/ui/types/navigation-item-id'
 import { useTranslations } from 'next-intl'
@@ -39,7 +38,6 @@ export const CollectionNavigationLayout: FunctionComponent<PropsWithChildren<Pro
       activeNavigationItem={activeNavigationItem}
     >
       {children}
-      <CreateListingManager />
     </NavigationLayout>
   )
 }

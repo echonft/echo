@@ -9,12 +9,11 @@ import { debounce } from 'throttle-debounce'
 
 interface Props {
   searching?: boolean
-  disabled?: boolean
   onSearch?: (searchQuery: string) => unknown
   onClear?: EmptyFunction
 }
 
-export const CollectionSearchComboboxInput: FunctionComponent<Props> = ({ searching, disabled, onClear, onSearch }) => {
+export const CollectionSearchComboboxInput: FunctionComponent<Props> = ({ searching, onClear, onSearch }) => {
   const search = useCallback(
     (searchQuery: string) => {
       if (isEmpty(searchQuery)) {
@@ -30,11 +29,8 @@ export const CollectionSearchComboboxInput: FunctionComponent<Props> = ({ search
   const debouncedClear = isNil(onClear) ? undefined : debounce(200, onClear)
 
   return (
-    <Combobox.Button
-      as={'div'}
-      className={clsx('relative', 'items-center', 'bg-dark-400', 'rounded-lg', 'w-full', disabled && 'opacity-40')}
-    >
-      <span className={clsx('text-yellow-500', 'absolute', 'left-3', 'top-3.5')}>
+    <Combobox.Button as={'div'} className={clsx('relative', 'items-center', 'bg-dark-400', 'rounded-lg', 'w-full')}>
+      <span className={clsx('text-yellow-500', 'absolute', 'left-3', 'top-4')}>
         <SearchIconSvg width={32} height={32} />
       </span>
       <Transition
@@ -47,7 +43,7 @@ export const CollectionSearchComboboxInput: FunctionComponent<Props> = ({ search
         leaveTo={'opacity-0'}
       >
         <CollectionSearchComboboxInputClearButton
-          className={clsx('absolute', 'right-3', 'top-3.5')}
+          className={clsx('absolute', 'right-3', 'top-4')}
           onClick={debouncedClear}
         />
       </Transition>

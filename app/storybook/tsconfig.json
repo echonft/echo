@@ -6,6 +6,7 @@
       "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/storybook/*": ["./src/*"],

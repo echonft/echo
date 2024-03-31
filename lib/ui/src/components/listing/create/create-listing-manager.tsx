@@ -1,105 +1,61 @@
 'use client'
-
-import type { CollectionProviderResult } from '@echo/api/types/providers/collection-provider-result'
+import { linkProvider } from '@echo/api/routing/link-provider'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
-import { type ListingResponse } from '@echo/api/types/responses/listing-response'
-import { listingContext } from '@echo/model/sentry/contexts/listing-context'
-import type { Listing } from '@echo/model/types/listing'
-import { type ListingTarget } from '@echo/model/types/listing-target'
-import { CreateListingConfirmedModal } from '@echo/ui/components/listing/create/confirmed/create-listing-confirmed-modal'
-import { CreateListingModal } from '@echo/ui/components/listing/create/create-listing-modal'
+import type { ListingResponse } from '@echo/api/types/responses/listing-response'
+import type { Collection } from '@echo/model/types/collection'
+import type { ListingItem } from '@echo/model/types/listing-item'
+import type { ListingTarget } from '@echo/model/types/listing-target'
+import type { Nft } from '@echo/model/types/nft'
+import { CreateListing } from '@echo/ui/components/listing/create/create-listing'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
-import { useNewListingStore } from '@echo/ui/hooks/use-new-listing-store'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
-import type { Nullable } from '@echo/utils/types/nullable'
+import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { assoc, isNil } from 'ramda'
-import { type FunctionComponent, useEffect, useRef, useState } from 'react'
+import type { FunctionComponent } from 'react'
 
-export const CreateListingManager: FunctionComponent = () => {
-  const { createListing, getCollections } = useDependencies()
-  const { items, target, setTarget, modalOpen, clearListing, closeModal } = useNewListingStore()
-  const [collections, setCollections] = useState<CollectionProviderResult[]>()
-  const [listing, setListing] = useState<Listing>()
-  const clearListingTimeoutRef = useRef<ReturnType<typeof setTimeout>>()
+interface Props {
+  collections: Collection[]
+  creatorNfts: SelectableNft[]
+  items?: Nft[]
+  target?: Collection
+}
 
-  useEffect(() => {
-    return (): void => {
-      if (!isNil(clearListingTimeoutRef.current)) {
-        clearTimeout(clearListingTimeoutRef.current)
-      }
-    }
-  }, [])
-  const tError = useTranslations('error.listing')
+export const CreateListingManager: FunctionComponent<Props> = ({ collections, creatorNfts, items, target }) => {
+  const t = useTranslations('error.listing')
+  const router = useRouter()
+  const { createListing } = useDependencies()
   const { trigger, isMutating } = useSWRTrigger<ListingResponse, CreateListingRequest>({
     key: SWRKeys.listing.create,
     fetcher: createListing,
     onSuccess: (response) => {
-      closeModal()
-      setListing(response.listing)
-      clearListing()
+      router.replace(linkProvider.listing.details.get({ listingId: response.listing.id }))
     },
     onError: {
-      contexts: listingContext({
-        targets: isNil(target) ? [] : ([target] as ListingTarget[]),
-        items
-      }),
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') },
-      onError: () => {
-        closeModal()
-      }
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') }
     }
   })
-  useEffect(() => {
-    void getCollections().then(setCollections)
-  }, [getCollections])
-
-  function onCollectionSelectionChange(selection: Nullable<CollectionProviderResult>) {
-    if (isNil(selection)) {
-      setTarget(undefined)
-    } else {
-      setTarget({ collection: selection, amount: 1 })
-    }
-  }
-
-  function onTargetAmountChange(_targetCollectionId: string, amount: number) {
-    setTarget(assoc('amount', amount))
-  }
 
   return (
-    <>
-      <CreateListingModal
-        target={target}
-        items={items}
-        open={modalOpen}
-        collections={collections}
-        onCollectionSelectionChange={onCollectionSelectionChange}
-        onTargetAmountChange={onTargetAmountChange}
-        loading={isMutating}
-        onClose={closeModal}
-        onContinue={closeModal}
-        onClear={() => {
-          closeModal()
-          clearListingTimeoutRef.current = setTimeout(clearListing, 210)
-        }}
-        onConfirm={() => {
-          void trigger({
-            items: mapItemsToRequests(items),
-            target: mapListingTargetToRequest(target)
-          })
-        }}
-      />
-      <CreateListingConfirmedModal
-        listing={listing}
-        open={!isNil(listing)}
-        onClose={() => {
-          setListing(undefined)
-        }}
-      />
-    </>
+    <CreateListing
+      collections={collections}
+      creatorNfts={creatorNfts}
+      items={items}
+      target={target}
+      loading={isMutating}
+      onComplete={(items: ListingItem[], target: ListingTarget) => {
+        void trigger({
+          items: mapItemsToRequests(items),
+          target: mapListingTargetToRequest(target)
+        })
+      }}
+      onCancel={() => {
+        router.back()
+      }}
+    />
   )
 }

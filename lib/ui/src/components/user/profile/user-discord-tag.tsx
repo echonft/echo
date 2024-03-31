@@ -24,7 +24,7 @@ export const UserDiscordTag: FunctionComponent<Props> = ({ username, discordUser
           'py-2.75',
           'px-5',
           'text-white',
-          'prose-display-sm-bold'
+          'prose-other-bold'
         )}
       >
         <DiscordIconSvg width={24} />

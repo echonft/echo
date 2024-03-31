@@ -18,7 +18,7 @@ export const ListingDetailsSkeleton: FunctionComponent = () => (
       <ListingDetailsItemsContainerLayout>
         <ListingDetailsItemsContainerSkeleton />
       </ListingDetailsItemsContainerLayout>
-      <ItemsSeparator disabled={true} />
+      <ItemsSeparator />
       <ListingDetailsTargetsContainerLayout>
         <ListingDetailsTargetsContainerSkeleton />
       </ListingDetailsTargetsContainerLayout>

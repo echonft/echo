@@ -1,13 +1,8 @@
-import type { WithChildrenProps } from '@echo/ui/types/props/with-children-props'
 import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
 import { clsx } from 'clsx'
-import type { FunctionComponent } from 'react'
+import type { FunctionComponent, PropsWithChildren } from 'react'
 
-interface Props extends WithChildrenProps, WithLoadingProps {
-  disabled?: boolean
-}
-
-export const NftThumbnailLayout: FunctionComponent<Props> = ({ disabled, loading, children }) => {
+export const NftThumbnailLayout: FunctionComponent<PropsWithChildren<WithLoadingProps>> = ({ loading, children }) => {
   return (
     <div
       className={clsx(
@@ -19,7 +14,6 @@ export const NftThumbnailLayout: FunctionComponent<Props> = ({ disabled, loading
         'border-solid',
         'border-white/10',
         'bg-dark-500',
-        disabled && 'opacity-40',
         loading && 'animate-pulse'
       )}
     >

@@ -7,6 +7,7 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
+import type { ListingItem } from '@echo/model/types/listing-item'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
@@ -38,7 +39,7 @@ import { toggleSelectionInList } from '@echo/ui/helpers/selectable/toggle-select
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
-import { mapNftToItem } from '@echo/ui/mappers/to-api/map-nft-to-item'
+import { mapNftsToItems } from '@echo/ui/mappers/to-api/map-nfts-to-items'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -128,7 +129,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
   function onFill(listing: Listing) {
     const senderItems: ItemRequest[] = pipe(
       filter(pipe(prop('selected'), Boolean)),
-      map(mapNftToItem),
+      mapNftsToItems<ListingItem>,
       mapItemsToRequests
     )(selectableNfts)
     const receiverItems: ItemRequest[] = mapItemsToRequests(listing.items)

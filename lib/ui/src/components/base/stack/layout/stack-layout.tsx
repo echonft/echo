@@ -4,11 +4,9 @@ import type { WithLoadingProps } from '@echo/ui/types/props/with-loading-props'
 import { clsx } from 'clsx'
 import type { FunctionComponent } from 'react'
 
-interface Props extends WithChildrenProps, WithLoadingProps, WithClassNameProps {
-  disabled?: boolean
-}
+interface Props extends WithChildrenProps, WithLoadingProps, WithClassNameProps {}
 
-export const StackLayout: FunctionComponent<Props> = ({ disabled, loading, className, children }) => {
+export const StackLayout: FunctionComponent<Props> = ({ loading, className, children }) => {
   return (
     <div
       className={clsx(
@@ -24,7 +22,6 @@ export const StackLayout: FunctionComponent<Props> = ({ disabled, loading, class
         'group',
         'transition ease-in-out',
         loading && 'animate-pulse',
-        disabled && 'opacity-40',
         className
       )}
     >

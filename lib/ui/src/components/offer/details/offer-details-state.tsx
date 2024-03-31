@@ -1,5 +1,5 @@
 import type { Offer } from '@echo/model/types/offer'
-import { OfferDetailsStateExpiration } from '@echo/ui/components/offer/details/offer-details-state-expiration'
+import { StateExpiration } from '@echo/ui/components/base/state-expiration'
 import { OfferDetailsStateLabel } from '@echo/ui/components/offer/details/offer-details-state-label'
 import { OfferDetailsStateSeparator } from '@echo/ui/components/offer/details/offer-details-state-separator'
 import { clsx } from 'clsx'
@@ -13,7 +13,7 @@ export const OfferDetailsState: FunctionComponent<Props> = ({ offer }) => {
   const { expiresAt, readOnly, state } = offer
   return (
     <div className={clsx('flex', 'flex-row', 'gap-16', 'items-center', 'h-max', 'w-max')}>
-      <OfferDetailsStateExpiration expiresAt={expiresAt} readOnly={readOnly} state={state} />
+      <StateExpiration expiresAt={expiresAt} readOnly={readOnly} state={state} />
       <OfferDetailsStateSeparator readOnly={readOnly} />
       <OfferDetailsStateLabel state={state} />
     </div>

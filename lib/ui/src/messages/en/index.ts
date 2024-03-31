@@ -128,32 +128,13 @@ export const messages = {
         in: 'Looking for',
         out: 'Offering'
       },
-      backBtn: 'Back to Selection',
-      banner: {
-        btn: 'Review listing',
-        title: 'Select your NFTs to finalize your listing'
-      },
-      clearBtn: {
-        label: 'Clear',
-        message: 'Hold to clear'
-      },
-      confirmBtn: 'Confirm',
-      confirmedModal: {
-        closeBtn: 'Close',
-        subtitle: 'Your listing was successfully created',
-        title: 'Listing successfully created',
-        viewBtn: 'View'
-      },
-      continueBtn: 'Continue',
-      discardModal: {
-        cancelBtn: 'Cancel',
-        discardBtn: 'Discard',
-        discardBtnMessage: 'Hold to discard',
-        subtitle: 'If you leave this page, your listing will be discarded',
-        title: 'Discard Listing'
-      },
-      empty: {
-        targets: 'To add a collection, type its name in the input above'
+      cancelBtn: 'Cancel',
+      cancelBtnMessage: 'Hold to cancel',
+      createBtn: 'Create',
+      editBtn: 'Edit',
+      reviewBtn: 'Review',
+      targets: {
+        empty: 'To add a collection, type its name in the input above'
       }
     },
     details: {
@@ -197,30 +178,13 @@ export const messages = {
   },
   offer: {
     create: {
-      backBtn: 'Back to Selection',
-      banner: {
-        btn: 'Review offer',
-        title: 'Select your NFTs to finalize your offer'
+      assets: {
+        in: 'Requesting',
+        out: 'Offering'
       },
       cancelBtn: 'Cancel',
       cancelBtnMessage: 'Hold to cancel',
-      clearBtn: 'Clear',
-      clearBtnMessage: 'Hold to clear',
       createBtn: 'Create',
-      confirmedModal: {
-        closeBtn: 'Close',
-        subtitle: 'Your offer was successfully created, you can now contact your counterparty',
-        title: 'Offer successfully created',
-        viewBtn: 'View'
-      },
-      continueBtn: 'Continue',
-      discardModal: {
-        cancelBtn: 'Cancel',
-        discardBtn: 'Discard',
-        discardBtnMessage: 'Hold to discard',
-        subtitle: 'If you leave this page, your offer will be discarded',
-        title: 'Discard Offer'
-      },
       editBtn: 'Edit',
       reviewBtn: 'Review'
     },
@@ -304,6 +268,12 @@ export const messages = {
       pendingOffers: 'Pending Offers'
     },
     offerButton: 'Finalize offer'
+  },
+  search: {
+    category: {
+      collection: '{count, plural, =1 {Collection} other {Collections}}',
+      user: '{count, plural, =1 {User} other {Users}}'
+    }
   },
   user: {
     button: 'Make an offer',

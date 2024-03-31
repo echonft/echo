@@ -11,6 +11,6 @@ export const DiscordUsernameTag: FunctionComponent<Props> = ({ username }) => (
     <span className={clsx('text-yellow-500')}>
       <DiscordIconSvg />
     </span>
-    <span className={clsx('prose-display-sm-bold', 'text-white', '!font-medium')}>{username}</span>
+    <span className={clsx('prose-other-bold', 'text-white', '!font-medium')}>{username}</span>
   </div>
 )

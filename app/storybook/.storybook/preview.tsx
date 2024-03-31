@@ -11,7 +11,6 @@ import { createOffer } from '@echo/storybook/mocks/create-offer'
 import { disconnectWallet } from '@echo/storybook/mocks/disconnect-wallet'
 import { executeSwap } from '@echo/storybook/mocks/execute-swap'
 import { getAccount } from '@echo/storybook/mocks/get-account'
-import { getCollections } from '@echo/storybook/mocks/get-collections'
 import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-contract-approval'
 import { getNonce } from '@echo/storybook/mocks/get-nonce'
 import { getOfferSignature } from '@echo/storybook/mocks/get-offer-signature'
@@ -52,7 +51,6 @@ const preview: Preview = {
                 disconnectWallet,
                 executeSwap,
                 getAccount,
-                getCollections,
                 getErc721ContractApproval,
                 getNonce,
                 getOfferSignature,

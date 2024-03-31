@@ -9,16 +9,15 @@ interface Props {
   initialQty?: number
   min?: number
   max?: number
-  disabled?: boolean
   onQtyChange?: (qty: number) => unknown
 }
 
-export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, max, disabled, onQtyChange }) => {
+export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, max, onQtyChange }) => {
   const [qty, setQty] = useState(initialQty ?? min)
   const incDisabled = !isNil(max) && qty === max
   const decDisabled = qty === min
   return (
-    <div className={clsx('flex', 'flex-row', 'h-16', 'w-max', disabled && 'opacity-40')}>
+    <div className={clsx('flex', 'flex-row', 'h-16', 'w-max')}>
       <div
         className={clsx(
           'flex',
@@ -55,7 +54,7 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
             'border',
             'border-yellow-500/30',
             'text-yellow-500',
-            !disabled && decDisabled ? 'text-yellow-500/40' : 'text-yellow-500'
+            decDisabled ? 'text-yellow-500/40' : 'text-yellow-500'
           )}
           onClick={() => {
             pipe(
@@ -66,7 +65,7 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
               setQty
             )(qty)
           }}
-          disabled={Boolean(disabled) || decDisabled}
+          disabled={decDisabled}
         >
           <MinusIconSvg />
         </button>
@@ -86,7 +85,7 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
             'border-b-yellow-500/30',
             'border-r-yellow-500/30',
             'border-l-transparent',
-            !disabled && incDisabled ? 'text-yellow-500/40' : 'text-yellow-500'
+            incDisabled ? 'text-yellow-500/40' : 'text-yellow-500'
           )}
           onClick={() => {
             pipe(
@@ -97,7 +96,7 @@ export const QuantityPicker: FunctionComponent<Props> = ({ initialQty, min = 1, 
               setQty
             )(qty)
           }}
-          disabled={Boolean(disabled) || incDisabled}
+          disabled={incDisabled}
         >
           <PlusIconSvg />
         </button>
