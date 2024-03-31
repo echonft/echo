@@ -6,9 +6,8 @@ import type { NextSearchParams } from '@echo/frontend/lib/types/next-search-para
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
@@ -25,10 +24,11 @@ type Params = NextUserParams<
 >
 
 async function render({ searchParams: { receiverItems }, user }: Params) {
-  // Cannot go to that page without previously selected data. Could change in the future
+  // Cannot go to that page without previously selected data
   if (isNilOrEmpty(receiverItems)) {
     notFound()
   }
+
   const receiverNfts: Nft[] = await pipe<
     [string[] | string],
     string[],
@@ -48,13 +48,15 @@ async function render({ searchParams: { receiverItems }, user }: Params) {
     andThen(map<SelectableNft, SelectableNft>(assoc('actionDisabled', true)))
   )(user)
 
+  if (isNilOrEmpty(receiverNfts) || isNilOrEmpty(senderNfts)) {
+    notFound()
+  }
+
   return (
     <PageLayout user={user}>
-      <SectionLayout>
-        <DetailsPaddedContainer>
-          <CreateOfferManager receiverItems={receiverNfts} receiver={receiver} senderNfts={senderNfts} />
-        </DetailsPaddedContainer>
-      </SectionLayout>
+      <PaddedSectionLayout>
+        <CreateOfferManager receiverItems={receiverNfts} receiver={receiver} senderNfts={senderNfts} />
+      </PaddedSectionLayout>
     </PageLayout>
   )
 }

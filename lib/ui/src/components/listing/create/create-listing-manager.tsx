@@ -14,6 +14,7 @@ import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-request
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
@@ -21,8 +22,8 @@ import type { FunctionComponent } from 'react'
 interface Props {
   collections: Collection[]
   creatorNfts: SelectableNft[]
-  items?: Nft[]
-  target?: Collection
+  items: Nullable<Nft[]>
+  target: Nullable<Collection>
 }
 
 export const CreateListingManager: FunctionComponent<Props> = ({ collections, creatorNfts, items, target }) => {

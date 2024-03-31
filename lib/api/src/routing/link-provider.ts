@@ -27,7 +27,8 @@ export const linkProvider = {
     swaps: new Path<CollectionPathArgs>({ path: '/collection/:slug/swaps' })
   },
   listing: {
-    details: new Path<ListingPathArgs>({ path: '/listing/:listingId' })
+    details: new Path<ListingPathArgs>({ path: '/listing/:listingId' }),
+    new: new Path({ path: '/listing/new', secure: true })
   },
   offer: {
     details: new Path<OfferPathArgs>({ path: '/offer/:offerId' }),

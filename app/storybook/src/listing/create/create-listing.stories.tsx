@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'

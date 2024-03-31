@@ -7,9 +7,8 @@ import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import type { WithId } from '@echo/model/types/with-id'
-import { DetailsPaddedContainer } from '@echo/ui/components/base/layout/details-padded-container'
+import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
-import { SectionLayout } from '@echo/ui/components/base/layout/section-layout'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
 import { getOfferPageLayoutBackground } from '@echo/ui/helpers/offer/get-offer-page-layout-background'
 import { isOfferRoleUndefined } from '@echo/ui/helpers/offer/is-offer-role-undefined'
@@ -31,11 +30,9 @@ async function render({ params: { id }, user }: Params) {
   }
   return (
     <PageLayout user={user} background={getOfferPageLayoutBackground(offer)}>
-      <SectionLayout>
-        <DetailsPaddedContainer>
-          <OfferDetails offer={offer} />
-        </DetailsPaddedContainer>
-      </SectionLayout>
+      <PaddedSectionLayout>
+        <OfferDetails offer={offer} />
+      </PaddedSectionLayout>
     </PageLayout>
   )
 }

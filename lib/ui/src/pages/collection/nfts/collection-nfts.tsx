@@ -6,10 +6,11 @@ import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/n
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
 import { SelectableNftGroups } from '@echo/ui/components/nft/group/selectable-nft-groups'
 import { NFT_ACTION_LISTING, NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
+import { getNewListingPathFromTarget } from '@echo/ui/helpers/listing/get-new-listing-path-from-target'
 import { filterNftsByTraits } from '@echo/ui/helpers/nft/filter-nfts-by-traits'
 import { getTraitFiltersForNfts } from '@echo/ui/helpers/nft/get-trait-filters-for-nfts'
 import { groupNftsByOwner } from '@echo/ui/helpers/nft/group/group-nfts-by-owner'
-import { getNewOfferPathWithParams } from '@echo/ui/helpers/offer/get-new-offer-path-with-params'
+import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { toggleSelectionInList } from '@echo/ui/helpers/selectable/toggle-selection-in-list'
 import { CollectionNftsButton } from '@echo/ui/pages/collection/nfts/collection-nfts-button'
 import { CollectionNftsEmpty } from '@echo/ui/pages/collection/nfts/collection-nfts-empty'
@@ -38,6 +39,7 @@ import { type FunctionComponent, useReducer } from 'react'
 
 interface Props {
   nfts: Nft[]
+  slug: string
 }
 
 interface State {
@@ -51,7 +53,7 @@ interface StateAction {
   filter?: Selectable<TraitFilter>
 }
 
-export const CollectionNfts: FunctionComponent<Props> = ({ nfts }) => {
+export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
   const router = useRouter()
 
   function rejectSelection(selection: SelectableNft[]): (nfts: SelectableNft[]) => SelectableNft[] {
@@ -109,18 +111,14 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts }) => {
   const count = state.selection.length
   const action = count > 0 ? NFT_ACTION_OFFER : NFT_ACTION_LISTING
   const onCreateListing = () => {
-    // TODO
-    // if (isNonEmptyArray(nfts)) {
-    //   setReceiverItems(map(mapNftToItem, nfts))
-    //   openNewOfferModal()
-    // }
+    router.push(getNewListingPathFromTarget(slug))
   }
 
   const onCreateOffer = (nft?: SelectableNft) => {
     if (isNil(nft)) {
-      router.push(getNewOfferPathWithParams(state.selection))
+      router.push(getNewOfferPath(state.selection))
     } else {
-      router.push(getNewOfferPathWithParams(nft))
+      router.push(getNewOfferPath(nft))
     }
   }
 
