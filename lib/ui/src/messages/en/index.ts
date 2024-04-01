@@ -273,7 +273,8 @@ export const messages = {
     category: {
       collection: '{count, plural, =1 {Collection} other {Collections}}',
       user: '{count, plural, =1 {User} other {Users}}'
-    }
+    },
+    emptyResults: 'No results'
   },
   user: {
     button: 'Make an offer',

@@ -36,7 +36,8 @@ export const SearchResultCategoryPill: FunctionComponent<Props> = ({
         'border-white/[0.08]',
         selected ? 'bg-white/[0.05]' : 'hover:bg-white/[0.05]'
       )}
-      onClick={() => {
+      onClick={(event) => {
+        event.stopPropagation()
         onToggleSelection?.(category, !selected)
       }}
     >

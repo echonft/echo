@@ -1,5 +1,6 @@
 import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
 import { PICTURE_SIZE_XS } from '@echo/ui/constants/picture-size'
+import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 
@@ -8,13 +9,13 @@ export interface SearchResultProps<T> {
   style?: {
     rounded?: 'top' | 'bottom'
   }
-  onSelect?: (result: SearchResultModel<T>) => void
 }
 
-export const SearchResult = <T,>({ result, style, onSelect }: SearchResultProps<T>) => {
+export const SearchResult = <T,>({ result, style }: SearchResultProps<T>) => {
   const { label, pictureUrl } = result
   return (
-    <button
+    <Combobox.Option
+      as={'button'}
       className={clsx(
         'flex',
         'flex-row',
@@ -28,9 +29,7 @@ export const SearchResult = <T,>({ result, style, onSelect }: SearchResultProps<
         style?.rounded === 'top' && 'rounded-t-lg',
         style?.rounded === 'bottom' && 'rounded-b-lg'
       )}
-      onClick={() => {
-        onSelect?.(result)
-      }}
+      value={result}
     >
       <Image
         className={clsx('w-8', 'h-8', 'rounded')}
@@ -42,6 +41,6 @@ export const SearchResult = <T,>({ result, style, onSelect }: SearchResultProps<
         crossOrigin={'anonymous'}
       />
       <span className={clsx('prose-label-md', 'text-white', 'truncate')}>{label}</span>
-    </button>
+    </Combobox.Option>
   )
 }
