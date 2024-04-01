@@ -11,23 +11,16 @@ interface Props extends CreateListingTargetsSelectionProps {
 }
 
 export const CreateListingTargets: FunctionComponent<Props> = ({
-  collections,
   readOnly,
   target,
   onQtyChange,
   onRemove,
-  onSelection
+  onSelect
 }) => {
   if (readOnly) {
     return <ListingDetailsTargetContainer target={target!} />
   }
   return (
-    <CreateListingTargetsSelection
-      collections={collections}
-      target={target}
-      onQtyChange={onQtyChange}
-      onRemove={onRemove}
-      onSelection={onSelection}
-    />
+    <CreateListingTargetsSelection target={target} onQtyChange={onQtyChange} onRemove={onRemove} onSelect={onSelect} />
   )
 }

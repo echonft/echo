@@ -12,7 +12,7 @@ export const apiUrlProvider = {
     updateUser: new ApiPath({ path: '/admin/user/update', secure: true })
   },
   collection: {
-    all: new ApiPath({ path: '/collections' })
+    search: new ApiPath({ path: '/search/collection' })
   },
   listing: {
     cancel: new ApiPath<ListingPathArgs>({ path: '/listing/:listingId/cancel', secure: true }),
@@ -30,6 +30,9 @@ export const apiUrlProvider = {
     nonce: new ApiPath({ path: '/profile/nonce', secure: true }),
     wallet: new ApiPath({ path: '/profile/wallet', secure: true }),
     wallets: new ApiPath({ path: '/profile/wallets', secure: true })
+  },
+  user: {
+    search: new ApiPath({ path: '/search/user' })
   },
   webhooks: {
     nftTransfer: new ApiPath({ path: '/webhook/nft/transfer' }),

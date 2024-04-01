@@ -20,13 +20,12 @@ import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  collections: Collection[]
   creatorNfts: SelectableNft[]
   items: Nullable<Nft[]>
   target: Nullable<Collection>
 }
 
-export const CreateListingManager: FunctionComponent<Props> = ({ collections, creatorNfts, items, target }) => {
+export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, items, target }) => {
   const t = useTranslations('error.listing')
   const router = useRouter()
   const { createListing } = useDependencies()
@@ -43,7 +42,6 @@ export const CreateListingManager: FunctionComponent<Props> = ({ collections, cr
 
   return (
     <CreateListing
-      collections={collections}
       creatorNfts={creatorNfts}
       items={items}
       target={target}

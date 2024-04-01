@@ -1,3 +1,7 @@
+import {
+  SEARCH_RESULT_CATEGORY_COLLECTION,
+  SEARCH_RESULT_CATEGORY_USER
+} from '@echo/model/constants/search-result-category'
 import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
 import { PICTURE_SIZE_XS } from '@echo/ui/constants/picture-size'
 import { Combobox } from '@headlessui/react'
@@ -25,7 +29,10 @@ export const SearchResult = <T,>({ result, style }: SearchResultProps<T>) => {
         'py-4',
         'items-center',
         'gap-2.5',
-        'hover:bg-white/[0.08]',
+        'hover:bg-gradient-to-r',
+        result.category === SEARCH_RESULT_CATEGORY_COLLECTION && 'from-yellow-500/40',
+        result.category === SEARCH_RESULT_CATEGORY_USER && 'from-purple-500/40',
+        'to-transparent',
         style?.rounded === 'top' && 'rounded-t-lg',
         style?.rounded === 'bottom' && 'rounded-b-lg'
       )}

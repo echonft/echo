@@ -9,6 +9,8 @@ import { getNonce } from '@echo/api/fetchers/get-nonce'
 import { getOfferSignature } from '@echo/api/fetchers/get-offer-signature'
 import { getWallets } from '@echo/api/fetchers/get-wallets'
 import { rejectOffer } from '@echo/api/fetchers/reject-offer'
+import { searchCollections } from '@echo/api/fetchers/search-collections'
+import { searchUsers } from '@echo/api/fetchers/search-users'
 import { validateOffer } from '@echo/api/fetchers/validate-offer'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import { isStorybook } from '@echo/utils/constants/is-storybook'
@@ -45,6 +47,8 @@ export const PageLayoutWrapper: FunctionComponent<PropsWithChildren> = ({ childr
         getOfferSignature,
         getWallets,
         rejectOffer,
+        searchCollections,
+        searchUsers,
         signIn: function () {
           return signIn('discord')
         },

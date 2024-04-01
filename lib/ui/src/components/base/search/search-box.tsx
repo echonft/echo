@@ -19,7 +19,7 @@ interface Props<T> extends Pick<SearchResultsContainerProps<T>, 'style'> {
 
 export const SearchBox = <T,>({ results, searching, style, onSearch, onSearchClear, onSelect }: Props<T>) => {
   return (
-    <div className={clsx('flex', 'flex-col', 'gap-2', 'h-max', 'w-full')}>
+    <div className={clsx('h-max', 'w-full', 'relative')}>
       <Combobox
         onChange={(selection: SearchResult<T>) => {
           onSelect?.(selection)
@@ -35,7 +35,7 @@ export const SearchBox = <T,>({ results, searching, style, onSearch, onSearchCle
           leave={'transition ease-in duration-100'}
           leaveFrom={'opacity-100'}
           leaveTo={'opacity-0'}
-          className={clsx('h-max', 'w-full', 'rounded-lg')}
+          className={clsx('h-max', 'rounded-lg', 'absolute', 'top-14', 'inset-x-0')}
         >
           <SearchResultsContainer results={results} style={style} />
         </Transition>

@@ -24,7 +24,6 @@ import { always, append, applySpec, assoc, filter, identity, isEmpty, isNil, map
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 
 interface Props {
-  collections: Collection[]
   creatorNfts: SelectableNft[]
   items: Nullable<Nft[]>
   target: Nullable<Collection>
@@ -34,7 +33,6 @@ interface Props {
 }
 
 export const CreateListing: FunctionComponent<Props> = ({
-  collections,
   creatorNfts,
   items,
   target,
@@ -85,7 +83,6 @@ export const CreateListing: FunctionComponent<Props> = ({
         <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
           <div className={clsx('h-max', 'w-full', 'max-w-[40rem]')}>
             <CreateListingTargets
-              collections={collections}
               readOnly={reviewing}
               target={targetSelection}
               onQtyChange={(newQuantity) => {
@@ -94,7 +91,7 @@ export const CreateListing: FunctionComponent<Props> = ({
               onRemove={() => {
                 setTargetSelection(undefined)
               }}
-              onSelection={(selection) => {
+              onSelect={(selection) => {
                 setTargetSelection({ collection: selection, amount: 1 })
               }}
             />

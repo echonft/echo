@@ -1,6 +1,5 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { CreateListing as Component } from '@echo/ui/components/listing/create/create-listing'
@@ -11,7 +10,6 @@ const metadata: Meta<typeof Component> = {
   title: 'Listing/Create',
   component: Component,
   args: {
-    collections: getAllCollectionMocks(),
     creatorNfts: pipe(
       getAllNftMocks,
       filter(pathEq('johnnycagewins', ['owner', 'username'])),
