@@ -14,7 +14,7 @@ interface Props extends ModalTitleProps {
 export const Modal: FunctionComponent<PropsWithChildren<Props>> = ({ open, title, onClose, backButton, children }) => {
   return (
     <Transition appear show={open} as={Fragment}>
-      <Dialog as={'div'} className={clsx('relative')} onClose={() => onClose?.()}>
+      <Dialog as={'div'} onClose={() => onClose?.()}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

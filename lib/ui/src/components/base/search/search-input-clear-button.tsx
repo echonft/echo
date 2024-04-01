@@ -7,16 +7,16 @@ interface Props {
   onClick?: MouseEventHandler
 }
 
-export const CollectionSearchComboboxInputClearButton: FunctionComponent<Props> = ({ className, onClick }) => {
+export const SearchInputClearButton: FunctionComponent<Props> = ({ className, onClick }) => {
   return (
-    <button className={clsx('flex', 'justify-center', 'items-center', 'w-8', 'h-8', className)} onClick={onClick}>
+    <button className={clsx('flex', 'justify-center', 'items-center', 'w-6', 'h-6', className)} onClick={onClick}>
       <span
         className={clsx(
           'flex',
           'justify-center',
           'items-center',
-          'w-5',
-          'h-5',
+          'w-4',
+          'h-4',
           'rounded-full',
           'border-solid',
           'border-2',
@@ -24,7 +24,7 @@ export const CollectionSearchComboboxInputClearButton: FunctionComponent<Props> 
           'text-yellow-500'
         )}
       >
-        <XIconSvg width={10} height={10} />
+        <XIconSvg width={8} height={8} />
       </span>
     </button>
   )

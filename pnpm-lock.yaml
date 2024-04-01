@@ -59,7 +59,7 @@ importers:
         version: 9.0.11
       knip:
         specifier: 5.7.0
-        version: 5.7.0(@types/node@20.12.2)(typescript@5.4.3)
+        version: 5.7.0(@types/node@20.11.30)(typescript@5.4.3)
       lint-staged:
         specifier: 15.2.2
         version: 15.2.2
@@ -354,6 +354,9 @@ importers:
 
   app/storybook:
     dependencies:
+      '@headlessui/react':
+        specifier: 1.7.18
+        version: 1.7.18(react-dom@18.2.0)(react@18.2.0)
       '@sentry/nextjs':
         specifier: 7.107.0
         version: 7.107.0(next@14.1.4)(react@18.2.0)(webpack@5.91.0)
@@ -521,6 +524,9 @@ importers:
       path-to-regexp:
         specifier: 6.2.1
         version: 6.2.1
+      qs:
+        specifier: 6.12.0
+        version: 6.12.0
       ramda:
         specifier: 0.29.1
         version: 0.29.1
@@ -537,6 +543,9 @@ importers:
       '@types/node':
         specifier: 20.11.30
         version: 20.11.30
+      '@types/qs':
+        specifier: 6.9.14
+        version: 6.9.14
       '@types/ramda':
         specifier: 0.29.11
         version: 0.29.11
@@ -963,7 +972,7 @@ importers:
         version: 2.8.16(typescript@5.4.3)(zod@3.22.4)
       wagmi:
         specifier: 2.5.12
-        version: 2.5.12(@tanstack/react-query@5.28.9)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.8.16)(zod@3.22.4)
+        version: 2.5.12(@tanstack/react-query@5.28.6)(@types/react@18.2.67)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.8.16)(zod@3.22.4)
     devDependencies:
       '@babel/core':
         specifier: 7.24.3
@@ -7030,25 +7039,12 @@ packages:
     resolution: {integrity: sha512-hnhotV+DnQtvtR3jPvbQMPNMW4KEK0J4k7c609zJ8muiNknm+yoDyMHmxTWM5ZnlZpsz0zOxYFr+mzRJNHWJsA==}
     dev: false
 
-  /@tanstack/query-core@5.28.9:
-    resolution: {integrity: sha512-hNlfCiqZevr3GRVPXS3MhaGW5hjcxvCsIQ4q6ff7EPlvFwYZaS+0d9EIIgofnegDaU2BbCDlyURoYfRl5rmzow==}
-    dev: false
-
   /@tanstack/react-query@5.28.6(react@18.2.0):
     resolution: {integrity: sha512-/DdYuDBSsA21Qbcder1R8Cr/3Nx0ZnA2lgtqKsLMvov8wL4+g0HBz/gWYZPlIsof7iyfQafyhg4wUVUsS3vWZw==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
       '@tanstack/query-core': 5.28.6
-      react: 18.2.0
-    dev: false
-
-  /@tanstack/react-query@5.28.9(react@18.2.0):
-    resolution: {integrity: sha512-vwifBkGXsydsLxFOBMe3+f8kvtDoqDRDwUNjPHVDDt+FoBetCbOWAUHgZn4k+CVeZgLmy7bx6aKeDbe3e8koOQ==}
-    peerDependencies:
-      react: ^18.0.0
-    dependencies:
-      '@tanstack/query-core': 5.28.9
       react: 18.2.0
     dev: false
 
@@ -15078,7 +15074,7 @@ packages:
       '@babel/register': 7.23.7(@babel/core@7.24.3)
       babel-core: 7.0.0-bridge.0(@babel/core@7.24.3)
       chalk: 4.1.2
-      flow-parser: 0.206.0
+      flow-parser: 0.232.0
       graceful-fs: 4.2.11
       micromatch: 4.0.5
       neo-async: 2.6.2
@@ -15370,7 +15366,7 @@ packages:
     engines: {node: '>= 8'}
     dev: false
 
-  /knip@5.7.0(@types/node@20.12.2)(typescript@5.4.3):
+  /knip@5.7.0(@types/node@20.11.30)(typescript@5.4.3):
     resolution: {integrity: sha512-wTw7Mt7nGa8dBelC3UrAzBtRqHwER7o6m+GzNYGMlt6HnJ/5IoKoxC/1KvPfyXanEJfsSq0ciSchdtnN0RA9RA==}
     engines: {node: '>=18.6.0'}
     hasBin: true
@@ -15385,7 +15381,7 @@ packages:
       '@pnpm/logger': 5.0.0
       '@pnpm/workspace.pkgs-graph': 2.0.15(@pnpm/logger@5.0.0)
       '@snyk/github-codeowners': 1.1.0
-      '@types/node': 20.12.2
+      '@types/node': 20.11.30
       '@types/picomatch': 2.3.3
       easy-table: 1.2.0
       fast-glob: 3.3.2
@@ -21960,52 +21956,6 @@ packages:
         optional: true
     dependencies:
       '@tanstack/react-query': 5.28.6(react@18.2.0)
-      '@wagmi/connectors': 4.1.18(@types/react@18.2.67)(@wagmi/core@2.6.9)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.8.16)(zod@3.22.4)
-      '@wagmi/core': 2.6.9(@types/react@18.2.67)(react@18.2.0)(typescript@5.4.3)(viem@2.8.16)(zod@3.22.4)
-      react: 18.2.0
-      typescript: 5.4.3
-      use-sync-external-store: 1.2.0(react@18.2.0)
-      viem: 2.8.16(typescript@5.4.3)(zod@3.22.4)
-    transitivePeerDependencies:
-      - '@azure/app-configuration'
-      - '@azure/cosmos'
-      - '@azure/data-tables'
-      - '@azure/identity'
-      - '@azure/keyvault-secrets'
-      - '@azure/storage-blob'
-      - '@capacitor/preferences'
-      - '@netlify/blobs'
-      - '@planetscale/database'
-      - '@react-native-async-storage/async-storage'
-      - '@tanstack/query-core'
-      - '@types/react'
-      - '@upstash/redis'
-      - '@vercel/kv'
-      - bufferutil
-      - encoding
-      - immer
-      - ioredis
-      - react-dom
-      - react-native
-      - rollup
-      - supports-color
-      - uWebSockets.js
-      - utf-8-validate
-      - zod
-    dev: false
-
-  /wagmi@2.5.12(@tanstack/react-query@5.28.9)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.8.16)(zod@3.22.4):
-    resolution: {integrity: sha512-n9XxiDgBUUzibZqFIdQI6/vKDjNlOTXH6mIHcuVO7ujYJuyw4aEjOJzDWivIGjVf2ygmb1aGryh2jx6W5KwjRw==}
-    peerDependencies:
-      '@tanstack/react-query': '>=5.0.0'
-      react: '>=18'
-      typescript: '>=5.0.4'
-      viem: 2.8.16
-    peerDependenciesMeta:
-      typescript:
-        optional: true
-    dependencies:
-      '@tanstack/react-query': 5.28.9(react@18.2.0)
       '@wagmi/connectors': 4.1.18(@types/react@18.2.67)(@wagmi/core@2.6.9)(react-dom@18.2.0)(react-native@0.73.6)(react@18.2.0)(typescript@5.4.3)(viem@2.8.16)(zod@3.22.4)
       '@wagmi/core': 2.6.9(@types/react@18.2.67)(react@18.2.0)(typescript@5.4.3)(viem@2.8.16)(zod@3.22.4)
       react: 18.2.0

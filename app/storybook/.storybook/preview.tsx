@@ -16,6 +16,8 @@ import { getNonce } from '@echo/storybook/mocks/get-nonce'
 import { getOfferSignature } from '@echo/storybook/mocks/get-offer-signature'
 import { getWallets } from '@echo/storybook/mocks/get-wallets'
 import { rejectOffer } from '@echo/storybook/mocks/reject-offer'
+import { searchCollections } from '@echo/storybook/mocks/search-collections'
+import { searchUsers } from '@echo/storybook/mocks/search-users'
 import { signIn } from '@echo/storybook/mocks/sign-in'
 import { signNonce } from '@echo/storybook/mocks/sign-nonce'
 import { signOffer } from '@echo/storybook/mocks/sign-offer'
@@ -56,6 +58,8 @@ const preview: Preview = {
                 getOfferSignature,
                 getWallets,
                 rejectOffer,
+                searchCollections,
+                searchUsers,
                 signIn,
                 signNonce,
                 signOffer,
@@ -82,7 +86,10 @@ const preview: Preview = {
   argTypes: {},
   parameters: {
     actions: { argTypesRegex: '^on.*' },
-    exclude: /^on.*/
+    exclude: /^on.*/,
+    nextjs: {
+      appDirectory: true
+    }
   }
 }
 

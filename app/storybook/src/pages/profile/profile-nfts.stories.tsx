@@ -5,7 +5,7 @@ import { SelectableNftsWithFilters as Component } from '@echo/ui/components/nft/
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Page/Profile/Nfts',
+  title: 'Pages/Profile/Nfts',
   component: Component,
   args: {
     nfts: getAllNftMocks()

@@ -64,7 +64,7 @@ export const LongPressButton: FunctionComponent<Props> = ({
   }, [])
 
   return (
-    <div className={clsx('w-max', 'h-max', 'relative')}>
+    <div className={clsx('w-max', 'h-max')}>
       <button
         id={buttonId}
         className={clsx('btn', 'btn-size-alt', 'group', loading && 'animate-pulse')}

@@ -1,56 +1,50 @@
-import { compareSearchResults } from '@echo/model/helpers/search/compare-search-results'
-import { filterSearchResultsByCategory } from '@echo/model/helpers/search/filter-search-results-by-category'
 import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
-import type { SearchResultCategory } from '@echo/model/types/search-result-category'
 import { SearchResult, type SearchResultProps } from '@echo/ui/components/base/search/search-result'
-import { SearchResultsCategories } from '@echo/ui/components/base/search/search-results-categories'
+import { SearchResultEmpty } from '@echo/ui/components/base/search/search-result-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { clsx } from 'clsx'
-import { addIndex, isNil, map, pipe, sort } from 'ramda'
-import { useCallback, useState } from 'react'
+import { Combobox } from '@headlessui/react'
+import { addIndex, isEmpty, isNil, map } from 'ramda'
 
-export interface SearchResultsProps<T> {
-  results: SearchResultModel<T>[]
-  style?: {
+interface Props<T> {
+  results: Nullable<SearchResultModel<T>[]>
+  style?: Nullable<{
     categories?: {
       show?: boolean
     }
-  }
-  onSelect?: (value: SearchResultModel<T>) => void
+  }>
 }
 
-export const SearchResults = <T,>({ results, style, onSelect }: SearchResultsProps<T>) => {
-  const [filteredResults, setFilteredResults] = useState(sort(compareSearchResults, results))
-  const filterResults = useCallback(
-    (category: Nullable<SearchResultCategory>) => {
-      if (isNil(category)) {
-        pipe(sort(compareSearchResults), setFilteredResults)(results)
-      } else {
-        pipe(filterSearchResultsByCategory<T>(category), sort(compareSearchResults), setFilteredResults)(results)
-      }
-    },
-    [results]
-  )
+export const SearchResults = <T,>({ results, style }: Props<T>) => {
   function getSearchResultStyle(index: number): SearchResultProps<T>['style'] {
     if (index === 0 && !style?.categories?.show) {
       return { rounded: 'top' }
     }
-    if (index === filteredResults.length - 1) {
+    if (index === results!.length - 1) {
       return { rounded: 'bottom' }
     }
     return undefined
   }
-  const mapIndexed = addIndex<SearchResultModel<T>>(map)
 
+  if (isNil(results)) {
+    return null
+  }
+  if (isEmpty(results)) {
+    return (
+      <div>
+        <SearchResultEmpty />
+      </div>
+    )
+  }
+
+  const mapIndexed = addIndex<SearchResultModel<T>>(map)
   return (
-    <div className={clsx('h-max', 'w-full', 'rounded-lg', 'bg-dark-450')}>
-      <SearchResultsCategories show={style?.categories?.show} results={results} onChange={filterResults} />
+    <Combobox.Options static={true} as={'div'}>
       {mapIndexed(
         (result, index) => (
-          <SearchResult key={result.id} result={result} style={getSearchResultStyle(index)} onSelect={onSelect} />
+          <SearchResult key={result.id} result={result} style={getSearchResultStyle(index)} />
         ),
-        filteredResults
+        results
       )}
-    </div>
+    </Combobox.Options>
   )
 }

@@ -36,7 +36,7 @@ export const CalloutManager: FunctionComponent = () => {
   }, [])
 
   return (
-    <div className={clsx('absolute', 'z-40', 'top-4', 'right-4', 'w-max', 'h-max')}>
+    <div className={clsx('fixed', 'z-40', 'bottom-4', 'right-4', 'w-max', 'h-max')}>
       <CalloutManagerContent
         alert={alert}
         show={show}

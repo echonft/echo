@@ -20,7 +20,6 @@ const metadata: Meta<typeof Component> = {
     }
   }
 }
-
 export default metadata
 
 export const LoggedIn: StoryObj<typeof Component> = {

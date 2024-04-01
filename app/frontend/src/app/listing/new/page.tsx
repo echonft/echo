@@ -1,5 +1,4 @@
 import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
-import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
@@ -32,7 +31,6 @@ async function render({ searchParams: { items, target }, user }: Params) {
     notFound()
   }
 
-  const collections = await getAllCollections()
   const creatorNfts: SelectableNft[] = await pipe(
     prop('username'),
     getNftsForOwner as (username: string) => Promise<SelectableNft[]>,
@@ -55,12 +53,7 @@ async function render({ searchParams: { items, target }, user }: Params) {
   return (
     <PageLayout user={user}>
       <PaddedSectionLayout>
-        <CreateListingManager
-          collections={collections}
-          creatorNfts={creatorNfts}
-          items={listingItems}
-          target={listingTarget}
-        />
+        <CreateListingManager creatorNfts={creatorNfts} items={listingItems} target={listingTarget} />
       </PaddedSectionLayout>
     </PageLayout>
   )

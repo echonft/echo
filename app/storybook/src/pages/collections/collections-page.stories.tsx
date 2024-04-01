@@ -16,7 +16,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   decorators: [
     (Story) => (
-      <PageLayout background={PAGE_LAYOUT_BG_COLLECTIONS}>
+      <PageLayout background={PAGE_LAYOUT_BG_COLLECTIONS} excludeProviders={true}>
         <SectionLayout>
           <Story />
         </SectionLayout>

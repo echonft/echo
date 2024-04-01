@@ -12,6 +12,7 @@ import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
+import type { SearchResult } from '@echo/model/types/search-result'
 import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { AccountProvider } from '@echo/web3-dom/types/account-provider'
@@ -39,6 +40,8 @@ export interface Dependencies {
   getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
   getWallets: Fetcher<WalletsResponse, never>
   rejectOffer: Fetcher<OfferResponse, RejectOfferArgs>
+  searchCollections: (query: string) => Promise<SearchResult<string>[]>
+  searchUsers: (query: string) => Promise<SearchResult<string>[]>
   signIn: () => Promise<SignInResponse | undefined>
   signNonce: Fetcher<SignNonceResult, SignNonceArgs>
   signOffer: Fetcher<HexString, SignOfferArgs>
