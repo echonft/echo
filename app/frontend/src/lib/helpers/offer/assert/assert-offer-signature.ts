@@ -3,7 +3,7 @@ import type { OfferSignature } from '@echo/model/types/offer-signature'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 
-export function guarded_assertOfferSignature(
+export function assertOfferSignature(
   offerSignature: Nullable<OfferSignature>
 ): asserts offerSignature is NonNullable<OfferSignature> {
   if (isNil(offerSignature)) {

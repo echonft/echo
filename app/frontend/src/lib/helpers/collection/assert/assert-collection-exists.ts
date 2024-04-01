@@ -3,7 +3,7 @@ import { type Collection } from '@echo/model/types/collection'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 
-export function guarded_assertCollectionExists(
+export function assertCollectionExists(
   collection: Nullable<Collection>,
   slug: string
 ): asserts collection is NonNullable<Collection> {

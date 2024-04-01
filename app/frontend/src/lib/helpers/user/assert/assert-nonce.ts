@@ -4,7 +4,7 @@ import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { SiweMessage } from 'siwe'
 
-export function guarded_assertNonce(nonce: Nullable<Nonce>, verifiedMessage: SiweMessage) {
+export function assertNonce(nonce: Nullable<Nonce>, verifiedMessage: SiweMessage) {
   if (
     isNilOrEmpty(nonce) ||
     nonce.expired ||

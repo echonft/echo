@@ -2,7 +2,7 @@ import { UnauthorizedError } from '@echo/frontend/lib/helpers/error/unauthorized
 import { headers } from 'next/headers'
 import { isNil } from 'ramda'
 
-export function guarded_assertAdminToken() {
+export function assertAdminToken() {
   const headersList = headers()
   const token = process.env.ADMIN_TOKEN
   const authorizationHeader = headersList.get('Authorization')

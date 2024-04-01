@@ -5,6 +5,7 @@ import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
 import { unchecked_updateOffer } from '@echo/firestore-test/offer/unchecked_update-offer'
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
 import {
+  OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
   OFFER_STATE_COMPLETED,
   OFFER_STATE_EXPIRED,
@@ -80,6 +81,10 @@ describe('CRUD - offer - cancelOffer', () => {
   })
   it('throws if the offer is rejected', async () => {
     await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_REJECTED, expiresAt: futureDate })
+    await expect(cancelOffer(args)).rejects.toBeDefined()
+  })
+  it('throws if the offer is accepted', async () => {
+    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate })
     await expect(cancelOffer(args)).rejects.toBeDefined()
   })
   it('throws if the state update by trigger is not valid', async () => {

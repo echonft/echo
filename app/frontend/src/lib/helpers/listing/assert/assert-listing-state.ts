@@ -3,7 +3,7 @@ import { assertListingStateTransition as modelAssertListingState } from '@echo/m
 import { type Listing } from '@echo/model/types/listing'
 import { type ListingState } from '@echo/model/types/listing-state'
 
-export function guarded_assertListingState(
+export function assertListingState(
   listing: Listing,
   toState: ListingState
 ): asserts listing is Omit<Listing, 'state'> & Record<'state', ListingState> {

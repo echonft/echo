@@ -6,10 +6,10 @@ import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
-import { guarded_assertOffer } from '@echo/frontend/lib/helpers/offer/assert/guarded_assert-offer'
-import { guarded_assertOfferReceiverIs } from '@echo/frontend/lib/helpers/offer/assert/guarded_assert-offer-receiver-is'
-import { guarded_assertOfferState } from '@echo/frontend/lib/helpers/offer/assert/guarded_assert-offer-state'
-import { guarded_assertUserExists } from '@echo/frontend/lib/helpers/user/assert/guarded_assert-user-exists'
+import { assertOffer } from '@echo/frontend/lib/helpers/offer/assert/assert-offer'
+import { assertOfferReceiverIs } from '@echo/frontend/lib/helpers/offer/assert/assert-offer-receiver-is'
+import { assertOfferState } from '@echo/frontend/lib/helpers/offer/assert/assert-offer-state'
+import { assertUserExists } from '@echo/frontend/lib/helpers/user/assert/assert-user-exists'
 import { acceptOfferSchema } from '@echo/frontend/lib/validators/accept-offer-schema'
 import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import type { AuthUser } from '@echo/model/types/auth-user'
@@ -30,11 +30,11 @@ export async function acceptOfferRequestHandler(
     ErrorStatus.BAD_REQUEST
   )(requestBody)
   const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(id)
-  guarded_assertOffer(offer)
-  guarded_assertOfferState(offer, OFFER_STATE_ACCEPTED)
-  guarded_assertOfferReceiverIs(offer, user.username)
+  assertOffer(offer)
+  assertOfferState(offer, OFFER_STATE_ACCEPTED)
+  assertOfferReceiverIs(offer, user.username)
   const foundUser = await guardAsyncFn(findUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
-  guarded_assertUserExists(foundUser, user.username)
+  assertUserExists(foundUser, user.username)
   const updatedOffer = await guardAsyncFn(
     acceptOffer,
     ErrorStatus.SERVER_ERROR
