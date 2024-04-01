@@ -3,7 +3,7 @@ import { assertOfferStateTransition as modelAssertOfferState } from '@echo/model
 import { type Offer } from '@echo/model/types/offer'
 import { type OfferState } from '@echo/model/types/offer-state'
 
-export function guarded_assertOfferState(
+export function assertOfferState(
   offer: Offer,
   toState: OfferState
 ): asserts offer is Omit<Offer, 'state'> & Record<'state', OfferState> {

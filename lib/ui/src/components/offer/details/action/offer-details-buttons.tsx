@@ -15,7 +15,7 @@ import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiv
 import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { anyPass, either, propEq } from 'ramda'
+import { anyPass } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -36,7 +36,7 @@ function showAcceptButton(offer: OfferWithRole) {
 function showCancelButton(offer: OfferWithRole) {
   try {
     assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)
-    return either(propEq(OFFER_STATE_ACCEPTED, 'state') as (offer: OfferWithRole) => boolean, isOfferRoleSender)(offer)
+    return isOfferRoleSender(offer)
   } catch (e) {
     return false
   }

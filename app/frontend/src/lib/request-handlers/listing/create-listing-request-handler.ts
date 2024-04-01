@@ -4,7 +4,7 @@ import { type ListingResponse } from '@echo/api/types/responses/listing-response
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
-import { guarded_assertItemsOwner } from '@echo/frontend/lib/helpers/item/assert/guarded_assert-items-owner'
+import { assertItemsOwner } from '@echo/frontend/lib/helpers/item/assert/assert-items-owner'
 import { getListingItemsFromRequests } from '@echo/frontend/lib/helpers/listing/get-listing-items-from-requests'
 import { getListingTargetsFromRequests } from '@echo/frontend/lib/helpers/listing/get-listing-targets-from-requests'
 import { createListingSchema } from '@echo/frontend/lib/validators/create-listing-schema'
@@ -23,7 +23,7 @@ export async function createListingRequestHandler(user: AuthUser, req: ApiReques
   const listingItems = await guardAsyncFn(getListingItemsFromRequests, ErrorStatus.SERVER_ERROR)(items)
   const listingTargets = await guardAsyncFn(getListingTargetsFromRequests, ErrorStatus.SERVER_ERROR)([target])
   // make sure the creator is the owner of every item
-  guarded_assertItemsOwner(listingItems, user.username)
+  assertItemsOwner(listingItems, user.username)
   const listing = await guardAsyncFn(addListing, ErrorStatus.SERVER_ERROR)(listingItems, listingTargets)
   return NextResponse.json<ListingResponse>({ listing })
 }

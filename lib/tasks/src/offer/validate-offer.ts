@@ -3,7 +3,7 @@ import {
   OFFER_STATE_UPDATE_TRIGGER_REASON_APPROVAL_REVOKED,
   OFFER_STATE_UPDATE_TRIGGER_REASON_OWNERSHIP_CHANGED
 } from '@echo/firestore/constants/offer/offer-state-update-trigger-reasons'
-import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
+import { unchecked_cancelOffer } from '@echo/firestore/crud/offer/unchecked_cancel-offer'
 import type { Offer } from '@echo/model/types/offer'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
@@ -16,7 +16,7 @@ export async function validateOffer(offer: Offer, logger?: LoggerInterface): Pro
   }
   logger?.warn(`offer ${offer.id} is invalid: ${result.reason}`)
   try {
-    const cancelledOffer = await cancelOffer({
+    const cancelledOffer = await unchecked_cancelOffer({
       offerId: offer.id,
       updateArgs: {
         trigger: {

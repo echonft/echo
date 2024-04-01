@@ -1,5 +1,5 @@
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
-import { guarded_assertAdminToken } from '@echo/frontend/lib/helpers/admin/assert/guarded_assert-admin-token'
+import { assertAdminToken } from '@echo/frontend/lib/helpers/admin/assert/assert-admin-token'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import type { RequestHandler } from '@echo/frontend/lib/types/request-handlers/request-handler'
 import { errorMessage } from '@echo/utils/helpers/error-message'
@@ -14,7 +14,7 @@ export function adminRouteHandler<RequestBody, ResponseBody, Params extends Reco
   return async function (request: NextRequest, context?: { params: Params }) {
     try {
       initializeFirebase()
-      guarded_assertAdminToken()
+      assertAdminToken()
       if (isNil(context)) {
         return await requestHandler(request)
       }

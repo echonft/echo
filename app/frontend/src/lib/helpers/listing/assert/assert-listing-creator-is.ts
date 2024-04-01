@@ -5,7 +5,7 @@ import { type User } from '@echo/model/types/user'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { isNil } from 'ramda'
 
-export function guarded_assertListingCreatorIs(
+export function assertListingCreatorIs(
   listing: Listing,
   username: string
 ): asserts listing is Omit<Listing, 'creator'> & Record<'creator', User> {

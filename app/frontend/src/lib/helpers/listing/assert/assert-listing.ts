@@ -3,7 +3,7 @@ import { type Listing } from '@echo/model/types/listing'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 
-export function guarded_assertListing(listing: Nullable<Listing>): asserts listing is NonNullable<Listing> {
+export function assertListing(listing: Nullable<Listing>): asserts listing is NonNullable<Listing> {
   if (isNil(listing)) {
     throw new BadRequestError('listing is nil')
   }

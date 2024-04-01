@@ -3,7 +3,7 @@ import { type Offer } from '@echo/model/types/offer'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isNil } from 'ramda'
 
-export function guarded_assertOffer(offer: Nullable<Offer>): asserts offer is NonNullable<Offer> {
+export function assertOffer(offer: Nullable<Offer>): asserts offer is NonNullable<Offer> {
   if (isNil(offer)) {
     throw new BadRequestError('offer is nil')
   }

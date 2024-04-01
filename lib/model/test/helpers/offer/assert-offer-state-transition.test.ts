@@ -54,9 +54,13 @@ describe('helpers - offer - assertOfferState - to state CANCELLED', () => {
     const offer = assoc('readOnly', true, offerMock)
     expect(() => assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)).toThrow()
   })
-  it('does not throws if the offer is accepted', () => {
+  it('throws if the offer is accepted', () => {
     const offer = assoc('state', OFFER_STATE_ACCEPTED, offerMock)
-    expect(() => assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)).not.toThrow()
+    expect(() => assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)).toThrow()
+  })
+  it('throws if the offer is rejected', () => {
+    const offer = assoc('state', OFFER_STATE_REJECTED, offerMock)
+    expect(() => assertOfferStateTransition(offer, OFFER_STATE_CANCELLED)).toThrow()
   })
   it('does not throws if the offer is open', () => {
     const offer = assoc('state', OFFER_STATE_OPEN, offerMock)
