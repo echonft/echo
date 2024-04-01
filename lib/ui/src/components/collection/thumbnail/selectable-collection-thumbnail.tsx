@@ -30,8 +30,7 @@ export const SelectableCollectionThumbnail: FunctionComponent<Props> = ({ collec
           'drop-shadow-md',
           'flex',
           'justify-center',
-          'items-center',
-          'z-10'
+          'items-center'
         )}
         onClick={onRemove}
       >

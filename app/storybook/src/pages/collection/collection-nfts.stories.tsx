@@ -7,7 +7,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { filter, pathEq, pipe, prop } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Page/Collection/Nfts',
+  title: 'Pages/Collection/Nfts',
   component: Component,
   args: {
     slug: pipe(getCollectionMockById, prop('slug'))('1aomCtnoesD7WVll6Yi1'),

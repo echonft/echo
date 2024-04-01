@@ -119,6 +119,9 @@ export const messages = {
     header: {
       button: {
         login: 'Login'
+      },
+      search: {
+        placeHolder: 'Search for collections or users'
       }
     }
   },
@@ -134,7 +137,10 @@ export const messages = {
       editBtn: 'Edit',
       reviewBtn: 'Review',
       targets: {
-        empty: 'To add a collection, type its name in the input above'
+        empty: 'To add a collection, type its name in the input above',
+        search: {
+          placeHolder: 'Search for collections'
+        }
       }
     },
     details: {

@@ -96,8 +96,8 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
         }
         return pipe<[State], State, State, State>(
           modify('nfts', append(action.nft)),
-          filterByTraits,
-          modify<'selection', SelectableNft[], SelectableNft[]>('selection', reject(withIdEquals(action.nft)))
+          modify<'selection', SelectableNft[], SelectableNft[]>('selection', reject(withIdEquals(action.nft))),
+          filterByTraits
         )(state)
     }
   }

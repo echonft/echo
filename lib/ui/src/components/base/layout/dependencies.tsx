@@ -13,7 +13,6 @@ import { searchCollections } from '@echo/api/fetchers/search-collections'
 import { searchUsers } from '@echo/api/fetchers/search-users'
 import { validateOffer } from '@echo/api/fetchers/validate-offer'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
-import { isStorybook } from '@echo/utils/constants/is-storybook'
 import { approveErc721Contract } from '@echo/web3-dom/helpers/approve-erc721-contract'
 import { disconnectWallet } from '@echo/web3-dom/helpers/disconnect-wallet'
 import { executeSwap } from '@echo/web3-dom/helpers/execute-swap'
@@ -25,10 +24,7 @@ import { switchChain } from '@echo/web3-dom/helpers/switch-chain'
 import { signIn, signOut } from 'next-auth/react'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
-export const PageLayoutWrapper: FunctionComponent<PropsWithChildren> = ({ children }) => {
-  if (isStorybook) {
-    return <>{children}</>
-  }
+export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children }) => {
   return (
     <DependenciesProvider
       dependencies={{

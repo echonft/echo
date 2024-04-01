@@ -20,9 +20,9 @@ import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
+import { ListingDetails } from '@echo/ui/components/listing/details/listing-details'
 import { ListingDetailsSkeleton } from '@echo/ui/components/listing/details/skeleton/listing-details-skeleton'
 import { getListingPageLayoutBackground } from '@echo/ui/helpers/listing/get-listing-page-layout-background'
-import { ListingDetailsPage as Component } from '@echo/ui/pages/listing/listing-details-page'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -114,9 +114,9 @@ export const Page: StoryObj<ComponentType> = {
     const user =
       role === 'Creator' ? getAuthUserMockByUsername('johnnycagewins') : getAuthUserMockByUsername('crewnft_')
     return (
-      <PageLayout user={user} background={getListingPageLayoutBackground(renderedListing)}>
+      <PageLayout user={user} background={getListingPageLayoutBackground(renderedListing)} excludeProviders={true}>
         <PaddedSectionLayout>
-          <Component listing={renderedListing} user={user} userTargetNfts={getTargetNfts()} offers={getOffers()} />
+          <ListingDetails listing={renderedListing} user={user} userTargetNfts={getTargetNfts()} offers={getOffers()} />
         </PaddedSectionLayout>
       </PageLayout>
     )

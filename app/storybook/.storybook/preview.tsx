@@ -86,7 +86,10 @@ const preview: Preview = {
   argTypes: {},
   parameters: {
     actions: { argTypesRegex: '^on.*' },
-    exclude: /^on.*/
+    exclude: /^on.*/,
+    nextjs: {
+      appDirectory: true
+    }
   }
 }
 

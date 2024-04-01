@@ -31,6 +31,7 @@ export const CreateListingTargetsSelection: FunctionComponent<CreateListingTarge
       <div className={clsx('flex', 'flex-col', 'w-full', 'h-max', 'gap-6')}>
         <SearchBoxManager
           resultsProvider={searchCollections}
+          style={{ placeHolder: t('targets.search.placeHolder') }}
           onSelect={pipe(
             applySpec<Collection>({
               name: prop('label'),

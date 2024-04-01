@@ -7,11 +7,11 @@ import { addIndex, isEmpty, isNil, map } from 'ramda'
 
 interface Props<T> {
   results: Nullable<SearchResultModel<T>[]>
-  style?: {
+  style?: Nullable<{
     categories?: {
       show?: boolean
     }
-  }
+  }>
 }
 
 export const SearchResults = <T,>({ results, style }: Props<T>) => {

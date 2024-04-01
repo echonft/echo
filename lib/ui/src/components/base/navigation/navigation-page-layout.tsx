@@ -6,10 +6,15 @@ import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 interface Props {
   user: Nullable<AuthUser>
+  excludeProviders?: boolean
 }
-export const NavigationPageLayout: FunctionComponent<PropsWithChildren<Props>> = ({ user, children }) => {
+export const NavigationPageLayout: FunctionComponent<PropsWithChildren<Props>> = ({
+  user,
+  excludeProviders,
+  children
+}) => {
   return (
-    <PageLayout user={user}>
+    <PageLayout user={user} excludeProviders={excludeProviders}>
       <div className={clsx('flex', 'flex-col', 'w-full', 'gap-12')}>{children}</div>
     </PageLayout>
   )

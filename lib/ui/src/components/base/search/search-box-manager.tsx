@@ -1,12 +1,17 @@
 'use client'
 import type { SearchResult } from '@echo/model/types/search-result'
 import { SearchBox } from '@echo/ui/components/base/search/search-box'
-import type { SearchResultsContainerProps } from '@echo/ui/components/base/search/search-results-container'
 import { isNil } from 'ramda'
 import { useEffect, useRef, useState } from 'react'
 
-export interface SearchBoxManagerProps<T> extends Pick<SearchResultsContainerProps<T>, 'style'> {
+export interface SearchBoxManagerProps<T> {
   resultsProvider: (query: string) => Promise<SearchResult<T>[]>
+  style?: {
+    categories?: {
+      show?: boolean
+    }
+    placeHolder?: string
+  }
   onSelect?: (result: SearchResult<T>) => void
 }
 

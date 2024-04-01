@@ -4,21 +4,26 @@ import { SearchIconSvg } from '@echo/ui/components/base/svg/search-icon-svg'
 import { theme } from '@echo/ui/helpers/theme/theme'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { Combobox, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { always, identity, ifElse, isEmpty, isNil } from 'ramda'
-import { type FunctionComponent, useMemo, useState } from 'react'
+import { type FunctionComponent, useMemo, useRef, useState } from 'react'
 import { RotatingLines } from 'react-loader-spinner'
 import { debounce } from 'throttle-debounce'
 
 interface Props {
   searching?: boolean
+  style?: Nullable<{
+    placeHolder?: string
+  }>
   onSearch?: (searchQuery: string) => unknown
   onClear?: EmptyFunction
 }
 
-export const SearchInput: FunctionComponent<Props> = ({ searching, onClear, onSearch }) => {
+export const SearchInput: FunctionComponent<Props> = ({ searching, style, onClear, onSearch }) => {
   const [query, setQuery] = useState<string | undefined>()
+  const inputRef = useRef<HTMLInputElement>(null)
   const search = useMemo(
     () =>
       debounce(
@@ -32,9 +37,21 @@ export const SearchInput: FunctionComponent<Props> = ({ searching, onClear, onSe
       ),
     [onSearch]
   )
+  const debouncedClear = useMemo(
+    () =>
+      debounce(
+        200,
+        () => {
+          setQuery(undefined)
+          onClear?.()
+        },
+        { atBegin: false }
+      ),
+    [onClear]
+  )
 
   return (
-    <Combobox.Button as={'div'} className={clsx('relative', 'items-center', 'bg-dark-400', 'rounded-lg', 'w-full')}>
+    <Combobox.Button as={'div'} className={clsx('items-center', 'bg-dark-400', 'rounded-lg', 'w-full')}>
       <span className={clsx('text-yellow-500', 'absolute', 'left-3', 'top-3')}>
         {searching ? (
           <RotatingLines
@@ -62,6 +79,7 @@ export const SearchInput: FunctionComponent<Props> = ({ searching, onClear, onSe
           onClick={() => {
             setQuery(undefined)
             onClear?.()
+            inputRef.current?.focus()
           }}
         />
       </Transition>
@@ -77,6 +95,8 @@ export const SearchInput: FunctionComponent<Props> = ({ searching, onClear, onSe
           'outline-none'
         )}
         value={ifElse(isNil, always(''), identity)(query)}
+        placeholder={style?.placeHolder}
+        ref={inputRef}
         onChange={(event) => {
           const value = event.target.value
           if (isEmpty(value)) {
@@ -85,6 +105,7 @@ export const SearchInput: FunctionComponent<Props> = ({ searching, onClear, onSe
           setQuery(value)
           search(value)
         }}
+        onBlur={debouncedClear}
       />
     </Combobox.Button>
   )

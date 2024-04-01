@@ -10,16 +10,16 @@ import { clsx } from 'clsx'
 import { isNil, pipe, sort } from 'ramda'
 import { useCallback, useEffect, useState } from 'react'
 
-export interface SearchResultsContainerProps<T> {
+interface Props<T> {
   results: Nullable<SearchResultModel<T>[]>
-  style?: {
+  style?: Nullable<{
     categories?: {
       show?: boolean
     }
-  }
+  }>
 }
 
-export const SearchResultsContainer = <T,>({ results, style }: SearchResultsContainerProps<T>) => {
+export const SearchResultsContainer = <T,>({ results, style }: Props<T>) => {
   const [filteredResults, setFilteredResults] = useState<Nullable<SearchResultModel<T>[]>>()
   const filterResults = useCallback(
     (category: Nullable<SearchResultCategory>) => {

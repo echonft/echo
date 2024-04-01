@@ -18,7 +18,7 @@ export const WalletConnectedButton: FunctionComponent<Props> = ({ wallet }) => {
   const buttonId = `wallet-${wallet.address}`
 
   return (
-    <div className={clsx('w-max', 'h-max', 'relative')}>
+    <div className={clsx('w-max', 'h-max')}>
       <CopyToClipboard text={formatAddress(wallet)}>
         <button id={buttonId} className={clsx('btn-auth-alt', 'bg-white/[0.08]', 'border-none')}>
           <WalletIconSvg width={24} />

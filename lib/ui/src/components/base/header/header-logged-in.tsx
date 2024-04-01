@@ -2,6 +2,7 @@
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { HeaderLayout } from '@echo/ui/components/base/header/header-layout'
 import { HeaderProfileButton } from '@echo/ui/components/base/header/header-profile-button'
+import { HeaderSearch } from '@echo/ui/components/base/header/header-search'
 import { InternalLink } from '@echo/ui/components/base/internal-link'
 import { EchoLogoSvg } from '@echo/ui/components/base/svg/echo-logo-svg'
 import { type FunctionComponent, type MouseEventHandler } from 'react'
@@ -16,6 +17,7 @@ export const HeaderLoggedIn: FunctionComponent<HeaderLoggedInProps> = (props) =>
       <InternalLink path={'/'}>
         <EchoLogoSvg width={144} />
       </InternalLink>
+      <HeaderSearch />
       <HeaderProfileButton {...props} />
     </HeaderLayout>
   )

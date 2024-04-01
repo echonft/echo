@@ -77,7 +77,7 @@ export const Page: StoryObj<ComponentType> = {
     )('LyCfl6Eg7JKuD7XJ6IPi')
     const user = getAuthUserMockByUsername(isOfferRoleSender(renderedOffer) ? 'crewnft_' : 'johnnycagewins')
     return (
-      <PageLayout user={user} background={getOfferPageLayoutBackground(renderedOffer)}>
+      <PageLayout user={user} background={getOfferPageLayoutBackground(renderedOffer)} excludeProviders={true}>
         <PaddedSectionLayout>
           <OfferDetails offer={renderedOffer} />
         </PaddedSectionLayout>

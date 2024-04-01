@@ -52,7 +52,6 @@ export const SelectableNftThumbnail: FunctionComponent<Props> = ({ nft, onRemove
           'flex',
           'justify-center',
           'items-center',
-          'z-10',
           !imgLoaded && 'hidden'
         )}
         onClick={onRemove}
