@@ -4,7 +4,6 @@ import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/
 import { completeOffer } from '@echo/firestore/crud/offer/complete-offer'
 import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
-import { assertAlchemyToken } from '@echo/frontend/lib/helpers/alchemy/assert-alchemy-token'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { hexStringSchema } from '@echo/frontend/lib/validators/hex-string-schema'
 import type { Offer } from '@echo/model/types/offer'
@@ -56,7 +55,7 @@ const swapEventSchema = z
 
 export async function swapWebhookRequestHandler(req: ApiRequest<SwapWebhookRequest>) {
   const body = await req.text()
-  assertAlchemyToken(body)
+  // assertAlchemyToken(body)
   const swapEvents = guardFn(
     pipe<[string], SwapWebhookRequest, { offerId: string; txHash: HexString }[]>(
       JSON.parse,

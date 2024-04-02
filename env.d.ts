@@ -27,7 +27,6 @@ declare namespace NodeJS {
       NODE_ENV: 'production' | 'development' | 'test'
       SIGNER_PRIVATE_KEY: `0x${string}`
       STORYBOOK: undefined | 'true'
-      VERCEL_URL: string
     }
   }
 }
