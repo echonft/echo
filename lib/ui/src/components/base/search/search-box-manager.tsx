@@ -1,8 +1,7 @@
 'use client'
 import type { SearchResult } from '@echo/model/types/search-result'
 import { SearchBox } from '@echo/ui/components/base/search/search-box'
-import { isNil } from 'ramda'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 export interface SearchBoxManagerProps<T> {
   resultsProvider: (query: string) => Promise<SearchResult<T>[]>
@@ -31,17 +30,6 @@ export const SearchBoxManager = <T,>({ resultsProvider, style, onSelect }: Searc
     })
   }
   const clearRequestedRef = useRef(false)
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
-
-  // clear the timeout if needed
-  useEffect(
-    () => () => {
-      if (!isNil(timeoutRef.current)) {
-        clearTimeout(timeoutRef.current)
-      }
-    },
-    [timeoutRef]
-  )
 
   function clear() {
     if (searching) {
