@@ -23,8 +23,8 @@
   "dependencies": {
     "ramda": "0.29.1",
     "siwe": "2.1.4",
-    "viem": "2.8.16",
-    "wagmi": "2.5.12"
+    "viem": "2.9.6",
+    "wagmi": "2.5.17"
   },
   "devDependencies": {
     "@babel/core": "7.24.3",
@@ -34,8 +34,8 @@
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@types/node": "20.11.30",
-    "@types/ramda": "0.29.11",
+    "@types/node": "20.12.2",
+    "@types/ramda": "0.29.12",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
     "typescript": "5.4.3"

@@ -36,7 +36,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.27.1",
+    "@dotenvx/dotenvx": "0.27.2",
     "@echo/alchemy": "workspace:*",
     "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",
@@ -44,9 +44,9 @@
     "@echo/tasks": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
-    "@types/node": "20.11.30",
+    "@types/node": "20.12.2",
     "@types/qs": "6.9.14",
-    "@types/ramda": "0.29.11",
+    "@types/ramda": "0.29.12",
     "@types/yargs": "17.0.32",
     "axios": "1.6.8",
     "qs": "6.12.0",

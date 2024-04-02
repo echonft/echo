@@ -27,9 +27,9 @@
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
-    "@types/node": "20.11.30",
+    "@types/node": "20.12.2",
     "@types/qs": "6.9.14",
-    "@types/ramda": "0.29.11",
+    "@types/ramda": "0.29.12",
     "next": "14.1.4",
     "typescript": "5.4.3"
   }
