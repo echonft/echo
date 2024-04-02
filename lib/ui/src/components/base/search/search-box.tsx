@@ -62,7 +62,6 @@ export const SearchBox = <T,>({ results, searching, style, onSearch, onSearchCle
             pick(['placeHolder'])
           )(style)}
           onBlur={() => {
-            // console.log(`isNil? ${isNil(resultsContainerRef.current)}`)
             timeoutRef.current = setTimeout(() => {
               const activeElementId = document.activeElement?.id
               if (!activeElementId?.startsWith('search-category')) {
