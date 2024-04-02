@@ -1,11 +1,11 @@
+import { METADATA_DESCRIPTION, METADATA_TITLE } from '@echo/frontend/constants/metadata'
 import { type MetadataRoute } from 'next'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: 'Echo',
-    short_name: 'Echo',
-    description:
-      'Experience secure, seamless NFT swapping with Echo! Our beta is now live on mainnet. Join the revolution today! 🚀',
+    name: METADATA_TITLE,
+    short_name: METADATA_TITLE,
+    description: METADATA_DESCRIPTION,
     start_url: '/',
     display: 'standalone',
     background_color: '#fff',
