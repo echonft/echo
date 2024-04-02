@@ -32,6 +32,7 @@
     "firestore-functions:deploy:testnet": "turbo run deploy:testnet --filter=@echo/firestore-functions",
     "frontend:dev": "turbo run dev --filter=@echo/frontend --filter=@echo/ui",
     "frontend:dev:testnet": "turbo run dev:testnet --filter=@echo/frontend dev --filter=@echo/ui",
+    "frontend:deploy:testnet": "git rebase main testnet && git push origin testnet",
     "knip": "knip",
     "lint": "turbo run lint",
     "lint:ci": "turbo run lint:ci",

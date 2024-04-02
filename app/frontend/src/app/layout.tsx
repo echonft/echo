@@ -1,4 +1,5 @@
 import '@echo/ui-css/index.css'
+import { METADATA_DESCRIPTION, METADATA_IMAGE_URL, METADATA_TITLE } from '@echo/frontend/constants/metadata'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
 import { messages } from '@echo/ui/messages/en'
@@ -8,14 +9,10 @@ import { type Metadata, type Viewport } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 
 // noinspection JSUnusedGlobalSymbols
-const title = 'Echo'
-const description =
-  'Experience secure, seamless NFT swapping with Echo! Our beta is now live on mainnet. Join the revolution today! 🚀'
-const imageUrl = `https://storage.googleapis.com/${process.env.GOOGLE_STORAGE_BUCKET}/og-image.png?alt=media`
 export const metadata: Metadata = {
-  title,
-  description,
-  applicationName: title,
+  title: METADATA_TITLE,
+  description: METADATA_DESCRIPTION,
+  applicationName: METADATA_TITLE,
   icons: {
     icon: '/icon.png',
     apple: '/apple-icon.png',
@@ -43,13 +40,13 @@ export const metadata: Metadata = {
     ]
   },
   openGraph: {
-    title,
-    description,
+    title: METADATA_TITLE,
+    description: METADATA_DESCRIPTION,
     url: getBaseUrl(),
     siteName: 'Echo Beta',
     images: [
       {
-        url: imageUrl,
+        url: METADATA_IMAGE_URL,
         width: 1200,
         height: 630
       }
@@ -75,9 +72,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title,
-    description,
-    images: [imageUrl] // Must be an absolute URL
+    title: METADATA_TITLE,
+    description: METADATA_DESCRIPTION,
+    images: [METADATA_IMAGE_URL] // Must be an absolute URL
   }
 }
 // noinspection JSUnusedGlobalSymbols
