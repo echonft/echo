@@ -38,7 +38,17 @@ void (async function () {
     andThen(map(nonNullableReturn(path(['contract', 'address']))))
   )()
   await createAlchemyWebhook({
-    query: `{ block { logs(filter: {addresses: ${JSON.stringify(collectionAddresses)}, topics: ["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"]}) { data, account { address }, transaction { hash, from { address }, to { address } } } }}`,
+    query: `{ 
+      block { 
+        logs(filter: {addresses: ${JSON.stringify(collectionAddresses)}, topics: ["0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef"]}) { 
+          transaction { 
+            logs { 
+              account { address } topics 
+            } 
+          } 
+        }
+      }
+    }`,
     path: apiUrlProvider.webhooks.nftTransfer.get(),
     url: u
   })

@@ -37,6 +37,7 @@ export const SearchResult = <T,>({ result, style }: SearchResultProps<T>) => {
         style?.rounded === 'bottom' && 'rounded-b-lg'
       )}
       value={result}
+      id={`search-result-${result.id}`}
     >
       <Image
         className={clsx('w-8', 'h-8', 'rounded')}

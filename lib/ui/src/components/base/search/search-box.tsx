@@ -4,9 +4,11 @@ import { SearchInput } from '@echo/ui/components/base/search/search-input'
 import { SearchResultsContainer } from '@echo/ui/components/base/search/search-results-container'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { Combobox, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { isNil, pick } from 'ramda'
+import { useEffect, useRef, useState } from 'react'
 
 interface Props<T> {
   results: SearchResult<T>[] | undefined
@@ -23,6 +25,20 @@ interface Props<T> {
 }
 
 export const SearchBox = <T,>({ results, searching, style, onSearch, onSearchClear, onSelect }: Props<T>) => {
+  const [query, setQuery] = useState<Nullable<string>>()
+  const inputRef = useRef<HTMLInputElement>(null)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
+
+  // clear the timeout if needed
+  useEffect(
+    () => () => {
+      if (!isNil(timeoutRef.current)) {
+        clearTimeout(timeoutRef.current)
+      }
+    },
+    [timeoutRef]
+  )
+
   return (
     <div className={clsx('h-max', 'w-full', 'relative')}>
       <Combobox
@@ -31,12 +47,31 @@ export const SearchBox = <T,>({ results, searching, style, onSearch, onSearchCle
         }}
       >
         <SearchInput
+          query={query}
           searching={searching}
+          ref={inputRef}
           onSearch={onSearch}
-          onClear={onSearchClear}
+          onChange={(query: Nullable<string>) => {
+            if (isNil(query)) {
+              inputRef.current?.focus()
+              onSearchClear?.()
+            }
+            setQuery(query)
+          }}
           style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'placeHolder'>>(
             pick(['placeHolder'])
           )(style)}
+          onBlur={() => {
+            timeoutRef.current = setTimeout(() => {
+              const activeElementId = document.activeElement?.id
+              if (!activeElementId?.startsWith('search-category')) {
+                onSearchClear?.()
+                setQuery(undefined)
+              } else {
+                inputRef.current?.focus()
+              }
+            }, 200)
+          }}
         />
         <Transition
           show={!isNil(results)}

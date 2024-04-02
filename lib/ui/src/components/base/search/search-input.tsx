@@ -3,27 +3,27 @@ import { SearchInputClearButton } from '@echo/ui/components/base/search/search-i
 import { SearchIconSvg } from '@echo/ui/components/base/svg/search-icon-svg'
 import { theme } from '@echo/ui/helpers/theme/theme'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
-import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { Combobox, Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { always, identity, ifElse, isEmpty, isNil } from 'ramda'
-import { type FunctionComponent, useMemo, useRef, useState } from 'react'
+import { type FocusEventHandler, type ForwardedRef, forwardRef, useMemo } from 'react'
 import { RotatingLines } from 'react-loader-spinner'
 import { debounce } from 'throttle-debounce'
 
 interface Props {
+  query: Nullable<string>
   searching?: boolean
   style?: Nullable<{
     placeHolder?: string
   }>
+  onBlur?: FocusEventHandler
+  onChange?: (query: Nullable<string>) => void
   onSearch?: (searchQuery: string) => unknown
-  onClear?: EmptyFunction
 }
 
-export const SearchInput: FunctionComponent<Props> = ({ searching, style, onClear, onSearch }) => {
-  const [query, setQuery] = useState<string | undefined>()
-  const inputRef = useRef<HTMLInputElement>(null)
+function Render(props: Props, ref: ForwardedRef<HTMLInputElement>) {
+  const { query, searching, style, onBlur, onChange, onSearch } = props
   const search = useMemo(
     () =>
       debounce(
@@ -36,18 +36,6 @@ export const SearchInput: FunctionComponent<Props> = ({ searching, style, onClea
         { atBegin: false }
       ),
     [onSearch]
-  )
-  const debouncedClear = useMemo(
-    () =>
-      debounce(
-        200,
-        () => {
-          setQuery(undefined)
-          onClear?.()
-        },
-        { atBegin: false }
-      ),
-    [onClear]
   )
 
   return (
@@ -77,9 +65,7 @@ export const SearchInput: FunctionComponent<Props> = ({ searching, style, onClea
         <SearchInputClearButton
           className={clsx('absolute', 'right-3', 'top-3')}
           onClick={() => {
-            setQuery(undefined)
-            onClear?.()
-            inputRef.current?.focus()
+            onChange?.(undefined)
           }}
         />
       </Transition>
@@ -96,17 +82,18 @@ export const SearchInput: FunctionComponent<Props> = ({ searching, style, onClea
         )}
         value={ifElse(isNil, always(''), identity)(query)}
         placeholder={style?.placeHolder}
-        ref={inputRef}
+        ref={ref}
         onChange={(event) => {
           const value = event.target.value
-          if (isEmpty(value)) {
-            onClear?.()
-          }
-          setQuery(value)
+          onChange?.(value)
           search(value)
         }}
-        onBlur={debouncedClear}
+        onBlur={(event) => {
+          onBlur?.(event)
+        }}
       />
     </Combobox.Button>
   )
 }
+
+export const SearchInput = forwardRef(Render)
