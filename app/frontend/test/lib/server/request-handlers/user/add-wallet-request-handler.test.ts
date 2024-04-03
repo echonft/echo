@@ -1,4 +1,4 @@
-import { type AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
+import { type AddEvmWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import { findNonceForUser } from '@echo/firestore/crud/nonce/find-nonce-for-user'
 import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
@@ -41,7 +41,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     chainId,
     address
   }
-  const validRequest: AddWalletRequest = {
+  const validRequest: AddEvmWalletRequest = {
     message: validSiweMessage,
     signature: validSignature,
     wallet: validWallet
@@ -53,7 +53,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
   })
 
   it('throws if the request cannot be parsed', async () => {
-    const req = mockRequest<AddWalletRequest>({} as AddWalletRequest)
+    const req = mockRequest<AddEvmWalletRequest>({} as AddEvmWalletRequest)
     try {
       await addWalletRequestHandler(user, req)
       expect(true).toBeFalsy()
@@ -65,7 +65,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
   it('throws if the siwe message cannot be validated', async () => {
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockRejectedValue({})
-    const req = mockRequest<AddWalletRequest>(validRequest)
+    const req = mockRequest<AddEvmWalletRequest>(validRequest)
     try {
       await addWalletRequestHandler(user, req)
       expect(true).toBeFalsy()
@@ -79,7 +79,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     jest.mocked(findNonceForUser).mockResolvedValueOnce({ nonce: 'another-nonce', expired: false } as Nonce)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
-    const req = mockRequest<AddWalletRequest>(validRequest)
+    const req = mockRequest<AddEvmWalletRequest>(validRequest)
     try {
       await addWalletRequestHandler(user, req)
       expect(true).toBeFalsy()
@@ -93,7 +93,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     jest.mocked(findNonceForUser).mockResolvedValueOnce({ nonce: 'nonce', expired: true } as Nonce)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
-    const req = mockRequest<AddWalletRequest>(validRequest)
+    const req = mockRequest<AddEvmWalletRequest>(validRequest)
     try {
       await addWalletRequestHandler(user, req)
       expect(true).toBeFalsy()
@@ -109,7 +109,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
     jest.mocked(addWallet).mockResolvedValueOnce(getWalletMockById('i28NWtlxElPXCnO0c6BC'))
     jest.mocked(getWalletsForUser).mockResolvedValueOnce([])
-    const req = mockRequest<AddWalletRequest>(validRequest)
+    const req = mockRequest<AddEvmWalletRequest>(validRequest)
     const res = await addWalletRequestHandler(user, req)
     expect(addWallet).toHaveBeenCalledTimes(1)
     expect(res.status).toBe(200)

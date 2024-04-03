@@ -35,7 +35,8 @@ export const SWRKeys = {
   profile: {
     nonce: {
       get: 'get-nonce',
-      sign: 'sign-nonce'
+      sign: 'sign-nonce',
+      signSolana: 'sign-solana'
     },
     wallet: {
       add: 'add-wallet',

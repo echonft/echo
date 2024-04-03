@@ -1,4 +1,4 @@
-import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
+import type { AddEvmWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import type { Wallet } from '@echo/model/types/wallet'
@@ -70,7 +70,7 @@ export function useConnectWallet(account: AccountResult) {
       }
     }
   })
-  const { trigger: addWalletTrigger } = useSWRTrigger<WalletsResponse, AddWalletRequest>({
+  const { trigger: addWalletTrigger } = useSWRTrigger<WalletsResponse, AddEvmWalletRequest>({
     key: SWRKeys.profile.wallet.add,
     fetcher: addWallet,
     onSuccess: (response) => {

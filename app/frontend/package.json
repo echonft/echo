@@ -31,7 +31,9 @@
     "@auth/core": "0.28.2",
     "@sentry/integrations": "7.109.0",
     "@sentry/nextjs": "7.109.0",
+    "@solana/web3.js": "1.91.3",
     "@vercel/speed-insights": "1.0.10",
+    "bs58": "5.0.0",
     "next": "14.1.4",
     "next-auth": "5.0.0-beta.16",
     "next-intl": "3.10.0",
@@ -40,6 +42,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "siwe": "2.1.4",
+    "tweetnacl": "1.0.3",
     "zod": "3.22.4"
   },
   "devDependencies": {
@@ -55,6 +58,7 @@
     "@sentry/cli": "2.31.0",
     "@swc/core": "1.4.11",
     "@swc/jest": "0.2.36",
+    "@types/bs58": "4.0.4",
     "@types/jest": "29.5.12",
     "@types/node": "20.12.2",
     "@types/qs": "6.9.14",
