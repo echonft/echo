@@ -830,6 +830,9 @@ importers:
       '@babel/preset-typescript':
         specifier: 7.24.1
         version: 7.24.1(@babel/core@7.24.3)
+      '@echo/alchemy':
+        specifier: workspace:*
+        version: link:../alchemy
       '@echo/api':
         specifier: workspace:*
         version: link:../api

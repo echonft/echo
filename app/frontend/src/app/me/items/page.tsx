@@ -1,7 +1,9 @@
+import { getSolanaNftsForOwner } from '@echo/alchemy/helius/services/get-solana-nfts-for-owner'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
+import type { User } from '@echo/model/types/user'
 import { NAVIGATION_NFTS } from '@echo/ui/constants/navigation-item'
 import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
 import { ProfileNavigationLayout } from '@echo/ui/pages/profile/navigation/profile-navigation-layout'
@@ -16,9 +18,14 @@ async function render({ user }: NextAuthUserParams) {
     getNftsForOwner as (username: string) => Promise<SelectableNft[]>,
     andThen(map<SelectableNft, SelectableNft>(assoc('action', NFT_ACTION_LISTING)))
   )(user)
+
+  // TODO This doesnt belong here
+  const solanaNfts = await getSolanaNftsForOwner(user as unknown as User).then(
+    map<SelectableNft, SelectableNft>(assoc('action', NFT_ACTION_LISTING))
+  )
   return (
     <ProfileNavigationLayout activeNavigationItem={NAVIGATION_NFTS}>
-      <ProfileNfts nfts={nfts} />
+      <ProfileNfts nfts={solanaNfts.concat(nfts)} />
     </ProfileNavigationLayout>
   )
 }
