@@ -1,0 +1,13 @@
+{
+  "extends": "../tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@echo/helius/*": ["src/*"],
+      "@echo/model/*": ["../model/src/*"],
+      "@echo/utils/*": ["../utils/src/*"]
+    }
+  },
+  "include": ["src", "../../env.d.ts"],
+  "exclude": ["node_modules"]
+}

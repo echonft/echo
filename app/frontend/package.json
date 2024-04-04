@@ -49,6 +49,7 @@
     "@dotenvx/dotenvx": "0.27.2",
     "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",
+    "@echo/helius": "workspace:*",
     "@echo/model": "workspace:*",
     "@echo/tasks": "workspace:*",
     "@echo/ui": "workspace:*",

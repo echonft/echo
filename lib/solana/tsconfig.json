@@ -1,0 +1,22 @@
+{
+  "extends": "../tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@echo/helius/*": ["../helius/src/*"],
+      "@echo/model/*": ["../model/src/*"],
+      "@echo/solana/*": ["src/*"],
+      "@echo/utils/*": ["../utils/src/*"]
+    }
+  },
+  "include": ["src", "../../env.d.ts"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "transpileOnly": true,
+    "compilerOptions": {
+      "moduleResolution": "node",
+      "module": "commonjs"
+    }
+  }
+}

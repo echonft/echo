@@ -15,6 +15,7 @@ declare namespace NodeJS {
       ECHO_DISCORD_GUILD_ID: string
       ECHO_DISCORD_GUILD_CHANNEL_ID: string
       ENV: 'dev' | 'testnet' | 'test'
+      EXTR_NODE_API_KEY: string
       FIREBASE_PROJECT_ID: string
       FIREBASE_CLIENT_EMAIL: string
       FIREBASE_PRIVATE_KEY: string

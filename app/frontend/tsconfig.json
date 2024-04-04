@@ -9,6 +9,7 @@
       "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
       "@echo/frontend/*": ["src/*"],
       "@echo/frontend-mocks/*": ["test/@mocks/*"],
+      "@echo/helius/*": ["../../lib/helius/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
       "@echo/tasks/*": ["../../lib/tasks/src/*"],

@@ -1,8 +1,7 @@
-import { getSolanaNftsForOwner } from '@echo/alchemy/helius/services/get-solana-nfts-for-owner'
-import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user-params'
+import { getNftsForOwner } from '@echo/helius/services/get-nfts-for-owner'
 import type { User } from '@echo/model/types/user'
 import { NAVIGATION_NFTS } from '@echo/ui/constants/navigation-item'
 import { NFT_ACTION_LISTING } from '@echo/ui/constants/nft-actions'
@@ -20,7 +19,7 @@ async function render({ user }: NextAuthUserParams) {
   )(user)
 
   // TODO This doesnt belong here
-  const solanaNfts = await getSolanaNftsForOwner(user as unknown as User).then(
+  const solanaNfts = await getNftsForOwner(user as unknown as User).then(
     map<SelectableNft, SelectableNft>(assoc('action', NFT_ACTION_LISTING))
   )
   return (

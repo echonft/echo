@@ -1,0 +1,43 @@
+{
+  "name": "@echo/solana",
+  "version": "1.0.0",
+  "private": true,
+  "sideEffects": false,
+  "license": "MIT",
+  "scripts": {
+    "command:get-collection-nfts": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/get-collection-nfts-command.ts",
+    "command:create-nft-collection": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/create-nft-collection-command.ts",
+    "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
+    "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
+    "lint:clean-cache": "rm -f .eslintcache",
+    "modules:remove": "rm -rf node_modules",
+    "modules:update": "ncu -u",
+    "modules:update-minor": "ncu -u --target=minor",
+    "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
+    "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
+    "tsc": "tsc --noEmit",
+    "tsc:ci": "pnpm run tsc",
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
+  },
+  "dependencies": {
+    "@metaplex-foundation/mpl-token-metadata": "3.2.1",
+    "@metaplex-foundation/umi": "0.9.1",
+    "@metaplex-foundation/umi-bundle-defaults": "0.9.1",
+    "@metaplex-foundation/umi-eddsa-web3js": "0.9.1",
+    "@metaplex-foundation/umi-program-repository": "0.9.1",
+    "@metaplex-foundation/umi-rpc-web3js": "0.9.1",
+    "@solana/web3.js": "1.91.3",
+    "ramda": "0.29.1"
+  },
+  "devDependencies": {
+    "@dotenvx/dotenvx": "0.27.2",
+    "@echo/helius": "workspace:*",
+    "@echo/model": "workspace:*",
+    "@echo/utils": "workspace:*",
+    "@types/node": "20.12.3",
+    "@types/ramda": "0.29.12",
+    "ts-node": "10.9.2",
+    "tsconfig-paths": "4.2.0",
+    "typescript": "5.4.3"
+  }
+}
