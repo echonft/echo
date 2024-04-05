@@ -1,20 +1,29 @@
 import { ApiMethods } from '@echo/helius/constants/api-methods'
 import { getHeliusApiUrl } from '@echo/helius/constants/get-helius-api-url'
 import { JSON_RPC_VERSION } from '@echo/helius/constants/json-rpc-version'
+import { handleHeliusPaging } from '@echo/helius/helpers/handle-helius-paging'
 import type { GetNftsForCollectionRequest } from '@echo/helius/types/request/get-nfts-for-collection-request'
-import type { GetNftsForCollectionResponse } from '@echo/helius/types/response/get-nfts-for-collection-response'
+import type { WithPagingParams } from '@echo/helius/types/request/params/with-paging-params'
+import type { DigitalAsset } from '@echo/helius/types/response/digital-asset'
+import type { HeliusResponseWithPaging } from '@echo/helius/types/response/helius-response-with-paging'
 import type { SupportedCluster } from '@echo/helius/types/supported-cluster'
 import axios, { type AxiosResponse } from 'axios'
-import { pipe, prop } from 'ramda'
+import { prop } from 'ramda'
 
 export interface GetSolanaNftsForCollectionArgs {
   cluster: SupportedCluster
   collectionAddress: string
 }
-export function getNftsForCollection(args: GetSolanaNftsForCollectionArgs): Promise<GetNftsForCollectionResponse> {
-  const { cluster, collectionAddress } = args
+function getNftsForCollectionWithPaging(
+  args: GetSolanaNftsForCollectionArgs & WithPagingParams
+): Promise<HeliusResponseWithPaging<DigitalAsset>> {
+  const { cluster, collectionAddress, page, limit } = args
   return axios
-    .post<GetNftsForCollectionResponse, AxiosResponse<GetNftsForCollectionResponse>, GetNftsForCollectionRequest>(
+    .post<
+      HeliusResponseWithPaging<DigitalAsset>,
+      AxiosResponse<HeliusResponseWithPaging<DigitalAsset>>,
+      GetNftsForCollectionRequest
+    >(
       getHeliusApiUrl(cluster),
       {
         jsonrpc: JSON_RPC_VERSION,
@@ -23,8 +32,8 @@ export function getNftsForCollection(args: GetSolanaNftsForCollectionArgs): Prom
         params: {
           groupKey: 'collection',
           groupValue: collectionAddress,
-          page: 1,
-          limit: 2,
+          page,
+          limit,
           displayOptions: {
             showCollectionMetadata: true
           }
@@ -32,5 +41,9 @@ export function getNftsForCollection(args: GetSolanaNftsForCollectionArgs): Prom
       },
       { headers: { 'Content-Type': 'application/json' } }
     )
-    .then(pipe(prop('data')))
+    .then(prop('data'))
+}
+
+export function getNftsForCollection(args: GetSolanaNftsForCollectionArgs): Promise<DigitalAsset[]> {
+  return handleHeliusPaging(getNftsForCollectionWithPaging, 'items')(args)
 }

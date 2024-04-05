@@ -1,41 +1,36 @@
-// import type { ApiMethods } from '@echo/helius/constants/api-methods'
-// import type { HeliusRequest } from '@echo/helius/types/request/params/base/helius-request'
-// import type { WithPagingParams } from '@echo/helius/types/request/params/base/with-paging-params'
-// import type { WithPagingResponse } from '@echo/helius/types/response/base/with-paging-response'
-// import { assoc, concat, has, inc, type MergeArrays, modify, pipe, prop, unless } from 'ramda'
-//
-// function handlePagingRecursive<
-//   Args extends WithPagingParams,
-//   AccKey extends keyof Omit<Response, keyof WithPagingResponse>,
-//   Response extends WithPagingResponse & Record<AccKey, Response[AccKey]> & Record<AccKey, Array<unknown>>
-// >(
-//   fetcher: (args: Args) => Promise<Response>,
-//   accumulatorKey: AccKey,
-//   accumulatedData: Response[AccKey]
-// ) {
-//   return async function (args: Args): Promise<Response[AccKey]> {
-//     const response = await fetcher(args)
-//     if (response.total > response.limit) {
-//       const newAccumulatedData:Response[AccKey] = pipe(prop(accumulatorKey), concat(accumulatedData))(response)
-//
-//       return handlePagingRecursive<Args,AccKey, Response>(fetcher, accumulatorKey, )(modify('page', inc,args))
-//     }
-//     return accumulatedData
-//   }
-// }
-//
-// export function handleHeliusPaging<
-//   Args extends WithPagingParams,
-//   Params extends WithPagingParams,
-//   Request extends HeliusRequest<Params, ApiMethods>,
-//   AccKey extends keyof Omit<Response, keyof WithPagingResponse>,
-//   Response extends Record<AccKey, Response[AccKey]> & WithPagingResponse
-// >(args: Args, accKey: AccKey) {
-//   return function (fetcher: (request: Request) => Promise<Response) {
-//     return pipe<[Args], Args, Args, Promise<Response>>(
-//       assoc('page', 1),
-//       unless(has('limit'), assoc('limit', 1000)),
-//       handlePagingRecursive<Args, Response, AccKey>(fetcher, accKey, [])
-//     )(args)
-//   }
-// }
+import type { WithPagingParams } from '@echo/helius/types/request/params/with-paging-params'
+import type { HeliusResponseWithPaging } from '@echo/helius/types/response/helius-response-with-paging'
+import type { ResultWithPaging } from '@echo/helius/types/response/result-with-paging'
+import { assoc, concat, inc, modify, pipe, prop } from 'ramda'
+
+function handlePagingRecursive<Args extends WithPagingParams, Result>(
+  fetcher: (args: Args) => Promise<HeliusResponseWithPaging<Result>>,
+  accKey: keyof ResultWithPaging<Result>,
+  accData: Result[]
+) {
+  return async function (args: Args): Promise<Result[]> {
+    const response = await fetcher(args)
+    const { result } = response
+    const newAccumulatedData = pipe<[ResultWithPaging<Result>], Result[], Result[]>(
+      prop(accKey),
+      concat<Result>(accData)
+    )(result)
+    if (result.total === result.limit) {
+      return handlePagingRecursive<Args, Result>(fetcher, accKey, newAccumulatedData)(modify('page', inc, args) as Args)
+    }
+    return newAccumulatedData
+  }
+}
+
+export function handleHeliusPaging<Args, Result>(
+  fetcher: (args: Args & WithPagingParams) => Promise<HeliusResponseWithPaging<Result>>,
+  accKey: keyof ResultWithPaging<Result>
+) {
+  return function (args: Args) {
+    return pipe<[Args], Args & Record<'page', number>, Args & WithPagingParams, Promise<Result[]>>(
+      assoc('page', 1) as (args: Args) => Args & Record<'page', number>,
+      assoc('limit', 1000) as (args: Args) => Args & WithPagingParams,
+      handlePagingRecursive<Args & WithPagingParams, Result>(fetcher, accKey, [])
+    )(args)
+  }
+}

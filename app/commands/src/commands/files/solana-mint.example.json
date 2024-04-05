@@ -1,0 +1,20 @@
+[
+  {
+    "collection": {
+      "address": "6mszaj17KSfVqADrQj3o4W3zoLMTykgmV37W4QadCczK",
+      "name": "Claynosaurz",
+      "symbol": "DINO",
+      "uri": "https://nftstorage.link/ipfs/bafkreihsaaak3rs7ps4plzjwbq6tgpfcbq5wtbldcmvm5z4b7wm57dwrv4"
+    },
+    "owners": [
+      {
+        "address": "6xuWDyaa9jZaMSzaGVhjuWhtrnU3wSC4xSRk6xhH4g14",
+        "quantity": 10
+      },
+      {
+        "address": "7sfZspu3RLgUmDdAPpJuUCdBcn4EYxRUvxhoH7pV2iTu",
+        "quantity": 10
+      }
+    ]
+  }
+]

@@ -13,9 +13,11 @@ import { isNil } from 'ramda'
 import { type FunctionComponent, useEffect } from 'react'
 import { mutate } from 'swr'
 
+// TODO WIP
 export const SolanaConnectWalletButton: FunctionComponent = () => {
   const t = useTranslations('error.profile')
-  const { publicKey, signMessage, connected, disconnect } = useWallet()
+  const walletContext = useWallet()
+  const { publicKey, signMessage, connected } = walletContext
   const { addWallet, getNonce } = useDependencies()
 
   const { trigger: getNonceTrigger } = useSWRTrigger<NonceResponse, never>({
@@ -27,7 +29,7 @@ export const SolanaConnectWalletButton: FunctionComponent = () => {
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('addWallet') },
       onError: () => {
-        void disconnect()
+        void walletContext.disconnect()
       }
     }
   })
@@ -41,7 +43,7 @@ export const SolanaConnectWalletButton: FunctionComponent = () => {
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('addWallet') },
       onError: () => {
-        void disconnect()
+        void walletContext.disconnect()
       }
     }
   })
@@ -65,7 +67,7 @@ export const SolanaConnectWalletButton: FunctionComponent = () => {
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('signing') },
       onError: () => {
-        void disconnect()
+        void walletContext.disconnect()
       }
     }
   })

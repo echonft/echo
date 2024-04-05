@@ -745,6 +745,9 @@ importers:
       '@metaplex-foundation/umi-rpc-web3js':
         specifier: 0.9.1
         version: 0.9.1(@metaplex-foundation/umi@0.9.1)(@solana/web3.js@1.91.3)
+      '@metaplex-foundation/umi-transaction-factory-web3js':
+        specifier: 0.9.1
+        version: 0.9.1(@metaplex-foundation/umi@0.9.1)(@solana/web3.js@1.91.3)
       '@solana/web3.js':
         specifier: 1.91.3
         version: 1.91.3

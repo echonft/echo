@@ -30,6 +30,9 @@ export async function addWalletRequestHandler(user: AuthUser, req: ApiRequest<Ad
     (req: ApiRequest<AddWalletRequest>) => req.json(),
     ErrorStatus.BAD_REQUEST
   )(req)
+  // FIXME split in 2 calls
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   if (propIsNil('publicKey', requestBody)) {
     return addEvmWalletRequestHandler(user, requestBody as AddEvmWalletRequest)
   }

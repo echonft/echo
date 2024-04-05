@@ -5,6 +5,6 @@ import { web3JsRpc } from '@metaplex-foundation/umi-rpc-web3js'
 export function setUmiRpcEndpoint(cluster: Cluster) {
   return function (umi: Umi) {
     const { http, ws } = getClusterRpcUrl(cluster)
-    return umi.use(web3JsRpc(http, { wsEndpoint: ws }))
+    return umi.use(web3JsRpc(http, { commitment: 'finalized', wsEndpoint: ws }))
   }
 }

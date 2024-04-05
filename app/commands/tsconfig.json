@@ -15,8 +15,10 @@
       "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
       "@echo/api/*": ["../../lib/api/src/*"],
       "@echo/commands/*": ["./src/*"],
+      "@echo/helius/*": ["../../lib/helius/src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/solana/*": ["../../lib/solana/src/*"],
       "@echo/tasks/*": ["../../lib/tasks/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"]

@@ -27,6 +27,7 @@ declare namespace NodeJS {
       NEXT_PUBLIC_VERCEL_URL: string
       NODE_ENV: 'production' | 'development' | 'test'
       SIGNER_PRIVATE_KEY: `0x${string}`
+      SOLONA_SIGNER_PRIVATE_KEY: string
       STORYBOOK: undefined | 'true'
     }
   }

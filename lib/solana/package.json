@@ -5,8 +5,6 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "command:get-collection-nfts": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/get-collection-nfts-command.ts",
-    "command:create-nft-collection": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/create-nft-collection-command.ts",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
@@ -26,6 +24,7 @@
     "@metaplex-foundation/umi-eddsa-web3js": "0.9.1",
     "@metaplex-foundation/umi-program-repository": "0.9.1",
     "@metaplex-foundation/umi-rpc-web3js": "0.9.1",
+    "@metaplex-foundation/umi-transaction-factory-web3js": "0.9.1",
     "@solana/web3.js": "1.91.3",
     "ramda": "0.29.1"
   },
