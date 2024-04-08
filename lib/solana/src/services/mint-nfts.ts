@@ -15,7 +15,6 @@ import {
   publicKey,
   type Signer,
   signerIdentity,
-  signerPayer,
   type Umi
 } from '@metaplex-foundation/umi'
 import { assoc, bind, drop, map, omit, partialRight, pipe, split, take } from 'ramda'
@@ -49,7 +48,6 @@ interface MintForOwnerArgs extends Omit<MintArgs, 'asset'> {
 
 async function mintAsset({ umi, payer, collectionMint, collectionMetadata, asset, tokenOwner }: MintArgs) {
   const mint = generateSigner(umi)
-  umi.use(signerIdentity(mint, false))
   const metadata = findMetadataPda(umi, { mint: mint.publicKey })
   let txBuilder = createNft(umi, {
     mint,
@@ -67,7 +65,6 @@ async function mintAsset({ umi, payer, collectionMint, collectionMetadata, asset
   // eslint-disable-next-line @typescript-eslint/unbound-method
   await withTransactionRetries(bind(txBuilder.sendAndConfirm, txBuilder))(umi)
   pinoLogger.info(`minted asset ${asset.content.metadata.name} to ${tokenOwner}`)
-  umi.use(signerIdentity(collectionMint, false))
   txBuilder = verifyCollectionV1(umi, {
     metadata,
     collectionMetadata,
@@ -94,16 +91,15 @@ async function mintForOwner(args: MintForOwnerArgs) {
   return drop(args.quantity, args.assets)
 }
 
-export async function mintDevnetNfts({ collection, owners }: Args) {
+export async function mintNfts({ collection, owners }: Args) {
   // get the assets
   const assets = await getNftsForCollection({
     cluster: 'mainnet-beta',
     collectionAddress: collection.address
   })
   // create the collection
-  const umi = createUmiInstance('devnet')
+  const umi = createUmiInstance('localnet')
   const collectionMint = generateSigner(umi)
-  umi.use(signerIdentity(collectionMint, false))
   const payerKey = pipe<[string], string[], number[], Uint8Array, Keypair>(
     split(','),
     map(partialRight(parseInt, [10])),
@@ -111,7 +107,7 @@ export async function mintDevnetNfts({ collection, owners }: Args) {
     bind(umi.eddsa.createKeypairFromSecretKey, umi)
   )(process.env.SOLONA_SIGNER_PRIVATE_KEY)
   const payer = createSignerFromKeypair(umi, payerKey)
-  umi.use(signerPayer(payer))
+  umi.use(signerIdentity(payer))
   const metadata = findMetadataPda(umi, { mint: collectionMint.publicKey })
   await createNft(umi, {
     mint: collectionMint,

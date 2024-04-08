@@ -1,1 +1,1 @@
-export type SupportedCluster = 'mainnet-beta' | 'devnet' | 'localnet'
+export type SupportedCluster = 'mainnet-beta' | 'devnet'

@@ -12,11 +12,11 @@ import axios, { type AxiosResponse } from 'axios'
 import { prop } from 'ramda'
 
 // TODO Lots of crap from this call, we should clean this somehow
-export interface GetSolanaNftsForOwnerArgs {
+export interface GetNftsForOwnerArgs {
   cluster: SupportedCluster
   owner: User
 }
-function getNftsForOwnerWithPaging(args: GetSolanaNftsForOwnerArgs & WithPagingParams) {
+function getNftsForOwnerWithPaging(args: GetNftsForOwnerArgs & WithPagingParams) {
   const { cluster, owner, page, limit } = args
   const {
     wallet: { address }
@@ -43,6 +43,6 @@ function getNftsForOwnerWithPaging(args: GetSolanaNftsForOwnerArgs & WithPagingP
     .then(prop('data'))
 }
 
-export function getNftsForOwner(args: GetSolanaNftsForOwnerArgs) {
+export function getNftsForOwner(args: GetNftsForOwnerArgs) {
   return handleHeliusPaging(getNftsForOwnerWithPaging, 'items')(args)
 }

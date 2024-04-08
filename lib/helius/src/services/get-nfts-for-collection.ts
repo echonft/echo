@@ -10,12 +10,12 @@ import type { SupportedCluster } from '@echo/helius/types/supported-cluster'
 import axios, { type AxiosResponse } from 'axios'
 import { prop } from 'ramda'
 
-export interface GetSolanaNftsForCollectionArgs {
+export interface GetNftsForCollectionArgs {
   cluster: SupportedCluster
   collectionAddress: string
 }
 function getNftsForCollectionWithPaging(
-  args: GetSolanaNftsForCollectionArgs & WithPagingParams
+  args: GetNftsForCollectionArgs & WithPagingParams
 ): Promise<HeliusResponseWithPaging<DigitalAsset>> {
   const { cluster, collectionAddress, page, limit } = args
   return axios
@@ -44,6 +44,6 @@ function getNftsForCollectionWithPaging(
     .then(prop('data'))
 }
 
-export function getNftsForCollection(args: GetSolanaNftsForCollectionArgs): Promise<DigitalAsset[]> {
+export function getNftsForCollection(args: GetNftsForCollectionArgs): Promise<DigitalAsset[]> {
   return handleHeliusPaging(getNftsForCollectionWithPaging, 'items')(args)
 }

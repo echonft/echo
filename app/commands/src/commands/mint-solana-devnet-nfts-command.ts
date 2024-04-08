@@ -1,4 +1,4 @@
-import { mintDevnetNfts } from '@echo/solana/services/mint-devnet-nfts'
+import { mintNfts } from '@echo/solana/services/mint-nfts'
 import * as fs from 'fs/promises'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -37,6 +37,6 @@ void (async function () {
   const text = await fs.readFile(p, 'utf-8')
   const content = JSON.parse(text) as Params[]
   for (const param of content) {
-    await mintDevnetNfts(param)
+    await mintNfts(param)
   }
 })()

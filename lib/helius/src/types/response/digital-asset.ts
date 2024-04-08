@@ -66,7 +66,7 @@ export interface Compression {
 export interface Grouping {
   group_key: string
   group_value: string
-  collection_metadata: CollectionMetadata
+  collection_metadata?: CollectionMetadata
 }
 
 export interface CollectionMetadata {

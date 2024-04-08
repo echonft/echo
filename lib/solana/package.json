@@ -5,6 +5,9 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
+    "command:fetch": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/fetch.ts",
+    "command:test": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/test.ts",
+    "command:test-client": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/test-client.ts",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
@@ -15,17 +18,25 @@
     "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
     "tsc": "tsc --noEmit",
     "tsc:ci": "pnpm run tsc",
-    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
+    "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
+    "validator": "solana-test-validator -r --bpf-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s bin/metadata.so",
+    "update-sdk": "rm -rf src/types/sdk && source .env.dev; cp -R ${PROJECTS_DIR}/solana-poc/target/sdk src/types/"
   },
   "dependencies": {
+    "@coral-xyz/anchor": "0.29.0",
+    "@metaplex-foundation/beet": "0.7.2",
+    "@metaplex-foundation/beet-solana": "0.4.1",
     "@metaplex-foundation/mpl-token-metadata": "3.2.1",
+    "@metaplex-foundation/mpl-toolbox": "0.9.4",
     "@metaplex-foundation/umi": "0.9.1",
     "@metaplex-foundation/umi-bundle-defaults": "0.9.1",
     "@metaplex-foundation/umi-eddsa-web3js": "0.9.1",
     "@metaplex-foundation/umi-program-repository": "0.9.1",
     "@metaplex-foundation/umi-rpc-web3js": "0.9.1",
     "@metaplex-foundation/umi-transaction-factory-web3js": "0.9.1",
+    "@metaplex-foundation/umi-web3js-adapters": "0.9.1",
     "@solana/web3.js": "1.91.3",
+    "bs58": "5.0.0",
     "ramda": "0.29.1"
   },
   "devDependencies": {

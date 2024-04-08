@@ -7,6 +7,7 @@ import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import { Keypair, SystemProgram, Transaction } from '@solana/web3.js'
 import { encode } from 'bs58'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -17,7 +18,7 @@ import { mutate } from 'swr'
 export const SolanaConnectWalletButton: FunctionComponent = () => {
   const t = useTranslations('error.profile')
   const walletContext = useWallet()
-  const { publicKey, signMessage, connected } = walletContext
+  const { publicKey, signMessage, connected, sendTransaction } = walletContext
   const { addWallet, getNonce } = useDependencies()
 
   const { trigger: getNonceTrigger } = useSWRTrigger<NonceResponse, never>({
@@ -77,6 +78,14 @@ export const SolanaConnectWalletButton: FunctionComponent = () => {
       void getNonceTrigger()
     }
   }, [getNonceTrigger, connected])
+
+  const transaction = new Transaction().add(
+    SystemProgram.transfer({
+      fromPubkey: publicKey,
+      toPubkey: Keypair.generate().publicKey,
+      lamports
+    })
+  )
 
   return <WalletMultiButton className="btn" />
 }
