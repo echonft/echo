@@ -28,6 +28,10 @@ declare namespace NodeJS {
       NODE_ENV: 'production' | 'development' | 'test'
       SIGNER_PRIVATE_KEY: `0x${string}`
       SOLONA_SIGNER_PRIVATE_KEY: string
+      SOLONA_SIGNER_TEST_OFFER_SENDER?: string
+      SOLONA_SIGNER_TEST_OFFER_SENDER_PRIVATE_KEY?: string
+      SOLONA_SIGNER_TEST_OFFER_RECEIVER?: string
+      SOLONA_SIGNER_TEST_OFFER_RECEIVER_PRIVATE_KEY?: string
       STORYBOOK: undefined | 'true'
     }
   }

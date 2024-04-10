@@ -5,9 +5,9 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "command:fetch": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/fetch.ts",
-    "command:test": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/test.ts",
-    "command:test-client": "dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/test-client.ts",
+    "command:test": "pnpm run fund; dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/test.ts",
+    "dump:metadata": "solana program dump -u m metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s bin/metadata.so",
+    "fund": "source .env.dev; solana airdrop 100 -u=localhost ${SOLONA_SIGNER_TEST_OFFER_SENDER} && solana airdrop 100 -u=localhost ${SOLONA_SIGNER_TEST_OFFER_RECEIVER}",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
@@ -35,6 +35,7 @@
     "@metaplex-foundation/umi-rpc-web3js": "0.9.1",
     "@metaplex-foundation/umi-transaction-factory-web3js": "0.9.1",
     "@metaplex-foundation/umi-web3js-adapters": "0.9.1",
+    "@solana/spl-token": "0.4.3",
     "@solana/web3.js": "1.91.3",
     "bs58": "5.0.0",
     "ramda": "0.29.1"

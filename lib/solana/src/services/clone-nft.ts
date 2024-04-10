@@ -7,8 +7,9 @@ import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { findMetadataPda, verifyCollectionV1 } from '@metaplex-foundation/mpl-token-metadata'
-import { type KeypairSigner, type Pda, type Umi } from '@metaplex-foundation/umi'
-import { assoc, bind, find, isNil, path, pipe, prop, propEq } from 'ramda'
+import type { Token } from '@metaplex-foundation/mpl-toolbox'
+import { type KeypairSigner, type Pda, signerIdentity, type Umi } from '@metaplex-foundation/umi'
+import { bind, find, isNil, path, pipe, prop, propEq } from 'ramda'
 
 interface MintNftArgs {
   address: string
@@ -29,7 +30,7 @@ interface MintCollectionIfNeededArgs {
 }
 async function mintCollectionIfNeeded(
   args: MintCollectionIfNeededArgs
-): Promise<{ mint: KeypairSigner; metadata: Pda }> {
+): Promise<{ mint: KeypairSigner; metadata: Pda; token?: Token }> {
   const { collection, umi } = args
   if (isNil(collection)) {
     const address = pipe<[MintCollectionIfNeededArgs], Grouping[], Grouping | undefined, Nullable<string>>(
@@ -46,7 +47,7 @@ async function mintCollectionIfNeeded(
   return { mint: signer, metadata: findMetadataPda(umi, { mint: signer.publicKey }) }
 }
 
-export async function cloneNft(args: MintNftArgs): Promise<{ mint: KeypairSigner; metadata: Pda }> {
+export async function cloneNft(args: MintNftArgs): Promise<{ mint: KeypairSigner; metadata: Pda; token: Token }> {
   const { umi, address, collection } = args
   const nft = await getNft({
     cluster: 'mainnet-beta',
@@ -57,14 +58,14 @@ export async function cloneNft(args: MintNftArgs): Promise<{ mint: KeypairSigner
     nft,
     collection
   })
-  const { mint, metadata } = await mintNft({ umi, address, collection: collectionMint.publicKey })
-  const collectionSignerUmi = assoc('identity', collectionMint, umi)
-  const verifyBuilder = verifyCollectionV1(collectionSignerUmi, {
+  const { mint, metadata, token } = await mintNft({ umi, address, collection: collectionMint.publicKey })
+  umi.use(signerIdentity(collectionMint, false))
+  const verifyBuilder = verifyCollectionV1(umi, {
     metadata,
     collectionMint: collectionMint.publicKey
   })
   // eslint-disable-next-line @typescript-eslint/unbound-method
-  await withTransactionRetries(bind(verifyBuilder.sendAndConfirm, verifyBuilder))(collectionSignerUmi)
+  await withTransactionRetries(bind(verifyBuilder.sendAndConfirm, verifyBuilder))(umi)
   pinoLogger.info(`verified asset ${nft.content.metadata.name}`)
-  return { mint, metadata }
+  return { mint, metadata, token }
 }
