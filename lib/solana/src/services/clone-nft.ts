@@ -1,71 +1,76 @@
 import { getNft } from '@echo/helius/services/get-nft'
 import type { DigitalAsset, Grouping } from '@echo/helius/types/response/digital-asset'
 import { withTransactionRetries } from '@echo/solana/helpers/with-transaction-retries'
-import { mintNft } from '@echo/solana/services/mint-nft'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { type MintedNft, mintNft } from '@echo/solana/services/mint-nft'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
-import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { findMetadataPda, verifyCollectionV1 } from '@metaplex-foundation/mpl-token-metadata'
-import type { Token } from '@metaplex-foundation/mpl-toolbox'
-import { type KeypairSigner, type Pda, signerIdentity, type Umi } from '@metaplex-foundation/umi'
-import { bind, find, isNil, path, pipe, prop, propEq } from 'ramda'
+import { verifyCollectionV1 } from '@metaplex-foundation/mpl-token-metadata'
+import { type KeypairSigner, type PublicKey, signerIdentity, type Umi } from '@metaplex-foundation/umi'
+import { andThen, bind, find, isNil, omit, pipe, prop, propEq } from 'ramda'
 
-interface MintNftArgs {
+interface CloneNftArgs {
+  umi: Umi
   address: string
-  umi: Umi
-  collection?: {
-    address: string
-    signer: KeypairSigner
-  }
+  owner: PublicKey
+  collectionMintSigner?: KeypairSigner
 }
 
-interface MintCollectionIfNeededArgs {
+function mintCollection(args: { umi: Umi; owner: PublicKey; nft: DigitalAsset }): Promise<MintedNft> {
+  const { umi, owner, nft } = args
+  const address = pipe<[DigitalAsset], Grouping[], Grouping | undefined, Nullable<string>>(
+    prop('grouping'),
+    find<Grouping>(propEq('collection', 'group_key')),
+    unlessNil<Grouping, string>(prop('group_value'))
+  )(nft)
+  if (isNil(address)) {
+    throw Error(`no collection found for token ${nft.id}`)
+  }
+  return mintNft({ umi, address, owner })
+}
+
+interface GetCollectionSigner {
+  umi: Umi
   nft: DigitalAsset
-  umi: Umi
-  collection?: {
-    address: string
-    signer: KeypairSigner
-  }
+  owner: PublicKey
+  collectionMintSigner?: KeypairSigner
 }
-async function mintCollectionIfNeeded(
-  args: MintCollectionIfNeededArgs
-): Promise<{ mint: KeypairSigner; metadata: Pda; token?: Token }> {
-  const { collection, umi } = args
-  if (isNil(collection)) {
-    const address = pipe<[MintCollectionIfNeededArgs], Grouping[], Grouping | undefined, Nullable<string>>(
-      nonNullableReturn(path(['nft', 'grouping'])),
-      find<Grouping>(propEq('collection', 'group_key')),
-      unlessNil<Grouping, string>(prop('group_value'))
+function getCollectionSigner(args: GetCollectionSigner): Promise<KeypairSigner> {
+  if (isNil(args.collectionMintSigner)) {
+    return pipe<
+      [GetCollectionSigner],
+      Omit<GetCollectionSigner, 'collectionMintSigner'>,
+      Promise<MintedNft>,
+      Promise<KeypairSigner>
+    >(
+      omit(['collectionMintSigner']),
+      mintCollection,
+      andThen(prop('mintSigner'))
     )(args)
-    if (isNil(address)) {
-      throw Error(`no collection found for token ${args.nft.id}`)
-    }
-    return mintNft({ umi, address })
   }
-  const { signer } = collection
-  return { mint: signer, metadata: findMetadataPda(umi, { mint: signer.publicKey }) }
+  return Promise.resolve(args.collectionMintSigner)
 }
-
-export async function cloneNft(args: MintNftArgs): Promise<{ mint: KeypairSigner; metadata: Pda; token: Token }> {
-  const { umi, address, collection } = args
+export async function cloneNft(args: CloneNftArgs): Promise<MintedNft & { collectionSigner: KeypairSigner }> {
+  const { umi, address, collectionMintSigner, owner } = args
   const nft = await getNft({
     cluster: 'mainnet-beta',
     address
   })
-  const { mint: collectionMint } = await mintCollectionIfNeeded({
+  // mint collection NFT if needed
+  const collectionSigner = await getCollectionSigner({ umi, owner, nft, collectionMintSigner })
+  const { mintSigner, metadata, token } = await mintNft({
     umi,
-    nft,
-    collection
+    address,
+    owner,
+    collection: collectionSigner.publicKey,
+    options: { debug: true }
   })
-  const { mint, metadata, token } = await mintNft({ umi, address, collection: collectionMint.publicKey })
-  umi.use(signerIdentity(collectionMint, false))
+  umi.use(signerIdentity(collectionSigner, false))
   const verifyBuilder = verifyCollectionV1(umi, {
     metadata,
-    collectionMint: collectionMint.publicKey
+    collectionMint: collectionSigner.publicKey
   })
   // eslint-disable-next-line @typescript-eslint/unbound-method
   await withTransactionRetries(bind(verifyBuilder.sendAndConfirm, verifyBuilder))(umi)
-  pinoLogger.info(`verified asset ${nft.content.metadata.name}`)
-  return { mint, metadata, token }
+  // pinoLogger.info(`verified asset ${nft.content.metadata.name}`)
+  return { mintSigner, metadata, token, collectionSigner }
 }

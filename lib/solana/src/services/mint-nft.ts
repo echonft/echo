@@ -21,13 +21,24 @@ import {
 } from '@metaplex-foundation/umi'
 import { always, assoc, bind, head, ifElse, isNil, partial, pipe } from 'ramda'
 
-interface MintNftArgs {
+export interface MintNftArgs {
   umi: Umi
   address: string
+  owner: PublicKey
   collection?: PublicKey
+  options?: {
+    debug?: boolean
+  }
 }
-export async function mintNft(args: MintNftArgs): Promise<{ mint: KeypairSigner; metadata: Pda; token: Token }> {
-  const { umi } = args
+
+export interface MintedNft {
+  mintSigner: KeypairSigner
+  metadata: Pda
+  token: Token
+}
+
+export async function mintNft(args: MintNftArgs): Promise<MintedNft> {
+  const { umi, owner, options } = args
   const previousSigner = umi.identity
   const asset = await fetchNft({ cluster: 'mainnet-beta', address: args.address })
   const mintSigner = generateSigner(args.umi)
@@ -57,20 +68,23 @@ export async function mintNft(args: MintNftArgs): Promise<{ mint: KeypairSigner;
   // TODO update withTransactionRetries to be able to pipe from a tx builder
   // eslint-disable-next-line @typescript-eslint/unbound-method
   await withTransactionRetries(bind(createBuilder.sendAndConfirm, createBuilder))(umi)
-  const tokenOwner = umi.identity.publicKey
   const mintBuilder = mintV1(umi, {
     mint,
     amount: 1,
     payer: umi.payer,
-    tokenOwner,
+    tokenOwner: owner,
     tokenStandard: TokenStandard.NonFungible
   })
   // eslint-disable-next-line @typescript-eslint/unbound-method
   await withTransactionRetries(bind(mintBuilder.sendAndConfirm, mintBuilder))(umi)
-  pinoLogger.info(
-    `minted ${isNil(args.collection) ? 'collection' : 'NFT'} ${asset.metadata.name} with mint: ${mint} and metadata: ${head(metadata)} to owner ${tokenOwner}`
-  )
   const { token } = await fetchDigitalAssetWithTokenByMint(umi, mintSigner.publicKey)
+  if (options?.debug) {
+    pinoLogger.info(`minted ${isNil(args.collection) ? 'collection' : 'NFT'} ${asset.metadata.name}`)
+    pinoLogger.info(`mint: ${mint}`)
+    pinoLogger.info(`metadata: ${head(metadata)}`)
+    pinoLogger.info(`token ${token.publicKey}`)
+    pinoLogger.info(`owner: ${owner}`)
+  }
   setSigner(umi, previousSigner)
-  return { mint: mintSigner, metadata, token }
+  return { mintSigner, metadata, token }
 }

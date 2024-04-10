@@ -16,56 +16,64 @@ import { head, last } from 'ramda'
 void (async function () {
   const umi = createUmiInstance('localnet')
   setPayer(umi, process.env.SOLONA_SIGNER_PRIVATE_KEY)
-  const senderPublicKey = publicKey(process.env.SOLONA_SIGNER_TEST_OFFER_SENDER!)
-  const receiverPublicKey = publicKey(process.env.SOLONA_SIGNER_TEST_OFFER_RECEIVER!)
+  const sender = publicKey(process.env.SOLONA_SIGNER_TEST_OFFER_SENDER!)
+  const receiver = publicKey(process.env.SOLONA_SIGNER_TEST_OFFER_RECEIVER!)
   setSigner(umi, process.env.SOLONA_SIGNER_TEST_OFFER_RECEIVER_PRIVATE_KEY)
-  const { mint: receiverTokenMint, token: receiverToken } = await cloneNft({
+  const {
+    mintSigner: { publicKey: receiverTokenMint },
+    token: receiverToken
+  } = await cloneNft({
     umi,
-    address: 'E6Z2EHiaPyP6V7Yxx7VfBYDVsViXxR7qcqraaPDQFn7S'
+    address: 'E6Z2EHiaPyP6V7Yxx7VfBYDVsViXxR7qcqraaPDQFn7S',
+    owner: receiver
   })
   setSigner(umi, process.env.SOLONA_SIGNER_TEST_OFFER_SENDER_PRIVATE_KEY)
-  const { mint: senderTokenMint, token: senderToken } = await cloneNft({
+  const {
+    mintSigner: { publicKey: senderTokenMint },
+    token: senderToken
+  } = await cloneNft({
     umi,
-    address: 'E4Hz3CtTizzG9JemtQE57PYCkdESkSERigHZGYtumuTD'
+    address: 'E4Hz3CtTizzG9JemtQE57PYCkdESkSERigHZGYtumuTD',
+    owner: sender
   })
   setSigner(umi, process.env.SOLONA_SIGNER_TEST_OFFER_SENDER_PRIVATE_KEY)
   umi.programs.add(createEchoProgram())
   const senderEscrowAuthority = umi.eddsa.findPda(ECHO_PROGRAM_ID, [
     new TextEncoder().encode('escrow'),
-    publicKeyBytes(senderPublicKey),
-    publicKeyBytes(senderTokenMint.publicKey)
+    publicKeyBytes(sender),
+    publicKeyBytes(senderTokenMint)
   ])
   const senderEscrowAssociatedTokenAccount = findAssociatedTokenPda(umi, {
-    mint: senderTokenMint.publicKey,
+    mint: senderTokenMint,
     owner: publicKey(head(senderEscrowAuthority))
   })
   const offer = umi.eddsa.findPda(ECHO_PROGRAM_ID, [
     new TextEncoder().encode('offer'),
-    publicKeyBytes(senderPublicKey),
-    publicKeyBytes(senderTokenMint.publicKey)
+    publicKeyBytes(sender),
+    publicKeyBytes(senderTokenMint)
   ])
-  pinoLogger.info(`sender: ${senderPublicKey}`)
+  pinoLogger.info(`sender: ${sender}`)
   pinoLogger.info(`sender token: ${senderToken.publicKey}`)
-  pinoLogger.info(`sender tokenMint: ${senderTokenMint.publicKey}`)
+  pinoLogger.info(`sender tokenMint: ${senderTokenMint}`)
   pinoLogger.info(`sender escrow authority: ${head(senderEscrowAuthority)}`)
   pinoLogger.info(`sender escrow authority bump: ${last(senderEscrowAuthority)}`)
   pinoLogger.info(`sender escrow associated token account: ${head(senderEscrowAssociatedTokenAccount)}`)
   pinoLogger.info(`sender escrow associated token account bump: ${last(senderEscrowAssociatedTokenAccount)}`)
   pinoLogger.info(`offer: ${head(offer)}`)
   pinoLogger.info(`offer bump: ${last(offer)}`)
-  pinoLogger.info(`receiver: ${receiverPublicKey}`)
+  pinoLogger.info(`receiver: ${receiver}`)
   pinoLogger.info(`receiver token: ${receiverToken.publicKey}`)
-  pinoLogger.info(`receiver tokenMint: ${receiverTokenMint.publicKey}`)
+  pinoLogger.info(`receiver tokenMint: ${receiverTokenMint}`)
   const result = await createOffer(umi, {
-    sender: umi.payer,
+    sender: umi.identity,
     token: senderToken.publicKey,
-    tokenMint: senderTokenMint.publicKey,
+    tokenMint: senderTokenMint,
     escrow: senderEscrowAuthority,
     escrowAssociatedTokenAccount: senderEscrowAssociatedTokenAccount,
     offer,
-    receiver: receiverPublicKey,
+    receiver: receiver,
     receiverToken: receiverToken.publicKey,
-    receiverTokenMint: receiverTokenMint.publicKey,
+    receiverTokenMint: receiverTokenMint,
     splTokenProgram: SPL_TOKEN_PROGRAM_ID,
     systemProgram: publicKey(SystemProgram.programId),
     associatedTokenProgram: SPL_ASSOCIATED_TOKEN_PROGRAM_ID
