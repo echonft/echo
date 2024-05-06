@@ -5,9 +5,9 @@
   "sideEffects": false,
   "license": "MIT",
   "scripts": {
-    "command:test": "pnpm run fund; dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/commands/test.ts",
+    "accounts:fund": "pnpm run source; solana airdrop 100 -u=localhost ${SOLANA_DIR}/id-receiver.json && solana airdrop 100 -u=localhost ${SOLANA_DIR}/id-sender.json",
     "dump:metadata": "solana program dump -u m metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s bin/metadata.so",
-    "fund": "source .env.dev; solana airdrop 100 -u=localhost ${SOLONA_SIGNER_TEST_OFFER_SENDER} && solana airdrop 100 -u=localhost ${SOLONA_SIGNER_TEST_OFFER_RECEIVER}",
+    "dump:wormhole": "solana program dump -u m worm2ZoG2kUd4vFXhvjh93UUH596ayRfgQ2MgjNMTth bin/wormhole-core.so; solana program dump -u m wormDTUJ6AWPNvk59vGQbDvGJmqbDTdgWgAqcLBCgUb bin/wormhole-token-bridge.so; solana program dump -u m WnFt12ZrnzZrFZkt2xsNsaNWoQribnuQ5B5FrDbwDhD bin/wormhole-nft-bridge.so",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
@@ -16,11 +16,12 @@
     "modules:update-minor": "ncu -u --target=minor",
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
     "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
+    "source": "source .env",
     "tsc": "tsc --noEmit",
     "tsc:ci": "pnpm run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo",
-    "validator": "solana-test-validator -r --bpf-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s bin/metadata.so",
-    "update-sdk": "rm -rf src/types/sdk && source .env.dev; cp -R ${PROJECTS_DIR}/solana-poc/target/sdk src/types/"
+    "validator": "pnpm run source; solana-test-validator -r -l ${SOLANA_DIR}/test-ledger --bpf-program metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s bin/metadata.so --bpf-program worm2ZoG2kUd4vFXhvjh93UUH596ayRfgQ2MgjNMTth bin/wormhole-core.so --bpf-program wormDTUJ6AWPNvk59vGQbDvGJmqbDTdgWgAqcLBCgUb bin/wormhole-token-bridge.so --bpf-program WnFt12ZrnzZrFZkt2xsNsaNWoQribnuQ5B5FrDbwDhD bin/wormhole-nft-bridge.so",
+    "update-sdk": "pnpm run source; rm -rf src/types/sdk; cp -R ${PROJECTS_DIR}/solana-poc/target/sdk src/types/"
   },
   "dependencies": {
     "@coral-xyz/anchor": "0.29.0",
