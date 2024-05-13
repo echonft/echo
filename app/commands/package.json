@@ -36,7 +36,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.27.2",
+    "@dotenvx/dotenvx": "0.38.0",
     "@echo/alchemy": "workspace:*",
     "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",

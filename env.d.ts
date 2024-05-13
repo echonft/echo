@@ -25,6 +25,7 @@ declare namespace NodeJS {
       NEXT_PUBLIC_VERCEL_ENV: string | undefined
       NEXT_PUBLIC_VERCEL_URL: string
       NODE_ENV: 'production' | 'development' | 'test'
+      OPEN_SEA_API_KEY: string
       SIGNER_PRIVATE_KEY: `0x${string}`
       STORYBOOK: undefined | 'true'
     }

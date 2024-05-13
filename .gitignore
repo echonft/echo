@@ -11,11 +11,8 @@ coverage
 .pnpm-debug.log*
 
 # local env files
-.env
-.env.dev
-.env.test
-.env.testnet
-.env.echo*
+.env*
+!.env.vault
 
 # typescript
 *.tsbuildinfo
