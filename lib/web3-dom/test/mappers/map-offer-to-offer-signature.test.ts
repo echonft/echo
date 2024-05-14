@@ -1,7 +1,7 @@
 import type { Offer } from '@echo/model/types/offer'
 import type { OfferItem } from '@echo/model/types/offer-item'
 import { formatAddress } from '@echo/web3/helpers/format-address'
-import { mapOfferToOfferSignature } from '@echo/web3-dom/mappers/map-offer-to-offer-signature'
+import { mapOfferToContractCreateOffer } from '@echo/web3-dom/mappers/map-offer-to-contract-create-offer'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
 
@@ -71,7 +71,7 @@ describe('mappers - mapOfferToOfferSignature', () => {
         })
       ]
     }
-    expect(mapOfferToOfferSignature(offer)).toStrictEqual(expected)
+    expect(mapOfferToContractCreateOffer(offer)).toStrictEqual(expected)
   })
 
   it('maps correctly multiple items', () => {
@@ -158,6 +158,6 @@ describe('mappers - mapOfferToOfferSignature', () => {
         formatAddress({ address: toLower('0x213Be2F484ab480dB4F18b0Fe4C38e1c25877f09') })
       ]
     }
-    expect(mapOfferToOfferSignature(offer)).toStrictEqual(expected)
+    expect(mapOfferToContractCreateOffer(offer)).toStrictEqual(expected)
   })
 })
