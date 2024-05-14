@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "DOTENV_KEY=$DOTENV_KEY_DEV -- next build",
+    "build": "DOTENV_KEY=$DOTENV_KEY_DEV dotenvx run -- next build",
     "build:ci": "next build",
     "clean": "rm -rf .next",
     "deploy:dev": "flyctl deploy --config .fly/fly.dev.toml --dockerfile .fly/Dockerfile",

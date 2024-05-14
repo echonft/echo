@@ -1,5 +1,5 @@
 {
-  "extends": "../../lib/tsconfig/tsconfig.dom.json",
+  "extends": "../../lib/tsconfig/tsconfig.base.json",
   "ts-node": {
     "require": ["tsconfig-paths/register"],
     "transpileOnly": true,
@@ -12,19 +12,17 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@echo/alchemy/*": ["../../lib/alchemy/src/*"],
-      "@echo/api/*": ["../../lib/api/src/*"],
-      "@echo/commands/*": ["./src/*"],
-      "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
-      "@echo/tasks/*": ["../../lib/tasks/src/*"],
-      "@echo/utils/*": ["../../lib/utils/src/*"],
-      "@echo/web3/*": ["../../lib/web3/src/*"]
+      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
+      "@echo/model/*": ["../../lib/model/src/*"],
+      "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
+      "@echo/opensea-stream/*": ["./src/*"],
+      "@echo/utils/*": ["../../lib/utils/src/*"]
     },
     "noEmit": false,
     "sourceMap": true,
     "inlineSources": true
   },
-  "include": ["src", "../../env.d.ts"],
+  "include": ["src", "test", "tsup.config.ts", "../../env.d.ts"],
   "exclude": ["dist", "node_modules"]
 }
