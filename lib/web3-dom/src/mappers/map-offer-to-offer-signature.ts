@@ -1,6 +1,6 @@
 import { getItemTokenId } from '@echo/model/helpers/item/get-item-token-id'
 import { getItemsContracts } from '@echo/model/helpers/item/get-items-contracts'
-import type { Contract } from '@echo/model/types/contract'
+import type { Contract } from '@echo/model/types/collection'
 import type { Offer } from '@echo/model/types/offer'
 import type { Wallet } from '@echo/model/types/wallet'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
@@ -12,6 +12,7 @@ import { applySpec, map, path, pick, pipe, prop } from 'ramda'
 function formatWalletAddress(wallet: Wallet | Contract) {
   return pipe<[Wallet | Contract], Record<'address', HexString>, HexString>(pick(['address']), formatAddress)(wallet)
 }
+
 export function mapOfferToOfferSignature(offer: Offer): OfferSignature {
   return applySpec<OfferSignature>({
     id: prop('id'),

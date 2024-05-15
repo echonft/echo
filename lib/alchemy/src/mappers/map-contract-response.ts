@@ -1,8 +1,7 @@
 import { type ContractResponse } from '@echo/alchemy/types/response/contract-response'
 import { getBlurUrlForCollection } from '@echo/model/helpers/collection/get-blur-url-for-collection'
 import { getOpenSeaUrlForCollection } from '@echo/model/helpers/collection/get-open-sea-url-for-collection'
-import type { Collection } from '@echo/model/types/collection'
-import type { Contract } from '@echo/model/types/contract'
+import type { Collection, Contract } from '@echo/model/types/collection'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -25,18 +24,14 @@ import {
 
 function mapContract(chainId: number) {
   return function (contractResponse: ContractResponse): Contract {
-    return pipe<
-      [ContractResponse],
-      Pick<ContractResponse, 'address' | 'tokenType' | 'name' | 'symbol'>,
-      Omit<Contract, 'chainId'>,
-      Contract
-    >(
-      pick(['address', 'tokenType', 'name', 'symbol']),
+    return pipe<[ContractResponse], Pick<ContractResponse, 'address'>, Omit<Contract, 'chainId'>, Contract>(
+      pick(['address']),
       modify<'address', HexString, Lowercase<HexString>>('address', toLower<HexString>),
       assoc('chainId', chainId)
     )(contractResponse)
   }
 }
+
 export function mapContractResponse(chainId: number, verified?: boolean) {
   return function (contractResponse: ContractResponse): Omit<Collection, 'id'> {
     return applySpec<Omit<Collection, 'id'>>({

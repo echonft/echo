@@ -17,6 +17,7 @@
       "@echo/commands/*": ["./src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/opensea/*": ["../../lib/opensea/src/*"],
       "@echo/tasks/*": ["../../lib/tasks/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"]

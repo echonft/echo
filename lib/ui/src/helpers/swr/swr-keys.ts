@@ -1,4 +1,4 @@
-import type { Contract } from '@echo/model/types/contract'
+import type { Contract } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
 import type { Offer } from '@echo/model/types/offer'
 import { concat, pipe } from 'ramda'
@@ -6,9 +6,11 @@ import { concat, pipe } from 'ramda'
 function contractKey(contract: Contract) {
   return `${contract.address}-${contract.chainId}`
 }
+
 function offerKey(offer: Offer) {
   return offer.id
 }
+
 function listingKey(listing: Listing) {
   return listing.id
 }

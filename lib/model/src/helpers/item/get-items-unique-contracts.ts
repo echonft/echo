@@ -1,12 +1,11 @@
-import type { Contract } from '@echo/model/types/contract'
+import type { Contract } from '@echo/model/types/collection'
 import type { Item } from '@echo/model/types/item'
-import type { Nullable } from '@echo/utils/types/nullable'
-import { isNil, map, path, pipe, reject, uniq } from 'ramda'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { map, path, pipe, uniq } from 'ramda'
 
 export function getItemsUniqueContracts(offerItems: Item[]): Contract[] {
-  return pipe<[Item[]], Nullable<Contract>[], Contract[], Contract[]>(
-    map(path(['nft', 'collection', 'contract'])),
-    reject(isNil),
+  return pipe<[Item[]], Contract[], Contract[]>(
+    map(nonNullableReturn(path(['nft', 'collection', 'contract']))),
     uniq<Contract>
   )(offerItems)
 }

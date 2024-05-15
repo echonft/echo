@@ -1,5 +1,5 @@
 import { getItemsContracts } from '@echo/model/helpers/item/get-items-contracts'
-import type { Contract } from '@echo/model/types/contract'
+import type { Contract } from '@echo/model/types/collection'
 import type { Item } from '@echo/model/types/item'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
@@ -7,9 +7,6 @@ import { toLower } from 'ramda'
 describe('helpers - item - getItemsContracts', () => {
   it('returns the contract if there is only 1 contract', () => {
     const contract: Contract = {
-      name: 'Test',
-      symbol: 'TEST',
-      tokenType: 'ERC721',
       address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
       chainId: 1
     }
@@ -27,9 +24,6 @@ describe('helpers - item - getItemsContracts', () => {
 
   it('returns all contracts if all the contract are the same', () => {
     const contract: Contract = {
-      name: 'Test',
-      symbol: 'TEST',
-      tokenType: 'ERC721',
       address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
       chainId: 1
     }
@@ -49,16 +43,10 @@ describe('helpers - item - getItemsContracts', () => {
 
   it('returns all contracts if there are 2 different contracts in the offer items', () => {
     const contract1: Contract = {
-      name: 'Test',
-      symbol: 'TEST',
-      tokenType: 'ERC721',
       address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
       chainId: 1
     }
     const contract2: Contract = {
-      name: 'Test2',
-      symbol: 'TEST2',
-      tokenType: 'ERC721',
       address: toLower('0x213bE2f484Ab480db4f18b0Fe4C38e1C25877f09'),
       chainId: 1
     }

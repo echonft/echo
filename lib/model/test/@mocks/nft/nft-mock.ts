@@ -4,7 +4,6 @@ import { toLower } from 'ramda'
 
 export const nftMock: Record<string, Nft> = {
   '8hHFadIrrooORfTOLkBg': {
-    id: '8hHFadIrrooORfTOLkBg',
     attributes: [
       { value: 'archimedean', trait: 'Algorithm' },
       { value: 'main', trait: 'Ring' },
@@ -15,8 +14,8 @@ export const nftMock: Record<string, Nft> = {
       { value: 'random1', trait: 'Palette' },
       { value: '#complement', trait: 'Background' }
     ],
-    balance: 1,
-    blurUrl: 'https://blur.io/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
+    animationUrl: 'https://animation.url/',
+    blurUrl: 'https://blur.io/eth/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
     collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #1376',
     owner: {
@@ -31,13 +30,12 @@ export const nftMock: Record<string, Nft> = {
       }
     },
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
+    metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
     tokenId: 1376,
-    tokenType: 'ERC721',
     updatedAt: 1676984897
   },
   iRZFKEujarikVjpiFAkE: {
-    id: 'iRZFKEujarikVjpiFAkE',
     attributes: [
       {
         value: 'hyperbolic',
@@ -72,8 +70,8 @@ export const nftMock: Record<string, Nft> = {
         trait: 'Background'
       }
     ],
-    balance: 1,
-    blurUrl: 'https://blur.io/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/2414',
+    animationUrl: 'https://animation.url/',
+    blurUrl: 'https://blur.io/eth/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/2414',
     collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #2414',
     owner: {
@@ -88,13 +86,12 @@ export const nftMock: Record<string, Nft> = {
       }
     },
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/2414',
+    metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
     tokenId: 2414,
-    tokenType: 'ERC721',
     updatedAt: 1676984897
   },
   '5SeF1NSN5uPUxtWSr516': {
-    id: '5SeF1NSN5uPUxtWSr516',
     attributes: [
       {
         value: 'fermat',
@@ -129,8 +126,8 @@ export const nftMock: Record<string, Nft> = {
         trait: 'Background'
       }
     ],
-    balance: 1,
-    blurUrl: 'https://blur.io/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/3035',
+    animationUrl: 'https://animation.url/',
+    blurUrl: 'https://blur.io/eth/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/3035',
     collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #3035',
     owner: {
@@ -145,13 +142,12 @@ export const nftMock: Record<string, Nft> = {
       }
     },
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/3035',
+    metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/f7adbf923a17d9b1f9b33d7a23d2b621',
     tokenId: 3035,
-    tokenType: 'ERC721',
     updatedAt: 1676984897
   },
   QFjMRNChUAHNswkRADXh: {
-    id: 'QFjMRNChUAHNswkRADXh',
     attributes: [
       {
         value: 'Creative',
@@ -202,7 +198,6 @@ export const nftMock: Record<string, Nft> = {
         trait: 'Halo'
       }
     ],
-    balance: 1,
     collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Creative Demigod #024',
     owner: {
@@ -216,15 +211,15 @@ export const nftMock: Record<string, Nft> = {
         chainId: 1
       }
     },
-    blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/17',
+    animationUrl: 'https://animation.url/',
+    blurUrl: 'https://blur.io/eth/asset/0x12c63bbd266db84e117356e664f3604055166cec/17',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/17',
+    metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
     tokenId: 17,
-    tokenType: 'ERC721',
     updatedAt: 1676984897
   },
   XiDa6k2P7gxXCKSxn2wq: {
-    id: 'XiDa6k2P7gxXCKSxn2wq',
     attributes: [
       {
         value: 'Water',
@@ -263,7 +258,6 @@ export const nftMock: Record<string, Nft> = {
         trait: 'Tattoo'
       }
     ],
-    balance: 1,
     collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Water Elemental #020',
     owner: {
@@ -277,15 +271,15 @@ export const nftMock: Record<string, Nft> = {
         chainId: 1
       }
     },
-    blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/18',
+    animationUrl: 'https://animation.url/',
+    blurUrl: 'https://blur.io/eth/asset/0x12c63bbd266db84e117356e664f3604055166cec/18',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/18',
+    metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
     tokenId: 18,
-    tokenType: 'ERC721',
     updatedAt: 1676984897
   },
   kRE3UCfXWkJ33nwzj2X1: {
-    id: 'kRE3UCfXWkJ33nwzj2X1',
     attributes: [
       {
         value: 'Creative',
@@ -328,7 +322,6 @@ export const nftMock: Record<string, Nft> = {
         trait: 'Beard'
       }
     ],
-    balance: 1,
     collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
     name: 'Creative Demigod #009',
     owner: {
@@ -342,11 +335,12 @@ export const nftMock: Record<string, Nft> = {
         chainId: 1
       }
     },
-    blurUrl: 'https://blur.io/asset/0x12c63bbd266db84e117356e664f3604055166cec/1014',
+    animationUrl: 'https://animation.url/',
+    blurUrl: 'https://blur.io/eth/asset/0x12c63bbd266db84e117356e664f3604055166cec/1014',
     openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/1014',
+    metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
     tokenId: 1014,
-    tokenType: 'ERC721',
     updatedAt: 1676984897
   }
 }

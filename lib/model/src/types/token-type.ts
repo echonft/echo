@@ -1,1 +1,3 @@
-export type TokenType = 'ERC721' | 'ERC1155' | 'ERC20' | 'NATIVE'
+import type { NftTokenType } from '@echo/model/types/nft-token-type'
+
+export type TokenType = NftTokenType | 'ERC20' | 'NATIVE'
