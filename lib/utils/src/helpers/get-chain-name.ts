@@ -1,10 +1,10 @@
-import type { ChainName } from '@echo/opensea/types/chain-name'
 import {
   BLAST_CHAIN_ID,
   BLAST_SEPOLIA_CHAIN_ID,
   MAINNET_CHAIN_ID,
   SEPOLIA_CHAIN_ID
 } from '@echo/utils/constants/chain-ids'
+import type { ChainName } from '@echo/utils/types/chain-name'
 
 export function getChainName(chainId: number): ChainName {
   switch (chainId) {
@@ -17,6 +17,6 @@ export function getChainName(chainId: number): ChainName {
     case SEPOLIA_CHAIN_ID:
       return 'sepolia'
     default:
-      throw Error(`chain id ${chainId} is not supported by Alchemy`)
+      throw Error(`chain id ${chainId} is not supported`)
   }
 }

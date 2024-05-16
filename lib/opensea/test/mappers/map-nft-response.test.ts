@@ -1,5 +1,5 @@
 import type { Contract } from '@echo/model/types/collection'
-import { mapNftResponse } from '@echo/opensea/mappers/map-nft-response'
+import { mapExtendedNftResponse } from '@echo/opensea/mappers/map-extended-nft-response'
 import type { GetNftResponse } from '@echo/opensea/types/response/get-nft-response'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'
@@ -37,7 +37,7 @@ describe('mappers - mapNftResponse', () => {
       ],
       owners: [{ address: '0xwhatever', quantity: 1 }]
     }
-    const nft: ReturnType<typeof mapNftResponse> = {
+    const nft: ReturnType<typeof mapExtendedNftResponse> = {
       attributes: [
         { value: 'archimedean', trait: 'Algorithm' },
         { value: 'main', trait: 'Ring' },
@@ -63,7 +63,7 @@ describe('mappers - mapNftResponse', () => {
       pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
       tokenId: 1376
     }
-    expect(mapNftResponse(response)).toStrictEqual(nft)
+    expect(mapExtendedNftResponse(response)).toStrictEqual(nft)
   })
 
   it('with undefined values', () => {
@@ -98,7 +98,7 @@ describe('mappers - mapNftResponse', () => {
       ],
       owners: [{ address: '0xwhatever', quantity: 1 }]
     }
-    const nft: ReturnType<typeof mapNftResponse> = {
+    const nft: ReturnType<typeof mapExtendedNftResponse> = {
       attributes: [
         { value: 'archimedean', trait: 'Algorithm' },
         { value: 'main', trait: 'Ring' },
@@ -124,6 +124,6 @@ describe('mappers - mapNftResponse', () => {
       pictureUrl: undefined,
       tokenId: 1376
     }
-    expect(mapNftResponse(response)).toStrictEqual(nft)
+    expect(mapExtendedNftResponse(response)).toStrictEqual(nft)
   })
 })

@@ -7,7 +7,7 @@ import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
+import { getCurrentChainId } from '@echo/utils/helpers/get-current-chain-id'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { AccountResult } from '@echo/web3-dom/types/account-result'
@@ -20,7 +20,7 @@ import useSWR, { mutate } from 'swr'
 
 export function useConnectWallet(account: AccountResult) {
   const t = useTranslations('error.profile')
-  const chainId = getChainId()
+  const chainId = getCurrentChainId()
   const { addWallet, disconnectWallet, getNonce, getWallets, signNonce, switchChain } = useDependencies()
   const wallet: Nullable<Wallet> = useMemo(() => {
     if (either(propIsNil('address'), propIsNil('chainId'))(account)) {
@@ -64,7 +64,10 @@ export function useConnectWallet(account: AccountResult) {
       })
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('addWallet') },
+      alert: {
+        severity: CALLOUT_SEVERITY_ERROR,
+        message: t('addWallet')
+      },
       onError: () => {
         void disconnectWallet()
       }
@@ -79,7 +82,10 @@ export function useConnectWallet(account: AccountResult) {
       })
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('addWallet') },
+      alert: {
+        severity: CALLOUT_SEVERITY_ERROR,
+        message: t('addWallet')
+      },
       onError: () => {
         void disconnectWallet()
       }
@@ -89,10 +95,17 @@ export function useConnectWallet(account: AccountResult) {
     key: SWRKeys.profile.nonce.sign,
     fetcher: signNonce,
     onSuccess: ({ message, signature }) => {
-      void addWalletTrigger({ wallet: wallet!, message, signature })
+      void addWalletTrigger({
+        wallet: wallet!,
+        message,
+        signature
+      })
     },
     onError: {
-      alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('signing') },
+      alert: {
+        severity: CALLOUT_SEVERITY_ERROR,
+        message: t('signing')
+      },
       onError: () => {
         void disconnectWallet()
       }

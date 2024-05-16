@@ -15,7 +15,6 @@ export const nftMock: Record<string, Nft> = {
       { value: '#complement', trait: 'Background' }
     ],
     animationUrl: 'https://animation.url/',
-    blurUrl: 'https://blur.io/eth/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
     collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #1376',
     owner: {
@@ -29,7 +28,6 @@ export const nftMock: Record<string, Nft> = {
         chainId: 1
       }
     },
-    openSeaUrl: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
     tokenId: 1376,
@@ -71,7 +69,6 @@ export const nftMock: Record<string, Nft> = {
       }
     ],
     animationUrl: 'https://animation.url/',
-    blurUrl: 'https://blur.io/eth/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/2414',
     collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #2414',
     owner: {
@@ -85,7 +82,6 @@ export const nftMock: Record<string, Nft> = {
         chainId: 1
       }
     },
-    openSeaUrl: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/2414',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c8ced259cc0a40a5a42d22182e82f9de',
     tokenId: 2414,
@@ -127,7 +123,6 @@ export const nftMock: Record<string, Nft> = {
       }
     ],
     animationUrl: 'https://animation.url/',
-    blurUrl: 'https://blur.io/eth/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/3035',
     collection: getCollectionMockById('1aomCtnoesD7WVll6Yi1'),
     name: 'Spiral Frequencies #3035',
     owner: {
@@ -141,7 +136,6 @@ export const nftMock: Record<string, Nft> = {
         chainId: 1
       }
     },
-    openSeaUrl: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/3035',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/f7adbf923a17d9b1f9b33d7a23d2b621',
     tokenId: 3035,
@@ -212,8 +206,6 @@ export const nftMock: Record<string, Nft> = {
       }
     },
     animationUrl: 'https://animation.url/',
-    blurUrl: 'https://blur.io/eth/asset/0x12c63bbd266db84e117356e664f3604055166cec/17',
-    openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/17',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/c96b4f27dc8dec8a869932f36205bafa',
     tokenId: 17,
@@ -272,8 +264,6 @@ export const nftMock: Record<string, Nft> = {
       }
     },
     animationUrl: 'https://animation.url/',
-    blurUrl: 'https://blur.io/eth/asset/0x12c63bbd266db84e117356e664f3604055166cec/18',
-    openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/18',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/eaefecb1e422f0f1848058cfdc8a36a9',
     tokenId: 18,
@@ -336,8 +326,6 @@ export const nftMock: Record<string, Nft> = {
       }
     },
     animationUrl: 'https://animation.url/',
-    blurUrl: 'https://blur.io/eth/asset/0x12c63bbd266db84e117356e664f3604055166cec/1014',
-    openSeaUrl: 'https://opensea.io/assets/ethereum/0x12c63bbd266db84e117356e664f3604055166cec/1014',
     metadataUrl: 'https://metadata.url/',
     pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/d4ccdfe6a54889abc408c34335b6fb55',
     tokenId: 1014,

@@ -8,7 +8,7 @@ import { assertOffer } from '@echo/frontend/lib/helpers/offer/assert/assert-offe
 import { assertOfferSenderIs } from '@echo/frontend/lib/helpers/offer/assert/assert-offer-sender-is'
 import { assertOfferSignature } from '@echo/frontend/lib/helpers/offer/assert/assert-offer-signature'
 import type { AuthUser } from '@echo/model/types/auth-user'
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
+import { getCurrentChainId } from '@echo/utils/helpers/get-current-chain-id'
 import { signSignature } from '@echo/web3/helpers/sign-signature'
 import { NextResponse } from 'next/server'
 
@@ -22,7 +22,7 @@ export async function getOfferSignatureRequestHandler(user: AuthUser, _req: ApiR
   const signerSignature = await guardAsyncFn(
     signSignature,
     ErrorStatus.SERVER_ERROR
-  )({ chainId: getChainId(), signature: offerSignature.signature })
+  )({ chainId: getCurrentChainId(), signature: offerSignature.signature })
 
   return NextResponse.json<OfferSignatureResponse>({
     signature: signerSignature,

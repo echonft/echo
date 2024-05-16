@@ -7,12 +7,10 @@ export interface Nft {
   attributes: NftAttribute[]
   // we only support ERC721 for now
   // balance: number
-  blurUrl: Nullable<Lowercase<string>>
   collection: Collection
   name: string
   animationUrl?: Nullable<Lowercase<string>>
   metadataUrl?: Nullable<Lowercase<string>>
-  openSeaUrl?: Nullable<Lowercase<string>>
   owner: User
   pictureUrl?: Nullable<Lowercase<string>>
   tokenId: number

@@ -2,7 +2,7 @@ import { DashboardApiRoutes } from '@echo/alchemy/constants/dashboard-api-routes
 import { getDashboardApiRoute } from '@echo/alchemy/helpers/get-dashboard-api-route'
 import { MAINNET_CHAIN_ID } from '@echo/utils/constants/chain-ids'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
+import { getCurrentChainId } from '@echo/utils/helpers/get-current-chain-id'
 import axios from 'axios'
 import { pipe, prop, tap } from 'ramda'
 
@@ -24,7 +24,7 @@ function getCallbackUrl() {
 }
 
 export async function createAlchemyWebhook(args: Args) {
-  const network = getChainId() === MAINNET_CHAIN_ID ? 'ETH_MAINNET' : 'ETH_SEPOLIA'
+  const network = getCurrentChainId() === MAINNET_CHAIN_ID ? 'ETH_MAINNET' : 'ETH_SEPOLIA'
   const url = args.url ?? getCallbackUrl()
   await axios
     .post(

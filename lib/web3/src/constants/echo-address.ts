@@ -1,5 +1,5 @@
 import { SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chain-ids'
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
+import { getCurrentChainId } from '@echo/utils/helpers/get-current-chain-id'
 import { formatAddress } from '@echo/web3/helpers/format-address'
 import { pipe } from 'ramda'
 
@@ -12,4 +12,4 @@ function echoAddressByChainId(chainId: number) {
   }
 }
 
-export const ECHO_ADDRESS = pipe(getChainId, echoAddressByChainId, formatAddress)()
+export const ECHO_ADDRESS = pipe(getCurrentChainId, echoAddressByChainId, formatAddress)()

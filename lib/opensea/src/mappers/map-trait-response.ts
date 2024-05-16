@@ -1,10 +1,10 @@
 import type { NftAttribute } from '@echo/model/types/nft-attribute'
-import type { Trait } from '@echo/opensea/types/response/get-nft-response'
+import type { TraitResponse } from '@echo/opensea/types/response/nft-extended-response'
 import { applySpec, prop } from 'ramda'
 
-export function mapTrait(trait: Trait): NftAttribute {
+export function mapTraitResponse(response: TraitResponse): NftAttribute {
   return applySpec<NftAttribute>({
     trait: prop('trait_type'),
     value: prop('value')
-  })(trait)
+  })(response)
 }
