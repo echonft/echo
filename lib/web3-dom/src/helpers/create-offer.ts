@@ -6,13 +6,12 @@ import type { CreateOfferArgs } from '@echo/web3-dom/types/create-offer-args'
 import { simulateContract, writeContract } from 'wagmi/actions'
 
 export async function createOffer(args: CreateOfferArgs) {
-  const { chainId, offer } = args
   const { request } = await simulateContract(wagmiConfig, {
     abi: ECHO_ABI,
     functionName: 'createOffer',
     address: ECHO_ADDRESS,
-    chainId,
-    args: [mapOfferToContractCreateOffer(offer) as never]
+    chainId: args.chainId,
+    args: [mapOfferToContractCreateOffer(args) as never]
   })
   return await writeContract(wagmiConfig, request)
 }
