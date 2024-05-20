@@ -5,15 +5,16 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import type { OfferStateUpdate } from '@echo/firestore/types/model/offer-update/offer-state-update'
 import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer-update'
 import { now } from '@echo/utils/helpers/now'
-import { pipe } from 'ramda'
 
-export function unchecked_addOfferStateUpdate(args: AddOfferStateUpdateArgs): Promise<OfferUpdate> {
-  return pipe(
-    getOfferUpdatesCollectionReference<OfferStateUpdate>,
-    setReference({
-      offerId: args.offerId,
-      update: { kind: OFFER_UPDATE_KIND_STATE, args: args.args },
-      createdAt: now()
-    })
-  )()
+export async function unchecked_addOfferStateUpdate(args: AddOfferStateUpdateArgs): Promise<OfferUpdate> {
+  const data = {
+    offerId: args.offerId,
+    update: { kind: OFFER_UPDATE_KIND_STATE, args: args.args },
+    createdAt: now()
+  }
+  await setReference<OfferUpdate>({
+    collectionReference: getOfferUpdatesCollectionReference<OfferStateUpdate>(),
+    data
+  })
+  return data
 }

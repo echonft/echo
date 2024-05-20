@@ -2,17 +2,15 @@ import { getUsersCollectionReference } from '@echo/firestore/helpers/collection-
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { now } from '@echo/utils/helpers/now'
-import { pipe } from 'ramda'
+import { assoc, pipe } from 'ramda'
 
-export function unchecked_addUser(
+export async function unchecked_addUser(
   data: Omit<UserDocumentData, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<UserDocumentData> {
-  return pipe(
-    getUsersCollectionReference,
-    setReference<UserDocumentData>({
-      ...data,
-      createdAt: now(),
-      updatedAt: now()
-    })
-  )()
+  const user: UserDocumentData = pipe(assoc('createdAt', now()), assoc('updatedAt', now()))(data)
+  await setReference<UserDocumentData>({
+    collectionReference: getUsersCollectionReference(),
+    data: user
+  })
+  return data
 }

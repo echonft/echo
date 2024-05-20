@@ -2,14 +2,13 @@ import { getNftsCollectionReference } from '@echo/firestore/helpers/collection-r
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { type Nft } from '@echo/model/types/nft'
 import { now } from '@echo/utils/helpers/now'
-import { pipe } from 'ramda'
+import { assoc } from 'ramda'
 
 export function addNft(nft: Omit<Nft, 'id' | 'updatedAt'>): Promise<Nft> {
-  return pipe(
-    getNftsCollectionReference,
-    setReference({
-      ...nft,
-      updatedAt: now()
-    })
-  )()
+  const data = assoc('updatedAt', now(), nft)
+  await setReference<Nft>({
+    collectionReference: getNftsCollectionReference(),
+    data
+  })
+  return data
 }

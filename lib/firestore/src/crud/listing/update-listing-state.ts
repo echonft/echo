@@ -5,10 +5,13 @@ import { assertListingStateTransition } from '@echo/model/helpers/listing/assert
 import type { Listing } from '@echo/model/types/listing'
 import { type ListingState } from '@echo/model/types/listing-state'
 import { now } from '@echo/utils/helpers/now'
-import { pipe } from 'ramda'
 
-export async function updateListingState(listingId: string, state: ListingState): Promise<Listing> {
-  const listing = await findListingById(listingId)
+export async function updateListingState(id: string, state: ListingState): Promise<Listing> {
+  const listing = await findListingById(id)
   assertListingStateTransition(listing, state)
-  return pipe(getListingsCollectionReference, updateReference<Listing>(listingId, { state, updatedAt: now() }))()
+  return updateReference<Listing>({
+    collectionReference: getListingsCollectionReference(),
+    id,
+    data: { state, updatedAt: now() }
+  })
 }

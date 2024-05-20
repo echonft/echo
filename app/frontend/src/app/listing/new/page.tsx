@@ -1,4 +1,4 @@
-import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
+import { findCollection } from '@echo/firestore/crud/collection/find-collection'
 import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
@@ -44,7 +44,7 @@ async function render({ searchParams: { items, target }, user }: Params) {
       andThen<Nullable<Nft>[], Nft[]>(reject(isNil))
     )
   )(items)
-  const listingTarget = await unlessNil(findCollectionBySlug)(target)
+  const listingTarget = await unlessNil(findCollection)(target)
 
   if ((isNil(listingTarget) && isEmpty(listingItems)) || isEmpty(creatorNfts)) {
     notFound()

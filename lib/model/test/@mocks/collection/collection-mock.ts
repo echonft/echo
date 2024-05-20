@@ -3,7 +3,6 @@ import { toLower } from 'ramda'
 
 export const collectionMock: Record<string, Collection> = {
   Rc8pLQXxgyQGIRL0fr13: {
-    id: 'Rc8pLQXxgyQGIRL0fr13',
     bannerUrl:
       'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ',
     contracts: [
@@ -22,7 +21,6 @@ export const collectionMock: Record<string, Collection> = {
     verified: true
   },
   '1aomCtnoesD7WVll6Yi1': {
-    id: '1aomCtnoesD7WVll6Yi1',
     bannerUrl:
       'https://i.seadn.io/gae/ujBmfCu4_m30X3zkmyEA6wYPFubX0qkQJ5CEm5D9Eo2M1jHkDx1K4hUQQitd912A6-M8nyvOsuCuIv8RZokw83runTcR_kTs45xF',
     contracts: [

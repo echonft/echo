@@ -2,8 +2,15 @@ import { getOfferSignaturesCollectionReference } from '@echo/firestore/helpers/c
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import type { OfferSignature } from '@echo/model/types/offer-signature'
 import { now } from '@echo/utils/helpers/now'
-import { assoc, pipe } from 'ramda'
+import { assoc } from 'ramda'
 
-export function unchecked_addOfferSignature(data: Omit<OfferSignature, 'id' | 'createdAt'>): Promise<OfferSignature> {
-  return pipe(getOfferSignaturesCollectionReference, setReference(assoc('createdAt', now(), data)))()
+export async function unchecked_addOfferSignature(
+  data: Omit<OfferSignature, 'id' | 'createdAt'>
+): Promise<OfferSignature> {
+  const offerSignature = assoc('createdAt', now(), data)
+  await setReference<OfferSignature>({
+    collectionReference: getOfferSignaturesCollectionReference(),
+    data: offerSignature
+  })
+  return offerSignature
 }

@@ -1,4 +1,3 @@
-import type { WithId } from '@echo/model/types/with-id'
 import type { WithSlug } from '@echo/model/types/with-slug'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -9,7 +8,7 @@ export interface Contract {
   chain: ChainName
 }
 
-export interface Collection extends WithId, WithSlug {
+export interface Collection extends WithSlug {
   bannerUrl?: Nullable<string>
   contracts: Contract[]
   description?: Nullable<string>

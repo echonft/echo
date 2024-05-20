@@ -1,4 +1,4 @@
-import { lowerContractAddress } from '@echo/firestore/helpers/converters/collection/lower-contract-address'
+import { lowerContractAddresses } from '@echo/firestore/helpers/converters/collection/lower-contract-addresses'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import type { Collection } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
@@ -8,11 +8,14 @@ import { map, modify } from 'ramda'
 
 const key = 'targets'
 type Key = typeof key
+
 export function lowerTargetsCollectionAddress<
   T extends ListingDocumentData | (Partial<WithFieldValue<Listing>> & Record<Key, ListingTarget[]>)
 >(listing: T): T {
   return modify<Key, ListingTarget[], ListingTarget[]>(
     key,
-    map<ListingTarget, ListingTarget>(modify<'collection', Collection, Collection>('collection', lowerContractAddress))
+    map<ListingTarget, ListingTarget>(
+      modify<'collection', Collection, Collection>('collection', lowerContractAddresses)
+    )
   )(listing) as T
 }

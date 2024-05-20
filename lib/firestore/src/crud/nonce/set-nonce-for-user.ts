@@ -4,18 +4,29 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { Nonce } from '@echo/firestore/types/model/nonce/nonce'
 import dayjs from 'dayjs'
-import { isNil, pipe } from 'ramda'
+import { isNil } from 'ramda'
 
 export async function setNonceForUser(userId: string, nonce: string): Promise<Nonce> {
   const existingNonce = await findNonceForUser(userId)
   if (isNil(existingNonce)) {
-    return pipe(
-      getNoncesCollectionReference,
-      setReference({ userId, nonce, expired: false, expiresAt: dayjs().add(1, 'h').unix() })
-    )()
+    const data = {
+      userId,
+      nonce,
+      expired: false,
+      expiresAt: dayjs().add(1, 'h').unix()
+    }
+    await setReference<Nonce>({
+      collectionReference: getNoncesCollectionReference(),
+      data
+    })
+    return data
   }
-  return pipe(
-    getNoncesCollectionReference,
-    updateReference<Nonce>(existingNonce.id, { nonce, expiresAt: dayjs().add(1, 'h').unix() })
-  )()
+  return updateReference<Nonce>({
+    collectionReference: getNoncesCollectionReference(),
+    id: existingNonce.id,
+    data: {
+      nonce,
+      expiresAt: dayjs().add(1, 'h').unix()
+    }
+  })
 }

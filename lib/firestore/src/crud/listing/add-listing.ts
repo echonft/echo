@@ -11,26 +11,27 @@ import type { ListingItem } from '@echo/model/types/listing-item'
 import { type ListingTarget } from '@echo/model/types/listing-target'
 import { now } from '@echo/utils/helpers/now'
 import dayjs from 'dayjs'
-import { head, pipe } from 'ramda'
+import { head } from 'ramda'
 
 export async function addListing(items: ListingItem[], targets: ListingTarget[]): Promise<Listing> {
   assertListingTargets(targets)
   assertListingItems(items)
   await assertListingIsNotADuplicate(items, targets)
-  const newListing = await pipe(
-    getListingsCollectionReference,
-    setReference({
-      creator: head(items).nft.owner,
-      createdAt: now(),
-      expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix(),
-      items,
-      readOnly: false,
-      state: LISTING_STATE_OPEN,
-      targets,
-      updatedAt: now()
-    })
-  )()
+  const listing = {
+    creator: head(items).nft.owner,
+    createdAt: now(),
+    expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix(),
+    items,
+    readOnly: false,
+    state: LISTING_STATE_OPEN,
+    targets,
+    updatedAt: now()
+  }
+  await setReference<Listing>({
+    collectionReference: getListingsCollectionReference(),
+    data: listing
+  })
   // add listing offers (if any)
-  await addListingOffersFromListing(newListing)
-  return newListing
+  await addListingOffersFromListing(listing)
+  return listing
 }

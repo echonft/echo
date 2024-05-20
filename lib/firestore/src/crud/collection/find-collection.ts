@@ -5,6 +5,6 @@ import type { Collection } from '@echo/model/types/collection'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { pipe } from 'ramda'
 
-export function findCollectionBySlug(slug: string): Promise<Nullable<Collection>> {
+export function findCollection(slug: string): Promise<Nullable<Collection>> {
   return pipe(getCollectionsCollectionReference, queryWhere<Collection>('slug', '==', slug), getQueryUniqueData)()
 }

@@ -4,7 +4,7 @@ import { getOfferUpdatePostsCollectionReference } from '@echo/firestore/helpers/
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import type { OfferUpdatePost } from '@echo/firestore/types/model/offer-update-post/offer-update-post'
 import { now } from '@echo/utils/helpers/now'
-import { isNil, pipe } from 'ramda'
+import { isNil } from 'ramda'
 
 export async function addOfferUpdatePost(offerUpdateId: string): Promise<OfferUpdatePost> {
   const offerUpdate = await findOfferUpdateById(offerUpdateId)
@@ -17,11 +17,13 @@ export async function addOfferUpdatePost(offerUpdateId: string): Promise<OfferUp
   if (!isNil(offerUpdatePost)) {
     throw Error(`trying to add an offer update post for offer update with id ${offerUpdateId} while it already exists`)
   }
-  return pipe(
-    getOfferUpdatePostsCollectionReference,
-    setReference<OfferUpdatePost>({
-      offerUpdateId,
-      postedAt: now()
-    })
-  )()
+  const data = {
+    offerUpdateId,
+    postedAt: now()
+  }
+  await setReference<OfferUpdatePost>({
+    collectionReference: getOfferUpdatePostsCollectionReference(),
+    data
+  })
+  return data
 }

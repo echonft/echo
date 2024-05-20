@@ -1,4 +1,4 @@
-import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
+import { findCollection } from '@echo/firestore/crud/collection/find-collection'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-queries-documents'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
@@ -8,7 +8,7 @@ import { type Offer } from '@echo/model/types/offer'
 import { isNil, juxt, pipe } from 'ramda'
 
 export async function getCompletedOffersForCollection(slug: string): Promise<Offer[]> {
-  const collection = await findCollectionBySlug(slug)
+  const collection = await findCollection(slug)
   if (isNil(collection)) {
     return []
   }

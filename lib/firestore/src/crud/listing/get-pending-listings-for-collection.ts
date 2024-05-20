@@ -1,4 +1,4 @@
-import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
+import { findCollection } from '@echo/firestore/crud/collection/find-collection'
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-queries-documents'
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
@@ -9,7 +9,7 @@ import { now } from '@echo/utils/helpers/now'
 import { isNil, juxt, pipe } from 'ramda'
 
 export async function getPendingListingsForCollection(slug: string): Promise<Listing[]> {
-  const collection = await findCollectionBySlug(slug)
+  const collection = await findCollection(slug)
   if (isNil(collection)) {
     return []
   }

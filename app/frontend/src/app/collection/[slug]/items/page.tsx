@@ -1,4 +1,4 @@
-import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
+import { findCollection } from '@echo/firestore/crud/collection/find-collection'
 import {
   getNftsForCollection,
   type GetNftsForCollectionOptions
@@ -18,8 +18,9 @@ import { andThen, assoc, isNil, map, pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<NextParams<WithSlug>>
+
 async function render({ params: { slug }, user }: Params) {
-  const collection = await findCollectionBySlug(slug)
+  const collection = await findCollection(slug)
   if (isNil(collection)) {
     notFound()
   }

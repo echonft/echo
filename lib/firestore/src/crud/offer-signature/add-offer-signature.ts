@@ -6,7 +6,7 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { OfferSignature } from '@echo/model/types/offer-signature'
 import { now } from '@echo/utils/helpers/now'
-import { assoc, isNil, pipe } from 'ramda'
+import { assoc, isNil } from 'ramda'
 
 export async function addOfferSignature(data: Omit<OfferSignature, 'id' | 'createdAt'>): Promise<OfferSignature> {
   const { offerId, userId } = data
@@ -23,10 +23,16 @@ export async function addOfferSignature(data: Omit<OfferSignature, 'id' | 'creat
   }
   const existingOfferSignature = await findOfferSignature(offerId)
   if (isNil(existingOfferSignature)) {
-    return pipe(getOfferSignaturesCollectionReference, setReference(assoc('createdAt', now(), data)))()
+    const offerSignature = assoc('createdAt', now(), data)
+    await setReference<OfferSignature>({
+      collectionReference: getOfferSignaturesCollectionReference(),
+      data: offerSignature
+    })
+    return offerSignature
   }
-  return pipe(
-    getOfferSignaturesCollectionReference,
-    updateReference<OfferSignature>(existingOfferSignature.id, { createdAt: now(), signature: data.signature })
-  )()
+  return updateReference<OfferSignature>({
+    collectionReference: getOfferSignaturesCollectionReference(),
+    id: existingOfferSignature.id,
+    data: { createdAt: now(), signature: data.signature }
+  })
 }

@@ -6,12 +6,13 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import type { OfferStateUpdate } from '@echo/firestore/types/model/offer-update/offer-state-update'
 import type { OfferStateUpdateArgs } from '@echo/firestore/types/model/offer-update/offer-state-update-args'
 import { now } from '@echo/utils/helpers/now'
-import { isNil, pipe } from 'ramda'
+import { isNil } from 'ramda'
 
 export interface AddOfferStateUpdateArgs {
   offerId: string
   args: OfferStateUpdateArgs
 }
+
 export async function addOfferStateUpdate(args: AddOfferStateUpdateArgs): Promise<OfferStateUpdate> {
   const { offerId } = args
   const offer = await findOfferById(offerId)
@@ -25,12 +26,14 @@ export async function addOfferStateUpdate(args: AddOfferStateUpdateArgs): Promis
   if (!isNil(offerStateUpdate)) {
     throw Error(`trying to add a state update to ${state} for offer with id ${offerId} but this update already exists`)
   }
-  return pipe(
-    getOfferUpdatesCollectionReference<OfferStateUpdate>,
-    setReference<OfferStateUpdate>({
-      offerId,
-      update: { kind: OFFER_UPDATE_KIND_STATE, args: args.args },
-      createdAt: now()
-    })
-  )()
+  const data = {
+    offerId,
+    update: { kind: OFFER_UPDATE_KIND_STATE, args: args.args },
+    createdAt: now()
+  }
+  await setReference<OfferStateUpdate>({
+    collectionReference: getOfferUpdatesCollectionReference<OfferStateUpdate>(),
+    data
+  })
+  return data
 }

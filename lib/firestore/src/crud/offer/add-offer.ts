@@ -9,27 +9,28 @@ import { type Offer } from '@echo/model/types/offer'
 import { type OfferItem } from '@echo/model/types/offer-item'
 import { now } from '@echo/utils/helpers/now'
 import dayjs from 'dayjs'
-import { head, pipe } from 'ramda'
+import { head } from 'ramda'
 
 export async function addOffer(senderItems: OfferItem[], receiverItems: OfferItem[]): Promise<Offer> {
   assertOfferItems(receiverItems)
   assertOfferItems(senderItems)
   await assertOfferIsNotADuplicate(senderItems, receiverItems)
-  const newOffer = await pipe(
-    getOffersCollectionReference,
-    setReference({
-      createdAt: now(),
-      expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix(),
-      readOnly: false,
-      receiver: head(receiverItems).nft.owner,
-      receiverItems,
-      sender: head(senderItems).nft.owner,
-      senderItems,
-      state: OFFER_STATE_OPEN,
-      updatedAt: now()
-    })
-  )()
+  const offer = {
+    createdAt: now(),
+    expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix(),
+    readOnly: false,
+    receiver: head(receiverItems).nft.owner,
+    receiverItems,
+    sender: head(senderItems).nft.owner,
+    senderItems,
+    state: OFFER_STATE_OPEN,
+    updatedAt: now()
+  }
+  await setReference<Offer>({
+    collectionReference: getOffersCollectionReference(),
+    data: offer
+  })
   // add listing offers (if any)
-  await addListingOffersFromOffer(newOffer)
-  return newOffer
+  await addListingOffersFromOffer(offer)
+  return offer
 }

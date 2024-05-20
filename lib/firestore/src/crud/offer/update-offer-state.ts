@@ -8,7 +8,7 @@ import { assertOfferStateTransition } from '@echo/model/helpers/offer/assert/ass
 import type { Offer } from '@echo/model/types/offer'
 import { type OfferState } from '@echo/model/types/offer-state'
 import { now } from '@echo/utils/helpers/now'
-import { assoc, pipe } from 'ramda'
+import { assoc } from 'ramda'
 
 export async function updateOfferState(args: {
   offerId: string
@@ -20,10 +20,11 @@ export async function updateOfferState(args: {
   assertOfferStateTransition(offer, state)
   const completeUpdateArgs: OfferStateUpdateArgs = assoc('state', state, updateArgs)
   assertOfferStateUpdateArgs(offer, completeUpdateArgs)
-  const updatedOffer = await pipe(
-    getOffersCollectionReference,
-    updateReference<Offer>(offerId, { state, updatedAt: now() })
-  )()
+  const updatedOffer = await updateReference<Offer>({
+    collectionReference: getOffersCollectionReference(),
+    id: offerId,
+    data: { state, updatedAt: now() }
+  })
   await addOfferStateUpdate({ offerId, args: completeUpdateArgs })
   return updatedOffer
 }

@@ -4,15 +4,25 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import { now } from '@echo/utils/helpers/now'
-import { isNil, pipe } from 'ramda'
+import { assoc, isNil, pipe } from 'ramda'
 
 export async function updateUser(data: Pick<UserDocumentData, 'discord'>): Promise<UserDocumentData> {
   const existingUser = await findUserByDiscordId(data.discord.id)
   if (isNil(existingUser)) {
-    return pipe(
-      getUsersCollectionReference,
-      setReference({ ...data, username: data.discord.username, createdAt: now(), updatedAt: now() })
-    )()
+    const user = pipe(
+      assoc('username', data.discord.username),
+      assoc('createdAt', now()),
+      assoc('updatedAt', now())
+    )(data)
+    await setReference<UserDocumentData>({
+      collectionReference: getUsersCollectionReference(),
+      data: user
+    })
+    return user
   }
-  return pipe(getUsersCollectionReference, updateReference<UserDocumentData>(existingUser.id, data))()
+  return updateReference<UserDocumentData>({
+    collectionReference: getUsersCollectionReference(),
+    id: existingUser.id,
+    data
+  })
 }

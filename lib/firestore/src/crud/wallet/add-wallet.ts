@@ -3,12 +3,17 @@ import { getWalletsCollectionReference } from '@echo/firestore/helpers/collectio
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { type WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { type Wallet } from '@echo/model/types/wallet'
-import { assoc, isNil, pipe } from 'ramda'
+import { assoc, isNil } from 'ramda'
 
 export async function addWallet(userId: string, wallet: Wallet): Promise<WalletDocumentData> {
   const existingWallet = await findWalletByAddress(wallet)
   if (!isNil(existingWallet)) {
     return existingWallet
   }
-  return pipe(getWalletsCollectionReference, setReference<WalletDocumentData>(assoc('userId', userId, wallet)))()
+  const data = assoc('userId', userId, wallet)
+  await setReference<WalletDocumentData>({
+    collectionReference: getWalletsCollectionReference(),
+    data
+  })
+  return data
 }
