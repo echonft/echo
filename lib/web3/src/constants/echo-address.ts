@@ -6,7 +6,7 @@ import { pipe } from 'ramda'
 function echoAddressByChainId(chainId: number) {
   switch (chainId) {
     case SEPOLIA_CHAIN_ID:
-      return { address: '0x29BaDf8271Dc265e85f4399f91996cCD06BFE9FB', chainId }
+      return { address: '0xf7f19bf282a2260940c910F88eC70BbcF51Cf572', chainId }
     default:
       throw Error(`chain ${chainId} not supported`)
   }

@@ -17,11 +17,9 @@ import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { AccountProvider } from '@echo/web3-dom/types/account-provider'
 import type { ApproveErc721ContractArgs } from '@echo/web3-dom/types/approve-erc-721-contract-args'
-import type { ExecuteSwapArgs } from '@echo/web3-dom/types/execute-swap-args'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/types/get-erc-721-contract-approval-args'
 import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
 import type { SignNonceResult } from '@echo/web3-dom/types/sign-nonce-result'
-import type { SignOfferArgs } from '@echo/web3-dom/types/sign-offer-args'
 import type { SignInResponse, SignOutParams } from 'next-auth/react'
 
 export interface Dependencies {
@@ -33,7 +31,6 @@ export interface Dependencies {
   createListing: Fetcher<ListingResponse, CreateListingRequest>
   createOffer: Fetcher<OfferResponse, CreateOfferRequest>
   disconnectWallet: () => Promise<void>
-  executeSwap: Fetcher<HexString, ExecuteSwapArgs>
   getAccount: AccountProvider
   getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
   getNonce: Fetcher<NonceResponse, never>
@@ -44,7 +41,6 @@ export interface Dependencies {
   searchUsers: (query: string) => Promise<SearchResult<string>[]>
   signIn: () => Promise<SignInResponse | undefined>
   signNonce: Fetcher<SignNonceResult, SignNonceArgs>
-  signOffer: Fetcher<HexString, SignOfferArgs>
   signOut: (options: SignOutParams<true> | undefined) => Promise<undefined>
   switchChain: () => Promise<void>
   validateOffer: Fetcher<OfferResponse, ValidateOfferArgs>

@@ -1,6 +1,6 @@
 import type { ContractOfferItem } from '@echo/web3-dom/types/contract-offer-item'
 
 export interface ContractOfferItems {
-  chainId: bigint
+  chainId: number
   items: ContractOfferItem[]
 }

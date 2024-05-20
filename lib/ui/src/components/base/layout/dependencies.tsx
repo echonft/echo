@@ -15,11 +15,9 @@ import { validateOffer } from '@echo/api/fetchers/validate-offer'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import { approveErc721Contract } from '@echo/web3-dom/helpers/approve-erc721-contract'
 import { disconnectWallet } from '@echo/web3-dom/helpers/disconnect-wallet'
-import { executeSwap } from '@echo/web3-dom/helpers/execute-swap'
 import { getAccount } from '@echo/web3-dom/helpers/get-account'
 import { getErc721ContractApproval } from '@echo/web3-dom/helpers/get-erc721-contract-approval'
 import { signNonce } from '@echo/web3-dom/helpers/sign-nonce'
-import { signOffer } from '@echo/web3-dom/helpers/sign-offer'
 import { switchChain } from '@echo/web3-dom/helpers/switch-chain'
 import { signIn, signOut } from 'next-auth/react'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
@@ -36,7 +34,6 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
         createListing,
         createOffer,
         disconnectWallet,
-        executeSwap,
         getAccount,
         getErc721ContractApproval,
         getNonce,
@@ -49,7 +46,6 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
           return signIn('discord')
         },
         signNonce,
-        signOffer,
         signOut,
         switchChain,
         validateOffer
