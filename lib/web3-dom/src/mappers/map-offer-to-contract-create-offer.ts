@@ -7,10 +7,8 @@ import {
   type MapOfferItemsToContractOfferItemsArgs
 } from '@echo/web3-dom/mappers/map-offer-items-to-contract-offer-items'
 import type { ContractCreateOffer } from '@echo/web3-dom/types/contract-create-offer'
-import type { ContractOffer } from '@echo/web3-dom/types/contract-offer'
 import { ContractOfferState } from '@echo/web3-dom/types/contract-offer-state'
-import type { CreateOfferArgs } from '@echo/web3-dom/types/create-offer-args'
-import { always, applySpec, pick, pipe, prop } from 'ramda'
+import { always, applySpec, path, pipe, prop } from 'ramda'
 
 function formatWalletAddress(wallet: Wallet | Contract) {
   return pipe<[Wallet | Contract], Record<'address', HexString>, HexString>(pick(['address']), formatAddress)(wallet)
@@ -36,5 +34,5 @@ export function mapOfferToContractCreateOffer(args: CreateOfferArgs): ContractCr
     ),
     expiration: prop('expiration'),
     state: always(ContractOfferState.OPEN)
-  })(args)
+  })(offer)
 }

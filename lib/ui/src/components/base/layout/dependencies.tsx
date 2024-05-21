@@ -12,6 +12,7 @@ import { searchCollections } from '@echo/api/fetchers/search-collections'
 import { searchUsers } from '@echo/api/fetchers/search-users'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import { approveErc721Contract } from '@echo/web3-dom/helpers/approve-erc721-contract'
+import { createOffer as contractCreateOffer } from '@echo/web3-dom/helpers/create-offer'
 import { disconnectWallet } from '@echo/web3-dom/helpers/disconnect-wallet'
 import { getAccount } from '@echo/web3-dom/helpers/get-account'
 import { getErc721ContractApproval } from '@echo/web3-dom/helpers/get-erc721-contract-approval'
@@ -29,6 +30,7 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
         approveErc721Contract,
         cancelListing,
         cancelOffer,
+        contractCreateOffer,
         createListing,
         createOffer,
         disconnectWallet,

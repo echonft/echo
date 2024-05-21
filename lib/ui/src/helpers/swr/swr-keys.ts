@@ -18,7 +18,8 @@ function listingKey(listing: Listing) {
 export const SWRKeys = {
   contract: {
     getErc721approval: 'get-erc721-approval',
-    approveErc721: pipe<[Contract], string, string>(contractKey, concat('approve-erc721-'))
+    approveErc721: pipe<[Contract], string, string>(contractKey, concat('approve-erc721-')),
+    createOffer: pipe<[Offer], string, string>(offerKey, concat('create-offer-'))
   },
   listing: {
     cancel: pipe<[Listing], string, string>(listingKey, concat('cancel-listing-')),
