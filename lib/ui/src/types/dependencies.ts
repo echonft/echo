@@ -6,6 +6,7 @@ import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args
 import type { ValidateOfferArgs } from '@echo/api/types/fetchers/validate-offer-args'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
+import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
@@ -16,7 +17,6 @@ import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { AccountProvider } from '@echo/web3-dom/types/account-provider'
 import type { ApproveErc721ContractArgs } from '@echo/web3-dom/types/approve-erc-721-contract-args'
-import type { CreateOfferArgs } from '@echo/web3-dom/types/create-offer-args'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/types/get-erc-721-contract-approval-args'
 import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
 import type { SignNonceResult } from '@echo/web3-dom/types/sign-nonce-result'
@@ -29,7 +29,7 @@ export interface Dependencies {
   cancelListing: Fetcher<ListingResponse, CancelListingArgs>
   cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
   createListing: Fetcher<ListingResponse, CreateListingRequest>
-  createOffer: Fetcher<HexString, CreateOfferArgs>
+  createOffer: Fetcher<OfferResponse, CreateOfferRequest>
   disconnectWallet: () => Promise<void>
   getAccount: AccountProvider
   getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>

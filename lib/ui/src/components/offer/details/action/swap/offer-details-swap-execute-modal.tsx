@@ -17,7 +17,7 @@ interface Props {
   onClose?: EmptyFunction
 }
 
-export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({ offer, open, onSuccess, onClose }) => {
+export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({ open }) => {
   const t = useTranslations('offer.details.swapModal')
   // const tError = useTranslations('error.offer')
   // const { chainId } = useAccount()
@@ -52,7 +52,7 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({ offer, 
   // })
 
   return (
-    <Modal open={open} onClose={false ? undefined : onClose} title={t('title')}>
+    <Modal open={open} onClose={undefined} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('execute.subtitle')}</ModalSubtitle>
         <button

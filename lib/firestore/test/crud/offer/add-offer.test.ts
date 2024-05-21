@@ -116,6 +116,7 @@ describe('CRUD - offer - addOffer', () => {
     })
     expect(contentEq(newOffer.senderItems, senderItems)).toBeTruthy()
     expect(newOffer.state).toBe(OFFER_STATE_OPEN)
+    expect(newOffer.idContract).toBe('0xTEST')
     expectDateNumberIsNow(newOffer.updatedAt)
     expectDateNumberIs(newOffer.expiresAt)(dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'))
     // check if offer has been added to tied listings

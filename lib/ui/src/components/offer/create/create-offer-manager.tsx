@@ -1,18 +1,19 @@
 'use client'
+import { linkProvider } from '@echo/api/routing/link-provider'
+import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import { CreateOffer } from '@echo/ui/components/offer/create/create-offer'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
-import { useAccount } from '@echo/ui/hooks/use-account'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
 import { mapNftsToItems } from '@echo/ui/mappers/to-api/map-nfts-to-items'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import type { HexString } from '@echo/utils/types/hex-string'
-import type { CreateOfferArgs } from '@echo/web3-dom/types/create-offer-args'
+import dayjs from 'dayjs'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { isNil, pipe } from 'ramda'
@@ -27,14 +28,15 @@ interface Props {
 export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receiverItems, senderNfts }) => {
   const t = useTranslations('error.offer')
   const router = useRouter()
-  const { chainId } = useAccount()
+  // const { chainId } = useAccount()
   const { createOffer, getAccount } = useDependencies()
   const { account: sender } = getAccount()
-  const { trigger, isMutating } = useSWRTrigger<HexString, CreateOfferArgs>({
+  // TODO Add contract call
+  const { trigger, isMutating } = useSWRTrigger<OfferResponse, CreateOfferRequest>({
     key: SWRKeys.offer.create,
     fetcher: createOffer,
     onSuccess: (response) => {
-      // router.replace(linkProvider.offer.details.get({ offerId: response.offer.id }))
+      router.replace(linkProvider.offer.details.get({ offerId: response.offer.id }))
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') }
@@ -52,12 +54,10 @@ export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receive
           // TODO we need to connect the wallet
         } else {
           void trigger({
-            sender: sender.address,
-            receiver: receiver.wallet.address,
             senderItems: pipe(mapNftsToItems, mapItemsToRequests)(senderSelection),
             receiverItems: pipe(mapNftsToItems, mapItemsToRequests)(receiverItems),
-            expiration: DEFAULT_EXPIRATION_TIME,
-            chainId
+            // FIXME expiration should be set
+            expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix()
           })
         }
       }}

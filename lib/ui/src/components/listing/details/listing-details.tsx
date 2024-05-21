@@ -4,6 +4,7 @@ import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-r
 import type { ItemRequest } from '@echo/api/types/requests/item-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
@@ -46,6 +47,7 @@ import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
+import dayjs from 'dayjs'
 import { useTranslations } from 'next-intl'
 import { assoc, filter, head, isEmpty, length, lte, map, mergeLeft, pipe, prop, propEq } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
@@ -135,7 +137,9 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
     const receiverItems: ItemRequest[] = mapItemsToRequests(listing.items)
     void triggerFill({
       senderItems,
-      receiverItems
+      receiverItems,
+      // FIXME expiration should be set
+      expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix()
     })
   }
 

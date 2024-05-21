@@ -14,6 +14,7 @@ export const offerMock: Record<string, Offer> = {
     expiresAt: 2324074781,
     idContract: OFFER_MOCK_TO_JOHNNYCAGE_ID,
     readOnly: false,
+    idContract: '0xTEST',
     receiver: {
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',

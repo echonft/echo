@@ -9,9 +9,11 @@ import { type Nft } from '@echo/model/types/nft'
 import { type User } from '@echo/model/types/user'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 
 jest.mock('@echo/firestore/crud/offer/add-offer')
 jest.mock('@echo/frontend/lib/helpers/offer/get-offer-items-from-requests')
+jest.mock('@echo/web3/helpers/generate-offer-id')
 
 describe('request-handlers - offer - createOfferRequestHandler', () => {
   const validRequest: CreateOfferRequest = {
@@ -30,7 +32,8 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
           id: 'sender-item-nft-id'
         }
       }
-    ]
+    ],
+    expiresAt: Date.now()
   }
   const user = getAuthUserMockByUsername('johnnycagewins')
 
@@ -114,6 +117,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
       .mocked(getOfferItemsFromRequests)
       .mockResolvedValue([{ amount: 1, nft: { owner: { username: 'johnnycagewins' } as User } as Nft }])
     jest.mocked(addOffer).mockResolvedValue(offer)
+    jest.mocked(generateOfferId).mockReturnValue('0xID')
     const req = mockRequest<CreateOfferRequest>(validRequest)
     const res = await createOfferRequestHandler(user, req)
     expect(addOffer).toHaveBeenCalledTimes(1)

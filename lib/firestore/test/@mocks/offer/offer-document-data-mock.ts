@@ -8,7 +8,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     createdAt: 1676984897,
     expiresAt: 2324074781,
-    idContract: 'LyCfl6Eg7JKuD7XJ6IPi',
+    idContract: '0xTEST',
     receiver: {
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
@@ -44,7 +44,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
   ASkFpKoHEHVH0gd69t1G: {
     createdAt: 1676984897,
     expiresAt: 2324074781,
-    idContract: 'ASkFpKoHEHVH0gd69t1G',
+    idContract: '0xTEST2',
     receiver: {
       discord: {
         username: 'crewnft_',

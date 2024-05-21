@@ -1,7 +1,13 @@
-import type { Nft } from '@echo/model/types/nft'
-import { type OfferState } from '@echo/model/types/offer-state'
-import { type User } from '@echo/model/types/user'
-import type { WithSlug } from '@echo/model/types/with-slug'
+import type { BaseOffer } from '@echo/model/types/base-offer'
+import type { WithId } from '@echo/model/types/with-id'
+import type { HexString } from '@echo/utils/types/hex-string'
+
+export interface Offer extends WithId, BaseOffer {
+  createdAt: number
+  readOnly: boolean
+  updatedAt: number
+  idContract: HexString
+}
 
 export interface Offer extends WithSlug {
   idContract: string
@@ -14,4 +20,5 @@ export interface Offer extends WithSlug {
   senderItems: Nft[]
   state: OfferState
   updatedAt: number
+
 }
