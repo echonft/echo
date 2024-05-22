@@ -14,6 +14,7 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import { getOfferMockBySlug } from '@echo/model-mocks/offer/get-offer-mock-by-slug'
+import { OFFER_MOCK_TO_JOHNNYCAGE_SLUG } from '@echo/model-mocks/offer/offer-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
@@ -21,10 +22,10 @@ import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { assoc, isNil, pipe, toLower } from 'ramda'
+import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - offer - cancelOffer', () => {
-  const slug = toLower('LyCfl6Eg7JKuD7XJ6IPi')
+  const slug = OFFER_MOCK_TO_JOHNNYCAGE_SLUG
   let createdStateUpdateId: Nullable<string>
   const args: Omit<UpdateOfferStateArgs, 'state'> = {
     slug,

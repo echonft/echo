@@ -32,8 +32,8 @@ describe('CRUD - wallet - addWallet', () => {
   })
   it('returns the wallet if it already exists', async () => {
     const wallet = head(getAllWalletDocumentDataMocks())
-    const addedWallet = await addWallet('userId', pick(['address', 'chain'], wallet))
-    expect(addedWallet).toStrictEqual(wallet)
+    const { data } = await addWallet('userId', pick(['address', 'chain'], wallet))
+    expect(data).toStrictEqual(wallet)
   })
   it('add wallet', async () => {
     const address = toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
@@ -44,7 +44,7 @@ describe('CRUD - wallet - addWallet', () => {
     addedWalletId = id
     const wallet = (await getWalletById(id))!
     expect(wallet.userId).toEqual('6rECUMhevHfxABZ1VNOm')
-    expect(wallet.chain).toEqual(1)
+    expect(wallet.chain).toEqual('ethereum')
     expect(wallet.address).toEqual(address)
   })
 })

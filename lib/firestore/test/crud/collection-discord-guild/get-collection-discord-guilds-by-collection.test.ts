@@ -1,5 +1,6 @@
 import { getCollectionDiscordGuildsByCollection } from '@echo/firestore/crud/collection-discord-guild/get-collection-discord-guilds-by-collection'
 import { getCollectionDiscordGuildMocksByCollection } from '@echo/firestore-mocks/collection-discord-guild/get-collection-discord-guild-mocks-by-collection'
+import { COLLECTION_MOCK_SPIRAL_ID } from '@echo/model-mocks/collection/collection-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - collection-discord-guild - getCollectionDiscordGuildsByCollection', () => {
@@ -8,9 +9,9 @@ describe('CRUD - collection-discord-guild - getCollectionDiscordGuildsByCollecti
     expect(document).toEqual([])
   })
   it('returns the discord guilds associated with the collection', async () => {
-    const slug = 'spiral-frequencies'
-    const documents = await getCollectionDiscordGuildsByCollection(slug)
+    const collectionId = COLLECTION_MOCK_SPIRAL_ID
+    const documents = await getCollectionDiscordGuildsByCollection(collectionId)
     expect(documents.length).toBe(1)
-    expect(documents).toStrictEqual(getCollectionDiscordGuildMocksByCollection('1aomCtnoesD7WVll6Yi1'))
+    expect(documents).toStrictEqual(getCollectionDiscordGuildMocksByCollection(collectionId))
   })
 })

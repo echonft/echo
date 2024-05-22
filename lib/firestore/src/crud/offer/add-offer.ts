@@ -24,7 +24,7 @@ export async function addOffer(
 > {
   assertItems(receiverItems)
   assertItems(senderItems)
-  await assertOfferIsNotADuplicate(senderItems, receiverItems)
+  await assertOfferIsNotADuplicate({ senderItems, receiverItems })
   const data: Offer = {
     createdAt: now(),
     expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix(),

@@ -74,9 +74,9 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
         const offerItemIndexes = pipe(concat, mapNftsToNftIndexes)(offerItems, completedOffersItems)
         const listingItemIndexes = mapNftsToNftIndexes(listing.items)
         if (intersection(offerItemIndexes, listingItemIndexes).length === listingItemIndexes.length) {
-          await updateListingState(listingId, LISTING_STATE_FULFILLED)
+          await updateListingState(listing.slug, LISTING_STATE_FULFILLED)
         } else {
-          await updateListingState(listingId, LISTING_STATE_PARTIALLY_FULFILLED)
+          await updateListingState(listing.slug, LISTING_STATE_PARTIALLY_FULFILLED)
         }
       }
     }

@@ -1,10 +1,9 @@
 import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/offer/offer-state-update-trigger-by-system'
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
-import { cancelOffer } from '@echo/firestore/crud/offer/cancel-offer'
 import { completeOffer, type CompleteOfferArgs } from '@echo/firestore/crud/offer/complete-offer'
 import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { getOfferStateUpdateSnapshot } from '@echo/firestore/crud/offer-update/get-offer-state-update'
-import { getSwapSnapshotByOfferId } from '@echo/firestore/crud/swap/get-swap-by-offer-id'
+import { getSwapSnapshot } from '@echo/firestore/crud/swap/get-swap'
 import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
 import { assertCollectionSwapsCounts } from '@echo/firestore-test/collection-swaps-count/assert-collection-swaps-counts'
 import { getCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-id'
@@ -28,11 +27,14 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
+import { mapNftsToNftIndexes } from '@echo/model/helpers/nft/map-nfts-to-nft-indexes'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
+import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
 import { getNftMockByIndex } from '@echo/model-mocks/nft/get-nft-mock-by-index'
 import { getOfferMockBySlug } from '@echo/model-mocks/offer/get-offer-mock-by-slug'
+import { OFFER_MOCK_TO_JOHNNYCAGE_ID, OFFER_MOCK_TO_JOHNNYCAGE_SLUG } from '@echo/model-mocks/offer/offer-mock'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
@@ -41,18 +43,18 @@ import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import { andThen, assoc, find, isEmpty, isNil, map, pipe, prop, propEq, reject, toLower } from 'ramda'
+import { andThen, assoc, find, isEmpty, isNil, map, pipe, prop, propEq, reject } from 'ramda'
 
 describe('CRUD - offer - completeOffer', () => {
-  const listingId = 'jUzMtPGKM62mMhEcmbN4'
-  const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
-  const slug = toLower(offerId)
+  const listingId = LISTING_MOCK_ID
+  const offerId = OFFER_MOCK_TO_JOHNNYCAGE_ID
+  const slug = OFFER_MOCK_TO_JOHNNYCAGE_SLUG
   let initialSwapsCounts: CollectionSwapsCount[]
   let createdStateUpdateId: Nullable<string>
   let createdSwapId: Nullable<string>
   let updatedNftIndexes: NftIndex[]
   const args: CompleteOfferArgs = {
-    slug: 'LyCfl6Eg7JKuD7XJ6IPi',
+    slug,
     transactionId: 'swap-transaction-id',
     updateArgs: {
       trigger: {
@@ -102,6 +104,16 @@ describe('CRUD - offer - completeOffer', () => {
       } catch (e) {
         pinoLogger.error(`Error deleting swap with id ${createdSwapId}: ${errorMessage(e)}`)
       }
+      // reset the NFTs with their original data
+      if (!isEmpty(updatedNftIndexes)) {
+        for (const index of updatedNftIndexes) {
+          try {
+            await unchecked_updateNft(index, getNftMockByIndex(index))
+          } catch (e) {
+            pinoLogger.error(`Error resetting nft with index ${JSON.stringify(index)}: ${errorMessage(e)}`)
+          }
+        }
+      }
     }
     if (!isEmpty(initialSwapsCounts)) {
       for (const swapsCount of initialSwapsCounts) {
@@ -114,20 +126,10 @@ describe('CRUD - offer - completeOffer', () => {
         }
       }
     }
-    // reset the NFTs with their original data
-    if (!isEmpty(updatedNftIndexes)) {
-      for (const index of updatedNftIndexes) {
-        try {
-          await unchecked_updateNft(index, getNftMockByIndex(index))
-        } catch (e) {
-          pinoLogger.error(`Error resetting nft with index ${JSON.stringify(index)}: ${errorMessage(e)}`)
-        }
-      }
-    }
   })
 
   it('throws if the offer is undefined', async () => {
-    await expect(pipe(assoc('offerId', 'not-found'), completeOffer)(args)).rejects.toBeDefined()
+    await expect(pipe(assoc('slug', 'not-found'), completeOffer)(args)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
     await unchecked_updateOffer(slug, { state: OFFER_STATE_EXPIRED, expiresAt: pastDate() })
@@ -158,7 +160,7 @@ describe('CRUD - offer - completeOffer', () => {
             by: 'not-system'
           }
         }),
-        cancelOffer
+        completeOffer
       )(args)
     ).rejects.toBeDefined()
   })
@@ -174,8 +176,9 @@ describe('CRUD - offer - completeOffer', () => {
     await unchecked_updateOffer(slug, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate() })
     await completeOffer(args)
     const updatedOffer = (await getOffer(slug))!
+    updatedNftIndexes = pipe(getOfferItems, mapNftsToNftIndexes)(updatedOffer)
     const updatedListing = (await getListingById(listingId))!
-    const swapSnapshot = (await getSwapSnapshotByOfferId(slug))!
+    const swapSnapshot = (await getSwapSnapshot(slug))!
     createdSwapId = swapSnapshot.id
     const swap = swapSnapshot.data()
     // get offer state update
@@ -195,7 +198,7 @@ describe('CRUD - offer - completeOffer', () => {
     expect(updatedOffer.state).toEqual(OFFER_STATE_COMPLETED)
     expectDateNumberIsNow(updatedOffer.updatedAt)
     // check swap
-    expect(swap.offerId).toStrictEqual(slug)
+    expect(swap.offerId).toStrictEqual(offerId)
     expect(swap.transactionId).toStrictEqual(args.transactionId)
     expectDateNumberIsNow(swap.createdAt)
     // check if the listing state was updated properly

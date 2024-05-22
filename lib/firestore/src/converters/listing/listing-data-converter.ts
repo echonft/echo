@@ -17,11 +17,13 @@ export const listingDataConverter: FirestoreDataConverter<Listing, ListingDocume
       ListingDocumentData,
       ListingDocumentData,
       Omit<ListingDocumentData, 'itemIndexes'>,
+      Omit<ListingDocumentData, 'itemIndexes' | 'itemCollections'>,
       Listing
     >(
       nonNullableReturn(getDocumentSnapshotData<ListingDocumentData>),
       lowerCreatorWalletAddress,
       dissoc('itemIndexes'),
+      dissoc('itemCollections'),
       setReadOnly
     )(snapshot)
   },

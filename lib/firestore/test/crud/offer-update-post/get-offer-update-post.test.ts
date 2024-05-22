@@ -31,6 +31,6 @@ describe('CRUD - offer-update-post - getOfferUpdatePost', () => {
     const newDocument = await unchecked_addOfferUpdatePost('id')
     offerUpdatePostId = newDocument.id
     const foundDocument = await getOfferUpdatePost('id')
-    expect(foundDocument).toStrictEqual(newDocument)
+    expect(foundDocument).toStrictEqual(newDocument.data)
   })
 })

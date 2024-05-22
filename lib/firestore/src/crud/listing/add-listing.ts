@@ -27,7 +27,7 @@ export async function addListing(args: AddListingArgs): Promise<
 > {
   const { items, target } = args
   assertItems(items)
-  await assertListingIsNotADuplicate(items, target)
+  await assertListingIsNotADuplicate({ items, target })
   const data: Listing = {
     creator: head(items).owner,
     createdAt: now(),

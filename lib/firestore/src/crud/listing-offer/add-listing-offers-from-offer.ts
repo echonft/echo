@@ -6,19 +6,23 @@ import type { NewDocument } from '@echo/firestore/types/new-document'
 import { type Offer } from '@echo/model/types/offer'
 import { isIn } from '@echo/utils/fp/is-in'
 import { isNonEmptyArray } from '@echo/utils/fp/is-non-empty-array'
-import { map, pipe, prop, reject } from 'ramda'
+import { andThen, map, pipe, prop, propSatisfies, reject } from 'ramda'
 
 export async function addListingOffersFromOffer(offer: Offer): Promise<NewDocument<ListingOffer>[]> {
   const listingOffers = await getListingOffersForOffer(offer)
   if (isNonEmptyArray(listingOffers)) {
-    const existingListingOffers = await getListingOffersByOffer(offer.slug)
-    const existingListingOffersListingIds = map(prop('listingId'), existingListingOffers)
-    const newListingOffers = reject(pipe(prop('listingId'), isIn(existingListingOffersListingIds)), listingOffers)
-    return await Promise.all(
-      map(({ listingId, offerId, fulfillingStatus }) => {
-        return addListingOffer({ listingId, offerId, fulfillingStatus })
-      }, newListingOffers)
-    )
+    const existingListingOffersListingIds = await pipe(
+      prop('slug'),
+      getListingOffersByOffer,
+      andThen(map(prop('listingId')))
+    )(offer)
+    const newListingOffers = reject(propSatisfies(isIn(existingListingOffersListingIds), 'listingId'), listingOffers)
+    const listingOffersNewDocuments = []
+    for (const newListingOffer of newListingOffers) {
+      const newDocument = await addListingOffer(newListingOffer)
+      listingOffersNewDocuments.push(newDocument)
+    }
+    return listingOffersNewDocuments
   }
   return []
 }

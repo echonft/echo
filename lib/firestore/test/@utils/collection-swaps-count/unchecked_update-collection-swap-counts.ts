@@ -6,7 +6,7 @@ import { isNil } from 'ramda'
 
 export async function unchecked_updateCollectionSwapCounts(
   collectionId: string,
-  data: Partial<Omit<CollectionSwapsCount, 'id'>>
+  data: Partial<CollectionSwapsCount>
 ): Promise<CollectionSwapsCount> {
   const snapshot = await getCollectionSwapsCountSnapshotByCollectionId(collectionId)
   if (isNil(snapshot)) {

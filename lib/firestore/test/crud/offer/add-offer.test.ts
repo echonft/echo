@@ -4,18 +4,23 @@ import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/ge
 import { getListingOffersForOffer } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-offer'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
+import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-a-duplicate'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
 import { assertListingOffers } from '@echo/firestore-test/listing-offer/assert-listing-offers'
 import { deleteListingOffer } from '@echo/firestore-test/listing-offer/delete-listing-offer'
 import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
 import { deleteOffer } from '@echo/firestore-test/offer/delete-offer'
+import { getAllOffers } from '@echo/firestore-test/offer/get-all-offers'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
+import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
+import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
 import { contentEq } from '@echo/utils/fp/content-eq'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -23,10 +28,10 @@ import { expectDateNumberIs } from '@echo/utils-test/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
-import { head, isNil, toLower } from 'ramda'
+import { head, isNil, pick, pipe, toLower } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
-  const listingId = 'jUzMtPGKM62mMhEcmbN4'
+  const listingId = LISTING_MOCK_ID
   let createdOfferId: Nullable<string>
   let createdListingOfferId: Nullable<string>
 
@@ -64,11 +69,21 @@ describe('CRUD - offer - addOffer', () => {
     }
   })
 
-  it('throws if the offer is a duplicate', async () => {
-    const { receiverItems, senderItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    await expect(addOffer(senderItems, receiverItems)).rejects.toBeDefined()
+  it('assertOfferIsNotADuplicate', async () => {
+    await expect(
+      pipe(
+        getOfferMockById,
+        pick(['senderItems', 'receiverItems']),
+        assertOfferIsNotADuplicate
+      )(OFFER_MOCK_TO_JOHNNYCAGE_ID)
+    ).rejects.toBeDefined()
   })
-
+  it('throws if the offer is a duplicate', async () => {
+    const { receiverItems, senderItems } = getOfferMockById(OFFER_MOCK_TO_JOHNNYCAGE_ID)
+    await expect(addOffer(senderItems, receiverItems)).rejects.toBeDefined()
+    const offers = await getAllOffers()
+    expect(contentEq(offers, getAllOfferMocks())).toBeTruthy()
+  })
   it('add an offer', async () => {
     const senderItems = [getNftMockById('kRE3UCfXWkJ33nwzj2X1')]
     const receiverItems = [getNftMockById('8hHFadIrrooORfTOLkBg'), getNftMockById('iRZFKEujarikVjpiFAkE')]

@@ -22,7 +22,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
     },
     receiverItems: [getNftMockById('8hHFadIrrooORfTOLkBg')],
     receiverItemIndexes: [getNftIndexMockById('8hHFadIrrooORfTOLkBg')],
-    receiverItemCollections: [toLower('1aomCtnoesD7WVll6Yi1')],
+    receiverItemCollections: ['spiral-frequencies'],
     sender: {
       discord: {
         username: 'crewnft_',
@@ -36,7 +36,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
     },
     senderItems: [getNftMockById('kRE3UCfXWkJ33nwzj2X1')],
     senderItemIndexes: [getNftIndexMockById('kRE3UCfXWkJ33nwzj2X1')],
-    senderItemCollections: [toLower('Rc8pLQXxgyQGIRL0fr13')],
+    senderItemCollections: ['pxmythics-genesis'],
     slug: toLower('LyCfl6Eg7JKuD7XJ6IPi'),
     state: OFFER_STATE_OPEN,
     updatedAt: 1676984897
@@ -58,7 +58,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
     },
     receiverItems: [getNftMockById('kRE3UCfXWkJ33nwzj2X1')],
     receiverItemIndexes: [getNftIndexMockById('kRE3UCfXWkJ33nwzj2X1')],
-    receiverItemCollections: [toLower('Rc8pLQXxgyQGIRL0fr13')],
+    receiverItemCollections: ['pxmythics-genesis'],
     sender: {
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
@@ -72,7 +72,7 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
     },
     senderItems: [getNftMockById('8hHFadIrrooORfTOLkBg'), getNftMockById('iRZFKEujarikVjpiFAkE')],
     senderItemIndexes: [getNftIndexMockById('8hHFadIrrooORfTOLkBg'), getNftIndexMockById('iRZFKEujarikVjpiFAkE')],
-    senderItemCollections: [toLower('1aomCtnoesD7WVll6Yi1')],
+    senderItemCollections: ['spiral-frequencies'],
     slug: toLower('ASkFpKoHEHVH0gd69t1G'),
     state: OFFER_STATE_COMPLETED,
     updatedAt: 1676984897

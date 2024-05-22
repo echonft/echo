@@ -9,6 +9,7 @@ import {
   LISTING_STATE_OPEN
 } from '@echo/model/constants/listing-states'
 import { type ListingState } from '@echo/model/types/listing-state'
+import { LISTING_MOCK_ID, LISTING_MOCK_SLUG } from '@echo/model-mocks/listing/listing-mock'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -17,7 +18,8 @@ describe('CRUD - listing - cancelListing', () => {
   let initialState: ListingState
   let initialExpiresAt: number
   let initialUpdatedAt: number
-  const listingId = 'jUzMtPGKM62mMhEcmbN4'
+  const listingId = LISTING_MOCK_ID
+  const listingSlug = LISTING_MOCK_SLUG
 
   beforeAll(async () => {
     await assertListings()
@@ -68,7 +70,7 @@ describe('CRUD - listing - cancelListing', () => {
       state: LISTING_STATE_OPEN,
       expiresAt: dayjs().add(1, 'day').unix()
     })
-    await cancelListing(listingId)
+    await cancelListing(listingSlug)
     const updatedListing = (await getListingById(listingId))!
     expect(updatedListing.state).toEqual(LISTING_STATE_CANCELLED)
     expectDateNumberIsNow(updatedListing.updatedAt)

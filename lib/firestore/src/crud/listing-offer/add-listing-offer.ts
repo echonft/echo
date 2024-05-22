@@ -31,7 +31,7 @@ export async function addListingOffer(listingOffer: ListingOffer): Promise<NewDo
   })
   // update listing state if needed
   if (listing.state === LISTING_STATE_OPEN) {
-    await updateListingState(listingId, LISTING_STATE_OFFERS_PENDING)
+    await updateListingState(listing.slug, LISTING_STATE_OFFERS_PENDING)
   }
   return { id, data: listingOffer }
 }

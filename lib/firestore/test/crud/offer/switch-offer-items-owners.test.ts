@@ -7,13 +7,14 @@ import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import type { Nft } from '@echo/model/types/nft'
 import { getNftMockByIndex } from '@echo/model-mocks/nft/get-nft-mock-by-index'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import { isEmpty } from 'ramda'
 
 describe('CRUD - offer - switchOfferItemsOwners', () => {
-  const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
+  const offerId = OFFER_MOCK_TO_JOHNNYCAGE_ID
   let items: Nft[]
   beforeAll(async () => {
     await assertNfts()

@@ -44,9 +44,11 @@ describe('CRUD - wallet - removeWallet', () => {
     ).rejects.toBeDefined()
   })
   it('remove wallet', async () => {
-    const wallet = getWalletDocumentDataMockById('i28NWtlxElPXCnO0c6BC')
+    const walletId = 'i28NWtlxElPXCnO0c6BC'
+    const wallet = getWalletDocumentDataMockById(walletId)
     const walletData = pick(['address', 'chain'], wallet)
     await removeWallet(wallet.userId, walletData)
+    deletedWalletId = walletId
     const foundWallet = await getWalletByAddress(walletData)
     expect(foundWallet).toBeUndefined()
   })

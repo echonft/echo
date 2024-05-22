@@ -79,19 +79,19 @@ describe('CRUD - listing-offer - addListingOffer', () => {
     const listingId = 'jUzMtPGKM62mMhEcmbN4'
     const initialListingState = (await getListingById(listingId))!.state
     const { receiverItems, senderItems } = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
-    const createdOffer = await unchecked_addOffer(receiverItems, senderItems)
-    createdOfferId = createdOffer.id
-    const createdListingOffer = await addListingOffer({
+    const createdOfferNewDocument = await unchecked_addOffer(receiverItems, senderItems)
+    createdOfferId = createdOfferNewDocument.id
+    const createdListingOfferNewDocument = await addListingOffer({
       listingId,
-      offerId: createdOffer.id,
+      offerId: createdOfferId,
       fulfillingStatus: ListingOfferFulfillingStatus.COMPLETELY
     })
-    createdListingOfferId = createdListingOffer.id
+    createdListingOfferId = createdListingOfferNewDocument.id
     // get the new listing state and reset the listing state to its original value
     const newListingState = (await getListingById(listingId))!.state
     await unchecked_updateListing(listingId, { state: initialListingState })
     const foundListingOffer = await getListingOfferById(createdListingOfferId)
-    expect(foundListingOffer).toStrictEqual(createdListingOffer)
+    expect(foundListingOffer).toStrictEqual(createdListingOfferNewDocument.data)
     // check if the listing state was correctly updated
     if (initialListingState === LISTING_STATE_OPEN) {
       expect(newListingState).toEqual(LISTING_STATE_OFFERS_PENDING)

@@ -5,8 +5,7 @@ import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - listing- getAllListings', () => {
   it('get all listings', async () => {
-    const listingMocks = getAllListingMocks()
     const listings = await getAllListings()
-    expect(contentEq(listings, listingMocks)).toBeTruthy()
+    expect(contentEq(listings, getAllListingMocks())).toBeTruthy()
   })
 })

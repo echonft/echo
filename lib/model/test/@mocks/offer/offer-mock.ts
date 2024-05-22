@@ -3,11 +3,16 @@ import { type Offer } from '@echo/model/types/offer'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { toLower } from 'ramda'
 
+export const OFFER_MOCK_TO_JOHNNYCAGE_ID = 'LyCfl6Eg7JKuD7XJ6IPi'
+export const OFFER_MOCK_TO_JOHNNYCAGE_SLUG = toLower(OFFER_MOCK_TO_JOHNNYCAGE_ID)
+export const OFFER_MOCK_FROM_JOHNNYCAGE_ID = 'ASkFpKoHEHVH0gd69t1G'
+export const OFFER_MOCK_FROM_JOHNNYCAGE_SLUG = toLower(OFFER_MOCK_FROM_JOHNNYCAGE_ID)
+
 export const offerMock: Record<string, Offer> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
     createdAt: 1676984897,
     expiresAt: 2324074781,
-    idContract: 'LyCfl6Eg7JKuD7XJ6IPi',
+    idContract: OFFER_MOCK_TO_JOHNNYCAGE_ID,
     readOnly: false,
     receiver: {
       discord: {
@@ -33,7 +38,7 @@ export const offerMock: Record<string, Offer> = {
       }
     },
     senderItems: [getNftMockById('kRE3UCfXWkJ33nwzj2X1')],
-    slug: toLower('LyCfl6Eg7JKuD7XJ6IPi'),
+    slug: OFFER_MOCK_TO_JOHNNYCAGE_SLUG,
     state: OFFER_STATE_OPEN,
     updatedAt: 1676984897
   },
@@ -66,7 +71,7 @@ export const offerMock: Record<string, Offer> = {
       }
     },
     senderItems: [getNftMockById('8hHFadIrrooORfTOLkBg'), getNftMockById('iRZFKEujarikVjpiFAkE')],
-    slug: toLower('ASkFpKoHEHVH0gd69t1G'),
+    slug: OFFER_MOCK_FROM_JOHNNYCAGE_SLUG,
     state: OFFER_STATE_COMPLETED,
     updatedAt: 1676984897
   }

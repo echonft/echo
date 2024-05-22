@@ -22,7 +22,7 @@ export const listingDocumentDataMock: Record<string, ListingDocumentData> = {
     expiresAt: 2324074781,
     items: [getNftMockById('8hHFadIrrooORfTOLkBg'), getNftMockById('iRZFKEujarikVjpiFAkE')],
     itemIndexes: [getNftIndexMockById('8hHFadIrrooORfTOLkBg'), getNftIndexMockById('iRZFKEujarikVjpiFAkE')],
-    itemCollections: [toLower('1aomCtnoesD7WVll6Yi1')],
+    itemCollections: ['spiral-frequencies'],
     state: LISTING_STATE_OFFERS_PENDING,
     target: {
       collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),

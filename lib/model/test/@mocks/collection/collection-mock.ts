@@ -1,6 +1,11 @@
 import { type Collection } from '@echo/model/types/collection'
 import { toLower } from 'ramda'
 
+export const COLLECTION_MOCK_PX_ID = 'Rc8pLQXxgyQGIRL0fr13'
+export const COLLECTION_MOCK_PX_SLUG = 'pxmythics-genesis'
+export const COLLECTION_MOCK_SPIRAL_ID = '1aomCtnoesD7WVll6Yi1'
+export const COLLECTION_MOCK_SPIRAL_SLUG = 'spiral-frequencies'
+
 export const collectionMock: Record<string, Collection> = {
   Rc8pLQXxgyQGIRL0fr13: {
     bannerUrl:
@@ -14,7 +19,7 @@ export const collectionMock: Record<string, Collection> = {
     description: 'pxMythics is an 1,077 piece NFT collection based on the greatest mythologies throughout history.',
     discordUrl: 'https://discord.gg/pxmythics',
     name: 'pxMythics Genesis',
-    slug: 'pxmythics-genesis',
+    slug: COLLECTION_MOCK_PX_SLUG,
     profilePictureUrl:
       'https://i.seadn.io/gae/R3b_Ju-BF7Ae45pp1f7UxCS5wF06dfFG7ydux_v9S8lJ7CL3j4kgv7a0nM4yVw-GhOH21ZigeaNluK-nuo6Dclq9LdQYH2Cvj8PfMQ',
     totalSupply: 1077,
@@ -32,7 +37,7 @@ export const collectionMock: Record<string, Collection> = {
     description: 'A Genetic Chain Project.',
     discordUrl: 'https://discord.gg/genetic-chain',
     name: 'Spiral Frequencies',
-    slug: 'spiral-frequencies',
+    slug: COLLECTION_MOCK_SPIRAL_SLUG,
     profilePictureUrl:
       'https://i.seadn.io/gae/dPCp-lwVmhNgEqZCIsTVos7mDu7qY5A_LARb8PMULBrIfTIlRSlX58fphv8AQm8axjszuT-LOwbBlIbXRwZuA6Ua9Btp3aJWpMCMWu8',
     totalSupply: 6315,
