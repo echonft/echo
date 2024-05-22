@@ -1,12 +1,19 @@
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
+import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
 import { getNftsPaginated } from '@echo/firestore/crud/nft/get-nfts-paginated'
 import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
+import type { QueryDocumentSnapshot } from '@echo/firestore/types/query-document-snapshot'
+import { mapNftToNftIndex } from '@echo/model/helpers/nft/map-nft-to-nft-index'
+import type { Nft } from '@echo/model/types/nft'
+import type { NftIndex } from '@echo/model/types/nft-index'
 import { PROMISE_POOL_CONCURRENCY } from '@echo/tasks/constants/promise-pool-concurrency'
+import { throwError } from '@echo/utils/fp/throw-error'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { getNftOwner } from '@echo/web3/helpers/nft/get-nft-owner'
 import { PromisePool } from '@supercharge/promise-pool'
-import { inc, isNil } from 'ramda'
+import { andThen, ifElse, inc, isNil, pipe, prop } from 'ramda'
 
 async function removeOrphanNftsForPage(page: number, logger?: LoggerInterface) {
   const { result: nfts, hasNext } = await getNftsPaginated({ page })
@@ -22,7 +29,12 @@ async function removeOrphanNftsForPage(page: number, logger?: LoggerInterface) {
               `NFT ${nft.collection.slug} #${nft.tokenId} is not owned by any user in the database, deleting...`
             )
             try {
-              await deleteNft(nft.id)
+              const nftId = await pipe<[Nft], NftIndex, Promise<Nullable<QueryDocumentSnapshot<Nft>>>, Promise<string>>(
+                mapNftToNftIndex,
+                getNftSnapshot,
+                andThen(ifElse(isNil, throwError('Snapshot is nil'), prop('id')))
+              )(nft)
+              await deleteNft(nftId)
               logger?.info(`NFT ${nft.collection.slug} #${nft.tokenId} deleted`)
             } catch (e) {
               logger?.error(`error deleting NFT ${nft.collection.slug} #${nft.tokenId}: ${errorMessage(e)}`)

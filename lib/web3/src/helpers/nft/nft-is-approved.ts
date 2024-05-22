@@ -15,7 +15,7 @@ export async function nftIsApproved(nft: Nft, logger?: LoggerInterface): Promise
     collection: { contracts },
     owner: { wallet }
   } = nft
-  // FIXME Not sure if thats the proper behaviour
+  // FIXME Contract[] Not sure if thats the proper behaviour
   const contract = nonNullableReturn<[Contract[]], Contract>(head)(contracts)
   const chainId = getChainId(contract.chain)
   if (contract.chain !== wallet.chain) {

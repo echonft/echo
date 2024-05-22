@@ -40,7 +40,7 @@ export const onWalletWritten = onDocumentWritten(setMaxInstances({ document: 'wa
         try {
           await removeNftsForWallet(wallet)
         } catch (e) {
-          logger.error(`error removing NFTs for wallet ${wallet.id}: ${errorMessage(e)}`)
+          logger.error(`error removing NFTs for wallet ${wallet.address}: ${errorMessage(e)}`)
         }
       }
     }

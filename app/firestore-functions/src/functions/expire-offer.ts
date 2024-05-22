@@ -7,7 +7,7 @@ import { onTaskDispatched } from 'firebase-functions/v2/tasks'
 import { z } from 'zod'
 
 const requestSchema = z.object({
-  offerId: z.string().min(1)
+  slug: z.string().min(1)
 })
 
 export const expireOffer = onTaskDispatched(
@@ -22,15 +22,15 @@ export const expireOffer = onTaskDispatched(
   }),
   async (req) => {
     try {
-      const { offerId } = requestSchema.parse(req.data)
+      const { slug } = requestSchema.parse(req.data)
       try {
         await updateOfferState({
-          offerId,
+          slug,
           state: 'EXPIRED',
           updateArgs: { trigger: { by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } }
         })
       } catch (err) {
-        error(`Error setting offer ${offerId} state to expired: ${errorMessage(err)}`)
+        error(`Error setting offer ${slug} state to expired: ${errorMessage(err)}`)
       }
     } catch (err) {
       error(`Error parsing expireOffer body: ${errorMessage(err)}`)

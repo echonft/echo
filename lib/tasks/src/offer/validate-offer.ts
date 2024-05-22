@@ -14,10 +14,10 @@ export async function validateOffer(offer: Offer, logger?: LoggerInterface): Pro
   if (result.valid) {
     return offer
   }
-  logger?.warn(`offer ${offer.id} is invalid: ${result.reason}`)
+  logger?.warn(`offer ${offer.slug} is invalid: ${result.reason}`)
   try {
     const cancelledOffer = await unchecked_cancelOffer({
-      offerId: offer.id,
+      slug: offer.slug,
       updateArgs: {
         trigger: {
           by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM,
@@ -28,10 +28,10 @@ export async function validateOffer(offer: Offer, logger?: LoggerInterface): Pro
         }
       }
     })
-    logger?.info(`offer ${offer.id} cancelled`)
+    logger?.info(`offer ${offer.slug} cancelled`)
     return cancelledOffer
   } catch (e) {
-    logger?.error(`error cancelling offer ${offer.id}: ${errorMessage(e)}`)
+    logger?.error(`error cancelling offer ${offer.slug}: ${errorMessage(e)}`)
     return offer
   }
 }

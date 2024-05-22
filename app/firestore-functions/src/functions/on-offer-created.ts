@@ -16,7 +16,7 @@ export const onOfferCreated = onDocumentCreated(setMaxInstances({ document: 'off
     if (!isNil(uri)) {
       try {
         await queue.enqueue(
-          { offerId: offer.id },
+          { slug: offer.slug },
           {
             scheduleTime: new Date(offer.expiresAt * 1000),
             uri

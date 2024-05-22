@@ -14,7 +14,7 @@ export async function getNftOwner(nft: Nft): Promise<Wallet> {
     collection: { contracts },
     tokenId
   } = nft
-  // FIXME Not sure if thats the proper behaviour
+  // FIXME Contract[] Not sure if thats the proper behaviour
   const contract = nonNullableReturn<[Contract[]], Contract>(head)(contracts)
   const chainId = getChainId(contract.chain)
   const client = pipe(getChainById, getViemClient)(chainId)

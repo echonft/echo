@@ -11,6 +11,7 @@ import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import {
   always,
   applySpec,
+  head,
   ifElse,
   invoker,
   isNil,
@@ -42,13 +43,19 @@ function internalFn(collection: Collection, owner: User): (nftResponse: NftRespo
           pipe(prop('balance'), partialRight(parseInt, [10])),
           always(1)
         ),
-        blurUrl: pipe(prop('tokenId'), partialRight(parseInt, [10]), partial(getBlurUrlForNft, [collection.contract])),
+        // FIXME Contract[] Not sure if thats the proper behaviour
+        blurUrl: pipe(
+          prop('tokenId'),
+          partialRight(parseInt, [10]),
+          partial(getBlurUrlForNft, [head(collection.contracts)])
+        ),
         collection: always(collection),
         name: prop('name'),
         openSeaUrl: pipe(
           prop('tokenId'),
           partialRight(parseInt, [10]),
-          partial(getOpenSeaUrlForNft, [collection.contract])
+          // FIXME Contract[] Not sure if thats the proper behaviour
+          partial(getOpenSeaUrlForNft, [head(collection.contracts)])
         ),
         owner: always(owner),
         // Not all links are always provided so add either cached or original if pngUrl does not exist
