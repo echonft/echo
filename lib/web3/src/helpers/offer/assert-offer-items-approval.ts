@@ -1,16 +1,14 @@
 import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
-import type { OfferItem } from '@echo/model/types/offer-item'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import { nftIsApproved } from '@echo/web3/helpers/nft/nft-is-approved'
-import { eqBy, map, path, pipe, prop, uniqWith } from 'ramda'
+import { eqBy, path, pipe, prop, uniqWith } from 'ramda'
 
 export async function assertOfferItemsApproval(offer: Offer, logger?: LoggerInterface): Promise<boolean> {
   if (offer.state === OFFER_STATE_ACCEPTED) {
-    const nfts = pipe<[Offer], OfferItem[], Nft[], Nft[]>(
+    const nfts = pipe<[Offer], Nft[], Nft[]>(
       prop('receiverItems'),
-      map<OfferItem, Nft>(prop('nft')),
       uniqWith(eqBy(path(['collection', 'contract'])))
     )(offer)
     for (const nft of nfts) {

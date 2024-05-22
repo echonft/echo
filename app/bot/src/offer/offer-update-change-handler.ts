@@ -7,7 +7,7 @@ import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-o
 import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
 import { type DocumentChangeType } from '@echo/firestore/types/document-change-type'
 import type { OfferUpdate } from '@echo/firestore/types/model/offer-update/offer-update'
-import type { QueryDocumentSnapshot } from '@echo/firestore/types/query-document-snapshot';
+import type { QueryDocumentSnapshot } from '@echo/firestore/types/query-document-snapshot'
 import { isNil } from 'ramda'
 
 /**
@@ -27,7 +27,7 @@ export async function offerUpdateChangeHandler(
       if (isNil(offer)) {
         throw Error(`offer ${update.offerId} for offer update ${snapshot.id} not found`)
       }
-      await postOfferStateUpdate(offer)
+      await postOfferStateUpdate(offer, update.offerId)
       await addOfferUpdatePost(snapshot.id)
       if (offer.readOnly) {
         const offerThread = await getOfferThread(update.offerId)

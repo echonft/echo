@@ -7,7 +7,7 @@ import { isNil } from 'ramda'
 
 export async function postListing(listing: Listing) {
   const {
-    id: listingId,
+    slug: listingSlug,
     creator: { username }
   } = listing
   const creator = await getUserByUsername(username)
@@ -15,7 +15,7 @@ export async function postListing(listing: Listing) {
     throw Error(`listing creator with username ${username} not found`)
   }
   await sendToEchoChannel({
-    components: [buildListingLinkButton(listingId)],
+    components: [buildListingLinkButton(listingSlug)],
     embeds: [buildListingEmbed(listing, creator)]
   })
 }

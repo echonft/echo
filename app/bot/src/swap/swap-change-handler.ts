@@ -14,13 +14,12 @@ import { isNil } from 'ramda'
  * @param snapshot
  */
 export async function swapChangeHandler(changeType: DocumentChangeType, snapshot: QueryDocumentSnapshot<Swap>) {
-  const swap = snapshot.data()
-  pinoLogger.info(`swap for offer ${swap.offerId} was written: ${changeType}`)
+  pinoLogger.info(`swap for offer ${snapshot.data().offerId} was written: ${changeType}`)
   if (changeType === 'added') {
     // TODO get the offer guilds when we support it
-    const post = await getSwapPost({ swapId: snapshot.id, guildId: echoGuild.discordId })
+    const post = await getSwapPost({ swapId: snapshot.id, guildId: echoGuild.id })
     if (isNil(post)) {
-      await postSwap(swap)
+      await postSwap(snapshot)
       await addSwapPost({ swapId: snapshot.id, guild: echoGuild })
     }
   }

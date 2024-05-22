@@ -20,7 +20,7 @@ import { isNil } from 'ramda'
 async function getOfferReceiverId(offer: Offer) {
   const receiver = await getUserByUsername(offer.receiver.username)
   if (isNil(receiver)) {
-    throw Error(`offer receiver with username ${offer.receiver.username} not found for offer ${offer.id}`)
+    throw Error(`offer receiver with username ${offer.receiver.username} not found for offer ${offer.slug}`)
   }
   return receiver.discord.id
 }
@@ -42,10 +42,10 @@ async function getMessage(offer: Offer) {
   }
 }
 
-export async function postOfferStateUpdate(offer: Offer) {
-  const offerThread = await getOfferThread(offer.id)
+export async function postOfferStateUpdate(offer: Offer, offerId: string) {
+  const offerThread = await getOfferThread(offerId)
   if (isNil(offerThread)) {
-    throw Error(`offer thread not found for offer ${offer.id}`)
+    throw Error(`offer thread not found for offer ${offerId}`)
   }
   const thread = await getThreadOnEchoChannel(offerThread.guild.threadId)
   if (isNil(thread)) {
@@ -54,7 +54,7 @@ export async function postOfferStateUpdate(offer: Offer) {
   }
   const content = await getMessage(offer)
   await sendToThread(thread, {
-    components: [buildOfferLinkButton(offer.id)],
+    components: [buildOfferLinkButton(offer.slug)],
     content
   })
 }

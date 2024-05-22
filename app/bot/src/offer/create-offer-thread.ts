@@ -17,7 +17,7 @@ export async function createOfferThread(offer: Offer, senderId: string, receiver
   await thread.members.add(senderId)
   await thread.members.add(receiverId)
   await sendToThread(thread, {
-    components: [buildOfferLinkButton(offer.id)],
+    components: [buildOfferLinkButton(offer.slug)],
     content: i18next.t('offer.thread.message', { sender: userMention(senderId), receiver: userMention(receiverId) })
   })
   return thread.id

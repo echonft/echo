@@ -33,7 +33,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
     key: SWRKeys.listing.create,
     fetcher: createListing,
     onSuccess: (response) => {
-      router.replace(linkProvider.listing.details.get({ listingId: response.listing.id }))
+      router.replace(linkProvider.listing.details.get({ listingSlug: response.listing.slug }))
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') }

@@ -4,10 +4,10 @@ interface CollectionPathArgs {
   slug: string
 }
 interface ListingPathArgs {
-  listingId: string
+  listingSlug: string
 }
 interface OfferPathArgs {
-  offerId: string
+  offerSlug: string
 }
 interface UserPathArgs {
   username: string
@@ -27,11 +27,11 @@ export const linkProvider = {
     swaps: new Path<CollectionPathArgs>({ path: '/collection/:slug/swaps' })
   },
   listing: {
-    details: new Path<ListingPathArgs>({ path: '/listing/:listingId' }),
+    details: new Path<ListingPathArgs>({ path: '/listing/:listingSlug' }),
     new: new Path({ path: '/listing/new', secure: true })
   },
   offer: {
-    details: new Path<OfferPathArgs>({ path: '/offer/:offerId' }),
+    details: new Path<OfferPathArgs>({ path: '/offer/:offerSlug' }),
     new: new Path({ path: '/offer/new', secure: true })
   },
   profile: {
