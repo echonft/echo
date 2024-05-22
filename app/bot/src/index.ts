@@ -19,7 +19,7 @@ client.once(Events.ClientReady, async (_client) => {
   initializeSentry('https://3b3f89c8f90990e4b35f5e194d109300@o4506149604098048.ingest.sentry.io/4506185901932544')
   initializeFirebase()
   await initializeTranslations()
-  listenToListings((changeType, listing) => guardAsyncFn(listingChangeHandler)(changeType, listing))
+  listenToListings((changeType, snapshot) => guardAsyncFn(listingChangeHandler)(changeType, snapshot))
   listenToOffers((changeType, offer) => guardAsyncFn(offerChangeHandler)(changeType, offer))
   listenToOfferUpdates((changeType, snapshot) => guardAsyncFn(offerUpdateChangeHandler)(changeType, snapshot))
   listenToSwaps((changeType, snapshot) => guardAsyncFn(swapChangeHandler)(changeType, snapshot))

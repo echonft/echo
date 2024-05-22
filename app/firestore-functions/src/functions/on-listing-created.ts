@@ -9,14 +9,15 @@ import { isNil } from 'ramda'
 
 export const onListingCreated = onDocumentCreated(setMaxInstances({ document: 'listings/{id}' }), async (event) => {
   const functionName = 'expireListing'
+  const listingId = event.data?.id
   const listing = event.data?.data() as Listing
-  if (!isNil(listing)) {
+  if (!isNil(listing) && !isNil(listingId)) {
     const queue = getFunctions().taskQueue(functionName)
     const uri = await getFunctionUrl(functionName)
     if (!isNil(uri)) {
       try {
         await queue.enqueue(
-          { listingId: listing.id },
+          { listingId },
           {
             scheduleTime: new Date(listing.expiresAt * 1000),
             uri

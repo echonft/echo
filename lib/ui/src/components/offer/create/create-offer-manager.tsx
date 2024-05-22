@@ -31,7 +31,7 @@ export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receive
     key: SWRKeys.offer.create,
     fetcher: createOffer,
     onSuccess: (response) => {
-      router.replace(linkProvider.offer.details.get({ offerId: response.offer.id }))
+      router.replace(linkProvider.offer.details.get({ offerSlug: response.offer.slug }))
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') }
