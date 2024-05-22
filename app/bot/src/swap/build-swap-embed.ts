@@ -1,9 +1,8 @@
 import { embedSeparator } from '@echo/bot/helpers/embed/embed-separator'
 import { embedValueForNft } from '@echo/bot/helpers/embed/embed-value-for-nft'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
-import { type ListingItem } from '@echo/model/types/listing-item'
+import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
-import type { OfferItem } from '@echo/model/types/offer-item'
 import { type APIEmbedField, EmbedBuilder, userMention } from 'discord.js'
 import i18next from 'i18next'
 import { addIndex, flatten, map } from 'ramda'
@@ -24,7 +23,7 @@ export function buildSwapEmbed(offer: Offer, creator: UserDocumentData, counterp
   )
 }
 
-function fields(creatorItems: OfferItem[], counterpartyItems: OfferItem[]): APIEmbedField[] {
+function fields(creatorItems: Nft[], counterpartyItems: Nft[]): APIEmbedField[] {
   return flatten([
     embedSeparator(),
     offerItemsFields(creatorItems, true),
@@ -33,13 +32,13 @@ function fields(creatorItems: OfferItem[], counterpartyItems: OfferItem[]): APIE
   ])
 }
 
-function offerItemsFields(items: OfferItem[], isCreatorItems: boolean): APIEmbedField[] {
-  const mapIndexed = addIndex<OfferItem>(map)
+function offerItemsFields(items: Nft[], isCreatorItems: boolean): APIEmbedField[] {
+  const mapIndexed = addIndex<Nft>(map)
   return mapIndexed(
-    (item: ListingItem, index) => ({
+    (item: Nft, index) => ({
       name:
         index === 0 ? i18next.t(`swap.embed.${isCreatorItems ? 'creatorItems' : 'counterpartyItems'}.name`) : '\u200b',
-      value: embedValueForNft(item.nft),
+      value: embedValueForNft(item),
       inline: true
     }),
     items

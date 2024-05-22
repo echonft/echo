@@ -20,7 +20,7 @@ client.once(Events.ClientReady, async (_client) => {
   initializeFirebase()
   await initializeTranslations()
   listenToListings((changeType, snapshot) => guardAsyncFn(listingChangeHandler)(changeType, snapshot))
-  listenToOffers((changeType, offer) => guardAsyncFn(offerChangeHandler)(changeType, offer))
+  listenToOffers((changeType, snapshot) => guardAsyncFn(offerChangeHandler)(changeType, snapshot))
   listenToOfferUpdates((changeType, snapshot) => guardAsyncFn(offerUpdateChangeHandler)(changeType, snapshot))
   listenToSwaps((changeType, snapshot) => guardAsyncFn(swapChangeHandler)(changeType, snapshot))
   await guardAsyncFn(sendToEchoChannel)('Echo bot up and running')

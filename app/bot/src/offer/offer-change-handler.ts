@@ -13,7 +13,7 @@ import { applySpec, assoc, isNil } from 'ramda'
 /**
  * Handles offer changes
  * @param changeType
- * @param offer
+ * @param snapshot
  */
 export async function offerChangeHandler(changeType: DocumentChangeType, snapshot: QueryDocumentSnapshot<Offer>) {
   pinoLogger.info(`offer ${snapshot.id} was written: ${changeType}`)
