@@ -3,6 +3,7 @@ import { getBlurUrlForCollection } from '@echo/model/helpers/collection/get-blur
 import { getOpenSeaUrlForCollection } from '@echo/model/helpers/collection/get-open-sea-url-for-collection'
 import type { Collection, Contract } from '@echo/model/types/collection'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { getChainName } from '@echo/utils/helpers/get-chain-name'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -24,10 +25,10 @@ import {
 
 function mapContract(chainId: number) {
   return function (contractResponse: ContractResponse): Contract {
-    return pipe<[ContractResponse], Pick<ContractResponse, 'address'>, Omit<Contract, 'chainId'>, Contract>(
+    return pipe<[ContractResponse], Pick<ContractResponse, 'address'>, Omit<Contract, 'chain'>, Contract>(
       pick(['address']),
       modify<'address', HexString, Lowercase<HexString>>('address', toLower<HexString>),
-      assoc('chainId', chainId)
+      assoc('chain', getChainName(chainId))
     )(contractResponse)
   }
 }
