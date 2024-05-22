@@ -1,11 +1,11 @@
 import { type AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
-import { findNonceForUser } from '@echo/firestore/crud/nonce/find-nonce-for-user'
-import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
+import { getNonceForUser } from '@echo/firestore/crud/nonce/get-nonce-for-user'
+import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { addWallet } from '@echo/firestore/crud/wallet/add-wallet'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { type Nonce } from '@echo/firestore/types/model/nonce/nonce'
 import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
-import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
+import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
 import { getSiweMessage } from '@echo/frontend/lib/helpers/auth/get-siwe-message'
 import { verifySiweMessage } from '@echo/frontend/lib/helpers/auth/verify-siwe-message'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
@@ -17,8 +17,8 @@ import { getChain } from '@echo/web3/helpers/get-chain'
 import { toLower } from 'ramda'
 import { SiweMessage } from 'siwe'
 
-jest.mock('@echo/firestore/crud/user/find-user-by-username')
-jest.mock('@echo/firestore/crud/nonce/find-nonce-for-user')
+jest.mock('@echo/firestore/crud/user/get-user-by-username')
+jest.mock('@echo/firestore/crud/nonce/get-nonce-for-user')
 jest.mock('@echo/frontend/lib/helpers/auth/verify-siwe-message')
 jest.mock('@echo/firestore/crud/wallet/add-wallet')
 jest.mock('@echo/frontend/lib/helpers/auth/get-siwe-message')
@@ -75,8 +75,8 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
   })
 
   it('throws if the nonce is not the same as the user nonce', async () => {
-    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
-    jest.mocked(findNonceForUser).mockResolvedValueOnce({ nonce: 'another-nonce', expired: false } as Nonce)
+    jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
+    jest.mocked(getNonceForUser).mockResolvedValueOnce({ nonce: 'another-nonce', expired: false } as Nonce)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
     const req = mockRequest<AddWalletRequest>(validRequest)
@@ -89,8 +89,8 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
   })
 
   it('throws if the nonce is expired', async () => {
-    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
-    jest.mocked(findNonceForUser).mockResolvedValueOnce({ nonce: 'nonce', expired: true } as Nonce)
+    jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
+    jest.mocked(getNonceForUser).mockResolvedValueOnce({ nonce: 'nonce', expired: true } as Nonce)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
     const req = mockRequest<AddWalletRequest>(validRequest)
@@ -103,11 +103,11 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
   })
 
   it('returns a 200 if the nonce is valid', async () => {
-    jest.mocked(findUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
-    jest.mocked(findNonceForUser).mockResolvedValueOnce({ nonce: 'nonce', expired: false } as Nonce)
+    jest.mocked(getUserByUsername).mockResolvedValueOnce(getUserDocumentDataMockById('oE6yUEQBPn7PZ89yMjKn'))
+    jest.mocked(getNonceForUser).mockResolvedValueOnce({ nonce: 'nonce', expired: false } as Nonce)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
-    jest.mocked(addWallet).mockResolvedValueOnce(getWalletMockById('i28NWtlxElPXCnO0c6BC'))
+    jest.mocked(addWallet).mockResolvedValueOnce(getWalletDocumentDataMockById('i28NWtlxElPXCnO0c6BC'))
     jest.mocked(getWalletsForUser).mockResolvedValueOnce([])
     const req = mockRequest<AddWalletRequest>(validRequest)
     const res = await addWalletRequestHandler(user, req)

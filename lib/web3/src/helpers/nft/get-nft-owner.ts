@@ -19,5 +19,5 @@ export async function getNftOwner(nft: Nft): Promise<Wallet> {
     functionName: 'ownerOf',
     args: [BigInt(tokenId)]
   })
-  return { chainId, address: toLower(owner) }
+  return { chain: chainId, address: toLower(owner) }
 }

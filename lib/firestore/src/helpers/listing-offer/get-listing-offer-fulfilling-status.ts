@@ -1,5 +1,9 @@
-import { getListingItemsFulfillingStatusForOffer } from '@echo/firestore/helpers/listing-offer/get-listing-items-fulfilling-status-for-offer'
-import { getListingTargetstFillForOffer } from '@echo/firestore/helpers/listing-offer/get-listing-targets-fulfilling-status-for-offer'
+import {
+  getListingItemsFulfillingStatusForOffer
+} from '@echo/firestore/helpers/listing-offer/get-listing-items-fulfilling-status-for-offer'
+import {
+  getListingTargetFillForOffer
+} from '@echo/firestore/helpers/listing-offer/get-listing-target-fulfillment-for-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import type { Listing } from '@echo/model/types/listing'
 import type { Offer } from '@echo/model/types/offer'
@@ -14,7 +18,7 @@ import { apply, juxt, pipe } from 'ramda'
  */
 export function getListingOfferFulfillingStatus(listing: Listing, offer: Offer): ListingOfferFulfillingStatus {
   return pipe(
-    juxt([getListingItemsFulfillingStatusForOffer(listing), getListingTargetstFillForOffer(listing)]),
+    juxt([getListingItemsFulfillingStatusForOffer(listing), getListingTargetFillForOffer(listing)]),
     apply(Math.min)
   )(offer)
 }

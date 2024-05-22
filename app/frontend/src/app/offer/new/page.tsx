@@ -1,4 +1,4 @@
-import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
+import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
@@ -37,7 +37,7 @@ async function render({ searchParams: { receiverItems }, user }: Params) {
     Promise<Nft[]>
   >(
     unless(is(Array), juxt([identity])),
-    map(findNftById),
+    map(getNftById),
     promiseAll,
     andThen<Nullable<Nft>[], Nft[]>(reject(isNil))
   )(receiverItems)

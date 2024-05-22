@@ -1,22 +1,32 @@
-import { addSwap, type AddSwapArgs } from '@echo/firestore/crud/swap/add-swap'
+import { addSwap } from '@echo/firestore/crud/swap/add-swap'
+import type { CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
+import type { Swap } from '@echo/firestore/types/model/swap/swap'
 import { assertCollectionSwapsCounts } from '@echo/firestore-test/collection-swaps-count/assert-collection-swaps-counts'
-import { findCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/find-collection-swaps-count-by-collection-id'
-import { findCollectionSwapsCountById } from '@echo/firestore-test/collection-swaps-count/find-collection-swaps-count-by-id'
+import { getCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-id'
+import { getCollectionSwapsCountByCollectionSlug } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-slug'
 import { unchecked_updateCollectionSwapCounts } from '@echo/firestore-test/collection-swaps-count/unchecked_update-collection-swap-counts'
 import { assertSwaps } from '@echo/firestore-test/swap/assert-swaps'
 import { deleteSwap } from '@echo/firestore-test/swap/delete-swap'
-import { findSwapById } from '@echo/firestore-test/swap/find-swap-by-id'
-import { getOfferCollectionIds } from '@echo/model/helpers/offer/get-offer-collection-ids'
+import { getSwapById } from '@echo/firestore-test/swap/get-swap-by-id'
+import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
+import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { promiseAll } from '@echo/utils/fp/promise-all'
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { assoc, map, pipe } from 'ramda'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { andThen, assoc, find, isEmpty, isNil, map, pipe, prop, propEq, reject } from 'ramda'
 
 describe('CRUD - swap - addSwap', () => {
-  const args: AddSwapArgs = {
-    offerId: 'LyCfl6Eg7JKuD7XJ6IPi',
+  const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
+  const args: Omit<Swap, 'createdAt'> = {
+    offerId,
     transactionId: '0xnew'
   }
+  let initialSwapsCounts: CollectionSwapsCount[]
+  let createdSwapId: Nullable<string>
   beforeAll(async () => {
     await assertSwaps()
     await assertCollectionSwapsCounts()
@@ -24,6 +34,30 @@ describe('CRUD - swap - addSwap', () => {
   afterAll(async () => {
     await assertSwaps()
     await assertCollectionSwapsCounts()
+  })
+  beforeEach(() => {
+    initialSwapsCounts = []
+    createdSwapId = undefined
+  })
+  afterEach(async () => {
+    if (!isNil(createdSwapId)) {
+      try {
+        await deleteSwap(createdSwapId)
+      } catch (e) {
+        pinoLogger.error(`Error deleting swap with id ${createdSwapId}: ${errorMessage(e)}`)
+      }
+    }
+    if (!isEmpty(initialSwapsCounts)) {
+      for (const swapsCount of initialSwapsCounts) {
+        try {
+          await unchecked_updateCollectionSwapCounts(swapsCount.collectionId, { swapsCount: swapsCount.swapsCount })
+        } catch (e) {
+          pinoLogger.error(
+            `Error resetting swaps count for collection with id ${swapsCount.collectionId}: ${errorMessage(e)}`
+          )
+        }
+      }
+    }
   })
   it('throws if trying to add a swap for an offer that does not exist', async () => {
     await expect(pipe(assoc('offerId', 'not-found'), addSwap)(args)).rejects.toBeDefined()
@@ -33,24 +67,36 @@ describe('CRUD - swap - addSwap', () => {
   })
   it('add a swap', async () => {
     const offer = getOfferMockById(args.offerId)
-    const collectionIds = getOfferCollectionIds(offer)
-    const initialSwapsCounts = await Promise.all(
-      map(async (collectionId) => {
-        return (await findCollectionSwapsCountByCollectionId(collectionId))!
-      }, collectionIds)
-    )
+    initialSwapsCounts = await pipe(
+      getOfferItems,
+      getNftsCollectionSlugs,
+      map(getCollectionSwapsCountByCollectionSlug),
+      promiseAll,
+      andThen<Nullable<CollectionSwapsCount>[], CollectionSwapsCount[]>(reject(isNil))
+    )(offer)
     const { id } = await addSwap(args)
-    const newSwap = (await findSwapById(id))!
-    await deleteSwap(id)
-    expect(newSwap.id).toStrictEqual(id)
+    createdSwapId = id
+    const newSwap = (await getSwapById(id))!
+    const updatedSwapsCounts = await pipe(
+      map(pipe(prop('collectionId'), getCollectionSwapsCountByCollectionId)),
+      promiseAll,
+      andThen<Nullable<CollectionSwapsCount>[], CollectionSwapsCount[]>(reject(isNil))
+    )(initialSwapsCounts)
     expect(newSwap.offerId).toStrictEqual(args.offerId)
     expect(newSwap.transactionId).toStrictEqual(args.transactionId)
     expectDateNumberIsNow(newSwap.createdAt)
-    // reset the swaps count
-    for (const swapsCount of initialSwapsCounts) {
-      const updatedSwapsCount = (await findCollectionSwapsCountById(swapsCount.id))!
-      expect(updatedSwapsCount.swapsCount).toBe(swapsCount.swapsCount + 1)
-      await unchecked_updateCollectionSwapCounts(swapsCount.id, { swapsCount: swapsCount.swapsCount })
+    // check the swaps count
+    expect(updatedSwapsCounts.length).toEqual(initialSwapsCounts.length)
+    for (const updatedSwapsCount of updatedSwapsCounts) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const initialSwapsCount: number = pipe(
+        find(propEq(updatedSwapsCount.collectionId, 'collectionId')),
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        prop('swapsCount')
+      )(initialSwapsCounts)
+      expect(updatedSwapsCount.swapsCount).toBe(initialSwapsCount + 1)
     }
   })
 })

@@ -1,4 +1,4 @@
-import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
+import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { getPendingOffersForListing } from '@echo/firestore/crud/listing/get-pending-offers-for-listing'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
@@ -25,9 +25,10 @@ import { andThen, filter, isNil, map, path, pipe, reject } from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<NextParams<WithId>>
+
 async function render({ params: { id }, user }: Params) {
   const nfts = isNil(user) ? [] : await getNftsForOwner(user.username)
-  const listing = await pipe(findListingById, andThen(unlessNil(setListingRoleForUser(user, nfts))))(id)
+  const listing = await pipe(getListingById, andThen(unlessNil(setListingRoleForUser(user, nfts))))(id)
   if (isNil(listing)) {
     notFound()
   }

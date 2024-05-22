@@ -4,9 +4,9 @@ import type { User } from '@echo/model/types/user'
 import { whenHas } from '@echo/utils/fp/when-has'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 
-const key = 'receiver'
-type Key = typeof key
-type PartialOffer = Partial<WithFieldValue<Offer>>
-export function lowerReceiverWalletAddressIfExists(offer: PartialOffer): PartialOffer {
-  return whenHas<Key, PartialOffer, User, PartialOffer>(key, lowerReceiverWalletAddress)(offer)
+export function lowerReceiverWalletAddressIfExists(offer: WithFieldValue<Offer>): WithFieldValue<Offer> {
+  return whenHas<'receiver', WithFieldValue<Offer>, User, WithFieldValue<Offer>>(
+    'receiver',
+    lowerReceiverWalletAddress
+  )(offer)
 }

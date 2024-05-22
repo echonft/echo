@@ -1,9 +1,9 @@
 export interface CollectionDiscordGuildData {
   channelId: string
-  discordId: string
+  id: string
 }
 
 export interface CollectionDiscordGuild {
-  collectionSlug: string
+  collectionId: string
   guild: CollectionDiscordGuildData
 }

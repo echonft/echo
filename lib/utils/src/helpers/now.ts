@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
 
-export function now() {
+export function now(): number {
   return dayjs().unix()
 }

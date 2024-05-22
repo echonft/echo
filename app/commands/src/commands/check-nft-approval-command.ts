@@ -1,4 +1,4 @@
-import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
+import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
@@ -25,7 +25,7 @@ void (async function () {
     .demandOption('i', 'NFT id is required')
     .parse()
   initializeFirebase()
-  const nft = await findNftById(i)
+  const nft = await getNftById(i)
   if (isNil(nft)) {
     pinoLogger.error(`NFT ${i} not found in the database`)
     return

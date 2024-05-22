@@ -6,7 +6,6 @@ import { toLower } from 'ramda'
 
 export const listingMock: Record<string, Listing> = {
   jUzMtPGKM62mMhEcmbN4: {
-    id: 'jUzMtPGKM62mMhEcmbN4',
     createdAt: 1676984897,
     creator: {
       discord: {
@@ -16,22 +15,18 @@ export const listingMock: Record<string, Listing> = {
       username: 'johnnycagewins',
       wallet: {
         address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
-        chainId: 1
+        chain: 'ethereum'
       }
     },
     expiresAt: 2324074781,
-    items: [
-      { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
-      { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
-    ],
+    items: [getNftMockById('8hHFadIrrooORfTOLkBg'), getNftMockById('iRZFKEujarikVjpiFAkE')],
     readOnly: false,
+    slug: toLower('jUzMtPGKM62mMhEcmbN4'),
     state: LISTING_STATE_OFFERS_PENDING,
-    targets: [
-      {
-        collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
-        amount: 3
-      }
-    ],
+    target: {
+      collection: getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'),
+      amount: 3
+    },
     updatedAt: 1676984897
   }
 }

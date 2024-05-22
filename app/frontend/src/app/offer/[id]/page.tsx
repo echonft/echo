@@ -1,4 +1,4 @@
-import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-role-for-user'
@@ -22,7 +22,7 @@ type Params = NextAuthUserParams<NextParams<WithId>>
 
 async function render({ params: { id }, user }: Params) {
   const offer = await pipe<[string], Promise<Nullable<Offer>>, Promise<Nullable<OfferWithRole>>>(
-    findOfferById,
+    getOfferById,
     andThen(unless(isNil, setOfferRoleForUser(user)) as (offer: Nullable<Offer>) => Nullable<OfferWithRole>)
   )(id)
   if (isNil(offer) || (offer.state !== OFFER_STATE_COMPLETED && isOfferRoleUndefined(offer))) {

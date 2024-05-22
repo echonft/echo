@@ -1,7 +1,7 @@
 import { getListingOffersByListingId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-listing-id'
-import { getListingOfferMocksByOfferId } from '@echo/firestore-mocks/listing-offer/get-listing-offer-mocks-by-offer-id'
+import { getListingOfferMocksByListingId } from '@echo/firestore-mocks/listing-offer/get-listing-offer-mocks-by-listing-id'
+import { contentEq } from '@echo/utils/fp/content-eq'
 import { describe, expect, it } from '@jest/globals'
-import { head } from 'ramda'
 
 describe('CRUD - listing-offer - getListingOffersByListingId', () => {
   it('returns an empty array if the documents do not exist', async () => {
@@ -12,8 +12,6 @@ describe('CRUD - listing-offer - getListingOffersByListingId', () => {
     const listingId = 'jUzMtPGKM62mMhEcmbN4'
     const documents = await getListingOffersByListingId(listingId)
     expect(documents.length).toBe(2)
-    for (const document of documents) {
-      expect(document).toStrictEqual(head(getListingOfferMocksByOfferId(document.offerId)))
-    }
+    expect(contentEq(documents, getListingOfferMocksByListingId(listingId))).toBeTruthy()
   })
 })

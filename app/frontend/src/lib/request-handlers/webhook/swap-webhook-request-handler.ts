@@ -2,7 +2,7 @@ import type { ApiRequest } from '@echo/api/types/api-request'
 import type { SwapWebhookRequest, SwapWebhookRequestLog } from '@echo/api/types/requests/swap-webhook-request'
 import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/offer/offer-state-update-trigger-by-system'
 import { completeOffer } from '@echo/firestore/crud/offer/complete-offer'
-import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { hexStringSchema } from '@echo/frontend/lib/validators/hex-string-schema'
@@ -68,14 +68,17 @@ export async function swapWebhookRequestHandler(req: ApiRequest<SwapWebhookReque
     Promise<Nullable<Offer>>[],
     Promise<Nullable<Offer>[]>
   >(
-    map(pipe(prop('offerId'), guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR))),
+    map(pipe(prop('offerId'), guardAsyncFn(getOfferById, ErrorStatus.SERVER_ERROR))),
     promiseAll
   )(swapEvents)
   const nullOffers = filter(isNil)(offers)
   if (!isEmpty(nullOffers)) {
     // TODO Better logging
     pinoLogger.error(
-      `received trade executed for offers ${pipe<[{ offerId: string; txHash: HexString }[]], string[], string>(map(prop('offerId')), join(','))(swapEvents)} but ${nullOffers.length} of the offers do not exist`
+      `received trade executed for offers ${pipe<[{ offerId: string; txHash: HexString }[]], string[], string>(
+        map(prop('offerId')),
+        join(',')
+      )(swapEvents)} but ${nullOffers.length} of the offers do not exist`
     )
     return NextResponse.json({})
   }

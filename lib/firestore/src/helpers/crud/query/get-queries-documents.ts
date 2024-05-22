@@ -1,14 +1,17 @@
-import { getQuerySnapshot } from '@echo/firestore/helpers/crud/query/get-query-snapshot'
-import { getQuerySnapshotData } from '@echo/firestore/helpers/crud/query/get-query-snapshot-data'
-import type { WithId } from '@echo/model/types/with-id'
-import { promiseAll } from '@echo/utils/fp/promise-all'
-import { Query, type QuerySnapshot } from 'firebase-admin/firestore'
-import { andThen, eqProps, flatten, map, pipe, uniqWith } from 'ramda'
+import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
+import { getQueriesSnapshots } from '@echo/firestore/helpers/crud/query/get-queries-snapshots'
+import { Query, type QueryDocumentSnapshot } from 'firebase-admin/firestore'
+import { always, andThen, isNil, map, pipe, reject, uniqWith, unless } from 'ramda'
 
-export function getQueriesDocuments<T extends WithId>(queries: Query<T>[]): Promise<T[]> {
-  return pipe(
-    map(getQuerySnapshot<T>),
-    promiseAll,
-    andThen(pipe(map<QuerySnapshot<T>, T[]>(getQuerySnapshotData<T>), flatten, uniqWith<T>(eqProps('id'))))
+export function getQueriesDocuments<T>(queries: Query<T>[], comparator?: (obj1: T, obj2: T) => boolean): Promise<T[]> {
+  return pipe<[Query<T>[]], Promise<QueryDocumentSnapshot<T>[]>, Promise<T[]>>(
+    getQueriesSnapshots,
+    andThen(
+      pipe(
+        map(getDocumentSnapshotData<T>),
+        reject(isNil),
+        unless<T[], T[]>(always(isNil(comparator)), uniqWith<T>(comparator!))
+      )
+    )
   )(queries)
 }

@@ -1,7 +1,7 @@
 import type { Listing } from '@echo/model/types/listing'
+import type { NftIndex } from '@echo/model/types/nft-index'
 
 export interface ListingDocumentData extends Omit<Listing, 'readOnly'> {
-  itemsNftIds: string[]
-  itemsNftCollectionIds: string[]
-  targetsIds: string[]
+  itemIndexes: NftIndex[]
+  itemCollections: Lowercase<string>[]
 }

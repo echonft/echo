@@ -1,6 +1,4 @@
-import type { WithId } from '@echo/model/types/with-id'
-
-export interface OfferUpdatePost extends WithId {
+export interface OfferUpdatePost {
   offerUpdateId: string
   postedAt: number
 }

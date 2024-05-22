@@ -1,5 +1,5 @@
 import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
-import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
+import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { assertListings } from '@echo/firestore-test/listing/assert-listings'
 import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
 import {
@@ -26,7 +26,7 @@ describe('CRUD - listing - cancelListing', () => {
     await assertListings()
   })
   beforeEach(async () => {
-    const listing = (await findListingById(listingId))!
+    const listing = (await getListingById(listingId))!
     initialState = listing.state
     initialExpiresAt = listing.expiresAt
     initialUpdatedAt = listing.updatedAt
@@ -64,9 +64,12 @@ describe('CRUD - listing - cancelListing', () => {
     await expect(cancelListing(listingId)).rejects.toBeDefined()
   })
   it('cancel listing if its not expired and in the right state', async () => {
-    await unchecked_updateListing(listingId, { state: LISTING_STATE_OPEN, expiresAt: dayjs().add(1, 'day').unix() })
+    await unchecked_updateListing(listingId, {
+      state: LISTING_STATE_OPEN,
+      expiresAt: dayjs().add(1, 'day').unix()
+    })
     await cancelListing(listingId)
-    const updatedListing = (await findListingById(listingId))!
+    const updatedListing = (await getListingById(listingId))!
     expect(updatedListing.state).toEqual(LISTING_STATE_CANCELLED)
     expectDateNumberIsNow(updatedListing.updatedAt)
   })

@@ -1,27 +1,18 @@
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { contentEq } from '@echo/utils/fp/content-eq'
 import { describe, expect, it } from '@jest/globals'
-import { equals, filter, find, forEach, path, pipe, propEq } from 'ramda'
+import { filter, pathEq, pipe } from 'ramda'
 
 describe('CRUD - nft - getNftsForCollection', () => {
   it('returns an empty array the collection is not found', async () => {
     const result = await getNftsForCollection('not-found')
     expect(result).toEqual([])
   })
-  it('returns the nfts of the collection - with collection prop undefined', async () => {
-    const collectionId = '1aomCtnoesD7WVll6Yi1'
-    const nfts = await getNftsForCollection('spiral-frequencies')
-    const nftMocks = pipe(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      filter(pipe(path(['collection', 'id']), equals(collectionId)))
-    )(getAllNftMocks())
-    expect(nfts.length).toEqual(nftMocks.length)
-    forEach((nft) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const mock = find(propEq(nft.id, 'id'), nftMocks)
-      expect(nft).toStrictEqual(mock)
-    }, nfts)
+  it('returns the nfts of the collection', async () => {
+    const collectionSlug = 'spiral-frequencies'
+    const nfts = await getNftsForCollection(collectionSlug)
+    const nftMocks = pipe(getAllNftMocks, filter(pathEq(collectionSlug, ['collection', 'slug'])))()
+    expect(contentEq(nfts, nftMocks)).toBeTruthy()
   })
 })

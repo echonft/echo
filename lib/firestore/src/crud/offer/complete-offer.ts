@@ -1,35 +1,38 @@
-import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
+import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { updateListingState } from '@echo/firestore/crud/listing/update-listing-state'
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
 import { getListingOffersForListing } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-listing'
-import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
+import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { switchOfferItemsOwners } from '@echo/firestore/crud/offer/switch-offer-items-owners'
-import { updateOfferState } from '@echo/firestore/crud/offer/update-offer-state'
-import { addSwap, type AddSwapArgs } from '@echo/firestore/crud/swap/add-swap'
+import { updateOfferState, type UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
+import { addSwap } from '@echo/firestore/crud/swap/add-swap'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
-import type { OfferStateUpdateArgs } from '@echo/firestore/types/model/offer-update/offer-state-update-args'
 import type { Swap } from '@echo/firestore/types/model/swap/swap'
+import type { NewDocument } from '@echo/firestore/types/new-document'
 import { LISTING_STATE_FULFILLED, LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
-import { getItemId } from '@echo/model/helpers/item/get-item-id'
-import { getListingItemsIds } from '@echo/model/helpers/listing/get-listing-items-ids'
+import { mapNftsToNftIndexes } from '@echo/model/helpers/nft/map-nfts-to-nft-indexes'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
+import type { Nft } from '@echo/model/types/nft'
 import { type Offer } from '@echo/model/types/offer'
-import { type OfferItem } from '@echo/model/types/offer-item'
 import type { OfferState } from '@echo/model/types/offer-state'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { assoc, concat, filter, flatten, intersection, isNil, map, omit, pipe, prop, propEq, reject, uniq } from 'ramda'
+import { assoc, concat, filter, flatten, intersection, isNil, map, omit, pipe, prop, propEq, reject } from 'ramda'
 
-export interface CompleteOfferArgs {
-  offerId: string
+export interface CompleteOfferArgs extends Omit<UpdateOfferStateArgs, 'state'> {
   transactionId: string
-  updateArgs: Omit<OfferStateUpdateArgs, 'state'>
 }
+
 export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
+  const snapshot = await getOfferSnapshot(args.slug)
+  if (isNil(snapshot)) {
+    throw Error(`offer with slug ${args.slug} does not exist`)
+  }
   const offer = await pipe<
     [CompleteOfferArgs],
     Omit<CompleteOfferArgs, 'transactionId'>,
-    Omit<CompleteOfferArgs, 'transactionId'> & Record<'state', OfferState>,
+    UpdateOfferStateArgs,
     Promise<Offer>
   >(
     omit(['transactionId']),
@@ -39,12 +42,21 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
   // switch ownership of the offer items
   await switchOfferItemsOwners(offer)
   // add swap
-  await pipe<[CompleteOfferArgs], AddSwapArgs, Promise<Swap>>(omit(['updateArgs']), addSwap)(args)
+  await pipe<
+    [CompleteOfferArgs],
+    Omit<CompleteOfferArgs, 'updateArgs'>,
+    Omit<Swap, 'createdAt'>,
+    Promise<NewDocument<Swap>>
+  >(
+    omit(['updateArgs']),
+    assoc('offerId', snapshot.id),
+    addSwap
+  )(args)
   // update the status of tied listings, if any
-  const offerListingOffers = await getListingOffersByOfferId(args.offerId)
+  const offerListingOffers = await getListingOffersByOfferId(snapshot.id)
   for (const offerListingOffer of offerListingOffers) {
     const { listingId, fulfillingStatus } = offerListingOffer
-    const listing = await findListingById(listingId)
+    const listing = await getListingById(listingId)
     if (!isNil(listing) && !listing.readOnly) {
       if (fulfillingStatus === ListingOfferFulfillingStatus.COMPLETELY) {
         await updateListingState(listingId, LISTING_STATE_FULFILLED)
@@ -52,22 +64,16 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
         // in this case, we need to check all the completed offers linked to this listing, and check if this one partially of completely fulfills it
         const offerItems = getOfferItems(offer)
         const listingListingOffers = await getListingOffersForListing(listing)
-        const listingOffers = await Promise.all(map(pipe(prop('offerId'), findOfferById), listingListingOffers))
-        const completedOffersItems: OfferItem[] = pipe<
-          [Nullable<Offer>[]],
-          Offer[],
-          Offer[],
-          OfferItem[][],
-          OfferItem[]
-        >(
+        const listingOffers = await Promise.all(map(pipe(prop('offerId'), getOfferById), listingListingOffers))
+        const completedOffersItems = pipe<[Nullable<Offer>[]], Offer[], Offer[], Nft[][], Nft[]>(
           reject(isNil),
           filter(propEq<OfferState, 'state'>(OFFER_STATE_COMPLETED, 'state')),
           map(getOfferItems),
           flatten
         )(listingOffers)
-        const offerItemIds = pipe(concat, map(getItemId), uniq<string>)(offerItems, completedOffersItems)
-        const listingItemIds = getListingItemsIds(listing)
-        if (intersection(offerItemIds, listingItemIds).length === listingItemIds.length) {
+        const offerItemIndexes = pipe(concat, mapNftsToNftIndexes)(offerItems, completedOffersItems)
+        const listingItemIndexes = mapNftsToNftIndexes(listing.items)
+        if (intersection(offerItemIndexes, listingItemIndexes).length === listingItemIndexes.length) {
           await updateListingState(listingId, LISTING_STATE_FULFILLED)
         } else {
           await updateListingState(listingId, LISTING_STATE_PARTIALLY_FULFILLED)

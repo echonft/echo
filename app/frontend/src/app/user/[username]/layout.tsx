@@ -1,4 +1,4 @@
-import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
+import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { getUserProfile } from '@echo/frontend/lib/helpers/user/get-user-profile'
@@ -14,8 +14,9 @@ import { isNil, pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<NextLayoutParams<NextParams<WithUsername>>>
+
 async function render({ params: { username }, user: authUser, children }: Params) {
-  const user = await findUserByUsername(username)
+  const user = await getUserByUsername(username)
   if (isNil(user)) {
     notFound()
   }

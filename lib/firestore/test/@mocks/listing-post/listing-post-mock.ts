@@ -2,10 +2,9 @@ import { type ListingPost } from '@echo/firestore/types/model/listing-post/listi
 
 export const listingPostMock: Record<string, ListingPost> = {
   jXadAgs0rtUXZWfG9t0z: {
-    id: 'jXadAgs0rtUXZWfG9t0z',
     listingId: 'jUzMtPGKM62mMhEcmbN4',
     guild: {
-      discordId: '1',
+      id: '1',
       channelId: '1'
     },
     postedAt: 1676984897

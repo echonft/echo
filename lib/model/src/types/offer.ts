@@ -1,17 +1,17 @@
-import { type OfferItem } from '@echo/model/types/offer-item'
+import type { Nft } from '@echo/model/types/nft'
 import { type OfferState } from '@echo/model/types/offer-state'
 import { type User } from '@echo/model/types/user'
-import type { WithId } from '@echo/model/types/with-id'
+import type { WithSlug } from '@echo/model/types/with-slug'
 
-export interface Offer extends WithId {
-  id: string
+export interface Offer extends WithSlug {
+  idContract: string
   createdAt: number
   expiresAt: number
   readOnly: boolean
   receiver: User
-  receiverItems: OfferItem[]
+  receiverItems: Nft[]
   sender: User
-  senderItems: OfferItem[]
+  senderItems: Nft[]
   state: OfferState
   updatedAt: number
 }

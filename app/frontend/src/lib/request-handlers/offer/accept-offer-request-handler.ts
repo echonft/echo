@@ -2,8 +2,8 @@ import { type ApiRequest } from '@echo/api/types/api-request'
 import { type AcceptOfferRequest } from '@echo/api/types/requests/accept-offer-request'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
-import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
+import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
+import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { assertOffer } from '@echo/frontend/lib/helpers/offer/assert/assert-offer'
@@ -29,11 +29,11 @@ export async function acceptOfferRequestHandler(
     (requestBody) => acceptOfferSchema.parse(requestBody),
     ErrorStatus.BAD_REQUEST
   )(requestBody)
-  const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(id)
+  const offer = await guardAsyncFn(getOfferById, ErrorStatus.SERVER_ERROR)(id)
   assertOffer(offer)
   assertOfferState(offer, OFFER_STATE_ACCEPTED)
   assertOfferReceiverIs(offer, user.username)
-  const foundUser = await guardAsyncFn(findUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
+  const foundUser = await guardAsyncFn(getUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
   assertUserExists(foundUser, user.username)
   const updatedOffer = await guardAsyncFn(
     acceptOffer,

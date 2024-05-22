@@ -4,10 +4,10 @@ import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { type CollectionDiscordGuild } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
 import { pipe } from 'ramda'
 
-export function getCollectionDiscordGuildsByCollection(slug: string): Promise<CollectionDiscordGuild[]> {
+export function getCollectionDiscordGuildsByCollection(collectionId: string): Promise<CollectionDiscordGuild[]> {
   return pipe(
     getCollectionDiscordGuildsCollectionReference,
-    queryWhere<CollectionDiscordGuild>('collectionSlug', '==', slug),
+    queryWhere<CollectionDiscordGuild>('collectionId', '==', collectionId),
     getQueryData
   )()
 }

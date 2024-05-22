@@ -1,13 +1,14 @@
 import { type OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
 import { OFFER_STATE_COMPLETED, OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
+import { getNftIndexMockById } from '@echo/model-mocks/nft/get-nft-index-mock-by-id'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { toLower } from 'ramda'
 
 export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
   LyCfl6Eg7JKuD7XJ6IPi: {
-    id: 'LyCfl6Eg7JKuD7XJ6IPi',
     createdAt: 1676984897,
     expiresAt: 2324074781,
+    idContract: 'LyCfl6Eg7JKuD7XJ6IPi',
     receiver: {
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
@@ -16,12 +17,12 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       username: 'johnnycagewins',
       wallet: {
         address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
-        chainId: 1
+        chain: 'ethereum'
       }
     },
-    receiverItems: [{ amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') }],
-    receiverItemsNftIds: ['8hHFadIrrooORfTOLkBg'],
-    receiverItemsNftCollectionIds: ['1aomCtnoesD7WVll6Yi1'],
+    receiverItems: [getNftMockById('8hHFadIrrooORfTOLkBg')],
+    receiverItemIndexes: [getNftIndexMockById('8hHFadIrrooORfTOLkBg')],
+    receiverItemCollections: [toLower('1aomCtnoesD7WVll6Yi1')],
     sender: {
       discord: {
         username: 'crewnft_',
@@ -30,19 +31,20 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       username: 'crewnft_',
       wallet: {
         address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
-        chainId: 1
+        chain: 'ethereum'
       }
     },
-    senderItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }],
-    senderItemsNftIds: ['kRE3UCfXWkJ33nwzj2X1'],
-    senderItemsNftCollectionIds: ['Rc8pLQXxgyQGIRL0fr13'],
+    senderItems: [getNftMockById('kRE3UCfXWkJ33nwzj2X1')],
+    senderItemIndexes: [getNftIndexMockById('kRE3UCfXWkJ33nwzj2X1')],
+    senderItemCollections: [toLower('Rc8pLQXxgyQGIRL0fr13')],
+    slug: toLower('LyCfl6Eg7JKuD7XJ6IPi'),
     state: OFFER_STATE_OPEN,
     updatedAt: 1676984897
   },
   ASkFpKoHEHVH0gd69t1G: {
-    id: 'ASkFpKoHEHVH0gd69t1G',
     createdAt: 1676984897,
     expiresAt: 2324074781,
+    idContract: 'ASkFpKoHEHVH0gd69t1G',
     receiver: {
       discord: {
         username: 'crewnft_',
@@ -51,12 +53,12 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       username: 'crewnft_',
       wallet: {
         address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
-        chainId: 1
+        chain: 'ethereum'
       }
     },
-    receiverItems: [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }],
-    receiverItemsNftIds: ['kRE3UCfXWkJ33nwzj2X1'],
-    receiverItemsNftCollectionIds: ['Rc8pLQXxgyQGIRL0fr13'],
+    receiverItems: [getNftMockById('kRE3UCfXWkJ33nwzj2X1')],
+    receiverItemIndexes: [getNftIndexMockById('kRE3UCfXWkJ33nwzj2X1')],
+    receiverItemCollections: [toLower('Rc8pLQXxgyQGIRL0fr13')],
     sender: {
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
@@ -65,15 +67,13 @@ export const offerDocumentDataMock: Record<string, OfferDocumentData> = {
       username: 'johnnycagewins',
       wallet: {
         address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
-        chainId: 1
+        chain: 'ethereum'
       }
     },
-    senderItems: [
-      { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
-      { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
-    ],
-    senderItemsNftIds: ['8hHFadIrrooORfTOLkBg', 'iRZFKEujarikVjpiFAkE'],
-    senderItemsNftCollectionIds: ['1aomCtnoesD7WVll6Yi1'],
+    senderItems: [getNftMockById('8hHFadIrrooORfTOLkBg'), getNftMockById('iRZFKEujarikVjpiFAkE')],
+    senderItemIndexes: [getNftIndexMockById('8hHFadIrrooORfTOLkBg'), getNftIndexMockById('iRZFKEujarikVjpiFAkE')],
+    senderItemCollections: [toLower('1aomCtnoesD7WVll6Yi1')],
+    slug: toLower('ASkFpKoHEHVH0gd69t1G'),
     state: OFFER_STATE_COMPLETED,
     updatedAt: 1676984897
   }

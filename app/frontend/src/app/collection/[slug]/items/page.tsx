@@ -1,4 +1,4 @@
-import { findCollection } from '@echo/firestore/crud/collection/find-collection'
+import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import {
   getNftsForCollection,
   type GetNftsForCollectionOptions
@@ -20,14 +20,14 @@ import type { ReactElement } from 'react'
 type Params = NextUserParams<NextParams<WithSlug>>
 
 async function render({ params: { slug }, user }: Params) {
-  const collection = await findCollection(slug)
+  const collection = await getCollection(slug)
   if (isNil(collection)) {
     notFound()
   }
   const nfts: SelectableNft[] = await pipe(
     getNftsForCollection as (slug: string, options?: GetNftsForCollectionOptions) => Promise<SelectableNft[]>,
     andThen(map<SelectableNft, SelectableNft>(assoc('action', NFT_ACTION_OFFER)))
-  )(slug, { excludeDiscordUsername: user?.discord.username })
+  )(slug, { excludeOwner: user?.username })
 
   return (
     <CollectionNavigationLayout slug={slug} activeNavigationItem={NAVIGATION_NFTS}>

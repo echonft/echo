@@ -1,6 +1,6 @@
 import { ApiRequest } from '@echo/api/types/api-request'
 import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
-import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-offer-signature'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
@@ -14,7 +14,7 @@ import { NextResponse } from 'next/server'
 
 export async function getOfferSignatureRequestHandler(user: AuthUser, _req: ApiRequest<never>, params: { id: string }) {
   const { id } = params
-  const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(id)
+  const offer = await guardAsyncFn(getOfferById, ErrorStatus.SERVER_ERROR)(id)
   assertOffer(offer)
   assertOfferSenderIs(offer, user.username)
   const offerSignature = await guardAsyncFn(findOfferSignature, ErrorStatus.SERVER_ERROR)(offer.id)

@@ -1,9 +1,15 @@
+import { getOfferThreadSnapshot } from '@echo/firestore/crud/offer-thread/get-offer-thread'
 import { getOfferThreadsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offer-threads-collection-reference'
 import { deleteReference } from '@echo/firestore/helpers/crud/reference/delete-reference'
+import { isNil } from 'ramda'
 
-export function deleteOfferThread(id: string): Promise<string> {
+export async function deleteOfferThread(offerId: string): Promise<string> {
+  const snapshot = await getOfferThreadSnapshot(offerId)
+  if (isNil(snapshot)) {
+    throw Error(`offer thread for offer ${offerId} does not exist`)
+  }
   return deleteReference({
     collectionReference: getOfferThreadsCollectionReference(),
-    id
+    id: snapshot.id
   })
 }

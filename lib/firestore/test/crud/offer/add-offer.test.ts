@@ -1,8 +1,9 @@
-import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
+import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
+import { getListingOfferSnapshot } from '@echo/firestore/crud/listing-offer/get-listing-offer'
 import { getListingOffersByOfferId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-offer-id'
 import { getListingOffersForOffer } from '@echo/firestore/crud/listing-offer/get-listing-offers-for-offer'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
-import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
 import { assertListingOffers } from '@echo/firestore-test/listing-offer/assert-listing-offers'
@@ -12,45 +13,55 @@ import { deleteOffer } from '@echo/firestore-test/offer/delete-offer'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
-import { type ListingState } from '@echo/model/types/listing-state'
+import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { contentEq } from '@echo/utils/fp/content-eq'
 import { errorMessage } from '@echo/utils/helpers/error-message'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIs } from '@echo/utils-test/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
-import { head, toLower } from 'ramda'
+import { head, isNil, toLower } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
   const listingId = 'jUzMtPGKM62mMhEcmbN4'
-  let initialListingState: ListingState
-  let createdOfferId: string
-  let createdListingOfferId: string
+  let createdOfferId: Nullable<string>
+  let createdListingOfferId: Nullable<string>
 
   beforeAll(async () => {
     await assertOffers()
     await assertListingOffers()
-    initialListingState = (await findListingById(listingId))!.state
   })
   afterAll(async () => {
-    try {
-      await deleteOffer(createdOfferId)
-    } catch (e) {
-      throw Error(`error deleting offer ${createdOfferId}: ${errorMessage(e)}`)
-    }
-    try {
-      await deleteListingOffer(createdListingOfferId)
-    } catch (e) {
-      throw Error(`error deleting listing offer ${createdListingOfferId}: ${errorMessage(e)}`)
-    }
-    try {
-      await unchecked_updateListing(listingId, { state: initialListingState })
-    } catch (e) {
-      throw Error(`error updating listing ${listingId} to its original state: ${errorMessage(e)}`)
-    }
     await assertOffers()
     await assertListingOffers()
+  })
+  beforeEach(() => {
+    createdOfferId = undefined
+    createdListingOfferId = undefined
+  })
+  afterEach(async () => {
+    if (!isNil(createdOfferId)) {
+      try {
+        await deleteOffer(createdOfferId)
+      } catch (e) {
+        throw Error(`error deleting offer ${createdOfferId}: ${errorMessage(e)}`)
+      }
+      try {
+        await unchecked_updateListing(listingId, getListingMockById(listingId))
+      } catch (e) {
+        throw Error(`error updating listing ${listingId} to its original state: ${errorMessage(e)}`)
+      }
+    }
+    if (!isNil(createdListingOfferId)) {
+      try {
+        await deleteListingOffer(createdListingOfferId)
+      } catch (e) {
+        throw Error(`error deleting listing offer ${createdListingOfferId}: ${errorMessage(e)}`)
+      }
+    }
   })
 
   it('throws if the offer is a duplicate', async () => {
@@ -59,14 +70,11 @@ describe('CRUD - offer - addOffer', () => {
   })
 
   it('add an offer', async () => {
-    const senderItems = [{ amount: 1, nft: getNftMockById('kRE3UCfXWkJ33nwzj2X1') }]
-    const receiverItems = [
-      { amount: 1, nft: getNftMockById('8hHFadIrrooORfTOLkBg') },
-      { amount: 1, nft: getNftMockById('iRZFKEujarikVjpiFAkE') }
-    ]
+    const senderItems = [getNftMockById('kRE3UCfXWkJ33nwzj2X1')]
+    const receiverItems = [getNftMockById('8hHFadIrrooORfTOLkBg'), getNftMockById('iRZFKEujarikVjpiFAkE')]
     const createdOffer = await addOffer(senderItems, receiverItems)
     createdOfferId = createdOffer.id
-    const newOffer = (await findOfferById(createdOfferId))!
+    const newOffer = (await getOfferById(createdOfferId))!
     expect(newOffer.receiver).toStrictEqual({
       discord: {
         avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
@@ -75,10 +83,10 @@ describe('CRUD - offer - addOffer', () => {
       username: 'johnnycagewins',
       wallet: {
         address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
-        chainId: 1
+        chain: 'ethereum'
       }
     })
-    expect(newOffer.receiverItems).toStrictEqual(receiverItems)
+    expect(contentEq(newOffer.receiverItems, receiverItems)).toBeTruthy()
     expectDateNumberIsNow(newOffer.createdAt)
     expect(newOffer.sender).toStrictEqual({
       discord: {
@@ -88,10 +96,10 @@ describe('CRUD - offer - addOffer', () => {
       username: 'crewnft_',
       wallet: {
         address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
-        chainId: 1
+        chain: 'ethereum'
       }
     })
-    expect(newOffer.senderItems).toStrictEqual(senderItems)
+    expect(contentEq(newOffer.senderItems, senderItems)).toBeTruthy()
     expect(newOffer.state).toBe(OFFER_STATE_OPEN)
     expectDateNumberIsNow(newOffer.updatedAt)
     expectDateNumberIs(newOffer.expiresAt)(dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'))
@@ -101,12 +109,12 @@ describe('CRUD - offer - addOffer', () => {
     const foundListingOffers = await getListingOffersByOfferId(createdOfferId)
     expect(foundListingOffers.length).toBe(1)
     const createdListingOffer = head(foundListingOffers)!
-    createdListingOfferId = createdListingOffer.id
+    createdListingOfferId = (await getListingOfferSnapshot({ listingId, offerId: createdOfferId }))!.id
     expect(createdListingOffer.offerId).toEqual(createdOfferId)
     expect(createdListingOffer.listingId).toEqual(listingId)
     expect(createdListingOffer.fulfillingStatus).toEqual(ListingOfferFulfillingStatus.PARTIALLY)
     // check if the listing state was updated
-    const newListingState = (await findListingById(listingId))!.state
+    const newListingState = (await getListingById(listingId))!.state
     expect(newListingState).toEqual(LISTING_STATE_OFFERS_PENDING)
   })
 })

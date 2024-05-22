@@ -1,10 +1,9 @@
 export interface SwapPostDiscordGuild {
   channelId: string
-  discordId: string
+  id: string
 }
 
 export interface SwapPost {
-  id: string
   swapId: string
   guild: SwapPostDiscordGuild
   postedAt: number

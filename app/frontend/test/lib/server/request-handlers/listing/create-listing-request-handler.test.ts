@@ -1,41 +1,25 @@
 import { type CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
-import type { ItemRequest } from '@echo/api/types/requests/item-request'
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
 import { type ListingResponse } from '@echo/api/types/responses/listing-response'
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
-import { getListingItemsFromRequests } from '@echo/frontend/lib/helpers/listing/get-listing-items-from-requests'
-import { getListingTargetsFromRequests } from '@echo/frontend/lib/helpers/listing/get-listing-targets-from-requests'
 import { createListingRequestHandler } from '@echo/frontend/lib/request-handlers/listing/create-listing-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
+import { mapNftToNftIndex } from '@echo/model/helpers/nft/map-nft-to-nft-index'
 import type { Collection } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
-import type { ListingItem } from '@echo/model/types/listing-item'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import { type Nft } from '@echo/model/types/nft'
+import type { NftIndex } from '@echo/model/types/nft-index'
 import { type User } from '@echo/model/types/user'
-import type { WithId } from '@echo/model/types/with-id'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
-import { head, map, modify, pick, pipe, prop } from 'ramda'
+import { assoc, map, modify, pick, pipe, prop, toLower } from 'ramda'
 
 jest.mock('@echo/firestore/crud/listing/add-listing')
-jest.mock('@echo/frontend/lib/helpers/listing/get-listing-targets-from-requests')
-jest.mock('@echo/frontend/lib/helpers/listing/get-listing-items-from-requests')
 
 describe('request-handlers - listing - createListingRequestHandler', () => {
   const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
-  const validRequest: CreateListingRequest = {
-    items: pipe<[Listing], ListingItem[], ItemRequest[]>(
-      prop('items'),
-      map(modify<'nft', Nft, WithId>('nft', pick(['id'])))
-    )(listing),
-    target: pipe<[Listing], ListingTarget[], ListingTarget, ListingTargetRequest>(
-      prop('targets'),
-      head,
-      modify<'collection', Collection, { slug: string }>('collection', pick(['slug']))
-    )(listing)
-  }
   const user = getAuthUserMockByUsername('johnnycagewins')
 
   beforeEach(() => {
@@ -53,12 +37,29 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
   })
 
   it('throws if the user is not the owner of every item', async () => {
-    jest
-      .mocked(getListingItemsFromRequests)
-      .mockResolvedValue([{ amount: 1, nft: { owner: { username: 'another-username' } as User } as Nft }])
-    jest.mocked(getListingTargetsFromRequests).mockResolvedValue(listing.targets)
+    const wrongOwner: User = {
+      discord: {
+        username: 'crewnft_',
+        avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png'
+      },
+      username: 'crewnft_',
+      wallet: {
+        address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
+        chain: 'ethereum'
+      }
+    }
+    const request: CreateListingRequest = {
+      items: pipe<[Listing], Nft[], NftIndex[]>(
+        prop('items'),
+        map(pipe(assoc('owner', wrongOwner), mapNftToNftIndex))
+      )(listing),
+      target: pipe<[Listing], ListingTarget, ListingTargetRequest>(
+        prop('target'),
+        modify<'collection', Collection, { slug: string }>('collection', pick(['slug']))
+      )(listing)
+    }
     jest.mocked(addListing).mockResolvedValue(listing)
-    const req = mockRequest<CreateListingRequest>(validRequest)
+    const req = mockRequest<CreateListingRequest>(request)
     try {
       await createListingRequestHandler(user, req)
       expect(true).toBeFalsy()
@@ -68,8 +69,13 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
   })
 
   it('returns 200 if the user owns all the items', async () => {
-    jest.mocked(getListingItemsFromRequests).mockResolvedValue(listing.items)
-    jest.mocked(getListingTargetsFromRequests).mockResolvedValue(listing.targets)
+    const validRequest: CreateListingRequest = {
+      items: pipe<[Listing], Nft[], NftIndex[]>(prop('items'), map(mapNftToNftIndex))(listing),
+      target: pipe<[Listing], ListingTarget, ListingTargetRequest>(
+        prop('target'),
+        modify<'collection', Collection, { slug: string }>('collection', pick(['slug']))
+      )(listing)
+    }
     jest.mocked(addListing).mockResolvedValue(listing)
     const req = mockRequest<CreateListingRequest>(validRequest)
     const res = await createListingRequestHandler(user, req)

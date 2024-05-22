@@ -1,5 +1,5 @@
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
+import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
 import { addWalletSchema } from '@echo/frontend/lib/validators/add-wallet-schema'
 import type { Wallet } from '@echo/model/types/wallet'
 import { getChain } from '@echo/web3/helpers/get-chain'
@@ -9,7 +9,7 @@ import { SiweMessage } from 'siwe'
 describe('validators - addWalletSchema', () => {
   const chainId = getChain().id
   const wallet = pipe<[string], WalletDocumentData, Wallet, Wallet>(
-    getWalletMockById,
+    getWalletDocumentDataMockById,
     pick(['address', 'chainId']),
     assoc('chainId', chainId)
   )('i28NWtlxElPXCnO0c6BC')

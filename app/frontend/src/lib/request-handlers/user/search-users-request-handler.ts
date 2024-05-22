@@ -1,6 +1,6 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import { getUsersSearchData } from '@echo/firestore/crud/user/get-users-search-data'
-import { mapUserToSearchResult } from '@echo/firestore/mappers/map-user-to-search-result'
+import { mapUserToSearchResult } from '@echo/firestore/mappers/user/map-user-to-search-result'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
 import { getSearchParam } from '@echo/frontend/lib/helpers/get-search-param'

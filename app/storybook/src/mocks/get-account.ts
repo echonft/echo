@@ -9,12 +9,13 @@ import { isNil } from 'ramda'
 export function getAccount(onChange?: (account: AccountResult) => void): AccountProviderResult {
   function getResultFromStatus(status: AccountStatus): AccountResult {
     if (status === 'connected') {
-      const { chainId, address } = getWalletMock()
-      const chain = getChainById(chainId)
-      return { chain, chainId, address, status }
+      const { chain, address } = getWalletMock()
+      const chain = getChainById(chain)
+      return { chain, chain: chainId, address, status }
     }
     return { chain: undefined, chainId: undefined, address: undefined, status }
   }
+
   const status = accountStatusStore.getState().status
   const account = getResultFromStatus(status)
   if (isNil(onChange)) {

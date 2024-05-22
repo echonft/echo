@@ -1,5 +1,5 @@
 import { getListingOffersByListingId } from '@echo/firestore/crud/listing-offer/get-listing-offers-by-listing-id'
-import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
+import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
 import type { Listing } from '@echo/model/types/listing'
 import type { Offer } from '@echo/model/types/offer'
@@ -14,7 +14,7 @@ export function getPendingOffersForListing(listing: Listing): Promise<Offer[]> {
     getListingOffersByListingId,
     andThen(
       pipe(
-        map(pipe(prop('offerId'), findOfferById)),
+        map(pipe(prop('offerId'), getOfferById)),
         promiseAll,
         andThen(
           pipe<[Nullable<Offer>[]], Offer[], Offer[]>(

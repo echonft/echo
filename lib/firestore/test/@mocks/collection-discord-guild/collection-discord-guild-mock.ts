@@ -2,16 +2,16 @@ import { type CollectionDiscordGuild } from '@echo/firestore/types/model/collect
 
 export const collectionDiscordGuildMock: Record<string, CollectionDiscordGuild> = {
   FTtQ8IaJAffIaSk66Fy6: {
-    collectionSlug: 'Rc8pLQXxgyQGIRL0fr13',
+    collectionId: 'Rc8pLQXxgyQGIRL0fr13',
     guild: {
-      discordId: '100',
+      id: '100',
       channelId: '100'
     }
   },
   '3gWDBihHVUQLJxbiJOIp': {
-    collectionSlug: '1aomCtnoesD7WVll6Yi1',
+    collectionId: '1aomCtnoesD7WVll6Yi1',
     guild: {
-      discordId: '1',
+      id: '1',
       channelId: '1'
     }
   }

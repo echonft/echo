@@ -1,4 +1,4 @@
-import { mapCollectionToSearchResult } from '@echo/firestore/mappers/map-collection-to-search-result'
+import { mapCollectionToSearchResult } from '@echo/firestore/mappers/collection/map-collection-to-search-result'
 import type { SearchResult } from '@echo/model/types/search-result'
 import { getAllCollectionMocks } from '@echo/model-mocks/collection/get-all-collection-mocks'
 import { promiseAll } from '@echo/utils/fp/promise-all'

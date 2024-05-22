@@ -13,7 +13,7 @@ export async function nftIsApproved(nft: Nft, logger?: LoggerInterface): Promise
     owner: { wallet }
   } = nft
   const { chainId } = contract
-  if (contract.chainId !== wallet.chainId) {
+  if (contract.chainId !== wallet.chain) {
     return false
   }
   const client = pipe(getChainById, getViemClient)(chainId)

@@ -1,6 +1,6 @@
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { getUserDocumentDataMockById } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-id'
-import { getWalletMocksByUserId } from '@echo/firestore-mocks/wallet/get-wallet-mocks-by-user-id'
+import { getWalletDocumentDataMockByUserId } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-user-id'
 import { getUserProfile } from '@echo/frontend/lib/helpers/user/get-user-profile'
 import { type UserProfile } from '@echo/model/types/user-profile'
 import { toLower } from 'ramda'
@@ -20,12 +20,12 @@ describe('helpers - users - getUserProfile', () => {
     wallets: [
       {
         address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
-        chainId: 1
+        chain: 1
       }
     ]
   }
   it('returns the user profile', async () => {
-    jest.mocked(getWalletsForUser).mockResolvedValueOnce(getWalletMocksByUserId(userId))
+    jest.mocked(getWalletsForUser).mockResolvedValueOnce(getWalletDocumentDataMockByUserId(userId))
     const profile = await getUserProfile(user)
     expect(profile).toStrictEqual(expectedProfile)
   })

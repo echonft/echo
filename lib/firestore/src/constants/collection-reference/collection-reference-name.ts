@@ -4,7 +4,6 @@ export enum CollectionReferenceName {
   COLLECTION_SWAPS_COUNT = 'nft-collection-swaps-count',
   NFTS = 'nfts',
   NONCES = 'nonces',
-  OFFER_SIGNATURES = 'offer-signatures',
   OFFER_THREADS = 'offer-threads',
   OFFER_UPDATE_POSTS = 'offer-update-posts',
   OFFER_UPDATES = 'offer-updates',

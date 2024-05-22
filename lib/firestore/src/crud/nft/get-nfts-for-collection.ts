@@ -6,16 +6,14 @@ import type { Nft } from '@echo/model/types/nft'
 import { always, isNil, pipe, unless } from 'ramda'
 
 export interface GetNftsForCollectionOptions {
-  excludeDiscordUsername?: string
+  excludeOwner?: string
 }
-export function getNftsForCollection(slug: string, options?: GetNftsForCollectionOptions): Promise<Nft[]> {
+
+export function getNftsForCollection(collectionSlug: string, options?: GetNftsForCollectionOptions): Promise<Nft[]> {
   return pipe(
     getNftsCollectionReference,
-    queryWhere<Nft>('collection.slug', '==', slug),
-    unless(
-      always(isNil(options?.excludeDiscordUsername)),
-      queryWhere<Nft>('owner.discord.username', '!=', options?.excludeDiscordUsername)
-    ),
+    queryWhere<Nft>('collection.slug', '==', collectionSlug),
+    unless(always(isNil(options?.excludeOwner)), queryWhere<Nft>('owner.username', '!=', options?.excludeOwner)),
     queryOrderBy<Nft>('owner.discord.username'),
     queryOrderBy<Nft>('tokenId'),
     getQueryData

@@ -1,7 +1,7 @@
-import { type ItemRequest } from '@echo/api/types/requests/item-request'
 import { type ListingTargetRequest } from '@echo/api/types/requests/listing-target-request'
+import type { NftIndex } from '@echo/model/types/nft-index'
 
 export interface CreateListingRequest {
-  items: ItemRequest[]
+  items: NftIndex[]
   target: ListingTargetRequest
 }

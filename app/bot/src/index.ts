@@ -21,8 +21,8 @@ client.once(Events.ClientReady, async (_client) => {
   await initializeTranslations()
   listenToListings((changeType, listing) => guardAsyncFn(listingChangeHandler)(changeType, listing))
   listenToOffers((changeType, offer) => guardAsyncFn(offerChangeHandler)(changeType, offer))
-  listenToOfferUpdates((changeType, update) => guardAsyncFn(offerUpdateChangeHandler)(changeType, update))
-  listenToSwaps((changeType, update) => guardAsyncFn(swapChangeHandler)(changeType, update))
+  listenToOfferUpdates((changeType, snapshot) => guardAsyncFn(offerUpdateChangeHandler)(changeType, snapshot))
+  listenToSwaps((changeType, snapshot) => guardAsyncFn(swapChangeHandler)(changeType, snapshot))
   await guardAsyncFn(sendToEchoChannel)('Echo bot up and running')
 })
 

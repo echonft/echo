@@ -1,4 +1,4 @@
-import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/map-wallet-document-data-to-wallet'
+import { mapWalletDocumentDataToWallet } from '@echo/firestore/mappers/wallet/map-wallet-document-data-to-wallet'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { User } from '@echo/model/types/user'

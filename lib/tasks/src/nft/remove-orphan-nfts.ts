@@ -1,6 +1,6 @@
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftsPaginated } from '@echo/firestore/crud/nft/get-nfts-paginated'
-import { findWalletByAddress } from '@echo/firestore/crud/wallet/find-wallet-by-address'
+import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
 import { PROMISE_POOL_CONCURRENCY } from '@echo/tasks/constants/promise-pool-concurrency'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
@@ -16,7 +16,7 @@ async function removeOrphanNftsForPage(page: number, logger?: LoggerInterface) {
       try {
         const ownerWallet = await getNftOwner(nft)
         try {
-          const foundWallet = await findWalletByAddress(ownerWallet)
+          const foundWallet = await getWalletByAddress(ownerWallet)
           if (isNil(foundWallet)) {
             logger?.warn(
               `NFT ${nft.collection.slug} #${nft.tokenId} is not owned by any user in the database, deleting...`

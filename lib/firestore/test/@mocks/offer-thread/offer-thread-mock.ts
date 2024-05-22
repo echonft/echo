@@ -2,10 +2,9 @@ import { type OfferThread } from '@echo/firestore/types/model/offer-thread/offer
 
 export const offerThreadMock: Record<string, OfferThread> = {
   hot4VWDzd6ZRsC3nsvnb: {
-    id: 'hot4VWDzd6ZRsC3nsvnb',
     offerId: 'ASkFpKoHEHVH0gd69t1G',
     guild: {
-      discordId: '100',
+      id: '100',
       channelId: '10',
       threadId: '1'
     },

@@ -4,9 +4,9 @@ import { type ListingResponse } from '@echo/api/types/responses/listing-response
 import { addListing } from '@echo/firestore/crud/listing/add-listing'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
-import { assertItemsOwner } from '@echo/frontend/lib/helpers/item/assert/assert-items-owner'
-import { getListingItemsFromRequests } from '@echo/frontend/lib/helpers/listing/get-listing-items-from-requests'
-import { getListingTargetsFromRequests } from '@echo/frontend/lib/helpers/listing/get-listing-targets-from-requests'
+import { getListingTargetFromRequests } from '@echo/frontend/lib/helpers/listing/get-listing-target-from-requests'
+import { assertNftsOwner } from '@echo/frontend/lib/helpers/nft/assert/assert-nfts-owner'
+import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
 import { createListingSchema } from '@echo/frontend/lib/validators/create-listing-schema'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import { NextResponse } from 'next/server'
@@ -20,10 +20,13 @@ export async function createListingRequestHandler(user: AuthUser, req: ApiReques
     (requestBody) => createListingSchema.parse(requestBody),
     ErrorStatus.BAD_REQUEST
   )(requestBody)
-  const listingItems = await guardAsyncFn(getListingItemsFromRequests, ErrorStatus.SERVER_ERROR)(items)
-  const listingTargets = await guardAsyncFn(getListingTargetsFromRequests, ErrorStatus.SERVER_ERROR)([target])
+  const listingItems = await guardAsyncFn(getNftsFromIndexes, ErrorStatus.SERVER_ERROR)(items)
+  const listingTarget = await guardAsyncFn(getListingTargetFromRequests, ErrorStatus.SERVER_ERROR)(target)
   // make sure the creator is the owner of every item
-  assertItemsOwner(listingItems, user.username)
-  const listing = await guardAsyncFn(addListing, ErrorStatus.SERVER_ERROR)(listingItems, listingTargets)
+  assertNftsOwner(listingItems, user.username)
+  const listing = await guardAsyncFn(
+    addListing,
+    ErrorStatus.SERVER_ERROR
+  )({ items: listingItems, target: listingTarget })
   return NextResponse.json<ListingResponse>({ listing })
 }

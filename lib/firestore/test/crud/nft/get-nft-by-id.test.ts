@@ -1,0 +1,14 @@
+import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
+import { nftMock } from '@echo/model-mocks/nft/nft-mock'
+import { describe, expect, it } from '@jest/globals'
+
+describe('CRUD - nft - getNftById', () => {
+  it('returns undefined if the nft is not found', async () => {
+    const nft = await getNftById('not-found')
+    expect(nft).toBeUndefined()
+  })
+  it('returns the nft with the given id', async () => {
+    const collection = await getNftById('8hHFadIrrooORfTOLkBg')
+    expect(collection).toStrictEqual(nftMock['8hHFadIrrooORfTOLkBg'])
+  })
+})

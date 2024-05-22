@@ -51,7 +51,7 @@ describe('mappers - to-api - mapItemsToRequests', () => {
           username: 'johnnycagewins',
           wallet: {
             address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
-            chainId: 1
+            chain: 1
           }
         },
         openSeaUrl: 'https://echo.xyz',

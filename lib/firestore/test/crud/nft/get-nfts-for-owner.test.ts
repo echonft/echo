@@ -1,6 +1,8 @@
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
-import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
+import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { contentEq } from '@echo/utils/fp/content-eq'
 import { describe, expect, it } from '@jest/globals'
+import { filter, pathEq, pipe } from 'ramda'
 
 describe('CRUD - nft - getNftsForOwner', () => {
   it('returns an empty array the user is not found', async () => {
@@ -10,13 +12,11 @@ describe('CRUD - nft - getNftsForOwner', () => {
   it('returns the nfts of the user', async () => {
     let nfts = await getNftsForOwner('johnnycagewins')
     expect(nfts.length).toEqual(4)
-    for (const nft of nfts) {
-      expect(nft).toStrictEqual(getNftMockById(nft.id))
-    }
+    let nftMocks = pipe(getAllNftMocks, filter(pathEq('johnnycagewins', ['owner', 'username'])))()
+    expect(contentEq(nfts, nftMocks)).toBeTruthy()
     nfts = await getNftsForOwner('crewnft_')
     expect(nfts.length).toEqual(2)
-    for (const nft of nfts) {
-      expect(nft).toStrictEqual(getNftMockById(nft.id))
-    }
+    nftMocks = pipe(getAllNftMocks, filter(pathEq('crewnft_', ['owner', 'username'])))()
+    expect(contentEq(nfts, nftMocks)).toBeTruthy()
   })
 })

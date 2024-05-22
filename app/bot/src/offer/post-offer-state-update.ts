@@ -1,8 +1,8 @@
 import { getThreadOnEchoChannel } from '@echo/bot/helpers/get-thread-on-echo-channel'
 import { sendToThread } from '@echo/bot/helpers/send-to-thread'
 import { buildOfferLinkButton } from '@echo/bot/offer/build-offer-link-button'
-import { findOfferThread } from '@echo/firestore/crud/offer-thread/find-offer-thread'
-import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
+import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
+import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -18,7 +18,7 @@ import i18next from 'i18next'
 import { isNil } from 'ramda'
 
 async function getOfferReceiverId(offer: Offer) {
-  const receiver = await findUserByUsername(offer.receiver.username)
+  const receiver = await getUserByUsername(offer.receiver.username)
   if (isNil(receiver)) {
     throw Error(`offer receiver with username ${offer.receiver.username} not found for offer ${offer.id}`)
   }
@@ -43,7 +43,7 @@ async function getMessage(offer: Offer) {
 }
 
 export async function postOfferStateUpdate(offer: Offer) {
-  const offerThread = await findOfferThread(offer.id)
+  const offerThread = await getOfferThread(offer.id)
   if (isNil(offerThread)) {
     throw Error(`offer thread not found for offer ${offer.id}`)
   }

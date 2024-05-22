@@ -1,11 +1,11 @@
 import { walletDataConverter } from '@echo/firestore/converters/wallet/wallet-data-converter'
-import { getWalletMockById } from '@echo/firestore-mocks/wallet/get-wallet-mock-by-id'
+import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
 import type { Wallet } from '@echo/model/types/wallet'
 import { describe, expect, it } from '@jest/globals'
 import { DocumentReference, QueryDocumentSnapshot } from 'firebase-admin/firestore'
 
 describe('converters - walletDataConverter', () => {
-  const document = getWalletMockById('i28NWtlxElPXCnO0c6BC')
+  const document = getWalletDocumentDataMockById('i28NWtlxElPXCnO0c6BC')
 
   it('from Firestore conversion', () => {
     const snapshot = {

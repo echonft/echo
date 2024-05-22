@@ -1,4 +1,4 @@
-import { findCollection } from '@echo/firestore/crud/collection/find-collection'
+import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
@@ -15,7 +15,7 @@ import type { ReactElement } from 'react'
 type Params = NextUserParams<NextLayoutParams<NextParams<WithSlug>>>
 
 async function render({ params: { slug }, user, children }: Params) {
-  const collection = await findCollection(slug)
+  const collection = await getCollection(slug)
   if (isNil(collection)) {
     notFound()
   }

@@ -1,6 +1,6 @@
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
-import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
+import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { cancelListingRequestHandler } from '@echo/frontend/lib/request-handlers/listing/cancel-listing-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
@@ -11,7 +11,7 @@ import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { assoc, modify } from 'ramda'
 
-jest.mock('@echo/firestore/crud/listing/find-listing-by-id')
+jest.mock('@echo/firestore/crud/listing/get-listing-by-id')
 jest.mock('@echo/firestore/crud/listing/cancel-listing')
 
 describe('request-handlers - listing - cancelListingRequestHandler', () => {
@@ -24,7 +24,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
   })
 
   it('throws if the listing does not exist', async () => {
-    jest.mocked(findListingById).mockResolvedValueOnce(undefined)
+    jest.mocked(getListingById).mockResolvedValueOnce(undefined)
     const req = mockRequest<never>()
     try {
       await cancelListingRequestHandler(user, req, { id: listingId })
@@ -35,7 +35,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
   })
 
   it('throws if the listing state is read only', async () => {
-    jest.mocked(findListingById).mockResolvedValueOnce(assoc('readOnly', true, listing))
+    jest.mocked(getListingById).mockResolvedValueOnce(assoc('readOnly', true, listing))
     const req = mockRequest<never>()
     try {
       await cancelListingRequestHandler(user, req, { id: listingId })
@@ -47,7 +47,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
 
   it('throws if the user is not the listing creator', async () => {
     jest
-      .mocked(findListingById)
+      .mocked(getListingById)
       .mockResolvedValueOnce(modify<Listing, 'creator', User>('creator', assoc('username', 'another-user'), listing))
     const req = mockRequest<never>()
     try {
@@ -59,7 +59,7 @@ describe('request-handlers - listing - cancelListingRequestHandler', () => {
   })
 
   it('returns a 200', async () => {
-    jest.mocked(findListingById).mockResolvedValueOnce(listing)
+    jest.mocked(getListingById).mockResolvedValueOnce(listing)
     const updatedListing = assoc('state', LISTING_STATE_CANCELLED, listing)
     jest.mocked(cancelListing).mockResolvedValueOnce(updatedListing)
     const req = mockRequest<never>()

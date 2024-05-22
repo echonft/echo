@@ -1,4 +1,4 @@
-import { findUserByDiscordId } from '@echo/firestore/crud/user/find-user-by-discord-id'
+import { getUserSnapshotByDiscordId } from '@echo/firestore/crud/user/get-user-by-discord-id'
 import { getUsersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-users-collection-reference'
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
@@ -7,8 +7,8 @@ import { now } from '@echo/utils/helpers/now'
 import { assoc, isNil, pipe } from 'ramda'
 
 export async function updateUser(data: Pick<UserDocumentData, 'discord'>): Promise<UserDocumentData> {
-  const existingUser = await findUserByDiscordId(data.discord.id)
-  if (isNil(existingUser)) {
+  const snapshot = await getUserSnapshotByDiscordId(data.discord.id)
+  if (isNil(snapshot)) {
     const user = pipe(
       assoc('username', data.discord.username),
       assoc('createdAt', now()),
@@ -22,7 +22,7 @@ export async function updateUser(data: Pick<UserDocumentData, 'discord'>): Promi
   }
   return updateReference<UserDocumentData>({
     collectionReference: getUsersCollectionReference(),
-    id: existingUser.id,
+    id: snapshot.id,
     data
   })
 }

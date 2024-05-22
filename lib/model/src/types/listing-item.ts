@@ -1,6 +1,7 @@
 import { type Nft } from '@echo/model/types/nft'
 
 export interface ListingItem {
-  amount: number
+  // we only support ERC721 for now
+  // amount: number
   nft: Nft
 }

@@ -1,35 +1,55 @@
-import { findNftById } from '@echo/firestore/crud/nft/find-nft-by-id'
+import { getNft } from '@echo/firestore/crud/nft/get-nft'
 import { switchOfferItemsOwners } from '@echo/firestore/crud/offer/switch-offer-items-owners'
 import { assertNfts } from '@echo/firestore-test/nft/assert-nfts'
 import { unchecked_updateNft } from '@echo/firestore-test/nft/unchecked_update-nft'
-import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
+import { mapNftToNftIndex } from '@echo/model/helpers/nft/map-nft-to-nft-index'
+import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
+import type { Nft } from '@echo/model/types/nft'
+import { getNftMockByIndex } from '@echo/model-mocks/nft/get-nft-mock-by-index'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
-import { afterAll, beforeAll, describe, expect, it } from '@jest/globals'
-import { concat, map, path } from 'ramda'
+import { errorMessage } from '@echo/utils/helpers/error-message'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { isEmpty } from 'ramda'
 
-describe('CRUD - offer - acceptOffer', () => {
-  let nftIds: string[] = []
+describe('CRUD - offer - switchOfferItemsOwners', () => {
+  const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
+  let items: Nft[]
   beforeAll(async () => {
     await assertNfts()
   })
   afterAll(async () => {
-    // reset the NFTs with their original data
-    for (const nftId of nftIds) {
-      await unchecked_updateNft(nftId, getNftMockById(nftId))
-    }
     await assertNfts()
   })
+  beforeEach(() => {
+    items = []
+  })
+  afterEach(async () => {
+    if (!isEmpty(items)) {
+      // reset the NFTs with their original data
+      for (const item of items) {
+        const index = mapNftToNftIndex(item)
+        try {
+          await unchecked_updateNft(index, getNftMockByIndex(index))
+        } catch (e) {
+          pinoLogger.error(
+            `Error resetting NFT with index ${JSON.stringify(index)} to its original state: ${errorMessage(e)}`
+          )
+        }
+      }
+    }
+  })
   it('ownership of the items are inverted', async () => {
-    const offer = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
+    const offer = getOfferMockById(offerId)
     const { receiverItems, receiver, senderItems, sender } = offer
-    nftIds = concat(map(path(['nft', 'id']), receiverItems), map(path(['nft', 'id']), senderItems)) as string[]
+    items = getOfferItems(offer)
     await switchOfferItemsOwners(offer)
     for (const item of receiverItems) {
-      const nft = (await findNftById(item.nft.id))!
+      const nft = (await getNft(mapNftToNftIndex(item)))!
       expect(nft.owner).toStrictEqual(sender)
     }
     for (const item of senderItems) {
-      const nft = (await findNftById(item.nft.id))!
+      const nft = (await getNft(mapNftToNftIndex(item)))!
       expect(nft.owner).toStrictEqual(receiver)
     }
   })

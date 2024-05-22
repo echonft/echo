@@ -1,11 +1,12 @@
 import { getNftsForOwner } from '@echo/alchemy/services/get-nfts-for-owner'
 import { getCollectionsPaginated } from '@echo/firestore/crud/collection/get-collections-paginated'
 import { addNft } from '@echo/firestore/crud/nft/add-nft'
-import { findNftByCollection } from '@echo/firestore/crud/nft/find-nft-by-collection'
-import { setNftOwner } from '@echo/firestore/crud/nft/set-nft-owner'
+import { getNft } from '@echo/firestore/crud/nft/get-nft'
+import { updateNft } from '@echo/firestore/crud/nft/update-nft'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import { mapNftToNftIndex } from '@echo/model/helpers/nft/map-nft-to-nft-index'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import { PROMISE_POOL_CONCURRENCY } from '@echo/tasks/constants/promise-pool-concurrency'
@@ -13,7 +14,7 @@ import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { PromisePool } from '@supercharge/promise-pool'
-import { equals, inc, isNil } from 'ramda'
+import { assoc, equals, inc, isNil, pipe } from 'ramda'
 
 async function updateUserNftsForCollections(page: number, user: UserDocumentData, logger?: LoggerInterface) {
   const wallets = await getWalletsForUser(user.username)
@@ -27,7 +28,7 @@ async function updateUserNftsForCollections(page: number, user: UserDocumentData
         .process(async (nft) => {
           // FIXME this is true only for ERC721
           try {
-            const existingNft: Nullable<Nft> = await findNftByCollection(nft.collection.id, nft.tokenId)
+            const existingNft: Nullable<Nft> = await pipe(mapNftToNftIndex, getNft)(nft)
             if (isNil(existingNft)) {
               logger?.info(`nft ${nft.collection.slug} #${nft.tokenId} is not in the database, adding...`)
               try {
@@ -41,7 +42,7 @@ async function updateUserNftsForCollections(page: number, user: UserDocumentData
                 `nft ${existingNft.collection.slug} #${existingNft.tokenId} is not owned by ${existingNft.owner.wallet.address} anymore, updating owner...`
               )
               try {
-                await setNftOwner(existingNft.id, owner)
+                await pipe(assoc('owner', owner), updateNft)(existingNft)
                 logger?.info(
                   `updated owner of nft ${existingNft.collection.slug} #${existingNft.tokenId} to ${owner.wallet.address}`
                 )
