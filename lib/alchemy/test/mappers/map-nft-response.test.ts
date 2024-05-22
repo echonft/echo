@@ -95,6 +95,6 @@ describe('mappers - mapNftResponse', () => {
       timeLastUpdated: '2022-12-23T06:24:54.339Z'
     }
     const nft = getNftMockById('8hHFadIrrooORfTOLkBg')
-    expect(mapNftResponse(nft.collection, nft.owner)(response)).toStrictEqual(omit(['id', 'updatedAt'], nft))
+    expect(mapNftResponse(nft.collection, nft.owner)(response)).toStrictEqual(omit(['updatedAt'], nft))
   })
 })

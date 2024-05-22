@@ -2,7 +2,7 @@ import { mapContractResponse } from '@echo/alchemy/mappers/map-contract-response
 import { type ContractResponse } from '@echo/alchemy/types/response/contract-response'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
-import { omit, toLower } from 'ramda'
+import { toLower } from 'ramda'
 
 describe('mappers - mapContractResponse', () => {
   it('returns mapped nft collection', () => {
@@ -30,6 +30,6 @@ describe('mappers - mapContractResponse', () => {
           'https://i.seadn.io/gae/ujBmfCu4_m30X3zkmyEA6wYPFubX0qkQJ5CEm5D9Eo2M1jHkDx1K4hUQQitd912A6-M8nyvOsuCuIv8RZokw83runTcR_kTs45xF?auto=format&dpr=1&w=3840'
       }
     }
-    expect(mapContractResponse(1)(response)).toStrictEqual(omit(['id'], getCollectionMockById('1aomCtnoesD7WVll6Yi1')))
+    expect(mapContractResponse(1)(response)).toStrictEqual(getCollectionMockById('1aomCtnoesD7WVll6Yi1'))
   })
 })
