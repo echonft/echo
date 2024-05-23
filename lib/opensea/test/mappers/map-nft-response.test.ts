@@ -11,7 +11,7 @@ describe('mappers - mapNftResponse', () => {
       collection: 'spiral-frequencies',
       contract: {
         address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-        chainId: 1
+        chain: 'ethereum'
       },
       token_standard: 'erc721',
       name: 'Spiral Frequencies #1376',
@@ -54,7 +54,7 @@ describe('mappers - mapNftResponse', () => {
         slug: 'spiral-frequencies',
         contract: {
           address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-          chainId: 1
+          chain: 'ethereum'
         }
       },
       name: 'Spiral Frequencies #1376',
@@ -72,7 +72,7 @@ describe('mappers - mapNftResponse', () => {
       collection: 'spiral-frequencies',
       contract: {
         address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-        chainId: 1
+        chain: 'ethereum'
       },
       token_standard: 'erc721',
       name: 'Spiral Frequencies #1376',
@@ -115,7 +115,7 @@ describe('mappers - mapNftResponse', () => {
         slug: 'spiral-frequencies',
         contract: {
           address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-          chainId: 1
+          chain: 'ethereum'
         }
       },
       name: 'Spiral Frequencies #1376',

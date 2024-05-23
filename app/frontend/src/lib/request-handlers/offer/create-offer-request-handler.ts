@@ -35,6 +35,6 @@ export async function createOfferRequestHandler(user: AuthUser, req: ApiRequest<
   assertItemsOwner(receiverOfferItems, head(receiverOfferItems)!.nft.owner.username)
   const baseOffer = generateBaseOffer({ senderOfferItems, receiverOfferItems, expiresAt })
   const offerContractId = generateOfferId(baseOffer)
-  const offer = await guardAsyncFn(addOffer, ErrorStatus.SERVER_ERROR)(baseOffer, offerContractId)
-  return NextResponse.json<OfferResponse>({ offer })
+  const { data } = await guardAsyncFn(addOffer, ErrorStatus.SERVER_ERROR)(baseOffer, offerContractId)
+  return NextResponse.json<OfferResponse>({ offer: data })
 }

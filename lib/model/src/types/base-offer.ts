@@ -1,12 +1,12 @@
-import { type OfferItem } from '@echo/model/types/offer-item'
+import type { Nft } from '@echo/model/types/nft'
 import { type OfferState } from '@echo/model/types/offer-state'
 import { type User } from '@echo/model/types/user'
 
 export interface BaseOffer {
   expiresAt: number
   receiver: User
-  receiverItems: OfferItem[]
+  receiverItems: Nft[]
   sender: User
-  senderItems: OfferItem[]
+  senderItems: Nft[]
   state: OfferState
 }
