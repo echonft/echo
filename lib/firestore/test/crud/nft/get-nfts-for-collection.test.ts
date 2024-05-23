@@ -1,4 +1,5 @@
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
+import { COLLECTION_MOCK_SPIRAL_SLUG } from '@echo/model-mocks/collection/collection-mock'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { describe, expect, it } from '@jest/globals'
@@ -10,7 +11,7 @@ describe('CRUD - nft - getNftsForCollection', () => {
     expect(result).toEqual([])
   })
   it('returns the nfts of the collection', async () => {
-    const collectionSlug = 'spiral-frequencies'
+    const collectionSlug = COLLECTION_MOCK_SPIRAL_SLUG
     const nfts = await getNftsForCollection(collectionSlug)
     const nftMocks = pipe(getAllNftMocks, filter(pathEq(collectionSlug, ['collection', 'slug'])))()
     expect(eqListContent(nfts, nftMocks)).toBeTruthy()

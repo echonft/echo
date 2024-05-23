@@ -25,11 +25,11 @@ describe('mappers - mapContractResponse', () => {
         twitterUsername: 'GeneticChain',
         discordUrl: 'https://discord.gg/genetic-chain',
         lastIngestedAt: '2023-03-22T19:05:31.000Z',
-        collectionSlug: 'spiral-frequencies',
+        collectionSlug: COLLECTION_MOCK_SPIRAL_SLUG,
         bannerImageUrl:
           'https://i.seadn.io/gae/ujBmfCu4_m30X3zkmyEA6wYPFubX0qkQJ5CEm5D9Eo2M1jHkDx1K4hUQQitd912A6-M8nyvOsuCuIv8RZokw83runTcR_kTs45xF?auto=format&dpr=1&w=3840'
       }
     }
-    expect(mapContractResponse(1)(response)).toStrictEqual(getCollectionMockById('1aomCtnoesD7WVll6Yi1'))
+    expect(mapContractResponse(1)(response)).toStrictEqual(getCollectionMockById(COLLECTION_MOCK_SPIRAL_ID))
   })
 })

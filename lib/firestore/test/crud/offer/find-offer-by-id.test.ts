@@ -1,5 +1,5 @@
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
-import { offerMock } from '@echo/model-mocks/offer/offer-mock'
+import { OFFER_MOCK_TO_JOHNNYCAGE_ID, offerMock } from '@echo/model-mocks/offer/offer-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer - findOfferById', () => {
@@ -8,7 +8,7 @@ describe('CRUD - offer - findOfferById', () => {
     expect(offer).toBeUndefined()
   })
   it('returns the offer with the given id', async () => {
-    const offer = await getOfferById('LyCfl6Eg7JKuD7XJ6IPi')
+    const offer = await getOfferById(OFFER_MOCK_TO_JOHNNYCAGE_ID)
     expect(offer).toStrictEqual(offerMock.LyCfl6Eg7JKuD7XJ6IPi)
   })
 })

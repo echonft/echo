@@ -10,7 +10,7 @@ import { type Offer } from '@echo/model/types/offer'
 import { now } from '@echo/utils/helpers/now'
 import { nowMs } from '@echo/utils/helpers/now-ms'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { pipe, toLower, toString } from 'ramda'
+import { assoc, pipe, toLower, toString } from 'ramda'
 
 export async function addOffer(
   baseOffer: BaseOffer,
@@ -24,16 +24,13 @@ export async function addOffer(
   assertItems(receiverItems)
   assertItems(senderItems)
   await assertOfferIsNotADuplicate({ senderItems, receiverItems })
-
-  const data: Offer = {
-    createdAt: now(),
-    idContract,
-    readOnly: false,
-    updatedAt: now(),
-    slug: pipe(nowMs, toString, toLower<string>)(),
-    ...baseOffer
-  }
-
+  const data: Offer = pipe(
+    assoc('createdAt', now()),
+    assoc('idContract', idContract),
+    assoc('readOnly', false),
+    assoc('updatedAt', now()),
+    assoc('slug', pipe(toString, toLower<string>)(nowMs))
+  )(baseOffer)
   const id = await setReference<Offer>({
     collectionReference: getOffersCollectionReference(),
     data

@@ -12,6 +12,7 @@ import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { addWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/add-wallet-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
+import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/offer/offer-mock'
 import { formatAddress } from '@echo/web3/helpers/format-address'
 import { getChain } from '@echo/web3/helpers/get-chain'
 import { toLower } from 'ramda'
@@ -46,7 +47,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     signature: validSignature,
     wallet: validWallet
   }
-  const user = getAuthUserMockByUsername('johnnycagewins')
+  const user = getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
 
   beforeEach(() => {
     jest.clearAllMocks()

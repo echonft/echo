@@ -1,4 +1,4 @@
-import { getWalletMock } from '@echo/model-mocks/wallet/get-wallet-mock'
+import { getWalletMock } from '@echo/model-mocks/wallet/wallet-mock'
 import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import type { AccountProviderResult } from '@echo/web3-dom/types/account-provider-result'

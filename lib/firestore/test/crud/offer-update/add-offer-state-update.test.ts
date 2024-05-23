@@ -6,6 +6,8 @@ import {
 import { getOfferUpdateById } from '@echo/firestore/crud/offer-update/get-offer-update-by-id'
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
 import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
+import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -15,11 +17,11 @@ import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - offer-update - addOfferStateUpdate', () => {
   const args: AddOfferStateUpdateArgs = {
-    offerId: 'LyCfl6Eg7JKuD7XJ6IPi',
+    offerId: OFFER_MOCK_TO_JOHNNYCAGE_ID,
     args: {
       state: OFFER_STATE_REJECTED,
       trigger: {
-        by: 'johnnycagewins'
+        by: USER_MOCK_JOHNNY_USERNAME
       }
     }
   }

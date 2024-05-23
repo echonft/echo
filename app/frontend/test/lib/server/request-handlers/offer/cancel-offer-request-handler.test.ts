@@ -9,15 +9,17 @@ import { type Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import { USER_MOCK_CREW_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { assoc, modify } from 'ramda'
 
 jest.mock('@echo/firestore/crud/offer/get-offer-by-id')
 jest.mock('@echo/firestore/crud/offer/cancel-offer')
 
 describe('request-handlers - offer - cancelOfferRequestHandler', () => {
-  const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
+  const offerId = OFFER_MOCK_TO_JOHNNYCAGE_ID
   const offer = getOfferMockById(offerId)
-  const user = getAuthUserMockByUsername('crewnft_')
+  const user = getAuthUserMockByUsername(USER_MOCK_CREW_USERNAME)
 
   beforeEach(() => {
     jest.clearAllMocks()

@@ -11,7 +11,7 @@ describe('mappers - to-api - mapListingTargetToRequest', () => {
     const target: ListingTarget = {
       amount: 2,
       collection: {
-        id: 'Rc8pLQXxgyQGIRL0fr13',
+        id: COLLECTION_MOCK_PX_ID,
         bannerUrl:
           'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ?auto=format&dpr=1&w=3840',
         contract: {
@@ -26,7 +26,7 @@ describe('mappers - to-api - mapListingTargetToRequest', () => {
         floorPrice: 0.025,
         name: 'pxMythics Genesis',
         openSeaUrl: 'https://opensea.io/collection/pxmythics-genesis',
-        slug: 'pxmythics-genesis',
+        slug: COLLECTION_MOCK_PX_SLUG,
         profilePictureUrl:
           'https://i.seadn.io/gae/R3b_Ju-BF7Ae45pp1f7UxCS5wF06dfFG7ydux_v9S8lJ7CL3j4kgv7a0nM4yVw-GhOH21ZigeaNluK-nuo6Dclq9LdQYH2Cvj8PfMQ?w=500&auto=format',
         totalSupply: 1077,
@@ -37,7 +37,7 @@ describe('mappers - to-api - mapListingTargetToRequest', () => {
     expect(mapListingTargetToRequest(target)).toStrictEqual({
       amount: 2,
       collection: {
-        slug: 'pxmythics-genesis'
+        slug: COLLECTION_MOCK_PX_SLUG
       }
     })
   })

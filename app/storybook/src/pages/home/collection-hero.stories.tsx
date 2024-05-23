@@ -1,6 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 import { type Collection } from '@echo/model/types/collection'
+import { COLLECTION_MOCK_PX_ID } from '@echo/model-mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { HomeHero as Component } from '@echo/ui/pages/home/hero/home-hero'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -23,6 +24,6 @@ export const Default: StoryObj<typeof Component> = {
     collection: pipe<[string], Collection, Collection>(
       getCollectionMockById,
       assoc('swapsCount', 2)
-    )('Rc8pLQXxgyQGIRL0fr13')
+    )(COLLECTION_MOCK_PX_ID)
   }
 }

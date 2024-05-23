@@ -12,6 +12,8 @@ import { type Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { assoc, modify } from 'ramda'
 
 jest.mock('@echo/firestore/crud/user/get-user-by-username')
@@ -19,11 +21,11 @@ jest.mock('@echo/firestore/crud/offer/get-offer-by-id')
 jest.mock('@echo/firestore/crud/offer/accept-offer')
 
 describe('request-handlers - offer - acceptOfferRequestHandler', () => {
-  const offerId = 'LyCfl6Eg7JKuD7XJ6IPi'
+  const offerId = OFFER_MOCK_TO_JOHNNYCAGE_ID
   const offer = getOfferMockById(offerId)
   const signature =
     '0x4d374b2212ea29483f6aba22a36bd9706fa410aa20e9954e39e407fd8018370a2315258d336fafca5c5a826dd992a91bca81e1d920d4bcc4bceee95b26682c7e1b'
-  const user = getAuthUserMockByUsername('johnnycagewins')
+  const user = getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
 
   beforeEach(() => {
     jest.clearAllMocks()

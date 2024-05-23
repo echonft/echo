@@ -14,13 +14,16 @@ import type { NftIndex } from '@echo/model/types/nft-index'
 import { type User } from '@echo/model/types/user'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
+import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
+import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/offer/offer-mock'
+import { USER_MOCK_CREW_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { assoc, map, modify, pick, pipe, prop, toLower } from 'ramda'
 
 jest.mock('@echo/firestore/crud/listing/add-listing')
 
 describe('request-handlers - listing - createListingRequestHandler', () => {
-  const listing = getListingMockById('jUzMtPGKM62mMhEcmbN4')
-  const user = getAuthUserMockByUsername('johnnycagewins')
+  const listing = getListingMockById(LISTING_MOCK_ID)
+  const user = getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -39,10 +42,10 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
   it('throws if the user is not the owner of every item', async () => {
     const wrongOwner: User = {
       discord: {
-        username: 'crewnft_',
+        username: USER_MOCK_CREW_USERNAME,
         avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png'
       },
-      username: 'crewnft_',
+      username: USER_MOCK_CREW_USERNAME,
       wallet: {
         address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
         chain: 'ethereum'

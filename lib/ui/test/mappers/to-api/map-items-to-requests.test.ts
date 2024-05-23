@@ -1,4 +1,6 @@
 import { type OfferItem } from '@echo/model/types/offer-item'
+import { COLLECTION_MOCK_SPIRAL_ID, COLLECTION_MOCK_SPIRAL_SLUG } from '@echo/model-mocks/collection/collection-mock'
+import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
 import { describe, expect, it } from '@jest/globals'
 import { assocPath, toLower } from 'ramda'
@@ -22,7 +24,7 @@ describe('mappers - to-api - mapItemsToRequests', () => {
         balance: 1,
         blurUrl: 'https://echo.xyz',
         collection: {
-          id: '1aomCtnoesD7WVll6Yi1',
+          id: COLLECTION_MOCK_SPIRAL_ID,
           bannerUrl: 'https://echo.xyz',
           blurUrl: 'https://echo.xyz',
           contract: {
@@ -35,7 +37,7 @@ describe('mappers - to-api - mapItemsToRequests', () => {
           floorPrice: 0.037,
           name: 'Spiral Frequencies',
           openSeaUrl: 'https://echo.xyz',
-          slug: 'spiral-frequencies',
+          slug: COLLECTION_MOCK_SPIRAL_SLUG,
           profilePictureUrl: 'https://echo.xyz',
           totalSupply: 6315,
           twitterUsername: 'GeneticChain',
@@ -46,9 +48,9 @@ describe('mappers - to-api - mapItemsToRequests', () => {
         owner: {
           discord: {
             avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
-            username: 'johnnycagewins'
+            username: USER_MOCK_JOHNNY_USERNAME
           },
-          username: 'johnnycagewins',
+          username: USER_MOCK_JOHNNY_USERNAME,
           wallet: {
             address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
             chain: 1

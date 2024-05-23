@@ -1,5 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
+import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { getUserProfileMockByUsername } from '@echo/model-mocks/user/user-profile-mock'
 import { UserProfile } from '@echo/ui/components/user/profile/user-profile'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -43,7 +44,7 @@ export const Profile: StoryObj<ComponentType> = {
           : undefined
       ),
       assocPath(['discord', 'bannerColor'], banner === 'Color' ? bannerColor : undefined)
-    )('johnnycagewins')
+    )(USER_MOCK_JOHNNY_USERNAME)
     return <UserProfile profile={profile} />
   }
 }

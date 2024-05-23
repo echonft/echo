@@ -6,8 +6,8 @@ import { describe, expect, test } from '@jest/globals'
 describe('helpers - nft - getCollectionFiltersForNfts', () => {
   test('returns the right collection filters for a mock nfts', () => {
     const filters = getCollectionFiltersForNfts(getAllNftMocks())
-    const pxCollection = getCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
-    const sfCollection = getCollectionMockById('1aomCtnoesD7WVll6Yi1')
+    const pxCollection = getCollectionMockById(COLLECTION_MOCK_PX_ID)
+    const sfCollection = getCollectionMockById(COLLECTION_MOCK_SPIRAL_ID)
     expect(filters).toEqual([
       {
         collection: pxCollection,

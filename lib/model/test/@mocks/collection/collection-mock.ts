@@ -1,21 +1,24 @@
-import { type Collection } from '@echo/model/types/collection'
+import { type Collection, type Contract } from '@echo/model/types/collection'
 import { toLower } from 'ramda'
 
 export const COLLECTION_MOCK_PX_ID = 'Rc8pLQXxgyQGIRL0fr13'
 export const COLLECTION_MOCK_PX_SLUG = 'pxmythics-genesis'
+export const COLLECTION_MOCK_PX_CONTRACT: Contract = {
+  address: toLower('0x12c63bbD266dB84e117356e664f3604055166CEc'),
+  chain: 'ethereum'
+}
 export const COLLECTION_MOCK_SPIRAL_ID = '1aomCtnoesD7WVll6Yi1'
 export const COLLECTION_MOCK_SPIRAL_SLUG = 'spiral-frequencies'
+export const COLLECTION_MOCK_SPIRAL_CONTRACT: Contract = {
+  address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
+  chain: 'ethereum'
+}
 
 export const collectionMock: Record<string, Collection> = {
   Rc8pLQXxgyQGIRL0fr13: {
     bannerUrl:
       'https://i.seadn.io/gae/OwmR2aAFXTNxnPAiKrOhbsfZSSQqoaGMFQvedFileV6Vv-9TPs7TFI8RTXdIkoqfc9AZhFI4XcTHREnPc3mc-MDKFC4qapJbOyhcQQ',
-    contracts: [
-      {
-        address: toLower('0x12c63bbD266dB84e117356e664f3604055166CEc'),
-        chain: 'ethereum'
-      }
-    ],
+    contracts: [COLLECTION_MOCK_PX_CONTRACT],
     description: 'pxMythics is an 1,077 piece NFT collection based on the greatest mythologies throughout history.',
     discordUrl: 'https://discord.gg/pxmythics',
     name: 'pxMythics Genesis',
@@ -28,12 +31,7 @@ export const collectionMock: Record<string, Collection> = {
   '1aomCtnoesD7WVll6Yi1': {
     bannerUrl:
       'https://i.seadn.io/gae/ujBmfCu4_m30X3zkmyEA6wYPFubX0qkQJ5CEm5D9Eo2M1jHkDx1K4hUQQitd912A6-M8nyvOsuCuIv8RZokw83runTcR_kTs45xF',
-    contracts: [
-      {
-        address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-        chain: 'ethereum'
-      }
-    ],
+    contracts: [COLLECTION_MOCK_SPIRAL_CONTRACT],
     description: 'A Genetic Chain Project.',
     discordUrl: 'https://discord.gg/genetic-chain',
     name: 'Spiral Frequencies',

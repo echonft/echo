@@ -15,20 +15,33 @@ import { getAllOffers } from '@echo/firestore-test/offer/get-all-offers'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
+import type { BaseOffer } from '@echo/model/types/base-offer'
+import type { Nft } from '@echo/model/types/nft'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
+import {
+  NFT_MOCK_PX_CREW_ID,
+  NFT_MOCK_SPIRAL_JOHNNY_2_ID,
+  NFT_MOCK_SPIRAL_JOHNNY_ID
+} from '@echo/model-mocks/nft/nft-mock'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import {
+  getUserMockByUsername,
+  USER_MOCK_CREW_USERNAME,
+  USER_MOCK_JOHNNY_USERNAME
+} from '@echo/model-mocks/user/user-mock'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { errorMessage } from '@echo/utils/helpers/error-message'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIs } from '@echo/utils-test/expect-date-number-is'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
-import { head, isNil, pick, pipe, toLower } from 'ramda'
+import { head, isNil, pick, pipe } from 'ramda'
 
 describe('CRUD - offer - addOffer', () => {
   const listingId = LISTING_MOCK_ID
@@ -79,46 +92,42 @@ describe('CRUD - offer - addOffer', () => {
     ).rejects.toBeDefined()
   })
   it('throws if the offer is a duplicate', async () => {
-    const { receiverItems, senderItems } = getOfferMockById(OFFER_MOCK_TO_JOHNNYCAGE_ID)
-    await expect(addOffer(senderItems, receiverItems)).rejects.toBeDefined()
+    const offerMock = getOfferMockById(OFFER_MOCK_TO_JOHNNYCAGE_ID)
+    const baseOffer = pick(
+      ['expiresAt', 'receiver', 'receiverItems', 'receiverItems', 'sender', 'senderItems', 'state'],
+      offerMock
+    )
+    await expect(addOffer(baseOffer, offerMock.idContract)).rejects.toBeDefined()
     const offers = await getAllOffers()
     expect(eqListContent(offers, getAllOfferMocks())).toBeTruthy()
   })
   it('add an offer', async () => {
-    const senderItems = [getNftMockById('kRE3UCfXWkJ33nwzj2X1')]
-    const receiverItems = [getNftMockById('8hHFadIrrooORfTOLkBg'), getNftMockById('iRZFKEujarikVjpiFAkE')]
-    const createdOffer = await addOffer(senderItems, receiverItems)
+    const expiresAt = dayjs().add(DEFAULT_EXPIRATION_TIME, 'day')
+    const senderItems: NonEmptyArray<Nft> = [getNftMockById(NFT_MOCK_PX_CREW_ID)]
+    const receiverItems: NonEmptyArray<Nft> = [
+      getNftMockById(NFT_MOCK_SPIRAL_JOHNNY_ID),
+      getNftMockById(NFT_MOCK_SPIRAL_JOHNNY_2_ID)
+    ]
+    const baseOffer: BaseOffer = {
+      expiresAt: expiresAt.unix(),
+      receiver: head(receiverItems).owner,
+      receiverItems,
+      sender: head(senderItems).owner,
+      senderItems,
+      state: OFFER_STATE_OPEN
+    }
+    const createdOffer = await addOffer(baseOffer, '0xTEST')
     createdOfferId = createdOffer.id
     const newOffer = (await getOfferById(createdOfferId))!
-    expect(newOffer.receiver).toStrictEqual({
-      discord: {
-        avatarUrl: 'https://cdn.discordapp.com/avatars/462798252543049728/6b3df6d9a8b5ab523fa24a71aca8160d.png',
-        username: 'johnnycagewins'
-      },
-      username: 'johnnycagewins',
-      wallet: {
-        address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'),
-        chain: 'ethereum'
-      }
-    })
+    expect(newOffer.receiver).toStrictEqual(getUserMockByUsername(USER_MOCK_JOHNNY_USERNAME))
     expect(eqListContent(newOffer.receiverItems, receiverItems)).toBeTruthy()
     expectDateNumberIsNow(newOffer.createdAt)
-    expect(newOffer.sender).toStrictEqual({
-      discord: {
-        username: 'crewnft_',
-        avatarUrl: 'https://cdn.discordapp.com/avatars/884593489189433364/6080eecbd12f0f7bb2299690661535cf.png'
-      },
-      username: 'crewnft_',
-      wallet: {
-        address: toLower('0xf672715f2bA85794659a7150e8C21F8d157bFe1D'),
-        chain: 'ethereum'
-      }
-    })
+    expect(newOffer.sender).toStrictEqual(getUserMockByUsername(USER_MOCK_CREW_USERNAME))
     expect(eqListContent(newOffer.senderItems, senderItems)).toBeTruthy()
     expect(newOffer.state).toBe(OFFER_STATE_OPEN)
     expect(newOffer.idContract).toBe('0xTEST')
     expectDateNumberIsNow(newOffer.updatedAt)
-    expectDateNumberIs(newOffer.expiresAt)(dayjs().add(DEFAULT_EXPIRATION_TIME, 'day'))
+    expectDateNumberIs(newOffer.expiresAt)(expiresAt)
     // check if offer has been added to tied listings
     const listingOffers = await getListingOffersForOffer(newOffer)
     expect(listingOffers.length).toBe(1)

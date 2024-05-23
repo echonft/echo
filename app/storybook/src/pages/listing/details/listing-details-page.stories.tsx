@@ -13,9 +13,11 @@ import type { ListingState } from '@echo/model/types/listing-state'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
+import { COLLECTION_MOCK_PX_ID } from '@echo/model-mocks/collection/collection-mock'
 import { getListingMock } from '@echo/model-mocks/listing/get-listing-mock'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
+import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
@@ -80,13 +82,15 @@ export const Page: StoryObj<ComponentType> = {
       }
       return pipe<[Listing], Listing, Listing>(assoc('expiresAt', notExpiredDate()), assoc('readOnly', false))(listing)
     }
+
     function getTargetNfts(): Nft[] {
       return ifElse(
         always(targetHasNfts),
-        pipe<[], Nft[], Nft[]>(getAllNftMocks, filter(pathEq('Rc8pLQXxgyQGIRL0fr13', ['collection', 'id']))),
+        pipe<[], Nft[], Nft[]>(getAllNftMocks, filter(pathEq(COLLECTION_MOCK_PX_ID, ['collection', 'id']))),
         always([])
       )()
     }
+
     function getOffers(): OfferWithRole[] {
       return ifElse(
         always(withOffers),
@@ -94,6 +98,7 @@ export const Page: StoryObj<ComponentType> = {
         always([])
       )()
     }
+
     function setRole(role: Role) {
       return function (listing: Listing): ListingWithRole {
         if (role === 'Creator') {
@@ -105,6 +110,7 @@ export const Page: StoryObj<ComponentType> = {
         return assoc('role', undefined, listing)
       }
     }
+
     const renderedListing = pipe<[], Listing, Listing, Listing, ListingWithRole>(
       getListingMock,
       assoc('state', state),
@@ -112,7 +118,9 @@ export const Page: StoryObj<ComponentType> = {
       setRole(role)
     )()
     const user =
-      role === 'Creator' ? getAuthUserMockByUsername('johnnycagewins') : getAuthUserMockByUsername('crewnft_')
+      role === 'Creator'
+        ? getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
+        : getAuthUserMockByUsername(USER_MOCK_CREW_USERNAME)
     return (
       <PageLayout user={user} background={getListingPageLayoutBackground(renderedListing)} excludeProviders={true}>
         <PaddedSectionLayout>

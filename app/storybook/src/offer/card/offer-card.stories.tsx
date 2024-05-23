@@ -7,6 +7,7 @@ import type { OfferItem } from '@echo/model/types/offer-item'
 import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { OFFER_MOCK_FROM_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
 import { OfferCard } from '@echo/ui/components/offer/card/offer-card'
 import { type OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { type Meta, type StoryObj } from '@storybook/react'
@@ -54,7 +55,7 @@ export const Default: StoryObj<ComponentType> = {
             always(stack),
             modify<'senderItems', OfferItem[], OfferItem[]>('senderItems', drop(1))
           )
-        )(getOfferMockById('ASkFpKoHEHVH0gd69t1G')),
+        )(getOfferMockById(OFFER_MOCK_FROM_JOHNNYCAGE_ID)),
       [state, stack]
     )
     return <OfferCard offer={offer} options={{ scaleDisabled }} />

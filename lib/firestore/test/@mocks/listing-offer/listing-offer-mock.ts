@@ -1,15 +1,17 @@
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
+import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
+import { OFFER_MOCK_FROM_JOHNNYCAGE_ID, OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
 
 export const listingOfferMock: Record<string, ListingOffer> = {
   iVWbfiUCYlNGKEAvQoF8: {
-    listingId: 'jUzMtPGKM62mMhEcmbN4',
-    offerId: 'ASkFpKoHEHVH0gd69t1G',
+    listingId: LISTING_MOCK_ID,
+    offerId: OFFER_MOCK_FROM_JOHNNYCAGE_ID,
     fulfillingStatus: ListingOfferFulfillingStatus.PARTIALLY
   },
   T5UgZBVfjyqjyJs3KGek: {
-    listingId: 'jUzMtPGKM62mMhEcmbN4',
-    offerId: 'LyCfl6Eg7JKuD7XJ6IPi',
+    listingId: LISTING_MOCK_ID,
+    offerId: OFFER_MOCK_TO_JOHNNYCAGE_ID,
     fulfillingStatus: ListingOfferFulfillingStatus.PARTIALLY
   }
 }

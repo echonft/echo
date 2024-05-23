@@ -1,6 +1,7 @@
 import { mapNftResponse } from '@echo/alchemy/mappers/map-nft-response'
 import { type NftResponse } from '@echo/alchemy/types/response/nft-response'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
+import { NFT_MOCK_SPIRAL_JOHNNY_ID } from '@echo/model-mocks/nft/nft-mock'
 import { describe, expect, it } from '@jest/globals'
 import { omit } from 'ramda'
 
@@ -18,7 +19,7 @@ describe('mappers - mapNftResponse', () => {
         openSeaMetadata: {
           floorPrice: 0.037,
           collectionName: 'Spiral Frequencies',
-          collectionSlug: 'spiral-frequencies',
+          collectionSlug: COLLECTION_MOCK_SPIRAL_SLUG,
           safelistRequestStatus: 'verified',
           imageUrl:
             'https://i.seadn.io/gae/dPCp-lwVmhNgEqZCIsTVos7mDu7qY5A_LARb8PMULBrIfTIlRSlX58fphv8AQm8axjszuT-LOwbBlIbXRwZuA6Ua9Btp3aJWpMCMWu8',
@@ -94,7 +95,7 @@ describe('mappers - mapNftResponse', () => {
       tokenUri: 'https://geneticchain.io/api/project/1/token/1376/meta',
       timeLastUpdated: '2022-12-23T06:24:54.339Z'
     }
-    const nft = getNftMockById('8hHFadIrrooORfTOLkBg')
+    const nft = getNftMockById(NFT_MOCK_SPIRAL_JOHNNY_ID)
     expect(mapNftResponse(nft.collection, nft.owner)(response)).toStrictEqual(omit(['updatedAt'], nft))
   })
 })

@@ -9,15 +9,17 @@ import { type Listing } from '@echo/model/types/listing'
 import type { User } from '@echo/model/types/user'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
+import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
+import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/offer/offer-mock'
 import { assoc, modify } from 'ramda'
 
 jest.mock('@echo/firestore/crud/listing/get-listing-by-id')
 jest.mock('@echo/firestore/crud/listing/cancel-listing')
 
 describe('request-handlers - listing - cancelListingRequestHandler', () => {
-  const listingId = 'jUzMtPGKM62mMhEcmbN4'
+  const listingId = LISTING_MOCK_ID
   const listing = getListingMockById(listingId)
-  const user = getAuthUserMockByUsername('johnnycagewins')
+  const user = getAuthUserMockByUsername(USER_MOCK_JOHNNY_USERNAME)
 
   beforeEach(() => {
     jest.clearAllMocks()

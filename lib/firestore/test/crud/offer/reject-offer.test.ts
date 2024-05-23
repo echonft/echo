@@ -15,6 +15,7 @@ import {
 } from '@echo/model/constants/offer-states'
 import { getOfferMockBySlug } from '@echo/model-mocks/offer/get-offer-mock-by-slug'
 import { OFFER_MOCK_TO_JOHNNYCAGE_SLUG } from '@echo/model-mocks/offer/offer-mock'
+import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { futureDate } from '@echo/utils/helpers/future-date'
 import { pastDate } from '@echo/utils/helpers/past-date'
@@ -31,7 +32,7 @@ describe('CRUD - offer - rejectOffer', () => {
     slug,
     updateArgs: {
       trigger: {
-        by: 'johnnycagewins'
+        by: USER_MOCK_JOHNNY_USERNAME
       }
     }
   }

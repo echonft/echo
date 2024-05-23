@@ -1,5 +1,7 @@
 import { getListingsForCreator } from '@echo/firestore/crud/listing/get-listings-for-creator'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
+import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
+import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - listing - getListingsForCreator', () => {
@@ -8,10 +10,10 @@ describe('CRUD - listing - getListingsForCreator', () => {
     expect(listings).toEqual([])
   })
   it('returns the listings created by the user', async () => {
-    let listings = await getListingsForCreator('crewnft_')
+    let listings = await getListingsForCreator(USER_MOCK_CREW_USERNAME)
     expect(listings).toEqual([])
-    listings = await getListingsForCreator('johnnycagewins')
+    listings = await getListingsForCreator(USER_MOCK_JOHNNY_USERNAME)
     expect(listings.length).toBe(1)
-    expect(listings[0]).toStrictEqual(getListingMockById('jUzMtPGKM62mMhEcmbN4'))
+    expect(listings[0]).toStrictEqual(getListingMockById(LISTING_MOCK_ID))
   })
 })

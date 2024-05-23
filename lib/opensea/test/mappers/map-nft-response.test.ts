@@ -1,22 +1,22 @@
-import type { Contract } from '@echo/model/types/collection'
-import { mapExtendedNftResponse } from '@echo/opensea/mappers/map-extended-nft-response'
-import type { GetNftResponse } from '@echo/opensea/types/response/get-nft-response'
+import { COLLECTION_MOCK_SPIRAL_SLUG } from '@echo/model-mocks/collection/collection-mock'
+import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
+import { NFT_MOCK_SPIRAL_JOHNNY_ID } from '@echo/model-mocks/nft/nft-mock'
+import { mapExtendedNftResponse, type MapNftResponseArgs } from '@echo/opensea/mappers/map-extended-nft-response'
 import { describe, expect, it } from '@jest/globals'
-import { toLower } from 'ramda'
+import { assoc, omit, pipe } from 'ramda'
 
 describe('mappers - mapNftResponse', () => {
+  const nftMock = getNftMockById(NFT_MOCK_SPIRAL_JOHNNY_ID)
+
   it('no undefined values', () => {
-    const response: Omit<GetNftResponse, 'contract'> & { contract: Contract } = {
-      identifier: '1376',
-      collection: 'spiral-frequencies',
-      contract: {
-        address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-        chain: 'ethereum'
-      },
+    const response: MapNftResponseArgs = {
+      identifier: nftMock.tokenId.toString(),
+      collection: COLLECTION_MOCK_SPIRAL_SLUG,
+      contract: nftMock.collection.contracts[0]!,
       token_standard: 'erc721',
-      name: 'Spiral Frequencies #1376',
+      name: nftMock.name,
       description: 'whatever',
-      image_url: 'HTTPS://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
+      image_url: nftMock.pictureUrl,
       metadata_url: 'HTTPS://metadata.url/',
       opensea_url: 'HTTPS://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
       updated_at: 'whatever',
@@ -37,45 +37,20 @@ describe('mappers - mapNftResponse', () => {
       ],
       owners: [{ address: '0xwhatever', quantity: 1 }]
     }
-    const nft: ReturnType<typeof mapExtendedNftResponse> = {
-      attributes: [
-        { value: 'archimedean', trait: 'Algorithm' },
-        { value: 'main', trait: 'Ring' },
-        { value: 'movie', trait: 'Animation' },
-        { value: '5', trait: 'Speed' },
-        { value: 'cumulus', trait: 'Density' },
-        { value: '0001', trait: 'Colors' },
-        { value: 'random1', trait: 'Palette' },
-        { value: '#complement', trait: 'Background' }
-      ],
-      animationUrl: 'https://animation.url/',
-      blurUrl: 'https://blur.io/eth/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
-      collection: {
-        slug: 'spiral-frequencies',
-        contract: {
-          address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-          chain: 'ethereum'
-        }
-      },
-      name: 'Spiral Frequencies #1376',
-      metadataUrl: 'https://metadata.url/',
-      openSeaUrl: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
-      pictureUrl: 'https://nft-cdn.alchemy.com/eth-mainnet/bc7e85d32d9391374695bc88926b532b',
-      tokenId: 1376
-    }
+    const nft: ReturnType<typeof mapExtendedNftResponse> = pipe(
+      omit(['collection', 'owner', 'updatedAt']),
+      assoc('collection', { contract: nftMock.collection.contracts[0]!, slug: nftMock.collection.slug })
+    )(nftMock)
     expect(mapExtendedNftResponse(response)).toStrictEqual(nft)
   })
 
   it('with undefined values', () => {
-    const response: Omit<GetNftResponse, 'contract'> & { contract: Contract } = {
-      identifier: '1376',
-      collection: 'spiral-frequencies',
-      contract: {
-        address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-        chain: 'ethereum'
-      },
+    const response: MapNftResponseArgs = {
+      identifier: nftMock.tokenId.toString(),
+      collection: COLLECTION_MOCK_SPIRAL_SLUG,
+      contract: nftMock.collection.contracts[0]!,
       token_standard: 'erc721',
-      name: 'Spiral Frequencies #1376',
+      name: nftMock.name,
       description: 'whatever',
       image_url: undefined,
       metadata_url: undefined,
@@ -98,32 +73,13 @@ describe('mappers - mapNftResponse', () => {
       ],
       owners: [{ address: '0xwhatever', quantity: 1 }]
     }
-    const nft: ReturnType<typeof mapExtendedNftResponse> = {
-      attributes: [
-        { value: 'archimedean', trait: 'Algorithm' },
-        { value: 'main', trait: 'Ring' },
-        { value: 'movie', trait: 'Animation' },
-        { value: '5', trait: 'Speed' },
-        { value: 'cumulus', trait: 'Density' },
-        { value: '0001', trait: 'Colors' },
-        { value: 'random1', trait: 'Palette' },
-        { value: '#complement', trait: 'Background' }
-      ],
-      animationUrl: undefined,
-      blurUrl: 'https://blur.io/eth/asset/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
-      collection: {
-        slug: 'spiral-frequencies',
-        contract: {
-          address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-          chain: 'ethereum'
-        }
-      },
-      name: 'Spiral Frequencies #1376',
-      metadataUrl: undefined,
-      openSeaUrl: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
-      pictureUrl: undefined,
-      tokenId: 1376
-    }
+    const nft: ReturnType<typeof mapExtendedNftResponse> = pipe(
+      omit(['collection', 'owner', 'updatedAt']),
+      assoc('collection', { contract: nftMock.collection.contracts[0]!, slug: nftMock.collection.slug }),
+      assoc('animationUrl', undefined),
+      assoc('metadataUrl', undefined),
+      assoc('pictureUrl', undefined)
+    )(nftMock)
     expect(mapExtendedNftResponse(response)).toStrictEqual(nft)
   })
 })

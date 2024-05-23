@@ -1,4 +1,5 @@
 import { getSwapByOfferId } from '@echo/firestore/crud/swap/get-swap-by-offer-id'
+import { OFFER_MOCK_FROM_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - swap - getSwapByOfferId', () => {
@@ -7,7 +8,7 @@ describe('CRUD - swap - getSwapByOfferId', () => {
     expect(document).toBeUndefined()
   })
   it('returns the document found', async () => {
-    const offerId = 'ASkFpKoHEHVH0gd69t1G'
+    const offerId = OFFER_MOCK_FROM_JOHNNYCAGE_ID
     const document = (await getSwapByOfferId(offerId))!
     expect(document.offerId).toStrictEqual(offerId)
     expect(document.transactionId).toStrictEqual('0xb384a4949fe643aa638827e381e62513e412af409b0744a37065dd59b0a5309b')

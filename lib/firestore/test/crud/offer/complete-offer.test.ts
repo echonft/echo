@@ -166,6 +166,7 @@ describe('CRUD - offer - completeOffer', () => {
   })
   it('complete offer', async () => {
     const offer = (await getOffer(slug))!
+    expect(offer).toBeDefined()
     initialSwapsCounts = await pipe(
       getOfferItems,
       getNftsCollectionSlugs,
@@ -173,6 +174,8 @@ describe('CRUD - offer - completeOffer', () => {
       promiseAll,
       andThen<Nullable<CollectionSwapsCount>[], CollectionSwapsCount[]>(reject(isNil))
     )(offer)
+    expect(initialSwapsCounts).toBeDefined()
+    expect(initialSwapsCounts.length).toBe(2)
     await unchecked_updateOffer(slug, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate() })
     await completeOffer(args)
     const updatedOffer = (await getOffer(slug))!

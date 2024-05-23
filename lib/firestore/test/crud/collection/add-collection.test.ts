@@ -6,6 +6,7 @@ import { assertCollectionSwapsCounts } from '@echo/firestore-test/collection-swa
 import { deleteCollectionSwapsCount } from '@echo/firestore-test/collection-swaps-count/delete-collection-swaps-count'
 import { getCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-id'
 import type { Collection } from '@echo/model/types/collection'
+import { COLLECTION_MOCK_PX_ID } from '@echo/model-mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -45,7 +46,7 @@ describe('CRUD - collection - addCollection', () => {
   })
 
   it('addCollection', async () => {
-    const originalCollection = getCollectionMockById('Rc8pLQXxgyQGIRL0fr13')
+    const originalCollection = getCollectionMockById(COLLECTION_MOCK_PX_ID)
     const collectionToAdd = pipe<[Collection], Collection, Collection>(
       assoc('slug', 'slug'),
       assocPath(['contract', 'chain'], 'sepolia')

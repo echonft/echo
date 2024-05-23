@@ -1,5 +1,5 @@
 import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
-import { listingMock } from '@echo/model-mocks/listing/listing-mock'
+import { LISTING_MOCK_ID, listingMock } from '@echo/model-mocks/listing/listing-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - listing - getListingById', () => {
@@ -8,7 +8,7 @@ describe('CRUD - listing - getListingById', () => {
     expect(listing).toBeUndefined()
   })
   it('returns the listing with the given id', async () => {
-    const listing = await getListingById('jUzMtPGKM62mMhEcmbN4')
+    const listing = await getListingById(LISTING_MOCK_ID)
     expect(listing).toStrictEqual(listingMock.jUzMtPGKM62mMhEcmbN4)
   })
 })
