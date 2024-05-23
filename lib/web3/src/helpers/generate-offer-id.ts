@@ -1,8 +1,12 @@
 import type { BaseOffer } from '@echo/model/types/base-offer'
+import type { Contract } from '@echo/model/types/collection'
+import type { Nft } from '@echo/model/types/nft'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import { getChainId } from '@echo/utils/helpers/get-chain-id'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { parseOfferAbiParameters } from '@echo/web3/helpers/abi/parse-offer-abi-parameters'
-import { hashOfferItems } from '@echo/web3/helpers/hash-offer-items'
+import { hashNfts } from '@echo/web3/helpers/hash-nfts'
 import { applySpec, head, path, pipe, prop } from 'ramda'
 import { encodeAbiParameters, keccak256 } from 'viem'
 
@@ -27,18 +31,26 @@ export function generateOfferId(offer: BaseOffer): HexString {
       applySpec<OfferAbiParameters>({
         sender: nonNullableReturn(path(['sender', 'wallet', 'address'])),
         receiver: nonNullableReturn(path(['receiver', 'wallet', 'address'])),
-        senderItemsChainId: pipe(
+        senderItemsChainId: pipe<[BaseOffer], Nft[], Nft, Contract[], Contract, ChainName, number>(
           prop('senderItems'),
-          nonNullableReturn(head),
-          nonNullableReturn(path(['nft', 'collection', 'contract', 'chainId']))
+          head,
+          // FIXME Contract[] Not sure if thats the proper behaviour
+          nonNullableReturn(path(['collection', 'contracts'])),
+          head,
+          prop('chain'),
+          getChainId
         ),
-        senderItems: pipe(prop('senderItems'), hashOfferItems),
-        receiverItemsChainId: pipe(
+        senderItems: pipe(prop('senderItems'), hashNfts),
+        receiverItemsChainId: pipe<[BaseOffer], Nft[], Nft, Contract[], Contract, ChainName, number>(
           prop('receiverItems'),
-          nonNullableReturn(head),
-          nonNullableReturn(path(['nft', 'collection', 'contract', 'chainId']))
+          head,
+          // FIXME Contract[] Not sure if thats the proper behaviour
+          nonNullableReturn(path(['collection', 'contracts'])),
+          head,
+          prop('chain'),
+          getChainId
         ),
-        receiverItems: pipe(prop('receiverItems'), hashOfferItems),
+        receiverItems: pipe(prop('receiverItems'), hashNfts),
         expiration: prop('expiresAt')
       })(offer)
     ])

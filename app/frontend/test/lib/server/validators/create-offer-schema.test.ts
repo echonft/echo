@@ -6,18 +6,14 @@ describe('validators - createOfferSchema', () => {
   const validRequest: CreateOfferRequest = {
     receiverItems: [
       {
-        amount: 1,
-        nft: {
-          id: 'receiver-item-nft-id'
-        }
+        tokenId: 1,
+        collection: { slug: 'receiver-slug' }
       }
     ],
     senderItems: [
       {
-        amount: 1,
-        nft: {
-          id: 'sender-item-nft-id'
-        }
+        tokenId: 1,
+        collection: { slug: 'sender-slug' }
       }
     ],
     expiresAt: Date.now()
@@ -30,10 +26,8 @@ describe('validators - createOfferSchema', () => {
         assoc(
           'receiverItems',
           {
-            amount: 1,
-            nft: {
-              id: 'nft-id'
-            }
+            tokenId: 1,
+            collection: { slug: 'receiver-slug' }
           },
           validRequest
         )
@@ -48,10 +42,8 @@ describe('validators - createOfferSchema', () => {
         assoc(
           'senderItems',
           {
-            amount: 1,
-            nft: {
-              id: 'nft-id'
-            }
+            tokenId: 1,
+            collection: { slug: 'sender-slug' }
           },
           validRequest
         )
