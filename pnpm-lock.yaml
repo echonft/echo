@@ -385,9 +385,15 @@ importers:
       '@echo/model':
         specifier: workspace:*
         version: link:../../lib/model
+      '@echo/opensea':
+        specifier: workspace:*
+        version: link:../../lib/opensea
       '@echo/utils':
         specifier: workspace:*
         version: link:../../lib/utils
+      '@echo/web3':
+        specifier: workspace:*
+        version: link:../../lib/web3
       '@jest/globals':
         specifier: 29.7.0
         version: 29.7.0

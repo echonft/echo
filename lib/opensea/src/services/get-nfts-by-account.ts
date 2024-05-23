@@ -3,16 +3,13 @@ import { BASE_URL } from '@echo/opensea/constants/base-url'
 import { parseFetchResponse } from '@echo/opensea/helpers/parse-fetch-response'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { mapExtendedNftResponse } from '@echo/opensea/mappers/map-extended-nft-response'
+import { getNft } from '@echo/opensea/services/get-nft'
 import type { GetNftsByAccountRequest } from '@echo/opensea/types/request/get-nfts-by-account-request'
-import type { WithFetchRequest } from '@echo/opensea/types/request/with-fetch-request'
-import type { GetNftResponse } from '@echo/opensea/types/response/get-nft-response'
 import type { GetNftsByAccountResponse } from '@echo/opensea/types/response/get-nfts-by-account-response'
 import type { NftExtendedResponse } from '@echo/opensea/types/response/nft-extended-response'
 import type { NftResponse } from '@echo/opensea/types/response/nft-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { promiseAll } from '@echo/utils/fp/promise-all'
-import type { ChainName } from '@echo/utils/types/chain-name'
-import type { HexString } from '@echo/utils/types/hex-string'
 import { stringify } from 'qs'
 import {
   always,
@@ -26,7 +23,6 @@ import {
   partialRight,
   pick,
   pipe,
-  prop,
   propEq,
   reject,
   toLower
@@ -81,7 +77,7 @@ async function handlePaging(
     // for now we only support ERC721
     filter(propEq('erc721', 'token_standard')),
     map<NftResponse, Promise<NftExtendedResponse>>(
-      pipe(pick(['contract', 'identifier']), assoc('chain', args.chain), assoc('fetch', args.fetch), fetchNft)
+      pipe(pick(['contract', 'identifier']), assoc('chain', args.chain), assoc('fetch', args.fetch), getNft)
     ),
     promiseAll,
     // reject suspicious NFTs
