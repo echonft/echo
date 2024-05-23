@@ -1,14 +1,14 @@
 import { generateBaseOffer } from '@echo/frontend/lib/helpers/offer/generate-base-offer'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
-import type { OfferItem } from '@echo/model/types/offer-item'
+import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 
 describe('helpers - offer - generateBaseOffer', () => {
   it('should generate a base offer correctly', () => {
     const sender = { username: 'sender' } as User
     const receiver = { username: 'receiver' } as User
-    const senderOfferItems: OfferItem[] = [{ nft: { owner: sender } } as OfferItem]
-    const receiverOfferItems: OfferItem[] = [{ nft: { owner: receiver } } as OfferItem]
+    const senderOfferItems: Nft[] = [{ owner: sender } as Nft]
+    const receiverOfferItems: Nft[] = [{ owner: receiver } as Nft]
     const expiresAt: number = Date.now()
 
     // Act
