@@ -6,7 +6,7 @@ import { updateNft } from '@echo/firestore/crud/nft/update-nft'
 import { getWalletsForUser } from '@echo/firestore/crud/wallet/get-wallets-for-user'
 import { getUserFromFirestoreData } from '@echo/firestore/helpers/user/get-user-from-firestore-data'
 import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
-import { mapNftToNftIndex } from '@echo/model/helpers/nft/map-nft-to-nft-index'
+import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import { PROMISE_POOL_CONCURRENCY } from '@echo/tasks/constants/promise-pool-concurrency'
@@ -28,7 +28,7 @@ async function updateUserNftsForCollections(page: number, user: UserDocumentData
         .process(async (nft) => {
           // FIXME this is true only for ERC721
           try {
-            const existingNft: Nullable<Nft> = await pipe(mapNftToNftIndex, getNft)(nft)
+            const existingNft: Nullable<Nft> = await pipe(getNftIndex, getNft)(nft)
             if (isNil(existingNft)) {
               logger?.info(`nft ${nft.collection.slug} #${nft.tokenId} is not in the database, adding...`)
               try {

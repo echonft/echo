@@ -1,4 +1,4 @@
-import { mapNftToNftIndex } from '@echo/model/helpers/nft/map-nft-to-nft-index'
+import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
@@ -16,7 +16,7 @@ export function assertItems(items: Nft[]): asserts items is NonEmptyArray<Nft> {
   // make sure all items are different
   if (
     pipe<[Nft[]], NftIndex[], NftIndex[], number, boolean>(
-      map(mapNftToNftIndex),
+      map(getNftIndex),
       uniq,
       length,
       complement(equals(items.length))

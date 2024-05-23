@@ -15,7 +15,7 @@ import { LISTING_STATE_OFFERS_PENDING } from '@echo/model/constants/listing-stat
 import { getAllListingMocks } from '@echo/model-mocks/listing/get-all-listing-mocks'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
-import { contentEq } from '@echo/utils/fp/content-eq'
+import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIs } from '@echo/utils-test/expect-date-number-is'
@@ -66,7 +66,7 @@ describe('CRUD - listing - addListing', () => {
     const { items, target } = getListingMockById(LISTING_MOCK_ID)
     await expect(addListing({ items, target })).rejects.toBeDefined()
     const listings = await getAllListings()
-    expect(contentEq(listings, getAllListingMocks())).toBeTruthy()
+    expect(eqListContent(listings, getAllListingMocks())).toBeTruthy()
   })
   it('add a listing', async () => {
     const { creator, items, target } = getListingMockById(LISTING_MOCK_ID)

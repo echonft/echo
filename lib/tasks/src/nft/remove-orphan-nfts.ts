@@ -3,7 +3,7 @@ import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
 import { getNftsPaginated } from '@echo/firestore/crud/nft/get-nfts-paginated'
 import { getWalletByAddress } from '@echo/firestore/crud/wallet/get-wallet-by-address'
 import type { QueryDocumentSnapshot } from '@echo/firestore/types/query-document-snapshot'
-import { mapNftToNftIndex } from '@echo/model/helpers/nft/map-nft-to-nft-index'
+import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import { PROMISE_POOL_CONCURRENCY } from '@echo/tasks/constants/promise-pool-concurrency'
@@ -30,7 +30,7 @@ async function removeOrphanNftsForPage(page: number, logger?: LoggerInterface) {
             )
             try {
               const nftId = await pipe<[Nft], NftIndex, Promise<Nullable<QueryDocumentSnapshot<Nft>>>, Promise<string>>(
-                mapNftToNftIndex,
+                getNftIndex,
                 getNftSnapshot,
                 andThen(ifElse(isNil, throwError('Snapshot is nil'), prop('id')))
               )(nft)

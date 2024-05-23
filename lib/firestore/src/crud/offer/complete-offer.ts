@@ -12,7 +12,7 @@ import type { Swap } from '@echo/firestore/types/model/swap/swap'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { LISTING_STATE_FULFILLED, LISTING_STATE_PARTIALLY_FULFILLED } from '@echo/model/constants/listing-states'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
-import { mapNftsToNftIndexes } from '@echo/model/helpers/nft/map-nfts-to-nft-indexes'
+import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import type { Nft } from '@echo/model/types/nft'
 import { type Offer } from '@echo/model/types/offer'
@@ -71,8 +71,8 @@ export async function completeOffer(args: CompleteOfferArgs): Promise<Offer> {
           map(getOfferItems),
           flatten
         )(listingOffers)
-        const offerItemIndexes = pipe(concat, mapNftsToNftIndexes)(offerItems, completedOffersItems)
-        const listingItemIndexes = mapNftsToNftIndexes(listing.items)
+        const offerItemIndexes = pipe(concat, getNftIndexForNfts)(offerItems, completedOffersItems)
+        const listingItemIndexes = getNftIndexForNfts(listing.items)
         if (intersection(offerItemIndexes, listingItemIndexes).length === listingItemIndexes.length) {
           await updateListingState(listing.slug, LISTING_STATE_FULFILLED)
         } else {

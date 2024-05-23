@@ -1,11 +1,11 @@
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getQueryData } from '@echo/firestore/helpers/crud/query/get-query-data'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
-import { itemsEq } from '@echo/firestore/helpers/item/items-eq'
 import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
+import { eqNfts } from '@echo/model/helpers/nft/eq-nfts'
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
 import type { Nft } from '@echo/model/types/nft'
-import { contentEq } from '@echo/utils/fp/content-eq'
+import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { now } from '@echo/utils/helpers/now'
 import { andThen, both, filter, pipe, prop } from 'ramda'
 
@@ -19,8 +19,8 @@ export async function assertOfferIsNotADuplicate(args: { receiverItems: Nft[]; s
     andThen(
       filter(
         both(
-          pipe(prop('receiverItems'), getNftsCollectionSlugs, contentEq(getNftsCollectionSlugs(receiverItems))),
-          pipe(prop('senderItems'), getNftsCollectionSlugs, contentEq(getNftsCollectionSlugs(senderItems)))
+          pipe(prop('receiverItems'), getNftsCollectionSlugs, eqListContent(getNftsCollectionSlugs(receiverItems))),
+          pipe(prop('senderItems'), getNftsCollectionSlugs, eqListContent(getNftsCollectionSlugs(senderItems)))
         )
       )
     )
@@ -28,8 +28,8 @@ export async function assertOfferIsNotADuplicate(args: { receiverItems: Nft[]; s
   // compare the items with each potential duplicate
   for (const potentialDuplicate of potentialDuplicates) {
     if (
-      itemsEq(receiverItems, potentialDuplicate.receiverItems) &&
-      itemsEq(senderItems, potentialDuplicate.senderItems)
+      eqNfts(receiverItems, potentialDuplicate.receiverItems, true) &&
+      eqNfts(senderItems, potentialDuplicate.senderItems, true)
     ) {
       throw Error('offer is a duplicate')
     }

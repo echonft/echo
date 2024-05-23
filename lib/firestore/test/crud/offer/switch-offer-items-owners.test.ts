@@ -2,7 +2,7 @@ import { getNft } from '@echo/firestore/crud/nft/get-nft'
 import { switchOfferItemsOwners } from '@echo/firestore/crud/offer/switch-offer-items-owners'
 import { assertNfts } from '@echo/firestore-test/nft/assert-nfts'
 import { unchecked_updateNft } from '@echo/firestore-test/nft/unchecked_update-nft'
-import { mapNftToNftIndex } from '@echo/model/helpers/nft/map-nft-to-nft-index'
+import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import type { Nft } from '@echo/model/types/nft'
 import { getNftMockByIndex } from '@echo/model-mocks/nft/get-nft-mock-by-index'
@@ -29,7 +29,7 @@ describe('CRUD - offer - switchOfferItemsOwners', () => {
     if (!isEmpty(items)) {
       // reset the NFTs with their original data
       for (const item of items) {
-        const index = mapNftToNftIndex(item)
+        const index = getNftIndex(item)
         try {
           await unchecked_updateNft(index, getNftMockByIndex(index))
         } catch (e) {
@@ -46,11 +46,11 @@ describe('CRUD - offer - switchOfferItemsOwners', () => {
     items = getOfferItems(offer)
     await switchOfferItemsOwners(offer)
     for (const item of receiverItems) {
-      const nft = (await getNft(mapNftToNftIndex(item)))!
+      const nft = (await getNft(getNftIndex(item)))!
       expect(nft.owner).toStrictEqual(sender)
     }
     for (const item of senderItems) {
-      const nft = (await getNft(mapNftToNftIndex(item)))!
+      const nft = (await getNft(getNftIndex(item)))!
       expect(nft.owner).toStrictEqual(receiver)
     }
   })

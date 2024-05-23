@@ -2,7 +2,7 @@ import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
 import { getNftsForWalletPaginated } from '@echo/firestore/crud/nft/get-nfts-for-wallet'
 import type { QueryDocumentSnapshot } from '@echo/firestore/types/query-document-snapshot'
-import { mapNftToNftIndex } from '@echo/model/helpers/nft/map-nft-to-nft-index'
+import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Nft } from '@echo/model/types/nft'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import type { Wallet } from '@echo/model/types/wallet'
@@ -21,7 +21,7 @@ async function removeNftsForWalletForPage<T extends Wallet>(page: number, wallet
     .process(async (nft) => {
       try {
         const nftId = await pipe<[Nft], NftIndex, Promise<Nullable<QueryDocumentSnapshot<Nft>>>, Promise<string>>(
-          mapNftToNftIndex,
+          getNftIndex,
           getNftSnapshot,
           andThen(ifElse(isNil, throwError('Snapshot is nil'), prop('id')))
         )(nft)

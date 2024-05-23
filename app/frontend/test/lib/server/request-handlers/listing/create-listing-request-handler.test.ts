@@ -5,7 +5,7 @@ import { addListing } from '@echo/firestore/crud/listing/add-listing'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { createListingRequestHandler } from '@echo/frontend/lib/request-handlers/listing/create-listing-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
-import { mapNftToNftIndex } from '@echo/model/helpers/nft/map-nft-to-nft-index'
+import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Collection } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
 import type { ListingTarget } from '@echo/model/types/listing-target'
@@ -51,7 +51,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
     const request: CreateListingRequest = {
       items: pipe<[Listing], Nft[], NftIndex[]>(
         prop('items'),
-        map(pipe(assoc('owner', wrongOwner), mapNftToNftIndex))
+        map(pipe(assoc('owner', wrongOwner), getNftIndex))
       )(listing),
       target: pipe<[Listing], ListingTarget, ListingTargetRequest>(
         prop('target'),
@@ -70,7 +70,7 @@ describe('request-handlers - listing - createListingRequestHandler', () => {
 
   it('returns 200 if the user owns all the items', async () => {
     const validRequest: CreateListingRequest = {
-      items: pipe<[Listing], Nft[], NftIndex[]>(prop('items'), map(mapNftToNftIndex))(listing),
+      items: pipe<[Listing], Nft[], NftIndex[]>(prop('items'), map(getNftIndex))(listing),
       target: pipe<[Listing], ListingTarget, ListingTargetRequest>(
         prop('target'),
         modify<'collection', Collection, { slug: string }>('collection', pick(['slug']))

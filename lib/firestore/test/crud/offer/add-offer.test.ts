@@ -21,7 +21,7 @@ import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { getAllOfferMocks } from '@echo/model-mocks/offer/get-all-offer-mocks'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
-import { contentEq } from '@echo/utils/fp/content-eq'
+import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIs } from '@echo/utils-test/expect-date-number-is'
@@ -82,7 +82,7 @@ describe('CRUD - offer - addOffer', () => {
     const { receiverItems, senderItems } = getOfferMockById(OFFER_MOCK_TO_JOHNNYCAGE_ID)
     await expect(addOffer(senderItems, receiverItems)).rejects.toBeDefined()
     const offers = await getAllOffers()
-    expect(contentEq(offers, getAllOfferMocks())).toBeTruthy()
+    expect(eqListContent(offers, getAllOfferMocks())).toBeTruthy()
   })
   it('add an offer', async () => {
     const senderItems = [getNftMockById('kRE3UCfXWkJ33nwzj2X1')]
@@ -101,7 +101,7 @@ describe('CRUD - offer - addOffer', () => {
         chain: 'ethereum'
       }
     })
-    expect(contentEq(newOffer.receiverItems, receiverItems)).toBeTruthy()
+    expect(eqListContent(newOffer.receiverItems, receiverItems)).toBeTruthy()
     expectDateNumberIsNow(newOffer.createdAt)
     expect(newOffer.sender).toStrictEqual({
       discord: {
@@ -114,7 +114,7 @@ describe('CRUD - offer - addOffer', () => {
         chain: 'ethereum'
       }
     })
-    expect(contentEq(newOffer.senderItems, senderItems)).toBeTruthy()
+    expect(eqListContent(newOffer.senderItems, senderItems)).toBeTruthy()
     expect(newOffer.state).toBe(OFFER_STATE_OPEN)
     expect(newOffer.idContract).toBe('0xTEST')
     expectDateNumberIsNow(newOffer.updatedAt)

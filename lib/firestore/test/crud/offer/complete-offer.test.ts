@@ -26,8 +26,8 @@ import {
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
+import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
-import { mapNftsToNftIndexes } from '@echo/model/helpers/nft/map-nfts-to-nft-indexes'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
@@ -176,7 +176,7 @@ describe('CRUD - offer - completeOffer', () => {
     await unchecked_updateOffer(slug, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate() })
     await completeOffer(args)
     const updatedOffer = (await getOffer(slug))!
-    updatedNftIndexes = pipe(getOfferItems, mapNftsToNftIndexes)(updatedOffer)
+    updatedNftIndexes = pipe(getOfferItems, getNftIndexForNfts)(updatedOffer)
     const updatedListing = (await getListingById(listingId))!
     const swapSnapshot = (await getSwapSnapshot(slug))!
     createdSwapId = swapSnapshot.id

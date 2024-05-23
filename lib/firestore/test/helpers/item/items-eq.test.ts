@@ -1,4 +1,4 @@
-import { itemsEq } from '@echo/firestore/helpers/item/items-eq'
+import { eqNfts } from '@echo/model/helpers/nft/eq-nfts'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { describe, expect, it } from '@jest/globals'
@@ -7,7 +7,7 @@ import { assoc, pipe, toLower } from 'ramda'
 describe('helpers - item - itemsEq', () => {
   it('returns true if the items equal', () => {
     const itemsA = [getNftMockById('8hHFadIrrooORfTOLkBg'), getNftMockById('iRZFKEujarikVjpiFAkE')]
-    expect(itemsEq(itemsA, itemsA)).toBeTruthy()
+    expect(eqNfts(itemsA, itemsA)).toBeTruthy()
     const itemsB = [
       pipe(
         getNftMockById,
@@ -25,14 +25,14 @@ describe('helpers - item - itemsEq', () => {
       )('8hHFadIrrooORfTOLkBg'),
       getNftMockById('iRZFKEujarikVjpiFAkE')
     ]
-    expect(itemsEq(itemsA, itemsB)).toBeTruthy()
+    expect(eqNfts(itemsA, itemsB)).toBeTruthy()
   })
   it('returns false if the items are not equal', () => {
     const itemsA = [getNftMockById('8hHFadIrrooORfTOLkBg'), getNftMockById('iRZFKEujarikVjpiFAkE')]
     let itemsB = [getNftMockById('8hHFadIrrooORfTOLkBg')]
-    expect(itemsEq(itemsA, itemsB)).toBeFalsy()
+    expect(eqNfts(itemsA, itemsB)).toBeFalsy()
     itemsB = [pipe(getNftMockById, assoc('tokenId', 0))('8hHFadIrrooORfTOLkBg'), getNftMockById('iRZFKEujarikVjpiFAkE')]
-    expect(itemsEq(itemsA, itemsB)).toBeFalsy()
+    expect(eqNfts(itemsA, itemsB)).toBeFalsy()
     itemsB = [
       pipe(
         getNftMockById,
@@ -50,7 +50,7 @@ describe('helpers - item - itemsEq', () => {
       )('8hHFadIrrooORfTOLkBg'),
       getNftMockById('iRZFKEujarikVjpiFAkE')
     ]
-    expect(itemsEq(itemsA, itemsB)).toBeFalsy()
+    expect(eqNfts(itemsA, itemsB)).toBeFalsy()
     itemsB = [
       pipe(
         getNftMockById,
@@ -68,6 +68,6 @@ describe('helpers - item - itemsEq', () => {
       )('8hHFadIrrooORfTOLkBg'),
       getNftMockById('iRZFKEujarikVjpiFAkE')
     ]
-    expect(itemsEq(itemsA, itemsB)).toBeFalsy()
+    expect(eqNfts(itemsA, itemsB)).toBeFalsy()
   })
 })

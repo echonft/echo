@@ -2,7 +2,7 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
-import { mapNftsToNftIndexes } from '@echo/model/helpers/nft/map-nfts-to-nft-indexes'
+import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import type { Collection } from '@echo/model/types/collection'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { Nft } from '@echo/model/types/nft'
@@ -47,7 +47,7 @@ export const CreateListingManager: FunctionComponent<Props> = ({ creatorNfts, it
       loading={isMutating}
       onComplete={(items: Nft[], target: ListingTarget) => {
         void trigger({
-          items: mapNftsToNftIndexes(items),
+          items: getNftIndexForNfts(items),
           target: mapListingTargetToRequest(target)
         })
       }}

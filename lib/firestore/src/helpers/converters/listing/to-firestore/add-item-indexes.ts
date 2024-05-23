@@ -1,5 +1,5 @@
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
-import { mapNftsToNftIndexes } from '@echo/model/helpers/nft/map-nfts-to-nft-indexes'
+import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import type { Nft } from '@echo/model/types/nft'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, has } from 'ramda'
@@ -15,7 +15,7 @@ function hasItems(modelObject: ModelObject): modelObject is WithItems {
 
 export function addItemIndexes(modelObject: ModelObject): WithFieldValue<Omit<ListingDocumentData, 'itemCollections'>> {
   if (hasItems(modelObject)) {
-    return assoc('itemIndexes', mapNftsToNftIndexes(modelObject.items), modelObject)
+    return assoc('itemIndexes', getNftIndexForNfts(modelObject.items), modelObject)
   }
   return assoc('itemIndexes', [], modelObject)
 }

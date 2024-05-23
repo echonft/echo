@@ -1,6 +1,6 @@
+import { nftAttributeComparator } from '@echo/model/helpers/nft/nft-attribute-comparator'
 import { type Nft } from '@echo/model/types/nft'
 import { type NftAttribute } from '@echo/model/types/nft-attribute'
-import { compareNftAttributes } from '@echo/ui/comparators/compare-nft-attributes'
 import type { TraitFilter } from '@echo/ui/types/trait-filter'
 import type { TraitFilterGroup } from '@echo/ui/types/trait-filter-group'
 import { collectBy, flatten, head, length, map, pipe, prop, sort } from 'ramda'
@@ -9,7 +9,7 @@ export function getTraitFiltersForNfts<T extends Nft>(nfts: T[]): TraitFilterGro
   return pipe(
     map<T, NftAttribute[]>(prop('attributes')),
     flatten,
-    sort(compareNftAttributes),
+    sort(nftAttributeComparator),
     collectBy(prop('trait')),
     map(
       pipe(

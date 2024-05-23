@@ -2,13 +2,13 @@ import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
 import { getListingsCollectionReference } from '@echo/firestore/helpers/collection-reference/get-listings-collection-reference'
 import { getQueriesSnapshots } from '@echo/firestore/helpers/crud/query/get-queries-snapshots'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import { eqListingOffers } from '@echo/firestore/helpers/listing-offer/eq-listing-offers'
 import { getListingOfferFulfillingStatusForListing } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status-for-listing'
-import { listingOffersEq } from '@echo/firestore/helpers/listing-offer/listing-offers-eq'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { NOT_READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
+import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
-import { mapNftsToNftIndexes } from '@echo/model/helpers/nft/map-nfts-to-nft-indexes'
 import { type Offer } from '@echo/model/types/offer'
 import { now } from '@echo/utils/helpers/now'
 import { always, andThen, applySpec, invoker, isNil, juxt, map, pipe, prop, propEq, reject, uniqWith } from 'ramda'
@@ -26,7 +26,7 @@ export async function getListingOffersForOffer(offer: Offer): Promise<ListingOff
     queryWhere('state', 'in', NOT_READ_ONLY_LISTING_STATES),
     juxt([
       queryWhere('target.collection.slug', 'in', getNftsCollectionSlugs(offer.senderItems)),
-      queryWhere('itemIndexes', 'array-contains-any', mapNftsToNftIndexes(offer.receiverItems))
+      queryWhere('itemIndexes', 'array-contains-any', getNftIndexForNfts(offer.receiverItems))
     ]),
     getQueriesSnapshots,
     andThen(
@@ -39,7 +39,7 @@ export async function getListingOffersForOffer(offer: Offer): Promise<ListingOff
           })
         ),
         reject(propEq(ListingOfferFulfillingStatus.NONE, 'fulfillingStatus')),
-        uniqWith(listingOffersEq)
+        uniqWith(eqListingOffers)
       )
     )
   )()

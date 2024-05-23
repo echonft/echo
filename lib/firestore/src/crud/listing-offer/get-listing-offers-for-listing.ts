@@ -2,12 +2,12 @@ import { getListingSnapshot } from '@echo/firestore/crud/listing/get-listing'
 import { getOffersCollectionReference } from '@echo/firestore/helpers/collection-reference/get-offers-collection-reference'
 import { getQueriesSnapshots } from '@echo/firestore/helpers/crud/query/get-queries-snapshots'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
+import { eqListingOffers } from '@echo/firestore/helpers/listing-offer/eq-listing-offers'
 import { getListingOfferFulfillingStatusForOffer } from '@echo/firestore/helpers/listing-offer/get-listing-offer-fulfilling-status-for-offer'
-import { listingOffersEq } from '@echo/firestore/helpers/listing-offer/listing-offers-eq'
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
-import { mapNftsToNftIndexes } from '@echo/model/helpers/nft/map-nfts-to-nft-indexes'
+import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import { type Listing } from '@echo/model/types/listing'
 import { now } from '@echo/utils/helpers/now'
 import { always, andThen, applySpec, invoker, isNil, juxt, map, pipe, prop, propEq, reject, uniqWith } from 'ramda'
@@ -19,7 +19,7 @@ export async function getListingOffersForListing(listing: Listing): Promise<List
   }
   // get pending offers for which sender items contain the listing targets and receiver items intersect listing items
   // then filter out the ones that don't fill the listing
-  const listingItemIndexes = mapNftsToNftIndexes(listing.items)
+  const listingItemIndexes = getNftIndexForNfts(listing.items)
   return pipe(
     getOffersCollectionReference,
     queryWhere('expiresAt', '>', now()),
@@ -39,7 +39,7 @@ export async function getListingOffersForListing(listing: Listing): Promise<List
           })
         ),
         reject(propEq(ListingOfferFulfillingStatus.NONE, 'fulfillingStatus')),
-        uniqWith(listingOffersEq)
+        uniqWith(eqListingOffers)
       )
     )
   )()

@@ -1,5 +1,5 @@
 import { getNftsForOwnerAndCollection } from '@echo/firestore/crud/nft/get-nfts-for-owner-and-collection'
-import { mapNftToNftIndex } from '@echo/model/helpers/nft/map-nft-to-nft-index'
+import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Nft } from '@echo/model/types/nft'
 import { getNftMockByIndex } from '@echo/model-mocks/nft/get-nft-mock-by-index'
 import { describe, expect, it } from '@jest/globals'
@@ -12,7 +12,7 @@ describe('CRUD - nft - getNftsForOwnerAndCollection', () => {
 
   function expectNftsEqualMock(nfts: Nft[]) {
     for (const nft of nfts) {
-      expect(nft).toStrictEqual(getNftMockByIndex(mapNftToNftIndex(nft)))
+      expect(nft).toStrictEqual(getNftMockByIndex(getNftIndex(nft)))
     }
   }
 

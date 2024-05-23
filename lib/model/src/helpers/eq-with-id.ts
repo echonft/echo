@@ -7,9 +7,9 @@ function internalFn<T extends WithId>(objA: T) {
   }
 }
 
-export function withIdEquals<T extends WithId>(objA: T): (objB: T) => boolean
-export function withIdEquals<T extends WithId>(objA: T, objB: T): boolean
-export function withIdEquals<T extends WithId>(objA: T, objB?: T): ((objB: T) => boolean) | boolean {
+export function eqWithId<T extends WithId>(objA: T): (objB: T) => boolean
+export function eqWithId<T extends WithId>(objA: T, objB: T): boolean
+export function eqWithId<T extends WithId>(objA: T, objB?: T): ((objB: T) => boolean) | boolean {
   if (isNil(objB)) {
     return internalFn(objA)
   }
