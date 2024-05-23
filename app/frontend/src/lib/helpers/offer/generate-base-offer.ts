@@ -1,18 +1,21 @@
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import type { BaseOffer } from '@echo/model/types/base-offer'
-import type { OfferItem } from '@echo/model/types/offer-item'
-import { always, applySpec, head, path, pipe, prop } from 'ramda'
+import type { Nft } from '@echo/model/types/nft'
+import type { User } from '@echo/model/types/user'
+import { always, applySpec, head, pipe, prop } from 'ramda'
 
-export function generateBaseOffer(args: {
-  senderOfferItems: OfferItem[]
-  receiverOfferItems: OfferItem[]
+interface GenerateBaseOfferArgs {
+  senderOfferItems: Nft[]
+  receiverOfferItems: Nft[]
   expiresAt: number
-}): BaseOffer {
+}
+
+export function generateBaseOffer(args: GenerateBaseOfferArgs): BaseOffer {
   return applySpec<BaseOffer>({
     expiresAt: prop('expiresAt'),
-    receiver: pipe(prop('receiverOfferItems'), head, path(['nft', 'owner'])),
+    receiver: pipe<[GenerateBaseOfferArgs], Nft[], Nft, User>(prop('receiverOfferItems'), head, prop('owner')),
     receiverItems: prop('receiverOfferItems'),
-    sender: pipe(prop('senderOfferItems'), head, path(['nft', 'owner'])),
+    sender: pipe<[GenerateBaseOfferArgs], Nft[], Nft, User>(prop('senderOfferItems'), head, prop('owner')),
     senderItems: prop('senderOfferItems'),
     state: always(OFFER_STATE_OPEN)
   })(args)
