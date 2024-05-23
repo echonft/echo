@@ -1,5 +1,6 @@
 import { getWalletMock } from '@echo/model-mocks/wallet/wallet-mock'
 import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
+import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import type { AccountProviderResult } from '@echo/web3-dom/types/account-provider-result'
 import type { AccountResult } from '@echo/web3-dom/types/account-result'
@@ -10,8 +11,8 @@ export function getAccount(onChange?: (account: AccountResult) => void): Account
   function getResultFromStatus(status: AccountStatus): AccountResult {
     if (status === 'connected') {
       const { chain, address } = getWalletMock()
-      const chain = getChainById(chain)
-      return { chain, chain: chainId, address, status }
+      const chainId = getChainId(chain)
+      return { chain: getChainById(chainId), chainId, address, status }
     }
     return { chain: undefined, chainId: undefined, address: undefined, status }
   }

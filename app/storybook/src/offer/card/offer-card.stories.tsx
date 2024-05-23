@@ -2,8 +2,8 @@
 
 import { OFFER_ROLE_RECEIVER } from '@echo/model/constants/offer-role'
 import { OFFER_STATE_OPEN, OFFER_STATES } from '@echo/model/constants/offer-states'
+import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
-import type { OfferItem } from '@echo/model/types/offer-item'
 import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
@@ -53,7 +53,7 @@ export const Default: StoryObj<ComponentType> = {
           assoc('state', state),
           unless<OfferWithRole, OfferWithRole>(
             always(stack),
-            modify<'senderItems', OfferItem[], OfferItem[]>('senderItems', drop(1))
+            modify<'senderItems', Nft[], Nft[]>('senderItems', drop(1))
           )
         )(getOfferMockById(OFFER_MOCK_FROM_JOHNNYCAGE_ID)),
       [state, stack]
