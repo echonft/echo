@@ -18,5 +18,7 @@ export interface Collection extends WithSlug {
   slug: Lowercase<string>
   swapsCount?: number
   totalSupply: number
+  twitterUsername?: Nullable<string>
   verified: boolean
+  websiteUrl?: Nullable<string>
 }

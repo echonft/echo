@@ -11,7 +11,6 @@ import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { clsx } from 'clsx'
-import { map, prop } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
@@ -32,17 +31,11 @@ export const OfferDetails: FunctionComponent<Props> = ({ offer }) => {
         <OfferDetailsState offer={updatedOffer} />
       </OfferDetailsInfoLayout>
       <OfferDetailsItemsButtonsLayout>
-        <NftCards
-          nfts={map(prop('nft'), isOfferRoleSender(updatedOffer) ? receiverItems : senderItems)}
-          alignment={ALIGNMENT_CENTER}
-        />
+        <NftCards nfts={isOfferRoleSender(updatedOffer) ? receiverItems : senderItems} alignment={ALIGNMENT_CENTER} />
         <div className={clsx('pb-4')}>
           <ItemsSeparator />
         </div>
-        <NftCards
-          nfts={map(prop('nft'), isOfferRoleSender(updatedOffer) ? senderItems : receiverItems)}
-          alignment={ALIGNMENT_CENTER}
-        />
+        <NftCards nfts={isOfferRoleSender(updatedOffer) ? senderItems : receiverItems} alignment={ALIGNMENT_CENTER} />
         <OfferDetailsButtons offer={updatedOffer} onSuccess={setUpdatedOffer} />
       </OfferDetailsItemsButtonsLayout>
     </OfferDetailsLayout>

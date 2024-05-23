@@ -29,7 +29,7 @@ interface Props {
   target: Nullable<Collection>
   loading?: boolean
   onCancel?: VoidFunction
-  onComplete?: (items: ListingItem[], target: ListingTarget) => void
+  onComplete?: (items: Nft[], target: ListingTarget) => void
 }
 
 export const CreateListing: FunctionComponent<Props> = ({

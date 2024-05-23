@@ -14,8 +14,9 @@ export const NftCards: FunctionComponent<Props> = ({ nfts, alignment, cardOption
   return (
     <CardsLayout alignment={alignment}>
       {map(
+        // TODO Validate this behaviour (key)
         (nft) => (
-          <NftCard key={nft.id} nft={nft} options={cardOptions} />
+          <NftCard key={`${nft.collection.name}-${nft.tokenId}`} nft={nft} options={cardOptions} />
         ),
         nfts
       )}

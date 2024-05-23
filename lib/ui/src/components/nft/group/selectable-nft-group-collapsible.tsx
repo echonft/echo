@@ -63,7 +63,8 @@ export const SelectableNftGroupCollapsible: FunctionComponent<Props> = ({ group,
             {map(
               (nft) => (
                 <motion.div
-                  key={nft.id}
+                  // TODO Validate this behaviour (key)
+                  key={`${nft.collection.name}-${nft.tokenId}`}
                   layout={'position'}
                   transition={{ ease: 'easeOut', duration: 0.2 }}
                   initial={{ opacity: 0 }}

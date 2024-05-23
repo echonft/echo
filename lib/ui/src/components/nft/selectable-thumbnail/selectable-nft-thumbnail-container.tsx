@@ -42,7 +42,8 @@ export const SelectableNftThumbnailContainer: FunctionComponent<SelectableNftThu
         {map(
           (nft) => (
             <SelectableNftThumbnail
-              key={nft.id}
+              // TODO Validate this behaviour (key)
+              key={`${nft.collection.name}-${nft.tokenId}`}
               nft={nft}
               onRemove={() => {
                 onRemove?.(nft)

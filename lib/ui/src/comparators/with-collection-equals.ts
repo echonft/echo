@@ -1,10 +1,10 @@
 import type { Collection } from '@echo/model/types/collection'
-import { withIdEquals } from '@echo/ui/comparators/with-id-equals'
+import { withSlugEquals } from '@echo/ui/comparators/with-slug-equals'
 import { isNil, propSatisfies } from 'ramda'
 
 function internalFn<T extends Record<'collection', Collection>, U extends Record<'collection', Collection>>(objA: T) {
   return function (objB: U): boolean {
-    return propSatisfies(withIdEquals(objB.collection), 'collection', objA)
+    return propSatisfies(withSlugEquals(objB.collection), 'collection', objA)
   }
 }
 

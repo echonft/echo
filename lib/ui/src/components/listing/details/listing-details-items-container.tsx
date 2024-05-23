@@ -15,7 +15,8 @@ export const ListingDetailsItemsContainer: FunctionComponent<Props> = ({ items }
       (item) => (
         <NftCard
           nft={item.nft}
-          key={item.nft.id}
+          // TODO Validate this behaviour
+          key={`${item.nft.collection.name}-${item.nft.tokenId}`}
           options={{ owner: { hide: true }, style: { hideOpenSeaLink: true, scaleDisabled: true } }}
         />
       ),

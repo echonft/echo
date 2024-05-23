@@ -25,7 +25,7 @@ export const OfferCardPicture: FunctionComponent<Props> = ({ offer, scaleDisable
   )(offer)
   return (
     <CardPictureLayout>
-      <CardImage src={nft.pictureUrl} alt={nft.tokenId.toString()} scaleDisabled={scaleDisabled} />
+      <CardImage src={nft.pictureUrl ?? ''} alt={nft.tokenId.toString()} scaleDisabled={scaleDisabled} />
       <div className={clsx('absolute', 'bottom-2', 'left-2', 'h-max', 'w-max')}>
         <OfferCardStatus offer={offer} />
       </div>
