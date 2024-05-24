@@ -194,14 +194,11 @@ export const messages = {
       editBtn: 'Edit',
       reviewBtn: 'Review',
       expiration: {
-        title: 'One last step before you let it go!',
+        title: 'One <yellow>last step</yellow>\n before you let it\n go!',
         subtitle: 'Set the expiration date to:',
-        selector: {
-          1: '1 Day',
-          3: '3 Days',
-          7: '7 Days'
-        },
-        btn: 'Finalize Offer'
+        selector: '{count} {count, plural, =1 { Day} other { Days}}',
+        finalizeBtn: 'Finalize Offer',
+        editBtn: 'Edit'
       }
     },
     details: {

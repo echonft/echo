@@ -20,18 +20,14 @@ export const CreateOfferButtons: FunctionComponent<Props> = ({ readOnly, loading
         <button
           className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
           disabled={disabled ?? loading}
-          onClick={() => {
-            onComplete?.()
-          }}
+          onClick={onComplete}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('createBtn')}</span>
         </button>
         <button
           className={clsx('btn-action', 'btn-size-alt', 'group', loading && 'animate-pulse')}
           disabled={disabled ?? loading}
-          onClick={() => {
-            onCancel?.()
-          }}
+          onClick={onCancel}
         >
           <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('editBtn')}</span>
         </button>
@@ -40,13 +36,7 @@ export const CreateOfferButtons: FunctionComponent<Props> = ({ readOnly, loading
   }
   return (
     <>
-      <button
-        className={clsx('btn-gradient', 'btn-size-alt', 'group')}
-        disabled={disabled}
-        onClick={() => {
-          onComplete?.()
-        }}
-      >
+      <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} disabled={disabled} onClick={onComplete}>
         <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('reviewBtn')}</span>
       </button>
       <LongPressButton

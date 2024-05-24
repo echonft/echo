@@ -1,6 +1,5 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { COLLECTION_MOCK_PX_ID } from '@echo/model-mocks/collection/collection-mock'
 import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
 import {
   getUserMockByUsername,
@@ -9,7 +8,7 @@ import {
 } from '@echo/model-mocks/user/user-mock'
 import { CreateOffer as Component } from '@echo/ui/components/offer/create/create-offer'
 import type { Meta, StoryObj } from '@storybook/react'
-import { assoc, both, filter, map, pathEq, pipe } from 'ramda'
+import { assoc, filter, map, pathEq, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Create',
@@ -17,15 +16,7 @@ const metadata: Meta<typeof Component> = {
   args: {
     loading: false,
     receiver: getUserMockByUsername(USER_MOCK_CREW_USERNAME),
-    receiverItems: pipe(
-      getAllNftMocks,
-      filter(
-        both(
-          pathEq(USER_MOCK_CREW_USERNAME, ['owner', 'username']),
-          pathEq(COLLECTION_MOCK_PX_ID, ['collection', 'id'])
-        )
-      )
-    )(),
+    receiverItems: pipe(getAllNftMocks, filter(pathEq(USER_MOCK_CREW_USERNAME, ['owner', 'username'])))(),
     senderNfts: pipe(
       getAllNftMocks,
       filter(pathEq(USER_MOCK_JOHNNY_USERNAME, ['owner', 'username'])),

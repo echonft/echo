@@ -7,10 +7,11 @@ import type { FunctionComponent } from 'react'
 interface Props {
   selectedExpiration: Expiration
   onSelect?: (selected: Expiration) => void
+  loading?: boolean
 }
 
-export const CreateOfferExpirationSelector: FunctionComponent<Props> = ({ selectedExpiration, onSelect }) => {
-  const t = useTranslations('offer.create.expiration.selector')
+export const CreateOfferExpirationSelector: FunctionComponent<Props> = ({ selectedExpiration, onSelect, loading }) => {
+  const t = useTranslations('offer.create.expiration')
   return (
     <div className={clsx('flex', 'flex-row', 'gap-2.5')}>
       {EXPIRATIONS.map((expiration) => (
@@ -20,13 +21,14 @@ export const CreateOfferExpirationSelector: FunctionComponent<Props> = ({ select
             'px-6',
             'py-3',
             'rounded-lg',
-            expiration === selectedExpiration && ['bg-white/5', 'disabled', 'cursor-auto'],
-            expiration !== selectedExpiration && 'hover:bg-white/[0.02]'
+            expiration === selectedExpiration && 'bg-white/5',
+            expiration !== selectedExpiration && 'enabled:hover:bg-white/[0.02]'
           )}
+          disabled={loading ?? expiration === selectedExpiration}
           onClick={() => onSelect?.(expiration)}
           key={expiration}
         >
-          <span className={clsx('prose-label-md', 'text-white')}>{t(expiration.toString() as never)}</span>
+          <span className={clsx('prose-label-md', 'text-white')}>{t('selector', { count: expiration })}</span>
         </button>
       ))}
     </div>
