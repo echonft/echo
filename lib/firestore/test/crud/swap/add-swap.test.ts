@@ -8,8 +8,7 @@ import { unchecked_updateCollectionSwapCounts } from '@echo/firestore-test/colle
 import { assertSwaps } from '@echo/firestore-test/swap/assert-swaps'
 import { deleteSwap } from '@echo/firestore-test/swap/delete-swap'
 import { getSwapById } from '@echo/firestore-test/swap/get-swap-by-id'
-import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
-import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
+import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
 import { OFFER_MOCK_FROM_JOHNNYCAGE_ID, OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
 import { promiseAll } from '@echo/utils/fp/promise-all'
@@ -69,8 +68,7 @@ describe('CRUD - swap - addSwap', () => {
   it('add a swap', async () => {
     const offer = getOfferMockById(args.offerId)
     initialSwapsCounts = await pipe(
-      getOfferItems,
-      getNftsCollectionSlugs,
+      getOfferItemsCollectionSlugs,
       map(getCollectionSwapsCountByCollectionSlug),
       promiseAll,
       andThen<Nullable<CollectionSwapsCount>[], CollectionSwapsCount[]>(reject(isNil))

@@ -34,7 +34,7 @@ export const Row: StoryObj<ComonentType> = {
     return (
       <Component
         collectionName={nft.collection.name}
-        contract={nft.collection.contracts[0]!}
+        contract={nft.collection.contract}
         owner={nft.owner.wallet.address}
         approved={contractApproved}
       />

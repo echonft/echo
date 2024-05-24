@@ -4,10 +4,13 @@ import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import { NOT_READ_ONLY_OFFER_STATES } from '@echo/model/constants/offer-states'
 import { eqNfts } from '@echo/model/helpers/nft/eq-nfts'
 import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
+import { getOfferReceiverItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-receiver-items-collection-slugs'
+import { getOfferSenderItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-sender-items-collection-slugs'
 import type { Nft } from '@echo/model/types/nft'
+import type { Offer } from '@echo/model/types/offer'
 import { eqListContent } from '@echo/utils/fp/eq-list-content'
 import { now } from '@echo/utils/helpers/now'
-import { andThen, both, filter, pipe, prop } from 'ramda'
+import { andThen, both, filter, pipe } from 'ramda'
 
 export async function assertOfferIsNotADuplicate(args: { receiverItems: Nft[]; senderItems: Nft[] }) {
   const { receiverItems, senderItems } = args
@@ -17,10 +20,10 @@ export async function assertOfferIsNotADuplicate(args: { receiverItems: Nft[]; s
     queryWhere('expiresAt', '>', now()),
     getQueryData,
     andThen(
-      filter(
+      filter<Offer>(
         both(
-          pipe(prop('receiverItems'), getNftsCollectionSlugs, eqListContent(getNftsCollectionSlugs(receiverItems))),
-          pipe(prop('senderItems'), getNftsCollectionSlugs, eqListContent(getNftsCollectionSlugs(senderItems)))
+          pipe(getOfferReceiverItemsCollectionSlugs, eqListContent(getNftsCollectionSlugs(receiverItems))),
+          pipe(getOfferSenderItemsCollectionSlugs, eqListContent(getNftsCollectionSlugs(senderItems)))
         )
       )
     )

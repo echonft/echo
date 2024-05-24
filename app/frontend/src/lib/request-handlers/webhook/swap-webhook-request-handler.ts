@@ -1,7 +1,5 @@
 import type { ApiRequest } from '@echo/api/types/api-request'
 import type { SwapWebhookRequest, SwapWebhookRequestLog } from '@echo/api/types/requests/swap-webhook-request'
-import { OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } from '@echo/firestore/constants/offer/offer-state-update-trigger-by-system'
-import { completeOffer } from '@echo/firestore/crud/offer/complete-offer'
 import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
@@ -53,6 +51,7 @@ const swapEventSchema = z
     )(args)
   })
 
+// FIXME
 export async function swapWebhookRequestHandler(req: ApiRequest<SwapWebhookRequest>) {
   const body = await req.text()
   // assertAlchemyToken(body)
@@ -83,18 +82,18 @@ export async function swapWebhookRequestHandler(req: ApiRequest<SwapWebhookReque
     return NextResponse.json({})
   }
   // We can use the events directly here since if some offers are null it returns
-  await pipe(
-    map(({ offerId, txHash }: { offerId: string; txHash: HexString }) =>
-      guardAsyncFn(
-        completeOffer,
-        ErrorStatus.SERVER_ERROR
-      )({
-        offerId,
-        transactionId: txHash,
-        updateArgs: { trigger: { by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } }
-      })
-    ),
-    promiseAll
-  )(swapEvents)
+  // await pipe(
+  //   map(({ offerId, txHash }: { offerId: string; txHash: HexString }) =>
+  //     guardAsyncFn(
+  //       completeOffer,
+  //       ErrorStatus.SERVER_ERROR
+  //     )({
+  //       offerId,
+  //       transactionId: txHash,
+  //       updateArgs: { trigger: { by: OFFER_STATE_UPDATE_TRIGGER_BY_SYSTEM } }
+  //     })
+  //   ),
+  //   promiseAll
+  // )(swapEvents)
   return NextResponse.json({})
 }

@@ -12,7 +12,7 @@ describe('mappers - mapNftResponse', () => {
     const response: MapNftResponseArgs = {
       identifier: nftMock.tokenId.toString(),
       collection: COLLECTION_MOCK_SPIRAL_SLUG,
-      contract: nftMock.collection.contracts[0]!,
+      contract: nftMock.collection.contract,
       token_standard: 'erc721',
       name: nftMock.name,
       description: 'whatever',
@@ -39,7 +39,7 @@ describe('mappers - mapNftResponse', () => {
     }
     const nft: ReturnType<typeof mapExtendedNftResponse> = pipe(
       omit(['collection', 'owner', 'updatedAt']),
-      assoc('collection', { contract: nftMock.collection.contracts[0]!, slug: nftMock.collection.slug })
+      assoc('collection', { contract: nftMock.collection.contract, slug: nftMock.collection.slug })
     )(nftMock)
     expect(mapExtendedNftResponse(response)).toStrictEqual(nft)
   })
@@ -48,7 +48,7 @@ describe('mappers - mapNftResponse', () => {
     const response: MapNftResponseArgs = {
       identifier: nftMock.tokenId.toString(),
       collection: COLLECTION_MOCK_SPIRAL_SLUG,
-      contract: nftMock.collection.contracts[0]!,
+      contract: nftMock.collection.contract,
       token_standard: 'erc721',
       name: nftMock.name,
       description: 'whatever',
@@ -75,7 +75,7 @@ describe('mappers - mapNftResponse', () => {
     }
     const nft: ReturnType<typeof mapExtendedNftResponse> = pipe(
       omit(['collection', 'owner', 'updatedAt']),
-      assoc('collection', { contract: nftMock.collection.contracts[0]!, slug: nftMock.collection.slug }),
+      assoc('collection', { contract: nftMock.collection.contract, slug: nftMock.collection.slug }),
       assoc('animationUrl', undefined),
       assoc('metadataUrl', undefined),
       assoc('pictureUrl', undefined)

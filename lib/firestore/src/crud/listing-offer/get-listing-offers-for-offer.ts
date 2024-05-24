@@ -7,8 +7,8 @@ import { getListingOfferFulfillingStatusForListing } from '@echo/firestore/helpe
 import { type ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import { ListingOfferFulfillingStatus } from '@echo/firestore/types/model/listing-offer/listing-offer-fulfilling-status'
 import { NOT_READ_ONLY_LISTING_STATES } from '@echo/model/constants/listing-states'
-import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
-import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
+import { getOfferReceiverItemsIndexes } from '@echo/model/helpers/offer/get-offer-receiver-items-indexes'
+import { getOfferSenderItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-sender-items-collection-slugs'
 import { type Offer } from '@echo/model/types/offer'
 import { now } from '@echo/utils/helpers/now'
 import { always, andThen, applySpec, invoker, isNil, juxt, map, pipe, prop, propEq, reject, uniqWith } from 'ramda'
@@ -25,8 +25,8 @@ export async function getListingOffersForOffer(offer: Offer): Promise<ListingOff
     queryWhere('expiresAt', '>', now()),
     queryWhere('state', 'in', NOT_READ_ONLY_LISTING_STATES),
     juxt([
-      queryWhere('target.collection.slug', 'in', getNftsCollectionSlugs(offer.senderItems)),
-      queryWhere('itemIndexes', 'array-contains-any', getNftIndexForNfts(offer.receiverItems))
+      queryWhere('target.collection.slug', 'in', getOfferSenderItemsCollectionSlugs(offer)),
+      queryWhere('itemIndexes', 'array-contains-any', getOfferReceiverItemsIndexes(offer))
     ]),
     getQueriesSnapshots,
     andThen(

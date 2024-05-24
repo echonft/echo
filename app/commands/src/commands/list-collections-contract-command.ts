@@ -2,7 +2,7 @@ import { getAllCollections } from '@echo/firestore/crud/collection/get-all-colle
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
 import type { Collection, Contract } from '@echo/model/types/collection'
-import { always, bind, head, ifElse, isNil, map, pick, pipe, prop } from 'ramda'
+import { always, bind, ifElse, isNil, map, pick, pipe, prop } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
@@ -38,18 +38,16 @@ function logOutput(collections: Collection[], format?: FormatType): void {
   const stringify = bind(JSON.stringify, JSON)
   if (format === 'json') {
     pipe(
-      map<Collection, Pick<Collection, 'name' | 'slug' | 'contracts'>>(pick(['name', 'slug', 'contracts'])),
+      map<Collection, Pick<Collection, 'name' | 'slug' | 'contract'>>(pick(['name', 'slug', 'contract'])),
       stringify,
       log
     )(collections)
   } else if (format === 'array') {
-    // FIXME Contract[] Not sure if thats the proper behaviour
-    pipe(map(pipe(prop('contracts'), head, ifElse(isNil, always('error'), prop('address')))), log)(collections)
+    pipe(map(pipe(prop('contract'), ifElse(isNil, always('error'), prop('address')))), log)(collections)
   } else {
     for (const collection of collections) {
-      // FIXME Contract[] Not sure if thats the proper behaviour
       console.log(
-        `${collection.name} => ${pipe<[Collection], Contract[], Contract, string>(prop('contracts'), head, prop('address'))(collection)}`
+        `${collection.name} => ${pipe<[Collection], Contract, string>(prop('contract'), prop('address'))(collection)}`
       )
     }
   }

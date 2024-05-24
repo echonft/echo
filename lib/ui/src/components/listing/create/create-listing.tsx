@@ -4,7 +4,6 @@ import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import { eqNftCollection } from '@echo/model/helpers/nft/eq-nft-collection'
 import type { Collection } from '@echo/model/types/collection'
-import type { ListingItem } from '@echo/model/types/listing-item'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { Nft } from '@echo/model/types/nft'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
@@ -20,7 +19,7 @@ import { isInWith } from '@echo/utils/fp/is-in-with'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
-import { always, append, applySpec, assoc, filter, identity, isEmpty, isNil, map, pipe, reject, unless } from 'ramda'
+import { always, append, assoc, filter, isEmpty, isNil, pipe, reject, unless } from 'ramda'
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 
 interface Props {
@@ -117,16 +116,7 @@ export const CreateListing: FunctionComponent<Props> = ({
             loading={loading}
             onComplete={() => {
               if (reviewing) {
-                onComplete?.(
-                  map(
-                    applySpec<ListingItem>({
-                      nft: identity,
-                      amount: always(1)
-                    }),
-                    itemsSelection
-                  ),
-                  targetSelection!
-                )
+                onComplete?.(itemsSelection, targetSelection!)
               } else {
                 setReviewing(true)
               }

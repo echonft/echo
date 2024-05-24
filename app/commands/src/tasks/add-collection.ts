@@ -13,6 +13,7 @@ export interface AddCollectionArgs {
   overrideChainId?: number
   overrideAddress?: string
 }
+
 export async function addCollection(args: AddCollectionArgs) {
   // FIXME This is not working with the new model
   const collection = await pipe<[AddCollectionArgs], Promise<Collection>, Promise<Collection>>(
@@ -30,7 +31,7 @@ export async function addCollection(args: AddCollectionArgs) {
             either(propIsNil('overrideChainId'), propIsNil('overrideAddress'))
           ),
           identity,
-          assoc('contracts', [{ address: args.overrideAddress, chain: getChainById(args.overrideChainId!) }])
+          assoc('contract', { address: args.overrideAddress, chain: getChainById(args.overrideChainId!) })
         ),
         firestoreAddCollection
       )

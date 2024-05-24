@@ -9,6 +9,8 @@ import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from
 import { generateBaseOffer } from '@echo/frontend/lib/helpers/offer/generate-base-offer'
 import { createOfferSchema } from '@echo/frontend/lib/validators/create-offer-schema'
 import type { AuthUser } from '@echo/model/types/auth-user'
+import type { Nft } from '@echo/model/types/nft'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { NextResponse } from 'next/server'
 import { head } from 'ramda'
@@ -24,10 +26,9 @@ export async function createOfferRequestHandler(user: AuthUser, req: ApiRequest<
   )(requestBody)
   const receiverOfferItems = await guardAsyncFn(getNftsFromIndexes, ErrorStatus.SERVER_ERROR)(receiverItems)
   const senderOfferItems = await guardAsyncFn(getNftsFromIndexes, ErrorStatus.SERVER_ERROR)(senderItems)
-  // TODO I think this should be done on chain
   // make sure the sender and receiver are the owners of the items
   assertNftsOwner(senderOfferItems, user.username)
-  assertNftsOwner(receiverOfferItems, head(receiverOfferItems)!.owner.username)
+  assertNftsOwner(receiverOfferItems, head(receiverOfferItems as NonEmptyArray<Nft>).owner.username)
   const baseOffer = generateBaseOffer({ senderOfferItems, receiverOfferItems, expiresAt })
   const offerContractId = generateOfferId(baseOffer)
   const { data } = await guardAsyncFn(addOffer, ErrorStatus.SERVER_ERROR)(baseOffer, offerContractId)

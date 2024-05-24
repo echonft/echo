@@ -12,9 +12,9 @@ import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
 import { addWalletRequestHandler } from '@echo/frontend/lib/request-handlers/profile/add-wallet-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
-import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/offer/offer-mock'
+import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { CHAIN_NAMES } from '@echo/utils/constants/chain-names'
 import { formatAddress } from '@echo/web3/helpers/format-address'
-import { getChain } from '@echo/web3/helpers/get-chain'
 import { toLower } from 'ramda'
 import { SiweMessage } from 'siwe'
 
@@ -27,19 +27,18 @@ jest.mock('@echo/firestore/crud/wallet/get-wallets-for-user')
 
 describe('request-handlers - user - addWalletRequestHandler', () => {
   const address = toLower('0x12c63bbD266dB84e117356e664f3604055166CEc')
-  const chainId = getChain().id
   const validSiweMessage = new SiweMessage({
     domain: 'echo.xyz',
     address: formatAddress({ address }),
     statement: 'Sign in to add this wallet to your account',
     uri: 'https://echo.xyz',
     version: '1',
-    chainId,
+    chainId: 1,
     nonce: 'noncenoncenoncenoncenonce'
   }).prepareMessage()
   const validSignature = '0x000'
   const validWallet = {
-    chainId,
+    chain: CHAIN_NAMES[0],
     address
   }
   const validRequest: AddWalletRequest = {
@@ -108,7 +107,10 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
     jest.mocked(getNonceForUser).mockResolvedValueOnce({ nonce: 'nonce', expired: false } as Nonce)
     jest.mocked(getSiweMessage).mockImplementationOnce(() => ({}) as SiweMessage)
     jest.mocked(verifySiweMessage).mockResolvedValueOnce({ nonce: 'nonce' } as SiweMessage)
-    jest.mocked(addWallet).mockResolvedValueOnce(getWalletDocumentDataMockById('i28NWtlxElPXCnO0c6BC'))
+    jest.mocked(addWallet).mockResolvedValueOnce({
+      id: 'i28NWtlxElPXCnO0c6BC',
+      data: getWalletDocumentDataMockById('i28NWtlxElPXCnO0c6BC')
+    })
     jest.mocked(getWalletsForUser).mockResolvedValueOnce([])
     const req = mockRequest<AddWalletRequest>(validRequest)
     const res = await addWalletRequestHandler(user, req)

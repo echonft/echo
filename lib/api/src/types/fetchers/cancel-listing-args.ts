@@ -1,3 +1,3 @@
 export interface CancelListingArgs {
-  listingId: string
+  slug: string
 }

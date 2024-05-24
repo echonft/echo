@@ -1,8 +1,8 @@
-import { type WalletRequest } from '@echo/api/types/requests/wallet-request'
+import type { Wallet } from '@echo/model/types/wallet'
 import { type HexString } from '@echo/utils/types/hex-string'
 
 export interface AddWalletRequest {
-  wallet: WalletRequest
+  wallet: Wallet
   message: string
   signature: HexString
 }

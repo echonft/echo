@@ -6,12 +6,10 @@ import { cancelOffer } from '@echo/api/fetchers/cancel-offer'
 import { createListing } from '@echo/api/fetchers/create-listing'
 import { createOffer } from '@echo/api/fetchers/create-offer'
 import { getNonce } from '@echo/api/fetchers/get-nonce'
-import { getOfferSignature } from '@echo/api/fetchers/get-offer-signature'
 import { getWallets } from '@echo/api/fetchers/get-wallets'
 import { rejectOffer } from '@echo/api/fetchers/reject-offer'
 import { searchCollections } from '@echo/api/fetchers/search-collections'
 import { searchUsers } from '@echo/api/fetchers/search-users'
-import { validateOffer } from '@echo/api/fetchers/validate-offer'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
 import { approveErc721Contract } from '@echo/web3-dom/helpers/approve-erc721-contract'
 import { disconnectWallet } from '@echo/web3-dom/helpers/disconnect-wallet'
@@ -37,7 +35,6 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
         getAccount,
         getErc721ContractApproval,
         getNonce,
-        getOfferSignature,
         getWallets,
         rejectOffer,
         searchCollections,
@@ -47,8 +44,7 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
         },
         signNonce,
         signOut,
-        switchChain,
-        validateOffer
+        switchChain
       }}
     >
       {children}

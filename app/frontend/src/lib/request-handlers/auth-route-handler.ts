@@ -10,7 +10,7 @@ import { NextResponse } from 'next/server'
 import type { NextAuthRequest } from 'next-auth/lib'
 import { isNil, pick } from 'ramda'
 
-export function authRouteHandler<RequestBody, ResponseBody, Params extends Record<string, unknown> = never>(
+export function authRouteHandler<RequestBody, ResponseBody, Params extends object = never>(
   requestHandler: AuthRequestHandler<RequestBody, ResponseBody, Params>
 ) {
   return auth(async function (request: NextAuthRequest, context?: { params: Params }) {

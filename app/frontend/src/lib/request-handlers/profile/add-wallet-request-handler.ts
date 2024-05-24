@@ -32,9 +32,9 @@ export async function addWalletRequestHandler(user: AuthUser, req: ApiRequest<Ad
   const verifiedMessage = await guardAsyncFn(verifySiweMessage, ErrorStatus.BAD_REQUEST)(signature, siweMessage)
   const foundUser = await guardAsyncFn(getUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
   assertUserExists(foundUser, user.username)
-  const nonce = await guardAsyncFn(getNonceForUser, ErrorStatus.SERVER_ERROR)(foundUser.id)
+  const nonce = await guardAsyncFn(getNonceForUser, ErrorStatus.SERVER_ERROR)(foundUser.username)
   assertNonce(nonce, verifiedMessage)
-  await guardAsyncFn(addWallet, ErrorStatus.SERVER_ERROR)(foundUser.id, wallet)
+  await guardAsyncFn(addWallet, ErrorStatus.SERVER_ERROR)(foundUser.username, wallet)
   const wallets = await guardAsyncFn(
     pipe<[AuthUser], string, Promise<WalletDocumentData[]>, Promise<Wallet[]>>(
       prop('username'),

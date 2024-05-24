@@ -5,10 +5,9 @@ import { getSwapsCollectionReference } from '@echo/firestore/helpers/collection-
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { type Swap } from '@echo/firestore/types/model/swap/swap'
 import type { NewDocument } from '@echo/firestore/types/new-document'
-import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
-import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
+import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
 import { now } from '@echo/utils/helpers/now'
-import { assoc, isNil, pipe } from 'ramda'
+import { assoc, isNil } from 'ramda'
 
 export async function addSwap(args: Omit<Swap, 'createdAt'>): Promise<NewDocument<Swap>> {
   const { offerId } = args
@@ -26,7 +25,7 @@ export async function addSwap(args: Omit<Swap, 'createdAt'>): Promise<NewDocumen
     data
   })
   // increase the swaps count for receiver and sender items
-  const collectionSlugs = pipe(getOfferItems, getNftsCollectionSlugs)(offer)
+  const collectionSlugs = getOfferItemsCollectionSlugs(offer)
   for (const slug of collectionSlugs) {
     await increaseCollectionSwapsCount(slug)
   }

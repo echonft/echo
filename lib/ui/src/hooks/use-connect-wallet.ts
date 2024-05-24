@@ -8,13 +8,14 @@ import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { getCurrentChainId } from '@echo/utils/helpers/get-current-chain-id'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { AccountResult } from '@echo/web3-dom/types/account-result'
 import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
 import type { SignNonceResult } from '@echo/web3-dom/types/sign-nonce-result'
 import { useTranslations } from 'next-intl'
-import { either, includes, isNil, modify, pick, pipe, toLower } from 'ramda'
+import { includes, isNil, modify, pick, pipe, toLower } from 'ramda'
 import { useEffect, useMemo, useState } from 'react'
 import useSWR, { mutate } from 'swr'
 
@@ -23,17 +24,17 @@ export function useConnectWallet(account: AccountResult) {
   const chainId = getCurrentChainId()
   const { addWallet, disconnectWallet, getNonce, getWallets, signNonce, switchChain } = useDependencies()
   const wallet: Nullable<Wallet> = useMemo(() => {
-    if (either(propIsNil('address'), propIsNil('chainId'))(account)) {
+    if (propIsNil('address', account)) {
       return undefined
     }
     return pipe<
-      [AccountResult & Record<'address', HexString> & Record<'chainId', number>],
-      Record<'chainId', number> & Record<'address', HexString>,
+      [Omit<AccountResult, 'address'> & Record<'address', HexString>],
+      Record<'chain', ChainName> & Record<'address', HexString>,
       Wallet
     >(
-      pick(['address', 'chainId']),
+      pick(['address', 'chain']),
       modify('address', toLower<HexString>)
-    )(account)
+    )(account as Omit<AccountResult, 'address'> & Record<'address', HexString>)
   }, [account])
   const [connected, setConnected] = useState(false)
   const { data: walletsResponse } = useSWR<WalletsResponse, Error, string>(

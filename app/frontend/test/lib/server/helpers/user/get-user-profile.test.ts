@@ -13,7 +13,7 @@ describe('helpers - users - getUserProfile', () => {
   const user = getUserDocumentDataMockById(userId)
   const expectedProfile: UserProfile = getUserProfileMockByUsername(USER_MOCK_CREW_USERNAME)
   it('returns the user profile', async () => {
-    jest.mocked(getWalletsForUser).mockResolvedValueOnce(getWalletDocumentDataMockByUserId(userId))
+    jest.mocked(getWalletsForUser).mockResolvedValueOnce([getWalletDocumentDataMockByUserId(userId)])
     const profile = await getUserProfile(user)
     expect(profile).toStrictEqual(expectedProfile)
   })

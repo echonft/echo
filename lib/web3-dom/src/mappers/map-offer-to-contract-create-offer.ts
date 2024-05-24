@@ -1,4 +1,4 @@
-import type { Contract } from '@echo/model/types/contract'
+import type { Contract } from '@echo/model/types/collection'
 import type { Wallet } from '@echo/model/types/wallet'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatAddress } from '@echo/web3/helpers/format-address'
@@ -15,6 +15,7 @@ import { always, applySpec, pick, pipe, prop } from 'ramda'
 function formatWalletAddress(wallet: Wallet | Contract) {
   return pipe<[Wallet | Contract], Record<'address', HexString>, HexString>(pick(['address']), formatAddress)(wallet)
 }
+
 export function mapOfferToContractCreateOffer(args: CreateOfferArgs): ContractCreateOffer {
   return applySpec<ContractOffer>({
     sender: pipe(prop('sender'), formatWalletAddress),

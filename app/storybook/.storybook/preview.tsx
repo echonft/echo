@@ -12,7 +12,6 @@ import { disconnectWallet } from '@echo/storybook/mocks/disconnect-wallet'
 import { getAccount } from '@echo/storybook/mocks/get-account'
 import { getErc721ContractApproval } from '@echo/storybook/mocks/get-erc-721-contract-approval'
 import { getNonce } from '@echo/storybook/mocks/get-nonce'
-import { getOfferSignature } from '@echo/storybook/mocks/get-offer-signature'
 import { getWallets } from '@echo/storybook/mocks/get-wallets'
 import { rejectOffer } from '@echo/storybook/mocks/reject-offer'
 import { searchCollections } from '@echo/storybook/mocks/search-collections'
@@ -21,7 +20,6 @@ import { signIn } from '@echo/storybook/mocks/sign-in'
 import { signNonce } from '@echo/storybook/mocks/sign-nonce'
 import { signOut } from '@echo/storybook/mocks/sign-out'
 import { switchChain } from '@echo/storybook/mocks/switch-chain'
-import { validateOffer } from '@echo/storybook/mocks/validate-offer'
 import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
 import { messages } from '@echo/ui/messages/en'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
@@ -52,7 +50,6 @@ const preview: Preview = {
                 getAccount,
                 getErc721ContractApproval,
                 getNonce,
-                getOfferSignature,
                 getWallets,
                 rejectOffer,
                 searchCollections,
@@ -60,8 +57,7 @@ const preview: Preview = {
                 signIn,
                 signNonce,
                 signOut,
-                switchChain,
-                validateOffer
+                switchChain
               }}
             >
               <Story />

@@ -12,6 +12,6 @@ import { generateNonce } from 'siwe'
 export async function nonceRequestHandler(user: AuthUser, _req: ApiRequest<never>) {
   const foundUser = await guardAsyncFn(getUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
   assertUserExists(foundUser, user.username)
-  const { nonce } = await guardAsyncFn(setNonceForUser, ErrorStatus.SERVER_ERROR)(foundUser.id, generateNonce())
+  const { nonce } = await guardAsyncFn(setNonceForUser, ErrorStatus.SERVER_ERROR)(foundUser.username, generateNonce())
   return NextResponse.json<NonceResponse>({ nonce })
 }

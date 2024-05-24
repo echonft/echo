@@ -8,7 +8,7 @@ import { captureException } from '@sentry/nextjs'
 import { type NextRequest, NextResponse } from 'next/server'
 import { isNil } from 'ramda'
 
-export function adminRouteHandler<RequestBody, ResponseBody, Params extends Record<string, unknown> = never>(
+export function adminRouteHandler<RequestBody, ResponseBody, Params extends object = never>(
   requestHandler: RequestHandler<RequestBody, ResponseBody, Params>
 ) {
   return async function (request: NextRequest, context?: { params: Params }) {

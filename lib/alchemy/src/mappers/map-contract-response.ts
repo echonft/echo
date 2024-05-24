@@ -41,7 +41,7 @@ export function mapContractResponse(chainId: number, verified?: boolean) {
         nonNullableReturn(path(['openSeaMetadata', 'collectionSlug'])),
         partial(getBlurUrlForCollection, [chainId])
       ),
-      contracts: [mapContract(chainId)],
+      contract: mapContract(chainId),
       description: path(['openSeaMetadata', 'description']),
       discordUrl: path(['openSeaMetadata', 'discordUrl']),
       floorPrice: path(['openSeaMetadata', 'floorPrice']),

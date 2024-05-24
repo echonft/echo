@@ -19,6 +19,7 @@ interface OfferAbiParameters {
   receiverItems: HexString
   expiration: bigint
 }
+
 /**
  * Recreate the offer ID generation from the contract to properly create the offer in the database
  * An offer ID is generated from keccak and encoding of its parameters.
@@ -31,22 +32,18 @@ export function generateOfferId(offer: BaseOffer): HexString {
       applySpec<OfferAbiParameters>({
         sender: nonNullableReturn(path(['sender', 'wallet', 'address'])),
         receiver: nonNullableReturn(path(['receiver', 'wallet', 'address'])),
-        senderItemsChainId: pipe<[BaseOffer], Nft[], Nft, Contract[], Contract, ChainName, number>(
+        senderItemsChainId: pipe<[BaseOffer], Nft[], Nft, Contract, ChainName, number>(
           prop('senderItems'),
           head,
-          // FIXME Contract[] Not sure if thats the proper behaviour
-          nonNullableReturn(path(['collection', 'contracts'])),
-          head,
+          nonNullableReturn(path(['collection', 'contract'])),
           prop('chain'),
           getChainId
         ),
         senderItems: pipe(prop('senderItems'), hashNfts),
-        receiverItemsChainId: pipe<[BaseOffer], Nft[], Nft, Contract[], Contract, ChainName, number>(
+        receiverItemsChainId: pipe<[BaseOffer], Nft[], Nft, Contract, ChainName, number>(
           prop('receiverItems'),
           head,
-          // FIXME Contract[] Not sure if thats the proper behaviour
-          nonNullableReturn(path(['collection', 'contracts'])),
-          head,
+          nonNullableReturn(path(['collection', 'contract'])),
           prop('chain'),
           getChainId
         ),

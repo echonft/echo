@@ -27,8 +27,8 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
-import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
 import { getOfferItems } from '@echo/model/helpers/offer/get-offer-items'
+import { getOfferItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-items-collection-slugs'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
 import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
@@ -168,8 +168,7 @@ describe('CRUD - offer - completeOffer', () => {
     const offer = (await getOffer(slug))!
     expect(offer).toBeDefined()
     initialSwapsCounts = await pipe(
-      getOfferItems,
-      getNftsCollectionSlugs,
+      getOfferItemsCollectionSlugs,
       map(getCollectionSwapsCountByCollectionSlug),
       promiseAll,
       andThen<Nullable<CollectionSwapsCount>[], CollectionSwapsCount[]>(reject(isNil))

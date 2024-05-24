@@ -1,3 +1,3 @@
 export interface CancelOfferArgs {
-  offerId: string
+  slug: string
 }

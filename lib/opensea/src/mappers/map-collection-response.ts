@@ -3,12 +3,12 @@ import { mapContractResponse } from '@echo/opensea/mappers/map-contract-response
 import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import { removeQueryFromUrl } from '@echo/utils/helpers/remove-query-from-url'
-import { applySpec, map, pipe, prop, toLower } from 'ramda'
+import { applySpec, head, pipe, prop, toLower } from 'ramda'
 
 export function mapCollectionResponse(response: CollectionResponse): Omit<Collection, 'swapsCount' | 'verified'> {
   return applySpec<Omit<Collection, 'swapsCount' | 'verified'>>({
     bannerUrl: pipe(prop('banner_image_url'), pipe(toLower, removeQueryFromUrl)),
-    contracts: pipe(prop('contracts'), map(mapContractResponse)),
+    contract: pipe(prop('contracts'), head, mapContractResponse), // TODO create more collections if there are more than 1 contract
     description: prop('description'),
     discordUrl: pipe(prop('discord_url'), unlessNil(toLower)),
     name: prop('name'),

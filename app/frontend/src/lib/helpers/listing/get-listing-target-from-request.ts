@@ -4,7 +4,7 @@ import { BadRequestError } from '@echo/frontend/lib/helpers/error/bad-request-er
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import { assoc, isNil } from 'ramda'
 
-export async function getListingTargetFromRequests(request: ListingTargetRequest): Promise<ListingTarget> {
+export async function getListingTargetFromRequest(request: ListingTargetRequest): Promise<ListingTarget> {
   const {
     collection: { slug }
   } = request

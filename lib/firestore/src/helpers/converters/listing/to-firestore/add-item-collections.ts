@@ -1,12 +1,13 @@
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
-import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
+import { getListingItemsCollectionSlugs } from '@echo/model/helpers/listing/get-listing-items-collection-slugs'
 import type { Nft } from '@echo/model/types/nft'
+import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, has } from 'ramda'
 
 type ModelObject = WithFieldValue<Omit<ListingDocumentData, 'itemCollections'>>
 type WithItems = Omit<ModelObject, 'items'> & {
-  items: Nft[]
+  items: NonEmptyArray<Nft>
 }
 
 function hasItems(modelObject: ModelObject): modelObject is WithItems {
@@ -15,7 +16,7 @@ function hasItems(modelObject: ModelObject): modelObject is WithItems {
 
 export function addItemCollections(modelObject: ModelObject): WithFieldValue<ListingDocumentData> {
   if (hasItems(modelObject)) {
-    return assoc('itemCollections', getNftsCollectionSlugs(modelObject.items), modelObject)
+    return assoc('itemCollections', getListingItemsCollectionSlugs(modelObject), modelObject)
   }
   return assoc('itemCollections', [], modelObject)
 }

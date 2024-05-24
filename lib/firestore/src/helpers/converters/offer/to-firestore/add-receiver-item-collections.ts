@@ -1,5 +1,5 @@
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
-import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
+import { getOfferReceiverItemsCollectionSlugs } from '@echo/model/helpers/offer/get-offer-receiver-items-collection-slugs'
 import type { Nft } from '@echo/model/types/nft'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, has } from 'ramda'
@@ -19,7 +19,7 @@ export function addReceiverItemCollections(
   modelObject: ModelObject
 ): WithFieldValue<Omit<OfferDocumentData, 'senderItemIndexes' | 'senderItemCollections'>> {
   if (hasItems(modelObject)) {
-    return assoc('receiverItemCollections', getNftsCollectionSlugs(modelObject.receiverItems), modelObject)
+    return assoc('receiverItemCollections', getOfferReceiverItemsCollectionSlugs(modelObject), modelObject)
   }
   return assoc('receiverItemCollections', [], modelObject)
 }

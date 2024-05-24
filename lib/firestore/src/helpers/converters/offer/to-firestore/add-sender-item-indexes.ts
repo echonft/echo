@@ -1,5 +1,5 @@
 import type { OfferDocumentData } from '@echo/firestore/types/model/offer/offer-document-data'
-import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
+import { getOfferSenderItemsIndexes } from '@echo/model/helpers/offer/get-offer-sender-items-indexes'
 import type { Nft } from '@echo/model/types/nft'
 import type { WithFieldValue } from 'firebase-admin/firestore'
 import { assoc, has } from 'ramda'
@@ -17,7 +17,7 @@ export function addSenderItemIndexes(
   modelObject: ModelObject
 ): WithFieldValue<Omit<OfferDocumentData, 'senderItemCollections'>> {
   if (hasItems(modelObject)) {
-    return assoc('senderItemIndexes', getNftIndexForNfts(modelObject.senderItems), modelObject)
+    return assoc('senderItemIndexes', getOfferSenderItemsIndexes(modelObject), modelObject)
   }
   return assoc('senderItemIndexes', [], modelObject)
 }

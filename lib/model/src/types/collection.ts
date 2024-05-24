@@ -10,12 +10,11 @@ export interface Contract {
 
 export interface Collection extends WithSlug {
   bannerUrl?: Nullable<string>
-  contracts: Contract[]
+  contract: Contract
   description?: Nullable<string>
   discordUrl?: Nullable<string>
   name: string
   profilePictureUrl?: Nullable<string>
-  slug: Lowercase<string>
   swapsCount?: number
   totalSupply: number
   twitterUsername?: Nullable<string>

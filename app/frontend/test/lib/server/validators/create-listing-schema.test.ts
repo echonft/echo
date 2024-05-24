@@ -6,10 +6,10 @@ describe('validators - createListingSchema', () => {
   const validRequest: CreateListingRequest = {
     items: [
       {
-        amount: 1,
-        nft: {
-          id: 'nft-id'
-        }
+        collection: {
+          slug: 'collection-slug'
+        },
+        tokenId: 1
       }
     ],
     target: {

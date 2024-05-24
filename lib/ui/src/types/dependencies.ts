@@ -1,16 +1,13 @@
 import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
-import type { GetOfferSignatureArgs } from '@echo/api/types/fetchers/get-offer-signature-args'
 import type { RejectOfferArgs } from '@echo/api/types/fetchers/reject-offer-args'
-import type { ValidateOfferArgs } from '@echo/api/types/fetchers/validate-offer-args'
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { CreateListingRequest } from '@echo/api/types/requests/create-listing-request'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { NonceResponse } from '@echo/api/types/responses/nonce-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
-import type { OfferSignatureResponse } from '@echo/api/types/responses/offer-signature-response'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
 import type { SearchResult } from '@echo/model/types/search-result'
 import type { Fetcher } from '@echo/utils/types/fetcher'
@@ -34,7 +31,6 @@ export interface Dependencies {
   getAccount: AccountProvider
   getErc721ContractApproval: Fetcher<boolean, GetErc721ContractApprovalArgs>
   getNonce: Fetcher<NonceResponse, never>
-  getOfferSignature: Fetcher<OfferSignatureResponse, GetOfferSignatureArgs>
   getWallets: Fetcher<WalletsResponse, never>
   rejectOffer: Fetcher<OfferResponse, RejectOfferArgs>
   searchCollections: (query: string) => Promise<SearchResult<string>[]>
@@ -43,5 +39,4 @@ export interface Dependencies {
   signNonce: Fetcher<SignNonceResult, SignNonceArgs>
   signOut: (options: SignOutParams<true> | undefined) => Promise<undefined>
   switchChain: () => Promise<void>
-  validateOffer: Fetcher<OfferResponse, ValidateOfferArgs>
 }
