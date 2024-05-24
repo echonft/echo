@@ -192,7 +192,17 @@ export const messages = {
       cancelBtnMessage: 'Hold to cancel',
       createBtn: 'Create',
       editBtn: 'Edit',
-      reviewBtn: 'Review'
+      reviewBtn: 'Review',
+      expiration: {
+        title: 'One last step before you let it go!',
+        subtitle: 'Set the expiration date to:',
+        selector: {
+          1: '1 Day',
+          3: '3 Days',
+          7: '7 Days'
+        },
+        btn: 'Finalize Offer'
+      }
     },
     details: {
       acceptBtn: 'Accept',
