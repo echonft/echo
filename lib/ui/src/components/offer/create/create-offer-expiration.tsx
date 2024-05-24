@@ -3,14 +3,13 @@ import { CreateOfferExpirationImage } from '@echo/ui/components/offer/create/cre
 import { CreateOfferExpirationSelector } from '@echo/ui/components/offer/create/create-offer-expiration-selector'
 import { ONE_DAY } from '@echo/ui/constants/expiration'
 import type { Expiration } from '@echo/ui/types/expiration'
-import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { head } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
-  receiverItems: NonEmptyArray<Nft>
+  receiverItems: Nft[]
   onCancel?: VoidFunction
   onComplete?: VoidFunction
   loading?: boolean
@@ -19,7 +18,8 @@ interface Props {
 export const CreateOfferExpiration: FunctionComponent<Props> = ({ receiverItems, onComplete, onCancel, loading }) => {
   const t = useTranslations('offer.create.expiration')
   const [expiration, setExpiration] = useState<Expiration>(ONE_DAY)
-  const firstNft = head(receiverItems)
+  // FIXME Shouldn't force unwrap, but receiverItems will never be empty here
+  const firstNft = head(receiverItems)!
   return (
     <div className={clsx('flex', 'flex-row', 'gap-16', 'items-center', 'py-36', 'px-12')}>
       <CreateOfferExpirationImage alt={firstNft.tokenId.toString()} src={firstNft.pictureUrl ?? ''} />
@@ -34,18 +34,18 @@ export const CreateOfferExpiration: FunctionComponent<Props> = ({ receiverItems,
           <CreateOfferExpirationSelector selectedExpiration={expiration} onSelect={setExpiration} loading={loading} />
           <div className={clsx('flex', 'flex-col', 'gap-5')}>
             <button
-              className={clsx('btn-gradient', 'h-max', 'w-full', 'py-2.5', 'group', loading && 'animate-pulse')}
-              disabled={loading}
-              onClick={onComplete}
-            >
-              <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalizeBtn')}</span>
-            </button>
-            <button
               className={clsx('btn-action', 'h-max', 'w-full', 'py-2.5', 'group', loading && 'animate-pulse')}
               disabled={loading}
               onClick={onCancel}
             >
               <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('editBtn')}</span>
+            </button>
+            <button
+              className={clsx('btn-gradient', 'h-max', 'w-full', 'py-2.5', 'group', loading && 'animate-pulse')}
+              disabled={loading}
+              onClick={onComplete}
+            >
+              <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalizeBtn')}</span>
             </button>
           </div>
         </div>
