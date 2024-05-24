@@ -8,7 +8,7 @@ import type { UserDocumentData } from '@echo/firestore/types/model/user/user-doc
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
-import type { Collection, Contract } from '@echo/model/types/collection'
+import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
@@ -54,7 +54,7 @@ export async function updateUserNfts(user: UserDocumentData, wallet: WalletDocum
               await pipe<
                 [
                   Omit<Nft, 'collection' | 'owner' | 'updatedAt'> & {
-                    collection: { contract: Contract; slug: Slug }
+                    collection: Pick<Collection, 'slug'>
                   }
                 ],
                 Omit<Nft, 'owner' | 'updatedAt'>,

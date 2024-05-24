@@ -4,11 +4,10 @@ import { updateNft } from '@echo/firestore/crud/nft/update-nft'
 import type { Collection, Contract } from '@echo/model/types/collection'
 import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
-import { getNft as getNftOpenSea } from '@echo/opensea/services/get-nft'
-import { mapOpenSeaNftToNft } from '@echo/opensea-stream/mappers/map-open-sea-nft-to-nft'
+import { getNft as getNftFromOpensea } from '@echo/opensea/services/get-nft'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
-import { head, isNil, pipe, prop } from 'ramda'
+import { andThen, assoc, isNil, pipe, prop } from 'ramda'
 
 interface AddNftIfNeededArgs {
   nftIndex: NftIndex
@@ -31,19 +30,15 @@ export async function addNftIfNeeded(args: AddNftIfNeededArgs) {
   const savedNft = await getNft(nftIndex)
   // Shouldn't happen but in case, we simply update the NFT
   if (!isNil(savedNft)) {
-    const updatedNft = {
-      ...savedNft,
-      owner
-    }
-    await updateNft(updatedNft)
+    await pipe(assoc('owner', owner), updateNft)(savedNft)
   }
-
-  const nftResponse = await getNftOpenSea({
+  await pipe(
+    getNftFromOpensea,
+    andThen(pipe(assoc('collection', collection), assoc('owner', owner), addNft))
+  )({
     chain,
     fetch,
     identifier: nftIndex.tokenId.toString(),
-    contract: pipe<[Collection], Contract[], Contract, HexString>(prop('contracts'), head, prop('address'))(collection)
+    contract: pipe<[Collection], Contract, HexString>(prop('contract'), prop('address'))(collection)
   })
-
-  await addNft(mapOpenSeaNftToNft({ response: nftResponse, owner, collection }))
 }

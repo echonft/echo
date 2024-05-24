@@ -4,6 +4,7 @@ import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
 import type { NftIndex } from '@echo/model/types/nft-index'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { isEmpty, isNil } from 'ramda'
 
 /**
@@ -16,6 +17,7 @@ export async function processFromTransfer(nftIndex: NftIndex) {
   const snapshot = await getNftSnapshot(nftIndex)
   // Shouldn't happen
   if (isNil(snapshot)) {
+    pinoLogger.error(`NFT with index ${JSON.stringify(nftIndex)} not found`)
     return
   }
   const {
