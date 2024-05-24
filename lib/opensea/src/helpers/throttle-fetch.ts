@@ -1,19 +1,19 @@
+import { fetchInit } from '@echo/opensea/constants/fetch-init'
 import { MAX_RETRIES, WAIT_TIME } from '@echo/opensea/constants/fetch-params'
 import type { WithFetchRequest } from '@echo/opensea/types/request/with-fetch-request'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { always, assoc, converge, identity, inc, pipe, prop } from 'ramda'
 
 interface ThrottleFetchArgs extends WithFetchRequest {
-  input: RequestInfo | URL
-  init?: RequestInit
+  url: string
 }
 
 async function tryFetch(args: ThrottleFetchArgs & { retries: number }): Promise<Response> {
-  const { fetch, init, input, retries } = args
+  const { fetch, url, retries } = args
   if (retries === MAX_RETRIES) {
     return Promise.resolve(Response.error())
   }
-  const response = await fetch(input, init)
+  const response = await fetch(url, fetchInit)
   if (!response.ok && response.status === 429) {
     // Opensea throttled the request, wait 1 minute and retry
     return delayPromise(

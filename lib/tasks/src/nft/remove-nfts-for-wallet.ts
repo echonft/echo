@@ -26,6 +26,7 @@ async function removeNftsForWalletForPage<T extends Wallet>(page: number, wallet
           andThen(ifElse(isNil, throwError('Snapshot is nil'), prop('id')))
         )(nft)
         await deleteNft(nftId)
+        // TODO check if there are still NFTs in the collection, else delete it
       } catch (e) {
         logger?.error(`error deleting NFT ${nft.collection.slug} #${nft.tokenId}: ${errorMessage(e)}`)
       }

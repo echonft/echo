@@ -26,6 +26,7 @@
     "@echo/alchemy": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
+    "@echo/opensea": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@types/node": "20.12.2",

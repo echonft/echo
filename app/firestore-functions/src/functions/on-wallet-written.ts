@@ -23,7 +23,7 @@ export const onWalletWritten = onDocumentWritten(setMaxInstances({ document: 'wa
           const foundUser = await getUserById(wallet.userId)
           if (!isNil(foundUser)) {
             try {
-              await updateUserNfts(foundUser, logger)
+              await updateUserNfts(foundUser, wallet, logger)
             } catch (e) {
               logger.error(`error upating user ${wallet.userId} NFTs: ${errorMessage(e)}`)
             }

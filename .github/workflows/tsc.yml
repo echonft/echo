@@ -34,6 +34,10 @@ jobs:
         run: pnpm exec turbo run tsc:ci --filter=@echo/firestore-functions
       - name: model tsc
         run: pnpm exec turbo run tsc:ci --filter=@echo/model
+      - name: opensea tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/opensea
+      - name: opensea-stream tsc
+        run: pnpm exec turbo run tsc:ci --filter=@echo/opensea-stream
       - name: sentry tsc
         run: pnpm exec turbo run tsc:ci --filter=@echo/sentry
       - name: tasks tsc

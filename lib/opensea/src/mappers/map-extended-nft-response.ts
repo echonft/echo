@@ -1,5 +1,6 @@
 import type { Contract } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
+import type { Slug } from '@echo/model/types/slug'
 import { mapTraitResponse } from '@echo/opensea/mappers/map-trait-response'
 import type { NftExtendedResponse } from '@echo/opensea/types/response/nft-extended-response'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
@@ -10,7 +11,7 @@ export type MapNftResponseArgs = Omit<NftExtendedResponse, 'contract'> & { contr
 
 export interface PartialCollection {
   contract: Contract
-  slug: string
+  slug: Slug
 }
 
 export function mapExtendedNftResponse(response: MapNftResponseArgs): Omit<

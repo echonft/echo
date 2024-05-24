@@ -1,6 +1,5 @@
 import type { Contract } from '@echo/model/types/collection'
 import { BASE_URL } from '@echo/opensea/constants/base-url'
-import { fetchInit } from '@echo/opensea/constants/fetch-init'
 import { parseFetchResponse } from '@echo/opensea/helpers/parse-fetch-response'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { mapExtendedNftResponse } from '@echo/opensea/mappers/map-extended-nft-response'
@@ -39,12 +38,13 @@ interface FetchNftRequest extends WithFetchRequest {
   identifier: string
 }
 
+export type GetNftsByAccountArgs = Omit<GetNftsByAccountRequest, 'limit' | 'next'>
+
 async function fetchNft(args: FetchNftRequest) {
   const { contract, chain, fetch, identifier } = args
   const response = await throttleFetch({
     fetch,
-    input: `${BASE_URL}/chain/${chain}/contract/${contract}/nfts/${identifier}`,
-    init: fetchInit
+    url: `${BASE_URL}/chain/${chain}/contract/${contract}/nfts/${identifier}`
   })
   if (!response.ok) {
     throw Error(`error fetching NFT #${identifier} for contract ${contract} on chain ${chain}: ${response.statusText}`)
@@ -58,7 +58,7 @@ async function fetchNftsByAccount(args: GetNftsByAccountRequest): Promise<GetNft
     `${BASE_URL}/chain/${chain}/account/${address}/nfts`,
     stringify(pick(['limit', 'next'], args), { addQueryPrefix: true, skipNulls: true })
   )
-  const response = await throttleFetch({ fetch, input: url, init: fetchInit })
+  const response = await throttleFetch({ fetch, url })
   if (!response.ok) {
     throw Error(`error fetching NFTs for address ${address} on chain ${chain}: ${response.statusText}`)
   }
@@ -94,7 +94,7 @@ async function handlePaging(
   return handlePaging(assoc('next', next, args), mergedResponse)
 }
 
-export async function getNftsByAccount(args: Omit<GetNftsByAccountRequest, 'limit' | 'next'>) {
+export async function getNftsByAccount(args: GetNftsByAccountArgs) {
   return pipe(
     assoc('limit', 200),
     partialRight(handlePaging, [[]]),

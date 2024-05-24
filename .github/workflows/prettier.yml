@@ -34,6 +34,10 @@ jobs:
         run: pnpm exec turbo run prettier:ci --filter=@echo/firestore-functions
       - name: model prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/model
+      - name: opensea prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/opensea
+      - name: opensea-stream prettier
+        run: pnpm exec turbo run prettier:ci --filter=@echo/opensea-stream
       - name: sentry prettier
         run: pnpm exec turbo run prettier:ci --filter=@echo/sentry
       - name: tasks prettier

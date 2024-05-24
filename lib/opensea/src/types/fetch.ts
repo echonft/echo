@@ -1,1 +1,1 @@
-export type Fetch = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
+export type Fetch = (input: string, init?: RequestInit) => Promise<Response>
