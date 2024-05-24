@@ -17,9 +17,9 @@
     "prettier": "prettier -u --no-error-on-unmatched-pattern --write --cache .",
     "prettier:ci": "prettier -u --no-error-on-unmatched-pattern --log-level=silent -c .",
     "start": "node dist/index.js",
-    "test": "jest",
-    "test:ci": "jest --ci --no-cache",
-    "test:watch": "jest --watch",
+    "test": "jest --passWithNoTests",
+    "test:ci": "jest --ci --no-cache --passWithNoTests",
+    "test:watch": "jest --watch --passWithNoTests",
     "tsc": "tsc --noEmit",
     "tsc:ci": "pnpm run tsc",
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"

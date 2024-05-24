@@ -1,5 +1,6 @@
 'use client'
 import { eqWithId } from '@echo/model/helpers/eq-with-id'
+import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import { type Nft } from '@echo/model/types/nft'
 import { TraitFilterPanel } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
@@ -58,7 +59,7 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
   const router = useRouter()
 
   function rejectSelection(selection: SelectableNft[]): (nfts: SelectableNft[]) => SelectableNft[] {
-    return reject<SelectableNft>(isInWith(selection, eqWithId))
+    return reject<SelectableNft>(isInWith(selection, eqNft))
   }
 
   function filterByTraits(state: State): State {
@@ -88,7 +89,7 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
         }
         return pipe<[State], State, State>(
           modify('selection', append(action.nft)),
-          modify<'nfts', SelectableNft[], SelectableNft[]>('nfts', reject(eqWithId(action.nft)))
+          modify<'nfts', SelectableNft[], SelectableNft[]>('nfts', reject(eqNft(action.nft)))
         )(state)
       case 'unselect':
         if (isNil(action.nft)) {
@@ -96,7 +97,7 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
         }
         return pipe<[State], State, State, State>(
           modify('nfts', append(action.nft)),
-          modify<'selection', SelectableNft[], SelectableNft[]>('selection', reject(eqWithId(action.nft))),
+          modify<'selection', SelectableNft[], SelectableNft[]>('selection', reject(eqNft(action.nft))),
           filterByTraits
         )(state)
     }

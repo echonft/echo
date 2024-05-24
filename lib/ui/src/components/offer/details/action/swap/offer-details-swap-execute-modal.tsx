@@ -3,34 +3,23 @@ import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import type { HexString } from '@echo/utils/types/hex-string'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: OfferWithRole
-  signature: HexString
-  offerSignature: HexString
   open: boolean
   onSuccess?: (offer: OfferWithRole) => unknown
   onClose?: EmptyFunction
 }
 
+// TODO
 export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({ open }) => {
   const t = useTranslations('offer.details.swapModal')
   // const tError = useTranslations('error.offer')
   // const { chainId } = useAccount()
-  // const { validateOffer } = useDependencies()
-  // const onError: Omit<ErrorCallback, 'show'> = {
-  //   contexts: offerContext(offer),
-  //   alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('swap') },
-  //   onError: () => {
-  //     void validateOfferTrigger({ offerId: offer.id })
-  //     onClose?.()
-  //   }
-  // }
-  // const { trigger: executeSwapTrigger, isMutating: executeSwapMutating } = useSWRTrigger<HexString, ExecuteSwapArgs>({
+  // const { trigger, isMutating } = useSWRTrigger<HexString, ExecuteSwapArgs>({
   //   key: SWRKeys.swap.execute(offer),
   //   fetcher: executeSwap,
   //   onSuccess: (_response) => {
@@ -41,13 +30,13 @@ export const OfferDetailsSwapExecuteModal: FunctionComponent<Props> = ({ open })
   //       )(offer)
   //     )
   //   },
-  //   onError
-  // })
-  // const { trigger: validateOfferTrigger } = useSWRTrigger<OfferResponse, ValidateOfferArgs>({
-  //   key: SWRKeys.offer.validate(offer),
-  //   fetcher: validateOffer,
-  //   onSuccess: (response) => {
-  //     onSuccess?.(assoc('role', offer.role, response.offer))
+  //   onError: {
+  //     contexts: offerContext(offer),
+  //     alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('swap') },
+  //     onError: () => {
+  //       void validateOfferTrigger({ offerId: offer.id })
+  //       onClose?.()
+  //     }
   //   }
   // })
 

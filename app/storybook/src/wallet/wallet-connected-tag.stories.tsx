@@ -17,7 +17,7 @@ export default metadata
 
 export const ConnectedTag: StoryObj<typeof Component> = {
   args: {
-    chainId: 1,
+    chain: 'ethereum',
     address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'
   }
 }

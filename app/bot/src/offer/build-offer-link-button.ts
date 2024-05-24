@@ -6,7 +6,7 @@ export function buildOfferLinkButton(offerSlug: string) {
   return new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setLabel(i18next.t('offer.button'))
-      .setURL(linkProvider.offer.details.getUrl({ offerSlug }))
+      .setURL(linkProvider.offer.details.getUrl({ slug: offerSlug }))
       .setStyle(ButtonStyle.Link)
   )
 }

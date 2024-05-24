@@ -1,7 +1,7 @@
 'use client'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
-import { eqWithId } from '@echo/model/helpers/eq-with-id'
+import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import { eqNftCollection } from '@echo/model/helpers/nft/eq-nft-collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
@@ -54,7 +54,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
   )
   const unselectSenderNft = useCallback(
     (nft: SelectableNft) => {
-      setSenderSelection(reject(eqWithId(nft)))
+      setSenderSelection(reject(eqNft(nft)))
     },
     [setSenderSelection]
   )
@@ -65,7 +65,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
           always(isEmpty(senderSelection)),
           filter(isInWith<SelectableNft>(senderSelection, eqNftCollection))
         ),
-        reject(isInWith(senderSelection, eqWithId))
+        reject(isInWith(senderSelection, eqNft))
       )(senderNfts),
     [senderSelection, senderNfts]
   )

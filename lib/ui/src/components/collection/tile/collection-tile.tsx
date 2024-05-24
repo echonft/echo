@@ -11,7 +11,7 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   slug: string
-  pictureUrl: string
+  pictureUrl: Nullable<string>
   name: string
   swapsCount: Nullable<number>
   size: typeof SIZE_MD | typeof SIZE_LG

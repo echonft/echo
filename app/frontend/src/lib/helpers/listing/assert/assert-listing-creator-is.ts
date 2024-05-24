@@ -10,11 +10,11 @@ export function assertListingCreatorIs(
   username: string
 ): asserts listing is Omit<Listing, 'creator'> & Record<'creator', User> {
   if (isNil(listing.creator) || isNilOrEmpty(listing.creator.username)) {
-    throw new BadRequestError(`listing with id ${listing.id} does not contain a creator`)
+    throw new BadRequestError(`listing ${listing.slug} does not contain a creator`)
   }
   if (listing.creator.username !== username) {
     throw new ForbiddenError(
-      `current user with username ${username} is not the creator of listing with id ${listing.id}. The listing creator username is ${listing.creator.username}`
+      `current user with username ${username} is not the creator of listing ${listing.slug}. The listing creator username is ${listing.creator.username}`
     )
   }
 }

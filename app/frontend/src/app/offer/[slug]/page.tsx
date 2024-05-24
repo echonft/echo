@@ -1,4 +1,4 @@
-import { getOfferById } from '@echo/firestore/crud/offer/get-offer-by-id'
+import { getOffer } from '@echo/firestore/crud/offer/get-offer'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import { setOfferRoleForUser } from '@echo/frontend/lib/helpers/offer/set-offer-role-for-user'
@@ -6,7 +6,7 @@ import type { NextAuthUserParams } from '@echo/frontend/lib/types/next-auth-user
 import type { NextParams } from '@echo/frontend/lib/types/next-params'
 import { OFFER_STATE_COMPLETED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
-import type { WithId } from '@echo/model/types/with-id'
+import type { WithSlug } from '@echo/model/types/with-slug'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { OfferDetails } from '@echo/ui/components/offer/details/offer-details'
@@ -18,13 +18,13 @@ import { notFound } from 'next/navigation'
 import { andThen, isNil, pipe, unless } from 'ramda'
 import type { ReactElement } from 'react'
 
-type Params = NextAuthUserParams<NextParams<WithId>>
+type Params = NextAuthUserParams<NextParams<WithSlug>>
 
-async function render({ params: { id }, user }: Params) {
+async function render({ params: { slug }, user }: Params) {
   const offer = await pipe<[string], Promise<Nullable<Offer>>, Promise<Nullable<OfferWithRole>>>(
-    getOfferById,
+    getOffer,
     andThen(unless(isNil, setOfferRoleForUser(user)) as (offer: Nullable<Offer>) => Nullable<OfferWithRole>)
-  )(id)
+  )(slug)
   if (isNil(offer) || (offer.state !== OFFER_STATE_COMPLETED && isOfferRoleUndefined(offer))) {
     notFound()
   }

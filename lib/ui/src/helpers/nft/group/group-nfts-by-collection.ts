@@ -6,10 +6,10 @@ import { applySpec, collectBy, head, map, path, pipe, sort } from 'ramda'
 
 export function groupNftsByCollection(nfts: SelectableNft[]) {
   return pipe(
-    collectBy(nonNullableReturn(path<string>(['collection', 'id']))),
+    collectBy(nonNullableReturn(path<string>(['collection', 'slug']))),
     map(
       applySpec<NftGroup>({
-        id: pipe(head, path(['collection', 'id'])),
+        id: pipe(head, path(['collection', 'slug'])),
         label: pipe(head, path(['collection', 'name'])),
         nfts: sort(nftComparator)
       })

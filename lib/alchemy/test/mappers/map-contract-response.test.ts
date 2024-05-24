@@ -1,5 +1,6 @@
 import { mapContractResponse } from '@echo/alchemy/mappers/map-contract-response'
 import { type ContractResponse } from '@echo/alchemy/types/response/contract-response'
+import { COLLECTION_MOCK_SPIRAL_ID, COLLECTION_MOCK_SPIRAL_SLUG } from '@echo/model-mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'

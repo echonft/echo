@@ -5,15 +5,12 @@ import { includes } from 'ramda'
 
 describe('helpers - collection - searchCollectionsByName', () => {
   const collection1 = {
-    id: '1',
     name: 'First Collection'
   } as Collection
   const collection2 = {
-    id: '2',
     name: 'Second Collection'
   } as Collection
   const collection3 = {
-    id: '3',
     name: 'Echo Collection'
   } as Collection
   const collections = [collection1, collection2, collection3]

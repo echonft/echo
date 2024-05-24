@@ -1,5 +1,6 @@
 import { mapNftResponse } from '@echo/alchemy/mappers/map-nft-response'
 import { type NftResponse } from '@echo/alchemy/types/response/nft-response'
+import { COLLECTION_MOCK_SPIRAL_SLUG } from '@echo/model-mocks/collection/collection-mock'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { NFT_MOCK_SPIRAL_JOHNNY_ID } from '@echo/model-mocks/nft/nft-mock'
 import { describe, expect, it } from '@jest/globals'

@@ -3,12 +3,15 @@ import { Path } from '@echo/api/routing/path'
 interface CollectionPathArgs {
   slug: string
 }
+
 interface ListingPathArgs {
-  listingSlug: string
+  slug: string
 }
+
 interface OfferPathArgs {
-  offerSlug: string
+  slug: string
 }
+
 interface UserPathArgs {
   username: string
 }
@@ -27,11 +30,11 @@ export const linkProvider = {
     swaps: new Path<CollectionPathArgs>({ path: '/collection/:slug/swaps' })
   },
   listing: {
-    details: new Path<ListingPathArgs>({ path: '/listing/:listingSlug' }),
+    details: new Path<ListingPathArgs>({ path: '/listing/:slug' }),
     new: new Path({ path: '/listing/new', secure: true })
   },
   offer: {
-    details: new Path<OfferPathArgs>({ path: '/offer/:offerSlug' }),
+    details: new Path<OfferPathArgs>({ path: '/offer/:slug' }),
     new: new Path({ path: '/offer/new', secure: true })
   },
   profile: {

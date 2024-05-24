@@ -5,7 +5,7 @@ import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - embed - embedValueForNft', () => {
   it('should return expected result', () => {
-    const expectedResult = 'Spiral Frequencies #1376'
+    const expectedResult = 'Spiral Frequencies #1'
     const result = embedValueForNft(getNftMockById(NFT_MOCK_SPIRAL_JOHNNY_ID))
     expect(result).toEqual(expectedResult)
   })

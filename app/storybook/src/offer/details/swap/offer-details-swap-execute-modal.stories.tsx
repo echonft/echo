@@ -37,8 +37,6 @@ export const Execute: StoryObj<ComponentType> = {
         getOfferMockById,
         assoc<OfferRole, 'role'>('role', OFFER_ROLE_SENDER)
       )(OFFER_MOCK_TO_JOHNNYCAGE_ID)}
-      offerSignature={'0xwhatever'}
-      signature={'0xwhatever'}
       open={true}
       onClose={onClose}
       onSuccess={onSuccess}

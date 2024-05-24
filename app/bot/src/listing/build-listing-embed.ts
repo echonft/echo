@@ -17,7 +17,7 @@ export function buildListingEmbed(listing: Listing, creator: UserDocumentData) {
       // TODO Maybe a color per collection via settings?
       .setColor(0x00ff66)
       .setFields(fields(listing.items, listing.target))
-      .setURL(linkProvider.listing.details.getUrl({ listingSlug: listing.slug }))
+      .setURL(linkProvider.listing.details.getUrl({ slug: listing.slug }))
   )
 }
 

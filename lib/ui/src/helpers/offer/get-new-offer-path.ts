@@ -1,7 +1,8 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
+import { mapNftToQueryParam } from '@echo/ui/helpers/nft/map-nft-to-query-param'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { stringify } from 'qs'
-import { concat, is, isEmpty, map, prop } from 'ramda'
+import { concat, is, isEmpty, map } from 'ramda'
 
 export function getNewOfferPath(selection: SelectableNft[] | SelectableNft) {
   if (is(Array, selection)) {
@@ -11,13 +12,13 @@ export function getNewOfferPath(selection: SelectableNft[] | SelectableNft) {
     return concat(
       linkProvider.offer.new.get(),
       stringify(
-        { receiverItems: map(prop('id'), selection) },
+        { receiverItems: map(mapNftToQueryParam, selection) },
         { addQueryPrefix: true, arrayFormat: 'repeat', skipNulls: true }
       )
     )
   }
   return concat(
     linkProvider.offer.new.get(),
-    stringify({ receiverItems: prop('id', selection) }, { addQueryPrefix: true })
+    stringify({ receiverItems: mapNftToQueryParam(selection) }, { addQueryPrefix: true })
   )
 }

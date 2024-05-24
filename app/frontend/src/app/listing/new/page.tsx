@@ -1,11 +1,13 @@
 import { getCollection } from '@echo/firestore/crud/collection/get-collection'
-import { getNftById } from '@echo/firestore/crud/nft/get-nft-by-id'
+import { getNftByIndex } from '@echo/firestore/crud/nft/get-nft-by-index'
 import { getNftsForOwner } from '@echo/firestore/crud/nft/get-nfts-for-owner'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
+import { getNftIndexFromQueryParam } from '@echo/frontend/lib/helpers/nft/get-nft-index-from-query-param'
 import type { NextSearchParams } from '@echo/frontend/lib/types/next-search-params'
 import type { NextUserParams } from '@echo/frontend/lib/types/next-user-params'
 import type { Nft } from '@echo/model/types/nft'
+import type { NftIndex } from '@echo/model/types/nft-index'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
@@ -37,9 +39,10 @@ async function render({ searchParams: { items, target }, user }: Params) {
     andThen(map<SelectableNft, SelectableNft>(assoc('actionDisabled', true)))
   )(user)
   const listingItems = await unlessNil(
-    pipe<[string[] | string], string[], Promise<Nullable<Nft>>[], Promise<Nullable<Nft>[]>, Promise<Nft[]>>(
+    pipe<[string[] | string], string[], NftIndex[], Promise<Nullable<Nft>>[], Promise<Nullable<Nft>[]>, Promise<Nft[]>>(
       unless(is(Array), juxt([identity])),
-      map(getNftById),
+      map(getNftIndexFromQueryParam),
+      map(getNftByIndex),
       promiseAll,
       andThen<Nullable<Nft>[], Nft[]>(reject(isNil))
     )

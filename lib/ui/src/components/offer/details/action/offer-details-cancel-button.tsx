@@ -49,13 +49,13 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
   if (show) {
     return (
       <LongPressButton
-        id={offer.id}
+        id={offer.slug}
         label={t('label')}
         message={t('message')}
         disabled={disabled}
         onFinish={() => {
           onClick?.()
-          void trigger({ offerId: offer.id })
+          void trigger({ slug: offer.slug })
         }}
       />
     )

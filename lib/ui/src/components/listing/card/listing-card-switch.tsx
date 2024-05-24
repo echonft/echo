@@ -29,7 +29,7 @@ export const ListingCardSwitch: FunctionComponent<Props> = ({ listing, scaleDisa
       </StackLayout>
     )
   }
-  const item = head(items)
+  const item = head(items)!
   return (
     <CardLayout>
       <ListingCardPicture listing={listing} scaleDisabled={scaleDisabled} />

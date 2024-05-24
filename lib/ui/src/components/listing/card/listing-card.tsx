@@ -13,7 +13,7 @@ export interface ListingCardProps {
 
 export const ListingCard: FunctionComponent<ListingCardProps> = ({ listing, options }) => {
   return (
-    <InternalLink path={linkProvider.listing.details.get({ listingSlug: listing.slug })}>
+    <InternalLink path={linkProvider.listing.details.get({ slug: listing.slug })}>
       <ListingCardSwitch listing={listing} scaleDisabled={options?.scaleDisabled} />
     </InternalLink>
   )

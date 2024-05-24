@@ -3,7 +3,7 @@ import { linkProvider } from '@echo/api/routing/link-provider'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
-import { mapNftsToNftIndexes } from '@echo/model/helpers/nft/map-nfts-to-nft-indexes'
+import { getNftIndexForNfts } from '@echo/model/helpers/nft/get-nft-index-for-nfts'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
 import { CreateOffer } from '@echo/ui/components/offer/create/create-offer'
@@ -35,7 +35,7 @@ export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receive
     key: SWRKeys.offer.create,
     fetcher: createOffer,
     onSuccess: (response) => {
-      router.replace(linkProvider.offer.details.get({ offerSlug: response.offer.slug }))
+      router.replace(linkProvider.offer.details.get({ slug: response.offer.slug }))
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: t('new') }
@@ -53,8 +53,8 @@ export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receive
           // TODO we need to connect the wallet
         } else {
           void trigger({
-            senderItems: mapNftsToNftIndexes(senderSelection),
-            receiverItems: mapNftsToNftIndexes(receiverItems),
+            senderItems: getNftIndexForNfts(senderSelection),
+            receiverItems: getNftIndexForNfts(receiverItems),
             // FIXME expiration should be set
             expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix()
           })

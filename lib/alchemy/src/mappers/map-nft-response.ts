@@ -42,14 +42,12 @@ function internalFn(collection: Collection, owner: User): (nftResponse: NftRespo
           pipe(prop('balance'), partialRight(parseInt, [10])),
           always(1)
         ),
-        // FIXME Contract[] Not sure if thats the proper behaviour
         blurUrl: pipe(prop('tokenId'), partialRight(parseInt, [10]), partial(getBlurUrlForNft, [collection.contract])),
         collection: always(collection),
         name: prop('name'),
         openSeaUrl: pipe(
           prop('tokenId'),
           partialRight(parseInt, [10]),
-          // FIXME Contract[] Not sure if thats the proper behaviour
           partial(getOpenSeaUrlForNft, [collection.contract])
         ),
         owner: always(owner),

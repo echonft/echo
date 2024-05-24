@@ -26,7 +26,6 @@ interface Props {
 export const OfferDetailsAcceptSignModal: FunctionComponent<Props> = ({ offer, open, onSuccess, onClose }) => {
   const t = useTranslations('offer.details.acceptModal')
   const tError = useTranslations('error.offer')
-  // const { chainId } = useAccount()
   const { acceptOffer } = useDependencies()
   const onError: Omit<ErrorCallback, 'show'> = {
     contexts: offerContext(offer),
@@ -34,10 +33,7 @@ export const OfferDetailsAcceptSignModal: FunctionComponent<Props> = ({ offer, o
     onError: onClose
   }
 
-  const { /*trigger: acceptOfferTrigger,*/ isMutating: acceptOfferMutating } = useSWRTrigger<
-    OfferResponse,
-    AcceptOfferArgs
-  >({
+  const { trigger, isMutating } = useSWRTrigger<OfferResponse, AcceptOfferArgs>({
     key: SWRKeys.offer.accept(offer),
     fetcher: acceptOffer,
     onSuccess: (response) => {
@@ -45,18 +41,17 @@ export const OfferDetailsAcceptSignModal: FunctionComponent<Props> = ({ offer, o
     },
     onError
   })
-  const loading = acceptOfferMutating
 
   return (
-    <Modal open={open} onClose={loading ? undefined : onClose} title={t('title')}>
+    <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('sign.subtitle')}</ModalSubtitle>
         <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group', loading && 'animate-pulse')}
+          className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
           onClick={() => {
-            // void signOfferTrigger({ chainId: chainId!, offer })
+            void trigger({ slug: offer.slug })
           }}
-          disabled={loading}
+          disabled={isMutating}
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('sign.btn')}</span>
         </button>

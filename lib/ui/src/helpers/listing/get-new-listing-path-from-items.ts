@@ -1,7 +1,8 @@
 import { linkProvider } from '@echo/api/routing/link-provider'
+import { mapNftToQueryParam } from '@echo/ui/helpers/nft/map-nft-to-query-param'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { stringify } from 'qs'
-import { concat, isEmpty, map, prop } from 'ramda'
+import { concat, isEmpty, map } from 'ramda'
 
 export function getNewListingPathFromItems(selection: SelectableNft[]) {
   if (isEmpty(selection)) {
@@ -9,6 +10,9 @@ export function getNewListingPathFromItems(selection: SelectableNft[]) {
   }
   return concat(
     linkProvider.listing.new.get(),
-    stringify({ items: map(prop('id'), selection) }, { addQueryPrefix: true, arrayFormat: 'repeat', skipNulls: true })
+    stringify(
+      { items: map(mapNftToQueryParam, selection) },
+      { addQueryPrefix: true, arrayFormat: 'repeat', skipNulls: true }
+    )
   )
 }
