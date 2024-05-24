@@ -1,5 +1,5 @@
-import type { NextFetch } from '@echo/opensea/types/next-fetch'
+import type { Fetch } from '@echo/opensea/types/fetch'
 
 export interface WithFetchRequest {
-  fetch: NextFetch
+  fetch: Fetch
 }

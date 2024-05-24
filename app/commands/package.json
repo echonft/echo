@@ -4,10 +4,6 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "command:add-collection:dev": "source .env.keys; DOTENV_KEY=$DOTENV_KEY_DEV dotenvx run -- ts-node --project tsconfig.json src/commands/add-collection-command.ts",
-    "command:add-collection:testnet": "source .env.keys; DOTENV_KEY=$DOTENV_KEY_TESTNET dotenvx run -- ts-node --project tsconfig.json src/commands/add-collection-command.ts",
-    "command:add-collections:dev": "source .env.keys; DOTENV_KEY=$DOTENV_KEY_DEV dotenvx run -- ts-node --project tsconfig.json src/commands/add-collections-command.ts",
-    "command:add-collections:testnet": "source .env.keys; DOTENV_KEY=$DOTENV_KEY_TESTNET dotenvx run -- ts-node --project tsconfig.json src/commands/add-collections-command.ts",
     "command:add-collection-guild:dev": "source .env.keys; DOTENV_KEY=$DOTENV_KEY_DEV dotenvx run -- ts-node --project tsconfig.json src/commands/add-collection-guild-command.ts",
     "command:add-collection-guild:testnet": "source .env.keys; DOTENV_KEY=$DOTENV_KEY_TESTNET dotenvx run -- ts-node --project tsconfig.json src/commands/add-collection-guild-command.ts",
     "command:list-collection-contracts:dev": "source .env.keys; DOTENV_KEY=$DOTENV_KEY_DEV dotenvx run -- ts-node --project tsconfig.json src/commands/list-collections-contract-command.ts",

@@ -1,7 +1,8 @@
 import type { Contract } from '@echo/model/types/collection'
 import { BASE_URL } from '@echo/opensea/constants/base-url'
-import { nextFetchInit } from '@echo/opensea/constants/next-fetch-init'
-import { parseNextFetchResponse } from '@echo/opensea/helpers/parse-next-fetch-response'
+import { fetchInit } from '@echo/opensea/constants/fetch-init'
+import { parseFetchResponse } from '@echo/opensea/helpers/parse-fetch-response'
+import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { mapExtendedNftResponse } from '@echo/opensea/mappers/map-extended-nft-response'
 import type { GetNftsByAccountRequest } from '@echo/opensea/types/request/get-nfts-by-account-request'
 import type { WithFetchRequest } from '@echo/opensea/types/request/with-fetch-request'
@@ -40,8 +41,15 @@ interface FetchNftRequest extends WithFetchRequest {
 
 async function fetchNft(args: FetchNftRequest) {
   const { contract, chain, fetch, identifier } = args
-  const response = await fetch(`${BASE_URL}/chain/${chain}/contract/${contract}/nfts/${identifier}`, nextFetchInit)
-  return pipe(parseNextFetchResponse<GetNftResponse>, andThen(prop('nft')))(response)
+  const response = await throttleFetch({
+    fetch,
+    input: `${BASE_URL}/chain/${chain}/contract/${contract}/nfts/${identifier}`,
+    init: fetchInit
+  })
+  if (!response.ok) {
+    throw Error(`error fetching NFT #${identifier} for contract ${contract} on chain ${chain}: ${response.statusText}`)
+  }
+  return pipe(parseFetchResponse<GetNftResponse>, andThen(prop('nft')))(response)
 }
 
 async function fetchNftsByAccount(args: GetNftsByAccountRequest): Promise<GetNftsByAccountResponse> {
@@ -50,8 +58,11 @@ async function fetchNftsByAccount(args: GetNftsByAccountRequest): Promise<GetNft
     `${BASE_URL}/chain/${chain}/account/${address}/nfts`,
     stringify(pick(['limit', 'next'], args), { addQueryPrefix: true, skipNulls: true })
   )
-  const response = await fetch(url, nextFetchInit)
-  return parseNextFetchResponse<GetNftsByAccountResponse>(response)
+  const response = await throttleFetch({ fetch, input: url, init: fetchInit })
+  if (!response.ok) {
+    throw Error(`error fetching NFTs for address ${address} on chain ${chain}: ${response.statusText}`)
+  }
+  return parseFetchResponse<GetNftsByAccountResponse>(response)
 }
 
 async function handlePaging(

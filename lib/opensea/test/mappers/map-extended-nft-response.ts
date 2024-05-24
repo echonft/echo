@@ -5,7 +5,7 @@ import { mapExtendedNftResponse, type MapNftResponseArgs } from '@echo/opensea/m
 import { describe, expect, it } from '@jest/globals'
 import { assoc, omit, pipe } from 'ramda'
 
-describe('mappers - mapNftResponse', () => {
+describe('mappers - mapExtendedNftResponse', () => {
   const nftMock = getNftMockById(NFT_MOCK_SPIRAL_JOHNNY_ID)
 
   it('no undefined values', () => {
