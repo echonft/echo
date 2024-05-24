@@ -1,56 +1,18 @@
-import type { Contract } from '@echo/model/types/collection'
 import { BASE_URL } from '@echo/opensea/constants/base-url'
+import { fetchNft } from '@echo/opensea/fetchers/fetch-nft'
 import { parseFetchResponse } from '@echo/opensea/helpers/parse-fetch-response'
 import { throttleFetch } from '@echo/opensea/helpers/throttle-fetch'
 import { mapExtendedNftResponse } from '@echo/opensea/mappers/map-extended-nft-response'
 import type { GetNftsByAccountRequest } from '@echo/opensea/types/request/get-nfts-by-account-request'
-import type { WithFetchRequest } from '@echo/opensea/types/request/with-fetch-request'
-import type { GetNftResponse } from '@echo/opensea/types/response/get-nft-response'
 import type { GetNftsByAccountResponse } from '@echo/opensea/types/response/get-nfts-by-account-response'
 import type { NftExtendedResponse } from '@echo/opensea/types/response/nft-extended-response'
 import type { NftResponse } from '@echo/opensea/types/response/nft-response'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { promiseAll } from '@echo/utils/fp/promise-all'
-import type { ChainName } from '@echo/utils/types/chain-name'
-import type { HexString } from '@echo/utils/types/hex-string'
 import { stringify } from 'qs'
-import {
-  always,
-  andThen,
-  applySpec,
-  assoc,
-  concat,
-  filter,
-  map,
-  modify,
-  partialRight,
-  pick,
-  pipe,
-  prop,
-  propEq,
-  reject,
-  toLower
-} from 'ramda'
-
-interface FetchNftRequest extends WithFetchRequest {
-  contract: HexString
-  chain: ChainName
-  identifier: string
-}
+import { andThen, assoc, concat, filter, map, partialRight, pick, pipe, propEq, reject } from 'ramda'
 
 export type GetNftsByAccountArgs = Omit<GetNftsByAccountRequest, 'limit' | 'next'>
-
-async function fetchNft(args: FetchNftRequest) {
-  const { contract, chain, fetch, identifier } = args
-  const response = await throttleFetch({
-    fetch,
-    url: `${BASE_URL}/chain/${chain}/contract/${contract}/nfts/${identifier}`
-  })
-  if (!response.ok) {
-    throw Error(`error fetching NFT #${identifier} for contract ${contract} on chain ${chain}: ${response.statusText}`)
-  }
-  return pipe(parseFetchResponse<GetNftResponse>, andThen(prop('nft')))(response)
-}
 
 async function fetchNftsByAccount(args: GetNftsByAccountRequest): Promise<GetNftsByAccountResponse> {
   const { address, chain, fetch } = args
@@ -95,16 +57,5 @@ async function handlePaging(
 }
 
 export async function getNftsByAccount(args: GetNftsByAccountArgs) {
-  return pipe(
-    assoc('limit', 200),
-    partialRight(handlePaging, [[]]),
-    andThen(
-      map(
-        pipe(
-          modify('contract', applySpec<Contract>({ address: toLower, chain: always(args.chain) })),
-          mapExtendedNftResponse
-        )
-      )
-    )
-  )(args)
+  return pipe(assoc('limit', 200), partialRight(handlePaging, [[]]), andThen(map(mapExtendedNftResponse)))(args)
 }

@@ -1,5 +1,9 @@
+import { cleanEventPayload } from '@echo/opensea-stream/helpers/clean-event-payload'
+import { processFromTransfer } from '@echo/opensea-stream/helpers/process-from-transfer'
+import { processSwapTransfer } from '@echo/opensea-stream/helpers/process-swap-transfer'
+import { processToTransfer } from '@echo/opensea-stream/helpers/process-to-transfer'
 import { OpenSeaStreamClient } from '@opensea/stream-js'
-import { pick } from 'ramda'
+import { isNil } from 'ramda'
 import { WebSocket } from 'ws'
 
 class InMemoryStorage {
@@ -29,11 +33,23 @@ const client = new OpenSeaStreamClient({
     transport: WebSocket
   }
 })
-client.onItemTransferred('*', (event) => {
-  // handle event
-  if (event.payload.chain === 'blast') {
-    const strippedEvent = pick(['collection', 'from_account', 'to_account', 'item'], event.payload)
-    console.log(`item transferred: ${JSON.stringify(strippedEvent, undefined, 4)}`)
+client.onItemTransferred('*', async (event) => {
+  const { payload } = event
+  const cleanedData = await cleanEventPayload(payload)
+  // If data is nil, no need to do anything
+  if (isNil(cleanedData)) {
+    return
+  }
+
+  const { from, to, nftIndex } = cleanedData
+
+  // Process event
+  if (isNil(to)) {
+    await processFromTransfer(nftIndex)
+  } else if (isNil(from)) {
+    await processToTransfer(to, nftIndex)
+  } else {
+    await processSwapTransfer(to, nftIndex)
   }
 })
 

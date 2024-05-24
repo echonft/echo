@@ -1,7 +1,7 @@
 import { addCollection } from '@echo/firestore/crud/collection/add-collection'
+import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
 import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
 import { assertCollections } from '@echo/firestore-test/collection/assert-collections'
-import { deleteCollection } from '@echo/firestore-test/collection/delete-collection'
 import { assertCollectionSwapsCounts } from '@echo/firestore-test/collection-swaps-count/assert-collection-swaps-counts'
 import { deleteCollectionSwapsCount } from '@echo/firestore-test/collection-swaps-count/delete-collection-swaps-count'
 import { getCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-id'

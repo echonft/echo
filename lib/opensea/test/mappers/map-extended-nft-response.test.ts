@@ -1,7 +1,8 @@
 import { COLLECTION_MOCK_SPIRAL_SLUG } from '@echo/model-mocks/collection/collection-mock'
 import { getNftMockById } from '@echo/model-mocks/nft/get-nft-mock-by-id'
 import { NFT_MOCK_SPIRAL_JOHNNY_ID } from '@echo/model-mocks/nft/nft-mock'
-import { mapExtendedNftResponse, type MapNftResponseArgs } from '@echo/opensea/mappers/map-extended-nft-response'
+import { mapExtendedNftResponse } from '@echo/opensea/mappers/map-extended-nft-response'
+import type { NftExtendedResponse } from '@echo/opensea/types/response/nft-extended-response'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, omit, pipe } from 'ramda'
 
@@ -9,20 +10,20 @@ describe('mappers - mapExtendedNftResponse', () => {
   const nftMock = getNftMockById(NFT_MOCK_SPIRAL_JOHNNY_ID)
 
   it('no undefined values', () => {
-    const response: MapNftResponseArgs = {
+    const response: NftExtendedResponse = {
       identifier: nftMock.tokenId.toString(),
       collection: COLLECTION_MOCK_SPIRAL_SLUG,
-      contract: nftMock.collection.contract,
+      contract: nftMock.collection.contract.address,
       token_standard: 'erc721',
       name: nftMock.name,
       description: 'whatever',
       image_url: nftMock.pictureUrl,
-      metadata_url: 'HTTPS://metadata.url/',
-      opensea_url: 'HTTPS://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
+      metadata_url: nftMock.metadataUrl,
+      opensea_url: 'https://opensea.io/assets/ethereum/0x320e2fa93a4010ba47edcde762802374bac8d3f7/1376',
       updated_at: 'whatever',
       is_disabled: false,
       is_nsfw: false,
-      animation_url: 'HTTPS://animation.url/',
+      animation_url: nftMock.animationUrl,
       is_suspicious: false,
       creator: 'whatever',
       traits: [
@@ -39,16 +40,16 @@ describe('mappers - mapExtendedNftResponse', () => {
     }
     const nft: ReturnType<typeof mapExtendedNftResponse> = pipe(
       omit(['collection', 'owner', 'updatedAt']),
-      assoc('collection', { contract: nftMock.collection.contract, slug: nftMock.collection.slug })
+      assoc('collection', { slug: nftMock.collection.slug })
     )(nftMock)
     expect(mapExtendedNftResponse(response)).toStrictEqual(nft)
   })
 
   it('with undefined values', () => {
-    const response: MapNftResponseArgs = {
+    const response: NftExtendedResponse = {
       identifier: nftMock.tokenId.toString(),
       collection: COLLECTION_MOCK_SPIRAL_SLUG,
-      contract: nftMock.collection.contract,
+      contract: nftMock.collection.contract.address,
       token_standard: 'erc721',
       name: nftMock.name,
       description: 'whatever',
@@ -75,7 +76,7 @@ describe('mappers - mapExtendedNftResponse', () => {
     }
     const nft: ReturnType<typeof mapExtendedNftResponse> = pipe(
       omit(['collection', 'owner', 'updatedAt']),
-      assoc('collection', { contract: nftMock.collection.contract, slug: nftMock.collection.slug }),
+      assoc('collection', { slug: nftMock.collection.slug }),
       assoc('animationUrl', undefined),
       assoc('metadataUrl', undefined),
       assoc('pictureUrl', undefined)
