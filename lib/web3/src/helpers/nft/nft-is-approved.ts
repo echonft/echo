@@ -1,4 +1,5 @@
 import type { Nft } from '@echo/model/types/nft'
+import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import { ECHO_ADDRESS } from '@echo/web3/constants/echo-address'
 import { formatAddress } from '@echo/web3/helpers/format-address'
@@ -12,8 +13,8 @@ export async function nftIsApproved(nft: Nft, logger?: LoggerInterface): Promise
     collection: { contract },
     owner: { wallet }
   } = nft
-  const { chainId } = contract
-  if (contract.chainId !== wallet.chainId) {
+  const chainId = getChainId(contract.chain)
+  if (contract.chain !== wallet.chain) {
     return false
   }
   const client = pipe(getChainById, getViemClient)(chainId)
@@ -25,7 +26,7 @@ export async function nftIsApproved(nft: Nft, logger?: LoggerInterface): Promise
   })
   if (!approved) {
     logger?.warn(
-      `${wallet.address} has not approved echo contract for collection ${nft.collection.slug} (${nft.collection.contract.address})`
+      `${wallet.address} has not approved echo contract for collection ${nft.collection.slug} (${contract.address})`
     )
   }
   return approved

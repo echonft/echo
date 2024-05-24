@@ -6,8 +6,8 @@ export function useAccount(): AccountResult {
   const { getAccount } = useDependencies()
   const [account, setAccount] = useState<AccountResult>({
     address: undefined,
-    chain: undefined,
-    chainId: undefined,
+    chain: 'ethereum',
+    chainId: 1,
     status: 'disconnected'
   })
   // subscribe to account changes

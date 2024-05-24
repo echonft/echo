@@ -1,10 +1,10 @@
 'use client'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
+import { eqNft } from '@echo/model/helpers/nft/eq-nft'
+import { eqNftCollection } from '@echo/model/helpers/nft/eq-nft-collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
-import { withCollectionEquals } from '@echo/ui/comparators/with-collection-equals'
-import { withIdEquals } from '@echo/ui/comparators/with-id-equals'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
 import { StateExpiration } from '@echo/ui/components/base/state-expiration'
@@ -54,7 +54,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
   )
   const unselectSenderNft = useCallback(
     (nft: SelectableNft) => {
-      setSenderSelection(reject(withIdEquals(nft)))
+      setSenderSelection(reject(eqNft(nft)))
     },
     [setSenderSelection]
   )
@@ -63,9 +63,9 @@ export const CreateOffer: FunctionComponent<Props> = ({
       pipe<[SelectableNft[]], SelectableNft[], SelectableNft[]>(
         unless<SelectableNft[], SelectableNft[]>(
           always(isEmpty(senderSelection)),
-          filter(isInWith<SelectableNft>(senderSelection, withCollectionEquals))
+          filter(isInWith<SelectableNft>(senderSelection, eqNftCollection))
         ),
-        reject(isInWith(senderSelection, withIdEquals))
+        reject(isInWith(senderSelection, eqNft))
       )(senderNfts),
     [senderSelection, senderNfts]
   )

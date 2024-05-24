@@ -1,4 +1,4 @@
-import { findCollectionBySlug } from '@echo/firestore/crud/collection/find-collection-by-slug'
+import { getCollection } from '@echo/firestore/crud/collection/get-collection'
 import { withLocale } from '@echo/frontend/lib/decorators/with-locale'
 import { withUser } from '@echo/frontend/lib/decorators/with-user'
 import type { NextLayoutParams } from '@echo/frontend/lib/types/next-layout-params'
@@ -13,8 +13,9 @@ import { isNil, pipe } from 'ramda'
 import type { ReactElement } from 'react'
 
 type Params = NextUserParams<NextLayoutParams<NextParams<WithSlug>>>
+
 async function render({ params: { slug }, user, children }: Params) {
-  const collection = await findCollectionBySlug(slug)
+  const collection = await getCollection(slug)
   if (isNil(collection)) {
     notFound()
   }

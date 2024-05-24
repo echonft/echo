@@ -1,11 +1,9 @@
-import type { WithId } from '@echo/model/types/with-id'
-
 export interface CollectionDiscordGuildData {
   channelId: string
-  discordId: string
+  id: string
 }
 
-export interface CollectionDiscordGuild extends WithId {
+export interface CollectionDiscordGuild {
   collectionId: string
   guild: CollectionDiscordGuildData
 }

@@ -1,15 +1,17 @@
 import { querySnapshotIsEmpty } from '@echo/firestore/helpers/crud/query/query-snapshot-is-empty'
-import { DocumentSnapshot, QuerySnapshot } from 'firebase-admin/firestore'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { QueryDocumentSnapshot, QuerySnapshot } from 'firebase-admin/firestore'
 import { head } from 'ramda'
 
 export function getQuerySnapshotUniqueDocumentSnapshot<T>(
   querySnapshot: QuerySnapshot<T>
-): DocumentSnapshot<T> | undefined {
+): Nullable<QueryDocumentSnapshot<T>> {
   if (querySnapshotIsEmpty(querySnapshot)) {
     return undefined
   }
-  if (querySnapshot.docs.length > 1) {
+  const docs = querySnapshot.docs
+  if (docs.length > 1) {
     throw Error('query snapshot has more than 1 document')
   }
-  return head(querySnapshot.docs)
+  return head(docs)
 }

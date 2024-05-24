@@ -1,43 +1,30 @@
 import { type ApiRequest } from '@echo/api/types/api-request'
-import { type AcceptOfferRequest } from '@echo/api/types/requests/accept-offer-request'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
-import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import { findUserByUsername } from '@echo/firestore/crud/user/find-user-by-username'
+import { getOffer } from '@echo/firestore/crud/offer/get-offer'
+import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
-import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
+import { guardAsyncFn } from '@echo/frontend/lib/helpers/error/guard'
 import { assertOffer } from '@echo/frontend/lib/helpers/offer/assert/assert-offer'
 import { assertOfferReceiverIs } from '@echo/frontend/lib/helpers/offer/assert/assert-offer-receiver-is'
 import { assertOfferState } from '@echo/frontend/lib/helpers/offer/assert/assert-offer-state'
 import { assertUserExists } from '@echo/frontend/lib/helpers/user/assert/assert-user-exists'
-import { acceptOfferSchema } from '@echo/frontend/lib/validators/accept-offer-schema'
 import { OFFER_STATE_ACCEPTED } from '@echo/model/constants/offer-states'
 import type { AuthUser } from '@echo/model/types/auth-user'
+import type { WithSlug } from '@echo/model/types/with-slug'
 import { NextResponse } from 'next/server'
 
-export async function acceptOfferRequestHandler(
-  user: AuthUser,
-  req: ApiRequest<AcceptOfferRequest>,
-  params: { id: string }
-) {
-  const { id } = params
-  const requestBody = await guardAsyncFn(
-    (req: ApiRequest<AcceptOfferRequest>) => req.json(),
-    ErrorStatus.BAD_REQUEST
-  )(req)
-  const { signature } = guardFn(
-    (requestBody) => acceptOfferSchema.parse(requestBody),
-    ErrorStatus.BAD_REQUEST
-  )(requestBody)
-  const offer = await guardAsyncFn(findOfferById, ErrorStatus.SERVER_ERROR)(id)
+export async function acceptOfferRequestHandler(user: AuthUser, _req: ApiRequest<never>, params: WithSlug) {
+  const { slug } = params
+  const offer = await guardAsyncFn(getOffer, ErrorStatus.SERVER_ERROR)(slug)
   assertOffer(offer)
   assertOfferState(offer, OFFER_STATE_ACCEPTED)
   assertOfferReceiverIs(offer, user.username)
-  const foundUser = await guardAsyncFn(findUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
+  const foundUser = await guardAsyncFn(getUserByUsername, ErrorStatus.SERVER_ERROR)(user.username)
   assertUserExists(foundUser, user.username)
   const updatedOffer = await guardAsyncFn(
     acceptOffer,
     ErrorStatus.SERVER_ERROR
-  )({ offerId: id, userId: foundUser.id, signature, updateArgs: { trigger: { by: user.username } } })
+  )({ slug, updateArgs: { trigger: { by: user.username } } })
   return NextResponse.json<OfferResponse>({ offer: updatedOffer })
 }

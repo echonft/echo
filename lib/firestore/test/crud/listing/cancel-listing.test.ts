@@ -1,5 +1,5 @@
 import { cancelListing } from '@echo/firestore/crud/listing/cancel-listing'
-import { findListingById } from '@echo/firestore/crud/listing/find-listing-by-id'
+import { getListingById } from '@echo/firestore/crud/listing/get-listing-by-id'
 import { assertListings } from '@echo/firestore-test/listing/assert-listings'
 import { unchecked_updateListing } from '@echo/firestore-test/listing/unchecked_update-listing'
 import {
@@ -9,6 +9,7 @@ import {
   LISTING_STATE_OPEN
 } from '@echo/model/constants/listing-states'
 import { type ListingState } from '@echo/model/types/listing-state'
+import { LISTING_MOCK_ID, LISTING_MOCK_SLUG } from '@echo/model-mocks/listing/listing-mock'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
 import dayjs from 'dayjs'
@@ -17,7 +18,8 @@ describe('CRUD - listing - cancelListing', () => {
   let initialState: ListingState
   let initialExpiresAt: number
   let initialUpdatedAt: number
-  const listingId = 'jUzMtPGKM62mMhEcmbN4'
+  const listingId = LISTING_MOCK_ID
+  const listingSlug = LISTING_MOCK_SLUG
 
   beforeAll(async () => {
     await assertListings()
@@ -26,7 +28,7 @@ describe('CRUD - listing - cancelListing', () => {
     await assertListings()
   })
   beforeEach(async () => {
-    const listing = (await findListingById(listingId))!
+    const listing = (await getListingById(listingId))!
     initialState = listing.state
     initialExpiresAt = listing.expiresAt
     initialUpdatedAt = listing.updatedAt
@@ -64,9 +66,12 @@ describe('CRUD - listing - cancelListing', () => {
     await expect(cancelListing(listingId)).rejects.toBeDefined()
   })
   it('cancel listing if its not expired and in the right state', async () => {
-    await unchecked_updateListing(listingId, { state: LISTING_STATE_OPEN, expiresAt: dayjs().add(1, 'day').unix() })
-    await cancelListing(listingId)
-    const updatedListing = (await findListingById(listingId))!
+    await unchecked_updateListing(listingId, {
+      state: LISTING_STATE_OPEN,
+      expiresAt: dayjs().add(1, 'day').unix()
+    })
+    await cancelListing(listingSlug)
+    const updatedListing = (await getListingById(listingId))!
     expect(updatedListing.state).toEqual(LISTING_STATE_CANCELLED)
     expectDateNumberIsNow(updatedListing.updatedAt)
   })

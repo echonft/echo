@@ -1,10 +1,9 @@
-import { acceptOffer, type AcceptOfferArgs } from '@echo/firestore/crud/offer/accept-offer'
-import { findOfferById } from '@echo/firestore/crud/offer/find-offer-by-id'
-import { findOfferSignature } from '@echo/firestore/crud/offer-signature/find-offer-signature'
-import { findOfferStateUpdate } from '@echo/firestore/crud/offer-update/find-offer-state-update'
+import { acceptOffer } from '@echo/firestore/crud/offer/accept-offer'
+import { getOfferSnapshot } from '@echo/firestore/crud/offer/get-offer'
+import type { UpdateOfferStateArgs } from '@echo/firestore/crud/offer/update-offer-state'
+import { getOfferStateUpdateSnapshot } from '@echo/firestore/crud/offer-update/get-offer-state-update'
 import { assertOffers } from '@echo/firestore-test/offer/assert-offers'
 import { unchecked_updateOffer } from '@echo/firestore-test/offer/unchecked_update-offer'
-import { deleteOfferSignature } from '@echo/firestore-test/offer-signature/delete-offer-signature'
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
 import {
   OFFER_STATE_ACCEPTED,
@@ -14,28 +13,26 @@ import {
   OFFER_STATE_OPEN,
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
-import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { getOfferMockBySlug } from '@echo/model-mocks/offer/get-offer-mock-by-slug'
+import { OFFER_MOCK_TO_JOHNNYCAGE_SLUG } from '@echo/model-mocks/offer/offer-mock'
+import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
+import { futureDate } from '@echo/utils/helpers/future-date'
+import { pastDate } from '@echo/utils/helpers/past-date'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { expectDateNumberIsNow } from '@echo/utils-test/expect-date-number-is-now'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
-import dayjs from 'dayjs'
-import { assoc, isNil, omit, pipe } from 'ramda'
+import { assoc, isNil, pipe } from 'ramda'
 
 describe('CRUD - offer - acceptOffer', () => {
-  let createdOfferSignatureId: Nullable<string>
   let createdStateUpdateId: Nullable<string>
-  const pastDate = dayjs().subtract(1, 'day').unix()
-  const futureDate = dayjs().add(1, 'day').unix()
-  const args: AcceptOfferArgs = {
-    offerId: 'LyCfl6Eg7JKuD7XJ6IPi',
-    userId: 'oE6yUEQBPn7PZ89yMjKn',
-    signature:
-      '0x4d374b2212ea29483f6aba22a36bd9706fa410aa20e9954e39e407fd8018370a2315258d336fafca5c5a826dd992a91bca81e1d920d4bcc4bceee95b26682c7e1b',
+  const slug = OFFER_MOCK_TO_JOHNNYCAGE_SLUG
+  const args: Omit<UpdateOfferStateArgs, 'state'> = {
+    slug,
     updateArgs: {
       trigger: {
-        by: 'johnnycagewins'
+        by: USER_MOCK_JOHNNY_USERNAME
       }
     }
   }
@@ -47,16 +44,14 @@ describe('CRUD - offer - acceptOffer', () => {
     await assertOffers()
   })
   beforeEach(() => {
-    createdOfferSignatureId = undefined
+    createdStateUpdateId = undefined
   })
   afterEach(async () => {
-    await unchecked_updateOffer(args.offerId, omit(['id'], getOfferMockById(args.offerId)))
-    if (!isNil(createdOfferSignatureId)) {
-      try {
-        await deleteOfferSignature(createdOfferSignatureId)
-      } catch (e) {
-        pinoLogger.error(`Error deleting offer signature with id ${createdOfferSignatureId}: ${errorMessage(e)}`)
-      }
+    // reset the offer to its original state
+    try {
+      await unchecked_updateOffer(slug, getOfferMockBySlug(slug))
+    } catch (e) {
+      throw Error(`error updating offer with slug ${slug} to its original state: ${errorMessage(e)}`)
     }
     if (!isNil(createdStateUpdateId)) {
       try {
@@ -68,30 +63,30 @@ describe('CRUD - offer - acceptOffer', () => {
   })
 
   it('throws if the offer is not found', async () => {
-    await expect(pipe(assoc('offerId', 'not-found'), acceptOffer)(args)).rejects.toBeDefined()
+    await expect(pipe(assoc('slug', 'not-found'), acceptOffer)(args)).rejects.toBeDefined()
   })
   it('throws if the offer is expired', async () => {
-    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_EXPIRED, expiresAt: pastDate })
+    await unchecked_updateOffer(slug, { state: OFFER_STATE_EXPIRED, expiresAt: pastDate() })
     await expect(acceptOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is cancelled', async () => {
-    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_CANCELLED, expiresAt: futureDate })
+    await unchecked_updateOffer(slug, { state: OFFER_STATE_CANCELLED, expiresAt: futureDate() })
     await expect(acceptOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is accepted', async () => {
-    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate })
+    await unchecked_updateOffer(slug, { state: OFFER_STATE_ACCEPTED, expiresAt: futureDate() })
     await expect(acceptOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is rejected', async () => {
-    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_REJECTED, expiresAt: futureDate })
+    await unchecked_updateOffer(slug, { state: OFFER_STATE_REJECTED, expiresAt: futureDate() })
     await expect(acceptOffer(args)).rejects.toBeDefined()
   })
   it('throws if the offer is completed', async () => {
-    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_COMPLETED, expiresAt: futureDate })
+    await unchecked_updateOffer(slug, { state: OFFER_STATE_COMPLETED, expiresAt: futureDate() })
     await expect(acceptOffer(args)).rejects.toBeDefined()
   })
   it('throws if the state update by trigger is not the receiver', async () => {
-    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_OPEN, expiresAt: futureDate })
+    await unchecked_updateOffer(slug, { state: OFFER_STATE_OPEN, expiresAt: futureDate() })
     await expect(
       pipe(
         assoc('updateArgs', {
@@ -104,16 +99,17 @@ describe('CRUD - offer - acceptOffer', () => {
     ).rejects.toBeDefined()
   })
   it('accept offer', async () => {
-    await unchecked_updateOffer(args.offerId, { state: OFFER_STATE_OPEN, expiresAt: futureDate })
+    await unchecked_updateOffer(slug, { state: OFFER_STATE_OPEN, expiresAt: futureDate() })
     await acceptOffer(args)
-    const updatedOffer = (await findOfferById(args.offerId))!
-    const createdOfferSignature = (await findOfferSignature(args.offerId))!
-    createdOfferSignatureId = createdOfferSignature.id
-    const createdStateUpdate = (await findOfferStateUpdate(args.offerId, OFFER_STATE_ACCEPTED))!
-    createdStateUpdateId = createdStateUpdate.id
+    const offerSnapshot = (await getOfferSnapshot(slug))!
+    const updatedOffer = offerSnapshot.data()
+    const stateUpdateSnapshot = (await getOfferStateUpdateSnapshot({
+      offerId: offerSnapshot.id,
+      state: OFFER_STATE_ACCEPTED
+    }))!
+    createdStateUpdateId = stateUpdateSnapshot.id
     expect(updatedOffer.state).toEqual(OFFER_STATE_ACCEPTED)
     expectDateNumberIsNow(updatedOffer.updatedAt)
-    expect(createdOfferSignature).toBeDefined()
-    expect(createdStateUpdate).toBeDefined()
+    expect(stateUpdateSnapshot).toBeDefined()
   })
 })

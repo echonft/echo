@@ -1,12 +1,10 @@
-import type { WithId } from '@echo/model/types/with-id'
-
 export interface OfferThreadDiscordGuild {
-  discordId: string
   channelId: string
+  id: string
   threadId: string
 }
 
-export interface OfferThread extends WithId {
+export interface OfferThread {
   offerId: string
   guild: OfferThreadDiscordGuild
   postedAt: number

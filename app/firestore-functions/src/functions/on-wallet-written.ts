@@ -1,4 +1,4 @@
-import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
+import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
 import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import type { WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
 import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instances'
@@ -20,10 +20,10 @@ export const onWalletWritten = onDocumentWritten(setMaxInstances({ document: 'wa
       if (!isNil(wallet)) {
         logger.info(`wallet ${JSON.stringify(wallet)} was added`)
         try {
-          const foundUser = await findUserById(wallet.userId)
+          const foundUser = await getUserById(wallet.userId)
           if (!isNil(foundUser)) {
             try {
-              await updateUserNfts(foundUser, logger)
+              await updateUserNfts(foundUser, wallet, logger)
             } catch (e) {
               logger.error(`error upating user ${wallet.userId} NFTs: ${errorMessage(e)}`)
             }
@@ -40,7 +40,7 @@ export const onWalletWritten = onDocumentWritten(setMaxInstances({ document: 'wa
         try {
           await removeNftsForWallet(wallet)
         } catch (e) {
-          logger.error(`error removing NFTs for wallet ${wallet.id}: ${errorMessage(e)}`)
+          logger.error(`error removing NFTs for wallet ${wallet.address}: ${errorMessage(e)}`)
         }
       }
     }

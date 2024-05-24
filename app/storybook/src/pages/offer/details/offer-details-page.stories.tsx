@@ -12,6 +12,8 @@ import type { OfferRole } from '@echo/model/types/offer-role'
 import type { OfferState } from '@echo/model/types/offer-state'
 import { getAuthUserMockByUsername } from '@echo/model-mocks/auth-user/auth-user-mock'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { expiredDate } from '@echo/storybook/mocks/expired-date'
 import { notExpiredDate } from '@echo/storybook/mocks/not-expired-date'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
@@ -63,19 +65,23 @@ export const Page: StoryObj<ComponentType> = {
       }
       return pipe<[Offer], Offer, Offer>(assoc('expiresAt', notExpiredDate()), assoc('readOnly', false))(offer)
     }
+
     function setRole(offer: Offer): OfferWithRole {
       if (role === 'Sender') {
         return assoc<OfferRole, Offer, 'role'>('role', OFFER_ROLE_SENDER, offer)
       }
       return assoc<OfferRole, Offer, 'role'>('role', OFFER_ROLE_RECEIVER, offer)
     }
+
     const renderedOffer = pipe<[string], Offer, Offer, Offer, OfferWithRole>(
       getOfferMockById,
       assoc('state', state),
       setExpirationAndReadOnly,
       setRole
-    )('LyCfl6Eg7JKuD7XJ6IPi')
-    const user = getAuthUserMockByUsername(isOfferRoleSender(renderedOffer) ? 'crewnft_' : 'johnnycagewins')
+    )(OFFER_MOCK_TO_JOHNNYCAGE_ID)
+    const user = getAuthUserMockByUsername(
+      isOfferRoleSender(renderedOffer) ? USER_MOCK_CREW_USERNAME : USER_MOCK_JOHNNY_USERNAME
+    )
     return (
       <PageLayout user={user} background={getOfferPageLayoutBackground(renderedOffer)} excludeProviders={true}>
         <PaddedSectionLayout>

@@ -20,7 +20,7 @@ export const CollectionDetailsDescription: FunctionComponent<Pick<Collection, 'd
     <PaddedContainer>
       <div className={clsx('flex', 'flex-row', 'self-stretch', 'w-full', 'pt-8')}>
         <div className={clsx('prose-header-xs', 'text-white/60', 'w-[37rem]')}>
-          <Markdown renderer={renderer} value={description} />
+          <Markdown renderer={renderer} value={description ?? undefined} />
         </div>
       </div>
     </PaddedContainer>

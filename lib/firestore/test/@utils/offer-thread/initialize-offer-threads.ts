@@ -1,10 +1,6 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { offerThreadMock } from '@echo/firestore-mocks/offer-thread/offer-thread-mock'
+import { initializeFirestoreCollection } from '@echo/firestore-test/initialize-firestore-collection'
 
 export async function initializeOfferThreads() {
-  const mocks = Object.values(offerThreadMock)
-  for (const mock of mocks) {
-    await firestoreApp().collection(CollectionReferenceName.OFFER_THREADS).doc(mock.id).set(mock)
-  }
+  await initializeFirestoreCollection(CollectionReferenceName.OFFER_THREADS)
 }

@@ -1,5 +1,7 @@
 import { getOffersForSender } from '@echo/firestore/crud/offer/get-offers-for-sender'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { OFFER_MOCK_FROM_JOHNNYCAGE_ID, OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import { USER_MOCK_CREW_USERNAME, USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { describe, expect, it } from '@jest/globals'
 
 describe('CRUD - offer - getOffersForSender', () => {
@@ -8,11 +10,11 @@ describe('CRUD - offer - getOffersForSender', () => {
     expect(documents).toEqual([])
   })
   it('returns the offers for the sender', async () => {
-    let documents = await getOffersForSender('crewnft_')
+    let documents = await getOffersForSender(USER_MOCK_CREW_USERNAME)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi'))
-    documents = await getOffersForSender('johnnycagewins')
+    expect(documents[0]).toStrictEqual(getOfferMockById(OFFER_MOCK_TO_JOHNNYCAGE_ID))
+    documents = await getOffersForSender(USER_MOCK_JOHNNY_USERNAME)
     expect(documents.length).toBe(1)
-    expect(documents[0]).toStrictEqual(getOfferMockById('ASkFpKoHEHVH0gd69t1G'))
+    expect(documents[0]).toStrictEqual(getOfferMockById(OFFER_MOCK_FROM_JOHNNYCAGE_ID))
   })
 })

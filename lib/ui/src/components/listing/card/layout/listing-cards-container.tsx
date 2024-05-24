@@ -13,7 +13,7 @@ export const ListingCardsContainer: FunctionComponent<Props> = ({ listings, opti
     <CardsLayout>
       {map(
         (listing) => (
-          <ListingCard key={listing.id} listing={listing} options={options} />
+          <ListingCard key={listing.slug} listing={listing} options={options} />
         ),
         listings
       )}

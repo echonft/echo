@@ -12,7 +12,7 @@ export const ConnectWalletButton: FunctionComponent<{ onClick?: MouseEventHandle
   const [connected, setConnected] = useState(false)
 
   if (connected && !isNil(account.address) && !isNil(account.chainId)) {
-    return <WalletConnectedTag address={account.address} chainId={account.chainId} />
+    return <WalletConnectedTag address={account.address} chain={account.chain} />
   }
   if (account.status === 'connected') {
     return <WalletButtonConnecting account={account} onConnected={pipe(T, setConnected)} />

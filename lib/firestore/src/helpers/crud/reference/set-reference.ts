@@ -1,19 +1,13 @@
 import { getNewReference } from '@echo/firestore/helpers/crud/reference/get-new-reference'
-import type { WithId } from '@echo/model/types/with-id'
-import type { CollectionReference, DocumentReference } from 'firebase-admin/firestore'
-import { assoc, pipe } from 'ramda'
+import type { CollectionReference } from 'firebase-admin/firestore'
 
-export function setReference<T extends WithId>(
-  data: Omit<T, 'id'>
-): (collectionReference: CollectionReference<T>) => Promise<T> {
-  return function (collectionReference: CollectionReference<T>): Promise<T> {
-    return pipe<[CollectionReference<T>], DocumentReference<T>, Promise<T>>(
-      getNewReference,
-      async (ref: DocumentReference<T>) => {
-        const obj = assoc('id', ref.id, data) as T
-        await ref.set(obj)
-        return obj
-      }
-    )(collectionReference)
-  }
+export interface SetReferenceArgs<T> {
+  collectionReference: CollectionReference<T>
+  data: T
+}
+
+export async function setReference<T>(args: SetReferenceArgs<T>): Promise<string> {
+  const ref = getNewReference(args.collectionReference)
+  await ref.set(args.data)
+  return ref.id
 }

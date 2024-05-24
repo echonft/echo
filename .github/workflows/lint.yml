@@ -51,6 +51,14 @@ jobs:
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: pnpm exec turbo run lint:ci --filter=@echo/model
+      - name: opensea lint
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
+        run: pnpm exec turbo run lint:ci --filter=@echo/opensea
+      - name: opensea-stream lint
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
+        run: pnpm exec turbo run lint:ci --filter=@echo/opensea-stream
       - name: sentry lint
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"

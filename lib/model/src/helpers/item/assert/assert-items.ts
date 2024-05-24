@@ -1,74 +1,38 @@
-import type { Collection } from '@echo/model/types/collection'
-import type { Item } from '@echo/model/types/item'
+import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Nft } from '@echo/model/types/nft'
+import type { NftIndex } from '@echo/model/types/nft-index'
 import type { User } from '@echo/model/types/user'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
-import { pathIsNil } from '@echo/utils/fp/path-is-nil'
-import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
-import { complement, eqProps, equals, forEach, isEmpty, length, map, path, pipe, prop, uniqWith } from 'ramda'
+import { complement, dissoc, equals, isEmpty, length, map, pipe, prop, uniq } from 'ramda'
 
 /**
  * Asserts the validity of items
  * @param items
  */
-export function assertItems(items: Item[]): asserts items is NonEmptyArray<Item> {
+export function assertItems(items: Nft[]): asserts items is NonEmptyArray<Nft> {
   if (isEmpty(items)) {
     throw Error('empty items')
   }
-  forEach((item: Item) => {
-    if (propIsNil('nft', item) || pathIsNil(['nft', 'id'], item) || pathIsNil(['nft', 'tokenId'], item)) {
-      throw Error('not every items have an nft with a token id')
-    }
-    if (pathIsNil(['nft', 'collection'], item) || pathIsNil(['nft', 'collection', 'id'], item)) {
-      throw Error('not every items have an nft with a collection')
-    }
-    if (pathIsNil(['nft', 'owner'], item) || pathIsNil(['nft', 'owner', 'wallet'], item)) {
-      throw Error('not every items have an nft with an owner')
-    }
-  }, items)
-  // make sure all items are from the same collection
+  // make sure all items are different
   if (
-    pipe<[Item[]], Collection[], Collection[], number, boolean>(
-      map(nonNullableReturn(path(['nft', 'collection']))),
-      uniqWith(eqProps('id')),
-      length,
-      complement(equals(1))
-    )(items)
-  ) {
-    throw Error('listing items are not all in the same collection')
-  }
-  // make sure all items tokenIds are different
-  if (
-    pipe<[Item[]], Nft[], Nft[], number, boolean>(
-      map(prop('nft')),
-      uniqWith(eqProps('tokenId')),
+    pipe<[Nft[]], NftIndex[], NftIndex[], number, boolean>(
+      map(getNftIndex),
+      uniq,
       length,
       complement(equals(items.length))
     )(items)
   ) {
-    throw Error('some listing items have identical tokenId')
+    throw Error('duplicate items found')
   }
-  // make sure all items ids are different
+  // make sure all items have the same owner
   if (
-    pipe<[Item[]], Nft[], Nft[], number, boolean>(
-      map(prop('nft')),
-      uniqWith(eqProps('id')),
-      length,
-      complement(equals(items.length))
-    )(items)
-  ) {
-    throw Error('some listing items have identical id')
-  }
-  // make sure all items have the same wallet
-  if (
-    pipe<[Item[]], User[], User[], number, boolean>(
-      map(nonNullableReturn(path(['nft', 'owner']))),
-      uniqWith(eqProps('wallet')),
+    pipe<[Nft[]], Omit<User, 'discord'>[], Omit<User, 'discord'>[], number, boolean>(
+      map(pipe(prop('owner'), dissoc('discord'))),
+      uniq,
       length,
       complement(equals(1))
     )(items)
   ) {
-    throw Error('not all listing items are owned by the same wallet')
+    throw Error('not all items have the same owner')
   }
 }

@@ -1,6 +1,6 @@
 'use client'
-import type { Contract } from '@echo/model/types/contract'
-import type { OfferItem } from '@echo/model/types/offer-item'
+import type { Contract } from '@echo/model/types/collection'
+import type { Nft } from '@echo/model/types/nft'
 import { Modal } from '@echo/ui/components/base/modal/modal'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { HideIfNil } from '@echo/ui/components/base/utils/hide-if-nil'
@@ -18,7 +18,7 @@ import { all, assoc, find, isNil, map, pipe, propEq, reject, when } from 'ramda'
 import { type FunctionComponent, useCallback, useState } from 'react'
 
 interface Props {
-  items: OfferItem[]
+  items: Nft[]
   open: boolean
   title: string
   subtitle: string

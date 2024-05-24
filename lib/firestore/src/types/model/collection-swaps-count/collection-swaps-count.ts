@@ -1,6 +1,4 @@
-import type { WithId } from '@echo/model/types/with-id'
-
-export interface CollectionSwapsCount extends WithId {
+export interface CollectionSwapsCount {
   collectionId: string
   swapsCount: number
 }

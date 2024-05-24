@@ -1,13 +1,15 @@
 'use client'
 import type { CancelListingArgs } from '@echo/api/types/fetchers/cancel-listing-args'
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
-import type { ItemRequest } from '@echo/api/types/requests/item-request'
 import type { ListingResponse } from '@echo/api/types/responses/listing-response'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
+import { getListingItemsIndexes } from '@echo/model/helpers/listing/get-listing-items-indexes'
+import { eqNft } from '@echo/model/helpers/nft/eq-nft'
+import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
-import type { ListingItem } from '@echo/model/types/listing-item'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
@@ -38,16 +40,15 @@ import { getSelectionCount } from '@echo/ui/helpers/selectable/get-selection-cou
 import { toggleSelectionInList } from '@echo/ui/helpers/selectable/toggle-selection-in-list'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
-import { mapItemsToRequests } from '@echo/ui/mappers/to-api/map-items-to-requests'
-import { mapNftsToItems } from '@echo/ui/mappers/to-api/map-nfts-to-items'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
+import dayjs from 'dayjs'
 import { useTranslations } from 'next-intl'
-import { assoc, filter, head, isEmpty, length, lte, map, mergeLeft, pipe, prop, propEq } from 'ramda'
+import { assoc, filter, isEmpty, length, lte, map, mergeLeft, pipe, prop } from 'ramda'
 import { type FunctionComponent, useEffect, useState } from 'react'
 
 interface Props {
@@ -98,7 +99,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
   // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onNftToggleSelection = (nft: Nft) => {
-    const updatedNfts = toggleSelectionInList<SelectableNft>(propEq(nft.id, 'id'))(selectableNfts)
+    const updatedNfts = toggleSelectionInList<SelectableNft>(eqNft(nft))(selectableNfts)
     const updatedSelectionCount = getSelectionCount(updatedNfts)
     if (updatedSelectionCount === 0) {
       setSelectableNfts(map(pipe(enable, setSelectableNftActionDisabledPropFromAuthUser(user)), updatedNfts))
@@ -113,9 +114,8 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
   const resetNftSelection = () => {
     setSelectableNfts(toggleSelectionInList<SelectableNft>(pipe(prop('selected'), Boolean))(selectableNfts))
   }
-  const { creator, items, targets } = updatedListing
+  const { creator, items, target } = updatedListing
   // We only allow 1 target per listing atm
-  const target = head(targets)!
   // We allow user to select more NFTs than the target amount if wanted
   const hasSelectedEnoughNfts = pipe<[SelectableNft[]], SelectableNft[], number, boolean>(
     filter(pipe(prop('selected'), Boolean)),
@@ -127,15 +127,13 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
   const isMutating = cancelIsMutating || fillIsMutating
 
   function onFill(listing: Listing) {
-    const senderItems: ItemRequest[] = pipe(
-      filter(pipe(prop('selected'), Boolean)),
-      mapNftsToItems<ListingItem>,
-      mapItemsToRequests
-    )(selectableNfts)
-    const receiverItems: ItemRequest[] = mapItemsToRequests(listing.items)
+    const senderItems = pipe(filter(pipe(prop('selected'), Boolean)), map(getNftIndex))(selectableNfts)
+    const receiverItems = getListingItemsIndexes(listing)
     void triggerFill({
       senderItems,
-      receiverItems
+      receiverItems,
+      // FIXME expiration should be set
+      expiresAt: dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix()
     })
   }
 
@@ -193,7 +191,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
         listing={updatedListing}
         isMutating={isMutating}
         hasSelectedEnoughNfts={hasSelectedEnoughNfts}
-        actions={{ onCancel: (listing) => void triggerCancel({ listingId: listing.id }), onFill: onFill }}
+        actions={{ onCancel: (listing) => void triggerCancel({ slug: listing.slug }), onFill: onFill }}
       />
     </ListingDetailsLayout>
   )

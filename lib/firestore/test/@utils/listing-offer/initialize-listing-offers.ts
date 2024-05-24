@@ -1,10 +1,6 @@
 import { CollectionReferenceName } from '@echo/firestore/constants/collection-reference/collection-reference-name'
-import { firestoreApp } from '@echo/firestore/services/firestore-app'
-import { getAllListingOfferMocks } from '@echo/firestore-mocks/listing-offer/get-all-listing-offer-mocks'
+import { initializeFirestoreCollection } from '@echo/firestore-test/initialize-firestore-collection'
 
 export async function initializeListingOffers() {
-  const mocks = getAllListingOfferMocks()
-  for (const mock of mocks) {
-    await firestoreApp().collection(CollectionReferenceName.LISTING_OFFERS).doc(mock.id).set(mock)
-  }
+  await initializeFirestoreCollection(CollectionReferenceName.LISTING_OFFERS)
 }

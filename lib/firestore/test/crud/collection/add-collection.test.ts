@@ -1,20 +1,21 @@
 import { addCollection } from '@echo/firestore/crud/collection/add-collection'
-import { findCollectionById } from '@echo/firestore/crud/collection/find-collection-by-id'
+import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
+import { getCollectionById } from '@echo/firestore/crud/collection/get-collection-by-id'
 import { assertCollections } from '@echo/firestore-test/collection/assert-collections'
-import { deleteCollection } from '@echo/firestore-test/collection/delete-collection'
 import { assertCollectionSwapsCounts } from '@echo/firestore-test/collection-swaps-count/assert-collection-swaps-counts'
 import { deleteCollectionSwapsCount } from '@echo/firestore-test/collection-swaps-count/delete-collection-swaps-count'
-import { findCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/find-collection-swaps-count-by-collection-id'
+import { getCollectionSwapsCountByCollectionId } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-id'
 import type { Collection } from '@echo/model/types/collection'
+import { COLLECTION_MOCK_PX_ID } from '@echo/model-mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
-import { SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chain-ids'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { afterAll, afterEach, beforeAll, describe, expect, it } from '@jest/globals'
-import { assoc, assocPath, isNil, omit, pipe } from 'ramda'
+import type { Nullable } from '@echo/utils/types/nullable'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'
+import { assoc, assocPath, isNil, pipe } from 'ramda'
 
 describe('CRUD - collection - addCollection', () => {
-  let collectionId: string
-  let addedSwapsCountId: string
+  let collectionId: Nullable<string>
+  let swapsCountId: Nullable<string>
   beforeAll(async () => {
     await assertCollections()
     await assertCollectionSwapsCounts()
@@ -22,6 +23,10 @@ describe('CRUD - collection - addCollection', () => {
   afterAll(async () => {
     await assertCollections()
     await assertCollectionSwapsCounts()
+  })
+  beforeEach(() => {
+    collectionId = undefined
+    swapsCountId = undefined
   })
   afterEach(async () => {
     if (!isNil(collectionId)) {
@@ -31,30 +36,32 @@ describe('CRUD - collection - addCollection', () => {
         throw Error(`error deleting collection ${collectionId}: ${errorMessage(err)}`)
       }
     }
-    if (!isNil(addedSwapsCountId)) {
+    if (!isNil(swapsCountId)) {
       try {
-        await deleteCollectionSwapsCount(addedSwapsCountId)
+        await deleteCollectionSwapsCount(swapsCountId)
       } catch (err) {
-        throw Error(`error deleting collection swaps count ${addedSwapsCountId}: ${errorMessage(err)}`)
+        throw Error(`error deleting collection swaps count ${swapsCountId}: ${errorMessage(err)}`)
       }
     }
   })
 
   it('addCollection', async () => {
-    const originalCollection = omit(['id'], getCollectionMockById('Rc8pLQXxgyQGIRL0fr13'))
-    const collectionToAdd = pipe<[Omit<Collection, 'id'>], Omit<Collection, 'id'>, Omit<Collection, 'id'>>(
+    const originalCollection = getCollectionMockById(COLLECTION_MOCK_PX_ID)
+    const collectionToAdd = pipe<[Collection], Collection, Collection>(
       assoc('slug', 'slug'),
-      assocPath(['contract', 'chainId'], SEPOLIA_CHAIN_ID)
+      assocPath(['contract', 'chain'], 'sepolia')
     )(originalCollection)
-    const addedCollection = await addCollection(collectionToAdd)
-    collectionId = addedCollection.id
-    const collection = (await findCollectionById(collectionId))!
-    const swapsCount = (await findCollectionSwapsCountByCollectionId(collectionId))!
-    addedSwapsCountId = swapsCount.id
-    expect(omit(['id'], collection)).toStrictEqual(collectionToAdd)
-    expect(omit(['id'], swapsCount)).toStrictEqual({
+    const newDocument = await addCollection(collectionToAdd)
+    collectionId = newDocument.id
+    swapsCountId = newDocument.swapsCount.id
+    expect(newDocument.data).toStrictEqual(collectionToAdd)
+    expect(newDocument.swapsCount.data).toStrictEqual({
       collectionId,
       swapsCount: 0
     })
+    const collection = (await getCollectionById(collectionId))!
+    const swapsCount = (await getCollectionSwapsCountByCollectionId(collectionId))!
+    expect(collection).toStrictEqual(newDocument.data)
+    expect(swapsCount).toStrictEqual(newDocument.swapsCount.data)
   })
 })

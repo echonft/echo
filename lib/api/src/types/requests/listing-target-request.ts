@@ -1,6 +1,6 @@
+import type { Collection } from '@echo/model/types/collection'
+
 export interface ListingTargetRequest {
   amount: number
-  collection: {
-    slug: string
-  }
+  collection: Pick<Collection, 'slug'>
 }

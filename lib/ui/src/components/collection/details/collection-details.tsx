@@ -15,10 +15,10 @@ export const CollectionDetails: FunctionComponent<Props> = ({ collection }) => {
     name,
     description,
     profilePictureUrl,
-    twitterUsername,
     discordUrl,
-    websiteUrl,
-    verified
+    twitterUsername,
+    verified,
+    websiteUrl
   } = collection
 
   return (

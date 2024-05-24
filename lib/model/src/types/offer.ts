@@ -1,17 +1,10 @@
-import { type OfferItem } from '@echo/model/types/offer-item'
-import { type OfferState } from '@echo/model/types/offer-state'
-import { type User } from '@echo/model/types/user'
-import type { WithId } from '@echo/model/types/with-id'
+import type { BaseOffer } from '@echo/model/types/base-offer'
+import type { WithSlug } from '@echo/model/types/with-slug'
+import type { HexString } from '@echo/utils/types/hex-string'
 
-export interface Offer extends WithId {
-  id: string
+export interface Offer extends WithSlug, BaseOffer {
   createdAt: number
-  expiresAt: number
   readOnly: boolean
-  receiver: User
-  receiverItems: OfferItem[]
-  sender: User
-  senderItems: OfferItem[]
-  state: OfferState
   updatedAt: number
+  idContract: HexString
 }

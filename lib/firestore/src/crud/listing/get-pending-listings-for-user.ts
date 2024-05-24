@@ -4,22 +4,18 @@ import { getQueriesDocuments } from '@echo/firestore/helpers/crud/query/get-quer
 import { queryOrderBy } from '@echo/firestore/helpers/crud/query/query-order-by'
 import { queryWhere } from '@echo/firestore/helpers/crud/query/query-where'
 import type { ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
+import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
 import { type Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { CollectionReference, Query } from 'firebase-admin/firestore'
-import { andThen, isEmpty, juxt, map, partial, path, pipe, prop, reject, splitEvery, uniq } from 'ramda'
+import { andThen, eqProps, isEmpty, juxt, map, partial, partialRight, pipe, prop, reject, splitEvery } from 'ramda'
 
 export async function getPendingListingsForUser(username: string): Promise<Listing[]> {
   const nfts = await getNftsForOwner(username)
   if (isEmpty(nfts)) {
     return []
   }
-  const collectionIds = pipe<[Nft[]], string[], string[], string[][]>(
-    map<Nft, string>(nonNullableReturn(path<string>(['collection', 'id']))),
-    uniq,
-    splitEvery(30)
-  )(nfts)
+  const collectionSlugs = pipe<[Nft[]], string[], string[][]>(getNftsCollectionSlugs, splitEvery(30))(nfts)
   return pipe<
     [],
     CollectionReference<Listing, ListingDocumentData>,
@@ -34,8 +30,8 @@ export async function getPendingListingsForUser(username: string): Promise<Listi
     queryWhere('creator.username', '!=', username),
     queryOrderBy('creator.username'),
     queryOrderBy('expiresAt', 'desc'),
-    juxt(map(partial(queryWhere<Listing>, ['targetsIds', 'array-contains-any']), collectionIds)),
-    getQueriesDocuments<Listing>,
+    juxt(map(partial(queryWhere<Listing>, ['target.collection.slug', 'in']), collectionSlugs)),
+    partialRight(getQueriesDocuments, [eqProps('slug')]),
     andThen(reject<Listing>(prop('readOnly')))
   )()
 }

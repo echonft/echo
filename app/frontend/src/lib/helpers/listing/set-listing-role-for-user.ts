@@ -1,15 +1,13 @@
 import { setListingRoleCreator } from '@echo/frontend/lib/helpers/listing/set-listing-role-creator'
 import { setListingRoleTarget } from '@echo/frontend/lib/helpers/listing/set-listing-role-target'
 import { setListingRoleUndefined } from '@echo/frontend/lib/helpers/listing/set-listing-role-undefined'
-import { getListingTargetsCollectionIds } from '@echo/model/helpers/listing/get-listing-targets-collection-ids'
+import { getNftsCollectionSlugs } from '@echo/model/helpers/nft/get-nfts-collection-slugs'
 import type { AuthUser } from '@echo/model/types/auth-user'
 import type { Listing } from '@echo/model/types/listing'
 import type { Nft } from '@echo/model/types/nft'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
-import { intersects } from '@echo/utils/fp/intersects'
-import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { isNil, map, path, pipe, uniq } from 'ramda'
+import { any, equals, isNil, pipe } from 'ramda'
 
 export function setListingRoleForUser(user: Nullable<AuthUser>, nfts: Nft[]) {
   return function (listing: Listing): ListingWithRole {
@@ -20,12 +18,7 @@ export function setListingRoleForUser(user: Nullable<AuthUser>, nfts: Nft[]) {
     if (listing.creator.username === username) {
       return setListingRoleCreator(listing)
     }
-    const listingTargets = getListingTargetsCollectionIds(listing)
-    const nftCollections = pipe<[Nft[]], string[], string[]>(
-      map(nonNullableReturn(path(['collection', 'id']))),
-      uniq
-    )(nfts)
-    if (intersects(listingTargets, nftCollections)) {
+    if (pipe<[Nft[]], string[], boolean>(getNftsCollectionSlugs, any(equals(listing.target.collection.slug)))(nfts)) {
       return setListingRoleTarget(listing)
     }
     return setListingRoleUndefined(listing)

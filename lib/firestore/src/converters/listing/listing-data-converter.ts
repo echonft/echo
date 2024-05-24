@@ -1,41 +1,44 @@
-import { getSnapshotData } from '@echo/firestore/helpers/converters/get-snapshot-data'
 import { setReadOnly } from '@echo/firestore/helpers/converters/listing/from-firestore/set-read-only'
 import { lowerCreatorWalletAddress } from '@echo/firestore/helpers/converters/listing/lower-creator-wallet-address'
-import { lowerItemsAddresses } from '@echo/firestore/helpers/converters/listing/lower-items-addresses'
-import { lowerTargetsCollectionAddress } from '@echo/firestore/helpers/converters/listing/lower-targets-collection-address'
-import { addItemsNftCollectionIds } from '@echo/firestore/helpers/converters/listing/to-firestore/add-items-nft-collection-ids'
-import { addItemsNftIds } from '@echo/firestore/helpers/converters/listing/to-firestore/add-items-nft-ids'
-import { addTargetIds } from '@echo/firestore/helpers/converters/listing/to-firestore/add-target-ids'
+import { addItemCollections } from '@echo/firestore/helpers/converters/listing/to-firestore/add-item-collections'
+import { addItemIndexes } from '@echo/firestore/helpers/converters/listing/to-firestore/add-item-indexes'
 import { lowerCreatorWalletAddressIfExists } from '@echo/firestore/helpers/converters/listing/to-firestore/lower-creator-wallet-address-if-exists'
-import { lowerItemsAddressesIfExists } from '@echo/firestore/helpers/converters/listing/to-firestore/lower-items-addresses-if-exists'
-import { lowerTargetsCollectionAddressIfExists } from '@echo/firestore/helpers/converters/listing/to-firestore/lower-targets-collection-address-if-exists'
+import { getDocumentSnapshotData } from '@echo/firestore/helpers/crud/document/get-document-snapshot-data'
 import { type ListingDocumentData } from '@echo/firestore/types/model/listing/listing-document-data'
 import { type Listing } from '@echo/model/types/listing'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { type FirestoreDataConverter, QueryDocumentSnapshot, type WithFieldValue } from 'firebase-admin/firestore'
 import { dissoc, pipe } from 'ramda'
 
 export const listingDataConverter: FirestoreDataConverter<Listing, ListingDocumentData> = {
   fromFirestore(snapshot: QueryDocumentSnapshot<ListingDocumentData>): Listing {
-    return pipe(
-      getSnapshotData<ListingDocumentData>,
-      dissoc('itemsNftIds'),
-      dissoc('itemsNftCollectionIds'),
-      dissoc('targetsIds'),
+    return pipe<
+      [QueryDocumentSnapshot<ListingDocumentData>],
+      ListingDocumentData,
+      ListingDocumentData,
+      Omit<ListingDocumentData, 'itemIndexes'>,
+      Omit<ListingDocumentData, 'itemIndexes' | 'itemCollections'>,
+      Listing
+    >(
+      nonNullableReturn(getDocumentSnapshotData<ListingDocumentData>),
       lowerCreatorWalletAddress,
-      lowerItemsAddresses,
-      lowerTargetsCollectionAddress,
+      dissoc('itemIndexes'),
+      dissoc('itemCollections'),
       setReadOnly
     )(snapshot)
   },
   toFirestore(modelObject: WithFieldValue<Listing>): WithFieldValue<ListingDocumentData> {
-    return pipe(
-      addItemsNftIds,
-      addItemsNftCollectionIds,
-      addTargetIds,
+    return pipe<
+      [WithFieldValue<Listing>],
+      WithFieldValue<Listing>,
+      WithFieldValue<Omit<ListingDocumentData, 'itemIndexes' | 'itemCollections'>>,
+      WithFieldValue<Omit<ListingDocumentData, 'itemCollections'>>,
+      WithFieldValue<ListingDocumentData>
+    >(
       lowerCreatorWalletAddressIfExists,
-      lowerItemsAddressesIfExists,
-      lowerTargetsCollectionAddressIfExists,
-      dissoc('readOnly')
-    )(modelObject) as WithFieldValue<ListingDocumentData>
+      dissoc('readOnly'),
+      addItemIndexes,
+      addItemCollections
+    )(modelObject)
   }
 }

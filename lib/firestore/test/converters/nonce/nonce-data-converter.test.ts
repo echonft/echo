@@ -15,13 +15,11 @@ describe('converters - nonceDataConverter', () => {
   const document: Nonce = {
     expired: false,
     expiresAt,
-    id,
     nonce,
     userId
   }
   const documentData: NonceDocumentData = {
     expiresAt,
-    id,
     nonce,
     userId
   }

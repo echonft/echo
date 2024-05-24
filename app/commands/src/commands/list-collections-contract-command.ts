@@ -1,8 +1,8 @@
 import { getAllCollections } from '@echo/firestore/crud/collection/get-all-collections'
 import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import type { Collection } from '@echo/model/types/collection'
-import { bind, map, pathOr, pick, pipe } from 'ramda'
+import type { Collection, Contract } from '@echo/model/types/collection'
+import { always, bind, ifElse, isNil, map, pick, pipe, prop } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
@@ -43,10 +43,12 @@ function logOutput(collections: Collection[], format?: FormatType): void {
       log
     )(collections)
   } else if (format === 'array') {
-    pipe(map<Collection, string>(pathOr('error', ['contract', 'address'])), log)(collections)
+    pipe(map(pipe(prop('contract'), ifElse(isNil, always('error'), prop('address')))), log)(collections)
   } else {
     for (const collection of collections) {
-      console.log(`${collection.name} => ${collection.contract.address}`)
+      console.log(
+        `${collection.name} => ${pipe<[Collection], Contract, string>(prop('contract'), prop('address'))(collection)}`
+      )
     }
   }
 }

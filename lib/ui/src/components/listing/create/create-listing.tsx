@@ -1,12 +1,11 @@
 'use client'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
+import { eqNft } from '@echo/model/helpers/nft/eq-nft'
+import { eqNftCollection } from '@echo/model/helpers/nft/eq-nft-collection'
 import type { Collection } from '@echo/model/types/collection'
-import type { ListingItem } from '@echo/model/types/listing-item'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { Nft } from '@echo/model/types/nft'
-import { withCollectionEquals } from '@echo/ui/comparators/with-collection-equals'
-import { withIdEquals } from '@echo/ui/comparators/with-id-equals'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { StateExpiration } from '@echo/ui/components/base/state-expiration'
 import { CreateListingButtons } from '@echo/ui/components/listing/create/create-listing-buttons'
@@ -20,7 +19,7 @@ import { isInWith } from '@echo/utils/fp/is-in-with'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
-import { always, append, applySpec, assoc, filter, identity, isEmpty, isNil, map, pipe, reject, unless } from 'ramda'
+import { always, append, assoc, filter, isEmpty, isNil, pipe, reject, unless } from 'ramda'
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 
 interface Props {
@@ -29,7 +28,7 @@ interface Props {
   target: Nullable<Collection>
   loading?: boolean
   onCancel?: VoidFunction
-  onComplete?: (items: ListingItem[], target: ListingTarget) => void
+  onComplete?: (items: Nft[], target: ListingTarget) => void
 }
 
 export const CreateListing: FunctionComponent<Props> = ({
@@ -53,7 +52,7 @@ export const CreateListing: FunctionComponent<Props> = ({
   )
   const unselectItem = useCallback(
     (nft: SelectableNft) => {
-      setItemsSelection(reject(withIdEquals(nft)))
+      setItemsSelection(reject(eqNft(nft)))
     },
     [setItemsSelection]
   )
@@ -62,9 +61,9 @@ export const CreateListing: FunctionComponent<Props> = ({
       pipe<[SelectableNft[]], SelectableNft[], SelectableNft[]>(
         unless<SelectableNft[], SelectableNft[]>(
           always(isEmpty(itemsSelection)),
-          filter(isInWith<SelectableNft>(itemsSelection, withCollectionEquals))
+          filter(isInWith<SelectableNft>(itemsSelection, eqNftCollection))
         ),
-        reject(isInWith(itemsSelection, withIdEquals))
+        reject(isInWith(itemsSelection, eqNft))
       )(creatorNfts),
     [itemsSelection, creatorNfts]
   )
@@ -117,16 +116,7 @@ export const CreateListing: FunctionComponent<Props> = ({
             loading={loading}
             onComplete={() => {
               if (reviewing) {
-                onComplete?.(
-                  map(
-                    applySpec<ListingItem>({
-                      nft: identity,
-                      amount: always(1)
-                    }),
-                    itemsSelection
-                  ),
-                  targetSelection!
-                )
+                onComplete?.(itemsSelection, targetSelection!)
               } else {
                 setReviewing(true)
               }

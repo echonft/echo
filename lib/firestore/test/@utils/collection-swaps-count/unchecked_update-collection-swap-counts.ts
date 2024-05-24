@@ -1,11 +1,20 @@
 import { getCollectionSwapsCountCollectionReference } from '@echo/firestore/helpers/collection-reference/get-collection-swaps-count-collection-reference'
 import { updateReference } from '@echo/firestore/helpers/crud/reference/update-reference'
 import { type CollectionSwapsCount } from '@echo/firestore/types/model/collection-swaps-count/collection-swaps-count'
-import { pipe } from 'ramda'
+import { getCollectionSwapsCountSnapshotByCollectionId } from '@echo/firestore-test/collection-swaps-count/get-collection-swaps-count-by-collection-id'
+import { isNil } from 'ramda'
 
-export function unchecked_updateCollectionSwapCounts(
-  id: string,
-  data: Partial<Omit<CollectionSwapsCount, 'id'>>
+export async function unchecked_updateCollectionSwapCounts(
+  collectionId: string,
+  data: Partial<CollectionSwapsCount>
 ): Promise<CollectionSwapsCount> {
-  return pipe(getCollectionSwapsCountCollectionReference, updateReference<CollectionSwapsCount>(id, data))()
+  const snapshot = await getCollectionSwapsCountSnapshotByCollectionId(collectionId)
+  if (isNil(snapshot)) {
+    throw Error(`CollectionSwapsCount does not exist for collectionId: ${collectionId}`)
+  }
+  return updateReference<CollectionSwapsCount>({
+    collectionReference: getCollectionSwapsCountCollectionReference(),
+    id: snapshot.id,
+    data
+  })
 }

@@ -13,6 +13,7 @@ import { initializeUsers } from '@echo/firestore-test/user/initialize-users'
 import { initializeWallets } from '@echo/firestore-test/wallet/initialize-wallets'
 
 export async function initializeDb() {
+  // TODO iterate through CollectionReferenceName instead
   await initializeListings()
   await initializeListingOffers()
   await initializeListingPosts()

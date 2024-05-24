@@ -4,12 +4,12 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "dotenvx run --env-file=.env.dev -- next build",
+    "build": "source .env.keys; DOTENV_KEY=$DOTENV_KEY_DEV dotenvx run -- next build",
     "build:ci": "next build",
     "clean": "rm -rf .next",
     "deploy:dev": "flyctl deploy --config .fly/fly.dev.toml --dockerfile .fly/Dockerfile",
-    "dev": "dotenvx run --env-file=.env.dev -- next dev",
-    "dev:testnet": "dotenvx run --env-file=.env.testnet -- next dev",
+    "dev": "source .env.keys; DOTENV_KEY=$DOTENV_KEY_DEV dotenvx run -- next dev",
+    "dev:testnet": "source .env.keys; DOTENV_KEY=$DOTENV_KEY_TESTNET dotenvx run -- next dev",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts,.tsx .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts,.tsx .",
     "lint:clean-cache": "rm -f .eslintcache",
@@ -43,7 +43,7 @@
     "zod": "3.22.4"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.27.2",
+    "@dotenvx/dotenvx": "0.38.0",
     "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",

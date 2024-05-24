@@ -1,6 +1,7 @@
-import type { ItemRequest } from '@echo/api/types/requests/item-request'
+import type { NftIndex } from '@echo/model/types/nft-index'
 
 export interface CreateOfferRequest {
-  receiverItems: ItemRequest[]
-  senderItems: ItemRequest[]
+  receiverItems: NftIndex[]
+  senderItems: NftIndex[]
+  expiresAt: number
 }

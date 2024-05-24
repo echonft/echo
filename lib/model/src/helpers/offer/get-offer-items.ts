@@ -1,7 +1,7 @@
+import type { Nft } from '@echo/model/types/nft'
 import { type Offer } from '@echo/model/types/offer'
-import { type OfferItem } from '@echo/model/types/offer-item'
-import { concat, converge, prop } from 'ramda'
+import { concat } from 'ramda'
 
-export function getOfferItems(offer: Offer): OfferItem[] {
-  return converge(concat, [prop('receiverItems'), prop('senderItems')])(offer)
+export function getOfferItems<T extends Pick<Offer, 'receiverItems' | 'senderItems'>>(offer: T): Nft[] {
+  return concat(offer.receiverItems, offer.senderItems)
 }

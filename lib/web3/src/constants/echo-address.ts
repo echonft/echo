@@ -1,15 +1,15 @@
 import { SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chain-ids'
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
+import { getCurrentChainId } from '@echo/utils/helpers/get-current-chain-id'
 import { formatAddress } from '@echo/web3/helpers/format-address'
 import { pipe } from 'ramda'
 
 function echoAddressByChainId(chainId: number) {
   switch (chainId) {
     case SEPOLIA_CHAIN_ID:
-      return { address: '0x29BaDf8271Dc265e85f4399f91996cCD06BFE9FB', chainId }
+      return { address: '0xf7f19bf282a2260940c910F88eC70BbcF51Cf572', chainId }
     default:
       throw Error(`chain ${chainId} not supported`)
   }
 }
 
-export const ECHO_ADDRESS = pipe(getChainId, echoAddressByChainId, formatAddress)()
+export const ECHO_ADDRESS = pipe(getCurrentChainId, echoAddressByChainId, formatAddress)()

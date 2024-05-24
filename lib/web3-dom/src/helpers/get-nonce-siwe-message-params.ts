@@ -1,3 +1,4 @@
+import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { formatAddress } from '@echo/web3/helpers/format-address'
 import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
@@ -14,7 +15,7 @@ export function getNonceSiweMessageParams(args: SignNonceArgs): Partial<SiweMess
     Partial<SiweMessage>
   >(
     assoc('address', formatAddress({ address: args.wallet.address })),
-    assoc('chainId', args.wallet.chainId),
+    assoc('chainId', getChainId(args.wallet.chain)),
     dissoc('wallet'),
     assoc('statement', 'Sign this message to add your wallet to Echo'),
     assoc('version', '1')

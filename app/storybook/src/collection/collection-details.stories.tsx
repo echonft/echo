@@ -47,7 +47,7 @@ export const Details: StoryObj<ComponentType> = {
       // @ts-ignore
       when<Collection, Collection>(always(defaultPicture), dissoc('profilePictureUrl')),
       assoc('verified', verified)
-    )() as Collection
+    )()
     return <CollectionDetails collection={collection} />
   }
 }

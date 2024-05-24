@@ -10,8 +10,8 @@ import {
 import { type Offer } from '@echo/model/types/offer'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 
-export function assertOfferStateUpdateArgs(offer: Offer, args: OfferStateUpdateArgs) {
-  const { id, receiver, sender } = offer
+export function assertOfferStateUpdateArgs(id: string, offer: Offer, args: OfferStateUpdateArgs) {
+  const { receiver, sender } = offer
   const {
     state,
     trigger: { by, reason }

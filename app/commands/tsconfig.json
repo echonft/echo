@@ -17,17 +17,14 @@
       "@echo/commands/*": ["./src/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/opensea/*": ["../../lib/opensea/src/*"],
       "@echo/tasks/*": ["../../lib/tasks/src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"]
     },
     "noEmit": false,
     "sourceMap": true,
-    "inlineSources": true,
-    // Set `sourceRoot` to  "/" to strip the build path prefix
-    // from generated source code references.
-    // This improves issue grouping in Sentry.
-    "sourceRoot": "/"
+    "inlineSources": true
   },
   "include": ["src", "../../env.d.ts"],
   "exclude": ["dist", "node_modules"]

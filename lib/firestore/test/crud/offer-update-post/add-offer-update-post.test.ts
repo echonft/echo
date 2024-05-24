@@ -3,11 +3,13 @@ import {
   type AddOfferStateUpdateArgs
 } from '@echo/firestore/crud/offer-update/add-offer-state-update'
 import { addOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/add-offer-update-post'
-import { findOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/find-offer-update-post'
+import { getOfferUpdatePost } from '@echo/firestore/crud/offer-update-post/get-offer-update-post'
 import { deleteOfferUpdate } from '@echo/firestore-test/offer-update/delete-offer-update'
 import { deleteOfferUpdatePost } from '@echo/firestore-test/offer-update-post/delete-offer-update-post'
 import { unchecked_addOfferUpdatePost } from '@echo/firestore-test/offer-update-post/unchecked_add-offer-update-post'
 import { OFFER_STATE_REJECTED } from '@echo/model/constants/offer-states'
+import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
+import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -17,11 +19,11 @@ import { isNil } from 'ramda'
 
 describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
   const addOfferStateUpdateArgs: AddOfferStateUpdateArgs = {
-    offerId: 'LyCfl6Eg7JKuD7XJ6IPi',
+    offerId: OFFER_MOCK_TO_JOHNNYCAGE_ID,
     args: {
       state: OFFER_STATE_REJECTED,
       trigger: {
-        by: 'johnnycagewins'
+        by: USER_MOCK_JOHNNY_USERNAME
       }
     }
   }
@@ -36,7 +38,6 @@ describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
     if (!isNil(offerUpdateId)) {
       try {
         await deleteOfferUpdate(offerUpdateId)
-        offerUpdateId = undefined
       } catch (e) {
         pinoLogger.error(`Error deleting offer update with id ${offerUpdateId}: ${errorMessage(e)}`)
       }
@@ -44,7 +45,6 @@ describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
     if (!isNil(offerUpdatePostId)) {
       try {
         await deleteOfferUpdatePost(offerUpdatePostId)
-        offerUpdatePostId = undefined
       } catch (e) {
         pinoLogger.error(`Error deleting offer update post with id ${offerUpdatePostId}: ${errorMessage(e)}`)
       }
@@ -63,8 +63,7 @@ describe('CRUD - offer-update-post - addOfferUpdatePost', () => {
     offerUpdateId = id
     const addedOfferUpdatePost = await addOfferUpdatePost(id)
     offerUpdatePostId = addedOfferUpdatePost.id
-    const newDocument = (await findOfferUpdatePost(offerUpdateId))!
-    expect(newDocument.id).toStrictEqual(offerUpdatePostId)
+    const newDocument = (await getOfferUpdatePost(offerUpdateId))!
     expect(newDocument.offerUpdateId).toStrictEqual(offerUpdateId)
     expectDateNumberIsNow(newDocument.postedAt)
   })

@@ -1,5 +1,5 @@
 import { archiveOfferThread } from '@echo/firestore/crud/offer-thread/archive-offer-thread'
-import { findOfferThreadById } from '@echo/firestore/crud/offer-thread/find-offer-thread-by-id'
+import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
 import { getOfferThreadMock } from '@echo/firestore-mocks/offer-thread/get-offer-thread-mock'
 import { assertOfferThreads } from '@echo/firestore-test/offer-thread/assert-offer-threads'
 import { unchecked_updateOfferThread } from '@echo/firestore-test/offer-thread/unchecked_update-offer-thread'
@@ -19,8 +19,9 @@ describe('CRUD - offer-thread - addOfferThread', () => {
     await expect(archiveOfferThread('not-found')).rejects.toBeDefined()
   })
   it('archive the offer thread', async () => {
-    await archiveOfferThread(offerThread.id)
-    const updatedDocument = (await findOfferThreadById(offerThread.id))!
+    const { offerId } = offerThread
+    await archiveOfferThread(offerId)
+    const updatedDocument = (await getOfferThread(offerId))!
     expect(omit(['state'], updatedDocument)).toStrictEqual(omit(['state'], offerThread))
     expect(updatedDocument.state).toStrictEqual('ARCHIVED')
   })

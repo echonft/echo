@@ -1,6 +1,8 @@
-import { findUserById } from '@echo/firestore/crud/user/find-user-by-id'
+import { getUserSnapshotByDiscordId } from '@echo/firestore/crud/user/get-user-by-discord-id'
+import { getUserById } from '@echo/firestore/crud/user/get-user-by-id'
+import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { updateUser } from '@echo/firestore/crud/user/update-user'
-import type { UserDocumentData } from '@echo/firestore/types/model/user/user-document-data'
+import { getUserDocumentDataMockByUsername } from '@echo/firestore-mocks/user/get-user-document-data-mock-by-username'
 import { assertUsers } from '@echo/firestore-test/user/assert-users'
 import { deleteUser } from '@echo/firestore-test/user/delete-user'
 import { unchecked_updateUser } from '@echo/firestore-test/user/unchecked_update-user'
@@ -12,7 +14,7 @@ import { assoc, isNotNil } from 'ramda'
 
 describe('CRUD - user - updateUser', () => {
   let newUserId: Nullable<string>
-  let updatedUser: Nullable<UserDocumentData>
+  let updatedUsername: Nullable<string>
 
   beforeAll(async () => {
     await assertUsers()
@@ -22,14 +24,14 @@ describe('CRUD - user - updateUser', () => {
   })
   beforeEach(() => {
     newUserId = undefined
-    updatedUser = undefined
+    updatedUsername = undefined
   })
   afterEach(async () => {
-    if (isNotNil(updatedUser)) {
+    if (isNotNil(updatedUsername)) {
       try {
-        await unchecked_updateUser(updatedUser)
+        await unchecked_updateUser(updatedUsername, getUserDocumentDataMockByUsername(updatedUsername))
       } catch (e) {
-        pinoLogger.error(`Error reverting user with id ${updatedUser.id}: ${errorMessage(e)}`)
+        pinoLogger.error(`Error reverting user with username ${updatedUsername}: ${errorMessage(e)}`)
       }
     }
     if (isNotNil(newUserId)) {
@@ -50,28 +52,29 @@ describe('CRUD - user - updateUser', () => {
         bannerColor: '#ffffff'
       }
     }
-    const user = await updateUser(newUserData)
-    newUserId = user.id
+    await updateUser(newUserData)
+    const snapshot = (await getUserSnapshotByDiscordId('discord-id'))!
+    newUserId = snapshot.id
     expect(newUserId).toBeDefined()
-    const foundUser = (await findUserById(newUserId))!
+    const foundUser = (await getUserById(newUserId))!
     expect(foundUser.discord).toStrictEqual(newUserData.discord)
     expect(foundUser.username).toStrictEqual(newUserData.discord.username)
   })
 
   it('updates the user if it exists in the database', async () => {
-    const existingUser = await findUserById('6rECUMhevHfxABZ1VNOm')
+    const existingUser = await getUserById('6rECUMhevHfxABZ1VNOm')
     expect(existingUser).toBeDefined()
-    updatedUser = existingUser!
+    updatedUsername = existingUser!.username
     const newUserData = {
       discord: {
-        id: updatedUser.discord.id,
+        id: existingUser!.discord.id,
         username: 'discord-username',
         avatarUrl: 'discord-avatar-url',
         bannerColor: '#ffffff'
       }
     }
     await updateUser(newUserData)
-    const foundUser = (await findUserById(updatedUser.id))!
-    expect(foundUser.discord).toStrictEqual(assoc('id', updatedUser.discord.id, newUserData.discord))
+    const foundUser = (await getUserByUsername(updatedUsername))!
+    expect(foundUser.discord).toStrictEqual(assoc('id', existingUser!.discord.id, newUserData.discord))
   })
 })

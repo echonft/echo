@@ -1,19 +1,18 @@
 import { type CollectionDiscordGuild } from '@echo/firestore/types/model/collection-discord-guild/collection-discord-guild'
+import { COLLECTION_MOCK_PX_ID, COLLECTION_MOCK_SPIRAL_ID } from '@echo/model-mocks/collection/collection-mock'
 
 export const collectionDiscordGuildMock: Record<string, CollectionDiscordGuild> = {
   FTtQ8IaJAffIaSk66Fy6: {
-    id: 'FTtQ8IaJAffIaSk66Fy6',
-    collectionId: 'Rc8pLQXxgyQGIRL0fr13',
+    collectionId: COLLECTION_MOCK_PX_ID,
     guild: {
-      discordId: '100',
+      id: '100',
       channelId: '100'
     }
   },
   '3gWDBihHVUQLJxbiJOIp': {
-    id: '3gWDBihHVUQLJxbiJOIp',
-    collectionId: '1aomCtnoesD7WVll6Yi1',
+    collectionId: COLLECTION_MOCK_SPIRAL_ID,
     guild: {
-      discordId: '1',
+      id: '1',
       channelId: '1'
     }
   }

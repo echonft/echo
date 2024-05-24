@@ -1,23 +1,23 @@
-import { type Contract } from '@echo/model/types/contract'
-import type { WithId } from '@echo/model/types/with-id'
 import type { WithSlug } from '@echo/model/types/with-slug'
+import type { ChainName } from '@echo/utils/types/chain-name'
+import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 
-export interface Collection extends WithId, WithSlug {
-  id: string
+export interface Contract {
+  address: Lowercase<HexString>
+  chain: ChainName
+}
+
+export interface Collection extends WithSlug {
   bannerUrl?: Nullable<string>
-  blurUrl?: Nullable<Lowercase<string>>
   contract: Contract
-  description: string
+  description?: Nullable<string>
   discordUrl?: Nullable<string>
-  floorPrice?: number
   name: string
-  openSeaUrl?: Nullable<Lowercase<string>>
-  profilePictureUrl: string
-  slug: Lowercase<string>
+  profilePictureUrl?: Nullable<string>
   swapsCount?: number
   totalSupply: number
-  twitterUsername?: string
+  twitterUsername?: Nullable<string>
   verified: boolean
   websiteUrl?: Nullable<string>
 }

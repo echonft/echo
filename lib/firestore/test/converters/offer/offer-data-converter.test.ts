@@ -10,11 +10,12 @@ import {
   OFFER_STATE_REJECTED
 } from '@echo/model/constants/offer-states'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe } from 'ramda'
 
 describe('converters - offerDataConverter', () => {
-  const document = getOfferMockById('LyCfl6Eg7JKuD7XJ6IPi')
+  const document = getOfferMockById(OFFER_MOCK_TO_JOHNNYCAGE_ID)
   const snapshot = offerSnapshotMock.LyCfl6Eg7JKuD7XJ6IPi!
   const documentData = offerDocumentDataMock.LyCfl6Eg7JKuD7XJ6IPi
 

@@ -15,6 +15,6 @@ export async function archiveOfferThread(offerThread: OfferThread) {
       content: i18next.t('offer.thread.close')
     })
     await delayPromise(deleteThread, ARCHIVE_THREAD_DELAY)(thread)
-    await firestoreArchiveOfferThread(offerThread.id)
+    await firestoreArchiveOfferThread(offerThread.offerId)
   }
 }

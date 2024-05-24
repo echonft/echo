@@ -1,6 +1,6 @@
 'use client'
-import { withCollectionEquals } from '@echo/ui/comparators/with-collection-equals'
-import { withIdEquals } from '@echo/ui/comparators/with-id-equals'
+import { eqWithId } from '@echo/model/helpers/eq-with-id'
+import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import { CollectionFilterPanel } from '@echo/ui/components/nft/filters/by-collection/collection-filter-panel'
 import { TraitFilterPanelVisibilityManager } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel-visibility-manager'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
@@ -39,6 +39,7 @@ import {
   map,
   modify,
   none,
+  pathEq,
   pipe,
   prop,
   reject,
@@ -56,6 +57,7 @@ interface State {
   selection: SelectableNft[]
   collapsible: boolean
 }
+
 interface StateAction {
   type: 'toggle_collection_filter_selection' | 'toggle_trait_filter_selection' | 'select' | 'unselect'
   nft?: SelectableNft
@@ -70,8 +72,9 @@ interface Props {
 
 export const SelectableNftsWithFilters: FunctionComponent<Props> = ({ nfts, onSelectionAction }) => {
   function rejectSelection(selection: SelectableNft[]): (nfts: SelectableNft[]) => SelectableNft[] {
-    return reject<SelectableNft>(isInWith(selection, withIdEquals))
+    return reject<SelectableNft>(isInWith(selection, eqNft))
   }
+
   function filterByCollections(state: State): State {
     const selectedFilters = getSelectionInList(state.filters.byCollection)
     if (isEmpty(selectedFilters)) {
@@ -79,7 +82,7 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({ nfts, onSe
     }
     const filteredNfts = filterNftsByCollections<SelectableNft>(selectedFilters)(nfts)
     return pipe<[State], State, State, State, State>(
-      modify<'selection', SelectableNft[], SelectableNft[]>('selection', filter(isInWith(filteredNfts, withIdEquals))),
+      modify<'selection', SelectableNft[], SelectableNft[]>('selection', filter(isInWith(filteredNfts, eqNft))),
       assoc('nfts', rejectSelection(state.selection)(filteredNfts)),
       assoc('collapsible', false),
       converge<
@@ -88,6 +91,7 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({ nfts, onSe
       >(assocPath, [always(['filters', 'byTraits']), pipe(prop('nfts'), getTraitFiltersForNfts), identity])
     )(state)
   }
+
   function filterByTraits(state: State): State {
     const selectedCollectionFilters = getSelectionInList(state.filters.byCollection)
     const filteredByCollectionNfts = filterNftsByCollections<SelectableNft>(selectedCollectionFilters)(
@@ -96,6 +100,7 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({ nfts, onSe
     const filteredNfts = filterNftsByTraits(state.filters.byTraits, filteredByCollectionNfts)
     return assoc('nfts', filteredNfts, state)
   }
+
   function reducer(state: State, action: StateAction): State {
     switch (action.type) {
       case 'toggle_collection_filter_selection':
@@ -104,9 +109,9 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({ nfts, onSe
         }
         const updatedCollectionFilters = pipe(
           // unselect all other filters
-          map(unless(withIdEquals(action.collectionFilter), unselect<CollectionFilter>)),
+          map(unless(eqWithId(action.collectionFilter), unselect<CollectionFilter>)),
           // toggle selection of the filter
-          toggleSelectionInList(withIdEquals(action.collectionFilter))
+          toggleSelectionInList(eqWithId(action.collectionFilter))
         )(state.filters.byCollection)
         return pipe<[State], State, State, State>(
           assocPath(['filters', 'byCollection'], updatedCollectionFilters),
@@ -119,7 +124,7 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({ nfts, onSe
           throw Error(`action should contain traitFilter`)
         }
         const updatedTraitsFilterGroups = map<TraitFilterGroup, TraitFilterGroup>(
-          modify('filters', toggleSelectionInList(withIdEquals(action.traitFilter))),
+          modify('filters', toggleSelectionInList(eqWithId(action.traitFilter))),
           state.filters.byTraits
         )
         return pipe<[State], State, State>(
@@ -132,12 +137,12 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({ nfts, onSe
         }
         const updatedSelectionState = pipe<[State], State, State>(
           modify('selection', append(action.nft)),
-          modify<'nfts', SelectableNft[], SelectableNft[]>('nfts', reject(withIdEquals(action.nft)))
+          modify<'nfts', SelectableNft[], SelectableNft[]>('nfts', reject(eqNft(action.nft)))
         )(state)
         if (none(isSelected, state.filters.byCollection)) {
           // select the collection filter according to selection
           const collectionFilters = map(
-            when(withCollectionEquals(action.nft), select<Selectable<CollectionFilter>>),
+            when(pathEq(action.nft.collection.slug, ['collection', 'slug']), select),
             state.filters.byCollection
           )
           return pipe<[State], State, State>(
@@ -153,7 +158,7 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({ nfts, onSe
         }
         return pipe<[State], State, State, State>(
           modify('nfts', append(action.nft)),
-          modify<'selection', SelectableNft[], SelectableNft[]>('selection', reject(withIdEquals(action.nft))),
+          modify<'selection', SelectableNft[], SelectableNft[]>('selection', reject(eqNft(action.nft))),
           filterByTraits
         )(state)
     }

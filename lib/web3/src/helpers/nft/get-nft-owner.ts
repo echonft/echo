@@ -1,5 +1,6 @@
 import type { Nft } from '@echo/model/types/nft'
 import type { Wallet } from '@echo/model/types/wallet'
+import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import { formatAddress } from '@echo/web3/helpers/format-address'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'
 import { getViemClient } from '@echo/web3/helpers/get-viem-client'
@@ -11,7 +12,7 @@ export async function getNftOwner(nft: Nft): Promise<Wallet> {
     collection: { contract },
     tokenId
   } = nft
-  const { chainId } = contract
+  const chainId = getChainId(contract.chain)
   const client = pipe(getChainById, getViemClient)(chainId)
   const owner = await client.readContract({
     address: formatAddress(contract),
@@ -19,5 +20,5 @@ export async function getNftOwner(nft: Nft): Promise<Wallet> {
     functionName: 'ownerOf',
     args: [BigInt(tokenId)]
   })
-  return { chainId, address: toLower(owner) }
+  return { chain: contract.chain, address: toLower(owner) }
 }

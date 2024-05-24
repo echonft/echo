@@ -1,6 +1,6 @@
 import type { AddWalletRequest } from '@echo/api/types/requests/add-wallet-request'
 import type { WalletsResponse } from '@echo/api/types/responses/wallets-response'
-import { getWalletMock } from '@echo/model-mocks/wallet/get-wallet-mock'
+import { getWalletMock } from '@echo/model-mocks/wallet/wallet-mock'
 import { errorStore } from '@echo/storybook/mocks/stores/error-store'
 import { toPromise } from '@echo/utils/fp/to-promise'
 import { toRejectedPromise } from '@echo/utils/fp/to-rejected-promise'

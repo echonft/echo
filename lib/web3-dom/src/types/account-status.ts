@@ -1,1 +1,3 @@
-export type AccountStatus = 'connected' | 'connecting' | 'disconnected'
+import type { GetAccountReturnType } from 'wagmi/actions'
+
+export type AccountStatus = Exclude<GetAccountReturnType['status'], 'reconnecting'>

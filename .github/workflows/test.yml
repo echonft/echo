@@ -33,6 +33,8 @@ jobs:
         run: pnpm exec turbo run test:ci --filter=@echo/firestore
       - name: model tests
         run: pnpm exec turbo run test:ci --filter=@echo/model
+      - name: opensea tests
+        run: pnpm exec turbo run test:ci --filter=@echo/opensea
       - name: ui tests
         run: pnpm exec turbo run test:ci --filter=@echo/ui
       - name: utils tests

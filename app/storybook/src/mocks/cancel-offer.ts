@@ -3,6 +3,7 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { OFFER_STATE_CANCELLED } from '@echo/model/constants/offer-states'
 import type { Offer } from '@echo/model/types/offer'
 import { getOfferMockById } from '@echo/model-mocks/offer/get-offer-mock-by-id'
+import { OFFER_MOCK_TO_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
 import { toPromise } from '@echo/utils/fp/to-promise'
 import { delayPromise } from '@echo/utils/helpers/delay-promise'
 import { applySpec, assoc, pipe } from 'ramda'
@@ -20,5 +21,5 @@ export function cancelOffer(_args: CancelOfferArgs): Promise<OfferResponse> {
       toPromise
     ),
     800
-  )('LyCfl6Eg7JKuD7XJ6IPi')
+  )(OFFER_MOCK_TO_JOHNNYCAGE_ID)
 }

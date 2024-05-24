@@ -1,164 +1,229 @@
 export const ECHO_ABI = [
   {
-    type: 'constructor',
+    inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
+    stateMutability: 'nonpayable',
+    type: 'constructor'
+  },
+  { inputs: [], name: 'CreationPaused', type: 'error' },
+  { inputs: [], name: 'InvalidAssets', type: 'error' },
+  { inputs: [], name: 'InvalidOfferState', type: 'error' },
+  { inputs: [], name: 'InvalidPayment', type: 'error' },
+  { inputs: [], name: 'InvalidReceiver', type: 'error' },
+  { inputs: [], name: 'InvalidRecipient', type: 'error' },
+  { inputs: [], name: 'InvalidSender', type: 'error' },
+  { inputs: [], name: 'OfferHasExpired', type: 'error' },
+  { inputs: [], name: 'OfferHasNotExpired', type: 'error' },
+  { inputs: [], name: 'Paused', type: 'error' },
+  { inputs: [], name: 'WithdrawFailed', type: 'error' },
+  {
+    anonymous: false,
     inputs: [
-      { name: 'owner', type: 'address', internalType: 'address' },
-      { name: 'signer', type: 'address', internalType: 'address' }
+      { indexed: true, internalType: 'address', name: 'user', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' }
     ],
-    stateMutability: 'nonpayable'
+    name: 'OwnershipTransferred',
+    type: 'event'
   },
   {
-    type: 'function',
-    name: 'domainSeparator',
-    inputs: [],
-    outputs: [{ name: '', type: 'bytes32', internalType: 'bytes32' }],
-    stateMutability: 'view'
+    inputs: [{ internalType: 'bytes32', name: 'offerId', type: 'bytes32' }],
+    name: 'acceptOffer',
+    outputs: [],
+    stateMutability: 'payable',
+    type: 'function'
   },
   {
-    type: 'function',
-    name: 'eip712Domain',
-    inputs: [],
-    outputs: [
-      { name: 'fields', type: 'bytes1', internalType: 'bytes1' },
-      { name: 'name', type: 'string', internalType: 'string' },
-      { name: 'version', type: 'string', internalType: 'string' },
-      { name: 'chainId', type: 'uint256', internalType: 'uint256' },
-      { name: 'verifyingContract', type: 'address', internalType: 'address' },
-      { name: 'salt', type: 'bytes32', internalType: 'bytes32' },
-      { name: 'extensions', type: 'uint256[]', internalType: 'uint256[]' }
-    ],
-    stateMutability: 'view'
+    inputs: [{ internalType: 'bytes32', name: 'offerId', type: 'bytes32' }],
+    name: 'cancelOffer',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
   },
   {
-    type: 'function',
-    name: 'executeTrade',
     inputs: [
-      { name: 'v', type: 'uint8', internalType: 'uint8' },
-      { name: 'r', type: 'bytes32', internalType: 'bytes32' },
-      { name: 's', type: 'bytes32', internalType: 'bytes32' },
       {
-        name: 'signatureData',
-        type: 'tuple',
-        internalType: 'struct Signature',
         components: [
-          { name: 'v', type: 'uint8', internalType: 'uint8' },
-          { name: 'r', type: 'bytes32', internalType: 'bytes32' },
-          { name: 's', type: 'bytes32', internalType: 'bytes32' }
-        ]
-      },
-      {
-        name: 'trade',
-        type: 'tuple',
-        internalType: 'struct Trade',
-        components: [
-          { name: 'id', type: 'string', internalType: 'string' },
-          { name: 'creator', type: 'address', internalType: 'address' },
-          { name: 'counterparty', type: 'address', internalType: 'address' },
-          { name: 'expiresAt', type: 'uint256', internalType: 'uint256' },
-          { name: 'creatorCollections', type: 'address[]', internalType: 'address[]' },
-          { name: 'creatorIds', type: 'uint256[]', internalType: 'uint256[]' },
-          { name: 'counterpartyCollections', type: 'address[]', internalType: 'address[]' },
-          { name: 'counterpartyIds', type: 'uint256[]', internalType: 'uint256[]' }
-        ]
+          { internalType: 'address', name: 'sender', type: 'address' },
+          { internalType: 'address', name: 'receiver', type: 'address' },
+          {
+            components: [
+              { internalType: 'uint256', name: 'chainId', type: 'uint256' },
+              {
+                components: [
+                  { internalType: 'address', name: 'tokenAddress', type: 'address' },
+                  { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
+                ],
+                internalType: 'struct OfferItem[]',
+                name: 'items',
+                type: 'tuple[]'
+              }
+            ],
+            internalType: 'struct OfferItems',
+            name: 'senderItems',
+            type: 'tuple'
+          },
+          {
+            components: [
+              { internalType: 'uint256', name: 'chainId', type: 'uint256' },
+              {
+                components: [
+                  { internalType: 'address', name: 'tokenAddress', type: 'address' },
+                  { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
+                ],
+                internalType: 'struct OfferItem[]',
+                name: 'items',
+                type: 'tuple[]'
+              }
+            ],
+            internalType: 'struct OfferItems',
+            name: 'receiverItems',
+            type: 'tuple'
+          },
+          { internalType: 'uint256', name: 'expiration', type: 'uint256' },
+          { internalType: 'enum OfferState', name: 'state', type: 'uint8' }
+        ],
+        internalType: 'struct Offer',
+        name: 'offer',
+        type: 'tuple'
       }
     ],
+    name: 'createOffer',
     outputs: [],
-    stateMutability: 'payable'
+    stateMutability: 'nonpayable',
+    type: 'function'
   },
   {
-    type: 'function',
-    name: 'hashTypedData',
-    inputs: [{ name: 'structHash', type: 'bytes32', internalType: 'bytes32' }],
-    outputs: [{ name: '', type: 'bytes32', internalType: 'bytes32' }],
-    stateMutability: 'view'
-  },
-  {
-    type: 'function',
-    name: 'owner',
     inputs: [],
-    outputs: [{ name: '', type: 'address', internalType: 'address' }],
-    stateMutability: 'view'
+    name: 'creationPaused',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
   },
   {
-    type: 'function',
-    name: 'paused',
-    inputs: [],
-    outputs: [{ name: '', type: 'bool', internalType: 'bool' }],
-    stateMutability: 'view'
-  },
-  {
-    type: 'function',
-    name: 'setFees',
-    inputs: [{ name: 'fee', type: 'uint256', internalType: 'uint256' }],
+    inputs: [{ internalType: 'bytes32', name: 'offerId', type: 'bytes32' }],
+    name: 'executeOffer',
     outputs: [],
-    stateMutability: 'nonpayable'
+    stateMutability: 'payable',
+    type: 'function'
   },
   {
-    type: 'function',
-    name: 'setPaused',
-    inputs: [{ name: '_paused', type: 'bool', internalType: 'bool' }],
-    outputs: [],
-    stateMutability: 'nonpayable'
-  },
-  {
-    type: 'function',
-    name: 'setSigner',
-    inputs: [{ name: '_signer', type: 'address', internalType: 'address' }],
-    outputs: [],
-    stateMutability: 'nonpayable'
-  },
-  {
-    type: 'function',
-    name: 'signer',
-    inputs: [],
-    outputs: [{ name: '', type: 'address', internalType: 'address' }],
-    stateMutability: 'view'
-  },
-  {
-    type: 'function',
-    name: 'tradingFee',
-    inputs: [],
-    outputs: [{ name: '', type: 'uint256', internalType: 'uint256' }],
-    stateMutability: 'view'
-  },
-  {
-    type: 'function',
-    name: 'transferOwnership',
-    inputs: [{ name: 'newOwner', type: 'address', internalType: 'address' }],
-    outputs: [],
-    stateMutability: 'nonpayable'
-  },
-  {
-    type: 'function',
-    name: 'withdraw',
-    inputs: [{ name: 'account', type: 'address', internalType: 'address' }],
-    outputs: [],
-    stateMutability: 'nonpayable'
-  },
-  {
-    type: 'event',
-    name: 'OwnershipTransferred',
-    inputs: [
-      { name: 'user', type: 'address', indexed: true, internalType: 'address' },
-      { name: 'newOwner', type: 'address', indexed: true, internalType: 'address' }
+    inputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    name: 'offers',
+    outputs: [
+      { internalType: 'address', name: 'sender', type: 'address' },
+      { internalType: 'address', name: 'receiver', type: 'address' },
+      {
+        components: [
+          { internalType: 'uint256', name: 'chainId', type: 'uint256' },
+          {
+            components: [
+              { internalType: 'address', name: 'tokenAddress', type: 'address' },
+              { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
+            ],
+            internalType: 'struct OfferItem[]',
+            name: 'items',
+            type: 'tuple[]'
+          }
+        ],
+        internalType: 'struct OfferItems',
+        name: 'senderItems',
+        type: 'tuple'
+      },
+      {
+        components: [
+          { internalType: 'uint256', name: 'chainId', type: 'uint256' },
+          {
+            components: [
+              { internalType: 'address', name: 'tokenAddress', type: 'address' },
+              { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
+            ],
+            internalType: 'struct OfferItem[]',
+            name: 'items',
+            type: 'tuple[]'
+          }
+        ],
+        internalType: 'struct OfferItems',
+        name: 'receiverItems',
+        type: 'tuple'
+      },
+      { internalType: 'uint256', name: 'expiration', type: 'uint256' },
+      { internalType: 'enum OfferState', name: 'state', type: 'uint8' }
     ],
-    anonymous: false
+    stateMutability: 'view',
+    type: 'function'
   },
   {
-    type: 'event',
-    name: 'TradeExecuted',
-    inputs: [{ name: 'id', type: 'string', indexed: false, internalType: 'string' }],
-    anonymous: false
+    inputs: [
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'uint256', name: '', type: 'uint256' },
+      { internalType: 'bytes', name: '', type: 'bytes' }
+    ],
+    name: 'onERC721Received',
+    outputs: [{ internalType: 'bytes4', name: '', type: 'bytes4' }],
+    stateMutability: 'nonpayable',
+    type: 'function'
   },
-  { type: 'error', name: 'InvalidAddress', inputs: [] },
-  { type: 'error', name: 'InvalidAssets', inputs: [] },
-  { type: 'error', name: 'InvalidCreator', inputs: [] },
-  { type: 'error', name: 'InvalidPayment', inputs: [] },
-  { type: 'error', name: 'InvalidSignature', inputs: [] },
-  { type: 'error', name: 'InvalidSigner', inputs: [] },
-  { type: 'error', name: 'LengthMismatch', inputs: [] },
-  { type: 'error', name: 'Paused', inputs: [] },
-  { type: 'error', name: 'TradeAlreadyExist', inputs: [] },
-  { type: 'error', name: 'TradeHasExpired', inputs: [] },
-  { type: 'error', name: 'WithdrawFailed', inputs: [] }
+  {
+    inputs: [],
+    name: 'owner',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'paused',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'bytes32', name: 'offerId', type: 'bytes32' }],
+    name: 'redeemOffer',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'bool', name: '_creationPaused', type: 'bool' }],
+    name: 'setCreationPaused',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'fee', type: 'uint256' }],
+    name: 'setFees',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'bool', name: '_paused', type: 'bool' }],
+    name: 'setPaused',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'tradingFee',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+    name: 'withdraw',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  }
 ] as const

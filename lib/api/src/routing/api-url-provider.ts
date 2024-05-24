@@ -1,10 +1,11 @@
 import { ApiPath } from '@echo/api/routing/api-path'
 
 interface ListingPathArgs {
-  listingId: string
+  slug: string
 }
+
 interface OfferPathArgs {
-  offerId: string
+  slug: string
 }
 
 export const apiUrlProvider = {
@@ -15,16 +16,14 @@ export const apiUrlProvider = {
     search: new ApiPath({ path: '/search/collection' })
   },
   listing: {
-    cancel: new ApiPath<ListingPathArgs>({ path: '/listing/:listingId/cancel', secure: true }),
+    cancel: new ApiPath<ListingPathArgs>({ path: '/listing/:slug/cancel', secure: true }),
     create: new ApiPath({ path: '/listing', secure: true })
   },
   offer: {
-    accept: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/accept', secure: true }),
-    cancel: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/cancel', secure: true }),
+    accept: new ApiPath<OfferPathArgs>({ path: '/offer/:slug/accept', secure: true }),
+    cancel: new ApiPath<OfferPathArgs>({ path: '/offer/:slug/cancel', secure: true }),
     create: new ApiPath({ path: '/offer', secure: true }),
-    reject: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/reject', secure: true }),
-    signature: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/signature', secure: true }),
-    validate: new ApiPath<OfferPathArgs>({ path: '/offer/:offerId/validate', secure: true })
+    reject: new ApiPath<OfferPathArgs>({ path: '/offer/:slug/reject', secure: true })
   },
   profile: {
     nonce: new ApiPath({ path: '/profile/nonce', secure: true }),

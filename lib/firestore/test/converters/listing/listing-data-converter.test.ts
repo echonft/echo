@@ -10,11 +10,12 @@ import {
   LISTING_STATE_PARTIALLY_FULFILLED
 } from '@echo/model/constants/listing-states'
 import { getListingMockById } from '@echo/model-mocks/listing/get-listing-mock-by-id'
+import { LISTING_MOCK_ID } from '@echo/model-mocks/listing/listing-mock'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, pipe } from 'ramda'
 
 describe('converters - listingDataConverter', () => {
-  const document = getListingMockById('jUzMtPGKM62mMhEcmbN4')
+  const document = getListingMockById(LISTING_MOCK_ID)
   const snapshot = listingSnapshotMock.jUzMtPGKM62mMhEcmbN4!
   const documentData = listingDocumentDataMock.jUzMtPGKM62mMhEcmbN4
 

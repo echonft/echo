@@ -43,7 +43,7 @@ export const SelectableNftThumbnailImage: FunctionComponent<Props> = ({ nft, onL
           'object-contain',
           'group-hover:scale-125'
         )}
-        src={addPictureSizeToUrl(nft.pictureUrl, PICTURE_SIZE_MD)}
+        src={addPictureSizeToUrl(nft.pictureUrl, PICTURE_SIZE_MD) ?? ''}
         alt={nft.tokenId.toString()}
         width={PICTURE_SIZE_MD}
         height={PICTURE_SIZE_MD}

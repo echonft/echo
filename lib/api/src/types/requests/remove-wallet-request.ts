@@ -1,5 +1,5 @@
-import { type WalletRequest } from '@echo/api/types/requests/wallet-request'
+import type { Wallet } from '@echo/model/types/wallet'
 
 export interface RemoveWalletRequest {
-  wallet: WalletRequest
+  wallet: Wallet
 }

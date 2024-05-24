@@ -1,11 +1,11 @@
 import { type OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
+import { OFFER_MOCK_FROM_JOHNNYCAGE_ID } from '@echo/model-mocks/offer/offer-mock'
 
 export const offerThreadMock: Record<string, OfferThread> = {
   hot4VWDzd6ZRsC3nsvnb: {
-    id: 'hot4VWDzd6ZRsC3nsvnb',
-    offerId: 'ASkFpKoHEHVH0gd69t1G',
+    offerId: OFFER_MOCK_FROM_JOHNNYCAGE_ID,
     guild: {
-      discordId: '100',
+      id: '100',
       channelId: '10',
       threadId: '1'
     },

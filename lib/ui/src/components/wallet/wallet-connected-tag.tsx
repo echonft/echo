@@ -1,5 +1,6 @@
 'use client'
 import { WalletIconSvg } from '@echo/ui/components/base/svg/wallet-icon-svg'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { shortenAddress } from '@echo/web3/helpers/shorten-address'
 import { clsx } from 'clsx'
@@ -7,7 +8,7 @@ import { type FunctionComponent } from 'react'
 
 interface Props {
   address: HexString
-  chainId: number
+  chain: ChainName
   truncatedAddress?: string
 }
 
