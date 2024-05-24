@@ -198,6 +198,9 @@
   .prose-other-bold {
     @apply text-other-bold font-inter;
   }
+  .prose-other-light {
+    @apply text-other-light font-inter;
+  }
   .btn-size {
     @apply w-max h-max px-5 py-2.5;
   }

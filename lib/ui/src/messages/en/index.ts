@@ -199,6 +199,13 @@ export const messages = {
         selector: '{count} {count, plural, =1 { Day} other { Days}}',
         finalizeBtn: 'Finalize Offer',
         editBtn: 'Edit'
+      },
+      success: {
+        title: 'Congrats!',
+        subtitle: 'You have created an <yellow>offer</yellow> with Echo!',
+        description: 'Your NFTs are now in escrow until the offer is accepted or it expires',
+        offerBtn: 'Go to the offer',
+        homepageBtn: 'Back to the homepage'
       }
     },
     details: {
