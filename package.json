@@ -33,7 +33,6 @@
     "frontend:dev": "turbo run dev --filter=@echo/frontend --filter=@echo/ui",
     "frontend:dev:testnet": "turbo run dev:testnet --filter=@echo/frontend dev --filter=@echo/ui",
     "frontend:deploy:testnet": "git rebase main testnet && git push origin testnet",
-    "knip": "knip",
     "lint": "turbo run lint",
     "lint:ci": "turbo run lint:ci",
     "lint:clean-cache": "rm -f .eslintcache && turbo run lint:clean-cache",
@@ -52,33 +51,26 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.38.0",
-    "@next/eslint-plugin-next": "14.1.4",
-    "@typescript-eslint/eslint-plugin": "7.5.0",
-    "@typescript-eslint/parser": "7.5.0",
+    "@dotenvx/dotenvx": "0.44.0",
+    "@next/eslint-plugin-next": "14.2.3",
+    "@typescript-eslint/eslint-plugin": "7.10.0",
+    "@typescript-eslint/parser": "7.10.0",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.1.4",
+    "eslint-config-next": "14.2.3",
     "eslint-config-prettier": "9.1.0",
-    "eslint-config-turbo": "1.13.2",
+    "eslint-config-turbo": "1.13.3",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-react": "7.34.1",
-    "eslint-plugin-react-hooks": "4.6.0",
-    "eslint-plugin-simple-import-sort": "12.0.0",
-    "firebase-tools": "13.6.0",
+    "eslint-plugin-react-hooks": "4.6.2",
+    "eslint-plugin-simple-import-sort": "12.1.0",
+    "firebase-tools": "13.10.0",
     "husky": "9.0.11",
-    "knip": "5.7.0",
-    "lint-staged": "15.2.2",
-    "npm-check-updates": "16.14.18",
+    "lint-staged": "15.2.4",
+    "npm-check-updates": "16.14.20",
     "prettier": "3.2.5",
     "turbo": "1.13.3",
-    "typescript": "5.4.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "@auth/core": "0.28.2",
-      "viem": "2.8.16"
-    }
+    "typescript": "5.4.5"
   },
   "nextBundleAnalysis": {
     "budget": 358400,

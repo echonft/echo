@@ -27,15 +27,15 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "discord.js": "14.14.1",
-    "i18next": "23.10.1",
-    "ramda": "0.29.1"
+    "discord.js": "14.15.2",
+    "i18next": "23.11.5",
+    "ramda": "0.30.0"
   },
   "devDependencies": {
-    "@babel/core": "7.24.3",
-    "@babel/preset-env": "7.24.3",
-    "@babel/preset-typescript": "7.24.1",
-    "@dotenvx/dotenvx": "0.38.0",
+    "@babel/core": "7.24.6",
+    "@babel/preset-env": "7.24.6",
+    "@babel/preset-typescript": "7.24.6",
+    "@dotenvx/dotenvx": "0.44.0",
     "@echo/api": "workspace:*",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
@@ -43,15 +43,15 @@
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
-    "@sentry/cli": "2.31.0",
-    "@types/node": "20.12.2",
-    "@types/ramda": "0.29.12",
+    "@sentry/cli": "2.31.2",
+    "@types/node": "20.12.12",
+    "@types/ramda": "0.30.0",
     "jest": "29.7.0",
     "jest-junit": "16.0.0",
     "nodemon": "3.1.0",
     "ts-node": "10.9.2",
     "tsconfig-paths": "4.2.0",
     "tsup": "8.0.2",
-    "typescript": "5.4.3"
+    "typescript": "5.4.5"
   }
 }

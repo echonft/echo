@@ -13,7 +13,7 @@ import { isNil, pick } from 'ramda'
 export function authRouteHandler<RequestBody, ResponseBody, Params extends object = never>(
   requestHandler: AuthRequestHandler<RequestBody, ResponseBody, Params>
 ) {
-  return auth(async function (request: NextAuthRequest, context?: { params: Params }) {
+  return auth(async function (request: NextAuthRequest, context: { params?: Record<string, string | string[]> }) {
     try {
       initializeFirebase()
       const session = await auth()
@@ -27,10 +27,10 @@ export function authRouteHandler<RequestBody, ResponseBody, Params extends objec
         )
       }
       setUser(pick(['username'], user))
-      if (isNil(context)) {
+      if (isNil(context.params)) {
         return await requestHandler(user, request)
       }
-      return await requestHandler(user, request, context.params)
+      return await requestHandler(user, request, context.params as Params)
     } catch (error) {
       if (error instanceof ApiError) {
         await error.beforeError()

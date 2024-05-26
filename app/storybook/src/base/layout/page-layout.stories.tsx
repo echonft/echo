@@ -23,7 +23,6 @@ const metadata: Meta<ComponentType> = {
   },
   argTypes: {
     callout: {
-      options: false,
       control: { type: 'boolean' }
     }
   }
