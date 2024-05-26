@@ -10,6 +10,7 @@ import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
 import { StateExpiration } from '@echo/ui/components/base/state-expiration'
 import { NftCards } from '@echo/ui/components/nft/card/layout/nft-cards'
 import { CreateOfferButtons } from '@echo/ui/components/offer/create/create-offer-buttons'
+import { CreateOfferExpiration } from '@echo/ui/components/offer/create/create-offer-expiration'
 import { CreateOfferSenderNfts } from '@echo/ui/components/offer/create/create-offer-sender-nfts'
 import { CreateOfferSwapDirectionHeader } from '@echo/ui/components/offer/create/create-offer-swap-direction-header'
 import { UserDetailsDiscordTagAndWalletLayout } from '@echo/ui/components/user/details/layout/user-details-discord-tag-and-wallet-layout'
@@ -45,6 +46,8 @@ export const CreateOffer: FunctionComponent<Props> = ({
 }) => {
   const [senderSelection, setSenderSelection] = useState<SelectableNft[]>([])
   const [reviewing, setReviewing] = useState(false)
+  // TODO Probably should change that, not the most beautiful
+  const [settingExpiration, setSettingExpiration] = useState(false)
   const { username, discord, wallet } = receiver
   const selectSenderNft = useCallback(
     (nft: SelectableNft) => {
@@ -69,6 +72,20 @@ export const CreateOffer: FunctionComponent<Props> = ({
       )(senderNfts),
     [senderSelection, senderNfts]
   )
+
+  if (settingExpiration) {
+    return (
+      <CreateOfferExpiration
+        receiverItems={receiverItems}
+        onCancel={() => {
+          setSettingExpiration(false)
+          setReviewing(false)
+        }}
+        onComplete={() => onComplete?.(senderSelection)}
+        loading={loading}
+      />
+    )
+  }
 
   return (
     <div className={clsx('flex', 'flex-col', 'gap-24')}>
@@ -115,7 +132,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
             loading={loading}
             onComplete={() => {
               if (reviewing) {
-                onComplete?.(senderSelection)
+                setSettingExpiration(true)
               } else {
                 setReviewing(true)
               }

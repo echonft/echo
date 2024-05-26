@@ -14,6 +14,7 @@ import type { Fetcher } from '@echo/utils/types/fetcher'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { AccountProvider } from '@echo/web3-dom/types/account-provider'
 import type { ApproveErc721ContractArgs } from '@echo/web3-dom/types/approve-erc-721-contract-args'
+import type { ContractCreateOfferArgs } from '@echo/web3-dom/types/contract-create-offer-args'
 import type { GetErc721ContractApprovalArgs } from '@echo/web3-dom/types/get-erc-721-contract-approval-args'
 import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
 import type { SignNonceResult } from '@echo/web3-dom/types/sign-nonce-result'
@@ -25,6 +26,7 @@ export interface Dependencies {
   approveErc721Contract: Fetcher<HexString, ApproveErc721ContractArgs>
   cancelListing: Fetcher<ListingResponse, CancelListingArgs>
   cancelOffer: Fetcher<OfferResponse, CancelOfferArgs>
+  contractCreateOffer: Fetcher<HexString, ContractCreateOfferArgs>
   createListing: Fetcher<ListingResponse, CreateListingRequest>
   createOffer: Fetcher<OfferResponse, CreateOfferRequest>
   disconnectWallet: () => Promise<void>

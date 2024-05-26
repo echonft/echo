@@ -14,7 +14,7 @@ export function getNonceSiweMessageParams(args: SignNonceArgs): Partial<SiweMess
     Partial<SiweMessage>,
     Partial<SiweMessage>
   >(
-    assoc('address', formatAddress({ address: args.wallet.address })),
+    assoc('address', formatAddress(args.wallet)),
     assoc('chainId', getChainId(args.wallet.chain)),
     dissoc('wallet'),
     assoc('statement', 'Sign this message to add your wallet to Echo'),

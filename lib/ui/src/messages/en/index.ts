@@ -192,7 +192,28 @@ export const messages = {
       cancelBtnMessage: 'Hold to cancel',
       createBtn: 'Create',
       editBtn: 'Edit',
-      reviewBtn: 'Review'
+      reviewBtn: 'Review',
+      expiration: {
+        title: 'One <yellow>last step</yellow>\n before you let it\n go!',
+        subtitle: 'Set the expiration date to:',
+        selector: '{count} {count, plural, =1 { Day} other { Days}}',
+        finalizeBtn: 'Finalize Offer',
+        editBtn: 'Edit'
+      },
+      success: {
+        title: 'Congrats!',
+        subtitle: 'You have created an <yellow>offer</yellow> with Echo!',
+        description:
+          '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} in escrow\nuntil the offer is accepted or it expires',
+        offerBtn: 'Go to the offer',
+        homepageBtn: 'Back to the homepage'
+      },
+      expired: {
+        title: 'Expired!',
+        subtitle: "Your offer <red>expired</red>, but don't worry, we kept your NFTs safe until you redeem them",
+        description: 'Your NFTs are now back in your wallet',
+        homepageBtn: 'Back to the homepage'
+      }
     },
     details: {
       acceptBtn: 'Accept',

@@ -3,7 +3,7 @@ import { formatAddress } from '@echo/web3/helpers/format-address'
 import { getNonceSiweMessageParams } from '@echo/web3-dom/helpers/get-nonce-siwe-message-params'
 import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
 import { describe, expect, test } from '@jest/globals'
-import { dissoc, toLower } from 'ramda'
+import { toLower } from 'ramda'
 
 describe('helpers - getNonceSiweMessageParams', () => {
   const wallet: Wallet = {
@@ -21,7 +21,7 @@ describe('helpers - getNonceSiweMessageParams', () => {
       domain: 'echonft.xyz',
       uri: 'https://echonft.xyz/',
       nonce: 'noncenoncenoncenonce',
-      address: formatAddress(dissoc('chain', wallet)),
+      address: formatAddress(wallet),
       chainId: 1,
       statement: 'Sign this message to add your wallet to Echo',
       version: '1'

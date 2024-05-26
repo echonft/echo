@@ -1,15 +1,11 @@
-import { SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chain-ids'
-import { getCurrentChainId } from '@echo/utils/helpers/get-current-chain-id'
-import { formatAddress } from '@echo/web3/helpers/format-address'
-import { pipe } from 'ramda'
+import type { ChainName } from '@echo/utils/types/chain-name'
+import type { HexString } from '@echo/utils/types/hex-string'
 
-function echoAddressByChainId(chainId: number) {
-  switch (chainId) {
-    case SEPOLIA_CHAIN_ID:
-      return { address: '0xf7f19bf282a2260940c910F88eC70BbcF51Cf572', chainId }
+export function echoAddressByChain(chain: ChainName): HexString {
+  switch (chain) {
+    case 'sepolia':
+      return '0xf7f19bf282a2260940c910F88eC70BbcF51Cf572'
     default:
-      throw Error(`chain ${chainId} not supported`)
+      throw Error(`chain ${chain} not supported`)
   }
 }
-
-export const ECHO_ADDRESS = pipe(getCurrentChainId, echoAddressByChainId, formatAddress)()

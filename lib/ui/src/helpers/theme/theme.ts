@@ -406,6 +406,13 @@ export const themeExtension = {
         lineHeight: '155%',
         fontWeight: 700
       }
+    ] as fontSizeConfig,
+    'other-light': [
+      '0.9375rem',
+      {
+        lineHeight: '155%',
+        fontWeight: 300
+      }
     ] as fontSizeConfig
   },
   spacing: {
