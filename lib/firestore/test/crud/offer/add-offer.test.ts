@@ -94,7 +94,7 @@ describe('CRUD - offer - addOffer', () => {
   it('throws if the offer is a duplicate', async () => {
     const offerMock = getOfferMockById(OFFER_MOCK_TO_JOHNNYCAGE_ID)
     const baseOffer = pick(
-      ['expiresAt', 'receiver', 'receiverItems', 'receiverItems', 'sender', 'senderItems', 'state'],
+      ['expiresAt', 'receiver', 'receiverItems', 'receiverItems', 'sender', 'senderItems'],
       offerMock
     )
     await expect(addOffer(baseOffer, offerMock.idContract)).rejects.toBeDefined()
@@ -113,8 +113,7 @@ describe('CRUD - offer - addOffer', () => {
       receiver: head(receiverItems).owner,
       receiverItems,
       sender: head(senderItems).owner,
-      senderItems,
-      state: OFFER_STATE_OPEN
+      senderItems
     }
     const createdOffer = await addOffer(baseOffer, '0xTEST')
     createdOfferId = createdOffer.id

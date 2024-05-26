@@ -1,6 +1,6 @@
+import type { BaseOffer } from '@echo/model/types/base-offer'
 import type { Contract } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
-import type { Offer } from '@echo/model/types/offer'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import type { ChainName } from '@echo/utils/types/chain-name'
@@ -16,7 +16,7 @@ export async function createOffer(args: ContractCreateOfferArgs) {
   const { offer } = args
   // We take the chain from the first sender items as this is where the creation is executed
   // Also works for multichain
-  const chain = pipe<[Offer], Nft[], Nft, Contract, ChainName>(
+  const chain = pipe<[BaseOffer], Nft[], Nft, Contract, ChainName>(
     prop('senderItems'),
     head,
     nonNullableReturn(path(['nft', 'collection', 'contract'])),
@@ -29,7 +29,7 @@ export async function createOffer(args: ContractCreateOfferArgs) {
     functionName: 'createOffer',
     address,
     chainId,
-    args: [mapOfferToContractCreateOffer(offer) as never]
+    args: [mapOfferToContractCreateOffer({ ...offer }) as never]
   })
   return await writeContract(wagmiConfig, request)
 }
