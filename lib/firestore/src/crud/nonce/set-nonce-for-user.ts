@@ -9,10 +9,11 @@ import { isNil } from 'ramda'
 
 export async function setNonceForUser(username: string, nonce: string): Promise<Nonce> {
   const userSnapshot = await getUserSnapshotByUsername(username)
-  if (isNil(userSnapshot)) {
+  if (isNil(userSnapshot) || isNil(userSnapshot.data())) {
     throw Error(`user with username ${username} not found`)
   }
-  const nonceSnapshot = await getNonceSnapshotForUser(userSnapshot.id)
+
+  const nonceSnapshot = await getNonceSnapshotForUser(userSnapshot.data()!.username)
   if (isNil(nonceSnapshot)) {
     const data = {
       userId: userSnapshot.id,
