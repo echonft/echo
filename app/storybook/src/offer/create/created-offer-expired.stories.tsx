@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { CreatedOfferSuccess as Component } from '@echo/ui/components/offer/create/created/created-offer-expired'
+import { CreatedOfferExpired as Component } from '@echo/ui/components/offer/create/created/created-offer-expired'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {

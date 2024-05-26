@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
-export const CreatedOfferSuccess: FunctionComponent = () => {
+export const CreatedOfferExpired: FunctionComponent = () => {
   const t = useTranslations('offer.create.expired')
   const router = useRouter()
 

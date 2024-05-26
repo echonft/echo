@@ -11,19 +11,22 @@ import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import type { FunctionComponent } from 'react'
 
+// FIXME slug should not be optional
 interface Props {
-  offerSlug?: string
+  count: number
+  slug?: string
 }
 
-export const CreatedOfferSuccess: FunctionComponent<Props> = ({ offerSlug }) => {
+// FIXME split in 2 components + layout to have CreatedOfferSuccess and SwapSuccess (in swap directory)
+export const CreatedOfferSuccess: FunctionComponent<Props> = ({ count, slug }) => {
   const t = useTranslations('offer.create.success')
   const router = useRouter()
 
   const onClick = () => {
-    if (isNil(offerSlug)) {
+    if (isNil(slug)) {
       router.replace(linkProvider.base.home.get())
     } else {
-      router.replace(linkProvider.offer.details.get({ slug: offerSlug }))
+      router.replace(linkProvider.offer.details.get({ slug: slug }))
     }
   }
   return (
@@ -45,11 +48,23 @@ export const CreatedOfferSuccess: FunctionComponent<Props> = ({ offerSlug }) => 
               yellow: (text) => <span className={clsx('text-yellow-500')}>{text}</span>
             })}
           </span>
-          <span className={clsx('text-white/70', 'prose-other-light', 'italic', 'px-12')}>{t('description')}</span>
+          <span
+            className={clsx(
+              'text-white/70',
+              'prose-other-light',
+              'italic',
+              'px-12',
+              'w-max',
+              'whitespace-pre-line',
+              'text-center'
+            )}
+          >
+            {t('description', { count })}
+          </span>
         </CreatedOfferTextLayout>
         <button className={clsx('btn-gradient', 'h-max', 'w-full', 'py-2.5', 'group')} onClick={onClick}>
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
-            {t(isNil(offerSlug) ? 'homepageBtn' : 'offerBtn')}
+            {t(isNil(slug) ? 'homepageBtn' : 'offerBtn')}
           </span>
         </button>
       </CreatedOfferSubLayout>

@@ -27,9 +27,10 @@ jest.mock('@echo/firestore/crud/wallet/get-wallets-for-user')
 
 describe('request-handlers - user - addWalletRequestHandler', () => {
   const address = toLower('0x12c63bbD266dB84e117356e664f3604055166CEc')
+  const chain = CHAIN_NAMES[0]
   const validSiweMessage = new SiweMessage({
     domain: 'echo.xyz',
-    address: formatAddress({ address }),
+    address: formatAddress({ address, chain }),
     statement: 'Sign in to add this wallet to your account',
     uri: 'https://echo.xyz',
     version: '1',
@@ -38,7 +39,7 @@ describe('request-handlers - user - addWalletRequestHandler', () => {
   }).prepareMessage()
   const validSignature = '0x000'
   const validWallet = {
-    chain: CHAIN_NAMES[0],
+    chain,
     address
   }
   const validRequest: AddWalletRequest = {

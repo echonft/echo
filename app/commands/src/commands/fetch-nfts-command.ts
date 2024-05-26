@@ -2,7 +2,6 @@ import { getNftsByAccount } from '@echo/opensea/services/get-nfts-by-account'
 import { CHAIN_NAMES } from '@echo/utils/constants/chain-names'
 import { isNotIn } from '@echo/utils/fp/is-not-in'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { formatAddress } from '@echo/web3/helpers/format-address'
@@ -43,7 +42,7 @@ void (async function () {
       return
     }
     const chain = c as ChainName
-    const address = formatAddress({ address: a, chainId: getChainId(chain) })
+    const address = formatAddress({ address: a, chain })
     pinoLogger.info(`fetching NFTs for ${a}...`)
     try {
       const nfts = await getNftsByAccount({ address, chain, fetch })

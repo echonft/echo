@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { getAllNftMocks } from '@echo/model-mocks/nft/get-all-nft-mocks'
+import { getNftMocksByUsername } from '@echo/model-mocks/nft/get-nft-mocks-by-username'
 import {
   getUserMockByUsername,
   USER_MOCK_CREW_USERNAME,
@@ -8,7 +8,7 @@ import {
 } from '@echo/model-mocks/user/user-mock'
 import { CreateOffer as Component } from '@echo/ui/components/offer/create/create-offer'
 import type { Meta, StoryObj } from '@storybook/react'
-import { assoc, filter, map, pathEq, pipe } from 'ramda'
+import { assoc, map, pipe } from 'ramda'
 
 const metadata: Meta<typeof Component> = {
   title: 'Offer/Create',
@@ -16,12 +16,8 @@ const metadata: Meta<typeof Component> = {
   args: {
     loading: false,
     receiver: getUserMockByUsername(USER_MOCK_CREW_USERNAME),
-    receiverItems: pipe(getAllNftMocks, filter(pathEq(USER_MOCK_CREW_USERNAME, ['owner', 'username'])))(),
-    senderNfts: pipe(
-      getAllNftMocks,
-      filter(pathEq(USER_MOCK_JOHNNY_USERNAME, ['owner', 'username'])),
-      map(assoc('actionDisabled', true))
-    )()
+    receiverItems: getNftMocksByUsername(USER_MOCK_CREW_USERNAME),
+    senderNfts: pipe(getNftMocksByUsername, map(assoc('actionDisabled', true)))(USER_MOCK_JOHNNY_USERNAME)
   },
   argTypes: {
     onCancel: {

@@ -28,6 +28,7 @@ import { type Preview } from '@storybook/react'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { NextIntlClientProvider } from 'next-intl'
+import { contractCreateOffer } from '@echo/storybook/mocks/contract-create-offer'
 
 dayjs.extend(relativeTime)
 
@@ -44,6 +45,7 @@ const preview: Preview = {
                 approveErc721Contract,
                 cancelListing,
                 cancelOffer,
+                contractCreateOffer,
                 createListing,
                 createOffer,
                 disconnectWallet,

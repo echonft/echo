@@ -27,7 +27,7 @@ interface Props {
 export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receiverItems, senderNfts }) => {
   const t = useTranslations('error.offer')
   const router = useRouter()
-  const { createOffer, contractCreateOffer, getAccount } = useDependencies()
+  const { createOffer, getAccount } = useDependencies()
   const { account: sender } = getAccount()
   const { trigger, isMutating } = useSWRTrigger<OfferResponse, CreateOfferRequest>({
     key: SWRKeys.offer.create,

@@ -11,16 +11,16 @@ const metadata: Meta<typeof Component> = {
     selectedExpiration: ONE_DAY
   },
   argTypes: {
+    onSelect: {
+      table: {
+        disable: true
+      }
+    },
     selectedExpiration: {
       options: EXPIRATIONS,
       control: {
         type: 'select'
       }
-    }
-  },
-  parameters: {
-    controls: {
-      exclude: ['onSelect']
     }
   }
 }
