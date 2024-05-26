@@ -11,11 +11,15 @@ import { rejectOffer } from '@echo/api/fetchers/reject-offer'
 import { searchCollections } from '@echo/api/fetchers/search-collections'
 import { searchUsers } from '@echo/api/fetchers/search-users'
 import { DependenciesProvider } from '@echo/ui/providers/dependencies-provider'
+import { acceptOffer as contractAcceptOffer } from '@echo/web3-dom/helpers/accept-offer'
 import { approveErc721Contract } from '@echo/web3-dom/helpers/approve-erc721-contract'
+import { cancelOffer as contractCancelOffer } from '@echo/web3-dom/helpers/cancel-offer'
 import { createOffer as contractCreateOffer } from '@echo/web3-dom/helpers/create-offer'
 import { disconnectWallet } from '@echo/web3-dom/helpers/disconnect-wallet'
+import { executeOffer as contractExecuteOffer } from '@echo/web3-dom/helpers/execute-offer'
 import { getAccount } from '@echo/web3-dom/helpers/get-account'
 import { getErc721ContractApproval } from '@echo/web3-dom/helpers/get-erc721-contract-approval'
+import { redeemOffer as contractRedeemOffer } from '@echo/web3-dom/helpers/redeem-offer'
 import { signNonce } from '@echo/web3-dom/helpers/sign-nonce'
 import { switchChain } from '@echo/web3-dom/helpers/switch-chain'
 import { signIn, signOut } from 'next-auth/react'
@@ -30,7 +34,11 @@ export const Dependencies: FunctionComponent<PropsWithChildren> = ({ children })
         approveErc721Contract,
         cancelListing,
         cancelOffer,
+        contractAcceptOffer,
+        contractCancelOffer,
         contractCreateOffer,
+        contractExecuteOffer,
+        contractRedeemOffer,
         createListing,
         createOffer,
         disconnectWallet,
