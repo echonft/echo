@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { CreatedOfferSuccess } from '@echo/ui/components/offer/create/created/created-offer-success'
+import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
 import type { Meta, StoryObj } from '@storybook/react'
 import type { FunctionComponent } from 'react'
 
@@ -8,9 +8,8 @@ type ComponentType = FunctionComponent<{
   nfts: 'One' | 'Multiple'
 }>
 
-// FIXME slug won't be optional anymore
 const metadata: Meta<ComponentType> = {
-  title: 'Offer/Create',
+  title: 'Offer/Created',
   args: {
     nfts: 'One'
   },
@@ -25,6 +24,6 @@ const metadata: Meta<ComponentType> = {
 
 export default metadata
 
-export const Success: StoryObj<ComponentType> = {
-  render: ({ nfts }) => <CreatedOfferSuccess count={nfts === 'One' ? 1 : 2} slug={'slug'} />
+export const Created: StoryObj<ComponentType> = {
+  render: ({ nfts }) => <CreatedOfferCreated count={nfts === 'One' ? 1 : 2} slug={'slug'} />
 }
