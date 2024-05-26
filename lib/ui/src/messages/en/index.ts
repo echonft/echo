@@ -206,6 +206,12 @@ export const messages = {
         description: 'Your NFTs are now in escrow until the offer is accepted or it expires',
         offerBtn: 'Go to the offer',
         homepageBtn: 'Back to the homepage'
+      },
+      expired: {
+        title: 'Expired!',
+        subtitle: "Your offer <red>expired</red>, but don't worry, we kept your NFTs safe until you redeem them",
+        description: 'Your NFTs are now back in your wallet',
+        homepageBtn: 'Back to the homepage'
       }
     },
     details: {

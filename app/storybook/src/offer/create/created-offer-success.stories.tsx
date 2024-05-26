@@ -1,6 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { CreateOfferSuccess as Component } from '@echo/ui/components/offer/create/create-offer-success'
+import { CreatedOfferSuccess as Component } from '@echo/ui/components/offer/create/created/created-offer-success'
 import type { Meta, StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -9,7 +9,12 @@ const metadata: Meta<typeof Component> = {
   args: {
     offerSlug: undefined
   },
-  argTypes: {}
+  argTypes: {
+    offerSlug: {
+      options: [undefined, 'defined'],
+      control: { type: 'radio' }
+    }
+  }
 }
 
 export default metadata
