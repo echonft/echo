@@ -33,11 +33,9 @@ async function getCollection(slug: Slug): Promise<Collection> {
   return collection
 }
 
-export async function updateUserNfts(user: UserDocumentData, wallet: WalletDocumentData, logger?: LoggerInterface) {
-  const owner: User = getUserFromFirestoreData(user, wallet)
+export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: LoggerInterface) {
   try {
-    const nfts = await pipe<[WalletDocumentData], Wallet, GetNftsByAccountArgs, ReturnType<typeof getNftsByAccount>>(
-      pick(['address', 'chain']),
+    const nfts = await pipe<[Wallet], GetNftsByAccountArgs, ReturnType<typeof getNftsByAccount>>(
       assoc('fetch', fetch),
       getNftsByAccount
     )(wallet)
@@ -88,5 +86,12 @@ export async function updateUserNfts(user: UserDocumentData, wallet: WalletDocum
       })
   } catch (e) {
     logger?.error(`error fetching NFTs for owner ${wallet.address}: ${errorMessage(e)}`)
+  }
+}
+
+export async function updateUserNfts(user: UserDocumentData, wallets: WalletDocumentData[], logger?: LoggerInterface) {
+  for (const wallet of wallets) {
+    const owner: User = getUserFromFirestoreData(user, wallet)
+    await updateNftsForWallet(pick(['address', 'chain'], wallet), owner, logger)
   }
 }

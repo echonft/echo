@@ -5,10 +5,11 @@ import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instan
 import { FirestoreFunctionsLogger } from '@echo/firestore-functions/services/firestore-functions-logger'
 import { removeNftsForWallet } from '@echo/tasks/nft/remove-nfts-for-wallet'
 import { updateUserNfts } from '@echo/tasks/nft/update-user-nfts'
+import { EVM_CHAIN_NAMES } from '@echo/utils/constants/chain-names'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { DocumentSnapshot } from 'firebase-admin/firestore'
 import { onDocumentWritten } from 'firebase-functions/v2/firestore'
-import { isNil } from 'ramda'
+import { assoc, isNil, map } from 'ramda'
 
 export const onWalletWritten = onDocumentWritten(setMaxInstances({ document: 'wallets/{id}' }), async (event) => {
   const logger = new FirestoreFunctionsLogger()
@@ -23,7 +24,12 @@ export const onWalletWritten = onDocumentWritten(setMaxInstances({ document: 'wa
           const foundUser = await getUserById(wallet.userId)
           if (!isNil(foundUser)) {
             try {
-              await updateUserNfts(foundUser, wallet, logger)
+              if (wallet.isEvm) {
+                const wallets = map((chain) => assoc('chain', chain, wallet), EVM_CHAIN_NAMES)
+                await updateUserNfts(foundUser, wallets, logger)
+              } else {
+                await updateUserNfts(foundUser, [wallet], logger)
+              }
             } catch (e) {
               logger.error(`error upating user ${wallet.userId} NFTs: ${errorMessage(e)}`)
             }
