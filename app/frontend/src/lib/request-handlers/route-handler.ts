@@ -12,7 +12,7 @@ import { isNil, pick } from 'ramda'
 export function routeHandler<RequestBody, ResponseBody, Params extends Record<string, unknown> = never>(
   requestHandler: RequestHandler<RequestBody, ResponseBody, Params>
 ) {
-  return auth(async function (request: NextAuthRequest, context?: { params: Params }) {
+  return auth(async function (request: NextAuthRequest, context?: { params?: Record<string, string | string[]> }) {
     try {
       initializeFirebase()
       const session = await auth()
@@ -21,7 +21,7 @@ export function routeHandler<RequestBody, ResponseBody, Params extends Record<st
       if (isNil(context)) {
         return await requestHandler(request)
       }
-      return await requestHandler(request, context.params)
+      return await requestHandler(request, context.params as Params)
     } catch (error) {
       if (error instanceof ApiError) {
         await error.beforeError()

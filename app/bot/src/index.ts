@@ -15,6 +15,7 @@ import { guardAsyncFn } from '@echo/sentry/guard-async-fn'
 import { initializeSentry } from '@echo/sentry/initialize-sentry'
 import { Events } from 'discord.js'
 
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
 client.once(Events.ClientReady, async (_client) => {
   initializeSentry('https://3b3f89c8f90990e4b35f5e194d109300@o4506149604098048.ingest.sentry.io/4506185901932544')
   initializeFirebase()

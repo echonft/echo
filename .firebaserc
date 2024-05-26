@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "echo-dev-fallback",
+    "dev": "echo-dev-fallback",
+    "testnet": "echo-testnet",
+    "prod": "echo-prod-b71e2",
+    "test": "echo-test-7787f"
+  }
+}
