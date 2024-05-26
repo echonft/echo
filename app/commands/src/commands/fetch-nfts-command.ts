@@ -1,6 +1,5 @@
 import { getNftsByAccount } from '@echo/opensea/services/get-nfts-by-account'
-import { CHAIN_NAMES } from '@echo/utils/constants/chain-names'
-import { isNotIn } from '@echo/utils/fp/is-not-in'
+import { CHAIN_ETHEREUM, CHAIN_NAMES } from '@echo/utils/constants/chain-names'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
@@ -30,22 +29,19 @@ void (async function () {
         alias: 'chain',
         describe: 'chain',
         type: 'string',
-        default: 'ethereum'
+        choices: CHAIN_NAMES,
+        default: CHAIN_ETHEREUM,
+        coerce: (arg) => arg as ChainName
       }
     })
     .demandOption('a', 'address is required')
     .parse()
 
   try {
-    if (isNotIn(CHAIN_NAMES, c)) {
-      pinoLogger.error(`${c} is not a supported chain`)
-      return
-    }
-    const chain = c as ChainName
-    const address = formatAddress({ address: a, chain })
+    const address = formatAddress({ address: a, chain: c })
     pinoLogger.info(`fetching NFTs for ${a}...`)
     try {
-      const nfts = await getNftsByAccount({ address, chain, fetch })
+      const nfts = await getNftsByAccount({ address, chain: c, fetch })
       pinoLogger.info(`received ${nfts.length} NFTs`)
       forEach((nft) => {
         pinoLogger.info(JSON.stringify(nft, undefined, 2))

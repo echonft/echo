@@ -4,6 +4,7 @@ import { getAllWalletDocumentDataMocks } from '@echo/firestore-mocks/wallet/get-
 import { assertWallets } from '@echo/firestore-test/wallet/assert-wallets'
 import { getWalletById } from '@echo/firestore-test/wallet/get-wallet-by-id'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -37,19 +38,19 @@ describe('CRUD - wallet - addWallet', () => {
   })
   it('throws if the user does not exists', async () => {
     await expect(
-      addWallet('not-found', { address: toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8'), chain: 'ethereum' })
+      addWallet('not-found', { address: toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8'), chain: CHAIN_ETHEREUM })
     ).rejects.toBeDefined()
   })
   it('add wallet', async () => {
     const address = toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
     const { id } = await addWallet(USER_MOCK_JOHNNY_USERNAME, {
       address,
-      chain: 'ethereum'
+      chain: CHAIN_ETHEREUM
     })
     addedWalletId = id
     const wallet = (await getWalletById(id))!
     expect(wallet.userId).toEqual('oE6yUEQBPn7PZ89yMjKn')
-    expect(wallet.chain).toEqual('ethereum')
+    expect(wallet.chain).toEqual(CHAIN_ETHEREUM)
     expect(wallet.address).toEqual(address)
   })
 })

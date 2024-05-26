@@ -1,10 +1,8 @@
-import type { ChainName } from '@echo/utils/types/chain-name'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { Wallet } from '@echo/model/types/wallet'
+import type { Nullable } from '@echo/utils/types/nullable'
 import type { AccountStatus } from '@echo/web3-dom/types/account-status'
 
 export interface AccountResult {
-  address: HexString | undefined
-  chain: ChainName
-  chainId: number
+  wallet: Nullable<Wallet>
   status: AccountStatus
 }

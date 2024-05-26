@@ -1,7 +1,12 @@
-import { getChain } from '@echo/web3/helpers/get-chain'
+import { SUPPORTED_CHAINS } from '@echo/utils/constants/supported-chains'
+import { whenNil } from '@echo/utils/fp/when-nil'
+import { getChainId } from '@echo/utils/helpers/get-chain-id'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
+import { always, pipe } from 'ramda'
 import { switchChain as wagmiSwitchChain } from 'wagmi/actions'
 
-export async function switchChain() {
-  await wagmiSwitchChain(wagmiConfig, { chainId: getChain().id })
+export async function switchChain(chain?: ChainName): Promise<void> {
+  const chainId = pipe(whenNil(always(SUPPORTED_CHAINS[0])), getChainId)(chain)
+  await wagmiSwitchChain(wagmiConfig, { chainId })
 }

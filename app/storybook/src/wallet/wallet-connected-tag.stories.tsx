@@ -1,5 +1,6 @@
 // noinspection JSUnusedGlobalSymbols
 
+import { getWalletMock } from '@echo/model-mocks/wallet/wallet-mock'
 import { WalletConnectedTag as Component } from '@echo/ui/components/wallet/wallet-connected-tag'
 import { type Meta, type StoryObj } from '@storybook/react'
 
@@ -8,7 +9,7 @@ const metadata: Meta<typeof Component> = {
   component: Component,
   parameters: {
     controls: {
-      exclude: ['address', 'chainId']
+      exclude: ['wallet']
     }
   }
 }
@@ -17,7 +18,6 @@ export default metadata
 
 export const ConnectedTag: StoryObj<typeof Component> = {
   args: {
-    chain: 'ethereum',
-    address: '0x1E3918dD44F427F056be6C8E132cF1b5F42de59E'
+    wallet: getWalletMock()
   }
 }

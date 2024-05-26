@@ -1,9 +1,9 @@
 import type { Wallet } from '@echo/model/types/wallet'
 import { assertWalletExists } from '@echo/opensea-stream/helpers/assert-wallet-exists'
 import type { TransferData } from '@echo/opensea-stream/types/transfer-data'
+import { isSupportedChain } from '@echo/utils/helpers/is-supported-chain'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { isSupportedChain } from '@echo/web3/helpers/is-supported-chain'
 import type { ItemTransferredEventPayload } from '@opensea/stream-js'
 import { toLower } from 'ramda'
 
