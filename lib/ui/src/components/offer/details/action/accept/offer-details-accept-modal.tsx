@@ -83,7 +83,9 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
           }}
           disabled={isMutating}
         >
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('accept.btn')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
+            {t(isMutating ? 'accept.btn.loading' : 'accept.btn.label')}
+          </span>
         </button>
       </div>
     </Modal>

@@ -1,4 +1,3 @@
-import { linkProvider } from '@echo/api/routing/link-provider'
 import { OfferCreationSubLayout } from '@echo/ui/components/base/offer-creation/offer-creation-sub-layout'
 import { OfferCreationSuccessLayout } from '@echo/ui/components/base/offer-creation/offer-creation-success-layout'
 import { OfferCreationTextLayout } from '@echo/ui/components/base/offer-creation/offer-creation-text-layout'
@@ -12,12 +11,14 @@ interface Props {
   slug: string
 }
 
-export const CreatedOfferAccepted: FunctionComponent<Props> = ({ count, slug }) => {
+export const CreatedOfferAccepted: FunctionComponent<Props> = ({ count }) => {
   const t = useTranslations('offer.accepted')
   const router = useRouter()
 
   const onClick = () => {
-    router.replace(linkProvider.offer.details.get({ slug: slug }))
+    // FIXME kludge we can assume the user is already on the offer details.
+    // Need to create new routes for this
+    router.refresh()
   }
   return (
     <OfferCreationSuccessLayout>

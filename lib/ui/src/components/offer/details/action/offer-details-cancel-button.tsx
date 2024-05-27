@@ -73,7 +73,7 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
     return (
       <LongPressButton
         id={offer.slug}
-        label={t('label')}
+        label={t(disabled ? 'loading' : 'label')}
         message={t('message')}
         disabled={disabled}
         onFinish={() => {

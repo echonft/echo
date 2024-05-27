@@ -38,7 +38,7 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, o
     head,
     nonNullableReturn(path(['collection', 'contract', 'chain']))
   )(offer)
-  const fee = useEchoTradingFees(chain)
+  const fees = useEchoTradingFees(chain)
   const { trigger, isMutating: isContractExecuteMutating } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({
     key: SWRKeys.swap.execute(offer),
     fetcher: contractExecuteOffer,
@@ -59,14 +59,14 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, o
     }
   })
 
-  const isMutating = isContractExecuteMutating || isNil(fee)
+  const isMutating = isContractExecuteMutating || isNil(fees)
 
   return (
     <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('execute.subtitle')}</ModalSubtitle>
-        {!isNil(fee) && (
-          <ModalDescription>{t('execute.description', { fee, count: offer.receiverItems.length })}</ModalDescription>
+        {!isNil(fees) && (
+          <ModalDescription>{t('execute.description', { fees, count: offer.receiverItems.length })}</ModalDescription>
         )}
         <button
           className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
@@ -75,7 +75,9 @@ export const OfferDetailsSwapModal: FunctionComponent<Props> = ({ open, offer, o
           }}
           disabled={isMutating}
         >
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('execute.btn')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
+            {t(isMutating ? 'execute.btn.loading' : 'execute.btn.label')}
+          </span>
         </button>
       </div>
     </Modal>

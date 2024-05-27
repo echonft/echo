@@ -30,7 +30,7 @@ export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({
     return (
       <>
         <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+          className={clsx('btn-gradient', 'btn-size-alt', 'group', disabled && 'animate-pulse')}
           onClick={() => {
             onClick?.()
             setModalShown(true)

@@ -245,34 +245,48 @@ export const messages = {
           subtitle: 'To accept the offer, you first need to approve the Echo contract to escrow your NFTs'
         },
         accept: {
-          btn: 'Accept',
+          btn: {
+            label: 'Accept',
+            loading: 'Accepting...'
+          },
           subtitle: 'Great! Now you just need to sign the transaction to accept the offer.',
-          description: `This transaction will cost {fees} ether.\nThis transaction will place your {count} {count, plural, =1 {NFT} other {NFTs}} in escrow.
+          description: `This transaction will cost {fees} ether.\nThis transaction will place your {count, plural, =1 {NFT} other {NFTs}} in escrow.
 Don't worry, its safe with us.`
         },
         title: 'Accept Offer'
       },
       approveModal: {
-        btn: 'Approve'
+        btn: {
+          label: 'Approve',
+          loading: 'Approving...'
+        }
       },
       cancelBtn: {
         label: 'Cancel',
-        message: 'Hold to cancel'
+        message: 'Hold to cancel',
+        loading: 'Cancelling...'
       },
       completeBtn: 'Swap',
       expiredAt: 'Expired',
       expiresAt: 'Expires in',
-      redeemBtn: 'Redeem your {count} {count, plural, =1 {NFT} other {NFTs}}',
+      redeemBtn: {
+        label: 'Redeem your {count, plural, =1 {NFT} other {NFTs}}',
+        loading: 'Redeeming...'
+      },
       rejectBtn: {
         label: 'Reject',
-        message: 'Hold to reject'
+        message: 'Hold to reject',
+        loading: 'Rejecting...'
       },
       swapModal: {
         execute: {
-          btn: 'Swap',
+          btn: {
+            label: 'Swap',
+            loading: 'Swapping...'
+          },
           subtitle: 'Great! Now you just need to sign the transaction to execute the trade.',
           description:
-            'This transaction will cost {fees} ether.\nThis transaction will swap your {count} {count, plural, =1 {NFT} other {NFTs}}.'
+            'This transaction will cost {fees} ether.\nThis transaction will swap your {count, plural, =1 {NFT} other {NFTs}}.'
         },
         title: 'Execute Swap'
       }

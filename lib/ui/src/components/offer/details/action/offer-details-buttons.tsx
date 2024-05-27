@@ -18,7 +18,7 @@ import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
 import { useAreNftsInEscrow } from '@echo/ui/hooks/use-are-nfts-in-escrow'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
-import { anyPass, isNil, or, partialRight } from 'ramda'
+import { anyPass, isNil } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -73,10 +73,11 @@ function showRedeemButton(offer: OfferWithRole, areNftsInEscrow: boolean | undef
   return false
 }
 function shouldShowButtons(offer: OfferWithRole, areNftsInEscrow: boolean | undefined) {
-  return or(
-    anyPass([showAcceptButton, showCancelButton, showRejectButton, showSwapButton]),
-    partialRight(showRedeemButton, [areNftsInEscrow])
-  )(offer)
+  // FIXME could be cleaner
+  return (
+    anyPass([showAcceptButton, showCancelButton, showRejectButton, showSwapButton])(offer) ||
+    showRedeemButton(offer, areNftsInEscrow)
+  )
 }
 
 export const OfferDetailsButtons: FunctionComponent<Props> = ({ offer, onSuccess }) => {

@@ -99,6 +99,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
             <UserProfileWallets wallets={[wallet]} />
           </UserDetailsDiscordTagAndWalletLayout>
         </UserDetailsLayout>
+        {/*  FIXME expiresAt value should be derived from state */}
         <StateExpiration
           expiresAt={dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix()}
           readOnly={false}
