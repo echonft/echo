@@ -2,4 +2,5 @@ import type { WithFetchRequest } from '@echo/opensea/types/request/with-fetch-re
 
 export interface GetCollectionRequest extends WithFetchRequest {
   slug: string
+  testnet: boolean
 }

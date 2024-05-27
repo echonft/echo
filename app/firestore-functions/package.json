@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup",
-    "deploy:dev": "firebase deploy",
-    "deploy:testnet": "firebase deploy",
+    "deploy:dev": "firebase deploy --only functions",
+    "deploy:testnet": "firebase deploy --only functions",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",
@@ -28,7 +28,7 @@
   "dependencies": {
     "@supercharge/promise-pool": "3.2.0",
     "firebase-admin": "12.1.1",
-    "firebase-functions": "4.9.0",
+    "firebase-functions": "5.0.1",
     "google-auth-library": "9.10.0",
     "ramda": "0.30.0",
     "zod": "3.23.8"

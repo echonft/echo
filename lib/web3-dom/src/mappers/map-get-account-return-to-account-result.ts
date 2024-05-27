@@ -1,17 +1,18 @@
 import type { Wallet } from '@echo/model/types/wallet'
 import { propIsNil } from '@echo/utils/fp/prop-is-nil'
 import { getChainName } from '@echo/utils/helpers/get-chain-name'
-import type { ChainName } from '@echo/utils/types/chain-name'
+import { isSupportedChain } from '@echo/utils/helpers/is-supported-chain'
 import type { HexString } from '@echo/utils/types/hex-string'
 import type { Nullable } from '@echo/utils/types/nullable'
 import type { AccountResult } from '@echo/web3-dom/types/account-result'
 import type { AccountStatus } from '@echo/web3-dom/types/account-status'
 import {
   always,
+  anyPass,
   applySpec,
   assoc,
+  complement,
   dissoc,
-  either,
   equals,
   ifElse,
   isNil,
@@ -19,21 +20,22 @@ import {
   pick,
   pipe,
   prop,
+  propEq,
   toLower,
   when
 } from 'ramda'
 import type { GetAccountReturnType } from 'wagmi/actions'
 
-function getWallet<T extends Pick<GetAccountReturnType, 'address' | 'chainId'>>(args: T): Nullable<Wallet> {
+function getWallet(args: ReturnType<typeof setStatus>): Nullable<Wallet> {
   return ifElse(
-    either(
+    anyPass([
+      propEq<AccountResult['status'], 'status'>('disconnected', 'status'),
       propIsNil('address'),
-      pipe<[Pick<GetAccountReturnType, 'address' | 'chainId'>], Nullable<number>, Nullable<ChainName>, boolean>(
+      pipe<[ReturnType<typeof setStatus>], Nullable<number>, boolean>(
         prop('chainId'),
-        getChainName,
-        isNil
+        ifElse(isNil, always(true), pipe(getChainName, complement(isSupportedChain)))
       )
-    ),
+    ]),
     always(undefined),
     applySpec<Wallet>({
       address: pipe(prop('address'), toLower<HexString>),
@@ -42,14 +44,14 @@ function getWallet<T extends Pick<GetAccountReturnType, 'address' | 'chainId'>>(
   )(args)
 }
 
-function setWallet(
-  args: Pick<GetAccountReturnType, 'address' | 'chainId' | 'status'>
-): Pick<GetAccountReturnType, 'status'> & Pick<AccountResult, 'wallet'> {
+function setWallet(args: ReturnType<typeof setStatus>): AccountResult {
   const wallet = getWallet(args)
   return pipe(assoc('wallet', wallet), dissoc('address'), dissoc('chainId'))(args)
 }
 
-function setStatus(args: ReturnType<typeof setWallet>): AccountResult {
+function setStatus(
+  args: Pick<GetAccountReturnType, 'address' | 'chainId' | 'status'>
+): Pick<GetAccountReturnType, 'address' | 'chainId'> & Pick<AccountResult, 'status'> {
   return modify<'status', GetAccountReturnType['status'], AccountStatus>(
     'status',
     when(equals('reconnecting'), always<AccountStatus>('connecting')) as (
@@ -62,11 +64,11 @@ export function mapGetAccountReturnToAccountResult(result: GetAccountReturnType)
   return pipe<
     [GetAccountReturnType],
     Pick<GetAccountReturnType, 'address' | 'chainId' | 'status'>,
-    ReturnType<typeof setWallet>,
+    ReturnType<typeof setStatus>,
     AccountResult
   >(
     pick(['address', 'chainId', 'status']),
-    setWallet,
-    setStatus
+    setStatus,
+    setWallet
   )(result)
 }

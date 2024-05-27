@@ -5,6 +5,7 @@ import type { NftIndex } from '@echo/model/types/nft-index'
 import type { Wallet } from '@echo/model/types/wallet'
 import { addCollectionIfNeeded } from '@echo/opensea-stream/helpers/add-collection-if-needed'
 import { addNftIfNeeded } from '@echo/opensea-stream/helpers/add-nft-if-needed'
+import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { isNil } from 'ramda'
 
@@ -15,9 +16,8 @@ import { isNil } from 'ramda'
  *
  * @param {Wallet} to - The wallet the NFT is transferred to.
  * @param {NftIndex} nftIndex - The index of the NFT transferred.
- *
- * @returns {Promise} - A promise that resolves when the transfer is*/
-export async function processToTransfer(to: Wallet, nftIndex: NftIndex) {
+ * @returns {Promise<void>} */
+export async function processToTransfer(to: Wallet, nftIndex: NftIndex): Promise<void> {
   const walletData = await getWalletByAddress(to)
   if (isNil(walletData)) {
     pinoLogger.error(`wallet ${JSON.stringify(to)} not found`)
@@ -29,6 +29,6 @@ export async function processToTransfer(to: Wallet, nftIndex: NftIndex) {
     return
   }
   const user = getUserFromFirestoreData(userDocumentData, walletData)
-  const collection = await addCollectionIfNeeded(nftIndex.collection.slug)
+  const collection = await addCollectionIfNeeded({ slug: nftIndex.collection.slug, testnet: isTestnetChain(to.chain) })
   await addNftIfNeeded({ nftIndex, owner: user, collection, chain: to.chain })
 }

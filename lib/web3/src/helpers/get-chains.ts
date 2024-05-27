@@ -1,4 +1,4 @@
-import { SUPPORTED_CHAINS } from '@echo/utils/constants/supported-chains'
+import { SUPPORTED_CHAINS } from '@echo/utils/constants/chain-names'
 import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import type { NonEmptyArray } from '@echo/utils/types/non-empty-array'
 import { getChainById } from '@echo/web3/helpers/get-chain-by-id'

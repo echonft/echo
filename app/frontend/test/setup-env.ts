@@ -3,7 +3,7 @@ let replacedEnv: jest.ReplaceProperty<typeof process.env> | undefined = undefine
 beforeEach(() => {
   replacedEnv = jest.replaceProperty(process, 'env', {
     ...process.env,
-    TESTNET: '1'
+    NEXT_PUBLIC_IS_TESTNET: '1'
   })
 })
 

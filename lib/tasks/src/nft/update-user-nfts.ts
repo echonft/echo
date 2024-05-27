@@ -10,25 +10,26 @@ import type { NewDocument } from '@echo/firestore/types/new-document'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import type { Collection } from '@echo/model/types/collection'
 import type { Nft } from '@echo/model/types/nft'
-import type { Slug } from '@echo/model/types/slug'
 import type { User } from '@echo/model/types/user'
 import type { Wallet } from '@echo/model/types/wallet'
 import { getCollection as getCollectionFromOpensea } from '@echo/opensea/services/get-collection'
 import { getNftsByAccount, type GetNftsByAccountArgs } from '@echo/opensea/services/get-nfts-by-account'
-import { PROMISE_POOL_CONCURRENCY } from '@echo/tasks/constants/promise-pool-concurrency'
+import type { GetCollectionRequest } from '@echo/opensea/types/request/get-collection-request'
 import { errorMessage } from '@echo/utils/helpers/error-message'
+import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { PromisePool } from '@supercharge/promise-pool'
-import { andThen, assoc, equals, isNil, pick, pipe, prop } from 'ramda'
+import { always, andThen, assoc, equals, isNil, otherwise, pick, pipe, prop } from 'ramda'
 
-async function getCollection(slug: Slug): Promise<Collection> {
-  const collection = await getCollectionFromFirestore(slug)
+async function getCollection(args: Omit<GetCollectionRequest, 'fetch'>): Promise<Nullable<Collection>> {
+  const collection = await getCollectionFromFirestore(args.slug)
   if (isNil(collection)) {
     return pipe(
+      assoc('fetch', fetch),
       getCollectionFromOpensea,
+      otherwise(always(undefined)),
       andThen(pipe(assoc('verified', false), addCollection, andThen(prop('data'))))
-    )({ fetch, slug })
+    )(args)
   }
   return collection
 }
@@ -39,12 +40,11 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
       assoc('fetch', fetch),
       getNftsByAccount
     )(wallet)
-    await PromisePool.withConcurrency(PROMISE_POOL_CONCURRENCY)
-      .for(nfts)
-      .process(async (nft) => {
-        try {
-          // check if collection exists, if not add it, else set it in the nft
-          const collection = await getCollection(nft.collection.slug)
+    for (const nft of nfts) {
+      try {
+        // check if collection exists, if not add it, else set it in the nft
+        const collection = await getCollection({ slug: nft.collection.slug, testnet: isTestnetChain(wallet.chain) })
+        if (!isNil(collection)) {
           const existingNft: Nullable<Nft> = await pipe(getNftIndex, getNft)(nft)
           if (isNil(existingNft)) {
             logger?.info(`nft ${nft.collection.slug} #${nft.tokenId} is not in the database, adding...`)
@@ -80,12 +80,14 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
               logger?.error(`error setting new owner of nft ${nft.collection.slug} #${nft.tokenId}: ${errorMessage(e)}`)
             }
           }
-        } catch (e) {
-          logger?.error(`error getting NFT ${nft.collection.slug} #${nft.tokenId}}: ${errorMessage(e)}`)
+          logger?.info(`done updating NFTs for wallet ${JSON.stringify(wallet)}`)
         }
-      })
+      } catch (e) {
+        logger?.error(`error getting NFT ${nft.collection.slug} #${nft.tokenId}}: ${errorMessage(e)}`)
+      }
+    }
   } catch (e) {
-    logger?.error(`error fetching NFTs for owner ${wallet.address}: ${errorMessage(e)}`)
+    logger?.error(`error fetching NFTs for wallet ${JSON.stringify(wallet)}: ${errorMessage(e)}`)
   }
 }
 
