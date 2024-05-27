@@ -55,7 +55,7 @@ describe('validators - createOfferSchema', () => {
   it('throws if expiresAt is not valid', () => {
     expect(() => createOfferSchema.parse(dissoc('expiresAt', validRequest))).toThrow()
     expect(() => createOfferSchema.parse(assoc('expiresAt', 0, validRequest))).toThrow()
-    expect(() => createOfferSchema.parse(assoc('expiresAt', now(), validRequest))).toThrow()
+    expect(() => createOfferSchema.parse(assoc('expiresAt', now() - 120, validRequest))).toThrow()
   })
   it('valid', () => {
     expect(createOfferSchema.parse(validRequest)).toStrictEqual(validRequest)

@@ -29,7 +29,7 @@
     "@babel/core": "7.24.6",
     "@babel/preset-env": "7.24.6",
     "@babel/preset-typescript": "7.24.6",
-    "@dotenvx/dotenvx": "0.44.0",
+    "@dotenvx/dotenvx": "0.44.1",
     "@echo/model": "workspace:*",
     "@echo/utils": "workspace:*",
     "@jest/globals": "29.7.0",
