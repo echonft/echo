@@ -4,10 +4,12 @@ import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
 import type { Nft } from '@echo/model/types/nft'
 import { Modal } from '@echo/ui/components/base/modal/modal'
+import { ModalDescription } from '@echo/ui/components/base/modal/modal-description'
 import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import type { ErrorCallback } from '@echo/ui/helpers/error-callback'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { useEchoTradingFees } from '@echo/ui/hooks/use-echo-trading-fees'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
@@ -18,7 +20,7 @@ import type { HexString } from '@echo/utils/types/hex-string'
 import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-update-offer-args'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { assoc, head, path, pipe, prop } from 'ramda'
+import { assoc, head, isNil, path, pipe, prop } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -37,6 +39,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
     head,
     nonNullableReturn(path(['collection', 'contract', 'chain']))
   )(offer)
+  const fee = useEchoTradingFees(chain)
   const onError: Omit<ErrorCallback, 'show'> = {
     contexts: offerContext(offer),
     alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('accept') },
@@ -64,12 +67,15 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
     onError
   })
 
-  const isMutating = isAcceptMutating || isContractAcceptMutating
+  const isMutating = isAcceptMutating || isContractAcceptMutating || isNil(fee)
 
   return (
     <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
-        <ModalSubtitle>{t('sign.subtitle')}</ModalSubtitle>
+        <ModalSubtitle>{t('accept.subtitle')}</ModalSubtitle>
+        {!isNil(fee) && (
+          <ModalDescription>{t('accept.description', { fee, count: offer.senderItems.length })}</ModalDescription>
+        )}
         <button
           className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
           onClick={() => {
@@ -77,7 +83,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
           }}
           disabled={isMutating}
         >
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('sign.btn')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('accept.btn')}</span>
         </button>
       </div>
     </Modal>

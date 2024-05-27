@@ -214,7 +214,8 @@ export const messages = {
         create: {
           btn: 'Create',
           subtitle: 'Great! Now you just need to sign the transaction to create the offer.',
-          description: "This transaction will place your NFT in escrow. Don't worry, its safe with us."
+          description:
+            "This transaction will place your {count} {count, plural, =1 {NFT} other {NFTs}} in escrow.\nDon't worry, its safe with us."
         },
         title: 'Create Offer'
       }
@@ -232,9 +233,11 @@ export const messages = {
         approval: {
           subtitle: 'To accept the offer, you first need to approve the Echo contract to escrow your NFTs'
         },
-        sign: {
+        accept: {
           btn: 'Accept',
-          subtitle: 'Great! Now you just need to sign a message so the counterparty can perform the swap'
+          subtitle: 'Great! Now you just need to sign the transaction to accept the offer.',
+          description: `This transaction will cost {fees} ether.\nThis transaction will place your {count} {count, plural, =1 {NFT} other {NFTs}} in escrow.
+Don't worry, its safe with us.`
         },
         title: 'Accept Offer'
       },
@@ -253,12 +256,11 @@ export const messages = {
         message: 'Hold to reject'
       },
       swapModal: {
-        approval: {
-          subtitle: 'To execute the swap, you first need to approve the Echo contract to transfer your NFTs'
-        },
         execute: {
           btn: 'Swap',
-          subtitle: 'Great! Now you just need to execute the trade'
+          subtitle: 'Great! Now you just need to sign the transaction to execute the trade.',
+          description:
+            'This transaction will cost {fees} ether.\nThis transaction will swap your {count} {count, plural, =1 {NFT} other {NFTs}}.'
         },
         title: 'Execute Swap'
       }

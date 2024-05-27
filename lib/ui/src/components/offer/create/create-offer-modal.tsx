@@ -85,7 +85,7 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
     <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('create.subtitle')}</ModalSubtitle>
-        <ModalDescription>{t('create.description')}</ModalDescription>
+        <ModalDescription>{t('create.description', { count: baseOffer.senderItems.length })}</ModalDescription>
         <button
           className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
           onClick={() => {
