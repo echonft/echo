@@ -1,43 +1,85 @@
 'use client'
-import { OfferDetailsAcceptSignModal } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-sign-modal'
-import { OfferDetailsContractApprovalModal } from '@echo/ui/components/offer/details/offer-details-contract-approval-modal'
-import { ConnectWalletModal } from '@echo/ui/components/wallet/connect-wallet-modal'
-import { useAccount } from '@echo/ui/hooks/use-account'
+import type { AcceptOfferArgs } from '@echo/api/types/fetchers/accept-offer-args'
+import type { OfferResponse } from '@echo/api/types/responses/offer-response'
+import { offerContext } from '@echo/model/sentry/contexts/offer-context'
+import type { Nft } from '@echo/model/types/nft'
+import { Modal } from '@echo/ui/components/base/modal/modal'
+import { ModalSubtitle } from '@echo/ui/components/base/modal/modal-subtitle'
+import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
+import type { ErrorCallback } from '@echo/ui/helpers/error-callback'
+import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
+import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
+import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import type { HexString } from '@echo/utils/types/hex-string'
+import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-update-offer-args'
+import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
-import { type FunctionComponent, useState } from 'react'
+import { assoc, head, path, pipe, prop } from 'ramda'
+import { type FunctionComponent } from 'react'
 
 interface Props {
   offer: OfferWithRole
   open: boolean
-  onClose?: EmptyFunction
   onSuccess?: (offer: OfferWithRole) => unknown
+  onClose?: EmptyFunction
 }
 
-export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open, onClose, onSuccess }) => {
+export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open, onSuccess, onClose }) => {
   const t = useTranslations('offer.details.acceptModal')
-  const [approved, setApproved] = useState(false)
-  const { status } = useAccount()
-
-  if (status !== 'connected') {
-    return <ConnectWalletModal open={open} onClose={onClose} />
+  const tError = useTranslations('error.offer')
+  const { acceptOffer, contractAcceptOffer } = useDependencies()
+  const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
+    prop('receiverItems'),
+    head,
+    nonNullableReturn(path(['collection', 'contract', 'chain']))
+  )(offer)
+  const onError: Omit<ErrorCallback, 'show'> = {
+    contexts: offerContext(offer),
+    alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('accept') },
+    onError: onClose
   }
 
-  if (approved) {
-    return <OfferDetailsAcceptSignModal offer={offer} open={open} onSuccess={onSuccess} onClose={onClose} />
-  }
+  const { trigger: triggerContractAccept, isMutating: isContractAcceptMutating } = useSWRTrigger<
+    HexString,
+    ContractUpdateOfferArgs
+  >({
+    key: SWRKeys.offer.contractAccept(offer),
+    fetcher: contractAcceptOffer,
+    onSuccess: () => {
+      void triggerAccept({ slug: offer.slug })
+    },
+    onError
+  })
+
+  const { trigger: triggerAccept, isMutating: isAcceptMutating } = useSWRTrigger<OfferResponse, AcceptOfferArgs>({
+    key: SWRKeys.offer.accept(offer),
+    fetcher: acceptOffer,
+    onSuccess: (response) => {
+      onSuccess?.(assoc('role', offer.role, response.offer))
+    },
+    onError
+  })
+
+  const isMutating = isAcceptMutating || isContractAcceptMutating
 
   return (
-    <OfferDetailsContractApprovalModal
-      items={offer.receiverItems}
-      open={open}
-      title={t('title')}
-      subtitle={t('approval.subtitle')}
-      onSuccess={() => {
-        setApproved(true)
-      }}
-      onClose={onClose}
-    />
+    <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')}>
+      <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
+        <ModalSubtitle>{t('sign.subtitle')}</ModalSubtitle>
+        <button
+          className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}
+          onClick={() => {
+            void triggerContractAccept({ offerId: offer.idContract, chain })
+          }}
+          disabled={isMutating}
+        >
+          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('sign.btn')}</span>
+        </button>
+      </div>
+    </Modal>
   )
 }
