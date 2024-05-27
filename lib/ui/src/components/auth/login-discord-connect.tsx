@@ -55,7 +55,7 @@ export const LoginDiscordConnect: FunctionComponent<Props> = ({ user }) => {
       )}
     >
       <Image
-        className={clsx('w-auto', 'h-auto', 'rounded')}
+        className={clsx('rounded')}
         src={addPictureSizeToUrl(avatarUrl, PICTURE_SIZE_XS)}
         alt={username}
         width={18}
