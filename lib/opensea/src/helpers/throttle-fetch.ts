@@ -12,10 +12,13 @@ interface ThrottleFetchArgs extends WithFetchRequest {
 async function tryFetch(args: ThrottleFetchArgs & { retries: number }): Promise<Response> {
   const { fetch, url, retries } = args
   if (retries === MAX_RETRIES) {
+    pinoLogger.error(`request to ${url} throttling max retries reached. Returning error :(`)
     return Promise.resolve(Response.error())
   }
   if (retries > 0) {
-    pinoLogger.info(`retrying request to ${url}`)
+    pinoLogger.warn(`retrying request to ${url}`)
+  } else {
+    pinoLogger.info(`fetching request to ${url}`)
   }
   const response = await fetch(url, fetchInit)
   if (!response.ok && response.status === 429) {
@@ -25,6 +28,9 @@ async function tryFetch(args: ThrottleFetchArgs & { retries: number }): Promise<
       pipe(converge(assoc, [always('retries'), pipe(prop('retries'), inc), identity]), tryFetch),
       WAIT_TIME
     )(args)
+  }
+  if (retries > 0) {
+    pinoLogger.info(`throttle success for request to ${url}`)
   }
   return response
 }
