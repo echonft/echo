@@ -11,9 +11,9 @@ describe('builders - buildNewListingButtons', () => {
   })
 
   it('should build a new listing button with a link to the listing', () => {
-    const listingSlug = 'slug'
-    const result = buildListingLinkButton(listingSlug)
-    const expectedLink = linkProvider.listing.details.getUrl({ slug: listingSlug })
+    const slug = 'slug'
+    const result = buildListingLinkButton(slug)
+    const expectedLink = linkProvider.listing.details.getUrl({ slug })
     expect(result).toBeInstanceOf(ActionRowBuilder)
     const components = result.components
     expect(components).toHaveLength(1)

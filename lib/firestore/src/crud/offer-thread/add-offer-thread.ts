@@ -4,22 +4,14 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import type { NewDocument } from '@echo/firestore/types/new-document'
 import { now } from '@echo/utils/helpers/now'
-import { isNil } from 'ramda'
+import { assoc, isNil } from 'ramda'
 
-export async function addOfferThread(
-  thread: Omit<OfferThread, 'postedAt' | 'state'>
-): Promise<NewDocument<OfferThread>> {
-  const { offerId, guild } = thread
-  const offer = await getOfferById(offerId)
+export async function addOfferThread(thread: Omit<OfferThread, 'postedAt'>): Promise<NewDocument<OfferThread>> {
+  const offer = await getOfferById(thread.offerId)
   if (isNil(offer)) {
-    throw Error(`trying to add thread for offer with id ${offerId} but this offer does not exist`)
+    throw Error(`trying to add thread for offer with id ${thread.offerId} but this offer does not exist`)
   }
-  const data: OfferThread = {
-    offerId,
-    guild,
-    postedAt: now(),
-    state: 'ACTIVE'
-  }
+  const data: OfferThread = assoc('postedAt', now(), thread)
   const id = await setReference<OfferThread>({
     collectionReference: getOfferThreadsCollectionReference(),
     data

@@ -14,7 +14,7 @@ export const messages = {
       items: {
         name: 'Offering'
       },
-      targets: {
+      target: {
         name: 'Looking for',
         value_one: '1 NFT from {{collectionName}}',
         value_other: '{{count}} NFTs from {{collectionName}}'
@@ -42,12 +42,8 @@ export const messages = {
     embed: {
       title: 'A new swap was made',
       description: 'Between {{- creator}} and {{- counterparty}}',
-      creatorItems: {
-        name: 'Swapped'
-      },
-      counterpartyItems: {
-        name: 'For'
-      }
+      senderItems: 'Swapped',
+      receiverItems: 'For'
     }
   }
 }

@@ -23,21 +23,32 @@ export function buildSwapEmbed(offer: Offer, creator: UserDocumentData, counterp
   )
 }
 
-function fields(creatorItems: Nft[], counterpartyItems: Nft[]): APIEmbedField[] {
+function fields(senderItems: Nft[], receiverItems: Nft[]): APIEmbedField[] {
   return flatten([
     embedSeparator(),
-    offerItemsFields(creatorItems, true),
+    senderItemsFields(senderItems),
     embedSeparator(),
-    offerItemsFields(counterpartyItems, false)
+    receiverItemsFields(receiverItems)
   ])
 }
 
-function offerItemsFields(items: Nft[], isCreatorItems: boolean): APIEmbedField[] {
+function senderItemsFields(items: Nft[]): APIEmbedField[] {
   const mapIndexed = addIndex<Nft>(map)
   return mapIndexed(
     (item: Nft, index) => ({
-      name:
-        index === 0 ? i18next.t(`swap.embed.${isCreatorItems ? 'creatorItems' : 'counterpartyItems'}.name`) : '\u200b',
+      name: index === 0 ? i18next.t('swap.embed.senderItems') : '\u200b',
+      value: embedValueForNft(item),
+      inline: true
+    }),
+    items
+  )
+}
+
+function receiverItemsFields(items: Nft[]): APIEmbedField[] {
+  const mapIndexed = addIndex<Nft>(map)
+  return mapIndexed(
+    (item: Nft, index) => ({
+      name: index === 0 ? i18next.t('swap.embed.receiverItems') : '\u200b',
       value: embedValueForNft(item),
       inline: true
     }),
