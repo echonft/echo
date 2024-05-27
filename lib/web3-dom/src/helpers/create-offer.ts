@@ -29,7 +29,7 @@ export async function createOffer(args: ContractCreateOfferArgs) {
     functionName: 'createOffer',
     address,
     chainId,
-    args: [mapOfferToContractCreateOffer({ ...offer }) as never]
+    args: [mapOfferToContractCreateOffer(offer) as never]
   })
   return await writeContract(wagmiConfig, request)
 }
