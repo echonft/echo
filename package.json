@@ -23,8 +23,8 @@
   "scripts": {
     "bot:dev": "turbo run dev --filter=@echo/bot",
     "bot:dev:testnet": "turbo run dev:testnet --filter=@echo/bot",
-    "bot:deploy:dev": "flyctl deploy --local-only --update-only --config app/bot/.fly/fly.dev.toml --dockerfile Dockerfile",
-    "bot:deploy:testnet": "flyctl deploy --local-only --update-only --config app/bot/.fly/fly.testnet.toml --dockerfile Dockerfile",
+    "bot:deploy:dev": "flyctl deploy --local-only --update-only --config app/bot/.fly/fly.dev.toml --dockerfile bot.Dockerfile",
+    "bot:deploy:testnet": "flyctl deploy --local-only --update-only --config app/bot/.fly/fly.testnet.toml --dockerfile bot.Dockerfile",
     "check": "turbo run tsc --force && turbo run lint --force && turbo run test --force",
     "check:quick": "turbo run tsc --force && turbo run lint --force && turbo run test --filter=!@echo/firestore --force",
     "clean": "turbo run clean",
@@ -39,6 +39,7 @@
     "modules:remove": "turbo run modules:remove; rm -rf node_modules; rm -rf pnpm-lock.yaml",
     "modules:update": "ncu -u --deep",
     "modules:update-minor": "ncu -u --deep --target=minor",
+    "opensea-stream:deploy:dev": "flyctl deploy --local-only --update-only --config=app/opensea-stream/.fly/fly.dev.toml --dockerfile=opensea-stream.Dockerfile",
     "prepare": "husky install",
     "prettier": "turbo run prettier",
     "prettier:ci": "turbo run prettier:ci",
@@ -51,7 +52,7 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo && turbo run tsc:clean-cache"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "0.44.0",
+    "@dotenvx/dotenvx": "0.44.1",
     "@next/eslint-plugin-next": "14.2.3",
     "@typescript-eslint/eslint-plugin": "7.10.0",
     "@typescript-eslint/parser": "7.10.0",
@@ -66,7 +67,7 @@
     "eslint-plugin-simple-import-sort": "12.1.0",
     "firebase-tools": "13.10.1",
     "husky": "9.0.11",
-    "lint-staged": "15.2.4",
+    "lint-staged": "15.2.5",
     "npm-check-updates": "16.14.20",
     "prettier": "3.2.5",
     "turbo": "1.13.3",

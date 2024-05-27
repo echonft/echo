@@ -1,6 +1,6 @@
 import type { CreateOfferRequest } from '@echo/api/types/requests/create-offer-request'
 import { createOfferSchema } from '@echo/frontend/lib/validators/create-offer-schema'
-import dayjs from 'dayjs'
+import { now } from '@echo/utils/helpers/now'
 import { assoc, dissoc } from 'ramda'
 
 describe('validators - createOfferSchema', () => {
@@ -55,7 +55,7 @@ describe('validators - createOfferSchema', () => {
   it('throws if expiresAt is not valid', () => {
     expect(() => createOfferSchema.parse(dissoc('expiresAt', validRequest))).toThrow()
     expect(() => createOfferSchema.parse(assoc('expiresAt', 0, validRequest))).toThrow()
-    expect(() => createOfferSchema.parse(assoc('expiresAt', dayjs().unix(), validRequest))).toThrow()
+    expect(() => createOfferSchema.parse(assoc('expiresAt', now() - 120, validRequest))).toThrow()
   })
   it('valid', () => {
     expect(createOfferSchema.parse(validRequest)).toStrictEqual(validRequest)

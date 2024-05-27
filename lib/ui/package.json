@@ -26,7 +26,7 @@
   "dependencies": {
     "@headlessui/react": "1.7.19",
     "@sentry/nextjs": "7.116.0",
-    "@tanstack/react-query": "5.37.1",
+    "@tanstack/react-query": "5.39.0",
     "connectkit": "1.7.3",
     "dayjs": "1.11.11",
     "framer-motion": "11.2.6",
@@ -44,7 +44,7 @@
     "swr": "2.2.5",
     "throttle-debounce": "5.0.0",
     "use-long-press": "3.2.0",
-    "wagmi": "2.9.6",
+    "wagmi": "2.9.7",
     "zustand": "4.5.2"
   },
   "devDependencies": {

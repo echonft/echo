@@ -9,17 +9,18 @@ import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { isNil } from 'ramda'
 
 /**
- * Processes the transfer of an NFT from a user in our database to another user in our database.
- * Modifies the NFT ownership
+ * Processes the transfer of an NFT from a foreign user to a user in our database.
+ * Checks if NFT exists (shouldn't be the case or else it'd be a swap) and updates it if needed
+ * Otherwise checks if the collection exists, and if not, create it and then add the NFT to it
  *
- * @param {Wallet} to - The receiving wallet.
- * @param {NftIndex} nftIndex - The index of the NFT being transferred.
+ * @param {Wallet} to - The wallet the NFT is transferred to.
+ * @param {NftIndex} nftIndex - The index of the NFT transferred.
  * @returns {Promise<void>} */
-export async function processSwapTransfer(to: WalletDocumentData, nftIndex: NftIndex): Promise<void> {
-  pinoLogger.info(`SWAP transfer for ${JSON.stringify(nftIndex)}, processing...`)
+export async function processInTransfer(to: WalletDocumentData, nftIndex: NftIndex): Promise<void> {
+  pinoLogger.info(`IN transfer for ${JSON.stringify(nftIndex)} to wallet ${JSON.stringify(to)}, processing...`)
   const userDocumentData = await getUserById(to.userId)
   if (isNil(userDocumentData)) {
-    pinoLogger.error(`[SWAP transfer ${JSON.stringify(nftIndex)}] user ${to.userId} not found`)
+    pinoLogger.error(`[IN transfer ${JSON.stringify(nftIndex)}] user ${to.userId} not found`)
     return
   }
   const user = getUserFromFirestoreData(userDocumentData, to)

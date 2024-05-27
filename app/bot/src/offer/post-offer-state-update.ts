@@ -45,16 +45,21 @@ async function getMessage(offer: Offer) {
 export async function postOfferStateUpdate(offer: Offer, offerId: string) {
   const offerThread = await getOfferThread(offerId)
   if (isNil(offerThread)) {
-    throw Error(`offer thread not found for offer ${offerId}`)
+    pinoLogger.error(`[OFFER ${offerId}] offer thread not found`)
+    return { offerThread: undefined, thread: undefined }
   }
   const thread = await getThreadOnEchoChannel(offerThread.guild.threadId)
   if (isNil(thread)) {
-    pinoLogger.error(`tried to post update to thread ${offerThread.guild.threadId} but this thread does not exist`)
-    return
+    pinoLogger.error(
+      `[OFFER ${offerId}] tried to post update to thread ${offerThread.guild.threadId} but this thread does not exist`
+    )
+    return { offerThread, thread: undefined }
   }
   const content = await getMessage(offer)
   await sendToThread(thread, {
     components: [buildOfferLinkButton(offer.slug)],
     content
   })
+  pinoLogger.info(`[OFFER ${offerId}] posted update to thread ${offerThread.guild.threadId}`)
+  return { offerThread, thread }
 }

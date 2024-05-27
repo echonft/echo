@@ -23,7 +23,7 @@ export function buildListingEmbed(listing: Listing, creator: UserDocumentData) {
 
 function fields(items: Nft[], target: ListingTarget): APIEmbedField[] {
   // TODO Should work as is, but we might need to adjust if target change
-  return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), ListingTargets([target])])
+  return flatten([embedSeparator(), listingItemsFields(items), embedSeparator(), ListingTarget(target)])
 }
 
 function listingItemsFields(items: Nft[]): APIEmbedField[] {
@@ -38,14 +38,10 @@ function listingItemsFields(items: Nft[]): APIEmbedField[] {
   )
 }
 
-function ListingTargets(targets: ListingTarget[]): APIEmbedField[] {
-  const mapIndexed = addIndex<ListingTarget>(map)
-  return mapIndexed(
-    (target: ListingTarget, index) => ({
-      name: index === 0 ? i18next.t('listing.embed.targets.name') : '\u200b',
-      value: i18next.t('listing.embed.targets.value', { count: target.amount, collectionName: target.collection.name }),
-      inline: true
-    }),
-    targets
-  )
+function ListingTarget(target: ListingTarget): APIEmbedField {
+  return {
+    name: i18next.t('listing.embed.target.name'),
+    value: i18next.t('listing.embed.target.value', { count: target.amount, collectionName: target.collection.name }),
+    inline: true
+  }
 }

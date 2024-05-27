@@ -1,9 +1,11 @@
-import { cleanEventPayload } from '@echo/opensea-stream/helpers/clean-event-payload'
-import { processFromTransfer } from '@echo/opensea-stream/helpers/process-from-transfer'
+import { initializeFirebase } from '@echo/firestore/services/initialize-firebase'
+import { parseEventPayload } from '@echo/opensea-stream/helpers/parse-event-payload'
+import { processInTransfer } from '@echo/opensea-stream/helpers/process-in-transfer'
+import { processOutTransfer } from '@echo/opensea-stream/helpers/process-out-transfer'
 import { processSwapTransfer } from '@echo/opensea-stream/helpers/process-swap-transfer'
-import { processToTransfer } from '@echo/opensea-stream/helpers/process-to-transfer'
+import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { OpenSeaStreamClient } from '@opensea/stream-js'
-import { isNil } from 'ramda'
+import { isNil, pipe, prop } from 'ramda'
 import { WebSocket } from 'ws'
 
 class InMemoryStorage {
@@ -34,24 +36,22 @@ const client = new OpenSeaStreamClient({
   }
 })
 client.onItemTransferred('*', async (event) => {
-  const { payload } = event
-  const cleanedData = await cleanEventPayload(payload)
+  const data = await pipe(prop('payload'), parseEventPayload)(event)
   // If data is nil, no need to do anything
-  if (isNil(cleanedData)) {
+  if (isNil(data)) {
     return
   }
-
-  const { from, to, nftIndex } = cleanedData
-
+  const { from, to, nftIndex } = data
   // Process event
   if (isNil(to)) {
-    await processFromTransfer(nftIndex)
+    await processOutTransfer(nftIndex)
   } else if (isNil(from)) {
-    await processToTransfer(to, nftIndex)
+    await processInTransfer(to, nftIndex)
   } else {
     await processSwapTransfer(to, nftIndex)
   }
 })
 
+initializeFirebase()
 client.connect()
-console.log('connected')
+pinoLogger.info('connected')

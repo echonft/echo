@@ -4,11 +4,11 @@ import { addOfferThread } from '@echo/firestore/crud/offer-thread/add-offer-thre
 import { getOfferThread } from '@echo/firestore/crud/offer-thread/get-offer-thread'
 import { getUserByUsername } from '@echo/firestore/crud/user/get-user-by-username'
 import { type DocumentChangeType } from '@echo/firestore/types/document-change-type'
-import type { OfferThread } from '@echo/firestore/types/model/offer-thread/offer-thread'
 import type { QueryDocumentSnapshot } from '@echo/firestore/types/query-document-snapshot'
 import { type Offer } from '@echo/model/types/offer'
+import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
-import { applySpec, assoc, isNil } from 'ramda'
+import { assoc, isNil } from 'ramda'
 
 /**
  * Handles offer changes
@@ -16,24 +16,32 @@ import { applySpec, assoc, isNil } from 'ramda'
  * @param snapshot
  */
 export async function offerChangeHandler(changeType: DocumentChangeType, snapshot: QueryDocumentSnapshot<Offer>) {
-  pinoLogger.info(`offer ${snapshot.id} was written: ${changeType}`)
-  const offerThread = await getOfferThread(snapshot.id)
-  const offer = snapshot.data()
-  if (changeType === 'added' && isNil(offerThread)) {
-    const sender = await getUserByUsername(offer.sender.username)
-    if (isNil(sender)) {
-      throw Error(`offer sender with username ${offer.sender.username} not found`)
+  if (changeType === 'added') {
+    pinoLogger.info(`offer ${snapshot.id} was added`)
+    const offerThread = await getOfferThread(snapshot.id)
+    if (isNil(offerThread)) {
+      pinoLogger.info(`[OFFER ${snapshot.id}] offer thread does not exist, creating....`)
+      const offer = snapshot.data()
+      const sender = await getUserByUsername(offer.sender.username)
+      if (isNil(sender)) {
+        throw Error(`[OFFER ${snapshot.id}] sender ${offer.sender.username} not found`)
+      }
+      pinoLogger.info(`[OFFER ${snapshot.id}] sender is ${sender.username}`)
+      const receiver = await getUserByUsername(offer.receiver.username)
+      if (isNil(receiver)) {
+        throw Error(`[OFFER ${snapshot.id}] receiver ${offer.receiver.username} not found`)
+      }
+      pinoLogger.info(`[OFFER ${snapshot.id}] receiver is ${receiver.username}`)
+      const { threadId, state } = await createOfferThread({ offer, offerId: snapshot.id, sender, receiver })
+      try {
+        const guild = assoc('threadId', threadId, echoGuild)
+        const { id } = await addOfferThread({ offerId: snapshot.id, guild, state })
+        pinoLogger.info(`[OFFER ${snapshot.id}] added offer thread ${id} to Firestore`)
+      } catch (err) {
+        pinoLogger.info(`[OFFER ${snapshot.id}] error adding offer thread to Firestore: ${errorMessage(err)}`)
+      }
+    } else {
+      pinoLogger.info(`[OFFER ${snapshot.id}] offer thread already exists, nothing to do`)
     }
-    const receiver = await getUserByUsername(offer.receiver.username)
-    if (isNil(receiver)) {
-      throw Error(`offer receiver with username ${offer.receiver.username} not found`)
-    }
-    const threadId = await createOfferThread(offer, sender.discord.id, receiver.discord.id)
-    await addOfferThread(
-      applySpec<Omit<OfferThread, 'postedAt' | 'state'>>({
-        offerId: snapshot.id,
-        guild: assoc('threadId', threadId, echoGuild)
-      })()
-    )
   }
 }

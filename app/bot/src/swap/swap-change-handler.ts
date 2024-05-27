@@ -14,13 +14,19 @@ import { isNil } from 'ramda'
  * @param snapshot
  */
 export async function swapChangeHandler(changeType: DocumentChangeType, snapshot: QueryDocumentSnapshot<Swap>) {
-  pinoLogger.info(`swap for offer ${snapshot.data().offerId} was written: ${changeType}`)
   if (changeType === 'added') {
-    // TODO get the offer guilds when we support it
-    const post = await getSwapPost({ swapId: snapshot.id, guildId: echoGuild.id })
+    const swapId = snapshot.id
+    const swap = snapshot.data()
+    const offerId = swap.offerId
+    pinoLogger.info(`[OFFER ${offerId}] swap ${swapId} was added`)
+    const post = await getSwapPost({ swapId, guildId: echoGuild.id })
     if (isNil(post)) {
-      await postSwap(snapshot)
-      await addSwapPost({ swapId: snapshot.id, guild: echoGuild })
+      pinoLogger.info(`[OFFER ${offerId}] swap post does not exist, creating...`)
+      await postSwap(offerId)
+      const { id } = await addSwapPost({ swapId, guild: echoGuild })
+      pinoLogger.info(`[OFFER ${offerId}] added swap post ${id} to Firestore`)
+    } else {
+      pinoLogger.info(`[OFFER ${offerId}] swap post already exists, nothing to do`)
     }
   }
 }

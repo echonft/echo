@@ -8,14 +8,14 @@ import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { isEmpty, isNil } from 'ramda'
 
 /**
- * Processes the from transfer of an NFT.
+ * Processes the transfer of an NFT from a user in our database to a foreign user.
  * Deletes the NFT and its collection if necessary.
  *
  * @param {NftIndex} nftIndex - The index of the NFT to process.
  */
-export async function processFromTransfer(nftIndex: NftIndex) {
+export async function processOutTransfer(nftIndex: NftIndex) {
+  pinoLogger.info(`OUT transfer for ${JSON.stringify(nftIndex)}, processing...`)
   const snapshot = await getNftSnapshot(nftIndex)
-  // Shouldn't happen
   if (isNil(snapshot)) {
     pinoLogger.error(`NFT with index ${JSON.stringify(nftIndex)} not found`)
     return
@@ -23,18 +23,18 @@ export async function processFromTransfer(nftIndex: NftIndex) {
   const {
     collection: { slug }
   } = snapshot.data()
-  // Since this is a from transfer, the NFT was transferred to someone not in our DB
   await deleteNft(snapshot.id)
+  pinoLogger.info(`[OUT transfer ${JSON.stringify(nftIndex)}] NFT ${snapshot.id} deleted`)
 
-  const collectionNfts = await getNftsForCollection(slug)
   // If collection is now empty, delete it
+  const collectionNfts = await getNftsForCollection(slug)
   if (isEmpty(collectionNfts)) {
     const collectionSnapshot = await getCollectionSnapshot(slug)
-
-    // Shouldn't happen
     if (isNil(collectionSnapshot)) {
+      pinoLogger.info(`[OUT transfer ${JSON.stringify(nftIndex)}] collection ${slug} not found`)
       return
     }
     await deleteCollection(collectionSnapshot.id)
+    pinoLogger.info(`[OUT transfer ${JSON.stringify(nftIndex)}] collection ${collectionSnapshot.id} deleted`)
   }
 }

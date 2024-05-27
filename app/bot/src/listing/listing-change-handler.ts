@@ -14,13 +14,18 @@ import { isNil } from 'ramda'
  * @param snapshot
  */
 export async function listingChangeHandler(changeType: DocumentChangeType, snapshot: QueryDocumentSnapshot<Listing>) {
-  pinoLogger.info(`listing ${snapshot.id} was written: ${changeType}`)
   if (changeType === 'added') {
-    // TODO Should probably consider that it can be posted to other servers but works for now
+    const listingId = snapshot.id
+    const listing = snapshot.data()
+    pinoLogger.info(`listing ${listingId} was added`)
     const post = await getListingPost(snapshot.id, echoGuild.id)
     if (isNil(post)) {
-      await postListing(snapshot.data())
-      await addListingPost(snapshot.id, echoGuild)
+      pinoLogger.info(`[LISTING ${listingId}] listing post does not exist, creating...`)
+      await postListing(listing, listingId)
+      const { id } = await addListingPost(listingId, echoGuild)
+      pinoLogger.info(`[LISTING ${listingId}] post ${id}added to Firestore`)
+    } else {
+      pinoLogger.info(`[LISTING ${listingId}] listing post already exists, nothing to do`)
     }
   }
 }
