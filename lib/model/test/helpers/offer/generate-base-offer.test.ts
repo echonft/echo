@@ -1,6 +1,7 @@
-import { generateBaseOffer } from '@echo/frontend/lib/helpers/offer/generate-base-offer'
+import { generateBaseOffer } from '@echo/model/helpers/offer/generate-base-offer'
 import type { Nft } from '@echo/model/types/nft'
 import type { User } from '@echo/model/types/user'
+import { describe, expect, it } from '@jest/globals'
 
 describe('helpers - offer - generateBaseOffer', () => {
   it('should generate a base offer correctly', () => {

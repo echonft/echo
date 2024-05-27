@@ -1,6 +1,7 @@
 'use client'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { NftCards } from '@echo/ui/components/nft/card/layout/nft-cards'
+import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
 import { OfferDetailsButtons } from '@echo/ui/components/offer/details/action/offer-details-buttons'
 import { OfferDetailsInfoLayout } from '@echo/ui/components/offer/details/layout/offer-details-info-layout'
 import { OfferDetailsItemsButtonsLayout } from '@echo/ui/components/offer/details/layout/offer-details-items-buttons-layout'
@@ -11,33 +12,36 @@ import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { isOfferRoleSender } from '@echo/ui/helpers/offer/is-offer-role-sender'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import { clsx } from 'clsx'
-import { type FunctionComponent, useEffect, useState } from 'react'
+import { isNil } from 'ramda'
+import { type FunctionComponent, useState } from 'react'
 
 interface Props {
   offer: OfferWithRole
 }
 
 export const OfferDetails: FunctionComponent<Props> = ({ offer }) => {
-  const [updatedOffer, setUpdatedOffer] = useState(offer)
-  useEffect(() => {
-    setUpdatedOffer(offer)
-  }, [offer])
-  const { sender, receiver, senderItems, receiverItems } = updatedOffer
+  const [updatedOffer, setUpdatedOffer] = useState<OfferWithRole>()
+  const currentOffer = updatedOffer ?? offer
+  const { sender, receiver, senderItems, receiverItems } = currentOffer
 
-  return (
-    <OfferDetailsLayout>
-      <OfferDetailsInfoLayout>
-        <UserDetails user={isOfferRoleSender(updatedOffer) ? receiver : sender} />
-        <OfferDetailsState offer={updatedOffer} />
-      </OfferDetailsInfoLayout>
-      <OfferDetailsItemsButtonsLayout>
-        <NftCards nfts={isOfferRoleSender(updatedOffer) ? receiverItems : senderItems} alignment={ALIGNMENT_CENTER} />
-        <div className={clsx('pb-4')}>
-          <ItemsSeparator />
-        </div>
-        <NftCards nfts={isOfferRoleSender(updatedOffer) ? senderItems : receiverItems} alignment={ALIGNMENT_CENTER} />
-        <OfferDetailsButtons offer={updatedOffer} onSuccess={setUpdatedOffer} />
-      </OfferDetailsItemsButtonsLayout>
-    </OfferDetailsLayout>
-  )
+  // When offer was updated, an action was triggered, we display the success/error screen
+  if (isNil(updatedOffer)) {
+    return (
+      <OfferDetailsLayout>
+        <OfferDetailsInfoLayout>
+          <UserDetails user={isOfferRoleSender(currentOffer) ? receiver : sender} />
+          <OfferDetailsState offer={currentOffer} />
+        </OfferDetailsInfoLayout>
+        <OfferDetailsItemsButtonsLayout>
+          <NftCards nfts={isOfferRoleSender(currentOffer) ? receiverItems : senderItems} alignment={ALIGNMENT_CENTER} />
+          <div className={clsx('pb-4')}>
+            <ItemsSeparator />
+          </div>
+          <NftCards nfts={isOfferRoleSender(currentOffer) ? senderItems : receiverItems} alignment={ALIGNMENT_CENTER} />
+          <OfferDetailsButtons offer={currentOffer} onSuccess={setUpdatedOffer} />
+        </OfferDetailsItemsButtonsLayout>
+      </OfferDetailsLayout>
+    )
+  }
+  return <CreatedOfferSwitch offer={updatedOffer} />
 }

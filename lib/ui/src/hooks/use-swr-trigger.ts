@@ -15,6 +15,7 @@ interface UseSWRTriggerArgs<TResponse, TArgs> {
   onSuccess?: (data: TResponse) => void
   onError?: Omit<ErrorCallback, 'show'>
 }
+
 export function useSWRTrigger<TResponse, TArgs>(args: UseSWRTriggerArgs<TResponse, TArgs>) {
   const { key, fetcher, onSuccess, onError } = args
   const { show } = useAlertStore()
@@ -22,7 +23,7 @@ export function useSWRTrigger<TResponse, TArgs>(args: UseSWRTriggerArgs<TRespons
     key,
     (_key, { arg }) => {
       if (args.options?.debug) {
-        pinoLogger.debug(`started fetching from ${key}`)
+        pinoLogger.info(`started fetching from ${key}`)
       }
       return fetcher(arg)
     },
@@ -30,14 +31,14 @@ export function useSWRTrigger<TResponse, TArgs>(args: UseSWRTriggerArgs<TRespons
       throwOnError: false,
       onSuccess: (response) => {
         if (args.options?.debug) {
-          pinoLogger.debug(`successfully fetched from ${key}`)
-          pinoLogger.debug(`response is ${JSON.stringify(response)}`)
+          pinoLogger.info(`successfully fetched from ${key}`)
+          pinoLogger.info(`response is ${JSON.stringify(response)}`)
         }
         onSuccess?.(response)
       },
       onError: (error) => {
         if (args.options?.debug) {
-          pinoLogger.debug(`error fetching from ${key}: ${errorMessage(error)}`)
+          pinoLogger.error(`error fetching from ${key}: ${errorMessage(error)}`)
         }
         return errorCallback(assoc('show', show, onError ?? {}))(error)
       }

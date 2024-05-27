@@ -26,6 +26,7 @@ interface Props {
   onClose?: EmptyFunction
 }
 
+// TODO Change name of this modal as it's used in the creation flow too
 export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
   items,
   open,
@@ -100,7 +101,7 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
         />
         <ShowIfNil checks={contractToApprove}>
           <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} disabled={true}>
-            <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn')}</span>
+            <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn.label')}</span>
           </button>
         </ShowIfNil>
       </div>

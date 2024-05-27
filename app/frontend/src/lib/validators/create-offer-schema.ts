@@ -4,5 +4,5 @@ import { z } from 'zod'
 export const createOfferSchema = z.object({
   receiverItems: nftIndexSchema.array().min(1),
   senderItems: nftIndexSchema.array().min(1),
-  expiresAt: z.number().gt(0)
+  expiresAt: z.number().gt(Date.now() / 1000)
 })

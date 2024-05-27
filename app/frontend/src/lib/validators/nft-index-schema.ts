@@ -3,5 +3,5 @@ import { z } from 'zod'
 
 export const nftIndexSchema = z.object({
   collection: collectionSchema,
-  tokenId: z.number().gt(0)
+  tokenId: z.number().gte(0)
 })

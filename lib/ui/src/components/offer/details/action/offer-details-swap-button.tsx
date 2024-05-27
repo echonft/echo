@@ -1,5 +1,5 @@
 'use client'
-import { OfferDetailsSwapModal } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal'
+import { OfferDetailsSwapModalSwitch } from '@echo/ui/components/offer/details/action/swap/offer-details-swap-modal-switch'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
@@ -30,7 +30,7 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
     return (
       <>
         <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+          className={clsx('btn-gradient', 'btn-size-alt', 'group', disabled && 'animate-pulse')}
           onClick={() => {
             onClick?.()
             setModalShown(true)
@@ -39,7 +39,7 @@ export const OfferDetailsSwapButton: FunctionComponent<Props> = ({
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('completeBtn')}</span>
         </button>
-        <OfferDetailsSwapModal
+        <OfferDetailsSwapModalSwitch
           open={modalShown}
           offer={offer}
           onSuccess={(offer: OfferWithRole) => {

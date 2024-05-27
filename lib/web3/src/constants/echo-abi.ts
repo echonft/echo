@@ -17,6 +17,30 @@ export const ECHO_ABI = [
   { inputs: [], name: 'WithdrawFailed', type: 'error' },
   {
     anonymous: false,
+    inputs: [{ indexed: true, internalType: 'bytes32', name: 'offerId', type: 'bytes32' }],
+    name: 'OfferAccepted',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [{ indexed: true, internalType: 'bytes32', name: 'offerId', type: 'bytes32' }],
+    name: 'OfferCanceled',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [{ indexed: true, internalType: 'bytes32', name: 'offerId', type: 'bytes32' }],
+    name: 'OfferCreated',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [{ indexed: true, internalType: 'bytes32', name: 'offerId', type: 'bytes32' }],
+    name: 'OfferExecuted',
+    type: 'event'
+  },
+  {
+    anonymous: false,
     inputs: [
       { indexed: true, internalType: 'address', name: 'user', type: 'address' },
       { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' }

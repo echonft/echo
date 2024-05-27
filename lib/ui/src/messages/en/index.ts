@@ -85,6 +85,7 @@ export const messages = {
       accept: 'An error occurred while trying to accept the offer. Please try again',
       cancel: 'An error occurred while trying to cancel the offer. Please try again',
       new: 'An error occurred while trying to create the offer. Please try again',
+      redeem: 'An error occured while trying to redeem your {count, plural, =1 {NFT} other {NFTs}}. Please try again',
       reject: 'An error occurred while trying to reject the offer. Please try again',
       swap: 'An error occurred while trying to swap the assets. Please try again'
     },
@@ -188,7 +189,14 @@ export const messages = {
       subtitle: 'You have accepted an <yellow>offer</yellow> with Echo!',
       description:
         '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} in escrow\nuntil the offer is executed or it expires',
-      offerBtn: 'Go to the offer'
+      offerBtn: 'View offer'
+    },
+    cancelled: {
+      title: 'Cancelled!',
+      subtitle:
+        "Your offer is <red>cancelled</red>, but don't worry,\n we kept your {count, plural, =1 {NFT} other {NFTs}} safe for you",
+      description: '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} back in your wallet',
+      homepageBtn: 'Back to the homepage'
     },
     create: {
       assets: {
@@ -206,48 +214,79 @@ export const messages = {
         selector: '{count} {count, plural, =1 { Day} other { Days}}',
         finalizeBtn: 'Finalize Offer',
         editBtn: 'Edit'
+      },
+      modal: {
+        approval: {
+          subtitle: 'To create the offer, you first need to approve the Echo contract to escrow your NFTs'
+        },
+        create: {
+          btn: {
+            label: 'Create',
+            loading: 'Creating...'
+          },
+          subtitle: 'Great! Now you just need to sign the transaction to create the offer.',
+          description:
+            "This transaction will place your {count, plural, =1 {NFT} other {NFTs}} in escrow.\nDon't worry, its safe with us."
+        },
+        title: 'Create Offer'
       }
     },
     created: {
       title: 'Congrats!',
       subtitle: 'You have created an <yellow>offer</yellow> with Echo!',
       description:
-        '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} in escrow\nuntil the offer is accepted or it expires',
-      offerBtn: 'Go to the offer'
+        'Your {count, plural, =1 {NFT is now} other {NFTs are now}} in escrow\nuntil the offer is accepted or it expires',
+      offerBtn: 'View offer'
     },
     details: {
       acceptBtn: 'Accept',
       acceptModal: {
         approval: {
-          subtitle: 'To accept the offer, you first need to approve the Echo contract to transfer your NFTs'
+          subtitle: 'To accept the offer, you first need to approve the Echo contract to escrow your NFTs'
         },
-        sign: {
-          btn: 'Accept',
-          subtitle: 'Great! Now you just need to sign a message so the counterparty can perform the swap'
+        accept: {
+          btn: {
+            label: 'Accept',
+            loading: 'Accepting...'
+          },
+          subtitle: 'Great! Now you just need to sign the transaction to accept the offer.',
+          description: `This transaction will cost {fees} ether.\nThis transaction will place your {count, plural, =1 {NFT} other {NFTs}} in escrow.
+Don't worry, its safe with us.`
         },
         title: 'Accept Offer'
       },
       approveModal: {
-        btn: 'Approve'
+        btn: {
+          label: 'Approve',
+          loading: 'Approving...'
+        }
       },
       cancelBtn: {
         label: 'Cancel',
-        message: 'Hold to cancel'
+        message: 'Hold to cancel',
+        loading: 'Cancelling...'
       },
       completeBtn: 'Swap',
       expiredAt: 'Expired',
       expiresAt: 'Expires in',
+      redeemBtn: {
+        label: 'Redeem your {count, plural, =1 {NFT} other {NFTs}}',
+        loading: 'Redeeming...'
+      },
       rejectBtn: {
         label: 'Reject',
-        message: 'Hold to reject'
+        message: 'Hold to reject',
+        loading: 'Rejecting...'
       },
       swapModal: {
-        approval: {
-          subtitle: 'To execute the swap, you first need to approve the Echo contract to transfer your NFTs'
-        },
         execute: {
-          btn: 'Swap',
-          subtitle: 'Great! Now you just need to execute the trade'
+          btn: {
+            label: 'Swap',
+            loading: 'Swapping...'
+          },
+          subtitle: 'Great! Now you just need to sign the transaction to execute the trade.',
+          description:
+            'This transaction will cost {fees} ether.\nThis transaction will swap your {count, plural, =1 {NFT} other {NFTs}}.'
         },
         title: 'Execute Swap'
       }
@@ -261,7 +300,7 @@ export const messages = {
     expired: {
       title: 'Expired!',
       subtitle:
-        "Your offer <red>expired</red>, but don't worry,\n we kept your {count, plural, =1 {NFT} other {NFTs}} safe until you redeem {count, plural, =1 {it} other {them}}",
+        "Your offer <red>expired</red>, but don't worry,\n we kept your {count, plural, =1 {NFT} other {NFTs}} safe for you",
       description: '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} back in your wallet',
       homepageBtn: 'Back to the homepage'
     },

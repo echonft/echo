@@ -1,4 +1,6 @@
 import type { Nft } from '@echo/model/types/nft'
+import type { Offer } from '@echo/model/types/offer'
+import { CreateOfferExpirationCreateButton } from '@echo/ui/components/offer/create/create-offer-expiration-create-button'
 import { CreateOfferExpirationImage } from '@echo/ui/components/offer/create/create-offer-expiration-image'
 import { CreateOfferExpirationSelector } from '@echo/ui/components/offer/create/create-offer-expiration-selector'
 import { ONE_DAY } from '@echo/ui/constants/expiration'
@@ -9,13 +11,20 @@ import { head } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
+  senderItems: Nft[]
   receiverItems: Nft[]
   onCancel?: VoidFunction
-  onComplete?: VoidFunction
+  onComplete?: (offer: Offer) => unknown
   loading?: boolean
 }
 
-export const CreateOfferExpiration: FunctionComponent<Props> = ({ receiverItems, onComplete, onCancel, loading }) => {
+export const CreateOfferExpiration: FunctionComponent<Props> = ({
+  senderItems,
+  receiverItems,
+  onComplete,
+  onCancel,
+  loading
+}) => {
   const t = useTranslations('offer.create.expiration')
   const [expiration, setExpiration] = useState<Expiration>(ONE_DAY)
   // FIXME Shouldn't force unwrap, but receiverItems will never be empty here
@@ -35,18 +44,16 @@ export const CreateOfferExpiration: FunctionComponent<Props> = ({ receiverItems,
           <div className={clsx('flex', 'flex-col', 'gap-5')}>
             <button
               className={clsx('btn-action', 'h-max', 'w-full', 'py-2.5', 'group', loading && 'animate-pulse')}
-              disabled={loading}
               onClick={onCancel}
             >
               <span className={clsx('prose-label-lg', 'btn-label-action')}>{t('editBtn')}</span>
             </button>
-            <button
-              className={clsx('btn-gradient', 'h-max', 'w-full', 'py-2.5', 'group', loading && 'animate-pulse')}
-              disabled={loading}
-              onClick={onComplete}
-            >
-              <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('finalizeBtn')}</span>
-            </button>
+            <CreateOfferExpirationCreateButton
+              receiverItems={receiverItems}
+              senderItems={senderItems}
+              expiration={expiration}
+              onComplete={onComplete}
+            />
           </div>
         </div>
       </div>

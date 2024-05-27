@@ -31,7 +31,7 @@ export async function addOffer(
     assoc('idContract', idContract),
     assoc('readOnly', false),
     assoc('updatedAt', now()),
-    assoc('slug', pipe(toString, toLower<string>)(nowMs)),
+    assoc('slug', pipe(nowMs, toString, toLower<string>)()),
     assoc('state', OFFER_STATE_OPEN as OfferState)
   )(baseOffer)
   const id = await setReference<Offer>({

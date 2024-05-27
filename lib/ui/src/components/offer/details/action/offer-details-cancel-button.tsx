@@ -2,15 +2,20 @@
 import type { CancelOfferArgs } from '@echo/api/types/fetchers/cancel-offer-args'
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { offerContext } from '@echo/model/sentry/contexts/offer-context'
+import type { Nft } from '@echo/model/types/nft'
 import { LongPressButton } from '@echo/ui/components/base/long-press-button'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
+import type { ChainName } from '@echo/utils/types/chain-name'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
+import type { HexString } from '@echo/utils/types/hex-string'
+import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-update-offer-args'
 import { useTranslations } from 'next-intl'
-import { assoc } from 'ramda'
+import { assoc, head, path, pipe, prop } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
@@ -32,8 +37,13 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
 }) => {
   const t = useTranslations('offer.details.cancelBtn')
   const tError = useTranslations('error.offer')
-  const { cancelOffer } = useDependencies()
-  const { trigger } = useSWRTrigger<OfferResponse, CancelOfferArgs>({
+  const { cancelOffer, contractCancelOffer } = useDependencies()
+  const chain = pipe<[OfferWithRole], Nft[], Nft, ChainName>(
+    prop('receiverItems'),
+    head,
+    nonNullableReturn(path(['collection', 'contract', 'chain']))
+  )(offer)
+  const { trigger: triggerCancel } = useSWRTrigger<OfferResponse, CancelOfferArgs>({
     key: SWRKeys.offer.cancel(offer),
     fetcher: cancelOffer,
     onSuccess: (response) => {
@@ -46,16 +56,29 @@ export const OfferDetailsCancelButton: FunctionComponent<Props> = ({
     }
   })
 
+  const { trigger: triggerContractCancel } = useSWRTrigger<HexString, ContractUpdateOfferArgs>({
+    key: SWRKeys.offer.contractCancel(offer),
+    fetcher: contractCancelOffer,
+    onSuccess: (_response) => {
+      void triggerCancel({ slug: offer.slug })
+    },
+    onError: {
+      contexts: offerContext(offer),
+      alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('cancel') },
+      onError
+    }
+  })
+
   if (show) {
     return (
       <LongPressButton
         id={offer.slug}
-        label={t('label')}
+        label={t(disabled ? 'loading' : 'label')}
         message={t('message')}
         disabled={disabled}
         onFinish={() => {
           onClick?.()
-          void trigger({ slug: offer.slug })
+          void triggerContractCancel({ offerId: offer.idContract, chain })
         }}
       />
     )

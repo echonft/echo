@@ -1,5 +1,5 @@
 'use client'
-import { OfferDetailsAcceptModal } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-modal'
+import { OfferDetailsAcceptModalSwitch } from '@echo/ui/components/offer/details/action/accept/offer-details-accept-modal-switch'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import { clsx } from 'clsx'
@@ -30,7 +30,7 @@ export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({
     return (
       <>
         <button
-          className={clsx('btn-gradient', 'btn-size-alt', 'group')}
+          className={clsx('btn-gradient', 'btn-size-alt', 'group', disabled && 'animate-pulse')}
           onClick={() => {
             onClick?.()
             setModalShown(true)
@@ -39,7 +39,7 @@ export const OfferDetailsAcceptButton: FunctionComponent<Props> = ({
         >
           <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('acceptBtn')}</span>
         </button>
-        <OfferDetailsAcceptModal
+        <OfferDetailsAcceptModalSwitch
           open={modalShown}
           offer={offer}
           onSuccess={(offer: OfferWithRole) => {

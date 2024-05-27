@@ -4,6 +4,7 @@ import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import { eqNftCollection } from '@echo/model/helpers/nft/eq-nft-collection'
 import type { Nft } from '@echo/model/types/nft'
+import type { Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { ItemsSeparator } from '@echo/ui/components/base/items-separator'
 import { ProfilePicture } from '@echo/ui/components/base/profile-picture'
@@ -33,7 +34,7 @@ interface Props {
   senderNfts: SelectableNft[]
   loading?: boolean
   onCancel?: VoidFunction
-  onComplete?: (senderSelection: SelectableNft[]) => void
+  onComplete?: (offer: Offer) => void
 }
 
 export const CreateOffer: FunctionComponent<Props> = ({
@@ -76,12 +77,13 @@ export const CreateOffer: FunctionComponent<Props> = ({
   if (settingExpiration) {
     return (
       <CreateOfferExpiration
+        senderItems={senderSelection}
         receiverItems={receiverItems}
         onCancel={() => {
           setSettingExpiration(false)
           setReviewing(false)
         }}
-        onComplete={() => onComplete?.(senderSelection)}
+        onComplete={onComplete}
         loading={loading}
       />
     )
@@ -97,6 +99,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
             <UserProfileWallets wallets={[wallet]} />
           </UserDetailsDiscordTagAndWalletLayout>
         </UserDetailsLayout>
+        {/*  FIXME expiresAt value should be derived from state */}
         <StateExpiration
           expiresAt={dayjs().add(DEFAULT_EXPIRATION_TIME, 'day').unix()}
           readOnly={false}

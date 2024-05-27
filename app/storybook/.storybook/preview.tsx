@@ -6,7 +6,11 @@ import { addWallet } from '@echo/storybook/mocks/add-wallet'
 import { approveErc721Contract } from '@echo/storybook/mocks/approve-erc-721-contract'
 import { cancelListing } from '@echo/storybook/mocks/cancel-listing'
 import { cancelOffer } from '@echo/storybook/mocks/cancel-offer'
+import { contractAcceptOffer } from '@echo/storybook/mocks/contract-accept-offer'
+import { contractCancelOffer } from '@echo/storybook/mocks/contract-cancel-offer'
 import { contractCreateOffer } from '@echo/storybook/mocks/contract-create-offer'
+import { contractExecuteOffer } from '@echo/storybook/mocks/contract-execute-offer'
+import { contractRedeemOffer } from '@echo/storybook/mocks/contract-redeem-offer'
 import { createListing } from '@echo/storybook/mocks/create-listing'
 import { createOffer } from '@echo/storybook/mocks/create-offer'
 import { disconnectWallet } from '@echo/storybook/mocks/disconnect-wallet'
@@ -45,7 +49,11 @@ const preview: Preview = {
                 approveErc721Contract,
                 cancelListing,
                 cancelOffer,
+                contractAcceptOffer,
+                contractCancelOffer,
                 contractCreateOffer,
+                contractExecuteOffer,
+                contractRedeemOffer,
                 createListing,
                 createOffer,
                 disconnectWallet,
