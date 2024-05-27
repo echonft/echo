@@ -4,9 +4,11 @@ import { setReference } from '@echo/firestore/helpers/crud/reference/set-referen
 import { assertOfferIsNotADuplicate } from '@echo/firestore/helpers/offer/assert/assert-offer-is-not-a-duplicate'
 import type { ListingOffer } from '@echo/firestore/types/model/listing-offer/listing-offer'
 import type { NewDocument } from '@echo/firestore/types/new-document'
+import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { assertItems } from '@echo/model/helpers/item/assert/assert-items'
 import type { BaseOffer } from '@echo/model/types/base-offer'
 import { type Offer } from '@echo/model/types/offer'
+import type { OfferState } from '@echo/model/types/offer-state'
 import { now } from '@echo/utils/helpers/now'
 import { nowMs } from '@echo/utils/helpers/now-ms'
 import type { HexString } from '@echo/utils/types/hex-string'
@@ -29,7 +31,8 @@ export async function addOffer(
     assoc('idContract', idContract),
     assoc('readOnly', false),
     assoc('updatedAt', now()),
-    assoc('slug', pipe(toString, toLower<string>)(nowMs))
+    assoc('slug', pipe(toString, toLower<string>)(nowMs)),
+    assoc('state', OFFER_STATE_OPEN as OfferState)
   )(baseOffer)
   const id = await setReference<Offer>({
     collectionReference: getOffersCollectionReference(),

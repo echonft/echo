@@ -183,6 +183,13 @@ export const messages = {
     title: 'Sorry, there’s'
   },
   offer: {
+    accepted: {
+      title: 'Congrats!',
+      subtitle: 'You have accepted an <yellow>offer</yellow> with Echo!',
+      description:
+        '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} in escrow\nuntil the offer is executed or it expires',
+      offerBtn: 'Go to the offer'
+    },
     create: {
       assets: {
         in: 'Requesting',
@@ -199,21 +206,14 @@ export const messages = {
         selector: '{count} {count, plural, =1 { Day} other { Days}}',
         finalizeBtn: 'Finalize Offer',
         editBtn: 'Edit'
-      },
-      success: {
-        title: 'Congrats!',
-        subtitle: 'You have created an <yellow>offer</yellow> with Echo!',
-        description:
-          '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} in escrow\nuntil the offer is accepted or it expires',
-        offerBtn: 'Go to the offer',
-        homepageBtn: 'Back to the homepage'
-      },
-      expired: {
-        title: 'Expired!',
-        subtitle: "Your offer <red>expired</red>, but don't worry, we kept your NFTs safe until you redeem them",
-        description: 'Your NFTs are now back in your wallet',
-        homepageBtn: 'Back to the homepage'
       }
+    },
+    created: {
+      title: 'Congrats!',
+      subtitle: 'You have created an <yellow>offer</yellow> with Echo!',
+      description:
+        '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} in escrow\nuntil the offer is accepted or it expires',
+      offerBtn: 'Go to the offer'
     },
     details: {
       acceptBtn: 'Accept',
@@ -251,6 +251,19 @@ export const messages = {
         },
         title: 'Execute Swap'
       }
+    },
+    executed: {
+      title: 'Congrats!',
+      subtitle: 'You have completed an <yellow>offer</yellow> with Echo!',
+      description: '{count, plural, =1 {Your new NFT is now} other {Your new NFTs are now}} in your wallet',
+      offerBtn: 'Back to the homepage'
+    },
+    expired: {
+      title: 'Expired!',
+      subtitle:
+        "Your offer <red>expired</red>, but don't worry,\n we kept your {count, plural, =1 {NFT} other {NFTs}} safe until you redeem {count, plural, =1 {it} other {them}}",
+      description: '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} back in your wallet',
+      homepageBtn: 'Back to the homepage'
     },
     state: {
       ACCEPTED: 'Accepted',

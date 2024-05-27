@@ -1,17 +1,18 @@
-import type { Offer } from '@echo/model/types/offer'
+import type { BaseOffer } from '@echo/model/types/base-offer'
+import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { formatAddress } from '@echo/web3/helpers/format-address'
-import { mapOfferItemToContractOfferItem } from '@echo/web3-dom/mappers/map-offer-item-to-contract-offer-item'
+import { mapOfferItemsToContractOfferItems } from '@echo/web3-dom/mappers/map-offer-items-to-contract-offer-items'
 import type { ContractCreateOffer } from '@echo/web3-dom/types/contract-create-offer'
 import { ContractOfferState } from '@echo/web3-dom/types/contract-offer-state'
-import { always, applySpec, map, pipe, prop } from 'ramda'
+import { always, applySpec, path, pipe, prop } from 'ramda'
 
-export function mapOfferToContractCreateOffer(args: Offer): ContractCreateOffer {
+export function mapOfferToContractCreateOffer(offer: BaseOffer): ContractCreateOffer {
   return applySpec<ContractCreateOffer>({
-    sender: pipe(prop('sender'), formatAddress),
-    receiver: pipe(prop('receiver'), formatAddress),
-    senderItems: pipe(prop('senderItems'), map(mapOfferItemToContractOfferItem)),
-    receiverItems: pipe(prop('receiverItems'), map(mapOfferItemToContractOfferItem)),
+    sender: pipe(nonNullableReturn(path(['sender', 'wallet'])), formatAddress),
+    receiver: pipe(nonNullableReturn(path(['receiver', 'wallet'])), formatAddress),
+    senderItems: pipe(prop('senderItems'), mapOfferItemsToContractOfferItems),
+    receiverItems: pipe(prop('receiverItems'), mapOfferItemsToContractOfferItems),
     expiration: prop('expiresAt'),
     state: always(ContractOfferState.OPEN)
-  })(args)
+  })(offer)
 }
