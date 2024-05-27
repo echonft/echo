@@ -17,6 +17,7 @@ function listingKey(listing: Listing) {
 
 export const SWRKeys = {
   contract: {
+    areNftsInEscrow: 'are-nfts-in-escrow',
     getEchoTradingFees: 'get-echo-trading-fees',
     getErc721approval: 'get-erc721-approval',
     approveErc721: pipe<[Contract], string, string>(contractKey, concat('approve-erc721-')),
@@ -32,6 +33,7 @@ export const SWRKeys = {
     contractAccept: pipe<[Offer], string, string>(offerKey, concat('contract-accept-offer-')),
     contractCancel: pipe<[Offer], string, string>(offerKey, concat('contract-cancel-offer-')),
     contractCreate: 'contract-create-offer',
+    contractRedeem: pipe<[Offer], string, string>(offerKey, concat('contract-redeem-offer-')),
     create: 'create-offer',
     get: pipe<[Offer], string, string>(offerKey, concat('get-offer-')),
     getSignature: pipe<[Offer], string, string>(offerKey, concat('get-offer-signature-')),

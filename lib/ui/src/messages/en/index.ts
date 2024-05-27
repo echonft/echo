@@ -85,6 +85,7 @@ export const messages = {
       accept: 'An error occurred while trying to accept the offer. Please try again',
       cancel: 'An error occurred while trying to cancel the offer. Please try again',
       new: 'An error occurred while trying to create the offer. Please try again',
+      redeem: 'An error occured while trying to redeem your {count, plural, =1 {NFT} other {NFTs}}. Please try again',
       reject: 'An error occurred while trying to reject the offer. Please try again',
       swap: 'An error occurred while trying to swap the assets. Please try again'
     },
@@ -258,6 +259,7 @@ Don't worry, its safe with us.`
       completeBtn: 'Swap',
       expiredAt: 'Expired',
       expiresAt: 'Expires in',
+      redeemBtn: 'Redeem your {count} {count, plural, =1 {NFT} other {NFTs}}',
       rejectBtn: {
         label: 'Reject',
         message: 'Hold to reject'

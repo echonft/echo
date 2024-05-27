@@ -1,4 +1,3 @@
-import { OFFER_ROLE_RECEIVER } from '@echo/model/constants/offer-role'
 import {
   OFFER_STATE_ACCEPTED,
   OFFER_STATE_CANCELLED,
@@ -9,6 +8,7 @@ import { CreatedOfferAccepted } from '@echo/ui/components/offer/created/created-
 import { CreatedOfferCancelled } from '@echo/ui/components/offer/created/created-offer-cancelled'
 import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
 import { CreatedOfferExpired } from '@echo/ui/components/offer/created/created-offer-expired'
+import { isOfferRoleReceiver } from '@echo/ui/helpers/offer/is-offer-role-receiver'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
 import type { FunctionComponent } from 'react'
 
@@ -25,7 +25,7 @@ export const CreatedOfferSwitch: FunctionComponent<Props> = ({ offer }) => {
     case OFFER_STATE_EXPIRED:
       return (
         <CreatedOfferExpired
-          count={offer.role === OFFER_ROLE_RECEIVER ? offer.receiverItems.length : offer.senderItems.length}
+          count={isOfferRoleReceiver(offer) ? offer.receiverItems.length : offer.senderItems.length}
         />
       )
     case OFFER_STATE_CANCELLED:
