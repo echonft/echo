@@ -23,6 +23,7 @@ export async function createOffer(args: ContractCreateOfferArgs): Promise<HexStr
     nonNullableReturn(path(['collection', 'contract'])),
     prop('chain')
   )(offer)
+
   const address = echoAddressByChain(chain)
   const chainId = getChainId(chain)
   const { request } = await simulateContract(wagmiConfig, {
