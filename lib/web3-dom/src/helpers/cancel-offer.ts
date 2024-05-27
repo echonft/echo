@@ -3,7 +3,7 @@ import { ECHO_ABI } from '@echo/web3/constants/echo-abi'
 import { echoAddressByChain } from '@echo/web3/constants/echo-address'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import type { ContractUpdateOfferArgs } from '@echo/web3-dom/types/contract-update-offer-args'
-import { simulateContract, writeContract } from 'wagmi/actions'
+import { simulateContract, waitForTransactionReceipt, writeContract } from 'wagmi/actions'
 
 export async function cancelOffer(args: ContractUpdateOfferArgs) {
   const { offerId, chain } = args
@@ -16,5 +16,7 @@ export async function cancelOffer(args: ContractUpdateOfferArgs) {
     chainId,
     args: [offerId]
   })
-  return await writeContract(wagmiConfig, request)
+  const hash = await writeContract(wagmiConfig, request)
+  await waitForTransactionReceipt(wagmiConfig, { hash })
+  return hash
 }
