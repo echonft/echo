@@ -8,7 +8,7 @@ import { getCollectionSwapsCountByCollectionId } from '@echo/firestore-test/coll
 import type { Collection } from '@echo/model/types/collection'
 import { COLLECTION_MOCK_PX_ID } from '@echo/model-mocks/collection/collection-mock'
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
-import { TESTNET_CHAIN_SEPOLIA } from '@echo/utils/constants/chain-names'
+import { TESTNET_CHAIN_SEPOLIA } from '@echo/utils/constants/chains/chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from '@jest/globals'

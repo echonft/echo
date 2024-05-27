@@ -1,5 +1,5 @@
 import { type WalletDocumentData } from '@echo/firestore/types/model/wallet/wallet-document-data'
-import { CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { toLower } from 'ramda'
 
 export const walletDocumentDataMock: Record<string, WalletDocumentData> = {

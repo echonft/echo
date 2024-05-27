@@ -9,7 +9,7 @@ import { getWalletDocumentDataMockByUserId } from '@echo/firestore-mocks/wallet/
 import { assertWallets } from '@echo/firestore-test/wallet/assert-wallets'
 import { getWalletById } from '@echo/firestore-test/wallet/get-wallet-by-id'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
-import { CHAIN_BLAST, CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
+import { CHAIN_BLAST, CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'

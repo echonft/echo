@@ -1,0 +1,29 @@
+{
+  "extends": "../../lib/tsconfig/tsconfig.base.json",
+  "ts-node": {
+    "require": ["tsconfig-paths/register"],
+    "transpileOnly": true,
+    "compilerOptions": {
+      "moduleResolution": "node",
+      "module": "commonjs"
+    }
+  },
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@echo/firestore/*": ["../../lib/firestore/src/*"],
+      "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
+      "@echo/model/*": ["../../lib/model/src/*"],
+      "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
+      "@echo/opensea-stream/*": ["./src/*"],
+      "@echo/utils/*": ["../../lib/utils/src/*"],
+      "@echo/web3/*": ["../../lib/web3/src/*"]
+    },
+    "noEmit": false,
+    "sourceMap": true,
+    "inlineSources": true
+  },
+  "include": ["src", "test", "tsup.config.ts", "../../env.d.ts"],
+  "exclude": ["dist", "node_modules"]
+}

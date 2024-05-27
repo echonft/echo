@@ -1,3 +1,3 @@
-import { CHAIN_NAMES } from '@echo/utils/constants/chain-names'
+import { CHAINS } from '@echo/utils/constants/chains/chains'
 
-export type ChainName = (typeof CHAIN_NAMES)[number]
+export type ChainName = (typeof CHAINS)[number]

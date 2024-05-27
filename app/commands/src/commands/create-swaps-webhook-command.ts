@@ -2,10 +2,10 @@ import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
 import { createAlchemyWebhook } from '@echo/commands/tasks/create-alchemy-webhook'
 import { deleteAlchemyWebhook } from '@echo/commands/tasks/delete-alchemy-webhook'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
-import { CHAIN_ETHEREUM, CHAIN_NAMES } from '@echo/utils/constants/chain-names'
+import { CHAIN_ETHEREUM, CHAINS } from '@echo/utils/constants/chains/chains'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { ChainName } from '@echo/utils/types/chain-name'
-import { echoAddressByChain } from '@echo/web3/constants/echo-address'
+import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
 
@@ -23,7 +23,7 @@ void (async function () {
         alias: 'chain',
         describe: 'chain name',
         type: 'string',
-        choices: CHAIN_NAMES,
+        choices: CHAINS,
         default: CHAIN_ETHEREUM,
         coerce: (arg) => arg as ChainName
       },
@@ -39,7 +39,7 @@ void (async function () {
       }
     })
     .parse()
-  const address = echoAddressByChain(c)
+  const address = getEchoAddressByChain(c)
   await createAlchemyWebhook({
     query: `{ block { logs(filter: {addresses: ${JSON.stringify([
       address

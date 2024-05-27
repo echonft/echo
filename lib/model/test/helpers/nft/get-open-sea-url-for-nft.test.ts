@@ -1,5 +1,5 @@
 import { getOpenSeaUrlForNft } from '@echo/model/helpers/nft/get-open-sea-url-for-nft'
-import { CHAIN_ETHEREUM, TESTNET_CHAIN_SEPOLIA } from '@echo/utils/constants/chain-names'
+import { CHAIN_ETHEREUM, TESTNET_CHAIN_SEPOLIA } from '@echo/utils/constants/chains/chains'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { describe, expect, it } from '@jest/globals'
 import { toLower } from 'ramda'

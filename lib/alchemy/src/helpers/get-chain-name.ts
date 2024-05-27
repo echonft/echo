@@ -1,8 +1,8 @@
-import { MAINNET_CHAIN_ID, SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chain-ids'
+import { ETHEREUM_CHAIN_ID, SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chains/chain-ids'
 
 export function getChainName(chainId: number) {
   switch (chainId) {
-    case MAINNET_CHAIN_ID:
+    case ETHEREUM_CHAIN_ID:
       return 'eth-mainnet'
     case SEPOLIA_CHAIN_ID:
       return 'eth-sepolia'

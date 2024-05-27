@@ -15,7 +15,8 @@ module.exports = {
     '^@echo/model/(.*)$': '<rootDir>/../../lib/model/src/$1',
     '^@echo/model-mocks/(.*)$': '<rootDir>/../../lib/model/test/@mocks/$1',
     '^@echo/opensea-stream/(.*)$': '<rootDir>/src/$1',
-    '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1'
+    '^@echo/utils/(.*)$': '<rootDir>/../../lib/utils/src/$1',
+    '^@echo/web3/(.*)$': '<rootDir>/../../lib/web3/src/$1'
   },
   reporters: [
     'default',
