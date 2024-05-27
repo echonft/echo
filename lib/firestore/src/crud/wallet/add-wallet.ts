@@ -10,15 +10,19 @@ import { assoc, isNil, pipe } from 'ramda'
 
 export async function addWallet(username: string, wallet: Wallet): Promise<NewDocument<WalletDocumentData>> {
   const walletSnapshot = await getWalletSnapshotByAddress(wallet)
-  if (!isNil(walletSnapshot)) {
-    if (walletSnapshot.data().isEvm) {
-      return { id: walletSnapshot.id, data: assoc('chain', wallet.chain, walletSnapshot.data()) }
-    }
-    throw Error(`wallet ${JSON.stringify(wallet)} already exists`)
-  }
   const userSnapshot = await getUserSnapshotByUsername(username)
   if (isNil(userSnapshot)) {
     throw Error(`user with username ${username} not found`)
+  }
+  if (!isNil(walletSnapshot)) {
+    const existingWallet = walletSnapshot.data()
+    if (existingWallet.isEvm) {
+      if (existingWallet.userId !== userSnapshot.id) {
+        throw Error(`wallet already associated with another user`)
+      }
+      return { id: walletSnapshot.id, data: assoc('chain', wallet.chain, existingWallet) }
+    }
+    throw Error(`wallet ${JSON.stringify(wallet)} already exists`)
   }
   const data = pipe(assoc('userId', userSnapshot.id), assoc('isEvm', isEvmChain(wallet.chain)))(wallet)
   const id = await setReference<WalletDocumentData>({
