@@ -1,12 +1,12 @@
 // noinspection JSUnusedGlobalSymbols
 
-import { DiscordIcon as Component } from '@echo/ui/components/base/icons/discord-icon'
+import { EthereumIcon as Component } from '@echo/ui/components/base/icons/ethereum-icon'
 import { ICON_SIZES } from '@echo/ui/constants/icon-size'
 import { SIZE_MD } from '@echo/ui/constants/size'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
-  title: 'Base/Icons/Discord',
+  title: 'Base/Icons/Ethereum',
   component: Component,
   args: {
     size: SIZE_MD
@@ -21,4 +21,4 @@ const metadata: Meta<typeof Component> = {
 
 export default metadata
 
-export const Discord: StoryObj<typeof Component> = {}
+export const Ethereum: StoryObj<typeof Component> = {}
