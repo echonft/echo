@@ -32,7 +32,7 @@ export function assertOfferStateTransition(
       break
     case OFFER_STATE_CANCELLED:
       if (offer.state !== OFFER_STATE_OPEN) {
-        throw Error('offer cannot be cancelled when it is state OPEN')
+        throw Error('offer cannot be cancelled when it is not OPEN')
       }
       break
     case OFFER_STATE_COMPLETED:

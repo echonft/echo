@@ -1,12 +1,13 @@
 'use client'
+import { OFFER_ROLE_SENDER } from '@echo/model/constants/offer-role'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
 import { CreateOffer } from '@echo/ui/components/offer/create/create-offer'
-import { CreatedOfferCreated } from '@echo/ui/components/offer/created/created-offer-created'
+import { CreatedOfferSwitch } from '@echo/ui/components/offer/created/created-offer-switch'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { useRouter } from 'next/navigation'
-import { isNil } from 'ramda'
+import { assoc, isNil } from 'ramda'
 import { type FunctionComponent, useState } from 'react'
 
 interface Props {
@@ -32,5 +33,5 @@ export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receive
       />
     )
   }
-  return <CreatedOfferCreated count={createdOffer.senderItems.length} slug={createdOffer.slug} />
+  return <CreatedOfferSwitch offer={assoc('role', OFFER_ROLE_SENDER, createdOffer)} />
 }

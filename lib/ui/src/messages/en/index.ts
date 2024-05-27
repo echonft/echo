@@ -190,6 +190,13 @@ export const messages = {
         '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} in escrow\nuntil the offer is executed or it expires',
       offerBtn: 'Go to the offer'
     },
+    cancelled: {
+      title: 'Cancelled!',
+      subtitle:
+        "Your offer is <red>cancelled</red>, but don't worry,\n we kept your {count, plural, =1 {NFT} other {NFTs}} safe for you",
+      description: '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} back in your wallet',
+      homepageBtn: 'Back to the homepage'
+    },
     create: {
       assets: {
         in: 'Requesting',
@@ -274,7 +281,7 @@ Don't worry, its safe with us.`
     expired: {
       title: 'Expired!',
       subtitle:
-        "Your offer <red>expired</red>, but don't worry,\n we kept your {count, plural, =1 {NFT} other {NFTs}} safe until you redeem {count, plural, =1 {it} other {them}}",
+        "Your offer <red>expired</red>, but don't worry,\n we kept your {count, plural, =1 {NFT} other {NFTs}} safe for you",
       description: '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} back in your wallet',
       homepageBtn: 'Back to the homepage'
     },
