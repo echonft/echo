@@ -15,24 +15,29 @@ import type { Wallet } from '@echo/model/types/wallet'
 import { getCollection as getCollectionFromOpensea } from '@echo/opensea/services/get-collection'
 import { getNftsByAccount, type GetNftsByAccountArgs } from '@echo/opensea/services/get-nfts-by-account'
 import type { GetCollectionRequest } from '@echo/opensea/types/request/get-collection-request'
+import { andThenOtherwise } from '@echo/utils/fp/and-then-otherwise'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { always, andThen, assoc, equals, isNil, otherwise, pick, pipe, prop, tap } from 'ramda'
+import { always, andThen, assoc, equals, isNil, pick, pipe, prop, tap } from 'ramda'
 
-async function getCollection(
-  args: Omit<GetCollectionRequest, 'fetch'> & {
-    logger?: LoggerInterface
-  }
-): Promise<Nullable<Collection>> {
+type GetCollectionArgs = Omit<GetCollectionRequest, 'fetch'> & {
+  logger?: LoggerInterface
+}
+
+async function getCollection(args: GetCollectionArgs): Promise<Nullable<Collection>> {
   const collection = await getCollectionFromFirestore(args.slug)
   if (isNil(collection)) {
-    return pipe(
+    return pipe<
+      [GetCollectionArgs],
+      GetCollectionArgs & Pick<GetCollectionRequest, 'fetch'>,
+      ReturnType<typeof getCollectionFromOpensea>,
+      Promise<Collection | undefined>
+    >(
       assoc('fetch', fetch),
       getCollectionFromOpensea,
-      otherwise(always(undefined)),
-      andThen(
+      andThenOtherwise(
         pipe(
           assoc('verified', false),
           addCollection,
@@ -44,7 +49,8 @@ async function getCollection(
               prop('data')
             )
           )
-        )
+        ),
+        always(undefined)
       )
     )(args)
   }

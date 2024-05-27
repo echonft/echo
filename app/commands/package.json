@@ -17,6 +17,7 @@
     "command:delete-alchemy-webhook:dev": "source .env.keys; dotenvx run -f .env.dev -- ts-node --project tsconfig.json src/commands/delete-alchemy-webhook-command.ts",
     "command:fetch-collection": "source .env.keys; dotenvx run -f .env.dev -- ts-node --project tsconfig.json src/commands/fetch-collection-command.ts",
     "command:fetch-nfts": "source .env.keys; dotenvx run -f .env.dev -- ts-node --project tsconfig.json src/commands/fetch-nfts-command.ts",
+    "command:update-collection:dev": "source .env.keys; dotenvx run -f .env.dev -- ts-node --project tsconfig.json src/commands/update-collection-command.ts",
     "command:validate-offers:dev": "source .env.keys; dotenvx run -f .env.dev -- ts-node --project tsconfig.json src/commands/validate-offers-command.ts",
     "command:validate-offers:testnet": "source .env.keys; dotenvx run -f .env.testnet -- ts-node --project tsconfig.json src/commands/validate-offers-command.ts",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",

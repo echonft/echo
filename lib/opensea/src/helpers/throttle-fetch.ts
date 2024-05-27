@@ -17,17 +17,19 @@ async function tryFetch(args: ThrottleFetchArgs & { retries: number }): Promise<
   }
   if (retries > 0) {
     pinoLogger.warn(`retrying request to ${url}`)
-  } else {
-    pinoLogger.info(`fetching request to ${url}`)
   }
   const response = await fetch(url, fetchInit)
-  if (!response.ok && response.status === 429) {
-    pinoLogger.error(`request to ${url} got throttled by Opensea. Retrying in ${WAIT_TIME / 1000} seconds....`)
-    // Opensea throttled the request, wait 1 minute and retry
-    return await delayPromise(
-      pipe(converge(assoc, [always('retries'), pipe(prop('retries'), inc), identity]), tryFetch),
-      WAIT_TIME
-    )(args)
+  if (!response.ok) {
+    if (response.status === 429) {
+      pinoLogger.error(`request to ${url} got throttled by Opensea. Retrying in ${WAIT_TIME / 1000} seconds....`)
+      // Opensea throttled the request, wait 1 minute and retry
+      return await delayPromise(
+        pipe(converge(assoc, [always('retries'), pipe(prop('retries'), inc), identity]), tryFetch),
+        WAIT_TIME
+      )(args)
+    } else {
+      pinoLogger.error(`error fetching request to ${url}: ${response.status}`)
+    }
   }
   if (retries > 0) {
     pinoLogger.info(`throttle success for request to ${url}`)
@@ -36,5 +38,6 @@ async function tryFetch(args: ThrottleFetchArgs & { retries: number }): Promise<
 }
 
 export async function throttleFetch(args: ThrottleFetchArgs) {
+  pinoLogger.info(`fetching request to ${args.url}`)
   return await tryFetch(assoc('retries', 0, args))
 }
