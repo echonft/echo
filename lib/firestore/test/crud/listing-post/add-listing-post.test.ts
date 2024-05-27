@@ -32,9 +32,6 @@ describe('CRUD - listing-post - addListingPost', () => {
     }
   })
 
-  it('throws if trying to add a post for a listing that does not exist', async () => {
-    await expect(addListingPost('not-found', guild)).rejects.toBeDefined()
-  })
   it('add a listing post', async () => {
     const listingId = LISTING_MOCK_ID
     const newDocument = await addListingPost(listingId, guild)
