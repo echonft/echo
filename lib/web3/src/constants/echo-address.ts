@@ -5,7 +5,7 @@ import type { HexString } from '@echo/utils/types/hex-string'
 export function echoAddressByChain(chain: ChainName): HexString {
   switch (chain) {
     case TESTNET_CHAIN_SEPOLIA:
-      return '0x76FBe909020c1B133b3Be0347Fe4136734D3ac8a'
+      return '0xB0904D81440EFCA27Ec61948c95f21D7d546F8C3'
     default:
       throw Error(`chain ${chain} not supported`)
   }

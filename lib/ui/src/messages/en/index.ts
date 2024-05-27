@@ -189,7 +189,7 @@ export const messages = {
       subtitle: 'You have accepted an <yellow>offer</yellow> with Echo!',
       description:
         '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} in escrow\nuntil the offer is executed or it expires',
-      offerBtn: 'Go to the offer'
+      offerBtn: 'View offer'
     },
     cancelled: {
       title: 'Cancelled!',
@@ -220,10 +220,13 @@ export const messages = {
           subtitle: 'To create the offer, you first need to approve the Echo contract to escrow your NFTs'
         },
         create: {
-          btn: 'Create',
+          btn: {
+            label: 'Create',
+            loading: 'Creating...'
+          },
           subtitle: 'Great! Now you just need to sign the transaction to create the offer.',
           description:
-            "This transaction will place your {count} {count, plural, =1 {NFT} other {NFTs}} in escrow.\nDon't worry, its safe with us."
+            "This transaction will place your {count, plural, =1 {NFT} other {NFTs}} in escrow.\nDon't worry, its safe with us."
         },
         title: 'Create Offer'
       }
@@ -232,8 +235,8 @@ export const messages = {
       title: 'Congrats!',
       subtitle: 'You have created an <yellow>offer</yellow> with Echo!',
       description:
-        'Your {count} {count, plural, =1 {NFT is now} other {NFTs are now}} in escrow\nuntil the offer is accepted or it expires',
-      offerBtn: 'Go to the offer'
+        'Your {count, plural, =1 {NFT is now} other {NFTs are now}} in escrow\nuntil the offer is accepted or it expires',
+      offerBtn: 'View offer'
     },
     details: {
       acceptBtn: 'Accept',

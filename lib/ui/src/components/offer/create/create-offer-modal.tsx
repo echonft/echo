@@ -76,13 +76,16 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
     },
     onError: {
       alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('new') }
+    },
+    options: {
+      debug: true
     }
   })
 
   const isMutating = isCreateMutating || isContractCreateMutating
 
   return (
-    <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')}>
+    <Modal open={open} onClose={isMutating ? undefined : onClose}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('create.subtitle')}</ModalSubtitle>
         <ModalDescription>{t('create.description', { count: baseOffer.senderItems.length })}</ModalDescription>
@@ -93,7 +96,9 @@ export const CreateOfferModal: FunctionComponent<Props> = ({
           }}
           disabled={isMutating}
         >
-          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('create.btn')}</span>
+          <span className={clsx('prose-label-lg', 'btn-label-gradient')}>
+            {t(isMutating ? 'create.btn.loading' : 'create.btn.label')}
+          </span>
         </button>
       </div>
     </Modal>
