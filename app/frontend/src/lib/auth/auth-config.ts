@@ -41,11 +41,14 @@ export const authConfig: NextAuthConfig = {
       if (either(propIsNil('token'), pathIsNil(['token', 'user']))(params)) {
         return session
       }
-      const user: AuthUser = path(['token', 'user'], params)
+      const user: AuthUser = path(['token', 'user'], params) as AuthUser
       return assoc('user', user, session)
     }
   },
   events: {
+    // FIXME
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     signIn: async function (event: SigninEvent) {
       const request = pipe<[SigninEvent], User, Pick<User, 'discord'>, string>(
         prop('user'),

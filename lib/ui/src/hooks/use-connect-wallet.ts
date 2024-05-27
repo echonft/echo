@@ -48,7 +48,7 @@ export function useConnectWallet(account: AccountResult) {
     fetcher: getNonce,
     onSuccess: (response) => {
       void signNonceTrigger({
-        domain: window.location.hostname,
+        domain: window.location.origin,
         uri: window.location.origin,
         nonce: response.nonce,
         wallet: wallet!
