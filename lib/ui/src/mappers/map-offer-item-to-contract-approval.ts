@@ -5,7 +5,7 @@ import { applySpec, path, pipe } from 'ramda'
 export function mapOfferItemToContractApproval(offerItem: Nft) {
   return applySpec<ContractApproval>({
     contract: pipe(path(['collection', 'contract'])),
-    name: path(['nft', 'collection', 'name']),
-    wallet: path(['nft', 'owner', 'wallet'])
+    name: path(['collection', 'name']),
+    wallet: path(['owner', 'wallet'])
   })(offerItem)
 }

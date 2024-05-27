@@ -77,7 +77,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
   if (settingExpiration) {
     return (
       <CreateOfferExpiration
-        senderItems={senderNfts}
+        senderItems={senderSelection}
         receiverItems={receiverItems}
         onCancel={() => {
           setSettingExpiration(false)

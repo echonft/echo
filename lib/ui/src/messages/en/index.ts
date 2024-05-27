@@ -232,7 +232,7 @@ export const messages = {
       title: 'Congrats!',
       subtitle: 'You have created an <yellow>offer</yellow> with Echo!',
       description:
-        '{count, plural, =1 {Your NFT is now} other {Your NFTs are now}} in escrow\nuntil the offer is accepted or it expires',
+        'Your {count} {count, plural, =1 {NFT is now} other {NFTs are now}} in escrow\nuntil the offer is accepted or it expires',
       offerBtn: 'Go to the offer'
     },
     details: {
