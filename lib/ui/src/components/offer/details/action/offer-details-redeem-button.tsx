@@ -81,19 +81,18 @@ export const OfferDetailsRedeemButton: FunctionComponent<Props> = ({
       onError
     }
   })
-
   if (show) {
     return (
       <button
         className={clsx('btn-gradient', 'btn-size', 'group', disabled && 'animate-pulse')}
         disabled={disabled}
         onClick={() => {
-          onClick?.()
           if (isRedeemable) {
             void triggerContractRedeem({ offerId: offer.idContract, chain })
           } else {
             void triggerContractCancel({ offerId: offer.idContract, chain })
           }
+          onClick?.()
         }}
       >
         <span className={clsx('prose-label-lg', 'btn-label-gradient')}>

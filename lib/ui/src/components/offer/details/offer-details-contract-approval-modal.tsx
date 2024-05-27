@@ -101,7 +101,7 @@ export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
         />
         <ShowIfNil checks={contractToApprove}>
           <button className={clsx('btn-gradient', 'btn-size-alt', 'group')} disabled={true}>
-            <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn')}</span>
+            <span className={clsx('prose-label-lg', 'btn-label-gradient')}>{t('btn.label')}</span>
           </button>
         </ShowIfNil>
       </div>
