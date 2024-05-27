@@ -1,8 +1,7 @@
 import { DashboardApiRoutes } from '@echo/alchemy/constants/dashboard-api-routes'
 import { getDashboardApiRoute } from '@echo/alchemy/helpers/get-dashboard-api-route'
-import { MAINNET_CHAIN_ID } from '@echo/utils/constants/chain-ids'
+import { isTestnet } from '@echo/utils/constants/is-testnet'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { getCurrentChainId } from '@echo/utils/helpers/get-current-chain-id'
 import axios from 'axios'
 import { pipe, prop, tap } from 'ramda'
 
@@ -12,20 +11,9 @@ interface Args {
   url?: string
 }
 
-function getCallbackUrl() {
-  switch (process.env.ENV) {
-    case 'dev':
-      return 'https://dev.echonft.xyz/api/webhook'
-    case 'testnet':
-      return 'https://testnet.echonft.xyz/api/webhook'
-    case 'test':
-      throw Error('test ENV not supported')
-  }
-}
-
 export async function createAlchemyWebhook(args: Args) {
-  const network = getCurrentChainId() === MAINNET_CHAIN_ID ? 'ETH_MAINNET' : 'ETH_SEPOLIA'
-  const url = args.url ?? getCallbackUrl()
+  const network = isTestnet ? 'ETH_SEPOLIA' : 'ETH_MAINNET'
+  const url = args.url ?? isTestnet ? 'https://testnet.echonft.xyz/api/webhook' : 'https://dev.echonft.xyz/api/webhook'
   await axios
     .post(
       getDashboardApiRoute(DashboardApiRoutes.CREATE_WEBHOOK),

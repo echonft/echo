@@ -1,17 +1,18 @@
 import { type Collection, type Contract } from '@echo/model/types/collection'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
 import { toLower } from 'ramda'
 
 export const COLLECTION_MOCK_PX_ID = 'Rc8pLQXxgyQGIRL0fr13'
 export const COLLECTION_MOCK_PX_SLUG = 'pxmythics-genesis'
 export const COLLECTION_MOCK_PX_CONTRACT: Contract = {
   address: toLower('0x12c63bbD266dB84e117356e664f3604055166CEc'),
-  chain: 'ethereum'
+  chain: CHAIN_ETHEREUM
 }
 export const COLLECTION_MOCK_SPIRAL_ID = '1aomCtnoesD7WVll6Yi1'
 export const COLLECTION_MOCK_SPIRAL_SLUG = 'spiral-frequencies'
 export const COLLECTION_MOCK_SPIRAL_CONTRACT: Contract = {
   address: toLower('0x320e2fa93A4010ba47edcdE762802374bac8d3F7'),
-  chain: 'ethereum'
+  chain: CHAIN_ETHEREUM
 }
 
 export const collectionMock: Record<string, Collection> = {

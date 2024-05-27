@@ -4,19 +4,26 @@ import {
   MAINNET_CHAIN_ID,
   SEPOLIA_CHAIN_ID
 } from '@echo/utils/constants/chain-ids'
+import {
+  CHAIN_BLAST,
+  CHAIN_ETHEREUM,
+  TESTNET_CHAIN_BLAST,
+  TESTNET_CHAIN_SEPOLIA
+} from '@echo/utils/constants/chain-names'
 import type { ChainName } from '@echo/utils/types/chain-name'
+import type { Nullable } from '@echo/utils/types/nullable'
 
-export function getChainName(chainId: number): ChainName {
+export function getChainName(chainId: Nullable<number>): ChainName | undefined {
   switch (chainId) {
     case BLAST_CHAIN_ID:
-      return 'blast'
+      return CHAIN_BLAST
     case BLAST_SEPOLIA_CHAIN_ID:
-      return 'blast_sepolia'
+      return TESTNET_CHAIN_BLAST
     case MAINNET_CHAIN_ID:
-      return 'ethereum'
+      return CHAIN_ETHEREUM
     case SEPOLIA_CHAIN_ID:
-      return 'sepolia'
+      return TESTNET_CHAIN_SEPOLIA
     default:
-      throw Error(`chain id ${chainId} is not supported`)
+      return undefined
   }
 }

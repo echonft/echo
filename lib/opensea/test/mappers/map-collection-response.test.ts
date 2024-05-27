@@ -2,6 +2,7 @@ import { COLLECTION_MOCK_SPIRAL_ID } from '@echo/model-mocks/collection/collecti
 import { getCollectionMockById } from '@echo/model-mocks/collection/get-collection-mock-by-id'
 import { mapCollectionResponse } from '@echo/opensea/mappers/map-collection-response'
 import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
+import { TESTNET_CHAIN_SEPOLIA } from '@echo/utils/constants/chain-names'
 import { describe, expect, it } from '@jest/globals'
 import { assoc, omit, pipe } from 'ramda'
 
@@ -28,7 +29,7 @@ describe('mappers - mapCollectionResponse', () => {
       telegram_url: 'whatever',
       twitter_username: 'whatever',
       instagram_username: 'whatever',
-      contracts: [assoc('chain', 'sepolia', mock.contract), mock.contract],
+      contracts: [assoc('chain', TESTNET_CHAIN_SEPOLIA, mock.contract), mock.contract],
       total_supply: mock.totalSupply,
       created_date: 'whatever'
     }

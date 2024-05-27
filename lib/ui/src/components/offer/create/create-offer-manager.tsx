@@ -47,7 +47,7 @@ export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receive
       senderNfts={senderNfts}
       loading={isMutating}
       onComplete={(senderSelection) => {
-        if (isNil(sender.address)) {
+        if (isNil(sender.wallet)) {
           // TODO we need to connect the wallet
         } else {
           void trigger({

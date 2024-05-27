@@ -4,6 +4,7 @@ import { getWalletsCollectionReference } from '@echo/firestore/helpers/collectio
 import { setReference } from '@echo/firestore/helpers/crud/reference/set-reference'
 import { getWalletDocumentDataMockById } from '@echo/firestore-mocks/wallet/get-wallet-document-data-mock-by-id'
 import { USER_MOCK_JOHNNY_USERNAME } from '@echo/model-mocks/user/user-mock'
+import { CHAIN_ETHEREUM } from '@echo/utils/constants/chain-names'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { Nullable } from '@echo/utils/types/nullable'
@@ -31,7 +32,7 @@ describe('CRUD - wallet - removeWallet', () => {
   it('throws if the wallet does not exists', async () => {
     await expect(
       removeWallet(USER_MOCK_JOHNNY_USERNAME, {
-        chain: 'ethereum',
+        chain: CHAIN_ETHEREUM,
         address: toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
       })
     ).rejects.toBeDefined()
@@ -39,7 +40,7 @@ describe('CRUD - wallet - removeWallet', () => {
   it('throws if the user does not exists', async () => {
     await expect(
       removeWallet('not-found', {
-        chain: 'ethereum',
+        chain: CHAIN_ETHEREUM,
         address: toLower('0xF48cb479671B52E13D0ccA4B3178027D3d1D1ac8')
       })
     ).rejects.toBeDefined()
@@ -47,7 +48,7 @@ describe('CRUD - wallet - removeWallet', () => {
   it('throws if the wallet is not associated with the userId', async () => {
     await expect(
       removeWallet('6rECUMhevHfxABZ1VNOm', {
-        chain: 'ethereum',
+        chain: CHAIN_ETHEREUM,
         address: toLower('0x1E3918dD44F427F056be6C8E132cF1b5F42de59E')
       })
     ).rejects.toBeDefined()

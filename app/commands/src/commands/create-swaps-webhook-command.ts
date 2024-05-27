@@ -2,6 +2,7 @@ import { apiUrlProvider } from '@echo/api/routing/api-url-provider'
 import { createAlchemyWebhook } from '@echo/commands/tasks/create-alchemy-webhook'
 import { deleteAlchemyWebhook } from '@echo/commands/tasks/delete-alchemy-webhook'
 import { terminateFirestore } from '@echo/firestore/services/terminate-firestore'
+import { CHAIN_ETHEREUM, CHAIN_NAMES } from '@echo/utils/constants/chain-names'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import type { ChainName } from '@echo/utils/types/chain-name'
 import { echoAddressByChain } from '@echo/web3/constants/echo-address'
@@ -10,7 +11,7 @@ import { hideBin } from 'yargs/helpers'
 
 /**
  * Arguments:
- *  -c    chain name
+ *  -c    chain name (defaults to 'ethereum')
  *  -d?   will delete the previous hook with id defined in
  *        env var ALCHEMY_WEBHOOK_SWAPS is set to true
  *  -u?   will override the default webhook URL with the provided one
@@ -21,7 +22,10 @@ void (async function () {
       c: {
         alias: 'chain',
         describe: 'chain name',
-        type: 'string'
+        type: 'string',
+        choices: CHAIN_NAMES,
+        default: CHAIN_ETHEREUM,
+        coerce: (arg) => arg as ChainName
       },
       d: {
         alias: 'deletePrevious',
@@ -34,10 +38,8 @@ void (async function () {
         type: 'string'
       }
     })
-    .demandOption('c', 'chain is required')
     .parse()
-  const chain = c as ChainName
-  const address = echoAddressByChain(chain)
+  const address = echoAddressByChain(c)
   await createAlchemyWebhook({
     query: `{ block { logs(filter: {addresses: ${JSON.stringify([
       address

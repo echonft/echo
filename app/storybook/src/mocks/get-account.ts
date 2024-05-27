@@ -1,6 +1,5 @@
 import { getWalletMock } from '@echo/model-mocks/wallet/wallet-mock'
 import { accountStatusStore } from '@echo/storybook/mocks/stores/account-status-store'
-import { getChainId } from '@echo/utils/helpers/get-chain-id'
 import type { AccountProviderResult } from '@echo/web3-dom/types/account-provider-result'
 import type { AccountResult } from '@echo/web3-dom/types/account-result'
 import type { AccountStatus } from '@echo/web3-dom/types/account-status'
@@ -9,10 +8,9 @@ import { isNil } from 'ramda'
 export function getAccount(onChange?: (account: AccountResult) => void): AccountProviderResult {
   function getResultFromStatus(status: AccountStatus): AccountResult {
     if (status === 'connected') {
-      const { chain, address } = getWalletMock()
-      return { chain, chainId: getChainId(chain), address, status }
+      return { wallet: getWalletMock(), status }
     }
-    return { chain: 'ethereum', chainId: 1, address: undefined, status }
+    return { wallet: undefined, status }
   }
 
   const status = accountStatusStore.getState().status

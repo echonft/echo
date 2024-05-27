@@ -7,23 +7,30 @@ import { hideBin } from 'yargs/helpers'
 /**
  * Arguments:
  *  -s  string    slug
+ *  -t  boolean   testnet (defaults to false)
  *
  *  Fetch the collection for a given slug from the OpenSea API
  */
 void (async function () {
-  const { s } = await yargs(hideBin(process.argv))
+  const { s, t } = await yargs(hideBin(process.argv))
     .options({
       s: {
         alias: 'slug',
         describe: 'collection slug on OpenSea',
         type: 'string'
+      },
+      t: {
+        alias: 'testnet',
+        describe: 'fetch on testnets?',
+        type: 'boolean',
+        default: false
       }
     })
     .demandOption('s', 'slug is required')
     .parse()
   pinoLogger.info(`fetching collection with slug ${s}...`)
   try {
-    const collection = await getCollection({ slug: s, fetch })
+    const collection = await getCollection({ fetch, slug: s, testnet: t })
     pinoLogger.info(JSON.stringify(collection, undefined, 2))
   } catch (e) {
     pinoLogger.error(`error fetching collection with slug ${s}: ${errorMessage(e)}`)

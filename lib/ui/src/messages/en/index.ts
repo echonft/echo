@@ -332,7 +332,10 @@ export const messages = {
   wallet: {
     button: {
       copied: 'Copied!',
-      label: 'Connect'
+      label: {
+        disconnected: 'Connect',
+        connecting: 'Connecting...'
+      }
     },
     modal: {
       title: 'Oops! Wallet not connected',

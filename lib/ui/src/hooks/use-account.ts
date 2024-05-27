@@ -5,9 +5,7 @@ import { useEffect, useState } from 'react'
 export function useAccount(): AccountResult {
   const { getAccount } = useDependencies()
   const [account, setAccount] = useState<AccountResult>({
-    address: undefined,
-    chain: 'ethereum',
-    chainId: 1,
+    wallet: undefined,
     status: 'disconnected'
   })
   // subscribe to account changes
