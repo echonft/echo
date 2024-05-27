@@ -206,6 +206,17 @@ export const messages = {
         selector: '{count} {count, plural, =1 { Day} other { Days}}',
         finalizeBtn: 'Finalize Offer',
         editBtn: 'Edit'
+      },
+      modal: {
+        approval: {
+          subtitle: 'To create the offer, you first need to approve the Echo contract to escrow your NFTs'
+        },
+        create: {
+          btn: 'Create',
+          subtitle: 'Great! Now you just need to sign the transaction to create the offer.',
+          description: "This transaction will place your NFT in escrow. Don't worry, its safe with us."
+        },
+        title: 'Create Offer'
       }
     },
     created: {
@@ -219,7 +230,7 @@ export const messages = {
       acceptBtn: 'Accept',
       acceptModal: {
         approval: {
-          subtitle: 'To accept the offer, you first need to approve the Echo contract to transfer your NFTs'
+          subtitle: 'To accept the offer, you first need to approve the Echo contract to escrow your NFTs'
         },
         sign: {
           btn: 'Accept',

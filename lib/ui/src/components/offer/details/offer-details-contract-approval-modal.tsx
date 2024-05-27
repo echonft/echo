@@ -26,6 +26,7 @@ interface Props {
   onClose?: EmptyFunction
 }
 
+// TODO Change name of this modal as it's used in the creation flow too
 export const OfferDetailsContractApprovalModal: FunctionComponent<Props> = ({
   items,
   open,

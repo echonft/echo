@@ -28,6 +28,7 @@ export const SWRKeys = {
   offer: {
     accept: pipe<[Offer], string, string>(offerKey, concat('accept-offer-')),
     cancel: pipe<[Offer], string, string>(offerKey, concat('cancel-offer-')),
+    contractCreate: 'contract-create-offer',
     create: 'create-offer',
     get: pipe<[Offer], string, string>(offerKey, concat('get-offer-')),
     getSignature: pipe<[Offer], string, string>(offerKey, concat('get-offer-signature-')),
