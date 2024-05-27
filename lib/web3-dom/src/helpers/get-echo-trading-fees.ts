@@ -7,7 +7,12 @@ import { getWalletClient } from '@echo/web3-dom/helpers/get-wallet-client'
 import { pipe } from 'ramda'
 import { readContract } from 'viem/actions'
 
-export async function getEchoTradingFees(chain: ChainName): Promise<bigint> {
+interface GetEchoTradingFeesArgs {
+  chain: ChainName
+}
+
+export async function getEchoTradingFees(args: GetEchoTradingFeesArgs): Promise<bigint> {
+  const { chain } = args
   const echoAddress = echoAddressByChain(chain)
   const chainId = getChainId(chain)
   const client = pipe(getChainById, getWalletClient)(chainId)

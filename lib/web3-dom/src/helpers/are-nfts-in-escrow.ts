@@ -11,7 +11,12 @@ import { all, always, any, head, ifElse, map, path, pipe, prop, T } from 'ramda'
 import { multicall } from 'viem/actions'
 import type { MulticallReturnType } from 'viem/actions/public/multicall'
 
-export async function areNftsInEscrow(nfts: Nft[]): Promise<boolean> {
+interface AreNftsInEscrowArgs {
+  nfts: Nft[]
+}
+
+export async function areNftsInEscrow(args: AreNftsInEscrowArgs): Promise<boolean> {
+  const { nfts } = args
   const chain = pipe<[Nft[]], Nft, ChainName>(head, nonNullableReturn(path(['collection', 'contract', 'chain'])))(nfts)
   const echoAddress = echoAddressByChain(chain)
   const chainId = getChainId(chain)

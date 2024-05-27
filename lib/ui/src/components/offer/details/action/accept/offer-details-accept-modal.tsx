@@ -39,7 +39,7 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
     head,
     nonNullableReturn(path(['collection', 'contract', 'chain']))
   )(offer)
-  const fee = useEchoTradingFees(chain)
+  const fees = useEchoTradingFees(chain)
   const onError: Omit<ErrorCallback, 'show'> = {
     contexts: offerContext(offer),
     alert: { severity: CALLOUT_SEVERITY_ERROR, message: tError('accept') },
@@ -67,14 +67,14 @@ export const OfferDetailsAcceptModal: FunctionComponent<Props> = ({ offer, open,
     onError
   })
 
-  const isMutating = isAcceptMutating || isContractAcceptMutating || isNil(fee)
+  const isMutating = isAcceptMutating || isContractAcceptMutating || isNil(fees)
 
   return (
     <Modal open={open} onClose={isMutating ? undefined : onClose} title={t('title')}>
       <div className={clsx('flex', 'flex-col', 'gap-6', 'items-center', 'self-stretch')}>
         <ModalSubtitle>{t('accept.subtitle')}</ModalSubtitle>
-        {!isNil(fee) && (
-          <ModalDescription>{t('accept.description', { fee, count: offer.senderItems.length })}</ModalDescription>
+        {!isNil(fees) && (
+          <ModalDescription>{t('accept.description', { fees, count: offer.senderItems.length })}</ModalDescription>
         )}
         <button
           className={clsx('btn-gradient', 'btn-size-alt', 'group', isMutating && 'animate-pulse')}

@@ -6,7 +6,7 @@ import { isNil } from 'ramda'
 import useSWR from 'swr'
 
 export function useEchoTradingFees(chain: ChainName): string | undefined {
-  const { data } = useSWR<bigint, Error>([SWRKeys.contract.getEchoTradingFees, chain], getEchoTradingFees, {
+  const { data } = useSWR<bigint, Error>({ name: SWRKeys.contract.getEchoTradingFees, chain }, getEchoTradingFees, {
     shouldRetryOnError: true,
     errorRetryCount: 3,
     errorRetryInterval: 500

@@ -6,7 +6,7 @@ import useSWR from 'swr'
 
 export function useAreNftsInEscrow(nfts: Nft[] | undefined): boolean | undefined {
   const { data } = useSWR<boolean, Error>(
-    isNilOrEmpty(nfts) ? undefined : [SWRKeys.contract.areNftsInEscrow, nfts],
+    isNilOrEmpty(nfts) ? undefined : { name: SWRKeys.contract.areNftsInEscrow, nfts },
     areNftsInEscrow,
     {
       shouldRetryOnError: true,
