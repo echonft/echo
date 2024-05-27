@@ -19,16 +19,33 @@ import { errorMessage } from '@echo/utils/helpers/error-message'
 import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
 import type { LoggerInterface } from '@echo/utils/types/logger-interface'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { always, andThen, assoc, equals, isNil, otherwise, pick, pipe, prop } from 'ramda'
+import { always, andThen, assoc, equals, isNil, otherwise, pick, pipe, prop, tap } from 'ramda'
 
-async function getCollection(args: Omit<GetCollectionRequest, 'fetch'>): Promise<Nullable<Collection>> {
+async function getCollection(
+  args: Omit<GetCollectionRequest, 'fetch'> & {
+    logger?: LoggerInterface
+  }
+): Promise<Nullable<Collection>> {
   const collection = await getCollectionFromFirestore(args.slug)
   if (isNil(collection)) {
     return pipe(
       assoc('fetch', fetch),
       getCollectionFromOpensea,
       otherwise(always(undefined)),
-      andThen(pipe(assoc('verified', false), addCollection, andThen(prop('data'))))
+      andThen(
+        pipe(
+          assoc('verified', false),
+          addCollection,
+          andThen(
+            pipe(
+              tap((newDocument) => {
+                args.logger?.info(`added collection ${newDocument.data.slug}`)
+              }),
+              prop('data')
+            )
+          )
+        )
+      )
     )(args)
   }
   return collection
@@ -43,7 +60,11 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
     for (const nft of nfts) {
       try {
         // check if collection exists, if not add it, else set it in the nft
-        const collection = await getCollection({ slug: nft.collection.slug, testnet: isTestnetChain(wallet.chain) })
+        const collection = await getCollection({
+          logger,
+          slug: nft.collection.slug,
+          testnet: isTestnetChain(wallet.chain)
+        })
         if (!isNil(collection)) {
           const existingNft: Nullable<Nft> = await pipe(getNftIndex, getNft)(nft)
           if (isNil(existingNft)) {
@@ -80,7 +101,6 @@ export async function updateNftsForWallet(wallet: Wallet, owner: User, logger?: 
               logger?.error(`error setting new owner of nft ${nft.collection.slug} #${nft.tokenId}: ${errorMessage(e)}`)
             }
           }
-          logger?.info(`done updating NFTs for wallet ${JSON.stringify(wallet)}`)
         }
       } catch (e) {
         logger?.error(`error getting NFT ${nft.collection.slug} #${nft.tokenId}}: ${errorMessage(e)}`)
@@ -95,5 +115,6 @@ export async function updateUserNfts(user: UserDocumentData, wallets: WalletDocu
   for (const wallet of wallets) {
     const owner: User = getUserFromFirestoreData(user, wallet)
     await updateNftsForWallet(pick(['address', 'chain'], wallet), owner, logger)
+    logger?.info(`done updating NFTs for wallet ${JSON.stringify(wallet)}`)
   }
 }
