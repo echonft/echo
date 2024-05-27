@@ -2,7 +2,6 @@
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
-import { eqNftCollection } from '@echo/model/helpers/nft/eq-nft-collection'
 import type { Collection } from '@echo/model/types/collection'
 import type { ListingTarget } from '@echo/model/types/listing-target'
 import type { Nft } from '@echo/model/types/nft'
@@ -19,7 +18,7 @@ import { isInWith } from '@echo/utils/fp/is-in-with'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
-import { always, append, assoc, filter, isEmpty, isNil, pipe, reject, unless } from 'ramda'
+import { always, append, assoc, isEmpty, isNil, pipe, reject, unless } from 'ramda'
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 
 interface Props {
@@ -50,6 +49,7 @@ export const CreateListing: FunctionComponent<Props> = ({
     },
     [setItemsSelection]
   )
+
   const unselectItem = useCallback(
     (nft: SelectableNft) => {
       setItemsSelection(reject(eqNft(nft)))
@@ -59,10 +59,7 @@ export const CreateListing: FunctionComponent<Props> = ({
   const nfts = useMemo(
     () =>
       pipe<[SelectableNft[]], SelectableNft[], SelectableNft[]>(
-        unless<SelectableNft[], SelectableNft[]>(
-          always(isEmpty(itemsSelection)),
-          filter(isInWith<SelectableNft>(itemsSelection, eqNftCollection))
-        ),
+        unless<SelectableNft[], SelectableNft[]>(always(isEmpty(itemsSelection)), always(itemsSelection)),
         reject(isInWith(itemsSelection, eqNft))
       )(creatorNfts),
     [itemsSelection, creatorNfts]

@@ -18,6 +18,7 @@ import { type FunctionComponent, useEffect, useState } from 'react'
 export interface SelectableNftGroupsProps extends Pick<SelectableNftCardProps, 'options' | 'onAction'> {
   nfts: Nft[]
   groupBy: (nfts: Nft[]) => NftGroup[]
+  sortBy?: (nftGroups: NftGroup[], selection: Nft[]) => NftGroup[]
   selection: SelectableNft[]
   style?: {
     collapsible?: boolean
@@ -30,6 +31,7 @@ export interface SelectableNftGroupsProps extends Pick<SelectableNftCardProps, '
 export const SelectableNftGroups: FunctionComponent<SelectableNftGroupsProps> = ({
   nfts,
   groupBy,
+  sortBy,
   selection,
   options,
   style,
@@ -41,6 +43,7 @@ export const SelectableNftGroups: FunctionComponent<SelectableNftGroupsProps> = 
 
   // update groups when selection changes
   useEffect(() => {
+    // TODO Add sorting if needed
     pipe(ifElse(always(isEmpty(selection)), map(enableAction), map(disableAction)), groupBy, setGroups)(nfts)
   }, [nfts, groupBy, selection])
 

@@ -2,7 +2,6 @@
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { OFFER_STATE_OPEN } from '@echo/model/constants/offer-states'
 import { eqNft } from '@echo/model/helpers/nft/eq-nft'
-import { eqNftCollection } from '@echo/model/helpers/nft/eq-nft-collection'
 import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
 import type { User } from '@echo/model/types/user'
@@ -25,7 +24,7 @@ import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { isInWith } from '@echo/utils/fp/is-in-with'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
-import { always, append, filter, isEmpty, pipe, reject, unless } from 'ramda'
+import { append, isEmpty, reject } from 'ramda'
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 
 interface Props {
@@ -62,17 +61,7 @@ export const CreateOffer: FunctionComponent<Props> = ({
     },
     [setSenderSelection]
   )
-  const nfts = useMemo(
-    () =>
-      pipe<[SelectableNft[]], SelectableNft[], SelectableNft[]>(
-        unless<SelectableNft[], SelectableNft[]>(
-          always(isEmpty(senderSelection)),
-          filter(isInWith<SelectableNft>(senderSelection, eqNftCollection))
-        ),
-        reject(isInWith(senderSelection, eqNft))
-      )(senderNfts),
-    [senderSelection, senderNfts]
-  )
+  const nfts = useMemo(() => reject(isInWith(senderSelection, eqNft))(senderNfts), [senderSelection, senderNfts])
 
   if (settingExpiration) {
     return (
