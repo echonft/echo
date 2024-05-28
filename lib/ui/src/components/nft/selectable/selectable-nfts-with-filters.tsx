@@ -5,8 +5,8 @@ import { CollectionFilterPanel } from '@echo/ui/components/nft/filters/by-collec
 import { TraitFilterPanelVisibilityManager } from '@echo/ui/components/nft/filters/by-traits/trait-filter-panel-visibility-manager'
 import { NftFiltersPanelsLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panels-layout'
 import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nfts-and-filters-layout'
+import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
 import { SelectableNftsActionButton } from '@echo/ui/components/nft/selectable/selectable-nfts-action-button'
-import { SelectableNftsContainer } from '@echo/ui/components/nft/selectable/selectable-nfts-container'
 import { filterNftsByCollections } from '@echo/ui/helpers/nft/filters/filter-nfts-by-collections'
 import { filterNftsByTraits } from '@echo/ui/helpers/nft/filters/filter-nfts-by-traits'
 import { getCollectionFiltersForNfts } from '@echo/ui/helpers/nft/filters/get-collection-filters-for-nfts'
@@ -206,7 +206,7 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({ nfts, onSe
           )}
         />
       </NftFiltersPanelsLayout>
-      <SelectableNftsContainer
+      <SelectableNfts
         nfts={state.nfts}
         groupBy={groupNftsByCollection}
         selection={state.selection}

@@ -1,6 +1,6 @@
 'use client'
 import { type Nft } from '@echo/model/types/nft'
-import { SelectableNftsContainer } from '@echo/ui/components/nft/selectable/selectable-nfts-container'
+import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
 import { groupNftsByCollection } from '@echo/ui/helpers/nft/group/group-nfts-by-collection'
 import { sortGroupNftsBySelection } from '@echo/ui/helpers/nft/sort/sort-group-nfts-by-selection'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
@@ -14,7 +14,7 @@ interface Props<T extends Nft> {
 
 export const CreateOfferSenderNftsSelection = <T extends Nft>({ nfts, selection, onSelect, onUnselect }: Props<T>) => {
   return (
-    <SelectableNftsContainer
+    <SelectableNfts
       nfts={nfts}
       groupBy={groupNftsByCollection}
       sortBy={sortGroupNftsBySelection}

@@ -14,6 +14,7 @@ interface Props {
 export const TraitFilterPickerManager: FunctionComponent<Props> = ({ label, filters, onToggleSelection }) => {
   const [collapsed, setCollapsed] = useState(false)
   const selectionCount = useMemo(() => getSelectionCount(filters), [filters])
+
   return (
     <TraitFilterPicker
       label={label}

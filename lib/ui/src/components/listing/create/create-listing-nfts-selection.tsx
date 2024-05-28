@@ -1,6 +1,6 @@
 'use client'
 import { type Nft } from '@echo/model/types/nft'
-import { SelectableNftsContainer } from '@echo/ui/components/nft/selectable/selectable-nfts-container'
+import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
 import { groupNftsByCollection } from '@echo/ui/helpers/nft/group/group-nfts-by-collection'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
 import { clsx } from 'clsx'
@@ -18,7 +18,7 @@ export const CreateListingNftsSelection = <T extends Nft>({ nfts, selection, onS
 
   return (
     <div className={clsx('flex', 'flex-row', 'justify-center', 'h-max', 'w-full', 'px-8')}>
-      <SelectableNftsContainer
+      <SelectableNfts
         nfts={nfts}
         groupBy={groupNftsByCollection}
         selection={selection}

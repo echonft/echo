@@ -1,67 +1,59 @@
 'use client'
-import { eqNft } from '@echo/model/helpers/nft/eq-nft'
-import type { User } from '@echo/model/types/user'
+import { SelectableNftsLayout } from '@echo/ui/components/nft/group/layout/selectable-nfts-layout'
+import { keyOf } from '@echo/ui/components/nft/key-of'
 import {
-  SelectableNftsContainer,
-  type SelectableNftsContainerProps
-} from '@echo/ui/components/nft/selectable/selectable-nfts-container'
-import { filterNftsByOwner } from '@echo/ui/helpers/nft/filters/filter-nfts-by-owner'
+  SelectableNftCard,
+  type SelectableNftCardProps
+} from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
+import {
+  SelectableNftThumbnailContainer,
+  type SelectableNftThumbnailContainerProps
+} from '@echo/ui/components/nft/selectable-thumbnail/selectable-nft-thumbnail-container'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'
-import { isInWith } from '@echo/utils/fp/is-in-with'
-import { append, filter, head, identity, isEmpty, pipe, prop, reject } from 'ramda'
-import { type FunctionComponent, useEffect, useState } from 'react'
+import { clsx } from 'clsx'
+import { motion } from 'framer-motion'
+import { map } from 'ramda'
+import { type FunctionComponent } from 'react'
 
-interface SelectableNftsProps extends Omit<SelectableNftsContainerProps, 'selection' | 'onSelect' | 'onUnselect'> {
-  initialSelection?: SelectableNft[]
-  onSelectionUpdate?: (selection: SelectableNft[]) => unknown
+interface Props extends Pick<SelectableNftCardProps, 'options' | 'onAction'> {
+  nfts: SelectableNft[]
+  selection: SelectableNft[]
+  style?: {
+    selectionContainer?: SelectableNftThumbnailContainerProps['style']
+  }
+  onSelect?: (nft: SelectableNft) => unknown
+  onUnselect?: (nft: SelectableNft) => unknown
 }
 
-export const SelectableNfts: FunctionComponent<SelectableNftsProps> = ({
+export const SelectableNfts: FunctionComponent<Props> = ({
   nfts,
-  initialSelection,
-  onSelectionUpdate,
-  ...props
+  selection,
+  options,
+  style,
+  onAction,
+  onSelect,
+  onUnselect
 }) => {
-  const [selectableNfts, setSelectableNfts] = useState<SelectableNft[]>(nfts)
-  const [selection, setSelection] = useState<SelectableNft[]>(initialSelection ?? [])
-
-  // trigger selection update when it changes
-  useEffect(() => {
-    onSelectionUpdate?.(selection)
-  }, [selection, onSelectionUpdate])
-
-  // remove any NFTs in the selection that are not found in the underlying NFTs when they change
-  // it will also update selectableNfts since it triggers a selection update
-  useEffect(() => {
-    setSelection(filter(isInWith(nfts, eqNft)))
-  }, [nfts])
-
-  // adjust selectable NFTs according to the seclection
-  useEffect(() => {
-    const selectionEmpty = isEmpty(selection)
-    const filterFn = selectionEmpty
-      ? identity
-      : pipe<[SelectableNft[]], SelectableNft, User, (nfts: SelectableNft[]) => SelectableNft[]>(
-          head,
-          prop('owner'),
-          filterNftsByOwner<SelectableNft>
-        )(selection)
-    setSelectableNfts(filterFn)
-  }, [selection])
-
-  const onSelect = (nft: SelectableNft) => {
-    setSelection(append(nft))
-  }
-  const onUnselect = (nft: SelectableNft) => {
-    setSelection(reject(eqNft(nft)))
-  }
   return (
-    <SelectableNftsContainer
-      nfts={selectableNfts}
-      selection={selection}
-      onSelect={onSelect}
-      onUnselect={onUnselect}
-      {...props}
-    />
+    <div className={clsx('flex', 'flex-col', 'gap-8', 'grow')}>
+      <SelectableNftThumbnailContainer nfts={selection} onRemove={onUnselect} style={style?.selectionContainer} />
+      <SelectableNftsLayout>
+        {map(
+          (nft) => (
+            <motion.div
+              key={keyOf(nft)}
+              layout={'position'}
+              transition={{ ease: 'easeOut', duration: 0.2 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <SelectableNftCard nft={nft} options={options} onSelect={onSelect} onAction={onAction} />
+            </motion.div>
+          ),
+          nfts
+        )}
+      </SelectableNftsLayout>
+    </div>
   )
 }
