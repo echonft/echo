@@ -10,6 +10,7 @@
     "deploy:dev": "flyctl deploy --config .fly/fly.dev.toml --dockerfile .fly/Dockerfile",
     "dev": "source .env.keys; dotenvx run -f .env.dev -- next dev",
     "dev:testnet": "source .env.keys; dotenvx run -f .env.testnet -- next dev",
+    "env:pull": "dotenvx hub pull",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts,.tsx .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts,.tsx .",
     "lint:clean-cache": "rm -f .eslintcache",

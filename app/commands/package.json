@@ -20,6 +20,7 @@
     "command:update-collection:dev": "source .env.keys; dotenvx run -f .env.dev -- ts-node --project tsconfig.json src/commands/update-collection-command.ts",
     "command:validate-offers:dev": "source .env.keys; dotenvx run -f .env.dev -- ts-node --project tsconfig.json src/commands/validate-offers-command.ts",
     "command:validate-offers:testnet": "source .env.keys; dotenvx run -f .env.testnet -- ts-node --project tsconfig.json src/commands/validate-offers-command.ts",
+    "env:pull": "dotenvx hub pull",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
     "lint:clean-cache": "rm -f .eslintcache",

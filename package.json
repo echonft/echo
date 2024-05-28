@@ -28,6 +28,7 @@
     "check": "turbo run tsc --force && turbo run lint --force && turbo run test --force",
     "check:quick": "turbo run tsc --force && turbo run lint --force && turbo run test --filter=!@echo/firestore --force",
     "clean": "turbo run clean",
+    "env:pull": "turbo run env:pull",
     "firestore-functions:deploy:dev": "turbo run deploy:dev --filter=@echo/firestore-functions",
     "firestore-functions:deploy:testnet": "turbo run deploy:testnet --filter=@echo/firestore-functions",
     "frontend:dev": "turbo run dev --filter=@echo/frontend --filter=@echo/ui",
