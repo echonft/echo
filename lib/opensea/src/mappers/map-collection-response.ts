@@ -1,7 +1,7 @@
 import type { Collection } from '@echo/model/types/collection'
-import { mapContractResponse } from '@echo/opensea/mappers/map-contract-response'
+import { mapCollectionContractResponse } from '@echo/opensea/mappers/map-collection-contract-response'
+import type { CollectionContractResponse } from '@echo/opensea/types/response/collection-contract-response'
 import type { CollectionResponse } from '@echo/opensea/types/response/collection-response'
-import type { ContractResponse } from '@echo/opensea/types/response/contract-response'
 import { SUPPORTED_CHAINS } from '@echo/utils/constants/chains/supported-chains'
 import { isIn } from '@echo/utils/fp/is-in'
 import { throwError } from '@echo/utils/fp/throw-error'
@@ -17,10 +17,10 @@ export function mapCollectionResponse(
     contract: pipe(
       prop('contracts'),
       unless(
-        always(skipContractCheck) as (args: ContractResponse[]) => boolean,
+        always(skipContractCheck) as (args: CollectionContractResponse[]) => boolean,
         pipe(
           find(propSatisfies(isIn(SUPPORTED_CHAINS), 'chain')),
-          ifElse(isNil, throwError('no contract found on supported chains'), mapContractResponse)
+          ifElse(isNil, throwError('no contract found on supported chains'), mapCollectionContractResponse)
         )
       )
     ),

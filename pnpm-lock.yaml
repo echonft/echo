@@ -232,6 +232,9 @@ importers:
       '@echo/model':
         specifier: workspace:*
         version: link:../../lib/model
+      '@echo/opensea':
+        specifier: workspace:*
+        version: link:../../lib/opensea
       '@echo/utils':
         specifier: workspace:*
         version: link:../../lib/utils

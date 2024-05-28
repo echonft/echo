@@ -35,6 +35,7 @@
     "@dotenvx/dotenvx": "0.44.1",
     "@echo/firestore": "workspace:*",
     "@echo/model": "workspace:*",
+    "@echo/opensea": "workspace:*",
     "@echo/utils": "workspace:*",
     "@echo/web3": "workspace:*",
     "@jest/globals": "29.7.0",

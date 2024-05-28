@@ -16,6 +16,7 @@
       "@echo/firestore-mocks/*": ["../../lib/firestore/test/@mocks/*"],
       "@echo/model/*": ["../../lib/model/src/*"],
       "@echo/model-mocks/*": ["../../lib/model/test/@mocks/*"],
+      "@echo/opensea/*": ["../../lib/opensea/src/*"],
       "@echo/contract-listener/*": ["./src/*"],
       "@echo/utils/*": ["../../lib/utils/src/*"],
       "@echo/web3/*": ["../../lib/web3/src/*"]

@@ -1,7 +1,8 @@
-import type { ChainName } from '@echo/utils/types/chain-name'
-import type { HexString } from '@echo/utils/types/hex-string'
+import type { CollectionContractResponse } from '@echo/opensea/types/response/collection-contract-response'
 
-export interface ContractResponse {
-  address: HexString
-  chain: ChainName
+export interface ContractResponse extends CollectionContractResponse {
+  collection: string
+  contract_standard: 'ERC721' | 'ERC1155'
+  name: string
+  total_supply: number
 }
