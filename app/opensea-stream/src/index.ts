@@ -55,3 +55,5 @@ client.onItemTransferred('*', async (event) => {
 initializeFirebase()
 client.connect()
 pinoLogger.info('connected')
+// Keep the process running indefinitely
+process.stdin.resume()

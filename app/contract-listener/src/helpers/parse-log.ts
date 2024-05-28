@@ -4,10 +4,14 @@ import type { EchoLog } from '@echo/web3/types/log/echo-log'
 import type { EchoOfferExecutedLog } from '@echo/web3/types/log/echo-offer-executed-log'
 import { join } from 'ramda'
 
-export function parseLog(log: EchoLog) {
+export async function parseLog(log: EchoLog) {
   pinoLogger.info(`Got an ${log.eventName} event with topics: ${join(', ')(log.topics)}`)
   if (log.eventName === 'OfferExecuted') {
-    parseOfferExecutedLog(log as EchoOfferExecutedLog)
+    await parseOfferExecutedLog(log as EchoOfferExecutedLog)
   }
+  // TODO add OfferAccepted
+  // TODO add OfferCanceled
+  // TODO add OfferCreated
+  // TODO add OfferRedeeemed
   return
 }

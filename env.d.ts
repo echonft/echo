@@ -25,6 +25,7 @@ declare namespace NodeJS {
       NEXT_PUBLIC_VERCEL_URL: string
       NODE_ENV: 'production' | 'development' | 'test'
       OPEN_SEA_API_KEY: string
+      QUICKNODE_API_KEY: string
       STORYBOOK?: 'true'
     }
   }

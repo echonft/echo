@@ -1,4 +1,9 @@
-import { ETHEREUM_CHAIN_ID, SEPOLIA_CHAIN_ID } from '@echo/utils/constants/chains/chain-ids'
+import {
+  BLAST_CHAIN_ID,
+  BLAST_SEPOLIA_CHAIN_ID,
+  ETHEREUM_CHAIN_ID,
+  SEPOLIA_CHAIN_ID
+} from '@echo/utils/constants/chains/chain-ids'
 import { type Chain, fallback, http, webSocket } from 'viem'
 
 function alchemyChainName(chainId: number) {
@@ -30,7 +35,18 @@ function alchemyTransportUrl(chainId: number) {
 
 export const getTransportForChain = (chain: Chain) => {
   const chainId = chain.id
-  // TODO Blast
+  if (chainId === BLAST_SEPOLIA_CHAIN_ID) {
+    return fallback(
+      [
+        webSocket(`wss://silent-damp-patron.blast-sepolia.quiknode.pro/${process.env.QUICKNODE_API_KEY}/`),
+        http(`https://silent-damp-patron.blast-sepolia.quiknode.pro/${process.env.QUICKNODE_API_KEY}/`)
+      ],
+      { rank: true }
+    )
+  }
+  if (chainId == BLAST_CHAIN_ID) {
+    return http(`https://rpc.blast.io`)
+  }
   return fallback(
     [webSocket(`wss://${alchemyTransportUrl(chainId)}`), http(`https://${alchemyTransportUrl(chainId)}`)],
     { rank: true }
