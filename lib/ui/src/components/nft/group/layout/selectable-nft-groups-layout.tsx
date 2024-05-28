@@ -1,12 +1,12 @@
 'use client'
 import { SelectableNftsLayout } from '@echo/ui/components/nft/group/layout/selectable-nfts-layout'
-import type { SelectableNftGroupsProps } from '@echo/ui/components/nft/group/selectable-nft-groups'
+import type { SelectableNftsContainerProps } from '@echo/ui/components/nft/selectable/selectable-nfts-container'
 import { clsx } from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
 
 export const SelectableNftGroupsLayout: FunctionComponent<
-  PropsWithChildren<Pick<SelectableNftGroupsProps, 'style'>>
+  PropsWithChildren<Pick<SelectableNftsContainerProps, 'style'>>
 > = ({ style, children }) => {
   if (style?.collapsible) {
     return (

@@ -5,7 +5,6 @@ import type { ListingResponse } from '@echo/api/types/responses/listing-response
 import type { OfferResponse } from '@echo/api/types/responses/offer-response'
 import { DEFAULT_EXPIRATION_TIME } from '@echo/model/constants/default-expiration-time'
 import { getListingItemsIndexes } from '@echo/model/helpers/listing/get-listing-items-indexes'
-import { eqNft } from '@echo/model/helpers/nft/eq-nft'
 import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { listingContext } from '@echo/model/sentry/contexts/listing-context'
 import { type AuthUser } from '@echo/model/types/auth-user'
@@ -30,13 +29,8 @@ import { ListingDetailsTargetContainer } from '@echo/ui/components/listing/detai
 import { OfferCardsContainer } from '@echo/ui/components/offer/card/layout/offer-cards-container'
 import { UserDetails } from '@echo/ui/components/user/details/user-details'
 import { CALLOUT_SEVERITY_ERROR } from '@echo/ui/constants/callout-severity'
-import { enable } from '@echo/ui/helpers/disableable/enable'
 import { isListingRoleCreator } from '@echo/ui/helpers/listing/is-listing-role-creator'
 import { isListingRoleTarget } from '@echo/ui/helpers/listing/is-listing-role-target'
-import { disableAction } from '@echo/ui/helpers/nft/disable-action'
-import { setSelectableNftActionDisabledPropFromAuthUser } from '@echo/ui/helpers/nft/set-selectable-nft-action-disabled-prop-from-auth-user'
-import { setSelectableNftDisabledPropFromOwner } from '@echo/ui/helpers/nft/set-selectable-nft-disabled-prop-from-owner'
-import { getSelectionCount } from '@echo/ui/helpers/selectable/get-selection-count'
 import { toggleSelectionInList } from '@echo/ui/helpers/selectable/toggle-selection-in-list'
 import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
@@ -58,7 +52,7 @@ interface Props {
   offers: Offer[]
 }
 
-export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTargetNfts, offers }) => {
+export const ListingDetails: FunctionComponent<Props> = ({ listing, userTargetNfts, offers }) => {
   const t = useTranslations('listing.details')
   const tError = useTranslations('error.listing')
   const { cancelListing, createOffer } = useDependencies()
@@ -99,15 +93,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, user, userTa
   // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onNftToggleSelection = (nft: Nft) => {
-    const updatedNfts = toggleSelectionInList<SelectableNft>(eqNft(nft))(selectableNfts)
-    const updatedSelectionCount = getSelectionCount(updatedNfts)
-    if (updatedSelectionCount === 0) {
-      setSelectableNfts(map(pipe(enable, setSelectableNftActionDisabledPropFromAuthUser(user)), updatedNfts))
-    } else if (updatedSelectionCount === 1) {
-      setSelectableNfts(map(pipe(setSelectableNftDisabledPropFromOwner(nft.owner), disableAction), updatedNfts))
-    } else {
-      setSelectableNfts(updatedNfts)
-    }
+    // TODO
   }
 
   // Unselect all selected NFTs. Used after offer is created

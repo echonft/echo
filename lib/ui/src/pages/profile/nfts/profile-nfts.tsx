@@ -1,5 +1,5 @@
 'use client'
-import { SelectableNftsWithFilters } from '@echo/ui/components/nft/selection/selectable-nfts-with-filters'
+import { SelectableNftsWithFilters } from '@echo/ui/components/nft/selectable/selectable-nfts-with-filters'
 import { getNewListingPathFromItems } from '@echo/ui/helpers/listing/get-new-listing-path-from-items'
 import { ProfileNftsEmpty } from '@echo/ui/pages/profile/nfts/profile-nfts-empty'
 import type { SelectableNft } from '@echo/ui/types/selectable-nft'

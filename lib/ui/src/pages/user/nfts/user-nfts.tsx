@@ -1,6 +1,6 @@
 'use client'
 import { type Nft } from '@echo/model/types/nft'
-import { SelectableNftsWithFilters } from '@echo/ui/components/nft/selection/selectable-nfts-with-filters'
+import { SelectableNftsWithFilters } from '@echo/ui/components/nft/selectable/selectable-nfts-with-filters'
 import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { UserNftsEmpty } from '@echo/ui/pages/user/nfts/user-nfts-empty'
 import { useRouter } from 'next/navigation'

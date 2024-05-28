@@ -11,7 +11,7 @@ interface NftSelectionButtonProps {
   onClick?: MouseEventHandler
 }
 
-export const NftSelectionButton: FunctionComponent<NftSelectionButtonProps> = ({ action, count, onClick }) => {
+export const SelectableNftsActionButton: FunctionComponent<NftSelectionButtonProps> = ({ action, count, onClick }) => {
   const t = useTranslations('nft.action')
   if (isNil(action)) {
     return null
