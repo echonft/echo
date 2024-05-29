@@ -1,7 +1,8 @@
 import type { Contract } from '@echo/model/types/collection'
 import type { Listing } from '@echo/model/types/listing'
+import type { Nft } from '@echo/model/types/nft'
 import type { Offer } from '@echo/model/types/offer'
-import { concat, pipe } from 'ramda'
+import { concat, join, map, pipe } from 'ramda'
 
 function contractKey(contract: Contract) {
   return `${contract.address}-${contract.chain}`
@@ -15,11 +16,15 @@ function listingKey(listing: Listing) {
   return listing.slug
 }
 
+function nftKey(nft: Nft) {
+  return `${nft.collection.contract.address}:${nft.tokenId}`
+}
+
 export const SWRKeys = {
   contract: {
-    areNftsInEscrow: 'are-nfts-in-escrow',
+    areNftsInEscrow: pipe<[Nft[]], string[], string, string>(map(nftKey), join('-'), concat('are-nfts-in-escrow-')),
     getEchoTradingFees: 'get-echo-trading-fees',
-    getErc721approval: 'get-erc721-approval',
+    getErc721approval: pipe<[Contract], string, string>(contractKey, concat('get-erc721-approval-')),
     approveErc721: pipe<[Contract], string, string>(contractKey, concat('approve-erc721-')),
     createOffer: pipe<[Offer], string, string>(offerKey, concat('create-offer-'))
   },

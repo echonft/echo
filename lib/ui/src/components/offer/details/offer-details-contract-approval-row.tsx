@@ -28,7 +28,7 @@ export const OfferDetailsContractApprovalRow: FunctionComponent<Props> = ({
 }) => {
   const { getErc721ContractApproval } = useDependencies()
   useSWR<boolean, Error, (GetErc721ContractApprovalArgs & Record<'name', string>) | undefined>(
-    isNil(approved) ? { name: SWRKeys.contract.getErc721approval, contract, owner } : undefined,
+    isNil(approved) ? { name: SWRKeys.contract.getErc721approval(contract), contract, owner } : undefined,
     getErc721ContractApproval,
     {
       onSuccess: (data) => {
