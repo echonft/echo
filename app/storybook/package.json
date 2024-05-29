@@ -21,8 +21,8 @@
     "tsc:clean-cache": "rm -f tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@headlessui/react": "1.7.19",
-    "@sentry/nextjs": "7.116.0",
+    "@headlessui/react": "2.0.4",
+    "@sentry/nextjs": "8.5.0",
     "@storybook/nextjs": "8.1.4",
     "dayjs": "1.11.11",
     "next-intl": "3.14.1",
@@ -52,10 +52,10 @@
     "@types/ramda": "0.30.0",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
-    "css-loader": "6.11.0",
+    "css-loader": "7.1.2",
     "eslint-plugin-storybook": "0.8.0",
     "next-auth": "5.0.0-beta.18",
-    "style-loader": "3.3.4",
+    "style-loader": "4.0.0",
     "tsconfig-paths-webpack-plugin": "4.1.0",
     "typescript": "5.4.5"
   }

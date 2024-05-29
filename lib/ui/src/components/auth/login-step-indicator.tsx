@@ -16,6 +16,7 @@ export const LoginStepIndicator: FunctionComponent<LoginStepIndicatorProps> = ({
             {
               <Transition
                 className={clsx('transition-all', 'duration-500', 'ease-in-out', 'overflow-x-hidden')}
+                as={'div'}
                 show={step >= index}
                 enterFrom="transform scale-95 opacity-0 max-w-0"
                 enterTo="transform scale-100 opacity-100 max-w-full"

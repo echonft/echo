@@ -1,3 +1,4 @@
+import { CardChainIcon } from '@echo/ui/components/base/card/card-chain-icon'
 import { CardImage } from '@echo/ui/components/base/card/card-image'
 import { CardPictureLayout } from '@echo/ui/components/base/card/layout/card-picture-layout'
 import type { NftCardProps } from '@echo/ui/components/nft/card/nft-card'
@@ -13,6 +14,7 @@ export const NftCardPicture: FunctionComponent<NftCardProps> = (props) => {
         alt={nft.tokenId.toString()}
         scaleDisabled={options?.style?.scaleDisabled}
       />
+      <CardChainIcon chain={nft.collection.contract.chain} />
       <NftCardDiscordTag {...props} />
     </CardPictureLayout>
   )

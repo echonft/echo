@@ -14,12 +14,12 @@ declare namespace NodeJS {
       FIREBASE_CLIENT_EMAIL: string
       FIREBASE_PRIVATE_KEY: string
       FIREBASE_PROJECT_ID: string
-      GOOGLE_STORAGE_BUCKET: string
       NEXT_PUBLIC_IS_TESTNET?: '1'
       NEXT_PUBLIC_PINATA_GATEWAY_KEY: string
       NEXT_PUBLIC_PRODUCTION_URL: string
       NEXT_PUBLIC_VERCEL_ENV: string | undefined
       NEXT_PUBLIC_VERCEL_URL: string
+      NEXT_RUNTIME: 'nodejs' | 'edge'
       NODE_ENV: 'production' | 'development' | 'test'
       OPEN_SEA_API_KEY: string
       QUICKNODE_API_KEY: string
