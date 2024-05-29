@@ -5,10 +5,11 @@ import { SearchResultsContainer } from '@echo/ui/components/base/search/search-r
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { EmptyFunction } from '@echo/utils/types/empty-function'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { Combobox, Transition } from '@headlessui/react'
+import { Combobox } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { isNil, pick } from 'ramda'
-import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { isEmpty, isNil, pick } from 'ramda'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface Props<T> {
   results: SearchResult<T>[] | undefined
@@ -26,8 +27,17 @@ interface Props<T> {
 
 export const SearchBox = <T,>({ results, searching, style, onSearch, onSearchClear, onSelect }: Props<T>) => {
   const [query, setQuery] = useState<Nullable<string>>()
-  const inputRef = useRef<HTMLInputElement>(null)
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>()
+
+  const onChange = useCallback(
+    (query: Nullable<string>) => {
+      setQuery(query)
+      if (isEmpty(query)) {
+        onSearchClear?.()
+      }
+    },
+    [setQuery]
+  )
 
   // clear the timeout if needed
   useEffect(
@@ -43,54 +53,32 @@ export const SearchBox = <T,>({ results, searching, style, onSearch, onSearchCle
     <div className={clsx('h-max', 'w-full', 'relative')}>
       <Combobox
         onChange={(selection: SearchResult<T>) => {
-          onSelect?.(selection)
+          if (!isNil(selection)) {
+            onSelect?.(selection)
+          }
+        }}
+        onClose={() => {
+          setQuery(null)
+          onSearchClear?.()
         }}
       >
         <SearchInput
           query={query}
           searching={searching}
-          ref={inputRef}
           onSearch={onSearch}
-          onChange={(query: Nullable<string>) => {
-            if (isNil(query)) {
-              inputRef.current?.focus()
-              onSearchClear?.()
-            }
-            setQuery(query)
-          }}
+          onChange={onChange}
           style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'placeHolder'>>(
             pick(['placeHolder'])
           )(style)}
-          onBlur={() => {
-            timeoutRef.current = setTimeout(() => {
-              const activeElementId = document.activeElement?.id
-              if (!activeElementId?.startsWith('search-category')) {
-                onSearchClear?.()
-                setQuery(undefined)
-              } else {
-                inputRef.current?.focus()
-              }
-            }, 200)
-          }}
         />
-        <Transition
-          show={!isNil(results)}
-          as={'div'}
-          enter={'transition ease-in duration-100'}
-          enterFrom={'opacity-0'}
-          enterTo={'opacity-100'}
-          leave={'transition ease-in duration-100'}
-          leaveFrom={'opacity-100'}
-          leaveTo={'opacity-0'}
-          className={clsx('h-max', 'rounded-lg', 'absolute', 'top-14', 'inset-x-0', 'z-10')}
-        >
+        <AnimatePresence>
           <SearchResultsContainer
             results={results}
             style={unlessNil<NonNullable<typeof style>, Pick<NonNullable<typeof style>, 'categories'>>(
               pick(['categories'])
             )(style)}
           />
-        </Transition>
+        </AnimatePresence>
       </Combobox>
     </div>
   )

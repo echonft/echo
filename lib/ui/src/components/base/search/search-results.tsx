@@ -2,7 +2,7 @@ import type { SearchResult as SearchResultModel } from '@echo/model/types/search
 import { SearchResult, type SearchResultProps } from '@echo/ui/components/base/search/search-result'
 import { SearchResultEmpty } from '@echo/ui/components/base/search/search-result-empty'
 import type { Nullable } from '@echo/utils/types/nullable'
-import { Combobox } from '@headlessui/react'
+import { ComboboxOptions } from '@headlessui/react'
 import { addIndex, isEmpty, isNil, map } from 'ramda'
 
 interface Props<T> {
@@ -14,6 +14,7 @@ interface Props<T> {
   }>
 }
 
+// FIXME fix click on categories
 export const SearchResults = <T,>({ results, style }: Props<T>) => {
   function getSearchResultStyle(index: number): SearchResultProps<T>['style'] {
     if (index === 0 && !style?.categories?.show) {
@@ -38,13 +39,13 @@ export const SearchResults = <T,>({ results, style }: Props<T>) => {
 
   const mapIndexed = addIndex<SearchResultModel<T>>(map)
   return (
-    <Combobox.Options static={true} as={'div'}>
+    <ComboboxOptions static={true} as={'div'}>
       {mapIndexed(
-        (result, index) => (
+        (result: SearchResultModel<T>, index: number) => (
           <SearchResult key={result.id} result={result} style={getSearchResultStyle(index)} />
         ),
         results
       )}
-    </Combobox.Options>
+    </ComboboxOptions>
   )
 }
