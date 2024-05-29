@@ -25,6 +25,7 @@
     "bot:dev:testnet": "turbo run dev:testnet --filter=@echo/bot",
     "bot:deploy:dev": "flyctl deploy --local-only --update-only --config app/bot/.fly/fly.dev.toml --dockerfile bot.Dockerfile",
     "bot:deploy:testnet": "flyctl deploy --local-only --update-only --config app/bot/.fly/fly.testnet.toml --dockerfile bot.Dockerfile",
+    "build": "turbo run build",
     "check": "turbo run tsc --force && turbo run lint --force && turbo run test --force",
     "check:quick": "turbo run tsc --force && turbo run lint --force && turbo run test --filter=!@echo/firestore --force",
     "clean": "turbo run clean",

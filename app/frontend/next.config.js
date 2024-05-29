@@ -15,9 +15,13 @@ const nextConfig = {
     '@echo/api',
     '@echo/firestore',
     '@echo/model',
+    '@echo/opensea',
+    '@echo/sentry',
+    '@echo/tasks',
     '@echo/ui',
     '@echo/utils',
-    '@echo/web3'
+    '@echo/web3',
+    '@echo/web3-dom'
   ],
   webpack: (config) => {
     // noinspection JSUnresolvedReference
