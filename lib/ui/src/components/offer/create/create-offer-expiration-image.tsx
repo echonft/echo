@@ -26,7 +26,6 @@ export const CreateOfferExpirationImage: FunctionComponent<Props> = ({ alt, src 
         width={512}
         height={512}
         unoptimized={true}
-        // crossOrigin={'anonymous'}
         alt={alt}
         src={addPictureSizeToUrl(src, PICTURE_SIZE_XL)}
       />

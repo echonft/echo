@@ -4,7 +4,7 @@ import {
 } from '@echo/model/constants/search-result-category'
 import type { SearchResult as SearchResultModel } from '@echo/model/types/search-result'
 import { PICTURE_SIZE_XS } from '@echo/ui/constants/picture-size'
-import { Combobox } from '@headlessui/react'
+import { ComboboxOption } from '@headlessui/react'
 import { clsx } from 'clsx'
 import Image from 'next/image'
 
@@ -18,7 +18,7 @@ export interface SearchResultProps<T> {
 export const SearchResult = <T,>({ result, style }: SearchResultProps<T>) => {
   const { label, pictureUrl } = result
   return (
-    <Combobox.Option
+    <ComboboxOption
       as={'button'}
       className={clsx(
         'flex',
@@ -46,9 +46,8 @@ export const SearchResult = <T,>({ result, style }: SearchResultProps<T>) => {
         width={PICTURE_SIZE_XS}
         height={PICTURE_SIZE_XS}
         unoptimized={true}
-        crossOrigin={'anonymous'}
       />
       <span className={clsx('prose-label-md', 'text-white', 'truncate')}>{label}</span>
-    </Combobox.Option>
+    </ComboboxOption>
   )
 }

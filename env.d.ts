@@ -14,7 +14,6 @@ declare namespace NodeJS {
       FIREBASE_CLIENT_EMAIL: string
       FIREBASE_PRIVATE_KEY: string
       FIREBASE_PROJECT_ID: string
-      GOOGLE_STORAGE_BUCKET: string
       NEXT_PUBLIC_IS_TESTNET?: '1'
       NEXT_PUBLIC_PINATA_GATEWAY_KEY: string
       NEXT_PUBLIC_PRODUCTION_URL: string

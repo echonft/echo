@@ -1,6 +1,6 @@
-import { OfferCreationLayout } from '@echo/ui/components/base/offer-creation/offer-creation-layout'
 import { OfferCreatedBannerSvg } from '@echo/ui/components/base/svg/offer-created-banner-svg'
 import { OfferCreatedRocketSvg } from '@echo/ui/components/base/svg/offer-created-rocket-svg'
+import { OfferCreationLayout } from '@echo/ui/components/offer/created/layout/offer-creation-layout'
 import { DIRECTION_LEFT, DIRECTION_RIGHT } from '@echo/ui/constants/direction'
 import { clsx } from 'clsx'
 import type { FunctionComponent, PropsWithChildren } from 'react'
