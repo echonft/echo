@@ -26,10 +26,10 @@
   "dependencies": {
     "@headlessui/react": "1.7.19",
     "@sentry/nextjs": "7.116.0",
-    "@tanstack/react-query": "5.39.0",
+    "@tanstack/react-query": "5.40.0",
     "connectkit": "1.7.3",
     "dayjs": "1.11.11",
-    "framer-motion": "11.2.6",
+    "framer-motion": "11.2.7",
     "marked-react": "2.0.0",
     "next": "14.2.3",
     "next-auth": "5.0.0-beta.18",
