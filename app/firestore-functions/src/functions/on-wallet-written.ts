@@ -5,10 +5,8 @@ import { setMaxInstances } from '@echo/firestore-functions/helper/set-max-instan
 import { FirestoreFunctionsLogger } from '@echo/firestore-functions/services/firestore-functions-logger'
 import { removeNftsForWallet } from '@echo/tasks/nft/remove-nfts-for-wallet'
 import { updateUserNfts } from '@echo/tasks/nft/update-user-nfts'
-import { MAINNET_CHAINS } from '@echo/utils/constants/chains/mainnet-chains'
-import { TESTNET_CHAINS } from '@echo/utils/constants/chains/testnet-chains'
+import { SUPPORTED_CHAINS } from '@echo/utils/constants/chains/supported-chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
-import { isTestnetChain } from '@echo/utils/helpers/is-testnet-chain'
 import { DocumentSnapshot } from 'firebase-admin/firestore'
 import { onDocumentWritten } from 'firebase-functions/v2/firestore'
 import { assoc, isNil, map } from 'ramda'
@@ -29,11 +27,7 @@ export const onWalletWritten = onDocumentWritten(
             if (!isNil(foundUser)) {
               try {
                 if (wallet.isEvm) {
-                  const isTestnet = isTestnetChain(wallet.chain)
-                  const wallets = map(
-                    (chain) => assoc('chain', chain, wallet),
-                    isTestnet ? TESTNET_CHAINS : MAINNET_CHAINS
-                  )
+                  const wallets = map((chain) => assoc('chain', chain, wallet), SUPPORTED_CHAINS)
                   await updateUserNfts(foundUser, wallets, logger)
                 } else {
                   await updateUserNfts(foundUser, [wallet], logger)
