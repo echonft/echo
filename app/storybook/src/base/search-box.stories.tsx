@@ -38,7 +38,11 @@ export default metadata
 export const Box: StoryObj<ComponentType> = {
   render: ({ showCategories, onSelect }) => {
     return (
-      <SearchBoxManager resultsProvider={search} onSelect={onSelect} style={{ categories: { show: showCategories } }} />
+      <SearchBoxManager
+        resultsProvider={search}
+        onSelect={onSelect}
+        style={{ categories: { show: showCategories }, placeHolder: 'Search' }}
+      />
     )
   }
 }

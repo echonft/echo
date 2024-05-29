@@ -7,6 +7,7 @@ import { SearchResultsCategories } from '@echo/ui/components/base/search/search-
 import { unlessNil } from '@echo/utils/fp/unless-nil'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
+import { motion } from 'framer-motion'
 import { isNil, pipe, sort } from 'ramda'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -39,10 +40,21 @@ export const SearchResultsContainer = <T,>({ results, style }: Props<T>) => {
     setFilteredResults(unlessNil(sort(compareSearchResults))(results))
   }, [results])
 
+  if (isNil(results)) {
+    return null
+  }
   return (
-    <div className={clsx('h-max', 'w-full', 'rounded-lg', 'bg-dark-450')}>
-      <SearchResultsCategories show={style?.categories?.show} results={results} onChange={filterResults} />
-      <SearchResults results={filteredResults} style={style} />
-    </div>
+    <motion.div
+      className={clsx('h-max', 'rounded-lg', 'absolute', 'top-14', 'inset-x-0', 'z-10')}
+      transition={{ ease: 'easeOut', duration: 0.2 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <div className={clsx('h-max', 'w-full', 'rounded-lg', 'bg-dark-450')}>
+        <SearchResultsCategories show={style?.categories?.show} results={results} onChange={filterResults} />
+        <SearchResults results={filteredResults} style={style} />
+      </div>
+    </motion.div>
   )
 }
