@@ -4,5 +4,5 @@ import type { Selectable } from '@echo/ui/types/selectable'
 
 export interface NftGroup extends WithId {
   label?: string
-  nfts: Selectable<Nft>[]
+  nfts: Nft[]
 }

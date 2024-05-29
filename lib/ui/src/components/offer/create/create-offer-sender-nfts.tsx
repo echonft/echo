@@ -2,17 +2,23 @@
 import { type Nft } from '@echo/model/types/nft'
 import { CreateOfferSenderNftsSelected } from '@echo/ui/components/offer/create/create-offer-sender-nfts-selected'
 import { CreateOfferSenderNftsSelection } from '@echo/ui/components/offer/create/create-offer-sender-nfts-selection'
-import type { Selectable } from '@echo/ui/types/selectable'
+import type { FunctionComponent } from 'react'
 
-interface Props<T extends Nft> {
-  nfts: T[]
-  selection: Selectable<Nft>[]
+interface Props {
+  nfts: Nft[]
+  selection: Nft[]
   readOnly: boolean
-  onSelect?: (nft: Selectable<Nft>) => unknown
-  onUnselect?: (nft: Selectable<Nft>) => unknown
+  onSelect?: (nft: Nft) => unknown
+  onUnselect?: (nft: Nft) => unknown
 }
 
-export const CreateOfferSenderNfts = <T extends Nft>({ nfts, selection, readOnly, onSelect, onUnselect }: Props<T>) => {
+export const CreateOfferSenderNfts: FunctionComponent<Props> = ({
+  nfts,
+  selection,
+  readOnly,
+  onSelect,
+  onUnselect
+}) => {
   if (readOnly) {
     return <CreateOfferSenderNftsSelected nfts={selection} />
   }

@@ -5,7 +5,7 @@ import type { Selectable } from '@echo/ui/types/selectable'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { applySpec, collectBy, head, map, path, pipe, sort } from 'ramda'
 
-export function groupNftsByCollection(nfts: Selectable<Nft>[]) {
+export function groupNftsByCollection(nfts: Nft[]) {
   return pipe(
     collectBy(nonNullableReturn(path<string>(['collection', 'slug']))),
     map(

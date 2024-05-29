@@ -4,14 +4,13 @@ import { CardTitle } from '@echo/ui/components/base/card/card-title'
 import { SelectableNftCardFooterLayout } from '@echo/ui/components/nft/selectable-card/layout/selectable-nft-card-footer-layout'
 import { getTokenIdString } from '@echo/ui/helpers/nft/get-token-id-string'
 import type { NftAction } from '@echo/ui/types/nft-action'
-import type { Selectable } from '@echo/ui/types/selectable'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props {
-  nft: Selectable<Nft>
+  nft: Nft
   action?: Nullable<NftAction>
 }
 

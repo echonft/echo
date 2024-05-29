@@ -4,6 +4,6 @@ import type { Nft } from '@echo/model/types/nft'
 import { eqListContentWith } from '@echo/utils/fp/eq-list-content-with'
 import { allPass } from 'ramda'
 
-export function eqNfts<T extends Nft>(nftsA: T[], nftsB: T[], compareOwner?: boolean): boolean {
-  return eqListContentWith<T>(compareOwner ? allPass([eqNftOwner, eqNft]) : eqNft)(nftsA, nftsB)
+export function eqNfts(nftsA: Nft[], nftsB: Nft[], compareOwner?: boolean): boolean {
+  return eqListContentWith<Nft>(compareOwner ? allPass([eqNftOwner, eqNft]) : eqNft)(nftsA, nftsB)
 }

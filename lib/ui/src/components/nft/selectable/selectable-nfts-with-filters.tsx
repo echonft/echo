@@ -9,16 +9,16 @@ import { SelectableNftsActionButton } from '@echo/ui/components/nft/selectable/s
 import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
 import { getByCollectionNftFilter } from '@echo/ui/helpers/nft/filters/get-by-collection-nft-filter'
 import { getByTraitsNftFilter } from '@echo/ui/helpers/nft/filters/get-by-traits-nft-filter'
-import { useSelectableNfts } from '@echo/ui/hooks/use-selectable-nfts'
+import { useNfts } from '@echo/ui/hooks/use-nfts'
 import type { NftSortBy } from '@echo/ui/types/nft-sort-by'
 import type { Selectable } from '@echo/ui/types/selectable'
 import { isNil, pipe } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props extends Pick<SelectableNftsProps, 'action' | 'options' | 'style'> {
-  nfts: Selectable<Nft>[]
+  nfts: Nft[]
   sortBy: NftSortBy
-  onSelectionAction?: (selection: Selectable<Nft>[]) => void
+  onSelectionAction?: (selection: Nft[]) => void
 }
 
 export const SelectableNftsWithFilters: FunctionComponent<Props> = ({
@@ -30,7 +30,7 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({
   onSelectionAction
 }) => {
   const { byCollectionFilter, filteredByNfts, setByCollectionFilter, setByTraitsFilter, selection, select, unselect } =
-    useSelectableNfts({
+    useNfts({
       nfts,
       sortBy
     })

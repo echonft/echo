@@ -19,7 +19,7 @@ import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  creatorNfts: Selectable<Nft>[]
+  creatorNfts: Nft[]
   items: Nullable<Nft[]>
   target: Nullable<Collection>
 }

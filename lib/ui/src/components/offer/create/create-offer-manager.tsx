@@ -13,7 +13,7 @@ import { type FunctionComponent, useState } from 'react'
 interface Props {
   receiver: User
   receiverItems: Nft[]
-  senderNfts: Selectable<Nft>[]
+  senderNfts: Nft[]
 }
 
 export const CreateOfferManager: FunctionComponent<Props> = ({ receiver, receiverItems, senderNfts }) => {

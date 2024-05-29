@@ -12,10 +12,10 @@ import { andThen, assoc, map, pipe, prop } from 'ramda'
 import type { ReactElement } from 'react'
 
 async function render({ user }: NextAuthUserParams) {
-  const nfts: Selectable<Nft>[] = await pipe(
+  const nfts: Nft[] = await pipe(
     prop('username'),
-    getNftsForOwner as (username: string) => Promise<Selectable<Nft>[]>,
-    andThen(map<Selectable<Nft>, Selectable<Nft>>(assoc('action', NFT_ACTION_LISTING)))
+    getNftsForOwner as (username: string) => Promise<Nft[]>,
+    andThen(map<Nft, Nft>(assoc('action', NFT_ACTION_LISTING)))
   )(user)
   return (
     <ProfileNavigationLayout activeNavigationItem={NAVIGATION_NFTS}>

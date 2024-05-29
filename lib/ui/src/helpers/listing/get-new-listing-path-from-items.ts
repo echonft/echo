@@ -5,7 +5,7 @@ import type { Selectable } from '@echo/ui/types/selectable'
 import { stringify } from 'qs'
 import { concat, isEmpty, map } from 'ramda'
 
-export function getNewListingPathFromItems(selection: Selectable<Nft>[]) {
+export function getNewListingPathFromItems(selection: Nft[]) {
   if (isEmpty(selection)) {
     throw new Error('Cannot create listing with empty selection')
   }

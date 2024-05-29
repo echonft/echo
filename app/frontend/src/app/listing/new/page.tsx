@@ -33,10 +33,10 @@ async function render({ searchParams: { items, target }, user }: Params) {
     notFound()
   }
 
-  const creatorNfts: Selectable<Nft>[] = await pipe(
+  const creatorNfts: Nft[] = await pipe(
     prop('username'),
-    getNftsForOwner as (username: string) => Promise<Selectable<Nft>[]>,
-    andThen(map<Selectable<Nft>, Selectable<Nft>>(assoc('actionDisabled', true)))
+    getNftsForOwner as (username: string) => Promise<Nft[]>,
+    andThen(map<Nft, Nft>(assoc('actionDisabled', true)))
   )(user)
   const listingItems = await unlessNil(
     pipe<[string[] | string], string[], NftIndex[], Promise<Nullable<Nft>>[], Promise<Nullable<Nft>[]>, Promise<Nft[]>>(

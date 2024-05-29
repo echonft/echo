@@ -17,13 +17,13 @@ import { isEmpty, map } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 export interface SelectableNftsProps extends Pick<SelectableNftCardProps, 'action' | 'options' | 'onAction'> {
-  nfts: Selectable<Nft>[]
-  selection: Selectable<Nft>[]
+  nfts: Nft[]
+  selection: Nft[]
   style?: {
     selectionContainer?: SelectableNftThumbnailContainerProps['style']
   }
-  onSelect?: (nft: Selectable<Nft>) => unknown
-  onUnselect?: (nft: Selectable<Nft>) => unknown
+  onSelect?: (nft: Nft) => unknown
+  onUnselect?: (nft: Nft) => unknown
 }
 
 export const SelectableNfts: FunctionComponent<SelectableNftsProps> = ({

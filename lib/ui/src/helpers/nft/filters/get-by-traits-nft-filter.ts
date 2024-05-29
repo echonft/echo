@@ -5,12 +5,10 @@ import { intersects } from '@echo/utils/fp/intersects'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isEmpty, map, pipe, prop } from 'ramda'
 
-export function getByTraitsNftFilter<T extends Nft, U extends TraitFilter>(
-  filters: U[]
-): Nullable<(nft: T) => boolean> {
+export function getByTraitsNftFilter(filters: TraitFilter[]): Nullable<(nft: Nft) => boolean> {
   if (isEmpty(filters)) {
     return undefined
   }
-  const attributes = map<U, NftAttribute>(prop('attribute'), filters)
-  return pipe<[T], NftAttribute[], boolean>(prop('attributes'), intersects(attributes))
+  const attributes = map(prop('attribute'), filters)
+  return pipe<[Nft], NftAttribute[], boolean>(prop('attributes'), intersects(attributes))
 }

@@ -6,20 +6,19 @@ import { SelectableNftCardButton } from '@echo/ui/components/nft/selectable-card
 import { SelectableNftCardFooter } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-footer'
 import { SelectableNftCardPicture } from '@echo/ui/components/nft/selectable-card/selectable-nft-card-picture'
 import type { NftAction } from '@echo/ui/types/nft-action'
-import type { Selectable } from '@echo/ui/types/selectable'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { type FunctionComponent } from 'react'
 
 export interface SelectableNftCardProps {
-  nft: Selectable<Nft>
+  nft: Nft
   options?: {
     owner?: {
       hide?: boolean
     }
   }
   action?: Nullable<NftAction>
-  onSelect?: (nft: Selectable<Nft>) => unknown
-  onAction?: (nft: Selectable<Nft>) => unknown
+  onSelect?: (nft: Nft) => unknown
+  onAction?: (nft: Nft) => unknown
 }
 
 export const SelectableNftCard: FunctionComponent<SelectableNftCardProps> = ({

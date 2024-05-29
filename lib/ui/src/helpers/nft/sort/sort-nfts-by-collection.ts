@@ -3,6 +3,6 @@ import { nftByTokenIdComparator } from '@echo/model/helpers/nft/nft-by-token-id-
 import type { Nft } from '@echo/model/types/nft'
 import { pipe, sort } from 'ramda'
 
-export function sortNftsByCollection<T extends Nft>(nfts: T[]) {
-  return pipe<[T[]], T[], T[]>(sort(nftByTokenIdComparator), sort(nftByCollectionComparator))(nfts)
+export function sortNftsByCollection(nfts: Nft[]) {
+  return pipe<[Nft[]], Nft[], Nft[]>(sort(nftByTokenIdComparator), sort(nftByCollectionComparator))(nfts)
 }

@@ -9,7 +9,7 @@ import { bind, isEmpty, pipe } from 'ramda'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  nfts: Selectable<Nft>[]
+  nfts: Nft[]
 }
 
 export const ProfileNfts: FunctionComponent<Props> = ({ nfts }) => {

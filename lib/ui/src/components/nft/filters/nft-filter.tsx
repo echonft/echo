@@ -1,10 +1,11 @@
 import { NftFilterSelector } from '@echo/ui/components/nft/filters/nft-filter-selector'
 import type { NftFilter as NftFilterModel } from '@echo/ui/types/nft-filter'
+import type { Selectable } from '@echo/ui/types/selectable'
 import { clsx } from 'clsx'
 
 interface Props<T extends NftFilterModel> {
-  filter: T
-  onToggleSelection?: (filter: T) => void
+  filter: Selectable<T>
+  onToggleSelection?: (filter: Selectable<T>) => void
 }
 
 export const NftFilter = <T extends NftFilterModel>({ filter, onToggleSelection }: Props<T>) => {

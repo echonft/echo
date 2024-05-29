@@ -30,7 +30,7 @@ import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 interface Props {
   receiver: User
   receiverItems: Nft[]
-  senderNfts: Selectable<Nft>[]
+  senderNfts: Nft[]
   loading?: boolean
   onCancel?: VoidFunction
   onComplete?: (offer: Offer) => void
@@ -44,19 +44,19 @@ export const CreateOffer: FunctionComponent<Props> = ({
   onCancel,
   onComplete
 }) => {
-  const [senderSelection, setSenderSelection] = useState<Selectable<Nft>[]>([])
+  const [senderSelection, setSenderSelection] = useState<Nft[]>([])
   const [reviewing, setReviewing] = useState(false)
   // TODO Probably should change that, not the most beautiful
   const [settingExpiration, setSettingExpiration] = useState(false)
   const { username, discord, wallet } = receiver
   const selectSenderNft = useCallback(
-    (nft: Selectable<Nft>) => {
+    (nft: Nft) => {
       setSenderSelection(append(nft))
     },
     [setSenderSelection]
   )
   const unselectSenderNft = useCallback(
-    (nft: Selectable<Nft>) => {
+    (nft: Nft) => {
       setSenderSelection(reject(eqNft(nft)))
     },
     [setSenderSelection]

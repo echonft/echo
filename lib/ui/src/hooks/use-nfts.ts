@@ -3,7 +3,6 @@ import type { Nft } from '@echo/model/types/nft'
 import { sortNftsByCollection } from '@echo/ui/helpers/nft/sort/sort-nfts-by-collection'
 import { sortNftsByOwner } from '@echo/ui/helpers/nft/sort/sort-nfts-by-owner'
 import type { NftSortBy } from '@echo/ui/types/nft-sort-by'
-import type { Selectable } from '@echo/ui/types/selectable'
 import { eqListContentWith } from '@echo/utils/fp/eq-list-content-with'
 import { isInWith } from '@echo/utils/fp/is-in-with'
 import { whenNil } from '@echo/utils/fp/when-nil'
@@ -31,35 +30,33 @@ import {
 } from 'ramda'
 import { create } from 'zustand'
 
-type SelectableNftFilter = (nft: Selectable<Nft>) => boolean
+type NftFilter = (nft: Nft) => boolean
 
-interface SelectableNftStoreInitializeArgs {
+interface InitializeArgs {
   nfts: Nft[]
-  initialSelection?: Selectable<Nft>[]
+  initialSelection?: Nft[]
   sortBy: NftSortBy
 }
 
-interface SelectableNftStore {
+interface NftsStore {
   source: Nft[]
-  initialize: (args: SelectableNftStoreInitializeArgs) => void
-  byTraitsFilter: Nullable<SelectableNftFilter>
-  byCollectionFilter: Nullable<SelectableNftFilter>
-  nfts: Selectable<Nft>[] // sorted NFTs without selected ones, unfiltered
+  initialize: (args: InitializeArgs) => void
+  byTraitsFilter: Nullable<NftFilter>
+  byCollectionFilter: Nullable<NftFilter>
+  nfts: Nft[] // sorted NFTs without selected ones, unfiltered
   filteredByNfts: {
-    byTraits: Selectable<Nft>[]
-    byCollection: Selectable<Nft>[]
+    byTraits: Nft[]
+    byCollection: Nft[]
   }
-  selection: Selectable<Nft>[]
+  selection: Nft[]
   sortBy: NftSortBy
-  select: (nft: Selectable<Nft>) => void
-  unselect: (nft: Selectable<Nft>) => void
-  setByTraitsFilter: (byTraitsFilter: Nullable<SelectableNftFilter>) => void
-  setByCollectionFilter: (byCollectionFilter: Nullable<SelectableNftFilter>) => void
+  select: (nft: Nft) => void
+  unselect: (nft: Nft) => void
+  setByTraitsFilter: (byTraitsFilter: Nullable<NftFilter>) => void
+  setByCollectionFilter: (byCollectionFilter: Nullable<NftFilter>) => void
 }
 
-function unselectNft<T extends Pick<SelectableNftStore, 'source' | 'nfts' | 'selection'>>(
-  nft: Selectable<Nft>
-): (args: T) => T {
+function unselectNft<T extends Pick<NftsStore, 'source' | 'nfts' | 'selection'>>(nft: Nft): (args: T) => T {
   return function (args: T): T {
     const sourceNft = find(eqNft(nft), args.source)
     const addNft = isNil(sourceNft) ? identity : append(sourceNft)
@@ -74,19 +71,16 @@ function unselectNft<T extends Pick<SelectableNftStore, 'source' | 'nfts' | 'sel
   }
 }
 
-function updateNftsFromSelection<T extends Pick<SelectableNftStore, 'selection' | 'nfts' | 'sortBy'>>(args: T): T {
+function updateNftsFromSelection<T extends Pick<NftsStore, 'selection' | 'nfts' | 'sortBy'>>(args: T): T {
   const sortFn = args.sortBy === 'collection' ? sortNftsByCollection : sortNftsByOwner
-  return modify<'nfts', Selectable<Nft>[], Selectable<Nft>[]>(
+  return modify<'nfts', Nft[], Nft[]>(
     'nfts',
-    pipe<[Selectable<Nft>[]], Selectable<Nft>[], Selectable<Nft>[]>(
-      reject<Selectable<Nft>>(isInWith(args.selection, eqNft)),
-      sortFn
-    )
+    pipe<[Nft[]], Nft[], Nft[]>(reject<Nft>(isInWith(args.selection, eqNft)), sortFn)
   )(args) as T
 }
 
 function filterNftsByTraits<
-  T extends Pick<SelectableNftStore, 'nfts' | 'byTraitsFilter' | 'byCollectionFilter' | 'filteredByNfts'>
+  T extends Pick<NftsStore, 'nfts' | 'byTraitsFilter' | 'byCollectionFilter' | 'filteredByNfts'>
 >(args: T): T {
   const { byTraitsFilter, byCollectionFilter } = args
   if (isNil(byCollectionFilter)) {
@@ -101,7 +95,7 @@ function filterNftsByTraits<
   return assocPath(['filteredByNfts', 'byTraits'], filter(byTraitsFilter, args.filteredByNfts.byCollection), args)
 }
 
-function filterNftsByCollection<T extends Pick<SelectableNftStore, 'nfts' | 'byCollectionFilter' | 'filteredByNfts'>>(
+function filterNftsByCollection<T extends Pick<NftsStore, 'nfts' | 'byCollectionFilter' | 'filteredByNfts'>>(
   args: T
 ): T {
   const { byCollectionFilter } = args
@@ -111,13 +105,13 @@ function filterNftsByCollection<T extends Pick<SelectableNftStore, 'nfts' | 'byC
   return modifyPath<T, T>(['filteredByNfts', 'byCollection'], filter(byCollectionFilter), args)
 }
 
-function filterNfts<
-  T extends Pick<SelectableNftStore, 'nfts' | 'byTraitsFilter' | 'byCollectionFilter' | 'filteredByNfts'>
->(args: T): T {
+function filterNfts<T extends Pick<NftsStore, 'nfts' | 'byTraitsFilter' | 'byCollectionFilter' | 'filteredByNfts'>>(
+  args: T
+): T {
   return pipe<[T], T, T>(filterNftsByCollection, filterNftsByTraits)(args)
 }
 
-const useSelectableNftsStore = create<SelectableNftStore>((set, get) => ({
+const useNftsStore = create<NftsStore>((set, get) => ({
   source: [],
   byTraitsFilter: undefined,
   byCollectionFilter: undefined,
@@ -131,11 +125,11 @@ const useSelectableNftsStore = create<SelectableNftStore>((set, get) => ({
   initialize: (args) => {
     if (isEmpty(get().source)) {
       const nfts = pipe<
-        [SelectableNftStoreInitializeArgs],
-        SelectableNftStoreInitializeArgs & {
-          selection: Selectable<Nft>[]
+        [InitializeArgs],
+        InitializeArgs & {
+          selection: Nft[]
         },
-        SelectableNftStoreInitializeArgs & { selection: Selectable<Nft>[] },
+        InitializeArgs & { selection: Nft[] },
         Nft[]
       >(
         converge(assoc, [always('selection'), pipe(prop('initialSelection'), whenNil(always([]))), identity]),
@@ -163,31 +157,28 @@ const useSelectableNftsStore = create<SelectableNftStore>((set, get) => ({
       }
     }
   },
-  select: (nft: Selectable<Nft>) => {
+  select: (nft: Nft) => {
     set(
       pipe(
-        modify<'selection', Selectable<Nft>[], Selectable<Nft>[]>(
-          'selection',
-          when<Selectable<Nft>[], Selectable<Nft>[]>(none(eqNft(nft)), append(nft))
-        ),
+        modify<'selection', Nft[], Nft[]>('selection', when<Nft[], Nft[]>(none(eqNft(nft)), append(nft))),
         updateNftsFromSelection,
         filterNfts
       )
     )
   },
-  unselect: (nft: Selectable<Nft>) => {
+  unselect: (nft: Nft) => {
     set(unselectNft(nft))
   },
-  setByTraitsFilter: (byTraitsFilter: Nullable<SelectableNftFilter>) => {
+  setByTraitsFilter: (byTraitsFilter: Nullable<NftFilter>) => {
     set(pipe(assoc('byTraitsFilter', byTraitsFilter), filterNfts))
   },
-  setByCollectionFilter: (byCollectionFilter: Nullable<SelectableNftFilter>) => {
+  setByCollectionFilter: (byCollectionFilter: Nullable<NftFilter>) => {
     set(pipe(assoc('byCollectionFilter', byCollectionFilter), filterNfts))
   }
 }))
 
-export function useSelectableNfts(options: SelectableNftStoreInitializeArgs) {
-  const store = useSelectableNftsStore()
+export function useNfts(options: InitializeArgs) {
+  const store = useNftsStore()
   store.initialize(options)
   return pipe(dissoc('source'), dissoc('initialize'))(store)
 }

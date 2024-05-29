@@ -5,7 +5,7 @@ import type { Selectable } from '@echo/ui/types/selectable'
 import { stringify } from 'qs'
 import { concat, is, isEmpty, map } from 'ramda'
 
-export function getNewOfferPath(selection: Selectable<Nft>[] | Selectable<Nft>) {
+export function getNewOfferPath(selection: Nft[] | Nft) {
   if (is(Array, selection)) {
     if (isEmpty(selection)) {
       throw new Error('Cannot create offer with empty selection')

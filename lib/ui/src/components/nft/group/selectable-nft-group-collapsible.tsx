@@ -24,7 +24,7 @@ interface Props extends Omit<SelectableNftCardProps, 'nft'> {
 
 export const SelectableNftGroupCollapsible: FunctionComponent<Props> = ({ group, style, ...cardProps }) => {
   const { label, nfts } = group
-  const hasSelection = pipe(prop('nfts'), getSelectionInList<Selectable<Nft>>, complement(isEmpty))(group)
+  const hasSelection = pipe(prop('nfts'), getSelectionInList<Nft>, complement(isEmpty))(group)
   const [collapsed, setCollapsed] = useState(style?.collapsed ?? true)
   return (
     <motion.div

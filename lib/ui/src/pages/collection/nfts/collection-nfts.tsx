@@ -8,10 +8,9 @@ import { NFT_ACTION_LISTING, NFT_ACTION_OFFER } from '@echo/ui/constants/nft-act
 import { getNewListingPathFromTarget } from '@echo/ui/helpers/listing/get-new-listing-path-from-target'
 import { getByTraitsNftFilter } from '@echo/ui/helpers/nft/filters/get-by-traits-nft-filter'
 import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
-import { useSelectableNfts } from '@echo/ui/hooks/use-selectable-nfts'
+import { useNfts } from '@echo/ui/hooks/use-nfts'
 import { CollectionNftsButton } from '@echo/ui/pages/collection/nfts/collection-nfts-button'
 import { CollectionNftsEmpty } from '@echo/ui/pages/collection/nfts/collection-nfts-empty'
-import type { Selectable } from '@echo/ui/types/selectable'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
 import { isEmpty, isNil, pipe } from 'ramda'
@@ -24,7 +23,7 @@ interface Props {
 
 export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
   const router = useRouter()
-  const { filteredByNfts, setByTraitsFilter, selection, select, unselect } = useSelectableNfts({
+  const { filteredByNfts, setByTraitsFilter, selection, select, unselect } = useNfts({
     nfts,
     sortBy: 'owner'
   })
@@ -32,7 +31,7 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
     router.push(getNewListingPathFromTarget(slug))
   }
 
-  const onCreateOffer = (nft?: Selectable<Nft>) => {
+  const onCreateOffer = (nft?: Nft) => {
     if (isNil(nft)) {
       router.push(getNewOfferPath(selection))
     } else {

@@ -5,9 +5,9 @@ import { type CollectionFilter } from '@echo/ui/types/collection-filter'
 import { nonNullableReturn } from '@echo/utils/fp/non-nullable-return'
 import { applySpec, collectBy, head, length, map, pipe, prop, sort } from 'ramda'
 
-export function getCollectionFiltersForNfts<T extends Nft>(nfts: T[]): CollectionFilter[] {
-  return pipe<[T[]], Collection[], Collection[], Collection[][], CollectionFilter[]>(
-    map<T, Collection>(prop('collection')),
+export function getCollectionFiltersForNfts(nfts: Nft[]): CollectionFilter[] {
+  return pipe<[Nft[]], Collection[], Collection[], Collection[][], CollectionFilter[]>(
+    map<Nft, Collection>(prop('collection')),
     sort(collectionByNameComparator),
     collectBy(prop('slug')),
     map<Collection[], CollectionFilter>(

@@ -56,9 +56,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, userTargetNf
   const t = useTranslations('listing.details')
   const tError = useTranslations('error.listing')
   const { cancelListing, createOffer } = useDependencies()
-  const [selectableNfts, setSelectableNfts] = useState(
-    map<Nft, Selectable<Nft>>(assoc('actionDisabled', true), userTargetNfts)
-  )
+  const [selectableNfts, setSelectableNfts] = useState(map<Nft, Nft>(assoc('actionDisabled', true), userTargetNfts))
   const [updatedListing, setUpdatedListing] = useState(listing)
   const [, setCreatedOffer] = useState<Offer>()
   const { trigger: triggerCancel, isMutating: cancelIsMutating } = useSWRTrigger<ListingResponse, CancelListingArgs>({
@@ -98,12 +96,12 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, userTargetNf
 
   // Unselect all selected NFTs. Used after offer is created
   const resetNftSelection = () => {
-    setSelectableNfts(toggleSelectionInList<Selectable<Nft>>(pipe(prop('selected'), Boolean))(selectableNfts))
+    setSelectableNfts(toggleSelectionInList<Nft>(pipe(prop('selected'), Boolean))(selectableNfts))
   }
   const { creator, items, target } = updatedListing
   // We only allow 1 target per listing atm
   // We allow user to select more NFTs than the target amount if wanted
-  const hasSelectedEnoughNfts = pipe<[Selectable<Nft>[]], Selectable<Nft>[], number, boolean>(
+  const hasSelectedEnoughNfts = pipe<[Nft[]], Nft[], number, boolean>(
     filter(pipe(prop('selected'), Boolean)),
     length,
     lte(target.amount)

@@ -22,7 +22,7 @@ import { always, append, assoc, isEmpty, isNil, pipe, reject, unless } from 'ram
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 
 interface Props {
-  creatorNfts: Selectable<Nft>[]
+  creatorNfts: Nft[]
   items: Nullable<Nft[]>
   target: Nullable<Collection>
   loading?: boolean
@@ -38,28 +38,28 @@ export const CreateListing: FunctionComponent<Props> = ({
   onCancel,
   onComplete
 }) => {
-  const [itemsSelection, setItemsSelection] = useState<Selectable<Nft>[]>(items ?? [])
+  const [itemsSelection, setItemsSelection] = useState<Nft[]>(items ?? [])
   const [targetSelection, setTargetSelection] = useState<Nullable<ListingTarget>>(
     isNil(target) ? undefined : { collection: target, amount: 1 }
   )
   const [reviewing, setReviewing] = useState(false)
   const selectItem = useCallback(
-    (nft: Selectable<Nft>) => {
+    (nft: Nft) => {
       setItemsSelection(append(nft))
     },
     [setItemsSelection]
   )
 
   const unselectItem = useCallback(
-    (nft: Selectable<Nft>) => {
+    (nft: Nft) => {
       setItemsSelection(reject(eqNft(nft)))
     },
     [setItemsSelection]
   )
   const nfts = useMemo(
     () =>
-      pipe<[Selectable<Nft>[]], Selectable<Nft>[], Selectable<Nft>[]>(
-        unless<Selectable<Nft>[], Selectable<Nft>[]>(always(isEmpty(itemsSelection)), always(itemsSelection)),
+      pipe<[Nft[]], Nft[], Nft[]>(
+        unless<Nft[], Nft[]>(always(isEmpty(itemsSelection)), always(itemsSelection)),
         reject(isInWith(itemsSelection, eqNft))
       )(creatorNfts),
     [itemsSelection, creatorNfts]
