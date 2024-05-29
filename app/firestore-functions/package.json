@@ -6,8 +6,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsup",
-    "deploy:dev": "firebase deploy --only functions",
-    "deploy:testnet": "firebase deploy --only functions",
+    "deploy:dev": "./scripts/file-exists.sh .env.echo-dev-fallback && firebase deploy --only functions",
+    "deploy:testnet": "./scripts/file-exists.sh .env.echo-testnet &&firebase deploy --only functions",
     "env:pull": "dotenvx hub pull",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",
