@@ -5,6 +5,7 @@ import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { ErrorStatus } from '@echo/frontend/lib/constants/error-status'
 import { guardAsyncFn, guardFn } from '@echo/frontend/lib/helpers/error/guard'
 import { assertNftsOwner } from '@echo/frontend/lib/helpers/nft/assert/assert-nfts-owner'
+import { getEscrowedNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-escrowed-nfts-from-indexes'
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
 import { createOfferSchema } from '@echo/frontend/lib/validators/create-offer-schema'
 import { generateBaseOffer } from '@echo/model/helpers/offer/generate-base-offer'
@@ -25,7 +26,9 @@ export async function createOfferRequestHandler(user: AuthUser, req: ApiRequest<
     ErrorStatus.BAD_REQUEST
   )(requestBody)
   const receiverOfferItems = await guardAsyncFn(getNftsFromIndexes, ErrorStatus.SERVER_ERROR)(receiverItems)
-  const senderOfferItems = await guardAsyncFn(getNftsFromIndexes, ErrorStatus.SERVER_ERROR)(senderItems)
+  // We fetch the escrowed NFTs from the DB here because this call is done AFTER transaction has completed
+  // and NFTs are thus in escrow
+  const senderOfferItems = await guardAsyncFn(getEscrowedNftsFromIndexes, ErrorStatus.SERVER_ERROR)(senderItems)
   // make sure the sender and receiver are the owners of the items
   assertNftsOwner(senderOfferItems, user.username)
   assertNftsOwner(receiverOfferItems, head(receiverOfferItems as NonEmptyArray<Nft>).owner.username)
