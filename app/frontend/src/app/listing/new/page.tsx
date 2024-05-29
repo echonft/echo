@@ -11,7 +11,7 @@ import type { NftIndex } from '@echo/model/types/nft-index'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateListingManager } from '@echo/ui/components/listing/create/create-listing-manager'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import type { Selectable } from '@echo/ui/types/selectable'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
@@ -33,10 +33,10 @@ async function render({ searchParams: { items, target }, user }: Params) {
     notFound()
   }
 
-  const creatorNfts: SelectableNft[] = await pipe(
+  const creatorNfts: Selectable<Nft>[] = await pipe(
     prop('username'),
-    getNftsForOwner as (username: string) => Promise<SelectableNft[]>,
-    andThen(map<SelectableNft, SelectableNft>(assoc('actionDisabled', true)))
+    getNftsForOwner as (username: string) => Promise<Selectable<Nft>[]>,
+    andThen(map<Selectable<Nft>, Selectable<Nft>>(assoc('actionDisabled', true)))
   )(user)
   const listingItems = await unlessNil(
     pipe<[string[] | string], string[], NftIndex[], Promise<Nullable<Nft>>[], Promise<Nullable<Nft>[]>, Promise<Nft[]>>(

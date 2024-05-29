@@ -20,7 +20,7 @@ import { UserProfileWallets } from '@echo/ui/components/user/profile/user-profil
 import { ALIGNMENT_CENTER } from '@echo/ui/constants/alignments'
 import { SIZE_MD } from '@echo/ui/constants/size'
 import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import type { Selectable } from '@echo/ui/types/selectable'
 import { isInWith } from '@echo/utils/fp/is-in-with'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
@@ -30,7 +30,7 @@ import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 interface Props {
   receiver: User
   receiverItems: Nft[]
-  senderNfts: SelectableNft[]
+  senderNfts: Selectable<Nft>[]
   loading?: boolean
   onCancel?: VoidFunction
   onComplete?: (offer: Offer) => void
@@ -44,19 +44,19 @@ export const CreateOffer: FunctionComponent<Props> = ({
   onCancel,
   onComplete
 }) => {
-  const [senderSelection, setSenderSelection] = useState<SelectableNft[]>([])
+  const [senderSelection, setSenderSelection] = useState<Selectable<Nft>[]>([])
   const [reviewing, setReviewing] = useState(false)
   // TODO Probably should change that, not the most beautiful
   const [settingExpiration, setSettingExpiration] = useState(false)
   const { username, discord, wallet } = receiver
   const selectSenderNft = useCallback(
-    (nft: SelectableNft) => {
+    (nft: Selectable<Nft>) => {
       setSenderSelection(append(nft))
     },
     [setSenderSelection]
   )
   const unselectSenderNft = useCallback(
-    (nft: SelectableNft) => {
+    (nft: Selectable<Nft>) => {
       setSenderSelection(reject(eqNft(nft)))
     },
     [setSenderSelection]

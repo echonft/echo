@@ -3,13 +3,13 @@ import { type Nft } from '@echo/model/types/nft'
 import { SelectableNfts } from '@echo/ui/components/nft/selectable/selectable-nfts'
 import { groupNftsByCollection } from '@echo/ui/helpers/nft/group/group-nfts-by-collection'
 import { sortGroupNftsBySelection } from '@echo/ui/helpers/nft/sort/sort-group-nfts-by-selection'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import type { Selectable } from '@echo/ui/types/selectable'
 
 interface Props<T extends Nft> {
   nfts: T[]
-  selection: SelectableNft[]
-  onSelect?: (nft: SelectableNft) => unknown
-  onUnselect?: (nft: SelectableNft) => unknown
+  selection: Selectable<Nft>[]
+  onSelect?: (nft: Selectable<Nft>) => unknown
+  onUnselect?: (nft: Selectable<Nft>) => unknown
 }
 
 export const CreateOfferSenderNftsSelection = <T extends Nft>({ nfts, selection, onSelect, onUnselect }: Props<T>) => {

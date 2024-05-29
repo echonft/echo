@@ -1,22 +1,19 @@
 'use client'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import type { NftAction } from '@echo/ui/types/nft-action'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
 import type { FunctionComponent, MouseEventHandler } from 'react'
 
 interface Props {
-  nft: SelectableNft
+  action?: Nullable<NftAction>
   onClick?: MouseEventHandler
 }
 
-export const SelectableNftCardButton: FunctionComponent<Props> = ({ nft, onClick }) => {
-  const { actionDisabled, action } = nft
+export const SelectableNftCardButton: FunctionComponent<Props> = ({ action, onClick }) => {
   const t = useTranslations('nft.action')
-  if (isNil(action)) {
-    return null
-  }
-  if (!actionDisabled) {
+  if (!isNil(action)) {
     return (
       <button
         className={clsx(

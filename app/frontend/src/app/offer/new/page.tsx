@@ -11,7 +11,7 @@ import type { User } from '@echo/model/types/user'
 import { PaddedSectionLayout } from '@echo/ui/components/base/layout/padded-section-layout'
 import { PageLayout } from '@echo/ui/components/base/layout/page-layout'
 import { CreateOfferManager } from '@echo/ui/components/offer/create/create-offer-manager'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import type { Selectable } from '@echo/ui/types/selectable'
 import { isNilOrEmpty } from '@echo/utils/fp/is-nil-or-empty'
 import { promiseAll } from '@echo/utils/fp/promise-all'
 import { unlessNil } from '@echo/utils/fp/unless-nil'
@@ -44,10 +44,10 @@ async function render({ searchParams: { receiverItems }, user }: Params) {
     notFound()
   }
   const receiver = pipe<[Nft[]], Nft, User>(head, prop('owner'))(receiverNfts)
-  const senderNfts: SelectableNft[] = await pipe(
+  const senderNfts: Selectable<Nft>[] = await pipe(
     prop('username'),
-    getNftsForOwner as (username: string) => Promise<SelectableNft[]>,
-    andThen(map<SelectableNft, SelectableNft>(assoc('actionDisabled', true)))
+    getNftsForOwner as (username: string) => Promise<Selectable<Nft>[]>,
+    andThen(map<Selectable<Nft>, Selectable<Nft>>(assoc('actionDisabled', true)))
   )(user)
   if (isNilOrEmpty(senderNfts)) {
     notFound()

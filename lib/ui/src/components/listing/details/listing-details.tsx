@@ -37,7 +37,7 @@ import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
 import type { ListingWithRole } from '@echo/ui/types/listing-with-role'
 import type { OfferWithRole } from '@echo/ui/types/offer-with-role'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import type { Selectable } from '@echo/ui/types/selectable'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import dayjs from 'dayjs'
@@ -57,7 +57,7 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, userTargetNf
   const tError = useTranslations('error.listing')
   const { cancelListing, createOffer } = useDependencies()
   const [selectableNfts, setSelectableNfts] = useState(
-    map<Nft, SelectableNft>(assoc('actionDisabled', true), userTargetNfts)
+    map<Nft, Selectable<Nft>>(assoc('actionDisabled', true), userTargetNfts)
   )
   const [updatedListing, setUpdatedListing] = useState(listing)
   const [, setCreatedOffer] = useState<Offer>()
@@ -98,12 +98,12 @@ export const ListingDetails: FunctionComponent<Props> = ({ listing, userTargetNf
 
   // Unselect all selected NFTs. Used after offer is created
   const resetNftSelection = () => {
-    setSelectableNfts(toggleSelectionInList<SelectableNft>(pipe(prop('selected'), Boolean))(selectableNfts))
+    setSelectableNfts(toggleSelectionInList<Selectable<Nft>>(pipe(prop('selected'), Boolean))(selectableNfts))
   }
   const { creator, items, target } = updatedListing
   // We only allow 1 target per listing atm
   // We allow user to select more NFTs than the target amount if wanted
-  const hasSelectedEnoughNfts = pipe<[SelectableNft[]], SelectableNft[], number, boolean>(
+  const hasSelectedEnoughNfts = pipe<[Selectable<Nft>[]], Selectable<Nft>[], number, boolean>(
     filter(pipe(prop('selected'), Boolean)),
     length,
     lte(target.amount)

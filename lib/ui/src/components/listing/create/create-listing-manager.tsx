@@ -12,14 +12,14 @@ import { SWRKeys } from '@echo/ui/helpers/swr/swr-keys'
 import { useSWRTrigger } from '@echo/ui/hooks/use-swr-trigger'
 import { mapListingTargetToRequest } from '@echo/ui/mappers/to-api/map-listing-target-to-request'
 import { useDependencies } from '@echo/ui/providers/dependencies-provider'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import type { Selectable } from '@echo/ui/types/selectable'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import type { FunctionComponent } from 'react'
 
 interface Props {
-  creatorNfts: SelectableNft[]
+  creatorNfts: Selectable<Nft>[]
   items: Nullable<Nft[]>
   target: Nullable<Collection>
 }

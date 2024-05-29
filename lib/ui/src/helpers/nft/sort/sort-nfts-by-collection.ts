@@ -4,5 +4,5 @@ import type { Nft } from '@echo/model/types/nft'
 import { pipe, sort } from 'ramda'
 
 export function sortNftsByCollection<T extends Nft>(nfts: T[]) {
-  return pipe<[T[]], T[], T[]>(sort(nftByCollectionComparator), sort(nftByTokenIdComparator))(nfts)
+  return pipe<[T[]], T[], T[]>(sort(nftByTokenIdComparator), sort(nftByCollectionComparator))(nfts)
 }

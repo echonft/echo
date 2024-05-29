@@ -11,7 +11,7 @@ import { getNewOfferPath } from '@echo/ui/helpers/offer/get-new-offer-path'
 import { useSelectableNfts } from '@echo/ui/hooks/use-selectable-nfts'
 import { CollectionNftsButton } from '@echo/ui/pages/collection/nfts/collection-nfts-button'
 import { CollectionNftsEmpty } from '@echo/ui/pages/collection/nfts/collection-nfts-empty'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import type { Selectable } from '@echo/ui/types/selectable'
 import { clsx } from 'clsx'
 import { useRouter } from 'next/navigation'
 import { isEmpty, isNil, pipe } from 'ramda'
@@ -32,7 +32,7 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
     router.push(getNewListingPathFromTarget(slug))
   }
 
-  const onCreateOffer = (nft?: SelectableNft) => {
+  const onCreateOffer = (nft?: Selectable<Nft>) => {
     if (isNil(nft)) {
       router.push(getNewOfferPath(selection))
     } else {
@@ -66,6 +66,7 @@ export const CollectionNfts: FunctionComponent<Props> = ({ nfts, slug }) => {
         <SelectableNfts
           nfts={filteredByNfts.byTraits}
           selection={selection}
+          action={NFT_ACTION_OFFER}
           onAction={onCreateOffer}
           onSelect={select}
           onUnselect={unselect}

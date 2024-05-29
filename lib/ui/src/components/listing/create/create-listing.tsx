@@ -13,7 +13,7 @@ import { CreateListingSwapDirectionHeader } from '@echo/ui/components/listing/cr
 import { CreateListingTargets } from '@echo/ui/components/listing/create/create-listing-targets'
 import { CreateOfferSwapDirectionHeader } from '@echo/ui/components/offer/create/create-offer-swap-direction-header'
 import { SWAP_DIRECTION_IN, SWAP_DIRECTION_OUT } from '@echo/ui/constants/swap-direction'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import type { Selectable } from '@echo/ui/types/selectable'
 import { isInWith } from '@echo/utils/fp/is-in-with'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
@@ -22,7 +22,7 @@ import { always, append, assoc, isEmpty, isNil, pipe, reject, unless } from 'ram
 import { type FunctionComponent, useCallback, useMemo, useState } from 'react'
 
 interface Props {
-  creatorNfts: SelectableNft[]
+  creatorNfts: Selectable<Nft>[]
   items: Nullable<Nft[]>
   target: Nullable<Collection>
   loading?: boolean
@@ -38,28 +38,28 @@ export const CreateListing: FunctionComponent<Props> = ({
   onCancel,
   onComplete
 }) => {
-  const [itemsSelection, setItemsSelection] = useState<SelectableNft[]>(items ?? [])
+  const [itemsSelection, setItemsSelection] = useState<Selectable<Nft>[]>(items ?? [])
   const [targetSelection, setTargetSelection] = useState<Nullable<ListingTarget>>(
     isNil(target) ? undefined : { collection: target, amount: 1 }
   )
   const [reviewing, setReviewing] = useState(false)
   const selectItem = useCallback(
-    (nft: SelectableNft) => {
+    (nft: Selectable<Nft>) => {
       setItemsSelection(append(nft))
     },
     [setItemsSelection]
   )
 
   const unselectItem = useCallback(
-    (nft: SelectableNft) => {
+    (nft: Selectable<Nft>) => {
       setItemsSelection(reject(eqNft(nft)))
     },
     [setItemsSelection]
   )
   const nfts = useMemo(
     () =>
-      pipe<[SelectableNft[]], SelectableNft[], SelectableNft[]>(
-        unless<SelectableNft[], SelectableNft[]>(always(isEmpty(itemsSelection)), always(itemsSelection)),
+      pipe<[Selectable<Nft>[]], Selectable<Nft>[], Selectable<Nft>[]>(
+        unless<Selectable<Nft>[], Selectable<Nft>[]>(always(isEmpty(itemsSelection)), always(itemsSelection)),
         reject(isInWith(itemsSelection, eqNft))
       )(creatorNfts),
     [itemsSelection, creatorNfts]

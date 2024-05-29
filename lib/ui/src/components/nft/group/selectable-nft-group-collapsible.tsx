@@ -1,4 +1,5 @@
 'use client'
+import type { Nft } from '@echo/model/types/nft'
 import { SelectableNftsLayout } from '@echo/ui/components/nft/group/layout/selectable-nfts-layout'
 import { NftGroupButton } from '@echo/ui/components/nft/group/nft-group-button'
 import {
@@ -7,7 +8,7 @@ import {
 } from '@echo/ui/components/nft/selectable-card/selectable-nft-card'
 import { getSelectionInList } from '@echo/ui/helpers/selectable/get-selection-in-list'
 import { type NftGroup } from '@echo/ui/types/nft-group'
-import type { SelectableNft } from '@echo/ui/types/selectable-nft'
+import type { Selectable } from '@echo/ui/types/selectable'
 import { Transition } from '@headlessui/react'
 import { clsx } from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -23,7 +24,7 @@ interface Props extends Omit<SelectableNftCardProps, 'nft'> {
 
 export const SelectableNftGroupCollapsible: FunctionComponent<Props> = ({ group, style, ...cardProps }) => {
   const { label, nfts } = group
-  const hasSelection = pipe(prop('nfts'), getSelectionInList<SelectableNft>, complement(isEmpty))(group)
+  const hasSelection = pipe(prop('nfts'), getSelectionInList<Selectable<Nft>>, complement(isEmpty))(group)
   const [collapsed, setCollapsed] = useState(style?.collapsed ?? true)
   return (
     <motion.div

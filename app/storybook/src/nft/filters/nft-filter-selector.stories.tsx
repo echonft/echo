@@ -2,6 +2,8 @@
 
 import { NftFiltersPanelLayout } from '@echo/ui/components/nft/filters/layout/nft-filters-panel-layout'
 import { NftFilter as Component } from '@echo/ui/components/nft/filters/nft-filter'
+import type { NftFilter } from '@echo/ui/types/nft-filter'
+import type { Selectable } from '@echo/ui/types/selectable'
 import { type Meta, type StoryObj } from '@storybook/react'
 
 const metadata: Meta<typeof Component> = {
@@ -49,6 +51,6 @@ export const Selected: StoryObj<typeof Component> = {
       label: 'Trait Name',
       count: 1754,
       selected: true
-    }
+    } as Selectable<NftFilter>
   }
 }

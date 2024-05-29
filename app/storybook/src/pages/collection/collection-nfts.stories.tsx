@@ -16,7 +16,7 @@ const metadata: Meta<typeof Component> = {
   },
   parameters: {
     controls: {
-      exclude: ['nfts']
+      exclude: ['nfts', 'slug']
     }
   }
 }

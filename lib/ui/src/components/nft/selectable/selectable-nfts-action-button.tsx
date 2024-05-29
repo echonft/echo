@@ -1,5 +1,6 @@
 import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
 import type { NftAction } from '@echo/ui/types/nft-action'
+import type { Nullable } from '@echo/utils/types/nullable'
 import { clsx } from 'clsx'
 import { useTranslations } from 'next-intl'
 import { isNil } from 'ramda'
@@ -7,7 +8,7 @@ import { type FunctionComponent, type MouseEventHandler } from 'react'
 
 interface NftSelectionButtonProps {
   count: number
-  action?: NftAction
+  action?: Nullable<NftAction>
   onClick?: MouseEventHandler
 }
 
