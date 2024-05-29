@@ -1,11 +1,11 @@
 import { getCollection } from '@echo/contract-listener/helpers/get-collection'
-import { mapCollectionTokenIdToNftIndex } from '@echo/contract-listener/mappers/map-collection-token-id-to-nft-index'
 import type { TransferData } from '@echo/contract-listener/types/transfer-data'
 import { deleteCollection } from '@echo/firestore/crud/collection/delete-collection'
 import { getCollectionSnapshot } from '@echo/firestore/crud/collection/get-collection'
 import { deleteNft } from '@echo/firestore/crud/nft/delete-nft'
 import { getNftSnapshot } from '@echo/firestore/crud/nft/get-nft'
 import { getNftsForCollection } from '@echo/firestore/crud/nft/get-nfts-for-collection'
+import { getNftIndex } from '@echo/model/helpers/nft/get-nft-index'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import { isEmpty, isNil } from 'ramda'
@@ -21,7 +21,7 @@ export async function processOutTransfer(args: TransferData) {
   pinoLogger.info(`OUT transfer for ${contractAddress}:${tokenId}, processing...`)
   try {
     const collection = await getCollection({ chain, address: contractAddress })
-    const nftIndex = mapCollectionTokenIdToNftIndex({ collection, tokenId })
+    const nftIndex = getNftIndex({ collection, tokenId })
     const snapshot = await getNftSnapshot(nftIndex)
     if (isNil(snapshot)) {
       pinoLogger.error(`NFT with index ${JSON.stringify(nftIndex)} not found`)

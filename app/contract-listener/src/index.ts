@@ -10,6 +10,7 @@ import { watchEchoEvents } from '@echo/web3/watchers/watch-echo-events'
 import { watchErc721TransferEvents } from '@echo/web3/watchers/watch-erc721-transfer-events'
 
 initializeFirebase()
+// TODO map on SUPPORTED_CHAINS
 const client = getClientForChain(getChain())
 watchEchoEvents(client, parseEchoLogs, (error) => pinoLogger.error(`Error watching Echo event: ${errorMessage(error)}`))
 watchErc721TransferEvents(client, parseErc721TansferLogs, (error) =>
