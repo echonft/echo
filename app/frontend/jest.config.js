@@ -10,7 +10,6 @@ module.exports = {
   coverageDirectory: '<rootDir>/../../.coverage/app/frontend',
   coverageReporters: ['json-summary', 'text'],
   moduleNameMapper: {
-    '^@echo/alchemy/(.*)$': '<rootDir>/../../lib/alchemy/src/$1',
     '^@echo/api/(.*)$': '<rootDir>/../../lib/api/src/$1',
     '^@echo/firestore/(.*)$': '<rootDir>/../../lib/firestore/src/$1',
     '^@echo/firestore-mocks/(.*)$': '<rootDir>/../../lib/firestore/test/@mocks/$1',

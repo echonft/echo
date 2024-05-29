@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-imports */
-import { STACK_BG_URL } from '../../constants/stack-bg-url'
 import { mergeLeft } from 'ramda'
 import defaultTheme, { fontFamily } from 'tailwindcss/defaultTheme'
 
@@ -22,7 +21,7 @@ export const themeExtension = {
     gradientYellow: 'linear-gradient(225deg, rgba(239, 244, 39, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
     gradientGreen: 'linear-gradient(225deg, rgba(75, 191, 75, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
     gradientRed: 'linear-gradient(225deg, rgba(255, 64, 64, 0.20) 5.29%, rgba(0, 0, 0, 0.00) 63.02%)',
-    stack: `url('${STACK_BG_URL}')`,
+    stack: `url('https://storage.googleapis.com/echo-dev-public/stack-bg.svg?alt=media')`,
     joinDiscordLabel: 'linear-gradient(91deg, #EFF427 32.27%, rgba(255, 255, 255, 0.00) 128.1%)',
     nftCardGradient: 'linear-gradient(180deg, rgba(0, 0, 0, 0.00) 58.2%, #000 119.55%)'
   },

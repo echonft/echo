@@ -10,7 +10,6 @@ module.exports = {
   coverageDirectory: '<rootDir>/../../.coverage/app/bot',
   coverageReporters: ['json-summary', 'text'],
   moduleNameMapper: {
-    '^@echo/alchemy/(.*)$': '<rootDir>/../../lib/alchemy/src/$1',
     '^@echo/api/(.*)$': '<rootDir>/../../lib/api/src/$1',
     '^@echo/bot/(.*)$': '<rootDir>/src/$1',
     '^@echo/model/(.*)$': '<rootDir>/../../lib/model/src/$1',

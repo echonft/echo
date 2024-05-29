@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "dayjs": "1.11.11",
-    "pino": "8.21.0",
+    "pino": "9.1.0",
     "ramda": "0.30.0"
   },
   "devDependencies": {

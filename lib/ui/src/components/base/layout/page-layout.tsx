@@ -4,7 +4,7 @@ import { CalloutManager } from '@echo/ui/components/base/callout/callout-manager
 import { HeaderSwitch } from '@echo/ui/components/base/header/header-switch'
 import { Dependencies } from '@echo/ui/components/base/layout/dependencies'
 import { MainSectionLayout } from '@echo/ui/components/base/layout/main-section-layout'
-import { Web3Provider } from '@echo/ui/components/base/utils/web3-provider'
+import { Web3Provider } from '@echo/ui/components/base/web3-provider'
 import {
   PAGE_LAYOUT_BG_COLLECTIONS,
   PAGE_LAYOUT_BG_DEFAULT,
