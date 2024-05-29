@@ -3,7 +3,7 @@ import { CHAIN_ETHEREUM, CHAINS } from '@echo/utils/constants/chains/chains'
 import { errorMessage } from '@echo/utils/helpers/error-message'
 import { pinoLogger } from '@echo/utils/services/pino-logger'
 import type { ChainName } from '@echo/utils/types/chain-name'
-import { formatAddress } from '@echo/web3/helpers/format-address'
+import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { forEach } from 'ramda'
 import yargs from 'yargs'
 import { hideBin } from 'yargs/helpers'
@@ -38,7 +38,7 @@ void (async function () {
     .parse()
 
   try {
-    const address = formatAddress({ address: a, chain: c })
+    const address = formatWalletAddress({ address: a, chain: c })
     pinoLogger.info(`fetching NFTs for ${a}...`)
     try {
       const nfts = await getNftsByAccount({ address, chain: c, fetch })

@@ -1,6 +1,6 @@
 import type { Wallet } from '@echo/model/types/wallet'
 import { CHAIN_ETHEREUM } from '@echo/utils/constants/chains/chains'
-import { formatAddress } from '@echo/web3/helpers/format-address'
+import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { getNonceSiweMessageParams } from '@echo/web3-dom/helpers/get-nonce-siwe-message-params'
 import type { SignNonceArgs } from '@echo/web3-dom/types/sign-nonce-args'
 import { describe, expect, test } from '@jest/globals'
@@ -22,7 +22,7 @@ describe('helpers - getNonceSiweMessageParams', () => {
       domain: 'echonft.xyz',
       uri: 'https://echonft.xyz/',
       nonce: 'noncenoncenoncenonce',
-      address: formatAddress(wallet),
+      address: formatWalletAddress(wallet),
       chainId: 1,
       statement: 'Sign this message to add your wallet to Echo',
       version: '1'

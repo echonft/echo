@@ -1,5 +1,5 @@
 import { getChainId } from '@echo/utils/helpers/get-chain-id'
-import { formatAddress } from '@echo/web3/helpers/format-address'
+import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import { getEchoAddressByChain } from '@echo/web3/helpers/get-echo-address-by-chain'
 import { wagmiConfig } from '@echo/web3-dom/constants/wagmi-config'
 import type { ApproveErc721ContractArgs } from '@echo/web3-dom/types/approve-erc-721-contract-args'
@@ -13,7 +13,7 @@ export async function approveErc721Contract(args: ApproveErc721ContractArgs) {
   const { request } = await simulateContract(wagmiConfig, {
     abi: erc721Abi,
     functionName: 'setApprovalForAll',
-    address: formatAddress(contract),
+    address: formatWalletAddress(contract),
     chainId,
     args: [echoAddress, true]
   })

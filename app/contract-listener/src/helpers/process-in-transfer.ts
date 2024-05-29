@@ -18,7 +18,7 @@ import { isNil } from 'ramda'
  */
 export async function processInTransfer(args: Omit<TransferData, 'to'> & { to: WalletDocumentData }): Promise<void> {
   const { contractAddress, chain, to, tokenId } = args
-  pinoLogger.info(`IN transfer for ${contractAddress}:${tokenId} to wallet ${JSON.stringify(to)}, processing...`)
+  pinoLogger.info(`[IN transfer ${contractAddress}:${tokenId}] to wallet ${JSON.stringify(to)}, processing...`)
   try {
     const userDocumentData = await getUserById(to.userId)
     if (isNil(userDocumentData)) {

@@ -2,6 +2,7 @@ import { type CreateOfferRequest } from '@echo/api/types/requests/create-offer-r
 import { type OfferResponse } from '@echo/api/types/responses/offer-response'
 import { addOffer } from '@echo/firestore/crud/offer/add-offer'
 import { ApiError } from '@echo/frontend/lib/helpers/error/api-error'
+import { getEscrowedNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-escrowed-nfts-from-indexes'
 import { getNftsFromIndexes } from '@echo/frontend/lib/helpers/nft/get-nfts-from-indexes'
 import { createOfferRequestHandler } from '@echo/frontend/lib/request-handlers/offer/create-offer-request-handler'
 import { mockRequest } from '@echo/frontend-mocks/mock-request'
@@ -20,6 +21,7 @@ import { generateOfferId } from '@echo/web3/helpers/generate-offer-id'
 import { append, assoc, head, map, modify, pipe, prop } from 'ramda'
 
 jest.mock('@echo/frontend/lib/helpers/nft/get-nfts-from-indexes')
+jest.mock('@echo/frontend/lib/helpers/nft/get-escrowed-nfts-from-indexes')
 jest.mock('@echo/firestore/crud/offer/add-offer')
 jest.mock('@echo/web3/helpers/generate-offer-id')
 
@@ -34,6 +36,7 @@ describe('request-handlers - offer - createOfferRequestHandler', () => {
 
   beforeAll(() => {
     jest.mocked(getNftsFromIndexes).mockImplementation(pipe(map<NftIndex, Nft>(getNftMockByIndex), toPromise))
+    jest.mocked(getEscrowedNftsFromIndexes).mockImplementation(pipe(map<NftIndex, Nft>(getNftMockByIndex), toPromise))
   })
   beforeEach(() => {
     jest.clearAllMocks()

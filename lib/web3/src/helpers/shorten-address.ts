@@ -1,5 +1,5 @@
 import type { Wallet } from '@echo/model/types/wallet'
-import { formatAddress } from '@echo/web3/helpers/format-address'
+import { formatWalletAddress } from '@echo/web3/helpers/format-wallet-address'
 import type { UnformattedWallet } from '@echo/web3/types/unformatted-wallet'
 
 /**
@@ -9,6 +9,6 @@ import type { UnformattedWallet } from '@echo/web3/types/unformatted-wallet'
  * @return {((args: {address: string, chainId: number}) => string
  */
 export function shortenAddress(args: Wallet | UnformattedWallet): string {
-  const formattedAddress = formatAddress(args)
+  const formattedAddress = formatWalletAddress(args)
   return `${formattedAddress.substring(0, 6)}...${formattedAddress.substring(formattedAddress.length - 4)}`
 }
