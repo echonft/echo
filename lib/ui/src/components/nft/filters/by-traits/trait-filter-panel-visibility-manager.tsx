@@ -10,7 +10,12 @@ interface Props extends TraitFilterPanelProps {
   show: boolean
 }
 
-export const TraitFilterPanelVisibilityManager: FunctionComponent<Props> = ({ show, nfts, onSelectionUpdate }) => {
+export const TraitFilterPanelVisibilityManager: FunctionComponent<Props> = ({
+  show,
+  nfts,
+  selection,
+  onToggleSelection
+}) => {
   // we need to keep a reference to previous filters so that they don't get updated during the exit animation
   const filtersRef = useRef(nfts)
   useEffect(() => {
@@ -29,7 +34,11 @@ export const TraitFilterPanelVisibilityManager: FunctionComponent<Props> = ({ sh
       leaveFrom="transform opacity-100"
       leaveTo="transform opacity-0"
     >
-      <TraitFilterPanel nfts={show ? nfts : filtersRef.current} onSelectionUpdate={onSelectionUpdate} />
+      <TraitFilterPanel
+        nfts={show ? nfts : filtersRef.current}
+        selection={selection}
+        onToggleSelection={onToggleSelection}
+      />
     </Transition>
   )
 }

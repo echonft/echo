@@ -7,12 +7,9 @@ import { NftsAndFiltersLayout } from '@echo/ui/components/nft/filters/layout/nft
 import { SelectableNfts, type SelectableNftsProps } from '@echo/ui/components/nft/selectable/selectable-nfts'
 import { SelectableNftsActionButton } from '@echo/ui/components/nft/selectable/selectable-nfts-action-button'
 import { NFT_ACTION_OFFER } from '@echo/ui/constants/nft-actions'
-import { getByCollectionNftFilter } from '@echo/ui/helpers/nft/filters/get-by-collection-nft-filter'
-import { getByTraitsNftFilter } from '@echo/ui/helpers/nft/filters/get-by-traits-nft-filter'
 import { useNfts } from '@echo/ui/hooks/use-nfts'
 import type { NftSortBy } from '@echo/ui/types/nft-sort-by'
-import type { Selectable } from '@echo/ui/types/selectable'
-import { isNil, pipe } from 'ramda'
+import { isNil } from 'ramda'
 import { type FunctionComponent } from 'react'
 
 interface Props extends Pick<SelectableNftsProps, 'action' | 'options' | 'style'> {
@@ -29,46 +26,51 @@ export const SelectableNftsWithFilters: FunctionComponent<Props> = ({
   nfts,
   onSelectionAction
 }) => {
-  const { byCollectionFilter, filteredByNfts, setByCollectionFilter, setByTraitsFilter, selection, select, unselect } =
-    useNfts({
-      nfts,
-      sortBy
-    })
+  const {
+    filteredByNfts,
+    selection,
+    toggleTraitFilterSelection,
+    toggleCollectionFilterSelection,
+    selectNft,
+    unselectNft
+  } = useNfts({
+    nfts,
+    sortBy
+  })
 
   return (
     <NftsAndFiltersLayout>
       <NftFiltersPanelsLayout>
         <SelectableNftsActionButton
           action={action}
-          count={selection.length}
+          count={selection.nfts.length}
           onClick={() => {
-            onSelectionAction?.(selection)
+            onSelectionAction?.(selection.nfts)
           }}
         />
         <CollectionFilterPanel
           nfts={nfts}
-          onSelect={pipe(getByCollectionNftFilter, setByCollectionFilter)}
-          onUnselect={() => {
-            setByCollectionFilter(undefined)
-          }}
+          selection={selection.collectionFilter}
+          onToggleSelection={toggleCollectionFilterSelection}
         />
         <TraitFilterPanelVisibilityManager
-          show={!isNil(byCollectionFilter)}
+          show={!isNil(selection.collectionFilter)}
           nfts={filteredByNfts.byCollection}
-          onSelectionUpdate={pipe(getByTraitsNftFilter, setByTraitsFilter)}
+          selection={selection.traitFilters}
+          onToggleSelection={toggleTraitFilterSelection}
         />
       </NftFiltersPanelsLayout>
       <SelectableNfts
         nfts={filteredByNfts.byTraits}
-        selection={selection}
+        selection={selection.nfts}
         action={NFT_ACTION_OFFER}
         options={options}
         style={style}
         onAction={(nft) => {
           onSelectionAction?.([nft])
         }}
-        onSelect={select}
-        onUnselect={unselect}
+        onSelect={selectNft}
+        onUnselect={unselectNft}
       />
     </NftsAndFiltersLayout>
   )

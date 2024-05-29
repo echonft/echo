@@ -1,14 +1,14 @@
 import { NftFilterSelector } from '@echo/ui/components/nft/filters/nft-filter-selector'
 import type { NftFilter as NftFilterModel } from '@echo/ui/types/nft-filter'
-import type { Selectable } from '@echo/ui/types/selectable'
 import { clsx } from 'clsx'
 
 interface Props<T extends NftFilterModel> {
-  filter: Selectable<T>
-  onToggleSelection?: (filter: Selectable<T>) => void
+  filter: T
+  selected?: boolean
+  onToggleSelection?: (filter: T) => void
 }
 
-export const NftFilter = <T extends NftFilterModel>({ filter, onToggleSelection }: Props<T>) => {
+export const NftFilter = <T extends NftFilterModel>({ filter, selected, onToggleSelection }: Props<T>) => {
   return (
     <button
       className={clsx(
@@ -29,7 +29,7 @@ export const NftFilter = <T extends NftFilterModel>({ filter, onToggleSelection 
       }}
     >
       <div className={clsx('flex', 'flex-row', 'gap-2.5', 'items-center', 'min-w-0')}>
-        <NftFilterSelector filter={filter} />
+        <NftFilterSelector selected={selected} />
         <span className={clsx('prose-label-sm-semi', 'text-white', 'truncate')}>{filter.label}</span>
       </div>
       <span className={clsx('prose-label-sm-light', 'text-white')}>{filter.count}</span>

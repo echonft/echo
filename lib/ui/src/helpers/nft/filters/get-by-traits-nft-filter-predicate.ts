@@ -5,7 +5,7 @@ import { intersects } from '@echo/utils/fp/intersects'
 import type { Nullable } from '@echo/utils/types/nullable'
 import { isEmpty, map, pipe, prop } from 'ramda'
 
-export function getByTraitsNftFilter(filters: TraitFilter[]): Nullable<(nft: Nft) => boolean> {
+export function getByTraitsNftFilterPredicate(filters: TraitFilter[]): Nullable<(nft: Nft) => boolean> {
   if (isEmpty(filters)) {
     return undefined
   }
