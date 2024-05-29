@@ -20,6 +20,7 @@ declare namespace NodeJS {
       NEXT_PUBLIC_PRODUCTION_URL: string
       NEXT_PUBLIC_VERCEL_ENV: string | undefined
       NEXT_PUBLIC_VERCEL_URL: string
+      NEXT_RUNTIME: 'nodejs' | 'edge'
       NODE_ENV: 'production' | 'development' | 'test'
       OPEN_SEA_API_KEY: string
       QUICKNODE_API_KEY: string
