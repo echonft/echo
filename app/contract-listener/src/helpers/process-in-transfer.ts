@@ -28,7 +28,7 @@ export async function processInTransfer(args: Omit<TransferData, 'to'> & { to: W
     const user = getUserFromFirestoreData(userDocumentData, to)
     const collection = await getCollection({ chain, address: contractAddress })
     const nftIndex = mapCollectionTokenIdToNftIndex({ collection, tokenId })
-    await updateNft({ nftIndex, owner: user, collection, chain: to.chain })
+    await updateNft({ nftIndex, owner: user, collection, chain })
   } catch (err) {
     pinoLogger.error(`processInTransfer error: ${errorMessage(err)}`)
   }

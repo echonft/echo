@@ -27,7 +27,7 @@ export async function processSwapTransfer(args: Omit<TransferData, 'to'> & { to:
     const user = getUserFromFirestoreData(userDocumentData, to)
     const collection = await getCollection({ chain, address: contractAddress })
     const nftIndex = mapCollectionTokenIdToNftIndex({ collection, tokenId })
-    await updateNft({ nftIndex, owner: user, collection, chain: to.chain })
+    await updateNft({ nftIndex, owner: user, collection, chain })
   } catch (err) {
     pinoLogger.error(`processSwapTransfer error: ${errorMessage(err)}`)
   }

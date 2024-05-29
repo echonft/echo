@@ -14,7 +14,7 @@ import { andThen, assoc, isNil, pipe, prop, tap } from 'ramda'
  * @return {Promise<Collection>} - The existing or newly created collection.
  */
 export async function getCollection(args: Omit<GetContractRequest, 'fetch'>): Promise<Collection> {
-  const collection = await getCollectionByAddressFromFirestore(args.address)
+  const collection = await getCollectionByAddressFromFirestore(args)
   // Collection is new, need to fetch it and then add it
   if (isNil(collection)) {
     pinoLogger.info(`Collection ${args.address} not found, fetching...`)

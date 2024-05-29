@@ -11,7 +11,6 @@ export async function handleErc721TransferEvent(log: Erc721TransferLog) {
   try {
     const transferData = await mapErc721TransferLogToTransferData(log)
     if (isNil(transferData)) {
-      pinoLogger.info(`Discarding event, transferData is undefined`)
       return
     }
     const { from, to } = transferData

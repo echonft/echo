@@ -8,5 +8,5 @@ interface MapCollectionTokenIdToNftIndexArgs {
 }
 
 export function mapCollectionTokenIdToNftIndex(args: MapCollectionTokenIdToNftIndexArgs): NftIndex {
-  return applySpec<NftIndex>({ tokenId: prop('tokenId'), slug: path(['collection', 'slug']) })(args)
+  return applySpec<NftIndex>({ tokenId: prop('tokenId'), collection: { slug: path(['collection', 'slug']) } })(args)
 }

@@ -7,7 +7,7 @@
     "build": "source .env.keys; dotenvx run --env-file=.env.dev -- tsup",
     "build:ci": "tsup",
     "clean": "rm -rf dist",
-    "dev": "source .env.keys; nodemon --watch \"src/**\" --watch \"../../lib/**/src/**\" --ext \"ts\" --exec \"dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/index.ts\"",
+    "dev": "source .env.keys; dotenvx run --env-file=.env.dev -- ts-node --project tsconfig.json src/index.ts",
     "env:pull": "dotenvx hub pull",
     "lint": "eslint --fix -c .eslintrc.js --ext .ts .",
     "lint:ci": "eslint --quiet -c .eslintrc.js --ext .ts .",

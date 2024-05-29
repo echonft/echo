@@ -10,7 +10,7 @@ import type { ChainName } from '@echo/utils/types/chain-name'
 import type { HexString } from '@echo/utils/types/hex-string'
 import { andThen, assoc, isNil, pipe, prop, tap } from 'ramda'
 
-interface AddNftIfNeededArgs {
+interface UpdateNftArgs {
   nftIndex: NftIndex
   owner: User
   chain: ChainName
@@ -20,13 +20,13 @@ interface AddNftIfNeededArgs {
 /**
  * Adds an NFT to the DB if it doesn't exist, else it updates the ownership.
  *
- * @param {AddNftIfNeededArgs} args - The arguments for adding the NFT.
+ * @param {UpdateNftArgs} args - The arguments for adding the NFT.
  * @param {number} args.nftIndex - The index of the NFT.
  * @param {string} args.owner - The new owner of the NFT.
  * @param {string} args.chain - The chain where the NFT exists.
  * @param {Collection} args.collection - The collection to add the NFT to.
  */
-export async function updateNft(args: AddNftIfNeededArgs) {
+export async function updateNft(args: UpdateNftArgs) {
   const { nftIndex, owner, chain, collection } = args
   const nft = await getNft(nftIndex)
 
